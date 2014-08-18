@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+    Copyright (C) 2014 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<mapping>
+  <map key="buildinfo.version" value="1"/>
+  <map key="project.groupid" value="com.phloc.pdaf3"/>
+  <map key="project.artifactid" value="phloc-dao"/>
+  <map key="project.version" value="3.2.6-SNAPSHOT"/>
+  <map key="project.name" value="phloc-dao"/>
+  <map key="project.packaging" value="jar"/>
+  <map key="parentproject.groupid" value="com.phloc.pdaf3"/>
+  <map key="parentproject.artifactid" value="pdaf3-parent"/>
+  <map key="parentproject.version" value="4"/>
+  <map key="parentproject.name" value="pdaf3-parent"/>
+  <map key="build.datetime" value="2011-02-27T11:03:16.991+01:00"/>
+  <map key="build.datetime.millis" value="1298800996991"/>
+  <map key="build.datetime.date" value="2011-02-27"/>
+  <map key="build.datetime.time" value="11:03:16.991"/>
+  <map key="build.datetime.timezone" value="Europe/Vienna"/>
+  <map key="systemproperty.awt.toolkit" value="sun.awt.windows.WToolkit"/>
+  <map key="systemproperty.classworlds.conf" value="D:\tools\apache-maven-2.2.1\bin\m2.conf"/>
+  <map key="systemproperty.file.encoding" value="Cp1252"/>
+  <map key="systemproperty.file.encoding.pkg" value="sun.io"/>
+  <map key="systemproperty.file.separator" value="\"/>
+  <map key="systemproperty.java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+  <map key="systemproperty.java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+  <map key="systemproperty.java.class.path" value="D:\tools\apache-maven-2.2.1\boot\classworlds-1.1.jar"/>
+  <map key="systemproperty.java.class.version" value="50.0"/>
+  <map key="systemproperty.java.endorsed.dirs" value="C:\Program Files\Java\jdk1.6.0_20\jre\lib\endorsed"/>
+  <map key="systemproperty.java.ext.dirs" value="C:\Program Files\Java\jdk1.6.0_20\jre\lib\ext;C:\Windows\Sun\Java\lib\ext"/>
+  <map key="systemproperty.java.home" value="C:\Program Files\Java\jdk1.6.0_20\jre"/>
+  <map key="systemproperty.java.io.tmpdir" value="C:\Users\philip\AppData\Local\Temp\"/>
+  <map key="systemproperty.java.library.path" value="C:\Program Files\Java\jdk1.6.0_20\bin;.;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files\PHP\;d:\tools;C:\Program Files\CollabNet\Subversion Client;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\ATI Technologies\ATI.ACE\Core-Static;D:\tools\apache-maven-2.2.1\bin;D:\tools\apache-ant-1.7.1\bin;C:\Program Files\Lenovo\Access Connections\;C:\Program Files\Common Files\Teleca Shared;;C:\Program Files\TortoiseSVN\bin;D:\tools\android-sdk-windows;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\"/>
+  <map key="systemproperty.java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+  <map key="systemproperty.java.runtime.version" value="1.6.0_20-b02"/>
+  <map key="systemproperty.java.specification.name" value="Java Platform API Specification"/>
+  <map key="systemproperty.java.specification.vendor" value="Sun Microsystems Inc."/>
+  <map key="systemproperty.java.specification.version" value="1.6"/>
+  <map key="systemproperty.java.vendor" value="Sun Microsystems Inc."/>
+  <map key="systemproperty.java.vendor.url" value="http://java.sun.com/"/>
+  <map key="systemproperty.java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi"/>
+  <map key="systemproperty.java.version" value="1.6.0_20"/>
+  <map key="systemproperty.java.vm.info" value="mixed mode"/>
+  <map key="systemproperty.java.vm.name" value="Java HotSpot(TM) Client VM"/>
+  <map key="systemproperty.java.vm.specification.name" value="Java Virtual Machine Specification"/>
+  <map key="systemproperty.java.vm.specification.vendor" value="Sun Microsystems Inc."/>
+  <map key="systemproperty.java.vm.specification.version" value="1.0"/>
+  <map key="systemproperty.java.vm.vendor" value="Sun Microsystems Inc."/>
+  <map key="systemproperty.java.vm.version" value="16.3-b01"/>
+  <map key="systemproperty.line.separator" value="
+"/>
+  <map key="systemproperty.maven.home" value="D:\tools\apache-maven-2.2.1"/>
+  <map key="systemproperty.os.arch" value="x86"/>
+  <map key="systemproperty.os.name" value="Windows 7"/>
+  <map key="systemproperty.os.version" value="6.1"/>
+  <map key="systemproperty.path.separator" value=";"/>
+  <map key="systemproperty.sun.arch.data.model" value="32"/>
+  <map key="systemproperty.sun.boot.class.path" value="C:\Program Files\Java\jdk1.6.0_20\jre\lib\endorsed\clibwrapper_jiio-1.2-daily.jar;C:\Program Files\Java\jdk1.6.0_20\jre\lib\endorsed\jaxb-api-2.2.1.jar;C:\Program Files\Java\jdk1.6.0_20\jre\lib\endorsed\jsr173_api.jar;C:\Program Files\Java\jdk1.6.0_20\jre\lib\endorsed\mlib_jai-1.1.3.jar;C:\Program Files\Java\jdk1.6.0_20\jre\lib\endorsed\webservices-api.jar;C:\Program Files\Java\jdk1.6.0_20\jre\lib\resources.jar;C:\Program Files\Java\jdk1.6.0_20\jre\lib\rt.jar;C:\Program Files\Java\jdk1.6.0_20\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.6.0_20\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.6.0_20\jre\lib\jce.jar;C:\Program Files\Java\jdk1.6.0_20\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.6.0_20\jre\classes"/>
+  <map key="systemproperty.sun.boot.library.path" value="C:\Program Files\Java\jdk1.6.0_20\jre\bin"/>
+  <map key="systemproperty.sun.cpu.endian" value="little"/>
+  <map key="systemproperty.sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
+  <map key="systemproperty.sun.desktop" value="windows"/>
+  <map key="systemproperty.sun.io.unicode.encoding" value="UnicodeLittle"/>
+  <map key="systemproperty.sun.java.launcher" value="SUN_STANDARD"/>
+  <map key="systemproperty.sun.jnu.encoding" value="Cp1252"/>
+  <map key="systemproperty.sun.management.compiler" value="HotSpot Client Compiler"/>
+  <map key="systemproperty.sun.os.patch.level" value=""/>
+  <map key="systemproperty.user.country" value="AT"/>
+  <map key="systemproperty.user.dir" value="D:\svn\workbench\pdaf3\phloc-dao"/>
+  <map key="systemproperty.user.home" value="C:\Users\philip"/>
+  <map key="systemproperty.user.language" value="de"/>
+  <map key="systemproperty.user.name" value="philip"/>
+  <map key="systemproperty.user.timezone" value="Europe/Berlin"/>
+  <map key="systemproperty.user.variant" value=""/>
+  <map key="envvar.JAVA_HOME" value="C:\Program Files\Java\jdk1.6.0_20"/>
+  <map key="envvar.M2_HOME" value="D:\tools\apache-maven-2.2.1"/>
+  <map key="envvar.MAVEN_CMD_LINE_ARGS" value="install -o -e -X"/>
+  <map key="envvar.MAVEN_JAVA_EXE" value="&quot;C:\Program Files\Java\jdk1.6.0_20\bin\java.exe&quot;"/>
+  <map key="envvar.MAVEN_OPTS" value="-Xmx512m"/>
+  <map key="envvar.NUMBER_OF_PROCESSORS" value="2"/>
+  <map key="envvar.OS" value="Windows_NT"/>
+  <map key="envvar.PROCESSOR_ARCHITECTURE" value="x86"/>
+  <map key="envvar.PROCESSOR_IDENTIFIER" value="x86 Family 6 Model 23 Stepping 6, GenuineIntel"/>
+  <map key="envvar.PROCESSOR_LEVEL" value="6"/>
+  <map key="envvar.PROCESSOR_REVISION" value="1706"/>
+</mapping>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+    Copyright (C) 2014 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns="http://www.phloc.com/ns/changelog/1.0"
+           targetNamespace="http://www.phloc.com/ns/changelog/1.0"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+  <xs:annotation>
+    <xs:documentation>
+      This schema defines how the structured changelog.xml files should look like.
+      Last modification: 2011-07-29, Philip
+    </xs:documentation>
+  </xs:annotation>         
+           
+  <xs:simpleType name="ActionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="add">
+        <xs:annotation>
+          <xs:documentation>A new element/method/feature was added</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="remove">
+        <xs:annotation>
+          <xs:documentation>An existing element/method/feature was removed</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="change">
+        <xs:annotation>
+          <xs:documentation>An existing element/method/feature was changed</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fix">
+        <xs:annotation>
+          <xs:documentation>A failure was fixed</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="update">
+        <xs:annotation>
+          <xs:documentation>An external component was updated</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="CategoryType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="api">
+        <xs:annotation>
+          <xs:documentation>A change that occurred in the API only and has no direct effects on business logic</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tech">
+        <xs:annotation>
+          <xs:documentation>A purely technical change that has no explicit effect on the business logic</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ui">
+        <xs:annotation>
+          <xs:documentation>A change that affects only the user interface</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="feature">
+        <xs:annotation>
+          <xs:documentation>A change that affects a certain feature.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="businesslogic">
+        <xs:annotation>
+          <xs:documentation>A change in the business logic.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="security">
+        <xs:annotation>
+          <xs:documentation>A security related issue.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="test">
+        <xs:annotation>
+          <xs:documentation>A testing related issue.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="data">
+        <xs:annotation>
+          <xs:documentation>A data related issue.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="performance">
+        <xs:annotation>
+          <xs:documentation>A performance related issue.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>   
+  
+  <xs:complexType name="TextElementType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="locale" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>      
+  
+  <xs:complexType name="TextType">
+    <xs:sequence>
+      <xs:element name="text" type="TextElementType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>      
+           
+  <xs:complexType name="EntryType">
+    <xs:sequence>
+      <xs:element name="change" type="TextType">
+        <xs:annotation>
+          <xs:documentation>The description what was changes. Use the xml:lang attribute to denote the language if different from English</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="issue" type="xs:token" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Reference any resolved bugtracker issue here - one issue per element</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="date" type="xs:date" use="required">
+      <xs:annotation>
+        <xs:documentation>The creation date of the entry</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="action" type="ActionType" use="required">
+      <xs:annotation>
+        <xs:documentation>The underlying change action (add, remove, change, fix)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="category" type="CategoryType" use="required">
+      <xs:annotation>
+        <xs:documentation>The underlying change category (api, tech, ui, feature, businesslogic)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="incompatible" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>Indicate whether a change has known incompatiblity issues</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  
+  <xs:complexType name="ReleaseType">
+    <xs:attribute name="date" type="xs:date" use="required">
+      <xs:annotation>
+        <xs:documentation>The creation date of the release</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="version" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The version number of the release</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>         
+           
+  <xs:complexType name="ChangelogType">
+    <xs:choice minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="entry" type="EntryType">
+        <xs:annotation>
+          <xs:documentation>This element represents a single change</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="release" type="ReleaseType">
+        <xs:annotation>
+          <xs:documentation>This element represents a release of this component.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+    <xs:attribute name="version" type="xs:string" use="required" fixed="1.0">
+      <xs:annotation>
+        <xs:documentation>The version number of the changelog format. NOT the version number of the component!</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="component" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The name of the component for which the changelog is tracked.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+           
+  <xs:element name="changelog" type="ChangelogType">
+    <xs:annotation>
+      <xs:documentation>The root element of the changelog</xs:documentation>
+    </xs:annotation>
+  </xs:element>         
+</xs:schema>

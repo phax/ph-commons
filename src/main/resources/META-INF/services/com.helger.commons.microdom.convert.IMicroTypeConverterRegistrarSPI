@@ -1,0 +1,2 @@
+com.helger.commons.microdom.convert.impl.BasicMicroTypeConverterRegistrar
+com.helger.commons.microdom.convert.impl.MultiLingualTextMicroTypeConverterRegistrar

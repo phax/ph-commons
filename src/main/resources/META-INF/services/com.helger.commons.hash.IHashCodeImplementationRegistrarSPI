@@ -1,0 +1,2 @@
+com.helger.commons.hash.DefaultHashCodeImplementationRegistrarSPI
+com.helger.commons.jaxb.JAXBHashCodeImplementationRegistrarSPI

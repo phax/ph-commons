@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+    Copyright (C) 2014 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<root>
+  <item id="g01">
+    <data>
+      <name>Rosen</name>
+    </data>
+    <item id="sg01a">
+      <data>
+        <name>Englische Rosen</name>
+      </data>
+    </item>
+    <item id="sg01b">
+      <data>
+        <name>Strauchrose</name>
+      </data>
+    </item>
+    <item id="sg01c">
+      <data>
+        <name>Landhausrose</name>
+      </data>
+    </item>
+    <item id="sg01d">
+      <data>
+        <name>Kletterrose</name>
+      </data>
+    </item>
+    <item id="sg01e">
+      <data>
+        <name>Ramblerrose</name>
+      </data>
+    </item>
+    <item id="sg01f">
+      <data>
+        <name>Beetrose</name>
+      </data>
+    </item>
+    <item id="sg01g">
+      <data>
+        <name>Bodendeckerrose</name>
+      </data>
+    </item>
+    <item id="sg01h">
+      <data>
+        <name>Zwergrose</name>
+      </data>
+    </item>
+    <item id="sg01i">
+      <data>
+        <name>Edelrosen</name>
+      </data>
+    </item>
+    <item id="sg01j">
+      <data>
+        <name>sonstiges</name>
+      </data>
+    </item>
+  </item>
+  <item id="g02">
+    <data>
+      <name>Stauden</name>
+    </data>
+    <item id="sg02a">
+      <data>
+        <name>Polsterstauden</name>
+      </data>
+    </item>
+    <item id="sg02b">
+      <data>
+        <name>Schattenstauden</name>
+      </data>
+    </item>
+    <item id="sg02c">
+      <data>
+        <name>Farne</name>
+      </data>
+    </item>
+    <item id="sg02d">
+      <data>
+        <name>Gräser</name>
+      </data>
+    </item>
+    <item id="sg02e">
+      <data>
+        <name>Blütenstauden</name>
+      </data>
+    </item>
+  </item>
+  <item id="g03">
+    <data>
+      <name>Bambus</name>
+    </data>
+  </item>
+  <item id="g04">
+    <data>
+      <name>Bäume</name>
+    </data>
+  </item>
+  <item id="g05">
+    <data>
+      <name>Blumenzwiebel</name>
+    </data>
+  </item>
+  <item id="g06">
+    <data>
+      <name>Bodendecker</name>
+    </data>
+  </item>
+  <item id="g07">
+    <data>
+      <name>Essbare Pflanzen</name>
+    </data>
+  </item>
+  <item id="g08">
+    <data>
+      <name>Formschnittgehölze</name>
+    </data>
+  </item>
+  <item id="g09">
+    <data>
+      <name>Hecken</name>
+    </data>
+    <item id="sg09a">
+      <data>
+        <name>Laubhecke</name>
+      </data>
+    </item>
+    <item id="sg09b">
+      <data>
+        <name>Nadelgehölz Hecke</name>
+      </data>
+    </item>
+    <item id="sg09c">
+      <data>
+        <name>Blütenhecke</name>
+      </data>
+    </item>
+    <item id="sg09d">
+      <data>
+        <name>Einfassungen</name>
+      </data>
+    </item>
+    <item id="sg09e">
+      <data>
+        <name>sonstiges</name>
+      </data>
+    </item>
+  </item>
+  <item id="g10">
+    <data>
+      <name>Kletterpflanzen</name>
+    </data>
+    <item id="sg10a">
+      <data>
+        <name>blühend</name>
+      </data>
+    </item>
+    <item id="sg10b">
+      <data>
+        <name>grün</name>
+      </data>
+    </item>
+    <item id="sg10c">
+      <data>
+        <name>sonstiges</name>
+      </data>
+    </item>
+  </item>
+  <item id="g11">
+    <data>
+      <name>Moorbeetpflanzen</name>
+    </data>
+  </item>
+  <item id="g12">
+    <data>
+      <name>Nadelgehölze</name>
+    </data>
+    <item id="sg12a">
+      <data>
+        <name>Baum</name>
+      </data>
+    </item>
+    <item id="sg12b">
+      <data>
+        <name>Großstrauch</name>
+      </data>
+    </item>
+    <item id="sg12c">
+      <data>
+        <name>Kleinstrauch</name>
+      </data>
+    </item>
+    <item id="sg12d">
+      <data>
+        <name>sonstiges</name>
+      </data>
+    </item>
+  </item>
+  <item id="g13">
+    <data>
+      <name>Obst</name>
+    </data>
+    <item id="sg13a">
+      <data>
+        <name>Ribisel</name>
+      </data>
+    </item>
+    <item id="sg13b">
+      <data>
+        <name>Erdbeere</name>
+      </data>
+    </item>
+    <item id="sg13c">
+      <data>
+        <name>Himbeere</name>
+      </data>
+    </item>
+    <item id="sg13d">
+      <data>
+        <name>Kiwi</name>
+      </data>
+    </item>
+    <item id="sg13e">
+      <data>
+        <name>Stachelbeere</name>
+      </data>
+    </item>
+    <item id="sg13f">
+      <data>
+        <name>Weintraube</name>
+      </data>
+    </item>
+    <item id="sg13g">
+      <data>
+        <name>Preiselbeere</name>
+      </data>
+    </item>
+    <item id="sg13h">
+      <data>
+        <name>Heidelbeere</name>
+      </data>
+    </item>
+    <item id="sg13i">
+      <data>
+        <name>Apfel</name>
+      </data>
+    </item>
+    <item id="sg13j">
+      <data>
+        <name>Birne</name>
+      </data>
+    </item>
+    <item id="sg13k">
+      <data>
+        <name>Kirsche</name>
+      </data>
+    </item>
+    <item id="sg13l">
+      <data>
+        <name>Marille</name>
+      </data>
+    </item>
+    <item id="sg13m">
+      <data>
+        <name>Pfirsich</name>
+      </data>
+    </item>
+    <item id="sg13n">
+      <data>
+        <name>Zwetschge/Mirabelle</name>
+      </data>
+    </item>
+    <item id="sg13o">
+      <data>
+        <name>Säulenobst</name>
+      </data>
+    </item>
+    <item id="sg13p">
+      <data>
+        <name>Zwergobst</name>
+      </data>
+    </item>
+    <item id="sg13q">
+      <data>
+        <name>sonstiges</name>
+      </data>
+    </item>
+  </item>
+  <item id="g14">
+    <data>
+      <name>Sommerblumen</name>
+    </data>
+    <item id="sg14a">
+      <data>
+        <name>hängend</name>
+      </data>
+    </item>
+    <item id="sg14b">
+      <data>
+        <name>stehend</name>
+      </data>
+    </item>
+    <item id="sg14c">
+      <data>
+        <name>Schatten</name>
+      </data>
+    </item>
+  </item>
+  <item id="g15">
+    <data>
+      <name>Kräuter</name>
+    </data>
+  </item>
+  <item id="g16">
+    <data>
+      <name>Kübelpflanzen</name>
+    </data>
+  </item>
+  <item id="g17">
+    <data>
+      <name>Citrus</name>
+    </data>
+  </item>
+  <item id="g18">
+    <data>
+      <name>Palmen</name>
+    </data>
+  </item>
+  <item id="g19">
+    <data>
+      <name>Gemüse</name>
+    </data>
+  </item>
+  <item id="g20">
+    <data>
+      <name>Hartware</name>
+    </data>
+    <item id="sg20a">
+      <data>
+        <name>Gefäße</name>
+      </data>
+    </item>
+    <item id="sg20b">
+      <data>
+        <name>Dekoartikel</name>
+      </data>
+    </item>
+    <item id="sg20c">
+      <data>
+        <name>Erde/Dünger</name>
+      </data>
+    </item>
+    <item id="sg20d">
+      <data>
+        <name>sonstiges</name>
+      </data>
+    </item>
+  </item>
+  <item id="g21">
+    <data>
+      <name>Sonstiges</name>
+    </data>
+  </item>
+</root>

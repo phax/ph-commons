@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+    Copyright (C) 2014 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<Root Version="5.1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../xsd/paper/archive.xsd">
+  <Collection ID="1" Name="Collection: 000" Description="">
+    <Issue ID="2" CollectionID="1" ContentLanguage="de" MenuLanguage="de" MenuLayout="std" PageCount="132"
+      ArticleCount="0"
+      Directory="C:\Users\philip\AppData\Roaming\segmenPlus\customers\cus_000\srv_000\projects\Issue_002_0011296085586\export\Issue_002_0011296085586\"
+      DateSort="2011-01-27 00:00:00" DateFrom="2011-01-27 00:00:00" DateTo="2110-01-27 00:00:00" DirAbsolute="1">
+      <!-- Error: Title must be a BigDecimal -->
+      <Title>String</Title>
+      <SubTitle />
+      <DateDescription />
+      <FirstPage Width="176" Height="240">title.jpg</FirstPage>
+    </Issue>
+  </Collection>
+</Root>

@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+    Copyright (C) 2014 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<translationitems count="247">
+  <item id="com.helger.commons.locale.ELocaleName.ID_LANGUAGE_ALL">
+    <sr>Сви језици</sr>
+  </item>
+  <item id="com.helger.commons.locale.ELocaleName.ID_LANGUAGE_INDEPENDENT">
+    <sr>Независност језика</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AD">
+    <sr>Андора</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AE">
+    <sr>Уједињени Арапски Емирати</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AF">
+    <sr>Авганистан</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AG">
+    <sr>Антигуа и Барбуда</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AI">
+    <sr>Ангуила</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AL">
+    <sr>Албанија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AM">
+    <sr>Јерменија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AN">
+    <sr>Холандски Антили</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AO">
+    <sr>Ангола</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AQ">
+    <sr>Антартик</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AR">
+    <sr>Аргентина</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AS">
+    <sr>Америчка Самоа</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AT">
+    <sr>Аустрија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AU">
+    <sr>Аустралија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AW">
+    <sr>Аруба</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AX">
+    <sr>Ааланска Острва</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.AZ">
+    <sr>Азербејџан</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BA">
+    <sr>Босна и Херцеговина</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BB">
+    <sr>Барбадос</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BD">
+    <sr>Бангладеш</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BE">
+    <sr>Белгија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BF">
+    <sr>Буркина Фасо</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BG">
+    <sr>Бугарска</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BH">
+    <sr>Бахреин</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BI">
+    <sr>Бурунди</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BJ">
+    <sr>Бенин</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BM">
+    <sr>Бермуда</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BN">
+    <sr>Брунеји</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BO">
+    <sr>Боливија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BR">
+    <sr>Бразил</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BS">
+    <sr>Бахами</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BT">
+    <sr>Бутан</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BV">
+    <sr>Буве Острво</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BW">
+    <sr>Боцвана</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BY">
+    <sr>Белорусија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.BZ">
+    <sr>Белизе</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CA">
+    <sr>Канада</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CC">
+    <sr>Кокосова (Килинг) Острва</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CD">
+    <sr>Демократска Република Конго (бивши Заир)</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CF">
+    <sr>Централноафричка република</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CG">
+    <sr>Република Конго</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CH">
+    <sr>Швајцарска</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CI">
+    <sr>Обала Слоноваче</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CK">
+    <sr>Кукова Острва</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CL">
+    <sr>Чиле</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CM">
+    <sr>Камерун</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CN">
+    <sr>Кина</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CO">
+    <sr>Колумбија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CR">
+    <sr>Костарика</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CU">
+    <sr>Куба</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CV">
+    <sr>Зеленортска Острва</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CX">
+    <sr>Божићно Острво</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CY">
+    <sr>Кипар</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.CZ">
+    <sr>Чешка Република</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.DE">
+    <sr>Немачка</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.DJ">
+    <sr>Џибути</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.DK">
+    <sr>Данска</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.DM">
+    <sr>Доминика</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.DO">
+    <sr>Доминиканска Република</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.DZ">
+    <sr>Алжир</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.EC">
+    <sr>Еквадор</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.EE">
+    <sr>Естонија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.EG">
+    <sr>Египат</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.EH">
+    <sr>Западна Сахара</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.ER">
+    <sr>Еритреја</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.ES">
+    <sr>Шпанија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.ET">
+    <sr>Етиопија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.FI">
+    <sr>Финска</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.FJ">
+    <sr>Фиџи</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.FK">
+    <sr>Фокланска (Малвинска) Острва</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.FM">
+    <sr>Федералне Државе Микронезије</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.FO">
+    <sr>Фарска Острва</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.FR">
+    <sr>Француска</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GA">
+    <sr>Габон</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GB">
+    <sr>Уједињено Краљевство</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GD">
+    <sr>Гренада</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GE">
+    <sr>Грузија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GF">
+    <sr>Француска Гвајана</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GG">
+    <sr>Герзи</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GH">
+    <sr>Гана</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GI">
+    <sr>Гибралтар</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GL">
+    <sr>Гренланд</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GM">
+    <sr>Гамбија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GN">
+    <sr>Гвинеја</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GP">
+    <sr>Гвадалупе</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GQ">
+    <sr>Екваторијална Гвинеја</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GR">
+    <sr>Грчка</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GS">
+    <sr>Јужна Џорџија и Јужна Сендвичка Острва</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GT">
+    <sr>Гватемала</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GU">
+    <sr>Гуам</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GW">
+    <sr>Гвинеја Бисао</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.GY">
+    <sr>Гвајана</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.HK">
+    <sr>Хонг Конг</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.HM">
+    <sr>Острва Херд и Макдоналд</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.HN">
+    <sr>Хондурас</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.HR">
+    <sr>Хрватска</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.HT">
+    <sr>Хаити</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.HU">
+    <sr>Мађарска</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.ID">
+    <sr>Индонезија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.IE">
+    <sr>Ирска</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.IL">
+    <sr>Израел</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.IM">
+    <sr>Острво Ман</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.IN">
+    <sr>Индија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.IO">
+    <sr>Британска Територија Индијског Океана</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.IQ">
+    <sr>Ирак</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.IR">
+    <sr>Иран (Исламска Република)</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.IS">
+    <sr>Исланд</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.IT">
+    <sr>Италија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.JE">
+    <sr>Џерзи</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.JM">
+    <sr>Јамајка</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.JO">
+    <sr>Џордан</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.JP">
+    <sr>Јапан</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.KE">
+    <sr>Кенија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.KG">
+    <sr>Киргистан</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.KH">
+    <sr>Камбоџа</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.KI">
+    <sr>Кирибати</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.KM">
+    <sr>Комори</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.KN">
+    <sr>Сент Китс и Невис</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.KP">
+    <sr>Демократска Народна Република Кореја</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.KR">
+    <sr>Република Кореја</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.KW">
+    <sr>Кувајт</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.KY">
+    <sr>Кајманова Острва</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.KZ">
+    <sr>Казахстан</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.LA">
+    <sr>Демократска Народно Република Лаос</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.LB">
+    <sr>Либан</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.LC">
+    <sr>Света Луција</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.LI">
+    <sr>Лихтенштајн</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.LK">
+    <sr>Шри Ланка</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.LR">
+    <sr>Либерија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.LS">
+    <sr>Лесото</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.LT">
+    <sr>Литванија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.LU">
+    <sr>Луксенбург</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.LV">
+    <sr>Летонија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.LY">
+    <sr>Либија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MA">
+    <sr>Мароко</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MC">
+    <sr>Монако</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MD">
+    <sr>Република Молдавија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.ME">
+    <sr>Црна Гора</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MG">
+    <sr>Мадагаскар</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MH">
+    <sr>Маршалска Острва</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MK">
+    <sr>Бивша Југословенска Република Македонија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.ML">
+    <sr>Мали</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MM">
+    <sr>Мјанмар</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MN">
+    <sr>Монголија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MO">
+    <sr>Макао</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MP">
+    <sr>Северна Маријанска Острва</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MQ">
+    <sr>Мартиник</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MR">
+    <sr>Мауританија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MS">
+    <sr>Монтсерат</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MT">
+    <sr>Малта</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MU">
+    <sr>Маурицијус</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MV">
+    <sr>Малдиви</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MW">
+    <sr>Малави</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MX">
+    <sr>Мексико</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MY">
+    <sr>Малезија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.MZ">
+    <sr>Мозамбик</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.NA">
+    <sr>Намибија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.NC">
+    <sr>Нова Каледонија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.NE">
+    <sr>Нигер</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.NF">
+    <sr>Норфолк Острво</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.NG">
+    <sr>Нигерија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.NI">
+    <sr>Никарагва</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.NL">
+    <sr>Холандија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.NO">
+    <sr>Норвешка</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.NP">
+    <sr>Непал</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.NR">
+    <sr>Науру</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.NU">
+    <sr>Нијуе</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.NZ">
+    <sr>Нови Зеланд</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.OM">
+    <sr>Оман</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.PA">
+    <sr>Панама</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.PE">
+    <sr>Перу</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.PF">
+    <sr>Француска Полинезија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.PG">
+    <sr>Папуа Нова Гвинеја</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.PH">
+    <sr>Филипини</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.PK">
+    <sr>Пакистан</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.PL">
+    <sr>Пољска</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.PM">
+    <sr>Сент Пјер и Микелон</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.PN">
+    <sr>Пиктерн</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.PR">
+    <sr>Порторико</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.PS">
+    <sr>Палестинска Окупирана Територија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.PT">
+    <sr>Португал</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.PW">
+    <sr>Палау</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.PY">
+    <sr>Парагвај</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.QA">
+    <sr>Катар</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.RE">
+    <sr>Реинион</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.RO">
+    <sr>Румунија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.RS">
+    <sr>Србија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.RU">
+    <sr>Руска Федерација</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.RW">
+    <sr>Руанда</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SA">
+    <sr>Саудијска Арабија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SB">
+    <sr>Соломонова Острва</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SC">
+    <sr>Сејшели</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SD">
+    <sr>Судан</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SE">
+    <sr>Шведска</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SG">
+    <sr>Сингапур</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SH">
+    <sr>Света Хелена</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SI">
+    <sr>Словенија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SJ">
+    <sr>Свалбард и Јан Мајен Острва</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SK">
+    <sr>Словачка</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SL">
+    <sr>Сијера Леоне</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SM">
+    <sr>Сан Марино</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SN">
+    <sr>Сенегал</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SO">
+    <sr>Сомалија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SR">
+    <sr>Суринам</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.ST">
+    <sr>Сао Томе и Принципе</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SV">
+    <sr>Ел Салвадор</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SY">
+    <sr>Сирија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.SZ">
+    <sr>Свазиланд</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.TC">
+    <sr>Туркс и Кајкос Острва</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.TD">
+    <sr>Чад</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.TF">
+    <sr>Француске Прекоморске Територије</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.TG">
+    <sr>Того</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.TH">
+    <sr>Тајланд</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.TJ">
+    <sr>Таџикистан</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.TK">
+    <sr>Токелау</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.TL">
+    <sr>Источни Тимор</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.TM">
+    <sr>Туркменистан</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.TN">
+    <sr>Тунис</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.TO">
+    <sr>Тонга</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.TR">
+    <sr>Турска</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.TT">
+    <sr>Тринидад и Тобаго</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.TV">
+    <sr>Тувалу</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.TW">
+    <sr>Тајван</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.TZ">
+    <sr>Уједињена Република Танзанија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.UA">
+    <sr>Украјна</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.UG">
+    <sr>Уганда</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.UK">
+    <sr>Уједињено Краљевство Велике Британије</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.UM">
+    <sr>Уједињене Државе Малих Острва</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.US">
+    <sr>Сједињене Америчке Државе</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.UY">
+    <sr>Уругвај</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.UZ">
+    <sr>Узбекистан</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.VA">
+    <sr>Ватикан Град Држава (Света Столица)</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.VC">
+    <sr>Сент Винсент и Гренадини</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.VE">
+    <sr>Венецуела</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.VG">
+    <sr>Девичанска Острва (Британска)</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.VI">
+    <sr>Девичанска Острва (САД)</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.VN">
+    <sr>Вијетнам</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.VU">
+    <sr>Вануату</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.WF">
+    <sr>Валис и Футуна Острва</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.WS">
+    <sr>Самоа</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.YE">
+    <sr>Јемен</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.YT">
+    <sr>Мајот</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.ZA">
+    <sr>Јужноафричка република</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.ZM">
+    <sr>Замбија</sr>
+  </item>
+  <item id="com.helger.commons.locale.country.ECountryName.ZW">
+    <sr>Зимбабве</sr>
+  </item>
+</translationitems>

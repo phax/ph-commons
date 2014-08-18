@@ -1,0 +1,2 @@
+com.helger.commons.equals.DefaultEqualsImplementationRegistrarSPI
+com.helger.commons.jaxb.JAXBEqualsImplementationRegistrarSPI
