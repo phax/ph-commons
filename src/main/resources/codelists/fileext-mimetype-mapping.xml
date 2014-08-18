@@ -44,7 +44,7 @@ Source: http://www.freedesktop.org/wiki/Software/shared-mime-info
   <map key="PAR2" value="application/x-par2" />
   <map key="Z" value="application/x-compress" />
   <map key="a" value="application/x-archive" />
-  <map key="aac" value="audio/mp4" />
+    <map key="aac" value="audio/aac" />
   <map key="abw" value="application/x-abiword" />
   <map key="ac3" value="audio/ac3" />
   <map key="ace" value="application/x-ace" />
@@ -55,7 +55,7 @@ Source: http://www.freedesktop.org/wiki/Software/shared-mime-info
   <map key="ag" value="image/x-applix-graphics" />
   <map key="ai" value="application/illustrator" />
   <map key="aif" value="audio/x-aiff" />
-  <map key="aifc" value="audio/x-aiff" />
+  <map key="aifc" value="audio/x-aifc" />
   <map key="aiff" value="audio/x-aiff" />
   <map key="al" value="application/x-perl" />
   <map key="alz" value="application/x-alz" />
@@ -67,7 +67,7 @@ Source: http://www.freedesktop.org/wiki/Software/shared-mime-info
   <map key="arw" value="image/x-sony-arw" />
   <map key="as" value="application/x-applix-spreadsheet" />
   <map key="asc" value="text/plain" />
-  <map key="asf" value="video/x-ms-asf" />
+  <map key="asf" value="application/vnd.ms-asf" />
   <map key="asp" value="application/x-asp" />
   <map key="asr" value="video/x-ms-asf" />
   <map key="ass" value="text/x-ssa" />
@@ -160,7 +160,7 @@ Source: http://www.freedesktop.org/wiki/Software/shared-mime-info
   <map key="dms" value="application/octet-stream" />
   <map key="dng" value="image/x-adobe-dng" />
   <map key="doc" value="application/msword" />
-  <map key="docbook" value="application/docbook+xml" />
+  <map key="docbook" value="application/x-docbook+xml" />
   <map key="docm" value="application/vnd.ms-word.document.macroEnabled.12" />
   <map key="docx" value="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
   <map key="dot" value="application/msword" />
@@ -241,7 +241,7 @@ Source: http://www.freedesktop.org/wiki/Software/shared-mime-info
   <map key="gnuplot" value="application/x-gnuplot" />
   <map key="go" value="text/x-go" />
   <map key="gp" value="application/x-gnuplot" />
-  <map key="gpg" value="application/pgp-encrypted" />
+  <map key="gpg" value="application/pgp-signature" />
   <map key="gplt" value="application/x-gnuplot" />
   <map key="gra" value="application/x-graphite" />
   <map key="gsf" value="application/x-font-type1" />
@@ -249,7 +249,7 @@ Source: http://www.freedesktop.org/wiki/Software/shared-mime-info
   <map key="gtar" value="application/x-tar" />
   <map key="gv" value="text/vnd.graphviz" />
   <map key="gvp" value="text/x-google-video-pointer" />
-  <map key="gz" value="application/x-gzip" />
+  <map key="gz" value="application/gzip" />
   <map key="h" value="text/x-chdr" />
   <map key="h4" value="application/x-hdf" />
   <map key="h5" value="application/x-hdf" />
@@ -281,7 +281,7 @@ Source: http://www.freedesktop.org/wiki/Software/shared-mime-info
   <map key="ics" value="text/calendar" />
   <map key="idl" value="text/x-idl" />
   <map key="ief" value="image/ief" />
-  <map key="iff" value="image/x-iff" />
+  <map key="iff" value="image/x-ilbm" />
   <map key="iges" value="model/iges" />
   <map key="igs" value="model/iges" />
   <map key="iii" value="application/x-iphone" />
@@ -292,7 +292,7 @@ Source: http://www.freedesktop.org/wiki/Software/shared-mime-info
   <map key="ips" value="application/x-ipscript" />
   <map key="iptables" value="text/x-iptables" />
   <map key="ipx" value="application/x-ipix" />
-  <map key="iso" value="application/x-cd-image" />
+  <map key="iso" value="application/x-gamecube-rom" />
   <map key="iso9660" value="application/x-cd-image" />
   <map key="isp" value="application/x-internet-signup" />
   <map key="it" value="audio/x-it" />
