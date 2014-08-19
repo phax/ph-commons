@@ -59,6 +59,8 @@ public class ComparatorMimeTypeInfoPrimaryMimeType extends AbstractComparator <M
   @Override
   protected int mainCompare (@Nonnull final MimeTypeInfo aElement1, @Nonnull final MimeTypeInfo aElement2)
   {
-    return aElement1.getPrimaryMimeType ().compareToIgnoreCase (aElement2.getPrimaryMimeType ());
+    return aElement1.getPrimaryMimeType ()
+                    .getMimeTypeAsString ()
+                    .compareToIgnoreCase (aElement2.getPrimaryMimeType ().getMimeTypeAsString ());
   }
 }

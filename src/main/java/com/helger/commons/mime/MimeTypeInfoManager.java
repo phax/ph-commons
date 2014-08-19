@@ -12,7 +12,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.collections.multimap.IMultiMapListBased;
 import com.helger.commons.collections.multimap.MultiTreeMapArrayListBased;
-import com.helger.commons.mime.MimeTypeInfo.Extension;
+import com.helger.commons.mime.MimeTypeInfo.ExtensionWithSource;
+import com.helger.commons.mime.MimeTypeInfo.MimeTypeWithSource;
 import com.helger.commons.string.StringHelper;
 import com.phloc.commons.annotations.ReturnsMutableCopy;
 
@@ -24,7 +25,7 @@ import com.phloc.commons.annotations.ReturnsMutableCopy;
 public class MimeTypeInfoManager
 {
   private final List <MimeTypeInfo> m_aList = new ArrayList <MimeTypeInfo> ();
-  private final IMultiMapListBased <String, MimeTypeInfo> m_aMapMimeType = new MultiTreeMapArrayListBased <String, MimeTypeInfo> ();
+  private final IMultiMapListBased <MimeType, MimeTypeInfo> m_aMapMimeType = new MultiTreeMapArrayListBased <MimeType, MimeTypeInfo> ();
   private final IMultiMapListBased <String, MimeTypeInfo> m_aMapExt = new MultiTreeMapArrayListBased <String, MimeTypeInfo> ();
 
   public MimeTypeInfoManager ()
@@ -33,28 +34,31 @@ public class MimeTypeInfoManager
   public void registerMimeType (@Nonnull final MimeTypeInfo aInfo)
   {
     ValueEnforcer.notNull (aInfo, "Info");
-    final Set <String> aMimeTypes = aInfo.getAllMimeTypes ();
-    final Set <Extension> aExtensions = aInfo.getAllExtensions ();
+    final Set <MimeTypeWithSource> aMimeTypes = aInfo.getAllMimeTypes ();
+    final Set <ExtensionWithSource> aExtensions = aInfo.getAllExtensions ();
 
     // Check
-    for (final String sMimeType : aMimeTypes)
-      if (m_aMapMimeType.containsKey (sMimeType))
+    for (final MimeTypeWithSource aMimeType : aMimeTypes)
+    {
+      final List <MimeTypeInfo> aExisting = m_aMapMimeType.get (aMimeType.getMimeType ());
+      if (aExisting != null)
         throw new IllegalArgumentException ("Cannot register " +
                                             aInfo +
                                             ". A mapping for mime type '" +
-                                            sMimeType +
+                                            aMimeType +
                                             "' is already registered: " +
-                                            m_aMapMimeType.get (sMimeType));
+                                            aExisting);
+    }
 
     // Perform
     m_aList.add (aInfo);
-    for (final String sMimeType : aMimeTypes)
-      m_aMapMimeType.putSingle (sMimeType, aInfo);
-    for (final Extension aExt : aExtensions)
+    for (final MimeTypeWithSource aMimeType : aMimeTypes)
+      m_aMapMimeType.putSingle (aMimeType.getMimeType (), aInfo);
+    for (final ExtensionWithSource aExt : aExtensions)
       m_aMapExt.putSingle (aExt.getExtension (), aInfo);
   }
 
-  public void addExtension (@Nonnull final MimeTypeInfo aInfo, @Nonnull final Extension aExt)
+  public void addExtension (@Nonnull final MimeTypeInfo aInfo, @Nonnull final ExtensionWithSource aExt)
   {
     ValueEnforcer.notNull (aInfo, "Info");
     ValueEnforcer.notNull (aExt, "Ext");
@@ -81,12 +85,12 @@ public class MimeTypeInfoManager
   }
 
   @Nullable
-  public List <MimeTypeInfo> getAllInfosOfMimeType (@Nullable final String sMimeType)
+  public List <MimeTypeInfo> getAllInfosOfMimeType (@Nullable final MimeType aMimeType)
   {
-    if (StringHelper.hasNoText (sMimeType))
+    if (aMimeType == null)
       return null;
 
-    final List <MimeTypeInfo> ret = m_aMapMimeType.get (sMimeType);
+    final List <MimeTypeInfo> ret = m_aMapMimeType.get (aMimeType);
 
     // Create a copy if present
     return ret == null ? null : ContainerHelper.newList (ret);

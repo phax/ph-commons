@@ -39,11 +39,11 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Represents a single MIME type as the combination of the content type and the
  * sub-type and parameters.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class MimeType implements IMimeType
+public class MimeType implements IMimeType, Comparable <MimeType>
 {
   /** The content type (text, application etc.) */
   private final EMimeContentType m_eContentType;
@@ -62,7 +62,7 @@ public class MimeType implements IMimeType
 
   /**
    * Kind of a copy constructor
-   * 
+   *
    * @param aOther
    *        The other object to copy the data from
    */
@@ -75,7 +75,7 @@ public class MimeType implements IMimeType
    * Constructor without parameters. To construct the MIME type "text/xml" you
    * need to pass {@link EMimeContentType#TEXT} and the String "xml" to this
    * constructor.
-   * 
+   *
    * @param eContentType
    *        MIME content type. May not be <code>null</code>.
    * @param sContentSubType
@@ -90,7 +90,7 @@ public class MimeType implements IMimeType
    * Constructor without parameters. To construct the MIME type "text/xml" you
    * need to pass {@link EMimeContentType#TEXT} and the String "xml" to this
    * constructor.
-   * 
+   *
    * @param eContentType
    *        MIME content type. May not be <code>null</code>.
    * @param sContentSubType
@@ -180,7 +180,7 @@ public class MimeType implements IMimeType
 
   /**
    * Add a parameter.
-   * 
+   *
    * @param sAttribute
    *        Parameter name. Must neither be <code>null</code> nor empty and must
    *        match {@link MimeTypeParser#isToken(String)}.
@@ -197,7 +197,7 @@ public class MimeType implements IMimeType
 
   /**
    * Add a parameter.
-   * 
+   *
    * @param aParameter
    *        The parameter to be added. May not be <code>null</code>.
    * @return this
@@ -215,7 +215,7 @@ public class MimeType implements IMimeType
 
   /**
    * Remove the specified parameter from this MIME type.
-   * 
+   *
    * @param aParameter
    *        The parameter to be removed. May be <code>null</code>.
    * @return {@link EChange#CHANGED} if removal was successful
@@ -228,7 +228,7 @@ public class MimeType implements IMimeType
 
   /**
    * Remove the parameter at the specified index.
-   * 
+   *
    * @param nIndex
    *        The index to remove. Should be &ge; 0.
    * @return {@link EChange#CHANGED} if removal was successful
@@ -241,7 +241,7 @@ public class MimeType implements IMimeType
 
   /**
    * Remove all existing parameters.
-   * 
+   *
    * @return {@link EChange#CHANGED} if at least one parameter was present
    */
   @Nonnull
@@ -255,7 +255,7 @@ public class MimeType implements IMimeType
 
   /**
    * Remove the parameter with the specified name.
-   * 
+   *
    * @param sParamName
    *        The name of the parameter to remove. May be <code>null</code>.
    * @return {@link EChange#CHANGED} if the parameter was removed,
@@ -336,6 +336,11 @@ public class MimeType implements IMimeType
   public MimeType getCopyWithoutParameters ()
   {
     return new MimeType (m_eContentType, m_sContentSubType);
+  }
+
+  public int compareTo (final MimeType o)
+  {
+    return m_sMainTypeAsString.compareTo (o.m_sMainTypeAsString);
   }
 
   @Override

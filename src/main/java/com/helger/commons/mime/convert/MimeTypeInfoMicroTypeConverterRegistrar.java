@@ -31,8 +31,11 @@ import com.helger.commons.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.commons.microdom.convert.IMicroTypeConverterRegistry;
 import com.helger.commons.microdom.impl.MicroElement;
 import com.helger.commons.microdom.utils.MicroUtils;
+import com.helger.commons.mime.MimeType;
 import com.helger.commons.mime.MimeTypeInfo;
-import com.helger.commons.mime.MimeTypeInfo.Extension;
+import com.helger.commons.mime.MimeTypeInfo.ExtensionWithSource;
+import com.helger.commons.mime.MimeTypeInfo.MimeTypeWithSource;
+import com.helger.commons.mime.MimeTypeParser;
 
 /**
  * {@link IMicroTypeConverterRegistrarSPI} implementation for
@@ -56,26 +59,30 @@ public final class MimeTypeInfoMicroTypeConverterRegistrar implements IMicroType
     @Nullable
     public MimeTypeInfo convertToNative (@Nonnull final IMicroElement aElement)
     {
-      final Set <String> aMimeTypes = new LinkedHashSet <String> ();
+      final Set <MimeTypeWithSource> aMimeTypes = new LinkedHashSet <MimeTypeWithSource> ();
       for (final IMicroElement eMimeType : aElement.getAllChildElements (ELEMENT_MIMETYPE))
-        aMimeTypes.add (eMimeType.getTextContentTrimmed ());
+      {
+        final MimeType aMimeType = MimeTypeParser.parseMimeType (eMimeType.getTextContentTrimmed ());
+        final String sSource = eMimeType.getAttribute (ATTR_SOURCE);
+        aMimeTypes.add (new MimeTypeWithSource (aMimeType, sSource));
+      }
 
       final String sComment = MicroUtils.getChildTextContent (aElement, ELEMENT_COMMENT);
 
       final Set <String> aParentTypes = new LinkedHashSet <String> ();
       for (final IMicroElement eParentType : aElement.getAllChildElements (ELEMENT_PARENT_TYPE))
-        aMimeTypes.add (eParentType.getTextContentTrimmed ());
+        aParentTypes.add (eParentType.getTextContentTrimmed ());
 
       final Set <String> aGlobs = new LinkedHashSet <String> ();
       for (final IMicroElement eGlob : aElement.getAllChildElements (ELEMENT_GLOB))
-        aMimeTypes.add (eGlob.getTextContentTrimmed ());
+        aGlobs.add (eGlob.getTextContentTrimmed ());
 
-      final Set <Extension> aExtensions = new LinkedHashSet <Extension> ();
+      final Set <ExtensionWithSource> aExtensions = new LinkedHashSet <ExtensionWithSource> ();
       for (final IMicroElement eExtension : aElement.getAllChildElements (ELEMENT_EXTENSION))
       {
         final String sExt = eExtension.getTextContentTrimmed ();
         final String sSource = eExtension.getAttribute (ATTR_SOURCE);
-        aExtensions.add (new Extension (sExt, sSource));
+        aExtensions.add (new ExtensionWithSource (sExt, sSource));
       }
 
       final String sSource = aElement.getAttribute (ATTR_SOURCE);
@@ -90,15 +97,19 @@ public final class MimeTypeInfoMicroTypeConverterRegistrar implements IMicroType
     {
       final MimeTypeInfo aValue = (MimeTypeInfo) aObject;
       final IMicroElement eRet = new MicroElement (sNamespaceURI, sTagName);
-      for (final String sName : aValue.getAllMimeTypes ())
-        eRet.appendElement (sNamespaceURI, ELEMENT_MIMETYPE).appendText (sName);
+      for (final MimeTypeWithSource aMimeType : aValue.getAllMimeTypes ())
+      {
+        eRet.appendElement (sNamespaceURI, ELEMENT_MIMETYPE)
+            .setAttribute (ATTR_SOURCE, aMimeType.getSource ())
+            .appendText (aMimeType.getMimeTypeAsString ());
+      }
       if (aValue.hasComment ())
         eRet.appendElement (sNamespaceURI, ELEMENT_COMMENT).appendText (aValue.getComment ());
       for (final String sParentType : aValue.getAllParentTypes ())
         eRet.appendElement (sNamespaceURI, ELEMENT_PARENT_TYPE).appendText (sParentType);
       for (final String sGlob : aValue.getAllGlobs ())
         eRet.appendElement (sNamespaceURI, ELEMENT_GLOB).appendText (sGlob);
-      for (final Extension aExtension : aValue.getAllExtensions ())
+      for (final ExtensionWithSource aExtension : aValue.getAllExtensions ())
       {
         eRet.appendElement (sNamespaceURI, ELEMENT_EXTENSION)
             .setAttribute (ATTR_SOURCE, aExtension.getSource ())

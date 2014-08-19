@@ -26,16 +26,18 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ICloneable;
 import com.helger.commons.IHasStringRepresentation;
+import com.helger.commons.annotations.MustImplementComparable;
 import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 
 /**
  * Interface for the structured representation of a single MIME type.
- * 
+ *
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
+@MustImplementComparable
 public interface IMimeType extends IHasStringRepresentation, ICloneable <IMimeType>, Serializable
 {
   /**
@@ -53,7 +55,7 @@ public interface IMimeType extends IHasStringRepresentation, ICloneable <IMimeTy
   /**
    * Get the MIME type including all parameters as a single string. By default
    * the {@link CMimeType#DEFAULT_QUOTING} quoting algorithm is used.
-   * 
+   *
    * @return The combined string to be used as text representation:
    *         <code><em>contentType</em> '/' <em>subType</em> ( ';' <em>parameterName</em> '=' <em>parameterValue</em> )*</code>
    * @see #getAsString(EMimeQuoting)
@@ -66,7 +68,7 @@ public interface IMimeType extends IHasStringRepresentation, ICloneable <IMimeTy
    * Get the MIME type including all parameters as a single string. The
    * specified quoting algorithm is used to quote parameter values (if
    * necessary).
-   * 
+   *
    * @return The combined string to be used as text representation:
    *         <code><em>contentType</em> '/' <em>subType</em> ( ';' <em>parameterName</em> '=' <em>parameterValue</em> )*</code>
    * @see #getAsStringWithoutParameters()
@@ -90,7 +92,7 @@ public interface IMimeType extends IHasStringRepresentation, ICloneable <IMimeTy
    * Get all MIME type parameters as a single string but without the leading
    * content and sub type. The specified quoting algorithm is used to quote
    * parameter values.
-   * 
+   *
    * @return The combined string to be used as text representation:
    *         <code>(';' <em>parameterName</em> '=' <em>parameterValue</em> )*</code>
    *         . If no parameters are present, an empty String is returned!
@@ -121,7 +123,7 @@ public interface IMimeType extends IHasStringRepresentation, ICloneable <IMimeTy
 
   /**
    * Get the parameter at the specified index.
-   * 
+   *
    * @param nIndex
    *        The index to use. Should be &ge; 0.
    * @return <code>null</code> if the provided index is illegal.
@@ -132,7 +134,7 @@ public interface IMimeType extends IHasStringRepresentation, ICloneable <IMimeTy
   /**
    * Check if a parameter with the specified name is present. The names are
    * matched case sensitive!
-   * 
+   *
    * @param sParamName
    *        The parameter name to search. May be <code>null</code>.
    * @return <code>true</code> if such a parameter exists.
@@ -142,7 +144,7 @@ public interface IMimeType extends IHasStringRepresentation, ICloneable <IMimeTy
   /**
    * Get the parameter with the specified name. The names are matched case
    * sensitive!
-   * 
+   *
    * @param sParamName
    *        The parameter name to search. May be <code>null</code>.
    * @return <code>null</code> if no such parameter exists.
@@ -153,7 +155,7 @@ public interface IMimeType extends IHasStringRepresentation, ICloneable <IMimeTy
   /**
    * Get the value of the parameter with the specified name. The names are
    * matched case sensitive!
-   * 
+   *
    * @param sParamName
    *        The parameter name to search. May be <code>null</code>.
    * @return <code>null</code> if no such parameter exists.

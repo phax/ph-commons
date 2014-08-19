@@ -27,7 +27,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Determines the most well known MIME content types.
- * 
+ *
  * @author Philip Helger
  */
 public enum EMimeContentType implements IHasID <String>
@@ -41,6 +41,18 @@ public enum EMimeContentType implements IHasID <String>
   MULTIPART ("multipart"),
   TEXT ("text"),
   VIDEO ("video"),
+  // Special ones
+  CHEMICAL ("chemical"),
+  FLV_APPLICATION ("flv-application"),
+  INODE ("inode"),
+  WWW ("www"),
+  X_CONFERENCE ("x-conference"),
+  X_CONTENT ("x-content"),
+  X_DIRECTORY ("x-directory"),
+  X_EPOC ("x-epoc"),
+  X_WORLD ("x-world"),
+  ZZ_APPLICATION ("zz-application"),
+  // Generic
   _STAR ("*");
 
   private final String m_sText;
@@ -73,7 +85,7 @@ public enum EMimeContentType implements IHasID <String>
   /**
    * Build a new {@link MimeType} based on this MIME content type and the
    * provided sub type.
-   * 
+   *
    * @param sContentSubType
    *        The content sub type to append. May neither be <code>null</code> nor
    *        empty.
@@ -87,7 +99,7 @@ public enum EMimeContentType implements IHasID <String>
 
   /**
    * Check if the passed MIME type has the same content type as this
-   * 
+   *
    * @param sMimeType
    *        The MIME type string to be checked. May be <code>null</code>.
    * @return <code>true</code> if the passed MIME type has this content type,

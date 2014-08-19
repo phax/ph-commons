@@ -24,12 +24,69 @@ import com.helger.commons.string.ToStringGenerator;
 public final class MimeTypeInfo
 {
   @Immutable
-  public static final class Extension
+  public static final class MimeTypeWithSource
+  {
+    private final MimeType m_aMimeType;
+    private final String m_sSource;
+
+    public MimeTypeWithSource (@Nonnull final MimeType aMimeType, @Nullable final String sSource)
+    {
+      m_aMimeType = ValueEnforcer.notNull (aMimeType, "MimeType");
+      m_sSource = sSource;
+    }
+
+    @Nonnull
+    public MimeType getMimeType ()
+    {
+      return m_aMimeType;
+    }
+
+    @Nonnull
+    @Nonempty
+    public String getMimeTypeAsString ()
+    {
+      return m_aMimeType.getAsString ();
+    }
+
+    @Nullable
+    public String getSource ()
+    {
+      return m_sSource;
+    }
+
+    @Override
+    public boolean equals (final Object o)
+    {
+      if (o == this)
+        return true;
+      if (!(o instanceof MimeTypeWithSource))
+        return false;
+      final MimeTypeWithSource rhs = (MimeTypeWithSource) o;
+      return m_aMimeType.equals (rhs.m_aMimeType) && EqualsUtils.equals (m_sSource, rhs.m_sSource);
+    }
+
+    @Override
+    public int hashCode ()
+    {
+      return new HashCodeGenerator (this).append (m_aMimeType).append (m_sSource).getHashCode ();
+    }
+
+    @Override
+    public String toString ()
+    {
+      return new ToStringGenerator (this).append ("mimeType", m_aMimeType)
+                                         .appendIfNotNull ("source", m_sSource)
+                                         .toString ();
+    }
+  }
+
+  @Immutable
+  public static final class ExtensionWithSource
   {
     private final String m_sExt;
     private final String m_sSource;
 
-    public Extension (@Nonnull final String sExt, @Nullable final String sSource)
+    public ExtensionWithSource (@Nonnull final String sExt, @Nullable final String sSource)
     {
       m_sExt = ValueEnforcer.notNull (sExt, "Extension");
       m_sSource = sSource;
@@ -52,9 +109,9 @@ public final class MimeTypeInfo
     {
       if (o == this)
         return true;
-      if (!(o instanceof Extension))
+      if (!(o instanceof ExtensionWithSource))
         return false;
-      final Extension rhs = (Extension) o;
+      final ExtensionWithSource rhs = (ExtensionWithSource) o;
       return m_sExt.equals (rhs.m_sExt) && EqualsUtils.equals (m_sSource, rhs.m_sSource);
     }
 
@@ -73,25 +130,25 @@ public final class MimeTypeInfo
     }
   }
 
-  private final Set <String> m_aMimeTypes;
+  private final Set <MimeTypeWithSource> m_aMimeTypes;
   private final String m_sComment;
   private final Set <String> m_aParentTypes;
   private final Set <String> m_aGlobs;
-  private final Set <Extension> m_aExtensions;
+  private final Set <ExtensionWithSource> m_aExtensions;
   private final String m_sSource;
 
-  public MimeTypeInfo (@Nonnull @Nonempty final Set <String> aMimTypes,
+  public MimeTypeInfo (@Nonnull @Nonempty final Set <MimeTypeWithSource> aMimeTypes,
                        @Nullable final String sComment,
                        @Nonnull final Set <String> aParentTypes,
                        @Nonnull final Set <String> aGlobs,
-                       @Nonnull final Set <Extension> aExtensions,
+                       @Nonnull final Set <ExtensionWithSource> aExtensions,
                        @Nullable final String sSource)
   {
-    ValueEnforcer.notEmptyNoNullValue (aMimTypes, "MimeTypes");
+    ValueEnforcer.notEmptyNoNullValue (aMimeTypes, "MimeTypes");
     ValueEnforcer.notNull (aParentTypes, "ParentTypes");
     ValueEnforcer.notNull (aGlobs, "Globs");
     ValueEnforcer.notNull (aExtensions, "Extensions");
-    m_aMimeTypes = ContainerHelper.newOrderedSet (aMimTypes);
+    m_aMimeTypes = ContainerHelper.newOrderedSet (aMimeTypes);
     m_sComment = sComment;
     m_aParentTypes = ContainerHelper.newOrderedSet (aParentTypes);
     m_aGlobs = ContainerHelper.newOrderedSet (aGlobs);
@@ -101,7 +158,7 @@ public final class MimeTypeInfo
 
   @Nonnull
   @Nonempty
-  public Set <String> getAllMimeTypes ()
+  public Set <MimeTypeWithSource> getAllMimeTypes ()
   {
     return ContainerHelper.newOrderedSet (m_aMimeTypes);
   }
@@ -110,11 +167,14 @@ public final class MimeTypeInfo
   {
     if (StringHelper.hasNoText (sMimeType))
       return false;
-    return m_aMimeTypes.contains (sMimeType);
+    for (final MimeTypeWithSource aMimeType : m_aMimeTypes)
+      if (aMimeType.getMimeTypeAsString ().equals (sMimeType))
+        return true;
+    return false;
   }
 
   @Nonnull
-  public String getPrimaryMimeType ()
+  public MimeTypeWithSource getPrimaryMimeType ()
   {
     return ContainerHelper.getFirstElement (m_aMimeTypes);
   }
@@ -148,7 +208,7 @@ public final class MimeTypeInfo
   }
 
   @Nonnull
-  public Set <Extension> getAllExtensions ()
+  public Set <ExtensionWithSource> getAllExtensions ()
   {
     return ContainerHelper.newOrderedSet (m_aExtensions);
   }
@@ -173,7 +233,7 @@ public final class MimeTypeInfo
     return false;
   }
 
-  void addExtension (@Nonnull final Extension aExt)
+  void addExtension (@Nonnull final ExtensionWithSource aExt)
   {
     ValueEnforcer.notNull (aExt, "Ext");
     // Don't add to glob - can easily be constructed from all extensions

@@ -17,7 +17,6 @@
  */
 package com.helger.commons.supplementary.main;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -33,10 +32,13 @@ import com.helger.commons.microdom.impl.MicroDocument;
 import com.helger.commons.microdom.serialize.MicroReader;
 import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.mime.ComparatorMimeTypeInfoPrimaryMimeType;
+import com.helger.commons.mime.MimeType;
 import com.helger.commons.mime.MimeTypeDeterminator;
 import com.helger.commons.mime.MimeTypeInfo;
-import com.helger.commons.mime.MimeTypeInfo.Extension;
+import com.helger.commons.mime.MimeTypeInfo.ExtensionWithSource;
+import com.helger.commons.mime.MimeTypeInfo.MimeTypeWithSource;
 import com.helger.commons.mime.MimeTypeInfoManager;
+import com.helger.commons.mime.MimeTypeParser;
 import com.helger.commons.regex.RegExHelper;
 
 /**
@@ -77,26 +79,18 @@ public final class MainReadSharedMimeInfo
     final IMicroDocument aDoc = MicroReader.readMicroXML (new ClassPathResource ("shared-mime-info/freedesktop.org.xml"));
     if (aDoc == null)
       throw new IllegalStateException ("Failed to read mime type info file!");
-    final Map <String, String> aGlobalMimeTypes = new HashMap <String, String> ();
     final MimeTypeInfoManager aMgr = new MimeTypeInfoManager ();
     for (final IMicroElement eSrcMimeType : aDoc.getDocumentElement ().getAllChildElements (NS, "mime-type"))
     {
       final String sMIMEType = eSrcMimeType.getAttribute ("type");
-      final Set <String> aLocalNames = new LinkedHashSet <String> ();
+      final Set <MimeTypeWithSource> aLocalNames = new LinkedHashSet <MimeTypeWithSource> ();
 
       // Names
-      aLocalNames.add (sMIMEType);
-      if (aGlobalMimeTypes.put (sMIMEType, sMIMEType) != null)
-        System.err.println ("MIME type " + sMIMEType + " already used!");
+      aLocalNames.add (new MimeTypeWithSource (MimeTypeParser.parseMimeType (sMIMEType), "shared-mime-info"));
       for (final IMicroElement eSrcChild : eSrcMimeType.getAllChildElements (NS, "alias"))
       {
         final String sAlias = eSrcChild.getAttribute ("type");
-        if (aLocalNames.add (sAlias))
-        {
-          final String sOldMimeType = aGlobalMimeTypes.put (sAlias, sMIMEType);
-          if (sOldMimeType != null)
-            System.err.println ("MIME type alias " + sAlias + " already used in mime type " + sOldMimeType);
-        }
+        aLocalNames.add (new MimeTypeWithSource (MimeTypeParser.parseMimeType (sAlias), "shared-mime-info"));
       }
 
       // Description
@@ -118,14 +112,14 @@ public final class MainReadSharedMimeInfo
 
       boolean bHasAnyGlob = false;
       final Set <String> aGlobs = new LinkedHashSet <String> ();
-      final Set <Extension> aExts = new LinkedHashSet <Extension> ();
+      final Set <ExtensionWithSource> aExts = new LinkedHashSet <ExtensionWithSource> ();
       for (final IMicroElement eSrcChild : eSrcMimeType.getAllChildElements (NS, "glob"))
       {
         final String sPattern = eSrcChild.getAttribute ("pattern");
         if (RegExHelper.stringMatchesPattern ("\\*\\.[0-9a-zA-Z]+", sPattern))
         {
           final String sExt = sPattern.substring (2);
-          aExts.add (new Extension (sExt, "shared-mime-info"));
+          aExts.add (new ExtensionWithSource (sExt, "shared-mime-info"));
         }
         else
           aGlobs.add (sPattern);
@@ -145,6 +139,7 @@ public final class MainReadSharedMimeInfo
     {
       final String sOldExt = aEntry.getKey ();
       final String sOldMimeType = aEntry.getValue ();
+      final MimeType aOldMimeType = MimeTypeParser.parseMimeType (sOldMimeType);
       List <MimeTypeInfo> aNew = aMgr.getAllInfosOfExtension (sOldExt);
       if (aNew != null)
       {
@@ -166,7 +161,7 @@ public final class MainReadSharedMimeInfo
         // No such mapping from ext to mime type
 
         // Check other direction -> MIME Type to ext
-        aNew = aMgr.getAllInfosOfMimeType (sOldMimeType);
+        aNew = aMgr.getAllInfosOfMimeType (aOldMimeType);
         if (aNew != null)
         {
           // Mime type is present - check if extension is also present
@@ -181,8 +176,9 @@ public final class MainReadSharedMimeInfo
           {
             if (aNew.size () == 1)
             {
-              aMgr.addExtension (aNew.get (0), new Extension (sOldExt, "old"));
-              System.out.println ("Added extension '" + sOldExt + "' to " + sOldMimeType + "!");
+              aMgr.addExtension (aNew.get (0), new ExtensionWithSource (sOldExt, "old"));
+              if (false)
+                System.out.println ("Added extension '" + sOldExt + "' to " + sOldMimeType + "!");
             }
             else
               System.out.println (sOldMimeType + ": '" + sOldExt + "' not found in " + aNew + "!");
@@ -191,13 +187,15 @@ public final class MainReadSharedMimeInfo
         else
         {
           // Create a new entry
-          aMgr.registerMimeType (new MimeTypeInfo (ContainerHelper.newSet (sOldMimeType),
+          aMgr.registerMimeType (new MimeTypeInfo (ContainerHelper.newSet (new MimeTypeWithSource (MimeTypeParser.parseMimeType (sOldMimeType),
+                                                                                                   "old")),
                                                    null,
                                                    new HashSet <String> (),
                                                    new HashSet <String> (),
-                                                   ContainerHelper.newSet (new Extension (sOldExt, "old")),
+                                                   ContainerHelper.newSet (new ExtensionWithSource (sOldExt, "old")),
                                                    "old"));
-          System.out.println ("Creating new: " + sOldMimeType + " = '" + sOldExt + "'");
+          if (false)
+            System.out.println ("Creating new: " + sOldMimeType + " = '" + sOldExt + "'");
         }
       }
     }
