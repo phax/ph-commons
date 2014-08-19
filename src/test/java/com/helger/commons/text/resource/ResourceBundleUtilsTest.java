@@ -22,14 +22,14 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ResourceBundleUtils}.
  * 
  * @author Philip Helger
  */
-public final class ResourceBundleUtilsTest extends AbstractPhlocTestCase
+public final class ResourceBundleUtilsTest extends AbstractPHTestCase
 {
   @Test
   public void testGetString ()

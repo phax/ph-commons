@@ -36,7 +36,7 @@ import com.helger.commons.annotations.CodingStyleguideUnaware;
  * @author Philip Helger
  */
 @Immutable
-public abstract class AbstractPhlocTestCase
+public abstract class AbstractPHTestCase
 {
   // For test case classes it is ok to have a protected logger
   @CodingStyleguideUnaware

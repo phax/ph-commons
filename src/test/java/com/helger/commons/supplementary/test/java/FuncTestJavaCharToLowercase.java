@@ -21,9 +21,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
-public final class FuncTestJavaCharToLowercase extends AbstractPhlocTestCase
+public final class FuncTestJavaCharToLowercase extends AbstractPHTestCase
 {
   @Test
   public void testAllCharsets ()

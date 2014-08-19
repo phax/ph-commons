@@ -32,7 +32,7 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.xml.schema.XMLSchemaCache;
 
 /**
@@ -40,7 +40,7 @@ import com.helger.commons.xml.schema.XMLSchemaCache;
  * 
  * @author Philip Helger
  */
-public final class XMLFactoryTest extends AbstractPhlocTestCase
+public final class XMLFactoryTest extends AbstractPHTestCase
 {
   @Test
   public void testCreateDefaultDocumentBuilderFactory ()

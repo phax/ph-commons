@@ -27,14 +27,14 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link MimeTypeParser}
  * 
  * @author Philip Helger
  */
-public final class MimeTypeParserTest extends AbstractPhlocTestCase
+public final class MimeTypeParserTest extends AbstractPHTestCase
 {
   @Test
   public void testIsToken ()

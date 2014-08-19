@@ -29,7 +29,7 @@ import java.util.Vector;
 import org.junit.Test;
 
 import com.helger.commons.callback.IThrowingRunnable;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PhlocTestUtils;
 
 /**
@@ -37,7 +37,7 @@ import com.helger.commons.mock.PhlocTestUtils;
  * 
  * @author Philip Helger
  */
-public final class CollatorUtilsTest extends AbstractPhlocTestCase
+public final class CollatorUtilsTest extends AbstractPHTestCase
 {
   @Test
   public void testGetCollatorSpaceBeforeDot ()

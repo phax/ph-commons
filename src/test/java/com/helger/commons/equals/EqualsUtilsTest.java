@@ -27,7 +27,7 @@ import java.net.URL;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.string.StringParser;
 
 /**
@@ -35,7 +35,7 @@ import com.helger.commons.string.StringParser;
  * 
  * @author Philip Helger
  */
-public final class EqualsUtilsTest extends AbstractPhlocTestCase
+public final class EqualsUtilsTest extends AbstractPHTestCase
 {
   @Test
   public void testEquals_Float ()

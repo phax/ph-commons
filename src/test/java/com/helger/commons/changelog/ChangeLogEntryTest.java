@@ -30,7 +30,7 @@ import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PhlocTestUtils;
 import com.helger.commons.text.IMultiLingualText;
 import com.helger.commons.text.impl.MultiLingualText;
@@ -41,7 +41,7 @@ import com.helger.commons.text.impl.TextProvider;
  * 
  * @author Philip Helger
  */
-public final class ChangeLogEntryTest extends AbstractPhlocTestCase
+public final class ChangeLogEntryTest extends AbstractPHTestCase
 {
   @Test
   public void testAll ()

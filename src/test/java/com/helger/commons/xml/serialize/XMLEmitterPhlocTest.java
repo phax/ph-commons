@@ -25,7 +25,7 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.streamprovider.ByteArrayOutputStreamProvider;
 import com.helger.commons.microdom.impl.MicroDocumentType;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PhlocTestUtils;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 
@@ -34,7 +34,7 @@ import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
  * 
  * @author Philip Helger
  */
-public final class XMLEmitterPhlocTest extends AbstractPhlocTestCase
+public final class XMLEmitterPhlocTest extends AbstractPHTestCase
 {
   @Test
   public void testMisc ()

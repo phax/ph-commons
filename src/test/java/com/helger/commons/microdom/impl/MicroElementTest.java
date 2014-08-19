@@ -40,7 +40,7 @@ import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.microdom.IMicroText;
 import com.helger.commons.microdom.MicroException;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.DebugModeTestRule;
 import com.helger.commons.mock.PhlocTestUtils;
 import com.helger.commons.text.impl.MultiLingualText;
@@ -53,7 +53,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * 
  * @author Philip Helger
  */
-public final class MicroElementTest extends AbstractPhlocTestCase
+public final class MicroElementTest extends AbstractPHTestCase
 {
   @Rule
   public final TestRule m_aRule = new DebugModeTestRule ();

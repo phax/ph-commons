@@ -34,7 +34,7 @@ import org.junit.rules.TestRule;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.DebugModeTestRule;
 import com.helger.commons.system.SystemHelper;
 
@@ -43,7 +43,7 @@ import com.helger.commons.system.SystemHelper;
  * 
  * @author Philip Helger
  */
-public final class LocaleUtilsTest extends AbstractPhlocTestCase
+public final class LocaleUtilsTest extends AbstractPHTestCase
 {
   @Rule
   public final TestRule m_aRule = new DebugModeTestRule ();

@@ -30,14 +30,14 @@ import com.helger.commons.collections.ArrayHelper;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.convert.IUnidirectionalConverter;
 import com.helger.commons.convert.UnidirectionalConverterStringInteger;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for {@link ArrayHelper}
  * 
  * @author Philip Helger
  */
-public final class ArrayConversionHelperTest extends AbstractPhlocTestCase
+public final class ArrayConversionHelperTest extends AbstractPHTestCase
 {
   @Test
   public void testNewArrayFromCollectionWithConverter ()

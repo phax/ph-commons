@@ -26,7 +26,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.random.VerySecureRandom;
 
 /**
@@ -34,7 +34,7 @@ import com.helger.commons.random.VerySecureRandom;
  * 
  * @author Philip Helger
  */
-public abstract class AbstractCodecTest extends AbstractPhlocTestCase
+public abstract class AbstractCodecTest extends AbstractPHTestCase
 {
   @Nonnull
   protected abstract ICodec createCodec ();

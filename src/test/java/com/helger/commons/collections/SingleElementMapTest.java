@@ -29,14 +29,14 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link SingleElementMap}.
  * 
  * @author Philip Helger
  */
-public final class SingleElementMapTest extends AbstractPhlocTestCase
+public final class SingleElementMapTest extends AbstractPHTestCase
 {
   @Test
   public void testEmptyCtor ()

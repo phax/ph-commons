@@ -37,14 +37,14 @@ import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.convert.IUnidirectionalConverter;
 import com.helger.commons.convert.UnidirectionalConverterStringInteger;
 import com.helger.commons.filter.FilterNotNull;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ContainerConversionHelper}
  * 
  * @author Philip Helger
  */
-public final class ContainerConversionHelperTest extends AbstractPhlocTestCase
+public final class ContainerConversionHelperTest extends AbstractPHTestCase
 {
   private static final class MyIntegerCompi implements Comparator <Integer>, Serializable
   {

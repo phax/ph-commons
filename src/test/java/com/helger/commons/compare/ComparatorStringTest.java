@@ -26,7 +26,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PhlocTestUtils;
 
 /**
@@ -34,7 +34,7 @@ import com.helger.commons.mock.PhlocTestUtils;
  * 
  * @author Philip Helger
  */
-public final class ComparatorStringTest extends AbstractPhlocTestCase
+public final class ComparatorStringTest extends AbstractPHTestCase
 {
   @Test
   public void testAll ()

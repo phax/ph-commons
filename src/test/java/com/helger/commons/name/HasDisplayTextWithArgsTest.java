@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PhlocTestUtils;
 
 /**
@@ -31,7 +31,7 @@ import com.helger.commons.mock.PhlocTestUtils;
  * 
  * @author Philip Helger
  */
-public final class HasDisplayTextWithArgsTest extends AbstractPhlocTestCase
+public final class HasDisplayTextWithArgsTest extends AbstractPHTestCase
 {
   @Test
   public void testAll ()

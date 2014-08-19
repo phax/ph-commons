@@ -29,7 +29,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -37,7 +37,7 @@ import com.helger.commons.string.StringHelper;
  * 
  * @author Philip Helger
  */
-public final class LocaleCacheTest extends AbstractPhlocTestCase
+public final class LocaleCacheTest extends AbstractPHTestCase
 {
   @Test
   public void testGet ()

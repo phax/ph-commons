@@ -23,14 +23,14 @@ import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.locale.LocaleCache;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ComparatorLocaleDisplayCountryInLocale}.
  * 
  * @author Philip Helger
  */
-public final class ComparatorLocaleDisplayCountryInLocaleTest extends AbstractPhlocTestCase
+public final class ComparatorLocaleDisplayCountryInLocaleTest extends AbstractPHTestCase
 {
   @Test
   public void testSort ()

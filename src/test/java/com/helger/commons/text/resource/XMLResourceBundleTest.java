@@ -32,7 +32,7 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.FileUtils;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link XMLResourceBundle}.
@@ -40,7 +40,7 @@ import com.helger.commons.mock.AbstractPhlocTestCase;
  * @author Philip Helger
  */
 // SKIPJDK5
-public final class XMLResourceBundleTest extends AbstractPhlocTestCase
+public final class XMLResourceBundleTest extends AbstractPHTestCase
 {
   @Test
   public void testAll () throws IOException

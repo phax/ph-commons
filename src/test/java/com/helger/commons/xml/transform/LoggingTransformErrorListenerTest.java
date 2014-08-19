@@ -26,7 +26,7 @@ import javax.xml.transform.TransformerFactory;
 import org.junit.Test;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PhlocTestUtils;
 
 /**
@@ -34,7 +34,7 @@ import com.helger.commons.mock.PhlocTestUtils;
  * 
  * @author Philip Helger
  */
-public final class LoggingTransformErrorListenerTest extends AbstractPhlocTestCase
+public final class LoggingTransformErrorListenerTest extends AbstractPHTestCase
 {
   @Test
   public void testAll ()

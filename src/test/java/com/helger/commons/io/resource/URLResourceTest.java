@@ -31,7 +31,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PhlocTestUtils;
 
 /**
@@ -39,7 +39,7 @@ import com.helger.commons.mock.PhlocTestUtils;
  * 
  * @author Philip Helger
  */
-public final class URLResourceTest extends AbstractPhlocTestCase
+public final class URLResourceTest extends AbstractPHTestCase
 {
   @Test
   public void testCtor () throws MalformedURLException

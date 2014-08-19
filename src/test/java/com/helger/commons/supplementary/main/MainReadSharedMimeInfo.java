@@ -18,22 +18,25 @@
 package com.helger.commons.supplementary.main;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.helger.commons.collections.ArrayHelper;
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.collections.multimap.IMultiMapSetBased;
-import com.helger.commons.collections.multimap.MultiTreeMapTreeSetBased;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
+import com.helger.commons.microdom.convert.MicroTypeConverter;
 import com.helger.commons.microdom.impl.MicroDocument;
-import com.helger.commons.microdom.impl.MicroElement;
 import com.helger.commons.microdom.serialize.MicroReader;
 import com.helger.commons.microdom.serialize.MicroWriter;
+import com.helger.commons.mime.ComparatorMimeTypeInfoPrimaryMimeType;
 import com.helger.commons.mime.MimeTypeDeterminator;
+import com.helger.commons.mime.MimeTypeInfo;
+import com.helger.commons.mime.MimeTypeInfo.Extension;
+import com.helger.commons.mime.MimeTypeInfoManager;
 import com.helger.commons.regex.RegExHelper;
 
 /**
@@ -67,49 +70,29 @@ import com.helger.commons.regex.RegExHelper;
  */
 public final class MainReadSharedMimeInfo
 {
-  private static final String [] EXCLUDES = { "docm",
-                                             "dot",
-                                             "exe",
-                                             "mpp",
-                                             "p7s",
-                                             "pot",
-                                             "pptm",
-                                             "ram",
-                                             "vcf",
-                                             "wmf",
-                                             "xlsm",
-                                             "js",
-                                             "xml",
-                                             "xps" };
   private static final String NS = "http://www.freedesktop.org/standards/shared-mime-info";
 
   public static void main (final String [] args)
   {
-    final Map <String, String> aExtToMimeType = new HashMap <String, String> ();
     final IMicroDocument aDoc = MicroReader.readMicroXML (new ClassPathResource ("shared-mime-info/freedesktop.org.xml"));
     if (aDoc == null)
       throw new IllegalStateException ("Failed to read mime type info file!");
-    final IMicroDocument eDstDoc = new MicroDocument ();
-    final IMicroElement eDstRoot = eDstDoc.appendElement ("mime-types");
     final Map <String, String> aGlobalMimeTypes = new HashMap <String, String> ();
-    final IMultiMapSetBased <String, String> aGlobalExt2MT = new MultiTreeMapTreeSetBased <String, String> ();
-    final IMultiMapSetBased <String, String> aGlobalMT2Ext = new MultiTreeMapTreeSetBased <String, String> ();
+    final MimeTypeInfoManager aMgr = new MimeTypeInfoManager ();
     for (final IMicroElement eSrcMimeType : aDoc.getDocumentElement ().getAllChildElements (NS, "mime-type"))
     {
       final String sMIMEType = eSrcMimeType.getAttribute ("type");
-      final IMicroElement eDstMimeType = new MicroElement ("mime-type");
+      final Set <String> aLocalNames = new LinkedHashSet <String> ();
 
       // Names
-      eDstMimeType.appendElement ("name").appendText (sMIMEType);
+      aLocalNames.add (sMIMEType);
       if (aGlobalMimeTypes.put (sMIMEType, sMIMEType) != null)
         System.err.println ("MIME type " + sMIMEType + " already used!");
-      final Set <String> aLocalAliases = new LinkedHashSet <String> ();
       for (final IMicroElement eSrcChild : eSrcMimeType.getAllChildElements (NS, "alias"))
       {
         final String sAlias = eSrcChild.getAttribute ("type");
-        if (aLocalAliases.add (sAlias))
+        if (aLocalNames.add (sAlias))
         {
-          eDstMimeType.appendElement ("name").appendText (sAlias);
           final String sOldMimeType = aGlobalMimeTypes.put (sAlias, sMIMEType);
           if (sOldMimeType != null)
             System.err.println ("MIME type alias " + sAlias + " already used in mime type " + sOldMimeType);
@@ -117,42 +100,42 @@ public final class MainReadSharedMimeInfo
       }
 
       // Description
+      String sComment = null;
       for (final IMicroElement eSrcChild : eSrcMimeType.getAllChildElements (NS, "comment"))
         if (!eSrcChild.hasAttribute ("xml:lang"))
-          eDstMimeType.appendElement ("comment").appendText (eSrcChild.getTextContentTrimmed ());
+        {
+          sComment = eSrcChild.getTextContentTrimmed ();
+          break;
+        }
 
       // Sub class of
+      final Set <String> aSubClassOf = new LinkedHashSet <String> ();
       for (final IMicroElement eSrcChild : eSrcMimeType.getAllChildElements (NS, "sub-class-of"))
-        eDstMimeType.appendElement ("sub-class-of").appendText (eSrcChild.getAttribute ("type"));
+      {
+        final String s = eSrcChild.getAttribute ("type");
+        aSubClassOf.add (s);
+      }
 
       boolean bHasAnyGlob = false;
-      final Set <String> aExts = new LinkedHashSet <String> ();
+      final Set <String> aGlobs = new LinkedHashSet <String> ();
+      final Set <Extension> aExts = new LinkedHashSet <Extension> ();
       for (final IMicroElement eSrcChild : eSrcMimeType.getAllChildElements (NS, "glob"))
       {
         final String sPattern = eSrcChild.getAttribute ("pattern");
         if (RegExHelper.stringMatchesPattern ("\\*\\.[0-9a-zA-Z]+", sPattern))
         {
           final String sExt = sPattern.substring (2);
-          aExts.add (sExt);
-
-          aGlobalExt2MT.putSingle (sExt, sMIMEType);
-          aGlobalMT2Ext.putSingle (sMIMEType, sExt);
-          for (final String sAlias : aLocalAliases)
-          {
-            aGlobalExt2MT.putSingle (sExt, sAlias);
-            aGlobalMT2Ext.putSingle (sAlias, sExt);
-          }
+          aExts.add (new Extension (sExt, "shared-mime-info"));
         }
-        eDstMimeType.appendElement ("glob").appendText (sPattern);
+        else
+          aGlobs.add (sPattern);
         bHasAnyGlob = true;
       }
-      for (final String sExt : aExts)
-        eDstMimeType.appendElement ("ext").appendText (sExt);
 
       if (bHasAnyGlob)
       {
         // Append only if at least on filename pattern is present
-        eDstRoot.appendChild (eDstMimeType);
+        aMgr.registerMimeType (new MimeTypeInfo (aLocalNames, sComment, aSubClassOf, aGlobs, aExts, "shared-mime-info"));
       }
     }
 
@@ -160,97 +143,72 @@ public final class MainReadSharedMimeInfo
     for (final Map.Entry <String, String> aEntry : ContainerHelper.getSortedByKey (MimeTypeDeterminator.getAllKnownMimeTypeFilenameMappings ())
                                                                   .entrySet ())
     {
-      final String sExt = aEntry.getKey ();
+      final String sOldExt = aEntry.getKey ();
       final String sOldMimeType = aEntry.getValue ();
-      final Set <String> aNew = aGlobalExt2MT.get (sExt);
+      List <MimeTypeInfo> aNew = aMgr.getAllInfosOfExtension (sOldExt);
       if (aNew != null)
       {
-        if (!aNew.contains (sOldMimeType))
-          System.out.println (sExt + " = " + sOldMimeType + " not found!");
+        // Found extension - check if MIME type matches that type
+        boolean bFound = false;
+        for (final MimeTypeInfo aInfo : aNew)
+          if (aInfo.containsMimeType (sOldMimeType))
+          {
+            bFound = true;
+            break;
+          }
+        if (!bFound)
+        {
+          System.out.println ("'" + sOldExt + "': " + sOldMimeType + " not found in " + aNew + "!");
+        }
       }
       else
       {
         // No such mapping from ext to mime type
 
-        // Check mimetype to extension
-        final IMicroElement eDstMimeType = eDstRoot.appendElement ("mime-type");
-        // Names
-        eDstMimeType.appendElement ("name").appendText (sOldMimeType);
-        if (aGlobalMimeTypes.put (sOldMimeType, sOldMimeType) != null)
-          System.err.println ("MIME type " + sOldMimeType + " already used!");
-        eDstMimeType.appendElement ("glob").appendText ("*." + sExt);
-        eDstMimeType.appendElement ("ext").appendText (sExt);
-        aGlobalExt2MT.putSingle (sExt, sOldMimeType);
-        aGlobalMT2Ext.putSingle (sOldMimeType, sExt);
-      }
-    }
-
-    if (true)
-    {
-      if (false)
-        System.out.println (MicroWriter.getXMLString (eDstDoc));
-
-      final IMicroDocument eDstDoc2 = new MicroDocument ();
-      final IMicroElement eDstRoot2 = eDstDoc2.appendElement ("mapping");
-      for (final Map.Entry <String, Set <String>> aEntry : aGlobalExt2MT.entrySet ())
-      {
-        final String sExt = aEntry.getKey ();
-        final IMicroElement eDstItem = eDstRoot2.appendElement ("ext2mt").setAttribute ("ext", sExt);
-        for (final String sMimeType : aEntry.getValue ())
-          eDstItem.appendElement ("mime-type").appendText (sMimeType);
-      }
-      for (final Map.Entry <String, Set <String>> aEntry : aGlobalMT2Ext.entrySet ())
-      {
-        final IMicroElement eDstItem = eDstRoot2.appendElement ("mt2ext").setAttribute ("mime-type", aEntry.getKey ());
-        for (final String sExt : aEntry.getValue ())
-          eDstItem.appendElement ("ext").appendText (sExt);
-      }
-      System.out.println (MicroWriter.getXMLString (eDstDoc2));
-    }
-    else
-    {
-      if (false)
-        System.out.println ("All items:");
-      final Map <String, String> aNewExtToMimeType = new HashMap <String, String> ();
-      final Map <String, String> aChangedExtToMimeType = new HashMap <String, String> ();
-      for (final Map.Entry <String, String> aEntry : ContainerHelper.getSortedByKey (aExtToMimeType).entrySet ())
-      {
-        final String sExt = aEntry.getKey ();
-        final String sMIME = aEntry.getValue ();
-        final String sKnownMimeType = MimeTypeDeterminator.getMimeTypeFromExtension (sExt);
-        if (sKnownMimeType == null)
-          aNewExtToMimeType.put (sExt, sMIME);
-        else
-          if (!sKnownMimeType.equals (sMIME))
+        // Check other direction -> MIME Type to ext
+        aNew = aMgr.getAllInfosOfMimeType (sOldMimeType);
+        if (aNew != null)
+        {
+          // Mime type is present - check if extension is also present
+          boolean bFound = false;
+          for (final MimeTypeInfo aInfo : aNew)
+            if (aInfo.containsExtension (sOldExt))
+            {
+              bFound = true;
+              break;
+            }
+          if (!bFound)
           {
-            if (!ArrayHelper.contains (EXCLUDES, sExt))
-              aChangedExtToMimeType.put (sExt, sMIME);
+            if (aNew.size () == 1)
+            {
+              aMgr.addExtension (aNew.get (0), new Extension (sOldExt, "old"));
+              System.out.println ("Added extension '" + sOldExt + "' to " + sOldMimeType + "!");
+            }
+            else
+              System.out.println (sOldMimeType + ": '" + sOldExt + "' not found in " + aNew + "!");
           }
-        if (false)
-          System.out.println ("  <map key=\"" + sExt + "\" value=\"" + sMIME + "\" />");
+        }
+        else
+        {
+          // Create a new entry
+          aMgr.registerMimeType (new MimeTypeInfo (ContainerHelper.newSet (sOldMimeType),
+                                                   null,
+                                                   new HashSet <String> (),
+                                                   new HashSet <String> (),
+                                                   ContainerHelper.newSet (new Extension (sOldExt, "old")),
+                                                   "old"));
+          System.out.println ("Creating new: " + sOldMimeType + " = '" + sOldExt + "'");
+        }
       }
+    }
 
-      if (!aChangedExtToMimeType.isEmpty ())
-      {
-        System.out.println ("Changed items:");
-        for (final Map.Entry <String, String> aEntry : ContainerHelper.getSortedByKey (aChangedExtToMimeType)
-                                                                      .entrySet ())
-          System.out.println (aEntry.getKey () +
-                              ": known=" +
-                              MimeTypeDeterminator.getMimeTypeFromExtension (aEntry.getKey ()) +
-                              "; new=" +
-                              aEntry.getValue ());
-        for (final Map.Entry <String, String> aEntry : ContainerHelper.getSortedByKey (aChangedExtToMimeType)
-                                                                      .entrySet ())
-          System.out.println ("  <map key=\"" + aEntry.getKey () + "\" value=\"" + aEntry.getValue () + "\" />");
-      }
-
-      if (!aNewExtToMimeType.isEmpty ())
-      {
-        System.out.println ("New items:");
-        for (final Map.Entry <String, String> aEntry : ContainerHelper.getSortedByKey (aNewExtToMimeType).entrySet ())
-          System.out.println ("  <map key=\"" + aEntry.getKey () + "\" value=\"" + aEntry.getValue () + "\" />");
-      }
+    {
+      final IMicroDocument aDstDoc2 = new MicroDocument ();
+      final IMicroElement eRoot2 = aDstDoc2.appendElement ("mapping");
+      for (final MimeTypeInfo aInfo : ContainerHelper.getSorted (aMgr.getAllMimeTypeInfos (),
+                                                                 new ComparatorMimeTypeInfoPrimaryMimeType ()))
+        eRoot2.appendChild (MicroTypeConverter.convertToMicroElement (aInfo, "item"));
+      System.out.println (MicroWriter.getXMLString (aDstDoc2));
     }
     System.out.println ("done");
   }

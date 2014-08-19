@@ -29,7 +29,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PhlocTestUtils;
 import com.helger.commons.text.IReadonlyMultiLingualText;
 import com.helger.commons.text.ISimpleMultiLingualText;
@@ -39,7 +39,7 @@ import com.helger.commons.text.ISimpleMultiLingualText;
  * 
  * @author Philip Helger
  */
-public final class ReadonlyMultiLingualTextTest extends AbstractPhlocTestCase
+public final class ReadonlyMultiLingualTextTest extends AbstractPHTestCase
 {
   @Test
   public void testCtor ()

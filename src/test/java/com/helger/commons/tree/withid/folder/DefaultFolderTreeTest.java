@@ -28,7 +28,7 @@ import org.junit.Test;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.combine.CombinatorStringWithSeparator;
 import com.helger.commons.combine.ICombinator;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PhlocTestUtils;
 
 /**
@@ -36,7 +36,7 @@ import com.helger.commons.mock.PhlocTestUtils;
  * 
  * @author Philip Helger
  */
-public final class DefaultFolderTreeTest extends AbstractPhlocTestCase
+public final class DefaultFolderTreeTest extends AbstractPHTestCase
 {
   @Test
   public void testBasic ()

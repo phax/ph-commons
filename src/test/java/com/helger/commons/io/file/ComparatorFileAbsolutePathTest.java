@@ -25,14 +25,14 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ComparatorFileAbsolutePath}.
  * 
  * @author Philip Helger
  */
-public final class ComparatorFileAbsolutePathTest extends AbstractPhlocTestCase
+public final class ComparatorFileAbsolutePathTest extends AbstractPHTestCase
 {
   @Test
   public void testIndexOfExtension ()

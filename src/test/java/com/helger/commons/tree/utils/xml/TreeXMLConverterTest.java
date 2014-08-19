@@ -27,7 +27,7 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.serialize.MicroReader;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.name.MockHasName;
 import com.helger.commons.tree.simple.DefaultTree;
 import com.helger.commons.tree.utils.sort.ComparatorDefaultTreeItemComparable;
@@ -38,7 +38,7 @@ import com.helger.commons.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
  * 
  * @author Philip Helger
  */
-public final class TreeXMLConverterTest extends AbstractPhlocTestCase
+public final class TreeXMLConverterTest extends AbstractPHTestCase
 {
   @Test
   public void testReadWrite ()

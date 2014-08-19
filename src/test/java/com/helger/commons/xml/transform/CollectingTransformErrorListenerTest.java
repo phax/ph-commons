@@ -32,7 +32,7 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PhlocTestUtils;
 import com.helger.commons.xml.XMLFactory;
 
@@ -41,7 +41,7 @@ import com.helger.commons.xml.XMLFactory;
  * 
  * @author Philip Helger
  */
-public final class CollectingTransformErrorListenerTest extends AbstractPhlocTestCase
+public final class CollectingTransformErrorListenerTest extends AbstractPHTestCase
 {
   @Test
   public void testAll () throws TransformerConfigurationException, TransformerException

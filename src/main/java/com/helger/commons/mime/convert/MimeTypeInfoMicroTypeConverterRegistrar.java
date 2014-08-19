@@ -1,0 +1,116 @@
+/**
+ * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+ * Copyright (C) 2014 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.helger.commons.mime.convert;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
+
+import com.helger.commons.annotations.IsSPIImplementation;
+import com.helger.commons.microdom.IMicroElement;
+import com.helger.commons.microdom.convert.IMicroTypeConverter;
+import com.helger.commons.microdom.convert.IMicroTypeConverterRegistrarSPI;
+import com.helger.commons.microdom.convert.IMicroTypeConverterRegistry;
+import com.helger.commons.microdom.impl.MicroElement;
+import com.helger.commons.microdom.utils.MicroUtils;
+import com.helger.commons.mime.MimeTypeInfo;
+import com.helger.commons.mime.MimeTypeInfo.Extension;
+
+/**
+ * {@link IMicroTypeConverterRegistrarSPI} implementation for
+ * {@link MimeTypeInfo}.
+ *
+ * @author Philip Helger
+ */
+@Immutable
+@IsSPIImplementation
+public final class MimeTypeInfoMicroTypeConverterRegistrar implements IMicroTypeConverterRegistrarSPI
+{
+  static final class MimeTypeInfoMicroTypeConverter implements IMicroTypeConverter
+  {
+    private static final String ELEMENT_MIMETYPE = "mime-type";
+    private static final String ELEMENT_COMMENT = "comment";
+    private static final String ELEMENT_PARENT_TYPE = "parent-type";
+    private static final String ELEMENT_GLOB = "glob";
+    private static final String ELEMENT_EXTENSION = "extension";
+    private static final String ATTR_SOURCE = "source";
+
+    @Nullable
+    public MimeTypeInfo convertToNative (@Nonnull final IMicroElement aElement)
+    {
+      final Set <String> aMimeTypes = new LinkedHashSet <String> ();
+      for (final IMicroElement eMimeType : aElement.getAllChildElements (ELEMENT_MIMETYPE))
+        aMimeTypes.add (eMimeType.getTextContentTrimmed ());
+
+      final String sComment = MicroUtils.getChildTextContent (aElement, ELEMENT_COMMENT);
+
+      final Set <String> aParentTypes = new LinkedHashSet <String> ();
+      for (final IMicroElement eParentType : aElement.getAllChildElements (ELEMENT_PARENT_TYPE))
+        aMimeTypes.add (eParentType.getTextContentTrimmed ());
+
+      final Set <String> aGlobs = new LinkedHashSet <String> ();
+      for (final IMicroElement eGlob : aElement.getAllChildElements (ELEMENT_GLOB))
+        aMimeTypes.add (eGlob.getTextContentTrimmed ());
+
+      final Set <Extension> aExtensions = new LinkedHashSet <Extension> ();
+      for (final IMicroElement eExtension : aElement.getAllChildElements (ELEMENT_EXTENSION))
+      {
+        final String sExt = eExtension.getTextContentTrimmed ();
+        final String sSource = eExtension.getAttribute (ATTR_SOURCE);
+        aExtensions.add (new Extension (sExt, sSource));
+      }
+
+      final String sSource = aElement.getAttribute (ATTR_SOURCE);
+
+      return new MimeTypeInfo (aMimeTypes, sComment, aParentTypes, aGlobs, aExtensions, sSource);
+    }
+
+    @Nullable
+    public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+                                                @Nullable final String sNamespaceURI,
+                                                @Nonnull final String sTagName)
+    {
+      final MimeTypeInfo aValue = (MimeTypeInfo) aObject;
+      final IMicroElement eRet = new MicroElement (sNamespaceURI, sTagName);
+      for (final String sName : aValue.getAllMimeTypes ())
+        eRet.appendElement (sNamespaceURI, ELEMENT_MIMETYPE).appendText (sName);
+      if (aValue.hasComment ())
+        eRet.appendElement (sNamespaceURI, ELEMENT_COMMENT).appendText (aValue.getComment ());
+      for (final String sParentType : aValue.getAllParentTypes ())
+        eRet.appendElement (sNamespaceURI, ELEMENT_PARENT_TYPE).appendText (sParentType);
+      for (final String sGlob : aValue.getAllGlobs ())
+        eRet.appendElement (sNamespaceURI, ELEMENT_GLOB).appendText (sGlob);
+      for (final Extension aExtension : aValue.getAllExtensions ())
+      {
+        eRet.appendElement (sNamespaceURI, ELEMENT_EXTENSION)
+            .setAttribute (ATTR_SOURCE, aExtension.getSource ())
+            .appendText (aExtension.getExtension ());
+      }
+      eRet.setAttribute (ATTR_SOURCE, aValue.getSource ());
+      return eRet;
+    }
+  }
+
+  public void registerMicroTypeConverter (@Nonnull final IMicroTypeConverterRegistry aRegistry)
+  {
+    aRegistry.registerMicroElementTypeConverter (MimeTypeInfo.class, new MimeTypeInfoMicroTypeConverter ());
+  }
+}

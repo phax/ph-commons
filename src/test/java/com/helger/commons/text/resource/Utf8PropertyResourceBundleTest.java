@@ -21,14 +21,14 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link Utf8PropertyResourceBundle}.
  * 
  * @author Philip Helger
  */
-public final class Utf8PropertyResourceBundleTest extends AbstractPhlocTestCase
+public final class Utf8PropertyResourceBundleTest extends AbstractPHTestCase
 {
   @Test
   public void testAll ()

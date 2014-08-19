@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.xml.XMLFactory;
 
 /**
@@ -33,7 +33,7 @@ import com.helger.commons.xml.XMLFactory;
  * 
  * @author Philip Helger
  */
-public final class EqualsImplementationRegistryTest extends AbstractPhlocTestCase
+public final class EqualsImplementationRegistryTest extends AbstractPHTestCase
 {
   @Test
   public void testEquals ()

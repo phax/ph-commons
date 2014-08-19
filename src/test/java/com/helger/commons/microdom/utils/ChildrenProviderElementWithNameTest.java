@@ -26,14 +26,14 @@ import org.junit.Test;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.impl.MicroDocument;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ChildrenProviderElementWithName}.
  * 
  * @author Philip Helger
  */
-public final class ChildrenProviderElementWithNameTest extends AbstractPhlocTestCase
+public final class ChildrenProviderElementWithNameTest extends AbstractPHTestCase
 {
   private static IMicroDocument _buildTestDoc ()
   {

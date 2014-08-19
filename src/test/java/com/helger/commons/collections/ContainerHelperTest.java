@@ -113,7 +113,7 @@ import com.helger.commons.collections.multimap.MultiHashMapArrayListBased;
 import com.helger.commons.collections.multimap.MultiHashMapHashSetBased;
 import com.helger.commons.compare.ComparatorString;
 import com.helger.commons.compare.ESortOrder;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -122,7 +122,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-public final class ContainerHelperTest extends AbstractPhlocTestCase
+public final class ContainerHelperTest extends AbstractPHTestCase
 {
   @Test
   public void testGetNotNull ()

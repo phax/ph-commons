@@ -77,7 +77,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -87,7 +87,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @author Philip Helger
  */
 @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
-public final class ArrayHelperTest extends AbstractPhlocTestCase
+public final class ArrayHelperTest extends AbstractPHTestCase
 {
   @Test
   public void testGetComponentClass ()

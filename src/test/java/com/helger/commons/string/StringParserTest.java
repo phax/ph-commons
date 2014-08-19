@@ -27,7 +27,7 @@ import java.math.BigInteger;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PhlocAssert;
 import com.helger.commons.mutable.Wrapper;
 
@@ -38,7 +38,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-public final class StringParserTest extends AbstractPhlocTestCase
+public final class StringParserTest extends AbstractPHTestCase
 {
   @Test
   @SuppressFBWarnings (value = "DM_BOOLEAN_CTOR")

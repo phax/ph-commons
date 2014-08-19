@@ -27,7 +27,7 @@ import java.util.regex.PatternSyntaxException;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -36,7 +36,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * 
  * @author Philip Helger
  */
-public final class RegExPoolTest extends AbstractPhlocTestCase
+public final class RegExPoolTest extends AbstractPHTestCase
 {
   /**
    * Test method getPattern

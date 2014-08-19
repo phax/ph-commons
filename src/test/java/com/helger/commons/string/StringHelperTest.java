@@ -39,7 +39,7 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.io.streams.NonBlockingStringWriter;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -48,7 +48,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * 
  * @author Philip Helger
  */
-public final class StringHelperTest extends AbstractPhlocTestCase
+public final class StringHelperTest extends AbstractPHTestCase
 {
   @Test
   public void testHasTextAndHasNoText ()

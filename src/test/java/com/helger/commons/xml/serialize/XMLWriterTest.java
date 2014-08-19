@@ -33,7 +33,7 @@ import org.xml.sax.SAXException;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PhlocTestUtils;
 import com.helger.commons.xml.DefaultXMLIterationHandler;
 import com.helger.commons.xml.EXMLVersion;
@@ -49,7 +49,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * 
  * @author Philip Helger
  */
-public final class XMLWriterTest extends AbstractPhlocTestCase
+public final class XMLWriterTest extends AbstractPHTestCase
 {
   private static final String DOCTYPE_XHTML10_QNAME = "-//W3C//DTD XHTML 1.0 Strict//EN";
   private static final String DOCTYPE_XHTML10_URI = "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd";

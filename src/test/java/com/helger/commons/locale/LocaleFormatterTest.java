@@ -31,7 +31,7 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PhlocAssert;
 import com.helger.commons.string.StringParser;
 
@@ -40,7 +40,7 @@ import com.helger.commons.string.StringParser;
  * 
  * @author Philip Helger
  */
-public final class LocaleFormatterTest extends AbstractPhlocTestCase
+public final class LocaleFormatterTest extends AbstractPHTestCase
 {
   @Test
   public void testGetFormatted_Double ()

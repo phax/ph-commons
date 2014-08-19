@@ -27,14 +27,14 @@ import java.util.Collection;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link MimeTypeDeterminator}
  * 
  * @author Philip Helger
  */
-public final class MimeTypeDeterminatorTest extends AbstractPhlocTestCase
+public final class MimeTypeDeterminatorTest extends AbstractPHTestCase
 {
   /**
    * Test for method getMIMETypeFromBytes

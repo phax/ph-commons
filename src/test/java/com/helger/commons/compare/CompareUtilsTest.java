@@ -24,14 +24,14 @@ import java.text.Collator;
 import org.junit.Test;
 
 import com.helger.commons.locale.ComparatorLocale;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link CompareUtils}.
  * 
  * @author Philip Helger
  */
-public final class CompareUtilsTest extends AbstractPhlocTestCase
+public final class CompareUtilsTest extends AbstractPHTestCase
 {
   @Test
   public void testNullSafeCompare ()

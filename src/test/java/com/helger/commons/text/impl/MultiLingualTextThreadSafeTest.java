@@ -31,7 +31,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PhlocTestUtils;
 import com.helger.commons.text.IMultiLingualText;
 import com.helger.commons.text.IReadonlyMultiLingualText;
@@ -41,7 +41,7 @@ import com.helger.commons.text.IReadonlyMultiLingualText;
  * 
  * @author Philip Helger
  */
-public final class MultiLingualTextThreadSafeTest extends AbstractPhlocTestCase
+public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
 {
   @Test
   public void testCtor ()

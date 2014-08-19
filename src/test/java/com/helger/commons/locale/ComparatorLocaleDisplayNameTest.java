@@ -25,14 +25,14 @@ import java.util.Set;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ComparatorLocaleDisplayName}.
  * 
  * @author Philip Helger
  */
-public final class ComparatorLocaleDisplayNameTest extends AbstractPhlocTestCase
+public final class ComparatorLocaleDisplayNameTest extends AbstractPHTestCase
 {
   @Test
   public void testAll ()

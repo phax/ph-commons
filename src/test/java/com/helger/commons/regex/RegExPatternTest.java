@@ -21,14 +21,14 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for {@link RegExPattern}.
  * 
  * @author Philip Helger
  */
-public final class RegExPatternTest extends AbstractPhlocTestCase
+public final class RegExPatternTest extends AbstractPHTestCase
 {
   /**
    * Test method checkPatternConsistency

@@ -27,14 +27,14 @@ import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link Utf8ResourceBundle}.
  * 
  * @author Philip Helger
  */
-public final class Utf8ResourceBundleTest extends AbstractPhlocTestCase
+public final class Utf8ResourceBundleTest extends AbstractPHTestCase
 {
   @Test
   public void testAll ()

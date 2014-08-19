@@ -23,14 +23,14 @@ import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.compare.ESortOrder;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ComparatorThreadName}.
  * 
  * @author Philip Helger
  */
-public final class ComparatorThreadNameTest extends AbstractPhlocTestCase
+public final class ComparatorThreadNameTest extends AbstractPHTestCase
 {
   @Test
   public void testBasic ()

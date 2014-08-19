@@ -38,7 +38,7 @@ import org.w3c.dom.Node;
 
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.collections.iterate.IterableIterator;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.xml.xpath.XPathExpressionHelper;
 
 /**
@@ -46,7 +46,7 @@ import com.helger.commons.xml.xpath.XPathExpressionHelper;
  * 
  * @author Philip Helger
  */
-public final class XMLHelperTest extends AbstractPhlocTestCase
+public final class XMLHelperTest extends AbstractPHTestCase
 {
   private static final String TEST_NS = "http://www.phloc.com/dev/unittests/commons/";
 

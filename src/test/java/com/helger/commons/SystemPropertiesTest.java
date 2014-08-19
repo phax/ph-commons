@@ -28,14 +28,14 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link SystemProperties}
  * 
  * @author Philip Helger
  */
-public final class SystemPropertiesTest extends AbstractPhlocTestCase
+public final class SystemPropertiesTest extends AbstractPHTestCase
 {
   @Test
   public void testGetAll ()

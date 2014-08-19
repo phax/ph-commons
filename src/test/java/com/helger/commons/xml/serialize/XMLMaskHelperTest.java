@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.xml.EXMLCharMode;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 
@@ -33,7 +33,7 @@ import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
  * 
  * @author Philip Helger
  */
-public final class XMLMaskHelperTest extends AbstractPhlocTestCase
+public final class XMLMaskHelperTest extends AbstractPHTestCase
 {
   @Test
   public void testGetMaskedXMLText ()

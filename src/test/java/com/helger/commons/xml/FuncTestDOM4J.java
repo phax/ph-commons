@@ -29,7 +29,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.xml.serialize.XMLWriter;
 
 /**
@@ -37,7 +37,7 @@ import com.helger.commons.xml.serialize.XMLWriter;
  *
  * @author Philip Helger
  */
-public final class FuncTestDOM4J extends AbstractPhlocTestCase
+public final class FuncTestDOM4J extends AbstractPHTestCase
 {
   @Test
   public void testMisc ()

@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPhlocTestCase;
+import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PhlocTestUtils;
 
 /**
@@ -31,7 +31,7 @@ import com.helger.commons.mock.PhlocTestUtils;
  * 
  * @author Philip Helger
  */
-public final class MimeTypeParameterTest extends AbstractPhlocTestCase
+public final class MimeTypeParameterTest extends AbstractPHTestCase
 {
   @Test
   public void testBasic ()
