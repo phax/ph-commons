@@ -29,6 +29,16 @@ public final class MimeTypeInfo
     private final MimeType m_aMimeType;
     private final String m_sSource;
 
+    public MimeTypeWithSource (@Nonnull final String sMimeType)
+    {
+      this (MimeTypeParser.parseMimeType (sMimeType), (String) null);
+    }
+
+    public MimeTypeWithSource (@Nonnull final MimeType aMimeType)
+    {
+      this (aMimeType, (String) null);
+    }
+
     public MimeTypeWithSource (@Nonnull final MimeType aMimeType, @Nullable final String sSource)
     {
       m_aMimeType = ValueEnforcer.notNull (aMimeType, "MimeType");
@@ -86,6 +96,11 @@ public final class MimeTypeInfo
     private final String m_sExt;
     private final String m_sSource;
 
+    public ExtensionWithSource (@Nonnull final String sExt)
+    {
+      this (sExt, (String) null);
+    }
+
     public ExtensionWithSource (@Nonnull final String sExt, @Nullable final String sSource)
     {
       m_sExt = ValueEnforcer.notNull (sExt, "Extension");
@@ -102,6 +117,19 @@ public final class MimeTypeInfo
     public String getSource ()
     {
       return m_sSource;
+    }
+
+    public boolean matches (@Nonnull @Nonempty final String sExtension)
+    {
+      if (m_sExt.contains (sExtension))
+        return true;
+
+      // Especially on Windows, sometimes file extensions like "JPG" can be
+      // found. Therefore also test for the lowercase version of the extension.
+      if (m_sExt.contains (sExtension.toLowerCase (Locale.US)))
+        return true;
+
+      return false;
     }
 
     @Override
@@ -222,13 +250,9 @@ public final class MimeTypeInfo
   {
     if (StringHelper.hasText (sExtension))
     {
-      if (m_aExtensions.contains (sExtension))
-        return true;
-
-      // Especially on Windows, sometimes file extensions like "JPG" can be
-      // found. Therefore also test for the lowercase version of the extension.
-      if (m_aExtensions.contains (sExtension.toLowerCase (Locale.US)))
-        return true;
+      for (final ExtensionWithSource aExtension : m_aExtensions)
+        if (aExtension.matches (sExtension))
+          return true;
     }
     return false;
   }

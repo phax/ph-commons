@@ -86,11 +86,11 @@ public final class MainReadSharedMimeInfo
       final Set <MimeTypeWithSource> aLocalNames = new LinkedHashSet <MimeTypeWithSource> ();
 
       // Names
-      aLocalNames.add (new MimeTypeWithSource (MimeTypeParser.parseMimeType (sMIMEType), "shared-mime-info"));
+      aLocalNames.add (new MimeTypeWithSource (sMIMEType));
       for (final IMicroElement eSrcChild : eSrcMimeType.getAllChildElements (NS, "alias"))
       {
         final String sAlias = eSrcChild.getAttribute ("type");
-        aLocalNames.add (new MimeTypeWithSource (MimeTypeParser.parseMimeType (sAlias), "shared-mime-info"));
+        aLocalNames.add (new MimeTypeWithSource (sAlias));
       }
 
       // Description
@@ -119,7 +119,7 @@ public final class MainReadSharedMimeInfo
         if (RegExHelper.stringMatchesPattern ("\\*\\.[0-9a-zA-Z]+", sPattern))
         {
           final String sExt = sPattern.substring (2);
-          aExts.add (new ExtensionWithSource (sExt, "shared-mime-info"));
+          aExts.add (new ExtensionWithSource (sExt));
         }
         else
           aGlobs.add (sPattern);
@@ -187,12 +187,11 @@ public final class MainReadSharedMimeInfo
         else
         {
           // Create a new entry
-          aMgr.registerMimeType (new MimeTypeInfo (ContainerHelper.newSet (new MimeTypeWithSource (MimeTypeParser.parseMimeType (sOldMimeType),
-                                                                                                   "old")),
+          aMgr.registerMimeType (new MimeTypeInfo (ContainerHelper.newSet (new MimeTypeWithSource (sOldMimeType)),
                                                    null,
                                                    new HashSet <String> (),
                                                    new HashSet <String> (),
-                                                   ContainerHelper.newSet (new ExtensionWithSource (sOldExt, "old")),
+                                                   ContainerHelper.newSet (new ExtensionWithSource (sOldExt)),
                                                    "old"));
           if (false)
             System.out.println ("Creating new: " + sOldMimeType + " = '" + sOldExt + "'");
