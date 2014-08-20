@@ -1,0 +1,4137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+  <item source="shared-mime-info">
+    <mime-type>application/andrew-inset</mime-type>
+    <comment>ATK inset</comment>
+    <extension>ez</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/annodex</mime-type>
+    <mime-type>application/x-annodex</mime-type>
+    <comment>Annodex exchange format</comment>
+    <extension>anx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/atom+xml</mime-type>
+    <comment>Atom syndication feed</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>atom</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/clariscad</mime-type>
+    <extension>ccad</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/dicom</mime-type>
+    <comment>DICOM image</comment>
+    <glob>dicomdir</glob>
+    <extension>dcm</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/drafting</mime-type>
+    <extension>drw</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/dsptype</mime-type>
+    <extension>tsp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/ecmascript</mime-type>
+    <mime-type>text/ecmascript</mime-type>
+    <comment>ECMAScript program</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>es</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/envoy</mime-type>
+    <extension>evy</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/epub+zip</mime-type>
+    <comment>electronic book document</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>epub</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/font-woff</mime-type>
+    <comment>WOFF font</comment>
+    <extension>woff</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/fractals</mime-type>
+    <extension>fif</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/gml+xml</mime-type>
+    <comment>GML document</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>gml</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/gnunet-directory</mime-type>
+    <comment>GNUnet search file</comment>
+    <extension>gnd</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/gzip</mime-type>
+    <mime-type>application/x-gzip</mime-type>
+    <comment>Gzip archive</comment>
+    <extension>gz</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/hta</mime-type>
+    <extension>hta</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/i-deas</mime-type>
+    <extension>unv</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/illustrator</mime-type>
+    <comment>Adobe Illustrator document</comment>
+    <extension>ai</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/internet-property-stream</mime-type>
+    <extension>acx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/javascript</mime-type>
+    <mime-type>application/x-javascript</mime-type>
+    <mime-type>text/javascript</mime-type>
+    <comment>JavaScript program</comment>
+    <parent-type>application/ecmascript</parent-type>
+    <extension>js</extension>
+    <extension>jsm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/json</mime-type>
+    <comment>JSON document</comment>
+    <parent-type>application/javascript</parent-type>
+    <extension>json</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/mac-binhex40</mime-type>
+    <extension>hqx</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/mac-compactpro</mime-type>
+    <extension>cpt</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/mathematica</mime-type>
+    <mime-type>application/x-mathematica</mime-type>
+    <comment>Mathematica Notebook</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>nb</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/mathml+xml</mime-type>
+    <mime-type>text/mathml</mime-type>
+    <comment>MathML document</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>mml</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/mbox</mime-type>
+    <comment>mailbox file</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>mbox</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/metalink+xml</mime-type>
+    <comment>Metalink file</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>metalink</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/metalink4+xml</mime-type>
+    <comment>Metalink file</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>meta4</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/msword</mime-type>
+    <mime-type>application/vnd.ms-word</mime-type>
+    <mime-type>application/x-msword</mime-type>
+    <mime-type>zz-application/zz-winassoc-doc</mime-type>
+    <comment>Word document</comment>
+    <parent-type>application/x-ole-storage</parent-type>
+    <extension>doc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/msword-template</mime-type>
+    <comment>Word template</comment>
+    <parent-type>application/msword</parent-type>
+    <extension>dot</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/mxf</mime-type>
+    <comment>MXF video</comment>
+    <extension>mxf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/octet-stream</mime-type>
+    <comment>unknown</comment>
+    <extension>bin</extension>
+    <extension source="old"></extension>
+    <extension source="old">dms</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/oda</mime-type>
+    <comment>ODA document</comment>
+    <extension>oda</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/ogg</mime-type>
+    <mime-type>application/x-ogg</mime-type>
+    <comment>Ogg multimedia file</comment>
+    <extension>ogx</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/olescript</mime-type>
+    <extension>axs</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/oxps</mime-type>
+    <mime-type>application/vnd.ms-xpsdocument</mime-type>
+    <comment>XPS document</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>oxps</extension>
+    <extension>xps</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/pdf</mime-type>
+    <mime-type>application/x-pdf</mime-type>
+    <mime-type>image/pdf</mime-type>
+    <mime-type>application/acrobat</mime-type>
+    <comment>PDF document</comment>
+    <extension>pdf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/pgp-encrypted</mime-type>
+    <mime-type>application/pgp</mime-type>
+    <comment>PGP/MIME-encrypted message header</comment>
+    <extension>pgp</extension>
+    <extension>gpg</extension>
+    <extension>asc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/pgp-keys</mime-type>
+    <comment>PGP keys</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>skr</extension>
+    <extension>pkr</extension>
+    <extension>asc</extension>
+    <extension>pgp</extension>
+    <extension>gpg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/pgp-signature</mime-type>
+    <comment>detached OpenPGP signature</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>asc</extension>
+    <extension>sig</extension>
+    <extension>pgp</extension>
+    <extension>gpg</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/pics-rules</mime-type>
+    <extension>prf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/pkcs10</mime-type>
+    <comment>PKCS#10 certification request</comment>
+    <extension>p10</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/pkcs7-mime</mime-type>
+    <comment>PKCS#7 Message or Certificate</comment>
+    <extension>p7c</extension>
+    <extension>p7m</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/pkcs7-signature</mime-type>
+    <comment>detached S/MIME signature</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>p7s</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/pkcs8</mime-type>
+    <comment>PKCS#8 private key</comment>
+    <extension>p8</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/pkix-cert</mime-type>
+    <comment>X.509 certificate</comment>
+    <extension>cer</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/pkix-crl</mime-type>
+    <comment>Certificate revocation list</comment>
+    <extension>crl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/pkix-pkipath</mime-type>
+    <comment>PkiPath certification path</comment>
+    <extension>pkipath</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/postscript</mime-type>
+    <comment>PS document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>ps</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/pro_eng</mime-type>
+    <extension>prt</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/ram</mime-type>
+    <comment>RealMedia Metafile</comment>
+    <extension>ram</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/rdf+xml</mime-type>
+    <mime-type>text/rdf</mime-type>
+    <comment>RDF file</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>rdf</extension>
+    <extension>rdfs</extension>
+    <extension>owl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/relax-ng-compact-syntax</mime-type>
+    <mime-type>application/x-rnc</mime-type>
+    <comment>RELAX NG XML schema</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>rnc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/rss+xml</mime-type>
+    <mime-type>text/rss</mime-type>
+    <comment>RSS summary</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>rss</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/rtf</mime-type>
+    <mime-type>text/rtf</mime-type>
+    <comment>RTF document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>rtf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/sdp</mime-type>
+    <mime-type>application/x-sdp</mime-type>
+    <mime-type>application/vnd.sdp</mime-type>
+    <comment>SDP multicast stream file</comment>
+    <extension>sdp</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/set</mime-type>
+    <extension>set</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/set-payment-initiation</mime-type>
+    <extension>setpay</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/set-registration-initiation</mime-type>
+    <extension>setreg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/sieve</mime-type>
+    <comment>Sieve mail filter script</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>siv</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/smil</mime-type>
+    <mime-type>application/smil+xml</mime-type>
+    <comment>SMIL document</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>smil</extension>
+    <extension>smi</extension>
+    <extension>sml</extension>
+    <extension>kino</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/solids</mime-type>
+    <extension>sol</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/sql</mime-type>
+    <mime-type>text/x-sql</mime-type>
+    <comment>SQL code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>sql</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/STEP</mime-type>
+    <extension>step</extension>
+    <extension source="old">stp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.adobe.flash.movie</mime-type>
+    <mime-type>application/x-shockwave-flash</mime-type>
+    <mime-type>application/futuresplash</mime-type>
+    <comment>Shockwave Flash file</comment>
+    <extension>swf</extension>
+    <extension>spl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.android.package-archive</mime-type>
+    <comment>Android package</comment>
+    <parent-type>application/x-java-archive</parent-type>
+    <extension>apk</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.apple.mpegurl</mime-type>
+    <comment>HTTP Live Streaming playlist</comment>
+    <extension>m3u</extension>
+    <extension>m3u8</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.corel-draw</mime-type>
+    <mime-type>application/cdr</mime-type>
+    <mime-type>application/coreldraw</mime-type>
+    <mime-type>application/x-cdr</mime-type>
+    <mime-type>application/x-coreldraw</mime-type>
+    <mime-type>image/cdr</mime-type>
+    <mime-type>image/x-cdr</mime-type>
+    <mime-type>zz-application/zz-winassoc-cdr</mime-type>
+    <comment>Corel Draw drawing</comment>
+    <extension>cdr</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.emusic-emusic_package</mime-type>
+    <comment>eMusic download package</comment>
+    <extension>emp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.google-earth.kml+xml</mime-type>
+    <comment>KML geographic data</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>kml</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.google-earth.kmz</mime-type>
+    <comment>KML geographic compressed data</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>kmz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.hp-hpgl</mime-type>
+    <comment>HPGL file</comment>
+    <extension>hpgl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.hp-pcl</mime-type>
+    <comment>PCL file</comment>
+    <extension>pcl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.iccprofile</mime-type>
+    <comment>ICC profile</comment>
+    <extension>icc</extension>
+    <extension>icm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.lotus-1-2-3</mime-type>
+    <mime-type>application/x-lotus123</mime-type>
+    <mime-type>application/x-123</mime-type>
+    <mime-type>application/lotus123</mime-type>
+    <mime-type>application/wk1</mime-type>
+    <mime-type>zz-application/zz-winassoc-123</mime-type>
+    <comment>Lotus 1-2-3 spreadsheet</comment>
+    <extension>123</extension>
+    <extension>wk1</extension>
+    <extension>wk3</extension>
+    <extension>wk4</extension>
+    <extension>wks</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.lotus-wordpro</mime-type>
+    <comment>Lotus Word Pro</comment>
+    <extension>lwp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.mozilla.xul+xml</mime-type>
+    <comment>XUL interface document</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>xul</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-access</mime-type>
+    <mime-type>application/x-msaccess</mime-type>
+    <mime-type>application/msaccess</mime-type>
+    <mime-type>application/vnd.msaccess</mime-type>
+    <mime-type>application/mdb</mime-type>
+    <mime-type>application/x-mdb</mime-type>
+    <mime-type>zz-application/zz-winassoc-mdb</mime-type>
+    <comment>JET database</comment>
+    <extension>mdb</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-asf</mime-type>
+    <mime-type>video/x-ms-wm</mime-type>
+    <mime-type>video/x-ms-asf</mime-type>
+    <comment>ASF video</comment>
+    <extension>asf</extension>
+    <extension source="old">asr</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-cab-compressed</mime-type>
+    <mime-type>zz-application/zz-winassoc-cab</mime-type>
+    <comment>Microsoft Cabinet archive</comment>
+    <extension>cab</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-excel</mime-type>
+    <mime-type>application/msexcel</mime-type>
+    <mime-type>application/x-msexcel</mime-type>
+    <mime-type>zz-application/zz-winassoc-xls</mime-type>
+    <comment>Excel spreadsheet</comment>
+    <extension>xls</extension>
+    <extension>xlc</extension>
+    <extension>xll</extension>
+    <extension>xlm</extension>
+    <extension>xlw</extension>
+    <extension>xla</extension>
+    <extension>xlt</extension>
+    <extension>xld</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-excel.addin.macroEnabled.12</mime-type>
+    <comment>Excel add-in</comment>
+    <parent-type>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</parent-type>
+    <extension>xlam</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-excel.sheet.binary.macroEnabled.12</mime-type>
+    <comment>Excel 2007 binary spreadsheet</comment>
+    <parent-type>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</parent-type>
+    <extension>xlsb</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-excel.sheet.macroEnabled.12</mime-type>
+    <comment>Excel macro-enabled spreadsheet</comment>
+    <parent-type>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</parent-type>
+    <extension>xlsm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-excel.template.macroEnabled.12</mime-type>
+    <comment>Excel macro-enabled spreadsheet template</comment>
+    <parent-type>application/vnd.openxmlformats-officedocument.spreadsheetml.template</parent-type>
+    <extension>xltm</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/vnd.ms-fontobject</mime-type>
+    <extension>eot</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-htmlhelp</mime-type>
+    <mime-type>application/x-chm</mime-type>
+    <comment>CHM document</comment>
+    <extension>chm</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/vnd.ms-pkicertstore</mime-type>
+    <extension>sst</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/vnd.ms-pkiseccat</mime-type>
+    <extension>cat</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/vnd.ms-pkistl</mime-type>
+    <extension>stl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-powerpoint</mime-type>
+    <mime-type>application/powerpoint</mime-type>
+    <mime-type>application/mspowerpoint</mime-type>
+    <mime-type>application/x-mspowerpoint</mime-type>
+    <comment>PowerPoint presentation</comment>
+    <extension>ppz</extension>
+    <extension>ppt</extension>
+    <extension>pps</extension>
+    <extension>pot</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-powerpoint.addin.macroEnabled.12</mime-type>
+    <comment>PowerPoint add-in</comment>
+    <extension>ppam</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-powerpoint.presentation.macroEnabled.12</mime-type>
+    <comment>PowerPoint macro-enabled presentation</comment>
+    <parent-type>application/vnd.openxmlformats-officedocument.presentationml.presentation</parent-type>
+    <extension>pptm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-powerpoint.slide.macroEnabled.12</mime-type>
+    <comment>PowerPoint macro-enabled slide</comment>
+    <parent-type>application/vnd.openxmlformats-officedocument.presentationml.slide</parent-type>
+    <extension>sldm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-powerpoint.slideshow.macroEnabled.12</mime-type>
+    <comment>PowerPoint macro-enabled presentation</comment>
+    <parent-type>application/vnd.openxmlformats-officedocument.presentationml.slideshow</parent-type>
+    <extension>ppsm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-powerpoint.template.macroEnabled.12</mime-type>
+    <comment>PowerPoint macro-enabled presentation template</comment>
+    <parent-type>application/vnd.openxmlformats-officedocument.presentationml.template</parent-type>
+    <extension>potm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-publisher</mime-type>
+    <comment>Microsoft Publisher document</comment>
+    <parent-type>application/x-ole-storage</parent-type>
+    <extension>pub</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-tnef</mime-type>
+    <mime-type>application/ms-tnef</mime-type>
+    <comment>TNEF message</comment>
+    <glob>winmail.dat</glob>
+    <extension>tnef</extension>
+    <extension>tnf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-word.document.macroEnabled.12</mime-type>
+    <comment>Word macro-enabled document</comment>
+    <parent-type>application/vnd.openxmlformats-officedocument.wordprocessingml.document</parent-type>
+    <extension>docm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-word.template.macroEnabled.12</mime-type>
+    <comment>Word macro-enabled document template</comment>
+    <parent-type>application/vnd.openxmlformats-officedocument.wordprocessingml.template</parent-type>
+    <extension>dotm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-works</mime-type>
+    <comment>Microsoft Works document</comment>
+    <parent-type>application/x-ole-storage</parent-type>
+    <extension>wcm</extension>
+    <extension>wdb</extension>
+    <extension>wks</extension>
+    <extension>wps</extension>
+    <extension>xlr</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-wpl</mime-type>
+    <comment>WPL playlist</comment>
+    <extension>wpl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.nintendo.snes.rom</mime-type>
+    <mime-type>application/x-snes-rom</mime-type>
+    <comment>Super NES ROM</comment>
+    <extension>sfc</extension>
+    <extension>smc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.chart</mime-type>
+    <comment>ODC chart</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>odc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.chart-template</mime-type>
+    <comment>ODC template</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>otc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.database</mime-type>
+    <mime-type>application/vnd.sun.xml.base</mime-type>
+    <comment>ODB database</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>odb</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.formula</mime-type>
+    <comment>ODF formula</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>odf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.formula-template</mime-type>
+    <comment>ODF template</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>otf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.graphics</mime-type>
+    <comment>ODG drawing</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>odg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.graphics-flat-xml</mime-type>
+    <comment>ODG drawing (Flat XML)</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>fodg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.graphics-template</mime-type>
+    <comment>ODG template</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>otg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.image</mime-type>
+    <comment>ODI image</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>odi</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.presentation</mime-type>
+    <comment>ODP presentation</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>odp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.presentation-flat-xml</mime-type>
+    <comment>ODP presentation (Flat XML)</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>fodp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.presentation-template</mime-type>
+    <comment>ODP template</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>otp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.spreadsheet</mime-type>
+    <comment>ODS spreadsheet</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>ods</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.spreadsheet-flat-xml</mime-type>
+    <comment>ODS spreadsheet (Flat XML)</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>fods</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.spreadsheet-template</mime-type>
+    <comment>ODS template</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>ots</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.text</mime-type>
+    <comment>ODT document</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>odt</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.text-flat-xml</mime-type>
+    <comment>ODT document (Flat XML)</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>fodt</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.text-master</mime-type>
+    <comment>ODM document</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>odm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.text-template</mime-type>
+    <comment>ODT template</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>ott</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.oasis.opendocument.text-web</mime-type>
+    <comment>OTH template</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>oth</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.openofficeorg.extension</mime-type>
+    <comment>OpenOffice.org extension</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>oxt</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.openxmlformats-officedocument.presentationml.presentation</mime-type>
+    <comment>PowerPoint 2007 presentation</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>pptx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.openxmlformats-officedocument.presentationml.slide</mime-type>
+    <comment>PowerPoint 2007 slide</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>sldx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.openxmlformats-officedocument.presentationml.slideshow</mime-type>
+    <comment>PowerPoint 2007 show</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>ppsx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.openxmlformats-officedocument.presentationml.template</mime-type>
+    <comment>PowerPoint 2007 presentation template</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>potx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</mime-type>
+    <comment>Excel 2007 spreadsheet</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>xlsx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.openxmlformats-officedocument.spreadsheetml.template</mime-type>
+    <comment>Excel 2007 spreadsheet template</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>xltx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.openxmlformats-officedocument.wordprocessingml.document</mime-type>
+    <comment>Word 2007 document</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>docx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.openxmlformats-officedocument.wordprocessingml.template</mime-type>
+    <comment>Word 2007 document template</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>dotx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.palm</mime-type>
+    <mime-type>application/x-palm-database</mime-type>
+    <comment>Palm OS database</comment>
+    <extension>prc</extension>
+    <extension>pdb</extension>
+    <extension>pqa</extension>
+    <extension>oprc</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/vnd.rim.cod</mime-type>
+    <extension>cod</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.rn-realmedia</mime-type>
+    <comment>RealMedia document</comment>
+    <extension>rm</extension>
+    <extension>rmj</extension>
+    <extension>rmm</extension>
+    <extension>rms</extension>
+    <extension>rmx</extension>
+    <extension>rmvb</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.stardivision.calc</mime-type>
+    <comment>StarCalc spreadsheet</comment>
+    <extension>sdc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.stardivision.chart</mime-type>
+    <comment>StarChart chart</comment>
+    <extension>sds</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.stardivision.draw</mime-type>
+    <comment>StarDraw drawing</comment>
+    <extension>sda</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.stardivision.impress</mime-type>
+    <comment>StarImpress presentation</comment>
+    <extension>sdd</extension>
+    <extension>sdp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.stardivision.mail</mime-type>
+    <comment>StarMail email</comment>
+    <extension>smd</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.stardivision.math</mime-type>
+    <comment>StarMath formula</comment>
+    <extension>smf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.stardivision.writer</mime-type>
+    <mime-type>application/vnd.stardivision.writer-global</mime-type>
+    <comment>StarWriter document</comment>
+    <extension>sdw</extension>
+    <extension>vor</extension>
+    <extension>sgl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.sun.xml.calc</mime-type>
+    <comment>OpenOffice Calc spreadsheet</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>sxc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.sun.xml.calc.template</mime-type>
+    <comment>OpenOffice Calc template</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>stc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.sun.xml.draw</mime-type>
+    <comment>OpenOffice Draw drawing</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>sxd</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.sun.xml.draw.template</mime-type>
+    <comment>OpenOffice Draw template</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>std</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.sun.xml.impress</mime-type>
+    <comment>OpenOffice Impress presentation</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>sxi</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.sun.xml.impress.template</mime-type>
+    <comment>OpenOffice Impress template</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>sti</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.sun.xml.math</mime-type>
+    <comment>OpenOffice Math formula</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>sxm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.sun.xml.writer</mime-type>
+    <comment>OpenOffice Writer document</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>sxw</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.sun.xml.writer.global</mime-type>
+    <comment>OpenOffice Writer global document</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>sxg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.sun.xml.writer.template</mime-type>
+    <comment>OpenOffice Writer template</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>stw</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.symbian.install</mime-type>
+    <comment>SIS package</comment>
+    <extension>sis</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.tcpdump.pcap</mime-type>
+    <mime-type>application/x-pcap</mime-type>
+    <mime-type>application/pcap</mime-type>
+    <comment>Network Packet Capture</comment>
+    <extension>pcap</extension>
+    <extension>cap</extension>
+    <extension>dmp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.visio</mime-type>
+    <comment>Microsoft Visio document</comment>
+    <parent-type>application/x-ole-storage</parent-type>
+    <extension>vsd</extension>
+    <extension>vst</extension>
+    <extension>vsw</extension>
+    <extension>vss</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.wordperfect</mime-type>
+    <mime-type>application/x-wordperfect</mime-type>
+    <mime-type>application/wordperfect</mime-type>
+    <comment>WordPerfect document</comment>
+    <extension>wp</extension>
+    <extension>wp4</extension>
+    <extension>wp5</extension>
+    <extension>wp6</extension>
+    <extension>wpd</extension>
+    <extension>wpp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/winhlp</mime-type>
+    <mime-type>zz-application/zz-winassoc-hlp</mime-type>
+    <comment>WinHelp help file</comment>
+    <extension>hlp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-7z-compressed</mime-type>
+    <comment>7-zip archive</comment>
+    <extension>7z</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-abiword</mime-type>
+    <comment>AbiWord document</comment>
+    <parent-type>application/xml</parent-type>
+    <glob>*.abw.CRASHED</glob>
+    <glob>*.abw.gz</glob>
+    <extension>abw</extension>
+    <extension>zabw</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-ace</mime-type>
+    <comment>ACE archive</comment>
+    <extension>ace</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-alz</mime-type>
+    <comment>Alzip archive</comment>
+    <extension>alz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-amipro</mime-type>
+    <comment>Lotus AmiPro document</comment>
+    <extension>sam</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-aportisdoc</mime-type>
+    <comment>AportisDoc document</comment>
+    <parent-type>application/x-palm-database</parent-type>
+    <extension>pdb</extension>
+    <extension>pdc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-apple-diskimage</mime-type>
+    <comment>Apple disk image</comment>
+    <extension>dmg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-applix-spreadsheet</mime-type>
+    <comment>Applix Spreadsheets spreadsheet</comment>
+    <extension>as</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-applix-word</mime-type>
+    <comment>Applix Words document</comment>
+    <extension>aw</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-archive</mime-type>
+    <comment>AR archive</comment>
+    <extension>a</extension>
+    <extension>ar</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-arj</mime-type>
+    <comment>ARJ archive</comment>
+    <extension>arj</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-asp</mime-type>
+    <comment>ASP page</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>asp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-awk</mime-type>
+    <comment>AWK script</comment>
+    <parent-type>application/x-executable</parent-type>
+    <parent-type>text/plain</parent-type>
+    <extension>awk</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-bcpio</mime-type>
+    <comment>BCPIO document</comment>
+    <extension>bcpio</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-bittorrent</mime-type>
+    <comment>BitTorrent seed file</comment>
+    <extension>torrent</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-blender</mime-type>
+    <comment>Blender scene</comment>
+    <extension>blender</extension>
+    <extension>blend</extension>
+    <extension>BLEND</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-bzdvi</mime-type>
+    <comment>TeX DVI document (bzip-compressed)</comment>
+    <parent-type>application/x-bzip</parent-type>
+    <glob>*.dvi.bz2</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-bzip</mime-type>
+    <mime-type>application/x-bzip2</mime-type>
+    <comment>Bzip archive</comment>
+    <extension>bz2</extension>
+    <extension>bz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-bzip-compressed-tar</mime-type>
+    <comment>Tar archive (bzip-compressed)</comment>
+    <parent-type>application/x-bzip</parent-type>
+    <glob>*.tar.bz2</glob>
+    <glob>*.tar.bz</glob>
+    <extension>tbz2</extension>
+    <extension>tbz</extension>
+    <extension>tb2</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-bzpdf</mime-type>
+    <comment>PDF document (bzip-compressed)</comment>
+    <parent-type>application/x-bzip</parent-type>
+    <glob>*.pdf.bz2</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-bzpostscript</mime-type>
+    <comment>PostScript document (bzip-compressed)</comment>
+    <parent-type>application/x-bzip</parent-type>
+    <glob>*.ps.bz2</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-cb7</mime-type>
+    <comment>comic book archive</comment>
+    <parent-type>application/x-7z-compressed</parent-type>
+    <extension>cb7</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-cbr</mime-type>
+    <comment>comic book archive</comment>
+    <parent-type>application/x-rar</parent-type>
+    <extension>cbr</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-cbt</mime-type>
+    <comment>comic book archive</comment>
+    <parent-type>application/x-tar</parent-type>
+    <extension>cbt</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-cbz</mime-type>
+    <comment>comic book archive</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>cbz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-ccmx</mime-type>
+    <comment>CCMX color correction file</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>ccmx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-cd-image</mime-type>
+    <mime-type>application/x-iso9660-image</mime-type>
+    <comment>raw CD image</comment>
+    <parent-type>application/x-raw-disk-image</parent-type>
+    <extension>iso</extension>
+    <extension>iso9660</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-cdlink</mime-type>
+    <extension>vcd</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-cdrdao-toc</mime-type>
+    <comment>CD Table Of Contents</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>toc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-chess-pgn</mime-type>
+    <comment>PGN chess game notation</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>pgn</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-cisco-vpn-settings</mime-type>
+    <comment>Cisco VPN Settings</comment>
+    <extension>pcf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-compress</mime-type>
+    <comment>UNIX-compressed file</comment>
+    <extension>Z</extension>
+    <extension source="old">z</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-compressed-tar</mime-type>
+    <comment>Tar archive (gzip-compressed)</comment>
+    <parent-type>application/gzip</parent-type>
+    <glob>*.tar.gz</glob>
+    <extension>tgz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-core</mime-type>
+    <comment>program crash data</comment>
+    <glob>core</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-cpio</mime-type>
+    <comment>CPIO archive</comment>
+    <extension>cpio</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-cpio-compressed</mime-type>
+    <comment>CPIO archive (gzip-compressed)</comment>
+    <parent-type>application/gzip</parent-type>
+    <glob>*.cpio.gz</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-csh</mime-type>
+    <comment>C shell script</comment>
+    <parent-type>application/x-shellscript</parent-type>
+    <parent-type>text/plain</parent-type>
+    <extension>csh</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-cue</mime-type>
+    <comment>CD image cuesheet</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>cue</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-dar</mime-type>
+    <comment>DAR archive</comment>
+    <extension>dar</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-dbf</mime-type>
+    <mime-type>application/x-dbase</mime-type>
+    <mime-type>application/dbf</mime-type>
+    <mime-type>application/dbase</mime-type>
+    <comment>Xbase document</comment>
+    <extension>dbf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-dc-rom</mime-type>
+    <comment>Dreamcast ROM</comment>
+    <extension>dc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-deb</mime-type>
+    <mime-type>application/x-debian-package</mime-type>
+    <comment>Debian package</comment>
+    <extension>deb</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-designer</mime-type>
+    <comment>Qt Designer file</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>ui</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-desktop</mime-type>
+    <mime-type>application/x-gnome-app-info</mime-type>
+    <comment>desktop configuration file</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>desktop</extension>
+    <extension>kdelnk</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-dia-diagram</mime-type>
+    <comment>Dia diagram</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>dia</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-dia-shape</mime-type>
+    <comment>Dia shape</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>shape</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-director</mime-type>
+    <extension>dir</extension>
+    <extension source="old">dxr</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-docbook+xml</mime-type>
+    <mime-type>application/docbook+xml</mime-type>
+    <mime-type>application/vnd.oasis.docbook+xml</mime-type>
+    <comment>DocBook document</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>docbook</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-dvi</mime-type>
+    <comment>TeX DVI document</comment>
+    <extension>dvi</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-e-theme</mime-type>
+    <comment>Enlightenment theme</comment>
+    <extension>etheme</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-egon</mime-type>
+    <comment>Egon Animator animation</comment>
+    <extension>egon</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-fictionbook+xml</mime-type>
+    <mime-type>application/x-fictionbook</mime-type>
+    <comment>FictionBook document</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>fb2</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-fluid</mime-type>
+    <comment>FLTK Fluid file</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>fl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-font-afm</mime-type>
+    <comment>Adobe font metrics</comment>
+    <extension>afm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-font-bdf</mime-type>
+    <comment>BDF font</comment>
+    <extension>bdf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-font-linux-psf</mime-type>
+    <comment>Linux PSF console font</comment>
+    <extension>psf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-font-otf</mime-type>
+    <comment>OpenType font</comment>
+    <extension>otf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-font-pcf</mime-type>
+    <comment>PCF font</comment>
+    <glob>*.pcf.Z</glob>
+    <glob>*.pcf.gz</glob>
+    <extension>pcf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-font-speedo</mime-type>
+    <comment>Speedo font</comment>
+    <extension>spd</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-font-ttf</mime-type>
+    <comment>TrueType font</comment>
+    <extension>ttf</extension>
+    <extension>ttc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-font-ttx</mime-type>
+    <comment>TrueType XML font</comment>
+    <parent-type>text/xml</parent-type>
+    <extension>ttx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-font-type1</mime-type>
+    <comment>Postscript type-1 font</comment>
+    <parent-type>application/postscript</parent-type>
+    <extension>pfa</extension>
+    <extension>pfb</extension>
+    <extension>gsf</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-freelance</mime-type>
+    <extension>pre</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-gameboy-rom</mime-type>
+    <comment>Game Boy ROM</comment>
+    <extension>gb</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-gamecube-rom</mime-type>
+    <mime-type>application/x-gamecube-iso-image</mime-type>
+    <comment>GameCube disc image</comment>
+    <extension>iso</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-gba-rom</mime-type>
+    <comment>Game Boy Advance ROM</comment>
+    <extension>gba</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-gedcom</mime-type>
+    <mime-type>text/gedcom</mime-type>
+    <comment>GEDCOM family history</comment>
+    <extension>ged</extension>
+    <extension>gedcom</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-genesis-rom</mime-type>
+    <comment>Genesis ROM</comment>
+    <extension>gen</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-gettext-translation</mime-type>
+    <comment>translated messages (machine-readable)</comment>
+    <extension>gmo</extension>
+    <extension>mo</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-glade</mime-type>
+    <comment>Glade project</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>glade</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-gnucash</mime-type>
+    <comment>GnuCash financial data</comment>
+    <extension>gnucash</extension>
+    <extension>gnc</extension>
+    <extension>xac</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-gnumeric</mime-type>
+    <comment>Gnumeric spreadsheet</comment>
+    <extension>gnumeric</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-gnuplot</mime-type>
+    <comment>Gnuplot document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>gp</extension>
+    <extension>gplt</extension>
+    <extension>gnuplot</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-go-sgf</mime-type>
+    <comment>SGF record</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>sgf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-graphite</mime-type>
+    <comment>Graphite scientific graph</comment>
+    <extension>gra</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-gtk-builder</mime-type>
+    <comment>GTK+ Builder</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>ui</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-gz-font-linux-psf</mime-type>
+    <comment>Linux PSF console font (gzip-compressed)</comment>
+    <parent-type>application/gzip</parent-type>
+    <glob>*.psf.gz</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-gzdvi</mime-type>
+    <comment>TeX DVI document (gzip-compressed)</comment>
+    <parent-type>application/gzip</parent-type>
+    <glob>*.dvi.gz</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-gzpdf</mime-type>
+    <comment>PDF document (gzip-compressed)</comment>
+    <parent-type>application/gzip</parent-type>
+    <glob>*.pdf.gz</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-gzpostscript</mime-type>
+    <comment>PostScript document (gzip-compressed)</comment>
+    <parent-type>application/gzip</parent-type>
+    <glob>*.ps.gz</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-hdf</mime-type>
+    <comment>HDF document</comment>
+    <extension>hdf</extension>
+    <extension>hdf4</extension>
+    <extension>h4</extension>
+    <extension>hdf5</extension>
+    <extension>h5</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-hwp</mime-type>
+    <mime-type>application/vnd.haansoft-hwp</mime-type>
+    <comment>Haansoft Hangul document</comment>
+    <extension>hwp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-hwt</mime-type>
+    <mime-type>application/vnd.haansoft-hwt</mime-type>
+    <comment>Haansoft Hangul document template</comment>
+    <extension>hwt</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-ica</mime-type>
+    <comment>Citrix ICA settings file</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>ica</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-internet-signup</mime-type>
+    <extension>isp</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-iphone</mime-type>
+    <extension>iii</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-ipix</mime-type>
+    <extension>ipx</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-ipscript</mime-type>
+    <extension>ips</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-it87</mime-type>
+    <comment>IT 8.7 color calibration file</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>it87</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-iwork-keynote-sffkey</mime-type>
+    <mime-type>application/vnd.apple.keynote</mime-type>
+    <comment>Apple Keynote 5 presentation</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>key</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-java</mime-type>
+    <mime-type>application/java</mime-type>
+    <mime-type>application/java-byte-code</mime-type>
+    <mime-type>application/java-vm</mime-type>
+    <mime-type>application/x-java-class</mime-type>
+    <mime-type>application/x-java-vm</mime-type>
+    <comment>Java class</comment>
+    <extension>class</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-java-archive</mime-type>
+    <mime-type>application/x-jar</mime-type>
+    <mime-type>application/java-archive</mime-type>
+    <comment>Java archive</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>jar</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-java-jce-keystore</mime-type>
+    <comment>Java JCE keystore</comment>
+    <extension>jceks</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-java-jnlp-file</mime-type>
+    <comment>JNLP file</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>jnlp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-java-keystore</mime-type>
+    <comment>Java keystore</comment>
+    <glob>cacerts</glob>
+    <extension>jks</extension>
+    <extension>ks</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-java-pack200</mime-type>
+    <comment>Pack200 Java archive</comment>
+    <extension>pack</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-jbuilder-project</mime-type>
+    <comment>JBuilder project</comment>
+    <extension>jpr</extension>
+    <extension>jpx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-karbon</mime-type>
+    <comment>Karbon14 drawing</comment>
+    <extension>karbon</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-kchart</mime-type>
+    <comment>KChart chart</comment>
+    <extension>chrt</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-kexi-connectiondata</mime-type>
+    <comment>Kexi settings for database server connection</comment>
+    <extension>kexic</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-kexiproject-shortcut</mime-type>
+    <comment>shortcut to Kexi project on database server</comment>
+    <extension>kexis</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-kexiproject-sqlite2</mime-type>
+    <comment>Kexi database file-based project</comment>
+    <parent-type>application/x-sqlite2</parent-type>
+    <extension>kexi</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-kexiproject-sqlite3</mime-type>
+    <mime-type>application/x-vnd.kde.kexi</mime-type>
+    <mime-type>application/x-kexiproject-sqlite</mime-type>
+    <comment>Kexi database file-based project</comment>
+    <parent-type>application/x-sqlite3</parent-type>
+    <extension>kexi</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-kformula</mime-type>
+    <comment>KFormula formula</comment>
+    <extension>kfo</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-killustrator</mime-type>
+    <comment>KIllustrator drawing</comment>
+    <extension>kil</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-kivio</mime-type>
+    <comment>Kivio flowchart</comment>
+    <extension>flw</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-koan</mime-type>
+    <extension>skd</extension>
+    <extension source="old">skm</extension>
+    <extension source="old">skp</extension>
+    <extension source="old">skt</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-kontour</mime-type>
+    <comment>Kontour drawing</comment>
+    <extension>kon</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-kpovmodeler</mime-type>
+    <comment>KPovModeler scene</comment>
+    <extension>kpm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-kpresenter</mime-type>
+    <comment>KPresenter presentation</comment>
+    <extension>kpr</extension>
+    <extension>kpt</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-krita</mime-type>
+    <comment>Krita document</comment>
+    <extension>kra</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-kspread</mime-type>
+    <comment>KSpread spreadsheet</comment>
+    <extension>ksp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-kugar</mime-type>
+    <comment>Kugar document</comment>
+    <extension>kud</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-kword</mime-type>
+    <comment>KWord document</comment>
+    <extension>kwd</extension>
+    <extension>kwt</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-lha</mime-type>
+    <mime-type>application/x-lzh-compressed</mime-type>
+    <comment>LHA archive</comment>
+    <extension>lha</extension>
+    <extension>lzh</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-lhz</mime-type>
+    <comment>LHZ archive</comment>
+    <extension>lhz</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-lisp</mime-type>
+    <extension>lsp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-lrzip</mime-type>
+    <comment>Lrzip archive</comment>
+    <extension>lrz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-lrzip-compressed-tar</mime-type>
+    <comment>Tar archive (lrzip-compressed)</comment>
+    <parent-type>application/x-lrzip</parent-type>
+    <glob>*.tar.lrz</glob>
+    <extension>tlrz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-lyx</mime-type>
+    <mime-type>text/x-lyx</mime-type>
+    <comment>LyX document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>lyx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-lz4</mime-type>
+    <comment>LZ4 archive</comment>
+    <extension>lz4</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-lzip</mime-type>
+    <comment>Lzip archive</comment>
+    <extension>lz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-lzma</mime-type>
+    <comment>LZMA archive</comment>
+    <extension>lzma</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-lzma-compressed-tar</mime-type>
+    <comment>Tar archive (LZMA-compressed)</comment>
+    <parent-type>application/x-lzma</parent-type>
+    <glob>*.tar.lzma</glob>
+    <extension>tlz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-lzop</mime-type>
+    <comment>LZO archive</comment>
+    <extension>lzo</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-m4</mime-type>
+    <comment>M4 macro</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>m4</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-magicpoint</mime-type>
+    <comment>MagicPoint presentation</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>mgp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-markaby</mime-type>
+    <comment>Markaby script</comment>
+    <parent-type>application/x-ruby</parent-type>
+    <extension>mab</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-mif</mime-type>
+    <comment>Adobe FrameMaker MIF document</comment>
+    <extension>mif</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-mimearchive</mime-type>
+    <comment>MHTML web archive</comment>
+    <parent-type>multipart/related</parent-type>
+    <extension>mhtml</extension>
+    <extension>mht</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-mobipocket-ebook</mime-type>
+    <comment>Mobipocket e-book</comment>
+    <parent-type>application/x-palm-database</parent-type>
+    <extension>mobi</extension>
+    <extension>prc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-ms-dos-executable</mime-type>
+    <comment>DOS/Windows executable</comment>
+    <extension>exe</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-ms-wim</mime-type>
+    <comment>Windows Imaging Format Disk Image</comment>
+    <extension>wim</extension>
+    <extension>swm</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-mscardfile</mime-type>
+    <extension>crd</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-msclip</mime-type>
+    <extension>clp</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-msdos-program</mime-type>
+    <extension>bat</extension>
+    <extension source="old">com</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-msdownload</mime-type>
+    <extension>dll</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-msi</mime-type>
+    <comment>Windows Installer package</comment>
+    <parent-type>application/x-ole-storage</parent-type>
+    <extension>msi</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-msmediaview</mime-type>
+    <extension>m13</extension>
+    <extension source="old">m14</extension>
+    <extension source="old">mvb</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-msmoney</mime-type>
+    <extension>mny</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-msschedule</mime-type>
+    <extension>scd</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-msterminal</mime-type>
+    <extension>trm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-mswinurl</mime-type>
+    <comment>Internet shortcut</comment>
+    <extension>url</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-mswrite</mime-type>
+    <comment>WRI document</comment>
+    <extension>wri</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-msx-rom</mime-type>
+    <comment>MSX ROM</comment>
+    <extension>msx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-n64-rom</mime-type>
+    <comment>Nintendo64 ROM</comment>
+    <extension>n64</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-navi-animation</mime-type>
+    <comment>Windows animated cursor</comment>
+    <extension>ani</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-nes-rom</mime-type>
+    <comment>NES ROM</comment>
+    <extension>nes</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-netcdf</mime-type>
+    <comment>Unidata NetCDF document</comment>
+    <extension>cdf</extension>
+    <extension>nc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-netshow-channel</mime-type>
+    <comment>Windows Media Station file</comment>
+    <parent-type>application/vnd.ms-asf</parent-type>
+    <extension>nsc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-nintendo-ds-rom</mime-type>
+    <comment>Nintendo DS ROM</comment>
+    <extension>nds</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-nzb</mime-type>
+    <comment>NewzBin usenet index</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>nzb</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-object</mime-type>
+    <comment>object code</comment>
+    <extension>o</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-oleo</mime-type>
+    <comment>GNU Oleo spreadsheet</comment>
+    <extension>oleo</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-pak</mime-type>
+    <comment>PAK archive</comment>
+    <extension>pak</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-par2</mime-type>
+    <comment>Parchive archive</comment>
+    <extension>PAR2</extension>
+    <extension>par2</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-pc-engine-rom</mime-type>
+    <comment>PC Engine ROM</comment>
+    <extension>pce</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-perfmon</mime-type>
+    <extension>pma</extension>
+    <extension source="old">pmc</extension>
+    <extension source="old">pml</extension>
+    <extension source="old">pmr</extension>
+    <extension source="old">pmw</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-perl</mime-type>
+    <comment>Perl script</comment>
+    <parent-type>application/x-executable</parent-type>
+    <parent-type>text/plain</parent-type>
+    <extension>pl</extension>
+    <extension>PL</extension>
+    <extension>pm</extension>
+    <extension>al</extension>
+    <extension>perl</extension>
+    <extension>pod</extension>
+    <extension>t</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-php</mime-type>
+    <comment>PHP script</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>php</extension>
+    <extension>php3</extension>
+    <extension>php4</extension>
+    <extension>php5</extension>
+    <extension>phps</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-pkcs12</mime-type>
+    <comment>PKCS#12 certificate bundle</comment>
+    <extension>p12</extension>
+    <extension>pfx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-pkcs7-certificates</mime-type>
+    <comment>PKCS#7 certificate bundle</comment>
+    <extension>p7b</extension>
+    <extension>spc</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-pkcs7-certreqresp</mime-type>
+    <extension>p7r</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-planperfect</mime-type>
+    <comment>PlanPerfect spreadsheet</comment>
+    <extension>pln</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-pocket-word</mime-type>
+    <comment>Pocket Word document</comment>
+    <extension>psw</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-profile</mime-type>
+    <comment>profiler results</comment>
+    <parent-type>text/plain</parent-type>
+    <glob>gmon.out</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-pw</mime-type>
+    <comment>Pathetic Writer document</comment>
+    <extension>pw</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-python-bytecode</mime-type>
+    <comment>Python bytecode</comment>
+    <extension>pyc</extension>
+    <extension>pyo</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-qtiplot</mime-type>
+    <comment>QtiPlot document</comment>
+    <parent-type>text/plain</parent-type>
+    <glob>*.qti.gz</glob>
+    <extension>qti</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-quattropro</mime-type>
+    <comment>Quattro Pro spreadsheet</comment>
+    <extension>wb1</extension>
+    <extension>wb2</extension>
+    <extension>wb3</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-quicktime-media-link</mime-type>
+    <mime-type>application/x-quicktimeplayer</mime-type>
+    <comment>QuickTime metalink playlist</comment>
+    <parent-type>video/quicktime</parent-type>
+    <extension>qtl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-qw</mime-type>
+    <comment>Quicken document</comment>
+    <extension>qif</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-rar</mime-type>
+    <mime-type>application/x-rar-compressed</mime-type>
+    <comment>RAR archive</comment>
+    <extension>rar</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-raw-disk-image</mime-type>
+    <comment>Raw disk image</comment>
+    <glob>*.raw-disk-image</glob>
+    <extension>img</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-raw-disk-image-xz-compressed</mime-type>
+    <comment>Raw disk image (XZ-compressed)</comment>
+    <parent-type>application/x-xz</parent-type>
+    <glob>*.raw-disk-image.xz</glob>
+    <glob>*.img.xz</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-rpm</mime-type>
+    <mime-type>application/x-redhat-package-manager</mime-type>
+    <comment>RPM package</comment>
+    <extension>rpm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-ruby</mime-type>
+    <comment>Ruby script</comment>
+    <parent-type>application/x-executable</parent-type>
+    <parent-type>text/plain</parent-type>
+    <extension>rb</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-sami</mime-type>
+    <comment>SAMI subtitles</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>smi</extension>
+    <extension>sami</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-shar</mime-type>
+    <comment>shell archive</comment>
+    <extension>shar</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-shared-library-la</mime-type>
+    <comment>libtool shared library</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>la</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-sharedlib</mime-type>
+    <comment>shared library</comment>
+    <extension>so</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-shellscript</mime-type>
+    <mime-type>text/x-sh</mime-type>
+    <comment>shell script</comment>
+    <parent-type>application/x-executable</parent-type>
+    <parent-type>text/plain</parent-type>
+    <extension>sh</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-shorten</mime-type>
+    <comment>Shorten audio</comment>
+    <extension>shn</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-siag</mime-type>
+    <comment>Siag spreadsheet</comment>
+    <extension>siag</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-smaf</mime-type>
+    <mime-type>application/vnd.smaf</mime-type>
+    <comment>SMAF audio</comment>
+    <extension>mmf</extension>
+    <extension>smaf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-sms-rom</mime-type>
+    <comment>Sega Master System/Game Gear ROM</comment>
+    <extension>sms</extension>
+    <extension>gg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-source-rpm</mime-type>
+    <comment>Source RPM package</comment>
+    <parent-type>application/x-rpm</parent-type>
+    <glob>*.src.rpm</glob>
+    <extension>spm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-spss-por</mime-type>
+    <comment>SPSS Portable Data File</comment>
+    <extension>por</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-spss-sav</mime-type>
+    <mime-type>application/x-spss-savefile</mime-type>
+    <comment>SPSS Data File</comment>
+    <extension>sav</extension>
+    <extension>zsav</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-stuffit</mime-type>
+    <mime-type>application/stuffit</mime-type>
+    <mime-type>application/x-sit</mime-type>
+    <comment>StuffIt archive</comment>
+    <extension>sit</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-subrip</mime-type>
+    <mime-type>application/x-srt</mime-type>
+    <comment>SubRip subtitles</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>srt</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-sv4cpio</mime-type>
+    <comment>SV4 CPIO archive</comment>
+    <extension>sv4cpio</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-sv4crc</mime-type>
+    <comment>SV4 CPIO archive (with CRC)</comment>
+    <extension>sv4crc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-t602</mime-type>
+    <comment>T602 document</comment>
+    <extension>602</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-tar</mime-type>
+    <mime-type>application/x-gtar</mime-type>
+    <comment>Tar archive</comment>
+    <extension>tar</extension>
+    <extension>gtar</extension>
+    <extension>gem</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/x-tar-gz</mime-type>
+    <extension>tar.gz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-tarz</mime-type>
+    <comment>Tar archive (compressed)</comment>
+    <parent-type>application/x-compress</parent-type>
+    <glob>*.tar.Z</glob>
+    <extension>taz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-tex-gf</mime-type>
+    <comment>generic font file</comment>
+    <extension>gf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-tex-pk</mime-type>
+    <comment>packed font file</comment>
+    <extension>pk</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-tgif</mime-type>
+    <comment>TGIF document</comment>
+    <extension>obj</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-theme</mime-type>
+    <comment>theme</comment>
+    <parent-type>application/x-desktop</parent-type>
+    <extension>theme</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-trash</mime-type>
+    <comment>backup file</comment>
+    <glob>*~</glob>
+    <glob>*%</glob>
+    <extension>bak</extension>
+    <extension>old</extension>
+    <extension>sik</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-trig</mime-type>
+    <comment>TriG RDF document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>trig</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-troff-man</mime-type>
+    <comment>Troff document (with manpage macros)</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>man</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-tzo</mime-type>
+    <comment>Tar archive (LZO-compressed)</comment>
+    <parent-type>application/x-lzop</parent-type>
+    <glob>*.tar.lzo</glob>
+    <extension>tzo</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-ufraw</mime-type>
+    <comment>UFRaw ID image</comment>
+    <parent-type>text/xml</parent-type>
+    <extension>ufraw</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-ustar</mime-type>
+    <comment>Ustar archive</comment>
+    <extension>ustar</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-wais-source</mime-type>
+    <comment>WAIS source code</comment>
+    <extension>src</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-wii-rom</mime-type>
+    <mime-type>application/x-wii-iso-image</mime-type>
+    <mime-type>application/x-wbfs</mime-type>
+    <mime-type>application/x-wia</mime-type>
+    <comment>Wii disc image</comment>
+    <extension>iso</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-windows-themepack</mime-type>
+    <comment>Microsoft Windows theme pack</comment>
+    <parent-type>application/vnd.ms-cab-compressed</parent-type>
+    <extension>themepack</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-wpg</mime-type>
+    <comment>WordPerfect/Drawperfect image</comment>
+    <extension>wpg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-wwf</mime-type>
+    <mime-type>application/wwf</mime-type>
+    <comment>WWF document</comment>
+    <parent-type>application/pdf</parent-type>
+    <extension>wwf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-x509-ca-cert</mime-type>
+    <comment>DER/PEM/Netscape-encoded X.509 certificate</comment>
+    <extension>der</extension>
+    <extension>crt</extension>
+    <extension>cert</extension>
+    <extension>pem</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-xbel</mime-type>
+    <comment>XBEL bookmarks</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>xbel</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-xliff</mime-type>
+    <comment>XLIFF translation file</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>xlf</extension>
+    <extension>xliff</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-xpinstall</mime-type>
+    <comment>XPInstall installer module</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>xpi</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-xz</mime-type>
+    <comment>XZ archive</comment>
+    <extension>xz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-xz-compressed-tar</mime-type>
+    <comment>Tar archive (XZ-compressed)</comment>
+    <parent-type>application/x-xz</parent-type>
+    <glob>*.tar.xz</glob>
+    <extension>txz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-xzpdf</mime-type>
+    <comment>PDF document (XZ-compressed)</comment>
+    <parent-type>application/x-xz</parent-type>
+    <glob>*.pdf.xz</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-yaml</mime-type>
+    <mime-type>text/yaml</mime-type>
+    <mime-type>text/x-yaml</mime-type>
+    <comment>YAML document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>yaml</extension>
+    <extension>yml</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-zip-compressed-fb2</mime-type>
+    <comment>Compressed FictionBook document</comment>
+    <parent-type>application/zip</parent-type>
+    <glob>*.fb2.zip</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-zoo</mime-type>
+    <comment>Zoo archive</comment>
+    <extension>zoo</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/xhtml+xml</mime-type>
+    <comment>XHTML page</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>xhtml</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/xml</mime-type>
+    <mime-type>text/xml</mime-type>
+    <comment>XML document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>xml</extension>
+    <extension>xbl</extension>
+    <extension>xsd</extension>
+    <extension>rng</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/xml-dtd</mime-type>
+    <mime-type>text/x-dtd</mime-type>
+    <comment>DTD file</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>dtd</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/xml-external-parsed-entity</mime-type>
+    <mime-type>text/xml-external-parsed-entity</mime-type>
+    <comment>XML entities document</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>ent</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/xslt+xml</mime-type>
+    <comment>XSLT stylesheet</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>xsl</extension>
+    <extension>xslt</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/xspf+xml</mime-type>
+    <mime-type>application/x-xspf+xml</mime-type>
+    <comment>XSPF playlist</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>xspf</extension>
+  </item>
+  <item source="old">
+    <mime-type>application/ynd.ms-pkipko</mime-type>
+    <extension>pko</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/zip</mime-type>
+    <mime-type>application/x-zip-compressed</mime-type>
+    <mime-type>application/x-zip</mime-type>
+    <comment>Zip archive</comment>
+    <extension>zip</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/aac</mime-type>
+    <comment>AAC audio</comment>
+    <extension>aac</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/ac3</mime-type>
+    <comment>Dolby Digital audio</comment>
+    <extension>ac3</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/AMR</mime-type>
+    <comment>AMR audio</comment>
+    <extension>amr</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/AMR-WB</mime-type>
+    <comment>AMR-WB audio</comment>
+    <extension>awb</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/annodex</mime-type>
+    <mime-type>audio/x-annodex</mime-type>
+    <comment>Annodex Audio</comment>
+    <parent-type>application/annodex</parent-type>
+    <extension>axa</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/basic</mime-type>
+    <comment>ULAW (Sun) audio</comment>
+    <extension>au</extension>
+    <extension>snd</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/flac</mime-type>
+    <mime-type>audio/x-flac</mime-type>
+    <comment>FLAC audio</comment>
+    <extension>flac</extension>
+  </item>
+  <item source="old">
+    <mime-type>audio/mid</mime-type>
+    <extension>rmi</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/midi</mime-type>
+    <mime-type>audio/x-midi</mime-type>
+    <comment>MIDI audio</comment>
+    <extension>mid</extension>
+    <extension>midi</extension>
+    <extension>kar</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/mp2</mime-type>
+    <mime-type>audio/x-mp2</mime-type>
+    <comment>MP2 audio</comment>
+    <extension>mp2</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/mp4</mime-type>
+    <mime-type>audio/x-m4a</mime-type>
+    <comment>MPEG-4 audio</comment>
+    <extension>m4a</extension>
+    <extension>f4a</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/mpeg</mime-type>
+    <mime-type>audio/x-mp3</mime-type>
+    <mime-type>audio/x-mpeg</mime-type>
+    <mime-type>audio/mp3</mime-type>
+    <comment>MP3 audio</comment>
+    <extension>mp3</extension>
+    <extension>mpga</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/ogg</mime-type>
+    <mime-type>audio/x-ogg</mime-type>
+    <comment>Ogg Audio</comment>
+    <parent-type>application/ogg</parent-type>
+    <extension>oga</extension>
+    <extension>ogg</extension>
+    <extension>opus</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/prs.sid</mime-type>
+    <comment>Commodore 64 audio</comment>
+    <extension>sid</extension>
+    <extension>psid</extension>
+  </item>
+  <item source="old">
+    <mime-type>audio/TSP-audio</mime-type>
+    <extension>tsi</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/vnd.dts</mime-type>
+    <mime-type>audio/x-dts</mime-type>
+    <comment>DTS audio</comment>
+    <extension>dts</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/vnd.dts.hd</mime-type>
+    <mime-type>audio/x-dtshd</mime-type>
+    <comment>DTSHD audio</comment>
+    <parent-type>audio/vnd.dts</parent-type>
+    <extension>dtshd</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/vnd.rn-realaudio</mime-type>
+    <mime-type>audio/x-pn-realaudio</mime-type>
+    <mime-type>audio/vnd.m-realaudio</mime-type>
+    <comment>RealAudio document</comment>
+    <extension>ra</extension>
+    <extension>rax</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-aifc</mime-type>
+    <mime-type>audio/x-aiffc</mime-type>
+    <comment>AIFC audio</comment>
+    <parent-type>application/x-iff</parent-type>
+    <extension>aifc</extension>
+    <extension>aiffc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-aiff</mime-type>
+    <comment>AIFF/Amiga/Mac audio</comment>
+    <parent-type>application/x-iff</parent-type>
+    <extension>aiff</extension>
+    <extension>aif</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-amzxml</mime-type>
+    <comment>AmazonMP3 download file</comment>
+    <extension>amz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-ape</mime-type>
+    <comment>Monkey's audio</comment>
+    <extension>ape</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-flac+ogg</mime-type>
+    <mime-type>audio/x-oggflac</mime-type>
+    <comment>Ogg FLAC audio</comment>
+    <parent-type>audio/ogg</parent-type>
+    <extension>oga</extension>
+    <extension>ogg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-gsm</mime-type>
+    <comment>GSM 06.10 audio</comment>
+    <extension>gsm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-iriver-pla</mime-type>
+    <comment>iRiver Playlist</comment>
+    <extension>pla</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-it</mime-type>
+    <comment>Impulse Tracker audio</comment>
+    <extension>it</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-m4b</mime-type>
+    <comment>MPEG-4 audio book</comment>
+    <parent-type>audio/mp4</parent-type>
+    <extension>m4b</extension>
+    <extension>f4b</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-matroska</mime-type>
+    <comment>Matroska audio</comment>
+    <parent-type>application/x-matroska</parent-type>
+    <extension>mka</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-minipsf</mime-type>
+    <comment>MiniPSF audio</comment>
+    <parent-type>audio/x-psf</parent-type>
+    <extension>minipsf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-mo3</mime-type>
+    <comment>compressed Tracker audio</comment>
+    <extension>mo3</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-mod</mime-type>
+    <comment>Amiga SoundTracker audio</comment>
+    <extension>mod</extension>
+    <extension>ult</extension>
+    <extension>uni</extension>
+    <extension>m15</extension>
+    <extension>mtm</extension>
+    <extension>669</extension>
+    <extension>med</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-mpegurl</mime-type>
+    <mime-type>audio/mpegurl</mime-type>
+    <mime-type>application/m3u</mime-type>
+    <mime-type>audio/x-mp3-playlist</mime-type>
+    <mime-type>audio/m3u</mime-type>
+    <mime-type>audio/x-m3u</mime-type>
+    <comment>MP3 audio (streamed)</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>m3u</extension>
+    <extension>m3u8</extension>
+    <extension>vlc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-ms-asx</mime-type>
+    <mime-type>video/x-ms-wvx</mime-type>
+    <mime-type>video/x-ms-wax</mime-type>
+    <mime-type>video/x-ms-wmx</mime-type>
+    <mime-type>application/x-ms-asx</mime-type>
+    <comment>Microsoft ASX playlist</comment>
+    <extension>asx</extension>
+    <extension>wax</extension>
+    <extension>wvx</extension>
+    <extension>wmx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-ms-wma</mime-type>
+    <mime-type>audio/wma</mime-type>
+    <comment>Windows Media audio</comment>
+    <parent-type>application/vnd.ms-asf</parent-type>
+    <extension>wma</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-musepack</mime-type>
+    <comment>Musepack audio</comment>
+    <glob>*.mp+</glob>
+    <extension>mpc</extension>
+    <extension>mpp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-opus+ogg</mime-type>
+    <comment>Opus audio</comment>
+    <parent-type>audio/ogg</parent-type>
+    <extension>opus</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-psf</mime-type>
+    <comment>PSF audio</comment>
+    <extension>psf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-psflib</mime-type>
+    <comment>PSFlib audio library</comment>
+    <parent-type>audio/x-psf</parent-type>
+    <extension>psflib</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-s3m</mime-type>
+    <comment>Scream Tracker 3 audio</comment>
+    <extension>s3m</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-scpls</mime-type>
+    <mime-type>application/pls</mime-type>
+    <comment>MP3 ShoutCast playlist</comment>
+    <extension>pls</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-speex</mime-type>
+    <comment>Speex audio</comment>
+    <extension>spx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-speex+ogg</mime-type>
+    <comment>Ogg Speex audio</comment>
+    <parent-type>audio/ogg</parent-type>
+    <extension>oga</extension>
+    <extension>ogg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-stm</mime-type>
+    <comment>Scream Tracker audio</comment>
+    <extension>stm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-tta</mime-type>
+    <mime-type>audio/tta</mime-type>
+    <comment>TrueAudio audio</comment>
+    <extension>tta</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-voc</mime-type>
+    <comment>VOC audio</comment>
+    <extension>voc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-vorbis+ogg</mime-type>
+    <mime-type>audio/vorbis</mime-type>
+    <mime-type>audio/x-vorbis</mime-type>
+    <comment>Ogg Vorbis audio</comment>
+    <parent-type>audio/ogg</parent-type>
+    <extension>oga</extension>
+    <extension>ogg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-wav</mime-type>
+    <mime-type>audio/wav</mime-type>
+    <mime-type>audio/vnd.wave</mime-type>
+    <comment>WAV audio</comment>
+    <extension>wav</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-wavpack</mime-type>
+    <comment>WavPack audio</comment>
+    <extension>wv</extension>
+    <extension>wvp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-wavpack-correction</mime-type>
+    <comment>WavPack audio correction file</comment>
+    <extension>wvc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-xi</mime-type>
+    <comment>Scream Tracker instrument</comment>
+    <extension>xi</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-xm</mime-type>
+    <comment>FastTracker II audio</comment>
+    <extension>xm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/x-xmf</mime-type>
+    <mime-type>audio/xmf</mime-type>
+    <mime-type>audio/mobile-xmf</mime-type>
+    <comment>XMF audio</comment>
+    <extension>xmf</extension>
+  </item>
+  <item source="old">
+    <mime-type>chemical/x-pdb</mime-type>
+    <extension>xyz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/bmp</mime-type>
+    <mime-type>image/x-bmp</mime-type>
+    <mime-type>image/x-MS-bmp</mime-type>
+    <comment>Windows BMP image</comment>
+    <extension>bmp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/cgm</mime-type>
+    <comment>Computer Graphics Metafile</comment>
+    <extension>cgm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/fax-g3</mime-type>
+    <comment>CCITT G3 fax</comment>
+    <extension>g3</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/fits</mime-type>
+    <mime-type>image/x-fits</mime-type>
+    <comment>FITS document</comment>
+    <extension>fits</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/gif</mime-type>
+    <comment>GIF image</comment>
+    <extension>gif</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/ief</mime-type>
+    <comment>IEF image</comment>
+    <extension>ief</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/jp2</mime-type>
+    <mime-type>image/jpeg2000</mime-type>
+    <mime-type>image/jpx</mime-type>
+    <mime-type>image/jpeg2000-image</mime-type>
+    <mime-type>image/x-jpeg2000-image</mime-type>
+    <comment>JPEG-2000 image</comment>
+    <extension>jp2</extension>
+    <extension>jpx</extension>
+    <extension>jpf</extension>
+    <extension source="old">j2k</extension>
+    <extension source="old">jpc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/jpeg</mime-type>
+    <mime-type>image/pjpeg</mime-type>
+    <comment>JPEG image</comment>
+    <extension>jpeg</extension>
+    <extension>jpg</extension>
+    <extension>jpe</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/openraster</mime-type>
+    <comment>OpenRaster archiving image</comment>
+    <extension>ora</extension>
+  </item>
+  <item source="old">
+    <mime-type>image/pipeg</mime-type>
+    <extension>jfif</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/png</mime-type>
+    <comment>PNG image</comment>
+    <extension>png</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/rle</mime-type>
+    <comment>Run Length Encoded bitmap image</comment>
+    <extension>rle</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/svg+xml</mime-type>
+    <comment>SVG image</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>svg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/svg+xml-compressed</mime-type>
+    <comment>compressed SVG image</comment>
+    <parent-type>application/gzip</parent-type>
+    <extension>svgz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/tiff</mime-type>
+    <comment>TIFF image</comment>
+    <extension>tif</extension>
+    <extension>tiff</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/vnd.adobe.photoshop</mime-type>
+    <mime-type>image/psd</mime-type>
+    <mime-type>image/x-psd</mime-type>
+    <mime-type>image/photoshop</mime-type>
+    <mime-type>image/x-photoshop</mime-type>
+    <mime-type>application/photoshop</mime-type>
+    <mime-type>application/x-photoshop</mime-type>
+    <comment>Photoshop image</comment>
+    <extension>psd</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/vnd.djvu</mime-type>
+    <mime-type>image/x-djvu</mime-type>
+    <mime-type>image/x.djvu</mime-type>
+    <comment>DjVu image</comment>
+    <extension>djvu</extension>
+    <extension>djv</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/vnd.dwg</mime-type>
+    <comment>AutoCAD image</comment>
+    <extension>dwg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/vnd.dxf</mime-type>
+    <comment>DXF vector image</comment>
+    <extension>dxf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/vnd.microsoft.icon</mime-type>
+    <mime-type>application/ico</mime-type>
+    <mime-type>image/ico</mime-type>
+    <mime-type>image/icon</mime-type>
+    <mime-type>image/x-ico</mime-type>
+    <mime-type>image/x-icon</mime-type>
+    <mime-type>text/ico</mime-type>
+    <comment>Microsoft icon</comment>
+    <extension>ico</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/vnd.ms-modi</mime-type>
+    <comment>Microsoft Document Imaging format</comment>
+    <extension>mdi</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/vnd.rn-realpix</mime-type>
+    <comment>RealPix document</comment>
+    <extension>rp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/vnd.wap.wbmp</mime-type>
+    <comment>WBMP image</comment>
+    <extension>wbmp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/webp</mime-type>
+    <comment>WebP image</comment>
+    <extension>webp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-3ds</mime-type>
+    <comment>3D Studio image</comment>
+    <extension>3ds</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-adobe-dng</mime-type>
+    <comment>Adobe DNG negative</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <parent-type>image/tiff</parent-type>
+    <extension>dng</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-apple-ios-png</mime-type>
+    <comment>Apple optimised PNG image</comment>
+    <extension>png</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-applix-graphics</mime-type>
+    <comment>Applix Graphics image</comment>
+    <extension>ag</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-bzeps</mime-type>
+    <comment>EPS image (bzip-compressed)</comment>
+    <parent-type>application/x-bzip</parent-type>
+    <glob>*.eps.bz2</glob>
+    <glob>*.epsi.bz2</glob>
+    <glob>*.epsf.bz2</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-canon-cr2</mime-type>
+    <comment>Canon CR2 raw image</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <parent-type>image/tiff</parent-type>
+    <extension>cr2</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-canon-crw</mime-type>
+    <comment>Canon CRW raw image</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <extension>crw</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-cmu-raster</mime-type>
+    <comment>CMU raster image</comment>
+    <extension>ras</extension>
+  </item>
+  <item source="old">
+    <mime-type>image/x-cmx</mime-type>
+    <extension>cmx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-compressed-xcf</mime-type>
+    <comment>compressed GIMP image</comment>
+    <glob>*.xcf.gz</glob>
+    <glob>*.xcf.bz2</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-dds</mime-type>
+    <comment>DirectDraw surface</comment>
+    <extension>dds</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-emf</mime-type>
+    <mime-type>image/emf</mime-type>
+    <mime-type>application/x-emf</mime-type>
+    <mime-type>application/emf</mime-type>
+    <comment>EMF image</comment>
+    <extension>emf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-eps</mime-type>
+    <comment>EPS image</comment>
+    <parent-type>application/postscript</parent-type>
+    <extension>eps</extension>
+    <extension>epsi</extension>
+    <extension>epsf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-exr</mime-type>
+    <comment>EXR image</comment>
+    <extension>exr</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-fuji-raf</mime-type>
+    <comment>Fuji RAF raw image</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <extension>raf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-gzeps</mime-type>
+    <comment>EPS image (gzip-compressed)</comment>
+    <parent-type>application/gzip</parent-type>
+    <glob>*.eps.gz</glob>
+    <glob>*.epsi.gz</glob>
+    <glob>*.epsf.gz</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-icns</mime-type>
+    <comment>MacOS X icon</comment>
+    <extension>icns</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-ilbm</mime-type>
+    <mime-type>image/x-iff</mime-type>
+    <comment>ILBM image</comment>
+    <parent-type>application/x-iff</parent-type>
+    <extension>iff</extension>
+    <extension>ilbm</extension>
+    <extension>lbm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-jng</mime-type>
+    <comment>JNG image</comment>
+    <extension>jng</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-kodak-dcr</mime-type>
+    <comment>Kodak DCR raw image</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <parent-type>image/tiff</parent-type>
+    <extension>dcr</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-kodak-k25</mime-type>
+    <comment>Kodak K25 raw image</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <parent-type>image/tiff</parent-type>
+    <extension>k25</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-kodak-kdc</mime-type>
+    <comment>Kodak KDC raw image</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <parent-type>image/tiff</parent-type>
+    <extension>kdc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-lwo</mime-type>
+    <comment>LightWave object</comment>
+    <extension>lwo</extension>
+    <extension>lwob</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-lws</mime-type>
+    <comment>LightWave scene</comment>
+    <extension>lws</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-macpaint</mime-type>
+    <comment>MacPaint Bitmap image</comment>
+    <extension>pntg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-minolta-mrw</mime-type>
+    <comment>Minolta MRW raw image</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <extension>mrw</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-msod</mime-type>
+    <comment>Office drawing</comment>
+    <extension>msod</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-nikon-nef</mime-type>
+    <comment>Nikon NEF raw image</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <parent-type>image/tiff</parent-type>
+    <extension>nef</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-olympus-orf</mime-type>
+    <comment>Olympus ORF raw image</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <extension>orf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-panasonic-raw</mime-type>
+    <comment>Panasonic raw image</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <extension>raw</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-panasonic-raw2</mime-type>
+    <comment>Panasonic raw2 image</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <extension>rw2</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-pcx</mime-type>
+    <comment>PCX image</comment>
+    <extension>pcx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-pentax-pef</mime-type>
+    <comment>Pentax PEF raw image</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <parent-type>image/tiff</parent-type>
+    <extension>pef</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-photo-cd</mime-type>
+    <comment>PCD image</comment>
+    <extension>pcd</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-pict</mime-type>
+    <comment>Macintosh Quickdraw/PICT drawing</comment>
+    <extension>pct</extension>
+    <extension>pict</extension>
+    <extension>pict1</extension>
+    <extension>pict2</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-portable-anymap</mime-type>
+    <comment>PNM image</comment>
+    <extension>pnm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-portable-bitmap</mime-type>
+    <comment>PBM image</comment>
+    <parent-type>image/x-portable-anymap</parent-type>
+    <extension>pbm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-portable-graymap</mime-type>
+    <comment>PGM image</comment>
+    <parent-type>image/x-portable-anymap</parent-type>
+    <extension>pgm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-portable-pixmap</mime-type>
+    <comment>PPM image</comment>
+    <parent-type>image/x-portable-anymap</parent-type>
+    <extension>ppm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-quicktime</mime-type>
+    <comment>QuickTime image</comment>
+    <extension>qtif</extension>
+    <extension>qif</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-rgb</mime-type>
+    <comment>RGB image</comment>
+    <extension>rgb</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-sgi</mime-type>
+    <comment>SGI image</comment>
+    <extension>sgi</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-sigma-x3f</mime-type>
+    <comment>Sigma X3F raw image</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <extension>x3f</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-skencil</mime-type>
+    <comment>Skencil document</comment>
+    <extension>sk</extension>
+    <extension>sk1</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-sony-arw</mime-type>
+    <comment>Sony ARW raw image</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <parent-type>image/tiff</parent-type>
+    <extension>arw</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-sony-sr2</mime-type>
+    <comment>Sony SR2 raw image</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <parent-type>image/tiff</parent-type>
+    <extension>sr2</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-sony-srf</mime-type>
+    <comment>Sony SRF raw image</comment>
+    <parent-type>image/x-dcraw</parent-type>
+    <parent-type>image/tiff</parent-type>
+    <extension>srf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-sun-raster</mime-type>
+    <comment>Sun raster image</comment>
+    <extension>sun</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-tga</mime-type>
+    <mime-type>image/x-icb</mime-type>
+    <comment>TGA image</comment>
+    <extension>icb</extension>
+    <extension>tga</extension>
+    <extension>tpic</extension>
+    <extension>vda</extension>
+    <extension>vst</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-win-bitmap</mime-type>
+    <comment>Windows cursor</comment>
+    <extension>cur</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-wmf</mime-type>
+    <mime-type>image/wmf</mime-type>
+    <mime-type>image/x-win-metafile</mime-type>
+    <mime-type>application/x-wmf</mime-type>
+    <mime-type>application/wmf</mime-type>
+    <mime-type>application/x-msmetafile</mime-type>
+    <comment>WMF image</comment>
+    <extension>wmf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-xbitmap</mime-type>
+    <comment>XBM image</comment>
+    <extension>xbm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-xcf</mime-type>
+    <comment>GIMP image</comment>
+    <extension>xcf</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-xfig</mime-type>
+    <comment>XFig image</comment>
+    <extension>fig</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-xpixmap</mime-type>
+    <mime-type>image/x-xpm</mime-type>
+    <comment>XPM image</comment>
+    <extension>xpm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/x-xwindowdump</mime-type>
+    <comment>X window image</comment>
+    <extension>xwd</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>message/rfc822</mime-type>
+    <comment>email message</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>eml</extension>
+    <extension source="old">nws</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>message/x-gnu-rmail</mime-type>
+    <comment>GNU mail message</comment>
+    <glob>RMAIL</glob>
+  </item>
+  <item source="old">
+    <mime-type>model/iges</mime-type>
+    <extension>iges</extension>
+    <extension source="old">igs</extension>
+  </item>
+  <item source="old">
+    <mime-type>model/mesh</mime-type>
+    <extension>mesh</extension>
+    <extension source="old">msh</extension>
+    <extension source="old">silo</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>model/vrml</mime-type>
+    <comment>VRML document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>vrm</extension>
+    <extension>vrml</extension>
+    <extension>wrl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/cache-manifest</mime-type>
+    <comment>Web application cache manifest</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>manifest</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/calendar</mime-type>
+    <mime-type>text/x-vcalendar</mime-type>
+    <mime-type>application/ics</mime-type>
+    <comment>VCS/ICS calendar</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>vcs</extension>
+    <extension>ics</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/css</mime-type>
+    <comment>CSS stylesheet</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>css</extension>
+    <extension source="old">CSSL</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/csv</mime-type>
+    <mime-type>text/x-comma-separated-values</mime-type>
+    <mime-type>text/x-csv</mime-type>
+    <comment>CSV document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>csv</extension>
+  </item>
+  <item source="old">
+    <mime-type>text/h323</mime-type>
+    <extension>323</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/html</mime-type>
+    <comment>HTML document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>html</extension>
+    <extension>htm</extension>
+  </item>
+  <item source="old">
+    <mime-type>text/iuls</mime-type>
+    <extension>uls</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/plain</mime-type>
+    <comment>plain text document</comment>
+    <glob>*,v</glob>
+    <extension>txt</extension>
+    <extension>asc</extension>
+    <extension source="old">bas</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/richtext</mime-type>
+    <comment>rich text document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>rtx</extension>
+  </item>
+  <item source="old">
+    <mime-type>text/scriptlet</mime-type>
+    <extension>sct</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/sgml</mime-type>
+    <comment>SGML document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>sgml</extension>
+    <extension>sgm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/spreadsheet</mime-type>
+    <comment>spreadsheet interchange document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>sylk</extension>
+    <extension>slk</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/tab-separated-values</mime-type>
+    <comment>TSV document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>tsv</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/troff</mime-type>
+    <mime-type>application/x-troff</mime-type>
+    <mime-type>text/x-troff</mime-type>
+    <comment>Troff document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>tr</extension>
+    <extension>roff</extension>
+    <extension>t</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/vcard</mime-type>
+    <mime-type>text/directory</mime-type>
+    <mime-type>text/x-vcard</mime-type>
+    <comment>electronic business card</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>vcard</extension>
+    <extension>vcf</extension>
+    <extension>vct</extension>
+    <extension>gcrd</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/vnd.graphviz</mime-type>
+    <comment>Graphviz DOT graph</comment>
+    <extension>gv</extension>
+    <extension>dot</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/vnd.rn-realtext</mime-type>
+    <comment>RealText document</comment>
+    <extension>rt</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/vnd.sun.j2me.app-descriptor</mime-type>
+    <comment>JAD document</comment>
+    <extension>jad</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/vnd.trolltech.linguist</mime-type>
+    <mime-type>application/x-linguist</mime-type>
+    <comment>message catalog</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>ts</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/vnd.wap.wml</mime-type>
+    <comment>WML document</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>wml</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/vnd.wap.wmlscript</mime-type>
+    <comment>WMLScript program</comment>
+    <extension>wmls</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/vtt</mime-type>
+    <comment>WebVTT subtitles</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>vtt</extension>
+  </item>
+  <item source="old">
+    <mime-type>text/webviewhtml</mime-type>
+    <extension>htt</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-adasrc</mime-type>
+    <comment>Ada source code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>adb</extension>
+    <extension>ads</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-authors</mime-type>
+    <comment>author list</comment>
+    <parent-type>text/plain</parent-type>
+    <glob>AUTHORS</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-bibtex</mime-type>
+    <comment>BibTeX document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>bib</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-c++hdr</mime-type>
+    <comment>C++ header</comment>
+    <parent-type>text/x-chdr</parent-type>
+    <glob>*.h++</glob>
+    <extension>hh</extension>
+    <extension>hp</extension>
+    <extension>hpp</extension>
+    <extension>hxx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-c++src</mime-type>
+    <comment>C++ source code</comment>
+    <parent-type>text/x-csrc</parent-type>
+    <glob>*.c++</glob>
+    <extension>cpp</extension>
+    <extension>cxx</extension>
+    <extension>cc</extension>
+    <extension>C</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-changelog</mime-type>
+    <comment>ChangeLog document</comment>
+    <parent-type>text/plain</parent-type>
+    <glob>ChangeLog</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-chdr</mime-type>
+    <comment>C header</comment>
+    <parent-type>text/x-csrc</parent-type>
+    <extension>h</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-cmake</mime-type>
+    <comment>CMake source code</comment>
+    <parent-type>text/plain</parent-type>
+    <glob>CMakeLists.txt</glob>
+    <extension>cmake</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-cobol</mime-type>
+    <comment>COBOL source file</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>cbl</extension>
+    <extension>cob</extension>
+  </item>
+  <item source="old">
+    <mime-type>text/x-component</mime-type>
+    <extension>htc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-copying</mime-type>
+    <comment>license terms</comment>
+    <parent-type>text/plain</parent-type>
+    <glob>COPYING</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-credits</mime-type>
+    <comment>author credits</comment>
+    <parent-type>text/plain</parent-type>
+    <glob>CREDITS</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-csharp</mime-type>
+    <comment>C# source code</comment>
+    <parent-type>text/x-csrc</parent-type>
+    <extension>cs</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-csrc</mime-type>
+    <mime-type>text/x-c</mime-type>
+    <comment>C source code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>c</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-dcl</mime-type>
+    <comment>DCL script</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>dcl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-dsl</mime-type>
+    <comment>DSSSL document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>dsl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-dsrc</mime-type>
+    <comment>D source code</comment>
+    <parent-type>text/x-csrc</parent-type>
+    <extension>d</extension>
+    <extension>di</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-eiffel</mime-type>
+    <comment>Eiffel source code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>e</extension>
+    <extension>eif</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-emacs-lisp</mime-type>
+    <comment>Emacs Lisp source code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>el</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-erlang</mime-type>
+    <comment>Erlang source code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>erl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-fortran</mime-type>
+    <comment>Fortran source code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>f</extension>
+    <extension>f90</extension>
+    <extension>f95</extension>
+    <extension>for</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-gettext-translation</mime-type>
+    <mime-type>text/x-po</mime-type>
+    <mime-type>application/x-gettext</mime-type>
+    <comment>translation file</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>po</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-gettext-translation-template</mime-type>
+    <mime-type>text/x-pot</mime-type>
+    <comment>translation template</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>pot</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-go</mime-type>
+    <comment>Go source code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>go</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-google-video-pointer</mime-type>
+    <mime-type>text/google-video-pointer</mime-type>
+    <comment>Google Video Pointer</comment>
+    <extension>gvp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-haskell</mime-type>
+    <comment>Haskell source code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>hs</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-idl</mime-type>
+    <comment>IDL document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>idl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-iMelody</mime-type>
+    <mime-type>audio/x-iMelody</mime-type>
+    <mime-type>audio/iMelody</mime-type>
+    <comment>iMelody ringtone</comment>
+    <extension>imy</extension>
+    <extension>ime</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-install</mime-type>
+    <comment>installation instructions</comment>
+    <parent-type>text/plain</parent-type>
+    <glob>INSTALL</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-iptables</mime-type>
+    <comment>iptables configuration file</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>iptables</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-java</mime-type>
+    <comment>Java source code</comment>
+    <parent-type>text/x-csrc</parent-type>
+    <extension>java</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-ldif</mime-type>
+    <comment>LDIF address book</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>ldif</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-lilypond</mime-type>
+    <comment>Lilypond music sheet</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>ly</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-literate-haskell</mime-type>
+    <comment>LHS source code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>lhs</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-log</mime-type>
+    <comment>application log</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>log</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-lua</mime-type>
+    <comment>Lua script</comment>
+    <parent-type>application/x-executable</parent-type>
+    <parent-type>text/plain</parent-type>
+    <extension>lua</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-makefile</mime-type>
+    <comment>Makefile</comment>
+    <parent-type>text/plain</parent-type>
+    <glob>makefile</glob>
+    <glob>GNUmakefile</glob>
+    <glob>Makefile.*</glob>
+    <extension>mk</extension>
+    <extension>mak</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-markdown</mime-type>
+    <comment>Markdown document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>md</extension>
+    <extension>mkd</extension>
+    <extension>markdown</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-matlab</mime-type>
+    <mime-type>text/x-octave</mime-type>
+    <comment>MATLAB script/function</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>m</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-microdvd</mime-type>
+    <comment>MicroDVD subtitles</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>sub</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-moc</mime-type>
+    <comment>Qt MOC file</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>moc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-modelica</mime-type>
+    <comment>Modelica model</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>mo</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-mof</mime-type>
+    <comment>Managed Object Format</comment>
+    <parent-type>text/x-csrc</parent-type>
+    <extension>mof</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-mpsub</mime-type>
+    <comment>MPSub subtitles</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>sub</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-mrml</mime-type>
+    <comment>MRML playlist</comment>
+    <extension>mrml</extension>
+    <extension>mrl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-ms-regedit</mime-type>
+    <comment>Windows Registry extract</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>reg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-mup</mime-type>
+    <comment>Mup publication</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>mup</extension>
+    <extension>not</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-nfo</mime-type>
+    <comment>NFO document</comment>
+    <parent-type>text/x-readme</parent-type>
+    <extension>nfo</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-objcsrc</mime-type>
+    <comment>Objective-C source code</comment>
+    <parent-type>text/x-csrc</parent-type>
+    <extension>m</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-ocaml</mime-type>
+    <comment>OCaml source code</comment>
+    <extension>ml</extension>
+    <extension>mli</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-ocl</mime-type>
+    <comment>OCL file</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>ocl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-ooc</mime-type>
+    <comment>OOC source code</comment>
+    <parent-type>text/x-csrc</parent-type>
+    <extension>ooc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-opml+xml</mime-type>
+    <mime-type>text/x-opml</mime-type>
+    <comment>OPML syndication feed</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>opml</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-pascal</mime-type>
+    <comment>Pascal source code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>p</extension>
+    <extension>pas</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-patch</mime-type>
+    <mime-type>text/x-diff</mime-type>
+    <comment>differences between files</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>diff</extension>
+    <extension>patch</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-python</mime-type>
+    <comment>Python script</comment>
+    <parent-type>application/x-executable</parent-type>
+    <parent-type>text/plain</parent-type>
+    <extension>py</extension>
+    <extension>pyx</extension>
+    <extension>wsgi</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-qml</mime-type>
+    <comment>Qt Markup Language file</comment>
+    <extension>qml</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-readme</mime-type>
+    <comment>README document</comment>
+    <parent-type>text/plain</parent-type>
+    <glob>README*</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-reject</mime-type>
+    <mime-type>application/x-reject</mime-type>
+    <comment>rejected patch</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>rej</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-rpm-spec</mime-type>
+    <comment>RPM spec file</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>spec</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-scala</mime-type>
+    <comment>Scala source code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>scala</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-scheme</mime-type>
+    <comment>Scheme source code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>scm</extension>
+    <extension>ss</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-setext</mime-type>
+    <comment>Setext document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>etx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-ssa</mime-type>
+    <comment>SSA subtitles</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>ssa</extension>
+    <extension>ass</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-subviewer</mime-type>
+    <comment>SubViewer subtitles</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>sub</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-svhdr</mime-type>
+    <comment>SystemVerilog header</comment>
+    <parent-type>text/x-verilog</parent-type>
+    <extension>svh</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-svsrc</mime-type>
+    <comment>SystemVerilog source code</comment>
+    <parent-type>text/x-verilog</parent-type>
+    <extension>sv</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-tcl</mime-type>
+    <comment>Tcl script</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>tcl</extension>
+    <extension>tk</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-tex</mime-type>
+    <mime-type>application/x-tex</mime-type>
+    <comment>TeX document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>tex</extension>
+    <extension>ltx</extension>
+    <extension>sty</extension>
+    <extension>cls</extension>
+    <extension>dtx</extension>
+    <extension>ins</extension>
+    <extension>latex</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-texinfo</mime-type>
+    <comment>TeXInfo document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>texi</extension>
+    <extension>texinfo</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-troff-me</mime-type>
+    <comment>Troff ME input document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>me</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-troff-mm</mime-type>
+    <comment>Troff MM input document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>mm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-troff-ms</mime-type>
+    <comment>Troff MS input document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>ms</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-txt2tags</mime-type>
+    <comment>txt2tags document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>t2t</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-uil</mime-type>
+    <comment>X-Motif UIL table</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>uil</extension>
+  </item>
+  <item source="old">
+    <mime-type>text/x-uri</mime-type>
+    <extension>uri</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-uuencode</mime-type>
+    <mime-type>zz-application/zz-winassoc-uu</mime-type>
+    <comment>uuencoded file</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>uue</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-vala</mime-type>
+    <comment>Vala source code</comment>
+    <parent-type>text/x-csrc</parent-type>
+    <extension>vala</extension>
+    <extension>vapi</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-verilog</mime-type>
+    <comment>Verilog source code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>v</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-vhdl</mime-type>
+    <comment>VHDL source code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>vhd</extension>
+    <extension>vhdl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-xmi</mime-type>
+    <comment>XMI file</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>xmi</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-xslfo</mime-type>
+    <comment>XSL FO file</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>fo</extension>
+    <extension>xslfo</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/3gpp</mime-type>
+    <mime-type>video/3gp</mime-type>
+    <mime-type>audio/3gpp</mime-type>
+    <mime-type>video/3gpp-encrypted</mime-type>
+    <mime-type>audio/3gpp-encrypted</mime-type>
+    <mime-type>audio/amr</mime-type>
+    <mime-type>audio/amr-encrypted</mime-type>
+    <mime-type>audio/amr-wb</mime-type>
+    <mime-type>audio/amr-wb-encrypted</mime-type>
+    <mime-type>audio/x-rn-3gpp-amr</mime-type>
+    <mime-type>audio/x-rn-3gpp-amr-encrypted</mime-type>
+    <mime-type>audio/x-rn-3gpp-amr-wb</mime-type>
+    <mime-type>audio/x-rn-3gpp-amr-wb-encrypted</mime-type>
+    <comment>3GPP multimedia file</comment>
+    <parent-type>video/mp4</parent-type>
+    <extension>3gp</extension>
+    <extension>3gpp</extension>
+    <extension>3ga</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/3gpp2</mime-type>
+    <mime-type>audio/3gpp2</mime-type>
+    <comment>3GPP2 multimedia file</comment>
+    <parent-type>video/mp4</parent-type>
+    <extension>3g2</extension>
+    <extension>3gp2</extension>
+    <extension>3gpp2</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/annodex</mime-type>
+    <mime-type>video/x-annodex</mime-type>
+    <comment>Annodex Video</comment>
+    <parent-type>application/annodex</parent-type>
+    <extension>axv</extension>
+  </item>
+  <item source="old">
+    <mime-type>video/dl</mime-type>
+    <extension>dl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/dv</mime-type>
+    <comment>DV video</comment>
+    <extension>dv</extension>
+  </item>
+  <item source="old">
+    <mime-type>video/gl</mime-type>
+    <extension>gl</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/mp2t</mime-type>
+    <comment>MPEG-2 transport stream</comment>
+    <extension>m2t</extension>
+    <extension>m2ts</extension>
+    <extension>ts</extension>
+    <extension>mts</extension>
+    <extension>cpi</extension>
+    <extension>clpi</extension>
+    <extension>mpl</extension>
+    <extension>mpls</extension>
+    <extension>bdm</extension>
+    <extension>bdmv</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/mp4</mime-type>
+    <mime-type>video/mp4v-es</mime-type>
+    <mime-type>video/x-m4v</mime-type>
+    <comment>MPEG-4 video</comment>
+    <extension>mp4</extension>
+    <extension>m4v</extension>
+    <extension>f4v</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/mpeg</mime-type>
+    <mime-type>video/x-mpeg</mime-type>
+    <mime-type>video/x-mpeg2</mime-type>
+    <comment>MPEG video</comment>
+    <glob>[0-9][0-9][0-9].vdr</glob>
+    <extension>mpeg</extension>
+    <extension>mpg</extension>
+    <extension>mp2</extension>
+    <extension>mpe</extension>
+    <extension>vob</extension>
+    <extension source="old">mpa</extension>
+    <extension source="old">mpv2</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/ogg</mime-type>
+    <mime-type>video/x-ogg</mime-type>
+    <comment>Ogg Video</comment>
+    <parent-type>application/ogg</parent-type>
+    <extension>ogv</extension>
+    <extension>ogg</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/quicktime</mime-type>
+    <comment>QuickTime video</comment>
+    <extension>qt</extension>
+    <extension>mov</extension>
+    <extension>moov</extension>
+    <extension>qtvr</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/vivo</mime-type>
+    <mime-type>video/vnd.vivo</mime-type>
+    <comment>Vivo video</comment>
+    <extension>viv</extension>
+    <extension>vivo</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/vnd.mpegurl</mime-type>
+    <mime-type>video/x-mpegurl</mime-type>
+    <comment>MPEG video (streamed)</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>m1u</extension>
+    <extension>m4u</extension>
+    <extension>mxu</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/vnd.rn-realvideo</mime-type>
+    <mime-type>video/x-real-video</mime-type>
+    <comment>RealVideo document</comment>
+    <extension>rv</extension>
+    <extension>rvx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/webm</mime-type>
+    <comment>WebM video</comment>
+    <extension>webm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/x-anim</mime-type>
+    <comment>ANIM animation</comment>
+    <glob>*.anim[1-9j]</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/x-flic</mime-type>
+    <mime-type>video/fli</mime-type>
+    <mime-type>video/x-fli</mime-type>
+    <comment>FLIC animation</comment>
+    <extension>fli</extension>
+    <extension>flc</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/x-flv</mime-type>
+    <mime-type>application/x-flash-video</mime-type>
+    <mime-type>flv-application/octet-stream</mime-type>
+    <mime-type>video/flv</mime-type>
+    <comment>Flash video</comment>
+    <extension>flv</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/x-javafx</mime-type>
+    <comment>JavaFX video</comment>
+    <parent-type>video/x-flv</parent-type>
+    <extension>fxm</extension>
+  </item>
+  <item source="old">
+    <mime-type>video/x-la-asf</mime-type>
+    <extension>lsf</extension>
+    <extension source="old">lsx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/x-matroska</mime-type>
+    <comment>Matroska video</comment>
+    <parent-type>application/x-matroska</parent-type>
+    <extension>mkv</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/x-matroska-3d</mime-type>
+    <comment>Matroska 3D video</comment>
+    <parent-type>application/x-matroska</parent-type>
+    <extension>mk3d</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/x-mng</mime-type>
+    <comment>MNG animation</comment>
+    <extension>mng</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/x-ms-wmv</mime-type>
+    <comment>Windows Media video</comment>
+    <parent-type>application/vnd.ms-asf</parent-type>
+    <extension>wmv</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/x-msvideo</mime-type>
+    <mime-type>video/x-avi</mime-type>
+    <mime-type>video/avi</mime-type>
+    <mime-type>video/divx</mime-type>
+    <mime-type>video/msvideo</mime-type>
+    <mime-type>video/vnd.divx</mime-type>
+    <comment>AVI video</comment>
+    <extension>avi</extension>
+    <extension>avf</extension>
+    <extension>divx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/x-nsv</mime-type>
+    <comment>NullSoft video</comment>
+    <extension>nsv</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/x-ogm+ogg</mime-type>
+    <mime-type>video/x-ogm</mime-type>
+    <comment>OGM video</comment>
+    <parent-type>video/ogg</parent-type>
+    <extension>ogm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/x-sgi-movie</mime-type>
+    <comment>SGI video</comment>
+    <extension>movie</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/x-theora+ogg</mime-type>
+    <mime-type>video/x-theora</mime-type>
+    <comment>Ogg Theora video</comment>
+    <parent-type>video/ogg</parent-type>
+    <extension>ogg</extension>
+  </item>
+  <item source="old">
+    <mime-type>www/mime</mime-type>
+    <extension>mime</extension>
+  </item>
+  <item source="old">
+    <mime-type>x-conference/x-cooltalk</mime-type>
+    <extension>ice</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>x-epoc/x-sisx-app</mime-type>
+    <comment>SISX package</comment>
+    <extension>sisx</extension>
+  </item>
+  <item source="old">
+    <mime-type>x-world/x-vrml</mime-type>
+    <extension>flr</extension>
+    <extension source="old">wrz</extension>
+    <extension source="old">xaf</extension>
+    <extension source="old">xof</extension>
+  </item>
+</mapping>

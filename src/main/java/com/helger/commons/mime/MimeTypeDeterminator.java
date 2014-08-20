@@ -57,7 +57,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Contains a basic set of MimeType determination method.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -157,7 +157,7 @@ public final class MimeTypeDeterminator
 
   /**
    * Register a new MIME content type.
-   * 
+   *
    * @param aMimeTypeContent
    *        The content type to register. May not be <code>null</code>.
    * @return {@link EChange#CHANGED} if the object was successfully registered.
@@ -180,7 +180,7 @@ public final class MimeTypeDeterminator
 
   /**
    * Unregister an existing MIME content type.
-   * 
+   *
    * @param aMimeTypeContent
    *        The content type to unregister. May not be <code>null</code>.
    * @return {@link EChange#CHANGED} if the object was successfully
@@ -205,7 +205,7 @@ public final class MimeTypeDeterminator
 
   /**
    * Try to find the MIME type that matches the passed content string.
-   * 
+   *
    * @param s
    *        The content string to check. May be <code>null</code>.
    * @param sCharsetName
@@ -222,7 +222,7 @@ public final class MimeTypeDeterminator
 
   /**
    * Try to find the MIME type that matches the passed content string.
-   * 
+   *
    * @param s
    *        The content string to check. May be <code>null</code>.
    * @param aCharset
@@ -239,7 +239,7 @@ public final class MimeTypeDeterminator
 
   /**
    * Try to find the MIME type that matches the passed content string.
-   * 
+   *
    * @param s
    *        The content string to check. May be <code>null</code>.
    * @param aCharset
@@ -261,7 +261,7 @@ public final class MimeTypeDeterminator
 
   /**
    * Try to determine the MIME type from the given byte array.
-   * 
+   *
    * @param b
    *        The byte array to parse. May be <code>null</code> or empty.
    * @return {@link #DEFAULT_MIME_TYPE} if no specific MIME type was found.
@@ -275,7 +275,7 @@ public final class MimeTypeDeterminator
 
   /**
    * Try to determine the MIME type from the given byte array.
-   * 
+   *
    * @param b
    *        The byte array to parse. May be <code>null</code> or empty.
    * @param aDefault
@@ -327,12 +327,13 @@ public final class MimeTypeDeterminator
 
   /**
    * Get the MIME type from the extension of the passed filename.
-   * 
+   *
    * @param sFilename
    *        The filename to check. May be <code>null</code>.
    * @return <code>null</code> if no MIME type was found.
    */
   @Nullable
+  @Deprecated
   public static String getMimeTypeFromFilename (@Nullable final String sFilename)
   {
     final String sExt = FilenameHelper.getExtension (sFilename);
@@ -341,12 +342,13 @@ public final class MimeTypeDeterminator
 
   /**
    * Get the MIME type object from the extension of the passed filename.
-   * 
+   *
    * @param sFilename
    *        The filename to check. May be <code>null</code>.
    * @return <code>null</code> if no MIME type was found.
    */
   @Nullable
+  @Deprecated
   public static MimeType getMimeTypeObjectFromFilename (@Nonnull final String sFilename)
   {
     final String sMimeType = getMimeTypeFromFilename (sFilename);
@@ -355,13 +357,14 @@ public final class MimeTypeDeterminator
 
   /**
    * Get the MIME type from the passed filename extension.
-   * 
+   *
    * @param sExtension
    *        The extension to check. Must be without the leading dot, so "doc" is
    *        valid but ".doc" is not. May be <code>null</code>.
    * @return <code>null</code> if no MIME type was found.
    */
   @Nullable
+  @Deprecated
   public static String getMimeTypeFromExtension (@Nullable final String sExtension)
   {
     if (StringHelper.hasNoText (sExtension))
@@ -379,13 +382,14 @@ public final class MimeTypeDeterminator
 
   /**
    * Get the MIME type object from the passed filename extension.
-   * 
+   *
    * @param sExtension
    *        The extension to check. Must be without the leading dot, so "doc" is
    *        valid but ".doc" is not. May be <code>null</code>.
    * @return <code>null</code> if no MIME type was found.
    */
   @Nullable
+  @Deprecated
   public static MimeType getMimeTypeObjectFromExtension (@Nullable final String sExtension)
   {
     final String sMimeType = getMimeTypeFromExtension (sExtension);
@@ -397,6 +401,7 @@ public final class MimeTypeDeterminator
    */
   @Nonnull
   @ReturnsMutableCopy
+  @Deprecated
   public static Collection <String> getAllKnownMimeTypes ()
   {
     return ContainerHelper.newList (s_aFileExtMap.values ());
@@ -408,6 +413,7 @@ public final class MimeTypeDeterminator
    */
   @Nonnull
   @ReturnsMutableCopy
+  @Deprecated
   public static Map <String, String> getAllKnownMimeTypeFilenameMappings ()
   {
     return ContainerHelper.newMap (s_aFileExtMap);
@@ -415,7 +421,7 @@ public final class MimeTypeDeterminator
 
   /**
    * Reset the MimeTypeContent cache to the initial state.
-   * 
+   *
    * @see #registerMimeTypeContent(MimeTypeContent)
    * @see #unregisterMimeTypeContent(MimeTypeContent)
    */

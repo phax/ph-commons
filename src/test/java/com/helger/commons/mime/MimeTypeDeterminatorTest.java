@@ -31,9 +31,10 @@ import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link MimeTypeDeterminator}
- * 
+ *
  * @author Philip Helger
  */
+@SuppressWarnings ("deprecation")
 public final class MimeTypeDeterminatorTest extends AbstractPHTestCase
 {
   /**

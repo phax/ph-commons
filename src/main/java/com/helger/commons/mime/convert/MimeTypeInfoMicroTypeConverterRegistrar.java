@@ -36,6 +36,7 @@ import com.helger.commons.mime.MimeTypeInfo;
 import com.helger.commons.mime.MimeTypeInfo.ExtensionWithSource;
 import com.helger.commons.mime.MimeTypeInfo.MimeTypeWithSource;
 import com.helger.commons.mime.MimeTypeParser;
+import com.helger.commons.string.StringHelper;
 
 /**
  * {@link IMicroTypeConverterRegistrarSPI} implementation for
@@ -80,9 +81,10 @@ public final class MimeTypeInfoMicroTypeConverterRegistrar implements IMicroType
       final Set <ExtensionWithSource> aExtensions = new LinkedHashSet <ExtensionWithSource> ();
       for (final IMicroElement eExtension : aElement.getAllChildElements (ELEMENT_EXTENSION))
       {
-        final String sExt = eExtension.getTextContentTrimmed ();
+        // May be null if the empty extension ("") is used
+        final String sExtension = StringHelper.getNotNull (eExtension.getTextContentTrimmed ());
         final String sSource = eExtension.getAttribute (ATTR_SOURCE);
-        aExtensions.add (new ExtensionWithSource (sExt, sSource));
+        aExtensions.add (new ExtensionWithSource (sExtension, sSource));
       }
 
       final String sSource = aElement.getAttribute (ATTR_SOURCE);

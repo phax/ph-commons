@@ -27,11 +27,8 @@ import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.convert.MicroTypeConverter;
-import com.helger.commons.microdom.impl.MicroDocument;
 import com.helger.commons.microdom.serialize.MicroReader;
 import com.helger.commons.microdom.serialize.MicroWriter;
-import com.helger.commons.mime.ComparatorMimeTypeInfoPrimaryMimeType;
 import com.helger.commons.mime.MimeType;
 import com.helger.commons.mime.MimeTypeDeterminator;
 import com.helger.commons.mime.MimeTypeInfo;
@@ -74,6 +71,7 @@ public final class MainReadSharedMimeInfo
 {
   private static final String NS = "http://www.freedesktop.org/standards/shared-mime-info";
 
+  @SuppressWarnings ("deprecation")
   public static void main (final String [] args)
   {
     final IMicroDocument aDoc = MicroReader.readMicroXML (new ClassPathResource ("shared-mime-info/freedesktop.org.xml"));
@@ -140,34 +138,42 @@ public final class MainReadSharedMimeInfo
       final String sOldExt = aEntry.getKey ();
       final String sOldMimeType = aEntry.getValue ();
       final MimeType aOldMimeType = MimeTypeParser.parseMimeType (sOldMimeType);
-      List <MimeTypeInfo> aNew = aMgr.getAllInfosOfExtension (sOldExt);
+      List <MimeTypeInfo> aNew;
+
+      // First check for Mime Type, as they are unique
+      aNew = aMgr.getAllInfosOfMimeType (aOldMimeType);
       if (aNew != null)
       {
-        // Found extension - check if MIME type matches that type
+        // Mime type is present - check if extension is also present
         boolean bFound = false;
         for (final MimeTypeInfo aInfo : aNew)
-          if (aInfo.containsMimeType (sOldMimeType))
+          if (aInfo.containsExtension (sOldExt))
           {
             bFound = true;
             break;
           }
         if (!bFound)
         {
-          System.out.println ("'" + sOldExt + "': " + sOldMimeType + " not found in " + aNew + "!");
+          if (aNew.size () == 1)
+          {
+            aMgr.addExtension (aNew.get (0), new ExtensionWithSource (sOldExt, "old"));
+            if (false)
+              System.out.println ("Added extension '" + sOldExt + "' to " + sOldMimeType + "!");
+          }
+          else
+            System.out.println (sOldMimeType + ": '" + sOldExt + "' not found in " + aNew + "!");
         }
       }
       else
       {
-        // No such mapping from ext to mime type
-
-        // Check other direction -> MIME Type to ext
-        aNew = aMgr.getAllInfosOfMimeType (aOldMimeType);
+        // no such mime type present - Check other direction: ext 2 mimetype
+        aNew = aMgr.getAllInfosOfExtension (sOldExt);
         if (aNew != null)
         {
-          // Mime type is present - check if extension is also present
+          // Found extension - check if MIME type matches that type
           boolean bFound = false;
           for (final MimeTypeInfo aInfo : aNew)
-            if (aInfo.containsExtension (sOldExt))
+            if (aInfo.containsMimeType (sOldMimeType))
             {
               bFound = true;
               break;
@@ -176,16 +182,16 @@ public final class MainReadSharedMimeInfo
           {
             if (aNew.size () == 1)
             {
-              aMgr.addExtension (aNew.get (0), new ExtensionWithSource (sOldExt, "old"));
-              if (false)
-                System.out.println ("Added extension '" + sOldExt + "' to " + sOldMimeType + "!");
+              System.out.println ("'" + sOldExt + "': " + sOldMimeType + " not found in " + aNew.get (0) + "!");
             }
             else
-              System.out.println (sOldMimeType + ": '" + sOldExt + "' not found in " + aNew + "!");
+              System.out.println ("'" + sOldExt + "': " + sOldMimeType + " not found in any of " + aNew + "!");
           }
         }
         else
         {
+          // No such mapping from ext to mime type
+
           // Create a new entry
           aMgr.registerMimeType (new MimeTypeInfo (ContainerHelper.newSet (new MimeTypeWithSource (sOldMimeType)),
                                                    null,
@@ -199,14 +205,7 @@ public final class MainReadSharedMimeInfo
       }
     }
 
-    {
-      final IMicroDocument aDstDoc2 = new MicroDocument ();
-      final IMicroElement eRoot2 = aDstDoc2.appendElement ("mapping");
-      for (final MimeTypeInfo aInfo : ContainerHelper.getSorted (aMgr.getAllMimeTypeInfos (),
-                                                                 new ComparatorMimeTypeInfoPrimaryMimeType ()))
-        eRoot2.appendChild (MicroTypeConverter.convertToMicroElement (aInfo, "item"));
-      System.out.println (MicroWriter.getXMLString (aDstDoc2));
-    }
+    System.out.println (MicroWriter.getXMLString (aMgr.getAsDocument ()));
     System.out.println ("done");
   }
 }

@@ -12,6 +12,13 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.collections.multimap.IMultiMapListBased;
 import com.helger.commons.collections.multimap.MultiTreeMapArrayListBased;
+import com.helger.commons.io.IReadableResource;
+import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.commons.microdom.IMicroDocument;
+import com.helger.commons.microdom.IMicroElement;
+import com.helger.commons.microdom.convert.MicroTypeConverter;
+import com.helger.commons.microdom.impl.MicroDocument;
+import com.helger.commons.microdom.serialize.MicroReader;
 import com.helger.commons.mime.MimeTypeInfo.ExtensionWithSource;
 import com.helger.commons.mime.MimeTypeInfo.MimeTypeWithSource;
 import com.helger.commons.string.StringHelper;
@@ -24,6 +31,13 @@ import com.phloc.commons.annotations.ReturnsMutableCopy;
  */
 public class MimeTypeInfoManager
 {
+  private static final MimeTypeInfoManager s_aDefaultInstance = new MimeTypeInfoManager ();
+
+  static
+  {
+    s_aDefaultInstance.read (new ClassPathResource ("codelists/mime-type-info.xml"));
+  }
+
   private final List <MimeTypeInfo> m_aList = new ArrayList <MimeTypeInfo> ();
   private final IMultiMapListBased <MimeType, MimeTypeInfo> m_aMapMimeType = new MultiTreeMapArrayListBased <MimeType, MimeTypeInfo> ();
   private final IMultiMapListBased <String, MimeTypeInfo> m_aMapExt = new MultiTreeMapArrayListBased <String, MimeTypeInfo> ();
@@ -31,13 +45,49 @@ public class MimeTypeInfoManager
   public MimeTypeInfoManager ()
   {}
 
+  /**
+   * @return The default instance that contains all predefined
+   *         {@link MimeTypeInfo}s.
+   */
+  @Nonnull
+  public static MimeTypeInfoManager getDefaultInstance ()
+  {
+    return s_aDefaultInstance;
+  }
+
+  public void read (@Nonnull final IReadableResource aRes)
+  {
+    ValueEnforcer.notNull (aRes, "Resource");
+    final IMicroDocument aDoc = MicroReader.readMicroXML (aRes);
+    if (aDoc == null)
+      throw new IllegalArgumentException ("Failed to read MimeTypeInfo resource " + aRes);
+
+    for (final IMicroElement eItem : aDoc.getDocumentElement ().getAllChildElements ())
+    {
+      final MimeTypeInfo aInfo = MicroTypeConverter.convertToNative (eItem, MimeTypeInfo.class);
+      registerMimeType (aInfo);
+    }
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public IMicroDocument getAsDocument ()
+  {
+    final IMicroDocument aDoc = new MicroDocument ();
+    final IMicroElement eRoot = aDoc.appendElement ("mime-type-info");
+    for (final MimeTypeInfo aInfo : ContainerHelper.getSorted (m_aList, new ComparatorMimeTypeInfoPrimaryMimeType ()))
+      eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aInfo, "item"));
+    return aDoc;
+  }
+
   public void registerMimeType (@Nonnull final MimeTypeInfo aInfo)
   {
     ValueEnforcer.notNull (aInfo, "Info");
     final Set <MimeTypeWithSource> aMimeTypes = aInfo.getAllMimeTypes ();
     final Set <ExtensionWithSource> aExtensions = aInfo.getAllExtensions ();
 
-    // Check
+    // Check if MimeType is unique
+    // Note: Extension must not be unique
     for (final MimeTypeWithSource aMimeType : aMimeTypes)
     {
       final List <MimeTypeInfo> aExisting = m_aMapMimeType.get (aMimeType.getMimeType ());
@@ -50,7 +100,7 @@ public class MimeTypeInfoManager
                                             aExisting);
     }
 
-    // Perform
+    // Perform changes
     m_aList.add (aInfo);
     for (final MimeTypeWithSource aMimeType : aMimeTypes)
       m_aMapMimeType.putSingle (aMimeType.getMimeType (), aInfo);
