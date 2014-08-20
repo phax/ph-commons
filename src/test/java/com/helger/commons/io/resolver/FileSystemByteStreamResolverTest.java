@@ -29,7 +29,7 @@ import org.junit.Test;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link FileSystemByteStreamResolver}.
@@ -51,11 +51,11 @@ public final class FileSystemByteStreamResolverTest
     StreamUtils.close (aOS);
     assertTrue (FileOperations.deleteFile (new File ("$deleteme.txt")).isSuccess ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamResolver (new File (".")),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamResolver (new File (".")),
                                                                     new FileSystemByteStreamResolver (new File (".")));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamResolver (new File (".")),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamResolver (new File (".")),
                                                                     new FileSystemByteStreamResolver ("."));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new FileSystemByteStreamResolver (new File (".")),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new FileSystemByteStreamResolver (new File (".")),
                                                                         new FileSystemByteStreamResolver (new File ("..")));
   }
 }

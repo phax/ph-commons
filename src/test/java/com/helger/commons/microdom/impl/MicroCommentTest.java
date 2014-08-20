@@ -30,7 +30,7 @@ import org.junit.Test;
 import com.helger.commons.microdom.EMicroNodeType;
 import com.helger.commons.microdom.IMicroComment;
 import com.helger.commons.microdom.MicroException;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MicroComment}.
@@ -59,7 +59,7 @@ public final class MicroCommentTest
     assertNotNull (e.getNodeName ());
     assertNotNull (e.getNodeValue ());
     assertSame (EMicroNodeType.COMMENT, e.getType ());
-    PhlocTestUtils.testToStringImplementation (e);
+    PHTestUtils.testToStringImplementation (e);
 
     e.setData ("allo");
     assertEquals ("allo", e.getData ().toString ());

@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.version.Version;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -51,35 +51,35 @@ public final class CustomLicenseTest
     assertNull (cl2.getVersion ());
     assertNull (cl2.getURL ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (cl2, new CustomLicense ("cl1",
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (cl2, new CustomLicense ("cl1",
                                                                                             "License",
                                                                                             null,
                                                                                             null));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (cl, new CustomLicense ("cl1",
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (cl, new CustomLicense ("cl1",
                                                                                            "License",
                                                                                            new Version ("1.2"),
                                                                                            "url"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl12",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl12",
                                                                                                "License",
                                                                                                new Version ("1.2"),
                                                                                                "url"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
                                                                                                "License2",
                                                                                                new Version ("1.2"),
                                                                                                "url"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
                                                                                                "License",
                                                                                                new Version ("1.1"),
                                                                                                "url"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
                                                                                                "License",
                                                                                                null,
                                                                                                "url"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
                                                                                                "License",
                                                                                                new Version ("1.2"),
                                                                                                "url2"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
                                                                                                "License",
                                                                                                new Version ("1.2"),
                                                                                                null));

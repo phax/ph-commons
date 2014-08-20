@@ -27,7 +27,7 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link NonBlockingStack}
@@ -139,18 +139,18 @@ public final class NonBlockingStackTest
     assertEquals ("h", aStack.pop ());
     assertEquals ("g", aStack.pop ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> (),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> (),
                                                                     new NonBlockingStack <String> ());
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> ("a", "b"),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> ("a", "b"),
                                                                     new NonBlockingStack <String> ("a", "b"));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> (ContainerHelper.newList ("a",
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> (ContainerHelper.newList ("a",
                                                                                                                             "b")),
                                                                     new NonBlockingStack <String> (ContainerHelper.newList ("a",
                                                                                                                             "b")));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new NonBlockingStack <String> (ContainerHelper.newList ("a",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new NonBlockingStack <String> (ContainerHelper.newList ("a",
                                                                                                                                 "b")),
                                                                         new NonBlockingStack <String> (ContainerHelper.newList ("a")));
-    PhlocTestUtils.testGetClone (new NonBlockingStack <String> ("a", "b"));
-    PhlocTestUtils.testGetClone (new NonBlockingStack <String> ());
+    PHTestUtils.testGetClone (new NonBlockingStack <String> ("a", "b"));
+    PHTestUtils.testGetClone (new NonBlockingStack <String> ());
   }
 }

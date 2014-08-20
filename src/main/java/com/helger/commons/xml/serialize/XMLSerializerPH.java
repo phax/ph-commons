@@ -47,7 +47,7 @@ import com.helger.commons.xml.XMLHelper;
  * 
  * @author Philip Helger
  */
-public final class XMLSerializerPH extends AbstractSerializerPhloc <Node>
+public final class XMLSerializerPH extends AbstractXMLSerializer <Node>
 {
   public XMLSerializerPH ()
   {

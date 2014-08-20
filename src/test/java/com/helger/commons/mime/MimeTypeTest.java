@@ -29,7 +29,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MimeType}
@@ -47,17 +47,17 @@ public final class MimeTypeTest extends AbstractPHTestCase
     assertEquals ("text/junit", mt.getAsString ());
     assertEquals ("text/junit", mt.getAsStringWithoutParameters ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (mt, new MimeType (EMimeContentType.TEXT, "junit"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.APPLICATION,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (mt, new MimeType (EMimeContentType.TEXT, "junit"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.APPLICATION,
                                                                                           "junit"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.TEXT,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.TEXT,
                                                                                           "testng"));
-    PhlocTestUtils.testGetClone (mt);
-    PhlocTestUtils.testDefaultSerialization (mt);
+    PHTestUtils.testGetClone (mt);
+    PHTestUtils.testDefaultSerialization (mt);
 
     mt.addParameter ("charset", CCharset.CHARSET_UTF_8);
-    PhlocTestUtils.testGetClone (mt);
-    PhlocTestUtils.testDefaultSerialization (mt);
+    PHTestUtils.testGetClone (mt);
+    PHTestUtils.testDefaultSerialization (mt);
 
     try
     {

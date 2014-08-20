@@ -29,7 +29,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import com.helger.commons.callback.DoNothingExceptionHandler;
 import com.helger.commons.callback.IThrowingRunnable;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.xml.sax.CachingSAXInputSource;
 
 /**
@@ -57,7 +57,7 @@ public final class SAXReaderTest
   @Test
   public void testMultithreadedSAX_CachingSAXInputSource ()
   {
-    PhlocTestUtils.testInParallel (1000, new IThrowingRunnable ()
+    PHTestUtils.testInParallel (1000, new IThrowingRunnable ()
     {
       public void run () throws Exception
       {
@@ -71,7 +71,7 @@ public final class SAXReaderTest
   @Test
   public void testMultithreadedSAX_ReadableResourceSAXInputSource ()
   {
-    PhlocTestUtils.testInParallel (1000, new IThrowingRunnable ()
+    PHTestUtils.testInParallel (1000, new IThrowingRunnable ()
     {
       public void run () throws Exception
       {

@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.helger.commons.callback.INonThrowingRunnable;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -47,6 +47,6 @@ public final class ExtendedDefaultThreadFactoryTest
       }
     });
     assertNotNull (t);
-    PhlocTestUtils.testToStringImplementation (x);
+    PHTestUtils.testToStringImplementation (x);
   }
 }

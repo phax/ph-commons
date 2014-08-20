@@ -28,7 +28,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link FileOperationManager}.
@@ -53,7 +53,7 @@ public final class FileOperationManagerTest
     final IFileOperationManager aFOM = new FileOperationManager ();
     assertNull (aFOM.getLastError ());
     assertNull (aFOM.getLastOperation ());
-    PhlocTestUtils.testToStringImplementation (aFOM);
+    PHTestUtils.testToStringImplementation (aFOM);
   }
 
   @Test

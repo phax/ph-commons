@@ -34,7 +34,7 @@ import org.xml.sax.SAXException;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.xml.DefaultXMLIterationHandler;
 import com.helger.commons.xml.EXMLVersion;
 import com.helger.commons.xml.XMLFactory;
@@ -269,7 +269,7 @@ public final class XMLWriterTest extends AbstractPHTestCase
     final String sINDENT = XMLWriterSettings.DEFAULT_INDENTATION_STRING;
     final String sTAGNAME = "notext";
 
-    PhlocTestUtils.testInParallel (1000, new Runnable ()
+    PHTestUtils.testInParallel (1000, new Runnable ()
     {
       public void run ()
       {

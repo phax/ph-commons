@@ -26,28 +26,28 @@ import com.helger.commons.io.EAppend;
 import com.helger.commons.io.streamprovider.ByteArrayOutputStreamProvider;
 import com.helger.commons.microdom.impl.MicroDocumentType;
 import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 
 /**
- * Test class for {@link XMLEmitterPhloc}
+ * Test class for {@link XMLEmitter}
  * 
  * @author Philip Helger
  */
-public final class XMLEmitterPhlocTest extends AbstractPHTestCase
+public final class XMLEmitterTest extends AbstractPHTestCase
 {
   @Test
   public void testMisc ()
   {
     assertEquals ("<!DOCTYPE qname PUBLIC \"pubid\" \"sysid\">",
-                  XMLEmitterPhloc.getDocTypeHTMLRepresentation (EXMLSerializeVersion.XML_10,
+                  XMLEmitter.getDocTypeHTMLRepresentation (EXMLSerializeVersion.XML_10,
                                                                 EXMLIncorrectCharacterHandling.DEFAULT,
                                                                 new MicroDocumentType ("qname", "pubid", "sysid")));
     assertEquals ("<!DOCTYPE qname PUBLIC \"pubid\" \"sysid\">",
-                  XMLEmitterPhloc.getDocTypeHTMLRepresentation (EXMLSerializeVersion.XML_11,
+                  XMLEmitter.getDocTypeHTMLRepresentation (EXMLSerializeVersion.XML_11,
                                                                 EXMLIncorrectCharacterHandling.DEFAULT,
                                                                 new MicroDocumentType ("qname", "pubid", "sysid")));
-    PhlocTestUtils.testToStringImplementation (new XMLEmitterPhloc (new ByteArrayOutputStreamProvider ().getWriter (CCharset.CHARSET_ISO_8859_1_OBJ,
+    PHTestUtils.testToStringImplementation (new XMLEmitter (new ByteArrayOutputStreamProvider ().getWriter (CCharset.CHARSET_ISO_8859_1_OBJ,
                                                                                                                     EAppend.DEFAULT),
                                                                     XMLWriterSettings.DEFAULT_XML_SETTINGS));
   }

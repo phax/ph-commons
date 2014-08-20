@@ -27,7 +27,7 @@ import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.streamprovider.MockNullInputStreamProvider;
 import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link ReadableResourceSAXInputSource}.
@@ -42,7 +42,7 @@ public final class ReadableResourceSAXInputSourceTest
     final IReadableResource aRes = new ClassPathResource ("xml/list.xml");
     final ReadableResourceSAXInputSource is = new ReadableResourceSAXInputSource (aRes);
     assertNotNull (StreamUtils.getAllBytes (is.getByteStream ()));
-    PhlocTestUtils.testToStringImplementation (is);
+    PHTestUtils.testToStringImplementation (is);
 
     assertNull (new ReadableResourceSAXInputSource (new MockNullInputStreamProvider (), "sysid").getByteStream ());
 

@@ -28,7 +28,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.tree.utils.sort.ComparatorDefaultTreeItemWithIDDataComparable;
 import com.helger.commons.tree.utils.sort.ComparatorTreeItemIDComparable;
 
@@ -242,9 +242,9 @@ public final class DefaultTreeItemWithIDTest
     final DefaultTreeWithID <String, String> t2 = new DefaultTreeWithID <String, String> ();
     t2.getRootItem ().createChildItem ("dataid", "Data");
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (t.getRootItem (),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (t.getRootItem (),
                                                                     new DefaultTreeWithID <String, String> ().getRootItem ());
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (t.getRootItem (), t2.getRootItem ());
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (t.getRootItem (), t2.getRootItem ());
   }
 
   @Test

@@ -31,7 +31,7 @@ import java.util.GregorianCalendar;
 import org.junit.Test;
 
 import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.text.IMultiLingualText;
 import com.helger.commons.text.impl.MultiLingualText;
 import com.helger.commons.text.impl.TextProvider;
@@ -65,7 +65,7 @@ public final class ChangeLogEntryTest extends AbstractPHTestCase
     assertTrue (aEntry.getAllIssues ().isEmpty ());
     assertTrue (aEntry.isIncompatible ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aEntry, new ChangeLogEntry (aChangeLog,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aEntry, new ChangeLogEntry (aChangeLog,
                                                                                                 aDate,
                                                                                                 EChangeLogAction.ADD,
                                                                                                 EChangeLogCategory.API,
@@ -73,19 +73,19 @@ public final class ChangeLogEntryTest extends AbstractPHTestCase
 
     ChangeLogEntry aEntry2 = new ChangeLogEntry (aChangeLog, aDate, EChangeLogAction.ADD, EChangeLogCategory.API, true);
     aEntry2.setText (L_DE, "Ist doch auc egal :)");
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry, aEntry2);
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry, aEntry2);
 
     aEntry2 = new ChangeLogEntry (aChangeLog, aDate, EChangeLogAction.ADD, EChangeLogCategory.API, true);
     aEntry2.addIssue ("phloc-1234");
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry, aEntry2);
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry, aEntry2);
 
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry,
                                                                         new ChangeLogEntry (aChangeLog,
                                                                                             aDate,
                                                                                             EChangeLogAction.ADD,
                                                                                             EChangeLogCategory.API,
                                                                                             false));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry,
                                                                         new ChangeLogEntry (aChangeLog,
                                                                                             new GregorianCalendar (2010,
                                                                                                                    Calendar.JULY,
@@ -93,13 +93,13 @@ public final class ChangeLogEntryTest extends AbstractPHTestCase
                                                                                             EChangeLogAction.ADD,
                                                                                             EChangeLogCategory.API,
                                                                                             true));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry,
                                                                         new ChangeLogEntry (aChangeLog,
                                                                                             aDate,
                                                                                             EChangeLogAction.CHANGE,
                                                                                             EChangeLogCategory.API,
                                                                                             true));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry,
                                                                         new ChangeLogEntry (aChangeLog,
                                                                                             aDate,
                                                                                             EChangeLogAction.ADD,

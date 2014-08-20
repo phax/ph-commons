@@ -24,7 +24,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link CountingFileInputStream}.
@@ -42,7 +42,7 @@ public final class CountingFileInputStreamTest
       aCIS.read ();
       assertEquals (1, aCIS.read (new byte [5], 1, 1));
       StreamUtils.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
-      PhlocTestUtils.testToStringImplementation (aCIS);
+      PHTestUtils.testToStringImplementation (aCIS);
     }
     finally
     {
@@ -55,7 +55,7 @@ public final class CountingFileInputStreamTest
       aCIS.read ();
       assertEquals (1, aCIS.read (new byte [5], 1, 1));
       StreamUtils.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
-      PhlocTestUtils.testToStringImplementation (aCIS);
+      PHTestUtils.testToStringImplementation (aCIS);
     }
     finally
     {

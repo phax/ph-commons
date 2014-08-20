@@ -29,7 +29,7 @@ import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.combine.CombinatorStringWithSeparator;
 import com.helger.commons.combine.ICombinator;
 import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link DefaultFolderTree}.
@@ -67,6 +67,6 @@ public final class DefaultFolderTreeTest extends AbstractPHTestCase
     assertNotNull (i3);
     assertTrue (i1 != i3);
 
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (i1, i3);
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (i1, i3);
   }
 }

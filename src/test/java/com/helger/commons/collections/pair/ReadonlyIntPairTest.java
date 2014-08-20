@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link ReadonlyIntPair}.
@@ -49,11 +49,11 @@ public final class ReadonlyIntPairTest
     assertEquals (5, aPair2.getFirst ());
     assertEquals (2, aPair2.getSecond ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyIntPair (5, -30),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyIntPair (5, -30),
                                                                     new ReadonlyIntPair (5, -30));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ReadonlyIntPair (5, -30),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ReadonlyIntPair (5, -30),
                                                                         new ReadonlyIntPair (-5, -30));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ReadonlyIntPair (5, -30),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ReadonlyIntPair (5, -30),
                                                                         new ReadonlyIntPair (5, 30));
   }
 }

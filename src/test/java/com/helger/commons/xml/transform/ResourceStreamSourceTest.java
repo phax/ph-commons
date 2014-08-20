@@ -31,7 +31,7 @@ import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.streamprovider.MockNullInputStreamProvider;
 import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link ResourceStreamSource}.
@@ -52,7 +52,7 @@ public final class ResourceStreamSourceTest
     assertEquals (aRes.getResourceID (), src.getSystemId ());
     assertNull (src.getPublicId ());
 
-    PhlocTestUtils.testToStringImplementation (src);
+    PHTestUtils.testToStringImplementation (src);
 
     try
     {

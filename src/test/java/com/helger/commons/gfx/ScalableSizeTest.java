@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -58,11 +58,11 @@ public final class ScalableSizeTest
     catch (final IllegalArgumentException ex)
     {}
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ScalableSize (320, 240), new ScalableSize (320,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ScalableSize (320, 240), new ScalableSize (320,
                                                                                                                    240));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ScalableSize (320, 240),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ScalableSize (320, 240),
                                                                         new ScalableSize (321, 240));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ScalableSize (320, 240),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ScalableSize (320, 240),
                                                                         new ScalableSize (320, 241));
   }
 

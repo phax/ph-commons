@@ -34,7 +34,7 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -243,18 +243,18 @@ public final class ClassPathResourceTest
     final ClassPathResource aCPISP1a = new ClassPathResource ("folder/test2.txt");
     final ClassPathResource aCPISP1b = new ClassPathResource ("folder/test2.txt");
     final ClassPathResource aCPISP2 = new ClassPathResource ("folder/test1.txt");
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aCPISP1a, aCPISP1b);
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aCPISP1a,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aCPISP1a, aCPISP1b);
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aCPISP1a,
                                                                     new ClassPathResource ("cp:folder/test2.txt"));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aCPISP1a,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aCPISP1a,
                                                                     new ClassPathResource ("classpath:folder/test2.txt"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (aCPISP1a, aCPISP2);
-    PhlocTestUtils.testDefaultSerialization (aCPISP1a);
-    PhlocTestUtils.testDefaultSerialization (new ClassPathResource ("folder/test2.txt"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aCPISP1a, aCPISP2);
+    PHTestUtils.testDefaultSerialization (aCPISP1a);
+    PHTestUtils.testDefaultSerialization (new ClassPathResource ("folder/test2.txt"));
     try
     {
       // Can't serialize with class loader
-      PhlocTestUtils.testDefaultSerialization (new ClassPathResource ("folder/test2.txt",
+      PHTestUtils.testDefaultSerialization (new ClassPathResource ("folder/test2.txt",
                                                                       ClassHelper.getDefaultClassLoader ()));
       fail ();
     }

@@ -29,7 +29,7 @@ import org.junit.Test;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.PhlocAssert;
+import com.helger.commons.mock.PHAssert;
 
 /**
  * Test class for {@link AbstractNumericComparator}
@@ -66,41 +66,41 @@ public final class AbstractNumericComparatorTest
     // default: sort ascending
     List <Double> l = ContainerHelper.getSorted (x, new ComparatorMockNumeric ());
     assertNotNull (l);
-    PhlocAssert.assertEquals (-56, l.get (0).doubleValue ());
-    PhlocAssert.assertEquals (1, l.get (1).doubleValue ());
-    PhlocAssert.assertEquals (3, l.get (2).doubleValue ());
-    PhlocAssert.assertEquals (3, l.get (3).doubleValue ());
+    PHAssert.assertEquals (-56, l.get (0).doubleValue ());
+    PHAssert.assertEquals (1, l.get (1).doubleValue ());
+    PHAssert.assertEquals (3, l.get (2).doubleValue ());
+    PHAssert.assertEquals (3, l.get (3).doubleValue ());
 
     // Explicitly sort ascending
     l = ContainerHelper.getSorted (x, new ComparatorMockNumeric (ESortOrder.ASCENDING));
     assertNotNull (l);
-    PhlocAssert.assertEquals (-56, l.get (0).doubleValue ());
-    PhlocAssert.assertEquals (1, l.get (1).doubleValue ());
-    PhlocAssert.assertEquals (3, l.get (2).doubleValue ());
-    PhlocAssert.assertEquals (3, l.get (3).doubleValue ());
+    PHAssert.assertEquals (-56, l.get (0).doubleValue ());
+    PHAssert.assertEquals (1, l.get (1).doubleValue ());
+    PHAssert.assertEquals (3, l.get (2).doubleValue ());
+    PHAssert.assertEquals (3, l.get (3).doubleValue ());
 
     // Explicitly sort descending
     l = ContainerHelper.getSorted (x, new ComparatorMockNumeric (ESortOrder.DESCENDING));
     assertNotNull (l);
-    PhlocAssert.assertEquals (3, l.get (0).doubleValue ());
-    PhlocAssert.assertEquals (3, l.get (1).doubleValue ());
-    PhlocAssert.assertEquals (1, l.get (2).doubleValue ());
-    PhlocAssert.assertEquals (-56, l.get (3).doubleValue ());
+    PHAssert.assertEquals (3, l.get (0).doubleValue ());
+    PHAssert.assertEquals (3, l.get (1).doubleValue ());
+    PHAssert.assertEquals (1, l.get (2).doubleValue ());
+    PHAssert.assertEquals (-56, l.get (3).doubleValue ());
 
     // change dynamically
     final ComparatorMockNumeric c = new ComparatorMockNumeric (ESortOrder.ASCENDING);
     l = ContainerHelper.getSorted (x, c);
-    PhlocAssert.assertEquals (-56, l.get (0).doubleValue ());
-    PhlocAssert.assertEquals (1, l.get (1).doubleValue ());
-    PhlocAssert.assertEquals (3, l.get (2).doubleValue ());
-    PhlocAssert.assertEquals (3, l.get (3).doubleValue ());
+    PHAssert.assertEquals (-56, l.get (0).doubleValue ());
+    PHAssert.assertEquals (1, l.get (1).doubleValue ());
+    PHAssert.assertEquals (3, l.get (2).doubleValue ());
+    PHAssert.assertEquals (3, l.get (3).doubleValue ());
 
     // change to descending
     l = ContainerHelper.getSorted (x, c.setSortOrder (ESortOrder.DESCENDING));
-    PhlocAssert.assertEquals (3, l.get (0).doubleValue ());
-    PhlocAssert.assertEquals (3, l.get (1).doubleValue ());
-    PhlocAssert.assertEquals (1, l.get (2).doubleValue ());
-    PhlocAssert.assertEquals (-56, l.get (3).doubleValue ());
+    PHAssert.assertEquals (3, l.get (0).doubleValue ());
+    PHAssert.assertEquals (3, l.get (1).doubleValue ());
+    PHAssert.assertEquals (1, l.get (2).doubleValue ());
+    PHAssert.assertEquals (-56, l.get (3).doubleValue ());
   }
 
   /**

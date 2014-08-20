@@ -24,7 +24,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.combine.CombinatorStringWithSeparator;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link DefaultFolderTreeItemFactory}.
@@ -37,10 +37,10 @@ public final class DefaultFolderTreeItemFactoryTest
   public void testBasic ()
   {
     final DefaultFolderTreeItemFactory <String, String, List <String>> ftif = new DefaultFolderTreeItemFactory <String, String, List <String>> (new CombinatorStringWithSeparator ("/"));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (ftif,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (ftif,
                                                                     new DefaultFolderTreeItemFactory <String, String, List <String>> (new CombinatorStringWithSeparator ("/")));
     assertNotNull (ftif.createRoot ());
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (ftif,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (ftif,
                                                                         new DefaultFolderTreeItemFactory <String, String, List <String>> (new CombinatorStringWithSeparator ("/")));
   }
 }

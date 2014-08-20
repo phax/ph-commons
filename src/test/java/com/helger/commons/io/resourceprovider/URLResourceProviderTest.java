@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link URLResourceProvider}.
@@ -57,7 +57,7 @@ public final class URLResourceProviderTest
   @Test
   public void testEqualsAndHashcode ()
   {
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new URLResourceProvider (),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new URLResourceProvider (),
                                                                     new URLResourceProvider ());
   }
 }

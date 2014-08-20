@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link LoggingLRUCache}.
@@ -36,11 +36,11 @@ public final class LoggingLRUCacheTest
   {
     final LoggingLRUCache <String, String> c = new LoggingLRUCache <String, String> ("name", 5);
     assertEquals ("name", c.getCacheName ());
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (c, new LoggingLRUCache <String, String> ("name", 5));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (c,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (c, new LoggingLRUCache <String, String> ("name", 5));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (c,
                                                                         new LoggingLRUCache <String, String> ("name2",
                                                                                                               5));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (c,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (c,
                                                                         new LoggingLRUCache <String, String> ("name", 6));
 
     // Check overflow

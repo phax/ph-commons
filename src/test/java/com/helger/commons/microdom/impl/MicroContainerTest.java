@@ -29,7 +29,7 @@ import org.junit.Test;
 import com.helger.commons.microdom.EMicroNodeType;
 import com.helger.commons.microdom.IMicroContainer;
 import com.helger.commons.microdom.IMicroNode;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MicroContainer}.
@@ -56,7 +56,7 @@ public final class MicroContainerTest
     assertNotNull (e.getNodeValue ());
     assertTrue (e.isEqualContent (e.getClone ()));
     assertSame (EMicroNodeType.CONTAINER, e.getType ());
-    PhlocTestUtils.testToStringImplementation (e);
+    PHTestUtils.testToStringImplementation (e);
 
     e.appendElement ("any");
     assertNotNull (e);

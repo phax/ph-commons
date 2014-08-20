@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link ResourceBundleTextProvider}.
@@ -46,12 +46,12 @@ public final class ResourceBundleTextProviderTest extends AbstractPHTestCase
     assertEquals ("äöü", aRBT.getTextWithArgs (L_DE, "egal"));
     assertEquals ("äöü", aRBT.getTextWithLocaleFallbackAndArgs (L_DE, "egal"));
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
                                                                     new ResourceBundleTextProvider (key));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
                                                                     new ResourceBundleTextProvider ("properties/test-iso8859",
                                                                                                     "key1"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceBundleTextProvider (key),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceBundleTextProvider (key),
                                                                         new ResourceBundleTextProvider ("properties/test-iso8859",
                                                                                                         "key2"));
 

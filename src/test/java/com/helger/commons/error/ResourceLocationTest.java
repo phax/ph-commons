@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link ResourceLocation}.
@@ -54,15 +54,15 @@ public final class ResourceLocationTest
     assertEquals ("field", re.getField ());
     assertEquals ("xx(5:7) @ field", re.getAsString ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceLocation ("xx", "field"),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceLocation ("xx", "field"),
                                                                     new ResourceLocation ("xx", "field"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", "field"),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", "field"),
                                                                         new ResourceLocation ("xx2", "field"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", "field"),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", "field"),
                                                                         new ResourceLocation ("xx", "field2"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", 0, 1, "field"),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", 0, 1, "field"),
                                                                         new ResourceLocation ("xx", 0, 0, "field"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", 0, 1, "field"),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", 0, 1, "field"),
                                                                         new ResourceLocation ("xx", 1, 1, "field"));
   }
 }

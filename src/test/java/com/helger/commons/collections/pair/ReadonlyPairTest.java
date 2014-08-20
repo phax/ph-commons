@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link ReadonlyPair}.
@@ -81,17 +81,17 @@ public final class ReadonlyPairTest
     aPair2 = new ReadonlyPair <String, Double> ("Nice text", Double.valueOf (3.14));
     assertFalse (aPair.equals (aPair2));
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> (null, null),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> (null, null),
                                                                     new ReadonlyPair <String, Double> (null, null));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> ("Nix da", null),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> ("Nix da", null),
                                                                     new ReadonlyPair <String, Double> ("Nix da", null));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> (null, "Nix da"),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> (null, "Nix da"),
                                                                     new ReadonlyPair <String, String> (null, "Nix da"));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> ("Nix", "da"),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> ("Nix", "da"),
                                                                     new ReadonlyPair <String, String> ("Nix", "da"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ReadonlyPair <String, String> ("Nix", "da"),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ReadonlyPair <String, String> ("Nix", "da"),
                                                                         new ReadonlyPair <String, String> ("Nix", "da2"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (ReadonlyPair.create ("Nix", "da"),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (ReadonlyPair.create ("Nix", "da"),
                                                                         ReadonlyPair.create ("Nix2", "da"));
   }
 }

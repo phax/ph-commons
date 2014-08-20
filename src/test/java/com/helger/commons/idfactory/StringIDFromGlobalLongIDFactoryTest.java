@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link StringIDFromGlobalLongIDFactory}.
@@ -35,8 +35,8 @@ public final class StringIDFromGlobalLongIDFactoryTest
   public void testAll ()
   {
     final StringIDFromGlobalLongIDFactory x = new StringIDFromGlobalLongIDFactory ("idd");
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (x, new StringIDFromGlobalLongIDFactory ("idd"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (x,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (x, new StringIDFromGlobalLongIDFactory ("idd"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (x,
                                                                         new StringIDFromGlobalLongIDFactory ("prefix"));
     assertTrue (x.getNewID ().startsWith ("idd"));
 

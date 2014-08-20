@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link ComparatorString}.
@@ -49,7 +49,7 @@ public final class ComparatorStringTest extends AbstractPHTestCase
                   ContainerHelper.getSorted (l,
                                              new ComparatorString (Collator.getInstance (L_FR), ESortOrder.DESCENDING))
                                  .size ());
-    PhlocTestUtils.testToStringImplementation (new ComparatorString ());
+    PHTestUtils.testToStringImplementation (new ComparatorString ());
 
     try
     {

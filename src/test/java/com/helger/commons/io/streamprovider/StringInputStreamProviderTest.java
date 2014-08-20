@@ -26,7 +26,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link StringInputStreamProvider}.
@@ -95,6 +95,6 @@ public final class StringInputStreamProviderTest
   @Test
   public void testSerialization ()
   {
-    PhlocTestUtils.testDefaultSerialization (new StringInputStreamProvider ("Hallo Weltäöü", CCharset.CHARSET_UTF_8_OBJ));
+    PHTestUtils.testDefaultSerialization (new StringInputStreamProvider ("Hallo Weltäöü", CCharset.CHARSET_UTF_8_OBJ));
   }
 }

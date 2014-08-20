@@ -19,7 +19,7 @@ package com.helger.commons.xml.ls;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link LoggingLSResourceResolver}.
@@ -34,7 +34,7 @@ public final class LoggingLSResourceResolverTest
     LoggingLSResourceResolver lrr = new LoggingLSResourceResolver ();
     lrr.resolveResource ("xsd", "nsuri", null, "sysid", "baseURI");
 
-    PhlocTestUtils.testToStringImplementation (lrr);
+    PHTestUtils.testToStringImplementation (lrr);
 
     lrr = new LoggingLSResourceResolver (new LoggingLSResourceResolver ());
     lrr.resolveResource ("xsd", "nsuri", null, "sysid", "baseURI");

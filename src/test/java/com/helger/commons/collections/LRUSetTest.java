@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test for class {@link LRUSet}
@@ -90,10 +90,10 @@ public final class LRUSetTest
     assertEquals (0, aCache.size ());
 
     final LRUSet <String> ret = new LRUSet <String> (4);
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (ret, new LRUSet <String> (4));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (ret, new LRUSet <String> (4));
     ret.add ("a");
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (ret, new LRUSet <String> (4));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new LRUSet <String> (3),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (ret, new LRUSet <String> (4));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new LRUSet <String> (3),
                                                                         new LRUSet <String> (4));
   }
 }

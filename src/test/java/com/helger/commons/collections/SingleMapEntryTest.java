@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link SingleMapEntry}.
@@ -49,13 +49,13 @@ public final class SingleMapEntryTest
     assertEquals (e.hashCode (), new SingleMapEntry <String, Object> ("Key", "new").hashCode ());
     assertNotNull (e.toString ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new SingleMapEntry <String, Object> ("Key", "value"),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new SingleMapEntry <String, Object> ("Key", "value"),
                                                                     new SingleMapEntry <String, Object> ("Key", "value"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleMapEntry <String, Object> ("Key",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleMapEntry <String, Object> ("Key",
                                                                                                              "value"),
                                                                         new SingleMapEntry <String, Object> ("Key",
                                                                                                              "value2"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleMapEntry <String, Object> ("Key",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleMapEntry <String, Object> ("Key",
                                                                                                              "value"),
                                                                         new SingleMapEntry <String, Object> ("Key2",
                                                                                                              "value"));

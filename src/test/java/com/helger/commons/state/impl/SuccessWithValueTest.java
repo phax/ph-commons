@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.state.ESuccess;
 
 /**
@@ -47,9 +47,9 @@ public final class SuccessWithValueTest
     assertEquals ("other", x.getIfFailure ("other"));
     assertNull (x.getIfFailureOrNull ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (x, SuccessWithValue.createSuccess ("bla"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (x, SuccessWithValue.createFailure ("bla"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (x, SuccessWithValue.createSuccess ("Other"));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (x, SuccessWithValue.createSuccess ("bla"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (x, SuccessWithValue.createFailure ("bla"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (x, SuccessWithValue.createSuccess ("Other"));
 
     x = new SuccessWithValue <String> (ESuccess.SUCCESS, null);
     assertNull (x.get ());

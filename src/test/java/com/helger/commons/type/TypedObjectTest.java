@@ -22,7 +22,7 @@ import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link TypedObject}.
@@ -39,12 +39,12 @@ public final class TypedObjectTest
     final TypedObject <String> t1 = TypedObject.create (ot1, "id1");
     assertSame (ot1, t1.getTypeID ());
     assertEquals ("id1", t1.getID ());
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (t1, TypedObject.create (ot1, "id1"));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (t1, TypedObject.create (t1));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (t1, TypedObject.create (ot1, "id2"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (t1, TypedObject.create (ot2, "id1"));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (t1, TypedObject.create (ot1, "id1"));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (t1, TypedObject.create (t1));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (t1, TypedObject.create (ot1, "id2"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (t1, TypedObject.create (ot2, "id1"));
 
     // Serialization
-    PhlocTestUtils.testDefaultSerialization (t1);
+    PHTestUtils.testDefaultSerialization (t1);
   }
 }

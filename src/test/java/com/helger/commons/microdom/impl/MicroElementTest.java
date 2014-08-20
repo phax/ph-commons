@@ -42,7 +42,7 @@ import com.helger.commons.microdom.IMicroText;
 import com.helger.commons.microdom.MicroException;
 import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.DebugModeTestRule;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.text.impl.MultiLingualText;
 import com.helger.commons.typeconvert.TypeConverterException;
 
@@ -109,7 +109,7 @@ public final class MicroElementTest extends AbstractPHTestCase
     assertNotNull (e.getAllChildElements ());
     assertTrue (e.getAllChildElements ().isEmpty ());
     assertSame (EMicroNodeType.ELEMENT, e.getType ());
-    PhlocTestUtils.testToStringImplementation (e);
+    PHTestUtils.testToStringImplementation (e);
 
     e = new MicroElement ("myns", "xyz");
     assertNull (e.getAttribute ("attr"));
@@ -181,14 +181,14 @@ public final class MicroElementTest extends AbstractPHTestCase
     assertNotNull (eRoot.getAllChildElements ());
     assertTrue (eRoot.getAllChildElements ().isEmpty ());
     assertFalse (eRoot.hasChildElements ());
-    PhlocTestUtils.testToStringImplementation (eRoot);
+    PHTestUtils.testToStringImplementation (eRoot);
 
     final IMicroElement e1 = eRoot.appendElement ("level1");
     e1.appendElement ("e11");
     eRoot.appendText ("My text node");
     eRoot.appendComment ("Comment");
     eRoot.appendElement ("xyz");
-    PhlocTestUtils.testToStringImplementation (eRoot);
+    PHTestUtils.testToStringImplementation (eRoot);
 
     assertNotNull (eRoot.getAllChildElements ());
     assertEquals (2, eRoot.getAllChildElements ().size ());

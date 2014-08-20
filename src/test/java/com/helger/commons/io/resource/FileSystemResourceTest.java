@@ -33,7 +33,7 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link FileSystemResource}.
@@ -75,10 +75,10 @@ public final class FileSystemResourceTest
     assertNotNull (fr.getAsURL ());
     assertNotNull (fr.getAsFile ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (fr, new FileSystemResource ("pom.xml"));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (fr, fr.getReadableCloneForPath ("pom.xml"));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (fr, fr.getWritableCloneForPath ("pom.xml"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (fr, new FileSystemResource ("pom.xml2"));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (fr, new FileSystemResource ("pom.xml"));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (fr, fr.getReadableCloneForPath ("pom.xml"));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (fr, fr.getWritableCloneForPath ("pom.xml"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (fr, new FileSystemResource ("pom.xml2"));
 
     fr = new FileSystemResource ("this file does not exist");
     assertFalse (fr.exists ());
@@ -116,6 +116,6 @@ public final class FileSystemResourceTest
   @Test
   public void testSerialize () throws Exception
   {
-    PhlocTestUtils.testDefaultSerialization (new FileSystemResource ("file.txt"));
+    PHTestUtils.testDefaultSerialization (new FileSystemResource ("file.txt"));
   }
 }

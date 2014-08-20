@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -39,8 +39,8 @@ public final class MemoryLongIDFactoryTest
   {
     final MemoryLongIDFactory x = new MemoryLongIDFactory (9);
     assertEquals (9, x.getNewID ());
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (x, new MemoryLongIDFactory (10));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (x, new MemoryLongIDFactory (11));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (x, new MemoryLongIDFactory (10));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (x, new MemoryLongIDFactory (11));
 
     try
     {

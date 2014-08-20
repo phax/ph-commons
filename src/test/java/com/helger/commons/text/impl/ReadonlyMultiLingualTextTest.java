@@ -30,7 +30,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.text.IReadonlyMultiLingualText;
 import com.helger.commons.text.ISimpleMultiLingualText;
 
@@ -87,14 +87,14 @@ public final class ReadonlyMultiLingualTextTest extends AbstractPHTestCase
     assertFalse (aMLT.containsLocaleWithFallback (L_FR));
     assertEquals (2, aMLT.getMap ().size ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aMLT,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aMLT,
                                                                     new ReadonlyMultiLingualText (ContainerHelper.newMap (new Locale [] { L_DE,
                                                                                                                                          L_EN },
                                                                                                                           new String [] { "de",
                                                                                                                                          "en" })));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyMultiLingualText (),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyMultiLingualText (),
                                                                     new ReadonlyMultiLingualText ());
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadonlyMultiLingualText ());
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadonlyMultiLingualText ());
 
     try
     {

@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -40,14 +40,14 @@ public final class ObjectTypeTest
     final ObjectType x = new ObjectType ("any");
     assertEquals ("any", x.getObjectTypeName ());
     assertEquals (0, x.compareTo (x));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (x, new ObjectType ("any"));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (x, new ObjectType ("any"));
 
     final ObjectType y = new ObjectType ("any2");
     assertEquals (-1, x.compareTo (y));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (x, y);
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (x, y);
 
     // Serialization
-    PhlocTestUtils.testDefaultSerialization (x);
+    PHTestUtils.testDefaultSerialization (x);
 
     try
     {

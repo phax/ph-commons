@@ -25,7 +25,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link NonBlockingMessageDigestGenerator}.
@@ -160,6 +160,6 @@ public final class NonBlockingMessageDigestGeneratorTest
     md.reset ();
     md.update ((byte) 6);
 
-    PhlocTestUtils.testToStringImplementation (md);
+    PHTestUtils.testToStringImplementation (md);
   }
 }

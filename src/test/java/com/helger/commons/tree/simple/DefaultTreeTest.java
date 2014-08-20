@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.tree.utils.sort.ComparatorDefaultTreeItemComparable;
 
 /**
@@ -68,9 +68,9 @@ public final class DefaultTreeTest
   public void testEqualsHashCode ()
   {
     final DefaultTree <String> t = new DefaultTree <String> ();
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (t, new DefaultTree <String> ());
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (t, new DefaultTree <String> ());
     t.getRootItem ().createChildItem ("data");
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (t, new DefaultTree <String> ());
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (t, new DefaultTree <String> ());
   }
 
   @Test

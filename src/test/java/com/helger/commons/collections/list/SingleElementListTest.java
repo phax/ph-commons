@@ -28,7 +28,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -324,11 +324,11 @@ public final class SingleElementListTest
   @Test
   public void testStdMethods ()
   {
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (SingleElementList.create ("init"),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (SingleElementList.create ("init"),
                                                                     SingleElementList.create ("init"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (SingleElementList.create ("init"),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (SingleElementList.create ("init"),
                                                                         SingleElementList.create ("init2"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (SingleElementList.create ("init"),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (SingleElementList.create ("init"),
                                                                         SingleElementList.create (Boolean.TRUE));
     assertArrayEquals (SingleElementList.create ("init").toArray (), SingleElementList.create ("init").toArray ());
     assertArrayEquals (SingleElementList.create ("init").toArray (new String [0]),

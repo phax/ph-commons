@@ -32,7 +32,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.text.IMultiLingualText;
 import com.helger.commons.text.IReadonlyMultiLingualText;
 
@@ -236,9 +236,9 @@ public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
     t.setText (L_DE, "x");
     t.setText (L_EN, "y");
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (t, new MultiLingualTextThreadSafe (t));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (t, new MultiLingualTextThreadSafe ());
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (t,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (t, new MultiLingualTextThreadSafe (t));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (t, new MultiLingualTextThreadSafe ());
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (t,
                                                                         new MultiLingualTextThreadSafe (new ReadonlyMultiLingualText (ContainerHelper.newMap (L_DE,
                                                                                                                                                               "x"))));
   }

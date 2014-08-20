@@ -29,7 +29,7 @@ import org.junit.Test;
 import com.helger.commons.CGlobal;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
 
@@ -71,30 +71,30 @@ public final class XMLWriterSettingsTest
     assertTrue (mws.isEmitNamespaces ());
     assertFalse (mws.isPutNamespaceContextPrefixesInRoot ());
 
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
                                                                         new XMLWriterSettings ().setFormat (EXMLSerializeFormat.HTML));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
                                                                         new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
                                                                         new XMLWriterSettings ().setSerializeComments (EXMLSerializeComments.IGNORE));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
                                                                         new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
                                                                         new XMLWriterSettings ().setCharset (CCharset.CHARSET_US_ASCII_OBJ));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
                                                                         new XMLWriterSettings ().setNamespaceContext (new MapBasedNamespaceContext ().addMapping ("prefix",
                                                                                                                                                                   "uri")));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
                                                                         new XMLWriterSettings ().setSpaceOnSelfClosedElement (false));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
                                                                         new XMLWriterSettings ().setUseDoubleQuotesForAttributes (false));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
                                                                         new XMLWriterSettings ().setNewlineString ("abc"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
                                                                         new XMLWriterSettings ().setIndentationString ("\t"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
                                                                         new XMLWriterSettings ().setEmitNamespaces (false));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
                                                                         new XMLWriterSettings ().setPutNamespaceContextPrefixesInRoot (true));
 
     // Now try all permutations
@@ -160,7 +160,7 @@ public final class XMLWriterSettingsTest
                                                                                     .setIndentationString (sIndentation)
                                                                                     .setEmitNamespaces (bEmitNamespaces)
                                                                                     .setPutNamespaceContextPrefixesInRoot (bPutNamespaceContextPrefixesInRoot);
-                            PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aXWS, aXWS2);
+                            PHTestUtils.testDefaultImplementationWithEqualContentObject (aXWS, aXWS2);
                           }
                           assertTrue (bEmitNamespaces == aXWS.isEmitNamespaces ());
                         }

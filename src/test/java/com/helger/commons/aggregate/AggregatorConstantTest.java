@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link AggregatorConstant}.
@@ -37,8 +37,8 @@ public final class AggregatorConstantTest
   public void testAll ()
   {
     final AggregatorConstant <String, String> a1 = new AggregatorConstant <String, String> ("foo");
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (a1, new AggregatorConstant <String, String> ("foo"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (a1,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (a1, new AggregatorConstant <String, String> ("foo"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (a1,
                                                                         new AggregatorConstant <String, String> ("bar"));
 
     assertEquals ("foo", a1.aggregate (ContainerHelper.newList ("a", "b")));

@@ -30,7 +30,7 @@ import org.junit.Test;
 import com.helger.commons.microdom.EMicroNodeType;
 import com.helger.commons.microdom.IMicroProcessingInstruction;
 import com.helger.commons.microdom.MicroException;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -60,7 +60,7 @@ public final class MicroProcessingInstructionTest
     assertNotNull (e.getNodeName ());
     assertNotNull (e.getNodeValue ());
     assertSame (EMicroNodeType.PROCESSING_INSTRUCTION, e.getType ());
-    PhlocTestUtils.testToStringImplementation (e);
+    PHTestUtils.testToStringImplementation (e);
 
     e = new MicroProcessingInstruction ("xyz", "data");
     assertNotNull (e);

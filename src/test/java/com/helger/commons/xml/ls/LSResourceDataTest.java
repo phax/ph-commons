@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link LSResourceData}.
@@ -47,12 +47,12 @@ public final class LSResourceDataTest
     assertEquals ("schema1.xsd", rd.getSystemID ());
     assertNotNull (rd.getBaseURI ());
     assertTrue (rd.getBaseURI ().endsWith ("xml/schema2.xsd"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (rd, new LSResourceData (null,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (rd, new LSResourceData (null,
                                                                                                 null,
                                                                                                 null,
                                                                                                 null,
                                                                                                 null));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (rd,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (rd,
                                                                     new LSResourceData (rd.getType (),
                                                                                         rd.getNamespaceURI (),
                                                                                         rd.getPublicID (),

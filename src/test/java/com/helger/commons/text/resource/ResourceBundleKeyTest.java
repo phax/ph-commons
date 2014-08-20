@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link ResourceBundleKey}.
@@ -50,15 +50,15 @@ public final class ResourceBundleKeyTest extends AbstractPHTestCase
     catch (final IllegalArgumentException ex)
     {}
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleKey ("properties/test-iso8859",
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleKey ("properties/test-iso8859",
                                                                                            "key1"),
                                                                     new ResourceBundleKey ("properties/test-iso8859",
                                                                                            "key1"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859",
                                                                                                "key1"),
                                                                         new ResourceBundleKey ("properties/test-iso8859-1",
                                                                                                "key1"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859",
                                                                                                "key1"),
                                                                         new ResourceBundleKey ("properties/test-iso8859",
                                                                                                "key2"));

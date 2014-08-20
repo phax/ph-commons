@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MutableShort}.
@@ -103,8 +103,8 @@ public final class MutableShortTest
     x.set (1);
     assertTrue (x.isGreater0 ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new MutableShort (-7), new MutableShort (-7));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new MutableShort (6), new MutableShort (7));
-    PhlocTestUtils.testGetClone (new MutableShort (Integer.MAX_VALUE));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MutableShort (-7), new MutableShort (-7));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MutableShort (6), new MutableShort (7));
+    PHTestUtils.testGetClone (new MutableShort (Integer.MAX_VALUE));
   }
 }

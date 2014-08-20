@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.typeconvert.TypeConverter;
 
 /**
@@ -46,11 +46,11 @@ public final class MutableBooleanTest
     assertFalse (x.set (true).isChanged ());
     assertTrue (x.booleanValue ());
     assertSame (Boolean.TRUE, x.getAsBoolean ());
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new MutableBoolean (true),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MutableBoolean (true),
                                                                     new MutableBoolean (true));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new MutableBoolean (true),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MutableBoolean (true),
                                                                         new MutableBoolean (false));
-    PhlocTestUtils.testGetClone (new MutableBoolean (true));
+    PHTestUtils.testGetClone (new MutableBoolean (true));
   }
 
   @Test
@@ -61,7 +61,7 @@ public final class MutableBooleanTest
     assertNotNull (b);
     assertTrue (b.booleanValue ());
     assertTrue (TypeConverter.convertToBoolean (x));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (x,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (x,
                                                                     TypeConverter.convert (true, MutableBoolean.class));
   }
 }

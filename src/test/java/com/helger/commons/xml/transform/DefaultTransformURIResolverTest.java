@@ -26,7 +26,7 @@ import javax.xml.transform.TransformerFactory;
 import org.junit.Test;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link DefaultTransformURIResolver}.
@@ -58,7 +58,7 @@ public final class DefaultTransformURIResolverTest
       t1 = XMLTransformerFactory.newTemplates (fac, new ClassPathResource ("xml/test3.xslt"));
       assertNull (t1);
 
-      PhlocTestUtils.testToStringImplementation (res);
+      PHTestUtils.testToStringImplementation (res);
     }
   }
 }

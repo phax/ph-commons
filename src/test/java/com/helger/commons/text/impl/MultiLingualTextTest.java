@@ -34,7 +34,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.text.IMultiLingualText;
 import com.helger.commons.text.IReadonlyMultiLingualText;
 
@@ -173,7 +173,7 @@ public final class MultiLingualTextTest extends AbstractPHTestCase
   public void testEquals ()
   {
     final IMultiLingualText aMLT = new MultiLingualText ();
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aMLT, new MultiLingualText ());
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aMLT, new MultiLingualText ());
   }
 
   @Test

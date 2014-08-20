@@ -26,7 +26,7 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -83,7 +83,7 @@ public final class DefaultResourceProviderTest
   @Test
   public void testEqualsAndHashcode ()
   {
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new DefaultResourceProvider (),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new DefaultResourceProvider (),
                                                                     new DefaultResourceProvider ());
   }
 }

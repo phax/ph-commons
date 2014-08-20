@@ -28,7 +28,7 @@ import org.junit.Test;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.mock.MockException;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -97,25 +97,25 @@ public final class ResourceErrorTest
     assertFalse (re.isError ());
     assertTrue (re.isNoError ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceError (loc,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceError (loc,
                                                                                        EErrorLevel.ERROR,
                                                                                        "mock error"),
                                                                     new ResourceError (loc,
                                                                                        EErrorLevel.ERROR,
                                                                                        "mock error"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceError (loc,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceError (loc,
                                                                                            EErrorLevel.ERROR,
                                                                                            "mock error"),
                                                                         new ResourceError (loc2,
                                                                                            EErrorLevel.ERROR,
                                                                                            "mock error"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceError (loc,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceError (loc,
                                                                                            EErrorLevel.ERROR,
                                                                                            "mock error"),
                                                                         new ResourceError (loc,
                                                                                            EErrorLevel.FATAL_ERROR,
                                                                                            "mock error"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceError (loc,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceError (loc,
                                                                                            EErrorLevel.ERROR,
                                                                                            "mock error"),
                                                                         new ResourceError (loc,

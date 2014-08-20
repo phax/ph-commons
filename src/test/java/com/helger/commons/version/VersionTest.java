@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -671,22 +671,22 @@ public final class VersionTest
   @Test
   public void testHashCode ()
   {
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, 4), new Version (1, 2, 3, 4));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, 4),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, 4), new Version (1, 2, 3, 4));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, 4),
                                                                     new Version (1, 2, 3, "4"));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, 4), new Version ("1.2.3.4"));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1), new Version ("1"));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new Version ("1"), new Version ("   1"));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, 4), new Version ("1.2.3.4"));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1), new Version ("1"));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new Version ("1"), new Version ("   1"));
 
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, 4), new Version (1, 2, 3));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, 4), new Version (1,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, 4), new Version (1, 2, 3));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, 4), new Version (1,
                                                                                                                2,
                                                                                                                3,
                                                                                                                "5"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, 4),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, 4),
                                                                         new Version ("1.3.3.4"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (2), new Version ("1"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new Version ("1"), new Version ("   11"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (2), new Version ("1"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new Version ("1"), new Version ("   11"));
   }
 
   @Test
@@ -709,7 +709,7 @@ public final class VersionTest
   @Test
   public void testSerialization () throws Exception
   {
-    PhlocTestUtils.testDefaultSerialization (new Version (1, 2, 3));
-    PhlocTestUtils.testDefaultSerialization (new Version ("1.2a"));
+    PHTestUtils.testDefaultSerialization (new Version (1, 2, 3));
+    PHTestUtils.testDefaultSerialization (new Version ("1.2a"));
   }
 }

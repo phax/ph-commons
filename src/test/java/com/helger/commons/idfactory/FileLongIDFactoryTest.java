@@ -25,7 +25,7 @@ import java.io.File;
 import org.junit.Test;
 
 import com.helger.commons.io.file.FileOperations;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link FileLongIDFactory}.
@@ -43,9 +43,9 @@ public final class FileLongIDFactoryTest
     {
       final FileLongIDFactory x = new FileLongIDFactory (f);
       // Compare before retrieving an ID!
-      PhlocTestUtils.testDefaultImplementationWithEqualContentObject (x, new FileLongIDFactory (f));
-      PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (x, new FileLongIDFactory (f2));
-      PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (x,
+      PHTestUtils.testDefaultImplementationWithEqualContentObject (x, new FileLongIDFactory (f));
+      PHTestUtils.testDefaultImplementationWithDifferentContentObject (x, new FileLongIDFactory (f2));
+      PHTestUtils.testDefaultImplementationWithDifferentContentObject (x,
                                                                           new FileLongIDFactory (f,
                                                                                                  FileLongIDFactory.DEFAULT_RESERVE_COUNT * 2));
 

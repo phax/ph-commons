@@ -28,7 +28,7 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link HashingInputStream}.
@@ -66,7 +66,7 @@ public final class HashingInputStreamTest
       // Must be equal
       assertArrayEquals (aDigest1, aDigest2);
 
-      PhlocTestUtils.testToStringImplementation (aHIS1);
+      PHTestUtils.testToStringImplementation (aHIS1);
     }
   }
 }

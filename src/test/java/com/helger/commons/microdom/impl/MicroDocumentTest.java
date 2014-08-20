@@ -31,7 +31,7 @@ import com.helger.commons.microdom.EMicroNodeType;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroException;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MicroDocument}.
@@ -114,7 +114,7 @@ public final class MicroDocumentTest
   public void testToString ()
   {
     final IMicroDocument d = new MicroDocument ();
-    PhlocTestUtils.testToStringImplementation (d);
+    PHTestUtils.testToStringImplementation (d);
   }
 
   @Test

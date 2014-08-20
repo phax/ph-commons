@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -53,9 +53,9 @@ public final class CombinatorStringWithSeparatorIgnoreNullTest
     catch (final NullPointerException ex)
     {}
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new CombinatorStringWithSeparatorIgnoreNull (";"),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new CombinatorStringWithSeparatorIgnoreNull (";"),
                                                                     new CombinatorStringWithSeparatorIgnoreNull (";"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new CombinatorStringWithSeparatorIgnoreNull (";"),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new CombinatorStringWithSeparatorIgnoreNull (";"),
                                                                         new CombinatorStringWithSeparatorIgnoreNull (","));
   }
 }

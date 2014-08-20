@@ -53,7 +53,7 @@ import com.helger.commons.xml.namespace.IIterableNamespaceContext;
  * @param <NODETYPE>
  *        The DOM node type to use
  */
-public abstract class AbstractSerializerPhloc <NODETYPE> implements IXMLSerializer <NODETYPE>
+public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer <NODETYPE>
 {
   /**
    * The prefix to be used for created namespace prefixes :) (e.g. for "ns0" or
@@ -61,7 +61,7 @@ public abstract class AbstractSerializerPhloc <NODETYPE> implements IXMLSerializ
    */
   public static final String DEFAULT_NAMESPACE_PREFIX_PREFIX = "ns";
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractSerializerPhloc.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractXMLSerializer.class);
 
   /**
    * Contains the XML namespace definitions for a single element.
@@ -395,7 +395,7 @@ public abstract class AbstractSerializerPhloc <NODETYPE> implements IXMLSerializ
    */
   protected final NamespaceStack m_aNSStack;
 
-  public AbstractSerializerPhloc (@Nonnull final IXMLWriterSettings aSettings)
+  public AbstractXMLSerializer (@Nonnull final IXMLWriterSettings aSettings)
   {
     m_aSettings = ValueEnforcer.notNull (aSettings, "Settings");
     m_aNSStack = new NamespaceStack (aSettings.getNamespaceContext ());
@@ -442,15 +442,15 @@ public abstract class AbstractSerializerPhloc <NODETYPE> implements IXMLSerializ
 
   @Nonnull
   @OverrideOnDemand
-  protected XMLEmitterPhloc createXMLEmitter (@Nonnull @WillNotClose final Writer aWriter,
+  protected XMLEmitter createXMLEmitter (@Nonnull @WillNotClose final Writer aWriter,
                                               @Nonnull final IXMLWriterSettings aSettings)
   {
-    return new XMLEmitterPhloc (aWriter, aSettings);
+    return new XMLEmitter (aWriter, aSettings);
   }
 
   public final void write (@Nonnull final NODETYPE aNode, @Nonnull @WillNotClose final Writer aWriter)
   {
-    final XMLEmitterPhloc aXMLWriter = createXMLEmitter (aWriter, m_aSettings);
+    final XMLEmitter aXMLWriter = createXMLEmitter (aWriter, m_aSettings);
     // No previous and no next sibling
     emitNode (aXMLWriter, null, aNode, null);
     // Flush is important for Writer!

@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link StringSAXInputSource}.
@@ -37,7 +37,7 @@ public final class StringSAXInputSourceTest
   {
     final StringSAXInputSource sis = new StringSAXInputSource ("bla foo 90");
     assertEquals ("bla foo 90", StreamUtils.getAllCharactersAsString (sis.getCharacterStream ()));
-    PhlocTestUtils.testToStringImplementation (sis);
+    PHTestUtils.testToStringImplementation (sis);
 
     try
     {

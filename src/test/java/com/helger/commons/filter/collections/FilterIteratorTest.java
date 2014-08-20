@@ -34,7 +34,7 @@ import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.collections.iterate.IterableIterator;
 import com.helger.commons.filter.FilterNotNull;
 import com.helger.commons.filter.IFilter;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for {@link FilterIterator}
@@ -249,7 +249,7 @@ public final class FilterIteratorTest
     assertEquals ("s2", it.next ());
     assertEquals ("s3", it.next ());
 
-    PhlocTestUtils.testToStringImplementation (it);
+    PHTestUtils.testToStringImplementation (it);
 
     try
     {

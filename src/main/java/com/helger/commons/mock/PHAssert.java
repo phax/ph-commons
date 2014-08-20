@@ -28,15 +28,15 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
  * @author Philip Helger
  */
 @Immutable
-public final class PhlocAssert
+public final class PHAssert
 {
   private static final double DOUBLE_ALLOWED_ROUNDING_DIFFERENCE = 0.001;
 
   @PresentForCodeCoverage
   @SuppressWarnings ("unused")
-  private static final PhlocAssert s_aInstance = new PhlocAssert ();
+  private static final PHAssert s_aInstance = new PHAssert ();
 
-  private PhlocAssert ()
+  private PHAssert ()
   {}
 
   public static void assertEquals (final double x, final double y)

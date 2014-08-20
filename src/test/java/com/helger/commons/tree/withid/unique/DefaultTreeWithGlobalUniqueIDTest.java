@@ -28,7 +28,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 
 /**
@@ -119,9 +119,9 @@ public final class DefaultTreeWithGlobalUniqueIDTest
     x12.createChildItem ("x3", "b");
     x12.createChildItem ("x4", "c");
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aTestTree, aTestTree2);
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aTestTree, aTestTree2);
     x12.createChildItem ("x5", "d");
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (aTestTree, aTestTree2);
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aTestTree, aTestTree2);
 
     // test remove
     assertTrue (x12.removeChild ("x5").isChanged ());

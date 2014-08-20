@@ -30,7 +30,7 @@ import java.util.ServiceLoader;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.parent.MockChildrenProvider;
 import com.helger.commons.state.IClearable;
 import com.helger.commons.state.IStoppable;
@@ -66,7 +66,7 @@ public final class FuncTestServiceLoader
     }
     catch (final UnsupportedOperationException ex)
     {}
-    PhlocTestUtils.testToStringImplementation (aSL);
+    PHTestUtils.testToStringImplementation (aSL);
   }
 
   @Test

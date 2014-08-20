@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link StringSkipPrefixFormatter}.
@@ -38,6 +38,6 @@ public final class StringSkipPrefixFormatterTest
     assertEquals ("bc", fp.getFormattedValue ("abc"));
     assertEquals ("bco", fp.getFormattedValue ("bco"));
     assertEquals ("bc", fp.getFormattedValue ("bc"));
-    PhlocTestUtils.testToStringImplementation (fp);
+    PHTestUtils.testToStringImplementation (fp);
   }
 }

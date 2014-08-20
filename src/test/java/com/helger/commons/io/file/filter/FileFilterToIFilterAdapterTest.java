@@ -29,7 +29,7 @@ import java.io.FilenameFilter;
 import org.junit.Test;
 
 import com.helger.commons.filter.IFilter;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -71,7 +71,7 @@ public final class FileFilterToIFilterAdapterTest
     // null
     assertFalse (aFilter.matchesFilter (null));
 
-    PhlocTestUtils.testToStringImplementation (aFilter);
+    PHTestUtils.testToStringImplementation (aFilter);
 
     aFilter = FileFilterToIFilterAdapter.getANDChained (FileFilterParentDirectoryPublic.getInstance (),
                                                         FileFilterFileOnly.getInstance ());
@@ -86,7 +86,7 @@ public final class FileFilterToIFilterAdapterTest
     // null
     assertFalse (aFilter.matchesFilter (null));
 
-    PhlocTestUtils.testToStringImplementation (aFilter);
+    PHTestUtils.testToStringImplementation (aFilter);
 
     aFilter = FileFilterToIFilterAdapter.getORChained (FileFilterParentDirectoryPublic.getInstance (),
                                                        FileFilterFileOnly.getInstance ());
@@ -101,7 +101,7 @@ public final class FileFilterToIFilterAdapterTest
     // null
     assertFalse (aFilter.matchesFilter (null));
 
-    PhlocTestUtils.testToStringImplementation (aFilter);
+    PHTestUtils.testToStringImplementation (aFilter);
 
     try
     {

@@ -30,8 +30,8 @@ import org.junit.Test;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.PhlocAssert;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHAssert;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MapBasedAttributeContainer}.
@@ -70,8 +70,8 @@ public final class MapBasedAttributeContainerTest
     assertEquals (17, x.getAttributeAsInt ("key"));
     assertEquals (CGlobal.ILLEGAL_UINT, x.getAttributeAsInt ("key2"));
     assertEquals (Integer.valueOf (17), x.getCastedAttribute ("key"));
-    PhlocAssert.assertEquals (17, x.getAttributeAsDouble ("key"));
-    PhlocAssert.assertEquals (CGlobal.ILLEGAL_DOUBLE, x.getAttributeAsDouble ("key2"));
+    PHAssert.assertEquals (17, x.getAttributeAsDouble ("key"));
+    PHAssert.assertEquals (CGlobal.ILLEGAL_DOUBLE, x.getAttributeAsDouble ("key2"));
     assertFalse (x.getAttributeAsBoolean ("key"));
     assertFalse (x.getAttributeAsBoolean ("key2"));
     assertTrue (x.getAttributeNames ().hasMoreElements ());
@@ -84,9 +84,9 @@ public final class MapBasedAttributeContainerTest
     assertFalse (x.containsAttribute ("null1"));
     assertTrue (x.removeAttribute ("null1").isUnchanged ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainer (),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainer (),
                                                                     new MapBasedAttributeContainer ());
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainer (ContainerHelper.newMap (new String [] { "key",
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainer (ContainerHelper.newMap (new String [] { "key",
                                                                                                                                            "key2" },
                                                                                                                             new Object [] { "value",
                                                                                                                                            "value2" })),
@@ -94,7 +94,7 @@ public final class MapBasedAttributeContainerTest
                                                                                                                                            "key2" },
                                                                                                                             new Object [] { "value",
                                                                                                                                            "value2" })));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedAttributeContainer (ContainerHelper.newMap (new String [] { "key",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedAttributeContainer (ContainerHelper.newMap (new String [] { "key",
                                                                                                                                                "key2" },
                                                                                                                                 new Object [] { "value",
                                                                                                                                                "value2" })),

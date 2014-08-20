@@ -29,7 +29,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.iterate.IIterableIterator;
 import com.helger.commons.io.file.filter.FileFilterFileOnly;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link FileSystemRecursiveIterator}.
@@ -81,7 +81,7 @@ public final class FileSystemRecursiveIteratorTest
     catch (final UnsupportedOperationException ex)
     {}
 
-    PhlocTestUtils.testToStringImplementation (it);
+    PHTestUtils.testToStringImplementation (it);
 
     // With one filter
     it = FileSystemRecursiveIterator.create (new File ("."), FileFilterFileOnly.getInstance ());

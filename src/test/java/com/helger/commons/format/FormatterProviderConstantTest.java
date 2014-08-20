@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.format.impl.BracketFormatter;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link FormatterProviderConstant}.
@@ -42,6 +42,6 @@ public final class FormatterProviderConstantTest
     assertTrue (f1 instanceof BracketFormatter);
     final IFormatter f2 = fp.getFormatter ();
     assertSame (f1, f2);
-    PhlocTestUtils.testToStringImplementation (fp);
+    PHTestUtils.testToStringImplementation (fp);
   }
 }

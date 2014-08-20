@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.annotations.UsedViaReflection;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link FactoryNewInstance}.
@@ -116,9 +116,9 @@ public final class FactoryNewInstanceTest
   @Test
   public void testEqualsAndHashCode ()
   {
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (FactoryNewInstance.create (String.class),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (FactoryNewInstance.create (String.class),
                                                                     FactoryNewInstance.create (String.class));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (FactoryNewInstance.create (String.class),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (FactoryNewInstance.create (String.class),
                                                                         FactoryNewInstance.create (StringBuilder.class));
   }
 }

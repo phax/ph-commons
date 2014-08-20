@@ -27,7 +27,7 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.math.RoundHelper.EDecimalType;
-import com.helger.commons.mock.PhlocAssert;
+import com.helger.commons.mock.PHAssert;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -78,17 +78,17 @@ public final class RoundHelperTest
   @Test
   public void testGetRoundedUpFix ()
   {
-    PhlocAssert.assertEquals (1, RoundHelper.getRoundedUpFix (0.9, 0));
-    PhlocAssert.assertEquals (1, RoundHelper.getRoundedUpFix (1.0, 0));
-    PhlocAssert.assertEquals (1, RoundHelper.getRoundedUpFix (1.1, 0));
-    PhlocAssert.assertEquals (1, RoundHelper.getRoundedUpFix (1.4, 0));
-    PhlocAssert.assertEquals (1, RoundHelper.getRoundedUpFix (1.4999, 0));
-    PhlocAssert.assertEquals (1.50, RoundHelper.getRoundedUpFix (1.4999, 2));
-    PhlocAssert.assertEquals (1.50, RoundHelper.getRoundedUpFix2 (1.4999));
-    PhlocAssert.assertEquals (2, RoundHelper.getRoundedUpFix (1.5, 0));
-    PhlocAssert.assertEquals (Double.NaN, RoundHelper.getRoundedUpFix (Double.NaN, 0));
-    PhlocAssert.assertEquals (Double.POSITIVE_INFINITY, RoundHelper.getRoundedUpFix (Double.POSITIVE_INFINITY, 0));
-    PhlocAssert.assertEquals (Double.NEGATIVE_INFINITY, RoundHelper.getRoundedUpFix (Double.NEGATIVE_INFINITY, 0));
+    PHAssert.assertEquals (1, RoundHelper.getRoundedUpFix (0.9, 0));
+    PHAssert.assertEquals (1, RoundHelper.getRoundedUpFix (1.0, 0));
+    PHAssert.assertEquals (1, RoundHelper.getRoundedUpFix (1.1, 0));
+    PHAssert.assertEquals (1, RoundHelper.getRoundedUpFix (1.4, 0));
+    PHAssert.assertEquals (1, RoundHelper.getRoundedUpFix (1.4999, 0));
+    PHAssert.assertEquals (1.50, RoundHelper.getRoundedUpFix (1.4999, 2));
+    PHAssert.assertEquals (1.50, RoundHelper.getRoundedUpFix2 (1.4999));
+    PHAssert.assertEquals (2, RoundHelper.getRoundedUpFix (1.5, 0));
+    PHAssert.assertEquals (Double.NaN, RoundHelper.getRoundedUpFix (Double.NaN, 0));
+    PHAssert.assertEquals (Double.POSITIVE_INFINITY, RoundHelper.getRoundedUpFix (Double.POSITIVE_INFINITY, 0));
+    PHAssert.assertEquals (Double.NEGATIVE_INFINITY, RoundHelper.getRoundedUpFix (Double.NEGATIVE_INFINITY, 0));
   }
 
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
@@ -122,14 +122,14 @@ public final class RoundHelperTest
   @Test
   public void testGetRoundedEvenExp ()
   {
-    PhlocAssert.assertEquals (9E-1, RoundHelper.getRoundedEvenExp (0.9, 0));
-    PhlocAssert.assertEquals (1E0, RoundHelper.getRoundedEvenExp (1.0, 0));
-    PhlocAssert.assertEquals (1E0, RoundHelper.getRoundedEvenExp (1.1, 0));
-    PhlocAssert.assertEquals (1E0, RoundHelper.getRoundedEvenExp (1.4, 0));
-    PhlocAssert.assertEquals (1E0, RoundHelper.getRoundedEvenExp (1.4999, 0));
-    PhlocAssert.assertEquals (1.50E0, RoundHelper.getRoundedEvenExp (1.4999, 2));
-    PhlocAssert.assertEquals (1.50E0, RoundHelper.getRoundedEvenExp2 (1.4999));
-    PhlocAssert.assertEquals (2E0, RoundHelper.getRoundedEvenExp (1.5, 0));
+    PHAssert.assertEquals (9E-1, RoundHelper.getRoundedEvenExp (0.9, 0));
+    PHAssert.assertEquals (1E0, RoundHelper.getRoundedEvenExp (1.0, 0));
+    PHAssert.assertEquals (1E0, RoundHelper.getRoundedEvenExp (1.1, 0));
+    PHAssert.assertEquals (1E0, RoundHelper.getRoundedEvenExp (1.4, 0));
+    PHAssert.assertEquals (1E0, RoundHelper.getRoundedEvenExp (1.4999, 0));
+    PHAssert.assertEquals (1.50E0, RoundHelper.getRoundedEvenExp (1.4999, 2));
+    PHAssert.assertEquals (1.50E0, RoundHelper.getRoundedEvenExp2 (1.4999));
+    PHAssert.assertEquals (2E0, RoundHelper.getRoundedEvenExp (1.5, 0));
   }
 
   @Test

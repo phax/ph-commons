@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link FlagContainerThreadSafe}.
@@ -52,10 +52,10 @@ public class FlagContainerThreadSafeTest
     assertNotNull (aFC.getAllFlags ());
     assertEquals (1, aFC.getAllFlags ().size ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aFC, new FlagContainerThreadSafe ("any"));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aFC,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aFC, new FlagContainerThreadSafe ("any"));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aFC,
                                                                     new FlagContainerThreadSafe (ContainerHelper.newList ("any")));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aFC, new FlagContainerThreadSafe (aFC));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aFC, new FlagContainerThreadSafe (aFC));
 
     assertTrue (aFC.addFlags ("other", "flag").isChanged ());
     assertEquals (3, aFC.getFlagCount ());

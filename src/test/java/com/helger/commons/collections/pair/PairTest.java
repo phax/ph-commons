@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link Pair}.
@@ -95,17 +95,17 @@ public final class PairTest
     aPair2 = new Pair <String, Double> ("Nice text", Double.valueOf (3.14));
     assertFalse (aPair.equals (aPair2));
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> (null, null),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> (null, null),
                                                                     new Pair <String, Double> (null, null));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> ("Nix da", null),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> ("Nix da", null),
                                                                     new Pair <String, Double> ("Nix da", null));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> (null, "Nix da"),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> (null, "Nix da"),
                                                                     new Pair <String, String> (null, "Nix da"));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> ("Nix", "da"),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> ("Nix", "da"),
                                                                     new Pair <String, String> ("Nix", "da"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new Pair <String, String> ("Nix", "da"),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new Pair <String, String> ("Nix", "da"),
                                                                         new Pair <String, String> ("Nix", "da2"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (Pair.create ("Nix", "da"),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (Pair.create ("Nix", "da"),
                                                                         Pair.create ("Nix2", "da"));
   }
 }

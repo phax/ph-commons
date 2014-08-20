@@ -26,7 +26,7 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.mock.PhlocAssert;
+import com.helger.commons.mock.PHAssert;
 
 /**
  * Test class for class {@link MathHelper}.
@@ -38,9 +38,9 @@ public final class MathHelperTest
   @Test
   public void testGetDividedDouble ()
   {
-    PhlocAssert.assertEquals (1.5, MathHelper.getDividedDouble (3, 2));
-    PhlocAssert.assertEquals (Double.NaN, MathHelper.getDividedDouble (5, 0));
-    PhlocAssert.assertEquals (Double.NaN, MathHelper.getDividedDouble (0, 0));
+    PHAssert.assertEquals (1.5, MathHelper.getDividedDouble (3, 2));
+    PHAssert.assertEquals (Double.NaN, MathHelper.getDividedDouble (5, 0));
+    PHAssert.assertEquals (Double.NaN, MathHelper.getDividedDouble (0, 0));
   }
 
   @Test
@@ -133,19 +133,19 @@ public final class MathHelperTest
   @Test
   public void testGetMaxFloat ()
   {
-    PhlocAssert.assertEquals (5, MathHelper.getMaxFloat (5));
-    PhlocAssert.assertEquals (5, MathHelper.getMaxFloat (5, 5, 5, 5));
-    PhlocAssert.assertEquals (5, MathHelper.getMaxFloat (5, 3, 2, 1));
-    PhlocAssert.assertEquals (7, MathHelper.getMaxFloat (5, 3, 7, 4));
+    PHAssert.assertEquals (5, MathHelper.getMaxFloat (5));
+    PHAssert.assertEquals (5, MathHelper.getMaxFloat (5, 5, 5, 5));
+    PHAssert.assertEquals (5, MathHelper.getMaxFloat (5, 3, 2, 1));
+    PHAssert.assertEquals (7, MathHelper.getMaxFloat (5, 3, 7, 4));
   }
 
   @Test
   public void testGetMaxDouble ()
   {
-    PhlocAssert.assertEquals (5, MathHelper.getMaxDouble (5));
-    PhlocAssert.assertEquals (5, MathHelper.getMaxDouble (5, 5, 5, 5));
-    PhlocAssert.assertEquals (5, MathHelper.getMaxDouble (5, 3, 2, 1));
-    PhlocAssert.assertEquals (7, MathHelper.getMaxDouble (5, 3, 7, 4));
+    PHAssert.assertEquals (5, MathHelper.getMaxDouble (5));
+    PHAssert.assertEquals (5, MathHelper.getMaxDouble (5, 5, 5, 5));
+    PHAssert.assertEquals (5, MathHelper.getMaxDouble (5, 3, 2, 1));
+    PHAssert.assertEquals (7, MathHelper.getMaxDouble (5, 3, 7, 4));
   }
 
   @Test
@@ -169,19 +169,19 @@ public final class MathHelperTest
   @Test
   public void testGetMinFloat ()
   {
-    PhlocAssert.assertEquals (5, MathHelper.getMinFloat (5));
-    PhlocAssert.assertEquals (5, MathHelper.getMinFloat (5, 5, 5, 5));
-    PhlocAssert.assertEquals (1, MathHelper.getMinFloat (5, 3, 2, 1));
-    PhlocAssert.assertEquals (3, MathHelper.getMinFloat (5, 3, 7, 4));
+    PHAssert.assertEquals (5, MathHelper.getMinFloat (5));
+    PHAssert.assertEquals (5, MathHelper.getMinFloat (5, 5, 5, 5));
+    PHAssert.assertEquals (1, MathHelper.getMinFloat (5, 3, 2, 1));
+    PHAssert.assertEquals (3, MathHelper.getMinFloat (5, 3, 7, 4));
   }
 
   @Test
   public void testGetMinDouble ()
   {
-    PhlocAssert.assertEquals (5, MathHelper.getMinDouble (5));
-    PhlocAssert.assertEquals (5, MathHelper.getMinDouble (5, 5, 5, 5));
-    PhlocAssert.assertEquals (1, MathHelper.getMinDouble (5, 3, 2, 1));
-    PhlocAssert.assertEquals (3, MathHelper.getMinDouble (5, 3, 7, 4));
+    PHAssert.assertEquals (5, MathHelper.getMinDouble (5));
+    PHAssert.assertEquals (5, MathHelper.getMinDouble (5, 5, 5, 5));
+    PHAssert.assertEquals (1, MathHelper.getMinDouble (5, 3, 2, 1));
+    PHAssert.assertEquals (3, MathHelper.getMinDouble (5, 3, 7, 4));
   }
 
   @Test
@@ -221,21 +221,21 @@ public final class MathHelperTest
   @Test
   public void testAbsFloat ()
   {
-    PhlocAssert.assertEquals (0F, MathHelper.abs (0F));
-    PhlocAssert.assertEquals (5F, MathHelper.abs (-5F));
-    PhlocAssert.assertEquals (5F, MathHelper.abs (5F));
-    PhlocAssert.assertEquals (Float.MAX_VALUE, MathHelper.abs (-Float.MAX_VALUE));
-    PhlocAssert.assertEquals (Float.MIN_VALUE, MathHelper.abs (Float.MIN_VALUE));
+    PHAssert.assertEquals (0F, MathHelper.abs (0F));
+    PHAssert.assertEquals (5F, MathHelper.abs (-5F));
+    PHAssert.assertEquals (5F, MathHelper.abs (5F));
+    PHAssert.assertEquals (Float.MAX_VALUE, MathHelper.abs (-Float.MAX_VALUE));
+    PHAssert.assertEquals (Float.MIN_VALUE, MathHelper.abs (Float.MIN_VALUE));
   }
 
   @Test
   public void testAbsDouble ()
   {
-    PhlocAssert.assertEquals (0D, MathHelper.abs (0D));
-    PhlocAssert.assertEquals (5D, MathHelper.abs (-5D));
-    PhlocAssert.assertEquals (5D, MathHelper.abs (5D));
-    PhlocAssert.assertEquals (Double.MAX_VALUE, MathHelper.abs (-Double.MAX_VALUE));
-    PhlocAssert.assertEquals (Double.MIN_VALUE, MathHelper.abs (Double.MIN_VALUE));
+    PHAssert.assertEquals (0D, MathHelper.abs (0D));
+    PHAssert.assertEquals (5D, MathHelper.abs (-5D));
+    PHAssert.assertEquals (5D, MathHelper.abs (5D));
+    PHAssert.assertEquals (Double.MAX_VALUE, MathHelper.abs (-Double.MAX_VALUE));
+    PHAssert.assertEquals (Double.MIN_VALUE, MathHelper.abs (Double.MIN_VALUE));
   }
 
   @Test

@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link FactoryConstantValue}.
@@ -40,12 +40,12 @@ public final class FactoryConstantValueTest
     assertSame (aValue, aFactory.create ());
     assertSame (aValue, aFactory.create ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aFactory, new FactoryConstantValue <T> (aValue));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aFactory, FactoryConstantValue.create (aValue));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (aFactory,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aFactory, new FactoryConstantValue <T> (aValue));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aFactory, FactoryConstantValue.create (aValue));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aFactory,
                                                                         new FactoryConstantValue <T> (aValue2));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (aFactory, FactoryConstantValue.create (aValue2));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (aFactory,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aFactory, FactoryConstantValue.create (aValue2));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aFactory,
                                                                         new FactoryConstantValue <BigDecimal> (BigDecimal.ONE));
   }
 

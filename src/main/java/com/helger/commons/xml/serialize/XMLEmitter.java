@@ -43,7 +43,7 @@ import com.helger.commons.xml.EXMLVersion;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class XMLEmitterPhloc extends DefaultXMLIterationHandler
+public class XMLEmitter extends DefaultXMLIterationHandler
 {
   /** By default an exception is thrown for nested comments */
   public static final boolean DEFAULT_THROW_EXCEPTION_ON_NESTED_COMMENTS = true;
@@ -64,7 +64,7 @@ public class XMLEmitterPhloc extends DefaultXMLIterationHandler
   private final char m_cAttrValueBoundary;
   private final EXMLCharMode m_eAttrValueCharMode;
 
-  public XMLEmitterPhloc (@Nonnull @WillNotClose final Writer aWriter, @Nonnull final IXMLWriterSettings aSettings)
+  public XMLEmitter (@Nonnull @WillNotClose final Writer aWriter, @Nonnull final IXMLWriterSettings aSettings)
   {
     m_aWriter = ValueEnforcer.notNull (aWriter, "Writer");
     m_aSettings = ValueEnforcer.notNull (aSettings, "Settings");
@@ -102,7 +102,7 @@ public class XMLEmitterPhloc extends DefaultXMLIterationHandler
   }
 
   @Nonnull
-  private XMLEmitterPhloc _append (@Nonnull final String sValue)
+  private XMLEmitter _append (@Nonnull final String sValue)
   {
     try
     {
@@ -116,7 +116,7 @@ public class XMLEmitterPhloc extends DefaultXMLIterationHandler
   }
 
   @Nonnull
-  private XMLEmitterPhloc _append (final char cValue)
+  private XMLEmitter _append (final char cValue)
   {
     try
     {
@@ -130,7 +130,7 @@ public class XMLEmitterPhloc extends DefaultXMLIterationHandler
   }
 
   @Nonnull
-  private XMLEmitterPhloc _appendMasked (@Nonnull final EXMLCharMode eXMLCharMode, @Nullable final String sValue)
+  private XMLEmitter _appendMasked (@Nonnull final EXMLCharMode eXMLCharMode, @Nullable final String sValue)
   {
     try
     {
@@ -148,7 +148,7 @@ public class XMLEmitterPhloc extends DefaultXMLIterationHandler
   }
 
   @Nonnull
-  private XMLEmitterPhloc _appendAttrValue (@Nullable final String sValue)
+  private XMLEmitter _appendAttrValue (@Nullable final String sValue)
   {
     return _append (m_cAttrValueBoundary)._appendMasked (m_eAttrValueCharMode, sValue)._append (m_cAttrValueBoundary);
   }

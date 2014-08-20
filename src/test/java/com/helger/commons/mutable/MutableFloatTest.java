@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MutableFloat}.
@@ -84,10 +84,10 @@ public final class MutableFloatTest
     x.set (1);
     assertTrue (x.isGreater0 ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new MutableFloat (3.1415f),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MutableFloat (3.1415f),
                                                                     new MutableFloat (3.1415f));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new MutableFloat (3.1415f),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MutableFloat (3.1415f),
                                                                         new MutableFloat (3.141f));
-    PhlocTestUtils.testGetClone (new MutableFloat (47.11f));
+    PHTestUtils.testGetClone (new MutableFloat (47.11f));
   }
 }

@@ -30,7 +30,7 @@ import org.junit.Test;
 import com.helger.commons.microdom.EMicroNodeType;
 import com.helger.commons.microdom.IMicroDocumentType;
 import com.helger.commons.microdom.MicroException;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MicroDocumentType}.
@@ -56,7 +56,7 @@ public final class MicroDocumentTypeTest
     assertNotNull (e.getNodeName ());
     assertNotNull (e.getNodeValue ());
     assertSame (EMicroNodeType.DOCUMENT_TYPE, e.getType ());
-    PhlocTestUtils.testToStringImplementation (e);
+    PHTestUtils.testToStringImplementation (e);
 
     assertFalse (e.isEqualContent (null));
     assertTrue (e.isEqualContent (e));

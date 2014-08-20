@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link ReadonlyFlagContainer}.
@@ -50,9 +50,9 @@ public class ReadonlyFlagContainerTest
     assertNotNull (aFC.getAllFlags ());
     assertEquals (1, aFC.getAllFlags ().size ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aFC, new ReadonlyFlagContainer ("any"));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aFC,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aFC, new ReadonlyFlagContainer ("any"));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aFC,
                                                                     new ReadonlyFlagContainer (ContainerHelper.newList ("any")));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aFC, new ReadonlyFlagContainer (aFC));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aFC, new ReadonlyFlagContainer (aFC));
   }
 }

@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MemoryStaticLongIDFactory}.
@@ -35,6 +35,6 @@ public final class MemoryStaticLongIDFactoryTest
   {
     final MemoryStaticLongIDFactory x = new MemoryStaticLongIDFactory ();
     assertTrue (x.getNewID () >= MemoryStaticLongIDFactory.INITIAL_ID);
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (x, new MemoryStaticLongIDFactory ());
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (x, new MemoryStaticLongIDFactory ());
   }
 }

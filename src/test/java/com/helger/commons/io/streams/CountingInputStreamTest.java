@@ -25,7 +25,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link CountingInputStream}.
@@ -44,6 +44,6 @@ public final class CountingInputStreamTest
     StreamUtils.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
     assertEquals (sTestString.length (), aCIS.getBytesRead ());
     assertEquals (sTestString.length (), aCIS.getPosition ());
-    PhlocTestUtils.testToStringImplementation (aCIS);
+    PHTestUtils.testToStringImplementation (aCIS);
   }
 }

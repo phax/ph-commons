@@ -24,7 +24,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link ConstantTextProvider}.
@@ -90,11 +90,11 @@ public final class ConstantTextProviderTest
   @Test
   public void testStandard ()
   {
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider ("any"),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider ("any"),
                                                                     new ConstantTextProvider ("any"));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider (""),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider (""),
                                                                     new ConstantTextProvider (""));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ConstantTextProvider ("any"),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ConstantTextProvider ("any"),
                                                                         new ConstantTextProvider ("anyy"));
   }
 }

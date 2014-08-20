@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link HasDisplayTextWithArgs}.
@@ -40,7 +40,7 @@ public final class HasDisplayTextWithArgsTest extends AbstractPHTestCase
     final HasDisplayTextWithArgs x = new HasDisplayTextWithArgs (t, "Welt");
     assertEquals ("Hallo Welt", x.getDisplayText (L_DE));
     assertNull (x.getDisplayText (L_FR));
-    PhlocTestUtils.testToStringImplementation (x);
+    PHTestUtils.testToStringImplementation (x);
 
     try
     {

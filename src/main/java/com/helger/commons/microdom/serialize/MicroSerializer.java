@@ -38,7 +38,7 @@ import com.helger.commons.microdom.IMicroText;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.IXMLIterationHandler;
 import com.helger.commons.xml.XMLHelper;
-import com.helger.commons.xml.serialize.AbstractSerializerPhloc;
+import com.helger.commons.xml.serialize.AbstractXMLSerializer;
 import com.helger.commons.xml.serialize.IXMLWriterSettings;
 import com.helger.commons.xml.serialize.XMLWriterSettings;
 
@@ -47,7 +47,7 @@ import com.helger.commons.xml.serialize.XMLWriterSettings;
  * 
  * @author Philip
  */
-public final class MicroSerializer extends AbstractSerializerPhloc <IMicroNode>
+public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
 {
   public MicroSerializer ()
   {

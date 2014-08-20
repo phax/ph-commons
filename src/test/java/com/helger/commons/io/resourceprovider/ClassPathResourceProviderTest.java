@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link ClassPathResourceProvider}.
@@ -71,11 +71,11 @@ public final class ClassPathResourceProviderTest
   @Test
   public void testEqualsAndHashcode ()
   {
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ClassPathResourceProvider (),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ClassPathResourceProvider (),
                                                                     new ClassPathResourceProvider ());
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new ClassPathResourceProvider (),
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ClassPathResourceProvider (),
                                                                         new ClassPathResourceProvider ("folder"));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ClassPathResourceProvider ("folder"),
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ClassPathResourceProvider ("folder"),
                                                                     new ClassPathResourceProvider ("folder"));
   }
 }

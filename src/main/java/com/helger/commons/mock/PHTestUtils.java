@@ -58,13 +58,13 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @author Philip Helger
  */
 @Immutable
-public final class PhlocTestUtils
+public final class PHTestUtils
 {
   @PresentForCodeCoverage
   @SuppressWarnings ("unused")
-  private static final PhlocTestUtils s_aInstance = new PhlocTestUtils ();
+  private static final PHTestUtils s_aInstance = new PHTestUtils ();
 
-  private PhlocTestUtils ()
+  private PHTestUtils ()
   {}
 
   private static void _assertTrue (@Nonnull final String sMsg, final boolean bTrue)

@@ -27,7 +27,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -109,18 +109,18 @@ public final class ArrayEnumerationTest
 
     // equals...
     ae = new ArrayEnumeration <String> ("Hallo", "Welt", "from", "Copenhagen");
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (ae, new ArrayEnumeration <String> ("Hallo",
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (ae, new ArrayEnumeration <String> ("Hallo",
                                                                                                        "Welt",
                                                                                                        "from",
                                                                                                        "Copenhagen"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (ae, new ArrayEnumeration <String> ("Hallo",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (ae, new ArrayEnumeration <String> ("Hallo",
                                                                                                            "Welt",
                                                                                                            "from"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (ae,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (ae,
                                                                         new ArrayEnumeration <Integer> (Integer.valueOf (5)));
     // Different index
     final ArrayEnumeration <String> ae2 = new ArrayEnumeration <String> ("Hallo", "Welt", "from", "Copenhagen");
     ae2.nextElement ();
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (ae, ae2);
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (ae, ae2);
   }
 }

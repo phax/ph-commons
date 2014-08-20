@@ -29,7 +29,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MapBasedReadonlyAttributeContainer}.
@@ -62,7 +62,7 @@ public final class MapBasedReadonlyAttributeContainerTest
     assertFalse (x.getAllAttributeNames ().isEmpty ());
     assertTrue (x.getAttributeNames ().hasMoreElements ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedReadonlyAttributeContainer (ContainerHelper.newMap (new String [] { "key",
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedReadonlyAttributeContainer (ContainerHelper.newMap (new String [] { "key",
                                                                                                                                                    "key2" },
                                                                                                                                     new Object [] { "value",
                                                                                                                                                    "value2" })),
@@ -70,7 +70,7 @@ public final class MapBasedReadonlyAttributeContainerTest
                                                                                                                                                    "key2" },
                                                                                                                                     new Object [] { "value",
                                                                                                                                                    "value2" })));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedReadonlyAttributeContainer (ContainerHelper.newMap (new String [] { "key",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedReadonlyAttributeContainer (ContainerHelper.newMap (new String [] { "key",
                                                                                                                                                        "key2" },
                                                                                                                                         new Object [] { "value",
                                                                                                                                                        "value2" })),

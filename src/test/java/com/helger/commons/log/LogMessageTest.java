@@ -29,7 +29,7 @@ import org.junit.Test;
 
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.mock.MockException;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link LogMessage}.
@@ -46,7 +46,7 @@ public final class LogMessageTest
     assertSame (EErrorLevel.WARN, lm.getErrorLevel ());
     assertEquals ("Msg", lm.getMessage ());
     assertNotNull (lm.getThrowable ());
-    PhlocTestUtils.testToStringImplementation (lm);
+    PHTestUtils.testToStringImplementation (lm);
 
     try
     {

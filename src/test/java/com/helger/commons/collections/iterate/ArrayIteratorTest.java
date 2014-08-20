@@ -27,7 +27,7 @@ import java.util.NoSuchElementException;
 import org.junit.Test;
 
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -110,17 +110,17 @@ public final class ArrayIteratorTest
   public void testStdMethods ()
   {
     final ArrayIterator <String> ae = ArrayIterator.create (ArrayHelper.newArray ("Hallo", "Welt", "from", "Copenhagen"));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (ae,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (ae,
                                                                     ArrayIterator.create (ArrayHelper.newArray ("Hallo",
                                                                                                                 "Welt",
                                                                                                                 "from",
                                                                                                                 "Copenhagen")));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (ae,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (ae,
                                                                         ArrayIterator.create (ArrayHelper.newArray ("Hallo",
                                                                                                                     "Welt",
                                                                                                                     "from")));
     ae.next ();
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (ae,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (ae,
                                                                         ArrayIterator.create (ArrayHelper.newArray ("Hallo",
                                                                                                                     "Welt",
                                                                                                                     "from",

@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.factory.FactoryNewInstance;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link SafeArrayList}.
@@ -92,8 +92,8 @@ public final class SafeArrayListTest
     final SafeArrayList <String> sl2 = new SafeArrayList <String> ();
     sl2.set (10, "any");
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (sl, sl2);
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (sl, sl2);
     sl2.set (9, "x");
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (sl, sl2);
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (sl, sl2);
   }
 }

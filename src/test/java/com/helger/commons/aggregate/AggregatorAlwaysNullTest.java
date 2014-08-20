@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link AggregatorAlwaysNull}.
@@ -37,7 +37,7 @@ public final class AggregatorAlwaysNullTest
   public void testAll ()
   {
     final AggregatorAlwaysNull <String, String> a1 = new AggregatorAlwaysNull <String, String> ();
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (a1, new AggregatorAlwaysNull <String, String> ());
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (a1, new AggregatorAlwaysNull <String, String> ());
     assertNull (a1.aggregate (ContainerHelper.newList ("a", "b")));
     assertNull (a1.aggregate (new ArrayList <String> ()));
   }

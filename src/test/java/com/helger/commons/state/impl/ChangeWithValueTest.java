@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.state.EChange;
 
 /**
@@ -47,9 +47,9 @@ public final class ChangeWithValueTest
     assertEquals ("other", x.getIfUnchanged ("other"));
     assertNull (x.getIfUnchangedOrNull ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (x, ChangeWithValue.createChanged ("bla"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createUnchanged ("bla"));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createChanged ("Other"));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (x, ChangeWithValue.createChanged ("bla"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createUnchanged ("bla"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createChanged ("Other"));
 
     x = new ChangeWithValue <String> (EChange.CHANGED, null);
     assertNull (x.get ());

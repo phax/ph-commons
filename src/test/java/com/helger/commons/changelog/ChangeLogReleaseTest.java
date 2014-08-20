@@ -28,7 +28,7 @@ import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.version.Version;
 
 /**
@@ -49,13 +49,13 @@ public final class ChangeLogReleaseTest
     assertTrue (aDate != aRelease.getDate ());
     assertSame (aVersion, aRelease.getVersion ());
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aRelease, new ChangeLogRelease (aDate, aVersion));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (aRelease,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aRelease, new ChangeLogRelease (aDate, aVersion));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aRelease,
                                                                         new ChangeLogRelease (new GregorianCalendar (2010,
                                                                                                                      Calendar.JULY,
                                                                                                                      6).getTime (),
                                                                                               aVersion));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (aRelease,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aRelease,
                                                                         new ChangeLogRelease (aDate, new Version (1,
                                                                                                                   2,
                                                                                                                   4)));

@@ -27,7 +27,7 @@ import java.io.FilenameFilter;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link FileFilterDirectoryFromFilenameFilter}.
@@ -53,7 +53,7 @@ public final class FileFilterDirectoryFromFilenameFilterTest
     // null
     assertFalse (aFilter.accept (null));
 
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (aFilter,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (aFilter,
                                                                     new FileFilterDirectoryFromFilenameFilter (ff));
   }
 }

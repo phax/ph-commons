@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.version.Version;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -99,7 +99,7 @@ public final class ThirdPartyModuleTest
   @Test
   public void testStd ()
   {
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (new ThirdPartyModule ("displayname",
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ThirdPartyModule ("displayname",
                                                                                           "owner",
                                                                                           ELicense.APACHE1),
                                                                     new ThirdPartyModule ("displayname",
@@ -111,44 +111,44 @@ public final class ThirdPartyModuleTest
                                                        new Version ("1.1"),
                                                        "url",
                                                        true);
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (mod, new ThirdPartyModule ("displayname",
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (mod, new ThirdPartyModule ("displayname",
                                                                                                "owner",
                                                                                                ELicense.APACHE1,
                                                                                                new Version ("1.1"),
                                                                                                "url",
                                                                                                true));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname2",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname2",
                                                                                                    "owner",
                                                                                                    ELicense.APACHE1,
                                                                                                    new Version ("1.1"),
                                                                                                    "url",
                                                                                                    true));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
                                                                                                    "owner2",
                                                                                                    ELicense.APACHE1,
                                                                                                    new Version ("1.1"),
                                                                                                    "url",
                                                                                                    true));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
                                                                                                    "owner",
                                                                                                    ELicense.APACHE2,
                                                                                                    new Version ("1.1"),
                                                                                                    "url",
                                                                                                    true));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mod,
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mod,
                                                                         new ThirdPartyModule ("displayname",
                                                                                               "owner",
                                                                                               ELicense.APACHE1,
                                                                                               new Version ("1.1.2"),
                                                                                               "url",
                                                                                               true));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
                                                                                                    "owner",
                                                                                                    ELicense.APACHE1,
                                                                                                    new Version ("1.1"),
                                                                                                    "url2",
                                                                                                    true));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
                                                                                                    "owner",
                                                                                                    ELicense.APACHE1,
                                                                                                    new Version ("1.1"),

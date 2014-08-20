@@ -32,7 +32,7 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link URLResource}.
@@ -90,11 +90,11 @@ public final class URLResourceTest extends AbstractPHTestCase
     ur.getReader (CCharset.CHARSET_ISO_8859_1_OBJ).close ();
 
     final URL aNoNExistingURL = new File ("pom2.xml").toURI ().toURL ();
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (ur, new URLResource (aFileURL));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (ur, ur.getReadableCloneForPath (aFileURL));
-    PhlocTestUtils.testDefaultImplementationWithEqualContentObject (ur,
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (ur, new URLResource (aFileURL));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (ur, ur.getReadableCloneForPath (aFileURL));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (ur,
                                                                     ur.getReadableCloneForPath (aFileURL.toExternalForm ()));
-    PhlocTestUtils.testDefaultImplementationWithDifferentContentObject (ur, new URLResource (aNoNExistingURL));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (ur, new URLResource (aNoNExistingURL));
 
     assertNotNull (URLResource.getAsFile (aFileURL));
     assertNotNull (URLResource.getAsFile (aNoNExistingURL));
@@ -136,6 +136,6 @@ public final class URLResourceTest extends AbstractPHTestCase
   @Test
   public void testSerialize () throws Exception
   {
-    PhlocTestUtils.testDefaultSerialization (new URLResource ("http://www.phloc.com"));
+    PHTestUtils.testDefaultSerialization (new URLResource ("http://www.phloc.com"));
   }
 }

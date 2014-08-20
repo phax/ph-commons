@@ -32,7 +32,7 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link ResourceLSInput}.
@@ -82,7 +82,7 @@ public final class ResourceLSInputTest
     lsi.setStringData ("str");
     assertEquals ("str", lsi.getStringData ());
 
-    PhlocTestUtils.testToStringImplementation (lsi);
+    PHTestUtils.testToStringImplementation (lsi);
 
     try
     {

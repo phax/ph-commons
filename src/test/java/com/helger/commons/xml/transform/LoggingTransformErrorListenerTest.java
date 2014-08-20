@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PhlocTestUtils;
+import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link LoggingTransformErrorListener}.
@@ -55,6 +55,6 @@ public final class LoggingTransformErrorListenerTest extends AbstractPHTestCase
     // Read invalid XSLT
     assertNull (XMLTransformerFactory.newTemplates (fac, new ClassPathResource ("test1.txt")));
 
-    PhlocTestUtils.testToStringImplementation (el);
+    PHTestUtils.testToStringImplementation (el);
   }
 }
