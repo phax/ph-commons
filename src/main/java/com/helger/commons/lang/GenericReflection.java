@@ -34,7 +34,7 @@ import com.helger.commons.collections.ArrayHelper;
 /**
  * This is a special helper class that provides many utility methods that
  * require the <code>SuppressWarnings("unchecked")</code> annotation.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -65,7 +65,7 @@ public final class GenericReflection
 
   /**
    * Get the class of the given name
-   * 
+   *
    * @param <DATATYPE>
    *        The return type
    * @param sName
@@ -87,7 +87,7 @@ public final class GenericReflection
 
   /**
    * Get an array with all the classes of the passed object array.
-   * 
+   *
    * @param aObjs
    *        The object array. May be <code>null</code>. No contained element may
    *        be <code>null</code>.
@@ -108,7 +108,7 @@ public final class GenericReflection
   /**
    * This method dynamically invokes the method with the given name on the given
    * object.
-   * 
+   *
    * @param aSrcObj
    *        The source object on which the method is to be invoked. May not be
    *        <code>null</code>.
@@ -210,7 +210,7 @@ public final class GenericReflection
   /**
    * Create a new instance of the class identified by the passed object. The
    * default constructor will be invoked.
-   * 
+   *
    * @param <DATATYPE>
    *        The type of object to be created.
    * @param aObj
@@ -255,7 +255,7 @@ public final class GenericReflection
 
   @Nullable
   public static <DATATYPE> DATATYPE newInstance (@Nullable final String sClassName,
-                                                 @Nullable final Class <DATATYPE> aDesiredType)
+                                                 @Nullable final Class <? extends DATATYPE> aDesiredType)
   {
     if (sClassName != null && aDesiredType != null)
       try

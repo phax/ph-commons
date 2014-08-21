@@ -17,13 +17,16 @@
  */
 package com.helger.commons.supplementary.main;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.helger.commons.charset.CCharset;
 import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
@@ -161,7 +164,7 @@ public final class MainReadSharedMimeInfo
               System.out.println ("Added extension '" + sOldExt + "' to " + sOldMimeType + "!");
           }
           else
-            System.out.println (sOldMimeType + ": '" + sOldExt + "' not found in " + aNew + "!");
+            System.err.println (sOldMimeType + ": '" + sOldExt + "' not found in " + aNew + "!");
         }
       }
       else
@@ -182,10 +185,12 @@ public final class MainReadSharedMimeInfo
           {
             if (aNew.size () == 1)
             {
-              System.out.println ("'" + sOldExt + "': " + sOldMimeType + " not found in " + aNew.get (0) + "!");
+              aMgr.addMimeType (aNew.get (0), new MimeTypeWithSource (aOldMimeType, "old"));
+              if (false)
+                System.out.println ("'" + sOldExt + "': " + sOldMimeType + " not found in " + aNew.get (0) + "!");
             }
             else
-              System.out.println ("'" + sOldExt + "': " + sOldMimeType + " not found in any of " + aNew + "!");
+              System.err.println ("'" + sOldExt + "': " + sOldMimeType + " not found in any of " + aNew + "!");
           }
         }
         else
@@ -205,7 +210,11 @@ public final class MainReadSharedMimeInfo
       }
     }
 
-    System.out.println (MicroWriter.getXMLString (aMgr.getAsDocument ()));
-    System.out.println ("done");
+    if (SimpleFileIO.writeFile (new File ("src/main/resources/codelists/mime-type-info.xml"),
+                                MicroWriter.getXMLString (aMgr.getAsDocument ()),
+                                CCharset.CHARSET_UTF_8_OBJ).isSuccess ())
+      System.out.println ("done - run mvn license:format !!");
+    else
+      System.err.println ("Error writing file");
   }
 }

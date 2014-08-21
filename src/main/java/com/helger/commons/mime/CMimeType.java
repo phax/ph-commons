@@ -23,7 +23,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 
 /**
  * Contains a collection of well-known constant MIME types.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -53,7 +53,7 @@ public final class CMimeType
   /** PDF document. */
   public static final IMimeType APPLICATION_PDF = EMimeContentType.APPLICATION.buildMimeType ("pdf");
 
-  /** Downloadable document. */
+  /** Downloadable document. Special MimeType not used with filenames! */
   public static final IMimeType APPLICATION_FORCE_DOWNLOAD = EMimeContentType.APPLICATION.buildMimeType ("force-download");
 
   /** ZIP document. */
@@ -72,7 +72,7 @@ public final class CMimeType
   public static final IMimeType APPLICATION_SHOCKWAVE_FLASH = EMimeContentType.APPLICATION.buildMimeType ("x-shockwave-flash");
 
   /** Java applet */
-  public static final IMimeType APPLICATION_JAVA_APPLET = EMimeContentType.APPLICATION.buildMimeType ("x-java-applet");
+  public static final IMimeType APPLICATION_JAVA_APPLET = EMimeContentType.APPLICATION.buildMimeType ("java-applet");
 
   /** XHTML document. */
   public static final IMimeType APPLICATION_XHTML_XML = EMimeContentType.APPLICATION.buildMimeType ("xhtml+xml");
@@ -83,7 +83,7 @@ public final class CMimeType
   /** HTML document. */
   public static final IMimeType APPLICATION_TEXT_HTML = EMimeContentType.APPLICATION.buildMimeType ("text+html");
 
-  /** For URL posting */
+  /** For URL posting. Not used in filenames! */
   public static final IMimeType APPLICATION_X_WWW_FORM_URLENCODED = EMimeContentType.APPLICATION.buildMimeType ("x-www-form-urlencoded");
 
   /** For MP3 files */
@@ -116,7 +116,7 @@ public final class CMimeType
   /** Icon image. */
   public static final IMimeType IMAGE_X_ICON = EMimeContentType.IMAGE.buildMimeType ("x-icon");
 
-  /** For HTML upload forms */
+  /** For HTML upload forms. Not used for filenames! */
   public static final IMimeType MULTIPART_FORMDATA = EMimeContentType.MULTIPART.buildMimeType ("form-data");
 
   /** CSV document. */

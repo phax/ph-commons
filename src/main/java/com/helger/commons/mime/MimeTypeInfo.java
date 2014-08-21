@@ -17,6 +17,7 @@
  */
 package com.helger.commons.mime;
 
+import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Set;
 
@@ -26,6 +27,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
@@ -43,7 +45,7 @@ public final class MimeTypeInfo
   @Immutable
   public static final class MimeTypeWithSource
   {
-    private final MimeType m_aMimeType;
+    private final IMimeType m_aMimeType;
     private final String m_sSource;
 
     public MimeTypeWithSource (@Nonnull final String sMimeType)
@@ -51,19 +53,19 @@ public final class MimeTypeInfo
       this (MimeTypeParser.parseMimeType (sMimeType), (String) null);
     }
 
-    public MimeTypeWithSource (@Nonnull final MimeType aMimeType)
+    public MimeTypeWithSource (@Nonnull final IMimeType aMimeType)
     {
       this (aMimeType, (String) null);
     }
 
-    public MimeTypeWithSource (@Nonnull final MimeType aMimeType, @Nullable final String sSource)
+    public MimeTypeWithSource (@Nonnull final IMimeType aMimeType, @Nullable final String sSource)
     {
       m_aMimeType = ValueEnforcer.notNull (aMimeType, "MimeType");
       m_sSource = sSource;
     }
 
     @Nonnull
-    public MimeType getMimeType ()
+    public IMimeType getMimeType ()
     {
       return m_aMimeType;
     }
@@ -203,25 +205,68 @@ public final class MimeTypeInfo
 
   @Nonnull
   @Nonempty
-  public Set <MimeTypeWithSource> getAllMimeTypes ()
+  @ReturnsMutableCopy
+  public Set <MimeTypeWithSource> getAllMimeTypesWithSource ()
   {
     return ContainerHelper.newOrderedSet (m_aMimeTypes);
   }
 
+  @Nonnull
+  @Nonempty
+  @ReturnsMutableCopy
+  public Set <IMimeType> getAllMimeTypes ()
+  {
+    final Set <IMimeType> ret = new LinkedHashSet <IMimeType> ();
+    for (final MimeTypeWithSource aItem : m_aMimeTypes)
+      ret.add (aItem.getMimeType ());
+    return ret;
+  }
+
+  @Nonnull
+  @Nonempty
+  @ReturnsMutableCopy
+  public Set <String> getAllMimeTypeStrings ()
+  {
+    final Set <String> ret = new LinkedHashSet <String> ();
+    for (final MimeTypeWithSource aItem : m_aMimeTypes)
+      ret.add (aItem.getMimeTypeAsString ());
+    return ret;
+  }
+
+  public boolean containsMimeType (@Nullable final IMimeType aMimeType)
+  {
+    if (aMimeType != null)
+      for (final MimeTypeWithSource aItem : m_aMimeTypes)
+        if (aItem.getMimeType ().equals (aMimeType))
+          return true;
+    return false;
+  }
+
   public boolean containsMimeType (@Nullable final String sMimeType)
   {
-    if (StringHelper.hasNoText (sMimeType))
-      return false;
-    for (final MimeTypeWithSource aMimeType : m_aMimeTypes)
-      if (aMimeType.getMimeTypeAsString ().equals (sMimeType))
-        return true;
+    if (StringHelper.hasText (sMimeType))
+      for (final MimeTypeWithSource aItem : m_aMimeTypes)
+        if (aItem.getMimeTypeAsString ().equals (sMimeType))
+          return true;
     return false;
   }
 
   @Nonnull
-  public MimeTypeWithSource getPrimaryMimeType ()
+  public MimeTypeWithSource getPrimaryMimeTypeWithSource ()
   {
     return ContainerHelper.getFirstElement (m_aMimeTypes);
+  }
+
+  @Nonnull
+  public IMimeType getPrimaryMimeType ()
+  {
+    return getPrimaryMimeTypeWithSource ().getMimeType ();
+  }
+
+  @Nonnull
+  public String getPrimaryMimeTypeString ()
+  {
+    return getPrimaryMimeTypeWithSource ().getMimeTypeAsString ();
   }
 
   @Nullable
@@ -236,12 +281,14 @@ public final class MimeTypeInfo
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public Set <String> getAllParentTypes ()
   {
     return ContainerHelper.newOrderedSet (m_aParentTypes);
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public Set <String> getAllGlobs ()
   {
     return ContainerHelper.newOrderedSet (m_aGlobs);
@@ -253,9 +300,20 @@ public final class MimeTypeInfo
   }
 
   @Nonnull
-  public Set <ExtensionWithSource> getAllExtensions ()
+  @ReturnsMutableCopy
+  public Set <ExtensionWithSource> getAllExtensionsWithSource ()
   {
     return ContainerHelper.newOrderedSet (m_aExtensions);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public Set <String> getAllExtensions ()
+  {
+    final Set <String> ret = new LinkedHashSet <String> ();
+    for (final ExtensionWithSource aItem : m_aExtensions)
+      ret.add (aItem.getExtension ());
+    return ret;
   }
 
   public boolean hasAnyExtension ()
@@ -266,11 +324,9 @@ public final class MimeTypeInfo
   public boolean containsExtension (@Nullable final String sExtension)
   {
     if (StringHelper.hasText (sExtension))
-    {
       for (final ExtensionWithSource aExtension : m_aExtensions)
         if (aExtension.matches (sExtension))
           return true;
-    }
     return false;
   }
 
@@ -279,6 +335,13 @@ public final class MimeTypeInfo
     ValueEnforcer.notNull (aExt, "Ext");
     // Don't add to glob - can easily be constructed from all extensions
     m_aExtensions.add (aExt);
+  }
+
+  void addMimeType (@Nonnull final MimeTypeWithSource aMimeType)
+  {
+    ValueEnforcer.notNull (aMimeType, "MimeType");
+    // Don't add to glob - can easily be constructed from all extensions
+    m_aMimeTypes.add (aMimeType);
   }
 
   @Nullable

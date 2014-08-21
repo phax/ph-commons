@@ -99,7 +99,7 @@ public final class MimeTypeInfoMicroTypeConverterRegistrar implements IMicroType
     {
       final MimeTypeInfo aValue = (MimeTypeInfo) aObject;
       final IMicroElement eRet = new MicroElement (sNamespaceURI, sTagName);
-      for (final MimeTypeWithSource aMimeType : aValue.getAllMimeTypes ())
+      for (final MimeTypeWithSource aMimeType : aValue.getAllMimeTypesWithSource ())
       {
         eRet.appendElement (sNamespaceURI, ELEMENT_MIMETYPE)
             .setAttribute (ATTR_SOURCE, aMimeType.getSource ())
@@ -111,7 +111,7 @@ public final class MimeTypeInfoMicroTypeConverterRegistrar implements IMicroType
         eRet.appendElement (sNamespaceURI, ELEMENT_PARENT_TYPE).appendText (sParentType);
       for (final String sGlob : aValue.getAllGlobs ())
         eRet.appendElement (sNamespaceURI, ELEMENT_GLOB).appendText (sGlob);
-      for (final ExtensionWithSource aExtension : aValue.getAllExtensions ())
+      for (final ExtensionWithSource aExtension : aValue.getAllExtensionsWithSource ())
       {
         eRet.appendElement (sNamespaceURI, ELEMENT_EXTENSION)
             .setAttribute (ATTR_SOURCE, aExtension.getSource ())
