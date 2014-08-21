@@ -74,6 +74,9 @@ public final class CMimeType
   /** Java applet */
   public static final IMimeType APPLICATION_JAVA_APPLET = EMimeContentType.APPLICATION.buildMimeType ("java-applet");
 
+  /** XML document. */
+  public static final IMimeType APPLICATION_XML = EMimeContentType.APPLICATION.buildMimeType ("xml");
+
   /** XHTML document. */
   public static final IMimeType APPLICATION_XHTML_XML = EMimeContentType.APPLICATION.buildMimeType ("xhtml+xml");
 

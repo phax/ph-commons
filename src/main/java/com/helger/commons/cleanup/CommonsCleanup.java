@@ -31,6 +31,7 @@ import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleUtils;
 import com.helger.commons.locale.country.CountryCache;
 import com.helger.commons.mime.MimeTypeDeterminator;
+import com.helger.commons.mime.MimeTypeInfoManager;
 import com.helger.commons.regex.RegExPool;
 import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.text.resolve.DefaultTextResolver;
@@ -41,7 +42,7 @@ import com.helger.commons.xml.schema.XMLSchemaCache;
 /**
  * The sole purpose of this class to clear all caches, that reside in this
  * library.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -64,6 +65,7 @@ public final class CommonsCleanup
     LocaleCache.resetCache ();
     CountryCache.resetCache ();
     MimeTypeDeterminator.resetCache ();
+    MimeTypeInfoManager.getDefaultInstance ().resetCache ();
     URLProtocolRegistry.reinitialize ();
 
     // Clear caches

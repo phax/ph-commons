@@ -2300,8 +2300,8 @@
     <extension>xhtml</extension>
   </item>
   <item source="shared-mime-info">
-    <mime-type>application/xml</mime-type>
     <mime-type>text/xml</mime-type>
+    <mime-type>application/xml</mime-type>
     <comment>XML document</comment>
     <parent-type>text/plain</parent-type>
     <extension>xml</extension>

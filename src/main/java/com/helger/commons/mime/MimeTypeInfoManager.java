@@ -48,6 +48,7 @@ import com.helger.commons.microdom.impl.MicroDocument;
 import com.helger.commons.microdom.serialize.MicroReader;
 import com.helger.commons.mime.MimeTypeInfo.ExtensionWithSource;
 import com.helger.commons.mime.MimeTypeInfo.MimeTypeWithSource;
+import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -59,11 +60,13 @@ import com.helger.commons.string.StringHelper;
 public class MimeTypeInfoManager
 {
   public static final String MIME_TYPE_INFO_XML = "codelists/mime-type-info.xml";
+
   private static final MimeTypeInfoManager s_aDefaultInstance = new MimeTypeInfoManager ();
 
   static
   {
-    s_aDefaultInstance.read (new ClassPathResource (MIME_TYPE_INFO_XML));
+    // Init the default instance
+    s_aDefaultInstance.readDefault ();
   }
 
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
@@ -87,24 +90,26 @@ public class MimeTypeInfoManager
     return s_aDefaultInstance;
   }
 
-  public void clear ()
+  /**
+   * Read the default resource.
+   *
+   * @see #MIME_TYPE_INFO_XML
+   */
+  public void readDefault ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aList.clear ();
-      m_aMapExt.clear ();
-      m_aMapMimeType.clear ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    read (new ClassPathResource (MIME_TYPE_INFO_XML));
   }
 
+  /**
+   * Read the information from the specified resource.
+   *
+   * @param aRes
+   *        The resource to read. May not be <code>null</code>.
+   */
   public void read (@Nonnull final IReadableResource aRes)
   {
     ValueEnforcer.notNull (aRes, "Resource");
+
     final IMicroDocument aDoc = MicroReader.readMicroXML (aRes);
     if (aDoc == null)
       throw new IllegalArgumentException ("Failed to read MimeTypeInfo resource " + aRes);
@@ -114,6 +119,47 @@ public class MimeTypeInfoManager
       final MimeTypeInfo aInfo = MicroTypeConverter.convertToNative (eItem, MimeTypeInfo.class);
       registerMimeType (aInfo);
     }
+  }
+
+  /**
+   * Remove all registered mime types
+   *
+   * @return {@link EChange}.
+   */
+  @Nonnull
+  public EChange clearCache ()
+  {
+    EChange ret = EChange.UNCHANGED;
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      if (!m_aList.isEmpty ())
+      {
+        m_aList.clear ();
+        ret = EChange.CHANGED;
+      }
+      if (!m_aMapExt.isEmpty ())
+      {
+        m_aMapExt.clear ();
+        ret = EChange.CHANGED;
+      }
+      if (!m_aMapMimeType.isEmpty ())
+      {
+        m_aMapMimeType.clear ();
+        ret = EChange.CHANGED;
+      }
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+    return ret;
+  }
+
+  public void resetCache ()
+  {
+    clearCache ();
+    readDefault ();
   }
 
   @Nonnull
@@ -342,6 +388,7 @@ public class MimeTypeInfoManager
   public boolean containsMimeTypeForFilename (@Nonnull @Nonempty final String sFilename)
   {
     ValueEnforcer.notEmpty (sFilename, "Filename");
+
     final String sExtension = FilenameHelper.getExtension (sFilename);
     return containsMimeTypeForExtension (sExtension);
   }
@@ -351,6 +398,7 @@ public class MimeTypeInfoManager
   public Set <IMimeType> getAllMimeTypesForFilename (@Nonnull @Nonempty final String sFilename)
   {
     ValueEnforcer.notEmpty (sFilename, "Filename");
+
     final String sExtension = FilenameHelper.getExtension (sFilename);
     return getAllMimeTypesForExtension (sExtension);
   }
@@ -360,13 +408,33 @@ public class MimeTypeInfoManager
   public Set <String> getAllMimeTypeStringsForFilename (@Nonnull @Nonempty final String sFilename)
   {
     ValueEnforcer.notEmpty (sFilename, "Filename");
+
     final String sExtension = FilenameHelper.getExtension (sFilename);
     return getAllMimeTypeStringsForExtension (sExtension);
+  }
+
+  @Nullable
+  public IMimeType getPrimaryMimeTypeForFilename (@Nonnull @Nonempty final String sFilename)
+  {
+    ValueEnforcer.notEmpty (sFilename, "Filename");
+
+    final String sExtension = FilenameHelper.getExtension (sFilename);
+    return getPrimaryMimeTypeForExtension (sExtension);
+  }
+
+  @Nullable
+  public String getPrimaryMimeTypeStringForFilename (@Nonnull @Nonempty final String sFilename)
+  {
+    ValueEnforcer.notEmpty (sFilename, "Filename");
+
+    final String sExtension = FilenameHelper.getExtension (sFilename);
+    return getPrimaryMimeTypeStringForExtension (sExtension);
   }
 
   public boolean containsMimeTypeForExtension (@Nonnull final String sExtension)
   {
     ValueEnforcer.notNull (sExtension, "Extension");
+
     final List <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
     return ContainerHelper.isNotEmpty (aInfos);
   }
@@ -376,6 +444,7 @@ public class MimeTypeInfoManager
   public Set <IMimeType> getAllMimeTypesForExtension (@Nonnull final String sExtension)
   {
     ValueEnforcer.notNull (sExtension, "Extension");
+
     final Set <IMimeType> ret = new LinkedHashSet <IMimeType> ();
     final List <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
     if (aInfos != null)
@@ -389,11 +458,36 @@ public class MimeTypeInfoManager
   public Set <String> getAllMimeTypeStringsForExtension (@Nonnull final String sExtension)
   {
     ValueEnforcer.notNull (sExtension, "Extension");
+
     final Set <String> ret = new LinkedHashSet <String> ();
     final List <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
     if (aInfos != null)
       for (final MimeTypeInfo aInfo : aInfos)
         ret.addAll (aInfo.getAllMimeTypeStrings ());
     return ret;
+  }
+
+  @Nullable
+  public IMimeType getPrimaryMimeTypeForExtension (@Nonnull final String sExtension)
+  {
+    ValueEnforcer.notNull (sExtension, "Extension");
+
+    final List <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
+    if (aInfos != null)
+      for (final MimeTypeInfo aInfo : aInfos)
+        return aInfo.getPrimaryMimeType ();
+    return null;
+  }
+
+  @Nullable
+  public String getPrimaryMimeTypeStringForExtension (@Nonnull final String sExtension)
+  {
+    ValueEnforcer.notNull (sExtension, "Extension");
+
+    final List <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
+    if (aInfos != null)
+      for (final MimeTypeInfo aInfo : aInfos)
+        return aInfo.getPrimaryMimeTypeString ();
+    return null;
   }
 }

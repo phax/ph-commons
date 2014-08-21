@@ -1,7 +1,9 @@
 package com.helger.commons.mime;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
@@ -45,12 +47,52 @@ public final class MimeTypeInfoManagerTest
     assertTrue (aMgr.getAllMimeTypesForExtension ("XLS").contains (CMimeType.APPLICATION_MS_EXCEL));
     assertTrue (aMgr.getAllMimeTypesForExtension ("abersichernicht").isEmpty ());
 
+    assertEquals (CMimeType.APPLICATION_MS_EXCEL, aMgr.getPrimaryMimeTypeForExtension ("xls"));
+    assertEquals (CMimeType.APPLICATION_MS_EXCEL, aMgr.getPrimaryMimeTypeForExtension ("XLS"));
+    assertNull (aMgr.getPrimaryMimeTypeForExtension ("waerhaettedasgedacht"));
+
     assertTrue (aMgr.getAllMimeTypeStringsForExtension ("xls").contains (CMimeType.APPLICATION_MS_EXCEL.getAsString ()));
     assertTrue (aMgr.getAllMimeTypeStringsForExtension ("XLS").contains (CMimeType.APPLICATION_MS_EXCEL.getAsString ()));
     assertTrue (aMgr.getAllMimeTypeStringsForExtension ("abersichernicht").isEmpty ());
 
-    assertTrue (aMgr.containsMimeTypeForExtension ("xls"));
-    assertTrue (aMgr.containsMimeTypeForExtension ("XLS"));
+    assertEquals (CMimeType.APPLICATION_MS_EXCEL.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("xls"));
+    assertEquals (CMimeType.APPLICATION_MS_EXCEL.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("XLS"));
+    assertEquals (CMimeType.APPLICATION_MS_EXCEL_2007.getAsString (),
+                  aMgr.getPrimaryMimeTypeStringForExtension ("xlsx"));
+    assertEquals (CMimeType.APPLICATION_MS_WORD.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("doc"));
+    assertEquals (CMimeType.APPLICATION_MS_WORD_2007.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("docx"));
+    assertEquals (CMimeType.APPLICATION_MS_POWERPOINT.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("ppt"));
+    assertEquals (CMimeType.APPLICATION_MS_POWERPOINT_2007.getAsString (),
+                  aMgr.getPrimaryMimeTypeStringForExtension ("pptx"));
+    assertEquals (CMimeType.TEXT_XML.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("xml"));
+    assertNull (aMgr.getPrimaryMimeTypeStringForExtension ("waerhaettedasgedacht"));
+
+    for (final String sExt : new String [] { "xls",
+                                            "XLS",
+                                            "xlsx",
+                                            "XLSX",
+                                            "doc",
+                                            "DOC",
+                                            "docx",
+                                            "DOCX",
+                                            "ppt",
+                                            "PPT",
+                                            "pptx",
+                                            "PPTX",
+                                            "xml",
+                                            "XML",
+                                            "mp3",
+                                            "MP3",
+                                            "",
+                                            "exe",
+                                            "EXE" })
+    {
+      assertTrue (sExt + " not found", aMgr.containsMimeTypeForExtension (sExt));
+      assertFalse (sExt + " not found", aMgr.getAllMimeTypesForExtension (sExt).isEmpty ());
+      assertFalse (sExt + " not found", aMgr.getAllMimeTypeStringsForExtension (sExt).isEmpty ());
+      assertNotNull (sExt + " not found", aMgr.getPrimaryMimeTypeForExtension (sExt));
+      assertNotNull (sExt + " not found", aMgr.getPrimaryMimeTypeStringForExtension (sExt));
+    }
     assertFalse (aMgr.containsMimeTypeForExtension ("aberhallo"));
   }
 
@@ -90,6 +132,7 @@ public final class MimeTypeInfoManagerTest
     assertTrue (aAllKnown.contains (CMimeType.APPLICATION_TEXT_HTML));
     if (false) // special!
       assertTrue (aAllKnown.contains (CMimeType.APPLICATION_X_WWW_FORM_URLENCODED));
+    assertTrue (aAllKnown.contains (CMimeType.APPLICATION_XML));
 
     // audio
     assertTrue (aAllKnown.contains (CMimeType.AUDIO_MP3));
