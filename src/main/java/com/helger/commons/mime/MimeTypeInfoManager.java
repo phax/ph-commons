@@ -23,9 +23,13 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
+import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
@@ -51,17 +55,23 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
+@ThreadSafe
 public class MimeTypeInfoManager
 {
+  public static final String MIME_TYPE_INFO_XML = "codelists/mime-type-info.xml";
   private static final MimeTypeInfoManager s_aDefaultInstance = new MimeTypeInfoManager ();
 
   static
   {
-    s_aDefaultInstance.read (new ClassPathResource ("codelists/mime-type-info.xml"));
+    s_aDefaultInstance.read (new ClassPathResource (MIME_TYPE_INFO_XML));
   }
 
+  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  @GuardedBy ("m_aRWLock")
   private final List <MimeTypeInfo> m_aList = new ArrayList <MimeTypeInfo> ();
+  @GuardedBy ("m_aRWLock")
   private final IMultiMapListBased <IMimeType, MimeTypeInfo> m_aMapMimeType = new MultiTreeMapArrayListBased <IMimeType, MimeTypeInfo> ();
+  @GuardedBy ("m_aRWLock")
   private final IMultiMapListBased <String, MimeTypeInfo> m_aMapExt = new MultiTreeMapArrayListBased <String, MimeTypeInfo> ();
 
   public MimeTypeInfoManager ()
@@ -75,6 +85,21 @@ public class MimeTypeInfoManager
   public static MimeTypeInfoManager getDefaultInstance ()
   {
     return s_aDefaultInstance;
+  }
+
+  public void clear ()
+  {
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      m_aList.clear ();
+      m_aMapExt.clear ();
+      m_aMapMimeType.clear ();
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
   }
 
   public void read (@Nonnull final IReadableResource aRes)
@@ -97,8 +122,18 @@ public class MimeTypeInfoManager
   {
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eRoot = aDoc.appendElement ("mime-type-info");
-    for (final MimeTypeInfo aInfo : ContainerHelper.getSorted (m_aList, new ComparatorMimeTypeInfoPrimaryMimeType ()))
-      eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aInfo, "item"));
+
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      for (final MimeTypeInfo aInfo : ContainerHelper.getSorted (m_aList, new ComparatorMimeTypeInfoPrimaryMimeType ()))
+        eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aInfo, "item"));
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
+
     return aDoc;
   }
 
@@ -110,24 +145,40 @@ public class MimeTypeInfoManager
 
     // Check if MimeType is unique
     // Note: Extension must not be unique
-    for (final MimeTypeWithSource aMimeType : aMimeTypes)
+    m_aRWLock.readLock ().lock ();
+    try
     {
-      final List <MimeTypeInfo> aExisting = m_aMapMimeType.get (aMimeType.getMimeType ());
-      if (aExisting != null)
-        throw new IllegalArgumentException ("Cannot register " +
-                                            aInfo +
-                                            ". A mapping for mime type '" +
-                                            aMimeType +
-                                            "' is already registered: " +
-                                            aExisting);
+      for (final MimeTypeWithSource aMimeType : aMimeTypes)
+      {
+        final List <MimeTypeInfo> aExisting = m_aMapMimeType.get (aMimeType.getMimeType ());
+        if (aExisting != null)
+          throw new IllegalArgumentException ("Cannot register " +
+                                              aInfo +
+                                              ". A mapping for mime type '" +
+                                              aMimeType +
+                                              "' is already registered: " +
+                                              aExisting);
+      }
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
     }
 
     // Perform changes
-    m_aList.add (aInfo);
-    for (final MimeTypeWithSource aMimeType : aMimeTypes)
-      m_aMapMimeType.putSingle (aMimeType.getMimeType (), aInfo);
-    for (final ExtensionWithSource aExt : aExtensions)
-      m_aMapExt.putSingle (aExt.getExtension (), aInfo);
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      m_aList.add (aInfo);
+      for (final MimeTypeWithSource aMimeType : aMimeTypes)
+        m_aMapMimeType.putSingle (aMimeType.getMimeType (), aInfo);
+      for (final ExtensionWithSource aExt : aExtensions)
+        m_aMapExt.putSingle (aExt.getExtension (), aInfo);
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
   }
 
   @VisibleForTesting
@@ -135,8 +186,17 @@ public class MimeTypeInfoManager
   {
     ValueEnforcer.notNull (aInfo, "Info");
     ValueEnforcer.notNull (aExt, "Ext");
-    m_aMapExt.putSingle (aExt.getExtension (), aInfo);
-    aInfo.addExtension (aExt);
+
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      m_aMapExt.putSingle (aExt.getExtension (), aInfo);
+      aInfo.addExtension (aExt);
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
   }
 
   @VisibleForTesting
@@ -144,8 +204,17 @@ public class MimeTypeInfoManager
   {
     ValueEnforcer.notNull (aInfo, "Info");
     ValueEnforcer.notNull (aMimeType, "MimeType");
-    m_aMapMimeType.putSingle (aMimeType.getMimeType (), aInfo);
-    aInfo.addMimeType (aMimeType);
+
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      m_aMapMimeType.putSingle (aMimeType.getMimeType (), aInfo);
+      aInfo.addMimeType (aMimeType);
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
   }
 
   @Nullable
@@ -175,12 +244,23 @@ public class MimeTypeInfoManager
     if (sExtension == null)
       return null;
 
-    List <MimeTypeInfo> ret = m_aMapExt.get (sExtension);
-    if (ret == null)
+    List <MimeTypeInfo> ret;
+
+    m_aRWLock.readLock ().lock ();
+    try
     {
-      // Especially on Windows, sometimes file extensions like "JPG" can be
-      // found. Therefore also test for the lowercase version of the extension.
-      ret = m_aMapExt.get (sExtension.toLowerCase (Locale.US));
+      ret = m_aMapExt.get (sExtension);
+      if (ret == null)
+      {
+        // Especially on Windows, sometimes file extensions like "JPG" can be
+        // found. Therefore also test for the lowercase version of the
+        // extension.
+        ret = m_aMapExt.get (sExtension.toLowerCase (Locale.US));
+      }
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
     }
 
     // Create a copy if present
@@ -193,7 +273,16 @@ public class MimeTypeInfoManager
     if (aMimeType == null)
       return null;
 
-    final List <MimeTypeInfo> ret = m_aMapMimeType.get (aMimeType);
+    List <MimeTypeInfo> ret;
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      ret = m_aMapMimeType.get (aMimeType);
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
 
     // Create a copy if present
     return ret == null ? null : ContainerHelper.newList (ret);
@@ -203,7 +292,15 @@ public class MimeTypeInfoManager
   @ReturnsMutableCopy
   public List <MimeTypeInfo> getAllMimeTypeInfos ()
   {
-    return ContainerHelper.newList (m_aList);
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return ContainerHelper.newList (m_aList);
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
   }
 
   @Nonnull
@@ -211,8 +308,16 @@ public class MimeTypeInfoManager
   public Set <IMimeType> getAllMimeTypes ()
   {
     final Set <IMimeType> ret = new LinkedHashSet <IMimeType> ();
-    for (final MimeTypeInfo aInfo : m_aList)
-      ret.addAll (aInfo.getAllMimeTypes ());
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      for (final MimeTypeInfo aInfo : m_aList)
+        ret.addAll (aInfo.getAllMimeTypes ());
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
     return ret;
   }
 
@@ -221,8 +326,16 @@ public class MimeTypeInfoManager
   public Set <String> getAllMimeTypeStrings ()
   {
     final Set <String> ret = new LinkedHashSet <String> ();
-    for (final MimeTypeInfo aInfo : m_aList)
-      ret.addAll (aInfo.getAllMimeTypeStrings ());
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      for (final MimeTypeInfo aInfo : m_aList)
+        ret.addAll (aInfo.getAllMimeTypeStrings ());
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
     return ret;
   }
 
