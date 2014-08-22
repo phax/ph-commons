@@ -287,11 +287,22 @@ public final class MimeTypeInfo
     return ContainerHelper.newOrderedSet (m_aParentTypes);
   }
 
+  public boolean hasAnyParentType ()
+  {
+    return !m_aParentTypes.isEmpty ();
+  }
+
   @Nonnull
   @ReturnsMutableCopy
   public Set <String> getAllGlobs ()
   {
     return ContainerHelper.newOrderedSet (m_aGlobs);
+  }
+
+  @Nullable
+  public String getPrimaryGlob ()
+  {
+    return ContainerHelper.getFirstElement (m_aGlobs);
   }
 
   public boolean hasAnyGlob ()
@@ -314,6 +325,19 @@ public final class MimeTypeInfo
     for (final ExtensionWithSource aItem : m_aExtensions)
       ret.add (aItem.getExtension ());
     return ret;
+  }
+
+  @Nullable
+  public ExtensionWithSource getPrimaryExtensionWithSource ()
+  {
+    return ContainerHelper.getFirstElement (m_aExtensions);
+  }
+
+  @Nullable
+  public String getPrimaryExtension ()
+  {
+    final ExtensionWithSource aExtension = getPrimaryExtensionWithSource ();
+    return aExtension == null ? null : aExtension.getExtension ();
   }
 
   public boolean hasAnyExtension ()

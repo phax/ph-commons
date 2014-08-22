@@ -26,7 +26,7 @@ public final class MimeTypeInfoManagerTest
   }
 
   @Test
-  public void testGetFromFileName ()
+  public void testGetMimeType ()
   {
     final MimeTypeInfoManager aMgr = MimeTypeInfoManager.getDefaultInstance ();
     assertTrue (aMgr.getAllMimeTypesForFilename ("test.xls").contains (CMimeType.APPLICATION_MS_EXCEL));
@@ -104,6 +104,21 @@ public final class MimeTypeInfoManagerTest
       assertNotNull (aMimeType);
     for (final String sMimeType : aMgr.getAllMimeTypeStrings ())
       assertTrue (StringHelper.hasText (sMimeType));
+  }
+
+  @Test
+  public void testGetFromExtension ()
+  {
+    final MimeTypeInfoManager aMgr = MimeTypeInfoManager.getDefaultInstance ();
+    assertTrue (aMgr.getAllExtensionsOfMimeType (CMimeType.APPLICATION_MS_EXCEL).contains ("xls"));
+    assertFalse (aMgr.getAllExtensionsOfMimeType (CMimeType.APPLICATION_MS_EXCEL).contains ("XLS"));
+    assertEquals ("xls", aMgr.getPrimaryExtensionOfMimeType (CMimeType.APPLICATION_MS_EXCEL));
+
+    assertTrue (aMgr.getAllExtensionsOfMimeType (CMimeType.APPLICATION_MS_EXCEL_2007).contains ("xlsx"));
+    assertFalse (aMgr.getAllExtensionsOfMimeType (CMimeType.APPLICATION_MS_EXCEL_2007).contains ("XLSX"));
+    assertEquals ("xlsx", aMgr.getPrimaryExtensionOfMimeType (CMimeType.APPLICATION_MS_EXCEL_2007));
+
+    assertNull (aMgr.getPrimaryExtensionOfMimeType (CMimeType.MULTIPART_FORMDATA));
   }
 
   @Test
