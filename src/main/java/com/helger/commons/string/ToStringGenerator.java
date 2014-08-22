@@ -44,7 +44,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  *   return ToStringGenerator.getDerived (super.toString ()).append ("member3", member3).append ("member4", member4).toString ();
  * }</pre></code>
  * </p>
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -245,16 +245,17 @@ public final class ToStringGenerator
   }
 
   @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, @Nullable final Object aValue)
+  private ToStringGenerator _appendArray (@Nonnull final String sField, @Nullable final Object aValue)
   {
-    if (aValue != null && aValue.getClass ().isArray ())
+    // Passed value is an array
+    final Class <?> aCompType = aValue.getClass ().getComponentType ();
+    if (aCompType.isPrimitive ())
     {
-      // Passed value is an array
-      final Class <?> aCompType = aValue.getClass ().getComponentType ();
-      if (aCompType.equals (boolean.class))
-        return append (sField, (boolean []) aValue);
+      // Assuming byte[] happens most often
       if (aCompType.equals (byte.class))
         return append (sField, (byte []) aValue);
+      if (aCompType.equals (boolean.class))
+        return append (sField, (boolean []) aValue);
       if (aCompType.equals (char.class))
         return append (sField, (char []) aValue);
       if (aCompType.equals (double.class))
@@ -267,8 +268,16 @@ public final class ToStringGenerator
         return append (sField, (long []) aValue);
       if (aCompType.equals (short.class))
         return append (sField, (short []) aValue);
-      return append (sField, (Object []) aValue);
     }
+    return append (sField, (Object []) aValue);
+  }
+
+  @Nonnull
+  public ToStringGenerator append (@Nonnull final String sField, @Nullable final Object aValue)
+  {
+    if (aValue != null && aValue.getClass ().isArray ())
+      return _appendArray (sField, aValue);
+
     _beforeAddField ();
     // Avoid endless loop with base object
     m_aSB.append (sField).append ('=').append (_getObjectValue (aValue));
@@ -447,7 +456,7 @@ public final class ToStringGenerator
    * Create a {@link ToStringGenerator} for derived classes where the base class
    * also uses the {@link ToStringGenerator}. This avoids that the implementing
    * class name is emitted more than once.
-   * 
+   *
    * @param sSuperToString
    *        Always pass in <code>super.toString ()</code>
    * @return Never <code>null</code>
