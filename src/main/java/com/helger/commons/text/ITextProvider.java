@@ -32,8 +32,8 @@ public interface ITextProvider extends ISimpleTextProvider
 {
   /**
    * Get the text specific for the passed locale. The implementation class MUST
-   * NOT add locale-generalisation when resolving the text ("de_DE" => "de" =>
-   * <i>default</i>). The placeholders will be resolved with the
+   * NOT add locale-generalisation when resolving the text ("de_DE" =&gt; "de"
+   * =&gt; <i>default</i>). The placeholders will be resolved with the
    * {@link java.text.MessageFormat#format(Object)} method.
    *
    * @param aContentLocale
@@ -48,7 +48,7 @@ public interface ITextProvider extends ISimpleTextProvider
 
   /**
    * Get the text specific for the passed locale. The implementation class MUST
-   * add locale-generalisation when resolving the text ("de_DE" => "de" =>
+   * add locale-generalisation when resolving the text ("de_DE" =&gt; "de" =&gt;
    * <i>default</i>). The placeholders will be resolved with the
    * {@link java.text.MessageFormat#format(Object)} method.
    *

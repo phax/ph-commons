@@ -51,6 +51,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * jar files placed into any of the usual extension directories. Providers can
  * also be made available by adding them to the application's class path or by
  * some other platform-specific means.
+ * </p>
  * <p>
  * For the purpose of loading, a service is represented by a single type, that
  * is, a single interface or abstract class. (A concrete class can be used, but
@@ -64,17 +65,17 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * interface could possibly unify them, so no such type is defined here. The
  * only requirement enforced by this facility is that provider classes must have
  * a zero-argument constructor so that they can be instantiated during loading.
+ * </p>
  * <p>
- * <a name="format"> A service provider is identified by placing a
- * <i>provider-configuration file</i> in the resource directory
- * <tt>META-INF/services</tt>. The file's name is the fully-qualified <a
- * href="../lang/ClassLoader.html#name">binary name</a> of the service's type.
- * The file contains a list of fully-qualified binary names of concrete provider
- * classes, one per line. Space and tab characters surrounding each name, as
- * well as blank lines, are ignored. The comment character is <tt>'#'</tt> (
- * <tt>'&#92;u0023'</tt> , <font size="-1">NUMBER SIGN</font>); on each line all
- * characters following the first comment character are ignored. The file must
- * be encoded in UTF-8.
+ * A service provider is identified by placing a <i>provider-configuration
+ * file</i> in the resource directory <tt>META-INF/services</tt>. The file's
+ * name is the fully-qualified <a href="../lang/ClassLoader.html#name">binary
+ * name</a> of the service's type. The file contains a list of fully-qualified
+ * binary names of concrete provider classes, one per line. Space and tab
+ * characters surrounding each name, as well as blank lines, are ignored. The
+ * comment character is <tt>'#'</tt> ( <tt>'&#92;u0023'</tt> , <font
+ * size="-1">NUMBER SIGN</font>); on each line all characters following the
+ * first comment character are ignored. The file must be encoded in UTF-8.
  * </p>
  * <p>
  * If a particular concrete provider class is named in more than one
@@ -112,8 +113,9 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * <span style="font-weight: bold; padding-right: 1em">Example</span> Suppose we
  * have a service type <tt>com.example.CodecSet</tt> which is intended to
  * represent sets of encoder/decoder pairs for some protocol. In this case it is
- * an abstract class with two abstract methods: <blockquote>
+ * an abstract class with two abstract methods:
  * </p>
+ * <blockquote>
  *
  * <pre>
  * public abstract Encoder getEncoder (String encodingName);
@@ -127,6 +129,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * <p>
  * If <tt>com.example.impl.StandardCodecs</tt> is an implementation of the
  * <tt>CodecSet</tt> service then its jar file also contains a file named
+ * </p>
  * <blockquote>
  *
  * <pre>
@@ -134,30 +137,32 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * </pre>
  *
  * </blockquote>
- * </p>
  * <p>
- * This file contains the single line: <blockquote>
+ * This file contains the single line:
+ * </p>
+ * <blockquote>
  *
  * <pre>
  * com.example.impl.StandardCodecs    # Standard codecs
  * </pre>
  *
  * </blockquote>
- * </p>
  * <p>
  * The <tt>CodecSet</tt> class creates and saves a single service instance at
- * initialization: <blockquote>
+ * initialization:
+ * </p>
+ * <blockquote>
  *
  * <pre>
  * private static ServiceLoader &lt;CodecSet&gt; codecSetLoader = ServiceLoader.load (CodecSet.class);
  * </pre>
  *
  * </blockquote>
- * </p>
  * <p>
  * To locate an encoder for a given encoding name it defines a static factory
  * method which iterates through the known and available providers, returning
  * only when it has located a suitable encoder or has run out of providers.
+ * </p>
  * <blockquote>
  *
  * <pre>
@@ -174,7 +179,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * </pre>
  *
  * </blockquote>
- * </p>
  * <p>
  * A <tt>getDecoder</tt> method is defined similarly.
  * </p>

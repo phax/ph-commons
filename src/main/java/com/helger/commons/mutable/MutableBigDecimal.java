@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Object wrapper around a {@link BigDecimal} so that it can be passed a final
  * object but is mutable.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -45,7 +45,7 @@ public final class MutableBigDecimal extends Number implements IMutableNumeric <
   private BigDecimal m_aValue;
 
   /**
-   * Initialize with default value {@value #DEFAULT_VALUE}
+   * Initialize with default value {@link #DEFAULT_VALUE}
    */
   public MutableBigDecimal ()
   {
@@ -95,7 +95,7 @@ public final class MutableBigDecimal extends Number implements IMutableNumeric <
 
   /**
    * Increment by 1 and return the modified value.
-   * 
+   *
    * @return The by 1 incremented value.
    */
   @Nonnull

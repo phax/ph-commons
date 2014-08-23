@@ -49,15 +49,15 @@ import com.helger.commons.xml.serialize.XMLWriterSettings;
  * Simple class that reads a generic String-to-String mapping from a classpath
  * resource into a {@link Map}.<br>
  * The XML file needs to look as follows:
- * 
+ *
  * <pre>
- * &lt;mapping>
- *   &lt;map key="..." value="..."/>
- *   &lt;map key="..." value="..."/>
+ * &lt;mapping&gt;
+ *   &lt;map key="..." value="..."/&gt;
+ *   &lt;map key="..." value="..."/&gt;
  *   ...
- * &lt;/mapping>
+ * &lt;/mapping&gt;
  * </pre>
- * 
+ *
  * @author Philip
  */
 @Immutable
@@ -101,7 +101,7 @@ public final class XMLMapHandler
 
   /**
    * Read a mapping from the passed input stream.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May not be <code>null</code>.
    * @return <code>null</code> if reading the map failed
@@ -118,7 +118,7 @@ public final class XMLMapHandler
 
   /**
    * Read a mapping from the passed input stream.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May not be <code>null</code>.
    * @param aTargetMap
@@ -219,7 +219,7 @@ public final class XMLMapHandler
   /**
    * Write the passed map to the passed output stream using the predefined XML
    * layout.
-   * 
+   *
    * @param aMap
    *        The map to be written. May not be <code>null</code>.
    * @param aOS

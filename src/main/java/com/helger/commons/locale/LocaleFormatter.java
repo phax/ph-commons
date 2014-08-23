@@ -221,7 +221,7 @@ public final class LocaleFormatter
    *        The value to be used. E.g. "0.125" will result in something like
    *        "12.5%"
    * @param nFractionDigits
-   *        The number of fractional digits to use. Must be >= 0.
+   *        The number of fractional digits to use. Must be &ge; 0.
    * @param aDisplayLocale
    *        The locale to use.
    * @return The non-<code>null</code> formatted string.

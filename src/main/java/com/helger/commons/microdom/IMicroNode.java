@@ -33,7 +33,7 @@ import com.helger.commons.state.EChange;
 /**
  * This is the base interface for all kind of nodes in the micro document object
  * model.
- * 
+ *
  * @author Philip Helger
  */
 public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted <IMicroNode>, IHasParent <IMicroNode>, Serializable
@@ -60,7 +60,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Get a list of all direct child nodes.
-   * 
+   *
    * @return May be <code>null</code> if the node has no children.
    */
   @Nullable
@@ -83,7 +83,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
   /**
    * Recursively get all children. Micro container are contained in this list
    * (incl. their children of course)
-   * 
+   *
    * @return A list containing all recursively contained child elements. May be
    *         <code>null</code> if this node has no children.
    */
@@ -121,7 +121,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    * node without problems. Otherwise you would get an
    * {@link IllegalStateException} if adding this node again to another parent
    * since each node can only have one parent.
-   * 
+   *
    * @return this
    */
   @Nonnull
@@ -135,7 +135,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append any child to the node.
-   * 
+   *
    * @param <NODETYPE>
    *        Parameter type == return type
    * @param aChildNode
@@ -150,7 +150,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Insert an existing node before a certain child node of this.
-   * 
+   *
    * @param aChildNode
    *        The new child node to be inserted.
    * @param aSuccessor
@@ -164,7 +164,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Insert an existing node after a certain child node of this.
-   * 
+   *
    * @param aChildNode
    *        The new child node to be inserted.
    * @param aPredecessor
@@ -178,7 +178,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Insert an existing node as a child at the specified index.
-   * 
+   *
    * @param nIndex
    *        The index to insert. Must be &ge; 0.
    * @param aChildNode
@@ -192,7 +192,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append a text node to this node.
-   * 
+   *
    * @param sText
    *        text to be added
    * @return The created text node.
@@ -204,7 +204,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append a text node to this node.
-   * 
+   *
    * @param aChars
    *        Characters to append. May not be <code>null</code>
    * @return The created text node.
@@ -216,14 +216,14 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append a text node to this node.
-   * 
+   *
    * @param aChars
    *        Characters to append. May not be <code>null</code>
    * @param nOfs
-   *        Offset into the array where to start copying data. May not be &lt,
+   *        Offset into the array where to start copying data. May not be &lt;
    *        0.
    * @param nLen
-   *        Number of bytes to take from the array. May not be &lt, 0.
+   *        Number of bytes to take from the array. May not be &lt; 0.
    * @return The created text node.
    * @throws MicroException
    *         if this node cannot have children
@@ -235,7 +235,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    * Append a text node to this node. If the type of the value is not
    * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
    * invoked to convert it to a {@link String} object.
-   * 
+   *
    * @param aValue
    *        text to be added
    * @return The created text node.
@@ -247,7 +247,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append a text node which is ignorable whitespace content to this node.
-   * 
+   *
    * @param sText
    *        The whitespace content to be added.
    * @return The created text node.
@@ -259,7 +259,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append a text node which is ignorable whitespace content to this node.
-   * 
+   *
    * @param aChars
    *        Characters to append. May not be <code>null</code>
    * @return The created text node.
@@ -271,14 +271,14 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append a text node which is ignorable whitespace content to this node.
-   * 
+   *
    * @param aChars
    *        Characters to append. May not be <code>null</code>
    * @param nOfs
-   *        Offset into the array where to start copying data. May not be &lt,
+   *        Offset into the array where to start copying data. May not be &lt;
    *        0.
    * @param nLen
-   *        Number of bytes to take from the array. May not be &lt, 0.
+   *        Number of bytes to take from the array. May not be &lt; 0.
    * @return The created text node.
    * @throws MicroException
    *         if this node cannot have children
@@ -288,7 +288,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append a CDATA node to this node.
-   * 
+   *
    * @param sText
    *        CDATA text
    * @return The created CDATA node.
@@ -300,7 +300,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append a CDATA node to this node.
-   * 
+   *
    * @param aChars
    *        Characters to append. May not be <code>null</code>
    * @return The created CDATA node.
@@ -312,14 +312,14 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append a CDATA node to this node.
-   * 
+   *
    * @param aChars
    *        Characters to append. May not be <code>null</code>
    * @param nOfs
-   *        Offset into the array where to start copying data. May not be &lt,
+   *        Offset into the array where to start copying data. May not be &lt;
    *        0.
    * @param nLen
-   *        Number of bytes to take from the array. May not be &lt, 0.
+   *        Number of bytes to take from the array. May not be &lt; 0.
    * @return The created CDATA node.
    * @throws MicroException
    *         if this node cannot have children
@@ -331,7 +331,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    * Append a CDATA node to this node. If the type of the value is not
    * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
    * invoked to convert it to a {@link String} object.
-   * 
+   *
    * @param aValue
    *        CDATA to be added
    * @return The created CDATA node.
@@ -343,7 +343,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append a comment node to this node.
-   * 
+   *
    * @param sText
    *        comment text
    * @return The created comment.
@@ -355,7 +355,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append a comment node to this node.
-   * 
+   *
    * @param aChars
    *        Characters to append. May not be <code>null</code>
    * @return The created comment.
@@ -367,14 +367,14 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append a comment node to this node.
-   * 
+   *
    * @param aChars
    *        Characters to append. May not be <code>null</code>
    * @param nOfs
-   *        Offset into the array where to start copying data. May not be &lt,
+   *        Offset into the array where to start copying data. May not be &lt;
    *        0.
    * @param nLen
-   *        Number of bytes to take from the array. May not be &lt, 0.
+   *        Number of bytes to take from the array. May not be &lt; 0.
    * @return The created comment.
    * @throws MicroException
    *         if this node cannot have children
@@ -386,7 +386,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    * Append a comment node to this node. If the type of the value is not
    * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
    * invoked to convert it to a {@link String} object.
-   * 
+   *
    * @param aValue
    *        Comment to be added
    * @return The created comment node.
@@ -398,7 +398,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append an entity reference to this node.
-   * 
+   *
    * @param sName
    *        The name of the entity reference.
    * @return The created entity reference.
@@ -410,7 +410,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append an element without namespace to this node.
-   * 
+   *
    * @param sTagName
    *        Element name to be created. May neither be <code>null</code> nor
    *        empty.
@@ -423,7 +423,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append an element with namespace to this node.
-   * 
+   *
    * @param sNamespaceURI
    *        Namespace URI to use. May be <code>null</code>.
    * @param sTagName
@@ -438,7 +438,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append an element without namespace to this node.
-   * 
+   *
    * @param aElementNameProvider
    *        Element name provider. May not be <code>null</code>.
    * @return The created element
@@ -450,7 +450,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append an element with namespace to this node.
-   * 
+   *
    * @param sNamespaceURI
    *        Namespace URI to use. May be <code>null</code>.
    * @param aElementNameProvider
@@ -464,7 +464,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append a processing instruction to this node.
-   * 
+   *
    * @param sTarget
    *        The PI target
    * @param sData
@@ -478,7 +478,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Append a new container to this node
-   * 
+   *
    * @return The created container.
    * @throws MicroException
    *         if this node cannot have children
@@ -488,7 +488,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Remove the passed child.
-   * 
+   *
    * @param aChild
    *        The child to be removed. May not be <code>null</code>.
    * @return {@link EChange#CHANGED} if the child was successfully removed,
@@ -499,7 +499,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Remove the child not at the specified index.
-   * 
+   *
    * @param nIndex
    *        The 0-based index of the item to be removed.
    * @return {@link EChange#CHANGED} if the node was successfully removed,
@@ -510,7 +510,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Remove all children from this node.
-   * 
+   *
    * @return {@link EChange#CHANGED} if at least one child was present, and was
    *         successfully removed, {@link EChange#UNCHANGED} otherwise.
    */
@@ -519,7 +519,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Replace the passed old child with the new child.
-   * 
+   *
    * @param aOldChild
    *        The child to be removed. May not be <code>null</code>.
    * @param aNewChild
@@ -593,7 +593,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
   /**
    * Register a specific MicroDOM event listener. One event listener can only be
    * attached once to an event!
-   * 
+   *
    * @param eEventType
    *        The event type. May not be <code>null</code>.
    * @param aTarget
@@ -606,7 +606,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
 
   /**
    * Unregister a specific MicroDOM event listener.
-   * 
+   *
    * @param eEventType
    *        The event type. May not be <code>null</code>.
    * @param aTarget
@@ -620,7 +620,7 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
   /**
    * As instances of this class may not implement equals/hashCode we need a way
    * to determine, if 2 nodes are equal by content.
-   * 
+   *
    * @param aNode
    *        The node to compare to this.
    * @return <code>true</code> if the nodes are of the same type and the same

@@ -28,7 +28,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 
 /**
  * Get information about the system we're running on.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -132,7 +132,7 @@ public final class SystemHelper
 
   /**
    * Returns the amount of free memory in the Java Virtual Machine.
-   * 
+   *
    * @return an approximation to the total amount of memory currently available
    *         for future allocated objects, measured in bytes.
    */
@@ -145,8 +145,8 @@ public final class SystemHelper
   /**
    * Returns the maximum amount of memory that the Java virtual machine will
    * attempt to use. If there is no inherent limit then the value
-   * {@link java.lang.Long#MAX_VALUE} will be returned. </p>
-   * 
+   * {@link java.lang.Long#MAX_VALUE} will be returned.
+   *
    * @return the maximum amount of memory that the virtual machine will attempt
    *         to use, measured in bytes
    */
@@ -163,7 +163,8 @@ public final class SystemHelper
    * <p>
    * Note that the amount of memory required to hold an object of any given type
    * may be implementation-dependent.
-   * 
+   * </p>
+   *
    * @return the total amount of memory currently available for current and
    *         future objects, measured in bytes.
    */

@@ -34,8 +34,8 @@ public interface ISimpleTextProvider extends Serializable
 {
   /**
    * Get the text specific for the passed locale. The implementation class MUST
-   * NOT add locale-generalisation when resolving the text ("de_DE" => "de" =>
-   * <i>default</i>).
+   * NOT add locale-generalisation when resolving the text ("de_DE" =&gt; "de"
+   * =&gt; <i>default</i>).
    *
    * @param aContentLocale
    *        The locale to use. May not be <code>null</code>.
@@ -46,7 +46,7 @@ public interface ISimpleTextProvider extends Serializable
 
   /**
    * Get the text specific for the passed locale. The implementation class MUST
-   * add locale-generalisation when resolving the text ("de_DE" => "de" =>
+   * add locale-generalisation when resolving the text ("de_DE" =&gt; "de" =&gt;
    * <i>default</i>).
    *
    * @param aContentLocale

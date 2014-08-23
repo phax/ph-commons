@@ -1,16 +1,35 @@
+/**
+ * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+ * Copyright (C) 2014 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.helger.commons.base64;
 
+import java.io.FilterInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
- * A {@link Base64InputStream} will read data from another
- * <tt>java.io.InputStream</tt>, given in the constructor, and encode/decode
- * to/from Base64 notation on the fly.
- * 
+ * A {@link Base64InputStream} will read data from another <tt>InputStream</tt>,
+ * given in the constructor, and encode/decode to/from Base64 notation on the
+ * fly.
+ *
  * @see Base64
  * @since 1.3
  */
-public class Base64InputStream extends java.io.FilterInputStream
+public class Base64InputStream extends FilterInputStream
 {
   private final boolean m_bEncode; // Encoding or decoding
   private int m_nPosition; // Current position in the buffer
@@ -26,12 +45,12 @@ public class Base64InputStream extends java.io.FilterInputStream
 
   /**
    * Constructs a {@link Base64InputStream} in DECODE mode.
-   * 
+   *
    * @param pin
-   *        the <tt>java.io.InputStream</tt> from which to read data.
+   *        the <tt>InputStream</tt> from which to read data.
    * @since 1.3
    */
-  public Base64InputStream (final java.io.InputStream pin)
+  public Base64InputStream (final InputStream pin)
   {
     this (pin, Base64.DECODE);
   }
@@ -40,17 +59,17 @@ public class Base64InputStream extends java.io.FilterInputStream
    * Constructs a {@link Base64InputStream} in either ENCODE or DECODE mode.
    * <p>
    * Valid options:
-   * 
+   *
    * <pre>
    *   ENCODE or DECODE: Encode or Decode as data is read.
    *   DO_BREAK_LINES: break lines at 76 characters
-   *     (only meaningful when encoding)</i>
+   *     (only meaningful when encoding)
    * </pre>
    * <p>
    * Example: <code>new Base64.InputStream( in, Base64.DECODE )</code>
-   * 
+   *
    * @param pin
-   *        the <tt>java.io.InputStream</tt> from which to read data.
+   *        the <tt>InputStream</tt> from which to read data.
    * @param poptions
    *        Specified options
    * @see Base64#ENCODE
@@ -58,7 +77,7 @@ public class Base64InputStream extends java.io.FilterInputStream
    * @see Base64#DO_BREAK_LINES
    * @since 2.0
    */
-  public Base64InputStream (final java.io.InputStream pin, final int poptions)
+  public Base64InputStream (final InputStream pin, final int poptions)
   {
     super (pin);
     this.m_nOptions = poptions; // Record for later
@@ -72,9 +91,9 @@ public class Base64InputStream extends java.io.FilterInputStream
   }
 
   /**
-   * Reads enough of the input stream to convert to/from Base64 and returns
-   * the next byte.
-   * 
+   * Reads enough of the input stream to convert to/from Base64 and returns the
+   * next byte.
+   *
    * @return next byte
    * @since 1.3
    */
@@ -187,7 +206,7 @@ public class Base64InputStream extends java.io.FilterInputStream
    * Calls {@link #read()} repeatedly until the end of stream is reached or
    * <var>len</var> bytes are read. Returns number of bytes read into array or
    * -1 if end of stream is encountered.
-   * 
+   *
    * @param dest
    *        array to hold values
    * @param off

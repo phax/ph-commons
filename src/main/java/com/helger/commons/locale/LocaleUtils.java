@@ -44,7 +44,7 @@ import com.helger.commons.system.SystemHelper;
 
 /**
  * Misc locale utility methods.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -52,7 +52,7 @@ public final class LocaleUtils
 {
   /**
    * Small cache for the resolved locales.
-   * 
+   *
    * @author Philip Helger
    */
   private static final class LocaleListCache extends AbstractNotifyingCache <Locale, List <Locale>>
@@ -108,7 +108,7 @@ public final class LocaleUtils
   /**
    * Get the display name of the passed language in the currently selected UI
    * language.
-   * 
+   *
    * @param aLocale
    *        The locale from which the display name is required. May be
    *        <code>null</code>.
@@ -135,7 +135,7 @@ public final class LocaleUtils
 
   /**
    * Get the display name of the passed locale <em>in</em> the passed locale.
-   * 
+   *
    * @param aLocale
    *        The locale to use. May not be <code>null</code>.
    * @return The native display name of the passed locale.
@@ -149,7 +149,7 @@ public final class LocaleUtils
 
   /**
    * Get all possible locale names in the passed locale
-   * 
+   *
    * @param aContentLocale
    *        the locale ID in which the language list is required
    * @return The mapping from the input locale to the display text. The result
@@ -172,15 +172,15 @@ public final class LocaleUtils
    * passed locale has no language, always an empty list is returned.<br>
    * Examples:
    * <ul>
-   * <li>"de_AT" => ["de_AT", "de"]</li>
-   * <li>"en_US" => ["en_US", "en"]</li>
-   * <li>"de" => ["de"]</li>
-   * <li>"de_DE_Variant" => ["de_DE_Variant", "de_DE", "de"]</li>
-   * <li>"" => []</li>
-   * <li>"_AT" => []</li>
-   * <li>"_AT_Variant" => []</li>
+   * <li>"de_AT" =&gt; ["de_AT", "de"]</li>
+   * <li>"en_US" =&gt; ["en_US", "en"]</li>
+   * <li>"de" =&gt; ["de"]</li>
+   * <li>"de_DE_Variant" =&gt; ["de_DE_Variant", "de_DE", "de"]</li>
+   * <li>"" =&gt; []</li>
+   * <li>"_AT" =&gt; []</li>
+   * <li>"_AT_Variant" =&gt; []</li>
    * </ul>
-   * 
+   *
    * @param aLocale
    *        The locale to get the permutation from. May not be <code>null</code>
    *        .
@@ -202,7 +202,7 @@ public final class LocaleUtils
    * Convert a String in the form "language-country-variant" to a Locale object.
    * Language needs to have exactly 2 characters. Country is optional but if
    * present needs to have exactly 2 characters. Variant is optional.
-   * 
+   *
    * @param sLocaleAsString
    *        The string representation to be converted to a Locale.
    * @return Never <code>null</code>. If the passed parameter is
@@ -319,7 +319,7 @@ public final class LocaleUtils
   /**
    * Check if the passed locale is one of the special locales "all" or
    * "independent"
-   * 
+   *
    * @param aLocale
    *        The locale to check. May be <code>null</code>.
    * @return if the passed locale is not <code>null</code> and a special locale.
@@ -334,7 +334,7 @@ public final class LocaleUtils
   /**
    * Check if the passed locale is one of the special locales "all" or
    * "independent"
-   * 
+   *
    * @param sLocale
    *        The locale to check. May be <code>null</code>.
    * @return if the passed locale is not <code>null</code> and a special locale.
@@ -369,7 +369,7 @@ public final class LocaleUtils
 
   /**
    * Clear all stored locale lists
-   * 
+   *
    * @return {@link EChange}.
    */
   @Nonnull

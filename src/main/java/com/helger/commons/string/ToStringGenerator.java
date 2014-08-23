@@ -32,17 +32,32 @@ import javax.annotation.concurrent.NotThreadSafe;
  * formats.
  * <p>
  * A real world example for a final class derived from {@link Object} or a base
- * class looks like this: <code><pre>@Override
- * public String toString () {
- *   return new ToStringGenerator (this).append ("member1", member1).append ("member2", member2).toString ();
- * }</pre></code>
+ * class looks like this:
+ * 
+ * <pre>
+ * &#064;Override
+ * public String toString ()
+ * {
+ *   return new ToStringGenerator (this).append (&quot;member1&quot;, member1).append (&quot;member2&quot;, member2).toString ();
+ * }
+ * </pre>
+ * 
  * </p>
  * <p>
  * For a derived class, the typical code looks like this, assuming that the base
- * class also used the {@link ToStringGenerator}: <code><pre>@Override
- * public String toString () {
- *   return ToStringGenerator.getDerived (super.toString ()).append ("member3", member3).append ("member4", member4).toString ();
- * }</pre></code>
+ * class also used the {@link ToStringGenerator}:
+ * 
+ * <pre>
+ * &#064;Override
+ * public String toString ()
+ * {
+ *   return ToStringGenerator.getDerived (super.toString ())
+ *                           .append (&quot;member3&quot;, member3)
+ *                           .append (&quot;member4&quot;, member4)
+ *                           .toString ();
+ * }
+ * </pre>
+ * 
  * </p>
  *
  * @author Philip Helger

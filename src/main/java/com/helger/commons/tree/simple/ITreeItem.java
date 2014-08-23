@@ -27,15 +27,14 @@ import com.helger.commons.tree.IBasicTreeItem;
 
 /**
  * Base interface for simple tree items
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        tree item value type
  * @param <ITEMTYPE>
  *        tree item implementation type
  */
-public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> extends
-                                                                                       IBasicTreeItem <DATATYPE, ITEMTYPE>
+public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> extends IBasicTreeItem <DATATYPE, ITEMTYPE>
 {
   /**
    * @return The factory used to create instances of this interface.
@@ -45,7 +44,7 @@ public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
 
   /**
    * Add an existing child to this tree item. Use only internally!
-   * 
+   *
    * @param aChild
    *        The child to be added. May not be <code>null</code>.
    * @return {@link EChange#UNCHANGED} if the child is already contained,
@@ -56,7 +55,7 @@ public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
 
   /**
    * Add a child item to this item.
-   * 
+   *
    * @param aData
    *        the data associated with this item
    * @return the created TreeItem object
@@ -66,9 +65,9 @@ public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
 
   /**
    * Remove the passed node as a child node from this node.
-   * 
+   *
    * @param aChild
-   *        The child to be removed. May not be <code>null</code.
+   *        The child to be removed. May not be <code>null</code>.
    * @return {@link EChange#CHANGED} if the removal succeeded,
    *         {@link EChange#UNCHANGED} otherwise
    */
@@ -77,7 +76,7 @@ public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
 
   /**
    * Reorder the child items based on the item itself.
-   * 
+   *
    * @param aComparator
    *        The comparator use. May not be <code>null</code>.
    */

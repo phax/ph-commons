@@ -1,16 +1,35 @@
+/**
+ * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+ * Copyright (C) 2014 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.helger.commons.base64;
 
+import java.io.FilterOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
- * A {@link Base64OutputStream} will write data to another
- * <tt>java.io.OutputStream</tt>, given in the constructor, and encode/decode
- * to/from Base64 notation on the fly.
+ * A {@link Base64OutputStream} will write data to another <tt>OutputStream</tt>
+ * , given in the constructor, and encode/decode to/from Base64 notation on the
+ * fly.
  *
  * @see Base64
  * @since 1.3
  */
-public class Base64OutputStream extends java.io.FilterOutputStream
+public class Base64OutputStream extends FilterOutputStream
 {
   private final boolean m_bEncode;
   private int m_nPosition;
@@ -28,10 +47,10 @@ public class Base64OutputStream extends java.io.FilterOutputStream
    * Constructs a {@link Base64OutputStream} in ENCODE mode.
    *
    * @param pout
-   *        the <tt>java.io.OutputStream</tt> to which data will be written.
+   *        the <tt>OutputStream</tt> to which data will be written.
    * @since 1.3
    */
-  public Base64OutputStream (final java.io.OutputStream pout)
+  public Base64OutputStream (final OutputStream pout)
   {
     this (pout, Base64.ENCODE);
   }
@@ -44,13 +63,13 @@ public class Base64OutputStream extends java.io.FilterOutputStream
    * <pre>
    *   ENCODE or DECODE: Encode or Decode as data is read.
    *   DO_BREAK_LINES: don't break lines at 76 characters
-   *     (only meaningful when encoding)</i>
+   *     (only meaningful when encoding)
    * </pre>
    * <p>
    * Example: <code>new Base64.OutputStream( out, Base64.ENCODE )</code>
    *
    * @param pout
-   *        the <tt>java.io.OutputStream</tt> to which data will be written.
+   *        the <tt>OutputStream</tt> to which data will be written.
    * @param poptions
    *        Specified options.
    * @see Base64#ENCODE
@@ -58,7 +77,7 @@ public class Base64OutputStream extends java.io.FilterOutputStream
    * @see Base64#DO_BREAK_LINES
    * @since 1.3
    */
-  public Base64OutputStream (final java.io.OutputStream pout, final int poptions)
+  public Base64OutputStream (final OutputStream pout, final int poptions)
   {
     super (pout);
     this.m_bBreakLines = (poptions & Base64.DO_BREAK_LINES) != 0;
@@ -218,8 +237,8 @@ public class Base64OutputStream extends java.io.FilterOutputStream
   }
 
   /**
-   * Resumes encoding of the stream. May be helpful if you need to embed a
-   * piece of base64-encoded data in a stream.
+   * Resumes encoding of the stream. May be helpful if you need to embed a piece
+   * of base64-encoded data in a stream.
    *
    * @since 1.5.1
    */

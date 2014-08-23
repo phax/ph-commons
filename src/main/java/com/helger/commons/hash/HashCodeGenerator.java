@@ -38,6 +38,7 @@ import com.helger.commons.ValueEnforcer;
  * <p>
  * A real world example for a final class derived from {@link Object} or a base
  * class looks like this:
+ * </p>
  *
  * <pre>
  * &#064;Override
@@ -46,12 +47,11 @@ import com.helger.commons.ValueEnforcer;
  *   return new HashCodeGenerator (this).append (member1).append (member2).getHashCode ();
  * }
  * </pre>
- *
- * </p>
  * <p>
  * For a derived class, the typical code looks like this, assuming the base
  * class also uses {@link HashCodeGenerator}:
- * 
+ * </p>
+ *
  * <pre>
  * &#064;Override
  * public int hashCode ()
@@ -59,8 +59,6 @@ import com.helger.commons.ValueEnforcer;
  *   return HashCodeGenerator.getDerived (super.hashCode ()).append (member3).append (member4).getHashCode ();
  * }
  * </pre>
- * 
- * </p>
  *
  * @author Philip Helger
  */

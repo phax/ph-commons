@@ -49,15 +49,15 @@ import com.helger.commons.xml.serialize.XMLWriterSettings;
 /**
  * Simple class that reads a list from an XML input stream.<br>
  * The XML file needs to look as follows:
- * 
+ *
  * <pre>
- * &lt;list>
- *   &lt;item value="..."/>
- *   &lt;item value="..."/>
+ * &lt;list&gt;
+ *   &lt;item value="..."/&gt;
+ *   &lt;item value="..."/&gt;
  *   ...
- * &lt;/list>
+ * &lt;/list&gt;
  * </pre>
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -99,7 +99,7 @@ public final class XMLListHandler
 
   /**
    * Read a predefined XML file that contains list items.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May not be <code>null</code>.
    *        Automatically closed no matter whether reading succeeded or not.
@@ -117,7 +117,7 @@ public final class XMLListHandler
 
   /**
    * Read a predefined XML file that contains list items.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May not be <code>null</code>.
    *        Automatically closed no matter whether reading succeeded or not.
@@ -211,7 +211,7 @@ public final class XMLListHandler
   /**
    * Write the passed collection to the passed output stream using the
    * predefined XML layout.
-   * 
+   *
    * @param aCollection
    *        The map to be written. May not be <code>null</code>.
    * @param aOS
