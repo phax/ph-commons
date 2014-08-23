@@ -33,7 +33,7 @@ import com.helger.commons.ValueEnforcer;
 /**
  * A special string decoder that can be used to convert a byte source to a
  * String in a certain charset. This class is not thread-safe!
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -58,9 +58,9 @@ public final class StringDecoder
   }
 
   /**
-   * Reserve space for the next string that will be <= expectedLength characters
-   * long. Must only be called when the buffer is empty.
-   * 
+   * Reserve space for the next string that will be &le; expectedLength
+   * characters long. Must only be called when the buffer is empty.
+   *
    * @param nExpectedLength
    *        The number of chars to reserve. Must be &ge; 0.
    */

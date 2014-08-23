@@ -27,10 +27,10 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 
 /**
  * A small helper class, that constructs {@link DateFormatSymbols} objects in
- * the best suitable way. For Java < 1.6 it is to use
- * "new DateFormatSymbols (Locale)". For Java >= 1.6
+ * the best suitable way. For Java &lt; 1.6 it is to use
+ * "new DateFormatSymbols (Locale)". For Java &ge; 1.6
  * "DateFormatSymbols.getInstance (Locale)" is more suitable!
- * 
+ *
  * @author Philip Helger
  */
 @Immutable

@@ -54,7 +54,7 @@ import com.helger.commons.io.streams.StreamUtils;
  * <p>
  * Example:
  * </p>
- * <code>String encoded = Base64.encode( myByteArray );</code> <br />
+ * <code>String encoded = Base64.encode( myByteArray );</code> <br>
  * <code>byte[] myByteArray = Base64.decode( encoded );</code>
  * <p>
  * The <tt>options</tt> parameter, which appears in a few places, is used to
@@ -197,7 +197,7 @@ import com.helger.commons.io.streams.StreamUtils;
  * href="http://iharder.net/base64">http://iharder.net/base64</a> periodically
  * to check for updates or to contribute improvements.
  * </p>
- * 
+ *
  * @author Robert Harder
  * @author rob@iharder.net
  * @version 2.3.7
@@ -247,19 +247,19 @@ public final class Base64// NOPMD
   /* ******** P R I V A T E F I E L D S ******** */
 
   /** Maximum line length (76) of Base64 output. */
-  private static final int MAX_LINE_LENGTH = 76;
+  static final int MAX_LINE_LENGTH = 76;
 
   /** The equals sign (=) as a byte. */
   private static final byte EQUALS_SIGN = (byte) '=';
 
   /** The new line character (\n) as a byte. */
-  private static final byte NEW_LINE = (byte) '\n';
+  static final byte NEW_LINE = (byte) '\n';
 
   /** Preferred encoding. */
   private static final Charset PREFERRED_ENCODING = CCharset.CHARSET_US_ASCII_OBJ;
 
-  private static final byte WHITE_SPACE_ENC = -5; // Indicates white space in
-                                                  // encoding
+  static final byte WHITE_SPACE_ENC = -5; // Indicates white space in
+                                          // encoding
   private static final byte EQUALS_SIGN_ENC = -1; // Indicates equals sign in
                                                   // encoding
 
@@ -1311,7 +1311,7 @@ public final class Base64// NOPMD
    * guarantee as to which one will be picked.
    */
   @Nonnull
-  private static byte [] _getDecodabet (final int options)
+  static byte [] _getDecodabet (final int options)
   {
     if ((options & URL_SAFE) == URL_SAFE)
       return _URL_SAFE_DECODABET;
@@ -1336,7 +1336,7 @@ public final class Base64// NOPMD
    * significant bytes in your array is given by <var>numSigBytes</var>. The
    * array <var>threeBytes</var> needs only be as big as <var>numSigBytes</var>.
    * Code can reuse a byte array by passing a four-byte array as <var>b4</var>.
-   * 
+   *
    * @param b4
    *        A reusable byte array to reduce array instantiation
    * @param threeBytes
@@ -1346,10 +1346,7 @@ public final class Base64// NOPMD
    * @return four byte array in Base64 notation.
    * @since 1.5.1
    */
-  private static byte [] _encode3to4 (final byte [] b4,
-                                      final byte [] threeBytes,
-                                      final int numSigBytes,
-                                      final int options)
+  static byte [] _encode3to4 (final byte [] b4, final byte [] threeBytes, final int numSigBytes, final int options)
   {
     _encode3to4 (threeBytes, 0, numSigBytes, b4, 0, options);
     return b4;
@@ -1371,7 +1368,7 @@ public final class Base64// NOPMD
    * This is the lowest level of the encoding methods with all possible
    * parameters.
    * </p>
-   * 
+   *
    * @param source
    *        the array to convert
    * @param srcOffset
@@ -1386,12 +1383,12 @@ public final class Base64// NOPMD
    * @since 1.3
    */
   @Nonnull
-  private static byte [] _encode3to4 (@Nonnull final byte [] source,
-                                      final int srcOffset,
-                                      final int numSigBytes,
-                                      @Nonnull final byte [] destination,
-                                      final int destOffset,
-                                      final int options)
+  static byte [] _encode3to4 (@Nonnull final byte [] source,
+                              final int srcOffset,
+                              final int numSigBytes,
+                              @Nonnull final byte [] destination,
+                              final int destOffset,
+                              final int options)
   {
 
     final byte [] aAlphabet = _getAlphabet (options);
@@ -1444,7 +1441,7 @@ public final class Base64// NOPMD
    * the <code>encoded</code> ByteBuffer. This is an experimental feature.
    * Currently it does not pass along any options (such as
    * {@link #DO_BREAK_LINES} or {@link #GZIP}.
-   * 
+   *
    * @param raw
    *        input buffer
    * @param encoded
@@ -1470,7 +1467,7 @@ public final class Base64// NOPMD
    * the <code>encoded</code> CharBuffer. This is an experimental feature.
    * Currently it does not pass along any options (such as
    * {@link #DO_BREAK_LINES} or {@link #GZIP}.
-   * 
+   *
    * @param raw
    *        input buffer
    * @param encoded
@@ -1504,7 +1501,7 @@ public final class Base64// NOPMD
    * pretty poor way to handle it.
    * </p>
    * The object is not GZip-compressed before being encoded.
-   * 
+   *
    * @param serializableObject
    *        The object to encode
    * @return The Base64-encoded object
@@ -1531,7 +1528,7 @@ public final class Base64// NOPMD
    * The object is not GZip-compressed before being encoded.
    * <p>
    * Example options:
-   * 
+   *
    * <pre>
    *   GZIP: gzip-compresses object before encoding it.
    *   DO_BREAK_LINES: break lines at 76 characters
@@ -1541,7 +1538,7 @@ public final class Base64// NOPMD
    * <p>
    * Example:
    * <code>encodeObject( myObj, Base64.GZIP | Base64.DO_BREAK_LINES )</code>
-   * 
+   *
    * @param serializableObject
    *        The object to encode
    * @param options
@@ -1569,7 +1566,7 @@ public final class Base64// NOPMD
     {
       // ObjectOutputStream -> (GZIP) -> Base64 -> ByteArrayOutputStream
       baos = new NonBlockingByteArrayOutputStream ();
-      b64os = new Base64.OutputStream (baos, ENCODE | options);
+      b64os = new Base64OutputStream (baos, ENCODE | options);
       if ((options & GZIP) != 0)
       {
         // Gzip
@@ -1597,7 +1594,7 @@ public final class Base64// NOPMD
 
   /**
    * Encodes a byte array into Base64 notation. Does not GZip-compress data.
-   * 
+   *
    * @param source
    *        The data to convert
    * @return The data in Base64-encoded form
@@ -1628,11 +1625,11 @@ public final class Base64// NOPMD
    * Encodes a byte array into Base64 notation.
    * <p>
    * Example options:
-   * 
+   *
    * <pre>
    *   GZIP: gzip-compresses object before encoding it.
    *   DO_BREAK_LINES: break lines at 76 characters
-   *     <i>Note: Technically, this makes your encoding non-compliant.</i>
+   *     Note: Technically, this makes your encoding non-compliant.
    * </pre>
    * <p>
    * Example: <code>encodeBytes( myData, Base64.GZIP )</code> or
@@ -1645,7 +1642,7 @@ public final class Base64// NOPMD
    * just returned a null value, but in retrospect that's a pretty poor way to
    * handle it.
    * </p>
-   * 
+   *
    * @param source
    *        The data to convert
    * @param options
@@ -1672,7 +1669,7 @@ public final class Base64// NOPMD
    * <b>This is new to v2.3!</b> In earlier versions, it just returned a null
    * value, but in retrospect that's a pretty poor way to handle it.
    * </p>
-   * 
+   *
    * @param source
    *        The data to convert
    * @param off
@@ -1709,11 +1706,11 @@ public final class Base64// NOPMD
    * Encodes a byte array into Base64 notation.
    * <p>
    * Example options:
-   * 
+   *
    * <pre>
    *   GZIP: gzip-compresses object before encoding it.
    *   DO_BREAK_LINES: break lines at 76 characters
-   *     <i>Note: Technically, this makes your encoding non-compliant.</i>
+   *     Note: Technically, this makes your encoding non-compliant.
    * </pre>
    * <p>
    * Example: <code>encodeBytes( myData, Base64.GZIP )</code> or
@@ -1726,7 +1723,7 @@ public final class Base64// NOPMD
    * just returned a null value, but in retrospect that's a pretty poor way to
    * handle it.
    * </p>
-   * 
+   *
    * @param source
    *        The data to convert
    * @param off
@@ -1759,7 +1756,7 @@ public final class Base64// NOPMD
    * Similar to {@link #encodeBytes(byte[])} but returns a byte array instead of
    * instantiating a String. This is more efficient if you're working with I/O
    * streams and have large data sets to encode.
-   * 
+   *
    * @param source
    *        The data to convert
    * @return The Base64-encoded data as a byte[] (of ASCII characters)
@@ -1787,7 +1784,7 @@ public final class Base64// NOPMD
    * Similar to {@link #encodeBytes(byte[], int, int, int)} but returns a byte
    * array instead of instantiating a String. This is more efficient if you're
    * working with I/O streams and have large data sets to encode.
-   * 
+   *
    * @param source
    *        The data to convert
    * @param off
@@ -1833,13 +1830,13 @@ public final class Base64// NOPMD
     {
       NonBlockingByteArrayOutputStream baos = null;
       GZIPOutputStream gzos = null;
-      Base64.OutputStream b64os = null;
+      Base64OutputStream b64os = null;
 
       try
       {
         // GZip -> Base64 -> ByteArray
         baos = new NonBlockingByteArrayOutputStream ();
-        b64os = new Base64.OutputStream (baos, ENCODE | options);
+        b64os = new Base64OutputStream (baos, ENCODE | options);
         gzos = new GZIPOutputStream (b64os);
 
         gzos.write (source, off, len);
@@ -1932,7 +1929,7 @@ public final class Base64// NOPMD
    * This is the lowest level of the decoding methods with all possible
    * parameters.
    * </p>
-   * 
+   *
    * @param source
    *        the array to convert
    * @param srcOffset
@@ -1952,11 +1949,11 @@ public final class Base64// NOPMD
    * @since 1.3
    */
   @Nonnegative
-  private static int _decode4to3 (@Nonnull final byte [] source,
-                                  final int srcOffset,
-                                  @Nonnull final byte [] destination,
-                                  final int destOffset,
-                                  final int options)
+  static int _decode4to3 (@Nonnull final byte [] source,
+                          final int srcOffset,
+                          @Nonnull final byte [] destination,
+                          final int destOffset,
+                          final int options)
   {
     // Lots of error checking and exception throwing
     if (source == null)
@@ -2038,7 +2035,7 @@ public final class Base64// NOPMD
    * decoding process. Special case: if len = 0, an empty array is returned.
    * Still, if you need more speed and reduced memory footprint (and aren't
    * gzipping), consider this method.
-   * 
+   *
    * @param source
    *        The Base64 encoded data
    * @return decoded data
@@ -2065,7 +2062,7 @@ public final class Base64// NOPMD
    * decoding process. Special case: if len = 0, an empty array is returned.
    * Still, if you need more speed and reduced memory footprint (and aren't
    * gzipping), consider this method.
-   * 
+   *
    * @param source
    *        The Base64 encoded data
    * @param off
@@ -2156,7 +2153,7 @@ public final class Base64// NOPMD
   /**
    * Decodes data from Base64 notation, automatically detecting gzip-compressed
    * data and decompressing it.
-   * 
+   *
    * @param s
    *        the string to decode
    * @return the decoded data
@@ -2173,7 +2170,7 @@ public final class Base64// NOPMD
   /**
    * Decodes data from Base64 notation, automatically detecting gzip-compressed
    * data and decompressing it.
-   * 
+   *
    * @param s
    *        the string to decode
    * @param options
@@ -2245,7 +2242,7 @@ public final class Base64// NOPMD
   /**
    * Attempts to decode Base64 data and deserialize a Java Object within.
    * Returns <tt>null</tt> if there was an error.
-   * 
+   *
    * @param encodedObject
    *        The Base64 data to decode
    * @return The decoded and deserialized object
@@ -2266,7 +2263,7 @@ public final class Base64// NOPMD
    * Attempts to decode Base64 data and deserialize a Java Object within.
    * Returns <tt>null</tt> if there was an error. If <tt>loader</tt> is not
    * null, it will be the class loader used when deserializing.
-   * 
+   *
    * @param encodedObject
    *        The Base64 data to decode
    * @param options
@@ -2337,7 +2334,7 @@ public final class Base64// NOPMD
    * <b>This is new to v2.3!</b> In earlier versions, it just returned false,
    * but in retrospect that's a pretty poor way to handle it.
    * </p>
-   * 
+   *
    * @param aDataToEncode
    *        byte array of data to encode in base64 form
    * @param sFilename
@@ -2353,10 +2350,10 @@ public final class Base64// NOPMD
     if (aDataToEncode == null)
       throw new NullPointerException ("Data to encode was null.");
 
-    Base64.OutputStream bos = null;
+    Base64OutputStream bos = null;
     try
     {
-      bos = new Base64.OutputStream (FileUtils.getOutputStream (sFilename), Base64.ENCODE);
+      bos = new Base64OutputStream (FileUtils.getOutputStream (sFilename), Base64.ENCODE);
       bos.write (aDataToEncode);
     }
     finally
@@ -2372,7 +2369,7 @@ public final class Base64// NOPMD
    * <b>This is new to v2.3!</b> In earlier versions, it just returned false,
    * but in retrospect that's a pretty poor way to handle it.
    * </p>
-   * 
+   *
    * @param dataToDecode
    *        Base64-encoded data as a string
    * @param filename
@@ -2383,10 +2380,10 @@ public final class Base64// NOPMD
    */
   public static void decodeToFile (@Nonnull final String dataToDecode, @Nonnull final String filename) throws IOException
   {
-    Base64.OutputStream bos = null;
+    Base64OutputStream bos = null;
     try
     {
-      bos = new Base64.OutputStream (FileUtils.getOutputStream (filename), Base64.DECODE);
+      bos = new Base64OutputStream (FileUtils.getOutputStream (filename), Base64.DECODE);
       bos.write (CharsetManager.getAsBytes (dataToDecode, PREFERRED_ENCODING));
     }
     finally
@@ -2402,7 +2399,7 @@ public final class Base64// NOPMD
    * <b>This is new to v2.3!</b> In earlier versions, it just returned false,
    * but in retrospect that's a pretty poor way to handle it.
    * </p>
-   * 
+   *
    * @param filename
    *        Filename for reading encoded data
    * @return decoded byte array
@@ -2414,7 +2411,7 @@ public final class Base64// NOPMD
   public static byte [] decodeFromFile (@Nonnull final String filename) throws IOException
   {
     byte [] decodedData;
-    Base64.InputStream bis = null;
+    Base64InputStream bis = null;
     try
     {
       // Set up some useful variables
@@ -2430,7 +2427,7 @@ public final class Base64// NOPMD
       buffer = new byte [(int) file.length ()];
 
       // Open a stream
-      bis = new Base64.InputStream (StreamUtils.getBuffered (FileUtils.getInputStream (file)), Base64.DECODE);
+      bis = new Base64InputStream (StreamUtils.getBuffered (FileUtils.getInputStream (file)), Base64.DECODE);
 
       // Read until done
       while ((numBytes = bis.read (buffer, length, 4096)) >= 0)
@@ -2457,7 +2454,7 @@ public final class Base64// NOPMD
    * <b>This is new to v2.3!</b> In earlier versions, it just returned false,
    * but in retrospect that's a pretty poor way to handle it.
    * </p>
-   * 
+   *
    * @param filename
    *        Filename for reading binary data
    * @return base64-encoded string
@@ -2469,7 +2466,7 @@ public final class Base64// NOPMD
   public static String encodeFromFile (@Nonnull final String filename) throws IOException
   {
     String encodedData = null;
-    Base64.InputStream bis = null;
+    Base64InputStream bis = null;
     try
     {
       // Set up some useful variables
@@ -2481,7 +2478,7 @@ public final class Base64// NOPMD
       int numBytes;
 
       // Open a stream
-      bis = new Base64.InputStream (StreamUtils.getBuffered (FileUtils.getInputStream (file)), Base64.ENCODE);
+      bis = new Base64InputStream (StreamUtils.getBuffered (FileUtils.getInputStream (file)), Base64.ENCODE);
 
       // Read until done
       while ((numBytes = bis.read (buffer, length, 4096)) >= 0)
@@ -2502,7 +2499,7 @@ public final class Base64// NOPMD
 
   /**
    * Reads <tt>infile</tt> and encodes it to <tt>outfile</tt>.
-   * 
+   *
    * @param infile
    *        Input file
    * @param outfile
@@ -2529,7 +2526,7 @@ public final class Base64// NOPMD
 
   /**
    * Reads <tt>infile</tt> and decodes it to <tt>outfile</tt>.
-   * 
+   *
    * @param infile
    *        Input file
    * @param outfile
@@ -2550,456 +2547,6 @@ public final class Base64// NOPMD
     finally
     {
       StreamUtils.close (out);
-    }
-  }
-
-  /* ******** I N N E R C L A S S I N P U T S T R E A M ******** */
-
-  /**
-   * A {@link Base64.InputStream} will read data from another
-   * <tt>java.io.InputStream</tt>, given in the constructor, and encode/decode
-   * to/from Base64 notation on the fly.
-   * 
-   * @see Base64
-   * @since 1.3
-   */
-  public static class InputStream extends java.io.FilterInputStream
-  {
-    private final boolean m_bEncode; // Encoding or decoding
-    private int m_nPosition; // Current position in the buffer
-    private final byte [] m_aBuffer; // Small buffer holding converted data
-    private final int m_nBufferLength; // Length of buffer (3 or 4)
-    private int m_nNumSigBytes; // Number of meaningful bytes in the buffer
-    private int m_nLineLength;
-    private final boolean m_bBreakLines; // Break lines at less than 80
-                                         // characters
-    private final int m_nOptions; // Record options used to create the stream.
-    private final byte [] m_aDecodabet; // Local copies to avoid extra method
-                                        // calls
-
-    /**
-     * Constructs a {@link Base64.InputStream} in DECODE mode.
-     * 
-     * @param pin
-     *        the <tt>java.io.InputStream</tt> from which to read data.
-     * @since 1.3
-     */
-    public InputStream (final java.io.InputStream pin)
-    {
-      this (pin, DECODE);
-    }
-
-    /**
-     * Constructs a {@link Base64.InputStream} in either ENCODE or DECODE mode.
-     * <p>
-     * Valid options:
-     * 
-     * <pre>
-     *   ENCODE or DECODE: Encode or Decode as data is read.
-     *   DO_BREAK_LINES: break lines at 76 characters
-     *     (only meaningful when encoding)</i>
-     * </pre>
-     * <p>
-     * Example: <code>new Base64.InputStream( in, Base64.DECODE )</code>
-     * 
-     * @param pin
-     *        the <tt>java.io.InputStream</tt> from which to read data.
-     * @param poptions
-     *        Specified options
-     * @see Base64#ENCODE
-     * @see Base64#DECODE
-     * @see Base64#DO_BREAK_LINES
-     * @since 2.0
-     */
-    public InputStream (final java.io.InputStream pin, final int poptions)
-    {
-      super (pin);
-      this.m_nOptions = poptions; // Record for later
-      this.m_bBreakLines = (poptions & DO_BREAK_LINES) > 0;
-      this.m_bEncode = (poptions & ENCODE) > 0;
-      this.m_nBufferLength = m_bEncode ? 4 : 3;
-      this.m_aBuffer = new byte [m_nBufferLength];
-      this.m_nPosition = -1;
-      this.m_nLineLength = 0;
-      this.m_aDecodabet = _getDecodabet (poptions);
-    }
-
-    /**
-     * Reads enough of the input stream to convert to/from Base64 and returns
-     * the next byte.
-     * 
-     * @return next byte
-     * @since 1.3
-     */
-    @Override
-    public int read () throws IOException// NOPMD
-    {
-      // Do we need to get data?
-      if (m_nPosition < 0)
-      {
-        if (m_bEncode)
-        {
-          final byte [] b3 = new byte [3];
-          int numBinaryBytes = 0;
-          for (int i = 0; i < 3; i++)
-          {
-            final int b = in.read ();
-
-            // If end of stream, b is -1.
-            if (b < 0)
-              break;
-
-            b3[i] = (byte) b;
-            numBinaryBytes++;
-          }
-
-          if (numBinaryBytes > 0)
-          {
-            _encode3to4 (b3, 0, numBinaryBytes, m_aBuffer, 0, m_nOptions);
-            m_nPosition = 0;
-            m_nNumSigBytes = 4;
-          }
-          else
-          {
-            return -1; // Must be end of stream
-          }
-        }
-
-        // Else decoding
-        else
-        {
-          final byte [] b4 = new byte [4];
-          int i;
-          for (i = 0; i < 4; i++)
-          {
-            // Read four "meaningful" bytes:
-            int b;
-            do
-            {
-              b = in.read ();
-            } while (b >= 0 && m_aDecodabet[b & 0x7f] <= WHITE_SPACE_ENC);
-
-            if (b < 0)
-              break; // Reads a -1 if end of stream
-
-            b4[i] = (byte) b;
-          }
-
-          if (i == 4)
-          {
-            m_nNumSigBytes = _decode4to3 (b4, 0, m_aBuffer, 0, m_nOptions);
-            m_nPosition = 0;
-          }
-          else
-            if (i == 0)
-            {
-              return -1;
-            }
-            else
-            {
-              // Must have broken out from above.
-              throw new IOException ("Improperly padded Base64 input.");
-            } // end
-
-        }
-      }
-
-      // Got data?
-      if (m_nPosition >= 0)
-      {
-        if ( /* !encode && */m_nPosition >= m_nNumSigBytes)
-        {
-          return -1;
-        }
-
-        if (m_bEncode && m_bBreakLines && m_nLineLength >= MAX_LINE_LENGTH)
-        {
-          m_nLineLength = 0;
-          return '\n';
-        }
-        {
-          m_nLineLength++; // This isn't important when decoding
-          // but throwing an extra "if" seems
-          // just as wasteful.
-
-          final int b = m_aBuffer[m_nPosition++];
-
-          if (m_nPosition >= m_nBufferLength)
-            m_nPosition = -1;
-
-          return b & 0xFF; // This is how you "cast" a byte that's
-                           // intended to be unsigned.
-        }
-      }
-
-      // Else error
-      throw new IOException ("Error in Base64 code reading stream.");
-    }
-
-    /**
-     * Calls {@link #read()} repeatedly until the end of stream is reached or
-     * <var>len</var> bytes are read. Returns number of bytes read into array or
-     * -1 if end of stream is encountered.
-     * 
-     * @param dest
-     *        array to hold values
-     * @param off
-     *        offset for array
-     * @param len
-     *        max number of bytes to read into array
-     * @return bytes read into array or -1 if end of stream is encountered.
-     * @since 1.3
-     */
-    @Override
-    public int read (final byte [] dest, final int off, final int len) throws IOException
-    {
-      int i;
-      int b;
-      for (i = 0; i < len; i++)
-      {
-        b = read ();
-
-        if (b >= 0)
-          dest[off + i] = (byte) b;
-        else
-          if (i == 0)
-            return -1;
-          else
-          {
-            break; // Out of 'for' loop
-          } // Out of 'for' loop
-      }
-      return i;
-    }
-
-  }
-
-  /* ******** I N N E R C L A S S O U T P U T S T R E A M ******** */
-
-  /**
-   * A {@link Base64.OutputStream} will write data to another
-   * <tt>java.io.OutputStream</tt>, given in the constructor, and encode/decode
-   * to/from Base64 notation on the fly.
-   * 
-   * @see Base64
-   * @since 1.3
-   */
-  public static class OutputStream extends java.io.FilterOutputStream
-  {
-    private final boolean m_bEncode;
-    private int m_nPosition;
-    private byte [] m_aBuffer;
-    private final int m_nBufferLength;
-    private int m_nLineLength;
-    private final boolean m_bBreakLines;
-    private final byte [] m_aB4; // Scratch used in a few places
-    private boolean m_bSuspendEncoding;
-    private final int m_nOptions; // Record for later
-    private final byte [] m_aDecodabet; // Local copies to avoid extra method
-                                        // calls
-
-    /**
-     * Constructs a {@link Base64.OutputStream} in ENCODE mode.
-     * 
-     * @param pout
-     *        the <tt>java.io.OutputStream</tt> to which data will be written.
-     * @since 1.3
-     */
-    public OutputStream (final java.io.OutputStream pout)
-    {
-      this (pout, ENCODE);
-    }
-
-    /**
-     * Constructs a {@link Base64.OutputStream} in either ENCODE or DECODE mode.
-     * <p>
-     * Valid options:
-     * 
-     * <pre>
-     *   ENCODE or DECODE: Encode or Decode as data is read.
-     *   DO_BREAK_LINES: don't break lines at 76 characters
-     *     (only meaningful when encoding)</i>
-     * </pre>
-     * <p>
-     * Example: <code>new Base64.OutputStream( out, Base64.ENCODE )</code>
-     * 
-     * @param pout
-     *        the <tt>java.io.OutputStream</tt> to which data will be written.
-     * @param poptions
-     *        Specified options.
-     * @see Base64#ENCODE
-     * @see Base64#DECODE
-     * @see Base64#DO_BREAK_LINES
-     * @since 1.3
-     */
-    public OutputStream (final java.io.OutputStream pout, final int poptions)
-    {
-      super (pout);
-      this.m_bBreakLines = (poptions & DO_BREAK_LINES) != 0;
-      this.m_bEncode = (poptions & ENCODE) != 0;
-      this.m_nBufferLength = m_bEncode ? 3 : 4;
-      this.m_aBuffer = new byte [m_nBufferLength];
-      this.m_nPosition = 0;
-      this.m_nLineLength = 0;
-      this.m_bSuspendEncoding = false;
-      this.m_aB4 = new byte [4];
-      this.m_nOptions = poptions;
-      this.m_aDecodabet = _getDecodabet (poptions);
-    }
-
-    /**
-     * Writes the byte to the output stream after converting to/from Base64
-     * notation. When encoding, bytes are buffered three at a time before the
-     * output stream actually gets a write() call. When decoding, bytes are
-     * buffered four at a time.
-     * 
-     * @param theByte
-     *        the byte to write
-     * @since 1.3
-     */
-    @Override
-    public void write (final int theByte) throws IOException
-    {
-      // Encoding suspended?
-      if (m_bSuspendEncoding)
-      {
-        this.out.write (theByte);
-        return;
-      }
-
-      // Encode?
-      if (m_bEncode)
-      {
-        m_aBuffer[m_nPosition++] = (byte) theByte;
-        if (m_nPosition >= m_nBufferLength)
-        { // Enough to encode.
-
-          this.out.write (_encode3to4 (m_aB4, m_aBuffer, m_nBufferLength, m_nOptions));
-
-          m_nLineLength += 4;
-          if (m_bBreakLines && m_nLineLength >= MAX_LINE_LENGTH)
-          {
-            this.out.write (NEW_LINE);
-            m_nLineLength = 0;
-          }
-          m_nPosition = 0;
-        }
-      }
-      // Else, Decoding
-      else
-      {
-        // Meaningful Base64 character?
-        if (m_aDecodabet[theByte & 0x7f] > WHITE_SPACE_ENC)
-        {
-          m_aBuffer[m_nPosition++] = (byte) theByte;
-          if (m_nPosition >= m_nBufferLength)
-          { // Enough to output.
-
-            final int len = Base64._decode4to3 (m_aBuffer, 0, m_aB4, 0, m_nOptions);
-            out.write (m_aB4, 0, len);
-            m_nPosition = 0;
-          }
-        }
-        else
-          if (m_aDecodabet[theByte & 0x7f] != WHITE_SPACE_ENC)
-          {
-            throw new IOException ("Invalid character in Base64 data.");
-          }
-      }
-    }
-
-    /**
-     * Calls {@link #write(int)} repeatedly until <var>len</var> bytes are
-     * written.
-     * 
-     * @param theBytes
-     *        array from which to read bytes
-     * @param off
-     *        offset for array
-     * @param len
-     *        max number of bytes to read into array
-     * @since 1.3
-     */
-    @Override
-    public void write (final byte [] theBytes, final int off, final int len) throws IOException
-    {
-      // Encoding suspended?
-      if (m_bSuspendEncoding)
-      {
-        this.out.write (theBytes, off, len);
-        return;
-      }
-
-      for (int i = 0; i < len; i++)
-        write (theBytes[off + i]);
-    }
-
-    /**
-     * Method added by PHIL. [Thanks, PHIL. -Rob] This pads the buffer without
-     * closing the stream.
-     * 
-     * @throws IOException
-     *         if there's an error.
-     */
-    public void flushBase64 () throws IOException
-    {
-      if (m_nPosition > 0)
-      {
-        if (m_bEncode)
-        {
-          out.write (_encode3to4 (m_aB4, m_aBuffer, m_nPosition, m_nOptions));
-          m_nPosition = 0;
-        }
-        else
-        {
-          throw new IOException ("Base64 input not properly padded.");
-        }
-      }
-    }
-
-    /**
-     * Flushes and closes (I think, in the superclass) the stream.
-     * 
-     * @since 1.3
-     */
-    @Override
-    public void close () throws IOException
-    {
-      // 1. Ensure that pending characters are written
-      flushBase64 ();
-
-      // 2. Actually close the stream
-      // Base class both flushes and closes.
-      if (out != null)
-        super.close ();
-
-      m_aBuffer = null;
-      out = null;
-    }
-
-    /**
-     * Suspends encoding of the stream. May be helpful if you need to embed a
-     * piece of base64-encoded data in a stream.
-     * 
-     * @throws IOException
-     *         if there's an error flushing
-     * @since 1.5.1
-     */
-    public void suspendEncoding () throws IOException
-    {
-      flushBase64 ();
-      this.m_bSuspendEncoding = true;
-    }
-
-    /**
-     * Resumes encoding of the stream. May be helpful if you need to embed a
-     * piece of base64-encoded data in a stream.
-     * 
-     * @since 1.5.1
-     */
-    public void resumeEncoding ()
-    {
-      this.m_bSuspendEncoding = false;
     }
   }
 }

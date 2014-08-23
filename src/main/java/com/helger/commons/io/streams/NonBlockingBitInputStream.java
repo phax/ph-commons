@@ -37,7 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
  * function to read the next bit from the stream, as well as to read multiple
  * bits at once and write the resulting data into an integer value.<br>
  * For a thread-safe version see {@link BitInputStream}
- * 
+ *
  * @author Andreas Jakl
  * @author Philip Helger
  */
@@ -63,7 +63,7 @@ public class NonBlockingBitInputStream implements Closeable
 
   /**
    * Create a new bit input stream based on an existing Java InputStream.
-   * 
+   *
    * @param aIS
    *        the input stream this class should read the bits from. May not be
    *        <code>null</code>.
@@ -91,10 +91,10 @@ public class NonBlockingBitInputStream implements Closeable
 
   /**
    * Read a specified number of bits and return them combined as an integer
-   * value. The bits are written to the integer starting at the highest bit ( <<
-   * aNumberOfBits ), going down to the lowest bit ( << 0 ), so thge returned
-   * ByteOrder is always LITTLE_ENDIAN!
-   * 
+   * value. The bits are written to the integer starting at the highest bit (
+   * &lt;&lt; aNumberOfBits ), going down to the lowest bit ( &lt;&lt; 0 ), so
+   * the returned ByteOrder is always LITTLE_ENDIAN!
+   *
    * @param aNumberOfBits
    *        defines how many bits to read from the stream.
    * @return integer value containing the bits read from the stream.
@@ -113,7 +113,7 @@ public class NonBlockingBitInputStream implements Closeable
 
   /**
    * Read the next bit from the stream.
-   * 
+   *
    * @return 0 if the bit is 0, 1 if the bit is 1.
    * @throws IOException
    *         In case EOF is reached

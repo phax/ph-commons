@@ -42,7 +42,7 @@ import com.helger.commons.string.ToStringGenerator;
  * able to write an integer value to the stream using the specified number of
  * bits.<br>
  * For a thread-safe version see {@link BitOutputStream}
- * 
+ *
  * @author Andreas Jakl
  * @author Philip Helger
  */
@@ -70,7 +70,7 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
 
   /**
    * Create a new bit output stream based on an existing Java OutputStream.
-   * 
+   *
    * @param aOS
    *        the output stream this class should use. May not be
    *        <code>null</code>.
@@ -99,7 +99,7 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
   /**
    * Write a single bit to the stream. It will only be flushed to the underlying
    * OutputStream when a byte has been completed or when flush() manually.
-   * 
+   *
    * @param aBit
    *        1 if the bit should be set, 0 if not
    * @throws IOException
@@ -125,8 +125,9 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
   /**
    * Write the specified number of bits from the int value to the stream.
    * Corresponding to the InputStream, the bits are written starting at the
-   * highest bit ( >> aNumberOfBits ), going down to the lowest bit ( >> 0 ).
-   * 
+   * highest bit ( &gt;&gt; aNumberOfBits ), going down to the lowest bit (
+   * &gt;&gt; 0 ).
+   *
    * @param aValue
    *        the int containing the bits that should be written to the stream.
    * @param nNumBits
@@ -144,7 +145,7 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
 
   /**
    * Write the current cache to the stream and reset the buffer.
-   * 
+   *
    * @throws IOException
    *         In case writing to the output stream failed
    */

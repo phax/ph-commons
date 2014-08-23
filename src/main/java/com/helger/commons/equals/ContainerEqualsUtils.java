@@ -37,14 +37,14 @@ import com.helger.commons.lang.ClassHelper;
  * {@link EqualsImplementationRegistry} methods is, that the methods contained
  * in here are not strictly obeying to the equals contract, as the
  * implementation classes must not match - only the content is relevant.
- * 
+ *
  * @author Philip Helger
  */
 public final class ContainerEqualsUtils
 {
   /**
    * This enum differentiates the different meta container types.
-   * 
+   *
    * @author Philip Helger
    */
   public static enum EContainerType
@@ -130,7 +130,7 @@ public final class ContainerEqualsUtils
    * non-container elements, the
    * {@link EqualsImplementationRegistry#areEqual(Object, Object)} method is
    * invoked to test for equality!
-   * 
+   *
    * @param aObj1
    *        The first container
    * @param aObj2
@@ -302,10 +302,10 @@ public final class ContainerEqualsUtils
 
   /**
    * Get the passed object as a {@link List} object. This is helpful in case you
-   * want to compare the String array ["a", "b"] with the List&lt;String> ("a",
-   * "b") If the passed object is not a recognized. container type, than a new
-   * list with one element is created!
-   * 
+   * want to compare the String array ["a", "b"] with the List&lt;String&gt;
+   * ("a", "b") If the passed object is not a recognized. container type, than a
+   * new list with one element is created!
+   *
    * @param aObj
    *        The object to be converted. May not be <code>null</code>.
    * @return The object as a collection. Never <code>null</code>.
@@ -357,7 +357,7 @@ public final class ContainerEqualsUtils
    * objects an than calls {@link #equals(Object, Object)} on the collections.
    * This means that calling this method with the String array ["a", "b"] and
    * the List&lt;String&gt; ("a", "b") will result in a return value of true.
-   * 
+   *
    * @param aObj1
    *        The first object to be compared
    * @param aObj2

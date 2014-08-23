@@ -31,7 +31,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Non-synchronized version of {@link java.io.BufferedInputStream}.
- * 
+ *
  * @author Philip Helger
  */
 public class NonBlockingBufferedInputStream extends FilterInputStream
@@ -73,7 +73,7 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
    * next byte to be supplied as input; if it is equal to <code>count</code>,
    * then the next <code>read</code> or <code>skip</code> operation will require
    * more bytes to be read from the contained input stream.
-   * 
+   *
    * @see #m_aBuf
    */
   protected int m_nPos;
@@ -94,7 +94,7 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
    * <code>markpos</code>); they may not be discarded unless and until the
    * difference between <code>pos</code> and <code>markpos</code> exceeds
    * <code>marklimit</code>.
-   * 
+   *
    * @see #mark(int)
    * @see #m_nPos
    */
@@ -106,7 +106,7 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
    * difference between <code>pos</code> and <code>markpos</code> exceeds
    * <code>marklimit</code>, then the mark may be dropped by setting
    * <code>markpos</code> to <code>-1</code>.
-   * 
+   *
    * @see #mark(int)
    * @see #reset()
    */
@@ -142,7 +142,7 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
    * Creates a <code>BufferedInputStream</code> and saves its argument, the
    * input stream <code>in</code>, for later use. An internal buffer array is
    * created and stored in <code>buf</code>.
-   * 
+   *
    * @param aIS
    *        the underlying input stream.
    */
@@ -156,13 +156,13 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
    * and saves its argument, the input stream <code>in</code>, for later use. An
    * internal buffer array of length <code>size</code> is created and stored in
    * <code>buf</code>.
-   * 
+   *
    * @param aIS
    *        the underlying input stream.
    * @param nSize
    *        the buffer size.
    * @exception IllegalArgumentException
-   *            if size <= 0.
+   *            if size &le; 0.
    */
   public NonBlockingBufferedInputStream (@Nonnull final InputStream aIS, @Nonnegative final int nSize)
   {
@@ -206,7 +206,7 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
             int nsz = m_nPos * 2;
             if (nsz > m_nMarkLimit)
               nsz = m_nMarkLimit;
-            final byte nbuf[] = new byte [nsz];
+            final byte nbuf [] = new byte [nsz];
             System.arraycopy (buffer, 0, nbuf, 0, m_nPos);
             if (!s_aBufUpdater.compareAndSet (this, buffer, nbuf))
             {
@@ -228,7 +228,7 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
   /**
    * See the general contract of the <code>read</code> method of
    * <code>InputStream</code>.
-   * 
+   *
    * @return the next byte of data, or <code>-1</code> if the end of the stream
    *         is reached.
    * @exception IOException
@@ -300,7 +300,7 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
    * <p>
    * Subclasses of this class are encouraged, but not required, to attempt to
    * read as many bytes as possible in the same fashion.
-   * 
+   *
    * @param aBuf
    *        destination buffer.
    * @param nOfs
@@ -342,7 +342,7 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
   /**
    * See the general contract of the <code>skip</code> method of
    * <code>InputStream</code>.
-   * 
+   *
    * @exception IOException
    *            if the stream does not support seek, or if this input stream has
    *            been closed by invoking its {@link #close()} method, or an I/O
@@ -384,7 +384,7 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
    * This method returns the sum of the number of bytes remaining to be read in
    * the buffer (<code>count&nbsp;- pos</code>) and the result of calling the
    * in.available().
-   * 
+   *
    * @return an estimate of the number of bytes that can be read (or skipped
    *         over) from this input stream without blocking.
    * @exception IOException
@@ -400,7 +400,7 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
   /**
    * See the general contract of the <code>mark</code> method of
    * <code>InputStream</code>.
-   * 
+   *
    * @param nReadlimit
    *        the maximum limit of bytes that can be read before the mark position
    *        becomes invalid.
@@ -421,7 +421,7 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
    * If <code>markpos</code> is <code>-1</code> (no mark has been set or the
    * mark has been invalidated), an <code>IOException</code> is thrown.
    * Otherwise, <code>pos</code> is set equal to <code>markpos</code>.
-   * 
+   *
    * @exception IOException
    *            if this stream has not been marked or, if the mark has been
    *            invalidated, or the stream has been closed by invoking its
@@ -442,7 +442,7 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
    * Tests if this input stream supports the <code>mark</code> and
    * <code>reset</code> methods. The <code>markSupported</code> method of
    * <code>BufferedInputStream</code> returns <code>true</code>.
-   * 
+   *
    * @return a <code>boolean</code> indicating if this stream type supports the
    *         <code>mark</code> and <code>reset</code> methods.
    * @see java.io.InputStream#mark(int)
@@ -459,7 +459,7 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
    * the stream. Once the stream has been closed, further read(), available(),
    * reset(), or skip() invocations will throw an IOException. Closing a
    * previously closed stream has no effect.
-   * 
+   *
    * @exception IOException
    *            if an I/O error occurs.
    */

@@ -28,7 +28,7 @@ import com.helger.commons.ValueEnforcer;
 
 /**
  * A non-synchronized copy of the class {@link java.io.BufferedReader}.
- * 
+ *
  * @author Philip Helger
  * @see java.io.BufferedReader
  */
@@ -58,7 +58,7 @@ public class NonBlockingBufferedReader extends Reader
   /**
    * Creates a buffering character-input stream that uses a default-sized input
    * buffer.
-   * 
+   *
    * @param aReader
    *        A Reader
    */
@@ -70,13 +70,13 @@ public class NonBlockingBufferedReader extends Reader
   /**
    * Creates a buffering character-input stream that uses an input buffer of the
    * specified size.
-   * 
+   *
    * @param aReader
    *        A Reader
    * @param nSize
    *        Input-buffer size
    * @exception IllegalArgumentException
-   *            If sz is <= 0
+   *            If size is &le; 0
    */
   public NonBlockingBufferedReader (@Nonnull final Reader aReader, @Nonnegative final int nSize)
   {
@@ -88,7 +88,7 @@ public class NonBlockingBufferedReader extends Reader
 
   /**
    * Checks to make sure that the stream has not been closed
-   * 
+   *
    * @throws IOException
    *         If the reader is not open
    */
@@ -100,7 +100,7 @@ public class NonBlockingBufferedReader extends Reader
 
   /**
    * Fills the input buffer, taking the mark into account if it is valid.
-   * 
+   *
    * @throws IOException
    *         In case reading fails
    */
@@ -154,7 +154,7 @@ public class NonBlockingBufferedReader extends Reader
 
   /**
    * Reads a single character.
-   * 
+   *
    * @return The character read, as an integer in the range 0 to 65535 (
    *         <tt>0x00-0xffff</tt>), or -1 if the end of the stream has been
    *         reached
@@ -189,7 +189,7 @@ public class NonBlockingBufferedReader extends Reader
   /**
    * Reads characters into a portion of an array, reading from the underlying
    * stream if necessary.
-   * 
+   *
    * @param aBuf
    *        The buffer to be filled
    * @param nOfs
@@ -265,7 +265,7 @@ public class NonBlockingBufferedReader extends Reader
    * least as large as the buffer, then this method will read characters
    * directly from the underlying stream into the given array. Thus redundant
    * <code>NonBlockingBufferedReader</code>s will not copy data unnecessarily.
-   * 
+   *
    * @param cbuf
    *        Destination buffer
    * @param nOfs
@@ -303,7 +303,7 @@ public class NonBlockingBufferedReader extends Reader
    * Reads a line of text. A line is considered to be terminated by any one of a
    * line feed ('\n'), a carriage return ('\r'), or a carriage return followed
    * immediately by a linefeed.
-   * 
+   *
    * @return A String containing the contents of the line, not including any
    *         line-termination characters, or null if the end of the stream has
    *         been reached
@@ -377,7 +377,7 @@ public class NonBlockingBufferedReader extends Reader
 
   /**
    * Skips characters.
-   * 
+   *
    * @param nBytes
    *        The number of characters to skip
    * @return The number of characters actually skipped
@@ -425,7 +425,7 @@ public class NonBlockingBufferedReader extends Reader
    * Tells whether this stream is ready to be read. A buffered character stream
    * is ready if the buffer is not empty, or if the underlying character stream
    * is ready.
-   * 
+   *
    * @return <code>true</code> if the reader is ready
    * @exception IOException
    *            If an I/O error occurs
@@ -459,7 +459,7 @@ public class NonBlockingBufferedReader extends Reader
 
   /**
    * Tells whether this stream supports the mark() operation, which it does.
-   * 
+   *
    * @return Always <code>true</code>
    */
   @Override
@@ -471,7 +471,7 @@ public class NonBlockingBufferedReader extends Reader
   /**
    * Marks the present position in the stream. Subsequent calls to reset() will
    * attempt to reposition the stream to this point.
-   * 
+   *
    * @param nReadAheadLimit
    *        Limit on the number of characters that may be read while still
    *        preserving the mark. An attempt to reset the stream after reading
@@ -480,7 +480,7 @@ public class NonBlockingBufferedReader extends Reader
    *        allocated whose size is no smaller than limit. Therefore large
    *        values should be used with care.
    * @exception IllegalArgumentException
-   *            If readAheadLimit is < 0
+   *            If readAheadLimit is %lt; 0
    * @exception IOException
    *            If an I/O error occurs
    */
@@ -496,7 +496,7 @@ public class NonBlockingBufferedReader extends Reader
 
   /**
    * Resets the stream to the most recent mark.
-   * 
+   *
    * @exception IOException
    *            If the stream has never been marked, or if the mark has been
    *            invalidated

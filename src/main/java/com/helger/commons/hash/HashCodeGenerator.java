@@ -37,19 +37,31 @@ import com.helger.commons.ValueEnforcer;
  * code was calculated no modifications are allowed.<br>
  * <p>
  * A real world example for a final class derived from {@link Object} or a base
- * class looks like this: <code><pre>@Override
- * public int hashCode () {
+ * class looks like this:
+ *
+ * <pre>
+ * &#064;Override
+ * public int hashCode ()
+ * {
  *   return new HashCodeGenerator (this).append (member1).append (member2).getHashCode ();
- * }</pre></code>
+ * }
+ * </pre>
+ *
  * </p>
  * <p>
  * For a derived class, the typical code looks like this, assuming the base
- * class also uses {@link HashCodeGenerator}: <code><pre>@Override
- * public int hashCode () {
- *   return HashCodeGenerator.getDerived (super.hashCode ()).append (member3).append (member4).getHashCode ();
- * }</pre></code>
- * </p>
+ * class also uses {@link HashCodeGenerator}:
  * 
+ * <pre>
+ * &#064;Override
+ * public int hashCode ()
+ * {
+ *   return HashCodeGenerator.getDerived (super.hashCode ()).append (member3).append (member4).getHashCode ();
+ * }
+ * </pre>
+ * 
+ * </p>
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -71,7 +83,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * This is a sanity constructor that allows for any object to be passed in the
    * constructor (e.g. <code>this</code>) from which the class is extracted as
    * the initial value of the hash code.
-   * 
+   *
    * @param aSrcObject
    *        The source object from which the class is extracted. May not be
    *        <code>null</code>.
@@ -85,7 +97,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * This constructor requires a class name, because in case a class has no
    * instance variables the hash code may be the same for different instances of
    * different classes.
-   * 
+   *
    * @param aClass
    *        The class this instance is about to create a hash code for. May not
    *        be <code>null</code>.
@@ -116,7 +128,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Atomic type hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -131,7 +143,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Atomic type hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -146,7 +158,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Atomic type hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -161,7 +173,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Atomic type hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -176,7 +188,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Atomic type hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -191,7 +203,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Atomic type hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -206,7 +218,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Atomic type hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -221,7 +233,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Atomic type hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -236,7 +248,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Object hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -251,7 +263,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Object hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -266,7 +278,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Array hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -281,7 +293,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Array hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -296,7 +308,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Array hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -311,7 +323,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Array hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -326,7 +338,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Array hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -341,7 +353,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Array hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -356,7 +368,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Array hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -371,7 +383,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Array hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -386,7 +398,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Array hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -401,7 +413,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Array hash code generation.
-   * 
+   *
    * @param x
    *        Array to add
    * @return this
@@ -417,7 +429,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   /**
    * Type specific hash code generation because parameter class has no
    * overloaded equals method.
-   * 
+   *
    * @param x
    *        object to add
    * @return this
@@ -433,7 +445,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   /**
    * Type specific hash code generation because parameter class has no
    * overloaded equals method.
-   * 
+   *
    * @param x
    *        object to add
    * @return this
@@ -488,7 +500,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   /**
    * Retrieve the final hash code. Once this method has been called, no further
    * calls to append can be done since the hash value is locked!
-   * 
+   *
    * @return The finally completed hash code. The returned value is never
    *         {@link #ILLEGAL_HASHCODE}. If the calculated hash code would be
    *         {@link #ILLEGAL_HASHCODE} it is changed to -1 instead.
@@ -526,7 +538,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Always use {@link #getHashCode()}
-   * 
+   *
    * @return {@link #getHashCode()}
    * @see #getHashCode()
    */
@@ -541,7 +553,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * Create a {@link HashCodeGenerator} for derived classes where the base class
    * also uses the {@link HashCodeGenerator}. This avoid calculating the hash
    * code of the class name more than once.
-   * 
+   *
    * @param nSuperHashCode
    *        Always pass in <code>super.hashCode ()</code>
    * @return Never <code>null</code>

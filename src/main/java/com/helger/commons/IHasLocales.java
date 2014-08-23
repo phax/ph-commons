@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 /**
  * Base interface for objects having zero or more locales.
- * 
+ *
  * @author Philip Helger
  */
 public interface IHasLocales
@@ -45,7 +45,7 @@ public interface IHasLocales
 
   /**
    * Check if the passed locale is directly contained.
-   * 
+   *
    * @param aLocale
    *        The locale to check. May be <code>null</code>.
    * @return <code>true</code> if the locale is directly contained,
@@ -56,8 +56,8 @@ public interface IHasLocales
   /**
    * Check if the passed locale is directly or by fallback contained. The
    * implementation class MUST add locale-generalisation when resolving the text
-   * ("de_DE" => "de" => <i>default</i>).
-   * 
+   * ("de_DE" =&gt; "de" =&gt; <i>default</i>).
+   *
    * @param aLocale
    *        The locale to check. May be <code>null</code>.
    * @return <code>true</code> if the locale is contained, <code>false</code> if

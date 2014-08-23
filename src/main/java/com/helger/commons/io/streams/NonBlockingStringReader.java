@@ -32,7 +32,7 @@ import com.helger.commons.ValueEnforcer;
  * Note: super class {@link Reader} uses the lock object internally only for
  * <code>long skip(long n)</code> and as this method is overwritten in here, the
  * lock is never used.
- * 
+ *
  * @author Philip Helger
  * @see java.io.StringReader
  */
@@ -58,7 +58,7 @@ public class NonBlockingStringReader extends Reader
 
   /**
    * Creates a new string reader.
-   * 
+   *
    * @param sStr
    *        String providing the character stream. May not be <code>null</code>.
    */
@@ -70,7 +70,7 @@ public class NonBlockingStringReader extends Reader
 
   /**
    * Check to make sure that the stream has not been closed
-   * 
+   *
    * @throws IOException
    *         When the string is closed
    */
@@ -82,7 +82,7 @@ public class NonBlockingStringReader extends Reader
 
   /**
    * Reads a single character.
-   * 
+   *
    * @return The character read, or -1 if the end of the stream has been reached
    * @exception IOException
    *            If an I/O error occurs
@@ -99,7 +99,7 @@ public class NonBlockingStringReader extends Reader
 
   /**
    * Reads characters into a portion of an array.
-   * 
+   *
    * @param aBuf
    *        Destination buffer
    * @param nOfs
@@ -132,7 +132,7 @@ public class NonBlockingStringReader extends Reader
    * Skips the specified number of characters in the stream. Returns the number
    * of characters that were skipped.
    * <p>
-   * 
+   *
    * @param nCharsToSkip
    *        The parameter may be negative, even though the <code>skip</code>
    *        method of the {@link Reader} superclass throws an exception in this
@@ -159,7 +159,7 @@ public class NonBlockingStringReader extends Reader
 
   /**
    * Tells whether this stream is ready to be read.
-   * 
+   *
    * @return <code>true</code> if the next read() is guaranteed not to block for
    *         input
    * @exception IOException
@@ -174,7 +174,7 @@ public class NonBlockingStringReader extends Reader
 
   /**
    * Tells whether this stream supports the mark() operation, which it does.
-   * 
+   *
    * @return always <code>true</code>
    */
   @Override
@@ -186,14 +186,14 @@ public class NonBlockingStringReader extends Reader
   /**
    * Marks the present position in the stream. Subsequent calls to reset() will
    * reposition the stream to this point.
-   * 
+   *
    * @param nReadAheadLimit
    *        Limit on the number of characters that may be read while still
    *        preserving the mark. Because the stream's input comes from a string,
    *        there is no actual limit, so this argument must not be negative, but
    *        is otherwise ignored.
    * @exception IllegalArgumentException
-   *            If readAheadLimit is < 0
+   *            If readAheadLimit is &lt; 0
    * @exception IOException
    *            If an I/O error occurs
    */
@@ -209,7 +209,7 @@ public class NonBlockingStringReader extends Reader
   /**
    * Resets the stream to the most recent mark, or to the beginning of the
    * string if it has never been marked.
-   * 
+   *
    * @exception IOException
    *            If an I/O error occurs
    */

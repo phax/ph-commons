@@ -615,7 +615,7 @@ public final class ValueEnforcer
 
   /**
    * Check if
-   * <code>nValue &ge; nLowerBoundInclusive && nValue &le; nUpperBoundInclusive</code>
+   * <code>nValue &ge; nLowerBoundInclusive &amp;&amp; nValue &le; nUpperBoundInclusive</code>
    *
    * @param nValue
    *        Value
@@ -646,7 +646,7 @@ public final class ValueEnforcer
 
   /**
    * Check if
-   * <code>nValue &ge; nLowerBoundInclusive && nValue &le; nUpperBoundInclusive</code>
+   * <code>nValue &ge; nLowerBoundInclusive &amp;&amp; nValue &le; nUpperBoundInclusive</code>
    *
    * @param nValue
    *        Value
@@ -677,7 +677,7 @@ public final class ValueEnforcer
 
   /**
    * Check if
-   * <code>nValue &ge; nLowerBoundInclusive && nValue &le; nUpperBoundInclusive</code>
+   * <code>nValue &ge; nLowerBoundInclusive &amp;&amp; nValue &le; nUpperBoundInclusive</code>
    *
    * @param nValue
    *        Value
@@ -708,7 +708,7 @@ public final class ValueEnforcer
 
   /**
    * Check if
-   * <code>nValue &ge; nLowerBoundInclusive && nValue &le; nUpperBoundInclusive</code>
+   * <code>nValue &ge; nLowerBoundInclusive &amp;&amp; nValue &le; nUpperBoundInclusive</code>
    *
    * @param fValue
    *        Value
@@ -739,7 +739,7 @@ public final class ValueEnforcer
 
   /**
    * Check if
-   * <code>nValue &ge; nLowerBoundInclusive && nValue &le; nUpperBoundInclusive</code>
+   * <code>nValue &ge; nLowerBoundInclusive &amp;&amp; nValue &le; nUpperBoundInclusive</code>
    *
    * @param dValue
    *        Value
@@ -770,7 +770,7 @@ public final class ValueEnforcer
 
   /**
    * Check if
-   * <code>nValue &ge; nLowerBoundInclusive && nValue &le; nUpperBoundInclusive</code>
+   * <code>nValue &ge; nLowerBoundInclusive &amp;&amp; nValue &le; nUpperBoundInclusive</code>
    *
    * @param aValue
    *        Value
@@ -804,7 +804,7 @@ public final class ValueEnforcer
 
   /**
    * Check if
-   * <code>nValue &ge; nLowerBoundInclusive && nValue &le; nUpperBoundInclusive</code>
+   * <code>nValue &ge; nLowerBoundInclusive &amp;&amp; nValue &le; nUpperBoundInclusive</code>
    *
    * @param aValue
    *        Value
@@ -838,7 +838,7 @@ public final class ValueEnforcer
 
   /**
    * Check if
-   * <code>nValue &gt; nLowerBoundInclusive && nValue &lt; nUpperBoundInclusive</code>
+   * <code>nValue &gt; nLowerBoundInclusive &amp;&amp; nValue &lt; nUpperBoundInclusive</code>
    *
    * @param nValue
    *        Value
@@ -869,7 +869,7 @@ public final class ValueEnforcer
 
   /**
    * Check if
-   * <code>nValue &gt; nLowerBoundInclusive && nValue &lt; nUpperBoundInclusive</code>
+   * <code>nValue &gt; nLowerBoundInclusive &amp;&amp; nValue &lt; nUpperBoundInclusive</code>
    *
    * @param nValue
    *        Value
@@ -900,7 +900,7 @@ public final class ValueEnforcer
 
   /**
    * Check if
-   * <code>nValue &gt; nLowerBoundInclusive && nValue &lt; nUpperBoundInclusive</code>
+   * <code>nValue &gt; nLowerBoundInclusive &amp;&amp; nValue &lt; nUpperBoundInclusive</code>
    *
    * @param nValue
    *        Value
@@ -931,7 +931,7 @@ public final class ValueEnforcer
 
   /**
    * Check if
-   * <code>nValue &gt; nLowerBoundInclusive && nValue &lt; nUpperBoundInclusive</code>
+   * <code>nValue &gt; nLowerBoundInclusive &amp;&amp; nValue &lt; nUpperBoundInclusive</code>
    *
    * @param fValue
    *        Value
@@ -962,7 +962,7 @@ public final class ValueEnforcer
 
   /**
    * Check if
-   * <code>nValue &gt; nLowerBoundInclusive && nValue &lt; nUpperBoundInclusive</code>
+   * <code>nValue &gt; nLowerBoundInclusive &amp;&amp; nValue &lt; nUpperBoundInclusive</code>
    *
    * @param dValue
    *        Value
@@ -993,7 +993,7 @@ public final class ValueEnforcer
 
   /**
    * Check if
-   * <code>nValue &gt; nLowerBoundInclusive && nValue &lt; nUpperBoundInclusive</code>
+   * <code>nValue &gt; nLowerBoundInclusive &amp;&amp; nValue &lt; nUpperBoundInclusive</code>
    *
    * @param aValue
    *        Value
@@ -1027,7 +1027,7 @@ public final class ValueEnforcer
 
   /**
    * Check if
-   * <code>nValue &gt; nLowerBoundInclusive && nValue &lt; nUpperBoundInclusive</code>
+   * <code>nValue &gt; nLowerBoundInclusive &amp;&amp; nValue &lt; nUpperBoundInclusive</code>
    *
    * @param aValue
    *        Value

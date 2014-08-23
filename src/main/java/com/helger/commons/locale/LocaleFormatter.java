@@ -34,7 +34,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 
 /**
  * Helper class to safely print and parse numbers in a formatted way.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -51,7 +51,7 @@ public final class LocaleFormatter
    * Format the passed value according to the rules specified by the given
    * locale. All calls to {@link Double#toString(double)} that are displayed to
    * the user should instead use this method.
-   * 
+   *
    * @param dValue
    *        The value to be formatted.
    * @param aDisplayLocale
@@ -70,7 +70,7 @@ public final class LocaleFormatter
    * Format the passed value according to the rules specified by the given
    * locale. All calls to {@link Integer#toString(int)} that are displayed to
    * the user should instead use this method.
-   * 
+   *
    * @param nValue
    *        The value to be formatted.
    * @param aDisplayLocale
@@ -89,7 +89,7 @@ public final class LocaleFormatter
    * Format the passed value according to the rules specified by the given
    * locale. All calls to {@link Long#toString(long)} that are displayed to the
    * user should instead use this method.
-   * 
+   *
    * @param nValue
    *        The value to be formatted.
    * @param aDisplayLocale
@@ -108,7 +108,7 @@ public final class LocaleFormatter
    * Format the passed value according to the rules specified by the given
    * locale. All calls to {@link BigInteger#toString()} that are displayed to
    * the user should instead use this method.
-   * 
+   *
    * @param aValue
    *        The value to be formatted. May not be <code>null</code>.
    * @param aDisplayLocale
@@ -129,7 +129,7 @@ public final class LocaleFormatter
    * locale. All calls to {@link BigDecimal#toString()} that are displayed to
    * the user should instead use this method. By default a maximum of 3 fraction
    * digits are shown.
-   * 
+   *
    * @param aValue
    *        The value to be formatted. May not be <code>null</code>.
    * @param aDisplayLocale
@@ -148,11 +148,11 @@ public final class LocaleFormatter
   /**
    * Format the passed value according to the rules specified by the given
    * locale.
-   * 
+   *
    * @param aValue
    *        The value to be formatted. May not be <code>null</code>.
    * @param nFractionDigits
-   *        The number of fractional digits to use. Must be >= 0.
+   *        The number of fractional digits to use. Must be &ge; 0.
    * @param aDisplayLocale
    *        The locale to be used. May not be <code>null</code>.
    * @return The formatted string.
@@ -174,7 +174,7 @@ public final class LocaleFormatter
   /**
    * Format the passed value according to the rules specified by the given
    * locale. All fraction digits of the passed value are displayed.
-   * 
+   *
    * @param aValue
    *        The value to be formatted. May not be <code>null</code>.
    * @param aDisplayLocale
@@ -197,7 +197,7 @@ public final class LocaleFormatter
    * Format the given value as percentage. The "%" sign is automatically
    * appended according to the requested locale. The number of fractional digits
    * depend on the locale.
-   * 
+   *
    * @param dValue
    *        The value to be used. E.g. "0.125" will result in something like
    *        "12.5%"
@@ -216,7 +216,7 @@ public final class LocaleFormatter
   /**
    * Format the given value as percentage. The "%" sign is automatically
    * appended according to the requested locale.
-   * 
+   *
    * @param dValue
    *        The value to be used. E.g. "0.125" will result in something like
    *        "12.5%"

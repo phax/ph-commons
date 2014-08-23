@@ -75,6 +75,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * <tt>'&#92;u0023'</tt> , <font size="-1">NUMBER SIGN</font>); on each line all
  * characters following the first comment character are ignored. The file must
  * be encoded in UTF-8.
+ * </p>
  * <p>
  * If a particular concrete provider class is named in more than one
  * configuration file, or is named in the same configuration file more than
@@ -84,6 +85,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * class loader that was initially queried to locate the configuration file;
  * note that this is not necessarily the class loader from which the file was
  * actually loaded.
+ * </p>
  * <p>
  * Providers are located and instantiated lazily, that is, on demand. A service
  * loader maintains a cache of the providers that have been loaded so far. Each
@@ -92,28 +94,33 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * then lazily locates and instantiates any remaining providers, adding each one
  * to the cache in turn. The cache can be cleared via the {@link #reload reload}
  * method.
+ * </p>
  * <p>
  * Service loaders always execute in the security context of the caller. Trusted
  * system code should typically invoke the methods in this class, and the
  * methods of the iterators which they return, from within a privileged security
  * context.
+ * </p>
  * <p>
  * Instances of this class are not safe for use by multiple concurrent threads.
+ * </p>
  * <p>
  * Unless otherwise specified, passing a <tt>null</tt> argument to any method in
  * this class will cause a {@link NullPointerException} to be thrown.
+ * </p>
  * <p>
  * <span style="font-weight: bold; padding-right: 1em">Example</span> Suppose we
  * have a service type <tt>com.example.CodecSet</tt> which is intended to
  * represent sets of encoder/decoder pairs for some protocol. In this case it is
  * an abstract class with two abstract methods: <blockquote>
- * 
+ * </p>
+ *
  * <pre>
  * public abstract Encoder getEncoder (String encodingName);
  * 
  * public abstract Decoder getDecoder (String encodingName);
  * </pre>
- * 
+ *
  * </blockquote> Each method returns an appropriate object or <tt>null</tt> if
  * the provider does not support the given encoding. Typical providers support
  * more than one encoding.
@@ -121,35 +128,38 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * If <tt>com.example.impl.StandardCodecs</tt> is an implementation of the
  * <tt>CodecSet</tt> service then its jar file also contains a file named
  * <blockquote>
- * 
+ *
  * <pre>
  * META - INF / services / com.example.CodecSet
  * </pre>
- * 
+ *
  * </blockquote>
+ * </p>
  * <p>
  * This file contains the single line: <blockquote>
- * 
+ *
  * <pre>
  * com.example.impl.StandardCodecs    # Standard codecs
  * </pre>
- * 
+ *
  * </blockquote>
+ * </p>
  * <p>
  * The <tt>CodecSet</tt> class creates and saves a single service instance at
  * initialization: <blockquote>
- * 
+ *
  * <pre>
  * private static ServiceLoader &lt;CodecSet&gt; codecSetLoader = ServiceLoader.load (CodecSet.class);
  * </pre>
- * 
+ *
  * </blockquote>
+ * </p>
  * <p>
  * To locate an encoder for a given encoding name it defines a static factory
  * method which iterates through the known and available providers, returning
  * only when it has located a suitable encoder or has run out of providers.
  * <blockquote>
- * 
+ *
  * <pre>
  * public static Encoder getEncoder (String encodingName)
  * {
@@ -162,20 +172,24 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *   return null;
  * }
  * </pre>
- * 
+ *
  * </blockquote>
+ * </p>
  * <p>
  * A <tt>getDecoder</tt> method is defined similarly.
+ * </p>
  * <p>
  * <span style="font-weight: bold; padding-right: 1em">Usage Note</span> If the
  * class path of a class loader that is used for provider loading includes
  * remote network URLs then those URLs will be dereferenced in the process of
  * searching for provider-configuration files.
+ * </p>
  * <p>
  * This activity is normal, although it may cause puzzling entries to be created
  * in web-server logs. If a web server is not configured correctly, however,
  * then this activity may cause the provider-loading algorithm to fail
  * spuriously.
+ * </p>
  * <p>
  * A web server should return an HTTP 404 (Not Found) response when a requested
  * resource does not exist. Sometimes, however, web servers are erroneously
@@ -185,7 +199,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * provider-configuration file. The best solution to this problem is to fix the
  * misconfigured web server to return the correct response code (HTTP 404) along
  * with the HTML error page.
- * 
+ * </p>
+ *
  * @param <SPITYPE>
  *        The type of the service to be loaded by this loader
  * @author Mark Reinhold
@@ -455,7 +470,7 @@ public final class ServiceLoaderBackport <SPITYPE> implements Iterable <SPITYPE>
    * The iterator returned by this method does not support removal. Invoking its
    * {@link java.util.Iterator#remove() remove} method will cause an
    * {@link UnsupportedOperationException} to be thrown.
-   * 
+   *
    * @return An iterator that lazily loads providers for this loader's service
    */
   public Iterator <SPITYPE> iterator ()
@@ -486,7 +501,7 @@ public final class ServiceLoaderBackport <SPITYPE> implements Iterable <SPITYPE>
 
   /**
    * Returns a string describing this service.
-   * 
+   *
    * @return A descriptive string
    */
   @Override
@@ -497,7 +512,7 @@ public final class ServiceLoaderBackport <SPITYPE> implements Iterable <SPITYPE>
 
   /**
    * Creates a new service loader for the given service type and class loader.
-   * 
+   *
    * @param service
    *        The interface or abstract class representing the service
    * @param loader
@@ -517,20 +532,20 @@ public final class ServiceLoaderBackport <SPITYPE> implements Iterable <SPITYPE>
    * loader}.
    * <p>
    * An invocation of this convenience method of the form <blockquote>
-   * 
+   *
    * <pre>
    * ServiceLoader.load(&lt;i&gt;service&lt;/i&gt;)
    * </pre>
-   * 
+   *
    * </blockquote> is equivalent to <blockquote>
-   * 
+   *
    * <pre>
    * ServiceLoader.load(&lt;i&gt;service&lt;/i&gt;,
    *                    Thread.currentThread().getContextClassLoader())
    * </pre>
-   * 
+   *
    * </blockquote>
-   * 
+   *
    * @param service
    *        The interface or abstract class representing the service
    * @return A new service loader
@@ -546,11 +561,11 @@ public final class ServiceLoaderBackport <SPITYPE> implements Iterable <SPITYPE>
    * <p>
    * This convenience method simply locates the extension class loader, call it
    * <tt><i>extClassLoader</i></tt>, and then returns <blockquote>
-   * 
+   *
    * <pre>
    * ServiceLoader.load(&lt;i&gt;service&lt;/i&gt;, &lt;i&gt;extClassLoader&lt;/i&gt;)
    * </pre>
-   * 
+   *
    * </blockquote>
    * <p>
    * If the extension class loader cannot be found then the system class loader
@@ -561,7 +576,7 @@ public final class ServiceLoaderBackport <SPITYPE> implements Iterable <SPITYPE>
    * The resulting service will only find and load providers that have been
    * installed into the current Java virtual machine; providers on the
    * application's class path will be ignored.
-   * 
+   *
    * @param service
    *        The interface or abstract class representing the service
    * @return A new service loader
