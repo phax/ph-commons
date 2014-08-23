@@ -245,7 +245,7 @@ public final class ToStringGenerator
   }
 
   @Nonnull
-  private ToStringGenerator _appendArray (@Nonnull final String sField, @Nullable final Object aValue)
+  private ToStringGenerator _appendArray (@Nonnull final String sField, @Nonnull final Object aValue)
   {
     // Passed value is an array
     final Class <?> aCompType = aValue.getClass ().getComponentType ();
