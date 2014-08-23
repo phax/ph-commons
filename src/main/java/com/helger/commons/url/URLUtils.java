@@ -40,7 +40,7 @@ import java.util.jar.JarEntry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,7 +73,7 @@ import com.helger.commons.url.encode.URLParameterEncoder;
  *
  * @author Philip Helger
  */
-@Immutable
+@ThreadSafe
 public final class URLUtils
 {
   /** Default URL charset is UTF-8 */
@@ -225,8 +225,7 @@ public final class URLUtils
     // ClassPathResource internally uses
     // URLUtils.getInputStream and this static initialization code of this class
     // can therefore not use ClasspathResource because it would create a
-    // recursive
-    // dependency!
+    // recursive dependency!
     // Ever trickier is the when running multiple threads for reading XML (e.g.
     // in the unit test) this code would wait forever in the static initializer
     // because XMLMapHandler internally also acquires an XML reader....

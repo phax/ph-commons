@@ -20,9 +20,10 @@ package com.helger.commons.type;
 import java.io.Serializable;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.DevelopersNote;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -33,10 +34,11 @@ import com.helger.commons.string.ToStringGenerator;
  * comparing different object type implementations of the same interface. By not
  * using an interface, implementers are forced to use exactly this
  * implementation class.
- * 
+ *
  * @author Philip Helger
  */
-@Immutable
+@ThreadSafe
+@DevelopersNote ("The mutable m_aHashCode does not contradict thread safety")
 public class ObjectType implements Comparable <ObjectType>, Serializable
 {
   private final String m_sName;

@@ -19,7 +19,7 @@ package com.helger.commons.collections.triple;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsUtils;
@@ -41,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <DATA3TYPE>
  *        Third type.
  */
-@Immutable
+@NotThreadSafe
 public final class Triple <DATA1TYPE, DATA2TYPE, DATA3TYPE> implements ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>
 {
   private DATA1TYPE m_aFirst;

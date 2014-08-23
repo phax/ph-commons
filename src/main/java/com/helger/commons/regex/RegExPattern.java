@@ -25,9 +25,10 @@ import java.util.regex.PatternSyntaxException;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.RegEx;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.DevelopersNote;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -35,10 +36,11 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * This class encapsulates a String and a set of options to be used in Pattern
  * compilation
- * 
+ *
  * @author Philip Helger
  */
-@Immutable
+@ThreadSafe
+@DevelopersNote ("The mutable m_aHashCode does not contradict thread safety")
 public final class RegExPattern implements Serializable
 {
   private static final AtomicBoolean s_aCheckConsistencyEnabled = new AtomicBoolean (false);

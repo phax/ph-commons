@@ -23,7 +23,7 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,10 +38,10 @@ import com.helger.commons.state.ESuccess;
 
 /**
  * Wraps file operations.
- * 
+ *
  * @author Philip Helger
  */
-@Immutable
+@ThreadSafe
 public final class FileOperations
 {
   /** The default value for warning if we're about to delete the root directory. */
@@ -53,7 +53,7 @@ public final class FileOperations
   @SuppressWarnings ("unused")
   private static final FileOperations s_aInstance = new FileOperations ();
 
-  private static boolean s_bWarnOnDeleteRoot = DEFAULT_WARN_ON_DELETE_ROOT;
+  private static volatile boolean s_bWarnOnDeleteRoot = DEFAULT_WARN_ON_DELETE_ROOT;
 
   private FileOperations ()
   {}
@@ -70,7 +70,7 @@ public final class FileOperations
 
   /**
    * Create a new directory. The direct parent directory already needs to exist.
-   * 
+   *
    * @param aDir
    *        The directory to be created. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
@@ -103,7 +103,7 @@ public final class FileOperations
   /**
    * Create a new directory if it does not exist. The direct parent directory
    * already needs to exist.
-   * 
+   *
    * @param aDir
    *        The directory to be created if it does not exist. May not be
    *        <code>null</code>.
@@ -121,7 +121,7 @@ public final class FileOperations
   /**
    * Create a new directory. The parent directories are created if they are
    * missing.
-   * 
+   *
    * @param aDir
    *        The directory to be created. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
@@ -154,7 +154,7 @@ public final class FileOperations
   /**
    * Create a new directory if it does not exist. The direct parent directory
    * already needs to exist.
-   * 
+   *
    * @param aDir
    *        The directory to be created if it does not exist. May not be
    *        <code>null</code>.
@@ -172,7 +172,7 @@ public final class FileOperations
   /**
    * Delete an existing directory. The directory needs to be empty before it can
    * be deleted.
-   * 
+   *
    * @param aDir
    *        The directory to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
@@ -214,7 +214,7 @@ public final class FileOperations
   /**
    * Delete an existing directory if it is existing. The directory needs to be
    * empty before it can be deleted.
-   * 
+   *
    * @param aDir
    *        The directory to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
@@ -230,7 +230,7 @@ public final class FileOperations
 
   /**
    * Delete an existing directory including all child objects.
-   * 
+   *
    * @param aDir
    *        The directory to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
@@ -292,7 +292,7 @@ public final class FileOperations
 
   /**
    * Delete an existing directory including all child objects if it is existing.
-   * 
+   *
    * @param aDir
    *        The directory to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
@@ -308,7 +308,7 @@ public final class FileOperations
 
   /**
    * Delete an existing file.
-   * 
+   *
    * @param aFile
    *        The file to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
@@ -341,7 +341,7 @@ public final class FileOperations
 
   /**
    * Delete a file if it is existing.
-   * 
+   *
    * @param aFile
    *        The file to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
@@ -357,7 +357,7 @@ public final class FileOperations
 
   /**
    * Rename a file.
-   * 
+   *
    * @param aSourceFile
    *        The original file name. May not be <code>null</code>.
    * @param aTargetFile
@@ -409,7 +409,7 @@ public final class FileOperations
 
   /**
    * Rename a directory.
-   * 
+   *
    * @param aSourceDir
    *        The original directory name. May not be <code>null</code>.
    * @param aTargetDir
@@ -467,7 +467,7 @@ public final class FileOperations
 
   /**
    * Copy the content of the source file to the destination file
-   * 
+   *
    * @param aSrcFile
    *        Source file. May not be <code>null</code>.
    * @param aDestFile
@@ -537,7 +537,7 @@ public final class FileOperations
 
   /**
    * Copies the source file to the target file.
-   * 
+   *
    * @param aSourceFile
    *        The source file to use. May not be <code>null</code>. Needs to be an
    *        existing file.
@@ -584,7 +584,7 @@ public final class FileOperations
 
   /**
    * Copy a directory including all child objects.
-   * 
+   *
    * @param aSourceDir
    *        The source directory to be copied. May not be <code>null</code>.
    * @param aTargetDir

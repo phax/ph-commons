@@ -23,7 +23,8 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.GuardedBy;
+import javax.annotation.concurrent.ThreadSafe;
 import javax.management.JMException;
 import javax.management.ObjectName;
 
@@ -35,10 +36,10 @@ import com.helger.commons.lang.CGStringHelper;
 
 /**
  * Utility class to create JMX {@link ObjectName} objects.
- * 
+ *
  * @author Philip Helger
  */
-@Immutable
+@ThreadSafe
 public final class ObjectNameUtils
 {
   @SuppressWarnings ("unused")
@@ -46,6 +47,7 @@ public final class ObjectNameUtils
   private static final ObjectNameUtils s_aInstance = new ObjectNameUtils ();
 
   private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  @GuardedBy ("s_aRWLock")
   private static String s_sDefaultJMXDomain = CJMX.PH_JMX_DOMAIN;
 
   private ObjectNameUtils ()
@@ -53,7 +55,7 @@ public final class ObjectNameUtils
 
   /**
    * Set the default JMX domain
-   * 
+   *
    * @param sDefaultJMXDomain
    *        The new JMX domain. May neither be <code>null</code> nor empty nor
    *        may it contains ":" or " "
@@ -121,7 +123,7 @@ public final class ObjectNameUtils
    * Create a clean property value applicable for an {@link ObjectName} property
    * value by replacing the special chars ":" and "," with "." and "//" with
    * "__". If the input value contains a blank, the quotes value is returned.
-   * 
+   *
    * @param sPropertyValue
    *        The original property value. May not be <code>null</code>.
    * @return The modified property value applicable for {@link ObjectName}.
@@ -144,7 +146,7 @@ public final class ObjectNameUtils
    * Create a standard {@link ObjectName} using the default domain and only the
    * "type" property. The type property is the class local name of the specified
    * object.
-   * 
+   *
    * @param aObj
    *        The object from which the name is to be created.
    * @return The non-<code>null</code> {@link ObjectName}.
@@ -163,7 +165,7 @@ public final class ObjectNameUtils
    * Create a standard {@link ObjectName} using the default domain and the
    * "type" and "name" properties. The type property is the class local name of
    * the specified object.
-   * 
+   *
    * @param aObj
    *        The object from which the name is to be created.
    * @param sName

@@ -29,7 +29,7 @@ import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
@@ -43,10 +43,10 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Wraps a class path object as a readable resource.
- * 
+ *
  * @author Philip Helger
  */
-@Immutable
+@NotThreadSafe
 public class ClassPathResource implements IReadableResource
 {
   /** Use this prefix to uniquely identify classpath resources */
@@ -62,7 +62,7 @@ public class ClassPathResource implements IReadableResource
   /**
    * Create a new class path resource, using the specified URL. Class loader
    * handling is automatic.
-   * 
+   *
    * @param aURL
    *        The URL to be used. May not be <code>null</code>.
    */
@@ -74,7 +74,7 @@ public class ClassPathResource implements IReadableResource
   /**
    * Create a new class path resource using the specified URL and class loader
    * (optional).
-   * 
+   *
    * @param aURL
    *        The URL to be used. May not be <code>null</code>.
    * @param aClassLoader
@@ -89,7 +89,7 @@ public class ClassPathResource implements IReadableResource
   /**
    * Create a new class path resource, using the specified path. Class loader
    * handling is automatic.
-   * 
+   *
    * @param sPath
    *        The path to be used. May neither be <code>null</code> nor empty.
    */
@@ -101,7 +101,7 @@ public class ClassPathResource implements IReadableResource
   /**
    * Create a new class path resource using the specified path and class loader
    * (optional).
-   * 
+   *
    * @param sPath
    *        The path to be used. May neither be <code>null</code> nor empty.
    * @param aClassLoader
@@ -149,7 +149,7 @@ public class ClassPathResource implements IReadableResource
    * Check if the passed resource name is an explicit classpath resource. This
    * is the case, if the name starts either with {@link #CLASSPATH_PREFIX_LONG}
    * or {@link #CLASSPATH_PREFIX_SHORT}.
-   * 
+   *
    * @param sName
    *        The name to check. May be <code>null</code>.
    * @return <code>true</code> if the passed name is not <code>null</code> and
@@ -195,7 +195,7 @@ public class ClassPathResource implements IReadableResource
    * <li>The class loader of this class</li>
    * <li>The system class loader</li>
    * </ol>
-   * 
+   *
    * @param sPath
    *        The path to be resolved. May neither be <code>null</code> nor empty.
    * @return <code>null</code> if the path could not be resolved.
@@ -210,7 +210,7 @@ public class ClassPathResource implements IReadableResource
   /**
    * Get the input stream of the passed resource using the specified class
    * loader only.
-   * 
+   *
    * @param sPath
    *        The path to be resolved. May neither be <code>null</code> nor empty.
    * @param aClassLoader
@@ -235,7 +235,7 @@ public class ClassPathResource implements IReadableResource
    * <li>The class loader of this class</li>
    * <li>The system class loader</li>
    * </ol>
-   * 
+   *
    * @return <code>null</code> if no such resource exists.
    */
   @Nullable
@@ -248,7 +248,7 @@ public class ClassPathResource implements IReadableResource
   /**
    * Get the input stream to the this resource, using the passed class loader
    * only.
-   * 
+   *
    * @param aClassLoader
    *        The class loader to be used. May not be <code>null</code>.
    * @return <code>null</code> if the path could not be resolved.
@@ -276,7 +276,7 @@ public class ClassPathResource implements IReadableResource
   /**
    * Create a {@link Reader} of this resource, using the specified class loader
    * only.
-   * 
+   *
    * @param aClassLoader
    *        The class loader to be used. May not be <code>null</code>.
    * @param sCharset
@@ -294,7 +294,7 @@ public class ClassPathResource implements IReadableResource
   /**
    * Create a {@link Reader} of this resource, using the specified class loader
    * only.
-   * 
+   *
    * @param aClassLoader
    *        The class loader to be used. May not be <code>null</code>.
    * @param aCharset
@@ -328,7 +328,7 @@ public class ClassPathResource implements IReadableResource
    * <li>The class loader of this class</li>
    * <li>The system class loader</li>
    * </ol>
-   * 
+   *
    * @param sPath
    *        The path to be resolved. May neither be <code>null</code> nor empty.
    * @return <code>null</code> if the path could not be resolved.
@@ -360,7 +360,7 @@ public class ClassPathResource implements IReadableResource
   /**
    * Get the input stream of the passed resource using the specified class
    * loader only.
-   * 
+   *
    * @param sPath
    *        The path to be resolved. May neither be <code>null</code> nor empty.
    * @param aClassLoader
@@ -400,7 +400,7 @@ public class ClassPathResource implements IReadableResource
    * Convert the path to a URL without using caching. Otherwise the resolution
    * of {@link #getAsURL()} using the constructor supplied class loader would
    * possibly contradict with this resolution.
-   * 
+   *
    * @param aClassLoader
    *        The class loader to be used. May not be <code>null</code>.
    * @return <code>null</code> if the path could not be resolved to a URL
@@ -434,7 +434,7 @@ public class ClassPathResource implements IReadableResource
    * <li>The class loader of this class</li>
    * <li>The system class loader</li>
    * </ol>
-   * 
+   *
    * @param sPath
    *        The path to be resolved. May neither be <code>null</code> nor empty.
    * @return <code>null</code> if the path could not be resolved.
