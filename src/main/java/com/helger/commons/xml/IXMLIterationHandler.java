@@ -24,14 +24,14 @@ import javax.annotation.Nullable;
 
 /**
  * Callback interface when iterating XML nodes.
- * 
+ *
  * @author Philip Helger
  */
 public interface IXMLIterationHandler
 {
   /**
    * At the very beginning of the document.
-   * 
+   *
    * @param eVersion
    *        The XML version to use. If <code>null</code> is passed,
    *        {@link EXMLVersion#DEFAULT} will be used.
@@ -47,7 +47,7 @@ public interface IXMLIterationHandler
 
   /**
    * On XML document type.
-   * 
+   *
    * @param sQualifiedElementName
    *        Qualified name of the root element.
    * @param sPublicID
@@ -61,7 +61,7 @@ public interface IXMLIterationHandler
 
   /**
    * On processing instruction
-   * 
+   *
    * @param sTarget
    *        The target
    * @param sData
@@ -71,15 +71,15 @@ public interface IXMLIterationHandler
 
   /**
    * On entity reference.
-   * 
+   *
    * @param sEntityRef
-   *        The reference (without '&' and ';' !!)
+   *        The reference (without '&amp;' and ';' !!)
    */
   void onEntityReference (@Nonnull String sEntityRef);
 
   /**
    * Ignorable whitespace characters.
-   * 
+   *
    * @param aWhitespaces
    *        The whitespace character sequence
    */
@@ -87,7 +87,7 @@ public interface IXMLIterationHandler
 
   /**
    * Comment node.
-   * 
+   *
    * @param sComment
    *        The comment text
    */
@@ -95,7 +95,7 @@ public interface IXMLIterationHandler
 
   /**
    * Text node.
-   * 
+   *
    * @param sText
    *        The contained text
    * @param bEscape
@@ -107,7 +107,7 @@ public interface IXMLIterationHandler
 
   /**
    * CDATA node.
-   * 
+   *
    * @param sText
    *        The contained text
    */
@@ -115,7 +115,7 @@ public interface IXMLIterationHandler
 
   /**
    * Start of an element.
-   * 
+   *
    * @param sNamespacePrefix
    *        Optional namespace prefix. May be <code>null</code>.
    * @param sTagName
@@ -132,7 +132,7 @@ public interface IXMLIterationHandler
 
   /**
    * End of an element.
-   * 
+   *
    * @param sNamespacePrefix
    *        Optional namespace prefix. May be <code>null</code>.
    * @param sTagName

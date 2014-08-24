@@ -39,7 +39,7 @@ import com.helger.commons.name.IHasName;
 
 /**
  * Contains constants for parser properties.
- * 
+ *
  * @author Philip Helger
  */
 public enum EXMLParserProperty implements IHasName
@@ -47,7 +47,7 @@ public enum EXMLParserProperty implements IHasName
   /**
    * Get the string of characters associated with the current event. If the
    * parser recognizes and supports this property but is not currently parsing
-   * text, it should return null.<br/>
+   * text, it should return null.<br>
    * Xerces: This property is currently not supported because the contents of
    * the XML string returned by this property is not well defined.
    */
@@ -56,21 +56,22 @@ public enum EXMLParserProperty implements IHasName
    * The XML Schema Recommendation explicitly states that the inclusion of
    * schemaLocation/noNamespaceSchemaLocation attributes is only a hint; it does
    * not mandate that these attributes must be used to locate schemas. Similar
-   * situation happens to <import> element in schema documents. This property
-   * allows the user to specify a list of schemas to use. If the targetNamespace
-   * of a schema (specified using this property) matches the targetNamespace of
-   * a schema occurring in the instance document in schemaLocation attribute, or
-   * if the targetNamespace matches the namespace attribute of <import> element,
-   * the schema specified by the user using this property will be used (i.e.,
-   * the schemaLocation attribute in the instance document or on the <import>
-   * element will be effectively ignored).<br />
+   * situation happens to &lt;import&gt; element in schema documents. This
+   * property allows the user to specify a list of schemas to use. If the
+   * targetNamespace of a schema (specified using this property) matches the
+   * targetNamespace of a schema occurring in the instance document in
+   * schemaLocation attribute, or if the targetNamespace matches the namespace
+   * attribute of &lt;import&gt; element, the schema specified by the user using
+   * this property will be used (i.e., the schemaLocation attribute in the
+   * instance document or on the &lt;import&gt; element will be effectively
+   * ignored).<br>
    * The syntax is the same as for schemaLocation attributes in instance
    * documents: e.g, "http://www.example.com file_name.xsd". The user can
    * specify more than one XML Schema in the list.
    */
   GENERAL_EXTERNAL_SCHEMALOCATION (EXMLParserPropertyType.GENERAL, "http://apache.org/xml/properties/schema/external-schemaLocation", String.class),
   /**
-   * This property allows the user to specify an XML Schema with no namespace.<br/>
+   * This property allows the user to specify an XML Schema with no namespace.<br>
    * he syntax is a same as for the noNamespaceSchemaLocation attribute that may
    * occur in an instance document: e.g."file_name.xsd". The user may specify
    * only one XML Schema. For more information see the documentation for the
@@ -84,9 +85,9 @@ public enum EXMLParserProperty implements IHasName
    * is non-null the validation root will be validated against the specified
    * element declaration regardless of the actual name of the root element in
    * the instance document. If the value is a QName and a element declaration
-   * cannot be found an error will be reported.<br/>
+   * cannot be found an error will be reported.<br>
    * If the 'root-type-definition' property has been set this property takes
-   * precedence if its value is non-null.<br/>
+   * precedence if its value is non-null.<br>
    * If the value specified is an XSElementDeclaration it must be an object
    * obtained from Xerces and must also be an object which is known to the
    * schema validator, for example one which would be returned from an
@@ -102,11 +103,11 @@ public enum EXMLParserProperty implements IHasName
    * is non-null and the 'root-element-declaration' property is not set the
    * validation root will not be validated against any element declaration. If
    * the value is a QName and a type definition cannot be found an error will be
-   * reported.<br/>
+   * reported.<br>
    * If the 'root-element-declaration' property has been set this property is
-   * ignored.<br/>
+   * ignored.<br>
    * Prior to Xerces-J 2.10.0 setting the value of this property to an
-   * XSTypeDefinition was not supported.<br/>
+   * XSTypeDefinition was not supported.<br>
    * If the value specified is an XSTypeDefinition it must be an object obtained
    * from Xerces and must also be an object which is known to the schema
    * validator, for example one which would be returned from an XMLGrammarPool.
@@ -117,14 +118,14 @@ public enum EXMLParserProperty implements IHasName
   GENERAL_ROOT_TYPE_DECLARATION (EXMLParserPropertyType.GENERAL, "http://apache.org/xml/properties/validation/schema/root-type-definition", javax.xml.namespace.QName.class),
   /**
    * The size of the input buffer in the readers. This determines how many bytes
-   * to read for each chunk.<br/>
+   * to read for each chunk.<br>
    * Some tests indicate that a bigger buffer size can improve the parsing
    * performance for relatively large files. The default buffer size in Xerces
    * is 2K. This would give a good performance for small documents (less than
    * 10K). For documents larger than 10K, specifying the buffer size to 4K or 8K
    * will significantly improve the performance. But it's not recommended to set
    * it to a value larger than 16K. For really tiny documents (1K, for example),
-   * you can also set it to a value less than 2K, to get the best performance.<br/>
+   * you can also set it to a value less than 2K, to get the best performance.<br>
    * There are some conditions where the size of the parser's internal buffers
    * may be increased beyond the size specified for the input buffer. This would
    * happen in places where the text in the document cannot be split, for
@@ -135,7 +136,7 @@ public enum EXMLParserProperty implements IHasName
   /**
    * The locale to use for reporting errors and warnings. When the value of this
    * property is null the platform default returned from
-   * java.util.Locale.getDefault() will be used.<br/>
+   * java.util.Locale.getDefault() will be used.<br>
    * If no messages are available for the specified locale the platform default
    * will be used. If the platform default is not English and no messages are
    * available for this locale then messages will be reported in English.
@@ -144,7 +145,7 @@ public enum EXMLParserProperty implements IHasName
   /**
    * It is possible to create XML documents whose processing could result in the
    * use of all system resources. This property enables Xerces to detect such
-   * documents, and abort their processing.<br/>
+   * documents, and abort their processing.<br>
    * The org.apache.xerces.util.SecurityManager class contains a number of
    * methods that allow applications to tailor Xerces's tolerance of document
    * constructs that could result in the heavy consumption of system resources
@@ -157,14 +158,14 @@ public enum EXMLParserProperty implements IHasName
   GENERAL_SECURITY_MANAGER (EXMLParserPropertyType.GENERAL, "http://apache.org/xml/properties/security-manager", "org.apache.xerces.util.SecurityManager"),
 
   /**
-   * The current DOM element node while parsing.<br/>
+   * The current DOM element node while parsing.<br>
    * This property is useful for determining the location with a DOM document
    * when an error occurs.
    */
   DOM_CURRENT_ELEMENT_NODE (EXMLParserPropertyType.DOM, "http://apache.org/xml/properties/dom/current-element-node", org.w3c.dom.Element.class),
   /**
    * The fully qualified name of the class implementing the org.w3c.dom.Document
-   * interface. The implementation used must have a zero argument constructor.<br/>
+   * interface. The implementation used must have a zero argument constructor.<br>
    * When the document class name is set to a value other than the name of the
    * default document factory, the deferred node expansion feature does not
    * work.
@@ -178,14 +179,14 @@ public enum EXMLParserProperty implements IHasName
   /**
    * The DOM node currently being visited, if SAX is being used as a DOM
    * iterator. If the parser recognizes and supports this property but is not
-   * currently visiting a DOM node, it should return null.<br/>
+   * currently visiting a DOM node, it should return null.<br>
    * This property is only for SAX parser implementations used as DOM tree
    * walkers. Currently, Xerces does not have this functionality.
    */
   SAX_DOM_NODE (EXMLParserPropertyType.SAX, "http://xml.org/sax/properties/dom-node", org.w3c.dom.Node.class),
   /**
    * A literal string describing the actual XML version of the document, such as
-   * "1.0" or "1.1".<br/>
+   * "1.0" or "1.1".<br>
    * This property may only be examined during a parse after the startDocument
    * callback has been completed.
    */

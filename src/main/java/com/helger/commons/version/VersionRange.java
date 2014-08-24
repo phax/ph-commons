@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * This class represents a range of versions. Each range needs at least a lower
  * bound but can as well have an upper bound. See OSGi v4 reference 3.2.5
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -68,17 +68,17 @@ public final class VersionRange implements Comparable <VersionRange>, IHasString
    * Construct a version range object from a string.<br>
    * Examples:<br>
    * <ul>
-   * <li>[1.2.3, 4.5.6) -- 1.2.3 <= x < 4.5.6</li>
-   * <li>[1.2.3, 4.5.6] -- 1.2.3 <= x <= 4.5.6</li>
-   * <li>(1.2.3, 4.5.6) -- 1.2.3 < x < 4.5.6</li>
-   * <li>(1.2.3, 4.5.6] -- 1.2.3 < x <= 4.5.6</li>
-   * <li>1.2.3 -- 1.2.3 <= x</li>
-   * <li>[1.2.3 -- 1.2.3 <= x</li>
-   * <li>(1.2.3 -- 1.2.3 < x</li>
-   * <li><i>null</i> -- 0.0.0 <= x</li>
-   * <li>1, 4 -- 1 <= x <= 4</li>
+   * <li>[1.2.3, 4.5.6) -- 1.2.3 &lt;= x &lt; 4.5.6</li>
+   * <li>[1.2.3, 4.5.6] -- 1.2.3 &lt;= x &lt;= 4.5.6</li>
+   * <li>(1.2.3, 4.5.6) -- 1.2.3 &lt; x &lt; 4.5.6</li>
+   * <li>(1.2.3, 4.5.6] -- 1.2.3 &lt; x &lt;= 4.5.6</li>
+   * <li>1.2.3 -- 1.2.3 &lt;= x</li>
+   * <li>[1.2.3 -- 1.2.3 &lt;= x</li>
+   * <li>(1.2.3 -- 1.2.3 &lt; x</li>
+   * <li><i>null</i> -- 0.0.0 &lt;= x</li>
+   * <li>1, 4 -- 1 &lt;= x &lt;= 4</li>
    * </ul>
-   * 
+   *
    * @param sVersionString
    *        the version range in a string format as depicted above
    * @throws IllegalArgumentException
@@ -163,7 +163,7 @@ public final class VersionRange implements Comparable <VersionRange>, IHasString
    * Create a new version range depicted by two versions, assuming that both the
    * floor and the ceiling version should be included meaning we have an
    * inclusive interval.
-   * 
+   *
    * @param aFloorVersion
    *        the floor version of the range - may not be null
    * @param aCeilingVersion
@@ -179,7 +179,7 @@ public final class VersionRange implements Comparable <VersionRange>, IHasString
 
   /**
    * Create a new version range depicted by two versions.
-   * 
+   *
    * @param aFloorVersion
    *        the floor version of the range - may not be null
    * @param bIncludeFloorVersion
@@ -256,7 +256,7 @@ public final class VersionRange implements Comparable <VersionRange>, IHasString
   /**
    * Compare this version range to another version range. Returns -1 if this is
    * &lt; than the passed version or +1 if this is &gt; the passed version range
-   * 
+   *
    * @param rhs
    *        the version range to compare to
    * @return 0 if the passed version range is equal to this version range<br>
@@ -318,7 +318,7 @@ public final class VersionRange implements Comparable <VersionRange>, IHasString
    * If a ceiling version is present, the ceiling version is appended with a
    * single comma as a delimiter.<br>
    * Example return: "[1.2.3,4.5.6)"
-   * 
+   *
    * @return The version range in a parseable string format.
    */
   @Nonnull
@@ -333,7 +333,7 @@ public final class VersionRange implements Comparable <VersionRange>, IHasString
    * If a ceiling version is present, the ceiling version is appended with a
    * single comma as a delimiter.<br>
    * Example return: "[1.2.3,4.5.6)"
-   * 
+   *
    * @param bPrintZeroElements
    *        If <code>true</code> than trailing zeroes are printed, otherwise
    *        printed zeroes are not printed.

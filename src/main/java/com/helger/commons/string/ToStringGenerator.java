@@ -33,7 +33,8 @@ import javax.annotation.concurrent.NotThreadSafe;
  * <p>
  * A real world example for a final class derived from {@link Object} or a base
  * class looks like this:
- * 
+ * </p>
+ *
  * <pre>
  * &#064;Override
  * public String toString ()
@@ -41,12 +42,11 @@ import javax.annotation.concurrent.NotThreadSafe;
  *   return new ToStringGenerator (this).append (&quot;member1&quot;, member1).append (&quot;member2&quot;, member2).toString ();
  * }
  * </pre>
- * 
- * </p>
  * <p>
  * For a derived class, the typical code looks like this, assuming that the base
  * class also used the {@link ToStringGenerator}:
- * 
+ * </p>
+ *
  * <pre>
  * &#064;Override
  * public String toString ()
@@ -57,8 +57,6 @@ import javax.annotation.concurrent.NotThreadSafe;
  *                           .toString ();
  * }
  * </pre>
- * 
- * </p>
  *
  * @author Philip Helger
  */

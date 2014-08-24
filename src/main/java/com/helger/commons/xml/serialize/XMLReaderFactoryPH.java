@@ -41,7 +41,7 @@ import com.helger.commons.priviledged.PrivilegedActionSystemGetProperty;
  * This class contains static methods for creating an XML reader from an
  * explicit class name, or based on runtime defaults:
  * </p>
- * 
+ *
  * <pre>
  * try
  * {
@@ -65,7 +65,7 @@ import com.helger.commons.priviledged.PrivilegedActionSystemGetProperty;
  * the class name was read from a JAR file and this method is invoked a second
  * time!
  * </p>
- * 
+ *
  * @since SAX 2.0
  * @author David Megginson, David Brownell
  * @version 2.0.1 (sax2r2)
@@ -130,7 +130,7 @@ public final class XMLReaderFactoryPH
    * This code is designed to compile and run on JDK version 1.1 and later
    * including versions of Java 2.
    * </p>
-   * 
+   *
    * @author Edwin Goei, David Brownell
    * @version 2.0.1 (sax2r2)
    */
@@ -177,9 +177,11 @@ public final class XMLReaderFactoryPH
   private static String _jarreadClassname;
 
   /**
+   * <p>
    * Attempt to create an XMLReader from system defaults. In environments which
    * can support it, the name of the XMLReader class is determined by trying
-   * each these options in order, and using the first one which succeeds:</p>
+   * each these options in order, and using the first one which succeeds:
+   * </p>
    * <ul>
    * <li>If the system property <code>org.xml.sax.driver</code> has a value,
    * that is used as an XMLReader class name.</li>
@@ -202,7 +204,7 @@ public final class XMLReaderFactoryPH
    * application portability to older SAX environments, with less robust
    * implementations of this method.
    * </p>
-   * 
+   *
    * @return A new XMLReader.
    * @exception org.xml.sax.SAXException
    *            If no default XMLReader class can be identified and
@@ -307,7 +309,7 @@ public final class XMLReaderFactoryPH
    * Note that this method will not be usable in environments where the caller
    * (perhaps an applet) is not permitted to load classes dynamically.
    * </p>
-   * 
+   *
    * @return A new XML reader.
    * @exception org.xml.sax.SAXException
    *            If the class cannot be loaded, instantiated, and cast to

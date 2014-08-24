@@ -26,7 +26,7 @@ import com.helger.commons.annotations.UnsupportedOperation;
 
 /**
  * Provides an iterator over Unicode Codepoints
- * 
+ *
  * @author Apache Abdera
  * @author Philip Helger
  */
@@ -45,12 +45,12 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
   }
 
   /**
-   * Get the next char
+   * @return Get the next char
    */
   protected abstract char get ();
 
   /**
-   * Get the specified char
+   * @return Get the specified char
    */
   protected abstract char get (int index);
 

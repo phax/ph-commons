@@ -27,7 +27,7 @@ import com.helger.commons.annotations.Nonempty;
 /**
  * Base interface for an URL protocol descriptor. See {@link EURLProtocol} for
  * an implementation.
- * 
+ *
  * @author Philip Helger
  */
 public interface IURLProtocol extends Serializable
@@ -41,7 +41,7 @@ public interface IURLProtocol extends Serializable
 
   /**
    * Tells if the passed String (URL) belongs to this protocol.
-   * 
+   *
    * @param sURL
    *        The URL to check. May be <code>null</code>.
    * @return <code>true</code> if the passed URL starts with this protocol
@@ -50,7 +50,7 @@ public interface IURLProtocol extends Serializable
 
   /**
    * Prefix the passed URL with this protocol.
-   * 
+   *
    * @param sURL
    *        The URL to be prefixed. May be <code>null</code>.
    * @return <code>null</code> if the parameter is <code>null</code>. The
@@ -63,7 +63,7 @@ public interface IURLProtocol extends Serializable
   /**
    * Prefix the passed URL with this protocol if the URL does not have a
    * protocol yet.
-   * 
+   *
    * @param sURL
    *        The URL to be prefixed. May be <code>null</code>.
    * @return <code>null</code> if the parameter is <code>null</code>. The
@@ -74,7 +74,7 @@ public interface IURLProtocol extends Serializable
 
   /**
    * @return <code>true</code> if this protocol can handle HTTP query parameters
-   *         (?x=y&z=1)
+   *         (?x=y&amp;z=1)
    */
   boolean allowsForQueryParameters ();
 }

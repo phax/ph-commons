@@ -38,7 +38,7 @@ import com.helger.commons.xml.EXMLVersion;
 
 /**
  * This class contains all the methods for masking XML content.
- * 
+ *
  * @author Philip Helger
  */
 public final class XMLMaskHelper
@@ -321,9 +321,9 @@ public final class XMLMaskHelper
   /**
    * Get the entity reference for the specified character. This returns e.g.
    * &amp;lt; for '&lt;' etc. This method has special handling for &lt;, &gt;,
-   * &amp;, &quot; and &apos;. All other chars are encoded by their numeric
-   * value (e.g. &amp;#200;)
-   * 
+   * &amp;, &quot; and '. All other chars are encoded by their numeric value
+   * (e.g. &amp;#200;)
+   *
    * @param c
    *        Character to use.
    * @return The entity reference string. Never <code>null</code> nor empty.
@@ -348,9 +348,9 @@ public final class XMLMaskHelper
   /**
    * Get the entity reference for the specified character. This returns e.g.
    * &amp;lt; for '&lt;' etc. This method has special handling for &lt;, &gt;,
-   * &amp;, &quot; and &apos;. All other chars are encoded by their numeric
-   * value (e.g. &amp;#200;)
-   * 
+   * &amp;, &quot; and '. All other chars are encoded by their numeric value
+   * (e.g. &amp;#200;)
+   *
    * @param c
    *        Character to use.
    * @return The entity reference string. Never <code>null</code> nor empty.
@@ -381,7 +381,7 @@ public final class XMLMaskHelper
    * their numeric value (e.g. <code>&amp;#200;</code>). In contrast to
    * {@link #getXML10EntityReferenceString(char)} this method does not handle
    * <code>&amp;apos;</code>
-   * 
+   *
    * @param c
    *        Character to use.
    * @return The entity reference string. Never <code>null</code> nor empty.
@@ -539,7 +539,7 @@ public final class XMLMaskHelper
 
   /**
    * Convert the passed set to an array
-   * 
+   *
    * @param aChars
    *        Character set to use. May not be <code>null</code>.
    * @return A new array with the same length as the source set.

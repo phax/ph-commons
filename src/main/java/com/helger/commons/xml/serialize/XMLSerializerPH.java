@@ -43,8 +43,8 @@ import com.helger.commons.xml.XMLHelper;
 
 /**
  * org.w3c.dom.Node serializer that correctly handles HTML empty elements
- * (&lt;span>&lt;/span> vs. &lt;span />).
- * 
+ * (&lt;span&gt;&lt;/span&gt; vs. &lt;span /&gt;).
+ *
  * @author Philip Helger
  */
 public final class XMLSerializerPH extends AbstractXMLSerializer <Node>

@@ -31,7 +31,7 @@ import com.helger.commons.tree.IBasicTreeItem;
 /**
  * Represents a basic tree item with an ID. Never use this class directly but
  * provide a sub interface that specifies the generic T parameter.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        The type of the ID.
@@ -70,7 +70,7 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   /**
    * Check if a direct child item with the given ID is present
-   * 
+   *
    * @param aDataID
    *        The ID to search. May be <code>null</code>.
    * @return <code>true</code> if this item has a child with the given ID,
@@ -80,7 +80,7 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   /**
    * Find the direct child item with the given ID
-   * 
+   *
    * @param aDataID
    *        The ID to search. May be <code>null</code>.
    * @return <code>null</code> if this item has no child with the given ID. The
@@ -91,7 +91,7 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   /**
    * Add an existing direct child to this tree item. Use only internally!
-   * 
+   *
    * @param aDataID
    *        The data ID to use. May not be <code>null</code>.
    * @param aChild
@@ -106,7 +106,7 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   /**
    * Add a direct child item to this item. If another item with the same ID is
    * already contained, the item is automatically overwritten.
-   * 
+   *
    * @param aDataID
    *        ID of the item to generate. May be <code>null</code> in rare
    *        circumstances.
@@ -119,7 +119,7 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   /**
    * Add a direct child item to this item.
-   * 
+   *
    * @param aDataID
    *        ID of the item to generate. May not be <code>null</code>.
    * @param aData
@@ -135,9 +135,9 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   /**
    * Remove the passed node as a direct child node from this node.
-   * 
+   *
    * @param aDataID
-   *        The ID of the element to be removed. May not be <code>null</code.
+   *        The ID of the element to be removed. May not be <code>null</code>.
    * @return {@link EChange}
    */
   @Nonnull
@@ -145,7 +145,7 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   /**
    * Remove all children from this node.
-   * 
+   *
    * @return {@link EChange}
    */
   @Nonnull
@@ -153,7 +153,7 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   /**
    * Reorder the child items based on the item itself.
-   * 
+   *
    * @param aComparator
    *        The comparator use. May not be <code>null</code>.
    */
