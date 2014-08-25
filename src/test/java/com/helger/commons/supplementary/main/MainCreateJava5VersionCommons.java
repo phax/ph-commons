@@ -20,7 +20,7 @@ package com.helger.commons.supplementary.main;
 import java.io.File;
 import java.io.IOException;
 
-import com.phloc.jdk5.CreateJava5Version;
+import com.helger.jdk5.CreateJava5Version;
 
 /**
  * This file is responsible for creating the JDK 5 version of this project!<br>
