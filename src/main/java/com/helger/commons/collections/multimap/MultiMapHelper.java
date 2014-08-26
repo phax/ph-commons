@@ -23,9 +23,11 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.ValueEnforcer;
+
 /**
  * Utility class implementing some common functionality con multi maps
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -37,6 +39,8 @@ public final class MultiMapHelper
   @Nonnegative
   public static long getTotalValueCount (@Nonnull final IMultiMap <?, ?, ?> aMultiMap)
   {
+    ValueEnforcer.notNull (aMultiMap, "MultiMap");
+
     long ret = 0;
     for (final Collection <?> aChild : aMultiMap.values ())
       ret += aChild.size ();

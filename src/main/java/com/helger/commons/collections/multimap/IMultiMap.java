@@ -28,7 +28,7 @@ import com.helger.commons.state.EChange;
 
 /**
  * Base interface for a multi map (one key with several values).
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        Key type
@@ -41,7 +41,7 @@ public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VAL
 {
   /**
    * Get or create the collection of the specified key.
-   * 
+   *
    * @param aKey
    *        The key to use. May not be <code>null</code>.
    * @return {@link EChange}
@@ -51,7 +51,7 @@ public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VAL
 
   /**
    * Add a single value into the container identified by the passed key.
-   * 
+   *
    * @param aKey
    *        The key to use. May not be <code>null</code>.
    * @param aValue
@@ -63,7 +63,7 @@ public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VAL
 
   /**
    * Add all values into the container identified by the passed key-value-map.
-   * 
+   *
    * @param aMap
    *        The key-value-map to use. May not be <code>null</code>.
    * @return {@link EChange}
@@ -73,7 +73,7 @@ public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VAL
 
   /**
    * Remove a single element from the container identified by the passed key.
-   * 
+   *
    * @param aKey
    *        The key to use. May not be <code>null</code>.
    * @param aValue
@@ -86,17 +86,19 @@ public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VAL
   /**
    * Check a single element from the container identified by the passed key is
    * present.
-   * 
+   *
    * @param aKey
    *        The key to use. May not be <code>null</code>.
    * @param aValue
    *        The value to be checked. May be <code>null</code>.
-   * @return {@link EChange}
+   * @return <code>true</code> if the value is contained, <code>false</code>
+   *         otherwise
    */
   boolean containsSingle (@Nonnull KEYTYPE aKey, @Nullable VALUETYPE aValue);
 
   /**
-   * @return The total number of contained values. Always &ge; 0.
+   * @return The total number of contained values recursively over all contained
+   *         maps. Always &ge; 0.
    */
   @Nonnegative
   long getTotalValueCount ();
