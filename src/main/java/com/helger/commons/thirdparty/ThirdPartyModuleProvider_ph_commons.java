@@ -29,7 +29,7 @@ import com.helger.commons.version.Version;
  * @author Philip Helger
  */
 @IsSPIImplementation
-public final class ThirdPartyModuleProvider_phloc_commons implements IThirdPartyModuleProviderSPI
+public final class ThirdPartyModuleProvider_ph_commons implements IThirdPartyModuleProviderSPI
 {
   public static final IThirdPartyModule FINDBUGS = new ThirdPartyModule ("FindBugs JSR305 and annotations",
                                                                          "Bill Pugh and David Hovemeyer",
