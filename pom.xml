@@ -153,8 +153,20 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Export-Package>com.helger.commons.*</Export-Package>
+            <Export-Package>
+              com.helger.commons.*
+            </Export-Package>
           </instructions>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <!-- Ignore because of charset issues -->
+            <exclude>src/test/resources/properties/**</exclude>
+          </excludes>
         </configuration>
       </plugin>
     </plugins>
