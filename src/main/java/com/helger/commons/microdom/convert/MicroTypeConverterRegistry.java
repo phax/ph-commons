@@ -56,10 +56,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
 
   static
   {
-    // Register all custom micro type converter
-    for (final IMicroTypeConverterRegistrarSPI aSPI : ServiceLoaderUtils.getAllSPIImplementations (IMicroTypeConverterRegistrarSPI.class))
-      aSPI.registerMicroTypeConverter (s_aInstance);
-    s_aLogger.info (getRegisteredMicroTypeConverterCount () + " micro type converters registered");
+    reinitialize ();
   }
 
   private MicroTypeConverterRegistry ()
@@ -216,5 +213,23 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     {
       s_aRWLock.readLock ().unlock ();
     }
+  }
+
+  public static void reinitialize ()
+  {
+    s_aRWLock.writeLock ().lock ();
+    try
+    {
+      s_aMap.clear ();
+    }
+    finally
+    {
+      s_aRWLock.writeLock ().unlock ();
+    }
+
+    // Register all custom micro type converter
+    for (final IMicroTypeConverterRegistrarSPI aSPI : ServiceLoaderUtils.getAllSPIImplementations (IMicroTypeConverterRegistrarSPI.class))
+      aSPI.registerMicroTypeConverter (s_aInstance);
+    s_aLogger.info (getRegisteredMicroTypeConverterCount () + " micro type converters registered");
   }
 }

@@ -79,6 +79,15 @@ public final class SystemProperties
   }
 
   /**
+   * Clear the cache with the property names, for which warnings were emitted
+   * that keys don't exist.
+   */
+  public static void clearWarnedPropertyNames ()
+  {
+    s_aWarnedPropertyNames.clear ();
+  }
+
+  /**
    * Set a system property value under consideration of an eventually present
    * {@link SecurityManager}.
    *

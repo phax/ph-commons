@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
@@ -40,7 +41,7 @@ import com.helger.commons.lang.ServiceLoaderUtils;
  * A central registry for supported URL protocols. By default, the registry will
  * include all protocols contained in {@link EURLProtocol}, but it may be
  * extended by custom protocols
- * 
+ *
  * @author Boris Gregorcic
  * @author Philip Helger
  */
@@ -79,26 +80,26 @@ public final class URLProtocolRegistry
       // Add all default protocols
       for (final EURLProtocol aProtocol : EURLProtocol.values ())
         s_aProtocols.put (aProtocol.getProtocol (), aProtocol);
-
-      // Load all SPI implementations
-      for (final IURLProtocolRegistrarSPI aRegistrar : ServiceLoaderUtils.getAllSPIImplementations (IURLProtocolRegistrarSPI.class))
-      {
-        s_aLogger.info ("Registering custom URL protocols of " + aRegistrar.getClass ().getCanonicalName () + "...");
-        final Set <? extends IURLProtocol> aURLProtocols = aRegistrar.getProtocols ();
-        if (aURLProtocols != null)
-          for (final IURLProtocol aSPIProtocol : aURLProtocols)
-            registerProtocol (aSPIProtocol);
-      }
     }
     finally
     {
       s_aRWLock.writeLock ().unlock ();
     }
+
+    // Load all SPI implementations
+    for (final IURLProtocolRegistrarSPI aRegistrar : ServiceLoaderUtils.getAllSPIImplementations (IURLProtocolRegistrarSPI.class))
+    {
+      final Set <? extends IURLProtocol> aURLProtocols = aRegistrar.getProtocols ();
+      if (aURLProtocols != null)
+        for (final IURLProtocol aSPIProtocol : aURLProtocols)
+          registerProtocol (aSPIProtocol);
+    }
+    s_aLogger.info (getRegisteredProtocolCount () + " URL protocols registered");
   }
 
   /**
    * Registers a new protocol
-   * 
+   *
    * @param aProtocol
    *        The protocol to be registered. May not be <code>null</code>.
    * @throws IllegalArgumentException
@@ -141,9 +142,23 @@ public final class URLProtocolRegistry
     }
   }
 
+  @Nonnegative
+  public static int getRegisteredProtocolCount ()
+  {
+    s_aRWLock.readLock ().lock ();
+    try
+    {
+      return s_aProtocols.size ();
+    }
+    finally
+    {
+      s_aRWLock.readLock ().unlock ();
+    }
+  }
+
   /**
    * Try to evaluate the matching URL protocol from the passed URL
-   * 
+   *
    * @param sURL
    *        The URL to get the protocol from
    * @return The corresponding URL protocol or <code>null</code> if unresolved
@@ -170,7 +185,7 @@ public final class URLProtocolRegistry
 
   /**
    * Try to evaluate the matching URL protocol from the passed URL
-   * 
+   *
    * @param aURL
    *        The URL data
    * @return The corresponding URL protocol or <code>null</code> if unresolved
@@ -183,7 +198,7 @@ public final class URLProtocolRegistry
 
   /**
    * Check if the passed URL has any known protocol
-   * 
+   *
    * @param sURL
    *        The URL to analyze
    * @return <code>true</code> if the protocol is known, <code>false</code>
@@ -196,7 +211,7 @@ public final class URLProtocolRegistry
 
   /**
    * Check if the passed URL has any known protocol
-   * 
+   *
    * @param aURL
    *        The URL to analyze
    * @return <code>true</code> if the protocol is known, <code>false</code>
@@ -209,7 +224,7 @@ public final class URLProtocolRegistry
 
   /**
    * Return the passed URL where the protocol has been stripped (if known)
-   * 
+   *
    * @param sURL
    *        The URL to strip the protocol from. May be <code>null</code>.
    * @return The passed URL where any known protocol has been stripped

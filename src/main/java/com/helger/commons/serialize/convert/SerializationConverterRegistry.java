@@ -39,7 +39,7 @@ import com.helger.commons.lang.ServiceLoaderUtils;
 
 /**
  * The registry that keeps the mappings for serialization converters.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -55,10 +55,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
 
   static
   {
-    // Register all custom micro type converter
-    for (final ISerializationConverterRegistrarSPI aSPI : ServiceLoaderUtils.getAllSPIImplementations (ISerializationConverterRegistrarSPI.class))
-      aSPI.registerSerializationConverter (s_aInstance);
-    s_aLogger.info (getRegisteredSerializationConverterCount () + " serialization converters registered");
+    reinitialize ();
   }
 
   private SerializationConverterRegistry ()
@@ -83,7 +80,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
    * Register type converters from and to XML (IMicroElement). This method is
    * private to avoid later modification of the available type converters,
    * because this may lead to unexpected results.
-   * 
+   *
    * @param aClass
    *        The class to be registered.
    * @param aConverter
@@ -165,7 +162,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
   /**
    * Iterate all registered serialization converters. For informational purposes
    * only.
-   * 
+   *
    * @param aCallback
    *        The callback invoked for all iterations.
    */
@@ -201,5 +198,23 @@ public final class SerializationConverterRegistry implements ISerializationConve
     {
       s_aRWLock.readLock ().unlock ();
     }
+  }
+
+  public static void reinitialize ()
+  {
+    s_aRWLock.writeLock ().lock ();
+    try
+    {
+      s_aMap.clear ();
+    }
+    finally
+    {
+      s_aRWLock.writeLock ().unlock ();
+    }
+
+    // Register all custom micro type converter
+    for (final ISerializationConverterRegistrarSPI aSPI : ServiceLoaderUtils.getAllSPIImplementations (ISerializationConverterRegistrarSPI.class))
+      aSPI.registerSerializationConverter (s_aInstance);
+    s_aLogger.info (getRegisteredSerializationConverterCount () + " serialization converters registered");
   }
 }

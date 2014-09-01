@@ -67,13 +67,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
 
   static
   {
-    // Register all custom type converter
-    for (final ITypeConverterRegistrarSPI aSPI : ServiceLoaderUtils.getAllSPIImplementations (ITypeConverterRegistrarSPI.class))
-      aSPI.registerTypeConverter (s_aInstance);
-    s_aLogger.info (getRegisteredTypeConverterCount () +
-                    " type converters and " +
-                    getRegisteredTypeConverterRuleCount () +
-                    " rules registered");
+    reinitialize ();
   }
 
   private TypeConverterRegistry ()
@@ -441,5 +435,27 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     {
       s_aRWLock.readLock ().unlock ();
     }
+  }
+
+  public static void reinitialize ()
+  {
+    s_aRWLock.writeLock ().lock ();
+    try
+    {
+      s_aConverter.clear ();
+      s_aRules.clear ();
+    }
+    finally
+    {
+      s_aRWLock.writeLock ().unlock ();
+    }
+
+    // Register all custom type converter
+    for (final ITypeConverterRegistrarSPI aSPI : ServiceLoaderUtils.getAllSPIImplementations (ITypeConverterRegistrarSPI.class))
+      aSPI.registerTypeConverter (s_aInstance);
+    s_aLogger.info (getRegisteredTypeConverterCount () +
+                    " type converters and " +
+                    getRegisteredTypeConverterRuleCount () +
+                    " rules registered");
   }
 }

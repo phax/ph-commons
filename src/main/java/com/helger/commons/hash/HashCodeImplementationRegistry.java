@@ -42,7 +42,7 @@ import com.helger.commons.state.EChange;
 /**
  * The main registry for the different {@link IHashCodeImplementation}
  * implementations.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -81,15 +81,32 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
 
   private HashCodeImplementationRegistry ()
   {
-    // Register all implementations via SPI
-    for (final IHashCodeImplementationRegistrarSPI aRegistrar : ServiceLoaderUtils.getAllSPIImplementations (IHashCodeImplementationRegistrarSPI.class))
-      aRegistrar.registerHashCodeImplementations (this);
+    _reinitialize ();
   }
 
   @Nonnull
   public static HashCodeImplementationRegistry getInstance ()
   {
     return s_aInstance;
+  }
+
+  private final void _reinitialize ()
+  {
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      m_aMap.clear ();
+      m_aDirectHashCode.clearCache ();
+      m_aImplementsHashCode.clear ();
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+
+    // Register all implementations via SPI
+    for (final IHashCodeImplementationRegistrarSPI aRegistrar : ServiceLoaderUtils.getAllSPIImplementations (IHashCodeImplementationRegistrarSPI.class))
+      aRegistrar.registerHashCodeImplementations (this);
   }
 
   public void registerHashCodeImplementation (@Nonnull final Class <?> aClass,
@@ -296,6 +313,6 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
 
   public static void clearCache ()
   {
-    s_aInstance.m_aDirectHashCode.clearCache ();
+    s_aInstance._reinitialize ();
   }
 }

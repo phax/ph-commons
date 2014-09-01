@@ -41,7 +41,7 @@ import com.helger.commons.state.EChange;
 
 /**
  * The default implementation of {@link IEqualsImplementationRegistry}.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -84,15 +84,32 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
 
   private EqualsImplementationRegistry ()
   {
-    // Register all implementations via SPI
-    for (final IEqualsImplementationRegistrarSPI aRegistrar : ServiceLoaderUtils.getAllSPIImplementations (IEqualsImplementationRegistrarSPI.class))
-      aRegistrar.registerEqualsImplementations (this);
+    _reinitialize ();
   }
 
   @Nonnull
   public static EqualsImplementationRegistry getInstance ()
   {
     return s_aInstance;
+  }
+
+  private final void _reinitialize ()
+  {
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      m_aMap.clear ();
+      m_aDirectEquals.clearCache ();
+      m_aImplementsEquals.clear ();
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+
+    // Register all implementations via SPI
+    for (final IEqualsImplementationRegistrarSPI aRegistrar : ServiceLoaderUtils.getAllSPIImplementations (IEqualsImplementationRegistrarSPI.class))
+      aRegistrar.registerEqualsImplementations (this);
   }
 
   public void registerEqualsImplementation (@Nonnull final Class <?> aClass, @Nonnull final IEqualsImplementation aImpl)
@@ -325,6 +342,6 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
 
   public static void clearCache ()
   {
-    s_aInstance.m_aDirectEquals.clearCache ();
+    s_aInstance._reinitialize ();
   }
 }

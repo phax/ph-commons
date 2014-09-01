@@ -33,7 +33,7 @@ import com.helger.commons.state.EChange;
 
 /**
  * This class manages all registered third party modules
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -44,14 +44,7 @@ public final class ThirdPartyModuleRegistry
 
   static
   {
-    // Load all SPI implementations
-    for (final IThirdPartyModuleProviderSPI aTPM : ServiceLoaderUtils.getAllSPIImplementations (IThirdPartyModuleProviderSPI.class))
-    {
-      final IThirdPartyModule [] aModules = aTPM.getAllThirdPartyModules ();
-      if (aModules != null)
-        for (final IThirdPartyModule aModule : aModules)
-          registerThirdPartyModule (aModule);
-    }
+    reinitialize ();
   }
 
   @PresentForCodeCoverage
@@ -89,6 +82,28 @@ public final class ThirdPartyModuleRegistry
     finally
     {
       s_aRWLock.readLock ().unlock ();
+    }
+  }
+
+  public static void reinitialize ()
+  {
+    s_aRWLock.writeLock ().lock ();
+    try
+    {
+      s_aModules.clear ();
+    }
+    finally
+    {
+      s_aRWLock.writeLock ().unlock ();
+    }
+
+    // Load all SPI implementations
+    for (final IThirdPartyModuleProviderSPI aTPM : ServiceLoaderUtils.getAllSPIImplementations (IThirdPartyModuleProviderSPI.class))
+    {
+      final IThirdPartyModule [] aModules = aTPM.getAllThirdPartyModules ();
+      if (aModules != null)
+        for (final IThirdPartyModule aModule : aModules)
+          registerThirdPartyModule (aModule);
     }
   }
 }

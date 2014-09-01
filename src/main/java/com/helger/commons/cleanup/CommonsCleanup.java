@@ -18,6 +18,7 @@ package com.helger.commons.cleanup;
 
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.SystemProperties;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.compare.CollatorUtils;
 import com.helger.commons.equals.EqualsImplementationRegistry;
@@ -29,12 +30,16 @@ import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleUtils;
 import com.helger.commons.locale.country.CountryCache;
+import com.helger.commons.microdom.convert.MicroTypeConverterRegistry;
 import com.helger.commons.mime.MimeTypeDeterminator;
 import com.helger.commons.mime.MimeTypeInfoManager;
 import com.helger.commons.regex.RegExPool;
+import com.helger.commons.serialize.convert.SerializationConverterRegistry;
 import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.text.resolve.DefaultTextResolver;
 import com.helger.commons.text.resource.ResourceBundleUtils;
+import com.helger.commons.thirdparty.ThirdPartyModuleRegistry;
+import com.helger.commons.typeconvert.TypeConverterRegistry;
 import com.helger.commons.url.URLProtocolRegistry;
 import com.helger.commons.xml.schema.XMLSchemaCache;
 
@@ -65,6 +70,10 @@ public final class CommonsCleanup
     CountryCache.resetCache ();
     MimeTypeDeterminator.resetCache ();
     MimeTypeInfoManager.getDefaultInstance ().resetCache ();
+    MicroTypeConverterRegistry.reinitialize ();
+    SerializationConverterRegistry.reinitialize ();
+    ThirdPartyModuleRegistry.reinitialize ();
+    TypeConverterRegistry.reinitialize ();
     URLProtocolRegistry.reinitialize ();
 
     // Clear caches
@@ -82,6 +91,7 @@ public final class CommonsCleanup
     StatisticsManager.clearCache ();
     EqualsImplementationRegistry.clearCache ();
     HashCodeImplementationRegistry.clearCache ();
+    SystemProperties.clearWarnedPropertyNames ();
 
     // Clean this one last as it is used in equals and hashCode implementations!
     ClassHierarchyCache.clearCache ();
