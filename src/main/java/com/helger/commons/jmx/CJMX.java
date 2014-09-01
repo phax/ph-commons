@@ -1,5 +1,4 @@
 /**
- * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
  * Copyright (C) 2014 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
@@ -29,7 +28,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 @Immutable
 public final class CJMX
 {
-  /** JMX domain for phloc products */
+  /** JMX domain for com.helger products */
   public static final String PH_JMX_DOMAIN = "com.helger";
 
   /** Standard JMX property */

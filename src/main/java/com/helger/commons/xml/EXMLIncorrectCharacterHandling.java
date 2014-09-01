@@ -1,5 +1,4 @@
 /**
- * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
  * Copyright (C) 2014 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
@@ -30,7 +29,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Define what to do, when an invalid character is to be serialized to XML.
- * 
+ *
  * @author Philip Helger
  */
 public enum EXMLIncorrectCharacterHandling
@@ -55,9 +54,9 @@ public enum EXMLIncorrectCharacterHandling
   /**
    * Write the invalid character to the file. This will result in a file that
    * cannot be read with the Java XML parser.<br>
-   * This is the fastest option. This is how it was handled in phloc-commons
-   * &le; 3.3.6. This option will most probably result in unreadable XML files
-   * as no replacement takes place!
+   * This is the fastest option. This is how it was handled in ph-commons &le;
+   * 3.3.6. This option will most probably result in unreadable XML files as no
+   * replacement takes place!
    */
   WRITE_TO_FILE_NO_LOG (false, false)
   {
@@ -120,7 +119,7 @@ public enum EXMLIncorrectCharacterHandling
   };
 
   /**
-   * The default setting as it was in previous versions of phloc-commons
+   * The default setting as it was in previous versions of ph-commons
    */
   public static final EXMLIncorrectCharacterHandling DEFAULT = EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG;
   private static final Logger s_aLogger = LoggerFactory.getLogger (EXMLIncorrectCharacterHandling.class);
@@ -130,7 +129,7 @@ public enum EXMLIncorrectCharacterHandling
 
   /**
    * Constructor
-   * 
+   *
    * @param bIsNotifyRequired
    *        Should {@link #notifyOnInvalidXMLCharacter(String, Set)} be invoked
    *        for this type?
@@ -189,7 +188,7 @@ public enum EXMLIncorrectCharacterHandling
 
   /**
    * Called in case XML data contains an invalid character
-   * 
+   *
    * @param sText
    *        The XML string where the error occurs.
    * @param aInvalidChars

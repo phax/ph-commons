@@ -1,5 +1,4 @@
 /**
- * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
  * Copyright (C) 2014 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
@@ -41,7 +40,7 @@ import com.helger.commons.priviledged.PrivilegedActionSystemSetProperty;
 
 /**
  * This class wraps all the Java system properties like version number etc.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -72,12 +71,8 @@ public final class SystemProperties
       ret = getPropertyValueOrNull (sKey);
       if (ret == null && s_aWarnedPropertyNames.add (sKey))
       {
-        // don't show anything for phloc ;-)
-        if (!sKey.contains ("phloc"))
-        {
-          // Warn about each property once
-          s_aLogger.warn ("System property '" + sKey + "' is not set!");
-        }
+        // Warn about each property once
+        s_aLogger.warn ("System property '" + sKey + "' is not set!");
       }
     }
     return ret;
@@ -86,7 +81,7 @@ public final class SystemProperties
   /**
    * Set a system property value under consideration of an eventually present
    * {@link SecurityManager}.
-   * 
+   *
    * @param sKey
    *        The key of the system property. May not be <code>null</code>.
    * @param sValue
@@ -104,7 +99,7 @@ public final class SystemProperties
   /**
    * Remove a system property value under consideration of an eventually present
    * {@link SecurityManager}.
-   * 
+   *
    * @param sKey
    *        The key of the system property to be removed. May not be
    *        <code>null</code>.
@@ -305,7 +300,7 @@ public final class SystemProperties
 
   /**
    * Check if a system property with the given name exists.
-   * 
+   *
    * @param sPropertyName
    *        The name of the property.
    * @return <code>true</code> if such a system property is present,
@@ -318,7 +313,7 @@ public final class SystemProperties
 
   /**
    * Limit the number of entity expansions.
-   * 
+   *
    * @param nEntityExpansionLimit
    *        A positive integer. Values &ge; 0 are treated as no limit.
    */
@@ -343,7 +338,7 @@ public final class SystemProperties
 
   /**
    * Limit the number of attributes an element can have
-   * 
+   *
    * @param nElementAttributeLimit
    *        A positive integer. Values &ge; 0 are treated as no limit.
    */
@@ -369,7 +364,7 @@ public final class SystemProperties
    * Limit the number of contentmodel nodes that may be created when building a
    * grammar for a W3C XML Schema that contains maxOccurs attributes with values
    * other than "unbounded".
-   * 
+   *
    * @param nMaxOccur
    *        A positive integer. Values &ge; 0 are treated as no limit.
    */
@@ -395,7 +390,7 @@ public final class SystemProperties
    * Limit the total size of all entities that include general and parameter
    * entities. The size is calculated as an aggregation of all entities.<br>
    * This is available since JDK 1.7.0_45/1.8
-   * 
+   *
    * @param nTotalEntitySizeLimit
    *        A positive integer. Values &ge; 0 are treated as no limit.
    */
@@ -419,7 +414,7 @@ public final class SystemProperties
    * users set the limit to the smallest possible number so that malformed xml
    * files can be caught quickly.<br>
    * This is available since JDK 1.7.0_45/1.8
-   * 
+   *
    * @param nMaxGeneralEntitySizeLimit
    *        A positive integer. Values &ge; 0 are treated as no limit.
    */
@@ -444,7 +439,7 @@ public final class SystemProperties
    * limit to the smallest possible number so that malformed xml files can be
    * caught quickly.<br>
    * This is available since JDK 1.7.0_45/1.8
-   * 
+   *
    * @param nMaxParameterEntitySizeLimit
    *        A positive integer. Values &ge; 0 are treated as no limit.
    */

@@ -1,5 +1,4 @@
 /**
- * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
  * Copyright (C) 2014 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
@@ -56,7 +55,7 @@ public final class CommonsCleanup
   {}
 
   /**
-   * Cleanup all custom caches contained in phloc-commons. Loaded SPI
+   * Cleanup all custom caches contained in this library. Loaded SPI
    * implementations are not affected by this method!
    */
   public static void cleanup ()
