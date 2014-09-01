@@ -30,6 +30,7 @@
   <name>ph-commons</name>
   <description>Java 1.6+ Library with tons of utility classes required in all projects</description>
   <url>https://github.com/phax/ph-commons</url>
+  <inceptionYear>2014</inceptionYear>
   
   <licenses>
     <license>
