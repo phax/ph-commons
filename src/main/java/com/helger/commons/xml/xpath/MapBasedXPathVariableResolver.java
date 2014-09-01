@@ -183,9 +183,6 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
   {
     ValueEnforcer.notNull (aVariableName, "VariableName");
 
-    if (m_aVars == null)
-      return null;
-
     final String sLocalName = aVariableName.getLocalPart ();
     return m_aVars.get (sLocalName);
   }

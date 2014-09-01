@@ -17,6 +17,7 @@
  */
 package com.helger.commons.xml.xpath;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnegative;
@@ -24,7 +25,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.namespace.QName;
-import javax.xml.xpath.XPathVariableResolver;
+import javax.xml.xpath.XPathFunction;
+import javax.xml.xpath.XPathFunctionResolver;
 
 import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
@@ -41,30 +43,18 @@ import com.helger.commons.string.ToStringGenerator;
  * used as the key in the map. The namespace is not-ignored in this class.
  *
  * @author Philip Helger
- * @see MapBasedXPathVariableResolver
  */
 @NotThreadSafe
-public class MapBasedXPathVariableResolverQName implements XPathVariableResolver, ICloneable <MapBasedXPathVariableResolverQName>
+public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICloneable <MapBasedXPathFunctionResolver>
 {
-  private final Map <QName, Object> m_aVars;
+  private final Map <XPathFunctionKey, XPathFunction> m_aVars;
 
   /**
    * Default ctor.
    */
-  public MapBasedXPathVariableResolverQName ()
+  public MapBasedXPathFunctionResolver ()
   {
-    this ((Map <QName, ?>) null);
-  }
-
-  /**
-   * Ctor taking another map.
-   *
-   * @param aVars
-   *        Variables to re-use. May be <code>null</code>.
-   */
-  public MapBasedXPathVariableResolverQName (@Nullable final Map <QName, ?> aVars)
-  {
-    m_aVars = ContainerHelper.newMap (aVars);
+    m_aVars = new HashMap <XPathFunctionKey, XPathFunction> ();
   }
 
   /**
@@ -73,87 +63,100 @@ public class MapBasedXPathVariableResolverQName implements XPathVariableResolver
    * @param aOther
    *        Object to copy data from
    */
-  public MapBasedXPathVariableResolverQName (@Nonnull final MapBasedXPathVariableResolverQName aOther)
+  public MapBasedXPathFunctionResolver (@Nonnull final MapBasedXPathFunctionResolver aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
     m_aVars = ContainerHelper.newMap (aOther.m_aVars);
   }
 
   /**
-   * Add a new variable.
+   * Add a new function.
    *
    * @param aName
-   *        The qualified name of the variable
-   * @param aValue
-   *        The value to be used.
+   *        The qualified name of the function
+   * @param nArity
+   *        The number of parameters of the function
+   * @param aFunction
+   *        The function to be used. May not be <code>null</code>.
    * @return {@link EChange}
    */
   @Nonnull
-  public EChange addUniqueVariable (@Nonnull final QName aName, @Nonnull final Object aValue)
+  public EChange addUniqueFunction (@Nonnull final QName aName,
+                                    @Nonnegative final int nArity,
+                                    @Nonnull final XPathFunction aFunction)
   {
     ValueEnforcer.notNull (aName, "Name");
-    ValueEnforcer.notNull (aValue, "Value");
+    ValueEnforcer.notNull (aFunction, "Value");
 
-    if (m_aVars.containsKey (aName))
+    final XPathFunctionKey aKey = new XPathFunctionKey (aName, nArity);
+    if (m_aVars.containsKey (aKey))
       return EChange.UNCHANGED;
-    m_aVars.put (aName, aValue);
+    m_aVars.put (aKey, aFunction);
     return EChange.CHANGED;
   }
 
   /**
-   * Remove the variable with the specified name.
+   * Remove the function with the specified name.
    *
    * @param aName
-   *        The name to be removed. May be <code>null</code>.
+   *        The name to be removed. May not be <code>null</code>.
+   * @param nArity
+   *        The number of parameters of the function. Must be &ge; 0.
    * @return {@link EChange}
    */
   @Nonnull
-  public EChange removeVariable (@Nullable final QName aName)
+  public EChange removeFunction (@Nonnull final QName aName, @Nonnegative final int nArity)
   {
-    return EChange.valueOf (m_aVars.remove (aName) != null);
+    final XPathFunctionKey aKey = new XPathFunctionKey (aName, nArity);
+    return EChange.valueOf (m_aVars.remove (aKey) != null);
   }
 
   /**
-   * Remove multiple variables at once.
+   * Remove all functions with the same name. This can be helpful when the same
+   * function is registered for multiple parameters.
    *
-   * @param aNames
-   *        The names to be removed. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if at least one variable was removed.
+   * @param aName
+   *        The name to be removed. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if at least one function was removed.
    */
   @Nonnull
-  public EChange removeVariables (@Nullable final Iterable <QName> aNames)
+  public EChange removeFunctionsWithName (@Nullable final QName aName)
   {
     EChange eChange = EChange.UNCHANGED;
-    if (aNames != null)
-      for (final QName aName : aNames)
-        eChange = eChange.or (removeVariable (aName));
+    if (aName != null)
+    {
+      // Make a copy of the key set to allow for inline modification
+      for (final XPathFunctionKey aKey : ContainerHelper.newList (m_aVars.keySet ()))
+        if (aKey.getFunctionName ().equals (aName))
+          eChange = eChange.or (removeFunction (aName, aKey.getArity ()));
+    }
     return eChange;
   }
 
   /**
-   * @return A mutable copy of all contained variables. Never <code>null</code>
+   * @return A mutable copy of all contained functions. Never <code>null</code>
    *         but maybe empty.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Map <QName, ?> getAllVariables ()
+  public Map <XPathFunctionKey, ?> getAllFunctions ()
   {
     return ContainerHelper.newMap (m_aVars);
   }
 
   /**
-   * @return The number of contained variables. Always &ge; 0.
+   * @return The number of contained functions. Always &ge; 0.
    */
   @Nonnegative
-  public int getVariableCount ()
+  public int getFunctionCount ()
   {
     return m_aVars.size ();
   }
 
   /**
-   * Remove all variables at once.
+   * Remove all functions at once.
    *
-   * @return {@link EChange#CHANGED} if at least one variable was removed.
+   * @return {@link EChange#CHANGED} if at least one function was removed.
    */
   @Nonnull
   public EChange clear ()
@@ -164,32 +167,23 @@ public class MapBasedXPathVariableResolverQName implements XPathVariableResolver
     return EChange.CHANGED;
   }
 
-  /**
-   * Set multiple variables at once.
-   *
-   * @param aVars
-   *        The variables to be set. May be <code>null</code>.
-   */
-  public void setAllVariables (@Nullable final Map <QName, ?> aVars)
+  @Nullable
+  public XPathFunction resolveFunction (@Nonnull final QName aFunctionName, @Nonnegative final int nArity)
   {
-    m_aVars.clear ();
-    if (aVars != null)
-      m_aVars.putAll (aVars);
+    return resolveFunction (new XPathFunctionKey (aFunctionName, nArity));
   }
 
   @Nullable
-  public Object resolveVariable (@Nonnull final QName aVariableName)
+  public XPathFunction resolveFunction (@Nullable final XPathFunctionKey aFunctionKey)
   {
-    ValueEnforcer.notNull (aVariableName, "VariableName");
-
-    return m_aVars.get (aVariableName);
+    return m_aVars.get (aFunctionKey);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public MapBasedXPathVariableResolverQName getClone ()
+  public MapBasedXPathFunctionResolver getClone ()
   {
-    return new MapBasedXPathVariableResolverQName (this);
+    return new MapBasedXPathFunctionResolver (this);
   }
 
   @Override
@@ -199,7 +193,7 @@ public class MapBasedXPathVariableResolverQName implements XPathVariableResolver
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final MapBasedXPathVariableResolverQName rhs = (MapBasedXPathVariableResolverQName) o;
+    final MapBasedXPathFunctionResolver rhs = (MapBasedXPathFunctionResolver) o;
     return EqualsUtils.equals (m_aVars, rhs.m_aVars);
   }
 

@@ -22,6 +22,11 @@
   xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="ph-commons">
   <entry date="2014-09-01" category="api" action="add">
     <change>
+      <text locale="en">Added new class MapBasedXPathFunctionResolver</text>
+    </change>
+  </entry>
+  <entry date="2014-09-01" category="api" action="add">
+    <change>
       <text locale="en">Added new class MapBasedXPathVariableResolverQName</text>
     </change>
   </entry>
