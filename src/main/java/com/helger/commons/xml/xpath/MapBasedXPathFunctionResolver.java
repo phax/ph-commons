@@ -72,6 +72,28 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   /**
    * Add a new function.
    *
+   * @param sNamespaceURI
+   *        The namespace URI of the function
+   * @param sLocalPart
+   *        The local part of the function
+   * @param nArity
+   *        The number of parameters of the function
+   * @param aFunction
+   *        The function to be used. May not be <code>null</code>.
+   * @return {@link EChange}
+   */
+  @Nonnull
+  public EChange addUniqueFunction (@Nonnull final String sNamespaceURI,
+                                    @Nonnull final String sLocalPart,
+                                    @Nonnegative final int nArity,
+                                    @Nonnull final XPathFunction aFunction)
+  {
+    return addUniqueFunction (new QName (sNamespaceURI, sLocalPart), nArity, aFunction);
+  }
+
+  /**
+   * Add a new function.
+   *
    * @param aName
    *        The qualified name of the function
    * @param nArity
@@ -85,13 +107,12 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
                                     @Nonnegative final int nArity,
                                     @Nonnull final XPathFunction aFunction)
   {
-    ValueEnforcer.notNull (aName, "Name");
-    ValueEnforcer.notNull (aFunction, "Value");
+    ValueEnforcer.notNull (aFunction, "Function");
 
-    final XPathFunctionKey aKey = new XPathFunctionKey (aName, nArity);
-    if (m_aVars.containsKey (aKey))
+    final XPathFunctionKey aFunctionKey = new XPathFunctionKey (aName, nArity);
+    if (m_aVars.containsKey (aFunctionKey))
       return EChange.UNCHANGED;
-    m_aVars.put (aKey, aFunction);
+    m_aVars.put (aFunctionKey, aFunction);
     return EChange.CHANGED;
   }
 
@@ -108,6 +129,19 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   public EChange removeFunction (@Nonnull final QName aName, @Nonnegative final int nArity)
   {
     final XPathFunctionKey aKey = new XPathFunctionKey (aName, nArity);
+    return removeFunction (aKey);
+  }
+
+  /**
+   * Remove the function with the specified name.
+   *
+   * @param aKey
+   *        The function key to be removed. May be <code>null</code>.
+   * @return {@link EChange}
+   */
+  @Nonnull
+  public EChange removeFunction (@Nullable final XPathFunctionKey aKey)
+  {
     return EChange.valueOf (m_aVars.remove (aKey) != null);
   }
 
@@ -128,7 +162,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
       // Make a copy of the key set to allow for inline modification
       for (final XPathFunctionKey aKey : ContainerHelper.newList (m_aVars.keySet ()))
         if (aKey.getFunctionName ().equals (aName))
-          eChange = eChange.or (removeFunction (aName, aKey.getArity ()));
+          eChange = eChange.or (removeFunction (aKey));
     }
     return eChange;
   }
@@ -139,7 +173,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Map <XPathFunctionKey, ?> getAllFunctions ()
+  public Map <XPathFunctionKey, XPathFunction> getAllFunctions ()
   {
     return ContainerHelper.newMap (m_aVars);
   }
