@@ -37,24 +37,23 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Class is used in conjunction with {@link javax.xml.xpath.XPathExpression} to
- * resolve variable values used in XPath queries at runtime. The local part of
- * the QName to resolve is used as the key in the map. The namespace is ignored
- * in this class.
+ * resolve variable values used in XPath queries at runtime. The whole QName is
+ * used as the key in the map. The namespace is not-ignored in this class.
  *
  * @author Philip Helger
- * @see MapBasedXPathVariableResolverQName
+ * @see MapBasedXPathVariableResolver
  */
 @NotThreadSafe
-public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICloneable <MapBasedXPathVariableResolver>
+public class MapBasedXPathVariableResolverQName implements XPathVariableResolver, ICloneable <MapBasedXPathVariableResolverQName>
 {
-  private final Map <String, Object> m_aVars;
+  private final Map <QName, Object> m_aVars;
 
   /**
    * Default ctor.
    */
-  public MapBasedXPathVariableResolver ()
+  public MapBasedXPathVariableResolverQName ()
   {
-    this ((Map <String, ?>) null);
+    this ((Map <QName, ?>) null);
   }
 
   /**
@@ -63,18 +62,18 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
    * @param aVars
    *        Variables to re-use. May be <code>null</code>.
    */
-  public MapBasedXPathVariableResolver (@Nullable final Map <String, ?> aVars)
+  public MapBasedXPathVariableResolverQName (@Nullable final Map <QName, ?> aVars)
   {
     m_aVars = ContainerHelper.newMap (aVars);
   }
 
   /**
    * Copy constructor
-   *
+   * 
    * @param aOther
    *        Object to copy data from
    */
-  public MapBasedXPathVariableResolver (@Nonnull final MapBasedXPathVariableResolver aOther)
+  public MapBasedXPathVariableResolverQName (@Nonnull final MapBasedXPathVariableResolverQName aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
     m_aVars = ContainerHelper.newMap (aOther.m_aVars);
@@ -83,35 +82,35 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
   /**
    * Add a new variable.
    *
-   * @param sName
-   *        The name (=local part) of the variable
+   * @param aName
+   *        The qualified name of the variable
    * @param aValue
    *        The value to be used.
    * @return {@link EChange}
    */
   @Nonnull
-  public EChange addUniqueVariable (@Nonnull final String sName, @Nonnull final Object aValue)
+  public EChange addUniqueVariable (@Nonnull final QName aName, @Nonnull final Object aValue)
   {
-    ValueEnforcer.notNull (sName, "Name");
+    ValueEnforcer.notNull (aName, "Name");
     ValueEnforcer.notNull (aValue, "Value");
 
-    if (m_aVars.containsKey (sName))
+    if (m_aVars.containsKey (aName))
       return EChange.UNCHANGED;
-    m_aVars.put (sName, aValue);
+    m_aVars.put (aName, aValue);
     return EChange.CHANGED;
   }
 
   /**
    * Remove the variable with the specified name.
    *
-   * @param sName
+   * @param aName
    *        The name to be removed. May be <code>null</code>.
    * @return {@link EChange}
    */
   @Nonnull
-  public EChange removeVariable (@Nullable final String sName)
+  public EChange removeVariable (@Nullable final QName aName)
   {
-    return EChange.valueOf (m_aVars.remove (sName) != null);
+    return EChange.valueOf (m_aVars.remove (aName) != null);
   }
 
   /**
@@ -122,12 +121,12 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
    * @return {@link EChange#CHANGED} if at least one variable was removed.
    */
   @Nonnull
-  public EChange removeVariables (@Nullable final Iterable <String> aNames)
+  public EChange removeVariables (@Nullable final Iterable <QName> aNames)
   {
     EChange eChange = EChange.UNCHANGED;
     if (aNames != null)
-      for (final String sName : aNames)
-        eChange = eChange.or (removeVariable (sName));
+      for (final QName aName : aNames)
+        eChange = eChange.or (removeVariable (aName));
     return eChange;
   }
 
@@ -137,7 +136,7 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Map <String, ?> getAllVariables ()
+  public Map <QName, ?> getAllVariables ()
   {
     return ContainerHelper.newMap (m_aVars);
   }
@@ -171,7 +170,7 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
    * @param aVars
    *        The variables to be set. May be <code>null</code>.
    */
-  public void setAllVariables (@Nullable final Map <String, ?> aVars)
+  public void setAllVariables (@Nullable final Map <QName, ?> aVars)
   {
     m_aVars.clear ();
     if (aVars != null)
@@ -186,15 +185,14 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
     if (m_aVars == null)
       return null;
 
-    final String sLocalName = aVariableName.getLocalPart ();
-    return m_aVars.get (sLocalName);
+    return m_aVars.get (aVariableName);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public MapBasedXPathVariableResolver getClone ()
+  public MapBasedXPathVariableResolverQName getClone ()
   {
-    return new MapBasedXPathVariableResolver (this);
+    return new MapBasedXPathVariableResolverQName (this);
   }
 
   @Override
@@ -204,7 +202,7 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final MapBasedXPathVariableResolver rhs = (MapBasedXPathVariableResolver) o;
+    final MapBasedXPathVariableResolverQName rhs = (MapBasedXPathVariableResolverQName) o;
     return EqualsUtils.equals (m_aVars, rhs.m_aVars);
   }
 
