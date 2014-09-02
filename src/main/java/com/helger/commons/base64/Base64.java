@@ -16,12 +16,12 @@
  */
 package com.helger.commons.base64;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamClass;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -31,8 +31,10 @@ import java.util.zip.GZIPOutputStream;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
@@ -255,12 +257,12 @@ public final class Base64// NOPMD
   static final byte NEW_LINE = (byte) '\n';
 
   /** Preferred encoding. */
-  private static final Charset PREFERRED_ENCODING = CCharset.CHARSET_US_ASCII_OBJ;
+  public static final Charset PREFERRED_ENCODING = CCharset.CHARSET_US_ASCII_OBJ;
 
-  static final byte WHITE_SPACE_ENC = -5; // Indicates white space in
-                                          // encoding
-  private static final byte EQUALS_SIGN_ENC = -1; // Indicates equals sign in
-                                                  // encoding
+  // Indicates white space in encoding
+  static final byte WHITE_SPACE_ENC = -5;
+  // Indicates equals sign in encoding
+  private static final byte EQUALS_SIGN_ENC = -1;
 
   /* ******** S T A N D A R D B A S E 6 4 A L P H A B E T ******** */
 
@@ -1456,7 +1458,7 @@ public final class Base64// NOPMD
     {
       final int rem = Math.min (3, raw.remaining ());
       raw.get (raw3, 0, rem);
-      Base64._encode3to4 (enc4, raw3, rem, Base64.NO_OPTIONS);
+      _encode3to4 (enc4, raw3, rem, NO_OPTIONS);
       encoded.put (enc4);
     }
   }
@@ -1482,7 +1484,7 @@ public final class Base64// NOPMD
     {
       final int rem = Math.min (3, raw.remaining ());
       raw.get (raw3, 0, rem);
-      Base64._encode3to4 (enc4, raw3, rem, Base64.NO_OPTIONS);
+      _encode3to4 (enc4, raw3, rem, NO_OPTIONS);
       for (int i = 0; i < 4; i++)
       {
         encoded.put ((char) (enc4[i] & 0xFF));
@@ -1769,7 +1771,7 @@ public final class Base64// NOPMD
     byte [] encoded;
     try
     {
-      encoded = encodeBytesToBytes (source, 0, source.length, Base64.NO_OPTIONS);
+      encoded = encodeBytesToBytes (source, 0, source.length, NO_OPTIONS);
     }
     catch (final IOException ex)
     {
@@ -1955,10 +1957,8 @@ public final class Base64// NOPMD
                           final int options)
   {
     // Lots of error checking and exception throwing
-    if (source == null)
-      throw new NullPointerException ("Source array was null.");
-    if (destination == null)
-      throw new NullPointerException ("Destination array was null.");
+    ValueEnforcer.notNull (source, "Source");
+    ValueEnforcer.notNull (destination, "Destination");
     if (srcOffset < 0 || srcOffset + 3 >= source.length)
     {
       throw new IllegalArgumentException ("Source array with length " +
@@ -2045,7 +2045,7 @@ public final class Base64// NOPMD
   {
     byte [] decoded;
     // try {
-    decoded = decode (source, 0, source.length, Base64.NO_OPTIONS);
+    decoded = decode (source, 0, source.length, NO_OPTIONS);
     // } catch( IOException ex ) {
     // assert false :
     // "IOExceptions only come from GZipping, which is turned off: " +
@@ -2079,8 +2079,7 @@ public final class Base64// NOPMD
   public static byte [] decode (@Nonnull final byte [] source, final int off, final int len, final int options) throws IOException
   {
     // Lots of error checking and exception throwing
-    if (source == null)
-      throw new NullPointerException ("Cannot decode null source array.");
+    ValueEnforcer.notNull (source, "Source");
     if (off < 0 || off + len > source.length)
     {
       throw new IllegalArgumentException ("Source array with length " +
@@ -2184,8 +2183,7 @@ public final class Base64// NOPMD
   @Nonnull
   public static byte [] decode (@Nonnull final String s, final int options) throws IOException
   {
-    if (s == null)
-      throw new NullPointerException ("Input string was null.");
+    ValueEnforcer.notNull (s, "InputString");
 
     byte [] bytes = CharsetManager.getAsBytes (s, PREFERRED_ENCODING);
     // </change>
@@ -2278,8 +2276,9 @@ public final class Base64// NOPMD
    *         if the decoded object is of a class that cannot be found by the JVM
    * @since 2.3.4
    */
-  public static Object decodeToObject (@Nonnull final String encodedObject, final int options, final ClassLoader loader) throws IOException,
-                                                                                                                        java.lang.ClassNotFoundException
+  public static Object decodeToObject (@Nonnull final String encodedObject,
+                                       final int options,
+                                       @Nullable final ClassLoader loader) throws IOException, ClassNotFoundException
   {
     // Decode and gunzip if necessary
     final byte [] objBytes = decode (encodedObject, options);
@@ -2346,13 +2345,12 @@ public final class Base64// NOPMD
    */
   public static void encodeToFile (@Nonnull final byte [] aDataToEncode, final String sFilename) throws IOException
   {
-    if (aDataToEncode == null)
-      throw new NullPointerException ("Data to encode was null.");
+    ValueEnforcer.notNull (aDataToEncode, "DataToEncode");
 
     Base64OutputStream bos = null;
     try
     {
-      bos = new Base64OutputStream (FileUtils.getOutputStream (sFilename), Base64.ENCODE);
+      bos = new Base64OutputStream (FileUtils.getOutputStream (sFilename), ENCODE);
       bos.write (aDataToEncode);
     }
     finally
@@ -2382,7 +2380,7 @@ public final class Base64// NOPMD
     Base64OutputStream bos = null;
     try
     {
-      bos = new Base64OutputStream (FileUtils.getOutputStream (filename), Base64.DECODE);
+      bos = new Base64OutputStream (FileUtils.getOutputStream (filename), DECODE);
       bos.write (CharsetManager.getAsBytes (dataToDecode, PREFERRED_ENCODING));
     }
     finally
@@ -2426,7 +2424,7 @@ public final class Base64// NOPMD
       buffer = new byte [(int) file.length ()];
 
       // Open a stream
-      bis = new Base64InputStream (StreamUtils.getBuffered (FileUtils.getInputStream (file)), Base64.DECODE);
+      bis = new Base64InputStream (StreamUtils.getBuffered (FileUtils.getInputStream (file)), DECODE);
 
       // Read until done
       while ((numBytes = bis.read (buffer, length, 4096)) >= 0)
@@ -2477,7 +2475,7 @@ public final class Base64// NOPMD
       int numBytes;
 
       // Open a stream
-      bis = new Base64InputStream (StreamUtils.getBuffered (FileUtils.getInputStream (file)), Base64.ENCODE);
+      bis = new Base64InputStream (StreamUtils.getBuffered (FileUtils.getInputStream (file)), ENCODE);
 
       // Read until done
       while ((numBytes = bis.read (buffer, length, 4096)) >= 0)
@@ -2486,7 +2484,7 @@ public final class Base64// NOPMD
       }
 
       // Save in a variable to return
-      encodedData = CharsetManager.getAsString (buffer, 0, length, Base64.PREFERRED_ENCODING);
+      encodedData = CharsetManager.getAsString (buffer, 0, length, PREFERRED_ENCODING);
     }
     finally
     {
@@ -2509,11 +2507,11 @@ public final class Base64// NOPMD
    */
   public static void encodeFileToFile (@Nonnull final String infile, @Nonnull final String outfile) throws IOException
   {
-    final String encoded = Base64.encodeFromFile (infile);
-    java.io.OutputStream out = null;
+    final String encoded = encodeFromFile (infile);
+    OutputStream out = null;
     try
     {
-      out = new BufferedOutputStream (FileUtils.getOutputStream (outfile));
+      out = StreamUtils.getBuffered (FileUtils.getOutputStream (outfile));
       // Strict, 7-bit output.
       out.write (CharsetManager.getAsBytes (encoded, PREFERRED_ENCODING));
     }
@@ -2536,11 +2534,11 @@ public final class Base64// NOPMD
    */
   public static void decodeFileToFile (@Nonnull final String infile, @Nonnull final String outfile) throws IOException
   {
-    final byte [] decoded = Base64.decodeFromFile (infile);
-    java.io.OutputStream out = null;
+    final byte [] decoded = decodeFromFile (infile);
+    OutputStream out = null;
     try
     {
-      out = new BufferedOutputStream (FileUtils.getOutputStream (outfile));
+      out = StreamUtils.getBuffered (FileUtils.getOutputStream (outfile));
       out.write (decoded);
     }
     finally
