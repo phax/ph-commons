@@ -21,13 +21,14 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.IChangeNotify;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.IClearable;
 
 /**
  * Interface for a writable version of a multilingual text
- * 
+ *
  * @author Philip Helger
  */
 public interface IMultiLingualText extends IReadonlyMultiLingualText, IClearable
@@ -35,7 +36,7 @@ public interface IMultiLingualText extends IReadonlyMultiLingualText, IClearable
   /**
    * Add a text in the specified locale. If a text with the same locale is
    * already present, <code>false</code> is returned.
-   * 
+   *
    * @param aContentLocale
    *        The locale in which the text should be set. May not be
    *        <code>null</code>.
@@ -50,7 +51,7 @@ public interface IMultiLingualText extends IReadonlyMultiLingualText, IClearable
   /**
    * Set a text in the specified locale. If a text with the same locale is
    * already present, the old value is overwritten.
-   * 
+   *
    * @param aContentLocale
    *        The locale in which the text should be set. May not be
    *        <code>null</code> .
@@ -64,7 +65,7 @@ public interface IMultiLingualText extends IReadonlyMultiLingualText, IClearable
 
   /**
    * Remove the text with the specified locale.
-   * 
+   *
    * @param aContentLocale
    *        The locale to be removed. May not be <code>null</code>.
    * @return {@link EChange#CHANGED} if the text was remove,
@@ -75,7 +76,7 @@ public interface IMultiLingualText extends IReadonlyMultiLingualText, IClearable
 
   /**
    * Assign all fields from the passed object. All existing texts are removed!
-   * 
+   *
    * @param aMLT
    *        The object to read the content from. May not be <code>null</code>.
    * @return {@link EChange#CHANGED} if the assignment changed anything,
@@ -85,10 +86,8 @@ public interface IMultiLingualText extends IReadonlyMultiLingualText, IClearable
   EChange assignFrom (@Nonnull IReadonlyMultiLingualText aMLT);
 
   /**
-   * Add a notification callback that is called, when the object is changed.
-   * 
-   * @param aCallback
-   *        The callback to add. May not be <code>null</code>.
+   * @return The change notify callbacks. Never <code>null</code>.
    */
-  void addChangeNotifier (@Nonnull IChangeNotify <IMultiLingualText> aCallback);
+  @Nonnull
+  CallbackList <IChangeNotify <IMultiLingualText>> getChangeNotifyCallbacks ();
 }

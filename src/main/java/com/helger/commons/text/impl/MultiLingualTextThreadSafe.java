@@ -30,6 +30,8 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotations.ReturnsMutableObject;
+import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.IChangeNotify;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.hash.HashCodeGenerator;
@@ -43,7 +45,7 @@ import com.helger.commons.text.ISimpleMultiLingualText;
 /**
  * This class represents a thread safe multilingual text. It wraps an existing
  * MultiLingualText and adds a read write lock around it.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -59,7 +61,7 @@ public class MultiLingualTextThreadSafe implements IMultiLingualText
 
   /**
    * Constructor especially for the static TextProvider.createXXX methods
-   * 
+   *
    * @param aSimpleMLT
    *        The simple multi lingual text to use.
    */
@@ -302,12 +304,14 @@ public class MultiLingualTextThreadSafe implements IMultiLingualText
     }
   }
 
-  public void addChangeNotifier (@Nonnull final IChangeNotify <IMultiLingualText> aCallback)
+  @Nonnull
+  @ReturnsMutableObject (reason = "design")
+  public CallbackList <IChangeNotify <IMultiLingualText>> getChangeNotifyCallbacks ()
   {
     m_aRWLock.writeLock ().lock ();
     try
     {
-      m_aMLT.addChangeNotifier (aCallback);
+      return m_aMLT.getChangeNotifyCallbacks ();
     }
     finally
     {

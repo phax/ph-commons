@@ -16,9 +16,7 @@
  */
 package com.helger.commons.text.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -28,6 +26,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.ReturnsMutableObject;
+import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.IChangeNotify;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.locale.LocaleCache;
@@ -40,7 +40,7 @@ import com.helger.commons.text.ISimpleMultiLingualText;
 /**
  * This class represents a multilingual text. It is internally represented as a
  * map from {@link Locale} to the language dependent name.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -52,8 +52,8 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
   /** Default empty multilingual text - don't modify this object!!! */
   public static final IMultiLingualText EMPTY_MULTILINGUAL_TEXT = new MultiLingualText ();
 
-  // A list of callback upon change.
-  private List <IChangeNotify <IMultiLingualText>> m_aChangeNotifyList;
+  /** A list of callback upon change. */
+  private final CallbackList <IChangeNotify <IMultiLingualText>> m_aChangeNotifyCallbacks = new CallbackList <IChangeNotify <IMultiLingualText>> ();
 
   public MultiLingualText ()
   {}
@@ -65,7 +65,7 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
 
   /**
    * Constructor especially for the static TextProvider.createXXX methods
-   * 
+   *
    * @param aSimpleMLT
    *        The simple multi lingual text to use.
    */
@@ -87,18 +87,16 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
 
   private boolean _beforeChange ()
   {
-    if (m_aChangeNotifyList != null)
-      for (final IChangeNotify <IMultiLingualText> aNotify : m_aChangeNotifyList)
-        if (aNotify.beforeChange (this).isBreak ())
-          return false;
+    for (final IChangeNotify <IMultiLingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
+      if (aCallback.beforeChange (this).isBreak ())
+        return false;
     return true;
   }
 
   private void _afterChange ()
   {
-    if (m_aChangeNotifyList != null)
-      for (final IChangeNotify <IMultiLingualText> aNotify : m_aChangeNotifyList)
-        aNotify.afterChange (this);
+    for (final IChangeNotify <IMultiLingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
+      aCallback.afterChange (this);
   }
 
   @Nonnull
@@ -188,13 +186,11 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
     return EChange.CHANGED;
   }
 
-  public void addChangeNotifier (@Nonnull final IChangeNotify <IMultiLingualText> aCallback)
+  @Nonnull
+  @ReturnsMutableObject (reason = "design")
+  public CallbackList <IChangeNotify <IMultiLingualText>> getChangeNotifyCallbacks ()
   {
-    ValueEnforcer.notNull (aCallback, "Callback");
-
-    if (m_aChangeNotifyList == null)
-      m_aChangeNotifyList = new ArrayList <IChangeNotify <IMultiLingualText>> ();
-    m_aChangeNotifyList.add (aCallback);
+    return m_aChangeNotifyCallbacks;
   }
 
   @Override
@@ -225,7 +221,7 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
   /**
    * Get a copy of this object with the specified locales. The default locale is
    * copied.
-   * 
+   *
    * @param aMLT
    *        The initial multi lingual text.
    * @param aContentLocales

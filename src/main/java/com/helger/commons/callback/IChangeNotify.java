@@ -24,16 +24,16 @@ import com.helger.commons.state.EContinue;
 
 /**
  * Simple notification interface.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of object that is changed
  */
-public interface IChangeNotify <DATATYPE> extends Serializable
+public interface IChangeNotify <DATATYPE> extends ICallback, Serializable
 {
   /**
    * Called before the object will be changed.
-   * 
+   *
    * @param aObjectToChange
    *        The object to be changed. Never <code>null</code>.
    * @return {@link EContinue#CONTINUE} if the action may be performed. If the
@@ -45,7 +45,7 @@ public interface IChangeNotify <DATATYPE> extends Serializable
 
   /**
    * Called after the object changed.
-   * 
+   *
    * @param aChangedObject
    *        The changed object. Never <code>null</code>.
    */

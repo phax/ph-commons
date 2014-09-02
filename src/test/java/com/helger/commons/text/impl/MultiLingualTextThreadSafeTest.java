@@ -37,7 +37,7 @@ import com.helger.commons.text.IReadonlyMultiLingualText;
 
 /**
  * Test class for class {@link MultiLingualTextThreadSafe}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
@@ -69,7 +69,7 @@ public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
   {
     final IMultiLingualText aMLT = new MultiLingualTextThreadSafe ();
     final MockChangeNotify aNotify = new MockChangeNotify ();
-    aMLT.addChangeNotifier (aNotify);
+    aMLT.getChangeNotifyCallbacks ().addCallback (aNotify);
 
     try
     {
@@ -238,7 +238,7 @@ public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
     PHTestUtils.testDefaultImplementationWithEqualContentObject (t, new MultiLingualTextThreadSafe (t));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (t, new MultiLingualTextThreadSafe ());
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (t,
-                                                                        new MultiLingualTextThreadSafe (new ReadonlyMultiLingualText (ContainerHelper.newMap (L_DE,
-                                                                                                                                                              "x"))));
+                                                                     new MultiLingualTextThreadSafe (new ReadonlyMultiLingualText (ContainerHelper.newMap (L_DE,
+                                                                                                                                                           "x"))));
   }
 }

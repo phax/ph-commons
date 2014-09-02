@@ -39,7 +39,7 @@ import com.helger.commons.text.IReadonlyMultiLingualText;
 
 /**
  * Test class for class {@link MultiLingualText}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MultiLingualTextTest extends AbstractPHTestCase
@@ -73,12 +73,12 @@ public final class MultiLingualTextTest extends AbstractPHTestCase
     final MockChangeNotify aNotify = new MockChangeNotify ();
     try
     {
-      aMLT.addChangeNotifier (null);
+      aMLT.getChangeNotifyCallbacks ().addCallback (null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
-    aMLT.addChangeNotifier (aNotify);
+    aMLT.getChangeNotifyCallbacks ().addCallback (aNotify);
 
     try
     {
