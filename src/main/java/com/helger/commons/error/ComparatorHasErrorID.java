@@ -28,8 +28,10 @@ import com.helger.commons.compare.ESortOrder;
 
 /**
  * Special comparator that compares based on an error ID
- * 
+ *
  * @author Philip Helger
+ * @param <DATATYPE>
+ *        Data type
  */
 public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends AbstractCollationComparator <DATATYPE>
 {
@@ -44,7 +46,7 @@ public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends Abstrac
   /**
    * Comparator with default locale {@link Collator} and default sort order and
    * a nested comparator.
-   * 
+   *
    * @param aNestedComparator
    *        The nested comparator to be invoked, when the main comparison
    *        resulted in 0.
@@ -56,7 +58,7 @@ public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends Abstrac
 
   /**
    * Comparator with default locale {@link Collator}.
-   * 
+   *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    */
@@ -67,7 +69,7 @@ public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends Abstrac
 
   /**
    * Comparator with default locale {@link Collator} and a nested comparator.
-   * 
+   *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    * @param aNestedComparator
@@ -82,7 +84,7 @@ public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends Abstrac
 
   /**
    * Comparator with default sort order and specified sort locale.
-   * 
+   *
    * @param aSortLocale
    *        The locale to use. May be <code>null</code>.
    */
@@ -94,7 +96,7 @@ public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends Abstrac
   /**
    * Comparator with default sort order but special locale and a nested
    * comparator.
-   * 
+   *
    * @param aSortLocale
    *        The locale to use. May be <code>null</code>.
    * @param aNestedComparator
@@ -109,7 +111,7 @@ public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends Abstrac
 
   /**
    * Constructor with locale and sort order.
-   * 
+   *
    * @param aSortLocale
    *        The locale to use. May be <code>null</code>.
    * @param eSortOrder
@@ -122,7 +124,7 @@ public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends Abstrac
 
   /**
    * Constructor with locale and sort order and a nested comparator.
-   * 
+   *
    * @param aSortLocale
    *        The locale to use. May be <code>null</code>.
    * @param eSortOrder
@@ -140,7 +142,7 @@ public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends Abstrac
 
   /**
    * Constructor with {@link Collator} using the default sort order
-   * 
+   *
    * @param aCollator
    *        The {@link Collator} to use. May not be <code>null</code>.
    */
@@ -152,7 +154,7 @@ public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends Abstrac
   /**
    * Constructor with {@link Collator} using the default sort order and a nested
    * comparator.
-   * 
+   *
    * @param aCollator
    *        The {@link Collator} to use. May not be <code>null</code>.
    * @param aNestedComparator
@@ -167,7 +169,7 @@ public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends Abstrac
 
   /**
    * Constructor with {@link Collator} and sort order.
-   * 
+   *
    * @param aCollator
    *        The {@link Collator} to use. May not be <code>null</code>.
    * @param eSortOrder
@@ -180,7 +182,7 @@ public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends Abstrac
 
   /**
    * Constructor with {@link Collator} and sort order and a nested comparator.
-   * 
+   *
    * @param aCollator
    *        The {@link Collator} to use. May not be <code>null</code>.
    * @param eSortOrder

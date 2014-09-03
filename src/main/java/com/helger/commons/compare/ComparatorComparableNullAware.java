@@ -25,11 +25,12 @@ import javax.annotation.Nullable;
  * This is another *lol* class: a {@link Comparator} for {@link Comparable}
  * objects. In comparison to {@link ComparatorComparable} this class can handle
  * <code>null</code> values.
- * 
+ *
  * @author Philip Helger
+ * @param <DATATYPE>
+ *        Data type to compare
  */
-public class ComparatorComparableNullAware <DATATYPE extends Comparable <? super DATATYPE>> extends
-                                                                                            AbstractComparator <DATATYPE>
+public class ComparatorComparableNullAware <DATATYPE extends Comparable <? super DATATYPE>> extends AbstractComparator <DATATYPE>
 {
   /** Default value wether <code>null</code> values come first or last */
   public static final boolean DEFAULT_NULL_VALUES_COME_FIRST = CompareUtils.DEFAULT_NULL_VALUES_COME_FIRST;
@@ -46,7 +47,7 @@ public class ComparatorComparableNullAware <DATATYPE extends Comparable <? super
 
   /**
    * Constructor with sort order.
-   * 
+   *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    */
@@ -57,7 +58,7 @@ public class ComparatorComparableNullAware <DATATYPE extends Comparable <? super
 
   /**
    * Comparator with default sort order and a nested comparator.
-   * 
+   *
    * @param aNestedComparator
    *        The nested comparator to be invoked, when the main comparison
    *        resulted in 0.
@@ -69,7 +70,7 @@ public class ComparatorComparableNullAware <DATATYPE extends Comparable <? super
 
   /**
    * Comparator with sort order and a nested comparator.
-   * 
+   *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    * @param aNestedComparator

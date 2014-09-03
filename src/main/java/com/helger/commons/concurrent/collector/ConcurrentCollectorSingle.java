@@ -29,7 +29,7 @@ import com.helger.commons.lang.GenericReflection;
 
 /**
  * Concurrent collector that performs action on each object separately
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of the objects in the queue.
@@ -52,13 +52,14 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
   /**
    * Constructor that uses {@link #DEFAULT_MAX_QUEUE_SIZE} elements as the
    * maximum queue length.
-   * 
+   *
    * @param aPerformer
    *        The callback to be invoked everytime objects are collected. May be
    *        <code>null</code> but in that case
    *        {@link #setPerformer(IThrowingRunnableWithParameter)} must be
    *        invoked!
    */
+  @SuppressWarnings ("javadoc")
   public ConcurrentCollectorSingle (@Nullable final IThrowingRunnableWithParameter <DATATYPE> aPerformer)
   {
     this (DEFAULT_MAX_QUEUE_SIZE, aPerformer);
@@ -66,7 +67,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
 
   /**
    * Constructor.
-   * 
+   *
    * @param nMaxQueueSize
    *        The maximum number of items that can be in the queue. Must be &gt;
    *        0.
@@ -76,6 +77,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
    *        {@link #setPerformer(IThrowingRunnableWithParameter)} must be
    *        invoked!
    */
+  @SuppressWarnings ("javadoc")
   public ConcurrentCollectorSingle (@Nonnegative final int nMaxQueueSize,
                                     @Nullable final IThrowingRunnableWithParameter <DATATYPE> aPerformer)
   {

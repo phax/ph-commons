@@ -24,11 +24,14 @@ import com.helger.commons.collections.pair.IReadonlyPair;
 /**
  * A unidirectional converter that extracts the second element from an
  * {@link IReadonlyPair}.
- * 
+ *
  * @author Philip Helger
+ * @param <DATA1TYPE>
+ *        First data type
+ * @param <DATA2TYPE>
+ *        Second data type
  */
-public final class UnidirectionalConverterPairSecond <DATA1TYPE, DATA2TYPE> implements
-                                                                            IUnidirectionalConverter <IReadonlyPair <DATA1TYPE, DATA2TYPE>, DATA2TYPE>
+public final class UnidirectionalConverterPairSecond <DATA1TYPE, DATA2TYPE> implements IUnidirectionalConverter <IReadonlyPair <DATA1TYPE, DATA2TYPE>, DATA2TYPE>
 {
   @Nullable
   public DATA2TYPE convert (@Nullable final IReadonlyPair <DATA1TYPE, DATA2TYPE> aPair)
@@ -39,7 +42,7 @@ public final class UnidirectionalConverterPairSecond <DATA1TYPE, DATA2TYPE> impl
   /**
    * Get a generic data converter that extracts the second element out of a
    * pair.
-   * 
+   *
    * @param <FIRST>
    *        First type of the pair
    * @param <SECOND>

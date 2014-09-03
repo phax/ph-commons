@@ -27,7 +27,7 @@ import com.helger.commons.regex.RegExHelper;
 
 /**
  * General utilities for dealing with Unicode characters
- * 
+ *
  * @author Apache Abdera
  */
 @Immutable
@@ -41,7 +41,8 @@ public final class CodepointUtils
   {}
 
   /**
-   * True if all the characters in chars are within the set [low,high]
+   * @return <code>true</code> if all the characters in chars are within the set
+   *         [low,high]
    */
   public static boolean inRange (final char [] chars, final char low, final char high)
   {
@@ -52,7 +53,8 @@ public final class CodepointUtils
   }
 
   /**
-   * True if all the characters in chars are within the set [low,high]
+   * @return <code>true</code> if all the characters in chars are within the set
+   *         [low,high]
    */
   public static boolean inRange (final char [] chars, final int low, final int high)
   {
@@ -69,7 +71,7 @@ public final class CodepointUtils
   }
 
   /**
-   * True if the codepoint is within the set [low,high]
+   * @return <code>true</code> if the codepoint is within the set [low,high]
    */
   public static boolean inRange (final int codepoint, final int low, final int high)
   {
@@ -77,7 +79,7 @@ public final class CodepointUtils
   }
 
   /**
-   * Get the high surrogate for a particular unicode codepoint
+   * @return Get the high surrogate for a particular unicode codepoint
    */
   public static char getHighSurrogate (final int c)
   {
@@ -86,7 +88,7 @@ public final class CodepointUtils
   }
 
   /**
-   * Get the low surrogate for a particular unicode codepoint
+   * @return Get the low surrogate for a particular unicode codepoint
    */
   public static char getLowSurrogate (final int c)
   {
@@ -94,8 +96,8 @@ public final class CodepointUtils
   }
 
   /**
-   * Return the codepoint at the given location, automatically dealing with
-   * surrogate pairs
+   * @return the codepoint at the given location, automatically dealing with
+   *         surrogate pairs
    */
   @Nonnull
   public static Codepoint codepointAt (@Nonnull final CharSequence s, final int i)
@@ -437,6 +439,11 @@ public final class CodepointUtils
    * Treats the specified int array as an Inversion Set and returns true if the
    * value is located within the set. This will only work correctly if the
    * values in the int array are monotonically increasing
+   *
+   * @param aCodepointSet
+   *        Source set
+   * @param value
+   *        Value to check
    */
   public static boolean inverseSetContains (@Nonnull final int [] aCodepointSet, final int value)
   {

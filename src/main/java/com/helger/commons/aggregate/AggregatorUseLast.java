@@ -27,8 +27,10 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Always use the last result.
- * 
+ *
  * @author Philip Helger
+ * @param <DATATYPE>
+ *        Data type
  */
 @NotThreadSafe
 public class AggregatorUseLast <DATATYPE> implements IAggregator <DATATYPE, DATATYPE>

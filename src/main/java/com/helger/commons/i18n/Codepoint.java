@@ -33,7 +33,7 @@ import com.helger.commons.hash.HashCodeGenerator;
 
 /**
  * Represents a single Unicode Codepoint
- * 
+ *
  * @author Apache Abdera
  * @author Philip Helger
  */
@@ -45,6 +45,11 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   /**
    * Create a Codepoint from a byte array with the specified charset encoding.
    * Length must equal 1
+   *
+   * @param bytes
+   *        Bytes
+   * @param encoding
+   *        Charset
    */
   public Codepoint (@Nonnull final byte [] bytes, @Nonnull final Charset encoding)
   {
@@ -64,6 +69,9 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
 
   /**
    * Create a Codepoint from a CharSequence. Length must equal 1 or 2
+   *
+   * @param value
+   *        {@link CharSequence}
    */
   public Codepoint (@Nonnull final CharSequence value)
   {
@@ -72,6 +80,9 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
 
   /**
    * Create a Codepoint from a String. Length must equal 1 or 2
+   *
+   * @param value
+   *        String
    */
   public Codepoint (@Nonnull final String value)
   {
@@ -91,6 +102,9 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
 
   /**
    * Create a Codepoint from a char array. Length must equal 1 or 2
+   *
+   * @param value
+   *        char array
    */
   public Codepoint (@Nonnull final char [] value)
   {
@@ -99,6 +113,9 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
 
   /**
    * Create a codepoint from a single char
+   *
+   * @param value
+   *        single char
    */
   public Codepoint (final char value)
   {
@@ -107,6 +124,11 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
 
   /**
    * Create a codepoint from a surrogate pair
+   *
+   * @param high
+   *        high surrogate
+   * @param low
+   *        low surrogate
    */
   public Codepoint (final char high, final char low)
   {
@@ -115,6 +137,9 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
 
   /**
    * Create a codepoint as a copy of another codepoint
+   *
+   * @param aCodepoint
+   *        Object to copy
    */
   public Codepoint (@Nonnull final Codepoint aCodepoint)
   {
@@ -123,6 +148,9 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
 
   /**
    * Create a codepoint from a specific integer value
+   *
+   * @param nValue
+   *        int value
    */
   public Codepoint (@Nonnegative final int nValue)
   {
@@ -132,7 +160,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   }
 
   /**
-   * The codepoint value
+   * @return The codepoint value
    */
   @Nonnegative
   public int getValue ()
@@ -141,7 +169,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   }
 
   /**
-   * True if this codepoint is supplementary
+   * @return <code>true</code> if this codepoint is supplementary
    */
   public boolean isSupplementary ()
   {
@@ -149,7 +177,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   }
 
   /**
-   * True if this codepoint is a low surrogate
+   * @return <code>true</code> if this codepoint is a low surrogate
    */
   public boolean isLowSurrogate ()
   {
@@ -157,7 +185,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   }
 
   /**
-   * True if this codepoint is a high surrogate
+   * @return <code>true</code> if this codepoint is a high surrogate
    */
   public boolean isHighSurrogate ()
   {
@@ -165,7 +193,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   }
 
   /**
-   * Get the high surrogate of this Codepoint
+   * @return Get the high surrogate of this Codepoint
    */
   public char getHighSurrogate ()
   {
@@ -173,7 +201,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   }
 
   /**
-   * Get the low surrogate of this Codepoint
+   * @return Get the low surrogate of this Codepoint
    */
   public char getLowSurrogate ()
   {
@@ -181,7 +209,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   }
 
   /**
-   * True if this Codepoint is a bidi control char
+   * @return <code>true</code> if this Codepoint is a bidi control char
    */
   public boolean isBidi ()
   {
@@ -237,12 +265,15 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
    * Plane 0 (0000–FFFF): Basic Multilingual Plane (BMP). This is the plane
    * containing most of the character assignments so far. A primary objective
    * for the BMP is to support the unification of prior character sets as well
-   * as characters for writing systems in current use. Plane 1 (10000–1FFFF):
-   * Supplementary Multilingual Plane (SMP). Plane 2 (20000–2FFFF):
-   * Supplementary Ideographic Plane (SIP) Planes 3 to 13 (30000–DFFFF) are
-   * unassigned Plane 14 (E0000–EFFFF): Supplementary Special-purpose Plane
-   * (SSP) Plane 15 (F0000–FFFFF) reserved for the Private Use Area (PUA) Plane
-   * 16 (100000–10FFFF), reserved for the Private Use Area (PUA)
+   * as characters for writing systems in current use.<br>
+   * Plane 1 (10000–1FFFF): Supplementary Multilingual Plane (SMP).<br>
+   * Plane 2 (20000–2FFFF): Supplementary Ideographic Plane (SIP)<br>
+   * Planes 3 to 13 (30000–DFFFF) are unassigned<br>
+   * Plane 14 (E0000–EFFFF): Supplementary Special-purpose Plane (SSP)<br>
+   * Plane 15 (F0000–FFFFF) reserved for the Private Use Area (PUA)<br>
+   * Plane 16 (100000–10FFFF), reserved for the Private Use Area (PUA)
+   *
+   * @return Plane number
    **/
   public int getPlane ()
   {
@@ -250,7 +281,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   }
 
   /**
-   * Get the next codepoint
+   * @return Get the next codepoint
    */
   @Nonnull
   public Codepoint next ()
@@ -261,7 +292,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   }
 
   /**
-   * Get the previous codepoint
+   * @return Get the previous codepoint
    */
   @Nonnull
   public Codepoint previous ()

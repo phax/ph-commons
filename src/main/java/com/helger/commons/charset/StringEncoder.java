@@ -34,7 +34,7 @@ import com.helger.commons.state.EFinish;
  * A special string encoder that can be used to convert a set of
  * characters/string to a byte sequence in a certain charset. This class is not
  * thread-safe!
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -101,7 +101,9 @@ public final class StringEncoder
    * though it must be refreshed. For example, if a UTF-8 3 byte sequence needs
    * to be written, but there is only 1 or 2 bytes of space, this will leave the
    * last couple bytes unused.
-   * 
+   *
+   * @param sSource
+   *        Source string
    * @param aDestBuffer
    *        a ByteBuffer that will be filled with data.
    * @return {@link EFinish}
@@ -182,7 +184,9 @@ public final class StringEncoder
    * Returns a ByteBuffer containing the encoded version of source. The position
    * of the ByteBuffer will be 0, the limit is the length of the string. The
    * capacity of the ByteBuffer may be larger than the string.
-   * 
+   *
+   * @param sSource
+   *        Source string
    * @return The new byte buffer
    */
   @Nonnull
@@ -228,6 +232,10 @@ public final class StringEncoder
   /**
    * Returns a new byte array containing the UTF-8 version of source. The array
    * will be exactly the correct size for the string.
+   * 
+   * @param sSource
+   *        Source string
+   * @return as encoded array
    */
   @Nonnull
   public byte [] getAsNewArray (@Nonnull final String sSource)

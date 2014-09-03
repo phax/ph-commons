@@ -26,8 +26,10 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A special comparator that reverses another comparator
- * 
+ *
  * @author Philip Helger
+ * @param <T>
+ *        Data type to compare
  */
 public class ReverseComparator <T> implements Comparator <T>, Serializable
 {

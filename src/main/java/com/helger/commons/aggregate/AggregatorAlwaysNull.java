@@ -26,8 +26,12 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Always returns <code>null</code>.
- * 
+ *
  * @author Philip Helger
+ * @param <SRCTYPE>
+ *        Source type
+ * @param <DSTTYPE>
+ *        Destination type
  */
 @Immutable
 public final class AggregatorAlwaysNull <SRCTYPE, DSTTYPE> implements IAggregator <SRCTYPE, DSTTYPE>

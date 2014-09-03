@@ -2038,6 +2038,8 @@ public final class Base64// NOPMD
    * @param source
    *        The Base64 encoded data
    * @return decoded data
+   * @throws IOException
+   *         In case of error
    * @since 2.3.1
    */
   @Nonnull
