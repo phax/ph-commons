@@ -27,17 +27,18 @@ import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 /**
  * Comparator for sorting {@link DefaultTreeItemWithID} items by their value
  * using an explicit {@link Comparator}.
- * 
+ *
  * @author Philip Helger
+ * @param <IDTYPE>
+ *        tree item ID type
  * @param <DATATYPE>
  *        tree item value type
  */
-public final class ComparatorDefaultTreeItemWithIDData <IDTYYPE, DATATYPE> extends
-                                                                           ComparatorTreeItemData <DATATYPE, DefaultTreeItemWithID <IDTYYPE, DATATYPE>>
+public final class ComparatorDefaultTreeItemWithIDData <IDTYPE, DATATYPE> extends ComparatorTreeItemData <DATATYPE, DefaultTreeItemWithID <IDTYPE, DATATYPE>>
 {
   /**
    * Constructor with default sort order.
-   * 
+   *
    * @param aDataComparator
    *        Comparator for the data elements. May not be <code>null</code>.
    */
@@ -48,7 +49,7 @@ public final class ComparatorDefaultTreeItemWithIDData <IDTYYPE, DATATYPE> exten
 
   /**
    * Constructor with sort order.
-   * 
+   *
    * @param aDataComparator
    *        Comparator for the data elements. May not be <code>null</code>.
    * @param eSortOrder
@@ -62,14 +63,14 @@ public final class ComparatorDefaultTreeItemWithIDData <IDTYYPE, DATATYPE> exten
 
   /**
    * Comparator with default sort order and a nested comparator.
-   * 
+   *
    * @param aNestedComparator
    *        The nested comparator to be invoked, when the main comparison
    *        resulted in 0.
    * @param aDataComparator
    *        The comparator for comparing the IDs. May not be <code>null</code>.
    */
-  public ComparatorDefaultTreeItemWithIDData (@Nullable final Comparator <? super DefaultTreeItemWithID <IDTYYPE, DATATYPE>> aNestedComparator,
+  public ComparatorDefaultTreeItemWithIDData (@Nullable final Comparator <? super DefaultTreeItemWithID <IDTYPE, DATATYPE>> aNestedComparator,
                                               @Nonnull final Comparator <? super DATATYPE> aDataComparator)
   {
     super (aNestedComparator, aDataComparator);
@@ -77,7 +78,7 @@ public final class ComparatorDefaultTreeItemWithIDData <IDTYYPE, DATATYPE> exten
 
   /**
    * Constructor with sort order and a nested comparator.
-   * 
+   *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    * @param aNestedComparator
@@ -87,7 +88,7 @@ public final class ComparatorDefaultTreeItemWithIDData <IDTYYPE, DATATYPE> exten
    *        The comparator for comparing the IDs. May not be <code>null</code>.
    */
   public ComparatorDefaultTreeItemWithIDData (@Nonnull final ESortOrder eSortOrder,
-                                              @Nullable final Comparator <? super DefaultTreeItemWithID <IDTYYPE, DATATYPE>> aNestedComparator,
+                                              @Nullable final Comparator <? super DefaultTreeItemWithID <IDTYPE, DATATYPE>> aNestedComparator,
                                               @Nonnull final Comparator <? super DATATYPE> aDataComparator)
   {
     super (eSortOrder, aNestedComparator, aDataComparator);

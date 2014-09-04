@@ -23,9 +23,10 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link StatisticsHandlerCache}.
- * 
+ *
  * @author Philip Helger
  */
+@SuppressWarnings ("javadoc")
 public final class StatisticsHandlerCacheTest
 {
   @Test

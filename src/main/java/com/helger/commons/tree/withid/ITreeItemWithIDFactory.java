@@ -23,16 +23,16 @@ import com.helger.commons.factory.IHierarchicalRootFactory;
 
 /**
  * A factory interface that creates tree items.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        The key type.
  * @param <DATATYPE>
  *        The value type to be contained in tree items.
+ * @param <ITEMTYPE>
+ *        tree item type
  */
-public interface ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends
-                                                                                                                            IHierarchicalFactoryWithParameter <ITEMTYPE, KEYTYPE>,
-                                                                                                                            IHierarchicalRootFactory <ITEMTYPE>
+public interface ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends IHierarchicalFactoryWithParameter <ITEMTYPE, KEYTYPE>, IHierarchicalRootFactory <ITEMTYPE>
 {
   /**
    * {@inheritDoc}
@@ -48,7 +48,7 @@ public interface ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITr
   /**
    * To be called once a tree item is removed from the owning tree. This method
    * is mainly important for the tree with globally unique IDs.
-   * 
+   *
    * @param aItem
    *        The item that was removed.
    */
@@ -57,7 +57,7 @@ public interface ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITr
   /**
    * To be called once a tree item is added to the owning tree. This method is
    * mainly important for the tree with globally unique IDs.
-   * 
+   *
    * @param aItem
    *        The item that was added.
    */

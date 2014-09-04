@@ -28,9 +28,10 @@ import com.helger.commons.CGlobal;
 
 /**
  * Test class for class {@link StatisticsHandlerKeyedTimer}.
- * 
+ *
  * @author Philip Helger
  */
+@SuppressWarnings ("javadoc")
 public final class StatisticsHandlerKeyedTimerTest
 {
   @Test

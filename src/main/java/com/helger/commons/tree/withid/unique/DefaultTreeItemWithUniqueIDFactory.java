@@ -23,12 +23,15 @@ import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 
 /**
  * A special tree item factory that maintains a unique ID over all items!
- * 
+ *
  * @author Philip Helger
+ * @param <KEYTYPE>
+ *        The key type.
+ * @param <DATATYPE>
+ *        The value type to be contained in tree items.
  */
 @NotThreadSafe
-public class DefaultTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE> extends
-                                                                    AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
+public class DefaultTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE> extends AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
 {
   @Override
   @Nonnull

@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlValue;
  * <p>
  * The following schema fragment specifies the expected content contained within
  * this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="CA_GEN_Issue">
  *   &lt;complexContent>
@@ -113,7 +113,7 @@ public final class MockJAXBIssue
 
   /**
    * Gets the value of the title property.
-   * 
+   *
    * @return possible object is {@link String }
    */
   public BigDecimal getTitle ()
@@ -123,7 +123,7 @@ public final class MockJAXBIssue
 
   /**
    * Sets the value of the title property.
-   * 
+   *
    * @param value
    *        allowed object is {@link String }
    */
@@ -134,7 +134,7 @@ public final class MockJAXBIssue
 
   /**
    * Gets the value of the subTitle property.
-   * 
+   *
    * @return possible object is {@link String }
    */
   public String getSubTitle ()
@@ -144,7 +144,7 @@ public final class MockJAXBIssue
 
   /**
    * Sets the value of the subTitle property.
-   * 
+   *
    * @param value
    *        allowed object is {@link String }
    */
@@ -155,7 +155,7 @@ public final class MockJAXBIssue
 
   /**
    * Gets the value of the dateDescription property.
-   * 
+   *
    * @return possible object is {@link String }
    */
   public String getDateDescription ()
@@ -165,7 +165,7 @@ public final class MockJAXBIssue
 
   /**
    * Sets the value of the dateDescription property.
-   * 
+   *
    * @param value
    *        allowed object is {@link String }
    */
@@ -176,7 +176,7 @@ public final class MockJAXBIssue
 
   /**
    * Gets the value of the firstPage property.
-   * 
+   *
    * @return possible object is {@link MockJAXBIssue.FirstPage }
    */
   public MockJAXBIssue.FirstPage getFirstPage ()
@@ -186,7 +186,7 @@ public final class MockJAXBIssue
 
   /**
    * Sets the value of the firstPage property.
-   * 
+   *
    * @param value
    *        allowed object is {@link MockJAXBIssue.FirstPage }
    */
@@ -197,6 +197,8 @@ public final class MockJAXBIssue
 
   /**
    * Gets the value of the id property.
+   *
+   * @return id
    */
   public long getID ()
   {
@@ -205,6 +207,9 @@ public final class MockJAXBIssue
 
   /**
    * Sets the value of the id property.
+   *
+   * @param value
+   *        new id
    */
   public void setID (final long value)
   {
@@ -213,6 +218,8 @@ public final class MockJAXBIssue
 
   /**
    * Gets the value of the collectionID property.
+   *
+   * @return collection ID
    */
   public long getCollectionID ()
   {
@@ -221,6 +228,9 @@ public final class MockJAXBIssue
 
   /**
    * Sets the value of the collectionID property.
+   *
+   * @param value
+   *        new value
    */
   public void setCollectionID (final long value)
   {
@@ -229,7 +239,7 @@ public final class MockJAXBIssue
 
   /**
    * Gets the value of the contentLanguage property.
-   * 
+   *
    * @return possible object is {@link String }
    */
   public String getContentLanguage ()
@@ -239,7 +249,7 @@ public final class MockJAXBIssue
 
   /**
    * Sets the value of the contentLanguage property.
-   * 
+   *
    * @param value
    *        allowed object is {@link String }
    */
@@ -250,7 +260,7 @@ public final class MockJAXBIssue
 
   /**
    * Gets the value of the menuLanguage property.
-   * 
+   *
    * @return possible object is {@link String }
    */
   public String getMenuLanguage ()
@@ -260,7 +270,7 @@ public final class MockJAXBIssue
 
   /**
    * Sets the value of the menuLanguage property.
-   * 
+   *
    * @param value
    *        allowed object is {@link String }
    */
@@ -271,7 +281,7 @@ public final class MockJAXBIssue
 
   /**
    * Gets the value of the menuLayout property.
-   * 
+   *
    * @return possible object is {@link String }
    */
   public String getMenuLayout ()
@@ -281,7 +291,7 @@ public final class MockJAXBIssue
 
   /**
    * Sets the value of the menuLayout property.
-   * 
+   *
    * @param value
    *        allowed object is {@link String }
    */
@@ -292,6 +302,8 @@ public final class MockJAXBIssue
 
   /**
    * Gets the value of the pageCount property.
+   *
+   * @return page count
    */
   public long getPageCount ()
   {
@@ -300,6 +312,9 @@ public final class MockJAXBIssue
 
   /**
    * Sets the value of the pageCount property.
+   *
+   * @param value
+   *        new value
    */
   public void setPageCount (final long value)
   {
@@ -308,6 +323,8 @@ public final class MockJAXBIssue
 
   /**
    * Gets the value of the articleCount property.
+   *
+   * @return article count
    */
   public long getArticleCount ()
   {
@@ -316,6 +333,9 @@ public final class MockJAXBIssue
 
   /**
    * Sets the value of the articleCount property.
+   *
+   * @param value
+   *        new value
    */
   public void setArticleCount (final long value)
   {
@@ -324,7 +344,7 @@ public final class MockJAXBIssue
 
   /**
    * Gets the value of the directory property.
-   * 
+   *
    * @return possible object is {@link String }
    */
   public String getDirectory ()
@@ -334,7 +354,7 @@ public final class MockJAXBIssue
 
   /**
    * Sets the value of the directory property.
-   * 
+   *
    * @param value
    *        allowed object is {@link String }
    */
@@ -345,7 +365,7 @@ public final class MockJAXBIssue
 
   /**
    * Gets the value of the dateSort property.
-   * 
+   *
    * @return possible object is {@link String }
    */
   public String getDateSort ()
@@ -355,7 +375,7 @@ public final class MockJAXBIssue
 
   /**
    * Sets the value of the dateSort property.
-   * 
+   *
    * @param value
    *        allowed object is {@link String }
    */
@@ -366,7 +386,7 @@ public final class MockJAXBIssue
 
   /**
    * Gets the value of the dateFrom property.
-   * 
+   *
    * @return possible object is {@link String }
    */
   public String getDateFrom ()
@@ -376,7 +396,7 @@ public final class MockJAXBIssue
 
   /**
    * Sets the value of the dateFrom property.
-   * 
+   *
    * @param value
    *        allowed object is {@link String }
    */
@@ -387,7 +407,7 @@ public final class MockJAXBIssue
 
   /**
    * Gets the value of the dateTo property.
-   * 
+   *
    * @return possible object is {@link String }
    */
   public String getDateTo ()
@@ -397,7 +417,7 @@ public final class MockJAXBIssue
 
   /**
    * Sets the value of the dateTo property.
-   * 
+   *
    * @param value
    *        allowed object is {@link String }
    */
@@ -408,6 +428,8 @@ public final class MockJAXBIssue
 
   /**
    * Gets the value of the dirAbsolute property.
+   *
+   * @return absolute dir?
    */
   public long getDirAbsolute ()
   {
@@ -416,6 +438,9 @@ public final class MockJAXBIssue
 
   /**
    * Sets the value of the dirAbsolute property.
+   *
+   * @param value
+   *        new value
    */
   public void setDirAbsolute (final long value)
   {
@@ -428,7 +453,7 @@ public final class MockJAXBIssue
    * <p>
    * The following schema fragment specifies the expected content contained
    * within this class.
-   * 
+   *
    * <pre>
    * &lt;complexType>
    *   &lt;simpleContent>
@@ -455,7 +480,7 @@ public final class MockJAXBIssue
 
     /**
      * Gets the value of the value property.
-     * 
+     *
      * @return possible object is {@link String }
      */
     public String getValue ()
@@ -465,7 +490,7 @@ public final class MockJAXBIssue
 
     /**
      * Sets the value of the value property.
-     * 
+     *
      * @param value
      *        allowed object is {@link String }
      */
@@ -476,6 +501,8 @@ public final class MockJAXBIssue
 
     /**
      * Gets the value of the width property.
+     *
+     * @return width
      */
     public long getWidth ()
     {
@@ -484,6 +511,9 @@ public final class MockJAXBIssue
 
     /**
      * Sets the value of the width property.
+     *
+     * @param value
+     *        new width
      */
     public void setWidth (final long value)
     {
@@ -492,6 +522,8 @@ public final class MockJAXBIssue
 
     /**
      * Gets the value of the height property.
+     * 
+     * @return height
      */
     public long getHeight ()
     {
@@ -500,6 +532,9 @@ public final class MockJAXBIssue
 
     /**
      * Sets the value of the height property.
+     * 
+     * @param value
+     *        new height
      */
     public void setHeight (final long value)
     {

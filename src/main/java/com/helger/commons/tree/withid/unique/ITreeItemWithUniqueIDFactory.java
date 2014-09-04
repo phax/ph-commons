@@ -28,14 +28,19 @@ import com.helger.commons.tree.withid.ITreeItemWithIDFactory;
 /**
  * An abstract tree item factory that maintains a unique ID over all items!
  * 
+ * @param <KEYTYPE>
+ *        The key type.
+ * @param <DATATYPE>
+ *        The value type to be contained in tree items.
+ * @param <ITEMTYPE>
+ *        tree item type
  * @author Philip Helger
  */
-public interface ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends
-                                                                                                                                  ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE>
+public interface ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE>
 {
   /**
    * Check if an item with the given ID is contained.
-   * 
+   *
    * @param aDataID
    *        The data ID to look up.
    * @return <code>true</code> if such an item is contained, <code>false</code>
@@ -45,7 +50,7 @@ public interface ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE exten
 
   /**
    * Try to retrieve the stored item with the given ID.
-   * 
+   *
    * @param aDataID
    *        The data ID to look up.
    * @return <code>null</code> if no such item is contained, the item otherwise.

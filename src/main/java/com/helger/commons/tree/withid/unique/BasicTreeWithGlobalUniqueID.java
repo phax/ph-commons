@@ -40,6 +40,8 @@ import com.helger.commons.tree.withid.ITreeItemWithID;
  *        The type of the key elements for the tree.
  * @param <DATATYPE>
  *        The type of the elements contained in the tree
+ * @param <ITEMTYPE>
+ *        tree item type
  */
 @NotThreadSafe
 public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE> implements ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE>

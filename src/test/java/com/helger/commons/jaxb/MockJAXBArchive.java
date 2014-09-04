@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlType;
  * <p>
  * The following schema fragment specifies the expected content contained within
  * this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -66,13 +66,15 @@ public final class MockJAXBArchive
    * for the collection property.
    * <p>
    * For example, to add a new item, do as follows:
-   * 
+   *
    * <pre>
    * getCollection ().add (newItem);
    * </pre>
    * <p>
    * Objects of the following type(s) are allowed in the list
    * {@link MockJAXBCollection }
+   * 
+   * @return Collection
    */
   public List <MockJAXBCollection> getCollection ()
   {
@@ -91,7 +93,7 @@ public final class MockJAXBArchive
 
   /**
    * Gets the value of the version property.
-   * 
+   *
    * @return possible object is {@link String }
    */
   public String getVersion ()
@@ -101,7 +103,7 @@ public final class MockJAXBArchive
 
   /**
    * Sets the value of the version property.
-   * 
+   *
    * @param value
    *        allowed object is {@link String }
    */

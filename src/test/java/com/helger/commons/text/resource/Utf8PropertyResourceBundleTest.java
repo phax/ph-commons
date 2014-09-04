@@ -24,9 +24,10 @@ import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link Utf8PropertyResourceBundle}.
- * 
+ *
  * @author Philip Helger
  */
+@SuppressWarnings ("javadoc")
 public final class Utf8PropertyResourceBundleTest extends AbstractPHTestCase
 {
   @Test

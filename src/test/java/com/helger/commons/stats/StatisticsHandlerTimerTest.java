@@ -29,9 +29,10 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link StatisticsHandlerTimer}.
- * 
+ *
  * @author Philip Helger
  */
+@SuppressWarnings ("javadoc")
 public final class StatisticsHandlerTimerTest
 {
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")

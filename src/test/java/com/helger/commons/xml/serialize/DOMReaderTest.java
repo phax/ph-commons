@@ -62,7 +62,7 @@ import com.helger.commons.xml.schema.XMLSchemaCache;
 
 /**
  * Test class for {@link DOMReader}
- * 
+ *
  * @author Philip Helger
  */
 public final class DOMReaderTest
@@ -72,8 +72,9 @@ public final class DOMReaderTest
 
   /**
    * Test method readXMLDOM
-   * 
+   *
    * @throws SAXException
+   *         never
    */
   @Test
   public void testReadXMLDOMInputSource () throws SAXException
@@ -120,8 +121,9 @@ public final class DOMReaderTest
 
   /**
    * Test method readXMLDOM
-   * 
+   *
    * @throws SAXException
+   *         never
    */
   @Test
   public void testReadXMLDOMString () throws SAXException
@@ -165,8 +167,9 @@ public final class DOMReaderTest
 
   /**
    * Test method readXMLDOM
-   * 
+   *
    * @throws SAXException
+   *         never
    */
   @Test
   public void testReadXMLDOMInputStream () throws SAXException

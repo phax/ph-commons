@@ -99,7 +99,7 @@ public class MainFindMaskedXMLChars
 
   /**
    * XML 1.0:
-   * 
+   *
    * <pre>
    * Masked Element Name Start:       false
    * Masked Element Name InBetween:   false
@@ -109,9 +109,9 @@ public class MainFindMaskedXMLChars
    * Masked Text Value:      (c == 0xd) || (c == 0x26) || (c == 0x3c) || (c == 0x3e) || (c >= 0x7f && c <= 0x9f)
    * Masked CDATA Value:     false
    * </pre>
-   * 
+   *
    * XML 1.1:
-   * 
+   *
    * <pre>
    * Masked Element Name Start:       false
    * Masked Element Name InBetween:   false
@@ -121,9 +121,11 @@ public class MainFindMaskedXMLChars
    * Masked Text Value:      (c >= 0x1 && c <= 0x8) || (c >= 0xb && c <= 0x1f) || (c == 0x26) || (c == 0x3c) || (c == 0x3e) || (c >= 0x7f && c <= 0x9f)
    * Masked CDATA Value:     (c >= 0x1 && c <= 0x8) || (c >= 0xb && c <= 0xc) || (c >= 0xe && c <= 0x1f)
    * </pre>
-   * 
+   *
    * @param args
+   *        main args
    * @throws Exception
+   *         in case of err
    */
   public static void main (final String [] args) throws Exception
   {

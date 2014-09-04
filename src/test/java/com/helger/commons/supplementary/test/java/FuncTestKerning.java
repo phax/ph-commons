@@ -45,7 +45,7 @@ import com.helger.commons.system.EOperatingSystem;
 /**
  * Reads a TTF font file and provides access to kerning information. Thanks to
  * the Apache FOP project for their inspiring work!
- * 
+ *
  * @author Nathan Sweet <misc@n4te.com>
  */
 public final class FuncTestKerning
@@ -145,6 +145,14 @@ public final class FuncTestKerning
      * Returns the kerning value for the specified glyphs. The glyph code for a
      * Unicode codepoint can be retrieved with
      * {@link GlyphVector#getGlyphCode(int)}.
+     *
+     * @param nFirstGlyphCode
+     *        first glyph code
+     * @param nSecondGlyphCode
+     *        second glyph code
+     * @param fFontSize
+     *        font size
+     * @return kerning value
      */
     public float getValue (final int nFirstGlyphCode, final int nSecondGlyphCode, final float fFontSize)
     {

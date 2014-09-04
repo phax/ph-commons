@@ -29,9 +29,10 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link StatisticsHandlerSize}.
- * 
+ *
  * @author Philip Helger
  */
+@SuppressWarnings ("javadoc")
 public final class StatisticsHandlerSizeTest
 {
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")

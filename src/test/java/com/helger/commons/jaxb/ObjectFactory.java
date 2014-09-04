@@ -40,7 +40,7 @@ public final class ObjectFactory
   {}
 
   /**
-   * Create an instance of {@link MockJAXBIssue }
+   * @return an instance of {@link MockJAXBIssue }
    */
   @Nonnull
   public MockJAXBIssue createIssue ()
@@ -49,7 +49,7 @@ public final class ObjectFactory
   }
 
   /**
-   * Create an instance of {@link MockJAXBCollection }
+   * @return an instance of {@link MockJAXBCollection }
    */
   @Nonnull
   public MockJAXBCollection createCollection ()
@@ -58,7 +58,7 @@ public final class ObjectFactory
   }
 
   /**
-   * Create an instance of {@link MockJAXBIssue.FirstPage }
+   * @return an instance of {@link MockJAXBIssue.FirstPage }
    */
   @Nonnull
   public MockJAXBIssue.FirstPage createIssueFirstPage ()
@@ -67,7 +67,7 @@ public final class ObjectFactory
   }
 
   /**
-   * Create an instance of {@link MockJAXBArchive }
+   * @return an instance of {@link MockJAXBArchive }
    */
   @Nonnull
   public MockJAXBArchive createArchive ()

@@ -37,6 +37,12 @@ import com.helger.commons.tree.withid.ITreeItemWithID;
  * An abstract tree item factory that maintains a unique ID over all items. It
  * does not put the root item in the data store!
  * 
+ * @param <KEYTYPE>
+ *        The key type.
+ * @param <DATATYPE>
+ *        The value type to be contained in tree items.
+ * @param <ITEMTYPE>
+ *        tree item type
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -69,7 +75,7 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
 
   /**
    * Get the ID of the passed tree item to use for internal storage.
-   * 
+   *
    * @param aItem
    *        The item who's ID is to be resolved.
    * @return The ID of the item

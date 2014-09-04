@@ -24,9 +24,10 @@ import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MicroDataAware}.
- * 
+ *
  * @author Philip Helger
  */
+@SuppressWarnings ("javadoc")
 public final class MicroDataAwareTest
 {
   @Test

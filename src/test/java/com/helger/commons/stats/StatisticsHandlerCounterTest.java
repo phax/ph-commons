@@ -23,9 +23,10 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link StatisticsHandlerCounter}.
- * 
+ *
  * @author Philip Helger
  */
+@SuppressWarnings ("javadoc")
 public final class StatisticsHandlerCounterTest
 {
   @Test

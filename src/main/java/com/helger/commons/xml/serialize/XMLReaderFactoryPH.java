@@ -309,6 +309,8 @@ public final class XMLReaderFactoryPH
    * (perhaps an applet) is not permitted to load classes dynamically.
    * </p>
    *
+   * @param sClassName
+   *        Class name to be loaded
    * @return A new XML reader.
    * @exception org.xml.sax.SAXException
    *            If the class cannot be loaded, instantiated, and cast to
@@ -316,35 +318,35 @@ public final class XMLReaderFactoryPH
    * @see #createXMLReader()
    */
   @Nonnull
-  public static XMLReader createXMLReader (final String className) throws SAXException
+  public static XMLReader createXMLReader (final String sClassName) throws SAXException
   {
-    return _loadClass (ss.getContextClassLoader (), className);
+    return _loadClass (ss.getContextClassLoader (), sClassName);
   }
 
   @Nonnull
-  private static XMLReader _loadClass (final ClassLoader loader, final String className) throws SAXException
+  private static XMLReader _loadClass (final ClassLoader aClassLoader, final String sClassName) throws SAXException
   {
     try
     {
-      return (XMLReader) NewInstance.newInstance (loader, className);
+      return (XMLReader) NewInstance.newInstance (aClassLoader, sClassName);
     }
     catch (final ClassNotFoundException e1)
     {
-      throw new SAXException ("SAX2 driver class " + className + " not found", e1);
+      throw new SAXException ("SAX2 driver class " + sClassName + " not found", e1);
     }
     catch (final IllegalAccessException e2)
     {
-      throw new SAXException ("SAX2 driver class " + className + " found but cannot be loaded", e2);
+      throw new SAXException ("SAX2 driver class " + sClassName + " found but cannot be loaded", e2);
     }
     catch (final InstantiationException e3)
     {
       throw new SAXException ("SAX2 driver class " +
-                              className +
+                              sClassName +
                               " loaded but cannot be instantiated (no empty public constructor?)", e3);
     }
     catch (final ClassCastException e4)
     {
-      throw new SAXException ("SAX2 driver class " + className + " does not implement XMLReader", e4);
+      throw new SAXException ("SAX2 driver class " + sClassName + " does not implement XMLReader", e4);
     }
   }
 }
