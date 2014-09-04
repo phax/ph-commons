@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 
 /**
  * BAse interface for codepoint iterators
- * 
+ *
  * @author Philip Helger
  */
 public interface ICodepointIterator extends Iterator <Codepoint>
@@ -72,15 +72,20 @@ public interface ICodepointIterator extends Iterator <Codepoint>
   Codepoint peek ();
 
   /**
+   * @param nIndex
+   *        index
    * @return Peek the specified codepoint
    */
   @Nullable
-  Codepoint peek (@Nonnegative int index);
+  Codepoint peek (@Nonnegative int nIndex);
 
   /**
    * Set the iterator position
+   *
+   * @param nPos
+   *        new position
    */
-  void position (@Nonnegative int n);
+  void position (@Nonnegative int nPos);
 
   /**
    * @return the iterator position
@@ -101,16 +106,20 @@ public interface ICodepointIterator extends Iterator <Codepoint>
   int remaining ();
 
   /**
+   * @param nIndex
+   *        index
    * @return <code>true</code> if the char at the specified index is a high
    *         surrogate
    */
-  boolean isHigh (@Nonnegative int index);
+  boolean isHigh (@Nonnegative int nIndex);
 
   /**
+   * @param nIndex
+   *        index
    * @return <code>true</code> if the char at the specified index is a low
    *         surrogate
    */
-  boolean isLow (@Nonnegative int index);
+  boolean isLow (@Nonnegative int nIndex);
 
   @Nonnull
   CodepointIteratorRestricted restrict (@Nonnull ICodepointFilter aFilter);

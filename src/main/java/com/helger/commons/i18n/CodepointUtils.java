@@ -17,6 +17,7 @@
 package com.helger.commons.i18n;
 
 import javax.annotation.CheckForSigned;
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -41,75 +42,101 @@ public final class CodepointUtils
   {}
 
   /**
+   * @param aChars
+   *        char array
+   * @param cLow
+   *        Low index
+   * @param cHigh
+   *        high index
    * @return <code>true</code> if all the characters in chars are within the set
    *         [low,high]
    */
-  public static boolean inRange (final char [] chars, final char low, final char high)
+  public static boolean inRange (@Nonnull final char [] aChars, final char cLow, final char cHigh)
   {
-    for (final char c : chars)
-      if (c < low || c > high)
+    for (final char c : aChars)
+      if (c < cLow || c > cHigh)
         return false;
     return true;
   }
 
   /**
+   * @param aChars
+   *        char array
+   * @param nLow
+   *        Low index
+   * @param nHigh
+   *        high index
    * @return <code>true</code> if all the characters in chars are within the set
    *         [low,high]
    */
-  public static boolean inRange (final char [] chars, final int low, final int high)
+  public static boolean inRange (final char [] aChars, final int nLow, final int nHigh)
   {
-    for (int i = 0; i < chars.length; i++)
+    for (int i = 0; i < aChars.length; i++)
     {
-      final char n = chars[i];
-      final int c = Character.isHighSurrogate (n) && i + 1 < chars.length && Character.isLowSurrogate (chars[i + 1]) ? Character.toCodePoint (n,
-                                                                                                                                              chars[i++])
-                                                                                                                    : (int) n;
-      if (c < low || c > high)
+      final char n = aChars[i];
+      final int c = Character.isHighSurrogate (n) && i + 1 < aChars.length && Character.isLowSurrogate (aChars[i + 1]) ? Character.toCodePoint (n,
+                                                                                                                                                aChars[i++])
+                                                                                                                      : (int) n;
+      if (c < nLow || c > nHigh)
         return false;
     }
     return true;
   }
 
   /**
+   * @param nCodepoint
+   *        codepoint
+   * @param nLow
+   *        Low index
+   * @param nHigh
+   *        high index
    * @return <code>true</code> if the codepoint is within the set [low,high]
    */
-  public static boolean inRange (final int codepoint, final int low, final int high)
+  public static boolean inRange (final int nCodepoint, final int nLow, final int nHigh)
   {
-    return codepoint >= low && codepoint <= high;
+    return nCodepoint >= nLow && nCodepoint <= nHigh;
   }
 
   /**
+   * @param nCodepoint
+   *        Codepoint
    * @return Get the high surrogate for a particular unicode codepoint
    */
-  public static char getHighSurrogate (final int c)
+  public static char getHighSurrogate (final int nCodepoint)
   {
-    return Character.isSupplementaryCodePoint (c) ? (char) ((Character.MIN_HIGH_SURROGATE - (Character.MIN_SUPPLEMENTARY_CODE_POINT >> 10)) + (c >> 10))
-                                                 : 0;
+    return Character.isSupplementaryCodePoint (nCodepoint) ? (char) ((Character.MIN_HIGH_SURROGATE - (Character.MIN_SUPPLEMENTARY_CODE_POINT >> 10)) + (nCodepoint >> 10))
+                                                          : 0;
   }
 
   /**
+   * @param nCodepoint
+   *        Codepoint
    * @return Get the low surrogate for a particular unicode codepoint
    */
-  public static char getLowSurrogate (final int c)
+  public static char getLowSurrogate (final int nCodepoint)
   {
-    return Character.isSupplementaryCodePoint (c) ? (char) (0xDC00 + (c & 0x3FF)) : (char) c;
+    return Character.isSupplementaryCodePoint (nCodepoint) ? (char) (0xDC00 + (nCodepoint & 0x3FF)) : (char) nCodepoint;
   }
 
   /**
+   * @param aSeq
+   *        source sequence
+   * @param nIndex
+   *        index
    * @return the codepoint at the given location, automatically dealing with
    *         surrogate pairs
    */
   @Nonnull
-  public static Codepoint codepointAt (@Nonnull final CharSequence s, final int i)
+  public static Codepoint codepointAt (@Nonnull final CharSequence aSeq, final int nIndex)
   {
-    final char c = s.charAt (i);
+    final char c = aSeq.charAt (nIndex);
     if (c < Character.MIN_HIGH_SURROGATE || c > Character.MAX_LOW_SURROGATE)
       return new Codepoint (c);
     if (Character.isHighSurrogate (c))
     {
-      if (s.length () != i)
+      if (aSeq.length () != nIndex)
       {
-        final char low = s.charAt (i + 1);
+        final char low = aSeq.charAt (nIndex + 1);
         if (Character.isLowSurrogate (low))
           return new Codepoint (c, low);
       }
@@ -117,9 +144,9 @@ public final class CodepointUtils
     else
       if (Character.isLowSurrogate (c))
       {
-        if (i >= 1)
+        if (nIndex >= 1)
         {
-          final char high = s.charAt (i - 1);
+          final char high = aSeq.charAt (nIndex - 1);
           if (Character.isHighSurrogate (high))
             return new Codepoint (high, c);
         }
@@ -130,136 +157,175 @@ public final class CodepointUtils
   /**
    * Insert a codepoint into the buffer, automatically dealing with surrogate
    * pairs
+   *
+   * @param aSeq
+   *        source sequence
+   * @param nIndex
+   *        index
+   * @param aCodepoint
+   *        codepoint to be inserted
    */
-  public static void insert (final CharSequence s, final int i, @Nonnull final Codepoint c)
+  public static void insert (final CharSequence aSeq, final int nIndex, @Nonnull final Codepoint aCodepoint)
   {
-    insert (s, i, c.getValue ());
+    insert (aSeq, nIndex, aCodepoint.getValue ());
   }
 
   /**
    * Insert a codepoint into the buffer, automatically dealing with surrogate
    * pairs
+   *
+   * @param aSeq
+   *        source sequence
+   * @param nIndex
+   *        index
+   * @param nCodepoint
+   *        codepoint to be inserted
    */
-  public static void insert (@Nonnull final CharSequence s, final int i, final int c)
+  public static void insert (@Nonnull final CharSequence aSeq, final int nIndex, final int nCodepoint)
   {
-    if (!(s instanceof StringBuilder) && !(s instanceof StringBuffer))
+    if (!(aSeq instanceof StringBuilder) && !(aSeq instanceof StringBuffer))
     {
-      insert (new StringBuilder (s), i, c);
+      insert (new StringBuilder (aSeq), nIndex, nCodepoint);
     }
     else
     {
-      int nI = i;
-      if (nI > 0 && nI < s.length ())
+      int nI = nIndex;
+      if (nI > 0 && nI < aSeq.length ())
       {
-        final char ch = s.charAt (nI);
+        final char ch = aSeq.charAt (nI);
         final boolean low = Character.isLowSurrogate (ch);
-        if (low && Character.isHighSurrogate (s.charAt (nI - 1)))
+        if (low && Character.isHighSurrogate (aSeq.charAt (nI - 1)))
         {
           nI--;
         }
       }
-      if (s instanceof StringBuffer)
-        ((StringBuffer) s).insert (nI, getAsCharArray (c));
+      if (aSeq instanceof StringBuffer)
+        ((StringBuffer) aSeq).insert (nI, getAsCharArray (nCodepoint));
       else
-        ((StringBuilder) s).insert (nI, getAsCharArray (c));
+        ((StringBuilder) aSeq).insert (nI, getAsCharArray (nCodepoint));
     }
   }
 
   /**
    * Set the character at a given location, automatically dealing with surrogate
    * pairs
+   *
+   * @param aSeq
+   *        source sequence
+   * @param nIndex
+   *        index
+   * @param aCodepoint
+   *        codepoint to be set
    */
-  public static void setChar (@Nonnull final CharSequence s, final int i, @Nonnull final Codepoint c)
+  public static void setChar (@Nonnull final CharSequence aSeq, final int nIndex, @Nonnull final Codepoint aCodepoint)
   {
-    setChar (s, i, c.getValue ());
+    setChar (aSeq, nIndex, aCodepoint.getValue ());
   }
 
   /**
    * Set the character at a given location, automatically dealing with surrogate
    * pairs
+   *
+   * @param aSeq
+   *        source sequence
+   * @param nIndex
+   *        index
+   * @param nCodepoint
+   *        codepoint to be set
    */
-  public static void setChar (@Nonnull final CharSequence s, final int i, final int c)
+  public static void setChar (@Nonnull final CharSequence aSeq, final int nIndex, final int nCodepoint)
   {
-    if (!(s instanceof StringBuilder) && !(s instanceof StringBuffer))
+    if (!(aSeq instanceof StringBuilder) && !(aSeq instanceof StringBuffer))
     {
-      setChar (new StringBuilder (s), i, c);
+      setChar (new StringBuilder (aSeq), nIndex, nCodepoint);
     }
     else
     {
       int l = 1;
-      int nI = i;
-      final char ch = s.charAt (nI);
+      int nI = nIndex;
+      final char ch = aSeq.charAt (nI);
       final boolean high = Character.isHighSurrogate (ch);
       final boolean low = Character.isLowSurrogate (ch);
       if (high || low)
       {
-        if (high && (nI + 1) < s.length () && Character.isLowSurrogate (s.charAt (nI + 1)))
+        if (high && (nI + 1) < aSeq.length () && Character.isLowSurrogate (aSeq.charAt (nI + 1)))
           l++;
         else
         {
-          if (low && nI > 0 && Character.isHighSurrogate (s.charAt (nI - 1)))
+          if (low && nI > 0 && Character.isHighSurrogate (aSeq.charAt (nI - 1)))
           {
             nI--;
             l++;
           }
         }
       }
-      if (s instanceof StringBuffer)
-        ((StringBuffer) s).replace (nI, nI + l, getAsString (c));
+      if (aSeq instanceof StringBuffer)
+        ((StringBuffer) aSeq).replace (nI, nI + l, getAsString (nCodepoint));
       else
-        ((StringBuilder) s).replace (nI, nI + l, getAsString (c));
+        ((StringBuilder) aSeq).replace (nI, nI + l, getAsString (nCodepoint));
     }
   }
 
   /**
-   * Return the total number of codepoints in the buffer. Each surrogate pair
-   * counts as a single codepoint
+   * @param aSeq
+   *        source sequence
+   * @return the total number of codepoints in the buffer. Each surrogate pair
+   *         counts as a single codepoint
    */
-  public static int length (@Nonnull final CharSequence c)
+  @Nonnegative
+  public static int length (@Nonnull final CharSequence aSeq)
   {
-    return length (new CodepointIteratorCharSequence (c));
+    return length (new CodepointIteratorCharSequence (aSeq));
   }
 
   /**
-   * Return the total number of codepoints in the buffer. Each surrogate pair
-   * counts as a single codepoint
+   * @param aArray
+   *        source array
+   * @return the total number of codepoints in the buffer. Each surrogate pair
+   *         counts as a single codepoint
    */
-  public static int length (@Nonnull final char [] c)
+  @Nonnegative
+  public static int length (@Nonnull final char [] aArray)
   {
-    return length (new CodepointIteratorCharArray (c));
+    return length (new CodepointIteratorCharArray (aArray));
   }
 
-  public static int length (@Nonnull final AbstractCodepointIterator ci)
+  @Nonnegative
+  public static int length (@Nonnull final AbstractCodepointIterator aIter)
   {
     int n = 0;
-    while (ci.hasNext ())
+    while (aIter.hasNext ())
     {
-      ci.next ();
+      aIter.next ();
       n++;
     }
     return n;
   }
 
   /**
-   * Return the char[] representation of the codepoint, automatically dealing
-   * with surrogate pairs
+   * @param nCodepoint
+   *        codepoint
+   * @return the char[] representation of the codepoint, automatically dealing
+   *         with surrogate pairs
    */
   @Nonnull
   @Nonempty
-  public static char [] getAsCharArray (final int c)
+  public static char [] getAsCharArray (final int nCodepoint)
   {
-    return Character.toChars (c);
+    return Character.toChars (nCodepoint);
   }
 
   /**
-   * Return the String representation of the codepoint, automatically dealing
-   * with surrogate pairs
+   * @param nCodepoint
+   *        codepoint
+   * @return the String representation of the codepoint, automatically dealing
+   *         with surrogate pairs
    */
   @Nonnull
   @Nonempty
-  public static String getAsString (final int c)
+  public static String getAsString (final int nCodepoint)
   {
-    return new String (getAsCharArray (c));
+    return new String (getAsCharArray (nCodepoint));
   }
 
   // Left-to-right embedding
@@ -279,14 +345,18 @@ public final class CodepointUtils
 
   /**
    * Removes leading and trailing bidi controls from the string
+   *
+   * @param sStr
+   *        Source string
+   * @return the modified string
    */
   @Nullable
-  public static String stripBidi (@Nullable final String s)
+  public static String stripBidi (@Nullable final String sStr)
   {
-    if (s == null || s.length () <= 1)
-      return s;
+    if (sStr == null || sStr.length () <= 1)
+      return sStr;
 
-    String ret = s;
+    String ret = sStr;
     if (isBidi (ret.charAt (0)))
       ret = ret.substring (1);
     if (isBidi (ret.charAt (ret.length () - 1)))
@@ -296,11 +366,15 @@ public final class CodepointUtils
 
   /**
    * Removes bidi controls from within a string
+   *
+   * @param sStr
+   *        Source string
+   * @return the modified string
    */
   @Nonnull
-  public static String stripBidiInternal (@Nonnull final String s)
+  public static String stripBidiInternal (@Nonnull final String sStr)
   {
-    return RegExHelper.stringReplacePattern ("[\u202A\u202B\u202D\u202E\u200E\u200F\u202C]", s, "");
+    return RegExHelper.stringReplacePattern ("[\u202A\u202B\u202D\u202E\u200E\u200F\u202C]", sStr, "");
   }
 
   @Nonnull
@@ -319,101 +393,128 @@ public final class CodepointUtils
 
   /**
    * Wrap the string with the specified bidi control
+   *
+   * @param sStr
+   *        source string
+   * @param cChar
+   *        source char
+   * @return The wrapped string
    */
-  public static String wrapBidi (@Nonnull final String s, final char c)
+  @Nullable
+  public static String wrapBidi (@Nullable final String sStr, final char cChar)
   {
-    switch (c)
+    switch (cChar)
     {
       case RLE:
-        return _wrap (s, RLE, PDF);
+        return _wrap (sStr, RLE, PDF);
       case RLO:
-        return _wrap (s, RLO, PDF);
+        return _wrap (sStr, RLO, PDF);
       case LRE:
-        return _wrap (s, LRE, PDF);
+        return _wrap (sStr, LRE, PDF);
       case LRO:
-        return _wrap (s, LRO, PDF);
+        return _wrap (sStr, LRO, PDF);
       case RLM:
-        return _wrap (s, RLM, RLM);
+        return _wrap (sStr, RLM, RLM);
       case LRM:
-        return _wrap (s, LRM, LRM);
+        return _wrap (sStr, LRM, LRM);
       default:
-        return s;
+        return sStr;
     }
   }
 
   /**
-   * True if the codepoint is a digit
+   * @param aCodepoint
+   *        codepoint
+   * @return <code>true</code> if the codepoint is a digit
    */
-  public static boolean isDigit (@Nonnull final Codepoint codepoint)
+  public static boolean isDigit (@Nonnull final Codepoint aCodepoint)
   {
-    return isDigit (codepoint.getValue ());
+    return isDigit (aCodepoint.getValue ());
   }
 
   /**
-   * True if the codepoint is a digit
+   * @param nCodepoint
+   *        codepoint
+   * @return <code>true</code> if the codepoint is a digit
    */
-  public static boolean isDigit (final int codepoint)
+  public static boolean isDigit (final int nCodepoint)
   {
-    return Character.isDigit (codepoint);
+    return Character.isDigit (nCodepoint);
   }
 
   /**
-   * True if the codepoint is part of the ASCII alphabet (a-z, A-Z)
+   * @param aCodepoint
+   *        codepoint
+   * @return <code>true</code> if the codepoint is part of the ASCII alphabet
+   *         (a-z, A-Z)
    */
-  public static boolean isAlpha (@Nonnull final Codepoint codepoint)
+  public static boolean isAlpha (@Nonnull final Codepoint aCodepoint)
   {
-    return isAlpha (codepoint.getValue ());
+    return isAlpha (aCodepoint.getValue ());
   }
 
   /**
-   * True if the codepoint is part of the ASCII alphabet (a-z, A-Z)
+   * @param nCodepoint
+   *        codepoint
+   * @return <code>true</code> if the codepoint is part of the ASCII alphabet
+   *         (a-z, A-Z)
    */
-  public static boolean isAlpha (final int codepoint)
+  public static boolean isAlpha (final int nCodepoint)
   {
-    return Character.isLetter (codepoint);
+    return Character.isLetter (nCodepoint);
   }
 
   /**
-   * True if isAlpha and isDigit both return true
+   * @param aCodepoint
+   *        codepoint
+   * @return <code>true</code> if isAlpha and isDigit both return
+   *         <code>true</code>
    */
-  public static boolean isAlphaDigit (@Nonnull final Codepoint codepoint)
+  public static boolean isAlphaDigit (@Nonnull final Codepoint aCodepoint)
   {
-    return isAlphaDigit (codepoint.getValue ());
+    return isAlphaDigit (aCodepoint.getValue ());
   }
 
   /**
-   * True if isAlpha and isDigit both return true
+   * @param nCodepoint
+   *        codepoint
+   * @return <code>true</code> if isAlpha and isDigit both return
+   *         <code>true</code>
    */
-  public static boolean isAlphaDigit (final int codepoint)
+  public static boolean isAlphaDigit (final int nCodepoint)
   {
-    return Character.isLetterOrDigit (codepoint);
+    return Character.isLetterOrDigit (nCodepoint);
   }
 
-  public static boolean isHex (final int codepoint)
+  public static boolean isHex (final int nCodepoint)
   {
-    return isDigit (codepoint) || inRange (codepoint, 'a', 'f') || inRange (codepoint, 'A', 'F');
-  }
-
-  /**
-   * True if the codepoint is a bidi control character
-   */
-  public static boolean isBidi (@Nonnull final Codepoint codepoint)
-  {
-    return isBidi (codepoint.getValue ());
+    return isDigit (nCodepoint) || inRange (nCodepoint, 'a', 'f') || inRange (nCodepoint, 'A', 'F');
   }
 
   /**
-   * True if the codepoint is a bidi control character
+   * @param aCodepoint
+   *        codepoint
+   * @return <code>true</code> if the codepoint is a bidi control character
    */
-  public static boolean isBidi (final int codepoint)
+  public static boolean isBidi (@Nonnull final Codepoint aCodepoint)
   {
-    return codepoint == LRM ||
-           codepoint == RLM ||
-           codepoint == LRE ||
-           codepoint == RLE ||
-           codepoint == LRO ||
-           codepoint == RLO ||
-           codepoint == PDF;
+    return isBidi (aCodepoint.getValue ());
+  }
+
+  /**
+   * @param nCodepoint
+   *        codepoint
+   * @return <code>true</code> if the codepoint is a bidi control character
+   */
+  public static boolean isBidi (final int nCodepoint)
+  {
+    return nCodepoint == LRM ||
+           nCodepoint == RLM ||
+           nCodepoint == LRE ||
+           nCodepoint == RLE ||
+           nCodepoint == LRO ||
+           nCodepoint == RLO ||
+           nCodepoint == PDF;
   }
 
   @CheckForSigned
@@ -436,14 +537,15 @@ public final class CodepointUtils
   }
 
   /**
-   * Treats the specified int array as an Inversion Set and returns true if the
-   * value is located within the set. This will only work correctly if the
-   * values in the int array are monotonically increasing
+   * Treats the specified int array as an Inversion Set and returns
+   * <code>true</code> if the value is located within the set. This will only
+   * work correctly if the values in the int array are monotonically increasing
    *
    * @param aCodepointSet
    *        Source set
    * @param value
    *        Value to check
+   * @return <code>true</code> if the value is located within the set
    */
   public static boolean inverseSetContains (@Nonnull final int [] aCodepointSet, final int value)
   {
@@ -714,65 +816,100 @@ public final class CodepointUtils
 
   /**
    * Verifies a sequence of codepoints using the specified filter
+   *
+   * @param aIter
+   *        Codepointer iterator
+   * @param aFilter
+   *        filter
    */
-  public static void verify (final AbstractCodepointIterator ci, final ICodepointFilter filter)
+  public static void verify (final AbstractCodepointIterator aIter, final ICodepointFilter aFilter)
   {
-    final CodepointIteratorRestricted rci = ci.restrict (filter, false);
+    final CodepointIteratorRestricted rci = aIter.restrict (aFilter, false);
     while (rci.hasNext ())
       rci.next ();
   }
 
   /**
    * Verifies a sequence of codepoints using the specified filter
+   *
+   * @param aIter
+   *        codepoint iterator
+   * @param eProfile
+   *        profile to use
    */
-  public static void verify (final AbstractCodepointIterator ci, @Nonnull final ECodepointProfile profile)
+  public static void verify (final AbstractCodepointIterator aIter, @Nonnull final ECodepointProfile eProfile)
   {
-    verify (ci, profile.getFilter ());
+    verify (aIter, eProfile.getFilter ());
   }
 
   /**
    * Verifies a sequence of codepoints using the specified profile
+   *
+   * @param aArray
+   *        char array
+   * @param eProfile
+   *        profile to use
    */
-  public static void verify (@Nullable final char [] s, @Nonnull final ECodepointProfile profile)
+  public static void verify (@Nullable final char [] aArray, @Nonnull final ECodepointProfile eProfile)
   {
-    if (s != null)
-      verify (new CodepointIteratorCharArray (s), profile);
+    if (aArray != null)
+      verify (new CodepointIteratorCharArray (aArray), eProfile);
   }
 
   /**
    * Verifies a sequence of codepoints using the specified profile
+   *
+   * @param sStr
+   *        String
+   * @param eProfile
+   *        profile to use
    */
-  public static void verify (@Nullable final String s, @Nonnull final ECodepointProfile profile)
+  public static void verify (@Nullable final String sStr, @Nonnull final ECodepointProfile eProfile)
   {
-    if (s != null)
-      verify (new CodepointIteratorCharSequence (s), profile);
+    if (sStr != null)
+      verify (new CodepointIteratorCharSequence (sStr), eProfile);
   }
 
   /**
    * Verifies a sequence of codepoints using the specified filter
+   *
+   * @param aIter
+   *        Codepoint iterator
+   * @param aFilter
+   *        Filter to use
    */
-  public static void verifyNot (final ICodepointIterator ci, final ICodepointFilter filter)
+  public static void verifyNot (final ICodepointIterator aIter, final ICodepointFilter aFilter)
   {
-    final CodepointIteratorRestricted rci = ci.restrict (filter, false, true);
+    final CodepointIteratorRestricted rci = aIter.restrict (aFilter, false, true);
     while (rci.hasNext ())
       rci.next ();
   }
 
   /**
    * Verifies a sequence of codepoints using the specified profile
+   *
+   * @param aIter
+   *        Codepoint iterator
+   * @param eProfile
+   *        profile to use
    */
-  public static void verifyNot (final ICodepointIterator ci, @Nonnull final ECodepointProfile profile)
+  public static void verifyNot (final ICodepointIterator aIter, @Nonnull final ECodepointProfile eProfile)
   {
-    final CodepointIteratorRestricted rci = ci.restrict (profile.getFilter (), false, true);
+    final CodepointIteratorRestricted rci = aIter.restrict (eProfile.getFilter (), false, true);
     while (rci.hasNext ())
       rci.next ();
   }
 
   /**
    * Verifies a sequence of codepoints using the specified profile
+   *
+   * @param aArray
+   *        char array
+   * @param eProfile
+   *        profile to use
    */
-  public static void verifyNot (final char [] array, @Nonnull final ECodepointProfile profile)
+  public static void verifyNot (final char [] aArray, @Nonnull final ECodepointProfile eProfile)
   {
-    verifyNot (new CodepointIteratorCharArray (array), profile);
+    verifyNot (new CodepointIteratorCharArray (aArray), eProfile);
   }
 }

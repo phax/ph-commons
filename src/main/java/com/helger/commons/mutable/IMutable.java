@@ -20,8 +20,10 @@ import com.helger.commons.ICloneable;
 
 /**
  * Base interface for all mutable objects
- * 
+ *
  * @author Philip Helger
+ * @param <IMPLTYPE>
+ *        Implementation type
  */
 public interface IMutable <IMPLTYPE extends IMutable <IMPLTYPE>> extends Comparable <IMPLTYPE>, ICloneable <IMPLTYPE>
 {

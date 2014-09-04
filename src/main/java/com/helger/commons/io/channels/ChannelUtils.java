@@ -40,7 +40,7 @@ import com.helger.commons.state.ESuccess;
 
 /**
  * Some very basic NIO channel utility stuff.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -61,7 +61,7 @@ public final class ChannelUtils
 
   /**
    * Copy all content from the source channel to the destination channel.
-   * 
+   *
    * @param aSrc
    *        Source channel. May not be <code>null</code>. Is not closed after
    *        the operation.
@@ -69,6 +69,8 @@ public final class ChannelUtils
    *        Destination channel. May not be <code>null</code>. Is not closed
    *        after the operation.
    * @return The number of bytes written.
+   * @throws IOException
+   *         In case of IO error
    */
   @Nonnegative
   public static long channelCopy (@Nonnull @WillNotClose final ReadableByteChannel aSrc,
@@ -96,7 +98,7 @@ public final class ChannelUtils
    * wasn't fully drained. This may result in data copying, but minimizes system
    * calls. It also requires a cleanup loop to make sure all the data gets sent.<br>
    * Source: Java NIO, page 60
-   * 
+   *
    * @param aSrc
    *        Source channel. May not be <code>null</code>. Is not closed after
    *        the operation.
@@ -140,7 +142,7 @@ public final class ChannelUtils
    * data copying but may result in more systems calls. No post-loop cleanup is
    * needed because the buffer will be empty when the loop is exited.<br>
    * Source: Java NIO, page 60
-   * 
+   *
    * @param aSrc
    *        Source channel. May not be <code>null</code>. Is not closed after
    *        the operation.

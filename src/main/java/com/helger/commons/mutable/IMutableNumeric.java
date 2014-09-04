@@ -16,11 +16,12 @@
  */
 package com.helger.commons.mutable;
 
-
 /**
  * Base interface for mutable numeric values
- * 
+ *
  * @author Philip Helger
+ * @param <IMPLTYPE>
+ *        Implementation type
  */
 public interface IMutableNumeric <IMPLTYPE extends IMutableNumeric <IMPLTYPE>> extends IMutable <IMPLTYPE>
 {

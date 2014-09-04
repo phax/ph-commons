@@ -33,7 +33,7 @@ import com.helger.commons.collections.ArrayHelper;
 /**
  * Wrapper for an {@link java.io.OutputStream} around a
  * {@link java.nio.ByteBuffer}.
- * 
+ *
  * @author Philip Helger
  */
 public class ByteBufferOutputStream extends OutputStream
@@ -55,7 +55,7 @@ public class ByteBufferOutputStream extends OutputStream
 
   /**
    * Constructor for an output stream than can grow.
-   * 
+   *
    * @param nBytes
    *        The initial number of bytes the buffer has. Must be &ge; 0.
    */
@@ -66,7 +66,7 @@ public class ByteBufferOutputStream extends OutputStream
 
   /**
    * Constructor
-   * 
+   *
    * @param nBytes
    *        The number of bytes the buffer has initially. Must be &ge; 0.
    * @param bCanGrow
@@ -81,7 +81,7 @@ public class ByteBufferOutputStream extends OutputStream
   /**
    * Constructor with an existing byte array to wrap. This output stream cannot
    * grow!
-   * 
+   *
    * @param aArray
    *        The array to be backed by a {@link ByteBuffer}.
    */
@@ -93,7 +93,7 @@ public class ByteBufferOutputStream extends OutputStream
   /**
    * Constructor with an existing byte array to wrap. This output stream cannot
    * grow!
-   * 
+   *
    * @param aArray
    *        The array to be backed by a {@link ByteBuffer}.
    * @param nOfs
@@ -108,7 +108,7 @@ public class ByteBufferOutputStream extends OutputStream
 
   /**
    * Constructor
-   * 
+   *
    * @param aBuffer
    *        The byte buffer to use. May not be <code>null</code>.
    * @param bCanGrow
@@ -162,7 +162,7 @@ public class ByteBufferOutputStream extends OutputStream
 
   /**
    * Get everything as a big byte array, without altering the ByteBuffer.
-   * 
+   *
    * @return The content of the buffer as a byte array. Never <code>null</code>.
    */
   @Nonnull
@@ -180,7 +180,7 @@ public class ByteBufferOutputStream extends OutputStream
    * Write everything currently contained to the specified buffer. If the passed
    * buffer is too small, a {@link java.nio.BufferOverflowException} is thrown.
    * The copied elements are removed from this streams buffer.
-   * 
+   *
    * @param aDestBuffer
    *        The destination buffer to write to. May not be <code>null</code>.
    */
@@ -196,7 +196,7 @@ public class ByteBufferOutputStream extends OutputStream
   /**
    * Writes the current content to the passed buffer. The copied elements are
    * removed from this streams buffer.
-   * 
+   *
    * @param aBuf
    *        The buffer to be filled. May not be <code>null</code>.
    */
@@ -210,7 +210,7 @@ public class ByteBufferOutputStream extends OutputStream
   /**
    * Write current content to the passed byte array. The copied elements are
    * removed from this streams buffer.
-   * 
+   *
    * @param aBuf
    *        Byte array to write to. May not be <code>null</code>.
    * @param nOfs
@@ -230,9 +230,11 @@ public class ByteBufferOutputStream extends OutputStream
   /**
    * Write everything to the passed output stream and clear the contained
    * buffer.
-   * 
+   *
    * @param aOS
    *        The output stream to write to. May not be <code>null</code>.
+   * @throws IOException
+   *         In case of IO error
    */
   public void writeTo (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
   {
@@ -244,7 +246,7 @@ public class ByteBufferOutputStream extends OutputStream
 
   /**
    * Get the content as a string without modifying the buffer
-   * 
+   *
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.
    * @return The String representation.
@@ -285,7 +287,7 @@ public class ByteBufferOutputStream extends OutputStream
 
   /**
    * Write the content from the passed byte buffer to this output stream.
-   * 
+   *
    * @param aSrcBuffer
    *        The buffer to use. May not be <code>null</code>.
    */

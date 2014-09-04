@@ -28,14 +28,14 @@ import com.helger.commons.parent.IHasChildren;
 /**
  * An implementation of the {@link IChildrenProviderWithID} interface that works
  * with all types that implement {@link IHasChildren} and {@link IHasID}.
- * 
+ *
  * @author Philip Helger
+ * @param <KEYTYPE>
+ *        The key type.
  * @param <CHILDTYPE>
  *        The data type of the child objects.
  */
-public class ChildrenProviderHasChildrenWithID <KEYTYPE, CHILDTYPE extends IHasChildren <CHILDTYPE> & IHasID <KEYTYPE>> extends
-                                                                                                                        ChildrenProviderHasChildren <CHILDTYPE> implements
-                                                                                                                                                               IChildrenProviderWithID <KEYTYPE, CHILDTYPE>
+public class ChildrenProviderHasChildrenWithID <KEYTYPE, CHILDTYPE extends IHasChildren <CHILDTYPE> & IHasID <KEYTYPE>> extends ChildrenProviderHasChildren <CHILDTYPE> implements IChildrenProviderWithID <KEYTYPE, CHILDTYPE>
 {
   @Nullable
   public CHILDTYPE getChildWithID (@Nullable final CHILDTYPE aCurrent, @Nullable final KEYTYPE aID)

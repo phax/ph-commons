@@ -34,9 +34,10 @@ import com.helger.commons.typeconvert.TypeConverterException.EReason;
  * Uses {@link TypeConverterRegistry#getFuzzyConverter(Class, Class)} for
  * retrieving a registered converter. If no converter is found, it is checked
  * whether a mapping from a primitive type to an object type exists.
- * 
+ *
  * @author Philip Helger
  */
+@SuppressWarnings ("javadoc")
 @Immutable
 public final class TypeConverter
 {
@@ -99,7 +100,7 @@ public final class TypeConverter
 
   /**
    * Convert the passed source value to boolean
-   * 
+   *
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
    * @return <code>null</code> if the source value was <code>null</code>.
@@ -120,7 +121,7 @@ public final class TypeConverter
 
   /**
    * Convert the passed source value to byte
-   * 
+   *
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
    * @return <code>null</code> if the source value was <code>null</code>.
@@ -141,7 +142,7 @@ public final class TypeConverter
 
   /**
    * Convert the passed source value to char
-   * 
+   *
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
    * @return <code>null</code> if the source value was <code>null</code>.
@@ -162,7 +163,7 @@ public final class TypeConverter
 
   /**
    * Convert the passed source value to double
-   * 
+   *
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
    * @return <code>null</code> if the source value was <code>null</code>.
@@ -183,7 +184,7 @@ public final class TypeConverter
 
   /**
    * Convert the passed source value to float
-   * 
+   *
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
    * @return <code>null</code> if the source value was <code>null</code>.
@@ -204,7 +205,7 @@ public final class TypeConverter
 
   /**
    * Convert the passed source value to int
-   * 
+   *
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
    * @return <code>null</code> if the source value was <code>null</code>.
@@ -225,7 +226,7 @@ public final class TypeConverter
 
   /**
    * Convert the passed source value to long
-   * 
+   *
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
    * @return <code>null</code> if the source value was <code>null</code>.
@@ -246,7 +247,7 @@ public final class TypeConverter
 
   /**
    * Convert the passed source value to short
-   * 
+   *
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
    * @return <code>null</code> if the source value was <code>null</code>.
@@ -268,7 +269,7 @@ public final class TypeConverter
   /**
    * Convert the passed source value to the destination class, if a conversion
    * is necessary. By default the fuzzy type converter provider is used.
-   * 
+   *
    * @param <DSTTYPE>
    *        The destination type.
    * @param aSrcValue
@@ -293,7 +294,7 @@ public final class TypeConverter
   /**
    * Get the class to use. In case the passed class is a primitive type, the
    * corresponding wrapper class is used.
-   * 
+   *
    * @param aClass
    *        The class to check. Can be <code>null</code> but should not be
    *        <code>null</code>.
@@ -345,7 +346,7 @@ public final class TypeConverter
   /**
    * Convert the passed source value to the destination class, if a conversion
    * is necessary.
-   * 
+   *
    * @param <DSTTYPE>
    *        The destination type.
    * @param aTypeConverterProvider

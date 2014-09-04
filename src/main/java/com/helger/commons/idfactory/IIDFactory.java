@@ -22,8 +22,10 @@ import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
 
 /**
  * Interface for an object creating unique IDs.
- * 
+ *
  * @author Philip Helger
+ * @param <IDTYPE>
+ *        Type of ID to be generated
  */
 @MustImplementEqualsAndHashcode
 public interface IIDFactory <IDTYPE> extends IBaseIDFactory
