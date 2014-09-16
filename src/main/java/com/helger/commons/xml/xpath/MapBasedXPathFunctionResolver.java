@@ -46,14 +46,14 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICloneable <MapBasedXPathFunctionResolver>
 {
-  private final Map <XPathFunctionKey, XPathFunction> m_aVars;
+  private final Map <XPathFunctionKey, XPathFunction> m_aMap;
 
   /**
    * Default ctor.
    */
   public MapBasedXPathFunctionResolver ()
   {
-    m_aVars = new HashMap <XPathFunctionKey, XPathFunction> ();
+    m_aMap = new HashMap <XPathFunctionKey, XPathFunction> ();
   }
 
   /**
@@ -65,7 +65,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   public MapBasedXPathFunctionResolver (@Nonnull final MapBasedXPathFunctionResolver aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
-    m_aVars = ContainerHelper.newMap (aOther.m_aVars);
+    m_aMap = ContainerHelper.newMap (aOther.m_aMap);
   }
 
   /**
@@ -109,10 +109,35 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
     ValueEnforcer.notNull (aFunction, "Function");
 
     final XPathFunctionKey aFunctionKey = new XPathFunctionKey (aName, nArity);
-    if (m_aVars.containsKey (aFunctionKey))
+    if (m_aMap.containsKey (aFunctionKey))
       return EChange.UNCHANGED;
-    m_aVars.put (aFunctionKey, aFunction);
+    m_aMap.put (aFunctionKey, aFunction);
     return EChange.CHANGED;
+  }
+
+  /**
+   * Add all functions from the other function resolver into this resolver.
+   *
+   * @param aOther
+   *        The function resolver to import the functions from. May not be
+   *        <code>null</code>.
+   * @param bOverwrite
+   *        if <code>true</code> existing functions will be overwritten with the
+   *        new functions, otherwise the old functions are kept.
+   * @return {@link EChange}
+   */
+  @Nonnull
+  public EChange addAllFrom (@Nonnull final MapBasedXPathFunctionResolver aOther, final boolean bOverwrite)
+  {
+    ValueEnforcer.notNull (aOther, "Other");
+    EChange eChange = EChange.UNCHANGED;
+    for (final Map.Entry <XPathFunctionKey, XPathFunction> aEntry : aOther.m_aMap.entrySet ())
+      if (bOverwrite || !m_aMap.containsKey (aEntry.getKey ()))
+      {
+        m_aMap.put (aEntry.getKey (), aEntry.getValue ());
+        eChange = EChange.CHANGED;
+      }
+    return eChange;
   }
 
   /**
@@ -141,7 +166,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   @Nonnull
   public EChange removeFunction (@Nullable final XPathFunctionKey aKey)
   {
-    return EChange.valueOf (m_aVars.remove (aKey) != null);
+    return EChange.valueOf (m_aMap.remove (aKey) != null);
   }
 
   /**
@@ -159,7 +184,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
     if (aName != null)
     {
       // Make a copy of the key set to allow for inline modification
-      for (final XPathFunctionKey aKey : ContainerHelper.newList (m_aVars.keySet ()))
+      for (final XPathFunctionKey aKey : ContainerHelper.newList (m_aMap.keySet ()))
         if (aKey.getFunctionName ().equals (aName))
           eChange = eChange.or (removeFunction (aKey));
     }
@@ -174,7 +199,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   @ReturnsMutableCopy
   public Map <XPathFunctionKey, XPathFunction> getAllFunctions ()
   {
-    return ContainerHelper.newMap (m_aVars);
+    return ContainerHelper.newMap (m_aMap);
   }
 
   /**
@@ -183,7 +208,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   @Nonnegative
   public int getFunctionCount ()
   {
-    return m_aVars.size ();
+    return m_aMap.size ();
   }
 
   /**
@@ -194,9 +219,9 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   @Nonnull
   public EChange clear ()
   {
-    if (m_aVars.isEmpty ())
+    if (m_aMap.isEmpty ())
       return EChange.UNCHANGED;
-    m_aVars.clear ();
+    m_aMap.clear ();
     return EChange.CHANGED;
   }
 
@@ -209,7 +234,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   @Nullable
   public XPathFunction resolveFunction (@Nullable final XPathFunctionKey aFunctionKey)
   {
-    return m_aVars.get (aFunctionKey);
+    return m_aMap.get (aFunctionKey);
   }
 
   @Nonnull
@@ -227,18 +252,18 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MapBasedXPathFunctionResolver rhs = (MapBasedXPathFunctionResolver) o;
-    return EqualsUtils.equals (m_aVars, rhs.m_aVars);
+    return EqualsUtils.equals (m_aMap, rhs.m_aMap);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aVars).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aMap).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("vars", m_aVars).toString ();
+    return new ToStringGenerator (this).append ("map", m_aMap).toString ();
   }
 }

@@ -46,7 +46,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICloneable <MapBasedXPathVariableResolver>
 {
-  private final Map <String, Object> m_aVars;
+  private final Map <String, Object> m_aMap;
 
   /**
    * Default ctor.
@@ -64,7 +64,7 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
    */
   public MapBasedXPathVariableResolver (@Nullable final Map <String, ?> aVars)
   {
-    m_aVars = ContainerHelper.newMap (aVars);
+    m_aMap = ContainerHelper.newMap (aVars);
   }
 
   /**
@@ -76,7 +76,7 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
   public MapBasedXPathVariableResolver (@Nonnull final MapBasedXPathVariableResolver aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
-    m_aVars = ContainerHelper.newMap (aOther.m_aVars);
+    m_aMap = ContainerHelper.newMap (aOther.m_aMap);
   }
 
   /**
@@ -94,10 +94,65 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
     ValueEnforcer.notNull (sName, "Name");
     ValueEnforcer.notNull (aValue, "Value");
 
-    if (m_aVars.containsKey (sName))
+    if (m_aMap.containsKey (sName))
       return EChange.UNCHANGED;
-    m_aVars.put (sName, aValue);
+    m_aMap.put (sName, aValue);
     return EChange.CHANGED;
+  }
+
+  /**
+   * Add all variables from the other variable resolver into this resolver.
+   *
+   * @param aOther
+   *        The variable resolver to import the variable from. May not be
+   *        <code>null</code>.
+   * @param bOverwrite
+   *        if <code>true</code> existing variables will be overwritten with the
+   *        new variables, otherwise the old variables are kept.
+   * @return {@link EChange}
+   */
+  @Nonnull
+  public EChange addAllFrom (@Nonnull final MapBasedXPathVariableResolver aOther, final boolean bOverwrite)
+  {
+    ValueEnforcer.notNull (aOther, "Other");
+    EChange eChange = EChange.UNCHANGED;
+    for (final Map.Entry <String, Object> aEntry : aOther.m_aMap.entrySet ())
+      if (bOverwrite || !m_aMap.containsKey (aEntry.getKey ()))
+      {
+        m_aMap.put (aEntry.getKey (), aEntry.getValue ());
+        eChange = EChange.CHANGED;
+      }
+    return eChange;
+  }
+
+  /**
+   * Add all variables from the other variable resolver into this resolver. This
+   * methods takes only the local part of the QName and loses the namespace URI.
+   *
+   * @param aOther
+   *        The variable resolver to import the variable from. May not be
+   *        <code>null</code>.
+   * @param bOverwrite
+   *        if <code>true</code> existing variables will be overwritten with the
+   *        new variables, otherwise the old variables are kept.
+   * @return {@link EChange}
+   */
+  @Nonnull
+  public EChange addAllFrom (@Nonnull final MapBasedXPathVariableResolverQName aOther, final boolean bOverwrite)
+  {
+    ValueEnforcer.notNull (aOther, "Other");
+    EChange eChange = EChange.UNCHANGED;
+    for (final Map.Entry <QName, ?> aEntry : aOther.getAllVariables ().entrySet ())
+    {
+      // QName to local part only
+      final String sKey = aEntry.getKey ().getLocalPart ();
+      if (bOverwrite || !m_aMap.containsKey (sKey))
+      {
+        m_aMap.put (sKey, aEntry.getValue ());
+        eChange = EChange.CHANGED;
+      }
+    }
+    return eChange;
   }
 
   /**
@@ -110,7 +165,7 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
   @Nonnull
   public EChange removeVariable (@Nullable final String sName)
   {
-    return EChange.valueOf (m_aVars.remove (sName) != null);
+    return EChange.valueOf (m_aMap.remove (sName) != null);
   }
 
   /**
@@ -138,7 +193,7 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
   @ReturnsMutableCopy
   public Map <String, ?> getAllVariables ()
   {
-    return ContainerHelper.newMap (m_aVars);
+    return ContainerHelper.newMap (m_aMap);
   }
 
   /**
@@ -147,7 +202,7 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
   @Nonnegative
   public int getVariableCount ()
   {
-    return m_aVars.size ();
+    return m_aMap.size ();
   }
 
   /**
@@ -158,9 +213,9 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
   @Nonnull
   public EChange clear ()
   {
-    if (m_aVars.isEmpty ())
+    if (m_aMap.isEmpty ())
       return EChange.UNCHANGED;
-    m_aVars.clear ();
+    m_aMap.clear ();
     return EChange.CHANGED;
   }
 
@@ -172,9 +227,9 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
    */
   public void setAllVariables (@Nullable final Map <String, ?> aVars)
   {
-    m_aVars.clear ();
+    m_aMap.clear ();
     if (aVars != null)
-      m_aVars.putAll (aVars);
+      m_aMap.putAll (aVars);
   }
 
   @Nullable
@@ -183,7 +238,7 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
     ValueEnforcer.notNull (aVariableName, "VariableName");
 
     final String sLocalName = aVariableName.getLocalPart ();
-    return m_aVars.get (sLocalName);
+    return m_aMap.get (sLocalName);
   }
 
   @Nonnull
@@ -201,18 +256,18 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MapBasedXPathVariableResolver rhs = (MapBasedXPathVariableResolver) o;
-    return EqualsUtils.equals (m_aVars, rhs.m_aVars);
+    return EqualsUtils.equals (m_aMap, rhs.m_aMap);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aVars).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aMap).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("vars", m_aVars).toString ();
+    return new ToStringGenerator (this).append ("map", m_aMap).toString ();
   }
 }
