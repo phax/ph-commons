@@ -24,6 +24,7 @@
       <text locale="en">Extended MapBased XPath variable and function resolver</text>
     </change>
   </entry>
+  <release date="2014-09-03" version="5.0.2" />
   <entry date="2014-09-02" category="api" action="change" incompatible="true">
     <change>
       <text locale="en">Changed change notify handling of IMultiLingualText to use CallbackList</text>
