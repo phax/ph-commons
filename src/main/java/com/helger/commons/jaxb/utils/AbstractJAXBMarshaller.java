@@ -438,6 +438,22 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   }
 
   /**
+   * Read a document from the specified byte array. The secure reading feature
+   * has affect when using this method.
+   *
+   * @param aXML
+   *        The XML bytes to read. May not be <code>null</code>.
+   * @return <code>null</code> in case reading fails.
+   */
+  @Nullable
+  public final JAXBTYPE read (@Nonnull final byte [] aXML)
+  {
+    ValueEnforcer.notNull (aXML, "XML");
+
+    return _readSecurelyFromInputSource (InputSourceFactory.create (aXML));
+  }
+
+  /**
    * Read a document from the specified String. The secure reading feature has
    * affect when using this method.
    *
