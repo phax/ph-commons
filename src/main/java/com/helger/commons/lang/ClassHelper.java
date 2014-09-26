@@ -38,7 +38,7 @@ import com.helger.commons.priviledged.PrivilegedActionGetSystemClassLoader;
 
 /**
  * Small class helper utility stuff class.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -144,7 +144,7 @@ public final class ClassHelper
   /**
    * Check if the passed class is public, instancable and has a no-argument
    * constructor.
-   * 
+   *
    * @param aClass
    *        The class to check. May be <code>null</code>.
    * @return <code>true</code> if the class is public, instancable and has a
@@ -175,7 +175,7 @@ public final class ClassHelper
   /**
    * Check if the passed class is an interface or not. Please note that
    * annotations are also interfaces!
-   * 
+   *
    * @param aClass
    *        The class to check.
    * @return <code>true</code> if the class is an interface (or an annotation)
@@ -199,7 +199,7 @@ public final class ClassHelper
    * Check if the passed class is abstract or not. Note: interfaces and
    * annotations are also considered as abstract whereas arrays are never
    * abstract.
-   * 
+   *
    * @param aClass
    *        The class to check.
    * @return <code>true</code> if the passed class is abstract
@@ -228,7 +228,7 @@ public final class ClassHelper
 
   /**
    * Get the primitive wrapper class of the passed primitive class.
-   * 
+   *
    * @param aClass
    *        The primitive class. May be <code>null</code>.
    * @return <code>null</code> if the passed class is not a primitive class.
@@ -243,7 +243,7 @@ public final class ClassHelper
 
   /**
    * Get the primitive class of the passed primitive wrapper class.
-   * 
+   *
    * @param aClass
    *        The primitive wrapper class. May be <code>null</code>.
    * @return <code>null</code> if the passed class is not a primitive wrapper
@@ -322,7 +322,7 @@ public final class ClassHelper
   /**
    * Check if the passed classes are convertible. Includes conversion checks
    * between primitive types and primitive wrapper types.
-   * 
+   *
    * @param aSrcClass
    *        First class. May not be <code>null</code>.
    * @param aDstClass
@@ -354,7 +354,7 @@ public final class ClassHelper
 
   /**
    * <code>null</code>-safe helper method to determine the class of an object.
-   * 
+   *
    * @param aObject
    *        The object to query. May be <code>null</code>.
    * @return <code>null</code> if the passed object is <code>null</code>.
@@ -363,5 +363,19 @@ public final class ClassHelper
   public static Class <?> getClass (@Nullable final Object aObject)
   {
     return aObject == null ? null : aObject.getClass ();
+  }
+
+  /**
+   * <code>null</code>-safe helper method to determine the class name of an
+   * object.
+   *
+   * @param aObject
+   *        The object to query. May be <code>null</code>.
+   * @return <code>null</code> if the passed object is <code>null</code>.
+   */
+  @Nullable
+  public static String getClassName (@Nullable final Object aObject)
+  {
+    return aObject == null ? null : aObject.getClass ().getName ();
   }
 }

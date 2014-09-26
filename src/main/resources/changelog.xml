@@ -19,9 +19,14 @@
 -->
 <changelog xmlns="http://www.phloc.com/ns/changelog/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="ph-commons">
+  <entry date="2014-09-26" category="api" action="add">
+    <change>
+      <text locale="en">Added new method ClassHelper.getClassName(Object)</text>
+    </change>
+  </entry>
   <entry date="2014-09-25" category="api" action="add">
     <change>
-      <text locale="en">Added new method AbstractJAXBMarshaller.rea(byte[])</text>
+      <text locale="en">Added new method AbstractJAXBMarshaller.read(byte[])</text>
     </change>
   </entry>
   <entry date="2014-09-16" category="api" action="add">
