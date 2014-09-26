@@ -32,12 +32,12 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link ArrayIterator}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ArrayIteratorTest
 {
-  @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
+  @SuppressFBWarnings ({ "TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED", "NP_NONNULL_PARAM_VIOLATION" })
   @Test
   public void testAll ()
   {
@@ -110,19 +110,19 @@ public final class ArrayIteratorTest
   {
     final ArrayIterator <String> ae = ArrayIterator.create (ArrayHelper.newArray ("Hallo", "Welt", "from", "Copenhagen"));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (ae,
-                                                                    ArrayIterator.create (ArrayHelper.newArray ("Hallo",
-                                                                                                                "Welt",
-                                                                                                                "from",
-                                                                                                                "Copenhagen")));
+                                                                 ArrayIterator.create (ArrayHelper.newArray ("Hallo",
+                                                                                                             "Welt",
+                                                                                                             "from",
+                                                                                                             "Copenhagen")));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (ae,
-                                                                        ArrayIterator.create (ArrayHelper.newArray ("Hallo",
-                                                                                                                    "Welt",
-                                                                                                                    "from")));
+                                                                     ArrayIterator.create (ArrayHelper.newArray ("Hallo",
+                                                                                                                 "Welt",
+                                                                                                                 "from")));
     ae.next ();
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (ae,
-                                                                        ArrayIterator.create (ArrayHelper.newArray ("Hallo",
-                                                                                                                    "Welt",
-                                                                                                                    "from",
-                                                                                                                    "Copenhagen")));
+                                                                     ArrayIterator.create (ArrayHelper.newArray ("Hallo",
+                                                                                                                 "Welt",
+                                                                                                                 "from",
+                                                                                                                 "Copenhagen")));
   }
 }
