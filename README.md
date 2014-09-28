@@ -1,8 +1,6 @@
-ph-commons
-==========
+#ph-commons
 
-Java 1.6+ Library with tons of utility classes required in all projects
-
+Java 1.6+ Library with tons of utility classes required in most of ph-* projects.
 
 #Maven usage
 Add the following to your pom.xml to use this artifact:
@@ -10,6 +8,10 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>5.0.0</version>
+  <version>5.0.2</version>
 </dependency>
 ```
+
+---
+
+On Twitter: <a href="https://twitter.com/philiphelger">Follow @philiphelger</a>
