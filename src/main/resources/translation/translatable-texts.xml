@@ -17,7 +17,7 @@
     limitations under the License.
 
 -->
-<translationitems count="422">
+<translationitems count="422" hashcode="b1129253">
   <item id="com.helger.commons.locale.ELocaleName.ID_LANGUAGE_ALL">
     <de>Alle Sprachen</de>
     <en>All languages</en>
@@ -196,7 +196,7 @@
   </item>
   <item id="com.helger.commons.locale.country.ECountryName.CI">
     <de>Côte d´Ivoire</de>
-    <en>Cote d&#39;Ivoire</en>
+    <en>Cote d'Ivoire</en>
   </item>
   <item id="com.helger.commons.locale.country.ECountryName.CK">
     <de>Cookinseln</de>
@@ -500,7 +500,7 @@
   </item>
   <item id="com.helger.commons.locale.country.ECountryName.KP">
     <de>Korea, Dem. Volksrep.</de>
-    <en>Korea, Democratic People&#39;s Republic Of</en>
+    <en>Korea, Democratic People's Republic Of</en>
   </item>
   <item id="com.helger.commons.locale.country.ECountryName.KR">
     <de>Korea, Rep.</de>
@@ -520,7 +520,7 @@
   </item>
   <item id="com.helger.commons.locale.country.ECountryName.LA">
     <de>Laos, Dem. Volksrep.</de>
-    <en>Lao People&#39;s Democratic Republic</en>
+    <en>Lao People's Democratic Republic</en>
   </item>
   <item id="com.helger.commons.locale.country.ECountryName.LB">
     <de>Libanon</de>
