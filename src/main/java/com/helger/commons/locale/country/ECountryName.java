@@ -23,13 +23,12 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.Translatable;
 import com.helger.commons.name.IHasDisplayText;
-import com.helger.commons.text.ITextProvider;
 import com.helger.commons.text.impl.TextProvider;
 import com.helger.commons.text.resolve.DefaultTextResolver;
 
 /**
  * Country enum name.
- * 
+ *
  * @author Philip Helger
  */
 @Translatable
@@ -281,7 +280,7 @@ public enum ECountryName implements IHasDisplayText
   ZM ("Sambia", "Zambia"),
   ZW ("Simbabwe", "Zimbabwe");
 
-  private final ITextProvider m_aTP;
+  private final TextProvider m_aTP;
 
   private ECountryName (@Nonnull final String sDE, @Nonnull final String sEN)
   {
