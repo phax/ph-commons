@@ -18,11 +18,13 @@ package com.helger.commons.jaxb.utils;
 
 import java.io.File;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillClose;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -54,6 +56,7 @@ import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.IWritableResource;
 import com.helger.commons.io.streams.NonBlockingStringWriter;
+import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.jaxb.JAXBContextCache;
 import com.helger.commons.jaxb.JAXBMarshallerUtils;
 import com.helger.commons.jaxb.validation.AbstractValidationEventHandler;
@@ -620,6 +623,30 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   public final ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final File aResultFile)
   {
     return write (aObject, TransformResultFactory.create (aResultFile));
+  }
+
+  /**
+   * Write the passed object to a {@link File}.
+   *
+   * @param aObject
+   *        The object to be written. May not be <code>null</code>.
+   * @param aOS
+   *        The output stream to write to. Will always be closed. May not be
+   *        <code>null</code>.
+   * @return {@link ESuccess}
+   */
+  @Nonnull
+  public final ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull @WillClose final OutputStream aOS)
+  {
+    try
+    {
+      return write (aObject, TransformResultFactory.create (aOS));
+    }
+    finally
+    {
+      // Needs to be manually closed
+      StreamUtils.close (aOS);
+    }
   }
 
   /**
