@@ -16,42 +16,23 @@
  */
 package com.helger.commons.collections.attrs;
 
-import java.util.Map;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.commons.state.EChange;
-import com.helger.commons.state.IClearable;
 
 /**
  * This is the writable extension of the {@link IReadonlyAttributeContainer}.
  * <code>null</code> values are not allowed in this attribute containers.
- * 
+ *
  * @author Philip Helger
  */
-public interface IAttributeContainer extends IReadonlyAttributeContainer, IClearable
+public interface IAttributeContainer extends IReadonlyAttributeContainer, IGenericAttributeContainer <String, Object>
 {
   /**
-   * Set/overwrite an attribute value.
-   * 
-   * @param sName
-   *        The name of the attribute. May not be <code>null</code>.
-   * @param aValue
-   *        The value of the attribute. If it is <code>null</code>, the value
-   *        will be removed.
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
-   * @see #removeAttribute(String)
-   */
-  @Nonnull
-  EChange setAttribute (@Nonnull String sName, @Nullable Object aValue);
-
-  /**
    * Set/overwrite an in attribute value. This is a shortcut for
-   * <code>setAttribute (sName, Boolean.valueOf (bValue));</code>
-   * 
-   * @param sName
+   * <code>setAttribute (aName, Boolean.valueOf (bValue));</code>
+   *
+   * @param aName
    *        The name of the attribute. May not be <code>null</code>.
    * @param bValue
    *        The value of the attribute.
@@ -60,13 +41,13 @@ public interface IAttributeContainer extends IReadonlyAttributeContainer, IClear
    * @see #removeAttribute(String)
    */
   @Nonnull
-  EChange setAttribute (@Nonnull String sName, boolean bValue);
+  EChange setAttribute (@Nonnull String aName, boolean bValue);
 
   /**
    * Set/overwrite an in attribute value. This is a shortcut for
-   * <code>setAttribute (sName, Integer.valueOf (nValue));</code>
-   * 
-   * @param sName
+   * <code>setAttribute (aName, Integer.valueOf (nValue));</code>
+   *
+   * @param aName
    *        The name of the attribute. May not be <code>null</code>.
    * @param nValue
    *        The value of the attribute.
@@ -75,13 +56,13 @@ public interface IAttributeContainer extends IReadonlyAttributeContainer, IClear
    * @see #removeAttribute(String)
    */
   @Nonnull
-  EChange setAttribute (@Nonnull String sName, int nValue);
+  EChange setAttribute (@Nonnull String aName, int nValue);
 
   /**
    * Set/overwrite an in attribute value. This is a shortcut for
-   * <code>setAttribute (sName, Long.valueOf (nValue));</code>
-   * 
-   * @param sName
+   * <code>setAttribute (aName, Long.valueOf (nValue));</code>
+   *
+   * @param aName
    *        The name of the attribute. May not be <code>null</code>.
    * @param nValue
    *        The value of the attribute.
@@ -90,13 +71,13 @@ public interface IAttributeContainer extends IReadonlyAttributeContainer, IClear
    * @see #removeAttribute(String)
    */
   @Nonnull
-  EChange setAttribute (@Nonnull String sName, long nValue);
+  EChange setAttribute (@Nonnull String aName, long nValue);
 
   /**
    * Set/overwrite an in attribute value. This is a shortcut for
-   * <code>setAttribute (sName, Double.valueOf (nValue));</code>
-   * 
-   * @param sName
+   * <code>setAttribute (aName, Double.valueOf (nValue));</code>
+   *
+   * @param aName
    *        The name of the attribute. May not be <code>null</code>.
    * @param dValue
    *        The value of the attribute.
@@ -105,43 +86,7 @@ public interface IAttributeContainer extends IReadonlyAttributeContainer, IClear
    * @see #removeAttribute(String)
    */
   @Nonnull
-  EChange setAttribute (@Nonnull String sName, double dValue);
-
-  /**
-   * Set/overwrite an arbitrary number of attribute values.
-   * 
-   * @param aValues
-   *        The map of attributes to be set. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
-   * @see #setAttribute(String,Object)
-   */
-  @Nonnull
-  EChange setAttributes (@Nullable Map <String, ?> aValues);
-
-  /**
-   * Set/overwrite an arbitrary number of attribute values.
-   * 
-   * @param aValues
-   *        The attributes to be set. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
-   * @see #setAttribute(String,Object)
-   */
-  @Nonnull
-  EChange setAttributes (@Nullable IReadonlyAttributeContainer aValues);
-
-  /**
-   * Remove the specified attribute from the container.
-   * 
-   * @param sName
-   *        The attribute name to be removed. If it is <code>null</code> nothing
-   *        happens.
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
-   */
-  @Nonnull
-  EChange removeAttribute (@Nullable String sName);
+  EChange setAttribute (@Nonnull String aName, double dValue);
 
   /**
    * Atomic operation to set a flag to <code>true</code> if it was previously
@@ -149,7 +94,7 @@ public interface IAttributeContainer extends IReadonlyAttributeContainer, IClear
    * to define a value for this flag. The value used is {@link Boolean#TRUE}.
    * {@link #containsAttribute(String)} can be used to check if the attribute is
    * already present.
-   * 
+   *
    * @param sName
    *        The name of the flag to set.
    * @return The old value of the flag. If the flag was not present previously,
