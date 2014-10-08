@@ -22,9 +22,10 @@ import javax.annotation.Nullable;
 /**
  * Specialized {@link com.helger.commons.text.ITextProvider}-like interface that
  * gives support for resolving a text without manually passing in a locale.
- * 
+ *
  * @author Philip Helger
  */
+@Deprecated
 public interface IPredefinedLocaleTextProvider
 {
   /**
