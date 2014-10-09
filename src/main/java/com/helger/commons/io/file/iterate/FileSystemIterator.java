@@ -25,9 +25,9 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.collections.iterate.IIterableIterator;
 import com.helger.commons.collections.iterate.IterableIterator;
 import com.helger.commons.filter.FilterChainAND;
+import com.helger.commons.filter.IFilter;
 import com.helger.commons.filter.collections.FilterIterator;
 import com.helger.commons.io.file.FileUtils;
-import com.helger.commons.io.file.filter.IFileFilter;
 
 /**
  * Iterate over the content of a single directory. Iteration is <b>not</b>
@@ -71,7 +71,8 @@ public final class FileSystemIterator extends IterableIterator <File>
    * @return The matching iterator.
    */
   @Nonnull
-  public static IIterableIterator <File> create (@Nonnull final String sBaseDir, @Nonnull final IFileFilter aFileFilter)
+  public static IIterableIterator <File> create (@Nonnull final String sBaseDir,
+                                                 @Nonnull final IFilter <File> aFileFilter)
   {
     return new FilterIterator <File> (new FileSystemIterator (sBaseDir), aFileFilter);
   }
@@ -87,7 +88,7 @@ public final class FileSystemIterator extends IterableIterator <File>
    * @return The matching iterator.
    */
   @Nonnull
-  public static IIterableIterator <File> create (@Nonnull final File fBaseDir, @Nonnull final IFileFilter aFileFilter)
+  public static IIterableIterator <File> create (@Nonnull final File fBaseDir, @Nonnull final IFilter <File> aFileFilter)
   {
     return new FilterIterator <File> (new FileSystemIterator (fBaseDir), aFileFilter);
   }
@@ -104,7 +105,7 @@ public final class FileSystemIterator extends IterableIterator <File>
    */
   @Nonnull
   public static IIterableIterator <File> create (@Nonnull final String sBaseDir,
-                                                 @Nonnull final IFileFilter... aFileFilters)
+                                                 @Nonnull final IFilter <File>... aFileFilters)
   {
     return new FilterIterator <File> (new FileSystemIterator (sBaseDir), new FilterChainAND <File> (aFileFilters));
   }
@@ -121,7 +122,7 @@ public final class FileSystemIterator extends IterableIterator <File>
    */
   @Nonnull
   public static IIterableIterator <File> create (@Nonnull final File fBaseDir,
-                                                 @Nonnull final IFileFilter... aFileFilters)
+                                                 @Nonnull final IFilter <File>... aFileFilters)
   {
     return new FilterIterator <File> (new FileSystemIterator (fBaseDir), new FilterChainAND <File> (aFileFilters));
   }

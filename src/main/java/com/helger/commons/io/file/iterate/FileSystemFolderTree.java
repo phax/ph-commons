@@ -26,9 +26,9 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.combine.CombinatorStringWithSeparatorIgnoreNull;
+import com.helger.commons.filter.IFilter;
 import com.helger.commons.io.file.FileUtils;
 import com.helger.commons.io.file.FilenameHelper;
-import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.tree.withid.folder.DefaultFolderTree;
 import com.helger.commons.tree.withid.folder.DefaultFolderTreeItem;
 
@@ -43,8 +43,8 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, List 
 {
   private static void _iterate (@Nonnull final DefaultFolderTreeItem <String, File, List <File>> aTreeItem,
                                 @Nonnull final File aDir,
-                                @Nullable final IFileFilter aDirFilter,
-                                @Nullable final IFileFilter aFileFilter)
+                                @Nullable final IFilter <File> aDirFilter,
+                                @Nullable final IFilter <File> aFileFilter)
   {
     if (aDir != null)
       for (final File aChild : FileUtils.getDirectoryContent (aDir))
@@ -79,19 +79,19 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, List 
 
   public FileSystemFolderTree (@Nonnull final File aStartDir)
   {
-    this (aStartDir, (IFileFilter) null, (IFileFilter) null);
+    this (aStartDir, (IFilter <File>) null, (IFilter <File>) null);
   }
 
   public FileSystemFolderTree (@Nonnull final String sStartDir,
-                               @Nullable final IFileFilter aDirFilter,
-                               @Nullable final IFileFilter aFileFilter)
+                               @Nullable final IFilter <File> aDirFilter,
+                               @Nullable final IFilter <File> aFileFilter)
   {
     this (new File (sStartDir), aDirFilter, aFileFilter);
   }
 
   public FileSystemFolderTree (@Nonnull final File aStartDir,
-                               @Nullable final IFileFilter aDirFilter,
-                               @Nullable final IFileFilter aFileFilter)
+                               @Nullable final IFilter <File> aDirFilter,
+                               @Nullable final IFilter <File> aFileFilter)
   {
     super (new CombinatorStringWithSeparatorIgnoreNull ("/"));
     ValueEnforcer.notNull (aStartDir, "StartDirectory");

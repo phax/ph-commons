@@ -17,7 +17,6 @@
 package com.helger.commons.io.file.iterate;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.util.Iterator;
 import java.util.List;
@@ -37,9 +36,6 @@ import com.helger.commons.filter.FilterChainAND;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.filter.collections.FilterIterator;
 import com.helger.commons.io.file.FileUtils;
-import com.helger.commons.io.file.filter.AbstractFileFilter;
-import com.helger.commons.io.file.filter.FileFilterToIFilterAdapter;
-import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -97,94 +93,9 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    *        An optional filter that controls, into which sub-directories this
    *        iterator should descend to. May be <code>null</code>.
    */
-  public FileSystemRecursiveIterator (@Nonnull final String sBaseDir, @Nullable final FilenameFilter aRecursionFilter)
-  {
-    this (sBaseDir, FileFilterToIFilterAdapter.create (aRecursionFilter));
-  }
-
-  /**
-   * Constructor for recursively iterating a file system directory.
-   *
-   * @param sBaseDir
-   *        The base directory to start with. May not be <code>null</code>.
-   * @param aRecursionFilter
-   *        An optional filter that controls, into which sub-directories this
-   *        iterator should descend to. May be <code>null</code>.
-   */
-  public FileSystemRecursiveIterator (@Nonnull final String sBaseDir, @Nullable final FileFilter aRecursionFilter)
-  {
-    this (sBaseDir, FileFilterToIFilterAdapter.create (aRecursionFilter));
-  }
-
-  /**
-   * Constructor for recursively iterating a file system directory.
-   *
-   * @param sBaseDir
-   *        The base directory to start with. May not be <code>null</code>.
-   * @param aRecursionFilter
-   *        An optional filter that controls, into which sub-directories this
-   *        iterator should descend to. May be <code>null</code>.
-   */
-  public FileSystemRecursiveIterator (@Nonnull final String sBaseDir,
-                                      @Nullable final AbstractFileFilter aRecursionFilter)
-  {
-    this (sBaseDir, (IFilter <File>) aRecursionFilter);
-  }
-
-  /**
-   * Constructor for recursively iterating a file system directory.
-   *
-   * @param sBaseDir
-   *        The base directory to start with. May not be <code>null</code>.
-   * @param aRecursionFilter
-   *        An optional filter that controls, into which sub-directories this
-   *        iterator should descend to. May be <code>null</code>.
-   */
   public FileSystemRecursiveIterator (@Nonnull final String sBaseDir, @Nullable final IFilter <File> aRecursionFilter)
   {
     this (new File (sBaseDir), aRecursionFilter);
-  }
-
-  /**
-   * Constructor for recursively iterating a file system directory.
-   *
-   * @param aBaseDir
-   *        The base directory to start with. May not be <code>null</code>.
-   * @param aRecursionFilter
-   *        An optional filter that controls, into which sub-directories this
-   *        iterator should descend to. May be <code>null</code>.
-   */
-  public FileSystemRecursiveIterator (@Nonnull final File aBaseDir, @Nullable final FilenameFilter aRecursionFilter)
-  {
-    this (aBaseDir, FileFilterToIFilterAdapter.create (aRecursionFilter));
-  }
-
-  /**
-   * Constructor for recursively iterating a file system directory.
-   *
-   * @param aBaseDir
-   *        The base directory to start with. May not be <code>null</code>.
-   * @param aRecursionFilter
-   *        An optional filter that controls, into which sub-directories this
-   *        iterator should descend to. May be <code>null</code>.
-   */
-  public FileSystemRecursiveIterator (@Nonnull final File aBaseDir, @Nullable final FileFilter aRecursionFilter)
-  {
-    this (aBaseDir, FileFilterToIFilterAdapter.create (aRecursionFilter));
-  }
-
-  /**
-   * Constructor for recursively iterating a file system directory.
-   *
-   * @param aBaseDir
-   *        The base directory to start with. May not be <code>null</code>.
-   * @param aRecursionFilter
-   *        An optional filter that controls, into which sub-directories this
-   *        iterator should descend to. May be <code>null</code>.
-   */
-  public FileSystemRecursiveIterator (@Nonnull final File aBaseDir, @Nullable final AbstractFileFilter aRecursionFilter)
-  {
-    this (aBaseDir, (IFilter <File>) aRecursionFilter);
   }
 
   /**
@@ -290,7 +201,8 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    * @return Never <code>null</code>.
    */
   @Nonnull
-  public static IIterableIterator <File> create (@Nonnull final String sBaseDir, @Nonnull final IFileFilter aFileFilter)
+  public static IIterableIterator <File> create (@Nonnull final String sBaseDir,
+                                                 @Nonnull final IFilter <File> aFileFilter)
   {
     return create (new File (sBaseDir), aFileFilter);
   }
@@ -313,7 +225,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    * @return Never <code>null</code>.
    */
   @Nonnull
-  public static IIterableIterator <File> create (@Nonnull final File fBaseDir, @Nonnull final IFileFilter aFileFilter)
+  public static IIterableIterator <File> create (@Nonnull final File fBaseDir, @Nonnull final IFilter <File> aFileFilter)
   {
     return new FilterIterator <File> (new FileSystemRecursiveIterator (fBaseDir), aFileFilter);
   }
@@ -338,7 +250,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    */
   @Nonnull
   public static IIterableIterator <File> create (@Nonnull final String sBaseDir,
-                                                 @Nonnull @Nonempty final IFileFilter... aFileFilters)
+                                                 @Nonnull @Nonempty final IFilter <File>... aFileFilters)
   {
     return create (new File (sBaseDir), aFileFilters);
   }
@@ -363,7 +275,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    */
   @Nonnull
   public static IIterableIterator <File> create (@Nonnull final File fBaseDir,
-                                                 @Nonnull @Nonempty final IFileFilter... aFileFilters)
+                                                 @Nonnull @Nonempty final IFilter <File>... aFileFilters)
   {
     return new FilterIterator <File> (new FileSystemRecursiveIterator (fBaseDir),
                                       new FilterChainAND <File> (aFileFilters));
