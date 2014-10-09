@@ -57,10 +57,10 @@ public final class CountryCache
 
   private static boolean s_bDefaultInstantiated = false;
 
-  private final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
 
   /** Contains all known countries (as ISO 3166 2-letter codes). */
-  private final Set <String> s_aCountries = new HashSet <String> ();
+  private final Set <String> m_aCountries = new HashSet <String> ();
 
   private CountryCache ()
   {
@@ -99,14 +99,14 @@ public final class CountryCache
     if (!sCountry.equals (sValidCountry))
       throw new IllegalArgumentException ("invalid casing of '" + sCountry + "'");
 
-    s_aRWLock.writeLock ().lock ();
+    m_aRWLock.writeLock ().lock ();
     try
     {
-      return EChange.valueOf (s_aCountries.add (sValidCountry));
+      return EChange.valueOf (m_aCountries.add (sValidCountry));
     }
     finally
     {
-      s_aRWLock.writeLock ().unlock ();
+      m_aRWLock.writeLock ().unlock ();
     }
   }
 
@@ -140,14 +140,14 @@ public final class CountryCache
   @ReturnsMutableCopy
   public Set <String> getAllCountries ()
   {
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newSet (s_aCountries);
+      return ContainerHelper.newSet (m_aCountries);
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
   }
 
@@ -193,14 +193,14 @@ public final class CountryCache
     final String sValidCountry = LocaleUtils.getValidCountryCode (sCountry);
     if (sValidCountry == null)
       return false;
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
-      return s_aCountries.contains (sValidCountry);
+      return m_aCountries.contains (sValidCountry);
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
   }
 
@@ -209,17 +209,17 @@ public final class CountryCache
    */
   public void resetCache ()
   {
-    s_aRWLock.writeLock ().lock ();
+    m_aRWLock.writeLock ().lock ();
     try
     {
-      s_aCountries.clear ();
+      m_aCountries.clear ();
       _initialFillCache ();
       if (s_aLogger.isDebugEnabled ())
         s_aLogger.debug ("Cache was reset: " + CountryCache.class.getName ());
     }
     finally
     {
-      s_aRWLock.writeLock ().unlock ();
+      m_aRWLock.writeLock ().unlock ();
     }
   }
 }
