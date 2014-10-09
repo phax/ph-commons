@@ -21,6 +21,11 @@
   xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="ph-commons">
   <entry date="2014-10-09" category="api" action="change" incompatible="true">
     <change>
+      <text locale="en">CountryCache must now be accessed via "getInstance()"</text>
+    </change>
+  </entry>
+  <entry date="2014-10-09" category="api" action="change" incompatible="true">
+    <change>
       <text locale="en">HashCodeImplementationRegistry must now be accessed via "getInstance()"</text>
     </change>
   </entry>

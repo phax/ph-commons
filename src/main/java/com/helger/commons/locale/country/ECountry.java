@@ -31,7 +31,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Country enum.
- * 
+ *
  * @author Philip Helger
  */
 public enum ECountry implements IHasDisplayText, IHasID <String>
@@ -469,7 +469,7 @@ public enum ECountry implements IHasDisplayText, IHasID <String>
     m_sISOCountryCode = sISOCountryCode.equals ("uk") ? "gb" : sISOCountryCode;
     m_aName = eName;
     m_bIsCountrySub = m_sID.indexOf ('_') != -1;
-    m_aCountry = CountryCache.getCountry (m_sISOCountryCode);
+    m_aCountry = CountryCache.getInstance ().getCountry (m_sISOCountryCode);
     if (m_aCountry == null)
       throw new IllegalStateException ("Failed to resolve ISO country code " + m_sISOCountryCode);
   }
@@ -518,7 +518,7 @@ public enum ECountry implements IHasDisplayText, IHasID <String>
   /**
    * Try to find the country with the passed ISO code. Country sub-codes are
    * ignored in this method.
-   * 
+   *
    * @param sISO
    *        The ISO code to search. Case sensitivity does not matter. May be
    *        <code>null</code>.

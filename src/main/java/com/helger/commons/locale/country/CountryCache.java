@@ -31,7 +31,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.locale.LocaleCache;
@@ -43,32 +42,44 @@ import com.helger.commons.string.StringHelper;
  * This is a global cache for country objects to avoid too many object flowing
  * around.<br>
  * This cache is application independent.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
 public final class CountryCache
 {
+  private static final class SingletonHolder
+  {
+    static final CountryCache s_aInstance = new CountryCache ();
+  }
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (CountryCache.class);
 
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  private static boolean s_bDefaultInstantiated = false;
+
+  private final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
 
   /** Contains all known countries (as ISO 3166 2-letter codes). */
-  private static final Set <String> s_aCountries = new HashSet <String> ();
+  private final Set <String> s_aCountries = new HashSet <String> ();
 
-  static
+  private CountryCache ()
   {
     _initialFillCache ();
   }
 
-  @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
-  private static final CountryCache s_aInstance = new CountryCache ();
+  public static boolean isInstantiated ()
+  {
+    return s_bDefaultInstantiated;
+  }
 
-  private CountryCache ()
-  {}
+  @Nonnull
+  public static CountryCache getInstance ()
+  {
+    s_bDefaultInstantiated = true;
+    return SingletonHolder.s_aInstance;
+  }
 
-  private static void _initialFillCache ()
+  private void _initialFillCache ()
   {
     for (final Locale aLocale : LocaleCache.getAllLocales ())
     {
@@ -79,7 +90,7 @@ public final class CountryCache
   }
 
   @Nonnull
-  static EChange addCountry (@Nonnull final String sCountry)
+  EChange addCountry (@Nonnull final String sCountry)
   {
     ValueEnforcer.notNull (sCountry, "Country");
     final String sValidCountry = LocaleUtils.getValidCountryCode (sCountry);
@@ -100,13 +111,13 @@ public final class CountryCache
   }
 
   @Nullable
-  public static Locale getCountry (@Nullable final Locale aCountry)
+  public Locale getCountry (@Nullable final Locale aCountry)
   {
     return aCountry == null ? null : getCountry (aCountry.getCountry ());
   }
 
   @Nullable
-  public static Locale getCountry (@Nullable final String sCountry)
+  public Locale getCountry (@Nullable final String sCountry)
   {
     if (StringHelper.hasNoText (sCountry))
       return null;
@@ -127,7 +138,7 @@ public final class CountryCache
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <String> getAllCountries ()
+  public Set <String> getAllCountries ()
   {
     s_aRWLock.readLock ().lock ();
     try
@@ -145,7 +156,7 @@ public final class CountryCache
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Locale> getAllCountryLocales ()
+  public Set <Locale> getAllCountryLocales ()
   {
     final Set <Locale> ret = new HashSet <Locale> ();
     for (final String sCountry : getAllCountries ())
@@ -155,26 +166,26 @@ public final class CountryCache
 
   /**
    * Check if the passed country is known.
-   * 
+   *
    * @param aCountry
    *        The country to check. May be <code>null</code>.
    * @return <code>true</code> if the passed country is contained,
    *         <code>false</code> otherwise.
    */
-  public static boolean containsCountry (@Nullable final Locale aCountry)
+  public boolean containsCountry (@Nullable final Locale aCountry)
   {
     return aCountry != null && containsCountry (aCountry.getCountry ());
   }
 
   /**
    * Check if the passed country is known.
-   * 
+   *
    * @param sCountry
    *        The country to check. May be <code>null</code>.
    * @return <code>true</code> if the passed country is contained,
    *         <code>false</code> otherwise.
    */
-  public static boolean containsCountry (@Nullable final String sCountry)
+  public boolean containsCountry (@Nullable final String sCountry)
   {
     if (sCountry == null)
       return false;
@@ -196,7 +207,7 @@ public final class CountryCache
   /**
    * Reset the cache to the initial state.
    */
-  public static void resetCache ()
+  public void resetCache ()
   {
     s_aRWLock.writeLock ().lock ();
     try

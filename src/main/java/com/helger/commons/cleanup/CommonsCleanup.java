@@ -67,7 +67,8 @@ public final class CommonsCleanup
   {
     // Reset caches to the default values
     LocaleCache.resetCache ();
-    CountryCache.resetCache ();
+    if (CountryCache.isInstantiated ())
+      CountryCache.getInstance ().resetCache ();
     MimeTypeDeterminator.resetCache ();
     if (MimeTypeInfoManager.isDefaultInstantiated ())
       MimeTypeInfoManager.getDefaultInstance ().resetCacheToDefault ();
