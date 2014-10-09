@@ -58,15 +58,14 @@ import com.helger.commons.string.StringHelper;
 @ThreadSafe
 public class MimeTypeInfoManager
 {
+  private static final class SingletonHolder
+  {
+    static final MimeTypeInfoManager s_aInstance = new MimeTypeInfoManager ().readDefault ();
+  }
+
   public static final String MIME_TYPE_INFO_XML = "codelists/mime-type-info.xml";
 
-  private static final MimeTypeInfoManager s_aDefaultInstance = new MimeTypeInfoManager ();
-
-  static
-  {
-    // Init the default instance
-    s_aDefaultInstance.readDefault ();
-  }
+  private static boolean s_bDefaultInstantiated = false;
 
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   @GuardedBy ("m_aRWLock")
@@ -79,6 +78,11 @@ public class MimeTypeInfoManager
   public MimeTypeInfoManager ()
   {}
 
+  public static boolean isDefaultInstantiated ()
+  {
+    return s_bDefaultInstantiated;
+  }
+
   /**
    * @return The default instance that contains all predefined
    *         {@link MimeTypeInfo}s.
@@ -86,17 +90,21 @@ public class MimeTypeInfoManager
   @Nonnull
   public static MimeTypeInfoManager getDefaultInstance ()
   {
-    return s_aDefaultInstance;
+    s_bDefaultInstantiated = true;
+    return SingletonHolder.s_aInstance;
   }
 
   /**
    * Read the default resource.
    *
+   * @return this
    * @see #MIME_TYPE_INFO_XML
    */
-  public void readDefault ()
+  @Nonnull
+  public MimeTypeInfoManager readDefault ()
   {
     read (new ClassPathResource (MIME_TYPE_INFO_XML));
+    return this;
   }
 
   /**
@@ -155,7 +163,7 @@ public class MimeTypeInfoManager
     return ret;
   }
 
-  public void resetCache ()
+  public void resetCacheToDefault ()
   {
     clearCache ();
     readDefault ();
@@ -284,7 +292,7 @@ public class MimeTypeInfoManager
 
   /**
    * Get all infos associated with the specified filename extension.
-   * 
+   *
    * @param sExtension
    *        The extension to search. May be <code>null</code> or empty.
    * @return <code>null</code> if the passed extension is <code>null</code> or

@@ -69,7 +69,8 @@ public final class CommonsCleanup
     LocaleCache.resetCache ();
     CountryCache.resetCache ();
     MimeTypeDeterminator.resetCache ();
-    MimeTypeInfoManager.getDefaultInstance ().resetCache ();
+    if (MimeTypeInfoManager.isDefaultInstantiated ())
+      MimeTypeInfoManager.getDefaultInstance ().resetCacheToDefault ();
     MicroTypeConverterRegistry.reinitialize ();
     if (SerializationConverterRegistry.isInstantiated ())
       SerializationConverterRegistry.getInstance ().reinitialize ();
