@@ -27,7 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A file filter that accepts only directories.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -44,7 +44,7 @@ public final class FileFilterDirectoryOnly extends AbstractFileFilter
     return s_aInstance;
   }
 
-  public boolean accept (@Nullable final File aFile)
+  public boolean matchesFilter (@Nullable final File aFile)
   {
     return aFile != null && aFile.isDirectory ();
   }

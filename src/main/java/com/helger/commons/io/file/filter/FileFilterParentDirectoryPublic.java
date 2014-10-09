@@ -28,7 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A file filter that matches if the direct parent directory is public, meaning
  * it does not start with "." (hidden directory on Unix systems)
- * 
+ *
  * @author Philip Helger
  */
 public final class FileFilterParentDirectoryPublic extends AbstractFileFilter
@@ -44,7 +44,7 @@ public final class FileFilterParentDirectoryPublic extends AbstractFileFilter
     return s_aInstance;
   }
 
-  public boolean accept (@Nullable final File aFile)
+  public boolean matchesFilter (@Nullable final File aFile)
   {
     final File aParentFile = aFile != null ? aFile.getAbsoluteFile ().getParentFile () : null;
     return aParentFile != null && !FilenameHelper.isHiddenFilename (aParentFile);

@@ -17,41 +17,20 @@
 package com.helger.commons.io.file.filter;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FilenameFilter;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
+import com.helger.commons.filter.IFilter;
 
 /**
- * A filename filter that declines all files.
- * 
+ * Abstract interface that collects {@link FileFilter}, {@link FilenameFilter}
+ * and {@link IFilter}.
+ *
  * @author Philip Helger
  */
-@ThreadSafe
-public final class FilenameFilterAlwaysFalse implements FilenameFilter
+@MustImplementEqualsAndHashcode
+public interface IFileFilter extends FileFilter, FilenameFilter, IFilter <File>
 {
-  private static final FilenameFilterAlwaysFalse s_aInstance = new FilenameFilterAlwaysFalse ();
-
-  private FilenameFilterAlwaysFalse ()
-  {}
-
-  @Nonnull
-  public static FilenameFilterAlwaysFalse getInstance ()
-  {
-    return s_aInstance;
-  }
-
-  public boolean accept (@Nullable final File aDir, @Nullable final String sName)
-  {
-    return false;
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).toString ();
-  }
+  /* empty */
 }

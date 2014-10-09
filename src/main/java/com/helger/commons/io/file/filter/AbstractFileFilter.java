@@ -32,10 +32,17 @@ import com.helger.commons.filter.IFilter;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public abstract class AbstractFileFilter implements FileFilter, IFilter <File>
+public abstract class AbstractFileFilter implements IFileFilter
 {
-  public final boolean matchesFilter (@Nullable final File aFile)
+  public final boolean accept (@Nullable final File aFile)
   {
-    return accept (aFile);
+    return matchesFilter (aFile);
+  }
+
+  public final boolean accept (@Nullable final File aDir, @Nullable final String sName)
+  {
+    if (sName == null)
+      return false;
+    return matchesFilter (aDir != null ? new File (aDir, sName) : new File (sName));
   }
 }

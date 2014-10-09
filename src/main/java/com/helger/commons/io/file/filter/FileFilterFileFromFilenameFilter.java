@@ -30,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A special file filter that uses and external filename filter to determine the
  * validity. This filter only works for files.
- * 
+ *
  * @author Philip Helger
  */
 public final class FileFilterFileFromFilenameFilter extends AbstractFileFilter
@@ -48,7 +48,7 @@ public final class FileFilterFileFromFilenameFilter extends AbstractFileFilter
     return m_aFilenameFilter;
   }
 
-  public boolean accept (@Nullable final File aFile)
+  public boolean matchesFilter (@Nullable final File aFile)
   {
     return aFile != null &&
            FileUtils.existsFile (aFile) &&

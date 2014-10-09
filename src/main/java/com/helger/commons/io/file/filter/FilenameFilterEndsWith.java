@@ -17,7 +17,6 @@
 package com.helger.commons.io.file.filter;
 
 import java.io.File;
-import java.io.FilenameFilter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -32,11 +31,11 @@ import com.helger.commons.string.ToStringGenerator;
  * A filename filter that checks whether a file has the specified extension. The
  * implementation is done via {@link String#endsWith(String)} so it is case
  * sensitive.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
-public final class FilenameFilterEndsWith implements FilenameFilter
+public final class FilenameFilterEndsWith extends AbstractFileFilter
 {
   private final String m_sSuffix;
 
@@ -56,10 +55,9 @@ public final class FilenameFilterEndsWith implements FilenameFilter
     return m_sSuffix;
   }
 
-  public boolean accept (@Nullable final File aDir, @Nullable final String sName)
+  public boolean matchesFilter (@Nullable final File aFile)
   {
-    final String sRealName = FilenameHelper.getSecureFilename (sName);
-    return sRealName != null && sRealName.endsWith (m_sSuffix);
+    return aFile != null && FilenameHelper.getSecureFilename (aFile.getName ()).endsWith (m_sSuffix);
   }
 
   @Override

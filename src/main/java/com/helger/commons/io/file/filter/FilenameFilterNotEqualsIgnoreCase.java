@@ -29,13 +29,13 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A filename filter that checks whether a file does not have the specified
- * name. The implementation is done via {@link String#equals(Object)} so it is
- * case sensitive.
+ * name. The implementation is done via {@link String#equalsIgnoreCase(String)}
+ * so it is case insensitive.
  *
  * @author Philip Helger
  */
 @ThreadSafe
-public final class FilenameFilterNotEquals extends AbstractFileFilter
+public final class FilenameFilterNotEqualsIgnoreCase extends AbstractFileFilter
 {
   private final String m_sFilename;
 
@@ -43,7 +43,7 @@ public final class FilenameFilterNotEquals extends AbstractFileFilter
    * @param sFilename
    *        The filename to use. May neither be <code>null</code> nor empty.
    */
-  public FilenameFilterNotEquals (@Nonnull @Nonempty final String sFilename)
+  public FilenameFilterNotEqualsIgnoreCase (@Nonnull @Nonempty final String sFilename)
   {
     m_sFilename = ValueEnforcer.notEmpty (sFilename, "Filename");
   }
@@ -56,7 +56,7 @@ public final class FilenameFilterNotEquals extends AbstractFileFilter
 
   public boolean matchesFilter (@Nullable final File aFile)
   {
-    return aFile != null && !FilenameHelper.getSecureFilename (aFile.getName ()).equals (m_sFilename);
+    return aFile != null && !FilenameHelper.getSecureFilename (aFile.getName ()).equalsIgnoreCase (m_sFilename);
   }
 
   @Override

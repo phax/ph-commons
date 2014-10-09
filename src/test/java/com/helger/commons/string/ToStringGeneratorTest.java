@@ -33,7 +33,7 @@ import com.helger.commons.compare.ESortOrder;
 
 /**
  * Test class for class {@link ToStringGenerator}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ToStringGeneratorTest
@@ -182,7 +182,8 @@ public final class ToStringGeneratorTest
     final ToStringGenerator aTSG = new ToStringGenerator (this);
     aTSG.append ("anything", "else");
     aTSG.append ("meMyselfAndI", this);
-    System.out.println (aTSG.toString ());
+    if (false)
+      System.out.println (aTSG.toString ());
     assertTrue (aTSG.toString ().endsWith (": anything=else; meMyselfAndI=this]"));
   }
 }

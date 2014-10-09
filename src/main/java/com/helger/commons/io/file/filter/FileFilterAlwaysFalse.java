@@ -27,7 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A file filter that declines all elements.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -44,7 +44,7 @@ public final class FileFilterAlwaysFalse extends AbstractFileFilter
     return s_aInstance;
   }
 
-  public boolean accept (@Nullable final File aFile)
+  public boolean matchesFilter (@Nullable final File aFile)
   {
     return false;
   }

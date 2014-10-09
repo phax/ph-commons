@@ -17,9 +17,9 @@
 package com.helger.commons.io.file.filter;
 
 import java.io.File;
-import java.io.FilenameFilter;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
@@ -34,11 +34,11 @@ import com.helger.commons.string.ToStringGenerator;
  * A filter that rejects certain file names, based on a regular expression. If
  * at least one regular expressions is fulfilled, the file is rejected. The
  * filter is applied on directories and files!
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
-public final class FilenameFilterMatchNoRegEx implements FilenameFilter
+public final class FilenameFilterMatchNoRegEx extends AbstractFileFilter
 {
   private final String [] m_aRegExs;
 
@@ -59,9 +59,11 @@ public final class FilenameFilterMatchNoRegEx implements FilenameFilter
     return ArrayHelper.getCopy (m_aRegExs);
   }
 
-  public boolean accept (@Nonnull final File aDir, @Nonnull final String sName)
+  public boolean matchesFilter (@Nullable final File aFile)
   {
-    final String sRealName = FilenameHelper.getSecureFilename (sName);
+    if (aFile == null)
+      return false;
+    final String sRealName = FilenameHelper.getSecureFilename (aFile.getName ());
     if (sRealName == null)
       return false;
     for (final String sRegEx : m_aRegExs)
