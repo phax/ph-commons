@@ -42,69 +42,78 @@ public final class MimeTypeDeterminatorTest extends AbstractPHTestCase
   @Test
   public void testGetMIMEType ()
   {
-    assertEquals (CMimeType.APPLICATION_OCTET_STREAM, MimeTypeDeterminator.getMimeTypeFromBytes (null));
+    assertEquals (CMimeType.APPLICATION_OCTET_STREAM, MimeTypeDeterminator.getInstance ().getMimeTypeFromBytes (null));
     assertEquals (CMimeType.APPLICATION_OCTET_STREAM,
-                  MimeTypeDeterminator.getMimeTypeFromString ("Anything", CCharset.CHARSET_ISO_8859_1_OBJ));
+                  MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("Anything",
+                                                                             CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (CMimeType.TEXT_XML,
-                  MimeTypeDeterminator.getMimeTypeFromString ("<?xml ", CCharset.CHARSET_ISO_8859_1_OBJ));
+                  MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("<?xml ", CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (CMimeType.APPLICATION_PDF,
-                  MimeTypeDeterminator.getMimeTypeFromString ("%PDF\n", CCharset.CHARSET_ISO_8859_1_OBJ));
+                  MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("%PDF\n", CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (CMimeType.IMAGE_GIF,
-                  MimeTypeDeterminator.getMimeTypeFromString ("GIF87a\n", CCharset.CHARSET_ISO_8859_1_OBJ));
+                  MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("GIF87a\n",
+                                                                             CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (CMimeType.IMAGE_GIF,
-                  MimeTypeDeterminator.getMimeTypeFromString ("GIF89a\n", CCharset.CHARSET_ISO_8859_1_OBJ));
+                  MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("GIF89a\n",
+                                                                             CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (CMimeType.IMAGE_TIFF,
-                  MimeTypeDeterminator.getMimeTypeFromString ("MM\n", CCharset.CHARSET_ISO_8859_1_OBJ));
+                  MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("MM\n", CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (CMimeType.IMAGE_TIFF,
-                  MimeTypeDeterminator.getMimeTypeFromString ("II\n", CCharset.CHARSET_ISO_8859_1_OBJ));
+                  MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("II\n", CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (CMimeType.IMAGE_PSD,
-                  MimeTypeDeterminator.getMimeTypeFromString ("8BPS\n", CCharset.CHARSET_ISO_8859_1_OBJ));
+                  MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("8BPS\n", CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (CMimeType.IMAGE_JPG,
-                  MimeTypeDeterminator.getMimeTypeFromBytes (new byte [] { (byte) 0xff, (byte) 0xd8, 0 }));
+                  MimeTypeDeterminator.getInstance ()
+                                      .getMimeTypeFromBytes (new byte [] { (byte) 0xff, (byte) 0xd8, 0 }));
     assertEquals (CMimeType.IMAGE_PNG,
-                  MimeTypeDeterminator.getMimeTypeFromBytes (new byte [] { (byte) 0x89,
-                                                                          0x50,
-                                                                          0x4e,
-                                                                          0x47,
-                                                                          0x0d,
-                                                                          0x0a,
-                                                                          0x1a,
-                                                                          0x0a,
-                                                                          0 }));
+                  MimeTypeDeterminator.getInstance ().getMimeTypeFromBytes (new byte [] { (byte) 0x89,
+                                                                                         0x50,
+                                                                                         0x4e,
+                                                                                         0x47,
+                                                                                         0x0d,
+                                                                                         0x0a,
+                                                                                         0x1a,
+                                                                                         0x0a,
+                                                                                         0 }));
   }
 
   @Test
   public void testGetFromFileName ()
   {
     assertEquals (CMimeType.APPLICATION_MS_EXCEL.getAsString (),
-                  MimeTypeDeterminator.getMimeTypeFromFilename ("test.xls"));
-    assertNull (MimeTypeDeterminator.getMimeTypeFromFilename ("test.hastenichgesehen"));
+                  MimeTypeDeterminator.getInstance ().getMimeTypeFromFilename ("test.xls"));
+    assertNull (MimeTypeDeterminator.getInstance ().getMimeTypeFromFilename ("test.hastenichgesehen"));
 
-    assertEquals (CMimeType.APPLICATION_MS_EXCEL, MimeTypeDeterminator.getMimeTypeObjectFromFilename ("test.xls"));
-    assertNull (MimeTypeDeterminator.getMimeTypeObjectFromFilename ("test.hastenichgesehen"));
+    assertEquals (CMimeType.APPLICATION_MS_EXCEL,
+                  MimeTypeDeterminator.getInstance ().getMimeTypeObjectFromFilename ("test.xls"));
+    assertNull (MimeTypeDeterminator.getInstance ().getMimeTypeObjectFromFilename ("test.hastenichgesehen"));
 
-    assertEquals (CMimeType.APPLICATION_MS_EXCEL.getAsString (), MimeTypeDeterminator.getMimeTypeFromExtension ("xls"));
-    assertEquals (CMimeType.APPLICATION_MS_EXCEL.getAsString (), MimeTypeDeterminator.getMimeTypeFromExtension ("XLS"));
-    assertNull (MimeTypeDeterminator.getMimeTypeFromExtension ("abersichernicht"));
+    assertEquals (CMimeType.APPLICATION_MS_EXCEL.getAsString (), MimeTypeDeterminator.getInstance ()
+                                                                                     .getMimeTypeFromExtension ("xls"));
+    assertEquals (CMimeType.APPLICATION_MS_EXCEL.getAsString (), MimeTypeDeterminator.getInstance ()
+                                                                                     .getMimeTypeFromExtension ("XLS"));
+    assertNull (MimeTypeDeterminator.getInstance ().getMimeTypeFromExtension ("abersichernicht"));
 
-    assertEquals (CMimeType.APPLICATION_MS_EXCEL, MimeTypeDeterminator.getMimeTypeObjectFromExtension ("xls"));
-    assertEquals (CMimeType.APPLICATION_MS_EXCEL, MimeTypeDeterminator.getMimeTypeObjectFromExtension ("XLS"));
-    assertNull (MimeTypeDeterminator.getMimeTypeFromExtension ("abersichernicht"));
+    assertEquals (CMimeType.APPLICATION_MS_EXCEL,
+                  MimeTypeDeterminator.getInstance ().getMimeTypeObjectFromExtension ("xls"));
+    assertEquals (CMimeType.APPLICATION_MS_EXCEL,
+                  MimeTypeDeterminator.getInstance ().getMimeTypeObjectFromExtension ("XLS"));
+    assertNull (MimeTypeDeterminator.getInstance ().getMimeTypeFromExtension ("abersichernicht"));
   }
 
   @Test
   public void testTypeOf ()
   {
-    for (final String sMimeType : MimeTypeDeterminator.getAllKnownMimeTypes ())
+    for (final String sMimeType : MimeTypeDeterminator.getInstance ().getAllKnownMimeTypes ())
       assertNotNull (sMimeType);
-    for (final String sMimeType : MimeTypeDeterminator.getAllKnownMimeTypeFilenameMappings ().values ())
+    for (final String sMimeType : MimeTypeDeterminator.getInstance ().getAllKnownMimeTypeFilenameMappings ().values ())
       assertNotNull (sMimeType);
   }
 
   @Test
   public void testConstantsKnown ()
   {
-    final Collection <String> aAllKnown = MimeTypeDeterminator.getAllKnownMimeTypes ();
+    final Collection <String> aAllKnown = MimeTypeDeterminator.getInstance ().getAllKnownMimeTypes ();
 
     // applications
     assertTrue (aAllKnown.contains (CMimeType.APPLICATION_ATOM_XML.getAsString ()));

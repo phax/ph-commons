@@ -134,7 +134,8 @@ public final class MainReadSharedMimeInfo
     }
 
     // Check old data
-    for (final Map.Entry <String, String> aEntry : ContainerHelper.getSortedByKey (MimeTypeDeterminator.getAllKnownMimeTypeFilenameMappings ())
+    for (final Map.Entry <String, String> aEntry : ContainerHelper.getSortedByKey (MimeTypeDeterminator.getInstance ()
+                                                                                                       .getAllKnownMimeTypeFilenameMappings ())
                                                                   .entrySet ())
     {
       final String sOldExt = aEntry.getKey ();
