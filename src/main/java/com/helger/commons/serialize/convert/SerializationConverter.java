@@ -32,7 +32,7 @@ import com.helger.commons.typeconvert.TypeConverterException.EReason;
 /**
  * A utility class for converting objects from and to serializable format.<br>
  * All converters are registered in the {@link SerializationConverterRegistry}.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -56,7 +56,7 @@ public final class SerializationConverter
     {
       // Lookup converter
       final Class <?> aSrcClass = aObject.getClass ();
-      final ISerializationConverter aConverter = SerializationConverterRegistry.getConverter (aSrcClass);
+      final ISerializationConverter aConverter = SerializationConverterRegistry.getInstance ().getConverter (aSrcClass);
       if (aConverter == null)
         throw new TypeConverterException (aSrcClass, EReason.NO_CONVERTER_FOUND_SINGLE);
 
@@ -83,7 +83,7 @@ public final class SerializationConverter
     }
 
     // Lookup converter
-    final ISerializationConverter aConverter = SerializationConverterRegistry.getConverter (aDstClass);
+    final ISerializationConverter aConverter = SerializationConverterRegistry.getInstance ().getConverter (aDstClass);
     if (aConverter == null)
       throw new TypeConverterException (aDstClass, EReason.NO_CONVERTER_FOUND_SINGLE);
 

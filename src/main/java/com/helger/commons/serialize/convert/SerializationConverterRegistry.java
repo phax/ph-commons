@@ -45,21 +45,30 @@ import com.helger.commons.lang.ServiceLoaderUtils;
 @ThreadSafe
 public final class SerializationConverterRegistry implements ISerializationConverterRegistry
 {
-  private static final SerializationConverterRegistry s_aInstance = new SerializationConverterRegistry ();
+  private static final class SingletonHolder
+  {
+    static final SerializationConverterRegistry s_aInstance = new SerializationConverterRegistry ();
+  }
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (SerializationConverterRegistry.class);
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+
+  private static boolean s_bDefaultInstantiated = false;
+
+  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
 
   // WeakHashMap because key is a class
-  @GuardedBy ("s_aRWLock")
-  private static final Map <Class <?>, ISerializationConverter> s_aMap = new WeakHashMap <Class <?>, ISerializationConverter> ();
+  @GuardedBy ("m_aRWLock")
+  private final Map <Class <?>, ISerializationConverter> m_aMap = new WeakHashMap <Class <?>, ISerializationConverter> ();
 
-  static
+  private SerializationConverterRegistry ()
   {
     reinitialize ();
   }
 
-  private SerializationConverterRegistry ()
-  {}
+  public static boolean isInstantiated ()
+  {
+    return s_bDefaultInstantiated;
+  }
 
   /**
    * @return The singleton instance of this class. Never <code>null</code>.
@@ -67,7 +76,8 @@ public final class SerializationConverterRegistry implements ISerializationConve
   @Nonnull
   public static SerializationConverterRegistry getInstance ()
   {
-    return s_aInstance;
+    s_bDefaultInstantiated = true;
+    return SingletonHolder.s_aInstance;
   }
 
   public void registerSerializationConverter (@Nonnull final Class <?> aClass,
@@ -86,19 +96,19 @@ public final class SerializationConverterRegistry implements ISerializationConve
    * @param aConverter
    *        The type converter
    */
-  private static void _registerSerializationConverter (@Nonnull final Class <?> aClass,
-                                                       @Nonnull final ISerializationConverter aConverter)
+  private void _registerSerializationConverter (@Nonnull final Class <?> aClass,
+                                                @Nonnull final ISerializationConverter aConverter)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aConverter, "Converter");
     if (Serializable.class.isAssignableFrom (aClass))
       throw new IllegalArgumentException ("The provided " + aClass.toString () + " is already Serializable!");
 
-    s_aRWLock.writeLock ().lock ();
+    m_aRWLock.writeLock ().lock ();
     try
     {
       // The main class should not already be registered
-      if (s_aMap.containsKey (aClass))
+      if (m_aMap.containsKey (aClass))
         throw new IllegalArgumentException ("A micro type converter for class " + aClass + " is already registered!");
 
       // Automatically register the class, and all parent classes/interfaces
@@ -106,9 +116,9 @@ public final class SerializationConverterRegistry implements ISerializationConve
       {
         final Class <?> aCurSrcClass = aCurWRSrcClass.get ();
         if (aCurSrcClass != null)
-          if (!s_aMap.containsKey (aCurSrcClass))
+          if (!m_aMap.containsKey (aCurSrcClass))
           {
-            s_aMap.put (aCurSrcClass, aConverter);
+            m_aMap.put (aCurSrcClass, aConverter);
             if (s_aLogger.isDebugEnabled ())
               s_aLogger.debug ("Registered serialization converter for '" + aCurSrcClass.toString () + "'");
           }
@@ -116,18 +126,18 @@ public final class SerializationConverterRegistry implements ISerializationConve
     }
     finally
     {
-      s_aRWLock.writeLock ().unlock ();
+      m_aRWLock.writeLock ().unlock ();
     }
   }
 
   @Nullable
-  public static ISerializationConverter getConverter (@Nullable final Class <?> aDstClass)
+  public ISerializationConverter getConverter (@Nullable final Class <?> aDstClass)
   {
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
       // Check for an exact match first
-      ISerializationConverter ret = s_aMap.get (aDstClass);
+      ISerializationConverter ret = m_aMap.get (aDstClass);
       if (ret == null)
       {
         // No exact match found - try fuzzy
@@ -136,7 +146,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
           final Class <?> aCurDstClass = aCurWRDstClass.get ();
           if (aCurDstClass != null)
           {
-            ret = s_aMap.get (aCurDstClass);
+            ret = m_aMap.get (aCurDstClass);
             if (ret != null)
             {
               if (s_aLogger.isDebugEnabled ())
@@ -155,7 +165,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
   }
 
@@ -166,18 +176,18 @@ public final class SerializationConverterRegistry implements ISerializationConve
    * @param aCallback
    *        The callback invoked for all iterations.
    */
-  public static void iterateAllRegisteredSerializationConverters (@Nonnull final ISerializationConverterCallback aCallback)
+  public void iterateAllRegisteredSerializationConverters (@Nonnull final ISerializationConverterCallback aCallback)
   {
     // Create a copy of the map
     Map <Class <?>, ISerializationConverter> aCopy;
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
-      aCopy = ContainerHelper.newMap (s_aMap);
+      aCopy = ContainerHelper.newMap (m_aMap);
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
 
     // And iterate the copy
@@ -187,34 +197,34 @@ public final class SerializationConverterRegistry implements ISerializationConve
   }
 
   @Nonnegative
-  public static int getRegisteredSerializationConverterCount ()
+  public int getRegisteredSerializationConverterCount ()
   {
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
-      return s_aMap.size ();
+      return m_aMap.size ();
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
   }
 
-  public static void reinitialize ()
+  public void reinitialize ()
   {
-    s_aRWLock.writeLock ().lock ();
+    m_aRWLock.writeLock ().lock ();
     try
     {
-      s_aMap.clear ();
+      m_aMap.clear ();
     }
     finally
     {
-      s_aRWLock.writeLock ().unlock ();
+      m_aRWLock.writeLock ().unlock ();
     }
 
     // Register all custom micro type converter
     for (final ISerializationConverterRegistrarSPI aSPI : ServiceLoaderUtils.getAllSPIImplementations (ISerializationConverterRegistrarSPI.class))
-      aSPI.registerSerializationConverter (s_aInstance);
+      aSPI.registerSerializationConverter (this);
     s_aLogger.info (getRegisteredSerializationConverterCount () + " serialization converters registered");
   }
 }

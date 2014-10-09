@@ -23,6 +23,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
@@ -47,6 +48,7 @@ public final class ThirdPartyModuleRegistry
   private static boolean s_bDefaultInstantiated = false;
 
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  @GuardedBy ("m_aRWLock")
   private final Set <IThirdPartyModule> m_aModules = new LinkedHashSet <IThirdPartyModule> ();
 
   private ThirdPartyModuleRegistry ()
