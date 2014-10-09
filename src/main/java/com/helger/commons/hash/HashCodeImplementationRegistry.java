@@ -65,8 +65,14 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
     }
   }
 
+  private static final class SingletonHolder
+  {
+    static final HashCodeImplementationRegistry s_aInstance = new HashCodeImplementationRegistry ();
+  }
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (HashCodeImplementationRegistry.class);
-  private static final HashCodeImplementationRegistry s_aInstance = new HashCodeImplementationRegistry ();
+
+  private static boolean s_bDefaultInstantiated = false;
 
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
 
@@ -84,10 +90,16 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
     _reinitialize ();
   }
 
+  public static boolean isInstantiated ()
+  {
+    return s_bDefaultInstantiated;
+  }
+
   @Nonnull
   public static HashCodeImplementationRegistry getInstance ()
   {
-    return s_aInstance;
+    s_bDefaultInstantiated = true;
+    return SingletonHolder.s_aInstance;
   }
 
   private final void _reinitialize ()
@@ -307,12 +319,12 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
 
     // Get the best matching implementation
     final Class <?> aClass = aObj.getClass ();
-    final IHashCodeImplementation aImpl = s_aInstance.getBestMatchingHashCodeImplementation (aClass);
+    final IHashCodeImplementation aImpl = getInstance ().getBestMatchingHashCodeImplementation (aClass);
     return aImpl == null ? aObj.hashCode () : aImpl.getHashCode (aObj);
   }
 
-  public static void clearCache ()
+  public void clearCache ()
   {
-    s_aInstance._reinitialize ();
+    _reinitialize ();
   }
 }

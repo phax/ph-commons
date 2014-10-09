@@ -97,7 +97,8 @@ public final class CommonsCleanup
     StatisticsManager.clearCache ();
     if (EqualsImplementationRegistry.isInstantiated ())
       EqualsImplementationRegistry.getInstance ().clearCache ();
-    HashCodeImplementationRegistry.clearCache ();
+    if (HashCodeImplementationRegistry.isInstantiated ())
+      HashCodeImplementationRegistry.getInstance ().clearCache ();
     SystemProperties.clearWarnedPropertyNames ();
 
     // Clean this one last as it is used in equals and hashCode implementations!
