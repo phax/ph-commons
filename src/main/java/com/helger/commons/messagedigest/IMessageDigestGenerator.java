@@ -17,6 +17,7 @@
 package com.helger.commons.messagedigest;
 
 import java.nio.charset.Charset;
+import java.security.Provider;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -26,7 +27,7 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
 /**
  * Base interface for a message digest generator (using hash algorithms like MD5
  * or SHA 512)
- * 
+ *
  * @author Philip Helger
  */
 public interface IMessageDigestGenerator
@@ -35,6 +36,12 @@ public interface IMessageDigestGenerator
    * The default algorithm that should be used.
    */
   EMessageDigestAlgorithm DEFAULT_ALGORITHM = EMessageDigestAlgorithm.SHA_512;
+
+  /**
+   * @return The used security Provider. Should not be <code>null</code>.
+   */
+  @Nonnull
+  Provider getSecurityProvider ();
 
   /**
    * @return The name of the hashing algorithm used.
@@ -52,7 +59,7 @@ public interface IMessageDigestGenerator
   /**
    * Update the hash with the given byte. After calling {@link #getDigest()}
    * once, no further update is possible.
-   * 
+   *
    * @param aValue
    *        The byte value to update the hash
    * @return this
@@ -63,7 +70,7 @@ public interface IMessageDigestGenerator
   /**
    * Update the hash with the bytes of the given string in the given charset.
    * After calling {@link #getDigest()} once, no further update is possible.
-   * 
+   *
    * @param sValue
    *        The string value to update the hash. May not be <code>null</code>.
    * @param sCharset
@@ -78,7 +85,7 @@ public interface IMessageDigestGenerator
   /**
    * Update the hash with the bytes of the given string in the given charset.
    * After calling {@link #getDigest()} once, no further update is possible.
-   * 
+   *
    * @param sValue
    *        The string value to update the hash. May not be <code>null</code>.
    * @param aCharset
@@ -92,7 +99,7 @@ public interface IMessageDigestGenerator
   /**
    * Update the hash with the given byte array. After calling
    * {@link #getDigest()} once, no further update is possible.
-   * 
+   *
    * @param aValue
    *        The byte array to update the hash. May not be <code>null</code>.
    * @return this
@@ -103,7 +110,7 @@ public interface IMessageDigestGenerator
   /**
    * Update the hash with a slice of the given byte array. After calling
    * {@link #getDigest()} once, no further update is possible.
-   * 
+   *
    * @param aValue
    *        The byte array to update the hash. May not be <code>null</code>.
    * @param nOffset
@@ -125,7 +132,7 @@ public interface IMessageDigestGenerator
   /**
    * Finish calculation of the hash value and return the digest. Afterwards no
    * update is possible before {@link #reset()} is called.
-   * 
+   *
    * @return A copy of the array with the message digest.
    */
   @Nonnull
@@ -136,7 +143,7 @@ public interface IMessageDigestGenerator
    * Get only a part of the digest, namely the first number of bytes. Calls
    * {@link #getDigest()} internally so no further update is possible after this
    * method is called.
-   * 
+   *
    * @param nLength
    *        The number of bytes to be retrieved. Must be &gt; 0.
    * @return A copy of the first n bytes of the message digest array.
@@ -149,7 +156,7 @@ public interface IMessageDigestGenerator
    * This method finalizes the hash generation and creates the index. Calls
    * {@link #getDigest()} internally so no further update is possible after this
    * method is called.
-   * 
+   *
    * @return the generated hash value.
    */
   long getDigestLong ();
@@ -158,7 +165,7 @@ public interface IMessageDigestGenerator
    * This method converts the current hash digest to a hex string. Calls
    * {@link #getDigest()} internally so no further update is possible after this
    * method is called.
-   * 
+   *
    * @return The hex value of the hash digest. Never <code>null</code>.
    */
   @Nonnull

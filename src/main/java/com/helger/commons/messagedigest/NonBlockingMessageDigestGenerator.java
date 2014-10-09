@@ -18,10 +18,13 @@ package com.helger.commons.messagedigest;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.Provider;
 import java.util.Arrays;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import org.slf4j.Logger;
@@ -48,12 +51,60 @@ public final class NonBlockingMessageDigestGenerator extends AbstractMessageDige
   private final MessageDigest m_aMessageDigest;
   private byte [] m_aDigest;
 
+  @Nonnull
+  private static MessageDigest _createMD (@Nullable final String sProvider,
+                                          @Nonnull final EMessageDigestAlgorithm... aAlgorithms)
+  {
+    MessageDigest aMessageDigest = null;
+    for (final EMessageDigestAlgorithm eMD : aAlgorithms)
+      try
+      {
+        if (sProvider == null)
+          aMessageDigest = MessageDigest.getInstance (eMD.getAlgorithm ());
+        else
+          aMessageDigest = MessageDigest.getInstance (eMD.getAlgorithm (), sProvider);
+        break;
+      }
+      catch (final NoSuchAlgorithmException ex)
+      {
+        // Unknown algorithm -> goto next
+        s_aLogger.warn ("Unsupported message digest algorithm '" + eMD.getAlgorithm () + "' found");
+      }
+      catch (final NoSuchProviderException ex)
+      {
+        // Unknown provider - stop iteration
+        throw new IllegalArgumentException ("Unsupported security provider '" + sProvider + "' found", ex);
+      }
+
+    if (aMessageDigest == null)
+    {
+      // None of the passed algorithms was suitable
+      throw new IllegalArgumentException ("None of the algorithms in " +
+                                          Arrays.toString (aAlgorithms) +
+                                          " was applicable!");
+    }
+    return aMessageDigest;
+  }
+
   /**
    * Create a default hash generator with the default algorithm.
    */
   public NonBlockingMessageDigestGenerator ()
   {
     this (DEFAULT_ALGORITHM);
+  }
+
+  /**
+   * Create a default hash generator with the default algorithm and the
+   * specified security provider
+   *
+   * @param sProvider
+   *        Security provider to be used. May be <code>null</code> to indicate
+   *        the default.
+   */
+  public NonBlockingMessageDigestGenerator (@Nullable final String sProvider)
+  {
+    this (sProvider, DEFAULT_ALGORITHM);
   }
 
   /**
@@ -69,29 +120,34 @@ public final class NonBlockingMessageDigestGenerator extends AbstractMessageDige
    */
   public NonBlockingMessageDigestGenerator (@Nonnull @Nonempty final EMessageDigestAlgorithm... aAlgorithms)
   {
+    this (null, aAlgorithms);
+  }
+
+  /**
+   * Create a hash generator with a set of possible algorithms to use.
+   *
+   * @param sProvider
+   *        Security provider to be used. May be <code>null</code> to indicate
+   *        the default.
+   * @param aAlgorithms
+   *        The parameters to test. May not be <code>null</code>.
+   * @throws NullPointerException
+   *         If the array of algorithms is <code>null</code> or if one element
+   *         of the array is <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If no algorithm was passed or if no applicable algorithm was used.
+   */
+  public NonBlockingMessageDigestGenerator (@Nullable final String sProvider,
+                                            @Nonnull @Nonempty final EMessageDigestAlgorithm... aAlgorithms)
+  {
     ValueEnforcer.notEmpty (aAlgorithms, "Algortihms");
+    m_aMessageDigest = _createMD (sProvider, aAlgorithms);
+  }
 
-    MessageDigest aMessageDigest = null;
-    for (final EMessageDigestAlgorithm eMD : aAlgorithms)
-      try
-      {
-        aMessageDigest = MessageDigest.getInstance (eMD.getAlgorithm ());
-        break;
-      }
-      catch (final NoSuchAlgorithmException ex)// NOPMD
-      {
-        // Unknown algorithm -> goto next
-        s_aLogger.warn ("Unsupported message digest algorithm '" + eMD.getAlgorithm () + "' found");
-      }
-
-    if (aMessageDigest == null)
-    {
-      // None of the passed algorithms was suitable
-      throw new IllegalArgumentException ("None of the algorithms in " +
-                                          Arrays.toString (aAlgorithms) +
-                                          " was applicable!");
-    }
-    m_aMessageDigest = aMessageDigest;
+  @Nonnull
+  public Provider getSecurityProvider ()
+  {
+    return m_aMessageDigest.getProvider ();
   }
 
   @Nonnull

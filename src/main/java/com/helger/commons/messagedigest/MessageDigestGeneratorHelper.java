@@ -29,12 +29,13 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.string.StringHelper;
 
 /**
  * Contains helper classes for handling message digests and there results.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -102,7 +103,7 @@ public final class MessageDigestGeneratorHelper
                                    @Nonnull @Nonempty final String sCharset,
                                    @Nonnull @Nonempty final EMessageDigestAlgorithm... aAlgorithms)
   {
-    return new NonBlockingMessageDigestGenerator (aAlgorithms).update (sContent, sCharset).getDigest ();
+    return getDigest (CharsetManager.getAsBytes (sContent, sCharset), aAlgorithms);
   }
 
   @Nonnull
@@ -110,14 +111,21 @@ public final class MessageDigestGeneratorHelper
                                    @Nonnull final Charset aCharset,
                                    @Nonnull @Nonempty final EMessageDigestAlgorithm... aAlgorithms)
   {
-    return new NonBlockingMessageDigestGenerator (aAlgorithms).update (sContent, aCharset).getDigest ();
+    return getDigest (CharsetManager.getAsBytes (sContent, aCharset), aAlgorithms);
   }
 
   @Nonnull
   public static byte [] getDigest (@Nonnull final byte [] aContent,
                                    @Nonnull @Nonempty final EMessageDigestAlgorithm... aAlgorithms)
   {
-    return new NonBlockingMessageDigestGenerator (aAlgorithms).update (aContent).getDigest ();
+    return getDigest (aContent, new NonBlockingMessageDigestGenerator (aAlgorithms));
+  }
+
+  @Nonnull
+  public static byte [] getDigest (@Nonnull final byte [] aContent,
+                                   @Nonnull final NonBlockingMessageDigestGenerator aMDGen)
+  {
+    return aMDGen.update (aContent).getDigest ();
   }
 
   @Nonnull
@@ -126,12 +134,21 @@ public final class MessageDigestGeneratorHelper
                                    @Nonnegative final int nLength,
                                    @Nonnull @Nonempty final EMessageDigestAlgorithm... aAlgorithms)
   {
-    return new NonBlockingMessageDigestGenerator (aAlgorithms).update (aContent, nOfs, nLength).getDigest ();
+    return getDigest (aContent, nOfs, nLength, new NonBlockingMessageDigestGenerator (aAlgorithms));
+  }
+
+  @Nonnull
+  public static byte [] getDigest (@Nonnull final byte [] aContent,
+                                   @Nonnegative final int nOfs,
+                                   @Nonnegative final int nLength,
+                                   @Nonnull final NonBlockingMessageDigestGenerator aMDGen)
+  {
+    return aMDGen.update (aContent, nOfs, nLength).getDigest ();
   }
 
   /**
    * Create a hash value from the complete input stream.
-   * 
+   *
    * @param aIS
    *        The input stream to create the hash value from. May not be
    *        <code>null</code>.
@@ -147,6 +164,26 @@ public final class MessageDigestGeneratorHelper
     ValueEnforcer.notNull (aIS, "InputStream");
 
     final NonBlockingMessageDigestGenerator aMDGen = new NonBlockingMessageDigestGenerator (aAlgorithms);
+    return getDigestFromInputStream (aIS, aMDGen);
+  }
+
+  /**
+   * Create a hash value from the complete input stream.
+   *
+   * @param aIS
+   *        The input stream to create the hash value from. May not be
+   *        <code>null</code>.
+   * @param aMDGen
+   *        The generator to be used. May not be <code>null</code>.
+   * @return The non-<code>null</code> message digest byte array
+   */
+  @Nonnull
+  public static byte [] getDigestFromInputStream (@Nonnull @WillClose final InputStream aIS,
+                                                  @Nonnull final NonBlockingMessageDigestGenerator aMDGen)
+  {
+    ValueEnforcer.notNull (aIS, "InputStream");
+    ValueEnforcer.notNull (aMDGen, "MDGen");
+
     final byte [] aBuf = new byte [2048];
     try
     {
@@ -157,7 +194,7 @@ public final class MessageDigestGeneratorHelper
     }
     catch (final IOException ex)
     {
-      throw new IllegalStateException ("Failed to read from InputStream for hashing!", ex);
+      throw new IllegalStateException ("Failed to read from InputStream for digesting!", ex);
     }
     finally
     {

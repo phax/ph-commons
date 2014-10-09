@@ -23,7 +23,7 @@ import org.junit.Test;
 
 /**
  * Tests for class {@link GlobalDebug}
- * 
+ *
  * @author Philip Helger
  */
 public final class GlobalDebugTest
@@ -33,9 +33,10 @@ public final class GlobalDebugTest
   {
     final GlobalDebug g = new GlobalDebug ();
     assertFalse (GlobalDebug.isTraceMode ());
-    assertFalse (GlobalDebug.isDebugMode ());
+    assertTrue (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
 
+    // implicitly disables debug and trace mode
     g.setProductionMode (true);
     assertFalse (GlobalDebug.isTraceMode ());
     assertFalse (GlobalDebug.isDebugMode ());
@@ -51,16 +52,19 @@ public final class GlobalDebugTest
     assertTrue (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
 
+    // Implicitly enables debug mode
     g.setTraceMode (true);
     assertTrue (GlobalDebug.isTraceMode ());
     assertTrue (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
 
+    // Implicitly disables trace mode
     g.setDebugMode (false);
     assertFalse (GlobalDebug.isTraceMode ());
     assertFalse (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
 
+    // Implicitly enables debug mode
     g.setTraceMode (true);
     assertTrue (GlobalDebug.isTraceMode ());
     assertTrue (GlobalDebug.isDebugMode ());

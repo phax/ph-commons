@@ -32,12 +32,11 @@ import com.helger.commons.annotations.NoTranslationRequired;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.name.IHasDisplayText;
 import com.helger.commons.name.IHasDisplayTextWithArgs;
-import com.helger.commons.text.ISimpleMultiLingualText;
 import com.helger.commons.text.impl.TextProvider;
 
 /**
  * Test class for class {@link DefaultTextResolver}.
- * 
+ *
  * @author Philip Helger
  */
 public final class DefaultTextResolverTest
@@ -48,7 +47,8 @@ public final class DefaultTextResolverTest
     TEXT1 ("Text1de", "Text1en"),
     TEXT2 ("Text2de", "Text2en"),
     TEXT3 ("Text3{0}de", "Text3{0}en");
-    private final ISimpleMultiLingualText m_aTP;
+
+    private final TextProvider m_aTP;
 
     private EText (final String sDE, final String sEN)
     {

@@ -39,7 +39,7 @@ import com.helger.commons.system.SystemHelper;
 
 /**
  * Test class for class {@link LocaleUtils}.
- * 
+ *
  * @author Philip Helger
  */
 public final class LocaleUtilsTest extends AbstractPHTestCase
@@ -59,8 +59,8 @@ public final class LocaleUtilsTest extends AbstractPHTestCase
   @Test
   public void testGetLocaleNativeDisplayName ()
   {
-    assertNotNull (LocaleUtils.getLocaleNativeDisplayName (CGlobal.LOCALE_ALL));
-    assertNotNull (LocaleUtils.getLocaleNativeDisplayName (CGlobal.LOCALE_INDEPENDENT));
+    assertNull (LocaleUtils.getLocaleNativeDisplayName (CGlobal.LOCALE_ALL));
+    assertNull (LocaleUtils.getLocaleNativeDisplayName (CGlobal.LOCALE_INDEPENDENT));
     assertNotNull (LocaleUtils.getLocaleNativeDisplayName (L_DE));
     try
     {

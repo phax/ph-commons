@@ -46,7 +46,7 @@ import com.helger.commons.xml.XMLFactory;
 
 /**
  * Test class for class {@link MicroUtils}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroUtilsTest
@@ -160,7 +160,7 @@ public final class MicroUtilsTest
     assertNull (MicroUtils.getChildTextContentWithConversion (e, "y", BigInteger.class));
     y.appendText ("100");
     assertEquals (CGlobal.BIGINT_100, MicroUtils.getChildTextContentWithConversion (e, "y", BigInteger.class));
-    y.appendElement ("1");
+    y.appendElement ("a");
     assertEquals (CGlobal.BIGINT_100, MicroUtils.getChildTextContentWithConversion (e, "y", BigInteger.class));
     y.appendCDATA ("234");
     assertEquals (BigInteger.valueOf (100234), MicroUtils.getChildTextContentWithConversion (e, "y", BigInteger.class));
@@ -192,7 +192,7 @@ public final class MicroUtilsTest
     assertNull (MicroUtils.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
     y.appendText ("100");
     assertEquals (CGlobal.BIGINT_100, MicroUtils.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
-    y.appendElement ("1");
+    y.appendElement ("a");
     assertEquals (CGlobal.BIGINT_100, MicroUtils.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
     y.appendCDATA ("234");
     assertEquals (BigInteger.valueOf (100234),

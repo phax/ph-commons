@@ -16,11 +16,13 @@
  */
 package com.helger.commons.messagedigest;
 
+import java.security.Provider;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
@@ -43,7 +45,20 @@ public final class MessageDigestGenerator extends AbstractMessageDigestGenerator
    */
   public MessageDigestGenerator ()
   {
-    this (DEFAULT_ALGORITHM);
+    m_aMDGen = new NonBlockingMessageDigestGenerator ();
+  }
+
+  /**
+   * Create a default hash generator with the default algorithm and the
+   * specified security provider
+   *
+   * @param sProvider
+   *        Security provider to be used. May be <code>null</code> to indicate
+   *        the default.
+   */
+  public MessageDigestGenerator (@Nullable final String sProvider)
+  {
+    m_aMDGen = new NonBlockingMessageDigestGenerator (sProvider);
   }
 
   /**
@@ -60,6 +75,32 @@ public final class MessageDigestGenerator extends AbstractMessageDigestGenerator
   public MessageDigestGenerator (@Nonnull @Nonempty final EMessageDigestAlgorithm... aAlgorithms)
   {
     m_aMDGen = new NonBlockingMessageDigestGenerator (aAlgorithms);
+  }
+
+  /**
+   * Create a hash generator with a set of possible algorithms to use.
+   *
+   * @param sProvider
+   *        Security provider to be used. May be <code>null</code> to indicate
+   *        the default.
+   * @param aAlgorithms
+   *        The parameters to test. May not be <code>null</code>.
+   * @throws NullPointerException
+   *         If the array of algorithms is <code>null</code> or if one element
+   *         of the array is <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If no algorithm was passed or if no applicable algorithm was used.
+   */
+  public MessageDigestGenerator (@Nullable final String sProvider,
+                                 @Nonnull @Nonempty final EMessageDigestAlgorithm... aAlgorithms)
+  {
+    m_aMDGen = new NonBlockingMessageDigestGenerator (sProvider, aAlgorithms);
+  }
+
+  @Nonnull
+  public Provider getSecurityProvider ()
+  {
+    return m_aMDGen.getSecurityProvider ();
   }
 
   @Nonnull
@@ -153,6 +194,6 @@ public final class MessageDigestGenerator extends AbstractMessageDigestGenerator
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("messageDigestGenerator", m_aMDGen).toString ();
+    return new ToStringGenerator (this).append ("MessageDigestGenerator", m_aMDGen).toString ();
   }
 }

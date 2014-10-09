@@ -27,6 +27,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.PropertyKey;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
@@ -45,7 +47,7 @@ import com.helger.commons.text.resource.ResourceBundleUtils;
  * Text resolving class that performs the fallback handling for locales other
  * than German and English. Used only from within the
  * {@link DefaultTextResolver} static class.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -63,9 +65,13 @@ public final class EnumTextResolverWithPropertiesOverrideAndFallback extends Abs
                                                                                                                  "$failed");
 
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  @GuardedBy ("m_aRWLock")
   private final Set <String> m_aUsedOverrideBundles = new HashSet <String> ();
+  @GuardedBy ("m_aRWLock")
   private final Set <String> m_aUsedFallbackBundles = new HashSet <String> ();
+  @GuardedBy ("m_aRWLock")
   private boolean m_bUseResourceBundleCache = DEFAULT_USE_RESOURCE_BUNDLE_CACHE;
+  @GuardedBy ("m_aRWLock")
   private final Map <String, ResourceBundle> m_aResourceBundleCache = new HashMap <String, ResourceBundle> ();
 
   public EnumTextResolverWithPropertiesOverrideAndFallback ()
@@ -73,7 +79,7 @@ public final class EnumTextResolverWithPropertiesOverrideAndFallback extends Abs
 
   /**
    * Change whether the internal resource bundle cache should be used.
-   * 
+   *
    * @param bUseResourceBundleCache
    *        The new value. Pass <code>true</code> to enable it.
    */
@@ -111,7 +117,7 @@ public final class EnumTextResolverWithPropertiesOverrideAndFallback extends Abs
   /**
    * Get the cached {@link ResourceBundle}. It is assumed, that the locale name
    * is contained within the bundle name!!
-   * 
+   *
    * @param sBundleName
    *        Name of the bundle. May not be <code>null</code>.
    * @param aLocale
@@ -142,6 +148,10 @@ public final class EnumTextResolverWithPropertiesOverrideAndFallback extends Abs
     m_aRWLock.writeLock ().lock ();
     try
     {
+      // Re-check in write lock
+      if (m_aResourceBundleCache.containsKey (sBundleName))
+        return m_aResourceBundleCache.get (sBundleName);
+
       // Resolve the resource bundle
       final ResourceBundle ret = ResourceBundleUtils.getResourceBundle (sBundleName, aLocale);
       m_aResourceBundleCache.put (sBundleName, ret);
@@ -155,7 +165,8 @@ public final class EnumTextResolverWithPropertiesOverrideAndFallback extends Abs
 
   @Override
   @Nullable
-  protected String internalGetOverrideString (final String sID, @Nonnull final Locale aContentLocale)
+  protected String internalGetOverrideString (@Nonnull @PropertyKey final String sID,
+                                              @Nonnull final Locale aContentLocale)
   {
     // Try all possible locales of the passed locale
     for (final Locale aLocale : LocaleUtils.getCalculatedLocaleListForResolving (aContentLocale))
@@ -184,7 +195,8 @@ public final class EnumTextResolverWithPropertiesOverrideAndFallback extends Abs
 
   @Override
   @Nullable
-  protected String internalGetFallbackString (final String sID, final Locale aContentLocale)
+  protected String internalGetFallbackString (@Nonnull @PropertyKey final String sID,
+                                              @Nonnull final Locale aContentLocale)
   {
     // Try all possible locales of the passed locale
     for (final Locale aLocale : LocaleUtils.getCalculatedLocaleListForResolving (aContentLocale))
@@ -211,8 +223,11 @@ public final class EnumTextResolverWithPropertiesOverrideAndFallback extends Abs
     s_aStatsFailed.increment (PREFIX_FALLBACK + aContentLocale.toString () + ':' + sID);
     if (GlobalDebug.isDebugMode ())
     {
-      s_aLogger.warn ("getFallbackString (" + sID + "; " + aContentLocale + ") failed!");
-      return "[fallback-" + sID.substring (sID.lastIndexOf ('.') + 1) + "-" + aContentLocale.toString () + "]";
+      s_aLogger.warn ("getFallbackString (" + sID + "; " + aContentLocale.toString () + ") failed!");
+
+      // Return consistent results
+      if (false)
+        return "[fallback-" + sID.substring (sID.lastIndexOf ('.') + 1) + "-" + aContentLocale.toString () + "]";
     }
     return null;
   }
