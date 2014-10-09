@@ -32,7 +32,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.lang.ServiceLoaderUtils;
@@ -50,40 +49,52 @@ public final class URLProtocolRegistry
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (URLProtocolRegistry.class);
 
-  private static final ReentrantReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
-  @GuardedBy ("s_aRWLock")
-  private static final Map <String, IURLProtocol> s_aProtocols = new HashMap <String, IURLProtocol> ();
+  private static final class SingletonHolder
+  {
+    static final URLProtocolRegistry s_aInstance = new URLProtocolRegistry ();
+  }
 
-  static
+  private static boolean s_bDefaultInstantiated = false;
+
+  private final ReentrantReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  @GuardedBy ("m_aRWLock")
+  private final Map <String, IURLProtocol> m_aProtocols = new HashMap <String, IURLProtocol> ();
+
+  private URLProtocolRegistry ()
   {
     reinitialize ();
   }
 
-  @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
-  private static final URLProtocolRegistry s_aInstance = new URLProtocolRegistry ();
+  public static boolean isInstantiated ()
+  {
+    return s_bDefaultInstantiated;
+  }
 
-  private URLProtocolRegistry ()
-  {}
+  @Nonnull
+  public static URLProtocolRegistry getInstance ()
+  {
+    s_bDefaultInstantiated = true;
+    return SingletonHolder.s_aInstance;
+  }
 
   /**
    * Reinitialize all protocols. Adds all {@link EURLProtocol} values and
    * invokes all SPI implementations.
    */
-  public static void reinitialize ()
+  public void reinitialize ()
   {
-    s_aRWLock.writeLock ().lock ();
+    m_aRWLock.writeLock ().lock ();
     try
     {
-      s_aProtocols.clear ();
+      m_aProtocols.clear ();
 
       // Add all default protocols
       for (final EURLProtocol aProtocol : EURLProtocol.values ())
-        s_aProtocols.put (aProtocol.getProtocol (), aProtocol);
+        m_aProtocols.put (aProtocol.getProtocol (), aProtocol);
     }
     finally
     {
-      s_aRWLock.writeLock ().unlock ();
+      m_aRWLock.writeLock ().unlock ();
     }
 
     // Load all SPI implementations
@@ -105,22 +116,22 @@ public final class URLProtocolRegistry
    * @throws IllegalArgumentException
    *         If another handler for this protocol is already installed.
    */
-  public static void registerProtocol (@Nonnull final IURLProtocol aProtocol)
+  public void registerProtocol (@Nonnull final IURLProtocol aProtocol)
   {
     ValueEnforcer.notNull (aProtocol, "Protocol");
 
-    s_aRWLock.writeLock ().lock ();
+    m_aRWLock.writeLock ().lock ();
     try
     {
       final String sProtocol = aProtocol.getProtocol ();
-      if (s_aProtocols.containsKey (sProtocol))
+      if (m_aProtocols.containsKey (sProtocol))
         throw new IllegalArgumentException ("Another handler for protocol '" + sProtocol + "' is already registered!");
-      s_aProtocols.put (sProtocol, aProtocol);
+      m_aProtocols.put (sProtocol, aProtocol);
       s_aLogger.info ("Registered new custom URL protocol: " + aProtocol);
     }
     finally
     {
-      s_aRWLock.writeLock ().unlock ();
+      m_aRWLock.writeLock ().unlock ();
     }
   }
 
@@ -129,30 +140,30 @@ public final class URLProtocolRegistry
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static Collection <IURLProtocol> getAllProtocols ()
+  public Collection <IURLProtocol> getAllProtocols ()
   {
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newList (s_aProtocols.values ());
+      return ContainerHelper.newList (m_aProtocols.values ());
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
   }
 
   @Nonnegative
-  public static int getRegisteredProtocolCount ()
+  public int getRegisteredProtocolCount ()
   {
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
-      return s_aProtocols.size ();
+      return m_aProtocols.size ();
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
   }
 
@@ -164,20 +175,20 @@ public final class URLProtocolRegistry
    * @return The corresponding URL protocol or <code>null</code> if unresolved
    */
   @Nullable
-  public static IURLProtocol getProtocol (@Nullable final String sURL)
+  public IURLProtocol getProtocol (@Nullable final String sURL)
   {
     if (sURL != null)
     {
-      s_aRWLock.readLock ().lock ();
+      m_aRWLock.readLock ().lock ();
       try
       {
-        for (final IURLProtocol aProtocol : s_aProtocols.values ())
+        for (final IURLProtocol aProtocol : m_aProtocols.values ())
           if (aProtocol.isUsedInURL (sURL))
             return aProtocol;
       }
       finally
       {
-        s_aRWLock.readLock ().unlock ();
+        m_aRWLock.readLock ().unlock ();
       }
     }
     return null;
@@ -191,7 +202,7 @@ public final class URLProtocolRegistry
    * @return The corresponding URL protocol or <code>null</code> if unresolved
    */
   @Nullable
-  public static IURLProtocol getProtocol (@Nullable final IURLData aURL)
+  public IURLProtocol getProtocol (@Nullable final IURLData aURL)
   {
     return aURL == null ? null : getProtocol (aURL.getPath ());
   }
@@ -204,7 +215,7 @@ public final class URLProtocolRegistry
    * @return <code>true</code> if the protocol is known, <code>false</code>
    *         otherwise
    */
-  public static boolean hasKnownProtocol (@Nullable final String sURL)
+  public boolean hasKnownProtocol (@Nullable final String sURL)
   {
     return getProtocol (sURL) != null;
   }
@@ -217,7 +228,7 @@ public final class URLProtocolRegistry
    * @return <code>true</code> if the protocol is known, <code>false</code>
    *         otherwise
    */
-  public static boolean hasKnownProtocol (@Nullable final IURLData aURL)
+  public boolean hasKnownProtocol (@Nullable final IURLData aURL)
   {
     return getProtocol (aURL) != null;
   }
@@ -230,7 +241,7 @@ public final class URLProtocolRegistry
    * @return The passed URL where any known protocol has been stripped
    */
   @Nullable
-  public static String getWithoutProtocol (@Nullable final String sURL)
+  public String getWithoutProtocol (@Nullable final String sURL)
   {
     final IURLProtocol aProtocol = getProtocol (sURL);
     return aProtocol == null ? sURL : sURL.substring (aProtocol.getProtocol ().length ());

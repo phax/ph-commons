@@ -124,7 +124,7 @@ public final class VendorInfo
   {
     ValueEnforcer.notEmpty (sVendorURL, "VendorURL");
 
-    final IURLProtocol aProtocol = URLProtocolRegistry.getProtocol (sVendorURL);
+    final IURLProtocol aProtocol = URLProtocolRegistry.getInstance ().getProtocol (sVendorURL);
     if (aProtocol == null)
     {
       // No protocol present - assume HTTP

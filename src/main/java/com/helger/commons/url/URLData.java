@@ -34,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Default implementation of the {@link IURLData} interface.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -71,12 +71,12 @@ public class URLData implements IURLData
   @Nullable
   public IURLProtocol getProtocol ()
   {
-    return URLProtocolRegistry.getProtocol (m_sPath);
+    return URLProtocolRegistry.getInstance ().getProtocol (m_sPath);
   }
 
   public boolean hasKnownProtocol ()
   {
-    return URLProtocolRegistry.hasKnownProtocol (m_sPath);
+    return URLProtocolRegistry.getInstance ().hasKnownProtocol (m_sPath);
   }
 
   @Nonnull

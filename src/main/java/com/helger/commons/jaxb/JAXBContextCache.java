@@ -36,7 +36,7 @@ import com.helger.commons.lang.GenericReflection;
 /**
  * Specific cache class for JAXB context elements. This is helpful, as the JAXB
  * context creation is a very time consuming task.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -52,7 +52,6 @@ public final class JAXBContextCache extends AbstractNotifyingCache <Package, JAX
   private static boolean s_bDefaultInstantiated = false;
 
   private JAXBContextCache ()
-
   {
     super (JAXBContextCache.class.getName ());
   }

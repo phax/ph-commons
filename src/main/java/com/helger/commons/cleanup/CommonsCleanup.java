@@ -74,7 +74,8 @@ public final class CommonsCleanup
     SerializationConverterRegistry.reinitialize ();
     ThirdPartyModuleRegistry.reinitialize ();
     TypeConverterRegistry.reinitialize ();
-    URLProtocolRegistry.reinitialize ();
+    if (URLProtocolRegistry.isInstantiated ())
+      URLProtocolRegistry.getInstance ().reinitialize ();
 
     // Clear caches
     ImageDataManager.clearCache ();

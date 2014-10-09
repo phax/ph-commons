@@ -38,7 +38,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Abstraction of the string parts of a URL but much simpler (and faster) than
  * {@link java.net.URL}.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -92,12 +92,12 @@ public abstract class AbstractSimpleURL implements ISimpleURL
   @Nullable
   public final IURLProtocol getProtocol ()
   {
-    return URLProtocolRegistry.getProtocol (m_sPath);
+    return URLProtocolRegistry.getInstance ().getProtocol (m_sPath);
   }
 
   public final boolean hasKnownProtocol ()
   {
-    return URLProtocolRegistry.hasKnownProtocol (m_sPath);
+    return URLProtocolRegistry.getInstance ().hasKnownProtocol (m_sPath);
   }
 
   @Nonnull

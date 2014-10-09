@@ -26,7 +26,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A simple implementation of the {@link IURLProtocol} interface.
- * 
+ *
  * @author Philip Helger
  */
 public class URLProtocol implements IURLProtocol
@@ -52,7 +52,7 @@ public class URLProtocol implements IURLProtocol
 
   /**
    * Tells if the passed String (URL) belongs to this protocol.
-   * 
+   *
    * @param sURL
    *        The URL to check. May be <code>null</code>.
    * @return <code>true</code> if the passed URL starts with this protocol
@@ -73,7 +73,7 @@ public class URLProtocol implements IURLProtocol
   @Nullable
   public String getWithProtocolIfNone (@Nullable final String sURL)
   {
-    if (sURL == null || URLProtocolRegistry.hasKnownProtocol (sURL))
+    if (sURL == null || URLProtocolRegistry.getInstance ().hasKnownProtocol (sURL))
       return sURL;
     return m_sProtocol + sURL;
   }

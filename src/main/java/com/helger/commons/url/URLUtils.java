@@ -289,7 +289,7 @@ public final class URLUtils
     final String sRealHref = sHref.trim ();
 
     // Is it a protocol that does not allow for query parameters?
-    final IURLProtocol eProtocol = URLProtocolRegistry.getProtocol (sRealHref);
+    final IURLProtocol eProtocol = URLProtocolRegistry.getInstance ().getProtocol (sRealHref);
     if (eProtocol != null && !eProtocol.allowsForQueryParameters ())
       return new URLData (sRealHref, null, null);
 

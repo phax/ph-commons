@@ -25,7 +25,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link URLProtocolRegistry}.
- * 
+ *
  * @author Philip Helger
  */
 public final class URLProtocolRegistryTest
@@ -37,10 +37,10 @@ public final class URLProtocolRegistryTest
     {
       final String sURL = e.getProtocol () + "xyz";
       final URLData aURL = new URLData (sURL);
-      assertTrue (URLProtocolRegistry.hasKnownProtocol (sURL));
-      assertTrue (URLProtocolRegistry.hasKnownProtocol (aURL));
-      assertSame (e, URLProtocolRegistry.getProtocol (sURL));
-      assertSame (e, URLProtocolRegistry.getProtocol (aURL));
+      assertTrue (URLProtocolRegistry.getInstance ().hasKnownProtocol (sURL));
+      assertTrue (URLProtocolRegistry.getInstance ().hasKnownProtocol (aURL));
+      assertSame (e, URLProtocolRegistry.getInstance ().getProtocol (sURL));
+      assertSame (e, URLProtocolRegistry.getInstance ().getProtocol (aURL));
     }
   }
 
@@ -50,22 +50,22 @@ public final class URLProtocolRegistryTest
     final String sPrefix = "xyz://";
     final URLProtocol aCustom = new URLProtocol (sPrefix, false);
     final String sTestURL = sPrefix + "abZZ";
-    assertFalse (URLProtocolRegistry.hasKnownProtocol (sTestURL));
-    URLProtocolRegistry.registerProtocol (aCustom);
-    assertTrue (URLProtocolRegistry.hasKnownProtocol (sTestURL));
+    assertFalse (URLProtocolRegistry.getInstance ().hasKnownProtocol (sTestURL));
+    URLProtocolRegistry.getInstance ().registerProtocol (aCustom);
+    assertTrue (URLProtocolRegistry.getInstance ().hasKnownProtocol (sTestURL));
 
     try
     {
       // Already registered
-      URLProtocolRegistry.registerProtocol (aCustom);
+      URLProtocolRegistry.getInstance ().registerProtocol (aCustom);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    URLProtocolRegistry.reinitialize ();
-    assertFalse (URLProtocolRegistry.hasKnownProtocol (sTestURL));
-    URLProtocolRegistry.registerProtocol (aCustom);
-    assertTrue (URLProtocolRegistry.hasKnownProtocol (sTestURL));
+    URLProtocolRegistry.getInstance ().reinitialize ();
+    assertFalse (URLProtocolRegistry.getInstance ().hasKnownProtocol (sTestURL));
+    URLProtocolRegistry.getInstance ().registerProtocol (aCustom);
+    assertTrue (URLProtocolRegistry.getInstance ().hasKnownProtocol (sTestURL));
   }
 }

@@ -25,7 +25,7 @@ import com.helger.commons.annotations.Nonempty;
  * Specifies a list of known protocols.<br>
  * Should be extended to the list defined at <a
  * href="http://www.iana.org/assignments/uri-schemes.html">the IANA</a>
- * 
+ *
  * @author Philip Helger
  */
 public enum EURLProtocol implements IURLProtocol
@@ -139,7 +139,7 @@ public enum EURLProtocol implements IURLProtocol
 
   /**
    * Tells if the passed String (URL) belongs to this protocol.
-   * 
+   *
    * @param sURL
    *        The URL to check. May be <code>null</code>.
    * @return <code>true</code> if the passed URL starts with this protocol
@@ -160,7 +160,7 @@ public enum EURLProtocol implements IURLProtocol
   @Nullable
   public String getWithProtocolIfNone (@Nullable final String sURL)
   {
-    if (sURL == null || URLProtocolRegistry.hasKnownProtocol (sURL))
+    if (sURL == null || URLProtocolRegistry.getInstance ().hasKnownProtocol (sURL))
       return sURL;
     return m_sProtocol + sURL;
   }
