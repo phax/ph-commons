@@ -173,7 +173,7 @@ public final class XMLReaderFactoryPH
   private static SecuritySupport ss = new SecuritySupport ();
 
   private static boolean _jarread = false;
-  private static String _jarreadClassname;
+  private static String _previouslyReadClassname;
 
   /**
    * <p>
@@ -213,75 +213,78 @@ public final class XMLReaderFactoryPH
   @Nonnull
   public static XMLReader createXMLReader () throws SAXException
   {
-    String className = null;
+    String className = _previouslyReadClassname;
+
     ClassLoader cl = ss.getContextClassLoader ();
 
-    // 1. try the JVM-instance-wide system property
-    try
-    {
-      className = ss.getSystemProperty (property);
-    }
-    catch (final RuntimeException e)
-    { /* continue searching */}
-
-    // 2. if that fails, try META-INF/services/
     if (className == null)
     {
-      if (!_jarread)
+      // 1. try the JVM-instance-wide system property
+      try
       {
-        _jarread = true;
-        final String service = "META-INF/services/" + property;
-        InputStream in;
-        BufferedReader reader;
+        className = ss.getSystemProperty (property);
+        if (className != null)
+          _previouslyReadClassname = className;
+      }
+      catch (final RuntimeException e)
+      {
+        // continue searching
+      }
 
-        try
+      // 2. if that fails, try META-INF/services/
+      if (className == null)
+      {
+        if (!_jarread)
         {
-          if (cl != null)
-          {
-            in = ss.getResourceAsStream (cl, service);
+          _jarread = true;
+          final String service = "META-INF/services/" + property;
+          InputStream in;
+          BufferedReader reader;
 
-            // If no provider found then try the current ClassLoader
-            if (in == null)
+          try
+          {
+            if (cl != null)
             {
-              cl = null;
               in = ss.getResourceAsStream (cl, service);
-            }
-          }
-          else
-          {
-            // No Context ClassLoader, try the current ClassLoader
-            in = ss.getResourceAsStream (null, service);
-          }
 
-          if (in != null)
-          {
-            try
+              // If no provider found then try the current ClassLoader
+              if (in == null)
+              {
+                cl = null;
+                in = ss.getResourceAsStream (cl, service);
+              }
+            }
+            else
             {
-              reader = new BufferedReader (new InputStreamReader (in, "UTF8"));
+              // No Context ClassLoader, try the current ClassLoader
+              in = ss.getResourceAsStream (null, service);
+            }
+
+            if (in != null)
+            {
               try
               {
-                className = reader.readLine ();
+                reader = new BufferedReader (new InputStreamReader (in, "UTF8"));
+                try
+                {
+                  className = reader.readLine ();
+                }
+                finally
+                {
+                  StreamUtils.close (reader);
+                }
+                // [ph] Remember the read class name
+                _previouslyReadClassname = className;
               }
               finally
               {
-                StreamUtils.close (reader);
+                StreamUtils.close (in);
               }
-              // [phloc] Remember the read class name
-              _jarreadClassname = className;
-            }
-            finally
-            {
-              StreamUtils.close (in);
             }
           }
+          catch (final Throwable t)
+          {}
         }
-        catch (final Throwable t)
-        {}
-      }
-      else
-      {
-        // [phloc] Use the previously read class name - may be null!
-        className = _jarreadClassname;
       }
     }
 
@@ -291,7 +294,16 @@ public final class XMLReaderFactoryPH
       // EXAMPLE:
       // className = "com.example.sax.XmlReader";
       // or a $JAVA_HOME/jre/lib/*properties setting...
-      className = "com.sun.org.apache.xerces.internal.parsers.SAXParser";
+      className = _previouslyReadClassname = "com.sun.org.apache.xerces.internal.parsers.SAXParser";
+    }
+    else
+    {
+      // [ph] added
+      // Try to speed things up for Apache Xerces
+      // Even though Xerces is only an optional dependency, this invocation
+      // should work since the check on the name is done previously
+      if ("org.apache.xerces.parsers.SAXParser".equals (className))
+        return new org.apache.xerces.parsers.SAXParser ();
     }
 
     // do we know the XMLReader implementation class yet?
