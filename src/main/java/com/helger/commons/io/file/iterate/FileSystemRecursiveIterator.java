@@ -36,6 +36,7 @@ import com.helger.commons.filter.FilterChainAND;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.filter.collections.FilterIterator;
 import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -250,7 +251,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    */
   @Nonnull
   public static IIterableIterator <File> create (@Nonnull final String sBaseDir,
-                                                 @Nonnull @Nonempty final IFilter <File>... aFileFilters)
+                                                 @Nonnull @Nonempty final IFileFilter... aFileFilters)
   {
     return create (new File (sBaseDir), aFileFilters);
   }
@@ -275,7 +276,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    */
   @Nonnull
   public static IIterableIterator <File> create (@Nonnull final File fBaseDir,
-                                                 @Nonnull @Nonempty final IFilter <File>... aFileFilters)
+                                                 @Nonnull @Nonempty final IFileFilter... aFileFilters)
   {
     return new FilterIterator <File> (new FileSystemRecursiveIterator (fBaseDir),
                                       new FilterChainAND <File> (aFileFilters));

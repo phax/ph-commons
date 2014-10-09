@@ -28,6 +28,7 @@ import com.helger.commons.filter.FilterChainAND;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.filter.collections.FilterIterator;
 import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.filter.IFileFilter;
 
 /**
  * Iterate over the content of a single directory. Iteration is <b>not</b>
@@ -105,7 +106,7 @@ public final class FileSystemIterator extends IterableIterator <File>
    */
   @Nonnull
   public static IIterableIterator <File> create (@Nonnull final String sBaseDir,
-                                                 @Nonnull final IFilter <File>... aFileFilters)
+                                                 @Nonnull final IFileFilter... aFileFilters)
   {
     return new FilterIterator <File> (new FileSystemIterator (sBaseDir), new FilterChainAND <File> (aFileFilters));
   }
@@ -122,7 +123,7 @@ public final class FileSystemIterator extends IterableIterator <File>
    */
   @Nonnull
   public static IIterableIterator <File> create (@Nonnull final File fBaseDir,
-                                                 @Nonnull final IFilter <File>... aFileFilters)
+                                                 @Nonnull final IFileFilter... aFileFilters)
   {
     return new FilterIterator <File> (new FileSystemIterator (fBaseDir), new FilterChainAND <File> (aFileFilters));
   }
