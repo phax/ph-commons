@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 
 /**
  * A rule based type converter provider. Implemented as a singleton.
- * 
+ *
  * @author Philip Helger
  */
 public final class TypeConverterProviderRuleBased implements ITypeConverterProvider
@@ -40,6 +40,6 @@ public final class TypeConverterProviderRuleBased implements ITypeConverterProvi
   @Nullable
   public ITypeConverter getTypeConverter (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
   {
-    return TypeConverterRegistry.getRuleBasedConverter (aSrcClass, aDstClass);
+    return TypeConverterRegistry.getInstance ().getRuleBasedConverter (aSrcClass, aDstClass);
   }
 }

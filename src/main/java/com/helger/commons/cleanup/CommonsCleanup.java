@@ -73,7 +73,8 @@ public final class CommonsCleanup
     MicroTypeConverterRegistry.reinitialize ();
     SerializationConverterRegistry.reinitialize ();
     ThirdPartyModuleRegistry.reinitialize ();
-    TypeConverterRegistry.reinitialize ();
+    if (TypeConverterRegistry.isInstantiated ())
+      TypeConverterRegistry.getInstance ().reinitialize ();
     if (URLProtocolRegistry.isInstantiated ())
       URLProtocolRegistry.getInstance ().reinitialize ();
 

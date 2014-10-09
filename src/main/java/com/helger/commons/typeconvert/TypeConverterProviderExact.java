@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 
 /**
  * An exact type converter provider. Implemented as a singleton.
- * 
+ *
  * @author Philip Helger
  */
 public final class TypeConverterProviderExact implements ITypeConverterProvider
@@ -40,6 +40,6 @@ public final class TypeConverterProviderExact implements ITypeConverterProvider
   @Nullable
   public ITypeConverter getTypeConverter (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
   {
-    return TypeConverterRegistry.getExactConverter (aSrcClass, aDstClass);
+    return TypeConverterRegistry.getInstance ().getExactConverter (aSrcClass, aDstClass);
   }
 }

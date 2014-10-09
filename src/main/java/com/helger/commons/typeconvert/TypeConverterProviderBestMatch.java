@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
  * An type converter provider that tries to provide an exact match before trying
  * fuzzy matches. This should be the preferred type converter provider.
  * Implemented as a singleton.
- * 
+ *
  * @author Philip Helger
  */
 public final class TypeConverterProviderBestMatch implements ITypeConverterProvider
@@ -42,16 +42,18 @@ public final class TypeConverterProviderBestMatch implements ITypeConverterProvi
   @Nullable
   public ITypeConverter getTypeConverter (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
   {
+    final TypeConverterRegistry aTCR = TypeConverterRegistry.getInstance ();
+
     // Find exact hit first
-    ITypeConverter ret = TypeConverterRegistry.getExactConverter (aSrcClass, aDstClass);
+    ITypeConverter ret = aTCR.getExactConverter (aSrcClass, aDstClass);
     if (ret == null)
     {
       // No exact match was found -> try rule based converter
-      ret = TypeConverterRegistry.getRuleBasedConverter (aSrcClass, aDstClass);
+      ret = aTCR.getRuleBasedConverter (aSrcClass, aDstClass);
       if (ret == null)
       {
         // No exact match was found -> try fuzzy converter
-        ret = TypeConverterRegistry.getFuzzyConverter (aSrcClass, aDstClass);
+        ret = aTCR.getFuzzyConverter (aSrcClass, aDstClass);
       }
     }
     return ret;

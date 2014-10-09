@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 
 /**
  * A fuzzy type converter provider. Implemented as a singleton.
- * 
+ *
  * @author Philip Helger
  */
 public final class TypeConverterProviderFuzzy implements ITypeConverterProvider
@@ -40,6 +40,6 @@ public final class TypeConverterProviderFuzzy implements ITypeConverterProvider
   @Nullable
   public ITypeConverter getTypeConverter (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
   {
-    return TypeConverterRegistry.getFuzzyConverter (aSrcClass, aDstClass);
+    return TypeConverterRegistry.getInstance ().getFuzzyConverter (aSrcClass, aDstClass);
   }
 }

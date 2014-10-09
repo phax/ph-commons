@@ -47,12 +47,12 @@ import com.helger.commons.lang.ServiceLoaderUtils;
 @Immutable
 public final class URLProtocolRegistry
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (URLProtocolRegistry.class);
-
   private static final class SingletonHolder
   {
     static final URLProtocolRegistry s_aInstance = new URLProtocolRegistry ();
   }
+
+  private static final Logger s_aLogger = LoggerFactory.getLogger (URLProtocolRegistry.class);
 
   private static boolean s_bDefaultInstantiated = false;
 

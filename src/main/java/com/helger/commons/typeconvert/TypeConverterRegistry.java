@@ -54,56 +54,71 @@ import com.helger.commons.state.EContinue;
 @ThreadSafe
 public final class TypeConverterRegistry implements ITypeConverterRegistry
 {
-  private static final TypeConverterRegistry s_aInstance = new TypeConverterRegistry ();
+  private static final class SingletonHolder
+  {
+    static final TypeConverterRegistry s_aInstance = new TypeConverterRegistry ();
+  }
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (TypeConverterRegistry.class);
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+
+  private static boolean s_bDefaultInstantiated = false;
+
+  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
 
   // Use a weak hash map, because the key is a class
-  @GuardedBy ("s_aRWLock")
-  private static final Map <Class <?>, Map <Class <?>, ITypeConverter>> s_aConverter = new WeakHashMap <Class <?>, Map <Class <?>, ITypeConverter>> ();
-  // ESCA-JAVA0261:
-  @GuardedBy ("s_aRWLock")
-  private static final IMultiMapListBased <ITypeConverterRule.ESubType, ITypeConverterRule> s_aRules = new MultiTreeMapArrayListBased <ITypeConverterRule.ESubType, ITypeConverterRule> ();
+  @GuardedBy ("m_aRWLock")
+  private final Map <Class <?>, Map <Class <?>, ITypeConverter>> m_aConverter = new WeakHashMap <Class <?>, Map <Class <?>, ITypeConverter>> ();
+  @GuardedBy ("m_aRWLock")
+  private final IMultiMapListBased <ITypeConverterRule.ESubType, ITypeConverterRule> m_aRules = new MultiTreeMapArrayListBased <ITypeConverterRule.ESubType, ITypeConverterRule> ();
 
-  static
+  private TypeConverterRegistry ()
   {
     reinitialize ();
   }
 
-  private TypeConverterRegistry ()
-  {}
+  public static boolean isInstantiated ()
+  {
+    return s_bDefaultInstantiated;
+  }
 
   @Nonnull
-  private static Map <Class <?>, ITypeConverter> _getOrCreateConverterMap (@Nonnull final Class <?> aClass)
+  public static TypeConverterRegistry getInstance ()
+  {
+    s_bDefaultInstantiated = true;
+    return SingletonHolder.s_aInstance;
+  }
+
+  @Nonnull
+  private Map <Class <?>, ITypeConverter> _getOrCreateConverterMap (@Nonnull final Class <?> aClass)
   {
     Map <Class <?>, ITypeConverter> ret;
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
-      ret = s_aConverter.get (aClass);
+      ret = m_aConverter.get (aClass);
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
 
     if (ret == null)
     {
-      s_aRWLock.writeLock ().lock ();
+      m_aRWLock.writeLock ().lock ();
       try
       {
         // Try again in write lock
-        ret = s_aConverter.get (aClass);
+        ret = m_aConverter.get (aClass);
         if (ret == null)
         {
           // Weak hash map because key is a class
           ret = new WeakHashMap <Class <?>, ITypeConverter> ();
-          s_aConverter.put (aClass, ret);
+          m_aConverter.put (aClass, ret);
         }
       }
       finally
       {
-        s_aRWLock.writeLock ().unlock ();
+        m_aRWLock.writeLock ().unlock ();
       }
     }
     return ret;
@@ -121,9 +136,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    * @param aConverter
    *        The convert to use. May not be <code>null</code>.
    */
-  private static void _registerTypeConverter (@Nonnull final Class <?> aSrcClass,
-                                              @Nonnull final Class <?> aDstClass,
-                                              @Nonnull final ITypeConverter aConverter)
+  private void _registerTypeConverter (@Nonnull final Class <?> aSrcClass,
+                                       @Nonnull final Class <?> aDstClass,
+                                       @Nonnull final ITypeConverter aConverter)
   {
     ValueEnforcer.notNull (aSrcClass, "SrcClass");
     if (!ClassHelper.isPublic (aSrcClass))
@@ -148,7 +163,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     if (aSrcMap.containsKey (aDstClass))
       throw new IllegalArgumentException ("A mapping from " + aSrcClass + " to " + aDstClass + " is already defined!");
 
-    s_aRWLock.writeLock ().lock ();
+    m_aRWLock.writeLock ().lock ();
     try
     {
       // Automatically register the destination class, and all parent
@@ -173,7 +188,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     }
     finally
     {
-      s_aRWLock.writeLock ().unlock ();
+      m_aRWLock.writeLock ().unlock ();
     }
   }
 
@@ -204,17 +219,17 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    *         object otherwise.
    */
   @Nullable
-  static ITypeConverter getExactConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)
+  ITypeConverter getExactConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)
   {
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
-      final Map <Class <?>, ITypeConverter> aConverterMap = s_aConverter.get (aSrcClass);
+      final Map <Class <?>, ITypeConverter> aConverterMap = m_aConverter.get (aSrcClass);
       return aConverterMap == null ? null : aConverterMap.get (aDstClass);
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
   }
 
@@ -230,16 +245,16 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    *         object otherwise.
    */
   @Nullable
-  static ITypeConverter getRuleBasedConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)
+  ITypeConverter getRuleBasedConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)
   {
     if (aSrcClass == null || aDstClass == null)
       return null;
 
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
       // Check all rules in the correct order
-      for (final Map.Entry <ITypeConverterRule.ESubType, List <ITypeConverterRule>> aEntry : s_aRules.entrySet ())
+      for (final Map.Entry <ITypeConverterRule.ESubType, List <ITypeConverterRule>> aEntry : m_aRules.entrySet ())
         for (final ITypeConverterRule aRule : aEntry.getValue ())
           if (aRule.canConvert (aSrcClass, aDstClass))
             return aRule;
@@ -248,7 +263,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
   }
 
@@ -265,9 +280,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    *        either {@link EContinue#CONTINUE} to continue iteration or
    *        {@link EContinue#BREAK} to break iteration at the current position.
    */
-  private static void _iterateFuzzyConverters (@Nonnull final Class <?> aSrcClass,
-                                               @Nonnull final Class <?> aDstClass,
-                                               @Nonnull final ITypeConverterCallback aCallback)
+  private void _iterateFuzzyConverters (@Nonnull final Class <?> aSrcClass,
+                                        @Nonnull final Class <?> aDstClass,
+                                        @Nonnull final ITypeConverterCallback aCallback)
   {
     // For all possible source classes
     for (final WeakReference <Class <?>> aCurWRSrcClass : ClassHierarchyCache.getClassHierarchyIterator (aSrcClass))
@@ -276,7 +291,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
       if (aCurSrcClass != null)
       {
         // Do we have a source converter?
-        final Map <Class <?>, ITypeConverter> aConverterMap = s_aConverter.get (aCurSrcClass);
+        final Map <Class <?>, ITypeConverter> aConverterMap = m_aConverter.get (aCurSrcClass);
         if (aConverterMap != null)
         {
           // Check explicit destination classes
@@ -306,12 +321,12 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    *         object otherwise.
    */
   @Nullable
-  static ITypeConverter getFuzzyConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)
+  ITypeConverter getFuzzyConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)
   {
     if (aSrcClass == null || aDstClass == null)
       return null;
 
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
       if (GlobalDebug.isDebugMode ())
@@ -357,7 +372,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
   }
 
@@ -367,18 +382,18 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    * @param aCallback
    *        The callback invoked for all iterations.
    */
-  public static void iterateAllRegisteredTypeConverters (@Nonnull final ITypeConverterCallback aCallback)
+  public void iterateAllRegisteredTypeConverters (@Nonnull final ITypeConverterCallback aCallback)
   {
     // Create a copy of the map
     Map <Class <?>, Map <Class <?>, ITypeConverter>> aCopy;
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
-      aCopy = ContainerHelper.newMap (s_aConverter);
+      aCopy = ContainerHelper.newMap (m_aConverter);
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
 
     // And iterate the copy
@@ -392,19 +407,19 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   }
 
   @Nonnegative
-  public static int getRegisteredTypeConverterCount ()
+  public int getRegisteredTypeConverterCount ()
   {
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
       int ret = 0;
-      for (final Map <Class <?>, ITypeConverter> aMap : s_aConverter.values ())
+      for (final Map <Class <?>, ITypeConverter> aMap : m_aConverter.values ())
         ret += aMap.size ();
       return ret;
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
   }
 
@@ -412,47 +427,47 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   {
     ValueEnforcer.notNull (aTypeConverterRule, "TypeConverterRule");
 
-    s_aRWLock.writeLock ().lock ();
+    m_aRWLock.writeLock ().lock ();
     try
     {
-      s_aRules.putSingle (aTypeConverterRule.getSubType (), aTypeConverterRule);
+      m_aRules.putSingle (aTypeConverterRule.getSubType (), aTypeConverterRule);
     }
     finally
     {
-      s_aRWLock.writeLock ().unlock ();
+      m_aRWLock.writeLock ().unlock ();
     }
   }
 
   @Nonnegative
-  public static long getRegisteredTypeConverterRuleCount ()
+  public long getRegisteredTypeConverterRuleCount ()
   {
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
-      return s_aRules.getTotalValueCount ();
+      return m_aRules.getTotalValueCount ();
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
   }
 
-  public static void reinitialize ()
+  public void reinitialize ()
   {
-    s_aRWLock.writeLock ().lock ();
+    m_aRWLock.writeLock ().lock ();
     try
     {
-      s_aConverter.clear ();
-      s_aRules.clear ();
+      m_aConverter.clear ();
+      m_aRules.clear ();
     }
     finally
     {
-      s_aRWLock.writeLock ().unlock ();
+      m_aRWLock.writeLock ().unlock ();
     }
 
     // Register all custom type converter
     for (final ITypeConverterRegistrarSPI aSPI : ServiceLoaderUtils.getAllSPIImplementations (ITypeConverterRegistrarSPI.class))
-      aSPI.registerTypeConverter (s_aInstance);
+      aSPI.registerTypeConverter (SingletonHolder.s_aInstance);
     s_aLogger.info (getRegisteredTypeConverterCount () +
                     " type converters and " +
                     getRegisteredTypeConverterRuleCount () +
