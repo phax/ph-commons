@@ -21,11 +21,11 @@ import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.lang.ServiceLoaderUtils;
@@ -39,62 +39,88 @@ import com.helger.commons.state.EChange;
 @ThreadSafe
 public final class ThirdPartyModuleRegistry
 {
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
-  private static final Set <IThirdPartyModule> s_aModules = new LinkedHashSet <IThirdPartyModule> ();
+  private static final class SingletonHolder
+  {
+    static final ThirdPartyModuleRegistry s_aInstance = new ThirdPartyModuleRegistry ();
+  }
 
-  static
+  private static boolean s_bDefaultInstantiated = false;
+
+  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final Set <IThirdPartyModule> m_aModules = new LinkedHashSet <IThirdPartyModule> ();
+
+  private ThirdPartyModuleRegistry ()
   {
     reinitialize ();
   }
 
-  @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
-  private static final ThirdPartyModuleRegistry s_aInstance = new ThirdPartyModuleRegistry ();
-
-  private ThirdPartyModuleRegistry ()
-  {}
+  public static boolean isInstantiated ()
+  {
+    return s_bDefaultInstantiated;
+  }
 
   @Nonnull
-  public static EChange registerThirdPartyModule (@Nonnull final IThirdPartyModule aModule)
+  public static ThirdPartyModuleRegistry getInstance ()
+  {
+    s_bDefaultInstantiated = true;
+    return SingletonHolder.s_aInstance;
+  }
+
+  @Nonnull
+  public EChange registerThirdPartyModule (@Nonnull final IThirdPartyModule aModule)
   {
     ValueEnforcer.notNull (aModule, "Module");
 
-    s_aRWLock.writeLock ().lock ();
+    m_aRWLock.writeLock ().lock ();
     try
     {
-      return EChange.valueOf (s_aModules.add (aModule));
+      return EChange.valueOf (m_aModules.add (aModule));
     }
     finally
     {
-      s_aRWLock.writeLock ().unlock ();
+      m_aRWLock.writeLock ().unlock ();
     }
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <IThirdPartyModule> getAllRegisteredThirdPartyModules ()
+  public Set <IThirdPartyModule> getAllRegisteredThirdPartyModules ()
   {
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newSet (s_aModules);
+      return ContainerHelper.newSet (m_aModules);
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
   }
 
-  public static void reinitialize ()
+  @Nonnegative
+  public int getRegisteredThirdPartyModuleCount ()
   {
-    s_aRWLock.writeLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
-      s_aModules.clear ();
+      return m_aModules.size ();
     }
     finally
     {
-      s_aRWLock.writeLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
+    }
+  }
+
+  public void reinitialize ()
+  {
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      m_aModules.clear ();
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
     }
 
     // Load all SPI implementations

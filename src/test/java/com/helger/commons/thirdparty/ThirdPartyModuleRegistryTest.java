@@ -24,7 +24,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link ThirdPartyModuleRegistry}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ThirdPartyModuleRegistryTest
@@ -32,12 +32,13 @@ public final class ThirdPartyModuleRegistryTest
   @Test
   public void testAll ()
   {
-    assertNotNull (ThirdPartyModuleRegistry.getAllRegisteredThirdPartyModules ());
-    assertEquals (3, ThirdPartyModuleRegistry.getAllRegisteredThirdPartyModules ().size ());
+    assertNotNull (ThirdPartyModuleRegistry.getInstance ().getAllRegisteredThirdPartyModules ());
+    assertEquals (3, ThirdPartyModuleRegistry.getInstance ().getAllRegisteredThirdPartyModules ().size ());
+    assertEquals (3, ThirdPartyModuleRegistry.getInstance ().getRegisteredThirdPartyModuleCount ());
 
     try
     {
-      ThirdPartyModuleRegistry.registerThirdPartyModule (null);
+      ThirdPartyModuleRegistry.getInstance ().registerThirdPartyModule (null);
       fail ();
     }
     catch (final NullPointerException ex)
