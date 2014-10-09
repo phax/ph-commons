@@ -29,7 +29,7 @@ import javax.annotation.concurrent.ThreadSafe;
  * </ul>
  * trace is the lowest mode, debug is one level higher and production is the
  * highest value. By default all modes are deactivated.
- * 
+ *
  * @author Philip
  */
 @ThreadSafe
@@ -40,13 +40,14 @@ public final class GlobalDebug
    */
   public static final boolean DEFAULT_TRACE_MODE = false;
   /**
-   * By default debug mode is disabled
+   * By default debug mode is enabled
    */
-  public static final boolean DEFAULT_DEBUG_MODE = false;
+  public static final boolean DEFAULT_DEBUG_MODE = true;
   /**
    * By default production mode is disable
    */
   public static final boolean DEFAULT_PRODUCTION_MODE = false;
+
   private static final AtomicBoolean s_aTraceMode = new AtomicBoolean (DEFAULT_TRACE_MODE);
   private static final AtomicBoolean s_aDebugMode = new AtomicBoolean (DEFAULT_DEBUG_MODE);
   private static final AtomicBoolean s_aProductionMode = new AtomicBoolean (DEFAULT_PRODUCTION_MODE);
@@ -72,7 +73,7 @@ public final class GlobalDebug
   /**
    * Enable or disable trace mode. If trace mode is enabled, also debug mode is
    * enabled.
-   * 
+   *
    * @param bTraceMode
    *        <code>true</code> to enable, <code>false</code> to disable
    */
@@ -92,7 +93,7 @@ public final class GlobalDebug
    * <li>Javax Activation</li>
    * <li>Javax Mail</li>
    * </ul>
-   * 
+   *
    * @param bDebugMode
    *        <code>true</code> to enable debug mode, <code>false</code> to
    *        disable it
@@ -114,7 +115,7 @@ public final class GlobalDebug
   /**
    * Enable or disable debug mode. If debug mode is disabled, also trace mode is
    * disabled.
-   * 
+   *
    * @param bDebugMode
    *        <code>true</code> to enable, <code>false</code> to disable
    */
@@ -132,7 +133,7 @@ public final class GlobalDebug
   /**
    * Enable or disable production mode. If production mode is enabled, also
    * trace mode and debug mode are disabled.
-   * 
+   *
    * @param bProductionMode
    *        <code>true</code> to enable, <code>false</code> to disable
    */
