@@ -47,20 +47,29 @@ import com.helger.commons.lang.ServiceLoaderUtils;
 @ThreadSafe
 public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegistry
 {
-  private static final MicroTypeConverterRegistry s_aInstance = new MicroTypeConverterRegistry ();
+  private static final class SingletonHolder
+  {
+    static final MicroTypeConverterRegistry s_aInstance = new MicroTypeConverterRegistry ();
+  }
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (MicroTypeConverterRegistry.class);
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+
+  private static boolean s_bDefaultInstantiated = false;
+
+  private final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
 
   // WeakHashMap because key is a class
-  private static final Map <Class <?>, IMicroTypeConverter> s_aMap = new WeakHashMap <Class <?>, IMicroTypeConverter> ();
+  private final Map <Class <?>, IMicroTypeConverter> s_aMap = new WeakHashMap <Class <?>, IMicroTypeConverter> ();
 
-  static
+  private MicroTypeConverterRegistry ()
   {
     reinitialize ();
   }
 
-  private MicroTypeConverterRegistry ()
-  {}
+  public static boolean isInstantiated ()
+  {
+    return s_bDefaultInstantiated;
+  }
 
   /**
    * @return The singleton instance of this class. Never <code>null</code>.
@@ -68,7 +77,8 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   @Nonnull
   public static MicroTypeConverterRegistry getInstance ()
   {
-    return s_aInstance;
+    s_bDefaultInstantiated = true;
+    return SingletonHolder.s_aInstance;
   }
 
   public void registerMicroElementTypeConverter (@Nonnull final Class <?> aClass,
@@ -87,8 +97,8 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
    * @param aConverter
    *        The type converter from and to XML
    */
-  private static void _registerMicroElementTypeConverter (@Nonnull final Class <?> aClass,
-                                                          @Nonnull final IMicroTypeConverter aConverter)
+  private void _registerMicroElementTypeConverter (@Nonnull final Class <?> aClass,
+                                                   @Nonnull final IMicroTypeConverter aConverter)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aConverter, "Converter");
@@ -120,7 +130,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   }
 
   @Nullable
-  public static IMicroTypeConverter getConverterToMicroElement (@Nullable final Class <?> aSrcClass)
+  public IMicroTypeConverter getConverterToMicroElement (@Nullable final Class <?> aSrcClass)
   {
     s_aRWLock.readLock ().lock ();
     try
@@ -134,7 +144,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   }
 
   @Nullable
-  public static IMicroTypeConverter getConverterToNative (@Nonnull final Class <?> aDstClass)
+  public IMicroTypeConverter getConverterToNative (@Nonnull final Class <?> aDstClass)
   {
     ValueEnforcer.notNull (aDstClass, "DestClass");
 
@@ -181,7 +191,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
    * @param aCallback
    *        The callback invoked for all iterations.
    */
-  public static void iterateAllRegisteredMicroTypeConverters (@Nonnull final IMicroTypeConverterCallback aCallback)
+  public void iterateAllRegisteredMicroTypeConverters (@Nonnull final IMicroTypeConverterCallback aCallback)
   {
     // Create a copy of the map
     Map <Class <?>, IMicroTypeConverter> aCopy;
@@ -202,7 +212,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   }
 
   @Nonnegative
-  public static int getRegisteredMicroTypeConverterCount ()
+  public int getRegisteredMicroTypeConverterCount ()
   {
     s_aRWLock.readLock ().lock ();
     try
@@ -215,7 +225,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     }
   }
 
-  public static void reinitialize ()
+  public void reinitialize ()
   {
     s_aRWLock.writeLock ().lock ();
     try
@@ -229,7 +239,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
 
     // Register all custom micro type converter
     for (final IMicroTypeConverterRegistrarSPI aSPI : ServiceLoaderUtils.getAllSPIImplementations (IMicroTypeConverterRegistrarSPI.class))
-      aSPI.registerMicroTypeConverter (s_aInstance);
+      aSPI.registerMicroTypeConverter (this);
     s_aLogger.info (getRegisteredMicroTypeConverterCount () + " micro type converters registered");
   }
 }

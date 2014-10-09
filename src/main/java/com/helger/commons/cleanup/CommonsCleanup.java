@@ -71,7 +71,8 @@ public final class CommonsCleanup
     MimeTypeDeterminator.resetCache ();
     if (MimeTypeInfoManager.isDefaultInstantiated ())
       MimeTypeInfoManager.getDefaultInstance ().resetCacheToDefault ();
-    MicroTypeConverterRegistry.reinitialize ();
+    if (MicroTypeConverterRegistry.isInstantiated ())
+      MicroTypeConverterRegistry.getInstance ().reinitialize ();
     if (SerializationConverterRegistry.isInstantiated ())
       SerializationConverterRegistry.getInstance ().reinitialize ();
     if (ThirdPartyModuleRegistry.isInstantiated ())

@@ -33,7 +33,7 @@ import com.helger.commons.typeconvert.TypeConverterException.EReason;
  * {@link com.helger.commons.typeconvert.TypeConverter} as we need a parameter
  * for conversion in this case.<br>
  * All converters are registered in the {@link MicroTypeConverterRegistry}.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -66,7 +66,8 @@ public final class MicroTypeConverter
 
     // Lookup converter
     final Class <?> aSrcClass = aObject.getClass ();
-    final IMicroTypeConverter aConverter = MicroTypeConverterRegistry.getConverterToMicroElement (aSrcClass);
+    final IMicroTypeConverter aConverter = MicroTypeConverterRegistry.getInstance ()
+                                                                     .getConverterToMicroElement (aSrcClass);
     if (aConverter == null)
       throw new TypeConverterException (aSrcClass, IMicroElement.class, EReason.NO_CONVERTER_FOUND);
 
@@ -87,7 +88,7 @@ public final class MicroTypeConverter
       return null;
 
     // Lookup converter
-    final IMicroTypeConverter aConverter = MicroTypeConverterRegistry.getConverterToNative (aDstClass);
+    final IMicroTypeConverter aConverter = MicroTypeConverterRegistry.getInstance ().getConverterToNative (aDstClass);
     if (aConverter == null)
       throw new TypeConverterException (IMicroElement.class, aDstClass, EReason.NO_CONVERTER_FOUND);
 

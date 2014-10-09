@@ -26,7 +26,7 @@ import com.helger.commons.state.EContinue;
 
 /**
  * Test class for class {@link MicroTypeConverterRegistry}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroTypeConverterRegistryTest
@@ -34,15 +34,17 @@ public final class MicroTypeConverterRegistryTest
   @Test
   public void testIterate ()
   {
-    MicroTypeConverterRegistry.iterateAllRegisteredMicroTypeConverters (new IMicroTypeConverterCallback ()
-    {
-      @Nonnull
-      public EContinue call (@Nonnull final Class <?> aClass, @Nonnull final IMicroTypeConverter aConverter)
-      {
-        assertNotNull (aClass);
-        assertNotNull (aConverter);
-        return EContinue.CONTINUE;
-      }
-    });
+    MicroTypeConverterRegistry.getInstance ()
+                              .iterateAllRegisteredMicroTypeConverters (new IMicroTypeConverterCallback ()
+                              {
+                                @Nonnull
+                                public EContinue call (@Nonnull final Class <?> aClass,
+                                                       @Nonnull final IMicroTypeConverter aConverter)
+                                {
+                                  assertNotNull (aClass);
+                                  assertNotNull (aConverter);
+                                  return EContinue.CONTINUE;
+                                }
+                              });
   }
 }
