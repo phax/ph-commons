@@ -95,7 +95,8 @@ public final class CommonsCleanup
     if (XMLSchemaCache.isInstantiated ())
       XMLSchemaCache.getInstance ().clearCache ();
     StatisticsManager.clearCache ();
-    EqualsImplementationRegistry.clearCache ();
+    if (EqualsImplementationRegistry.isInstantiated ())
+      EqualsImplementationRegistry.getInstance ().clearCache ();
     HashCodeImplementationRegistry.clearCache ();
     SystemProperties.clearWarnedPropertyNames ();
 

@@ -52,7 +52,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     public ArrayEqualsImplementation ()
     {}
 
-    public boolean areEqual (final Object aObj1, final Object aObj2)
+    public boolean areEqual (@Nonnull final Object aObj1, @Nonnull final Object aObj2)
     {
       final Object [] aArray1 = (Object []) aObj1;
       final Object [] aArray2 = (Object []) aObj2;
@@ -61,15 +61,24 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
       if (nLength != aArray2.length)
         return false;
       // Content check
-      for (int i = 0; i < nLength; i++)
-        if (!EqualsImplementationRegistry.areEqual (aArray1[i], aArray2[i]))
-          return false;
+      if (nLength > 0)
+      {
+        for (int i = 0; i < nLength; i++)
+          if (!EqualsImplementationRegistry.areEqual (aArray1[i], aArray2[i]))
+            return false;
+      }
       return true;
     }
   }
 
+  private static final class SingletonHolder
+  {
+    static final EqualsImplementationRegistry s_aInstance = new EqualsImplementationRegistry ();
+  }
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (EqualsImplementationRegistry.class);
-  private static final EqualsImplementationRegistry s_aInstance = new EqualsImplementationRegistry ();
+
+  private static boolean s_bDefaultInstantiated = false;
 
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
 
@@ -87,10 +96,16 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     _reinitialize ();
   }
 
+  public static boolean isInstantiated ()
+  {
+    return s_bDefaultInstantiated;
+  }
+
   @Nonnull
   public static EqualsImplementationRegistry getInstance ()
   {
-    return s_aInstance;
+    s_bDefaultInstantiated = true;
+    return SingletonHolder.s_aInstance;
   }
 
   private final void _reinitialize ()
@@ -323,7 +338,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     }
 
     // Same class
-    final IEqualsImplementation aImpl = s_aInstance.getBestMatchingEqualsImplementation (aClass1);
+    final IEqualsImplementation aImpl = getInstance ().getBestMatchingEqualsImplementation (aClass1);
 
     // Start the main equals check
     boolean bAreEqual;
@@ -340,8 +355,8 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     return bAreEqual;
   }
 
-  public static void clearCache ()
+  public void clearCache ()
   {
-    s_aInstance._reinitialize ();
+    _reinitialize ();
   }
 }
