@@ -30,7 +30,7 @@ import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MapBasedNamespaceContext}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MapBasedNamespaceContextTest
@@ -89,5 +89,6 @@ public final class MapBasedNamespaceContextTest
     assertEquals ("http://default", c.getNamespaceURI (XMLConstants.DEFAULT_NS_PREFIX));
 
     PHTestUtils.testToStringImplementation (c);
+    PHTestUtils.testDefaultSerialization (c);
   }
 }

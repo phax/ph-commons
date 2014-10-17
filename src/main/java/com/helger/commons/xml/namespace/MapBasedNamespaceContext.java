@@ -27,17 +27,19 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.XMLConstants;
 
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.collections.multimap.IMultiMapSetBased;
 import com.helger.commons.collections.multimap.MultiHashMapHashSetBased;
-import com.helger.commons.string.StringHelper;
+import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Represents a namespace context a 1:n (namespace:prefix) mapping.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -59,38 +61,35 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext
 
   /**
    * Set the default namespace URL
-   * 
+   *
    * @param sNamespaceURI
-   *        The namespace URI to be used as the default. May neither be
-   *        <code>null</code> nor empty.
+   *        The namespace URI to be used as the default. May not be
+   *        <code>null</code> but maybe empty.
    * @return this
    */
   @Nonnull
-  public MapBasedNamespaceContext setDefaultNamespaceURI (@Nonnull @Nonempty final String sNamespaceURI)
+  public MapBasedNamespaceContext setDefaultNamespaceURI (@Nonnull final String sNamespaceURI)
   {
     return addMapping (XMLConstants.DEFAULT_NS_PREFIX, sNamespaceURI);
   }
 
   /**
    * Add a new prefix to namespace mapping.
-   * 
+   *
    * @param sPrefix
    *        The prefix to be used. May not be <code>null</code>. If it equals
    *        {@link XMLConstants#DEFAULT_NS_PREFIX} that the namespace is
    *        considered to be the default one.
    * @param sNamespaceURI
-   *        The namespace URI to be mapped. May neither be <code>null</code> nor
-   *        empty.
+   *        The namespace URI to be mapped. May not be <code>null</code> but
+   *        maybe empty.
    * @return this
    */
   @Nonnull
-  public MapBasedNamespaceContext addMapping (@Nonnull final String sPrefix,
-                                              @Nonnull @Nonempty final String sNamespaceURI)
+  public MapBasedNamespaceContext addMapping (@Nonnull final String sPrefix, @Nonnull final String sNamespaceURI)
   {
-    if (sPrefix == null)
-      throw new IllegalArgumentException ("prefix may not be null");
-    if (StringHelper.hasNoText (sNamespaceURI))
-      throw new IllegalArgumentException ("namespaceURI may not be empty");
+    ValueEnforcer.notNull (sPrefix, "Prefix");
+    ValueEnforcer.notNull (sNamespaceURI, "NamespaceURI");
     if (m_aPrefix2NS.containsKey (sPrefix))
       throw new IllegalArgumentException ("The prefix '" + sPrefix + "' is already registered!");
 
@@ -101,9 +100,22 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext
     return this;
   }
 
+  @Nonnull
+  public EChange removeMapping (@Nullable final String sPrefix)
+  {
+    final String sNamespaceURI = m_aPrefix2NS.remove (sPrefix);
+    if (sNamespaceURI == null)
+      return EChange.UNCHANGED;
+
+    // Remove from namespace 2 prefix map as well
+    if (m_aNS2Prefix.removeSingle (sNamespaceURI, sPrefix).isUnchanged ())
+      throw new IllegalStateException ("Internal inconsistency!");
+    return EChange.CHANGED;
+  }
+
   @Override
   @Nullable
-  protected Iterator <String> getCustomPrefixes (@Nonnull final String sNamespaceURI)
+  public Iterator <String> getCustomPrefixes (@Nonnull final String sNamespaceURI)
   {
     final Set <String> aAllPrefixes = m_aNS2Prefix.get (sNamespaceURI);
     return aAllPrefixes == null ? null : aAllPrefixes.iterator ();
@@ -111,7 +123,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext
 
   @Override
   @Nullable
-  protected String getCustomPrefix (@Nonnull final String sNamespaceURI)
+  public String getCustomPrefix (@Nonnull final String sNamespaceURI)
   {
     final Set <String> aAllPrefixes = m_aNS2Prefix.get (sNamespaceURI);
     return ContainerHelper.getFirstElement (aAllPrefixes);
@@ -119,7 +131,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext
 
   @Override
   @Nullable
-  protected String getCustomNamespaceURI (@Nonnull final String sPrefix)
+  public String getCustomNamespaceURI (@Nonnull final String sPrefix)
   {
     return m_aPrefix2NS.get (sPrefix);
   }
@@ -140,6 +152,28 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext
   public int getMappingCount ()
   {
     return m_aPrefix2NS.size ();
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (o == null || !getClass ().equals (o.getClass ()))
+      return false;
+    final MapBasedNamespaceContext rhs = (MapBasedNamespaceContext) o;
+    return EqualsUtils.equals (m_sDefaultNamespaceURI, rhs.m_sDefaultNamespaceURI) &&
+           m_aPrefix2NS.equals (rhs.m_aPrefix2NS) &&
+           m_aNS2Prefix.equals (rhs.m_aNS2Prefix);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return new HashCodeGenerator (this).append (m_sDefaultNamespaceURI)
+                                       .append (m_aPrefix2NS)
+                                       .append (m_aNS2Prefix)
+                                       .getHashCode ();
   }
 
   @Override
