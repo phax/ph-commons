@@ -21,6 +21,8 @@ import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.XMLConstants;
+import javax.xml.namespace.QName;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
@@ -39,6 +41,7 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.EXMLVersion;
 import com.helger.commons.xml.IXMLIterationHandler;
 import com.helger.commons.xml.XMLHelper;
+import com.helger.commons.xml.namespace.ComparatorQName;
 
 /**
  * org.w3c.dom.Node serializer that correctly handles HTML empty elements
@@ -187,51 +190,53 @@ public final class XMLSerializerPH extends AbstractXMLSerializer <Node>
 
     // get all attributes (sorting is important because the order from
     // getAttributes is not guaranteed to be consistent!)
-    final Map <String, String> aAttrMap = new TreeMap <String, String> ();
-    final NamedNodeMap aAttrs = aElement.getAttributes ();
-    for (int i = 0; i < aAttrs.getLength (); ++i)
-    {
-      final Attr aAttr = (Attr) aAttrs.item (i);
-      aAttrMap.put (aAttr.getName (), aAttr.getValue ());
-    }
+    final Map <QName, String> aAttrMap = new TreeMap <QName, String> (new ComparatorQName ());
 
-    m_aNSStack.push (bEmitNamespaces ? aAttrMap : null);
+    m_aNSStack.push ();
 
     handlePutNamespaceContextPrefixInRoot (aAttrMap);
 
     try
     {
       // resolve Namespace prefix
-      String sNSPrefix = null;
+      String sElementNSPrefix = null;
       if (bEmitNamespaces)
       {
         final String sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
-        final String sDefaultNamespaceURI = StringHelper.getNotNull (m_aNSStack.getDefaultNamespaceURI ());
-        final boolean bIsDefaultNamespace = sElementNamespaceURI.equals (sDefaultNamespaceURI);
-        if (!bIsDefaultNamespace)
-          sNSPrefix = m_aNSStack.getUsedPrefixOfNamespace (sElementNamespaceURI);
+        sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI, bIsRootElement, aAttrMap);
+      }
 
-        // Do we need to create a prefix?
-        if (sNSPrefix == null && !bIsDefaultNamespace && (!bIsRootElement || sElementNamespaceURI.length () > 0))
-        {
-          // Ensure to use the correct prefix (namespace context)
-          sNSPrefix = m_aNSStack.getMappedPrefix (sElementNamespaceURI);
+      final NamedNodeMap aAttrs = aElement.getAttributes ();
+      for (int i = 0; i < aAttrs.getLength (); ++i)
+      {
+        final Attr aAttr = (Attr) aAttrs.item (i);
+        final String sAttrNamespaceURI = StringHelper.getNotNull (aAttr.getNamespaceURI ());
 
-          // Do not create a prefix for the root element
-          if (sNSPrefix == null && !bIsRootElement)
-            sNSPrefix = m_aNSStack.createUniquePrefix ();
+        // Ignore all "xmlns" attributes as they are created manually. They are
+        // only available when reading via DOM
+        if (XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sAttrNamespaceURI))
+          continue;
 
-          // Add and remember the attribute
-          aAttrMap.put (XMLHelper.getXMLNSAttrName (sNSPrefix), sElementNamespaceURI);
-          m_aNSStack.addNamespaceMapping (sNSPrefix, sElementNamespaceURI);
-        }
+        final String sAttrName = aAttr.getLocalName () != null ? aAttr.getLocalName () : aAttr.getName ();
+        final String sAttrValue = aAttr.getValue ();
+        String sAttributeNSPrefix = null;
+        if (bEmitNamespaces)
+          sAttributeNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
+                                                                            sAttrName,
+                                                                            sAttrValue,
+                                                                            aAttrMap);
+
+        if (sAttributeNSPrefix != null)
+          aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName, sAttributeNSPrefix), sAttrValue);
+        else
+          aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName), sAttrValue);
       }
 
       // indent only if predecessor was an element
       if (m_aSettings.getIndent ().isIndent () && bIndentPrev && m_aIndent.length () > 0)
         aXMLWriter.onContentElementWhitespace (m_aIndent);
 
-      aXMLWriter.onElementStart (sNSPrefix, sTagName, aAttrMap, bHasChildren);
+      aXMLWriter.onElementStart (sElementNSPrefix, sTagName, aAttrMap, bHasChildren);
 
       // write child nodes (if present)
       if (bHasChildren)
@@ -255,7 +260,7 @@ public final class XMLSerializerPH extends AbstractXMLSerializer <Node>
           aXMLWriter.onContentElementWhitespace (m_aIndent);
       }
 
-      aXMLWriter.onElementEnd (sNSPrefix, sTagName, bHasChildren);
+      aXMLWriter.onElementEnd (sElementNSPrefix, sTagName, bHasChildren);
 
       if (m_aSettings.getIndent ().isAlign () && bIndentNext)
         aXMLWriter.onContentElementWhitespace (m_aSettings.getNewlineString ());

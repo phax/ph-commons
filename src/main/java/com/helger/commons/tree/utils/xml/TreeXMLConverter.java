@@ -180,7 +180,7 @@ public final class TreeXMLConverter
                             {
                               if (eItem != null)
                               {
-                                final KEYTYPE aTreeItemID = aIDConverter.convert (eItem.getAttribute (ATTR_ID));
+                                final KEYTYPE aTreeItemID = aIDConverter.convert (eItem.getAttributeValue (ATTR_ID));
 
                                 final IMicroElement eData = eItem.getFirstChildElement (ELEMENT_DATA);
                                 final DATATYPE aTreeItemValue = aDataConverter.getAsDataValue (eData);

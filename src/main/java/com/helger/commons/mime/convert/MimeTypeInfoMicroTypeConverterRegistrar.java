@@ -63,7 +63,7 @@ public final class MimeTypeInfoMicroTypeConverterRegistrar implements IMicroType
       for (final IMicroElement eMimeType : aElement.getAllChildElements (ELEMENT_MIMETYPE))
       {
         final MimeType aMimeType = MimeTypeParser.parseMimeType (eMimeType.getTextContentTrimmed ());
-        final String sSource = eMimeType.getAttribute (ATTR_SOURCE);
+        final String sSource = eMimeType.getAttributeValue (ATTR_SOURCE);
         aMimeTypes.add (new MimeTypeWithSource (aMimeType, sSource));
       }
 
@@ -82,11 +82,11 @@ public final class MimeTypeInfoMicroTypeConverterRegistrar implements IMicroType
       {
         // May be null if the empty extension ("") is used
         final String sExtension = StringHelper.getNotNull (eExtension.getTextContentTrimmed ());
-        final String sSource = eExtension.getAttribute (ATTR_SOURCE);
+        final String sSource = eExtension.getAttributeValue (ATTR_SOURCE);
         aExtensions.add (new ExtensionWithSource (sExtension, sSource));
       }
 
-      final String sSource = aElement.getAttribute (ATTR_SOURCE);
+      final String sSource = aElement.getAttributeValue (ATTR_SOURCE);
 
       return new MimeTypeInfo (aMimeTypes, sComment, aParentTypes, aGlobs, aExtensions, sSource);
     }

@@ -34,7 +34,7 @@ import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
 
 /**
  * Test class for class {@link XMLWriterSettings}.
- * 
+ *
  * @author Philip Helger
  */
 public final class XMLWriterSettingsTest
@@ -71,30 +71,30 @@ public final class XMLWriterSettingsTest
     assertFalse (mws.isPutNamespaceContextPrefixesInRoot ());
 
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                        new XMLWriterSettings ().setFormat (EXMLSerializeFormat.HTML));
+                                                                     new XMLWriterSettings ().setFormat (EXMLSerializeFormat.HTML));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                        new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE));
+                                                                     new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                        new XMLWriterSettings ().setSerializeComments (EXMLSerializeComments.IGNORE));
+                                                                     new XMLWriterSettings ().setSerializeComments (EXMLSerializeComments.IGNORE));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                        new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE));
+                                                                     new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                        new XMLWriterSettings ().setCharset (CCharset.CHARSET_US_ASCII_OBJ));
+                                                                     new XMLWriterSettings ().setCharset (CCharset.CHARSET_US_ASCII_OBJ));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                        new XMLWriterSettings ().setNamespaceContext (new MapBasedNamespaceContext ().addMapping ("prefix",
-                                                                                                                                                                  "uri")));
+                                                                     new XMLWriterSettings ().setNamespaceContext (new MapBasedNamespaceContext ().addMapping ("prefix",
+                                                                                                                                                               "uri")));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                        new XMLWriterSettings ().setSpaceOnSelfClosedElement (false));
+                                                                     new XMLWriterSettings ().setSpaceOnSelfClosedElement (false));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                        new XMLWriterSettings ().setUseDoubleQuotesForAttributes (false));
+                                                                     new XMLWriterSettings ().setUseDoubleQuotesForAttributes (false));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                        new XMLWriterSettings ().setNewlineString ("abc"));
+                                                                     new XMLWriterSettings ().setNewlineString ("abc"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                        new XMLWriterSettings ().setIndentationString ("\t"));
+                                                                     new XMLWriterSettings ().setIndentationString ("\t"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                        new XMLWriterSettings ().setEmitNamespaces (false));
+                                                                     new XMLWriterSettings ().setEmitNamespaces (false));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                        new XMLWriterSettings ().setPutNamespaceContextPrefixesInRoot (true));
+                                                                     new XMLWriterSettings ().setPutNamespaceContextPrefixesInRoot (true));
 
     // Now try all permutations
     final XMLWriterSettings aXWS = new XMLWriterSettings ();

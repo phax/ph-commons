@@ -14,24 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.bmx;
+package com.helger.commons.xml.namespace;
 
 import javax.annotation.Nonnull;
+import javax.xml.namespace.QName;
 
-/**
- * Exceptions that can occur when reading BMX files.
- * 
- * @author Philip Helger
- */
-public class BMXReadException extends RuntimeException
+import com.helger.commons.compare.AbstractComparator;
+import com.helger.commons.compare.CompareUtils;
+
+public class ComparatorQName extends AbstractComparator <QName>
 {
-  public BMXReadException (@Nonnull final String sMessage)
+  @Override
+  protected int mainCompare (@Nonnull final QName aElement1, @Nonnull final QName aElement2)
   {
-    super (sMessage);
-  }
-
-  public BMXReadException (@Nonnull final String sMessage, @Nonnull final Throwable t)
-  {
-    super (sMessage, t);
+    int ret = CompareUtils.nullSafeCompare (aElement1.getNamespaceURI (), aElement2.getNamespaceURI ());
+    if (ret == 0)
+      ret = aElement1.getLocalPart ().compareTo (aElement2.getLocalPart ());
+    return ret;
   }
 }

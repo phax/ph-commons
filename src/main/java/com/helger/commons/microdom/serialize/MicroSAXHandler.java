@@ -53,7 +53,7 @@ import com.helger.commons.xml.sax.AbstractSAXErrorHandler;
 
 /**
  * The SAX handler used by the {@link MicroReader}.
- * 
+ *
  * @author Philip Helger
  */
 final class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandler, ErrorHandler, LexicalHandler
@@ -126,13 +126,14 @@ final class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandle
       final int nAttrCount = aAttributes.getLength ();
       for (int i = 0; i < nAttrCount; ++i)
       {
-        final String sAttrName = aAttributes.getQName (i);
+        final String sAttrNamespaceURI = aAttributes.getURI (i);
+        final String sAttrName = aAttributes.getLocalName (i);
         final String sAttrValue = aAttributes.getValue (i);
 
         // Ignore the "xmlns" attributes, as the SAX handler passes the correct
         // namespace URIs
         if (!sAttrName.startsWith (CXML.XML_ATTR_XMLNS))
-          aElement.setAttribute (sAttrName, sAttrValue);
+          aElement.setAttribute (sAttrNamespaceURI, sAttrName, sAttrValue);
       }
     }
 
@@ -251,11 +252,11 @@ final class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandle
   }
 
   // For namespace handling
-  public void startPrefixMapping (final String sPrefix, final String sURI) throws SAXException
+  public void startPrefixMapping (@Nonnull final String sPrefix, @Nonnull final String sNamespaceURI) throws SAXException
   {}
 
   // for namespace handling
-  public void endPrefixMapping (final String sPrefix) throws SAXException
+  public void endPrefixMapping (@Nonnull final String sPrefix) throws SAXException
   {}
 
   @Nonnull

@@ -49,7 +49,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link MicroElement}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroElementTest extends AbstractPHTestCase
@@ -111,7 +111,7 @@ public final class MicroElementTest extends AbstractPHTestCase
     PHTestUtils.testToStringImplementation (e);
 
     e = new MicroElement ("myns", "xyz");
-    assertNull (e.getAttribute ("attr"));
+    assertNull (e.getAttributeValue ("attr"));
     assertNull (e.getAttributeWithConversion ("attr", String.class));
     assertFalse (e.removeAttribute ("attr").isChanged ());
     assertEquals ("xyz", e.getLocalName ());
@@ -122,9 +122,9 @@ public final class MicroElementTest extends AbstractPHTestCase
     assertSame (e, e.setAttribute ("attr", "1234"));
     assertTrue (e.hasAttribute ("attr"));
     assertFalse (e.hasAttribute ("otherattr"));
-    assertEquals ("1234", e.getAttribute ("attr"));
+    assertEquals ("1234", e.getAttributeValue ("attr"));
     assertEquals (1234, e.getAttributeWithConversion ("attr", Integer.class).intValue ());
-    assertNull (e.getAttribute ("attr2"));
+    assertNull (e.getAttributeValue ("attr2"));
 
     try
     {
@@ -545,13 +545,13 @@ public final class MicroElementTest extends AbstractPHTestCase
     assertTrue (e.removeAllAttributes ().isUnchanged ());
     e.setAttribute ("attr", 5);
     assertTrue (e.hasAttributes ());
-    assertEquals ("5", e.getAttribute ("attr"));
+    assertEquals ("5", e.getAttributeValue ("attr"));
     assertTrue (e.removeAllAttributes ().isChanged ());
     assertTrue (e.removeAllAttributes ().isUnchanged ());
 
     try
     {
-      e.setAttribute (null, "ny");
+      e.setAttribute ((String) null, "ny");
       fail ();
     }
     catch (final NullPointerException ex)
@@ -559,16 +559,25 @@ public final class MicroElementTest extends AbstractPHTestCase
 
     // Set something that can be removed
     e.setAttribute ("myattr", "any");
-    assertEquals ("any", e.getAttribute ("myattr"));
+    assertEquals ("any", e.getAttributeValue ("myattr"));
+    assertEquals ("any", e.getAttributeValue (null, "myattr"));
+    assertEquals ("any", e.getAttributeValue (new MicroQName ("myattr")));
+    assertEquals ("any", e.getAttributeValue (new MicroQName (null, "myattr")));
+    assertNull (e.getAttributeValue ("bla-namespace", "myattr"));
     assertTrue (e.hasAttribute ("myattr"));
+    assertTrue (e.hasAttribute (null, "myattr"));
+    assertTrue (e.hasAttribute (new MicroQName ("myattr")));
+    assertTrue (e.hasAttribute (new MicroQName (null, "myattr")));
+    assertFalse (e.hasAttribute ("bla-namespace", "myattr"));
 
     // set null value == remove attribute
     e.setAttribute ("myattr", (String) null);
-    assertNull (e.getAttribute ("myattr"));
+    assertNull (e.getAttributeValue ("myattr"));
     assertFalse (e.hasAttribute ("myattr"));
 
+    // Check with conversion
     e.setAttributeWithConversion ("myattr", new BigDecimal ("1234567890"));
-    assertEquals ("1234567890", e.getAttribute ("myattr"));
+    assertEquals ("1234567890", e.getAttributeValue ("myattr"));
   }
 
   @Test

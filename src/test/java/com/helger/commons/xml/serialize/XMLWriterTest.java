@@ -45,7 +45,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for {@link XMLWriter}
- * 
+ *
  * @author Philip Helger
  */
 public final class XMLWriterTest extends AbstractPHTestCase
@@ -498,5 +498,34 @@ public final class XMLWriterTest extends AbstractPHTestCase
         final Document aDoc2 = DOMReader.readXMLDOM (sXML);
         assertNotNull (aDoc2);
       }
+  }
+
+  @Test
+  public void testAttributesWithNamespaces () throws SAXException
+  {
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                                .setCharset (CCharset.CHARSET_ISO_8859_1_OBJ);
+    final Document aDoc = XMLFactory.newDocument ();
+    final Element eRoot = (Element) aDoc.appendChild (aDoc.createElementNS ("ns1url", "root"));
+    final Element e1 = (Element) eRoot.appendChild (aDoc.createElementNS ("ns2url", "child1"));
+    e1.setAttributeNS ("ns2url", "attr1", "value1");
+    final Element e2 = (Element) eRoot.appendChild (aDoc.createElementNS ("ns2url", "child2"));
+    e2.setAttributeNS ("ns3url", "attr2", "value2");
+
+    String s = XMLWriter.getNodeAsString (aDoc, aSettings);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>"
+                  + "<root xmlns=\"ns1url\">"
+                  + "<ns0:child1 xmlns:ns0=\"ns2url\" ns0:attr1=\"value1\" />"
+                  + "<ns0:child2 xmlns:ns0=\"ns2url\" xmlns:ns1=\"ns3url\" ns1:attr2=\"value2\" />"
+                  + "</root>", s);
+    assertEquals (s, XMLWriter.getNodeAsString (DOMReader.readXMLDOM (s), aSettings));
+
+    aSettings.setEmitNamespaces (false);
+    s = XMLWriter.getNodeAsString (aDoc, aSettings);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>"
+                  + "<root>"
+                  + "<child1 attr1=\"value1\" />"
+                  + "<child2 attr2=\"value2\" />"
+                  + "</root>", s);
   }
 }

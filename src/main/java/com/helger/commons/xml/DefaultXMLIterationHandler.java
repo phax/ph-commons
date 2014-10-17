@@ -20,10 +20,11 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.namespace.QName;
 
 /**
  * Empty implementation of {@link IXMLIterationHandler} that does nothing.
- * 
+ *
  * @author Philip Helger
  */
 public class DefaultXMLIterationHandler implements IXMLIterationHandler
@@ -61,7 +62,7 @@ public class DefaultXMLIterationHandler implements IXMLIterationHandler
 
   public void onElementStart (@Nullable final String sNamespacePrefix,
                               @Nonnull final String sTagName,
-                              @Nullable final Map <String, String> aAttrs,
+                              @Nullable final Map <QName, String> aAttrs,
                               final boolean bHasChildren)
   {}
 

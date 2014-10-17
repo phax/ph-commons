@@ -25,6 +25,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.xml.XMLConstants;
+import javax.xml.namespace.QName;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.CharacterData;
@@ -568,6 +569,7 @@ public final class XMLHelper
    *         "xmlns" is returned, else "xmlns:<i>prefix</i>" is returned.
    */
   @Nonnull
+  @Deprecated
   public static String getXMLNSAttrName (@Nullable final String sNSPrefix)
   {
     if (sNSPrefix != null && sNSPrefix.contains (CXML.XML_PREFIX_NAMESPACE_SEP_STR))
@@ -575,6 +577,28 @@ public final class XMLHelper
     if (sNSPrefix == null || sNSPrefix.equals (XMLConstants.DEFAULT_NS_PREFIX))
       return CXML.XML_ATTR_XMLNS;
     return CXML.XML_ATTR_XMLNS_WITH_SEP + sNSPrefix;
+  }
+
+  /**
+   * Get the full qualified attribute name to use for the given namespace
+   * prefix. The result will e.g. be <code>xmlns</code> or
+   * <code>xmlns:foo</code>.
+   *
+   * @param sNSPrefix
+   *        The namespace prefix to build the attribute name from. May be
+   *        <code>null</code> or empty.
+   * @return If the namespace prefix is empty (if it equals
+   *         {@link XMLConstants#DEFAULT_NS_PREFIX} or <code>null</code>) than
+   *         "xmlns" is returned, else "xmlns:<i>prefix</i>" is returned.
+   */
+  @Nonnull
+  public static QName getXMLNSAttrQName (@Nullable final String sNSPrefix)
+  {
+    if (sNSPrefix != null && sNSPrefix.contains (CXML.XML_PREFIX_NAMESPACE_SEP_STR))
+      throw new IllegalArgumentException ("prefix is invalid: " + sNSPrefix);
+    if (sNSPrefix == null || sNSPrefix.equals (XMLConstants.DEFAULT_NS_PREFIX))
+      return new QName (CXML.XML_ATTR_XMLNS);
+    return new QName (XMLConstants.XMLNS_ATTRIBUTE_NS_URI, sNSPrefix, CXML.XML_ATTR_XMLNS);
   }
 
   @Nullable

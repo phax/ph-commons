@@ -29,7 +29,7 @@ import com.helger.commons.collections.iterate.SingleElementIterator;
 /**
  * Represents an abstract namespace context that does the predefined mapping as
  * stated in the Javadoc.
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractNamespaceContext implements IIterableNamespaceContext, Serializable
@@ -64,10 +64,14 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
     // According to JavaDoc
     if (sNamespaceURI == null)
       throw new IllegalArgumentException ();
+
+    // special "xml:" namespace handling
     if (sNamespaceURI.equals (XMLConstants.XML_NS_URI))
       return XMLConstants.XML_NS_PREFIX;
+    // special "xmlns:" namespace handling
     if (sNamespaceURI.equals (XMLConstants.XMLNS_ATTRIBUTE_NS_URI))
       return XMLConstants.XMLNS_ATTRIBUTE;
+    // special "" namespace handling
     if (sNamespaceURI.equals (getDefaultNamespaceURI ()))
       return XMLConstants.DEFAULT_NS_PREFIX;
 
@@ -84,11 +88,14 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
     if (sPrefix == null)
       throw new IllegalArgumentException ("null prefix is not allowed!");
 
+    // special "xml:" namespace handling
     if (sPrefix.equals (XMLConstants.XML_NS_PREFIX))
       return XMLConstants.XML_NS_URI;
+    // special "xmlns:" namespace handling
     if (sPrefix.equals (XMLConstants.XMLNS_ATTRIBUTE))
       return XMLConstants.XMLNS_ATTRIBUTE_NS_URI;
 
+    // special "" namespace handling
     if (sPrefix.equals (XMLConstants.DEFAULT_NS_PREFIX))
     {
       final String sDefNSURI = getDefaultNamespaceURI ();

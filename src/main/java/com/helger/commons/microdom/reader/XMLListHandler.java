@@ -167,7 +167,7 @@ public final class XMLListHandler
       // and insert all elements
       for (final IMicroElement eItem : aParentElement.getAllChildElements (ELEMENT_ITEM))
       {
-        final String sValue = eItem.getAttribute (ATTR_VALUE);
+        final String sValue = eItem.getAttributeValue (ATTR_VALUE);
         if (sValue == null)
           s_aLogger.warn ("Ignoring list item because value is null");
         else

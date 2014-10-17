@@ -42,7 +42,7 @@ import com.helger.commons.xml.xpath.XPathExpressionHelper;
 
 /**
  * Test class for class {@link XMLHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class XMLHelperTest extends AbstractPHTestCase
@@ -406,6 +406,7 @@ public final class XMLHelperTest extends AbstractPHTestCase
   }
 
   @Test
+  @Deprecated
   public void testGetXMLNSAttrName ()
   {
     assertEquals ("xmlns:abc", XMLHelper.getXMLNSAttrName ("abc"));

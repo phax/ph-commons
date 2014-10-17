@@ -19,7 +19,6 @@ package com.helger.commons.xml.serialize;
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.annotations.Nonempty;
@@ -28,7 +27,7 @@ import com.helger.commons.xml.EXMLVersion;
 
 /**
  * Interface for the settings to be used for serializing XML nodes.
- * 
+ *
  * @author Philip Helger
  */
 public interface IXMLWriterSettings
@@ -83,10 +82,9 @@ public interface IXMLWriterSettings
   Charset getCharsetObj ();
 
   /**
-   * @return The namespace context to be used. May be <code>null</code> to
-   *         dynamically create the namespace prefixes.
+   * @return The namespace context to be used. Never <code>null</code>.
    */
-  @Nullable
+  @Nonnull
   NamespaceContext getNamespaceContext ();
 
   /**
@@ -99,7 +97,7 @@ public interface IXMLWriterSettings
    * Determine if a self closed element (an element having no children) should
    * be emitted with a space at the end (<code>&lt;br /&gt;</code>) or not (
    * <code>&lt;br/&gt;</code>)
-   * 
+   *
    * @return <code>true</code> if a space should be emitted, <code>false</code>
    *         if no space should be emitted.
    */
@@ -122,7 +120,7 @@ public interface IXMLWriterSettings
 
   /**
    * Determine if namespaces should be emitted or not.
-   * 
+   *
    * @return <code>true</code> if namespaces should be emitted,
    *         <code>false</code> if all created elements should reside in the
    *         default namespace.
@@ -135,7 +133,7 @@ public interface IXMLWriterSettings
    * an effect if a namespace context is defined and if it implements the
    * {@link com.helger.commons.xml.namespace.IIterableNamespaceContext}
    * interface!
-   * 
+   *
    * @return <code>true</code> if it is enabled, <code>false</code> if not.
    */
   boolean isPutNamespaceContextPrefixesInRoot ();

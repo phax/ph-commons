@@ -405,10 +405,11 @@ public final class MicroReaderTest
     final IMicroDocument aDoc = MicroReader.readMicroXML (s);
     assertNotNull (aDoc);
     final IMicroElement eRoot = aDoc.getDocumentElement ();
-    assertEquals ("en", eRoot.getAttribute (CXML.XML_ATTR_LANG));
-    assertEquals ("preserve", eRoot.getAttribute (CXML.XML_ATTR_SPACE));
-    assertEquals ("baseuri", eRoot.getAttribute (CXML.XML_ATTR_BASE));
-    assertEquals ("4711", eRoot.getAttribute (CXML.XML_ATTR_ID));
+    assertEquals ("en", eRoot.getAttributeValue (CXML.XML_NS_XML, "lang"));
+    assertNull (eRoot.getAttributeValue ("lang"));
+    assertEquals ("preserve", eRoot.getAttributeValue (CXML.XML_NS_XML, "space"));
+    assertEquals ("baseuri", eRoot.getAttributeValue (CXML.XML_NS_XML, "base"));
+    assertEquals ("4711", eRoot.getAttributeValue (CXML.XML_NS_XML, "id"));
 
     // Ensure they are written as well
     assertEquals (s, MicroWriter.getNodeAsString (aDoc, new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)));

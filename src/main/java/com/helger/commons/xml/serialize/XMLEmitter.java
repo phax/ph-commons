@@ -25,6 +25,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
 import javax.annotation.concurrent.NotThreadSafe;
+import javax.xml.namespace.QName;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.microdom.IMicroDocumentType;
@@ -38,7 +39,7 @@ import com.helger.commons.xml.EXMLVersion;
 
 /**
  * Converts XML constructs into a string representation.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -81,7 +82,7 @@ public class XMLEmitter extends DefaultXMLIterationHandler
 
   /**
    * Define whether nested XML comments throw an exception or not.
-   * 
+   *
    * @param bThrowExceptionOnNestedComments
    *        <code>true</code> to throw an exception, <code>false</code> to
    *        ignore nested comments.
@@ -174,7 +175,7 @@ public class XMLEmitter extends DefaultXMLIterationHandler
 
   /**
    * Get the XML representation of a document type.
-   * 
+   *
    * @param eXMLVersion
    *        The XML version to use. May not be <code>null</code>.
    * @param eIncorrectCharHandling
@@ -197,7 +198,7 @@ public class XMLEmitter extends DefaultXMLIterationHandler
 
   /**
    * Get the XML representation of a document type.
-   * 
+   *
    * @param eXMLVersion
    *        The XML version to use. May not be <code>null</code>.
    * @param eIncorrectCharHandling
@@ -345,7 +346,7 @@ public class XMLEmitter extends DefaultXMLIterationHandler
   @Override
   public void onElementStart (@Nullable final String sNamespacePrefix,
                               @Nonnull final String sTagName,
-                              @Nullable final Map <String, String> aAttrs,
+                              @Nullable final Map <QName, String> aAttrs,
                               final boolean bHasChildren)
   {
     _append ('<');
@@ -356,14 +357,23 @@ public class XMLEmitter extends DefaultXMLIterationHandler
     {
       // assuming that the order of the passed attributes is consistent!
       // Emit all attributes
-      for (final Map.Entry <String, String> aEntry : aAttrs.entrySet ())
+      for (final Map.Entry <QName, String> aEntry : aAttrs.entrySet ())
       {
-        final String sAttrName = aEntry.getKey ();
-        final String sAttrValue = aEntry.getValue ();
-        // TODO sAttrName may contain a namespace prefix and therefore no
-        // masking can be used, as ":" is an invalid character in attribute
-        // names!
-        _append (' ')._append (sAttrName)._append ('=')._appendAttrValue (sAttrValue);
+        final QName aAttrName = aEntry.getKey ();
+        final String sAttrNamespacePrefix = aAttrName.getPrefix ();
+        final String sAttrName = aAttrName.getLocalPart ();
+
+        if (StringHelper.hasText (sAttrNamespacePrefix))
+        {
+          // We have a namespace prefix
+          _append (' ')._append (sAttrNamespacePrefix)._append (CXML.XML_PREFIX_NAMESPACE_SEP);
+        }
+        else
+        {
+          // No namespace prefix present
+          _append (' ');
+        }
+        _appendMasked (EXMLCharMode.ATTRIBUTE_NAME, sAttrName)._append ('=')._appendAttrValue (aEntry.getValue ());
       }
     }
 

@@ -29,6 +29,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+import javax.xml.XMLConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +52,6 @@ import com.helger.commons.string.StringParser;
 import com.helger.commons.text.impl.MultiLingualText;
 import com.helger.commons.version.Version;
 import com.helger.commons.xml.CXML;
-import com.helger.commons.xml.XMLHelper;
 
 /**
  * This class handles the reading and writing of changelog objects.
@@ -129,7 +129,8 @@ public final class ChangeLogSerializer
     if (eRoot == null)
       return null;
 
-    final ChangeLog ret = new ChangeLog (eRoot.getAttribute (ATTR_VERSION), eRoot.getAttribute (ATTR_COMPONENT));
+    final ChangeLog ret = new ChangeLog (eRoot.getAttributeValue (ATTR_VERSION),
+                                         eRoot.getAttributeValue (ATTR_COMPONENT));
     final DateFormat aDF = new SimpleDateFormat (DATE_FORMAT);
 
     // Add all entries
@@ -148,10 +149,10 @@ public final class ChangeLogSerializer
       final String sTagName = eElement.getTagName ();
       if (ELEMENT_ENTRY.equals (sTagName))
       {
-        final String sDate = eElement.getAttribute (ATTR_DATE);
-        final String sAction = eElement.getAttribute (ATTR_ACTION);
-        final String sCategory = eElement.getAttribute (ATTR_CATEGORY);
-        final String sIncompatible = eElement.getAttribute (ATTR_INCOMPATIBLE);
+        final String sDate = eElement.getAttributeValue (ATTR_DATE);
+        final String sAction = eElement.getAttributeValue (ATTR_ACTION);
+        final String sCategory = eElement.getAttributeValue (ATTR_CATEGORY);
+        final String sIncompatible = eElement.getAttributeValue (ATTR_INCOMPATIBLE);
 
         Date aDate;
         try
@@ -200,8 +201,8 @@ public final class ChangeLogSerializer
       else
         if (ELEMENT_RELEASE.equals (sTagName))
         {
-          final String sDate = eElement.getAttribute (ATTR_DATE);
-          final String sVersion = eElement.getAttribute (ATTR_VERSION);
+          final String sDate = eElement.getAttributeValue (ATTR_DATE);
+          final String sVersion = eElement.getAttributeValue (ATTR_VERSION);
           Date aDate;
           try
           {
@@ -279,8 +280,8 @@ public final class ChangeLogSerializer
     final DateFormat aDF = new SimpleDateFormat (DATE_FORMAT);
     final IMicroDocument ret = new MicroDocument ();
     final IMicroElement eRoot = ret.appendElement (CChangeLog.CHANGELOG_NAMESPACE_10, ELEMENT_CHANGELOG);
-    eRoot.setAttribute (XMLHelper.getXMLNSAttrName (CXML.XML_NS_PREFIX_XSI), CXML.XML_NS_XSI);
-    eRoot.setAttribute (CXML.XML_NS_PREFIX_XSI + ":schemaLocation", CChangeLog.CHANGELOG_SCHEMALOCATION_10);
+    eRoot.setAttribute (XMLConstants.XMLNS_ATTRIBUTE_NS_URI, CXML.XML_NS_PREFIX_XSI, CXML.XML_NS_XSI);
+    eRoot.setAttribute (CXML.XML_NS_XSI, "schemaLocation", CChangeLog.CHANGELOG_SCHEMALOCATION_10);
     eRoot.setAttribute (ATTR_VERSION, aChangeLog.getOriginalVersion ());
     if (StringHelper.hasText (aChangeLog.getComponent ()))
       eRoot.setAttribute (ATTR_COMPONENT, aChangeLog.getComponent ());

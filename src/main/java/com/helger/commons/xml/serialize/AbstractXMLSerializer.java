@@ -27,7 +27,9 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
+import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
+import javax.xml.namespace.QName;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +41,6 @@ import com.helger.commons.io.streams.NonBlockingBufferedWriter;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.xml.CXML;
 import com.helger.commons.xml.IXMLIterationHandler;
 import com.helger.commons.xml.XMLHelper;
 import com.helger.commons.xml.namespace.IIterableNamespaceContext;
@@ -47,7 +48,7 @@ import com.helger.commons.xml.namespace.IIterableNamespaceContext;
 /**
  * Abstract XML serializer implementation that works with IMicroNode and
  * org.w3c.dom.Node objects.
- * 
+ *
  * @author Philip Helger
  * @param <NODETYPE>
  *        The DOM node type to use
@@ -64,7 +65,7 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
 
   /**
    * Contains the XML namespace definitions for a single element.
-   * 
+   *
    * @author Philip Helger
    */
   protected static final class NamespaceLevel
@@ -75,51 +76,14 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
     private Map <String, String> m_aURL2PrefixMap;
 
     /**
-     * Extract all attribute starting with "xmlns" and create the appropriate
-     * prefix mapping.
-     * 
-     * @param aAttrs
-     *        Attribute map to check. May be <code>null</code>.
+     * Ctor
      */
-    public NamespaceLevel (@Nullable final Map <String, String> aAttrs)
-    {
-      // check all attributes
-      if (aAttrs != null)
-        for (final Map.Entry <String, String> aEntry : aAttrs.entrySet ())
-        {
-          final String sAttrName = aEntry.getKey ();
-          if (sAttrName.equals (CXML.XML_ATTR_XMLNS))
-          {
-            // set default namespace (xmlns)
-            final String sNamespaceURI = aEntry.getValue ();
-            addPrefixNamespaceMapping (null, sNamespaceURI);
-
-            // Happens quite often when using regular DOM serialization
-            if (s_aLogger.isDebugEnabled ())
-              s_aLogger.debug ("Found default namespace '" + sNamespaceURI + "' in attribute!");
-          }
-          else
-            if (sAttrName.startsWith (CXML.XML_ATTR_XMLNS_WITH_SEP))
-            {
-              // prefixed namespace (xmlns:...)
-              final String sPrefix = sAttrName.substring (CXML.XML_ATTR_XMLNS_WITH_SEP.length ());
-              final String sNamespaceURI = aEntry.getValue ();
-              addPrefixNamespaceMapping (sPrefix, sNamespaceURI);
-
-              // Happens quite often when using regular DOM serialization
-              if (s_aLogger.isDebugEnabled ())
-                s_aLogger.debug ("Found namespace prefix '" +
-                                 sPrefix +
-                                 "' (with URL '" +
-                                 sNamespaceURI +
-                                 "') in attribute!");
-            }
-        }
-    }
+    public NamespaceLevel ()
+    {}
 
     /**
      * Get the URL matching a given namespace prefix in this level.
-     * 
+     *
      * @param sPrefix
      *        The prefix to be searched. If it is <code>null</code> the default
      *        namespace URL is returned.
@@ -139,7 +103,7 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
       return null;
     }
 
-    void addPrefixNamespaceMapping (@Nullable final String sPrefix, @Nonnull @Nonempty final String sNamespaceURI)
+    void addPrefixNamespaceMapping (@Nullable final String sPrefix, @Nonnull final String sNamespaceURI)
     {
       if (s_aLogger.isTraceEnabled ())
         s_aLogger.trace ("Adding namespace mapping " + sPrefix + ":" + sNamespaceURI);
@@ -213,7 +177,7 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
   /**
    * Contains the hierarchy of XML namespaces within a document structure.
    * Important: null namespace URIs are different from empty namespace URIs!
-   * 
+   *
    * @author Philip Helger
    */
   protected static final class NamespaceStack
@@ -221,21 +185,17 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
     private final List <NamespaceLevel> m_aStack = new ArrayList <NamespaceLevel> ();
     private final NamespaceContext m_aNamespaceCtx;
 
-    public NamespaceStack (@Nullable final NamespaceContext aNamespaceCtx)
+    public NamespaceStack (@Nonnull final NamespaceContext aNamespaceCtx)
     {
       m_aNamespaceCtx = aNamespaceCtx;
     }
 
     /**
      * Start a new namespace level.
-     * 
-     * @param aAttrs
-     *        Existing attributes from which XML namespace prefix mappings
-     *        should be extracted. May be <code>null</code>.
      */
-    public void push (@Nullable final Map <String, String> aAttrs)
+    public void push ()
     {
-      final NamespaceLevel aNSL = new NamespaceLevel (aAttrs);
+      final NamespaceLevel aNSL = new NamespaceLevel ();
       // add at front
       m_aStack.add (0, aNSL);
     }
@@ -263,7 +223,7 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
      *         <code>null</code> for no specific namespace.
      */
     @Nullable
-    public String getDefaultNamespaceURI ()
+    private String getDefaultNamespaceURI ()
     {
       // iterate from front to end
       for (final NamespaceLevel aNSLevel : m_aStack)
@@ -278,15 +238,16 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
     }
 
     /**
-     * Resolve the given namespace URI to a prefix.
-     * 
+     * Resolve the given namespace URI to a prefix using the known namespaces of
+     * this stack.
+     *
      * @param sNamespaceURI
      *        The namespace URI to resolve. May not be <code>null</code>. Pass
      *        in an empty string for an empty namespace URI!
      * @return <code>null</code> if no namespace prefix is required.
      */
     @Nullable
-    public String getUsedPrefixOfNamespace (@Nonnull final String sNamespaceURI)
+    private String _getUsedPrefixOfNamespace (@Nonnull final String sNamespaceURI)
     {
       ValueEnforcer.notNull (sNamespaceURI, "NamespaceURI");
 
@@ -312,7 +273,7 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
 
     /**
      * Check if the whole prefix is used somewhere in the stack.
-     * 
+     *
      * @param sPrefix
      *        The prefix to be checked
      * @return <code>true</code> if somewhere in the stack, the specified prefix
@@ -329,13 +290,13 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
 
     /**
      * Check if the passed namespace URI is mapped in the namespace context.
-     * 
+     *
      * @param sNamespaceURI
      *        The namespace URI to check. May not be <code>null</code>.
      * @return <code>null</code> if no namespace context mapping is present
      */
     @Nullable
-    public String getMappedPrefix (@Nonnull final String sNamespaceURI)
+    private String _getMappedPrefix (@Nonnull final String sNamespaceURI)
     {
       ValueEnforcer.notNull (sNamespaceURI, "NamespaceURI");
 
@@ -353,12 +314,12 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
 
     /**
      * Create a new unique namespace prefix.
-     * 
+     *
      * @return <code>null</code> or empty if the default namespace is available,
      *         the prefix otherwise.
      */
     @Nullable
-    public String createUniquePrefix ()
+    private String _createUniquePrefix ()
     {
       // Is the default namespace available?
       if (_containsNoNamespace ())
@@ -376,6 +337,97 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
           return sNSPrefix;
         ++nCount;
       } while (true);
+    }
+
+    @Nullable
+    public String getElementNamespacePrefixToUse (@Nonnull final String sNamespaceURI,
+                                                  final boolean bIsRootElement,
+                                                  @Nonnull final Map <QName, String> aAttrMap)
+    {
+      final String sDefaultNamespaceURI = StringHelper.getNotNull (getDefaultNamespaceURI ());
+      if (sNamespaceURI.equals (sDefaultNamespaceURI))
+      {
+        // It's the default namespace
+        return null;
+      }
+
+      String sNSPrefix = _getUsedPrefixOfNamespace (sNamespaceURI);
+
+      // Do we need to create a prefix?
+      if (sNSPrefix == null && (!bIsRootElement || sNamespaceURI.length () > 0))
+      {
+        // Ensure to use the correct prefix (namespace context)
+        sNSPrefix = _getMappedPrefix (sNamespaceURI);
+
+        // Do not create a prefix for the root element
+        if (sNSPrefix == null && !bIsRootElement)
+          sNSPrefix = _createUniquePrefix ();
+
+        // Add and remember the attribute
+        aAttrMap.put (XMLHelper.getXMLNSAttrQName (sNSPrefix), sNamespaceURI);
+        addNamespaceMapping (sNSPrefix, sNamespaceURI);
+      }
+      return sNSPrefix;
+    }
+
+    @Nullable
+    public String getAttributeNamespacePrefixToUse (@Nonnull final String sNamespaceURI,
+                                                    @Nonnull final String sName,
+                                                    @Nonnull final String sValue,
+                                                    @Nonnull final Map <QName, String> aAttrMap)
+    {
+      final String sDefaultNamespaceURI = StringHelper.getNotNull (getDefaultNamespaceURI ());
+      if (sNamespaceURI.equals (sDefaultNamespaceURI))
+      {
+        // It's the default namespace
+        return null;
+      }
+
+      String sNSPrefix = _getUsedPrefixOfNamespace (sNamespaceURI);
+
+      // Do we need to create a prefix?
+      if (sNSPrefix == null)
+      {
+        if (XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sNamespaceURI))
+        {
+          // It is an "xmlns:xyz" attribute
+          sNSPrefix = sName;
+          // Don't emit "xmlns:xmlns"
+          if (!XMLConstants.XMLNS_ATTRIBUTE.equals (sName))
+          {
+            // Add and remember the attribute
+            aAttrMap.put (XMLHelper.getXMLNSAttrQName (sNSPrefix), sValue);
+          }
+          addNamespaceMapping (sNSPrefix, sValue);
+        }
+        else
+        {
+          // Ensure to use the correct prefix (namespace context)
+          sNSPrefix = _getMappedPrefix (sNamespaceURI);
+
+          // Do not create a prefix for the root element
+          if (sNSPrefix == null)
+          {
+            if (sNamespaceURI.length () == 0)
+            {
+              // Don't create a namespace mapping for attributes without a
+              // namespace URI
+              return null;
+            }
+
+            sNSPrefix = _createUniquePrefix ();
+          }
+
+          // Don't emit "xmlns:xml"
+          if (!XMLConstants.XML_NS_PREFIX.equals (sNSPrefix))
+          {
+            // Add and remember the attribute
+            aAttrMap.put (XMLHelper.getXMLNSAttrQName (sNSPrefix), sNamespaceURI);
+          }
+          addNamespaceMapping (sNSPrefix, sNamespaceURI);
+        }
+      }
+      return sNSPrefix;
     }
   }
 
@@ -406,7 +458,7 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
     return m_aSettings;
   }
 
-  protected final void handlePutNamespaceContextPrefixInRoot (@Nonnull final Map <String, String> aAttrMap)
+  protected final void handlePutNamespaceContextPrefixInRoot (@Nonnull final Map <QName, String> aAttrMap)
   {
     if (m_aNSStack.size () == 1 &&
         m_aSettings.isPutNamespaceContextPrefixesInRoot () &&
@@ -424,7 +476,7 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
           {
             final String sNSPrefix = aEntry.getKey ();
             final String sNamespaceURI = aEntry.getValue ();
-            aAttrMap.put (XMLHelper.getXMLNSAttrName (sNSPrefix), sNamespaceURI);
+            aAttrMap.put (XMLHelper.getXMLNSAttrQName (sNSPrefix), sNamespaceURI);
             m_aNSStack.addNamespaceMapping (sNSPrefix, sNamespaceURI);
           }
         }
@@ -442,7 +494,7 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
   @Nonnull
   @OverrideOnDemand
   protected XMLEmitter createXMLEmitter (@Nonnull @WillNotClose final Writer aWriter,
-                                              @Nonnull final IXMLWriterSettings aSettings)
+                                         @Nonnull final IXMLWriterSettings aSettings)
   {
     return new XMLEmitter (aWriter, aSettings);
   }

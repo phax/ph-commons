@@ -18,6 +18,7 @@ package com.helger.commons.microdom.impl;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,6 +41,7 @@ import com.helger.commons.microdom.IHasAttributeValue;
 import com.helger.commons.microdom.IHasElementName;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.IMicroNode;
+import com.helger.commons.microdom.IMicroQName;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -49,7 +51,7 @@ import com.helger.commons.xml.CXMLRegEx;
 
 /**
  * Default implementation of the {@link IMicroElement} interface.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroElement extends AbstractMicroNodeWithChildren implements IMicroElement
@@ -58,7 +60,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   private String m_sNamespaceURI;
   private final String m_sTagName;
-  private Map <String, String> m_aAttrs;
+  private Map <IMicroQName, MicroAttribute> m_aAttrs;
 
   public MicroElement (@Nonnull final IHasElementName aElementNameProvider)
   {
@@ -122,6 +124,11 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return m_aAttrs != null && !m_aAttrs.isEmpty ();
   }
 
+  public boolean hasNoAttributes ()
+  {
+    return m_aAttrs == null || m_aAttrs.isEmpty ();
+  }
+
   @Nonnegative
   public int getAttributeCount ()
   {
@@ -132,87 +139,203 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   @ReturnsMutableCopy
   public Map <String, String> getAllAttributes ()
   {
-    return hasAttributes () ? ContainerHelper.newOrderedMap (m_aAttrs) : null;
+    if (hasNoAttributes ())
+      return null;
+    final Map <String, String> ret = new LinkedHashMap <String, String> ();
+    for (final MicroAttribute aAttr : m_aAttrs.values ())
+      ret.put (aAttr.getAttributeName (), aAttr.getAttributeValue ());
+    return ret;
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public Map <IMicroQName, String> getAllQAttributes ()
+  {
+    if (hasNoAttributes ())
+      return null;
+    final Map <IMicroQName, String> ret = new LinkedHashMap <IMicroQName, String> ();
+    for (final MicroAttribute aAttr : m_aAttrs.values ())
+      ret.put (aAttr.getAttributeQName (), aAttr.getAttributeValue ());
+    return ret;
   }
 
   @Nullable
   @ReturnsMutableCopy
   public Set <String> getAllAttributeNames ()
   {
-    return hasAttributes () ? ContainerHelper.newOrderedSet (m_aAttrs.keySet ()) : null;
+    if (hasNoAttributes ())
+      return null;
+    final Set <String> ret = new LinkedHashSet <String> ();
+    for (final IMicroQName aName : m_aAttrs.keySet ())
+      ret.add (aName.getName ());
+    return ret;
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public Set <IMicroQName> getAllAttributeQNames ()
+  {
+    if (hasNoAttributes ())
+      return null;
+    return ContainerHelper.newOrderedSet (m_aAttrs.keySet ());
   }
 
   @Nullable
   @ReturnsMutableCopy
   public List <String> getAllAttributeValues ()
   {
-    return hasAttributes () ? ContainerHelper.newList (m_aAttrs.values ()) : null;
+    if (hasNoAttributes ())
+      return null;
+    final List <String> ret = new ArrayList <String> ();
+    for (final MicroAttribute aName : m_aAttrs.values ())
+      ret.add (aName.getAttributeValue ());
+    return ret;
   }
 
   @Nullable
+  public MicroAttribute getAttributeObj (@Nullable final String sAttrName)
+  {
+    return getAttributeObj (null, sAttrName);
+  }
+
+  @Nullable
+  public MicroAttribute getAttributeObj (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
+  {
+    if (StringHelper.hasNoText (sAttrName))
+      return null;
+    return getAttributeObj (new MicroQName (sNamespaceURI, sAttrName));
+  }
+
+  @Nullable
+  public MicroAttribute getAttributeObj (@Nullable final IMicroQName aQName)
+  {
+    return aQName == null || m_aAttrs == null ? null : m_aAttrs.get (aQName);
+  }
+
+  @Nullable
+  @Deprecated
   public String getAttribute (@Nullable final String sAttrName)
   {
-    return m_aAttrs == null ? null : m_aAttrs.get (sAttrName);
+    return getAttributeValue (sAttrName);
+  }
+
+  @Nullable
+  public String getAttributeValue (@Nullable final String sAttrName)
+  {
+    final MicroAttribute aAttr = getAttributeObj (sAttrName);
+    return aAttr == null ? null : aAttr.getAttributeValue ();
+  }
+
+  @Nullable
+  public String getAttributeValue (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
+  {
+    final MicroAttribute aAttr = getAttributeObj (sNamespaceURI, sAttrName);
+    return aAttr == null ? null : aAttr.getAttributeValue ();
+  }
+
+  @Nullable
+  public String getAttributeValue (@Nullable final IMicroQName aAttrName)
+  {
+    final MicroAttribute aAttr = getAttributeObj (aAttrName);
+    return aAttr == null ? null : aAttr.getAttributeValue ();
+  }
+
+  @Nullable
+  private static <DSTTYPE> DSTTYPE _convert (@Nullable final String sAttrValue, @Nonnull final Class <DSTTYPE> aDstClass)
+  {
+    // Avoid having a conversion issue with empty strings!
+    if (StringHelper.hasNoText (sAttrValue))
+      return null;
+    // throws IllegalArgumentException if nothing can be converted
+    final DSTTYPE ret = TypeConverter.convertIfNecessary (sAttrValue, aDstClass);
+    return ret;
   }
 
   @Nullable
   public <DSTTYPE> DSTTYPE getAttributeWithConversion (@Nullable final String sAttrName,
                                                        @Nonnull final Class <DSTTYPE> aDstClass)
   {
-    final String sAttrVal = getAttribute (sAttrName);
-    // Avoid having a conversion issue with empty strings!
-    if (StringHelper.hasNoText (sAttrVal))
-      return null;
-    // throws IllegalArgumentException if nothing can be converted
-    final DSTTYPE ret = TypeConverter.convertIfNecessary (sAttrVal, aDstClass);
-    return ret;
+    return _convert (getAttributeValue (sAttrName), aDstClass);
+  }
+
+  @Nullable
+  public <DSTTYPE> DSTTYPE getAttributeWithConversion (@Nullable final String sNamespaceURI,
+                                                       @Nullable final String sAttrName,
+                                                       @Nonnull final Class <DSTTYPE> aDstClass)
+  {
+    return _convert (getAttributeValue (sNamespaceURI, sAttrName), aDstClass);
+  }
+
+  @Nullable
+  public <DSTTYPE> DSTTYPE getAttributeWithConversion (@Nullable final IMicroQName aAttrName,
+                                                       @Nonnull final Class <DSTTYPE> aDstClass)
+  {
+    return _convert (getAttributeValue (aAttrName), aDstClass);
   }
 
   public boolean hasAttribute (@Nullable final String sAttrName)
   {
-    return m_aAttrs != null && m_aAttrs.containsKey (sAttrName);
+    return hasAttribute (null, sAttrName);
+  }
+
+  public boolean hasAttribute (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
+  {
+    if (StringHelper.hasNoText (sAttrName))
+      return false;
+    return hasAttribute (new MicroQName (sNamespaceURI, sAttrName));
+  }
+
+  public boolean hasAttribute (@Nullable final IMicroQName aAttrName)
+  {
+    return m_aAttrs != null && aAttrName != null && m_aAttrs.containsKey (aAttrName);
   }
 
   @Nonnull
   public EChange removeAttribute (@Nullable final String sAttrName)
   {
-    return EChange.valueOf (m_aAttrs != null && m_aAttrs.remove (sAttrName) != null);
+    return removeAttribute (null, sAttrName);
+  }
+
+  @Nonnull
+  public EChange removeAttribute (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
+  {
+    if (StringHelper.hasNoText (sAttrName))
+      return EChange.UNCHANGED;
+    return removeAttribute (new MicroQName (sNamespaceURI, sAttrName));
+  }
+
+  @Nonnull
+  public EChange removeAttribute (@Nullable final IMicroQName aAttrName)
+  {
+    return EChange.valueOf (m_aAttrs != null && aAttrName != null && m_aAttrs.remove (aAttrName) != null);
   }
 
   @Nonnull
   public MicroElement setAttribute (@Nonnull @Nonempty final String sAttrName, @Nullable final String sAttrValue)
   {
-    ValueEnforcer.notEmpty (sAttrName, "AttrName");
+    return setAttribute (new MicroQName (sAttrName), sAttrValue);
+  }
 
-    // Only for the dev version
-    if (GlobalDebug.isDebugMode ())
-    {
-      if (!CXMLRegEx.PATTERN_NAME_QUICK.matcher (sAttrName).matches ())
-        if (!CXMLRegEx.PATTERN_NAME.matcher (sAttrName).matches ())
-          throw new IllegalArgumentException ("The passed attribute name '" +
-                                              sAttrName +
-                                              "' is not a valid attribute name!");
-      if (false)
-        if (!CXMLRegEx.PATTERN_ATTVALUE.matcher (sAttrValue).matches ())
-          throw new IllegalArgumentException ("The passed attribute value '" +
-                                              sAttrValue +
-                                              "' is not a valid attribute value!");
-      // multi line attributes are valid in XHTML 1.0 Transitional!
-      if (false)
-        if (sAttrValue != null && sAttrValue.indexOf ('\n') != -1)
-          throw new IllegalArgumentException ("The passed attribute value '" +
-                                              sAttrValue +
-                                              "' contains new line characters!");
-    }
+  @Nonnull
+  public MicroElement setAttribute (@Nullable final String sNamespaceURI,
+                                    @Nonnull @Nonempty final String sAttrName,
+                                    @Nullable final String sAttrValue)
+  {
+    return setAttribute (new MicroQName (sNamespaceURI, sAttrName), sAttrValue);
+  }
 
+  @Nonnull
+  public MicroElement setAttribute (@Nonnull final IMicroQName aAttrName, @Nullable final String sAttrValue)
+  {
+    ValueEnforcer.notNull (aAttrName, "AttrName");
     if (sAttrValue != null)
     {
       if (m_aAttrs == null)
-        m_aAttrs = new LinkedHashMap <String, String> ();
-      m_aAttrs.put (sAttrName, sAttrValue);
+        m_aAttrs = new LinkedHashMap <IMicroQName, MicroAttribute> ();
+      m_aAttrs.put (aAttrName, new MicroAttribute (aAttrName, sAttrValue));
     }
     else
-      removeAttribute (sAttrName);
+      removeAttribute (aAttrName);
     return this;
   }
 
@@ -220,9 +343,24 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public MicroElement setAttribute (@Nonnull final String sAttrName,
                                     @Nonnull final IHasAttributeValue aAttrValueProvider)
   {
+    return setAttribute (new MicroQName (sAttrName), aAttrValueProvider);
+  }
+
+  @Nonnull
+  public MicroElement setAttribute (@Nullable final String sNamespaceURI,
+                                    @Nonnull final String sAttrName,
+                                    @Nonnull final IHasAttributeValue aAttrValueProvider)
+  {
+    return setAttribute (new MicroQName (sNamespaceURI, sAttrName), aAttrValueProvider);
+  }
+
+  @Nonnull
+  public MicroElement setAttribute (@Nonnull final IMicroQName aAttrName,
+                                    @Nonnull final IHasAttributeValue aAttrValueProvider)
+  {
     ValueEnforcer.notNull (aAttrValueProvider, "AttrValueProvider");
 
-    return setAttribute (sAttrName, aAttrValueProvider.getAttrValue ());
+    return setAttribute (aAttrName, aAttrValueProvider.getAttrValue ());
   }
 
   @Nonnull
@@ -232,16 +370,59 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   }
 
   @Nonnull
+  public IMicroElement setAttribute (@Nullable final String sNamespaceURI,
+                                     @Nonnull final String sAttrName,
+                                     final int nAttrValue)
+  {
+    return setAttribute (sNamespaceURI, sAttrName, Integer.toString (nAttrValue));
+  }
+
+  @Nonnull
+  public IMicroElement setAttribute (@Nonnull final IMicroQName aAttrName, final int nAttrValue)
+  {
+    return setAttribute (aAttrName, Integer.toString (nAttrValue));
+  }
+
+  @Nonnull
   public IMicroElement setAttribute (@Nonnull final String sAttrName, final long nAttrValue)
   {
     return setAttribute (sAttrName, Long.toString (nAttrValue));
   }
 
   @Nonnull
+  public IMicroElement setAttribute (@Nullable final String sNamespaceURI,
+                                     @Nonnull final String sAttrName,
+                                     final long nAttrValue)
+  {
+    return setAttribute (sNamespaceURI, sAttrName, Long.toString (nAttrValue));
+  }
+
+  @Nonnull
+  public IMicroElement setAttribute (@Nonnull final IMicroQName aAttrName, final long nAttrValue)
+  {
+    return setAttribute (aAttrName, Long.toString (nAttrValue));
+  }
+
+  @Nonnull
   public IMicroElement setAttributeWithConversion (@Nonnull final String sAttrName, @Nullable final Object aAttrValue)
   {
-    final String sValue = TypeConverter.convertIfNecessary (aAttrValue, String.class);
-    return setAttribute (sAttrName, sValue);
+    return setAttributeWithConversion (new MicroQName (sAttrName), aAttrValue);
+  }
+
+  @Nonnull
+  public IMicroElement setAttributeWithConversion (@Nullable final String sNamespaceURI,
+                                                   @Nonnull final String sAttrName,
+                                                   @Nullable final Object aAttrValue)
+  {
+    return setAttributeWithConversion (new MicroQName (sNamespaceURI, sAttrName), aAttrValue);
+  }
+
+  @Nonnull
+  public IMicroElement setAttributeWithConversion (@Nonnull final IMicroQName aAttrName,
+                                                   @Nullable final Object aAttrValue)
+  {
+    final String sAttrValue = TypeConverter.convertIfNecessary (aAttrValue, String.class);
+    return setAttribute (aAttrName, sAttrValue);
   }
 
   @Nonnull

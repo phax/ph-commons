@@ -24,7 +24,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 /**
  * This is just a workaround if Xerces is not in the build path. Normally you
  * would use the constants from the file org.apache.xerces.impl.Constants
- * 
+ *
  * @author Philip
  */
 @Immutable
@@ -69,16 +69,19 @@ public final class CXML
   /** The default xmlns attribute */
   public static final String XML_ATTR_XMLNS = XMLConstants.XMLNS_ATTRIBUTE;
   /** The default xmlns attribute including the separator == xmlns: */
+  @Deprecated
   public static final String XML_ATTR_XMLNS_WITH_SEP = XML_ATTR_XMLNS + XML_PREFIX_NAMESPACE_SEP;
 
   // xml:*
   /** The special namespace prefix "xml" and the separator == xml: */
+  @Deprecated
   public static final String XML_ATTR_XML_WITH_SEP = XMLConstants.XML_NS_PREFIX + XML_PREFIX_NAMESPACE_SEP;
   /**
    * The special attribute xml:space. A special attribute named xml:space MAY be
    * attached to an element to signal an intention that in that element, white
    * space should be preserved by applications. (values preserve/default)
    */
+  @Deprecated
   public static final String XML_ATTR_SPACE = XML_ATTR_XML_WITH_SEP + "space";
   /**
    * The special attribute xml:lang. The values of the attribute are language
@@ -86,28 +89,35 @@ public final class CXML
    * Languages, or its successor; in addition, the empty string MAY be
    * specified.
    */
+  @Deprecated
   public static final String XML_ATTR_LANG = XML_ATTR_XML_WITH_SEP + "lang";
   /**
    * The special attribute xml:base. Specify a base URI (used to resolve
    * relative URI's) other than the base URI of the document or external entity.
    */
+  @Deprecated
   public static final String XML_ATTR_BASE = XML_ATTR_XML_WITH_SEP + "base";
   /**
    * The special attribute xml:id. Instead of using the 'ID' type. This can make
    * sure the value for this attribute is unique within the XML document
    */
+  @Deprecated
   public static final String XML_ATTR_ID = XML_ATTR_XML_WITH_SEP + "id";
 
   // XML Schema Definition (XS and XSD) stuff:
+  /** The XML namespace URI */
+  public static final String XML_NS_XML = XMLConstants.XML_NS_URI;
   /** The XML schema namespace URI */
   public static final String XML_NS_XSD = XMLConstants.W3C_XML_SCHEMA_NS_URI;
   /** The preferred XML Schema namespace prefix */
   public static final String XML_NS_PREFIX_XSD = "xsd";
   /** The complete XML Schema namespace attribute */
+  @Deprecated
   public static final String XMLNS_XSD = XML_ATTR_XMLNS_WITH_SEP + XML_NS_PREFIX_XSD;
   /** Special XSD attribute targetNamespace */
   public static final String XML_ATTR_XSD_TARGETNAMESPACE = "targetNamespace";
   /** Special XSD attribute targetNamespace */
+  @Deprecated
   public static final String XSD_TARGETNAMESPACE = XML_NS_PREFIX_XSD +
                                                    XML_PREFIX_NAMESPACE_SEP +
                                                    XML_ATTR_XSD_TARGETNAMESPACE;
@@ -118,16 +128,19 @@ public final class CXML
   /** Preferred XML Schema instance namespace prefix */
   public static final String XML_NS_PREFIX_XSI = "xsi";
   /** The complete XML Schema instance namespace attribute */
+  @Deprecated
   public static final String XMLNS_XSI = XML_ATTR_XMLNS_WITH_SEP + XML_NS_PREFIX_XSI;
   /** Special XSI attribute schemaLocation */
   public static final String XML_ATTR_XSI_SCHEMALOCATION = "schemaLocation";
   /** Special XSI attribute schemaLocation */
+  @Deprecated
   public static final String XSI_SCHEMALOCATION = XML_NS_PREFIX_XSI +
                                                   XML_PREFIX_NAMESPACE_SEP +
                                                   XML_ATTR_XSI_SCHEMALOCATION;
   /** Special XSI attribute noNamespaceSchemaLocation */
   public static final String XML_ATTR_XSI_NONAMESPACESCHEMALOCATION = "noNamespaceSchemaLocation";
   /** Special XSI attribute noNamespaceSchemaLocation */
+  @Deprecated
   public static final String XSI_NONAMESPACESCHEMALOCATION = XML_NS_PREFIX_XSI +
                                                              XML_PREFIX_NAMESPACE_SEP +
                                                              XML_ATTR_XSI_NONAMESPACESCHEMALOCATION;

@@ -40,10 +40,10 @@ import com.helger.commons.io.streams.NonBlockingStringWriter;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 import com.helger.commons.xml.EXMLVersion;
 import com.helger.commons.xml.XMLFactory;
+import com.helger.commons.xml.serialize.DOMReader;
 import com.helger.commons.xml.serialize.EXMLSerializeIndent;
 import com.helger.commons.xml.serialize.EXMLSerializeVersion;
 import com.helger.commons.xml.serialize.XMLCharHelper;
-import com.helger.commons.xml.serialize.DOMReader;
 import com.helger.commons.xml.serialize.XMLWriter;
 import com.helger.commons.xml.serialize.XMLWriterSettings;
 
@@ -232,6 +232,7 @@ public final class XMLTransformerFactoryTest
     final String sXML = XMLWriter.getNodeAsString (aDoc,
                                                    new XMLWriterSettings ().setIncorrectCharacterHandling (EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG)
                                                                            .setIndent (EXMLSerializeIndent.NONE));
+    assertNotNull (sXML);
     System.out.println (sXML);
     DOMReader.readXMLDOM (sXML);
   }

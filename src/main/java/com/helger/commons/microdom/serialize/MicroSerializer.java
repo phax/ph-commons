@@ -22,6 +22,7 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.namespace.QName;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.microdom.IMicroCDATA;
@@ -33,17 +34,17 @@ import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.IMicroEntityReference;
 import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.microdom.IMicroProcessingInstruction;
+import com.helger.commons.microdom.IMicroQName;
 import com.helger.commons.microdom.IMicroText;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.IXMLIterationHandler;
-import com.helger.commons.xml.XMLHelper;
 import com.helger.commons.xml.serialize.AbstractXMLSerializer;
 import com.helger.commons.xml.serialize.IXMLWriterSettings;
 import com.helger.commons.xml.serialize.XMLWriterSettings;
 
 /**
  * Materializes micro nodes into a string representation.
- * 
+ *
  * @author Philip
  */
 public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
@@ -105,7 +106,7 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
    * intensive since the objects are not directly linked. So to avoid this call,
    * we're manually retrieving the previous and next sibling by their index in
    * the list.
-   * 
+   *
    * @param aXMLWriter
    *        The XML writer to use. May not be <code>null</code>.
    * @param aChildren
@@ -203,47 +204,42 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     final boolean bHasChildElement = bHasChildren && !_isInlineNode (aElement.getFirstChild ());
 
     // get all attributes (order is important!)
-    final Map <String, String> aAttrMap;
-    if (aElement.hasAttributes ())
-    {
-      // Delivers an ordered copy!
-      aAttrMap = aElement.getAllAttributes ();
-    }
-    else
-    {
-      // We do need attributes afterwards...
-      aAttrMap = new LinkedHashMap <String, String> ();
-    }
+    final Map <QName, String> aAttrMap = new LinkedHashMap <QName, String> ();
 
-    m_aNSStack.push (bEmitNamespaces ? aAttrMap : null);
+    m_aNSStack.push ();
 
     handlePutNamespaceContextPrefixInRoot (aAttrMap);
 
     try
     {
       // resolve Namespace prefix
-      String sNSPrefix = null;
+      String sElementNSPrefix = null;
       if (bEmitNamespaces)
       {
         final String sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
-        final String sDefaultNamespaceURI = StringHelper.getNotNull (m_aNSStack.getDefaultNamespaceURI ());
-        final boolean bIsDefaultNamespace = sElementNamespaceURI.equals (sDefaultNamespaceURI);
-        if (!bIsDefaultNamespace)
-          sNSPrefix = m_aNSStack.getUsedPrefixOfNamespace (sElementNamespaceURI);
+        sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI, bIsRootElement, aAttrMap);
+      }
 
-        // Do we need to create a prefix?
-        if (sNSPrefix == null && !bIsDefaultNamespace && (!bIsRootElement || sElementNamespaceURI.length () > 0))
+      if (aElement.hasAttributes ())
+      {
+        // Delivers an ordered copy!
+        for (final Map.Entry <IMicroQName, String> aEntry : aElement.getAllQAttributes ().entrySet ())
         {
-          // Ensure to use the correct prefix (namespace context)
-          sNSPrefix = m_aNSStack.getMappedPrefix (sElementNamespaceURI);
+          final IMicroQName aAttrName = aEntry.getKey ();
+          final String sAttrNamespaceURI = StringHelper.getNotNull (aAttrName.getNamespaceURI ());
+          final String sAttrName = aAttrName.getName ();
+          final String sAttrValue = aEntry.getValue ();
+          String sAttrNSPrefix = null;
+          if (bEmitNamespaces)
+            sAttrNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
+                                                                         sAttrName,
+                                                                         sAttrValue,
+                                                                         aAttrMap);
 
-          // Do not create a prefix for the root element
-          if (sNSPrefix == null && !bIsRootElement)
-            sNSPrefix = m_aNSStack.createUniquePrefix ();
-
-          // Add and remember the attribute
-          m_aNSStack.addNamespaceMapping (sNSPrefix, sElementNamespaceURI);
-          aAttrMap.put (XMLHelper.getXMLNSAttrName (sNSPrefix), sElementNamespaceURI);
+          if (sAttrNSPrefix != null)
+            aAttrMap.put (new QName (sAttrNamespaceURI, aAttrName.getName (), sAttrNSPrefix), sAttrValue);
+          else
+            aAttrMap.put (aAttrName.getAsXMLQName (), sAttrValue);
         }
       }
 
@@ -251,7 +247,7 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       if (m_aSettings.getIndent ().isIndent () && bIndentPrev && m_aIndent.length () > 0)
         aXMLWriter.onContentElementWhitespace (m_aIndent);
 
-      aXMLWriter.onElementStart (sNSPrefix, sTagName, aAttrMap, bHasChildren);
+      aXMLWriter.onElementStart (sElementNSPrefix, sTagName, aAttrMap, bHasChildren);
 
       // write child nodes (if present)
       if (bHasChildren)
@@ -276,7 +272,7 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
           aXMLWriter.onContentElementWhitespace (m_aIndent);
       }
 
-      aXMLWriter.onElementEnd (sNSPrefix, sTagName, bHasChildren);
+      aXMLWriter.onElementEnd (sElementNSPrefix, sTagName, bHasChildren);
 
       if (m_aSettings.getIndent ().isAlign () && bIndentNext)
         aXMLWriter.onContentElementWhitespace (m_aSettings.getNewlineString ());

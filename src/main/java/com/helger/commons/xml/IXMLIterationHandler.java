@@ -20,6 +20,7 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.namespace.QName;
 
 /**
  * Callback interface when iterating XML nodes.
@@ -126,7 +127,7 @@ public interface IXMLIterationHandler
    */
   void onElementStart (@Nullable String sNamespacePrefix,
                        @Nonnull String sTagName,
-                       @Nullable Map <String, String> aAttrs,
+                       @Nullable Map <QName, String> aAttrs,
                        boolean bHasChildren);
 
   /**

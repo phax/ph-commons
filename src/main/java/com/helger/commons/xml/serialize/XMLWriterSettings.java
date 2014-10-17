@@ -36,12 +36,13 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 import com.helger.commons.xml.EXMLVersion;
+import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
 
 /**
  * Default implementation of the {@link IXMLWriterSettings} interface.<br>
  * Describes the export settings for the MicroWriter. Defaults to indented and
  * aligned XML in the UTF-8 charset.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -83,7 +84,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   private EXMLSerializeIndent m_eIndent = EXMLSerializeIndent.INDENT_AND_ALIGN;
   private EXMLIncorrectCharacterHandling m_eIncorrectCharacterHandling = EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING;
   private Charset m_aCharset = DEFAULT_XML_CHARSET_OBJ;
-  private NamespaceContext m_aNamespaceContext;
+  private NamespaceContext m_aNamespaceContext = new MapBasedNamespaceContext ();
   private boolean m_bUseDoubleQuotesForAttributes = DEFAULT_USE_DOUBLE_QUOTES_FOR_ATTRIBUTES;
   private boolean m_bSpaceOnSelfClosedElement = DEFAULT_SPACE_ON_SELF_CLOSED_ELEMENT;
   private String m_sNewlineString = DEFAULT_NEWLINE_STRING;
@@ -110,7 +111,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
 
   /**
    * Copy constructor.
-   * 
+   *
    * @param aOther
    *        The object to copy the settings from. May not be <code>null</code>.
    */
@@ -136,7 +137,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
 
   /**
    * Set the XML serialization format to use.
-   * 
+   *
    * @param eFormat
    *        The new format. May not be <code>null</code>.
    * @return this
@@ -156,7 +157,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
 
   /**
    * Set the preferred XML version to use.
-   * 
+   *
    * @param eVersion
    *        The XML version. May not be <code>null</code>.
    * @return this
@@ -176,7 +177,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
 
   /**
    * Set the way how to handle the doc type.
-   * 
+   *
    * @param eSerializeDocType
    *        Doc type handling. May not be <code>null</code>.
    * @return this
@@ -196,7 +197,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
 
   /**
    * Set the way how comments should be handled.
-   * 
+   *
    * @param eSerializeComments
    *        The comment handling. May not be <code>null</code>.
    * @return this
@@ -216,7 +217,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
 
   /**
    * Set the way how to indent/align
-   * 
+   *
    * @param eIndent
    *        Indent and align definition. May not be <code>null</code>.
    * @return this
@@ -236,7 +237,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
 
   /**
    * Set the way how to handle invalid characters.
-   * 
+   *
    * @param eIncorrectCharacterHandling
    *        The invalid character handling. May not be <code>null</code>.
    * @return this
@@ -256,7 +257,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
 
   /**
    * Set the serialization charset.
-   * 
+   *
    * @param aCharset
    *        The charset to be used. May not be <code>null</code>.
    * @return this
@@ -270,7 +271,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
 
   /**
    * Set the serialization charset.
-   * 
+   *
    * @param sCharset
    *        The charset to be used. May not be <code>null</code>.
    * @return this
@@ -297,7 +298,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
 
   /**
    * Set the namespace context to be used.
-   * 
+   *
    * @param aNamespaceContext
    *        The namespace context to be used. May be <code>null</code>.
    * @return this
@@ -305,11 +306,12 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   @Nonnull
   public final XMLWriterSettings setNamespaceContext (@Nullable final NamespaceContext aNamespaceContext)
   {
-    m_aNamespaceContext = aNamespaceContext;
+    // A namespace context must always be present, to resolve default namespaces
+    m_aNamespaceContext = aNamespaceContext != null ? aNamespaceContext : new MapBasedNamespaceContext ();
     return this;
   }
 
-  @Nullable
+  @Nonnull
   public NamespaceContext getNamespaceContext ()
   {
     return m_aNamespaceContext;

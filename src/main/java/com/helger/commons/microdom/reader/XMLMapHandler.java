@@ -166,12 +166,12 @@ public final class XMLMapHandler
       // and insert all elements
       for (final IMicroElement eMap : aParentElement.getAllChildElements (ELEMENT_MAP))
       {
-        final String sName = eMap.getAttribute (ATTR_KEY);
+        final String sName = eMap.getAttributeValue (ATTR_KEY);
         if (sName == null)
           s_aLogger.warn ("Ignoring mapping element because key is null");
         else
         {
-          final String sValue = eMap.getAttribute (ATTR_VALUE);
+          final String sValue = eMap.getAttributeValue (ATTR_VALUE);
           if (sValue == null)
             s_aLogger.warn ("Ignoring mapping element because value is null");
           else
