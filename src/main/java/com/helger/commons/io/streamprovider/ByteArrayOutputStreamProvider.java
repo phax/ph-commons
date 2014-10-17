@@ -22,7 +22,6 @@ import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.annotations.DevelopersNote;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.IOutputStreamAndWriterProvider;
@@ -32,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * An {@link java.io.OutputStream} provider based on a byte array.
- * 
+ *
  * @author Philip Helger
  */
 public class ByteArrayOutputStreamProvider implements IOutputStreamAndWriterProvider, Serializable
@@ -87,8 +86,6 @@ public class ByteArrayOutputStreamProvider implements IOutputStreamAndWriterProv
   }
 
   @Override
-  @Deprecated
-  @DevelopersNote ("Most probably you wanted to call getAsString")
   public String toString ()
   {
     return new ToStringGenerator (this).append ("os", m_aOS).toString ();
