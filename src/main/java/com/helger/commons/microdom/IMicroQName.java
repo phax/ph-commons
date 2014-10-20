@@ -79,8 +79,17 @@ public interface IMicroQName extends Serializable
   String getName ();
 
   /**
-   * @return This micro QName as a regular XML QName
+   * @return This micro QName as a regular XML QName using an empty prefix.
    */
   @Nonnull
   QName getAsXMLQName ();
+
+  /**
+   * @param sPrefix
+   *        the namespace prefix to be used in the resulting object. May not be
+   *        <code>null</code> but maybe empty.
+   * @return This micro QName as a regular XML QName using the provided prefix.
+   */
+  @Nonnull
+  QName getAsXMLQName (@Nonnull String sPrefix);
 }

@@ -440,22 +440,79 @@ public final class MicroWriterTest
     eRoot.appendElement ("ns2url", "child1").setAttribute ("ns2url", "attr1", "value1");
     eRoot.appendElement ("ns2url", "child2").setAttribute ("ns3url", "attr2", "value2");
 
-    String s = MicroWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                  + "<root xmlns=\"ns1url\">"
-                  + "<ns0:child1 xmlns:ns0=\"ns2url\" ns0:attr1=\"value1\" />"
-                  + "<ns0:child2 xmlns:ns0=\"ns2url\" xmlns:ns1=\"ns3url\" ns1:attr2=\"value2\" />"
-                  + "</root>", s);
-    assertEquals (s, MicroWriter.getNodeAsString (MicroReader.readMicroXML (s), aSettings));
-    final IMicroDocument aDoc2 = MicroReader.readMicroXML (s);
-    assertTrue (aDoc.isEqualContent (aDoc2));
+    {
+      final String s = MicroWriter.getNodeAsString (aDoc, aSettings);
+      assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
+                    + "<root xmlns=\"ns1url\">"
+                    + "<ns0:child1 xmlns:ns0=\"ns2url\" ns0:attr1=\"value1\" />"
+                    + "<ns0:child2 xmlns:ns0=\"ns2url\" xmlns:ns1=\"ns3url\" ns1:attr2=\"value2\" />"
+                    + "</root>", s);
+      assertEquals (s, MicroWriter.getNodeAsString (MicroReader.readMicroXML (s), aSettings));
+      final IMicroDocument aDoc2 = MicroReader.readMicroXML (s);
+      assertTrue (aDoc.isEqualContent (aDoc2));
+    }
 
-    aSettings.setEmitNamespaces (false);
-    s = MicroWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                  + "<root>"
-                  + "<child1 attr1=\"value1\" />"
-                  + "<child2 attr2=\"value2\" />"
-                  + "</root>", s);
+    {
+      final MapBasedNamespaceContext aNC = new MapBasedNamespaceContext ();
+      aNC.addMapping ("n1", "ns1url");
+      aNC.addMapping ("n2", "ns2url");
+      aNC.addMapping ("n3", "ns3url");
+      final String s = MicroWriter.getNodeAsString (aDoc, new XMLWriterSettings (aSettings).setNamespaceContext (aNC));
+      assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
+                    + "<n1:root xmlns:n1=\"ns1url\">"
+                    + "<n2:child1 xmlns:n2=\"ns2url\" n2:attr1=\"value1\" />"
+                    + "<n2:child2 xmlns:n2=\"ns2url\" xmlns:n3=\"ns3url\" n3:attr2=\"value2\" />"
+                    + "</n1:root>", s);
+      final IMicroDocument aDoc2 = MicroReader.readMicroXML (s);
+      assertNotNull (aDoc2);
+      assertTrue (aDoc.isEqualContent (aDoc2));
+    }
+
+    {
+      final MapBasedNamespaceContext aNC = new MapBasedNamespaceContext ();
+      aNC.addMapping ("n1", "ns1url");
+      aNC.addMapping ("n2", "ns2url");
+      aNC.addMapping ("", "ns3url");
+      final String s = MicroWriter.getNodeAsString (aDoc, new XMLWriterSettings (aSettings).setNamespaceContext (aNC));
+      assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
+                    + "<n1:root xmlns:n1=\"ns1url\">"
+                    + "<n2:child1 xmlns:n2=\"ns2url\" n2:attr1=\"value1\" />"
+                    + "<n2:child2 xmlns:n2=\"ns2url\" xmlns=\"ns3url\" attr2=\"value2\" />"
+                    + "</n1:root>", s);
+      final IMicroDocument aDoc2 = MicroReader.readMicroXML (s);
+      assertNotNull (aDoc2);
+      if (false)
+      {
+        // Different namespace for attr2
+        assertTrue (aDoc.isEqualContent (aDoc2));
+      }
+    }
+
+    {
+      final MapBasedNamespaceContext aNC = new MapBasedNamespaceContext ();
+      aNC.addMapping ("n1", "ns1url");
+      aNC.addMapping ("n2", "ns2url");
+      final String s = MicroWriter.getNodeAsString (aDoc, new XMLWriterSettings (aSettings).setNamespaceContext (aNC));
+      assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
+                    + "<n1:root xmlns:n1=\"ns1url\">"
+                    + "<n2:child1 xmlns:n2=\"ns2url\" n2:attr1=\"value1\" />"
+                    + "<n2:child2 xmlns:n2=\"ns2url\" xmlns:ns0=\"ns3url\" ns0:attr2=\"value2\" />"
+                    + "</n1:root>", s);
+      final IMicroDocument aDoc2 = MicroReader.readMicroXML (s);
+      assertNotNull (aDoc2);
+      // Different namespace for attr2
+      assertTrue (aDoc.isEqualContent (aDoc2));
+    }
+
+    {
+      final String s = MicroWriter.getNodeAsString (aDoc, new XMLWriterSettings (aSettings).setEmitNamespaces (false));
+      assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
+                    + "<root>"
+                    + "<child1 attr1=\"value1\" />"
+                    + "<child2 attr2=\"value2\" />"
+                    + "</root>", s);
+      final IMicroDocument aDoc2 = MicroReader.readMicroXML (s);
+      assertNotNull (aDoc2);
+    }
   }
 }

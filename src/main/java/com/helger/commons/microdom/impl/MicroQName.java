@@ -19,6 +19,7 @@ package com.helger.commons.microdom.impl;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import org.slf4j.Logger;
@@ -54,7 +55,7 @@ public final class MicroQName implements IMicroQName, Comparable <MicroQName>
 
   public MicroQName (@Nonnull @Nonempty final String sName)
   {
-    this (null, sName);
+    this (XMLConstants.NULL_NS_URI, sName);
   }
 
   public MicroQName (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sName)
@@ -117,6 +118,12 @@ public final class MicroQName implements IMicroQName, Comparable <MicroQName>
   public QName getAsXMLQName ()
   {
     return new QName (m_sNamespaceURI, m_sName);
+  }
+
+  @Nonnull
+  public QName getAsXMLQName (@Nonnull final String sPrefix)
+  {
+    return new QName (m_sNamespaceURI, m_sName, sPrefix);
   }
 
   public int compareTo (@Nonnull final MicroQName o)
