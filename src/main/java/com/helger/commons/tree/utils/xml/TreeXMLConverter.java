@@ -131,7 +131,8 @@ public final class TreeXMLConverter
                                                                                                         @Nonnull final Comparator <? super ITEMTYPE> aItemComparator,
                                                                                                         @Nonnull final IConverterTreeItemToMicroNode <? super DATATYPE> aDataConverter)
   {
-    final IMicroElement eRoot = new MicroElement (ELEMENT_ROOT);
+    final String sNamespaceURI = aDataConverter.getNamespaceURI ();
+    final IMicroElement eRoot = new MicroElement (sNamespaceURI, ELEMENT_ROOT);
     final NonBlockingStack <IMicroElement> aParents = new NonBlockingStack <IMicroElement> ();
     aParents.push (eRoot);
     TreeWalker.walkTree (aTree,
@@ -144,10 +145,10 @@ public final class TreeXMLConverter
                              if (aItem != null)
                              {
                                // create item element
-                               final IMicroElement eItem = aParents.peek ().appendElement (ELEMENT_ITEM);
+                               final IMicroElement eItem = aParents.peek ().appendElement (sNamespaceURI, ELEMENT_ITEM);
 
                                // append data
-                               final IMicroElement eData = eItem.appendElement (ELEMENT_DATA);
+                               final IMicroElement eData = eItem.appendElement (sNamespaceURI, ELEMENT_DATA);
                                aDataConverter.appendDataValue (eData, aItem.getData ());
 
                                aParents.push (eItem);
@@ -169,10 +170,11 @@ public final class TreeXMLConverter
                                                                                                                                @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter,
                                                                                                                                @Nonnull final BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE> aTree)
   {
+    final String sNamespaceURI = aDataConverter.getNamespaceURI ();
     final NonBlockingStack <ITEMTYPE> aParents = new NonBlockingStack <ITEMTYPE> ();
     aParents.push (aTree.getRootItem ());
     MicroWalker.walkNode (aElement,
-                          new ChildrenProviderElementWithName (ELEMENT_ITEM),
+                          new ChildrenProviderElementWithName (sNamespaceURI, ELEMENT_ITEM),
                           new DefaultHierarchyWalkerCallback <IMicroElement> ()
                           {
                             @Override
@@ -182,7 +184,7 @@ public final class TreeXMLConverter
                               {
                                 final KEYTYPE aTreeItemID = aIDConverter.convert (eItem.getAttributeValue (ATTR_ID));
 
-                                final IMicroElement eData = eItem.getFirstChildElement (ELEMENT_DATA);
+                                final IMicroElement eData = eItem.getFirstChildElement (sNamespaceURI, ELEMENT_DATA);
                                 final DATATYPE aTreeItemValue = aDataConverter.getAsDataValue (eData);
 
                                 final ITEMTYPE aTreeItem = aParents.peek ().createChildItem (aTreeItemID,

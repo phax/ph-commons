@@ -25,9 +25,15 @@ import com.helger.commons.name.MockHasName;
 
 public final class MockHasNameConverter implements IConverterTreeXML <MockHasName>
 {
+  @Nullable
+  public String getNamespaceURI ()
+  {
+    return "bla";
+  }
+
   public void appendDataValue (@Nonnull final IMicroElement eDataElement, @Nullable final MockHasName aAnyName)
   {
-    final IMicroElement eName = eDataElement.appendElement ("name");
+    final IMicroElement eName = eDataElement.appendElement (getNamespaceURI (), "name");
     if (aAnyName != null)
       eName.appendText (aAnyName.getName ());
   }
@@ -35,6 +41,6 @@ public final class MockHasNameConverter implements IConverterTreeXML <MockHasNam
   @Nonnull
   public MockHasName getAsDataValue (final IMicroElement eDataElement)
   {
-    return new MockHasName (MicroUtils.getChildTextContent (eDataElement, "name"));
+    return new MockHasName (MicroUtils.getChildTextContent (eDataElement, getNamespaceURI (), "name"));
   }
 }

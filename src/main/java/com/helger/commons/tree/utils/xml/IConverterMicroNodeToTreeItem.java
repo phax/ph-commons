@@ -17,18 +17,22 @@
 package com.helger.commons.tree.utils.xml;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.microdom.IMicroElement;
 
 /**
  * Interface used to convert a single micro element into a value used as tree
  * item data value.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of the tree item data
  */
 public interface IConverterMicroNodeToTreeItem <DATATYPE>
 {
+  @Nullable
+  String getNamespaceURI ();
+
   DATATYPE getAsDataValue (@Nonnull IMicroElement eDataElement);
 }

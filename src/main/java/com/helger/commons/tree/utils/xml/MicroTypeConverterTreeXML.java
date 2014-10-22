@@ -77,6 +77,25 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
     m_aNativeClass = ValueEnforcer.notNull (aNativeClass, "NativeClass");
   }
 
+  @Nullable
+  public String getNamespaceURI ()
+  {
+    return m_sNamespaceURI;
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getElementName ()
+  {
+    return m_sElementName;
+  }
+
+  @Nonnull
+  public Class <? extends DATATYPE> getNativeClass ()
+  {
+    return m_aNativeClass;
+  }
+
   public void appendDataValue (@Nonnull final IMicroElement eDataElement, @Nullable final DATATYPE aObject)
   {
     // Append created element - or null if the passed object is null
