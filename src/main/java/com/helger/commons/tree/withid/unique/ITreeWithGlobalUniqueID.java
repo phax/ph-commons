@@ -18,6 +18,7 @@ package com.helger.commons.tree.withid.unique;
 
 import java.util.Collection;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -30,7 +31,7 @@ import com.helger.commons.tree.withid.ITreeWithID;
 /**
  * A specialized version of the tree, where each item is required to have a
  * unique ID so that item searching can be performed with little runtime effort.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        The type of the key elements for the tree. This is typically String.
@@ -40,14 +41,11 @@ import com.helger.commons.tree.withid.ITreeWithID;
  * @param <ITEMTYPE>
  *        The type of the tree item that will be stored in this tree.
  */
-public interface ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends
-                                                                                                                             ITreeWithID <KEYTYPE, DATATYPE, ITEMTYPE>,
-                                                                                                                             IChildrenProviderWithID <KEYTYPE, ITEMTYPE>,
-                                                                                                                             IChildrenProviderWithUniqueID <KEYTYPE, ITEMTYPE>
+public interface ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends ITreeWithID <KEYTYPE, DATATYPE, ITEMTYPE>, IChildrenProviderWithID <KEYTYPE, ITEMTYPE>, IChildrenProviderWithUniqueID <KEYTYPE, ITEMTYPE>
 {
   /**
    * Check if a tree item corresponding to the given ID is present.
-   * 
+   *
    * @param aDataID
    *        The ID of the tree item to search.
    * @return <code>true</code> if such an item is present
@@ -56,7 +54,7 @@ public interface ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
 
   /**
    * Get the {@link ITreeItemWithID} that corresponds to the given ID.
-   * 
+   *
    * @param aDataID
    *        The ID of the tree item to search.
    * @return <code>null</code> if no such tree item exists.
@@ -66,13 +64,19 @@ public interface ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
 
   /**
    * Get the data of the tree item that corresponds to the given ID.
-   * 
+   *
    * @param aDataID
    *        The ID of the tree item to search.
    * @return <code>null</code> if no such tree item exists.
    */
   @Nullable
   DATATYPE getItemDataWithID (@Nullable KEYTYPE aDataID);
+
+  /**
+   * @return The number of all contained items. Always &ge; 0.
+   */
+  @Nonnegative
+  int getItemCount ();
 
   /**
    * @return A non-<code>null</code> collection of all items.
@@ -88,7 +92,7 @@ public interface ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
 
   /**
    * Remove the item with the specified ID
-   * 
+   *
    * @param aDataID
    *        The ID of the item to be removed
    * @return {@link EChange#CHANGED} if the item was removed,
@@ -100,7 +104,7 @@ public interface ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
   /**
    * Check if one item is equal or a child of the other item. This relationship
    * is checked not only for direct children but for all levels.
-   * 
+   *
    * @param aParentItemID
    *        The parent item ID to a validate.
    * @param aChildItemID

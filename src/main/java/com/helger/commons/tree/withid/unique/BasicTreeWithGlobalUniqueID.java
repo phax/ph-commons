@@ -88,6 +88,12 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
     return aItem.getChildItemOfDataID (aDataID);
   }
 
+  @Nonnegative
+  public final int getItemCount ()
+  {
+    return m_aFactory.getItemCount ();
+  }
+
   @Nonnull
   public final Collection <ITEMTYPE> getAllItems ()
   {
