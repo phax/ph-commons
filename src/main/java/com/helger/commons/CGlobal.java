@@ -28,7 +28,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 /**
  * A class declaring system wide constants. Its main use is giving a semantic
  * meaning to constant values.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -214,6 +214,30 @@ public final class CGlobal
   /** The BigInteger representation of -1 */
   public static final BigInteger BIGINT_MINUS_ONE = BigInteger.ONE.negate ();
 
+  /** The BigInteger representation of 2 */
+  public static final BigInteger BIGINT_2 = BigInteger.valueOf (2);
+
+  /** The BigInteger representation of 3 */
+  public static final BigInteger BIGINT_3 = BigInteger.valueOf (3);
+
+  /** The BigInteger representation of 4 */
+  public static final BigInteger BIGINT_4 = BigInteger.valueOf (4);
+
+  /** The BigInteger representation of 5 */
+  public static final BigInteger BIGINT_5 = BigInteger.valueOf (5);
+
+  /** The BigInteger representation of 6 */
+  public static final BigInteger BIGINT_6 = BigInteger.valueOf (6);
+
+  /** The BigInteger representation of 7 */
+  public static final BigInteger BIGINT_7 = BigInteger.valueOf (7);
+
+  /** The BigInteger representation of 8 */
+  public static final BigInteger BIGINT_8 = BigInteger.valueOf (8);
+
+  /** The BigInteger representation of 9 */
+  public static final BigInteger BIGINT_9 = BigInteger.valueOf (9);
+
   /** The BigInteger representation of 10 */
   public static final BigInteger BIGINT_10 = BigInteger.TEN;
 
@@ -267,6 +291,30 @@ public final class CGlobal
 
   /** The BigDecimal representation of -1 */
   public static final BigDecimal BIGDEC_MINUS_ONE = BigDecimal.ONE.negate ();
+
+  /** The BigDecimal representation of 2 */
+  public static final BigDecimal BIGDEC_2 = new BigDecimal ("2");
+
+  /** The BigDecimal representation of 3 */
+  public static final BigDecimal BIGDEC_3 = new BigDecimal ("3");
+
+  /** The BigDecimal representation of 4 */
+  public static final BigDecimal BIGDEC_4 = new BigDecimal ("4");
+
+  /** The BigDecimal representation of 5 */
+  public static final BigDecimal BIGDEC_5 = new BigDecimal ("5");
+
+  /** The BigDecimal representation of 6 */
+  public static final BigDecimal BIGDEC_6 = new BigDecimal ("6");
+
+  /** The BigDecimal representation of 7 */
+  public static final BigDecimal BIGDEC_7 = new BigDecimal ("7");
+
+  /** The BigDecimal representation of 8 */
+  public static final BigDecimal BIGDEC_8 = new BigDecimal ("8");
+
+  /** The BigDecimal representation of 9 */
+  public static final BigDecimal BIGDEC_9 = new BigDecimal ("9");
 
   /** The BigDecimal representation of 10 */
   public static final BigDecimal BIGDEC_10 = BigDecimal.TEN;
