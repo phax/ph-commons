@@ -18,6 +18,7 @@ package com.helger.commons.tree.withid.unique;
 
 import java.util.Collection;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -27,7 +28,7 @@ import com.helger.commons.tree.withid.ITreeItemWithIDFactory;
 
 /**
  * An abstract tree item factory that maintains a unique ID over all items!
- * 
+ *
  * @param <KEYTYPE>
  *        The key type.
  * @param <DATATYPE>
@@ -57,6 +58,12 @@ public interface ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE exten
    */
   @Nullable
   ITEMTYPE getItemOfDataID (@Nullable KEYTYPE aDataID);
+
+  /**
+   * @return The number of all contained items. Always &ge; 0.
+   */
+  @Nonnegative
+  int getItemCount ();
 
   /**
    * @return A collection that contains all items created by this factory

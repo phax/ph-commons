@@ -26,6 +26,7 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.serialize.MicroReader;
+import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.name.MockHasName;
 import com.helger.commons.tree.simple.DefaultTree;
@@ -34,7 +35,7 @@ import com.helger.commons.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 
 /**
  * Test class for class {@link TreeXMLConverter}.
- * 
+ *
  * @author Philip Helger
  */
 public final class TreeXMLConverterTest extends AbstractPHTestCase
@@ -81,8 +82,11 @@ public final class TreeXMLConverterTest extends AbstractPHTestCase
     aTree.getRootItem ().createChildItem (new MockHasName ("name2"));
     aTree.getRootItem ().createChildItem (new MockHasName ("name1"));
 
-    TreeXMLConverter.getTreeAsXML (aTree,
-                                   new ComparatorDefaultTreeItemComparable <MockHasName> (),
-                                   new MockHasNameConverter ());
+    final IMicroElement aElement = TreeXMLConverter.getTreeAsXML (aTree,
+                                                                  new ComparatorDefaultTreeItemComparable <MockHasName> (),
+                                                                  new MockHasNameConverter ());
+    assertNotNull (aElement);
+    if (false)
+      System.out.println (MicroWriter.getXMLString (aElement));
   }
 }

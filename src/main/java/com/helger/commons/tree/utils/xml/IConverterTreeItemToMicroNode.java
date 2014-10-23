@@ -23,12 +23,15 @@ import com.helger.commons.microdom.IMicroElement;
 
 /**
  * Interface used to convert a single tree item data value to a micro node.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of the tree item data
  */
 public interface IConverterTreeItemToMicroNode <DATATYPE>
 {
+  @Nullable
+  String getNamespaceURI ();
+
   void appendDataValue (@Nonnull IMicroElement eDataElement, @Nullable DATATYPE aObject);
 }

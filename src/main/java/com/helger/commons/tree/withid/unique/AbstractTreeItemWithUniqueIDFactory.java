@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -36,7 +37,7 @@ import com.helger.commons.tree.withid.ITreeItemWithID;
 /**
  * An abstract tree item factory that maintains a unique ID over all items. It
  * does not put the root item in the data store!
- * 
+ *
  * @param <KEYTYPE>
  *        The key type.
  * @param <DATATYPE>
@@ -118,6 +119,12 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
   public final ITEMTYPE getItemOfDataID (@Nullable final KEYTYPE aDataID)
   {
     return m_aItemStore.get (aDataID);
+  }
+
+  @Nonnegative
+  public final int getItemCount ()
+  {
+    return m_aItemStore.size ();
   }
 
   @Nonnull

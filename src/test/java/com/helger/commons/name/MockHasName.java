@@ -18,9 +18,9 @@ package com.helger.commons.name;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.hash.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
 
 public final class MockHasName implements IHasName, Comparable <MockHasName>
 {
@@ -33,9 +33,7 @@ public final class MockHasName implements IHasName, Comparable <MockHasName>
 
   public MockHasName (@Nonnull @Nonempty final String sName)
   {
-    if (StringHelper.hasNoText (sName))
-      throw new IllegalArgumentException ("name");
-    m_sName = sName;
+    m_sName = ValueEnforcer.notEmpty (sName, "Name");
   }
 
   @Nonnull
