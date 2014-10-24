@@ -2989,7 +2989,6 @@ public final class StringHelper
    *         unmodified input string if no search/replace patterns where
    *         provided.
    */
-  @SuppressWarnings ("null")
   @Nullable
   public static String replaceMultiple (@Nullable final String sInputString,
                                         @Nullable final String [] aSearchTexts,

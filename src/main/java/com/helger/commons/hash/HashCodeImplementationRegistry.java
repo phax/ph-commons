@@ -222,8 +222,7 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
     return aImplementsHashCodeItself.booleanValue ();
   }
 
-  @SuppressWarnings ("null")
-  @Nullable
+   @Nullable
   public IHashCodeImplementation getBestMatchingHashCodeImplementation (@Nullable final Class <?> aClass)
   {
     if (aClass != null)

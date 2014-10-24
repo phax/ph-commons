@@ -323,7 +323,6 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
    * @return <code>true</code> if the {@link JAXBContextCache} should be used,
    *         <code>false</code> otherwise. It's <code>true</code> by default.
    */
-  @SuppressWarnings ("deprecation")
   @OverrideOnDemand
   protected boolean useJAXBContextCache ()
   {

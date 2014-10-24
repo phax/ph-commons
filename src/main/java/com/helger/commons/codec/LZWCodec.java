@@ -123,7 +123,6 @@ public class LZWCodec extends AbstractCodec
 
   protected abstract static class AbstractLZWDictionary
   {
-    @SuppressWarnings ("hiding")
     protected static final Logger s_aLogger = LoggerFactory.getLogger (AbstractLZWDictionary.class);
     /** Maximum index */
     public static final int MAX_CODE = 4096;

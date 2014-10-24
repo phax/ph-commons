@@ -40,7 +40,6 @@ public class NullableTestNonNull implements INullableTest
 
   // Eclipse complains here, because in the interface the parameter is declared
   // with @Nullable
-  @SuppressWarnings ("null")
   public void paramNullable (@Nonnull final String s)
   {}
 }

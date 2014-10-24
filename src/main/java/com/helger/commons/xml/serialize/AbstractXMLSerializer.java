@@ -70,7 +70,6 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
    */
   protected static final class NamespaceLevel
   {
-    @SuppressWarnings ("hiding")
     private static final Logger s_aLogger = LoggerFactory.getLogger (NamespaceLevel.class);
     private String m_sDefaultNamespaceURI;
     private Map <String, String> m_aURL2PrefixMap;

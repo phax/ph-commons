@@ -400,7 +400,6 @@ public final class URLUtils
    * @return May be <code>null</code> if path, anchor and parameters are
    *         <code>null</code>.
    */
-  @SuppressWarnings ("null")
   @Nullable
   public static String getURLString (@Nullable final String sPath,
                                      @Nullable final Map <String, String> aParams,

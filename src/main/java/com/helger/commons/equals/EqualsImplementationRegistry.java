@@ -228,7 +228,6 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     return aImplementsEqualsItself.booleanValue ();
   }
 
-  @SuppressWarnings ("null")
   @Nullable
   public IEqualsImplementation getBestMatchingEqualsImplementation (@Nullable final Class <?> aClass)
   {
