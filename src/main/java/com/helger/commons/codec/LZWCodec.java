@@ -42,14 +42,14 @@ import com.helger.commons.string.ToStringGenerator;
 // ESCA-JAVA0076:
 /**
  * Encoder and decoder for the LZW algorithm
- * 
+ *
  * @author Philip Helger
  */
 public class LZWCodec extends AbstractCodec
 {
   /**
    * A single LZW node
-   * 
+   *
    * @author Philip Helger
    */
   protected static class LZWNode
@@ -94,7 +94,7 @@ public class LZWCodec extends AbstractCodec
     /**
      * This will traverse the tree until it gets to the sub node. This will
      * return null if the node does not exist.
-     * 
+     *
      * @param aBuffer
      *        The path to the node.
      * @return The node that resides at the data path.
@@ -123,6 +123,7 @@ public class LZWCodec extends AbstractCodec
 
   protected abstract static class AbstractLZWDictionary
   {
+    @SuppressWarnings ("hiding")
     protected static final Logger s_aLogger = LoggerFactory.getLogger (AbstractLZWDictionary.class);
     /** Maximum index */
     public static final int MAX_CODE = 4096;
@@ -182,7 +183,7 @@ public class LZWCodec extends AbstractCodec
 
     /**
      * Read the next code
-     * 
+     *
      * @param aBIS
      *        The stream to read from
      * @return The next code
@@ -373,7 +374,7 @@ public class LZWCodec extends AbstractCodec
 
   /**
    * LZW-encode the passed byte array to the passed output stream
-   * 
+   *
    * @param aBuffer
    *        The buffer to be encoded. May be <code>null</code> in which case
    *        nothing happens.
