@@ -91,6 +91,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   private String m_sIndentationString = DEFAULT_INDENTATION_STRING;
   private boolean m_bEmitNamespaces = DEFAULT_EMIT_NAMESPACES;
   private boolean m_bPutNamespaceContextPrefixesInRoot = DEFAULT_PUT_NAMESPACE_CONTEXT_PREFIXES_IN_ROOT;
+  private String m_sNewlineStringToString;
+  private String m_sIndentationStringToString;
 
   /**
    * Creates a default settings object with the following settings:
@@ -353,6 +355,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   public final XMLWriterSettings setNewlineString (@Nonnull @Nonempty final String sNewlineString)
   {
     m_sNewlineString = ValueEnforcer.notEmpty (sNewlineString, "NewlineString");
+    m_sNewlineStringToString = null;
     return this;
   }
 
@@ -367,6 +370,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   public final XMLWriterSettings setIndentationString (@Nonnull @Nonempty final String sIndentationString)
   {
     m_sIndentationString = ValueEnforcer.notEmpty (sIndentationString, "IndentationString");
+    m_sIndentationStringToString = null;
     return this;
   }
 
@@ -456,6 +460,12 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   @Override
   public String toString ()
   {
+    if (m_sNewlineStringToString == null)
+      m_sNewlineStringToString = StringHelper.getHexEncoded (CharsetManager.getAsBytes (m_sNewlineString,
+                                                                                        CCharset.CHARSET_ISO_8859_1_OBJ));
+    if (m_sIndentationStringToString == null)
+      m_sIndentationStringToString = StringHelper.getHexEncoded (CharsetManager.getAsBytes (m_sIndentationString,
+                                                                                            CCharset.CHARSET_ISO_8859_1_OBJ));
     return new ToStringGenerator (this).append ("format", m_eFormat)
                                        .append ("xmlVersion", m_eXMLVersion)
                                        .append ("serializeDocType", m_eSerializeDocType)
@@ -466,12 +476,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .append ("namespaceContext", m_aNamespaceContext)
                                        .append ("doubleQuotesForAttrs", m_bUseDoubleQuotesForAttributes)
                                        .append ("spaceOnSelfClosedElement", m_bSpaceOnSelfClosedElement)
-                                       .append ("newlineString",
-                                                StringHelper.getHexEncoded (CharsetManager.getAsBytes (m_sNewlineString,
-                                                                                                       CCharset.CHARSET_ISO_8859_1_OBJ)))
-                                       .append ("indentationString",
-                                                StringHelper.getHexEncoded (CharsetManager.getAsBytes (m_sIndentationString,
-                                                                                                       CCharset.CHARSET_ISO_8859_1_OBJ)))
+                                       .append ("newlineString", m_sNewlineStringToString)
+                                       .append ("indentationString", m_sIndentationStringToString)
                                        .append ("emitNamespaces", m_bEmitNamespaces)
                                        .append ("putNamespaceContextPrefixesInRoot",
                                                 m_bPutNamespaceContextPrefixesInRoot)
