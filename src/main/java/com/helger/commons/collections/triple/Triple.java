@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
@@ -41,7 +42,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Third type.
  */
 @NotThreadSafe
-public final class Triple <DATA1TYPE, DATA2TYPE, DATA3TYPE> implements ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>
+public final class Triple <DATA1TYPE, DATA2TYPE, DATA3TYPE> implements ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>, ICloneable <Triple <DATA1TYPE, DATA2TYPE, DATA3TYPE>>
 {
   private DATA1TYPE m_aFirst;
   private DATA2TYPE m_aSecond;
@@ -109,6 +110,12 @@ public final class Triple <DATA1TYPE, DATA2TYPE, DATA3TYPE> implements ITriple <
     return EChange.CHANGED;
   }
 
+  @Nonnull
+  public Triple <DATA1TYPE, DATA2TYPE, DATA3TYPE> getClone ()
+  {
+    return new Triple <DATA1TYPE, DATA2TYPE, DATA3TYPE> (this);
+  }
+
   @Override
   public boolean equals (final Object o)
   {
@@ -138,9 +145,9 @@ public final class Triple <DATA1TYPE, DATA2TYPE, DATA3TYPE> implements ITriple <
   }
 
   @Nonnull
-  public static <T, U, V> ITriple <T, U, V> create (@Nullable final T aFirst,
-                                                    @Nullable final U aSecond,
-                                                    @Nullable final V aThird)
+  public static <T, U, V> Triple <T, U, V> create (@Nullable final T aFirst,
+                                                   @Nullable final U aSecond,
+                                                   @Nullable final V aThird)
   {
     return new Triple <T, U, V> (aFirst, aSecond, aThird);
   }

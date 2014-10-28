@@ -92,7 +92,7 @@ public final class ReadonlyPair <DATA1TYPE, DATA2TYPE> implements IReadonlyPair 
   }
 
   @Nonnull
-  public static <T, U> IReadonlyPair <T, U> create (@Nullable final T aFirst, @Nullable final U aSecond)
+  public static <T, U> ReadonlyPair <T, U> create (@Nullable final T aFirst, @Nullable final U aSecond)
   {
     return new ReadonlyPair <T, U> (aFirst, aSecond);
   }

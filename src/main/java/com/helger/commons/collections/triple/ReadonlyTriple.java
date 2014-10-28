@@ -111,9 +111,9 @@ public final class ReadonlyTriple <DATA1TYPE, DATA2TYPE, DATA3TYPE> implements I
   }
 
   @Nonnull
-  public static <T, U, V> IReadonlyTriple <T, U, V> create (@Nullable final T aFirst,
-                                                            @Nullable final U aSecond,
-                                                            @Nullable final V aThird)
+  public static <T, U, V> ReadonlyTriple <T, U, V> create (@Nullable final T aFirst,
+                                                           @Nullable final U aSecond,
+                                                           @Nullable final V aThird)
   {
     return new ReadonlyTriple <T, U, V> (aFirst, aSecond, aThird);
   }

@@ -27,7 +27,7 @@ import com.helger.commons.compare.ESortOrder;
 
 /**
  * Test class for class {@link ComparatorPairFirst}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ComparatorPairFirstTest
@@ -36,9 +36,9 @@ public final class ComparatorPairFirstTest
   public void testAll ()
   {
     @SuppressWarnings ("unchecked")
-    final List <IReadonlyPair <String, String>> aList = ContainerHelper.newList (ReadonlyPair.create ("k3", "v3"),
-                                                                                 ReadonlyPair.create ("k2", "v2"),
-                                                                                 ReadonlyPair.create ("k1", "v1"));
+    final List <ReadonlyPair <String, String>> aList = ContainerHelper.newList (ReadonlyPair.create ("k3", "v3"),
+                                                                                ReadonlyPair.create ("k2", "v2"),
+                                                                                ReadonlyPair.create ("k1", "v1"));
     assertEquals (3, aList.size ());
 
     ContainerHelper.getSortedInline (aList, new ComparatorPairFirst <String, String> ());

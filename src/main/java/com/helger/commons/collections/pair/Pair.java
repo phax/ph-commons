@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
@@ -38,7 +39,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Second type.
  */
 @NotThreadSafe
-public final class Pair <DATA1TYPE, DATA2TYPE> implements IPair <DATA1TYPE, DATA2TYPE>
+public final class Pair <DATA1TYPE, DATA2TYPE> implements IPair <DATA1TYPE, DATA2TYPE>, ICloneable <Pair <DATA1TYPE, DATA2TYPE>>
 {
   private DATA1TYPE m_aFirst;
   private DATA2TYPE m_aSecond;
@@ -91,6 +92,12 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IPair <DATA1TYPE, DATA
     return EChange.CHANGED;
   }
 
+  @Nonnull
+  public Pair <DATA1TYPE, DATA2TYPE> getClone ()
+  {
+    return new Pair <DATA1TYPE, DATA2TYPE> (this);
+  }
+
   @Override
   public boolean equals (final Object o)
   {
@@ -115,7 +122,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IPair <DATA1TYPE, DATA
   }
 
   @Nonnull
-  public static <T, U> IPair <T, U> create (@Nullable final T aFirst, @Nullable final U aSecond)
+  public static <T, U> Pair <T, U> create (@Nullable final T aFirst, @Nullable final U aSecond)
   {
     return new Pair <T, U> (aFirst, aSecond);
   }

@@ -24,7 +24,6 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.collections.pair.IReadonlyPair;
 import com.helger.commons.collections.pair.ReadonlyPair;
 import com.helger.commons.id.MockHasIDInteger;
 import com.helger.commons.id.MockHasIDString;
@@ -32,7 +31,7 @@ import com.helger.commons.name.MockHasName;
 
 /**
  * Test class for implementation classes of {@link IUnidirectionalConverter}.
- * 
+ *
  * @author Philip Helger
  */
 public final class IUnidirectionalConverterTest
@@ -55,12 +54,12 @@ public final class IUnidirectionalConverterTest
   public void testConversion ()
   {
     @SuppressWarnings ("unchecked")
-    final List <IReadonlyPair <Integer, String>> aPairs = ContainerHelper.newList (ReadonlyPair.create (Integer.valueOf (1),
-                                                                                                        "Hallo"),
-                                                                                   ReadonlyPair.create (Integer.valueOf (2),
-                                                                                                        "welt"),
-                                                                                   ReadonlyPair.create (Integer.valueOf (47),
-                                                                                                        "!"));
+    final List <ReadonlyPair <Integer, String>> aPairs = ContainerHelper.newList (ReadonlyPair.create (Integer.valueOf (1),
+                                                                                                       "Hallo"),
+                                                                                  ReadonlyPair.create (Integer.valueOf (2),
+                                                                                                       "welt"),
+                                                                                  ReadonlyPair.create (Integer.valueOf (47),
+                                                                                                       "!"));
     _test (UnidirectionalConverterPairFirst.<Integer, String> create (),
            aPairs,
            ContainerHelper.newList (Integer.valueOf (1), Integer.valueOf (2), Integer.valueOf (47)));
