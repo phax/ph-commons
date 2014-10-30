@@ -22,11 +22,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.collections.ContainerHelper;
 
 /**
  * An implementation of {@link IUnidirectionalConverter} that converts from a
  * map key to a map value
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        Map key type
@@ -40,6 +42,13 @@ public final class UnidirectionalConverterMapGet <KEYTYPE, VALUETYPE> implements
   public UnidirectionalConverterMapGet (@Nonnull final Map <KEYTYPE, VALUETYPE> aMap)
   {
     m_aMap = ValueEnforcer.notNull (aMap, "Map");
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public Map <KEYTYPE, VALUETYPE> getMap ()
+  {
+    return ContainerHelper.newMap (m_aMap);
   }
 
   @Nullable

@@ -14,36 +14,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.convert;
+package com.helger.commons.callback;
 
 import javax.annotation.Nullable;
 
-import com.helger.commons.string.StringParser;
+import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Get a generic data converter that converts a string to an Integer. If the
- * conversion fails, the default value is returned from the converter.
+ * A specific implementation of the {@link IExceptionHandler} interface, that
+ * stores the last exception.
  *
  * @author Philip Helger
+ * @param <EXTYPE>
+ *        The exception type to be handled
  */
-public final class UnidirectionalConverterStringInteger implements IUnidirectionalConverter <String, Integer>
+public final class CollectingExceptionHandler <EXTYPE extends Throwable> implements IExceptionHandler <EXTYPE>
 {
-  private final Integer m_aDefaultValue;
+  private EXTYPE m_aException;
 
-  public UnidirectionalConverterStringInteger (@Nullable final Integer aDefaultValue)
+  public void onException (@Nullable final EXTYPE aEx)
   {
-    m_aDefaultValue = aDefaultValue;
+    m_aException = aEx;
+  }
+
+  public boolean hasException ()
+  {
+    return m_aException != null;
   }
 
   @Nullable
-  public Integer getDefaultValue ()
+  public EXTYPE getException ()
   {
-    return m_aDefaultValue;
+    return m_aException;
   }
 
-  @Nullable
-  public Integer convert (@Nullable final String sInput)
+  @Override
+  public String toString ()
   {
-    return StringParser.parseIntObj (sInput, m_aDefaultValue);
+    return new ToStringGenerator (this).append ("exception", m_aException).toString ();
   }
 }

@@ -45,6 +45,12 @@ public final class AggregatorConstant <SRCTYPE, DSTTYPE> implements IAggregator 
   }
 
   @Nullable
+  public DSTTYPE getConstantValue ()
+  {
+    return m_aValue;
+  }
+
+  @Nullable
   public DSTTYPE aggregate (@Nullable final Collection <SRCTYPE> aResults)
   {
     return m_aValue;

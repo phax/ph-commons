@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A helper class that converts a {@link Runnable} into an
  * {@link IThrowingRunnable}.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -36,6 +36,12 @@ public class AdapterRunnableToThrowingRunnable implements IThrowingRunnable
   public AdapterRunnableToThrowingRunnable (@Nonnull final Runnable aRunnable)
   {
     m_aRunnable = ValueEnforcer.notNull (aRunnable, "Runnable");
+  }
+
+  @Nonnull
+  public Runnable getRunnable ()
+  {
+    return m_aRunnable;
   }
 
   public void run () throws Exception

@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Map implementation that can only keep 0 or 1 element.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        The key type.
@@ -46,8 +46,8 @@ import com.helger.commons.string.ToStringGenerator;
 public final class SingleElementMap <KEYTYPE, VALUETYPE> implements Map <KEYTYPE, VALUETYPE>, IHasSize
 {
   private boolean m_bHasElement = false;
-  private KEYTYPE m_aKey = null;
-  private VALUETYPE m_aValue = null;
+  private KEYTYPE m_aKey;
+  private VALUETYPE m_aValue;
 
   public SingleElementMap ()
   {}

@@ -28,7 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Factory for new aggregator objects. Holds a hard reference to the class.
- * 
+ *
  * @author Philip Helger
  * @param <SRCTYPE>
  *        Aggregator in type
@@ -47,6 +47,12 @@ public final class AggregatorFactoryNewInstance <SRCTYPE, DSTTYPE> implements IA
       throw new IllegalArgumentException ("Class " + aClass + " is not instancable!");
 
     m_aClass = aClass;
+  }
+
+  @Nonnull
+  public Class <? extends IAggregator <?, ?>> getAggregatorClass ()
+  {
+    return m_aClass;
   }
 
   @Nullable

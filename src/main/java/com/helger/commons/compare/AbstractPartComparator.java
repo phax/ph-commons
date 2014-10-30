@@ -26,7 +26,7 @@ import com.helger.commons.ValueEnforcer;
 /**
  * This class is an {@link AbstractComparator} that extracts a certain data
  * element from the main object to compare.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of elements to be compared.
@@ -39,7 +39,7 @@ public abstract class AbstractPartComparator <DATATYPE, PARTTYPE> extends Abstra
 
   /**
    * Comparator with default sort order and no nested comparator.
-   * 
+   *
    * @param aPartComparator
    *        The comparator for comparing the IDs. May not be <code>null</code>.
    */
@@ -50,7 +50,7 @@ public abstract class AbstractPartComparator <DATATYPE, PARTTYPE> extends Abstra
 
   /**
    * Constructor with sort order and no nested comparator.
-   * 
+   *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    * @param aPartComparator
@@ -64,7 +64,7 @@ public abstract class AbstractPartComparator <DATATYPE, PARTTYPE> extends Abstra
 
   /**
    * Comparator with default sort order and a nested comparator.
-   * 
+   *
    * @param aNestedComparator
    *        The nested comparator to be invoked, when the main comparison
    *        resulted in 0.
@@ -79,7 +79,7 @@ public abstract class AbstractPartComparator <DATATYPE, PARTTYPE> extends Abstra
 
   /**
    * Constructor with sort order and a nested comparator.
-   * 
+   *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    * @param aNestedComparator
@@ -94,6 +94,15 @@ public abstract class AbstractPartComparator <DATATYPE, PARTTYPE> extends Abstra
   {
     super (eSortOrder, aNestedComparator);
     m_aPartComparator = ValueEnforcer.notNull (aPartComparator, "PartComparator");
+  }
+
+  /**
+   * @return The part comparator. May be <code>null</code>.
+   */
+  @Nonnull
+  public final Comparator <? super PARTTYPE> getPartComparator ()
+  {
+    return m_aPartComparator;
   }
 
   @Nullable

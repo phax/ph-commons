@@ -24,12 +24,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * An abstract implementation of a {@link java.util.Comparator} that uses
  * collations for ordering. This is only necessary when comparing strings.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        the type of object to be compared
@@ -49,7 +50,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
   /**
    * Comparator with default locale {@link Collator} and default sort order and
    * a nested comparator.
-   * 
+   *
    * @param aNestedComparator
    *        The nested comparator to be invoked, when the main comparison
    *        resulted in 0.
@@ -61,7 +62,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
 
   /**
    * Comparator with default locale {@link Collator}.
-   * 
+   *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    */
@@ -72,7 +73,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
 
   /**
    * Comparator with default locale {@link Collator} and a nested comparator.
-   * 
+   *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    * @param aNestedComparator
@@ -87,7 +88,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
 
   /**
    * Comparator with default sort order and specified sort locale.
-   * 
+   *
    * @param aSortLocale
    *        The locale to use. May be <code>null</code>.
    */
@@ -99,7 +100,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
   /**
    * Comparator with default sort order but special locale and a nested
    * comparator.
-   * 
+   *
    * @param aSortLocale
    *        The locale to use. May be <code>null</code>.
    * @param aNestedComparator
@@ -114,7 +115,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
 
   /**
    * Constructor with locale and sort order.
-   * 
+   *
    * @param aSortLocale
    *        The locale to use. May be <code>null</code>.
    * @param eSortOrder
@@ -127,7 +128,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
 
   /**
    * Constructor with locale and sort order and a nested comparator.
-   * 
+   *
    * @param aSortLocale
    *        The locale to use. May be <code>null</code>.
    * @param eSortOrder
@@ -146,7 +147,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
 
   /**
    * Constructor with {@link Collator} using the default sort order
-   * 
+   *
    * @param aCollator
    *        The {@link Collator} to use. May not be <code>null</code>.
    */
@@ -158,7 +159,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
   /**
    * Constructor with {@link Collator} using the default sort order and a nested
    * comparator.
-   * 
+   *
    * @param aCollator
    *        The {@link Collator} to use. May not be <code>null</code>.
    * @param aNestedComparator
@@ -173,7 +174,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
 
   /**
    * Constructor with {@link Collator} and sort order.
-   * 
+   *
    * @param aCollator
    *        The {@link Collator} to use. May not be <code>null</code>.
    * @param eSortOrder
@@ -186,7 +187,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
 
   /**
    * Constructor with {@link Collator} and sort order and a nested comparator.
-   * 
+   *
    * @param aCollator
    *        The {@link Collator} to use. May not be <code>null</code>.
    * @param eSortOrder
@@ -204,10 +205,17 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
     m_aCollator = (Collator) aCollator.clone ();
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public Collator getCollator ()
+  {
+    return (Collator) m_aCollator.clone ();
+  }
+
   /**
    * Abstract method that needs to be overridden to convert an object to a
    * string representation for comparison.
-   * 
+   *
    * @param aObject
    *        The object to be converted. May not be <code>null</code> depending
    *        on the elements to be sorted.

@@ -30,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Implementation of {@link IFactory} that always creates a new instance via
  * reflection
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The return type of the factory
@@ -46,6 +46,12 @@ public final class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>,
                                           aClass +
                                           "' is not instancable or doesn't have a no-argument constructor!");
     m_aClass = aClass;
+  }
+
+  @Nullable
+  public Class <? extends DATATYPE> getFactoryClass ()
+  {
+    return m_aClass;
   }
 
   @Nullable

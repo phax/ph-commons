@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A helper class that converts a {@link Runnable} into an
  * {@link IThrowingRunnableWithParameter}.
- * 
+ *
  * @author Philip Helger
  * @param <PARAMTYPE>
  *        The parameter type.
@@ -38,6 +38,12 @@ public class AdapterRunnableToRunnableWithParameter <PARAMTYPE> implements IThro
   public AdapterRunnableToRunnableWithParameter (@Nonnull final Runnable aRunnable)
   {
     m_aRunnable = ValueEnforcer.notNull (aRunnable, "Runnable");
+  }
+
+  @Nonnull
+  public Runnable getRunnable ()
+  {
+    return m_aRunnable;
   }
 
   public void run (final PARAMTYPE aParam) throws Exception

@@ -27,7 +27,7 @@ import com.helger.commons.ValueEnforcer;
 /**
  * Abstract comparator class that supports a sort order. This comparator may
  * only be applied on non-<code>null</code> values.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type to be compared
@@ -47,7 +47,7 @@ public abstract class AbstractComparator <DATATYPE> implements Comparator <DATAT
 
   /**
    * Constructor with sort order.
-   * 
+   *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    */
@@ -58,7 +58,7 @@ public abstract class AbstractComparator <DATATYPE> implements Comparator <DATAT
 
   /**
    * Comparator with default sort order and a nested comparator.
-   * 
+   *
    * @param aNestedComparator
    *        The nested comparator to be invoked, when the main comparison
    *        resulted in 0.
@@ -70,7 +70,7 @@ public abstract class AbstractComparator <DATATYPE> implements Comparator <DATAT
 
   /**
    * Comparator with sort order and a nested comparator.
-   * 
+   *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    * @param aNestedComparator
@@ -85,8 +85,17 @@ public abstract class AbstractComparator <DATATYPE> implements Comparator <DATAT
   }
 
   /**
+   * @return The currently assigned sort order. Never <code>null</code>.
+   */
+  @Nonnull
+  public final ESortOrder getSortOrder ()
+  {
+    return m_eSortOrder;
+  }
+
+  /**
    * Call this to enable sorting after the constructor was invoked.
-   * 
+   *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    * @return this
@@ -99,12 +108,12 @@ public abstract class AbstractComparator <DATATYPE> implements Comparator <DATAT
   }
 
   /**
-   * @return The currently assigned sort order. Never <code>null</code>.
+   * @return The nested comparator. May be <code>null</code>.
    */
   @Nonnull
-  public final ESortOrder getSortOrder ()
+  public final Comparator <? super DATATYPE> getNestedComparator ()
   {
-    return m_eSortOrder;
+    return m_aNestedComparator;
   }
 
   /**

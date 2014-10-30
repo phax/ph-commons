@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Contains a list of resource errors and some sanity access methods.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -67,7 +67,7 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
 
   /**
    * Add a new resource error item.
-   * 
+   *
    * @param aResourceError
    *        The resource error to be added. May not be <code>null</code>.
    * @return this
@@ -82,7 +82,7 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
 
   /**
    * Add a all resource errors of the other group
-   * 
+   *
    * @param aResourceErrorGroup
    *        The resource error group to be added. May not be <code>null</code>.
    * @return this
@@ -254,6 +254,7 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public ResourceErrorGroup getClone ()
   {
     return new ResourceErrorGroup (m_aErrors);

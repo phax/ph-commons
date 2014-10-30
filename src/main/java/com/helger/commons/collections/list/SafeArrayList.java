@@ -38,7 +38,7 @@ import com.helger.commons.string.ToStringGenerator;
  * desired index with values provided by an {@link IFactory}. If you don't pass
  * an {@link IFactory} in the constructor a default factory returning null
  * values is used.
- * 
+ *
  * @author Philip
  * @param <ELEMENTTYPE>
  *        The type of the elements in the list
@@ -57,6 +57,12 @@ public class SafeArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impleme
   public SafeArrayList (@Nonnull final IFactory <ELEMENTTYPE> aFactory)
   {
     m_aFactory = ValueEnforcer.notNull (aFactory, "Factory");
+  }
+
+  @Nonnull
+  public IFactory <ELEMENTTYPE> getFactory ()
+  {
+    return m_aFactory;
   }
 
   private void _ensureSize (@Nonnegative final int nIndex)

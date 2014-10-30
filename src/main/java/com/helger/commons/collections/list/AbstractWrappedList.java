@@ -28,11 +28,12 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.IHasSize;
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.ReturnsMutableObject;
 
 /**
  * This is a facade for a list. It may be used to wrap any kind of list and
  * overwrite single methods, e.g. for logging.
- * 
+ *
  * @author Philip
  * @param <ELEMENTTYPE>
  *        Element type
@@ -45,6 +46,13 @@ public abstract class AbstractWrappedList <ELEMENTTYPE> implements List <ELEMENT
   public AbstractWrappedList (@Nonnull final List <ELEMENTTYPE> aList)
   {
     m_aSrc = ValueEnforcer.notNull (aList, "List");
+  }
+
+  @Nonnull
+  @ReturnsMutableObject (reason = "design")
+  protected List <ELEMENTTYPE> getSrcList ()
+  {
+    return m_aSrc;
   }
 
   @Nullable

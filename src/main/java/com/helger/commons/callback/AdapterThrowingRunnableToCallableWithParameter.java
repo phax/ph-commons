@@ -26,7 +26,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A helper class that converts a {@link IThrowingRunnable} into an
  * {@link IThrowingCallable}.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The callable result type.
@@ -51,6 +51,18 @@ public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE
     m_aResult = aResult;
   }
 
+  @Nonnull
+  public IThrowingRunnableWithParameter <PARAMTYPE> getRunnable ()
+  {
+    return m_aRunnable;
+  }
+
+  @Nullable
+  public DATATYPE getResult ()
+  {
+    return m_aResult;
+  }
+
   @Nullable
   public DATATYPE call (final PARAMTYPE aParam) throws Exception
   {
@@ -66,7 +78,7 @@ public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE
 
   /**
    * Create a callable that always returns <code>null</code>.
-   * 
+   *
    * @param aRunnable
    *        The runnable to be executed.
    * @return The created {@link AdapterThrowingRunnableToCallableWithParameter}
@@ -80,7 +92,7 @@ public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE
 
   /**
    * Create a callable that always returns the passed value.
-   * 
+   *
    * @param aRunnable
    *        The runnable to be executed.
    * @param aResult

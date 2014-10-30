@@ -27,7 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A helper class that converts a {@link Callable} into an
  * {@link IThrowingCallableWithParameter}.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The callable result type.
@@ -42,6 +42,12 @@ public class AdapterCallableToCallableWithParam <DATATYPE, PARAMTYPE> implements
   public AdapterCallableToCallableWithParam (@Nonnull final Callable <DATATYPE> aCallable)
   {
     m_aCallable = ValueEnforcer.notNull (aCallable, "Callable");
+  }
+
+  @Nonnull
+  public Callable <DATATYPE> getCallable ()
+  {
+    return m_aCallable;
   }
 
   @Nonnull

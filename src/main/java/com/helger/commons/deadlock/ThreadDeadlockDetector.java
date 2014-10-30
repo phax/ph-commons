@@ -37,13 +37,14 @@ import com.helger.commons.state.EChange;
 
 /**
  * This is the main dead lock detector, based on JMX {@link ThreadMXBean}
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
 public final class ThreadDeadlockDetector
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ThreadDeadlockDetector.class);
+
   private final ThreadMXBean m_aMBean = ManagementFactory.getThreadMXBean ();
   private final Set <IThreadDeadlockListener> m_aListeners = new CopyOnWriteArraySet <IThreadDeadlockListener> ();
 
