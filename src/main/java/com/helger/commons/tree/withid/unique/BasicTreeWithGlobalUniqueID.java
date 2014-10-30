@@ -144,9 +144,16 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
   }
 
   @Nullable
+  @Deprecated
   public List <? extends ITEMTYPE> getChildren (@Nullable final ITEMTYPE aItem)
   {
-    return aItem == null ? getRootItem ().getChildren () : aItem.getChildren ();
+    return getAllChildren (aItem);
+  }
+
+  @Nullable
+  public List <? extends ITEMTYPE> getAllChildren (@Nullable final ITEMTYPE aItem)
+  {
+    return aItem == null ? getRootItem ().getAllChildren () : aItem.getAllChildren ();
   }
 
   @Override

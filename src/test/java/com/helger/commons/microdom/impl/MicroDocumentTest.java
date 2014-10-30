@@ -34,7 +34,7 @@ import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MicroDocument}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroDocumentTest
@@ -75,7 +75,7 @@ public final class MicroDocumentTest
     assertNull (d.getDocumentElement ());
     assertTrue (d.hasChildren ());
     assertFalse (d.isStandalone ());
-    assertEquals (1, d.getChildren ().size ());
+    assertEquals (1, d.getAllChildren ().size ());
   }
 
   @Test

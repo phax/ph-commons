@@ -27,7 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
 // ESCA-JAVA0143:
 /**
  * A wrapper around an {@link InputStream} that counts the number of read bytes.
- * 
+ *
  * @author Philip Helger
  */
 public class CountingInputStream extends WrappedInputStream
@@ -49,18 +49,6 @@ public class CountingInputStream extends WrappedInputStream
     {
       m_nBytesRead++;
       m_nPosition++;
-    }
-    return ret;
-  }
-
-  @Override
-  public int read (final byte [] b, final int nOffset, final int nLength) throws IOException
-  {
-    final int ret = super.read (b, nOffset, nLength);
-    if (ret != -1)
-    {
-      m_nBytesRead += ret;
-      m_nPosition += ret;
     }
     return ret;
   }

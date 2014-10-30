@@ -32,8 +32,7 @@ import com.helger.commons.parent.IHasChildren;
  * @param <CHILDTYPE>
  *        The data type of the child objects.
  */
-public class ChildrenProviderHasChildren <CHILDTYPE extends IHasChildren <CHILDTYPE>> implements
-                                                                                      IChildrenProvider <CHILDTYPE>
+public class ChildrenProviderHasChildren <CHILDTYPE extends IHasChildren <CHILDTYPE>> implements IChildrenProvider <CHILDTYPE>
 {
   public final boolean hasChildren (@Nullable final CHILDTYPE aCurrent)
   {
@@ -47,8 +46,15 @@ public class ChildrenProviderHasChildren <CHILDTYPE extends IHasChildren <CHILDT
   }
 
   @Nullable
+  @Deprecated
   public Collection <? extends CHILDTYPE> getChildren (@Nullable final CHILDTYPE aCurrent)
   {
-    return aCurrent == null ? null : aCurrent.getChildren ();
+    return getAllChildren (aCurrent);
+  }
+
+  @Nullable
+  public Collection <? extends CHILDTYPE> getAllChildren (@Nullable final CHILDTYPE aCurrent)
+  {
+    return aCurrent == null ? null : aCurrent.getAllChildren ();
   }
 }

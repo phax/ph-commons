@@ -26,7 +26,7 @@ import com.helger.commons.parent.IChildrenProvider;
 /**
  * Recursively visit all children provided by a given {@link IChildrenProvider}
  * and call a callback for each visited child.
- * 
+ *
  * @author Philip Helger
  * @param <CHILDTYPE>
  *        The type of children to walk
@@ -60,7 +60,7 @@ public final class ChildrenProviderWalker <CHILDTYPE>
       m_aCallback.onLevelDown ();
       try
       {
-        for (final CHILDTYPE aChildObject : m_aChildrenProvider.getChildren (aObject))
+        for (final CHILDTYPE aChildObject : m_aChildrenProvider.getAllChildren (aObject))
         {
           // recursive call
           _walkRecursive (aChildObject);
@@ -84,7 +84,7 @@ public final class ChildrenProviderWalker <CHILDTYPE>
     {
       // null == root level
       if (m_aChildrenProvider.hasChildren (null))
-        for (final CHILDTYPE aRootChild : m_aChildrenProvider.getChildren (null))
+        for (final CHILDTYPE aRootChild : m_aChildrenProvider.getAllChildren (null))
           _walkRecursive (aRootChild);
     }
     finally

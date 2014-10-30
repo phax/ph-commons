@@ -27,7 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A wrapper around an {@link OutputStream} that counts the number of read
  * bytes.
- * 
+ *
  * @author Philip Helger
  */
 public class CountingOutputStream extends WrappedOutputStream
@@ -44,13 +44,6 @@ public class CountingOutputStream extends WrappedOutputStream
   {
     super.write (b);
     m_nBytesWritten++;
-  }
-
-  @Override
-  public void write (final byte [] b, final int nOffset, final int nLength) throws IOException
-  {
-    super.write (b, nOffset, nLength);
-    m_nBytesWritten += nLength;
   }
 
   /**

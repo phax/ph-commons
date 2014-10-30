@@ -30,7 +30,7 @@ import com.helger.commons.tree.withid.DefaultTreeWithID;
 
 /**
  * Test class for class {@link TreeWithIDSorter}
- * 
+ *
  * @author Philip Helger
  */
 public final class TreeWithIDSorterTest
@@ -52,7 +52,7 @@ public final class TreeWithIDSorterTest
     TreeWithIDSorter.sortByValue (aTree, new ComparatorString ());
 
     assertEquals (2, aTree.getRootItem ().getChildCount ());
-    List <? extends DefaultTreeItemWithID <String, String>> aChildren = aTree.getRootItem ().getChildren ();
+    List <? extends DefaultTreeItemWithID <String, String>> aChildren = aTree.getRootItem ().getAllChildren ();
     assertSame (i2, aChildren.get (0));
     assertSame (i1, aChildren.get (1));
     // Test Apache (children must also be sorted)
@@ -69,7 +69,7 @@ public final class TreeWithIDSorterTest
     TreeWithIDSorter.sortByID (aTree, new ComparatorString ());
 
     assertEquals (2, aTree.getRootItem ().getChildCount ());
-    aChildren = aTree.getRootItem ().getChildren ();
+    aChildren = aTree.getRootItem ().getAllChildren ();
     assertSame (i1, aChildren.get (0));
     assertSame (i2, aChildren.get (1));
     // Test Windows

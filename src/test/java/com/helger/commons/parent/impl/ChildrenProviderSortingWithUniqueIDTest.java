@@ -31,7 +31,7 @@ import com.helger.commons.parent.MockHasChildren;
 
 /**
  * Test class for class {@link ChildrenProviderSortingWithUniqueID}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ChildrenProviderSortingWithUniqueIDTest
@@ -48,13 +48,13 @@ public final class ChildrenProviderSortingWithUniqueIDTest
                                                                                                                                                 new ComparatorHasIDString <MockHasChildren> ());
     assertFalse (cr.hasChildren (null));
     assertEquals (0, cr.getChildCount (null));
-    assertNull (cr.getChildren (null));
+    assertNull (cr.getAllChildren (null));
     assertTrue (cr.hasChildren (hc1));
     assertFalse (cr.hasChildren (hca));
     assertEquals (2, cr.getChildCount (hc1));
     assertEquals (0, cr.getChildCount (hca));
-    assertNotNull (cr.getChildren (hc1));
-    assertNotNull (cr.getChildren (hca));
+    assertNotNull (cr.getAllChildren (hc1));
+    assertNotNull (cr.getAllChildren (hca));
     assertSame (hca, cr.getItemWithID ("a"));
     assertSame (hcb, cr.getItemWithID ("b"));
     assertNull (cr.getItemWithID ("anyid"));

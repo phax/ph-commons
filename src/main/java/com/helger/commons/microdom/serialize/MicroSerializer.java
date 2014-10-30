@@ -131,7 +131,7 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       aXMLWriter.onDocumentStart (m_aSettings.getXMLVersion (), m_aSettings.getCharset (), aDocument.isStandalone ());
 
     if (aDocument.hasChildren ())
-      _writeNodeList (aXMLWriter, aDocument.getChildren ());
+      _writeNodeList (aXMLWriter, aDocument.getAllChildren ());
   }
 
   private void _writeDocumentType (@Nonnull final IXMLIterationHandler aXMLWriter, final IMicroDocumentType aDocType)
@@ -150,7 +150,7 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
   {
     // A container has no own properties!
     if (aContainer.hasChildren ())
-      _writeNodeList (aXMLWriter, aContainer.getChildren ());
+      _writeNodeList (aXMLWriter, aContainer.getAllChildren ());
   }
 
   private static void _writeEntityReference (@Nonnull final IXMLIterationHandler aXMLWriter,
@@ -195,7 +195,7 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     final String sTagName = aElement.getLocalName () != null ? aElement.getLocalName () : aElement.getTagName ();
 
     final boolean bEmitNamespaces = m_aSettings.isEmitNamespaces ();
-    final List <IMicroNode> aChildNodeList = aElement.getChildren ();
+    final List <IMicroNode> aChildNodeList = aElement.getAllChildren ();
     final boolean bHasChildren = aElement.hasChildren ();
 
     final boolean bIsRootElement = aElement.getParent () != null && aElement.getParent ().isDocument ();

@@ -452,6 +452,12 @@ public final class ToStringGenerator
     return aValue == null || aValue.isEmpty () ? this : append (sField, aValue);
   }
 
+  @Nonnull
+  public ToStringGenerator appendIfNotEmpty (@Nonnull final String sField, @Nullable final String sValue)
+  {
+    return sValue == null || sValue.length () == 0 ? this : append (sField, sValue);
+  }
+
   @Override
   @Nonnull
   public String toString ()

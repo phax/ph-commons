@@ -25,16 +25,15 @@ import com.helger.commons.parent.IChildrenProviderWithID;
 
 /**
  * An {@link IChildrenProviderWithID} with ID that returns the children in
- * {@link #getChildren(Object)} sorted.
- * 
+ * {@link #getAllChildren(Object)} sorted.
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        The key type.
  * @param <CHILDTYPE>
  *        The data type of the child objects.
  */
-public class ChildrenProviderSortingWithID <KEYTYPE, CHILDTYPE> extends ChildrenProviderSorting <CHILDTYPE> implements
-                                                                                                           IChildrenProviderWithID <KEYTYPE, CHILDTYPE>
+public class ChildrenProviderSortingWithID <KEYTYPE, CHILDTYPE> extends ChildrenProviderSorting <CHILDTYPE> implements IChildrenProviderWithID <KEYTYPE, CHILDTYPE>
 {
   public ChildrenProviderSortingWithID (@Nonnull final IChildrenProviderWithID <KEYTYPE, CHILDTYPE> aCP,
                                         @Nonnull final Comparator <? super CHILDTYPE> aComparator)

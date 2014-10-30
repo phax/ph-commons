@@ -28,21 +28,27 @@ import com.helger.commons.parent.IHasChildrenSorted;
 /**
  * An {@link IChildrenProviderSorted} implementation for object implementing the
  * {@link IHasChildrenSorted} interface.
- * 
+ *
  * @author Philip Helger
  * @param <CHILDTYPE>
  *        The data type of the child objects.
  */
 @Immutable
-public final class ChildrenProviderHasChildrenSorted <CHILDTYPE extends IHasChildrenSorted <CHILDTYPE>> extends
-                                                                                                        ChildrenProviderHasChildren <CHILDTYPE> implements
-                                                                                                                                               IChildrenProviderSorted <CHILDTYPE>
+public final class ChildrenProviderHasChildrenSorted <CHILDTYPE extends IHasChildrenSorted <CHILDTYPE>> extends ChildrenProviderHasChildren <CHILDTYPE> implements IChildrenProviderSorted <CHILDTYPE>
 {
   @Override
   @Nullable
+  @Deprecated
   public List <? extends CHILDTYPE> getChildren (@Nullable final CHILDTYPE aCurrent)
   {
-    return aCurrent == null ? null : aCurrent.getChildren ();
+    return getAllChildren (aCurrent);
+  }
+
+  @Override
+  @Nullable
+  public List <? extends CHILDTYPE> getAllChildren (@Nullable final CHILDTYPE aCurrent)
+  {
+    return aCurrent == null ? null : aCurrent.getAllChildren ();
   }
 
   @Nullable

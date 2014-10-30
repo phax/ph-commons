@@ -33,7 +33,7 @@ import com.helger.commons.tree.IBasicTreeItem;
  * A specialized walker that iterates all elements in a tree and calls a
  * callback method. Compared to {@link TreeWalker} the callbacks used in this
  * class allow to stop iteration or to skip all siblings.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -62,7 +62,7 @@ public final class TreeWalkerDynamic
       aCallback.onLevelDown ();
       try
       {
-        for (final ITEMTYPE aChildItem : aChildrenProvider.getChildren (aTreeItem))
+        for (final ITEMTYPE aChildItem : aChildrenProvider.getAllChildren (aTreeItem))
         {
           // recursive call
           eRetChildren = _walkTree (aChildItem, aChildrenProvider, aCallback);
@@ -159,7 +159,7 @@ public final class TreeWalkerDynamic
     try
     {
       if (aChildrenProvider.hasChildren (aTreeItem))
-        for (final ITEMTYPE aChildItem : aChildrenProvider.getChildren (aTreeItem))
+        for (final ITEMTYPE aChildItem : aChildrenProvider.getAllChildren (aTreeItem))
           _walkTree (aChildItem, aChildrenProvider, aCallback);
     }
     finally

@@ -31,7 +31,7 @@ import com.helger.commons.tree.IBasicTreeItem;
 /**
  * Iterate all nodes of a tree, or a tree element using a custom callback
  * mechanism.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -50,7 +50,7 @@ public final class TreeWalker
   {
     aCallback.onItemBeforeChildren (aTreeItem);
     if (aChildrenProvider.hasChildren (aTreeItem))
-      for (final ITEMTYPE aChildItem : aChildrenProvider.getChildren (aTreeItem))
+      for (final ITEMTYPE aChildItem : aChildrenProvider.getAllChildren (aTreeItem))
       {
         aCallback.onLevelDown ();
         // recursive call
@@ -108,7 +108,7 @@ public final class TreeWalker
     try
     {
       if (aChildrenProvider.hasChildren (aTreeItem))
-        for (final ITEMTYPE aChildItem : aChildrenProvider.getChildren (aTreeItem))
+        for (final ITEMTYPE aChildItem : aChildrenProvider.getAllChildren (aTreeItem))
           _walkTree (aChildItem, aChildrenProvider, aCallback);
     }
     finally

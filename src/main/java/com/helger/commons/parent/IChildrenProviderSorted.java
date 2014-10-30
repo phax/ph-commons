@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 /**
  * This interface can be used to generically resolved children of a certain
  * object in a sorted way.
- * 
+ *
  * @author Philip Helger
  * @param <CHILDTYPE>
  *        The type of the children to retrieve.
@@ -33,7 +33,24 @@ public interface IChildrenProviderSorted <CHILDTYPE> extends IChildrenProvider <
 {
   /**
    * Get the children of the passed object.
-   * 
+   *
+   * @param aCurrent
+   *        The object to determine the children of. May be <code>null</code>
+   *        depending on the concrete implementation.
+   * @return The child objects, or <code>null</code> if there are no children.
+   *         If <code>null</code> is passed, the resolver is expected to return
+   *         any possible top level (root) elements. This method may NOT return
+   *         <code>null</code> if the call to {@link #hasChildren(Object)} with
+   *         the same object returned <code>true</code>.
+   * @deprecated Use {@link #getAllChildren(Object)} instead
+   */
+  @Nullable
+  @Deprecated
+  List <? extends CHILDTYPE> getChildren (@Nullable CHILDTYPE aCurrent);
+
+  /**
+   * Get the children of the passed object.
+   *
    * @param aCurrent
    *        The object to determine the children of. May be <code>null</code>
    *        depending on the concrete implementation.
@@ -44,13 +61,13 @@ public interface IChildrenProviderSorted <CHILDTYPE> extends IChildrenProvider <
    *         the same object returned <code>true</code>.
    */
   @Nullable
-  List <? extends CHILDTYPE> getChildren (@Nullable CHILDTYPE aCurrent);
+  List <? extends CHILDTYPE> getAllChildren (@Nullable CHILDTYPE aCurrent);
 
   /**
    * Get the child of the passed object at the given index. It is assumed that
    * objects are accessed in exactly the same order as they are delivered by
    * {@link #getChildren(Object)}.
-   * 
+   *
    * @param aCurrent
    *        The object to get the child of. May be <code>null</code> depending
    *        on the concrete implementation.

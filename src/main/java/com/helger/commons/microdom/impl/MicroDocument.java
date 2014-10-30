@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Default implementation of the {@link IMicroDocument} interface.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroDocument extends AbstractMicroNodeWithChildren implements IMicroDocument
@@ -123,7 +123,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
     final MicroDocument ret = new MicroDocument ();
     ret.setStandalone (m_bIsStandalone);
     if (hasChildren ())
-      for (final IMicroNode aChildNode : getChildren ())
+      for (final IMicroNode aChildNode : getAllChildren ())
         ret.appendChild (aChildNode.getClone ());
     return ret;
   }

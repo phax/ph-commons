@@ -29,7 +29,7 @@ import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ChildrenProviderElementWithName}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ChildrenProviderElementWithNameTest extends AbstractPHTestCase
@@ -55,13 +55,13 @@ public final class ChildrenProviderElementWithNameTest extends AbstractPHTestCas
 
     assertTrue (x.hasChildren (aDocElement));
     assertEquals (2, x.getChildCount (aDocElement));
-    assertEquals (2, x.getChildren (aDocElement).size ());
+    assertEquals (2, x.getAllChildren (aDocElement).size ());
 
     x = new ChildrenProviderElementWithName ("namespace", "any");
 
     assertTrue (x.hasChildren (aDocElement));
     assertEquals (1, x.getChildCount (aDocElement));
-    assertEquals (1, x.getChildren (aDocElement).size ());
+    assertEquals (1, x.getAllChildren (aDocElement).size ());
 
     try
     {

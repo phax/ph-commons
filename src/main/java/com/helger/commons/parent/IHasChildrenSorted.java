@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 
 /**
  * Extends {@link IHasChildren} by indicating that the child items are sorted!
- * 
+ *
  * @author Philip Helger
  * @param <CHILDTYPE>
  *        The type of the children.
@@ -33,13 +33,22 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
   /**
    * @return A ordered list of child elements. May be <code>null</code> if no
    *         children are present.
+   * @deprecated Use {@link #getAllChildren()} instead
    */
   @Nullable
+  @Deprecated
   List <? extends CHILDTYPE> getChildren ();
 
   /**
+   * @return A ordered list of child elements. May be <code>null</code> if no
+   *         children are present.
+   */
+  @Nullable
+  List <? extends CHILDTYPE> getAllChildren ();
+
+  /**
    * Get the child node at the specified index
-   * 
+   *
    * @param nIndex
    *        The index to be queried. May not be &lt; 0 or &ge; the number of
    *        children
@@ -53,7 +62,7 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
 
   /**
    * Get the first child node or <code>null</code> if no child is present
-   * 
+   *
    * @return The first child or <code>null</code>.
    */
   @Nullable
@@ -61,7 +70,7 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
 
   /**
    * Get the last child node or <code>null</code> if no child is present
-   * 
+   *
    * @return The last child or <code>null</code>.
    */
   @Nullable

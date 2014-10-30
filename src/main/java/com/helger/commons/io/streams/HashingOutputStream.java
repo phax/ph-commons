@@ -29,7 +29,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A wrapper around an {@link OutputStream} that performs a hashing while
  * writing.
- * 
+ *
  * @see IMessageDigestGenerator
  * @author Philip Helger
  */
@@ -50,18 +50,11 @@ public class HashingOutputStream extends WrappedOutputStream
     m_aMDGen.update ((byte) n);
   }
 
-  @Override
-  public void write (final byte [] aBuf, final int nOfs, final int nLength) throws IOException
-  {
-    super.write (aBuf, nOfs, nLength);
-    m_aMDGen.update (aBuf, nOfs, nLength);
-  }
-
   /**
    * Get the message digest of this stream. Call this only once the read has
    * been finished. Never call this in the middle of reading a stream, because
    * the digest cannot be updated afterwards.
-   * 
+   *
    * @return The message digest of this stream.
    */
   @Nonnull

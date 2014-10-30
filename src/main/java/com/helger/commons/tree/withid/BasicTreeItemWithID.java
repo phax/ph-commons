@@ -44,7 +44,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Basic tree item with ID implementation, independent of the implementation
  * type.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        tree item key type
@@ -74,7 +74,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   /**
    * Constructor for root object with a <code>null</code> data ID
-   * 
+   *
    * @param aFactory
    *        The tree item factory to use. May not be <code>null</code>.
    */
@@ -85,7 +85,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   /**
    * Constructor for root object
-   * 
+   *
    * @param aFactory
    *        The tree item factory to use. May not be <code>null</code>.
    * @param aDataID
@@ -100,7 +100,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   /**
    * Constructor for normal elements
-   * 
+   *
    * @param aParent
    *        Parent item. May never be <code>null</code> since only the root has
    *        no parent.
@@ -130,7 +130,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    * This method is called to validate a data ID object. This method may be
    * overloaded in derived classes. The default implementation accepts all
    * values.
-   * 
+   *
    * @param aDataID
    *        The value to validate.
    * @return <code>true</code> if the ID is valid, <code>false</code> otherwise.
@@ -145,7 +145,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    * This method is called to validate a data object. This method may be
    * overloaded in derived classes. The default implementation accepts all
    * values.
-   * 
+   *
    * @param aData
    *        The value to validate.
    * @return <code>true</code> if the ID is valid, <code>false</code> otherwise.
@@ -210,7 +210,15 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   @Nullable
   @ReturnsMutableCopy
+  @Deprecated
   public final List <ITEMTYPE> getChildren ()
+  {
+    return getAllChildren ();
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public final List <ITEMTYPE> getAllChildren ()
   {
     return m_aChildren == null ? null : ContainerHelper.newList (m_aChildren);
   }
@@ -384,7 +392,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   {
     // Recursively remove this node and all child nodes from the factory!
     if (aItem.hasChildren ())
-      for (final ITEMTYPE aChild : aItem.getChildren ())
+      for (final ITEMTYPE aChild : aItem.getAllChildren ())
         _recursiveRemoveFromFactory (aChild);
     m_aFactory.onRemoveItem (aItem);
   }

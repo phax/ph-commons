@@ -35,7 +35,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link MicroEntityReference}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroEntityReferenceTest
@@ -49,7 +49,7 @@ public final class MicroEntityReferenceTest
     assertEquals ("xyz", e.getName ());
     assertFalse (e.hasParent ());
     assertFalse (e.hasChildren ());
-    assertNull (e.getChildren ());
+    assertNull (e.getAllChildren ());
     assertNull (e.getFirstChild ());
     assertNull (e.getLastChild ());
     assertNull (e.getChildAtIndex (0));

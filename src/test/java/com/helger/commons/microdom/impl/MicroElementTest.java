@@ -104,7 +104,7 @@ public final class MicroElementTest extends AbstractPHTestCase
     assertEquals ("xyz", e.getTagName ());
     assertFalse (e.hasChildren ());
     assertFalse (e.hasParent ());
-    assertNull (e.getChildren ());
+    assertNull (e.getAllChildren ());
     assertNotNull (e.getAllChildElements ());
     assertTrue (e.getAllChildElements ().isEmpty ());
     assertSame (EMicroNodeType.ELEMENT, e.getType ());

@@ -49,7 +49,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Some utility methods on micro nodes.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -105,7 +105,7 @@ public final class MicroUtils
 
   /**
    * Get the path of the given node, up to the root element.
-   * 
+   *
    * @param aNode
    *        The node to get the path from. May be <code>null</code>.
    * @param sSep
@@ -133,7 +133,7 @@ public final class MicroUtils
 
   /**
    * Get the tag name of the passed documents root element.
-   * 
+   *
    * @param aDoc
    *        The document to be evaluated. May be <code>null</code>.
    * @return <code>null</code> if the passed document was <code>null</code> or
@@ -235,7 +235,7 @@ public final class MicroUtils
   /**
    * Helper method to extract the text content of the child element denoted by
    * the parameter sChildElementName of the passed parent element.
-   * 
+   *
    * @param eParentElement
    *        The parent element to use. May not be <code>null</code>.
    * @param sChildElementName
@@ -255,7 +255,7 @@ public final class MicroUtils
    * Helper method to extract the text content of the child element denoted by
    * the parameter sChildElementName of the passed parent element. After
    * concatenation, all leading and trailing spaces are removed.
-   * 
+   *
    * @param eParentElement
    *        The parent element to use. May not be <code>null</code>.
    * @param sChildElementName
@@ -277,7 +277,7 @@ public final class MicroUtils
    * content is converted via the
    * {@link com.helger.commons.typeconvert.TypeConverter} to the desired
    * destination type.
-   * 
+   *
    * @param eParentElement
    *        The parent element to use. May not be <code>null</code>.
    * @param sChildElementName
@@ -300,7 +300,7 @@ public final class MicroUtils
    * Helper method to extract the text content of the child element denoted by
    * the parameters sNamespaceURI and sChildElementName of the passed parent
    * element.
-   * 
+   *
    * @param eParentElement
    *        The parent element to use. May not be <code>null</code>.
    * @param sNamespaceURI
@@ -323,7 +323,7 @@ public final class MicroUtils
    * Helper method to extract the text content of the child element denoted by
    * the parameters sNamespaceURI and sChildElementName of the passed parent
    * element. After concatenation, all leading and trailing spaces are removed.
-   * 
+   *
    * @param eParentElement
    *        The parent element to use. May not be <code>null</code>.
    * @param sNamespaceURI
@@ -348,7 +348,7 @@ public final class MicroUtils
    * element. The read text content is converted via the
    * {@link com.helger.commons.typeconvert.TypeConverter} to the desired
    * destination type.
-   * 
+   *
    * @param eParentElement
    *        The parent element to use. May not be <code>null</code>.
    * @param sNamespaceURI
@@ -375,7 +375,7 @@ public final class MicroUtils
    * passed node has no children, an empty object is returned. The resulting
    * container contains a clone of each child node so that the original objects
    * is not modified.
-   * 
+   *
    * @param aParent
    *        The parent node to get the children from. May not be
    *        <code>null</code>.
@@ -387,7 +387,7 @@ public final class MicroUtils
   {
     final IMicroContainer ret = new MicroContainer ();
     if (aParent.hasChildren ())
-      for (final IMicroNode aChildNode : aParent.getChildren ())
+      for (final IMicroNode aChildNode : aParent.getAllChildren ())
         ret.appendChild (aChildNode.getClone ());
     return ret;
   }
@@ -397,7 +397,7 @@ public final class MicroUtils
    * passed node has no children, an empty object is returned. The resulting
    * container contains the original child nodes so that they no longer belong
    * to the original object. THis implies that the original object is modified!
-   * 
+   *
    * @param aParent
    *        The parent node to get the children from. May not be
    *        <code>null</code>.
@@ -409,7 +409,7 @@ public final class MicroUtils
   {
     final IMicroContainer ret = new MicroContainer ();
     if (aParent.hasChildren ())
-      for (final IMicroNode aChildNode : aParent.getChildren ())
+      for (final IMicroNode aChildNode : aParent.getAllChildren ())
         ret.appendChild (aChildNode.detachFromParent ());
     return ret;
   }

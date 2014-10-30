@@ -30,7 +30,7 @@ import com.helger.commons.microdom.IMicroNode;
 
 /**
  * Class for recursively visiting all elements of a micro node
- * 
+ *
  * @author Philip Helger
  */
 public class MicroRecursiveIterator implements IIterableIterator <IMicroNode>
@@ -55,7 +55,7 @@ public class MicroRecursiveIterator implements IIterableIterator <IMicroNode>
 
     final IMicroNode ret = m_aOpen.remove (0);
     if (ret.hasChildren ())
-      m_aOpen.addAll (0, ret.getChildren ());
+      m_aOpen.addAll (0, ret.getAllChildren ());
     return ret;
   }
 

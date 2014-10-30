@@ -33,7 +33,7 @@ import com.helger.commons.parent.IChildrenProvider;
  * {@link #getChildren(Object)} sorted.<br>
  * The implementation wraps an existing children provider and uses and external
  * comparator for sorting.
- * 
+ *
  * @author Philip Helger
  * @param <CHILDTYPE>
  *        The data type of the child objects.
@@ -46,7 +46,7 @@ public class ChildrenProviderSorting <CHILDTYPE> implements IChildrenProvider <C
 
   /**
    * Constructor.
-   * 
+   *
    * @param aCP
    *        The children provider to be wrapped
    * @param aComparator
@@ -72,10 +72,17 @@ public class ChildrenProviderSorting <CHILDTYPE> implements IChildrenProvider <C
   }
 
   @Nullable
+  @Deprecated
   public List <? extends CHILDTYPE> getChildren (@Nullable final CHILDTYPE aCurrent)
   {
+    return getAllChildren (aCurrent);
+  }
+
+  @Nullable
+  public List <? extends CHILDTYPE> getAllChildren (@Nullable final CHILDTYPE aCurrent)
+  {
     // Get the unsorted collection of children
-    final Collection <? extends CHILDTYPE> ret = m_aCR.getChildren (aCurrent);
+    final Collection <? extends CHILDTYPE> ret = m_aCR.getAllChildren (aCurrent);
 
     // If there is anything to sort, do it now
     return ret == null ? null : ContainerHelper.getSorted (ret, m_aComparator);

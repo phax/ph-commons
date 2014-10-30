@@ -32,7 +32,7 @@ import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MicroContainer}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroContainerTest
@@ -46,7 +46,7 @@ public final class MicroContainerTest
     assertNotNull (e);
     assertFalse (e.hasParent ());
     assertFalse (e.hasChildren ());
-    assertNull (e.getChildren ());
+    assertNull (e.getAllChildren ());
     assertNull (e.getFirstChild ());
     assertNull (e.getLastChild ());
     assertTrue (e.getAllChildrenRecursive ().isEmpty ());

@@ -29,7 +29,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A wrapper around an {@link InputStream} that performs a hashing while
  * reading.
- * 
+ *
  * @see IMessageDigestGenerator
  * @author Philip Helger
  */
@@ -52,20 +52,11 @@ public class HashingInputStream extends WrappedInputStream
     return ret;
   }
 
-  @Override
-  public int read (final byte [] b, final int nOffset, final int nLength) throws IOException
-  {
-    final int ret = super.read (b, nOffset, nLength);
-    if (ret != -1)
-      m_aMDGen.update (b, nOffset, ret);
-    return ret;
-  }
-
   /**
    * Get the message digest of this stream. Call this only once the read has
    * been finished. Never call this in the middle of reading a stream, because
    * the digest cannot be updated afterwards.
-   * 
+   *
    * @return The message digest of this stream.
    */
   @Nonnull

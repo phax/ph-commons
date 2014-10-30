@@ -490,7 +490,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
         else
           if (aChild.isContainer () && aChild.hasChildren ())
           {
-            for (final IMicroNode aContChild : aChild.getChildren ())
+            for (final IMicroNode aContChild : aChild.getAllChildren ())
               if (aContChild.isElement ())
                 ++ret;
           }
@@ -513,7 +513,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
         else
           if (aChild.isContainer () && aChild.hasChildren ())
           {
-            for (final IMicroNode aContChild : aChild.getChildren ())
+            for (final IMicroNode aContChild : aChild.getAllChildren ())
               if (aContChild.isElement ())
                 ret.add ((IMicroElement) aContChild);
           }
@@ -537,7 +537,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
         else
           if (aChild.isContainer () && aChild.hasChildren ())
           {
-            for (final IMicroNode aContChild : aChild.getChildren ())
+            for (final IMicroNode aContChild : aChild.getAllChildren ())
               if (aContChild.isElement ())
               {
                 final IMicroElement aContChildElement = (IMicroElement) aContChild;
@@ -569,7 +569,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
         else
           if (aChild.isContainer () && aChild.hasChildren ())
           {
-            for (final IMicroNode aContChild : aChild.getChildren ())
+            for (final IMicroNode aContChild : aChild.getAllChildren ())
               if (aContChild.isElement ())
               {
                 final IMicroElement aContChildElement = (IMicroElement) aContChild;
@@ -614,7 +614,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
         else
           if (aChild.isContainer () && aChild.hasChildren ())
           {
-            for (final IMicroNode aContChild : aChild.getChildren ())
+            for (final IMicroNode aContChild : aChild.getAllChildren ())
               if (aContChild.isElement ())
               {
                 final MicroElement aContChildElement = (MicroElement) aContChild;
@@ -636,7 +636,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
         else
           if (aChild.isContainer () && aChild.hasChildren ())
           {
-            for (final IMicroNode aContChild : aChild.getChildren ())
+            for (final IMicroNode aContChild : aChild.getAllChildren ())
               if (aContChild.isElement ())
                 return true;
           }
@@ -655,7 +655,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
         else
           if (aChild.isContainer () && aChild.hasChildren ())
           {
-            for (final IMicroNode aContChild : aChild.getChildren ())
+            for (final IMicroNode aContChild : aChild.getAllChildren ())
               if (aContChild.isElement ())
               {
                 if (((IMicroElement) aContChild).getTagName ().equals (sTagName))
@@ -681,7 +681,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
         else
           if (aChild.isContainer () && aChild.hasChildren ())
           {
-            for (final IMicroNode aContChild : aChild.getChildren ())
+            for (final IMicroNode aContChild : aChild.getAllChildren ())
               if (aContChild.isElement ())
               {
                 final IMicroElement aContChildElement = (IMicroElement) aContChild;
@@ -716,7 +716,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
         else
           if (aChild.isContainer () && aChild.hasChildren ())
           {
-            for (final IMicroNode aContChild : aChild.getChildren ())
+            for (final IMicroNode aContChild : aChild.getAllChildren ())
               if (aContChild.isElement ())
                 return (IMicroElement) aContChild;
           }
@@ -737,7 +737,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
         else
           if (aChild.isContainer () && aChild.hasChildren ())
           {
-            for (final IMicroNode aContChild : aChild.getChildren ())
+            for (final IMicroNode aContChild : aChild.getAllChildren ())
               if (aContChild.isElement ())
               {
                 final IMicroElement aContChildElement = (IMicroElement) aContChild;
@@ -765,7 +765,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
         else
           if (aChild.isContainer () && aChild.hasChildren ())
           {
-            for (final IMicroNode aContChild : aChild.getChildren ())
+            for (final IMicroNode aContChild : aChild.getAllChildren ())
               if (aContChild.isElement ())
               {
                 final IMicroElement aContChildElement = (IMicroElement) aContChild;

@@ -16,11 +16,12 @@
  */
 package com.helger.commons.parent;
 
+import javax.annotation.Nullable;
 
-public final class MockChildrenProviderWithID extends MockChildrenProvider implements
-                                                                          IChildrenProviderWithID <String, MockHasChildren>
+public final class MockChildrenProviderWithID extends MockChildrenProvider implements IChildrenProviderWithID <String, MockHasChildren>
 {
-  public MockHasChildren getChildWithID (final MockHasChildren aCurrent, final String aID)
+  @Nullable
+  public MockHasChildren getChildWithID (@Nullable final MockHasChildren aCurrent, final String aID)
   {
     return aCurrent == null ? null : aCurrent.getChildWithID (aID);
   }

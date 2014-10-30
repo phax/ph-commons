@@ -30,7 +30,7 @@ import com.helger.commons.tree.simple.DefaultTreeItem;
 
 /**
  * Test class for class {@link TreeSorter}
- * 
+ *
  * @author Philip Helger
  */
 public final class TreeSorterTest
@@ -52,7 +52,7 @@ public final class TreeSorterTest
     TreeSorter.sort (aTree, new ComparatorString ());
 
     assertEquals (2, aTree.getRootItem ().getChildCount ());
-    final List <? extends DefaultTreeItem <String>> aChildren = aTree.getRootItem ().getChildren ();
+    final List <? extends DefaultTreeItem <String>> aChildren = aTree.getRootItem ().getAllChildren ();
     assertSame (i2, aChildren.get (0));
     assertSame (i1, aChildren.get (1));
     // Test Apache (children must also be sorted)

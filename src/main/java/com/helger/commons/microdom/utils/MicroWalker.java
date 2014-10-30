@@ -48,7 +48,7 @@ public final class MicroWalker
   {
     aCallback.onItemBeforeChildren (aNode);
     if (aChildrenResolver.hasChildren (aNode))
-      for (final T aChildItem : aChildrenResolver.getChildren (aNode))
+      for (final T aChildItem : aChildrenResolver.getAllChildren (aNode))
       {
         aCallback.onLevelDown ();
         // recursive call
@@ -95,7 +95,7 @@ public final class MicroWalker
     try
     {
       if (aChildrenResolver.hasChildren (aNode))
-        for (final T aChildItem : aChildrenResolver.getChildren (aNode))
+        for (final T aChildItem : aChildrenResolver.getAllChildren (aNode))
           _walkNode (aChildItem, aChildrenResolver, aCallback);
     }
     finally

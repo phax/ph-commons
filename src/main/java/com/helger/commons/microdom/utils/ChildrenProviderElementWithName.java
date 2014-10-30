@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.parent.IChildrenProvider;
 import com.helger.commons.string.StringHelper;
@@ -33,7 +34,7 @@ import com.helger.commons.string.StringHelper;
  * Implementation of the {@link IChildrenProvider} for {@link IMicroElement}
  * objects considering only elements with a certain element name (and optionally
  * a namespace URI).
- * 
+ *
  * @author Philip Helger
  */
 public final class ChildrenProviderElementWithName implements IChildrenProvider <IMicroElement>
@@ -71,7 +72,16 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
   }
 
   @Nonnull
+  @ReturnsMutableCopy
+  @Deprecated
   public Collection <? extends IMicroElement> getChildren (@Nullable final IMicroElement aCurrent)
+  {
+    return getAllChildren (aCurrent);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public Collection <? extends IMicroElement> getAllChildren (@Nullable final IMicroElement aCurrent)
   {
     // Not an element?
     if (aCurrent == null)

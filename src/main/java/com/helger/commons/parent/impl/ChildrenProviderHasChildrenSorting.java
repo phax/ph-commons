@@ -48,12 +48,26 @@ public class ChildrenProviderHasChildrenSorting <CHILDTYPE extends IHasChildren 
     m_aComparator = ValueEnforcer.notNull (aComparator, "Comparator");
   }
 
+  @Nonnull
+  public Comparator <? super CHILDTYPE> getComparator ()
+  {
+    return m_aComparator;
+  }
+
   @Override
   @Nullable
+  @Deprecated
   public List <? extends CHILDTYPE> getChildren (@Nullable final CHILDTYPE aCurrent)
   {
+    return getAllChildren (aCurrent);
+  }
+
+  @Override
+  @Nullable
+  public List <? extends CHILDTYPE> getAllChildren (@Nullable final CHILDTYPE aCurrent)
+  {
     // Get all children of the passed element
-    final Collection <? extends CHILDTYPE> ret = aCurrent == null ? null : aCurrent.getChildren ();
+    final Collection <? extends CHILDTYPE> ret = aCurrent == null ? null : aCurrent.getAllChildren ();
 
     // If there is anything to sort do it now
     return ret == null ? null : ContainerHelper.getSorted (ret, m_aComparator);

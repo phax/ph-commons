@@ -42,7 +42,7 @@ import com.helger.commons.typeconvert.TypeConverter;
 /**
  * Basic implementation class for the micro document object model. It overrides
  * all methods required for correct parent/child handling.
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode implements IMicroNodeWithChildren
@@ -191,7 +191,16 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @Override
   @Nullable
   @ReturnsMutableCopy
+  @Deprecated
   public final List <IMicroNode> getChildren ()
+  {
+    return getAllChildren ();
+  }
+
+  @Override
+  @Nullable
+  @ReturnsMutableCopy
+  public final List <IMicroNode> getAllChildren ()
   {
     return m_aChildren == null ? null : ContainerHelper.newList (m_aChildren);
   }
@@ -227,7 +236,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   private void _fillListPrefix (@Nonnull final IMicroNode aCurNode, @Nonnull final List <IMicroNode> aNodes)
   {
     if (aCurNode.hasChildren ())
-      for (final IMicroNode aCurrent : aCurNode.getChildren ())
+      for (final IMicroNode aCurrent : aCurNode.getAllChildren ())
       {
         aNodes.add (aCurrent);
         _fillListPrefix (aCurrent, aNodes);

@@ -35,7 +35,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link MicroProcessingInstruction}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroProcessingInstructionTest
@@ -50,7 +50,7 @@ public final class MicroProcessingInstructionTest
     assertNull (e.getData ());
     assertFalse (e.hasParent ());
     assertFalse (e.hasChildren ());
-    assertNull (e.getChildren ());
+    assertNull (e.getAllChildren ());
     assertNull (e.getFirstChild ());
     assertNull (e.getLastChild ());
     assertNull (e.getChildAtIndex (0));
@@ -66,7 +66,7 @@ public final class MicroProcessingInstructionTest
     assertEquals ("xyz", e.getTarget ());
     assertEquals ("data", e.getData ());
     assertFalse (e.hasChildren ());
-    assertNull (e.getChildren ());
+    assertNull (e.getAllChildren ());
 
     e = new MicroProcessingInstruction ("targ");
     assertNotNull (e);

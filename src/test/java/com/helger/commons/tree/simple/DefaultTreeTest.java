@@ -30,7 +30,7 @@ import com.helger.commons.tree.utils.sort.ComparatorDefaultTreeItemComparable;
 
 /**
  * Test class for class {@link DefaultTree}.
- * 
+ *
  * @author Philip Helger
  */
 public final class DefaultTreeTest
@@ -46,7 +46,7 @@ public final class DefaultTreeTest
     assertEquals ("Hallo", ti.getData ());
     assertFalse (ti.hasChildren ());
     assertEquals (0, ti.getChildCount ());
-    assertNull (ti.getChildren ());
+    assertNull (ti.getAllChildren ());
     assertSame (t.getRootItem (), ti.getParent ());
 
     // level 1
@@ -55,12 +55,12 @@ public final class DefaultTreeTest
     assertEquals ("Welt", ti1.getData ());
     assertFalse (ti1.hasChildren ());
     assertEquals (0, ti1.getChildCount ());
-    assertNull (ti1.getChildren ());
+    assertNull (ti1.getAllChildren ());
     assertSame (ti, ti1.getParent ());
 
     assertTrue (ti.hasChildren ());
     assertEquals (1, ti.getChildCount ());
-    assertTrue (ti.getChildren ().contains (ti1));
+    assertTrue (ti.getAllChildren ().contains (ti1));
   }
 
   @Test
@@ -109,16 +109,16 @@ public final class DefaultTreeTest
 
     // check current order
     assertEquals (2, ti.getChildCount ());
-    assertEquals ("Welt2", ti.getChildren ().get (0).getData ());
-    assertEquals ("Welt1", ti.getChildren ().get (1).getData ());
+    assertEquals ("Welt2", ti.getAllChildren ().get (0).getData ());
+    assertEquals ("Welt1", ti.getAllChildren ().get (1).getData ());
 
     // reorder
     ti.reorderChildItems (new ComparatorDefaultTreeItemComparable <String> ());
 
     // check new order
     assertEquals (2, ti.getChildCount ());
-    assertEquals ("Welt1", ti.getChildren ().get (0).getData ());
-    assertEquals ("Welt2", ti.getChildren ().get (1).getData ());
+    assertEquals ("Welt1", ti.getAllChildren ().get (0).getData ());
+    assertEquals ("Welt2", ti.getAllChildren ().get (1).getData ());
   }
 
   @Test
@@ -140,11 +140,11 @@ public final class DefaultTreeTest
     assertTrue (t2i1.hasChildren ());
 
     // perform
-    assertTrue (t2i1.getChildren ().contains (t2i2));
+    assertTrue (t2i1.getAllChildren ().contains (t2i2));
     assertTrue (t2i2.changeParent (t1i2).isSuccess ());
-    assertTrue (t1i2.getChildren ().contains (t2i2));
+    assertTrue (t1i2.getAllChildren ().contains (t2i2));
     assertSame (t1i2, t2i2.getParent ());
-    assertFalse (t2i1.getChildren ().contains (t2i2));
+    assertFalse (t2i1.getAllChildren ().contains (t2i2));
 
     // postconditions
     assertTrue (t1i2.hasChildren ());

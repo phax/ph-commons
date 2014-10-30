@@ -25,7 +25,7 @@ import com.helger.commons.microdom.IMicroNode;
 
 /**
  * Default implementation of the {@link IMicroContainer} interface.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroContainer extends AbstractMicroNodeWithChildren implements IMicroContainer
@@ -64,7 +64,7 @@ public final class MicroContainer extends AbstractMicroNodeWithChildren implemen
   {
     final IMicroContainer ret = new MicroContainer ();
     if (hasChildren ())
-      for (final IMicroNode aChildNode : getChildren ())
+      for (final IMicroNode aChildNode : getAllChildren ())
         ret.appendChild (aChildNode.getClone ());
     return ret;
   }
@@ -72,7 +72,7 @@ public final class MicroContainer extends AbstractMicroNodeWithChildren implemen
   /**
    * Create a new {@link IMicroContainer} that contains clones of all passed
    * nodes
-   * 
+   *
    * @param aChildNodes
    *        The micro node array to add to the {@link IMicroContainer}
    * @return The created {@link IMicroContainer} and never <code>null</code>.
@@ -90,7 +90,7 @@ public final class MicroContainer extends AbstractMicroNodeWithChildren implemen
   /**
    * Create a new {@link IMicroContainer} that contains clones of all passed
    * nodes
-   * 
+   *
    * @param aChildNodes
    *        The micro node container to add to the {@link IMicroContainer}
    * @return The created {@link IMicroContainer} and never <code>null</code>.

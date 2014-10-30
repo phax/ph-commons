@@ -25,7 +25,7 @@ import com.helger.commons.parent.IChildrenProviderWithUniqueID;
 
 /**
  * An {@link com.helger.commons.parent.IChildrenProviderWithID} with ID that
- * returns the children in {@link #getChildren(Object)} sorted.
+ * returns the children in {@link #getAllChildren(Object)} sorted.
  *
  * @author Philip Helger
  * @param <KEYTYPE>

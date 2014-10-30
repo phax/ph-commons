@@ -38,7 +38,7 @@ import com.helger.commons.tree.withid.DefaultTreeWithID;
 
 /**
  * Utility classes for building a tree from flat collections.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -100,7 +100,7 @@ public final class TreeWithIDBuilder
 
   /**
    * A generic method to build a tree of objects.
-   * 
+   *
    * @param <KEYTYPE>
    *        The tree key type.
    * @param <DATATYPE>
@@ -128,7 +128,7 @@ public final class TreeWithIDBuilder
 
   /**
    * A generic method to build a tree of objects.
-   * 
+   *
    * @param <KEYTYPE>
    *        The tree key type.
    * @param <DATATYPE>
@@ -156,7 +156,7 @@ public final class TreeWithIDBuilder
 
   /**
    * A generic method to build a tree of objects.
-   * 
+   *
    * @param <KEYTYPE>
    *        The tree key type.
    * @param <DATATYPE>
@@ -184,7 +184,7 @@ public final class TreeWithIDBuilder
     {
       final DATATYPE aParentObject = aParentItem.getData ();
       if (aChildrenResolver.hasChildren (aParentObject))
-        for (final DATATYPE aChild : aChildrenResolver.getChildren (aParentObject))
+        for (final DATATYPE aChild : aChildrenResolver.getAllChildren (aParentObject))
         {
           final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aItem = aParentItem.createChildItem (aChild.getID (), aChild);
           _buildTreeRecursive (aItem, aChildrenResolver);
@@ -201,7 +201,7 @@ public final class TreeWithIDBuilder
 
     // get all root objects
     if (aChildrenResolver.hasChildren (null))
-      for (final DATATYPE aRootObject : aChildrenResolver.getChildren (null))
+      for (final DATATYPE aRootObject : aChildrenResolver.getAllChildren (null))
       {
         // it is a root item
         final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aItem = aTree.getRootItem ()

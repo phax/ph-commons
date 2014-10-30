@@ -30,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A wrapper around an {@link InputStream} that debugs read and skip actions.
- * 
+ *
  * @author Philip Helger
  */
 public class DebugInputStream extends WrappedInputStream
@@ -81,18 +81,6 @@ public class DebugInputStream extends WrappedInputStream
     {
       m_nPosition++;
       onRead (1, m_nPosition);
-    }
-    return ret;
-  }
-
-  @Override
-  public final int read (final byte [] b, final int nOffset, final int nLength) throws IOException
-  {
-    final int ret = super.read (b, nOffset, nLength);
-    if (ret != -1)
-    {
-      m_nPosition += ret;
-      onRead (ret, m_nPosition);
     }
     return ret;
   }

@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 
 /**
  * A simple interface, indicating that an item has direct children.
- * 
+ *
  * @author Philip Helger
  * @param <CHILDTYPE>
  *        The type of the children.
@@ -45,7 +45,16 @@ public interface IHasChildren <CHILDTYPE>
   /**
    * @return A collection of all direct child elements. May be <code>null</code>
    *         .
+   * @deprecated Use {@link #getAllChildren()} instead
    */
   @Nullable
+  @Deprecated
   Collection <? extends CHILDTYPE> getChildren ();
+
+  /**
+   * @return A collection of all direct child elements. May be <code>null</code>
+   *         .
+   */
+  @Nullable
+  Collection <? extends CHILDTYPE> getAllChildren ();
 }

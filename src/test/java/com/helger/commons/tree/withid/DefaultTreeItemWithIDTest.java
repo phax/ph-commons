@@ -33,7 +33,7 @@ import com.helger.commons.tree.utils.sort.ComparatorTreeItemIDComparable;
 
 /**
  * Test class for class {@link DefaultTreeItemWithID}.
- * 
+ *
  * @author Philip Helger
  */
 public final class DefaultTreeItemWithIDTest
@@ -55,7 +55,7 @@ public final class DefaultTreeItemWithIDTest
     assertEquals ("Hallo", ti.getData ());
     assertFalse (ti.hasChildren ());
     assertEquals (0, ti.getChildCount ());
-    assertTrue (ContainerHelper.isEmpty (ti.getChildren ()));
+    assertTrue (ContainerHelper.isEmpty (ti.getAllChildren ()));
     assertSame (t.getRootItem (), ti.getParent ());
     assertFalse (ti.isRootItem ());
     assertTrue (ti.isSameOrChildOf (t.getRootItem ()));
@@ -68,12 +68,12 @@ public final class DefaultTreeItemWithIDTest
     assertEquals ("Welt", ti1.getData ());
     assertFalse (ti1.hasChildren ());
     assertEquals (0, ti1.getChildCount ());
-    assertTrue (ContainerHelper.isEmpty (ti1.getChildren ()));
+    assertTrue (ContainerHelper.isEmpty (ti1.getAllChildren ()));
     assertSame (ti, ti1.getParent ());
 
     assertTrue (ti.hasChildren ());
     assertEquals (1, ti.getChildCount ());
-    assertTrue (ti.getChildren ().contains (ti1));
+    assertTrue (ti.getAllChildren ().contains (ti1));
 
     // test get child of ID
     assertNotNull (ti.getChildItemOfDataID ("root1"));
@@ -161,20 +161,20 @@ public final class DefaultTreeItemWithIDTest
 
     // check current order
     assertEquals (2, ti.getChildCount ());
-    assertEquals ("id2", ti.getChildren ().get (0).getID ());
-    assertEquals ("Welt2", ti.getChildren ().get (0).getData ());
-    assertEquals ("id1", ti.getChildren ().get (1).getID ());
-    assertEquals ("Welt1", ti.getChildren ().get (1).getData ());
+    assertEquals ("id2", ti.getAllChildren ().get (0).getID ());
+    assertEquals ("Welt2", ti.getAllChildren ().get (0).getData ());
+    assertEquals ("id1", ti.getAllChildren ().get (1).getID ());
+    assertEquals ("Welt1", ti.getAllChildren ().get (1).getData ());
 
     // reorder
     ti.reorderChildrenByItems (new ComparatorDefaultTreeItemWithIDDataComparable <String, String> ());
 
     // check new order
     assertEquals (2, ti.getChildCount ());
-    assertEquals ("id1", ti.getChildren ().get (0).getID ());
-    assertEquals ("Welt1", ti.getChildren ().get (0).getData ());
-    assertEquals ("id2", ti.getChildren ().get (1).getID ());
-    assertEquals ("Welt2", ti.getChildren ().get (1).getData ());
+    assertEquals ("id1", ti.getAllChildren ().get (0).getID ());
+    assertEquals ("Welt1", ti.getAllChildren ().get (0).getData ());
+    assertEquals ("id2", ti.getAllChildren ().get (1).getID ());
+    assertEquals ("Welt2", ti.getAllChildren ().get (1).getData ());
   }
 
   @Test
@@ -195,20 +195,20 @@ public final class DefaultTreeItemWithIDTest
 
     // check current order
     assertEquals (2, ti.getChildCount ());
-    assertEquals ("id2", ti.getChildren ().get (0).getID ());
-    assertEquals ("Welt2", ti.getChildren ().get (0).getData ());
-    assertEquals ("id1", ti.getChildren ().get (1).getID ());
-    assertEquals ("Welt1", ti.getChildren ().get (1).getData ());
+    assertEquals ("id2", ti.getAllChildren ().get (0).getID ());
+    assertEquals ("Welt2", ti.getAllChildren ().get (0).getData ());
+    assertEquals ("id1", ti.getAllChildren ().get (1).getID ());
+    assertEquals ("Welt1", ti.getAllChildren ().get (1).getData ());
 
     // reorder
     ti.reorderChildrenByItems (new ComparatorTreeItemIDComparable <String, String, DefaultTreeItemWithID <String, String>> ());
 
     // check new order
     assertEquals (2, ti.getChildCount ());
-    assertEquals ("id1", ti.getChildren ().get (0).getID ());
-    assertEquals ("Welt1", ti.getChildren ().get (0).getData ());
-    assertEquals ("id2", ti.getChildren ().get (1).getID ());
-    assertEquals ("Welt2", ti.getChildren ().get (1).getData ());
+    assertEquals ("id1", ti.getAllChildren ().get (0).getID ());
+    assertEquals ("Welt1", ti.getAllChildren ().get (0).getData ());
+    assertEquals ("id2", ti.getAllChildren ().get (1).getID ());
+    assertEquals ("Welt2", ti.getAllChildren ().get (1).getData ());
   }
 
   @Test
@@ -242,7 +242,7 @@ public final class DefaultTreeItemWithIDTest
     t2.getRootItem ().createChildItem ("dataid", "Data");
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (t.getRootItem (),
-                                                                    new DefaultTreeWithID <String, String> ().getRootItem ());
+                                                                 new DefaultTreeWithID <String, String> ().getRootItem ());
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (t.getRootItem (), t2.getRootItem ());
   }
 

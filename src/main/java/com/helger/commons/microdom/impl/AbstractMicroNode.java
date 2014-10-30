@@ -54,7 +54,7 @@ import com.helger.commons.typeconvert.TypeConverter;
  * implements a set of common methods required for all object types. Especially
  * for the parent/child handling, the sub class AbstractMicroNodeWithChildren
  * provides some additional features.
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractMicroNode implements IMicroNode
@@ -71,7 +71,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   /**
    * Callback that is invoked once a child is to be appended.
-   * 
+   *
    * @param aChildNode
    *        The appended child node.
    */
@@ -84,7 +84,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   /**
    * Callback that is invoked once a child is to be inserted before another
    * child.
-   * 
+   *
    * @param aChildNode
    *        The new child node to be inserted.
    * @param aSuccessor
@@ -99,7 +99,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   /**
    * Callback that is invoked once a child is to be inserted after another
    * child.
-   * 
+   *
    * @param aChildNode
    *        The new child node to be inserted.
    * @param aPredecessor
@@ -114,7 +114,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   /**
    * Callback that is invoked once a child is to be inserted at the specified
    * index.
-   * 
+   *
    * @param nIndex
    *        The index where the node should be inserted.
    * @param aChildNode
@@ -338,7 +338,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   /**
    * Callback when a child is removed.
-   * 
+   *
    * @param aChild
    *        The child that is removed.
    * @return {@link EChange#CHANGED} if something changed
@@ -359,7 +359,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   /**
    * Remove the child not at the specified index.
-   * 
+   *
    * @param nIndex
    *        The 0-based index of the item to be removed.
    * @return {@link EChange#CHANGED} if the node was successfully removed,
@@ -380,7 +380,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   /**
    * Remove all children from this node.
-   * 
+   *
    * @return {@link EChange#CHANGED} if at least one child was present, and was
    *         successfully removed, {@link EChange#UNCHANGED} otherwise.
    */
@@ -418,7 +418,15 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   @OverrideOnDemand
   @Nullable
+  @Deprecated
   public List <IMicroNode> getChildren ()
+  {
+    return getAllChildren ();
+  }
+
+  @OverrideOnDemand
+  @Nullable
+  public List <IMicroNode> getAllChildren ()
   {
     return null;
   }
@@ -660,6 +668,18 @@ public abstract class AbstractMicroNode implements IMicroNode
         return EChange.valueOf (aSet.remove (aTarget));
     }
     return EChange.UNCHANGED;
+  }
+
+  @Nonnull
+  public Map <EMicroEvent, Set <IMicroEventTarget>> getAllEventTargets ()
+  {
+    return ContainerHelper.newMap (m_aEventTargets);
+  }
+
+  @Nonnull
+  public Set <IMicroEventTarget> getAllEventTargets (@Nullable final EMicroEvent eEvent)
+  {
+    return ContainerHelper.newSet (m_aEventTargets == null ? null : m_aEventTargets.get (eEvent));
   }
 
   @Override

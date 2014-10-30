@@ -30,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A wrapper around an {@link OutputStream} that logs what he is doing.
- * 
+ *
  * @author Philip Helger
  */
 public class DebugOutputStream extends WrappedOutputStream
@@ -65,14 +65,6 @@ public class DebugOutputStream extends WrappedOutputStream
     super.write (b);
     m_nTotalBytesWritten++;
     onWrite (1, m_nTotalBytesWritten);
-  }
-
-  @Override
-  public final void write (final byte [] b, final int nOffset, final int nLength) throws IOException
-  {
-    super.write (b, nOffset, nLength);
-    m_nTotalBytesWritten += nLength;
-    onWrite (nLength, m_nTotalBytesWritten);
   }
 
   @Override

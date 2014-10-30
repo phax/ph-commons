@@ -18,9 +18,11 @@ package com.helger.commons.parent;
 
 import java.util.List;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.id.ComparatorHasIDString;
 import com.helger.commons.id.IHasID;
@@ -46,16 +48,28 @@ public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasS
     return !m_aList.isEmpty ();
   }
 
+  @Nonnegative
   public int getChildCount ()
   {
     return m_aList.size ();
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  @Deprecated
   public List <? extends MockHasSortedChildren> getChildren ()
   {
-    return ContainerHelper.makeUnmodifiable (m_aList);
+    return getAllChildren ();
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public List <? extends MockHasSortedChildren> getAllChildren ()
+  {
+    return ContainerHelper.newList (m_aList);
+  }
+
+  @Nullable
   public MockHasSortedChildren getChildAtIndex (final int nIndex)
   {
     return m_aList.get (nIndex);

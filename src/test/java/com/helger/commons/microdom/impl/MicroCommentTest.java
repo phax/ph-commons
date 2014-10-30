@@ -33,7 +33,7 @@ import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MicroComment}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroCommentTest
@@ -49,7 +49,7 @@ public final class MicroCommentTest
     assertEquals ("xyz", e.getData ().toString ());
     assertFalse (e.hasParent ());
     assertFalse (e.hasChildren ());
-    assertNull (e.getChildren ());
+    assertNull (e.getAllChildren ());
     assertNull (e.getFirstChild ());
     assertNull (e.getLastChild ());
     assertNull (e.getChildAtIndex (0));
@@ -63,7 +63,7 @@ public final class MicroCommentTest
     e.setData ("allo");
     assertEquals ("allo", e.getData ().toString ());
     assertFalse (e.hasChildren ());
-    assertNull (e.getChildren ());
+    assertNull (e.getAllChildren ());
 
     e.appendData (" Welt");
     assertEquals ("allo Welt", e.getData ().toString ());

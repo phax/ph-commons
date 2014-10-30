@@ -31,7 +31,7 @@ import com.helger.commons.parent.MockHasChildren;
 
 /**
  * Test class for class {@link ChildrenProviderSortingWithID}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ChildrenProviderSortingWithIDTest
@@ -43,7 +43,7 @@ public final class ChildrenProviderSortingWithIDTest
                                                                                                                                     new ComparatorHasIDString <MockHasChildren> ());
     assertFalse (cr.hasChildren (null));
     assertEquals (0, cr.getChildCount (null));
-    assertNull (cr.getChildren (null));
+    assertNull (cr.getAllChildren (null));
     final MockHasChildren hca = new MockHasChildren ("a");
     final MockHasChildren hcb = new MockHasChildren ("b");
     final MockHasChildren hc1 = new MockHasChildren ("1", hcb, hca);
@@ -51,8 +51,8 @@ public final class ChildrenProviderSortingWithIDTest
     assertFalse (cr.hasChildren (hca));
     assertEquals (2, cr.getChildCount (hc1));
     assertEquals (0, cr.getChildCount (hca));
-    assertNotNull (cr.getChildren (hc1));
-    assertNotNull (cr.getChildren (hca));
+    assertNotNull (cr.getAllChildren (hc1));
+    assertNotNull (cr.getAllChildren (hca));
     assertSame (hca, cr.getChildWithID (hc1, "a"));
     assertSame (hcb, cr.getChildWithID (hc1, "b"));
     assertNull (cr.getChildWithID (hc1, "anyid"));

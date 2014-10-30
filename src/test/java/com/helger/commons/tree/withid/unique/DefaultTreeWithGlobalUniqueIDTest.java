@@ -32,7 +32,7 @@ import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 
 /**
  * Test class for class {@link DefaultTreeWithGlobalUniqueID}.
- * 
+ *
  * @author Philip Helger
  */
 public final class DefaultTreeWithGlobalUniqueIDTest
@@ -101,9 +101,9 @@ public final class DefaultTreeWithGlobalUniqueIDTest
     assertEquals (0, aTestTree.getChildCount (x3));
 
     // getChildren
-    assertEquals (1, aTestTree.getChildren (null).size ());
-    assertEquals (3, aTestTree.getChildren (x1).size ());
-    assertNull (aTestTree.getChildren (x3));
+    assertEquals (1, aTestTree.getAllChildren (null).size ());
+    assertEquals (3, aTestTree.getAllChildren (x1).size ());
+    assertNull (aTestTree.getAllChildren (x3));
 
     // isItemSameOrDescendant
     assertFalse (aTestTree.isItemSameOrDescendant (null, "x1"));
@@ -134,7 +134,7 @@ public final class DefaultTreeWithGlobalUniqueIDTest
 
     assertEquals (0, aTestTree2.getChildCount (null));
     assertFalse (aTestTree2.hasChildren (null));
-    assertTrue (ContainerHelper.isEmpty (aTestTree2.getChildren (null)));
+    assertTrue (ContainerHelper.isEmpty (aTestTree2.getAllChildren (null)));
 
     final DefaultTreeItemWithID <String, String> x12 = aTestTree2.getRootItem ().createChildItem ("x1", "1");
     x12.createChildItem ("x2", "a");
@@ -143,11 +143,11 @@ public final class DefaultTreeWithGlobalUniqueIDTest
 
     assertEquals (1, aTestTree2.getChildCount (null));
     assertTrue (aTestTree2.hasChildren (null));
-    assertEquals (1, aTestTree2.getChildren (null).size ());
+    assertEquals (1, aTestTree2.getAllChildren (null).size ());
 
     assertEquals (3, aTestTree2.getChildCount (x12));
     assertTrue (aTestTree2.hasChildren (x12));
-    assertEquals (3, aTestTree2.getChildren (x12).size ());
+    assertEquals (3, aTestTree2.getAllChildren (x12).size ());
   }
 
   @Test
