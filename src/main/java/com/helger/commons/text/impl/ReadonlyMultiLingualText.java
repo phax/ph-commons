@@ -67,7 +67,7 @@ public class ReadonlyMultiLingualText extends TextProvider
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 
-    for (final Map.Entry <Locale, String> aEntry : aMLT.getMap ().entrySet ())
+    for (final Map.Entry <Locale, String> aEntry : aMLT.getAllTexts ().entrySet ())
       internalAddText (aEntry.getKey (), aEntry.getValue ());
   }
 }

@@ -207,7 +207,15 @@ public class MultiLingualTextThreadSafe implements IMultiLingualText
 
   @Nonnull
   @ReturnsMutableCopy
+  @Deprecated
   public Map <Locale, String> getMap ()
+  {
+    return getAllTexts ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public Map <Locale, String> getAllTexts ()
   {
     m_aRWLock.readLock ().lock ();
     try

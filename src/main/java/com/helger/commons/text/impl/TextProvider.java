@@ -114,9 +114,9 @@ public class TextProvider extends AbstractTextProvider implements IReadonlyMulti
   {
     if (m_aTexts.containsKey (aContentLocale))
       throw new IllegalArgumentException ("Locale '" +
-          aContentLocale +
-          "' already contained in TextProvider: " +
-          toString ());
+                                          aContentLocale +
+                                          "' already contained in TextProvider: " +
+                                          toString ());
 
     return internalSetText (aContentLocale, sValue);
   }
@@ -218,7 +218,15 @@ public class TextProvider extends AbstractTextProvider implements IReadonlyMulti
 
   @Nonnull
   @ReturnsMutableCopy
+  @Deprecated
   public final Map <Locale, String> getMap ()
+  {
+    return getAllTexts ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public final Map <Locale, String> getAllTexts ()
   {
     return ContainerHelper.newMap (m_aTexts);
   }

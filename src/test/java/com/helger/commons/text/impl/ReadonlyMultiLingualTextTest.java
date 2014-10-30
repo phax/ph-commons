@@ -35,7 +35,7 @@ import com.helger.commons.text.ISimpleMultiLingualText;
 
 /**
  * Test class for class {@link ReadonlyMultiLingualText}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ReadonlyMultiLingualTextTest extends AbstractPHTestCase
@@ -59,7 +59,7 @@ public final class ReadonlyMultiLingualTextTest extends AbstractPHTestCase
     assertTrue (aMLT.containsLocaleWithFallback (L_DE));
     assertFalse (aMLT.containsLocaleWithFallback (L_FR_FR));
     assertFalse (aMLT.containsLocaleWithFallback (L_FR));
-    assertEquals (2, aMLT.getMap ().size ());
+    assertEquals (2, aMLT.getAllTexts ().size ());
 
     final MultiLingualText t = new MultiLingualText ();
     for (final Map.Entry <Locale, String> aEntry : aMap.entrySet ())
@@ -73,7 +73,7 @@ public final class ReadonlyMultiLingualTextTest extends AbstractPHTestCase
     assertTrue (aMLT.containsLocaleWithFallback (L_DE));
     assertFalse (aMLT.containsLocaleWithFallback (L_FR_FR));
     assertFalse (aMLT.containsLocaleWithFallback (L_FR));
-    assertEquals (2, aMLT.getMap ().size ());
+    assertEquals (2, aMLT.getAllTexts ().size ());
 
     aMLT = new ReadonlyMultiLingualText ((ISimpleMultiLingualText) t);
     assertEquals (2, aMLT.size ());
@@ -84,15 +84,15 @@ public final class ReadonlyMultiLingualTextTest extends AbstractPHTestCase
     assertTrue (aMLT.containsLocaleWithFallback (L_DE));
     assertFalse (aMLT.containsLocaleWithFallback (L_FR_FR));
     assertFalse (aMLT.containsLocaleWithFallback (L_FR));
-    assertEquals (2, aMLT.getMap ().size ());
+    assertEquals (2, aMLT.getAllTexts ().size ());
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aMLT,
-                                                                    new ReadonlyMultiLingualText (ContainerHelper.newMap (new Locale [] { L_DE,
-                                                                                                                                         L_EN },
-                                                                                                                          new String [] { "de",
-                                                                                                                                         "en" })));
+                                                                 new ReadonlyMultiLingualText (ContainerHelper.newMap (new Locale [] { L_DE,
+                                                                                                                                      L_EN },
+                                                                                                                       new String [] { "de",
+                                                                                                                                      "en" })));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyMultiLingualText (),
-                                                                    new ReadonlyMultiLingualText ());
+                                                                 new ReadonlyMultiLingualText ());
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadonlyMultiLingualText ());
 
     try

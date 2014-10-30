@@ -100,7 +100,7 @@ public final class URLProtocolRegistry
     // Load all SPI implementations
     for (final IURLProtocolRegistrarSPI aRegistrar : ServiceLoaderUtils.getAllSPIImplementations (IURLProtocolRegistrarSPI.class))
     {
-      final Set <? extends IURLProtocol> aURLProtocols = aRegistrar.getProtocols ();
+      final Set <? extends IURLProtocol> aURLProtocols = aRegistrar.getAllProtocols ();
       if (aURLProtocols != null)
         for (final IURLProtocol aSPIProtocol : aURLProtocols)
           registerProtocol (aSPIProtocol);

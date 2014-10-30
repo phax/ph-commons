@@ -81,7 +81,7 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 
-    for (final Map.Entry <Locale, String> aEntry : aMLT.getMap ().entrySet ())
+    for (final Map.Entry <Locale, String> aEntry : aMLT.getAllTexts ().entrySet ())
       internalAddText (aEntry.getKey (), aEntry.getValue ());
   }
 
@@ -175,12 +175,12 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 
-    if (getMap ().equals (aMLT.getMap ()) || !_beforeChange ())
+    if (getAllTexts ().equals (aMLT.getAllTexts ()) || !_beforeChange ())
       return EChange.UNCHANGED;
 
     // Remove all existing texts and assign the new ones
     internalClear ();
-    for (final Map.Entry <Locale, String> aEntry : aMLT.getMap ().entrySet ())
+    for (final Map.Entry <Locale, String> aEntry : aMLT.getAllTexts ().entrySet ())
       internalAddText (aEntry.getKey (), aEntry.getValue ());
     _afterChange ();
     return EChange.CHANGED;

@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Readonly interface for a multilingual text
- * 
+ *
  * @author Philip Helger
  */
 public interface IReadonlyMultiLingualText extends ISimpleMultiLingualText
@@ -31,7 +31,16 @@ public interface IReadonlyMultiLingualText extends ISimpleMultiLingualText
   /**
    * @return A map over all contained locale/text pairs. Never <code>null</code>
    *         .
+   * @deprecated Use {@link #getAllTexts()} instead.
    */
   @Nonnull
+  @Deprecated
   Map <Locale, String> getMap ();
+
+  /**
+   * @return A map over all contained locale/text pairs. Never <code>null</code>
+   *         .
+   */
+  @Nonnull
+  Map <Locale, String> getAllTexts ();
 }
