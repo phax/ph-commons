@@ -36,7 +36,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link CombinationGeneratorFlexible}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CombinationGeneratorFlexibleTest extends AbstractCombinationGeneratorTestCase

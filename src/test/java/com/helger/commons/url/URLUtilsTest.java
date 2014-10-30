@@ -37,7 +37,7 @@ import com.helger.commons.url.encode.URLParameterEncoder;
 
 /**
  * Test class for class {@link URLUtils}.
- * 
+ *
  * @author Philip Helger
  */
 public final class URLUtilsTest
@@ -108,7 +108,7 @@ public final class URLUtilsTest
   }
 
   @Test
-  @Ignore
+  @Ignore ("Works only when being online")
   public void testGetInputStream ()
   {
     try
@@ -125,7 +125,7 @@ public final class URLUtilsTest
   }
 
   @Test
-  @Ignore
+  @Ignore ("Works only when being online")
   public void testPosttInputStream ()
   {
     try

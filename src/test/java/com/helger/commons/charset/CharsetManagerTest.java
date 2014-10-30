@@ -38,7 +38,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link CharsetManager}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CharsetManagerTest
@@ -261,7 +261,7 @@ public final class CharsetManagerTest
   }
 
   @Test
-  @Ignore
+  @Ignore ("doesn't work reliably")
   public void testGetUTF8ByteCountRandom ()
   {
     for (int i = 0; i < 1000; i++)

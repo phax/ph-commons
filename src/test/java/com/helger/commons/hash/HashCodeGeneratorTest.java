@@ -39,7 +39,7 @@ import com.helger.commons.system.SystemHelper;
 
 /**
  * Test class for class {@link HashCodeGenerator}.
- * 
+ *
  * @author Philip Helger
  */
 public final class HashCodeGeneratorTest
@@ -205,7 +205,7 @@ public final class HashCodeGeneratorTest
   }
 
   @Test
-  @Ignore
+  @Ignore ("runs endlessly")
   public void findIllegalValue () throws InterruptedException
   {
     final AtomicBoolean b = new AtomicBoolean (false);
