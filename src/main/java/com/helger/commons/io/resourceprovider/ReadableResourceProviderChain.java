@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.hash.HashCodeGenerator;
@@ -33,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A readable resource provider that chains multiple readable resource
  * providers.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -53,6 +54,13 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
     ValueEnforcer.notEmptyNoNullValue (aResProviders, "ResourceProviders");
 
     m_aReadingResourceProviders = ContainerHelper.newList (aResProviders);
+  }
+
+  @Nonnull
+  @Nonempty
+  public List <IReadableResourceProvider> getAllNestedReadingResourceProviders ()
+  {
+    return ContainerHelper.newList (m_aReadingResourceProviders);
   }
 
   public final boolean supportsReading (@Nullable final String sName)

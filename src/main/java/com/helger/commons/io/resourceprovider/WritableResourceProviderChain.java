@@ -23,7 +23,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
+import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.IReadableResourceProvider;
 import com.helger.commons.io.IWritableResource;
@@ -33,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A resource provider chain implementation of {@link IWritableResourceProvider}
  * .
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -50,6 +52,13 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
         m_aWritableResourceProviders.add ((IWritableResourceProvider) aResProvider);
     if (m_aWritableResourceProviders.isEmpty ())
       throw new IllegalArgumentException ("No writable resource provider passed - use a ReadableResourceProviderChain");
+  }
+
+  @Nonnull
+  @Nonempty
+  public List <IWritableResourceProvider> getAllNestedWritingResourceProviders ()
+  {
+    return ContainerHelper.newList (m_aWritableResourceProviders);
   }
 
   public final boolean supportsWriting (@Nullable final String sName)

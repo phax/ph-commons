@@ -25,6 +25,8 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.collections.ArrayHelper;
 import com.helger.commons.io.IInputStreamAndReaderProvider;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.streams.StreamUtils;
@@ -34,7 +36,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * An {@link java.io.InputStream} provider based on a byte array.
- * 
+ *
  * @author Philip Helger
  */
 public class ByteArrayInputStreamProvider implements IInputStreamAndReaderProvider, Serializable
@@ -64,9 +66,28 @@ public class ByteArrayInputStreamProvider implements IInputStreamAndReaderProvid
   }
 
   @Nonnull
+  @ReturnsMutableCopy
+  public byte [] getData ()
+  {
+    return ArrayHelper.getCopy (m_aData);
+  }
+
+  @Nonnegative
+  public int getOffset ()
+  {
+    return m_nOfs;
+  }
+
+  @Nonnegative
+  public int getLength ()
+  {
+    return m_nLen;
+  }
+
+  @Nonnull
   public final InputStream getInputStream ()
   {
-    return new NonBlockingByteArrayInputStream (m_aData);
+    return new NonBlockingByteArrayInputStream (m_aData, m_nOfs, m_nLen);
   }
 
   @Nonnull

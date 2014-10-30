@@ -16,10 +16,9 @@
  */
 package com.helger.commons.io.streams;
 
-import java.io.IOException;
+import java.io.FilterInputStream;
 import java.io.InputStream;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
@@ -29,81 +28,25 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A wrapper around another {@link InputStream}. Pass through of all
  * {@link InputStream} methods.
- * 
+ *
  * @author Philip Helger
  */
-public class WrappedInputStream extends InputStream
+public class WrappedInputStream extends FilterInputStream
 {
-  private final InputStream m_aWrappedIS;
-
   public WrappedInputStream (@Nonnull final InputStream aWrappedIS)
   {
-    m_aWrappedIS = ValueEnforcer.notNull (aWrappedIS, "WrappedInputStream");
+    super (ValueEnforcer.notNull (aWrappedIS, "WrappedInputStream"));
   }
 
   @Nonnull
   public InputStream getWrappedInputStream ()
   {
-    return m_aWrappedIS;
-  }
-
-  @Override
-  public int read () throws IOException
-  {
-    return m_aWrappedIS.read ();
-  }
-
-  @Override
-  public final int read (@Nonnull final byte [] aBuf) throws IOException
-  {
-    return read (aBuf, 0, aBuf.length);
-  }
-
-  @Override
-  public int read (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
-  {
-    return m_aWrappedIS.read (aBuf, nOfs, nLen);
-  }
-
-  @Override
-  public long skip (@Nonnegative final long n) throws IOException
-  {
-    return m_aWrappedIS.skip (n);
-  }
-
-  @Override
-  public int available () throws IOException
-  {
-    return m_aWrappedIS.available ();
-  }
-
-  @Override
-  public void close () throws IOException
-  {
-    m_aWrappedIS.close ();
-  }
-
-  @Override
-  public synchronized void mark (@Nonnegative final int nReadlimit)// NOPMD
-  {
-    m_aWrappedIS.mark (nReadlimit);
-  }
-
-  @Override
-  public synchronized void reset () throws IOException// NOPMD
-  {
-    m_aWrappedIS.reset ();
-  }
-
-  @Override
-  public boolean markSupported ()
-  {
-    return m_aWrappedIS.markSupported ();
+    return in;
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("wrappedIS", m_aWrappedIS).toString ();
+    return new ToStringGenerator (this).append ("wrappedIS", in).toString ();
   }
 }

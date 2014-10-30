@@ -22,7 +22,7 @@ import javax.xml.bind.ValidationEventHandler;
 /**
  * Implementation of {@link IValidationEventHandlerFactory} using a constant
  * {@link javax.xml.bind.ValidationEventHandler} object.
- * 
+ *
  * @author Philip Helger
  */
 public class ConstantValidationEventHandlerFactory implements IValidationEventHandlerFactory
@@ -32,6 +32,12 @@ public class ConstantValidationEventHandlerFactory implements IValidationEventHa
   public ConstantValidationEventHandlerFactory (@Nullable final ValidationEventHandler aEventHandler)
   {
     m_aEventHandler = aEventHandler;
+  }
+
+  @Nullable
+  public ValidationEventHandler getEventHandler ()
+  {
+    return m_aEventHandler;
   }
 
   @Nullable

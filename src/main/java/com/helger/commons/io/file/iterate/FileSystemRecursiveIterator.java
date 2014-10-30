@@ -116,6 +116,18 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
     m_aFilesLeft = FileUtils.getDirectoryContent (aBaseDir);
   }
 
+  @Nonnegative
+  public int getStartLevel ()
+  {
+    return m_nStartLevel;
+  }
+
+  @Nullable
+  public IFilter <File> getRecursionFilter ()
+  {
+    return m_aRecursionFilter;
+  }
+
   @Nonnull
   public final Iterator <File> iterator ()
   {

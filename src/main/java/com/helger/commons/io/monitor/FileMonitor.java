@@ -41,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
  * {@link FileMonitorManager#createFileMonitor(IFileListener)} to use this class
  * effectively. All files that have the same callback ({@link IFileListener})
  * can be encapsulated in the same {@link FileMonitor}.
- * 
+ *
  * @author Philip Helger
  */
 public class FileMonitor
@@ -81,10 +81,16 @@ public class FileMonitor
     m_aListener = ValueEnforcer.notNull (aListener, "Listener");
   }
 
+  @Nonnull
+  public IFileListener getListener ()
+  {
+    return m_aListener;
+  }
+
   /**
    * Access method to get the recursive setting when adding files for
    * monitoring.
-   * 
+   *
    * @return <code>true</code> if monitoring is enabled for children.
    */
   public boolean isRecursive ()
@@ -95,7 +101,7 @@ public class FileMonitor
   /**
    * Access method to set the recursive setting when adding files for
    * monitoring.
-   * 
+   *
    * @param bRecursive
    *        true if monitoring should be enabled for children.
    * @return this
@@ -109,7 +115,7 @@ public class FileMonitor
 
   /**
    * Adds a file to be monitored.
-   * 
+   *
    * @param aFile
    *        The File to add.
    * @param bRecursive
@@ -174,7 +180,7 @@ public class FileMonitor
 
   /**
    * Adds a file to be monitored.
-   * 
+   *
    * @param aFile
    *        The File to monitor.
    * @return {@link EChange}
@@ -204,7 +210,7 @@ public class FileMonitor
 
   /**
    * Removes a file from being monitored.
-   * 
+   *
    * @param aFile
    *        The File to remove from monitoring.
    * @return {@link EChange}
@@ -258,7 +264,7 @@ public class FileMonitor
 
   /**
    * Called upon file creation by {@link FileMonitorAgent}.
-   * 
+   *
    * @param aFile
    *        The File to add. Never <code>null</code>.
    */
@@ -278,7 +284,7 @@ public class FileMonitor
 
   /**
    * Called upon file deletion by {@link FileMonitorAgent}.
-   * 
+   *
    * @param aFile
    *        The File to be removed from being monitored. Never <code>null</code>
    *        .
@@ -299,7 +305,7 @@ public class FileMonitor
 
   /**
    * Called on modification by {@link FileMonitorAgent}.
-   * 
+   *
    * @param aFile
    *        The File that was modified. Never <code>null</code>.
    */

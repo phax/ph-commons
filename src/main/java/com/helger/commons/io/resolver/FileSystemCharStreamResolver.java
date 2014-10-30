@@ -17,6 +17,8 @@
 package com.helger.commons.io.resolver;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
@@ -38,11 +40,11 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Implementation of the {@link IInputStreamResolver} and
  * {@link IOutputStreamResolver} interfaces for {@link File} objects.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
-public final class FileSystemCharStreamResolver implements IReaderResolver, IWriterResolver
+public final class FileSystemCharStreamResolver implements IInputStreamResolver, IOutputStreamResolver, IReaderResolver, IWriterResolver
 {
   private final FileSystemByteStreamResolver m_aByteStreamResolver;
   private final Charset m_aCharset;
@@ -76,15 +78,27 @@ public final class FileSystemCharStreamResolver implements IReaderResolver, IWri
   }
 
   @Nullable
+  public InputStream getInputStream (@Nonnull final String sName)
+  {
+    return m_aByteStreamResolver.getInputStream (sName);
+  }
+
+  @Nullable
+  public OutputStream getOutputStream (@Nonnull final String sName, @Nonnull final EAppend eAppend)
+  {
+    return m_aByteStreamResolver.getOutputStream (sName, eAppend);
+  }
+
+  @Nullable
   public Reader getReader (@Nonnull final String sName)
   {
-    return StreamUtils.createReader (m_aByteStreamResolver.getInputStream (sName), m_aCharset);
+    return StreamUtils.createReader (getInputStream (sName), m_aCharset);
   }
 
   @Nullable
   public Writer getWriter (@Nonnull final String sName, @Nonnull final EAppend eAppend)
   {
-    return StreamUtils.createWriter (m_aByteStreamResolver.getOutputStream (sName, eAppend), m_aCharset);
+    return StreamUtils.createWriter (getOutputStream (sName, eAppend), m_aCharset);
   }
 
   @Override

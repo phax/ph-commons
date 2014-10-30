@@ -16,7 +16,7 @@
  */
 package com.helger.commons.io.streams;
 
-import java.io.IOException;
+import java.io.FilterOutputStream;
 import java.io.OutputStream;
 
 import javax.annotation.Nonnull;
@@ -27,57 +27,25 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A wrapper around another {@link OutputStream}. Pass through of all
  * {@link OutputStream} methods.
- * 
+ *
  * @author Philip Helger
  */
-public class WrappedOutputStream extends OutputStream
+public class WrappedOutputStream extends FilterOutputStream
 {
-  private final OutputStream m_aWrappedOS;
-
   public WrappedOutputStream (@Nonnull final OutputStream aWrappedOS)
   {
-    m_aWrappedOS = ValueEnforcer.notNull (aWrappedOS, "WrappedOutputStream");
+    super (ValueEnforcer.notNull (aWrappedOS, "WrappedOutputStream"));
   }
 
   @Nonnull
   public OutputStream getWrappedOutputStream ()
   {
-    return m_aWrappedOS;
-  }
-
-  @Override
-  public void write (final int n) throws IOException
-  {
-    m_aWrappedOS.write (n);
-  }
-
-  @Override
-  public final void write (final byte [] aBuf) throws IOException
-  {
-    write (aBuf, 0, aBuf.length);
-  }
-
-  @Override
-  public void write (final byte [] aBuf, final int nOfs, final int nLength) throws IOException
-  {
-    m_aWrappedOS.write (aBuf, nOfs, nLength);
-  }
-
-  @Override
-  public void flush () throws IOException
-  {
-    m_aWrappedOS.flush ();
-  }
-
-  @Override
-  public void close () throws IOException
-  {
-    m_aWrappedOS.close ();
+    return out;
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("wrappedOS", m_aWrappedOS).toString ();
+    return new ToStringGenerator (this).append ("wrappedOS", out).toString ();
   }
 }

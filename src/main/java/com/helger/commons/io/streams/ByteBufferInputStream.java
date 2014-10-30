@@ -29,7 +29,7 @@ import com.helger.commons.lang.ByteBufferUtils;
 
 /**
  * {@link InputStream} wrapped around a single {@link ByteBuffer}.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -39,7 +39,7 @@ public final class ByteBufferInputStream extends InputStream
 
   /**
    * Constructor
-   * 
+   *
    * @param aBuffer
    *        {@link ByteBuffer} to use. May not be <code>null</code>.
    */
@@ -48,10 +48,15 @@ public final class ByteBufferInputStream extends InputStream
     m_aBuffer = ValueEnforcer.notNull (aBuffer, "Buffer");
   }
 
+  public boolean isClosed ()
+  {
+    return m_aBuffer == null;
+  }
+
   private void _checkClosed ()
   {
-    if (m_aBuffer == null)
-      throw new IllegalStateException ("InputStream is already closed");
+    if (isClosed ())
+      throw new IllegalStateException ("ByteBuffer is already closed");
   }
 
   /**
@@ -147,7 +152,7 @@ public final class ByteBufferInputStream extends InputStream
 
   /**
    * Reads as much as possible into the destination buffer.
-   * 
+   *
    * @param aDestByteBuffer
    *        The destination byte buffer to use. May not be <code>null</code>.
    * @return The number of bytes read. Always &ge; 0.

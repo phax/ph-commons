@@ -16,11 +16,9 @@
  */
 package com.helger.commons.io.streams;
 
-import java.io.IOException;
+import java.io.FilterReader;
 import java.io.Reader;
-import java.nio.CharBuffer;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
@@ -29,87 +27,25 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A wrapper around another {@link Reader}. Pass through of all {@link Reader}
  * methods.
- * 
+ *
  * @author Philip Helger
  */
-public class WrappedReader extends Reader
+public class WrappedReader extends FilterReader
 {
-  private final Reader m_aWrappedReader;
-
   public WrappedReader (@Nonnull final Reader aWrappedReader)
   {
-    m_aWrappedReader = ValueEnforcer.notNull (aWrappedReader, "WrappedReader");
+    super (ValueEnforcer.notNull (aWrappedReader, "WrappedReader"));
   }
 
   @Nonnull
   public Reader getWrappedReader ()
   {
-    return m_aWrappedReader;
-  }
-
-  @Override
-  public int read (@Nonnull final CharBuffer aTarget) throws IOException
-  {
-    return m_aWrappedReader.read (aTarget);
-  }
-
-  @Override
-  public int read () throws IOException
-  {
-    return m_aWrappedReader.read ();
-  }
-
-  @Override
-  public int read (@Nonnull final char [] aBuf) throws IOException
-  {
-    return read (aBuf, 0, aBuf.length);
-  }
-
-  @Override
-  public int read (@Nonnull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
-  {
-    return m_aWrappedReader.read (aBuf, nOfs, nLen);
-  }
-
-  @Override
-  public long skip (@Nonnegative final long n) throws IOException
-  {
-    return m_aWrappedReader.skip (n);
-  }
-
-  @Override
-  public boolean ready () throws IOException
-  {
-    return m_aWrappedReader.ready ();
-  }
-
-  @Override
-  public boolean markSupported ()
-  {
-    return m_aWrappedReader.markSupported ();
-  }
-
-  @Override
-  public void mark (@Nonnegative final int nReadAheadLimit) throws IOException
-  {
-    m_aWrappedReader.mark (nReadAheadLimit);
-  }
-
-  @Override
-  public void reset () throws IOException
-  {
-    m_aWrappedReader.reset ();
-  }
-
-  @Override
-  public void close () throws IOException
-  {
-    m_aWrappedReader.close ();
+    return in;
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("wrappedReader", m_aWrappedReader).toString ();
+    return new ToStringGenerator (this).append ("wrappedReader", in).toString ();
   }
 }

@@ -23,7 +23,7 @@ import javax.xml.bind.ValidationEventHandler;
 /**
  * Implementation of {@link IValidationEventHandlerFactory} creating
  * {@link LoggingValidationEventHandler} objects.
- * 
+ *
  * @author Philip Helger
  */
 public class LoggingValidationEventHandlerFactory implements IValidationEventHandlerFactory
@@ -44,6 +44,11 @@ public class LoggingValidationEventHandlerFactory implements IValidationEventHan
   public LoggingValidationEventHandlerFactory (final boolean bEncapsulateHandler)
   {
     m_bEncapsulateHandler = bEncapsulateHandler;
+  }
+
+  public boolean isEncapsulateHandler ()
+  {
+    return m_bEncapsulateHandler;
   }
 
   @Nonnull
