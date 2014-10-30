@@ -25,6 +25,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.IHasStringRepresentation;
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
@@ -443,6 +444,32 @@ public final class Version implements Comparable <Version>, IHasStringRepresenta
       aSB.insert (0, m_nMajor);
     }
     return aSB.length () > 0 ? aSB.toString () : DEFAULT_VERSION_STRING;
+  }
+
+  /**
+   * Get the string representation of the version number but only major and
+   * minor version number.
+   *
+   * @return Never <code>null</code>.
+   */
+  @Nonnull
+  @Nonempty
+  public String getAsStringMajorMinor ()
+  {
+    return m_nMajor + "." + m_nMinor;
+  }
+
+  /**
+   * Get the string representation of the version number but only major and
+   * minor and micro version number.
+   *
+   * @return Never <code>null</code>.
+   */
+  @Nonnull
+  @Nonempty
+  public String getAsStringMajorMinorMicro ()
+  {
+    return m_nMajor + "." + m_nMinor + "." + m_nMicro;
   }
 
   @Override

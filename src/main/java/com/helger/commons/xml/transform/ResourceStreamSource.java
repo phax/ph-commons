@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * {@link IReadableResource} or {@link IInputStreamProvider} objects. The system
  * ID of the stream source is automatically determined from the resource or can
  * be manually passed in.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -50,6 +50,12 @@ public class ResourceStreamSource extends StreamSource
   {
     m_aISP = ValueEnforcer.notNull (aISP, "InputStreamProvider");
     setSystemId (sSystemID);
+  }
+
+  @Nonnull
+  public IInputStreamProvider getInputStreamProvider ()
+  {
+    return m_aISP;
   }
 
   @Override

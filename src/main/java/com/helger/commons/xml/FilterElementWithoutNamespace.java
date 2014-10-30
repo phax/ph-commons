@@ -25,6 +25,7 @@ import org.w3c.dom.Element;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.filter.ISerializableFilter;
 import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -49,7 +50,7 @@ public final class FilterElementWithoutNamespace implements ISerializableFilter 
 
   public boolean matchesFilter (@Nullable final Element aElement)
   {
-    return aElement != null && aElement.getNamespaceURI () == null;
+    return aElement != null && StringHelper.hasNoText (aElement.getNamespaceURI ());
   }
 
   @Override

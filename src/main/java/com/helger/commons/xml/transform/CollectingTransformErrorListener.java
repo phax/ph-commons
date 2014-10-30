@@ -21,6 +21,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.xml.transform.ErrorListener;
 
@@ -35,13 +36,14 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * This implementation of {@link javax.xml.transform.ErrorListener} saves all
  * occurred warnings/errors/fatals in a list for later evaluation.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
 public class CollectingTransformErrorListener extends AbstractTransformErrorListener implements IHasResourceErrorGroup
 {
   protected final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  @GuardedBy ("m_aRWLock")
   private final ResourceErrorGroup m_aErrors = new ResourceErrorGroup ();
 
   public CollectingTransformErrorListener ()
@@ -85,7 +87,7 @@ public class CollectingTransformErrorListener extends AbstractTransformErrorList
 
   /**
    * Clear all currently stored errors.
-   * 
+   *
    * @return {@link EChange#CHANGED} if at least one item was cleared.
    */
   @Nonnull
@@ -105,14 +107,6 @@ public class CollectingTransformErrorListener extends AbstractTransformErrorList
   @Override
   public String toString ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return ToStringGenerator.getDerived (super.toString ()).append ("errors", m_aErrors).toString ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return ToStringGenerator.getDerived (super.toString ()).append ("errors", m_aErrors).toString ();
   }
 }

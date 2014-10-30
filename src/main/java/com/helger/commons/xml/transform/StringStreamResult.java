@@ -28,7 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Special {@link StreamResult} implementation that writes to {@link String}
  * objects.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -46,6 +46,12 @@ public class StringStreamResult extends StreamResult implements IHasStringRepres
     super (new NonBlockingStringWriter ());
     m_aSW = (NonBlockingStringWriter) getWriter ();
     setSystemId (sSystemID);
+  }
+
+  @Nonnull
+  public NonBlockingStringWriter getStringWriter ()
+  {
+    return m_aSW;
   }
 
   @Nonnull

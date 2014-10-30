@@ -33,13 +33,13 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Iterate child elements of a single node. Does not iterate recursively. Does
  * not return the start node.
- * 
+ *
  * @author Philip Helger
  */
 public class ChildElementIterator implements IIterableIterator <Element>
 {
   /** The nodes to iterate. */
-  private final Iterator <Node> m_aIter;
+  private final FilterIterator <Node> m_aIter;
 
   public ChildElementIterator (@Nonnull final Node aStartNode)
   {
@@ -49,6 +49,12 @@ public class ChildElementIterator implements IIterableIterator <Element>
   public ChildElementIterator (@Nonnull final Node aStartNode, @Nullable final IFilter <Element> aCustomFilter)
   {
     m_aIter = new FilterIterator <Node> (new ChildNodeIterator (aStartNode), new FilterNodeIsElement (aCustomFilter));
+  }
+
+  @Nonnull
+  public FilterIterator <Node> getFilterIterator ()
+  {
+    return m_aIter;
   }
 
   public final boolean hasNext ()

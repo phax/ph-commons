@@ -41,7 +41,7 @@ import com.helger.commons.url.URLUtils;
 /**
  * A simple LS resource resolver that can handle URLs, JAR files and file system
  * resources.
- * 
+ *
  * @author Philip Helger
  */
 public class SimpleLSResourceResolver implements LSResourceResolver
@@ -59,9 +59,15 @@ public class SimpleLSResourceResolver implements LSResourceResolver
     m_aWrappedResourceResolver = aWrappedResourceResolver;
   }
 
+  @Nullable
+  public LSResourceResolver getWrappedResourceResolver ()
+  {
+    return m_aWrappedResourceResolver;
+  }
+
   /**
    * Do the standard resource resolving of sSystemId relative to sBaseURI
-   * 
+   *
    * @param sSystemId
    *        The resource to search. May be <code>null</code> if base URI is set.
    * @param sBaseURI

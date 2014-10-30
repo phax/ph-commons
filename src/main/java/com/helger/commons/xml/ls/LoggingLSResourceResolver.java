@@ -25,7 +25,7 @@ import org.w3c.dom.ls.LSResourceResolver;
 
 /**
  * A logging only {@link LSResourceResolver} implementation.
- * 
+ *
  * @author Philip Helger
  */
 public class LoggingLSResourceResolver implements LSResourceResolver
@@ -42,6 +42,12 @@ public class LoggingLSResourceResolver implements LSResourceResolver
   public LoggingLSResourceResolver (@Nullable final LSResourceResolver aWrappedResourceResolver)
   {
     m_aWrappedResourceResolver = aWrappedResourceResolver;
+  }
+
+  @Nullable
+  public LSResourceResolver getWrappedResourceResolver ()
+  {
+    return m_aWrappedResourceResolver;
   }
 
   @Nullable

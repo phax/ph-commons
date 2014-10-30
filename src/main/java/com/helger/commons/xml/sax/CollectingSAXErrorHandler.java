@@ -21,6 +21,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import org.xml.sax.ErrorHandler;
@@ -37,13 +38,14 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * An error handler implementation that stores all warnings, errors and fatal
  * errors.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
 public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler implements IHasResourceErrorGroup
 {
   protected final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  @GuardedBy ("m_aRWLock")
   private final ResourceErrorGroup m_aErrors = new ResourceErrorGroup ();
 
   public CollectingSAXErrorHandler ()
@@ -98,7 +100,7 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler implement
 
   /**
    * Clear all currently stored errors.
-   * 
+   *
    * @return {@link EChange#CHANGED} if at least one item was cleared.
    */
   @Nonnull
@@ -118,14 +120,6 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler implement
   @Override
   public String toString ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return ToStringGenerator.getDerived (super.toString ()).append ("errors", m_aErrors).toString ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return ToStringGenerator.getDerived (super.toString ()).append ("errors", m_aErrors).toString ();
   }
 }

@@ -47,7 +47,7 @@ import com.helger.commons.xml.transform.TransformSourceFactory;
  * Abstract base class for caching abstract {@link Schema} objects. A
  * {@link Schema} is immutable and can therefore safely be used in
  * multi-threaded environments.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -70,6 +70,24 @@ public abstract class DefaultSchemaCache extends AbstractNotifyingCache <List <?
     m_aSchemaFactory.setErrorHandler (aErrorHandler);
     m_aSchemaFactory.setResourceResolver (aResourceResolver);
     m_aErrorHandler = aErrorHandler;
+  }
+
+  @Nonnull
+  public String getSchemaTypeName ()
+  {
+    return m_sSchemaTypeName;
+  }
+
+  @Nonnull
+  public SchemaFactory getSchemaFactory ()
+  {
+    return m_aSchemaFactory;
+  }
+
+  @Nullable
+  public ErrorHandler getErrorHandler ()
+  {
+    return m_aErrorHandler;
   }
 
   @Override
@@ -105,7 +123,7 @@ public abstract class DefaultSchemaCache extends AbstractNotifyingCache <List <?
 
   /**
    * Get a cached {@link Schema} from a single resource.
-   * 
+   *
    * @param aResource
    *        The resource to parse into a {@link Schema}. May not be
    *        <code>null</code>.
@@ -121,7 +139,7 @@ public abstract class DefaultSchemaCache extends AbstractNotifyingCache <List <?
 
   /**
    * Get a cached {@link Schema} that consists of multiple resources.
-   * 
+   *
    * @param aResources
    *        The resources to parse into a single {@link Schema}. May neither
    *        <code>null</code> nor empty nor may it contain <code>null</code>
@@ -138,7 +156,7 @@ public abstract class DefaultSchemaCache extends AbstractNotifyingCache <List <?
 
   /**
    * Get a cached {@link Schema} that consists of multiple resources.
-   * 
+   *
    * @param aResources
    *        The resources to parse into a single {@link Schema}. May neither
    *        <code>null</code> nor empty nor may it contain <code>null</code>
@@ -156,7 +174,7 @@ public abstract class DefaultSchemaCache extends AbstractNotifyingCache <List <?
   /**
    * Utility method to get the validator for a given schema using the error
    * handler provided in the constructor.
-   * 
+   *
    * @param aSchema
    *        The schema for which the validator is to be retrieved. May not be
    *        <code>null</code>.
@@ -175,7 +193,7 @@ public abstract class DefaultSchemaCache extends AbstractNotifyingCache <List <?
   /**
    * Get a new validator based on the {@link Schema} that consists of a single
    * resource.
-   * 
+   *
    * @param aResource
    *        The resource to parse into a single {@link Schema}. May not be
    *        <code>null</code>.
@@ -191,7 +209,7 @@ public abstract class DefaultSchemaCache extends AbstractNotifyingCache <List <?
   /**
    * Get a new validator based on the {@link Schema} that consists of multiple
    * resources.
-   * 
+   *
    * @param aResources
    *        The resources to parse into a single {@link Schema}. May neither
    *        <code>null</code> nor empty nor may it contain <code>null</code>
@@ -208,7 +226,7 @@ public abstract class DefaultSchemaCache extends AbstractNotifyingCache <List <?
   /**
    * Get a new validator based on the {@link Schema} that consists of multiple
    * resources.
-   * 
+   *
    * @param aResources
    *        The resources to parse into a single {@link Schema}. May neither
    *        <code>null</code> nor empty nor may it contain <code>null</code>
@@ -224,7 +242,7 @@ public abstract class DefaultSchemaCache extends AbstractNotifyingCache <List <?
 
   /**
    * Utility method to remove a single resource from the schema cache.
-   * 
+   *
    * @param aKey
    *        The resource to remove
    * @return {@link EChange}.

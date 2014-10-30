@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
  *
  * @author Philip Helger
  */
-public interface ISimpleURLProvider
+public interface IHasSimpleURL
 {
   /**
    * @return The simple URL to be used. May not be <code>null</code>.

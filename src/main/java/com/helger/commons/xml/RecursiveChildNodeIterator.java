@@ -32,7 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Iterate all children of the start node, but NOT the start node itself.
- * 
+ *
  * @author Philip Helger
  */
 public class RecursiveChildNodeIterator implements IIterableIterator <Node>

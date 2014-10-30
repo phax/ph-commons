@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Special {@link InputSource} implementation that reads from a predefined
  * String.
- * 
+ *
  * @author Philip Helger
  */
 public class StringSAXInputSource extends InputSource
@@ -62,6 +62,12 @@ public class StringSAXInputSource extends InputSource
   {
     m_sText = ValueEnforcer.notNull (sText, "Text");
     setSystemId (sSystemID);
+  }
+
+  @Nonnull
+  public String getText ()
+  {
+    return m_sText;
   }
 
   @Override

@@ -23,6 +23,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import org.w3c.dom.ls.LSInput;
@@ -33,13 +34,14 @@ import com.helger.commons.collections.ContainerHelper;
 
 /**
  * A class that collects all requested resources.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
 public class CollectingLSResourceResolver implements LSResourceResolver
 {
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  @GuardedBy ("m_aRWLock")
   private final List <LSResourceData> m_aList = new ArrayList <LSResourceData> ();
   private final LSResourceResolver m_aWrappedResourceResolver;
 
@@ -51,6 +53,12 @@ public class CollectingLSResourceResolver implements LSResourceResolver
   public CollectingLSResourceResolver (@Nullable final LSResourceResolver aWrappedResourceResolver)
   {
     m_aWrappedResourceResolver = aWrappedResourceResolver;
+  }
+
+  @Nullable
+  public LSResourceResolver getWrappedResourceResolver ()
+  {
+    return m_aWrappedResourceResolver;
   }
 
   @Nonnull

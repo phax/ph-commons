@@ -34,7 +34,7 @@ import com.helger.commons.log.LogUtils;
 
 /**
  * {@link javax.xml.transform.ErrorListener} that simply logs data to a logger.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -55,6 +55,12 @@ public class LoggingTransformErrorListener extends AbstractTransformErrorListene
   {
     super (aWrappedErrorListener);
     m_aDisplayLocale = ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
+  }
+
+  @Nonnull
+  public Locale getDisplayLocale ()
+  {
+    return m_aDisplayLocale;
   }
 
   @Override
