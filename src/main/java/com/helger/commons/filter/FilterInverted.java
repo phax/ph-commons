@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A filter implementation that inverts the result of another filter.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type to filter
@@ -56,7 +56,7 @@ public final class FilterInverted <DATATYPE> implements IFilter <DATATYPE>
   {
     if (o == this)
       return true;
-    if (!(o instanceof FilterInverted <?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FilterInverted <?> rhs = (FilterInverted <?>) o;
     return m_aOriginalFilter.equals (rhs.m_aOriginalFilter);

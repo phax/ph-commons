@@ -162,7 +162,7 @@ public final class SingleElementMap <KEYTYPE, VALUETYPE> implements Map <KEYTYPE
   {
     if (o == this)
       return true;
-    if (!(o instanceof SingleElementMap <?, ?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleElementMap <?, ?> rhs = (SingleElementMap <?, ?>) o;
     return m_bHasElement == rhs.m_bHasElement &&

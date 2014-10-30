@@ -27,7 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A simple combinator that concatenates 2 strings using a separator in case the
  * strings to be concatenated are not <code>null</code>.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -61,7 +61,7 @@ public final class CombinatorStringWithSeparatorIgnoreNull implements ICombinato
   {
     if (o == this)
       return true;
-    if (!(o instanceof CombinatorStringWithSeparatorIgnoreNull))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CombinatorStringWithSeparatorIgnoreNull rhs = (CombinatorStringWithSeparatorIgnoreNull) o;
     return m_sSep.equals (rhs.m_sSep);

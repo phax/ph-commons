@@ -46,7 +46,7 @@ public class AggregatorUseLast <DATATYPE> implements IAggregator <DATATYPE, DATA
   {
     if (o == this)
       return true;
-    if (!(o instanceof AggregatorUseLast <?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     return true;
   }

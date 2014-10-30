@@ -28,7 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Object wrapper around an int so that it can be passed a final object but is
  * mutable.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -49,7 +49,7 @@ public final class MutableInt extends Number implements IMutableInteger <Mutable
 
   /**
    * Initialize with a certain value.
-   * 
+   *
    * @param aValue
    *        The value to be used.
    */
@@ -60,7 +60,7 @@ public final class MutableInt extends Number implements IMutableInteger <Mutable
 
   /**
    * Initialize with a certain value.
-   * 
+   *
    * @param nValue
    *        The value to be used.
    */
@@ -101,7 +101,7 @@ public final class MutableInt extends Number implements IMutableInteger <Mutable
 
   /**
    * Increment by 1 and return the modified value.
-   * 
+   *
    * @return The by 1 incremented value.
    */
   public int inc ()
@@ -190,7 +190,7 @@ public final class MutableInt extends Number implements IMutableInteger <Mutable
   {
     if (o == this)
       return true;
-    if (!(o instanceof MutableInt))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MutableInt rhs = (MutableInt) o;
     return m_nValue == rhs.m_nValue;

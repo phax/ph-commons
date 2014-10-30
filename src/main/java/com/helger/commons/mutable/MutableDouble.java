@@ -29,7 +29,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Object wrapper around a double so that it can be passed a final object but is
  * mutable.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -90,7 +90,7 @@ public final class MutableDouble extends Number implements IMutableNumeric <Muta
 
   /**
    * Increment by 1 and return the modified value.
-   * 
+   *
    * @return The by 1 incremented value.
    */
   public double inc ()
@@ -169,7 +169,7 @@ public final class MutableDouble extends Number implements IMutableNumeric <Muta
   {
     if (o == this)
       return true;
-    if (!(o instanceof MutableDouble))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MutableDouble rhs = (MutableDouble) o;
     return EqualsUtils.equals (m_dValue, rhs.m_dValue);

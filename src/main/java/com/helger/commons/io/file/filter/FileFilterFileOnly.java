@@ -55,7 +55,7 @@ public final class FileFilterFileOnly extends AbstractFileFilter
   {
     if (o == this)
       return true;
-    if (!(o instanceof FileFilterFileOnly))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     return true;
   }

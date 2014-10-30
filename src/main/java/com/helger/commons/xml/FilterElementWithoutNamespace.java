@@ -30,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * An implementation of {@link IFilter} on {@link Element} objects that will
  * only return elements without a namespace URI.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -57,7 +57,7 @@ public final class FilterElementWithoutNamespace implements ISerializableFilter 
   {
     if (o == this)
       return true;
-    if (!(o instanceof FilterElementWithoutNamespace))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     return true;
   }

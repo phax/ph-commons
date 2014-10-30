@@ -30,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * An implementation of {@link ISerializableFilter} that chains multiple
  * instances of {@link ISerializableFilter} with an <b>OR</b> operator.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type to be filtered.
@@ -70,7 +70,7 @@ public final class SerializableFilterChainOR <DATATYPE> implements ISerializable
   {
     if (o == this)
       return true;
-    if (!(o instanceof SerializableFilterChainOR <?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SerializableFilterChainOR <?> rhs = (SerializableFilterChainOR <?>) o;
     return m_aFilters.equals (rhs.m_aFilters);

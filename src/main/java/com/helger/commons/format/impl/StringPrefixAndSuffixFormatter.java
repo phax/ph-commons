@@ -71,7 +71,7 @@ public class StringPrefixAndSuffixFormatter extends AbstractStringFormatter
   {
     if (o == this)
       return true;
-    if (!(o instanceof StringPrefixAndSuffixFormatter))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final StringPrefixAndSuffixFormatter rhs = (StringPrefixAndSuffixFormatter) o;
     return m_sPrefix.equals (rhs.m_sPrefix) && m_sSuffix.equals (rhs.m_sSuffix);

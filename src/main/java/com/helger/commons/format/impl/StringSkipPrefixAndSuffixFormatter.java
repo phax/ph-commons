@@ -78,7 +78,7 @@ public class StringSkipPrefixAndSuffixFormatter extends AbstractStringFormatter
   {
     if (o == this)
       return true;
-    if (!(o instanceof StringSkipPrefixAndSuffixFormatter))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final StringSkipPrefixAndSuffixFormatter rhs = (StringSkipPrefixAndSuffixFormatter) o;
     return m_sPrefix.equals (rhs.m_sPrefix) && m_sSuffix.equals (rhs.m_sSuffix);

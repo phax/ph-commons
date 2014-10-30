@@ -76,7 +76,7 @@ public final class MinLengthAddLeadingFormatter extends AbstractStringFormatter
   {
     if (o == this)
       return true;
-    if (!(o instanceof MinLengthAddLeadingFormatter))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MinLengthAddLeadingFormatter rhs = (MinLengthAddLeadingFormatter) o;
     return m_nMinLength == rhs.m_nMinLength && m_cFill == rhs.m_cFill;

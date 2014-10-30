@@ -53,7 +53,7 @@ public final class MockHasName implements IHasName, Comparable <MockHasName>
   {
     if (o == this)
       return true;
-    if (!(o instanceof MockHasName))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MockHasName rhs = (MockHasName) o;
     return m_sName.equals (rhs.m_sName);

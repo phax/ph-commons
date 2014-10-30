@@ -29,7 +29,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * An implementation of {@link IFilter} on {@link Node} objects that will only
  * return {@link Element} nodes.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -65,7 +65,7 @@ public final class FilterNodeIsElement implements IFilter <Node>
   {
     if (o == this)
       return true;
-    if (!(o instanceof FilterNodeIsElement))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FilterNodeIsElement rhs = (FilterNodeIsElement) o;
     return m_aNestedElementFilter.equals (rhs.m_aNestedElementFilter);

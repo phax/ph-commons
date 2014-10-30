@@ -47,7 +47,7 @@ public final class AggregatorAlwaysNull <SRCTYPE, DSTTYPE> implements IAggregato
   {
     if (o == this)
       return true;
-    if (!(o instanceof AggregatorAlwaysNull <?, ?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     return true;
   }

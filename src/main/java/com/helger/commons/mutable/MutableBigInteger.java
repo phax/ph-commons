@@ -177,7 +177,7 @@ public final class MutableBigInteger extends Number implements IMutableNumeric <
   {
     if (o == this)
       return true;
-    if (!(o instanceof MutableBigInteger))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MutableBigInteger rhs = (MutableBigInteger) o;
     return EqualsUtils.equals (m_aValue, rhs.m_aValue);

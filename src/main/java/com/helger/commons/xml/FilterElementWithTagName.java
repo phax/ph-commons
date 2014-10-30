@@ -32,7 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  * An implementation of {@link ISerializableFilter} on {@link Element} objects
  * that will only return elements with a certain tag name and without a
  * namespace URI.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -62,7 +62,7 @@ public final class FilterElementWithTagName implements ISerializableFilter <Elem
   {
     if (o == this)
       return true;
-    if (!(o instanceof FilterElementWithTagName))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FilterElementWithTagName rhs = (FilterElementWithTagName) o;
     return m_sTagName.equals (rhs.m_sTagName);

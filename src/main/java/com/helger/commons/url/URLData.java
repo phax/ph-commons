@@ -126,7 +126,7 @@ public class URLData implements IURLData
   {
     if (o == this)
       return true;
-    if (!(o instanceof URLData))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final URLData rhs = (URLData) o;
     return m_sPath.equals (rhs.m_sPath) &&

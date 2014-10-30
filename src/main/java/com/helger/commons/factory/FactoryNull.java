@@ -27,7 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * An instance of {@link IFactory} that always returns <code>null</code>.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        Return type of the factory
@@ -50,7 +50,7 @@ public final class FactoryNull <DATATYPE> implements IFactory <DATATYPE>, Serial
   {
     if (o == this)
       return true;
-    if (!(o instanceof FactoryNull))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     return true;
   }

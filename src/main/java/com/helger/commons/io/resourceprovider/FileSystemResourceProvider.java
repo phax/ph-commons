@@ -40,7 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Simple resource provider that only uses files.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -130,7 +130,7 @@ public final class FileSystemResourceProvider implements IWritableResourceProvid
   {
     if (o == this)
       return true;
-    if (!(o instanceof FileSystemResourceProvider))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FileSystemResourceProvider rhs = (FileSystemResourceProvider) o;
     return EqualsUtils.equals (m_aBasePath, rhs.m_aBasePath);

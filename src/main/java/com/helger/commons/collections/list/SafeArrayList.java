@@ -91,6 +91,7 @@ public class SafeArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impleme
   {
     if (o == this)
       return true;
+    // Special case because this check is not performed in super.equals
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     if (!super.equals (o))

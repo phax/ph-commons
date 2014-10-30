@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * The URL resource provider.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -61,7 +61,7 @@ public final class URLResourceProvider implements IReadableResourceProvider
   {
     if (o == this)
       return true;
-    if (!(o instanceof URLResourceProvider))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     return true;
   }

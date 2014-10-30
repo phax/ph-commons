@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A filter implementation that inverts the result of another filter.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type to filter
@@ -56,7 +56,7 @@ public final class SerializableFilterInverted <DATATYPE> implements ISerializabl
   {
     if (o == this)
       return true;
-    if (!(o instanceof SerializableFilterInverted <?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SerializableFilterInverted <?> rhs = (SerializableFilterInverted <?>) o;
     return m_aOriginalFilter.equals (rhs.m_aOriginalFilter);

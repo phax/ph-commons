@@ -27,7 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * An implementation of {@link IIntIDFactory} using a single static
  * {@link AtomicInteger}.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -57,7 +57,7 @@ public final class MemoryStaticIntIDFactory implements IIntIDFactory
   {
     if (o == this)
       return true;
-    if (!(o instanceof MemoryStaticIntIDFactory))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     return true;
   }

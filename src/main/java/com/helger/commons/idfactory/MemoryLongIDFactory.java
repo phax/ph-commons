@@ -27,7 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A default implementation for non-negative in-memory IDs.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -63,7 +63,7 @@ public final class MemoryLongIDFactory implements ILongIDFactory
   {
     if (o == this)
       return true;
-    if (!(o instanceof MemoryLongIDFactory))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     // AtomicInteger does not implement equals and hashCode!
     final MemoryLongIDFactory rhs = (MemoryLongIDFactory) o;

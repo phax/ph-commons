@@ -27,7 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Pair of {@link TimeUnit} and a value.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -109,7 +109,7 @@ public final class TimeValue
   {
     if (o == this)
       return true;
-    if (!(o instanceof TimeValue))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final TimeValue rhs = (TimeValue) o;
     return m_eTimeUnit.equals (rhs.m_eTimeUnit) && m_nDuration == rhs.m_nDuration;

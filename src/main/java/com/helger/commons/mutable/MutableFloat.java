@@ -29,7 +29,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Object wrapper around a float so that it can be passed a final object but is
  * mutable.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -90,7 +90,7 @@ public final class MutableFloat extends Number implements IMutableNumeric <Mutab
 
   /**
    * Increment by 1 and return the modified value.
-   * 
+   *
    * @return The by 1 incremented value.
    */
   public float inc ()
@@ -169,7 +169,7 @@ public final class MutableFloat extends Number implements IMutableNumeric <Mutab
   {
     if (o == this)
       return true;
-    if (!(o instanceof MutableFloat))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MutableFloat rhs = (MutableFloat) o;
     return EqualsUtils.equals (m_fValue, rhs.m_fValue);

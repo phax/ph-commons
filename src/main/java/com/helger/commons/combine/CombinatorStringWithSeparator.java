@@ -26,7 +26,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A simple combinator that concatenates 2 strings using a common separator.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -55,7 +55,7 @@ public final class CombinatorStringWithSeparator implements ICombinator <String>
   {
     if (o == this)
       return true;
-    if (!(o instanceof CombinatorStringWithSeparator))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CombinatorStringWithSeparator rhs = (CombinatorStringWithSeparator) o;
     return m_sSep.equals (rhs.m_sSep);

@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Represents an error with an additional error object.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -131,7 +131,7 @@ public final class FileIOError implements ISuccessIndicator, Serializable
   {
     if (o == this)
       return true;
-    if (!(o instanceof FileIOError))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FileIOError rhs = (FileIOError) o;
     return m_eOperation == rhs.m_eOperation &&

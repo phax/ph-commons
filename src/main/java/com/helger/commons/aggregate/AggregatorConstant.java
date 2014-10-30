@@ -61,7 +61,7 @@ public final class AggregatorConstant <SRCTYPE, DSTTYPE> implements IAggregator 
   {
     if (o == this)
       return true;
-    if (!(o instanceof AggregatorConstant <?, ?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final AggregatorConstant <?, ?> rhs = (AggregatorConstant <?, ?>) o;
     return EqualsUtils.equals (m_aValue, rhs.m_aValue);

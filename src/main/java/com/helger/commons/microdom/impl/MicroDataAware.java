@@ -30,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Default implementation of the {@link IMicroDataAware} interface.
- * 
+ *
  * @author Philip Helger
  */
 final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAware>
@@ -104,7 +104,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
   {
     if (o == this)
       return true;
-    if (!(o instanceof MicroDataAware))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MicroDataAware rhs = (MicroDataAware) o;
     return EqualsUtils.equals (m_aSB, rhs.m_aSB);

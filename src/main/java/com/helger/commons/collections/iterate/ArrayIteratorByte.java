@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * This is a small helper class for iterating over arrays of byte.
- * 
+ *
  * @author Philip Helger
  */
 public final class ArrayIteratorByte
@@ -48,7 +48,7 @@ public final class ArrayIteratorByte
 
   /**
    * Private constructor with offset and length
-   * 
+   *
    * @param aArray
    *        Source array
    * @param nOfs
@@ -88,7 +88,7 @@ public final class ArrayIteratorByte
   {
     if (o == this)
       return true;
-    if (!(o instanceof ArrayIteratorByte))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ArrayIteratorByte rhs = (ArrayIteratorByte) o;
     return EqualsUtils.equals (m_aArray, rhs.m_aArray) && m_nIndex == rhs.m_nIndex;

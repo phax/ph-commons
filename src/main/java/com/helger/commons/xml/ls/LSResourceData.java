@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * This class encapsulates all data provided for resource resolving.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -85,7 +85,7 @@ public final class LSResourceData
   {
     if (o == this)
       return true;
-    if (!(o instanceof LSResourceData))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final LSResourceData rhs = (LSResourceData) o;
     return EqualsUtils.equals (m_sType, rhs.m_sType) &&

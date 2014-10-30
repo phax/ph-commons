@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * This is a small helper class for iterating over arrays of int.
- * 
+ *
  * @author Philip Helger
  */
 public final class ArrayIteratorInt
@@ -48,7 +48,7 @@ public final class ArrayIteratorInt
 
   /**
    * Private constructor with offset and length
-   * 
+   *
    * @param aArray
    *        Source array
    * @param nOfs
@@ -88,7 +88,7 @@ public final class ArrayIteratorInt
   {
     if (o == this)
       return true;
-    if (!(o instanceof ArrayIteratorInt))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ArrayIteratorInt rhs = (ArrayIteratorInt) o;
     return EqualsUtils.equals (m_aArray, rhs.m_aArray) && m_nIndex == rhs.m_nIndex;

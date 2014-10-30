@@ -57,7 +57,7 @@ public final class FileFilterDirectoryFromFilenameFilter extends AbstractFileFil
   {
     if (o == this)
       return true;
-    if (!(o instanceof FileFilterDirectoryFromFilenameFilter))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     // FilenameFilter does not necessarily implement equals/hashCode :(
     return true;

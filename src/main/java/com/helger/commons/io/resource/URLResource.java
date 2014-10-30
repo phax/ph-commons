@@ -47,7 +47,7 @@ import com.helger.commons.url.URLUtils;
 
 /**
  * Implementation of the {@link IReadableResource} interface for URL objects.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -85,7 +85,7 @@ public class URLResource implements IReadableResource
 
   /**
    * Check if the passed resource name is an explicit URL resource.
-   * 
+   *
    * @param sName
    *        The name to check. May be <code>null</code>.
    * @return <code>true</code> if the passed name is an explicit URL resource.
@@ -260,7 +260,7 @@ public class URLResource implements IReadableResource
   {
     if (o == this)
       return true;
-    if (!(o instanceof URLResource))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final URLResource rhs = (URLResource) o;
     return EqualsUtils.equals (m_aURL, rhs.m_aURL);

@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Simple resource provider that only uses files.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -74,7 +74,7 @@ public final class ClassPathResourceProvider implements IReadableResourceProvide
   {
     if (o == this)
       return true;
-    if (!(o instanceof ClassPathResourceProvider))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ClassPathResourceProvider rhs = (ClassPathResourceProvider) o;
     return EqualsUtils.equals (m_sPrefix, rhs.m_sPrefix);

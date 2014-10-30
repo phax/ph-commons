@@ -94,7 +94,7 @@ public final class CustomLicense implements ILicense
   {
     if (o == this)
       return true;
-    if (!(o instanceof CustomLicense))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CustomLicense rhs = (CustomLicense) o;
     return m_sID.equals (rhs.m_sID) &&

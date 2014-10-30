@@ -142,7 +142,7 @@ public final class ScalableSize implements IHasWidthAndHeight, Serializable
   {
     if (o == this)
       return true;
-    if (!(o instanceof ScalableSize))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ScalableSize rhs = (ScalableSize) o;
     return m_nWidth == rhs.m_nWidth && m_nHeight == rhs.m_nHeight;

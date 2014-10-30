@@ -312,7 +312,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   {
     if (this == o)
       return true;
-    if (!(o instanceof Codepoint))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final Codepoint rhs = (Codepoint) o;
     return m_nValue == rhs.m_nValue;

@@ -91,7 +91,7 @@ public final class XPathFunctionKey implements Comparable <XPathFunctionKey>
   {
     if (o == this)
       return true;
-    if (!(o instanceof XPathFunctionKey))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final XPathFunctionKey rhs = (XPathFunctionKey) o;
     return m_aFunctionName.equals (rhs.m_aFunctionName) && m_nArity == rhs.m_nArity;

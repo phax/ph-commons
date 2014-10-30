@@ -177,7 +177,7 @@ public final class MutableBigDecimal extends Number implements IMutableNumeric <
   {
     if (o == this)
       return true;
-    if (!(o instanceof MutableBigDecimal))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MutableBigDecimal rhs = (MutableBigDecimal) o;
     return EqualsUtils.equals (m_aValue, rhs.m_aValue);

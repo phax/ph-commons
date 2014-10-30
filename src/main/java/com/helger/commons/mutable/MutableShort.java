@@ -28,7 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Object wrapper around a short so that it can be passed a final object but is
  * mutable.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -50,7 +50,7 @@ public final class MutableShort extends Number implements IMutableInteger <Mutab
   /**
    * Initialize with a certain int value. If the value does not fit into a
    * short, the value is cut!
-   * 
+   *
    * @param nValue
    *        The value to be used.
    */
@@ -61,7 +61,7 @@ public final class MutableShort extends Number implements IMutableInteger <Mutab
 
   /**
    * Initialize with a certain value.
-   * 
+   *
    * @param aValue
    *        The value to be used.
    */
@@ -72,7 +72,7 @@ public final class MutableShort extends Number implements IMutableInteger <Mutab
 
   /**
    * Initialize with a certain value.
-   * 
+   *
    * @param nValue
    *        The value to be used.
    */
@@ -119,7 +119,7 @@ public final class MutableShort extends Number implements IMutableInteger <Mutab
 
   /**
    * Increment by 1 and return the modified value.
-   * 
+   *
    * @return The by 1 incremented value.
    */
   public int inc ()
@@ -214,7 +214,7 @@ public final class MutableShort extends Number implements IMutableInteger <Mutab
   {
     if (o == this)
       return true;
-    if (!(o instanceof MutableShort))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MutableShort rhs = (MutableShort) o;
     return m_nValue == rhs.m_nValue;

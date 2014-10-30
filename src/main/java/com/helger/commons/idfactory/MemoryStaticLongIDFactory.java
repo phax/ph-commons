@@ -27,7 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * An implementation of {@link ILongIDFactory} using a single static
  * {@link AtomicLong}.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -57,7 +57,7 @@ public final class MemoryStaticLongIDFactory implements ILongIDFactory
   {
     if (o == this)
       return true;
-    if (!(o instanceof MemoryStaticLongIDFactory))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     return true;
   }

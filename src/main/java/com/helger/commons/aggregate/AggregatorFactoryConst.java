@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Implementation if {@link IAggregatorFactory} with a constant instance
- * 
+ *
  * @author Philip Helger
  * @param <SRCTYPE>
  *        Aggregator source type
@@ -53,7 +53,7 @@ public final class AggregatorFactoryConst <SRCTYPE, DSTTYPE> implements IAggrega
   {
     if (o == this)
       return true;
-    if (!(o instanceof AggregatorFactoryConst <?, ?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final AggregatorFactoryConst <?, ?> rhs = (AggregatorFactoryConst <?, ?>) o;
     return m_aAggregator.equals (rhs.m_aAggregator);

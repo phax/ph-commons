@@ -46,7 +46,7 @@ public class AggregatorUseFirst <DATATYPE> implements IAggregator <DATATYPE, DAT
   {
     if (o == this)
       return true;
-    if (!(o instanceof AggregatorUseFirst <?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     return true;
   }

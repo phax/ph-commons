@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
  * from the Map.Entry default implementation class! The default Map.Entry claims
  * to be equal with instances of this class, but this class is not equal to the
  * Map.Entry implementation!
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        The key type.
@@ -75,7 +75,7 @@ public final class SingleMapEntry <KEYTYPE, VALUETYPE> implements Map.Entry <KEY
   {
     if (o == this)
       return true;
-    if (!(o instanceof SingleMapEntry <?, ?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleMapEntry <?, ?> rhs = (SingleMapEntry <?, ?>) o;
     return EqualsUtils.equals (m_aKey, rhs.m_aKey) && EqualsUtils.equals (m_aValue, rhs.m_aValue);

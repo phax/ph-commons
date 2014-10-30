@@ -67,7 +67,7 @@ public final class AggregatorFactoryNewInstance <SRCTYPE, DSTTYPE> implements IA
   {
     if (o == this)
       return true;
-    if (!(o instanceof AggregatorFactoryNewInstance <?, ?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final AggregatorFactoryNewInstance <?, ?> rhs = (AggregatorFactoryNewInstance <?, ?>) o;
     return m_aClass.equals (rhs.m_aClass);

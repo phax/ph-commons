@@ -60,7 +60,7 @@ public final class FileFilterFileFromFilenameFilter extends AbstractFileFilter
   {
     if (o == this)
       return true;
-    if (!(o instanceof FileFilterFileFromFilenameFilter))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     // FilenameFilter does not necessarily implement equals/hashCode :(
     return true;

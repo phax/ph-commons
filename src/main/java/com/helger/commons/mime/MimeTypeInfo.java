@@ -87,7 +87,7 @@ public final class MimeTypeInfo
     {
       if (o == this)
         return true;
-      if (!(o instanceof MimeTypeWithSource))
+      if (o == null || !getClass ().equals (o.getClass ()))
         return false;
       final MimeTypeWithSource rhs = (MimeTypeWithSource) o;
       return m_aMimeType.equals (rhs.m_aMimeType) && EqualsUtils.equals (m_sSource, rhs.m_sSource);
@@ -155,7 +155,7 @@ public final class MimeTypeInfo
     {
       if (o == this)
         return true;
-      if (!(o instanceof ExtensionWithSource))
+      if (o == null || !getClass ().equals (o.getClass ()))
         return false;
       final ExtensionWithSource rhs = (ExtensionWithSource) o;
       return m_sExt.equals (rhs.m_sExt) && EqualsUtils.equals (m_sSource, rhs.m_sSource);
@@ -383,7 +383,7 @@ public final class MimeTypeInfo
   {
     if (o == this)
       return true;
-    if (!(o instanceof MimeTypeInfo))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MimeTypeInfo rhs = (MimeTypeInfo) o;
     return m_aMimeTypes.equals (rhs.m_aMimeTypes);

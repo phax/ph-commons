@@ -26,7 +26,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A filter implementation that always returns <code>false</code>.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type to filter
@@ -49,7 +49,7 @@ public final class FilterFalse <DATATYPE> implements ISerializableFilter <DATATY
   {
     if (o == this)
       return true;
-    if (!(o instanceof FilterFalse <?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     return true;
   }

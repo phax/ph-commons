@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Implementation of the {@link IInputStreamResolver} and
  * {@link IOutputStreamResolver} interfaces for {@link File} objects.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -81,7 +81,7 @@ public class FileSystemByteStreamResolver implements IInputStreamResolver, IOutp
   {
     if (o == this)
       return true;
-    if (!(o instanceof FileSystemByteStreamResolver))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FileSystemByteStreamResolver rhs = (FileSystemByteStreamResolver) o;
     return m_aBasePath.equals (rhs.m_aBasePath);

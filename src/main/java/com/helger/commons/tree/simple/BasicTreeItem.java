@@ -300,7 +300,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   {
     if (o == this)
       return true;
-    if (!(o instanceof BasicTreeItem <?, ?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final BasicTreeItem <?, ?> rhs = (BasicTreeItem <?, ?>) o;
     return EqualsUtils.equals (m_aData, rhs.m_aData) && EqualsUtils.equals (m_aChildren, rhs.m_aChildren);

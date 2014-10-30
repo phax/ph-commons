@@ -28,7 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Object wrapper around a long so that it can be passed a final object but is
  * mutable.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -49,7 +49,7 @@ public final class MutableLong extends Number implements IMutableInteger <Mutabl
 
   /**
    * Initialize with a certain value.
-   * 
+   *
    * @param aValue
    *        The value to be used.
    */
@@ -60,7 +60,7 @@ public final class MutableLong extends Number implements IMutableInteger <Mutabl
 
   /**
    * Initialize with a certain value.
-   * 
+   *
    * @param nValue
    *        The value to be used.
    */
@@ -101,7 +101,7 @@ public final class MutableLong extends Number implements IMutableInteger <Mutabl
 
   /**
    * Increment by 1 and return the modified value.
-   * 
+   *
    * @return The by 1 incremented value.
    */
   public long inc ()
@@ -190,7 +190,7 @@ public final class MutableLong extends Number implements IMutableInteger <Mutabl
   {
     if (o == this)
       return true;
-    if (!(o instanceof MutableLong))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MutableLong rhs = (MutableLong) o;
     return m_nValue == rhs.m_nValue;

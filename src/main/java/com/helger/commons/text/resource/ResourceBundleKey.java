@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * The key of a resource bundle.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -91,7 +91,7 @@ public final class ResourceBundleKey implements Serializable
   {
     if (o == this)
       return true;
-    if (!(o instanceof ResourceBundleKey))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ResourceBundleKey rhs = (ResourceBundleKey) o;
     return m_sBundleName.equals (rhs.m_sBundleName) && m_sKey.equals (rhs.m_sKey);

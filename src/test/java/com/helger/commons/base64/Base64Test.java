@@ -62,7 +62,7 @@ public final class Base64Test
     {
       if (o == this)
         return true;
-      if (!(o instanceof TestSerializable))
+      if (o == null || !getClass ().equals (o.getClass ()))
         return false;
       final TestSerializable rhs = (TestSerializable) o;
       return m_nValue == rhs.m_nValue && m_sValue.equals (rhs.m_sValue);

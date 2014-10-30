@@ -106,7 +106,7 @@ public final class FileSystemCharStreamResolver implements IInputStreamResolver,
   {
     if (o == this)
       return true;
-    if (!(o instanceof FileSystemCharStreamResolver))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FileSystemCharStreamResolver rhs = (FileSystemCharStreamResolver) o;
     return m_aByteStreamResolver.equals (rhs.m_aByteStreamResolver) && m_aCharset.equals (rhs.m_aCharset);

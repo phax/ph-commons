@@ -121,7 +121,7 @@ public final class Triple <DATA1TYPE, DATA2TYPE, DATA3TYPE> implements ITriple <
   {
     if (o == this)
       return true;
-    if (!(o instanceof Triple <?, ?, ?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final Triple <?, ?, ?> rhs = (Triple <?, ?, ?>) o;
     return EqualsUtils.equals (m_aFirst, rhs.m_aFirst) &&

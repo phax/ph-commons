@@ -26,7 +26,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A filter implementation where all non-<code>null</code> values match.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type to filter.
@@ -49,7 +49,7 @@ public final class FilterNotNull <DATATYPE> implements ISerializableFilter <DATA
   {
     if (o == this)
       return true;
-    if (!(o instanceof FilterNotNull <?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     return true;
   }

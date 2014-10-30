@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Implementation of {@link IFactory} that returns a constant value
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The return type of the factory
@@ -50,7 +50,7 @@ public final class FactoryConstantValue <DATATYPE> implements IFactory <DATATYPE
   {
     if (o == this)
       return true;
-    if (!(o instanceof FactoryConstantValue))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FactoryConstantValue <?> rhs = (FactoryConstantValue <?>) o;
     return EqualsUtils.equals (m_aConstantValue, rhs.m_aConstantValue);

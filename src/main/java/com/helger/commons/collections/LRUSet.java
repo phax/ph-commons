@@ -36,7 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
  * A special ordered set, that has an upper limit of contained elements. It is
  * therefore a "Last Recently Used" cache.<br>
  * The underlying data structure is a {@link LRUCache} map.
- * 
+ *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        Element type
@@ -85,7 +85,7 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements I
   /**
    * Protected method that is invoked every time an element is removed from the
    * cache, because the maximum size is exceeded.
-   * 
+   *
    * @param aEldest
    *        The entry that is to be removed. Never <code>null</code>.
    */
@@ -130,7 +130,7 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements I
   {
     if (o == this)
       return true;
-    if (!(o instanceof LRUSet <?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final LRUSet <?> rhs = (LRUSet <?>) o;
     return m_aCache.equals (rhs.m_aCache);

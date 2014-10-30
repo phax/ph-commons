@@ -233,7 +233,7 @@ public final class ChangeLog implements Serializable
   {
     if (o == this)
       return true;
-    if (!(o instanceof ChangeLog))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ChangeLog rhs = (ChangeLog) o;
     return m_sOriginalVersion.equals (rhs.m_sOriginalVersion) &&

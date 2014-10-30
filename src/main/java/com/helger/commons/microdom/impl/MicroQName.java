@@ -139,7 +139,7 @@ public final class MicroQName implements IMicroQName, Comparable <MicroQName>
   {
     if (o == this)
       return true;
-    if (!(o instanceof MicroQName))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MicroQName rhs = (MicroQName) o;
     return EqualsUtils.equals (m_sNamespaceURI, rhs.m_sNamespaceURI) && m_sName.equals (rhs.m_sName);

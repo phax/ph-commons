@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * An implementation of {@link ISerializableFilter} on {@link Element} objects
  * that will only return elements with a certain namespace URI and a certain
  * local name.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -49,6 +49,19 @@ public final class FilterElementWithNamespaceAndLocalName implements ISerializab
     m_sLocalName = ValueEnforcer.notEmpty (sLocalName, "LocalName");
   }
 
+  @Nullable
+  public String getNamespaceURI ()
+  {
+    return m_sNamespaceURI;
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getLocalName ()
+  {
+    return m_sLocalName;
+  }
+
   public boolean matchesFilter (@Nullable final Element aElement)
   {
     return aElement != null &&
@@ -61,7 +74,7 @@ public final class FilterElementWithNamespaceAndLocalName implements ISerializab
   {
     if (o == this)
       return true;
-    if (!(o instanceof FilterElementWithNamespaceAndLocalName))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FilterElementWithNamespaceAndLocalName rhs = (FilterElementWithNamespaceAndLocalName) o;
     return EqualsUtils.equals (m_sNamespaceURI, rhs.m_sNamespaceURI) && m_sLocalName.equals (rhs.m_sLocalName);

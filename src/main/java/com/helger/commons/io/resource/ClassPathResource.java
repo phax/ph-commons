@@ -498,7 +498,7 @@ public class ClassPathResource implements IReadableResource
   {
     if (o == this)
       return true;
-    if (!(o instanceof ClassPathResource))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ClassPathResource rhs = (ClassPathResource) o;
     // URL and URLresolved are state variables

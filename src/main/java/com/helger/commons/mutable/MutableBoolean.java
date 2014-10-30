@@ -28,7 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Object wrapper around a boolean so that it can be passed a final object but
  * is mutable.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -90,7 +90,7 @@ public final class MutableBoolean implements IMutable <MutableBoolean>
   {
     if (o == this)
       return true;
-    if (!(o instanceof MutableBoolean))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MutableBoolean rhs = (MutableBoolean) o;
     return m_bValue == rhs.m_bValue;

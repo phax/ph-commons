@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * This is a small helper class for iterating over arrays of short.
- * 
+ *
  * @author Philip Helger
  */
 public final class ArrayIteratorShort
@@ -48,7 +48,7 @@ public final class ArrayIteratorShort
 
   /**
    * Private constructor with offset and length
-   * 
+   *
    * @param aArray
    *        Source array
    * @param nOfs
@@ -90,7 +90,7 @@ public final class ArrayIteratorShort
   {
     if (o == this)
       return true;
-    if (!(o instanceof ArrayIteratorShort))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ArrayIteratorShort rhs = (ArrayIteratorShort) o;
     return EqualsUtils.equals (m_aArray, rhs.m_aArray) && m_nIndex == rhs.m_nIndex;

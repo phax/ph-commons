@@ -65,7 +65,7 @@ public final class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>,
   {
     if (o == this)
       return true;
-    if (!(o instanceof FactoryNewInstance))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FactoryNewInstance <?> rhs = (FactoryNewInstance <?>) o;
     return EqualsUtils.equals (m_aClass, rhs.m_aClass);

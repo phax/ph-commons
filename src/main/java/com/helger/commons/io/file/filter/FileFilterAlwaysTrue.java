@@ -54,7 +54,7 @@ public final class FileFilterAlwaysTrue extends AbstractFileFilter
   {
     if (o == this)
       return true;
-    if (!(o instanceof FileFilterAlwaysTrue))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     return true;
   }

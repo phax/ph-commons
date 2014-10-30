@@ -347,7 +347,7 @@ public class MimeType implements IMimeType, Comparable <MimeType>
   {
     if (o == this)
       return true;
-    if (!(o instanceof MimeType))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MimeType rhs = (MimeType) o;
     return m_eContentType.equals (rhs.m_eContentType) &&

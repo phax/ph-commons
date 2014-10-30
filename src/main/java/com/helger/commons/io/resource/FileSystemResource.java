@@ -293,7 +293,7 @@ public class FileSystemResource implements IReadWriteResource
   {
     if (o == this)
       return true;
-    if (!(o instanceof FileSystemResource))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FileSystemResource rhs = (FileSystemResource) o;
     return m_aFile.equals (rhs.m_aFile);

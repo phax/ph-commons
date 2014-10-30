@@ -29,7 +29,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * An implementation of {@link ISerializableFilter} on {@link Element} objects
  * that will only return elements with a certain namespace URI.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -42,6 +42,12 @@ public final class FilterElementWithNamespace implements ISerializableFilter <El
     m_sNamespaceURI = sNamespaceURI;
   }
 
+  @Nullable
+  public String getNamespaceURI ()
+  {
+    return m_sNamespaceURI;
+  }
+
   public boolean matchesFilter (@Nullable final Element aElement)
   {
     return aElement != null && XMLHelper.hasNamespaceURI (aElement, m_sNamespaceURI);
@@ -52,7 +58,7 @@ public final class FilterElementWithNamespace implements ISerializableFilter <El
   {
     if (o == this)
       return true;
-    if (!(o instanceof FilterElementWithNamespace))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FilterElementWithNamespace rhs = (FilterElementWithNamespace) o;
     return EqualsUtils.equals (m_sNamespaceURI, rhs.m_sNamespaceURI);

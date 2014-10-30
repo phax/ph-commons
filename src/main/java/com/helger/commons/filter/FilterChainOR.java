@@ -30,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * An implementation of {@link IFilter} that chains multiple instances of
  * {@link IFilter} with an <b>OR</b> operator.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type to be filtered.
@@ -70,7 +70,7 @@ public final class FilterChainOR <DATATYPE> implements IFilter <DATATYPE>
   {
     if (o == this)
       return true;
-    if (!(o instanceof FilterChainOR <?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FilterChainOR <?> rhs = (FilterChainOR <?>) o;
     return m_aFilters.equals (rhs.m_aFilters);

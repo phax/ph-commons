@@ -144,7 +144,7 @@ public final class RegExPattern implements Serializable
   {
     if (o == this)
       return true;
-    if (!(o instanceof RegExPattern))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final RegExPattern rhs = (RegExPattern) o;
     // m_aPattern is a state variable

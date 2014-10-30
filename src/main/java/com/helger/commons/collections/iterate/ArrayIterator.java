@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * This is a small helper class for iterating over arrays.
- * 
+ *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        Type of object to iterate.
@@ -52,7 +52,7 @@ public final class ArrayIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
 
   /**
    * Private constructor with offset and length
-   * 
+   *
    * @param aArray
    *        Source array
    * @param nOfs
@@ -94,7 +94,7 @@ public final class ArrayIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
   {
     if (o == this)
       return true;
-    if (!(o instanceof ArrayIterator <?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ArrayIterator <?> rhs = (ArrayIterator <?>) o;
     return EqualsUtils.equals (m_aArray, rhs.m_aArray) && m_nIndex == rhs.m_nIndex;

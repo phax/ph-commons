@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * This is a small helper class for iterating over arrays of char.
- * 
+ *
  * @author Philip Helger
  */
 public final class ArrayIteratorChar
@@ -48,7 +48,7 @@ public final class ArrayIteratorChar
 
   /**
    * Private constructor with offset and length
-   * 
+   *
    * @param aArray
    *        Source array
    * @param nOfs
@@ -88,7 +88,7 @@ public final class ArrayIteratorChar
   {
     if (o == this)
       return true;
-    if (!(o instanceof ArrayIteratorChar))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ArrayIteratorChar rhs = (ArrayIteratorChar) o;
     return EqualsUtils.equals (m_aArray, rhs.m_aArray) && m_nIndex == rhs.m_nIndex;

@@ -84,6 +84,8 @@ public class FileIntIDFactory extends AbstractPersistingIntIDFactory
   @Override
   public boolean equals (final Object o)
   {
+    if (o == this)
+      return true;
     if (!super.equals (o))
       return false;
     final FileIntIDFactory rhs = (FileIntIDFactory) o;

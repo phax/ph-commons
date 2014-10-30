@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A readable pair of ints.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -62,7 +62,7 @@ public final class ReadonlyIntPair
   {
     if (o == this)
       return true;
-    if (!(o instanceof ReadonlyIntPair))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ReadonlyIntPair rhs = (ReadonlyIntPair) o;
     return m_aFirst == rhs.m_aFirst && m_aSecond == rhs.m_aSecond;

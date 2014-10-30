@@ -26,9 +26,10 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Always use the complete list of results.
- * 
+ *
  * @author Philip Helger
- * @param <DATATYPE> The data type to aggregate
+ * @param <DATATYPE>
+ *        The data type to aggregate
  */
 @Immutable
 public class AggregatorUseAll <DATATYPE> implements IAggregator <DATATYPE, Collection <DATATYPE>>
@@ -44,7 +45,7 @@ public class AggregatorUseAll <DATATYPE> implements IAggregator <DATATYPE, Colle
   {
     if (o == this)
       return true;
-    if (!(o instanceof AggregatorUseAll <?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     return true;
   }

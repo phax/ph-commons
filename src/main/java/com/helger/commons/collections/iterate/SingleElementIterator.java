@@ -30,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Specialized iterator for iterating exactly one element.
- * 
+ *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        The type of object to iterate.
@@ -74,7 +74,7 @@ public final class SingleElementIterator <ELEMENTTYPE> implements Iterator <ELEM
   {
     if (o == this)
       return true;
-    if (!(o instanceof SingleElementIterator <?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleElementIterator <?> rhs = (SingleElementIterator <?>) o;
     return m_bHasNext == rhs.m_bHasNext && EqualsUtils.equals (m_aElement, rhs.m_aElement);

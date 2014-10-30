@@ -356,7 +356,7 @@ public final class VersionRange implements Comparable <VersionRange>, IHasString
   {
     if (o == this)
       return true;
-    if (!(o instanceof VersionRange))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
 
     final VersionRange rhs = (VersionRange) o;

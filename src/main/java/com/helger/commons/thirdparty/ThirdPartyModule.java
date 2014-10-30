@@ -152,7 +152,7 @@ public final class ThirdPartyModule implements IThirdPartyModule
   {
     if (o == this)
       return true;
-    if (!(o instanceof ThirdPartyModule))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ThirdPartyModule rhs = (ThirdPartyModule) o;
     return m_sDisplayName.equals (rhs.m_sDisplayName) &&

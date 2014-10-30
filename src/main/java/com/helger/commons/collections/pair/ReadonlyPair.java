@@ -73,7 +73,7 @@ public final class ReadonlyPair <DATA1TYPE, DATA2TYPE> implements IReadonlyPair 
   {
     if (o == this)
       return true;
-    if (!(o instanceof ReadonlyPair <?, ?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ReadonlyPair <?, ?> rhs = (ReadonlyPair <?, ?>) o;
     return EqualsUtils.equals (m_aFirst, rhs.m_aFirst) && EqualsUtils.equals (m_aSecond, rhs.m_aSecond);

@@ -79,7 +79,7 @@ public final class FuncTestKerning
     {
       if (this == o)
         return true;
-      if (!(o instanceof KerningKey))
+      if (o == null || !getClass ().equals (o.getClass ()))
         return false;
       final KerningKey rhs = (KerningKey) o;
       return m_nFirstGlyphCode == rhs.m_nFirstGlyphCode && m_nSecondGlyphCode == rhs.m_nSecondGlyphCode;

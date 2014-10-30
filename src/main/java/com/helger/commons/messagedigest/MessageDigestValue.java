@@ -36,7 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Represents a single message digest value as the combination of the algorithm
  * and the digest bytes.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -75,7 +75,7 @@ public final class MessageDigestValue
 
   /**
    * Write the digest bytes to the specified output stream.
-   * 
+   *
    * @param aOS
    *        The output stream to write to. May not be <code>null</code>.
    * @throws IOException
@@ -103,7 +103,7 @@ public final class MessageDigestValue
   {
     if (o == this)
       return true;
-    if (!(o instanceof MessageDigestValue))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MessageDigestValue rhs = (MessageDigestValue) o;
     return m_eAlgorithm.equals (rhs.m_eAlgorithm) && EqualsUtils.equals (m_aDigestBytes, rhs.m_aDigestBytes);
@@ -126,7 +126,7 @@ public final class MessageDigestValue
   /**
    * Create a new {@link MessageDigestValue} object based on the passed source
    * byte array
-   * 
+   *
    * @param aBytes
    *        The byte array to create the hash value from. May not be
    *        <code>null</code>.

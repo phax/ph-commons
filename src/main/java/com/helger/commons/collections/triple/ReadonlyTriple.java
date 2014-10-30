@@ -87,7 +87,7 @@ public final class ReadonlyTriple <DATA1TYPE, DATA2TYPE, DATA3TYPE> implements I
   {
     if (o == this)
       return true;
-    if (!(o instanceof ReadonlyTriple <?, ?, ?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ReadonlyTriple <?, ?, ?> rhs = (ReadonlyTriple <?, ?, ?>) o;
     return EqualsUtils.equals (m_aFirst, rhs.m_aFirst) &&

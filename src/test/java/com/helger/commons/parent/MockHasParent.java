@@ -16,6 +16,8 @@
  */
 package com.helger.commons.parent;
 
+import javax.annotation.Nullable;
+
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.string.ToStringGenerator;
@@ -34,6 +36,7 @@ public final class MockHasParent implements IHasParent <MockHasParent>, IHasID <
     return m_sID;
   }
 
+  @Nullable
   public MockHasParent getParent ()
   {
     return m_sID.length () <= 1 ? null : new MockHasParent (m_sID.substring (0, m_sID.length () - 1));
@@ -44,7 +47,7 @@ public final class MockHasParent implements IHasParent <MockHasParent>, IHasID <
   {
     if (o == this)
       return true;
-    if (!(o instanceof MockHasParent))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MockHasParent rhs = (MockHasParent) o;
     return m_sID.equals (rhs.m_sID);

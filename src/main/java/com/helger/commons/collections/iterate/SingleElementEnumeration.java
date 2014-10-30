@@ -29,7 +29,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Specialized enumeration for enumerating exactly one element.
- * 
+ *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        The type of object to enumerate.
@@ -67,7 +67,7 @@ public final class SingleElementEnumeration <ELEMENTTYPE> implements Enumeration
   {
     if (o == this)
       return true;
-    if (!(o instanceof SingleElementEnumeration <?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleElementEnumeration <?> rhs = (SingleElementEnumeration <?>) o;
     return m_bHasMoreElements == rhs.m_bHasMoreElements && EqualsUtils.equals (m_aElement, rhs.m_aElement);

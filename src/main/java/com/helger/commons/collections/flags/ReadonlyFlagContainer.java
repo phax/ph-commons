@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Default implementation of the {@link IReadonlyFlagContainer} based on a hash
  * set.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -87,7 +87,7 @@ public final class ReadonlyFlagContainer implements IReadonlyFlagContainer
   {
     if (o == this)
       return true;
-    if (!(o instanceof ReadonlyFlagContainer))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ReadonlyFlagContainer rhs = (ReadonlyFlagContainer) o;
     return m_aFlags.equals (rhs.m_aFlags);

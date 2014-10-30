@@ -103,7 +103,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IPair <DATA1TYPE, DATA
   {
     if (o == this)
       return true;
-    if (!(o instanceof Pair <?, ?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final Pair <?, ?> rhs = (Pair <?, ?>) o;
     return EqualsUtils.equals (m_aFirst, rhs.m_aFirst) && EqualsUtils.equals (m_aSecond, rhs.m_aSecond);

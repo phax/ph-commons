@@ -28,7 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Base implementation of an object that has a type and an ID.<br>
  * This class is immutable if the type of the ID is immutable.
- * 
+ *
  * @author Philip Helger
  * @param <IDTYPE>
  *        The type of the ID.
@@ -67,7 +67,7 @@ public final class TypedObject <IDTYPE extends Serializable> implements ITypedOb
   {
     if (o == this)
       return true;
-    if (!(o instanceof TypedObject <?>))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final TypedObject <?> rhs = (TypedObject <?>) o;
     return m_aTypeID.equals (rhs.m_aTypeID) && m_aID.equals (rhs.m_aID);
