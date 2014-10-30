@@ -117,6 +117,11 @@ public final class HashCodeGenerator implements IHashCodeGenerator
     m_nHC = nSuperHashCode;
   }
 
+  public boolean isClosed ()
+  {
+    return m_bClosed;
+  }
+
   private void _checkClosed ()
   {
     if (m_bClosed)

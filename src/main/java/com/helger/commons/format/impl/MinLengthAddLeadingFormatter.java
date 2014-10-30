@@ -28,7 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A string formatter that ensures that a string has a minimum length by filling
  * the remaining chars with a custom character at front (leading).
- * 
+ *
  * @author Philip Helger
  */
 public final class MinLengthAddLeadingFormatter extends AbstractStringFormatter
@@ -49,6 +49,17 @@ public final class MinLengthAddLeadingFormatter extends AbstractStringFormatter
     ValueEnforcer.isGT0 (nMinLength, "MinLength");
     m_nMinLength = nMinLength;
     m_cFill = cFill;
+  }
+
+  @Nonnegative
+  public int getMinLength ()
+  {
+    return m_nMinLength;
+  }
+
+  public char getFillChar ()
+  {
+    return m_cFill;
   }
 
   @Override

@@ -27,7 +27,7 @@ import com.helger.commons.typeconvert.TypeConverter;
 /**
  * Base implementation class of the {@link IFormatter} interface that provides
  * the common functionality.
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractStringFormatter implements IFormatter
@@ -52,9 +52,15 @@ public abstract class AbstractStringFormatter implements IFormatter
     m_aPrevFormatter = aPrevFormatter;
   }
 
+  @Nullable
+  public final IFormatter getPreviousFormatter ()
+  {
+    return m_aPrevFormatter;
+  }
+
   /**
    * Convert the source value to a string by using the {@link TypeConverter}.
-   * 
+   *
    * @param aValue
    *        The value to be converted to a string
    * @return The string representation of the object and never <code>null</code>
@@ -72,7 +78,7 @@ public abstract class AbstractStringFormatter implements IFormatter
    * Convert the passed value from Object to formatted String. Use
    * {@link #getValueAsString(Object)} in implementations of this method to do
    * the base conversion from Object to String.
-   * 
+   *
    * @param aValue
    *        The source object. May be <code>null</code>.
    * @return The formatted string value.

@@ -26,7 +26,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A formatter that adds a prefix and/or a suffix to a string.
- * 
+ *
  * @author Philip Helger
  */
 public class StringPrefixAndSuffixFormatter extends AbstractStringFormatter
@@ -46,6 +46,18 @@ public class StringPrefixAndSuffixFormatter extends AbstractStringFormatter
     super (aNestedFormatter);
     m_sPrefix = ValueEnforcer.notNull (sPrefix, "Prefix");
     m_sSuffix = ValueEnforcer.notNull (sSuffix, "Suffix");
+  }
+
+  @Nonnull
+  public String getPrefix ()
+  {
+    return m_sPrefix;
+  }
+
+  @Nonnull
+  public String getSuffix ()
+  {
+    return m_sSuffix;
   }
 
   @Override

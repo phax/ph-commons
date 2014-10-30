@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
  * it by reserving a range of <em>n</em> IDs so that not each ID reservation
  * requires IO. If only 1 ID is effectively used, the other <em>n</em>-1 IDs are
  * lost and will never be assigned to any object again.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -49,7 +49,7 @@ public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
   }
 
   @Nonnegative
-  protected final int getReserveCount ()
+  public final int getReserveCount ()
   {
     // As reserve count is final, we don't need to lock access to it!
     return m_nReserveCount;
@@ -62,7 +62,7 @@ public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
    * to the device. This method should perform an atomic read and update to
    * avoid that ID can be reused.<br>
    * Pseudo code:
-   * 
+   *
    * <pre>
    * protected int readAndUpdateIDCounter (int nReserveCount)
    * {
@@ -71,12 +71,13 @@ public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
    *   return nRead;
    * }
    * </pre>
-   * 
+   *
    * @param nReserveCount
    *        the number that should be added to the read value. Always &gt; 0.
    * @return 0 if this method is called for a non-initialized device, the value
    *         read from the device otherwise or
-   *         {@link com.helger.commons.CGlobal#ILLEGAL_UINT} in case of an error.
+   *         {@link com.helger.commons.CGlobal#ILLEGAL_UINT} in case of an
+   *         error.
    */
   protected abstract int readAndUpdateIDCounter (@Nonnegative int nReserveCount);
 

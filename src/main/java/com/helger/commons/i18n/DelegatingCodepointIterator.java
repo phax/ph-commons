@@ -24,7 +24,7 @@ import com.helger.commons.ValueEnforcer;
 /**
  * Base implementation of a CodepointIterator that filters the output of another
  * {@link ICodepointIterator}
- * 
+ *
  * @author Apache Abdera
  */
 public class DelegatingCodepointIterator implements ICodepointIterator
@@ -34,6 +34,12 @@ public class DelegatingCodepointIterator implements ICodepointIterator
   protected DelegatingCodepointIterator (@Nonnull final AbstractCodepointIterator aInternal)
   {
     m_aInternal = ValueEnforcer.notNull (aInternal, "Internal");
+  }
+
+  @Nonnull
+  public AbstractCodepointIterator getInternalIterator ()
+  {
+    return m_aInternal;
   }
 
   protected char get ()

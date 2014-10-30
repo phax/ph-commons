@@ -30,6 +30,11 @@ public class InvalidCharacterException extends RuntimeException
     m_nInput = nInput;
   }
 
+  public int getInput ()
+  {
+    return m_nInput;
+  }
+
   @Override
   public String getMessage ()
   {

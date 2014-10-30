@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * This class represents an object having width and height.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -65,7 +65,7 @@ public final class ScalableSize implements IHasWidthAndHeight, Serializable
 
   /**
    * Return the scaled width and height relative to a maximum size.
-   * 
+   *
    * @param nMaxWidth
    *        Maximum width. Must be &gt; 0.
    * @param nMaxHeight
@@ -117,6 +117,24 @@ public final class ScalableSize implements IHasWidthAndHeight, Serializable
       return this;
     final double dMultFactory = MathHelper.getDividedDouble (nNewHeight, m_nHeight);
     return new ScalableSize ((int) (m_nWidth * dMultFactory), nNewHeight);
+  }
+
+  @Nonnull
+  @CheckReturnValue
+  public ScalableSize getAdded (@Nonnull final IHasWidthAndHeight aToAdd)
+  {
+    ValueEnforcer.notNull (aToAdd, "ToAdd");
+
+    return new ScalableSize (m_nWidth + aToAdd.getWidth (), m_nHeight + aToAdd.getHeight ());
+  }
+
+  @Nonnull
+  @CheckReturnValue
+  public ScalableSize getSubtracted (@Nonnull final IHasWidthAndHeight aToSubtract)
+  {
+    ValueEnforcer.notNull (aToSubtract, "ToSubtract");
+
+    return new ScalableSize (m_nWidth - aToSubtract.getWidth (), m_nHeight - aToSubtract.getHeight ());
   }
 
   @Override

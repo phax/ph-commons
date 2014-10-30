@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * {@link File} based persisting {@link IIntIDFactory} implementation.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -61,6 +61,12 @@ public class FileIntIDFactory extends AbstractPersistingIntIDFactory
     if (!FileUtils.canReadAndWriteFile (aFile))
       throw new IllegalArgumentException ("Cannot read and/or write the file " + aFile + "!");
     m_aFile = aFile;
+  }
+
+  @Nonnull
+  public File getFile ()
+  {
+    return m_aFile;
   }
 
   /*

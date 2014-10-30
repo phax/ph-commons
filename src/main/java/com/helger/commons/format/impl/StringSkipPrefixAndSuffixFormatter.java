@@ -27,7 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A formatter that skip a prefix and/or a suffix to a string.
- * 
+ *
  * @author Philip Helger
  */
 public class StringSkipPrefixAndSuffixFormatter extends AbstractStringFormatter
@@ -47,6 +47,18 @@ public class StringSkipPrefixAndSuffixFormatter extends AbstractStringFormatter
     super (aNestedFormatter);
     m_sPrefix = ValueEnforcer.notNull (sPrefix, "Prefix");
     m_sSuffix = ValueEnforcer.notNull (sSuffix, "Suffix");
+  }
+
+  @Nonnull
+  public String getPrefix ()
+  {
+    return m_sPrefix;
+  }
+
+  @Nonnull
+  public String getSuffix ()
+  {
+    return m_sSuffix;
   }
 
   @Override

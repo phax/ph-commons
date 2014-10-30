@@ -28,6 +28,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
@@ -36,6 +37,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.collections.LRUCache;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
@@ -48,7 +51,7 @@ import com.helger.commons.stats.StatisticsManager;
  * This service class is used to cache information about images. It is used to
  * set the HTML attributes width and height for images. It has an internal cache
  * to avoid querying the data every time.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -57,7 +60,9 @@ public final class ImageDataManager
   private static final Logger s_aLogger = LoggerFactory.getLogger (ImageDataManager.class);
   private static final IStatisticsHandlerCache s_aStatsHdl = StatisticsManager.getCacheHandler (ImageDataManager.class);
   private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  @GuardedBy ("s_aRWLock")
   private static final Map <IReadableResource, ScalableSize> s_aImageData = new LRUCache <IReadableResource, ScalableSize> (1000);
+  @GuardedBy ("s_aRWLock")
   private static final Set <IReadableResource> s_aNonExistingResources = new HashSet <IReadableResource> ();
 
   @PresentForCodeCoverage
@@ -182,7 +187,7 @@ public final class ImageDataManager
 
   /**
    * Remove a single resource from the cache.
-   * 
+   *
    * @param aRes
    *        The resource to be removed. May be <code>null</code>.
    * @return Never <code>null</code>.
@@ -213,7 +218,7 @@ public final class ImageDataManager
 
   /**
    * Remove all cached elements
-   * 
+   *
    * @return {@link EChange} - never null
    */
   @Nonnull
@@ -234,6 +239,36 @@ public final class ImageDataManager
     finally
     {
       s_aRWLock.writeLock ().unlock ();
+    }
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static Map <IReadableResource, ScalableSize> getAllCachedSizes ()
+  {
+    s_aRWLock.readLock ().lock ();
+    try
+    {
+      return ContainerHelper.newMap (s_aImageData);
+    }
+    finally
+    {
+      s_aRWLock.readLock ().unlock ();
+    }
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static Set <IReadableResource> getAllNotExistingResources ()
+  {
+    s_aRWLock.readLock ().lock ();
+    try
+    {
+      return ContainerHelper.newSet (s_aNonExistingResources);
+    }
+    finally
+    {
+      s_aRWLock.readLock ().unlock ();
     }
   }
 }
