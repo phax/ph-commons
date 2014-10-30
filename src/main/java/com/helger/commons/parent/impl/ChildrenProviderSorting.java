@@ -41,7 +41,7 @@ import com.helger.commons.parent.IChildrenProvider;
 @Immutable
 public class ChildrenProviderSorting <CHILDTYPE> implements IChildrenProvider <CHILDTYPE>
 {
-  protected final IChildrenProvider <CHILDTYPE> m_aCR;
+  private final IChildrenProvider <CHILDTYPE> m_aChildrenProvider;
   private final Comparator <? super CHILDTYPE> m_aComparator;
 
   /**
@@ -55,20 +55,32 @@ public class ChildrenProviderSorting <CHILDTYPE> implements IChildrenProvider <C
   public ChildrenProviderSorting (@Nonnull final IChildrenProvider <CHILDTYPE> aCP,
                                   @Nonnull final Comparator <? super CHILDTYPE> aComparator)
   {
-    m_aCR = ValueEnforcer.notNull (aCP, "ChildrenProvider");
+    m_aChildrenProvider = ValueEnforcer.notNull (aCP, "ChildrenProvider");
     m_aComparator = ValueEnforcer.notNull (aComparator, "Comparator");
+  }
+
+  @Nonnull
+  public IChildrenProvider <CHILDTYPE> getChildrenProvider ()
+  {
+    return m_aChildrenProvider;
+  }
+
+  @Nonnull
+  public Comparator <? super CHILDTYPE> getComparator ()
+  {
+    return m_aComparator;
   }
 
   public final boolean hasChildren (@Nullable final CHILDTYPE aCurrent)
   {
     // Just pass on to the original children resolver
-    return m_aCR.hasChildren (aCurrent);
+    return m_aChildrenProvider.hasChildren (aCurrent);
   }
 
   public final int getChildCount (@Nullable final CHILDTYPE aCurrent)
   {
     // Just pass on to the original children resolver
-    return m_aCR.getChildCount (aCurrent);
+    return m_aChildrenProvider.getChildCount (aCurrent);
   }
 
   @Nullable
@@ -82,7 +94,7 @@ public class ChildrenProviderSorting <CHILDTYPE> implements IChildrenProvider <C
   public List <? extends CHILDTYPE> getAllChildren (@Nullable final CHILDTYPE aCurrent)
   {
     // Get the unsorted collection of children
-    final Collection <? extends CHILDTYPE> ret = m_aCR.getAllChildren (aCurrent);
+    final Collection <? extends CHILDTYPE> ret = m_aChildrenProvider.getAllChildren (aCurrent);
 
     // If there is anything to sort, do it now
     return ret == null ? null : ContainerHelper.getSorted (ret, m_aComparator);

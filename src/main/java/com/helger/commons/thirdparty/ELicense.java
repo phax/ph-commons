@@ -57,6 +57,7 @@ public enum ELicense implements ILicense
   CCBY20 ("ccby20", "Creative Commons Attributation", new Version (2, 0), "http://creativecommons.org/licenses/by/2.0/"),
   CCBY25 ("ccby25", "Creative Commons Attributation", new Version (2, 5), "http://creativecommons.org/licenses/by/2.5/"),
   CCBY30 ("ccby30", "Creative Commons Attributation", new Version (3, 0), "http://creativecommons.org/licenses/by/3.0/"),
+  CCBY40 ("ccby40", "Creative Commons Attributation", new Version (4, 0), "http://creativecommons.org/licenses/by/4.0/"),
   // Public domain
   PUBLIC_DOMAIN ("pd", "Public Domain", null, null);
 

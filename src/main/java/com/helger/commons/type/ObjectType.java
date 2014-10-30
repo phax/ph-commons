@@ -65,7 +65,7 @@ public class ObjectType implements Comparable <ObjectType>, Serializable
   {
     if (o == this)
       return true;
-    if (!(o instanceof ObjectType))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ObjectType rhs = (ObjectType) o;
     return m_sName.equals (rhs.m_sName);

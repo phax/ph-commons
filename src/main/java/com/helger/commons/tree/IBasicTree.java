@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Base interface for a tree.
- * 
+ *
  * @param <DATATYPE>
  *        tree item value type
  * @param <ITEMTYPE>
@@ -32,7 +32,7 @@ public interface IBasicTree <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE
   /**
    * @return The root item of the tree. Never <code>null</code>. The root item
    *         should not be displayed but it is the parent node of all displayed
-   *         root items and therefor cannot be removed.
+   *         root items and therefore cannot be removed.
    */
   @Nonnull
   ITEMTYPE getRootItem ();

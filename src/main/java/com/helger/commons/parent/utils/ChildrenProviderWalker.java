@@ -44,6 +44,18 @@ public final class ChildrenProviderWalker <CHILDTYPE>
     m_aCallback = ValueEnforcer.notNull (aCallback, "Callback");
   }
 
+  @Nonnull
+  public IChildrenProvider <CHILDTYPE> getChildrenProvider ()
+  {
+    return m_aChildrenProvider;
+  }
+
+  @Nonnull
+  public IHierarchyWalkerCallback <CHILDTYPE> getCallback ()
+  {
+    return m_aCallback;
+  }
+
   private void _walkRecursive (@Nonnull final CHILDTYPE aObject)
   {
     // Only the root level is null -> otherwise we end up in a potentially

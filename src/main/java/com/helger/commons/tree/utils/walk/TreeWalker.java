@@ -135,6 +135,7 @@ public final class TreeWalker
       @Override
       public void begin ()
       {
+        super.begin ();
         aDataCallback.begin ();
       }
 
@@ -148,14 +149,15 @@ public final class TreeWalker
       @Override
       public void onLevelUp ()
       {
-        super.onLevelUp ();
         aDataCallback.onLevelUp ();
+        super.onLevelUp ();
       }
 
       @Override
       public void end ()
       {
         aDataCallback.end ();
+        super.end ();
       }
 
       @Override

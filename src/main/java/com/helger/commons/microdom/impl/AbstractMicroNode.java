@@ -29,6 +29,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
+import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.microdom.EMicroEvent;
 import com.helger.commons.microdom.IHasElementName;
@@ -671,12 +672,14 @@ public abstract class AbstractMicroNode implements IMicroNode
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public Map <EMicroEvent, Set <IMicroEventTarget>> getAllEventTargets ()
   {
     return ContainerHelper.newMap (m_aEventTargets);
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public Set <IMicroEventTarget> getAllEventTargets (@Nullable final EMicroEvent eEvent)
   {
     return ContainerHelper.newSet (m_aEventTargets == null ? null : m_aEventTargets.get (eEvent));

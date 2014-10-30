@@ -46,6 +46,18 @@ public final class ChildrenProviderWalkerDynamic <CHILDTYPE>
   }
 
   @Nonnull
+  public IChildrenProvider <CHILDTYPE> getChildrenProvider ()
+  {
+    return m_aChildrenProvider;
+  }
+
+  @Nonnull
+  public IHierarchyWalkerDynamicCallback <CHILDTYPE> getCallback ()
+  {
+    return m_aCallback;
+  }
+
+  @Nonnull
   private EHierarchyCallbackReturn _walkRecursive (final CHILDTYPE aObject)
   {
     // prefix insertion

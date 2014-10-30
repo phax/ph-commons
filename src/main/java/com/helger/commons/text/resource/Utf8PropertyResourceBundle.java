@@ -28,7 +28,7 @@ import com.helger.commons.charset.CharsetManager;
 
 /**
  * Special property resource bundle that wraps all strings into UTF-8 strings.
- * 
+ *
  * @author Philip Helger
  */
 final class Utf8PropertyResourceBundle extends ResourceBundle
@@ -38,6 +38,12 @@ final class Utf8PropertyResourceBundle extends ResourceBundle
   Utf8PropertyResourceBundle (@Nonnull final PropertyResourceBundle aBundle)
   {
     m_aBundle = ValueEnforcer.notNull (aBundle, "Bundle");
+  }
+
+  @Nonnull
+  public PropertyResourceBundle getBundle ()
+  {
+    return m_aBundle;
   }
 
   @Override

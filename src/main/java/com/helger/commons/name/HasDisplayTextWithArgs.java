@@ -23,13 +23,15 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.collections.ArrayHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.impl.TextFormatter;
 
 /**
  * A special implementation of {@link IHasDisplayText} that encapsulates
  * arguments to be put into the message.
- * 
+ *
  * @author Philip Helger
  */
 public final class HasDisplayTextWithArgs implements IHasDisplayText
@@ -41,6 +43,19 @@ public final class HasDisplayTextWithArgs implements IHasDisplayText
   {
     m_aParentText = ValueEnforcer.notNull (aParentText, "ParentText");
     m_aArgs = ValueEnforcer.notEmpty (aArgs, "Arguments");
+  }
+
+  @Nonnull
+  public IHasDisplayText getParentText ()
+  {
+    return m_aParentText;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public Object [] getArgs ()
+  {
+    return ArrayHelper.getCopy (m_aArgs);
   }
 
   @Nullable

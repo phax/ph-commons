@@ -33,6 +33,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.DevelopersNote;
+import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ContainerHelper;
 
 /**
@@ -40,7 +41,7 @@ import com.helger.commons.collections.ContainerHelper;
  * See <a href=
  * "http://docs.oracle.com/javase/6/docs/api/java/util/ResourceBundle.Control.html"
  * >Resource.Control</a> Javadocs
- * 
+ *
  * @author Philip Helger
  */
 // SKIPJDK5
@@ -65,9 +66,16 @@ public final class XMLResourceBundle extends ResourceBundle
       m_aValues.put ((String) aEntry.getKey (), (String) aEntry.getValue ());
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public Map <String, String> getAllValues ()
+  {
+    return ContainerHelper.newMap (m_aValues);
+  }
+
   /**
    * More efficient version to retrieve the keySet
-   * 
+   *
    * @return all resource names
    */
   @Override
@@ -78,7 +86,7 @@ public final class XMLResourceBundle extends ResourceBundle
 
   /**
    * Main internal lookup
-   * 
+   *
    * @return the string matching the passed key
    */
   @Override

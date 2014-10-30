@@ -45,6 +45,6 @@ public class ChildrenProviderSortingWithUniqueID <KEYTYPE, CHILDTYPE> extends Ch
   @Nullable
   public CHILDTYPE getItemWithID (@Nullable final KEYTYPE aID)
   {
-    return ((IChildrenProviderWithUniqueID <KEYTYPE, CHILDTYPE>) m_aCR).getItemWithID (aID);
+    return ((IChildrenProviderWithUniqueID <KEYTYPE, CHILDTYPE>) getChildrenProvider ()).getItemWithID (aID);
   }
 }

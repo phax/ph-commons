@@ -32,13 +32,15 @@ import com.helger.commons.state.EChange;
 /**
  * This class provides a pool for cached regular expressions. It caches up to a
  * limited number of compiled {@link Pattern} objects.
- * 
+ *
  * @author Philip Helger
  */
 public final class RegExPool extends AbstractNotifyingCacheWithMaxSize <RegExPattern, Pattern>
 {
   /** The default number of items to keep in the cache */
   public static final int MAX_CACHE_SIZE = 1000;
+
+  /** Default instance */
   private static final RegExPool s_aInstance = new RegExPool ();
 
   private RegExPool ()
@@ -56,7 +58,7 @@ public final class RegExPool extends AbstractNotifyingCacheWithMaxSize <RegExPat
 
   /**
    * Get the cached regular expression pattern.
-   * 
+   *
    * @param sRegEx
    *        The regular expression to retrieve. May neither be <code>null</code>
    *        nor empty.
@@ -73,7 +75,7 @@ public final class RegExPool extends AbstractNotifyingCacheWithMaxSize <RegExPat
 
   /**
    * Get the cached regular expression pattern.
-   * 
+   *
    * @param sRegEx
    *        The regular expression to retrieve. May neither be <code>null</code>
    *        nor empty.
@@ -93,7 +95,7 @@ public final class RegExPool extends AbstractNotifyingCacheWithMaxSize <RegExPat
 
   /**
    * Clear all cached patterns.
-   * 
+   *
    * @return {@link EChange}
    */
   @Nonnull
