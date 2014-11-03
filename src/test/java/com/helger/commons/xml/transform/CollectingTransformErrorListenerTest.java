@@ -34,10 +34,11 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.xml.XMLFactory;
+import com.helger.commons.xml.serialize.XMLWriter;
 
 /**
  * Test class for class {@link CollectingTransformErrorListener}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CollectingTransformErrorListenerTest extends AbstractPHTestCase
@@ -65,6 +66,8 @@ public final class CollectingTransformErrorListenerTest extends AbstractPHTestCa
       assertNotNull (aDoc);
       assertNotNull (aDoc.getDocumentElement ());
       assertEquals ("html", aDoc.getDocumentElement ().getTagName ());
+      if (false)
+        System.out.println (XMLWriter.getXMLString (aDoc));
     }
 
     // Read valid XSLT (with import)

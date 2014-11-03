@@ -19,7 +19,10 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:template match="/">
-    <html>
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ext="blafoo">
+      <head>
+        <ext:foo>Any</ext:foo>
+      </head>
       <body>
         <h2>My CD Collection</h2>
         <table>
