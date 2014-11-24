@@ -156,6 +156,9 @@
             <Export-Package>
               com.helger.commons.*
             </Export-Package>
+            <Import-Package>
+              !javax.annotation.*,*
+            </Import-Package>
           </instructions>
         </configuration>
       </plugin>
