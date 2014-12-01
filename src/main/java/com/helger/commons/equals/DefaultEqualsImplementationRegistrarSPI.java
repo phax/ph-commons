@@ -18,6 +18,7 @@ package com.helger.commons.equals;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
@@ -357,7 +358,9 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
         return aRealObj1.compareTo (aRealObj2) == 0;
 
       final int nMaxScale = Math.max (aRealObj1.scale (), aRealObj2.scale ());
-      return aRealObj1.setScale (nMaxScale).equals (aRealObj2.setScale (nMaxScale));
+      // Use the same rounding mode for both
+      return aRealObj1.setScale (nMaxScale, RoundingMode.HALF_UP).equals (aRealObj2.setScale (nMaxScale,
+                                                                                              RoundingMode.HALF_UP));
     }
   }
 
