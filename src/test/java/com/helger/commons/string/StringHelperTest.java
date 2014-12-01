@@ -44,7 +44,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link StringHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class StringHelperTest extends AbstractPHTestCase
@@ -859,6 +859,10 @@ public final class StringHelperTest extends AbstractPHTestCase
     assertFalse (StringHelper.startsWith ("", "a"));
     assertFalse (StringHelper.startsWith (null, "a"));
     assertFalse (StringHelper.startsWith ("a", null));
+
+    assertTrue (StringHelper.startsWith ("abc", ""));
+    assertTrue (StringHelper.startsWith ("", ""));
+    assertFalse (StringHelper.startsWith (null, ""));
 
     assertFalse (StringHelper.startsWith (null, null));
     assertTrue (StringHelper.startsWith ("", ""));
