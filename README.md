@@ -126,6 +126,18 @@ terfaces.
   * `com.helger.commons.regex` - contains a pool for pre-compiled regular expressions and utility classes to use this pool implicitly.
   * `com.helger.commons.serialize.convert` - a registry for registering custom `Serializable` implementations for classes that don't implement `Serializable` themselves. Registration is done via SPI.
   * `com.helger.commons.serialize.convert.impl` - default registration implementations for the serializable type converter.
+  * `com.helger.commons.state` - contains a lot of small "state" enumerations like `EChange`, `ESuccess` or `ELeftRight` plus the corresponding base interfaces.
+  * `com.helger.commons.state.impl` - contains additional state classes that combine a state with an arbitrary data object.
+  * `com.helger.commons.stats` - thread-safe in-memory statistics categorized into cache, counter, keyed counter, keyed size, keyed timer, size and timer.
+  * `com.helger.commons.stats.util` - contains classes for exporting statistic data to XML
+  * `com.helger.commons.stats.visit` - a generic visitor for statistical data to easily implement exports in other data formats.
+  * `com.helger.commons.string` - contains the basic class `StringHelper` for all kind of `String` related actions as well as `StringParser` for converting Strings to numerical values and finally `ToStringGenerator` as a utility class to easily implement `toString()` methods.
+  * `com.helger.commons.system` - contains information helper classes for the Java version, the JVM vendor, the newline mode of the current operating system, the processor architecture used etc.
+  * `com.helger.commons.text` - interfaces for handling multilingual text in different aspects and ways
+  * `com.helger.commons.text.impl` - the default implementations of the interfaces defined in the parent package
+  * `com.helger.commons.text.resolve` - contains the stuff for multilingual text resolving based on an enumeration, and falling back to a properties file if needed.
+  * `com.helger.commons.text.resource` - utility classes for handling `ResourceBundle`s in an easy way, as well as UTF-8 and XML resource bundles.
+  * `com.helger.commons.text.utils` - utility classes that should reside in `com.helger.commons.string.utils` instead.
   
   
 
