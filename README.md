@@ -33,10 +33,32 @@ The following list gives a short overview of special programming techniques that
  
 
 #Contents
-In general I tried to make the source comments as usefull as possible. Therefore here only a package list with the respective contents is shown:
+In general I tried to make the source comments as usefull as possible. Therefore here only an alphabetic package list with the respective contents is shown:
   * `com.helger.commons` - The base package that contains very basic interface and a few classes like `CGlobal` and `GlobalDebug` which are in this package, to avoid cyclic package references. 
   * `com.helger.commons.aggregate` - contains a generic aggregator that cann aggregate multiple values to a single value.
   * `com.helger.commons.annotations` - contains all the Java annotations defined in this project. This include e.g. `@Nonempty`, `@ReturnsMutableCopy` or `@DevelopersNote`.
+  * `com.helger.commons.base64` - contains the Base64 implementation from http://iharder.net/base64 in a slightly adopted version plus some utility methods in class `Base64Helper`.
+  * `com.helger.commons.cache` - defines basic classes used for caching data
+  * `com.helger.commons.cache.convert` - special version of a cache that uses a data converter to create the cachable content
+  * `com.helger.commons.callback` - contains all kind of simple data structures that are to be used for callbacks and external exception handling. Additionally special forms of `Runnable` and `Callable` are present in this package.
+  * `com.helger.commons.changelog` - contains everything needed for having a structured change log (= history of changes) of software components. A complete list of all changes can be found in class `ChangeLog` containing multiple entries.
+  * `com.helger.commons.charset` - contains stuff necessary for simple String character set/encoding and decoding as well as an enumeration for Unicode BOM (Byte Order Mark).
+  * `com.helger.commons.cleanup` - contains a central class to cleanup and/or reset most of the runtime data and caches used in this project. This is especially helpful in unit tests when testing this project.
+  *  `com.helger.commons.codec` - contains a generic encode/decode interface and some basic implementations like ASCII85, ASCII Hex, DCT, Base64, LZW and RFC 1522.
+  * `com.helger.commons.collections` - contains very basic helper classes for easy working with arrays (class `ArrayHelper`) and collections (class `ContainerHelper`). It also contains a local implementation of `Stack` called `NonBlockingStack` which does not use synchronization - this can be seen like the different between `ArrayList` (not synchronized) and `Vector` (synchronized).
+  * `com.helger.commons.collections.attrs` - contains a generic attribute container which more or less is a `Map` with a modified API. This package contains both read-only as well as mutable versions of this map-based container.
+  * `com.helger.commons.collections.flags` - contains as well a generic container which is more or less a `Set` with a modified API. This package was not proven to be useful, as it is a special version of the attribute container, just without a value. Therefore this package will be removed in the next major release.
+  * `com.helger.commons.collections.iterate` - contains special iterators/enumerators for arrays and collections. It also contains iterators for single elements as well as for "no" elements.
+  * `com.helger.commons.collections.list` - contains specialized `List` implementations.
+  * `com.helger.commons.collections.multimap` - contains "multi maps" which are `Map`s which have other `Collection`s as values. This package contains common interfaces as well as implementations for different `Map` implementations (like `HashMap`, `TreeMap`, `LinkedHashMap`, `ConcurrentHashMap` and `WeakHashMap`).
+  * `com.helger.commons.collections.pair` - contains a generic pair which is a combination of 2 values with potentially different types.
+  * `com.helger.commons.collections.triple` - contains a generic triple which is a combination of 3 values with potentially different types.
+  * `com.helger.commons.combine` - contains a generic combinator for Strings. This package is very basic.
+  * `com.helger.commons.compare` - generic `Comparator` and `Comparable` extensions and base classes. Additionally the enumeration `ESortOrder` which defines 'ascending' and 'descending' is contained.
+  * `com.helger.commons.concurrent` - contains some commonly used things for `Thread` and `ExecutorService` handling.
+  * `com.helger.commons.concurrent.collector` - a generic "collector" which supports multiple inputs from multiple different threads and serializes this data stream for sequential processing (e.g. for mail queueing with a central sender).
+  
+
   
 To be continued
 
