@@ -105,6 +105,19 @@ terfaces.
   * `com.helger.commons.log` - logging related utility classes
   * `com.helger.commons.math` - basic math related utility interfaces and classes
   * `com.helger.commons.messagedigest` - contains utility methods to easily create message digest (like MD5 or SHA-1).
+  * `com.helger.commons.microdom` - contains the "Micro DOM" interface - a DOM like structure, but much easier to use than standard DOM.
+  * `com.helger.commons.microdom.convert` - contains a central registry for converting arbitrary objects from and to Micro DOM.
+  * `com.helger.commons.microdom.convert.impl` - default ceonverter implementations, referenced via SPI.
+  * `com.helger.commons.microdom.impl` - contains the default implementations for the Micro DOM interfaces.
+  * `com.helger.commons.microdom.reader` - contains specialized readers for `List`- and `Map`-like structures.
+  * `com.helger.commons.microdom.serialize` - contains reader and writer for Micro DOM elements to read from (`MicroReader`) and write to (`MicroWriter`) XML documents.
+  * `com.helger.commons.microdom.utils` - contains utility classes for working with Micro DOM.
+  * `com.helger.commons.mime` - everything related to MIME types, including a structured data model as well as a parser and a determinator from byte array.
+  * `com.helger.commons.mime.convert` - contains a converter from MIME type information to Micro DOM.
+  * `com.helger.commons.mock` - utility classes for unit testing with JUnit.
+  * `com.helger.commons.mutable` - contains mutable object wrappers for atomic values like boolean, int, long etc. which are not thread-safe.
+  * `com.helger.commons.name` - base interfaces and classes for objects having a name or a description.
+  * `com.helger.commons.parent` - base interfaces for defining parent-child hierarchical relations.
 
 To be continued
 
