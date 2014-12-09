@@ -17,17 +17,11 @@
 package com.helger.commons.filter.collections;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.UnsupportedOperation;
 import com.helger.commons.collections.iterate.IIterableIterator;
 import com.helger.commons.filter.IFilter;
-import com.helger.commons.string.ToStringGenerator;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * A simple filter iterator that takes a base iterator and an additional filter
@@ -36,19 +30,12 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        The type to iterate
+ * @deprecated Use the class from the other package.
  */
-public final class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTTYPE>
+@Deprecated
+public final class FilterIterator <ELEMENTTYPE> extends
+                                                com.helger.commons.collections.filter.FilterIterator <ELEMENTTYPE>
 {
-  // base iterator
-  private final Iterator <? extends ELEMENTTYPE> m_aBaseIter;
-
-  // current result value
-  @SuppressFBWarnings ("UWF_NULL_FIELD")
-  private ELEMENTTYPE m_aCurrent;
-
-  // the filter to use
-  private final IFilter <ELEMENTTYPE> m_aFilter;
-
   /**
    * Constructor.
    *
@@ -60,7 +47,7 @@ public final class FilterIterator <ELEMENTTYPE> implements IIterableIterator <EL
   public FilterIterator (@Nonnull final IIterableIterator <? extends ELEMENTTYPE> aBaseIter,
                          @Nonnull final IFilter <ELEMENTTYPE> aFilter)
   {
-    this (aBaseIter.iterator (), aFilter);
+    super (aBaseIter, aFilter);
   }
 
   /**
@@ -74,9 +61,7 @@ public final class FilterIterator <ELEMENTTYPE> implements IIterableIterator <EL
   public FilterIterator (@Nonnull final Iterator <? extends ELEMENTTYPE> aBaseIter,
                          @Nonnull final IFilter <ELEMENTTYPE> aFilter)
   {
-    m_aBaseIter = ValueEnforcer.notNull (aBaseIter, "BaseIterator");
-    m_aFilter = ValueEnforcer.notNull (aFilter, "Filter");
-    _gotoNextCurrent ();
+    super (aBaseIter, aFilter);
   }
 
   /**
@@ -90,64 +75,6 @@ public final class FilterIterator <ELEMENTTYPE> implements IIterableIterator <EL
   public FilterIterator (@Nonnull final Iterable <? extends ELEMENTTYPE> aBaseCont,
                          @Nonnull final IFilter <ELEMENTTYPE> aFilter)
   {
-    ValueEnforcer.notNull (aBaseCont, "BaseContainer");
-    m_aBaseIter = aBaseCont.iterator ();
-    m_aFilter = ValueEnforcer.notNull (aFilter, "Filter");
-    _gotoNextCurrent ();
-  }
-
-  @Nonnull
-  public IFilter <ELEMENTTYPE> getFilter ()
-  {
-    return m_aFilter;
-  }
-
-  private void _gotoNextCurrent ()
-  {
-    m_aCurrent = null;
-    while (m_aBaseIter.hasNext ())
-    {
-      final ELEMENTTYPE aTmp = m_aBaseIter.next ();
-      if (m_aFilter.matchesFilter (aTmp))
-      {
-        m_aCurrent = aTmp;
-        break;
-      }
-    }
-  }
-
-  public boolean hasNext ()
-  {
-    return m_aCurrent != null;
-  }
-
-  public ELEMENTTYPE next ()
-  {
-    if (!hasNext ())
-      throw new NoSuchElementException ();
-    final ELEMENTTYPE aRet = m_aCurrent;
-    _gotoNextCurrent ();
-    return aRet;
-  }
-
-  @UnsupportedOperation
-  public void remove ()
-  {
-    throw new UnsupportedOperationException ();
-  }
-
-  @Nonnull
-  public Iterator <ELEMENTTYPE> iterator ()
-  {
-    return this;
-  }
-
-  // equals and hashCode wont work, because standard Java iterators don't
-  // implement this!
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).append ("baseIter", m_aBaseIter).append ("filter", m_aFilter).toString ();
+    super (aBaseCont, aFilter);
   }
 }

@@ -69,7 +69,11 @@ terfaces.
   * `com.helger.commons.encode` - contains a generic encode and decode interface which is very similar to the unidirectional converter as specified in `com.helger.commons.convert` but with different method names.
   * `com.helger.commons.equals` - contains utility methods for `null`-safe equals implementations as well as a registry for `equals` implementation overloading for bogus or missing `equals`-implementations (like for arrays etc.).
   * `com.helger.commons.error` - contains classes and interfaces to handle stuff related to error handling, like error ID, error level, error location and error message.
-  * `com.helger.commons.exceptions` - contains additional exception classes that includes logging.
+  * `com.helger.commons.exceptions` - contains additional exception classes that includes logging when thrown.
+  * `com.helger.commons.factory` - contains generic factory pattern interfaces and basic implementations.
+  * `com.helger.commons.filter` - contains generic filtering interfaces and basic implementations.
+  * `com.helger.commons.filter.collections` - contains 
+   
 
 To be continued
 

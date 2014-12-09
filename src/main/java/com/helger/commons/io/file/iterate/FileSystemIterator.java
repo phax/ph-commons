@@ -22,11 +22,11 @@ import java.io.FilenameFilter;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.collections.filter.FilterIterator;
 import com.helger.commons.collections.iterate.IIterableIterator;
 import com.helger.commons.collections.iterate.IterableIterator;
 import com.helger.commons.filter.FilterChainAND;
 import com.helger.commons.filter.IFilter;
-import com.helger.commons.filter.collections.FilterIterator;
 import com.helger.commons.io.file.FileUtils;
 import com.helger.commons.io.file.filter.IFileFilter;
 
