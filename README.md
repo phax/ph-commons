@@ -35,6 +35,7 @@ The following list gives a short overview of special programming techniques that
 
 #Contents
 In general I tried to make the source comments as usefull as possible. Therefore here only an alphabetic package list with the respective contents is shown:
+
   * `com.helger.commons` - The base package that contains very basic interface and a few classes like `CGlobal` and `GlobalDebug` which are in this package, to avoid cyclic package references. 
   * `com.helger.commons.aggregate` - contains a generic aggregator that cann aggregate multiple values to a single value.
   * `com.helger.commons.annotations` - contains all the Java annotations defined in this project. This include e.g. `@Nonempty`, `@ReturnsMutableCopy` or `@DevelopersNote`.
@@ -70,7 +71,7 @@ terfaces.
   * `com.helger.commons.error` - contains classes and interfaces to handle stuff related to error handling, like error ID, error level, error location and error message.
   * `com.helger.commons.exceptions` - contains additional exception classes that includes logging.
 
-  To be continued
+To be continued
 
 ---
 
