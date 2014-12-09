@@ -72,7 +72,8 @@ terfaces.
   * `com.helger.commons.exceptions` - contains additional exception classes that includes logging when thrown.
   * `com.helger.commons.factory` - contains generic factory pattern interfaces and basic implementations.
   * `com.helger.commons.filter` - contains generic filtering interfaces and basic implementations.
-  * `com.helger.commons.filter.collections` - contains 
+  * `com.helger.commons.filter.collections` - contains an iterator using filtering. This package content is deprecated in favour of `com.helger.commons.collections.filter`.
+  * `com.helger.commons.format` - contains interfaces and class to format objects to a String value. This can be seen as a typed alternative to `String.valueOf`.
    
 
 To be continued
