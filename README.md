@@ -67,14 +67,44 @@ terfaces.
   * `com.helger.commons.deadlock` - contains a thread deadlock detector based on the JMX `ThreadMXBean` class.
   * `com.helger.commons.email` - contains the data model and a small regular expression based validator for email addresses.
   * `com.helger.commons.encode` - contains a generic encode and decode interface which is very similar to the unidirectional converter as specified in `com.helger.commons.convert` but with different method names.
-  * `com.helger.commons.equals` - contains utility methods for `null`-safe equals implementations as well as a registry for `equals` implementation overloading for bogus or missing `equals`-implementations (like for arrays etc.).
+  * `com.helger.commons.equals` - contains utility methods for `null`-safe equals implementations as well as a registry for `equals` implementation overloading for bogus or missing `equals`-implementations (like for arrays etc.). Especially class `EqualsUtils` is used frequently.
   * `com.helger.commons.error` - contains classes and interfaces to handle stuff related to error handling, like error ID, error level, error location and error message.
   * `com.helger.commons.exceptions` - contains additional exception classes that includes logging when thrown.
   * `com.helger.commons.factory` - contains generic factory pattern interfaces and basic implementations.
   * `com.helger.commons.filter` - contains generic filtering interfaces and basic implementations.
   * `com.helger.commons.filter.collections` - contains an iterator using filtering. This package content is deprecated in favour of `com.helger.commons.collections.filter`.
   * `com.helger.commons.format` - contains interfaces and class to format objects to a String value. This can be seen as a typed alternative to `String.valueOf`.
-   
+  * `com.helger.commons.format.impl` - contains more specialized implementations for formatters.
+  * `com.helger.commons.gfx` - contains utility classes for handling image metadata (especially size).
+  * `com.helger.commons.hash` - contains utility classes for creating hash codes in a simplified way. Especially `HashCodeGenerator` is used quite frequently.
+  * `com.helger.commons.hierarchy` - contains a hierarchy walker which is the visitor pattern for hierarchical data structures.
+  * `com.helger.commons.i18n` - internationalization (i18n) helper classes, especially for code point handling. Ripped from Apache Abdera.
+  * `com.helger.commons.id` - contains interfaces for objects having identifiers (IHas...ID) as well as `int`, `long` and `String` based ID provider interfaces.
+  * `com.helger.commons.idfactory` - ID factory implementations. Especially `GlobalIDFactory` is used frequently.
+  * `com.helger.commons.io` - generic interfaces for input/output (IO) handling. `IReadableResource` is used quite frequently as an abstraction layer.
+  * `com.helger.commons.io.channels` - contains utility methods for channelled IO.
+  * `com.helger.commons.io.file` - utility classes for file based IO
+  * `com.helger.commons.io.file.filter` - contains a set of `FileFilter` and `FilenameFilter` implementations.
+  * `com.helger.commons.io.file.iterate` - utility classes for iterating file system directories.
+  * `com.helger.commons.io.misc` - additional file utility classes.
+  * `com.helger.commons.io.monitor` - a background monitor for file changes, based on Apache commons-io.
+  * `com.helger.commons.io.resolver` - implementations of `IInputStreamResolver` and `IOutputStreamResolver` for files.
+  * `com.helger.commons.io.resource` - implementations of `IReadableResource` around `File` (`FileSystemResource`), class path (`ClassPathResource`) and `URL` (`URLResource`).
+  * `com.helger.commons.io.resource.inmemory` - special implementations of `IReadableResource` that are purely in memory and not persisted.
+  * `com.helger.commons.io.resourceprovider` - implementations of `IReadableResourceProvider` and `IWritableResourceProvider`.
+  * `com.helger.commons.io.streamprovider` - implementations of `IInputStreamProvider` and `IReaderProvider`.
+  * `com.helger.commons.io.streams` - special `InputStream` and `OutputStream` implementations. Also `StreamUtils` is a regularly used.
+  * `com.helger.commons.jaxb` - JAXB context cache.
+  * `com.helger.commons.jaxb.utils` - abstract JAXB marshaller for easy reading and writing from and to different sources and targets.
+  * `com.helger.commons.jaxb.validation` - validation event handler for JAXB marshalling/unmarshalling.
+  * `com.helger.commons.jmx` - very basic JMX utility classes.
+  * `com.helger.commons.lang` - Java language extensions that don't really fit into any other category.
+  * `com.helger.commons.locale` - `Locale` related utility classes.
+  * `com.helger.commons.locale.country` - country related `Locale` utility classes.
+  * `com.helger.commons.locale.language` - language related `Locale` utility classes.
+  * `com.helger.commons.log` - logging related utility classes
+  * `com.helger.commons.math` - basic math related utility interfaces and classes
+  * `com.helger.commons.messagedigest` - contains utility methods to easily create message digest (like MD5 or SHA-1).
 
 To be continued
 
