@@ -140,7 +140,22 @@ terfaces.
   * `com.helger.commons.text.resolve` - contains the stuff for multilingual text resolving based on an enumeration, and falling back to a properties file if needed.
   * `com.helger.commons.text.resource` - utility classes for handling `ResourceBundle`s in an easy way, as well as UTF-8 and XML resource bundles.
   * `com.helger.commons.text.utils` - utility string classes that are deprecated in favour of package `com.helger.commons.string.utils`.
-  
+  * `com.helger.commons.thirdparty` - contains a domain model and a registry for handling referenced thirdparty libraries.
+  * `com.helger.commons.timing` - contains a simple stop watch class.
+  * `com.helger.commons.tree` - contains interfaces for a basic tree and a basic tree item
+  * `com.helger.commons.tree.simple` - contains a simple generic tree implementation.
+  * `com.helger.commons.tree.utils.build` - contains a utility class to build a tree from hierarchical parent-child relations.
+  * `com.helger.commons.tree.utils.search` - search within a tree with ID
+  * `com.helger.commons.tree.utils.sort` - utility classes to sort trees by ID or by values.
+  * `com.helger.commons.tree.utils.walk` - utility classes to visit all leafs of a tree
+  * `com.helger.commons.tree.utils.xml` - convert a tree into a generic XML.
+  * `com.helger.commons.tree.withid` - contains a generic tree, where each item has an ID (which must not be unique)
+  * `com.helger.commons.tree.withid.folder` - a specialized tree which separates into "files" and "folders"
+  * `com.helger.commons.tree.withid.unique` - a special tree where each item has an ID that must be unique so that each leaf can be identified easily.
+  * `com.helger.commons.type` - base interfaces for "typed" objects, meaning objects that have a combination of type and ID (in case the ID is not unique).
+  *  `com.helger.commons.typeconvert` - contains a generic type converter registry and different resolvers. The registration is done via SPI.
+  * `com.helger.commons.typeconvert.impl` - contains the default type converters provided by this project.
+  * `com.helger.commons.typeconvert.rule` - contains special "rule based" type converters, where a direct match "by class" is not useful.
   
 
 To be continued
