@@ -28,9 +28,10 @@ import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link FlagContainerThreadSafe}.
- * 
+ *
  * @author Philip Helger
  */
+@Deprecated
 public class FlagContainerThreadSafeTest
 {
   @Test
@@ -53,7 +54,7 @@ public class FlagContainerThreadSafeTest
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aFC, new FlagContainerThreadSafe ("any"));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aFC,
-                                                                    new FlagContainerThreadSafe (ContainerHelper.newList ("any")));
+                                                                 new FlagContainerThreadSafe (ContainerHelper.newList ("any")));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aFC, new FlagContainerThreadSafe (aFC));
 
     assertTrue (aFC.addFlags ("other", "flag").isChanged ());

@@ -24,13 +24,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.collections.attrs.IReadonlyAttributeContainer;
 
 /**
  * Base interface for a generic read-only flag container. It maps strings to any
  * Java object.
- * 
+ *
  * @author Philip Helger
+ * @deprecated Use an {@link IReadonlyAttributeContainer} instead.
  */
+@Deprecated
 public interface IReadonlyFlagContainer extends Serializable
 {
   /**
@@ -47,7 +50,7 @@ public interface IReadonlyFlagContainer extends Serializable
 
   /**
    * Check if an flag of the given name is contained.
-   * 
+   *
    * @param sName
    *        name of the flag to check
    * @return <code>true</code> if the flag is contained, <code>false</code>

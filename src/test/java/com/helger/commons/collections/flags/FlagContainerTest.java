@@ -28,9 +28,10 @@ import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link FlagContainer}.
- * 
+ *
  * @author Philip Helger
  */
+@Deprecated
 public class FlagContainerTest
 {
   @Test
@@ -53,7 +54,7 @@ public class FlagContainerTest
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aFC, new FlagContainer ("any"));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aFC,
-                                                                    new FlagContainer (ContainerHelper.newList ("any")));
+                                                                 new FlagContainer (ContainerHelper.newList ("any")));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aFC, new FlagContainer (aFC));
 
     assertTrue (aFC.addFlags ("other", "flag").isChanged ());

@@ -21,19 +21,22 @@ import java.util.Collection;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.collections.attrs.IAttributeContainer;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.IClearable;
 
 /**
  * This is the writable extension of the {@link IReadonlyFlagContainer}.
- * 
+ *
  * @author Philip Helger
+ * @deprecated Use an {@link IAttributeContainer} instead.
  */
+@Deprecated
 public interface IFlagContainer extends IReadonlyFlagContainer, IClearable
 {
   /**
    * Add a flag if it is not yet present.
-   * 
+   *
    * @param sName
    *        The name of the flag. May not be <code>null</code>.
    * @return {@link EChange#CHANGED} if something changed,
@@ -45,7 +48,7 @@ public interface IFlagContainer extends IReadonlyFlagContainer, IClearable
 
   /**
    * Add an arbitrary number of flags if they are not yet present.
-   * 
+   *
    * @param aValues
    *        The collections of flags to be set. May be <code>null</code>.
    * @return {@link EChange#CHANGED} if something changed,
@@ -57,7 +60,7 @@ public interface IFlagContainer extends IReadonlyFlagContainer, IClearable
 
   /**
    * Add an arbitrary number of flags if they are not yet present.
-   * 
+   *
    * @param aValues
    *        The collections of flags to be set. May be <code>null</code>.
    * @return {@link EChange#CHANGED} if something changed,
@@ -69,7 +72,7 @@ public interface IFlagContainer extends IReadonlyFlagContainer, IClearable
 
   /**
    * Remove the specified flag from the container.
-   * 
+   *
    * @param sName
    *        The flag name to be removed. If it is <code>null</code> nothing
    *        happens.

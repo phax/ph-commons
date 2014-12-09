@@ -29,16 +29,19 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.attrs.IAttributeContainer;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * The not-thread safe implementation of {@link IFlagContainer}.
- * 
+ *
  * @author Philip Helger
+ * @deprecated Use an {@link IAttributeContainer} instead.
  */
 @NotThreadSafe
+@Deprecated
 public class FlagContainer implements IFlagContainer
 {
   /**

@@ -27,6 +27,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.collections.attrs.IAttributeContainer;
 import com.helger.commons.state.EChange;
 
 /**
@@ -34,8 +35,10 @@ import com.helger.commons.state.EChange;
  * implementation is a thread-safe wrapper around {@link FlagContainer}!
  *
  * @author Philip Helger
+ * @deprecated Use an {@link IAttributeContainer} instead.
  */
 @ThreadSafe
+@Deprecated
 public class FlagContainerThreadSafe extends FlagContainer
 {
   protected final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();

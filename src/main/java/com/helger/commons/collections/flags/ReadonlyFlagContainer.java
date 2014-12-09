@@ -27,6 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.attrs.IReadonlyAttributeContainer;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -35,8 +36,10 @@ import com.helger.commons.string.ToStringGenerator;
  * set.
  *
  * @author Philip Helger
+ * @deprecated Use an {@link IReadonlyAttributeContainer} instead.
  */
 @NotThreadSafe
+@Deprecated
 public final class ReadonlyFlagContainer implements IReadonlyFlagContainer
 {
   private final Set <String> m_aFlags;

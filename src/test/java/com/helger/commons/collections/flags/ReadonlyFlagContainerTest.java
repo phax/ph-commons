@@ -28,9 +28,10 @@ import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link ReadonlyFlagContainer}.
- * 
+ *
  * @author Philip Helger
  */
+@Deprecated
 public class ReadonlyFlagContainerTest
 {
   @Test
@@ -51,7 +52,7 @@ public class ReadonlyFlagContainerTest
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aFC, new ReadonlyFlagContainer ("any"));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aFC,
-                                                                    new ReadonlyFlagContainer (ContainerHelper.newList ("any")));
+                                                                 new ReadonlyFlagContainer (ContainerHelper.newList ("any")));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aFC, new ReadonlyFlagContainer (aFC));
   }
 }
