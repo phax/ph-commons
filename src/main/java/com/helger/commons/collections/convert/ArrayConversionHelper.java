@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.convert.collections;
+package com.helger.commons.collections.convert;
 
 import java.util.Collection;
 
@@ -22,19 +22,18 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.collections.ArrayHelper;
 import com.helger.commons.convert.IUnidirectionalConverter;
 
 /**
  * This utility class provides conversions from array objects.
- *
+ * 
  * @author Philip Helger
- * @deprecated Use the class from the 'com.helger.commons.collections.convert'
- *             package.
  */
 @Immutable
-@Deprecated
 public final class ArrayConversionHelper
 {
   @PresentForCodeCoverage
@@ -50,7 +49,15 @@ public final class ArrayConversionHelper
                                                         @Nonnull final IUnidirectionalConverter <SRCTYPE, DSTTYPE> aConv,
                                                         @Nonnull final Class <DSTTYPE> aDstClass)
   {
-    return com.helger.commons.collections.convert.ArrayConversionHelper.newArray (aList, aConv, aDstClass);
+    ValueEnforcer.notNull (aList, "List");
+    ValueEnforcer.notNull (aConv, "Converter");
+    ValueEnforcer.notNull (aDstClass, "DestClass");
+
+    final DSTTYPE [] ret = ArrayHelper.newArray (aDstClass, aList.size ());
+    int i = 0;
+    for (final SRCTYPE aObj : aList)
+      ret[i++] = aConv.convert (aObj);
+    return ret;
   }
 
   @Nonnull
@@ -59,6 +66,16 @@ public final class ArrayConversionHelper
                                                         @Nonnull final IUnidirectionalConverter <SRCTYPE, DSTTYPE> aConv,
                                                         @Nonnull final Class <DSTTYPE> aDstClass)
   {
-    return com.helger.commons.collections.convert.ArrayConversionHelper.newArray (aArray, aConv, aDstClass);
+    ValueEnforcer.notNull (aConv, "Converter");
+    ValueEnforcer.notNull (aDstClass, "DestClass");
+
+    final DSTTYPE [] ret = ArrayHelper.newArray (aDstClass, ArrayHelper.getSize (aArray));
+    if (aArray != null)
+    {
+      int i = 0;
+      for (final SRCTYPE aObj : aArray)
+        ret[i++] = aConv.convert (aObj);
+    }
+    return ret;
   }
 }

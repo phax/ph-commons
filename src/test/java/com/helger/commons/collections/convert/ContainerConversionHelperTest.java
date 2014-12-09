@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.convert.collections;
+package com.helger.commons.collections.convert;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -40,7 +40,7 @@ import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ContainerConversionHelper}
- * 
+ *
  * @author Philip Helger
  */
 public final class ContainerConversionHelperTest extends AbstractPHTestCase

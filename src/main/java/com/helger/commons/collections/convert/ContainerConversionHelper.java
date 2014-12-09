@@ -14,10 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.convert.collections;
+package com.helger.commons.collections.convert;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -27,22 +28,21 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsImmutableObject;
 import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.collections.ArrayHelper;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.convert.IUnidirectionalConverter;
 import com.helger.commons.filter.IFilter;
 
 /**
  * This utility class helps applying conversions onto collections.
- *
+ * 
  * @author Philip Helger
- * @deprecated Use the class from the 'com.helger.commons.collections.convert'
- *             package.
  */
 @Immutable
-@Deprecated
 public final class ContainerConversionHelper
 {
   @PresentForCodeCoverage
@@ -57,7 +57,10 @@ public final class ContainerConversionHelper
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newSet (@Nonnull final Iterator <? extends SRCTYPE> it,
                                                          @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return com.helger.commons.collections.convert.ContainerConversionHelper.newSet (it, aConverter);
+    final Set <DSTTYPE> ret = new HashSet <DSTTYPE> ();
+    while (it.hasNext ())
+      ret.add (aConverter.convert (it.next ()));
+    return ret;
   }
 
   @Nonnull
@@ -65,7 +68,10 @@ public final class ContainerConversionHelper
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newSet (@Nonnull final Iterable <? extends SRCTYPE> aCont,
                                                          @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return com.helger.commons.collections.convert.ContainerConversionHelper.newSet (aCont, aConverter);
+    final Set <DSTTYPE> ret = new HashSet <DSTTYPE> ();
+    for (final SRCTYPE aValue : aCont)
+      ret.add (aConverter.convert (aValue));
+    return ret;
   }
 
   @Nonnull
@@ -74,7 +80,11 @@ public final class ContainerConversionHelper
                                                          @Nonnull final IFilter <? super SRCTYPE> aFilter,
                                                          @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return com.helger.commons.collections.convert.ContainerConversionHelper.newSet (aCont, aFilter, aConverter);
+    final Set <DSTTYPE> ret = new HashSet <DSTTYPE> ();
+    for (final SRCTYPE aIn : aCont)
+      if (aFilter.matchesFilter (aIn))
+        ret.add (aConverter.convert (aIn));
+    return ret;
   }
 
   @Nonnull
@@ -120,7 +130,10 @@ public final class ContainerConversionHelper
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newOrderedSet (@Nonnull final Iterable <? extends SRCTYPE> aCont,
                                                                 @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return com.helger.commons.collections.convert.ContainerConversionHelper.newOrderedSet (aCont, aConverter);
+    final Set <DSTTYPE> ret = new LinkedHashSet <DSTTYPE> ();
+    for (final SRCTYPE aValue : aCont)
+      ret.add (aConverter.convert (aValue));
+    return ret;
   }
 
   @Nonnull
@@ -129,7 +142,11 @@ public final class ContainerConversionHelper
                                                                 @Nonnull final IFilter <? super SRCTYPE> aFilter,
                                                                 @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return com.helger.commons.collections.convert.ContainerConversionHelper.newOrderedSet (aCont, aFilter, aConverter);
+    final Set <DSTTYPE> ret = new LinkedHashSet <DSTTYPE> ();
+    for (final SRCTYPE aIn : aCont)
+      if (aFilter.matchesFilter (aIn))
+        ret.add (aConverter.convert (aIn));
+    return ret;
   }
 
   @Nonnull
@@ -164,7 +181,11 @@ public final class ContainerConversionHelper
   public static <SRCTYPE, DSTTYPE> List <DSTTYPE> newList (@Nullable final Iterable <? extends SRCTYPE> aCont,
                                                            @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return com.helger.commons.collections.convert.ContainerConversionHelper.newList (aCont, aConverter);
+    final List <DSTTYPE> ret = new ArrayList <DSTTYPE> ();
+    if (aCont != null)
+      for (final SRCTYPE aIn : aCont)
+        ret.add (aConverter.convert (aIn));
+    return ret;
   }
 
   @Nonnull
@@ -172,7 +193,11 @@ public final class ContainerConversionHelper
   public static <SRCTYPE, DSTTYPE> List <DSTTYPE> newList (@Nullable final SRCTYPE [] aCont,
                                                            @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return com.helger.commons.collections.convert.ContainerConversionHelper.newList (aCont, aConverter);
+    final List <DSTTYPE> ret = new ArrayList <DSTTYPE> (ArrayHelper.getSize (aCont));
+    if (aCont != null)
+      for (final SRCTYPE aIn : aCont)
+        ret.add (aConverter.convert (aIn));
+    return ret;
   }
 
   @Nonnull
@@ -181,7 +206,12 @@ public final class ContainerConversionHelper
                                                            @Nonnull final IFilter <? super SRCTYPE> aFilter,
                                                            @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return com.helger.commons.collections.convert.ContainerConversionHelper.newList (aCont, aFilter, aConverter);
+    final List <DSTTYPE> ret = new ArrayList <DSTTYPE> ();
+    if (aCont != null)
+      for (final SRCTYPE aIn : aCont)
+        if (aFilter.matchesFilter (aIn))
+          ret.add (aConverter.convert (aIn));
+    return ret;
   }
 
   @Nonnull
@@ -213,7 +243,7 @@ public final class ContainerConversionHelper
 
   /**
    * Convert the given iterator to a sorted list.
-   *
+   * 
    * @param <SRCTYPE>
    *        The type of elements to iterate (source).
    * @param <DSTTYPE>
@@ -230,12 +260,18 @@ public final class ContainerConversionHelper
   public static <SRCTYPE, DSTTYPE extends Comparable <? super DSTTYPE>> List <DSTTYPE> getSorted (@Nonnull final Iterator <? extends SRCTYPE> it,
                                                                                                   @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return com.helger.commons.collections.convert.ContainerConversionHelper.getSorted (it, aConverter);
+    ValueEnforcer.notNull (it, "Iterator");
+    ValueEnforcer.notNull (aConverter, "Converter");
+
+    final List <DSTTYPE> ret = new ArrayList <DSTTYPE> ();
+    while (it.hasNext ())
+      ret.add (aConverter.convert (it.next ()));
+    return ContainerHelper.getSortedInline (ret);
   }
 
   /**
    * Convert the given iterator to a sorted list.
-   *
+   * 
    * @param <SRCTYPE>
    *        The type of elements to iterate (source).
    * @param <DSTTYPE>
@@ -255,12 +291,19 @@ public final class ContainerConversionHelper
                                                              @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter,
                                                              @Nonnull final Comparator <? super DSTTYPE> aComparator)
   {
-    return com.helger.commons.collections.convert.ContainerConversionHelper.getSorted (it, aConverter, aComparator);
+    ValueEnforcer.notNull (it, "Iterator");
+    ValueEnforcer.notNull (aConverter, "Converter");
+    ValueEnforcer.notNull (aComparator, "Comparator");
+
+    final List <DSTTYPE> ret = new ArrayList <DSTTYPE> ();
+    while (it.hasNext ())
+      ret.add (aConverter.convert (it.next ()));
+    return ContainerHelper.getSortedInline (ret, aComparator);
   }
 
   /**
    * Convert the given iterator to a sorted list.
-   *
+   * 
    * @param <SRCTYPE>
    *        The type of elements to iterate (source).
    * @param <DSTTYPE>
@@ -277,12 +320,18 @@ public final class ContainerConversionHelper
   public static <SRCTYPE, DSTTYPE extends Comparable <? super DSTTYPE>> List <DSTTYPE> getSorted (@Nonnull final Iterable <? extends SRCTYPE> aCont,
                                                                                                   @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return com.helger.commons.collections.convert.ContainerConversionHelper.getSorted (aCont, aConverter);
+    ValueEnforcer.notNull (aCont, "Container");
+    ValueEnforcer.notNull (aConverter, "Converter");
+
+    final List <DSTTYPE> ret = new ArrayList <DSTTYPE> ();
+    for (final SRCTYPE aSrc : aCont)
+      ret.add (aConverter.convert (aSrc));
+    return ContainerHelper.getSortedInline (ret);
   }
 
   /**
    * Convert the given iterator to a sorted list.
-   *
+   * 
    * @param <SRCTYPE>
    *        The type of elements to iterate (source).
    * @param <DSTTYPE>
@@ -302,13 +351,41 @@ public final class ContainerConversionHelper
                                                              @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter,
                                                              @Nonnull final Comparator <? super DSTTYPE> aComparator)
   {
-    return com.helger.commons.collections.convert.ContainerConversionHelper.getSorted (aCont, aConverter, aComparator);
+    ValueEnforcer.notNull (aCont, "Container");
+    ValueEnforcer.notNull (aConverter, "Converter");
+    ValueEnforcer.notNull (aComparator, "Comparator");
+
+    final List <DSTTYPE> ret = new ArrayList <DSTTYPE> ();
+    for (final SRCTYPE aSrc : aCont)
+      ret.add (aConverter.convert (aSrc));
+    return ContainerHelper.getSortedInline (ret, aComparator);
   }
 
   @Nonnull
   public static <SRCTYPE, DSTTYPE> Iterator <DSTTYPE> getIterator (@Nonnull final Iterable <SRCTYPE> aCont,
                                                                    @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return com.helger.commons.collections.convert.ContainerConversionHelper.getIterator (aCont, aConverter);
+    ValueEnforcer.notNull (aCont, "Container");
+    ValueEnforcer.notNull (aConverter, "Converter");
+
+    return new Iterator <DSTTYPE> ()
+    {
+      private final Iterator <SRCTYPE> m_aIT = aCont.iterator ();
+
+      public boolean hasNext ()
+      {
+        return m_aIT.hasNext ();
+      }
+
+      public DSTTYPE next ()
+      {
+        return aConverter.convert (m_aIT.next ());
+      }
+
+      public void remove ()
+      {
+        m_aIT.remove ();
+      }
+    };
   }
 }
