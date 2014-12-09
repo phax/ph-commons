@@ -51,6 +51,7 @@ In general I tried to make the source comments as usefull as possible. Therefore
   * `com.helger.commons.collections.attrs` - contains a generic attribute container which more or less is a `Map` with a modified API. This package contains both read-only as well as mutable versions of this map-based container.
 terfaces.
   * `com.helger.commons.collections.convert` - a special package that contains array and container helper classes in combination with converters.   
+  * `com.helger.commons.collections.filter` - contains an iterator using filtering.
   * `com.helger.commons.collections.flags` - contains as well a generic container which is more or less a `Set` with a modified API. This package was not proven to be useful, as it is a special version of the attribute container, just without a value. Therefore this package will be removed in the next major release.
   * `com.helger.commons.collections.iterate` - contains special iterators/enumerators for arrays and collections. It also contains iterators for single elements as well as for "no" elements.
   * `com.helger.commons.collections.list` - contains specialized `List` implementations.
@@ -132,12 +133,13 @@ terfaces.
   * `com.helger.commons.stats.util` - contains classes for exporting statistic data to XML
   * `com.helger.commons.stats.visit` - a generic visitor for statistical data to easily implement exports in other data formats.
   * `com.helger.commons.string` - contains the basic class `StringHelper` for all kind of `String` related actions as well as `StringParser` for converting Strings to numerical values and finally `ToStringGenerator` as a utility class to easily implement `toString()` methods.
+  * `com.helger.commons.string.utils` - utility string classes for Levenshtein distance, roman numerals and a simple scanner.
   * `com.helger.commons.system` - contains information helper classes for the Java version, the JVM vendor, the newline mode of the current operating system, the processor architecture used etc.
   * `com.helger.commons.text` - interfaces for handling multilingual text in different aspects and ways
   * `com.helger.commons.text.impl` - the default implementations of the interfaces defined in the parent package
   * `com.helger.commons.text.resolve` - contains the stuff for multilingual text resolving based on an enumeration, and falling back to a properties file if needed.
   * `com.helger.commons.text.resource` - utility classes for handling `ResourceBundle`s in an easy way, as well as UTF-8 and XML resource bundles.
-  * `com.helger.commons.text.utils` - utility classes that should reside in `com.helger.commons.string.utils` instead.
+  * `com.helger.commons.text.utils` - utility string classes that are deprecated in favour of package `com.helger.commons.string.utils`.
   
   
 
