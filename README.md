@@ -118,6 +118,16 @@ terfaces.
   * `com.helger.commons.mutable` - contains mutable object wrappers for atomic values like boolean, int, long etc. which are not thread-safe.
   * `com.helger.commons.name` - base interfaces and classes for objects having a name or a description.
   * `com.helger.commons.parent` - base interfaces for defining parent-child hierarchical relations.
+  * `com.helger.commons.parent.impl` - implementations of the parent-child relation interfaces
+  * `com.helger.commons.parent.utils` - utility classes for the parent-child relations.
+  * `com.helger.commons.pool` - generic pool of arbitrary objects.
+  * `com.helger.commons.priviledged` - a set of typed `PrivilegedAction` implementations used quite frequently.
+  * `com.helger.commons.random` - contains an even securer random than `SecureRandom`
+  * `com.helger.commons.regex` - contains a pool for pre-compiled regular expressions and utility classes to use this pool implicitly.
+  * `com.helger.commons.serialize.convert` - a registry for registering custom `Serializable` implementations for classes that don't implement `Serializable` themselves. Registration is done via SPI.
+  * `com.helger.commons.serialize.convert.impl` - default registration implementations for the serializable type converter.
+  
+  
 
 To be continued
 
