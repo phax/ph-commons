@@ -156,9 +156,21 @@ terfaces.
   *  `com.helger.commons.typeconvert` - contains a generic type converter registry and different resolvers. The registration is done via SPI.
   * `com.helger.commons.typeconvert.impl` - contains the default type converters provided by this project.
   * `com.helger.commons.typeconvert.rule` - contains special "rule based" type converters, where a direct match "by class" is not useful.
-  
-
-To be continued
+  * `com.helger.commons.url` - URL related tools containing a minimum data model for URLs
+  * `com.helger.commons.url.encode` - specialized URL parameter encoder and decoder.
+  * `com.helger.commons.utils` - additional utils not matching a specific package.
+  * `com.helger.commons.vendor` - package containing data to represent the vendor of an application
+  * `com.helger.commons.version` - contains a numerical version object as well as a version range object.
+  * `com.helger.commons.vminit` - specialized callback for the JVM startup and shutdown
+  * `com.helger.commons.xml` - utility classes to work with standard W3C nodes
+  * `com.helger.commons.xml.dom` - XML utility classes only relevant for DOM
+  * `com.helger.commons.xml.ls` - XML utility classes for LS (serialization) support
+  * `com.helger.commons.xml.namespace` - XML namespace support classes
+  * `com.helger.commons.xml.sax` - XML helper classes supporting SAX
+  * `com.helger.commons.xml.schema` - utility classes to handle XML Schema (XSD)
+  * `com.helger.commons.xml.serialize` - XML reading and writing classes for SAX and DOM
+  * `com.helger.commons.xml.transform` - utility classes for XSLT processing and URL processing
+  * `com.helger.commons.xml.xpath` - utility classes for XPath handling incl. function and variable resolver
 
 ---
 
