@@ -81,6 +81,40 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
   }
 
   /**
+   * Add multiple resource error items.
+   *
+   * @param aResourceErrors
+   *        The resource errors to be added. May not be <code>null</code>.
+   * @return this
+   * @since 5.3.0
+   */
+  @Nonnull
+  public ResourceErrorGroup addResourceErrors (@Nonnull final IResourceError... aResourceErrors)
+  {
+    ValueEnforcer.notNull (aResourceErrors, "ResourceErrors");
+    for (final IResourceError aResourceError : aResourceErrors)
+      addResourceError (aResourceError);
+    return this;
+  }
+
+  /**
+   * Add multiple resource error items.
+   *
+   * @param aResourceErrors
+   *        The resource errors to be added. May not be <code>null</code>.
+   * @return this
+   * @since 5.3.0
+   */
+  @Nonnull
+  public ResourceErrorGroup addResourceErrors (@Nonnull final Iterable <? extends IResourceError> aResourceErrors)
+  {
+    ValueEnforcer.notNull (aResourceErrors, "ResourceErrors");
+    for (final IResourceError aResourceError : aResourceErrors)
+      addResourceError (aResourceError);
+    return this;
+  }
+
+  /**
    * Add a all resource errors of the other group
    *
    * @param aResourceErrorGroup
