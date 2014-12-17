@@ -351,8 +351,12 @@ public class XMLEmitter extends DefaultXMLIterationHandler
   {
     _append ('<');
     if (StringHelper.hasText (sNamespacePrefix))
+    {
+      // We have an element namespace prefix
       _appendMasked (EXMLCharMode.ELEMENT_NAME, sNamespacePrefix)._append (CXML.XML_PREFIX_NAMESPACE_SEP);
+    }
     _appendMasked (EXMLCharMode.ELEMENT_NAME, sTagName);
+
     if (aAttrs != null && !aAttrs.isEmpty ())
     {
       // assuming that the order of the passed attributes is consistent!
@@ -362,18 +366,15 @@ public class XMLEmitter extends DefaultXMLIterationHandler
         final QName aAttrName = aEntry.getKey ();
         final String sAttrNamespacePrefix = aAttrName.getPrefix ();
         final String sAttrName = aAttrName.getLocalPart ();
+        final String sAttrValue = aEntry.getValue ();
 
+        _append (' ');
         if (StringHelper.hasText (sAttrNamespacePrefix))
         {
-          // We have a namespace prefix
-          _append (' ')._append (sAttrNamespacePrefix)._append (CXML.XML_PREFIX_NAMESPACE_SEP);
+          // We have an attribute namespace prefix
+          _append (sAttrNamespacePrefix)._append (CXML.XML_PREFIX_NAMESPACE_SEP);
         }
-        else
-        {
-          // No namespace prefix present
-          _append (' ');
-        }
-        _appendMasked (EXMLCharMode.ATTRIBUTE_NAME, sAttrName)._append ('=')._appendAttrValue (aEntry.getValue ());
+        _appendMasked (EXMLCharMode.ATTRIBUTE_NAME, sAttrName)._append ('=')._appendAttrValue (sAttrValue);
       }
     }
 
@@ -387,7 +388,10 @@ public class XMLEmitter extends DefaultXMLIterationHandler
       // Either leave tag open or close it
       // Note: according to HTML compatibility guideline a space should be added
       // before the self-closing
-      _append (bHasChildren ? ">" : m_aSettings.isSpaceOnSelfClosedElement () ? " />" : "/>");
+      if (bHasChildren)
+        _append ('>');
+      else
+        _append (m_aSettings.isSpaceOnSelfClosedElement () ? " />" : "/>");
     }
   }
 
@@ -396,14 +400,12 @@ public class XMLEmitter extends DefaultXMLIterationHandler
                             @Nonnull final String sTagName,
                             final boolean bHasChildren)
   {
-    boolean bPrintClosingTag;
-    if (m_aSettings.getFormat ().isHTML ())
+    boolean bPrintClosingTag = bHasChildren;
+    if (!bPrintClosingTag && m_aSettings.getFormat ().isHTML ())
     {
       // In HTML all tags are closed, if not explicitly marked as empty
-      bPrintClosingTag = bHasChildren || !HTMLdtd.isEmptyTag (sTagName);
+      bPrintClosingTag = !HTMLdtd.isEmptyTag (sTagName);
     }
-    else
-      bPrintClosingTag = bHasChildren;
 
     if (bPrintClosingTag)
     {
