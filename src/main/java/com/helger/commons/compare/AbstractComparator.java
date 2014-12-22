@@ -137,7 +137,7 @@ public abstract class AbstractComparator <DATATYPE> implements Comparator <DATAT
       nCompare = m_aNestedComparator.compare (aElement1, aElement2);
     }
 
-    // Apply sort order
-    return (m_eSortOrder.isAscending () ? 1 : -1) * nCompare;
+    // Apply sort order by switching the sign of the return value
+    return m_eSortOrder.isAscending () ? nCompare : -nCompare;
   }
 }
