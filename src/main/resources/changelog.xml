@@ -39,6 +39,7 @@
       <text locale="en">Moved contents of package com.helger.commons.convert.collections to com.helger.commons.collections.convert</text>
     </change>
   </entry>
+  <release date="2014-10-30" version="5.2.0" />
   <entry date="2014-10-30" category="api" action="add">
     <change>
       <text locale="en">Added new classes CollectingExceptionHandler and CollectingExceptionHandlerMultiple</text>
