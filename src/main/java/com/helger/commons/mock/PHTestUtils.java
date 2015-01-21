@@ -18,6 +18,7 @@ package com.helger.commons.mock;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -31,14 +32,21 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.callback.AdapterRunnableToThrowingRunnable;
 import com.helger.commons.callback.IThrowingRunnable;
+import com.helger.commons.charset.CCharset;
 import com.helger.commons.concurrent.ManagedExecutorService;
 import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.iterate.FileSystemIterator;
 import com.helger.commons.io.streamprovider.ByteArrayInputStreamProvider;
+import com.helger.commons.io.streams.NonBlockingBufferedReader;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.lang.GenericReflection;
@@ -53,12 +61,14 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * This class contains default test methods to test the correctness of
  * implementations of standard methods.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class PHTestUtils
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (PHTestUtils.class);
+
   @PresentForCodeCoverage
   @SuppressWarnings ("unused")
   private static final PHTestUtils s_aInstance = new PHTestUtils ();
@@ -152,7 +162,7 @@ public final class PHTestUtils
   /**
    * Test the toString implementation of the passed object. It may not be empty,
    * and consistent.
-   * 
+   *
    * @param aObject
    *        The object to be tested.
    */
@@ -185,7 +195,7 @@ public final class PHTestUtils
   /**
    * Check if two different objects (who may not be the same) are equal to each
    * other. Checks toString, equals and hashCode.
-   * 
+   *
    * @param aObject1
    *        First object. May not be <code>null</code>.
    * @param aObject2
@@ -202,7 +212,7 @@ public final class PHTestUtils
   /**
    * Check if two different objects are different to each other. Checks
    * toString, equals and hashCode.
-   * 
+   *
    * @param aObject1
    *        First object. May not be <code>null</code>.
    * @param aObject2
@@ -221,7 +231,7 @@ public final class PHTestUtils
    * array stream, and then tries to rebuild it from there. After reading it
    * performs an equals check using
    * {@link #testDefaultImplementationWithEqualContentObject(Object, Object)}
-   * 
+   *
    * @param <DATATYPE>
    *        The type of object to be serialized.
    * @param aSerializable
@@ -272,7 +282,7 @@ public final class PHTestUtils
    * than uses
    * {@link #testDefaultImplementationWithEqualContentObject(Object, Object)} to
    * check for equality.
-   * 
+   *
    * @param aCloneable
    *        The cloneable object to test
    */
@@ -290,7 +300,7 @@ public final class PHTestUtils
    * back and than uses
    * {@link #testDefaultImplementationWithEqualContentObject(Object, Object)} to
    * check for equality.
-   * 
+   *
    * @param aObj
    *        The object to test
    */
@@ -321,7 +331,7 @@ public final class PHTestUtils
 
   /**
    * Run something in parallel
-   * 
+   *
    * @param nCalls
    *        The number of invocations of the passed runnable. Must be &ge; 0.
    * @param aRunnable
@@ -335,7 +345,7 @@ public final class PHTestUtils
 
   /**
    * Run something in parallel
-   * 
+   *
    * @param nCalls
    *        The number of invocations of the passed runnable. Must be &ge; 0.
    * @param aRunnable
@@ -372,5 +382,47 @@ public final class PHTestUtils
     // No errors should have occurred
     if (!aErrors.isEmpty ())
       throw new IllegalStateException (StringHelper.getImploded (aErrors));
+  }
+
+  public static void testIfAllSPIFilesAreValid (@Nonnull final String sBaseDir) throws Exception
+  {
+    final File aBaseDir = new File (sBaseDir);
+    if (aBaseDir.exists () && aBaseDir.isDirectory ())
+      for (final File aFile : new FileSystemIterator (sBaseDir))
+        if (aFile.isFile ())
+        {
+          s_aLogger.info ("Checking SPI file " + aFile.getAbsolutePath ());
+          final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamUtils.createReader (FileUtils.getInputStream (aFile),
+                                                                                                             CCharset.CHARSET_SERVICE_LOADER_OBJ));
+          try
+          {
+            int nCount = 0;
+            String sLine;
+            while ((sLine = aReader.readLine ()) != null)
+            {
+              final String sClassName = StringHelper.trim (sLine);
+              if (StringHelper.hasText (sClassName))
+              {
+                // Resolve class
+                Class.forName (sLine);
+                ++nCount;
+              }
+            }
+            if (nCount == 0)
+              s_aLogger.warn ("  Contains no single valid implementation!");
+            else
+              s_aLogger.info ("  All implementations (" + nCount + ") are valid!");
+          }
+          finally
+          {
+            StreamUtils.close (aReader);
+          }
+        }
+  }
+
+  public static void testIfAllSPIImplementationsAreValid () throws Exception
+  {
+    testIfAllSPIFilesAreValid ("src/main/resources/META-INF/services");
+    testIfAllSPIFilesAreValid ("src/test/resources/META-INF/services");
   }
 }
