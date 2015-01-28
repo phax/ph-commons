@@ -540,16 +540,21 @@ public final class FilenameHelperTest
     {
       final File aBaseFile = new File ("pom.xml");
       assertTrue (aBaseFile.exists ());
-
-      // Prefix "\\?\" for a local UNC path
-      File aFile = new File ("\\\\?\\" + aBaseFile.getAbsolutePath ());
-      assertTrue (aFile.exists ());
-      assertEquals ("\\\\?\\" + aBaseFile.getAbsolutePath (), FilenameHelper.getCleanPath (aFile));
+      assertFalse (FilenameHelper.isWindowsLocalUNCPath (aBaseFile));
 
       // Prefix "\\.\" for a local UNC path
-      aFile = new File ("\\\\.\\" + aBaseFile.getAbsolutePath ());
+      File aFile = new File (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL1 + aBaseFile.getAbsolutePath ());
       assertTrue (aFile.exists ());
-      assertEquals ("\\\\.\\" + aBaseFile.getAbsolutePath (), FilenameHelper.getCleanPath (aFile));
+      assertTrue (FilenameHelper.isWindowsLocalUNCPath (aFile));
+      assertEquals (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL1 + aBaseFile.getAbsolutePath (),
+                    FilenameHelper.getCleanPath (aFile));
+
+      // Prefix "\\?\" for a local UNC path
+      aFile = new File (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL2 + aBaseFile.getAbsolutePath ());
+      assertTrue (aFile.exists ());
+      assertTrue (FilenameHelper.isWindowsLocalUNCPath (aFile));
+      assertEquals (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL2 + aBaseFile.getAbsolutePath (),
+                    FilenameHelper.getCleanPath (aFile));
     }
 
     try
@@ -565,6 +570,8 @@ public final class FilenameHelperTest
   public void testGetCleanPath_String ()
   {
     assertNull (FilenameHelper.getCleanPath ((String) null));
+    assertEquals ("", FilenameHelper.getCleanPath (""));
+    assertEquals ("/", FilenameHelper.getCleanPath ("/"));
     assertEquals ("target/file", FilenameHelper.getCleanPath ("target/file"));
     assertEquals ("target/file", FilenameHelper.getCleanPath ("target/./file"));
     assertEquals ("target/file", FilenameHelper.getCleanPath ("./target/./file/."));

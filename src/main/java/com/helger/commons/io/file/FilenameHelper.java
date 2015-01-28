@@ -71,6 +71,17 @@ public final class FilenameHelper
   /** The Windows separator string. */
   public static final String WINDOWS_SEPARATOR_STR = Character.toString (WINDOWS_SEPARATOR);
 
+  /** The prefix to identify UNC paths on Unix based systems */
+  public static final String UNIX_UNC_PREFIX = "//";
+
+  /** The prefix to identify UNC paths on Windows based systems */
+  public static final String WINDOWS_UNC_PREFIX = "\\\\";
+
+  /** The prefix to identify local UNC paths on Windows based systems */
+  public static final String WINDOWS_UNC_PREFIX_LOCAL1 = "\\\\.\\";
+  /** The prefix to identify local UNC paths on Windows based systems */
+  public static final String WINDOWS_UNC_PREFIX_LOCAL2 = "\\\\?\\";
+
   /** The prefix used for Unix hidden files */
   public static final char HIDDEN_FILE_PREFIX = '.';
 
@@ -753,7 +764,36 @@ public final class FilenameHelper
    */
   public static boolean isUNCPath (@Nonnull final String sFilename)
   {
-    return sFilename.startsWith ("\\\\") || sFilename.startsWith ("//");
+    return sFilename.startsWith (WINDOWS_UNC_PREFIX) || sFilename.startsWith (UNIX_UNC_PREFIX);
+  }
+
+  /**
+   * Check if the passed file is a Windows local UNC path. This type is
+   * identified by starting with "\\?\" or "\\.\".
+   *
+   * @param aFile
+   *        The file to be checked. May not be <code>null</code>.
+   * @return <code>true</code> if the file points to an UNC path,
+   *         <code>false</code> if not.
+   */
+  public static boolean isWindowsLocalUNCPath (@Nonnull final File aFile)
+  {
+    final String sPath = aFile.getAbsolutePath ();
+    return isWindowsLocalUNCPath (sPath);
+  }
+
+  /**
+   * Check if the passed file is a Windows local UNC path. This type is
+   * identified by starting with "\\?\" or "\\.\".
+   *
+   * @param sFilename
+   *        The absolute filename to be checked. May not be <code>null</code>.
+   * @return <code>true</code> if the file points to a Windows local UNC path,
+   *         <code>false</code> if not.
+   */
+  public static boolean isWindowsLocalUNCPath (@Nonnull final String sFilename)
+  {
+    return sFilename.startsWith (WINDOWS_UNC_PREFIX_LOCAL1) || sFilename.startsWith (WINDOWS_UNC_PREFIX_LOCAL2);
   }
 
   /**
@@ -772,7 +812,7 @@ public final class FilenameHelper
   {
     ValueEnforcer.notNull (aFile, "File");
 
-    // getCanoncialPath fails for certain UNC paths
+    // getCanoncialPath fails for Windows local UNC paths
     if (!isUNCPath (aFile))
       try
       {
@@ -820,13 +860,14 @@ public final class FilenameHelper
 
     // Strip prefix from path to analyze, to not treat it as part of the
     // first path element. This is necessary to correctly parse paths like
-    // "file:core/../core/io/Resource.class", where the ".." should just
+    // "file://core/../core/io/Resource.class", where the ".." should just
     // strip the first "core" directory while keeping the "file:" prefix.
     // The same applies to http:// addresses where the domain should be kept!
     final int nProtoIdx = sPathToUse.indexOf ("://");
     if (nProtoIdx > -1)
     {
-      // Keep server name
+      // Keep protocol and server name
+
       // Start searching for the first slash after "://" (length=3)
       final int nPrefixIndex = sPathToUse.indexOf ('/', nProtoIdx + 3);
       if (nPrefixIndex >= 0)
@@ -852,7 +893,8 @@ public final class FilenameHelper
       }
     }
 
-    // Unify all path separators to be "/"
+    // Unify all remaining path separators to be "/"
+    // Unify after the prefixes where removed
     sPathToUse = getPathUsingUnixSeparator (sPathToUse);
 
     // Is it an absolute Path?

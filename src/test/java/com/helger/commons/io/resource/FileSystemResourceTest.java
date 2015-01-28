@@ -31,12 +31,14 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileOperations;
+import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.system.EOperatingSystem;
 
 /**
  * Test class for class {@link FileSystemResource}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FileSystemResourceTest
@@ -59,6 +61,26 @@ public final class FileSystemResourceTest
     }
     catch (final NullPointerException ex)
     {}
+  }
+
+  @Test
+  public void testUNC ()
+  {
+    if (EOperatingSystem.WINDOWS.isCurrentOS ())
+    {
+      // Use local UNC prefix for testing
+      FileSystemResource aRes = new FileSystemResource (new File (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL1 +
+                                                                  new File ("pom.xml").getAbsolutePath ()));
+      assertTrue (aRes.exists ());
+      assertTrue (aRes.getResourceID ().endsWith ("pom.xml"));
+      assertTrue (aRes.getPath ().endsWith ("pom.xml"));
+
+      aRes = new FileSystemResource (new File (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL2 +
+                                               new File ("pom.xml").getAbsolutePath ()));
+      assertTrue (aRes.exists ());
+      assertTrue (aRes.getResourceID ().endsWith ("pom.xml"));
+      assertTrue (aRes.getPath ().endsWith ("pom.xml"));
+    }
   }
 
   @Test
