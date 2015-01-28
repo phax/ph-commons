@@ -33,7 +33,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link FilenameHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FilenameHelperTest
@@ -533,6 +533,24 @@ public final class FilenameHelperTest
     assertEquals (sBasePath + "/target/file", FilenameHelper.getCleanPath (new File ("./target/./file/.")));
     assertEquals (sBasePath + "/target/file", FilenameHelper.getCleanPath (new File ("./target/////./file/.////")));
     assertEquals (sBasePath + "/target/file", FilenameHelper.getCleanPath (new File ("target/sub/../file")));
+    assertEquals ("\\\\server\\share\\dir\\file",
+                  FilenameHelper.getCleanPath (new File ("\\\\server\\share\\dir\\file")));
+
+    if (EOperatingSystem.WINDOWS.isCurrentOS ())
+    {
+      final File aBaseFile = new File ("pom.xml");
+      assertTrue (aBaseFile.exists ());
+
+      // Prefix "\\?\" for a local UNC path
+      File aFile = new File ("\\\\?\\" + aBaseFile.getAbsolutePath ());
+      assertTrue (aFile.exists ());
+      assertEquals ("\\\\?\\" + aBaseFile.getAbsolutePath (), FilenameHelper.getCleanPath (aFile));
+
+      // Prefix "\\.\" for a local UNC path
+      aFile = new File ("\\\\.\\" + aBaseFile.getAbsolutePath ());
+      assertTrue (aFile.exists ());
+      assertEquals ("\\\\.\\" + aBaseFile.getAbsolutePath (), FilenameHelper.getCleanPath (aFile));
+    }
 
     try
     {

@@ -68,6 +68,9 @@ public final class FilenameHelper
   /** The Windows separator character. */
   public static final char WINDOWS_SEPARATOR = '\\';
 
+  /** The Windows separator string. */
+  public static final String WINDOWS_SEPARATOR_STR = Character.toString (WINDOWS_SEPARATOR);
+
   /** The prefix used for Unix hidden files */
   public static final char HIDDEN_FILE_PREFIX = '.';
 
@@ -408,6 +411,35 @@ public final class FilenameHelper
   }
 
   /**
+   * Ensure that the path (not the absolute path!) of the passed file is using
+   * the Windows style separator "\" instead of the Operating System dependent
+   * one.
+   *
+   * @param aFile
+   *        The file to use. May be <code>null</code>
+   * @return <code>null</code> if the passed file is <code>null</code>.
+   */
+  @Nullable
+  public static String getPathUsingWindowsSeparator (@Nullable final File aFile)
+  {
+    return aFile == null ? null : getPathUsingWindowsSeparator (aFile.getPath ());
+  }
+
+  /**
+   * Ensure that the passed path is using the Windows style separator "\"
+   * instead of the Operating System dependent one.
+   *
+   * @param sAbsoluteFilename
+   *        The file name to use. May be <code>null</code>
+   * @return <code>null</code> if the passed path is <code>null</code>.
+   */
+  @Nullable
+  public static String getPathUsingWindowsSeparator (@Nullable final String sAbsoluteFilename)
+  {
+    return sAbsoluteFilename == null ? null : sAbsoluteFilename.replace (UNIX_SEPARATOR, WINDOWS_SEPARATOR);
+  }
+
+  /**
    * Check whether the two passed file names are equal, independent of the used
    * separators (/ or \).
    *
@@ -698,6 +730,33 @@ public final class FilenameHelper
   }
 
   /**
+   * Check if the passed file is an UNC path.
+   *
+   * @param aFile
+   *        The file to be checked. May not be <code>null</code>.
+   * @return <code>true</code> if the file points to an UNC path,
+   *         <code>false</code> if not.
+   */
+  public static boolean isUNCPath (@Nonnull final File aFile)
+  {
+    final String sPath = aFile.getAbsolutePath ();
+    return isUNCPath (sPath);
+  }
+
+  /**
+   * Check if the passed file is an UNC path.
+   *
+   * @param sFilename
+   *        The absolute filename to be checked. May not be <code>null</code>.
+   * @return <code>true</code> if the file points to an UNC path,
+   *         <code>false</code> if not.
+   */
+  public static boolean isUNCPath (@Nonnull final String sFilename)
+  {
+    return sFilename.startsWith ("\\\\") || sFilename.startsWith ("//");
+  }
+
+  /**
    * Get a clean path of the passed file resolving all "." and ".." paths.<br>
    * Note: in case {@link File#getCanonicalPath()} fails,
    * {@link #getCleanPath(String)} is used as a fallback.<br>
@@ -711,18 +770,25 @@ public final class FilenameHelper
   @Nonnull
   public static String getCleanPath (@Nonnull final File aFile)
   {
-    try
-    {
-      // This works only if the file exists
-      // Note: getCanonicalPath may be a bottleneck on Unix based file systems!
-      return getPathUsingUnixSeparator (aFile.getCanonicalPath ());
-    }
-    catch (final IOException ex)
-    {
-      // Use our method
-      s_aLogger.warn ("Using getCleanPath on an invalid file '" + aFile + "'", ex);
-      return getCleanPath (aFile.getAbsolutePath ());
-    }
+    ValueEnforcer.notNull (aFile, "File");
+
+    // getCanoncialPath fails for certain UNC paths
+    if (!isUNCPath (aFile))
+      try
+      {
+        // This works only if the file exists
+        // Note: getCanonicalPath may be a bottleneck on Unix based file
+        // systems!
+        return getPathUsingUnixSeparator (aFile.getCanonicalPath ());
+      }
+      catch (final IOException ex)
+      {
+        // Use our method
+        s_aLogger.warn ("Using getCleanPath on an invalid file '" + aFile + "'", ex);
+      }
+
+    // Fallback: do it manually
+    return getCleanPath (aFile.getAbsolutePath ());
   }
 
   /**
@@ -740,17 +806,23 @@ public final class FilenameHelper
       return null;
 
     // Remove all relative paths and insecure characters
+    String sPrefix = "";
     String sPathToUse = getSecureFilename (sPath);
 
-    // Use only a single type of path separator namely "/"
-    sPathToUse = getPathUsingUnixSeparator (sPathToUse);
+    boolean bForceWindowsSeparator = false;
+    if (isUNCPath (sPathToUse))
+    {
+      // It's an UNC path
+      sPrefix += sPathToUse.substring (0, 2);
+      sPathToUse = sPathToUse.substring (2);
+      bForceWindowsSeparator = sPrefix.startsWith (WINDOWS_SEPARATOR_STR);
+    }
 
     // Strip prefix from path to analyze, to not treat it as part of the
     // first path element. This is necessary to correctly parse paths like
     // "file:core/../core/io/Resource.class", where the ".." should just
     // strip the first "core" directory while keeping the "file:" prefix.
     // The same applies to http:// addresses where the domain should be kept!
-    String sPrefix = "";
     final int nProtoIdx = sPathToUse.indexOf ("://");
     if (nProtoIdx > -1)
     {
@@ -759,7 +831,7 @@ public final class FilenameHelper
       final int nPrefixIndex = sPathToUse.indexOf ('/', nProtoIdx + 3);
       if (nPrefixIndex >= 0)
       {
-        sPrefix = sPathToUse.substring (0, nPrefixIndex + 1);
+        sPrefix += sPathToUse.substring (0, nPrefixIndex + 1);
         sPathToUse = sPathToUse.substring (nPrefixIndex + 1);
       }
       else
@@ -775,15 +847,18 @@ public final class FilenameHelper
       final int nPrefixIndex = sPathToUse.indexOf (':');
       if (nPrefixIndex >= 0)
       {
-        sPrefix = sPathToUse.substring (0, nPrefixIndex + 1);
+        sPrefix += sPathToUse.substring (0, nPrefixIndex + 1);
         sPathToUse = sPathToUse.substring (nPrefixIndex + 1);
       }
     }
 
+    // Unify all path separators to be "/"
+    sPathToUse = getPathUsingUnixSeparator (sPathToUse);
+
     // Is it an absolute Path?
     if (StringHelper.startsWith (sPathToUse, UNIX_SEPARATOR))
     {
-      sPrefix += UNIX_SEPARATOR;
+      sPrefix += bForceWindowsSeparator ? WINDOWS_SEPARATOR : UNIX_SEPARATOR;
       sPathToUse = sPathToUse.substring (1);
     }
 
@@ -797,7 +872,8 @@ public final class FilenameHelper
     {
       final String sElement = aPathArray[i];
 
-      // Empty paths and paths reflecting the current directory (".") areignored
+      // Empty paths and paths reflecting the current directory (".") are
+      // ignored
       if (sElement.length () == 0 || PATH_CURRENT.equals (sElement))
         continue;
 
@@ -823,7 +899,8 @@ public final class FilenameHelper
     for (int i = 0; i < nParentFolders; i++)
       aElements.add (0, PATH_PARENT);
 
-    return sPrefix + StringHelper.getImploded (UNIX_SEPARATOR_STR, aElements);
+    return sPrefix +
+           StringHelper.getImploded (bForceWindowsSeparator ? WINDOWS_SEPARATOR_STR : UNIX_SEPARATOR_STR, aElements);
   }
 
   /**
