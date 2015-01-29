@@ -16,6 +16,7 @@
  */
 package com.helger.commons.mock;
 
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
@@ -23,7 +24,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 
 /**
  * Extensions for the default JUnit assertions.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -40,16 +41,16 @@ public final class PHAssert
 
   public static void assertEquals (final double x, final double y)
   {
-    assertEquals (null, x, y);
+    assertEquals ((String) null, x, y);
   }
 
   public static void assertEquals (final double x, final Double y)
   {
     ValueEnforcer.notNull (y, "y");
-    assertEquals (null, x, y.doubleValue ());
+    assertEquals ((String) null, x, y.doubleValue ());
   }
 
-  public static void assertEquals (final String sUserMsg, final double x, final double y)
+  public static void assertEquals (@Nullable final String sUserMsg, final double x, final double y)
   {
     // Do not call MathHelper.abs in here, because this class should be as close
     // to the runtime as possible!
@@ -64,16 +65,16 @@ public final class PHAssert
 
   public static void assertEquals (final float x, final float y)
   {
-    assertEquals (null, x, y);
+    assertEquals ((String) null, x, y);
   }
 
   public static void assertEquals (final float x, final Float y)
   {
     ValueEnforcer.notNull (y, "y");
-    assertEquals (null, x, y.floatValue ());
+    assertEquals ((String) null, x, y.floatValue ());
   }
 
-  public static void assertEquals (final String sUserMsg, final float x, final float y)
+  public static void assertEquals (@Nullable final String sUserMsg, final float x, final float y)
   {
     // Do not call MathHelper.abs in here, because this class should be as close
     // to the runtime as possible!

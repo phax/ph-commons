@@ -384,8 +384,10 @@ public final class PHTestUtils
       throw new IllegalStateException (StringHelper.getImploded (aErrors));
   }
 
-  public static void testIfAllSPIFilesAreValid (@Nonnull final String sBaseDir) throws Exception
+  @Nonnegative
+  public static int testIfAllSPIFilesAreValid (@Nonnull final String sBaseDir) throws Exception
   {
+    int nTotalImplementationCount = 0;
     final File aBaseDir = new File (sBaseDir);
     if (aBaseDir.exists () && aBaseDir.isDirectory ())
       for (final File aFile : new FileSystemIterator (sBaseDir))
@@ -406,6 +408,7 @@ public final class PHTestUtils
                 // Resolve class
                 Class.forName (sLine);
                 ++nCount;
+                ++nTotalImplementationCount;
               }
             }
             if (nCount == 0)
@@ -413,16 +416,26 @@ public final class PHTestUtils
             else
               s_aLogger.info ("  All implementations (" + nCount + ") are valid!");
           }
+          catch (final Throwable t)
+          {
+            // Ensure the path name of the currently checked file is contained
+            // in the exception text!
+            throw new Exception ("Error checking SPI file " + aFile.getAbsolutePath (), t);
+          }
           finally
           {
             StreamUtils.close (aReader);
           }
         }
+    return nTotalImplementationCount;
   }
 
-  public static void testIfAllSPIImplementationsAreValid () throws Exception
+  @Nonnegative
+  public static int testIfAllSPIImplementationsAreValid () throws Exception
   {
-    testIfAllSPIFilesAreValid ("src/main/resources/META-INF/services");
-    testIfAllSPIFilesAreValid ("src/test/resources/META-INF/services");
+    int ret = 0;
+    ret += testIfAllSPIFilesAreValid ("src/main/resources/META-INF/services");
+    ret += testIfAllSPIFilesAreValid ("src/test/resources/META-INF/services");
+    return ret;
   }
 }
