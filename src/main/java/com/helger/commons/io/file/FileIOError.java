@@ -86,12 +86,18 @@ public final class FileIOError implements ISuccessIndicator, Serializable
     m_aException = ValueEnforcer.notNull (aException, "Exception");
   }
 
+  /**
+   * @return The operation passed in the constructor. Never <code>null</code>.
+   */
   @Nonnull
   public EFileIOOperation getOperation ()
   {
     return m_eOperation;
   }
 
+  /**
+   * @return The error code passed in the constructor. Never <code>null</code>.
+   */
   @Nonnull
   public EFileIOErrorCode getErrorCode ()
   {
@@ -108,22 +114,59 @@ public final class FileIOError implements ISuccessIndicator, Serializable
     return m_eCode.isFailure ();
   }
 
+  /**
+   * @return The first file relevant to this error. May be <code>null</code>.
+   */
   @Nullable
   public File getFile1 ()
   {
     return m_aFile1;
   }
 
+  /**
+   * @return <code>true</code> if the first file is present, <code>false</code>
+   *         if not.
+   */
+  public boolean hasFile1 ()
+  {
+    return m_aFile1 != null;
+  }
+
+  /**
+   * @return The second file relevant to this error. May be <code>null</code>.
+   *         This field can only be present, if {@link #getFile1()} is present.
+   */
   @Nullable
   public File getFile2 ()
   {
     return m_aFile2;
   }
 
+  /**
+   * @return <code>true</code> if the second file is present, <code>false</code>
+   *         if not.
+   */
+  public boolean hasFile2 ()
+  {
+    return m_aFile2 != null;
+  }
+
+  /**
+   * @return The exception passed in the constructor. May be <code>null</code>.
+   */
   @Nullable
   public Exception getException ()
   {
     return m_aException;
+  }
+
+  /**
+   * @return <code>true</code> if an exception is present, <code>false</code> if
+   *         not.
+   */
+  public boolean hasException ()
+  {
+    return m_aException != null;
   }
 
   @Override

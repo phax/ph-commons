@@ -86,7 +86,7 @@ public class FileSystemResource implements IReadWriteResource
     // Make absolute and try to remove all ".." etc paths
     // Note: using getCleanPath with String is much faster compared to
     // getCleanPath with a File parameter, as on Unix the
-    // UnixFileSystem.canonicalize method is a bottleneck
+    // UnixFileSystem.getCanonicalPath method is a bottleneck
     final String sPath = FilenameHelper.getCleanPath (aFile.getAbsolutePath ());
     m_aFile = new File (sPath);
 

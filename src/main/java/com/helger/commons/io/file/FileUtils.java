@@ -61,7 +61,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Miscellaneous file utility methods.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -79,7 +79,7 @@ public final class FileUtils
 
   /**
    * Check if the passed file exists. Must be existing and a file.
-   * 
+   *
    * @param aFile
    *        The file to be checked for existence. May not be <code>null</code> .
    * @return <code>true</code> if the {@link File} is a file and exists,
@@ -95,7 +95,7 @@ public final class FileUtils
   /**
    * Check if the passed directory exists. Must be existing and must be a
    * directory!
-   * 
+   *
    * @param aDir
    *        The directory to be checked for existence. May not be
    *        <code>null</code>.
@@ -113,7 +113,7 @@ public final class FileUtils
   /**
    * Tests whether the application can read the file denoted by this abstract
    * pathname.
-   * 
+   *
    * @param aFile
    *        The file to be checked. May not be <code>null</code>.
    * @return <code>true</code> if and only if the file specified by this
@@ -129,7 +129,7 @@ public final class FileUtils
   /**
    * Tests whether the application can modify the file denoted by this abstract
    * pathname.
-   * 
+   *
    * @param aFile
    *        The file to be checked. May not be <code>null</code>.
    * @return <code>true</code> if and only if the file system actually contains
@@ -146,7 +146,7 @@ public final class FileUtils
   /**
    * Tests whether the application can execute the file denoted by this abstract
    * pathname.
-   * 
+   *
    * @param aFile
    *        The file to be checked. May not be <code>null</code>.
    * @return <code>true</code> if and only if the abstract pathname exists
@@ -166,7 +166,7 @@ public final class FileUtils
    * Check if the passed file can read and write. If the file already exists,
    * the file itself is checked. If the file does not exist, the parent
    * directory
-   * 
+   *
    * @param aFile
    *        The file to be checked. May not be <code>null</code>.
    * @return <code>true</code> if the file can be read or write
@@ -220,6 +220,17 @@ public final class FileUtils
     return EChange.CHANGED;
   }
 
+  /**
+   * Get the canonical file of the passed file, if the file is not
+   * <code>null</code>.
+   *
+   * @param aFile
+   *        The file to get the canonical path from. May be <code>null</code>.
+   * @return <code>null</code> if the passed file is <code>null</code>.
+   * @throws IOException
+   *         If an I/O error occurs, which is possible because the construction
+   *         of the canonical pathname may require filesystem queries
+   */
   @Nullable
   public static File getCanonicalFile (@Nullable final File aFile) throws IOException
   {
@@ -227,14 +238,77 @@ public final class FileUtils
   }
 
   /**
+   * Get the canonical file of the passed file, if the file is not
+   * <code>null</code>. In case of an {@link IOException}, <code>null</code> is
+   * returned.
+   *
+   * @param aFile
+   *        The file to get the canonical path from. May be <code>null</code>.
+   * @return <code>null</code> if the passed file is <code>null</code>.
+   */
+  @Nullable
+  public static File getCanonicalFileOrNull (@Nullable final File aFile)
+  {
+    try
+    {
+      return getCanonicalFile (aFile);
+    }
+    catch (final IOException ex)
+    {
+      return null;
+    }
+  }
+
+  /**
+   * Get the canonical path of the passed file, if the file is not
+   * <code>null</code>.
+   *
+   * @param aFile
+   *        The file to get the canonical path from. May be <code>null</code>.
+   * @return <code>null</code> if the passed file is <code>null</code>.
+   * @throws IOException
+   *         If an I/O error occurs, which is possible because the construction
+   *         of the canonical pathname may require filesystem queries
+   */
+  @Nullable
+  public static String getCanonicalPath (@Nullable final File aFile) throws IOException
+  {
+    // Note: getCanonicalPath may be a bottleneck on Unix based file systems!
+    return aFile == null ? null : aFile.getCanonicalPath ();
+  }
+
+  /**
+   * Get the canonical path of the passed file, if the file is not
+   * <code>null</code>. In case of an {@link IOException}, <code>null</code> is
+   * returned.
+   *
+   * @param aFile
+   *        The file to get the canonical path from. May be <code>null</code>.
+   * @return <code>null</code> if the passed file is <code>null</code>.
+   */
+  @Nullable
+  public static String getCanonicalPathOrNull (@Nullable final File aFile)
+  {
+    try
+    {
+      return getCanonicalPath (aFile);
+    }
+    catch (final IOException ex)
+    {
+      return null;
+    }
+  }
+
+  /**
    * Check if the searched directory is a parent object of the start directory
-   * 
+   *
    * @param aSearchDirectory
    *        The directory to be searched. May not be <code>null</code>.
    * @param aStartDirectory
    *        The directory where the search starts. May not be <code>null</code>.
    * @return <code>true</code> if the search directory is a parent of the start
    *         directory, <code>false</code> otherwise.
+   * @see #getCanonicalFile(File)
    */
   @SuppressFBWarnings ("IL_INFINITE_LOOP")
   public static boolean isParentDirectory (@Nonnull final File aSearchDirectory, @Nonnull final File aStartDirectory)
@@ -358,7 +432,7 @@ public final class FileUtils
   /**
    * Get an input stream to the specified file, using memory mapping. If memory
    * mapping fails, a regular {@link FileInputStream} is returned.
-   * 
+   *
    * @param aFile
    *        The file to use. May not be <code>null</code>.
    * @return The Input stream to use.
@@ -453,7 +527,7 @@ public final class FileUtils
   /**
    * Get an output stream for writing to a file. Any existing file is
    * overwritten.
-   * 
+   *
    * @param sFilename
    *        The name of the file to write to. May not be <code>null</code>.
    * @return <code>null</code> if the file could not be opened
@@ -466,7 +540,7 @@ public final class FileUtils
 
   /**
    * Get an output stream for writing to a file.
-   * 
+   *
    * @param sFilename
    *        The name of the file to write to. May not be <code>null</code>.
    * @param eAppend
@@ -481,7 +555,7 @@ public final class FileUtils
 
   /**
    * Get an output stream for writing to a file.
-   * 
+   *
    * @param aFile
    *        The file to write to. May not be <code>null</code>.
    * @return <code>null</code> if the file could not be opened
@@ -526,7 +600,7 @@ public final class FileUtils
 
   /**
    * Get an output stream for writing to a file.
-   * 
+   *
    * @param aFile
    *        The file to write to. May not be <code>null</code>.
    * @param eAppend
@@ -623,7 +697,7 @@ public final class FileUtils
    * not exist. Returns <code>false</code> if the first file is older than the
    * second file. Returns <code>false</code> if the first file does not exists
    * but the second does. Returns <code>false</code> if none of the files exist.
-   * 
+   *
    * @param aFile1
    *        First file. May not be <code>null</code>.
    * @param aFile2
@@ -686,7 +760,7 @@ public final class FileUtils
    * relative paths ("." and "..") are resolved and all eventually contained
    * '\0' characters are eliminated. Than all file names are checked for
    * validity (so that no special characters are contained).
-   * 
+   *
    * @param aFile
    *        The file to be secured.
    * @return <code>null</code> if the passed file is <code>null</code>.
@@ -722,7 +796,7 @@ public final class FileUtils
   /**
    * Returns the number of files and directories contained in the passed
    * directory excluding the system internal directories.
-   * 
+   *
    * @param aDirectory
    *        The directory to check. May not be <code>null</code> and must be a
    *        directory.
@@ -782,7 +856,7 @@ public final class FileUtils
    * This is a replacement for <code>File.listFiles()</code> doing some
    * additional checks on permissions. The order of the returned files is
    * defined by the underlying {@link File#listFiles()} method.
-   * 
+   *
    * @param aDirectory
    *        The directory to be listed. May not be <code>null</code>.
    * @return Never <code>null</code>.
@@ -800,7 +874,7 @@ public final class FileUtils
    * This is a replacement for <code>File.listFiles(FilenameFilter)</code> doing
    * some additional checks on permissions. The order of the returned files is
    * defined by the underlying {@link File#listFiles(FilenameFilter)} method.
-   * 
+   *
    * @param aDirectory
    *        The directory to be listed. May not be <code>null</code>.
    * @param aFilenameFilter
@@ -822,7 +896,7 @@ public final class FileUtils
    * This is a replacement for <code>File.listFiles(FileFilter)</code> doing
    * some additional checks on permissions. The order of the returned files is
    * defined by the underlying {@link File#listFiles(FileFilter)} method.
-   * 
+   *
    * @param aDirectory
    *        The directory to be listed. May not be <code>null</code>.
    * @param aFileFilter

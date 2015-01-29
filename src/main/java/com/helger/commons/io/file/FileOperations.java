@@ -158,6 +158,7 @@ public final class FileOperations
    *        The directory to be created if it does not exist. May not be
    *        <code>null</code>.
    * @return A non-<code>null</code> error code.
+   * @see #createDirRecursive(File)
    */
   @Nonnull
   public static FileIOError createDirRecursiveIfNotExisting (@Nonnull final File aDir)
@@ -217,6 +218,7 @@ public final class FileOperations
    * @param aDir
    *        The directory to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
+   * @see #deleteDir(File)
    */
   @Nonnull
   public static FileIOError deleteDirIfExisting (@Nonnull final File aDir)
