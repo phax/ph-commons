@@ -16,6 +16,7 @@
  */
 package com.helger.commons.io.file;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -43,6 +44,8 @@ public final class EFileIOErrorCodeTest
       assertSame (e, e.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, new File (".")).getErrorCode ());
       assertSame (e, e.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, new File ("."), new File ("."))
                       .getErrorCode ());
+      assertTrue (e.getID () >= 0);
+      assertSame (e, EFileIOErrorCode.getFromIDOrNull (e.getID ()));
       if (e.equals (EFileIOErrorCode.NO_ERROR))
         assertTrue (e.isSuccess ());
       else
@@ -58,5 +61,7 @@ public final class EFileIOErrorCodeTest
     }
     catch (final IllegalStateException ex)
     {}
+    assertNull (EFileIOErrorCode.getFromIDOrNull (-1));
+    assertNull (EFileIOErrorCode.getFromIDOrNull (Integer.MAX_VALUE));
   }
 }
