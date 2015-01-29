@@ -17,12 +17,14 @@
 package com.helger.commons.io.file;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.string.StringHelper;
 
 /**
  * Represents a set of predefined open modes for RandomAccessFile objects.
- * 
+ *
  * @author Philip Helger
  */
 public enum ERandomAccessFileMode
@@ -59,5 +61,15 @@ public enum ERandomAccessFileMode
   public String getMode ()
   {
     return m_sMode;
+  }
+
+  @Nullable
+  public static ERandomAccessFileMode getFromModeOrNull (@Nullable final String sMode)
+  {
+    if (StringHelper.hasText (sMode))
+      for (final ERandomAccessFileMode e : values ())
+        if (e.getMode ().equals (sMode))
+          return e;
+    return null;
   }
 }
