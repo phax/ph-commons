@@ -611,6 +611,21 @@ public final class XMLHelper
     return null;
   }
 
+  @Nullable
+  public static String getElementName (@Nullable final Node aNode)
+  {
+    if (aNode instanceof Document)
+      return getElementName (((Document) aNode).getDocumentElement ());
+    if (aNode != null)
+    {
+      String ret = aNode.getLocalName ();
+      if (ret == null)
+        ret = aNode.getNodeName ();
+      return ret;
+    }
+    return null;
+  }
+
   @Nonnegative
   public static int getLength (@Nullable final NodeList aNL)
   {
