@@ -616,11 +616,11 @@ public final class XMLHelper
   {
     if (aNode instanceof Document)
       return getElementName (((Document) aNode).getDocumentElement ());
-    if (aNode != null)
+    if (aNode instanceof Element)
     {
       String ret = aNode.getLocalName ();
       if (ret == null)
-        ret = aNode.getNodeName ();
+        ret = ((Element) aNode).getTagName ();
       return ret;
     }
     return null;
