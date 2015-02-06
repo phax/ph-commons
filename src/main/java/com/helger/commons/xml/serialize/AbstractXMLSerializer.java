@@ -223,7 +223,7 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
      *         <code>null</code> for no specific namespace.
      */
     @Nullable
-    private String getDefaultNamespaceURI ()
+    private String _getDefaultNamespaceURI ()
     {
       // iterate from front to end
       for (final NamespaceLevel aNSLevel : m_aStack)
@@ -344,7 +344,7 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
                                                   final boolean bIsRootElement,
                                                   @Nonnull final Map <QName, String> aAttrMap)
     {
-      final String sDefaultNamespaceURI = StringHelper.getNotNull (getDefaultNamespaceURI ());
+      final String sDefaultNamespaceURI = StringHelper.getNotNull (_getDefaultNamespaceURI ());
       if (sNamespaceURI.equals (sDefaultNamespaceURI))
       {
         // It's the default namespace
@@ -376,7 +376,7 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
                                                     @Nonnull final String sValue,
                                                     @Nonnull final Map <QName, String> aAttrMap)
     {
-      final String sDefaultNamespaceURI = StringHelper.getNotNull (getDefaultNamespaceURI ());
+      final String sDefaultNamespaceURI = StringHelper.getNotNull (_getDefaultNamespaceURI ());
       if (sNamespaceURI.equals (sDefaultNamespaceURI))
       {
         // It's the default namespace
