@@ -37,6 +37,7 @@ import com.helger.commons.typeconvert.TypeConverterException.EReason;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("javadoc")
 @Immutable
 public final class TypeConverter
 {
