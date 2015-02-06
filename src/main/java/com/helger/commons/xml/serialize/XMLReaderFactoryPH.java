@@ -169,11 +169,11 @@ public final class XMLReaderFactoryPH
   private XMLReaderFactoryPH ()
   {}
 
-  private static final String property = "org.xml.sax.driver";
-  private static SecuritySupport ss = new SecuritySupport ();
+  private static final String PROPERTY_NAME = "org.xml.sax.driver";
+  private static SecuritySupport s_aSecuritySupport = new SecuritySupport ();
 
-  private static boolean _jarread = false;
-  private static String _previouslyReadClassname;
+  private static boolean s_bJARRead = false;
+  private static String s_sPreviouslyReadClassname;
 
   /**
    * <p>
@@ -213,18 +213,18 @@ public final class XMLReaderFactoryPH
   @Nonnull
   public static XMLReader createXMLReader () throws SAXException
   {
-    String className = _previouslyReadClassname;
+    String className = s_sPreviouslyReadClassname;
 
-    ClassLoader cl = ss.getContextClassLoader ();
+    ClassLoader cl = s_aSecuritySupport.getContextClassLoader ();
 
     if (className == null)
     {
       // 1. try the JVM-instance-wide system property
       try
       {
-        className = ss.getSystemProperty (property);
+        className = s_aSecuritySupport.getSystemProperty (PROPERTY_NAME);
         if (className != null)
-          _previouslyReadClassname = className;
+          s_sPreviouslyReadClassname = className;
       }
       catch (final RuntimeException e)
       {
@@ -234,10 +234,10 @@ public final class XMLReaderFactoryPH
       // 2. if that fails, try META-INF/services/
       if (className == null)
       {
-        if (!_jarread)
+        if (!s_bJARRead)
         {
-          _jarread = true;
-          final String service = "META-INF/services/" + property;
+          s_bJARRead = true;
+          final String service = "META-INF/services/" + PROPERTY_NAME;
           InputStream in;
           BufferedReader reader;
 
@@ -245,19 +245,19 @@ public final class XMLReaderFactoryPH
           {
             if (cl != null)
             {
-              in = ss.getResourceAsStream (cl, service);
+              in = s_aSecuritySupport.getResourceAsStream (cl, service);
 
               // If no provider found then try the current ClassLoader
               if (in == null)
               {
                 cl = null;
-                in = ss.getResourceAsStream (cl, service);
+                in = s_aSecuritySupport.getResourceAsStream (cl, service);
               }
             }
             else
             {
               // No Context ClassLoader, try the current ClassLoader
-              in = ss.getResourceAsStream (null, service);
+              in = s_aSecuritySupport.getResourceAsStream (null, service);
             }
 
             if (in != null)
@@ -274,7 +274,7 @@ public final class XMLReaderFactoryPH
                   StreamUtils.close (reader);
                 }
                 // [ph] Remember the read class name
-                _previouslyReadClassname = className;
+                s_sPreviouslyReadClassname = className;
               }
               finally
               {
@@ -294,7 +294,7 @@ public final class XMLReaderFactoryPH
       // EXAMPLE:
       // className = "com.example.sax.XmlReader";
       // or a $JAVA_HOME/jre/lib/*properties setting...
-      className = _previouslyReadClassname = "com.sun.org.apache.xerces.internal.parsers.SAXParser";
+      className = s_sPreviouslyReadClassname = "com.sun.org.apache.xerces.internal.parsers.SAXParser";
     }
     else
     {
@@ -332,7 +332,7 @@ public final class XMLReaderFactoryPH
   @Nonnull
   public static XMLReader createXMLReader (final String sClassName) throws SAXException
   {
-    return _loadClass (ss.getContextClassLoader (), sClassName);
+    return _loadClass (s_aSecuritySupport.getContextClassLoader (), sClassName);
   }
 
   @Nonnull
