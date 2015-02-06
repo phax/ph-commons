@@ -27,7 +27,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Charset constants.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -146,7 +146,6 @@ public final class CCharset
   public static final Charset CHARSET_WINDOWS_1252_OBJ = CharsetManager.getCharsetFromName (CHARSET_WINDOWS_1252);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CCharset s_aInstance = new CCharset ();
 
   private CCharset ()

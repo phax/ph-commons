@@ -56,7 +56,6 @@ public final class StackTraceHelper
   }
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final StackTraceHelper s_aInstance = new StackTraceHelper ();
 
   private StackTraceHelper ()

@@ -115,7 +115,6 @@ public final class CollatorUtils
   private static final CollatorCache s_aCache = new CollatorCache ();
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CollatorUtils s_aInstance = new CollatorUtils ();
 
   private CollatorUtils ()

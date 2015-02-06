@@ -28,7 +28,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Check if a URL is valid.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -53,7 +53,6 @@ public final class URLValidator
                                                                + "(?:nfs:(?:(?://(?:(?:(?:(?:(?:[a-zA-Z\\d](?:(?:[a-zA-Z\\d]|-)*[a-zA-Z\\d])?)\\.)*(?:[a-zA-Z](?:(?:[a-zA-Z\\d]|-)*[a-zA-Z\\d])?))|(?:(?:\\d+)(?:\\.(?:\\d+)){3}))(?::(?:\\d+))?)(?:(?:/(?:(?:(?:(?:(?:[a-zA-Z\\d\\$\\-_.!~*'(),])|(?:%[a-fA-F\\d]{2})|[:@&=+])*)(?:/(?:(?:(?:[a-zA-Z\\d\\$\\-_.!~*'(),])|(?:%[a-fA-F\\d]{2})|[:@&=+])*))*)?)))?)|(?:/(?:(?:(?:(?:(?:[a-zA-Z\\d\\$\\-_.!~*'(),])|(?:%[a-fA-F\\d]{2})|[:@&=+])*)(?:/(?:(?:(?:[a-zA-Z\\d\\$\\-_.!~*'(),])|(?:%[a-fA-F\\d]{2})|[:@&=+])*))*)?))|(?:(?:(?:(?:(?:[a-zA-Z\\d\\$\\-_.!~*'(),])|(?:%[a-fA-F\\d]{2})|[:@&=+])*)(?:/(?:(?:(?:[a-zA-Z\\d\\$\\-_.!~*'(),])|(?:%[a-fA-F\\d]{2})|[:@&=+])*))*)?)))");
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final URLValidator s_aInstance = new URLValidator ();
 
   private URLValidator ()
@@ -62,7 +61,7 @@ public final class URLValidator
   /**
    * Get the unified version of a URL. It trims leading and trailing spaces and
    * lower-cases the URL.
-   * 
+   *
    * @param sURL
    *        The URL to unify. May be <code>null</code>.
    * @return The unified URL or <code>null</code> if the input address is
@@ -76,7 +75,7 @@ public final class URLValidator
 
   /**
    * Checks if a value is a valid URL.
-   * 
+   *
    * @param sURL
    *        The value validation is being performed on. A <code>null</code> or
    *        empty value is considered invalid.

@@ -35,7 +35,7 @@ import com.helger.commons.jmx.JMXUtils;
 
 /**
  * Provides a central manager for the internal statistics.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -61,7 +61,6 @@ public final class StatisticsManager
   private static final Map <String, StatisticsHandlerKeyedCounter> s_aHdlKeyedCounter = new HashMap <String, StatisticsHandlerKeyedCounter> ();
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final StatisticsManager s_aInstance = new StatisticsManager ();
 
   private StatisticsManager ()

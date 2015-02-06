@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.DOMImplementation;
 
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.annotations.ReturnsImmutableObject;
+import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.xml.dom.EXMLDOMFeature;
 import com.helger.commons.xml.dom.EXMLDOMFeatureVersion;
@@ -37,7 +37,7 @@ import com.helger.commons.xml.dom.EXMLDOMNodeType;
 
 /**
  * Misc. XML DOM helper method for checking the setup etc.
- * 
+ *
  * @author Philip Helger
  */
 public final class XMLDebug
@@ -83,17 +83,16 @@ public final class XMLDebug
   }
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final XMLDebug s_aInstance = new XMLDebug ();
 
   private XMLDebug ()
   {}
 
   @Nonnull
-  @ReturnsImmutableObject
+  @ReturnsMutableCopy
   public static Map <EXMLDOMFeatureVersion, List <String>> getSupportedFeatures ()
   {
-    return ContainerHelper.makeUnmodifiable (s_aSupportedFeatures);
+    return ContainerHelper.newMap (s_aSupportedFeatures);
   }
 
   @Nullable

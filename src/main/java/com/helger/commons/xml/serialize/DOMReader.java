@@ -53,7 +53,7 @@ import com.helger.commons.xml.sax.InputSourceFactory;
 
 /**
  * Helper class to read XML documents via SAX or DOM
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -80,7 +80,6 @@ public final class DOMReader
                                                                                                     new DOMReaderFactory ());
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final DOMReader s_aInstance = new DOMReader ();
 
   private DOMReader ()

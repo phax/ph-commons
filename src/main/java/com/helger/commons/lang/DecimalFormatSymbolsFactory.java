@@ -36,7 +36,6 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 public final class DecimalFormatSymbolsFactory
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final DecimalFormatSymbolsFactory s_aInstance = new DecimalFormatSymbolsFactory ();
 
   private DecimalFormatSymbolsFactory ()

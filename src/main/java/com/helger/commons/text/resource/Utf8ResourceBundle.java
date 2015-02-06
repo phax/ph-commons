@@ -28,14 +28,13 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 /**
  * Helper class to handle read-only property resource bundles reading only UTF-8
  * text strings.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class Utf8ResourceBundle
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final Utf8ResourceBundle s_aInstance = new Utf8ResourceBundle ();
 
   private Utf8ResourceBundle ()

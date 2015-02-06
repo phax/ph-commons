@@ -33,16 +33,14 @@ import com.helger.commons.lang.ClassHelper;
 
 /**
  * Resource bundle utility methods
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class ResourceBundleUtils
 {
-  @SuppressWarnings ("unused")
   private static final Logger s_aLogger = LoggerFactory.getLogger (ResourceBundleUtils.class);
 
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final ResourceBundleUtils s_aInstance = new ResourceBundleUtils ();
 
@@ -153,7 +151,7 @@ public final class ResourceBundleUtils
 
   /**
    * Clear the complete resource bundle cache using the specified class loader!
-   * 
+   *
    * @param aClassLoader
    *        The class loader to be used. May not be <code>null</code>.
    */

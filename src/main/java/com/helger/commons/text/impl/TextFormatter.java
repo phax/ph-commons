@@ -28,14 +28,13 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 
 /**
  * Utility methods for formatting text using {@link MessageFormat}.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class TextFormatter
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final TextFormatter s_aInstance = new TextFormatter ();
 
   private TextFormatter ()

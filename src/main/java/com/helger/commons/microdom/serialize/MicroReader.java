@@ -49,7 +49,6 @@ import com.helger.commons.xml.serialize.SAXReaderSettings;
 public final class MicroReader
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final MicroReader s_aInstance = new MicroReader ();
 
   private MicroReader ()

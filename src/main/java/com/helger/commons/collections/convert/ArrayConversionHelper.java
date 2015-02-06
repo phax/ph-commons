@@ -30,14 +30,13 @@ import com.helger.commons.convert.IUnidirectionalConverter;
 
 /**
  * This utility class provides conversions from array objects.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class ArrayConversionHelper
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final ArrayConversionHelper s_aInstance = new ArrayConversionHelper ();
 
   private ArrayConversionHelper ()

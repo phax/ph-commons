@@ -60,7 +60,6 @@ public final class CryptoPolicy
   private static boolean s_bUnlimitedStrength;
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CryptoPolicy s_aInstance = new CryptoPolicy ();
 
   private CryptoPolicy ()

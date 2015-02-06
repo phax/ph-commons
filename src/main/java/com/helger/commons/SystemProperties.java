@@ -50,7 +50,6 @@ public final class SystemProperties
   private static final Set <String> s_aWarnedPropertyNames = new HashSet <String> ();
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final SystemProperties s_aInstance = new SystemProperties ();
 
   private SystemProperties ()

@@ -42,7 +42,6 @@ import com.helger.commons.string.StringHelper;
 public final class MessageDigestGeneratorHelper
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final MessageDigestGeneratorHelper s_aInstance = new MessageDigestGeneratorHelper ();
 
   private MessageDigestGeneratorHelper ()

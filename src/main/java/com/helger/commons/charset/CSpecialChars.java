@@ -23,7 +23,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 /**
  * These constants only exist to work around the common file encoding problem
  * with Cp1252/UTF-8. This file should only be stored as UTF-8!
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -67,7 +67,6 @@ public final class CSpecialChars
   public static final String COPYRIGHT_STR = Character.toString (COPYRIGHT);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CSpecialChars s_aInstance = new CSpecialChars ();
 
   private CSpecialChars ()

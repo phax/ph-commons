@@ -34,7 +34,6 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 public final class LevenshteinDistance
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final LevenshteinDistance s_aInstance = new LevenshteinDistance ();
 
   private LevenshteinDistance ()

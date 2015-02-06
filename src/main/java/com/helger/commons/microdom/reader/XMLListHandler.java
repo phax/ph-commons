@@ -72,7 +72,6 @@ public final class XMLListHandler
   private static final Logger s_aLogger = LoggerFactory.getLogger (XMLListHandler.class);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final XMLListHandler s_aInstance = new XMLListHandler ();
 
   private XMLListHandler ()

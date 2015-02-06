@@ -35,14 +35,13 @@ import com.helger.commons.stats.StatisticsManager;
 
 /**
  * Class for iterating all available statistics
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class StatisticsWalker
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final StatisticsWalker s_aInstance = new StatisticsWalker ();
 
   private StatisticsWalker ()
@@ -50,7 +49,7 @@ public final class StatisticsWalker
 
   /**
    * Walk all available statistics elements with the passed statistics visitor.
-   * 
+   *
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */

@@ -27,7 +27,7 @@ import com.helger.commons.regex.RegExPool;
  * XML regular expressions.<br>
  * Source:
  * http://cpansearch.perl.org/src/TJMATHER/XML-RegExp-0.03/lib/XML/RegExp.pm
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -91,7 +91,6 @@ public final class CXMLRegEx
   public static final Pattern PATTERN_QNAME = RegExPool.getPattern (QNAME);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CXMLRegEx s_aInstance = new CXMLRegEx ();
 
   private CXMLRegEx ()

@@ -26,7 +26,7 @@ import com.helger.commons.string.StringParser;
 /**
  * Helper class that holds the current class version. Must be a separate class
  * to maintain the correct initialization order.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -37,7 +37,6 @@ final class JavaVersionConstants
                                                                        CGlobal.ILLEGAL_DOUBLE);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final JavaVersionConstants s_aInstance = new JavaVersionConstants ();
 
   private JavaVersionConstants ()

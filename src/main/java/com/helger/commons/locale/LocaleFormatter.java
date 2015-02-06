@@ -40,7 +40,6 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 public final class LocaleFormatter
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final LocaleFormatter s_aInstance = new LocaleFormatter ();
 
   private LocaleFormatter ()

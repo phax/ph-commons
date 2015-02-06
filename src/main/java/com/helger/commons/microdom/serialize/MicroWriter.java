@@ -44,7 +44,7 @@ import com.helger.commons.xml.serialize.XMLWriterSettings;
 
 /**
  * Utility class for serializing micro document objects.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -54,7 +54,6 @@ public final class MicroWriter
   private static final IStatisticsHandlerSize s_aSizeHdl = StatisticsManager.getSizeHandler (MicroWriter.class);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final MicroWriter s_aInstance = new MicroWriter ();
 
   private MicroWriter ()
@@ -62,7 +61,7 @@ public final class MicroWriter
 
   /**
    * Write a Micro Node to a file using the default settings.
-   * 
+   *
    * @param aNode
    *        The node to be serialized. May be any kind of node (incl.
    *        documents). May not be <code>null</code>.
@@ -78,7 +77,7 @@ public final class MicroWriter
 
   /**
    * Write a Micro Node to a file.
-   * 
+   *
    * @param aNode
    *        The node to be serialized. May be any kind of node (incl.
    *        documents). May not be <code>null</code>.
@@ -107,7 +106,7 @@ public final class MicroWriter
 
   /**
    * Write a Micro Node to an output stream using the default settings.
-   * 
+   *
    * @param aNode
    *        The node to be serialized. May be any kind of node (incl.
    *        documents). May not be <code>null</code>.
@@ -125,7 +124,7 @@ public final class MicroWriter
 
   /**
    * Write a Micro Node to an {@link OutputStream}.
-   * 
+   *
    * @param aNode
    *        The node to be serialized. May be any kind of node (incl.
    *        documents). May not be <code>null</code>.
@@ -161,7 +160,7 @@ public final class MicroWriter
 
   /**
    * Write a Micro Node to a {@link Writer}.
-   * 
+   *
    * @param aNode
    *        The node to be serialized. May be any kind of node (incl.
    *        documents). May not be <code>null</code>.
@@ -227,7 +226,7 @@ public final class MicroWriter
    * Convert the passed micro node to an XML string using
    * {@link XMLWriterSettings#DEFAULT_XML_SETTINGS}. This is a specialized
    * version of {@link #getNodeAsString(IMicroNode, IXMLWriterSettings)}.
-   * 
+   *
    * @param aNode
    *        The node to be converted to a string. May not be <code>null</code> .
    * @return The string representation of the passed node.

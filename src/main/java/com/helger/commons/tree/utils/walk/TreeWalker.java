@@ -38,7 +38,6 @@ import com.helger.commons.tree.IBasicTreeItem;
 public final class TreeWalker
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final TreeWalker s_aInstance = new TreeWalker ();
 
   private TreeWalker ()

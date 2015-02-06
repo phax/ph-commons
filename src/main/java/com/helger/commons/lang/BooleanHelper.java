@@ -30,7 +30,6 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 public final class BooleanHelper
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final BooleanHelper s_aInstance = new BooleanHelper ();
 
   private BooleanHelper ()
@@ -46,7 +45,7 @@ public final class BooleanHelper
   public static boolean getInverted (final boolean b)
   {
     // This is trillions of clockticks faster than "return !b" !!!!!
-    //noinspection PointlessBooleanExpression
+    // noinspection PointlessBooleanExpression
     return b ^ true;
   }
 

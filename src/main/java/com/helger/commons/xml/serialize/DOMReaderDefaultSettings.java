@@ -44,7 +44,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * DOM reader default settings
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -88,7 +88,6 @@ public final class DOMReaderDefaultSettings
   @GuardedBy ("s_aRWLock")
   private static boolean s_bDefaultRequiresNewXMLParserExplicitly = DEFAULT_REQUIRES_NEW_XML_PARSER_EXPLICITLY;
 
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final DOMReaderDefaultSettings s_aInstance = new DOMReaderDefaultSettings ();
 

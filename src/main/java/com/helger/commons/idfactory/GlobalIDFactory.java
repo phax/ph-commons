@@ -35,7 +35,7 @@ import com.helger.commons.state.EChange;
 /**
  * This class should not be static since it may have an impact if this class is
  * used by different projects which have a separate IntID factory.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -55,7 +55,6 @@ public final class GlobalIDFactory
   private static IStringIDFactory s_aPersistentStringIDFactory = new StringIDFromGlobalPersistentIntIDFactory ();
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final GlobalIDFactory s_aInstance = new GlobalIDFactory ();
 
   private GlobalIDFactory ()

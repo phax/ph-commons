@@ -43,13 +43,12 @@ import com.helger.commons.url.URLUtils;
 /**
  * Factory class to create the correct {@link javax.xml.transform.Source}
  * objects for different input types.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class TransformSourceFactory
 {
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final TransformSourceFactory s_aInstance = new TransformSourceFactory ();
 

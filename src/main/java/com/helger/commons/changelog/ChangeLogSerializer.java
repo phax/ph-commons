@@ -76,7 +76,6 @@ public final class ChangeLogSerializer
   private static final String ELEMENT_RELEASE = "release";
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final ChangeLogSerializer s_aInstance = new ChangeLogSerializer ();
 
   private static final INonThrowingRunnableWithParameter <String> s_aLoggingCallback = new INonThrowingRunnableWithParameter <String> ()

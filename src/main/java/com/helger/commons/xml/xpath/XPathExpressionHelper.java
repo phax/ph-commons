@@ -38,13 +38,12 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 
 /**
  * Utility class to evaluate XPath expressions more easily
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
 public final class XPathExpressionHelper
 {
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final XPathExpressionHelper s_aInstance = new XPathExpressionHelper ();
 

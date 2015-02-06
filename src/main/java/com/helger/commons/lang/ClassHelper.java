@@ -68,7 +68,6 @@ public final class ClassHelper
   }
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final ClassHelper s_aInstance = new ClassHelper ();
 
   private ClassHelper ()

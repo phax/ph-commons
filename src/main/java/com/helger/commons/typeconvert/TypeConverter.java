@@ -37,14 +37,12 @@ import com.helger.commons.typeconvert.TypeConverterException.EReason;
  *
  * @author Philip Helger
  */
-@SuppressWarnings ("javadoc")
 @Immutable
 public final class TypeConverter
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (TypeConverter.class);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final TypeConverter s_aInstance = new TypeConverter ();
 
   private TypeConverter ()

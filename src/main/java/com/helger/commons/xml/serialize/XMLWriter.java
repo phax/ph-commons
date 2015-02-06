@@ -41,7 +41,7 @@ import com.helger.commons.xml.EXMLVersion;
 
 /**
  * This is a helper class to serialize DOM nodes to a String.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -56,7 +56,6 @@ public final class XMLWriter
   private static final IStatisticsHandlerSize s_aSizeHdl = StatisticsManager.getSizeHandler (XMLWriter.class);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final XMLWriter s_aInstance = new XMLWriter ();
 
   private XMLWriter ()
@@ -64,7 +63,7 @@ public final class XMLWriter
 
   /**
    * Write a node to an {@link OutputStream} using the default settings.
-   * 
+   *
    * @param aNode
    *        The node to be serialized. May be any kind of node (incl.
    *        documents). May not be <code>null</code>.
@@ -82,7 +81,7 @@ public final class XMLWriter
 
   /**
    * Write a node to an {@link OutputStream} using custom settings.
-   * 
+   *
    * @param aNode
    *        The node to be serialized. May be any kind of node (incl.
    *        documents). May not be <code>null</code>.
@@ -127,7 +126,7 @@ public final class XMLWriter
 
   /**
    * Write a node to a {@link Writer} using the default settings.
-   * 
+   *
    * @param aNode
    *        The node to be serialized. May be any kind of node (incl.
    *        documents). May not be <code>null</code>.
@@ -145,7 +144,7 @@ public final class XMLWriter
 
   /**
    * Write a node to a {@link Writer} using the default settings.
-   * 
+   *
    * @param aNode
    *        The node to be serialized. May be any kind of node (incl.
    *        documents). May not be <code>null</code>.
@@ -218,7 +217,7 @@ public final class XMLWriter
    * Convert the passed micro node to an XML string using
    * {@link XMLWriterSettings#DEFAULT_XML_SETTINGS}. This is a specialized
    * version of {@link #getNodeAsString(Node, IXMLWriterSettings)}.
-   * 
+   *
    * @param aNode
    *        The node to be converted to a string. May not be <code>null</code> .
    * @return The string representation of the passed node.

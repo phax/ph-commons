@@ -36,14 +36,13 @@ import com.helger.commons.string.StringHelper;
  * All kind of file handling stuff. For other operations, please see
  * {@link FileOperations} class or the instance based
  * {@link FileOperationManager} class.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class SimpleFileIO
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final SimpleFileIO s_aInstance = new SimpleFileIO ();
 
   private SimpleFileIO ()
@@ -51,7 +50,7 @@ public final class SimpleFileIO
 
   /**
    * Get the content of the file as a byte array.
-   * 
+   *
    * @param aFile
    *        The file to read. May be <code>null</code>.
    * @return <code>null</code> if the passed file is <code>null</code> or if the
@@ -66,7 +65,7 @@ public final class SimpleFileIO
   /**
    * Get the content of the passed file as a string using the system line
    * separator. Note: the last line does not end with the passed line separator.
-   * 
+   *
    * @param aFile
    *        The file to read. May be <code>null</code>.
    * @param sCharset
@@ -84,7 +83,7 @@ public final class SimpleFileIO
   /**
    * Get the content of the passed file as a string using the system line
    * separator. Note: the last line does not end with the passed line separator.
-   * 
+   *
    * @param aFile
    *        The file to read. May be <code>null</code>.
    * @param aCharset
@@ -101,7 +100,7 @@ public final class SimpleFileIO
   /**
    * Get the content of the passed file as a list of lines, whereas each line
    * does not contain a separator.
-   * 
+   *
    * @param aFile
    *        The file to read. May be <code>null</code>.
    * @param sCharset
@@ -119,7 +118,7 @@ public final class SimpleFileIO
   /**
    * Get the content of the passed file as a list of lines, whereas each line
    * does not contain a separator.
-   * 
+   *
    * @param aFile
    *        The file to read. May be <code>null</code>.
    * @param aCharset
@@ -136,7 +135,7 @@ public final class SimpleFileIO
   /**
    * Get the content of the passed file as a list of lines, whereas each line
    * does not contain a separator.
-   * 
+   *
    * @param aFile
    *        The file to read. May be <code>null</code>.
    * @param sCharset
@@ -156,7 +155,7 @@ public final class SimpleFileIO
   /**
    * Get the content of the passed file as a list of lines, whereas each line
    * does not contain a separator.
-   * 
+   *
    * @param aFile
    *        The file to read. May be <code>null</code>.
    * @param aCharset

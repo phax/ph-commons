@@ -69,7 +69,7 @@ import com.helger.commons.stats.StatisticsManager;
  * Some very basic IO stream utility stuff. All input stream (=reading) related
  * stuff is quite <code>null</code> aware, where on writing an output stream may
  * never be null.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -87,7 +87,6 @@ public final class StreamUtils
                                                                                                  "$COPYCHARS");
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final StreamUtils s_aInstance = new StreamUtils ();
 
   private StreamUtils ()
@@ -95,7 +94,7 @@ public final class StreamUtils
 
   /**
    * Check if the passed exception is a known EOF exception.
-   * 
+   *
    * @param t
    *        The throwable/exception to be checked. May be <code>null</code>.
    * @return <code>true</code> if it is a user-created EOF exception
@@ -107,7 +106,7 @@ public final class StreamUtils
 
   /**
    * Check if the passed class is a known EOF exception class.
-   * 
+   *
    * @param aClass
    *        The class to be checked. May be <code>null</code>.
    * @return <code>true</code> if it is a known EOF exception class.
@@ -126,7 +125,7 @@ public final class StreamUtils
 
   /**
    * Close the passed object, without trying to call flush on it.
-   * 
+   *
    * @param aCloseable
    *        The object to be closed. May be <code>null</code>.
    * @return {@link ESuccess#SUCCESS} if the object was successfully closed.
@@ -156,7 +155,7 @@ public final class StreamUtils
    * Close the passed stream by encapsulating the declared {@link IOException}.
    * If the passed object also implements the {@link Flushable} interface, it is
    * tried to be flushed before it is closed.
-   * 
+   *
    * @param aCloseable
    *        The object to be closed. May be <code>null</code>.
    * @return {@link ESuccess} if the object was successfully closed.
@@ -195,7 +194,7 @@ public final class StreamUtils
   /**
    * Special close version for {@link Socket} as they are not implementing
    * {@link Closeable} :(
-   * 
+   *
    * @param aSocket
    *        The socket to be closed. May be <code>null</code>.
    * @return {@link ESuccess} if the object was successfully closed.
@@ -224,7 +223,7 @@ public final class StreamUtils
   /**
    * Special close version for {@link ServerSocket} as they are not implementing
    * {@link Closeable} :(
-   * 
+   *
    * @param aSocket
    *        The socket to be closed. May be <code>null</code>.
    * @return {@link ESuccess} if the object was successfully closed.
@@ -252,7 +251,7 @@ public final class StreamUtils
 
   /**
    * Flush the passed object encapsulating the declared {@link IOException}.
-   * 
+   *
    * @param aFlushable
    *        The flushable to be flushed. May be <code>null</code>.
    * @return {@link ESuccess#SUCCESS} if the object was successfully flushed.
@@ -282,7 +281,7 @@ public final class StreamUtils
   /**
    * Pass the content of the given input stream to the given output stream. Both
    * the input stream and the output stream are automatically closed.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    *        Automatically closed!
@@ -309,7 +308,7 @@ public final class StreamUtils
   /**
    * Pass the content of the given input stream to the given output stream. Both
    * the input stream and the output stream are automatically closed.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    *        Automatically closed!
@@ -344,7 +343,7 @@ public final class StreamUtils
   /**
    * Pass the content of the given input stream to the given output stream. The
    * input stream is automatically closed, whereas the output stream stays open!
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    *        Automatically closed!
@@ -364,7 +363,7 @@ public final class StreamUtils
   /**
    * Pass the content of the given input stream to the given output stream. The
    * input stream is automatically closed, whereas the output stream stays open!
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    *        Automatically closed!
@@ -388,7 +387,7 @@ public final class StreamUtils
   /**
    * Pass the content of the given input stream to the given output stream. The
    * input stream is automatically closed, whereas the output stream stays open!
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    *        Automatically closed!
@@ -416,7 +415,7 @@ public final class StreamUtils
   /**
    * Pass the content of the given input stream to the given output stream. The
    * input stream is automatically closed, whereas the output stream stays open!
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    *        Automatically closed!
@@ -486,7 +485,7 @@ public final class StreamUtils
   /**
    * Pass the content of the given input stream to the given output stream. The
    * input stream is automatically closed, whereas the output stream stays open!
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    *        Automatically closed!
@@ -513,7 +512,7 @@ public final class StreamUtils
   /**
    * Pass the content of the given input stream to the given output stream. The
    * input stream is automatically closed, whereas the output stream stays open!
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    *        Automatically closed!
@@ -578,7 +577,7 @@ public final class StreamUtils
 
   /**
    * Get the number of available bytes in the passed input stream.
-   * 
+   *
    * @param aIS
    *        The input stream to use. May be <code>null</code>.
    * @return 0 in case of an error or if the parameter was <code>null</code>.
@@ -600,7 +599,7 @@ public final class StreamUtils
   /**
    * Get a byte buffer with all the available content of the passed input
    * stream.
-   * 
+   *
    * @param aIS
    *        The source input stream. May not be <code>null</code>.
    * @return A new {@link NonBlockingByteArrayOutputStream} with all available
@@ -618,7 +617,7 @@ public final class StreamUtils
   /**
    * Get a byte buffer with all the available content of the passed input
    * stream.
-   * 
+   *
    * @param aIS
    *        The source input stream. May not be <code>null</code>.
    * @param nLimit
@@ -639,7 +638,7 @@ public final class StreamUtils
 
   /**
    * Read all bytes from the passed input stream into a byte array.
-   * 
+   *
    * @param aISP
    *        The input stream provider to read from. May be <code>null</code> .
    * @return The byte array or <code>null</code> if the parameter or the
@@ -656,7 +655,7 @@ public final class StreamUtils
 
   /**
    * Read all bytes from the passed input stream into a byte array.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @return The byte array or <code>null</code> if the input stream is
@@ -673,7 +672,7 @@ public final class StreamUtils
 
   /**
    * Read all bytes from the passed input stream into a string.
-   * 
+   *
    * @param aISP
    *        The input stream provider to read from. May be <code>null</code> .
    * @param sCharset
@@ -694,7 +693,7 @@ public final class StreamUtils
 
   /**
    * Read all bytes from the passed input stream into a string.
-   * 
+   *
    * @param aISP
    *        The input stream provider to read from. May be <code>null</code> .
    * @param aCharset
@@ -714,7 +713,7 @@ public final class StreamUtils
 
   /**
    * Read all bytes from the passed input stream into a string.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param sCharset
@@ -737,7 +736,7 @@ public final class StreamUtils
 
   /**
    * Read all bytes from the passed input stream into a string.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param aCharset
@@ -760,7 +759,7 @@ public final class StreamUtils
   /**
    * Pass the content of the given reader to the given writer. The reader and
    * the writer are automatically closed!
-   * 
+   *
    * @param aReader
    *        The reader to read from. May be <code>null</code>. Automatically
    *        closed!
@@ -787,7 +786,7 @@ public final class StreamUtils
   /**
    * Pass the content of the given reader to the given writer. The reader and
    * the writer are automatically closed!
-   * 
+   *
    * @param aReader
    *        The reader to read from. May be <code>null</code>. Automatically
    *        closed!
@@ -822,7 +821,7 @@ public final class StreamUtils
   /**
    * Pass the content of the given reader to the given writer. The reader is
    * automatically closed, whereas the writer stays open!
-   * 
+   *
    * @param aReader
    *        The reader to read from. May be <code>null</code>. Automatically
    *        closed!
@@ -842,7 +841,7 @@ public final class StreamUtils
   /**
    * Pass the content of the given reader to the given writer. The reader is
    * automatically closed, whereas the writer stays open!
-   * 
+   *
    * @param aReader
    *        The reader to read from. May be <code>null</code>. Automatically
    *        closed!
@@ -866,7 +865,7 @@ public final class StreamUtils
   /**
    * Pass the content of the given reader to the given writer. The reader is
    * automatically closed, whereas the writer stays open!
-   * 
+   *
    * @param aReader
    *        The reader to read from. May be <code>null</code>. Automatically
    *        closed!
@@ -889,7 +888,7 @@ public final class StreamUtils
   /**
    * Pass the content of the given reader to the given writer. The reader is
    * automatically closed, whereas the writer stays open!
-   * 
+   *
    * @param aReader
    *        The reader to read from. May be <code>null</code>. Automatically
    *        closed!
@@ -960,7 +959,7 @@ public final class StreamUtils
   /**
    * Pass the content of the given reader to the given writer. The reader is
    * automatically closed, whereas the writer stays open!
-   * 
+   *
    * @param aReader
    *        The reader to read from. May be <code>null</code>. Automatically
    *        closed!
@@ -987,7 +986,7 @@ public final class StreamUtils
   /**
    * Pass the content of the given reader to the given writer. The reader is
    * automatically closed, whereas the writer stays open!
-   * 
+   *
    * @param aReader
    *        The reader to read from. May be <code>null</code>. Automatically
    *        closed!
@@ -1069,7 +1068,7 @@ public final class StreamUtils
 
   /**
    * Read all characters from the passed reader into a char array.
-   * 
+   *
    * @param aReader
    *        The reader to read from. May be <code>null</code>.
    * @return The character array or <code>null</code> if the reader is
@@ -1086,7 +1085,7 @@ public final class StreamUtils
 
   /**
    * Read all characters from the passed reader into a String.
-   * 
+   *
    * @param aReader
    *        The reader to read from. May be <code>null</code>.
    * @return The character array or <code>null</code> if the reader is
@@ -1104,7 +1103,7 @@ public final class StreamUtils
   /**
    * Get the content of the passed Spring resource as one big string in the
    * passed character set.
-   * 
+   *
    * @param aISP
    *        The resource to read. May not be <code>null</code>.
    * @param sCharset
@@ -1124,7 +1123,7 @@ public final class StreamUtils
   /**
    * Get the content of the passed Spring resource as one big string in the
    * passed character set.
-   * 
+   *
    * @param aISP
    *        The resource to read. May not be <code>null</code>.
    * @param aCharset
@@ -1143,7 +1142,7 @@ public final class StreamUtils
   /**
    * Get the content of the passed Spring resource as one big string in the
    * passed character set.
-   * 
+   *
    * @param aISP
    *        The resource to read. May be <code>null</code>.
    * @param sCharset
@@ -1175,7 +1174,7 @@ public final class StreamUtils
   /**
    * Get the content of the passed Spring resource as one big string in the
    * passed character set.
-   * 
+   *
    * @param aISP
    *        The resource to read. May be <code>null</code>.
    * @param aCharset
@@ -1206,7 +1205,7 @@ public final class StreamUtils
   /**
    * Get the content of the passed stream as a list of lines in the passed
    * character set.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param sCharset
@@ -1226,7 +1225,7 @@ public final class StreamUtils
   /**
    * Get the content of the passed stream as a list of lines in the passed
    * character set.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param aCharset
@@ -1245,7 +1244,7 @@ public final class StreamUtils
   /**
    * Get the content of the passed stream as a list of lines in the passed
    * character set.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param sCharset
@@ -1271,7 +1270,7 @@ public final class StreamUtils
   /**
    * Get the content of the passed stream as a list of lines in the passed
    * character set.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param aCharset
@@ -1296,7 +1295,7 @@ public final class StreamUtils
   /**
    * Get the content of the passed stream as a list of lines in the passed
    * character set.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param sCharset
@@ -1337,7 +1336,7 @@ public final class StreamUtils
   /**
    * Get the content of the passed stream as a list of lines in the passed
    * character set.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param aCharset
@@ -1377,7 +1376,7 @@ public final class StreamUtils
   /**
    * Read the complete content of the passed stream and pass each line
    * separately to the passed callback.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param sCharset
@@ -1397,7 +1396,7 @@ public final class StreamUtils
   /**
    * Read the complete content of the passed stream and pass each line
    * separately to the passed callback.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param aCharset
@@ -1459,7 +1458,7 @@ public final class StreamUtils
   /**
    * Read the content of the passed stream line by line and invoking a callback
    * on all matching lines.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param aCharset
@@ -1524,7 +1523,7 @@ public final class StreamUtils
   /**
    * Read the content of the passed stream line by line and invoking a callback
    * on all matching lines.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param sCharset
@@ -1589,7 +1588,7 @@ public final class StreamUtils
 
   /**
    * Write bytes to an {@link OutputStream}.
-   * 
+   *
    * @param aOS
    *        The output stream to write to. May not be <code>null</code>. Is
    *        closed independent of error or success.
@@ -1631,7 +1630,7 @@ public final class StreamUtils
 
   /**
    * Write bytes to an {@link OutputStream}.
-   * 
+   *
    * @param aOS
    *        The output stream to write to. May not be <code>null</code>. Is
    *        closed independent of error or success.
@@ -1647,7 +1646,7 @@ public final class StreamUtils
 
   /**
    * Write bytes to an {@link OutputStream}.
-   * 
+   *
    * @param aOS
    *        The output stream to write to. May not be <code>null</code>. Is
    *        closed independent of error or success.
@@ -1671,7 +1670,7 @@ public final class StreamUtils
 
   /**
    * Write bytes to an {@link OutputStream}.
-   * 
+   *
    * @param aOS
    *        The output stream to write to. May not be <code>null</code>. Is
    *        closed independent of error or success.
@@ -1747,7 +1746,7 @@ public final class StreamUtils
   /**
    * Fully skip the passed amounts in the input stream. Only forward skipping is
    * possible!
-   * 
+   *
    * @param aIS
    *        The input stream to skip in.
    * @param nBytesToSkip
@@ -1789,7 +1788,7 @@ public final class StreamUtils
 
   /**
    * Read the whole buffer from the input stream.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May not be <code>null</code>.
    * @param aBuffer
@@ -1804,7 +1803,7 @@ public final class StreamUtils
 
   /**
    * Read the whole buffer from the input stream.
-   * 
+   *
    * @param aIS
    *        The input stream to read from. May not be <code>null</code>.
    * @param aBuffer

@@ -32,7 +32,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 /**
  * This class contains the methods to parse String objects to numeric values.
  * Before v3.7.0 this was contained in class {@link StringHelper}.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -42,7 +42,6 @@ public final class StringParser
   public static final int DEFAULT_RADIX = 10;
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final StringParser s_aInstance = new StringParser ();
 
   private StringParser ()
@@ -51,7 +50,7 @@ public final class StringParser
   /**
    * Get the unified decimal string for parsing by the runtime library. This is
    * done by replacing ',' with '.'.
-   * 
+   *
    * @param sStr
    *        The string to unified. Never <code>null</code>.
    * @return Never <code>null</code>.
@@ -68,7 +67,7 @@ public final class StringParser
   /**
    * Try to interpret the passed object as boolean. This works only if the
    * passed object is either a {@link String} or a {@link Boolean}.
-   * 
+   *
    * @param aObject
    *        The object to be interpreted. May be <code>null</code>.
    * @return <code>false</code> if the passed object cannot be interpreted as a
@@ -82,7 +81,7 @@ public final class StringParser
   /**
    * Try to interpret the passed object as boolean. This works only if the
    * passed object is either a {@link String} or a {@link Boolean}.
-   * 
+   *
    * @param aObject
    *        The object to be interpreted. May be <code>null</code>.
    * @param bDefault
@@ -105,7 +104,7 @@ public final class StringParser
    * to "true" (ignoring case) will result in <code>true</code> return values.
    * All other values result in <code>false</code> return values. This method is
    * equal to {@link Boolean#parseBoolean(String)}
-   * 
+   *
    * @param sStr
    *        The string to be interpreted. May be <code>null</code>.
    * @return <code>true</code> if the passed string matches "true" (ignoring
@@ -122,7 +121,7 @@ public final class StringParser
    * to "true" (ignoring case) will result in <code>true</code> return values.
    * All values that are equal to "false" (ignoring case) will result in
    * <code>false</code> return values. All other values will return the default.
-   * 
+   *
    * @param sStr
    *        The string to be interpreted. May be <code>null</code>.
    * @param bDefault
@@ -151,7 +150,7 @@ public final class StringParser
   /**
    * Try to interpret the passed object as boolean. This works only if the
    * passed object is either a {@link String} or a {@link Boolean}.
-   * 
+   *
    * @param aObject
    *        The object to be interpreted. May be <code>null</code>.
    * @return <code>null</code> if the passed object cannot be interpreted as a
@@ -165,7 +164,7 @@ public final class StringParser
 
   /**
    * Try to interpret the passed {@link Object} as {@link Boolean}.
-   * 
+   *
    * @param aObject
    *        The object to be interpreted. May be <code>null</code>.
    * @param aDefault
@@ -186,7 +185,7 @@ public final class StringParser
    * value if the string argument is not <code>null</code> and is equal,
    * ignoring case, to the string {@code "true"}. This method is equal to
    * {@link Boolean#valueOf(String)}
-   * 
+   *
    * @param sStr
    *        The string to be parsed. May be <code>null</code>.
    * @return the <code>Boolean</code> value represented by the string. Never
@@ -206,7 +205,7 @@ public final class StringParser
    * <code>false</code> if the string argument is not <code>null</code> and is
    * equal, ignoring case, to the string {@code "false"}. In all other cases
    * <code>null</code> is returned.
-   * 
+   *
    * @param sStr
    *        The string to be parsed. May be <code>null</code>.
    * @return the <code>Boolean</code> value represented by the string. Never
@@ -226,7 +225,7 @@ public final class StringParser
    * <code>false</code> if the string argument is not <code>null</code> and is
    * equal, ignoring case, to the string {@code "false"}. In all other cases
    * <code>aDefault</code> is returned.
-   * 
+   *
    * @param sStr
    *        The string to be parsed. May be <code>null</code>.
    * @param aDefault
@@ -249,7 +248,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link Object} as byte with radix {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param aObject
    *        The Object to parse. May be <code>null</code>.
    * @param nDefault
@@ -264,7 +263,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link Object} as byte with the specified radix.
-   * 
+   *
    * @param aObject
    *        The Object to parse. May be <code>null</code>.
    * @param nRadix
@@ -286,7 +285,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as byte with radix {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The String to parse. May be <code>null</code>.
    * @param nDefault
@@ -302,7 +301,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as byte with the specified radix.
-   * 
+   *
    * @param sStr
    *        The String to parse. May be <code>null</code>.
    * @param nRadix
@@ -331,7 +330,7 @@ public final class StringParser
   /**
    * Parse the given {@link Object} as {@link Byte} with radix
    * {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @return <code>null</code> if the object does not represent a valid value.
@@ -345,7 +344,7 @@ public final class StringParser
   /**
    * Parse the given {@link Object} as {@link Byte} with radix
    * {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param aDefault
@@ -362,7 +361,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link Object} as {@link Byte} with the specified radix.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param nRadix
@@ -389,7 +388,7 @@ public final class StringParser
   /**
    * Parse the given {@link String} as {@link Byte} with radix
    * {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The String to parse. May be <code>null</code>.
    * @return <code>null</code> if the string does not represent a valid value.
@@ -403,7 +402,7 @@ public final class StringParser
   /**
    * Parse the given {@link String} as {@link Byte} with radix
    * {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The String to parse. May be <code>null</code>.
    * @param aDefault
@@ -420,7 +419,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as {@link Byte} with the specified radix.
-   * 
+   *
    * @param sStr
    *        The String to parse. May be <code>null</code>.
    * @param nRadix
@@ -455,7 +454,7 @@ public final class StringParser
    * Parse the given {@link Object} as double. Note: both the locale independent
    * form of a double can be parsed here (e.g. 4.523) as well as a localized
    * form using the comma as the decimal separator (e.g. the German 4,523).
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param dDefault
@@ -474,7 +473,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as double.
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @param dDefault
@@ -503,7 +502,7 @@ public final class StringParser
    * independent form of a double can be parsed here (e.g. 4.523) as well as a
    * localized form using the comma as the decimal separator (e.g. the German
    * 4,523).
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @return <code>null</code> if the object does not represent a valid value.
@@ -519,7 +518,7 @@ public final class StringParser
    * independent form of a double can be parsed here (e.g. 4.523) as well as a
    * localized form using the comma as the decimal separator (e.g. the German
    * 4,523).
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param aDefault
@@ -540,7 +539,7 @@ public final class StringParser
    * independent form of a double can be parsed here (e.g. 4.523) as well as a
    * localized form using the comma as the decimal separator (e.g. the German
    * 4,523).
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @return <code>null</code> if the object does not represent a valid value.
@@ -556,7 +555,7 @@ public final class StringParser
    * independent form of a double can be parsed here (e.g. 4.523) as well as a
    * localized form using the comma as the decimal separator (e.g. the German
    * 4,523).
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @param aDefault
@@ -578,7 +577,7 @@ public final class StringParser
    * Parse the given {@link Object} as float. Note: both the locale independent
    * form of a float can be parsed here (e.g. 4.523) as well as a localized form
    * using the comma as the decimal separator (e.g. the German 4,523).
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param fDefault
@@ -597,7 +596,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as float.
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @param fDefault
@@ -626,7 +625,7 @@ public final class StringParser
    * independent form of a double can be parsed here (e.g. 4.523) as well as a
    * localized form using the comma as the decimal separator (e.g. the German
    * 4,523).
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @return <code>null</code> if the object does not represent a valid value.
@@ -642,7 +641,7 @@ public final class StringParser
    * independent form of a double can be parsed here (e.g. 4.523) as well as a
    * localized form using the comma as the decimal separator (e.g. the German
    * 4,523).
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param aDefault
@@ -663,7 +662,7 @@ public final class StringParser
    * independent form of a double can be parsed here (e.g. 4.523) as well as a
    * localized form using the comma as the decimal separator (e.g. the German
    * 4,523).
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @return <code>null</code> if the object does not represent a valid value.
@@ -679,7 +678,7 @@ public final class StringParser
    * independent form of a double can be parsed here (e.g. 4.523) as well as a
    * localized form using the comma as the decimal separator (e.g. the German
    * 4,523).
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @param aDefault
@@ -699,7 +698,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link Object} as int with radix {@link #DEFAULT_RADIX}.
-   * 
+   *
    * @param aObject
    *        The Object to parse. May be <code>null</code>.
    * @param nDefault
@@ -714,7 +713,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link Object} as int with the specified radix.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param nRadix
@@ -736,7 +735,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as int with radix {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The String to parse. May be <code>null</code>.
    * @param nDefault
@@ -752,7 +751,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as int with the specified radix.
-   * 
+   *
    * @param sStr
    *        The String to parse. May be <code>null</code>.
    * @param nRadix
@@ -781,7 +780,7 @@ public final class StringParser
   /**
    * Parse the given {@link Object} as {@link Integer} with radix
    * {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @return <code>null</code> if the object does not represent a valid value.
@@ -795,7 +794,7 @@ public final class StringParser
   /**
    * Parse the given {@link Object} as {@link Integer} with radix
    * {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param aDefault
@@ -812,7 +811,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link Object} as {@link Integer} with the specified radix.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param nRadix
@@ -839,7 +838,7 @@ public final class StringParser
   /**
    * Parse the given {@link String} as {@link Integer} with radix
    * {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @return <code>null</code> if the string does not represent a valid value.
@@ -853,7 +852,7 @@ public final class StringParser
   /**
    * Parse the given {@link String} as {@link Integer} with radix
    * {@link #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @param aDefault
@@ -870,7 +869,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as {@link Integer} with the specified radix.
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @param nRadix
@@ -903,7 +902,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link Object} as long with radix {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param nDefault
@@ -918,7 +917,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link Object} as long with the specified radix.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param nRadix
@@ -940,7 +939,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as long with radix {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @param nDefault
@@ -955,7 +954,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as long with the specified radix.
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @param nRadix
@@ -983,7 +982,7 @@ public final class StringParser
   /**
    * Parse the given {@link Object} as {@link Long} with radix
    * {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @return <code>null</code> if the object does not represent a valid value.
@@ -997,7 +996,7 @@ public final class StringParser
   /**
    * Parse the given {@link Object} as {@link Long} with radix
    * {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param aDefault
@@ -1014,7 +1013,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link Object} as {@link Long} with the specified radix.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param nRadix
@@ -1041,7 +1040,7 @@ public final class StringParser
   /**
    * Parse the given {@link String} as {@link Long} with radix
    * {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @return <code>null</code> if the string does not represent a valid value.
@@ -1055,7 +1054,7 @@ public final class StringParser
   /**
    * Parse the given {@link String} as {@link Long} with radix
    * {@link #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @param aDefault
@@ -1072,7 +1071,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as {@link Long} with the specified radix.
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @param nRadix
@@ -1105,7 +1104,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link Object} as short with radix {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param nDefault
@@ -1120,7 +1119,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link Object} as short with the specified radix.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param nRadix
@@ -1142,7 +1141,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as short with radix {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @param nDefault
@@ -1157,7 +1156,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as short with the specified radix.
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @param nRadix
@@ -1185,7 +1184,7 @@ public final class StringParser
   /**
    * Parse the given {@link Object} as {@link Short} with radix
    * {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @return <code>null</code> if the object does not represent a valid value.
@@ -1199,7 +1198,7 @@ public final class StringParser
   /**
    * Parse the given {@link Object} as {@link Short} with radix
    * {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param aDefault
@@ -1216,7 +1215,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link Object} as {@link Short} with the specified radix.
-   * 
+   *
    * @param aObject
    *        The object to parse. May be <code>null</code>.
    * @param nRadix
@@ -1243,7 +1242,7 @@ public final class StringParser
   /**
    * Parse the given {@link String} as {@link Short} with radix
    * {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @return <code>null</code> if the string does not represent a valid value.
@@ -1257,7 +1256,7 @@ public final class StringParser
   /**
    * Parse the given {@link String} as {@link Short} with radix
    * {@link #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @param aDefault
@@ -1274,7 +1273,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as {@link Short} with the specified radix.
-   * 
+   *
    * @param sStr
    *        The string to parse. May be <code>null</code>.
    * @param nRadix
@@ -1308,7 +1307,7 @@ public final class StringParser
   /**
    * Parse the given {@link String} as {@link BigInteger} with radix
    * {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The String to parse. May be <code>null</code>.
    * @return <code>null</code> if the string does not represent a valid value.
@@ -1322,7 +1321,7 @@ public final class StringParser
   /**
    * Parse the given {@link String} as {@link BigInteger} with the specified
    * radix.
-   * 
+   *
    * @param sStr
    *        The String to parse. May be <code>null</code>.
    * @param nRadix
@@ -1339,7 +1338,7 @@ public final class StringParser
   /**
    * Parse the given {@link String} as {@link BigInteger} with radix
    * {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The String to parse. May be <code>null</code>.
    * @param aDefault
@@ -1357,7 +1356,7 @@ public final class StringParser
   /**
    * Parse the given {@link String} as {@link BigInteger} with the specified
    * radix.
-   * 
+   *
    * @param sStr
    *        The String to parse. May be <code>null</code>.
    * @param nRadix
@@ -1390,7 +1389,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as {@link BigDecimal}.
-   * 
+   *
    * @param sStr
    *        The String to parse. May be <code>null</code>.
    * @return <code>null</code> if the string does not represent a valid value.
@@ -1403,7 +1402,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as {@link BigDecimal}.
-   * 
+   *
    * @param sStr
    *        The String to parse. May be <code>null</code>.
    * @param aDefault
@@ -1429,7 +1428,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as {@link BigDecimal}.
-   * 
+   *
    * @param sStr
    *        The String to parse. May be <code>null</code>.
    * @param nScale
@@ -1450,7 +1449,7 @@ public final class StringParser
 
   /**
    * Parse the given {@link String} as {@link BigDecimal}.
-   * 
+   *
    * @param sStr
    *        The String to parse. May be <code>null</code>.
    * @param nScale
@@ -1491,7 +1490,7 @@ public final class StringParser
   /**
    * Checks if the given string is a numeric string that can be converted to a
    * long value with radix {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The string to check. May be <code>null</code>.
    * @return <code>true</code> if the value can be converted to a valid value
@@ -1514,7 +1513,7 @@ public final class StringParser
   /**
    * Checks if the given string is a numeric string that can be converted to a
    * long value with radix {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The string to check. May be <code>null</code>.
    * @return <code>true</code> if the value can be converted to a valid value
@@ -1537,7 +1536,7 @@ public final class StringParser
   /**
    * Checks if the given string is a numeric string that can be converted to an
    * unsigned long value with radix {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The string to check. May be <code>null</code>.
    * @return <code>true</code> if the value can be converted to a valid value
@@ -1560,7 +1559,7 @@ public final class StringParser
   /**
    * Checks if the given string is a numeric string that can be converted to an
    * unsigned long value with radix {@value #DEFAULT_RADIX}.
-   * 
+   *
    * @param sStr
    *        The string to check. May be <code>null</code>.
    * @return <code>true</code> if the value can be converted to a valid value
@@ -1583,7 +1582,7 @@ public final class StringParser
   /**
    * Checks if the given string is a double string that can be converted to a
    * double value.
-   * 
+   *
    * @param sStr
    *        The string to check. May be <code>null</code>.
    * @return <code>true</code> if the value can be converted to a valid value
@@ -1596,7 +1595,7 @@ public final class StringParser
   /**
    * Checks if the given string is a float string that can be converted to a
    * double value.
-   * 
+   *
    * @param sStr
    *        The string to check. May be <code>null</code>.
    * @return <code>true</code> if the value can be converted to a valid value

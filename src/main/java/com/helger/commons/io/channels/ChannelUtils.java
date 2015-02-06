@@ -53,7 +53,6 @@ public final class ChannelUtils
   private static final boolean USE_COPY_V1 = true;
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final ChannelUtils s_aInstance = new ChannelUtils ();
 
   private ChannelUtils ()

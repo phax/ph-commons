@@ -27,7 +27,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 
 /**
  * Smart class for calculating factorials.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -60,7 +60,6 @@ public final class FactorialHelper
   public static final int PREDEFINED_MAX_INDEX = PREDEFINED_FACTORIALS_LONG.length - 1;
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final FactorialHelper s_aInstance = new FactorialHelper ();
 
   private FactorialHelper ()
@@ -69,7 +68,7 @@ public final class FactorialHelper
   /**
    * Calculate n! whereas n must be in the range of
    * {@value #PREDEFINED_MIN_INDEX} to {@link #PREDEFINED_MAX_INDEX}.
-   * 
+   *
    * @param n
    *        Input value
    * @return The factorial value.
@@ -84,7 +83,7 @@ public final class FactorialHelper
   /**
    * Split algorithm for factorials.<br>
    * Based on http://www.luschny.de/math/factorial/java/FactorialSplit.java.html
-   * 
+   *
    * @author Philip Helger
    */
   private static final class FactorialSplit

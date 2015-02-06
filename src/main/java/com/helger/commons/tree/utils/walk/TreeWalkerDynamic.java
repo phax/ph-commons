@@ -40,7 +40,6 @@ import com.helger.commons.tree.IBasicTreeItem;
 public final class TreeWalkerDynamic
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final TreeWalkerDynamic s_aInstance = new TreeWalkerDynamic ();
 
   private TreeWalkerDynamic ()

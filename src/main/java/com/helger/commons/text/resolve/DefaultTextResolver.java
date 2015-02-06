@@ -30,7 +30,7 @@ import com.helger.commons.text.ITextProvider;
 /**
  * Resolves texts either from a text provider or otherwise uses a fallback to a
  * file, based on the given enum constant.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -39,7 +39,6 @@ public final class DefaultTextResolver
   private static final EnumTextResolverWithPropertiesOverrideAndFallback s_aResolver = new EnumTextResolverWithPropertiesOverrideAndFallback ();
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final DefaultTextResolver s_aInstance = new DefaultTextResolver ();
 
   private DefaultTextResolver ()
@@ -57,7 +56,7 @@ public final class DefaultTextResolver
 
   /**
    * Get the text of the given element in the given locale.
-   * 
+   *
    * @param aEnum
    *        The enum element required for ID resolution
    * @param aTP
@@ -77,7 +76,7 @@ public final class DefaultTextResolver
   /**
    * Get the text of the given element in the given locale using the passed
    * arguments.
-   * 
+   *
    * @param aEnum
    *        The enum element required for ID resolution
    * @param aTP

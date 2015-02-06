@@ -26,14 +26,13 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * A small helper class that provides helper methods for easy
  * <code>equals</code> method generation
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class EqualsUtils
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final EqualsUtils s_aInstance = new EqualsUtils ();
 
   private EqualsUtils ()
@@ -57,7 +56,7 @@ public final class EqualsUtils
   /**
    * Check if two double values are equal. This is necessary, because in some
    * cases, the "==" operator returns wrong results.
-   * 
+   *
    * @param aObj1
    *        First double
    * @param aObj2
@@ -74,7 +73,7 @@ public final class EqualsUtils
   /**
    * Check if two float values are equal. This is necessary, because in some
    * cases, the "==" operator returns wrong results.
-   * 
+   *
    * @param aObj1
    *        First float
    * @param aObj2

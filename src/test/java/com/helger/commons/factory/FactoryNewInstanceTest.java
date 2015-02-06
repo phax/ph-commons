@@ -28,7 +28,7 @@ import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link FactoryNewInstance}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FactoryNewInstanceTest
@@ -36,7 +36,6 @@ public final class FactoryNewInstanceTest
   private abstract static class AbstractClass
   {
     @UsedViaReflection
-    @SuppressWarnings ("unused")
     public AbstractClass ()
     {}
   }
@@ -44,7 +43,6 @@ public final class FactoryNewInstanceTest
   private static class ClassWithoutDefaultCtor
   {
     @UsedViaReflection
-    @SuppressWarnings ("unused")
     public ClassWithoutDefaultCtor (final int i)
     {
       // just use parameter
@@ -116,8 +114,8 @@ public final class FactoryNewInstanceTest
   public void testEqualsAndHashCode ()
   {
     PHTestUtils.testDefaultImplementationWithEqualContentObject (FactoryNewInstance.create (String.class),
-                                                                    FactoryNewInstance.create (String.class));
+                                                                 FactoryNewInstance.create (String.class));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (FactoryNewInstance.create (String.class),
-                                                                        FactoryNewInstance.create (StringBuilder.class));
+                                                                     FactoryNewInstance.create (StringBuilder.class));
   }
 }

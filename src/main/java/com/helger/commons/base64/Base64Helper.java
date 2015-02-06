@@ -29,14 +29,13 @@ import com.helger.commons.charset.CharsetManager;
 /**
  * A small helper class for easier usage of the {@link Base64} class without
  * exception catching.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class Base64Helper
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final Base64Helper s_aInstance = new Base64Helper ();
 
   private Base64Helper ()
@@ -45,7 +44,7 @@ public final class Base64Helper
   /**
    * Decode the string with the default encoding (US-ASCII is the preferred
    * one).
-   * 
+   *
    * @param sEncoded
    *        The encoded string.
    * @return <code>null</code> if decoding failed.
@@ -65,7 +64,7 @@ public final class Base64Helper
 
   /**
    * Decode the byte array.
-   * 
+   *
    * @param aEncodedBytes
    *        The encoded byte array.
    * @return <code>null</code> if decoding failed.
@@ -85,7 +84,7 @@ public final class Base64Helper
 
   /**
    * Decode the string and convert it back to a string.
-   * 
+   *
    * @param sEncoded
    *        The encoded byte array.
    * @param sCharset
@@ -108,7 +107,7 @@ public final class Base64Helper
 
   /**
    * Decode the string and convert it back to a string.
-   * 
+   *
    * @param sEncoded
    *        The encoded byte array.
    * @param aCharset
@@ -130,7 +129,7 @@ public final class Base64Helper
 
   /**
    * Decode the byte array and convert it to a string.
-   * 
+   *
    * @param aEncodedBytes
    *        The encoded byte array.
    * @param sCharset
@@ -153,7 +152,7 @@ public final class Base64Helper
 
   /**
    * Decode the byte array and convert it to a string.
-   * 
+   *
    * @param aEncodedBytes
    *        The encoded byte array.
    * @param aCharset

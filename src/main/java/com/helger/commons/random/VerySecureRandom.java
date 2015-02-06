@@ -25,7 +25,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 
 /**
  * A secure random generator initialized with another secure random generator.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -80,7 +80,6 @@ public final class VerySecureRandom
   }
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final VerySecureRandom s_aInstance = new VerySecureRandom ();
 
   private VerySecureRandom ()

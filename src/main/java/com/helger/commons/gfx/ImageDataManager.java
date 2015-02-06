@@ -66,7 +66,6 @@ public final class ImageDataManager
   private static final Set <IReadableResource> s_aNonExistingResources = new HashSet <IReadableResource> ();
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final ImageDataManager s_aInstance = new ImageDataManager ();
 
   private ImageDataManager ()

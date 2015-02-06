@@ -36,7 +36,6 @@ import com.helger.commons.parent.impl.ChildrenProviderHasChildren;
 public final class MicroWalker
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final MicroWalker s_aInstance = new MicroWalker ();
 
   private MicroWalker ()

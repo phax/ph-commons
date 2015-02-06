@@ -41,7 +41,7 @@ import com.helger.commons.string.StringHelper;
  * This is a global cache for Locale objects to avoid too many object flowing
  * around.<br>
  * This cache is application independent.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -81,7 +81,6 @@ public final class LocaleCache
   }
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final LocaleCache s_aInstance = new LocaleCache ();
 
   private LocaleCache ()
@@ -89,7 +88,7 @@ public final class LocaleCache
 
   /**
    * Get the {@link Locale} object matching the given language.
-   * 
+   *
    * @param sLanguage
    *        The language to use. May be <code>null</code> or empty.
    * @return <code>null</code> if the passed language string is
@@ -113,7 +112,7 @@ public final class LocaleCache
 
   /**
    * Get the {@link Locale} object matching the given language and country.
-   * 
+   *
    * @param sLanguage
    *        The language to use. May be <code>null</code> or empty.
    * @param sCountry
@@ -130,7 +129,7 @@ public final class LocaleCache
   /**
    * Build the locale key internally used. Note: this is not the same string as
    * returned by {@link Locale#toString()}!!
-   * 
+   *
    * @param sLanguage
    *        Language to use
    * @param sCountry
@@ -156,7 +155,7 @@ public final class LocaleCache
 
   /**
    * Get the {@link Locale} object matching the given locale string
-   * 
+   *
    * @param sLanguage
    *        The language to use. May be <code>null</code> or empty.
    * @param sCountry
@@ -215,7 +214,7 @@ public final class LocaleCache
 
   /**
    * Get all contained locales except the locales "all" and "independent"
-   * 
+   *
    * @return a set with all contained locales, except "all" and "independent"
    */
   @Nonnull
@@ -238,7 +237,7 @@ public final class LocaleCache
 
   /**
    * Get all contained locales that consist only of a non-empty language.
-   * 
+   *
    * @return a set with all contained languages, except "all" and "independent"
    */
   @Nonnull
@@ -257,7 +256,7 @@ public final class LocaleCache
 
   /**
    * Check if the passed language is in the cache.
-   * 
+   *
    * @param sLanguage
    *        The language to check.
    * @return <code>true</code> if it is in the cache, <code>false</code>
@@ -280,7 +279,7 @@ public final class LocaleCache
 
   /**
    * Check if the passed language is in the cache.
-   * 
+   *
    * @param sLanguage
    *        The language to check.
    * @param sCountry
@@ -306,7 +305,7 @@ public final class LocaleCache
 
   /**
    * Check if the passed language is in the cache.
-   * 
+   *
    * @param sLanguage
    *        The language to check.
    * @param sCountry

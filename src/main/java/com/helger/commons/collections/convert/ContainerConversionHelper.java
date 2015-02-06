@@ -39,14 +39,13 @@ import com.helger.commons.filter.IFilter;
 
 /**
  * This utility class helps applying conversions onto collections.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class ContainerConversionHelper
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final ContainerConversionHelper s_aInstance = new ContainerConversionHelper ();
 
   private ContainerConversionHelper ()
@@ -243,7 +242,7 @@ public final class ContainerConversionHelper
 
   /**
    * Convert the given iterator to a sorted list.
-   * 
+   *
    * @param <SRCTYPE>
    *        The type of elements to iterate (source).
    * @param <DSTTYPE>
@@ -271,7 +270,7 @@ public final class ContainerConversionHelper
 
   /**
    * Convert the given iterator to a sorted list.
-   * 
+   *
    * @param <SRCTYPE>
    *        The type of elements to iterate (source).
    * @param <DSTTYPE>
@@ -303,7 +302,7 @@ public final class ContainerConversionHelper
 
   /**
    * Convert the given iterator to a sorted list.
-   * 
+   *
    * @param <SRCTYPE>
    *        The type of elements to iterate (source).
    * @param <DSTTYPE>
@@ -331,7 +330,7 @@ public final class ContainerConversionHelper
 
   /**
    * Convert the given iterator to a sorted list.
-   * 
+   *
    * @param <SRCTYPE>
    *        The type of elements to iterate (source).
    * @param <DSTTYPE>

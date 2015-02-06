@@ -56,7 +56,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class MicroUtils
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final MicroUtils s_aInstance = new MicroUtils ();
 
   private MicroUtils ()

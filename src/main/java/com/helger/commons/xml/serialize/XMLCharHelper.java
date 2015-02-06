@@ -30,7 +30,7 @@ import com.helger.commons.xml.EXMLCharMode;
 
 /**
  * This class contains XML utility methods for character handling.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -614,7 +614,6 @@ public final class XMLCharHelper
   }
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final XMLCharHelper s_aInstance = new XMLCharHelper ();
 
   private XMLCharHelper ()
@@ -623,7 +622,7 @@ public final class XMLCharHelper
   /**
    * Check if the passed character is invalid for an element or attribute name
    * on the first position
-   * 
+   *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
    * @param c
@@ -649,7 +648,7 @@ public final class XMLCharHelper
   /**
    * Check if the passed character is invalid for an element or attribute name
    * after the first position
-   * 
+   *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
    * @param c
@@ -737,7 +736,7 @@ public final class XMLCharHelper
 
   /**
    * Check if the passed character is invalid for a text node.
-   * 
+   *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
    * @param c
@@ -799,7 +798,7 @@ public final class XMLCharHelper
 
   /**
    * Check if the passed character is invalid for a CDATA node.
-   * 
+   *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
    * @param c
@@ -861,7 +860,7 @@ public final class XMLCharHelper
 
   /**
    * Check if the passed character is invalid for a attribute value node.
-   * 
+   *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
    * @param c

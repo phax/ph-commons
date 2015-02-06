@@ -167,7 +167,6 @@ public final class CMimeType
   public static final EMimeQuoting DEFAULT_QUOTING = EMimeQuoting.QUOTED_STRING;
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CMimeType s_aInstance = new CMimeType ();
 
   private CMimeType ()

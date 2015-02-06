@@ -1322,7 +1322,6 @@ public final class Base64// NOPMD
   }
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final Base64 s_aInstance = new Base64 ();
 
   /** Defeats instantiation. */

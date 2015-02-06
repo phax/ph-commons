@@ -35,7 +35,7 @@ import com.helger.commons.timing.StopWatch;
 /**
  * A dummy main runner with some basic setup. Structured a bit similar to the
  * Thread class.
- * 
+ *
  * @author Philip Helger
  */
 public final class MainRunner
@@ -44,7 +44,6 @@ public final class MainRunner
   private static final IStatisticsHandlerTimer s_aTimerHdl = StatisticsManager.getTimerHandler (MainRunner.class);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final MainRunner s_aInstance = new MainRunner ();
 
   private MainRunner ()

@@ -36,14 +36,13 @@ import com.helger.commons.string.StringHelper;
 /**
  * This class offers helper methods that work on cached regular expression
  * pattern as offered by {@link RegExPool}.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class RegExHelper
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final RegExHelper s_aInstance = new RegExHelper ();
 
   private RegExHelper ()
@@ -53,7 +52,7 @@ public final class RegExHelper
    * Split the passed text with the given regular expression. If you do not need
    * a regular expression, {@link StringHelper#getExploded(String, String)} is a
    * faster option.
-   * 
+   *
    * @param sText
    *        The text to be split. May be <code>null</code>.
    * @param sRegEx
@@ -76,7 +75,7 @@ public final class RegExHelper
    * Split the passed text with the given regular expression returning at most
    * the given number of tokens. If you do not need a regular expression,
    * {@link StringHelper#getExploded(String, String, int)} is a faster option.
-   * 
+   *
    * @param sText
    *        The text to be split. May be <code>null</code>.
    * @param sRegEx
@@ -105,7 +104,7 @@ public final class RegExHelper
    * Split the passed text with the given regular expression. If you do not need
    * a regular expression, {@link StringHelper#getExploded(String, String)} is a
    * faster option.
-   * 
+   *
    * @param sText
    *        The text to be split. May be <code>null</code>.
    * @param sRegEx
@@ -126,7 +125,7 @@ public final class RegExHelper
    * Split the passed text with the given regular expression. If you do not need
    * a regular expression, {@link StringHelper#getExploded(String, String, int)}
    * is a faster option.
-   * 
+   *
    * @param sText
    *        The text to be split. May be <code>null</code>.
    * @param sRegEx
@@ -151,7 +150,7 @@ public final class RegExHelper
   /**
    * Get the Java Matcher object for the passed pair of regular expression and
    * value.
-   * 
+   *
    * @param sRegEx
    *        The regular expression to use. May neither be <code>null</code> nor
    *        empty.
@@ -170,7 +169,7 @@ public final class RegExHelper
   /**
    * Get the Java Matcher object for the passed pair of regular expression and
    * value.
-   * 
+   *
    * @param sRegEx
    *        The regular expression to use. May neither be <code>null</code> nor
    *        empty.
@@ -194,7 +193,7 @@ public final class RegExHelper
   /**
    * A shortcut helper method to determine whether a string matches a certain
    * regular expression or not.
-   * 
+   *
    * @param sRegEx
    *        The regular expression to be used. The compiled regular expression
    *        pattern is cached. May neither be <code>null</code> nor empty.
@@ -211,7 +210,7 @@ public final class RegExHelper
   /**
    * A shortcut helper method to determine whether a string matches a certain
    * regular expression or not.
-   * 
+   *
    * @param sRegEx
    *        The regular expression to be used. The compiled regular expression
    *        pattern is cached. May neither be <code>null</code> nor empty.
@@ -252,7 +251,7 @@ public final class RegExHelper
   /**
    * Convert an identifier to a programming language identifier by replacing all
    * non-word characters with an underscore ("_").
-   * 
+   *
    * @param s
    *        The string to convert. May be <code>null</code> or empty.
    * @return The converted string or <code>null</code> if the input string is
@@ -267,7 +266,7 @@ public final class RegExHelper
   /**
    * Convert an identifier to a programming language identifier by replacing all
    * non-word characters with an underscore.
-   * 
+   *
    * @param s
    *        The string to convert. May be <code>null</code> or empty.
    * @param cReplacement
@@ -304,7 +303,7 @@ public final class RegExHelper
   /**
    * Convert an identifier to a programming language identifier by replacing all
    * non-word characters with an underscore.
-   * 
+   *
    * @param s
    *        The string to convert. May be <code>null</code> or empty.
    * @param sReplacement
@@ -340,7 +339,7 @@ public final class RegExHelper
    * Note: this method may be a performance killer, as it calls
    * {@link Pattern#compile(String)} each time, which is CPU intensive and has a
    * synchronization penalty.
-   * 
+   *
    * @param sRegEx
    *        The regular expression to validate. May not be <code>null</code>.
    * @return <code>true</code> if the pattern is valid, <code>false</code>
@@ -364,7 +363,7 @@ public final class RegExHelper
    * value.<br>
    * Note: groups starting with "?:" are non-capturing groups (e.g.
    * <code>(?:a|b)</code>)
-   * 
+   *
    * @param sRegEx
    *        The regular expression containing the groups
    * @param sValue

@@ -427,7 +427,6 @@ public final class XMLMaskHelper
       MASK_TEXT_HTML_SQ_REPLACE[i] = getHTMLEntityReferenceString (MASK_TEXT_HTML_SQ[i]).toCharArray ();
   }
 
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final XMLMaskHelper s_aInstance = new XMLMaskHelper ();
 

@@ -38,7 +38,6 @@ import com.helger.commons.convert.IUnidirectionalConverter;
 public final class ArrayConversionHelper
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final ArrayConversionHelper s_aInstance = new ArrayConversionHelper ();
 
   private ArrayConversionHelper ()

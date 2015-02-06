@@ -130,7 +130,6 @@ public final class FilenameHelper
   }
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final FilenameHelper s_aInstance = new FilenameHelper ();
 
   private FilenameHelper ()

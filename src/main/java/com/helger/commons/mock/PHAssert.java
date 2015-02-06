@@ -33,7 +33,6 @@ public final class PHAssert
   private static final double DOUBLE_ALLOWED_ROUNDING_DIFFERENCE = 0.001;
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final PHAssert s_aInstance = new PHAssert ();
 
   private PHAssert ()

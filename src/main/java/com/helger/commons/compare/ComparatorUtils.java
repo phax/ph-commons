@@ -26,14 +26,13 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 
 /**
  * Helper class to easily create commonly used {@link Comparator} objects.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class ComparatorUtils
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final ComparatorUtils s_aInstance = new ComparatorUtils ();
 
   private ComparatorUtils ()

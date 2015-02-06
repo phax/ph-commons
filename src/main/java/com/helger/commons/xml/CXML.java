@@ -146,7 +146,6 @@ public final class CXML
                                                              XML_ATTR_XSI_NONAMESPACESCHEMALOCATION;
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CXML s_aInstance = new CXML ();
 
   private CXML ()

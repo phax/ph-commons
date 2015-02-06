@@ -39,7 +39,6 @@ import com.helger.commons.typeconvert.TypeConverterException.EReason;
 @ThreadSafe
 public final class MicroTypeConverter
 {
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final MicroTypeConverter s_aInstance = new MicroTypeConverter ();
 

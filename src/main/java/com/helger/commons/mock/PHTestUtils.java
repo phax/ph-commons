@@ -70,7 +70,6 @@ public final class PHTestUtils
   private static final Logger s_aLogger = LoggerFactory.getLogger (PHTestUtils.class);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final PHTestUtils s_aInstance = new PHTestUtils ();
 
   private PHTestUtils ()

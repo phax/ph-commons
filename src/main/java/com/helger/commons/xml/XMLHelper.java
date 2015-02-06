@@ -56,7 +56,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class XMLHelper
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final XMLHelper s_aInstance = new XMLHelper ();
 
   private XMLHelper ()

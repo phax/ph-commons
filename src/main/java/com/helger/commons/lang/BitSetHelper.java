@@ -27,14 +27,13 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 
 /**
  * Helper class to work with bit sets.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class BitSetHelper
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final BitSetHelper s_aInstance = new BitSetHelper ();
 
   private BitSetHelper ()
@@ -42,7 +41,7 @@ public final class BitSetHelper
 
   /**
    * Convert the passed byte value to an bit set of size 8.
-   * 
+   *
    * @param nValue
    *        The value to be converted to a bit set.
    * @return The non-<code>null</code> bit set.
@@ -58,7 +57,7 @@ public final class BitSetHelper
 
   /**
    * Convert the passed short value to an bit set of size 16.
-   * 
+   *
    * @param nValue
    *        The value to be converted to a bit set.
    * @return The non-<code>null</code> bit set.
@@ -74,7 +73,7 @@ public final class BitSetHelper
 
   /**
    * Convert the passed int value to an bit set of size 32.
-   * 
+   *
    * @param nValue
    *        The value to be converted to a bit set.
    * @return The non-<code>null</code> bit set.
@@ -90,7 +89,7 @@ public final class BitSetHelper
 
   /**
    * Convert the passed long value to an bit set of size 64.
-   * 
+   *
    * @param nValue
    *        The value to be converted to a bit set.
    * @return The non-<code>null</code> bit set.
@@ -107,7 +106,7 @@ public final class BitSetHelper
   /**
    * Extract the int representation of the passed bit set. To avoid loss of
    * data, the bit set may not have more than 32 bits.
-   * 
+   *
    * @param aBS
    *        The bit set to extract the value from. May not be <code>null</code>.
    * @return The extracted value. May be negative if the bit set has 32
@@ -134,7 +133,7 @@ public final class BitSetHelper
   /**
    * Extract the long representation of the passed bit set. To avoid loss of
    * data, the bit set may not have more than 64 bits.
-   * 
+   *
    * @param aBS
    *        The bit set to extract the value from. May not be <code>null</code>.
    * @return The extracted value. May be negative if the bit set has 64

@@ -34,13 +34,12 @@ import com.helger.commons.io.IWritableResource;
 /**
  * Factory class to create the correct {@link javax.xml.transform.Result}
  * objects for different output types.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class TransformResultFactory
 {
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final TransformResultFactory s_aInstance = new TransformResultFactory ();
 

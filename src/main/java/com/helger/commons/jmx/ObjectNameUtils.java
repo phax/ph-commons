@@ -41,7 +41,6 @@ import com.helger.commons.lang.CGStringHelper;
 @ThreadSafe
 public final class ObjectNameUtils
 {
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final ObjectNameUtils s_aInstance = new ObjectNameUtils ();
 

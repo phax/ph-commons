@@ -32,14 +32,13 @@ import com.helger.commons.xml.transform.TransformSourceFactory;
 
 /**
  * A helper class for simple XSD validation.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class XMLSchemaValidationHelper
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final XMLSchemaValidationHelper s_aInstance = new XMLSchemaValidationHelper ();
 
   private XMLSchemaValidationHelper ()

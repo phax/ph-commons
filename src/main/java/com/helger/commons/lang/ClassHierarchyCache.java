@@ -40,7 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A small class hierarchy cache
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -125,7 +125,6 @@ public final class ClassHierarchyCache
   private static final Map <String, ClassList> s_aClassHierarchy = new LRUCache <String, ClassList> (1000);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final ClassHierarchyCache s_aInstance = new ClassHierarchyCache ();
 
   private ClassHierarchyCache ()
@@ -135,7 +134,7 @@ public final class ClassHierarchyCache
    * It's important to clear the cache upon application shutdown, because for
    * web applications, keeping a cache of classes may prevent the web
    * application from unloading
-   * 
+   *
    * @return {@link EChange}
    */
   @Nonnull
@@ -199,7 +198,7 @@ public final class ClassHierarchyCache
    * Get the complete super class hierarchy of the passed class including all
    * super classes and all interfaces of the passed class and of all parent
    * classes.
-   * 
+   *
    * @param aClass
    *        The source class to get the hierarchy from.
    * @return A non-<code>null</code> and non-empty Set containing the passed
@@ -216,7 +215,7 @@ public final class ClassHierarchyCache
    * Get the complete super class hierarchy of the passed class including all
    * super classes and all interfaces of the passed class and of all parent
    * classes.
-   * 
+   *
    * @param aClass
    *        The source class to get the hierarchy from.
    * @return A non-<code>null</code> and non-empty List containing the passed
@@ -234,7 +233,7 @@ public final class ClassHierarchyCache
    * Iterate the complete super class hierarchy of the passed class including
    * all super classes and all interfaces of the passed class and of all parent
    * classes.
-   * 
+   *
    * @param aClass
    *        The source class to get the hierarchy from.
    * @return A non-<code>null</code> and non-empty List containing the passed

@@ -43,13 +43,12 @@ import com.helger.commons.url.URLUtils;
 /**
  * Factory class to create the correct {@link InputSource} objects for different
  * input types.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class InputSourceFactory
 {
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final InputSourceFactory s_aInstance = new InputSourceFactory ();
 

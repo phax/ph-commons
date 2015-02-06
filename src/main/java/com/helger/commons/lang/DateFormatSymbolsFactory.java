@@ -36,7 +36,6 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 public final class DateFormatSymbolsFactory
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final DateFormatSymbolsFactory s_aInstance = new DateFormatSymbolsFactory ();
 
   private DateFormatSymbolsFactory ()

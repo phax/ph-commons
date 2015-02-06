@@ -24,12 +24,10 @@ import com.helger.commons.cleanup.CommonsCleanup;
 import com.helger.commons.lang.ServiceLoaderUtils;
 import com.helger.commons.mock.IMockException;
 
-//ESCA-JAVA0265:
-//ESCA-JAVA0267:
 /**
  * This class should be run upon VM initialization. This should be the very
  * first thing to run.
- * 
+ *
  * @author Philip Helger
  */
 public final class VirtualMachineInitializer
@@ -44,7 +42,6 @@ public final class VirtualMachineInitializer
   }
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final VirtualMachineInitializer s_aInstance = new VirtualMachineInitializer ();
 
   private VirtualMachineInitializer ()

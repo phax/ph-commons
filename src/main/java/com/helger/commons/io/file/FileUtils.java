@@ -71,7 +71,6 @@ public final class FileUtils
   private static final Logger s_aLogger = LoggerFactory.getLogger (FileUtils.class);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final FileUtils s_aInstance = new FileUtils ();
 
   private FileUtils ()

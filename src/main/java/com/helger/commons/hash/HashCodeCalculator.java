@@ -24,7 +24,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 
 /**
  * This class provides the hash code generation for different data types.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -43,7 +43,6 @@ public final class HashCodeCalculator
   public static final int HASHCODE_NULL = 129;
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final HashCodeCalculator s_aInstance = new HashCodeCalculator ();
 
   private HashCodeCalculator ()
@@ -51,7 +50,7 @@ public final class HashCodeCalculator
 
   /**
    * Atomic type hash code generation.
-   * 
+   *
    * @param nPrevHashCode
    *        The previous hash code used as the basis for calculation
    * @param x
@@ -65,7 +64,7 @@ public final class HashCodeCalculator
 
   /**
    * Atomic type hash code generation.
-   * 
+   *
    * @param nPrevHashCode
    *        The previous hash code used as the basis for calculation
    * @param x
@@ -79,7 +78,7 @@ public final class HashCodeCalculator
 
   /**
    * Atomic type hash code generation.
-   * 
+   *
    * @param nPrevHashCode
    *        The previous hash code used as the basis for calculation
    * @param x
@@ -93,7 +92,7 @@ public final class HashCodeCalculator
 
   /**
    * Atomic type hash code generation.
-   * 
+   *
    * @param nPrevHashCode
    *        The previous hash code used as the basis for calculation
    * @param x
@@ -108,7 +107,7 @@ public final class HashCodeCalculator
 
   /**
    * Atomic type hash code generation.
-   * 
+   *
    * @param nPrevHashCode
    *        The previous hash code used as the basis for calculation
    * @param x
@@ -123,7 +122,7 @@ public final class HashCodeCalculator
 
   /**
    * Atomic type hash code generation.
-   * 
+   *
    * @param nPrevHashCode
    *        The previous hash code used as the basis for calculation
    * @param x
@@ -137,7 +136,7 @@ public final class HashCodeCalculator
 
   /**
    * Atomic type hash code generation.
-   * 
+   *
    * @param nPrevHashCode
    *        The previous hash code used as the basis for calculation
    * @param x
@@ -152,7 +151,7 @@ public final class HashCodeCalculator
 
   /**
    * Atomic type hash code generation.
-   * 
+   *
    * @param nPrevHashCode
    *        The previous hash code used as the basis for calculation
    * @param x
@@ -166,7 +165,7 @@ public final class HashCodeCalculator
 
   /**
    * Object hash code generation.
-   * 
+   *
    * @param nPrevHashCode
    *        The previous hash code used as the basis for calculation
    * @param x

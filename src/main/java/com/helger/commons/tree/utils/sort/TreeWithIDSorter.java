@@ -39,7 +39,6 @@ import com.helger.commons.tree.withid.ITreeItemWithID;
 public final class TreeWithIDSorter
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final TreeWithIDSorter s_aInstance = new TreeWithIDSorter ();
 
   private TreeWithIDSorter ()

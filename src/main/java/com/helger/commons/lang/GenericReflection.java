@@ -44,7 +44,6 @@ public final class GenericReflection
   private static final Class <?> [] EMPTY_CLASS_ARRAY = new Class <?> [0];
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final GenericReflection s_aInstance = new GenericReflection ();
 
   private GenericReflection ()

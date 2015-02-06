@@ -23,7 +23,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 /**
  * A class containing default values for all primitive and primitive wrapper
  * types.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -66,7 +66,6 @@ public final class CDefault
   public static final Short DEFAULT_SHORT_OBJ = Short.valueOf (DEFAULT_SHORT);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CDefault s_aInstance = new CDefault ();
 
   private CDefault ()

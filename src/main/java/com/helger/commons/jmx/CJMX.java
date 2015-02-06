@@ -38,7 +38,6 @@ public final class CJMX
   public static final String PROPERTY_NAME = "name";
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CJMX s_aInstance = new CJMX ();
 
   private CJMX ()

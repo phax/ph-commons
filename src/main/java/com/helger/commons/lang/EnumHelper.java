@@ -40,7 +40,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Some enum utility methods.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -52,7 +52,6 @@ public final class EnumHelper
   private static final Map <String, Object []> s_aIntCache = new HashMap <String, Object []> ();
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final EnumHelper s_aInstance = new EnumHelper ();
 
   private EnumHelper ()
@@ -60,7 +59,7 @@ public final class EnumHelper
 
   /**
    * Get the enum value with the passed ID
-   * 
+   *
    * @param <KEYTYPE>
    *        The ID type
    * @param <ENUMTYPE>
@@ -80,7 +79,7 @@ public final class EnumHelper
 
   /**
    * Get the enum value with the passed ID
-   * 
+   *
    * @param <KEYTYPE>
    *        The ID type
    * @param <ENUMTYPE>
@@ -110,7 +109,7 @@ public final class EnumHelper
   /**
    * Get the enum value with the passed ID. If no such ID is present, an
    * {@link IllegalArgumentException} is thrown.
-   * 
+   *
    * @param <KEYTYPE>
    *        The ID type
    * @param <ENUMTYPE>
@@ -135,7 +134,7 @@ public final class EnumHelper
 
   /**
    * Get the enum value with the passed string ID case insensitive
-   * 
+   *
    * @param <ENUMTYPE>
    *        The enum type
    * @param aClass
@@ -153,7 +152,7 @@ public final class EnumHelper
 
   /**
    * Get the enum value with the passed string ID case insensitive
-   * 
+   *
    * @param <ENUMTYPE>
    *        The enum type
    * @param aClass
@@ -181,7 +180,7 @@ public final class EnumHelper
   /**
    * Get the enum value with the passed string ID (case insensitive). If no such
    * ID is present, an {@link IllegalArgumentException} is thrown.
-   * 
+   *
    * @param <ENUMTYPE>
    *        The enum type
    * @param aClass
@@ -204,7 +203,7 @@ public final class EnumHelper
 
   /**
    * Get the enum value with the passed ID
-   * 
+   *
    * @param <ENUMTYPE>
    *        The enum type
    * @param aClass
@@ -222,7 +221,7 @@ public final class EnumHelper
 
   /**
    * Get the enum value with the passed ID
-   * 
+   *
    * @param <ENUMTYPE>
    *        The enum type
    * @param aClass
@@ -309,7 +308,7 @@ public final class EnumHelper
   /**
    * Get the enum value with the passed ID. If no such ID is present, an
    * {@link IllegalArgumentException} is thrown.
-   * 
+   *
    * @param <ENUMTYPE>
    *        The enum type
    * @param aClass
@@ -332,7 +331,7 @@ public final class EnumHelper
 
   /**
    * Get the enum value with the passed name
-   * 
+   *
    * @param <ENUMTYPE>
    *        The enum type
    * @param aClass
@@ -350,7 +349,7 @@ public final class EnumHelper
 
   /**
    * Get the enum value with the passed name
-   * 
+   *
    * @param <ENUMTYPE>
    *        The enum type
    * @param aClass
@@ -379,7 +378,7 @@ public final class EnumHelper
   /**
    * Get the enum value with the passed name. If no such name is present, an
    * {@link IllegalArgumentException} is thrown.
-   * 
+   *
    * @param <ENUMTYPE>
    *        The enum type
    * @param aClass
@@ -402,7 +401,7 @@ public final class EnumHelper
 
   /**
    * Get the enum value with the passed name case insensitive
-   * 
+   *
    * @param <ENUMTYPE>
    *        The enum type
    * @param aClass
@@ -420,7 +419,7 @@ public final class EnumHelper
 
   /**
    * Get the enum value with the passed name case insensitive
-   * 
+   *
    * @param <ENUMTYPE>
    *        The enum type
    * @param aClass
@@ -449,7 +448,7 @@ public final class EnumHelper
   /**
    * Get the enum value with the passed name (case insensitive). If no such name
    * is present, an {@link IllegalArgumentException} is thrown.
-   * 
+   *
    * @param <ENUMTYPE>
    *        The enum type
    * @param aClass
@@ -472,7 +471,7 @@ public final class EnumHelper
 
   /**
    * Get the unique name of the passed enum entry.
-   * 
+   *
    * @param aEnum
    *        The enum to use. May not be <code>null</code>.
    * @return The unique ID as a combination of the class name and the enum entry

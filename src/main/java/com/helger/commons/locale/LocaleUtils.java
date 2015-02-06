@@ -98,7 +98,6 @@ public final class LocaleUtils
   private static final LocaleListCache s_aLocaleListCache = new LocaleListCache ();
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final LocaleUtils s_aInstance = new LocaleUtils ();
 
   private LocaleUtils ()

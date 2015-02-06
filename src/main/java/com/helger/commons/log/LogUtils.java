@@ -31,14 +31,13 @@ import com.helger.commons.error.IHasErrorLevel;
 /**
  * Some utility functions to help integrating the {@link EErrorLevel} enum in
  * this package with SLF4J logger.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class LogUtils
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final LogUtils s_aInstance = new LogUtils ();
 
   private LogUtils ()
@@ -47,7 +46,7 @@ public final class LogUtils
   /**
    * Check if logging is enabled for the passed class based on the error level
    * provider by the passed object
-   * 
+   *
    * @param aLoggingClass
    *        The class to determine the logger from. May not be <code>null</code>
    *        .
@@ -65,7 +64,7 @@ public final class LogUtils
   /**
    * Check if logging is enabled for the passed logger based on the error level
    * provider by the passed object
-   * 
+   *
    * @param aLogger
    *        The logger. May not be <code>null</code>.
    * @param aErrorLevelProvider
@@ -81,7 +80,7 @@ public final class LogUtils
   /**
    * Check if logging is enabled for the passed class based on the error level
    * provided
-   * 
+   *
    * @param aLoggingClass
    *        The class to determine the logger from. May not be <code>null</code>
    *        .
@@ -98,7 +97,7 @@ public final class LogUtils
   /**
    * Check if logging is enabled for the passed logger based on the error level
    * provided
-   * 
+   *
    * @param aLogger
    *        The logger. May not be <code>null</code>.
    * @param eErrorLevel

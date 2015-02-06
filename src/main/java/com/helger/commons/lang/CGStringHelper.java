@@ -28,14 +28,13 @@ import com.helger.commons.string.StringHelper;
 /**
  * Special string helper especially for Java internal class name handling etc.
  * CG = Code Generation.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class CGStringHelper
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CGStringHelper s_aInstance = new CGStringHelper ();
 
   private CGStringHelper ()
@@ -43,7 +42,7 @@ public final class CGStringHelper
 
   /**
    * Get the name of the object's class without the package.
-   * 
+   *
    * @param aObject
    *        The object to get the information from. May not be <code>null</code>
    *        .
@@ -59,7 +58,7 @@ public final class CGStringHelper
 
   /**
    * Get the name of the class without the package.
-   * 
+   *
    * @param aClass
    *        The class to get the information from. May not be <code>null</code>.
    * @return The local name of the passed class.
@@ -74,7 +73,7 @@ public final class CGStringHelper
 
   /**
    * Get the name of the class without the package.
-   * 
+   *
    * @param sClassName
    *        The fully qualified name of the class. May not be <code>null</code>.
    * @return The local name of the passed class. Never <code>null</code>.
@@ -90,7 +89,7 @@ public final class CGStringHelper
 
   /**
    * Get the name of the package the passed class resides in.
-   * 
+   *
    * @param aClass
    *        The class to get the information from. May not be <code>null</code>.
    * @return The package name of the passed class.
@@ -105,7 +104,7 @@ public final class CGStringHelper
 
   /**
    * Get the name of the package the passed class resides in.
-   * 
+   *
    * @param sClassName
    *        The name class to get the information from. May not be
    *        <code>null</code>.
@@ -123,7 +122,7 @@ public final class CGStringHelper
   /**
    * Get the class name of the passed object. If the object itself is of type
    * {@link Class}, its name is retrieved, other {@link #getClass()} is called.
-   * 
+   *
    * @param aObject
    *        The object who's class name is to be retrieved.
    * @return <code>&quot;null&quot;</code> for a <code>null</code> parameter
@@ -140,7 +139,7 @@ public final class CGStringHelper
 
   /**
    * Convert a package name to a relative directory name.
-   * 
+   *
    * @param aPackage
    *        The package to be converted. May not be <code>null</code>.
    * @return The directory name using forward slashes (/) instead of the dots.
@@ -156,7 +155,7 @@ public final class CGStringHelper
 
   /**
    * Convert a package name to a relative directory name.
-   * 
+   *
    * @param sPackage
    *        The name of the package to be converted. May not be
    *        <code>null</code>.
@@ -173,7 +172,7 @@ public final class CGStringHelper
    * Get the path representation of the passed class. The path representation is
    * achieved by replacing all dots (.) with forward slashes (/) in the class
    * name.
-   * 
+   *
    * @param aClass
    *        The class of which the path is to be retrieved. May not be
    *        <code>null</code>.
@@ -191,7 +190,7 @@ public final class CGStringHelper
    * Get the path representation of the passed class name. The path
    * representation is achieved by replacing all dots (.) with forward slashes
    * (/) in the class name.
-   * 
+   *
    * @param sClassName
    *        The class name of which the path is to be retrieved.
    * @return The path representation
@@ -209,7 +208,7 @@ public final class CGStringHelper
    * replacing all path separators (\ and /) with dots (.). This method does not
    * handle the file extension, so it's up to the caller to skip of any file
    * extension!
-   * 
+   *
    * @param sPath
    *        The path to be converted. May not be <code>null</code>.
    * @return The class name.
@@ -227,7 +226,7 @@ public final class CGStringHelper
    * method makes no differentiation between 32 and 64 bit architectures. The
    * result is always a hexadecimal value preceded by "0x" and followed by
    * exactly 8 characters.
-   * 
+   *
    * @param aObject
    *        The object who's address is to be retrieved. May be
    *        <code>null</code>.

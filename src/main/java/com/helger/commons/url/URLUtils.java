@@ -102,7 +102,6 @@ public final class URLUtils
   private static char [][] s_aCleanURLNew;
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final URLUtils s_aInstance = new URLUtils ();
 
   private URLUtils ()

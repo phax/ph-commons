@@ -32,7 +32,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Helper class for rounding numeric values in a flexible way.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -58,7 +58,6 @@ public final class RoundHelper
   }
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final RoundHelper s_aInstance = new RoundHelper ();
 
   private RoundHelper ()
@@ -66,7 +65,7 @@ public final class RoundHelper
 
   /**
    * Source: http://www.luschny.de/java/doubleformat.html
-   * 
+   *
    * @param dValue
    *        The value to be rounded
    * @param nScale
@@ -103,7 +102,7 @@ public final class RoundHelper
 
   /**
    * Round using the {@link RoundingMode#HALF_UP} mode and fix representation
-   * 
+   *
    * @param dValue
    *        The value to be rounded
    * @param nScale
@@ -118,7 +117,7 @@ public final class RoundHelper
   /**
    * Round using the {@link RoundingMode#HALF_UP} mode, fix representation and a
    * precision scale of 2.
-   * 
+   *
    * @param dValue
    *        The value to be rounded
    * @return the rounded value
@@ -131,7 +130,7 @@ public final class RoundHelper
   /**
    * Round using the {@link RoundingMode#HALF_EVEN} mode and exponential
    * representation
-   * 
+   *
    * @param dValue
    *        The value to be rounded
    * @param nScale
@@ -146,7 +145,7 @@ public final class RoundHelper
   /**
    * Round using the {@link RoundingMode#HALF_EVEN} mode, exponential
    * representation and a precision scale of 2.
-   * 
+   *
    * @param dValue
    *        The value to be rounded
    * @return the rounded value
@@ -158,7 +157,7 @@ public final class RoundHelper
 
   /**
    * Source: http://www.luschny.de/java/doubleformat.html
-   * 
+   *
    * @param dValue
    *        the value to be formatted
    * @param nScale

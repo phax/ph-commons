@@ -39,7 +39,7 @@ import com.helger.commons.io.IReadableResource;
 
 /**
  * A global factory for XML transformation objects.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -55,7 +55,6 @@ public final class XMLTransformerFactory
   }
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final XMLTransformerFactory s_aInstance = new XMLTransformerFactory ();
 
   private XMLTransformerFactory ()
@@ -92,7 +91,7 @@ public final class XMLTransformerFactory
   /**
    * Create a new XSLT transformer for no specific resource. This uses the
    * central <b>not thread safe</b> transformer factory.
-   * 
+   *
    * @return <code>null</code> if something goes wrong
    */
   @Nullable
@@ -103,7 +102,7 @@ public final class XMLTransformerFactory
 
   /**
    * Create a new XSLT transformer for no specific resource.
-   * 
+   *
    * @param aTransformerFactory
    *        The transformer factory to be used. May not be <code>null</code>.
    * @return <code>null</code> if something goes wrong
@@ -127,7 +126,7 @@ public final class XMLTransformerFactory
   /**
    * Create a new XSLT transformer for the passed resource. This uses the
    * central <b>not thread safe</b> transformer factory.
-   * 
+   *
    * @param aResource
    *        The resource to be transformed. May not be <code>null</code>.
    * @return <code>null</code> if something goes wrong
@@ -140,7 +139,7 @@ public final class XMLTransformerFactory
 
   /**
    * Create a new XSLT transformer for the passed resource.
-   * 
+   *
    * @param aTransformerFactory
    *        The transformer factory to be used. May not be <code>null</code>.
    * @param aResource
@@ -159,7 +158,7 @@ public final class XMLTransformerFactory
   /**
    * Create a new XSLT transformer for the passed resource. This uses the
    * central <b>not thread safe</b> transformer factory.
-   * 
+   *
    * @param aSource
    *        The resource to be transformed. May not be <code>null</code>.
    * @return <code>null</code> if something goes wrong
@@ -172,7 +171,7 @@ public final class XMLTransformerFactory
 
   /**
    * Create a new XSLT transformer for the passed resource.
-   * 
+   *
    * @param aTransformerFactory
    *        The transformer factory to be used. May not be <code>null</code>.
    * @param aSource
@@ -200,7 +199,7 @@ public final class XMLTransformerFactory
   /**
    * Create a new XSLT Template for the passed resource. This uses the central
    * <b>not thread safe</b> transformer factory.
-   * 
+   *
    * @param aResource
    *        The resource to be templated. May not be <code>null</code>.
    * @return <code>null</code> if something goes wrong
@@ -214,7 +213,7 @@ public final class XMLTransformerFactory
   /**
    * Create a new XSLT Template for the passed resource. This uses the central
    * <b>not thread safe</b> transformer factory.
-   * 
+   *
    * @param aSource
    *        The resource to be templated. May not be <code>null</code>.
    * @return <code>null</code> if something goes wrong
@@ -227,7 +226,7 @@ public final class XMLTransformerFactory
 
   /**
    * Create a new XSLT Template for the passed resource.
-   * 
+   *
    * @param aFactory
    *        The transformer factory to be used. May not be <code>null</code>.
    * @param aResource
@@ -245,7 +244,7 @@ public final class XMLTransformerFactory
 
   /**
    * Create a new XSLT Template for the passed resource.
-   * 
+   *
    * @param aTransformerFactory
    *        The transformer factory to be used. May not be <code>null</code>.
    * @param aSource

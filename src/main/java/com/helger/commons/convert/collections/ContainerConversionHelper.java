@@ -46,7 +46,6 @@ import com.helger.commons.filter.IFilter;
 public final class ContainerConversionHelper
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final ContainerConversionHelper s_aInstance = new ContainerConversionHelper ();
 
   private ContainerConversionHelper ()

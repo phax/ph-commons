@@ -41,7 +41,6 @@ public final class SystemHelper
   }
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final SystemHelper s_aInstance = new SystemHelper ();
 
   private SystemHelper ()

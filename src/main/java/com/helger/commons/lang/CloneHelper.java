@@ -30,7 +30,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 
 /**
  * Helper class for cloning objects.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -39,7 +39,6 @@ public final class CloneHelper
   private static final Logger s_aLogger = LoggerFactory.getLogger (CloneHelper.class);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CloneHelper s_aInstance = new CloneHelper ();
 
   private CloneHelper ()
@@ -102,7 +101,7 @@ public final class CloneHelper
    * class as it declares)</li>
    * </ol>
    * If all tries fail, <code>null</code> is returned.
-   * 
+   *
    * @param aObject
    *        The object to be copied.
    * @return <code>null</code> if the passed value is <code>null</code> or if no
@@ -130,7 +129,7 @@ public final class CloneHelper
   /**
    * Get a clone (= deep copy) of the passed value for all objects implementing
    * {@link ICloneable}.
-   * 
+   *
    * @param aObject
    *        The object to be copied. May be <code>null</code>.
    * @return <code>null</code> if the passed value is <code>null</code> or a

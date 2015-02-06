@@ -49,7 +49,6 @@ public final class FileOperations
   private static final Logger s_aLogger = LoggerFactory.getLogger (FileOperations.class);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final FileOperations s_aInstance = new FileOperations ();
 
   private static volatile boolean s_bWarnOnDeleteRoot = DEFAULT_WARN_ON_DELETE_ROOT;

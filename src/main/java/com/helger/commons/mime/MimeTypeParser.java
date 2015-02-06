@@ -30,14 +30,13 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * This class handles the String parsing of MIME types.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class MimeTypeParser
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final MimeTypeParser s_aInstance = new MimeTypeParser ();
 
   private static final char [] TSPECIAL = new char [] { '(',
@@ -73,7 +72,7 @@ public final class MimeTypeParser
   /**
    * Check if the passed character is a special character according to RFC 2045
    * chapter 5.1
-   * 
+   *
    * @param c
    *        The character to check
    * @return <code>true</code> if the character is a special character,
@@ -88,7 +87,7 @@ public final class MimeTypeParser
    * Check if the passed character is a valid token character. According to RFC
    * 2045 this can be
    * <em>any (US-ASCII) CHAR except SPACE, CTLs, or tspecials</em>
-   * 
+   *
    * @param c
    *        The character to check.
    * @return <code>true</code> if the passed character is a valid token
@@ -105,7 +104,7 @@ public final class MimeTypeParser
    * Check if the passed string is a valid MIME token by checking that the
    * length is at least 1 and all chars match the {@link #isTokenChar(char)}
    * condition.
-   * 
+   *
    * @param sToken
    *        The token to be checked. May be <code>null</code>.
    * @return <code>true</code> if the passed string is valid token,
@@ -280,7 +279,7 @@ public final class MimeTypeParser
    * Try to convert the string representation of a MIME type to an object. The
    * default quoting algorithm {@link CMimeType#DEFAULT_QUOTING} is used to
    * unquote strings.
-   * 
+   *
    * @param sMimeType
    *        The string representation to be converted. May be <code>null</code>.
    * @return <code>null</code> if the parsed string is empty.
@@ -297,7 +296,7 @@ public final class MimeTypeParser
    * Try to convert the string representation of a MIME type to an object. The
    * default quoting algorithm {@link CMimeType#DEFAULT_QUOTING} is used to
    * un-quote strings.
-   * 
+   *
    * @param sMimeType
    *        The string representation to be converted. May be <code>null</code>.
    * @param eQuotingAlgorithm
@@ -380,7 +379,7 @@ public final class MimeTypeParser
    * unquote strings. Compared to {@link #parseMimeType(String)} this method
    * swallows all {@link MimeTypeParserException} and simply returns
    * <code>null</code>.
-   * 
+   *
    * @param sMimeType
    *        The string representation to be converted. May be <code>null</code>.
    * @return <code>null</code> if the parsed string is empty or not a valid mime
@@ -405,7 +404,7 @@ public final class MimeTypeParser
    * un-quote strings. Compared to {@link #parseMimeType(String, EMimeQuoting)}
    * this method swallows all {@link MimeTypeParserException} and simply returns
    * <code>null</code>.
-   * 
+   *
    * @param sMimeType
    *        The string representation to be converted. May be <code>null</code>.
    * @param eQuotingAlgorithm

@@ -29,14 +29,13 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Utility class for dealing with the Java class path.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class ClassPathHelper
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final ClassPathHelper s_aInstance = new ClassPathHelper ();
 
   private ClassPathHelper ()
@@ -55,7 +54,7 @@ public final class ClassPathHelper
   /**
    * Print all class path entries on the passed print stream, using the system
    * line separator
-   * 
+   *
    * @param aPS
    *        The print stream to print to. May not be <code>null</code>.
    */
@@ -67,7 +66,7 @@ public final class ClassPathHelper
   /**
    * Print all class path entries on the passed print stream, using the passed
    * separator
-   * 
+   *
    * @param aPS
    *        The print stream to print to. May not be <code>null</code>.
    * @param sItemSeparator

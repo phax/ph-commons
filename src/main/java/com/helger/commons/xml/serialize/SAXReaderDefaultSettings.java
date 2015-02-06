@@ -46,7 +46,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * SAX reader default settings
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -85,7 +85,6 @@ public final class SAXReaderDefaultSettings
       s_aDefaultFeatures.put (EXMLParserFeature.AUGMENT_PSVI, Boolean.FALSE);
   }
 
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final SAXReaderDefaultSettings s_aInstance = new SAXReaderDefaultSettings ();
 

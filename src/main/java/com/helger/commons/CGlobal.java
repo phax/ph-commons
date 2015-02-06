@@ -386,7 +386,6 @@ public final class CGlobal
   public static final float MM_PER_INCH = 25.4f;
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CGlobal s_aInstance = new CGlobal ();
 
   private CGlobal ()

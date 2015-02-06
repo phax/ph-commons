@@ -27,14 +27,13 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Utility class for calculating the Levenshtein distance of 2 strings.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class LevenshteinDistance
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final LevenshteinDistance s_aInstance = new LevenshteinDistance ();
 
   private LevenshteinDistance ()
@@ -42,7 +41,7 @@ public final class LevenshteinDistance
 
   /**
    * Main generic Levenshtein implementation that uses "1" for all costs!
-   * 
+   *
    * @param aStr1
    *        Not null
    * @param nLen1
@@ -98,7 +97,7 @@ public final class LevenshteinDistance
   /**
    * Main generic Levenshtein implementation. Assume all preconditions are
    * checked.
-   * 
+   *
    * @param aStr1
    *        Not null
    * @param nLen1
@@ -163,7 +162,7 @@ public final class LevenshteinDistance
   /**
    * Get the distance of the 2 strings, using the costs 1 for insertion,
    * deletion and substitution.
-   * 
+   *
    * @param aStr1
    *        First string.
    * @param aStr2
@@ -211,7 +210,7 @@ public final class LevenshteinDistance
   /**
    * Get the distance of the 2 strings, using the costs 1 for insertion,
    * deletion and substitution.
-   * 
+   *
    * @param sStr1
    *        First string.
    * @param sStr2

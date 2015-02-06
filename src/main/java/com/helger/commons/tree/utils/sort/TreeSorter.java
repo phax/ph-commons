@@ -38,7 +38,6 @@ import com.helger.commons.tree.utils.walk.TreeWalker;
 public final class TreeSorter
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final TreeSorter s_aInstance = new TreeSorter ();
 
   private TreeSorter ()

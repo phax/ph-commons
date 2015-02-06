@@ -38,7 +38,6 @@ import com.helger.commons.typeconvert.TypeConverterException.EReason;
 @ThreadSafe
 public final class SerializationConverter
 {
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final SerializationConverter s_aInstance = new SerializationConverter ();
 

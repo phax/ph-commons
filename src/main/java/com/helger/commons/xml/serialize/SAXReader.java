@@ -48,7 +48,7 @@ import com.helger.commons.xml.sax.InputSourceFactory;
 
 /**
  * Helper class to read XML documents via SAX
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -65,7 +65,6 @@ public final class SAXReader
                                                                                                                 new SAXReaderFactory ());
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final SAXReader s_aInstance = new SAXReader ();
 
   private SAXReader ()
@@ -186,7 +185,7 @@ public final class SAXReader
   /**
    * Read an XML document via a SAX handler. The streams are closed after
    * reading.
-   * 
+   *
    * @param aIS
    *        The input source to read from. Automatically closed upon success or
    *        error. May not be <code>null</code>.

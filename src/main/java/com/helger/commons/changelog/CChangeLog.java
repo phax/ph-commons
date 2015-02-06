@@ -22,7 +22,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 
 /**
  * This class contains constants for the use of changelogs.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -39,7 +39,6 @@ public final class CChangeLog
   public static final String CHANGELOG_XML_FILENAME = "changelog.xml";
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CChangeLog s_aInstance = new CChangeLog ();
 
   private CChangeLog ()

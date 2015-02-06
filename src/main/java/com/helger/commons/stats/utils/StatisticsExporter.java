@@ -27,7 +27,7 @@ import com.helger.commons.stats.visit.StatisticsWalker;
 
 /**
  * Class for exporting statistics.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -71,7 +71,6 @@ public final class StatisticsExporter
   public static final String ATTR_COUNT = "count";
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final StatisticsExporter s_aInstance = new StatisticsExporter ();
 
   private StatisticsExporter ()

@@ -69,14 +69,13 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Provides various helper methods to handle collections like {@link List},
  * {@link Set} and {@link Map}.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class ContainerHelper
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final ContainerHelper s_aInstance = new ContainerHelper ();
 
   private ContainerHelper ()
@@ -203,7 +202,7 @@ public final class ContainerHelper
   /**
    * Get all elements that are only contained in the first contained, and not in
    * the second. This method implements <code>aCont1 - aCont2</code>.
-   * 
+   *
    * @param aCollection1
    *        The first container. May be <code>null</code> or empty.
    * @param aCollection2
@@ -231,7 +230,7 @@ public final class ContainerHelper
   /**
    * Get all elements that are contained in the first AND in the second
    * container.
-   * 
+   *
    * @param aCollection1
    *        The first container. May be <code>null</code> or empty.
    * @param aCollection2
@@ -460,7 +459,7 @@ public final class ContainerHelper
   /**
    * Retrieve a map that is ordered in the way the parameter arrays are passed
    * in. Note that key and value arrays need to have the same length.
-   * 
+   *
    * @param <KEYTYPE>
    *        The key type.
    * @param <VALUETYPE>
@@ -1694,7 +1693,7 @@ public final class ContainerHelper
   /**
    * Compared to {@link Collections#list(Enumeration)} this method is more
    * flexible in Generics parameter.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        Type of the elements
    * @param aEnum
@@ -1799,7 +1798,7 @@ public final class ContainerHelper
   /**
    * Compared to {@link Collections#list(Enumeration)} this method is more
    * flexible in Generics parameter.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        Type of the elements
    * @param aEnum
@@ -2156,7 +2155,7 @@ public final class ContainerHelper
 
   /**
    * Create a new stack with a single element.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of elements contained in the stack.
    * @param aValue
@@ -2174,7 +2173,7 @@ public final class ContainerHelper
 
   /**
    * Create a new stack from the given array.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of elements contained in the stack.
    * @param aValues
@@ -2191,7 +2190,7 @@ public final class ContainerHelper
 
   /**
    * Create a new stack from the given collection.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of elements contained in the stack.
    * @param aValues
@@ -2238,7 +2237,7 @@ public final class ContainerHelper
   /**
    * Compared to {@link Collections#list(Enumeration)} this method is more
    * flexible in Generics parameter.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        Type of the elements
    * @param aEnum
@@ -2300,7 +2299,7 @@ public final class ContainerHelper
 
   /**
    * Convert the given iterator to a sorted list.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of elements to iterate. May not be <code>null</code>.
    * @param aIter
@@ -2317,7 +2316,7 @@ public final class ContainerHelper
 
   /**
    * Convert the given iterator to a sorted list.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of elements to iterate. May not be <code>null</code>.
    * @param aIter
@@ -2337,7 +2336,7 @@ public final class ContainerHelper
 
   /**
    * Convert the given iterator to a sorted list.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of elements to iterate. May not be <code>null</code>.
    * @param aIter
@@ -2354,7 +2353,7 @@ public final class ContainerHelper
 
   /**
    * Convert the given iterator to a sorted list.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of elements to iterate.
    * @param aIter
@@ -2374,7 +2373,7 @@ public final class ContainerHelper
 
   /**
    * Convert the given iterable object to a sorted list.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of element to iterate.
    * @param aCont
@@ -2391,7 +2390,7 @@ public final class ContainerHelper
 
   /**
    * Convert the given iterable object to a sorted list.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of element to iterate.
    * @param aCont
@@ -2411,7 +2410,7 @@ public final class ContainerHelper
 
   /**
    * Convert the given collection object to a sorted list.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of element to iterate.
    * @param aCont
@@ -2428,7 +2427,7 @@ public final class ContainerHelper
 
   /**
    * Convert the given collection object to a sorted list.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of element to iterate.
    * @param aCont
@@ -2448,7 +2447,7 @@ public final class ContainerHelper
 
   /**
    * Convert the given iterable object to a sorted list.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of element to iterate.
    * @param aCont
@@ -2465,7 +2464,7 @@ public final class ContainerHelper
 
   /**
    * Convert the given iterable object to a sorted list.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of element to iterate.
    * @param aCont
@@ -2507,7 +2506,7 @@ public final class ContainerHelper
   /**
    * Get a map sorted by aIter's keys. Because no comparator is defined, the key
    * type needs to implement the {@link java.lang.Comparable} interface.
-   * 
+   *
    * @param <KEYTYPE>
    *        map key type
    * @param <VALUETYPE>
@@ -2525,7 +2524,7 @@ public final class ContainerHelper
   /**
    * Get a map sorted by its keys. Because no comparator is defined, the key
    * type needs to implement the {@link java.lang.Comparable} interface.
-   * 
+   *
    * @param <KEYTYPE>
    *        map key type
    * @param <VALUETYPE>
@@ -2552,7 +2551,7 @@ public final class ContainerHelper
   /**
    * Get a map sorted by its keys. The comparison order is defined by the passed
    * comparator object.
-   * 
+   *
    * @param <KEYTYPE>
    *        map key type
    * @param <VALUETYPE>
@@ -2581,7 +2580,7 @@ public final class ContainerHelper
   /**
    * Get a map sorted by its values. Because no comparator is defined, the value
    * type needs to implement the {@link java.lang.Comparable} interface.
-   * 
+   *
    * @param <KEYTYPE>
    *        map key type
    * @param <VALUETYPE>
@@ -2599,7 +2598,7 @@ public final class ContainerHelper
   /**
    * Get a map sorted by its values. Because no comparator is defined, the value
    * type needs to implement the {@link java.lang.Comparable} interface.
-   * 
+   *
    * @param <KEYTYPE>
    *        map key type
    * @param <VALUETYPE>
@@ -2626,7 +2625,7 @@ public final class ContainerHelper
   /**
    * Get a map sorted by aIter's values. The comparison order is defined by the
    * passed comparator object.
-   * 
+   *
    * @param <KEYTYPE>
    *        map key type
    * @param <VALUETYPE>
@@ -2715,7 +2714,7 @@ public final class ContainerHelper
 
   /**
    * Create an empty iterator.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type the iterator's elements.
    * @return A non-<code>null</code> object.
@@ -2729,7 +2728,7 @@ public final class ContainerHelper
   /**
    * Get a merged iterator of both iterators. The first iterator is iterated
    * first, the second one afterwards.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of elements to be enumerated.
    * @param aIter1
@@ -2747,7 +2746,7 @@ public final class ContainerHelper
 
   /**
    * Get an {@link Enumeration} object based on a {@link Collection} object.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        the type of the elements in the container
    * @param aCont
@@ -2762,7 +2761,7 @@ public final class ContainerHelper
 
   /**
    * Get an {@link Enumeration} object based on the passed array.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        the type of the elements in the container
    * @param aArray
@@ -2777,7 +2776,7 @@ public final class ContainerHelper
 
   /**
    * Get an Enumeration object based on an Iterator object.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        the type of the elements in the container
    * @param aIter
@@ -2795,7 +2794,7 @@ public final class ContainerHelper
 
   /**
    * Get an Enumeration object based on a Map object.
-   * 
+   *
    * @param <KEYTYPE>
    *        map key type
    * @param <VALUETYPE>
@@ -2815,7 +2814,7 @@ public final class ContainerHelper
   /**
    * Get a merged enumeration of both enumeration. The first enumeration is
    * enumerated first, the second one afterwards.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of elements to be enumerated.
    * @param aEnum1
@@ -2833,7 +2832,7 @@ public final class ContainerHelper
 
   /**
    * Create an empty enumeration.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type the enumeration's elements.
    * @return A non-<code>null</code> object.
@@ -2859,7 +2858,7 @@ public final class ContainerHelper
   /**
    * Get a map consisting only of a set of specified keys. If an element from
    * the key set is not contained in the original map, the key is ignored.
-   * 
+   *
    * @param <KEY>
    *        Source map key type.
    * @param <VALUE>
@@ -2889,7 +2888,7 @@ public final class ContainerHelper
 
   /**
    * Get the first element of the passed list.
-   * 
+   *
    * @param aList
    *        The list. May be <code>null</code>.
    * @return <code>null</code> if the list is <code>null</code> or empty, the
@@ -2903,7 +2902,7 @@ public final class ContainerHelper
 
   /**
    * Get the first element of the passed sorted set.
-   * 
+   *
    * @param aSortedSet
    *        The sorted set. May be <code>null</code>.
    * @return <code>null</code> if the list is <code>null</code> or empty, the
@@ -2917,7 +2916,7 @@ public final class ContainerHelper
 
   /**
    * Get the first element of the passed collection.
-   * 
+   *
    * @param aCollection
    *        The collection. May be <code>null</code>.
    * @return <code>null</code> if the collection is <code>null</code> or empty,
@@ -2931,7 +2930,7 @@ public final class ContainerHelper
 
   /**
    * Get the first element of the passed iterable.
-   * 
+   *
    * @param aIterable
    *        The iterable. May be <code>null</code>.
    * @return <code>null</code> if the iterable is <code>null</code> or empty,
@@ -2948,7 +2947,7 @@ public final class ContainerHelper
 
   /**
    * Get the first element of the passed map.
-   * 
+   *
    * @param aMap
    *        The map. May be <code>null</code>.
    * @return <code>null</code> if the map is <code>null</code> or empty, the
@@ -2962,7 +2961,7 @@ public final class ContainerHelper
 
   /**
    * Get the first key of the passed map.
-   * 
+   *
    * @param aMap
    *        The map. May be <code>null</code>.
    * @return <code>null</code> if the map is <code>null</code> or empty, the
@@ -2976,7 +2975,7 @@ public final class ContainerHelper
 
   /**
    * Get the first key of the passed sorted map.
-   * 
+   *
    * @param aSortedMap
    *        The sorted map. May be <code>null</code>.
    * @return <code>null</code> if the map is <code>null</code> or empty, the
@@ -2990,7 +2989,7 @@ public final class ContainerHelper
 
   /**
    * Get the first value of the passed map.
-   * 
+   *
    * @param aMap
    *        The map. May be <code>null</code>.
    * @return <code>null</code> if the map is <code>null</code> or empty, the
@@ -3004,7 +3003,7 @@ public final class ContainerHelper
 
   /**
    * Get the first value of the passed map.
-   * 
+   *
    * @param aSortedMap
    *        The map. May be <code>null</code>.
    * @return <code>null</code> if the map is <code>null</code> or empty, the
@@ -3066,7 +3065,7 @@ public final class ContainerHelper
    * Remove the element at the specified index from the passed list. This works
    * if the list is not <code>null</code> and the index is &ge; 0 and &lt;
    * <code>list.size()</code>
-   * 
+   *
    * @param aList
    *        The list to remove an element from. May be <code>null</code>.
    * @param nIndex
@@ -3087,7 +3086,7 @@ public final class ContainerHelper
    * Remove the element at the specified index from the passed list. This works
    * if the list is not <code>null</code> and the index is &ge; 0 and &lt;
    * <code>list.size()</code>
-   * 
+   *
    * @param aList
    *        The list to remove an element from. May be <code>null</code>.
    * @param nIndex
@@ -3108,7 +3107,7 @@ public final class ContainerHelper
 
   /**
    * Get the last key of the passed sorted map.
-   * 
+   *
    * @param aSortedMap
    *        The sorted map. May be <code>null</code>.
    * @return <code>null</code> if the map is <code>null</code> or empty, the
@@ -3122,7 +3121,7 @@ public final class ContainerHelper
 
   /**
    * Get the last value of the passed map.
-   * 
+   *
    * @param aSortedMap
    *        The map. May be <code>null</code>.
    * @return <code>null</code> if the map is <code>null</code> or empty, the
@@ -3205,7 +3204,7 @@ public final class ContainerHelper
   /**
    * Retrieve the size of the passed {@link Collection}. This method handles
    * <code>null</code> containers.
-   * 
+   *
    * @param aCollection
    *        Object to check. May be <code>null</code>.
    * @return The size of the object or 0 if the passed parameter is
@@ -3220,7 +3219,7 @@ public final class ContainerHelper
   /**
    * Retrieve the size of the passed {@link Map}. This method handles
    * <code>null</code> containers.
-   * 
+   *
    * @param aMap
    *        Object to check. May be <code>null</code>.
    * @return The size of the object or 0 if the passed parameter is
@@ -3234,7 +3233,7 @@ public final class ContainerHelper
 
   /**
    * Retrieve the size of the passed {@link Iterable}.
-   * 
+   *
    * @param aIterable
    *        Iterator to check. May be <code>null</code>.
    * @return The number objects or 0 if the passed parameter is
@@ -3248,7 +3247,7 @@ public final class ContainerHelper
 
   /**
    * Retrieve the size of the passed {@link Iterable}.
-   * 
+   *
    * @param aIterator
    *        Iterable iterator to check. May be <code>null</code>.
    * @return The number objects or 0 if the passed parameter is
@@ -3262,7 +3261,7 @@ public final class ContainerHelper
 
   /**
    * Retrieve the size of the passed {@link Iterator}.
-   * 
+   *
    * @param aIterator
    *        Iterator to check. May be <code>null</code>.
    * @return The number objects or 0 if the passed parameter is
@@ -3283,7 +3282,7 @@ public final class ContainerHelper
 
   /**
    * Retrieve the size of the passed {@link Enumeration}.
-   * 
+   *
    * @param aEnumeration
    *        Enumeration to check. May be <code>null</code>.
    * @return The number objects or 0 if the passed parameter is
@@ -3443,7 +3442,7 @@ public final class ContainerHelper
   /**
    * Create a map that contains the combination of the other 2 maps. Both maps
    * need to have the same key and value type.
-   * 
+   *
    * @param <KEY>
    *        The map key type.
    * @param <VALUE>
@@ -3635,7 +3634,7 @@ public final class ContainerHelper
 
   /**
    * Gets a sublist excerpt of the passed list.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        Type of elements in list
    * @param aCont
@@ -3673,7 +3672,7 @@ public final class ContainerHelper
 
   /**
    * Get a map where keys and values are exchanged.
-   * 
+   *
    * @param <KEYTYPE>
    *        Original key type.
    * @param <VALUETYPE>
@@ -3697,7 +3696,7 @@ public final class ContainerHelper
 
   /**
    * Get a map where the lookup (1K..nV) has been reversed to (1V..nK)
-   * 
+   *
    * @param <KEYTYPE>
    *        Original key type
    * @param <VALUETYPE>
@@ -3722,7 +3721,7 @@ public final class ContainerHelper
 
   /**
    * Get a map where the lookup (1K..nV) has been reversed to (1V..nK)
-   * 
+   *
    * @param <KEYTYPE>
    *        Original key type
    * @param <VALUETYPE>
@@ -3747,7 +3746,7 @@ public final class ContainerHelper
 
   /**
    * Safe list element accessor method.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of elements on the list.
    * @param aList
@@ -3764,7 +3763,7 @@ public final class ContainerHelper
 
   /**
    * Safe list element accessor method.
-   * 
+   *
    * @param <ELEMENTTYPE>
    *        The type of elements on the list.
    * @param aList
@@ -3786,7 +3785,7 @@ public final class ContainerHelper
   /**
    * Check if the passed collection contains at least one <code>null</code>
    * element.
-   * 
+   *
    * @param aCont
    *        The collection to check. May be <code>null</code>.
    * @return <code>true</code> only if the passed collection is neither
@@ -3804,7 +3803,7 @@ public final class ContainerHelper
 
   /**
    * Check if the passed collection contains only <code>null</code> element.
-   * 
+   *
    * @param aCont
    *        The collection to check. May be <code>null</code>.
    * @return <code>true</code> only if the passed collection is neither

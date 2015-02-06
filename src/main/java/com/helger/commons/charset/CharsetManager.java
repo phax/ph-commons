@@ -35,7 +35,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Whole lotta charset management routines.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -50,7 +50,6 @@ public final class CharsetManager
   }
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CharsetManager s_aInstance = new CharsetManager ();
 
   private CharsetManager ()
@@ -60,7 +59,7 @@ public final class CharsetManager
    * Resolve the charset by the specified name. The difference to
    * {@link Charset#forName(String)} is, that this method has no checked
    * exceptions but only unchecked exceptions.
-   * 
+   *
    * @param sCharsetName
    *        The charset to be resolved. May neither be <code>null</code> nor
    *        empty.
@@ -90,7 +89,7 @@ public final class CharsetManager
   /**
    * Resolve the charset by the specified name. The difference to
    * {@link Charset#forName(String)} is, that this method throws no exceptions.
-   * 
+   *
    * @param sCharsetName
    *        The charset to be resolved. May be <code>null</code> or empty.
    * @return The Charset object or <code>null</code> if no such charset was
@@ -239,7 +238,7 @@ public final class CharsetManager
   /**
    * Get the number of bytes necessary to represent the passed string as an
    * UTF-8 string.
-   * 
+   *
    * @param s
    *        The string to count the length. May be <code>null</code> or empty.
    * @return A non-negative value.
@@ -253,7 +252,7 @@ public final class CharsetManager
   /**
    * Get the number of bytes necessary to represent the passed char array as an
    * UTF-8 string.
-   * 
+   *
    * @param aChars
    *        The characters to count the length. May be <code>null</code> or
    *        empty.
@@ -277,7 +276,7 @@ public final class CharsetManager
 
   /**
    * Get the number of bytes necessary to represent the passed character.
-   * 
+   *
    * @param c
    *        The character to be evaluated.
    * @return A non-negative value.

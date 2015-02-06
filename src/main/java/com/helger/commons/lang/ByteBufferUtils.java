@@ -27,13 +27,12 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 
 /**
  * Contains some {@link ByteBuffer} utility methods.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public final class ByteBufferUtils
 {
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final ByteBufferUtils s_aInstance = new ByteBufferUtils ();
 
@@ -62,7 +61,7 @@ public final class ByteBufferUtils
 
   /**
    * Transfer as much as possible from source to dest buffer.
-   * 
+   *
    * @param aSrcBuffer
    *        Source buffer. May not be <code>null</code>.
    * @param aDstBuffer

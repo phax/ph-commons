@@ -45,7 +45,6 @@ import com.helger.commons.tree.withid.DefaultTreeWithID;
 public final class TreeWithIDBuilder
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final TreeWithIDBuilder s_aInstance = new TreeWithIDBuilder ();
 
   private TreeWithIDBuilder ()
