@@ -219,6 +219,7 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
             buffer = nbuf;
           }
     m_nCount = m_nPos;
+    // Potentially blocking read
     final int n = _getInIfOpen ().read (buffer, m_nPos, buffer.length - m_nPos);
     if (n > 0)
       m_nCount = n + m_nPos;
@@ -261,7 +262,10 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
        * the local buffer. In this way buffered streams will cascade harmlessly.
        */
       if (nLen >= _getBufIfOpen ().length && m_nMarkPos < 0)
+      {
+        // Potentially blocking read
         return _getInIfOpen ().read (aBuf, nOfs, nLen);
+      }
 
       _fill ();
       nAvail = m_nCount - m_nPos;

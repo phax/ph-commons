@@ -442,6 +442,7 @@ public final class StreamUtils
   {
     long nTotalBytesWritten = 0;
     int nBytesRead;
+    // Potentially blocking read
     while ((nBytesRead = aIS.read (aBuffer, 0, aBuffer.length)) > -1)
     {
       aOS.write (aBuffer, 0, nBytesRead);
@@ -465,6 +466,7 @@ public final class StreamUtils
       final int nBytesToRead = nRest >= aBuffer.length ? aBuffer.length : (int) nRest;
       if (nBytesToRead == 0)
         break;
+      // Potentially blocking read
       final int nBytesRead = aIS.read (aBuffer, 0, nBytesToRead);
       if (nBytesRead == -1)
       {
@@ -916,6 +918,7 @@ public final class StreamUtils
   {
     long nTotalCharsWritten = 0;
     int nCharsRead;
+    // Potentially blocking read
     while ((nCharsRead = aReader.read (aBuffer, 0, aBuffer.length)) > -1)
     {
       aWriter.write (aBuffer, 0, nCharsRead);
@@ -939,6 +942,7 @@ public final class StreamUtils
       final int nCharsToRead = nRest >= aBuffer.length ? aBuffer.length : (int) nRest;
       if (nCharsToRead == 0)
         break;
+      // Potentially blocking read
       final int nCharsRead = aReader.read (aBuffer, 0, nCharsToRead);
       if (nCharsRead == -1)
       {
@@ -1787,18 +1791,35 @@ public final class StreamUtils
   }
 
   /**
+   * Read the whole buffer from the input stream using the default buffer size.
+   *
+   * @param aIS
+   *        The input stream to read from. May not be <code>null</code>.
+   * @return The number of read bytes
+   * @throws IOException
+   *         In case reading fails
+   */
+  @Nonnegative
+  public static int readFully (@Nonnull final InputStream aIS) throws IOException
+  {
+    return readFully (aIS, new byte [DEFAULT_BUFSIZE]);
+  }
+
+  /**
    * Read the whole buffer from the input stream.
    *
    * @param aIS
    *        The input stream to read from. May not be <code>null</code>.
    * @param aBuffer
    *        The buffer to read from. May not be <code>null</code>.
+   * @return The number of read bytes
    * @throws IOException
    *         In case reading fails
    */
-  public static void readFully (@Nonnull final InputStream aIS, @Nonnull final byte [] aBuffer) throws IOException
+  @Nonnegative
+  public static int readFully (@Nonnull final InputStream aIS, @Nonnull final byte [] aBuffer) throws IOException
   {
-    readFully (aIS, aBuffer, 0, aBuffer.length);
+    return readFully (aIS, aBuffer, 0, aBuffer.length);
   }
 
   /**
@@ -1829,6 +1850,7 @@ public final class StreamUtils
     int nTotalBytesRead = 0;
     while (nTotalBytesRead < nLen)
     {
+      // Potentially blocking read
       final int nBytesRead = aIS.read (aBuffer, nOfs + nTotalBytesRead, nLen - nTotalBytesRead);
       if (nBytesRead < 0)
         throw new EOFException ("Failed to read a total of " +
