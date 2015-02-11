@@ -1791,27 +1791,13 @@ public final class StreamUtils
   }
 
   /**
-   * Read the whole buffer from the input stream using the default buffer size.
-   *
-   * @param aIS
-   *        The input stream to read from. May not be <code>null</code>.
-   * @return The number of read bytes
-   * @throws IOException
-   *         In case reading fails
-   */
-  @Nonnegative
-  public static int readFully (@Nonnull final InputStream aIS) throws IOException
-  {
-    return readFully (aIS, new byte [DEFAULT_BUFSIZE]);
-  }
-
-  /**
    * Read the whole buffer from the input stream.
    *
    * @param aIS
    *        The input stream to read from. May not be <code>null</code>.
    * @param aBuffer
-   *        The buffer to read from. May not be <code>null</code>.
+   *        The buffer to write to. May not be <code>null</code>. Must be &ge;
+   *        than the content to be read.
    * @return The number of read bytes
    * @throws IOException
    *         In case reading fails
@@ -1828,7 +1814,8 @@ public final class StreamUtils
    * @param aIS
    *        The input stream to read from. May not be <code>null</code>.
    * @param aBuffer
-   *        The buffer to read from. May not be <code>null</code>.
+   *        The buffer to write to. May not be <code>null</code>. Must be &ge;
+   *        than the content to be read.
    * @param nOfs
    *        The offset into the destination buffer to use. May not be &lt; 0.
    * @param nLen
