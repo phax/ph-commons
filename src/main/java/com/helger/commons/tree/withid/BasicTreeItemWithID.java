@@ -54,7 +54,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *        tree item implementation type
  */
 @NotThreadSafe
-public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> implements ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>
+public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> implements
+                                                                                                                     ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>
 {
   // item factory
   private final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> m_aFactory;
@@ -183,6 +184,20 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   public final DATATYPE getParentData ()
   {
     return m_aParent == null ? null : m_aParent.getData ();
+  }
+
+  @Nonnegative
+  public final int getLevel ()
+  {
+    int ret = 0;
+    @SuppressWarnings ("unchecked")
+    ITEMTYPE aItem = (ITEMTYPE) this;
+    while (aItem.getParent () != null)
+    {
+      ++ret;
+      aItem = aItem.getParent ();
+    }
+    return ret;
   }
 
   @Nullable

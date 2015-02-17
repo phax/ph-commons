@@ -22,6 +22,11 @@
   <release date="2015-02-17" version="5.5.0" />
   <entry date="2015-02-17" category="api" action="add">
     <change>
+      <text locale="en">Added method IBasicTreeItem.getLevel()</text>
+    </change>
+  </entry>
+  <entry date="2015-02-17" category="api" action="add">
+    <change>
       <text locale="en">Extended MutableBigDecimal and MutableBigInteger API</text>
     </change>
   </entry>

@@ -18,6 +18,7 @@ package com.helger.commons.tree;
 
 import java.util.Collection;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -27,7 +28,7 @@ import com.helger.commons.state.ESuccess;
 
 /**
  * Base interface both for normal tree items and tree items with ID.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        Data type of the items.
@@ -46,13 +47,23 @@ public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATA
 
   /**
    * @return the data associated with the parent node. May be <code>null</code>.
+   *         This is like a shortcut for <code>getParent().getData()</code> with
+   *         implicit <code>null</code> handling.
    */
   @Nullable
   DATATYPE getParentData ();
 
   /**
+   * @return The nesting level of this node. The root node has level 0. A child
+   *         of the root item has level 1 etc.
+   * @since 5.5.0
+   */
+  @Nonnegative
+  int getLevel ();
+
+  /**
    * Get the data values of all contained children.
-   * 
+   *
    * @return <code>null</code> if this item does not have children. Use
    *         {@link #hasChildren()} to check for the existence.
    */
@@ -61,7 +72,7 @@ public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATA
 
   /**
    * Change the data associated with this node.
-   * 
+   *
    * @param aData
    *        The data associated with this node. May be <code>null</code>.
    * @throws IllegalArgumentException
@@ -78,7 +89,7 @@ public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATA
   /**
    * Check if this item is the same or a child of the passed item. This is not
    * limited to direct children but to children on all levels.
-   * 
+   *
    * @param aParent
    *        The parent item to check whether this is a child of it. May not be
    *        <code>null</code>.
@@ -89,7 +100,7 @@ public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATA
 
   /**
    * Change the parent node of this node to another node (subordination).
-   * 
+   *
    * @param aNewParent
    *        The new parent to use. May not be <code>null</code>. To make it a
    *        root item, pass the owning tree's root item.

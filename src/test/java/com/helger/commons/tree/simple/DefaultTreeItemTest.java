@@ -16,6 +16,7 @@
  */
 package com.helger.commons.tree.simple;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -25,7 +26,7 @@ import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link DefaultTreeItem}.
- * 
+ *
  * @author Philip Helger
  */
 public final class DefaultTreeItemTest
@@ -45,5 +46,30 @@ public final class DefaultTreeItemTest
     assertFalse (t.isSameOrChildOf (c));
     assertTrue (c.isSameOrChildOf (t));
     assertTrue (c.isSameOrChildOf (c));
+  }
+
+  @Test
+  public void testLevel ()
+  {
+    final DefaultTreeItemFactory <String> tif = new DefaultTreeItemFactory <String> ();
+    final DefaultTreeItem <String> t = tif.createRoot ();
+    assertEquals (0, t.getLevel ());
+    final DefaultTreeItem <String> c = t.createChildItem ("any");
+    assertEquals (0, t.getLevel ());
+    assertEquals (1, c.getLevel ());
+    final DefaultTreeItem <String> c2 = c.createChildItem ("any2");
+    assertEquals (0, t.getLevel ());
+    assertEquals (1, c.getLevel ());
+    assertEquals (2, c2.getLevel ());
+    final DefaultTreeItem <String> c2b = c.createChildItem ("any2");
+    assertEquals (0, t.getLevel ());
+    assertEquals (1, c.getLevel ());
+    assertEquals (2, c2.getLevel ());
+    assertEquals (2, c2b.getLevel ());
+    c2b.changeParent (t);
+    assertEquals (0, t.getLevel ());
+    assertEquals (1, c.getLevel ());
+    assertEquals (2, c2.getLevel ());
+    assertEquals (1, c2b.getLevel ());
   }
 }
