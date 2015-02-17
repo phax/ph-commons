@@ -28,6 +28,13 @@ import org.junit.Test;
  */
 public final class GlobalDebugTest
 {
+  private static void _setToDefault ()
+  {
+    GlobalDebug.setProductionModeDirect (GlobalDebug.DEFAULT_PRODUCTION_MODE);
+    GlobalDebug.setDebugModeDirect (GlobalDebug.DEFAULT_DEBUG_MODE);
+    GlobalDebug.setTraceModeDirect (GlobalDebug.DEFAULT_TRACE_MODE);
+  }
+
   @Test
   public void testInstance ()
   {
@@ -69,6 +76,12 @@ public final class GlobalDebugTest
     assertTrue (GlobalDebug.isTraceMode ());
     assertTrue (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
+
+    _setToDefault ();
+
+    assertTrue (GlobalDebug.DEFAULT_TRACE_MODE == GlobalDebug.isTraceMode ());
+    assertTrue (GlobalDebug.DEFAULT_DEBUG_MODE == GlobalDebug.isDebugMode ());
+    assertTrue (GlobalDebug.DEFAULT_PRODUCTION_MODE == GlobalDebug.isProductionMode ());
   }
 
   @Test
@@ -103,13 +116,11 @@ public final class GlobalDebugTest
     assertFalse (GlobalDebug.isTraceMode ());
     assertFalse (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
-  }
 
-  @Test
-  public void testSetToDefault ()
-  {
-    GlobalDebug.setProductionModeDirect (GlobalDebug.DEFAULT_PRODUCTION_MODE);
-    GlobalDebug.setDebugModeDirect (GlobalDebug.DEFAULT_DEBUG_MODE);
-    GlobalDebug.setTraceModeDirect (GlobalDebug.DEFAULT_TRACE_MODE);
+    _setToDefault ();
+
+    assertTrue (GlobalDebug.DEFAULT_TRACE_MODE == GlobalDebug.isTraceMode ());
+    assertTrue (GlobalDebug.DEFAULT_DEBUG_MODE == GlobalDebug.isDebugMode ());
+    assertTrue (GlobalDebug.DEFAULT_PRODUCTION_MODE == GlobalDebug.isProductionMode ());
   }
 }
