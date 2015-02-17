@@ -14,15 +14,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mock;
+package com.helger.commons.scopes.singleton;
 
-import org.junit.Test;
+import javax.annotation.Nonnull;
 
-public class SPITest
+import com.helger.commons.annotations.UsedViaReflection;
+import com.helger.commons.scopes.singleton.RequestSingleton;
+
+/**
+ * Mock implementation of {@link RequestSingleton}.
+ * 
+ * @author Philip Helger
+ */
+public final class MockRequestSingleton extends RequestSingleton
 {
-  @Test
-  public void testBasic () throws Exception
+  private int i = 0;
+
+  @Deprecated
+  @UsedViaReflection
+  public MockRequestSingleton ()
+  {}
+
+  @Nonnull
+  public static MockRequestSingleton getInstance ()
   {
-    PHTestUtils.testIfAllSPIImplementationsAreValid (true);
+    return getRequestSingleton (MockRequestSingleton.class);
+  }
+
+  public void inc ()
+  {
+    i++;
+  }
+
+  public int get ()
+  {
+    return i;
   }
 }

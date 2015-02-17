@@ -14,15 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mock;
+package com.helger.commons.scopes;
 
-import org.junit.Test;
-
-public class SPITest
+/**
+ * This is a marker interface for all objects that should survive a session
+ * renewal. When renewing a session, all existing attributes will be checked for
+ * this interface and if implementing it, they will be copied to the new
+ * session.
+ * 
+ * @author Boris Gregorcic
+ */
+public interface IScopeRenewalAware
 {
-  @Test
-  public void testBasic () throws Exception
-  {
-    PHTestUtils.testIfAllSPIImplementationsAreValid (true);
-  }
+  /* empty */
 }

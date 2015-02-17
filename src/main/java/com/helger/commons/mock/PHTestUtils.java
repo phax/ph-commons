@@ -384,7 +384,7 @@ public final class PHTestUtils
   }
 
   @Nonnegative
-  public static int testIfAllSPIFilesAreValid (@Nonnull final String sBaseDir) throws Exception
+  public static int testIfAllSPIFilesAreValid (@Nonnull final String sBaseDir, final boolean bContinueOnError) throws Exception
   {
     int nTotalImplementationCount = 0;
     final File aBaseDir = new File (sBaseDir);
@@ -393,6 +393,20 @@ public final class PHTestUtils
         if (aFile.isFile ())
         {
           s_aLogger.info ("Checking SPI file " + aFile.getAbsolutePath ());
+
+          // Check if interface exists
+          try
+          {
+            Class.forName (aFile.getName ());
+          }
+          catch (final Throwable t)
+          {
+            s_aLogger.warn ("No interface representing " + aFile.getName () + "exists: " + t.getMessage ());
+            if (!bContinueOnError)
+              throw new Exception ("No interface representing " + aFile.getName () + "exists: " + t.getMessage ());
+          }
+
+          // Check content
           final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamUtils.createReader (FileUtils.getInputStream (aFile),
                                                                                                              CCharset.CHARSET_SERVICE_LOADER_OBJ));
           try
@@ -419,7 +433,9 @@ public final class PHTestUtils
           {
             // Ensure the path name of the currently checked file is contained
             // in the exception text!
-            throw new Exception ("Error checking SPI file " + aFile.getAbsolutePath (), t);
+            s_aLogger.warn ("  Error checking content: " + t.getMessage ());
+            if (!bContinueOnError)
+              throw new Exception ("Error checking SPI file " + aFile.getAbsolutePath (), t);
           }
           finally
           {
@@ -432,9 +448,15 @@ public final class PHTestUtils
   @Nonnegative
   public static int testIfAllSPIImplementationsAreValid () throws Exception
   {
+    return testIfAllSPIImplementationsAreValid (false);
+  }
+
+  @Nonnegative
+  public static int testIfAllSPIImplementationsAreValid (final boolean bContinueOnError) throws Exception
+  {
     int ret = 0;
-    ret += testIfAllSPIFilesAreValid ("src/main/resources/META-INF/services");
-    ret += testIfAllSPIFilesAreValid ("src/test/resources/META-INF/services");
+    ret += testIfAllSPIFilesAreValid ("src/main/resources/META-INF/services", bContinueOnError);
+    ret += testIfAllSPIFilesAreValid ("src/test/resources/META-INF/services", bContinueOnError);
     return ret;
   }
 }

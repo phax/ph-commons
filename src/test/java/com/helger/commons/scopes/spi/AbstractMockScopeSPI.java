@@ -14,15 +14,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mock;
+package com.helger.commons.scopes.spi;
 
-import org.junit.Test;
 
-public class SPITest
+/**
+ * Abstract base class for all Mock SPI implementations
+ * 
+ * @author Philip Helger
+ */
+public abstract class AbstractMockScopeSPI
 {
-  @Test
-  public void testBasic () throws Exception
+  private static int s_nBegin = 0;
+  private static int s_nEnd = 0;
+
+  protected static final void onBegin ()
   {
-    PHTestUtils.testIfAllSPIImplementationsAreValid (true);
+    s_nBegin++;
+  }
+
+  public static final int getBegin ()
+  {
+    return s_nBegin;
+  }
+
+  protected static final void onEnd ()
+  {
+    s_nEnd++;
+  }
+
+  public static final int getEnd ()
+  {
+    return s_nEnd;
   }
 }

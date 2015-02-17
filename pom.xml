@@ -154,8 +154,7 @@
         <configuration>
           <instructions>
             <Export-Package>
-              com.helger.commons.*,
-              com.helger.scopes.*
+              com.helger.commons.*
             </Export-Package>
             <Import-Package>
               !javax.annotation.*,*

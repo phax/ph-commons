@@ -14,15 +14,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mock;
+package com.helger.commons.scopes.mock;
 
-import org.junit.Test;
+import java.io.File;
 
-public class SPITest
+import org.junit.rules.ExternalResource;
+
+import com.helger.commons.annotations.OverrideOnDemand;
+
+/**
+ * Special JUnit test rule to initialize scopes correctly.
+ * 
+ * @author Philip Helger
+ */
+public class ScopeTestRule extends ExternalResource
 {
-  @Test
-  public void testBasic () throws Exception
+  public static final File STORAGE_PATH = ScopeAwareTestSetup.STORAGE_PATH;
+
+  @Override
+  @OverrideOnDemand
+  public void before ()
   {
-    PHTestUtils.testIfAllSPIImplementationsAreValid (true);
+    ScopeAwareTestSetup.setupScopeTests ();
+  }
+
+  @Override
+  @OverrideOnDemand
+  public void after ()
+  {
+    ScopeAwareTestSetup.shutdownScopeTests ();
   }
 }

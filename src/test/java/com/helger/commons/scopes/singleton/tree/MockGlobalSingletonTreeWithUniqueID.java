@@ -14,15 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mock;
+package com.helger.commons.scopes.singleton.tree;
 
-import org.junit.Test;
+import javax.annotation.Nonnull;
 
-public class SPITest
+import com.helger.commons.annotations.UsedViaReflection;
+import com.helger.commons.scopes.singleton.tree.GlobalSingletonTreeWithUniqueID;
+
+/**
+ * Mock global singleton
+ * 
+ * @author Philip Helger
+ */
+public final class MockGlobalSingletonTreeWithUniqueID extends GlobalSingletonTreeWithUniqueID <String, String>
 {
-  @Test
-  public void testBasic () throws Exception
+  @Deprecated
+  @UsedViaReflection
+  public MockGlobalSingletonTreeWithUniqueID ()
+  {}
+
+  @Nonnull
+  public static MockGlobalSingletonTreeWithUniqueID getInstance ()
   {
-    PHTestUtils.testIfAllSPIImplementationsAreValid (true);
+    return getGlobalSingleton (MockGlobalSingletonTreeWithUniqueID.class);
   }
 }

@@ -14,15 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mock;
+package com.helger.commons.scopes.spi;
 
-import org.junit.Test;
+import com.helger.commons.annotations.IsSPIImplementation;
+import com.helger.commons.scopes.domain.IRequestScope;
+import com.helger.commons.scopes.spi.IRequestScopeSPI;
 
-public class SPITest
+@IsSPIImplementation
+public final class MockRequestScopeSPI extends AbstractMockScopeSPI implements IRequestScopeSPI
 {
-  @Test
-  public void testBasic () throws Exception
+  public void onRequestScopeBegin (final IRequestScope aScope)
   {
-    PHTestUtils.testIfAllSPIImplementationsAreValid (true);
+    onBegin ();
+  }
+
+  public void onRequestScopeEnd (final IRequestScope aScope)
+  {
+    onEnd ();
   }
 }

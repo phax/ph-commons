@@ -14,15 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mock;
+package com.helger.commons.scopes.domain;
 
-import org.junit.Test;
+import com.helger.commons.scopes.IScope;
 
-public class SPITest
+/**
+ * Interface for a single session application scope object.
+ * 
+ * @author Philip Helger
+ */
+public interface ISessionApplicationScope extends IScope
 {
-  @Test
-  public void testBasic () throws Exception
-  {
-    PHTestUtils.testIfAllSPIImplementationsAreValid (true);
-  }
+  /* empty */
 }
