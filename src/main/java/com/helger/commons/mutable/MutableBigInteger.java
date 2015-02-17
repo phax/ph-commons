@@ -16,6 +16,7 @@
  */
 package com.helger.commons.mutable;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import javax.annotation.Nonnull;
@@ -51,9 +52,20 @@ public final class MutableBigInteger extends Number implements IMutableNumeric <
     this (DEFAULT_VALUE);
   }
 
+  public MutableBigInteger (final long nValue)
+  {
+    this (BigInteger.valueOf (nValue));
+  }
+
   public MutableBigInteger (@Nonnull final BigInteger aValue)
   {
     m_aValue = ValueEnforcer.notNull (aValue, "Value");
+  }
+
+  @Nonnull
+  public BigDecimal getAsBigDecimal ()
+  {
+    return new BigDecimal (m_aValue);
   }
 
   @Nonnull
@@ -104,8 +116,15 @@ public final class MutableBigInteger extends Number implements IMutableNumeric <
   }
 
   @Nonnull
+  public BigInteger inc (final long nDelta)
+  {
+    return inc (BigInteger.valueOf (nDelta));
+  }
+
+  @Nonnull
   public BigInteger inc (@Nonnull final BigInteger aDelta)
   {
+    ValueEnforcer.notNull (aDelta, "Delta");
     m_aValue = m_aValue.add (aDelta);
     return m_aValue;
   }
@@ -117,15 +136,29 @@ public final class MutableBigInteger extends Number implements IMutableNumeric <
   }
 
   @Nonnull
+  public BigInteger dec (final long nDelta)
+  {
+    return inc (BigInteger.valueOf (-nDelta));
+  }
+
+  @Nonnull
   public BigInteger dec (@Nonnull final BigInteger aDelta)
   {
+    ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.negate ());
+  }
+
+  @Nonnull
+  public EChange set (final long nDelta)
+  {
+    return set (BigInteger.valueOf (nDelta));
   }
 
   @Nonnull
   public EChange set (@Nonnull final BigInteger aValue)
   {
-    if (EqualsUtils.equals (aValue, m_aValue))
+    ValueEnforcer.notNull (aValue, "Value");
+    if (aValue.equals (m_aValue))
       return EChange.UNCHANGED;
     m_aValue = aValue;
     return EChange.CHANGED;

@@ -51,6 +51,16 @@ public final class MutableBigDecimal extends Number implements IMutableNumeric <
     this (DEFAULT_VALUE);
   }
 
+  public MutableBigDecimal (final long nValue)
+  {
+    this (BigDecimal.valueOf (nValue));
+  }
+
+  public MutableBigDecimal (final double dValue)
+  {
+    this (BigDecimal.valueOf (dValue));
+  }
+
   public MutableBigDecimal (@Nonnull final BigDecimal aValue)
   {
     m_aValue = ValueEnforcer.notNull (aValue, "Value");
@@ -104,8 +114,21 @@ public final class MutableBigDecimal extends Number implements IMutableNumeric <
   }
 
   @Nonnull
+  public BigDecimal inc (final long nDelta)
+  {
+    return inc (BigDecimal.valueOf (nDelta));
+  }
+
+  @Nonnull
+  public BigDecimal inc (final double dDelta)
+  {
+    return inc (BigDecimal.valueOf (dDelta));
+  }
+
+  @Nonnull
   public BigDecimal inc (@Nonnull final BigDecimal aDelta)
   {
+    ValueEnforcer.notNull (aDelta, "Delta");
     m_aValue = m_aValue.add (aDelta);
     return m_aValue;
   }
@@ -117,15 +140,41 @@ public final class MutableBigDecimal extends Number implements IMutableNumeric <
   }
 
   @Nonnull
+  public BigDecimal dec (final long nDelta)
+  {
+    return inc (BigDecimal.valueOf (-nDelta));
+  }
+
+  @Nonnull
+  public BigDecimal dec (final double dDelta)
+  {
+    return inc (BigDecimal.valueOf (-dDelta));
+  }
+
+  @Nonnull
   public BigDecimal dec (@Nonnull final BigDecimal aDelta)
   {
+    ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.negate ());
+  }
+
+  @Nonnull
+  public EChange set (final long nDelta)
+  {
+    return set (BigDecimal.valueOf (nDelta));
+  }
+
+  @Nonnull
+  public EChange set (final double dDelta)
+  {
+    return set (BigDecimal.valueOf (dDelta));
   }
 
   @Nonnull
   public EChange set (@Nonnull final BigDecimal aValue)
   {
-    if (EqualsUtils.equals (aValue, m_aValue))
+    ValueEnforcer.notNull (aValue, "Value");
+    if (aValue.equals (m_aValue))
       return EChange.UNCHANGED;
     m_aValue = aValue;
     return EChange.CHANGED;
