@@ -1,0 +1,2 @@
+com.helger.scopes.spi.MockRequestScopeSPI
+com.helger.scopes.spi.MockThrowingRequestScopeSPI
