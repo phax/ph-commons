@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 
 /**
  * Global scope utility methods that don't nicely fit somewhere else.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -63,7 +63,7 @@ public final class ScopeUtils
 
   /**
    * Enable or disable scope life cycle debugging for all scopes.
-   * 
+   *
    * @param bDebugLifeCycle
    *        <code>true</code> if the scope life cycle should be debugged,
    *        <code>false</code> to disable it. By default is is disabled.
@@ -101,7 +101,7 @@ public final class ScopeUtils
 
   /**
    * Enable or disable global scope life cycle debugging.
-   * 
+   *
    * @param bDebugScope
    *        <code>true</code> if the global scope life cycle should be debugged,
    *        <code>false</code> to disable it. By default is is disabled.
@@ -139,7 +139,7 @@ public final class ScopeUtils
 
   /**
    * Enable or disable application scope life cycle debugging.
-   * 
+   *
    * @param bDebugScope
    *        <code>true</code> if the application scope life cycle should be
    *        debugged, <code>false</code> to disable it. By default is is
@@ -178,7 +178,7 @@ public final class ScopeUtils
 
   /**
    * Enable or disable session scope life cycle debugging.
-   * 
+   *
    * @param bDebugScope
    *        <code>true</code> if the session scope life cycle should be
    *        debugged, <code>false</code> to disable it. By default is is
@@ -217,7 +217,7 @@ public final class ScopeUtils
 
   /**
    * Enable or disable session application scope life cycle debugging.
-   * 
+   *
    * @param bDebugScope
    *        <code>true</code> if the session application scope life cycle should
    *        be debugged, <code>false</code> to disable it. By default is is
@@ -256,7 +256,7 @@ public final class ScopeUtils
 
   /**
    * Enable or disable request scope life cycle debugging.
-   * 
+   *
    * @param bDebugScope
    *        <code>true</code> if the request scope life cycle should be
    *        debugged, <code>false</code> to disable it. By default is is
@@ -295,7 +295,7 @@ public final class ScopeUtils
 
   /**
    * Enable or disable stack traces when debugging scopes.
-   * 
+   *
    * @param bDebugWithStackTrace
    *        <code>true</code> to enable stack traces, <code>false</code> to
    *        disable them. By default is is disabled.
@@ -331,24 +331,9 @@ public final class ScopeUtils
   }
 
   /**
-   * This is a just a helper method to determine whether scope creation/deletion
-   * issues should be logged or not.
-   * 
-   * @param aLogger
-   *        The logger to check.
-   * @return <code>true</code> if scope creation/deletion should be logged,
-   *         <code>false</code> otherwise.
-   */
-  @Deprecated
-  public static boolean debugScopeLifeCycle (@Nonnull final Logger aLogger)
-  {
-    return isLifeCycleDebuggingEnabled () && aLogger.isInfoEnabled ();
-  }
-
-  /**
    * This is a just a helper method to determine whether global scope
    * creation/deletion issues should be logged or not.
-   * 
+   *
    * @param aLogger
    *        The logger to check.
    * @return <code>true</code> if global scope creation/deletion should be
@@ -362,7 +347,7 @@ public final class ScopeUtils
   /**
    * This is a just a helper method to determine whether application scope
    * creation/deletion issues should be logged or not.
-   * 
+   *
    * @param aLogger
    *        The logger to check.
    * @return <code>true</code> if application scope creation/deletion should be
@@ -376,7 +361,7 @@ public final class ScopeUtils
   /**
    * This is a just a helper method to determine whether session scope
    * creation/deletion issues should be logged or not.
-   * 
+   *
    * @param aLogger
    *        The logger to check.
    * @return <code>true</code> if session scope creation/deletion should be
@@ -390,7 +375,7 @@ public final class ScopeUtils
   /**
    * This is a just a helper method to determine whether global session
    * application creation/deletion issues should be logged or not.
-   * 
+   *
    * @param aLogger
    *        The logger to check.
    * @return <code>true</code> if session application scope creation/deletion
@@ -404,7 +389,7 @@ public final class ScopeUtils
   /**
    * This is a just a helper method to determine whether request scope
    * creation/deletion issues should be logged or not.
-   * 
+   *
    * @param aLogger
    *        The logger to check.
    * @return <code>true</code> if request scope creation/deletion should be

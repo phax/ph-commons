@@ -27,7 +27,6 @@ import java.math.RoundingMode;
 import java.util.Iterator;
 
 import javax.annotation.Nonnull;
-import javax.xml.XMLConstants;
 
 import org.junit.Test;
 import org.w3c.dom.DOMException;
@@ -403,24 +402,6 @@ public final class XMLHelperTest extends AbstractPHTestCase
     assertTrue (XMLHelper.getAllAttributesAsMap (eRoot).isEmpty ());
     eRoot.setAttribute ("name", "value");
     assertEquals (1, XMLHelper.getAllAttributesAsMap (eRoot).size ());
-  }
-
-  @Test
-  @Deprecated
-  public void testGetXMLNSAttrName ()
-  {
-    assertEquals ("xmlns:abc", XMLHelper.getXMLNSAttrName ("abc"));
-    assertEquals ("xmlns", XMLHelper.getXMLNSAttrName (""));
-    assertEquals ("xmlns", XMLHelper.getXMLNSAttrName (null));
-    assertEquals ("xmlns", XMLHelper.getXMLNSAttrName (XMLConstants.DEFAULT_NS_PREFIX));
-
-    try
-    {
-      XMLHelper.getXMLNSAttrName (":def");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
   }
 
   @Test

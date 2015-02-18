@@ -18,12 +18,8 @@ package com.helger.commons.mime;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -35,7 +31,6 @@ import javax.annotation.concurrent.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.GlobalDebug;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.MustBeLocked;
 import com.helger.commons.annotations.MustBeLocked.ELockType;
@@ -45,13 +40,7 @@ import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.collections.ArrayHelper;
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.exceptions.InitializationException;
-import com.helger.commons.io.file.FilenameHelper;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.microdom.reader.XMLMapHandler;
-import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
 
 /**
  * Contains a basic set of MimeType determination method.
@@ -83,30 +72,11 @@ public final class MimeTypeDeterminator
 
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
 
-  // Maps file extension to MIME type
-  private final Map <String, String> m_aFileExtMap = new HashMap <String, String> ();
-
   // Contains all byte[] to mime type mappings
   private final Set <MimeTypeContent> m_aMimeTypeContents = new HashSet <MimeTypeContent> ();
 
   private MimeTypeDeterminator ()
   {
-    // Key: extension (without dot), value (MIME type)
-    if (XMLMapHandler.readMap (new ClassPathResource ("codelists/fileext-mimetype-mapping.xml"), m_aFileExtMap)
-                     .isFailure ())
-      throw new InitializationException ("Failed to init file extension to mimetype mapping file");
-
-    // Validate all file extensions
-    if (GlobalDebug.isDebugMode ())
-      for (final Map.Entry <String, String> aEntry : m_aFileExtMap.entrySet ())
-      {
-        final String sFileExt = aEntry.getKey ();
-        if (!RegExHelper.stringMatchesPattern ("(|[a-zA-Z0-9]+(\\.[a-z0-9]+)*)", sFileExt))
-          throw new InitializationException ("MIME file extension '" + sFileExt + "' is invalid!");
-        if (aEntry.getValue ().contains (" "))
-          throw new InitializationException ("MIME type '" + aEntry.getValue () + "' is invalid!");
-      }
-
     _registerDefaultMimeTypeContents ();
   }
 
@@ -333,100 +303,6 @@ public final class MimeTypeDeterminator
     {
       m_aRWLock.readLock ().unlock ();
     }
-  }
-
-  /**
-   * Get the MIME type from the extension of the passed filename.
-   *
-   * @param sFilename
-   *        The filename to check. May be <code>null</code>.
-   * @return <code>null</code> if no MIME type was found.
-   */
-  @Nullable
-  @Deprecated
-  public String getMimeTypeFromFilename (@Nullable final String sFilename)
-  {
-    final String sExt = FilenameHelper.getExtension (sFilename);
-    return getMimeTypeFromExtension (sExt);
-  }
-
-  /**
-   * Get the MIME type object from the extension of the passed filename.
-   *
-   * @param sFilename
-   *        The filename to check. May be <code>null</code>.
-   * @return <code>null</code> if no MIME type was found.
-   */
-  @Nullable
-  @Deprecated
-  public MimeType getMimeTypeObjectFromFilename (@Nonnull final String sFilename)
-  {
-    final String sMimeType = getMimeTypeFromFilename (sFilename);
-    return MimeTypeParser.parseMimeType (sMimeType);
-  }
-
-  /**
-   * Get the MIME type from the passed filename extension.
-   *
-   * @param sExtension
-   *        The extension to check. Must be without the leading dot, so "doc" is
-   *        valid but ".doc" is not. May be <code>null</code>.
-   * @return <code>null</code> if no MIME type was found.
-   */
-  @Nullable
-  @Deprecated
-  public String getMimeTypeFromExtension (@Nullable final String sExtension)
-  {
-    if (StringHelper.hasNoText (sExtension))
-      return null;
-
-    String ret = m_aFileExtMap.get (sExtension);
-    if (ret == null)
-    {
-      // Especially on Windows, sometimes file extensions like "JPG" can be
-      // found. Therefore also test for the lowercase version of the extension.
-      ret = m_aFileExtMap.get (sExtension.toLowerCase (Locale.US));
-    }
-    return ret;
-  }
-
-  /**
-   * Get the MIME type object from the passed filename extension.
-   *
-   * @param sExtension
-   *        The extension to check. Must be without the leading dot, so "doc" is
-   *        valid but ".doc" is not. May be <code>null</code>.
-   * @return <code>null</code> if no MIME type was found.
-   */
-  @Nullable
-  @Deprecated
-  public MimeType getMimeTypeObjectFromExtension (@Nullable final String sExtension)
-  {
-    final String sMimeType = getMimeTypeFromExtension (sExtension);
-    return MimeTypeParser.parseMimeType (sMimeType);
-  }
-
-  /**
-   * @return A non-<code>null</code> list of all known MIME types as string.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  @Deprecated
-  public Collection <String> getAllKnownMimeTypes ()
-  {
-    return ContainerHelper.newList (m_aFileExtMap.values ());
-  }
-
-  /**
-   * @return A non-<code>null</code> map from filename extension to MIME type.
-   *         Never <code>null</code>.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  @Deprecated
-  public Map <String, String> getAllKnownMimeTypeFilenameMappings ()
-  {
-    return ContainerHelper.newMap (m_aFileExtMap);
   }
 
   /**

@@ -33,15 +33,6 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
   /**
    * @return A ordered list of child elements. May be <code>null</code> if no
    *         children are present.
-   * @deprecated Use {@link #getAllChildren()} instead
-   */
-  @Nullable
-  @Deprecated
-  List <? extends CHILDTYPE> getChildren ();
-
-  /**
-   * @return A ordered list of child elements. May be <code>null</code> if no
-   *         children are present.
    */
   @Nullable
   List <? extends CHILDTYPE> getAllChildren ();

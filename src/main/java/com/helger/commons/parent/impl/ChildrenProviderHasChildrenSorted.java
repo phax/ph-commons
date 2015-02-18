@@ -38,14 +38,6 @@ public final class ChildrenProviderHasChildrenSorted <CHILDTYPE extends IHasChil
 {
   @Override
   @Nullable
-  @Deprecated
-  public List <? extends CHILDTYPE> getChildren (@Nullable final CHILDTYPE aCurrent)
-  {
-    return getAllChildren (aCurrent);
-  }
-
-  @Override
-  @Nullable
   public List <? extends CHILDTYPE> getAllChildren (@Nullable final CHILDTYPE aCurrent)
   {
     return aCurrent == null ? null : aCurrent.getAllChildren ();

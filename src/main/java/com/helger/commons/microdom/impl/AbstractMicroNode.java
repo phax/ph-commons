@@ -419,14 +419,6 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   @OverrideOnDemand
   @Nullable
-  @Deprecated
-  public List <IMicroNode> getChildren ()
-  {
-    return getAllChildren ();
-  }
-
-  @OverrideOnDemand
-  @Nullable
   public List <IMicroNode> getAllChildren ()
   {
     return null;

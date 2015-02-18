@@ -45,15 +45,6 @@ public interface IHasChildren <CHILDTYPE>
   /**
    * @return A collection of all direct child elements. May be <code>null</code>
    *         .
-   * @deprecated Use {@link #getAllChildren()} instead
-   */
-  @Nullable
-  @Deprecated
-  Collection <? extends CHILDTYPE> getChildren ();
-
-  /**
-   * @return A collection of all direct child elements. May be <code>null</code>
-   *         .
    */
   @Nullable
   Collection <? extends CHILDTYPE> getAllChildren ();

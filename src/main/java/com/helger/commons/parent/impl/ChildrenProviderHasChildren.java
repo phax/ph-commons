@@ -46,13 +46,6 @@ public class ChildrenProviderHasChildren <CHILDTYPE extends IHasChildren <CHILDT
   }
 
   @Nullable
-  @Deprecated
-  public Collection <? extends CHILDTYPE> getChildren (@Nullable final CHILDTYPE aCurrent)
-  {
-    return getAllChildren (aCurrent);
-  }
-
-  @Nullable
   public Collection <? extends CHILDTYPE> getAllChildren (@Nullable final CHILDTYPE aCurrent)
   {
     return aCurrent == null ? null : aCurrent.getAllChildren ();

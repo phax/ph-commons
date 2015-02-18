@@ -30,7 +30,7 @@ import com.helger.commons.parent.IChildrenProvider;
 
 /**
  * An {@link IChildrenProvider} that returns the children in
- * {@link #getChildren(Object)} sorted.<br>
+ * {@link #getAllChildren(Object)} sorted.<br>
  * The implementation wraps an existing children provider and uses and external
  * comparator for sorting.
  *
@@ -81,13 +81,6 @@ public class ChildrenProviderSorting <CHILDTYPE> implements IChildrenProvider <C
   {
     // Just pass on to the original children resolver
     return m_aChildrenProvider.getChildCount (aCurrent);
-  }
-
-  @Nullable
-  @Deprecated
-  public List <? extends CHILDTYPE> getChildren (@Nullable final CHILDTYPE aCurrent)
-  {
-    return getAllChildren (aCurrent);
   }
 
   @Nullable

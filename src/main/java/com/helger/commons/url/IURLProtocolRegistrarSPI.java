@@ -35,16 +35,6 @@ public interface IURLProtocolRegistrarSPI
    * @return The set of protocols to be registered for this registrar. The
    *         returned set may be <code>null</code> but may not contain
    *         <code>null</code> elements!
-   * @deprecated Use {@link #getAllProtocols()} instead
-   */
-  @Nullable
-  @Deprecated
-  Set <? extends IURLProtocol> getProtocols ();
-
-  /**
-   * @return The set of protocols to be registered for this registrar. The
-   *         returned set may be <code>null</code> but may not contain
-   *         <code>null</code> elements!
    */
   @Nullable
   Set <? extends IURLProtocol> getAllProtocols ();

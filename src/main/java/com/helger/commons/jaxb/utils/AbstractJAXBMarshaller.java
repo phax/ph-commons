@@ -87,8 +87,6 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
 {
   public static final boolean DEFAULT_READ_SECURE = true;
   public static final boolean DEFAULT_WRITE_FORMATTED = false;
-  @Deprecated
-  public static final boolean DEFAULT_FORMATTED = DEFAULT_WRITE_FORMATTED;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBMarshaller.class);
 

@@ -74,13 +74,6 @@ public abstract class SessionApplicationSingletonTreeWithUniqueID <KEYTYPE, VALU
   }
 
   @Nullable
-  @Deprecated
-  public Collection <? extends DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getChildren (@Nullable final DefaultTreeItemWithID <KEYTYPE, VALUETYPE> aCurrent)
-  {
-    return getAllChildren (aCurrent);
-  }
-
-  @Nullable
   public Collection <? extends DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getAllChildren (@Nullable final DefaultTreeItemWithID <KEYTYPE, VALUETYPE> aCurrent)
   {
     return m_aTree.getAllChildren (aCurrent);

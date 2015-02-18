@@ -17,11 +17,6 @@
 package com.helger.commons.mime;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Collection;
 
 import org.junit.Test;
 
@@ -33,7 +28,6 @@ import com.helger.commons.mock.AbstractPHTestCase;
  *
  * @author Philip Helger
  */
-@SuppressWarnings ("deprecation")
 public final class MimeTypeDeterminatorTest extends AbstractPHTestCase
 {
   /**
@@ -75,75 +69,5 @@ public final class MimeTypeDeterminatorTest extends AbstractPHTestCase
                                                                                          0x1a,
                                                                                          0x0a,
                                                                                          0 }));
-  }
-
-  @Test
-  public void testGetFromFileName ()
-  {
-    assertEquals (CMimeType.APPLICATION_MS_EXCEL.getAsString (),
-                  MimeTypeDeterminator.getInstance ().getMimeTypeFromFilename ("test.xls"));
-    assertNull (MimeTypeDeterminator.getInstance ().getMimeTypeFromFilename ("test.hastenichgesehen"));
-
-    assertEquals (CMimeType.APPLICATION_MS_EXCEL,
-                  MimeTypeDeterminator.getInstance ().getMimeTypeObjectFromFilename ("test.xls"));
-    assertNull (MimeTypeDeterminator.getInstance ().getMimeTypeObjectFromFilename ("test.hastenichgesehen"));
-
-    assertEquals (CMimeType.APPLICATION_MS_EXCEL.getAsString (), MimeTypeDeterminator.getInstance ()
-                                                                                     .getMimeTypeFromExtension ("xls"));
-    assertEquals (CMimeType.APPLICATION_MS_EXCEL.getAsString (), MimeTypeDeterminator.getInstance ()
-                                                                                     .getMimeTypeFromExtension ("XLS"));
-    assertNull (MimeTypeDeterminator.getInstance ().getMimeTypeFromExtension ("abersichernicht"));
-
-    assertEquals (CMimeType.APPLICATION_MS_EXCEL,
-                  MimeTypeDeterminator.getInstance ().getMimeTypeObjectFromExtension ("xls"));
-    assertEquals (CMimeType.APPLICATION_MS_EXCEL,
-                  MimeTypeDeterminator.getInstance ().getMimeTypeObjectFromExtension ("XLS"));
-    assertNull (MimeTypeDeterminator.getInstance ().getMimeTypeFromExtension ("abersichernicht"));
-  }
-
-  @Test
-  public void testTypeOf ()
-  {
-    for (final String sMimeType : MimeTypeDeterminator.getInstance ().getAllKnownMimeTypes ())
-      assertNotNull (sMimeType);
-    for (final String sMimeType : MimeTypeDeterminator.getInstance ().getAllKnownMimeTypeFilenameMappings ().values ())
-      assertNotNull (sMimeType);
-  }
-
-  @Test
-  public void testConstantsKnown ()
-  {
-    final Collection <String> aAllKnown = MimeTypeDeterminator.getInstance ().getAllKnownMimeTypes ();
-
-    // applications
-    assertTrue (aAllKnown.contains (CMimeType.APPLICATION_ATOM_XML.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.APPLICATION_MS_EXCEL.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.APPLICATION_MS_EXCEL_2007.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.APPLICATION_MS_POWERPOINT.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.APPLICATION_MS_POWERPOINT_2007.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.APPLICATION_MS_WORD.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.APPLICATION_MS_WORD_2007.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.APPLICATION_OCTET_STREAM.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.APPLICATION_PDF.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.APPLICATION_RSS_XML.getAsString ()));
-    if (false) // special!
-      assertTrue (aAllKnown.contains (CMimeType.APPLICATION_FORCE_DOWNLOAD.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.APPLICATION_ZIP.getAsString ()));
-
-    // audio
-    assertTrue (aAllKnown.contains (CMimeType.AUDIO_MP3.getAsString ()));
-
-    // images
-    assertTrue (aAllKnown.contains (CMimeType.IMAGE_BMP.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.IMAGE_GIF.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.IMAGE_JPG.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.IMAGE_PNG.getAsString ()));
-
-    // text
-    assertTrue (aAllKnown.contains (CMimeType.TEXT_CSS.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.TEXT_HTML.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.TEXT_JAVASCRIPT.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.TEXT_PLAIN.getAsString ()));
-    assertTrue (aAllKnown.contains (CMimeType.TEXT_XML.getAsString ()));
   }
 }

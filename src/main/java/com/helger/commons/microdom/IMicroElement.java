@@ -101,19 +101,6 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @param sAttrName
    *        The attribute name to retrieve the value of.
    * @return The assigned attribute value or <code>null</code>.
-   * @see #getAttributeValue(String)
-   */
-  @Nullable
-  @Deprecated
-  String getAttribute (@Nullable String sAttrName);
-
-  /**
-   * Get the attribute value of the given attribute name. If this element has no
-   * such attribute, <code>null</code> is returned.
-   *
-   * @param sAttrName
-   *        The attribute name to retrieve the value of.
-   * @return The assigned attribute value or <code>null</code>.
    */
   @Nullable
   String getAttributeValue (@Nullable String sAttrName);

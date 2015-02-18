@@ -56,14 +56,6 @@ public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasS
 
   @Nonnull
   @ReturnsMutableCopy
-  @Deprecated
-  public List <? extends MockHasSortedChildren> getChildren ()
-  {
-    return getAllChildren ();
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
   public List <? extends MockHasSortedChildren> getAllChildren ()
   {
     return ContainerHelper.newList (m_aList);

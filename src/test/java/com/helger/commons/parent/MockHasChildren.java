@@ -57,14 +57,6 @@ public final class MockHasChildren implements IHasChildren <MockHasChildren>, IH
 
   @Nonnull
   @ReturnsMutableCopy
-  @Deprecated
-  public Collection <? extends MockHasChildren> getChildren ()
-  {
-    return getAllChildren ();
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
   public Collection <? extends MockHasChildren> getAllChildren ()
   {
     return ContainerHelper.newList (m_aList);

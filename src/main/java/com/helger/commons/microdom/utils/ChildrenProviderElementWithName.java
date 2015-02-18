@@ -68,15 +68,7 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
   @Nonnegative
   public int getChildCount (@Nullable final IMicroElement aCurrent)
   {
-    return aCurrent == null ? 0 : getChildren (aCurrent).size ();
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  @Deprecated
-  public Collection <? extends IMicroElement> getChildren (@Nullable final IMicroElement aCurrent)
-  {
-    return getAllChildren (aCurrent);
+    return aCurrent == null ? 0 : getAllChildren (aCurrent).size ();
   }
 
   @Nonnull

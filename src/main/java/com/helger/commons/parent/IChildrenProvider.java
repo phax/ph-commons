@@ -62,23 +62,6 @@ public interface IChildrenProvider <CHILDTYPE>
    *         any possible top level (root) elements. This method may NOT return
    *         <code>null</code> if the call to {@link #hasChildren(Object)} with
    *         the same object returned <code>true</code>.
-   * @deprecated Use {@link #getAllChildren(Object)} instead
-   */
-  @Nullable
-  @Deprecated
-  Collection <? extends CHILDTYPE> getChildren (CHILDTYPE aCurrent);
-
-  /**
-   * Get the children of the passed object.
-   *
-   * @param aCurrent
-   *        The object to determine the children of. No <code>null</code> or
-   *        non- <code>null</code> constraint possible.
-   * @return The child objects, or <code>null</code> if there are no children.
-   *         If <code>null</code> is passed, the resolver is expected to return
-   *         any possible top level (root) elements. This method may NOT return
-   *         <code>null</code> if the call to {@link #hasChildren(Object)} with
-   *         the same object returned <code>true</code>.
    */
   @Nullable
   Collection <? extends CHILDTYPE> getAllChildren (CHILDTYPE aCurrent);

@@ -218,14 +218,6 @@ public class TextProvider extends AbstractTextProvider implements IReadonlyMulti
 
   @Nonnull
   @ReturnsMutableCopy
-  @Deprecated
-  public final Map <Locale, String> getMap ()
-  {
-    return getAllTexts ();
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
   public final Map <Locale, String> getAllTexts ()
   {
     return ContainerHelper.newMap (m_aTexts);

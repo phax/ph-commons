@@ -213,13 +213,6 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   }
 
   @Nullable
-  @Deprecated
-  public String getAttribute (@Nullable final String sAttrName)
-  {
-    return getAttributeValue (sAttrName);
-  }
-
-  @Nullable
   public String getAttributeValue (@Nullable final String sAttrName)
   {
     final MicroAttribute aAttr = getAttributeObj (sAttrName);

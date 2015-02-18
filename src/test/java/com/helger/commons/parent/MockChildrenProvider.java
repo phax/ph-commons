@@ -45,13 +45,6 @@ public class MockChildrenProvider implements IChildrenProvider <MockHasChildren>
   }
 
   @Nullable
-  @Deprecated
-  public Collection <? extends MockHasChildren> getChildren (@Nullable final MockHasChildren aCurrent)
-  {
-    return getAllChildren (aCurrent);
-  }
-
-  @Nullable
   public Collection <? extends MockHasChildren> getAllChildren (@Nullable final MockHasChildren aCurrent)
   {
     return aCurrent != null ? aCurrent.getAllChildren () : m_aRootItem != null ? m_aRootItem.getAllChildren () : null;

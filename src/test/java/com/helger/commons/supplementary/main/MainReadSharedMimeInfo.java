@@ -17,6 +17,7 @@
 package com.helger.commons.supplementary.main;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -25,14 +26,15 @@ import java.util.Set;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.exceptions.InitializationException;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
+import com.helger.commons.microdom.reader.XMLMapHandler;
 import com.helger.commons.microdom.serialize.MicroReader;
 import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.mime.MimeType;
-import com.helger.commons.mime.MimeTypeDeterminator;
 import com.helger.commons.mime.MimeTypeInfo;
 import com.helger.commons.mime.MimeTypeInfo.ExtensionWithSource;
 import com.helger.commons.mime.MimeTypeInfo.MimeTypeWithSource;
@@ -73,23 +75,23 @@ public final class MainReadSharedMimeInfo
 {
   private static final String NS = "http://www.freedesktop.org/standards/shared-mime-info";
 
-  @SuppressWarnings ("deprecation")
   public static void main (final String [] args)
   {
     final IMicroDocument aDoc = MicroReader.readMicroXML (new ClassPathResource ("shared-mime-info/freedesktop.org.xml"));
     if (aDoc == null)
       throw new IllegalStateException ("Failed to read mime type info file!");
+
     final MimeTypeInfoManager aMgr = new MimeTypeInfoManager ();
     for (final IMicroElement eSrcMimeType : aDoc.getDocumentElement ().getAllChildElements (NS, "mime-type"))
     {
-      final String sMIMEType = eSrcMimeType.getAttribute ("type");
+      final String sMIMEType = eSrcMimeType.getAttributeValue ("type");
       final Set <MimeTypeWithSource> aLocalNames = new LinkedHashSet <MimeTypeWithSource> ();
 
       // Names
       aLocalNames.add (new MimeTypeWithSource (sMIMEType));
       for (final IMicroElement eSrcChild : eSrcMimeType.getAllChildElements (NS, "alias"))
       {
-        final String sAlias = eSrcChild.getAttribute ("type");
+        final String sAlias = eSrcChild.getAttributeValue ("type");
         aLocalNames.add (new MimeTypeWithSource (sAlias));
       }
 
@@ -106,7 +108,7 @@ public final class MainReadSharedMimeInfo
       final Set <String> aSubClassOf = new LinkedHashSet <String> ();
       for (final IMicroElement eSrcChild : eSrcMimeType.getAllChildElements (NS, "sub-class-of"))
       {
-        final String s = eSrcChild.getAttribute ("type");
+        final String s = eSrcChild.getAttributeValue ("type");
         aSubClassOf.add (s);
       }
 
@@ -115,7 +117,7 @@ public final class MainReadSharedMimeInfo
       final Set <ExtensionWithSource> aExts = new LinkedHashSet <ExtensionWithSource> ();
       for (final IMicroElement eSrcChild : eSrcMimeType.getAllChildElements (NS, "glob"))
       {
-        final String sPattern = eSrcChild.getAttribute ("pattern");
+        final String sPattern = eSrcChild.getAttributeValue ("pattern");
         if (RegExHelper.stringMatchesPattern ("\\*\\.[0-9a-zA-Z]+", sPattern))
         {
           final String sExt = sPattern.substring (2);
@@ -133,10 +135,16 @@ public final class MainReadSharedMimeInfo
       }
     }
 
+    // FIXME read existing MimeTypeInfo data
+
+    // Maps file extension to MIME type
+    final Map <String, String> m_aFileExtMap = new HashMap <String, String> ();
+    if (XMLMapHandler.readMap (new ClassPathResource ("codelists/fileext-mimetype-mapping.xml"), m_aFileExtMap)
+                     .isFailure ())
+      throw new InitializationException ("Failed to init file extension to mimetype mapping file");
+
     // Check old data
-    for (final Map.Entry <String, String> aEntry : ContainerHelper.getSortedByKey (MimeTypeDeterminator.getInstance ()
-                                                                                                       .getAllKnownMimeTypeFilenameMappings ())
-                                                                  .entrySet ())
+    for (final Map.Entry <String, String> aEntry : ContainerHelper.getSortedByKey (m_aFileExtMap).entrySet ())
     {
       final String sOldExt = aEntry.getKey ();
       final String sOldMimeType = aEntry.getValue ();

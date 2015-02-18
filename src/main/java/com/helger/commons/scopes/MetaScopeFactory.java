@@ -30,13 +30,14 @@ import com.helger.commons.scopes.factory.IScopeFactory;
 /**
  * The meta scope factory holding both the factory for non-web scopes as well as
  * the factory for web-scopes.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
 public final class MetaScopeFactory
 {
   private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+
   @GuardedBy ("s_aRWLock")
   private static IScopeFactory s_aScopeFactory = new DefaultScopeFactory ();
 
@@ -45,7 +46,7 @@ public final class MetaScopeFactory
 
   /**
    * Set the default non-web scope factory
-   * 
+   *
    * @param aScopeFactory
    *        The scope factory to use. May not be <code>null</code>.
    */

@@ -64,16 +64,6 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    * Get a list of all direct child nodes.
    *
    * @return May be <code>null</code> if the node has no children.
-   * @deprecated Use {@link #getAllChildren()} instead
-   */
-  @Nullable
-  @Deprecated
-  List <IMicroNode> getChildren ();
-
-  /**
-   * Get a list of all direct child nodes.
-   *
-   * @return May be <code>null</code> if the node has no children.
    */
   @Nullable
   List <IMicroNode> getAllChildren ();

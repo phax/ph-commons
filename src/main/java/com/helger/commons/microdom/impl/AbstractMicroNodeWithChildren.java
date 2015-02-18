@@ -191,15 +191,6 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @Override
   @Nullable
   @ReturnsMutableCopy
-  @Deprecated
-  public final List <IMicroNode> getChildren ()
-  {
-    return getAllChildren ();
-  }
-
-  @Override
-  @Nullable
-  @ReturnsMutableCopy
   public final List <IMicroNode> getAllChildren ()
   {
     return m_aChildren == null ? null : ContainerHelper.newList (m_aChildren);
