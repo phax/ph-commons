@@ -108,7 +108,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     return SingletonHolder.s_aInstance;
   }
 
-  private final void _reinitialize ()
+  private void _reinitialize ()
   {
     m_aRWLock.writeLock ().lock ();
     try

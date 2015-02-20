@@ -102,7 +102,7 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
     return SingletonHolder.s_aInstance;
   }
 
-  private final void _reinitialize ()
+  private void _reinitialize ()
   {
     m_aRWLock.writeLock ().lock ();
     try
@@ -222,7 +222,7 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
     return aImplementsHashCodeItself.booleanValue ();
   }
 
-   @Nullable
+  @Nullable
   public IHashCodeImplementation getBestMatchingHashCodeImplementation (@Nullable final Class <?> aClass)
   {
     if (aClass != null)

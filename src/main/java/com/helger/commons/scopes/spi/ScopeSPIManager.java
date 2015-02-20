@@ -76,7 +76,7 @@ public final class ScopeSPIManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static final List <IGlobalScopeSPI> getAllGlobalScopeSPIs ()
+  public static List <IGlobalScopeSPI> getAllGlobalScopeSPIs ()
   {
     return ContainerHelper.newList (s_aGlobalSPIs);
   }
@@ -87,7 +87,7 @@ public final class ScopeSPIManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static final List <IApplicationScopeSPI> getAllApplicationScopeSPIs ()
+  public static List <IApplicationScopeSPI> getAllApplicationScopeSPIs ()
   {
     return ContainerHelper.newList (s_aApplicationSPIs);
   }
@@ -98,7 +98,7 @@ public final class ScopeSPIManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static final List <ISessionScopeSPI> getAllSessionScopeSPIs ()
+  public static List <ISessionScopeSPI> getAllSessionScopeSPIs ()
   {
     return ContainerHelper.newList (s_aSessionSPIs);
   }
@@ -109,7 +109,7 @@ public final class ScopeSPIManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static final List <ISessionApplicationScopeSPI> getAllSessionApplicationScopeSPIs ()
+  public static List <ISessionApplicationScopeSPI> getAllSessionApplicationScopeSPIs ()
   {
     return ContainerHelper.newList (s_aSessionApplicationSPIs);
   }
@@ -120,7 +120,7 @@ public final class ScopeSPIManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static final List <IRequestScopeSPI> getAllRequestScopeSPIs ()
+  public static List <IRequestScopeSPI> getAllRequestScopeSPIs ()
   {
     return ContainerHelper.newList (s_aRequestSPIs);
   }

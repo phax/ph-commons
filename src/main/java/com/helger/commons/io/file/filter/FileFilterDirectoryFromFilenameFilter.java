@@ -42,7 +42,7 @@ public final class FileFilterDirectoryFromFilenameFilter extends AbstractFileFil
   }
 
   @Nonnull
-  public final FilenameFilter getFilenameFilter ()
+  public FilenameFilter getFilenameFilter ()
   {
     return m_aFilenameFilter;
   }
