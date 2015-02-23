@@ -8,7 +8,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>5.3.0</version>
+  <version>5.5.0</version>
 </dependency>
 ```
 
@@ -63,7 +63,6 @@ terfaces.
   * `com.helger.commons.concurrent` - contains some commonly used things for `Thread` and `ExecutorService` handling.
   * `com.helger.commons.concurrent.collector` - a generic "collector" which supports multiple inputs from multiple different threads and serializes this data stream for sequential processing (e.g. for mail queueing with a central sender).
   * `com.helger.commons.convert` - package containing unidirectional and bidirectional data converter interfaces.
-  * `com.helger.commons.convert.collections` - a special package that contains array and container helper classes in combination with converters. This package will be removed in the next major release in favour of the `com.helger.commons.collections.convert` package. 
   * `com.helger.commons.crypto` - contains a small helper class to determine, if the Java crypto extensions are installed or not (based on OWASP).
   * `com.helger.commons.deadlock` - contains a thread deadlock detector based on the JMX `ThreadMXBean` class.
   * `com.helger.commons.email` - contains the data model and a small regular expression based validator for email addresses.
@@ -73,7 +72,6 @@ terfaces.
   * `com.helger.commons.exceptions` - contains additional exception classes that includes logging when thrown.
   * `com.helger.commons.factory` - contains generic factory pattern interfaces and basic implementations.
   * `com.helger.commons.filter` - contains generic filtering interfaces and basic implementations.
-  * `com.helger.commons.filter.collections` - contains an iterator using filtering. This package content is deprecated in favour of `com.helger.commons.collections.filter`.
   * `com.helger.commons.format` - contains interfaces and class to format objects to a String value. This can be seen as a typed alternative to `String.valueOf`.
   * `com.helger.commons.format.impl` - contains more specialized implementations for formatters.
   * `com.helger.commons.gfx` - contains utility classes for handling image metadata (especially size).
@@ -125,6 +123,16 @@ terfaces.
   * `com.helger.commons.priviledged` - a set of typed `PrivilegedAction` implementations used quite frequently.
   * `com.helger.commons.random` - contains an even securer random than `SecureRandom`
   * `com.helger.commons.regex` - contains a pool for pre-compiled regular expressions and utility classes to use this pool implicitly.
+  * `com.helger.commons.scopes` - base definitions for scope handling
+  * `com.helger.commons.scopes.domain` - interfaces for the five base scope types: global, application, session, session application and request
+  * `com.helger.commons.scopes.factory` - factory for creating scope implementations
+  * `com.helger.commons.scopes.impl` - default implementations of the five base scope types
+  * `com.helger.commons.scopes.mgr` - scope manager
+  * `com.helger.commons.scopes.mock` - JUnit test support for scopes
+  * `com.helger.commons.scopes.singleton` - base classes for singletons in the five base scope types
+  * `com.helger.commons.scopes.singleton.tree` - special tree class singletons for easy proxying of the tree interfaces.
+  * `com.helger.commons.scopes.spi` - SPI interfaces for scope lifecycle interference
+  * `com.helger.commons.scopes.util` - some scope aware base classes
   * `com.helger.commons.serialize.convert` - a registry for registering custom `Serializable` implementations for classes that don't implement `Serializable` themselves. Registration is done via SPI.
   * `com.helger.commons.serialize.convert.impl` - default registration implementations for the serializable type converter.
   * `com.helger.commons.state` - contains a lot of small "state" enumerations like `EChange`, `ESuccess` or `ELeftRight` plus the corresponding base interfaces.
@@ -139,7 +147,6 @@ terfaces.
   * `com.helger.commons.text.impl` - the default implementations of the interfaces defined in the parent package
   * `com.helger.commons.text.resolve` - contains the stuff for multilingual text resolving based on an enumeration, and falling back to a properties file if needed.
   * `com.helger.commons.text.resource` - utility classes for handling `ResourceBundle`s in an easy way, as well as UTF-8 and XML resource bundles.
-  * `com.helger.commons.text.utils` - utility string classes that are deprecated in favour of package `com.helger.commons.string.utils`.
   * `com.helger.commons.thirdparty` - contains a domain model and a registry for handling referenced thirdparty libraries.
   * `com.helger.commons.timing` - contains a simple stop watch class.
   * `com.helger.commons.tree` - contains interfaces for a basic tree and a basic tree item
