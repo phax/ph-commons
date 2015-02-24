@@ -22,9 +22,11 @@ import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotations.ReturnsMutableCopy;
+
 /**
  * Base interface for keyed statistic handlers
- * 
+ *
  * @author Philip Helger
  */
 public interface IStatisticsHandlerKeyed extends IStatisticsHandler
@@ -34,11 +36,12 @@ public interface IStatisticsHandlerKeyed extends IStatisticsHandler
    *         <code>null</code>.
    */
   @Nonnull
+  @ReturnsMutableCopy
   Set <String> getAllKeys ();
 
   /**
    * Get the invocation count for a single key.
-   * 
+   *
    * @param sKey
    *        The key to be queried. May be <code>null</code>.
    * @return The invocation count for a single key or
