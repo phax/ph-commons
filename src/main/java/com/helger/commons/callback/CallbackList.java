@@ -29,7 +29,7 @@ import javax.annotation.concurrent.GuardedBy;
 import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -137,7 +137,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements ICloneable
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newList (m_aCallbacks);
+      return CollectionHelper.newList (m_aCallbacks);
     }
     finally
     {
@@ -151,7 +151,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements ICloneable
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.getSafe (m_aCallbacks, nIndex);
+      return CollectionHelper.getSafe (m_aCallbacks, nIndex);
     }
     finally
     {

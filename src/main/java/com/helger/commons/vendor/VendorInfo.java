@@ -27,7 +27,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.email.EmailAddressUtils;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.EURLProtocol;
@@ -166,7 +166,7 @@ public final class VendorInfo
   @ReturnsMutableCopy
   public static List <String> getFileHeaderLines ()
   {
-    return ContainerHelper.newList ("THIS FILE IS GENERATED - DO NOT EDIT",
+    return CollectionHelper.newList ("THIS FILE IS GENERATED - DO NOT EDIT",
                                     "",
                                     "Copyright",
                                     "",

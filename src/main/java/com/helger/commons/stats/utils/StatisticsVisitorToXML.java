@@ -19,7 +19,7 @@ package com.helger.commons.stats.utils;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.stats.IStatisticsHandlerCache;
 import com.helger.commons.stats.IStatisticsHandlerCounter;
@@ -34,7 +34,7 @@ import com.helger.commons.stats.visit.IStatisticsVisitor;
 /**
  * Special implementation of the {@link IStatisticsVisitor} interface that fills
  * a micro element with all current values
- * 
+ *
  * @author Philip Helger
  */
 public class StatisticsVisitorToXML extends DefaultStatisticsVisitor
@@ -89,7 +89,7 @@ public class StatisticsVisitorToXML extends DefaultStatisticsVisitor
                                                .setAttribute (StatisticsExporter.ATTR_NAME, sName)
                                                .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
                                                               Integer.toString (aHandler.getInvocationCount ()));
-      for (final String sKey : ContainerHelper.getSorted (aHandler.getAllKeys ()))
+      for (final String sKey : CollectionHelper.getSorted (aHandler.getAllKeys ()))
       {
         eKeyedTimer.appendElement (StatisticsExporter.ELEMENT_KEY)
                    .setAttribute (StatisticsExporter.ATTR_NAME, sKey)
@@ -125,7 +125,7 @@ public class StatisticsVisitorToXML extends DefaultStatisticsVisitor
                                               .setAttribute (StatisticsExporter.ATTR_NAME, sName)
                                               .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
                                                              Integer.toString (aHandler.getInvocationCount ()));
-      for (final String sKey : ContainerHelper.getSorted (aHandler.getAllKeys ()))
+      for (final String sKey : CollectionHelper.getSorted (aHandler.getAllKeys ()))
       {
         eKeyedSize.appendElement (StatisticsExporter.ELEMENT_KEY)
                   .setAttribute (StatisticsExporter.ATTR_NAME, sKey)
@@ -158,7 +158,7 @@ public class StatisticsVisitorToXML extends DefaultStatisticsVisitor
                                                  .setAttribute (StatisticsExporter.ATTR_NAME, sName)
                                                  .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
                                                                 Integer.toString (aHandler.getInvocationCount ()));
-      for (final String sKey : ContainerHelper.getSorted (aHandler.getAllKeys ()))
+      for (final String sKey : CollectionHelper.getSorted (aHandler.getAllKeys ()))
       {
         eKeyedCounter.appendElement (StatisticsExporter.ELEMENT_KEY)
                      .setAttribute (StatisticsExporter.ATTR_NAME, sKey)

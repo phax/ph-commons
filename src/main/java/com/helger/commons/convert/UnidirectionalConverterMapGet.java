@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 /**
  * An implementation of {@link IUnidirectionalConverter} that converts from a
@@ -48,7 +48,7 @@ public final class UnidirectionalConverterMapGet <KEYTYPE, VALUETYPE> implements
   @ReturnsMutableCopy
   public Map <KEYTYPE, VALUETYPE> getMap ()
   {
-    return ContainerHelper.newMap (m_aMap);
+    return CollectionHelper.newMap (m_aMap);
   }
 
   @Nullable

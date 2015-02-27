@@ -24,12 +24,12 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ChildElementIterator}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ChildElementIteratorTest extends AbstractPHTestCase
@@ -44,14 +44,14 @@ public final class ChildElementIteratorTest extends AbstractPHTestCase
 
     // 1 child
     final Element eRoot = (Element) doc.appendChild (doc.createElement ("root"));
-    assertEquals (1, ContainerHelper.newList (new ChildElementIterator (doc)).size ());
+    assertEquals (1, CollectionHelper.newList (new ChildElementIterator (doc)).size ());
 
     // 2 children
     eRoot.appendChild (doc.createElement ("Hallo"));
     eRoot.appendChild (doc.createTextNode (" - "));
     eRoot.appendChild (doc.createElement ("Welt"));
-    assertEquals (2, ContainerHelper.newList (new ChildElementIterator (eRoot)).size ());
-    assertEquals (1, ContainerHelper.newList (new ChildElementIterator (eRoot, new FilterElementWithTagName ("Hallo")))
+    assertEquals (2, CollectionHelper.newList (new ChildElementIterator (eRoot)).size ());
+    assertEquals (1, CollectionHelper.newList (new ChildElementIterator (eRoot, new FilterElementWithTagName ("Hallo")))
                                     .size ());
 
     try

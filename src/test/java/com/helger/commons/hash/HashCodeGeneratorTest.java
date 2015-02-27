@@ -30,7 +30,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.exceptions.LoggedRuntimeException;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.random.VerySecureRandom;
@@ -64,12 +64,12 @@ public final class HashCodeGeneratorTest
     aHC.append (BigDecimal.ZERO);
     aHC.append (new StringBuffer ("Hallo"));
     aHC.append (new StringBuilder ("Hallo Welt"));
-    aHC.append (ContainerHelper.newSet ("Hallo", "Welt", "from", "unit", "test"));
-    aHC.append (ContainerHelper.getIterator ("Hallo", "Welt", "from", "unit", "test"));
-    aHC.append (ContainerHelper.getEnumeration ("Hallo", "Welt", "from", "unit", "test"));
+    aHC.append (CollectionHelper.newSet ("Hallo", "Welt", "from", "unit", "test"));
+    aHC.append (CollectionHelper.getIterator ("Hallo", "Welt", "from", "unit", "test"));
+    aHC.append (CollectionHelper.getEnumeration ("Hallo", "Welt", "from", "unit", "test"));
 
     // Multi values containing null
-    aHC.append (ContainerHelper.newSet ("Hallo", null, null, "unit", "test"));
+    aHC.append (CollectionHelper.newSet ("Hallo", null, null, "unit", "test"));
 
     // Objects null
     aHC.append ((Enum <?>) null);
@@ -89,7 +89,7 @@ public final class HashCodeGeneratorTest
     aHC.append (new short [] { 4701, -32767 });
     aHC.append (EChange.values ());
     aHC.append (new Object [] { EChange.CHANGED, BigDecimal.ONE, System.out });
-    aHC.append (ContainerHelper.newList (EChange.CHANGED, BigDecimal.ONE, System.out));
+    aHC.append (CollectionHelper.newList (EChange.CHANGED, BigDecimal.ONE, System.out));
 
     // Arrays as objects
     aHC.append ((Object) new boolean [] { false, true });
@@ -102,7 +102,7 @@ public final class HashCodeGeneratorTest
     aHC.append ((Object) new short [] { 4701, -32767 });
     aHC.append ((Object) EChange.values ());
     aHC.append ((Object) new Object [] { EChange.CHANGED, BigDecimal.ONE, System.out });
-    aHC.append ((Object) ContainerHelper.newList (EChange.CHANGED, BigDecimal.ONE, System.out));
+    aHC.append ((Object) CollectionHelper.newList (EChange.CHANGED, BigDecimal.ONE, System.out));
 
     // Array objects filled and containing nulls
     aHC.append (new Enum [] { EChange.CHANGED, null, EChange.UNCHANGED });

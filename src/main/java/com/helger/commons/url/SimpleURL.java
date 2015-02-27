@@ -26,12 +26,12 @@ import javax.annotation.Nullable;
 import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 /**
  * Abstraction of the string parts of a URL but much simpler (and faster) than
  * {@link java.net.URL}.
- * 
+ *
  * @author Philip Helger
  */
 public class SimpleURL extends AbstractSimpleURL implements ICloneable <SimpleURL>
@@ -65,7 +65,7 @@ public class SimpleURL extends AbstractSimpleURL implements ICloneable <SimpleUR
 
   /**
    * Add a parameter without a value
-   * 
+   *
    * @param sKey
    *        The name of the parameter. May neither be <code>null</code> nor
    *        empty.
@@ -118,7 +118,7 @@ public class SimpleURL extends AbstractSimpleURL implements ICloneable <SimpleUR
   @Nonnull
   public SimpleURL addAll (@Nullable final Map <String, String> aParams)
   {
-    if (ContainerHelper.isNotEmpty (aParams))
+    if (CollectionHelper.isNotEmpty (aParams))
     {
       if (m_aParams == null)
         m_aParams = new LinkedHashMap <String, String> ();
@@ -129,7 +129,7 @@ public class SimpleURL extends AbstractSimpleURL implements ICloneable <SimpleUR
 
   /**
    * Remove the parameter with the given key.
-   * 
+   *
    * @param sKey
    *        The key to remove
    * @return this

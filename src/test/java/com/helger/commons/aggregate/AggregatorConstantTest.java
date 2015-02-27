@@ -22,12 +22,12 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link AggregatorConstant}.
- * 
+ *
  * @author Philip Helger
  */
 public final class AggregatorConstantTest
@@ -40,7 +40,7 @@ public final class AggregatorConstantTest
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (a1,
                                                                         new AggregatorConstant <String, String> ("bar"));
 
-    assertEquals ("foo", a1.aggregate (ContainerHelper.newList ("a", "b")));
+    assertEquals ("foo", a1.aggregate (CollectionHelper.newList ("a", "b")));
     assertEquals ("foo", a1.aggregate (new ArrayList <String> ()));
   }
 }

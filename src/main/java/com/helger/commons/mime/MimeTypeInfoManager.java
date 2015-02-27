@@ -34,7 +34,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.VisibleForTesting;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.multimap.IMultiMapListBased;
 import com.helger.commons.collections.multimap.MultiTreeMapArrayListBased;
 import com.helger.commons.io.IReadableResource;
@@ -179,7 +179,7 @@ public class MimeTypeInfoManager
     m_aRWLock.readLock ().lock ();
     try
     {
-      for (final MimeTypeInfo aInfo : ContainerHelper.getSorted (m_aList, new ComparatorMimeTypeInfoPrimaryMimeType ()))
+      for (final MimeTypeInfo aInfo : CollectionHelper.getSorted (m_aList, new ComparatorMimeTypeInfoPrimaryMimeType ()))
         eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aInfo, "item"));
     }
     finally
@@ -325,7 +325,7 @@ public class MimeTypeInfoManager
     }
 
     // Create a copy if present
-    return ret == null ? null : ContainerHelper.newList (ret);
+    return ret == null ? null : CollectionHelper.newList (ret);
   }
 
   /**
@@ -354,7 +354,7 @@ public class MimeTypeInfoManager
     }
 
     // Create a copy if present
-    return ret == null ? null : ContainerHelper.newList (ret);
+    return ret == null ? null : CollectionHelper.newList (ret);
   }
 
   /**
@@ -368,7 +368,7 @@ public class MimeTypeInfoManager
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newList (m_aList);
+      return CollectionHelper.newList (m_aList);
     }
     finally
     {
@@ -524,7 +524,7 @@ public class MimeTypeInfoManager
     ValueEnforcer.notNull (sExtension, "Extension");
 
     final List <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
-    return ContainerHelper.isNotEmpty (aInfos);
+    return CollectionHelper.isNotEmpty (aInfos);
   }
 
   /**

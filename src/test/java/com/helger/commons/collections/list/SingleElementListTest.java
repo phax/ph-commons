@@ -26,14 +26,14 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link SingleElementList}.
- * 
+ *
  * @author Philip Helger
  */
 public final class SingleElementListTest
@@ -72,9 +72,9 @@ public final class SingleElementListTest
     assertEquals (1, aList.size ());
     assertTrue (aList.contains ("any"));
     assertFalse (aList.contains ("other"));
-    assertTrue (aList.containsAll (ContainerHelper.newList ("any")));
-    assertFalse (aList.containsAll (ContainerHelper.newList ("other")));
-    assertFalse (aList.containsAll (ContainerHelper.newList ("other")));
+    assertTrue (aList.containsAll (CollectionHelper.newList ("any")));
+    assertFalse (aList.containsAll (CollectionHelper.newList ("other")));
+    assertFalse (aList.containsAll (CollectionHelper.newList ("other")));
     assertEquals ("any", aList.get (0));
     assertEquals (1, aList.toArray ().length);
     assertEquals ("any", aList.toArray ()[0]);
@@ -170,7 +170,7 @@ public final class SingleElementListTest
     try
     {
       // list already contains sthg.
-      aList.addAll (ContainerHelper.newList ("Hallo", "Welt"));
+      aList.addAll (CollectionHelper.newList ("Hallo", "Welt"));
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -181,14 +181,14 @@ public final class SingleElementListTest
     try
     {
       // more than one element provided
-      aList.addAll (ContainerHelper.newList ("Hallo", "Welt"));
+      aList.addAll (CollectionHelper.newList ("Hallo", "Welt"));
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     assertTrue (aList.isEmpty ());
 
-    aList.addAll (ContainerHelper.newList ("Hallo"));
+    aList.addAll (CollectionHelper.newList ("Hallo"));
     assertEquals (1, aList.size ());
   }
 
@@ -250,16 +250,16 @@ public final class SingleElementListTest
     assertEquals (0, aList.size ());
     assertFalse (aList.iterator ().hasNext ());
     assertFalse (aList.listIterator ().hasNext ());
-    assertFalse (aList.removeAll (ContainerHelper.newList ("Hallo", "Welt")));
+    assertFalse (aList.removeAll (CollectionHelper.newList ("Hallo", "Welt")));
     assertTrue (aList.isEmpty ());
     aList.set (0, "Hallo");
-    assertTrue (aList.removeAll (ContainerHelper.newList ("Hallo")));
+    assertTrue (aList.removeAll (CollectionHelper.newList ("Hallo")));
     assertTrue (aList.isEmpty ());
     aList.set (0, "Hallo");
-    assertTrue (aList.removeAll (ContainerHelper.newList ("Hallo")));
+    assertTrue (aList.removeAll (CollectionHelper.newList ("Hallo")));
     assertTrue (aList.isEmpty ());
     aList.set (0, "Hallo");
-    assertFalse (aList.removeAll (ContainerHelper.newList ("Hallo", "Welt")));
+    assertFalse (aList.removeAll (CollectionHelper.newList ("Hallo", "Welt")));
     assertTrue (aList.isEmpty ());
     aList.add (0, "Hallo");
     aList.remove (0);
@@ -294,14 +294,14 @@ public final class SingleElementListTest
     {}
     try
     {
-      aList.addAll (0, ContainerHelper.newList ("xyz", "ZZ"));
+      aList.addAll (0, CollectionHelper.newList ("xyz", "ZZ"));
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      aList.addAll (1, ContainerHelper.newList ("xyz"));
+      aList.addAll (1, CollectionHelper.newList ("xyz"));
       fail ();
     }
     catch (final IndexOutOfBoundsException ex)
@@ -312,11 +312,11 @@ public final class SingleElementListTest
   public void testRetainAll ()
   {
     final SingleElementList <String> aList = SingleElementList.create ("init");
-    assertTrue (aList.retainAll (ContainerHelper.newList ("init", "all")));
+    assertTrue (aList.retainAll (CollectionHelper.newList ("init", "all")));
     assertTrue (aList.contains ("init"));
-    assertFalse (aList.retainAll (ContainerHelper.newList ("all")));
+    assertFalse (aList.retainAll (CollectionHelper.newList ("all")));
     assertFalse (aList.contains ("init"));
-    assertFalse (aList.retainAll (ContainerHelper.newList ("init")));
+    assertFalse (aList.retainAll (CollectionHelper.newList ("init")));
     assertFalse (aList.contains ("init"));
   }
 

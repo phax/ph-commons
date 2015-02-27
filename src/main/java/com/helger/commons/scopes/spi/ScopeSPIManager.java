@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.lang.ServiceLoaderUtils;
 import com.helger.commons.mock.IMockException;
 import com.helger.commons.scopes.domain.IApplicationScope;
@@ -78,7 +78,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public static List <IGlobalScopeSPI> getAllGlobalScopeSPIs ()
   {
-    return ContainerHelper.newList (s_aGlobalSPIs);
+    return CollectionHelper.newList (s_aGlobalSPIs);
   }
 
   /**
@@ -89,7 +89,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public static List <IApplicationScopeSPI> getAllApplicationScopeSPIs ()
   {
-    return ContainerHelper.newList (s_aApplicationSPIs);
+    return CollectionHelper.newList (s_aApplicationSPIs);
   }
 
   /**
@@ -100,7 +100,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public static List <ISessionScopeSPI> getAllSessionScopeSPIs ()
   {
-    return ContainerHelper.newList (s_aSessionSPIs);
+    return CollectionHelper.newList (s_aSessionSPIs);
   }
 
   /**
@@ -111,7 +111,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public static List <ISessionApplicationScopeSPI> getAllSessionApplicationScopeSPIs ()
   {
-    return ContainerHelper.newList (s_aSessionApplicationSPIs);
+    return CollectionHelper.newList (s_aSessionApplicationSPIs);
   }
 
   /**
@@ -122,7 +122,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public static List <IRequestScopeSPI> getAllRequestScopeSPIs ()
   {
-    return ContainerHelper.newList (s_aRequestSPIs);
+    return CollectionHelper.newList (s_aRequestSPIs);
   }
 
   public static void onGlobalScopeBegin (@Nonnull final IGlobalScope aGlobalScope)

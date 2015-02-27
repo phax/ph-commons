@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.LRUCache;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
@@ -248,7 +248,7 @@ public final class ImageDataManager
     s_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newMap (s_aImageData);
+      return CollectionHelper.newMap (s_aImageData);
     }
     finally
     {
@@ -263,7 +263,7 @@ public final class ImageDataManager
     s_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newSet (s_aNonExistingResources);
+      return CollectionHelper.newSet (s_aNonExistingResources);
     }
     finally
     {

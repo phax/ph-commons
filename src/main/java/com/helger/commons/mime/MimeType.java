@@ -28,7 +28,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -107,7 +107,7 @@ public class MimeType implements IMimeType, Comparable <MimeType>
     m_eContentType = eContentType;
     m_sContentSubType = sContentSubType;
     m_sMainTypeAsString = m_eContentType.getText () + CMimeType.SEPARATOR_CONTENTTYPE_SUBTYPE + m_sContentSubType;
-    m_aParameters = ContainerHelper.isEmpty (aParameters) ? null : ContainerHelper.newList (aParameters);
+    m_aParameters = CollectionHelper.isEmpty (aParameters) ? null : CollectionHelper.newList (aParameters);
   }
 
   @Nonnull
@@ -151,7 +151,7 @@ public class MimeType implements IMimeType, Comparable <MimeType>
   {
     ValueEnforcer.notNull (eQuotingAlgorithm, "QuotingAlgorithm");
 
-    if (ContainerHelper.isEmpty (m_aParameters))
+    if (CollectionHelper.isEmpty (m_aParameters))
     {
       // No parameters - return as is
       return m_sMainTypeAsString;
@@ -171,7 +171,7 @@ public class MimeType implements IMimeType, Comparable <MimeType>
   {
     ValueEnforcer.notNull (eQuotingAlgorithm, "QuotingAlgorithm");
 
-    if (ContainerHelper.isEmpty (m_aParameters))
+    if (CollectionHelper.isEmpty (m_aParameters))
       return "";
 
     return _getParametersAsString (eQuotingAlgorithm);
@@ -235,7 +235,7 @@ public class MimeType implements IMimeType, Comparable <MimeType>
   @Nonnull
   public EChange removeParameterAtIndex (final int nIndex)
   {
-    return ContainerHelper.removeElementAtIndex (m_aParameters, nIndex);
+    return CollectionHelper.removeElementAtIndex (m_aParameters, nIndex);
   }
 
   /**
@@ -246,7 +246,7 @@ public class MimeType implements IMimeType, Comparable <MimeType>
   @Nonnull
   public EChange removeAllParameters ()
   {
-    if (ContainerHelper.isEmpty (m_aParameters))
+    if (CollectionHelper.isEmpty (m_aParameters))
       return EChange.UNCHANGED;
     m_aParameters.clear ();
     return EChange.CHANGED;
@@ -281,26 +281,26 @@ public class MimeType implements IMimeType, Comparable <MimeType>
 
   public boolean hasAnyParameters ()
   {
-    return ContainerHelper.isNotEmpty (m_aParameters);
+    return CollectionHelper.isNotEmpty (m_aParameters);
   }
 
   @Nonnegative
   public int getParameterCount ()
   {
-    return ContainerHelper.getSize (m_aParameters);
+    return CollectionHelper.getSize (m_aParameters);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public List <MimeTypeParameter> getAllParameters ()
   {
-    return ContainerHelper.newList (m_aParameters);
+    return CollectionHelper.newList (m_aParameters);
   }
 
   @Nullable
   public MimeTypeParameter getParameterAtIndex (@Nonnegative final int nIndex)
   {
-    return ContainerHelper.getSafe (m_aParameters, nIndex);
+    return CollectionHelper.getSafe (m_aParameters, nIndex);
   }
 
   public boolean hasParameterWithName (@Nullable final String sParamName)

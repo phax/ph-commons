@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 /**
  * Test class for {@link AbstractIntegerComparator}
@@ -63,7 +63,7 @@ public final class AbstractIntegerComparatorTest
                                          Integer.valueOf (1) };
 
     // default: sort ascending
-    List <Integer> l = ContainerHelper.getSorted (x, new ComparatorMockNumeric ());
+    List <Integer> l = CollectionHelper.getSorted (x, new ComparatorMockNumeric ());
     assertNotNull (l);
     assertEquals (-56, l.get (0).intValue ());
     assertEquals (1, l.get (1).intValue ());
@@ -71,7 +71,7 @@ public final class AbstractIntegerComparatorTest
     assertEquals (3, l.get (3).intValue ());
 
     // Explicitly sort ascending
-    l = ContainerHelper.getSorted (x, new ComparatorMockNumeric (ESortOrder.ASCENDING));
+    l = CollectionHelper.getSorted (x, new ComparatorMockNumeric (ESortOrder.ASCENDING));
     assertNotNull (l);
     assertEquals (-56, l.get (0).intValue ());
     assertEquals (1, l.get (1).intValue ());
@@ -79,7 +79,7 @@ public final class AbstractIntegerComparatorTest
     assertEquals (3, l.get (3).intValue ());
 
     // Explicitly sort descending
-    l = ContainerHelper.getSorted (x, new ComparatorMockNumeric (ESortOrder.DESCENDING));
+    l = CollectionHelper.getSorted (x, new ComparatorMockNumeric (ESortOrder.DESCENDING));
     assertNotNull (l);
     assertEquals (3, l.get (0).intValue ());
     assertEquals (3, l.get (1).intValue ());
@@ -88,14 +88,14 @@ public final class AbstractIntegerComparatorTest
 
     // change dynamically
     final ComparatorMockNumeric c = new ComparatorMockNumeric (ESortOrder.ASCENDING);
-    l = ContainerHelper.getSorted (x, c);
+    l = CollectionHelper.getSorted (x, c);
     assertEquals (-56, l.get (0).intValue ());
     assertEquals (1, l.get (1).intValue ());
     assertEquals (3, l.get (2).intValue ());
     assertEquals (3, l.get (3).intValue ());
 
     // change to descending
-    l = ContainerHelper.getSorted (x, c.setSortOrder (ESortOrder.DESCENDING));
+    l = CollectionHelper.getSorted (x, c.setSortOrder (ESortOrder.DESCENDING));
     assertEquals (3, l.get (0).intValue ());
     assertEquals (3, l.get (1).intValue ());
     assertEquals (1, l.get (2).intValue ());

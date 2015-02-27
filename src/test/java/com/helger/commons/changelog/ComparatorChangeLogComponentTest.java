@@ -27,7 +27,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 /**
  * Test class for class {@link ComparatorChangeLogComponent}.
@@ -42,12 +42,12 @@ public final class ComparatorChangeLogComponentTest
     final Map <URI, ChangeLog> aAllChangeLogs = ChangeLogSerializer.readAllChangeLogs ();
     assertNotNull (aAllChangeLogs);
     assertTrue (aAllChangeLogs.size () >= 1);
-    final List <ChangeLog> aEntries = ContainerHelper.newList (aAllChangeLogs.values ());
+    final List <ChangeLog> aEntries = CollectionHelper.newList (aAllChangeLogs.values ());
     aEntries.add (new ChangeLog ("1.0", "aaa-first"));
     aEntries.add (new ChangeLog ("1.0", "zzz-last"));
-    assertSame (aEntries, ContainerHelper.getSortedInline (aEntries, new ComparatorChangeLogComponent ()));
+    assertSame (aEntries, CollectionHelper.getSortedInline (aEntries, new ComparatorChangeLogComponent ()));
     assertEquals ("aaa-first", aEntries.get (0).getComponent ());
     assertEquals ("ph-commons", aEntries.get (1).getComponent ());
-    assertEquals ("zzz-last", ContainerHelper.getLastElement (aEntries).getComponent ());
+    assertEquals ("zzz-last", CollectionHelper.getLastElement (aEntries).getComponent ());
   }
 }

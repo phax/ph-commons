@@ -32,7 +32,7 @@ import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link SingleElementMap}.
- * 
+ *
  * @author Philip Helger
  */
 public final class SingleElementMapTest extends AbstractPHTestCase
@@ -114,7 +114,7 @@ public final class SingleElementMapTest extends AbstractPHTestCase
     try
     {
       // too many items
-      aMap.putAll (ContainerHelper.newMap (new String [] { "x", "y" }, new Integer [] { I1, I2 }));
+      aMap.putAll (CollectionHelper.newMap (new String [] { "x", "y" }, new Integer [] { I1, I2 }));
       fail ();
     }
     catch (final IllegalArgumentException ex)

@@ -27,13 +27,13 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link LocaleCache}.
- * 
+ *
  * @author Philip Helger
  */
 public final class LocaleCacheTest extends AbstractPHTestCase
@@ -91,13 +91,13 @@ public final class LocaleCacheTest extends AbstractPHTestCase
   public void testCompare ()
   {
     final Set <Locale> aLocales = LocaleCache.getAllLocales ();
-    assertEquals (aLocales.size (), ContainerHelper.getSorted (aLocales, new ComparatorLocale ()).size ());
-    assertEquals (aLocales.size (), ContainerHelper.getSorted (aLocales, new ComparatorLocaleDisplayName (L_DE))
+    assertEquals (aLocales.size (), CollectionHelper.getSorted (aLocales, new ComparatorLocale ()).size ());
+    assertEquals (aLocales.size (), CollectionHelper.getSorted (aLocales, new ComparatorLocaleDisplayName (L_DE))
                                                    .size ());
-    assertEquals (aLocales.size (), ContainerHelper.getSorted (aLocales, new ComparatorLocaleDisplayNameNative (L_DE))
+    assertEquals (aLocales.size (), CollectionHelper.getSorted (aLocales, new ComparatorLocaleDisplayNameNative (L_DE))
                                                    .size ());
     assertEquals (aLocales.size (),
-                  ContainerHelper.getSorted (aLocales, new ComparatorLocaleDisplayNameInLocale (L_DE, L_EN)).size ());
+                  CollectionHelper.getSorted (aLocales, new ComparatorLocaleDisplayNameInLocale (L_DE, L_EN)).size ());
   }
 
   @Test

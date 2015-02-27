@@ -138,14 +138,14 @@ public final class SingleElementMap <KEYTYPE, VALUETYPE> implements Map <KEYTYPE
   @Nonnull
   public Set <KEYTYPE> keySet ()
   {
-    return m_bHasElement ? ContainerHelper.newUnmodifiableSet (m_aKey) : Collections.<KEYTYPE> emptySet ();
+    return m_bHasElement ? CollectionHelper.newUnmodifiableSet (m_aKey) : Collections.<KEYTYPE> emptySet ();
   }
 
   @ReturnsImmutableObject
   @Nonnull
   public Collection <VALUETYPE> values ()
   {
-    return m_bHasElement ? ContainerHelper.newUnmodifiableList (m_aValue) : Collections.<VALUETYPE> emptyList ();
+    return m_bHasElement ? CollectionHelper.newUnmodifiableList (m_aValue) : Collections.<VALUETYPE> emptyList ();
   }
 
   @Nonnull

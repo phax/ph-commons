@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.parent.IHasChildren;
 
 /**
@@ -62,6 +62,6 @@ public class ChildrenProviderHasChildrenSorting <CHILDTYPE extends IHasChildren 
     final Collection <? extends CHILDTYPE> ret = aCurrent == null ? null : aCurrent.getAllChildren ();
 
     // If there is anything to sort do it now
-    return ret == null ? null : ContainerHelper.getSorted (ret, m_aComparator);
+    return ret == null ? null : CollectionHelper.getSorted (ret, m_aComparator);
   }
 }

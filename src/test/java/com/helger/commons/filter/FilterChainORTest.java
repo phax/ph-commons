@@ -22,11 +22,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 /**
  * Test class for class {@link FilterChainOR}
- * 
+ *
  * @author Philip Helger
  */
 public final class FilterChainORTest
@@ -48,14 +48,14 @@ public final class FilterChainORTest
     assertFalse (aFilter.matchesFilter (""));
     assertFalse (aFilter.matchesFilter ("bla bla bla"));
 
-    aFilter = FilterChainOR.create (ContainerHelper.newList (FilterNull.<String> getInstance (),
+    aFilter = FilterChainOR.create (CollectionHelper.newList (FilterNull.<String> getInstance (),
                                                              FilterNotNull.<String> getInstance ()));
     assertNotNull (aFilter);
     assertTrue (aFilter.matchesFilter (null));
     assertTrue (aFilter.matchesFilter (""));
     assertTrue (aFilter.matchesFilter ("bla bla bla"));
 
-    aFilter = FilterChainOR.create (ContainerHelper.newList (FilterNull.<String> getInstance ()));
+    aFilter = FilterChainOR.create (CollectionHelper.newList (FilterNull.<String> getInstance ()));
     assertNotNull (aFilter);
     assertTrue (aFilter.matchesFilter (null));
     assertFalse (aFilter.matchesFilter (""));

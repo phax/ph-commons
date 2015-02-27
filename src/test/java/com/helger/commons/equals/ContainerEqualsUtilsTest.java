@@ -39,14 +39,14 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.NonBlockingStack;
 import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.url.SMap;
 
 /**
  * Test class for class {@link ContainerEqualsUtils}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
@@ -72,14 +72,14 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
     {}
     try
     {
-      ContainerEqualsUtils.equals (ContainerHelper.newList ("abc"), "abc");
+      ContainerEqualsUtils.equals (CollectionHelper.newList ("abc"), "abc");
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      ContainerEqualsUtils.equals ("abc", ContainerHelper.newList ("abc"));
+      ContainerEqualsUtils.equals ("abc", CollectionHelper.newList ("abc"));
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -89,17 +89,17 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
   @Test
   public void testList ()
   {
-    final List <String> aCont = ContainerHelper.newList ("a", "b", "c");
+    final List <String> aCont = CollectionHelper.newList ("a", "b", "c");
     assertTrue (ContainerEqualsUtils.equals (aCont, aCont));
-    assertTrue (ContainerEqualsUtils.equals (aCont, ContainerHelper.makeUnmodifiable (aCont)));
+    assertTrue (ContainerEqualsUtils.equals (aCont, CollectionHelper.makeUnmodifiable (aCont)));
     assertTrue (ContainerEqualsUtils.equals (aCont, Collections.synchronizedList (aCont)));
     assertTrue (ContainerEqualsUtils.equals (aCont, new ArrayList <String> (aCont)));
     assertTrue (ContainerEqualsUtils.equals (aCont, new LinkedList <String> (aCont)));
     assertTrue (ContainerEqualsUtils.equals (aCont, new Vector <String> (aCont)));
     assertTrue (ContainerEqualsUtils.equals (aCont, new NonBlockingStack <String> (aCont)));
-    assertTrue (ContainerEqualsUtils.equals (aCont, ContainerHelper.newQueue (aCont)));
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.newQueue (aCont), aCont));
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.newQueue (aCont), ContainerHelper.newQueue (aCont)));
+    assertTrue (ContainerEqualsUtils.equals (aCont, CollectionHelper.newQueue (aCont)));
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.newQueue (aCont), aCont));
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.newQueue (aCont), CollectionHelper.newQueue (aCont)));
     assertTrue (ContainerEqualsUtils.equals (new ArrayList <String> (), new LinkedList <String> ()));
     assertTrue (ContainerEqualsUtils.equals (new NonBlockingStack <String> (), new Vector <String> ()));
     assertTrue (ContainerEqualsUtils.equals (new NonBlockingStack <String> (), new Stack <String> ()));
@@ -107,21 +107,21 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
     assertFalse (ContainerEqualsUtils.equals (aCont, new LinkedList <String> ()));
     assertFalse (ContainerEqualsUtils.equals (new LinkedList <String> (), aCont));
     assertFalse (ContainerEqualsUtils.equals (aCont, new ArrayList <String> ()));
-    assertFalse (ContainerEqualsUtils.equals (aCont, ContainerHelper.newList ("a", "b")));
-    assertFalse (ContainerEqualsUtils.equals (aCont, ContainerHelper.newList ("A", "b", "c")));
-    assertFalse (ContainerEqualsUtils.equals (aCont, ContainerHelper.newList ("a", "B", "c")));
-    assertFalse (ContainerEqualsUtils.equals (aCont, ContainerHelper.newList ("a", "b", "C")));
-    assertFalse (ContainerEqualsUtils.equals (aCont, ContainerHelper.newList ("a", "b", "c", "d")));
-    assertFalse (ContainerEqualsUtils.equals (aCont, ContainerHelper.newSet ("a", "b", "c")));
+    assertFalse (ContainerEqualsUtils.equals (aCont, CollectionHelper.newList ("a", "b")));
+    assertFalse (ContainerEqualsUtils.equals (aCont, CollectionHelper.newList ("A", "b", "c")));
+    assertFalse (ContainerEqualsUtils.equals (aCont, CollectionHelper.newList ("a", "B", "c")));
+    assertFalse (ContainerEqualsUtils.equals (aCont, CollectionHelper.newList ("a", "b", "C")));
+    assertFalse (ContainerEqualsUtils.equals (aCont, CollectionHelper.newList ("a", "b", "c", "d")));
+    assertFalse (ContainerEqualsUtils.equals (aCont, CollectionHelper.newSet ("a", "b", "c")));
     assertFalse (ContainerEqualsUtils.equals (aCont, ArrayHelper.newArray ("a", "b", "c")));
   }
 
   @Test
   public void testSet ()
   {
-    final Set <String> aCont = ContainerHelper.newSet ("a", "b", "c");
+    final Set <String> aCont = CollectionHelper.newSet ("a", "b", "c");
     assertTrue (ContainerEqualsUtils.equals (aCont, aCont));
-    assertTrue (ContainerEqualsUtils.equals (aCont, ContainerHelper.makeUnmodifiable (aCont)));
+    assertTrue (ContainerEqualsUtils.equals (aCont, CollectionHelper.makeUnmodifiable (aCont)));
     assertTrue (ContainerEqualsUtils.equals (aCont, Collections.synchronizedSet (aCont)));
     assertTrue (ContainerEqualsUtils.equals (aCont, new HashSet <String> (aCont)));
     assertTrue (ContainerEqualsUtils.equals (aCont, new LinkedHashSet <String> (aCont)));
@@ -132,12 +132,12 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
     assertFalse (ContainerEqualsUtils.equals (aCont, new HashSet <String> ()));
     assertFalse (ContainerEqualsUtils.equals (new HashSet <String> (), aCont));
     assertFalse (ContainerEqualsUtils.equals (aCont, new TreeSet <String> ()));
-    assertFalse (ContainerEqualsUtils.equals (aCont, ContainerHelper.newSet ("a", "b")));
-    assertFalse (ContainerEqualsUtils.equals (aCont, ContainerHelper.newSet ("A", "b", "c")));
-    assertFalse (ContainerEqualsUtils.equals (aCont, ContainerHelper.newSet ("a", "B", "c")));
-    assertFalse (ContainerEqualsUtils.equals (aCont, ContainerHelper.newSet ("a", "b", "C")));
-    assertFalse (ContainerEqualsUtils.equals (aCont, ContainerHelper.newSet ("a", "b", "c", "d")));
-    assertFalse (ContainerEqualsUtils.equals (aCont, ContainerHelper.newList ("a", "b", "c")));
+    assertFalse (ContainerEqualsUtils.equals (aCont, CollectionHelper.newSet ("a", "b")));
+    assertFalse (ContainerEqualsUtils.equals (aCont, CollectionHelper.newSet ("A", "b", "c")));
+    assertFalse (ContainerEqualsUtils.equals (aCont, CollectionHelper.newSet ("a", "B", "c")));
+    assertFalse (ContainerEqualsUtils.equals (aCont, CollectionHelper.newSet ("a", "b", "C")));
+    assertFalse (ContainerEqualsUtils.equals (aCont, CollectionHelper.newSet ("a", "b", "c", "d")));
+    assertFalse (ContainerEqualsUtils.equals (aCont, CollectionHelper.newList ("a", "b", "c")));
     assertFalse (ContainerEqualsUtils.equals (aCont, ArrayHelper.newArray ("a", "b", "c")));
   }
 
@@ -146,7 +146,7 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
   {
     final SMap aMap = new SMap ("a", "b").add ("c", "d");
     assertTrue (ContainerEqualsUtils.equals (aMap, aMap));
-    assertTrue (ContainerEqualsUtils.equals (aMap, ContainerHelper.makeUnmodifiable (aMap)));
+    assertTrue (ContainerEqualsUtils.equals (aMap, CollectionHelper.makeUnmodifiable (aMap)));
     assertTrue (ContainerEqualsUtils.equals (aMap, Collections.synchronizedMap (aMap)));
     assertTrue (ContainerEqualsUtils.equals (aMap, new SMap ("a", "b").add ("c", "d")));
     assertTrue (ContainerEqualsUtils.equals (new HashMap <Integer, Integer> (), new HashMap <Double, Float> ()));
@@ -159,8 +159,8 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
     assertFalse (ContainerEqualsUtils.equals (aMap, new SMap ("a", "b").add ("C", "d")));
     assertFalse (ContainerEqualsUtils.equals (aMap, new SMap ("a", "b").add ("c", "D")));
     assertFalse (ContainerEqualsUtils.equals (aMap, new SMap ("a", "b").add ("c", "d").add ("e", "f")));
-    assertFalse (ContainerEqualsUtils.equals (aMap, ContainerHelper.newList ("a", "b", "c")));
-    assertFalse (ContainerEqualsUtils.equals (aMap, ContainerHelper.newSet ("a", "b", "c")));
+    assertFalse (ContainerEqualsUtils.equals (aMap, CollectionHelper.newList ("a", "b", "c")));
+    assertFalse (ContainerEqualsUtils.equals (aMap, CollectionHelper.newSet ("a", "b", "c")));
     assertFalse (ContainerEqualsUtils.equals (aMap, ArrayHelper.newArray ("a", "b", "c")));
   }
 
@@ -179,39 +179,39 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
     assertFalse (ContainerEqualsUtils.equals (aArray, ArrayHelper.newArray ("a", "B", "c")));
     assertFalse (ContainerEqualsUtils.equals (aArray, ArrayHelper.newArray ("a", "b", "C")));
     assertFalse (ContainerEqualsUtils.equals (aArray, ArrayHelper.newArray ("a", "b", "c", "d")));
-    assertFalse (ContainerEqualsUtils.equals (aArray, ContainerHelper.newList ("a", "b", "c")));
-    assertFalse (ContainerEqualsUtils.equals (aArray, ContainerHelper.newSet ("a", "b", "c")));
+    assertFalse (ContainerEqualsUtils.equals (aArray, CollectionHelper.newList ("a", "b", "c")));
+    assertFalse (ContainerEqualsUtils.equals (aArray, CollectionHelper.newSet ("a", "b", "c")));
   }
 
   @SuppressWarnings ("unchecked")
   @Test
   public void testArrayComplex ()
   {
-    final List <String> [] aArray = ArrayHelper.newArray (ContainerHelper.newList ("a", "b"),
-                                                          ContainerHelper.newList ("c", "d"));
+    final List <String> [] aArray = ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
+                                                          CollectionHelper.newList ("c", "d"));
     assertTrue (ContainerEqualsUtils.equals (aArray, aArray));
     assertTrue (ContainerEqualsUtils.equals (aArray,
-                                             ArrayHelper.newArray (ContainerHelper.newList ("a", "b"),
-                                                                   ContainerHelper.newList ("c", "d"))));
+                                             ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
+                                                                   CollectionHelper.newList ("c", "d"))));
     assertTrue (ContainerEqualsUtils.equals (new List <?> [0], new List <?> [] {}));
 
     assertFalse (ContainerEqualsUtils.equals (aArray, new List <?> [0]));
     assertFalse (ContainerEqualsUtils.equals (new List <?> [0], aArray));
-    assertFalse (ContainerEqualsUtils.equals (aArray, ArrayHelper.newArray (ContainerHelper.newList ("a", "b"))));
+    assertFalse (ContainerEqualsUtils.equals (aArray, ArrayHelper.newArray (CollectionHelper.newList ("a", "b"))));
     assertFalse (ContainerEqualsUtils.equals (aArray,
-                                              ArrayHelper.newArray (ContainerHelper.newList ("A", "b"),
-                                                                    ContainerHelper.newList ("c", "d"))));
+                                              ArrayHelper.newArray (CollectionHelper.newList ("A", "b"),
+                                                                    CollectionHelper.newList ("c", "d"))));
     assertFalse (ContainerEqualsUtils.equals (aArray,
-                                              ArrayHelper.newArray (ContainerHelper.newList ("a", "b"),
-                                                                    ContainerHelper.newList ("c", "D"))));
+                                              ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
+                                                                    CollectionHelper.newList ("c", "D"))));
     assertFalse (ContainerEqualsUtils.equals (aArray,
-                                              ArrayHelper.newArray (ContainerHelper.newList ("a", "b"),
-                                                                    ContainerHelper.newList ("c", "d"),
-                                                                    ContainerHelper.newList ("e", "f"))));
-    assertFalse (ContainerEqualsUtils.equals (aArray, ArrayHelper.newArray (ContainerHelper.newList ("a", "b"),
+                                              ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
+                                                                    CollectionHelper.newList ("c", "d"),
+                                                                    CollectionHelper.newList ("e", "f"))));
+    assertFalse (ContainerEqualsUtils.equals (aArray, ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
                                                                             (List <String>) null)));
-    assertFalse (ContainerEqualsUtils.equals (aArray, ContainerHelper.newList ("a", "b", "c")));
-    assertFalse (ContainerEqualsUtils.equals (aArray, ContainerHelper.newSet ("a", "b", "c")));
+    assertFalse (ContainerEqualsUtils.equals (aArray, CollectionHelper.newList ("a", "b", "c")));
+    assertFalse (ContainerEqualsUtils.equals (aArray, CollectionHelper.newSet ("a", "b", "c")));
     assertFalse (ContainerEqualsUtils.equals (aArray, ArrayHelper.newArray ("a", "b", "c")));
     assertFalse (ContainerEqualsUtils.equals (aArray, ArrayHelper.newArray ("a", null, "c")));
   }
@@ -220,25 +220,25 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
   public void testComplex ()
   {
     final Map <List <String>, Set <String>> aMap = new HashMap <List <String>, Set <String>> ();
-    aMap.put (ContainerHelper.newList ("a", "b", "c"), ContainerHelper.newSet ("a", "b", "c"));
-    aMap.put (ContainerHelper.newList ("a", "b", "d"), ContainerHelper.newSet ("a", "b", "d"));
-    assertTrue (ContainerEqualsUtils.equals (aMap, ContainerHelper.newMap (aMap)));
+    aMap.put (CollectionHelper.newList ("a", "b", "c"), CollectionHelper.newSet ("a", "b", "c"));
+    aMap.put (CollectionHelper.newList ("a", "b", "d"), CollectionHelper.newSet ("a", "b", "d"));
+    assertTrue (ContainerEqualsUtils.equals (aMap, CollectionHelper.newMap (aMap)));
 
     assertFalse (ContainerEqualsUtils.equals (aMap, ArrayHelper.newArray ("a", "b", "c", "d")));
-    assertFalse (ContainerEqualsUtils.equals (aMap, ContainerHelper.newList ("a", "b", "c")));
-    assertFalse (ContainerEqualsUtils.equals (aMap, ContainerHelper.newSet ("a", "b", "c")));
+    assertFalse (ContainerEqualsUtils.equals (aMap, CollectionHelper.newList ("a", "b", "c")));
+    assertFalse (ContainerEqualsUtils.equals (aMap, CollectionHelper.newSet ("a", "b", "c")));
     assertFalse (ContainerEqualsUtils.equals (aMap, new SMap ().add ("a", "b")));
     final Map <List <String>, String> aMap2 = new HashMap <List <String>, String> ();
-    aMap2.put (ContainerHelper.newList ("a", "b", "c"), "d");
-    aMap2.put (ContainerHelper.newList ("a", "b", "d"), "e");
-    aMap2.put (ContainerHelper.newList ("a", "b", "e"), null);
+    aMap2.put (CollectionHelper.newList ("a", "b", "c"), "d");
+    aMap2.put (CollectionHelper.newList ("a", "b", "d"), "e");
+    aMap2.put (CollectionHelper.newList ("a", "b", "e"), null);
     aMap2.put (null, "g");
     assertFalse (ContainerEqualsUtils.equals (aMap, aMap2));
     assertFalse (ContainerEqualsUtils.equals (aMap2, aMap));
     final Map <String, List <String>> aMap3 = new HashMap <String, List <String>> ();
-    aMap3.put ("d", ContainerHelper.newList ("a", "b", "c"));
-    aMap3.put ("e", ContainerHelper.newList ("a", "b", "d"));
-    aMap3.put (null, ContainerHelper.newList ("a", "b", "e"));
+    aMap3.put ("d", CollectionHelper.newList ("a", "b", "c"));
+    aMap3.put ("e", CollectionHelper.newList ("a", "b", "d"));
+    aMap3.put (null, CollectionHelper.newList ("a", "b", "e"));
     aMap3.put ("g", null);
     assertFalse (ContainerEqualsUtils.equals (aMap, aMap3));
     assertFalse (ContainerEqualsUtils.equals (aMap3, aMap));
@@ -247,17 +247,17 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
   @Test
   public void testIterator ()
   {
-    final List <String> aCont = ContainerHelper.newList ("a", "b", "c");
+    final List <String> aCont = CollectionHelper.newList ("a", "b", "c");
     assertTrue (ContainerEqualsUtils.equals (aCont.iterator (), aCont.iterator ()));
-    assertTrue (ContainerEqualsUtils.equals (aCont.iterator (), ContainerHelper.makeUnmodifiable (aCont).iterator ()));
+    assertTrue (ContainerEqualsUtils.equals (aCont.iterator (), CollectionHelper.makeUnmodifiable (aCont).iterator ()));
     assertTrue (ContainerEqualsUtils.equals (aCont.iterator (), Collections.synchronizedList (aCont).iterator ()));
     assertTrue (ContainerEqualsUtils.equals (aCont.iterator (), new ArrayList <String> (aCont).iterator ()));
     assertTrue (ContainerEqualsUtils.equals (aCont.iterator (), new LinkedList <String> (aCont).iterator ()));
     assertTrue (ContainerEqualsUtils.equals (aCont.iterator (), new Vector <String> (aCont).iterator ()));
     assertTrue (ContainerEqualsUtils.equals (aCont.iterator (), new NonBlockingStack <String> (aCont).iterator ()));
-    assertTrue (ContainerEqualsUtils.equals (aCont.iterator (), ContainerHelper.newQueue (aCont).iterator ()));
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.newQueue (aCont), aCont));
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.newQueue (aCont), ContainerHelper.newQueue (aCont)));
+    assertTrue (ContainerEqualsUtils.equals (aCont.iterator (), CollectionHelper.newQueue (aCont).iterator ()));
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.newQueue (aCont), aCont));
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.newQueue (aCont), CollectionHelper.newQueue (aCont)));
     assertTrue (ContainerEqualsUtils.equals (new ArrayList <String> ().iterator (),
                                              new LinkedList <String> ().iterator ()));
     assertTrue (ContainerEqualsUtils.equals (new NonBlockingStack <String> ().iterator (),
@@ -268,13 +268,13 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
     assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), new LinkedList <String> ().iterator ()));
     assertFalse (ContainerEqualsUtils.equals (new LinkedList <String> ().iterator (), aCont.iterator ()));
     assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), new ArrayList <String> ().iterator ()));
-    assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), ContainerHelper.newList ("a", "b").iterator ()));
-    assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), ContainerHelper.newList ("A", "b", "c").iterator ()));
-    assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), ContainerHelper.newList ("a", "B", "c").iterator ()));
-    assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), ContainerHelper.newList ("a", "b", "C").iterator ()));
-    assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), ContainerHelper.newList ("a", "b", "c", "d")
+    assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), CollectionHelper.newList ("a", "b").iterator ()));
+    assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), CollectionHelper.newList ("A", "b", "c").iterator ()));
+    assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), CollectionHelper.newList ("a", "B", "c").iterator ()));
+    assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), CollectionHelper.newList ("a", "b", "C").iterator ()));
+    assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), CollectionHelper.newList ("a", "b", "c", "d")
                                                                                 .iterator ()));
-    assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), ContainerHelper.newSet ("a", "b", "c")));
+    assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), CollectionHelper.newSet ("a", "b", "c")));
     assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), ArrayHelper.newArray ("a", "b", "c")));
   }
 
@@ -284,7 +284,7 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
 
     public MockIterable (final String... aValues)
     {
-      m_aList = ContainerHelper.newList (aValues);
+      m_aList = CollectionHelper.newList (aValues);
     }
 
     @Nonnull
@@ -309,63 +309,63 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
     assertFalse (ContainerEqualsUtils.equals (aCont, new MockIterable ("a", "B", "c")));
     assertFalse (ContainerEqualsUtils.equals (aCont, new MockIterable ("a", "b", "C")));
     assertFalse (ContainerEqualsUtils.equals (aCont, new MockIterable ("a", "b", "c", "d")));
-    assertFalse (ContainerEqualsUtils.equals (aCont, ContainerHelper.newSet ("a", "b", "c")));
+    assertFalse (ContainerEqualsUtils.equals (aCont, CollectionHelper.newSet ("a", "b", "c")));
     assertFalse (ContainerEqualsUtils.equals (aCont, ArrayHelper.newArray ("a", "b", "c")));
   }
 
   @Test
   public void testEnumeration ()
   {
-    final List <String> aCont = ContainerHelper.newList ("a", "b", "c");
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                             ContainerHelper.getEnumeration (aCont)));
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                             ContainerHelper.getEnumeration (ContainerHelper.makeUnmodifiable (aCont))));
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                             ContainerHelper.getEnumeration (Collections.synchronizedList (aCont))));
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                             ContainerHelper.getEnumeration (new ArrayList <String> (aCont))));
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                             ContainerHelper.getEnumeration (new LinkedList <String> (aCont))));
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                             ContainerHelper.getEnumeration (new Vector <String> (aCont))));
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                             ContainerHelper.getEnumeration (new NonBlockingStack <String> (aCont))));
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                             ContainerHelper.getEnumeration (ContainerHelper.newQueue (aCont))));
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.newQueue (aCont), aCont));
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.newQueue (aCont), ContainerHelper.newQueue (aCont)));
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (new ArrayList <String> ()),
-                                             ContainerHelper.getEnumeration (new LinkedList <String> ())));
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (new NonBlockingStack <String> ()),
-                                             ContainerHelper.getEnumeration (new Vector <String> ())));
-    assertTrue (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (new NonBlockingStack <String> ()),
-                                             ContainerHelper.getEnumeration (new Stack <String> ())));
+    final List <String> aCont = CollectionHelper.newList ("a", "b", "c");
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                             CollectionHelper.getEnumeration (aCont)));
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                             CollectionHelper.getEnumeration (CollectionHelper.makeUnmodifiable (aCont))));
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                             CollectionHelper.getEnumeration (Collections.synchronizedList (aCont))));
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                             CollectionHelper.getEnumeration (new ArrayList <String> (aCont))));
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                             CollectionHelper.getEnumeration (new LinkedList <String> (aCont))));
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                             CollectionHelper.getEnumeration (new Vector <String> (aCont))));
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                             CollectionHelper.getEnumeration (new NonBlockingStack <String> (aCont))));
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                             CollectionHelper.getEnumeration (CollectionHelper.newQueue (aCont))));
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.newQueue (aCont), aCont));
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.newQueue (aCont), CollectionHelper.newQueue (aCont)));
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (new ArrayList <String> ()),
+                                             CollectionHelper.getEnumeration (new LinkedList <String> ())));
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (new NonBlockingStack <String> ()),
+                                             CollectionHelper.getEnumeration (new Vector <String> ())));
+    assertTrue (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (new NonBlockingStack <String> ()),
+                                             CollectionHelper.getEnumeration (new Stack <String> ())));
 
-    assertFalse (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                              ContainerHelper.getEnumeration (new LinkedList <String> ())));
-    assertFalse (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (new LinkedList <String> ()),
-                                              ContainerHelper.getEnumeration (aCont)));
-    assertFalse (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                              ContainerHelper.getEnumeration (new ArrayList <String> ())));
-    assertFalse (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                              ContainerHelper.getEnumeration (ContainerHelper.newList ("a", "b"))));
-    assertFalse (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                              ContainerHelper.getEnumeration (ContainerHelper.newList ("A", "b", "c"))));
-    assertFalse (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                              ContainerHelper.getEnumeration (ContainerHelper.newList ("a", "B", "c"))));
-    assertFalse (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                              ContainerHelper.getEnumeration (ContainerHelper.newList ("a", "b", "C"))));
-    assertFalse (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                              ContainerHelper.getEnumeration (ContainerHelper.newList ("a",
+    assertFalse (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                              CollectionHelper.getEnumeration (new LinkedList <String> ())));
+    assertFalse (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (new LinkedList <String> ()),
+                                              CollectionHelper.getEnumeration (aCont)));
+    assertFalse (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                              CollectionHelper.getEnumeration (new ArrayList <String> ())));
+    assertFalse (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                              CollectionHelper.getEnumeration (CollectionHelper.newList ("a", "b"))));
+    assertFalse (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                              CollectionHelper.getEnumeration (CollectionHelper.newList ("A", "b", "c"))));
+    assertFalse (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                              CollectionHelper.getEnumeration (CollectionHelper.newList ("a", "B", "c"))));
+    assertFalse (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                              CollectionHelper.getEnumeration (CollectionHelper.newList ("a", "b", "C"))));
+    assertFalse (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                              CollectionHelper.getEnumeration (CollectionHelper.newList ("a",
                                                                                                        "b",
                                                                                                        "c",
                                                                                                        "d"))));
-    assertFalse (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                              ContainerHelper.getEnumeration (new SMap ("a", "b").add ("c", "d"))));
-    assertFalse (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
-                                              ContainerHelper.newSet ("a", "b", "c")));
-    assertFalse (ContainerEqualsUtils.equals (ContainerHelper.getEnumeration (aCont),
+    assertFalse (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                              CollectionHelper.getEnumeration (new SMap ("a", "b").add ("c", "d"))));
+    assertFalse (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
+                                              CollectionHelper.newSet ("a", "b", "c")));
+    assertFalse (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
                                               ArrayHelper.newArray ("a", "b", "c")));
   }
 
@@ -373,19 +373,19 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
   public void testEqualsAsCollection ()
   {
     assertTrue (ContainerEqualsUtils.equalsAsList (null, null));
-    assertTrue (ContainerEqualsUtils.equalsAsList (ContainerHelper.newList ("a", "b"), ArrayHelper.newArray ("a", "b")));
-    assertTrue (ContainerEqualsUtils.equalsAsList (ContainerHelper.newList ("a", "b"),
-                                                   ContainerHelper.newList ("a", "b").iterator ()));
-    assertTrue (ContainerEqualsUtils.equalsAsList (ContainerHelper.newList ("a", "b"),
-                                                   ContainerHelper.getEnumeration ("a", "b")));
-    assertTrue (ContainerEqualsUtils.equalsAsList (ContainerHelper.newList ("a", "b"),
-                                                   ContainerHelper.newOrderedSet ("a", "b")));
-    assertTrue (ContainerEqualsUtils.equalsAsList (ContainerHelper.newList ("a", "b"), new MockIterable ("a", "b")));
+    assertTrue (ContainerEqualsUtils.equalsAsList (CollectionHelper.newList ("a", "b"), ArrayHelper.newArray ("a", "b")));
+    assertTrue (ContainerEqualsUtils.equalsAsList (CollectionHelper.newList ("a", "b"),
+                                                   CollectionHelper.newList ("a", "b").iterator ()));
+    assertTrue (ContainerEqualsUtils.equalsAsList (CollectionHelper.newList ("a", "b"),
+                                                   CollectionHelper.getEnumeration ("a", "b")));
+    assertTrue (ContainerEqualsUtils.equalsAsList (CollectionHelper.newList ("a", "b"),
+                                                   CollectionHelper.newOrderedSet ("a", "b")));
+    assertTrue (ContainerEqualsUtils.equalsAsList (CollectionHelper.newList ("a", "b"), new MockIterable ("a", "b")));
 
     assertFalse (ContainerEqualsUtils.equalsAsList (null, "abc"));
     assertFalse (ContainerEqualsUtils.equalsAsList ("abc", null));
-    assertFalse (ContainerEqualsUtils.equalsAsList (ContainerHelper.newList ("a", "b"), ArrayHelper.newArray ("a", "B")));
-    assertFalse (ContainerEqualsUtils.equalsAsList (ContainerHelper.newList (null, "b"),
+    assertFalse (ContainerEqualsUtils.equalsAsList (CollectionHelper.newList ("a", "b"), ArrayHelper.newArray ("a", "B")));
+    assertFalse (ContainerEqualsUtils.equalsAsList (CollectionHelper.newList (null, "b"),
                                                     ArrayHelper.newArray ("a", (String) null)));
   }
 }

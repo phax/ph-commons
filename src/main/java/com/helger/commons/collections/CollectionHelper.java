@@ -73,43 +73,42 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @author Philip Helger
  */
 @Immutable
-@Deprecated
-public final class ContainerHelper
+public final class CollectionHelper
 {
   @PresentForCodeCoverage
-  private static final ContainerHelper s_aInstance = new ContainerHelper ();
+  private static final CollectionHelper s_aInstance = new CollectionHelper ();
 
-  private ContainerHelper ()
+  private CollectionHelper ()
   {}
 
   @Nonnull
   public static <ELEMENTTYPE> List <? extends ELEMENTTYPE> getNotNull (final List <? extends ELEMENTTYPE> aList)
   {
-    return aList == null ? ContainerHelper.<ELEMENTTYPE> newList () : aList;
+    return aList == null ? CollectionHelper.<ELEMENTTYPE> newList () : aList;
   }
 
   @Nonnull
   public static <ELEMENTTYPE> Set <? extends ELEMENTTYPE> getNotNull (final Set <? extends ELEMENTTYPE> aSet)
   {
-    return aSet == null ? ContainerHelper.<ELEMENTTYPE> newSet () : aSet;
+    return aSet == null ? CollectionHelper.<ELEMENTTYPE> newSet () : aSet;
   }
 
   @Nonnull
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <? extends ELEMENTTYPE> getNotNull (final SortedSet <? extends ELEMENTTYPE> aSortedSet)
   {
-    return aSortedSet == null ? ContainerHelper.<ELEMENTTYPE> newSortedSet () : aSortedSet;
+    return aSortedSet == null ? CollectionHelper.<ELEMENTTYPE> newSortedSet () : aSortedSet;
   }
 
   @Nonnull
   public static <KEYTYPE, VALUETYPE> Map <? extends KEYTYPE, ? extends VALUETYPE> getNotNull (final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    return aMap == null ? ContainerHelper.<KEYTYPE, VALUETYPE> newMap () : aMap;
+    return aMap == null ? CollectionHelper.<KEYTYPE, VALUETYPE> newMap () : aMap;
   }
 
   @Nonnull
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> SortedMap <? extends KEYTYPE, ? extends VALUETYPE> getNotNull (final SortedMap <? extends KEYTYPE, ? extends VALUETYPE> aSortedMap)
   {
-    return aSortedMap == null ? ContainerHelper.<KEYTYPE, VALUETYPE> newSortedMap () : aSortedMap;
+    return aSortedMap == null ? CollectionHelper.<KEYTYPE, VALUETYPE> newSortedMap () : aSortedMap;
   }
 
   @Nullable
@@ -158,7 +157,7 @@ public final class ContainerHelper
   @ReturnsImmutableObject
   public static <ELEMENTTYPE> Collection <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final Collection <? extends ELEMENTTYPE> aCollection)
   {
-    return aCollection == null ? ContainerHelper.<ELEMENTTYPE> newUnmodifiableList ()
+    return aCollection == null ? CollectionHelper.<ELEMENTTYPE> newUnmodifiableList ()
                               : Collections.unmodifiableCollection (aCollection);
   }
 
@@ -166,21 +165,21 @@ public final class ContainerHelper
   @ReturnsImmutableObject
   public static <ELEMENTTYPE> List <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final List <? extends ELEMENTTYPE> aList)
   {
-    return aList == null ? ContainerHelper.<ELEMENTTYPE> newUnmodifiableList () : Collections.unmodifiableList (aList);
+    return aList == null ? CollectionHelper.<ELEMENTTYPE> newUnmodifiableList () : Collections.unmodifiableList (aList);
   }
 
   @Nonnull
   @ReturnsImmutableObject
   public static <ELEMENTTYPE> Set <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final Set <? extends ELEMENTTYPE> aSet)
   {
-    return aSet == null ? ContainerHelper.<ELEMENTTYPE> newUnmodifiableSet () : Collections.unmodifiableSet (aSet);
+    return aSet == null ? CollectionHelper.<ELEMENTTYPE> newUnmodifiableSet () : Collections.unmodifiableSet (aSet);
   }
 
   @Nonnull
   @ReturnsImmutableObject
   public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    return aMap == null ? ContainerHelper.<KEYTYPE, VALUETYPE> newUnmodifiableMap ()
+    return aMap == null ? CollectionHelper.<KEYTYPE, VALUETYPE> newUnmodifiableMap ()
                        : Collections.unmodifiableMap (aMap);
   }
 
@@ -188,7 +187,7 @@ public final class ContainerHelper
   @ReturnsImmutableObject
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final SortedSet <ELEMENTTYPE> aSortedSet)
   {
-    return aSortedSet == null ? ContainerHelper.<ELEMENTTYPE> newUnmodifiableSortedSet ()
+    return aSortedSet == null ? CollectionHelper.<ELEMENTTYPE> newUnmodifiableSortedSet ()
                              : Collections.unmodifiableSortedSet (aSortedSet);
   }
 
@@ -196,7 +195,7 @@ public final class ContainerHelper
   @ReturnsImmutableObject
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> SortedMap <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final SortedMap <KEYTYPE, ? extends VALUETYPE> aSortedMap)
   {
-    return Collections.unmodifiableSortedMap (aSortedMap == null ? ContainerHelper.<KEYTYPE, VALUETYPE> newSortedMap ()
+    return Collections.unmodifiableSortedMap (aSortedMap == null ? CollectionHelper.<KEYTYPE, VALUETYPE> newSortedMap ()
                                                                 : aSortedMap);
   }
 
@@ -722,7 +721,7 @@ public final class ContainerHelper
   @ReturnsImmutableObject
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> SortedMap <KEYTYPE, VALUETYPE> newUnmodifiableSortedMap ()
   {
-    return makeUnmodifiable (ContainerHelper.<KEYTYPE, VALUETYPE> newSortedMap ());
+    return makeUnmodifiable (CollectionHelper.<KEYTYPE, VALUETYPE> newSortedMap ());
   }
 
   @Nonnull

@@ -39,7 +39,7 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.state.EChange;
 
 /**
@@ -297,7 +297,7 @@ public final class MimeTypeDeterminator
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newList (m_aMimeTypeContents);
+      return CollectionHelper.newList (m_aMimeTypeContents);
     }
     finally
     {

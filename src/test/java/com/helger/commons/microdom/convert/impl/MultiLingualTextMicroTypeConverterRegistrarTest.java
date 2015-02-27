@@ -25,7 +25,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.convert.MicroTypeConverter;
 import com.helger.commons.mock.PHTestUtils;
@@ -36,7 +36,7 @@ import com.helger.commons.text.impl.TextProvider;
 
 /**
  * Test class for class {@link MultiLingualTextMicroTypeConverterRegistrar}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MultiLingualTextMicroTypeConverterRegistrarTest
@@ -62,7 +62,7 @@ public final class MultiLingualTextMicroTypeConverterRegistrarTest
   @Test
   public void testReadonlyMultiLingualText ()
   {
-    final ReadonlyMultiLingualText aMLT = new ReadonlyMultiLingualText (ContainerHelper.newMap (new Locale [] { Locale.GERMAN,
+    final ReadonlyMultiLingualText aMLT = new ReadonlyMultiLingualText (CollectionHelper.newMap (new Locale [] { Locale.GERMAN,
                                                                                                                Locale.CHINA },
                                                                                                 new String [] { "Cumberlandstraße",
                                                                                                                "Whatspever" }));

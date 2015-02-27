@@ -28,11 +28,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 /**
  * Abstract class for class {@link IMultiMap} implementations.
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractMultiMapTestCase
@@ -49,22 +49,22 @@ public abstract class AbstractMultiMapTestCase
 
   protected final List <String> getValueList1 ()
   {
-    return ContainerHelper.newList (getValue1 ());
+    return CollectionHelper.newList (getValue1 ());
   }
 
   protected final Set <String> getValueSet1 ()
   {
-    return ContainerHelper.newSet (getValue1 ());
+    return CollectionHelper.newSet (getValue1 ());
   }
 
   protected final Map <String, List <String>> getMapList1 ()
   {
-    return ContainerHelper.newMap (getKey1 (), getValueList1 ());
+    return CollectionHelper.newMap (getKey1 (), getValueList1 ());
   }
 
   protected final Map <String, Set <String>> getMapSet1 ()
   {
-    return ContainerHelper.newMap (getKey1 (), getValueSet1 ());
+    return CollectionHelper.newMap (getKey1 (), getValueSet1 ());
   }
 
   protected final <COLLTYPE extends Collection <String>> void testEmpty (final IMultiMap <String, String, COLLTYPE> aMultiMap)

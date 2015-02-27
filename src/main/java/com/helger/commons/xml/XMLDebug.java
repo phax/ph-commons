@@ -30,7 +30,7 @@ import org.w3c.dom.DOMImplementation;
 
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.xml.dom.EXMLDOMFeature;
 import com.helger.commons.xml.dom.EXMLDOMFeatureVersion;
 import com.helger.commons.xml.dom.EXMLDOMNodeType;
@@ -92,7 +92,7 @@ public final class XMLDebug
   @ReturnsMutableCopy
   public static Map <EXMLDOMFeatureVersion, List <String>> getSupportedFeatures ()
   {
-    return ContainerHelper.newMap (s_aSupportedFeatures);
+    return CollectionHelper.newMap (s_aSupportedFeatures);
   }
 
   @Nullable

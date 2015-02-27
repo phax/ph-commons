@@ -20,12 +20,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.id.MockHasIDString;
 
 /**
  * Test class for class {@link ComparatorUtils}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ComparatorUtilsTest
@@ -34,7 +34,7 @@ public final class ComparatorUtilsTest
   public void testAll ()
   {
     assertEquals (3,
-                  ContainerHelper.getSorted (ContainerHelper.newList (new MockHasIDString (3),
+                  CollectionHelper.getSorted (CollectionHelper.newList (new MockHasIDString (3),
                                                                       new MockHasIDString (2),
                                                                       new MockHasIDString (1)),
                                              new ComparatorAsString ()).size ());

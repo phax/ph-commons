@@ -30,7 +30,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.microdom.EMicroEvent;
 import com.helger.commons.microdom.IHasElementName;
 import com.helger.commons.microdom.IMicroCDATA;
@@ -468,7 +468,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     final int nIndex = aParentChildren.indexOf (this);
     if (nIndex == -1)
       throw new IllegalStateException ("this is no part of it's parents children");
-    return ContainerHelper.getSafe (aParentChildren, nIndex - 1);
+    return CollectionHelper.getSafe (aParentChildren, nIndex - 1);
   }
 
   @Nullable
@@ -480,7 +480,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     final int nIndex = aParentChildren.indexOf (this);
     if (nIndex == -1)
       throw new IllegalStateException ("this is no part of it's parents children");
-    return ContainerHelper.getSafe (aParentChildren, nIndex + 1);
+    return CollectionHelper.getSafe (aParentChildren, nIndex + 1);
   }
 
   public final boolean hasParent ()
@@ -667,14 +667,14 @@ public abstract class AbstractMicroNode implements IMicroNode
   @ReturnsMutableCopy
   public Map <EMicroEvent, Set <IMicroEventTarget>> getAllEventTargets ()
   {
-    return ContainerHelper.newMap (m_aEventTargets);
+    return CollectionHelper.newMap (m_aEventTargets);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public Set <IMicroEventTarget> getAllEventTargets (@Nullable final EMicroEvent eEvent)
   {
-    return ContainerHelper.newSet (m_aEventTargets == null ? null : m_aEventTargets.get (eEvent));
+    return CollectionHelper.newSet (m_aEventTargets == null ? null : m_aEventTargets.get (eEvent));
   }
 
   @Override

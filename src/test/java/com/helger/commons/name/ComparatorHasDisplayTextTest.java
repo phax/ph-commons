@@ -23,13 +23,13 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ComparatorHasDisplayText}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ComparatorHasDisplayTextTest extends AbstractPHTestCase
@@ -37,10 +37,10 @@ public final class ComparatorHasDisplayTextTest extends AbstractPHTestCase
   @Test
   public void testAll ()
   {
-    final List <MockHasDisplayText> aList = ContainerHelper.newList (MockHasDisplayText.createDE_EN ("de1", "en3"),
+    final List <MockHasDisplayText> aList = CollectionHelper.newList (MockHasDisplayText.createDE_EN ("de1", "en3"),
                                                                      MockHasDisplayText.createDE_EN ("de2", "en2"),
                                                                      MockHasDisplayText.createDE_EN ("de3", "en1"));
-    List <MockHasDisplayText> l2 = ContainerHelper.getSorted (aList,
+    List <MockHasDisplayText> l2 = CollectionHelper.getSorted (aList,
                                                               new ComparatorHasDisplayText <IHasDisplayText> (L_DE,
                                                                                                               L_DE));
     assertEquals (3, l2.size ());
@@ -51,7 +51,7 @@ public final class ComparatorHasDisplayTextTest extends AbstractPHTestCase
     assertEquals ("en2", l2.get (1).getDisplayText (L_EN));
     assertEquals ("en1", l2.get (2).getDisplayText (L_EN));
 
-    l2 = ContainerHelper.getSorted (aList, new ComparatorHasDisplayText <IHasDisplayText> (L_DE, L_EN));
+    l2 = CollectionHelper.getSorted (aList, new ComparatorHasDisplayText <IHasDisplayText> (L_DE, L_EN));
     assertEquals (3, l2.size ());
     assertEquals ("de3", l2.get (0).getDisplayText (L_DE));
     assertEquals ("de2", l2.get (1).getDisplayText (L_DE));
@@ -60,7 +60,7 @@ public final class ComparatorHasDisplayTextTest extends AbstractPHTestCase
     assertEquals ("en2", l2.get (1).getDisplayText (L_EN));
     assertEquals ("en3", l2.get (2).getDisplayText (L_EN));
 
-    l2 = ContainerHelper.getSorted (aList, new ComparatorHasDisplayText <IHasDisplayText> (L_DE,
+    l2 = CollectionHelper.getSorted (aList, new ComparatorHasDisplayText <IHasDisplayText> (L_DE,
                                                                                            L_DE,
                                                                                            ESortOrder.DESCENDING));
     assertEquals (3, l2.size ());
@@ -71,7 +71,7 @@ public final class ComparatorHasDisplayTextTest extends AbstractPHTestCase
     assertEquals ("en2", l2.get (1).getDisplayText (L_EN));
     assertEquals ("en3", l2.get (2).getDisplayText (L_EN));
 
-    l2 = ContainerHelper.getSorted (aList, new ComparatorHasDisplayText <IHasDisplayText> (L_DE,
+    l2 = CollectionHelper.getSorted (aList, new ComparatorHasDisplayText <IHasDisplayText> (L_DE,
                                                                                            L_EN,
                                                                                            ESortOrder.DESCENDING));
     assertEquals (3, l2.size ());

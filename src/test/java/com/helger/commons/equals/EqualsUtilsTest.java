@@ -25,13 +25,13 @@ import java.net.URL;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.string.StringParser;
 
 /**
  * Test class for class {@link EqualsUtils}.
- * 
+ *
  * @author Philip Helger
  */
 public final class EqualsUtilsTest extends AbstractPHTestCase
@@ -251,15 +251,15 @@ public final class EqualsUtilsTest extends AbstractPHTestCase
     assertFalse (EqualsUtils.equals (aSB1, new StringBuffer ("Hallo")));
     assertFalse (EqualsUtils.equals (aSB1, null));
 
-    assertTrue (EqualsUtils.equals (ContainerHelper.newList ("a", "b", "c"), ContainerHelper.newList ("a", "b", "c")));
-    assertTrue (EqualsUtils.equals (ContainerHelper.newUnmodifiableList ("a", "b", "c"),
-                                    ContainerHelper.newUnmodifiableList ("a", "b", "c")));
-    assertTrue (EqualsUtils.equals (ContainerHelper.newStack ("a", "b", "c"), ContainerHelper.newStack ("a", "b", "c")));
-    assertTrue (EqualsUtils.equals (ContainerHelper.newList ("a", "b", "c").iterator (),
-                                    ContainerHelper.newList ("a", "b", "c").iterator ()));
-    assertTrue (EqualsUtils.equals (ContainerHelper.getEnumeration ("a", "b", "c"),
-                                    ContainerHelper.getEnumeration ("a", "b", "c")));
-    assertFalse (EqualsUtils.equals (ContainerHelper.newUnmodifiableList ("a", "b", "c"),
-                                     ContainerHelper.newList ("a", "b", "c")));
+    assertTrue (EqualsUtils.equals (CollectionHelper.newList ("a", "b", "c"), CollectionHelper.newList ("a", "b", "c")));
+    assertTrue (EqualsUtils.equals (CollectionHelper.newUnmodifiableList ("a", "b", "c"),
+                                    CollectionHelper.newUnmodifiableList ("a", "b", "c")));
+    assertTrue (EqualsUtils.equals (CollectionHelper.newStack ("a", "b", "c"), CollectionHelper.newStack ("a", "b", "c")));
+    assertTrue (EqualsUtils.equals (CollectionHelper.newList ("a", "b", "c").iterator (),
+                                    CollectionHelper.newList ("a", "b", "c").iterator ()));
+    assertTrue (EqualsUtils.equals (CollectionHelper.getEnumeration ("a", "b", "c"),
+                                    CollectionHelper.getEnumeration ("a", "b", "c")));
+    assertFalse (EqualsUtils.equals (CollectionHelper.newUnmodifiableList ("a", "b", "c"),
+                                     CollectionHelper.newList ("a", "b", "c")));
   }
 }

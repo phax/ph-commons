@@ -82,7 +82,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for {@link ArrayHelper}
- * 
+ *
  * @author Philip Helger
  */
 @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
@@ -495,9 +495,9 @@ public final class ArrayHelperTest extends AbstractPHTestCase
   {
     assertNull (getAsObjectArray (null));
     assertNull (getAsObjectArray (new ArrayList <String> ()));
-    assertArrayEquals (new Object [] { "Hallo" }, getAsObjectArray (ContainerHelper.newList ("Hallo")));
-    assertArrayEquals (new Object [] { "Hallo", "Welt" }, getAsObjectArray (ContainerHelper.newList ("Hallo", "Welt")));
-    assertArrayEquals (new Object [] { I1, "Welt" }, getAsObjectArray (ContainerHelper.<Object> newList (I1, "Welt")));
+    assertArrayEquals (new Object [] { "Hallo" }, getAsObjectArray (CollectionHelper.newList ("Hallo")));
+    assertArrayEquals (new Object [] { "Hallo", "Welt" }, getAsObjectArray (CollectionHelper.newList ("Hallo", "Welt")));
+    assertArrayEquals (new Object [] { I1, "Welt" }, getAsObjectArray (CollectionHelper.<Object> newList (I1, "Welt")));
   }
 
   /**
@@ -680,7 +680,7 @@ public final class ArrayHelperTest extends AbstractPHTestCase
   @Test
   public void testNewArrayFromCollection ()
   {
-    String [] x = newArray (ContainerHelper.newList ("s1", "s2", "s3"), String.class);
+    String [] x = newArray (CollectionHelper.newList ("s1", "s2", "s3"), String.class);
     assertNotNull (x);
     assertEquals (3, x.length);
 
@@ -690,11 +690,11 @@ public final class ArrayHelperTest extends AbstractPHTestCase
     x = newArray ((List <String>) null, String.class);
     assertNotNull (x);
 
-    CharSequence [] y = newArray (ContainerHelper.newList ("s1", "s2", "s3"), CharSequence.class);
+    CharSequence [] y = newArray (CollectionHelper.newList ("s1", "s2", "s3"), CharSequence.class);
     assertNotNull (y);
     assertEquals (3, y.length);
 
-    y = newArray (ContainerHelper.newSet ("s1", "s2", "s3"), CharSequence.class);
+    y = newArray (CollectionHelper.newSet ("s1", "s2", "s3"), CharSequence.class);
     assertNotNull (y);
     assertEquals (3, y.length);
   }

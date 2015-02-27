@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 
@@ -134,7 +134,7 @@ public final class DefaultTreeWithGlobalUniqueIDTest
 
     assertEquals (0, aTestTree2.getChildCount (null));
     assertFalse (aTestTree2.hasChildren (null));
-    assertTrue (ContainerHelper.isEmpty (aTestTree2.getAllChildren (null)));
+    assertTrue (CollectionHelper.isEmpty (aTestTree2.getAllChildren (null)));
 
     final DefaultTreeItemWithID <String, String> x12 = aTestTree2.getRootItem ().createChildItem ("x1", "1");
     x12.createChildItem ("x2", "a");

@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.lang.ServiceLoaderUtils;
 
 /**
@@ -145,7 +145,7 @@ public final class URLProtocolRegistry
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newList (m_aProtocols.values ());
+      return CollectionHelper.newList (m_aProtocols.values ());
     }
     finally
     {

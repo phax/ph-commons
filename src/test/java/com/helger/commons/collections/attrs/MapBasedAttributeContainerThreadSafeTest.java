@@ -28,13 +28,13 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.PHAssert;
 import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MapBasedAttributeContainerThreadSafe}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MapBasedAttributeContainerThreadSafeTest
@@ -83,19 +83,19 @@ public final class MapBasedAttributeContainerThreadSafeTest
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainerThreadSafe (),
                                                                     new MapBasedAttributeContainerThreadSafe ());
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainerThreadSafe (ContainerHelper.newMap (new String [] { "key",
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainerThreadSafe (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                      "key2" },
                                                                                                                                       new Object [] { "value",
                                                                                                                                                      "value2" })),
-                                                                    new MapBasedAttributeContainerThreadSafe (ContainerHelper.newMap (new String [] { "key",
+                                                                    new MapBasedAttributeContainerThreadSafe (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                      "key2" },
                                                                                                                                       new Object [] { "value",
                                                                                                                                                      "value2" })));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedAttributeContainerThreadSafe (ContainerHelper.newMap (new String [] { "key",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedAttributeContainerThreadSafe (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                          "key2" },
                                                                                                                                           new Object [] { "value",
                                                                                                                                                          "value2" })),
-                                                                        new MapBasedAttributeContainerThreadSafe (ContainerHelper.newMap (new String [] { "key",
+                                                                        new MapBasedAttributeContainerThreadSafe (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                          "key2" },
                                                                                                                                           new Object [] { "value",
                                                                                                                                                          "value" })));

@@ -31,7 +31,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.lang.GenericReflection;
@@ -226,7 +226,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   @ReturnsMutableCopy
   public final List <ITEMTYPE> getAllChildren ()
   {
-    return m_aChildren == null ? null : ContainerHelper.newList (m_aChildren);
+    return m_aChildren == null ? null : CollectionHelper.newList (m_aChildren);
   }
 
   @Nullable
@@ -235,7 +235,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   {
     if (m_aChildMap == null)
       return null;
-    return ContainerHelper.newSet (m_aChildMap.keySet ());
+    return CollectionHelper.newSet (m_aChildMap.keySet ());
   }
 
   @Nullable
@@ -261,13 +261,13 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   @Nullable
   public ITEMTYPE getFirstChild ()
   {
-    return ContainerHelper.getFirstElement (m_aChildren);
+    return CollectionHelper.getFirstElement (m_aChildren);
   }
 
   @Nullable
   public ITEMTYPE getLastChild ()
   {
-    return ContainerHelper.getLastElement (m_aChildren);
+    return CollectionHelper.getLastElement (m_aChildren);
   }
 
   public final void setData (@Nullable final DATATYPE aData)
@@ -432,7 +432,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
       return EChange.UNCHANGED;
 
     // Remember all children
-    final List <ITEMTYPE> aAllChildren = ContainerHelper.newList (m_aChildren);
+    final List <ITEMTYPE> aAllChildren = CollectionHelper.newList (m_aChildren);
 
     // Remove all children
     m_aChildMap.clear ();
@@ -447,7 +447,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   public final void reorderChildrenByItems (@Nonnull final Comparator <? super ITEMTYPE> aComparator)
   {
     if (m_aChildren != null)
-      ContainerHelper.getSortedInline (m_aChildren, aComparator);
+      CollectionHelper.getSortedInline (m_aChildren, aComparator);
   }
 
   @Override

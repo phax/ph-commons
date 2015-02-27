@@ -27,7 +27,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.text.IReadonlyMultiLingualText;
@@ -48,7 +48,7 @@ public final class ReadonlyMultiLingualTextTest extends AbstractPHTestCase
     assertNotNull (aMLT.getAllLocales ());
     assertTrue (aMLT.getAllLocales ().isEmpty ());
 
-    final Map <Locale, String> aMap = ContainerHelper.newMap (new Locale [] { L_DE, L_EN },
+    final Map <Locale, String> aMap = CollectionHelper.newMap (new Locale [] { L_DE, L_EN },
                                                               new String [] { "de", "en" });
     aMLT = new ReadonlyMultiLingualText (aMap);
     assertEquals (2, aMLT.size ());
@@ -87,7 +87,7 @@ public final class ReadonlyMultiLingualTextTest extends AbstractPHTestCase
     assertEquals (2, aMLT.getAllTexts ().size ());
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aMLT,
-                                                                 new ReadonlyMultiLingualText (ContainerHelper.newMap (new Locale [] { L_DE,
+                                                                 new ReadonlyMultiLingualText (CollectionHelper.newMap (new Locale [] { L_DE,
                                                                                                                                       L_EN },
                                                                                                                        new String [] { "de",
                                                                                                                                       "en" })));

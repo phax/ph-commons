@@ -26,7 +26,7 @@ import java.util.Collection;
 import org.junit.Test;
 
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.convert.IUnidirectionalConverter;
 import com.helger.commons.convert.UnidirectionalConverterStringInteger;
 import com.helger.commons.mock.AbstractPHTestCase;
@@ -43,7 +43,7 @@ public final class ArrayConversionHelperTest extends AbstractPHTestCase
   {
     final IUnidirectionalConverter <String, Integer> conv = new UnidirectionalConverterStringInteger (null);
 
-    Integer [] x = ArrayConversionHelper.newArray (ContainerHelper.newList ("1", "2", "3"), conv, Integer.class);
+    Integer [] x = ArrayConversionHelper.newArray (CollectionHelper.newList ("1", "2", "3"), conv, Integer.class);
     assertNotNull (x);
     assertEquals (3, x.length);
     assertEquals (1, x[0].intValue ());
@@ -66,7 +66,7 @@ public final class ArrayConversionHelperTest extends AbstractPHTestCase
     try
     {
       // Converter may not be null
-      ArrayConversionHelper.newArray (ContainerHelper.newList ("1", "2", "3"), null, Integer.class);
+      ArrayConversionHelper.newArray (CollectionHelper.newList ("1", "2", "3"), null, Integer.class);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -75,7 +75,7 @@ public final class ArrayConversionHelperTest extends AbstractPHTestCase
     try
     {
       // Destination class may not be null
-      ArrayConversionHelper.newArray (ContainerHelper.newList ("1", "2", "3"), conv, (Class <Integer>) null);
+      ArrayConversionHelper.newArray (CollectionHelper.newList ("1", "2", "3"), conv, (Class <Integer>) null);
       fail ();
     }
     catch (final NullPointerException ex)

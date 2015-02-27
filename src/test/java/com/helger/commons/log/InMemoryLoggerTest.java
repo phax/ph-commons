@@ -23,12 +23,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.error.EErrorLevel;
 
 /**
  * Test class for class {@link InMemoryLogger}
- * 
+ *
  * @author Philip Helger
  */
 public final class InMemoryLoggerTest
@@ -50,6 +50,6 @@ public final class InMemoryLoggerTest
     assertEquals (5, log.getAllMessages ().size ());
     assertNotNull (log.toString ());
     log.log (EErrorLevel.WARN, "msg");
-    assertFalse (ContainerHelper.newList (log).isEmpty ());
+    assertFalse (CollectionHelper.newList (log).isEmpty ());
   }
 }

@@ -28,13 +28,13 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.PHAssert;
 import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MapBasedAttributeContainer}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MapBasedAttributeContainerTest
@@ -85,19 +85,19 @@ public final class MapBasedAttributeContainerTest
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainer (),
                                                                     new MapBasedAttributeContainer ());
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainer (ContainerHelper.newMap (new String [] { "key",
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                            "key2" },
                                                                                                                             new Object [] { "value",
                                                                                                                                            "value2" })),
-                                                                    new MapBasedAttributeContainer (ContainerHelper.newMap (new String [] { "key",
+                                                                    new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                            "key2" },
                                                                                                                             new Object [] { "value",
                                                                                                                                            "value2" })));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedAttributeContainer (ContainerHelper.newMap (new String [] { "key",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                "key2" },
                                                                                                                                 new Object [] { "value",
                                                                                                                                                "value2" })),
-                                                                        new MapBasedAttributeContainer (ContainerHelper.newMap (new String [] { "key",
+                                                                        new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                "key2" },
                                                                                                                                 new Object [] { "value",
                                                                                                                                                "value" })));

@@ -23,12 +23,12 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ComparatorLocaleDisplayName}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ComparatorLocaleDisplayNameTest extends AbstractPHTestCase
@@ -37,6 +37,6 @@ public final class ComparatorLocaleDisplayNameTest extends AbstractPHTestCase
   public void testAll ()
   {
     final Set <Locale> aAll = LocaleCache.getAllLocales ();
-    assertEquals (aAll.size (), ContainerHelper.getSorted (aAll, new ComparatorLocaleDisplayName (L_DE)).size ());
+    assertEquals (aAll.size (), CollectionHelper.getSorted (aAll, new ComparatorLocaleDisplayName (L_DE)).size ());
   }
 }

@@ -24,12 +24,12 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ComparatorAsString}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ComparatorAsStringTest extends AbstractPHTestCase
@@ -37,11 +37,11 @@ public final class ComparatorAsStringTest extends AbstractPHTestCase
   @Test
   public void testAll ()
   {
-    final List <String> l = ContainerHelper.newList ("a", "b", "c");
-    assertEquals (3, ContainerHelper.getSorted (l, new ComparatorAsString ()).size ());
-    assertEquals (3, ContainerHelper.getSorted (l, new ComparatorAsString (ESortOrder.DESCENDING)).size ());
-    assertEquals (3, ContainerHelper.getSorted (l, new ComparatorAsString (L_EN)).size ());
-    assertEquals (3, ContainerHelper.getSorted (l, new ComparatorAsString (Collator.getInstance (L_FR))).size ());
+    final List <String> l = CollectionHelper.newList ("a", "b", "c");
+    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorAsString ()).size ());
+    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorAsString (ESortOrder.DESCENDING)).size ());
+    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorAsString (L_EN)).size ());
+    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorAsString (Collator.getInstance (L_FR))).size ());
 
     try
     {

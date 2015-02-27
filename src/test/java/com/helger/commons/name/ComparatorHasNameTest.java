@@ -22,13 +22,13 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ComparatorHasName}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ComparatorHasNameTest extends AbstractPHTestCase
@@ -36,16 +36,16 @@ public final class ComparatorHasNameTest extends AbstractPHTestCase
   @Test
   public void testAll ()
   {
-    final List <MockHasName> aList = ContainerHelper.newList (new MockHasName (10),
+    final List <MockHasName> aList = CollectionHelper.newList (new MockHasName (10),
                                                               new MockHasName (2),
                                                               new MockHasName (5));
-    List <MockHasName> l2 = ContainerHelper.getSorted (aList, new ComparatorHasName <IHasName> (L_DE));
+    List <MockHasName> l2 = CollectionHelper.getSorted (aList, new ComparatorHasName <IHasName> (L_DE));
     assertEquals (3, l2.size ());
     assertEquals ("10", l2.get (0).getName ());
     assertEquals ("2", l2.get (1).getName ());
     assertEquals ("5", l2.get (2).getName ());
 
-    l2 = ContainerHelper.getSorted (aList, new ComparatorHasName <IHasName> (L_DE, ESortOrder.DESCENDING));
+    l2 = CollectionHelper.getSorted (aList, new ComparatorHasName <IHasName> (L_DE, ESortOrder.DESCENDING));
     assertEquals (3, l2.size ());
     assertEquals ("5", l2.get (0).getName ());
     assertEquals ("2", l2.get (1).getName ());

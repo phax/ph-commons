@@ -27,7 +27,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
@@ -194,11 +194,11 @@ public final class MimeTypeInfo
     ValueEnforcer.notNull (aParentTypes, "ParentTypes");
     ValueEnforcer.notNull (aGlobs, "Globs");
     ValueEnforcer.notNull (aExtensions, "Extensions");
-    m_aMimeTypes = ContainerHelper.newOrderedSet (aMimeTypes);
+    m_aMimeTypes = CollectionHelper.newOrderedSet (aMimeTypes);
     m_sComment = sComment;
-    m_aParentTypes = ContainerHelper.newOrderedSet (aParentTypes);
-    m_aGlobs = ContainerHelper.newOrderedSet (aGlobs);
-    m_aExtensions = ContainerHelper.newOrderedSet (aExtensions);
+    m_aParentTypes = CollectionHelper.newOrderedSet (aParentTypes);
+    m_aGlobs = CollectionHelper.newOrderedSet (aGlobs);
+    m_aExtensions = CollectionHelper.newOrderedSet (aExtensions);
     m_sSource = sSource;
   }
 
@@ -207,7 +207,7 @@ public final class MimeTypeInfo
   @ReturnsMutableCopy
   public Set <MimeTypeWithSource> getAllMimeTypesWithSource ()
   {
-    return ContainerHelper.newOrderedSet (m_aMimeTypes);
+    return CollectionHelper.newOrderedSet (m_aMimeTypes);
   }
 
   @Nonnull
@@ -253,7 +253,7 @@ public final class MimeTypeInfo
   @Nonnull
   public MimeTypeWithSource getPrimaryMimeTypeWithSource ()
   {
-    return ContainerHelper.getFirstElement (m_aMimeTypes);
+    return CollectionHelper.getFirstElement (m_aMimeTypes);
   }
 
   @Nonnull
@@ -283,7 +283,7 @@ public final class MimeTypeInfo
   @ReturnsMutableCopy
   public Set <String> getAllParentTypes ()
   {
-    return ContainerHelper.newOrderedSet (m_aParentTypes);
+    return CollectionHelper.newOrderedSet (m_aParentTypes);
   }
 
   public boolean hasAnyParentType ()
@@ -295,13 +295,13 @@ public final class MimeTypeInfo
   @ReturnsMutableCopy
   public Set <String> getAllGlobs ()
   {
-    return ContainerHelper.newOrderedSet (m_aGlobs);
+    return CollectionHelper.newOrderedSet (m_aGlobs);
   }
 
   @Nullable
   public String getPrimaryGlob ()
   {
-    return ContainerHelper.getFirstElement (m_aGlobs);
+    return CollectionHelper.getFirstElement (m_aGlobs);
   }
 
   public boolean hasAnyGlob ()
@@ -313,7 +313,7 @@ public final class MimeTypeInfo
   @ReturnsMutableCopy
   public Set <ExtensionWithSource> getAllExtensionsWithSource ()
   {
-    return ContainerHelper.newOrderedSet (m_aExtensions);
+    return CollectionHelper.newOrderedSet (m_aExtensions);
   }
 
   @Nonnull
@@ -329,7 +329,7 @@ public final class MimeTypeInfo
   @Nullable
   public ExtensionWithSource getPrimaryExtensionWithSource ()
   {
-    return ContainerHelper.getFirstElement (m_aExtensions);
+    return CollectionHelper.getFirstElement (m_aExtensions);
   }
 
   @Nullable

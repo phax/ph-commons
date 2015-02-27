@@ -22,12 +22,12 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
 
 /**
  * Test class for class {@link ComparatorHasSimpleLongID}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ComparatorHasSimpleLongIDTest
@@ -35,20 +35,20 @@ public final class ComparatorHasSimpleLongIDTest
   @Test
   public void testAll ()
   {
-    final List <? extends IHasSimpleLongID> aList = ContainerHelper.newList (new MockHasSimpleLongID (5),
+    final List <? extends IHasSimpleLongID> aList = CollectionHelper.newList (new MockHasSimpleLongID (5),
                                                                              new MockHasSimpleLongID (3),
                                                                              new MockHasSimpleLongID (7));
-    ContainerHelper.getSortedInline (aList, new ComparatorHasSimpleLongID <IHasSimpleLongID> ());
+    CollectionHelper.getSortedInline (aList, new ComparatorHasSimpleLongID <IHasSimpleLongID> ());
     assertEquals (3, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (7, aList.get (2).getID ());
 
-    ContainerHelper.getSortedInline (aList, new ComparatorHasSimpleLongID <IHasSimpleLongID> (ESortOrder.ASCENDING));
+    CollectionHelper.getSortedInline (aList, new ComparatorHasSimpleLongID <IHasSimpleLongID> (ESortOrder.ASCENDING));
     assertEquals (3, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (7, aList.get (2).getID ());
 
-    ContainerHelper.getSortedInline (aList, new ComparatorHasSimpleLongID <IHasSimpleLongID> (ESortOrder.DESCENDING));
+    CollectionHelper.getSortedInline (aList, new ComparatorHasSimpleLongID <IHasSimpleLongID> (ESortOrder.DESCENDING));
     assertEquals (7, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (3, aList.get (2).getID ());

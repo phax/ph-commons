@@ -30,7 +30,7 @@ import javax.xml.xpath.XPathFunctionResolver;
 import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -65,7 +65,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   public MapBasedXPathFunctionResolver (@Nonnull final MapBasedXPathFunctionResolver aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
-    m_aMap = ContainerHelper.newMap (aOther.m_aMap);
+    m_aMap = CollectionHelper.newMap (aOther.m_aMap);
   }
 
   /**
@@ -184,7 +184,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
     if (aName != null)
     {
       // Make a copy of the key set to allow for inline modification
-      for (final XPathFunctionKey aKey : ContainerHelper.newList (m_aMap.keySet ()))
+      for (final XPathFunctionKey aKey : CollectionHelper.newList (m_aMap.keySet ()))
         if (aKey.getFunctionName ().equals (aName))
           eChange = eChange.or (removeFunction (aKey));
     }
@@ -199,7 +199,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   @ReturnsMutableCopy
   public Map <XPathFunctionKey, XPathFunction> getAllFunctions ()
   {
-    return ContainerHelper.newMap (m_aMap);
+    return CollectionHelper.newMap (m_aMap);
   }
 
   /**

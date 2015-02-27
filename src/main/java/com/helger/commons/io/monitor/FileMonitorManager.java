@@ -30,14 +30,14 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.concurrent.ThreadUtils;
 import com.helger.commons.state.EChange;
 import com.helger.commons.timing.StopWatch;
 
 /**
  * This class manages all the available {@link FileMonitor} objects.
- * 
+ *
  * @author Philip Helger
  */
 public class FileMonitorManager implements Runnable
@@ -72,7 +72,7 @@ public class FileMonitorManager implements Runnable
 
   /**
    * Get the delay between runs.
-   * 
+   *
    * @return The delay period in milliseconds.
    */
   public long getDelay ()
@@ -82,7 +82,7 @@ public class FileMonitorManager implements Runnable
 
   /**
    * Set the delay between runs.
-   * 
+   *
    * @param nDelay
    *        The delay period in milliseconds.
    * @return this
@@ -96,7 +96,7 @@ public class FileMonitorManager implements Runnable
 
   /**
    * get the number of files to check per run.
-   * 
+   *
    * @return The number of files to check per iteration.
    */
   public int getChecksPerRun ()
@@ -107,7 +107,7 @@ public class FileMonitorManager implements Runnable
   /**
    * set the number of files to check per run. a additional delay will be added
    * if there are more files to check
-   * 
+   *
    * @param nChecksPerRun
    *        a value less than 1 will disable this feature
    * @return this
@@ -121,7 +121,7 @@ public class FileMonitorManager implements Runnable
 
   /**
    * Create a new {@link FileMonitor} based on the passed file listener.
-   * 
+   *
    * @param aListener
    *        The listener to be used. May not be <code>null</code>.
    * @return The created {@link FileMonitor} that was already added.
@@ -137,7 +137,7 @@ public class FileMonitorManager implements Runnable
 
   /**
    * Add a new {@link FileMonitor}.
-   * 
+   *
    * @param aMonitor
    *        The monitor to be added. May not be <code>null</code>.
    */
@@ -158,7 +158,7 @@ public class FileMonitorManager implements Runnable
 
   /**
    * Remove a {@link FileMonitor}.
-   * 
+   *
    * @param aMonitor
    *        The monitor to be remove. May be <code>null</code>.
    * @return {@link EChange}
@@ -187,7 +187,7 @@ public class FileMonitorManager implements Runnable
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newList (m_aMonitorList);
+      return CollectionHelper.newList (m_aMonitorList);
     }
     finally
     {
@@ -214,7 +214,7 @@ public class FileMonitorManager implements Runnable
 
   /**
    * Starts monitoring the files
-   * 
+   *
    * @throws IllegalStateException
    *         if the monitoring is already running
    * @see #isRunning()

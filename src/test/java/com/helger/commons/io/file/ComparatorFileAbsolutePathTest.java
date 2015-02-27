@@ -23,12 +23,12 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ComparatorFileAbsolutePath}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ComparatorFileAbsolutePathTest extends AbstractPHTestCase
@@ -36,8 +36,8 @@ public final class ComparatorFileAbsolutePathTest extends AbstractPHTestCase
   @Test
   public void testIndexOfExtension ()
   {
-    final List <File> aList = ContainerHelper.newList (new File ("abc"), new File ("dir/aaa"), new File ("ABB"));
-    ContainerHelper.getSortedInline (aList, new ComparatorFileAbsolutePath (L_DE));
+    final List <File> aList = CollectionHelper.newList (new File ("abc"), new File ("dir/aaa"), new File ("ABB"));
+    CollectionHelper.getSortedInline (aList, new ComparatorFileAbsolutePath (L_DE));
     assertEquals (3, aList.size ());
     assertEquals ("ABB", aList.get (0).getName ());
     assertEquals ("abc", aList.get (1).getName ());

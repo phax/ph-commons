@@ -30,7 +30,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.jmx.JMXUtils;
 
 /**
@@ -131,7 +131,7 @@ public final class StatisticsManager
     s_aRWLockCache.readLock ().lock ();
     try
     {
-      return ContainerHelper.newSet (s_aHdlCache.keySet ());
+      return CollectionHelper.newSet (s_aHdlCache.keySet ());
     }
     finally
     {
@@ -194,7 +194,7 @@ public final class StatisticsManager
     s_aRWLockTimer.readLock ().lock ();
     try
     {
-      return ContainerHelper.newSet (s_aHdlTimer.keySet ());
+      return CollectionHelper.newSet (s_aHdlTimer.keySet ());
     }
     finally
     {
@@ -256,7 +256,7 @@ public final class StatisticsManager
     s_aRWLockKeyedTimer.readLock ().lock ();
     try
     {
-      return ContainerHelper.newSet (s_aHdlKeyedTimer.keySet ());
+      return CollectionHelper.newSet (s_aHdlKeyedTimer.keySet ());
     }
     finally
     {
@@ -318,7 +318,7 @@ public final class StatisticsManager
     s_aRWLockSize.readLock ().lock ();
     try
     {
-      return ContainerHelper.newSet (s_aHdlSize.keySet ());
+      return CollectionHelper.newSet (s_aHdlSize.keySet ());
     }
     finally
     {
@@ -380,7 +380,7 @@ public final class StatisticsManager
     s_aRWLockKeyedSize.readLock ().lock ();
     try
     {
-      return ContainerHelper.newSet (s_aHdlKeyedSize.keySet ());
+      return CollectionHelper.newSet (s_aHdlKeyedSize.keySet ());
     }
     finally
     {
@@ -442,7 +442,7 @@ public final class StatisticsManager
     s_aRWLockCounter.readLock ().lock ();
     try
     {
-      return ContainerHelper.newSet (s_aHdlCounter.keySet ());
+      return CollectionHelper.newSet (s_aHdlCounter.keySet ());
     }
     finally
     {
@@ -504,7 +504,7 @@ public final class StatisticsManager
     s_aRWLockKeyedCounter.readLock ().lock ();
     try
     {
-      return ContainerHelper.newSet (s_aHdlKeyedCounter.keySet ());
+      return CollectionHelper.newSet (s_aHdlKeyedCounter.keySet ());
     }
     finally
     {

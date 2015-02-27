@@ -26,11 +26,11 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 /**
  * Test class for class {@link CombinedIterator}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CombinedIteratorTest
@@ -61,7 +61,7 @@ public final class CombinedIteratorTest
     {}
 
     // one null
-    es = CombinedIterator.create (ContainerHelper.getIterator ("a", "b", "c"), null);
+    es = CombinedIterator.create (CollectionHelper.getIterator ("a", "b", "c"), null);
     assertTrue (es.hasNext ());
     assertEquals ("a", es.next ());
     assertTrue (es.hasNext ());
@@ -78,7 +78,7 @@ public final class CombinedIteratorTest
     {}
 
     // one empty
-    es = CombinedIterator.create (ContainerHelper.getIterator ("a", "b", "c"), EmptyIterator.<String> getInstance ());
+    es = CombinedIterator.create (CollectionHelper.getIterator ("a", "b", "c"), EmptyIterator.<String> getInstance ());
     assertTrue (es.hasNext ());
     assertEquals ("a", es.next ());
     assertTrue (es.hasNext ());
@@ -95,7 +95,7 @@ public final class CombinedIteratorTest
     {}
 
     // other one null
-    es = CombinedIterator.create (null, ContainerHelper.getIterator ("a", "b", "c"));
+    es = CombinedIterator.create (null, CollectionHelper.getIterator ("a", "b", "c"));
     assertTrue (es.hasNext ());
     assertEquals ("a", es.next ());
     assertTrue (es.hasNext ());
@@ -112,7 +112,7 @@ public final class CombinedIteratorTest
     {}
 
     // other one empty
-    es = CombinedIterator.create (EmptyIterator.<String> getInstance (), ContainerHelper.getIterator ("a", "b", "c"));
+    es = CombinedIterator.create (EmptyIterator.<String> getInstance (), CollectionHelper.getIterator ("a", "b", "c"));
     assertTrue (es.hasNext ());
     assertEquals ("a", es.next ());
     assertTrue (es.hasNext ());
@@ -129,7 +129,7 @@ public final class CombinedIteratorTest
     {}
 
     // both not null
-    es = CombinedIterator.create (ContainerHelper.getIterator ("a", "b"), ContainerHelper.getIterator ("c", "d"));
+    es = CombinedIterator.create (CollectionHelper.getIterator ("a", "b"), CollectionHelper.getIterator ("c", "d"));
     assertTrue (es.hasNext ());
     assertEquals ("a", es.next ());
     assertTrue (es.hasNext ());

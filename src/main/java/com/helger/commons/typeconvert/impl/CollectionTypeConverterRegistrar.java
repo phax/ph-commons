@@ -35,7 +35,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotations.IsSPIImplementation;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.base64.Base64Helper;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.typeconvert.ITypeConverter;
 import com.helger.commons.typeconvert.ITypeConverterRegistrarSPI;
 import com.helger.commons.typeconvert.ITypeConverterRegistry;
@@ -126,8 +126,8 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       public List <?> convert (@Nonnull final Object aSource)
       {
         if (aSource instanceof Collection <?>)
-          return ContainerHelper.newList ((Collection <?>) aSource);
-        return ContainerHelper.newList (aSource);
+          return CollectionHelper.newList ((Collection <?>) aSource);
+        return CollectionHelper.newList (aSource);
       }
     });
 
@@ -176,8 +176,8 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       public Set <?> convert (@Nonnull final Object aSource)
       {
         if (aSource instanceof Collection <?>)
-          return ContainerHelper.newSet ((Collection <?>) aSource);
-        return ContainerHelper.newSet (aSource);
+          return CollectionHelper.newSet ((Collection <?>) aSource);
+        return CollectionHelper.newSet (aSource);
       }
     });
 
@@ -186,35 +186,35 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     {
       public List <Boolean> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newBooleanList ((boolean []) aSource);
+        return CollectionHelper.newBooleanList ((boolean []) aSource);
       }
     });
     aRegistry.registerTypeConverter (boolean [].class, Vector.class, new ITypeConverter ()
     {
       public Vector <Boolean> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newBooleanVector ((boolean []) aSource);
+        return CollectionHelper.newBooleanVector ((boolean []) aSource);
       }
     });
     aRegistry.registerTypeConverter (boolean [].class, HashSet.class, new ITypeConverter ()
     {
       public Set <Boolean> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newBooleanSet ((boolean []) aSource);
+        return CollectionHelper.newBooleanSet ((boolean []) aSource);
       }
     });
     aRegistry.registerTypeConverter (boolean [].class, LinkedHashSet.class, new ITypeConverter ()
     {
       public Set <Boolean> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newBooleanOrderedSet ((boolean []) aSource);
+        return CollectionHelper.newBooleanOrderedSet ((boolean []) aSource);
       }
     });
     aRegistry.registerTypeConverter (boolean [].class, TreeSet.class, new ITypeConverter ()
     {
       public Set <Boolean> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newBooleanSortedSet ((boolean []) aSource);
+        return CollectionHelper.newBooleanSortedSet ((boolean []) aSource);
       }
     });
 
@@ -237,35 +237,35 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     {
       public List <Byte> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newByteList ((byte []) aSource);
+        return CollectionHelper.newByteList ((byte []) aSource);
       }
     });
     aRegistry.registerTypeConverter (byte [].class, Vector.class, new ITypeConverter ()
     {
       public Vector <Byte> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newByteVector ((byte []) aSource);
+        return CollectionHelper.newByteVector ((byte []) aSource);
       }
     });
     aRegistry.registerTypeConverter (byte [].class, HashSet.class, new ITypeConverter ()
     {
       public Set <Byte> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newByteSet ((byte []) aSource);
+        return CollectionHelper.newByteSet ((byte []) aSource);
       }
     });
     aRegistry.registerTypeConverter (byte [].class, LinkedHashSet.class, new ITypeConverter ()
     {
       public Set <Byte> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newByteOrderedSet ((byte []) aSource);
+        return CollectionHelper.newByteOrderedSet ((byte []) aSource);
       }
     });
     aRegistry.registerTypeConverter (byte [].class, TreeSet.class, new ITypeConverter ()
     {
       public Set <Byte> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newByteSortedSet ((byte []) aSource);
+        return CollectionHelper.newByteSortedSet ((byte []) aSource);
       }
     });
 
@@ -288,35 +288,35 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     {
       public List <Character> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newCharList ((char []) aSource);
+        return CollectionHelper.newCharList ((char []) aSource);
       }
     });
     aRegistry.registerTypeConverter (char [].class, Vector.class, new ITypeConverter ()
     {
       public Vector <Character> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newCharVector ((char []) aSource);
+        return CollectionHelper.newCharVector ((char []) aSource);
       }
     });
     aRegistry.registerTypeConverter (char [].class, HashSet.class, new ITypeConverter ()
     {
       public Set <Character> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newCharSet ((char []) aSource);
+        return CollectionHelper.newCharSet ((char []) aSource);
       }
     });
     aRegistry.registerTypeConverter (char [].class, LinkedHashSet.class, new ITypeConverter ()
     {
       public Set <Character> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newCharOrderedSet ((char []) aSource);
+        return CollectionHelper.newCharOrderedSet ((char []) aSource);
       }
     });
     aRegistry.registerTypeConverter (char [].class, TreeSet.class, new ITypeConverter ()
     {
       public Set <Character> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newCharSortedSet ((char []) aSource);
+        return CollectionHelper.newCharSortedSet ((char []) aSource);
       }
     });
 
@@ -325,35 +325,35 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     {
       public List <Double> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newDoubleList ((double []) aSource);
+        return CollectionHelper.newDoubleList ((double []) aSource);
       }
     });
     aRegistry.registerTypeConverter (double [].class, Vector.class, new ITypeConverter ()
     {
       public Vector <Double> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newDoubleVector ((double []) aSource);
+        return CollectionHelper.newDoubleVector ((double []) aSource);
       }
     });
     aRegistry.registerTypeConverter (double [].class, HashSet.class, new ITypeConverter ()
     {
       public Set <Double> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newDoubleSet ((double []) aSource);
+        return CollectionHelper.newDoubleSet ((double []) aSource);
       }
     });
     aRegistry.registerTypeConverter (double [].class, LinkedHashSet.class, new ITypeConverter ()
     {
       public Set <Double> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newDoubleOrderedSet ((double []) aSource);
+        return CollectionHelper.newDoubleOrderedSet ((double []) aSource);
       }
     });
     aRegistry.registerTypeConverter (double [].class, TreeSet.class, new ITypeConverter ()
     {
       public Set <Double> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newDoubleSortedSet ((double []) aSource);
+        return CollectionHelper.newDoubleSortedSet ((double []) aSource);
       }
     });
 
@@ -362,35 +362,35 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     {
       public List <Float> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newFloatList ((float []) aSource);
+        return CollectionHelper.newFloatList ((float []) aSource);
       }
     });
     aRegistry.registerTypeConverter (float [].class, Vector.class, new ITypeConverter ()
     {
       public Vector <Float> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newFloatVector ((float []) aSource);
+        return CollectionHelper.newFloatVector ((float []) aSource);
       }
     });
     aRegistry.registerTypeConverter (float [].class, HashSet.class, new ITypeConverter ()
     {
       public Set <Float> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newFloatSet ((float []) aSource);
+        return CollectionHelper.newFloatSet ((float []) aSource);
       }
     });
     aRegistry.registerTypeConverter (float [].class, LinkedHashSet.class, new ITypeConverter ()
     {
       public Set <Float> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newFloatOrderedSet ((float []) aSource);
+        return CollectionHelper.newFloatOrderedSet ((float []) aSource);
       }
     });
     aRegistry.registerTypeConverter (float [].class, TreeSet.class, new ITypeConverter ()
     {
       public Set <Float> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newFloatSortedSet ((float []) aSource);
+        return CollectionHelper.newFloatSortedSet ((float []) aSource);
       }
     });
 
@@ -399,35 +399,35 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     {
       public List <Integer> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newIntList ((int []) aSource);
+        return CollectionHelper.newIntList ((int []) aSource);
       }
     });
     aRegistry.registerTypeConverter (int [].class, Vector.class, new ITypeConverter ()
     {
       public Vector <Integer> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newIntVector ((int []) aSource);
+        return CollectionHelper.newIntVector ((int []) aSource);
       }
     });
     aRegistry.registerTypeConverter (int [].class, HashSet.class, new ITypeConverter ()
     {
       public Set <Integer> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newIntSet ((int []) aSource);
+        return CollectionHelper.newIntSet ((int []) aSource);
       }
     });
     aRegistry.registerTypeConverter (int [].class, LinkedHashSet.class, new ITypeConverter ()
     {
       public Set <Integer> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newIntOrderedSet ((int []) aSource);
+        return CollectionHelper.newIntOrderedSet ((int []) aSource);
       }
     });
     aRegistry.registerTypeConverter (int [].class, TreeSet.class, new ITypeConverter ()
     {
       public Set <Integer> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newIntSortedSet ((int []) aSource);
+        return CollectionHelper.newIntSortedSet ((int []) aSource);
       }
     });
 
@@ -436,35 +436,35 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     {
       public List <Long> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newLongList ((long []) aSource);
+        return CollectionHelper.newLongList ((long []) aSource);
       }
     });
     aRegistry.registerTypeConverter (long [].class, Vector.class, new ITypeConverter ()
     {
       public Vector <Long> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newLongVector ((long []) aSource);
+        return CollectionHelper.newLongVector ((long []) aSource);
       }
     });
     aRegistry.registerTypeConverter (long [].class, HashSet.class, new ITypeConverter ()
     {
       public Set <Long> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newLongSet ((long []) aSource);
+        return CollectionHelper.newLongSet ((long []) aSource);
       }
     });
     aRegistry.registerTypeConverter (long [].class, LinkedHashSet.class, new ITypeConverter ()
     {
       public Set <Long> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newLongOrderedSet ((long []) aSource);
+        return CollectionHelper.newLongOrderedSet ((long []) aSource);
       }
     });
     aRegistry.registerTypeConverter (long [].class, TreeSet.class, new ITypeConverter ()
     {
       public Set <Long> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newLongSortedSet ((long []) aSource);
+        return CollectionHelper.newLongSortedSet ((long []) aSource);
       }
     });
 
@@ -473,35 +473,35 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     {
       public List <Short> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newShortList ((short []) aSource);
+        return CollectionHelper.newShortList ((short []) aSource);
       }
     });
     aRegistry.registerTypeConverter (short [].class, Vector.class, new ITypeConverter ()
     {
       public Vector <Short> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newShortVector ((short []) aSource);
+        return CollectionHelper.newShortVector ((short []) aSource);
       }
     });
     aRegistry.registerTypeConverter (short [].class, HashSet.class, new ITypeConverter ()
     {
       public Set <Short> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newShortSet ((short []) aSource);
+        return CollectionHelper.newShortSet ((short []) aSource);
       }
     });
     aRegistry.registerTypeConverter (short [].class, LinkedHashSet.class, new ITypeConverter ()
     {
       public Set <Short> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newShortOrderedSet ((short []) aSource);
+        return CollectionHelper.newShortOrderedSet ((short []) aSource);
       }
     });
     aRegistry.registerTypeConverter (short [].class, TreeSet.class, new ITypeConverter ()
     {
       public Set <Short> convert (@Nonnull final Object aSource)
       {
-        return ContainerHelper.newShortSortedSet ((short []) aSource);
+        return CollectionHelper.newShortSortedSet ((short []) aSource);
       }
     });
 

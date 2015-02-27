@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -224,7 +224,7 @@ public final class LocaleCache
     s_aRWLock.readLock ().lock ();
     try
     {
-      final Set <Locale> ret = ContainerHelper.newSet (s_aLocales.values ());
+      final Set <Locale> ret = CollectionHelper.newSet (s_aLocales.values ());
       ret.remove (CGlobal.LOCALE_ALL);
       ret.remove (CGlobal.LOCALE_INDEPENDENT);
       return ret;

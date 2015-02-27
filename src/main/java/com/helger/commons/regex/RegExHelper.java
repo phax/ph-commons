@@ -30,7 +30,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -118,7 +118,7 @@ public final class RegExHelper
   @Nonnull
   public static List <String> getSplitToList (@Nullable final CharSequence sText, @Nonnull @RegEx final String sRegEx)
   {
-    return ContainerHelper.newList (getSplitToArray (sText, sRegEx));
+    return CollectionHelper.newList (getSplitToArray (sText, sRegEx));
   }
 
   /**
@@ -144,7 +144,7 @@ public final class RegExHelper
                                               @Nonnull @RegEx final String sRegEx,
                                               @Nonnegative final int nLimit)
   {
-    return ContainerHelper.newList (getSplitToArray (sText, sRegEx, nLimit));
+    return CollectionHelper.newList (getSplitToArray (sText, sRegEx, nLimit));
   }
 
   /**

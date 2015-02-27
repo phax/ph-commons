@@ -28,7 +28,7 @@ import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test for class {@link LRUSet}
- * 
+ *
  * @author Philip Helger
  */
 public final class LRUSetTest
@@ -57,22 +57,22 @@ public final class LRUSetTest
     assertEquals (MAX_SIZE, aCache.size ());
 
     // addAll
-    assertTrue (aCache.addAll (ContainerHelper.newList (Integer.valueOf (-4), Integer.valueOf (-5))));
-    assertTrue (aCache.addAll (ContainerHelper.newList (Integer.valueOf (-4), Integer.valueOf (-6))));
+    assertTrue (aCache.addAll (CollectionHelper.newList (Integer.valueOf (-4), Integer.valueOf (-5))));
+    assertTrue (aCache.addAll (CollectionHelper.newList (Integer.valueOf (-4), Integer.valueOf (-6))));
     assertEquals (MAX_SIZE, aCache.size ());
 
     // containsAll
-    assertTrue (aCache.containsAll (ContainerHelper.newList (Integer.valueOf (-4), Integer.valueOf (-5))));
-    assertFalse (aCache.containsAll (ContainerHelper.newList (Integer.valueOf (-4), Integer.valueOf (-7))));
+    assertTrue (aCache.containsAll (CollectionHelper.newList (Integer.valueOf (-4), Integer.valueOf (-5))));
+    assertFalse (aCache.containsAll (CollectionHelper.newList (Integer.valueOf (-4), Integer.valueOf (-7))));
     assertEquals (MAX_SIZE, aCache.size ());
 
     // removeAll
-    assertTrue (aCache.removeAll (ContainerHelper.newList (Integer.valueOf (-4),
-                                                           Integer.valueOf (-5),
-                                                           Integer.valueOf (-6))));
-    assertFalse (aCache.removeAll (ContainerHelper.newList (Integer.valueOf (-4),
+    assertTrue (aCache.removeAll (CollectionHelper.newList (Integer.valueOf (-4),
                                                             Integer.valueOf (-5),
                                                             Integer.valueOf (-6))));
+    assertFalse (aCache.removeAll (CollectionHelper.newList (Integer.valueOf (-4),
+                                                             Integer.valueOf (-5),
+                                                             Integer.valueOf (-6))));
     assertEquals (MAX_SIZE - 3, aCache.size ());
 
     try
@@ -92,7 +92,6 @@ public final class LRUSetTest
     PHTestUtils.testDefaultImplementationWithEqualContentObject (ret, new LRUSet <String> (4));
     ret.add ("a");
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (ret, new LRUSet <String> (4));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new LRUSet <String> (3),
-                                                                        new LRUSet <String> (4));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new LRUSet <String> (3), new LRUSet <String> (4));
   }
 }

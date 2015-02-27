@@ -34,7 +34,7 @@ import com.helger.commons.GlobalDebug;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.microdom.EMicroNodeType;
 import com.helger.commons.microdom.IHasAttributeValue;
@@ -177,7 +177,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   {
     if (hasNoAttributes ())
       return null;
-    return ContainerHelper.newOrderedSet (m_aAttrs.keySet ());
+    return CollectionHelper.newOrderedSet (m_aAttrs.keySet ());
   }
 
   @Nullable
@@ -421,7 +421,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   @Nonnull
   public EChange removeAllAttributes ()
   {
-    if (ContainerHelper.isEmpty (m_aAttrs))
+    if (CollectionHelper.isEmpty (m_aAttrs))
       return EChange.UNCHANGED;
     m_aAttrs.clear ();
     return EChange.CHANGED;
@@ -792,7 +792,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
     // Copy attributes
     if (m_aAttrs != null)
-      ret.m_aAttrs = ContainerHelper.newOrderedMap (m_aAttrs);
+      ret.m_aAttrs = CollectionHelper.newOrderedMap (m_aAttrs);
 
     // Deep clone all child nodes
     if (hasChildren ())

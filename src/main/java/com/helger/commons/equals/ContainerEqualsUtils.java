@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.lang.ClassHelper;
 
 /**
@@ -318,7 +318,7 @@ public final class ContainerEqualsUtils
     if (eType == null)
     {
       // It's not a supported container -> create a new list with one element
-      return ContainerHelper.newList (aObj);
+      return CollectionHelper.newList (aObj);
     }
 
     switch (eType)
@@ -327,25 +327,25 @@ public final class ContainerEqualsUtils
         // It's already a collection
         if (aObj instanceof List <?>)
           return (List <?>) aObj;
-        return ContainerHelper.newList ((Collection <?>) aObj);
+        return CollectionHelper.newList ((Collection <?>) aObj);
       case SET:
         // Convert to list
-        return ContainerHelper.newList ((Set <?>) aObj);
+        return CollectionHelper.newList ((Set <?>) aObj);
       case MAP:
         // Use the entry set of the map as list
-        return ContainerHelper.newList (((Map <?, ?>) aObj).entrySet ());
+        return CollectionHelper.newList (((Map <?, ?>) aObj).entrySet ());
       case ARRAY:
         // Convert the array to a list
-        return ContainerHelper.newList ((Object []) aObj);
+        return CollectionHelper.newList ((Object []) aObj);
       case ITERATOR:
         // Convert the iterator to a list
-        return ContainerHelper.newList ((Iterator <?>) aObj);
+        return CollectionHelper.newList ((Iterator <?>) aObj);
       case ITERABLE:
         // Convert the iterable to a list
-        return ContainerHelper.newList ((Iterable <?>) aObj);
+        return CollectionHelper.newList ((Iterable <?>) aObj);
       case ENUMERATION:
         // Convert the enumeration to a list
-        return ContainerHelper.newList ((Enumeration <?>) aObj);
+        return CollectionHelper.newList ((Enumeration <?>) aObj);
       default:
         throw new IllegalStateException ("Unhandled container type " + eType + "!");
     }

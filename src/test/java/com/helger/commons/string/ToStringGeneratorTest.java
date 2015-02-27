@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.pair.ReadonlyPair;
 import com.helger.commons.compare.ESortOrder;
 
@@ -69,8 +69,8 @@ public final class ToStringGeneratorTest
     _test ("Hallo");
     _test (Long.valueOf (123456789));
     _test (ReadonlyPair.create ("Hello", "World"));
-    _test (ContainerHelper.newList ("Hello", "World"));
-    _test (ContainerHelper.newMap ("Hello", "Hallo", "World", "Welt"));
+    _test (CollectionHelper.newList ("Hello", "World"));
+    _test (CollectionHelper.newMap ("Hello", "Hallo", "World", "Welt"));
     _test (new BigDecimal ("234324.23421378091235931253769"));
     _test (new boolean [] { true, false, true });
     _test (new byte [] { Byte.MIN_VALUE, 1, 2, 3, Byte.MAX_VALUE });

@@ -31,7 +31,7 @@ import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -89,7 +89,7 @@ public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   public Map <KEYTYPE, VALUETYPE> getAllAttributes ()
   {
-    return ContainerHelper.newMap (m_aAttrs);
+    return CollectionHelper.newMap (m_aAttrs);
   }
 
   @Nullable
@@ -184,21 +184,21 @@ public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends
   public Enumeration <KEYTYPE> getAttributeNames ()
   {
     // Build an enumerator on top of the set
-    return ContainerHelper.getEnumeration (m_aAttrs.keySet ());
+    return CollectionHelper.getEnumeration (m_aAttrs.keySet ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public Set <KEYTYPE> getAllAttributeNames ()
   {
-    return ContainerHelper.newSet (m_aAttrs.keySet ());
+    return CollectionHelper.newSet (m_aAttrs.keySet ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public Collection <VALUETYPE> getAllAttributeValues ()
   {
-    return ContainerHelper.newList (m_aAttrs.values ());
+    return CollectionHelper.newList (m_aAttrs.values ());
   }
 
   @Nonnegative

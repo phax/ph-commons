@@ -20,13 +20,13 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ComparatorThreadName}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ComparatorThreadNameTest extends AbstractPHTestCase
@@ -34,8 +34,8 @@ public final class ComparatorThreadNameTest extends AbstractPHTestCase
   @Test
   public void testBasic ()
   {
-    final List <Thread> aList = ContainerHelper.newList (new Thread ("name1"), new Thread ("name2"));
-    ContainerHelper.getSortedInline (aList, new ComparatorThreadName (L_DE));
-    ContainerHelper.getSortedInline (aList, new ComparatorThreadName (L_DE, ESortOrder.DESCENDING));
+    final List <Thread> aList = CollectionHelper.newList (new Thread ("name1"), new Thread ("name2"));
+    CollectionHelper.getSortedInline (aList, new ComparatorThreadName (L_DE));
+    CollectionHelper.getSortedInline (aList, new ComparatorThreadName (L_DE, ESortOrder.DESCENDING));
   }
 }

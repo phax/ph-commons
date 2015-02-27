@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.system.EOperatingSystem;
@@ -120,7 +120,7 @@ public final class FuncTestKerning
         if (m_nKernOffset == -1)
         {
           s_aLogger.info ("No kerning information present!");
-          m_aKerning = ContainerHelper.newUnmodifiableMap ();
+          m_aKerning = CollectionHelper.newUnmodifiableMap ();
           return;
         }
         m_aKerning = new HashMap <KerningKey, Integer> (2048);

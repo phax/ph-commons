@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.GlobalDebug;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.multimap.IMultiMapListBased;
 import com.helger.commons.collections.multimap.MultiTreeMapArrayListBased;
 import com.helger.commons.lang.ClassHelper;
@@ -389,7 +389,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     m_aRWLock.readLock ().lock ();
     try
     {
-      aCopy = ContainerHelper.newMap (m_aConverter);
+      aCopy = CollectionHelper.newMap (m_aConverter);
     }
     finally
     {

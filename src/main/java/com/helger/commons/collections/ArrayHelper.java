@@ -3835,7 +3835,7 @@ public final class ArrayHelper
   {
     ValueEnforcer.notNull (aClass, "class");
 
-    if (ContainerHelper.isEmpty (aCollection))
+    if (CollectionHelper.isEmpty (aCollection))
       return newArray (aClass, 0);
 
     final ELEMENTTYPE [] ret = newArray (aClass, aCollection.size ());
@@ -3929,7 +3929,7 @@ public final class ArrayHelper
   @ReturnsMutableCopy
   public static Object [] getAsObjectArray (@Nullable final Collection <?> aCollection)
   {
-    if (ContainerHelper.isEmpty (aCollection))
+    if (CollectionHelper.isEmpty (aCollection))
       return null;
 
     final Object [] ret = new Object [aCollection.size ()];

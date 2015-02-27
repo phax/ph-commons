@@ -29,7 +29,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -76,27 +76,27 @@ public class MapBasedGenericReadonlyAttributeContainer <KEYTYPE, VALUETYPE> exte
   @ReturnsMutableCopy
   public Map <KEYTYPE, VALUETYPE> getAllAttributes ()
   {
-    return ContainerHelper.newMap (m_aAttrs);
+    return CollectionHelper.newMap (m_aAttrs);
   }
 
   @Nonnull
   public Enumeration <KEYTYPE> getAttributeNames ()
   {
-    return ContainerHelper.getEnumeration (m_aAttrs.keySet ());
+    return CollectionHelper.getEnumeration (m_aAttrs.keySet ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public Set <KEYTYPE> getAllAttributeNames ()
   {
-    return ContainerHelper.newSet (m_aAttrs.keySet ());
+    return CollectionHelper.newSet (m_aAttrs.keySet ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public Collection <VALUETYPE> getAllAttributeValues ()
   {
-    return ContainerHelper.newList (m_aAttrs.values ());
+    return CollectionHelper.newList (m_aAttrs.values ());
   }
 
   @Nullable

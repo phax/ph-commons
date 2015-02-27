@@ -52,7 +52,7 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.encode.IDecoder;
 import com.helger.commons.encode.IEncoder;
 import com.helger.commons.encode.IdentityDecoder;
@@ -407,7 +407,7 @@ public final class URLUtils
   {
     ValueEnforcer.notNull (aParameterEncoder, "ParameterEncoder");
 
-    final boolean bHasParams = ContainerHelper.isNotEmpty (aParams);
+    final boolean bHasParams = CollectionHelper.isNotEmpty (aParams);
     final boolean bHasAnchor = StringHelper.hasText (sAnchor);
 
     // return URL as is?
@@ -860,7 +860,7 @@ public final class URLUtils
   {
     ValueEnforcer.notNull (aParameterEncoder, "ParameterEncoder");
 
-    if (ContainerHelper.isEmpty (aParams))
+    if (CollectionHelper.isEmpty (aParams))
       return "";
 
     final StringBuilder aSB = new StringBuilder ();

@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.tree.utils.sort.ComparatorDefaultTreeItemWithIDDataComparable;
 import com.helger.commons.tree.utils.sort.ComparatorTreeItemIDComparable;
@@ -55,7 +55,7 @@ public final class DefaultTreeItemWithIDTest
     assertEquals ("Hallo", ti.getData ());
     assertFalse (ti.hasChildren ());
     assertEquals (0, ti.getChildCount ());
-    assertTrue (ContainerHelper.isEmpty (ti.getAllChildren ()));
+    assertTrue (CollectionHelper.isEmpty (ti.getAllChildren ()));
     assertSame (t.getRootItem (), ti.getParent ());
     assertFalse (ti.isRootItem ());
     assertTrue (ti.isSameOrChildOf (t.getRootItem ()));
@@ -68,7 +68,7 @@ public final class DefaultTreeItemWithIDTest
     assertEquals ("Welt", ti1.getData ());
     assertFalse (ti1.hasChildren ());
     assertEquals (0, ti1.getChildCount ());
-    assertTrue (ContainerHelper.isEmpty (ti1.getAllChildren ()));
+    assertTrue (CollectionHelper.isEmpty (ti1.getAllChildren ()));
     assertSame (ti, ti1.getParent ());
 
     assertTrue (ti.hasChildren ());

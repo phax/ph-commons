@@ -24,11 +24,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 /**
  * Test class for class {@link ComparatorChangeLogEntryDate}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ComparatorChangeLogEntryDateTest
@@ -39,8 +39,8 @@ public final class ComparatorChangeLogEntryDateTest
     final List <ChangeLogEntry> aEntries = new ArrayList <ChangeLogEntry> ();
     for (final ChangeLog aCL : ChangeLogSerializer.readAllChangeLogs ().values ())
       aEntries.addAll (aCL.getAllEntries ());
-    assertSame (aEntries, ContainerHelper.getSortedInline (aEntries, new ComparatorChangeLogEntryDate ()));
-    assertTrue (ContainerHelper.getFirstElement (aEntries).getDate ().getTime () < ContainerHelper.getLastElement (aEntries)
+    assertSame (aEntries, CollectionHelper.getSortedInline (aEntries, new ComparatorChangeLogEntryDate ()));
+    assertTrue (CollectionHelper.getFirstElement (aEntries).getDate ().getTime () < CollectionHelper.getLastElement (aEntries)
                                                                                                   .getDate ()
                                                                                                   .getTime ());
   }

@@ -27,27 +27,27 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.streams.StreamUtils;
 
 //SKIPJDK5
 /**
  * Special {@link java.util.ResourceBundle.Control} to handle XML files
- * 
+ *
  * @author Philip Helger
  */
 public final class XMLResourceBundleControl extends ResourceBundle.Control
 {
   private static final String FORMAT_XML = "xml";
-  private static final List <String> FORMATS = ContainerHelper.newList (FORMAT_XML);
+  private static final List <String> FORMATS = CollectionHelper.newList (FORMAT_XML);
 
   @Override
   @ReturnsMutableCopy
   public List <String> getFormats (@Nonnull final String sBaseName)
   {
     ValueEnforcer.notNull (sBaseName, "BaseName");
-    return ContainerHelper.newList (FORMATS);
+    return CollectionHelper.newList (FORMATS);
   }
 
   @Override

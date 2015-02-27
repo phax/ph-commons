@@ -35,7 +35,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.ReturnsMutableObject;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleUtils;
@@ -193,7 +193,7 @@ public class TextProvider extends AbstractTextProvider implements IReadonlyMulti
   @ReturnsMutableCopy
   public final Set <Locale> getAllLocales ()
   {
-    return ContainerHelper.newSet (m_aTexts.keySet ());
+    return CollectionHelper.newSet (m_aTexts.keySet ());
   }
 
   @Nonnegative
@@ -220,7 +220,7 @@ public class TextProvider extends AbstractTextProvider implements IReadonlyMulti
   @ReturnsMutableCopy
   public final Map <Locale, String> getAllTexts ()
   {
-    return ContainerHelper.newMap (m_aTexts);
+    return CollectionHelper.newMap (m_aTexts);
   }
 
   @Nonnegative

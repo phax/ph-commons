@@ -24,12 +24,12 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.convert.UnidirectionalConverterMapGet;
 
 /**
  * Test class for class {@link SimpleCacheWithConversionAndMaxSize}.
- * 
+ *
  * @author Philip Helger
  */
 public final class SimpleCacheWithConversionAndMaxSizeTest
@@ -37,7 +37,7 @@ public final class SimpleCacheWithConversionAndMaxSizeTest
   @Test
   public void testAll ()
   {
-    final Map <String, Integer> aMap = ContainerHelper.newMap (new String [] { "In", "In2" },
+    final Map <String, Integer> aMap = CollectionHelper.newMap (new String [] { "In", "In2" },
                                                                new Integer [] { Integer.valueOf (1),
                                                                                Integer.valueOf (2) });
     final SimpleCacheWithConversionAndMaxSize <String, Integer> aCache = new SimpleCacheWithConversionAndMaxSize <String, Integer> ("test",

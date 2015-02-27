@@ -24,12 +24,12 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link ResourceErrorGroup}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ResourceErrorGroupTest
@@ -52,7 +52,7 @@ public final class ResourceErrorGroupTest
     assertFalse (aREG.isEmpty ());
     assertEquals (2, aREG.size ());
 
-    aREG = new ResourceErrorGroup (ContainerHelper.newList (new ResourceError (loc, EErrorLevel.ERROR, "mock error"),
+    aREG = new ResourceErrorGroup (CollectionHelper.newList (new ResourceError (loc, EErrorLevel.ERROR, "mock error"),
                                                             new ResourceError (loc, EErrorLevel.WARN, "mock msg")));
     assertFalse (aREG.isEmpty ());
     assertEquals (2, aREG.size ());
@@ -197,7 +197,7 @@ public final class ResourceErrorGroupTest
     assertFalse (aREG.containsNoFailure ());
     assertFalse (aREG.containsNoError ());
 
-    assertEquals (1, ContainerHelper.newList (aREG2).size ());
+    assertEquals (1, CollectionHelper.newList (aREG2).size ());
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceErrorGroup (),
                                                                     new ResourceErrorGroup ());

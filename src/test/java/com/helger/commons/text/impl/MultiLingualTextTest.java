@@ -31,7 +31,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.text.IMultiLingualText;
@@ -207,12 +207,12 @@ public final class MultiLingualTextTest extends AbstractPHTestCase
     final MultiLingualText t = new MultiLingualText ();
 
     // 1 element
-    assertTrue (t.assignFrom (new ReadonlyMultiLingualText (ContainerHelper.newMap (L_DE, "de"))).isChanged ());
+    assertTrue (t.assignFrom (new ReadonlyMultiLingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
     assertEquals (1, t.size ());
     assertTrue (t.containsLocale (L_DE));
 
     // Assign the exact same content again
-    assertFalse (t.assignFrom (new ReadonlyMultiLingualText (ContainerHelper.newMap (L_DE, "de"))).isChanged ());
+    assertFalse (t.assignFrom (new ReadonlyMultiLingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
     assertEquals (1, t.size ());
     assertTrue (t.containsLocale (L_DE));
 

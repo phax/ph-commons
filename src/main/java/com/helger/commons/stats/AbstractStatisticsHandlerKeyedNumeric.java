@@ -33,12 +33,12 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Abstract base class for a keyed numeric statistic handler
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -128,7 +128,7 @@ abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisticsHandl
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newSet (m_aMap.keySet ());
+      return CollectionHelper.newSet (m_aMap.keySet ());
     }
     finally
     {

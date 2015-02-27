@@ -22,12 +22,12 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link AggregatorAlwaysNull}.
- * 
+ *
  * @author Philip Helger
  */
 public final class AggregatorAlwaysNullTest
@@ -37,7 +37,7 @@ public final class AggregatorAlwaysNullTest
   {
     final AggregatorAlwaysNull <String, String> a1 = new AggregatorAlwaysNull <String, String> ();
     PHTestUtils.testDefaultImplementationWithEqualContentObject (a1, new AggregatorAlwaysNull <String, String> ());
-    assertNull (a1.aggregate (ContainerHelper.newList ("a", "b")));
+    assertNull (a1.aggregate (CollectionHelper.newList ("a", "b")));
     assertNull (a1.aggregate (new ArrayList <String> ()));
   }
 }

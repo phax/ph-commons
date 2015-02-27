@@ -24,12 +24,12 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.convert.UnidirectionalConverterMapGet;
 
 /**
  * Test class for class {@link SimpleCacheWithConversion}.
- * 
+ *
  * @author Philip Helger
  */
 public final class SimpleCacheWithConversionTest
@@ -37,7 +37,7 @@ public final class SimpleCacheWithConversionTest
   @Test
   public void testAll ()
   {
-    final Map <String, Integer> aMap = ContainerHelper.newMap ("In", Integer.valueOf (1));
+    final Map <String, Integer> aMap = CollectionHelper.newMap ("In", Integer.valueOf (1));
     final SimpleCacheWithConversion <String, Integer> aCache = new SimpleCacheWithConversion <String, Integer> ("test");
     assertEquals ("test", aCache.getName ());
     // Get from map

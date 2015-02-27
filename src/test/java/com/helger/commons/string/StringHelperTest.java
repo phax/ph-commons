@@ -36,7 +36,7 @@ import org.junit.Test;
 import com.helger.commons.CGlobal;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.io.streams.NonBlockingStringWriter;
 import com.helger.commons.mock.AbstractPHTestCase;
 
@@ -411,7 +411,7 @@ public final class StringHelperTest extends AbstractPHTestCase
   @Test
   public void testImplodeIterable ()
   {
-    final List <String> aList = ContainerHelper.newList ("a", "b", "c");
+    final List <String> aList = CollectionHelper.newList ("a", "b", "c");
     assertEquals ("", StringHelper.getImploded (".", (String []) null));
     assertEquals ("", StringHelper.getImploded (".", (List <String>) null));
     assertEquals ("a.b.c", StringHelper.getImploded (".", aList));
@@ -527,7 +527,7 @@ public final class StringHelperTest extends AbstractPHTestCase
   @Test
   public void testImplodeMap ()
   {
-    final Map <String, String> aMap = ContainerHelper.newOrderedMap ("a", "true", "b", "true", "c", "false");
+    final Map <String, String> aMap = CollectionHelper.newOrderedMap ("a", "true", "b", "true", "c", "false");
     assertEquals ("atruebtruecfalse", StringHelper.getImploded ("", "", aMap));
     assertEquals ("atrue,btrue,cfalse", StringHelper.getImploded (",", "", aMap));
     assertEquals ("a,trueb,truec,false", StringHelper.getImploded ("", ",", aMap));
@@ -553,7 +553,7 @@ public final class StringHelperTest extends AbstractPHTestCase
   @Test
   public void testGetImplodedNonEmptyIterable ()
   {
-    final List <String> aList = ContainerHelper.newList (null, "a", "", "b", null, "c", "");
+    final List <String> aList = CollectionHelper.newList (null, "a", "", "b", null, "c", "");
     assertEquals ("", StringHelper.getImplodedNonEmpty (".", (String []) null));
     assertEquals ("", StringHelper.getImplodedNonEmpty (".", (List <String>) null));
     assertEquals ("a.b.c", StringHelper.getImplodedNonEmpty (".", aList));
@@ -631,19 +631,19 @@ public final class StringHelperTest extends AbstractPHTestCase
   public void testGetExplodedToList ()
   {
     List <String> ret = StringHelper.getExploded ("@", "a@b@@c");
-    assertEquals (ContainerHelper.newList ("a", "b", "", "c"), ret);
+    assertEquals (CollectionHelper.newList ("a", "b", "", "c"), ret);
     ret = StringHelper.getExploded ("uu", "auubuuuuuuc");
-    assertEquals (ContainerHelper.newList ("a", "b", "", "", "c"), ret);
+    assertEquals (CollectionHelper.newList ("a", "b", "", "", "c"), ret);
     ret = StringHelper.getExploded (".", "a.b...c");
-    assertEquals (ContainerHelper.newList ("a", "b", "", "", "c"), ret);
+    assertEquals (CollectionHelper.newList ("a", "b", "", "", "c"), ret);
     ret = StringHelper.getExploded ("o", "boo:and:foo");
-    assertEquals (ContainerHelper.newList ("b", "", ":and:f", "", ""), ret);
+    assertEquals (CollectionHelper.newList ("b", "", ":and:f", "", ""), ret);
     ret = StringHelper.getExploded ("@", "@a@b@@c");
-    assertEquals (ContainerHelper.newList ("", "a", "b", "", "c"), ret);
+    assertEquals (CollectionHelper.newList ("", "a", "b", "", "c"), ret);
     ret = StringHelper.getExploded ("@", "a@b@@c@");
-    assertEquals (ContainerHelper.newList ("a", "b", "", "c", ""), ret);
+    assertEquals (CollectionHelper.newList ("a", "b", "", "c", ""), ret);
     ret = StringHelper.getExploded ("@", "@a@b@@c@");
-    assertEquals (ContainerHelper.newList ("", "a", "b", "", "c", ""), ret);
+    assertEquals (CollectionHelper.newList ("", "a", "b", "", "c", ""), ret);
     assertTrue (StringHelper.getExploded ("@", null).isEmpty ());
 
     try
@@ -658,14 +658,14 @@ public final class StringHelperTest extends AbstractPHTestCase
   @Test
   public void testGetExplodedToListWithMax ()
   {
-    assertEquals (ContainerHelper.newList ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", 5));
-    assertEquals (ContainerHelper.newList ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", 4));
-    assertEquals (ContainerHelper.newList ("a", "b", "@c"), StringHelper.getExploded ("@", "a@b@@c", 3));
-    assertEquals (ContainerHelper.newList ("a", "b@@c"), StringHelper.getExploded ("@", "a@b@@c", 2));
-    assertEquals (ContainerHelper.newList ("a@b@@c"), StringHelper.getExploded ("@", "a@b@@c", 1));
-    assertEquals (ContainerHelper.newList ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", 0));
-    assertEquals (ContainerHelper.newList ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", -1));
-    assertEquals (ContainerHelper.newList ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", -2));
+    assertEquals (CollectionHelper.newList ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", 5));
+    assertEquals (CollectionHelper.newList ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", 4));
+    assertEquals (CollectionHelper.newList ("a", "b", "@c"), StringHelper.getExploded ("@", "a@b@@c", 3));
+    assertEquals (CollectionHelper.newList ("a", "b@@c"), StringHelper.getExploded ("@", "a@b@@c", 2));
+    assertEquals (CollectionHelper.newList ("a@b@@c"), StringHelper.getExploded ("@", "a@b@@c", 1));
+    assertEquals (CollectionHelper.newList ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", 0));
+    assertEquals (CollectionHelper.newList ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", -1));
+    assertEquals (CollectionHelper.newList ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", -2));
     assertTrue (StringHelper.getExploded ("@", null, 5).isEmpty ());
   }
 
@@ -687,19 +687,19 @@ public final class StringHelperTest extends AbstractPHTestCase
   public void testExplodeToSet ()
   {
     Set <String> ret = StringHelper.getExplodedToSet ("@", "a@b@@c");
-    assertEquals (ContainerHelper.newSet ("a", "b", "", "c"), ret);
+    assertEquals (CollectionHelper.newSet ("a", "b", "", "c"), ret);
     ret = StringHelper.getExplodedToSet ("uu", "auubuuuuuuc");
-    assertEquals (ContainerHelper.newSet ("a", "b", "", "", "c"), ret);
+    assertEquals (CollectionHelper.newSet ("a", "b", "", "", "c"), ret);
     ret = StringHelper.getExplodedToSet (".", "a.b...c");
-    assertEquals (ContainerHelper.newSet ("a", "b", "", "", "c"), ret);
+    assertEquals (CollectionHelper.newSet ("a", "b", "", "", "c"), ret);
     ret = StringHelper.getExplodedToSet ("o", "boo:and:foo");
-    assertEquals (ContainerHelper.newSet ("b", "", ":and:f", "", ""), ret);
+    assertEquals (CollectionHelper.newSet ("b", "", ":and:f", "", ""), ret);
     ret = StringHelper.getExplodedToSet ("@", "@a@b@@c");
-    assertEquals (ContainerHelper.newSet ("", "a", "b", "", "c"), ret);
+    assertEquals (CollectionHelper.newSet ("", "a", "b", "", "c"), ret);
     ret = StringHelper.getExplodedToSet ("@", "a@b@@c@");
-    assertEquals (ContainerHelper.newSet ("a", "b", "", "c", ""), ret);
+    assertEquals (CollectionHelper.newSet ("a", "b", "", "c", ""), ret);
     ret = StringHelper.getExplodedToSet ("@", "@a@b@@c@");
-    assertEquals (ContainerHelper.newSet ("", "a", "b", "", "c", ""), ret);
+    assertEquals (CollectionHelper.newSet ("", "a", "b", "", "c", ""), ret);
     assertTrue (StringHelper.getExplodedToSet ("@", null).isEmpty ());
 
     try
@@ -715,19 +715,19 @@ public final class StringHelperTest extends AbstractPHTestCase
   public void testExplodeToOrderedSet ()
   {
     Set <String> ret = StringHelper.getExplodedToOrderedSet ("@", "a@b@@c");
-    assertEquals (ContainerHelper.newSet ("a", "b", "", "c"), ret);
+    assertEquals (CollectionHelper.newSet ("a", "b", "", "c"), ret);
     ret = StringHelper.getExplodedToOrderedSet ("uu", "auubuuuuuuc");
-    assertEquals (ContainerHelper.newSet ("a", "b", "", "", "c"), ret);
+    assertEquals (CollectionHelper.newSet ("a", "b", "", "", "c"), ret);
     ret = StringHelper.getExplodedToOrderedSet (".", "a.b...c");
-    assertEquals (ContainerHelper.newSet ("a", "b", "", "", "c"), ret);
+    assertEquals (CollectionHelper.newSet ("a", "b", "", "", "c"), ret);
     ret = StringHelper.getExplodedToOrderedSet ("o", "boo:and:foo");
-    assertEquals (ContainerHelper.newSet ("b", "", ":and:f", "", ""), ret);
+    assertEquals (CollectionHelper.newSet ("b", "", ":and:f", "", ""), ret);
     ret = StringHelper.getExplodedToOrderedSet ("@", "@a@b@@c");
-    assertEquals (ContainerHelper.newSet ("", "a", "b", "", "c"), ret);
+    assertEquals (CollectionHelper.newSet ("", "a", "b", "", "c"), ret);
     ret = StringHelper.getExplodedToOrderedSet ("@", "a@b@@c@");
-    assertEquals (ContainerHelper.newSet ("a", "b", "", "c", ""), ret);
+    assertEquals (CollectionHelper.newSet ("a", "b", "", "c", ""), ret);
     ret = StringHelper.getExplodedToOrderedSet ("@", "@a@b@@c@");
-    assertEquals (ContainerHelper.newSet ("", "a", "b", "", "c", ""), ret);
+    assertEquals (CollectionHelper.newSet ("", "a", "b", "", "c", ""), ret);
     assertTrue (StringHelper.getExplodedToOrderedSet ("@", null).isEmpty ());
 
     try

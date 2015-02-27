@@ -26,7 +26,7 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.charset.CSpecialChars;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 /**
  * Test class for {@link AbstractCollationComparator}
@@ -68,20 +68,20 @@ public final class AbstractCollationComparatorTest
     final String [] x = new String [] { S1, S2, S3 };
 
     // Explicitly sort ascending
-    List <String> l = ContainerHelper.getSorted (x, new ComparatorString (ESortOrder.ASCENDING));
+    List <String> l = CollectionHelper.getSorted (x, new ComparatorString (ESortOrder.ASCENDING));
     assertArrayEquals (new String [] { S3, S1, S2 }, l.toArray ());
 
     // Explicitly sort descending
-    l = ContainerHelper.getSorted (x, new ComparatorString (ESortOrder.DESCENDING));
+    l = CollectionHelper.getSorted (x, new ComparatorString (ESortOrder.DESCENDING));
     assertArrayEquals (new String [] { S2, S1, S3 }, l.toArray ());
 
     // change dynamically
     final ComparatorString c = new ComparatorString (ESortOrder.ASCENDING);
-    l = ContainerHelper.getSorted (x, c);
+    l = CollectionHelper.getSorted (x, c);
     assertArrayEquals (new String [] { S3, S1, S2 }, l.toArray ());
 
     // change to descending
-    l = ContainerHelper.getSorted (x, c.setSortOrder (ESortOrder.DESCENDING));
+    l = CollectionHelper.getSorted (x, c.setSortOrder (ESortOrder.DESCENDING));
     assertArrayEquals (new String [] { S2, S1, S3 }, l.toArray ());
   }
 
@@ -97,15 +97,15 @@ public final class AbstractCollationComparatorTest
     final String [] x = new String [] { S1, S2, S3 };
 
     // default: sort ascending
-    List <String> l = ContainerHelper.getSorted (x, new ComparatorString (Locale.GERMAN));
+    List <String> l = CollectionHelper.getSorted (x, new ComparatorString (Locale.GERMAN));
     assertArrayEquals (new String [] { S2, S3, S1 }, l.toArray ());
 
     // sort ascending manually
-    l = ContainerHelper.getSorted (x, new ComparatorString (Locale.GERMAN, ESortOrder.ASCENDING));
+    l = CollectionHelper.getSorted (x, new ComparatorString (Locale.GERMAN, ESortOrder.ASCENDING));
     assertArrayEquals (new String [] { S2, S3, S1 }, l.toArray ());
 
     // sort descending manually
-    l = ContainerHelper.getSorted (x, new ComparatorString (Locale.GERMAN, ESortOrder.DESCENDING));
+    l = CollectionHelper.getSorted (x, new ComparatorString (Locale.GERMAN, ESortOrder.DESCENDING));
     assertArrayEquals (new String [] { S1, S3, S2 }, l.toArray ());
 
     // null locale allowed

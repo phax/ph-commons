@@ -38,7 +38,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.lang.ClassHelper;
@@ -253,7 +253,7 @@ public final class ChangeLogSerializer
     {
       final Map <URI, ChangeLog> ret = new HashMap <URI, ChangeLog> ();
       // Find all change log XML files in the classpath
-      for (final URL aURL : ContainerHelper.newList (aClassLoader.getResources (CChangeLog.CHANGELOG_XML_FILENAME)))
+      for (final URL aURL : CollectionHelper.newList (aClassLoader.getResources (CChangeLog.CHANGELOG_XML_FILENAME)))
       {
         final URLResource aRes = new URLResource (aURL);
         final ChangeLog aChangeLog = readChangeLog (aRes, aErrorCallback);

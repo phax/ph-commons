@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * A version of a stack that does not use {@link java.util.Vector} but an
  * {@link ArrayList} as the underlying data structure as opposed to
  * {@link java.util.Stack}. This spares us from unnecessary synchronization.
- * 
+ *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        The type of the elements contained in the stack
@@ -48,7 +48,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
 
   public NonBlockingStack (@Nullable final ELEMENTTYPE... aElements)
   {
-    ContainerHelper.getConcatenatedInline (this, aElements);
+    CollectionHelper.getConcatenatedInline (this, aElements);
   }
 
   public NonBlockingStack (@Nullable final Collection <? extends ELEMENTTYPE> aCollection)
@@ -65,7 +65,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
 
   /**
    * Pushes an item onto the top of this stack.
-   * 
+   *
    * @param aItem
    *        the item to be pushed onto this stack.
    * @return the <code>aItem</code> argument.
@@ -80,7 +80,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
   /**
    * Removes the object at the top of this stack and returns that object as the
    * value of this function.
-   * 
+   *
    * @return The object at the top of this stack (the last item of the list).
    * @exception EmptyStackException
    *            if this stack is empty.
@@ -96,7 +96,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
   /**
    * Looks at the object at the top of this stack without removing it from the
    * stack.
-   * 
+   *
    * @return the object at the top of this stack (the last item of the list).
    * @exception EmptyStackException
    *            if this stack is empty.
@@ -112,7 +112,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
   /**
    * Looks at the object at the top of this stack without removing it from the
    * stack. Synonym for {@link #peek()}
-   * 
+   *
    * @return the object at the top of this stack (the last item of the list).
    * @exception EmptyStackException
    *            if this stack is empty.
@@ -141,7 +141,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
   /**
    * Replaces the top element in the stack. This is a shortcut for
    * <code>pop (); push (aItem);</code>
-   * 
+   *
    * @param aItem
    *        the item to be pushed onto this stack.
    * @return the <code>aItem</code> argument.

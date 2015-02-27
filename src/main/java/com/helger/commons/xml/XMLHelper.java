@@ -42,7 +42,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.iterate.IIterableIterator;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -208,20 +208,20 @@ public final class XMLHelper
   @Nonnegative
   public static int getDirectChildElementCountNoNS (@Nullable final Element aParent)
   {
-    return aParent == null ? 0 : ContainerHelper.getSize (getChildElementIteratorNoNS (aParent));
+    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNoNS (aParent));
   }
 
   @Nonnegative
   public static int getDirectChildElementCountNoNS (@Nullable final Element aParent,
                                                     @Nonnull @Nonempty final String sTagName)
   {
-    return aParent == null ? 0 : ContainerHelper.getSize (getChildElementIteratorNoNS (aParent, sTagName));
+    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNoNS (aParent, sTagName));
   }
 
   @Nonnegative
   public static int getDirectChildElementCountNS (@Nullable final Element aParent, @Nullable final String sNamespaceURI)
   {
-    return aParent == null ? 0 : ContainerHelper.getSize (getChildElementIteratorNS (aParent, sNamespaceURI));
+    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNS (aParent, sNamespaceURI));
   }
 
   @Nonnegative
@@ -230,7 +230,7 @@ public final class XMLHelper
                                                   @Nonnull @Nonempty final String sLocalName)
   {
     return aParent == null ? 0
-                          : ContainerHelper.getSize (getChildElementIteratorNS (aParent, sNamespaceURI, sLocalName));
+                          : CollectionHelper.getSize (getChildElementIteratorNS (aParent, sNamespaceURI, sLocalName));
   }
 
   /**

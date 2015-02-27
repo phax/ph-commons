@@ -18,17 +18,17 @@ package com.helger.commons.math;
 
 import java.util.List;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test base class for combinator testing
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractCombinationGeneratorTestCase extends AbstractPHTestCase
 {
-  protected static final List <String> HUGE_LIST = ContainerHelper.newUnmodifiableList ("a",
+  protected static final List <String> HUGE_LIST = CollectionHelper.newUnmodifiableList ("a",
                                                                                         "b",
                                                                                         "c",
                                                                                         "d",

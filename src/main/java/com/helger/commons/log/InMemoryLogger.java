@@ -29,7 +29,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.IHasSize;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.error.IHasErrorLevels;
 import com.helger.commons.state.EChange;
@@ -39,7 +39,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Keeps a set of {@link LogMessage} objects in memory, offering an API similar
  * to SLF4J.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -50,7 +50,7 @@ public class InMemoryLogger implements Iterable <LogMessage>, IHasSize, IClearab
   /**
    * Override this method to create a different LogMessage object or to filter
    * certain log messages.
-   * 
+   *
    * @param eErrorLevel
    *        Error level. Never <code>null</code>.
    * @param aMsg
@@ -71,7 +71,7 @@ public class InMemoryLogger implements Iterable <LogMessage>, IHasSize, IClearab
 
   /**
    * Callback method that is invoked after a message was added.
-   * 
+   *
    * @param aLogMessage
    *        The added log message. Never <code>null</code>.
    */
@@ -123,7 +123,7 @@ public class InMemoryLogger implements Iterable <LogMessage>, IHasSize, IClearab
   @ReturnsMutableCopy
   public List <LogMessage> getAllMessages ()
   {
-    return ContainerHelper.newList (m_aMessages);
+    return CollectionHelper.newList (m_aMessages);
   }
 
   @Nonnull

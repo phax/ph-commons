@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
 
 /**
@@ -36,18 +36,18 @@ public final class ComparatorPairFirstTest
   public void testAll ()
   {
     @SuppressWarnings ("unchecked")
-    final List <ReadonlyPair <String, String>> aList = ContainerHelper.newList (ReadonlyPair.create ("k3", "v3"),
+    final List <ReadonlyPair <String, String>> aList = CollectionHelper.newList (ReadonlyPair.create ("k3", "v3"),
                                                                                 ReadonlyPair.create ("k2", "v2"),
                                                                                 ReadonlyPair.create ("k1", "v1"));
     assertEquals (3, aList.size ());
 
-    ContainerHelper.getSortedInline (aList, new ComparatorPairFirst <String, String> ());
+    CollectionHelper.getSortedInline (aList, new ComparatorPairFirst <String, String> ());
     assertEquals (3, aList.size ());
     assertEquals ("k1", aList.get (0).getFirst ());
     assertEquals ("k2", aList.get (1).getFirst ());
     assertEquals ("k3", aList.get (2).getFirst ());
 
-    ContainerHelper.getSortedInline (aList, new ComparatorPairFirst <String, String> (ESortOrder.DESCENDING));
+    CollectionHelper.getSortedInline (aList, new ComparatorPairFirst <String, String> (ESortOrder.DESCENDING));
     assertEquals (3, aList.size ());
     assertEquals ("k3", aList.get (0).getFirst ());
     assertEquals ("k2", aList.get (1).getFirst ());

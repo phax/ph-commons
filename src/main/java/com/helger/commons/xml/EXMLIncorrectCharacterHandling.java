@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -173,7 +173,7 @@ public enum EXMLIncorrectCharacterHandling
   @Nonnull
   private static String _getAsString (@Nonnull final Set <Character> aInvalidChars)
   {
-    if (ContainerHelper.isEmpty (aInvalidChars))
+    if (CollectionHelper.isEmpty (aInvalidChars))
       return "NONE";
     final StringBuilder aSB = new StringBuilder ();
     for (final Character aChar : aInvalidChars)

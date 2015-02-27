@@ -27,7 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.IClearable;
@@ -304,7 +304,7 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
   @ReturnsMutableCopy
   public List <IResourceError> getAllResourceErrors ()
   {
-    return ContainerHelper.newList (m_aErrors);
+    return CollectionHelper.newList (m_aErrors);
   }
 
   @Nonnull

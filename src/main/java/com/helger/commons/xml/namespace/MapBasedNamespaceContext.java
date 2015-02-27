@@ -29,7 +29,7 @@ import javax.xml.XMLConstants;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.multimap.IMultiMapSetBased;
 import com.helger.commons.collections.multimap.MultiHashMapHashSetBased;
 import com.helger.commons.equals.EqualsUtils;
@@ -126,7 +126,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext
   public String getCustomPrefix (@Nonnull final String sNamespaceURI)
   {
     final Set <String> aAllPrefixes = m_aNS2Prefix.get (sNamespaceURI);
-    return ContainerHelper.getFirstElement (aAllPrefixes);
+    return CollectionHelper.getFirstElement (aAllPrefixes);
   }
 
   @Override
@@ -140,7 +140,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext
   @ReturnsMutableCopy
   public Map <String, String> getPrefixToNamespaceURIMap ()
   {
-    return ContainerHelper.newOrderedMap (m_aPrefix2NS);
+    return CollectionHelper.newOrderedMap (m_aPrefix2NS);
   }
 
   public boolean hasAnyMapping ()

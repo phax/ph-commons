@@ -23,11 +23,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 /**
  * Some pair utils
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -41,7 +41,7 @@ public final class PairUtils
   public static <V1 extends Comparable <? super V1>, V2> List <IReadonlyPair <V1, V2>> getSortedByPairFirst (@Nonnull final Collection <? extends IReadonlyPair <V1, V2>> aList)
   {
     // get sorted entry list
-    return ContainerHelper.getSorted (aList, new ComparatorPairFirst <V1, V2> ());
+    return CollectionHelper.getSorted (aList, new ComparatorPairFirst <V1, V2> ());
   }
 
   @Nonnull
@@ -49,6 +49,6 @@ public final class PairUtils
   public static <V1, V2 extends Comparable <? super V2>> List <IReadonlyPair <V1, V2>> getSortedByPairSecond (@Nonnull final Collection <? extends IReadonlyPair <V1, V2>> aList)
   {
     // get sorted entry list
-    return ContainerHelper.getSorted (aList, new ComparatorPairSecond <V1, V2> ());
+    return CollectionHelper.getSorted (aList, new ComparatorPairSecond <V1, V2> ());
   }
 }

@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -60,7 +60,7 @@ public final class CollectingExceptionHandlerMultiple <EXTYPE extends Throwable>
   @ReturnsMutableCopy
   public List <EXTYPE> getAllExceptions ()
   {
-    return ContainerHelper.newList (m_aExceptions);
+    return CollectionHelper.newList (m_aExceptions);
   }
 
   @Override

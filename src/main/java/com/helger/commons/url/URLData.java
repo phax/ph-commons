@@ -26,7 +26,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.ReturnsMutableObject;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
@@ -87,13 +87,13 @@ public class URLData implements IURLData
 
   public boolean hasParams ()
   {
-    return ContainerHelper.isNotEmpty (m_aParams);
+    return CollectionHelper.isNotEmpty (m_aParams);
   }
 
   @Nonnegative
   public int getParamCount ()
   {
-    return ContainerHelper.getSize (m_aParams);
+    return CollectionHelper.getSize (m_aParams);
   }
 
   @Nullable
@@ -107,7 +107,7 @@ public class URLData implements IURLData
   @ReturnsMutableCopy
   public Map <String, String> getAllParams ()
   {
-    return ContainerHelper.newOrderedMap (m_aParams);
+    return CollectionHelper.newOrderedMap (m_aParams);
   }
 
   public boolean hasAnchor ()

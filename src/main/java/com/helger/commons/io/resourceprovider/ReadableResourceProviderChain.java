@@ -25,7 +25,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.IReadableResourceProvider;
@@ -46,21 +46,21 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
   {
     ValueEnforcer.notEmptyNoNullValue (aResProviders, "ResourceProviders");
 
-    m_aReadingResourceProviders = ContainerHelper.newList (aResProviders);
+    m_aReadingResourceProviders = CollectionHelper.newList (aResProviders);
   }
 
   public ReadableResourceProviderChain (@Nonnull final Iterable <? extends IReadableResourceProvider> aResProviders)
   {
     ValueEnforcer.notEmptyNoNullValue (aResProviders, "ResourceProviders");
 
-    m_aReadingResourceProviders = ContainerHelper.newList (aResProviders);
+    m_aReadingResourceProviders = CollectionHelper.newList (aResProviders);
   }
 
   @Nonnull
   @Nonempty
   public List <IReadableResourceProvider> getAllNestedReadingResourceProviders ()
   {
-    return ContainerHelper.newList (m_aReadingResourceProviders);
+    return CollectionHelper.newList (m_aReadingResourceProviders);
   }
 
   public final boolean supportsReading (@Nullable final String sName)

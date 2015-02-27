@@ -33,7 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.ServiceLoaderUtils;
 
@@ -183,7 +183,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
     m_aRWLock.readLock ().lock ();
     try
     {
-      aCopy = ContainerHelper.newMap (m_aMap);
+      aCopy = CollectionHelper.newMap (m_aMap);
     }
     finally
     {

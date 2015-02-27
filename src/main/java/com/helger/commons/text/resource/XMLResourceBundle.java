@@ -34,7 +34,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.DevelopersNote;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 /**
  * Helper class to handle XML based properties. It is read-only.<br>
@@ -70,7 +70,7 @@ public final class XMLResourceBundle extends ResourceBundle
   @ReturnsMutableCopy
   public Map <String, String> getAllValues ()
   {
-    return ContainerHelper.newMap (m_aValues);
+    return CollectionHelper.newMap (m_aValues);
   }
 
   /**
@@ -98,7 +98,7 @@ public final class XMLResourceBundle extends ResourceBundle
   @Override
   public Enumeration <String> getKeys ()
   {
-    return ContainerHelper.getEnumeration (m_aValues.keySet ());
+    return CollectionHelper.getEnumeration (m_aValues.keySet ());
   }
 
   @Nonnull

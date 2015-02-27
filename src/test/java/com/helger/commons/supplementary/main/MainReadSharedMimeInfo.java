@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.exceptions.InitializationException;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.resource.ClassPathResource;
@@ -144,7 +144,7 @@ public final class MainReadSharedMimeInfo
       throw new InitializationException ("Failed to init file extension to mimetype mapping file");
 
     // Check old data
-    for (final Map.Entry <String, String> aEntry : ContainerHelper.getSortedByKey (m_aFileExtMap).entrySet ())
+    for (final Map.Entry <String, String> aEntry : CollectionHelper.getSortedByKey (m_aFileExtMap).entrySet ())
     {
       final String sOldExt = aEntry.getKey ();
       final String sOldMimeType = aEntry.getValue ();
@@ -206,11 +206,11 @@ public final class MainReadSharedMimeInfo
           // No such mapping from ext to mime type
 
           // Create a new entry
-          aMgr.registerMimeType (new MimeTypeInfo (ContainerHelper.newSet (new MimeTypeWithSource (sOldMimeType)),
+          aMgr.registerMimeType (new MimeTypeInfo (CollectionHelper.newSet (new MimeTypeWithSource (sOldMimeType)),
                                                    null,
                                                    new HashSet <String> (),
                                                    new HashSet <String> (),
-                                                   ContainerHelper.newSet (new ExtensionWithSource (sOldExt)),
+                                                   CollectionHelper.newSet (new ExtensionWithSource (sOldExt)),
                                                    "old"));
           if (false)
             System.out.println ("Creating new: " + sOldMimeType + " = '" + sOldExt + "'");

@@ -20,13 +20,13 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link ComparatorLocaleDisplayCountryNative}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ComparatorLocaleDisplayCountryNativeTest extends AbstractPHTestCase
@@ -34,7 +34,7 @@ public final class ComparatorLocaleDisplayCountryNativeTest extends AbstractPHTe
   @Test
   public void testSort ()
   {
-    assertNotNull (ContainerHelper.getSorted (LocaleCache.getAllLocales (),
+    assertNotNull (CollectionHelper.getSorted (LocaleCache.getAllLocales (),
                                               new ComparatorLocaleDisplayCountryNative (L_DE)));
   }
 }

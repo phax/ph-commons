@@ -22,11 +22,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 /**
  * Test class for class {@link FilterChainAND}
- * 
+ *
  * @author Philip Helger
  */
 public final class FilterChainANDTest
@@ -48,14 +48,14 @@ public final class FilterChainANDTest
     assertFalse (aFilter.matchesFilter (""));
     assertFalse (aFilter.matchesFilter ("bla bla bla"));
 
-    aFilter = FilterChainAND.create (ContainerHelper.newList (FilterNull.<String> getInstance (),
+    aFilter = FilterChainAND.create (CollectionHelper.newList (FilterNull.<String> getInstance (),
                                                               FilterNotNull.<String> getInstance ()));
     assertNotNull (aFilter);
     assertFalse (aFilter.matchesFilter (null));
     assertFalse (aFilter.matchesFilter (""));
     assertFalse (aFilter.matchesFilter ("bla bla bla"));
 
-    aFilter = FilterChainAND.create (ContainerHelper.newList (FilterNull.<String> getInstance ()));
+    aFilter = FilterChainAND.create (CollectionHelper.newList (FilterNull.<String> getInstance ()));
     assertNotNull (aFilter);
     assertTrue (aFilter.matchesFilter (null));
     assertFalse (aFilter.matchesFilter (""));

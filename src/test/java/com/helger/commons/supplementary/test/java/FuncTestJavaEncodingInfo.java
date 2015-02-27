@@ -23,7 +23,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.compare.ComparatorAsString;
 import com.helger.commons.system.SystemHelper;
 
@@ -33,7 +33,7 @@ public final class FuncTestJavaEncodingInfo
 
   public static void main (final String [] args)
   {
-    for (final Map.Entry <Object, Object> aEntry : ContainerHelper.getSortedByKey (System.getProperties (),
+    for (final Map.Entry <Object, Object> aEntry : CollectionHelper.getSortedByKey (System.getProperties (),
                                                                                    new ComparatorAsString ())
                                                                   .entrySet ())
       s_aLogger.info (aEntry.getKey () + " == " + aEntry.getValue ());

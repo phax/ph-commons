@@ -26,7 +26,7 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.ReturnsMutableObject;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.microdom.EMicroEvent;
 import com.helger.commons.microdom.EMicroNodeType;
 import com.helger.commons.microdom.IMicroCDATA;
@@ -193,14 +193,14 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @ReturnsMutableCopy
   public final List <IMicroNode> getAllChildren ()
   {
-    return m_aChildren == null ? null : ContainerHelper.newList (m_aChildren);
+    return m_aChildren == null ? null : CollectionHelper.newList (m_aChildren);
   }
 
   @Override
   @Nullable
   public final IMicroNode getChildAtIndex (@Nonnegative final int nIndex)
   {
-    return ContainerHelper.getSafe (m_aChildren, nIndex);
+    return CollectionHelper.getSafe (m_aChildren, nIndex);
   }
 
   @Override

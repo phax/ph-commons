@@ -33,7 +33,7 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.IChangeNotify;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.state.EChange;
@@ -212,7 +212,7 @@ public class MultiLingualTextThreadSafe implements IMultiLingualText
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newMap (m_aMLT.internalGetMap ());
+      return CollectionHelper.newMap (m_aMLT.internalGetMap ());
     }
     finally
     {
@@ -254,7 +254,7 @@ public class MultiLingualTextThreadSafe implements IMultiLingualText
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newSet (m_aMLT.internalGetAllLocales ());
+      return CollectionHelper.newSet (m_aMLT.internalGetAllLocales ());
     }
     finally
     {

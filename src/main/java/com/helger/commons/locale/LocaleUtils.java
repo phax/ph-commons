@@ -35,7 +35,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsImmutableObject;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.cache.AbstractNotifyingCache;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -89,7 +89,7 @@ public final class LocaleUtils
           }
         }
       }
-      return ContainerHelper.makeUnmodifiable (ret);
+      return CollectionHelper.makeUnmodifiable (ret);
     }
   }
 

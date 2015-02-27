@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.pair.ReadonlyPair;
 import com.helger.commons.id.MockHasIDInteger;
 import com.helger.commons.id.MockHasIDString;
@@ -54,7 +54,7 @@ public final class IUnidirectionalConverterTest
   public void testConversion ()
   {
     @SuppressWarnings ("unchecked")
-    final List <ReadonlyPair <Integer, String>> aPairs = ContainerHelper.newList (ReadonlyPair.create (Integer.valueOf (1),
+    final List <ReadonlyPair <Integer, String>> aPairs = CollectionHelper.newList (ReadonlyPair.create (Integer.valueOf (1),
                                                                                                        "Hallo"),
                                                                                   ReadonlyPair.create (Integer.valueOf (2),
                                                                                                        "welt"),
@@ -62,24 +62,24 @@ public final class IUnidirectionalConverterTest
                                                                                                        "!"));
     _test (UnidirectionalConverterPairFirst.<Integer, String> create (),
            aPairs,
-           ContainerHelper.newList (Integer.valueOf (1), Integer.valueOf (2), Integer.valueOf (47)));
+           CollectionHelper.newList (Integer.valueOf (1), Integer.valueOf (2), Integer.valueOf (47)));
     _test (UnidirectionalConverterPairSecond.<Integer, String> create (),
            aPairs,
-           ContainerHelper.newList ("Hallo", "welt", "!"));
+           CollectionHelper.newList ("Hallo", "welt", "!"));
     _test (new UnidirectionalConverterStringInteger (null),
-           ContainerHelper.newList ("1", "2", "47"),
-           ContainerHelper.newList (Integer.valueOf (1), Integer.valueOf (2), Integer.valueOf (47)));
+           CollectionHelper.newList ("1", "2", "47"),
+           CollectionHelper.newList (Integer.valueOf (1), Integer.valueOf (2), Integer.valueOf (47)));
     _test (UnidirectionalConverterIntegerString.getInstance (),
-           ContainerHelper.newList (Integer.valueOf (1), Integer.valueOf (2), Integer.valueOf (47)),
-           ContainerHelper.newList ("1", "2", "47"));
+           CollectionHelper.newList (Integer.valueOf (1), Integer.valueOf (2), Integer.valueOf (47)),
+           CollectionHelper.newList ("1", "2", "47"));
     _test (UnidirectionalConverterHasNameString.getInstance (),
-           ContainerHelper.newList (new MockHasName (1), new MockHasName (2), new MockHasName (47)),
-           ContainerHelper.newList ("1", "2", "47"));
+           CollectionHelper.newList (new MockHasName (1), new MockHasName (2), new MockHasName (47)),
+           CollectionHelper.newList ("1", "2", "47"));
     _test (UnidirectionalConverterHasIDID.<String> create (),
-           ContainerHelper.newList (new MockHasIDString (1), new MockHasIDString (2), new MockHasIDString (47)),
-           ContainerHelper.newList ("1", "2", "47"));
+           CollectionHelper.newList (new MockHasIDString (1), new MockHasIDString (2), new MockHasIDString (47)),
+           CollectionHelper.newList ("1", "2", "47"));
     _test (UnidirectionalConverterHasIDID.<Integer> create (),
-           ContainerHelper.newList (new MockHasIDInteger (1), new MockHasIDInteger (2), new MockHasIDInteger (47)),
-           ContainerHelper.newList (Integer.valueOf (1), Integer.valueOf (2), Integer.valueOf (47)));
+           CollectionHelper.newList (new MockHasIDInteger (1), new MockHasIDInteger (2), new MockHasIDInteger (47)),
+           CollectionHelper.newList (Integer.valueOf (1), Integer.valueOf (2), Integer.valueOf (47)));
   }
 }

@@ -27,13 +27,13 @@ import javax.xml.XMLConstants;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.iterate.SingleElementIterator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Represents a namespace context having exactly 1 item.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -44,7 +44,7 @@ public class SingleElementNamespaceContext extends AbstractNamespaceContext
 
   /**
    * Create a namespace context with the default (empty) prefix
-   * 
+   *
    * @param sNamespaceURI
    *        The namespace URI to use. May neither be <code>null</code> nor
    *        empty.
@@ -92,7 +92,7 @@ public class SingleElementNamespaceContext extends AbstractNamespaceContext
   @ReturnsMutableCopy
   public Map <String, String> getPrefixToNamespaceURIMap ()
   {
-    return ContainerHelper.newMap (m_sPrefix, m_sNamespaceURI);
+    return CollectionHelper.newMap (m_sPrefix, m_sNamespaceURI);
   }
 
   @Override

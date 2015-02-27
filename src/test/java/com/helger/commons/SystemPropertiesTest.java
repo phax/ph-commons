@@ -26,12 +26,12 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
  * Test class for class {@link SystemProperties}
- * 
+ *
  * @author Philip Helger
  */
 public final class SystemPropertiesTest extends AbstractPHTestCase
@@ -39,7 +39,7 @@ public final class SystemPropertiesTest extends AbstractPHTestCase
   @Test
   public void testGetAll ()
   {
-    for (final Map.Entry <String, String> aEntry : ContainerHelper.getSortedByKey (SystemProperties.getAllProperties ())
+    for (final Map.Entry <String, String> aEntry : CollectionHelper.getSortedByKey (SystemProperties.getAllProperties ())
                                                                   .entrySet ())
       m_aLogger.info ("[all] " + aEntry.getKey () + "=" + aEntry.getValue ());
 

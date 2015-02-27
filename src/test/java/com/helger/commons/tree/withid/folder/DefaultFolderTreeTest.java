@@ -24,7 +24,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.combine.CombinatorStringWithSeparator;
 import com.helger.commons.combine.ICombinator;
 import com.helger.commons.mock.AbstractPHTestCase;
@@ -32,7 +32,7 @@ import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link DefaultFolderTree}.
- * 
+ *
  * @author Philip Helger
  */
 public final class DefaultFolderTreeTest extends AbstractPHTestCase
@@ -46,14 +46,14 @@ public final class DefaultFolderTreeTest extends AbstractPHTestCase
 
     final DefaultFolderTreeItem <String, Integer, Set <Integer>> i1 = ft.getRootItem ()
                                                                         .createChildItem ("id1",
-                                                                                          ContainerHelper.newSet (I1,
+                                                                                          CollectionHelper.newSet (I1,
                                                                                                                   I2,
                                                                                                                   I3));
     assertNotNull (i1);
 
     final DefaultFolderTreeItem <String, Integer, Set <Integer>> i2 = ft.getRootItem ()
                                                                         .createChildItem ("id1",
-                                                                                          ContainerHelper.newSet (I1,
+                                                                                          CollectionHelper.newSet (I1,
                                                                                                                   I2,
                                                                                                                   I3));
     assertNotNull (i2);
@@ -61,7 +61,7 @@ public final class DefaultFolderTreeTest extends AbstractPHTestCase
 
     final DefaultFolderTreeItem <String, Integer, Set <Integer>> i3 = ft.getRootItem ()
                                                                         .createChildItem ("id3",
-                                                                                          ContainerHelper.newSet (I1,
+                                                                                          CollectionHelper.newSet (I1,
                                                                                                                   I3));
     assertNotNull (i3);
     assertTrue (i1 != i3);

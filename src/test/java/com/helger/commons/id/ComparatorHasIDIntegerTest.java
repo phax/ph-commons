@@ -22,12 +22,12 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
 
 /**
  * Test class for class {@link ComparatorHasIDInteger}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ComparatorHasIDIntegerTest
@@ -35,20 +35,20 @@ public final class ComparatorHasIDIntegerTest
   @Test
   public void testAll ()
   {
-    final List <? extends IHasID <Integer>> aList = ContainerHelper.newList (new MockHasIDInteger (5),
+    final List <? extends IHasID <Integer>> aList = CollectionHelper.newList (new MockHasIDInteger (5),
                                                                              new MockHasIDInteger (3),
                                                                              new MockHasIDInteger (7));
-    ContainerHelper.getSortedInline (aList, new ComparatorHasIDInteger <IHasID <Integer>> ());
+    CollectionHelper.getSortedInline (aList, new ComparatorHasIDInteger <IHasID <Integer>> ());
     assertEquals (3, aList.get (0).getID ().intValue ());
     assertEquals (5, aList.get (1).getID ().intValue ());
     assertEquals (7, aList.get (2).getID ().intValue ());
 
-    ContainerHelper.getSortedInline (aList, new ComparatorHasIDInteger <IHasID <Integer>> (ESortOrder.ASCENDING));
+    CollectionHelper.getSortedInline (aList, new ComparatorHasIDInteger <IHasID <Integer>> (ESortOrder.ASCENDING));
     assertEquals (3, aList.get (0).getID ().intValue ());
     assertEquals (5, aList.get (1).getID ().intValue ());
     assertEquals (7, aList.get (2).getID ().intValue ());
 
-    ContainerHelper.getSortedInline (aList, new ComparatorHasIDInteger <IHasID <Integer>> (ESortOrder.DESCENDING));
+    CollectionHelper.getSortedInline (aList, new ComparatorHasIDInteger <IHasID <Integer>> (ESortOrder.DESCENDING));
     assertEquals (7, aList.get (0).getID ().intValue ());
     assertEquals (5, aList.get (1).getID ().intValue ());
     assertEquals (3, aList.get (2).getID ().intValue ());

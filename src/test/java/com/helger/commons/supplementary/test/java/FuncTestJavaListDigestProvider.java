@@ -25,7 +25,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 public final class FuncTestJavaListDigestProvider
 {
@@ -50,12 +50,12 @@ public final class FuncTestJavaListDigestProvider
   @Test
   public void testListAllDigestProvider ()
   {
-    for (final Provider element : ContainerHelper.getSorted (ContainerHelper.newList (Security.getProviders ()),
+    for (final Provider element : CollectionHelper.getSorted (CollectionHelper.newList (Security.getProviders ()),
                                                              new ProviderComparator ()))
     {
       s_aLogger.info ("Provider: '" + element + "'");
 
-      for (final Object sAlgo : ContainerHelper.getSortedByKey (element, new AlgorithmComparator ()).keySet ())
+      for (final Object sAlgo : CollectionHelper.getSortedByKey (element, new AlgorithmComparator ()).keySet ())
         s_aLogger.info ("\t" + sAlgo);
     }
   }

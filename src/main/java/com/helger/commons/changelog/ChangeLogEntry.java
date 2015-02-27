@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -38,7 +38,7 @@ import com.helger.commons.text.impl.ReadonlyMultiLingualText;
 
 /**
  * This class represents a single entry in the changelog.
- * 
+ *
  * @author Philip Helger
  */
 public final class ChangeLogEntry extends AbstractChangeLogEntry
@@ -52,7 +52,7 @@ public final class ChangeLogEntry extends AbstractChangeLogEntry
 
   /**
    * Constructor.
-   * 
+   *
    * @param aChangeLog
    *        The owning changelog object. May not be <code>null</code>.
    * @param aDate
@@ -117,7 +117,7 @@ public final class ChangeLogEntry extends AbstractChangeLogEntry
 
   /**
    * Set the change log entry display text
-   * 
+   *
    * @param aMLT
    *        The text to be set. May not be <code>null</code>.
    * @return {@link EChange}
@@ -132,7 +132,7 @@ public final class ChangeLogEntry extends AbstractChangeLogEntry
 
   /**
    * Set the change text of this entry in the specified locale.
-   * 
+   *
    * @param aContentLocale
    *        The locale of the change.
    * @param sText
@@ -161,7 +161,7 @@ public final class ChangeLogEntry extends AbstractChangeLogEntry
 
   /**
    * Get the text of the specified locale.
-   * 
+   *
    * @param aContentLocale
    *        The locale to query. May not be <code>null</code>.
    * @return <code>null</code> if no such text is contained.
@@ -174,7 +174,7 @@ public final class ChangeLogEntry extends AbstractChangeLogEntry
 
   /**
    * Add a new issue ID to this entry.
-   * 
+   *
    * @param sIssue
    *        The issue ID to be added. If it is <code>null</code> or empty, the
    *        call is ignored.
@@ -197,7 +197,7 @@ public final class ChangeLogEntry extends AbstractChangeLogEntry
   @ReturnsMutableCopy
   public List <String> getAllIssues ()
   {
-    return ContainerHelper.newList (m_aIssues);
+    return CollectionHelper.newList (m_aIssues);
   }
 
   @Override

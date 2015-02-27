@@ -22,7 +22,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.locale.ComparatorLocale;
 import com.helger.commons.locale.country.ComparatorLocaleCountry;
 
@@ -33,7 +33,7 @@ public final class FuncTestJavaListAllLocales
   @Test
   public void testListAllCountries ()
   {
-    for (final Locale aLocale : ContainerHelper.getSorted (Locale.getAvailableLocales (),
+    for (final Locale aLocale : CollectionHelper.getSorted (Locale.getAvailableLocales (),
                                                            new ComparatorLocaleCountry (null)))
       if (aLocale.getCountry ().length () > 0)
         s_aLogger.info (aLocale.getCountry () + " " + aLocale.getDisplayCountry () + " (" + aLocale.toString () + ")");
@@ -42,7 +42,7 @@ public final class FuncTestJavaListAllLocales
   @Test
   public void testListAllSerbianCountries ()
   {
-    for (final Locale aLocale : ContainerHelper.getSorted (Locale.getAvailableLocales (), new ComparatorLocale (null)))
+    for (final Locale aLocale : CollectionHelper.getSorted (Locale.getAvailableLocales (), new ComparatorLocale (null)))
       if (aLocale.getLanguage ().equals ("sr") ||
           aLocale.getLanguage ().equals ("sh") ||
           aLocale.getLanguage ().equals ("bs"))

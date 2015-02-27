@@ -29,7 +29,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.ReturnsMutableObject;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
@@ -61,7 +61,7 @@ public abstract class AbstractSimpleURL implements ISimpleURL
   public AbstractSimpleURL (@Nonnull final String sHref, @Nullable final Map <String, String> aParams)
   {
     this (sHref);
-    if (ContainerHelper.isNotEmpty (aParams))
+    if (CollectionHelper.isNotEmpty (aParams))
     {
       // m_aParams may already be non-null
       if (m_aParams == null)
@@ -108,13 +108,13 @@ public abstract class AbstractSimpleURL implements ISimpleURL
 
   public final boolean hasParams ()
   {
-    return ContainerHelper.isNotEmpty (m_aParams);
+    return CollectionHelper.isNotEmpty (m_aParams);
   }
 
   @Nonnegative
   public final int getParamCount ()
   {
-    return ContainerHelper.getSize (m_aParams);
+    return CollectionHelper.getSize (m_aParams);
   }
 
   @Nonnull
@@ -128,7 +128,7 @@ public abstract class AbstractSimpleURL implements ISimpleURL
   @ReturnsMutableCopy
   public final Map <String, String> getAllParams ()
   {
-    return ContainerHelper.newOrderedMap (m_aParams);
+    return CollectionHelper.newOrderedMap (m_aParams);
   }
 
   public final boolean hasAnchor ()

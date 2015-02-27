@@ -27,13 +27,13 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link CombinationGenerator}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CombinationGeneratorTest
@@ -45,7 +45,7 @@ public final class CombinationGeneratorTest
   @Test
   public void testStringCombination ()
   {
-    final List <String> aElements = ContainerHelper.newList (A, B, B, C);
+    final List <String> aElements = CollectionHelper.newList (A, B, B, C);
     final CombinationGenerator <String> x = new CombinationGenerator <String> (aElements, 3);
     assertEquals (BigInteger.valueOf (4), x.getTotalCombinations ());
     assertEquals (BigInteger.valueOf (4), x.getCombinationsLeft ());
@@ -73,7 +73,7 @@ public final class CombinationGeneratorTest
   @Test
   public void testStringCombination2 ()
   {
-    final List <String> aElements = ContainerHelper.newList (A, B, B, C);
+    final List <String> aElements = CollectionHelper.newList (A, B, B, C);
     final CombinationGenerator <String> x = new CombinationGenerator <String> (aElements, 0);
     assertEquals (BigInteger.ONE, x.getTotalCombinations ());
     assertEquals (BigInteger.ONE, x.getCombinationsLeft ());
@@ -103,21 +103,21 @@ public final class CombinationGeneratorTest
     {}
     try
     {
-      new CombinationGenerator <String> (ContainerHelper.<String> newList (), 3);
+      new CombinationGenerator <String> (CollectionHelper.<String> newList (), 3);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      new CombinationGenerator <String> (ContainerHelper.newList ("a"), 3);
+      new CombinationGenerator <String> (CollectionHelper.newList ("a"), 3);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      new CombinationGenerator <String> (ContainerHelper.newList ("a", "b"), -1);
+      new CombinationGenerator <String> (CollectionHelper.newList ("a", "b"), -1);
       fail ();
     }
     catch (final IllegalArgumentException ex)

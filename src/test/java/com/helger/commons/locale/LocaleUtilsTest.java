@@ -32,7 +32,7 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.DebugModeTestRule;
 import com.helger.commons.system.SystemHelper;
@@ -147,7 +147,7 @@ public final class LocaleUtilsTest extends AbstractPHTestCase
   @Test
   public void testGetLocaleToUseOrFallback ()
   {
-    final List <Locale> aLocales = ContainerHelper.newList (L_DE, L_EN, CGlobal.LOCALE_ALL);
+    final List <Locale> aLocales = CollectionHelper.newList (L_DE, L_EN, CGlobal.LOCALE_ALL);
     try
     {
       LocaleUtils.getLocaleToUseOrFallback (null, aLocales, null);
@@ -169,11 +169,11 @@ public final class LocaleUtilsTest extends AbstractPHTestCase
     assertEquals (CGlobal.LOCALE_ALL, LocaleUtils.getLocaleToUseOrFallback (CGlobal.LOCALE_INDEPENDENT, aLocales, null));
     assertEquals (CGlobal.LOCALE_INDEPENDENT,
                   LocaleUtils.getLocaleToUseOrFallback (L_FR,
-                                                        ContainerHelper.newList (CGlobal.LOCALE_INDEPENDENT),
+                                                        CollectionHelper.newList (CGlobal.LOCALE_INDEPENDENT),
                                                         null));
-    assertNull (LocaleUtils.getLocaleToUseOrFallback (L_FR, ContainerHelper.newList (L_DE, L_EN), null));
-    assertEquals (L_FR_FR, LocaleUtils.getLocaleToUseOrFallback (L_FR, ContainerHelper.newList (L_DE, L_EN), L_FR_FR));
-    assertEquals (L_FR_FR, LocaleUtils.getLocaleToUseOrFallback (L_FR, ContainerHelper.newList (L_FR_FR), null));
+    assertNull (LocaleUtils.getLocaleToUseOrFallback (L_FR, CollectionHelper.newList (L_DE, L_EN), null));
+    assertEquals (L_FR_FR, LocaleUtils.getLocaleToUseOrFallback (L_FR, CollectionHelper.newList (L_DE, L_EN), L_FR_FR));
+    assertEquals (L_FR_FR, LocaleUtils.getLocaleToUseOrFallback (L_FR, CollectionHelper.newList (L_FR_FR), null));
   }
 
   @Test

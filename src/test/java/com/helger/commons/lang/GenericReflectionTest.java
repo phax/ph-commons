@@ -27,11 +27,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 /**
  * Test class for class {@link GenericReflection}.
- * 
+ *
  * @author Philip Helger
  */
 public final class GenericReflectionTest
@@ -39,7 +39,7 @@ public final class GenericReflectionTest
   @Test
   public void testUncechkedCast ()
   {
-    final List <String> l = ContainerHelper.newList ("a", "b");
+    final List <String> l = CollectionHelper.newList ("a", "b");
     final Object o = l;
     final List <String> l2 = GenericReflection.<Object, List <String>> uncheckedCast (o);
     assertSame (l, l2);

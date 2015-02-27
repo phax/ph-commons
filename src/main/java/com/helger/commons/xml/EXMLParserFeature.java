@@ -36,14 +36,14 @@ import com.helger.commons.annotations.CodingStyleguideUnaware;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.name.IHasName;
 
 /**
  * Contains constants for parser features.<br>
  * Source: http://xerces.apache.org/xerces2-j/features.html
- * 
+ *
  * @author Philip Helger
  */
 public enum EXMLParserFeature implements IHasName
@@ -519,7 +519,7 @@ public enum EXMLParserFeature implements IHasName
   /**
    * This map contains all necessary settings to avoid XXE attacks.
    */
-  public static final Map <EXMLParserFeature, Boolean> AVOID_XXE_SETTINGS = ContainerHelper.newUnmodifiableMap (new EXMLParserFeature [] { DISALLOW_DOCTYPE_DECL,
+  public static final Map <EXMLParserFeature, Boolean> AVOID_XXE_SETTINGS = CollectionHelper.newUnmodifiableMap (new EXMLParserFeature [] { DISALLOW_DOCTYPE_DECL,
                                                                                                                                           EXTERNAL_GENERAL_ENTITIES,
                                                                                                                                           EXTERNAL_PARAMETER_ENTITIES },
                                                                                                                 new Boolean [] { Boolean.TRUE,
@@ -530,14 +530,14 @@ public enum EXMLParserFeature implements IHasName
    * This map contains all necessary settings to avoid entity expansion overflow
    * attacks.
    */
-  public static final Map <EXMLParserFeature, Boolean> AVOID_DOS_SETTINGS = ContainerHelper.newUnmodifiableMap (new EXMLParserFeature [] { SECURE_PROCESSING },
+  public static final Map <EXMLParserFeature, Boolean> AVOID_DOS_SETTINGS = CollectionHelper.newUnmodifiableMap (new EXMLParserFeature [] { SECURE_PROCESSING },
                                                                                                                 new Boolean [] { Boolean.TRUE });
 
   /**
    * This map contains all necessary settings to avoid all known XML attacks
    */
   @SuppressWarnings ("unchecked")
-  public static final Map <EXMLParserFeature, Boolean> AVOID_XML_ATTACKS = ContainerHelper.newUnmodifiableMap (ArrayHelper.newArray (AVOID_XXE_SETTINGS,
+  public static final Map <EXMLParserFeature, Boolean> AVOID_XML_ATTACKS = CollectionHelper.newUnmodifiableMap (ArrayHelper.newArray (AVOID_XXE_SETTINGS,
                                                                                                                                      AVOID_DOS_SETTINGS));
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (EXMLParserFeature.class);

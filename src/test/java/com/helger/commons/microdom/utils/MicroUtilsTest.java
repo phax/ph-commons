@@ -34,7 +34,7 @@ import org.xml.sax.SAXException;
 import com.helger.commons.CGlobal;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.io.streams.StringInputStream;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
@@ -58,7 +58,7 @@ public final class MicroUtilsTest
     final IMicroElement eRoot = aDoc.appendElement ("root");
     MicroUtils.append (eRoot, "Any text");
     MicroUtils.append (eRoot, new MicroElement ("child"));
-    MicroUtils.append (eRoot, ContainerHelper.newList ("t1", "t2"));
+    MicroUtils.append (eRoot, CollectionHelper.newList ("t1", "t2"));
     MicroUtils.append (eRoot, ArrayHelper.newArray ("t1", "t2"));
     try
     {

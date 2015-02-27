@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -42,19 +42,19 @@ public final class FilterChainAND <DATATYPE> implements IFilter <DATATYPE>
 
   public FilterChainAND (@Nullable final IFilter <? super DATATYPE>... aFilters)
   {
-    m_aFilters = ContainerHelper.newList (aFilters);
+    m_aFilters = CollectionHelper.newList (aFilters);
   }
 
   public FilterChainAND (@Nullable final Iterable <? extends IFilter <? super DATATYPE>> aFilters)
   {
-    m_aFilters = ContainerHelper.newList (aFilters);
+    m_aFilters = CollectionHelper.newList (aFilters);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public List <? extends IFilter <? super DATATYPE>> getContainedFilters ()
   {
-    return ContainerHelper.newList (m_aFilters);
+    return CollectionHelper.newList (m_aFilters);
   }
 
   public boolean matchesFilter (@Nullable final DATATYPE aValue)

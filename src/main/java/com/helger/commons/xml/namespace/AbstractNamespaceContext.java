@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.XMLConstants;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.iterate.SingleElementIterator;
 
 /**
@@ -52,7 +52,7 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
       return SingleElementIterator.create (XMLConstants.XMLNS_ATTRIBUTE);
 
     final Iterator <?> ret = getCustomPrefixes (sNamespaceURI);
-    return ret != null ? ret : ContainerHelper.<String> getEmptyIterator ();
+    return ret != null ? ret : CollectionHelper.<String> getEmptyIterator ();
   }
 
   @Nullable

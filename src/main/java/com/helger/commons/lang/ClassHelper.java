@@ -31,7 +31,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsImmutableObject;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.priviledged.PrivilegedActionGetClassLoader;
 import com.helger.commons.priviledged.PrivilegedActionGetContextClassLoader;
 import com.helger.commons.priviledged.PrivilegedActionGetSystemClassLoader;
@@ -260,14 +260,14 @@ public final class ClassHelper
   @ReturnsImmutableObject
   public static Set <Class <?>> getAllPrimitiveClasses ()
   {
-    return ContainerHelper.makeUnmodifiable (PRIMITIVE_TO_WRAPPER.keySet ());
+    return CollectionHelper.makeUnmodifiable (PRIMITIVE_TO_WRAPPER.keySet ());
   }
 
   @Nonnull
   @ReturnsImmutableObject
   public static Set <Class <?>> getAllPrimitiveWrapperClasses ()
   {
-    return ContainerHelper.makeUnmodifiable (WRAPPER_TO_PRIMITIVE.keySet ());
+    return CollectionHelper.makeUnmodifiable (WRAPPER_TO_PRIMITIVE.keySet ());
   }
 
   public static boolean isStringClass (@Nullable final Class <?> aClass)

@@ -21,7 +21,7 @@ import java.util.Collection;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -38,7 +38,7 @@ public class AggregatorUseLast <DATATYPE> implements IAggregator <DATATYPE, DATA
   @Nullable
   public DATATYPE aggregate (@Nullable final Collection <DATATYPE> aResults)
   {
-    return ContainerHelper.getLastElement (aResults);
+    return CollectionHelper.getLastElement (aResults);
   }
 
   @Override

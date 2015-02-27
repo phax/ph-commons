@@ -27,12 +27,12 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link MapBasedReadonlyAttributeContainer}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MapBasedReadonlyAttributeContainerTest
@@ -40,13 +40,13 @@ public final class MapBasedReadonlyAttributeContainerTest
   @Test
   public void testInit ()
   {
-    MapBasedReadonlyAttributeContainer x = new MapBasedReadonlyAttributeContainer (ContainerHelper.newMap (new String [] {},
+    MapBasedReadonlyAttributeContainer x = new MapBasedReadonlyAttributeContainer (CollectionHelper.newMap (new String [] {},
                                                                                                            new Object [] {}));
     assertNotNull (x.getAllAttributeNames ());
     assertTrue (x.getAllAttributeNames ().isEmpty ());
     assertTrue (x.containsNoAttribute ());
 
-    x = new MapBasedReadonlyAttributeContainer (ContainerHelper.newMap (new String [] { "key", "key2", "key3" },
+    x = new MapBasedReadonlyAttributeContainer (CollectionHelper.newMap (new String [] { "key", "key2", "key3" },
                                                                         new Object [] { "value", "value2", null }));
     assertEquals (3, x.getAttributeCount ());
     assertFalse (x.containsNoAttribute ());
@@ -61,19 +61,19 @@ public final class MapBasedReadonlyAttributeContainerTest
     assertFalse (x.getAllAttributeNames ().isEmpty ());
     assertTrue (x.getAttributeNames ().hasMoreElements ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedReadonlyAttributeContainer (ContainerHelper.newMap (new String [] { "key",
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedReadonlyAttributeContainer (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                    "key2" },
                                                                                                                                     new Object [] { "value",
                                                                                                                                                    "value2" })),
-                                                                    new MapBasedReadonlyAttributeContainer (ContainerHelper.newMap (new String [] { "key",
+                                                                    new MapBasedReadonlyAttributeContainer (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                    "key2" },
                                                                                                                                     new Object [] { "value",
                                                                                                                                                    "value2" })));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedReadonlyAttributeContainer (ContainerHelper.newMap (new String [] { "key",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedReadonlyAttributeContainer (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                        "key2" },
                                                                                                                                         new Object [] { "value",
                                                                                                                                                        "value2" })),
-                                                                        new MapBasedAttributeContainer (ContainerHelper.newMap (new String [] { "key",
+                                                                        new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                "key2" },
                                                                                                                                 new Object [] { "value",
                                                                                                                                                "value" })));

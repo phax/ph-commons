@@ -29,7 +29,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.iterate.IterableIterator;
 import com.helger.commons.filter.FilterNotNull;
 import com.helger.commons.filter.IFilter;
@@ -48,7 +48,7 @@ public final class FilterIteratorTest
   @Test
   public void testConstructorIterator ()
   {
-    final List <String> aList = ContainerHelper.newList ("i1", "i2");
+    final List <String> aList = CollectionHelper.newList ("i1", "i2");
     final Iterator <String> it = aList.iterator ();
     final IFilter <String> aFilter = FilterNotNull.getInstance ();
 
@@ -86,7 +86,7 @@ public final class FilterIteratorTest
   @Test
   public void testConstructorIterable ()
   {
-    final List <String> aList = ContainerHelper.newList ("i1", "i2");
+    final List <String> aList = CollectionHelper.newList ("i1", "i2");
     final IFilter <String> aFilter = FilterNotNull.getInstance ();
 
     try
@@ -120,7 +120,7 @@ public final class FilterIteratorTest
   @Test
   public void testIteration1 ()
   {
-    final List <String> aList = ContainerHelper.newList ("s1", "s2", null, "s3");
+    final List <String> aList = CollectionHelper.newList ("s1", "s2", null, "s3");
     new FilterIterator <String> (IterableIterator.create (aList), FilterNotNull.<String> getInstance ());
     final FilterIterator <String> it = new FilterIterator <String> (aList, FilterNotNull.<String> getInstance ());
     assertNotNull (it);
@@ -155,7 +155,7 @@ public final class FilterIteratorTest
   @Test
   public void testIteration2 ()
   {
-    final List <String> aList = ContainerHelper.newList ("s1", "s2", null, "s3");
+    final List <String> aList = CollectionHelper.newList ("s1", "s2", null, "s3");
     final FilterIterator <String> it = new FilterIterator <String> (aList.iterator (),
                                                                     FilterNotNull.<String> getInstance ());
     assertNotNull (it);
@@ -196,7 +196,7 @@ public final class FilterIteratorTest
   public void testIteration3 ()
   {
     // filtered element in the middle
-    final List <String> aList = ContainerHelper.newList ("s1", null, "s2", null, "s3");
+    final List <String> aList = CollectionHelper.newList ("s1", null, "s2", null, "s3");
     final FilterIterator <String> it = new FilterIterator <String> (aList, FilterNotNull.<String> getInstance ());
     assertNotNull (it);
 
@@ -218,7 +218,7 @@ public final class FilterIteratorTest
   public void testIteration4 ()
   {
     // filtered elements at the end
-    final List <String> aList = ContainerHelper.newList ("s1", "s2", "s3", null, null);
+    final List <String> aList = CollectionHelper.newList ("s1", "s2", "s3", null, null);
     final FilterIterator <String> it = new FilterIterator <String> (aList, FilterNotNull.<String> getInstance ());
     assertNotNull (it);
 
@@ -240,7 +240,7 @@ public final class FilterIteratorTest
   public void testIteration5 ()
   {
     // filtered elements at the beginning
-    final List <String> aList = ContainerHelper.newList (null, null, "s1", "s2", "s3");
+    final List <String> aList = CollectionHelper.newList (null, null, "s1", "s2", "s3");
     final FilterIterator <String> it = new FilterIterator <String> (aList, FilterNotNull.<String> getInstance ());
     assertNotNull (it);
 

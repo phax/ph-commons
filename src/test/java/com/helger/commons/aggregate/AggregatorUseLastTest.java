@@ -26,11 +26,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 /**
  * Test class for class {@link AggregatorUseLast}.
- * 
+ *
  * @author Philip Helger
  */
 public final class AggregatorUseLastTest
@@ -50,7 +50,7 @@ public final class AggregatorUseLastTest
     assertFalse (a1.hashCode () == "any other".hashCode ());
     assertNotNull (a1.toString ());
     assertFalse (a1.toString ().equals (a2.toString ()));
-    final List <String> l = ContainerHelper.newList ("a", null, "b", "", "c");
+    final List <String> l = CollectionHelper.newList ("a", null, "b", "", "c");
     assertEquals ("c", a1.aggregate (l));
     assertNull (a1.aggregate (new ArrayList <String> ()));
     assertNull (a1.aggregate (null));

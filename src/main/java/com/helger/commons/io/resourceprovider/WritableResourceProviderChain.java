@@ -25,7 +25,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.IReadableResourceProvider;
 import com.helger.commons.io.IWritableResource;
@@ -58,7 +58,7 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
   @Nonempty
   public List <IWritableResourceProvider> getAllNestedWritingResourceProviders ()
   {
-    return ContainerHelper.newList (m_aWritableResourceProviders);
+    return CollectionHelper.newList (m_aWritableResourceProviders);
   }
 
   public final boolean supportsWriting (@Nullable final String sName)

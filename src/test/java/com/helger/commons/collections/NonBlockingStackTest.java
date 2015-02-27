@@ -30,7 +30,7 @@ import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link NonBlockingStack}
- * 
+ *
  * @author Philip Helger
  */
 public final class NonBlockingStackTest
@@ -48,7 +48,7 @@ public final class NonBlockingStackTest
     st = NonBlockingStack.create ((String []) null);
     assertTrue (st.isEmpty ());
     assertFalse (st.iterator ().hasNext ());
-    st = NonBlockingStack.create (ContainerHelper.newList ("s", "t"));
+    st = NonBlockingStack.create (CollectionHelper.newList ("s", "t"));
     assertEquals (2, st.size ());
     assertEquals ("s", st.firstElement ());
     assertTrue (st.iterator ().hasNext ());
@@ -131,7 +131,7 @@ public final class NonBlockingStackTest
     catch (final EmptyStackException ex)
     {}
 
-    aStack.addAll (ContainerHelper.newList ("g", "h"));
+    aStack.addAll (CollectionHelper.newList ("g", "h"));
     assertEquals (2, aStack.size ());
     assertEquals ("g", aStack.firstElement ());
     assertEquals ("h", aStack.peek ());
@@ -139,16 +139,16 @@ public final class NonBlockingStackTest
     assertEquals ("g", aStack.pop ());
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> (),
-                                                                    new NonBlockingStack <String> ());
+                                                                 new NonBlockingStack <String> ());
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> ("a", "b"),
-                                                                    new NonBlockingStack <String> ("a", "b"));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> (ContainerHelper.newList ("a",
-                                                                                                                            "b")),
-                                                                    new NonBlockingStack <String> (ContainerHelper.newList ("a",
-                                                                                                                            "b")));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new NonBlockingStack <String> (ContainerHelper.newList ("a",
-                                                                                                                                "b")),
-                                                                        new NonBlockingStack <String> (ContainerHelper.newList ("a")));
+                                                                 new NonBlockingStack <String> ("a", "b"));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> (CollectionHelper.newList ("a",
+                                                                                                                          "b")),
+                                                                 new NonBlockingStack <String> (CollectionHelper.newList ("a",
+                                                                                                                          "b")));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new NonBlockingStack <String> (CollectionHelper.newList ("a",
+                                                                                                                              "b")),
+                                                                     new NonBlockingStack <String> (CollectionHelper.newList ("a")));
     PHTestUtils.testGetClone (new NonBlockingStack <String> ("a", "b"));
     PHTestUtils.testGetClone (new NonBlockingStack <String> ());
   }

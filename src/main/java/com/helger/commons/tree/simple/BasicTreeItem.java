@@ -28,7 +28,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.lang.GenericReflection;
@@ -196,7 +196,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   @ReturnsMutableCopy
   public final List <ITEMTYPE> getAllChildren ()
   {
-    return m_aChildren == null ? null : ContainerHelper.newList (m_aChildren);
+    return m_aChildren == null ? null : CollectionHelper.newList (m_aChildren);
   }
 
   @Nullable
@@ -227,13 +227,13 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   @Nullable
   public ITEMTYPE getFirstChild ()
   {
-    return ContainerHelper.getFirstElement (m_aChildren);
+    return CollectionHelper.getFirstElement (m_aChildren);
   }
 
   @Nullable
   public ITEMTYPE getLastChild ()
   {
-    return ContainerHelper.getLastElement (m_aChildren);
+    return CollectionHelper.getLastElement (m_aChildren);
   }
 
   @SuppressFBWarnings ("IL_INFINITE_LOOP")
@@ -298,7 +298,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   public final void reorderChildItems (@Nonnull final Comparator <? super ITEMTYPE> aComparator)
   {
     if (m_aChildren != null)
-      m_aChildren = ContainerHelper.getSorted (m_aChildren, aComparator);
+      m_aChildren = CollectionHelper.getSorted (m_aChildren, aComparator);
   }
 
   @Override

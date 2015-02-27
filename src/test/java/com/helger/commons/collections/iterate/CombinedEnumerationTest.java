@@ -26,11 +26,11 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 /**
  * Test class for class {@link CombinedEnumeration}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CombinedEnumerationTest
@@ -61,7 +61,7 @@ public final class CombinedEnumerationTest
     {}
 
     // one null
-    es = CombinedEnumeration.create (ContainerHelper.getEnumeration ("a", "b", "c"), null);
+    es = CombinedEnumeration.create (CollectionHelper.getEnumeration ("a", "b", "c"), null);
     assertTrue (es.hasMoreElements ());
     assertEquals ("a", es.nextElement ());
     assertTrue (es.hasMoreElements ());
@@ -78,7 +78,7 @@ public final class CombinedEnumerationTest
     {}
 
     // one empty
-    es = CombinedEnumeration.create (ContainerHelper.getEnumeration ("a", "b", "c"),
+    es = CombinedEnumeration.create (CollectionHelper.getEnumeration ("a", "b", "c"),
                                      EmptyEnumeration.<String> getInstance ());
     assertTrue (es.hasMoreElements ());
     assertEquals ("a", es.nextElement ());
@@ -96,7 +96,7 @@ public final class CombinedEnumerationTest
     {}
 
     // other one null
-    es = CombinedEnumeration.create (null, ContainerHelper.getEnumeration ("a", "b", "c"));
+    es = CombinedEnumeration.create (null, CollectionHelper.getEnumeration ("a", "b", "c"));
     assertTrue (es.hasMoreElements ());
     assertEquals ("a", es.nextElement ());
     assertTrue (es.hasMoreElements ());
@@ -114,7 +114,7 @@ public final class CombinedEnumerationTest
 
     // other one empty
     es = CombinedEnumeration.create (EmptyEnumeration.<String> getInstance (),
-                                     ContainerHelper.getEnumeration ("a", "b", "c"));
+                                     CollectionHelper.getEnumeration ("a", "b", "c"));
     assertTrue (es.hasMoreElements ());
     assertEquals ("a", es.nextElement ());
     assertTrue (es.hasMoreElements ());
@@ -131,8 +131,8 @@ public final class CombinedEnumerationTest
     {}
 
     // both not null
-    es = CombinedEnumeration.create (ContainerHelper.getEnumeration ("a", "b"),
-                                     ContainerHelper.getEnumeration ("c", "d"));
+    es = CombinedEnumeration.create (CollectionHelper.getEnumeration ("a", "b"),
+                                     CollectionHelper.getEnumeration ("c", "d"));
     assertTrue (es.hasMoreElements ());
     assertEquals ("a", es.nextElement ());
     assertTrue (es.hasMoreElements ());

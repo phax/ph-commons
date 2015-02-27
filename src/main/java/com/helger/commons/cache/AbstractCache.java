@@ -33,7 +33,7 @@ import com.helger.commons.annotations.MustBeLocked;
 import com.helger.commons.annotations.MustBeLocked.ELockType;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.jmx.JMXUtils;
 import com.helger.commons.state.EChange;
 import com.helger.commons.stats.IStatisticsHandlerCache;
@@ -248,7 +248,7 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements ISimpleCache
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.getSize (m_aCache);
+      return CollectionHelper.getSize (m_aCache);
     }
     finally
     {
@@ -261,7 +261,7 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements ISimpleCache
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.isEmpty (m_aCache);
+      return CollectionHelper.isEmpty (m_aCache);
     }
     finally
     {
@@ -274,7 +274,7 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements ISimpleCache
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.isNotEmpty (m_aCache);
+      return CollectionHelper.isNotEmpty (m_aCache);
     }
     finally
     {

@@ -30,7 +30,7 @@ import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 
 /**
  * A class that collects all requested resources.
@@ -68,7 +68,7 @@ public class CollectingLSResourceResolver implements LSResourceResolver
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newList (m_aList);
+      return CollectionHelper.newList (m_aList);
     }
     finally
     {

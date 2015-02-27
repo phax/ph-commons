@@ -20,12 +20,12 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
 
 /**
  * Test class for class {@link ComparatorThreadID}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ComparatorThreadIDTest
@@ -33,8 +33,8 @@ public final class ComparatorThreadIDTest
   @Test
   public void testBasic ()
   {
-    final List <Thread> aList = ContainerHelper.newList (new Thread ("name1"), new Thread ("name2"));
-    ContainerHelper.getSortedInline (aList, new ComparatorThreadID ());
-    ContainerHelper.getSortedInline (aList, new ComparatorThreadID (ESortOrder.DESCENDING));
+    final List <Thread> aList = CollectionHelper.newList (new Thread ("name1"), new Thread ("name2"));
+    CollectionHelper.getSortedInline (aList, new ComparatorThreadID ());
+    CollectionHelper.getSortedInline (aList, new ComparatorThreadID (ESortOrder.DESCENDING));
   }
 }

@@ -27,12 +27,12 @@ import java.util.Iterator;
 import org.junit.Test;
 
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link IterableIterator}.
- * 
+ *
  * @author Philip Helger
  */
 public final class IterableIteratorTest
@@ -50,15 +50,15 @@ public final class IterableIteratorTest
     assertTrue (iit.hasNext ());
     assertEquals ("Hallo", iit.next ());
 
-    iit = IterableIterator.create (ContainerHelper.newList ("Hallo", "Welt", "from", "Copenhagen"));
+    iit = IterableIterator.create (CollectionHelper.newList ("Hallo", "Welt", "from", "Copenhagen"));
     iit.next ();
     iit.remove ();
 
-    assertEquals (3, ContainerHelper.newList (IterableIterator.create (new String [] { "a", "b", "c" })).size ());
-    assertEquals (3, ContainerHelper.newList (IterableIterator.create (ContainerHelper.newList ("a", "b", "c")))
+    assertEquals (3, CollectionHelper.newList (IterableIterator.create (new String [] { "a", "b", "c" })).size ());
+    assertEquals (3, CollectionHelper.newList (IterableIterator.create (CollectionHelper.newList ("a", "b", "c")))
                                     .size ());
     assertEquals (3,
-                  ContainerHelper.newList (IterableIterator.create (ContainerHelper.newList ("a", "b", "c").iterator ()))
+                  CollectionHelper.newList (IterableIterator.create (CollectionHelper.newList ("a", "b", "c").iterator ()))
                                  .size ());
     PHTestUtils.testToStringImplementation (iit);
 

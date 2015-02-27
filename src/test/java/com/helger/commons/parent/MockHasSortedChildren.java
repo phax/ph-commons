@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.id.ComparatorHasIDString;
 import com.helger.commons.id.IHasID;
 
@@ -35,7 +35,7 @@ public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasS
   public MockHasSortedChildren (@Nonnull final String sID, @Nullable final MockHasSortedChildren... aList)
   {
     m_sID = sID;
-    m_aList = ContainerHelper.getSorted (aList, new ComparatorHasIDString <IHasID <String>> ());
+    m_aList = CollectionHelper.getSorted (aList, new ComparatorHasIDString <IHasID <String>> ());
   }
 
   public String getID ()
@@ -58,7 +58,7 @@ public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasS
   @ReturnsMutableCopy
   public List <? extends MockHasSortedChildren> getAllChildren ()
   {
-    return ContainerHelper.newList (m_aList);
+    return CollectionHelper.newList (m_aList);
   }
 
   @Nullable
@@ -70,12 +70,12 @@ public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasS
   @Nullable
   public MockHasSortedChildren getFirstChild ()
   {
-    return ContainerHelper.getFirstElement (m_aList);
+    return CollectionHelper.getFirstElement (m_aList);
   }
 
   @Nullable
   public MockHasSortedChildren getLastChild ()
   {
-    return ContainerHelper.getLastElement (m_aList);
+    return CollectionHelper.getLastElement (m_aList);
   }
 }

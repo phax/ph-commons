@@ -29,7 +29,7 @@ import java.util.Set;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.timing.StopWatch;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -45,7 +45,7 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testStringCombination ()
   {
-    final List <String> aElements = ContainerHelper.newList ("A", "B", "B");
+    final List <String> aElements = CollectionHelper.newList ("A", "B", "B");
 
     // Allow empty
     CombinationGeneratorFlexible <String> aGenerator = new CombinationGeneratorFlexible <String> (3, true);
@@ -114,7 +114,7 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
   @Test
   public void testRedundancy ()
   {
-    final List <String> aInputList = ContainerHelper.newList ("a", "b", "c", "d", "e", "f", "g", "h");
+    final List <String> aInputList = CollectionHelper.newList ("a", "b", "c", "d", "e", "f", "g", "h");
 
     // Build all permutations of the input list, using all available slots
     final Set <List <String>> aSimplePermutations = new HashSet <List <String>> ();

@@ -33,7 +33,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsImmutableObject;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.convert.IUnidirectionalConverter;
 import com.helger.commons.filter.IFilter;
 
@@ -91,7 +91,7 @@ public final class ContainerConversionHelper
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newUnmodifiableSet (@Nonnull final Iterator <? extends SRCTYPE> it,
                                                                      @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return ContainerHelper.makeUnmodifiable (newSet (it, aConverter));
+    return CollectionHelper.makeUnmodifiable (newSet (it, aConverter));
   }
 
   @Nonnull
@@ -99,7 +99,7 @@ public final class ContainerConversionHelper
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newUnmodifiableSet (@Nonnull final Iterable <? extends SRCTYPE> aCont,
                                                                      @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return ContainerHelper.makeUnmodifiable (newSet (aCont, aConverter));
+    return CollectionHelper.makeUnmodifiable (newSet (aCont, aConverter));
   }
 
   @Nonnull
@@ -108,7 +108,7 @@ public final class ContainerConversionHelper
                                                                      @Nonnull final IFilter <? super SRCTYPE> aFilter,
                                                                      @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return ContainerHelper.makeUnmodifiable (ContainerConversionHelper.<SRCTYPE, DSTTYPE> newSet (aCont,
+    return CollectionHelper.makeUnmodifiable (ContainerConversionHelper.<SRCTYPE, DSTTYPE> newSet (aCont,
                                                                                                   aFilter,
                                                                                                   aConverter));
   }
@@ -153,7 +153,7 @@ public final class ContainerConversionHelper
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newUnmodifiableOrderedSet (@Nonnull final Iterator <? extends SRCTYPE> it,
                                                                             @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return ContainerHelper.makeUnmodifiable (newOrderedSet (it, aConverter));
+    return CollectionHelper.makeUnmodifiable (newOrderedSet (it, aConverter));
   }
 
   @Nonnull
@@ -161,7 +161,7 @@ public final class ContainerConversionHelper
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newUnmodifiableOrderedSet (@Nonnull final Iterable <? extends SRCTYPE> aCont,
                                                                             @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return ContainerHelper.makeUnmodifiable (newOrderedSet (aCont, aConverter));
+    return CollectionHelper.makeUnmodifiable (newOrderedSet (aCont, aConverter));
   }
 
   @Nonnull
@@ -170,7 +170,7 @@ public final class ContainerConversionHelper
                                                                             @Nonnull final IFilter <? super SRCTYPE> aFilter,
                                                                             @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return ContainerHelper.makeUnmodifiable (ContainerConversionHelper.<SRCTYPE, DSTTYPE> newOrderedSet (aCont,
+    return CollectionHelper.makeUnmodifiable (ContainerConversionHelper.<SRCTYPE, DSTTYPE> newOrderedSet (aCont,
                                                                                                          aFilter,
                                                                                                          aConverter));
   }
@@ -218,7 +218,7 @@ public final class ContainerConversionHelper
   public static <SRCTYPE, DSTTYPE> List <DSTTYPE> newUnmodifiableList (@Nullable final Iterable <? extends SRCTYPE> aCont,
                                                                        @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return ContainerHelper.makeUnmodifiable (newList (aCont, aConverter));
+    return CollectionHelper.makeUnmodifiable (newList (aCont, aConverter));
   }
 
   @Nonnull
@@ -226,7 +226,7 @@ public final class ContainerConversionHelper
   public static <SRCTYPE, DSTTYPE> List <DSTTYPE> newUnmodifiableList (@Nullable final SRCTYPE [] aCont,
                                                                        @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return ContainerHelper.makeUnmodifiable (newList (aCont, aConverter));
+    return CollectionHelper.makeUnmodifiable (newList (aCont, aConverter));
   }
 
   @Nonnull
@@ -235,7 +235,7 @@ public final class ContainerConversionHelper
                                                                        @Nonnull final IFilter <? super SRCTYPE> aFilter,
                                                                        @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
-    return ContainerHelper.makeUnmodifiable (ContainerConversionHelper.<SRCTYPE, DSTTYPE> newList (aCont,
+    return CollectionHelper.makeUnmodifiable (ContainerConversionHelper.<SRCTYPE, DSTTYPE> newList (aCont,
                                                                                                    aFilter,
                                                                                                    aConverter));
   }
@@ -252,7 +252,7 @@ public final class ContainerConversionHelper
    * @param aConverter
    *        The converter to be used. May not be <code>null</code>.
    * @return a non-null {@link ArrayList} based on the results of
-   *         {@link ContainerHelper#getSortedInline(List)}.
+   *         {@link CollectionHelper#getSortedInline(List)}.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -265,7 +265,7 @@ public final class ContainerConversionHelper
     final List <DSTTYPE> ret = new ArrayList <DSTTYPE> ();
     while (it.hasNext ())
       ret.add (aConverter.convert (it.next ()));
-    return ContainerHelper.getSortedInline (ret);
+    return CollectionHelper.getSortedInline (ret);
   }
 
   /**
@@ -282,7 +282,7 @@ public final class ContainerConversionHelper
    * @param aComparator
    *        The comparator to use. May not be <code>null</code>.
    * @return a non-null {@link ArrayList} based on the results of
-   *         {@link ContainerHelper#getSortedInline(List, Comparator)}.
+   *         {@link CollectionHelper#getSortedInline(List, Comparator)}.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -297,7 +297,7 @@ public final class ContainerConversionHelper
     final List <DSTTYPE> ret = new ArrayList <DSTTYPE> ();
     while (it.hasNext ())
       ret.add (aConverter.convert (it.next ()));
-    return ContainerHelper.getSortedInline (ret, aComparator);
+    return CollectionHelper.getSortedInline (ret, aComparator);
   }
 
   /**
@@ -312,7 +312,7 @@ public final class ContainerConversionHelper
    * @param aConverter
    *        The converter to be used. May not be <code>null</code>.
    * @return a non-null {@link ArrayList} based on the results of
-   *         {@link ContainerHelper#getSortedInline(List)}.
+   *         {@link CollectionHelper#getSortedInline(List)}.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -325,7 +325,7 @@ public final class ContainerConversionHelper
     final List <DSTTYPE> ret = new ArrayList <DSTTYPE> ();
     for (final SRCTYPE aSrc : aCont)
       ret.add (aConverter.convert (aSrc));
-    return ContainerHelper.getSortedInline (ret);
+    return CollectionHelper.getSortedInline (ret);
   }
 
   /**
@@ -342,7 +342,7 @@ public final class ContainerConversionHelper
    * @param aComparator
    *        The comparator to use. May not be <code>null</code>.
    * @return a non-null {@link ArrayList} based on the results of
-   *         {@link ContainerHelper#getSortedInline(List, Comparator)}.
+   *         {@link CollectionHelper#getSortedInline(List, Comparator)}.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -357,7 +357,7 @@ public final class ContainerConversionHelper
     final List <DSTTYPE> ret = new ArrayList <DSTTYPE> ();
     for (final SRCTYPE aSrc : aCont)
       ret.add (aConverter.convert (aSrc));
-    return ContainerHelper.getSortedInline (ret, aComparator);
+    return CollectionHelper.getSortedInline (ret, aComparator);
   }
 
   @Nonnull
