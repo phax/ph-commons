@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CDefault;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.compare.CompareUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -32,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableShort extends Number implements IMutableInteger <MutableShort>
+public final class MutableShort extends AbstractMutableInteger <MutableShort>
 {
   /** The default value if the default constructor is used. */
   public static final short DEFAULT_VALUE = CDefault.DEFAULT_SHORT;
@@ -65,7 +66,7 @@ public final class MutableShort extends Number implements IMutableInteger <Mutab
    * @param aValue
    *        The value to be used.
    */
-  public MutableShort (@Nonnull final Short aValue)
+  public MutableShort (@Nonnull final Number aValue)
   {
     this (aValue.shortValue ());
   }
@@ -85,12 +86,6 @@ public final class MutableShort extends Number implements IMutableInteger <Mutab
   public short shortValue ()
   {
     return m_nValue;
-  }
-
-  @Nonnull
-  public Short getAsShort ()
-  {
-    return Short.valueOf (m_nValue);
   }
 
   @Override
@@ -133,6 +128,12 @@ public final class MutableShort extends Number implements IMutableInteger <Mutab
     return m_nValue;
   }
 
+  public int inc (@Nonnull final Number aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (aDelta.shortValue ());
+  }
+
   public int dec ()
   {
     return inc (-1);
@@ -141,6 +142,12 @@ public final class MutableShort extends Number implements IMutableInteger <Mutab
   public int dec (final int nDelta)
   {
     return inc (-nDelta);
+  }
+
+  public int dec (@Nonnull final Number aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (-aDelta.shortValue ());
   }
 
   @Nonnull
@@ -156,6 +163,13 @@ public final class MutableShort extends Number implements IMutableInteger <Mutab
       return EChange.UNCHANGED;
     m_nValue = nValue;
     return EChange.CHANGED;
+  }
+
+  @Nonnull
+  public EChange set (@Nonnull final Number aValue)
+  {
+    ValueEnforcer.notNull (aValue, "Value");
+    return set (aValue.shortValue ());
   }
 
   public boolean is0 ()
@@ -206,7 +220,7 @@ public final class MutableShort extends Number implements IMutableInteger <Mutab
   @Nonnull
   public MutableShort getClone ()
   {
-    return new MutableShort (m_nValue);
+    return new MutableShort (this);
   }
 
   @Override

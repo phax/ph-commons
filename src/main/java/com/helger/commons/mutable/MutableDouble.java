@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CDefault;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.compare.CompareUtils;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
@@ -33,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableDouble extends Number implements IMutableNumeric <MutableDouble>
+public final class MutableDouble extends AbstractMutableNumeric <MutableDouble>
 {
   /** The default value if the default constructor is used. */
   public static final double DEFAULT_VALUE = CDefault.DEFAULT_DOUBLE;
@@ -48,7 +49,7 @@ public final class MutableDouble extends Number implements IMutableNumeric <Muta
     this (DEFAULT_VALUE);
   }
 
-  public MutableDouble (@Nonnull final Double aValue)
+  public MutableDouble (@Nonnull final Number aValue)
   {
     this (aValue.doubleValue ());
   }
@@ -62,12 +63,6 @@ public final class MutableDouble extends Number implements IMutableNumeric <Muta
   public double doubleValue ()
   {
     return m_dValue;
-  }
-
-  @Nonnull
-  public Double getAsDouble ()
-  {
-    return Double.valueOf (m_dValue);
   }
 
   @Override
@@ -104,6 +99,12 @@ public final class MutableDouble extends Number implements IMutableNumeric <Muta
     return m_dValue;
   }
 
+  public double inc (@Nonnull final Number aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (aDelta.doubleValue ());
+  }
+
   public double dec ()
   {
     return inc (-1);
@@ -114,6 +115,12 @@ public final class MutableDouble extends Number implements IMutableNumeric <Muta
     return inc (-dDelta);
   }
 
+  public double dec (@Nonnull final Number aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (-aDelta.doubleValue ());
+  }
+
   @Nonnull
   public EChange set (final double dValue)
   {
@@ -121,6 +128,13 @@ public final class MutableDouble extends Number implements IMutableNumeric <Muta
       return EChange.UNCHANGED;
     m_dValue = dValue;
     return EChange.CHANGED;
+  }
+
+  @Nonnull
+  public EChange set (@Nonnull final Number aValue)
+  {
+    ValueEnforcer.notNull (aValue, "Value");
+    return set (aValue.doubleValue ());
   }
 
   public boolean is0 ()
@@ -161,7 +175,7 @@ public final class MutableDouble extends Number implements IMutableNumeric <Muta
   @Nonnull
   public MutableDouble getClone ()
   {
-    return new MutableDouble (m_dValue);
+    return new MutableDouble (this);
   }
 
   @Override

@@ -37,7 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableBigInteger extends Number implements IMutableNumeric <MutableBigInteger>
+public final class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger>
 {
   /** The default value if the default constructor is used. */
   public static final BigInteger DEFAULT_VALUE = BigInteger.ZERO;
@@ -57,17 +57,24 @@ public final class MutableBigInteger extends Number implements IMutableNumeric <
     this (BigInteger.valueOf (nValue));
   }
 
+  public MutableBigInteger (@Nonnull final MutableBigInteger aOther)
+  {
+    this (aOther.m_aValue);
+  }
+
   public MutableBigInteger (@Nonnull final BigInteger aValue)
   {
     m_aValue = ValueEnforcer.notNull (aValue, "Value");
   }
 
+  @Override
   @Nonnull
   public BigDecimal getAsBigDecimal ()
   {
     return new BigDecimal (m_aValue);
   }
 
+  @Override
   @Nonnull
   public BigInteger getAsBigInteger ()
   {
@@ -78,12 +85,6 @@ public final class MutableBigInteger extends Number implements IMutableNumeric <
   public double doubleValue ()
   {
     return m_aValue.doubleValue ();
-  }
-
-  @Nonnull
-  public Double getAsDouble ()
-  {
-    return Double.valueOf (doubleValue ());
   }
 
   @Override
@@ -122,6 +123,13 @@ public final class MutableBigInteger extends Number implements IMutableNumeric <
   }
 
   @Nonnull
+  public BigInteger inc (@Nonnull final MutableBigInteger aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (aDelta.m_aValue);
+  }
+
+  @Nonnull
   public BigInteger inc (@Nonnull final BigInteger aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
@@ -142,6 +150,13 @@ public final class MutableBigInteger extends Number implements IMutableNumeric <
   }
 
   @Nonnull
+  public BigInteger dec (@Nonnull final MutableBigInteger aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (aDelta.m_aValue.negate ());
+  }
+
+  @Nonnull
   public BigInteger dec (@Nonnull final BigInteger aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
@@ -152,6 +167,13 @@ public final class MutableBigInteger extends Number implements IMutableNumeric <
   public EChange set (final long nDelta)
   {
     return set (BigInteger.valueOf (nDelta));
+  }
+
+  @Nonnull
+  public EChange set (@Nonnull final MutableBigInteger aValue)
+  {
+    ValueEnforcer.notNull (aValue, "Value");
+    return set (aValue.m_aValue);
   }
 
   @Nonnull
@@ -202,7 +224,7 @@ public final class MutableBigInteger extends Number implements IMutableNumeric <
   @Nonnull
   public MutableBigInteger getClone ()
   {
-    return new MutableBigInteger (m_aValue);
+    return new MutableBigInteger (this);
   }
 
   @Override

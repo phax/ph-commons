@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CDefault;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.compare.CompareUtils;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
@@ -33,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableFloat extends Number implements IMutableNumeric <MutableFloat>
+public final class MutableFloat extends AbstractMutableNumeric <MutableFloat>
 {
   /** The default value if the default constructor is used. */
   public static final float DEFAULT_VALUE = CDefault.DEFAULT_FLOAT;
@@ -48,7 +49,7 @@ public final class MutableFloat extends Number implements IMutableNumeric <Mutab
     this (DEFAULT_VALUE);
   }
 
-  public MutableFloat (@Nonnull final Float aValue)
+  public MutableFloat (@Nonnull final Number aValue)
   {
     this (aValue.floatValue ());
   }
@@ -62,12 +63,6 @@ public final class MutableFloat extends Number implements IMutableNumeric <Mutab
   public float floatValue ()
   {
     return m_fValue;
-  }
-
-  @Nonnull
-  public Float getAsFloat ()
-  {
-    return Float.valueOf (m_fValue);
   }
 
   @Override
@@ -104,6 +99,12 @@ public final class MutableFloat extends Number implements IMutableNumeric <Mutab
     return m_fValue;
   }
 
+  public float inc (@Nonnull final Number aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (aDelta.floatValue ());
+  }
+
   public float dec ()
   {
     return inc (-1f);
@@ -114,6 +115,12 @@ public final class MutableFloat extends Number implements IMutableNumeric <Mutab
     return inc (-fDelta);
   }
 
+  public float dec (@Nonnull final Number aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (-aDelta.floatValue ());
+  }
+
   @Nonnull
   public EChange set (final float fValue)
   {
@@ -121,6 +128,13 @@ public final class MutableFloat extends Number implements IMutableNumeric <Mutab
       return EChange.UNCHANGED;
     m_fValue = fValue;
     return EChange.CHANGED;
+  }
+
+  @Nonnull
+  public EChange set (@Nonnull final Number aValue)
+  {
+    ValueEnforcer.notNull (aValue, "Value");
+    return set (aValue.floatValue ());
   }
 
   public boolean is0 ()
@@ -161,7 +175,7 @@ public final class MutableFloat extends Number implements IMutableNumeric <Mutab
   @Nonnull
   public MutableFloat getClone ()
   {
-    return new MutableFloat (m_fValue);
+    return new MutableFloat (this);
   }
 
   @Override

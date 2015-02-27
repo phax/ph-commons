@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CDefault;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.compare.CompareUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -44,14 +45,19 @@ public final class MutableBoolean implements IMutable <MutableBoolean>
     this (DEFAULT_VALUE);
   }
 
+  public MutableBoolean (final boolean bValue)
+  {
+    m_bValue = bValue;
+  }
+
   public MutableBoolean (@Nonnull final Boolean aValue)
   {
     this (aValue.booleanValue ());
   }
 
-  public MutableBoolean (final boolean bValue)
+  public MutableBoolean (@Nonnull final MutableBoolean aValue)
   {
-    m_bValue = bValue;
+    this (aValue.m_bValue);
   }
 
   public boolean booleanValue ()
@@ -63,6 +69,20 @@ public final class MutableBoolean implements IMutable <MutableBoolean>
   public Boolean getAsBoolean ()
   {
     return Boolean.valueOf (m_bValue);
+  }
+
+  @Nonnull
+  public EChange set (@Nonnull final Boolean aValue)
+  {
+    ValueEnforcer.notNull (aValue, "Value");
+    return set (aValue.booleanValue ());
+  }
+
+  @Nonnull
+  public EChange set (@Nonnull final MutableBoolean aValue)
+  {
+    ValueEnforcer.notNull (aValue, "Value");
+    return set (aValue.m_bValue);
   }
 
   @Nonnull
@@ -82,7 +102,7 @@ public final class MutableBoolean implements IMutable <MutableBoolean>
   @Nonnull
   public MutableBoolean getClone ()
   {
-    return new MutableBoolean (m_bValue);
+    return new MutableBoolean (this);
   }
 
   @Override

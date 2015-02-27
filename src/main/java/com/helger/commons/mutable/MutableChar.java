@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CDefault;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.compare.CompareUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -32,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableChar extends Number implements IMutableInteger <MutableChar>
+public final class MutableChar extends AbstractMutableInteger <MutableChar>
 {
   /** The default value if the default constructor is used. */
   public static final char DEFAULT_VALUE = CDefault.DEFAULT_CHAR;
@@ -81,15 +82,14 @@ public final class MutableChar extends Number implements IMutableInteger <Mutabl
     m_cValue = cValue;
   }
 
+  public MutableChar (@Nonnull final MutableChar aOther)
+  {
+    this (aOther.m_cValue);
+  }
+
   public char charValue ()
   {
     return m_cValue;
-  }
-
-  @Nonnull
-  public Character getAsCharacter ()
-  {
-    return Character.valueOf (m_cValue);
   }
 
   @Override
@@ -132,6 +132,12 @@ public final class MutableChar extends Number implements IMutableInteger <Mutabl
     return m_cValue;
   }
 
+  public int inc (@Nonnull final MutableChar aMC)
+  {
+    ValueEnforcer.notNull (aMC, "MC");
+    return inc (aMC.m_cValue);
+  }
+
   public int dec ()
   {
     return inc (-1);
@@ -142,10 +148,23 @@ public final class MutableChar extends Number implements IMutableInteger <Mutabl
     return inc (-nDelta);
   }
 
+  public int dec (@Nonnull final MutableChar aMC)
+  {
+    ValueEnforcer.notNull (aMC, "MC");
+    return inc (-aMC.m_cValue);
+  }
+
   @Nonnull
   public EChange set (final int cValue)
   {
     return set ((char) cValue);
+  }
+
+  @Nonnull
+  public EChange set (@Nonnull final MutableChar aMC)
+  {
+    ValueEnforcer.notNull (aMC, "MC");
+    return set (aMC.m_cValue);
   }
 
   @Nonnull
@@ -207,7 +226,7 @@ public final class MutableChar extends Number implements IMutableInteger <Mutabl
   @Nonnull
   public MutableChar getClone ()
   {
-    return new MutableChar (m_cValue);
+    return new MutableChar (this);
   }
 
   @Override

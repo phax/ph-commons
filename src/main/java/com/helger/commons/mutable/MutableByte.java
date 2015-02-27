@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CDefault;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.compare.CompareUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -32,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableByte extends Number implements IMutableInteger <MutableByte>
+public final class MutableByte extends AbstractMutableInteger <MutableByte>
 {
   /** The default value if the default constructor is used. */
   public static final byte DEFAULT_VALUE = CDefault.DEFAULT_BYTE;
@@ -65,7 +66,7 @@ public final class MutableByte extends Number implements IMutableInteger <Mutabl
    * @param aValue
    *        The value to be used.
    */
-  public MutableByte (@Nonnull final Byte aValue)
+  public MutableByte (@Nonnull final Number aValue)
   {
     this (aValue.byteValue ());
   }
@@ -85,12 +86,6 @@ public final class MutableByte extends Number implements IMutableInteger <Mutabl
   public byte byteValue ()
   {
     return m_nValue;
-  }
-
-  @Nonnull
-  public Byte getAsByte ()
-  {
-    return Byte.valueOf (m_nValue);
   }
 
   @Override
@@ -133,6 +128,12 @@ public final class MutableByte extends Number implements IMutableInteger <Mutabl
     return m_nValue;
   }
 
+  public int inc (@Nonnull final Number aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (aDelta.byteValue ());
+  }
+
   public int dec ()
   {
     return inc (-1);
@@ -141,6 +142,12 @@ public final class MutableByte extends Number implements IMutableInteger <Mutabl
   public int dec (final int nDelta)
   {
     return inc (-nDelta);
+  }
+
+  public int dec (@Nonnull final Number aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (-aDelta.byteValue ());
   }
 
   @Nonnull
@@ -156,6 +163,13 @@ public final class MutableByte extends Number implements IMutableInteger <Mutabl
       return EChange.UNCHANGED;
     m_nValue = nValue;
     return EChange.CHANGED;
+  }
+
+  @Nonnull
+  public EChange set (@Nonnull final Number aValue)
+  {
+    ValueEnforcer.notNull (aValue, "Value");
+    return set (aValue.byteValue ());
   }
 
   public boolean is0 ()
@@ -206,7 +220,7 @@ public final class MutableByte extends Number implements IMutableInteger <Mutabl
   @Nonnull
   public MutableByte getClone ()
   {
-    return new MutableByte (m_nValue);
+    return new MutableByte (this);
   }
 
   @Override

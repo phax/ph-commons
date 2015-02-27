@@ -36,7 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableBigDecimal extends Number implements IMutableNumeric <MutableBigDecimal>
+public final class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal>
 {
   /** The default value if the default constructor is used. */
   public static final BigDecimal DEFAULT_VALUE = BigDecimal.ZERO;
@@ -53,12 +53,17 @@ public final class MutableBigDecimal extends Number implements IMutableNumeric <
 
   public MutableBigDecimal (final long nValue)
   {
-    this (BigDecimal.valueOf (nValue));
+    this (MathHelper.toBigDecimal (nValue));
   }
 
   public MutableBigDecimal (final double dValue)
   {
-    this (BigDecimal.valueOf (dValue));
+    this (MathHelper.toBigDecimal (dValue));
+  }
+
+  public MutableBigDecimal (@Nonnull final MutableBigDecimal aOther)
+  {
+    this (aOther.m_aValue);
   }
 
   public MutableBigDecimal (@Nonnull final BigDecimal aValue)
@@ -66,6 +71,7 @@ public final class MutableBigDecimal extends Number implements IMutableNumeric <
     m_aValue = ValueEnforcer.notNull (aValue, "Value");
   }
 
+  @Override
   @Nonnull
   public BigDecimal getAsBigDecimal ()
   {
@@ -76,12 +82,6 @@ public final class MutableBigDecimal extends Number implements IMutableNumeric <
   public double doubleValue ()
   {
     return m_aValue.doubleValue ();
-  }
-
-  @Nonnull
-  public Double getAsDouble ()
-  {
-    return Double.valueOf (doubleValue ());
   }
 
   @Override
@@ -116,13 +116,20 @@ public final class MutableBigDecimal extends Number implements IMutableNumeric <
   @Nonnull
   public BigDecimal inc (final long nDelta)
   {
-    return inc (BigDecimal.valueOf (nDelta));
+    return inc (MathHelper.toBigDecimal (nDelta));
   }
 
   @Nonnull
   public BigDecimal inc (final double dDelta)
   {
-    return inc (BigDecimal.valueOf (dDelta));
+    return inc (MathHelper.toBigDecimal (dDelta));
+  }
+
+  @Nonnull
+  public BigDecimal inc (@Nonnull final MutableBigDecimal aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (aDelta.m_aValue);
   }
 
   @Nonnull
@@ -142,13 +149,20 @@ public final class MutableBigDecimal extends Number implements IMutableNumeric <
   @Nonnull
   public BigDecimal dec (final long nDelta)
   {
-    return inc (BigDecimal.valueOf (-nDelta));
+    return inc (MathHelper.toBigDecimal (-nDelta));
   }
 
   @Nonnull
   public BigDecimal dec (final double dDelta)
   {
-    return inc (BigDecimal.valueOf (-dDelta));
+    return inc (MathHelper.toBigDecimal (-dDelta));
+  }
+
+  @Nonnull
+  public BigDecimal dec (@Nonnull final MutableBigDecimal aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (aDelta.m_aValue.negate ());
   }
 
   @Nonnull
@@ -161,13 +175,20 @@ public final class MutableBigDecimal extends Number implements IMutableNumeric <
   @Nonnull
   public EChange set (final long nDelta)
   {
-    return set (BigDecimal.valueOf (nDelta));
+    return set (MathHelper.toBigDecimal (nDelta));
   }
 
   @Nonnull
   public EChange set (final double dDelta)
   {
-    return set (BigDecimal.valueOf (dDelta));
+    return set (MathHelper.toBigDecimal (dDelta));
+  }
+
+  @Nonnull
+  public EChange set (@Nonnull final MutableBigDecimal aValue)
+  {
+    ValueEnforcer.notNull (aValue, "Value");
+    return set (aValue.m_aValue);
   }
 
   @Nonnull
@@ -218,7 +239,7 @@ public final class MutableBigDecimal extends Number implements IMutableNumeric <
   @Nonnull
   public MutableBigDecimal getClone ()
   {
-    return new MutableBigDecimal (m_aValue);
+    return new MutableBigDecimal (this);
   }
 
   @Override

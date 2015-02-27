@@ -27,6 +27,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.CGlobal;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.equals.EqualsUtils;
 
@@ -995,5 +996,36 @@ public final class MathHelper
   public static long getUnsignedInt (final int a)
   {
     return a & 0x00000000ffffffffL;
+  }
+
+  @Nonnull
+  public static BigDecimal toBigDecimal (final int n)
+  {
+    return BigDecimal.valueOf (n);
+  }
+
+  @Nonnull
+  public static BigDecimal toBigDecimal (final long n)
+  {
+    return BigDecimal.valueOf (n);
+  }
+
+  @Nonnull
+  public static BigDecimal toBigDecimal (final float f)
+  {
+    return BigDecimal.valueOf (f);
+  }
+
+  @Nonnull
+  public static BigDecimal toBigDecimal (final double d)
+  {
+    return BigDecimal.valueOf (d);
+  }
+
+  @Nonnull
+  public static BigDecimal toBigDecimal (@Nonnull final Number aNumber)
+  {
+    ValueEnforcer.notNull (aNumber, "Numbe");
+    return new BigDecimal (aNumber.toString ());
   }
 }

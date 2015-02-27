@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CDefault;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.compare.CompareUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -32,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableInt extends Number implements IMutableInteger <MutableInt>
+public final class MutableInt extends AbstractMutableInteger <MutableInt>
 {
   /** The default value if the default constructor is used. */
   public static final int DEFAULT_VALUE = CDefault.DEFAULT_INT;
@@ -53,7 +54,7 @@ public final class MutableInt extends Number implements IMutableInteger <Mutable
    * @param aValue
    *        The value to be used.
    */
-  public MutableInt (@Nonnull final Integer aValue)
+  public MutableInt (@Nonnull final Number aValue)
   {
     this (aValue.intValue ());
   }
@@ -73,12 +74,6 @@ public final class MutableInt extends Number implements IMutableInteger <Mutable
   public int intValue ()
   {
     return m_nValue;
-  }
-
-  @Nonnull
-  public Integer getAsInteger ()
-  {
-    return Integer.valueOf (m_nValue);
   }
 
   @Override
@@ -115,6 +110,12 @@ public final class MutableInt extends Number implements IMutableInteger <Mutable
     return m_nValue;
   }
 
+  public int inc (@Nonnull final Number aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (aDelta.intValue ());
+  }
+
   public int dec ()
   {
     return inc (-1);
@@ -125,6 +126,12 @@ public final class MutableInt extends Number implements IMutableInteger <Mutable
     return inc (-nDelta);
   }
 
+  public int dec (@Nonnull final Number aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (-aDelta.intValue ());
+  }
+
   @Nonnull
   public EChange set (final int nValue)
   {
@@ -132,6 +139,13 @@ public final class MutableInt extends Number implements IMutableInteger <Mutable
       return EChange.UNCHANGED;
     m_nValue = nValue;
     return EChange.CHANGED;
+  }
+
+  @Nonnull
+  public EChange set (@Nonnull final Number aValue)
+  {
+    ValueEnforcer.notNull (aValue, "Value");
+    return set (aValue.intValue ());
   }
 
   public boolean is0 ()
@@ -182,7 +196,7 @@ public final class MutableInt extends Number implements IMutableInteger <Mutable
   @Nonnull
   public MutableInt getClone ()
   {
-    return new MutableInt (m_nValue);
+    return new MutableInt (this);
   }
 
   @Override

@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CDefault;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.compare.CompareUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -32,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableLong extends Number implements IMutableInteger <MutableLong>
+public final class MutableLong extends AbstractMutableInteger <MutableLong>
 {
   /** The default value if the default constructor is used. */
   public static final long DEFAULT_VALUE = CDefault.DEFAULT_LONG;
@@ -53,7 +54,7 @@ public final class MutableLong extends Number implements IMutableInteger <Mutabl
    * @param aValue
    *        The value to be used.
    */
-  public MutableLong (@Nonnull final Long aValue)
+  public MutableLong (@Nonnull final Number aValue)
   {
     this (aValue.longValue ());
   }
@@ -73,12 +74,6 @@ public final class MutableLong extends Number implements IMutableInteger <Mutabl
   public long longValue ()
   {
     return m_nValue;
-  }
-
-  @Nonnull
-  public Long getAsLong ()
-  {
-    return Long.valueOf (m_nValue);
   }
 
   @Override
@@ -115,6 +110,12 @@ public final class MutableLong extends Number implements IMutableInteger <Mutabl
     return m_nValue;
   }
 
+  public long inc (@Nonnull final Number aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (aDelta.longValue ());
+  }
+
   public long dec ()
   {
     return inc (-1);
@@ -125,6 +126,12 @@ public final class MutableLong extends Number implements IMutableInteger <Mutabl
     return inc (-nDelta);
   }
 
+  public long dec (@Nonnull final Number aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (-aDelta.longValue ());
+  }
+
   @Nonnull
   public EChange set (final long nValue)
   {
@@ -132,6 +139,13 @@ public final class MutableLong extends Number implements IMutableInteger <Mutabl
       return EChange.UNCHANGED;
     m_nValue = nValue;
     return EChange.CHANGED;
+  }
+
+  @Nonnull
+  public EChange set (@Nonnull final Number aValue)
+  {
+    ValueEnforcer.notNull (aValue, "Value");
+    return set (aValue.longValue ());
   }
 
   public boolean is0 ()
@@ -182,7 +196,7 @@ public final class MutableLong extends Number implements IMutableInteger <Mutabl
   @Nonnull
   public MutableLong getClone ()
   {
-    return new MutableLong (m_nValue);
+    return new MutableLong (this);
   }
 
   @Override
