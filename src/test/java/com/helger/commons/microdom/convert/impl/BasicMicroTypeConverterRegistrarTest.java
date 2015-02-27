@@ -42,11 +42,11 @@ import com.helger.commons.state.ESuccess;
 import com.helger.commons.state.ETopBottom;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.state.EValidity;
-import com.helger.commons.xml.serialize.XMLWriterSettings;
+import com.helger.commons.system.ENewLineMode;
 
 /**
  * Test class for class {@link BasicMicroTypeConverterRegistrar}.
- * 
+ *
  * @author Philip Helger
  */
 public final class BasicMicroTypeConverterRegistrarTest
@@ -116,7 +116,7 @@ public final class BasicMicroTypeConverterRegistrarTest
       assertNotNull (aElement);
       final String sXML = MicroWriter.getXMLString (aElement);
       assertTrue (sXML.startsWith ("<any>"));
-      assertTrue (sXML.endsWith ("</any>" + XMLWriterSettings.DEFAULT_NEWLINE_STRING));
+      assertTrue (sXML.endsWith ("</any>" + ENewLineMode.DEFAULT.getText ()));
       System.out.print (sXML);
 
       // Convert back to native
@@ -135,7 +135,7 @@ public final class BasicMicroTypeConverterRegistrarTest
       assertNotNull (aElement);
       final String sXML = MicroWriter.getXMLString (aElement);
       assertTrue (sXML.startsWith ("<any>"));
-      assertTrue (sXML.endsWith ("</any>" + XMLWriterSettings.DEFAULT_NEWLINE_STRING));
+      assertTrue (sXML.endsWith ("</any>" + ENewLineMode.DEFAULT.getText ()));
       System.out.print (sXML);
 
       // Convert back to native

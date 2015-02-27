@@ -29,6 +29,8 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.string.StringHelper;
+import com.helger.commons.system.ENewLineMode;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
 
@@ -53,7 +55,8 @@ public final class XMLWriterSettingsTest
     assertEquals (CCharset.CHARSET_UTF_8_OBJ, mws.getCharsetObj ());
     assertTrue (mws.isSpaceOnSelfClosedElement ());
     assertTrue (mws.isUseDoubleQuotesForAttributes ());
-    assertEquals (CGlobal.LINE_SEPARATOR, mws.getNewlineString ());
+    assertEquals (ENewLineMode.DEFAULT, mws.getNewLineMode ());
+    assertEquals (CGlobal.LINE_SEPARATOR, mws.getNewLineString ());
     assertEquals ("  ", mws.getIndentationString ());
     assertTrue (mws.isEmitNamespaces ());
     assertFalse (mws.isPutNamespaceContextPrefixesInRoot ());
@@ -88,7 +91,8 @@ public final class XMLWriterSettingsTest
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
                                                                      new XMLWriterSettings ().setUseDoubleQuotesForAttributes (false));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                     new XMLWriterSettings ().setNewlineString ("abc"));
+                                                                     new XMLWriterSettings ().setNewLineMode (ENewLineMode.DEFAULT == ENewLineMode.WINDOWS ? ENewLineMode.UNIX
+                                                                                                                                                          : ENewLineMode.WINDOWS));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
                                                                      new XMLWriterSettings ().setIndentationString ("\t"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mws,
@@ -131,10 +135,11 @@ public final class XMLWriterSettingsTest
                   {
                     aXWS.setSpaceOnSelfClosedElement (bSpaceOnSelfClosedElement);
                     assertTrue (bSpaceOnSelfClosedElement == aXWS.isSpaceOnSelfClosedElement ());
-                    for (final String sNewline : new String [] { "\r\n", "\n" })
+                    for (final ENewLineMode eNewlineMode : ENewLineMode.values ())
                     {
-                      aXWS.setNewlineString (sNewline);
-                      assertEquals (sNewline, aXWS.getNewlineString ());
+                      aXWS.setNewLineMode (eNewlineMode);
+                      assertEquals (eNewlineMode, aXWS.getNewLineMode ());
+                      assertTrue (StringHelper.hasText (aXWS.getNewLineString ()));
                       for (final String sIndentation : new String [] { "\t", "  " })
                       {
                         aXWS.setIndentationString (sIndentation);
@@ -155,7 +160,7 @@ public final class XMLWriterSettingsTest
                                                                                     .setCharset (aCS)
                                                                                     .setUseDoubleQuotesForAttributes (bUseDoubleQuotesForAttributes)
                                                                                     .setSpaceOnSelfClosedElement (bSpaceOnSelfClosedElement)
-                                                                                    .setNewlineString (sNewline)
+                                                                                    .setNewLineMode (eNewlineMode)
                                                                                     .setIndentationString (sIndentation)
                                                                                     .setEmitNamespaces (bEmitNamespaces)
                                                                                     .setPutNamespaceContextPrefixesInRoot (bPutNamespaceContextPrefixesInRoot);
@@ -165,7 +170,7 @@ public final class XMLWriterSettingsTest
                         }
                         assertEquals (sIndentation, aXWS.getIndentationString ());
                       }
-                      assertEquals (sNewline, aXWS.getNewlineString ());
+                      assertEquals (eNewlineMode, aXWS.getNewLineMode ());
                     }
                     assertTrue (bSpaceOnSelfClosedElement == aXWS.isSpaceOnSelfClosedElement ());
                   }

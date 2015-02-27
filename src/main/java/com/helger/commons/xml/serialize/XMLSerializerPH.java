@@ -243,7 +243,7 @@ public final class XMLSerializerPH extends AbstractXMLSerializer <Node>
       {
         // do we have enclosing elements?
         if (m_aSettings.getIndent ().isAlign () && bHasChildElement)
-          aXMLWriter.onContentElementWhitespace (m_aSettings.getNewlineString ());
+          aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());
 
         // increment indent
         final String sIndent = m_aSettings.getIndentationString ();
@@ -263,7 +263,7 @@ public final class XMLSerializerPH extends AbstractXMLSerializer <Node>
       aXMLWriter.onElementEnd (sElementNSPrefix, sTagName, bHasChildren);
 
       if (m_aSettings.getIndent ().isAlign () && bIndentNext)
-        aXMLWriter.onContentElementWhitespace (m_aSettings.getNewlineString ());
+        aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());
     }
     finally
     {

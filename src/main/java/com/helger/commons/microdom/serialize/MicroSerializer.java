@@ -172,7 +172,7 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
         aXMLWriter.onContentElementWhitespace (m_aIndent);
       aXMLWriter.onComment (aComment.getData ().toString ());
       if (m_aSettings.getIndent ().isAlign ())
-        aXMLWriter.onContentElementWhitespace (m_aSettings.getNewlineString ());
+        aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());
     }
   }
 
@@ -254,7 +254,7 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       {
         // do we have enclosing elements?
         if (m_aSettings.getIndent ().isAlign () && bHasChildElement)
-          aXMLWriter.onContentElementWhitespace (m_aSettings.getNewlineString ());
+          aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());
 
         // increment indent
         final String sIndent = m_aSettings.getIndentationString ();
@@ -275,7 +275,7 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       aXMLWriter.onElementEnd (sElementNSPrefix, sTagName, bHasChildren);
 
       if (m_aSettings.getIndent ().isAlign () && bIndentNext)
-        aXMLWriter.onContentElementWhitespace (m_aSettings.getNewlineString ());
+        aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());
     }
     finally
     {

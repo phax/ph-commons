@@ -61,6 +61,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    */
   public static final boolean DEFAULT_SPACE_ON_SELF_CLOSED_ELEMENT = true;
   /** By default the platform newline string is used. */
+  @Deprecated
   public static final String DEFAULT_NEWLINE_STRING = CGlobal.LINE_SEPARATOR;
   /** By default indentation happens with 2 spaces */
   public static final String DEFAULT_INDENTATION_STRING = "  ";
@@ -87,11 +88,10 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   private NamespaceContext m_aNamespaceContext = new MapBasedNamespaceContext ();
   private boolean m_bUseDoubleQuotesForAttributes = DEFAULT_USE_DOUBLE_QUOTES_FOR_ATTRIBUTES;
   private boolean m_bSpaceOnSelfClosedElement = DEFAULT_SPACE_ON_SELF_CLOSED_ELEMENT;
-  private String m_sNewlineString = DEFAULT_NEWLINE_STRING;
+  private ENewLineMode m_eNewLineMode = ENewLineMode.DEFAULT;
   private String m_sIndentationString = DEFAULT_INDENTATION_STRING;
   private boolean m_bEmitNamespaces = DEFAULT_EMIT_NAMESPACES;
   private boolean m_bPutNamespaceContextPrefixesInRoot = DEFAULT_PUT_NAMESPACE_CONTEXT_PREFIXES_IN_ROOT;
-  private String m_sNewlineStringToString;
   private String m_sIndentationStringToString;
 
   /**
@@ -131,7 +131,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     setNamespaceContext (aOther.getNamespaceContext ());
     setUseDoubleQuotesForAttributes (aOther.isUseDoubleQuotesForAttributes ());
     setSpaceOnSelfClosedElement (aOther.isSpaceOnSelfClosedElement ());
-    setNewlineString (aOther.getNewlineString ());
+    setNewLineMode (aOther.getNewLineMode ());
     setIndentationString (aOther.getIndentationString ());
     setEmitNamespaces (aOther.isEmitNamespaces ());
     setPutNamespaceContextPrefixesInRoot (aOther.isPutNamespaceContextPrefixesInRoot ());
@@ -344,26 +344,45 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  public final XMLWriterSettings setNewlineString (@Nonnull @Nonempty final ENewLineMode eNewlineMode)
+  public final XMLWriterSettings setNewLineMode (@Nonnull final ENewLineMode eNewLineMode)
   {
-    ValueEnforcer.notNull (eNewlineMode, "NewlineMode");
-
-    return setNewlineString (eNewlineMode.getText ());
-  }
-
-  @Nonnull
-  public final XMLWriterSettings setNewlineString (@Nonnull @Nonempty final String sNewlineString)
-  {
-    m_sNewlineString = ValueEnforcer.notEmpty (sNewlineString, "NewlineString");
-    m_sNewlineStringToString = null;
+    m_eNewLineMode = ValueEnforcer.notNull (eNewLineMode, "NewLineMode");
     return this;
   }
 
   @Nonnull
+  public ENewLineMode getNewLineMode ()
+  {
+    return m_eNewLineMode;
+  }
+
+  @Nonnull
   @Nonempty
+  public String getNewLineString ()
+  {
+    return m_eNewLineMode.getText ();
+  }
+
+  @Nonnull
+  @Deprecated
+  public final XMLWriterSettings setNewlineString (@Nonnull final ENewLineMode eNewLineMode)
+  {
+    return setNewLineMode (eNewLineMode);
+  }
+
+  @Nonnull
+  @Deprecated
+  public final XMLWriterSettings setNewlineString (@Nonnull @Nonempty final String sNewLineString)
+  {
+    return setNewlineString (ENewLineMode.getFromTextOrDefault (sNewLineString, ENewLineMode.DEFAULT));
+  }
+
+  @Nonnull
+  @Nonempty
+  @Deprecated
   public String getNewlineString ()
   {
-    return m_sNewlineString;
+    return getNewLineString ();
   }
 
   @Nonnull
@@ -430,7 +449,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
            EqualsUtils.equals (m_aNamespaceContext, rhs.m_aNamespaceContext) &&
            m_bUseDoubleQuotesForAttributes == rhs.m_bUseDoubleQuotesForAttributes &&
            m_bSpaceOnSelfClosedElement == rhs.m_bSpaceOnSelfClosedElement &&
-           m_sNewlineString.equals (rhs.m_sNewlineString) &&
+           m_eNewLineMode.equals (rhs.m_eNewLineMode) &&
            m_sIndentationString.equals (rhs.m_sIndentationString) &&
            m_bEmitNamespaces == rhs.m_bEmitNamespaces &&
            m_bPutNamespaceContextPrefixesInRoot == rhs.m_bPutNamespaceContextPrefixesInRoot;
@@ -450,7 +469,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .append (m_aNamespaceContext)
                                        .append (m_bUseDoubleQuotesForAttributes)
                                        .append (m_bSpaceOnSelfClosedElement)
-                                       .append (m_sNewlineString)
+                                       .append (m_eNewLineMode)
                                        .append (m_sIndentationString)
                                        .append (m_bEmitNamespaces)
                                        .append (m_bPutNamespaceContextPrefixesInRoot)
@@ -460,9 +479,6 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   @Override
   public String toString ()
   {
-    if (m_sNewlineStringToString == null)
-      m_sNewlineStringToString = StringHelper.getHexEncoded (CharsetManager.getAsBytes (m_sNewlineString,
-                                                                                        CCharset.CHARSET_ISO_8859_1_OBJ));
     if (m_sIndentationStringToString == null)
       m_sIndentationStringToString = StringHelper.getHexEncoded (CharsetManager.getAsBytes (m_sIndentationString,
                                                                                             CCharset.CHARSET_ISO_8859_1_OBJ));
@@ -476,7 +492,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .append ("namespaceContext", m_aNamespaceContext)
                                        .append ("doubleQuotesForAttrs", m_bUseDoubleQuotesForAttributes)
                                        .append ("spaceOnSelfClosedElement", m_bSpaceOnSelfClosedElement)
-                                       .append ("newlineString", m_sNewlineStringToString)
+                                       .append ("newlineMode", m_eNewLineMode)
                                        .append ("indentationString", m_sIndentationStringToString)
                                        .append ("emitNamespaces", m_bEmitNamespaces)
                                        .append ("putNamespaceContextPrefixesInRoot",

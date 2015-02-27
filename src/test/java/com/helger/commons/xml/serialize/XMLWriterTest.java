@@ -34,6 +34,7 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.system.ENewLineMode;
 import com.helger.commons.xml.DefaultXMLIterationHandler;
 import com.helger.commons.xml.EXMLVersion;
 import com.helger.commons.xml.XMLFactory;
@@ -52,7 +53,7 @@ public final class XMLWriterTest extends AbstractPHTestCase
 {
   private static final String DOCTYPE_XHTML10_QNAME = "-//W3C//DTD XHTML 1.0 Strict//EN";
   private static final String DOCTYPE_XHTML10_URI = "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd";
-  private static final String CRLF = XMLWriterSettings.DEFAULT_NEWLINE_STRING;
+  private static final String CRLF = ENewLineMode.DEFAULT.getText ();
 
   /**
    * Test the method getXHTMLString
@@ -223,7 +224,7 @@ public final class XMLWriterTest extends AbstractPHTestCase
                                                         new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE)
                                                                                 .setSerializeComments (EXMLSerializeComments.IGNORE)
                                                                                 .setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN)
-                                                                                .setNewlineString ("\n"));
+                                                                                .setNewLineMode (ENewLineMode.UNIX));
       assertEquals ("<?xml version=\"1.0\" encoding=\"" +
                     CCharset.CHARSET_UTF_8 +
                     "\"?>\n" +
@@ -244,7 +245,7 @@ public final class XMLWriterTest extends AbstractPHTestCase
                                                         new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE)
                                                                                 .setSerializeComments (EXMLSerializeComments.IGNORE)
                                                                                 .setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN)
-                                                                                .setNewlineString ("\n")
+                                                                                .setNewLineMode (ENewLineMode.UNIX)
                                                                                 .setIndentationString ("\t"));
       assertEquals ("<?xml version=\"1.0\" encoding=\"" +
                     CCharset.CHARSET_UTF_8 +

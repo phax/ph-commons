@@ -169,7 +169,7 @@ public class XMLEmitter extends DefaultXMLIterationHandler
         _append (" standalone=")._appendAttrValue ("yes");
       _append (PI_END);
       if (m_aSettings.getIndent ().isAlign ())
-        _append (m_aSettings.getNewlineString ());
+        _append (m_aSettings.getNewLineString ());
     }
   }
 
@@ -265,7 +265,7 @@ public class XMLEmitter extends DefaultXMLIterationHandler
                                                           sSystemID);
     _append (sDocType);
     if (m_aSettings.getIndent ().isAlign ())
-      _append (m_aSettings.getNewlineString ());
+      _append (m_aSettings.getNewLineString ());
   }
 
   @Override
@@ -276,7 +276,7 @@ public class XMLEmitter extends DefaultXMLIterationHandler
       _append (' ')._append (sData);
     _append (PI_END);
     if (m_aSettings.getIndent ().isAlign ())
-      _append (m_aSettings.getNewlineString ());
+      _append (m_aSettings.getNewLineString ());
   }
 
   @Override

@@ -40,6 +40,7 @@ import com.helger.commons.io.streams.NonBlockingStringReader;
 import com.helger.commons.io.streams.NonBlockingStringWriter;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
+import com.helger.commons.system.ENewLineMode;
 import com.helger.commons.xml.CXML;
 import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
 import com.helger.commons.xml.sax.EmptyEntityResolver;
@@ -59,7 +60,7 @@ import com.helger.commons.xml.serialize.XMLWriterSettings;
  */
 public final class MicroReaderTest
 {
-  private static final String CRLF = XMLWriterSettings.DEFAULT_NEWLINE_STRING;
+  private static final String CRLF = ENewLineMode.DEFAULT.getText ();
   private static final String INDENT = XMLWriterSettings.DEFAULT_INDENTATION_STRING;
 
   @Test

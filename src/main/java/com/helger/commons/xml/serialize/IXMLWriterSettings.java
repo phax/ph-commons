@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.system.ENewLineMode;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 import com.helger.commons.xml.EXMLVersion;
 
@@ -109,7 +110,23 @@ public interface IXMLWriterSettings
    */
   @Nonnull
   @Nonempty
+  @Deprecated
   String getNewlineString ();
+
+  /**
+   * @return The newline mode to be used. By default it is the platform specific
+   *         new line mode. Never <code>null</code>.
+   */
+  @Nonnull
+  ENewLineMode getNewLineMode ();
+
+  /**
+   * @return The string representing the new line mode. A shortcut for
+   *         <code>getNewLineMode ().getText()</code>.
+   */
+  @Nonnull
+  @Nonempty
+  String getNewLineString ();
 
   /**
    * @return The string to be used for indentation. By default it is 2 spaces.
