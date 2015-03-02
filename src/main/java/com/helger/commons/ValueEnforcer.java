@@ -23,7 +23,10 @@ import java.util.Map;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+
+import com.helger.commons.annotations.Nonempty;
 
 @Immutable
 public final class ValueEnforcer
@@ -39,6 +42,8 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws NullPointerException
+   *         if the passed value is <code>null</code>.
    */
   @Nonnull
   public static <T> T notNull (final T aValue, final String sName)
@@ -49,6 +54,23 @@ public final class ValueEnforcer
   }
 
   /**
+   * Check that the passed value is <code>null</code>.
+   *
+   * @param aValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @throws IllegalArgumentException
+   *         if the passed value is not <code>null</code>.
+   */
+  @Nonnull
+  public static void isNull (final Object aValue, final String sName)
+  {
+    if (aValue != null)
+      throw new IllegalArgumentException ("The value of '" + sName + "' must be null but is " + aValue);
+  }
+
+  /**
    * Check that the passed String is neither <code>null</code> nor empty.
    *
    * @param aValue
@@ -56,6 +78,8 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty
    */
   @Nonnull
   public static <T extends CharSequence> T notEmpty (final T aValue, final String sName)
@@ -74,6 +98,8 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty
    */
   @Nonnull
   public static <T> T [] notEmpty (final T [] aValue, final String sName)
@@ -92,6 +118,8 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty
    */
   @Nonnull
   public static boolean [] notEmpty (final boolean [] aValue, final String sName)
@@ -110,6 +138,8 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty
    */
   @Nonnull
   public static byte [] notEmpty (final byte [] aValue, final String sName)
@@ -128,6 +158,8 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty
    */
   @Nonnull
   public static char [] notEmpty (final char [] aValue, final String sName)
@@ -146,6 +178,8 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty
    */
   @Nonnull
   public static double [] notEmpty (final double [] aValue, final String sName)
@@ -164,6 +198,8 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty
    */
   @Nonnull
   public static float [] notEmpty (final float [] aValue, final String sName)
@@ -182,6 +218,8 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty
    */
   @Nonnull
   public static int [] notEmpty (final int [] aValue, final String sName)
@@ -200,6 +238,8 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty
    */
   @Nonnull
   public static long [] notEmpty (final long [] aValue, final String sName)
@@ -218,6 +258,8 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty
    */
   @Nonnull
   public static short [] notEmpty (final short [] aValue, final String sName)
@@ -229,13 +271,16 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed Collection is neither <code>null</code> nor empty.
+   * Check that the passed {@link Collection} is neither <code>null</code> nor
+   * empty.
    *
    * @param aValue
    *        The String to check.
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty
    */
   @Nonnull
   public static <T extends Collection <?>> T notEmpty (final T aValue, final String sName)
@@ -247,13 +292,16 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed Iterable is neither <code>null</code> nor empty.
+   * Check that the passed {@link Iterable} is neither <code>null</code> nor
+   * empty.
    *
    * @param aValue
    *        The String to check.
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty
    */
   @Nonnull
   public static <T extends Iterable <?>> T notEmpty (final T aValue, final String sName)
@@ -272,6 +320,8 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty
    */
   @Nonnull
   public static <T extends Map <?, ?>> T notEmpty (final T aValue, final String sName)
@@ -291,6 +341,9 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty or a <code>null</code> value is
+   *         contained
    */
   @Nonnull
   public static <T> T [] notEmptyNoNullValue (final T [] aValue, final String sName)
@@ -315,6 +368,9 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty or a <code>null</code> value is
+   *         contained
    */
   @Nonnull
   public static <T extends Iterable <?>> T notEmptyNoNullValue (final T aValue, final String sName)
@@ -339,6 +395,9 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty or a <code>null</code> value is
+   *         contained
    */
   @Nonnull
   public static <T extends Collection <?>> T notEmptyNoNullValue (final T aValue, final String sName)
@@ -363,6 +422,9 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is empty or a <code>null</code> value is
+   *         contained
    */
   @Nonnull
   public static <T extends Map <?, ?>> T notEmptyNoNullValue (final T aValue, final String sName)
@@ -379,7 +441,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed value is not <code>null</code> and not equal to .
+   * Check that the passed value is not <code>null</code> and not equal to the
+   * provided value.
    *
    * @param aValue
    *        The value to check. May not be <code>null</code>.
@@ -396,7 +459,65 @@ public final class ValueEnforcer
     notNull (aValue, sName);
     notNull (aUnexpectedValue, "UnexpectedValue");
     if (aValue.equals (aUnexpectedValue))
-      throw new NullPointerException ("The value of '" + sName + "' may not be equal to " + aUnexpectedValue + "!");
+      throw new IllegalArgumentException ("The value of '" + sName + "' may not be equal to " + aUnexpectedValue + "!");
+    return aValue;
+  }
+
+  /**
+   * Check that the passed value is not <code>null</code> and equal to the
+   * provided expected value.
+   *
+   * @param aValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @param aExpectedValue
+   *        The expected value. May not be <code>null</code>.
+   * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is not <code>null</code>.
+   */
+  @Nonnull
+  public static <T> T notNullAndEquals (final T aValue,
+                                        @Nonnull @Nonempty final String sName,
+                                        @Nonnull final T aExpectedValue)
+  {
+    notNull (aValue, sName);
+    if (!aValue.equals (aExpectedValue))
+      throw new IllegalArgumentException ("The value of '" +
+                                          sName +
+                                          "' does not match the expected value. Passed value: " +
+                                          aValue +
+                                          " -- Expected value: " +
+                                          aExpectedValue);
+    return aValue;
+  }
+
+  /**
+   * Check that the passed value is the same as the provided expected value
+   * using <code>==</code> to check comparison.
+   *
+   * @param aValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @param aExpectedValue
+   *        The expected value. May be <code>null</code>.
+   * @return The passed value and maybe <code>null</code> if the expected value
+   *         is null.
+   * @throws IllegalArgumentException
+   *         if the passed value is not <code>null</code>.
+   */
+  @Nullable
+  public static <T> T isSame (final T aValue, @Nonnull @Nonempty final String sName, @Nullable final T aExpectedValue)
+  {
+    if (aValue != aExpectedValue)
+      throw new IllegalArgumentException ("The value of '" +
+                                          sName +
+                                          "' does not match the expected value. Passed value: " +
+                                          aValue +
+                                          " -- Expected value: " +
+                                          aExpectedValue);
     return aValue;
   }
 
