@@ -35,6 +35,38 @@ public final class ValueEnforcer
   {}
 
   /**
+   * Check that the passed value is <code>true</code>.
+   *
+   * @param bValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @throws IllegalArgumentException
+   *         if the passed value is not <code>null</code>.
+   */
+  public static void isTrue (final boolean bValue, final String sName)
+  {
+    if (!bValue)
+      throw new IllegalArgumentException ("The value of '" + sName + "' must be true but it is not");
+  }
+
+  /**
+   * Check that the passed value is <code>false</code>.
+   *
+   * @param bValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @throws IllegalArgumentException
+   *         if the passed value is not <code>null</code>.
+   */
+  public static void isFalse (final boolean bValue, final String sName)
+  {
+    if (bValue)
+      throw new IllegalArgumentException ("The value of '" + sName + "' must be false but it is not");
+  }
+
+  /**
    * Check that the passed value is not <code>null</code>.
    *
    * @param aValue
