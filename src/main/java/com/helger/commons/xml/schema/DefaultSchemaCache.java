@@ -51,7 +51,7 @@ import com.helger.commons.xml.transform.TransformSourceFactory;
  * @author Philip Helger
  */
 @ThreadSafe
-public abstract class DefaultSchemaCache extends AbstractNotifyingCache <List <? extends IReadableResource>, Schema>
+public class DefaultSchemaCache extends AbstractNotifyingCache <List <? extends IReadableResource>, Schema>
 {
   private final String m_sSchemaTypeName;
   private final SchemaFactory m_aSchemaFactory;
