@@ -468,9 +468,11 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     // Register all custom type converter
     for (final ITypeConverterRegistrarSPI aSPI : ServiceLoaderUtils.getAllSPIImplementations (ITypeConverterRegistrarSPI.class))
       aSPI.registerTypeConverter (this);
-    s_aLogger.info (getRegisteredTypeConverterCount () +
-                    " type converters and " +
-                    getRegisteredTypeConverterRuleCount () +
-                    " rules registered");
+
+    if (GlobalDebug.isDebugMode ())
+      s_aLogger.info (getRegisteredTypeConverterCount () +
+                      " type converters and " +
+                      getRegisteredTypeConverterRuleCount () +
+                      " rules registered");
   }
 }

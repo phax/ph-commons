@@ -30,6 +30,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.GlobalDebug;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
@@ -240,6 +241,8 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     // Register all custom micro type converter
     for (final IMicroTypeConverterRegistrarSPI aSPI : ServiceLoaderUtils.getAllSPIImplementations (IMicroTypeConverterRegistrarSPI.class))
       aSPI.registerMicroTypeConverter (this);
-    s_aLogger.info (getRegisteredMicroTypeConverterCount () + " micro type converters registered");
+
+    if (GlobalDebug.isDebugMode ())
+      s_aLogger.info (getRegisteredMicroTypeConverterCount () + " micro type converters registered");
   }
 }
