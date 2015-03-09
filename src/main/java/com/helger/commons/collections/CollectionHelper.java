@@ -3658,7 +3658,7 @@ public final class CollectionHelper
     ValueEnforcer.isGE0 (nSectionLength, "SectionLength");
 
     final int nSize = getSize (aCont);
-    if (nSize == 0)
+    if (nSize == 0 || nStartIndex >= nSize)
       return new ArrayList <ELEMENTTYPE> (0);
 
     int nEndIndex = nStartIndex + nSectionLength;
