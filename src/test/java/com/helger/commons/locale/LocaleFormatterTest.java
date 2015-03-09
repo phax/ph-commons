@@ -36,7 +36,7 @@ import com.helger.commons.string.StringParser;
 
 /**
  * Test class for class {@link LocaleFormatter}.
- * 
+ *
  * @author Philip Helger
  */
 public final class LocaleFormatterTest extends AbstractPHTestCase
@@ -124,7 +124,7 @@ public final class LocaleFormatterTest extends AbstractPHTestCase
     PHAssert.assertEquals (1.1, LocaleFormatter.parseDouble ("1,1", L_DE, CGlobal.ILLEGAL_DOUBLE));
     PHAssert.assertEquals (1.1, LocaleFormatter.parseDouble ("1.1", L_EN, CGlobal.ILLEGAL_DOUBLE));
     PHAssert.assertEquals (CGlobal.ILLEGAL_DOUBLE,
-                              LocaleFormatter.parseDouble ("und wir denken und denken", L_EN, CGlobal.ILLEGAL_DOUBLE));
+                           LocaleFormatter.parseDouble ("und wir denken und denken", L_EN, CGlobal.ILLEGAL_DOUBLE));
   }
 
   @Test
@@ -150,6 +150,8 @@ public final class LocaleFormatterTest extends AbstractPHTestCase
     assertEquals (aBD1M, LocaleFormatter.parseBigDecimal ("1.000.000", L_DE, CGlobal.BIGDEC_MINUS_ONE));
     assertEquals (aBD1M, LocaleFormatter.parseBigDecimal ("1,000,000", L_EN, CGlobal.BIGDEC_MINUS_ONE));
     assertEquals (aBD1M, LocaleFormatter.parseBigDecimal ("1,000,000", (DecimalFormat) NumberFormat.getInstance (L_EN)));
+    assertEquals (new BigDecimal ("1234567.8901"),
+                  LocaleFormatter.parseBigDecimal ("1.234.567,8901", L_DE, CGlobal.BIGDEC_MINUS_ONE));
     assertEquals (CGlobal.BIGDEC_MINUS_ONE,
                   LocaleFormatter.parseBigDecimal ("... und denken", L_EN, CGlobal.BIGDEC_MINUS_ONE));
     final ChoiceFormat aCF = new ChoiceFormat ("-1#negative|0#zero|1.0#one");

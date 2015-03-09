@@ -321,7 +321,7 @@ public final class LocaleFormatter
                                             @Nonnull final Locale aParseLocale,
                                             @Nullable final BigDecimal aDefault)
   {
-    return parseBigDecimal (sStr, NumberFormat.getIntegerInstance (aParseLocale), aDefault);
+    return parseBigDecimal (sStr, NumberFormat.getInstance (aParseLocale), aDefault);
   }
 
   @Nullable
