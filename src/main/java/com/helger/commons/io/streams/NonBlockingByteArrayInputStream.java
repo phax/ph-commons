@@ -26,10 +26,9 @@ import com.helger.commons.ValueEnforcer;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-// ESCA-JAVA0143:
 /**
  * A non-synchronized copy of the class {@link java.io.ByteArrayInputStream}.
- * 
+ *
  * @author Philip Helger
  * @see java.io.ByteArrayInputStream
  */
@@ -77,7 +76,7 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
    * <code>buf</code> as its buffer array. The buffer array is not copied. The
    * initial value of <code>pos</code> is <code>0</code> and the initial value
    * of <code>count</code> is the length of <code>buf</code>.
-   * 
+   *
    * @param aBuf
    *        the input buffer.
    */
@@ -93,7 +92,7 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
    * <code>offset</code> and the initial value of <code>m_nCount</code> is the
    * minimum of <code>nOfs+nLen</code> and <code>aBuf.length</code>. The buffer
    * array is not copied. The buffer's mark is set to the specified offset.
-   * 
+   *
    * @param aBuf
    *        the input buffer.
    * @param nOfs
@@ -118,7 +117,7 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
    * been reached, the value <code>-1</code> is returned.
    * <p>
    * This <code>read</code> method cannot block.
-   * 
+   *
    * @return the next byte of data, or <code>-1</code> if the end of the stream
    *         has been reached.
    */
@@ -140,7 +139,7 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
    * <code>pos</code> and <code>k</code> is returned.
    * <p>
    * This <code>read</code> method cannot block.
-   * 
+   *
    * @param aBuf
    *        the buffer into which the data is read.
    * @param nOfs
@@ -172,7 +171,7 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
    * number <code>k</code> of bytes to be skipped is equal to the smaller of
    * <code>n</code> and <code>count-pos</code>. The value <code>k</code> is
    * added into <code>pos</code> and <code>k</code> is returned.
-   * 
+   *
    * @param n
    *        the number of bytes to be skipped.
    * @return the actual number of bytes skipped.
@@ -193,7 +192,7 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
    * <p>
    * The value returned is <code>count&nbsp;- pos</code>, which is the number of
    * bytes remaining to be read from the input buffer.
-   * 
+   *
    * @return the number of remaining bytes that can be read (or skipped over)
    *         from this input stream without blocking.
    */
@@ -207,7 +206,7 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
    * Tests if this <code>InputStream</code> supports mark/reset. The
    * <code>markSupported</code> method of <code>ByteArrayInputStream</code>
    * always returns <code>true</code>.
-   * 
+   *
    * @return Always true
    */
   @Override

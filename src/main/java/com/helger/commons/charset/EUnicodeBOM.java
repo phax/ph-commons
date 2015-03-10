@@ -36,10 +36,9 @@ import com.helger.commons.collections.ArrayHelper;
  * Note: SCSU = A Standard Compression Scheme for Unicode:
  * http://www.unicode.org/reports/tr6/<br>
  * Note: BOCU = Binary Ordered Compression for Unicode<br>
- * 
+ *
  * @author Philip Helger
  */
-// ESCA-JAVA0076:
 public enum EUnicodeBOM implements IHasByteSize
 {
   // 4 bytes
@@ -141,7 +140,7 @@ public enum EUnicodeBOM implements IHasByteSize
 
   /**
    * Check if the passed byte array starts with this BOM's bytes.
-   * 
+   *
    * @param aBytes
    *        The byte array to search for a BOM. May be <code>null</code> or
    *        empty.
@@ -189,7 +188,7 @@ public enum EUnicodeBOM implements IHasByteSize
 
   /**
    * Find the BOM that is matching the passed byte array.
-   * 
+   *
    * @param aBytes
    *        The bytes to be checked for the BOM. May be <code>null</code>. To
    *        check all BOMs, this array must have at least 4 (=

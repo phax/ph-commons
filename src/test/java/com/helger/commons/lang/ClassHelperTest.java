@@ -34,7 +34,7 @@ import com.helger.commons.system.EOperatingSystem;
 
 /**
  * Test class for class {@link ClassHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ClassHelperTest
@@ -47,7 +47,6 @@ public final class ClassHelperTest
 
   protected static final class DummyProtectedVisibility
   {
-    // ESCA-JAVA0009:
     protected DummyProtectedVisibility ()
     {}
   }

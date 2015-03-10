@@ -44,7 +44,6 @@ import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streams.StreamUtils;
 
-//ESCA-JAVA0076:
 /**
  * <p>
  * Encodes and decodes to and from Base64 notation.

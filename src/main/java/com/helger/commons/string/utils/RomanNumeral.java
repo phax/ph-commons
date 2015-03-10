@@ -147,7 +147,6 @@ public final class RomanNumeral
     m_nValue = nArabic;
   }
 
-  // ESCA-JAVA0076:
   @Nonnegative
   private static int _letterToNumber (final char cLetter)
   {

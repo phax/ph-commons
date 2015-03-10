@@ -24,11 +24,10 @@ import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.string.StringParser;
 
 /**
- * Enum for representing the current Java JDK version.
- * 
+ * Enumeration for representing the current Java JDK version.
+ *
  * @author Philip Helger
  */
-// ESCA-JAVA0076:
 public enum EJavaVersion
 {
   UNKNOWN (),
@@ -60,7 +59,7 @@ public enum EJavaVersion
 
   /**
    * Default constructor.
-   * 
+   *
    * @param dMinVersionIncl
    *        Minimum version (inclusive)
    * @param dMaxVersionExcl
@@ -99,7 +98,7 @@ public enum EJavaVersion
 
   /**
    * Check if this java version is newer or equals than the passed version
-   * 
+   *
    * @param eJavaVersion
    *        the Java version to be checked. May not be <code>null</code>.
    * @return <code>true</code> if this Java version is supported by the current
@@ -138,7 +137,7 @@ public enum EJavaVersion
 
   /**
    * Get the matching Java version from a class version.
-   * 
+   *
    * @param nMajor
    *        Major version number
    * @param nMinor

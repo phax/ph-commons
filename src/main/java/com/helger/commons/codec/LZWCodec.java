@@ -39,7 +39,6 @@ import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.string.ToStringGenerator;
 
-// ESCA-JAVA0076:
 /**
  * Encoder and decoder for the LZW algorithm
  *
@@ -433,7 +432,6 @@ public class LZWCodec extends AbstractCodec
                              ")");
           aBOS.writeBits (AbstractLZWDictionary.CODE_CLEARTABLE, nCodeLength);
           aDict.reset ();
-          // ESCA-JAVA0119:
           nIndex -= aByteSeq.length;
           aByteSeq = ArrayHelper.EMPTY_BYTE_ARRAY;
         }

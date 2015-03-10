@@ -29,7 +29,7 @@ import com.helger.commons.lang.GenericReflection;
 
 /**
  * Default implementation of an empty sorted set.
- * 
+ *
  * @author Philip Helger
  */
 public final class EmptySortedSet extends AbstractSet <Object> implements SortedSet <Object>
@@ -88,8 +88,6 @@ public final class EmptySortedSet extends AbstractSet <Object> implements Sorted
     return null;
   }
 
-  // ESCA-JAVA0130:
-  // ESCA-JAVA0029:
   // Preserves singleton property
   private Object readResolve ()
   {

@@ -58,7 +58,6 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @ReturnsMutableObject (reason = "efficient access")
   final List <IMicroNode> directGetChildren ()
   {
-    // ESCA-JAVA0259:
     return m_aChildren;
   }
 

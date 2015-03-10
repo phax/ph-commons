@@ -27,10 +27,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 
-//ESCA-JAVA0076:
 /**
  * Decoder for Discrete Cosinus Transformation (DCT)
- * 
+ *
  * @author Philip Helger
  */
 public class DCTCodec implements IByteArrayDecoder

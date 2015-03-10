@@ -29,10 +29,9 @@ import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streams.StreamUtils;
 
-//ESCA-JAVA0076:
 /**
  * Encoder and decoder for flate compression
- * 
+ *
  * @author Philip Helger
  */
 public class FlateCodec extends AbstractCodec

@@ -24,7 +24,6 @@ import javax.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
 
-// ESCA-JAVA0143:
 /**
  * A wrapper around another {@link InputStream}. Pass through of all
  * {@link InputStream} methods.

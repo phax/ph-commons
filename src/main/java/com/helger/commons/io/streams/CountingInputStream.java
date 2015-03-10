@@ -24,7 +24,6 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.string.ToStringGenerator;
 
-// ESCA-JAVA0143:
 /**
  * A wrapper around an {@link InputStream} that counts the number of read bytes.
  *

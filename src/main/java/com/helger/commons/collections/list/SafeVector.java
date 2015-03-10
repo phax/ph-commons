@@ -30,7 +30,6 @@ import com.helger.commons.factory.IFactory;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
-// ESCA-JAVA0143:
 /**
  * This is a specialized {@link Vector} that can handle read accesses on list
  * items that are not yet in the container. If {@link #get(int)} is called with

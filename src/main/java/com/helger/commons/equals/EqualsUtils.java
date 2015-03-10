@@ -65,7 +65,6 @@ public final class EqualsUtils
    */
   public static boolean equals (final double aObj1, final double aObj2)
   {
-    // ESCA-JAVA0078:
     // Special overload for "double" required!
     return (aObj1 == aObj2) || (Double.doubleToLongBits (aObj1) == Double.doubleToLongBits (aObj2));
   }
@@ -82,7 +81,6 @@ public final class EqualsUtils
    */
   public static boolean equals (final float aObj1, final float aObj2)
   {
-    // ESCA-JAVA0078:
     // Special overload for "float" required!
     return (aObj1 == aObj2) || (Float.floatToIntBits (aObj1) == Float.floatToIntBits (aObj2));
   }

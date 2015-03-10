@@ -439,7 +439,6 @@ public final class URLUtils
         aSB.append (QUESTIONMARK);
       }
 
-      // ESCA-JAVA0285:
       // add all values
       for (final Map.Entry <String, String> aEntry : aParams.entrySet ())
       {

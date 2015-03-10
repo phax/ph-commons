@@ -88,9 +88,8 @@ public final class VirtualMachineInitializer
     s_aSPIs.clear ();
   }
 
-  // ESCA-JAVA0143:
   @CodingStyleguideUnaware ("FindBugs claims that we do need synchronized here!")
-  public static synchronized void runInitialization ()// NOPMD
+  public static synchronized void runInitialization ()
   {
     // Only if at least one implementing class is present!
     if (s_aSPIs != null && !s_aSPIs.isEmpty ())
