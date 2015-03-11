@@ -105,7 +105,9 @@ public final class URLProtocolRegistry
         for (final IURLProtocol aSPIProtocol : aURLProtocols)
           registerProtocol (aSPIProtocol);
     }
-    s_aLogger.info (getRegisteredProtocolCount () + " URL protocols registered");
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug (getRegisteredProtocolCount () + " URL protocols registered");
   }
 
   /**
