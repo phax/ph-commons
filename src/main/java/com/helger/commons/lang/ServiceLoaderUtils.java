@@ -28,13 +28,12 @@ import javax.annotation.concurrent.Immutable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.GlobalDebug;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 
 /**
  * {@link ServiceLoader} helper class.
- * 
+ *
  * @author boris
  * @author Philip Helger
  */
@@ -59,7 +58,7 @@ public final class ServiceLoaderUtils
   /**
    * Uses the {@link ServiceLoader} to load all SPI implementations of the
    * passed class
-   * 
+   *
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
    * @return A list of all currently available plugins
@@ -74,7 +73,7 @@ public final class ServiceLoaderUtils
   /**
    * Uses the {@link ServiceLoader} to load all SPI implementations of the
    * passed class
-   * 
+   *
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
    * @param aClassLoader
@@ -93,7 +92,7 @@ public final class ServiceLoaderUtils
   /**
    * Uses the {@link ServiceLoader} to load all SPI implementations of the
    * passed class
-   * 
+   *
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
    * @param aLogger
@@ -111,7 +110,7 @@ public final class ServiceLoaderUtils
   /**
    * Uses the {@link ServiceLoader} to load all SPI implementations of the
    * passed class
-   * 
+   *
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
    * @param aClassLoader
@@ -160,25 +159,20 @@ public final class ServiceLoaderUtils
       }
     }
 
-    if (aRealLogger.isDebugEnabled () || GlobalDebug.isDebugMode ())
-    {
-      final String sMessage = "Finished loading all SPI implementations of " +
-                              aSPIClass +
-                              " --> returning " +
-                              ret.size () +
-                              " instances";
-      if (aRealLogger.isDebugEnabled ())
-        aRealLogger.debug (sMessage);
-      else
-        aRealLogger.info (sMessage);
-    }
+    if (aRealLogger.isDebugEnabled ())
+      aRealLogger.debug ("Finished loading all SPI implementations of " +
+                         aSPIClass +
+                         " --> returning " +
+                         ret.size () +
+                         " instances");
+
     return ret;
   }
 
   /**
    * Uses the {@link ServiceLoader} to load all SPI implementations of the
    * passed class and return only the first instance.
-   * 
+   *
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
    * @return A collection of all currently available plugins. Never
@@ -193,7 +187,7 @@ public final class ServiceLoaderUtils
   /**
    * Uses the {@link ServiceLoader} to load all SPI implementations of the
    * passed class and return only the first instance.
-   * 
+   *
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
    * @param aClassLoader
@@ -212,7 +206,7 @@ public final class ServiceLoaderUtils
   /**
    * Uses the {@link ServiceLoader} to load all SPI implementations of the
    * passed class and return only the first instance.
-   * 
+   *
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
    * @param aLogger
@@ -229,7 +223,7 @@ public final class ServiceLoaderUtils
   /**
    * Uses the {@link ServiceLoader} to load all SPI implementations of the
    * passed class and return only the first instance.
-   * 
+   *
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
    * @param aClassLoader
