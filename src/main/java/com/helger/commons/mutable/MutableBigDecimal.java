@@ -17,7 +17,9 @@
 package com.helger.commons.mutable;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
@@ -159,6 +161,13 @@ public final class MutableBigDecimal extends AbstractMutableNumeric <MutableBigD
   }
 
   @Nonnull
+  public BigDecimal dec (@Nonnull final BigDecimal aDelta)
+  {
+    ValueEnforcer.notNull (aDelta, "Delta");
+    return inc (aDelta.negate ());
+  }
+
+  @Nonnull
   public BigDecimal dec (@Nonnull final MutableBigDecimal aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
@@ -166,10 +175,65 @@ public final class MutableBigDecimal extends AbstractMutableNumeric <MutableBigD
   }
 
   @Nonnull
-  public BigDecimal dec (@Nonnull final BigDecimal aDelta)
+  public BigDecimal divide (final long nDivisor,
+                            @Nonnegative final int nScale,
+                            @Nonnull final RoundingMode eRoundingMode)
   {
-    ValueEnforcer.notNull (aDelta, "Delta");
-    return inc (aDelta.negate ());
+    return divide (MathHelper.toBigDecimal (nDivisor), nScale, eRoundingMode);
+  }
+
+  @Nonnull
+  public BigDecimal divide (final double dDivisor,
+                            @Nonnegative final int nScale,
+                            @Nonnull final RoundingMode eRoundingMode)
+  {
+    return divide (MathHelper.toBigDecimal (dDivisor), nScale, eRoundingMode);
+  }
+
+  @Nonnull
+  public BigDecimal divide (@Nonnull final MutableBigDecimal aDivisor,
+                            @Nonnegative final int nScale,
+                            @Nonnull final RoundingMode eRoundingMode)
+  {
+    ValueEnforcer.notNull (aDivisor, "Divisor");
+    return divide (aDivisor.m_aValue, nScale, eRoundingMode);
+  }
+
+  @Nonnull
+  public BigDecimal divide (@Nonnull final BigDecimal aDivisor,
+                            @Nonnegative final int nScale,
+                            @Nonnull final RoundingMode eRoundingMode)
+  {
+    ValueEnforcer.notNull (aDivisor, "Divisor");
+    m_aValue = m_aValue.divide (aDivisor, nScale, eRoundingMode);
+    return m_aValue;
+  }
+
+  @Nonnull
+  public BigDecimal multiply (final long nMultiplicand)
+  {
+    return multiply (MathHelper.toBigDecimal (nMultiplicand));
+  }
+
+  @Nonnull
+  public BigDecimal multiply (final double dMultiplicand)
+  {
+    return multiply (MathHelper.toBigDecimal (dMultiplicand));
+  }
+
+  @Nonnull
+  public BigDecimal multiply (@Nonnull final MutableBigDecimal aMultiplicand)
+  {
+    ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
+    return multiply (aMultiplicand.m_aValue);
+  }
+
+  @Nonnull
+  public BigDecimal multiply (@Nonnull final BigDecimal aMultiplicand)
+  {
+    ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
+    m_aValue = m_aValue.multiply (aMultiplicand);
+    return m_aValue;
   }
 
   @Nonnull

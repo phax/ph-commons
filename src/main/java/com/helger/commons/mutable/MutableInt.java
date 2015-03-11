@@ -132,6 +132,30 @@ public final class MutableInt extends AbstractMutableInteger <MutableInt>
     return inc (-aDelta.intValue ());
   }
 
+  public int divide (final int nDivisor)
+  {
+    m_nValue /= nDivisor;
+    return m_nValue;
+  }
+
+  public int divide (@Nonnull final Number aDivisor)
+  {
+    ValueEnforcer.notNull (aDivisor, "Divisor");
+    return divide (aDivisor.intValue ());
+  }
+
+  public int multiply (final int nMultiplicand)
+  {
+    m_nValue *= nMultiplicand;
+    return m_nValue;
+  }
+
+  public int multiply (@Nonnull final Number aMultiplicand)
+  {
+    ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
+    return multiply (aMultiplicand.intValue ());
+  }
+
   @Nonnull
   public EChange set (final int nValue)
   {

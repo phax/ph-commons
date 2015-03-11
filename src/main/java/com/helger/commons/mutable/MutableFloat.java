@@ -121,6 +121,30 @@ public final class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     return inc (-aDelta.floatValue ());
   }
 
+  public float divide (final float fDivisor)
+  {
+    m_fValue /= fDivisor;
+    return m_fValue;
+  }
+
+  public float divide (@Nonnull final Number aDivisor)
+  {
+    ValueEnforcer.notNull (aDivisor, "Divisor");
+    return divide (aDivisor.floatValue ());
+  }
+
+  public float multiply (final float fMultiplicand)
+  {
+    m_fValue *= fMultiplicand;
+    return m_fValue;
+  }
+
+  public float multiply (@Nonnull final Number aMultiplicand)
+  {
+    ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
+    return multiply (aMultiplicand.floatValue ());
+  }
+
   @Nonnull
   public EChange set (final float fValue)
   {

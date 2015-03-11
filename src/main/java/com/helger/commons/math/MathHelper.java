@@ -989,13 +989,13 @@ public final class MathHelper
   /**
    * Converts the passed signed integer to an unsigned long
    *
-   * @param a
+   * @param n
    *        Source int
    * @return The unsigned long
    */
-  public static long getUnsignedInt (final int a)
+  public static long getUnsignedInt (final int n)
   {
-    return a & 0x00000000ffffffffL;
+    return n & 0x00000000ffffffffL;
   }
 
   @Nonnull
@@ -1025,7 +1025,26 @@ public final class MathHelper
   @Nonnull
   public static BigDecimal toBigDecimal (@Nonnull final Number aNumber)
   {
-    ValueEnforcer.notNull (aNumber, "Numbe");
+    ValueEnforcer.notNull (aNumber, "Number");
     return new BigDecimal (aNumber.toString ());
+  }
+
+  @Nonnull
+  public static BigInteger toBigInteger (final int n)
+  {
+    return BigInteger.valueOf (n);
+  }
+
+  @Nonnull
+  public static BigInteger toBigInteger (final long n)
+  {
+    return BigInteger.valueOf (n);
+  }
+
+  @Nonnull
+  public static BigInteger toBigInteger (@Nonnull final Number aNumber)
+  {
+    ValueEnforcer.notNull (aNumber, "Number");
+    return new BigInteger (aNumber.toString ());
   }
 }

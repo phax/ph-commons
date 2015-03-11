@@ -132,6 +132,30 @@ public final class MutableLong extends AbstractMutableInteger <MutableLong>
     return inc (-aDelta.longValue ());
   }
 
+  public long divide (final long nDivisor)
+  {
+    m_nValue /= nDivisor;
+    return m_nValue;
+  }
+
+  public long divide (@Nonnull final Number aDivisor)
+  {
+    ValueEnforcer.notNull (aDivisor, "Divisor");
+    return divide (aDivisor.longValue ());
+  }
+
+  public long multiply (final long nMultiplicand)
+  {
+    m_nValue *= nMultiplicand;
+    return m_nValue;
+  }
+
+  public long multiply (@Nonnull final Number aMultiplicand)
+  {
+    ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
+    return multiply (aMultiplicand.longValue ());
+  }
+
   @Nonnull
   public EChange set (final long nValue)
   {

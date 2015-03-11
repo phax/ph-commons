@@ -121,6 +121,30 @@ public final class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     return inc (-aDelta.doubleValue ());
   }
 
+  public double divide (final double dDivisor)
+  {
+    m_dValue /= dDivisor;
+    return m_dValue;
+  }
+
+  public double divide (@Nonnull final Number aDivisor)
+  {
+    ValueEnforcer.notNull (aDivisor, "Divisor");
+    return divide (aDivisor.doubleValue ());
+  }
+
+  public double multiply (final double dMultiplicand)
+  {
+    m_dValue *= dMultiplicand;
+    return m_dValue;
+  }
+
+  public double multiply (@Nonnull final Number aMultiplicand)
+  {
+    ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
+    return multiply (aMultiplicand.doubleValue ());
+  }
+
   @Nonnull
   public EChange set (final double dValue)
   {

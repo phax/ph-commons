@@ -164,6 +164,48 @@ public final class MutableBigInteger extends AbstractMutableNumeric <MutableBigI
   }
 
   @Nonnull
+  public BigInteger divide (final long nDivisor)
+  {
+    return divide (MathHelper.toBigInteger (nDivisor));
+  }
+
+  @Nonnull
+  public BigInteger divide (@Nonnull final MutableBigInteger aDivisor)
+  {
+    ValueEnforcer.notNull (aDivisor, "Divisor");
+    return divide (aDivisor.m_aValue);
+  }
+
+  @Nonnull
+  public BigInteger divide (@Nonnull final BigInteger aDivisor)
+  {
+    ValueEnforcer.notNull (aDivisor, "Divisor");
+    m_aValue = m_aValue.divide (aDivisor);
+    return m_aValue;
+  }
+
+  @Nonnull
+  public BigInteger multiply (final long nMultiplicand)
+  {
+    return multiply (MathHelper.toBigInteger (nMultiplicand));
+  }
+
+  @Nonnull
+  public BigInteger multiply (@Nonnull final MutableBigInteger aMultiplicand)
+  {
+    ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
+    return multiply (aMultiplicand.m_aValue);
+  }
+
+  @Nonnull
+  public BigInteger multiply (@Nonnull final BigInteger aMultiplicand)
+  {
+    ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
+    m_aValue = m_aValue.multiply (aMultiplicand);
+    return m_aValue;
+  }
+
+  @Nonnull
   public EChange set (final long nDelta)
   {
     return set (BigInteger.valueOf (nDelta));
