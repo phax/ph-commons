@@ -38,6 +38,7 @@ import com.helger.commons.scopes.domain.IRequestScope;
 import com.helger.commons.scopes.domain.ISessionApplicationScope;
 import com.helger.commons.scopes.domain.ISessionScope;
 import com.helger.commons.scopes.spi.ScopeSPIManager;
+import com.helger.commons.string.StringHelper;
 
 /**
  * This is the manager class for non-web scope handling. The following scopes
@@ -46,6 +47,8 @@ import com.helger.commons.scopes.spi.ScopeSPIManager;
  * <li>global</li>
  * <li>application</li>
  * <li>request</li>
+ * <li>session</li>
+ * <li>session application</li>
  * </ul>
  *
  * @author Philip Helger
@@ -53,6 +56,12 @@ import com.helger.commons.scopes.spi.ScopeSPIManager;
 @ThreadSafe
 public final class ScopeManager
 {
+  /**
+   * The prefix to be used for attribute names in any scope to indicate system
+   * internal attributes
+   */
+  public static final String SCOPE_ATTRIBUTE_PREFIX_INTERNAL = "$ph.";
+
   public static final boolean DEFAULT_CREATE_SCOPE = true;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (ScopeManager.class);
@@ -61,7 +70,7 @@ public final class ScopeManager
    * The name of the attribute used to store the application scope in the
    * current request
    */
-  private static final String REQ_APPLICATION_ID = "ph.applicationscope";
+  private static final String REQ_APPLICATION_ID = SCOPE_ATTRIBUTE_PREFIX_INTERNAL + "applicationscope";
 
   private static final Lock s_aGlobalLock = new ReentrantLock ();
 
@@ -524,5 +533,19 @@ public final class ScopeManager
       // Remove from ThreadLocal
       s_aRequestScope.remove ();
     }
+  }
+
+  /**
+   * Check if the passed attribute name is an internal attribute.
+   * 
+   * @param sAttributeName
+   *        The name of the attribute to check. May be <code>null</code>.
+   * @return <code>true</code> if the passed attribute name is not
+   *         <code>null</code> and starts with the
+   *         {@link #SCOPE_ATTRIBUTE_PREFIX_INTERNAL} prefix.
+   */
+  public static boolean isInternalAttribute (@Nullable final String sAttributeName)
+  {
+    return StringHelper.startsWith (sAttributeName, SCOPE_ATTRIBUTE_PREFIX_INTERNAL);
   }
 }
