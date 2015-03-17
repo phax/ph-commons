@@ -21,11 +21,15 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.concurrent.ThreadUtils;
 
 public class FileMonitorTest
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (FileMonitorTest.class);
+
   @Test
   public void testBasic ()
   {
@@ -34,7 +38,7 @@ public class FileMonitorTest
       @Override
       public void onFileDeleted (final FileChangeEvent event)
       {
-        System.out.println ("File deleted: " + event.getFile ().getAbsolutePath ());
+        s_aLogger.info ("File deleted: " + event.getFile ().getAbsolutePath ());
       }
     };
     final IFileListener aCreateListener = new DefaultFileListener ()
@@ -42,7 +46,7 @@ public class FileMonitorTest
       @Override
       public void onFileCreated (final FileChangeEvent event)
       {
-        System.out.println ("File created: " + event.getFile ().getAbsolutePath ());
+        s_aLogger.info ("File created: " + event.getFile ().getAbsolutePath ());
       }
     };
     final IFileListener aChangeListener = new DefaultFileListener ()
@@ -50,7 +54,7 @@ public class FileMonitorTest
       @Override
       public void onFileChanged (final FileChangeEvent event)
       {
-        System.out.println ("File changed: " + event.getFile ().getAbsolutePath ());
+        s_aLogger.info ("File changed: " + event.getFile ().getAbsolutePath ());
       }
     };
     final FileMonitorManager aMgr = new FileMonitorManager ();

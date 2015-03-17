@@ -22,6 +22,8 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.IReadableResource;
@@ -29,7 +31,7 @@ import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.jaxb.utils.AbstractJAXBMarshaller;
 import com.helger.commons.mutable.MutableBoolean;
 
-public class JAXBMarshallerTest
+public final class JAXBMarshallerTest
 {
   private static final class MyMarshaller extends AbstractJAXBMarshaller <MockJAXBArchive>
   {
@@ -44,6 +46,8 @@ public class JAXBMarshallerTest
       return new JAXBElement <MockJAXBArchive> (new QName ("any"), MockJAXBArchive.class, aObject);
     }
   }
+
+  private static final Logger s_aLogger = LoggerFactory.getLogger (JAXBMarshallerTest.class);
 
   @Test
   public void testCloseOnWriteToOutputStream ()
@@ -64,7 +68,7 @@ public class JAXBMarshallerTest
       aArc.setVersion ("1.23");
       m.write (aArc, aOS);
     }
-    System.out.println (aOS.getAsString (CCharset.CHARSET_UTF_8_OBJ));
+    s_aLogger.info (aOS.getAsString (CCharset.CHARSET_UTF_8_OBJ));
     assertTrue ("Not closed!", aClosed.booleanValue ());
   }
 }

@@ -117,7 +117,6 @@ public final class BasicMicroTypeConverterRegistrarTest
       final String sXML = MicroWriter.getXMLString (aElement);
       assertTrue (sXML.startsWith ("<any>"));
       assertTrue (sXML.endsWith ("</any>" + ENewLineMode.DEFAULT.getText ()));
-      System.out.print (sXML);
 
       // Convert back to native
       final Object aNative = MicroTypeConverter.convertToNative (aElement, aObj.getClass ());
@@ -136,7 +135,6 @@ public final class BasicMicroTypeConverterRegistrarTest
       final String sXML = MicroWriter.getXMLString (aElement);
       assertTrue (sXML.startsWith ("<any>"));
       assertTrue (sXML.endsWith ("</any>" + ENewLineMode.DEFAULT.getText ()));
-      System.out.print (sXML);
 
       // Convert back to native
       final Object aNative = MicroTypeConverter.convertToNative (aElement, aObj.getClass ());

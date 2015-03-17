@@ -28,6 +28,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collections.CollectionHelper;
@@ -44,6 +46,8 @@ import com.helger.commons.system.SystemHelper;
  */
 public final class HashCodeGeneratorTest
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (HashCodeGeneratorTest.class);
+
   private static void _appendFields (final HashCodeGenerator aHC)
   {
     // Primitive values
@@ -232,7 +236,7 @@ public final class HashCodeGeneratorTest
                                   aSB.toString (),
                                   CCharset.CHARSET_ISO_8859_1_OBJ);
           b.set (true);
-          System.out.println ("Found match!");
+          s_aLogger.error ("Found match!");
         }
       }
     };
@@ -253,7 +257,7 @@ public final class HashCodeGeneratorTest
 
       nTries += nThreads;
       if ((nTries % 1000) == 0)
-        System.out.println (nTries + " tries");
+        s_aLogger.info (nTries + " tries");
     }
   }
 

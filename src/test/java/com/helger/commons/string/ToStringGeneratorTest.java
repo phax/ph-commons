@@ -182,8 +182,6 @@ public final class ToStringGeneratorTest
     final ToStringGenerator aTSG = new ToStringGenerator (this);
     aTSG.append ("anything", "else");
     aTSG.append ("meMyselfAndI", this);
-    if (false)
-      System.out.println (aTSG.toString ());
     assertTrue (aTSG.toString ().endsWith (": anything=else; meMyselfAndI=this]"));
   }
 }

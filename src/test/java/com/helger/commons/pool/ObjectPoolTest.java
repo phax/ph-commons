@@ -22,17 +22,21 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.concurrent.ThreadUtils;
 import com.helger.commons.factory.FactoryConstantValue;
 
 /**
  * Test class for class {@link ObjectPool}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ObjectPoolTest
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (ObjectPoolTest.class);
+
   @Test
   public void testSimple () throws InterruptedException
   {
@@ -62,7 +66,7 @@ public final class ObjectPoolTest
         {
           t.printStackTrace ();
         }
-        System.out.println ("Done");
+        s_aLogger.info ("Done");
       }
     };
     aThread.start ();

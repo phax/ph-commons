@@ -220,20 +220,16 @@ public final class XMLTransformerFactoryTest
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     XMLTransformerFactory.newTransformer ().transform (new DOMSource (aDoc), new StreamResult (aSW));
     final String sTransform = aSW.getAsString ();
-    System.out.println (sTransform);
-    System.out.println ();
 
     final Document aDoc2 = DOMReader.readXMLDOM (sTransform);
     final Node e3a = aDoc2.getDocumentElement ().getChildNodes ().item (2);
     aSW.reset ();
     XMLTransformerFactory.newTransformer ().transform (new DOMSource (e3a), new StreamResult (aSW));
-    System.out.println (aSW.getAsString ());
 
     final String sXML = XMLWriter.getNodeAsString (aDoc,
                                                    new XMLWriterSettings ().setIncorrectCharacterHandling (EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG)
                                                                            .setIndent (EXMLSerializeIndent.NONE));
     assertNotNull (sXML);
-    System.out.println (sXML);
     DOMReader.readXMLDOM (sXML);
   }
 }
