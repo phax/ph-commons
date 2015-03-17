@@ -19,6 +19,12 @@
 -->
 <changelog xmlns="http://www.phloc.com/ns/changelog/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="ph-commons">
+  <release date="2015-03-17" version="5.6.1" />
+  <entry date="2015-03-17" category="api" action="add">
+    <change>
+      <text locale="en">Added new class IMultiMapMapBased and implementation</text>
+    </change>
+  </entry>
   <entry date="2015-03-16" category="api" action="add">
     <change>
       <text locale="en">Added class NonReentrantLock from Netty</text>
