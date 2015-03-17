@@ -17,7 +17,6 @@
 package com.helger.commons.supplementary.test;
 
 import java.lang.reflect.Field;
-import java.rmi.RMISecurityManager;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -38,7 +37,7 @@ public class MainTestSecurityManager
   public static void main (final String args []) throws Exception
   {
     if (false)
-      System.setSecurityManager (new RMISecurityManager ());
+      System.setSecurityManager (new SecurityManager ());
 
     // Important to use "new String!"
     final String originalString = new String ("abcdef");
