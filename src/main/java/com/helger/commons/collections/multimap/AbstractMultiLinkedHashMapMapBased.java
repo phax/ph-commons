@@ -16,9 +16,8 @@
  */
 package com.helger.commons.collections.multimap;
 
-import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -28,7 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.state.EChange;
 
 /**
- * Abstract multi map based on {@link java.util.TreeMap}.
+ * Abstract multi map based on {@link java.util.LinkedHashMap}.
  *
  * @author Philip Helger
  * @param <KEYTYPE1>
@@ -39,29 +38,25 @@ import com.helger.commons.state.EChange;
  *        value type
  */
 @NotThreadSafe
-public abstract class AbstractMultiTreeMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends TreeMap <KEYTYPE1, Map <KEYTYPE2, VALUETYPE>> implements IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
+public abstract class AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends LinkedHashMap <KEYTYPE1, Map <KEYTYPE2, VALUETYPE>> implements IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
 {
-  public AbstractMultiTreeMapMapBased ()
+  public AbstractMultiLinkedHashMapMapBased ()
   {}
 
-  public AbstractMultiTreeMapMapBased (@Nullable final Comparator <? super KEYTYPE1> aComparator)
-  {
-    super (aComparator);
-  }
-
-  public AbstractMultiTreeMapMapBased (@Nullable final KEYTYPE1 aKey,
-                                       @Nullable final KEYTYPE2 aInnerKey,
-                                       @Nullable final VALUETYPE aValue)
+  public AbstractMultiLinkedHashMapMapBased (@Nullable final KEYTYPE1 aKey,
+                                             @Nullable final KEYTYPE2 aInnerKey,
+                                             @Nullable final VALUETYPE aValue)
   {
     putSingle (aKey, aInnerKey, aValue);
   }
 
-  public AbstractMultiTreeMapMapBased (@Nullable final KEYTYPE1 aKey, @Nullable final Map <KEYTYPE2, VALUETYPE> aValue)
+  public AbstractMultiLinkedHashMapMapBased (@Nullable final KEYTYPE1 aKey,
+                                             @Nullable final Map <KEYTYPE2, VALUETYPE> aValue)
   {
     put (aKey, aValue);
   }
 
-  public AbstractMultiTreeMapMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends Map <KEYTYPE2, VALUETYPE>> aCont)
+  public AbstractMultiLinkedHashMapMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends Map <KEYTYPE2, VALUETYPE>> aCont)
   {
     if (aCont != null)
       putAll (aCont);
