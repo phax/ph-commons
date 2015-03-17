@@ -27,7 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 /**
  * Multi map based on {@link java.util.LinkedHashMap} and
  * {@link java.util.TreeSet} values.<br>
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        key type
@@ -35,7 +35,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  *        value type
  */
 @NotThreadSafe
-public class MultiLinkedHashMapTreeSetBased <KEYTYPE, VALUETYPE> extends AbstractMultiLinkedHashMapSetBased <KEYTYPE, VALUETYPE>
+public class MultiLinkedHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>> extends AbstractMultiLinkedHashMapSetBased <KEYTYPE, VALUETYPE>
 {
   public MultiLinkedHashMapTreeSetBased ()
   {}

@@ -62,6 +62,16 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends Map <
   EChange putSingle (@Nonnull KEYTYPE1 aKey, @Nonnull KEYTYPE2 aInnerKey, @Nullable VALUETYPE aValue);
 
   /**
+   * Add all values into the container identified by the passed key-value-map.
+   *
+   * @param aMap
+   *        The key-value-map to use. May not be <code>null</code>.
+   * @return {@link EChange}
+   */
+  @Nonnull
+  EChange putAllIn (@Nonnull Map <? extends KEYTYPE1, ? extends Map <KEYTYPE2, VALUETYPE>> aMap);
+
+  /**
    * Remove a single element from the container identified by the passed key.
    *
    * @param aKey

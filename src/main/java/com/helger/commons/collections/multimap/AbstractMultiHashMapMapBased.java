@@ -85,6 +85,16 @@ public abstract class AbstractMultiHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYP
   }
 
   @Nonnull
+  public final EChange putAllIn (@Nonnull final Map <? extends KEYTYPE1, ? extends Map <KEYTYPE2, VALUETYPE>> aMap)
+  {
+    EChange eChange = EChange.UNCHANGED;
+    for (final Map.Entry <? extends KEYTYPE1, ? extends Map <KEYTYPE2, VALUETYPE>> aEntry : aMap.entrySet ())
+      for (final Map.Entry <KEYTYPE2, VALUETYPE> aEntry2 : aEntry.getValue ().entrySet ())
+        eChange = eChange.or (putSingle (aEntry.getKey (), aEntry2.getKey (), aEntry2.getValue ()));
+    return eChange;
+  }
+
+  @Nonnull
   public final EChange removeSingle (@Nullable final KEYTYPE1 aKey, @Nullable final KEYTYPE2 aInnerKey)
   {
     final Map <KEYTYPE2, VALUETYPE> aCont = get (aKey);

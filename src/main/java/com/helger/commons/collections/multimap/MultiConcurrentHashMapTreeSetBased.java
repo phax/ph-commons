@@ -28,7 +28,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  * Multi map based on {@link java.util.concurrent.ConcurrentHashMap} and
  * {@link java.util.TreeSet} values.<br>
  * Important note: <code>null</code> keys are not allowed here!
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        key type
@@ -36,7 +36,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  *        value type
  */
 @NotThreadSafe
-public class MultiConcurrentHashMapTreeSetBased <KEYTYPE, VALUETYPE> extends AbstractMultiConcurrentHashMapSetBased <KEYTYPE, VALUETYPE>
+public class MultiConcurrentHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>> extends AbstractMultiConcurrentHashMapSetBased <KEYTYPE, VALUETYPE>
 {
   public MultiConcurrentHashMapTreeSetBased ()
   {}
