@@ -25,7 +25,7 @@
     <version>1.3.3</version>
   </parent>
   <artifactId>ph-commons</artifactId>
-  <version>5.6.1-SNAPSHOT</version>
+  <version>5.6.1</version>
   <packaging>bundle</packaging>
   <name>ph-commons</name>
   <description>Java 1.6+ Library with tons of utility classes required in all projects</description>
@@ -44,7 +44,7 @@
     <connection>scm:git:git@github.com:phax/ph-commons.git</connection>
     <developerConnection>scm:git:git@github.com:phax/ph-commons.git</developerConnection>
     <url>http://github.com/phax/ph-commons</url>
-    <tag>HEAD</tag>
+    <tag>ph-commons-5.6.1</tag>
   </scm>
 
   <organization>
