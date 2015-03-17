@@ -29,11 +29,15 @@ import com.helger.commons.id.IHasID;
 
 /**
  * This interface is used for all the common stuff of a scope. The following
- * types of scopes are present: <li>Global scope - once and only once</li> <li>
- * Application context - scope for an application (e.g. pDAF3 Config and View
- * application)</li> <li>Session scope - for each user created session</li> <li>
- * Session application context - scope for an application within a session</li>
- * <li>Request scope - for each user request</li><br>
+ * types of scopes are present:
+ * <ul>
+ * <li>Global scope - once and only once</li>
+ * <li>Application context - scope for an application (e.g. public and secure
+ * application in one web application)</li>
+ * <li>Session scope - for each user created session</li>
+ * <li>Session application context - scope for an application within a session</li>
+ * <li>Request scope - for each user request</li>
+ * </ul>
  * IMPORTANT: implementations of {@link IScope} must be thread safe!
  *
  * @author Philip Helger

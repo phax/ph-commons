@@ -38,7 +38,7 @@ public interface IAttributeContainer extends IReadonlyAttributeContainer, IGener
    *        The value of the attribute.
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
-   * @see #removeAttribute(String)
+   * @see IGenericAttributeContainer#removeAttribute(Object)
    */
   @Nonnull
   EChange setAttribute (@Nonnull String aName, boolean bValue);
@@ -53,7 +53,7 @@ public interface IAttributeContainer extends IReadonlyAttributeContainer, IGener
    *        The value of the attribute.
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
-   * @see #removeAttribute(String)
+   * @see IGenericAttributeContainer#removeAttribute(Object)
    */
   @Nonnull
   EChange setAttribute (@Nonnull String aName, int nValue);
@@ -68,7 +68,7 @@ public interface IAttributeContainer extends IReadonlyAttributeContainer, IGener
    *        The value of the attribute.
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
-   * @see #removeAttribute(String)
+   * @see IGenericAttributeContainer#removeAttribute(Object)
    */
   @Nonnull
   EChange setAttribute (@Nonnull String aName, long nValue);
@@ -83,7 +83,7 @@ public interface IAttributeContainer extends IReadonlyAttributeContainer, IGener
    *        The value of the attribute.
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
-   * @see #removeAttribute(String)
+   * @see IGenericAttributeContainer#removeAttribute(Object)
    */
   @Nonnull
   EChange setAttribute (@Nonnull String aName, double dValue);
@@ -92,8 +92,8 @@ public interface IAttributeContainer extends IReadonlyAttributeContainer, IGener
    * Atomic operation to set a flag to <code>true</code> if it was previously
    * set to <code>false</code> (meaning not existing). There is no possibility
    * to define a value for this flag. The value used is {@link Boolean#TRUE}.
-   * {@link #containsAttribute(String)} can be used to check if the attribute is
-   * already present.
+   * {@link IGenericAttributeContainer#containsAttribute(Object)} can be used to
+   * check if the attribute is already present.
    *
    * @param sName
    *        The name of the flag to set.
