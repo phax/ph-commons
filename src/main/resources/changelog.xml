@@ -19,6 +19,16 @@
 -->
 <changelog xmlns="http://www.phloc.com/ns/changelog/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="ph-commons">
+  <entry date="2015-03-25" category="api" action="change" incompatible="true">
+    <change>
+      <text locale="en">Extracted a single ELockType from IsLocked and MustBeLocked annotations</text>
+    </change>
+  </entry>
+  <entry date="2015-03-25" category="api" action="add">
+    <change>
+      <text locale="en">Extracted IErrorLevel interface from EErrorLevel</text>
+    </change>
+  </entry>
   <release date="2015-03-17" version="5.6.1" />
   <entry date="2015-03-17" category="api" action="add">
     <change>

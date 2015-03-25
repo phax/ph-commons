@@ -28,8 +28,8 @@ import javax.annotation.concurrent.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.annotations.ELockType;
 import com.helger.commons.annotations.IsLocked;
-import com.helger.commons.annotations.IsLocked.ELockType;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.cache.AbstractNotifyingCache;
 import com.helger.commons.state.EChange;

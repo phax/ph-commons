@@ -33,8 +33,8 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.ELockType;
 import com.helger.commons.annotations.IsLocked;
-import com.helger.commons.annotations.IsLocked.ELockType;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.cache.AbstractNotifyingCache;
 import com.helger.commons.collections.CollectionHelper;

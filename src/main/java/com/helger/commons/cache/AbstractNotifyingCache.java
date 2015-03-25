@@ -19,15 +19,15 @@ package com.helger.commons.cache;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
+import com.helger.commons.annotations.ELockType;
 import com.helger.commons.annotations.IsLocked;
-import com.helger.commons.annotations.IsLocked.ELockType;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * A caching class that has the ability to fill itself with the abstract
  * getValueToCache(Object) method.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        Cache key type
@@ -45,7 +45,7 @@ public abstract class AbstractNotifyingCache <KEYTYPE, VALUETYPE> extends Abstra
   /**
    * This abstract method is invoked, once a new value needs to be put into the
    * cache. This method is invoked within a locked section.
-   * 
+   *
    * @param aKey
    *        The key for which the value to cache is required. May be
    *        <code>null</code>able or not - depends upon the implementation.

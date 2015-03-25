@@ -16,27 +16,14 @@
  */
 package com.helger.commons.annotations;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import javax.annotation.Nonnull;
-
 /**
- * For methods to be overridden, it indicates, that the method is locked. When
- * using read-write locks (class ReadWriteLock), please selected the matching
- * lock type. When using exclusive locks (class Lock) use the lock type
- * <code>WRITE</code>.
+ * The locking type to be used in the {@link IsLocked} and {@link MustBeLocked}
+ * annotations.
  *
  * @author Philip Helger
  */
-@Retention (RetentionPolicy.CLASS)
-@Target ({ ElementType.METHOD })
-@Documented
-public @interface IsLocked
+public enum ELockType
 {
-  @Nonnull
-  ELockType value();
+  READ,
+  WRITE;
 }

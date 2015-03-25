@@ -14,29 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.annotations;
+package com.helger.commons.error;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import javax.annotation.Nonnegative;
 
-import javax.annotation.Nonnull;
+import com.helger.commons.id.IHasID;
+import com.helger.commons.state.IErrorIndicator;
+import com.helger.commons.state.ISuccessIndicator;
 
 /**
- * For methods to be overridden, it indicates, that the method is locked. When
- * using read-write locks (class ReadWriteLock), please selected the matching
- * lock type. When using exclusive locks (class Lock) use the lock type
- * <code>WRITE</code>.
+ * Interface representing a single error level.
  *
  * @author Philip Helger
  */
-@Retention (RetentionPolicy.CLASS)
-@Target ({ ElementType.METHOD })
-@Documented
-public @interface IsLocked
+public interface IErrorLevel extends IHasID <String>, ISuccessIndicator, IErrorIndicator, ISeverityComparable <IErrorLevel>
 {
-  @Nonnull
-  ELockType value();
+  /**
+   * @return The numeric level of this error level. Must be &ge; 0. The higher
+   *         the numeric level, the higher the priority of the error level. So
+   *         e.g. ERROR has a higher/larger/greater numerical level than
+   *         WARNING.
+   */
+  @Nonnegative
+  int getNumericLevel ();
 }

@@ -40,12 +40,6 @@ import javax.annotation.Nonnull;
 @Documented
 public @interface MustBeLocked
 {
-  public static enum ELockType
-  {
-    READ,
-    WRITE
-  }
-
   @Nonnull
   ELockType value();
 }

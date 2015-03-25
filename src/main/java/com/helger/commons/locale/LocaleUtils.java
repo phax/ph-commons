@@ -29,8 +29,8 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.ELockType;
 import com.helger.commons.annotations.IsLocked;
-import com.helger.commons.annotations.IsLocked.ELockType;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsImmutableObject;
 import com.helger.commons.annotations.ReturnsMutableCopy;

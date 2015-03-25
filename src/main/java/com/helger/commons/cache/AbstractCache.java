@@ -29,8 +29,8 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.ELockType;
 import com.helger.commons.annotations.MustBeLocked;
-import com.helger.commons.annotations.MustBeLocked.ELockType;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.collections.CollectionHelper;
