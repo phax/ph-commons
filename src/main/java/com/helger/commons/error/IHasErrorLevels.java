@@ -21,31 +21,35 @@ import javax.annotation.Nonnull;
 
 /**
  * Interface representing an object having multiple objects with an error level
- * 
+ *
  * @author Philip Helger
  */
 public interface IHasErrorLevels
 {
   /**
    * Check if this group contains only success messages. If no item is present,
-   * <code>false</code> is returned.
-   * 
+   * <code>false</code> is returned, since no success message is contained. If
+   * you want to check, if the list is empty or contains only success messages,
+   * use {@link #containsNoFailure()} instead.
+   *
    * @return <code>true</code> if at least one item is present, and if all items
    *         have the error level success, <code>false</code> otherwise.
+   * @see #containsNoFailure()
    */
   boolean containsOnlySuccess ();
 
   /**
    * Check if this group contains at least one success message.
-   * 
+   *
    * @return <code>true</code> if at least one success item is present,
    *         <code>false</code> otherwise.
    */
   boolean containsAtLeastOneSuccess ();
 
   /**
-   * Check if this group contains no success message.
-   * 
+   * Check if this group contains no success message. This is also true, if the
+   * list is empty!
+   *
    * @return <code>true</code> if no success item is present, <code>false</code>
    *         otherwise.
    */
@@ -61,7 +65,7 @@ public interface IHasErrorLevels
    * Check if this group contains only failure messages. If no item is present,
    * <code>false</code> is returned. All error levels except
    * {@link EErrorLevel#SUCCESS} are considered to be a failure!
-   * 
+   *
    * @return <code>true</code> if at least one item is present, and if all items
    *         have an error level indicating failure, <code>false</code>
    *         otherwise.
@@ -71,7 +75,7 @@ public interface IHasErrorLevels
   /**
    * Check if this group contains at least one failure message. All error levels
    * except {@link EErrorLevel#SUCCESS} are considered to be a failure!
-   * 
+   *
    * @return <code>true</code> if at least one failure item is present,
    *         <code>false</code> otherwise.
    */
@@ -80,7 +84,7 @@ public interface IHasErrorLevels
   /**
    * Check if this group contains no failure message. All error levels except
    * {@link EErrorLevel#SUCCESS} are considered to be a failure!
-   * 
+   *
    * @return <code>true</code> if no failure item is present, <code>false</code>
    *         otherwise.
    */
@@ -96,7 +100,7 @@ public interface IHasErrorLevels
    * Check if this group contains only error or fatal error messages. If no item
    * is present, <code>false</code> is returned. All error levels &ge;
    * {@link EErrorLevel#ERROR} are considered to be an error!
-   * 
+   *
    * @return <code>true</code> if at least one item is present, and if all items
    *         have an error level indicating error or fatal error,
    *         <code>false</code> otherwise.
@@ -106,7 +110,7 @@ public interface IHasErrorLevels
   /**
    * Check if this group contains at least one error or fatal error message. All
    * error levels &ge; {@link EErrorLevel#ERROR} are considered to be an error!
-   * 
+   *
    * @return <code>true</code> if at least one error or fatal error item is
    *         present, <code>false</code> otherwise.
    */
@@ -115,7 +119,7 @@ public interface IHasErrorLevels
   /**
    * Check if this group contains no error or fatal error message. All error
    * levels &ge; {@link EErrorLevel#ERROR} are considered to be an error!
-   * 
+   *
    * @return <code>true</code> if no error or fatal error item is present,
    *         <code>false</code> otherwise.
    */
@@ -130,8 +134,9 @@ public interface IHasErrorLevels
   int getErrorCount ();
 
   /**
-   * Get the most severe error level within this group.
-   * 
+   * Get the most severe error level within this object. The severity is defined
+   * by {@link EErrorLevel}'s severity model.
+   *
    * @return {@link EErrorLevel#SUCCESS} if no resource error is contained, the
    *         most severe contained error level otherwise.
    */

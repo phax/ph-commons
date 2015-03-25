@@ -21,17 +21,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.state.IErrorIndicator;
-import com.helger.commons.state.ISuccessIndicator;
 
 /**
  * Represents a generic error level.
- * 
+ *
  * @author Philip Helger
  */
-public enum EErrorLevel implements IHasID <String>, ISuccessIndicator, IErrorIndicator, ISeverityComparable <EErrorLevel>
+public enum EErrorLevel implements IErrorLevel
 {
   /** Success */
   SUCCESS ("success", 0),
@@ -105,33 +102,33 @@ public enum EErrorLevel implements IHasID <String>, ISuccessIndicator, IErrorInd
     return m_nNumericLevel;
   }
 
-  public boolean isEqualSevereThan (@Nonnull final EErrorLevel eErrorLevel)
+  public boolean isEqualSevereThan (@Nonnull final IErrorLevel aErrorLevel)
   {
-    return getNumericLevel () == eErrorLevel.getNumericLevel ();
+    return getNumericLevel () == aErrorLevel.getNumericLevel ();
   }
 
-  public boolean isLessSevereThan (@Nonnull final EErrorLevel eErrorLevel)
+  public boolean isLessSevereThan (@Nonnull final IErrorLevel aErrorLevel)
   {
-    return getNumericLevel () < eErrorLevel.getNumericLevel ();
+    return getNumericLevel () < aErrorLevel.getNumericLevel ();
   }
 
-  public boolean isLessOrEqualSevereThan (@Nonnull final EErrorLevel eErrorLevel)
+  public boolean isLessOrEqualSevereThan (@Nonnull final IErrorLevel aErrorLevel)
   {
-    return getNumericLevel () <= eErrorLevel.getNumericLevel ();
+    return getNumericLevel () <= aErrorLevel.getNumericLevel ();
   }
 
-  public boolean isMoreSevereThan (@Nonnull final EErrorLevel eErrorLevel)
+  public boolean isMoreSevereThan (@Nonnull final IErrorLevel aErrorLevel)
   {
-    return getNumericLevel () > eErrorLevel.getNumericLevel ();
+    return getNumericLevel () > aErrorLevel.getNumericLevel ();
   }
 
-  public boolean isMoreOrEqualSevereThan (@Nonnull final EErrorLevel eErrorLevel)
+  public boolean isMoreOrEqualSevereThan (@Nonnull final IErrorLevel aErrorLevel)
   {
-    return getNumericLevel () >= eErrorLevel.getNumericLevel ();
+    return getNumericLevel () >= aErrorLevel.getNumericLevel ();
   }
 
   @Nullable
-  public static EErrorLevel getMostSevere (@Nullable final EErrorLevel eLevel1, @Nullable final EErrorLevel eLevel2)
+  public static IErrorLevel getMostSevere (@Nullable final IErrorLevel eLevel1, @Nullable final IErrorLevel eLevel2)
   {
     if (eLevel1 == eLevel2)
       return eLevel1;
