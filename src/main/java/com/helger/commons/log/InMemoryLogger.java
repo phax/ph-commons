@@ -31,6 +31,7 @@ import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IHasErrorLevels;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.IClearable;
@@ -62,7 +63,7 @@ public class InMemoryLogger implements Iterable <LogMessage>, IHasSize, IClearab
    */
   @Nullable
   @OverrideOnDemand
-  protected LogMessage createLogMessage (@Nonnull final EErrorLevel eErrorLevel,
+  protected LogMessage createLogMessage (@Nonnull final IErrorLevel eErrorLevel,
                                          @Nonnull final Serializable aMsg,
                                          @Nullable final Throwable t)
   {
@@ -79,12 +80,12 @@ public class InMemoryLogger implements Iterable <LogMessage>, IHasSize, IClearab
   protected void onAddLogMessage (@Nonnull final LogMessage aLogMessage)
   {}
 
-  public void log (@Nonnull final EErrorLevel eErrorLevel, @Nonnull final Serializable aMsg)
+  public void log (@Nonnull final IErrorLevel eErrorLevel, @Nonnull final Serializable aMsg)
   {
     log (eErrorLevel, aMsg, null);
   }
 
-  public void log (@Nonnull final EErrorLevel eErrorLevel, @Nonnull final Serializable aMsg, @Nullable final Throwable t)
+  public void log (@Nonnull final IErrorLevel eErrorLevel, @Nonnull final Serializable aMsg, @Nullable final Throwable t)
   {
     final LogMessage aLogMessage = createLogMessage (eErrorLevel, aMsg, t);
     if (aLogMessage != null)
@@ -252,20 +253,20 @@ public class InMemoryLogger implements Iterable <LogMessage>, IHasSize, IClearab
   }
 
   @Nonnull
-  public EErrorLevel getMostSevereErrorLevel ()
+  public IErrorLevel getMostSevereErrorLevel ()
   {
-    EErrorLevel eRet = EErrorLevel.SUCCESS;
+    IErrorLevel aRet = EErrorLevel.SUCCESS;
     for (final LogMessage aMessage : m_aMessages)
     {
-      final EErrorLevel eCur = aMessage.getErrorLevel ();
-      if (eCur.isMoreSevereThan (eRet))
+      final IErrorLevel aCur = aMessage.getErrorLevel ();
+      if (aCur.isMoreSevereThan (aRet))
       {
-        eRet = eCur;
-        if (eRet == EErrorLevel.HIGHEST)
+        aRet = aCur;
+        if (aRet == EErrorLevel.HIGHEST)
           break;
       }
     }
-    return eRet;
+    return aRet;
   }
 
   @Nonnull

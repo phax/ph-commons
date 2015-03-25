@@ -38,6 +38,7 @@ import org.xml.sax.ext.LexicalHandler;
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.microdom.EMicroNodeType;
 import com.helger.commons.microdom.IMicroCDATA;
 import com.helger.commons.microdom.IMicroDocument;
@@ -261,9 +262,9 @@ final class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandle
 
   @Nonnull
   @Nonempty
-  private static String _getMsg (@Nonnull final EErrorLevel eErrorLevel, @Nonnull final SAXParseException ex)
+  private static String _getMsg (@Nonnull final IErrorLevel aErrorLevel, @Nonnull final SAXParseException ex)
   {
-    return AbstractSAXErrorHandler.getSaxParseError (eErrorLevel, ex).getAsString (CGlobal.DEFAULT_LOCALE);
+    return AbstractSAXErrorHandler.getSaxParseError (aErrorLevel, ex).getAsString (CGlobal.DEFAULT_LOCALE);
   }
 
   public void warning (final SAXParseException ex)

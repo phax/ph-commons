@@ -24,6 +24,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IResourceError;
 import com.helger.commons.error.IResourceLocation;
 import com.helger.commons.error.ResourceError;
@@ -33,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * java.xml error handler base class.
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractSAXErrorHandler implements ErrorHandler
@@ -50,7 +51,7 @@ public abstract class AbstractSAXErrorHandler implements ErrorHandler
 
   /**
    * Constructor that takes a parent error handler to be called.
-   * 
+   *
    * @param aWrappedErrorHandler
    *        The parent error handler. May be <code>null</code>.
    */
@@ -71,23 +72,23 @@ public abstract class AbstractSAXErrorHandler implements ErrorHandler
   /**
    * Utility method to convert a {@link SAXParseException} into an
    * {@link IResourceError}.
-   * 
-   * @param eErrorLevel
+   *
+   * @param aErrorLevel
    *        The occurred error level. May not be <code>null</code>.
    * @param ex
    *        The exception to convert. May not be <code>null</code>.
    * @return The {@link IResourceError} representation. Never <code>null</code>.
    */
   @Nonnull
-  public static IResourceError getSaxParseError (@Nonnull final EErrorLevel eErrorLevel,
+  public static IResourceError getSaxParseError (@Nonnull final IErrorLevel aErrorLevel,
                                                  @Nonnull final SAXParseException ex)
   {
     final String sResourceID = StringHelper.getConcatenatedOnDemand (ex.getPublicId (), "/", ex.getSystemId ());
     final IResourceLocation aLocation = new ResourceLocation (sResourceID, ex.getLineNumber (), ex.getColumnNumber ());
-    return new ResourceError (aLocation, eErrorLevel, "[SAX] " + ex.getMessage ());
+    return new ResourceError (aLocation, aErrorLevel, "[SAX] " + ex.getMessage ());
   }
 
-  protected abstract void internalLog (@Nonnull EErrorLevel eErrorLevel, @Nonnull SAXParseException aException);
+  protected abstract void internalLog (@Nonnull IErrorLevel aErrorLevel, @Nonnull SAXParseException aException);
 
   public final void warning (final SAXParseException ex) throws SAXException
   {

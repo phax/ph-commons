@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.CodingStyleguideUnaware;
-import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IResourceError;
 import com.helger.commons.log.LogUtils;
 
@@ -66,8 +66,8 @@ public class LoggingTransformErrorListener extends AbstractTransformErrorListene
   @Override
   protected void internalLog (@Nonnull final IResourceError aResError)
   {
-    final EErrorLevel eErrorLevel = aResError.getErrorLevel ();
+    final IErrorLevel aErrorLevel = aResError.getErrorLevel ();
     final String sText = aResError.getAsString (m_aDisplayLocale);
-    LogUtils.log (s_aLogger, eErrorLevel, sText);
+    LogUtils.log (s_aLogger, aErrorLevel, sText);
   }
 }

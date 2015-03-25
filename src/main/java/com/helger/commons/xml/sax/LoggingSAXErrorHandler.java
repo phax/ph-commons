@@ -29,12 +29,12 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.annotations.CodingStyleguideUnaware;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
-import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.log.LogUtils;
 
 /**
  * java.xml error handler that simply logs data to a logger.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -61,16 +61,16 @@ public class LoggingSAXErrorHandler extends AbstractSAXErrorHandler
   @Nonnull
   @Nonempty
   @OverrideOnDemand
-  protected String getErrorMessage (@Nonnull final EErrorLevel eErrorLevel, final SAXParseException aException)
+  protected String getErrorMessage (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
   {
     // XXX As the SAX error messages are not localized at the moment, we can use
     // a fixed locale here
-    return getSaxParseError (eErrorLevel, aException).getAsString (CGlobal.DEFAULT_LOCALE);
+    return getSaxParseError (aErrorLevel, aException).getAsString (CGlobal.DEFAULT_LOCALE);
   }
 
   @Override
-  protected void internalLog (@Nonnull final EErrorLevel eErrorLevel, final SAXParseException aException)
+  protected void internalLog (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
   {
-    LogUtils.log (s_aLogger, eErrorLevel, getErrorMessage (eErrorLevel, aException));
+    LogUtils.log (s_aLogger, aErrorLevel, getErrorMessage (aErrorLevel, aException));
   }
 }

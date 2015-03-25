@@ -141,5 +141,5 @@ public interface IHasErrorLevels
    *         most severe contained error level otherwise.
    */
   @Nonnull
-  EErrorLevel getMostSevereErrorLevel ();
+  IErrorLevel getMostSevereErrorLevel ();
 }

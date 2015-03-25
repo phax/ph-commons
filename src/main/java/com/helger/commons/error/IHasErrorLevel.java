@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Interface representing an object having an error level.
- * 
+ *
  * @author Philip Helger
  */
 public interface IHasErrorLevel
@@ -29,5 +29,5 @@ public interface IHasErrorLevel
    * @return The error level of this object. May not be <code>null</code>.
    */
   @Nonnull
-  EErrorLevel getErrorLevel ();
+  IErrorLevel getErrorLevel ();
 }

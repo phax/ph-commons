@@ -31,6 +31,7 @@ import org.w3c.dom.Node;
 
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IResourceError;
 import com.helger.commons.error.IResourceLocation;
 import com.helger.commons.error.ResourceError;
@@ -85,11 +86,11 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
    *
    * @param nSeverity
    *        The JAXB severity.
-   * @return The matching {@link EErrorLevel}. Never <code>null</code>.
+   * @return The matching {@link IErrorLevel}. Never <code>null</code>.
    */
   @Nonnull
   @OverrideOnDemand
-  protected EErrorLevel getErrorLevel (final int nSeverity)
+  protected IErrorLevel getErrorLevel (final int nSeverity)
   {
     switch (nSeverity)
     {
@@ -136,21 +137,21 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
    * long as no fatal error occurs. This method is only invoked, if no wrapped
    * handler is present.
    *
-   * @param eErrorLevel
+   * @param aErrorLevel
    *        The error level to be checked.
    * @return <code>true</code> if processing should be continued,
    *         <code>false</code> if processing should stop.
    */
   @OverrideOnDemand
-  protected boolean continueProcessing (@Nonnull final EErrorLevel eErrorLevel)
+  protected boolean continueProcessing (@Nonnull final IErrorLevel aErrorLevel)
   {
     // Continue as long as it is no fatal error. On Fatal error stop!
-    return eErrorLevel.isLessSevereThan (EErrorLevel.FATAL_ERROR);
+    return aErrorLevel.isLessSevereThan (EErrorLevel.FATAL_ERROR);
   }
 
   public final boolean handleEvent (@Nonnull final ValidationEvent aEvent)
   {
-    final EErrorLevel eErrorLevel = getErrorLevel (aEvent.getSeverity ());
+    final IErrorLevel aErrorLevel = getErrorLevel (aEvent.getSeverity ());
 
     // call our callback
     final ValidationEventLocator aLocator = aEvent.getLocator ();
@@ -176,7 +177,7 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
         sMsg = "Validation event";
       }
     }
-    onEvent (new ResourceError (aLocation, eErrorLevel, sMsg, aEvent.getLinkedException ()));
+    onEvent (new ResourceError (aLocation, aErrorLevel, sMsg, aEvent.getLinkedException ()));
 
     if (m_aWrappedHandler != null)
     {
@@ -185,7 +186,7 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
     }
 
     // Continue processing?
-    return continueProcessing (eErrorLevel);
+    return continueProcessing (aErrorLevel);
   }
 
   @Override

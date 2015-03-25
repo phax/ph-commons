@@ -28,7 +28,7 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
 
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IHasResourceErrorGroup;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.error.ResourceErrorGroup;
@@ -57,12 +57,12 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler implement
   }
 
   @Override
-  protected void internalLog (@Nonnull final EErrorLevel eErrorLevel, final SAXParseException aException)
+  protected void internalLog (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
   {
     m_aRWLock.writeLock ().lock ();
     try
     {
-      m_aErrors.addResourceError (getSaxParseError (eErrorLevel, aException));
+      m_aErrors.addResourceError (getSaxParseError (aErrorLevel, aException));
     }
     finally
     {

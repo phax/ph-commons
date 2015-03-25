@@ -26,10 +26,11 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IHasErrorLevel;
 
 /**
- * Some utility functions to help integrating the {@link EErrorLevel} enum in
+ * Some utility functions to help integrating the {@link IErrorLevel} enum in
  * this package with SLF4J logger.
  *
  * @author Philip Helger
@@ -89,7 +90,7 @@ public final class LogUtils
    * @return <code>true</code> if the respective log level is allowed,
    *         <code>false</code> if not
    */
-  public static boolean isEnabled (@Nonnull final Class <?> aLoggingClass, @Nonnull final EErrorLevel eErrorLevel)
+  public static boolean isEnabled (@Nonnull final Class <?> aLoggingClass, @Nonnull final IErrorLevel eErrorLevel)
   {
     return isEnabled (LoggerFactory.getLogger (aLoggingClass), eErrorLevel);
   }
@@ -105,7 +106,7 @@ public final class LogUtils
    * @return <code>true</code> if the respective log level is allowed,
    *         <code>false</code> if not
    */
-  public static boolean isEnabled (@Nonnull final Logger aLogger, @Nonnull final EErrorLevel eErrorLevel)
+  public static boolean isEnabled (@Nonnull final Logger aLogger, @Nonnull final IErrorLevel eErrorLevel)
   {
     if (eErrorLevel.isMoreOrEqualSevereThan (EErrorLevel.ERROR))
       return aLogger.isErrorEnabled ();
@@ -147,14 +148,14 @@ public final class LogUtils
   }
 
   public static void log (@Nonnull final Class <?> aLoggingClass,
-                          @Nonnull final EErrorLevel eErrorLevel,
+                          @Nonnull final IErrorLevel aErrorLevel,
                           @Nonnull final String sMsg)
   {
-    log (aLoggingClass, eErrorLevel, sMsg, null);
+    log (aLoggingClass, aErrorLevel, sMsg, null);
   }
 
   public static void log (@Nonnull final Class <?> aLoggingClass,
-                          @Nonnull final EErrorLevel eErrorLevel,
+                          @Nonnull final IErrorLevel eErrorLevel,
                           @Nonnull final String sMsg,
                           @Nullable final Throwable t)
   {
@@ -162,14 +163,14 @@ public final class LogUtils
   }
 
   public static void log (@Nonnull final Logger aLogger,
-                          @Nonnull final EErrorLevel eErrorLevel,
+                          @Nonnull final IErrorLevel eErrorLevel,
                           @Nonnull final String sMsg)
   {
     log (aLogger, eErrorLevel, sMsg, null);
   }
 
   public static void log (@Nonnull final Logger aLogger,
-                          @Nonnull final EErrorLevel eErrorLevel,
+                          @Nonnull final IErrorLevel eErrorLevel,
                           @Nonnull final String sMsg,
                           @Nullable final Throwable t)
   {

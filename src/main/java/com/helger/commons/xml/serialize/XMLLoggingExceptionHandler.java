@@ -30,12 +30,13 @@ import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.callback.LoggingExceptionHandler;
 import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.xml.sax.AbstractSAXErrorHandler;
 
 /**
  * A special version of the {@link LoggingExceptionHandler} that handles the
  * most common XML exceptions in a nice way :)
- * 
+ *
  * @author Philip Helger
  */
 public class XMLLoggingExceptionHandler extends LoggingExceptionHandler
@@ -43,9 +44,9 @@ public class XMLLoggingExceptionHandler extends LoggingExceptionHandler
   public XMLLoggingExceptionHandler ()
   {}
 
-  public XMLLoggingExceptionHandler (@Nonnull final EErrorLevel eErrorLevel)
+  public XMLLoggingExceptionHandler (@Nonnull final IErrorLevel aErrorLevel)
   {
-    super (eErrorLevel);
+    super (aErrorLevel);
   }
 
   @Override

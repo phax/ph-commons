@@ -26,6 +26,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IHasErrorLevel;
 import com.helger.commons.log.LogUtils;
 import com.helger.commons.mock.IMockException;
@@ -34,37 +35,37 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A specific implementation of the {@link IExceptionHandler} interface, that
  * logs all exceptions to a standard logger.
- * 
+ *
  * @author Philip Helger
  */
 public class LoggingExceptionHandler implements IExceptionHandler <Throwable>, IHasErrorLevel
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingExceptionHandler.class);
 
-  private final EErrorLevel m_eErrorLevel;
+  private final IErrorLevel m_aErrorLevel;
 
   public LoggingExceptionHandler ()
   {
     this (EErrorLevel.ERROR);
   }
 
-  public LoggingExceptionHandler (@Nonnull final EErrorLevel eErrorLevel)
+  public LoggingExceptionHandler (@Nonnull final IErrorLevel aErrorLevel)
   {
-    m_eErrorLevel = ValueEnforcer.notNull (eErrorLevel, "ErrorLevel");
+    m_aErrorLevel = ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
   }
 
   /**
    * @return The configured error level. Never <code>null</code>.
    */
   @Nonnull
-  public EErrorLevel getErrorLevel ()
+  public IErrorLevel getErrorLevel ()
   {
-    return m_eErrorLevel;
+    return m_aErrorLevel;
   }
 
   /**
    * Get the text to be logged for a certain exception
-   * 
+   *
    * @param t
    *        The exception to be logged. May theoretically be <code>null</code>.
    * @return The text to be logged. May neither be <code>null</code> nor empty.
@@ -81,7 +82,7 @@ public class LoggingExceptionHandler implements IExceptionHandler <Throwable>, I
 
   /**
    * Check if the passed exception should be part of the log entry.
-   * 
+   *
    * @param t
    *        The exception to check. May theoretically be <code>null</code>.
    * @return <code>true</code> to log the exception, <code>false</code> to not
@@ -97,7 +98,7 @@ public class LoggingExceptionHandler implements IExceptionHandler <Throwable>, I
   {
     final String sLogMessage = getLogMessage (t);
     final boolean bLogException = isLogException (t);
-    LogUtils.log (s_aLogger, m_eErrorLevel, sLogMessage, bLogException ? t : null);
+    LogUtils.log (s_aLogger, m_aErrorLevel, sLogMessage, bLogException ? t : null);
   }
 
   @Override

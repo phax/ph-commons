@@ -23,6 +23,7 @@ import javax.xml.transform.SourceLocator;
 import javax.xml.transform.TransformerException;
 
 import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IResourceError;
 import com.helger.commons.error.IResourceLocation;
 import com.helger.commons.error.ResourceError;
@@ -33,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Abstract implementation of a transformation {@link ErrorListener}.
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractTransformErrorListener implements ErrorListener
@@ -61,7 +62,7 @@ public abstract class AbstractTransformErrorListener implements ErrorListener
 
   @Nonnull
   private static IResourceError _buildError (@Nonnull final TransformerException ex,
-                                             @Nonnull final EErrorLevel eErrorLevel,
+                                             @Nonnull final IErrorLevel aErrorLevel,
                                              @Nonnull final IHasDisplayText aErrorMsg)
   {
     final SourceLocator aLocator = ex.getLocator ();
@@ -71,12 +72,12 @@ public abstract class AbstractTransformErrorListener implements ErrorListener
                                                                                  aLocator.getLineNumber (),
                                                                                  aLocator.getColumnNumber ())
                                                         : new ResourceLocation (ex.getLocationAsString ());
-    return new ResourceError (aLocation, eErrorLevel, aErrorMsg, ex);
+    return new ResourceError (aLocation, aErrorLevel, aErrorMsg, ex);
   }
 
   /**
    * Handle the passed resource error.
-   * 
+   *
    * @param aResError
    *        The resource error to be handled. Never <code>null</code>.
    */

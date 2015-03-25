@@ -21,11 +21,11 @@ import javax.annotation.concurrent.Immutable;
 
 import org.xml.sax.SAXParseException;
 
-import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.IErrorLevel;
 
 /**
  * java.xml error handler that ignores all errors.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -43,7 +43,7 @@ public class DoNothingSAXErrorHandler extends AbstractSAXErrorHandler
   }
 
   @Override
-  protected void internalLog (@Nonnull final EErrorLevel eErrorLevel, final SAXParseException aException)
+  protected void internalLog (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
   {
     // do nothing
   }

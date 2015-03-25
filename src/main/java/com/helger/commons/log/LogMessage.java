@@ -25,7 +25,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IHasErrorLevel;
 import com.helger.commons.error.ISeverityComparable;
 import com.helger.commons.state.IErrorIndicator;
@@ -34,23 +34,23 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Represents a single log message.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public class LogMessage implements IHasErrorLevel, ISuccessIndicator, IErrorIndicator, ISeverityComparable <LogMessage>, Serializable
 {
   private final Date m_aIssueDT;
-  private final EErrorLevel m_eErrorLevel;
+  private final IErrorLevel m_aErrorLevel;
   private final Serializable m_aMsg;
   private final Throwable m_aThrowable;
 
-  public LogMessage (@Nonnull final EErrorLevel eLevel,
+  public LogMessage (@Nonnull final IErrorLevel aErrorLevel,
                      @Nonnull final Serializable aMsg,
                      @Nullable final Throwable aThrowable)
   {
     m_aIssueDT = new Date ();
-    m_eErrorLevel = ValueEnforcer.notNull (eLevel, "ErrorLevel");
+    m_aErrorLevel = ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
     m_aMsg = ValueEnforcer.notNull (aMsg, "Message");
     m_aThrowable = aThrowable;
   }
@@ -64,9 +64,9 @@ public class LogMessage implements IHasErrorLevel, ISuccessIndicator, IErrorIndi
   }
 
   @Nonnull
-  public EErrorLevel getErrorLevel ()
+  public IErrorLevel getErrorLevel ()
   {
-    return m_eErrorLevel;
+    return m_aErrorLevel;
   }
 
   @Nonnull
@@ -83,54 +83,54 @@ public class LogMessage implements IHasErrorLevel, ISuccessIndicator, IErrorIndi
 
   public boolean isSuccess ()
   {
-    return m_eErrorLevel.isSuccess ();
+    return m_aErrorLevel.isSuccess ();
   }
 
   public boolean isFailure ()
   {
-    return m_eErrorLevel.isFailure ();
+    return m_aErrorLevel.isFailure ();
   }
 
   public boolean isError ()
   {
-    return m_eErrorLevel.isError ();
+    return m_aErrorLevel.isError ();
   }
 
   public boolean isNoError ()
   {
-    return m_eErrorLevel.isNoError ();
+    return m_aErrorLevel.isNoError ();
   }
 
   public boolean isEqualSevereThan (@Nonnull final LogMessage aOther)
   {
-    return m_eErrorLevel.isEqualSevereThan (aOther.m_eErrorLevel);
+    return m_aErrorLevel.isEqualSevereThan (aOther.m_aErrorLevel);
   }
 
   public boolean isLessSevereThan (@Nonnull final LogMessage aOther)
   {
-    return m_eErrorLevel.isLessSevereThan (aOther.m_eErrorLevel);
+    return m_aErrorLevel.isLessSevereThan (aOther.m_aErrorLevel);
   }
 
   public boolean isLessOrEqualSevereThan (@Nonnull final LogMessage aOther)
   {
-    return m_eErrorLevel.isLessOrEqualSevereThan (aOther.m_eErrorLevel);
+    return m_aErrorLevel.isLessOrEqualSevereThan (aOther.m_aErrorLevel);
   }
 
   public boolean isMoreSevereThan (@Nonnull final LogMessage aOther)
   {
-    return m_eErrorLevel.isMoreSevereThan (aOther.m_eErrorLevel);
+    return m_aErrorLevel.isMoreSevereThan (aOther.m_aErrorLevel);
   }
 
   public boolean isMoreOrEqualSevereThan (@Nonnull final LogMessage aOther)
   {
-    return m_eErrorLevel.isMoreOrEqualSevereThan (aOther.m_eErrorLevel);
+    return m_aErrorLevel.isMoreOrEqualSevereThan (aOther.m_aErrorLevel);
   }
 
   @Override
   public String toString ()
   {
     return new ToStringGenerator (this).append ("issueDT", m_aIssueDT)
-                                       .append ("errorLevel", m_eErrorLevel)
+                                       .append ("errorLevel", m_aErrorLevel)
                                        .append ("msg", m_aMsg)
                                        .appendIfNotNull ("throwable", m_aThrowable)
                                        .toString ();

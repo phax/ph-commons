@@ -33,46 +33,46 @@ import com.helger.commons.text.impl.ConstantTextProvider;
 /**
  * Default implementation of the {@link IResourceError} interface. The
  * implementation is immutable.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
 public class ResourceError implements IResourceError
 {
   private final IResourceLocation m_aLocation;
-  private final EErrorLevel m_eErrorLevel;
+  private final IErrorLevel m_aErrorLevel;
   private final IHasDisplayText m_aErrorText;
   private final Throwable m_aLinkedException;
 
   public ResourceError (@Nonnull final IResourceLocation aLocation,
-                        @Nonnull final EErrorLevel eErrorLevel,
+                        @Nonnull final IErrorLevel aErrorLevel,
                         @Nonnull final String sErrorText)
   {
-    this (aLocation, eErrorLevel, sErrorText, null);
+    this (aLocation, aErrorLevel, sErrorText, null);
   }
 
   public ResourceError (@Nonnull final IResourceLocation aLocation,
-                        @Nonnull final EErrorLevel eErrorLevel,
+                        @Nonnull final IErrorLevel aErrorLevel,
                         @Nonnull final String sErrorText,
                         @Nullable final Throwable aLinkedException)
   {
-    this (aLocation, eErrorLevel, new ConstantTextProvider (sErrorText), aLinkedException);
+    this (aLocation, aErrorLevel, new ConstantTextProvider (sErrorText), aLinkedException);
   }
 
   public ResourceError (@Nonnull final IResourceLocation aLocation,
-                        @Nonnull final EErrorLevel eErrorLevel,
+                        @Nonnull final IErrorLevel aErrorLevel,
                         @Nonnull final IHasDisplayText aErrorText)
   {
-    this (aLocation, eErrorLevel, aErrorText, null);
+    this (aLocation, aErrorLevel, aErrorText, null);
   }
 
   public ResourceError (@Nonnull final IResourceLocation aLocation,
-                        @Nonnull final EErrorLevel eErrorLevel,
+                        @Nonnull final IErrorLevel aErrorLevel,
                         @Nonnull final IHasDisplayText aErrorText,
                         @Nullable final Throwable aLinkedException)
   {
     m_aLocation = ValueEnforcer.notNull (aLocation, "Location");
-    m_eErrorLevel = ValueEnforcer.notNull (eErrorLevel, "ErrorLevel");
+    m_aErrorLevel = ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
     m_aErrorText = ValueEnforcer.notNull (aErrorText, "ErrorText");
     m_aLinkedException = aLinkedException;
   }
@@ -84,9 +84,9 @@ public class ResourceError implements IResourceError
   }
 
   @Nonnull
-  public final EErrorLevel getErrorLevel ()
+  public final IErrorLevel getErrorLevel ()
   {
-    return m_eErrorLevel;
+    return m_aErrorLevel;
   }
 
   @Nullable
@@ -106,7 +106,7 @@ public class ResourceError implements IResourceError
   @OverrideOnDemand
   public String getAsString (@Nonnull final Locale aDisplayLocale)
   {
-    String ret = "[" + m_eErrorLevel.getID () + "] ";
+    String ret = "[" + m_aErrorLevel.getID () + "] ";
 
     // Location
     final String sLocation = m_aLocation.getAsString ();
@@ -124,47 +124,47 @@ public class ResourceError implements IResourceError
 
   public boolean isSuccess ()
   {
-    return m_eErrorLevel.isSuccess ();
+    return m_aErrorLevel.isSuccess ();
   }
 
   public boolean isFailure ()
   {
-    return m_eErrorLevel.isFailure ();
+    return m_aErrorLevel.isFailure ();
   }
 
   public boolean isError ()
   {
-    return m_eErrorLevel.isError ();
+    return m_aErrorLevel.isError ();
   }
 
   public boolean isNoError ()
   {
-    return m_eErrorLevel.isNoError ();
+    return m_aErrorLevel.isNoError ();
   }
 
   public boolean isEqualSevereThan (@Nonnull final IResourceError aOther)
   {
-    return m_eErrorLevel.isEqualSevereThan (aOther.getErrorLevel ());
+    return m_aErrorLevel.isEqualSevereThan (aOther.getErrorLevel ());
   }
 
   public boolean isLessSevereThan (@Nonnull final IResourceError aOther)
   {
-    return m_eErrorLevel.isLessSevereThan (aOther.getErrorLevel ());
+    return m_aErrorLevel.isLessSevereThan (aOther.getErrorLevel ());
   }
 
   public boolean isLessOrEqualSevereThan (@Nonnull final IResourceError aOther)
   {
-    return m_eErrorLevel.isLessOrEqualSevereThan (aOther.getErrorLevel ());
+    return m_aErrorLevel.isLessOrEqualSevereThan (aOther.getErrorLevel ());
   }
 
   public boolean isMoreSevereThan (@Nonnull final IResourceError aOther)
   {
-    return m_eErrorLevel.isMoreSevereThan (aOther.getErrorLevel ());
+    return m_aErrorLevel.isMoreSevereThan (aOther.getErrorLevel ());
   }
 
   public boolean isMoreOrEqualSevereThan (@Nonnull final IResourceError aOther)
   {
-    return m_eErrorLevel.isMoreOrEqualSevereThan (aOther.getErrorLevel ());
+    return m_aErrorLevel.isMoreOrEqualSevereThan (aOther.getErrorLevel ());
   }
 
   @Override
@@ -177,7 +177,7 @@ public class ResourceError implements IResourceError
     final ResourceError rhs = (ResourceError) o;
     // Do not include the exception, because it is not comparable
     return m_aLocation.equals (rhs.m_aLocation) &&
-           m_eErrorLevel.equals (rhs.m_eErrorLevel) &&
+           m_aErrorLevel.equals (rhs.m_aErrorLevel) &&
            m_aErrorText.equals (rhs.m_aErrorText);
   }
 
@@ -186,7 +186,7 @@ public class ResourceError implements IResourceError
   {
     // Do not include the exception, because it is not comparable
     return new HashCodeGenerator (this).append (m_aLocation)
-                                       .append (m_eErrorLevel)
+                                       .append (m_aErrorLevel)
                                        .append (m_aErrorText)
                                        .getHashCode ();
   }
@@ -195,7 +195,7 @@ public class ResourceError implements IResourceError
   public String toString ()
   {
     return new ToStringGenerator (this).append ("location", m_aLocation)
-                                       .append ("errorLevel", m_eErrorLevel)
+                                       .append ("errorLevel", m_aErrorLevel)
                                        .append ("errorText", m_aErrorText)
                                        .appendIfNotNull ("linkedException", m_aLinkedException)
                                        .toString ();
