@@ -302,8 +302,9 @@ public final class PHTestUtils
    *
    * @param aObj
    *        The object to test
+   * @return The object read after conversion
    */
-  public static void testMicroTypeConversion (@Nonnull final Object aObj)
+  public static <T> T testMicroTypeConversion (@Nonnull final T aObj)
   {
     assertNotNull (aObj);
 
@@ -326,6 +327,8 @@ public final class PHTestUtils
 
     // Ensure they are equals
     testDefaultImplementationWithEqualContentObject (aObj, aObj2);
+
+    return GenericReflection.<Object, T> uncheckedCast (aObj2);
   }
 
   /**
