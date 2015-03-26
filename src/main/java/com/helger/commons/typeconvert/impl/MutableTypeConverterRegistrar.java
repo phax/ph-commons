@@ -16,11 +16,16 @@
  */
 package com.helger.commons.typeconvert.impl;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotations.IsSPIImplementation;
+import com.helger.commons.mutable.MutableBigDecimal;
+import com.helger.commons.mutable.MutableBigInteger;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.mutable.MutableByte;
 import com.helger.commons.mutable.MutableChar;
@@ -38,7 +43,7 @@ import com.helger.commons.typeconvert.rule.AbstractTypeConverterRuleFixedSourceA
 
 /**
  * Register the mutable* specific type converter
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -47,6 +52,72 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
 {
   public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
   {
+    // MutableBigDecimal
+    aRegistry.registerTypeConverter (MutableBigDecimal.class, BigDecimal.class, new ITypeConverter ()
+    {
+      public BigDecimal convert (@Nonnull final Object aSource)
+      {
+        return ((MutableBigDecimal) aSource).getAsBigDecimal ();
+      }
+    });
+    aRegistry.registerTypeConverter (BigDecimal.class, MutableBigDecimal.class, new ITypeConverter ()
+    {
+      public MutableBigDecimal convert (@Nonnull final Object aSource)
+      {
+        return new MutableBigDecimal ((BigDecimal) aSource);
+      }
+    });
+    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleFixedSourceAnyDestination (MutableBigDecimal.class)
+    {
+      @Override
+      @Nonnull
+      protected Object getInBetweenValue (@Nonnull final Object aSource)
+      {
+        return ((MutableBigDecimal) aSource).getAsBigDecimal ();
+      }
+    });
+    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (MutableBigDecimal.class)
+    {
+      @Nullable
+      public MutableBigDecimal convert (@Nonnull final Object aSource)
+      {
+        return new MutableBigDecimal (TypeConverter.convertIfNecessary (aSource, BigDecimal.class));
+      }
+    });
+
+    // MutableBigInteger
+    aRegistry.registerTypeConverter (MutableBigInteger.class, BigInteger.class, new ITypeConverter ()
+    {
+      public BigInteger convert (@Nonnull final Object aSource)
+      {
+        return ((MutableBigInteger) aSource).getAsBigInteger ();
+      }
+    });
+    aRegistry.registerTypeConverter (BigInteger.class, MutableBigInteger.class, new ITypeConverter ()
+    {
+      public MutableBigInteger convert (@Nonnull final Object aSource)
+      {
+        return new MutableBigInteger ((BigInteger) aSource);
+      }
+    });
+    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleFixedSourceAnyDestination (MutableBigInteger.class)
+    {
+      @Override
+      @Nonnull
+      protected Object getInBetweenValue (@Nonnull final Object aSource)
+      {
+        return ((MutableBigInteger) aSource).getAsBigInteger ();
+      }
+    });
+    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (MutableBigInteger.class)
+    {
+      @Nullable
+      public MutableBigInteger convert (@Nonnull final Object aSource)
+      {
+        return new MutableBigInteger (TypeConverter.convertIfNecessary (aSource, BigInteger.class));
+      }
+    });
+
     // MutableBoolean
     aRegistry.registerTypeConverter (MutableBoolean.class, Boolean.class, new ITypeConverter ()
     {
