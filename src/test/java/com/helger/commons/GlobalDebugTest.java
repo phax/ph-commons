@@ -32,54 +32,34 @@ public final class GlobalDebugTest
   {
     GlobalDebug.setProductionModeDirect (GlobalDebug.DEFAULT_PRODUCTION_MODE);
     GlobalDebug.setDebugModeDirect (GlobalDebug.DEFAULT_DEBUG_MODE);
-    GlobalDebug.setTraceModeDirect (GlobalDebug.DEFAULT_TRACE_MODE);
   }
 
   @Test
   public void testInstance ()
   {
     final GlobalDebug g = new GlobalDebug ();
-    assertFalse (GlobalDebug.isTraceMode ());
     assertTrue (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
 
     // implicitly disables debug and trace mode
     g.setProductionMode (true);
-    assertFalse (GlobalDebug.isTraceMode ());
     assertFalse (GlobalDebug.isDebugMode ());
     assertTrue (GlobalDebug.isProductionMode ());
 
     g.setProductionMode (false);
-    assertFalse (GlobalDebug.isTraceMode ());
     assertFalse (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
 
     g.setDebugMode (true);
-    assertFalse (GlobalDebug.isTraceMode ());
     assertTrue (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
 
-    // Implicitly enables debug mode
-    g.setTraceMode (true);
-    assertTrue (GlobalDebug.isTraceMode ());
-    assertTrue (GlobalDebug.isDebugMode ());
-    assertFalse (GlobalDebug.isProductionMode ());
-
-    // Implicitly disables trace mode
     g.setDebugMode (false);
-    assertFalse (GlobalDebug.isTraceMode ());
     assertFalse (GlobalDebug.isDebugMode ());
-    assertFalse (GlobalDebug.isProductionMode ());
-
-    // Implicitly enables debug mode
-    g.setTraceMode (true);
-    assertTrue (GlobalDebug.isTraceMode ());
-    assertTrue (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
 
     _setToDefault ();
 
-    assertTrue (GlobalDebug.DEFAULT_TRACE_MODE == GlobalDebug.isTraceMode ());
     assertTrue (GlobalDebug.DEFAULT_DEBUG_MODE == GlobalDebug.isDebugMode ());
     assertTrue (GlobalDebug.DEFAULT_PRODUCTION_MODE == GlobalDebug.isProductionMode ());
   }
@@ -87,39 +67,24 @@ public final class GlobalDebugTest
   @Test
   public void testStatic ()
   {
-    GlobalDebug.setTraceModeDirect (false);
-    assertFalse (GlobalDebug.isTraceMode ());
-    assertTrue (GlobalDebug.isDebugMode ());
-    assertFalse (GlobalDebug.isProductionMode ());
-
-    GlobalDebug.setTraceModeDirect (true);
-    assertTrue (GlobalDebug.isTraceMode ());
-    assertTrue (GlobalDebug.isDebugMode ());
-    assertFalse (GlobalDebug.isProductionMode ());
-
     GlobalDebug.setDebugModeDirect (false);
-    assertFalse (GlobalDebug.isTraceMode ());
     assertFalse (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
 
     GlobalDebug.setDebugModeDirect (true);
-    assertFalse (GlobalDebug.isTraceMode ());
     assertTrue (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
 
     GlobalDebug.setProductionModeDirect (true);
-    assertFalse (GlobalDebug.isTraceMode ());
     assertFalse (GlobalDebug.isDebugMode ());
     assertTrue (GlobalDebug.isProductionMode ());
 
     GlobalDebug.setProductionModeDirect (false);
-    assertFalse (GlobalDebug.isTraceMode ());
     assertFalse (GlobalDebug.isDebugMode ());
     assertFalse (GlobalDebug.isProductionMode ());
 
     _setToDefault ();
 
-    assertTrue (GlobalDebug.DEFAULT_TRACE_MODE == GlobalDebug.isTraceMode ());
     assertTrue (GlobalDebug.DEFAULT_DEBUG_MODE == GlobalDebug.isDebugMode ());
     assertTrue (GlobalDebug.DEFAULT_PRODUCTION_MODE == GlobalDebug.isProductionMode ());
   }

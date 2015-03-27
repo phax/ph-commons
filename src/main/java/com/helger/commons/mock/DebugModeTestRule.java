@@ -22,30 +22,25 @@ import com.helger.commons.GlobalDebug;
 
 /**
  * A JUnit test rule that sets global debug and trace flag for a test
- * 
+ *
  * @author Philip Helger
  */
 public final class DebugModeTestRule extends ExternalResource
 {
   /** When this rule is used, global debug is enabled. */
   public static final boolean ENABLE_GLOBAL_DEBUG = true;
-  /** When this rule is used, global trace is disabled. */
-  public static final boolean ENABLE_GLOBAL_TRACE = false;
 
   private final boolean m_bDebug;
-  private final boolean m_bTrace;
   private boolean m_bOldDebug;
-  private boolean m_bOldTrace;
 
   public DebugModeTestRule ()
   {
-    this (ENABLE_GLOBAL_DEBUG, ENABLE_GLOBAL_TRACE);
+    this (ENABLE_GLOBAL_DEBUG);
   }
 
-  public DebugModeTestRule (final boolean bDebug, final boolean bTrace)
+  public DebugModeTestRule (final boolean bDebug)
   {
     m_bDebug = bDebug;
-    m_bTrace = bTrace;
   }
 
   @Override
@@ -53,11 +48,9 @@ public final class DebugModeTestRule extends ExternalResource
   {
     // Remember old states
     m_bOldDebug = GlobalDebug.isDebugMode ();
-    m_bOldTrace = GlobalDebug.isTraceMode ();
 
     // Init debug stuff to state specified in ctor
     GlobalDebug.setDebugModeDirect (m_bDebug);
-    GlobalDebug.setTraceModeDirect (m_bTrace);
   }
 
   @Override
@@ -65,6 +58,5 @@ public final class DebugModeTestRule extends ExternalResource
   {
     // Reset debug stuff to previous state
     GlobalDebug.setDebugModeDirect (m_bOldDebug);
-    GlobalDebug.setTraceModeDirect (m_bOldTrace);
   }
 }

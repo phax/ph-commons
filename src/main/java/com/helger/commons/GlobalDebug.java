@@ -36,10 +36,6 @@ import javax.annotation.concurrent.ThreadSafe;
 public final class GlobalDebug
 {
   /**
-   * By default trace mode is disabled
-   */
-  public static final boolean DEFAULT_TRACE_MODE = false;
-  /**
    * By default debug mode is enabled
    */
   public static final boolean DEFAULT_DEBUG_MODE = true;
@@ -48,15 +44,8 @@ public final class GlobalDebug
    */
   public static final boolean DEFAULT_PRODUCTION_MODE = false;
 
-  private static final AtomicBoolean s_aTraceMode = new AtomicBoolean (DEFAULT_TRACE_MODE);
   private static final AtomicBoolean s_aDebugMode = new AtomicBoolean (DEFAULT_DEBUG_MODE);
   private static final AtomicBoolean s_aProductionMode = new AtomicBoolean (DEFAULT_PRODUCTION_MODE);
-
-  // to set it per dependency injection
-  public void setTraceMode (final boolean bTraceMode)
-  {
-    setTraceModeDirect (bTraceMode);
-  }
 
   // to set it per dependency injection
   public void setDebugMode (final boolean bDebugMode)
@@ -68,22 +57,6 @@ public final class GlobalDebug
   public void setProductionMode (final boolean bProductionMode)
   {
     setProductionModeDirect (bProductionMode);
-  }
-
-  /**
-   * Enable or disable trace mode. If trace mode is enabled, also debug mode is
-   * enabled.
-   *
-   * @param bTraceMode
-   *        <code>true</code> to enable, <code>false</code> to disable
-   */
-  public static void setTraceModeDirect (final boolean bTraceMode)
-  {
-    s_aTraceMode.set (bTraceMode);
-
-    // If enabling trace mode, also enable debug mode
-    if (bTraceMode)
-      setDebugModeDirect (true);
   }
 
   /**
@@ -124,10 +97,6 @@ public final class GlobalDebug
     s_aDebugMode.set (bDebugMode);
 
     setJavaCommonComponentsDebugMode (bDebugMode);
-
-    // If disabling debug mode, also disable trace mode
-    if (!bDebugMode)
-      setTraceModeDirect (false);
   }
 
   /**
@@ -144,15 +113,6 @@ public final class GlobalDebug
     // If enabling production mode, disable debug and trace mode
     if (bProductionMode)
       setDebugModeDirect (false);
-  }
-
-  /**
-   * @return <code>true</code> if trace mode is active, <code>false</code> if
-   *         not
-   */
-  public static boolean isTraceMode ()
-  {
-    return s_aTraceMode.get ();
   }
 
   /**
