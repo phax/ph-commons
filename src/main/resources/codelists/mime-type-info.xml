@@ -237,6 +237,7 @@
     <mime-type>application/pgp-encrypted</mime-type>
     <mime-type>application/pgp</mime-type>
     <comment>PGP/MIME-encrypted message header</comment>
+    <parent-type>text/plain</parent-type>
     <extension>pgp</extension>
     <extension>gpg</extension>
     <extension>asc</extension>
@@ -374,8 +375,8 @@
     <extension>siv</extension>
   </item>
   <item source="shared-mime-info">
-    <mime-type>application/smil</mime-type>
     <mime-type>application/smil+xml</mime-type>
+    <mime-type>application/smil</mime-type>
     <comment>SMIL document</comment>
     <parent-type>application/xml</parent-type>
     <extension>smil</extension>
@@ -430,6 +431,14 @@
     <mime-type>zz-application/zz-winassoc-cdr</mime-type>
     <comment>Corel Draw drawing</comment>
     <extension>cdr</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.debian.binary-package</mime-type>
+    <mime-type>application/x-deb</mime-type>
+    <mime-type>application/x-debian-package</mime-type>
+    <comment>Debian package</comment>
+    <extension>deb</extension>
+    <extension>udeb</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/vnd.emusic-emusic_package</mime-type>
@@ -1250,12 +1259,6 @@
     <extension>dc</extension>
   </item>
   <item source="shared-mime-info">
-    <mime-type>application/x-deb</mime-type>
-    <mime-type>application/x-debian-package</mime-type>
-    <comment>Debian package</comment>
-    <extension>deb</extension>
-  </item>
-  <item source="shared-mime-info">
     <mime-type>application/x-designer</mime-type>
     <comment>Qt Designer file</comment>
     <parent-type>application/xml</parent-type>
@@ -1292,6 +1295,7 @@
     <mime-type>application/vnd.oasis.docbook+xml</mime-type>
     <comment>DocBook document</comment>
     <parent-type>application/xml</parent-type>
+    <extension>dbk</extension>
     <extension>docbook</extension>
   </item>
   <item source="shared-mime-info">
@@ -1340,6 +1344,7 @@
   <item source="shared-mime-info">
     <mime-type>application/x-font-otf</mime-type>
     <comment>OpenType font</comment>
+    <parent-type>application/x-font-ttf</parent-type>
     <extension>otf</extension>
   </item>
   <item source="shared-mime-info">
@@ -1845,6 +1850,8 @@
     <mime-type>application/x-n64-rom</mime-type>
     <comment>Nintendo64 ROM</comment>
     <extension>n64</extension>
+    <extension>z64</extension>
+    <extension>v64</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-navi-animation</mime-type>
@@ -1890,6 +1897,15 @@
     <extension>oleo</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>application/x-pagemaker</mime-type>
+    <comment>Adobe PageMaker</comment>
+    <parent-type>application/x-ole-storage</parent-type>
+    <extension>p65</extension>
+    <extension>pm</extension>
+    <extension>pm6</extension>
+    <extension>pmd</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>application/x-pak</mime-type>
     <comment>PAK archive</comment>
     <extension>pak</extension>
@@ -1899,6 +1915,13 @@
     <comment>Parchive archive</comment>
     <extension>PAR2</extension>
     <extension>par2</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-partial-download</mime-type>
+    <comment>Partially downloaded file</comment>
+    <extension>wkdownload</extension>
+    <extension>crdownload</extension>
+    <extension>part</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-pc-engine-rom</mime-type>
@@ -1978,6 +2001,11 @@
     <comment>Python bytecode</comment>
     <extension>pyc</extension>
     <extension>pyo</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-qpress</mime-type>
+    <comment>Qpress archive</comment>
+    <extension>qp</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-qtiplot</mime-type>
@@ -2221,6 +2249,7 @@
   <item source="shared-mime-info">
     <mime-type>application/x-wais-source</mime-type>
     <comment>WAIS source code</comment>
+    <parent-type>text/plain</parent-type>
     <extension>src</extension>
   </item>
   <item source="shared-mime-info">
@@ -2368,6 +2397,11 @@
     <mime-type>application/x-zip</mime-type>
     <comment>Zip archive</comment>
     <extension>zip</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/zlib</mime-type>
+    <comment>Zlib archive</comment>
+    <extension>zz</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>audio/aac</mime-type>
@@ -2838,7 +2872,7 @@
     <mime-type>image/x-ico</mime-type>
     <mime-type>image/x-icon</mime-type>
     <mime-type>text/ico</mime-type>
-    <comment>Microsoft icon</comment>
+    <comment>Windows icon</comment>
     <extension>ico</extension>
   </item>
   <item source="shared-mime-info">
@@ -2872,11 +2906,6 @@
     <parent-type>image/x-dcraw</parent-type>
     <parent-type>image/tiff</parent-type>
     <extension>dng</extension>
-  </item>
-  <item source="shared-mime-info">
-    <mime-type>image/x-apple-ios-png</mime-type>
-    <comment>Apple optimised PNG image</comment>
-    <extension>png</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>image/x-applix-graphics</mime-type>
@@ -3283,6 +3312,15 @@
     <extension>uls</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>text/markdown</mime-type>
+    <mime-type>text/x-markdown</mime-type>
+    <comment>Markdown document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>md</extension>
+    <extension>mkd</extension>
+    <extension>markdown</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>text/plain</mime-type>
     <comment>plain text document</comment>
     <glob>*,v</glob>
@@ -3527,6 +3565,12 @@
     <extension>for</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>text/x-genie</mime-type>
+    <comment>Genie source code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>gs</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>text/x-gettext-translation</mime-type>
     <mime-type>text/x-po</mime-type>
     <mime-type>application/x-gettext</mime-type>
@@ -3631,14 +3675,6 @@
     <glob>Makefile.*</glob>
     <extension>mk</extension>
     <extension>mak</extension>
-  </item>
-  <item source="shared-mime-info">
-    <mime-type>text/x-markdown</mime-type>
-    <comment>Markdown document</comment>
-    <parent-type>text/plain</parent-type>
-    <extension>md</extension>
-    <extension>mkd</extension>
-    <extension>markdown</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>text/x-matlab</mime-type>
@@ -3761,6 +3797,8 @@
     <mime-type>text/x-qml</mime-type>
     <comment>Qt Markup Language file</comment>
     <extension>qml</extension>
+    <extension>qmltypes</extension>
+    <extension>qmlproject</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>text/x-readme</mime-type>
@@ -3793,6 +3831,14 @@
     <parent-type>text/plain</parent-type>
     <extension>scm</extension>
     <extension>ss</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-scons</mime-type>
+    <comment>SCons configuration file</comment>
+    <parent-type>text/x-python</parent-type>
+    <glob>SConstruct</glob>
+    <glob>SConscript</glob>
+    <glob>SConscript.*</glob>
   </item>
   <item source="shared-mime-info">
     <mime-type>text/x-setext</mime-type>
@@ -3997,6 +4043,7 @@
     <extension>mp4</extension>
     <extension>m4v</extension>
     <extension>f4v</extension>
+    <extension>lrv</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>video/mpeg</mime-type>
@@ -4029,13 +4076,6 @@
     <extension>qtvr</extension>
   </item>
   <item source="shared-mime-info">
-    <mime-type>video/vivo</mime-type>
-    <mime-type>video/vnd.vivo</mime-type>
-    <comment>Vivo video</comment>
-    <extension>viv</extension>
-    <extension>vivo</extension>
-  </item>
-  <item source="shared-mime-info">
     <mime-type>video/vnd.mpegurl</mime-type>
     <mime-type>video/x-mpegurl</mime-type>
     <comment>MPEG video (streamed)</comment>
@@ -4050,6 +4090,13 @@
     <comment>RealVideo document</comment>
     <extension>rv</extension>
     <extension>rvx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>video/vnd.vivo</mime-type>
+    <mime-type>video/vivo</mime-type>
+    <comment>Vivo video</comment>
+    <extension>viv</extension>
+    <extension>vivo</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>video/webm</mime-type>

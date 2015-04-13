@@ -31,7 +31,7 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.exceptions.InitializationException;
 import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.reader.XMLMapHandler;
@@ -82,7 +82,7 @@ public final class MainReadSharedMimeInfo
   public static void main (final String [] args)
   {
     s_aLogger.info ("Reading shared-mime-info/freedesktop.org.xml");
-    final IMicroDocument aDoc = MicroReader.readMicroXML (new ClassPathResource ("shared-mime-info/freedesktop.org.xml"));
+    final IMicroDocument aDoc = MicroReader.readMicroXML (new File ("src/test/resources/shared-mime-info/freedesktop.org.xml"));
     if (aDoc == null)
       throw new IllegalStateException ("Failed to read mime type info file!");
 
@@ -147,8 +147,9 @@ public final class MainReadSharedMimeInfo
     // Maps file extension to MIME type
     s_aLogger.info ("Reading shared-mime-info/fileext-mimetype-mapping-local.xml");
     final Map <String, String> m_aFileExtMap = new HashMap <String, String> ();
-    if (XMLMapHandler.readMap (new ClassPathResource ("shared-mime-info/fileext-mimetype-mapping-local.xml"),
-                               m_aFileExtMap).isFailure ())
+    if (XMLMapHandler.readMap (new FileSystemResource ("src/test/resources/shared-mime-info/fileext-mimetype-mapping-local.xml"),
+                               m_aFileExtMap)
+                     .isFailure ())
       throw new InitializationException ("Failed to init file extension to mimetype mapping file");
 
     s_aLogger.info ("Read " + m_aFileExtMap.size () + " entries");
