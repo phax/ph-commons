@@ -71,6 +71,9 @@ public final class MimeTypeInfoManagerTest
     assertTrue (aMgr.getAllMimeTypeStringsForExtension ("XLS").contains (CMimeType.APPLICATION_MS_EXCEL.getAsString ()));
     assertTrue (aMgr.getAllMimeTypeStringsForExtension ("abersichernicht").isEmpty ());
 
+    assertTrue (aMgr.getAllMimeTypesForExtension ("xml").contains (CMimeType.APPLICATION_XML));
+    assertTrue (aMgr.getAllMimeTypesForExtension ("xml").contains (CMimeType.TEXT_XML));
+
     assertEquals (CMimeType.APPLICATION_MS_EXCEL.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("xls"));
     assertEquals (CMimeType.APPLICATION_MS_EXCEL.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("XLS"));
     assertEquals (CMimeType.APPLICATION_MS_EXCEL_2007.getAsString (),
@@ -80,7 +83,7 @@ public final class MimeTypeInfoManagerTest
     assertEquals (CMimeType.APPLICATION_MS_POWERPOINT.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("ppt"));
     assertEquals (CMimeType.APPLICATION_MS_POWERPOINT_2007.getAsString (),
                   aMgr.getPrimaryMimeTypeStringForExtension ("pptx"));
-    assertEquals (CMimeType.TEXT_XML.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("xml"));
+    assertEquals (CMimeType.APPLICATION_XML.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("xml"));
     assertNull (aMgr.getPrimaryMimeTypeStringForExtension ("waerhaettedasgedacht"));
 
     for (final String sExt : new String [] { "xls",
@@ -137,6 +140,7 @@ public final class MimeTypeInfoManagerTest
     assertNull (aMgr.getPrimaryExtensionOfMimeType (CMimeType.MULTIPART_FORMDATA));
   }
 
+  @SuppressWarnings ("deprecation")
   @Test
   public void testKnownSpecial ()
   {
@@ -159,8 +163,8 @@ public final class MimeTypeInfoManagerTest
     if (false) // not contained
       assertTrue (aAllKnown.contains (CMimeType.APPLICATION_JAVA_APPLET));
     assertTrue (aAllKnown.contains (CMimeType.APPLICATION_XHTML_XML));
-    assertTrue (aAllKnown.contains (CMimeType.APPLICATION_WAP_XHTML_XML));
-    assertTrue (aAllKnown.contains (CMimeType.APPLICATION_TEXT_HTML));
+    if (false) // not contained
+      assertTrue (aAllKnown.contains (CMimeType.APPLICATION_TEXT_HTML));
     if (false) // special!
       assertTrue (aAllKnown.contains (CMimeType.APPLICATION_X_WWW_FORM_URLENCODED));
     assertTrue (aAllKnown.contains (CMimeType.APPLICATION_XML));
@@ -185,10 +189,12 @@ public final class MimeTypeInfoManagerTest
     // text
     assertTrue (aAllKnown.contains (CMimeType.TEXT_CSV));
     assertTrue (aAllKnown.contains (CMimeType.TEXT_HTML));
-    assertTrue (aAllKnown.contains (CMimeType.TEXT_HTML_SANDBOXED));
+    if (false) // not contained
+      assertTrue (aAllKnown.contains (CMimeType.TEXT_HTML_SANDBOXED));
     assertTrue (aAllKnown.contains (CMimeType.TEXT_JAVASCRIPT));
     assertTrue (aAllKnown.contains (CMimeType.TEXT_PLAIN));
-    assertTrue (aAllKnown.contains (CMimeType.TEXT_XHTML_XML));
+    if (false) // not contained
+      assertTrue (aAllKnown.contains (CMimeType.TEXT_XHTML_XML));
     assertTrue (aAllKnown.contains (CMimeType.TEXT_XML));
     assertTrue (aAllKnown.contains (CMimeType.TEXT_CSS));
     if (false) // special

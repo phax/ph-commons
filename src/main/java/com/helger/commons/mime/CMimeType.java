@@ -77,12 +77,15 @@ public final class CMimeType
   public static final IMimeType APPLICATION_XML = EMimeContentType.APPLICATION.buildMimeType ("xml");
 
   /** XHTML document. */
+  @Deprecated
   public static final IMimeType APPLICATION_XHTML_XML = EMimeContentType.APPLICATION.buildMimeType ("xhtml+xml");
 
   /** WAP XHTML document */
+  @Deprecated
   public static final IMimeType APPLICATION_WAP_XHTML_XML = EMimeContentType.APPLICATION.buildMimeType ("vnd.wap.xhtml+xml");
 
   /** HTML document. */
+  @Deprecated
   public static final IMimeType APPLICATION_TEXT_HTML = EMimeContentType.APPLICATION.buildMimeType ("text+html");
 
   /** For URL posting. Not used in filenames! */
@@ -137,6 +140,7 @@ public final class CMimeType
   public static final IMimeType TEXT_PLAIN = EMimeContentType.TEXT.buildMimeType ("plain");
 
   /** XHTML document. */
+  @Deprecated
   public static final IMimeType TEXT_XHTML_XML = EMimeContentType.TEXT.buildMimeType ("xhtml+xml");
 
   /** XML document. */
