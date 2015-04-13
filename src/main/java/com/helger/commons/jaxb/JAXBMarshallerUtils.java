@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
+import javax.xml.namespace.NamespaceContext;
 
 /**
  * This class contains utility methods for JAXB {@link Marshaller} objects. It
@@ -245,10 +246,35 @@ public final class JAXBMarshallerUtils
   }
 
   /**
+   * Set the Sun specific namespace prefix mapper based on a generic
+   * {@link NamespaceContext}. This method instantiates either
+   * {@link JAXBNamespacePrefixMapper} or
+   * {@link JAXBNamespacePrefixMapperOracleRT} depending whether it is an
+   * internal JAXB runtime or an external JAXB runtime.
+   *
+   * @param aMarshaller
+   *        The marshaller to set the property. May not be <code>null</code>.
+   * @param aNamespaceContext
+   *        The namespace context to be used. May not be <code>null</code>.
+   * @see #isExternalSunJAXB2Marshaller(Marshaller)
+   * @see #isInternalSunJAXB2Marshaller(Marshaller)
+   */
+  public static void setSunNamespacePrefixMapper (@Nonnull final Marshaller aMarshaller,
+                                                  @Nonnull final NamespaceContext aNamespaceContext)
+  {
+    Object aNamespacePrefixMapper;
+    if (isInternalSunJAXB2Marshaller (aMarshaller))
+      aNamespacePrefixMapper = new JAXBNamespacePrefixMapperOracleRT (aNamespaceContext);
+    else
+      aNamespacePrefixMapper = new JAXBNamespacePrefixMapper (aNamespaceContext);
+    setSunNamespacePrefixMapper (aMarshaller, aNamespacePrefixMapper);
+  }
+
+  /**
    * Set the Sun specific namespace prefix mapper. Value must implement either
-   * com.sun.xml.bind.marshaller.NamespacePrefixMapper or
-   * com.sun.xml.internal.bind.marshaller.NamespacePrefixMapper depending on the
-   * implementation type of Marshaller.
+   * <code>com.sun.xml.bind.marshaller.NamespacePrefixMapper</code> or
+   * <code>com.sun.xml.internal.bind.marshaller.NamespacePrefixMapper</code>
+   * depending on the implementation type of <code>Marshaller</code>.
    *
    * @param aMarshaller
    *        The marshaller to set the property. May not be <code>null</code>.

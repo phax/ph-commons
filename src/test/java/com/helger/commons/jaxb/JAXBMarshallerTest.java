@@ -18,7 +18,9 @@ package com.helger.commons.jaxb;
 
 import static org.junit.Assert.assertTrue;
 
+import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 
 import org.junit.Test;
@@ -30,6 +32,7 @@ import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.jaxb.utils.AbstractJAXBMarshaller;
 import com.helger.commons.mutable.MutableBoolean;
+import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
 
 public final class JAXBMarshallerTest
 {
@@ -41,9 +44,17 @@ public final class JAXBMarshallerTest
     }
 
     @Override
+    protected void customizeMarshaller (@Nonnull final Marshaller aMarshaller)
+    {
+      JAXBMarshallerUtils.setFormattedOutput (aMarshaller, true);
+      JAXBMarshallerUtils.setSunNamespacePrefixMapper (aMarshaller,
+                                                       new MapBasedNamespaceContext ().addMapping ("def", "urn:test"));
+    }
+
+    @Override
     protected JAXBElement <MockJAXBArchive> wrapObject (final MockJAXBArchive aObject)
     {
-      return new JAXBElement <MockJAXBArchive> (new QName ("any"), MockJAXBArchive.class, aObject);
+      return new JAXBElement <MockJAXBArchive> (new QName ("urn:test", "any"), MockJAXBArchive.class, aObject);
     }
   }
 
@@ -69,6 +80,7 @@ public final class JAXBMarshallerTest
       m.write (aArc, aOS);
     }
     s_aLogger.info (aOS.getAsString (CCharset.CHARSET_UTF_8_OBJ));
+    // Must be closed!
     assertTrue ("Not closed!", aClosed.booleanValue ());
   }
 }

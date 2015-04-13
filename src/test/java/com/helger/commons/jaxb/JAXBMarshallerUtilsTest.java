@@ -29,10 +29,11 @@ import javax.xml.bind.Marshaller;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
 
 /**
  * Test class for class {@link JAXBMarshallerUtils}.
- * 
+ *
  * @author Philip Helger
  */
 public final class JAXBMarshallerUtilsTest
@@ -70,5 +71,14 @@ public final class JAXBMarshallerUtilsTest
     assertFalse (JAXBMarshallerUtils.isFragment (aMarshaller));
     JAXBMarshallerUtils.setFragment (aMarshaller, true);
     assertTrue (JAXBMarshallerUtils.isFragment (aMarshaller));
+
+    // Namespace prefix mapper
+    assertNull (JAXBMarshallerUtils.getSunNamespacePrefixMapper (aMarshaller));
+    JAXBMarshallerUtils.setSunNamespacePrefixMapper (aMarshaller,
+                                                     new MapBasedNamespaceContext ().addMapping ("p1",
+                                                                                                 "http://www.helger.com/namespace1")
+                                                                                    .addMapping ("p2",
+                                                                                                 "http://www.helger.com/namespace2"));
+    assertNotNull (JAXBMarshallerUtils.getSunNamespacePrefixMapper (aMarshaller));
   }
 }
