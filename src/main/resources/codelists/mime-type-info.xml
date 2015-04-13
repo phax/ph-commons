@@ -77,6 +77,10 @@
     <extension>woff</extension>
   </item>
   <item source="old">
+    <mime-type>application/font-woff2</mime-type>
+    <extension>woff2</extension>
+  </item>
+  <item source="old">
     <mime-type>application/fractals</mime-type>
     <extension>fif</extension>
   </item>
@@ -2312,14 +2316,13 @@
   </item>
   <item source="shared-mime-info">
     <mime-type>application/xhtml+xml</mime-type>
-    <mime-type source="old">text/xhtml+xml</mime-type>
     <comment>XHTML page</comment>
     <parent-type>application/xml</parent-type>
     <extension>xhtml</extension>
   </item>
   <item source="shared-mime-info">
-    <mime-type>text/xml</mime-type>
     <mime-type>application/xml</mime-type>
+    <mime-type>text/xml</mime-type>
     <comment>XML document</comment>
     <parent-type>text/plain</parent-type>
     <extension>xml</extension>
@@ -3270,8 +3273,6 @@
   </item>
   <item source="shared-mime-info">
     <mime-type>text/html</mime-type>
-    <mime-type source="old">application/text+html</mime-type>
-    <mime-type source="old">text/html-sandboxed</mime-type>
     <comment>HTML document</comment>
     <parent-type>text/plain</parent-type>
     <extension>html</extension>
@@ -3365,7 +3366,6 @@
   </item>
   <item source="shared-mime-info">
     <mime-type>text/vnd.wap.wml</mime-type>
-    <mime-type source="old">application/vnd.wap.xhtml+xml</mime-type>
     <comment>WML document</comment>
     <parent-type>application/xml</parent-type>
     <extension>wml</extension>

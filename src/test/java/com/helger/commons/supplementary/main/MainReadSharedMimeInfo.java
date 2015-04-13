@@ -24,6 +24,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.exceptions.InitializationException;
@@ -73,10 +76,12 @@ import com.helger.commons.regex.RegExHelper;
  */
 public final class MainReadSharedMimeInfo
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainReadSharedMimeInfo.class);
   private static final String NS = "http://www.freedesktop.org/standards/shared-mime-info";
 
   public static void main (final String [] args)
   {
+    s_aLogger.info ("Reading shared-mime-info/freedesktop.org.xml");
     final IMicroDocument aDoc = MicroReader.readMicroXML (new ClassPathResource ("shared-mime-info/freedesktop.org.xml"));
     if (aDoc == null)
       throw new IllegalStateException ("Failed to read mime type info file!");
@@ -135,13 +140,18 @@ public final class MainReadSharedMimeInfo
       }
     }
 
+    s_aLogger.info ("Read " + aMgr.getAllMimeTypeInfos ().size () + " mime type infos");
+
     // FIXME read existing MimeTypeInfo data
 
     // Maps file extension to MIME type
+    s_aLogger.info ("Reading shared-mime-info/fileext-mimetype-mapping-local.xml");
     final Map <String, String> m_aFileExtMap = new HashMap <String, String> ();
-    if (XMLMapHandler.readMap (new ClassPathResource ("codelists/fileext-mimetype-mapping.xml"), m_aFileExtMap)
-                     .isFailure ())
+    if (XMLMapHandler.readMap (new ClassPathResource ("shared-mime-info/fileext-mimetype-mapping-local.xml"),
+                               m_aFileExtMap).isFailure ())
       throw new InitializationException ("Failed to init file extension to mimetype mapping file");
+
+    s_aLogger.info ("Read " + m_aFileExtMap.size () + " entries");
 
     // Check old data
     for (final Map.Entry <String, String> aEntry : CollectionHelper.getSortedByKey (m_aFileExtMap).entrySet ())
@@ -218,11 +228,13 @@ public final class MainReadSharedMimeInfo
       }
     }
 
+    s_aLogger.info ("Finally having " + aMgr.getAllMimeTypeInfos ().size () + " mime type infos");
+
     if (SimpleFileIO.writeFile (new File ("src/main/resources/codelists/mime-type-info.xml"),
                                 MicroWriter.getXMLString (aMgr.getAsDocument ()),
                                 CCharset.CHARSET_UTF_8_OBJ).isSuccess ())
-      System.out.println ("done - run mvn license:format !!");
+      s_aLogger.info ("done - run mvn license:format !!");
     else
-      System.err.println ("Error writing file");
+      s_aLogger.error ("Error writing file");
   }
 }
