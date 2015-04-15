@@ -16,6 +16,7 @@
  */
 package com.helger.commons.system;
 
+import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.CGlobal;
@@ -37,7 +38,8 @@ public enum EProcessorArchitecture
   /** 64 bit architecture. */
   ARCH_64 (64);
 
-  private static final String SUN_SYSTEM_PROPERTY = "sun.arch.data.model";
+  // TODO check if this still holds true for current Oracle runtime
+  private static final String SYSTEM_PROPERTY_SUN_ARCH_DATA_MODEL = "sun.arch.data.model";
 
   /** The current architecture. */
   private static volatile EProcessorArchitecture s_aInstance = null;
@@ -73,9 +75,11 @@ public enum EProcessorArchitecture
    * @return The number of bits in the current architecture or
    *         {@link CGlobal#ILLEGAL_UINT} if this is undetermined.
    */
+  @CheckForSigned
   public static int getCurrentArchitectureBits ()
   {
-    return StringParser.parseInt (SystemProperties.getPropertyValue (SUN_SYSTEM_PROPERTY), CGlobal.ILLEGAL_UINT);
+    final String sPropertyValue = SystemProperties.getPropertyValue (SYSTEM_PROPERTY_SUN_ARCH_DATA_MODEL);
+    return StringParser.parseInt (sPropertyValue, CGlobal.ILLEGAL_UINT);
   }
 
   /**

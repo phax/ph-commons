@@ -22,7 +22,7 @@ import com.helger.commons.SystemProperties;
 
 /**
  * Determine the current JVM (Java Virtual Machine) vendor.
- * 
+ *
  * @author Philip Helger
  */
 public enum EJVMVendor
@@ -79,11 +79,10 @@ public enum EJVMVendor
 
   private static final String SUN_VENDOR_NAME = "Sun Microsystems Inc.";
   private static final String ORACLE_VENDOR_NAME = "Oracle Corporation";
-  private static final String SYSPROP_JAVA_VM_NAME = "java.vm.name";
 
   private static boolean _isSunOrOracleServerJVM ()
   {
-    final String sVM = SystemProperties.getPropertyValue (SYSPROP_JAVA_VM_NAME);
+    final String sVM = SystemProperties.getJavaVmName ();
     // Dev machine, Windows Vista 32-bit:
     if ("Java HotSpot(TM) Server VM".equals (sVM))
       return true;

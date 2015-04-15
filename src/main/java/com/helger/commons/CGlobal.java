@@ -157,29 +157,29 @@ public final class CGlobal
   /** Seconds in a day. */
   public static final int SECONDS_PER_DAY = MINUTES_PER_DAY * SECONDS_PER_MINUTE;
 
-  /** Milli seconds per second. */
-  public static final long MILLISECONDS_PER_SECOND = 1000;
+  /** Milliseconds per second. */
+  public static final long MILLISECONDS_PER_SECOND = 1000L;
 
-  /** Milli seconds per second. */
+  /** Milliseconds per second. */
   public static final long MILLISECONDS_PER_MINUTE = SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND;
 
-  /** Milli seconds per hour. */
+  /** Milliseconds per hour. */
   public static final long MILLISECONDS_PER_HOUR = MINUTES_PER_HOUR * MILLISECONDS_PER_MINUTE;
 
-  /** Micro seconds per milli second. */
+  /** Micro seconds per millisecond. */
   public static final long MICROSECONDS_PER_MILLISECOND = 1000L;
 
   /** Micro seconds per second. */
-  public static final long MICROSECONDS_PER_SECOND = 1000000L;
+  public static final long MICROSECONDS_PER_SECOND = MICROSECONDS_PER_MILLISECOND * MILLISECONDS_PER_SECOND;
 
-  /** Nano seconds per micro second. */
+  /** Nanoseconds per microsecond. */
   public static final long NANOSECONDS_PER_MICROSECOND = 1000L;
 
-  /** Nano seconds per milli second. */
-  public static final long NANOSECONDS_PER_MILLISECOND = 1000000L;
+  /** Nanoseconds per millisecond. */
+  public static final long NANOSECONDS_PER_MILLISECOND = NANOSECONDS_PER_MICROSECOND * MICROSECONDS_PER_MILLISECOND;
 
   /** Nano seconds per second. */
-  public static final long NANOSECONDS_PER_SECOND = 1000000000L;
+  public static final long NANOSECONDS_PER_SECOND = NANOSECONDS_PER_MICROSECOND * MICROSECONDS_PER_SECOND;
 
   /** The BigInteger for the largest possible byte value */
   public static final BigInteger BIGINT_MAX_BYTE = BigInteger.valueOf (Byte.MAX_VALUE);
@@ -240,6 +240,9 @@ public final class CGlobal
 
   /** The BigInteger representation of 10 */
   public static final BigInteger BIGINT_10 = BigInteger.TEN;
+
+  /** The BigInteger representation of 50 */
+  public static final BigInteger BIGINT_50 = BigInteger.valueOf (50);
 
   /** The BigInteger representation of 100 */
   public static final BigInteger BIGINT_100 = BigInteger.valueOf (100);
@@ -319,6 +322,9 @@ public final class CGlobal
   /** The BigDecimal representation of 10 */
   public static final BigDecimal BIGDEC_10 = BigDecimal.TEN;
 
+  /** The BigDecimal representation of 50 */
+  public static final BigDecimal BIGDEC_50 = new BigDecimal ("50");
+
   /** The BigDecimal representation of 100 */
   public static final BigDecimal BIGDEC_100 = new BigDecimal ("100");
 
@@ -339,8 +345,8 @@ public final class CGlobal
   public static final String LOCALE_SEPARATOR_STR = Character.toString (LOCALE_SEPARATOR);
 
   /**
-   * The very hardcoded default locale that cannot be changed. Equals
-   * {@link Locale#US}.
+   * The very hardcoded default locale that cannot be changed and contains a
+   * language and a country. Equals {@link Locale#US}.
    */
   public static final Locale DEFAULT_LOCALE = Locale.US;
 

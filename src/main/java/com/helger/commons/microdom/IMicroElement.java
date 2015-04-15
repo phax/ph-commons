@@ -260,6 +260,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * <code>null</code> if {@link #hasAttributes()} returns <code>true</code>.
    *
    * @return May be <code>null</code>.
+   * @deprecated Use {@link #getAllQAttributes()} instead.
    */
   @Nullable
   @Deprecated

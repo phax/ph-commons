@@ -63,6 +63,7 @@ public final class SystemProperties
   public static final String SYSTEM_PROPERTY_USER_NAME = "user.name";
   public static final String SYSTEM_PROPERTY_USER_HOME = "user.home";
   public static final String SYSTEM_PROPERTY_USER_DIR = "user.dir";
+  public static final String SYSTEM_PROPERTY_JAVA_VM_NAME = "java.vm.name";
   public static final String SYSTEM_PROPERTY_JAVA_VM_SPECIFICATION_VERSION = "java.vm.specification.version";
   public static final String SYSTEM_PROPERTY_JAVA_VM_SPECIFICATION_VENDOR = "java.vm.specification.vendor";
   public static final String SYSTEM_PROPERTY_JAVA_VM_SPECIFICATION_URL = "java.vm.specification.url";
@@ -262,6 +263,12 @@ public final class SystemProperties
   public static String getUserDir ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_USER_DIR);
+  }
+
+  @Nullable
+  public static String getJavaVmName ()
+  {
+    return getPropertyValue (SYSTEM_PROPERTY_JAVA_VM_NAME);
   }
 
   @Nullable
