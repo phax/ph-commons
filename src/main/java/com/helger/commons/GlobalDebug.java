@@ -44,6 +44,10 @@ public final class GlobalDebug
    */
   public static final boolean DEFAULT_PRODUCTION_MODE = false;
 
+  public static final String SYSTEM_PROPERTY_MAIL_DEBUG = "mail.debug";
+  public static final String SYSTEM_PROPERTY_JAVAX_ACTIVATION_DEBUG = "javax.activation.debug";
+  public static final String SYSTEM_PROPERTY_JAXP_DEBUG = "jaxp.debug";
+
   private static final AtomicBoolean s_aDebugMode = new AtomicBoolean (DEFAULT_DEBUG_MODE);
   private static final AtomicBoolean s_aProductionMode = new AtomicBoolean (DEFAULT_PRODUCTION_MODE);
 
@@ -76,13 +80,13 @@ public final class GlobalDebug
     // Enable or disable JAXP debugging!
     // Note: this property is read only on Ubuntu, defined by the following
     // policy file: /etc/tomcat6/policy.d/04webapps.policy
-    SystemProperties.setPropertyValue ("jaxp.debug", Boolean.toString (bDebugMode));
+    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JAXP_DEBUG, Boolean.toString (bDebugMode));
 
     // Enable javax.activation debugging
-    SystemProperties.setPropertyValue ("javax.activation.debug", Boolean.toString (bDebugMode));
+    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JAVAX_ACTIVATION_DEBUG, Boolean.toString (bDebugMode));
 
     // Enable javax.mail debugging
-    SystemProperties.setPropertyValue ("mail.debug", Boolean.toString (bDebugMode));
+    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_MAIL_DEBUG, Boolean.toString (bDebugMode));
   }
 
   /**
@@ -110,7 +114,7 @@ public final class GlobalDebug
   {
     s_aProductionMode.set (bProductionMode);
 
-    // If enabling production mode, disable debug and trace mode
+    // If enabling production mode, disable debug mode
     if (bProductionMode)
       setDebugModeDirect (false);
   }

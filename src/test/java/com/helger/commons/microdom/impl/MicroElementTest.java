@@ -374,6 +374,7 @@ public final class MicroElementTest extends AbstractPHTestCase
     assertFalse (eRoot.removeAllChildren ().isChanged ());
   }
 
+  @SuppressWarnings ("deprecation")
   @Test
   public void testGetClone ()
   {
