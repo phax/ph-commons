@@ -38,7 +38,7 @@ public enum EProcessorArchitecture
   /** 64 bit architecture. */
   ARCH_64 (64);
 
-  // TODO check if this still holds true for current Oracle runtime
+  // This still holds true for current Oracle runtime 1.8.0_40
   private static final String SYSTEM_PROPERTY_SUN_ARCH_DATA_MODEL = "sun.arch.data.model";
 
   /** The current architecture. */
