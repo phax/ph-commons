@@ -234,7 +234,8 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   }
 
   @Nullable
-  private static <DSTTYPE> DSTTYPE _convert (@Nullable final String sAttrValue, @Nonnull final Class <DSTTYPE> aDstClass)
+  private static <DSTTYPE> DSTTYPE _getConvertedToType (@Nullable final String sAttrValue,
+                                                        @Nonnull final Class <DSTTYPE> aDstClass)
   {
     // Avoid having a conversion issue with empty strings!
     if (StringHelper.hasNoText (sAttrValue))
@@ -244,26 +245,67 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return ret;
   }
 
+  /**
+   * @deprecated Use {@link #getAttributeValueWithConversion(String,Class)}
+   *             instead
+   */
+  @Deprecated
   @Nullable
   public <DSTTYPE> DSTTYPE getAttributeWithConversion (@Nullable final String sAttrName,
                                                        @Nonnull final Class <DSTTYPE> aDstClass)
   {
-    return _convert (getAttributeValue (sAttrName), aDstClass);
+    return getAttributeValueWithConversion (sAttrName, aDstClass);
   }
 
+  @Nullable
+  public <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final String sAttrName,
+                                                            @Nonnull final Class <DSTTYPE> aDstClass)
+  {
+    final String sAttrValue = getAttributeValue (sAttrName);
+    return _getConvertedToType (sAttrValue, aDstClass);
+  }
+
+  /**
+   * @deprecated Use
+   *             {@link #getAttributeValueWithConversion(String,String,Class)}
+   *             instead
+   */
+  @Deprecated
   @Nullable
   public <DSTTYPE> DSTTYPE getAttributeWithConversion (@Nullable final String sNamespaceURI,
                                                        @Nullable final String sAttrName,
                                                        @Nonnull final Class <DSTTYPE> aDstClass)
   {
-    return _convert (getAttributeValue (sNamespaceURI, sAttrName), aDstClass);
+    return getAttributeValueWithConversion (sNamespaceURI, sAttrName, aDstClass);
   }
 
+  @Nullable
+  public <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final String sNamespaceURI,
+                                                            @Nullable final String sAttrName,
+                                                            @Nonnull final Class <DSTTYPE> aDstClass)
+  {
+    final String sAttrValue = getAttributeValue (sNamespaceURI, sAttrName);
+    return _getConvertedToType (sAttrValue, aDstClass);
+  }
+
+  /**
+   * @deprecated Use {@link #getAttributeValueWithConversion(IMicroQName,Class)}
+   *             instead
+   */
+  @Deprecated
   @Nullable
   public <DSTTYPE> DSTTYPE getAttributeWithConversion (@Nullable final IMicroQName aAttrName,
                                                        @Nonnull final Class <DSTTYPE> aDstClass)
   {
-    return _convert (getAttributeValue (aAttrName), aDstClass);
+    return getAttributeValueWithConversion (aAttrName, aDstClass);
+  }
+
+  @Nullable
+  public <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final IMicroQName aAttrName,
+                                                            @Nonnull final Class <DSTTYPE> aDstClass)
+  {
+    final String sAttrValue = getAttributeValue (aAttrName);
+    return _getConvertedToType (sAttrValue, aDstClass);
   }
 
   public boolean hasAttribute (@Nullable final String sAttrName)

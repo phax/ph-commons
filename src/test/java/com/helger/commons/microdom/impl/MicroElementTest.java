@@ -112,7 +112,7 @@ public final class MicroElementTest extends AbstractPHTestCase
 
     e = new MicroElement ("myns", "xyz");
     assertNull (e.getAttributeValue ("attr"));
-    assertNull (e.getAttributeWithConversion ("attr", String.class));
+    assertNull (e.getAttributeValueWithConversion ("attr", String.class));
     assertFalse (e.removeAttribute ("attr").isChanged ());
     assertEquals ("xyz", e.getLocalName ());
     assertEquals ("myns", e.getNamespaceURI ());
@@ -123,12 +123,12 @@ public final class MicroElementTest extends AbstractPHTestCase
     assertTrue (e.hasAttribute ("attr"));
     assertFalse (e.hasAttribute ("otherattr"));
     assertEquals ("1234", e.getAttributeValue ("attr"));
-    assertEquals (1234, e.getAttributeWithConversion ("attr", Integer.class).intValue ());
+    assertEquals (1234, e.getAttributeValueWithConversion ("attr", Integer.class).intValue ());
     assertNull (e.getAttributeValue ("attr2"));
 
     try
     {
-      e.getAttributeWithConversion ("attr", MultiLingualText.class);
+      e.getAttributeValueWithConversion ("attr", MultiLingualText.class);
       fail ();
     }
     catch (final TypeConverterException ex)
@@ -384,6 +384,8 @@ public final class MicroElementTest extends AbstractPHTestCase
     assertNull (eClone.getNamespaceURI ());
     assertNull (eRoot.getAllAttributes ());
     assertNull (eClone.getAllAttributes ());
+    assertNull (eRoot.getAllQAttributes ());
+    assertNull (eClone.getAllQAttributes ());
 
     eRoot.setAttribute ("attr1", "b");
     eClone = eRoot.getClone ();
@@ -391,6 +393,15 @@ public final class MicroElementTest extends AbstractPHTestCase
     assertNull (eRoot.getNamespaceURI ());
     assertNull (eClone.getNamespaceURI ());
     assertEquals (eRoot.getAllAttributes (), eClone.getAllAttributes ());
+    assertEquals (eRoot.getAllQAttributes (), eClone.getAllQAttributes ());
+
+    eRoot.setAttribute ("nsuri", "attr2", "c");
+    eClone = eRoot.getClone ();
+    assertEquals (eRoot.getTagName (), eClone.getTagName ());
+    assertNull (eRoot.getNamespaceURI ());
+    assertNull (eClone.getNamespaceURI ());
+    assertEquals (eRoot.getAllAttributes (), eClone.getAllAttributes ());
+    assertEquals (eRoot.getAllQAttributes (), eClone.getAllQAttributes ());
 
     assertTrue (eRoot.isEqualContent (eRoot.getClone ()));
     eRoot.appendText ("text");
