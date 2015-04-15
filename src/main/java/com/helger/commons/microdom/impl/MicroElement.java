@@ -136,6 +136,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   }
 
   @Nullable
+  @Deprecated
   @ReturnsMutableCopy
   public Map <String, String> getAllAttributes ()
   {

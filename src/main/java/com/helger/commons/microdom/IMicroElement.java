@@ -262,6 +262,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return May be <code>null</code>.
    */
   @Nullable
+  @Deprecated
   @ReturnsMutableCopy
   Map <String, String> getAllAttributes ();
 
