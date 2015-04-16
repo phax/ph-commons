@@ -365,6 +365,93 @@ public final class ValueEnforcer
   }
 
   /**
+   * Check that the passed Array contains no <code>null</code> value. But the
+   * whole array can be <code>null</code> or empty.
+   *
+   * @param aValue
+   *        The Array to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is not empty and a <code>null</code> value is
+   *         contained
+   */
+  @Nullable
+  public static <T> T [] noNullValue (final T [] aValue, final String sName)
+  {
+    if (aValue != null)
+    {
+      int nIndex = 0;
+      for (final T aItem : aValue)
+      {
+        if (aItem == null)
+          throw new IllegalArgumentException ("Item " + nIndex + " of array '" + sName + "' may not be null!");
+        ++nIndex;
+      }
+    }
+    return aValue;
+  }
+
+  /**
+   * Check that the passed iterable contains no <code>null</code> value. But the
+   * whole iterable can be <code>null</code> or empty.
+   *
+   * @param aValue
+   *        The collection to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is not empty and a <code>null</code> value is
+   *         contained
+   */
+  @Nullable
+  public static <T extends Iterable <?>> T noNullValue (final T aValue, final String sName)
+  {
+    if (aValue != null)
+    {
+      int nIndex = 0;
+      for (final Object aItem : aValue)
+      {
+        if (aItem == null)
+          throw new IllegalArgumentException ("Item " + nIndex + " of iterable '" + sName + "' may not be null!");
+        ++nIndex;
+      }
+    }
+    return aValue;
+  }
+
+  /**
+   * Check that the passed map is neither <code>null</code> nor empty and that
+   * no <code>null</code> key or value is contained.
+   *
+   * @param aValue
+   *        The map to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is not empty and a <code>null</code> key or
+   *         <code>null</code> value is contained
+   */
+  @Nullable
+  public static <T extends Map <?, ?>> T noNullValue (final T aValue, final String sName)
+  {
+    if (aValue != null)
+    {
+      for (final Map.Entry <?, ?> aEntry : aValue.entrySet ())
+      {
+        if (aEntry.getKey () == null)
+          throw new IllegalArgumentException ("Key of map '" + sName + "' may not be null!");
+        if (aEntry.getValue () == null)
+          throw new IllegalArgumentException ("Value of map '" + sName + "' may not be null!");
+      }
+    }
+    return aValue;
+  }
+
+  /**
    * Check that the passed Array is neither <code>null</code> nor empty and that
    * no <code>null</code> value is contained.
    *
@@ -381,13 +468,7 @@ public final class ValueEnforcer
   public static <T> T [] notEmptyNoNullValue (final T [] aValue, final String sName)
   {
     notEmpty (aValue, sName);
-    int nIndex = 0;
-    for (final T aItem : aValue)
-    {
-      if (aItem == null)
-        throw new IllegalArgumentException ("Item " + nIndex + " of array '" + sName + "' may not be null!");
-      ++nIndex;
-    }
+    noNullValue (aValue, sName);
     return aValue;
   }
 
@@ -408,40 +489,7 @@ public final class ValueEnforcer
   public static <T extends Iterable <?>> T notEmptyNoNullValue (final T aValue, final String sName)
   {
     notEmpty (aValue, sName);
-    int nIndex = 0;
-    for (final Object aItem : aValue)
-    {
-      if (aItem == null)
-        throw new IllegalArgumentException ("Item " + nIndex + " of iterable '" + sName + "' may not be null!");
-      ++nIndex;
-    }
-    return aValue;
-  }
-
-  /**
-   * Check that the passed collection is neither <code>null</code> nor empty and
-   * that no <code>null</code> value is contained.
-   *
-   * @param aValue
-   *        The collection to check.
-   * @param sName
-   *        The name of the value (e.g. the parameter name)
-   * @return The passed value and never <code>null</code>.
-   * @throws IllegalArgumentException
-   *         if the passed value is empty or a <code>null</code> value is
-   *         contained
-   */
-  @Nonnull
-  public static <T extends Collection <?>> T notEmptyNoNullValue (final T aValue, final String sName)
-  {
-    notEmpty (aValue, sName);
-    int nIndex = 0;
-    for (final Object aItem : aValue)
-    {
-      if (aItem == null)
-        throw new IllegalArgumentException ("Item " + nIndex + " of collection '" + sName + "' may not be null!");
-      ++nIndex;
-    }
+    noNullValue (aValue, sName);
     return aValue;
   }
 
@@ -462,13 +510,7 @@ public final class ValueEnforcer
   public static <T extends Map <?, ?>> T notEmptyNoNullValue (final T aValue, final String sName)
   {
     notEmpty (aValue, sName);
-    for (final Map.Entry <?, ?> aEntry : aValue.entrySet ())
-    {
-      if (aEntry.getKey () == null)
-        throw new IllegalArgumentException ("Key of map '" + sName + "' may not be null!");
-      if (aEntry.getValue () == null)
-        throw new IllegalArgumentException ("Value of map '" + sName + "' may not be null!");
-    }
+    noNullValue (aValue, sName);
     return aValue;
   }
 
