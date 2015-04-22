@@ -289,7 +289,6 @@ public final class CompareUtils
     return nullSafeCompare (sStr1, sStr2, CollatorUtils.getCollatorSpaceBeforeDot (aSortLocale), bNullValuesComeFirst);
   }
 
-  @SuppressFBWarnings ({ "ES_COMPARING_PARAMETER_STRING_WITH_EQ" })
   public static int nullSafeCompare (@Nullable final String sStr1,
                                      @Nullable final String sStr2,
                                      @Nonnull final Collator aCollator)
@@ -307,5 +306,21 @@ public final class CompareUtils
     return sStr1 == sStr2 ? 0 : sStr1 == null ? (bNullValuesComeFirst ? -1 : +1)
                                              : sStr2 == null ? (bNullValuesComeFirst ? +1 : -1)
                                                             : aCollator.compare (sStr1, sStr2);
+  }
+
+  public static int nullSafeCompareIgnoreCase (@Nullable final String sStr1, @Nullable final String sStr2)
+  {
+    // Legacy behaviour: null values come first
+    return nullSafeCompareIgnoreCase (sStr1, sStr2, DEFAULT_NULL_VALUES_COME_FIRST);
+  }
+
+  @SuppressFBWarnings ({ "ES_COMPARING_PARAMETER_STRING_WITH_EQ" })
+  public static int nullSafeCompareIgnoreCase (@Nullable final String sStr1,
+                                               @Nullable final String sStr2,
+                                               final boolean bNullValuesComeFirst)
+  {
+    return sStr1 == sStr2 ? 0 : sStr1 == null ? (bNullValuesComeFirst ? -1 : +1)
+                                             : sStr2 == null ? (bNullValuesComeFirst ? +1 : -1)
+                                                            : sStr1.compareToIgnoreCase (sStr2);
   }
 }
