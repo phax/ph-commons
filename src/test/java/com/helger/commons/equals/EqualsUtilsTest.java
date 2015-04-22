@@ -232,12 +232,12 @@ public final class EqualsUtilsTest extends AbstractPHTestCase
 
     final String s1 = "s1";
     final String s2 = "S1";
-    assertTrue (EqualsUtils.nullSafeEqualsIgnoreCase (s1, s1));
-    assertTrue (EqualsUtils.nullSafeEqualsIgnoreCase (s1, s2));
-    assertTrue (EqualsUtils.nullSafeEqualsIgnoreCase (s2, s1));
-    assertFalse (EqualsUtils.nullSafeEqualsIgnoreCase (s1, null));
-    assertFalse (EqualsUtils.nullSafeEqualsIgnoreCase (null, s2));
-    assertTrue (EqualsUtils.nullSafeEqualsIgnoreCase (null, null));
+    assertTrue (EqualsUtils.equalsIgnoreCase (s1, s1));
+    assertTrue (EqualsUtils.equalsIgnoreCase (s1, s2));
+    assertTrue (EqualsUtils.equalsIgnoreCase (s2, s1));
+    assertFalse (EqualsUtils.equalsIgnoreCase (s1, null));
+    assertFalse (EqualsUtils.equalsIgnoreCase (null, s2));
+    assertTrue (EqualsUtils.equalsIgnoreCase (null, null));
   }
 
   @Test

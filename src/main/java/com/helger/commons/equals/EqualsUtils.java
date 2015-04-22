@@ -105,8 +105,18 @@ public final class EqualsUtils
     return EqualsImplementationRegistry.areEqual (aObj1, aObj2);
   }
 
+  /**
+   * @deprecated Use {@link #equalsIgnoreCase(String,String)} instead
+   */
+  @Deprecated
   @SuppressFBWarnings ({ "ES_COMPARING_PARAMETER_STRING_WITH_EQ" })
   public static boolean nullSafeEqualsIgnoreCase (@Nullable final String sObj1, @Nullable final String sObj2)
+  {
+    return equalsIgnoreCase (sObj1, sObj2);
+  }
+
+  @SuppressFBWarnings ({ "ES_COMPARING_PARAMETER_STRING_WITH_EQ" })
+  public static boolean equalsIgnoreCase (@Nullable final String sObj1, @Nullable final String sObj2)
   {
     return sObj1 == null ? sObj2 == null : sObj1.equalsIgnoreCase (sObj2);
   }
