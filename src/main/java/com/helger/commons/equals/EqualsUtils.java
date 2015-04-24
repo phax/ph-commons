@@ -38,16 +38,46 @@ public final class EqualsUtils
   private EqualsUtils ()
   {}
 
+  /**
+   * Check if two values are equal. This method only exists, so that no type
+   * differentiation is needed.
+   *
+   * @param aObj1
+   *        First value
+   * @param aObj2
+   *        Second value
+   * @return <code>true</code> if they are equal, <code>false</code> otherwise.
+   */
   public static boolean equals (final boolean aObj1, final boolean aObj2)
   {
     return aObj1 == aObj2;
   }
 
+  /**
+   * Check if two values are equal. This method only exists, so that no type
+   * differentiation is needed.
+   *
+   * @param aObj1
+   *        First value
+   * @param aObj2
+   *        Second value
+   * @return <code>true</code> if they are equal, <code>false</code> otherwise.
+   */
   public static boolean equals (final byte aObj1, final byte aObj2)
   {
     return aObj1 == aObj2;
   }
 
+  /**
+   * Check if two values are equal. This method only exists, so that no type
+   * differentiation is needed.
+   *
+   * @param aObj1
+   *        First value
+   * @param aObj2
+   *        Second value
+   * @return <code>true</code> if they are equal, <code>false</code> otherwise.
+   */
   public static boolean equals (final char aObj1, final char aObj2)
   {
     return aObj1 == aObj2;
@@ -61,7 +91,7 @@ public final class EqualsUtils
    *        First double
    * @param aObj2
    *        Second double
-   * @return <code>true</code> if they are equal.
+   * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
   public static boolean equals (final double aObj1, final double aObj2)
   {
@@ -77,7 +107,7 @@ public final class EqualsUtils
    *        First float
    * @param aObj2
    *        Second float
-   * @return <code>true</code> if they are equal.
+   * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
   public static boolean equals (final float aObj1, final float aObj2)
   {
@@ -85,36 +115,96 @@ public final class EqualsUtils
     return (aObj1 == aObj2) || (Float.floatToIntBits (aObj1) == Float.floatToIntBits (aObj2));
   }
 
+  /**
+   * Check if two values are equal. This method only exists, so that no type
+   * differentiation is needed.
+   *
+   * @param aObj1
+   *        First value
+   * @param aObj2
+   *        Second value
+   * @return <code>true</code> if they are equal, <code>false</code> otherwise.
+   */
   public static boolean equals (final int aObj1, final int aObj2)
   {
     return aObj1 == aObj2;
   }
 
+  /**
+   * Check if two values are equal. This method only exists, so that no type
+   * differentiation is needed.
+   *
+   * @param aObj1
+   *        First value
+   * @param aObj2
+   *        Second value
+   * @return <code>true</code> if they are equal, <code>false</code> otherwise.
+   */
   public static boolean equals (final long aObj1, final long aObj2)
   {
     return aObj1 == aObj2;
   }
 
+  /**
+   * Check if two values are equal. This method only exists, so that no type
+   * differentiation is needed.
+   *
+   * @param aObj1
+   *        First value
+   * @param aObj2
+   *        Second value
+   * @return <code>true</code> if they are equal, <code>false</code> otherwise.
+   */
   public static boolean equals (final short aObj1, final short aObj2)
   {
     return aObj1 == aObj2;
   }
 
+  /**
+   * Check if two values are equal. This method only exists, so that no type
+   * differentiation is needed.
+   *
+   * @param aObj1
+   *        First value
+   * @param aObj2
+   *        Second value
+   * @return <code>true</code> if they are equal, <code>false</code> otherwise.
+   * @see EqualsImplementationRegistry#areEqual(Object, Object)
+   */
   public static boolean equals (@Nullable final Object aObj1, @Nullable final Object aObj2)
   {
     return EqualsImplementationRegistry.areEqual (aObj1, aObj2);
   }
 
   /**
+   * Check if the passed strings are equals case insensitive handling
+   * <code>null</code> appropriately.
+   *
+   * @param sObj1
+   *        First object to compare
+   * @param sObj2
+   *        Second object to compare
+   * @return <code>true</code> if they are equal case insensitive,
+   *         <code>false</code> otherwise.
    * @deprecated Use {@link #equalsIgnoreCase(String,String)} instead
    */
   @Deprecated
-  @SuppressFBWarnings ({ "ES_COMPARING_PARAMETER_STRING_WITH_EQ" })
   public static boolean nullSafeEqualsIgnoreCase (@Nullable final String sObj1, @Nullable final String sObj2)
   {
     return equalsIgnoreCase (sObj1, sObj2);
   }
 
+  /**
+   * Check if the passed strings are equals case insensitive handling
+   * <code>null</code> appropriately.
+   *
+   * @param sObj1
+   *        First object to compare
+   * @param sObj2
+   *        Second object to compare
+   * @return <code>true</code> if they are equal case insensitive,
+   *         <code>false</code> otherwise.
+   */
   @SuppressFBWarnings ({ "ES_COMPARING_PARAMETER_STRING_WITH_EQ" })
   public static boolean equalsIgnoreCase (@Nullable final String sObj1, @Nullable final String sObj2)
   {
