@@ -16,21 +16,20 @@
  */
 package com.helger.commons.format;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.IHasStringRepresentation;
 
 /**
  * Basic interface for special objects having a certain string representation.
- * 
+ *
  * @author Philip Helger
  */
 public interface IFormattedObject extends IHasStringRepresentation
 {
   /**
    * Get the original value.
-   * 
+   *
    * @return The unformatted value. May be <code>null</code>.
    */
   @Nullable
@@ -40,12 +39,12 @@ public interface IFormattedObject extends IHasStringRepresentation
    * @return The formatter to be used for formatting this object. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @Nullable
   IFormatter getFormatter ();
 
   /**
    * Get the value converted to a string with the specified formatter.
-   * 
+   *
    * @return the string representation of the value. May be <code>null</code>
    *         dependent on the semantics of the formatter.
    */

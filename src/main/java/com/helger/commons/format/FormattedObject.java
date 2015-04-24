@@ -18,6 +18,7 @@ package com.helger.commons.format;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsUtils;
@@ -26,12 +27,13 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * This class represents a single object with an additional formatter.
- * 
+ *
  * @author Philip Helger
  */
+@NotThreadSafe
 public class FormattedObject implements IFormattedObject
 {
-  /** The current value. Maybe null. */
+  /** The current value. Maybe <code>null</code>. */
   private final Object m_aValue;
 
   /** The optional formatter to use. */
@@ -39,7 +41,7 @@ public class FormattedObject implements IFormattedObject
 
   /**
    * Init the field with a value.
-   * 
+   *
    * @param aValue
    *        The value to be used. May be <code>null</code>.
    * @param aFormatter
@@ -53,11 +55,11 @@ public class FormattedObject implements IFormattedObject
 
   /**
    * Init the field with a value.
-   * 
+   *
    * @param aValue
    *        The value to be used. May be <code>null</code>.
    * @param aFormatterProvider
-   *        The optional formatter to use. May not be <code>null</code>.
+   *        The formatter provider to use. May not be <code>null</code>.
    */
   public FormattedObject (@Nullable final Object aValue, @Nonnull final IFormatterProvider aFormatterProvider)
   {
@@ -72,7 +74,7 @@ public class FormattedObject implements IFormattedObject
     return m_aValue;
   }
 
-  @Nonnull
+  @Nullable
   public IFormatter getFormatter ()
   {
     return m_aFormatter;
