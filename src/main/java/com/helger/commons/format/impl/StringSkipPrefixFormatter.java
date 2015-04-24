@@ -23,7 +23,7 @@ import com.helger.commons.format.IFormatter;
 
 /**
  * A formatter that skips a prefix from a string.
- * 
+ *
  * @author Philip Helger
  */
 public class StringSkipPrefixFormatter extends StringSkipPrefixAndSuffixFormatter
@@ -33,8 +33,8 @@ public class StringSkipPrefixFormatter extends StringSkipPrefixAndSuffixFormatte
     super (sPrefix, "");
   }
 
-  public StringSkipPrefixFormatter (@Nullable final IFormatter aNestedFormatter, @Nonnull final String sPrefix)
+  public StringSkipPrefixFormatter (@Nullable final IFormatter aPrevFormatter, @Nonnull final String sPrefix)
   {
-    super (aNestedFormatter, sPrefix, "");
+    super (aPrevFormatter, sPrefix, "");
   }
 }

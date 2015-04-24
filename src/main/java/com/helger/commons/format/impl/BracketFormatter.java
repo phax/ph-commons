@@ -22,18 +22,18 @@ import com.helger.commons.format.IFormatter;
 
 /**
  * Format objects by surrounding them with brackets: [...]
- * 
+ *
  * @author Philip Helger
  */
-public final class BracketFormatter extends StringPrefixAndSuffixFormatter
+public class BracketFormatter extends StringPrefixAndSuffixFormatter
 {
   public BracketFormatter ()
   {
     this (null);
   }
 
-  public BracketFormatter (@Nullable final IFormatter aNestedFormatter)
+  public BracketFormatter (@Nullable final IFormatter aPrevFormatter)
   {
-    super (aNestedFormatter, "[", "]");
+    super (aPrevFormatter, "[", "]");
   }
 }

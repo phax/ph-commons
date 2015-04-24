@@ -41,11 +41,11 @@ public final class MinLengthAddTrailingFormatter extends AbstractStringFormatter
     this (null, nMinLength, cFill);
   }
 
-  public MinLengthAddTrailingFormatter (@Nullable final IFormatter aNestedFormatter,
+  public MinLengthAddTrailingFormatter (@Nullable final IFormatter aPrevFormatter,
                                         @Nonnegative final int nMinLength,
                                         final char cFill)
   {
-    super (aNestedFormatter);
+    super (aPrevFormatter);
     ValueEnforcer.isGT0 (nMinLength, "MinLength");
     m_nMinLength = nMinLength;
     m_cFill = cFill;

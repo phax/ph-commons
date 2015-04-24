@@ -52,6 +52,10 @@ public abstract class AbstractStringFormatter implements IFormatter
     m_aPrevFormatter = aPrevFormatter;
   }
 
+  /**
+   * @return The previous formatter to be used before this formatter. May be
+   *         <code>null</code>.
+   */
   @Nullable
   public final IFormatter getPreviousFormatter ()
   {

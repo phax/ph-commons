@@ -23,7 +23,7 @@ import com.helger.commons.format.IFormatter;
 
 /**
  * A formatter that adds a suffix to a string.
- * 
+ *
  * @author Philip Helger
  */
 public class StringSuffixFormatter extends StringPrefixAndSuffixFormatter
@@ -33,8 +33,8 @@ public class StringSuffixFormatter extends StringPrefixAndSuffixFormatter
     super ("", sSuffix);
   }
 
-  public StringSuffixFormatter (@Nullable final IFormatter aNestedFormatter, @Nonnull final String sSuffix)
+  public StringSuffixFormatter (@Nullable final IFormatter aPrevFormatter, @Nonnull final String sSuffix)
   {
-    super (aNestedFormatter, "", sSuffix);
+    super (aPrevFormatter, "", sSuffix);
   }
 }

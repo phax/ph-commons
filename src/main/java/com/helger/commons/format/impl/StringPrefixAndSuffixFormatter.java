@@ -39,11 +39,11 @@ public class StringPrefixAndSuffixFormatter extends AbstractStringFormatter
     this (null, sPrefix, sSuffix);
   }
 
-  public StringPrefixAndSuffixFormatter (@Nullable final IFormatter aNestedFormatter,
+  public StringPrefixAndSuffixFormatter (@Nullable final IFormatter aPrevFormatter,
                                          @Nonnull final String sPrefix,
                                          @Nonnull final String sSuffix)
   {
-    super (aNestedFormatter);
+    super (aPrevFormatter);
     m_sPrefix = ValueEnforcer.notNull (sPrefix, "Prefix");
     m_sSuffix = ValueEnforcer.notNull (sSuffix, "Suffix");
   }
