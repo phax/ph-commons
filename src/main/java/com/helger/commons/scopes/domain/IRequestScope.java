@@ -58,9 +58,35 @@ public interface IRequestScope extends IScope
    * @param sName
    *        The name of the attribute to query.
    * @return <code>null</code> if no such attribute value exists
+   * @deprecated Use {@link #getAttributeAsList(String)} instead
    */
+  @Deprecated
   @Nullable
   List <String> getAttributeValues (@Nullable String sName);
+
+  /**
+   * Get a list of all attribute values with the same name.
+   *
+   * @param sName
+   *        The name of the attribute to query.
+   * @return <code>null</code> if no such attribute value exists
+   */
+  @Nullable
+  List <String> getAttributeAsList (@Nullable String sName);
+
+  /**
+   * Get a list of all attribute values with the same name.
+   *
+   * @param sName
+   *        The name of the attribute to query.
+   * @param aDefault
+   *        The default value to be returned, if no such attribute is present.
+   * @return <code>aDefault</code> if no such attribute value exists
+   * @deprecated Use {@link #getAttributeAsList(String,List)} instead
+   */
+  @Deprecated
+  @Nullable
+  List <String> getAttributeValues (@Nullable String sName, @Nullable List <String> aDefault);
 
   /**
    * Get a list of all attribute values with the same name.
@@ -72,7 +98,7 @@ public interface IRequestScope extends IScope
    * @return <code>aDefault</code> if no such attribute value exists
    */
   @Nullable
-  List <String> getAttributeValues (@Nullable String sName, @Nullable List <String> aDefault);
+  List <String> getAttributeAsList (@Nullable String sName, @Nullable List <String> aDefault);
 
   /**
    * Check if a attribute with the given name is present in the request and has
