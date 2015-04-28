@@ -26,12 +26,13 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ICloneable;
 import com.helger.commons.annotations.DevelopersNote;
+import com.helger.commons.string.StringHelper;
 
 /**
  * A special URL parameter map that is made for best inline usage. It's simply a
  * Map&lt;String,String&gt; with more nifty API :)<br>
  * SMap is short for String-Map
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -45,7 +46,7 @@ public class SMap extends LinkedHashMap <String, String> implements ICloneable <
 
   /**
    * Create a map base on the given map. Kind of a copy-constructor.
-   * 
+   *
    * @param rhs
    *        The map to add. May not be <code>null</code>.
    */
@@ -73,7 +74,7 @@ public class SMap extends LinkedHashMap <String, String> implements ICloneable <
   /**
    * Important: this method must be present, because the underlying AbstractMap
    * otherwise throws an exception if this method is not overridden!!!
-   * 
+   *
    * @param sName
    *        Key
    * @param sValue
@@ -106,6 +107,14 @@ public class SMap extends LinkedHashMap <String, String> implements ICloneable <
   }
 
   @Nonnull
+  public SMap addIfNotEmpty (@Nonnull final String sName, @Nullable final String sValue)
+  {
+    if (StringHelper.hasText (sValue))
+      super.put (sName, sValue);
+    return this;
+  }
+
+  @Nonnull
   public SMap add (@Nonnull final String sName, @Nonnull final String sValue)
   {
     super.put (sName, sValue);
@@ -122,6 +131,12 @@ public class SMap extends LinkedHashMap <String, String> implements ICloneable <
   public SMap add (@Nonnull final String sName, final int nValue)
   {
     return add (sName, Integer.toString (nValue));
+  }
+
+  @Nonnull
+  public SMap addWithoutValue (@Nonnull final String sName)
+  {
+    return add (sName, "");
   }
 
   @Nonnull
