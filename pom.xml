@@ -65,7 +65,7 @@
     <jaxb.api.version>2.1</jaxb.api.version>
     <jaxb.impl.version>2.1.13</jaxb.impl.version>
   </properties>
-
+  
   <dependencies>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -167,6 +167,7 @@
         <artifactId>license-maven-plugin</artifactId>
         <configuration>
           <excludes>
+            <exclude>src/main/java/com/sun/**</exclude>
             <!-- Ignore because of charset issues -->
             <exclude>src/test/resources/properties/**</exclude>
             <exclude>src/test/resources/**/*.txt</exclude>

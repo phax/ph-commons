@@ -34,7 +34,6 @@ import com.sun.xml.internal.bind.marshaller.NamespacePrefixMapper;
  *
  * @author Philip Helger
  */
-@SuppressWarnings ("restriction")
 public class JAXBNamespacePrefixMapperOracleRT extends NamespacePrefixMapper
 {
   private final NamespaceContext m_aNC;
