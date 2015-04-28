@@ -49,10 +49,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Value type
  */
 @NotThreadSafe
-public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends
-                                                                    AbstractGenericReadonlyAttributeContainer <KEYTYPE, VALUETYPE> implements
-                                                                                                                                  IGenericAttributeContainer <KEYTYPE, VALUETYPE>,
-                                                                                                                                  ICloneable <MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE>>
+public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends AbstractGenericReadonlyAttributeContainer <KEYTYPE, VALUETYPE> implements IGenericAttributeContainer <KEYTYPE, VALUETYPE>, ICloneable <MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE>>
 {
   /**
    * attribute storage.
@@ -181,6 +178,7 @@ public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends
   }
 
   @Nonnull
+  @Deprecated
   public Enumeration <KEYTYPE> getAttributeNames ()
   {
     // Build an enumerator on top of the set

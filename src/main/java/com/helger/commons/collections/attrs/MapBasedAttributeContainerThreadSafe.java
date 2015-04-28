@@ -35,7 +35,7 @@ import com.helger.commons.state.EChange;
  * Base class for all kind of string-object mapping container. This
  * implementation is a thread-safe wrapper around
  * {@link MapBasedAttributeContainer}!
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -135,6 +135,7 @@ public class MapBasedAttributeContainerThreadSafe extends MapBasedAttributeConta
 
   @Override
   @Nonnull
+  @Deprecated
   @ReturnsMutableCopy
   public Enumeration <String> getAttributeNames ()
   {

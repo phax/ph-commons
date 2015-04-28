@@ -42,8 +42,7 @@ import com.helger.commons.state.EChange;
  *        Value type
  */
 @ThreadSafe
-public class MapBasedGenericAttributeContainerThreadSafe <KEYTYPE, VALUETYPE> extends
-                                                                              MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE>
+public class MapBasedGenericAttributeContainerThreadSafe <KEYTYPE, VALUETYPE> extends MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE>
 {
   protected final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
 
@@ -140,6 +139,7 @@ public class MapBasedGenericAttributeContainerThreadSafe <KEYTYPE, VALUETYPE> ex
   @Override
   @Nonnull
   @ReturnsMutableCopy
+  @Deprecated
   public Enumeration <KEYTYPE> getAttributeNames ()
   {
     m_aRWLock.readLock ().lock ();

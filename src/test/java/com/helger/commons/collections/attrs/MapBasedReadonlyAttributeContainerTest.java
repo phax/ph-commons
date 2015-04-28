@@ -41,13 +41,13 @@ public final class MapBasedReadonlyAttributeContainerTest
   public void testInit ()
   {
     MapBasedReadonlyAttributeContainer x = new MapBasedReadonlyAttributeContainer (CollectionHelper.newMap (new String [] {},
-                                                                                                           new Object [] {}));
+                                                                                                            new Object [] {}));
     assertNotNull (x.getAllAttributeNames ());
     assertTrue (x.getAllAttributeNames ().isEmpty ());
     assertTrue (x.containsNoAttribute ());
 
     x = new MapBasedReadonlyAttributeContainer (CollectionHelper.newMap (new String [] { "key", "key2", "key3" },
-                                                                        new Object [] { "value", "value2", null }));
+                                                                         new Object [] { "value", "value2", null }));
     assertEquals (3, x.getAttributeCount ());
     assertFalse (x.containsNoAttribute ());
     assertEquals ("value2", x.getAttributeObject ("key2"));
@@ -59,24 +59,23 @@ public final class MapBasedReadonlyAttributeContainerTest
     assertNull (x.getAttributeObject ("key3"));
     assertFalse (x.getAllAttributes ().isEmpty ());
     assertFalse (x.getAllAttributeNames ().isEmpty ());
-    assertTrue (x.getAttributeNames ().hasMoreElements ());
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedReadonlyAttributeContainer (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                   "key2" },
-                                                                                                                                    new Object [] { "value",
-                                                                                                                                                   "value2" })),
-                                                                    new MapBasedReadonlyAttributeContainer (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                   "key2" },
-                                                                                                                                    new Object [] { "value",
-                                                                                                                                                   "value2" })));
+                                                                                                                                                 "key2" },
+                                                                                                                                  new Object [] { "value",
+                                                                                                                                                 "value2" })),
+                                                                 new MapBasedReadonlyAttributeContainer (CollectionHelper.newMap (new String [] { "key",
+                                                                                                                                                 "key2" },
+                                                                                                                                  new Object [] { "value",
+                                                                                                                                                 "value2" })));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedReadonlyAttributeContainer (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                       "key2" },
-                                                                                                                                        new Object [] { "value",
-                                                                                                                                                       "value2" })),
-                                                                        new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                               "key2" },
-                                                                                                                                new Object [] { "value",
-                                                                                                                                               "value" })));
+                                                                                                                                                     "key2" },
+                                                                                                                                      new Object [] { "value",
+                                                                                                                                                     "value2" })),
+                                                                     new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
+                                                                                                                                             "key2" },
+                                                                                                                              new Object [] { "value",
+                                                                                                                                             "value" })));
 
     try
     {

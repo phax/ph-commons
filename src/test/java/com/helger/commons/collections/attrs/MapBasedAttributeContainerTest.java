@@ -73,7 +73,6 @@ public final class MapBasedAttributeContainerTest
     PHAssert.assertEquals (CGlobal.ILLEGAL_DOUBLE, x.getAttributeAsDouble ("key2"));
     assertFalse (x.getAttributeAsBoolean ("key"));
     assertFalse (x.getAttributeAsBoolean ("key2"));
-    assertTrue (x.getAttributeNames ().hasMoreElements ());
     assertTrue (x.removeAttribute ("key").isChanged ());
     assertFalse (x.removeAttribute ("key").isChanged ());
 
@@ -84,23 +83,23 @@ public final class MapBasedAttributeContainerTest
     assertTrue (x.removeAttribute ("null1").isUnchanged ());
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainer (),
-                                                                    new MapBasedAttributeContainer ());
+                                                                 new MapBasedAttributeContainer ());
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                           "key2" },
-                                                                                                                            new Object [] { "value",
-                                                                                                                                           "value2" })),
-                                                                    new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                           "key2" },
-                                                                                                                            new Object [] { "value",
-                                                                                                                                           "value2" })));
+                                                                                                                                         "key2" },
+                                                                                                                          new Object [] { "value",
+                                                                                                                                         "value2" })),
+                                                                 new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
+                                                                                                                                         "key2" },
+                                                                                                                          new Object [] { "value",
+                                                                                                                                         "value2" })));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                               "key2" },
-                                                                                                                                new Object [] { "value",
-                                                                                                                                               "value2" })),
-                                                                        new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                               "key2" },
-                                                                                                                                new Object [] { "value",
-                                                                                                                                               "value" })));
+                                                                                                                                             "key2" },
+                                                                                                                              new Object [] { "value",
+                                                                                                                                             "value2" })),
+                                                                     new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
+                                                                                                                                             "key2" },
+                                                                                                                              new Object [] { "value",
+                                                                                                                                             "value" })));
 
     try
     {

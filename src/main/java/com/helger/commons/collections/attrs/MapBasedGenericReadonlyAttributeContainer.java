@@ -45,8 +45,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Value type
  */
 @NotThreadSafe
-public class MapBasedGenericReadonlyAttributeContainer <KEYTYPE, VALUETYPE> extends
-                                                                            AbstractGenericReadonlyAttributeContainer <KEYTYPE, VALUETYPE>
+public class MapBasedGenericReadonlyAttributeContainer <KEYTYPE, VALUETYPE> extends AbstractGenericReadonlyAttributeContainer <KEYTYPE, VALUETYPE>
 {
   private final Map <KEYTYPE, VALUETYPE> m_aAttrs = new HashMap <KEYTYPE, VALUETYPE> ();
 
@@ -80,6 +79,7 @@ public class MapBasedGenericReadonlyAttributeContainer <KEYTYPE, VALUETYPE> exte
   }
 
   @Nonnull
+  @Deprecated
   public Enumeration <KEYTYPE> getAttributeNames ()
   {
     return CollectionHelper.getEnumeration (m_aAttrs.keySet ());

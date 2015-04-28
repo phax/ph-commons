@@ -332,19 +332,21 @@ public interface IGenericReadonlyAttributeContainer <KEYTYPE, VALUETYPE> extends
   /**
    * Get an enumerator over all contained attribute names.
    *
-   * @return an Enumerator over all attribute names
+   * @return an {@link Enumeration} over all attribute names
+   * @deprecated since 5.7.0 - use {@link #getAllAttributeNames()} instead.
    */
   @Nonnull
+  @Deprecated
   Enumeration <KEYTYPE> getAttributeNames ();
 
   /**
-   * @return A non-null set of all attribute names.
+   * @return A non-<code>null</code> set of all attribute names.
    */
   @Nonnull
   Set <KEYTYPE> getAllAttributeNames ();
 
   /**
-   * @return A non-null collection of all attribute values.
+   * @return A non-<code>null</code> collection of all attribute values.
    */
   @Nonnull
   Collection <VALUETYPE> getAllAttributeValues ();
