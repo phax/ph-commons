@@ -128,9 +128,21 @@ public class SMap extends LinkedHashMap <String, String> implements ICloneable <
   }
 
   @Nonnull
+  public SMap add (@Nonnull final String sName, final boolean bValue)
+  {
+    return add (sName, Boolean.toString (bValue));
+  }
+
+  @Nonnull
   public SMap add (@Nonnull final String sName, final int nValue)
   {
     return add (sName, Integer.toString (nValue));
+  }
+
+  @Nonnull
+  public SMap add (@Nonnull final String sName, final long nValue)
+  {
+    return add (sName, Long.toString (nValue));
   }
 
   @Nonnull
