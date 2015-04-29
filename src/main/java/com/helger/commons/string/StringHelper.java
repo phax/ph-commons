@@ -255,6 +255,24 @@ public final class StringHelper
     return hasTextAfterTrim (s);
   }
 
+  /**
+   * Check if the passed character sequence is only whitespace or not.
+   * 
+   * @param s
+   *        The character sequence to be checked. May not be <code>null</code>.
+   * @return <code>true</code> if the passed sequence is empty or if only
+   *         whitespace characters are contained.
+   * @see Character#isWhitespace(char)
+   */
+  public static boolean isAllWhitespace (@Nonnull final CharSequence s)
+  {
+    final int nLen = s.length ();
+    for (int i = 0; i < nLen; ++i)
+      if (!Character.isWhitespace (s.charAt (i)))
+        return false;
+    return true;
+  }
+
   @Nullable
   public static String getLeadingZero (@Nullable final Byte aValue, final int nChars)
   {
