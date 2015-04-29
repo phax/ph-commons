@@ -53,32 +53,33 @@ import com.helger.commons.string.StringHelper;
 public class CSVParser
 {
   /**
-   * This is the character that the CSVParser will treat as the separator.
+   * This is the character that the {@link CSVParser} will treat as the
+   * separator.
    */
-  private final char m_cSeparator;
+  private char m_cSeparatorChar = CCSV.DEFAULT_SEPARATOR;
   /**
-   * This is the character that the CSVParser will treat as the quotation
+   * This is the character that the {@link CSVParser} will treat as the
+   * quotation character.
+   */
+  private char m_cQuoteChar = CCSV.DEFAULT_QUOTE_CHARACTER;
+  /**
+   * This is the character that the {@link CSVParser} will treat as the escape
    * character.
    */
-  private final char m_cQuotechar;
+  private char m_cEscapeChar = CCSV.DEFAULT_ESCAPE_CHARACTER;
   /**
-   * This is the character that the CSVParser will treat as the escape
-   * character.
+   * Determines if the field is between quotes (<code>true</code>) or between
+   * separators (<code>false</code>).
    */
-  private final char m_cEscape;
-  /**
-   * Determines if the field is between quotes (true) or between separators
-   * (false).
-   */
-  private final boolean m_bStrictQuotes;
+  private boolean m_bStrictQuotes = CCSV.DEFAULT_STRICT_QUOTES;
   /**
    * Ignore any leading white space at the start of the field.
    */
-  private final boolean m_bIgnoreLeadingWhiteSpace;
+  private boolean m_bIgnoreLeadingWhiteSpace = CCSV.DEFAULT_IGNORE_LEADING_WHITESPACE;
   /**
    * Skip over quotation characters when parsing.
    */
-  private final boolean m_bIgnoreQuotations;
+  private boolean m_bIgnoreQuotations = CCSV.DEFAULT_IGNORE_QUOTATIONS;
   private String m_sPending;
   private boolean m_bInField = false;
 
@@ -86,133 +87,32 @@ public class CSVParser
    * Constructs CSVParser using a comma for the separator.
    */
   public CSVParser ()
-  {
-    this (CCSV.DEFAULT_SEPARATOR, CCSV.DEFAULT_QUOTE_CHARACTER, CCSV.DEFAULT_ESCAPE_CHARACTER);
-  }
-
-  /**
-   * Constructs CSVParser with supplied separator.
-   *
-   * @param cSeparator
-   *        the delimiter to use for separating entries.
-   */
-  public CSVParser (final char cSeparator)
-  {
-    this (cSeparator, CCSV.DEFAULT_QUOTE_CHARACTER, CCSV.DEFAULT_ESCAPE_CHARACTER);
-  }
-
-  /**
-   * Constructs CSVParser with supplied separator and quote char.
-   *
-   * @param cSeparator
-   *        the delimiter to use for separating entries
-   * @param cQuotechar
-   *        the character to use for quoted elements
-   */
-  public CSVParser (final char cSeparator, final char cQuotechar)
-  {
-    this (cSeparator, cQuotechar, CCSV.DEFAULT_ESCAPE_CHARACTER);
-  }
-
-  /**
-   * Constructs CSVReader with supplied separator and quote char.
-   *
-   * @param cSeparator
-   *        the delimiter to use for separating entries
-   * @param cQuotechar
-   *        the character to use for quoted elements
-   * @param cEscape
-   *        the character to use for escaping a separator or quote
-   */
-  public CSVParser (final char cSeparator, final char cQuotechar, final char cEscape)
-  {
-    this (cSeparator, cQuotechar, cEscape, CCSV.DEFAULT_STRICT_QUOTES);
-  }
-
-  /**
-   * Constructs CSVParser with supplied separator and quote char. Allows setting
-   * the "strict quotes" flag
-   *
-   * @param cSeparator
-   *        the delimiter to use for separating entries
-   * @param cQuotechar
-   *        the character to use for quoted elements
-   * @param cEscape
-   *        the character to use for escaping a separator or quote
-   * @param bStrictQuotes
-   *        if true, characters outside the quotes are ignored
-   */
-  public CSVParser (final char cSeparator, final char cQuotechar, final char cEscape, final boolean bStrictQuotes)
-  {
-    this (cSeparator, cQuotechar, cEscape, bStrictQuotes, CCSV.DEFAULT_IGNORE_LEADING_WHITESPACE);
-  }
-
-  /**
-   * Constructs CSVParser with supplied separator and quote char. Allows setting
-   * the "strict quotes" and "ignore leading whitespace" flags
-   *
-   * @param cSeparator
-   *        the delimiter to use for separating entries
-   * @param cQuotechar
-   *        the character to use for quoted elements
-   * @param cEscape
-   *        the character to use for escaping a separator or quote
-   * @param bStrictQuotes
-   *        if true, characters outside the quotes are ignored
-   * @param bIgnoreLeadingWhiteSpace
-   *        if true, white space in front of a quote in a field is ignored
-   */
-  public CSVParser (final char cSeparator,
-                    final char cQuotechar,
-                    final char cEscape,
-                    final boolean bStrictQuotes,
-                    final boolean bIgnoreLeadingWhiteSpace)
-  {
-    this (cSeparator, cQuotechar, cEscape, bStrictQuotes, bIgnoreLeadingWhiteSpace, CCSV.DEFAULT_IGNORE_QUOTATIONS);
-  }
-
-  /**
-   * Constructs CSVParser with supplied separator and quote char. Allows setting
-   * the "strict quotes" and "ignore leading whitespace" flags
-   *
-   * @param cSeparator
-   *        the delimiter to use for separating entries
-   * @param cQuotechar
-   *        the character to use for quoted elements
-   * @param cEscape
-   *        the character to use for escaping a separator or quote
-   * @param bStrictQuotes
-   *        if true, characters outside the quotes are ignored
-   * @param bIgnoreLeadingWhiteSpace
-   *        if true, white space in front of a quote in a field is ignored
-   * @param bIgnoreQuotations
-   *        if true, treat quotations like any other character.
-   */
-  public CSVParser (final char cSeparator,
-                    final char cQuotechar,
-                    final char cEscape,
-                    final boolean bStrictQuotes,
-                    final boolean bIgnoreLeadingWhiteSpace,
-                    final boolean bIgnoreQuotations)
-  {
-    if (_anyCharactersAreTheSame (cSeparator, cQuotechar, cEscape))
-      throw new UnsupportedOperationException ("The separator, quote, and escape characters must be different!");
-    if (cSeparator == CCSV.NULL_CHARACTER)
-      throw new UnsupportedOperationException ("The separator character must be defined!");
-    m_cSeparator = cSeparator;
-    m_cQuotechar = cQuotechar;
-    m_cEscape = cEscape;
-    m_bStrictQuotes = bStrictQuotes;
-    m_bIgnoreLeadingWhiteSpace = bIgnoreLeadingWhiteSpace;
-    m_bIgnoreQuotations = bIgnoreQuotations;
-  }
+  {}
 
   /**
    * @return The default separator for this parser.
    */
   public char getSeparator ()
   {
-    return m_cSeparator;
+    return m_cSeparatorChar;
+  }
+
+  /**
+   * Sets the delimiter to use for separating entries.
+   *
+   * @param cSeparator
+   *        the delimiter to use for separating entries
+   * @return this
+   */
+  @Nonnull
+  public CSVParser setSeparator (final char cSeparator)
+  {
+    if (cSeparator == CCSV.NULL_CHARACTER)
+      throw new UnsupportedOperationException ("The separator character must be defined!");
+    m_cSeparatorChar = cSeparator;
+    if (_anyCharactersAreTheSame ())
+      throw new UnsupportedOperationException ("The separator, quote, and escape characters must be different!");
+    return this;
   }
 
   /**
@@ -220,7 +120,23 @@ public class CSVParser
    */
   public char getQuotechar ()
   {
-    return m_cQuotechar;
+    return m_cQuoteChar;
+  }
+
+  /**
+   * Sets the character to use for quoted elements.
+   *
+   * @param cQuoteChar
+   *        the character to use for quoted element.
+   * @return this
+   */
+  @Nonnull
+  public CSVParser setQuoteChar (final char cQuoteChar)
+  {
+    m_cQuoteChar = cQuoteChar;
+    if (_anyCharactersAreTheSame ())
+      throw new UnsupportedOperationException ("The separator, quote, and escape characters must be different!");
+    return this;
   }
 
   /**
@@ -228,7 +144,23 @@ public class CSVParser
    */
   public char getEscape ()
   {
-    return m_cEscape;
+    return m_cEscapeChar;
+  }
+
+  /**
+   * Sets the character to use for escaping a separator or quote.
+   *
+   * @param cEscapeChar
+   *        the character to use for escaping a separator or quote.
+   * @return this
+   */
+  @Nonnull
+  public CSVParser setEscapeChar (final char cEscapeChar)
+  {
+    m_cEscapeChar = cEscapeChar;
+    if (_anyCharactersAreTheSame ())
+      throw new UnsupportedOperationException ("The separator, quote, and escape characters must be different!");
+    return this;
   }
 
   /**
@@ -240,11 +172,42 @@ public class CSVParser
   }
 
   /**
+   * Sets the strict quotes setting - if true, characters outside the quotes are
+   * ignored.
+   *
+   * @param bStrictQuotes
+   *        if <code>true</code>, characters outside the quotes are ignored
+   * @return this
+   */
+  @Nonnull
+  public CSVParser setStrictQuotes (final boolean bStrictQuotes)
+  {
+    m_bStrictQuotes = bStrictQuotes;
+    return this;
+  }
+
+  /**
    * @return The default ignoreLeadingWhiteSpace setting for this parser.
    */
   public boolean isIgnoreLeadingWhiteSpace ()
   {
     return m_bIgnoreLeadingWhiteSpace;
+  }
+
+  /**
+   * Sets the ignore leading whitespace setting - if true, white space in front
+   * of a quote in a field is ignored.
+   *
+   * @param bIgnoreLeadingWhiteSpace
+   *        if <code>true</code>, white space in front of a quote in a field is
+   *        ignored
+   * @return this
+   */
+  @Nonnull
+  public CSVParser setIgnoreLeadingWhiteSpace (final boolean bIgnoreLeadingWhiteSpace)
+  {
+    m_bIgnoreLeadingWhiteSpace = bIgnoreLeadingWhiteSpace;
+    return this;
   }
 
   /**
@@ -256,23 +219,32 @@ public class CSVParser
   }
 
   /**
+   * Sets the ignore quotations mode - if <code>true</code>, quotations are
+   * ignored.
+   *
+   * @param bIgnoreQuotations
+   *        if <code>true</code>, quotations are ignored
+   * @return this
+   */
+  @Nonnull
+  public CSVParser setIgnoreQuotations (final boolean bIgnoreQuotations)
+  {
+    m_bIgnoreQuotations = bIgnoreQuotations;
+    return this;
+  }
+
+  /**
    * checks to see if any two of the three characters are the same. This is
    * because in openCSV the separator, quote, and escape characters must the
    * different.
    *
-   * @param cSeparator
-   *        the defined separator character
-   * @param cQuoteChar
-   *        the defined quotation character
-   * @param cEscape
-   *        the defined escape character
-   * @return true if any two of the three are the same.
+   * @return <code>true</code> if any two of the three are the same.
    */
-  private boolean _anyCharactersAreTheSame (final char cSeparator, final char cQuoteChar, final char cEscape)
+  private boolean _anyCharactersAreTheSame ()
   {
-    return _isSameCharacter (cSeparator, cQuoteChar) ||
-           _isSameCharacter (cSeparator, cEscape) ||
-           _isSameCharacter (cQuoteChar, cEscape);
+    return _isSameCharacter (m_cSeparatorChar, m_cQuoteChar) ||
+           _isSameCharacter (m_cSeparatorChar, m_cEscapeChar) ||
+           _isSameCharacter (m_cQuoteChar, m_cEscapeChar);
   }
 
   /**
@@ -376,7 +348,7 @@ public class CSVParser
     for (int nIndex = 0; nIndex < nLen; nIndex++)
     {
       final char c = sNextLine.charAt (nIndex);
-      if (c == m_cEscape)
+      if (c == m_cEscapeChar)
       {
         if (isNextCharacterEscapable (sNextLine, _isInQuotes (bInQuotes), nIndex))
         {
@@ -384,7 +356,7 @@ public class CSVParser
         }
       }
       else
-        if (c == m_cQuotechar)
+        if (c == m_cQuoteChar)
         {
           if (_isNextCharacterEscapedQuote (sNextLine, _isInQuotes (bInQuotes), nIndex))
           {
@@ -401,9 +373,9 @@ public class CSVParser
               // 2. not at the beginning of an escape sequence
               // 4. not at the end of an escape sequence
               if (nIndex > 2 &&
-                  sNextLine.charAt (nIndex - 1) != m_cSeparator &&
+                  sNextLine.charAt (nIndex - 1) != m_cSeparatorChar &&
                   sNextLine.length () > (nIndex + 1) &&
-                  sNextLine.charAt (nIndex + 1) != m_cSeparator)
+                  sNextLine.charAt (nIndex + 1) != m_cSeparatorChar)
               {
                 if (m_bIgnoreLeadingWhiteSpace && aSB.length () > 0 && isAllWhiteSpace (aSB))
                 {
@@ -419,7 +391,7 @@ public class CSVParser
           m_bInField = !m_bInField;
         }
         else
-          if (c == m_cSeparator && !(bInQuotes && !m_bIgnoreQuotations))
+          if (c == m_cSeparatorChar && !(bInQuotes && !m_bIgnoreQuotations))
           {
             aTokensOnThisLine.add (aSB.toString ());
             aSB.setLength (0);
@@ -529,7 +501,7 @@ public class CSVParser
    */
   private boolean _isCharacterQuoteCharacter (final char c)
   {
-    return c == m_cQuotechar;
+    return c == m_cQuoteChar;
   }
 
   /**
@@ -541,7 +513,7 @@ public class CSVParser
    */
   private boolean _isCharacterEscapeCharacter (final char c)
   {
-    return c == m_cEscape;
+    return c == m_cEscapeChar;
   }
 
   /**

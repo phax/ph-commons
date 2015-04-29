@@ -82,11 +82,7 @@ public final class CSVParserTest
   @Test
   public void parseSimpleQuotedStringWithSpaces () throws IOException
   {
-    final CSVParser parser = new CSVParser (CCSV.DEFAULT_SEPARATOR,
-                                            CCSV.DEFAULT_QUOTE_CHARACTER,
-                                            CCSV.DEFAULT_ESCAPE_CHARACTER,
-                                            true,
-                                            false);
+    final CSVParser parser = new CSVParser ().setStrictQuotes (true).setIgnoreLeadingWhiteSpace (false);
 
     final List <String> aNextLine = parser.parseLine (" \"a\" , \"b\" , \"c\" ");
     assertEquals (3, aNextLine.size ());
@@ -126,7 +122,7 @@ public final class CSVParserTest
   @Test
   public void parseQuotedStringWithDefinedSeperator () throws IOException
   {
-    m_aParser = new CSVParser (':');
+    m_aParser = new CSVParser ().setSeparator (':');
 
     final List <String> aNextLine = m_aParser.parseLine ("a:\"b:b:b\":c");
     assertEquals ("a", aNextLine.get (0));
@@ -138,7 +134,7 @@ public final class CSVParserTest
   @Test
   public void parseQuotedStringWithDefinedSeperatorAndQuote () throws IOException
   {
-    m_aParser = new CSVParser (':', '\'');
+    m_aParser = new CSVParser ().setSeparator (':').setQuoteChar ('\'');
 
     final List <String> aNextLine = m_aParser.parseLine ("a:'b:b:b':c");
     assertEquals ("a", aNextLine.get (0));
@@ -268,7 +264,7 @@ public final class CSVParserTest
   @Test
   public void testStrictQuoteSimple () throws IOException
   {
-    m_aParser = new CSVParser (',', '\"', '\\', true);
+    m_aParser = new CSVParser ().setStrictQuotes (true);
     final String testString = "\"a\",\"b\",\"c\"";
 
     final List <String> aNextLine = m_aParser.parseLine (testString);
@@ -281,7 +277,7 @@ public final class CSVParserTest
   @Test
   public void testNotStrictQuoteSimple () throws IOException
   {
-    m_aParser = new CSVParser (',', '\"', '\\', false);
+    m_aParser = new CSVParser ().setStrictQuotes (false);
     final String testString = "\"a\",\"b\",\"c\"";
 
     final List <String> aNextLine = m_aParser.parseLine (testString);
@@ -294,7 +290,7 @@ public final class CSVParserTest
   @Test
   public void testStrictQuoteWithSpacesAndTabs () throws IOException
   {
-    m_aParser = new CSVParser (',', '\"', '\\', true);
+    m_aParser = new CSVParser ().setStrictQuotes (true);
     final String testString = " \t      \"a\",\"b\"      \t       ,   \"c\"   ";
 
     final List <String> aNextLine = m_aParser.parseLine (testString);
@@ -313,7 +309,7 @@ public final class CSVParserTest
   @Test
   public void testNotStrictQuoteWithSpacesAndTabs () throws IOException
   {
-    m_aParser = new CSVParser (',', '\"', '\\', false);
+    m_aParser = new CSVParser ().setStrictQuotes (false);
     final String testString = " \t      \"a\",\"b\"      \t       ,   \"c\"   ";
 
     final List <String> aNextLine = m_aParser.parseLine (testString);
@@ -326,7 +322,7 @@ public final class CSVParserTest
   @Test
   public void testStrictQuoteWithGarbage () throws IOException
   {
-    m_aParser = new CSVParser (',', '\"', '\\', true);
+    m_aParser = new CSVParser ().setStrictQuotes (true);
     final String testString = "abc',!@#\",\\\"\"   xyz,";
 
     final List <String> aNextLine = m_aParser.parseLine (testString);
@@ -339,12 +335,7 @@ public final class CSVParserTest
   @Test
   public void testCanIgnoreQuotations () throws IOException
   {
-    m_aParser = new CSVParser (CCSV.DEFAULT_SEPARATOR,
-                               CCSV.DEFAULT_QUOTE_CHARACTER,
-                               CCSV.DEFAULT_ESCAPE_CHARACTER,
-                               CCSV.DEFAULT_STRICT_QUOTES,
-                               CCSV.DEFAULT_IGNORE_LEADING_WHITESPACE,
-                               true);
+    m_aParser = new CSVParser ().setIgnoreQuotations (true);
     final String testString = "Bob,test\",Beaumont,TX";
 
     final List <String> aNextLine = m_aParser.parseLine (testString);
@@ -358,12 +349,7 @@ public final class CSVParserTest
   @Test
   public void testFalseIgnoreQuotations ()
   {
-    m_aParser = new CSVParser (CCSV.DEFAULT_SEPARATOR,
-                               CCSV.DEFAULT_QUOTE_CHARACTER,
-                               CCSV.DEFAULT_ESCAPE_CHARACTER,
-                               CCSV.DEFAULT_STRICT_QUOTES,
-                               CCSV.DEFAULT_IGNORE_LEADING_WHITESPACE,
-                               false);
+    m_aParser = new CSVParser ().setIgnoreQuotations (false);
     final String testString = "Bob,test\",Beaumont,TX";
 
     try
@@ -392,12 +378,7 @@ public final class CSVParserTest
   @Test
   public void testIssue3314579 () throws IOException
   {
-    m_aParser = new CSVParser (';',
-                               CCSV.DEFAULT_QUOTE_CHARACTER,
-                               CCSV.DEFAULT_ESCAPE_CHARACTER,
-                               CCSV.DEFAULT_STRICT_QUOTES,
-                               CCSV.DEFAULT_IGNORE_LEADING_WHITESPACE,
-                               true);
+    m_aParser = new CSVParser ().setSeparator (';').setIgnoreQuotations (true);
     final String testString = "RPO;2012;P; ; ; ;SDX;ACCESSORY WHEEL, 16\", ALUMINUM, DESIGN 1";
 
     final List <String> aNextLine = m_aParser.parseLine (testString);
@@ -422,7 +403,7 @@ public final class CSVParserTest
   @Test
   public void testIssue2263439 () throws IOException
   {
-    m_aParser = new CSVParser (',', '\'');
+    m_aParser = new CSVParser ().setQuoteChar ('\'');
 
     final List <String> aNextLine = m_aParser.parseLine ("865,0,'AmeriKKKa\\'s_Most_Wanted','',294,0,0,0.734338696798625,'20081002052147',242429208,18448");
 
@@ -433,7 +414,6 @@ public final class CSVParserTest
     assertEquals ("AmeriKKKa's_Most_Wanted", aNextLine.get (2));
     assertEquals ("", aNextLine.get (3));
     assertEquals ("18448", aNextLine.get (10));
-
   }
 
   /**
@@ -445,7 +425,7 @@ public final class CSVParserTest
   @Test
   public void testIssue2859181 () throws IOException
   {
-    m_aParser = new CSVParser (';');
+    m_aParser = new CSVParser ().setSeparator (';');
     final List <String> aNextLine = m_aParser.parseLine ("field1;\\=field2;\"\"\"field3\"\"\""); // field1;\=field2;"""field3"""
 
     assertEquals (3, aNextLine.size ());
@@ -538,10 +518,7 @@ public final class CSVParserTest
   @Test
   public void spacesAtEndOfQuotedStringDoNotCountIfStrictQuotesIsTrue () throws IOException
   {
-    final CSVParser parser = new CSVParser (CCSV.DEFAULT_SEPARATOR,
-                                            CCSV.DEFAULT_QUOTE_CHARACTER,
-                                            CCSV.DEFAULT_ESCAPE_CHARACTER,
-                                            true);
+    final CSVParser parser = new CSVParser ().setStrictQuotes (true);
     final List <String> aNextLine = parser.parseLine ("\"Line with\", \"spaces at end\"  ");
 
     assertEquals (2, aNextLine.size ());
@@ -598,7 +575,7 @@ public final class CSVParserTest
   @Test
   public void testIssue2958242WithoutQuotes () throws IOException
   {
-    final CSVParser testParser = new CSVParser ('\t');
+    final CSVParser testParser = new CSVParser ().setSeparator ('\t');
     final List <String> nextItem = testParser.parseLine ("zo\"\"har\"\"at\t10-04-1980\t29\tC:\\\\foo.txt");
     assertEquals (4, nextItem.size ());
     assertEquals ("zo\"har\"at", nextItem.get (0));
@@ -610,31 +587,31 @@ public final class CSVParserTest
   @Test (expected = UnsupportedOperationException.class)
   public void quoteAndEscapeCannotBeTheSame ()
   {
-    new CSVParser (CCSV.DEFAULT_SEPARATOR, CCSV.DEFAULT_QUOTE_CHARACTER, CCSV.DEFAULT_QUOTE_CHARACTER);
+    new CSVParser ().setQuoteChar (CCSV.DEFAULT_QUOTE_CHARACTER).setEscapeChar (CCSV.DEFAULT_QUOTE_CHARACTER);
   }
 
   @Test
   public void quoteAndEscapeCanBeTheSameIfNull ()
   {
-    new CSVParser (CCSV.DEFAULT_SEPARATOR, CCSV.NULL_CHARACTER, CCSV.NULL_CHARACTER);
+    new CSVParser ().setQuoteChar (CCSV.NULL_CHARACTER).setEscapeChar (CCSV.NULL_CHARACTER);
   }
 
   @Test (expected = UnsupportedOperationException.class)
   public void separatorCharacterCannotBeNull ()
   {
-    new CSVParser (CCSV.NULL_CHARACTER);
+    new CSVParser ().setSeparator (CCSV.NULL_CHARACTER);
   }
 
   @Test (expected = UnsupportedOperationException.class)
   public void separatorAndEscapeCannotBeTheSame ()
   {
-    new CSVParser (CCSV.DEFAULT_SEPARATOR, CCSV.DEFAULT_QUOTE_CHARACTER, CCSV.DEFAULT_SEPARATOR);
+    new CSVParser ().setQuoteChar (CCSV.DEFAULT_QUOTE_CHARACTER).setEscapeChar (CCSV.DEFAULT_SEPARATOR);
   }
 
   @Test (expected = UnsupportedOperationException.class)
   public void separatorAndQuoteCannotBeTheSame ()
   {
-    new CSVParser (CCSV.DEFAULT_SEPARATOR, CCSV.DEFAULT_SEPARATOR, CCSV.DEFAULT_ESCAPE_CHARACTER);
+    new CSVParser ().setQuoteChar (CCSV.DEFAULT_SEPARATOR);
   }
 
   @Test

@@ -233,7 +233,11 @@ public class CSVReader implements Closeable, Iterable <List <String>>
                     final boolean strictQuotes,
                     final boolean ignoreLeadingWhiteSpace)
   {
-    this (reader, line, new CSVParser (separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace));
+    this (reader, line, new CSVParser ().setSeparator (separator)
+                                        .setQuoteChar (quotechar)
+                                        .setEscapeChar (escape)
+                                        .setStrictQuotes (strictQuotes)
+                                        .setIgnoreLeadingWhiteSpace (ignoreLeadingWhiteSpace));
   }
 
   /**
@@ -268,7 +272,11 @@ public class CSVReader implements Closeable, Iterable <List <String>>
   {
     this (aReader,
           line,
-          new CSVParser (separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace),
+          new CSVParser ().setSeparator (separator)
+                          .setQuoteChar (quotechar)
+                          .setEscapeChar (escape)
+                          .setStrictQuotes (strictQuotes)
+                          .setIgnoreLeadingWhiteSpace (ignoreLeadingWhiteSpace),
           keepCR,
           CCSV.DEFAULT_VERIFY_READER);
   }

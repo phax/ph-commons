@@ -47,11 +47,6 @@ public final class CCSV
    */
   public static final char DEFAULT_SEPARATOR = ',';
   /**
-   * The average size of a line read by openCSV (used for setting the size of
-   * StringBuilders).
-   */
-  public static final int INITIAL_READ_SIZE = 128;
-  /**
    * The default quote character to use if none is supplied to the constructor.
    */
   public static final char DEFAULT_QUOTE_CHARACTER = '"';
@@ -73,6 +68,11 @@ public final class CCSV
    * If the quote character is set to null then there is no quote character.
    */
   public static final boolean DEFAULT_IGNORE_QUOTATIONS = false;
+  /**
+   * The average size of a line read by openCSV (used for setting the size of
+   * StringBuilders).
+   */
+  public static final int INITIAL_READ_SIZE = 128;
   /**
    * This is the "null" character - if a value is set to this then it is
    * ignored.
