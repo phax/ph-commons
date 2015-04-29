@@ -56,14 +56,14 @@ import com.helger.commons.io.streams.StreamUtils;
  */
 public class CSVReader implements Closeable, Iterable <List <String>>
 {
-  private final CSVParser m_aParser;
-  private final int m_nSkipLines;
   private final Reader m_aReader;
   private final ICSVLineReader m_aLineReader;
+  private final CSVParser m_aParser;
+  private int m_nSkipLines = CCSV.DEFAULT_SKIP_LINES;
   private boolean m_bHasNext = true;
-  private boolean m_bLinesSkiped;
-  private final boolean m_bKeepCR;
-  private final boolean m_bVerifyReader;
+  private boolean m_bLinesSkiped = false;
+  private boolean m_bKeepCR = CCSV.DEFAULT_KEEP_CR;
+  private boolean m_bVerifyReader = CCSV.DEFAULT_VERIFY_READER;
 
   /**
    * Constructs CSVReader using a comma for the separator.
@@ -364,6 +364,21 @@ public class CSVReader implements Closeable, Iterable <List <String>>
   }
 
   /**
+   * Sets the line number to skip for start reading.
+   *
+   * @param nSkipLines
+   *        the line number to skip for start reading.
+   * @return this
+   */
+  @Nonnull
+  public CSVReader setSkipLines (@Nonnegative final int nSkipLines)
+  {
+    ValueEnforcer.isGE0 (nSkipLines, "SkipLines");
+    m_nSkipLines = nSkipLines;
+    return this;
+  }
+
+  /**
    * Returns if the reader will keep carriage returns found in data or remove
    * them.
    *
@@ -372,6 +387,61 @@ public class CSVReader implements Closeable, Iterable <List <String>>
   public boolean isKeepCarriageReturns ()
   {
     return m_bKeepCR;
+  }
+
+  /**
+   * Sets if the reader will keep or discard carriage returns.
+   *
+   * @param bKeepCR
+   *        <code>true</code> to keep carriage returns, <code>false</code> to
+   *        discard.
+   * @return this
+   */
+  @Nonnull
+  public CSVReader setKeepCarriageReturn (final boolean bKeepCR)
+  {
+    m_bKeepCR = bKeepCR;
+    return this;
+  }
+
+  /**
+   * Returns if the CSVReader will verify the reader before each read.
+   * <p/>
+   * By default the value is true which is the functionality for version 3.0. If
+   * set to false the reader is always assumed ready to read - this is the
+   * functionality for version 2.4 and before.
+   * <p/>
+   * The reason this method was needed was that certain types of Readers would
+   * return false for its ready() method until a read was done (namely readers
+   * created using Channels). This caused opencsv not to read from those
+   * readers.
+   * <p/>
+   * Source: https://sourceforge.net/p/opencsv/bugs/108/
+   *
+   * @return <code>true</code> if CSVReader will verify the reader before reads.
+   *         <code>false</code> otherwise.
+   */
+  public boolean isVerifyReader ()
+  {
+    return m_bVerifyReader;
+  }
+
+  /**
+   * Checks to see if the CSVReader should verify the reader state before reads
+   * or not. This should be set to false if you are using some form of
+   * asynchronous reader (like readers created by the java.nio.* classes). The
+   * default value is true.
+   *
+   * @param bVerifyReader
+   *        <code>true</code> if CSVReader should verify reader before each
+   *        read, <code>false</code> otherwise.
+   * @return this
+   */
+  @Nonnull
+  public CSVReader setVerifyReader (final boolean bVerifyReader)
+  {
+    m_bVerifyReader = bVerifyReader;
+    return this;
   }
 
   /**
@@ -507,27 +577,5 @@ public class CSVReader implements Closeable, Iterable <List <String>>
     {
       throw new RuntimeException ("Error creating CSVIterator", e);
     }
-  }
-
-  /**
-   * Returns if the CSVReader will verify the reader before each read.
-   * <p/>
-   * By default the value is true which is the functionality for version 3.0. If
-   * set to false the reader is always assumed ready to read - this is the
-   * functionality for version 2.4 and before.
-   * <p/>
-   * The reason this method was needed was that certain types of Readers would
-   * return false for its ready() method until a read was done (namely readers
-   * created using Channels). This caused opencsv not to read from those
-   * readers.
-   * <p/>
-   * Source: https://sourceforge.net/p/opencsv/bugs/108/
-   *
-   * @return <code>true</code> if CSVReader will verify the reader before reads.
-   *         <code>false</code> otherwise.
-   */
-  public boolean isVerifyReader ()
-  {
-    return m_bVerifyReader;
   }
 }
