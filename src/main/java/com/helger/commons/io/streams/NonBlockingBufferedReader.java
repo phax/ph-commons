@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.string.StringHelper;
 
 /**
  * A non-synchronized copy of the class {@link java.io.BufferedReader}.
@@ -303,9 +304,9 @@ public class NonBlockingBufferedReader extends Reader
    * line feed ('\n'), a carriage return ('\r'), or a carriage return followed
    * immediately by a linefeed.
    *
-   * @return A String containing the contents of the line, not including any
-   *         line-termination characters, or null if the end of the stream has
-   *         been reached
+   * @return A {@link String} containing the contents of the line, not including
+   *         any line-termination characters, or <code>null</code> if the end of
+   *         the stream has been reached
    * @exception IOException
    *            If an I/O error occurs
    */
@@ -325,7 +326,7 @@ public class NonBlockingBufferedReader extends Reader
       if (m_nNextCharIndex >= m_nChars)
       {
         /* EOF */
-        if (aSB != null && aSB.length () > 0)
+        if (StringHelper.hasText (aSB))
           return aSB.toString ();
         return null;
       }
@@ -354,18 +355,18 @@ public class NonBlockingBufferedReader extends Reader
 
       if (bEOL)
       {
-        String sStr;
+        String sRet;
         if (aSB == null)
-          sStr = new String (m_aBuf, nStartChar, nIndex - nStartChar);
+          sRet = new String (m_aBuf, nStartChar, nIndex - nStartChar);
         else
         {
           aSB.append (m_aBuf, nStartChar, nIndex - nStartChar);
-          sStr = aSB.toString ();
+          sRet = aSB.toString ();
         }
         m_nNextCharIndex++;
         if (cLast == '\r')
           m_bSkipLF = true;
-        return sStr;
+        return sRet;
       }
 
       if (aSB == null)
