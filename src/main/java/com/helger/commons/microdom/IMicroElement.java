@@ -17,6 +17,7 @@
 package com.helger.commons.microdom;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -254,6 +255,24 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nullable
   <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable IMicroQName aAttrName, @Nonnull Class <DSTTYPE> aDstClass);
+
+  /**
+   * Get a list of all attributes. Is ensured to be not <code>null</code> if
+   * {@link #hasAttributes()} returns <code>true</code>.
+   *
+   * @return May be <code>null</code>.
+   */
+  @Nullable
+  @ReturnsMutableCopy
+  List <? extends IMicroAttribute> getAllAttributeObjs ();
+
+  /**
+   * Get an iterator over all attributes.
+   *
+   * @return Never <code>null</code>.
+   */
+  @Nonnull
+  Iterator <? extends IMicroAttribute> getAttributeIterator ();
 
   /**
    * Get a map of all attribute names and values. Is ensured to be not

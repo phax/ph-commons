@@ -20,6 +20,7 @@ import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.namespace.QName;
 
 import com.helger.commons.ICloneable;
 import com.helger.commons.state.EChange;
@@ -83,6 +84,21 @@ public interface IMicroAttribute extends Serializable, ICloneable <IMicroAttribu
    */
   @Nonnull
   IMicroQName getAttributeQName ();
+
+  /**
+   * @return The regular XML QName of this attribute using an empty prefix.
+   */
+  @Nonnull
+  QName getAsXMLQName ();
+
+  /**
+   * @param sPrefix
+   *        the namespace prefix to be used in the resulting object. May not be
+   *        <code>null</code> but maybe empty.
+   * @return The regular XML QName of this attribute using the provided prefix.
+   */
+  @Nonnull
+  QName getAsXMLQName (@Nonnull String sPrefix);
 
   /**
    * @return The value associated with this attribute. Never <code>null</code>.

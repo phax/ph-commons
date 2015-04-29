@@ -17,6 +17,7 @@
 package com.helger.commons.microdom.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -35,10 +36,12 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collections.iterate.EmptyIterator;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.microdom.EMicroNodeType;
 import com.helger.commons.microdom.IHasAttributeValue;
 import com.helger.commons.microdom.IHasElementName;
+import com.helger.commons.microdom.IMicroAttribute;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.microdom.IMicroQName;
@@ -133,6 +136,23 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public int getAttributeCount ()
   {
     return m_aAttrs == null ? 0 : m_aAttrs.size ();
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public List <? extends IMicroAttribute> getAllAttributeObjs ()
+  {
+    if (hasNoAttributes ())
+      return null;
+    return CollectionHelper.newList (m_aAttrs.values ());
+  }
+
+  @Nonnull
+  public Iterator <? extends IMicroAttribute> getAttributeIterator ()
+  {
+    if (hasNoAttributes ())
+      return EmptyIterator.getInstance ();
+    return m_aAttrs.values ().iterator ();
   }
 
   @Nullable
