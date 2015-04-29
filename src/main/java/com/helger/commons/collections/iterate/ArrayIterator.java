@@ -58,7 +58,7 @@ public final class ArrayIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
    * @param nOfs
    *        Offset. Must be &ge; 0.
    * @param nLength
-   *        Lenght. Must be &ge; 0.
+   *        Length. Must be &ge; 0.
    */
   private ArrayIterator (@Nonnull final ELEMENTTYPE [] aArray,
                          @Nonnegative final int nOfs,
@@ -129,6 +129,7 @@ public final class ArrayIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
   }
 
   @Nonnull
+  @Deprecated
   public static <ELEMENTTYPE> ArrayIterator <ELEMENTTYPE> createBeginEnd (@Nonnull final ELEMENTTYPE [] aArray,
                                                                           @Nonnegative final int nBegin,
                                                                           @Nonnegative final int nEnd)
