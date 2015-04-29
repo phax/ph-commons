@@ -82,7 +82,7 @@ public final class ArrayIteratorTest
 
     try
     {
-      ArrayIterator.createBeginEnd (null, 5, 2);
+      ArrayIterator.createOfsLen (new String [] { "x", "y" }, 5, -1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -90,7 +90,7 @@ public final class ArrayIteratorTest
 
     try
     {
-      ArrayIterator.createBeginEnd (new String [] { "x", "y" }, -1, 5);
+      ArrayIterator.createOfsLen (new String [] { "x", "y" }, -1, 5);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -98,7 +98,7 @@ public final class ArrayIteratorTest
 
     try
     {
-      ArrayIterator.createBeginEnd (new String [] { "x", "y" }, 5, 2);
+      ArrayIterator.createOfsLen (new String [] { "x", "y" }, 5, 2);
       fail ();
     }
     catch (final IllegalArgumentException ex)
