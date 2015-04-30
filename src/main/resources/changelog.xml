@@ -19,6 +19,12 @@
 -->
 <changelog xmlns="http://www.phloc.com/ns/changelog/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="ph-commons">
+  <release date="2015-04-30" version="5.7.1" />
+  <entry date="2015-04-30" category="api" action="add">
+    <change>
+      <text locale="en">Integrated the basic parts of OpenCSV and made it more usable for me</text>
+    </change>
+  </entry>
   <entry date="2015-04-29" category="api" action="add">
     <change>
       <text locale="en">Extended IMicroElement and IMicroAttribute APIs</text>
