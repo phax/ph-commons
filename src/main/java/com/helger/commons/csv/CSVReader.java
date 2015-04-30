@@ -60,10 +60,11 @@ public class CSVReader implements Closeable, Iterable <List <String>>
   private final ICSVLineReader m_aLineReader;
   private final CSVParser m_aParser;
   private int m_nSkipLines = CCSV.DEFAULT_SKIP_LINES;
-  private boolean m_bHasNext = true;
-  private boolean m_bLinesSkiped = false;
   private boolean m_bKeepCR = CCSV.DEFAULT_KEEP_CR;
   private boolean m_bVerifyReader = CCSV.DEFAULT_VERIFY_READER;
+
+  private boolean m_bHasNext = true;
+  private boolean m_bLinesSkiped = false;
 
   /**
    * Constructs CSVReader using a comma for the separator.

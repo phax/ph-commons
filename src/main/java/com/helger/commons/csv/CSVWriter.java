@@ -252,7 +252,7 @@ public class CSVWriter implements Closeable, Flushable
           aSB.append (m_cQuoteChar);
 
         if (bElementContainsSpecialChars)
-          aSB.append (escapeElement (sNextElement));
+          aSB.append (getEscapedText (sNextElement));
         else
           aSB.append (sNextElement);
 
@@ -386,11 +386,11 @@ public class CSVWriter implements Closeable, Flushable
    * Processes all the characters in a line.
    *
    * @param sNextElement
-   *        - element to process.
+   *        element to process.
    * @return a StringBuilder with the elements data.
    */
   @Nonnull
-  protected StringBuilder escapeElement (@Nonnull final String sNextElement)
+  protected StringBuilder getEscapedText (@Nonnull final String sNextElement)
   {
     if (m_cEscapeChar == NO_ESCAPE_CHARACTER)
       return new StringBuilder (sNextElement);
