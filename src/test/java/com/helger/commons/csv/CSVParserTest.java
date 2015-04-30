@@ -36,7 +36,9 @@ import org.junit.Test;
  */
 public final class CSVParserTest
 {
-  private static final String ESCAPE_TEST_STRING = "\\\\1\\2\\\"3\\"; // \\1\2\"\
+  // \\1\2\"\
+  private static final String ESCAPE_TEST_STRING = "\\\\1\\2\\\"3\\";
+
   private CSVParser m_aParser;
 
   @Before
@@ -305,6 +307,7 @@ public final class CSVParserTest
    * or the end of the line.
    *
    * @throws IOException
+   *         never
    */
   @Test
   public void testNotStrictQuoteWithSpacesAndTabs () throws IOException
@@ -374,6 +377,7 @@ public final class CSVParserTest
    * ; ;SDZ;ACCESSORY WHEEL - 17" - ALLOY - DESIGN 1
    *
    * @throws IOException
+   *         never
    */
   @Test
   public void testIssue3314579 () throws IOException
@@ -399,6 +403,7 @@ public final class CSVParserTest
    * Special thanks to Chris Morris for fixing this (id 1979054)
    *
    * @throws IOException
+   *         never
    */
   @Test
   public void testIssue2263439 () throws IOException
@@ -421,6 +426,7 @@ public final class CSVParserTest
    * not need escaping was causing the parse to fail.
    *
    * @throws IOException
+   *         never
    */
   @Test
   public void testIssue2859181 () throws IOException
@@ -443,11 +449,13 @@ public final class CSVParserTest
    * <p/>
    * "804503689","London",""London""shop","address","116.453182","39.918884"
    * "453074125","NewYork","brief","address"","121.514683","31.228511"
+   *
+   * @throws IOException
+   *         never
    */
   @Test
   public void testIssue2726363 () throws IOException
   {
-
     final List <String> aNextLine = m_aParser.parseLine ("\"804503689\",\"London\",\"\"London\"shop\",\"address\",\"116.453182\",\"39.918884\"");
 
     assertEquals (6, aNextLine.size ());

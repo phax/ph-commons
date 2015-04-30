@@ -22,11 +22,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 
-import org.junit.Test;
+import javax.annotation.Nonnull;
 
-import com.helger.commons.csv.CSVLineReaderBufferedReader;
-import com.helger.commons.csv.CSVLineReaderKeepCR;
-import com.helger.commons.csv.ICSVLineReader;
+import org.junit.Test;
 
 public class ICSVLineReaderTest
 {
@@ -36,7 +34,8 @@ public class ICSVLineReaderTest
   private static final String EMPTY_STRING = "";
   private static final String NULL_STRING = null;
 
-  private ICSVLineReader createLineReaderforString (final String s, final boolean bKeepCR)
+  @Nonnull
+  private static ICSVLineReader createLineReaderforString (@Nonnull final String s, final boolean bKeepCR)
   {
     final StringReader sr = new StringReader (s);
     if (bKeepCR)

@@ -358,6 +358,10 @@ public class CSVWriter implements Closeable, Flushable
    * @param aNextLine
    *        a string array with each comma-separated element as a separate
    *        entry.
+   * @param nOfs
+   *        Array Offset. Must be &ge; 0.
+   * @param nLength
+   *        Array Length. Must be &ge; 0.
    */
   public void writeNext (@Nullable final String [] aNextLine,
                          @Nonnegative final int nOfs,

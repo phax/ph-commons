@@ -33,12 +33,13 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link CSVIterator}.
- * 
+ *
  * @author OpenCSV
  */
 public final class CSVIteratorTest
 {
   private static final List <String> STRINGS = CollectionHelper.newList ("test1", "test2");
+
   private CSVIterator m_aIterator;
   private CSVReader m_aMockReader;
 

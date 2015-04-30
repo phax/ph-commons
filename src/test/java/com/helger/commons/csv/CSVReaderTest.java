@@ -56,7 +56,7 @@ import com.helger.commons.collections.CollectionHelper;
 
 /**
  * Test class for class {@link CSVReader}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CSVReaderTest
@@ -301,6 +301,7 @@ public final class CSVReaderTest
    * Test a normal non quoted line with three elements
    *
    * @throws IOException
+   *         never
    */
   @Test
   public void testNormalParsedLine () throws IOException
@@ -325,6 +326,7 @@ public final class CSVReaderTest
    * single quote.
    *
    * @throws IOException
+   *         never
    */
   @Test
   public void testASingleQuoteAsDataElement () throws IOException
@@ -350,6 +352,7 @@ public final class CSVReaderTest
    * single quote. Also the middle field is empty.
    *
    * @throws IOException
+   *         never
    */
   @Test
   public void testASingleQuoteAsDataElementWithEmptyField () throws IOException
@@ -428,6 +431,7 @@ public final class CSVReaderTest
    * quotes.
    *
    * @throws IOException
+   *         never
    */
   @Test
   public void testSingleQuoteWhenDoubleQuoteIsQuoteChar () throws IOException
@@ -452,6 +456,7 @@ public final class CSVReaderTest
    * Test a normal line with three elements and all elements are quoted
    *
    * @throws IOException
+   *         never
    */
   @Test
   public void testQuotedParsedLine () throws IOException

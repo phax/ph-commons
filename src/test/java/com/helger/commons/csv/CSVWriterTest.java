@@ -47,22 +47,20 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.csv.CSVWriter;
 import com.helger.commons.string.StringHelper;
 
 public class CSVWriterTest
 {
-
   /**
    * Test routine for converting output to a string.
    *
    * @param args
-   *        the elements of a line of the cvs file
+   *        the elements of a line of the CSV file
    * @return a String version
    * @throws IOException
    *         if there are problems writing
    */
-  private String invokeWriter (final String [] args) throws IOException
+  private static String _invokeWriter (final String [] args) throws IOException
   {
     final StringWriter sw = new StringWriter ();
     final CSVWriter csvw = new CSVWriter (sw, ',', '\'');
@@ -70,7 +68,7 @@ public class CSVWriterTest
     return sw.toString ();
   }
 
-  private String invokeNoEscapeWriter (final String [] args)
+  private static String _invokeNoEscapeWriter (final String [] args)
   {
     final StringWriter sw = new StringWriter ();
     final CSVWriter csvw = new CSVWriter (sw, CSVWriter.DEFAULT_SEPARATOR, '\'', CSVWriter.NO_ESCAPE_CHARACTER);
@@ -111,27 +109,27 @@ public class CSVWriterTest
   {
     // test normal case
     final String [] normal = { "a", "b", "c" };
-    String output = invokeWriter (normal);
+    String output = _invokeWriter (normal);
     assertEquals ("'a','b','c'\n", output);
 
     // test quoted commas
     final String [] quoted = { "a", "b,b,b", "c" };
-    output = invokeWriter (quoted);
+    output = _invokeWriter (quoted);
     assertEquals ("'a','b,b,b','c'\n", output);
 
     // test empty elements
     final String [] empty = {,};
-    output = invokeWriter (empty);
+    output = _invokeWriter (empty);
     assertEquals ("\n", output);
 
     // test multiline quoted
     final String [] multiline = { "This is a \n multiline entry", "so is \n this" };
-    output = invokeWriter (multiline);
+    output = _invokeWriter (multiline);
     assertEquals ("'This is a \n multiline entry','so is \n this'\n", output);
 
     // test quoted line
     final String [] quoteLine = { "This is a \" multiline entry", "so is \n this" };
-    output = invokeWriter (quoteLine);
+    output = _invokeWriter (quoteLine);
     assertEquals ("'This is a \"\" multiline entry','so is \n this'\n", output);
 
   }
@@ -141,7 +139,7 @@ public class CSVWriterTest
   {
     // test quoted line
     final String [] quoteLine = { "This is a \r multiline entry", "so is \n this" };
-    final String output = invokeWriter (quoteLine);
+    final String output = _invokeWriter (quoteLine);
     assertEquals ("'This is a \r multiline entry','so is \n this'\n", output);
   }
 
@@ -150,7 +148,7 @@ public class CSVWriterTest
   {
     // test quoted line
     final String [] quoteLine = { "This is a 'multiline' entry", "so is \n this" };
-    final String output = invokeWriter (quoteLine);
+    final String output = _invokeWriter (quoteLine);
     assertEquals ("'This is a \"'multiline\"' entry','so is \n this'\n", output);
   }
 
@@ -166,22 +164,22 @@ public class CSVWriterTest
 
     // test normal case
     final String [] normal = { "a", "b", "c" };
-    String output = invokeNoEscapeWriter (normal);
+    String output = _invokeNoEscapeWriter (normal);
     assertEquals ("'a','b','c'\n", output);
 
     // test quoted commas
     final String [] quoted = { "a", "b,b,b", "c" };
-    output = invokeNoEscapeWriter (quoted);
+    output = _invokeNoEscapeWriter (quoted);
     assertEquals ("'a','b,b,b','c'\n", output);
 
     // test empty elements
     final String [] empty = {,};
-    output = invokeNoEscapeWriter (empty);
+    output = _invokeNoEscapeWriter (empty);
     assertEquals ("\n", output);
 
     // test multiline quoted
     final String [] multiline = { "This is a \n multiline entry", "so is \n this" };
-    output = invokeNoEscapeWriter (multiline);
+    output = _invokeNoEscapeWriter (multiline);
     assertEquals ("'This is a \n multiline entry','so is \n this'\n", output);
   }
 
@@ -189,7 +187,7 @@ public class CSVWriterTest
   public void parseLineWithNoEscapeCharAndQuotes ()
   {
     final String [] quoteLine = { "This is a \" 'multiline' entry", "so is \n this" };
-    final String output = invokeNoEscapeWriter (quoteLine);
+    final String output = _invokeNoEscapeWriter (quoteLine);
     assertEquals ("'This is a \" 'multiline' entry','so is \n this'\n", output);
   }
 

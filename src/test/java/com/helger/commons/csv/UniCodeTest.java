@@ -42,138 +42,138 @@ public final class UniCodeTest
   private static final List <String> ASCII_ARRAY = CollectionHelper.newList ("foo", "bar");
   private static final String ASCII_STRING_WITH_QUOTES = "\"foo\",\"bar\"";
 
-  private CSVParser csvParser;
+  private CSVParser m_aParser;
 
   @Test
   public void canParseUnicode () throws IOException
   {
-    csvParser = new CSVParser ();
-    final String simpleString = COMPOUND_STRING;
-    final List <String> items = csvParser.parseLine (simpleString);
-    assertEquals (2, items.size ());
-    assertEquals (FIRST_STRING, items.get (0));
-    assertEquals (SECOND_STRING, items.get (1));
-    assertEquals (UNICODE_ARRAY, items);
+    m_aParser = new CSVParser ();
+    final String sSimpleString = COMPOUND_STRING;
+    final List <String> aItems = m_aParser.parseLine (sSimpleString);
+    assertEquals (2, aItems.size ());
+    assertEquals (FIRST_STRING, aItems.get (0));
+    assertEquals (SECOND_STRING, aItems.get (1));
+    assertEquals (UNICODE_ARRAY, aItems);
   }
 
   @Test
   public void readerTest () throws IOException
   {
-    final BufferedReader reader = new BufferedReader (new StringReader (FIRST_STRING));
-    final String testString = reader.readLine ();
-    assertEquals (FIRST_STRING, testString);
+    final BufferedReader aReader = new BufferedReader (new StringReader (FIRST_STRING));
+    final String sTestString = aReader.readLine ();
+    assertEquals (FIRST_STRING, sTestString);
   }
 
   @Test
   public void writerTest ()
   {
-    final StringWriter sw = new StringWriter ();
-    sw.write (FIRST_STRING);
-    assertEquals (FIRST_STRING, sw.toString ());
+    final StringWriter aSW = new StringWriter ();
+    aSW.write (FIRST_STRING);
+    assertEquals (FIRST_STRING, aSW.toString ());
   }
 
   @Test
   public void runUniCodeThroughCSVReader () throws IOException
   {
-    final CSVReader reader = new CSVReader (new StringReader (COMPOUND_STRING));
-    final List <String> items = reader.readNext ();
-    assertEquals (2, items.size ());
-    assertEquals (FIRST_STRING, items.get (0));
-    assertEquals (SECOND_STRING, items.get (1));
-    assertEquals (UNICODE_ARRAY, items);
+    final CSVReader aReader = new CSVReader (new StringReader (COMPOUND_STRING));
+    final List <String> aItems = aReader.readNext ();
+    assertEquals (2, aItems.size ());
+    assertEquals (FIRST_STRING, aItems.get (0));
+    assertEquals (SECOND_STRING, aItems.get (1));
+    assertEquals (UNICODE_ARRAY, aItems);
   }
 
   @Test
   public void runUniCodeThroughCSVWriter ()
   {
-    final StringWriter sw = new StringWriter ();
-    final CSVWriter writer = new CSVWriter (sw);
-    writer.writeNext (UNICODE_ARRAY);
-    assertEquals (COMPOUND_STRING_WITH_QUOTES.trim (), sw.toString ().trim ());
+    final StringWriter aSW = new StringWriter ();
+    final CSVWriter aWriter = new CSVWriter (aSW);
+    aWriter.writeNext (UNICODE_ARRAY);
+    assertEquals (COMPOUND_STRING_WITH_QUOTES.trim (), aSW.toString ().trim ());
   }
 
   @Test
   public void runASCIIThroughCSVWriter ()
   {
-    final StringWriter sw = new StringWriter ();
-    final CSVWriter writer = new CSVWriter (sw);
-    writer.writeNext (ASCII_ARRAY);
-    assertEquals (ASCII_STRING_WITH_QUOTES.trim (), sw.toString ().trim ());
+    final StringWriter aSW = new StringWriter ();
+    final CSVWriter aWriter = new CSVWriter (aSW);
+    aWriter.writeNext (ASCII_ARRAY);
+    assertEquals (ASCII_STRING_WITH_QUOTES.trim (), aSW.toString ().trim ());
   }
 
   @Test
   public void writeThenReadAscii () throws IOException
   {
-    final StringWriter sw = new StringWriter ();
-    final CSVWriter writer = new CSVWriter (sw);
-    writer.writeNext (ASCII_ARRAY);
+    final StringWriter aSW = new StringWriter ();
+    final CSVWriter aWriter = new CSVWriter (aSW);
+    aWriter.writeNext (ASCII_ARRAY);
 
-    final CSVReader reader = new CSVReader (new StringReader (sw.toString ()));
-    final List <String> items = reader.readNext ();
-    assertEquals (2, items.size ());
-    assertEquals (ASCII_ARRAY, items);
+    final CSVReader aReader = new CSVReader (new StringReader (aSW.toString ()));
+    final List <String> aItems = aReader.readNext ();
+    assertEquals (2, aItems.size ());
+    assertEquals (ASCII_ARRAY, aItems);
   }
 
   @Test
   public void writeThenReadTwiceAscii () throws IOException
   {
-    final StringWriter sw = new StringWriter ();
-    final CSVWriter writer = new CSVWriter (sw);
-    writer.writeNext (ASCII_ARRAY);
-    writer.writeNext (ASCII_ARRAY);
+    final StringWriter aSW = new StringWriter ();
+    final CSVWriter aWriter = new CSVWriter (aSW);
+    aWriter.writeNext (ASCII_ARRAY);
+    aWriter.writeNext (ASCII_ARRAY);
 
-    final CSVReader reader = new CSVReader (new StringReader (sw.toString ()));
-    final List <List <String>> lines = reader.readAll ();
-    assertEquals (2, lines.size ());
+    final CSVReader aReader = new CSVReader (new StringReader (aSW.toString ()));
+    final List <List <String>> aLines = aReader.readAll ();
+    assertEquals (2, aLines.size ());
 
-    List <String> items = lines.get (0);
-    assertEquals (2, items.size ());
-    assertEquals (ASCII_ARRAY, items);
+    List <String> aItems = aLines.get (0);
+    assertEquals (2, aItems.size ());
+    assertEquals (ASCII_ARRAY, aItems);
 
-    items = lines.get (1);
-    assertEquals (2, items.size ());
-    assertEquals (ASCII_ARRAY, items);
+    aItems = aLines.get (1);
+    assertEquals (2, aItems.size ());
+    assertEquals (ASCII_ARRAY, aItems);
   }
 
   @Test
   public void writeThenReadTwiceUnicode () throws IOException
   {
-    final StringWriter sw = new StringWriter ();
-    final CSVWriter writer = new CSVWriter (sw);
-    writer.writeNext (UNICODE_ARRAY);
-    writer.writeNext (UNICODE_ARRAY);
+    final StringWriter aSW = new StringWriter ();
+    final CSVWriter aWriter = new CSVWriter (aSW);
+    aWriter.writeNext (UNICODE_ARRAY);
+    aWriter.writeNext (UNICODE_ARRAY);
 
-    final CSVReader reader = new CSVReader (new StringReader (sw.toString ()));
-    final List <List <String>> lines = reader.readAll ();
-    assertEquals (2, lines.size ());
+    final CSVReader aReader = new CSVReader (new StringReader (aSW.toString ()));
+    final List <List <String>> aLines = aReader.readAll ();
+    assertEquals (2, aLines.size ());
 
-    List <String> items = lines.get (0);
-    assertEquals (2, items.size ());
-    assertEquals (UNICODE_ARRAY, items);
+    List <String> aItems = aLines.get (0);
+    assertEquals (2, aItems.size ());
+    assertEquals (UNICODE_ARRAY, aItems);
 
-    items = lines.get (1);
-    assertEquals (2, items.size ());
-    assertEquals (UNICODE_ARRAY, items);
+    aItems = aLines.get (1);
+    assertEquals (2, aItems.size ());
+    assertEquals (UNICODE_ARRAY, aItems);
   }
 
   @Test
   public void writeThenReadTwiceMixedUnicode () throws IOException
   {
-    final StringWriter sw = new StringWriter ();
-    final CSVWriter writer = new CSVWriter (sw);
-    writer.writeNext (MIXED_ARRAY);
-    writer.writeNext (MIXED_ARRAY);
+    final StringWriter aSW = new StringWriter ();
+    final CSVWriter aWriter = new CSVWriter (aSW);
+    aWriter.writeNext (MIXED_ARRAY);
+    aWriter.writeNext (MIXED_ARRAY);
 
-    final CSVReader reader = new CSVReader (new StringReader (sw.toString ()));
-    final List <List <String>> lines = reader.readAll ();
-    assertEquals (2, lines.size ());
+    final CSVReader aReader = new CSVReader (new StringReader (aSW.toString ()));
+    final List <List <String>> aLines = aReader.readAll ();
+    assertEquals (2, aLines.size ());
 
-    List <String> items = lines.get (0);
-    assertEquals (4, items.size ());
-    assertEquals (MIXED_ARRAY, items);
+    List <String> aItems = aLines.get (0);
+    assertEquals (4, aItems.size ());
+    assertEquals (MIXED_ARRAY, aItems);
 
-    items = lines.get (1);
-    assertEquals (4, items.size ());
-    assertEquals (MIXED_ARRAY, items);
+    aItems = aLines.get (1);
+    assertEquals (4, aItems.size ());
+    assertEquals (MIXED_ARRAY, aItems);
   }
 }

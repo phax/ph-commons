@@ -46,17 +46,20 @@ import org.junit.Test;
 
 public final class IntegrationTest
 {
-  private File tempFile;
+  private File m_aTempFile;
 
   @Before
   public void setUp () throws IOException
   {
-    tempFile = File.createTempFile ("csvWriterTest", ".csv");
-    tempFile.deleteOnExit ();
+    m_aTempFile = File.createTempFile ("csvWriterTest", ".csv");
+    m_aTempFile.deleteOnExit ();
   }
 
   /**
    * Test the full cycle of write-read
+   *
+   * @throws IOException
+   *         never
    */
   @Test
   public void testWriteRead () throws IOException
@@ -64,14 +67,14 @@ public final class IntegrationTest
     final String [][] data = new String [] [] { { "hello, a test", "one nested \" test" },
                                                { "\"\"", "test", null, "8" } };
 
-    final CSVWriter writer = new CSVWriter (new FileWriter (tempFile));
+    final CSVWriter writer = new CSVWriter (new FileWriter (m_aTempFile));
     for (final String [] aData : data)
     {
       writer.writeNext (aData);
     }
     writer.close ();
 
-    final CSVReader reader = new CSVReader (new FileReader (tempFile));
+    final CSVReader reader = new CSVReader (new FileReader (m_aTempFile));
 
     List <String> line;
     for (int row = 0; (line = reader.readNext ()) != null; row++)
