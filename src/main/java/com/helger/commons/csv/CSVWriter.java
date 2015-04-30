@@ -44,6 +44,8 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.collections.iterate.ArrayIterator;
 import com.helger.commons.io.streams.StreamUtils;
 
@@ -54,29 +56,17 @@ import com.helger.commons.io.streams.StreamUtils;
  */
 public class CSVWriter implements Closeable, Flushable
 {
-  public static final int INITIAL_STRING_SIZE = 128;
-  /**
-   * The character used for escaping quotes.
-   */
-  public static final char DEFAULT_ESCAPE_CHARACTER = '"';
-  /**
-   * The default separator to use if none is supplied to the constructor.
-   */
-  public static final char DEFAULT_SEPARATOR = ',';
-  /**
-   * The default quote character to use if none is supplied to the constructor.
-   */
-  public static final char DEFAULT_QUOTE_CHARACTER = '"';
   /**
    * The quote constant to use when you wish to suppress all quoting.
    */
-  public static final char NO_QUOTE_CHARACTER = '\u0000';
+  public static final char NO_QUOTE_CHARACTER = CCSV.NULL_CHARACTER;
   /**
    * The escape constant to use when you wish to suppress all escaping.
    */
-  public static final char NO_ESCAPE_CHARACTER = '\u0000';
+  public static final char NO_ESCAPE_CHARACTER = CCSV.NULL_CHARACTER;
+
   /**
-   * Default line terminator uses platform encoding.
+   * The default line delimiter to be used.
    */
   public static final String DEFAULT_LINE_END = "\n";
 
@@ -84,111 +74,116 @@ public class CSVWriter implements Closeable, Flushable
 
   private final Writer m_aRawWriter;
   private final PrintWriter m_aPW;
-  private final char m_cSeparator;
-  private final char m_cQuotechar;
-  private final char m_cEscapechar;
-  private final String m_sLineEnd;
+  private char m_cSeparatorChar = CCSV.DEFAULT_SEPARATOR;
+  private char m_cQuoteChar = CCSV.DEFAULT_QUOTE_CHARACTER;
+  private char m_cEscapeChar = CCSV.DEFAULT_ESCAPE_CHARACTER;
+  private String m_sLineEnd = DEFAULT_LINE_END;
 
   /**
-   * Constructs CSVWriter using a comma for the separator.
+   * Constructs {@link CSVWriter} with all default settings.
    *
-   * @param writer
-   *        the writer to an underlying CSV source.
+   * @param aWriter
+   *        the writer to an underlying CSV source. May not be <code>null</code>
+   *        .
    */
-  public CSVWriter (final Writer writer)
+  public CSVWriter (@Nonnull final Writer aWriter)
   {
-    this (writer, DEFAULT_SEPARATOR);
+    ValueEnforcer.notNull (aWriter, "Writer");
+    m_aRawWriter = aWriter;
+    m_aPW = new PrintWriter (aWriter);
   }
 
   /**
-   * Constructs CSVWriter with supplied separator.
+   * @return The default separator for this parser.
+   */
+  public char getSeparator ()
+  {
+    return m_cSeparatorChar;
+  }
+
+  /**
+   * Sets the delimiter to use for separating entries.
    *
-   * @param writer
-   *        the writer to an underlying CSV source.
    * @param cSeparator
-   *        the delimiter to use for separating entries.
+   *        the delimiter to use for separating entries
+   * @return this
    */
-  public CSVWriter (final Writer writer, final char cSeparator)
+  @Nonnull
+  public CSVWriter setSeparator (final char cSeparator)
   {
-    this (writer, cSeparator, DEFAULT_QUOTE_CHARACTER);
+    if (cSeparator == CCSV.NULL_CHARACTER)
+      throw new UnsupportedOperationException ("The separator character must be defined!");
+    m_cSeparatorChar = cSeparator;
+    return this;
   }
 
   /**
-   * Constructs CSVWriter with supplied separator and quote char.
-   *
-   * @param writer
-   *        the writer to an underlying CSV source.
-   * @param separator
-   *        the delimiter to use for separating entries
-   * @param quotechar
-   *        the character to use for quoted elements
+   * @return The default quotation character for this parser.
    */
-  public CSVWriter (final Writer writer, final char separator, final char quotechar)
+  public char getQuotechar ()
   {
-    this (writer, separator, quotechar, DEFAULT_ESCAPE_CHARACTER);
+    return m_cQuoteChar;
   }
 
   /**
-   * Constructs CSVWriter with supplied separator and quote char.
+   * Sets the character to use for quoted elements.
    *
-   * @param writer
-   *        the writer to an underlying CSV source.
-   * @param separator
-   *        the delimiter to use for separating entries
-   * @param quotechar
-   *        the character to use for quoted elements
-   * @param escapechar
-   *        the character to use for escaping quotechars or escapechars
+   * @param cQuoteChar
+   *        the character to use for quoted element.
+   * @return this
    */
-  public CSVWriter (final Writer writer, final char separator, final char quotechar, final char escapechar)
+  @Nonnull
+  public CSVWriter setQuoteChar (final char cQuoteChar)
   {
-    this (writer, separator, quotechar, escapechar, DEFAULT_LINE_END);
+    m_cQuoteChar = cQuoteChar;
+    return this;
   }
 
   /**
-   * Constructs CSVWriter with supplied separator and quote char.
-   *
-   * @param writer
-   *        the writer to an underlying CSV source.
-   * @param separator
-   *        the delimiter to use for separating entries
-   * @param quotechar
-   *        the character to use for quoted elements
-   * @param lineEnd
-   *        the line feed terminator to use
+   * @return The default escape character for this parser.
    */
-  public CSVWriter (final Writer writer, final char separator, final char quotechar, final String lineEnd)
+  public char getEscape ()
   {
-    this (writer, separator, quotechar, DEFAULT_ESCAPE_CHARACTER, lineEnd);
+    return m_cEscapeChar;
   }
 
   /**
-   * Constructs CSVWriter with supplied separator, quote char, escape char and
-   * line ending.
+   * Sets the character to use for escaping a separator or quote.
    *
-   * @param writer
-   *        the writer to an underlying CSV source.
-   * @param separator
-   *        the delimiter to use for separating entries
-   * @param quotechar
-   *        the character to use for quoted elements
-   * @param escapechar
-   *        the character to use for escaping quotechars or escapechars
-   * @param lineEnd
-   *        the line feed terminator to use
+   * @param cEscapeChar
+   *        the character to use for escaping a separator or quote.
+   * @return this
    */
-  public CSVWriter (final Writer writer,
-                    final char separator,
-                    final char quotechar,
-                    final char escapechar,
-                    final String lineEnd)
+  @Nonnull
+  public CSVWriter setEscapeChar (final char cEscapeChar)
   {
-    m_aRawWriter = writer;
-    m_aPW = new PrintWriter (writer);
-    m_cSeparator = separator;
-    m_cQuotechar = quotechar;
-    m_cEscapechar = escapechar;
-    m_sLineEnd = lineEnd;
+    m_cEscapeChar = cEscapeChar;
+    return this;
+  }
+
+  /**
+   * @return the line delimiting string. Neither <code>null</code> nor empty.
+   */
+  @Nonnull
+  @Nonempty
+  public String getLineEnd ()
+  {
+    return m_sLineEnd;
+  }
+
+  /**
+   * Set the line delimiting string.
+   *
+   * @param sLineEnd
+   *        The line end. May neither be <code>null</code> nor empty.
+   * @return this
+   */
+  @Nonnull
+  public CSVWriter setLineEnd (@Nonnull @Nonempty final String sLineEnd)
+  {
+    ValueEnforcer.notNull (sLineEnd, "LineEnd");
+    m_sLineEnd = sLineEnd;
+    return this;
   }
 
   /**
@@ -236,14 +231,14 @@ public class CSVWriter implements Closeable, Flushable
   {
     if (aNextLine != null)
     {
-      final StringBuilder aSB = new StringBuilder (INITIAL_STRING_SIZE);
+      final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
       boolean bFirst = true;
       while (aNextLine.hasNext ())
       {
         if (bFirst)
           bFirst = false;
         else
-          aSB.append (m_cSeparator);
+          aSB.append (m_cSeparatorChar);
 
         final String sNextElement = aNextLine.next ();
         if (sNextElement == null)
@@ -251,10 +246,10 @@ public class CSVWriter implements Closeable, Flushable
 
         final boolean bElementContainsSpecialChars = _stringContainsSpecialCharacters (sNextElement);
         final boolean bDoQuote = (bApplyQuotesToAll || bElementContainsSpecialChars) &&
-                                 m_cQuotechar != NO_QUOTE_CHARACTER;
+                                 m_cQuoteChar != NO_QUOTE_CHARACTER;
 
         if (bDoQuote)
-          aSB.append (m_cQuotechar);
+          aSB.append (m_cQuoteChar);
 
         if (bElementContainsSpecialChars)
           aSB.append (escapeElement (sNextElement));
@@ -262,7 +257,7 @@ public class CSVWriter implements Closeable, Flushable
           aSB.append (sNextElement);
 
         if (bDoQuote)
-          aSB.append (m_cQuotechar);
+          aSB.append (m_cQuoteChar);
       }
 
       aSB.append (m_sLineEnd);
@@ -380,9 +375,9 @@ public class CSVWriter implements Closeable, Flushable
    */
   private boolean _stringContainsSpecialCharacters (@Nonnull final String sLine)
   {
-    return sLine.indexOf (m_cQuotechar) != -1 ||
-           sLine.indexOf (m_cEscapechar) != -1 ||
-           sLine.indexOf (m_cSeparator) != -1 ||
+    return sLine.indexOf (m_cQuoteChar) != -1 ||
+           sLine.indexOf (m_cEscapeChar) != -1 ||
+           sLine.indexOf (m_cSeparatorChar) != -1 ||
            sLine.indexOf ('\r') != -1 ||
            sLine.indexOf ('\n') != -1;
   }
@@ -397,14 +392,14 @@ public class CSVWriter implements Closeable, Flushable
   @Nonnull
   protected StringBuilder escapeElement (@Nonnull final String sNextElement)
   {
-    if (m_cEscapechar == NO_ESCAPE_CHARACTER)
+    if (m_cEscapeChar == NO_ESCAPE_CHARACTER)
       return new StringBuilder (sNextElement);
 
-    final StringBuilder aSB = new StringBuilder (INITIAL_STRING_SIZE);
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     for (final char c : sNextElement.toCharArray ())
     {
-      if (c == m_cQuotechar || c == m_cEscapechar)
-        aSB.append (m_cEscapechar);
+      if (c == m_cQuoteChar || c == m_cEscapeChar)
+        aSB.append (m_cEscapeChar);
       aSB.append (c);
     }
     return aSB;

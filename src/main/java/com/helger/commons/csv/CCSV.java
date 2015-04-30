@@ -72,7 +72,7 @@ public final class CCSV
    * The average size of a line read by openCSV (used for setting the size of
    * StringBuilders).
    */
-  public static final int INITIAL_READ_SIZE = 128;
+  public static final int INITIAL_STRING_SIZE = 128;
   /**
    * This is the "null" character - if a value is set to this then it is
    * ignored.

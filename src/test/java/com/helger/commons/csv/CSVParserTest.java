@@ -243,7 +243,7 @@ public final class CSVParserTest
 
   private String setUpMultiLineInsideQuotes ()
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
     sb.append ("Small test,\"This is a test across \ntwo lines.\"");
 

@@ -335,7 +335,7 @@ public class CSVParser
     }
 
     final List <String> aTokensOnThisLine = new ArrayList <String> ();
-    StringBuilder aSB = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     boolean bInQuotes = false;
     if (m_sPending != null)
     {

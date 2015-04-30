@@ -50,7 +50,7 @@ public class CSVLineReaderKeepCR implements ICSVLineReader
   @Nullable
   public String readLine () throws IOException
   {
-    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     for (int c = m_aReader.read (); c > -1 && c != '\n'; c = m_aReader.read ())
       aSB.append ((char) c);
 

@@ -66,7 +66,7 @@ public final class CSVReaderTest
   @Before
   public void setUp () throws Exception
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     // standard case
     sb.append ("a,b,c").append ("\n");
     // quoted elements
@@ -131,7 +131,7 @@ public final class CSVReaderTest
   @Test
   public void readerCanHandleNullInString () throws IOException
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     sb.append ("a,\0b,c");
 
     final StringReader reader = new StringReader (sb.toString ());
@@ -150,7 +150,7 @@ public final class CSVReaderTest
   @Test
   public void testParseLineStrictQuote () throws IOException
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     sb.append ("a,b,c").append ("\n"); // standard case
     sb.append ("a,\"b,b,b\",c").append ("\n"); // quoted elements
     sb.append (",,").append ("\n"); // empty elements
@@ -227,7 +227,7 @@ public final class CSVReaderTest
   public void testOptionalConstructors () throws IOException
   {
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     sb.append ("a\tb\tc").append ("\n"); // tab separated case
     sb.append ("a\t'b\tb\tb'\tc").append ("\n"); // single quoted elements
     final CSVReader c = new CSVReader (new StringReader (sb.toString ()), '\t', '\'');
@@ -242,7 +242,7 @@ public final class CSVReaderTest
   @Test
   public void parseQuotedStringWithDefinedSeperator () throws IOException
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     sb.append ("a\tb\tc").append ("\n"); // tab separated case
 
     final CSVReader c = new CSVReader (new StringReader (sb.toString ()), '\t');
@@ -261,7 +261,7 @@ public final class CSVReaderTest
   public void testSkippingLines () throws IOException
   {
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     sb.append ("Skip this line\t with tab").append ("\n"); // should skip this
     sb.append ("And this line too").append ("\n"); // and this
     sb.append ("a\t'b\tb\tb'\tc").append ("\n"); // single quoted elements
@@ -283,7 +283,7 @@ public final class CSVReaderTest
   public void testSkippingLinesWithDifferentEscape () throws IOException
   {
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     sb.append ("Skip this line?t with tab").append ("\n"); // should skip this
     sb.append ("And this line too").append ("\n"); // and this
     sb.append ("a\t'b\tb\tb'\t'c'").append ("\n"); // single quoted elements
@@ -307,7 +307,7 @@ public final class CSVReaderTest
   public void testNormalParsedLine () throws IOException
   {
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
     sb.append ("a,1234567,c").append ("\n");// a,1234,c
 
@@ -332,7 +332,7 @@ public final class CSVReaderTest
   public void testASingleQuoteAsDataElement () throws IOException
   {
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
     sb.append ("a,'''',c").append ("\n");// a,',c
 
@@ -358,7 +358,7 @@ public final class CSVReaderTest
   public void testASingleQuoteAsDataElementWithEmptyField () throws IOException
   {
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
     sb.append ("a,'',c").append ("\n");// a,,c
 
@@ -376,7 +376,7 @@ public final class CSVReaderTest
   @Test
   public void testSpacesAtEndOfString () throws IOException
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
     sb.append ("\"a\",\"b\",\"c\"   ");
 
@@ -437,7 +437,7 @@ public final class CSVReaderTest
   public void testSingleQuoteWhenDoubleQuoteIsQuoteChar () throws IOException
   {
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
     sb.append ("a,'',c").append ("\n");// a,'',c
 
@@ -462,7 +462,7 @@ public final class CSVReaderTest
   public void testQuotedParsedLine () throws IOException
   {
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
     sb.append ("\"a\",\"1234567\",\"c\"").append ("\n"); // "a","1234567","c"
 
@@ -485,7 +485,7 @@ public final class CSVReaderTest
   public void bug106ParseLineWithCarriageReturnNewLineStrictQuotes () throws IOException
   {
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
     sb.append ("\"a\",\"123\r\n4567\",\"c\"").append ("\n"); // "a","123\r\n4567","c"
 
@@ -514,7 +514,7 @@ public final class CSVReaderTest
   @Test
   public void testIssue2992134OutOfPlaceQuotes () throws IOException
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
     sb.append ("a,b,c,ddd\\\"eee\nf,g,h,\"iii,jjj\"");
 
@@ -531,7 +531,7 @@ public final class CSVReaderTest
   @Test (expected = UnsupportedOperationException.class)
   public void quoteAndEscapeMustBeDifferent ()
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
     sb.append ("a,b,c,ddd\\\"eee\nf,g,h,\"iii,jjj\"");
 
@@ -547,7 +547,7 @@ public final class CSVReaderTest
   @Test (expected = UnsupportedOperationException.class)
   public void separatorAndEscapeMustBeDifferent ()
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
     sb.append ("a,b,c,ddd\\\"eee\nf,g,h,\"iii,jjj\"");
 
@@ -563,7 +563,7 @@ public final class CSVReaderTest
   @Test (expected = UnsupportedOperationException.class)
   public void separatorAndQuoteMustBeDifferent ()
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_READ_SIZE);
+    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
     sb.append ("a,b,c,ddd\\\"eee\nf,g,h,\"iii,jjj\"");
 
