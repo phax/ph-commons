@@ -8,7 +8,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>5.6.0</version>
+  <version>5.7.1</version>
 </dependency>
 ```
 
@@ -63,6 +63,7 @@ terfaces.
   * `com.helger.commons.concurrent` - contains some commonly used things for `Thread` and `ExecutorService` handling.
   * `com.helger.commons.concurrent.collector` - a generic "collector" which supports multiple inputs from multiple different threads and serializes this data stream for sequential processing (e.g. for mail queueing with a central sender).
   * `com.helger.commons.convert` - package containing unidirectional and bidirectional data converter interfaces.
+  * `com.helger.commons.csv` - package containing CSV reader and writer based on OpenCSV.
   * `com.helger.commons.crypto` - contains a small helper class to determine, if the Java crypto extensions are installed or not (based on OWASP).
   * `com.helger.commons.deadlock` - contains a thread deadlock detector based on the JMX `ThreadMXBean` class.
   * `com.helger.commons.email` - contains the data model and a small regular expression based validator for email addresses.
