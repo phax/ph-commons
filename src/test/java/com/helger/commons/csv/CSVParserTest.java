@@ -124,7 +124,7 @@ public final class CSVParserTest
   @Test
   public void parseQuotedStringWithDefinedSeperator () throws IOException
   {
-    m_aParser = new CSVParser ().setSeparator (':');
+    m_aParser = new CSVParser ().setSeparatorChar (':');
 
     final List <String> aNextLine = m_aParser.parseLine ("a:\"b:b:b\":c");
     assertEquals ("a", aNextLine.get (0));
@@ -136,7 +136,7 @@ public final class CSVParserTest
   @Test
   public void parseQuotedStringWithDefinedSeperatorAndQuote () throws IOException
   {
-    m_aParser = new CSVParser ().setSeparator (':').setQuoteChar ('\'');
+    m_aParser = new CSVParser ().setSeparatorChar (':').setQuoteChar ('\'');
 
     final List <String> aNextLine = m_aParser.parseLine ("a:'b:b:b':c");
     assertEquals ("a", aNextLine.get (0));
@@ -382,7 +382,7 @@ public final class CSVParserTest
   @Test
   public void testIssue3314579 () throws IOException
   {
-    m_aParser = new CSVParser ().setSeparator (';').setIgnoreQuotations (true);
+    m_aParser = new CSVParser ().setSeparatorChar (';').setIgnoreQuotations (true);
     final String testString = "RPO;2012;P; ; ; ;SDX;ACCESSORY WHEEL, 16\", ALUMINUM, DESIGN 1";
 
     final List <String> aNextLine = m_aParser.parseLine (testString);
@@ -431,7 +431,7 @@ public final class CSVParserTest
   @Test
   public void testIssue2859181 () throws IOException
   {
-    m_aParser = new CSVParser ().setSeparator (';');
+    m_aParser = new CSVParser ().setSeparatorChar (';');
     final List <String> aNextLine = m_aParser.parseLine ("field1;\\=field2;\"\"\"field3\"\"\""); // field1;\=field2;"""field3"""
 
     assertEquals (3, aNextLine.size ());
@@ -583,7 +583,7 @@ public final class CSVParserTest
   @Test
   public void testIssue2958242WithoutQuotes () throws IOException
   {
-    final CSVParser testParser = new CSVParser ().setSeparator ('\t');
+    final CSVParser testParser = new CSVParser ().setSeparatorChar ('\t');
     final List <String> nextItem = testParser.parseLine ("zo\"\"har\"\"at\t10-04-1980\t29\tC:\\\\foo.txt");
     assertEquals (4, nextItem.size ());
     assertEquals ("zo\"har\"at", nextItem.get (0));
@@ -607,7 +607,7 @@ public final class CSVParserTest
   @Test (expected = UnsupportedOperationException.class)
   public void separatorCharacterCannotBeNull ()
   {
-    new CSVParser ().setSeparator (CCSV.NULL_CHARACTER);
+    new CSVParser ().setSeparatorChar (CCSV.NULL_CHARACTER);
   }
 
   @Test (expected = UnsupportedOperationException.class)

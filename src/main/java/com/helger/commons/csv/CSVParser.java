@@ -92,7 +92,7 @@ public class CSVParser
   /**
    * @return The default separator for this parser.
    */
-  public char getSeparator ()
+  public char getSeparatorChar ()
   {
     return m_cSeparatorChar;
   }
@@ -105,7 +105,7 @@ public class CSVParser
    * @return this
    */
   @Nonnull
-  public CSVParser setSeparator (final char cSeparator)
+  public CSVParser setSeparatorChar (final char cSeparator)
   {
     if (cSeparator == CCSV.NULL_CHARACTER)
       throw new UnsupportedOperationException ("The separator character must be defined!");
@@ -118,7 +118,7 @@ public class CSVParser
   /**
    * @return The default quotation character for this parser.
    */
-  public char getQuotechar ()
+  public char getQuoteChar ()
   {
     return m_cQuoteChar;
   }
@@ -142,7 +142,7 @@ public class CSVParser
   /**
    * @return The default escape character for this parser.
    */
-  public char getEscape ()
+  public char getEscapeChar ()
   {
     return m_cEscapeChar;
   }

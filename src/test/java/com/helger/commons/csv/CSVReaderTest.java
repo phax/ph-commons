@@ -45,13 +45,13 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.helger.commons.charset.CCharset;
 import com.helger.commons.collections.CollectionHelper;
 
 /**
@@ -66,20 +66,20 @@ public final class CSVReaderTest
   @Before
   public void setUp () throws Exception
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     // standard case
-    sb.append ("a,b,c").append ("\n");
+    aSB.append ("a,b,c").append ("\n");
     // quoted elements
-    sb.append ("a,\"b,b,b\",c").append ("\n");
+    aSB.append ("a,\"b,b,b\",c").append ("\n");
     // empty elements
-    sb.append (",,").append ("\n");
-    sb.append ("a,\"PO Box 123,\nKippax,ACT. 2615.\nAustralia\",d.\n");
+    aSB.append (",,").append ("\n");
+    aSB.append ("a,\"PO Box 123,\nKippax,ACT. 2615.\nAustralia\",d.\n");
     // Test quoted quote chars
-    sb.append ("\"Glen \"\"The Man\"\" Smith\",Athlete,Developer\n");
+    aSB.append ("\"Glen \"\"The Man\"\" Smith\",Athlete,Developer\n");
     // """""","test" representing: "", test
-    sb.append ("\"\"\"\"\"\",\"test\"\n");
-    sb.append ("\"a\nb\",b,\"\nd\",e\n");
-    m_aCSVReader = new CSVReader (new StringReader (sb.toString ()));
+    aSB.append ("\"\"\"\"\"\",\"test\"\n");
+    aSB.append ("\"a\nb\",b,\"\nd\",e\n");
+    m_aCSVReader = new CSVReader (new StringReader (aSB.toString ()));
   }
 
   /**
@@ -131,13 +131,12 @@ public final class CSVReaderTest
   @Test
   public void readerCanHandleNullInString () throws IOException
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
-    sb.append ("a,\0b,c");
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    aSB.append ("a,\0b,c");
 
-    final StringReader reader = new StringReader (sb.toString ());
+    final StringReader reader = new StringReader (aSB.toString ());
 
-    final CSVReaderBuilder builder = new CSVReaderBuilder (reader);
-    final CSVReader defaultReader = builder.build ();
+    final CSVReader defaultReader = new CSVReader (reader);
 
     final List <String> nextLine = defaultReader.readNext ();
     assertEquals (3, nextLine.size ());
@@ -150,19 +149,20 @@ public final class CSVReaderTest
   @Test
   public void testParseLineStrictQuote () throws IOException
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
-    sb.append ("a,b,c").append ("\n"); // standard case
-    sb.append ("a,\"b,b,b\",c").append ("\n"); // quoted elements
-    sb.append (",,").append ("\n"); // empty elements
-    sb.append ("a,\"PO Box 123,\nKippax,ACT. 2615.\nAustralia\",d.\n");
-    sb.append ("\"Glen \"\"The Man\"\" Smith\",Athlete,Developer\n"); // Test
-                                                                      // quoted
-                                                                      // quote
-                                                                      // chars
-    sb.append ("\"\"\"\"\"\",\"test\"\n"); // """""","test" representing: "",
-                                           // test
-    sb.append ("\"a\nb\",b,\"\nd\",e\n");
-    m_aCSVReader = new CSVReader (new StringReader (sb.toString ()), ',', '\"', true);
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    // standard case
+    aSB.append ("a,b,c").append ("\n");
+    // quoted elements
+    aSB.append ("a,\"b,b,b\",c").append ("\n");
+    // empty elements
+    aSB.append (",,").append ("\n");
+    aSB.append ("a,\"PO Box 123,\nKippax,ACT. 2615.\nAustralia\",d.\n");
+    // Test quoted quote chars
+    aSB.append ("\"Glen \"\"The Man\"\" Smith\",Athlete,Developer\n");
+    // """""","test" representing: "",test
+    aSB.append ("\"\"\"\"\"\",\"test\"\n");
+    aSB.append ("\"a\nb\",b,\"\nd\",e\n");
+    m_aCSVReader = new CSVReader (new StringReader (aSB.toString ())).setStrictQuotes (true);
 
     // test normal case
     List <String> nextLine = m_aCSVReader.readNext ();
@@ -189,11 +189,10 @@ public final class CSVReaderTest
     assertEquals ("Glen \"The Man\" Smith", nextLine.get (0));
 
     nextLine = m_aCSVReader.readNext ();
-    assertTrue (nextLine.get (0).equals ("\"\"")); // check the tricky situation
-    assertTrue (nextLine.get (1).equals ("test")); // make sure we didn't ruin
-                                                   // the
-    // next field..
-
+    // check the tricky situation
+    assertTrue (nextLine.get (0).equals ("\"\""));
+    // make sure we didn't ruin the next field..
+    assertTrue (nextLine.get (1).equals ("test"));
     nextLine = m_aCSVReader.readNext ();
     assertEquals (4, nextLine.size ());
     assertEquals ("a\nb", nextLine.get (0));
@@ -227,10 +226,10 @@ public final class CSVReaderTest
   public void testOptionalConstructors () throws IOException
   {
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
-    sb.append ("a\tb\tc").append ("\n"); // tab separated case
-    sb.append ("a\t'b\tb\tb'\tc").append ("\n"); // single quoted elements
-    final CSVReader c = new CSVReader (new StringReader (sb.toString ()), '\t', '\'');
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    aSB.append ("a\tb\tc").append ("\n"); // tab separated case
+    aSB.append ("a\t'b\tb\tb'\tc").append ("\n"); // single quoted elements
+    final CSVReader c = new CSVReader (new StringReader (aSB.toString ())).setSeparatorChar ('\t').setQuoteChar ('\'');
 
     List <String> nextLine = c.readNext ();
     assertEquals (3, nextLine.size ());
@@ -242,10 +241,10 @@ public final class CSVReaderTest
   @Test
   public void parseQuotedStringWithDefinedSeperator () throws IOException
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
-    sb.append ("a\tb\tc").append ("\n"); // tab separated case
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    aSB.append ("a\tb\tc").append ("\n"); // tab separated case
 
-    final CSVReader c = new CSVReader (new StringReader (sb.toString ()), '\t');
+    final CSVReader c = new CSVReader (new StringReader (aSB.toString ())).setSeparatorChar ('\t');
 
     final List <String> nextLine = c.readNext ();
     assertEquals (3, nextLine.size ());
@@ -261,11 +260,13 @@ public final class CSVReaderTest
   public void testSkippingLines () throws IOException
   {
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
-    sb.append ("Skip this line\t with tab").append ("\n"); // should skip this
-    sb.append ("And this line too").append ("\n"); // and this
-    sb.append ("a\t'b\tb\tb'\tc").append ("\n"); // single quoted elements
-    final CSVReader c = new CSVReader (new StringReader (sb.toString ()), '\t', '\'', 2);
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    aSB.append ("Skip this line\t with tab").append ("\n"); // should skip this
+    aSB.append ("And this line too").append ("\n"); // and this
+    aSB.append ("a\t'b\tb\tb'\tc").append ("\n"); // single quoted elements
+    final CSVReader c = new CSVReader (new StringReader (aSB.toString ())).setSeparatorChar ('\t')
+                                                                          .setQuoteChar ('\'')
+                                                                          .setSkipLines (2);
 
     final List <String> nextLine = c.readNext ();
     assertEquals (3, nextLine.size ());
@@ -283,14 +284,19 @@ public final class CSVReaderTest
   public void testSkippingLinesWithDifferentEscape () throws IOException
   {
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
-    sb.append ("Skip this line?t with tab").append ("\n"); // should skip this
-    sb.append ("And this line too").append ("\n"); // and this
-    sb.append ("a\t'b\tb\tb'\t'c'").append ("\n"); // single quoted elements
-    final CSVReader c = new CSVReader (new StringReader (sb.toString ()), '\t', '\'', '?', 2);
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    // should skip this
+    aSB.append ("Skip this line?t with tab").append ("\n");
+    // and this
+    aSB.append ("And this line too").append ("\n");
+    // single quoted elements
+    aSB.append ("a\t'b\tb\tb'\t'c'").append ("\n");
+    final CSVReader c = new CSVReader (new StringReader (aSB.toString ())).setSeparatorChar ('\t')
+                                                                          .setQuoteChar ('\'')
+                                                                          .setEscapeChar ('?')
+                                                                          .setSkipLines (2);
 
     final List <String> nextLine = c.readNext ();
-
     assertEquals (3, nextLine.size ());
 
     assertEquals ("a", nextLine.get (0));
@@ -307,11 +313,11 @@ public final class CSVReaderTest
   public void testNormalParsedLine () throws IOException
   {
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
-    sb.append ("a,1234567,c").append ("\n");// a,1234,c
+    aSB.append ("a,1234567,c").append ("\n");// a,1234,c
 
-    final CSVReader c = new CSVReader (new StringReader (sb.toString ()));
+    final CSVReader c = new CSVReader (new StringReader (aSB.toString ()));
 
     final List <String> nextLine = c.readNext ();
     assertEquals (3, nextLine.size ());
@@ -331,12 +337,12 @@ public final class CSVReaderTest
   @Test
   public void testASingleQuoteAsDataElement () throws IOException
   {
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    // a,',c
+    aSB.append ("a,'''',c").append ("\n");
 
-    sb.append ("a,'''',c").append ("\n");// a,',c
-
-    final CSVReader c = new CSVReader (new StringReader (sb.toString ()), ',', '\'');
+    final CSVReader c = new CSVReader (new StringReader (aSB.toString ())).setQuoteChar ('\'');
 
     final List <String> nextLine = c.readNext ();
     assertEquals (3, nextLine.size ());
@@ -357,12 +363,12 @@ public final class CSVReaderTest
   @Test
   public void testASingleQuoteAsDataElementWithEmptyField () throws IOException
   {
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    // a,,c
+    aSB.append ("a,'',c").append ("\n");
 
-    sb.append ("a,'',c").append ("\n");// a,,c
-
-    final CSVReader c = new CSVReader (new StringReader (sb.toString ()), ',', '\'');
+    final CSVReader c = new CSVReader (new StringReader (aSB.toString ())).setQuoteChar ('\'');
 
     final List <String> nextLine = c.readNext ();
     assertEquals (3, nextLine.size ());
@@ -376,14 +382,11 @@ public final class CSVReaderTest
   @Test
   public void testSpacesAtEndOfString () throws IOException
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
-    sb.append ("\"a\",\"b\",\"c\"   ");
+    aSB.append ("\"a\",\"b\",\"c\"   ");
 
-    final CSVReader c = new CSVReader (new StringReader (sb.toString ()),
-                                       CCSV.DEFAULT_SEPARATOR,
-                                       CCSV.DEFAULT_QUOTE_CHARACTER,
-                                       true);
+    final CSVReader c = new CSVReader (new StringReader (aSB.toString ())).setStrictQuotes (true);
 
     final List <String> nextLine = c.readNext ();
     assertEquals (3, nextLine.size ());
@@ -397,11 +400,12 @@ public final class CSVReaderTest
   public void testEscapedQuote () throws IOException
   {
 
-    final StringBuilder sb = new StringBuilder ();
+    final StringBuilder aSB = new StringBuilder ();
 
-    sb.append ("a,\"123\\\"4567\",c").append ("\n");// a,123"4",c
+    // a,123"4",c
+    aSB.append ("a,\"123\\\"4567\",c").append ("\n");
 
-    final CSVReader c = new CSVReader (new StringReader (sb.toString ()));
+    final CSVReader c = new CSVReader (new StringReader (aSB.toString ()));
 
     final List <String> nextLine = c.readNext ();
     assertEquals (3, nextLine.size ());
@@ -413,11 +417,12 @@ public final class CSVReaderTest
   public void testEscapedEscape () throws IOException
   {
 
-    final StringBuilder sb = new StringBuilder ();
+    final StringBuilder aSB = new StringBuilder ();
 
-    sb.append ("a,\"123\\\\4567\",c").append ("\n");// a,123"4",c
+    // a,123"4",c
+    aSB.append ("a,\"123\\\\4567\",c").append ("\n");
 
-    final CSVReader c = new CSVReader (new StringReader (sb.toString ()));
+    final CSVReader c = new CSVReader (new StringReader (aSB.toString ()));
 
     final List <String> nextLine = c.readNext ();
     assertEquals (3, nextLine.size ());
@@ -436,12 +441,12 @@ public final class CSVReaderTest
   @Test
   public void testSingleQuoteWhenDoubleQuoteIsQuoteChar () throws IOException
   {
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    // a,'',c
+    aSB.append ("a,'',c").append ("\n");
 
-    sb.append ("a,'',c").append ("\n");// a,'',c
-
-    final CSVReader c = new CSVReader (new StringReader (sb.toString ()));
+    final CSVReader c = new CSVReader (new StringReader (aSB.toString ()));
 
     final List <String> nextLine = c.readNext ();
     assertEquals (3, nextLine.size ());
@@ -461,15 +466,12 @@ public final class CSVReaderTest
   @Test
   public void testQuotedParsedLine () throws IOException
   {
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    // "a","1234567","c"
+    aSB.append ("\"a\",\"1234567\",\"c\"").append ("\n");
 
-    sb.append ("\"a\",\"1234567\",\"c\"").append ("\n"); // "a","1234567","c"
-
-    final CSVReader c = new CSVReader (new StringReader (sb.toString ()),
-                                       CCSV.DEFAULT_SEPARATOR,
-                                       CCSV.DEFAULT_QUOTE_CHARACTER,
-                                       true);
+    final CSVReader c = new CSVReader (new StringReader (aSB.toString ())).setStrictQuotes (true);
 
     final List <String> nextLine = c.readNext ();
     assertEquals (3, nextLine.size ());
@@ -484,22 +486,15 @@ public final class CSVReaderTest
   @Test
   public void bug106ParseLineWithCarriageReturnNewLineStrictQuotes () throws IOException
   {
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
-
-    sb.append ("\"a\",\"123\r\n4567\",\"c\"").append ("\n"); // "a","123\r\n4567","c"
+    // "a","123\r\n4567","c"
+    aSB.append ("\"a\",\"123\r\n4567\",\"c\"").append ("\n");
 
     // public CSVReader(Reader reader, char separator, char quotechar, char
     // escape, int line, boolean strictQuotes,
     // boolean ignoreLeadingWhiteSpace, boolean keepCarriageReturn)
-    final CSVReader c = new CSVReader (new StringReader (sb.toString ()),
-                                       CCSV.DEFAULT_SEPARATOR,
-                                       CCSV.DEFAULT_QUOTE_CHARACTER,
-                                       CCSV.DEFAULT_ESCAPE_CHARACTER,
-                                       CCSV.DEFAULT_SKIP_LINES,
-                                       true,
-                                       CCSV.DEFAULT_IGNORE_LEADING_WHITESPACE,
-                                       true);
+    final CSVReader c = new CSVReader (new StringReader (aSB.toString ()), true).setStrictQuotes (true);
 
     final List <String> nextLine = c.readNext ();
     assertEquals (3, nextLine.size ());
@@ -514,11 +509,11 @@ public final class CSVReaderTest
   @Test
   public void testIssue2992134OutOfPlaceQuotes () throws IOException
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
-    sb.append ("a,b,c,ddd\\\"eee\nf,g,h,\"iii,jjj\"");
+    aSB.append ("a,b,c,ddd\\\"eee\nf,g,h,\"iii,jjj\"");
 
-    final CSVReader c = new CSVReader (new StringReader (sb.toString ()));
+    final CSVReader c = new CSVReader (new StringReader (aSB.toString ()));
 
     final List <String> nextLine = c.readNext ();
 
@@ -531,49 +526,31 @@ public final class CSVReaderTest
   @Test (expected = UnsupportedOperationException.class)
   public void quoteAndEscapeMustBeDifferent ()
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
-    sb.append ("a,b,c,ddd\\\"eee\nf,g,h,\"iii,jjj\"");
+    aSB.append ("a,b,c,ddd\\\"eee\nf,g,h,\"iii,jjj\"");
 
-    new CSVReader (new StringReader (sb.toString ()),
-                   CCSV.DEFAULT_SEPARATOR,
-                   CCSV.DEFAULT_QUOTE_CHARACTER,
-                   CCSV.DEFAULT_QUOTE_CHARACTER,
-                   CCSV.DEFAULT_SKIP_LINES,
-                   CCSV.DEFAULT_STRICT_QUOTES,
-                   CCSV.DEFAULT_IGNORE_LEADING_WHITESPACE);
+    new CSVReader (new StringReader (aSB.toString ())).setEscapeChar (CCSV.DEFAULT_QUOTE_CHARACTER);
   }
 
   @Test (expected = UnsupportedOperationException.class)
   public void separatorAndEscapeMustBeDifferent ()
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
-    sb.append ("a,b,c,ddd\\\"eee\nf,g,h,\"iii,jjj\"");
+    aSB.append ("a,b,c,ddd\\\"eee\nf,g,h,\"iii,jjj\"");
 
-    new CSVReader (new StringReader (sb.toString ()),
-                   CCSV.DEFAULT_SEPARATOR,
-                   CCSV.DEFAULT_QUOTE_CHARACTER,
-                   CCSV.DEFAULT_SEPARATOR,
-                   CCSV.DEFAULT_SKIP_LINES,
-                   CCSV.DEFAULT_STRICT_QUOTES,
-                   CCSV.DEFAULT_IGNORE_LEADING_WHITESPACE);
+    new CSVReader (new StringReader (aSB.toString ())).setEscapeChar (CCSV.DEFAULT_SEPARATOR);
   }
 
   @Test (expected = UnsupportedOperationException.class)
   public void separatorAndQuoteMustBeDifferent ()
   {
-    final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
-    sb.append ("a,b,c,ddd\\\"eee\nf,g,h,\"iii,jjj\"");
+    aSB.append ("a,b,c,ddd\\\"eee\nf,g,h,\"iii,jjj\"");
 
-    new CSVReader (new StringReader (sb.toString ()),
-                   CCSV.DEFAULT_SEPARATOR,
-                   CCSV.DEFAULT_SEPARATOR,
-                   CCSV.DEFAULT_ESCAPE_CHARACTER,
-                   CCSV.DEFAULT_SKIP_LINES,
-                   CCSV.DEFAULT_STRICT_QUOTES,
-                   CCSV.DEFAULT_IGNORE_LEADING_WHITESPACE);
+    new CSVReader (new StringReader (aSB.toString ())).setQuoteChar (CCSV.DEFAULT_SEPARATOR);
   }
 
   /**
@@ -645,9 +622,8 @@ public final class CSVReaderTest
     final ByteArrayInputStream bais = new ByteArrayInputStream (bytes);
     final ReadableByteChannel ch = Channels.newChannel (bais);
     final InputStream in = Channels.newInputStream (ch);
-    final InputStreamReader reader = new InputStreamReader (in, Charset.forName ("UTF-8"));
-    final CSVReaderBuilder builder = new CSVReaderBuilder (reader);
-    final CSVReader csv = builder.withVerifyReader (false).build ();
+    final InputStreamReader reader = new InputStreamReader (in, CCharset.CHARSET_UTF_8_OBJ);
+    final CSVReader csv = new CSVReader (reader).setVerifyReader (false);
     assertEquals (2, csv.readAll ().size ());
   }
 }
