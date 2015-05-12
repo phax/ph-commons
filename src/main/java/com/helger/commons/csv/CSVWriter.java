@@ -94,9 +94,19 @@ public class CSVWriter implements Closeable, Flushable
   }
 
   /**
-   * @return The default separator for this parser.
+   * @return The default separator for this writer.
+   * @deprecated Use {@link #getSeparatorChar()} instead
    */
+  @Deprecated
   public char getSeparator ()
+  {
+    return getSeparatorChar ();
+  }
+
+  /**
+   * @return The default separator for this writer.
+   */
+  public char getSeparatorChar ()
   {
     return m_cSeparatorChar;
   }
@@ -107,9 +117,24 @@ public class CSVWriter implements Closeable, Flushable
    * @param cSeparator
    *        the delimiter to use for separating entries
    * @return this
+   * @deprecated Use {@link #setSeparatorChar(char)} instead
    */
+  @Deprecated
   @Nonnull
   public CSVWriter setSeparator (final char cSeparator)
+  {
+    return setSeparatorChar (cSeparator);
+  }
+
+  /**
+   * Sets the delimiter to use for separating entries.
+   *
+   * @param cSeparator
+   *        the delimiter to use for separating entries
+   * @return this
+   */
+  @Nonnull
+  public CSVWriter setSeparatorChar (final char cSeparator)
   {
     if (cSeparator == CCSV.NULL_CHARACTER)
       throw new UnsupportedOperationException ("The separator character must be defined!");
@@ -118,9 +143,19 @@ public class CSVWriter implements Closeable, Flushable
   }
 
   /**
-   * @return The default quotation character for this parser.
+   * @return The default quotation character for this writer.
+   * @deprecated Use {@link #getQuoteChar()} instead
    */
+  @Deprecated
   public char getQuotechar ()
+  {
+    return getQuoteChar ();
+  }
+
+  /**
+   * @return The default quotation character for this writer.
+   */
+  public char getQuoteChar ()
   {
     return m_cQuoteChar;
   }
@@ -140,9 +175,19 @@ public class CSVWriter implements Closeable, Flushable
   }
 
   /**
-   * @return The default escape character for this parser.
+   * @return The default escape character for this writer.
+   * @deprecated Use {@link #getEscapeChar()} instead
    */
+  @Deprecated
   public char getEscape ()
+  {
+    return getEscapeChar ();
+  }
+
+  /**
+   * @return The default escape character for this writer.
+   */
+  public char getEscapeChar ()
   {
     return m_cEscapeChar;
   }
@@ -187,51 +232,50 @@ public class CSVWriter implements Closeable, Flushable
   }
 
   /**
-   * Writes the entire list to a CSV file. The list is assumed to be a String[]
+   * Writes the entire list to a CSV file.
    *
    * @param aAllLines
-   *        a List of String[], with each String[] representing a line of the
-   *        file.
+   *        a List of List of String, with each List of String representing a
+   *        line of the file.
    * @param bApplyQuotesToAll
    *        <code>true</code> if all values are to be quoted. <code>false</code>
    *        if quotes only to be applied to values which contain the separator,
    *        escape, quote or new line characters.
    */
-  public void writeAll (final List <List <String>> aAllLines, final boolean bApplyQuotesToAll)
+  public void writeAll (@Nonnull final List <List <String>> aAllLines, final boolean bApplyQuotesToAll)
   {
     for (final List <String> aLine : aAllLines)
       writeNext (aLine, bApplyQuotesToAll);
   }
 
   /**
-   * Writes the entire list to a CSV file. The list is assumed to be a String[]
+   * Writes the entire list to a CSV file with quoting enabled.
    *
    * @param aAllLines
-   *        a List of String[], with each String[] representing a line of the
-   *        file.
+   *        a List of List of String, with each List of String representing a
+   *        line of the file.
    */
-  public void writeAll (final List <List <String>> aAllLines)
+  public void writeAll (@Nonnull final List <List <String>> aAllLines)
   {
-    for (final List <String> aLine : aAllLines)
-      writeNext (aLine, DEFAULT_QUOTE_ALL);
+    writeAll (aAllLines, DEFAULT_QUOTE_ALL);
   }
 
   /**
    * Writes the next line to the file.
    *
    * @param aNextLine
-   *        a string array with each comma-separated element as a separate
-   *        entry.
+   *        A collection of Strings where each entry represents a single cell.
    * @param bApplyQuotesToAll
-   *        true if all values are to be quoted. false applies quotes only to
-   *        values which contain the separator, escape, quote or new line
-   *        characters.
+   *        <code>true</code> if all values are to be quoted. <code>false</code>
+   *        applies quotes only to values which contain the separator, escape,
+   *        quote or new line characters.
    */
   public void writeNext (@Nullable final Iterator <String> aNextLine, final boolean bApplyQuotesToAll)
   {
     if (aNextLine != null)
     {
       final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+      final boolean bCanQuote = m_cQuoteChar != NO_QUOTE_CHARACTER;
       boolean bFirst = true;
       while (aNextLine.hasNext ())
       {
@@ -241,23 +285,22 @@ public class CSVWriter implements Closeable, Flushable
           aSB.append (m_cSeparatorChar);
 
         final String sNextElement = aNextLine.next ();
-        if (sNextElement == null)
-          continue;
+        if (sNextElement != null)
+        {
+          final boolean bElementContainsSpecialChars = _stringContainsSpecialCharacters (sNextElement);
+          final boolean bDoQuoteElement = bCanQuote && (bApplyQuotesToAll || bElementContainsSpecialChars);
 
-        final boolean bElementContainsSpecialChars = _stringContainsSpecialCharacters (sNextElement);
-        final boolean bDoQuote = (bApplyQuotesToAll || bElementContainsSpecialChars) &&
-                                 m_cQuoteChar != NO_QUOTE_CHARACTER;
+          if (bDoQuoteElement)
+            aSB.append (m_cQuoteChar);
 
-        if (bDoQuote)
-          aSB.append (m_cQuoteChar);
+          if (bElementContainsSpecialChars)
+            aSB.append (getEscapedText (sNextElement));
+          else
+            aSB.append (sNextElement);
 
-        if (bElementContainsSpecialChars)
-          aSB.append (getEscapedText (sNextElement));
-        else
-          aSB.append (sNextElement);
-
-        if (bDoQuote)
-          aSB.append (m_cQuoteChar);
+          if (bDoQuoteElement)
+            aSB.append (m_cQuoteChar);
+        }
       }
 
       aSB.append (m_sLineEnd);
@@ -276,7 +319,7 @@ public class CSVWriter implements Closeable, Flushable
    *        applies quotes only to values which contain the separator, escape,
    *        quote or new line characters.
    */
-  public void writeNext (@Nullable final List <String> aNextLine, final boolean bApplyQuotesToAll)
+  public void writeNext (@Nullable final Iterable <String> aNextLine, final boolean bApplyQuotesToAll)
   {
     if (aNextLine != null)
       writeNext (aNextLine.iterator (), bApplyQuotesToAll);
@@ -289,7 +332,7 @@ public class CSVWriter implements Closeable, Flushable
    *        a string array with each comma-separated element as a separate
    *        entry.
    */
-  public void writeNext (@Nullable final List <String> aNextLine)
+  public void writeNext (@Nullable final Iterable <String> aNextLine)
   {
     writeNext (aNextLine, DEFAULT_QUOTE_ALL);
   }
@@ -395,7 +438,7 @@ public class CSVWriter implements Closeable, Flushable
     if (m_cEscapeChar == NO_ESCAPE_CHARACTER)
       return new StringBuilder (sNextElement);
 
-    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+    final StringBuilder aSB = new StringBuilder (sNextElement.length () * 2);
     for (final char c : sNextElement.toCharArray ())
     {
       if (c == m_cQuoteChar || c == m_cEscapeChar)
