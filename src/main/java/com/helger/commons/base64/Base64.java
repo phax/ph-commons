@@ -2546,4 +2546,105 @@ public final class Base64// NOPMD
       StreamUtils.close (out);
     }
   }
+
+  // ph methods
+
+  /**
+   * Decode the string with the default encoding (US-ASCII is the preferred
+   * one).
+   *
+   * @param sEncoded
+   *        The encoded string.
+   * @return <code>null</code> if decoding failed.
+   */
+  @Nullable
+  public static byte [] safeDecode (@Nonnull final String sEncoded)
+  {
+    try
+    {
+      return decode (sEncoded);
+    }
+    catch (final IOException t)
+    {
+      return null;
+    }
+  }
+
+  /**
+   * Decode the byte array.
+   *
+   * @param aEncodedBytes
+   *        The encoded byte array.
+   * @return <code>null</code> if decoding failed.
+   */
+  @Nullable
+  public static byte [] safeDecode (@Nonnull final byte [] aEncodedBytes)
+  {
+    try
+    {
+      return decode (aEncodedBytes);
+    }
+    catch (final IOException t)
+    {
+      return null;
+    }
+  }
+
+  /**
+   * Decode the string and convert it back to a string.
+   *
+   * @param sEncoded
+   *        The encoded byte array.
+   * @param aCharset
+   *        The character set to be used.
+   * @return <code>null</code> if decoding failed.
+   */
+  @Nullable
+  public static String safeDecodeAsString (@Nonnull final String sEncoded, @Nonnull final Charset aCharset)
+  {
+    try
+    {
+      return CharsetManager.getAsString (decode (sEncoded), aCharset);
+    }
+    catch (final Throwable t)
+    {
+      return null;
+    }
+  }
+
+  /**
+   * Decode the byte array and convert it to a string.
+   *
+   * @param aEncodedBytes
+   *        The encoded byte array.
+   * @param aCharset
+   *        The character set to be used.
+   * @return <code>null</code> if decoding failed.
+   */
+  @Nullable
+  public static String safeDecodeAsString (@Nonnull final byte [] aEncodedBytes, @Nonnull final Charset aCharset)
+  {
+    try
+    {
+      return CharsetManager.getAsString (decode (aEncodedBytes), aCharset);
+    }
+    catch (final Throwable t)
+    {
+      return null;
+    }
+  }
+
+  /**
+   * @param s
+   *        The string to be encoded
+   * @param aCharset
+   *        The charset to be used
+   * @return The encoded byte array.
+   */
+  @Nullable
+  public static String safeEncode (@Nonnull final String s, @Nonnull final Charset aCharset)
+  {
+    return encodeBytes (CharsetManager.getAsBytes (s, aCharset));
+  }
+
 }

@@ -19,7 +19,6 @@ package com.helger.commons.codec;
 import javax.annotation.Nullable;
 
 import com.helger.commons.base64.Base64;
-import com.helger.commons.base64.Base64Helper;
 
 /**
  * Encoder and decoder for Base64
@@ -40,6 +39,6 @@ public class Base64Codec extends AbstractCodec
   @Nullable
   public byte [] decode (@Nullable final byte [] aEncodedBuffer)
   {
-    return aEncodedBuffer == null ? null : Base64Helper.safeDecode (aEncodedBuffer);
+    return aEncodedBuffer == null ? null : Base64.safeDecode (aEncodedBuffer);
   }
 }

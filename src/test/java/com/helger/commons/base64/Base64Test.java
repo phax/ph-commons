@@ -19,6 +19,7 @@ package com.helger.commons.base64;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -27,6 +28,7 @@ import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.security.SecureRandom;
+import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -85,7 +87,7 @@ public final class Base64Test
     assertArrayEquals (CharsetManager.getAsBytes (sSource, CCharset.CHARSET_ISO_8859_1_OBJ), aDecoded);
     final byte [] aSrc = CharsetManager.getAsBytes ("Hallo Wält", CCharset.CHARSET_UTF_8_OBJ);
     final String sDst = Base64.encodeBytes (aSrc, 0, aSrc.length);
-    assertEquals ("Hallo Wält", Base64Helper.safeDecodeAsString (sDst, CCharset.CHARSET_UTF_8_OBJ));
+    assertEquals ("Hallo Wält", Base64.safeDecodeAsString (sDst, CCharset.CHARSET_UTF_8_OBJ));
   }
 
   @Test
@@ -185,7 +187,7 @@ public final class Base64Test
       Base64.encodeFileToFile (f1.getAbsolutePath (), f2.getAbsolutePath ());
       assertTrue (FileUtils.existsFile (f2));
       final String sEncoded = SimpleFileIO.readFileAsString (f2, CCharset.CHARSET_UTF_8_OBJ);
-      assertEquals ("Hallo Wält", Base64Helper.safeDecodeAsString (sEncoded, CCharset.CHARSET_UTF_8_OBJ));
+      assertEquals ("Hallo Wält", Base64.safeDecodeAsString (sEncoded, CCharset.CHARSET_UTF_8_OBJ));
     }
     finally
     {
@@ -205,7 +207,7 @@ public final class Base64Test
       Base64.encodeToFile (CharsetManager.getAsBytes (sDecoded, CCharset.CHARSET_UTF_8_OBJ), f2.getAbsolutePath ());
       assertTrue (FileUtils.existsFile (f2));
       final String sEncoded = SimpleFileIO.readFileAsString (f2, CCharset.CHARSET_UTF_8_OBJ);
-      assertEquals ("Hallo Wält", Base64Helper.safeDecodeAsString (sEncoded, CCharset.CHARSET_UTF_8_OBJ));
+      assertEquals ("Hallo Wält", Base64.safeDecodeAsString (sEncoded, CCharset.CHARSET_UTF_8_OBJ));
     }
     finally
     {
@@ -221,8 +223,8 @@ public final class Base64Test
     try
     {
       assertFalse (FileUtils.existsFile (f2));
-      SimpleFileIO.writeFile (f1, CharsetManager.getAsBytes (Base64Helper.safeEncode ("Hallo Wält",
-                                                                                      CCharset.CHARSET_UTF_8_OBJ),
+      SimpleFileIO.writeFile (f1, CharsetManager.getAsBytes (Base64.safeEncode ("Hallo Wält",
+                                                                                CCharset.CHARSET_UTF_8_OBJ),
                                                              CCharset.CHARSET_ISO_8859_1_OBJ));
       Base64.decodeFileToFile (f1.getAbsolutePath (), f2.getAbsolutePath ());
       assertTrue (FileUtils.existsFile (f2));
@@ -243,7 +245,7 @@ public final class Base64Test
     try
     {
       assertFalse (FileUtils.existsFile (f2));
-      final String sEncoded = Base64Helper.safeEncode ("Hallo Wält", CCharset.CHARSET_UTF_8_OBJ);
+      final String sEncoded = Base64.safeEncode ("Hallo Wält", CCharset.CHARSET_UTF_8_OBJ);
       Base64.decodeToFile (sEncoded, f2.getAbsolutePath ());
       assertTrue (FileUtils.existsFile (f2));
       final String sDecoded = SimpleFileIO.readFileAsString (f2, CCharset.CHARSET_UTF_8_OBJ);
@@ -261,7 +263,7 @@ public final class Base64Test
     final ByteBuffer aSrc = ByteBuffer.wrap (CharsetManager.getAsBytes ("Hallo Wält", CCharset.CHARSET_UTF_8_OBJ));
     final ByteBuffer aDst = ByteBuffer.allocate (aSrc.capacity () * 2);
     Base64.encode (aSrc, aDst);
-    assertEquals ("Hallo Wält", Base64Helper.safeDecodeAsString (aDst.array (), CCharset.CHARSET_UTF_8_OBJ));
+    assertEquals ("Hallo Wält", Base64.safeDecodeAsString (aDst.array (), CCharset.CHARSET_UTF_8_OBJ));
   }
 
   @Test
@@ -270,8 +272,7 @@ public final class Base64Test
     final ByteBuffer aSrc = ByteBuffer.wrap (CharsetManager.getAsBytes ("Hallo Wält", CCharset.CHARSET_UTF_8_OBJ));
     final CharBuffer aDst = CharBuffer.allocate (aSrc.capacity () * 2);
     Base64.encode (aSrc, aDst);
-    assertEquals ("Hallo Wält",
-                  Base64Helper.safeDecodeAsString (new String (aDst.array ()), CCharset.CHARSET_UTF_8_OBJ));
+    assertEquals ("Hallo Wält", Base64.safeDecodeAsString (new String (aDst.array ()), CCharset.CHARSET_UTF_8_OBJ));
   }
 
   @Test
@@ -279,6 +280,24 @@ public final class Base64Test
   {
     final byte [] aSrc = CharsetManager.getAsBytes ("Hallo Wält", CCharset.CHARSET_UTF_8_OBJ);
     final byte [] aDst = Base64.encodeBytesToBytes (aSrc);
-    assertEquals ("Hallo Wält", Base64Helper.safeDecodeAsString (aDst, CCharset.CHARSET_UTF_8_OBJ));
+    assertEquals ("Hallo Wält", Base64.safeDecodeAsString (aDst, CCharset.CHARSET_UTF_8_OBJ));
+  }
+
+  @Test
+  public void testEncodeDecodeCharset ()
+  {
+    final String sSource = "dgMP$";
+    final String sEncoded = Base64.safeEncode (sSource, CCharset.CHARSET_ISO_8859_1_OBJ);
+    assertTrue (Arrays.equals (CharsetManager.getAsBytes (sSource, CCharset.CHARSET_ISO_8859_1_OBJ),
+                               Base64.safeDecode (sEncoded)));
+    assertTrue (Arrays.equals (CharsetManager.getAsBytes (sSource, CCharset.CHARSET_ISO_8859_1_OBJ),
+                               Base64.safeDecode (CharsetManager.getAsBytes (sEncoded, CCharset.CHARSET_ISO_8859_1_OBJ))));
+    assertEquals (sSource, Base64.safeDecodeAsString (sEncoded, CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertEquals (sSource, Base64.safeDecodeAsString (CharsetManager.getAsBytes (sEncoded,
+                                                                                 CCharset.CHARSET_ISO_8859_1_OBJ),
+                                                      CCharset.CHARSET_ISO_8859_1_OBJ));
+
+    // Invalid input
+    assertNull (Base64.safeDecode ("xyz"));
   }
 }

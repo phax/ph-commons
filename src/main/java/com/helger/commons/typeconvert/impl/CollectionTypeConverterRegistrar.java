@@ -34,7 +34,6 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotations.IsSPIImplementation;
 import com.helger.commons.base64.Base64;
-import com.helger.commons.base64.Base64Helper;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.typeconvert.ITypeConverter;
 import com.helger.commons.typeconvert.ITypeConverterRegistrarSPI;
@@ -230,7 +229,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     {
       public byte [] convert (@Nonnull final Object aSource)
       {
-        return Base64Helper.safeDecode ((String) aSource);
+        return Base64.safeDecode ((String) aSource);
       }
     });
     aRegistry.registerTypeConverter (byte [].class, ArrayList.class, new ITypeConverter ()

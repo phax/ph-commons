@@ -23,7 +23,6 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.base64.Base64;
-import com.helger.commons.base64.Base64Helper;
 import com.helger.commons.charset.CCharset;
 
 /**
@@ -89,7 +88,7 @@ public class RFC1522BCodec extends AbstractRFC1522Codec
   @Nullable
   public byte [] decode (@Nullable final byte [] aEncodedBuffer)
   {
-    return aEncodedBuffer == null ? null : Base64Helper.safeDecode (aEncodedBuffer);
+    return aEncodedBuffer == null ? null : Base64.safeDecode (aEncodedBuffer);
   }
 
   /**
