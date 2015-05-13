@@ -19,15 +19,15 @@ package com.helger.commons.stats;
 import javax.annotation.Nonnegative;
 
 /**
- * Modifying interface of {@link StatisticsHandlerTimerMBean}
- * 
+ * Statistics handler for times.
+ *
  * @author Philip Helger
  */
-public interface IStatisticsHandlerTimer extends StatisticsHandlerTimerMBean
+public interface IStatisticsHandlerTimer extends IStatisticsHandlerNumeric
 {
   /**
    * Add a single execution time.
-   * 
+   *
    * @param nMillis
    *        The milli seconds it took to execute something. Should not be
    *        negative.

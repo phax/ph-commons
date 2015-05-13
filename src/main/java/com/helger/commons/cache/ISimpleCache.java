@@ -19,23 +19,24 @@ package com.helger.commons.cache;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.IHasSize;
 import com.helger.commons.name.IHasName;
 import com.helger.commons.state.EChange;
 
 /**
  * Interface for a very simple Map-like cache.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        Cache key type.
  * @param <VALUETYPE>
  *        Cache value type.
  */
-public interface ISimpleCache <KEYTYPE, VALUETYPE> extends SimpleCacheMBean, IHasName
+public interface ISimpleCache <KEYTYPE, VALUETYPE> extends IHasName, IHasSize
 {
   /**
    * Get the cached value associated with the passed key.
-   * 
+   *
    * @param aKey
    *        The key to be looked up. May be <code>null</code>able or not -
    *        depends upon the implementation.
@@ -46,7 +47,7 @@ public interface ISimpleCache <KEYTYPE, VALUETYPE> extends SimpleCacheMBean, IHa
 
   /**
    * Remove the given key from the cache.
-   * 
+   *
    * @param aKey
    *        The key to be removed. May be <code>null</code>able or not - depends
    *        upon the implementation.
@@ -55,4 +56,12 @@ public interface ISimpleCache <KEYTYPE, VALUETYPE> extends SimpleCacheMBean, IHa
    */
   @Nonnull
   EChange removeFromCache (KEYTYPE aKey);
+
+  /**
+   * Remove all cached elements.
+   *
+   * @return {@link EChange}.
+   */
+  @Nonnull
+  EChange clearCache ();
 }

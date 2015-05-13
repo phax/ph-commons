@@ -19,15 +19,25 @@ package com.helger.commons.stats;
 import javax.annotation.Nullable;
 
 /**
- * Modifying interface of {@link StatisticsHandlerKeyedCounterMBean}
- * 
+ * Statistics handler for a keyed counter.
+ *
  * @author Philip Helger
  */
-public interface IStatisticsHandlerKeyedCounter extends StatisticsHandlerKeyedCounterMBean
+public interface IStatisticsHandlerKeyedCounter extends IStatisticsHandlerKeyed
 {
   /**
+   * Get the count of a certain key.
+   *
+   * @param sKey
+   *        The key to retrieve the count from
+   * @return {@link com.helger.commons.CGlobal#ILLEGAL_ULONG} if no such key is
+   *         present.
+   */
+  long getCount (@Nullable String sKey);
+
+  /**
    * Increment by 1
-   * 
+   *
    * @param sKey
    *        The key to be incremented.
    */
@@ -35,7 +45,7 @@ public interface IStatisticsHandlerKeyedCounter extends StatisticsHandlerKeyedCo
 
   /**
    * Increment by <i>n</i>
-   * 
+   *
    * @param sKey
    *        The key to be incremented.
    * @param nByHowMany

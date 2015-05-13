@@ -20,15 +20,15 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
 
 /**
- * Modifying interface of {@link StatisticsHandlerKeyedTimerMBean}
- * 
+ * Statistics handler for keyed timer.
+ *
  * @author Philip Helger
  */
-public interface IStatisticsHandlerKeyedTimer extends StatisticsHandlerKeyedTimerMBean
+public interface IStatisticsHandlerKeyedTimer extends IStatisticsHandlerKeyedNumeric
 {
   /**
    * Add a single execution time.
-   * 
+   *
    * @param sKey
    *        The key to be incremented.
    * @param nMillis

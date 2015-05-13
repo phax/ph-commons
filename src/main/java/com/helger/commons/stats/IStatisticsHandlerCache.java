@@ -16,14 +16,21 @@
  */
 package com.helger.commons.stats;
 
+import javax.annotation.Nonnegative;
 
 /**
- * Modifying interface of {@link StatisticsHandlerCacheMBean}
- * 
+ * Statistics handler for cache hit/miss
+ *
  * @author Philip Helger
  */
-public interface IStatisticsHandlerCache extends StatisticsHandlerCacheMBean
+public interface IStatisticsHandlerCache extends IStatisticsHandler
 {
+  @Nonnegative
+  int getHits ();
+
+  @Nonnegative
+  int getMisses ();
+
   void cacheHit ();
 
   void cacheMiss ();

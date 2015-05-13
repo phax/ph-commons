@@ -19,15 +19,15 @@ package com.helger.commons.stats;
 import javax.annotation.Nonnegative;
 
 /**
- * Modifying version of {@link StatisticsHandlerSizeMBean}
- * 
+ * Statistics handler for sizes.
+ *
  * @author Philip Helger
  */
-public interface IStatisticsHandlerSize extends StatisticsHandlerSizeMBean
+public interface IStatisticsHandlerSize extends IStatisticsHandlerNumeric
 {
   /**
    * Add a new size
-   * 
+   *
    * @param nSize
    *        The size to be added. Must be &ge; 0 as sizes cannot be negative.
    */

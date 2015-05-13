@@ -20,15 +20,15 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
 
 /**
- * Modifying interface of {@link StatisticsHandlerKeyedSizeMBean}
- * 
+ * Statistics handler for keyed sizes.
+ *
  * @author Philip Helger
  */
-public interface IStatisticsHandlerKeyedSize extends StatisticsHandlerKeyedSizeMBean
+public interface IStatisticsHandlerKeyedSize extends IStatisticsHandlerKeyedNumeric
 {
   /**
    * Add a new size
-   * 
+   *
    * @param sKey
    *        The key to be incremented.
    * @param nSize

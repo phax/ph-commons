@@ -18,7 +18,6 @@ package com.helger.commons.cache;
 
 import java.util.Map;
 import java.util.WeakHashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -34,7 +33,6 @@ import com.helger.commons.annotations.MustBeLocked;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.jmx.JMXUtils;
 import com.helger.commons.state.EChange;
 import com.helger.commons.stats.IStatisticsHandlerCache;
 import com.helger.commons.stats.IStatisticsHandlerCounter;
@@ -58,8 +56,6 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements ISimpleCache
   /** The prefix to be used for statistics elements */
   public static final String STATISTICS_PREFIX = "cache:";
 
-  private static final AtomicBoolean s_aJMXEnabled = new AtomicBoolean (DEFAULT_JMX_ENABLED);
-
   protected final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   private final String m_sCacheName;
   protected final IStatisticsHandlerCache m_aCacheAccessStats;
@@ -73,18 +69,6 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements ISimpleCache
     m_aCacheAccessStats = StatisticsManager.getCacheHandler (STATISTICS_PREFIX + sCacheName + "$access");
     m_aCacheRemoveStats = StatisticsManager.getCounterHandler (STATISTICS_PREFIX + sCacheName + "$remove");
     m_aCacheClearStats = StatisticsManager.getCounterHandler (STATISTICS_PREFIX + sCacheName + "$clear");
-    if (isJMXEnabled ())
-      JMXUtils.exposeMBeanWithAutoName (new SimpleCache (this), sCacheName);
-  }
-
-  public static boolean isJMXEnabled ()
-  {
-    return s_aJMXEnabled.get ();
-  }
-
-  public static void setJMXEnabled (final boolean bEnabled)
-  {
-    s_aJMXEnabled.set (bEnabled);
   }
 
   @Nonnull

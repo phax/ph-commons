@@ -16,14 +16,21 @@
  */
 package com.helger.commons.stats;
 
+import javax.annotation.CheckForSigned;
 
 /**
- * Modifying interface of {@link StatisticsHandlerCounterMBean}
- * 
+ * Statistics handler for a counter.
+ *
  * @author Philip Helger
  */
-public interface IStatisticsHandlerCounter extends StatisticsHandlerCounterMBean
+public interface IStatisticsHandlerCounter extends IStatisticsHandler
 {
+  /**
+   * @return The total count. May be negative if negative values were added.
+   */
+  @CheckForSigned
+  long getCount ();
+
   /**
    * Increment the counter by 1
    */
@@ -31,7 +38,7 @@ public interface IStatisticsHandlerCounter extends StatisticsHandlerCounterMBean
 
   /**
    * Increment the counter by an arbitrary number
-   * 
+   *
    * @param nByHowMany
    *        The number to be added. May be negative as well.
    */

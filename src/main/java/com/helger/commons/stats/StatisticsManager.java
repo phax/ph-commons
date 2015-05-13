@@ -19,7 +19,6 @@ package com.helger.commons.stats;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -31,7 +30,6 @@ import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.jmx.JMXUtils;
 
 /**
  * Provides a central manager for the internal statistics.
@@ -41,10 +39,6 @@ import com.helger.commons.jmx.JMXUtils;
 @ThreadSafe
 public final class StatisticsManager
 {
-  /** By default JMX is disabled */
-  public static final boolean DEFAULT_JMX_ENABLED = false;
-
-  private static final AtomicBoolean s_aJMXEnabled = new AtomicBoolean (DEFAULT_JMX_ENABLED);
   private static final ReadWriteLock s_aRWLockCache = new ReentrantReadWriteLock ();
   private static final ReadWriteLock s_aRWLockTimer = new ReentrantReadWriteLock ();
   private static final ReadWriteLock s_aRWLockKeyedTimer = new ReentrantReadWriteLock ();
@@ -65,16 +59,6 @@ public final class StatisticsManager
 
   private StatisticsManager ()
   {}
-
-  public static boolean isJMXEnabled ()
-  {
-    return s_aJMXEnabled.get ();
-  }
-
-  public static void setJMXEnabled (final boolean bEnabled)
-  {
-    s_aJMXEnabled.set (bEnabled);
-  }
 
   @Nonnull
   public static IStatisticsHandlerCache getCacheHandler (@Nonnull final Class <?> aClass)
@@ -110,8 +94,6 @@ public final class StatisticsManager
         if (aHdl == null)
         {
           aHdl = new StatisticsHandlerCache ();
-          if (isJMXEnabled ())
-            JMXUtils.exposeMBeanWithAutoName (aHdl, sName);
           s_aHdlCache.put (sName, aHdl);
         }
       }
@@ -173,8 +155,6 @@ public final class StatisticsManager
         if (aHdl == null)
         {
           aHdl = new StatisticsHandlerTimer ();
-          if (isJMXEnabled ())
-            JMXUtils.exposeMBeanWithAutoName (aHdl, sName);
           s_aHdlTimer.put (sName, aHdl);
         }
       }
@@ -236,8 +216,6 @@ public final class StatisticsManager
         if (aHdl == null)
         {
           aHdl = new StatisticsHandlerKeyedTimer ();
-          if (isJMXEnabled ())
-            JMXUtils.exposeMBeanWithAutoName (aHdl, sName);
           s_aHdlKeyedTimer.put (sName, aHdl);
         }
       }
@@ -298,8 +276,6 @@ public final class StatisticsManager
         if (aHdl == null)
         {
           aHdl = new StatisticsHandlerSize ();
-          if (isJMXEnabled ())
-            JMXUtils.exposeMBeanWithAutoName (aHdl, sName);
           s_aHdlSize.put (sName, aHdl);
         }
       }
@@ -360,8 +336,6 @@ public final class StatisticsManager
         if (aHdl == null)
         {
           aHdl = new StatisticsHandlerKeyedSize ();
-          if (isJMXEnabled ())
-            JMXUtils.exposeMBeanWithAutoName (aHdl, sName);
           s_aHdlKeyedSize.put (sName, aHdl);
         }
       }
@@ -422,8 +396,6 @@ public final class StatisticsManager
         if (aHdl == null)
         {
           aHdl = new StatisticsHandlerCounter ();
-          if (isJMXEnabled ())
-            JMXUtils.exposeMBeanWithAutoName (aHdl, sName);
           s_aHdlCounter.put (sName, aHdl);
         }
       }
@@ -484,8 +456,6 @@ public final class StatisticsManager
         if (aHdl == null)
         {
           aHdl = new StatisticsHandlerKeyedCounter ();
-          if (isJMXEnabled ())
-            JMXUtils.exposeMBeanWithAutoName (aHdl, sName);
           s_aHdlKeyedCounter.put (sName, aHdl);
         }
       }
