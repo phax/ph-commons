@@ -41,21 +41,21 @@ public final class ResourceErrorGroupTest
 
     ResourceErrorGroup aREG = new ResourceErrorGroup ();
     assertTrue (aREG.isEmpty ());
-    assertEquals (0, aREG.size ());
+    assertEquals (0, aREG.getSize ());
 
     aREG = new ResourceErrorGroup (new ResourceError (loc, EErrorLevel.ERROR, "mock error"));
     assertFalse (aREG.isEmpty ());
-    assertEquals (1, aREG.size ());
+    assertEquals (1, aREG.getSize ());
 
     aREG = new ResourceErrorGroup (new ResourceError (loc, EErrorLevel.ERROR, "mock error"),
                                    new ResourceError (loc, EErrorLevel.WARN, "mock msg"));
     assertFalse (aREG.isEmpty ());
-    assertEquals (2, aREG.size ());
+    assertEquals (2, aREG.getSize ());
 
     aREG = new ResourceErrorGroup (CollectionHelper.newList (new ResourceError (loc, EErrorLevel.ERROR, "mock error"),
-                                                            new ResourceError (loc, EErrorLevel.WARN, "mock msg")));
+                                                             new ResourceError (loc, EErrorLevel.WARN, "mock msg")));
     assertFalse (aREG.isEmpty ());
-    assertEquals (2, aREG.size ());
+    assertEquals (2, aREG.getSize ());
 
     try
     {
@@ -97,7 +97,7 @@ public final class ResourceErrorGroupTest
 
     ResourceErrorGroup aREG = new ResourceErrorGroup ();
     assertTrue (aREG.isEmpty ());
-    assertEquals (0, aREG.size ());
+    assertEquals (0, aREG.getSize ());
     assertFalse (aREG.containsOnlySuccess ());
     assertFalse (aREG.containsOnlyFailure ());
     assertFalse (aREG.containsOnlyError ());
@@ -109,11 +109,11 @@ public final class ResourceErrorGroupTest
     assertTrue (aREG.containsNoError ());
     assertEquals (EErrorLevel.SUCCESS, aREG.getMostSevereErrorLevel ());
     assertNotNull (aREG.getAllFailures ());
-    assertEquals (0, aREG.getAllFailures ().size ());
+    assertEquals (0, aREG.getAllFailures ().getSize ());
 
     aREG.addResourceError (new ResourceError (loc, EErrorLevel.WARN, "mock msg"));
     assertFalse (aREG.isEmpty ());
-    assertEquals (1, aREG.size ());
+    assertEquals (1, aREG.getSize ());
     assertFalse (aREG.containsOnlySuccess ());
     assertTrue (aREG.containsOnlyFailure ());
     assertFalse (aREG.containsOnlyError ());
@@ -125,11 +125,11 @@ public final class ResourceErrorGroupTest
     assertTrue (aREG.containsNoError ());
     assertEquals (EErrorLevel.WARN, aREG.getMostSevereErrorLevel ());
     assertNotNull (aREG.getAllFailures ());
-    assertEquals (1, aREG.getAllFailures ().size ());
+    assertEquals (1, aREG.getAllFailures ().getSize ());
 
     aREG.addResourceError (new ResourceError (loc, EErrorLevel.SUCCESS, "successfully"));
     assertFalse (aREG.isEmpty ());
-    assertEquals (2, aREG.size ());
+    assertEquals (2, aREG.getSize ());
     assertFalse (aREG.containsOnlySuccess ());
     assertFalse (aREG.containsOnlyFailure ());
     assertFalse (aREG.containsOnlyError ());
@@ -141,12 +141,12 @@ public final class ResourceErrorGroupTest
     assertTrue (aREG.containsNoError ());
     assertEquals (EErrorLevel.WARN, aREG.getMostSevereErrorLevel ());
     assertNotNull (aREG.getAllFailures ());
-    assertEquals (1, aREG.getAllFailures ().size ());
-    assertEquals (0, aREG.getAllErrors ().size ());
+    assertEquals (1, aREG.getAllFailures ().getSize ());
+    assertEquals (0, aREG.getAllErrors ().getSize ());
 
     aREG.addResourceError (new ResourceError (loc, EErrorLevel.ERROR, "mock error"));
     assertFalse (aREG.isEmpty ());
-    assertEquals (3, aREG.size ());
+    assertEquals (3, aREG.getSize ());
     assertFalse (aREG.containsOnlySuccess ());
     assertFalse (aREG.containsOnlyFailure ());
     assertFalse (aREG.containsOnlyError ());
@@ -158,8 +158,8 @@ public final class ResourceErrorGroupTest
     assertFalse (aREG.containsNoError ());
     assertEquals (EErrorLevel.ERROR, aREG.getMostSevereErrorLevel ());
     assertNotNull (aREG.getAllFailures ());
-    assertEquals (2, aREG.getAllFailures ().size ());
-    assertEquals (1, aREG.getAllErrors ().size ());
+    assertEquals (2, aREG.getAllFailures ().getSize ());
+    assertEquals (1, aREG.getAllErrors ().getSize ());
 
     // Success only
     aREG = new ResourceErrorGroup (new ResourceError (loc, EErrorLevel.SUCCESS, "mock success"));
@@ -199,16 +199,15 @@ public final class ResourceErrorGroupTest
 
     assertEquals (1, CollectionHelper.newList (aREG2).size ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceErrorGroup (),
-                                                                    new ResourceErrorGroup ());
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceErrorGroup (), new ResourceErrorGroup ());
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceErrorGroup (),
-                                                                        new ResourceErrorGroup (new ResourceError (loc,
-                                                                                                                   EErrorLevel.ERROR,
-                                                                                                                   "mock error"),
-                                                                                                new ResourceError (loc,
-                                                                                                                   EErrorLevel.WARN,
-                                                                                                                   "mock msg")));
+                                                                     new ResourceErrorGroup (new ResourceError (loc,
+                                                                                                                EErrorLevel.ERROR,
+                                                                                                                "mock error"),
+                                                                                             new ResourceError (loc,
+                                                                                                                EErrorLevel.WARN,
+                                                                                                                "mock msg")));
     PHTestUtils.testGetClone (new ResourceErrorGroup (new ResourceError (loc, EErrorLevel.ERROR, "mock error"),
-                                                         new ResourceError (loc, EErrorLevel.WARN, "mock msg")));
+                                                      new ResourceError (loc, EErrorLevel.WARN, "mock msg")));
   }
 }

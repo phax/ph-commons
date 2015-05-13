@@ -224,7 +224,7 @@ public class TextProvider extends AbstractTextProvider implements IReadonlyMulti
   }
 
   @Nonnegative
-  public final int size ()
+  public final int getSize ()
   {
     return m_aTexts.size ();
   }

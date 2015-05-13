@@ -277,7 +277,7 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
   }
 
   @Nonnegative
-  public int size ()
+  public int getSize ()
   {
     return m_aErrors.size ();
   }

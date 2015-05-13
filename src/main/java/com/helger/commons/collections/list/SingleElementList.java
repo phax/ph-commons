@@ -27,7 +27,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.IHasSize;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.UnsupportedOperation;
 import com.helger.commons.collections.ArrayHelper;
@@ -49,7 +48,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The type of the element in the list
  */
 @NotThreadSafe
-public class SingleElementList <ELEMENTTYPE> implements List <ELEMENTTYPE>, IHasSize
+public class SingleElementList <ELEMENTTYPE> implements List <ELEMENTTYPE>
 {
   private boolean m_bHasElement;
   private ELEMENTTYPE m_aElement;

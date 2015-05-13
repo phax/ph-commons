@@ -40,7 +40,7 @@ import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Abstract base implementation of {@link ISimpleCache}
+ * Abstract base implementation of {@link ICache}
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -49,10 +49,8 @@ import com.helger.commons.string.ToStringGenerator;
  *        The cache value type
  */
 @ThreadSafe
-public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements ISimpleCache <KEYTYPE, VALUETYPE>
+public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements ICache <KEYTYPE, VALUETYPE>
 {
-  /** By default JMS is disabled */
-  public static final boolean DEFAULT_JMX_ENABLED = false;
   /** The prefix to be used for statistics elements */
   public static final String STATISTICS_PREFIX = "cache:";
 
@@ -227,7 +225,7 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements ISimpleCache
   }
 
   @Nonnegative
-  public int size ()
+  public int getSize ()
   {
     m_aRWLock.readLock ().lock ();
     try

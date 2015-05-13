@@ -32,7 +32,7 @@ import com.helger.commons.state.EChange;
  * @param <VALUETYPE>
  *        Cache value type.
  */
-public interface ISimpleCache <KEYTYPE, VALUETYPE> extends IHasName, IHasSize
+public interface ICache <KEYTYPE, VALUETYPE> extends IHasName, IHasSize
 {
   /**
    * Get the cached value associated with the passed key.

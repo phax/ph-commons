@@ -26,7 +26,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.IHasSize;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.UseDirectEqualsAndHashCode;
 import com.helger.commons.hash.HashCodeGenerator;
@@ -43,7 +42,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 @NotThreadSafe
 @UseDirectEqualsAndHashCode
-public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements IHasSize, Serializable
+public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements Serializable
 {
   @UseDirectEqualsAndHashCode
   private static final class LRUCacheMap <ELEMENTTYPE> extends LRUCache <ELEMENTTYPE, Boolean>

@@ -134,7 +134,7 @@ public class InMemoryLogger implements Iterable <LogMessage>, IHasSize, IClearab
   }
 
   @Nonnegative
-  public int size ()
+  public int getSize ()
   {
     return m_aMessages.size ();
   }

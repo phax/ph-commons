@@ -23,7 +23,6 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.IHasSize;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.UseDirectEqualsAndHashCode;
 import com.helger.commons.equals.EqualsUtils;
@@ -33,7 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A special ordered map, that has an upper limit of contained elements. It is
  * therefore a "Last Recently Used" cache.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        Key type
@@ -42,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 @NotThreadSafe
 @UseDirectEqualsAndHashCode
-public class LRUCache <KEYTYPE, VALUETYPE> extends LinkedHashMap <KEYTYPE, VALUETYPE> implements IHasSize
+public class LRUCache <KEYTYPE, VALUETYPE> extends LinkedHashMap <KEYTYPE, VALUETYPE>
 {
   // Note: 0.75f is the same as HashMap.DEFAULT_LOAD_FACTOR
   private static final float DEFAULT_LOAD_FACTOR = 0.75f;
@@ -51,7 +50,7 @@ public class LRUCache <KEYTYPE, VALUETYPE> extends LinkedHashMap <KEYTYPE, VALUE
 
   /**
    * Create a new object with the specified max size.
-   * 
+   *
    * @param nMaxSize
    *        The maximum number of elements in this cache. May not be &lt; 0.
    */
@@ -74,7 +73,7 @@ public class LRUCache <KEYTYPE, VALUETYPE> extends LinkedHashMap <KEYTYPE, VALUE
 
   /**
    * Protected method that is invoked every time the oldest entry is removed.
-   * 
+   *
    * @param aEldest
    *        The map entry that is removed. Never <code>null</code>.
    */

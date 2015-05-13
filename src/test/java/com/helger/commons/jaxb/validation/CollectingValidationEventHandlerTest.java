@@ -35,7 +35,7 @@ import com.helger.commons.xml.transform.TransformSourceFactory;
 
 /**
  * Test class for class {@link CollectingValidationEventHandler}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CollectingValidationEventHandlerTest
@@ -62,7 +62,7 @@ public final class CollectingValidationEventHandlerTest
     o = um.unmarshal (TransformSourceFactory.create (new ClassPathResource ("xml/buildinfo.xml")),
                       MockJAXBArchive.class);
     assertNotNull (o);
-    assertTrue (evh.getResourceErrors ().size () > 0);
+    assertTrue (!evh.getResourceErrors ().isEmpty ());
 
     // Read invalid (but close to valid)
     evh = new CollectingValidationEventHandler (new LoggingValidationEventHandler ());
@@ -70,7 +70,7 @@ public final class CollectingValidationEventHandlerTest
     o = um.unmarshal (TransformSourceFactory.create (new ClassPathResource ("xml/test-archive-03.xml")),
                       MockJAXBArchive.class);
     assertNotNull (o);
-    assertEquals (1, evh.getResourceErrors ().size ());
+    assertEquals (1, evh.getResourceErrors ().getSize ());
 
     // For code coverage completion
     PHTestUtils.testToStringImplementation (evh);

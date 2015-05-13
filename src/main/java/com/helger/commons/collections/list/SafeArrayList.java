@@ -22,7 +22,6 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.IHasSize;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
 import com.helger.commons.factory.FactoryNull;
@@ -44,7 +43,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The type of the elements in the list
  */
 @NotThreadSafe
-public class SafeArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> implements IHasSize
+public class SafeArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE>
 {
   @MustImplementEqualsAndHashcode
   private final IFactory <ELEMENTTYPE> m_aFactory;

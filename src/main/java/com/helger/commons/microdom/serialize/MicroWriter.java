@@ -207,7 +207,7 @@ public final class MicroWriter
       aWriter = new NonBlockingStringWriter (50 * CGlobal.BYTES_PER_KILOBYTE);
       if (writeToWriter (aNode, aWriter, aSettings).isSuccess ())
       {
-        s_aSizeHdl.addSize (aWriter.size ());
+        s_aSizeHdl.addSize (aWriter.getSize ());
         return aWriter.getAsString ();
       }
     }

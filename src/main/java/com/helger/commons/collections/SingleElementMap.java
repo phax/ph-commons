@@ -27,7 +27,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.IHasSize;
 import com.helger.commons.annotations.ReturnsImmutableObject;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
@@ -43,7 +42,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The value type.
  */
 @NotThreadSafe
-public final class SingleElementMap <KEYTYPE, VALUETYPE> implements Map <KEYTYPE, VALUETYPE>, IHasSize
+public final class SingleElementMap <KEYTYPE, VALUETYPE> implements Map <KEYTYPE, VALUETYPE>
 {
   private boolean m_bHasElement = false;
   private KEYTYPE m_aKey;

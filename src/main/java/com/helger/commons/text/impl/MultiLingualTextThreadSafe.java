@@ -221,12 +221,12 @@ public class MultiLingualTextThreadSafe implements IMultiLingualText
   }
 
   @Nonnegative
-  public int size ()
+  public int getSize ()
   {
     m_aRWLock.readLock ().lock ();
     try
     {
-      return m_aMLT.size ();
+      return m_aMLT.getSize ();
     }
     finally
     {

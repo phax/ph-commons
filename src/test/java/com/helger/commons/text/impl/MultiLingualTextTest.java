@@ -48,12 +48,12 @@ public final class MultiLingualTextTest extends AbstractPHTestCase
   public void testCtor ()
   {
     IMultiLingualText aMLT = new MultiLingualText ();
-    assertEquals (0, aMLT.size ());
+    assertEquals (0, aMLT.getSize ());
     assertNotNull (aMLT.getAllLocales ());
     assertTrue (aMLT.getAllLocales ().isEmpty ());
 
     aMLT = new MultiLingualText (TextProvider.create_DE_EN ("de", "en"));
-    assertEquals (2, aMLT.size ());
+    assertEquals (2, aMLT.getSize ());
     assertEquals ("de", aMLT.getText (L_DE));
     assertEquals ("en", aMLT.getText (L_EN));
 
@@ -94,11 +94,11 @@ public final class MultiLingualTextTest extends AbstractPHTestCase
     assertTrue (aMLT.addText (Locale.ENGLISH, "Hello").isChanged ());
     assertEquals (aNotify.getCallCountBefore (), 1);
     assertEquals (aNotify.getCallCountAfter (), 1);
-    assertEquals (aMLT.size (), 1);
+    assertEquals (aMLT.getSize (), 1);
     assertTrue (aMLT.addText (Locale.ENGLISH, "Hello2").isUnchanged ());
     assertEquals (aNotify.getCallCountBefore (), 1);
     assertEquals (aNotify.getCallCountAfter (), 1);
-    assertEquals (aMLT.size (), 1);
+    assertEquals (aMLT.getSize (), 1);
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertFalse (aMLT.getAllLocales ().contains (Locale.GERMAN));
 
@@ -108,7 +108,7 @@ public final class MultiLingualTextTest extends AbstractPHTestCase
     assertTrue (aMLT.addText (Locale.GERMAN, "Hallo2").isUnchanged ());
     assertEquals (aNotify.getCallCountBefore (), 2);
     assertEquals (aNotify.getCallCountAfter (), 2);
-    assertEquals (aMLT.size (), 2);
+    assertEquals (aMLT.getSize (), 2);
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertTrue (aMLT.getAllLocales ().contains (Locale.GERMAN));
   }
@@ -128,10 +128,10 @@ public final class MultiLingualTextTest extends AbstractPHTestCase
     {}
 
     assertTrue (aMLT.setText (Locale.ENGLISH, "Hello").isChanged ());
-    assertEquals (aMLT.size (), 1);
+    assertEquals (aMLT.getSize (), 1);
     assertFalse (aMLT.setText (Locale.ENGLISH, "Hello").isChanged ());
     assertTrue (aMLT.setText (Locale.ENGLISH, "Hello2").isChanged ());
-    assertEquals (aMLT.size (), 1);
+    assertEquals (aMLT.getSize (), 1);
     assertTrue (aMLT.containsLocale (Locale.ENGLISH));
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertFalse (aMLT.containsLocale (Locale.GERMAN));
@@ -141,7 +141,7 @@ public final class MultiLingualTextTest extends AbstractPHTestCase
 
     aMLT.setText (Locale.GERMAN, "Hallo");
     aMLT.setText (Locale.GERMAN, "Hallo2");
-    assertEquals (aMLT.size (), 2);
+    assertEquals (aMLT.getSize (), 2);
     assertTrue (aMLT.containsLocale (Locale.ENGLISH));
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertTrue (aMLT.containsLocale (Locale.GERMAN));
@@ -156,7 +156,7 @@ public final class MultiLingualTextTest extends AbstractPHTestCase
     final IMultiLingualText aMLT = new MultiLingualText ();
     assertTrue (aMLT.setText (Locale.ENGLISH, "Hi").isChanged ());
     assertTrue (aMLT.setText (Locale.GERMAN, "Moin").isChanged ());
-    assertEquals (aMLT.size (), 2);
+    assertEquals (aMLT.getSize (), 2);
 
     final List <Locale> aLocaleList = new ArrayList <Locale> ();
     aLocaleList.add (Locale.ENGLISH);
@@ -180,12 +180,12 @@ public final class MultiLingualTextTest extends AbstractPHTestCase
   {
     final Map <String, String> aParamNames = new HashMap <String, String> ();
     IReadonlyMultiLingualText aMLT = MultiLingualText.createFromMap (aParamNames);
-    assertEquals (aMLT.size (), 0);
+    assertEquals (aMLT.getSize (), 0);
 
     aParamNames.put ("de", "x");
     aParamNames.put ("en", "y");
     aMLT = MultiLingualText.createFromMap (aParamNames);
-    assertEquals (aMLT.size (), 2);
+    assertEquals (aMLT.getSize (), 2);
     assertEquals (aMLT.getTextWithLocaleFallback (L_DE), "x");
     assertEquals (aMLT.getTextWithLocaleFallback (L_EN), "y");
   }
@@ -208,17 +208,17 @@ public final class MultiLingualTextTest extends AbstractPHTestCase
 
     // 1 element
     assertTrue (t.assignFrom (new ReadonlyMultiLingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
-    assertEquals (1, t.size ());
+    assertEquals (1, t.getSize ());
     assertTrue (t.containsLocale (L_DE));
 
     // Assign the exact same content again
     assertFalse (t.assignFrom (new ReadonlyMultiLingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
-    assertEquals (1, t.size ());
+    assertEquals (1, t.getSize ());
     assertTrue (t.containsLocale (L_DE));
 
     // Assign empty text
     assertTrue (t.assignFrom (new MultiLingualText ()).isChanged ());
-    assertEquals (0, t.size ());
+    assertEquals (0, t.getSize ());
 
     try
     {

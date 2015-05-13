@@ -33,7 +33,7 @@ import com.helger.commons.xml.DefaultXMLIterationHandler;
 
 /**
  * Test class for class {@link MicroSerializer}
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroSerializerTest
@@ -113,7 +113,7 @@ public final class MicroSerializerTest
         nMilliSecs += aSW.stopAndGetMillis ();
         aSW.reset ();
       }
-      assertTrue (aWriter.size () > 0);
+      assertTrue (!aWriter.isEmpty ());
     }
     s_aLogger.info ("Average MicroDOM write: " + ((double) nMilliSecs / (nRun - nWarmUpRuns)) + " millisecs");
 

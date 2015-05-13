@@ -51,18 +51,18 @@ public final class XMLSchemaValidationHelperTest
     // Valid
     IResourceErrorGroup aErrors = XMLSchemaValidationHelper.validate (XSD1, XML1);
     assertNotNull (aErrors);
-    assertEquals (0, aErrors.size ());
+    assertEquals (0, aErrors.getSize ());
     aErrors = XMLSchemaValidationHelper.validate (new IReadableResource [] { XSD2, XSD1 }, XML1);
     assertNotNull (aErrors);
-    assertEquals (0, aErrors.size ());
+    assertEquals (0, aErrors.getSize ());
 
     // Invalid
     aErrors = XMLSchemaValidationHelper.validate (XSD1, XML2);
     assertNotNull (aErrors);
-    assertEquals (1, aErrors.size ());
+    assertEquals (1, aErrors.getSize ());
     aErrors = XMLSchemaValidationHelper.validate (new IReadableResource [] { XSD2, XSD1 }, XML2);
     assertNotNull (aErrors);
-    assertEquals (1, aErrors.size ());
+    assertEquals (1, aErrors.getSize ());
 
     try
     {
@@ -105,18 +105,18 @@ public final class XMLSchemaValidationHelperTest
     Document aDoc = DOMReader.readXMLDOM (XML1);
     IResourceErrorGroup aErrors = XMLSchemaValidationHelper.validate (XSD1, new DOMSource (aDoc));
     assertNotNull (aErrors);
-    assertEquals (0, aErrors.size ());
+    assertEquals (0, aErrors.getSize ());
     aErrors = XMLSchemaValidationHelper.validate (new IReadableResource [] { XSD2, XSD1 }, new DOMSource (aDoc));
     assertNotNull (aErrors);
-    assertEquals (0, aErrors.size ());
+    assertEquals (0, aErrors.getSize ());
 
     aDoc = DOMReader.readXMLDOM (XML2);
     aErrors = XMLSchemaValidationHelper.validate (XSD1, new DOMSource (aDoc));
     assertNotNull (aErrors);
-    assertEquals (1, aErrors.size ());
+    assertEquals (1, aErrors.getSize ());
     aErrors = XMLSchemaValidationHelper.validate (new IReadableResource [] { XSD2, XSD1 }, new DOMSource (aDoc));
     assertNotNull (aErrors);
-    assertEquals (1, aErrors.size ());
+    assertEquals (1, aErrors.getSize ());
 
     try
     {
@@ -146,18 +146,18 @@ public final class XMLSchemaValidationHelperTest
     Document aDoc = DOMReader.readXMLDOM (XML1);
     IResourceErrorGroup aErrors = XMLSchemaValidationHelper.validate (aSchema1, new DOMSource (aDoc));
     assertNotNull (aErrors);
-    assertEquals (0, aErrors.size ());
+    assertEquals (0, aErrors.getSize ());
     aErrors = XMLSchemaValidationHelper.validate (aSchema2, new DOMSource (aDoc));
     assertNotNull (aErrors);
-    assertEquals (0, aErrors.size ());
+    assertEquals (0, aErrors.getSize ());
 
     aDoc = DOMReader.readXMLDOM (XML2);
     aErrors = XMLSchemaValidationHelper.validate (aSchema1, XML1);
     assertNotNull (aErrors);
-    assertEquals (0, aErrors.size ());
+    assertEquals (0, aErrors.getSize ());
     aErrors = XMLSchemaValidationHelper.validate (aSchema2, XML1);
     assertNotNull (aErrors);
-    assertEquals (0, aErrors.size ());
+    assertEquals (0, aErrors.getSize ());
 
     try
     {

@@ -26,7 +26,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.IHasSize;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableObject;
 
@@ -39,7 +38,7 @@ import com.helger.commons.annotations.ReturnsMutableObject;
  *        Element type
  */
 @NotThreadSafe
-public abstract class AbstractWrappedList <ELEMENTTYPE> implements List <ELEMENTTYPE>, IHasSize
+public abstract class AbstractWrappedList <ELEMENTTYPE> implements List <ELEMENTTYPE>
 {
   private final List <ELEMENTTYPE> m_aSrc;
 

@@ -221,7 +221,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    *         valid bytes in this output stream.
    */
   @Nonnegative
-  public int size ()
+  public int getSize ()
   {
     return m_nCount;
   }

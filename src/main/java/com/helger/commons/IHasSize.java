@@ -20,7 +20,7 @@ import javax.annotation.Nonnegative;
 
 /**
  * Base interface for all objects having a certain size.
- * 
+ *
  * @author Philip Helger
  */
 public interface IHasSize
@@ -29,12 +29,12 @@ public interface IHasSize
    * @return The number of contained elements. Always &ge; 0.
    */
   @Nonnegative
-  int size ();
+  int getSize ();
 
   /**
    * @return <code>true</code> if no items are present, <code>false</code> if at
    *         least a single item is present.
-   * @see #size()
+   * @see #getSize()
    */
   boolean isEmpty ();
 }

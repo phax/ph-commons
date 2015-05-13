@@ -46,12 +46,12 @@ public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
   public void testCtor ()
   {
     IMultiLingualText aMLT = new MultiLingualTextThreadSafe ();
-    assertEquals (0, aMLT.size ());
+    assertEquals (0, aMLT.getSize ());
     assertNotNull (aMLT.getAllLocales ());
     assertTrue (aMLT.getAllLocales ().isEmpty ());
 
     aMLT = new MultiLingualTextThreadSafe (TextProvider.create_DE_EN ("de", "en"));
-    assertEquals (2, aMLT.size ());
+    assertEquals (2, aMLT.getSize ());
     assertEquals ("de", aMLT.getText (L_DE));
     assertEquals ("en", aMLT.getText (L_EN));
 
@@ -85,11 +85,11 @@ public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
     assertTrue (aMLT.addText (Locale.ENGLISH, "Hello").isChanged ());
     assertEquals (aNotify.getCallCountBefore (), 1);
     assertEquals (aNotify.getCallCountAfter (), 1);
-    assertEquals (aMLT.size (), 1);
+    assertEquals (aMLT.getSize (), 1);
     assertTrue (aMLT.addText (Locale.ENGLISH, "Hello2").isUnchanged ());
     assertEquals (aNotify.getCallCountBefore (), 1);
     assertEquals (aNotify.getCallCountAfter (), 1);
-    assertEquals (aMLT.size (), 1);
+    assertEquals (aMLT.getSize (), 1);
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertFalse (aMLT.getAllLocales ().contains (Locale.GERMAN));
 
@@ -99,7 +99,7 @@ public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
     assertTrue (aMLT.addText (Locale.GERMAN, "Hallo2").isUnchanged ());
     assertEquals (aNotify.getCallCountBefore (), 2);
     assertEquals (aNotify.getCallCountAfter (), 2);
-    assertEquals (aMLT.size (), 2);
+    assertEquals (aMLT.getSize (), 2);
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertTrue (aMLT.getAllLocales ().contains (Locale.GERMAN));
   }
@@ -119,9 +119,9 @@ public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
     {}
 
     aMLT.setText (Locale.ENGLISH, "Hello");
-    assertEquals (aMLT.size (), 1);
+    assertEquals (aMLT.getSize (), 1);
     aMLT.setText (Locale.ENGLISH, "Hello2");
-    assertEquals (aMLT.size (), 1);
+    assertEquals (aMLT.getSize (), 1);
     assertTrue (aMLT.containsLocale (Locale.ENGLISH));
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertFalse (aMLT.containsLocale (Locale.GERMAN));
@@ -131,7 +131,7 @@ public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
 
     aMLT.setText (Locale.GERMAN, "Hallo");
     aMLT.setText (Locale.GERMAN, "Hallo2");
-    assertEquals (aMLT.size (), 2);
+    assertEquals (aMLT.getSize (), 2);
     assertTrue (aMLT.containsLocale (Locale.ENGLISH));
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertTrue (aMLT.containsLocale (Locale.GERMAN));
@@ -154,12 +154,12 @@ public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
   {
     final Map <String, String> aParamNames = new HashMap <String, String> ();
     IReadonlyMultiLingualText aMLT = MultiLingualTextThreadSafe.createFromMap (aParamNames);
-    assertEquals (aMLT.size (), 0);
+    assertEquals (aMLT.getSize (), 0);
 
     aParamNames.put ("de", "x");
     aParamNames.put ("en", "y");
     aMLT = MultiLingualTextThreadSafe.createFromMap (aParamNames);
-    assertEquals (aMLT.size (), 2);
+    assertEquals (aMLT.getSize (), 2);
     assertEquals ("x", aMLT.getText (L_DE));
     assertEquals ("y", aMLT.getText (L_EN));
     assertEquals ("x", aMLT.getTextWithArgs (L_DE));
@@ -193,17 +193,17 @@ public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
 
     // 1 element
     assertTrue (t.assignFrom (new ReadonlyMultiLingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
-    assertEquals (1, t.size ());
+    assertEquals (1, t.getSize ());
     assertTrue (t.containsLocale (L_DE));
 
     // Assign the exact same content again
     assertFalse (t.assignFrom (new ReadonlyMultiLingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
-    assertEquals (1, t.size ());
+    assertEquals (1, t.getSize ());
     assertTrue (t.containsLocale (L_DE));
 
     // Assign empty text
     assertTrue (t.assignFrom (new MultiLingualText ()).isChanged ());
-    assertEquals (0, t.size ());
+    assertEquals (0, t.getSize ());
 
     try
     {
@@ -219,13 +219,13 @@ public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
   {
     final IMultiLingualText t = new MultiLingualTextThreadSafe ();
     assertTrue (t.setText (L_DE, "de").isChanged ());
-    assertEquals (1, t.size ());
+    assertEquals (1, t.getSize ());
     assertFalse (t.removeText (L_EN).isChanged ());
-    assertEquals (1, t.size ());
+    assertEquals (1, t.getSize ());
     assertTrue (t.removeText (L_DE).isChanged ());
-    assertEquals (0, t.size ());
+    assertEquals (0, t.getSize ());
     assertFalse (t.removeText (L_DE).isChanged ());
-    assertEquals (0, t.size ());
+    assertEquals (0, t.getSize ());
   }
 
   @Test
@@ -239,6 +239,6 @@ public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (t, new MultiLingualTextThreadSafe ());
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (t,
                                                                      new MultiLingualTextThreadSafe (new ReadonlyMultiLingualText (CollectionHelper.newMap (L_DE,
-                                                                                                                                                           "x"))));
+                                                                                                                                                            "x"))));
   }
 }

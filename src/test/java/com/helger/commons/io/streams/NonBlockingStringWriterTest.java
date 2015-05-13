@@ -29,7 +29,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link NonBlockingStringWriter}.
- * 
+ *
  * @author Philip Helger
  */
 public final class NonBlockingStringWriterTest
@@ -40,16 +40,16 @@ public final class NonBlockingStringWriterTest
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     assertTrue (aSW.isEmpty ());
-    assertEquals (0, aSW.size ());
+    assertEquals (0, aSW.getSize ());
     aSW.write ('a');
     assertFalse (aSW.isEmpty ());
-    assertEquals (1, aSW.size ());
+    assertEquals (1, aSW.getSize ());
     aSW.write ("bc".toCharArray ());
     aSW.write ("de".toCharArray (), 0, 1);
     aSW.write ("ef");
     aSW.write ("fgh", 1, 1);
     assertEquals ("abcdefg", aSW.getAsString ());
-    assertEquals (7, aSW.size ());
+    assertEquals (7, aSW.getSize ());
     aSW.append ('0').append ("12").append ("234", 1, 2);
     assertEquals ("abcdefg0123", aSW.getAsString ());
     assertEquals ("abcdefg0123", aSW.directGetStringBuilder ().toString ());

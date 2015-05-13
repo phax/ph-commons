@@ -22,7 +22,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link AbstractNotifyingCacheWithMaxSize}.
- * 
+ *
  * @author Philip Helger
  */
 public final class AbstractNotifyingCacheWithMaxSizeTest
@@ -35,6 +35,6 @@ public final class AbstractNotifyingCacheWithMaxSizeTest
 
     for (int i = 0; i < c.getMaxSize () + 1; ++i)
       c.getFromCache ("key" + i);
-    assertEquals (5, c.size ());
+    assertEquals (5, c.getSize ());
   }
 }
