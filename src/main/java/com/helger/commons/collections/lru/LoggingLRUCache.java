@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.cache;
+package com.helger.commons.collections.lru;
 
 import java.util.Map;
 
@@ -27,13 +27,12 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.collections.LRUCache;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A specific {@link LRUCache} that emits a warning once the cache is full.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        Cache key type
@@ -41,7 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Cache value type
  */
 @NotThreadSafe
-public final class LoggingLRUCache <KEYTYPE, VALUETYPE> extends LRUCache <KEYTYPE, VALUETYPE>
+public class LoggingLRUCache <KEYTYPE, VALUETYPE> extends LRUCache <KEYTYPE, VALUETYPE>
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingLRUCache.class);
 

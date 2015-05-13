@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collections;
+package com.helger.commons.collections.lru;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -23,7 +23,7 @@ import org.junit.Test;
 
 /**
  * Test for class {@link LRUCache}
- * 
+ *
  * @author Philip Helger
  */
 public final class LRUCacheTest
@@ -42,5 +42,6 @@ public final class LRUCacheTest
         assertEquals (aCache.size (), MAX_SIZE);
       assertNull (aCache.put (Integer.valueOf (i), "Hallo Welt"));
     }
+    assertEquals (aCache.size (), MAX_SIZE);
   }
 }

@@ -21,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -297,7 +298,13 @@ public final class Base64Test
                                                                                  CCharset.CHARSET_ISO_8859_1_OBJ),
                                                       CCharset.CHARSET_ISO_8859_1_OBJ));
 
-    // Invalid input
-    assertNull (Base64.safeDecode ("xyz"));
+    try
+    {
+      // Invalid input
+      assertNull (Base64.safeDecode ("xyz"));
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
   }
 }

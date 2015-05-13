@@ -32,9 +32,9 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.LRUCache;
 import com.helger.commons.collections.iterate.IIterableIterator;
 import com.helger.commons.collections.iterate.IterableIterator;
+import com.helger.commons.collections.lru.LRUCache;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 

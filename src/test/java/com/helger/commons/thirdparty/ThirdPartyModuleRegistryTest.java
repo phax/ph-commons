@@ -33,10 +33,7 @@ public final class ThirdPartyModuleRegistryTest
   public void testAll ()
   {
     assertNotNull (ThirdPartyModuleRegistry.getInstance ().getAllRegisteredThirdPartyModules ());
-    // Is currently 4 because the modules of the trunk as well as the ones
-    // indirectly referenced from and old ph-commons version included via
-    // ph-jdk5 are counted!
-    final int nCount = 4;
+    final int nCount = 3;
     assertEquals (nCount, ThirdPartyModuleRegistry.getInstance ().getAllRegisteredThirdPartyModules ().size ());
     assertEquals (nCount, ThirdPartyModuleRegistry.getInstance ().getRegisteredThirdPartyModuleCount ());
 

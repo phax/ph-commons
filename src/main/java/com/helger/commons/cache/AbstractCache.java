@@ -49,7 +49,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The cache value type
  */
 @ThreadSafe
-public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements ICache <KEYTYPE, VALUETYPE>
+public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCache <KEYTYPE, VALUETYPE>
 {
   /** The prefix to be used for statistics elements */
   public static final String STATISTICS_PREFIX = "cache:";

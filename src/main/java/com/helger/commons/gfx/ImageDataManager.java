@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.collections.LRUCache;
+import com.helger.commons.collections.lru.LRUCache;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.streams.StreamUtils;

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.cache;
+package com.helger.commons.collections.lru;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -25,7 +25,7 @@ import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link LoggingLRUCache}.
- * 
+ *
  * @author Philip Helger
  */
 public final class LoggingLRUCacheTest
@@ -36,11 +36,10 @@ public final class LoggingLRUCacheTest
     final LoggingLRUCache <String, String> c = new LoggingLRUCache <String, String> ("name", 5);
     assertEquals ("name", c.getCacheName ());
     PHTestUtils.testDefaultImplementationWithEqualContentObject (c, new LoggingLRUCache <String, String> ("name", 5));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (c,
-                                                                        new LoggingLRUCache <String, String> ("name2",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (c, new LoggingLRUCache <String, String> ("name2",
                                                                                                               5));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (c,
-                                                                        new LoggingLRUCache <String, String> ("name", 6));
+                                                                     new LoggingLRUCache <String, String> ("name", 6));
 
     // Check overflow
     for (int i = 0; i < c.getMaxSize () + 1; ++i)
@@ -49,6 +48,7 @@ public final class LoggingLRUCacheTest
 
     try
     {
+      // Invalid name
       new LoggingLRUCache <String, String> ("", 5);
       fail ();
     }

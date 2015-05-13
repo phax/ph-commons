@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collections;
+package com.helger.commons.collections.lru;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -24,6 +24,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.PHTestUtils;
 
 /**
@@ -50,6 +51,7 @@ public final class LRUSetTest
       assertEquals (i < MAX_SIZE ? i : MAX_SIZE, aCache.size ());
       assertTrue (aCache.add (Integer.valueOf (i)));
     }
+    assertEquals (MAX_SIZE, aCache.size ());
 
     // add the same again
     assertTrue (aCache.add (Integer.valueOf (-3)));
