@@ -25,25 +25,25 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.io.EAppend;
-import com.helger.commons.stats.IStatisticsHandlerCounter;
-import com.helger.commons.stats.IStatisticsHandlerSize;
+import com.helger.commons.stats.IMutableStatisticsHandlerCounter;
+import com.helger.commons.stats.IMutableStatisticsHandlerSize;
 import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A special {@link FileOutputStream} sub class that keeps track of all written
  * bytes for the statistics handler.
- * 
+ *
  * @author Philip Helger
  */
 public class CountingFileOutputStream extends FileOutputStream
 {
   /** By default append is enabled */
   public static final EAppend DEFAULT_APPEND = EAppend.DEFAULT;
-  private static final IStatisticsHandlerSize s_aWriteSizeHdl = StatisticsManager.getSizeHandler (CountingFileOutputStream.class.getName () +
-                                                                                                  "$write.bytes");
-  private static final IStatisticsHandlerCounter s_aWriteFilesHdl = StatisticsManager.getCounterHandler (CountingFileOutputStream.class.getName () +
-                                                                                                         "$write.files");
+  private static final IMutableStatisticsHandlerSize s_aWriteSizeHdl = StatisticsManager.getSizeHandler (CountingFileOutputStream.class.getName () +
+                                                                                                         "$write.bytes");
+  private static final IMutableStatisticsHandlerCounter s_aWriteFilesHdl = StatisticsManager.getCounterHandler (CountingFileOutputStream.class.getName () +
+                                                                                                                "$write.files");
   private long m_nBytesWritten = 0;
 
   public CountingFileOutputStream (@Nonnull final File aFile) throws FileNotFoundException

@@ -18,11 +18,19 @@ package com.helger.commons.stats;
 
 
 /**
- * Read only statistics handler for keyed timer.
+ * Statistics handler for cache hit/miss
  *
  * @author Philip Helger
  */
-public interface IStatisticsHandlerKeyedTimer extends IStatisticsHandlerKeyedNumeric
+public interface IMutableStatisticsHandlerCache extends IStatisticsHandlerCache
 {
-  /* empty */
+  /**
+   * Called when a cache hit occurred.
+   */
+  void cacheHit ();
+
+  /**
+   * Called when a cache miss occurred.
+   */
+  void cacheMiss ();
 }

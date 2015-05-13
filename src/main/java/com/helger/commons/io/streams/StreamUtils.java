@@ -61,7 +61,7 @@ import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.mock.IMockException;
 import com.helger.commons.mutable.MutableLong;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.stats.IStatisticsHandlerSize;
+import com.helger.commons.stats.IMutableStatisticsHandlerSize;
 import com.helger.commons.stats.StatisticsManager;
 
 /**
@@ -80,10 +80,10 @@ public final class StreamUtils
   /** The logger to use. */
   private static final Logger s_aLogger = LoggerFactory.getLogger (StreamUtils.class);
 
-  private static final IStatisticsHandlerSize s_aByteSizeHdl = StatisticsManager.getSizeHandler (StreamUtils.class.getName () +
-                                                                                                 "$COPY");
-  private static final IStatisticsHandlerSize s_aCharSizeHdl = StatisticsManager.getSizeHandler (StreamUtils.class.getName () +
-                                                                                                 "$COPYCHARS");
+  private static final IMutableStatisticsHandlerSize s_aByteSizeHdl = StatisticsManager.getSizeHandler (StreamUtils.class.getName () +
+                                                                                                        "$COPY");
+  private static final IMutableStatisticsHandlerSize s_aCharSizeHdl = StatisticsManager.getSizeHandler (StreamUtils.class.getName () +
+                                                                                                        "$COPYCHARS");
 
   @PresentForCodeCoverage
   private static final StreamUtils s_aInstance = new StreamUtils ();

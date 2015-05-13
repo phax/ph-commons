@@ -23,22 +23,22 @@ import java.io.IOException;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.stats.IStatisticsHandlerCounter;
-import com.helger.commons.stats.IStatisticsHandlerSize;
+import com.helger.commons.stats.IMutableStatisticsHandlerCounter;
+import com.helger.commons.stats.IMutableStatisticsHandlerSize;
 import com.helger.commons.stats.StatisticsManager;
 
 /**
  * A special {@link FileInputStream} sub class that keeps track of all read
  * bytes for the statistics handler.
- * 
+ *
  * @author Philip Helger
  */
 public class CountingFileInputStream extends FileInputStream
 {
-  private static final IStatisticsHandlerSize s_aReadSizeHdl = StatisticsManager.getSizeHandler (CountingFileInputStream.class.getName () +
-                                                                                                 "$read.bytes");
-  private static final IStatisticsHandlerCounter s_aReadFilesHdl = StatisticsManager.getCounterHandler (CountingFileInputStream.class.getName () +
-                                                                                                        "$read.files");
+  private static final IMutableStatisticsHandlerSize s_aReadSizeHdl = StatisticsManager.getSizeHandler (CountingFileInputStream.class.getName () +
+                                                                                                        "$read.bytes");
+  private static final IMutableStatisticsHandlerCounter s_aReadFilesHdl = StatisticsManager.getCounterHandler (CountingFileInputStream.class.getName () +
+                                                                                                               "$read.files");
 
   public CountingFileInputStream (@Nonnull final File aFile) throws FileNotFoundException
   {

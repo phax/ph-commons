@@ -44,7 +44,7 @@ import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.state.EChange;
-import com.helger.commons.stats.IStatisticsHandlerCache;
+import com.helger.commons.stats.IMutableStatisticsHandlerCache;
 import com.helger.commons.stats.StatisticsManager;
 
 /**
@@ -58,7 +58,7 @@ import com.helger.commons.stats.StatisticsManager;
 public final class ImageDataManager
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ImageDataManager.class);
-  private static final IStatisticsHandlerCache s_aStatsHdl = StatisticsManager.getCacheHandler (ImageDataManager.class);
+  private static final IMutableStatisticsHandlerCache s_aStatsHdl = StatisticsManager.getCacheHandler (ImageDataManager.class);
   private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
   @GuardedBy ("s_aRWLock")
   private static final Map <IReadableResource, ScalableSize> s_aImageData = new LRUCache <IReadableResource, ScalableSize> (1000);

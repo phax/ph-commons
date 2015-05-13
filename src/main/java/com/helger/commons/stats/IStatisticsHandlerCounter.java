@@ -19,7 +19,7 @@ package com.helger.commons.stats;
 import javax.annotation.CheckForSigned;
 
 /**
- * Statistics handler for a counter.
+ * Read only statistics handler for a counter.
  *
  * @author Philip Helger
  */
@@ -30,17 +30,4 @@ public interface IStatisticsHandlerCounter extends IStatisticsHandler
    */
   @CheckForSigned
   long getCount ();
-
-  /**
-   * Increment the counter by 1
-   */
-  void increment ();
-
-  /**
-   * Increment the counter by an arbitrary number
-   *
-   * @param nByHowMany
-   *        The number to be added. May be negative as well.
-   */
-  void increment (long nByHowMany);
 }

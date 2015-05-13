@@ -34,22 +34,4 @@ public interface IStatisticsHandlerKeyedCounter extends IStatisticsHandlerKeyed
    *         present.
    */
   long getCount (@Nullable String sKey);
-
-  /**
-   * Increment by 1
-   *
-   * @param sKey
-   *        The key to be incremented.
-   */
-  void increment (@Nullable String sKey);
-
-  /**
-   * Increment by <i>n</i>
-   *
-   * @param sKey
-   *        The key to be incremented.
-   * @param nByHowMany
-   *        The amount to increment. May be negative as well
-   */
-  void increment (@Nullable String sKey, long nByHowMany);
 }

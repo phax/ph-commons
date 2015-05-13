@@ -36,7 +36,7 @@ import com.helger.commons.io.streams.NonBlockingStringWriter;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.stats.IStatisticsHandlerSize;
+import com.helger.commons.stats.IMutableStatisticsHandlerSize;
 import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.xml.serialize.IXMLSerializer;
 import com.helger.commons.xml.serialize.IXMLWriterSettings;
@@ -51,7 +51,7 @@ import com.helger.commons.xml.serialize.XMLWriterSettings;
 public final class MicroWriter
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MicroWriter.class);
-  private static final IStatisticsHandlerSize s_aSizeHdl = StatisticsManager.getSizeHandler (MicroWriter.class);
+  private static final IMutableStatisticsHandlerSize s_aSizeHdl = StatisticsManager.getSizeHandler (MicroWriter.class);
 
   @PresentForCodeCoverage
   private static final MicroWriter s_aInstance = new MicroWriter ();

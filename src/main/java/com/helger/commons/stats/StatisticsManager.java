@@ -61,7 +61,7 @@ public final class StatisticsManager
   {}
 
   @Nonnull
-  public static IStatisticsHandlerCache getCacheHandler (@Nonnull final Class <?> aClass)
+  public static IMutableStatisticsHandlerCache getCacheHandler (@Nonnull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
@@ -69,7 +69,7 @@ public final class StatisticsManager
   }
 
   @Nonnull
-  public static IStatisticsHandlerCache getCacheHandler (@Nonnull @Nonempty final String sName)
+  public static IMutableStatisticsHandlerCache getCacheHandler (@Nonnull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
@@ -122,7 +122,7 @@ public final class StatisticsManager
   }
 
   @Nonnull
-  public static IStatisticsHandlerTimer getTimerHandler (@Nonnull final Class <?> aClass)
+  public static IMutableStatisticsHandlerTimer getTimerHandler (@Nonnull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
@@ -130,7 +130,7 @@ public final class StatisticsManager
   }
 
   @Nonnull
-  public static IStatisticsHandlerTimer getTimerHandler (@Nonnull @Nonempty final String sName)
+  public static IMutableStatisticsHandlerTimer getTimerHandler (@Nonnull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
@@ -183,7 +183,7 @@ public final class StatisticsManager
   }
 
   @Nonnull
-  public static IStatisticsHandlerKeyedTimer getKeyedTimerHandler (@Nonnull final Class <?> aClass)
+  public static IMutableStatisticsHandlerKeyedTimer getKeyedTimerHandler (@Nonnull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
@@ -191,7 +191,7 @@ public final class StatisticsManager
   }
 
   @Nonnull
-  public static IStatisticsHandlerKeyedTimer getKeyedTimerHandler (@Nonnull @Nonempty final String sName)
+  public static IMutableStatisticsHandlerKeyedTimer getKeyedTimerHandler (@Nonnull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
@@ -243,7 +243,7 @@ public final class StatisticsManager
   }
 
   @Nonnull
-  public static IStatisticsHandlerSize getSizeHandler (@Nonnull final Class <?> aClass)
+  public static IMutableStatisticsHandlerSize getSizeHandler (@Nonnull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
@@ -251,7 +251,7 @@ public final class StatisticsManager
   }
 
   @Nonnull
-  public static IStatisticsHandlerSize getSizeHandler (@Nonnull @Nonempty final String sName)
+  public static IMutableStatisticsHandlerSize getSizeHandler (@Nonnull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
@@ -303,7 +303,7 @@ public final class StatisticsManager
   }
 
   @Nonnull
-  public static IStatisticsHandlerKeyedSize getKeyedSizeHandler (@Nonnull final Class <?> aClass)
+  public static IMutableStatisticsHandlerKeyedSize getKeyedSizeHandler (@Nonnull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
@@ -311,7 +311,7 @@ public final class StatisticsManager
   }
 
   @Nonnull
-  public static IStatisticsHandlerKeyedSize getKeyedSizeHandler (@Nonnull @Nonempty final String sName)
+  public static IMutableStatisticsHandlerKeyedSize getKeyedSizeHandler (@Nonnull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
@@ -363,7 +363,7 @@ public final class StatisticsManager
   }
 
   @Nonnull
-  public static IStatisticsHandlerCounter getCounterHandler (@Nonnull final Class <?> aClass)
+  public static IMutableStatisticsHandlerCounter getCounterHandler (@Nonnull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
@@ -371,7 +371,7 @@ public final class StatisticsManager
   }
 
   @Nonnull
-  public static IStatisticsHandlerCounter getCounterHandler (@Nonnull @Nonempty final String sName)
+  public static IMutableStatisticsHandlerCounter getCounterHandler (@Nonnull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
@@ -423,7 +423,7 @@ public final class StatisticsManager
   }
 
   @Nonnull
-  public static IStatisticsHandlerKeyedCounter getKeyedCounterHandler (@Nonnull final Class <?> aClass)
+  public static IMutableStatisticsHandlerKeyedCounter getKeyedCounterHandler (@Nonnull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
@@ -431,7 +431,7 @@ public final class StatisticsManager
   }
 
   @Nonnull
-  public static IStatisticsHandlerKeyedCounter getKeyedCounterHandler (@Nonnull @Nonempty final String sName)
+  public static IMutableStatisticsHandlerKeyedCounter getKeyedCounterHandler (@Nonnull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
 

@@ -40,7 +40,7 @@ import com.helger.commons.exceptions.LoggedRuntimeException;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.priviledged.PrivilegedActionAccessibleObjectSetAccessible;
-import com.helger.commons.stats.IStatisticsHandlerKeyedCounter;
+import com.helger.commons.stats.IMutableStatisticsHandlerKeyedCounter;
 import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -53,7 +53,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
 {
   private static final int DEFAULT_KEY_LENGTH = 255;
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractSingleton.class);
-  private static final IStatisticsHandlerKeyedCounter s_aStatsCounterInstantiate = StatisticsManager.getKeyedCounterHandler (AbstractSingleton.class);
+  private static final IMutableStatisticsHandlerKeyedCounter s_aStatsCounterInstantiate = StatisticsManager.getKeyedCounterHandler (AbstractSingleton.class);
 
   private boolean m_bInInstantiation = false;
   private boolean m_bInstantiated = false;

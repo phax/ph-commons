@@ -23,8 +23,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.stats.IStatisticsHandlerCounter;
-import com.helger.commons.stats.IStatisticsHandlerKeyedCounter;
+import com.helger.commons.stats.IMutableStatisticsHandlerCounter;
+import com.helger.commons.stats.IMutableStatisticsHandlerKeyedCounter;
 import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.text.ISimpleTextProvider;
 import com.helger.commons.text.ITextProvider;
@@ -33,24 +33,24 @@ import com.helger.commons.text.impl.TextFormatter;
 /**
  * Resolves texts either from an override, a text provider or otherwise uses a
  * fallback, based on the given enum constant.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
 public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements IEnumTextResolver
 {
-  private static final IStatisticsHandlerKeyedCounter s_aStatsGetText = StatisticsManager.getKeyedCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
-                                                                                                                  "$getText");
-  private static final IStatisticsHandlerKeyedCounter s_aStatsGetTextWithArgs = StatisticsManager.getKeyedCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
-                                                                                                                          "$getTextWithArgs");
-  private static final IStatisticsHandlerCounter s_aStatsOverride = StatisticsManager.getCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
-                                                                                                         "$OVERRIDE");
-  private static final IStatisticsHandlerCounter s_aStatsFallback = StatisticsManager.getCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
-                                                                                                         "$FALLBACK");
+  private static final IMutableStatisticsHandlerKeyedCounter s_aStatsGetText = StatisticsManager.getKeyedCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
+                                                                                                                         "$getText");
+  private static final IMutableStatisticsHandlerKeyedCounter s_aStatsGetTextWithArgs = StatisticsManager.getKeyedCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
+                                                                                                                                 "$getTextWithArgs");
+  private static final IMutableStatisticsHandlerCounter s_aStatsOverride = StatisticsManager.getCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
+                                                                                                                "$OVERRIDE");
+  private static final IMutableStatisticsHandlerCounter s_aStatsFallback = StatisticsManager.getCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
+                                                                                                                "$FALLBACK");
 
   /**
    * This method must return the override string for the passed parameters.
-   * 
+   *
    * @param sID
    *        Unique string ID
    * @param aContentLocale
@@ -62,7 +62,7 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
 
   /**
    * This method must return the fallback string for the passed parameters.
-   * 
+   *
    * @param sID
    *        Unique string ID
    * @param aContentLocale

@@ -43,8 +43,8 @@ import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.pool.IObjectPool;
 import com.helger.commons.pool.ObjectPool;
-import com.helger.commons.stats.IStatisticsHandlerCounter;
-import com.helger.commons.stats.IStatisticsHandlerTimer;
+import com.helger.commons.stats.IMutableStatisticsHandlerCounter;
+import com.helger.commons.stats.IMutableStatisticsHandlerTimer;
 import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.timing.StopWatch;
 import com.helger.commons.xml.XMLFactory;
@@ -68,12 +68,12 @@ public final class DOMReader
     }
   }
 
-  private static final IStatisticsHandlerTimer s_aDomTimerHdl = StatisticsManager.getTimerHandler (DOMReader.class.getName () +
-                                                                                                   "$DOM");
-  private static final IStatisticsHandlerTimer s_aDomSchemaTimerHdl = StatisticsManager.getTimerHandler (DOMReader.class.getName () +
-                                                                                                         "$DOMwithSchema");
-  private static final IStatisticsHandlerCounter s_aDomErrorCounterHdl = StatisticsManager.getCounterHandler (DOMReader.class.getName () +
-                                                                                                              "$DOMERRORS");
+  private static final IMutableStatisticsHandlerTimer s_aDomTimerHdl = StatisticsManager.getTimerHandler (DOMReader.class.getName () +
+                                                                                                          "$DOM");
+  private static final IMutableStatisticsHandlerTimer s_aDomSchemaTimerHdl = StatisticsManager.getTimerHandler (DOMReader.class.getName () +
+                                                                                                                "$DOMwithSchema");
+  private static final IMutableStatisticsHandlerCounter s_aDomErrorCounterHdl = StatisticsManager.getCounterHandler (DOMReader.class.getName () +
+                                                                                                                     "$DOMERRORS");
 
   // In practice no more than 5 readers are required (even 3 would be enough)
   private static final IObjectPool <DocumentBuilder> s_aDOMPool = new ObjectPool <DocumentBuilder> (5,

@@ -27,12 +27,12 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.annotations.Nonempty;
 
 /**
- * Default implementation of {@link IStatisticsHandlerCounter}
- * 
+ * Default implementation of {@link IMutableStatisticsHandlerCounter}
+ *
  * @author Philip Helger
  */
 @ThreadSafe
-final class StatisticsHandlerCounter implements IStatisticsHandlerCounter
+final class StatisticsHandlerCounter implements IMutableStatisticsHandlerCounter
 {
   private final AtomicInteger m_aInvocationCount = new AtomicInteger ();
   private final AtomicLong m_aCount = new AtomicLong ();

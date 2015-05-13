@@ -19,7 +19,7 @@ package com.helger.commons.stats;
 import javax.annotation.Nonnegative;
 
 /**
- * Statistics handler for cache hit/miss
+ * Read only statistics handler for cache hit/miss
  *
  * @author Philip Helger
  */
@@ -30,8 +30,4 @@ public interface IStatisticsHandlerCache extends IStatisticsHandler
 
   @Nonnegative
   int getMisses ();
-
-  void cacheHit ();
-
-  void cacheMiss ();
 }

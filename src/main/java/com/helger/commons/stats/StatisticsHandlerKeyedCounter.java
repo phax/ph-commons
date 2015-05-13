@@ -37,12 +37,12 @@ import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Default implementation of {@link IStatisticsHandlerKeyedCounter}
+ * Default implementation of {@link IMutableStatisticsHandlerKeyedCounter}
  *
  * @author Philip Helger
  */
 @ThreadSafe
-final class StatisticsHandlerKeyedCounter implements IStatisticsHandlerKeyedCounter
+final class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerKeyedCounter
 {
   @NotThreadSafe
   private static final class Value

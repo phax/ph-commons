@@ -16,13 +16,21 @@
  */
 package com.helger.commons.stats;
 
+import javax.annotation.Nonnegative;
 
 /**
- * Read only statistics handler for keyed timer.
+ * Statistics handler for times.
  *
  * @author Philip Helger
  */
-public interface IStatisticsHandlerKeyedTimer extends IStatisticsHandlerKeyedNumeric
+public interface IMutableStatisticsHandlerTimer extends IStatisticsHandlerTimer
 {
-  /* empty */
+  /**
+   * Add a single execution time.
+   *
+   * @param nMillis
+   *        The milli seconds it took to execute something. Should not be
+   *        negative.
+   */
+  void addTime (@Nonnegative long nMillis);
 }

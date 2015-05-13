@@ -16,13 +16,20 @@
  */
 package com.helger.commons.stats;
 
+import javax.annotation.Nonnegative;
 
 /**
- * Read only statistics handler for keyed timer.
+ * Statistics handler for sizes.
  *
  * @author Philip Helger
  */
-public interface IStatisticsHandlerKeyedTimer extends IStatisticsHandlerKeyedNumeric
+public interface IMutableStatisticsHandlerSize extends IStatisticsHandlerSize
 {
-  /* empty */
+  /**
+   * Add a new size
+   *
+   * @param nSize
+   *        The size to be added. Must be &ge; 0 as sizes cannot be negative.
+   */
+  void addSize (@Nonnegative long nSize);
 }

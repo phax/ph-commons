@@ -30,11 +30,11 @@ import com.helger.commons.annotations.Nonempty;
 
 /**
  * Abstract base class for numeric statistic handler
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
-abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHandlerNumeric
+public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHandlerNumeric
 {
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   private int m_nInvocationCount = 0;

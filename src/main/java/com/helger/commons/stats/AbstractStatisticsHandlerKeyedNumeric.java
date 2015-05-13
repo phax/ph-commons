@@ -42,7 +42,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @ThreadSafe
-abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisticsHandlerKeyedNumeric
+public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisticsHandlerKeyedNumeric
 {
   private static final class Value
   {

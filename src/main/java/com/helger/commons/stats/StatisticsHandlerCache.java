@@ -25,12 +25,12 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.annotations.Nonempty;
 
 /**
- * Default implementation of {@link IStatisticsHandlerCache}
- * 
+ * Default implementation of {@link IMutableStatisticsHandlerCache}
+ *
  * @author Philip Helger
  */
 @ThreadSafe
-final class StatisticsHandlerCache implements IStatisticsHandlerCache
+final class StatisticsHandlerCache implements IMutableStatisticsHandlerCache
 {
   private final AtomicInteger m_aHits = new AtomicInteger ();
   private final AtomicInteger m_aMisses = new AtomicInteger ();

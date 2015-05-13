@@ -24,13 +24,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Default implementation of {@link IStatisticsHandlerKeyedSize}
- * 
+ * Default implementation of {@link IMutableStatisticsHandlerKeyedSize}
+ *
  * @author Philip Helger
  */
 @ThreadSafe
-final class StatisticsHandlerKeyedSize extends AbstractStatisticsHandlerKeyedNumeric implements
-                                                                                    IStatisticsHandlerKeyedSize
+final class StatisticsHandlerKeyedSize extends AbstractStatisticsHandlerKeyedNumeric implements IMutableStatisticsHandlerKeyedSize
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (StatisticsHandlerKeyedSize.class);
 

@@ -35,7 +35,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.io.streams.NonBlockingStringWriter;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.stats.IStatisticsHandlerSize;
+import com.helger.commons.stats.IMutableStatisticsHandlerSize;
 import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.xml.EXMLVersion;
 
@@ -53,7 +53,7 @@ public final class XMLWriter
   public static final NamespaceContext DEFAULT_NAMESPACE_CTX = null;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (XMLWriter.class);
-  private static final IStatisticsHandlerSize s_aSizeHdl = StatisticsManager.getSizeHandler (XMLWriter.class);
+  private static final IMutableStatisticsHandlerSize s_aSizeHdl = StatisticsManager.getSizeHandler (XMLWriter.class);
 
   @PresentForCodeCoverage
   private static final XMLWriter s_aInstance = new XMLWriter ();

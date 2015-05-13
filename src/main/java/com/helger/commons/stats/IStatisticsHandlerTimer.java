@@ -16,21 +16,13 @@
  */
 package com.helger.commons.stats;
 
-import javax.annotation.Nonnegative;
 
 /**
- * Statistics handler for times.
+ * Read only statistics handler for times.
  *
  * @author Philip Helger
  */
 public interface IStatisticsHandlerTimer extends IStatisticsHandlerNumeric
 {
-  /**
-   * Add a single execution time.
-   *
-   * @param nMillis
-   *        The milli seconds it took to execute something. Should not be
-   *        negative.
-   */
-  void addTime (@Nonnegative long nMillis);
+  /* empty */
 }

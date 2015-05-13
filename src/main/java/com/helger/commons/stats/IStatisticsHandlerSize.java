@@ -16,20 +16,12 @@
  */
 package com.helger.commons.stats;
 
-import javax.annotation.Nonnegative;
-
 /**
- * Statistics handler for sizes.
+ * Read only statistics handler for sizes.
  *
  * @author Philip Helger
  */
 public interface IStatisticsHandlerSize extends IStatisticsHandlerNumeric
 {
-  /**
-   * Add a new size
-   *
-   * @param nSize
-   *        The size to be added. Must be &ge; 0 as sizes cannot be negative.
-   */
-  void addSize (@Nonnegative long nSize);
+  /* empty */
 }

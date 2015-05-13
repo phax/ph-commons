@@ -23,12 +23,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Default implementation of {@link IStatisticsHandlerTimer}
- * 
+ * Default implementation of {@link IMutableStatisticsHandlerTimer}
+ *
  * @author Philip Helger
  */
 @ThreadSafe
-final class StatisticsHandlerTimer extends AbstractStatisticsHandlerNumeric implements IStatisticsHandlerTimer
+final class StatisticsHandlerTimer extends AbstractStatisticsHandlerNumeric implements IMutableStatisticsHandlerTimer
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (StatisticsHandlerTimer.class);
 

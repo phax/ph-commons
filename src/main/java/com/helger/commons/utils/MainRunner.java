@@ -28,7 +28,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.callback.AdapterRunnableToCallable;
 import com.helger.commons.callback.IThrowingRunnable;
-import com.helger.commons.stats.IStatisticsHandlerTimer;
+import com.helger.commons.stats.IMutableStatisticsHandlerTimer;
 import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.timing.StopWatch;
 
@@ -41,7 +41,7 @@ import com.helger.commons.timing.StopWatch;
 public final class MainRunner
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainRunner.class);
-  private static final IStatisticsHandlerTimer s_aTimerHdl = StatisticsManager.getTimerHandler (MainRunner.class);
+  private static final IMutableStatisticsHandlerTimer s_aTimerHdl = StatisticsManager.getTimerHandler (MainRunner.class);
 
   @PresentForCodeCoverage
   private static final MainRunner s_aInstance = new MainRunner ();

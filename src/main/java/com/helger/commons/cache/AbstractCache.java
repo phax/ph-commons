@@ -34,8 +34,8 @@ import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.state.EChange;
-import com.helger.commons.stats.IStatisticsHandlerCache;
-import com.helger.commons.stats.IStatisticsHandlerCounter;
+import com.helger.commons.stats.IMutableStatisticsHandlerCache;
+import com.helger.commons.stats.IMutableStatisticsHandlerCounter;
 import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -56,9 +56,9 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
 
   protected final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   private final String m_sCacheName;
-  protected final IStatisticsHandlerCache m_aCacheAccessStats;
-  private final IStatisticsHandlerCounter m_aCacheRemoveStats;
-  private final IStatisticsHandlerCounter m_aCacheClearStats;
+  protected final IMutableStatisticsHandlerCache m_aCacheAccessStats;
+  private final IMutableStatisticsHandlerCounter m_aCacheRemoveStats;
+  private final IMutableStatisticsHandlerCounter m_aCacheClearStats;
   private volatile Map <KEYTYPE, VALUETYPE> m_aCache;
 
   public AbstractCache (@Nonnull @Nonempty final String sCacheName)

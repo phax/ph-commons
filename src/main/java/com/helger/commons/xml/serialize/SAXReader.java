@@ -40,8 +40,8 @@ import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.pool.IObjectPool;
 import com.helger.commons.pool.ObjectPool;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.stats.IStatisticsHandlerCounter;
-import com.helger.commons.stats.IStatisticsHandlerTimer;
+import com.helger.commons.stats.IMutableStatisticsHandlerCounter;
+import com.helger.commons.stats.IMutableStatisticsHandlerTimer;
 import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.timing.StopWatch;
 import com.helger.commons.xml.sax.InputSourceFactory;
@@ -54,11 +54,11 @@ import com.helger.commons.xml.sax.InputSourceFactory;
 @ThreadSafe
 public final class SAXReader
 {
-  private static final IStatisticsHandlerTimer s_aSaxTimerHdl = StatisticsManager.getTimerHandler (SAXReader.class.getName ());
-  private static final IStatisticsHandlerCounter s_aSaxSuccessCounterHdl = StatisticsManager.getCounterHandler (SAXReader.class.getName () +
-                                                                                                                "$success");
-  private static final IStatisticsHandlerCounter s_aSaxErrorCounterHdl = StatisticsManager.getCounterHandler (SAXReader.class.getName () +
-                                                                                                              "$error");
+  private static final IMutableStatisticsHandlerTimer s_aSaxTimerHdl = StatisticsManager.getTimerHandler (SAXReader.class.getName ());
+  private static final IMutableStatisticsHandlerCounter s_aSaxSuccessCounterHdl = StatisticsManager.getCounterHandler (SAXReader.class.getName () +
+                                                                                                                       "$success");
+  private static final IMutableStatisticsHandlerCounter s_aSaxErrorCounterHdl = StatisticsManager.getCounterHandler (SAXReader.class.getName () +
+                                                                                                                     "$error");
 
   // In practice no more than 5 readers are required (even 3 would be enough)
   private static final IObjectPool <org.xml.sax.XMLReader> s_aSAXPool = new ObjectPool <org.xml.sax.XMLReader> (5,

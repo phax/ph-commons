@@ -42,7 +42,7 @@ import com.helger.commons.scopes.domain.ISessionScope;
 import com.helger.commons.scopes.singleton.GlobalSingleton;
 import com.helger.commons.scopes.spi.ScopeSPIManager;
 import com.helger.commons.state.EChange;
-import com.helger.commons.stats.IStatisticsHandlerCounter;
+import com.helger.commons.stats.IMutableStatisticsHandlerCounter;
 import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 
@@ -61,8 +61,8 @@ public class ScopeSessionManager extends GlobalSingleton
   public static final boolean DEFAULT_DESTROY_ALL_SESSIONS_ON_SCOPE_END = true;
   public static final boolean DEFAULT_END_ALL_SESSIONS_ON_SCOPE_END = true;
   private static final Logger s_aLogger = LoggerFactory.getLogger (ScopeSessionManager.class);
-  private static final IStatisticsHandlerCounter s_aUniqueSessionCounter = StatisticsManager.getCounterHandler (ScopeSessionManager.class.getName () +
-                                                                                                                "$UNIQUE_SESSIONS");
+  private static final IMutableStatisticsHandlerCounter s_aUniqueSessionCounter = StatisticsManager.getCounterHandler (ScopeSessionManager.class.getName () +
+                                                                                                                       "$UNIQUE_SESSIONS");
 
   private static volatile ScopeSessionManager s_aInstance = null;
 

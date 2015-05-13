@@ -18,11 +18,22 @@ package com.helger.commons.stats;
 
 
 /**
- * Read only statistics handler for keyed timer.
+ * Statistics handler for a counter.
  *
  * @author Philip Helger
  */
-public interface IStatisticsHandlerKeyedTimer extends IStatisticsHandlerKeyedNumeric
+public interface IMutableStatisticsHandlerCounter extends IStatisticsHandlerCounter
 {
-  /* empty */
+  /**
+   * Increment the counter by 1
+   */
+  void increment ();
+
+  /**
+   * Increment the counter by an arbitrary number
+   *
+   * @param nByHowMany
+   *        The number to be added. May be negative as well.
+   */
+  void increment (long nByHowMany);
 }
