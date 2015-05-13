@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.encode.IEncoder;
+import com.helger.commons.codec.IEncoder;
 import com.helger.commons.url.URLUtils;
 
 /**

@@ -17,11 +17,11 @@
 package com.helger.commons.codec;
 
 /**
- * Interface for a single encoder + decoder.
+ * Interface for a single byte array encoder + decoder.
  *
  * @author Philip Helger
  */
-public interface IByteArrayCodec extends IByteArrayEncoder, IByteArrayDecoder
+public interface IByteArrayCodec extends IByteArrayEncoder, IByteArrayDecoder, ICodec <byte []>
 {
   /* empty */
 }

@@ -14,41 +14,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.encode;
+package com.helger.commons.codec.impl;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.codec.ICodec;
 import com.helger.commons.lang.GenericReflection;
 
 /**
- * The most simple encoder, that does not do anything
- * 
+ * The most simple decoder, that does not do anything
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The handled data type
  */
-public final class IdentityEncoder <DATATYPE> implements IEncoder <DATATYPE>
+@Immutable
+public final class IdentityCodec <DATATYPE> implements ICodec <DATATYPE>
 {
-  private static final IdentityEncoder <Object> s_aInstance = new IdentityEncoder <Object> ();
+  private static final IdentityCodec <Object> s_aInstance = new IdentityCodec <Object> ();
 
-  private IdentityEncoder ()
+  private IdentityCodec ()
   {}
+
+  @Nullable
+  public DATATYPE getDecoded (@Nullable final DATATYPE aInput)
+  {
+    // Return "as-is"
+    return aInput;
+  }
 
   @Nullable
   public DATATYPE getEncoded (@Nullable final DATATYPE aInput)
   {
+    // Return "as-is"
     return aInput;
   }
 
   /**
    * Factory method for this class
-   * 
-   * @return Never <code>null</code>.
+   *
+   * @return Always the same instance and never <code>null</code>.
    */
   @Nonnull
-  public static <DATATYPE> IdentityEncoder <DATATYPE> create ()
+  public static <DATATYPE> IdentityCodec <DATATYPE> create ()
   {
-    return GenericReflection.<IdentityEncoder <Object>, IdentityEncoder <DATATYPE>> uncheckedCast (s_aInstance);
+    return GenericReflection.<IdentityCodec <Object>, IdentityCodec <DATATYPE>> uncheckedCast (s_aInstance);
   }
 }

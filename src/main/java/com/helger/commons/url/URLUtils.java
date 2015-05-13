@@ -51,11 +51,10 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.codec.IDecoder;
+import com.helger.commons.codec.IEncoder;
+import com.helger.commons.codec.impl.IdentityCodec;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.encode.IDecoder;
-import com.helger.commons.encode.IEncoder;
-import com.helger.commons.encode.IdentityDecoder;
-import com.helger.commons.encode.IdentityEncoder;
 import com.helger.commons.exceptions.InitializationException;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.streams.StreamUtils;
@@ -266,7 +265,7 @@ public final class URLUtils
   @Nonnull
   public static IURLData getAsURLData (@Nonnull final String sHref)
   {
-    return getAsURLData (sHref, IdentityDecoder.<String> create ());
+    return getAsURLData (sHref, IdentityCodec.<String> create ());
   }
 
   /**
@@ -368,7 +367,7 @@ public final class URLUtils
   @ReturnsMutableCopy
   public static Map <String, String> getQueryStringAsMap (@Nullable final String sQueryString)
   {
-    return _getQueryStringAsMap (sQueryString, IdentityDecoder.<String> create ());
+    return _getQueryStringAsMap (sQueryString, IdentityCodec.<String> create ());
   }
 
   @Nonnull
@@ -488,7 +487,7 @@ public final class URLUtils
   {
     IEncoder <String> aParameterEncoder;
     if (aParameterCharset == null)
-      aParameterEncoder = IdentityEncoder.create ();
+      aParameterEncoder = IdentityCodec.create ();
     else
       aParameterEncoder = new URLParameterEncoder (aParameterCharset);
     return getURLString (sPath, aParams, sAnchor, aParameterEncoder);

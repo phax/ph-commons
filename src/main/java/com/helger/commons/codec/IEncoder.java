@@ -19,33 +19,21 @@ package com.helger.commons.codec;
 import javax.annotation.Nullable;
 
 /**
- * Interface for a single encoder + decoder that is based on a String.
- *
+ * The most basic encoding interface
+ * 
+ * @param <DATATYPE>
+ *        data type
  * @author Philip Helger
  */
-public interface IStringCodec
+public interface IEncoder <DATATYPE>
 {
   /**
-   * Encode the passed string.
-   *
-   * @param sDecoded
-   *        The string to be encoded. May be <code>null</code>.
-   * @return <code>null</code> if the input string is <code>null</code>.
-   * @throws EncoderException
-   *         In case something goes wrong
+   * Encode the passed source object
+   * 
+   * @param aInput
+   *        The source object to be encoded
+   * @return The encoded value.
    */
   @Nullable
-  String getEncodedText (@Nullable String sDecoded);
-
-  /**
-   * Decode the passed string.
-   *
-   * @param sEncoded
-   *        The string to be decoded. May be <code>null</code>.
-   * @return <code>null</code> if the input string is <code>null</code>.
-   * @throws DecoderException
-   *         in case something goes wrong
-   */
-  @Nullable
-  String getDecodedText (@Nullable String sEncoded);
+  DATATYPE getEncoded (@Nullable DATATYPE aInput);
 }

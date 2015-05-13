@@ -27,7 +27,6 @@ import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.codec.AbstractByteArrayCodec;
 import com.helger.commons.codec.DecoderException;
 import com.helger.commons.codec.EncoderException;
-import com.helger.commons.codec.IStringCodec;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -39,12 +38,12 @@ import com.helger.commons.string.StringHelper;
  * message handling software.
  * <p>
  * This class is immutable and thread-safe.
- * 
+ *
  * @see <a href="http://www.ietf.org/rfc/rfc1522.txt">MIME (Multipurpose
  *      Internet Mail Extensions) Part Two: Message Header Extensions for
  *      Non-ASCII Text</a>
  */
-public abstract class AbstractRFC1522Codec extends AbstractByteArrayCodec implements IStringCodec
+public abstract class AbstractRFC1522Codec extends AbstractByteArrayCodec
 {
   /** Separator. */
   protected static final char SEP = '?';
@@ -57,7 +56,7 @@ public abstract class AbstractRFC1522Codec extends AbstractByteArrayCodec implem
 
   /**
    * Returns the codec name (referred to as encoding in the RFC 1522).
-   * 
+   *
    * @return name of the codec
    */
   @Nonnull
@@ -69,9 +68,9 @@ public abstract class AbstractRFC1522Codec extends AbstractByteArrayCodec implem
    * with the given charset.
    * <p>
    * This method constructs the "encoded-word" header common to all the RFC 1522
-   * codecs and then invokes {@link #getEncoded(byte [])} method of a concrete class
-   * to perform the specific encoding.
-   * 
+   * codecs and then invokes {@link #getEncoded(byte [])} method of a concrete
+   * class to perform the specific encoding.
+   *
    * @param sText
    *        a string to encode
    * @param aCharset
@@ -106,9 +105,9 @@ public abstract class AbstractRFC1522Codec extends AbstractByteArrayCodec implem
    * Applies an RFC 1522 compliant decoding scheme to the given string of text.
    * <p>
    * This method processes the "encoded-word" header common to all the RFC 1522
-   * codecs and then invokes {@link #getDecoded(byte [])} method of a concrete class
-   * to perform the specific decoding.
-   * 
+   * codecs and then invokes {@link #getDecoded(byte [])} method of a concrete
+   * class to perform the specific decoding.
+   *
    * @param sText
    *        a string to decode
    * @return A new decoded String or {@code null} if the input is {@code null}.

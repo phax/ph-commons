@@ -21,8 +21,6 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.encode.IEncoder;
-
 /**
  * Interface for a single encoder
  *

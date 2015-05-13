@@ -19,26 +19,17 @@ package com.helger.commons.codec.impl;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.codec.IByteArrayCodec;
-import com.helger.commons.codec.IStringCodec;
-import com.helger.commons.codec.impl.RFC1522QCodec;
 
 /**
  * Test class for class {@link RFC1522QCodec}
- * 
+ *
  * @author Philip Helger
  */
-public final class RFC1522QCodecTest extends AbstractStringCodecTest
+public final class RFC1522QCodecTest extends AbstractByteArrayCodecTest
 {
   @Override
   @Nonnull
   protected IByteArrayCodec createByteArrayCodec ()
-  {
-    return new RFC1522QCodec ();
-  }
-
-  @Override
-  @Nonnull
-  protected IStringCodec createStringCodec ()
   {
     return new RFC1522QCodec ();
   }

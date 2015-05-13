@@ -14,26 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.encode;
-
-import javax.annotation.Nullable;
+package com.helger.commons.codec;
 
 /**
- * The most basic encoding interface
- * 
+ * Interface for a single encoder + decoder.
+ *
  * @param <DATATYPE>
  *        data type
  * @author Philip Helger
  */
-public interface IEncoder <DATATYPE>
+public interface ICodec <DATATYPE> extends IEncoder <DATATYPE>, IDecoder <DATATYPE>
 {
-  /**
-   * Encode the passed source object
-   * 
-   * @param aInput
-   *        The source object to be encoded
-   * @return The encoded value.
-   */
-  @Nullable
-  DATATYPE getEncoded (@Nullable DATATYPE aInput);
+  /* empty */
 }

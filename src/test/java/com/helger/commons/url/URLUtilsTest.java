@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.encode.IdentityEncoder;
+import com.helger.commons.codec.impl.IdentityCodec;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.url.encode.URLParameterEncoder;
@@ -167,6 +167,6 @@ public final class URLUtilsTest
     // Using identity encoder
     assertEquals ("a=b&c=d&e",
                   URLUtils.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d&e"),
-                                                      IdentityEncoder.<String> create ()));
+                                                      IdentityCodec.<String> create ()));
   }
 }
