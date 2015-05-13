@@ -26,7 +26,7 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.callback.IExceptionHandler;
+import com.helger.commons.exceptionhandler.IExceptionHandler;
 import com.helger.commons.xml.EXMLParserFeature;
 import com.helger.commons.xml.EXMLParserProperty;
 

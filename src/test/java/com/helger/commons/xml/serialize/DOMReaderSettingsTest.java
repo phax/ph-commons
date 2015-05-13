@@ -25,7 +25,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.helger.commons.callback.DoNothingExceptionHandler;
+import com.helger.commons.exceptionhandler.DoNothingExceptionHandler;
 import com.helger.commons.xml.XMLFactory;
 
 /**

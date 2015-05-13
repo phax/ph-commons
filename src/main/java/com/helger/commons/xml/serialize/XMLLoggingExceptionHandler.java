@@ -28,9 +28,9 @@ import org.xml.sax.SAXParseException;
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
-import com.helger.commons.callback.LoggingExceptionHandler;
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.error.IErrorLevel;
+import com.helger.commons.exceptionhandler.LoggingExceptionHandler;
 import com.helger.commons.xml.sax.AbstractSAXErrorHandler;
 
 /**

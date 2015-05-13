@@ -25,8 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.helger.commons.callback.DoNothingExceptionHandler;
 import com.helger.commons.callback.IThrowingRunnable;
+import com.helger.commons.exceptionhandler.DoNothingExceptionHandler;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.xml.sax.CachingSAXInputSource;

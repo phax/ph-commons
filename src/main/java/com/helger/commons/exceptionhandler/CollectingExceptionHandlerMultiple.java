@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.callback;
+package com.helger.commons.exceptionhandler;
 
 import java.util.ArrayList;
 import java.util.List;

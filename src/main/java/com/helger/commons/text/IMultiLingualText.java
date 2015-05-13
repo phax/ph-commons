@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.callback.CallbackList;
-import com.helger.commons.callback.IChangeNotify;
+import com.helger.commons.callback.IChangeCallback;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.IClearable;
 
@@ -89,5 +89,5 @@ public interface IMultiLingualText extends IReadonlyMultiLingualText, IClearable
    * @return The change notify callbacks. Never <code>null</code>.
    */
   @Nonnull
-  CallbackList <IChangeNotify <IMultiLingualText>> getChangeNotifyCallbacks ();
+  CallbackList <IChangeCallback <IMultiLingualText>> getChangeNotifyCallbacks ();
 }

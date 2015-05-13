@@ -28,7 +28,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
-import com.helger.commons.callback.IChangeNotify;
+import com.helger.commons.callback.IChangeCallback;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleUtils;
@@ -53,7 +53,7 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
   public static final IMultiLingualText EMPTY_MULTILINGUAL_TEXT = new MultiLingualText ();
 
   /** A list of callback upon change. */
-  private final CallbackList <IChangeNotify <IMultiLingualText>> m_aChangeNotifyCallbacks = new CallbackList <IChangeNotify <IMultiLingualText>> ();
+  private final CallbackList <IChangeCallback <IMultiLingualText>> m_aChangeNotifyCallbacks = new CallbackList <IChangeCallback <IMultiLingualText>> ();
 
   public MultiLingualText ()
   {}
@@ -87,7 +87,7 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
 
   private boolean _beforeChange ()
   {
-    for (final IChangeNotify <IMultiLingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
+    for (final IChangeCallback <IMultiLingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
       if (aCallback.beforeChange (this).isBreak ())
         return false;
     return true;
@@ -95,7 +95,7 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
 
   private void _afterChange ()
   {
-    for (final IChangeNotify <IMultiLingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
+    for (final IChangeCallback <IMultiLingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
       aCallback.afterChange (this);
   }
 
@@ -188,7 +188,7 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
 
   @Nonnull
   @ReturnsMutableObject (reason = "design")
-  public CallbackList <IChangeNotify <IMultiLingualText>> getChangeNotifyCallbacks ()
+  public CallbackList <IChangeCallback <IMultiLingualText>> getChangeNotifyCallbacks ()
   {
     return m_aChangeNotifyCallbacks;
   }

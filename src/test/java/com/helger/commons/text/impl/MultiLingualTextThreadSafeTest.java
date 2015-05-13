@@ -68,7 +68,7 @@ public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
   public void testAddText ()
   {
     final IMultiLingualText aMLT = new MultiLingualTextThreadSafe ();
-    final MockChangeNotify aNotify = new MockChangeNotify ();
+    final MockChangeCallback aNotify = new MockChangeCallback ();
     aMLT.getChangeNotifyCallbacks ().addCallback (aNotify);
 
     try

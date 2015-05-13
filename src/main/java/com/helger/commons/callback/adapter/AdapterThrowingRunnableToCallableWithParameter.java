@@ -14,13 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.callback;
+package com.helger.commons.callback.adapter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.callback.IThrowingCallable;
+import com.helger.commons.callback.IThrowingCallableWithParameter;
+import com.helger.commons.callback.IThrowingRunnable;
+import com.helger.commons.callback.IThrowingRunnableWithParameter;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -30,26 +34,29 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  * @param <DATATYPE>
  *        The callable result type.
+ * @param <PARAMTYPE>
+ *        The parameter type
  */
 @Immutable
-public class AdapterThrowingRunnableToCallable <DATATYPE> implements IThrowingCallable <DATATYPE>
+public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE> implements IThrowingCallableWithParameter <DATATYPE, PARAMTYPE>
 {
-  private final IThrowingRunnable m_aRunnable;
+  private final IThrowingRunnableWithParameter <PARAMTYPE> m_aRunnable;
   private final DATATYPE m_aResult;
 
-  public AdapterThrowingRunnableToCallable (@Nonnull final IThrowingRunnable aRunnable)
+  public AdapterThrowingRunnableToCallableWithParameter (@Nonnull final IThrowingRunnableWithParameter <PARAMTYPE> aRunnable)
   {
     this (aRunnable, null);
   }
 
-  public AdapterThrowingRunnableToCallable (@Nonnull final IThrowingRunnable aRunnable, @Nullable final DATATYPE aResult)
+  public AdapterThrowingRunnableToCallableWithParameter (@Nonnull final IThrowingRunnableWithParameter <PARAMTYPE> aRunnable,
+                                                         @Nullable final DATATYPE aResult)
   {
     m_aRunnable = ValueEnforcer.notNull (aRunnable, "Runnable");
     m_aResult = aResult;
   }
 
   @Nonnull
-  public IThrowingRunnable getRunnable ()
+  public IThrowingRunnableWithParameter <PARAMTYPE> getRunnable ()
   {
     return m_aRunnable;
   }
@@ -61,9 +68,9 @@ public class AdapterThrowingRunnableToCallable <DATATYPE> implements IThrowingCa
   }
 
   @Nullable
-  public DATATYPE call () throws Exception
+  public DATATYPE call (final PARAMTYPE aParam) throws Exception
   {
-    m_aRunnable.run ();
+    m_aRunnable.run (aParam);
     return m_aResult;
   }
 
@@ -78,12 +85,13 @@ public class AdapterThrowingRunnableToCallable <DATATYPE> implements IThrowingCa
    *
    * @param aRunnable
    *        The runnable to be executed.
-   * @return The created {@link AdapterThrowingRunnableToCallable} object.
+   * @return The created {@link AdapterThrowingRunnableToCallableWithParameter}
+   *         object.
    */
   @Nonnull
-  public static AdapterThrowingRunnableToCallable <Object> createAdapter (@Nonnull final IThrowingRunnable aRunnable)
+  public static <PARAMTYPE> AdapterThrowingRunnableToCallableWithParameter <Object, PARAMTYPE> createAdapter (@Nonnull final IThrowingRunnableWithParameter <PARAMTYPE> aRunnable)
   {
-    return new AdapterThrowingRunnableToCallable <Object> (aRunnable);
+    return new AdapterThrowingRunnableToCallableWithParameter <Object, PARAMTYPE> (aRunnable);
   }
 
   /**
@@ -94,12 +102,13 @@ public class AdapterThrowingRunnableToCallable <DATATYPE> implements IThrowingCa
    * @param aResult
    *        The expected result from calling {@link IThrowingCallable#call()} .
    *        May be <code>null</code>.
-   * @return The created {@link AdapterThrowingRunnableToCallable} object.
+   * @return The created {@link AdapterThrowingRunnableToCallableWithParameter}
+   *         object.
    */
   @Nonnull
-  public static <DATATYPE> AdapterThrowingRunnableToCallable <DATATYPE> createAdapter (@Nonnull final IThrowingRunnable aRunnable,
-                                                                                       @Nullable final DATATYPE aResult)
+  public static <DATATYPE, PARAMTYPE> AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE> createAdapter (@Nonnull final IThrowingRunnableWithParameter <PARAMTYPE> aRunnable,
+                                                                                                                          @Nullable final DATATYPE aResult)
   {
-    return new AdapterThrowingRunnableToCallable <DATATYPE> (aRunnable, aResult);
+    return new AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE> (aRunnable, aResult);
   }
 }

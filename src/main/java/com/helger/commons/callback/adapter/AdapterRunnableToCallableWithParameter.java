@@ -14,13 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.callback;
+package com.helger.commons.callback.adapter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.callback.INonThrowingCallable;
+import com.helger.commons.callback.INonThrowingCallableWithParameter;
+import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

@@ -14,25 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.callback;
+package com.helger.commons.exceptionhandler;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Callback interface to handle thrown exception objects.
+ * A specific implementation of the {@link IExceptionHandler} interface, that
+ * swallows all exceptions and does nothing.
  * 
  * @author Philip Helger
- * @param <EXTYPE>
- *        The exception type to be handled
  */
-public interface IExceptionHandler <EXTYPE extends Throwable>
+public final class DoNothingExceptionHandler implements IExceptionHandler <Throwable>
 {
-  /**
-   * Called when an exception of the specified type occurred. You may not
-   * re-throw the exception from in here!
-   * 
-   * @param ex
-   *        The exception. Never <code>null</code>.
-   */
-  void onException (@Nonnull EXTYPE ex);
+  public void onException (@Nullable final Throwable t)
+  {
+    /* ignore */
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).toString ();
+  }
 }

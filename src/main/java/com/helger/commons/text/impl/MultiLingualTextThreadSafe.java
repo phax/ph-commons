@@ -32,7 +32,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
-import com.helger.commons.callback.IChangeNotify;
+import com.helger.commons.callback.IChangeCallback;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.locale.LocaleCache;
@@ -306,7 +306,7 @@ public class MultiLingualTextThreadSafe implements IMultiLingualText
 
   @Nonnull
   @ReturnsMutableObject (reason = "design")
-  public CallbackList <IChangeNotify <IMultiLingualText>> getChangeNotifyCallbacks ()
+  public CallbackList <IChangeCallback <IMultiLingualText>> getChangeNotifyCallbacks ()
   {
     m_aRWLock.writeLock ().lock ();
     try

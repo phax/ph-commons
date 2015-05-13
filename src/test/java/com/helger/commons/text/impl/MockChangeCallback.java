@@ -20,16 +20,16 @@ import static org.junit.Assert.assertNotNull;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.callback.IChangeNotify;
+import com.helger.commons.callback.IChangeCallback;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.text.IMultiLingualText;
 
-public final class MockChangeNotify implements IChangeNotify <IMultiLingualText>
+public final class MockChangeCallback implements IChangeCallback <IMultiLingualText>
 {
   private int m_nCallCountBefore = 0;
   private int m_nCallCountAfter = 0;
 
-  public MockChangeNotify ()
+  public MockChangeCallback ()
   {}
 
   @Nonnull

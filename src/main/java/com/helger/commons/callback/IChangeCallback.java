@@ -29,7 +29,7 @@ import com.helger.commons.state.EContinue;
  * @param <DATATYPE>
  *        The type of object that is changed
  */
-public interface IChangeNotify <DATATYPE> extends ICallback, Serializable
+public interface IChangeCallback <DATATYPE> extends ICallback, Serializable
 {
   /**
    * Called before the object will be changed.

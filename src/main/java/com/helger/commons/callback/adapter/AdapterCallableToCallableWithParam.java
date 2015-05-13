@@ -14,46 +14,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.callback;
+package com.helger.commons.callback.adapter;
+
+import java.util.concurrent.Callable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.callback.IThrowingCallableWithParameter;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A helper class that converts a {@link Runnable} into an
- * {@link IThrowingRunnableWithParameter}.
+ * A helper class that converts a {@link Callable} into an
+ * {@link IThrowingCallableWithParameter}.
  *
  * @author Philip Helger
+ * @param <DATATYPE>
+ *        The callable result type.
  * @param <PARAMTYPE>
  *        The parameter type.
  */
 @Immutable
-public class AdapterRunnableToRunnableWithParameter <PARAMTYPE> implements IThrowingRunnableWithParameter <PARAMTYPE>
+public class AdapterCallableToCallableWithParam <DATATYPE, PARAMTYPE> implements IThrowingCallableWithParameter <DATATYPE, PARAMTYPE>
 {
-  private final Runnable m_aRunnable;
+  private final Callable <DATATYPE> m_aCallable;
 
-  public AdapterRunnableToRunnableWithParameter (@Nonnull final Runnable aRunnable)
+  public AdapterCallableToCallableWithParam (@Nonnull final Callable <DATATYPE> aCallable)
   {
-    m_aRunnable = ValueEnforcer.notNull (aRunnable, "Runnable");
+    m_aCallable = ValueEnforcer.notNull (aCallable, "Callable");
   }
 
   @Nonnull
-  public Runnable getRunnable ()
+  public Callable <DATATYPE> getCallable ()
   {
-    return m_aRunnable;
+    return m_aCallable;
   }
 
-  public void run (final PARAMTYPE aParam) throws Exception
+  @Nonnull
+  public DATATYPE call (@Nonnull final PARAMTYPE aParam) throws Exception
   {
-    m_aRunnable.run ();
+    return m_aCallable.call ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("runnable", m_aRunnable).toString ();
+    return new ToStringGenerator (this).append ("callabale", m_aCallable).toString ();
   }
 }

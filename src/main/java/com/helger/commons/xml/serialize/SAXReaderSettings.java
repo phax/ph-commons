@@ -36,7 +36,7 @@ import org.xml.sax.ext.LexicalHandler;
 import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.callback.IExceptionHandler;
+import com.helger.commons.exceptionhandler.IExceptionHandler;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.xml.EXMLParserFeature;

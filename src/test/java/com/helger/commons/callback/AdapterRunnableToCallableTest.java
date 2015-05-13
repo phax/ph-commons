@@ -22,6 +22,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.commons.callback.adapter.AdapterRunnableToCallable;
+
 /**
  * Test class for class {@link AdapterRunnableToCallable}
  * 

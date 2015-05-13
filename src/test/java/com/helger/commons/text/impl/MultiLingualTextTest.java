@@ -70,7 +70,7 @@ public final class MultiLingualTextTest extends AbstractPHTestCase
   public void testAddText ()
   {
     final IMultiLingualText aMLT = new MultiLingualText ();
-    final MockChangeNotify aNotify = new MockChangeNotify ();
+    final MockChangeCallback aNotify = new MockChangeCallback ();
     try
     {
       aMLT.getChangeNotifyCallbacks ().addCallback (null);
