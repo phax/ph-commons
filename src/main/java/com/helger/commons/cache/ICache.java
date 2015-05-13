@@ -22,7 +22,7 @@ import com.helger.commons.IHasSize;
 import com.helger.commons.name.IHasName;
 
 /**
- * Interface for a very simple Map-like cache.
+ * Read-only interface for a very simple Map-like cache.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
