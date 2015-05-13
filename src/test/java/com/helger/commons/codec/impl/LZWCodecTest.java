@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
@@ -26,6 +26,8 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.codec.IByteArrayCodec;
+import com.helger.commons.codec.impl.LZWCodec;
 import com.helger.commons.random.VerySecureRandom;
 
 /**
@@ -33,11 +35,11 @@ import com.helger.commons.random.VerySecureRandom;
  * 
  * @author Philip Helger
  */
-public final class LZWCodecTest extends AbstractCodecTest
+public final class LZWCodecTest extends AbstractByteArrayCodecTest
 {
   @Override
   @Nonnull
-  protected ICodec createCodec ()
+  protected IByteArrayCodec createByteArrayCodec ()
   {
     return new LZWCodec ();
   }
@@ -46,7 +48,7 @@ public final class LZWCodecTest extends AbstractCodecTest
   public void testDecode ()
   {
     final byte [] aEncoded = new byte [] { (byte) 0x80, 0x0b, 0x60, 0x50, 0x22, 0x0c, 0x0c, (byte) 0x85, 0x01 };
-    final byte [] aDecoded = LZWCodec.decodeLZW (aEncoded);
+    final byte [] aDecoded = LZWCodec.getDecodedLZW (aEncoded);
     final byte [] aExpected = new byte [] { 45, 45, 45, 45, 45, 65, 45, 45, 45, 66 };
     assertArrayEquals (aExpected, aDecoded);
   }
@@ -55,7 +57,7 @@ public final class LZWCodecTest extends AbstractCodecTest
   public void testEncode1 ()
   {
     final byte [] aDecoded = new byte [] { 45, 45, 45, 45, 45, 65, 45, 45, 45, 66 };
-    final byte [] aEncoded = LZWCodec.encodeLZW (aDecoded);
+    final byte [] aEncoded = LZWCodec.getEncodedLZW (aDecoded);
     final byte [] aExpected = new byte [] { (byte) 0x80, 0x0b, 0x60, 0x50, 0x22, 0x0c, 0x0c, (byte) 0x85, 0x01 };
     assertArrayEquals (aExpected, aEncoded);
   }
@@ -64,7 +66,7 @@ public final class LZWCodecTest extends AbstractCodecTest
   public void testEncode2 ()
   {
     final byte [] aDecoded = CharsetManager.getAsBytes ("LZWLZ78LZ77LZCLZMWLZAP", CCharset.CHARSET_ISO_8859_1_OBJ);
-    final byte [] aEncoded = LZWCodec.encodeLZW (aDecoded);
+    final byte [] aEncoded = LZWCodec.getEncodedLZW (aDecoded);
     final byte [] aExpected = new byte [] { (byte) 0x80,
                                            0x13,
                                            0x0b,
@@ -91,12 +93,12 @@ public final class LZWCodecTest extends AbstractCodecTest
 
   private void _testEncodeDecode (final byte [] buf)
   {
-    final byte [] aEncoded = LZWCodec.encodeLZW (buf);
+    final byte [] aEncoded = LZWCodec.getEncodedLZW (buf);
     assertNotNull (aEncoded);
     assertTrue (aEncoded.length > 0);
     if (false)
       m_aLogger.info ("Encoded byte#: " + aEncoded.length);
-    final byte [] aDecoded = LZWCodec.decodeLZW (aEncoded);
+    final byte [] aDecoded = LZWCodec.getDecodedLZW (aEncoded);
     assertNotNull (aDecoded);
     if (false)
       m_aLogger.info ("Decoded byte#: " + aDecoded.length + "; expected byte#: " + buf.length);

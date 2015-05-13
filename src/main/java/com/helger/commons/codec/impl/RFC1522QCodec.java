@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
 import java.nio.charset.Charset;
 import java.util.BitSet;
@@ -24,6 +24,8 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.codec.DecoderException;
+import com.helger.commons.codec.EncoderException;
 
 /**
  * Similar to the Quoted-Printable content-transfer-encoding defined in <a
@@ -162,12 +164,12 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
   }
 
   @Nullable
-  public byte [] encode (@Nullable final byte [] aBuffer)
+  public byte [] getEncoded (@Nullable final byte [] aBuffer)
   {
     if (aBuffer == null)
       return null;
 
-    final byte [] data = QuotedPrintableCodec.encodeQuotedPrintable (PRINTABLE_CHARS, aBuffer);
+    final byte [] data = QuotedPrintableCodec.getEncodedQuotedPrintable (PRINTABLE_CHARS, aBuffer);
     if (m_bEncodeBlanks)
       for (int i = 0; i < data.length; i++)
         if (data[i] == BLANK)
@@ -176,7 +178,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
   }
 
   @Nullable
-  public byte [] decode (@Nullable final byte [] aBuffer) throws DecoderException
+  public byte [] getDecoded (@Nullable final byte [] aBuffer) throws DecoderException
   {
     if (aBuffer == null)
       return null;
@@ -200,9 +202,9 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
         else
           tmp[i] = BLANK;
       }
-      return QuotedPrintableCodec.decodeQuotedPrintable (tmp);
+      return QuotedPrintableCodec.getDecodedQuotedPrintable (tmp);
     }
-    return QuotedPrintableCodec.decodeQuotedPrintable (aBuffer);
+    return QuotedPrintableCodec.getDecodedQuotedPrintable (aBuffer);
   }
 
   /**
@@ -217,9 +219,9 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
    *         process.
    */
   @Nullable
-  public String encodeText (@Nullable final String sText) throws EncoderException
+  public String getEncodedText (@Nullable final String sText) throws EncoderException
   {
-    return super.encodeText (sText, getCharset ());
+    return super.getEncodedText (sText, getCharset ());
   }
 
   /**
@@ -235,8 +237,8 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
    */
   @Override
   @Nullable
-  public String decodeText (@Nullable final String sText) throws DecoderException
+  public String getDecodedText (@Nullable final String sText) throws DecoderException
   {
-    return super.decodeText (sText);
+    return super.getDecodedText (sText);
   }
 }

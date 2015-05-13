@@ -14,10 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
+import java.nio.charset.Charset;
+
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.codec.DecoderException;
+import com.helger.commons.codec.IByteArrayDecoder;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streams.StreamUtils;
@@ -29,19 +35,28 @@ import com.helger.commons.io.streams.StreamUtils;
  */
 public class RunLengthCodec implements IByteArrayDecoder
 {
-  private static final int RUN_LENGTH_EOD = 128;
+  protected static final int RUN_LENGTH_EOD = 128;
 
   public RunLengthCodec ()
   {}
 
   @Nullable
-  public byte [] decode (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
-    return decodeRunLength (aEncodedBuffer);
+    return getDecodedRunLength (aEncodedBuffer);
   }
 
   @Nullable
-  public static byte [] decodeRunLength (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
+  {
+    if (sEncoded == null)
+      return null;
+
+    return getDecodedRunLength (CharsetManager.getAsBytes (sEncoded, aCharset));
+  }
+
+  @Nullable
+  public static byte [] getDecodedRunLength (@Nullable final byte [] aEncodedBuffer)
   {
     if (aEncodedBuffer == null)
       return null;

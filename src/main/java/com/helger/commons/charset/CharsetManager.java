@@ -128,11 +128,7 @@ public final class CharsetManager
     if (!aCharset.canEncode ())
       throw new IllegalArgumentException ("Cannot encode to " + aCharset);
 
-    // IFJDK5
-    // return getAsBytes (sText, aCharset.name ());
-    // ELSE
     return sText.getBytes (aCharset);
-    // ENDIF
   }
 
   @Nullable
@@ -166,11 +162,7 @@ public final class CharsetManager
     ValueEnforcer.isArrayOfsLen (aBuffer, nOfs, nLength);
     ValueEnforcer.notNull (aCharset, "Charset");
 
-    // IFJDK5
-    // return getAsString (aBuffer, nOfs, nLength, aCharset.name ());
-    // ELSE
     return new String (aBuffer, nOfs, nLength, aCharset);
-    // ENDIF
   }
 
   /**

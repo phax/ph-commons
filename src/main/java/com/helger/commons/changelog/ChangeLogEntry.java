@@ -23,6 +23,7 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
@@ -41,7 +42,8 @@ import com.helger.commons.text.impl.ReadonlyMultiLingualText;
  *
  * @author Philip Helger
  */
-public final class ChangeLogEntry extends AbstractChangeLogEntry
+@NotThreadSafe
+public class ChangeLogEntry extends AbstractChangeLogEntry
 {
   private final ChangeLog m_aChangeLog;
   private final EChangeLogAction m_eAction;

@@ -40,7 +40,7 @@ public class URLParameterDecoder implements IDecoder <String>
   }
 
   @Nullable
-  public String decode (@Nullable final String sInput)
+  public String getDecoded (@Nullable final String sInput)
   {
     return sInput == null ? null : URLUtils.urlDecode (sInput, m_aCharset);
   }

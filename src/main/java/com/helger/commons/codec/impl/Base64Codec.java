@@ -14,21 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import com.helger.commons.base64.Base64;
+import com.helger.commons.codec.AbstractByteArrayCodec;
 
 /**
- * Test class for class {@link Base64Codec}
- * 
+ * Encoder and decoder for Base64
+ *
  * @author Philip Helger
  */
-public final class Base64CodecTest extends AbstractCodecTest
+public class Base64Codec extends AbstractByteArrayCodec
 {
-  @Override
-  @Nonnull
-  protected ICodec createCodec ()
+  public Base64Codec ()
+  {}
+
+  @Nullable
+  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer)
   {
-    return new Base64Codec ();
+    return Base64.safeEncodeBytesToBytes (aDecodedBuffer);
+  }
+
+  @Nullable
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
+  {
+    return Base64.safeDecode (aEncodedBuffer);
   }
 }

@@ -14,31 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 
-import com.helger.commons.base64.Base64;
+import com.helger.commons.codec.IByteArrayCodec;
+import com.helger.commons.codec.IStringCodec;
+import com.helger.commons.codec.impl.RFC1522QCodec;
 
 /**
- * Encoder and decoder for Base64
- *
+ * Test class for class {@link RFC1522QCodec}
+ * 
  * @author Philip Helger
  */
-public class Base64Codec extends AbstractCodec
+public final class RFC1522QCodecTest extends AbstractStringCodecTest
 {
-  public Base64Codec ()
-  {}
-
-  @Nullable
-  public byte [] encode (@Nullable final byte [] aDecodedBuffer)
+  @Override
+  @Nonnull
+  protected IByteArrayCodec createByteArrayCodec ()
   {
-    return aDecodedBuffer == null ? null : Base64.encodeBytesToBytes (aDecodedBuffer);
+    return new RFC1522QCodec ();
   }
 
-  @Nullable
-  public byte [] decode (@Nullable final byte [] aEncodedBuffer)
+  @Override
+  @Nonnull
+  protected IStringCodec createStringCodec ()
   {
-    return aEncodedBuffer == null ? null : Base64.safeDecode (aEncodedBuffer);
+    return new RFC1522QCodec ();
   }
 }

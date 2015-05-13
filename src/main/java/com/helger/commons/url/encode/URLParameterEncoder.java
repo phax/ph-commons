@@ -40,7 +40,7 @@ public class URLParameterEncoder implements IEncoder <String>
   }
 
   @Nullable
-  public String encode (@Nullable final String sInput)
+  public String getEncoded (@Nullable final String sInput)
   {
     return sInput == null ? null : URLUtils.urlEncode (sInput, m_aCharset);
   }

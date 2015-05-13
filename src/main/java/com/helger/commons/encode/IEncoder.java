@@ -35,5 +35,5 @@ public interface IEncoder <DATATYPE>
    * @return The encoded value.
    */
   @Nullable
-  DATATYPE encode (@Nullable DATATYPE aInput);
+  DATATYPE getEncoded (@Nullable DATATYPE aInput);
 }

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -31,6 +31,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.codec.AbstractByteArrayCodec;
+import com.helger.commons.codec.DecoderException;
+import com.helger.commons.codec.EncoderException;
 import com.helger.commons.collections.ArrayHelper;
 import com.helger.commons.io.streams.NonBlockingBitInputStream;
 import com.helger.commons.io.streams.NonBlockingBitOutputStream;
@@ -44,7 +47,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class LZWCodec extends AbstractCodec
+public class LZWCodec extends AbstractByteArrayCodec
 {
   /**
    * A single LZW node
@@ -262,27 +265,21 @@ public class LZWCodec extends AbstractCodec
   {}
 
   @Nullable
-  public byte [] decode (@Nullable final byte [] aEncodedBuffer)
-  {
-    return decodeLZW (aEncodedBuffer);
-  }
-
-  @Nullable
-  public static byte [] decodeLZW (@Nullable final byte [] aEncodedBuffer)
+  public static byte [] getDecodedLZW (@Nullable final byte [] aEncodedBuffer)
   {
     if (aEncodedBuffer == null)
       return null;
 
     final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer);
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    decodeLZW (aBAIS, aBAOS);
+    getDecodedLZW (aBAIS, aBAOS);
     StreamUtils.close (aBAOS);
     StreamUtils.close (aBAIS);
     return aBAOS.toByteArray ();
   }
 
-  public static void decodeLZW (@Nonnull @WillNotClose final InputStream aEncodedIS,
-                                @Nonnull @WillNotClose final OutputStream aOS)
+  public static void getDecodedLZW (@Nonnull @WillNotClose final InputStream aEncodedIS,
+                                    @Nonnull @WillNotClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aEncodedIS, "EncodedInputStream");
     ValueEnforcer.notNull (aOS, "OutputStream");
@@ -355,19 +352,19 @@ public class LZWCodec extends AbstractCodec
   }
 
   @Nullable
-  public byte [] encode (@Nullable final byte [] aBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
-    return encodeLZW (aBuffer);
+    return getDecodedLZW (aEncodedBuffer);
   }
 
   @Nullable
-  public static byte [] encodeLZW (@Nullable final byte [] aBuffer)
+  public static byte [] getEncodedLZW (@Nullable final byte [] aBuffer)
   {
     if (aBuffer == null)
       return null;
 
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    encodeLZW (aBuffer, aBAOS);
+    getEncodedLZW (aBuffer, aBAOS);
     return aBAOS.toByteArray ();
   }
 
@@ -381,7 +378,7 @@ public class LZWCodec extends AbstractCodec
    *        The output stream to encode the content to. The output stream is not
    *        closed after encoding is done! May not be <code>null</code>.
    */
-  public static void encodeLZW (@Nullable final byte [] aBuffer, @Nonnull @WillNotClose final OutputStream aOS)
+  public static void getEncodedLZW (@Nullable final byte [] aBuffer, @Nonnull @WillNotClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aOS, "OutputStream");
 
@@ -462,5 +459,11 @@ public class LZWCodec extends AbstractCodec
       // Flush but do not close
       StreamUtils.flush (aBOS);
     }
+  }
+
+  @Nullable
+  public byte [] getEncoded (@Nullable final byte [] aBuffer)
+  {
+    return getEncodedLZW (aBuffer);
   }
 }

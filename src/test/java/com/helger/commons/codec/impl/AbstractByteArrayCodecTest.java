@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
@@ -25,41 +25,43 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.codec.IByteArrayCodec;
 import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.random.VerySecureRandom;
 
 /**
- * Abstract test base class to test arbitrary codec encode and decode operations
- * 
+ * Abstract test base class to test arbitrary byte array codec encode and decode
+ * operations
+ *
  * @author Philip Helger
  */
-public abstract class AbstractCodecTest extends AbstractPHTestCase
+public abstract class AbstractByteArrayCodecTest extends AbstractPHTestCase
 {
   @Nonnull
-  protected abstract ICodec createCodec ();
+  protected abstract IByteArrayCodec createByteArrayCodec ();
 
-  protected final void testEncodeDecode (@Nonnull final byte [] aOriginalBytes)
+  protected final void testByteArrayEncodeDecode (@Nonnull final byte [] aOriginalBytes)
   {
-    final ICodec aCodec = createCodec ();
+    final IByteArrayCodec aCodec = createByteArrayCodec ();
     assertNotNull (aCodec);
 
     // bytes encode + decode
     {
-      final byte [] aEncoded = aCodec.encode (aOriginalBytes);
+      final byte [] aEncoded = aCodec.getEncoded (aOriginalBytes);
       assertNotNull (aEncoded);
 
-      final byte [] aDecoded = aCodec.decode (aEncoded);
+      final byte [] aDecoded = aCodec.getDecoded (aEncoded);
       assertNotNull (aDecoded);
       assertArrayEquals (aOriginalBytes, aDecoded);
     }
   }
 
   @Test
-  public final void testEncodeAndDecodeBasicCases ()
+  public final void testByteArrayEncodeAndDecodeBasicCases ()
   {
-    testEncodeDecode (new byte [0]);
-    testEncodeDecode (CharsetManager.getAsBytes ("Hallo JÜnit", CCharset.CHARSET_ISO_8859_1_OBJ));
-    testEncodeDecode (CharsetManager.getAsBytes ("Hallo JÜnit", CCharset.CHARSET_UTF_8_OBJ));
+    testByteArrayEncodeDecode (new byte [0]);
+    testByteArrayEncodeDecode (CharsetManager.getAsBytes ("Hallo JÜnit", CCharset.CHARSET_ISO_8859_1_OBJ));
+    testByteArrayEncodeDecode (CharsetManager.getAsBytes ("Hallo JÜnit", CCharset.CHARSET_UTF_8_OBJ));
 
     for (int i = 0; i < 256; ++i)
     {
@@ -68,27 +70,27 @@ public abstract class AbstractCodecTest extends AbstractPHTestCase
       // build ascending identity field
       for (int j = 0; j < i; ++j)
         aBuf[j] = (byte) j;
-      testEncodeDecode (aBuf);
+      testByteArrayEncodeDecode (aBuf);
 
       // build constant field with all the same byte
       for (int j = 0; j < i; ++j)
         aBuf[j] = (byte) i;
-      testEncodeDecode (aBuf);
+      testByteArrayEncodeDecode (aBuf);
     }
   }
 
   @Test
-  public final void testArbitraryRandomBytes ()
+  public final void testByteArrayArbitraryRandomBytes ()
   {
     for (int i = 0; i < 500; ++i)
     {
       final byte [] buf = new byte [i];
       VerySecureRandom.getInstance ().nextBytes (buf);
-      testEncodeDecode (buf);
+      testByteArrayEncodeDecode (buf);
     }
 
     final byte [] aAny = new byte [1024];
     VerySecureRandom.getInstance ().nextBytes (aAny);
-    testEncodeDecode (aAny);
+    testByteArrayEncodeDecode (aAny);
   }
 }

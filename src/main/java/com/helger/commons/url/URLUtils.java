@@ -357,7 +357,7 @@ public final class URLUtils
             if (sValue == null)
               throw new NullPointerException ("parameter value may not be null");
             // Now decode the name and the value
-            aMap.put (aParameterDecoder.decode (sKey), aParameterDecoder.decode (sValue));
+            aMap.put (aParameterDecoder.getDecoded (sKey), aParameterDecoder.getDecoded (sValue));
           }
         }
     }
@@ -436,12 +436,12 @@ public final class URLUtils
       {
         // Key
         final String sKey = aEntry.getKey ();
-        aSB.append (aParameterEncoder.encode (sKey));
+        aSB.append (aParameterEncoder.getEncoded (sKey));
 
         // Value
         final String sValue = aEntry.getValue ();
         if (StringHelper.hasText (sValue))
-          aSB.append (EQUALS).append (aParameterEncoder.encode (sValue));
+          aSB.append (EQUALS).append (aParameterEncoder.getEncoded (sValue));
 
         // Separator
         aSB.append (AMPERSAND);
@@ -837,12 +837,12 @@ public final class URLUtils
 
         // Key
         final String sKey = aEntry.getKey ();
-        aSB.append (aParameterEncoder.encode (sKey));
+        aSB.append (aParameterEncoder.getEncoded (sKey));
 
         // Value
         final String sValue = aEntry.getValue ();
         if (StringHelper.hasText (sValue))
-          aSB.append (EQUALS).append (aParameterEncoder.encode (sValue));
+          aSB.append (EQUALS).append (aParameterEncoder.getEncoded (sValue));
       }
     return aSB.toString ();
   }

@@ -40,7 +40,7 @@ import com.helger.commons.version.Version;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class ChangeLog implements Serializable
+public class ChangeLog implements Serializable
 {
   private final String m_sOriginalVersion;
   private final Version m_aVersion;

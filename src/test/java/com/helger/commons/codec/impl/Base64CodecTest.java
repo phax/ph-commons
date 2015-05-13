@@ -14,28 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.codec.IByteArrayCodec;
+import com.helger.commons.codec.impl.Base64Codec;
+
 /**
- * Test class for class {@link RFC1522QCodec}
+ * Test class for class {@link Base64Codec}
  * 
  * @author Philip Helger
  */
-public final class RFC1522QCodecTest extends AbstractStringCodecTest
+public final class Base64CodecTest extends AbstractByteArrayCodecTest
 {
   @Override
   @Nonnull
-  protected ICodec createCodec ()
+  protected IByteArrayCodec createByteArrayCodec ()
   {
-    return new RFC1522QCodec ();
-  }
-
-  @Override
-  @Nonnull
-  protected IStringCodec createStringCodec ()
-  {
-    return new RFC1522QCodec ();
+    return new Base64Codec ();
   }
 }

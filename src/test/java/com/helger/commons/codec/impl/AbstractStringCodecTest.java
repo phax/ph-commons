@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
+import com.helger.commons.codec.IStringCodec;
 import com.helger.commons.random.VerySecureRandom;
 
 /**
@@ -31,7 +32,7 @@ import com.helger.commons.random.VerySecureRandom;
  * 
  * @author Philip Helger
  */
-public abstract class AbstractStringCodecTest extends AbstractCodecTest
+public abstract class AbstractStringCodecTest extends AbstractByteArrayCodecTest
 {
   @Nonnull
   protected abstract IStringCodec createStringCodec ();
@@ -43,10 +44,10 @@ public abstract class AbstractStringCodecTest extends AbstractCodecTest
 
     // String encode + decode
     {
-      final String sEncoded = aCodec.encodeText (sOriginal);
+      final String sEncoded = aCodec.getEncodedText (sOriginal);
       assertNotNull (sEncoded);
 
-      final String sDecoded = aCodec.decodeText (sEncoded);
+      final String sDecoded = aCodec.getDecodedText (sEncoded);
       assertNotNull (sDecoded);
       assertEquals (sOriginal, sDecoded);
     }

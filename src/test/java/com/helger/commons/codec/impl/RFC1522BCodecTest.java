@@ -14,28 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.codec.IByteArrayCodec;
+import com.helger.commons.codec.IStringCodec;
+import com.helger.commons.codec.impl.RFC1522BCodec;
+
 /**
- * Test class for class {@link QuotedPrintableCodec}
+ * Test class for class {@link RFC1522BCodec}
  * 
  * @author Philip Helger
  */
-public final class QuotedPrintableCodecTest extends AbstractStringCodecTest
+public final class RFC1522BCodecTest extends AbstractStringCodecTest
 {
   @Override
   @Nonnull
-  protected ICodec createCodec ()
+  protected IByteArrayCodec createByteArrayCodec ()
   {
-    return new QuotedPrintableCodec ();
+    return new RFC1522BCodec ();
   }
 
   @Override
   @Nonnull
   protected IStringCodec createStringCodec ()
   {
-    return new QuotedPrintableCodec ();
+    return new RFC1522BCodec ();
   }
 }

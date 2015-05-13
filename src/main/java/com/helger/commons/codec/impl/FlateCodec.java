@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
@@ -25,6 +25,9 @@ import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.codec.AbstractByteArrayCodec;
+import com.helger.commons.codec.DecoderException;
+import com.helger.commons.codec.EncoderException;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streams.StreamUtils;
@@ -34,7 +37,7 @@ import com.helger.commons.io.streams.StreamUtils;
  *
  * @author Philip Helger
  */
-public class FlateCodec extends AbstractCodec
+public class FlateCodec extends AbstractByteArrayCodec
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (FlateCodec.class);
 
@@ -57,13 +60,7 @@ public class FlateCodec extends AbstractCodec
   }
 
   @Nullable
-  public byte [] decode (@Nullable final byte [] aEncodedBuffer)
-  {
-    return decodeFlate (aEncodedBuffer);
-  }
-
-  @Nullable
-  public static byte [] decodeFlate (@Nullable final byte [] aEncodedBuffer)
+  public static byte [] getDecodedFlate (@Nullable final byte [] aEncodedBuffer)
   {
     if (aEncodedBuffer == null)
       return null;
@@ -86,13 +83,13 @@ public class FlateCodec extends AbstractCodec
   }
 
   @Nullable
-  public byte [] encode (@Nullable final byte [] aBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
-    return encodeFlate (aBuffer);
+    return getDecodedFlate (aEncodedBuffer);
   }
 
   @Nullable
-  public static byte [] encodeFlate (@Nullable final byte [] aBuffer)
+  public static byte [] getEncodedFlate (@Nullable final byte [] aBuffer)
   {
     if (aBuffer == null)
       return null;
@@ -103,5 +100,11 @@ public class FlateCodec extends AbstractCodec
                    .isFailure ())
       throw new EncoderException ("Failed to flate encode!");
     return aBAOS.toByteArray ();
+  }
+
+  @Nullable
+  public byte [] getEncoded (@Nullable final byte [] aBuffer)
+  {
+    return getEncodedFlate (aBuffer);
   }
 }

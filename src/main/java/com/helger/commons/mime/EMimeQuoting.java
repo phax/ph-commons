@@ -24,12 +24,12 @@ import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.codec.DecoderException;
 import com.helger.commons.codec.EncoderException;
-import com.helger.commons.codec.QuotedPrintableCodec;
-import com.helger.commons.codec.URLCodec;
+import com.helger.commons.codec.impl.QuotedPrintableCodec;
+import com.helger.commons.codec.impl.URLCodec;
 
 /**
  * Defines the possible MIME type parameter value quotings
- * 
+ *
  * @author Philip Helger
  */
 public enum EMimeQuoting
@@ -82,7 +82,9 @@ public enum EMimeQuoting
     public String getQuotedString (@Nonnull @Nonempty final String sUnquotedString)
     {
       // Use a special BitSet
-      return QuotedPrintableCodec.encodeText (PRINTABLE_QUOTED_PRINTABLE, sUnquotedString, CCharset.CHARSET_UTF_8_OBJ);
+      return QuotedPrintableCodec.getEncodedQuotedPrintableString (PRINTABLE_QUOTED_PRINTABLE,
+                                                                   sUnquotedString,
+                                                                   CCharset.CHARSET_UTF_8_OBJ);
     }
 
     @Override
@@ -90,7 +92,7 @@ public enum EMimeQuoting
     @Nonempty
     public String getUnquotedString (@Nonnull @Nonempty final String sQuotedString)
     {
-      return QuotedPrintableCodec.decodeText (sQuotedString, CCharset.CHARSET_UTF_8_OBJ);
+      return QuotedPrintableCodec.getDecodedQuotedPrintableString (sQuotedString, CCharset.CHARSET_UTF_8_OBJ);
     }
   },
 
@@ -108,7 +110,7 @@ public enum EMimeQuoting
     public String getQuotedString (@Nonnull @Nonempty final String sUnquotedString)
     {
       // Use a special BitSet
-      return URLCodec.encodeText (PRINTABLE_URL, sUnquotedString, CCharset.CHARSET_UTF_8_OBJ);
+      return URLCodec.getEncodedURLString (PRINTABLE_URL, sUnquotedString, CCharset.CHARSET_UTF_8_OBJ);
     }
 
     @Override
@@ -116,7 +118,7 @@ public enum EMimeQuoting
     @Nonempty
     public String getUnquotedString (@Nonnull @Nonempty final String sQuotedString)
     {
-      return URLCodec.decodeText (sQuotedString, CCharset.CHARSET_UTF_8_OBJ);
+      return URLCodec.getDecodedURLString (sQuotedString, CCharset.CHARSET_UTF_8_OBJ);
     }
   };
 

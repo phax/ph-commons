@@ -14,28 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.codec.IByteArrayCodec;
+import com.helger.commons.codec.impl.FlateCodec;
+
 /**
- * Test class for class {@link URLCodec}
+ * Test class for class {@link FlateCodec}
  * 
  * @author Philip Helger
  */
-public final class URLCodecTest extends AbstractStringCodecTest
+public final class FlateCodecTest extends AbstractByteArrayCodecTest
 {
   @Override
   @Nonnull
-  protected ICodec createCodec ()
+  protected IByteArrayCodec createByteArrayCodec ()
   {
-    return new URLCodec ();
-  }
-
-  @Override
-  @Nonnull
-  protected IStringCodec createStringCodec ()
-  {
-    return new URLCodec ();
+    return new FlateCodec ();
   }
 }

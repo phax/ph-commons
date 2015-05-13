@@ -257,7 +257,7 @@ public final class StringHelper
 
   /**
    * Check if the passed character sequence is only whitespace or not.
-   * 
+   *
    * @param s
    *        The character sequence to be checked. May not be <code>null</code>.
    * @return <code>true</code> if the passed sequence is empty or if only
@@ -346,7 +346,7 @@ public final class StringHelper
   }
 
   /**
-   * Get the matching hex digit.
+   * Get the matching hex digit as a lower case character.
    *
    * @param n
    *        The value to get the hex digit from. Must be between 0 and 15.
@@ -356,6 +356,19 @@ public final class StringHelper
   public static char getHexChar (final int n)
   {
     return Character.forDigit (n, CGlobal.HEX_RADIX);
+  }
+
+  /**
+   * Get the matching hex digit as an upper case character.
+   *
+   * @param n
+   *        The value to get the hex digit from. Must be between 0 and 15.
+   * @return The hex character (one of 0-9 or A-F), or '\0' if the value could
+   *         not be converted
+   */
+  public static char getHexCharUpperCase (final int n)
+  {
+    return Character.toUpperCase (getHexChar (n));
   }
 
   /**

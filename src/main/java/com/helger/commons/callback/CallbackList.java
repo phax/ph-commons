@@ -25,6 +25,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
+import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
@@ -40,6 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <CALLBACKTYPE>
  *        The callback type.
  */
+@ThreadSafe
 public class CallbackList <CALLBACKTYPE extends ICallback> implements ICloneable <CallbackList <CALLBACKTYPE>>
 {
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
@@ -189,7 +191,15 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements ICloneable
   @Nonnull
   public CallbackList <CALLBACKTYPE> getClone ()
   {
-    return new CallbackList <CALLBACKTYPE> (this);
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return new CallbackList <CALLBACKTYPE> (this);
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
   }
 
   @Override

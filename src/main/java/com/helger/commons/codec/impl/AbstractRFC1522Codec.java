@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
 import java.nio.charset.Charset;
 
@@ -24,6 +24,10 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.codec.AbstractByteArrayCodec;
+import com.helger.commons.codec.DecoderException;
+import com.helger.commons.codec.EncoderException;
+import com.helger.commons.codec.IStringCodec;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -40,7 +44,7 @@ import com.helger.commons.string.StringHelper;
  *      Internet Mail Extensions) Part Two: Message Header Extensions for
  *      Non-ASCII Text</a>
  */
-public abstract class AbstractRFC1522Codec extends AbstractCodec implements IStringCodec
+public abstract class AbstractRFC1522Codec extends AbstractByteArrayCodec implements IStringCodec
 {
   /** Separator. */
   protected static final char SEP = '?';
@@ -65,7 +69,7 @@ public abstract class AbstractRFC1522Codec extends AbstractCodec implements IStr
    * with the given charset.
    * <p>
    * This method constructs the "encoded-word" header common to all the RFC 1522
-   * codecs and then invokes {@link #encode(byte [])} method of a concrete class
+   * codecs and then invokes {@link #getEncoded(byte [])} method of a concrete class
    * to perform the specific encoding.
    * 
    * @param sText
@@ -80,12 +84,12 @@ public abstract class AbstractRFC1522Codec extends AbstractCodec implements IStr
    *      charsets</a>
    */
   @Nullable
-  protected String encodeText (@Nullable final String sText, @Nonnull final Charset aCharset) throws EncoderException
+  protected String getEncodedText (@Nullable final String sText, @Nonnull final Charset aCharset) throws EncoderException
   {
     if (sText == null)
       return null;
 
-    final byte [] aEncodedData = encode (CharsetManager.getAsBytes (sText, aCharset));
+    final byte [] aEncodedData = getEncoded (CharsetManager.getAsBytes (sText, aCharset));
 
     final StringBuilder aSB = new StringBuilder ();
     aSB.append (PREFIX)
@@ -102,7 +106,7 @@ public abstract class AbstractRFC1522Codec extends AbstractCodec implements IStr
    * Applies an RFC 1522 compliant decoding scheme to the given string of text.
    * <p>
    * This method processes the "encoded-word" header common to all the RFC 1522
-   * codecs and then invokes {@link #decode(byte [])} method of a concrete class
+   * codecs and then invokes {@link #getDecoded(byte [])} method of a concrete class
    * to perform the specific decoding.
    * 
    * @param sText
@@ -112,7 +116,7 @@ public abstract class AbstractRFC1522Codec extends AbstractCodec implements IStr
    *         thrown if there is an error condition during the decoding process.
    */
   @Nullable
-  public String decodeText (@Nullable final String sText) throws DecoderException
+  public String getDecodedText (@Nullable final String sText) throws DecoderException
   {
     if (sText == null)
       return null;
@@ -141,7 +145,7 @@ public abstract class AbstractRFC1522Codec extends AbstractCodec implements IStr
     nFrom = nTo + 1;
     nTo = sText.indexOf (SEP, nFrom);
     byte [] aData = CharsetManager.getAsBytes (sText.substring (nFrom, nTo), CCharset.CHARSET_US_ASCII_OBJ);
-    aData = decode (aData);
+    aData = getDecoded (aData);
     return CharsetManager.getAsString (aData, aCharset);
   }
 }

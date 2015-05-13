@@ -33,7 +33,7 @@ public final class URLParameterEncoderTest
   public void testEncode ()
   {
     final URLParameterEncoder aPE = new URLParameterEncoder (CCharset.CHARSET_ISO_8859_1_OBJ);
-    assertEquals ("a+b+c", aPE.encode ("a b c"));
-    assertEquals ("a+b+c%3Ad", aPE.encode ("a b c:d"));
+    assertEquals ("a+b+c", aPE.getEncoded ("a b c"));
+    assertEquals ("a+b+c%3Ad", aPE.getEncoded ("a b c:d"));
   }
 }

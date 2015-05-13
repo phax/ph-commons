@@ -32,7 +32,7 @@ import com.helger.commons.version.Version;
  * @author Philip Helger
  */
 @Immutable
-public final class ChangeLogRelease extends AbstractChangeLogEntry
+public class ChangeLogRelease extends AbstractChangeLogEntry
 {
   private final Version m_aVersion;
 

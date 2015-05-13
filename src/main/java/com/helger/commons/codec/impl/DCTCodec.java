@@ -14,17 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
 import java.awt.Image;
 import java.awt.image.PixelGrabber;
+import java.nio.charset.Charset;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.codec.DecoderException;
+import com.helger.commons.codec.IByteArrayDecoder;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 
 /**
@@ -40,13 +45,22 @@ public class DCTCodec implements IByteArrayDecoder
   {}
 
   @Nullable
-  public byte [] decode (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
-    return decodeDCT (aEncodedBuffer);
+    return getDecodedDCT (aEncodedBuffer);
   }
 
   @Nullable
-  public static byte [] decodeDCT (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
+  {
+    if (sEncoded == null)
+      return null;
+
+    return getDecodedDCT (CharsetManager.getAsBytes (sEncoded, aCharset));
+  }
+
+  @Nullable
+  public static byte [] getDecodedDCT (@Nullable final byte [] aEncodedBuffer)
   {
     if (aEncodedBuffer == null)
       return null;

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
 import java.nio.charset.Charset;
 
@@ -24,6 +24,8 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.codec.DecoderException;
+import com.helger.commons.codec.EncoderException;
 
 /**
  * Identical to the Base64 encoding defined by <a
@@ -80,13 +82,13 @@ public class RFC1522BCodec extends AbstractRFC1522Codec
   }
 
   @Nullable
-  public byte [] encode (@Nullable final byte [] aDecodedBuffer)
+  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer)
   {
     return aDecodedBuffer == null ? null : Base64.encodeBytesToBytes (aDecodedBuffer);
   }
 
   @Nullable
-  public byte [] decode (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
     return aEncodedBuffer == null ? null : Base64.safeDecode (aEncodedBuffer);
   }
@@ -103,9 +105,9 @@ public class RFC1522BCodec extends AbstractRFC1522Codec
    *         process.
    */
   @Nullable
-  public String encodeText (@Nullable final String sText) throws EncoderException
+  public String getEncodedText (@Nullable final String sText) throws EncoderException
   {
-    return super.encodeText (sText, getCharset ());
+    return super.getEncodedText (sText, getCharset ());
   }
 
   /**
@@ -121,8 +123,8 @@ public class RFC1522BCodec extends AbstractRFC1522Codec
    */
   @Override
   @Nullable
-  public String decodeText (@Nullable final String sText) throws DecoderException
+  public String getDecodedText (@Nullable final String sText) throws DecoderException
   {
-    return super.decodeText (sText);
+    return super.getDecodedText (sText);
   }
 }

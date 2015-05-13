@@ -16,29 +16,18 @@
  */
 package com.helger.commons.codec;
 
-import java.nio.charset.Charset;
-
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
  * Interface for a single encoder + decoder that is based on a String.
- * 
+ *
  * @author Philip Helger
  */
-public interface IStringCodec extends ICodec
+public interface IStringCodec
 {
   /**
-   * Gets the default charset name used for string decoding and encoding.
-   * 
-   * @return the default charset. Never <code>null</code>.
-   */
-  @Nonnull
-  Charset getCharset ();
-
-  /**
    * Encode the passed string.
-   * 
+   *
    * @param sDecoded
    *        The string to be encoded. May be <code>null</code>.
    * @return <code>null</code> if the input string is <code>null</code>.
@@ -46,11 +35,11 @@ public interface IStringCodec extends ICodec
    *         In case something goes wrong
    */
   @Nullable
-  String encodeText (@Nullable String sDecoded);
+  String getEncodedText (@Nullable String sDecoded);
 
   /**
    * Decode the passed string.
-   * 
+   *
    * @param sEncoded
    *        The string to be decoded. May be <code>null</code>.
    * @return <code>null</code> if the input string is <code>null</code>.
@@ -58,5 +47,5 @@ public interface IStringCodec extends ICodec
    *         in case something goes wrong
    */
   @Nullable
-  String decodeText (@Nullable String sEncoded);
+  String getDecodedText (@Nullable String sEncoded);
 }

@@ -35,5 +35,5 @@ public interface IDecoder <DATATYPE>
    * @return The decoded value.
    */
   @Nullable
-  DATATYPE decode (@Nullable DATATYPE aInput);
+  DATATYPE getDecoded (@Nullable DATATYPE aInput);
 }

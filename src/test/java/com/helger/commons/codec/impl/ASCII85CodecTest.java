@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,6 +22,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.codec.impl.ASCII85Codec;
 
 /**
  * Test class for class {@link ASCII85Codec}
@@ -38,7 +39,7 @@ public final class ASCII85CodecTest
                             + "i(DIb:@FD,*)+C]U=@3BN#EcYf8ATD3s@q?d$AftVqCh[NqF<G:8+EV:.+Cf>-FD5W8ARlolDIa\n"
                             + "l(DId<j@<?3r@:F%a+D58'ATD4$Bl@l3De:,-DJs`8ARoFb/0JMK@qB4^F!,R<AKZ&-DfTqBG%G\n"
                             + ">uD.RTpAKYo'+CT/5+Cei#DII?(E,9)oF*2M7/c~>";
-    final byte [] aDecoded = new ASCII85Codec ().decode (CharsetManager.getAsBytes (sEncoded,
+    final byte [] aDecoded = new ASCII85Codec ().getDecoded (CharsetManager.getAsBytes (sEncoded,
                                                                                     CCharset.CHARSET_US_ASCII_OBJ));
     final String sDecoded = CharsetManager.getAsString (aDecoded, CCharset.CHARSET_US_ASCII_OBJ);
     assertEquals ("Man is distinguished, not only by his reason, but by this singular passion from other animals, which is a lust of the mind, that by a perseverance of delight in the continued and indefatigable generation of knowledge, exceeds the short vehemence of any carnal pleasure.",

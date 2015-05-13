@@ -16,26 +16,12 @@
  */
 package com.helger.commons.codec;
 
-import javax.annotation.Nonnull;
-
 /**
- * Test class for class {@link RFC1522BCodec}
- * 
+ * Interface for a single encoder + decoder.
+ *
  * @author Philip Helger
  */
-public final class RFC1522BCodecTest extends AbstractStringCodecTest
+public interface IByteArrayCodec extends IByteArrayEncoder, IByteArrayDecoder
 {
-  @Override
-  @Nonnull
-  protected ICodec createCodec ()
-  {
-    return new RFC1522BCodec ();
-  }
-
-  @Override
-  @Nonnull
-  protected IStringCodec createStringCodec ()
-  {
-    return new RFC1522BCodec ();
-  }
+  /* empty */
 }

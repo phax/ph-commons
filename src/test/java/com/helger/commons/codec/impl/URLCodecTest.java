@@ -14,40 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
-
-import java.nio.charset.Charset;
+package com.helger.commons.codec.impl;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.codec.IByteArrayCodec;
 
 /**
- * Abstract base class for codec
- * 
+ * Test class for class {@link URLCodec}
+ *
  * @author Philip Helger
  */
-public abstract class AbstractCodec implements ICodec
+public final class URLCodecTest extends AbstractByteArrayCodecTest
 {
-  public AbstractCodec ()
-  {}
-
-  @Nullable
-  public byte [] encode (@Nullable final String sDecoded, @Nonnull final Charset aCharset)
+  @Override
+  @Nonnull
+  protected IByteArrayCodec createByteArrayCodec ()
   {
-    if (sDecoded == null)
-      return null;
-
-    return encode (CharsetManager.getAsBytes (sDecoded, aCharset));
-  }
-
-  @Nullable
-  public byte [] decode (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
-  {
-    if (sEncoded == null)
-      return null;
-
-    return decode (CharsetManager.getAsBytes (sEncoded, aCharset));
+    return new URLCodec ();
   }
 }

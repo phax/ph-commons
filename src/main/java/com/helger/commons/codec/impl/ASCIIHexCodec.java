@@ -14,18 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
+import java.nio.charset.Charset;
+
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.CGlobal;
+import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.codec.DecoderException;
+import com.helger.commons.codec.IByteArrayDecoder;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.string.StringHelper;
 
 /**
  * Decoder for ASCII Hex encoding
- * 
+ *
  * @author Philip Helger
  */
 public class ASCIIHexCodec implements IByteArrayDecoder
@@ -34,13 +40,22 @@ public class ASCIIHexCodec implements IByteArrayDecoder
   {}
 
   @Nullable
-  public byte [] decode (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
-    return decodeASCIIHex (aEncodedBuffer);
+    return getDecodedASCIIHex (aEncodedBuffer);
   }
 
   @Nullable
-  public static byte [] decodeASCIIHex (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
+  {
+    if (sEncoded == null)
+      return null;
+
+    return getDecodedASCIIHex (CharsetManager.getAsBytes (sEncoded, aCharset));
+  }
+
+  @Nullable
+  public static byte [] getDecodedASCIIHex (@Nullable final byte [] aEncodedBuffer)
   {
     if (aEncodedBuffer == null)
       return null;

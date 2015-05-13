@@ -33,8 +33,8 @@ public final class URLParameterDecoderTest
   public void testDecode ()
   {
     final URLParameterDecoder aPD = new URLParameterDecoder (CCharset.CHARSET_ISO_8859_1_OBJ);
-    assertEquals ("a b c", aPD.decode ("a%20b+c"));
-    assertEquals ("a b c:d", aPD.decode ("a%20b+c%3Ad"));
-    assertEquals ("a b c:d", aPD.decode ("a%20b+c%3ad"));
+    assertEquals ("a b c", aPD.getDecoded ("a%20b+c"));
+    assertEquals ("a b c:d", aPD.getDecoded ("a%20b+c%3Ad"));
+    assertEquals ("a b c:d", aPD.getDecoded ("a%20b+c%3ad"));
   }
 }

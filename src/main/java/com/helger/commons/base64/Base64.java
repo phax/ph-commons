@@ -2578,16 +2578,18 @@ public final class Base64// NOPMD
    * @return <code>null</code> if decoding failed.
    */
   @Nullable
-  public static byte [] safeDecode (@Nonnull final byte [] aEncodedBytes)
+  public static byte [] safeDecode (@Nullable final byte [] aEncodedBytes)
   {
-    try
-    {
-      return decode (aEncodedBytes);
-    }
-    catch (final IOException t)
-    {
-      return null;
-    }
+    if (aEncodedBytes != null)
+      try
+      {
+        return decode (aEncodedBytes);
+      }
+      catch (final IOException t)
+      {
+        // fall through
+      }
+    return null;
   }
 
   /**
@@ -2634,6 +2636,14 @@ public final class Base64// NOPMD
     }
   }
 
+  @Nullable
+  public static byte [] safeEncodeBytesToBytes (@Nonnull final byte [] source)
+  {
+    if (source != null)
+      return encodeBytesToBytes (source);
+    return null;
+  }
+
   /**
    * @param s
    *        The string to be encoded
@@ -2646,5 +2656,4 @@ public final class Base64// NOPMD
   {
     return encodeBytes (CharsetManager.getAsBytes (s, aCharset));
   }
-
 }

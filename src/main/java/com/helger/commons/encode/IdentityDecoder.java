@@ -36,7 +36,7 @@ public final class IdentityDecoder <DATATYPE> implements IDecoder <DATATYPE>
   {}
 
   @Nullable
-  public DATATYPE decode (@Nullable final DATATYPE aInput)
+  public DATATYPE getDecoded (@Nullable final DATATYPE aInput)
   {
     return aInput;
   }

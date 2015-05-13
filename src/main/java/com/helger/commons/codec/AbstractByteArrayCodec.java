@@ -14,41 +14,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.encode;
+package com.helger.commons.codec;
+
+import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.lang.GenericReflection;
+import com.helger.commons.charset.CharsetManager;
 
 /**
- * The most simple encoder, that does not do anything
- * 
+ * Abstract base class for {@link IByteArrayCodec}
+ *
  * @author Philip Helger
- * @param <DATATYPE>
- *        The handled data type
  */
-public final class IdentityEncoder <DATATYPE> implements IEncoder <DATATYPE>
+@NotThreadSafe
+public abstract class AbstractByteArrayCodec implements IByteArrayCodec
 {
-  private static final IdentityEncoder <Object> s_aInstance = new IdentityEncoder <Object> ();
-
-  private IdentityEncoder ()
+  public AbstractByteArrayCodec ()
   {}
 
   @Nullable
-  public DATATYPE getEncoded (@Nullable final DATATYPE aInput)
+  public byte [] getEncoded (@Nullable final String sDecoded, @Nonnull final Charset aCharset)
   {
-    return aInput;
+    if (sDecoded == null)
+      return null;
+
+    return getEncoded (CharsetManager.getAsBytes (sDecoded, aCharset));
   }
 
-  /**
-   * Factory method for this class
-   * 
-   * @return Never <code>null</code>.
-   */
-  @Nonnull
-  public static <DATATYPE> IdentityEncoder <DATATYPE> create ()
+  @Nullable
+  public byte [] getDecoded (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
   {
-    return GenericReflection.<IdentityEncoder <Object>, IdentityEncoder <DATATYPE>> uncheckedCast (s_aInstance);
+    if (sEncoded == null)
+      return null;
+
+    return getDecoded (CharsetManager.getAsBytes (sEncoded, aCharset));
   }
 }

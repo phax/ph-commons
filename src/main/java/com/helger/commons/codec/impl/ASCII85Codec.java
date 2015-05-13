@@ -14,16 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
+import java.nio.charset.Charset;
+
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.codec.DecoderException;
+import com.helger.commons.codec.IByteArrayDecoder;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streams.StreamUtils;
 
 /**
  * Decoder for ASCII85 encoded values
- * 
+ *
  * @author Philip Helger
  */
 public class ASCII85Codec implements IByteArrayDecoder
@@ -39,13 +45,22 @@ public class ASCII85Codec implements IByteArrayDecoder
   {}
 
   @Nullable
-  public byte [] decode (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
-    return decodeASCII85 (aEncodedBuffer);
+    return getDecodedASCII85 (aEncodedBuffer);
   }
 
   @Nullable
-  public static byte [] decodeASCII85 (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
+  {
+    if (sEncoded == null)
+      return null;
+
+    return getDecodedASCII85 (CharsetManager.getAsBytes (sEncoded, aCharset));
+  }
+
+  @Nullable
+  public static byte [] getDecodedASCII85 (@Nullable final byte [] aEncodedBuffer)
   {
     if (aEncodedBuffer == null)
       return null;

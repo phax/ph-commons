@@ -16,20 +16,23 @@
  */
 package com.helger.commons.codec;
 
+import java.nio.charset.Charset;
+
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.encode.IEncoder;
 
 /**
  * Interface for a single encoder
- * 
+ *
  * @author Philip Helger
  */
 public interface IByteArrayEncoder extends IEncoder <byte []>
 {
   /**
    * Encode a byte array.
-   * 
+   *
    * @param aDecodedBuffer
    *        The byte array to be encoded. May be <code>null</code>.
    * @return The encoded byte array or <code>null</code> if the parameter was
@@ -38,5 +41,19 @@ public interface IByteArrayEncoder extends IEncoder <byte []>
    *         In case something goes wrong
    */
   @Nullable
-  byte [] encode (@Nullable byte [] aDecodedBuffer);
+  byte [] getEncoded (@Nullable byte [] aDecodedBuffer);
+
+  /**
+   * Encode the passed string.
+   *
+   * @param sDecoded
+   *        The string to be encoded. May be <code>null</code>.
+   * @param aCharset
+   *        The charset to be used. May not be <code>null</code>.
+   * @return <code>null</code> if the input string is <code>null</code>.
+   * @throws EncoderException
+   *         In case something goes wrong
+   */
+  @Nullable
+  byte [] getEncoded (@Nullable String sDecoded, @Nonnull Charset aCharset);
 }

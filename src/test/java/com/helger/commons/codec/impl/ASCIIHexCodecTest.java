@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.codec.impl;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,6 +22,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.codec.impl.ASCIIHexCodec;
 
 /**
  * Test class for class {@link ASCIIHexCodec}
@@ -34,7 +35,7 @@ public final class ASCIIHexCodecTest
   public void testDecode ()
   {
     final String sEncoded = "616263\n" + "414243>";
-    final byte [] aDecoded = new ASCIIHexCodec ().decode (CharsetManager.getAsBytes (sEncoded,
+    final byte [] aDecoded = new ASCIIHexCodec ().getDecoded (CharsetManager.getAsBytes (sEncoded,
                                                                                      CCharset.CHARSET_US_ASCII_OBJ));
     final String sDecoded = CharsetManager.getAsString (aDecoded, CCharset.CHARSET_US_ASCII_OBJ);
     assertEquals ("abcABC", sDecoded);
