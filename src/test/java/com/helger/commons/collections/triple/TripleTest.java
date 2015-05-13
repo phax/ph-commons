@@ -78,7 +78,7 @@ public final class TripleTest
   @Test
   public void testSet ()
   {
-    final ITriple <String, String, String> rt4 = Triple.create ("a", "b", "c");
+    final IMutableTriple <String, String, String> rt4 = Triple.create ("a", "b", "c");
     assertEquals ("a", rt4.getFirst ());
     assertEquals ("b", rt4.getSecond ());
     assertEquals ("c", rt4.getThird ());

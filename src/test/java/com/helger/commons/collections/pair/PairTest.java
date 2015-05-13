@@ -39,7 +39,7 @@ public final class PairTest
     assertNull (aPair.getFirst ());
     assertNull (aPair.getSecond ());
 
-    IPair <String, Double> aPair2 = new Pair <String, Double> (aPair);
+    IMutablePair <String, Double> aPair2 = new Pair <String, Double> (aPair);
     assertNull (aPair2.getFirst ());
     assertNull (aPair2.getSecond ());
 

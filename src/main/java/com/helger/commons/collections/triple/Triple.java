@@ -42,7 +42,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Third type.
  */
 @NotThreadSafe
-public final class Triple <DATA1TYPE, DATA2TYPE, DATA3TYPE> implements ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>, ICloneable <Triple <DATA1TYPE, DATA2TYPE, DATA3TYPE>>
+public final class Triple <DATA1TYPE, DATA2TYPE, DATA3TYPE> implements IMutableTriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>, ICloneable <Triple <DATA1TYPE, DATA2TYPE, DATA3TYPE>>
 {
   private DATA1TYPE m_aFirst;
   private DATA2TYPE m_aSecond;

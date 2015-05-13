@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collections.triple;
+package com.helger.commons.collections.pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -22,18 +22,15 @@ import javax.annotation.Nullable;
 import com.helger.commons.state.EChange;
 
 /**
- * Represents an abstract triple (an object with exactly three element) that is
- * writable.
+ * Interface for a writable pair.
  * 
  * @author Philip Helger
  * @param <DATA1TYPE>
- *        Type of the first element
+ *        First type.
  * @param <DATA2TYPE>
- *        Type of the second element
- * @param <DATA3TYPE>
- *        Type of the third element
+ *        Second type.
  */
-public interface ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE> extends IReadonlyTriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>
+public interface IMutablePair <DATA1TYPE, DATA2TYPE> extends IReadonlyPair <DATA1TYPE, DATA2TYPE>
 {
   /**
    * Set the first value.
@@ -54,14 +51,4 @@ public interface ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE> extends IReadonlyTrip
    */
   @Nonnull
   EChange setSecond (@Nullable DATA2TYPE aSecond);
-
-  /**
-   * Set the third value.
-   * 
-   * @param aThird
-   *        The third value. May be <code>null</code>.
-   * @return {@link EChange}
-   */
-  @Nonnull
-  EChange setThird (@Nullable DATA3TYPE aThird);
 }
