@@ -14,15 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.math;
+package com.helger.commons.dimension;
 
+import javax.annotation.Nonnegative;
 
 /**
- * Interface for objects having a width and a height.
+ * Interface for objects having a width.
  * 
  * @author Philip Helger
  */
-public interface IHasWidthAndHeight extends IHasWidth, IHasHeight
+public interface IHasWidth
 {
-  /* empty */
+  /**
+   * @return The width of an object
+   */
+  @Nonnegative
+  int getWidth ();
 }

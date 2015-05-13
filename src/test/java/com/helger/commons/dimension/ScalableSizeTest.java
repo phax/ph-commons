@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.gfx;
+package com.helger.commons.dimension;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -23,6 +23,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.commons.dimension.ScalableSize;
 import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
