@@ -31,7 +31,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  *        Second type of the pair type.
  */
 @NotThreadSafe
-public class KeyValuePairList <DATA1TYPE, DATA2TYPE> extends ArrayList <IReadonlyPair <DATA1TYPE, DATA2TYPE>>
+public class KeyValuePairList <DATA1TYPE, DATA2TYPE> extends ArrayList <IPair <DATA1TYPE, DATA2TYPE>>
 {
   /**
    * Add the pair to the list.

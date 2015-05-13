@@ -23,7 +23,7 @@ import com.helger.commons.compare.AbstractPartComparatorComparable;
 import com.helger.commons.compare.ESortOrder;
 
 /**
- * Comparator comparing {@link IReadonlyTriple} objects by the third element
+ * Comparator comparing {@link ITriple} objects by the third element
  *
  * @author Philip Helger
  * @param <DATA1TYPE>
@@ -33,7 +33,7 @@ import com.helger.commons.compare.ESortOrder;
  * @param <DATA3TYPE>
  *        triple third type
  */
-public class ComparatorTripleThird <DATA1TYPE, DATA2TYPE, DATA3TYPE extends Comparable <? super DATA3TYPE>> extends AbstractPartComparatorComparable <IReadonlyTriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>, DATA3TYPE>
+public class ComparatorTripleThird <DATA1TYPE, DATA2TYPE, DATA3TYPE extends Comparable <? super DATA3TYPE>> extends AbstractPartComparatorComparable <ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>, DATA3TYPE>
 {
   public ComparatorTripleThird ()
   {
@@ -47,7 +47,7 @@ public class ComparatorTripleThird <DATA1TYPE, DATA2TYPE, DATA3TYPE extends Comp
 
   @Override
   @Nullable
-  protected DATA3TYPE getPart (@Nonnull final IReadonlyTriple <DATA1TYPE, DATA2TYPE, DATA3TYPE> aObject)
+  protected DATA3TYPE getPart (@Nonnull final ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE> aObject)
   {
     return aObject.getThird ();
   }

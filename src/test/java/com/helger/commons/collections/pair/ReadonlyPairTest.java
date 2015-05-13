@@ -38,7 +38,7 @@ public final class ReadonlyPairTest
     assertNull (aPair.getFirst ());
     assertNull (aPair.getSecond ());
 
-    IReadonlyPair <String, Double> aPair2 = new ReadonlyPair <String, Double> (aPair);
+    IPair <String, Double> aPair2 = new ReadonlyPair <String, Double> (aPair);
     assertNull (aPair2.getFirst ());
     assertNull (aPair2.getSecond ());
 

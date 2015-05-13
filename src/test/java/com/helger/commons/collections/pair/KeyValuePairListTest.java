@@ -37,7 +37,7 @@ public final class KeyValuePairListTest
     assertTrue (x.isEmpty ());
     x.add (Integer.valueOf (4), "Hi there");
     assertEquals (1, x.size ());
-    final IReadonlyPair <Integer, String> p = x.get (0);
+    final IPair <Integer, String> p = x.get (0);
     assertNotNull (p);
     assertEquals (Integer.valueOf (4), p.getFirst ());
     assertEquals ("Hi there", p.getSecond ());

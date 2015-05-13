@@ -35,7 +35,7 @@ import com.helger.commons.state.IClearable;
  * @param <VALUETYPE>
  *        Value type
  */
-public interface IGenericAttributeContainer <KEYTYPE, VALUETYPE> extends
+public interface IGenericMutableAttributeContainer <KEYTYPE, VALUETYPE> extends
                                                                  IGenericReadonlyAttributeContainer <KEYTYPE, VALUETYPE>,
                                                                  IClearable
 {

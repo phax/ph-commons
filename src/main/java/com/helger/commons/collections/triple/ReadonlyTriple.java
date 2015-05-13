@@ -41,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Third type.
  */
 @Immutable
-public final class ReadonlyTriple <DATA1TYPE, DATA2TYPE, DATA3TYPE> implements IReadonlyTriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>
+public final class ReadonlyTriple <DATA1TYPE, DATA2TYPE, DATA3TYPE> implements ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>
 {
   private final DATA1TYPE m_aFirst;
   private final DATA2TYPE m_aSecond;
@@ -56,7 +56,7 @@ public final class ReadonlyTriple <DATA1TYPE, DATA2TYPE, DATA3TYPE> implements I
     m_aThird = aThird;
   }
 
-  public ReadonlyTriple (@Nonnull final IReadonlyTriple <? extends DATA1TYPE, ? extends DATA2TYPE, ? extends DATA3TYPE> rhs)
+  public ReadonlyTriple (@Nonnull final ITriple <? extends DATA1TYPE, ? extends DATA2TYPE, ? extends DATA3TYPE> rhs)
   {
     ValueEnforcer.notNull (rhs, "Triple");
     m_aFirst = rhs.getFirst ();

@@ -33,7 +33,7 @@ import com.helger.commons.state.EChange;
  * @param <DATA3TYPE>
  *        Type of the third element
  */
-public interface IMutableTriple <DATA1TYPE, DATA2TYPE, DATA3TYPE> extends IReadonlyTriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>
+public interface IMutableTriple <DATA1TYPE, DATA2TYPE, DATA3TYPE> extends ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>
 {
   /**
    * Set the first value.

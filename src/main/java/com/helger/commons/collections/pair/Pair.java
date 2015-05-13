@@ -55,7 +55,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
     m_aSecond = aSecond;
   }
 
-  public Pair (@Nonnull final IReadonlyPair <? extends DATA1TYPE, ? extends DATA2TYPE> rhs)
+  public Pair (@Nonnull final IPair <? extends DATA1TYPE, ? extends DATA2TYPE> rhs)
   {
     ValueEnforcer.notNull (rhs, "Pair");
     m_aFirst = rhs.getFirst ();

@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingCallableWithParameter;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
-import com.helger.commons.collections.attrs.IAttributeContainer;
+import com.helger.commons.collections.attrs.IMutableAttributeContainer;
 import com.helger.commons.id.IHasID;
 
 /**
@@ -42,7 +42,7 @@ import com.helger.commons.id.IHasID;
  *
  * @author Philip Helger
  */
-public interface IScope extends IAttributeContainer, IHasID <String>
+public interface IScope extends IMutableAttributeContainer, IHasID <String>
 {
   /**
    * Init the scope. In contrast to the constructor of a scope, this happens

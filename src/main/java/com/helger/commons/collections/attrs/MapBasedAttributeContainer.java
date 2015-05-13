@@ -32,7 +32,7 @@ import com.helger.commons.state.EChange;
  */
 @NotThreadSafe
 public class MapBasedAttributeContainer extends MapBasedGenericAttributeContainer <String, Object> implements
-                                                                                                  IAttributeContainer
+                                                                                                  IMutableAttributeContainer
 {
   public MapBasedAttributeContainer ()
   {}

@@ -73,7 +73,7 @@ public final class ReadonlyTripleTest
     assertFalse (rt3a.hashCode () == rt3c.hashCode ());
     assertFalse (rt3b.hashCode () == rt3c.hashCode ());
 
-    final IReadonlyTriple <String, String, String> rt4 = ReadonlyTriple.create ("a", "b", "c");
+    final ITriple <String, String, String> rt4 = ReadonlyTriple.create ("a", "b", "c");
     assertEquals ("a", rt4.getFirst ());
     assertEquals ("b", rt4.getSecond ());
     assertEquals ("c", rt4.getThird ());

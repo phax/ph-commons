@@ -37,7 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Second type.
  */
 @Immutable
-public final class ReadonlyPair <DATA1TYPE, DATA2TYPE> implements IReadonlyPair <DATA1TYPE, DATA2TYPE>
+public final class ReadonlyPair <DATA1TYPE, DATA2TYPE> implements IPair <DATA1TYPE, DATA2TYPE>
 {
   private final DATA1TYPE m_aFirst;
   private final DATA2TYPE m_aSecond;
@@ -49,7 +49,7 @@ public final class ReadonlyPair <DATA1TYPE, DATA2TYPE> implements IReadonlyPair 
     m_aSecond = aSecond;
   }
 
-  public ReadonlyPair (@Nonnull final IReadonlyPair <? extends DATA1TYPE, ? extends DATA2TYPE> rhs)
+  public ReadonlyPair (@Nonnull final IPair <? extends DATA1TYPE, ? extends DATA2TYPE> rhs)
   {
     ValueEnforcer.notNull (rhs, "Pair");
     m_aFirst = rhs.getFirst ();

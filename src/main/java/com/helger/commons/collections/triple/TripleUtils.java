@@ -38,7 +38,7 @@ public final class TripleUtils
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <V1 extends Comparable <? super V1>, V2, V3> List <IReadonlyTriple <V1, V2, V3>> getSortedByTripleFirst (@Nonnull final Collection <? extends IReadonlyTriple <V1, V2, V3>> aList)
+  public static <V1 extends Comparable <? super V1>, V2, V3> List <ITriple <V1, V2, V3>> getSortedByTripleFirst (@Nonnull final Collection <? extends ITriple <V1, V2, V3>> aList)
   {
     // get sorted entry list
     return CollectionHelper.getSorted (aList, new ComparatorTripleFirst <V1, V2, V3> ());
@@ -46,7 +46,7 @@ public final class TripleUtils
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <V1, V2 extends Comparable <? super V2>, V3> List <IReadonlyTriple <V1, V2, V3>> getSortedByTripleSecond (@Nonnull final Collection <? extends IReadonlyTriple <V1, V2, V3>> aList)
+  public static <V1, V2 extends Comparable <? super V2>, V3> List <ITriple <V1, V2, V3>> getSortedByTripleSecond (@Nonnull final Collection <? extends ITriple <V1, V2, V3>> aList)
   {
     // get sorted entry list
     return CollectionHelper.getSorted (aList, new ComparatorTripleSecond <V1, V2, V3> ());
@@ -54,7 +54,7 @@ public final class TripleUtils
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <V1, V2, V3 extends Comparable <? super V3>> List <IReadonlyTriple <V1, V2, V3>> getSortedByTripleThird (@Nonnull final Collection <? extends IReadonlyTriple <V1, V2, V3>> aList)
+  public static <V1, V2, V3 extends Comparable <? super V3>> List <ITriple <V1, V2, V3>> getSortedByTripleThird (@Nonnull final Collection <? extends ITriple <V1, V2, V3>> aList)
   {
     // get sorted entry list
     return CollectionHelper.getSorted (aList, new ComparatorTripleThird <V1, V2, V3> ());

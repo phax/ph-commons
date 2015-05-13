@@ -14,23 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collections.triple;
+package com.helger.commons.collections.pair;
 
 import javax.annotation.Nullable;
 
 /**
- * Represents an abstract triple (an object with exactly three element) that is
- * readonly.
+ * Represents a basic read only pair.
  * 
  * @author Philip Helger
  * @param <DATA1TYPE>
- *        Type of the first element
+ *        First type.
  * @param <DATA2TYPE>
- *        Type of the second element
- * @param <DATA3TYPE>
- *        Type of the third element
+ *        Second type.
  */
-public interface IReadonlyTriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>
+public interface IPair <DATA1TYPE, DATA2TYPE>
 {
   /**
    * @return The first element. May be <code>null</code>.
@@ -43,10 +40,4 @@ public interface IReadonlyTriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>
    */
   @Nullable
   DATA2TYPE getSecond ();
-
-  /**
-   * @return The third element. May be <code>null</code>.
-   */
-  @Nullable
-  DATA3TYPE getThird ();
 }

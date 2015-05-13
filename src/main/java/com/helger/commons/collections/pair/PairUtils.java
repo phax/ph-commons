@@ -38,7 +38,7 @@ public final class PairUtils
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <V1 extends Comparable <? super V1>, V2> List <IReadonlyPair <V1, V2>> getSortedByPairFirst (@Nonnull final Collection <? extends IReadonlyPair <V1, V2>> aList)
+  public static <V1 extends Comparable <? super V1>, V2> List <IPair <V1, V2>> getSortedByPairFirst (@Nonnull final Collection <? extends IPair <V1, V2>> aList)
   {
     // get sorted entry list
     return CollectionHelper.getSorted (aList, new ComparatorPairFirst <V1, V2> ());
@@ -46,7 +46,7 @@ public final class PairUtils
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <V1, V2 extends Comparable <? super V2>> List <IReadonlyPair <V1, V2>> getSortedByPairSecond (@Nonnull final Collection <? extends IReadonlyPair <V1, V2>> aList)
+  public static <V1, V2 extends Comparable <? super V2>> List <IPair <V1, V2>> getSortedByPairSecond (@Nonnull final Collection <? extends IPair <V1, V2>> aList)
   {
     // get sorted entry list
     return CollectionHelper.getSorted (aList, new ComparatorPairSecond <V1, V2> ());

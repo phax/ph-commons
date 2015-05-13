@@ -19,11 +19,11 @@ package com.helger.commons.convert;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.collections.pair.IReadonlyPair;
+import com.helger.commons.collections.pair.IPair;
 
 /**
  * A unidirectional converter that extracts the first element from an
- * {@link IReadonlyPair}.
+ * {@link IPair}.
  *
  * @author Philip Helger
  * @param <DATA1TYPE>
@@ -31,10 +31,10 @@ import com.helger.commons.collections.pair.IReadonlyPair;
  * @param <DATA2TYPE>
  *        Second data type
  */
-public final class UnidirectionalConverterPairFirst <DATA1TYPE, DATA2TYPE> implements IUnidirectionalConverter <IReadonlyPair <DATA1TYPE, DATA2TYPE>, DATA1TYPE>
+public final class UnidirectionalConverterPairFirst <DATA1TYPE, DATA2TYPE> implements IUnidirectionalConverter <IPair <DATA1TYPE, DATA2TYPE>, DATA1TYPE>
 {
   @Nullable
-  public DATA1TYPE convert (@Nullable final IReadonlyPair <DATA1TYPE, DATA2TYPE> aPair)
+  public DATA1TYPE convert (@Nullable final IPair <DATA1TYPE, DATA2TYPE> aPair)
   {
     return aPair == null ? null : aPair.getFirst ();
   }

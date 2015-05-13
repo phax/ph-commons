@@ -30,7 +30,7 @@ import com.helger.commons.state.EChange;
  * @param <DATA2TYPE>
  *        Second type.
  */
-public interface IMutablePair <DATA1TYPE, DATA2TYPE> extends IReadonlyPair <DATA1TYPE, DATA2TYPE>
+public interface IMutablePair <DATA1TYPE, DATA2TYPE> extends IPair <DATA1TYPE, DATA2TYPE>
 {
   /**
    * Set the first value.

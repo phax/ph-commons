@@ -23,7 +23,7 @@ import com.helger.commons.compare.AbstractPartComparatorComparable;
 import com.helger.commons.compare.ESortOrder;
 
 /**
- * Comparator comparing {@link IReadonlyPair} objects by the second element
+ * Comparator comparing {@link IPair} objects by the second element
  * 
  * @author Philip Helger
  * @param <DATA1TYPE>
@@ -32,7 +32,7 @@ import com.helger.commons.compare.ESortOrder;
  *        pair second type
  */
 public class ComparatorPairSecond <DATA1TYPE, DATA2TYPE extends Comparable <? super DATA2TYPE>> extends
-                                                                                                AbstractPartComparatorComparable <IReadonlyPair <DATA1TYPE, DATA2TYPE>, DATA2TYPE>
+                                                                                                AbstractPartComparatorComparable <IPair <DATA1TYPE, DATA2TYPE>, DATA2TYPE>
 {
   public ComparatorPairSecond ()
   {
@@ -46,7 +46,7 @@ public class ComparatorPairSecond <DATA1TYPE, DATA2TYPE extends Comparable <? su
 
   @Override
   @Nullable
-  protected DATA2TYPE getPart (@Nonnull final IReadonlyPair <DATA1TYPE, DATA2TYPE> aObject)
+  protected DATA2TYPE getPart (@Nonnull final IPair <DATA1TYPE, DATA2TYPE> aObject)
   {
     return aObject.getSecond ();
   }

@@ -57,7 +57,7 @@ public final class Triple <DATA1TYPE, DATA2TYPE, DATA3TYPE> implements IMutableT
     m_aThird = aThird;
   }
 
-  public Triple (@Nonnull final IReadonlyTriple <? extends DATA1TYPE, ? extends DATA2TYPE, ? extends DATA3TYPE> rhs)
+  public Triple (@Nonnull final ITriple <? extends DATA1TYPE, ? extends DATA2TYPE, ? extends DATA3TYPE> rhs)
   {
     ValueEnforcer.notNull (rhs, "Triple");
     m_aFirst = rhs.getFirst ();
