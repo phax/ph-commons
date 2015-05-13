@@ -18,18 +18,15 @@ package com.helger.commons.codec.impl;
 
 import java.awt.Image;
 import java.awt.image.PixelGrabber;
-import java.nio.charset.Charset;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.codec.DecoderException;
-import com.helger.commons.codec.IByteArrayDecoder;
+import com.helger.commons.codec.AbstractByteArrayDecoder;
+import com.helger.commons.codec.DecodeException;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 
 /**
@@ -37,7 +34,7 @@ import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
  *
  * @author Philip Helger
  */
-public class DCTCodec implements IByteArrayDecoder
+public class DCTCodec extends AbstractByteArrayDecoder
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (DCTCodec.class);
 
@@ -51,15 +48,6 @@ public class DCTCodec implements IByteArrayDecoder
   }
 
   @Nullable
-  public byte [] getDecoded (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
-  {
-    if (sEncoded == null)
-      return null;
-
-    return getDecodedDCT (CharsetManager.getAsBytes (sEncoded, aCharset));
-  }
-
-  @Nullable
   public static byte [] getDecodedDCT (@Nullable final byte [] aEncodedBuffer)
   {
     if (aEncodedBuffer == null)
@@ -70,13 +58,13 @@ public class DCTCodec implements IByteArrayDecoder
     {
       aImg = ImageIO.read (new NonBlockingByteArrayInputStream (aEncodedBuffer));
       if (aImg == null)
-        throw new DecoderException ("Failed to read image");
+        throw new DecodeException ("Failed to read image");
       if (s_aLogger.isDebugEnabled ())
         s_aLogger.debug ("Read DCT encoded image with " + aEncodedBuffer.length + " bytes");
     }
     catch (final Throwable t)
     {
-      throw new DecoderException ("Failed to read image", t);
+      throw new DecodeException ("Failed to read image", t);
     }
 
     final int nWidth = aImg.getWidth (null);
@@ -86,11 +74,11 @@ public class DCTCodec implements IByteArrayDecoder
     try
     {
       if (!aGrabber.grabPixels ())
-        throw new DecoderException ("Failed to grab pixels!");
+        throw new DecodeException ("Failed to grab pixels!");
     }
     catch (final InterruptedException ex)
     {
-      throw new DecoderException (ex);
+      throw new DecodeException (ex);
     }
 
     final byte [] ret = new byte [aPixels.length * 3];

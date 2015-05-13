@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 
 /**
  * The most basic decoding interface
- * 
+ *
  * @param <DATATYPE>
  *        data type
  * @author Philip Helger
@@ -29,10 +29,12 @@ public interface IDecoder <DATATYPE>
 {
   /**
    * Decode the passed source object
-   * 
+   *
    * @param aInput
    *        The source object to be decoded
    * @return The decoded value.
+   * @throws DecodeException
+   *         in case something goes wrong
    */
   @Nullable
   DATATYPE getDecoded (@Nullable DATATYPE aInput);

@@ -27,7 +27,7 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.codec.AbstractByteArrayCodec;
-import com.helger.commons.codec.DecoderException;
+import com.helger.commons.codec.DecodeException;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.string.StringHelper;
@@ -161,12 +161,12 @@ public class URLCodec extends AbstractByteArrayCodec
           if (b == ESCAPE_CHAR)
           {
             if (i >= nMax - 2)
-              throw new DecoderException ("Invalid URL encoding. Premature of string after escape char");
+              throw new DecodeException ("Invalid URL encoding. Premature of string after escape char");
             final char cHigh = (char) aEncodedBuffer[++i];
             final char cLow = (char) aEncodedBuffer[++i];
             final int nDecodedValue = StringHelper.getHexByte (cHigh, cLow);
             if (nDecodedValue < 0)
-              throw new DecoderException ("Invalid URL encoding for " + (int) cHigh + " and " + (int) cLow);
+              throw new DecodeException ("Invalid URL encoding for " + (int) cHigh + " and " + (int) cLow);
 
             aBAOS.write (nDecodedValue);
           }

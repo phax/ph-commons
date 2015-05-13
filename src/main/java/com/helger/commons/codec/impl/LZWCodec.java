@@ -32,8 +32,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.codec.AbstractByteArrayCodec;
-import com.helger.commons.codec.DecoderException;
-import com.helger.commons.codec.EncoderException;
+import com.helger.commons.codec.DecodeException;
+import com.helger.commons.codec.EncodeException;
 import com.helger.commons.collections.ArrayHelper;
 import com.helger.commons.io.streams.NonBlockingBitInputStream;
 import com.helger.commons.io.streams.NonBlockingBitOutputStream;
@@ -154,8 +154,8 @@ public class LZWCodec extends AbstractByteArrayCodec
     {
       ValueEnforcer.notNull (aByteSeq, "ByteSeq");
       if (m_nFreeCode == m_aTab.length)
-        throw bForEncode ? new EncoderException ("LZW encode table overflow")
-                        : new DecoderException ("LZW decode table overflow");
+        throw bForEncode ? new EncodeException ("LZW encode table overflow")
+                        : new DecodeException ("LZW decode table overflow");
 
       // Add this new String to the table
       m_aTab[m_nFreeCode] = aByteSeq;
@@ -300,7 +300,7 @@ public class LZWCodec extends AbstractByteArrayCodec
       {
         byte [] aByteSeq = aDict.getBytes (nCode);
         if (aByteSeq == null)
-          throw new DecoderException ("Failed to resolve initial code " + nCode);
+          throw new DecodeException ("Failed to resolve initial code " + nCode);
         aOS.write (aByteSeq);
         byte [] aPrevByteSeq = aByteSeq;
         while (true)
@@ -330,7 +330,7 @@ public class LZWCodec extends AbstractByteArrayCodec
               if (nCode == nNextFreeCode)
                 aByteSeq = ArrayHelper.getConcatenated (aPrevByteSeq, aPrevByteSeq[0]);
               else
-                throw new DecoderException ("Error decoding LZW: unexpected code " +
+                throw new DecodeException ("Error decoding LZW: unexpected code " +
                                             nCode +
                                             " while next free code is " +
                                             nNextFreeCode);
@@ -343,11 +343,11 @@ public class LZWCodec extends AbstractByteArrayCodec
     }
     catch (final EOFException ex)
     {
-      throw new DecoderException ("Unexpected EOF decoding LZW", ex);
+      throw new DecodeException ("Unexpected EOF decoding LZW", ex);
     }
     catch (final IOException ex)
     {
-      throw new DecoderException ("Error decoding LZW", ex);
+      throw new DecodeException ("Error decoding LZW", ex);
     }
   }
 
@@ -452,7 +452,7 @@ public class LZWCodec extends AbstractByteArrayCodec
     }
     catch (final Throwable t)
     {
-      throw new EncoderException ("Error encoding LZW", t);
+      throw new EncodeException ("Error encoding LZW", t);
     }
     finally
     {

@@ -30,7 +30,7 @@ import com.helger.commons.charset.CharsetManager;
  * @author Philip Helger
  */
 @NotThreadSafe
-public abstract class AbstractByteArrayCodec implements IByteArrayCodec
+public abstract class AbstractByteArrayCodec extends AbstractByteArrayDecoder implements IByteArrayCodec
 {
   public AbstractByteArrayCodec ()
   {}
@@ -42,14 +42,5 @@ public abstract class AbstractByteArrayCodec implements IByteArrayCodec
       return null;
 
     return getEncoded (CharsetManager.getAsBytes (sDecoded, aCharset));
-  }
-
-  @Nullable
-  public byte [] getDecoded (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
-  {
-    if (sEncoded == null)
-      return null;
-
-    return getDecoded (CharsetManager.getAsBytes (sEncoded, aCharset));
   }
 }

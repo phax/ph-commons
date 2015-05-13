@@ -22,8 +22,8 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.codec.DecoderException;
-import com.helger.commons.codec.EncoderException;
+import com.helger.commons.codec.DecodeException;
+import com.helger.commons.codec.EncodeException;
 import com.helger.commons.codec.impl.QuotedPrintableCodec;
 import com.helger.commons.codec.impl.URLCodec;
 
@@ -144,9 +144,9 @@ public enum EMimeQuoting
 
   @Nonnull
   @Nonempty
-  public abstract String getQuotedString (@Nonnull @Nonempty String sUnquotedString) throws EncoderException;
+  public abstract String getQuotedString (@Nonnull @Nonempty String sUnquotedString) throws EncodeException;
 
   @Nonnull
   @Nonempty
-  public abstract String getUnquotedString (@Nonnull @Nonempty String sQuotedString) throws DecoderException;
+  public abstract String getUnquotedString (@Nonnull @Nonempty String sQuotedString) throws DecodeException;
 }

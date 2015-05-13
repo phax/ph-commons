@@ -16,14 +16,10 @@
  */
 package com.helger.commons.codec.impl;
 
-import java.nio.charset.Charset;
-
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.codec.DecoderException;
-import com.helger.commons.codec.IByteArrayDecoder;
+import com.helger.commons.codec.AbstractByteArrayDecoder;
+import com.helger.commons.codec.DecodeException;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streams.StreamUtils;
@@ -33,7 +29,7 @@ import com.helger.commons.io.streams.StreamUtils;
  *
  * @author Philip Helger
  */
-public class RunLengthCodec implements IByteArrayDecoder
+public class RunLengthCodec extends AbstractByteArrayDecoder
 {
   protected static final int RUN_LENGTH_EOD = 128;
 
@@ -44,15 +40,6 @@ public class RunLengthCodec implements IByteArrayDecoder
   public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
     return getDecodedRunLength (aEncodedBuffer);
-  }
-
-  @Nullable
-  public byte [] getDecoded (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
-  {
-    if (sEncoded == null)
-      return null;
-
-    return getDecodedRunLength (CharsetManager.getAsBytes (sEncoded, aCharset));
   }
 
   @Nullable
@@ -85,7 +72,7 @@ public class RunLengthCodec implements IByteArrayDecoder
           // we have something duplicated
           final int aDupByte = aBAIS.read ();
           if (aDupByte == -1)
-            throw new DecoderException ("Unexpected EOF");
+            throw new DecodeException ("Unexpected EOF");
 
           // The char is repeated for 257-nDupAmount types
           for (int i = 0; i < 257 - nDupAmount; i++)

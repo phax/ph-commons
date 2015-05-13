@@ -16,14 +16,10 @@
  */
 package com.helger.commons.codec.impl;
 
-import java.nio.charset.Charset;
-
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.codec.DecoderException;
-import com.helger.commons.codec.IByteArrayDecoder;
+import com.helger.commons.codec.AbstractByteArrayDecoder;
+import com.helger.commons.codec.DecodeException;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streams.StreamUtils;
 
@@ -32,7 +28,7 @@ import com.helger.commons.io.streams.StreamUtils;
  *
  * @author Philip Helger
  */
-public class ASCII85Codec implements IByteArrayDecoder
+public class ASCII85Codec extends AbstractByteArrayDecoder
 {
   private static final int BIT1 = 8;
   private static final int BIT2 = 16;
@@ -48,15 +44,6 @@ public class ASCII85Codec implements IByteArrayDecoder
   public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
     return getDecodedASCII85 (aEncodedBuffer);
-  }
-
-  @Nullable
-  public byte [] getDecoded (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
-  {
-    if (sEncoded == null)
-      return null;
-
-    return getDecodedASCII85 (CharsetManager.getAsBytes (sEncoded, aCharset));
   }
 
   @Nullable
@@ -102,7 +89,7 @@ public class ASCII85Codec implements IByteArrayDecoder
         else
         {
           if (nEncByte < ENCODED_MIN || nEncByte > ENCODED_MAX)
-            throw new DecoderException ("Illegal character in ASCII85Decode: " + nEncByte);
+            throw new DecodeException ("Illegal character in ASCII85Decode: " + nEncByte);
 
           aBuffer[nEncodedCount] = (byte) (nEncByte - ENCODED_MIN);
           ++nEncodedCount;

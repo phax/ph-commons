@@ -35,7 +35,7 @@ public interface IByteArrayDecoder extends IDecoder <byte []>
    *        The byte array to be decoded. May not be <code>null</code>.
    * @return The decoded byte array or <code>null</code> if the parameter was
    *         <code>null</code>.
-   * @throws DecoderException
+   * @throws DecodeException
    *         in case something goes wrong
    */
   @Nullable
@@ -49,7 +49,7 @@ public interface IByteArrayDecoder extends IDecoder <byte []>
    * @param aCharset
    *        The charset to be used. May not be <code>null</code>.
    * @return <code>null</code> if the input string is <code>null</code>.
-   * @throws DecoderException
+   * @throws DecodeException
    *         in case something goes wrong
    */
   @Nullable

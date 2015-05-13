@@ -24,8 +24,8 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.codec.DecoderException;
-import com.helger.commons.codec.EncoderException;
+import com.helger.commons.codec.DecodeException;
+import com.helger.commons.codec.EncodeException;
 
 /**
  * Similar to the Quoted-Printable content-transfer-encoding defined in <a
@@ -178,7 +178,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
   }
 
   @Nullable
-  public byte [] getDecoded (@Nullable final byte [] aBuffer) throws DecoderException
+  public byte [] getDecoded (@Nullable final byte [] aBuffer) throws DecodeException
   {
     if (aBuffer == null)
       return null;
@@ -214,12 +214,12 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
    * @param sText
    *        string to convert to quoted-printable form
    * @return quoted-printable string
-   * @throws EncoderException
+   * @throws EncodeException
    *         thrown if a failure condition is encountered during the encoding
    *         process.
    */
   @Nullable
-  public String getEncodedText (@Nullable final String sText) throws EncoderException
+  public String getEncodedText (@Nullable final String sText) throws EncodeException
   {
     return super.getEncodedText (sText, getCharset ());
   }
@@ -231,13 +231,13 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
    * @param sText
    *        quoted-printable string to convert into its original form
    * @return original string
-   * @throws DecoderException
+   * @throws DecodeException
    *         A decoder exception is thrown if a failure condition is encountered
    *         during the decode process.
    */
   @Override
   @Nullable
-  public String getDecodedText (@Nullable final String sText) throws DecoderException
+  public String getDecodedText (@Nullable final String sText) throws DecodeException
   {
     return super.getDecodedText (sText);
   }

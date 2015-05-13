@@ -17,23 +17,23 @@
 package com.helger.commons.codec;
 
 /**
- * Exception occurred in an encoder
- * 
+ * Exception occurred in a decoder
+ *
  * @author Philip Helger
  */
-public class EncoderException extends RuntimeException
+public class DecodeException extends RuntimeException
 {
-  public EncoderException (final String sMsg)
+  public DecodeException (final String sMsg)
   {
     super (sMsg);
   }
 
-  public EncoderException (final Throwable aCause)
+  public DecodeException (final Throwable aCause)
   {
     super (aCause);
   }
 
-  public EncoderException (final String sMsg, final Throwable aCause)
+  public DecodeException (final String sMsg, final Throwable aCause)
   {
     super (sMsg, aCause);
   }

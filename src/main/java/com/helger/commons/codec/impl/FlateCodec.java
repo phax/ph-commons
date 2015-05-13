@@ -26,8 +26,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.codec.AbstractByteArrayCodec;
-import com.helger.commons.codec.DecoderException;
-import com.helger.commons.codec.EncoderException;
+import com.helger.commons.codec.DecodeException;
+import com.helger.commons.codec.EncodeException;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streams.StreamUtils;
@@ -44,7 +44,7 @@ public class FlateCodec extends AbstractByteArrayCodec
   public FlateCodec ()
   {}
 
-  protected static boolean isZlibHead (@Nonnull final byte [] buf)
+  public static boolean isZlibHead (@Nonnull final byte [] buf)
   {
     if (buf.length >= 2)
     {
@@ -73,7 +73,7 @@ public class FlateCodec extends AbstractByteArrayCodec
     try
     {
       if (StreamUtils.copyInputStreamToOutputStream (aDecodeIS, aBAOS).isFailure ())
-        throw new DecoderException ("Failed to flate decode!");
+        throw new DecodeException ("Failed to flate decode!");
       return aBAOS.toByteArray ();
     }
     finally
@@ -98,7 +98,7 @@ public class FlateCodec extends AbstractByteArrayCodec
     final DeflaterOutputStream aEncodeOS = new DeflaterOutputStream (aBAOS);
     if (StreamUtils.copyInputStreamToOutputStreamAndCloseOS (new NonBlockingByteArrayInputStream (aBuffer), aEncodeOS)
                    .isFailure ())
-      throw new EncoderException ("Failed to flate encode!");
+      throw new EncodeException ("Failed to flate encode!");
     return aBAOS.toByteArray ();
   }
 

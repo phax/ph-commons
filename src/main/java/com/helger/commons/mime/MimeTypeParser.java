@@ -24,7 +24,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.codec.DecoderException;
+import com.helger.commons.codec.DecodeException;
 import com.helger.commons.collections.ArrayHelper;
 import com.helger.commons.string.StringHelper;
 
@@ -254,7 +254,7 @@ public final class MimeTypeParser
           // Manually unescape the string
           sParameterValue = eQuotingAlgorithm.getUnquotedString (sParameterValue);
         }
-        catch (final DecoderException ex)
+        catch (final DecodeException ex)
         {
           throw new MimeTypeParserException ("Failed to unquote the string '" + sParameterValue + "'", ex);
         }

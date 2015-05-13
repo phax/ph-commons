@@ -24,8 +24,8 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.codec.DecoderException;
-import com.helger.commons.codec.EncoderException;
+import com.helger.commons.codec.DecodeException;
+import com.helger.commons.codec.EncodeException;
 
 /**
  * Identical to the Base64 encoding defined by <a
@@ -84,13 +84,13 @@ public class RFC1522BCodec extends AbstractRFC1522Codec
   @Nullable
   public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer)
   {
-    return aDecodedBuffer == null ? null : Base64.encodeBytesToBytes (aDecodedBuffer);
+    return Base64.safeEncodeBytesToBytes (aDecodedBuffer);
   }
 
   @Nullable
   public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
-    return aEncodedBuffer == null ? null : Base64.safeDecode (aEncodedBuffer);
+    return Base64.safeDecode (aEncodedBuffer);
   }
 
   /**
@@ -100,12 +100,12 @@ public class RFC1522BCodec extends AbstractRFC1522Codec
    * @param sText
    *        string to convert to Base64 form
    * @return Base64 string
-   * @throws EncoderException
+   * @throws EncodeException
    *         thrown if a failure condition is encountered during the encoding
    *         process.
    */
   @Nullable
-  public String getEncodedText (@Nullable final String sText) throws EncoderException
+  public String getEncodedText (@Nullable final String sText) throws EncodeException
   {
     return super.getEncodedText (sText, getCharset ());
   }
@@ -117,13 +117,13 @@ public class RFC1522BCodec extends AbstractRFC1522Codec
    * @param sText
    *        Base64 string to convert into its original form
    * @return original string
-   * @throws DecoderException
+   * @throws DecodeException
    *         A decoder exception is thrown if a failure condition is encountered
    *         during the decode process.
    */
   @Override
   @Nullable
-  public String getDecodedText (@Nullable final String sText) throws DecoderException
+  public String getDecodedText (@Nullable final String sText) throws DecodeException
   {
     return super.getDecodedText (sText);
   }

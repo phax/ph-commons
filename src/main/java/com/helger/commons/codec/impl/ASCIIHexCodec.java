@@ -16,15 +16,11 @@
  */
 package com.helger.commons.codec.impl;
 
-import java.nio.charset.Charset;
-
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.codec.DecoderException;
-import com.helger.commons.codec.IByteArrayDecoder;
+import com.helger.commons.codec.AbstractByteArrayDecoder;
+import com.helger.commons.codec.DecodeException;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.string.StringHelper;
@@ -34,7 +30,7 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
-public class ASCIIHexCodec implements IByteArrayDecoder
+public class ASCIIHexCodec extends AbstractByteArrayDecoder
 {
   public ASCIIHexCodec ()
   {}
@@ -43,15 +39,6 @@ public class ASCIIHexCodec implements IByteArrayDecoder
   public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
     return getDecodedASCIIHex (aEncodedBuffer);
-  }
-
-  @Nullable
-  public byte [] getDecoded (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
-  {
-    if (sEncoded == null)
-      return null;
-
-    return getDecodedASCIIHex (CharsetManager.getAsBytes (sEncoded, aCharset));
   }
 
   @Nullable
@@ -76,11 +63,11 @@ public class ASCIIHexCodec implements IByteArrayDecoder
 
         final byte nDecByte = (byte) StringHelper.getHexValue ((char) nEncByte);
         if (nDecByte == CGlobal.ILLEGAL_UINT)
-          throw new DecoderException ("Failed to convert byte '" +
-                                      nEncByte +
-                                      "/" +
-                                      ((char) nEncByte) +
-                                      "' to hex value in ASCIIHexDecode");
+          throw new DecodeException ("Failed to convert byte '" +
+                                     nEncByte +
+                                     "/" +
+                                     ((char) nEncByte) +
+                                     "' to hex value in ASCIIHexDecode");
         if (bFirstByte)
           nFirstByte = nDecByte;
         else

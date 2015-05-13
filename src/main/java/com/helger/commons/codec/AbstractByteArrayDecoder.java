@@ -16,26 +16,31 @@
  */
 package com.helger.commons.codec;
 
+import java.nio.charset.Charset;
+
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
+
+import com.helger.commons.charset.CharsetManager;
 
 /**
- * The most basic encoding interface
+ * Abstract base class for {@link IByteArrayDecoder}
  *
- * @param <DATATYPE>
- *        data type
  * @author Philip Helger
  */
-public interface IEncoder <DATATYPE>
+@NotThreadSafe
+public abstract class AbstractByteArrayDecoder implements IByteArrayDecoder
 {
-  /**
-   * Encode the passed source object
-   *
-   * @param aInput
-   *        The source object to be encoded
-   * @return The encoded value.
-   * @throws EncodeException
-   *         In case something goes wrong
-   */
+  public AbstractByteArrayDecoder ()
+  {}
+
   @Nullable
-  DATATYPE getEncoded (@Nullable DATATYPE aInput);
+  public byte [] getDecoded (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
+  {
+    if (sEncoded == null)
+      return null;
+
+    return getDecoded (CharsetManager.getAsBytes (sEncoded, aCharset));
+  }
 }

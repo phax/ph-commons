@@ -35,7 +35,7 @@ public interface IByteArrayEncoder extends IEncoder <byte []>
    *        The byte array to be encoded. May be <code>null</code>.
    * @return The encoded byte array or <code>null</code> if the parameter was
    *         <code>null</code>.
-   * @throws EncoderException
+   * @throws EncodeException
    *         In case something goes wrong
    */
   @Nullable
@@ -49,7 +49,7 @@ public interface IByteArrayEncoder extends IEncoder <byte []>
    * @param aCharset
    *        The charset to be used. May not be <code>null</code>.
    * @return <code>null</code> if the input string is <code>null</code>.
-   * @throws EncoderException
+   * @throws EncodeException
    *         In case something goes wrong
    */
   @Nullable

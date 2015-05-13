@@ -21,12 +21,13 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.codec.AbstractByteArrayCodec;
-import com.helger.commons.codec.DecoderException;
-import com.helger.commons.codec.EncoderException;
+import com.helger.commons.codec.DecodeException;
+import com.helger.commons.codec.EncodeException;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -49,10 +50,10 @@ public abstract class AbstractRFC1522Codec extends AbstractByteArrayCodec
   protected static final char SEP = '?';
 
   /** Prefix. */
-  protected static final String POSTFIX = "?=";
+  protected static final String PREFIX = "=?";
 
   /** Postfix. */
-  protected static final String PREFIX = "=?";
+  protected static final String POSTFIX = "?=";
 
   /**
    * Returns the codec name (referred to as encoding in the RFC 1522).
@@ -73,26 +74,27 @@ public abstract class AbstractRFC1522Codec extends AbstractByteArrayCodec
    *
    * @param sText
    *        a string to encode
-   * @param aCharset
+   * @param aSourceCharset
    *        a charset to be used
    * @return RFC 1522 compliant "encoded-word"
-   * @throws EncoderException
+   * @throws EncodeException
    *         thrown if there is an error condition during the Encoding process.
    * @see <a
    *      href="http://download.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html">Standard
    *      charsets</a>
    */
   @Nullable
-  protected String getEncodedText (@Nullable final String sText, @Nonnull final Charset aCharset) throws EncoderException
+  protected String getEncodedText (@Nullable final String sText, @Nonnull final Charset aSourceCharset) throws EncodeException
   {
+    ValueEnforcer.notNull (aSourceCharset, "SourceCharset");
     if (sText == null)
       return null;
 
-    final byte [] aEncodedData = getEncoded (CharsetManager.getAsBytes (sText, aCharset));
+    final byte [] aEncodedData = getEncoded (CharsetManager.getAsBytes (sText, aSourceCharset));
 
     final StringBuilder aSB = new StringBuilder ();
     aSB.append (PREFIX)
-       .append (aCharset.name ())
+       .append (aSourceCharset.name ())
        .append (SEP)
        .append (getRFC1522Encoding ())
        .append (SEP)
@@ -108,43 +110,52 @@ public abstract class AbstractRFC1522Codec extends AbstractByteArrayCodec
    * codecs and then invokes {@link #getDecoded(byte [])} method of a concrete
    * class to perform the specific decoding.
    *
-   * @param sText
+   * @param sEncodedText
    *        a string to decode
    * @return A new decoded String or {@code null} if the input is {@code null}.
-   * @throws DecoderException
+   * @throws DecodeException
    *         thrown if there is an error condition during the decoding process.
    */
   @Nullable
-  public String getDecodedText (@Nullable final String sText) throws DecoderException
+  public String getDecodedText (@Nullable final String sEncodedText) throws DecodeException
   {
-    if (sText == null)
+    if (sEncodedText == null)
       return null;
 
-    if (!sText.startsWith (PREFIX) || !sText.endsWith (POSTFIX))
-      throw new DecoderException ("RFC 1522 violation: malformed encoded content");
+    if (!sEncodedText.startsWith (PREFIX))
+      throw new DecodeException ("RFC 1522 violation: malformed encoded content. Prefix missing.");
+    if (!sEncodedText.endsWith (POSTFIX))
+      throw new DecodeException ("RFC 1522 violation: malformed encoded content. Postfix missing.");
 
-    final int nTerminator = sText.length () - 2;
-    int nFrom = 2;
-    int nTo = sText.indexOf (SEP, nFrom);
+    int nFrom = PREFIX.length ();
+    final int nTerminator = sEncodedText.length () - POSTFIX.length ();
+
+    // Read charset
+    int nTo = sEncodedText.indexOf (SEP, nFrom);
     if (nTo == nTerminator)
-      throw new DecoderException ("RFC 1522 violation: charset token not found");
-    final String sCharset = sText.substring (nFrom, nTo);
-    if (StringHelper.hasNoText (sCharset))
-      throw new DecoderException ("RFC 1522 violation: charset not specified");
-    final Charset aCharset = CharsetManager.getCharsetFromNameOrNull (sCharset);
-    if (aCharset == null)
-      throw new DecoderException ("Failed to resolve charset '" + sCharset + "'");
+      throw new DecodeException ("RFC 1522 violation: charset token not found");
+    final String sDestCharset = sEncodedText.substring (nFrom, nTo);
+    if (StringHelper.hasNoText (sDestCharset))
+      throw new DecodeException ("RFC 1522 violation: charset not specified");
+    final Charset aDestCharset = CharsetManager.getCharsetFromNameOrNull (sDestCharset);
+    if (aDestCharset == null)
+      throw new DecodeException ("Failed to resolve charset '" + sDestCharset + "'");
+
+    // Read encoding
     nFrom = nTo + 1;
-    nTo = sText.indexOf (SEP, nFrom);
+    nTo = sEncodedText.indexOf (SEP, nFrom);
     if (nTo == nTerminator)
-      throw new DecoderException ("RFC 1522 violation: encoding token not found");
-    final String sEncoding = sText.substring (nFrom, nTo);
+      throw new DecodeException ("RFC 1522 violation: encoding token not found");
+    final String sEncoding = sEncodedText.substring (nFrom, nTo);
     if (!getRFC1522Encoding ().equalsIgnoreCase (sEncoding))
-      throw new DecoderException ("This codec cannot decode " + sEncoding + " encoded content");
+      throw new DecodeException ("This codec cannot decode '" + sEncoding + "' encoded content");
+
+    // Read encoded data
     nFrom = nTo + 1;
-    nTo = sText.indexOf (SEP, nFrom);
-    byte [] aData = CharsetManager.getAsBytes (sText.substring (nFrom, nTo), CCharset.CHARSET_US_ASCII_OBJ);
-    aData = getDecoded (aData);
-    return CharsetManager.getAsString (aData, aCharset);
+    nTo = sEncodedText.indexOf (SEP, nFrom);
+    final byte [] aEncodedBytes = CharsetManager.getAsBytes (sEncodedText.substring (nFrom, nTo),
+                                                             CCharset.CHARSET_US_ASCII_OBJ);
+    final byte [] aDecodedBytes = getDecoded (aEncodedBytes);
+    return CharsetManager.getAsString (aDecodedBytes, aDestCharset);
   }
 }

@@ -24,7 +24,7 @@ import com.helger.commons.codec.ICodec;
 import com.helger.commons.lang.GenericReflection;
 
 /**
- * The most simple decoder, that does not do anything
+ * The most simple codec, that does not do anything :)
  *
  * @author Philip Helger
  * @param <DATATYPE>
