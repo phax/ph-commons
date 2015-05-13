@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collections;
+package com.helger.commons.collections.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -28,6 +28,8 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collections.impl.SingleElementMap;
 import com.helger.commons.mock.AbstractPHTestCase;
 
 /**

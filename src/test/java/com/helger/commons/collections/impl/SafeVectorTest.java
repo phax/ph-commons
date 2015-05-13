@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collections.list;
+package com.helger.commons.collections.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -23,21 +23,22 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.commons.collections.impl.SafeVector;
 import com.helger.commons.factory.FactoryNewInstance;
 import com.helger.commons.mock.PHTestUtils;
 
 /**
- * Test class for class {@link SafeArrayList}.
+ * Test class for class {@link SafeVector}.
  * 
  * @author Philip Helger
  */
-public final class SafeArrayListTest
+public final class SafeVectorTest
 {
   @Test
-  public void testSafeArrayListNullFactory ()
+  public void testSafeVectorNullFactory ()
   {
     // create with a "null"-creating factory
-    final SafeArrayList <String> sv = new SafeArrayList <String> ();
+    final SafeVector <String> sv = new SafeVector <String> ();
     assertEquals (sv.size (), 0);
 
     // no such index 0 -> create using the factory
@@ -54,18 +55,18 @@ public final class SafeArrayListTest
   }
 
   @Test
-  public void testSafeArrayListNewInstanceFactory ()
+  public void testSafeVectorNewInstanceFactory ()
   {
     try
     {
-      new SafeArrayList <String> (null);
+      new SafeVector <String> (null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
 
     // create with a "null"-creating factory
-    final SafeArrayList <String> sv = new SafeArrayList <String> (FactoryNewInstance.create (String.class));
+    final SafeVector <String> sv = new SafeVector <String> (FactoryNewInstance.create (String.class));
     assertEquals (sv.size (), 0);
 
     // no such index 0 -> create using the factory
@@ -84,11 +85,11 @@ public final class SafeArrayListTest
   @Test
   public void testEqualsAndHashcode ()
   {
-    final SafeArrayList <String> sl = new SafeArrayList <String> ();
+    final SafeVector <String> sl = new SafeVector <String> ();
     sl.set (10, "any");
     assertNull (sl.get (9));
 
-    final SafeArrayList <String> sl2 = new SafeArrayList <String> ();
+    final SafeVector <String> sl2 = new SafeVector <String> ();
     sl2.set (10, "any");
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (sl, sl2);

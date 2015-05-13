@@ -40,7 +40,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.ArrayHelper;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.collections.NonBlockingStack;
+import com.helger.commons.collections.impl.NonBlockingStack;
 import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.url.SMap;
 

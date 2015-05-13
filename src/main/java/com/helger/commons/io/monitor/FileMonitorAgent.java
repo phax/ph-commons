@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collections.NonBlockingStack;
+import com.helger.commons.collections.impl.NonBlockingStack;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

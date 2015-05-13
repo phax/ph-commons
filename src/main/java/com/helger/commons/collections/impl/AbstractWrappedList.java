@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collections.list;
+package com.helger.commons.collections.impl;
 
 import java.util.Collection;
 import java.util.Iterator;

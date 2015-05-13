@@ -101,6 +101,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
+import com.helger.commons.collections.impl.NonBlockingStack;
 import com.helger.commons.collections.iterate.ArrayEnumeration;
 import com.helger.commons.collections.iterate.EmptyEnumeration;
 import com.helger.commons.collections.iterate.EmptyIterator;

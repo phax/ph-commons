@@ -48,6 +48,8 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsImmutableObject;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.ReturnsMutableObject;
+import com.helger.commons.collections.impl.EmptySortedSet;
+import com.helger.commons.collections.impl.NonBlockingStack;
 import com.helger.commons.collections.iterate.CombinedEnumeration;
 import com.helger.commons.collections.iterate.CombinedIterator;
 import com.helger.commons.collections.iterate.EmptyEnumeration;
