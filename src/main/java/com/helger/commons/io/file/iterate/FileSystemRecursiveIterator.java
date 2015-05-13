@@ -31,7 +31,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.UnsupportedOperation;
-import com.helger.commons.collections.filter.FilterIterator;
+import com.helger.commons.collections.iterate.FilterIterator;
 import com.helger.commons.collections.iterate.IIterableIterator;
 import com.helger.commons.filter.FilterChainAND;
 import com.helger.commons.filter.IFilter;

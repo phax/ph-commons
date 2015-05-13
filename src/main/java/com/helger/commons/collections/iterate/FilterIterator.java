@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collections.filter;
+package com.helger.commons.collections.iterate;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -24,7 +24,6 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.UnsupportedOperation;
-import com.helger.commons.collections.iterate.IIterableIterator;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.string.ToStringGenerator;
 

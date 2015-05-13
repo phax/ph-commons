@@ -21,12 +21,12 @@ import javax.annotation.Nonnull;
 import com.helger.commons.state.EChange;
 
 /**
- * This is the writable extension of the {@link IReadonlyAttributeContainer}.
+ * This is the writable extension of the {@link IAttributeContainer}.
  * <code>null</code> values are not allowed in this attribute containers.
  *
  * @author Philip Helger
  */
-public interface IMutableAttributeContainer extends IReadonlyAttributeContainer, IGenericMutableAttributeContainer <String, Object>
+public interface IMutableAttributeContainer extends IAttributeContainer, IGenericMutableAttributeContainer <String, Object>
 {
   /**
    * Set/overwrite an in attribute value. This is a shortcut for

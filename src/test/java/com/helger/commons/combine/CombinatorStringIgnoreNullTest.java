@@ -32,10 +32,10 @@ public final class CombinatorStringIgnoreNullTest
   public void testGetStringCombinatorIgnoreNull ()
   {
     final ICombinator <String> c = CombinatorStringIgnoreNull.getInstance ();
-    assertEquals ("ab", c.combine ("a", "b"));
-    assertEquals ("a", c.combine ("a", null));
-    assertEquals ("b", c.combine (null, "b"));
-    assertEquals (null, c.combine (null, null));
+    assertEquals ("ab", c.getCombined ("a", "b"));
+    assertEquals ("a", c.getCombined ("a", null));
+    assertEquals ("b", c.getCombined (null, "b"));
+    assertEquals (null, c.getCombined (null, null));
     assertNotNull (c.toString ());
   }
 }

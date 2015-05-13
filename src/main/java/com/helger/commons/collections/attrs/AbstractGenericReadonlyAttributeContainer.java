@@ -45,7 +45,7 @@ import com.helger.commons.typeconvert.TypeConverter;
  */
 @NotThreadSafe
 public abstract class AbstractGenericReadonlyAttributeContainer <KEYTYPE, VALUETYPE> implements
-                                                                                     IGenericReadonlyAttributeContainer <KEYTYPE, VALUETYPE>
+                                                                                     IGenericAttributeContainer <KEYTYPE, VALUETYPE>
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractGenericReadonlyAttributeContainer.class);
 

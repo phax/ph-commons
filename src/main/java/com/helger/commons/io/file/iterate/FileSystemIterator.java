@@ -22,7 +22,7 @@ import java.io.FilenameFilter;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.collections.filter.FilterIterator;
+import com.helger.commons.collections.iterate.FilterIterator;
 import com.helger.commons.collections.iterate.IIterableIterator;
 import com.helger.commons.collections.iterate.IterableIterator;
 import com.helger.commons.filter.FilterChainAND;

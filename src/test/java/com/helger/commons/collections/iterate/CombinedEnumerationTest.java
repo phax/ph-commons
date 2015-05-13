@@ -49,6 +49,28 @@ public final class CombinedEnumerationTest
     catch (final NoSuchElementException ex)
     {}
 
+    // one null
+    es = CombinedEnumeration.create (EmptyEnumeration.<String> getInstance (), null);
+    assertFalse (es.hasMoreElements ());
+    try
+    {
+      es.nextElement ();
+      fail ();
+    }
+    catch (final NoSuchElementException ex)
+    {}
+
+    // the other null
+    es = CombinedEnumeration.create (null, EmptyEnumeration.<String> getInstance ());
+    assertFalse (es.hasMoreElements ());
+    try
+    {
+      es.nextElement ();
+      fail ();
+    }
+    catch (final NoSuchElementException ex)
+    {}
+
     // both empty
     es = CombinedEnumeration.create (EmptyEnumeration.<String> getInstance (), EmptyEnumeration.<String> getInstance ());
     assertFalse (es.hasMoreElements ());

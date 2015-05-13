@@ -37,10 +37,10 @@ public final class CombinatorStringWithSeparatorTest
   public void testGetStringCombinatorWithSeparator ()
   {
     final ICombinator <String> c = new CombinatorStringWithSeparator (";");
-    assertEquals ("a;b", c.combine ("a", "b"));
-    assertEquals ("a;null", c.combine ("a", null));
-    assertEquals ("null;b", c.combine (null, "b"));
-    assertEquals ("null;null", c.combine (null, null));
+    assertEquals ("a;b", c.getCombined ("a", "b"));
+    assertEquals ("a;null", c.getCombined ("a", null));
+    assertEquals ("null;b", c.getCombined (null, "b"));
+    assertEquals ("null;null", c.getCombined (null, null));
 
     try
     {

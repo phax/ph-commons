@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collections.filter;
+package com.helger.commons.collections.iterate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -30,6 +30,7 @@ import java.util.NoSuchElementException;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collections.iterate.FilterIterator;
 import com.helger.commons.collections.iterate.IterableIterator;
 import com.helger.commons.filter.FilterNotNull;
 import com.helger.commons.filter.IFilter;

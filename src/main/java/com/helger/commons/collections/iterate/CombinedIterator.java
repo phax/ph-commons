@@ -26,7 +26,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A specific enumeration iterating over two consecutive enumerations.
- * 
+ *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        The type to be enumerated
@@ -86,12 +86,17 @@ public final class CombinedIterator <ELEMENTTYPE> implements Iterator <ELEMENTTY
     return new ToStringGenerator (this).append ("iter1", m_aIter1).append ("iter2", m_aIter2).toString ();
   }
 
+  @SuppressWarnings ("unchecked")
   @Nonnull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> create (@Nullable final Iterator <? extends ELEMENTTYPE> aIter1,
                                                              @Nullable final Iterator <? extends ELEMENTTYPE> aIter2)
   {
     if (aIter1 == null && aIter2 == null)
       return EmptyIterator.<ELEMENTTYPE> getInstance ();
+    if (aIter1 == null)
+      return (Iterator <ELEMENTTYPE>) aIter2;
+    if (aIter2 == null)
+      return (Iterator <ELEMENTTYPE>) aIter1;
     return new CombinedIterator <ELEMENTTYPE> (aIter1, aIter2);
   }
 }

@@ -33,7 +33,7 @@ import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Default implementation of the {@link IGenericReadonlyAttributeContainer}
+ * Default implementation of the {@link IGenericAttributeContainer}
  * based on a hash map. This implementation may carry <code>null</code> values
  * but that is not recommended.
  *
@@ -59,7 +59,7 @@ public class MapBasedGenericReadonlyAttributeContainer <KEYTYPE, VALUETYPE> exte
     m_aAttrs.putAll (aMap);
   }
 
-  public MapBasedGenericReadonlyAttributeContainer (@Nonnull final IGenericReadonlyAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
+  public MapBasedGenericReadonlyAttributeContainer (@Nonnull final IGenericAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
   {
     ValueEnforcer.notNull (aCont, "Container");
     m_aAttrs.putAll (aCont.getAllAttributes ());

@@ -38,10 +38,10 @@ public final class CombinatorStringWithSeparatorIgnoreNullTest
   public void testGetStringCombinatorWithSeparatorIgnoreNull ()
   {
     final ICombinator <String> c = new CombinatorStringWithSeparatorIgnoreNull (";");
-    assertEquals ("a;b", c.combine ("a", "b"));
-    assertEquals ("a", c.combine ("a", null));
-    assertEquals ("b", c.combine (null, "b"));
-    assertEquals (null, c.combine (null, null));
+    assertEquals ("a;b", c.getCombined ("a", "b"));
+    assertEquals ("a", c.getCombined ("a", null));
+    assertEquals ("b", c.getCombined (null, "b"));
+    assertEquals (null, c.getCombined (null, null));
 
     try
     {

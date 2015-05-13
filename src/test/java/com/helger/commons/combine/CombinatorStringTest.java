@@ -32,10 +32,10 @@ public final class CombinatorStringTest
   public void testGetStringCombinator ()
   {
     final ICombinator <String> c = CombinatorString.getInstance ();
-    assertEquals ("ab", c.combine ("a", "b"));
-    assertEquals ("anull", c.combine ("a", null));
-    assertEquals ("nullb", c.combine (null, "b"));
-    assertEquals ("nullnull", c.combine (null, null));
+    assertEquals ("ab", c.getCombined ("a", "b"));
+    assertEquals ("anull", c.getCombined ("a", null));
+    assertEquals ("nullb", c.getCombined (null, "b"));
+    assertEquals ("nullnull", c.getCombined (null, null));
     assertNotNull (c.toString ());
   }
 }

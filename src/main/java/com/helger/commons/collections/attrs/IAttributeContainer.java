@@ -23,7 +23,7 @@ package com.helger.commons.collections.attrs;
  *
  * @author Philip Helger
  */
-public interface IReadonlyAttributeContainer extends IGenericReadonlyAttributeContainer <String, Object>
+public interface IAttributeContainer extends IGenericAttributeContainer <String, Object>
 {
   /* empty */
 }

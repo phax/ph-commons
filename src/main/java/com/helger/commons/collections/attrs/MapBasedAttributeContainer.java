@@ -47,7 +47,7 @@ public class MapBasedAttributeContainer extends MapBasedGenericAttributeContaine
     super (aMap);
   }
 
-  public MapBasedAttributeContainer (@Nonnull final IGenericReadonlyAttributeContainer <? extends String, ? extends Object> aCont)
+  public MapBasedAttributeContainer (@Nonnull final IGenericAttributeContainer <? extends String, ? extends Object> aCont)
   {
     super (aCont);
   }

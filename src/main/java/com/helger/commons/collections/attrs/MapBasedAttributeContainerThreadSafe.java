@@ -52,7 +52,7 @@ public class MapBasedAttributeContainerThreadSafe extends MapBasedAttributeConta
     super (aMap);
   }
 
-  public MapBasedAttributeContainerThreadSafe (@Nonnull final IReadonlyAttributeContainer aCont)
+  public MapBasedAttributeContainerThreadSafe (@Nonnull final IAttributeContainer aCont)
   {
     super (aCont);
   }

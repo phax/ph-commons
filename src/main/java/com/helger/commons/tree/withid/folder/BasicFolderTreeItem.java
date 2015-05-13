@@ -96,7 +96,7 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
       return getID ();
 
     final ITEMTYPE aParent = getParent ();
-    return aParent == null ? getID () : m_aKeyCombinator.combine (aParent.getGlobalUniqueDataID (), getID ());
+    return aParent == null ? getID () : m_aKeyCombinator.getCombined (aParent.getGlobalUniqueDataID (), getID ());
   }
 
   @Override

@@ -69,7 +69,7 @@ public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends Abst
     m_aAttrs.putAll (aMap);
   }
 
-  public MapBasedGenericAttributeContainer (@Nonnull final IGenericReadonlyAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
+  public MapBasedGenericAttributeContainer (@Nonnull final IGenericAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
   {
     ValueEnforcer.notNull (aCont, "Container");
     m_aAttrs.putAll (aCont.getAllAttributes ());
@@ -140,7 +140,7 @@ public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends Abst
   }
 
   @Nonnull
-  public final EChange setAttributes (@Nullable final IGenericReadonlyAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aValues)
+  public final EChange setAttributes (@Nullable final IGenericAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aValues)
   {
     if (aValues == null)
       return EChange.UNCHANGED;
