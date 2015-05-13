@@ -16,18 +16,13 @@
  */
 package com.helger.commons.dimension;
 
-import javax.annotation.Nonnegative;
 
 /**
- * Interface for objects having a height.
+ * Interface for objects having a width and a height.
  * 
  * @author Philip Helger
  */
-public interface IHasHeight
+public interface IHasWidthAndHeightInt extends IHasWidthInt, IHasHeightInt
 {
-  /**
-   * @return The height of an object
-   */
-  @Nonnegative
-  int getHeight ();
+  /* empty */
 }

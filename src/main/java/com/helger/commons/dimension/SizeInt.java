@@ -34,17 +34,17 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class ScalableSize implements IHasWidthAndHeight, Serializable
+public final class SizeInt implements IHasWidthAndHeightInt, Serializable
 {
   private final int m_nWidth;
   private final int m_nHeight;
 
-  public ScalableSize (@Nonnull final IHasWidthAndHeight aObj)
+  public SizeInt (@Nonnull final IHasWidthAndHeightInt aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
-  public ScalableSize (@Nonnegative final int nWidth, @Nonnegative final int nHeight)
+  public SizeInt (@Nonnegative final int nWidth, @Nonnegative final int nHeight)
   {
     m_nWidth = ValueEnforcer.isGE0 (nWidth, "Width");
     m_nHeight = ValueEnforcer.isGE0 (nHeight, "Height");
@@ -74,7 +74,7 @@ public final class ScalableSize implements IHasWidthAndHeight, Serializable
    */
   @Nonnull
   @CheckReturnValue
-  public ScalableSize getBestMatchingSize (@Nonnegative final int nMaxWidth, @Nonnegative final int nMaxHeight)
+  public SizeInt getBestMatchingSize (@Nonnegative final int nMaxWidth, @Nonnegative final int nMaxHeight)
   {
     ValueEnforcer.isGT0 (nMaxWidth, "MaxWidth");
     ValueEnforcer.isGT0 (nMaxHeight, "MaxHeight");
@@ -84,56 +84,56 @@ public final class ScalableSize implements IHasWidthAndHeight, Serializable
     if (dRelWidth > dRelHeight)
     {
       if (m_nWidth > nMaxWidth)
-        return new ScalableSize (nMaxWidth, (int) (m_nHeight / dRelWidth));
+        return new SizeInt (nMaxWidth, (int) (m_nHeight / dRelWidth));
     }
     else
     {
       if (m_nHeight > nMaxHeight)
-        return new ScalableSize ((int) (m_nWidth / dRelHeight), nMaxHeight);
+        return new SizeInt ((int) (m_nWidth / dRelHeight), nMaxHeight);
     }
     return this;
   }
 
   @Nonnull
   @CheckReturnValue
-  public ScalableSize getScaledToWidth (@Nonnegative final int nNewWidth)
+  public SizeInt getScaledToWidth (@Nonnegative final int nNewWidth)
   {
     ValueEnforcer.isGT0 (nNewWidth, "NewWidth");
 
     if (m_nWidth == nNewWidth)
       return this;
     final double dMultFactory = MathHelper.getDividedDouble (nNewWidth, m_nWidth);
-    return new ScalableSize (nNewWidth, (int) (m_nHeight * dMultFactory));
+    return new SizeInt (nNewWidth, (int) (m_nHeight * dMultFactory));
   }
 
   @Nonnull
   @CheckReturnValue
-  public ScalableSize getScaledToHeight (@Nonnegative final int nNewHeight)
+  public SizeInt getScaledToHeight (@Nonnegative final int nNewHeight)
   {
     ValueEnforcer.isGT0 (nNewHeight, "NewHeight");
 
     if (m_nHeight == nNewHeight)
       return this;
     final double dMultFactory = MathHelper.getDividedDouble (nNewHeight, m_nHeight);
-    return new ScalableSize ((int) (m_nWidth * dMultFactory), nNewHeight);
+    return new SizeInt ((int) (m_nWidth * dMultFactory), nNewHeight);
   }
 
   @Nonnull
   @CheckReturnValue
-  public ScalableSize getAdded (@Nonnull final IHasWidthAndHeight aToAdd)
+  public SizeInt getAdded (@Nonnull final IHasWidthAndHeightInt aToAdd)
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
-    return new ScalableSize (m_nWidth + aToAdd.getWidth (), m_nHeight + aToAdd.getHeight ());
+    return new SizeInt (m_nWidth + aToAdd.getWidth (), m_nHeight + aToAdd.getHeight ());
   }
 
   @Nonnull
   @CheckReturnValue
-  public ScalableSize getSubtracted (@Nonnull final IHasWidthAndHeight aToSubtract)
+  public SizeInt getSubtracted (@Nonnull final IHasWidthAndHeightInt aToSubtract)
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 
-    return new ScalableSize (m_nWidth - aToSubtract.getWidth (), m_nHeight - aToSubtract.getHeight ());
+    return new SizeInt (m_nWidth - aToSubtract.getWidth (), m_nHeight - aToSubtract.getHeight ());
   }
 
   @Override
@@ -143,7 +143,7 @@ public final class ScalableSize implements IHasWidthAndHeight, Serializable
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final ScalableSize rhs = (ScalableSize) o;
+    final SizeInt rhs = (SizeInt) o;
     return m_nWidth == rhs.m_nWidth && m_nHeight == rhs.m_nHeight;
   }
 

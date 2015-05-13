@@ -23,68 +23,67 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.dimension.ScalableSize;
+import com.helger.commons.mock.PHAssert;
 import com.helger.commons.mock.PHTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Test class for class {@link ScalableSize}.
- * 
+ * Test class for class {@link SizeDouble}.
+ *
  * @author Philip Helger
  */
-public final class ScalableSizeTest
+public final class SizeDoubleTest
 {
   @Test
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testCtor ()
   {
-    final ScalableSize aID = new ScalableSize (320, 240);
-    assertEquals (320, aID.getWidth ());
-    assertEquals (240, aID.getHeight ());
+    final SizeDouble aID = new SizeDouble (320, 240);
+    PHAssert.assertEquals (320, aID.getWidth ());
+    PHAssert.assertEquals (240, aID.getHeight ());
 
     try
     {
-      new ScalableSize (300, -1);
+      new SizeDouble (300, -1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      new ScalableSize (-1, 300);
+      new SizeDouble (-1, 300);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ScalableSize (320, 240), new ScalableSize (320,
-                                                                                                                   240));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ScalableSize (320, 240),
-                                                                        new ScalableSize (321, 240));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ScalableSize (320, 240),
-                                                                        new ScalableSize (320, 241));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new SizeDouble (320, 240), new SizeDouble (320, 240));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240), new SizeDouble (321,
+                                                                                                                240));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240), new SizeDouble (320,
+                                                                                                                241));
   }
 
   @Test
   public void testGetBestMatchingSize ()
   {
-    final ScalableSize aID = new ScalableSize (320, 240);
+    final SizeDouble aID = new SizeDouble (320, 240);
 
     // Width
-    ScalableSize aID2 = aID.getBestMatchingSize (160, 180);
-    assertEquals (160, aID2.getWidth ());
-    assertEquals (120, aID2.getHeight ());
+    SizeDouble aID2 = aID.getBestMatchingSize (160, 180);
+    PHAssert.assertEquals (160, aID2.getWidth ());
+    PHAssert.assertEquals (120, aID2.getHeight ());
 
     // Height
     aID2 = aID.getBestMatchingSize (260, 120);
-    assertEquals (160, aID2.getWidth ());
-    assertEquals (120, aID2.getHeight ());
+    PHAssert.assertEquals (160, aID2.getWidth ());
+    PHAssert.assertEquals (120, aID2.getHeight ());
 
     // WIdth
     aID2 = aID.getBestMatchingSize (48, 120);
-    assertEquals (48, aID2.getWidth ());
-    assertEquals (36, aID2.getHeight ());
+    PHAssert.assertEquals (48, aID2.getWidth ());
+    PHAssert.assertEquals (36, aID2.getHeight ());
 
     assertEquals (aID, aID.getBestMatchingSize (640, 481));
     assertEquals (aID, aID.getBestMatchingSize (641, 480));
@@ -100,7 +99,7 @@ public final class ScalableSizeTest
     try
     {
       // <=0 not allowed
-      final ScalableSize aSize = aID2.getBestMatchingSize (100, 0);
+      final SizeDouble aSize = aID2.getBestMatchingSize (100, 0);
       fail ();
       assertNull (aSize);
     }
@@ -111,20 +110,20 @@ public final class ScalableSizeTest
   @Test
   public void testGetScaled ()
   {
-    final ScalableSize aID = new ScalableSize (100, 150);
-    ScalableSize aID2 = aID.getScaledToWidth (150);
-    assertEquals (150, aID2.getWidth ());
-    assertEquals (225, aID2.getHeight ());
+    final SizeDouble aID = new SizeDouble (100, 150);
+    SizeDouble aID2 = aID.getScaledToWidth (150);
+    PHAssert.assertEquals (150, aID2.getWidth ());
+    PHAssert.assertEquals (225, aID2.getHeight ());
     aID2 = aID.getScaledToHeight (300);
-    assertEquals (200, aID2.getWidth ());
-    assertEquals (300, aID2.getHeight ());
+    PHAssert.assertEquals (200, aID2.getWidth ());
+    PHAssert.assertEquals (300, aID2.getHeight ());
     aID2 = aID.getScaledToWidth (50);
-    assertEquals (50, aID2.getWidth ());
-    assertEquals (75, aID2.getHeight ());
+    PHAssert.assertEquals (50, aID2.getWidth ());
+    PHAssert.assertEquals (75, aID2.getHeight ());
     assertSame (aID2, aID2.getScaledToWidth (50));
     aID2 = aID.getScaledToHeight (75);
-    assertEquals (50, aID2.getWidth ());
-    assertEquals (75, aID2.getHeight ());
+    PHAssert.assertEquals (50, aID2.getWidth ());
+    PHAssert.assertEquals (75, aID2.getHeight ());
     assertSame (aID2, aID2.getScaledToHeight (75));
 
     try

@@ -40,7 +40,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.lru.LRUCache;
-import com.helger.commons.dimension.ScalableSize;
+import com.helger.commons.dimension.SizeInt;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.streams.StreamUtils;
@@ -62,7 +62,7 @@ public final class ImageDataManager
   private static final IMutableStatisticsHandlerCache s_aStatsHdl = StatisticsManager.getCacheHandler (ImageDataManager.class);
   private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
   @GuardedBy ("s_aRWLock")
-  private static final Map <IReadableResource, ScalableSize> s_aImageData = new LRUCache <IReadableResource, ScalableSize> (1000);
+  private static final Map <IReadableResource, SizeInt> s_aImageData = new LRUCache <IReadableResource, SizeInt> (1000);
   @GuardedBy ("s_aRWLock")
   private static final Set <IReadableResource> s_aNonExistingResources = new HashSet <IReadableResource> ();
 
@@ -73,9 +73,9 @@ public final class ImageDataManager
   {}
 
   @Nullable
-  private static ScalableSize _readImageData (@Nonnull final IInputStreamProvider aRes)
+  private static SizeInt _readImageData (@Nonnull final IInputStreamProvider aRes)
   {
-    ScalableSize aData = null;
+    SizeInt aData = null;
     InputStream aIS = null;
     try
     {
@@ -86,7 +86,7 @@ public final class ImageDataManager
         // Happens e.g. if a file with the extension ".png" is not a PNG image
         final BufferedImage aImage = ImageIO.read (aIS);
         if (aImage != null)
-          aData = new ScalableSize (aImage.getWidth (), aImage.getHeight ());
+          aData = new SizeInt (aImage.getWidth (), aImage.getHeight ());
         else
           s_aLogger.warn ("Does not seem to be an image resource: " + aRes);
       }
@@ -132,7 +132,7 @@ public final class ImageDataManager
   }
 
   @Nullable
-  public static ScalableSize getImageSize (@Nullable final IReadableResource aRes)
+  public static SizeInt getImageSize (@Nullable final IReadableResource aRes)
   {
     if (aRes == null)
       return null;
@@ -146,7 +146,7 @@ public final class ImageDataManager
     try
     {
       // Valid image data?
-      final ScalableSize aData = s_aImageData.get (aRes);
+      final SizeInt aData = s_aImageData.get (aRes);
       if (aData != null)
       {
         s_aStatsHdl.cacheHit ();
@@ -166,7 +166,7 @@ public final class ImageDataManager
     }
 
     // Main read data
-    final ScalableSize aData = _readImageData (aRes);
+    final SizeInt aData = _readImageData (aRes);
 
     s_aRWLock.writeLock ().lock ();
     try
@@ -244,7 +244,7 @@ public final class ImageDataManager
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <IReadableResource, ScalableSize> getAllCachedSizes ()
+  public static Map <IReadableResource, SizeInt> getAllCachedSizes ()
   {
     s_aRWLock.readLock ().lock ();
     try
