@@ -42,5 +42,5 @@ public interface ICombinator <DATATYPE> extends Serializable
    * @return The combination of first and second.
    */
   @Nullable
-  DATATYPE combine (@Nullable DATATYPE aFirst, @Nullable DATATYPE aSecond);
+  DATATYPE getCombined (@Nullable DATATYPE aFirst, @Nullable DATATYPE aSecond);
 }

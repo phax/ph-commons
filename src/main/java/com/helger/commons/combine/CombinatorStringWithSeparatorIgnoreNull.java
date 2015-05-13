@@ -47,7 +47,7 @@ public final class CombinatorStringWithSeparatorIgnoreNull implements ICombinato
   }
 
   @Nullable
-  public String combine (@Nullable final String sFirst, @Nullable final String sSecond)
+  public String getCombined (@Nullable final String sFirst, @Nullable final String sSecond)
   {
     if (sFirst == null)
       return sSecond;

@@ -41,7 +41,7 @@ public final class CombinatorString implements ICombinator <String>
     return s_aInstance;
   }
 
-  public String combine (@Nullable final String sFirst, @Nullable final String sSecond)
+  public String getCombined (@Nullable final String sFirst, @Nullable final String sSecond)
   {
     return sFirst + sSecond;
   }
