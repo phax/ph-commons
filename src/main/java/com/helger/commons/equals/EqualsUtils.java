@@ -186,24 +186,6 @@ public final class EqualsUtils
    *        Second object to compare
    * @return <code>true</code> if they are equal case insensitive,
    *         <code>false</code> otherwise.
-   * @deprecated Use {@link #equalsIgnoreCase(String,String)} instead
-   */
-  @Deprecated
-  public static boolean nullSafeEqualsIgnoreCase (@Nullable final String sObj1, @Nullable final String sObj2)
-  {
-    return equalsIgnoreCase (sObj1, sObj2);
-  }
-
-  /**
-   * Check if the passed strings are equals case insensitive handling
-   * <code>null</code> appropriately.
-   *
-   * @param sObj1
-   *        First object to compare
-   * @param sObj2
-   *        Second object to compare
-   * @return <code>true</code> if they are equal case insensitive,
-   *         <code>false</code> otherwise.
    */
   @SuppressFBWarnings ({ "ES_COMPARING_PARAMETER_STRING_WITH_EQ" })
   public static boolean equalsIgnoreCase (@Nullable final String sObj1, @Nullable final String sObj2)

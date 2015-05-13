@@ -17,7 +17,6 @@
 package com.helger.commons.collections.attrs;
 
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -76,13 +75,6 @@ public class MapBasedGenericReadonlyAttributeContainer <KEYTYPE, VALUETYPE> exte
   public Map <KEYTYPE, VALUETYPE> getAllAttributes ()
   {
     return CollectionHelper.newMap (m_aAttrs);
-  }
-
-  @Nonnull
-  @Deprecated
-  public Enumeration <KEYTYPE> getAttributeNames ()
-  {
-    return CollectionHelper.getEnumeration (m_aAttrs.keySet ());
   }
 
   @Nonnull

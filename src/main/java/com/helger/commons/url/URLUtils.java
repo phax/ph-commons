@@ -51,7 +51,6 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.encode.IDecoder;
 import com.helger.commons.encode.IEncoder;
@@ -373,13 +372,6 @@ public final class URLUtils
   }
 
   @Nonnull
-  @Deprecated
-  public static String getURLString (@Nonnull final IURLData aURL, @Nullable final String sParameterCharset)
-  {
-    return getURLString (aURL.getPath (), aURL.getAllParams (), aURL.getAnchor (), sParameterCharset);
-  }
-
-  @Nonnull
   public static String getURLString (@Nonnull final IURLData aURL, @Nullable final Charset aParameterCharset)
   {
     return getURLString (aURL.getPath (), aURL.getAllParams (), aURL.getAnchor (), aParameterCharset);
@@ -472,33 +464,6 @@ public final class URLUtils
       return QUESTIONMARK_STR;
 
     return aSB.toString ();
-  }
-
-  /**
-   * Get the final representation of the URL using the specified elements.
-   *
-   * @param sPath
-   *        The main path. May be <code>null</code>.
-   * @param aParams
-   *        The set of parameters to be appended. May be <code>null</code>.
-   * @param sAnchor
-   *        An optional anchor to be added. May be <code>null</code>.
-   * @param sParameterCharset
-   *        If not <code>null</code> the parameters are encoded using this
-   *        charset.
-   * @return May be <code>null</code> if all parameters are <code>null</code>.
-   */
-  @Nullable
-  @Deprecated
-  public static String getURLString (@Nullable final String sPath,
-                                     @Nullable final Map <String, String> aParams,
-                                     @Nullable final String sAnchor,
-                                     @Nullable final String sParameterCharset)
-  {
-    return getURLString (sPath,
-                         aParams,
-                         sAnchor,
-                         sParameterCharset == null ? null : CharsetManager.getCharsetFromName (sParameterCharset));
   }
 
   /**

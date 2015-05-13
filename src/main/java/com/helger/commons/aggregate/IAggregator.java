@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 
 /**
  * Aggregate a list of input objects to an output object.
- * 
+ *
  * @author Philip Helger
  * @param <SRCTYPE>
  *        The input type.
@@ -32,6 +32,13 @@ import javax.annotation.Nullable;
  */
 public interface IAggregator <SRCTYPE, DSTTYPE>
 {
+  /**
+   * Aggregate a collection of input objects to a single output object.
+   * 
+   * @param aObjects
+   *        Source objects. May not be <code>null</code>.
+   * @return The aggregated object. May be <code>null</code>.
+   */
   @Nullable
   DSTTYPE aggregate (@Nonnull Collection <SRCTYPE> aObjects);
 }

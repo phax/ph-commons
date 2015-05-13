@@ -73,21 +73,6 @@ public interface IMessageDigestGenerator
    *
    * @param sValue
    *        The string value to update the hash. May not be <code>null</code>.
-   * @param sCharset
-   *        The charset to be used for extraction of the bytes. May not be
-   *        <code>null</code>.
-   * @return this
-   */
-  @Nonnull
-  @Deprecated
-  IMessageDigestGenerator update (@Nonnull String sValue, @Nonnull String sCharset);
-
-  /**
-   * Update the hash with the bytes of the given string in the given charset.
-   * After calling {@link #getDigest()} once, no further update is possible.
-   *
-   * @param sValue
-   *        The string value to update the hash. May not be <code>null</code>.
    * @param aCharset
    *        The charset to be used for extraction of the bytes. May not be
    *        <code>null</code>.

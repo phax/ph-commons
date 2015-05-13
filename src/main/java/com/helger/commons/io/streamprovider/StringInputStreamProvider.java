@@ -26,8 +26,6 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.IInputStreamAndReaderProvider;
 import com.helger.commons.io.IReaderProvider;
@@ -38,7 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * An {@link java.io.InputStream} provider based on a {@link String}.
- * 
+ *
  * @author Philip Helger
  */
 public class StringInputStreamProvider implements IInputStreamAndReaderProvider, IReaderProvider, Serializable
@@ -46,24 +44,9 @@ public class StringInputStreamProvider implements IInputStreamAndReaderProvider,
   private String m_sData;
   private Charset m_aCharset;
 
-  @Deprecated
-  public StringInputStreamProvider (@Nonnull final char [] aChars, @Nonnull @Nonempty final String sCharset)
-  {
-    this (new String (aChars), sCharset);
-  }
-
   public StringInputStreamProvider (@Nonnull final char [] aChars, @Nonnull final Charset aCharset)
   {
     this (new String (aChars), aCharset);
-  }
-
-  @Deprecated
-  public StringInputStreamProvider (@Nonnull final char [] aChars,
-                                    @Nonnegative final int nOfs,
-                                    @Nonnegative final int nLen,
-                                    @Nonnull @Nonempty final String sCharset)
-  {
-    this (new String (aChars, nOfs, nLen), sCharset);
   }
 
   public StringInputStreamProvider (@Nonnull final char [] aChars,
@@ -74,21 +57,9 @@ public class StringInputStreamProvider implements IInputStreamAndReaderProvider,
     this (new String (aChars, nOfs, nLen), aCharset);
   }
 
-  @Deprecated
-  public StringInputStreamProvider (@Nonnull final CharSequence aData, @Nonnull @Nonempty final String sCharset)
-  {
-    this (aData.toString (), sCharset);
-  }
-
   public StringInputStreamProvider (@Nonnull final CharSequence aData, @Nonnull final Charset aCharset)
   {
     this (aData.toString (), aCharset);
-  }
-
-  @Deprecated
-  public StringInputStreamProvider (@Nonnull final String sData, @Nonnull @Nonempty final String sCharset)
-  {
-    this (sData, CharsetManager.getCharsetFromName (sCharset));
   }
 
   public StringInputStreamProvider (@Nonnull final String sData, @Nonnull final Charset aCharset)
@@ -125,13 +96,6 @@ public class StringInputStreamProvider implements IInputStreamAndReaderProvider,
   public final StringInputStream getInputStream ()
   {
     return new StringInputStream (m_sData, m_aCharset);
-  }
-
-  @Nonnull
-  @Deprecated
-  public final NonBlockingStringReader getReader (@Nonnull final String sCharset)
-  {
-    return new NonBlockingStringReader (m_sData);
   }
 
   @Nonnull

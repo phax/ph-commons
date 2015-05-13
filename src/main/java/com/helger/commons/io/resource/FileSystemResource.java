@@ -34,7 +34,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.IReadWriteResource;
@@ -116,16 +115,6 @@ public class FileSystemResource implements IReadWriteResource
   }
 
   @Nullable
-  @Deprecated
-  public static Reader getReader (@Nonnull final File aFile, @Nonnull @Nonempty final String sCharset)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-    ValueEnforcer.notEmpty (sCharset, "Charset");
-
-    return StreamUtils.createReader (getInputStream (aFile), sCharset);
-  }
-
-  @Nullable
   public static Reader getReader (@Nonnull final File aFile, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "File");
@@ -138,13 +127,6 @@ public class FileSystemResource implements IReadWriteResource
   public InputStream getInputStream ()
   {
     return getInputStream (m_aFile);
-  }
-
-  @Nullable
-  @Deprecated
-  public Reader getReader (@Nonnull @Nonempty final String sCharset)
-  {
-    return getReader (m_aFile, sCharset);
   }
 
   @Nullable
@@ -163,19 +145,6 @@ public class FileSystemResource implements IReadWriteResource
   }
 
   @Nullable
-  @Deprecated
-  public static Writer getWriter (@Nonnull final File aFile,
-                                  @Nonnull @Nonempty final String sCharset,
-                                  @Nonnull final EAppend eAppend)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-    ValueEnforcer.notEmpty (sCharset, "Charset");
-    ValueEnforcer.notNull (eAppend, "Append");
-
-    return StreamUtils.createWriter (getOutputStream (aFile, eAppend), sCharset);
-  }
-
-  @Nullable
   public static Writer getWriter (@Nonnull final File aFile,
                                   @Nonnull final Charset aCharset,
                                   @Nonnull final EAppend eAppend)
@@ -191,13 +160,6 @@ public class FileSystemResource implements IReadWriteResource
   public OutputStream getOutputStream (@Nonnull final EAppend eAppend)
   {
     return getOutputStream (m_aFile, eAppend);
-  }
-
-  @Nullable
-  @Deprecated
-  public Writer getWriter (@Nonnull @Nonempty final String sCharset, @Nonnull final EAppend eAppend)
-  {
-    return getWriter (m_aFile, sCharset, eAppend);
   }
 
   @Nullable

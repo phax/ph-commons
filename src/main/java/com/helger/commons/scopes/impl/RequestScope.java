@@ -90,30 +90,10 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
                       ScopeUtils.getDebugStackTrace ());
   }
 
-  /**
-   * @deprecated Use {@link #getAttributeAsList(String)} instead
-   */
-  @Deprecated
-  @Nullable
-  public List <String> getAttributeValues (@Nullable final String sName)
-  {
-    return getAttributeAsList (sName);
-  }
-
   @Nullable
   public List <String> getAttributeAsList (@Nullable final String sName)
   {
     return getAttributeAsList (sName, null);
-  }
-
-  /**
-   * @deprecated Use {@link #getAttributeAsList(String,List)} instead
-   */
-  @Deprecated
-  @Nullable
-  public List <String> getAttributeValues (@Nullable final String sName, @Nullable final List <String> aDefault)
-  {
-    return getAttributeAsList (sName, aDefault);
   }
 
   /**

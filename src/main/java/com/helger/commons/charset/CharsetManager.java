@@ -16,7 +16,6 @@
  */
 package com.helger.commons.charset;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
 import java.nio.charset.UnsupportedCharsetException;
@@ -136,38 +135,6 @@ public final class CharsetManager
     // ENDIF
   }
 
-  @Nonnull
-  @Deprecated
-  public static byte [] getAsBytes (@Nonnull final String sText, @Nonnull @Nonempty final String sCharsetName)
-  {
-    ValueEnforcer.notNull (sText, "Text");
-    ValueEnforcer.notEmpty (sCharsetName, "CharsetName");
-
-    try
-    {
-      return sText.getBytes (sCharsetName);
-    }
-    catch (final UnsupportedEncodingException ex)
-    {
-      throw new IllegalArgumentException ("Failed to get string bytes in charset '" + sCharsetName + "'", ex);
-    }
-  }
-
-  @Nullable
-  @Deprecated
-  public static String getAsStringInOtherCharset (@Nullable final String sText,
-                                                  @Nonnull @Nonempty final String sCurrentCharset,
-                                                  @Nonnull @Nonempty final String sNewCharset)
-  {
-    ValueEnforcer.notEmpty (sCurrentCharset, "CurrentCharset");
-    ValueEnforcer.notEmpty (sNewCharset, "NewCharset");
-
-    if (sText == null || sCurrentCharset.equals (sNewCharset))
-      return sText;
-
-    return getAsString (getAsBytes (sText, sCurrentCharset), sNewCharset);
-  }
-
   @Nullable
   public static String getAsStringInOtherCharset (@Nullable final String sText,
                                                   @Nonnull final Charset aCurrentCharset,
@@ -180,35 +147,6 @@ public final class CharsetManager
       return sText;
 
     return getAsString (getAsBytes (sText, aCurrentCharset), aNewCharset);
-  }
-
-  @Nonnull
-  @Deprecated
-  public static String getAsString (@Nonnull final byte [] aBuffer, @Nonnull @Nonempty final String sCharsetName)
-  {
-    ValueEnforcer.notNull (aBuffer, "Buffer");
-
-    return getAsString (aBuffer, 0, aBuffer.length, sCharsetName);
-  }
-
-  @Nonnull
-  @Deprecated
-  public static String getAsString (@Nonnull final byte [] aBuffer,
-                                    @Nonnegative final int nOfs,
-                                    @Nonnegative final int nLength,
-                                    @Nonnull @Nonempty final String sCharsetName)
-  {
-    ValueEnforcer.isArrayOfsLen (aBuffer, nOfs, nLength);
-    ValueEnforcer.notEmpty (sCharsetName, "CharsetName");
-
-    try
-    {
-      return new String (aBuffer, nOfs, nLength, sCharsetName);
-    }
-    catch (final UnsupportedEncodingException ex)
-    {
-      throw new IllegalArgumentException ("Unknown charset '" + sCharsetName + "'", ex);
-    }
   }
 
   @Nonnull

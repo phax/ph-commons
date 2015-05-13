@@ -159,13 +159,6 @@ public class URLResource implements IReadableResource
   }
 
   @Nullable
-  @Deprecated
-  public Reader getReader (@Nonnull final String sCharset)
-  {
-    return StreamUtils.createReader (getInputStream (), sCharset);
-  }
-
-  @Nullable
   public Reader getReader (@Nonnull final Charset aCharset)
   {
     return StreamUtils.createReader (getInputStream (), aCharset);

@@ -20,7 +20,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.Map;
 import java.util.Set;
 
@@ -328,16 +327,6 @@ public interface IGenericReadonlyAttributeContainer <KEYTYPE, VALUETYPE> extends
    */
   @Nullable
   BigDecimal getAttributeAsBigDecimal (@Nullable KEYTYPE aName, @Nullable BigDecimal aDefault);
-
-  /**
-   * Get an enumerator over all contained attribute names.
-   *
-   * @return an {@link Enumeration} over all attribute names
-   * @deprecated since 5.7.0 - use {@link #getAllAttributeNames()} instead.
-   */
-  @Nonnull
-  @Deprecated
-  Enumeration <KEYTYPE> getAttributeNames ();
 
   /**
    * @return A non-<code>null</code> set of all attribute names.

@@ -17,7 +17,6 @@
 package com.helger.commons.collections.attrs;
 
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -130,23 +129,6 @@ public class MapBasedAttributeContainerThreadSafe extends MapBasedAttributeConta
     finally
     {
       m_aRWLock.writeLock ().unlock ();
-    }
-  }
-
-  @Override
-  @Nonnull
-  @Deprecated
-  @ReturnsMutableCopy
-  public Enumeration <String> getAttributeNames ()
-  {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return super.getAttributeNames ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
     }
   }
 

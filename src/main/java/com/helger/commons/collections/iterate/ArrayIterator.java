@@ -127,15 +127,4 @@ public final class ArrayIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
   {
     return new ArrayIterator <ELEMENTTYPE> (aArray, nOfs, nLength);
   }
-
-  @Nonnull
-  @Deprecated
-  public static <ELEMENTTYPE> ArrayIterator <ELEMENTTYPE> createBeginEnd (@Nonnull final ELEMENTTYPE [] aArray,
-                                                                          @Nonnegative final int nBegin,
-                                                                          @Nonnegative final int nEnd)
-  {
-    if (nEnd < nBegin)
-      throw new IllegalArgumentException ("Begin (" + nBegin + ") must be between 0 and < end (" + nEnd + ")");
-    return createOfsLen (aArray, nBegin, nEnd - nBegin);
-  }
 }

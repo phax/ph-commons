@@ -156,19 +156,6 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   }
 
   @Nullable
-  @Deprecated
-  @ReturnsMutableCopy
-  public Map <String, String> getAllAttributes ()
-  {
-    if (hasNoAttributes ())
-      return null;
-    final Map <String, String> ret = new LinkedHashMap <String, String> ();
-    for (final MicroAttribute aAttr : m_aAttrs.values ())
-      ret.put (aAttr.getAttributeName (), aAttr.getAttributeValue ());
-    return ret;
-  }
-
-  @Nullable
   @ReturnsMutableCopy
   public Map <IMicroQName, String> getAllQAttributes ()
   {
@@ -266,38 +253,12 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return ret;
   }
 
-  /**
-   * @deprecated Use {@link #getAttributeValueWithConversion(String,Class)}
-   *             instead
-   */
-  @Deprecated
-  @Nullable
-  public <DSTTYPE> DSTTYPE getAttributeWithConversion (@Nullable final String sAttrName,
-                                                       @Nonnull final Class <DSTTYPE> aDstClass)
-  {
-    return getAttributeValueWithConversion (sAttrName, aDstClass);
-  }
-
   @Nullable
   public <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final String sAttrName,
                                                             @Nonnull final Class <DSTTYPE> aDstClass)
   {
     final String sAttrValue = getAttributeValue (sAttrName);
     return _getConvertedToType (sAttrValue, aDstClass);
-  }
-
-  /**
-   * @deprecated Use
-   *             {@link #getAttributeValueWithConversion(String,String,Class)}
-   *             instead
-   */
-  @Deprecated
-  @Nullable
-  public <DSTTYPE> DSTTYPE getAttributeWithConversion (@Nullable final String sNamespaceURI,
-                                                       @Nullable final String sAttrName,
-                                                       @Nonnull final Class <DSTTYPE> aDstClass)
-  {
-    return getAttributeValueWithConversion (sNamespaceURI, sAttrName, aDstClass);
   }
 
   @Nullable
@@ -307,18 +268,6 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   {
     final String sAttrValue = getAttributeValue (sNamespaceURI, sAttrName);
     return _getConvertedToType (sAttrValue, aDstClass);
-  }
-
-  /**
-   * @deprecated Use {@link #getAttributeValueWithConversion(IMicroQName,Class)}
-   *             instead
-   */
-  @Deprecated
-  @Nullable
-  public <DSTTYPE> DSTTYPE getAttributeWithConversion (@Nullable final IMicroQName aAttrName,
-                                                       @Nonnull final Class <DSTTYPE> aDstClass)
-  {
-    return getAttributeValueWithConversion (aAttrName, aDstClass);
   }
 
   @Nullable

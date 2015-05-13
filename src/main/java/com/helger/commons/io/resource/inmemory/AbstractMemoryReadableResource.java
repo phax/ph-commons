@@ -70,13 +70,6 @@ public abstract class AbstractMemoryReadableResource implements IReadableResourc
     return StreamUtils.createReader (getInputStream (), aCharset);
   }
 
-  @Nullable
-  @Deprecated
-  public Reader getReader (@Nonnull final String sCharset)
-  {
-    return StreamUtils.createReader (getInputStream (), sCharset);
-  }
-
   @Nonnull
   @UnsupportedOperation
   public IReadableResource getReadableCloneForPath (@Nonnull final String sPath)

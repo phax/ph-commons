@@ -29,31 +29,11 @@ import com.helger.commons.charset.CharsetManager;
 
 /**
  * Test class for class {@link Base64Helper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class Base64HelperTest
 {
-  @SuppressWarnings ("deprecation")
-  @Test
-  public void testEncodeDecode ()
-  {
-    final String sSource = "dgMP$";
-    final String sEncoded = Base64Helper.safeEncode (sSource, CCharset.CHARSET_ISO_8859_1);
-    assertTrue (Arrays.equals (CharsetManager.getAsBytes (sSource, CCharset.CHARSET_ISO_8859_1),
-                               Base64Helper.safeDecode (sEncoded)));
-    assertTrue (Arrays.equals (CharsetManager.getAsBytes (sSource, CCharset.CHARSET_ISO_8859_1),
-                               Base64Helper.safeDecode (CharsetManager.getAsBytes (sEncoded,
-                                                                                   CCharset.CHARSET_ISO_8859_1))));
-    assertEquals (sSource, Base64Helper.safeDecodeAsString (sEncoded, CCharset.CHARSET_ISO_8859_1));
-    assertEquals (sSource, Base64Helper.safeDecodeAsString (CharsetManager.getAsBytes (sEncoded,
-                                                                                       CCharset.CHARSET_ISO_8859_1),
-                                                            CCharset.CHARSET_ISO_8859_1));
-
-    // Invalid input
-    assertNull (Base64Helper.safeDecode ("xyz"));
-  }
-
   @Test
   public void testEncodeDecodeCharset ()
   {

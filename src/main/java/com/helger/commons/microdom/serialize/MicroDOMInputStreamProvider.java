@@ -20,7 +20,6 @@ import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.io.streamprovider.StringInputStreamProvider;
 import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.xml.serialize.IXMLWriterSettings;
@@ -29,14 +28,14 @@ import com.helger.commons.xml.serialize.XMLWriterSettings;
 /**
  * A special input stream provider that takes an existing {@link IMicroNode} and
  * converts it to a byte array.
- * 
+ *
  * @author Philip Helger
  */
 public class MicroDOMInputStreamProvider extends StringInputStreamProvider
 {
   /**
    * Constructor for MicroNodes using the default charset.
-   * 
+   *
    * @param aNode
    *        The node to be streamed. May not be <code>null</code>.
    * @see XMLWriterSettings#DEFAULT_XML_CHARSET
@@ -48,21 +47,7 @@ public class MicroDOMInputStreamProvider extends StringInputStreamProvider
 
   /**
    * Constructor for MicroNodes.
-   * 
-   * @param aNode
-   *        The node to be streamed. May not be <code>null</code>.
-   * @param sCharset
-   *        The charset to use. May not be <code>null</code>.
-   */
-  @Deprecated
-  public MicroDOMInputStreamProvider (@Nonnull final IMicroNode aNode, @Nonnull @Nonempty final String sCharset)
-  {
-    this (aNode, new XMLWriterSettings ().setCharset (sCharset));
-  }
-
-  /**
-   * Constructor for MicroNodes.
-   * 
+   *
    * @param aNode
    *        The node to be streamed. May not be <code>null</code>.
    * @param aCharset
@@ -75,7 +60,7 @@ public class MicroDOMInputStreamProvider extends StringInputStreamProvider
 
   /**
    * Constructor for micro nodes.
-   * 
+   *
    * @param aNode
    *        The node to be streamed. May not be <code>null</code>.
    * @param aSettings

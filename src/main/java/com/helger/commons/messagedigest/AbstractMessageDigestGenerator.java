@@ -21,7 +21,6 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.charset.CharsetManager;
 
 /**
@@ -33,16 +32,6 @@ import com.helger.commons.charset.CharsetManager;
  */
 public abstract class AbstractMessageDigestGenerator implements IMessageDigestGenerator
 {
-  @Nonnull
-  @Deprecated
-  public final IMessageDigestGenerator update (@Nonnull final String aValue, @Nonnull @Nonempty final String sCharset)
-  {
-    ValueEnforcer.notNull (aValue, "Value");
-    ValueEnforcer.notEmpty (sCharset, "Charset");
-
-    return update (CharsetManager.getAsBytes (aValue, sCharset));
-  }
-
   @Nonnull
   public final IMessageDigestGenerator update (@Nonnull final String aValue, @Nonnull final Charset aCharset)
   {

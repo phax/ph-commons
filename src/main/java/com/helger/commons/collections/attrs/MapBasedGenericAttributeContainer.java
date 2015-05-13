@@ -17,7 +17,6 @@
 package com.helger.commons.collections.attrs;
 
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -175,14 +174,6 @@ public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends Abst
 
     // Returned value may be null
     return EChange.valueOf (m_aAttrs.remove (aName) != null);
-  }
-
-  @Nonnull
-  @Deprecated
-  public Enumeration <KEYTYPE> getAttributeNames ()
-  {
-    // Build an enumerator on top of the set
-    return CollectionHelper.getEnumeration (m_aAttrs.keySet ());
   }
 
   @Nonnull

@@ -49,7 +49,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link StreamUtils}.
- * 
+ *
  * @author Philip Helger
  */
 @SuppressFBWarnings ("SE_BAD_FIELD_INNER_CLASS")
@@ -235,40 +235,6 @@ public final class StreamUtilsTest
     }));
   }
 
-  @SuppressWarnings ("deprecation")
-  @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
-  public void testGetAllBytes ()
-  {
-    final String sInput = "Hallo";
-    final byte [] aInput = CharsetManager.getAsBytes (sInput, CCharset.CHARSET_ISO_8859_1);
-    assertArrayEquals (aInput, StreamUtils.getAllBytes (new ByteArrayInputStreamProvider (aInput)));
-    assertArrayEquals (aInput, StreamUtils.getAllBytes (new NonBlockingByteArrayInputStream (aInput)));
-    assertNull (StreamUtils.getAllBytes ((IInputStreamProvider) null));
-    assertNull (StreamUtils.getAllBytes ((InputStream) null));
-
-    assertEquals (sInput, StreamUtils.getAllBytesAsString (new ByteArrayInputStreamProvider (aInput),
-                                                           CCharset.CHARSET_ISO_8859_1));
-    assertEquals (sInput, StreamUtils.getAllBytesAsString (new NonBlockingByteArrayInputStream (aInput),
-                                                           CCharset.CHARSET_ISO_8859_1));
-    assertNull (StreamUtils.getAllBytesAsString ((IInputStreamProvider) null, CCharset.CHARSET_ISO_8859_1));
-    assertNull (StreamUtils.getAllBytesAsString ((InputStream) null, CCharset.CHARSET_ISO_8859_1));
-    try
-    {
-      StreamUtils.getAllBytesAsString (new NonBlockingByteArrayInputStream (aInput), (String) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      StreamUtils.getAllBytesAsString (new NonBlockingByteArrayInputStream (aInput), "weird charset name");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-  }
-
   @Test
   @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testGetAllBytesCharset ()
@@ -358,15 +324,12 @@ public final class StreamUtilsTest
     }
   }
 
-  @SuppressWarnings ("deprecation")
   @Test
   public void testGetAllBytesAsString ()
   {
     final IReadableResource aRes = new ClassPathResource ("streamutils-bytes");
-    assertEquals ("abc", StreamUtils.getAllBytesAsString (aRes, CCharset.CHARSET_UTF_8));
     assertEquals ("abc", StreamUtils.getAllBytesAsString (aRes, CCharset.CHARSET_UTF_8_OBJ));
     // Non existing
-    assertNull (StreamUtils.getAllBytesAsString (new ClassPathResource ("bla fasel"), CCharset.CHARSET_UTF_8));
     assertNull (StreamUtils.getAllBytesAsString (new ClassPathResource ("bla fasel"), CCharset.CHARSET_UTF_8_OBJ));
   }
 
@@ -459,7 +422,6 @@ public final class StreamUtilsTest
     assertNull (StreamUtils.getAllCharacters ((Reader) null));
   }
 
-  @SuppressWarnings ("deprecation")
   @Test
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testWriteStream ()
@@ -507,31 +469,9 @@ public final class StreamUtilsTest
     catch (final IllegalArgumentException ex)
     {}
 
-    // The string+charset version:
-    try
-    {
-      StreamUtils.writeStream (null, "string", CCharset.CHARSET_ISO_8859_1);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      StreamUtils.writeStream (os, null, CCharset.CHARSET_ISO_8859_1);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
     try
     {
       StreamUtils.writeStream (os, null, CCharset.CHARSET_ISO_8859_1_OBJ);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      StreamUtils.writeStream (os, "any", (String) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -549,23 +489,13 @@ public final class StreamUtilsTest
     assertFalse (StreamUtils.writeStream (os2, buf).isSuccess ());
   }
 
-  @SuppressWarnings ("deprecation")
   @Test
   public void testCreateReader ()
   {
-    assertNull (StreamUtils.createReader (null, CCharset.CHARSET_ISO_8859_1));
     assertNull (StreamUtils.createReader (null, CCharset.CHARSET_ISO_8859_1_OBJ));
     final NonBlockingByteArrayInputStream is = new NonBlockingByteArrayInputStream (new byte [4]);
-    assertNotNull (StreamUtils.createReader (is, CCharset.CHARSET_ISO_8859_1));
     assertNotNull (StreamUtils.createReader (is, CCharset.CHARSET_ISO_8859_1_OBJ));
 
-    try
-    {
-      StreamUtils.createReader (is, (String) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
     try
     {
       StreamUtils.createReader (is, (Charset) null);
@@ -573,45 +503,21 @@ public final class StreamUtilsTest
     }
     catch (final NullPointerException ex)
     {}
-    try
-    {
-      StreamUtils.createReader (is, "bla");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
   }
 
-  @SuppressWarnings ("deprecation")
   @Test
   public void testCreateWriter ()
   {
-    assertNull (StreamUtils.createWriter (null, CCharset.CHARSET_ISO_8859_1));
     assertNull (StreamUtils.createWriter (null, CCharset.CHARSET_ISO_8859_1_OBJ));
     final NonBlockingByteArrayOutputStream os = new NonBlockingByteArrayOutputStream ();
-    assertNotNull (StreamUtils.createWriter (os, CCharset.CHARSET_ISO_8859_1));
     assertNotNull (StreamUtils.createWriter (os, CCharset.CHARSET_ISO_8859_1_OBJ));
 
-    try
-    {
-      StreamUtils.createWriter (os, (String) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
     try
     {
       StreamUtils.createWriter (os, (Charset) null);
       fail ();
     }
     catch (final NullPointerException ex)
-    {}
-    try
-    {
-      StreamUtils.createWriter (os, "bla");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
     {}
   }
 }

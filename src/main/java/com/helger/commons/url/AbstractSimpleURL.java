@@ -26,7 +26,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.ReturnsMutableObject;
 import com.helger.commons.collections.CollectionHelper;
@@ -158,15 +157,6 @@ public abstract class AbstractSimpleURL implements ISimpleURL
   public final String getAsStringWithEncodedParameters ()
   {
     return getAsStringWithEncodedParameters (URLUtils.CHARSET_URL_OBJ);
-  }
-
-  @Nonnull
-  @Deprecated
-  public final String getAsStringWithEncodedParameters (@Nonnull @Nonempty final String sParameterCharset)
-  {
-    ValueEnforcer.notEmpty (sParameterCharset, "ParameterCharset");
-
-    return URLUtils.getURLString (this, sParameterCharset);
   }
 
   @Nonnull

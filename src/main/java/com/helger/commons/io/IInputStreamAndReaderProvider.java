@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 /**
  * A callback interface to retrieve {@link Reader} objects based on
  * InputStreams.
- * 
+ *
  * @author Philip Helger
  */
 public interface IInputStreamAndReaderProvider extends IInputStreamProvider
@@ -33,19 +33,7 @@ public interface IInputStreamAndReaderProvider extends IInputStreamProvider
   /**
    * Get an {@link Reader} based on this input stream provider using the given
    * charset.
-   * 
-   * @param sCharset
-   *        The charset to use. May not be <code>null</code>.
-   * @return <code>null</code> if no input stream could be retrieved.
-   */
-  @Nullable
-  @Deprecated
-  Reader getReader (@Nonnull String sCharset);
-
-  /**
-   * Get an {@link Reader} based on this input stream provider using the given
-   * charset.
-   * 
+   *
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.
    * @return <code>null</code> if no input stream could be retrieved.

@@ -22,12 +22,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.IHasStringRepresentation;
-import com.helger.commons.annotations.Nonempty;
 
 /**
  * Interface for a simple URL that works around the issues with the Java default
  * URL.
- * 
+ *
  * @author Philip Helger
  */
 public interface ISimpleURL extends IURLData, IHasStringRepresentation
@@ -39,7 +38,7 @@ public interface ISimpleURL extends IURLData, IHasStringRepresentation
 
   /**
    * Get the parameter value of the given key.
-   * 
+   *
    * @param sKey
    *        The key to check. May be <code>null</code>.
    * @return <code>null</code> if no such parameter is present.
@@ -61,17 +60,6 @@ public interface ISimpleURL extends IURLData, IHasStringRepresentation
    */
   @Nonnull
   String getAsStringWithEncodedParameters ();
-
-  /**
-   * @param sCharset
-   *        The charset used for encoding the parameters. May neither be
-   *        <code>null</code> nor empty.
-   * @return The final string representation of this URL with encoded URL
-   *         parameter keys and values.
-   */
-  @Nonnull
-  @Deprecated
-  String getAsStringWithEncodedParameters (@Nonnull @Nonempty String sCharset);
 
   /**
    * @param aCharset

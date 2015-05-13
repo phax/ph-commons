@@ -144,56 +144,9 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return The assigned attribute value or <code>null</code>.
    * @throws ClassCastException
    *         if the value cannot be converted
-   * @deprecated Use {@link #getAttributeValueWithConversion(String,Class)}
-   *             instead
-   */
-  @Deprecated
-  @Nullable
-  <DSTTYPE> DSTTYPE getAttributeWithConversion (@Nullable String sAttrName, @Nonnull Class <DSTTYPE> aDstClass);
-
-  /**
-   * Get the attribute value of the given attribute name. If this element has no
-   * such attribute, <code>null</code> is returned. The attribute value is
-   * converted via the {@link com.helger.commons.typeconvert.TypeConverter} to
-   * the desired destination class. If no such attribute is present,
-   * <code>null</code> is returned.
-   *
-   * @param sAttrName
-   *        The attribute name to retrieve the value of.
-   * @param aDstClass
-   *        The destination class.
-   * @return The assigned attribute value or <code>null</code>.
-   * @throws ClassCastException
-   *         if the value cannot be converted
    */
   @Nullable
   <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable String sAttrName, @Nonnull Class <DSTTYPE> aDstClass);
-
-  /**
-   * Get the attribute value of the given attribute name. If this element has no
-   * such attribute, <code>null</code> is returned. The attribute value is
-   * converted via the {@link com.helger.commons.typeconvert.TypeConverter} to
-   * the desired destination class. If no such attribute is present,
-   * <code>null</code> is returned.
-   *
-   * @param sNamespaceURI
-   *        Namespace URI to use. May be <code>null</code>.
-   * @param sAttrName
-   *        The attribute name to retrieve the value of.
-   * @param aDstClass
-   *        The destination class.
-   * @return The assigned attribute value or <code>null</code>.
-   * @throws ClassCastException
-   *         if the value cannot be converted
-   * @deprecated Use
-   *             {@link #getAttributeValueWithConversion(String,String,Class)}
-   *             instead
-   */
-  @Deprecated
-  @Nullable
-  <DSTTYPE> DSTTYPE getAttributeWithConversion (@Nullable String sNamespaceURI,
-                                                @Nullable String sAttrName,
-                                                @Nonnull Class <DSTTYPE> aDstClass);
 
   /**
    * Get the attribute value of the given attribute name. If this element has no
@@ -231,27 +184,6 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return The assigned attribute value or <code>null</code>.
    * @throws ClassCastException
    *         if the value cannot be converted
-   * @deprecated Use {@link #getAttributeValueWithConversion(IMicroQName,Class)}
-   *             instead
-   */
-  @Deprecated
-  @Nullable
-  <DSTTYPE> DSTTYPE getAttributeWithConversion (@Nullable IMicroQName aAttrName, @Nonnull Class <DSTTYPE> aDstClass);
-
-  /**
-   * Get the attribute value of the given attribute name. If this element has no
-   * such attribute, <code>null</code> is returned. The attribute value is
-   * converted via the {@link com.helger.commons.typeconvert.TypeConverter} to
-   * the desired destination class. If no such attribute is present,
-   * <code>null</code> is returned.
-   *
-   * @param aAttrName
-   *        The attribute qualified name to retrieve the value of.
-   * @param aDstClass
-   *        The destination class.
-   * @return The assigned attribute value or <code>null</code>.
-   * @throws ClassCastException
-   *         if the value cannot be converted
    */
   @Nullable
   <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable IMicroQName aAttrName, @Nonnull Class <DSTTYPE> aDstClass);
@@ -273,18 +205,6 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nonnull
   Iterator <? extends IMicroAttribute> getAttributeIterator ();
-
-  /**
-   * Get a map of all attribute names and values. Is ensured to be not
-   * <code>null</code> if {@link #hasAttributes()} returns <code>true</code>.
-   *
-   * @return May be <code>null</code>.
-   * @deprecated Use {@link #getAllQAttributes()} instead.
-   */
-  @Nullable
-  @Deprecated
-  @ReturnsMutableCopy
-  Map <String, String> getAllAttributes ();
 
   /**
    * Get a map of all fully qualified attribute names and values. Is ensured to

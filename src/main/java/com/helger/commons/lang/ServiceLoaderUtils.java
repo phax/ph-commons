@@ -37,10 +37,6 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
  * @author boris
  * @author Philip Helger
  */
-// IFJDK5
-// @SuppressWarnings ("javadoc")
-// ELSE
-// ENDIF
 @Immutable
 public final class ServiceLoaderUtils
 {
@@ -135,12 +131,7 @@ public final class ServiceLoaderUtils
     if (aRealLogger.isDebugEnabled ())
       aRealLogger.debug ("Trying to load all SPI implementations of " + aSPIClass);
 
-    // IFJDK5
-    // final ServiceLoaderBackport <T> aServiceLoader =
-    // ServiceLoaderBackport.<T> load (aSPIClass, aClassLoader);
-    // ELSE
     final ServiceLoader <T> aServiceLoader = ServiceLoader.<T> load (aSPIClass, aClassLoader);
-    // ENDIF
     final List <T> ret = new ArrayList <T> ();
 
     // We use the iterator to be able to catch exceptions thrown

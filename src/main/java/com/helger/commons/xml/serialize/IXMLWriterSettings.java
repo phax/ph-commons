@@ -105,15 +105,6 @@ public interface IXMLWriterSettings
   boolean isSpaceOnSelfClosedElement ();
 
   /**
-   * @return The newline string to be used. By default it is the platform
-   *         specific newline string. Never <code>null</code> nor empty.
-   */
-  @Nonnull
-  @Nonempty
-  @Deprecated
-  String getNewlineString ();
-
-  /**
    * @return The newline mode to be used. By default it is the platform specific
    *         new line mode. Never <code>null</code>.
    */

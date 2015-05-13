@@ -65,15 +65,6 @@ public final class MessageDigestGeneratorHelper
   }
 
   @Nonnull
-  @Deprecated
-  public static byte [] getDigest (@Nonnull final EMessageDigestAlgorithm eAlgorithm,
-                                   @Nonnull final String sText,
-                                   @Nonnull @Nonempty final String sCharset)
-  {
-    return getDigest (sText, sCharset, eAlgorithm);
-  }
-
-  @Nonnull
   public static byte [] getDigest (@Nonnull final EMessageDigestAlgorithm eAlgorithm,
                                    @Nonnull final String sText,
                                    @Nonnull final Charset aCharset)
@@ -94,15 +85,6 @@ public final class MessageDigestGeneratorHelper
                                    @Nonnegative final int nLength)
   {
     return getDigest (aBytes, nOfs, nLength, eAlgorithm);
-  }
-
-  @Nonnull
-  @Deprecated
-  public static byte [] getDigest (@Nonnull final String sContent,
-                                   @Nonnull @Nonempty final String sCharset,
-                                   @Nonnull @Nonempty final EMessageDigestAlgorithm... aAlgorithms)
-  {
-    return getDigest (CharsetManager.getAsBytes (sContent, sCharset), aAlgorithms);
   }
 
   @Nonnull

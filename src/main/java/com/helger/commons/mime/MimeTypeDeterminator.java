@@ -34,7 +34,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ELockType;
 import com.helger.commons.annotations.MustBeLocked;
-import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.charset.EUnicodeBOM;
@@ -181,23 +180,6 @@ public final class MimeTypeDeterminator
     {
       m_aRWLock.writeLock ().unlock ();
     }
-  }
-
-  /**
-   * Try to find the MIME type that matches the passed content string.
-   *
-   * @param s
-   *        The content string to check. May be <code>null</code>.
-   * @param sCharsetName
-   *        The charset used to convert the string to a byte array. May neither
-   *        be <code>null</code> nor empty.
-   * @return <code>null</code> if no matching MIME type was found.
-   */
-  @Nonnull
-  @Deprecated
-  public IMimeType getMimeTypeFromString (@Nullable final String s, @Nonnull @Nonempty final String sCharsetName)
-  {
-    return getMimeTypeFromBytes (s == null ? null : CharsetManager.getAsBytes (s, sCharsetName));
   }
 
   /**

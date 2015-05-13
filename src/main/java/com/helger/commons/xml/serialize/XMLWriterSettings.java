@@ -23,7 +23,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.namespace.NamespaceContext;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
@@ -60,9 +59,6 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    * <code>&lt;b /&gt;</code> in contrast to <code>&lt;b/&gt;</code>).
    */
   public static final boolean DEFAULT_SPACE_ON_SELF_CLOSED_ELEMENT = true;
-  /** By default the platform newline string is used. */
-  @Deprecated
-  public static final String DEFAULT_NEWLINE_STRING = CGlobal.LINE_SEPARATOR;
   /** By default indentation happens with 2 spaces */
   public static final String DEFAULT_INDENTATION_STRING = "  ";
   /**
@@ -271,21 +267,6 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
-  /**
-   * Set the serialization charset.
-   *
-   * @param sCharset
-   *        The charset to be used. May not be <code>null</code>.
-   * @return this
-   */
-  @Nonnull
-  @Deprecated
-  public final XMLWriterSettings setCharset (@Nonnull @Nonempty final String sCharset)
-  {
-    ValueEnforcer.notEmpty (sCharset, "Chrset");
-    return setCharset (CharsetManager.getCharsetFromName (sCharset));
-  }
-
   @Nonnull
   public String getCharset ()
   {
@@ -361,28 +342,6 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   public String getNewLineString ()
   {
     return m_eNewLineMode.getText ();
-  }
-
-  @Nonnull
-  @Deprecated
-  public final XMLWriterSettings setNewlineString (@Nonnull final ENewLineMode eNewLineMode)
-  {
-    return setNewLineMode (eNewLineMode);
-  }
-
-  @Nonnull
-  @Deprecated
-  public final XMLWriterSettings setNewlineString (@Nonnull @Nonempty final String sNewLineString)
-  {
-    return setNewlineString (ENewLineMode.getFromTextOrDefault (sNewLineString, ENewLineMode.DEFAULT));
-  }
-
-  @Nonnull
-  @Nonempty
-  @Deprecated
-  public String getNewlineString ()
-  {
-    return getNewLineString ();
   }
 
   @Nonnull

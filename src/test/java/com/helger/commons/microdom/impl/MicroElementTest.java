@@ -374,7 +374,6 @@ public final class MicroElementTest extends AbstractPHTestCase
     assertFalse (eRoot.removeAllChildren ().isChanged ());
   }
 
-  @SuppressWarnings ("deprecation")
   @Test
   public void testGetClone ()
   {
@@ -383,8 +382,6 @@ public final class MicroElementTest extends AbstractPHTestCase
     assertEquals (eRoot.getTagName (), eClone.getTagName ());
     assertNull (eRoot.getNamespaceURI ());
     assertNull (eClone.getNamespaceURI ());
-    assertNull (eRoot.getAllAttributes ());
-    assertNull (eClone.getAllAttributes ());
     assertNull (eRoot.getAllQAttributes ());
     assertNull (eClone.getAllQAttributes ());
 
@@ -393,7 +390,6 @@ public final class MicroElementTest extends AbstractPHTestCase
     assertEquals (eRoot.getTagName (), eClone.getTagName ());
     assertNull (eRoot.getNamespaceURI ());
     assertNull (eClone.getNamespaceURI ());
-    assertEquals (eRoot.getAllAttributes (), eClone.getAllAttributes ());
     assertEquals (eRoot.getAllQAttributes (), eClone.getAllQAttributes ());
 
     eRoot.setAttribute ("nsuri", "attr2", "c");
@@ -401,7 +397,6 @@ public final class MicroElementTest extends AbstractPHTestCase
     assertEquals (eRoot.getTagName (), eClone.getTagName ());
     assertNull (eRoot.getNamespaceURI ());
     assertNull (eClone.getNamespaceURI ());
-    assertEquals (eRoot.getAllAttributes (), eClone.getAllAttributes ());
     assertEquals (eRoot.getAllQAttributes (), eClone.getAllQAttributes ());
 
     assertTrue (eRoot.isEqualContent (eRoot.getClone ()));

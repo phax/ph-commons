@@ -260,34 +260,9 @@ public class ClassPathResource implements IReadableResource
   }
 
   @Nullable
-  @Deprecated
-  public Reader getReader (@Nonnull final String sCharset)
-  {
-    return StreamUtils.createReader (getInputStream (), sCharset);
-  }
-
-  @Nullable
   public Reader getReader (@Nonnull final Charset aCharset)
   {
     return StreamUtils.createReader (getInputStream (), aCharset);
-  }
-
-  /**
-   * Create a {@link Reader} of this resource, using the specified class loader
-   * only.
-   *
-   * @param aClassLoader
-   *        The class loader to be used. May not be <code>null</code>.
-   * @param sCharset
-   *        The charset to be used for the {@link Reader}. May not be
-   *        <code>null</code>.
-   * @return <code>null</code> if the path could not be resolved.
-   */
-  @Nullable
-  @Deprecated
-  public Reader getReaderNoCache (@Nonnull final ClassLoader aClassLoader, @Nonnull final String sCharset)
-  {
-    return StreamUtils.createReader (getInputStreamNoCache (aClassLoader), sCharset);
   }
 
   /**

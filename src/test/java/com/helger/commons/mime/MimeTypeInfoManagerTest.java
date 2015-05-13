@@ -140,7 +140,6 @@ public final class MimeTypeInfoManagerTest
     assertNull (aMgr.getPrimaryExtensionOfMimeType (CMimeType.MULTIPART_FORMDATA));
   }
 
-  @SuppressWarnings ("deprecation")
   @Test
   public void testKnownSpecial ()
   {
@@ -162,9 +161,6 @@ public final class MimeTypeInfoManagerTest
     assertTrue (aAllKnown.contains (CMimeType.APPLICATION_SHOCKWAVE_FLASH));
     if (false) // not contained
       assertTrue (aAllKnown.contains (CMimeType.APPLICATION_JAVA_APPLET));
-    assertTrue (aAllKnown.contains (CMimeType.APPLICATION_XHTML_XML));
-    if (false) // not contained
-      assertTrue (aAllKnown.contains (CMimeType.APPLICATION_TEXT_HTML));
     if (false) // special!
       assertTrue (aAllKnown.contains (CMimeType.APPLICATION_X_WWW_FORM_URLENCODED));
     assertTrue (aAllKnown.contains (CMimeType.APPLICATION_XML));
@@ -193,8 +189,6 @@ public final class MimeTypeInfoManagerTest
       assertTrue (aAllKnown.contains (CMimeType.TEXT_HTML_SANDBOXED));
     assertTrue (aAllKnown.contains (CMimeType.TEXT_JAVASCRIPT));
     assertTrue (aAllKnown.contains (CMimeType.TEXT_PLAIN));
-    if (false) // not contained
-      assertTrue (aAllKnown.contains (CMimeType.TEXT_XHTML_XML));
     assertTrue (aAllKnown.contains (CMimeType.TEXT_XML));
     assertTrue (aAllKnown.contains (CMimeType.TEXT_CSS));
     if (false) // special

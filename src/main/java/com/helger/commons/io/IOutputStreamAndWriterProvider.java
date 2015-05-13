@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 /**
  * A callback interface to retrieve {@link Writer} objects based on
  * InputStreams.
- * 
+ *
  * @author Philip Helger
  */
 public interface IOutputStreamAndWriterProvider extends IOutputStreamProvider
@@ -33,21 +33,7 @@ public interface IOutputStreamAndWriterProvider extends IOutputStreamProvider
   /**
    * Get an {@link Writer} based on this output stream provider using the given
    * charset.
-   * 
-   * @param sCharset
-   *        The charset to use. May not be <code>null</code>.
-   * @param eAppend
-   *        Appending mode. May not be <code>null</code>.
-   * @return <code>null</code> if no output stream could be retrieved.
-   */
-  @Nullable
-  @Deprecated
-  Writer getWriter (@Nonnull String sCharset, @Nonnull EAppend eAppend);
-
-  /**
-   * Get an {@link Writer} based on this output stream provider using the given
-   * charset.
-   * 
+   *
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.
    * @param eAppend
