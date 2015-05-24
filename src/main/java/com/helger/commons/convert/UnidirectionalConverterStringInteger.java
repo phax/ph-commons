@@ -26,9 +26,14 @@ import com.helger.commons.string.StringParser;
  *
  * @author Philip Helger
  */
-public final class UnidirectionalConverterStringInteger implements IUnidirectionalConverter <String, Integer>
+public class UnidirectionalConverterStringInteger implements IUnidirectionalConverter <String, Integer>
 {
   private final Integer m_aDefaultValue;
+
+  public UnidirectionalConverterStringInteger ()
+  {
+    this ((Integer) null);
+  }
 
   public UnidirectionalConverterStringInteger (@Nullable final Integer aDefaultValue)
   {

@@ -16,31 +16,19 @@
  */
 package com.helger.commons.convert;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
  * A unidirectional converter that converts an {@link Integer} object to a
  * {@link String}.
- * 
+ *
  * @author Philip Helger
  */
-public final class UnidirectionalConverterIntegerString implements IUnidirectionalConverter <Integer, String>
+public class UnidirectionalConverterIntegerString implements IUnidirectionalConverter <Integer, String>
 {
-  private static final UnidirectionalConverterIntegerString s_aInstance = new UnidirectionalConverterIntegerString ();
-
-  private UnidirectionalConverterIntegerString ()
-  {}
-
   @Nullable
   public String convert (@Nullable final Integer aInput)
   {
     return aInput == null ? null : aInput.toString ();
-  }
-
-  @Nonnull
-  public static UnidirectionalConverterIntegerString getInstance ()
-  {
-    return s_aInstance;
   }
 }

@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A simple combinator that concatenates 2 strings by ignoring <code>null</code>
  * values.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -35,6 +35,12 @@ public final class CombinatorStringIgnoreNull implements ICombinator <String>
 
   private CombinatorStringIgnoreNull ()
   {}
+
+  @Nonnull
+  public static CombinatorStringIgnoreNull getInstance ()
+  {
+    return s_aInstance;
+  }
 
   @Nullable
   public String getCombined (@Nullable final String sFirst, @Nullable final String sSecond)
@@ -50,11 +56,5 @@ public final class CombinatorStringIgnoreNull implements ICombinator <String>
   public String toString ()
   {
     return new ToStringGenerator (this).toString ();
-  }
-
-  @Nonnull
-  public static CombinatorStringIgnoreNull getInstance ()
-  {
-    return s_aInstance;
   }
 }

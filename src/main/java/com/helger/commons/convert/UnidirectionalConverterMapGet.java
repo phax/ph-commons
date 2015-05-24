@@ -35,7 +35,7 @@ import com.helger.commons.collections.CollectionHelper;
  * @param <VALUETYPE>
  *        Map value type
  */
-public final class UnidirectionalConverterMapGet <KEYTYPE, VALUETYPE> implements IUnidirectionalConverter <KEYTYPE, VALUETYPE>
+public class UnidirectionalConverterMapGet <KEYTYPE, VALUETYPE> implements IUnidirectionalConverter <KEYTYPE, VALUETYPE>
 {
   private final Map <KEYTYPE, VALUETYPE> m_aMap;
 

@@ -24,13 +24,12 @@ import com.helger.commons.id.IHasID;
 /**
  * A unidirectional converter that extracts the ID from an object implementing
  * {@link IHasID}.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The ID type
  */
-public final class UnidirectionalConverterHasIDID <DATATYPE> implements
-                                                             IUnidirectionalConverter <IHasID <DATATYPE>, DATATYPE>
+public class UnidirectionalConverterHasIDID <DATATYPE> implements IUnidirectionalConverter <IHasID <DATATYPE>, DATATYPE>
 {
   @Nullable
   public DATATYPE convert (@Nullable final IHasID <DATATYPE> aInput)

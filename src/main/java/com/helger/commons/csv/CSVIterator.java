@@ -70,9 +70,9 @@ public class CSVIterator implements Iterator <List <String>>
     {
       m_aNextLine = m_aReader.readNext ();
     }
-    catch (final IOException e)
+    catch (final IOException ex)
     {
-      throw new RuntimeException ("Failed to read next CSV line", e);
+      throw new RuntimeException ("Failed to read next CSV line", ex);
     }
     return ret;
   }

@@ -45,6 +45,7 @@ public final class CombinatorStringWithSeparator implements ICombinator <String>
     return m_sSep;
   }
 
+  @Nonnull
   public String getCombined (@Nullable final String sFirst, @Nullable final String sSecond)
   {
     return sFirst + m_sSep + sSecond;

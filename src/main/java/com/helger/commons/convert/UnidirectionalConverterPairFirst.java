@@ -31,7 +31,7 @@ import com.helger.commons.collections.pair.IPair;
  * @param <DATA2TYPE>
  *        Second data type
  */
-public final class UnidirectionalConverterPairFirst <DATA1TYPE, DATA2TYPE> implements IUnidirectionalConverter <IPair <DATA1TYPE, DATA2TYPE>, DATA1TYPE>
+public class UnidirectionalConverterPairFirst <DATA1TYPE, DATA2TYPE> implements IUnidirectionalConverter <IPair <DATA1TYPE, DATA2TYPE>, DATA1TYPE>
 {
   @Nullable
   public DATA1TYPE convert (@Nullable final IPair <DATA1TYPE, DATA2TYPE> aPair)

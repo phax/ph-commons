@@ -16,7 +16,6 @@
  */
 package com.helger.commons.convert;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.name.IHasName;
@@ -24,25 +23,14 @@ import com.helger.commons.name.IHasName;
 /**
  * A unidirectional converter that extracts the name from an object implementing
  * {@link IHasName}.
- * 
+ *
  * @author Philip Helger
  */
-public final class UnidirectionalConverterHasNameString implements IUnidirectionalConverter <IHasName, String>
+public class UnidirectionalConverterHasNameString implements IUnidirectionalConverter <IHasName, String>
 {
-  private static final UnidirectionalConverterHasNameString s_aInstance = new UnidirectionalConverterHasNameString ();
-
-  private UnidirectionalConverterHasNameString ()
-  {}
-
   @Nullable
   public String convert (@Nullable final IHasName aInput)
   {
     return aInput == null ? null : aInput.getName ();
-  }
-
-  @Nonnull
-  public static UnidirectionalConverterHasNameString getInstance ()
-  {
-    return s_aInstance;
   }
 }

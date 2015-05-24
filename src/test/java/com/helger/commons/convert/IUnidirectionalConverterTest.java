@@ -55,24 +55,22 @@ public final class IUnidirectionalConverterTest
   {
     @SuppressWarnings ("unchecked")
     final List <ReadonlyPair <Integer, String>> aPairs = CollectionHelper.newList (ReadonlyPair.create (Integer.valueOf (1),
-                                                                                                       "Hallo"),
-                                                                                  ReadonlyPair.create (Integer.valueOf (2),
-                                                                                                       "welt"),
-                                                                                  ReadonlyPair.create (Integer.valueOf (47),
-                                                                                                       "!"));
-    _test (UnidirectionalConverterPairFirst.<Integer, String> create (),
-           aPairs,
-           CollectionHelper.newList (Integer.valueOf (1), Integer.valueOf (2), Integer.valueOf (47)));
+                                                                                                        "Hallo"),
+                                                                                   ReadonlyPair.create (Integer.valueOf (2),
+                                                                                                        "welt"),
+                                                                                   ReadonlyPair.create (Integer.valueOf (47),
+                                                                                                        "!"));
+    _test (UnidirectionalConverterPairFirst.<Integer, String> create (), aPairs, CollectionHelper.newIntList (1, 2, 47));
     _test (UnidirectionalConverterPairSecond.<Integer, String> create (),
            aPairs,
            CollectionHelper.newList ("Hallo", "welt", "!"));
-    _test (new UnidirectionalConverterStringInteger (null),
+    _test (new UnidirectionalConverterStringInteger (),
            CollectionHelper.newList ("1", "2", "47"),
-           CollectionHelper.newList (Integer.valueOf (1), Integer.valueOf (2), Integer.valueOf (47)));
-    _test (UnidirectionalConverterIntegerString.getInstance (),
-           CollectionHelper.newList (Integer.valueOf (1), Integer.valueOf (2), Integer.valueOf (47)),
+           CollectionHelper.newIntList (1, 2, 47));
+    _test (new UnidirectionalConverterIntegerString (),
+           CollectionHelper.newIntList (1, 2, 47),
            CollectionHelper.newList ("1", "2", "47"));
-    _test (UnidirectionalConverterHasNameString.getInstance (),
+    _test (new UnidirectionalConverterHasNameString (),
            CollectionHelper.newList (new MockHasName (1), new MockHasName (2), new MockHasName (47)),
            CollectionHelper.newList ("1", "2", "47"));
     _test (UnidirectionalConverterHasIDID.<String> create (),
@@ -80,6 +78,6 @@ public final class IUnidirectionalConverterTest
            CollectionHelper.newList ("1", "2", "47"));
     _test (UnidirectionalConverterHasIDID.<Integer> create (),
            CollectionHelper.newList (new MockHasIDInteger (1), new MockHasIDInteger (2), new MockHasIDInteger (47)),
-           CollectionHelper.newList (Integer.valueOf (1), Integer.valueOf (2), Integer.valueOf (47)));
+           CollectionHelper.newIntList (1, 2, 47));
   }
 }

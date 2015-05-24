@@ -22,12 +22,12 @@ import javax.annotation.Nullable;
 /**
  * A dummy implementation of {@link IUnidirectionalConverterSameType} that uses
  * the input object as the output object.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type to be converted
  */
-public final class UnidirectionalConverterIdentity <DATATYPE> implements IUnidirectionalConverterSameType <DATATYPE>
+public class UnidirectionalConverterIdentity <DATATYPE> implements IUnidirectionalConverterSameType <DATATYPE>
 {
   @Nullable
   public DATATYPE convert (@Nullable final DATATYPE aInput)
@@ -36,9 +36,9 @@ public final class UnidirectionalConverterIdentity <DATATYPE> implements IUnidir
   }
 
   /**
-   * Get a converter instance that does not conversion at all. Just to fulfil
+   * Get a converter instance that does not conversion at all. Just to fulfill
    * API compatibility.
-   * 
+   *
    * @param <DATATYPE>
    *        The type of input and output object
    * @return A non-<code>null</code> converter object.
