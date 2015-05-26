@@ -30,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
  * This class handles a single email address. It is split into an address part
  * and an optional name. The personal name is optional and may be
  * <code>null</code>.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -52,8 +52,9 @@ public class EmailAddress implements IEmailAddress
   public EmailAddress (@Nonnull final String sAddress, @Nullable final String sPersonal)
   {
     ValueEnforcer.notNull (sAddress, "EmailAddress");
-    if (!EmailAddressUtils.isValid (sAddress))
-      throw new IllegalArgumentException ("The passed email address '" + sAddress + "' is illegal!");
+    ValueEnforcer.isTrue (EmailAddressUtils.isValid (sAddress), "The passed email address '" +
+                                                                sAddress +
+                                                                "' is illegal!");
     m_sAddress = EmailAddressUtils.getUnifiedEmailAddress (sAddress);
     m_sPersonal = StringHelper.hasNoText (sPersonal) ? null : sPersonal;
   }
