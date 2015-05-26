@@ -29,23 +29,23 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * An implementation of {@link IFilter} that chains multiple instances of
- * {@link IFilter} with an <b>OR</b> operator.
+ * {@link IFilter} with an <b>AND</b> operator.
  *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type to be filtered.
  */
 @Immutable
-public final class FilterChainOR <DATATYPE> implements IFilter <DATATYPE>
+public class FilterListAll <DATATYPE> implements IFilter <DATATYPE>
 {
   private final List <? extends IFilter <? super DATATYPE>> m_aFilters;
 
-  public FilterChainOR (@Nullable final IFilter <? super DATATYPE>... aFilters)
+  public FilterListAll (@Nullable final IFilter <? super DATATYPE>... aFilters)
   {
     m_aFilters = CollectionHelper.newList (aFilters);
   }
 
-  public FilterChainOR (@Nullable final Iterable <? extends IFilter <? super DATATYPE>> aFilters)
+  public FilterListAll (@Nullable final Iterable <? extends IFilter <? super DATATYPE>> aFilters)
   {
     m_aFilters = CollectionHelper.newList (aFilters);
   }
@@ -60,9 +60,9 @@ public final class FilterChainOR <DATATYPE> implements IFilter <DATATYPE>
   public boolean matchesFilter (@Nullable final DATATYPE aValue)
   {
     for (final IFilter <? super DATATYPE> aFilter : m_aFilters)
-      if (aFilter.matchesFilter (aValue))
-        return true;
-    return false;
+      if (!aFilter.matchesFilter (aValue))
+        return false;
+    return true;
   }
 
   @Override
@@ -72,7 +72,7 @@ public final class FilterChainOR <DATATYPE> implements IFilter <DATATYPE>
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final FilterChainOR <?> rhs = (FilterChainOR <?>) o;
+    final FilterListAll <?> rhs = (FilterListAll <?>) o;
     return m_aFilters.equals (rhs.m_aFilters);
   }
 
@@ -89,14 +89,14 @@ public final class FilterChainOR <DATATYPE> implements IFilter <DATATYPE>
   }
 
   @Nonnull
-  public static <DATATYPE> FilterChainOR <DATATYPE> create (@Nullable final IFilter <? super DATATYPE>... aFilters)
+  public static <DATATYPE> FilterListAll <DATATYPE> create (@Nullable final IFilter <? super DATATYPE>... aFilters)
   {
-    return new FilterChainOR <DATATYPE> (aFilters);
+    return new FilterListAll <DATATYPE> (aFilters);
   }
 
   @Nonnull
-  public static <DATATYPE> FilterChainOR <DATATYPE> create (@Nullable final Iterable <? extends IFilter <? super DATATYPE>> aFilters)
+  public static <DATATYPE> FilterListAll <DATATYPE> create (@Nullable final Iterable <? extends IFilter <? super DATATYPE>> aFilters)
   {
-    return new FilterChainOR <DATATYPE> (aFilters);
+    return new FilterListAll <DATATYPE> (aFilters);
   }
 }

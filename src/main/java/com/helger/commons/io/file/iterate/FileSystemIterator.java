@@ -25,7 +25,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.collections.iterate.FilterIterator;
 import com.helger.commons.collections.iterate.IIterableIterator;
 import com.helger.commons.collections.iterate.IterableIterator;
-import com.helger.commons.filter.FilterChainAND;
+import com.helger.commons.filter.FilterListAll;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.io.file.FileUtils;
 import com.helger.commons.io.file.filter.IFileFilter;
@@ -108,7 +108,7 @@ public final class FileSystemIterator extends IterableIterator <File>
   public static IIterableIterator <File> create (@Nonnull final String sBaseDir,
                                                  @Nonnull final IFileFilter... aFileFilters)
   {
-    return new FilterIterator <File> (new FileSystemIterator (sBaseDir), new FilterChainAND <File> (aFileFilters));
+    return new FilterIterator <File> (new FileSystemIterator (sBaseDir), new FilterListAll <File> (aFileFilters));
   }
 
   /**
@@ -125,6 +125,6 @@ public final class FileSystemIterator extends IterableIterator <File>
   public static IIterableIterator <File> create (@Nonnull final File fBaseDir,
                                                  @Nonnull final IFileFilter... aFileFilters)
   {
-    return new FilterIterator <File> (new FileSystemIterator (fBaseDir), new FilterChainAND <File> (aFileFilters));
+    return new FilterIterator <File> (new FileSystemIterator (fBaseDir), new FilterListAll <File> (aFileFilters));
   }
 }

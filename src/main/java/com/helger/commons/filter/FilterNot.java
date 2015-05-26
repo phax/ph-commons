@@ -31,11 +31,11 @@ import com.helger.commons.string.ToStringGenerator;
  *        The data type to filter
  */
 @Immutable
-public final class FilterInverted <DATATYPE> implements IFilter <DATATYPE>
+public final class FilterNot <DATATYPE> implements IFilter <DATATYPE>
 {
   private final IFilter <DATATYPE> m_aOriginalFilter;
 
-  public FilterInverted (@Nonnull final IFilter <DATATYPE> aOriginalFilter)
+  public FilterNot (@Nonnull final IFilter <DATATYPE> aOriginalFilter)
   {
     m_aOriginalFilter = ValueEnforcer.notNull (aOriginalFilter, "OriginalFilter");
   }
@@ -58,7 +58,7 @@ public final class FilterInverted <DATATYPE> implements IFilter <DATATYPE>
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final FilterInverted <?> rhs = (FilterInverted <?>) o;
+    final FilterNot <?> rhs = (FilterNot <?>) o;
     return m_aOriginalFilter.equals (rhs.m_aOriginalFilter);
   }
 

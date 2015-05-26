@@ -24,30 +24,30 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 /**
- * Test class for class {@link FilterInverted}
- * 
+ * Test class for class {@link FilterNot}
+ *
  * @author Philip Helger
  */
-public final class FilterInvertedTest
+public final class FilterNotTest
 {
   @Test
   public void testAll ()
   {
     try
     {
-      new FilterInverted <Object> (null);
+      new FilterNot <Object> (null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
 
-    IFilter <String> aFilter = new FilterInverted <String> (FilterNotNull.<String> getInstance ());
+    IFilter <String> aFilter = new FilterNot <String> (new FilterNotNull <String> ());
     assertNotNull (aFilter);
     assertTrue (aFilter.matchesFilter (null));
     assertFalse (aFilter.matchesFilter (""));
     assertFalse (aFilter.matchesFilter ("bla bla bla"));
 
-    aFilter = new FilterInverted <String> (FilterNull.<String> getInstance ());
+    aFilter = new FilterNot <String> (new FilterNull <String> ());
     assertNotNull (aFilter);
     assertFalse (aFilter.matchesFilter (null));
     assertTrue (aFilter.matchesFilter (""));

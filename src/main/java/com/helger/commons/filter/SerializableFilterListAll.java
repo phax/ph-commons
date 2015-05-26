@@ -36,16 +36,16 @@ import com.helger.commons.string.ToStringGenerator;
  *        The type to be filtered.
  */
 @Immutable
-public final class SerializableFilterChainAND <DATATYPE> implements ISerializableFilter <DATATYPE>
+public class SerializableFilterListAll <DATATYPE> implements ISerializableFilter <DATATYPE>
 {
   private final List <? extends ISerializableFilter <? super DATATYPE>> m_aFilters;
 
-  public SerializableFilterChainAND (@Nullable final ISerializableFilter <? super DATATYPE>... aFilters)
+  public SerializableFilterListAll (@Nullable final ISerializableFilter <? super DATATYPE>... aFilters)
   {
     m_aFilters = CollectionHelper.newList (aFilters);
   }
 
-  public SerializableFilterChainAND (@Nullable final Iterable <? extends ISerializableFilter <? super DATATYPE>> aFilters)
+  public SerializableFilterListAll (@Nullable final Iterable <? extends ISerializableFilter <? super DATATYPE>> aFilters)
   {
     m_aFilters = CollectionHelper.newList (aFilters);
   }
@@ -72,7 +72,7 @@ public final class SerializableFilterChainAND <DATATYPE> implements ISerializabl
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final SerializableFilterChainAND <?> rhs = (SerializableFilterChainAND <?>) o;
+    final SerializableFilterListAll <?> rhs = (SerializableFilterListAll <?>) o;
     return m_aFilters.equals (rhs.m_aFilters);
   }
 
@@ -89,14 +89,14 @@ public final class SerializableFilterChainAND <DATATYPE> implements ISerializabl
   }
 
   @Nonnull
-  public static <DATATYPE> SerializableFilterChainAND <DATATYPE> create (@Nullable final ISerializableFilter <? super DATATYPE>... aFilters)
+  public static <DATATYPE> SerializableFilterListAll <DATATYPE> create (@Nullable final ISerializableFilter <? super DATATYPE>... aFilters)
   {
-    return new SerializableFilterChainAND <DATATYPE> (aFilters);
+    return new SerializableFilterListAll <DATATYPE> (aFilters);
   }
 
   @Nonnull
-  public static <DATATYPE> SerializableFilterChainAND <DATATYPE> create (@Nullable final Iterable <? extends ISerializableFilter <? super DATATYPE>> aFilters)
+  public static <DATATYPE> SerializableFilterListAll <DATATYPE> create (@Nullable final Iterable <? extends ISerializableFilter <? super DATATYPE>> aFilters)
   {
-    return new SerializableFilterChainAND <DATATYPE> (aFilters);
+    return new SerializableFilterListAll <DATATYPE> (aFilters);
   }
 }

@@ -22,6 +22,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import org.w3c.dom.Element;
 
 import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.filter.AbstractSerializableFilter;
 import com.helger.commons.filter.ISerializableFilter;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -33,12 +34,19 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class FilterElementWithNamespace implements ISerializableFilter <Element>
+public class FilterElementWithNamespace extends AbstractSerializableFilter <Element>
 {
   private final String m_sNamespaceURI;
 
   public FilterElementWithNamespace (@Nullable final String sNamespaceURI)
   {
+    m_sNamespaceURI = sNamespaceURI;
+  }
+
+  public FilterElementWithNamespace (@Nullable final String sNamespaceURI,
+                                     @Nullable final ISerializableFilter <? super Element> aNestedFilter)
+  {
+    super (aNestedFilter);
     m_sNamespaceURI = sNamespaceURI;
   }
 
@@ -48,7 +56,8 @@ public final class FilterElementWithNamespace implements ISerializableFilter <El
     return m_sNamespaceURI;
   }
 
-  public boolean matchesFilter (@Nullable final Element aElement)
+  @Override
+  public boolean matchesThisFilter (@Nullable final Element aElement)
   {
     return aElement != null && XMLHelper.hasNamespaceURI (aElement, m_sNamespaceURI);
   }
@@ -58,7 +67,7 @@ public final class FilterElementWithNamespace implements ISerializableFilter <El
   {
     if (o == this)
       return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
+    if (!super.equals (o))
       return false;
     final FilterElementWithNamespace rhs = (FilterElementWithNamespace) o;
     return EqualsUtils.equals (m_sNamespaceURI, rhs.m_sNamespaceURI);
@@ -67,12 +76,12 @@ public final class FilterElementWithNamespace implements ISerializableFilter <El
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sNamespaceURI).getHashCode ();
+    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_sNamespaceURI).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("namespaceURI", m_sNamespaceURI).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("namespaceURI", m_sNamespaceURI).toString ();
   }
 }

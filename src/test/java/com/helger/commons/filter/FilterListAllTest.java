@@ -25,37 +25,35 @@ import org.junit.Test;
 import com.helger.commons.collections.CollectionHelper;
 
 /**
- * Test class for class {@link FilterChainOR}
+ * Test class for class {@link FilterListAll}
  *
  * @author Philip Helger
  */
-public final class FilterChainORTest
+public final class FilterListAllTest
 {
   @SuppressWarnings ("unchecked")
   @Test
   public void testAll ()
   {
-    IFilter <String> aFilter = FilterChainOR.create (FilterNull.<String> getInstance (),
-                                                     FilterNotNull.<String> getInstance ());
+    IFilter <String> aFilter = FilterListAll.create (new FilterNull <String> (), new FilterNotNull <String> ());
     assertNotNull (aFilter);
-    assertTrue (aFilter.matchesFilter (null));
-    assertTrue (aFilter.matchesFilter (""));
-    assertTrue (aFilter.matchesFilter ("bla bla bla"));
+    assertFalse (aFilter.matchesFilter (null));
+    assertFalse (aFilter.matchesFilter (""));
+    assertFalse (aFilter.matchesFilter ("bla bla bla"));
 
-    aFilter = FilterChainOR.create (FilterNull.<String> getInstance ());
+    aFilter = FilterListAll.create (new FilterNull <String> ());
     assertNotNull (aFilter);
     assertTrue (aFilter.matchesFilter (null));
     assertFalse (aFilter.matchesFilter (""));
     assertFalse (aFilter.matchesFilter ("bla bla bla"));
 
-    aFilter = FilterChainOR.create (CollectionHelper.newList (FilterNull.<String> getInstance (),
-                                                             FilterNotNull.<String> getInstance ()));
+    aFilter = FilterListAll.create (CollectionHelper.newList (new FilterNull <String> (), new FilterNotNull <String> ()));
     assertNotNull (aFilter);
-    assertTrue (aFilter.matchesFilter (null));
-    assertTrue (aFilter.matchesFilter (""));
-    assertTrue (aFilter.matchesFilter ("bla bla bla"));
+    assertFalse (aFilter.matchesFilter (null));
+    assertFalse (aFilter.matchesFilter (""));
+    assertFalse (aFilter.matchesFilter ("bla bla bla"));
 
-    aFilter = FilterChainOR.create (CollectionHelper.newList (FilterNull.<String> getInstance ()));
+    aFilter = FilterListAll.create (CollectionHelper.newList (new FilterNull <String> ()));
     assertNotNull (aFilter);
     assertTrue (aFilter.matchesFilter (null));
     assertFalse (aFilter.matchesFilter (""));

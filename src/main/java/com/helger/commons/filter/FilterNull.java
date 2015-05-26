@@ -16,12 +16,10 @@
  */
 package com.helger.commons.filter;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.hash.HashCodeGenerator;
-import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -32,14 +30,18 @@ import com.helger.commons.string.ToStringGenerator;
  *        The data type to filter.
  */
 @Immutable
-public final class FilterNull <DATATYPE> implements ISerializableFilter <DATATYPE>
+public class FilterNull <DATATYPE> extends AbstractSerializableFilter <DATATYPE>
 {
-  private static final FilterNull <Object> s_aInstance = new FilterNull <Object> ();
-
-  private FilterNull ()
+  public FilterNull ()
   {}
 
-  public boolean matchesFilter (@Nullable final DATATYPE aValue)
+  public FilterNull (@Nullable final ISerializableFilter <? super DATATYPE> aNestedFilter)
+  {
+    super (aNestedFilter);
+  }
+
+  @Override
+  public boolean matchesThisFilter (@Nullable final DATATYPE aValue)
   {
     return aValue == null;
   }
@@ -64,11 +66,5 @@ public final class FilterNull <DATATYPE> implements ISerializableFilter <DATATYP
   public String toString ()
   {
     return new ToStringGenerator (this).toString ();
-  }
-
-  @Nonnull
-  public static <DATATYPE> FilterNull <DATATYPE> getInstance ()
-  {
-    return GenericReflection.<FilterNull <Object>, FilterNull <DATATYPE>> uncheckedCast (s_aInstance);
   }
 }

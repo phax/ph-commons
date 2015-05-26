@@ -24,7 +24,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link FilterNull}
- * 
+ *
  * @author Philip Helger
  */
 public final class FilterNullTest
@@ -32,7 +32,7 @@ public final class FilterNullTest
   @Test
   public void testAll ()
   {
-    final IFilter <String> aFilter = FilterNull.getInstance ();
+    final IFilter <String> aFilter = new FilterNull <String> ();
     assertNotNull (aFilter);
     assertTrue (aFilter.matchesFilter (null));
     assertFalse (aFilter.matchesFilter (""));

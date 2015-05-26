@@ -31,11 +31,11 @@ import com.helger.commons.string.ToStringGenerator;
  *        The data type to filter
  */
 @Immutable
-public final class SerializableFilterInverted <DATATYPE> implements ISerializableFilter <DATATYPE>
+public class SerializableFilterNot <DATATYPE> implements ISerializableFilter <DATATYPE>
 {
   private final ISerializableFilter <DATATYPE> m_aOriginalFilter;
 
-  public SerializableFilterInverted (@Nonnull final ISerializableFilter <DATATYPE> aOriginalFilter)
+  public SerializableFilterNot (@Nonnull final ISerializableFilter <DATATYPE> aOriginalFilter)
   {
     m_aOriginalFilter = ValueEnforcer.notNull (aOriginalFilter, "OriginalFilter");
   }
@@ -58,7 +58,7 @@ public final class SerializableFilterInverted <DATATYPE> implements ISerializabl
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final SerializableFilterInverted <?> rhs = (SerializableFilterInverted <?>) o;
+    final SerializableFilterNot <?> rhs = (SerializableFilterNot <?>) o;
     return m_aOriginalFilter.equals (rhs.m_aOriginalFilter);
   }
 

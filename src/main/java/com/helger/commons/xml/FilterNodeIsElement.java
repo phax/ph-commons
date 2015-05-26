@@ -35,14 +35,14 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public final class FilterNodeIsElement implements IFilter <Node>
 {
-  private final IFilter <Element> m_aNestedElementFilter;
+  private final IFilter <? super Element> m_aNestedElementFilter;
 
   public FilterNodeIsElement ()
   {
     this (null);
   }
 
-  public FilterNodeIsElement (@Nullable final IFilter <Element> aNestedElementFilter)
+  public FilterNodeIsElement (@Nullable final IFilter <? super Element> aNestedElementFilter)
   {
     m_aNestedElementFilter = aNestedElementFilter;
   }
@@ -55,7 +55,7 @@ public final class FilterNodeIsElement implements IFilter <Node>
   }
 
   @Nullable
-  public IFilter <Element> getNestedElementFilter ()
+  public IFilter <? super Element> getNestedElementFilter ()
   {
     return m_aNestedElementFilter;
   }

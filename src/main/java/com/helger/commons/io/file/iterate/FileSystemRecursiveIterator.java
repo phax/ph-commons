@@ -33,7 +33,7 @@ import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.UnsupportedOperation;
 import com.helger.commons.collections.iterate.FilterIterator;
 import com.helger.commons.collections.iterate.IIterableIterator;
-import com.helger.commons.filter.FilterChainAND;
+import com.helger.commons.filter.FilterListAll;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.io.file.FileUtils;
 import com.helger.commons.io.file.filter.IFileFilter;
@@ -291,6 +291,6 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
                                                  @Nonnull @Nonempty final IFileFilter... aFileFilters)
   {
     return new FilterIterator <File> (new FileSystemRecursiveIterator (fBaseDir),
-                                      new FilterChainAND <File> (aFileFilters));
+                                      new FilterListAll <File> (aFileFilters));
   }
 }

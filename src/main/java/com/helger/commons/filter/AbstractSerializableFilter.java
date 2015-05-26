@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * An abstract implementation of {@link ISerializableFilter} that has an
  * optional nested filter.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of object to filter.
@@ -33,26 +33,26 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public abstract class AbstractSerializableFilter <DATATYPE> implements ISerializableFilter <DATATYPE>
 {
-  private final ISerializableFilter <DATATYPE> m_aNestedFilter;
+  private final ISerializableFilter <? super DATATYPE> m_aNestedFilter;
 
   public AbstractSerializableFilter ()
   {
     this (null);
   }
 
-  public AbstractSerializableFilter (@Nullable final ISerializableFilter <DATATYPE> aCustomFilter)
+  public AbstractSerializableFilter (@Nullable final ISerializableFilter <? super DATATYPE> aNestedFilter)
   {
-    m_aNestedFilter = aCustomFilter;
+    m_aNestedFilter = aNestedFilter;
   }
 
   /**
    * This is the method to be implemented to match this filter.
-   * 
+   *
    * @param aValue
    *        The value to be matched
    * @return <code>true</code> if the value matches the filter
    */
-  protected abstract boolean matchesThisFilter (final DATATYPE aValue);
+  public abstract boolean matchesThisFilter (final DATATYPE aValue);
 
   public final boolean matchesFilter (final DATATYPE aValue)
   {
@@ -60,14 +60,14 @@ public abstract class AbstractSerializableFilter <DATATYPE> implements ISerializ
       return true;
 
     // Check nested filter
-    return m_aNestedFilter == null || m_aNestedFilter.matchesFilter (aValue);
+    return m_aNestedFilter != null && m_aNestedFilter.matchesFilter (aValue);
   }
 
   /**
    * @return The nested filter. May be <code>null</code>.
    */
   @Nullable
-  public ISerializableFilter <DATATYPE> getNestedFilter ()
+  public ISerializableFilter <? super DATATYPE> getNestedFilter ()
   {
     return m_aNestedFilter;
   }

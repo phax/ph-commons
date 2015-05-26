@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * An abstract implementation of {@link IFilter} that has an optional nested
  * filter.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of object to filter.
@@ -33,21 +33,21 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>
 {
-  private final IFilter <DATATYPE> m_aNestedFilter;
+  private final IFilter <? super DATATYPE> m_aNestedFilter;
 
   public AbstractFilter ()
   {
     this (null);
   }
 
-  public AbstractFilter (@Nullable final IFilter <DATATYPE> aCustomFilter)
+  public AbstractFilter (@Nullable final IFilter <? super DATATYPE> aNestedFilter)
   {
-    m_aNestedFilter = aCustomFilter;
+    m_aNestedFilter = aNestedFilter;
   }
 
   /**
    * This is the method to be implemented to match this filter.
-   * 
+   *
    * @param aValue
    *        The value to be matched
    * @return <code>true</code> if the value matches the filter
@@ -60,14 +60,14 @@ public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>
       return true;
 
     // Check nested filter
-    return m_aNestedFilter == null || m_aNestedFilter.matchesFilter (aValue);
+    return m_aNestedFilter != null && m_aNestedFilter.matchesFilter (aValue);
   }
 
   /**
    * @return The nested filter. May be <code>null</code>.
    */
   @Nullable
-  public IFilter <DATATYPE> getNestedFilter ()
+  public IFilter <? super DATATYPE> getNestedFilter ()
   {
     return m_aNestedFilter;
   }
