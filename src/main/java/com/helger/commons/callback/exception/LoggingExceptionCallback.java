@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.exceptionhandler;
+package com.helger.commons.callback.exception;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,23 +33,23 @@ import com.helger.commons.mock.IMockException;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A specific implementation of the {@link IExceptionHandler} interface, that
+ * A specific implementation of the {@link IExceptionCallback} interface, that
  * logs all exceptions to a standard logger.
  *
  * @author Philip Helger
  */
-public class LoggingExceptionHandler implements IExceptionHandler <Throwable>, IHasErrorLevel
+public class LoggingExceptionCallback implements IExceptionCallback <Throwable>, IHasErrorLevel
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingExceptionHandler.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingExceptionCallback.class);
 
   private final IErrorLevel m_aErrorLevel;
 
-  public LoggingExceptionHandler ()
+  public LoggingExceptionCallback ()
   {
     this (EErrorLevel.ERROR);
   }
 
-  public LoggingExceptionHandler (@Nonnull final IErrorLevel aErrorLevel)
+  public LoggingExceptionCallback (@Nonnull final IErrorLevel aErrorLevel)
   {
     m_aErrorLevel = ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
   }

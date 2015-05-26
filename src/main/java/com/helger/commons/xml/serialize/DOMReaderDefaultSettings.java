@@ -33,7 +33,7 @@ import org.xml.sax.ErrorHandler;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.exceptionhandler.IExceptionHandler;
+import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.state.EChange;
 import com.helger.commons.xml.EXMLParserFeature;
 import com.helger.commons.xml.EXMLParserProperty;
@@ -84,7 +84,7 @@ public final class DOMReaderDefaultSettings
 
   // Handling properties
   @GuardedBy ("s_aRWLock")
-  private static IExceptionHandler <Throwable> s_aDefaultExceptionHandler = new XMLLoggingExceptionHandler ();
+  private static IExceptionCallback <Throwable> s_aDefaultExceptionHandler = new XMLLoggingExceptionHandler ();
   @GuardedBy ("s_aRWLock")
   private static boolean s_bDefaultRequiresNewXMLParserExplicitly = DEFAULT_REQUIRES_NEW_XML_PARSER_EXPLICITLY;
 
@@ -632,7 +632,7 @@ public final class DOMReaderDefaultSettings
   }
 
   @Nonnull
-  public static IExceptionHandler <Throwable> getExceptionHandler ()
+  public static IExceptionCallback <Throwable> getExceptionHandler ()
   {
     s_aRWLock.readLock ().lock ();
     try
@@ -645,7 +645,7 @@ public final class DOMReaderDefaultSettings
     }
   }
 
-  public static void setExceptionHandler (@Nonnull final IExceptionHandler <Throwable> aExceptionHandler)
+  public static void setExceptionHandler (@Nonnull final IExceptionCallback <Throwable> aExceptionHandler)
   {
     ValueEnforcer.notNull (aExceptionHandler, "ExceptionHandler");
 

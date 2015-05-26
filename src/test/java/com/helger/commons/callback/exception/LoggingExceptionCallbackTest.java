@@ -14,28 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.exceptionhandler;
+package com.helger.commons.callback.exception;
 
-import javax.annotation.Nullable;
+import org.junit.Test;
 
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.mock.MockException;
 
 /**
- * A specific implementation of the {@link IExceptionHandler} interface, that
- * swallows all exceptions and does nothing.
- * 
+ * Test class for class {@link LoggingExceptionCallback}
+ *
  * @author Philip Helger
  */
-public final class DoNothingExceptionHandler implements IExceptionHandler <Throwable>
+public final class LoggingExceptionCallbackTest
 {
-  public void onException (@Nullable final Throwable t)
+  @Test
+  public void testAll ()
   {
-    /* ignore */
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).toString ();
+    new LoggingExceptionCallback ().onException (new MockException ());
   }
 }

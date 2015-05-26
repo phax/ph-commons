@@ -25,7 +25,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.helger.commons.exceptionhandler.DoNothingExceptionHandler;
+import com.helger.commons.callback.exception.DoNothingExceptionCallback;
 import com.helger.commons.xml.XMLFactory;
 
 /**
@@ -38,7 +38,7 @@ public final class DOMReaderSettingsTest
   @BeforeClass
   public static void bc ()
   {
-    DOMReaderDefaultSettings.setExceptionHandler (new DoNothingExceptionHandler ());
+    DOMReaderDefaultSettings.setExceptionHandler (new DoNothingExceptionCallback ());
   }
 
   @AfterClass

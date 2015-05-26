@@ -35,7 +35,7 @@ import org.xml.sax.ErrorHandler;
 import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.exceptionhandler.IExceptionHandler;
+import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.xml.EXMLParserFeature;
@@ -69,7 +69,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   private ErrorHandler m_aErrorHandler;
 
   // Handling properties
-  private IExceptionHandler <Throwable> m_aExceptionHandler;
+  private IExceptionCallback <Throwable> m_aExceptionHandler;
   private boolean m_bRequiresNewXMLParserExplicitly;
 
   /**
@@ -410,13 +410,13 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   }
 
   @Nonnull
-  public IExceptionHandler <Throwable> getExceptionHandler ()
+  public IExceptionCallback <Throwable> getExceptionHandler ()
   {
     return m_aExceptionHandler;
   }
 
   @Nonnull
-  public final DOMReaderSettings setExceptionHandler (@Nonnull final IExceptionHandler <Throwable> aExceptionHandler)
+  public final DOMReaderSettings setExceptionHandler (@Nonnull final IExceptionCallback <Throwable> aExceptionHandler)
   {
     ValueEnforcer.notNull (aExceptionHandler, "ExceptionHandler");
 

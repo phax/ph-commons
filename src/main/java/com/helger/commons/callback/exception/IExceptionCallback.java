@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.exceptionhandler;
+package com.helger.commons.callback.exception;
 
 import javax.annotation.Nonnull;
 
@@ -27,7 +27,7 @@ import com.helger.commons.callback.ICallback;
  * @param <EXTYPE>
  *        The exception type to be handled
  */
-public interface IExceptionHandler <EXTYPE extends Throwable> extends ICallback
+public interface IExceptionCallback <EXTYPE extends Throwable> extends ICallback
 {
   /**
    * Called when an exception of the specified type occurred. You may not

@@ -36,7 +36,7 @@ import org.xml.sax.ext.LexicalHandler;
 import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.exceptionhandler.IExceptionHandler;
+import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.xml.EXMLParserFeature;
@@ -58,7 +58,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   private ErrorHandler m_aErrorHandler;
   private final EnumMap <EXMLParserProperty, Object> m_aProperties = new EnumMap <EXMLParserProperty, Object> (EXMLParserProperty.class);
   private final EnumMap <EXMLParserFeature, Boolean> m_aFeatures = new EnumMap <EXMLParserFeature, Boolean> (EXMLParserFeature.class);
-  private IExceptionHandler <Throwable> m_aExceptionHandler;
+  private IExceptionCallback <Throwable> m_aExceptionHandler;
   private boolean m_bRequiresNewXMLParserExplicitly;
 
   /**
@@ -326,13 +326,13 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   }
 
   @Nonnull
-  public IExceptionHandler <Throwable> getExceptionHandler ()
+  public IExceptionCallback <Throwable> getExceptionHandler ()
   {
     return m_aExceptionHandler;
   }
 
   @Nonnull
-  public final SAXReaderSettings setExceptionHandler (@Nonnull final IExceptionHandler <Throwable> aExceptionHandler)
+  public final SAXReaderSettings setExceptionHandler (@Nonnull final IExceptionCallback <Throwable> aExceptionHandler)
   {
     ValueEnforcer.notNull (aExceptionHandler, "ExceptionHandler");
 

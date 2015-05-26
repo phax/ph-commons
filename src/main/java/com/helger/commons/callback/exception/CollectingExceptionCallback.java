@@ -14,58 +14,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.exceptionhandler;
+package com.helger.commons.callback.exception;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A specific implementation of the {@link IExceptionHandler} interface, that
- * stores all exceptions.
+ * A specific implementation of the {@link IExceptionCallback} interface, that
+ * stores the last exception.
  *
  * @author Philip Helger
  * @param <EXTYPE>
  *        The exception type to be handled
  */
-public final class CollectingExceptionHandlerMultiple <EXTYPE extends Throwable> implements IExceptionHandler <EXTYPE>
+public final class CollectingExceptionCallback <EXTYPE extends Throwable> implements IExceptionCallback <EXTYPE>
 {
-  private final List <EXTYPE> m_aExceptions = new ArrayList <EXTYPE> ();
+  private EXTYPE m_aException;
 
   public void onException (@Nullable final EXTYPE aEx)
   {
-    if (aEx != null)
-      m_aExceptions.add (aEx);
+    m_aException = aEx;
   }
 
   public boolean hasException ()
   {
-    return !m_aExceptions.isEmpty ();
+    return m_aException != null;
   }
 
-  @Nonnegative
-  public int getExceptionCount ()
+  @Nullable
+  public EXTYPE getException ()
   {
-    return m_aExceptions.size ();
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public List <EXTYPE> getAllExceptions ()
-  {
-    return CollectionHelper.newList (m_aExceptions);
+    return m_aException;
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("exceptions", m_aExceptions).toString ();
+    return new ToStringGenerator (this).append ("exception", m_aException).toString ();
   }
 }
