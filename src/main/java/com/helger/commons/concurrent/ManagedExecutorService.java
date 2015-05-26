@@ -30,7 +30,7 @@ import com.helger.commons.state.EInterrupt;
 
 /**
  * Wrapper around an {@link ExecutorService} with additional helper methods.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -48,7 +48,7 @@ public final class ManagedExecutorService
   /**
    * Call shutdown on the {@link ExecutorService} and wait indefinitely until it
    * terminated.
-   * 
+   *
    * @return {@link EInterrupt#INTERRUPTED} if the executor service was
    *         interrupted while awaiting termination. Never <code>null</code>.
    */
@@ -63,8 +63,8 @@ public final class ManagedExecutorService
       try
       {
         while (!m_aES.awaitTermination (1, TimeUnit.SECONDS))
-        {// NOPMD
-         // wait until completion
+        {
+          // wait until completion
         }
       }
       catch (final InterruptedException ex)

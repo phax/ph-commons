@@ -97,7 +97,7 @@ public class Base64InputStream extends FilterInputStream
    * @since 1.3
    */
   @Override
-  public int read () throws IOException// NOPMD
+  public int read () throws IOException
   {
     // Do we need to get data?
     if (m_nPosition < 0)

@@ -72,21 +72,21 @@ public class SafeVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE>
   }
 
   @Override
-  public synchronized ELEMENTTYPE get (@Nonnegative final int nIndex) // NOPMD
+  public synchronized ELEMENTTYPE get (@Nonnegative final int nIndex)
   {
     _ensureSize (nIndex);
     return super.get (nIndex);
   }
 
   @Override
-  public synchronized ELEMENTTYPE set (@Nonnegative final int nIndex, @Nonnull final ELEMENTTYPE aElement) // NOPMD
+  public synchronized ELEMENTTYPE set (@Nonnegative final int nIndex, @Nonnull final ELEMENTTYPE aElement)
   {
     _ensureSize (nIndex);
     return super.set (nIndex, aElement);
   }
 
   @Override
-  public synchronized boolean equals (final Object o) // NOPMD
+  public synchronized boolean equals (final Object o)
   {
     if (o == this)
       return true;
@@ -99,13 +99,13 @@ public class SafeVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE>
   }
 
   @Override
-  public synchronized int hashCode () // NOPMD
+  public synchronized int hashCode ()
   {
     return HashCodeGenerator.getDerived (super.hashCode ()).append (m_aFactory).getHashCode ();
   }
 
   @Override
-  public synchronized String toString () // NOPMD
+  public synchronized String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ()).append ("factory", m_aFactory).toString ();
   }

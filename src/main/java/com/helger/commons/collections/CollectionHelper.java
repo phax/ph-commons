@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collections;//NOPMD
+package com.helger.commons.collections;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -84,31 +84,31 @@ public final class CollectionHelper
   {}
 
   @Nonnull
-  public static <ELEMENTTYPE> List <? extends ELEMENTTYPE> getNotNull (final List <? extends ELEMENTTYPE> aList)
+  public static <ELEMENTTYPE> List <? extends ELEMENTTYPE> getNotNull (@Nullable final List <? extends ELEMENTTYPE> aList)
   {
     return aList == null ? CollectionHelper.<ELEMENTTYPE> newList () : aList;
   }
 
   @Nonnull
-  public static <ELEMENTTYPE> Set <? extends ELEMENTTYPE> getNotNull (final Set <? extends ELEMENTTYPE> aSet)
+  public static <ELEMENTTYPE> Set <? extends ELEMENTTYPE> getNotNull (@Nullable final Set <? extends ELEMENTTYPE> aSet)
   {
     return aSet == null ? CollectionHelper.<ELEMENTTYPE> newSet () : aSet;
   }
 
   @Nonnull
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <? extends ELEMENTTYPE> getNotNull (final SortedSet <? extends ELEMENTTYPE> aSortedSet)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <? extends ELEMENTTYPE> getNotNull (@Nullable final SortedSet <? extends ELEMENTTYPE> aSortedSet)
   {
     return aSortedSet == null ? CollectionHelper.<ELEMENTTYPE> newSortedSet () : aSortedSet;
   }
 
   @Nonnull
-  public static <KEYTYPE, VALUETYPE> Map <? extends KEYTYPE, ? extends VALUETYPE> getNotNull (final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public static <KEYTYPE, VALUETYPE> Map <? extends KEYTYPE, ? extends VALUETYPE> getNotNull (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     return aMap == null ? CollectionHelper.<KEYTYPE, VALUETYPE> newMap () : aMap;
   }
 
   @Nonnull
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> SortedMap <? extends KEYTYPE, ? extends VALUETYPE> getNotNull (final SortedMap <? extends KEYTYPE, ? extends VALUETYPE> aSortedMap)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> SortedMap <? extends KEYTYPE, ? extends VALUETYPE> getNotNull (@Nullable final SortedMap <? extends KEYTYPE, ? extends VALUETYPE> aSortedMap)
   {
     return aSortedMap == null ? CollectionHelper.<KEYTYPE, VALUETYPE> newSortedMap () : aSortedMap;
   }

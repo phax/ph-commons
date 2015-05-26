@@ -86,7 +86,7 @@ public class SafeArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE>
   }
 
   @Override
-  public boolean equals (final Object o) // NOPMD
+  public boolean equals (final Object o)
   {
     if (o == this)
       return true;
@@ -100,13 +100,13 @@ public class SafeArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE>
   }
 
   @Override
-  public int hashCode () // NOPMD
+  public int hashCode ()
   {
     return HashCodeGenerator.getDerived (super.hashCode ()).append (m_aFactory).getHashCode ();
   }
 
   @Override
-  public String toString () // NOPMD
+  public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ()).append ("factory", m_aFactory).toString ();
   }

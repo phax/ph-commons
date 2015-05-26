@@ -203,7 +203,7 @@ import com.helger.commons.io.streams.StreamUtils;
  * @version 2.3.7
  */
 @Immutable
-public final class Base64// NOPMD
+public final class Base64
 {
 
   /* ******** P U B L I C F I E L D S ******** */
@@ -1807,22 +1807,9 @@ public final class Base64// NOPMD
   public static byte [] encodeBytesToBytes (@Nonnull final byte [] source,
                                             final int off,
                                             final int len,
-                                            final int options) throws IOException// NOPMD
+                                            final int options) throws IOException
   {
-    if (source == null)
-      throw new NullPointerException ("Cannot serialize a null array.");
-
-    if (off < 0)
-      throw new IllegalArgumentException ("Cannot have negative offset: " + off);
-
-    if (len < 0)
-      throw new IllegalArgumentException ("Cannot have length offset: " + len);
-
-    if (off + len > source.length)
-      throw new IllegalArgumentException (String.format ("Cannot have offset of %d and length of %d with array of length %d",
-                                                         Integer.valueOf (off),
-                                                         Integer.valueOf (len),
-                                                         Integer.valueOf (source.length)));
+    ValueEnforcer.isArrayOfsLen (source, off, len);
 
     // Compress?
     if ((options & GZIP) != 0)

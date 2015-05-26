@@ -74,7 +74,7 @@ public class CountingInputStream extends WrappedInputStream
   }
 
   @Override
-  public synchronized void mark (@Nonnegative final int nReadlimit)// NOPMD
+  public synchronized void mark (@Nonnegative final int nReadlimit)
   {
     // May throw an exception!
     super.mark (nReadlimit);
@@ -82,7 +82,7 @@ public class CountingInputStream extends WrappedInputStream
   }
 
   @Override
-  public synchronized void reset () throws IOException// NOPMD
+  public synchronized void reset () throws IOException
   {
     // May throw an exception!
     super.reset ();

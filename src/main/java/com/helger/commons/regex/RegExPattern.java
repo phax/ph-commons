@@ -60,7 +60,7 @@ public final class RegExPattern implements Serializable
       if (nIndex != -1)
       {
         if (nIndex == sRegEx.length () - 1)
-        { // NOPMD
+        {
           // '$' at end of String is OK!
         }
         else
@@ -68,12 +68,12 @@ public final class RegExPattern implements Serializable
           if (!Character.isDigit (sRegEx.charAt (nIndex + 1)))
           {
             if (nIndex + 1 < sRegEx.length () && sRegEx.charAt (nIndex + 1) == ')')
-            { // NOPMD
+            {
               // "$" is the last char in a group "(...$)"
             }
             else
               if (nIndex > 0 && sRegEx.charAt (nIndex - 1) == '\\')
-              { // NOPMD
+              {
                 // '$' is quoted
               }
               else

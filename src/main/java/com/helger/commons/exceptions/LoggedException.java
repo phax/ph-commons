@@ -25,19 +25,20 @@ import org.slf4j.LoggerFactory;
 /**
  * This is a wrapper for a exception that can log the passed exception when it
  * is thrown.
- * 
+ *
  * @author Philip Helger
  */
 public class LoggedException extends Exception implements ILoggedException
-{// NOPMD
+{
   /**
    * The default setting, whether runtime exceptions are logged, if no parameter
    * is specified.
    */
   public static final boolean DEFAULT_DO_LOG = true;
 
+  public static final String MSG_TEXT = "Exception created.";
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (Logger.ROOT_LOGGER_NAME);
-  private static final String MSG_TEXT = "Exception created.";
 
   public LoggedException ()
   {

@@ -28,7 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Based on a DefaultThreadFactory somewhere in the Sun JDK but with the ability
  * to change the name of the thread slightly :)
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -47,7 +47,7 @@ public class ExtendedDefaultThreadFactory implements ThreadFactory
   public ExtendedDefaultThreadFactory (@Nonnull @Nonempty final String sPoolPrefix)
   {
     final SecurityManager aSecMgr = System.getSecurityManager ();
-    m_aThreadGroup = aSecMgr != null ? aSecMgr.getThreadGroup () : Thread.currentThread ().getThreadGroup ();// NOPMD
+    m_aThreadGroup = aSecMgr != null ? aSecMgr.getThreadGroup () : Thread.currentThread ().getThreadGroup ();
     m_sNamePrefix = sPoolPrefix + "[p" + s_aPoolNumber.getAndIncrement () + "-t";
   }
 

@@ -100,35 +100,35 @@ public final class PHTestUtils
   }
 
   @SuppressFBWarnings ({ "EC_NULL_ARG" })
-  private static <DATATYPE> void _testEqualsImplementation (@Nonnull final DATATYPE aObject)// NOPMD
+  private static <DATATYPE> void _testEqualsImplementation (@Nonnull final DATATYPE aObject)
   {
     _assertNotNull ("Passed object may not be null!", aObject);
     _assertTrue ("Passed objects are not equal", aObject.equals (aObject));
     _assertFalse ("Object may no be equal to String", aObject.equals ("any string"));
-    _assertFalse ("Object may no be equal to null", aObject.equals (null));// NOPMD
+    _assertFalse ("Object may no be equal to null", aObject.equals (null));
   }
 
   private static <DATATYPE> void _testEqualsImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
-                                                                                  @Nonnull final DATATYPE aObject2)// NOPMD
+                                                                                  @Nonnull final DATATYPE aObject2)
   {
     _testEqualsImplementation (aObject);
     _testEqualsImplementation (aObject2);
-    _assertFalse ("This test may not be used with the same object!", aObject == aObject2);// NOPMD
+    _assertFalse ("This test may not be used with the same object!", aObject == aObject2);
     _assertTrue ("Passed objects are not identical!", aObject.equals (aObject2));
     _assertTrue ("Passed objects are not identical!", aObject2.equals (aObject));
   }
 
   private static <DATATYPE> void _testEqualsImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject,
-                                                                                      @Nonnull final DATATYPE aObject2)// NOPMD
+                                                                                      @Nonnull final DATATYPE aObject2)
   {
     _testEqualsImplementation (aObject);
     _testEqualsImplementation (aObject2);
-    _assertFalse ("This test may not be used with the same object!", aObject == aObject2);// NOPMD
+    _assertFalse ("This test may not be used with the same object!", aObject == aObject2);
     _assertFalse ("Passed objects are identical!", aObject.equals (aObject2));
     _assertFalse ("Passed objects are identical!", aObject2.equals (aObject));
   }
 
-  private static <DATATYPE> void _testHashcodeImplementation (@Nonnull final DATATYPE aObject)// NOPMD
+  private static <DATATYPE> void _testHashcodeImplementation (@Nonnull final DATATYPE aObject)
   {
     _assertNotNull ("Passed object may not be null!", aObject);
     _assertTrue ("hashCode() invocations must be consistent", aObject.hashCode () == aObject.hashCode ());
@@ -136,23 +136,23 @@ public final class PHTestUtils
   }
 
   private static <DATATYPE> void _testHashcodeImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
-                                                                                    @Nonnull final DATATYPE aObject2)// NOPMD
+                                                                                    @Nonnull final DATATYPE aObject2)
   {
     _testHashcodeImplementation (aObject);
     _testHashcodeImplementation (aObject2);
     _assertTrue ("Passed objects are not identical!", aObject.equals (aObject2));
-    _assertFalse ("This test may not be used with the same object!", aObject == aObject2);// NOPMD
+    _assertFalse ("This test may not be used with the same object!", aObject == aObject2);
     _assertTrue ("hashCode() invocations must be consistent", aObject.hashCode () == aObject2.hashCode ());
     _assertTrue ("hashCode() invocations must be consistent", aObject2.hashCode () == aObject.hashCode ());
   }
 
   private static <DATATYPE> void _testHashcodeImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject1,
-                                                                                        @Nonnull final DATATYPE aObject2)// NOPMD
+                                                                                        @Nonnull final DATATYPE aObject2)
   {
     _testHashcodeImplementation (aObject1);
     _testHashcodeImplementation (aObject2);
     _assertFalse ("Passed objects are identical!", aObject1.equals (aObject2));
-    _assertFalse ("This test may not be used with the same object!", aObject1 == aObject2);// NOPMD
+    _assertFalse ("This test may not be used with the same object!", aObject1 == aObject2);
     final int nHash1 = aObject1.hashCode ();
     final int nHash2 = aObject2.hashCode ();
     _assertFalse ("hashCode() may not be the same for both objects", nHash1 == nHash2);
@@ -165,7 +165,7 @@ public final class PHTestUtils
    * @param aObject
    *        The object to be tested.
    */
-  public static <DATATYPE> void testToStringImplementation (@Nonnull final DATATYPE aObject)// NOPMD
+  public static <DATATYPE> void testToStringImplementation (@Nonnull final DATATYPE aObject)
   {
     _assertNotNull ("Passed object may not be null!", aObject);
     _assertNotNull ("toString() may not return null!", aObject.toString ());
@@ -174,21 +174,21 @@ public final class PHTestUtils
   }
 
   private static <DATATYPE> void _testToStringImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
-                                                                                    @Nonnull final DATATYPE aObject2)// NOPMD
+                                                                                    @Nonnull final DATATYPE aObject2)
   {
     testToStringImplementation (aObject);
     testToStringImplementation (aObject2);
     _assertTrue ("Passed objects are not identical!", aObject.equals (aObject2));
-    _assertFalse ("This test may not be used with the same object!", aObject == aObject2);// NOPMD
+    _assertFalse ("This test may not be used with the same object!", aObject == aObject2);
   }
 
   private static <DATATYPE> void _testToStringImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject,
-                                                                                        @Nonnull final DATATYPE aObject2)// NOPMD
+                                                                                        @Nonnull final DATATYPE aObject2)
   {
     testToStringImplementation (aObject);
     testToStringImplementation (aObject2);
     _assertFalse ("Passed objects are identical!", aObject.equals (aObject2));
-    _assertFalse ("This test may not be used with the same object!", aObject == aObject2);// NOPMD
+    _assertFalse ("This test may not be used with the same object!", aObject == aObject2);
   }
 
   /**
@@ -201,7 +201,7 @@ public final class PHTestUtils
    *        Second object. May not be <code>null</code>.
    */
   public static <DATATYPE> void testDefaultImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject1,
-                                                                                 @Nonnull final DATATYPE aObject2)// NOPMD
+                                                                                 @Nonnull final DATATYPE aObject2)
   {
     _testEqualsImplementationWithEqualContentObject (aObject1, aObject2);
     _testHashcodeImplementationWithEqualContentObject (aObject1, aObject2);
@@ -218,7 +218,7 @@ public final class PHTestUtils
    *        Second object. May not be <code>null</code>.
    */
   public static <DATATYPE> void testDefaultImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject1,
-                                                                                     @Nonnull final DATATYPE aObject2)// NOPMD
+                                                                                     @Nonnull final DATATYPE aObject2)
   {
     _testEqualsImplementationWithDifferentContentObject (aObject1, aObject2);
     _testHashcodeImplementationWithDifferentContentObject (aObject1, aObject2);

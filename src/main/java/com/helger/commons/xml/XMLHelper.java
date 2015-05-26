@@ -229,8 +229,9 @@ public final class XMLHelper
                                                   @Nullable final String sNamespaceURI,
                                                   @Nonnull @Nonempty final String sLocalName)
   {
-    return aParent == null ? 0
-                          : CollectionHelper.getSize (getChildElementIteratorNS (aParent, sNamespaceURI, sLocalName));
+    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNS (aParent,
+                                                                                      sNamespaceURI,
+                                                                                      sLocalName));
   }
 
   /**
@@ -334,7 +335,7 @@ public final class XMLHelper
         // For all elements of the parent node
         for (final Element x : new ChildElementIterator (aCurNode.getParentNode ()))
         {
-          if (x == aCurNode)// NOPMD
+          if (x == aCurNode)
             break;
           if (x.getTagName ().equals (aCurElement.getTagName ()))
             ++nIndex;
@@ -406,7 +407,7 @@ public final class XMLHelper
         int nMatchingIndex = -1;
         for (final Element x : new ChildElementIterator (aCurNode.getParentNode ()))
         {
-          if (x == aCurNode)// NOPMD
+          if (x == aCurNode)
             nMatchingIndex = nIndex;
 
           if (x.getTagName ().equals (aCurElement.getTagName ()))
@@ -442,6 +443,8 @@ public final class XMLHelper
    */
   public static void removeAllChildElements (@Nonnull final Element aElement)
   {
+    ValueEnforcer.notNull (aElement, "Element");
+
     while (aElement.getChildNodes ().getLength () > 0)
       aElement.removeChild (aElement.getChildNodes ().item (0));
   }

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.string;//NOPMD
+package com.helger.commons.string;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -320,7 +320,7 @@ public final class StringParser
       {
         return Byte.parseByte (sStr, nRadix);
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // Fall through
       }
@@ -441,7 +441,7 @@ public final class StringParser
       {
         return Byte.valueOf (sStr, nRadix);
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // Fall through
       }
@@ -490,7 +490,7 @@ public final class StringParser
         // Single point where we replace "," with "." for parsing!
         return Double.parseDouble (_getUnifiedDecimal (sStr));
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // Fall through
       }
@@ -613,7 +613,7 @@ public final class StringParser
         // Single point where we replace "," with "." for parsing!
         return Float.parseFloat (_getUnifiedDecimal (sStr));
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // Fall through
       }
@@ -770,7 +770,7 @@ public final class StringParser
       {
         return Integer.parseInt (sStr, nRadix);
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // Fall through
       }
@@ -891,7 +891,7 @@ public final class StringParser
       {
         return Integer.valueOf (sStr, nRadix);
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // Fall through
       }
@@ -972,7 +972,7 @@ public final class StringParser
       {
         return Long.parseLong (sStr, nRadix);
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // Fall through
       }
@@ -1093,7 +1093,7 @@ public final class StringParser
       {
         return Long.valueOf (sStr, nRadix);
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // Fall through
       }
@@ -1174,7 +1174,7 @@ public final class StringParser
       {
         return Short.parseShort (sStr, nRadix);
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // Fall through
       }
@@ -1295,7 +1295,7 @@ public final class StringParser
       {
         return Short.valueOf (sStr, nRadix);
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // Fall through
       }
@@ -1378,7 +1378,7 @@ public final class StringParser
       {
         return new BigInteger (sStr, nRadix);
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // Fall through
       }
@@ -1419,7 +1419,7 @@ public final class StringParser
       {
         return new BigDecimal (_getUnifiedDecimal (sStr));
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // Fall through
       }
@@ -1478,7 +1478,7 @@ public final class StringParser
       {
         return new BigDecimal (_getUnifiedDecimal (sStr)).setScale (nScale, eRoundingMode);
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // Fall through
       }
@@ -1503,7 +1503,7 @@ public final class StringParser
         Integer.parseInt (sStr, DEFAULT_RADIX);
         return true;
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // fall through
       }
@@ -1526,7 +1526,7 @@ public final class StringParser
         Long.parseLong (sStr, DEFAULT_RADIX);
         return true;
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // fall through
       }
@@ -1549,7 +1549,7 @@ public final class StringParser
         final int ret = Integer.parseInt (sStr, DEFAULT_RADIX);
         return ret >= 0;
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // fall through
       }
@@ -1572,7 +1572,7 @@ public final class StringParser
         final long ret = Long.parseLong (sStr, DEFAULT_RADIX);
         return ret >= 0;
       }
-      catch (final NumberFormatException ex)// NOPMD
+      catch (final NumberFormatException ex)
       {
         // fall through
       }

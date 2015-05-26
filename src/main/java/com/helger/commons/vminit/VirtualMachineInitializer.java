@@ -56,9 +56,9 @@ public final class VirtualMachineInitializer
       }
       catch (final Throwable t)
       {
-        // Do not use ILogger because this may interfere with the general
+        // Do not use Logger because this may interfere with the general
         // startup!
-        System.err.println ("!!! Error running VM initializer SPI " + aSPI);// NOPMD
+        System.err.println ("!!! Error running VM initializer SPI " + aSPI);
         if (!(t instanceof IMockException))
           t.printStackTrace (System.err);
       }
@@ -73,9 +73,9 @@ public final class VirtualMachineInitializer
       }
       catch (final Throwable t)
       {
-        // Do not use ILogger because this may interfere with the general
+        // Do not use Logger because this may interfere with the general
         // shutdown!
-        System.err.println ("!!! Error running VM shutdown SPI " + aSPI);// NOPMD
+        System.err.println ("!!! Error running VM shutdown SPI " + aSPI);
         if (!(t instanceof IMockException))
           t.printStackTrace (System.err);
       }

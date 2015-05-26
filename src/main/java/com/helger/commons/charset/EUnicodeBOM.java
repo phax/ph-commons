@@ -101,7 +101,7 @@ public enum EUnicodeBOM implements IHasByteSize
   private final String m_sCharsetName;
   private final Charset m_aCharset;
 
-  private EUnicodeBOM (@Nonnull @Nonempty final byte [] aBytes, @Nullable final String sCharset)// NOPMD
+  private EUnicodeBOM (@Nonnull @Nonempty final byte [] aBytes, @Nullable final String sCharset)
   {
     ValueEnforcer.isBetweenInclusive (aBytes.length, "Byte count", 1, MAXIMUM_BOM_BYTE_COUNT);
     m_aBOMBytes = aBytes;

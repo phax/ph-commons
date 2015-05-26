@@ -254,7 +254,7 @@ public final class LocaleFormatter
         // parse throws a NPE if parameter is null
         return aNF.parse (sStr);
       }
-      catch (final ParseException ex)// NOPMD
+      catch (final ParseException ex)
       {
         // fall through
       }

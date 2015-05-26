@@ -32,7 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Simple {@link LSInput} implementation.
- * 
+ *
  * @author Philip Helger
  */
 public class ResourceLSInput implements LSInput
@@ -79,7 +79,7 @@ public class ResourceLSInput implements LSInput
     throw new UnsupportedOperationException ();
   }
 
-  public boolean getCertifiedText () // NOPMD
+  public boolean getCertifiedText ()
   {
     return m_bCertifiedText;
   }

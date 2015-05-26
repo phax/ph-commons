@@ -108,7 +108,7 @@ public final class ClassHelper
     {
       ret = getContextClassLoader ();
     }
-    catch (final Exception ex) // NOPMD
+    catch (final RuntimeException ex)
     {
       // e.g. security exception
     }

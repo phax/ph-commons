@@ -96,7 +96,7 @@ public class StringScanner
     }
     catch (final StringIndexOutOfBoundsException ex)
     {
-      throw new IllegalArgumentException ("At end of string: position " + nIndex + " of " + m_nMaxIndex);// NOPMD
+      throw new IllegalArgumentException ("At end of string: position " + nIndex + " of " + m_nMaxIndex);
     }
   }
 

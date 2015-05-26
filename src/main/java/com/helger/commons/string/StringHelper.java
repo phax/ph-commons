@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.string;//NOPMD
+package com.helger.commons.string;
 
 import java.io.IOException;
 import java.io.Writer;
