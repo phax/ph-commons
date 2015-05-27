@@ -34,8 +34,8 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.IMultiLingualText;
 import com.helger.commons.text.IReadonlyMultiLingualText;
-import com.helger.commons.text.impl.MultiLingualText;
-import com.helger.commons.text.impl.ReadonlyMultiLingualText;
+import com.helger.commons.text.MultiLingualText;
+import com.helger.commons.text.ReadonlyMultiLingualText;
 
 /**
  * This class represents a single entry in the changelog.

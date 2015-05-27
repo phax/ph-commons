@@ -38,7 +38,7 @@ import com.helger.commons.io.IOutputStreamProvider;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.impl.MicroDocument;
+import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.serialize.MicroReader;
 import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.state.ESuccess;

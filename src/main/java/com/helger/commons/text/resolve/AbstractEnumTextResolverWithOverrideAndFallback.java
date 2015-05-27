@@ -28,7 +28,7 @@ import com.helger.commons.stats.IMutableStatisticsHandlerKeyedCounter;
 import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.text.ISimpleTextProvider;
 import com.helger.commons.text.ITextProvider;
-import com.helger.commons.text.impl.TextFormatter;
+import com.helger.commons.text.TextFormatter;
 
 /**
  * Resolves texts either from an override, a text provider or otherwise uses a

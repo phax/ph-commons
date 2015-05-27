@@ -28,7 +28,7 @@ import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.name.IHasDisplayText;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.text.impl.ConstantTextProvider;
+import com.helger.commons.text.ConstantTextProvider;
 
 /**
  * Default implementation of the {@link IResourceError} interface. The

@@ -39,8 +39,8 @@ import com.helger.commons.io.streams.StringInputStream;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.IMicroNode;
-import com.helger.commons.microdom.impl.MicroDocument;
-import com.helger.commons.microdom.impl.MicroElement;
+import com.helger.commons.microdom.MicroDocument;
+import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.name.MockHasDisplayName;
 import com.helger.commons.xml.XMLFactory;
 

@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.text.impl.TextProvider;
+import com.helger.commons.text.TextProvider;
 
 public final class MockHasDisplayText implements IHasDisplayText
 {

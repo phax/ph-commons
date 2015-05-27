@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.NoTranslationRequired;
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.text.impl.TextFormatter;
+import com.helger.commons.text.TextFormatter;
 
 /**
  * Exceptions of this type are only thrown from the {@link TypeConverter} class

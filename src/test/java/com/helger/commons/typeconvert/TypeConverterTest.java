@@ -68,7 +68,7 @@ import com.helger.commons.state.ETopBottom;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.state.EValidity;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.text.impl.MultiLingualText;
+import com.helger.commons.text.MultiLingualText;
 import com.helger.commons.typeconvert.TypeConverterException.EReason;
 
 /**

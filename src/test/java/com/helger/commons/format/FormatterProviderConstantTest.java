@@ -22,7 +22,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.format.impl.BracketFormatter;
 import com.helger.commons.mock.PHTestUtils;
 
 /**

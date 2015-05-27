@@ -1,7 +1,7 @@
-com.helger.commons.typeconvert.impl.BaseTypeConverterRegistrar
-com.helger.commons.typeconvert.impl.CharsetTypeConverterRegistrar
-com.helger.commons.typeconvert.impl.CollectionTypeConverterRegistrar
-com.helger.commons.typeconvert.impl.DateTimeTypeConverterRegistrar
-com.helger.commons.typeconvert.impl.IOTypeConverterRegistrar
-com.helger.commons.typeconvert.impl.LocaleTypeConverterRegistrar
-com.helger.commons.typeconvert.impl.MutableTypeConverterRegistrar
+com.helger.commons.typeconvert.BaseTypeConverterRegistrar
+com.helger.commons.typeconvert.CharsetTypeConverterRegistrar
+com.helger.commons.typeconvert.CollectionTypeConverterRegistrar
+com.helger.commons.typeconvert.DateTimeTypeConverterRegistrar
+com.helger.commons.typeconvert.IOTypeConverterRegistrar
+com.helger.commons.typeconvert.LocaleTypeConverterRegistrar
+com.helger.commons.typeconvert.MutableTypeConverterRegistrar

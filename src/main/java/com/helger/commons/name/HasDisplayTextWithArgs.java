@@ -26,7 +26,7 @@ import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ArrayHelper;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.text.impl.TextFormatter;
+import com.helger.commons.text.TextFormatter;
 
 /**
  * A special implementation of {@link IHasDisplayText} that encapsulates

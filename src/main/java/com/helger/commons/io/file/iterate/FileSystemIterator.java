@@ -25,8 +25,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.collections.iterate.FilterIterator;
 import com.helger.commons.collections.iterate.IIterableIterator;
 import com.helger.commons.collections.iterate.IterableIterator;
+import com.helger.commons.filter.FilterListAll;
 import com.helger.commons.filter.IFilter;
-import com.helger.commons.filter.impl.FilterListAll;
 import com.helger.commons.io.file.FileUtils;
 import com.helger.commons.io.file.filter.IFileFilter;
 

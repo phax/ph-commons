@@ -25,10 +25,10 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotations.IsSPIImplementation;
 import com.helger.commons.microdom.IMicroElement;
+import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.convert.IMicroTypeConverter;
 import com.helger.commons.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.commons.microdom.convert.IMicroTypeConverterRegistry;
-import com.helger.commons.microdom.impl.MicroElement;
 import com.helger.commons.microdom.utils.MicroUtils;
 import com.helger.commons.mime.MimeType;
 import com.helger.commons.mime.MimeTypeInfo;

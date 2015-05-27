@@ -32,8 +32,8 @@ import org.junit.Test;
 import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.text.IMultiLingualText;
-import com.helger.commons.text.impl.MultiLingualText;
-import com.helger.commons.text.impl.TextProvider;
+import com.helger.commons.text.MultiLingualText;
+import com.helger.commons.text.TextProvider;
 
 /**
  * Test class for class {@link ChangeLogEntry}.

@@ -23,8 +23,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.hierarchy.DefaultHierarchyWalkerCallback;
 import com.helger.commons.hierarchy.IHierarchyWalkerCallback;
+import com.helger.commons.parent.ChildrenProviderHasChildren;
 import com.helger.commons.parent.IChildrenProvider;
-import com.helger.commons.parent.impl.ChildrenProviderHasChildren;
 import com.helger.commons.tree.IBasicTree;
 import com.helger.commons.tree.IBasicTreeItem;
 

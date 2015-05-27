@@ -23,7 +23,7 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.streamprovider.ByteArrayOutputStreamProvider;
-import com.helger.commons.microdom.impl.MicroDocumentType;
+import com.helger.commons.microdom.MicroDocumentType;
 import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;

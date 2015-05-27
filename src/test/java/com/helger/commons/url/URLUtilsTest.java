@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.codec.impl.IdentityCodec;
+import com.helger.commons.codec.IdentityCodec;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.url.encode.URLParameterEncoder;

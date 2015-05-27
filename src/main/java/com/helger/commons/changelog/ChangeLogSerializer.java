@@ -44,12 +44,12 @@ import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
+import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.convert.MicroTypeConverter;
-import com.helger.commons.microdom.impl.MicroDocument;
 import com.helger.commons.microdom.serialize.MicroReader;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
-import com.helger.commons.text.impl.MultiLingualText;
+import com.helger.commons.text.MultiLingualText;
 import com.helger.commons.version.Version;
 import com.helger.commons.xml.CXML;
 

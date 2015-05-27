@@ -31,7 +31,7 @@ import com.helger.commons.parent.IParentProvider;
 import com.helger.commons.parent.MockChildrenProvider;
 import com.helger.commons.parent.MockHasChildren;
 import com.helger.commons.parent.MockHasParent;
-import com.helger.commons.parent.impl.ParentProviderHasParent;
+import com.helger.commons.parent.ParentProviderHasParent;
 import com.helger.commons.tree.withid.DefaultTreeWithID;
 
 /**

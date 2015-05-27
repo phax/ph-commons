@@ -35,15 +35,15 @@ import com.helger.commons.microdom.IMicroContainer;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.IMicroNode;
-import com.helger.commons.microdom.impl.MicroCDATA;
-import com.helger.commons.microdom.impl.MicroComment;
-import com.helger.commons.microdom.impl.MicroContainer;
-import com.helger.commons.microdom.impl.MicroDocument;
-import com.helger.commons.microdom.impl.MicroDocumentType;
-import com.helger.commons.microdom.impl.MicroElement;
-import com.helger.commons.microdom.impl.MicroEntityReference;
-import com.helger.commons.microdom.impl.MicroProcessingInstruction;
-import com.helger.commons.microdom.impl.MicroText;
+import com.helger.commons.microdom.MicroCDATA;
+import com.helger.commons.microdom.MicroComment;
+import com.helger.commons.microdom.MicroContainer;
+import com.helger.commons.microdom.MicroDocument;
+import com.helger.commons.microdom.MicroDocumentType;
+import com.helger.commons.microdom.MicroElement;
+import com.helger.commons.microdom.MicroEntityReference;
+import com.helger.commons.microdom.MicroProcessingInstruction;
+import com.helger.commons.microdom.MicroText;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

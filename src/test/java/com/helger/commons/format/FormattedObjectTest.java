@@ -21,12 +21,6 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.commons.format.impl.BracketFormatter;
-import com.helger.commons.format.impl.MinLengthAddLeadingFormatter;
-import com.helger.commons.format.impl.MinLengthAddTrailingFormatter;
-import com.helger.commons.format.impl.StringPrefixAndSuffixFormatter;
-import com.helger.commons.format.impl.StringPrefixFormatter;
-import com.helger.commons.format.impl.StringSuffixFormatter;
 import com.helger.commons.mock.PHTestUtils;
 
 /**

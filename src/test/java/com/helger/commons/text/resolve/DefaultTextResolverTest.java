@@ -32,7 +32,7 @@ import com.helger.commons.annotations.NoTranslationRequired;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.name.IHasDisplayText;
 import com.helger.commons.name.IHasDisplayTextWithArgs;
-import com.helger.commons.text.impl.TextProvider;
+import com.helger.commons.text.TextProvider;
 
 /**
  * Test class for class {@link DefaultTextResolver}.

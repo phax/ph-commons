@@ -24,8 +24,8 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.hierarchy.DefaultHierarchyWalkerDynamicCallback;
 import com.helger.commons.hierarchy.EHierarchyCallbackReturn;
 import com.helger.commons.hierarchy.IHierarchyWalkerDynamicCallback;
+import com.helger.commons.parent.ChildrenProviderHasChildren;
 import com.helger.commons.parent.IChildrenProvider;
-import com.helger.commons.parent.impl.ChildrenProviderHasChildren;
 import com.helger.commons.tree.IBasicTree;
 import com.helger.commons.tree.IBasicTreeItem;
 

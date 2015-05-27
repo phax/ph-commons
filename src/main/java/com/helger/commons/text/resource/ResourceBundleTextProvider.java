@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.text.impl.AbstractTextProvider;
+import com.helger.commons.text.AbstractTextProvider;
 
 /**
  * This class encapsulates the resource bundle handling.

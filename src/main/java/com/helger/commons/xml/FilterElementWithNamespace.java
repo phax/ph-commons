@@ -22,8 +22,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import org.w3c.dom.Element;
 
 import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.filter.AbstractSerializableFilter;
 import com.helger.commons.filter.ISerializableFilter;
-import com.helger.commons.filter.impl.AbstractSerializableFilter;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 

@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.id.IHasID;
-import com.helger.commons.microdom.impl.MicroElement;
+import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.typeconvert.TypeConverterException;
 
 /**

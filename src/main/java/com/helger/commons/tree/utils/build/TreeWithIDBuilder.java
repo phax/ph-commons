@@ -32,7 +32,7 @@ import com.helger.commons.id.IHasID;
 import com.helger.commons.parent.IChildrenProvider;
 import com.helger.commons.parent.IHasParent;
 import com.helger.commons.parent.IParentProvider;
-import com.helger.commons.parent.impl.ParentProviderHasParent;
+import com.helger.commons.parent.ParentProviderHasParent;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 import com.helger.commons.tree.withid.DefaultTreeWithID;
 

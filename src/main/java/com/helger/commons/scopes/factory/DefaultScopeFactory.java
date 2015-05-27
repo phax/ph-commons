@@ -20,16 +20,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.scopes.ApplicationScope;
+import com.helger.commons.scopes.GlobalScope;
+import com.helger.commons.scopes.RequestScope;
+import com.helger.commons.scopes.SessionApplicationScope;
+import com.helger.commons.scopes.SessionScope;
 import com.helger.commons.scopes.domain.IApplicationScope;
 import com.helger.commons.scopes.domain.IGlobalScope;
 import com.helger.commons.scopes.domain.IRequestScope;
 import com.helger.commons.scopes.domain.ISessionApplicationScope;
 import com.helger.commons.scopes.domain.ISessionScope;
-import com.helger.commons.scopes.impl.ApplicationScope;
-import com.helger.commons.scopes.impl.GlobalScope;
-import com.helger.commons.scopes.impl.RequestScope;
-import com.helger.commons.scopes.impl.SessionApplicationScope;
-import com.helger.commons.scopes.impl.SessionScope;
 
 /**
  * Standalone version of the scope factory. No dependencies to Web components.

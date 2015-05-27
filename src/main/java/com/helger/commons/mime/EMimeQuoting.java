@@ -24,8 +24,8 @@ import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.codec.DecodeException;
 import com.helger.commons.codec.EncodeException;
-import com.helger.commons.codec.impl.QuotedPrintableCodec;
-import com.helger.commons.codec.impl.URLCodec;
+import com.helger.commons.codec.QuotedPrintableCodec;
+import com.helger.commons.codec.URLCodec;
 
 /**
  * Defines the possible MIME type parameter value quotings

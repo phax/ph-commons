@@ -53,7 +53,7 @@ import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
-import com.helger.commons.codec.impl.IdentityCodec;
+import com.helger.commons.codec.IdentityCodec;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.exceptions.InitializationException;
 import com.helger.commons.io.resource.ClassPathResource;
