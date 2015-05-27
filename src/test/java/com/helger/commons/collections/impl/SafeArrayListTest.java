@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.collections.impl.SafeArrayList;
-import com.helger.commons.factory.FactoryNewInstance;
+import com.helger.commons.factory.impl.FactoryNewInstance;
 import com.helger.commons.mock.PHTestUtils;
 
 /**

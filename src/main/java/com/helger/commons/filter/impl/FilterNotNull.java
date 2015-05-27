@@ -14,28 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.filter;
+package com.helger.commons.filter.impl;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.filter.ISerializableFilter;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A filter implementation that always returns <code>true</code>.
+ * A filter implementation where all non-<code>null</code> values match.
  *
  * @author Philip Helger
  * @param <DATATYPE>
- *        The data type to filter
+ *        The data type to filter.
  */
 @Immutable
-public class FilterTrue <DATATYPE> extends AbstractSerializableFilter <DATATYPE>
+public class FilterNotNull <DATATYPE> extends AbstractSerializableFilter <DATATYPE>
 {
-  public FilterTrue ()
+  public FilterNotNull ()
   {}
 
-  public FilterTrue (@Nullable final ISerializableFilter <? super DATATYPE> aNestedFilter)
+  public FilterNotNull (@Nullable final ISerializableFilter <? super DATATYPE> aNestedFilter)
   {
     super (aNestedFilter);
   }
@@ -43,7 +44,7 @@ public class FilterTrue <DATATYPE> extends AbstractSerializableFilter <DATATYPE>
   @Override
   public boolean matchesThisFilter (@Nullable final DATATYPE aValue)
   {
-    return true;
+    return aValue != null;
   }
 
   @Override

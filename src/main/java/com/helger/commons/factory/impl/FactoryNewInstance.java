@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.factory;
+package com.helger.commons.factory.impl;
 
 import java.io.Serializable;
 
@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.factory.IFactory;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.GenericReflection;

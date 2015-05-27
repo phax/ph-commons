@@ -35,7 +35,7 @@ import org.junit.Test;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.convert.IUnidirectionalConverter;
 import com.helger.commons.convert.UnidirectionalConverterStringInteger;
-import com.helger.commons.filter.FilterNotNull;
+import com.helger.commons.filter.impl.FilterNotNull;
 import com.helger.commons.mock.AbstractPHTestCase;
 
 /**

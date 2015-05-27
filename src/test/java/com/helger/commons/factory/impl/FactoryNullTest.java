@@ -14,27 +14,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.filter;
+package com.helger.commons.factory.impl;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
+import com.helger.commons.factory.IFactory;
+import com.helger.commons.factory.impl.FactoryNull;
+
 /**
- * Test class for class {@link FilterTrue}
- *
+ * Test class for class {@link FactoryNull}.
+ * 
  * @author Philip Helger
  */
-public final class FilterTrueTest
+public final class FactoryNullTest
 {
   @Test
-  public void testAll ()
+  public void testNullFactory ()
   {
-    final IFilter <String> aFilter = new FilterTrue <String> ();
-    assertNotNull (aFilter);
-    assertTrue (aFilter.matchesFilter (null));
-    assertTrue (aFilter.matchesFilter (""));
-    assertTrue (aFilter.matchesFilter ("bla bla bla"));
+    final IFactory <?> aFactory = FactoryNull.getInstance ();
+    assertNotNull (aFactory);
+    assertNull (aFactory.create ());
+    assertNull (aFactory.create ());
+    assertNull (aFactory.create ());
+    assertNull (aFactory.create ());
+
+    assertSame (aFactory, FactoryNull.getInstance ());
   }
 }

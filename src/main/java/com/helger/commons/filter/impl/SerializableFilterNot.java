@@ -14,36 +14,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.filter;
+package com.helger.commons.filter.impl;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.filter.ISerializableFilter;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A filter implementation where all non-<code>null</code> values match.
+ * A filter implementation that inverts the result of another filter.
  *
  * @author Philip Helger
  * @param <DATATYPE>
- *        The data type to filter.
+ *        The data type to filter
  */
 @Immutable
-public class FilterNotNull <DATATYPE> extends AbstractSerializableFilter <DATATYPE>
+public class SerializableFilterNot <DATATYPE> implements ISerializableFilter <DATATYPE>
 {
-  public FilterNotNull ()
-  {}
+  private final ISerializableFilter <DATATYPE> m_aOriginalFilter;
 
-  public FilterNotNull (@Nullable final ISerializableFilter <? super DATATYPE> aNestedFilter)
+  public SerializableFilterNot (@Nonnull final ISerializableFilter <DATATYPE> aOriginalFilter)
   {
-    super (aNestedFilter);
+    m_aOriginalFilter = ValueEnforcer.notNull (aOriginalFilter, "OriginalFilter");
   }
 
-  @Override
-  public boolean matchesThisFilter (@Nullable final DATATYPE aValue)
+  @Nonnull
+  public ISerializableFilter <DATATYPE> getOriginalFilter ()
   {
-    return aValue != null;
+    return m_aOriginalFilter;
+  }
+
+  public boolean matchesFilter (final DATATYPE aValue)
+  {
+    return !m_aOriginalFilter.matchesFilter (aValue);
   }
 
   @Override
@@ -53,18 +59,19 @@ public class FilterNotNull <DATATYPE> extends AbstractSerializableFilter <DATATY
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    return true;
+    final SerializableFilterNot <?> rhs = (SerializableFilterNot <?>) o;
+    return m_aOriginalFilter.equals (rhs.m_aOriginalFilter);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aOriginalFilter).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).toString ();
+    return new ToStringGenerator (this).append ("originalFilter", m_aOriginalFilter).toString ();
   }
 }

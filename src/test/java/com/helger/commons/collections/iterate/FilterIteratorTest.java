@@ -30,8 +30,8 @@ import java.util.NoSuchElementException;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.filter.FilterNotNull;
 import com.helger.commons.filter.IFilter;
+import com.helger.commons.filter.impl.FilterNotNull;
 import com.helger.commons.mock.PHTestUtils;
 
 /**

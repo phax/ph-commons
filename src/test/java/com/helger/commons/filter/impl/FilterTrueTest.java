@@ -14,28 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.filter;
+package com.helger.commons.filter.impl;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.helger.commons.filter.IFilter;
+import com.helger.commons.filter.impl.FilterTrue;
+
 /**
- * Test class for class {@link FilterNull}
+ * Test class for class {@link FilterTrue}
  *
  * @author Philip Helger
  */
-public final class FilterNullTest
+public final class FilterTrueTest
 {
   @Test
   public void testAll ()
   {
-    final IFilter <String> aFilter = new FilterNull <String> ();
+    final IFilter <String> aFilter = new FilterTrue <String> ();
     assertNotNull (aFilter);
     assertTrue (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
+    assertTrue (aFilter.matchesFilter (""));
+    assertTrue (aFilter.matchesFilter ("bla bla bla"));
   }
 }

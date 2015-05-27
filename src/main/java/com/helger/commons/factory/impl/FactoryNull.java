@@ -14,35 +14,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.factory;
+package com.helger.commons.factory.impl;
+
+import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.factory.IFactory;
 import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Implementation of {@link IFactory} that returns a constant value
+ * An instance of {@link IFactory} that always returns <code>null</code>.
  *
  * @author Philip Helger
  * @param <DATATYPE>
- *        The return type of the factory
+ *        Return type of the factory
  */
-public final class FactoryConstantValue <DATATYPE> implements IFactory <DATATYPE>
+public final class FactoryNull <DATATYPE> implements IFactory <DATATYPE>, Serializable
 {
-  private final DATATYPE m_aConstantValue;
+  private static final FactoryNull <Object> s_aInstance = new FactoryNull <Object> ();
 
-  public FactoryConstantValue (@Nullable final DATATYPE aConstantValue)
-  {
-    m_aConstantValue = aConstantValue;
-  }
+  private FactoryNull ()
+  {}
 
   @Nullable
   public DATATYPE create ()
   {
-    return m_aConstantValue;
+    return null;
   }
 
   @Override
@@ -52,25 +53,24 @@ public final class FactoryConstantValue <DATATYPE> implements IFactory <DATATYPE
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final FactoryConstantValue <?> rhs = (FactoryConstantValue <?>) o;
-    return EqualsUtils.equals (m_aConstantValue, rhs.m_aConstantValue);
+    return true;
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aConstantValue).getHashCode ();
+    return new HashCodeGenerator (this).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("constant", m_aConstantValue).toString ();
+    return new ToStringGenerator (this).toString ();
   }
 
   @Nonnull
-  public static <DATATYPE> FactoryConstantValue <DATATYPE> create (@Nullable final DATATYPE aConstantValue)
+  public static <DATATYPE> FactoryNull <DATATYPE> getInstance ()
   {
-    return new FactoryConstantValue <DATATYPE> (aConstantValue);
+    return GenericReflection.<FactoryNull <Object>, FactoryNull <DATATYPE>> uncheckedCast (s_aInstance);
   }
 }

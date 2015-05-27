@@ -14,35 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.factory;
+package com.helger.commons.filter.impl;
 
-import java.io.Serializable;
-
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.hash.HashCodeGenerator;
-import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * An instance of {@link IFactory} that always returns <code>null</code>.
+ * A filter implementation that always returns <code>false</code>.
  *
  * @author Philip Helger
  * @param <DATATYPE>
- *        Return type of the factory
+ *        The data type to filter
  */
-public final class FactoryNull <DATATYPE> implements IFactory <DATATYPE>, Serializable
+@Immutable
+public class FilterFalse <DATATYPE> extends AbstractSerializableFilter <DATATYPE>
 {
-  private static final FactoryNull <Object> s_aInstance = new FactoryNull <Object> ();
-
-  private FactoryNull ()
+  // No need for a constructor with a nested filter
+  public FilterFalse ()
   {}
 
-  @Nullable
-  public DATATYPE create ()
+  @Override
+  public boolean matchesThisFilter (@Nullable final DATATYPE aValue)
   {
-    return null;
+    return false;
   }
 
   @Override
@@ -65,11 +62,5 @@ public final class FactoryNull <DATATYPE> implements IFactory <DATATYPE>, Serial
   public String toString ()
   {
     return new ToStringGenerator (this).toString ();
-  }
-
-  @Nonnull
-  public static <DATATYPE> FactoryNull <DATATYPE> getInstance ()
-  {
-    return GenericReflection.<FactoryNull <Object>, FactoryNull <DATATYPE>> uncheckedCast (s_aInstance);
   }
 }

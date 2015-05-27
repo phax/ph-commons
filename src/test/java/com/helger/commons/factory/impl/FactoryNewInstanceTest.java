@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.factory;
+package com.helger.commons.factory.impl;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -24,6 +24,8 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.annotations.UsedViaReflection;
+import com.helger.commons.factory.IFactory;
+import com.helger.commons.factory.impl.FactoryNewInstance;
 import com.helger.commons.mock.PHTestUtils;
 
 /**

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.filter;
+package com.helger.commons.filter.impl;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -23,37 +23,41 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.filter.IFilter;
+import com.helger.commons.filter.impl.FilterListAny;
+import com.helger.commons.filter.impl.FilterNotNull;
+import com.helger.commons.filter.impl.FilterNull;
 
 /**
- * Test class for class {@link FilterListAll}
+ * Test class for class {@link FilterListAny}
  *
  * @author Philip Helger
  */
-public final class FilterListAllTest
+public final class FilterListAnyTest
 {
   @SuppressWarnings ("unchecked")
   @Test
   public void testAll ()
   {
-    IFilter <String> aFilter = FilterListAll.create (new FilterNull <String> (), new FilterNotNull <String> ());
+    IFilter <String> aFilter = FilterListAny.create (new FilterNull <String> (), new FilterNotNull <String> ());
     assertNotNull (aFilter);
-    assertFalse (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
+    assertTrue (aFilter.matchesFilter (null));
+    assertTrue (aFilter.matchesFilter (""));
+    assertTrue (aFilter.matchesFilter ("bla bla bla"));
 
-    aFilter = FilterListAll.create (new FilterNull <String> ());
+    aFilter = FilterListAny.create (new FilterNull <String> ());
     assertNotNull (aFilter);
     assertTrue (aFilter.matchesFilter (null));
     assertFalse (aFilter.matchesFilter (""));
     assertFalse (aFilter.matchesFilter ("bla bla bla"));
 
-    aFilter = FilterListAll.create (CollectionHelper.newList (new FilterNull <String> (), new FilterNotNull <String> ()));
+    aFilter = FilterListAny.create (CollectionHelper.newList (new FilterNull <String> (), new FilterNotNull <String> ()));
     assertNotNull (aFilter);
-    assertFalse (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
+    assertTrue (aFilter.matchesFilter (null));
+    assertTrue (aFilter.matchesFilter (""));
+    assertTrue (aFilter.matchesFilter ("bla bla bla"));
 
-    aFilter = FilterListAll.create (CollectionHelper.newList (new FilterNull <String> ()));
+    aFilter = FilterListAny.create (CollectionHelper.newList (new FilterNull <String> ()));
     assertNotNull (aFilter);
     assertTrue (aFilter.matchesFilter (null));
     assertFalse (aFilter.matchesFilter (""));

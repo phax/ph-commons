@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.filter;
+package com.helger.commons.filter.impl;
 
 import java.util.List;
 
@@ -24,42 +24,43 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.filter.IFilter;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * An implementation of {@link ISerializableFilter} that chains multiple
- * instances of {@link ISerializableFilter} with an <b>AND</b> operator.
+ * An implementation of {@link IFilter} that chains multiple instances of
+ * {@link IFilter} with an <b>AND</b> operator.
  *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type to be filtered.
  */
 @Immutable
-public class SerializableFilterListAll <DATATYPE> implements ISerializableFilter <DATATYPE>
+public class FilterListAll <DATATYPE> implements IFilter <DATATYPE>
 {
-  private final List <? extends ISerializableFilter <? super DATATYPE>> m_aFilters;
+  private final List <? extends IFilter <? super DATATYPE>> m_aFilters;
 
-  public SerializableFilterListAll (@Nullable final ISerializableFilter <? super DATATYPE>... aFilters)
+  public FilterListAll (@Nullable final IFilter <? super DATATYPE>... aFilters)
   {
     m_aFilters = CollectionHelper.newList (aFilters);
   }
 
-  public SerializableFilterListAll (@Nullable final Iterable <? extends ISerializableFilter <? super DATATYPE>> aFilters)
+  public FilterListAll (@Nullable final Iterable <? extends IFilter <? super DATATYPE>> aFilters)
   {
     m_aFilters = CollectionHelper.newList (aFilters);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <? extends ISerializableFilter <? super DATATYPE>> getContainedFilters ()
+  public List <? extends IFilter <? super DATATYPE>> getContainedFilters ()
   {
     return CollectionHelper.newList (m_aFilters);
   }
 
   public boolean matchesFilter (@Nullable final DATATYPE aValue)
   {
-    for (final ISerializableFilter <? super DATATYPE> aFilter : m_aFilters)
+    for (final IFilter <? super DATATYPE> aFilter : m_aFilters)
       if (!aFilter.matchesFilter (aValue))
         return false;
     return true;
@@ -72,7 +73,7 @@ public class SerializableFilterListAll <DATATYPE> implements ISerializableFilter
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final SerializableFilterListAll <?> rhs = (SerializableFilterListAll <?>) o;
+    final FilterListAll <?> rhs = (FilterListAll <?>) o;
     return m_aFilters.equals (rhs.m_aFilters);
   }
 
@@ -89,14 +90,14 @@ public class SerializableFilterListAll <DATATYPE> implements ISerializableFilter
   }
 
   @Nonnull
-  public static <DATATYPE> SerializableFilterListAll <DATATYPE> create (@Nullable final ISerializableFilter <? super DATATYPE>... aFilters)
+  public static <DATATYPE> FilterListAll <DATATYPE> create (@Nullable final IFilter <? super DATATYPE>... aFilters)
   {
-    return new SerializableFilterListAll <DATATYPE> (aFilters);
+    return new FilterListAll <DATATYPE> (aFilters);
   }
 
   @Nonnull
-  public static <DATATYPE> SerializableFilterListAll <DATATYPE> create (@Nullable final Iterable <? extends ISerializableFilter <? super DATATYPE>> aFilters)
+  public static <DATATYPE> FilterListAll <DATATYPE> create (@Nullable final Iterable <? extends IFilter <? super DATATYPE>> aFilters)
   {
-    return new SerializableFilterListAll <DATATYPE> (aFilters);
+    return new FilterListAll <DATATYPE> (aFilters);
   }
 }

@@ -14,43 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.filter;
+package com.helger.commons.filter.impl;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.commons.filter.IFilter;
+import com.helger.commons.filter.impl.FilterFalse;
+
 /**
- * Test class for class {@link FilterNot}
+ * Test class for class {@link FilterFalse}
  *
  * @author Philip Helger
  */
-public final class FilterNotTest
+public final class FilterFalseTest
 {
   @Test
   public void testAll ()
   {
-    try
-    {
-      new FilterNot <Object> (null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-
-    IFilter <String> aFilter = new FilterNot <String> (new FilterNotNull <String> ());
-    assertNotNull (aFilter);
-    assertTrue (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
-
-    aFilter = new FilterNot <String> (new FilterNull <String> ());
+    final IFilter <String> aFilter = new FilterFalse <String> ();
     assertNotNull (aFilter);
     assertFalse (aFilter.matchesFilter (null));
-    assertTrue (aFilter.matchesFilter (""));
-    assertTrue (aFilter.matchesFilter ("bla bla bla"));
+    assertFalse (aFilter.matchesFilter (""));
+    assertFalse (aFilter.matchesFilter ("bla bla bla"));
   }
 }
