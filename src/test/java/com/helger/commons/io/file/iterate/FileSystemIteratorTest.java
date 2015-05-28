@@ -31,7 +31,7 @@ import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link FileSystemIterator}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FileSystemIteratorTest
@@ -72,16 +72,14 @@ public final class FileSystemIteratorTest
     assertFalse (it.hasNext ());
 
     // With one filter
-    it = FileSystemIterator.create (new File ("."), FileFilterFileOnly.getInstance ());
+    it = FileSystemIterator.create (new File ("."), new FileFilterFileOnly ());
     assertNotNull (it);
     assertTrue (it.hasNext ());
     while (it.hasNext ())
       it.next ();
 
     // With one filter
-    it = FileSystemIterator.create (new File ("."),
-                                    FileFilterFileOnly.getInstance (),
-                                    FileFilterFileOnly.getInstance ());
+    it = FileSystemIterator.create (new File ("."), new FileFilterFileOnly (), new FileFilterFileOnly ());
     assertNotNull (it);
     assertTrue (it.hasNext ());
     while (it.hasNext ())

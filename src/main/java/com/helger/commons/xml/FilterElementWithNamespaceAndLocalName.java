@@ -25,6 +25,7 @@ import org.w3c.dom.Element;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.filter.AbstractSerializableFilter;
 import com.helger.commons.filter.ISerializableFilter;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -37,7 +38,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class FilterElementWithNamespaceAndLocalName implements ISerializableFilter <Element>
+public class FilterElementWithNamespaceAndLocalName extends AbstractSerializableFilter <Element>
 {
   private final String m_sNamespaceURI;
   private final String m_sLocalName;
@@ -45,6 +46,14 @@ public final class FilterElementWithNamespaceAndLocalName implements ISerializab
   public FilterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
                                                  @Nonnull @Nonempty final String sLocalName)
   {
+    this (sNamespaceURI, sLocalName, null);
+  }
+
+  public FilterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
+                                                 @Nonnull @Nonempty final String sLocalName,
+                                                 @Nullable final ISerializableFilter <? super Element> aNestedFilter)
+  {
+    super (aNestedFilter);
     m_sNamespaceURI = sNamespaceURI;
     m_sLocalName = ValueEnforcer.notEmpty (sLocalName, "LocalName");
   }
@@ -62,7 +71,8 @@ public final class FilterElementWithNamespaceAndLocalName implements ISerializab
     return m_sLocalName;
   }
 
-  public boolean matchesFilter (@Nullable final Element aElement)
+  @Override
+  public boolean matchesThisFilter (@Nullable final Element aElement)
   {
     return aElement != null &&
            XMLHelper.hasNamespaceURI (aElement, m_sNamespaceURI) &&
@@ -74,7 +84,7 @@ public final class FilterElementWithNamespaceAndLocalName implements ISerializab
   {
     if (o == this)
       return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
+    if (!super.equals (o))
       return false;
     final FilterElementWithNamespaceAndLocalName rhs = (FilterElementWithNamespaceAndLocalName) o;
     return EqualsUtils.equals (m_sNamespaceURI, rhs.m_sNamespaceURI) && m_sLocalName.equals (rhs.m_sLocalName);
@@ -83,14 +93,18 @@ public final class FilterElementWithNamespaceAndLocalName implements ISerializab
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sNamespaceURI).append (m_sLocalName).getHashCode ();
+    return HashCodeGenerator.getDerived (super.hashCode ())
+                            .append (m_sNamespaceURI)
+                            .append (m_sLocalName)
+                            .getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("namespaceURI", m_sNamespaceURI)
-                                       .append ("localName", m_sLocalName)
-                                       .toString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("namespaceURI", m_sNamespaceURI)
+                            .append ("localName", m_sLocalName)
+                            .toString ();
   }
 }

@@ -244,7 +244,7 @@ public final class XMLHelper
   @Nonnull
   public static IIterableIterator <Element> getChildElementIteratorNoNS (@Nonnull final Node aStartNode)
   {
-    return new ChildElementIterator (aStartNode, FilterElementWithoutNamespace.getInstance ());
+    return new ChildElementIterator (aStartNode, new FilterElementWithoutNamespace ());
   }
 
   /**

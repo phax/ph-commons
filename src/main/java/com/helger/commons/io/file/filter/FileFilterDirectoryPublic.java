@@ -21,9 +21,7 @@ import java.io.File;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.file.FilenameHelper;
-import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A file filter that matches if the passed file is a directory and is public,
@@ -32,42 +30,11 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class FileFilterDirectoryPublic extends AbstractFileFilter
+public class FileFilterDirectoryPublic extends AbstractFileFilter
 {
-  private static final FileFilterDirectoryPublic s_aInstance = new FileFilterDirectoryPublic ();
-
-  private FileFilterDirectoryPublic ()
-  {}
-
-  public static FileFilterDirectoryPublic getInstance ()
-  {
-    return s_aInstance;
-  }
-
-  public boolean matchesFilter (@Nullable final File aFile)
+  @Override
+  public boolean matchesThisFilter (@Nullable final File aFile)
   {
     return aFile != null && aFile.isDirectory () && !FilenameHelper.isHiddenFilename (aFile);
-  }
-
-  @Override
-  public boolean equals (final Object o)
-  {
-    if (o == this)
-      return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
-      return false;
-    return true;
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    return new HashCodeGenerator (this).getHashCode ();
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).toString ();
   }
 }

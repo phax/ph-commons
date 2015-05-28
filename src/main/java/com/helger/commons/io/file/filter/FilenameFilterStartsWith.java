@@ -20,10 +20,11 @@ import java.io.File;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -34,8 +35,8 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-@ThreadSafe
-public final class FilenameFilterStartsWith extends AbstractFileFilter
+@Immutable
+public class FilenameFilterStartsWith extends AbstractFileFilter
 {
   private final String m_sPrefix;
 
@@ -55,14 +56,38 @@ public final class FilenameFilterStartsWith extends AbstractFileFilter
     return m_sPrefix;
   }
 
-  public boolean matchesFilter (@Nullable final File aFile)
+  @Override
+  public boolean matchesThisFilter (@Nullable final File aFile)
   {
-    return aFile != null && FilenameHelper.getSecureFilename (aFile.getName ()).startsWith (m_sPrefix);
+    if (aFile != null)
+    {
+      final String sSecureFilename = FilenameHelper.getSecureFilename (aFile.getName ());
+      if (sSecureFilename != null)
+        return sSecureFilename.startsWith (m_sPrefix);
+    }
+    return false;
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (!super.equals (o))
+      return false;
+    final FilenameFilterStartsWith rhs = (FilenameFilterStartsWith) o;
+    return m_sPrefix.equals (rhs.m_sPrefix);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_sPrefix).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("prefix", m_sPrefix).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("prefix", m_sPrefix).toString ();
   }
 }

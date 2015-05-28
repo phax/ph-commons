@@ -19,9 +19,12 @@ package com.helger.commons.io.file.filter;
 import java.io.File;
 import java.io.FileFilter;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
+import com.helger.commons.filter.AbstractFilter;
+import com.helger.commons.filter.EFilterMatchingStrategy;
 import com.helger.commons.filter.IFilter;
 
 /**
@@ -32,8 +35,18 @@ import com.helger.commons.filter.IFilter;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public abstract class AbstractFileFilter implements IFileFilter
+public abstract class AbstractFileFilter extends AbstractFilter <File> implements IFileFilter
 {
+  public AbstractFileFilter ()
+  {
+    this (null);
+  }
+
+  public AbstractFileFilter (@Nonnull final IFilter <? super File> aNestedFilter)
+  {
+    super (EFilterMatchingStrategy.MATCH_ALL, aNestedFilter);
+  }
+
   public final boolean accept (@Nullable final File aFile)
   {
     return matchesFilter (aFile);
@@ -43,6 +56,8 @@ public abstract class AbstractFileFilter implements IFileFilter
   {
     if (sName == null)
       return false;
-    return matchesFilter (aDir != null ? new File (aDir, sName) : new File (sName));
+
+    final File aFileToCheck = aDir != null ? new File (aDir, sName) : new File (sName);
+    return matchesFilter (aFileToCheck);
   }
 }

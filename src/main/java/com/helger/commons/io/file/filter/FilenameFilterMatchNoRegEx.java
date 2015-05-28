@@ -17,15 +17,17 @@
 package com.helger.commons.io.file.filter;
 
 import java.io.File;
+import java.util.Arrays;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ArrayHelper;
+import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -37,8 +39,8 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-@ThreadSafe
-public final class FilenameFilterMatchNoRegEx extends AbstractFileFilter
+@Immutable
+public class FilenameFilterMatchNoRegEx extends AbstractFileFilter
 {
   private final String [] m_aRegExs;
 
@@ -54,12 +56,13 @@ public final class FilenameFilterMatchNoRegEx extends AbstractFileFilter
 
   @Nonnull
   @ReturnsMutableCopy
-  public String [] getRegularExpressions ()
+  public String [] getAllRegularExpressions ()
   {
     return ArrayHelper.getCopy (m_aRegExs);
   }
 
-  public boolean matchesFilter (@Nullable final File aFile)
+  @Override
+  public boolean matchesThisFilter (@Nullable final File aFile)
   {
     if (aFile == null)
       return false;
@@ -73,8 +76,25 @@ public final class FilenameFilterMatchNoRegEx extends AbstractFileFilter
   }
 
   @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (!super.equals (o))
+      return false;
+    final FilenameFilterMatchNoRegEx rhs = (FilenameFilterMatchNoRegEx) o;
+    return Arrays.equals (m_aRegExs, rhs.m_aRegExs);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_aRegExs).getHashCode ();
+  }
+
+  @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("regExs", m_aRegExs).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("regExs", m_aRegExs).toString ();
   }
 }

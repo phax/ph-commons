@@ -32,7 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public final class FileFilterFromFilenameFilter extends AbstractFileFilter
+public class FileFilterFromFilenameFilter extends AbstractFileFilter
 {
   private final FilenameFilter m_aFilenameFilter;
 
@@ -47,7 +47,8 @@ public final class FileFilterFromFilenameFilter extends AbstractFileFilter
     return m_aFilenameFilter;
   }
 
-  public boolean matchesFilter (@Nullable final File aFile)
+  @Override
+  public boolean matchesThisFilter (@Nullable final File aFile)
   {
     return aFile != null && m_aFilenameFilter.accept (aFile.getParentFile (), aFile.getName ());
   }
@@ -57,7 +58,7 @@ public final class FileFilterFromFilenameFilter extends AbstractFileFilter
   {
     if (o == this)
       return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
+    if (!super.equals (o))
       return false;
     // FilenameFilter does not necessarily implement equals/hashCode :(
     return true;
@@ -66,12 +67,12 @@ public final class FileFilterFromFilenameFilter extends AbstractFileFilter
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).getHashCode ();
+    return HashCodeGenerator.getDerived (super.hashCode ()).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("filenameFilter", m_aFilenameFilter).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("filenameFilter", m_aFilenameFilter).toString ();
   }
 }

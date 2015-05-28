@@ -16,9 +16,9 @@
  */
 package com.helger.commons.io.file.filter;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -28,7 +28,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link FileFilterParentDirectoryPublic}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FileFilterParentDirectoryPublicTest
@@ -36,7 +36,7 @@ public final class FileFilterParentDirectoryPublicTest
   @Test
   public void testGetParentDirectoryPublic ()
   {
-    final FileFilter aFilter = FileFilterParentDirectoryPublic.getInstance ();
+    final FileFilter aFilter = new FileFilterParentDirectoryPublic ();
     assertNotNull (aFilter);
 
     // file
@@ -50,6 +50,6 @@ public final class FileFilterParentDirectoryPublicTest
     // hidden file
     assertFalse (aFilter.accept (new File (".svn/pom.xml")));
 
-    assertSame (aFilter, FileFilterParentDirectoryPublic.getInstance ());
+    assertEquals (aFilter, new FileFilterParentDirectoryPublic ());
   }
 }

@@ -32,7 +32,7 @@ import com.helger.commons.mock.PHTestUtils;
 
 /**
  * Test class for class {@link FileSystemRecursiveIterator}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FileSystemRecursiveIteratorTest
@@ -83,16 +83,14 @@ public final class FileSystemRecursiveIteratorTest
     PHTestUtils.testToStringImplementation (it);
 
     // With one filter
-    it = FileSystemRecursiveIterator.create (new File ("."), FileFilterFileOnly.getInstance ());
+    it = FileSystemRecursiveIterator.create (new File ("."), new FileFilterFileOnly ());
     assertNotNull (it);
     assertTrue (it.hasNext ());
     while (it.hasNext ())
       it.next ();
 
     // With one filter
-    it = FileSystemRecursiveIterator.create (new File ("."),
-                                             FileFilterFileOnly.getInstance (),
-                                             FileFilterFileOnly.getInstance ());
+    it = FileSystemRecursiveIterator.create (new File ("."), new FileFilterFileOnly (), new FileFilterFileOnly ());
     assertNotNull (it);
     assertTrue (it.hasNext ());
     while (it.hasNext ())

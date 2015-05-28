@@ -21,11 +21,9 @@ import java.io.FilenameFilter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.file.FileUtils;
-import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A special file filter that uses and external filename filter to determine the
@@ -33,48 +31,17 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public final class FileFilterFileFromFilenameFilter extends AbstractFileFilter
+@Immutable
+public class FileFilterFileFromFilenameFilter extends AbstractFileFilter
 {
-  private final FilenameFilter m_aFilenameFilter;
-
   public FileFilterFileFromFilenameFilter (@Nonnull final FilenameFilter aFilenameFilter)
   {
-    m_aFilenameFilter = ValueEnforcer.notNull (aFilenameFilter, "FilenameFilter");
-  }
-
-  @Nonnull
-  public FilenameFilter getFilenameFilter ()
-  {
-    return m_aFilenameFilter;
-  }
-
-  public boolean matchesFilter (@Nullable final File aFile)
-  {
-    return aFile != null &&
-           FileUtils.existsFile (aFile) &&
-           m_aFilenameFilter.accept (aFile.getParentFile (), aFile.getName ());
+    super (new FileFilterFromFilenameFilter (aFilenameFilter));
   }
 
   @Override
-  public boolean equals (final Object o)
+  public boolean matchesThisFilter (@Nullable final File aFile)
   {
-    if (o == this)
-      return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
-      return false;
-    // FilenameFilter does not necessarily implement equals/hashCode :(
-    return true;
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    return new HashCodeGenerator (this).getHashCode ();
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).append ("filenameFilter", m_aFilenameFilter).toString ();
+    return aFile != null && FileUtils.existsFile (aFile);
   }
 }

@@ -40,7 +40,7 @@ public class FilterElementWithNamespace extends AbstractSerializableFilter <Elem
 
   public FilterElementWithNamespace (@Nullable final String sNamespaceURI)
   {
-    m_sNamespaceURI = sNamespaceURI;
+    this (sNamespaceURI, null);
   }
 
   public FilterElementWithNamespace (@Nullable final String sNamespaceURI,

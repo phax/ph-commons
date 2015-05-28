@@ -20,10 +20,11 @@ import java.io.File;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -34,8 +35,8 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-@ThreadSafe
-public final class FilenameFilterNotEqualsIgnoreCase extends AbstractFileFilter
+@Immutable
+public class FilenameFilterNotEqualsIgnoreCase extends AbstractFileFilter
 {
   private final String m_sFilename;
 
@@ -49,19 +50,38 @@ public final class FilenameFilterNotEqualsIgnoreCase extends AbstractFileFilter
   }
 
   @Nonnull
+  @Nonempty
   public String getFilename ()
   {
     return m_sFilename;
   }
 
-  public boolean matchesFilter (@Nullable final File aFile)
+  @Override
+  public boolean matchesThisFilter (@Nullable final File aFile)
   {
-    return aFile != null && !FilenameHelper.getSecureFilename (aFile.getName ()).equalsIgnoreCase (m_sFilename);
+    return aFile != null && !m_sFilename.equalsIgnoreCase (FilenameHelper.getSecureFilename (aFile.getName ()));
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (!super.equals (o))
+      return false;
+    final FilenameFilterNotEqualsIgnoreCase rhs = (FilenameFilterNotEqualsIgnoreCase) o;
+    return m_sFilename.equals (rhs.m_sFilename);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_sFilename).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("filename", m_sFilename).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("filename", m_sFilename).toString ();
   }
 }

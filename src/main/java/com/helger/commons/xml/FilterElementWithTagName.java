@@ -24,6 +24,7 @@ import org.w3c.dom.Element;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.filter.AbstractSerializableFilter;
 import com.helger.commons.filter.ISerializableFilter;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -36,12 +37,19 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class FilterElementWithTagName implements ISerializableFilter <Element>
+public final class FilterElementWithTagName extends AbstractSerializableFilter <Element>
 {
   private final String m_sTagName;
 
   public FilterElementWithTagName (@Nonnull @Nonempty final String sTagName)
   {
+    this (sTagName, null);
+  }
+
+  public FilterElementWithTagName (@Nonnull @Nonempty final String sTagName,
+                                   @Nullable final ISerializableFilter <? super Element> aNestedFilter)
+  {
+    super (aNestedFilter);
     m_sTagName = ValueEnforcer.notNull (sTagName, "TagName");
   }
 
@@ -52,7 +60,8 @@ public final class FilterElementWithTagName implements ISerializableFilter <Elem
     return m_sTagName;
   }
 
-  public boolean matchesFilter (@Nullable final Element aElement)
+  @Override
+  public boolean matchesThisFilter (@Nullable final Element aElement)
   {
     return aElement != null && aElement.getNamespaceURI () == null && aElement.getTagName ().equals (m_sTagName);
   }
@@ -62,7 +71,7 @@ public final class FilterElementWithTagName implements ISerializableFilter <Elem
   {
     if (o == this)
       return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
+    if (!super.equals (o))
       return false;
     final FilterElementWithTagName rhs = (FilterElementWithTagName) o;
     return m_sTagName.equals (rhs.m_sTagName);
@@ -71,12 +80,12 @@ public final class FilterElementWithTagName implements ISerializableFilter <Elem
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sTagName).getHashCode ();
+    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_sTagName).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("tagName", m_sTagName).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("tagName", m_sTagName).toString ();
   }
 }

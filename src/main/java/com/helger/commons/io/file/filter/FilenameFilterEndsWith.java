@@ -24,6 +24,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -55,14 +56,38 @@ public final class FilenameFilterEndsWith extends AbstractFileFilter
     return m_sSuffix;
   }
 
-  public boolean matchesFilter (@Nullable final File aFile)
+  @Override
+  public boolean matchesThisFilter (@Nullable final File aFile)
   {
-    return aFile != null && FilenameHelper.getSecureFilename (aFile.getName ()).endsWith (m_sSuffix);
+    if (aFile != null)
+    {
+      final String sSecureFilename = FilenameHelper.getSecureFilename (aFile.getName ());
+      if (sSecureFilename != null)
+        return sSecureFilename.endsWith (m_sSuffix);
+    }
+    return false;
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (!super.equals (o))
+      return false;
+    final FilenameFilterEndsWith rhs = (FilenameFilterEndsWith) o;
+    return m_sSuffix.equals (rhs.m_sSuffix);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_sSuffix).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("suffix", m_sSuffix).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("suffix", m_sSuffix).toString ();
   }
 }

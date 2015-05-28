@@ -21,10 +21,7 @@ import java.io.FilenameFilter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.hash.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * A special directory file filter that uses and external filename filter to
@@ -32,47 +29,17 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public final class FileFilterDirectoryFromFilenameFilter extends AbstractFileFilter
+@Immutable
+public class FileFilterDirectoryFromFilenameFilter extends AbstractFileFilter
 {
-  private final FilenameFilter m_aFilenameFilter;
-
   public FileFilterDirectoryFromFilenameFilter (@Nonnull final FilenameFilter aFilenameFilter)
   {
-    m_aFilenameFilter = ValueEnforcer.notNull (aFilenameFilter, "FilenameFilter");
-  }
-
-  @Nonnull
-  public FilenameFilter getFilenameFilter ()
-  {
-    return m_aFilenameFilter;
-  }
-
-  public boolean matchesFilter (@Nullable final File aFile)
-  {
-    return aFile != null && aFile.isDirectory () && m_aFilenameFilter.accept (aFile.getParentFile (), aFile.getName ());
+    super (new FileFilterFromFilenameFilter (aFilenameFilter));
   }
 
   @Override
-  public boolean equals (final Object o)
+  public boolean matchesThisFilter (@Nullable final File aFile)
   {
-    if (o == this)
-      return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
-      return false;
-    // FilenameFilter does not necessarily implement equals/hashCode :(
-    return true;
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    // FilenameFilter does not implement hashCode
-    return new HashCodeGenerator (this).getHashCode ();
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).append ("filenameFilter", m_aFilenameFilter).toString ();
+    return aFile != null && aFile.isDirectory ();
   }
 }

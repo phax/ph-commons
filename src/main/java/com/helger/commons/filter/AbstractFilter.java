@@ -16,9 +16,12 @@
  */
 package com.helger.commons.filter;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -33,16 +36,43 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>
 {
+  private final EFilterMatchingStrategy m_eMatchingStrategy;
   private final IFilter <? super DATATYPE> m_aNestedFilter;
 
-  public AbstractFilter ()
+  /**
+   * Constructor with an optional nested filter.
+   *
+   * @param eMatchingStrategy
+   *        The matching strategy to be used. May not be <code>null</code>.
+   * @param aNestedFilter
+   *        The nested filter to use. May be <code>null</code> to not have a
+   *        nested filter-
+   */
+  public AbstractFilter (@Nonnull final EFilterMatchingStrategy eMatchingStrategy,
+                         @Nullable final IFilter <? super DATATYPE> aNestedFilter)
   {
-    this (null);
+    m_eMatchingStrategy = ValueEnforcer.notNull (eMatchingStrategy, "MatchingStrategy");
+    m_aNestedFilter = aNestedFilter;
   }
 
-  public AbstractFilter (@Nullable final IFilter <? super DATATYPE> aNestedFilter)
+  /**
+   * @return The filter matching strategy as provided in the constructor. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public final EFilterMatchingStrategy getMatchingStrategy ()
   {
-    m_aNestedFilter = aNestedFilter;
+    return m_eMatchingStrategy;
+  }
+
+  /**
+   * @return The nested filter as specified in the constructor. May be
+   *         <code>null</code>.
+   */
+  @Nullable
+  public final IFilter <? super DATATYPE> getNestedFilter ()
+  {
+    return m_aNestedFilter;
   }
 
   /**
@@ -52,24 +82,26 @@ public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>
    *        The value to be matched
    * @return <code>true</code> if the value matches the filter
    */
-  protected abstract boolean matchesThisFilter (final DATATYPE aValue);
+  public abstract boolean matchesThisFilter (final DATATYPE aValue);
 
   public final boolean matchesFilter (final DATATYPE aValue)
   {
-    if (matchesThisFilter (aValue))
+    final boolean bIsMatchAny = m_eMatchingStrategy.equals (EFilterMatchingStrategy.MATCH_ANY);
+    final boolean bIsMatchAll = !bIsMatchAny;
+
+    // Match this filter
+    final boolean bMatchesThisFilter = matchesThisFilter (aValue);
+    if (bMatchesThisFilter && bIsMatchAny)
       return true;
+    if (!bMatchesThisFilter && bIsMatchAll)
+      return false;
 
-    // Check nested filter
-    return m_aNestedFilter != null && m_aNestedFilter.matchesFilter (aValue);
-  }
+    // Check nested filter (if present)
+    if (m_aNestedFilter == null)
+      return bMatchesThisFilter;
 
-  /**
-   * @return The nested filter. May be <code>null</code>.
-   */
-  @Nullable
-  public IFilter <? super DATATYPE> getNestedFilter ()
-  {
-    return m_aNestedFilter;
+    final boolean bMatchesNestedFilter = m_aNestedFilter.matchesFilter (aValue);
+    return bMatchesNestedFilter;
   }
 
   @Override
@@ -80,7 +112,7 @@ public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final AbstractFilter <?> rhs = (AbstractFilter <?>) o;
-    return m_aNestedFilter.equals (rhs.m_aNestedFilter);
+    return EqualsUtils.equals (m_aNestedFilter, rhs.m_aNestedFilter);
   }
 
   @Override
@@ -92,6 +124,6 @@ public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("nestedFilter", m_aNestedFilter).toString ();
+    return new ToStringGenerator (this).appendIfNotNull ("nestedFilter", m_aNestedFilter).toString ();
   }
 }

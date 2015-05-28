@@ -16,17 +16,15 @@
  */
 package com.helger.commons.xml;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import org.w3c.dom.Element;
 
+import com.helger.commons.filter.AbstractSerializableFilter;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.filter.ISerializableFilter;
-import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
 
 /**
  * An implementation of {@link IFilter} on {@link Element} objects that will
@@ -35,43 +33,19 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class FilterElementWithoutNamespace implements ISerializableFilter <Element>
+public class FilterElementWithoutNamespace extends AbstractSerializableFilter <Element>
 {
-  private static final FilterElementWithoutNamespace s_aInstance = new FilterElementWithoutNamespace ();
-
-  private FilterElementWithoutNamespace ()
+  public FilterElementWithoutNamespace ()
   {}
 
-  @Nonnull
-  public static FilterElementWithoutNamespace getInstance ()
+  public FilterElementWithoutNamespace (@Nullable final ISerializableFilter <? super Element> aNestedFilter)
   {
-    return s_aInstance;
+    super (aNestedFilter);
   }
 
-  public boolean matchesFilter (@Nullable final Element aElement)
+  @Override
+  public boolean matchesThisFilter (@Nullable final Element aElement)
   {
     return aElement != null && StringHelper.hasNoText (aElement.getNamespaceURI ());
-  }
-
-  @Override
-  public boolean equals (final Object o)
-  {
-    if (o == this)
-      return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
-      return false;
-    return true;
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    return new HashCodeGenerator (this).getHashCode ();
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).toString ();
   }
 }

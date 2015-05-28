@@ -18,12 +18,8 @@ package com.helger.commons.io.file.filter;
 
 import java.io.File;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.hash.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A file filter that accepts only directories.
@@ -31,43 +27,11 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class FileFilterDirectoryOnly extends AbstractFileFilter
+public class FileFilterDirectoryOnly extends AbstractFileFilter
 {
-  private static final FileFilterDirectoryOnly s_aInstance = new FileFilterDirectoryOnly ();
-
-  private FileFilterDirectoryOnly ()
-  {}
-
-  @Nonnull
-  public static FileFilterDirectoryOnly getInstance ()
-  {
-    return s_aInstance;
-  }
-
-  public boolean matchesFilter (@Nullable final File aFile)
+  @Override
+  public boolean matchesThisFilter (@Nullable final File aFile)
   {
     return aFile != null && aFile.isDirectory ();
-  }
-
-  @Override
-  public boolean equals (final Object o)
-  {
-    if (o == this)
-      return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
-      return false;
-    return true;
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    return new HashCodeGenerator (this).getHashCode ();
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).toString ();
   }
 }

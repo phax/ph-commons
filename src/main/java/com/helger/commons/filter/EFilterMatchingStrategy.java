@@ -14,26 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.file.filter;
-
-import java.io.File;
-
-import javax.annotation.Nullable;
-
-import com.helger.commons.io.file.FilenameHelper;
+package com.helger.commons.filter;
 
 /**
- * A file filter that matches if the direct parent directory is public, meaning
- * it does not start with "." (hidden directory on Unix systems)
+ * Filter matching strategy for {@link IFilter} implementations based on
+ * {@link AbstractFilter}.
  *
  * @author Philip Helger
  */
-public class FileFilterParentDirectoryPublic extends AbstractFileFilter
+public enum EFilterMatchingStrategy
 {
-  @Override
-  public boolean matchesThisFilter (@Nullable final File aFile)
-  {
-    final File aParentFile = aFile != null ? aFile.getAbsoluteFile ().getParentFile () : null;
-    return aParentFile != null && !FilenameHelper.isHiddenFilename (aParentFile);
-  }
+  /**
+   * Match either this filter or an eventually present nested filter. If no
+   * nested filter is present, only this filter must match.
+   */
+  MATCH_ANY,
+  /**
+   * Math both this filter and an eventually present nested filter. If no nested
+   * filter is present, only this filter must match.
+   */
+  MATCH_ALL;
 }
