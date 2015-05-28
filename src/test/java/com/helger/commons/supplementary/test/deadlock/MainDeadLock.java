@@ -22,31 +22,12 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.deadlock.IThreadDeadlockListener;
+import com.helger.commons.deadlock.LoggingThreadDeadlockListener;
 import com.helger.commons.deadlock.ThreadDeadlockDetectionTimer;
-import com.helger.commons.deadlock.ThreadDeadlockInfo;
 
 public final class MainDeadLock
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainDeadLock.class);
-
-  private static final class LoggingInfoListener implements IThreadDeadlockListener
-  {
-    public void onDeadlockDetected (final ThreadDeadlockInfo [] deadlockedThreads)
-    {
-      System.err.println ("Deadlocked Threads:");
-      System.err.println ("-------------------");
-      for (final ThreadDeadlockInfo threadi : deadlockedThreads)
-      {
-        final Thread thread = threadi.getThread ();
-        System.err.println (thread);
-        for (final StackTraceElement ste : thread.getStackTrace ())
-        {
-          System.err.println ("\t" + ste);
-        }
-      }
-    }
-  }
 
   private static final class A
   {
@@ -89,7 +70,7 @@ public final class MainDeadLock
   public static void main (final String [] args) throws Exception
   {
 
-    final LoggingInfoListener aListener = new LoggingInfoListener ();
+    final LoggingThreadDeadlockListener aListener = new LoggingThreadDeadlockListener ();
     final ThreadDeadlockDetectionTimer tdc = new ThreadDeadlockDetectionTimer ();
     tdc.addListener (aListener);
 
