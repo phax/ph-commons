@@ -22,7 +22,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.deadlock.LoggingThreadDeadlockListener;
+import com.helger.commons.deadlock.LoggingThreadDeadlockCallback;
 import com.helger.commons.deadlock.ThreadDeadlockDetectionTimer;
 
 public final class MainDeadLock
@@ -69,10 +69,8 @@ public final class MainDeadLock
 
   public static void main (final String [] args) throws Exception
   {
-
-    final LoggingThreadDeadlockListener aListener = new LoggingThreadDeadlockListener ();
     final ThreadDeadlockDetectionTimer tdc = new ThreadDeadlockDetectionTimer ();
-    tdc.addListener (aListener);
+    tdc.addCallback (new LoggingThreadDeadlockCallback ());
 
     final A a = new A ();
     final Thread t1 = new Thread (new Runnable ()
@@ -88,6 +86,7 @@ public final class MainDeadLock
       public void run ()
       {
         a.g ();
+        s_aLogger.info ("t2 finished - weird - run the test again");
       }
     }, "t2");
     t1.start ();

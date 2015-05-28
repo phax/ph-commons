@@ -29,11 +29,11 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Represents information about a single deadlocked thread.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
-public final class ThreadDeadlockInfo
+public class ThreadDeadlockInfo
 {
   private final ThreadInfo m_aThreadInfo;
   private final Thread m_aThread;
@@ -67,7 +67,7 @@ public final class ThreadDeadlockInfo
   }
 
   /**
-   * @return <code>true</code> if a stacktrace is present, <code>false</code>
+   * @return <code>true</code> if a stack trace is present, <code>false</code>
    *         otherwise
    */
   public boolean hasStackTrace ()

@@ -19,19 +19,21 @@ package com.helger.commons.deadlock;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.callback.ICallback;
 
 /**
  * This is called whenever a problem with threads is detected.
- * 
+ *
  * @author Philip Helger
  */
-public interface IThreadDeadlockListener
+public interface IThreadDeadlockCallback extends ICallback
 {
   /**
    * Callback to be invoked on a deadlock
-   * 
+   *
    * @param aDeadlockedThreads
-   *        Information on the dead-locked threads.
+   *        Information on the dead-locked threads. Neither <code>null</code>
+   *        nor empty.
    */
   void onDeadlockDetected (@Nonnull @Nonempty ThreadDeadlockInfo [] aDeadlockedThreads);
 }

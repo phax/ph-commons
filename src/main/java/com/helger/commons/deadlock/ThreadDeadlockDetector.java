@@ -19,6 +19,8 @@ package com.helger.commons.deadlock;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -32,7 +34,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ArrayHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.state.EChange;
 
 /**
@@ -41,23 +45,32 @@ import com.helger.commons.state.EChange;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class ThreadDeadlockDetector
+public class ThreadDeadlockDetector
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ThreadDeadlockDetector.class);
 
   private final ThreadMXBean m_aMBean = ManagementFactory.getThreadMXBean ();
-  private final Set <IThreadDeadlockListener> m_aListeners = new CopyOnWriteArraySet <IThreadDeadlockListener> ();
+  private final Set <IThreadDeadlockCallback> m_aCallbacks = new CopyOnWriteArraySet <IThreadDeadlockCallback> ();
 
-  public void run ()
+  /**
+   * This is the main method to be invoked to find deadlocked threads. In case a
+   * deadlock is found, all registered callbacks are invoked.
+   */
+  public void findDeadlockedThreads ()
   {
     final long [] aThreadIDs = m_aMBean.isSynchronizerUsageSupported () ? m_aMBean.findDeadlockedThreads ()
                                                                        : m_aMBean.findMonitorDeadlockedThreads ();
-    // ENDIF
     if (ArrayHelper.isNotEmpty (aThreadIDs))
     {
+      // Get all stack traces
       final Map <Thread, StackTraceElement []> aAllStackTraces = Thread.getAllStackTraces ();
-      final ThreadDeadlockInfo [] aThreads = new ThreadDeadlockInfo [aThreadIDs.length];
-      for (int i = 0; i < aThreads.length; i++)
+
+      // Sort by ID for a consistent result
+      Arrays.sort (aThreadIDs);
+
+      // Extract the relevant information
+      final ThreadDeadlockInfo [] aThreadInfos = new ThreadDeadlockInfo [aThreadIDs.length];
+      for (int i = 0; i < aThreadInfos.length; i++)
       {
         // ThreadInfo
         final ThreadInfo aThreadInfo = m_aMBean.getThreadInfo (aThreadIDs[i]);
@@ -65,6 +78,7 @@ public final class ThreadDeadlockDetector
         // Find matching thread and stack trace
         Thread aFoundThread = null;
         StackTraceElement [] aFoundStackTrace = null;
+        // Sort ascending by thread ID for a consistent result
         for (final Map.Entry <Thread, StackTraceElement []> aEnrty : aAllStackTraces.entrySet ())
           if (aEnrty.getKey ().getId () == aThreadInfo.getThreadId ())
           {
@@ -76,44 +90,51 @@ public final class ThreadDeadlockDetector
           throw new IllegalStateException ("Deadlocked Thread not found as defined by " + aThreadInfo.toString ());
 
         // Remember
-        aThreads[i] = new ThreadDeadlockInfo (aThreadInfo, aFoundThread, aFoundStackTrace);
+        aThreadInfos[i] = new ThreadDeadlockInfo (aThreadInfo, aFoundThread, aFoundStackTrace);
       }
 
-      // Invoke all listeners
-      for (final IThreadDeadlockListener aListener : m_aListeners)
-        aListener.onDeadlockDetected (aThreads);
-
-      if (m_aListeners.isEmpty ())
-        s_aLogger.warn ("Found a deadlock of " + aThreads.length + " threads but no listeners are present!");
+      // Invoke all callbacks
+      if (m_aCallbacks.isEmpty ())
+        s_aLogger.warn ("Found a deadlock of " + aThreadInfos.length + " threads but no callbacks are present!");
+      else
+        for (final IThreadDeadlockCallback aCallback : m_aCallbacks)
+          aCallback.onDeadlockDetected (aThreadInfos);
     }
   }
 
   @Nonnull
-  public EChange addListener (@Nonnull final IThreadDeadlockListener aListener)
+  public EChange addCallback (@Nonnull final IThreadDeadlockCallback aCallback)
   {
-    ValueEnforcer.notNull (aListener, "Listener");
+    ValueEnforcer.notNull (aCallback, "Callback");
 
-    return EChange.valueOf (m_aListeners.add (aListener));
+    return EChange.valueOf (m_aCallbacks.add (aCallback));
   }
 
   @Nonnull
-  public EChange removeListener (@Nullable final IThreadDeadlockListener aListener)
+  public EChange removeCallback (@Nullable final IThreadDeadlockCallback aCallback)
   {
-    return EChange.valueOf (m_aListeners.remove (aListener));
+    return EChange.valueOf (m_aCallbacks.remove (aCallback));
   }
 
   @Nonnull
-  public EChange removeAllListeners ()
+  public EChange removeAllCallbacks ()
   {
-    if (m_aListeners.isEmpty ())
+    if (m_aCallbacks.isEmpty ())
       return EChange.UNCHANGED;
-    m_aListeners.clear ();
+    m_aCallbacks.clear ();
     return EChange.CHANGED;
   }
 
   @Nonnegative
-  public int getListenerCount ()
+  public int getCallbackCount ()
   {
-    return m_aListeners.size ();
+    return m_aCallbacks.size ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public List <IThreadDeadlockCallback> getAllCallbacks ()
+  {
+    return CollectionHelper.newList (m_aCallbacks);
   }
 }
