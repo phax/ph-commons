@@ -21,7 +21,7 @@ import java.io.FilenameFilter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 /**
  * A special directory file filter that uses and external filename filter to
@@ -29,7 +29,7 @@ import javax.annotation.concurrent.Immutable;
  *
  * @author Philip Helger
  */
-@Immutable
+@NotThreadSafe
 public class FileFilterDirectoryFromFilenameFilter extends AbstractFileFilter
 {
   public FileFilterDirectoryFromFilenameFilter (@Nonnull final FilenameFilter aFilenameFilter)

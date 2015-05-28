@@ -21,8 +21,8 @@ import java.io.FileFilter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
 import com.helger.commons.filter.AbstractFilter;
 import com.helger.commons.filter.EFilterMatchingStrategy;
 import com.helger.commons.filter.IFilter;
@@ -34,7 +34,7 @@ import com.helger.commons.filter.IFilter;
  *
  * @author Philip Helger
  */
-@MustImplementEqualsAndHashcode
+@NotThreadSafe
 public abstract class AbstractFileFilter extends AbstractFilter <File> implements IFileFilter
 {
   public AbstractFileFilter ()
@@ -44,7 +44,10 @@ public abstract class AbstractFileFilter extends AbstractFilter <File> implement
 
   public AbstractFileFilter (@Nonnull final IFilter <? super File> aNestedFilter)
   {
-    super (EFilterMatchingStrategy.MATCH_ALL, aNestedFilter);
+    super (aNestedFilter);
+
+    // For file filter the matching strategy is "match all"
+    setMatchingStrategy (EFilterMatchingStrategy.MATCH_ALL);
   }
 
   public final boolean accept (@Nullable final File aFile)

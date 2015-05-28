@@ -21,6 +21,7 @@ import java.io.FilenameFilter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hash.HashCodeGenerator;
@@ -32,6 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
+@NotThreadSafe
 public class FileFilterFromFilenameFilter extends AbstractFileFilter
 {
   private final FilenameFilter m_aFilenameFilter;

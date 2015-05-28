@@ -21,7 +21,7 @@ import java.io.FilenameFilter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.io.file.FileUtils;
 
@@ -31,7 +31,7 @@ import com.helger.commons.io.file.FileUtils;
  *
  * @author Philip Helger
  */
-@Immutable
+@NotThreadSafe
 public class FileFilterFileFromFilenameFilter extends AbstractFileFilter
 {
   public FileFilterFileFromFilenameFilter (@Nonnull final FilenameFilter aFilenameFilter)

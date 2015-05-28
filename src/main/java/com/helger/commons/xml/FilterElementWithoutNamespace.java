@@ -36,7 +36,9 @@ import com.helger.commons.string.StringHelper;
 public class FilterElementWithoutNamespace extends AbstractSerializableFilter <Element>
 {
   public FilterElementWithoutNamespace ()
-  {}
+  {
+    this (null);
+  }
 
   public FilterElementWithoutNamespace (@Nullable final ISerializableFilter <? super Element> aNestedFilter)
   {

@@ -19,9 +19,6 @@ package com.helger.commons.filter;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.hash.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
-
 /**
  * An abstract implementation of {@link ISerializableFilter} that has an
  * optional nested filter.
@@ -31,67 +28,17 @@ import com.helger.commons.string.ToStringGenerator;
  *        The type of object to filter.
  */
 @NotThreadSafe
-public abstract class AbstractSerializableFilter <DATATYPE> implements ISerializableFilter <DATATYPE>
+public abstract class AbstractSerializableFilter <DATATYPE> extends AbstractFilter <DATATYPE> implements ISerializableFilter <DATATYPE>
 {
-  private final ISerializableFilter <? super DATATYPE> m_aNestedFilter;
-
-  public AbstractSerializableFilter ()
-  {
-    this (null);
-  }
-
+  /**
+   * Constructor.
+   *
+   * @param aNestedFilter
+   *        The nested filter to use. May be <code>null</code> to not have a
+   *        nested filter-
+   */
   public AbstractSerializableFilter (@Nullable final ISerializableFilter <? super DATATYPE> aNestedFilter)
   {
-    m_aNestedFilter = aNestedFilter;
-  }
-
-  /**
-   * This is the method to be implemented to match this filter.
-   *
-   * @param aValue
-   *        The value to be matched
-   * @return <code>true</code> if the value matches the filter
-   */
-  public abstract boolean matchesThisFilter (final DATATYPE aValue);
-
-  public final boolean matchesFilter (final DATATYPE aValue)
-  {
-    if (matchesThisFilter (aValue))
-      return true;
-
-    // Check nested filter
-    return m_aNestedFilter != null && m_aNestedFilter.matchesFilter (aValue);
-  }
-
-  /**
-   * @return The nested filter. May be <code>null</code>.
-   */
-  @Nullable
-  public ISerializableFilter <? super DATATYPE> getNestedFilter ()
-  {
-    return m_aNestedFilter;
-  }
-
-  @Override
-  public boolean equals (final Object o)
-  {
-    if (o == this)
-      return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
-      return false;
-    final AbstractSerializableFilter <?> rhs = (AbstractSerializableFilter <?>) o;
-    return m_aNestedFilter.equals (rhs.m_aNestedFilter);
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    return new HashCodeGenerator (this).append (m_aNestedFilter).getHashCode ();
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).append ("nestedFilter", m_aNestedFilter).toString ();
+    super (aNestedFilter);
   }
 }

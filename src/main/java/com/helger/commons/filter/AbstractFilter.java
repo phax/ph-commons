@@ -36,33 +36,43 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>
 {
-  private final EFilterMatchingStrategy m_eMatchingStrategy;
+  private EFilterMatchingStrategy m_eMatchingStrategy = EFilterMatchingStrategy.MATCH_ANY;
   private final IFilter <? super DATATYPE> m_aNestedFilter;
 
   /**
-   * Constructor with an optional nested filter.
+   * Constructor.
    *
-   * @param eMatchingStrategy
-   *        The matching strategy to be used. May not be <code>null</code>.
    * @param aNestedFilter
    *        The nested filter to use. May be <code>null</code> to not have a
    *        nested filter-
    */
-  public AbstractFilter (@Nonnull final EFilterMatchingStrategy eMatchingStrategy,
-                         @Nullable final IFilter <? super DATATYPE> aNestedFilter)
+  public AbstractFilter (@Nullable final IFilter <? super DATATYPE> aNestedFilter)
   {
-    m_eMatchingStrategy = ValueEnforcer.notNull (eMatchingStrategy, "MatchingStrategy");
     m_aNestedFilter = aNestedFilter;
   }
 
   /**
    * @return The filter matching strategy as provided in the constructor. Never
-   *         <code>null</code>.
+   *         <code>null</code>. By default the "match any" strategy is used.
    */
   @Nonnull
   public final EFilterMatchingStrategy getMatchingStrategy ()
   {
     return m_eMatchingStrategy;
+  }
+
+  /**
+   * Set the filter matching strategy.
+   *
+   * @param eMatchingStrategy
+   *        The matching strategy to be used. May not be <code>null</code>.
+   * @return this
+   */
+  @Nonnull
+  public final AbstractFilter <DATATYPE> setMatchingStrategy (@Nonnull final EFilterMatchingStrategy eMatchingStrategy)
+  {
+    m_eMatchingStrategy = ValueEnforcer.notNull (eMatchingStrategy, "MatchingStrategy");
+    return this;
   }
 
   /**

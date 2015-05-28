@@ -19,7 +19,7 @@ package com.helger.commons.io.file.filter;
 import java.io.File;
 
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.io.file.FileUtils;
 
@@ -28,7 +28,7 @@ import com.helger.commons.io.file.FileUtils;
  *
  * @author Philip Helger
  */
-@Immutable
+@NotThreadSafe
 public class FileFilterFileOnly extends AbstractFileFilter
 {
   @Override

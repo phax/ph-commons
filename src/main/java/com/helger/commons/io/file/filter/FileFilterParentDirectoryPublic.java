@@ -19,6 +19,7 @@ package com.helger.commons.io.file.filter;
 import java.io.File;
 
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.io.file.FilenameHelper;
 
@@ -28,6 +29,7 @@ import com.helger.commons.io.file.FilenameHelper;
  *
  * @author Philip Helger
  */
+@NotThreadSafe
 public class FileFilterParentDirectoryPublic extends AbstractFileFilter
 {
   @Override

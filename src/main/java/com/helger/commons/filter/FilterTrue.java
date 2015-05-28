@@ -17,7 +17,7 @@
 package com.helger.commons.filter;
 
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -29,11 +29,13 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <DATATYPE>
  *        The data type to filter
  */
-@Immutable
+@NotThreadSafe
 public class FilterTrue <DATATYPE> extends AbstractSerializableFilter <DATATYPE>
 {
   public FilterTrue ()
-  {}
+  {
+    this (null);
+  }
 
   public FilterTrue (@Nullable final ISerializableFilter <? super DATATYPE> aNestedFilter)
   {
