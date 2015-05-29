@@ -379,7 +379,7 @@ public final class FileUtils
     }
     catch (final IOException ex)
     {
-      s_aLogger.warn ("Failed to create memory mapped input stream for " + aFile + ": " + ex.getMessage ());
+      s_aLogger.warn ("Failed to create memory mapped input stream for " + aFile, ex);
       return null;
     }
   }
@@ -490,7 +490,7 @@ public final class FileUtils
     }
     catch (final IOException ex)
     {
-      s_aLogger.warn ("Failed to create memory mapped output stream for " + aFile + ": " + ex.getMessage ());
+      s_aLogger.warn ("Failed to create memory mapped output stream for " + aFile, ex);
       return null;
     }
   }

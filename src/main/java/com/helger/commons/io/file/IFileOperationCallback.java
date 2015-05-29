@@ -22,16 +22,18 @@ import java.io.Serializable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.callback.ICallback;
+
 /**
  * Callback interface for {@link FileOperationManager}.
- * 
+ *
  * @author Philip Helger
  */
-public interface IFileOperationCallback extends Serializable
+public interface IFileOperationCallback extends ICallback, Serializable
 {
   /**
    * Called upon operation success.
-   * 
+   *
    * @param eOperation
    *        The operation that succeeded.
    * @param aFile1
@@ -43,7 +45,7 @@ public interface IFileOperationCallback extends Serializable
 
   /**
    * Called upon operation error.
-   * 
+   *
    * @param eOperation
    *        The operation that failed.
    * @param eErrorCode

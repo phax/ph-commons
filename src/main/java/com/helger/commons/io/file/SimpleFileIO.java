@@ -26,11 +26,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.string.StringHelper;
 
 /**
  * All kind of file handling stuff. For other operations, please see
@@ -139,13 +137,5 @@ public final class SimpleFileIO
   {
     final OutputStream aFOS = FileUtils.getOutputStream (aFile);
     return aFOS == null ? ESuccess.FAILURE : StreamUtils.writeStream (aFOS, sContent, aCharset);
-  }
-
-  @Nonnull
-  public static ESuccess writeFile (@Nonnull final File aFile,
-                                    @Nonnull final List <String> aContent,
-                                    @Nonnull final Charset aCharset)
-  {
-    return writeFile (aFile, StringHelper.getImploded (CGlobal.LINE_SEPARATOR, aContent), aCharset);
   }
 }
