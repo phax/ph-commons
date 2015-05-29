@@ -48,16 +48,29 @@ public class SafeVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE>
   @MustImplementEqualsAndHashcode
   private final IFactory <ELEMENTTYPE> m_aFactory;
 
+  /**
+   * Constructor filling up the missing elements with <code>null</code> values.
+   */
   public SafeVector ()
   {
     this (FactoryNull.<ELEMENTTYPE> getInstance ());
   }
 
+  /**
+   * Constructor with a custom factory to fill the missing elements.
+   *
+   * @param aFactory
+   *        The factory to use. May not be <code>null</code>.
+   */
   public SafeVector (@Nonnull final IFactory <ELEMENTTYPE> aFactory)
   {
     m_aFactory = ValueEnforcer.notNull (aFactory, "Factory");
   }
 
+  /**
+   * @return The factory for filling missing values as provided in the
+   *         constructor.
+   */
   @Nonnull
   public IFactory <ELEMENTTYPE> getFactory ()
   {
