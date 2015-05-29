@@ -21,6 +21,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.SortedSet;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -40,15 +41,23 @@ public final class EmptySortedSet extends AbstractSet <Object> implements Sorted
   {}
 
   @Override
+  @Nonnull
   public Iterator <Object> iterator ()
   {
     return EmptyIterator.<Object> getInstance ();
   }
 
   @Override
+  @Nonnegative
   public int size ()
   {
     return 0;
+  }
+
+  @Override
+  public boolean isEmpty ()
+  {
+    return true;
   }
 
   @Override
@@ -63,32 +72,38 @@ public final class EmptySortedSet extends AbstractSet <Object> implements Sorted
     return null;
   }
 
+  @Nonnull
   public SortedSet <Object> subSet (final Object fromElement, final Object toElement)
   {
     return this;
   }
 
+  @Nonnull
   public SortedSet <Object> headSet (final Object toElement)
   {
     return this;
   }
 
+  @Nonnull
   public SortedSet <Object> tailSet (final Object fromElement)
   {
     return this;
   }
 
+  @Nullable
   public Object first ()
   {
     return null;
   }
 
+  @Nullable
   public Object last ()
   {
     return null;
   }
 
   // Preserves singleton property
+  @Nonnull
   private Object readResolve ()
   {
     return INSTANCE;

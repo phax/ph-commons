@@ -39,7 +39,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The value type.
  */
 @NotThreadSafe
-public final class SingleMapEntry <KEYTYPE, VALUETYPE> implements Map.Entry <KEYTYPE, VALUETYPE>
+public class SingleMapEntry <KEYTYPE, VALUETYPE> implements Map.Entry <KEYTYPE, VALUETYPE>
 {
   private final KEYTYPE m_aKey;
   private VALUETYPE m_aValue;

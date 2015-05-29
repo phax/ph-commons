@@ -31,7 +31,6 @@ import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.UnsupportedOperation;
 import com.helger.commons.collections.iterate.IIterableIterator;
-import com.helger.commons.lang.GenericReflection;
 
 /**
  * Utility class for generating all possible combinations of elements for a
@@ -39,7 +38,7 @@ import com.helger.commons.lang.GenericReflection;
  * be treated as different individuals and hence deliver duplicate result
  * solutions. This generator will only return complete result sets filling all
  * slots.
- * 
+ *
  * @author Boris Gregorcic
  * @author Philip Helger
  * @param <DATATYPE>
@@ -47,7 +46,7 @@ import com.helger.commons.lang.GenericReflection;
  */
 public final class CombinationGenerator <DATATYPE> implements IIterableIterator <List <DATATYPE>>
 {
-  private final Object [] m_aElements;
+  private final DATATYPE [] m_aElements;
   private final int [] m_aIndexResult;
   private final BigInteger m_aTotalCombinations;
   private BigInteger m_aCombinationsLeft;
@@ -57,7 +56,7 @@ public final class CombinationGenerator <DATATYPE> implements IIterableIterator 
 
   /**
    * Ctor
-   * 
+   *
    * @param aElements
    *        the elements to fill into the slots for creating all combinations
    *        (must not be empty!)
@@ -65,12 +64,13 @@ public final class CombinationGenerator <DATATYPE> implements IIterableIterator 
    *        the number of slots to use (must not be greater than the element
    *        count!)
    */
+  @SuppressWarnings ("unchecked")
   public CombinationGenerator (@Nonnull @Nonempty final List <DATATYPE> aElements, @Nonnegative final int nSlotCount)
   {
     ValueEnforcer.notEmpty (aElements, "Elements");
     ValueEnforcer.isBetweenInclusive (nSlotCount, "SlotCount", 0, aElements.size ());
 
-    m_aElements = aElements.toArray ();
+    m_aElements = (DATATYPE []) aElements.toArray ();
     m_aIndexResult = new int [nSlotCount];
     final BigInteger aElementFactorial = FactorialHelper.getAnyFactorialLinear (m_aElements.length);
     final BigInteger aSlotFactorial = FactorialHelper.getAnyFactorialLinear (nSlotCount);
@@ -121,7 +121,7 @@ public final class CombinationGenerator <DATATYPE> implements IIterableIterator 
 
   /**
    * Generate next combination (algorithm from Rosen p. 286)
-   * 
+   *
    * @return the next combination as List of the size specified for slots filled
    *         with elements from the original list
    */
@@ -143,9 +143,10 @@ public final class CombinationGenerator <DATATYPE> implements IIterableIterator 
         i--;
       }
       m_aIndexResult[i]++;
+      final int nIndexResultI = m_aIndexResult[i];
       for (int j = i + 1; j < nSlotCount; j++)
       {
-        m_aIndexResult[j] = m_aIndexResult[i] + j - i;
+        m_aIndexResult[j] = nIndexResultI + j - i;
       }
     }
 
@@ -158,7 +159,7 @@ public final class CombinationGenerator <DATATYPE> implements IIterableIterator 
     // Build result list
     final List <DATATYPE> aResult = new ArrayList <DATATYPE> (m_aIndexResult.length);
     for (final int nIndex : m_aIndexResult)
-      aResult.add (GenericReflection.<Object, DATATYPE> uncheckedCast (m_aElements[nIndex]));
+      aResult.add (m_aElements[nIndex]);
     return aResult;
   }
 
@@ -176,7 +177,7 @@ public final class CombinationGenerator <DATATYPE> implements IIterableIterator 
 
   /**
    * Get a list of all permutations of the input elements.
-   * 
+   *
    * @param aInput
    *        Input list.
    * @param nSlotCount
@@ -196,7 +197,7 @@ public final class CombinationGenerator <DATATYPE> implements IIterableIterator 
 
   /**
    * Fill a list with all permutations of the input elements.
-   * 
+   *
    * @param aInput
    *        Input list.
    * @param nSlotCount
