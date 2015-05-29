@@ -49,7 +49,15 @@ public class LogMessage implements IHasErrorLevel, ISuccessIndicator, IErrorIndi
                      @Nonnull final Serializable aMsg,
                      @Nullable final Throwable aThrowable)
   {
-    m_aIssueDT = new Date ();
+    this (new Date (), aErrorLevel, aMsg, aThrowable);
+  }
+
+  public LogMessage (@Nonnull final Date aIssueDT,
+                     @Nonnull final IErrorLevel aErrorLevel,
+                     @Nonnull final Serializable aMsg,
+                     @Nullable final Throwable aThrowable)
+  {
+    m_aIssueDT = ValueEnforcer.notNull (aIssueDT, "IssueDT");
     m_aErrorLevel = ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
     m_aMsg = ValueEnforcer.notNull (aMsg, "Message");
     m_aThrowable = aThrowable;
