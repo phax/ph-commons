@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <EXTYPE>
  *        The exception type to be handled
  */
-public final class CollectingExceptionListCallback <EXTYPE extends Throwable> implements IExceptionCallback <EXTYPE>
+public class CollectingExceptionListCallback <EXTYPE extends Throwable> implements IExceptionCallback <EXTYPE>
 {
   private final List <EXTYPE> m_aExceptions = new ArrayList <EXTYPE> ();
 

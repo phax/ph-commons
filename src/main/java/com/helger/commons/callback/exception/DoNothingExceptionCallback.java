@@ -23,10 +23,10 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A specific implementation of the {@link IExceptionCallback} interface, that
  * swallows all exceptions and does nothing.
- * 
+ *
  * @author Philip Helger
  */
-public final class DoNothingExceptionCallback implements IExceptionCallback <Throwable>
+public class DoNothingExceptionCallback implements IExceptionCallback <Throwable>
 {
   public void onException (@Nullable final Throwable t)
   {
