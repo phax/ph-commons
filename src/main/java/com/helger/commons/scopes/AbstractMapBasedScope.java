@@ -18,6 +18,9 @@ package com.helger.commons.scopes;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,7 +36,7 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingCallableWithParameter;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.callback.adapter.AdapterRunnableToCallableWithParameter;
-import com.helger.commons.collections.attrs.MapBasedAttributeContainerThreadSafe;
+import com.helger.commons.collections.attrs.MapBasedAttributeContainer;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -43,10 +46,11 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @ThreadSafe
-public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerThreadSafe implements IScope
+public abstract class AbstractMapBasedScope extends MapBasedAttributeContainer <String, Object> implements IScope
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractMapBasedScope.class);
 
+  protected ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   /** ID of the scope */
   private final String m_sScopeID;
   /** Is the scope currently in destruction? */
@@ -62,6 +66,7 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerTh
    */
   public AbstractMapBasedScope (@Nonnull @Nonempty final String sScopeID)
   {
+    super (true, new ConcurrentHashMap <String, Object> ());
     m_sScopeID = ValueEnforcer.notEmpty (sScopeID, "ScopeID");
   }
 

@@ -21,13 +21,15 @@ import javax.annotation.Nonnull;
 import com.helger.commons.state.EChange;
 
 /**
- * This is the writable extension of the {@link IAttributeContainer
- * <String, Object>}. <code>null</code> values are not allowed in this attribute
+ * This is the writable extension of the {@link IAttributeContainer <String,
+ * Object>}. <code>null</code> values are not allowed in this attribute
  * containers.
  *
  * @author Philip Helger
+ * @param <KEYTYPE>
+ *        Key type
  */
-public interface IMutableAttributeContainerAny extends IGenericMutableAttributeContainer <String, Object>
+public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttributeContainer <KEYTYPE, Object>
 {
   /**
    * Set/overwrite an in attribute value. This is a shortcut for
@@ -39,10 +41,10 @@ public interface IMutableAttributeContainerAny extends IGenericMutableAttributeC
    *        The value of the attribute.
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
-   * @see IGenericMutableAttributeContainer#removeAttribute(Object)
+   * @see IMutableAttributeContainer#removeAttribute(Object)
    */
   @Nonnull
-  EChange setAttribute (@Nonnull String aName, boolean bValue);
+  EChange setAttribute (@Nonnull KEYTYPE aName, boolean bValue);
 
   /**
    * Set/overwrite an in attribute value. This is a shortcut for
@@ -54,10 +56,10 @@ public interface IMutableAttributeContainerAny extends IGenericMutableAttributeC
    *        The value of the attribute.
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
-   * @see IGenericMutableAttributeContainer#removeAttribute(Object)
+   * @see IMutableAttributeContainer#removeAttribute(Object)
    */
   @Nonnull
-  EChange setAttribute (@Nonnull String aName, int nValue);
+  EChange setAttribute (@Nonnull KEYTYPE aName, int nValue);
 
   /**
    * Set/overwrite an in attribute value. This is a shortcut for
@@ -69,10 +71,10 @@ public interface IMutableAttributeContainerAny extends IGenericMutableAttributeC
    *        The value of the attribute.
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
-   * @see IGenericMutableAttributeContainer#removeAttribute(Object)
+   * @see IMutableAttributeContainer#removeAttribute(Object)
    */
   @Nonnull
-  EChange setAttribute (@Nonnull String aName, long nValue);
+  EChange setAttribute (@Nonnull KEYTYPE aName, long nValue);
 
   /**
    * Set/overwrite an in attribute value. This is a shortcut for
@@ -84,24 +86,24 @@ public interface IMutableAttributeContainerAny extends IGenericMutableAttributeC
    *        The value of the attribute.
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
-   * @see IGenericMutableAttributeContainer#removeAttribute(Object)
+   * @see IMutableAttributeContainer#removeAttribute(Object)
    */
   @Nonnull
-  EChange setAttribute (@Nonnull String aName, double dValue);
+  EChange setAttribute (@Nonnull KEYTYPE aName, double dValue);
 
   /**
    * Atomic operation to set a flag to <code>true</code> if it was previously
    * set to <code>false</code> (meaning not existing). There is no possibility
    * to define a value for this flag. The value used is {@link Boolean#TRUE}.
-   * {@link IGenericMutableAttributeContainer#containsAttribute(Object)} can be
-   * used to check if the attribute is already present.
+   * {@link IMutableAttributeContainer#containsAttribute(Object)} can be used to
+   * check if the attribute is already present.
    *
-   * @param sName
+   * @param aName
    *        The name of the flag to set.
    * @return The old value of the flag. If the flag was not present previously,
    *         than <code>false</code> is returned, whereas if the flag was
    *         already present, <code>true</code> is returned. Any other than the
    *         first call for the same flag is always returning <code>true</code>.
    */
-  boolean getAndSetAttributeFlag (@Nonnull String sName);
+  boolean getAndSetAttributeFlag (@Nonnull KEYTYPE aName);
 }

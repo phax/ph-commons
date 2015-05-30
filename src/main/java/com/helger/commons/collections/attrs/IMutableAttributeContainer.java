@@ -25,9 +25,8 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.state.IClearable;
 
 /**
- * This is the writable extension of the
- * {@link IAttributeContainer}. <code>null</code> values are not
- * allowed in this attribute containers.
+ * This is the writable extension of the {@link IAttributeContainer}.
+ * <code>null</code> values are not allowed in this attribute containers.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -35,9 +34,7 @@ import com.helger.commons.state.IClearable;
  * @param <VALUETYPE>
  *        Value type
  */
-public interface IGenericMutableAttributeContainer <KEYTYPE, VALUETYPE> extends
-                                                                 IAttributeContainer <KEYTYPE, VALUETYPE>,
-                                                                 IClearable
+public interface IMutableAttributeContainer <KEYTYPE, VALUETYPE> extends IAttributeContainer <KEYTYPE, VALUETYPE>, IClearable
 {
   /**
    * Set/overwrite an attribute value.

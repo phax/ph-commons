@@ -16,12 +16,9 @@
  */
 package com.helger.commons.collections.attrs;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -30,7 +27,6 @@ import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -48,51 +44,50 @@ import com.helger.commons.string.ToStringGenerator;
  *        Value type
  */
 @NotThreadSafe
-public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends AbstractReadonlyAttributeContainer <KEYTYPE, VALUETYPE> implements IGenericMutableAttributeContainer <KEYTYPE, VALUETYPE>, ICloneable <MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE>>
+public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE> extends MapBasedReadonlyAttributeContainer <KEYTYPE, VALUETYPE> implements ICloneable <MapBasedAttributeContainer <KEYTYPE, VALUETYPE>>
 {
-  /**
-   * attribute storage.
-   */
-  private final Map <KEYTYPE, VALUETYPE> m_aAttrs = new HashMap <KEYTYPE, VALUETYPE> ();
-
-  public MapBasedGenericAttributeContainer ()
-  {}
-
-  public MapBasedGenericAttributeContainer (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MapBasedAttributeContainer ()
   {
+    this (true, new HashMap <KEYTYPE, VALUETYPE> ());
+  }
+
+  public MapBasedAttributeContainer (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  {
+    this (true, new HashMap <KEYTYPE, VALUETYPE> ());
     m_aAttrs.put (aKey, aValue);
   }
 
-  public MapBasedGenericAttributeContainer (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public MapBasedAttributeContainer (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    ValueEnforcer.notNull (aMap, "Map");
-    m_aAttrs.putAll (aMap);
+    this (true, new HashMap <KEYTYPE, VALUETYPE> (aMap));
   }
 
-  public MapBasedGenericAttributeContainer (@Nonnull final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
+  public MapBasedAttributeContainer (@Nonnull final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
   {
-    ValueEnforcer.notNull (aCont, "Container");
-    m_aAttrs.putAll (aCont.getAllAttributes ());
+    this (true, new HashMap <KEYTYPE, VALUETYPE> (aCont.getAllAttributes ()));
   }
 
-  public boolean containsAttribute (@Nullable final KEYTYPE aName)
+  protected MapBasedAttributeContainer (final boolean bDummy, @Nonnull final Map <KEYTYPE, VALUETYPE> aAttrMap)
   {
-    // ConcurrentHashMap cannot handle null keys
-    return aName != null && m_aAttrs.containsKey (aName);
+    super (bDummy, aAttrMap);
   }
 
   @Nonnull
-  @ReturnsMutableCopy
-  public Map <KEYTYPE, VALUETYPE> getAllAttributes ()
+  public final EChange setAttributes (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aValues)
   {
-    return CollectionHelper.newMap (m_aAttrs);
+    EChange ret = EChange.UNCHANGED;
+    if (aValues != null)
+      for (final Map.Entry <? extends KEYTYPE, ? extends VALUETYPE> aEntry : aValues.entrySet ())
+        ret = ret.or (setAttribute (aEntry.getKey (), aEntry.getValue ()));
+    return ret;
   }
 
-  @Nullable
-  public VALUETYPE getAttributeObject (@Nullable final KEYTYPE aName)
+  @Nonnull
+  public final EChange setAttributes (@Nullable final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aValues)
   {
-    // ConcurrentHashMap cannot handle null keys
-    return aName == null ? null : m_aAttrs.get (aName);
+    if (aValues == null)
+      return EChange.UNCHANGED;
+    return setAttributes (aValues.getAllAttributes ());
   }
 
   /**
@@ -129,31 +124,13 @@ public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends Abst
     return EChange.valueOf (!EqualsUtils.equals (aValue, aOldValue));
   }
 
-  @Nonnull
-  public final EChange setAttributes (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aValues)
-  {
-    EChange ret = EChange.UNCHANGED;
-    if (aValues != null)
-      for (final Map.Entry <? extends KEYTYPE, ? extends VALUETYPE> aEntry : aValues.entrySet ())
-        ret = ret.or (setAttribute (aEntry.getKey (), aEntry.getValue ()));
-    return ret;
-  }
-
-  @Nonnull
-  public final EChange setAttributes (@Nullable final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aValues)
-  {
-    if (aValues == null)
-      return EChange.UNCHANGED;
-    return setAttributes (aValues.getAllAttributes ());
-  }
-
   /**
    * Internal callback method that can be used to avoid removal of an attribute.
    *
    * @param aName
    *        The attribute name. Never <code>null</code>.
-   * @return {@link EContinue#CONTINUE} to indicate that the name-value-pair is
-   *         OK. May not be <code>null</code>.
+   * @return {@link EContinue#CONTINUE} to indicate that the operation should
+   *         continue. May not be <code>null</code>.
    */
   @OverrideOnDemand
   @Nonnull
@@ -173,32 +150,24 @@ public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends Abst
       return EChange.UNCHANGED;
 
     // Returned value may be null
-    return EChange.valueOf (m_aAttrs.remove (aName) != null);
+    final VALUETYPE aOldValue = m_aAttrs.remove (aName);
+    return EChange.valueOf (aOldValue != null);
   }
 
+  /**
+   * Internal callback method that can be used to avoid removal of all
+   * attributes.
+   *
+   * @param aName
+   *        The attribute name. Never <code>null</code>.
+   * @return {@link EContinue#CONTINUE} to indicate that the operation should
+   *         continue. May not be <code>null</code>.
+   */
+  @OverrideOnDemand
   @Nonnull
-  @ReturnsMutableCopy
-  public Set <KEYTYPE> getAllAttributeNames ()
+  protected EContinue onBeforeRemoveAllAttributes ()
   {
-    return CollectionHelper.newSet (m_aAttrs.keySet ());
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public Collection <VALUETYPE> getAllAttributeValues ()
-  {
-    return CollectionHelper.newList (m_aAttrs.values ());
-  }
-
-  @Nonnegative
-  public int getAttributeCount ()
-  {
-    return m_aAttrs.size ();
-  }
-
-  public boolean containsNoAttribute ()
-  {
-    return m_aAttrs.isEmpty ();
+    return EContinue.CONTINUE;
   }
 
   @Nonnull
@@ -206,14 +175,20 @@ public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends Abst
   {
     if (m_aAttrs.isEmpty ())
       return EChange.UNCHANGED;
+
+    // Callback method
+    if (onBeforeRemoveAllAttributes ().isBreak ())
+      return EChange.UNCHANGED;
+
     m_aAttrs.clear ();
     return EChange.CHANGED;
   }
 
   @Nonnull
-  public MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> getClone ()
+  @ReturnsMutableCopy
+  public MapBasedAttributeContainer <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> (m_aAttrs);
+    return new MapBasedAttributeContainer <KEYTYPE, VALUETYPE> (m_aAttrs);
   }
 
   @Override
@@ -223,7 +198,7 @@ public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends Abst
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final MapBasedGenericAttributeContainer <?, ?> rhs = (MapBasedGenericAttributeContainer <?, ?>) o;
+    final MapBasedAttributeContainer <?, ?> rhs = (MapBasedAttributeContainer <?, ?>) o;
     return m_aAttrs.equals (rhs.m_aAttrs);
   }
 

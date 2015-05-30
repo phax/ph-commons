@@ -44,8 +44,7 @@ import com.helger.commons.typeconvert.TypeConverter;
  *        Value type
  */
 @NotThreadSafe
-public abstract class AbstractReadonlyAttributeContainer <KEYTYPE, VALUETYPE> implements
-                                                                                     IAttributeContainer <KEYTYPE, VALUETYPE>
+public abstract class AbstractReadonlyAttributeContainer <KEYTYPE, VALUETYPE> implements IAttributeContainer <KEYTYPE, VALUETYPE>
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractReadonlyAttributeContainer.class);
 

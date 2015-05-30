@@ -16,34 +16,133 @@
  */
 package com.helger.commons.collections.attrs;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.string.ToStringGenerator;
+
 /**
- * Default implementation of the {@link IAttributeContainer <String,
- * Object>} based on a hash map. This implementation may carry <code>null</code>
- * values but that is not recommended.
+ * Default implementation of the {@link IAttributeContainer} based on a
+ * {@link HashMap}. This implementation may carry <code>null</code> values but
+ * that is not recommended.
  *
  * @author Philip Helger
+ * @param <KEYTYPE>
+ *        Key type
+ * @param <VALUETYPE>
+ *        Value type
  */
 @NotThreadSafe
-public class MapBasedReadonlyAttributeContainer extends MapBasedGenericReadonlyAttributeContainer <String, Object>
+public class MapBasedReadonlyAttributeContainer <KEYTYPE, VALUETYPE> extends AbstractReadonlyAttributeContainer <KEYTYPE, VALUETYPE>
 {
-  public MapBasedReadonlyAttributeContainer (@Nonnull final String sKey, @Nullable final Object aValue)
+  /** Main attribute storage. */
+  protected final Map <KEYTYPE, VALUETYPE> m_aAttrs;
+
+  public MapBasedReadonlyAttributeContainer (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
-    super (sKey, aValue);
+    this (true, new HashMap <KEYTYPE, VALUETYPE> ());
+    m_aAttrs.put (aKey, aValue);
   }
 
-  public MapBasedReadonlyAttributeContainer (@Nonnull final Map <? extends String, ? extends Object> aMap)
+  public MapBasedReadonlyAttributeContainer (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    super (aMap);
+    this (true, new HashMap <KEYTYPE, VALUETYPE> (aMap));
   }
 
-  public MapBasedReadonlyAttributeContainer (@Nonnull final IAttributeContainer <? extends String, ? extends Object> aCont)
+  public MapBasedReadonlyAttributeContainer (@Nonnull final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
   {
-    super (aCont);
+    this (true, new HashMap <KEYTYPE, VALUETYPE> (aCont.getAllAttributes ()));
+  }
+
+  /**
+   * Constructor to use a custom map for the attribute container
+   *
+   * @param bDummy
+   *        Dummy parameter to be used to uniquely specify the constructor
+   * @param aAttrMap
+   *        The attribute map to be used.
+   */
+  protected MapBasedReadonlyAttributeContainer (final boolean bDummy, @Nonnull final Map <KEYTYPE, VALUETYPE> aAttrMap)
+  {
+    m_aAttrs = ValueEnforcer.notNull (aAttrMap, "AttrMap");
+  }
+
+  public boolean containsAttribute (@Nullable final KEYTYPE aName)
+  {
+    // ConcurrentHashMap cannot handle null keys
+    return aName != null && m_aAttrs.containsKey (aName);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public Map <KEYTYPE, VALUETYPE> getAllAttributes ()
+  {
+    return CollectionHelper.newMap (m_aAttrs);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public Set <KEYTYPE> getAllAttributeNames ()
+  {
+    return CollectionHelper.newSet (m_aAttrs.keySet ());
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public Collection <VALUETYPE> getAllAttributeValues ()
+  {
+    return CollectionHelper.newList (m_aAttrs.values ());
+  }
+
+  @Nullable
+  public VALUETYPE getAttributeObject (@Nullable final KEYTYPE aName)
+  {
+    // ConcurrentHashMap cannot handle null keys
+    return aName == null ? null : m_aAttrs.get (aName);
+  }
+
+  @Nonnegative
+  public int getAttributeCount ()
+  {
+    return m_aAttrs.size ();
+  }
+
+  public boolean containsNoAttribute ()
+  {
+    return m_aAttrs.isEmpty ();
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (o == null || !getClass ().equals (o.getClass ()))
+      return false;
+    final MapBasedReadonlyAttributeContainer <?, ?> rhs = (MapBasedReadonlyAttributeContainer <?, ?>) o;
+    return m_aAttrs.equals (rhs.m_aAttrs);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return new HashCodeGenerator (this).append (m_aAttrs).getHashCode ();
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("attrs", m_aAttrs).toString ();
   }
 }

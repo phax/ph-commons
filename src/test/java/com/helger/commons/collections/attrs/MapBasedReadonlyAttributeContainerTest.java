@@ -23,6 +23,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import org.junit.Test;
@@ -40,14 +41,18 @@ public final class MapBasedReadonlyAttributeContainerTest
   @Test
   public void testInit ()
   {
-    MapBasedReadonlyAttributeContainer x = new MapBasedReadonlyAttributeContainer (CollectionHelper.newMap (new String [] {},
-                                                                                                            new Object [] {}));
+    MapBasedReadonlyAttributeContainer <String, Serializable> x = new MapBasedReadonlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] {},
+                                                                                                                                                          new Serializable [] {}));
     assertNotNull (x.getAllAttributeNames ());
     assertTrue (x.getAllAttributeNames ().isEmpty ());
     assertTrue (x.containsNoAttribute ());
 
-    x = new MapBasedReadonlyAttributeContainer (CollectionHelper.newMap (new String [] { "key", "key2", "key3" },
-                                                                         new Object [] { "value", "value2", null }));
+    x = new MapBasedReadonlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
+                                                                                                               "key2",
+                                                                                                               "key3" },
+                                                                                                new Serializable [] { "value",
+                                                                                                                     "value2",
+                                                                                                                     null }));
     assertEquals (3, x.getAttributeCount ());
     assertFalse (x.containsNoAttribute ());
     assertEquals ("value2", x.getAttributeObject ("key2"));
@@ -60,26 +65,26 @@ public final class MapBasedReadonlyAttributeContainerTest
     assertFalse (x.getAllAttributes ().isEmpty ());
     assertFalse (x.getAllAttributeNames ().isEmpty ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedReadonlyAttributeContainer (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                 "key2" },
-                                                                                                                                  new Object [] { "value",
-                                                                                                                                                 "value2" })),
-                                                                 new MapBasedReadonlyAttributeContainer (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                 "key2" },
-                                                                                                                                  new Object [] { "value",
-                                                                                                                                                 "value2" })));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedReadonlyAttributeContainer (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                     "key2" },
-                                                                                                                                      new Object [] { "value",
-                                                                                                                                                     "value2" })),
-                                                                     new MapBasedAttributeContainerAny (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                             "key2" },
-                                                                                                                              new Object [] { "value",
-                                                                                                                                             "value" })));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedReadonlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
+                                                                                                                                                                        "key2" },
+                                                                                                                                                         new Serializable [] { "value",
+                                                                                                                                                                              "value2" })),
+                                                                 new MapBasedReadonlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
+                                                                                                                                                                        "key2" },
+                                                                                                                                                         new Serializable [] { "value",
+                                                                                                                                                                              "value2" })));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedReadonlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
+                                                                                                                                                                            "key2" },
+                                                                                                                                                             new Serializable [] { "value",
+                                                                                                                                                                                  "value2" })),
+                                                                     new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
+                                                                                                                                                         "key2" },
+                                                                                                                                          new Serializable [] { "value",
+                                                                                                                                                               "value" })));
 
     try
     {
-      new MapBasedReadonlyAttributeContainer ((Map <String, Object>) null);
+      new MapBasedReadonlyAttributeContainer <String, Serializable> ((Map <String, Serializable>) null);
       fail ();
     }
     catch (final NullPointerException ex)

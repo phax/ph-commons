@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.state.EChange;
 
 /**
@@ -29,69 +30,79 @@ import com.helger.commons.state.EChange;
  * implementation is not thread-safe!
  *
  * @author Philip Helger
+ * @param <KEYTYPE>
+ *        Key type
  */
 @NotThreadSafe
-public class MapBasedAttributeContainerAny extends MapBasedGenericAttributeContainer <String, Object> implements
-                                                                                                  IMutableAttributeContainerAny
+public class MapBasedAttributeContainerAny <KEYTYPE> extends MapBasedAttributeContainer <KEYTYPE, Object> implements IMutableAttributeContainerAny <KEYTYPE>
 {
   public MapBasedAttributeContainerAny ()
-  {}
+  {
+    super ();
+  }
 
-  public MapBasedAttributeContainerAny (@Nonnull final String sKey, @Nullable final Object aValue)
+  public MapBasedAttributeContainerAny (@Nonnull final KEYTYPE sKey, @Nullable final Object aValue)
   {
     super (sKey, aValue);
   }
 
-  public MapBasedAttributeContainerAny (@Nonnull final Map <? extends String, ? extends Object> aMap)
+  public MapBasedAttributeContainerAny (@Nonnull final Map <? extends KEYTYPE, ? extends Object> aMap)
   {
     super (aMap);
   }
 
-  public MapBasedAttributeContainerAny (@Nonnull final IAttributeContainer <? extends String, ? extends Object> aCont)
+  public MapBasedAttributeContainerAny (@Nonnull final IAttributeContainer <? extends KEYTYPE, ? extends Object> aCont)
   {
     super (aCont);
   }
 
-  @Nonnull
-  public final EChange setAttribute (@Nonnull final String sName, final boolean dValue)
+  protected MapBasedAttributeContainerAny (final boolean bDummy, @Nonnull final Map <KEYTYPE, Object> aAttrMap)
   {
-    return setAttribute (sName, Boolean.valueOf (dValue));
+    super (bDummy, aAttrMap);
   }
 
   @Nonnull
-  public final EChange setAttribute (@Nonnull final String sName, final int nValue)
+  public final EChange setAttribute (@Nonnull final KEYTYPE aName, final boolean dValue)
   {
-    return setAttribute (sName, Integer.valueOf (nValue));
+    return setAttribute (aName, Boolean.valueOf (dValue));
   }
 
   @Nonnull
-  public final EChange setAttribute (@Nonnull final String sName, final long nValue)
+  public final EChange setAttribute (@Nonnull final KEYTYPE aName, final int nValue)
   {
-    return setAttribute (sName, Long.valueOf (nValue));
+    return setAttribute (aName, Integer.valueOf (nValue));
   }
 
   @Nonnull
-  public final EChange setAttribute (@Nonnull final String sName, final double dValue)
+  public final EChange setAttribute (@Nonnull final KEYTYPE aName, final long nValue)
   {
-    return setAttribute (sName, Double.valueOf (dValue));
+    return setAttribute (aName, Long.valueOf (nValue));
   }
 
-  public boolean getAndSetAttributeFlag (@Nonnull final String sName)
+  @Nonnull
+  public final EChange setAttribute (@Nonnull final KEYTYPE aName, final double dValue)
   {
-    final Object aOldValue = getAttributeObject (sName);
+    return setAttribute (aName, Double.valueOf (dValue));
+  }
+
+  public boolean getAndSetAttributeFlag (@Nonnull final KEYTYPE aName)
+  {
+    final Object aOldValue = getAttributeObject (aName);
     if (aOldValue != null)
     {
       // Attribute flag is already present
       return true;
     }
     // Attribute flag is not yet present -> set it
-    setAttribute (sName, Boolean.TRUE);
+    setAttribute (aName, Boolean.TRUE);
     return false;
   }
 
   @Override
-  public MapBasedAttributeContainerAny getClone ()
+  @Nonnull
+  @ReturnsMutableCopy
+  public MapBasedAttributeContainerAny <KEYTYPE> getClone ()
   {
-    return new MapBasedAttributeContainerAny (this);
+    return new MapBasedAttributeContainerAny <KEYTYPE> (this);
   }
 }
