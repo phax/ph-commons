@@ -33,9 +33,9 @@ import com.helger.commons.convert.IUnidirectionalConverter;
  *        Cache value type
  */
 @ThreadSafe
-public class SimpleCacheWithConversion <KEYTYPE, VALUETYPE> extends AbstractCache <KEYTYPE, VALUETYPE>
+public class CacheWithConversion <KEYTYPE, VALUETYPE> extends AbstractCache <KEYTYPE, VALUETYPE>
 {
-  public SimpleCacheWithConversion (@Nonnull final String sCacheName)
+  public CacheWithConversion (@Nonnull final String sCacheName)
   {
     super (sCacheName);
   }

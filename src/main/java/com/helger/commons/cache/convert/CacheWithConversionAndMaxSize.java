@@ -37,11 +37,11 @@ import com.helger.commons.string.ToStringGenerator;
  *        Cache value type
  */
 @ThreadSafe
-public class SimpleCacheWithConversionAndMaxSize <KEYTYPE, VALUETYPE> extends SimpleCacheWithConversion <KEYTYPE, VALUETYPE>
+public class CacheWithConversionAndMaxSize <KEYTYPE, VALUETYPE> extends CacheWithConversion <KEYTYPE, VALUETYPE>
 {
   private final int m_nMaxSize;
 
-  public SimpleCacheWithConversionAndMaxSize (@Nonnull final String sCacheName, @Nonnegative final int nMaxSize)
+  public CacheWithConversionAndMaxSize (@Nonnull final String sCacheName, @Nonnegative final int nMaxSize)
   {
     super (sCacheName);
     m_nMaxSize = ValueEnforcer.isGT0 (nMaxSize, "MaxSize");

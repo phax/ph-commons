@@ -28,11 +28,11 @@ import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.convert.UnidirectionalConverterMapGet;
 
 /**
- * Test class for class {@link SimpleCacheWithConversionAndMaxSize}.
+ * Test class for class {@link CacheWithConversionAndMaxSize}.
  *
  * @author Philip Helger
  */
-public final class SimpleCacheWithConversionAndMaxSizeTest
+public final class CacheWithConversionAndMaxSizeTest
 {
   @Test
   public void testAll ()
@@ -40,7 +40,7 @@ public final class SimpleCacheWithConversionAndMaxSizeTest
     final Map <String, Integer> aMap = CollectionHelper.newMap (new String [] { "In", "In2" },
                                                                new Integer [] { Integer.valueOf (1),
                                                                                Integer.valueOf (2) });
-    final SimpleCacheWithConversionAndMaxSize <String, Integer> aCache = new SimpleCacheWithConversionAndMaxSize <String, Integer> ("test",
+    final CacheWithConversionAndMaxSize <String, Integer> aCache = new CacheWithConversionAndMaxSize <String, Integer> ("test",
                                                                                                                                     1);
     assertEquals ("test", aCache.getName ());
     assertEquals (1, aCache.getMaxSize ());
@@ -80,7 +80,7 @@ public final class SimpleCacheWithConversionAndMaxSizeTest
 
     try
     {
-      new SimpleCacheWithConversionAndMaxSize <String, Integer> ("test", 0);
+      new CacheWithConversionAndMaxSize <String, Integer> ("test", 0);
       fail ();
     }
     catch (final IllegalArgumentException ex)
