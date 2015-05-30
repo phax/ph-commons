@@ -33,17 +33,23 @@ import javax.annotation.Nonnull;
  */
 public class Base64InputStream extends FilterInputStream
 {
-  private final boolean m_bEncode; // Encoding or decoding
-  private int m_nPosition; // Current position in the buffer
-  private final byte [] m_aBuffer; // Small buffer holding converted data
-  private final int m_nBufferLength; // Length of buffer (3 or 4)
-  private int m_nNumSigBytes; // Number of meaningful bytes in the buffer
+  // Encoding or decoding
+  private final boolean m_bEncode;
+  // Current position in the buffer
+  private int m_nPosition;
+  // Small buffer holding converted data
+  private final byte [] m_aBuffer;
+  // Length of buffer (3 or 4)
+  private final int m_nBufferLength;
+  // Number of meaningful bytes in the buffer
+  private int m_nNumSigBytes;
   private int m_nLineLength;
-  private final boolean m_bBreakLines; // Break lines at less than 80
-                                       // characters
-  private final int m_nOptions; // Record options used to create the stream.
-  private final byte [] m_aDecodabet; // Local copies to avoid extra method
-                                      // calls
+  // Break lines at less than 80 characters
+  private final boolean m_bBreakLines;
+  // Record options used to create the stream.
+  private final int m_nOptions;
+  // Local copies to avoid extra method calls
+  private final byte [] m_aDecodabet;
 
   /**
    * Constructs a {@link Base64InputStream} in DECODE mode.

@@ -39,11 +39,13 @@ public class Base64OutputStream extends FilterOutputStream
   private final int m_nBufferLength;
   private int m_nLineLength;
   private final boolean m_bBreakLines;
-  private final byte [] m_aB4; // Scratch used in a few places
+  // Scratch used in a few places
+  private final byte [] m_aB4;
   private boolean m_bSuspendEncoding;
-  private final int m_nOptions; // Record for later
-  private final byte [] m_aDecodabet; // Local copies to avoid extra method
-                                      // calls
+  // Record for later
+  private final int m_nOptions;
+  // Local copies to avoid extra method calls
+  private final byte [] m_aDecodabet;
 
   /**
    * Constructs a {@link Base64OutputStream} in ENCODE mode.
