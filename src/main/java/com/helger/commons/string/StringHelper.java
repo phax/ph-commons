@@ -2285,6 +2285,26 @@ public final class StringHelper
   }
 
   /**
+   * Trim the passed lead from the source value. If the source value does not
+   * start with the passed lead, nothing happens.
+   *
+   * @param sSrc
+   *        The input source string
+   * @param nCount
+   *        The number of characters to trim at the end.
+   * @return The trimmed string, or an empty string if nCount is &ge; the length
+   *         of the source string
+   */
+  @Nullable
+  @CheckReturnValue
+  public static String trimStart (@Nullable final String sSrc, @Nonnegative final int nCount)
+  {
+    if (nCount <= 0)
+      return sSrc;
+    return getLength (sSrc) <= nCount ? "" : sSrc.substring (nCount, sSrc.length ());
+  }
+
+  /**
    * Trim the passed tail from the source value. If the source value does not
    * end with the passed tail, nothing happens.
    *
@@ -2303,6 +2323,26 @@ public final class StringHelper
   public static String trimEnd (@Nullable final String sSrc, @Nullable final String sTail)
   {
     return endsWith (sSrc, sTail) ? sSrc.substring (0, sSrc.length () - sTail.length ()) : sSrc;
+  }
+
+  /**
+   * Trim the passed tail from the source value. If the source value does not
+   * end with the passed tail, nothing happens.
+   *
+   * @param sSrc
+   *        The input source string
+   * @param nCount
+   *        The number of characters to trim at the end.
+   * @return The trimmed string, or an empty string if nCount is &ge; the length
+   *         of the source string
+   */
+  @Nullable
+  @CheckReturnValue
+  public static String trimEnd (@Nullable final String sSrc, @Nonnegative final int nCount)
+  {
+    if (nCount <= 0)
+      return sSrc;
+    return getLength (sSrc) <= nCount ? "" : sSrc.substring (0, sSrc.length () - nCount);
   }
 
   /**

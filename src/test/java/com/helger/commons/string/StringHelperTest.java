@@ -1234,6 +1234,22 @@ public final class StringHelperTest extends AbstractPHTestCase
   }
 
   @Test
+  public void testTrimEndInt ()
+  {
+    assertEquals ("Hallo Welt", StringHelper.trimEnd ("Hallo Welt", 0));
+    assertEquals ("Hallo Welt", StringHelper.trimEnd ("Hallo Welt", -3));
+    assertEquals (" Hallo We", StringHelper.trimEnd (" Hallo Welt", 2));
+    assertEquals ("Hallo Wel", StringHelper.trimEnd ("Hallo Welt", 1));
+    assertEquals ("H", StringHelper.trimEnd ("Hallo Welt", 9));
+    assertEquals ("", StringHelper.trimEnd ("Hallo Welt", 10));
+    assertEquals ("", StringHelper.trimEnd ("Hallo Welt", 12));
+    assertEquals ("", StringHelper.trimEnd ("Hallo Welt", 9999));
+    assertEquals ("", StringHelper.trimEnd ("", 2));
+    assertEquals ("", StringHelper.trimEnd ("", 0));
+    assertSame (null, StringHelper.trimEnd (null, null));
+  }
+
+  @Test
   public void testTrimStart ()
   {
     assertEquals ("Hallo Welt", StringHelper.trimStart ("Hallo Welt", ""));
@@ -1242,6 +1258,22 @@ public final class StringHelperTest extends AbstractPHTestCase
     assertEquals ("allo Welt", StringHelper.trimStart ("Hallo Welt", "H"));
     assertEquals ("", StringHelper.trimStart ("", "lt"));
     assertEquals ("", StringHelper.trimStart ("", ""));
+    assertSame (null, StringHelper.trimStart (null, null));
+  }
+
+  @Test
+  public void testTrimStartInt ()
+  {
+    assertEquals ("Hallo Welt", StringHelper.trimStart ("Hallo Welt", 0));
+    assertEquals ("Hallo Welt", StringHelper.trimStart ("Hallo Welt", -3));
+    assertEquals ("allo Welt ", StringHelper.trimStart (" Hallo Welt ", 2));
+    assertEquals ("allo Welt", StringHelper.trimStart ("Hallo Welt", 1));
+    assertEquals ("t", StringHelper.trimStart ("Hallo Welt", 9));
+    assertEquals ("", StringHelper.trimStart ("Hallo Welt", 10));
+    assertEquals ("", StringHelper.trimStart ("Hallo Welt", 12));
+    assertEquals ("", StringHelper.trimStart ("Hallo Welt", 9999));
+    assertEquals ("", StringHelper.trimStart ("", 2));
+    assertEquals ("", StringHelper.trimStart ("", 0));
     assertSame (null, StringHelper.trimStart (null, null));
   }
 
