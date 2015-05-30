@@ -20,6 +20,9 @@ import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+
 /**
  * A {@link Base64OutputStream} will write data to another <tt>OutputStream</tt>
  * , given in the constructor, and encode/decode to/from Base64 notation on the
@@ -49,7 +52,7 @@ public class Base64OutputStream extends FilterOutputStream
    *        the <tt>OutputStream</tt> to which data will be written.
    * @since 1.3
    */
-  public Base64OutputStream (final OutputStream pout)
+  public Base64OutputStream (@Nonnull final OutputStream pout)
   {
     this (pout, Base64.ENCODE);
   }
@@ -76,19 +79,19 @@ public class Base64OutputStream extends FilterOutputStream
    * @see Base64#DO_BREAK_LINES
    * @since 1.3
    */
-  public Base64OutputStream (final OutputStream pout, final int poptions)
+  public Base64OutputStream (@Nonnull final OutputStream pout, final int poptions)
   {
     super (pout);
-    this.m_bBreakLines = (poptions & Base64.DO_BREAK_LINES) != 0;
-    this.m_bEncode = (poptions & Base64.ENCODE) != 0;
-    this.m_nBufferLength = m_bEncode ? 3 : 4;
-    this.m_aBuffer = new byte [m_nBufferLength];
-    this.m_nPosition = 0;
-    this.m_nLineLength = 0;
-    this.m_bSuspendEncoding = false;
-    this.m_aB4 = new byte [4];
-    this.m_nOptions = poptions;
-    this.m_aDecodabet = Base64._getDecodabet (poptions);
+    m_bBreakLines = (poptions & Base64.DO_BREAK_LINES) != 0;
+    m_bEncode = (poptions & Base64.ENCODE) != 0;
+    m_nBufferLength = m_bEncode ? 3 : 4;
+    m_aBuffer = new byte [m_nBufferLength];
+    m_nPosition = 0;
+    m_nLineLength = 0;
+    m_bSuspendEncoding = false;
+    m_aB4 = new byte [4];
+    m_nOptions = poptions;
+    m_aDecodabet = Base64._getDecodabet (poptions);
   }
 
   /**
@@ -107,7 +110,7 @@ public class Base64OutputStream extends FilterOutputStream
     // Encoding suspended?
     if (m_bSuspendEncoding)
     {
-      this.out.write (theByte);
+      out.write (theByte);
       return;
     }
 
@@ -118,12 +121,12 @@ public class Base64OutputStream extends FilterOutputStream
       if (m_nPosition >= m_nBufferLength)
       { // Enough to encode.
 
-        this.out.write (Base64._encode3to4 (m_aB4, m_aBuffer, m_nBufferLength, m_nOptions));
+        out.write (Base64._encode3to4 (m_aB4, m_aBuffer, m_nBufferLength, m_nOptions));
 
         m_nLineLength += 4;
         if (m_bBreakLines && m_nLineLength >= Base64.MAX_LINE_LENGTH)
         {
-          this.out.write (Base64.NEW_LINE);
+          out.write (Base64.NEW_LINE);
           m_nLineLength = 0;
         }
         m_nPosition = 0;
@@ -156,26 +159,26 @@ public class Base64OutputStream extends FilterOutputStream
    * Calls {@link #write(int)} repeatedly until <var>len</var> bytes are
    * written.
    *
-   * @param theBytes
+   * @param aBytes
    *        array from which to read bytes
-   * @param off
+   * @param nOfs
    *        offset for array
-   * @param len
+   * @param nLen
    *        max number of bytes to read into array
    * @since 1.3
    */
   @Override
-  public void write (final byte [] theBytes, final int off, final int len) throws IOException
+  public void write (@Nonnull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     // Encoding suspended?
     if (m_bSuspendEncoding)
     {
-      this.out.write (theBytes, off, len);
+      out.write (aBytes, nOfs, nLen);
       return;
     }
 
-    for (int i = 0; i < len; i++)
-      write (theBytes[off + i]);
+    for (int i = 0; i < nLen; i++)
+      write (aBytes[nOfs + i]);
   }
 
   /**
@@ -232,7 +235,7 @@ public class Base64OutputStream extends FilterOutputStream
   public void suspendEncoding () throws IOException
   {
     flushBase64 ();
-    this.m_bSuspendEncoding = true;
+    m_bSuspendEncoding = true;
   }
 
   /**
@@ -243,6 +246,6 @@ public class Base64OutputStream extends FilterOutputStream
    */
   public void resumeEncoding ()
   {
-    this.m_bSuspendEncoding = false;
+    m_bSuspendEncoding = false;
   }
 }

@@ -1345,7 +1345,11 @@ public final class Base64
    * @return four byte array in Base64 notation.
    * @since 1.5.1
    */
-  static byte [] _encode3to4 (final byte [] b4, final byte [] threeBytes, final int numSigBytes, final int options)
+  @Nonnull
+  static byte [] _encode3to4 (@Nonnull final byte [] b4,
+                              @Nonnull final byte [] threeBytes,
+                              @Nonnegative final int numSigBytes,
+                              final int options)
   {
     _encode3to4 (threeBytes, 0, numSigBytes, b4, 0, options);
     return b4;
@@ -1383,13 +1387,12 @@ public final class Base64
    */
   @Nonnull
   static byte [] _encode3to4 (@Nonnull final byte [] source,
-                              final int srcOffset,
-                              final int numSigBytes,
+                              @Nonnegative final int srcOffset,
+                              @Nonnegative final int numSigBytes,
                               @Nonnull final byte [] destination,
-                              final int destOffset,
+                              @Nonnegative final int destOffset,
                               final int options)
   {
-
     final byte [] aAlphabet = _getAlphabet (options);
 
     // 1 2 3

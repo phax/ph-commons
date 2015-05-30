@@ -20,6 +20,9 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+
 /**
  * A {@link Base64InputStream} will read data from another <tt>InputStream</tt>,
  * given in the constructor, and encode/decode to/from Base64 notation on the
@@ -49,7 +52,7 @@ public class Base64InputStream extends FilterInputStream
    *        the <tt>InputStream</tt> from which to read data.
    * @since 1.3
    */
-  public Base64InputStream (final InputStream pin)
+  public Base64InputStream (@Nonnull final InputStream pin)
   {
     this (pin, Base64.DECODE);
   }
@@ -76,17 +79,17 @@ public class Base64InputStream extends FilterInputStream
    * @see Base64#DO_BREAK_LINES
    * @since 2.0
    */
-  public Base64InputStream (final InputStream pin, final int poptions)
+  public Base64InputStream (@Nonnull final InputStream pin, final int poptions)
   {
     super (pin);
-    this.m_nOptions = poptions; // Record for later
-    this.m_bBreakLines = (poptions & Base64.DO_BREAK_LINES) > 0;
-    this.m_bEncode = (poptions & Base64.ENCODE) > 0;
-    this.m_nBufferLength = m_bEncode ? 4 : 3;
-    this.m_aBuffer = new byte [m_nBufferLength];
-    this.m_nPosition = -1;
-    this.m_nLineLength = 0;
-    this.m_aDecodabet = Base64._getDecodabet (poptions);
+    m_nOptions = poptions; // Record for later
+    m_bBreakLines = (poptions & Base64.DO_BREAK_LINES) > 0;
+    m_bEncode = (poptions & Base64.ENCODE) > 0;
+    m_nBufferLength = m_bEncode ? 4 : 3;
+    m_aBuffer = new byte [m_nBufferLength];
+    m_nPosition = -1;
+    m_nLineLength = 0;
+    m_aDecodabet = Base64._getDecodabet (poptions);
   }
 
   /**
@@ -203,38 +206,37 @@ public class Base64InputStream extends FilterInputStream
 
   /**
    * Calls {@link #read()} repeatedly until the end of stream is reached or
-   * <var>len</var> bytes are read. Returns number of bytes read into array or
-   * -1 if end of stream is encountered.
+   * <em>len</em> bytes are read. Returns number of bytes read into array or -1
+   * if end of stream is encountered.
    *
-   * @param dest
+   * @param aDest
    *        array to hold values
-   * @param off
+   * @param nOfs
    *        offset for array
-   * @param len
+   * @param nLen
    *        max number of bytes to read into array
    * @return bytes read into array or -1 if end of stream is encountered.
    * @since 1.3
    */
   @Override
-  public int read (final byte [] dest, final int off, final int len) throws IOException
+  public int read (@Nonnull final byte [] aDest, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
-    int i;
-    int b;
-    for (i = 0; i < len; i++)
+    int i = 0;
+    for (; i < nLen; i++)
     {
-      b = read ();
+      final int b = read ();
 
       if (b >= 0)
-        dest[off + i] = (byte) b;
+        aDest[nOfs + i] = (byte) b;
       else
         if (i == 0)
           return -1;
         else
         {
-          break; // Out of 'for' loop
-        } // Out of 'for' loop
+          // Out of 'for' loop
+          break;
+        }
     }
     return i;
   }
-
 }
