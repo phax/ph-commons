@@ -26,7 +26,7 @@ import com.helger.commons.state.IClearable;
 
 /**
  * This is the writable extension of the
- * {@link IGenericAttributeContainer}. <code>null</code> values are not
+ * {@link IAttributeContainer}. <code>null</code> values are not
  * allowed in this attribute containers.
  *
  * @author Philip Helger
@@ -36,7 +36,7 @@ import com.helger.commons.state.IClearable;
  *        Value type
  */
 public interface IGenericMutableAttributeContainer <KEYTYPE, VALUETYPE> extends
-                                                                 IGenericAttributeContainer <KEYTYPE, VALUETYPE>,
+                                                                 IAttributeContainer <KEYTYPE, VALUETYPE>,
                                                                  IClearable
 {
   /**
@@ -76,7 +76,7 @@ public interface IGenericMutableAttributeContainer <KEYTYPE, VALUETYPE> extends
    * @see #setAttribute(Object,Object)
    */
   @Nonnull
-  EChange setAttributes (@Nullable IGenericAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aValues);
+  EChange setAttributes (@Nullable IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aValues);
 
   /**
    * Remove the specified attribute from the container.

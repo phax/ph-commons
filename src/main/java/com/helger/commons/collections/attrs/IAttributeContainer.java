@@ -39,7 +39,7 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
  * @param <VALUETYPE>
  *        Value type
  */
-public interface IGenericAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
+public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
 {
   /**
    * @return The number of contained attributes. Always &ge; 0.

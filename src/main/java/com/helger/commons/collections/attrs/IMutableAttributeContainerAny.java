@@ -21,13 +21,13 @@ import javax.annotation.Nonnull;
 import com.helger.commons.state.EChange;
 
 /**
- * This is the writable extension of the {@link IGenericAttributeContainer
+ * This is the writable extension of the {@link IAttributeContainer
  * <String, Object>}. <code>null</code> values are not allowed in this attribute
  * containers.
  *
  * @author Philip Helger
  */
-public interface IMutableAttributeContainer extends IGenericMutableAttributeContainer <String, Object>
+public interface IMutableAttributeContainerAny extends IGenericMutableAttributeContainer <String, Object>
 {
   /**
    * Set/overwrite an in attribute value. This is a shortcut for

@@ -33,12 +33,12 @@ import com.helger.commons.state.EChange;
 /**
  * Base class for all kind of string-object mapping container. This
  * implementation is a thread-safe wrapper around
- * {@link MapBasedAttributeContainer}!
+ * {@link MapBasedAttributeContainerAny}!
  *
  * @author Philip Helger
  */
 @ThreadSafe
-public class MapBasedAttributeContainerThreadSafe extends MapBasedAttributeContainer
+public class MapBasedAttributeContainerThreadSafe extends MapBasedAttributeContainerAny
 {
   protected final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
 
@@ -52,7 +52,7 @@ public class MapBasedAttributeContainerThreadSafe extends MapBasedAttributeConta
     super (aMap);
   }
 
-  public MapBasedAttributeContainerThreadSafe (@Nonnull final IGenericAttributeContainer <String, Object> aCont)
+  public MapBasedAttributeContainerThreadSafe (@Nonnull final IAttributeContainer <String, Object> aCont)
   {
     super (aCont);
   }

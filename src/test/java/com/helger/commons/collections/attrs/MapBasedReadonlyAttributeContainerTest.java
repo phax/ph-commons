@@ -72,7 +72,7 @@ public final class MapBasedReadonlyAttributeContainerTest
                                                                                                                                                      "key2" },
                                                                                                                                       new Object [] { "value",
                                                                                                                                                      "value2" })),
-                                                                     new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
+                                                                     new MapBasedAttributeContainerAny (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                              "key2" },
                                                                                                                               new Object [] { "value",
                                                                                                                                              "value" })));

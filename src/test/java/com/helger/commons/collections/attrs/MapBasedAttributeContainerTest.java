@@ -33,7 +33,7 @@ import com.helger.commons.mock.PHAssert;
 import com.helger.commons.mock.PHTestUtils;
 
 /**
- * Test class for class {@link MapBasedAttributeContainer}.
+ * Test class for class {@link MapBasedAttributeContainerAny}.
  *
  * @author Philip Helger
  */
@@ -42,7 +42,7 @@ public final class MapBasedAttributeContainerTest
   @Test
   public void testInit ()
   {
-    final MapBasedAttributeContainer x = new MapBasedAttributeContainer ();
+    final MapBasedAttributeContainerAny x = new MapBasedAttributeContainerAny ();
     assertNotNull (x.getAllAttributeNames ());
     assertTrue (x.getAllAttributeNames ().isEmpty ());
     assertTrue (x.containsNoAttribute ());
@@ -82,28 +82,28 @@ public final class MapBasedAttributeContainerTest
     assertFalse (x.containsAttribute ("null1"));
     assertTrue (x.removeAttribute ("null1").isUnchanged ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainer (),
-                                                                 new MapBasedAttributeContainer ());
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainerAny (),
+                                                                 new MapBasedAttributeContainerAny ());
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainerAny (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                          "key2" },
                                                                                                                           new Object [] { "value",
                                                                                                                                          "value2" })),
-                                                                 new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
+                                                                 new MapBasedAttributeContainerAny (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                          "key2" },
                                                                                                                           new Object [] { "value",
                                                                                                                                          "value2" })));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedAttributeContainerAny (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                              "key2" },
                                                                                                                               new Object [] { "value",
                                                                                                                                              "value2" })),
-                                                                     new MapBasedAttributeContainer (CollectionHelper.newMap (new String [] { "key",
+                                                                     new MapBasedAttributeContainerAny (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                              "key2" },
                                                                                                                               new Object [] { "value",
                                                                                                                                              "value" })));
 
     try
     {
-      new MapBasedAttributeContainer ((Map <String, Object>) null);
+      new MapBasedAttributeContainerAny ((Map <String, Object>) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -113,7 +113,7 @@ public final class MapBasedAttributeContainerTest
   @Test
   public void testGetAndSetAttributeFlag ()
   {
-    final MapBasedAttributeContainer aCont = new MapBasedAttributeContainer ();
+    final MapBasedAttributeContainerAny aCont = new MapBasedAttributeContainerAny ();
     // Not yet present
     assertFalse (aCont.getAndSetAttributeFlag ("any"));
     // Now it is present

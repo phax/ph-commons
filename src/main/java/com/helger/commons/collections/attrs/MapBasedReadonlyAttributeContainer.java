@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 /**
- * Default implementation of the {@link IGenericAttributeContainer <String,
+ * Default implementation of the {@link IAttributeContainer <String,
  * Object>} based on a hash map. This implementation may carry <code>null</code>
  * values but that is not recommended.
  *
@@ -42,7 +42,7 @@ public class MapBasedReadonlyAttributeContainer extends MapBasedGenericReadonlyA
     super (aMap);
   }
 
-  public MapBasedReadonlyAttributeContainer (@Nonnull final IGenericAttributeContainer <? extends String, ? extends Object> aCont)
+  public MapBasedReadonlyAttributeContainer (@Nonnull final IAttributeContainer <? extends String, ? extends Object> aCont)
   {
     super (aCont);
   }

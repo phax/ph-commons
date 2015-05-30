@@ -31,23 +31,23 @@ import com.helger.commons.state.EChange;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class MapBasedAttributeContainer extends MapBasedGenericAttributeContainer <String, Object> implements
-                                                                                                  IMutableAttributeContainer
+public class MapBasedAttributeContainerAny extends MapBasedGenericAttributeContainer <String, Object> implements
+                                                                                                  IMutableAttributeContainerAny
 {
-  public MapBasedAttributeContainer ()
+  public MapBasedAttributeContainerAny ()
   {}
 
-  public MapBasedAttributeContainer (@Nonnull final String sKey, @Nullable final Object aValue)
+  public MapBasedAttributeContainerAny (@Nonnull final String sKey, @Nullable final Object aValue)
   {
     super (sKey, aValue);
   }
 
-  public MapBasedAttributeContainer (@Nonnull final Map <? extends String, ? extends Object> aMap)
+  public MapBasedAttributeContainerAny (@Nonnull final Map <? extends String, ? extends Object> aMap)
   {
     super (aMap);
   }
 
-  public MapBasedAttributeContainer (@Nonnull final IGenericAttributeContainer <? extends String, ? extends Object> aCont)
+  public MapBasedAttributeContainerAny (@Nonnull final IAttributeContainer <? extends String, ? extends Object> aCont)
   {
     super (aCont);
   }
@@ -90,8 +90,8 @@ public class MapBasedAttributeContainer extends MapBasedGenericAttributeContaine
   }
 
   @Override
-  public MapBasedAttributeContainer getClone ()
+  public MapBasedAttributeContainerAny getClone ()
   {
-    return new MapBasedAttributeContainer (this);
+    return new MapBasedAttributeContainerAny (this);
   }
 }

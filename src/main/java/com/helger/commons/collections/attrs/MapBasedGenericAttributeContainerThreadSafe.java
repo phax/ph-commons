@@ -55,7 +55,7 @@ public class MapBasedGenericAttributeContainerThreadSafe <KEYTYPE, VALUETYPE> ex
     super (aMap);
   }
 
-  public MapBasedGenericAttributeContainerThreadSafe (@Nonnull final IGenericAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
+  public MapBasedGenericAttributeContainerThreadSafe (@Nonnull final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
   {
     super (aCont);
   }

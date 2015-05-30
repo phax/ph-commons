@@ -48,7 +48,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Value type
  */
 @NotThreadSafe
-public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends AbstractGenericReadonlyAttributeContainer <KEYTYPE, VALUETYPE> implements IGenericMutableAttributeContainer <KEYTYPE, VALUETYPE>, ICloneable <MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE>>
+public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends AbstractReadonlyAttributeContainer <KEYTYPE, VALUETYPE> implements IGenericMutableAttributeContainer <KEYTYPE, VALUETYPE>, ICloneable <MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE>>
 {
   /**
    * attribute storage.
@@ -69,7 +69,7 @@ public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends Abst
     m_aAttrs.putAll (aMap);
   }
 
-  public MapBasedGenericAttributeContainer (@Nonnull final IGenericAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
+  public MapBasedGenericAttributeContainer (@Nonnull final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
   {
     ValueEnforcer.notNull (aCont, "Container");
     m_aAttrs.putAll (aCont.getAllAttributes ());
@@ -140,7 +140,7 @@ public class MapBasedGenericAttributeContainer <KEYTYPE, VALUETYPE> extends Abst
   }
 
   @Nonnull
-  public final EChange setAttributes (@Nullable final IGenericAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aValues)
+  public final EChange setAttributes (@Nullable final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aValues)
   {
     if (aValues == null)
       return EChange.UNCHANGED;
