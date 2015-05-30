@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.callback;
+package com.helger.commons.callback.adapter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -22,33 +22,33 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.callback.adapter.AdapterThrowingRunnableToCallable;
+import com.helger.commons.callback.adapter.AdapterRunnableToCallable;
 
 /**
- * Test class for class {@link AdapterThrowingRunnableToCallable}
+ * Test class for class {@link AdapterRunnableToCallable}
  * 
  * @author Philip Helger
  */
-public final class AdapterThrowingRunnableToCallableTest
+public final class AdapterRunnableToCallableTest
 {
   @Test
-  public void testAll () throws Exception
+  public void testAll ()
   {
-    final IThrowingRunnable r = new IThrowingRunnable ()
+    final Runnable r = new Runnable ()
     {
-      public void run () throws Exception
+      public void run ()
       {
         // empty
       }
     };
-    final AdapterThrowingRunnableToCallable <Object> rc = AdapterThrowingRunnableToCallable.createAdapter (r);
+    final AdapterRunnableToCallable <Object> rc = AdapterRunnableToCallable.createAdapter (r);
     assertNull (rc.call ());
-    final AdapterThrowingRunnableToCallable <String> rcs = AdapterThrowingRunnableToCallable.createAdapter (r, "abc");
+    final AdapterRunnableToCallable <String> rcs = AdapterRunnableToCallable.createAdapter (r, "abc");
     assertEquals ("abc", rcs.call ());
 
     try
     {
-      AdapterThrowingRunnableToCallable.createAdapter (null);
+      AdapterRunnableToCallable.createAdapter (null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -56,7 +56,7 @@ public final class AdapterThrowingRunnableToCallableTest
 
     try
     {
-      AdapterThrowingRunnableToCallable.createAdapter (null, "retval");
+      AdapterRunnableToCallable.createAdapter (null, "retval");
       fail ();
     }
     catch (final NullPointerException ex)

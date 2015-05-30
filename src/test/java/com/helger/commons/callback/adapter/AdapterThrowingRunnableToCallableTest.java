@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.callback;
+package com.helger.commons.callback.adapter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -22,34 +22,34 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.callback.adapter.AdapterRunnableToCallableWithParameter;
+import com.helger.commons.callback.IThrowingRunnable;
+import com.helger.commons.callback.adapter.AdapterThrowingRunnableToCallable;
 
 /**
- * Test class for class {@link AdapterRunnableToCallableWithParameter}
+ * Test class for class {@link AdapterThrowingRunnableToCallable}
  * 
  * @author Philip Helger
  */
-public final class AdapterRunnableToCallableWithParameterTest
+public final class AdapterThrowingRunnableToCallableTest
 {
   @Test
-  public void testAll ()
+  public void testAll () throws Exception
   {
-    final INonThrowingRunnableWithParameter <String> r = new INonThrowingRunnableWithParameter <String> ()
+    final IThrowingRunnable r = new IThrowingRunnable ()
     {
-      public void run (final String sCurrentObject)
+      public void run () throws Exception
       {
         // empty
       }
     };
-    final AdapterRunnableToCallableWithParameter <Object, String> rc = AdapterRunnableToCallableWithParameter.createAdapter (r);
-    assertNull (rc.call ("any"));
-    final AdapterRunnableToCallableWithParameter <String, String> rcs = AdapterRunnableToCallableWithParameter.createAdapter (r,
-                                                                                                                              "abc");
-    assertEquals ("abc", rcs.call ("any"));
+    final AdapterThrowingRunnableToCallable <Object> rc = AdapterThrowingRunnableToCallable.createAdapter (r);
+    assertNull (rc.call ());
+    final AdapterThrowingRunnableToCallable <String> rcs = AdapterThrowingRunnableToCallable.createAdapter (r, "abc");
+    assertEquals ("abc", rcs.call ());
 
     try
     {
-      AdapterRunnableToCallableWithParameter.createAdapter (null);
+      AdapterThrowingRunnableToCallable.createAdapter (null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -57,7 +57,7 @@ public final class AdapterRunnableToCallableWithParameterTest
 
     try
     {
-      AdapterRunnableToCallableWithParameter.createAdapter (null, "retval");
+      AdapterThrowingRunnableToCallable.createAdapter (null, "retval");
       fail ();
     }
     catch (final NullPointerException ex)

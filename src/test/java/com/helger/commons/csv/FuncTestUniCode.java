@@ -28,7 +28,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
 
-public final class UniCodeTest
+public final class FuncTestUniCode
 {
   private static final String COMPOUND_STRING = "ä,ö";
   private static final String COMPOUND_STRING_WITH_QUOTES = "\"ä\",\"ö\"";

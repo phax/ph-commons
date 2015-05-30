@@ -44,7 +44,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public final class IntegrationTest
+public final class FuncTestCSV
 {
   private File m_aTempFile;
 

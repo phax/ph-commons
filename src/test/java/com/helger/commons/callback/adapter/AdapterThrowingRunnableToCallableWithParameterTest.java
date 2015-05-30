@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.callback;
+package com.helger.commons.callback.adapter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -22,6 +22,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.commons.callback.IThrowingRunnableWithParameter;
 import com.helger.commons.callback.adapter.AdapterThrowingRunnableToCallableWithParameter;
 
 /**

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.callback;
+package com.helger.commons.callback.adapter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -22,33 +22,35 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.callback.adapter.AdapterRunnableToCallable;
+import com.helger.commons.callback.INonThrowingRunnableWithParameter;
+import com.helger.commons.callback.adapter.AdapterRunnableToCallableWithParameter;
 
 /**
- * Test class for class {@link AdapterRunnableToCallable}
+ * Test class for class {@link AdapterRunnableToCallableWithParameter}
  * 
  * @author Philip Helger
  */
-public final class AdapterRunnableToCallableTest
+public final class AdapterRunnableToCallableWithParameterTest
 {
   @Test
   public void testAll ()
   {
-    final Runnable r = new Runnable ()
+    final INonThrowingRunnableWithParameter <String> r = new INonThrowingRunnableWithParameter <String> ()
     {
-      public void run ()
+      public void run (final String sCurrentObject)
       {
         // empty
       }
     };
-    final AdapterRunnableToCallable <Object> rc = AdapterRunnableToCallable.createAdapter (r);
-    assertNull (rc.call ());
-    final AdapterRunnableToCallable <String> rcs = AdapterRunnableToCallable.createAdapter (r, "abc");
-    assertEquals ("abc", rcs.call ());
+    final AdapterRunnableToCallableWithParameter <Object, String> rc = AdapterRunnableToCallableWithParameter.createAdapter (r);
+    assertNull (rc.call ("any"));
+    final AdapterRunnableToCallableWithParameter <String, String> rcs = AdapterRunnableToCallableWithParameter.createAdapter (r,
+                                                                                                                              "abc");
+    assertEquals ("abc", rcs.call ("any"));
 
     try
     {
-      AdapterRunnableToCallable.createAdapter (null);
+      AdapterRunnableToCallableWithParameter.createAdapter (null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -56,7 +58,7 @@ public final class AdapterRunnableToCallableTest
 
     try
     {
-      AdapterRunnableToCallable.createAdapter (null, "retval");
+      AdapterRunnableToCallableWithParameter.createAdapter (null, "retval");
       fail ();
     }
     catch (final NullPointerException ex)
