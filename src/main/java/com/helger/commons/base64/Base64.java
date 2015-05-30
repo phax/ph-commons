@@ -2030,14 +2030,30 @@ public final class Base64
   @Nonnull
   public static byte [] decode (@Nonnull final byte [] source) throws IOException
   {
-    byte [] decoded;
-    // try {
-    decoded = decode (source, 0, source.length, NO_OPTIONS);
-    // } catch( IOException ex ) {
-    // assert false :
-    // "IOExceptions only come from GZipping, which is turned off: " +
-    // ex.getMessage();
-    // }
+    return decode (source, NO_OPTIONS);
+  }
+
+  /**
+   * Low-level access to decoding ASCII characters in the form of a byte array.
+   * <strong>Ignores GUNZIP option, if it's set.</strong> This is not generally
+   * a recommended method, although it is used internally as part of the
+   * decoding process. Special case: if len = 0, an empty array is returned.
+   * Still, if you need more speed and reduced memory footprint (and aren't
+   * gzipping), consider this method.
+   *
+   * @param source
+   *        The Base64 encoded data
+   * @param options
+   *        Can specify options such as alphabet type to use
+   * @return decoded data
+   * @throws IOException
+   *         In case of error
+   * @since 2.3.1
+   */
+  @Nonnull
+  public static byte [] decode (@Nonnull final byte [] source, final int options) throws IOException
+  {
+    final byte [] decoded = decode (source, 0, source.length, options);
     return decoded;
   }
 
@@ -2570,7 +2586,7 @@ public final class Base64
     if (aEncodedBytes != null)
       try
       {
-        return decode (aEncodedBytes);
+        return decode (aEncodedBytes, DONT_GUNZIP);
       }
       catch (final IOException t)
       {
@@ -2593,7 +2609,7 @@ public final class Base64
   {
     try
     {
-      return CharsetManager.getAsString (decode (sEncoded), aCharset);
+      return CharsetManager.getAsString (decode (sEncoded, DONT_GUNZIP), aCharset);
     }
     catch (final Throwable t)
     {
@@ -2615,7 +2631,7 @@ public final class Base64
   {
     try
     {
-      return CharsetManager.getAsString (decode (aEncodedBytes), aCharset);
+      return CharsetManager.getAsString (decode (aEncodedBytes, DONT_GUNZIP), aCharset);
     }
     catch (final Throwable t)
     {
