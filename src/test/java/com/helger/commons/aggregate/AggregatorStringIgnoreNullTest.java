@@ -35,7 +35,7 @@ public final class AggregatorStringIgnoreNullTest
     assertEquals ("ab", c.aggregate ("a", "b"));
     assertEquals ("a", c.aggregate ("a", null));
     assertEquals ("b", c.aggregate (null, "b"));
-    assertEquals (null, c.aggregate (null, null));
+    assertEquals ("", c.aggregate (null, null));
     assertNotNull (c.toString ());
   }
 }
