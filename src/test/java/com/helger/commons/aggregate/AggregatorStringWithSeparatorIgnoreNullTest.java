@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.combine;
+package com.helger.commons.aggregate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -26,34 +26,35 @@ import com.helger.commons.mock.PHTestUtils;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Test class for class {@link CombinatorStringWithSeparator}.
- * 
+ * Test class for class {@link AggregatorStringWithSeparatorIgnoreNull}.
+ *
  * @author Philip Helger
  */
-public final class CombinatorStringWithSeparatorTest
+public final class AggregatorStringWithSeparatorIgnoreNullTest
 {
+
   @Test
   @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
-  public void testGetStringCombinatorWithSeparator ()
+  public void testGetStringCombinatorWithSeparatorIgnoreNull ()
   {
-    final ICombinator <String> c = new CombinatorStringWithSeparator (";");
-    assertEquals ("a;b", c.getCombined ("a", "b"));
-    assertEquals ("a;null", c.getCombined ("a", null));
-    assertEquals ("null;b", c.getCombined (null, "b"));
-    assertEquals ("null;null", c.getCombined (null, null));
+    final AggregatorStringWithSeparatorIgnoreNull c = new AggregatorStringWithSeparatorIgnoreNull (";");
+    assertEquals ("a;b", c.aggregate ("a", "b"));
+    assertEquals ("a", c.aggregate ("a", null));
+    assertEquals ("b", c.aggregate (null, "b"));
+    assertEquals (null, c.aggregate (null, null));
 
     try
     {
       // null separator not allowed
-      new CombinatorStringWithSeparator (null);
+      new AggregatorStringWithSeparatorIgnoreNull (null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new CombinatorStringWithSeparator (";"),
-                                                                    new CombinatorStringWithSeparator (";"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new CombinatorStringWithSeparator (";"),
-                                                                        new CombinatorStringWithSeparator (","));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new AggregatorStringWithSeparatorIgnoreNull (";"),
+                                                                 new AggregatorStringWithSeparatorIgnoreNull (";"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new AggregatorStringWithSeparatorIgnoreNull (";"),
+                                                                     new AggregatorStringWithSeparatorIgnoreNull (","));
   }
 }

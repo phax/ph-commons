@@ -927,6 +927,27 @@ public final class StringHelper
 
   /**
    * Get a concatenated String from all non-<code>null</code> and non empty
+   * elements of the passed container without a separator string. This the very
+   * generic version of {@link #getConcatenatedOnDemand(String, String)} for an
+   * arbitrary number of elements.
+   *
+   * @param aElements
+   *        The container to convert. May be <code>null</code> or empty.
+   * @return The concatenated string.
+   */
+  @Nonnull
+  public static String getImplodedNonEmpty (@Nullable final Iterable <String> aElements)
+  {
+    final StringBuilder aSB = new StringBuilder ();
+    if (aElements != null)
+      for (final String sElement : aElements)
+        if (hasText (sElement))
+          aSB.append (sElement);
+    return aSB.toString ();
+  }
+
+  /**
+   * Get a concatenated String from all non-<code>null</code> and non empty
    * elements of the passed container, separated by the specified separator
    * string. This the very generic version of
    * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary

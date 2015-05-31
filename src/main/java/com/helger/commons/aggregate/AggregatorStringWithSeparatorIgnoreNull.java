@@ -14,14 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.combine;
+package com.helger.commons.aggregate;
+
+import java.util.Collection;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -31,11 +33,11 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class CombinatorStringWithSeparatorIgnoreNull implements ICombinator <String>
+public final class AggregatorStringWithSeparatorIgnoreNull extends AbstractAggregator <String, String>
 {
   private final String m_sSep;
 
-  public CombinatorStringWithSeparatorIgnoreNull (@Nonnull final String sSep)
+  public AggregatorStringWithSeparatorIgnoreNull (@Nonnull final String sSep)
   {
     m_sSep = ValueEnforcer.notNull (sSep, "Separator");
   }
@@ -46,14 +48,10 @@ public final class CombinatorStringWithSeparatorIgnoreNull implements ICombinato
     return m_sSep;
   }
 
-  @Nullable
-  public String getCombined (@Nullable final String sFirst, @Nullable final String sSecond)
+  @Nonnull
+  public String aggregate (@Nonnull final Collection <String> aObjects)
   {
-    if (sFirst == null)
-      return sSecond;
-    if (sSecond == null)
-      return sFirst;
-    return sFirst + m_sSep + sSecond;
+    return StringHelper.getImplodedNonEmpty (m_sSep, aObjects);
   }
 
   @Override
@@ -63,7 +61,7 @@ public final class CombinatorStringWithSeparatorIgnoreNull implements ICombinato
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final CombinatorStringWithSeparatorIgnoreNull rhs = (CombinatorStringWithSeparatorIgnoreNull) o;
+    final AggregatorStringWithSeparatorIgnoreNull rhs = (AggregatorStringWithSeparatorIgnoreNull) o;
     return m_sSep.equals (rhs.m_sSep);
   }
 

@@ -20,12 +20,12 @@ import java.util.Collection;
 
 import javax.annotation.Nullable;
 
-import com.helger.commons.combine.ICombinator;
+import com.helger.commons.aggregate.IAggregator;
 import com.helger.commons.tree.withid.unique.ITreeItemWithUniqueIDFactory;
 
 /**
  * A factory interface that creates tree items.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        Key type
@@ -36,12 +36,11 @@ import com.helger.commons.tree.withid.unique.ITreeItemWithUniqueIDFactory;
  * @param <ITEMTYPE>
  *        the implementation item type
  */
-public interface IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends IFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>> extends
-                                                                                                                                                                              ITreeItemWithUniqueIDFactory <KEYTYPE, COLLTYPE, ITEMTYPE>
+public interface IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends IFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>> extends ITreeItemWithUniqueIDFactory <KEYTYPE, COLLTYPE, ITEMTYPE>
 {
   /**
    * @return The key combinator to be used to create global unique IDs.
    */
   @Nullable
-  ICombinator <KEYTYPE> getKeyCombinator ();
+  IAggregator <KEYTYPE, KEYTYPE> getKeyCombinator ();
 }

@@ -16,13 +16,15 @@
  */
 package com.helger.commons.tree.withid.folder;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.combine.ICombinator;
+import com.helger.commons.aggregate.IAggregator;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -30,7 +32,7 @@ import com.helger.commons.tree.withid.BasicTreeItemWithID;
 
 /**
  * Base implementation of the {@link IFolderTreeItem} interface.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        Key type
@@ -45,11 +47,11 @@ import com.helger.commons.tree.withid.BasicTreeItemWithID;
 public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>> extends BasicTreeItemWithID <KEYTYPE, COLLTYPE, ITEMTYPE> implements IFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>
 {
   // Combinator to create a global unique ID.
-  private final ICombinator <KEYTYPE> m_aKeyCombinator;
+  private final IAggregator <KEYTYPE, KEYTYPE> m_aKeyCombinator;
 
   /**
    * Constructor for root object
-   * 
+   *
    * @param aFactory
    *        The item factory to use.
    */
@@ -61,7 +63,7 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
 
   /**
    * Constructor for root object
-   * 
+   *
    * @param aFactory
    *        The item factory to use.
    * @param aDataID
@@ -76,7 +78,7 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
 
   /**
    * Constructor for normal elements
-   * 
+   *
    * @param aParent
    *        Parent item. May never be <code>null</code> since only the root has
    *        no parent.
@@ -96,7 +98,13 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
       return getID ();
 
     final ITEMTYPE aParent = getParent ();
-    return aParent == null ? getID () : m_aKeyCombinator.getCombined (aParent.getGlobalUniqueDataID (), getID ());
+    if (aParent == null)
+      return getID ();
+
+    final List <KEYTYPE> aList = new ArrayList <KEYTYPE> ();
+    aList.add (aParent.getGlobalUniqueDataID ());
+    aList.add (getID ());
+    return m_aKeyCombinator.aggregate (aList);
   }
 
   @Override

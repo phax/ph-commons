@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.Test;
@@ -53,6 +54,6 @@ public final class AggregatorUseLastTest
     final List <String> l = CollectionHelper.newList ("a", null, "b", "", "c");
     assertEquals ("c", a1.aggregate (l));
     assertNull (a1.aggregate (new ArrayList <String> ()));
-    assertNull (a1.aggregate (null));
+    assertNull (a1.aggregate ((Collection <String>) null));
   }
 }

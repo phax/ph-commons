@@ -21,9 +21,6 @@ import java.util.Collection;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.hash.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
-
 /**
  * Always returns <code>null</code>.
  *
@@ -34,33 +31,11 @@ import com.helger.commons.string.ToStringGenerator;
  *        Destination type
  */
 @Immutable
-public final class AggregatorAlwaysNull <SRCTYPE, DSTTYPE> implements IAggregator <SRCTYPE, DSTTYPE>
+public class AggregatorAlwaysNull <SRCTYPE, DSTTYPE> extends AbstractAggregator <SRCTYPE, DSTTYPE>
 {
   @Nullable
   public DSTTYPE aggregate (@Nullable final Collection <SRCTYPE> aResults)
   {
     return null;
-  }
-
-  @Override
-  public boolean equals (final Object o)
-  {
-    if (o == this)
-      return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
-      return false;
-    return true;
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    return new HashCodeGenerator (this).getHashCode ();
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).toString ();
   }
 }

@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Destination type
  */
 @Immutable
-public final class AggregatorConstant <SRCTYPE, DSTTYPE> implements IAggregator <SRCTYPE, DSTTYPE>
+public final class AggregatorConstant <SRCTYPE, DSTTYPE> extends AbstractAggregator <SRCTYPE, DSTTYPE>
 {
   private final DSTTYPE m_aValue;
 

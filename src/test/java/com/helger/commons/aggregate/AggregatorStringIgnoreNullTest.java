@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.combine;
+package com.helger.commons.aggregate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -22,20 +22,20 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 /**
- * Test class for class {@link CombinatorString}.
- * 
+ * Test class for class {@link AggregatorStringIgnoreNull}.
+ *
  * @author Philip Helger
  */
-public final class CombinatorStringTest
+public final class AggregatorStringIgnoreNullTest
 {
   @Test
-  public void testGetStringCombinator ()
+  public void testGetStringCombinatorIgnoreNull ()
   {
-    final ICombinator <String> c = CombinatorString.getInstance ();
-    assertEquals ("ab", c.getCombined ("a", "b"));
-    assertEquals ("anull", c.getCombined ("a", null));
-    assertEquals ("nullb", c.getCombined (null, "b"));
-    assertEquals ("nullnull", c.getCombined (null, null));
+    final AggregatorStringIgnoreNull c = new AggregatorStringIgnoreNull ();
+    assertEquals ("ab", c.aggregate ("a", "b"));
+    assertEquals ("a", c.aggregate ("a", null));
+    assertEquals ("b", c.aggregate (null, "b"));
+    assertEquals (null, c.aggregate (null, null));
     assertNotNull (c.toString ());
   }
 }

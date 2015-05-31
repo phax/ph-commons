@@ -22,8 +22,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.hash.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Always use the last result.
@@ -33,33 +31,11 @@ import com.helger.commons.string.ToStringGenerator;
  *        Data type
  */
 @NotThreadSafe
-public class AggregatorUseFirst <DATATYPE> implements IAggregator <DATATYPE, DATATYPE>
+public class AggregatorUseFirst <DATATYPE> extends AbstractAggregator <DATATYPE, DATATYPE>
 {
   @Nullable
   public DATATYPE aggregate (@Nullable final Collection <DATATYPE> aResults)
   {
     return CollectionHelper.getFirstElement (aResults);
-  }
-
-  @Override
-  public boolean equals (final Object o)
-  {
-    if (o == this)
-      return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
-      return false;
-    return true;
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    return new HashCodeGenerator (this).getHashCode ();
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).toString ();
   }
 }

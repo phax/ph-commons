@@ -14,41 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.combine;
+package com.helger.commons.aggregate;
+
+import java.util.Collection;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.string.StringHelper;
 
 /**
  * A simple combinator that simply concatenates 2 strings.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
-public final class CombinatorString implements ICombinator <String>
+public class AggregatorString extends AbstractAggregator <String, String>
 {
-  private static final CombinatorString s_aInstance = new CombinatorString ();
-
-  private CombinatorString ()
-  {}
-
   @Nonnull
-  public static CombinatorString getInstance ()
+  public String aggregate (@Nonnull final Collection <String> aObjects)
   {
-    return s_aInstance;
-  }
-
-  public String getCombined (@Nullable final String sFirst, @Nullable final String sSecond)
-  {
-    return sFirst + sSecond;
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).toString ();
+    return StringHelper.getImploded (aObjects);
   }
 }

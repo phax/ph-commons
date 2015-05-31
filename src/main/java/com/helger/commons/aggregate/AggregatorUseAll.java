@@ -21,9 +21,6 @@ import java.util.Collection;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.hash.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
-
 /**
  * Always use the complete list of results.
  *
@@ -32,33 +29,11 @@ import com.helger.commons.string.ToStringGenerator;
  *        The data type to aggregate
  */
 @Immutable
-public class AggregatorUseAll <DATATYPE> implements IAggregator <DATATYPE, Collection <DATATYPE>>
+public class AggregatorUseAll <DATATYPE> extends AbstractAggregator <DATATYPE, Collection <DATATYPE>>
 {
   @Nullable
   public Collection <DATATYPE> aggregate (@Nullable final Collection <DATATYPE> aResults)
   {
     return aResults;
-  }
-
-  @Override
-  public boolean equals (final Object o)
-  {
-    if (o == this)
-      return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
-      return false;
-    return true;
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    return new HashCodeGenerator (this).getHashCode ();
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).toString ();
   }
 }

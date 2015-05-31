@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.combine;
+package com.helger.commons.aggregate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -26,35 +26,34 @@ import com.helger.commons.mock.PHTestUtils;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Test class for class {@link CombinatorStringWithSeparatorIgnoreNull}.
- * 
+ * Test class for class {@link AggregatorStringWithSeparator}.
+ *
  * @author Philip Helger
  */
-public final class CombinatorStringWithSeparatorIgnoreNullTest
+public final class AggregatorStringWithSeparatorTest
 {
-
   @Test
   @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
-  public void testGetStringCombinatorWithSeparatorIgnoreNull ()
+  public void testGetStringCombinatorWithSeparator ()
   {
-    final ICombinator <String> c = new CombinatorStringWithSeparatorIgnoreNull (";");
-    assertEquals ("a;b", c.getCombined ("a", "b"));
-    assertEquals ("a", c.getCombined ("a", null));
-    assertEquals ("b", c.getCombined (null, "b"));
-    assertEquals (null, c.getCombined (null, null));
+    final AggregatorStringWithSeparator c = new AggregatorStringWithSeparator (";");
+    assertEquals ("a;b", c.aggregate ("a", "b"));
+    assertEquals ("a;null", c.aggregate ("a", null));
+    assertEquals ("null;b", c.aggregate (null, "b"));
+    assertEquals ("null;null", c.aggregate (null, null));
 
     try
     {
       // null separator not allowed
-      new CombinatorStringWithSeparatorIgnoreNull (null);
+      new AggregatorStringWithSeparator (null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new CombinatorStringWithSeparatorIgnoreNull (";"),
-                                                                    new CombinatorStringWithSeparatorIgnoreNull (";"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new CombinatorStringWithSeparatorIgnoreNull (";"),
-                                                                        new CombinatorStringWithSeparatorIgnoreNull (","));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new AggregatorStringWithSeparator (";"),
+                                                                 new AggregatorStringWithSeparator (";"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new AggregatorStringWithSeparator (";"),
+                                                                     new AggregatorStringWithSeparator (","));
   }
 }

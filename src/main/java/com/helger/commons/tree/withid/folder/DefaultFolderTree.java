@@ -23,12 +23,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.combine.ICombinator;
+import com.helger.commons.aggregate.IAggregator;
 
 /**
  * Root class for a simple tree. The elements of the tree are not sorted by any
  * means.
- * 
+ *
  * @param <KEYTYPE>
  *        The type of the element keys.
  * @param <DATATYPE>
@@ -38,24 +38,23 @@ import com.helger.commons.combine.ICombinator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class DefaultFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>> extends
-                                                                                           BasicFolderTree <KEYTYPE, DATATYPE, COLLTYPE, DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE>>
+public class DefaultFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>> extends BasicFolderTree <KEYTYPE, DATATYPE, COLLTYPE, DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE>>
 {
   /**
    * Constructor that creates a {@link DefaultFolderTreeItemFactory} using the
    * passed key combinator.
-   * 
+   *
    * @param aKeyCombinator
    *        The key combinator to be used. May be <code>null</code>.
    */
-  public DefaultFolderTree (@Nullable final ICombinator <KEYTYPE> aKeyCombinator)
+  public DefaultFolderTree (@Nullable final IAggregator <KEYTYPE, KEYTYPE> aKeyCombinator)
   {
     this (new DefaultFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE> (aKeyCombinator));
   }
 
   /**
    * Constructor
-   * 
+   *
    * @param aFactory
    *        The item factory to use. May not be <code>null</code>.
    */
@@ -66,13 +65,13 @@ public class DefaultFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <
 
   /**
    * Create a new {@link DefaultFolderTree} using a set as the container.
-   * 
+   *
    * @param aKeyCombinator
    *        The key combinator to be used
    * @return The created default folder tree
    */
   @Nonnull
-  public static <K, V> DefaultFolderTree <K, V, Set <V>> createForSet (@Nonnull final ICombinator <K> aKeyCombinator)
+  public static <K, V> DefaultFolderTree <K, V, Set <V>> createForSet (@Nonnull final IAggregator <K, K> aKeyCombinator)
   {
     return new DefaultFolderTree <K, V, Set <V>> (aKeyCombinator);
   }

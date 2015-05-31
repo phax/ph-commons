@@ -14,14 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.combine;
+package com.helger.commons.aggregate;
+
+import java.util.Collection;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -30,11 +32,11 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class CombinatorStringWithSeparator implements ICombinator <String>
+public final class AggregatorStringWithSeparator extends AbstractAggregator <String, String>
 {
   private final String m_sSep;
 
-  public CombinatorStringWithSeparator (@Nonnull final String sSep)
+  public AggregatorStringWithSeparator (@Nonnull final String sSep)
   {
     m_sSep = ValueEnforcer.notNull (sSep, "Separator");
   }
@@ -46,9 +48,9 @@ public final class CombinatorStringWithSeparator implements ICombinator <String>
   }
 
   @Nonnull
-  public String getCombined (@Nullable final String sFirst, @Nullable final String sSecond)
+  public String aggregate (@Nonnull final Collection <String> aObjects)
   {
-    return sFirst + m_sSep + sSecond;
+    return StringHelper.getImploded (m_sSep, aObjects);
   }
 
   @Override
@@ -58,7 +60,7 @@ public final class CombinatorStringWithSeparator implements ICombinator <String>
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final CombinatorStringWithSeparator rhs = (CombinatorStringWithSeparator) o;
+    final AggregatorStringWithSeparator rhs = (AggregatorStringWithSeparator) o;
     return m_sSep.equals (rhs.m_sSep);
   }
 

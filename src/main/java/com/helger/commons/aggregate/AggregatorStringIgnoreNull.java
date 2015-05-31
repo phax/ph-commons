@@ -14,13 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.combine;
+package com.helger.commons.aggregate;
+
+import java.util.Collection;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.string.StringHelper;
 
 /**
  * A simple combinator that concatenates 2 strings by ignoring <code>null</code>
@@ -29,32 +30,11 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class CombinatorStringIgnoreNull implements ICombinator <String>
+public class AggregatorStringIgnoreNull extends AbstractAggregator <String, String>
 {
-  private static final CombinatorStringIgnoreNull s_aInstance = new CombinatorStringIgnoreNull ();
-
-  private CombinatorStringIgnoreNull ()
-  {}
-
   @Nonnull
-  public static CombinatorStringIgnoreNull getInstance ()
+  public String aggregate (@Nonnull final Collection <String> aObjects)
   {
-    return s_aInstance;
-  }
-
-  @Nullable
-  public String getCombined (@Nullable final String sFirst, @Nullable final String sSecond)
-  {
-    if (sFirst == null)
-      return sSecond;
-    if (sSecond == null)
-      return sFirst;
-    return sFirst + sSecond;
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).toString ();
+    return StringHelper.getImplodedNonEmpty (aObjects);
   }
 }

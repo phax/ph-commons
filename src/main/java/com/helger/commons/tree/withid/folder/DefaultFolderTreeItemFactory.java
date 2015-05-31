@@ -22,11 +22,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.combine.ICombinator;
+import com.helger.commons.aggregate.IAggregator;
 
 /**
  * The default folder tree item factory implementation.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        Key type
@@ -36,10 +36,9 @@ import com.helger.commons.combine.ICombinator;
  *        Collection type consisting of value elements
  */
 @NotThreadSafe
-public class DefaultFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>> extends
-                                                                                                      AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE>>
+public class DefaultFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>> extends AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE>>
 {
-  public DefaultFolderTreeItemFactory (@Nullable final ICombinator <KEYTYPE> aKeyCombinator)
+  public DefaultFolderTreeItemFactory (@Nullable final IAggregator <KEYTYPE, KEYTYPE> aKeyCombinator)
   {
     super (aKeyCombinator);
   }

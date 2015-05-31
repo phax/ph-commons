@@ -34,11 +34,21 @@ public interface IAggregator <SRCTYPE, DSTTYPE>
 {
   /**
    * Aggregate a collection of input objects to a single output object.
-   * 
+   *
    * @param aObjects
    *        Source objects. May not be <code>null</code>.
    * @return The aggregated object. May be <code>null</code>.
    */
   @Nullable
   DSTTYPE aggregate (@Nonnull Collection <SRCTYPE> aObjects);
+
+  /**
+   * Aggregate a collection of input objects to a single output object.
+   *
+   * @param aObjects
+   *        Source objects. May not be <code>null</code>.
+   * @return The aggregated object. May be <code>null</code>.
+   */
+  @Nullable
+  DSTTYPE aggregate (@Nonnull SRCTYPE... aObjects);
 }

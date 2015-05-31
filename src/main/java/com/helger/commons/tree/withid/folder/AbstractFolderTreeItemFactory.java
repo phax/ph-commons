@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.combine.ICombinator;
+import com.helger.commons.aggregate.IAggregator;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -42,13 +42,11 @@ import com.helger.commons.tree.withid.unique.AbstractTreeItemWithUniqueIDFactory
  *        the implementation item type
  */
 @NotThreadSafe
-public abstract class AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>> extends
-                                                                                                                                                                                              AbstractTreeItemWithUniqueIDFactory <KEYTYPE, COLLTYPE, ITEMTYPE> implements
-                                                                                                                                                                                                                                                               IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>
+public abstract class AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>> extends AbstractTreeItemWithUniqueIDFactory <KEYTYPE, COLLTYPE, ITEMTYPE> implements IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>
 {
-  private final ICombinator <KEYTYPE> m_aKeyCombinator;
+  private final IAggregator <KEYTYPE, KEYTYPE> m_aKeyCombinator;
 
-  public AbstractFolderTreeItemFactory (@Nullable final ICombinator <KEYTYPE> aKeyCombinator)
+  public AbstractFolderTreeItemFactory (@Nullable final IAggregator <KEYTYPE, KEYTYPE> aKeyCombinator)
   {
     m_aKeyCombinator = aKeyCombinator;
   }
@@ -61,7 +59,7 @@ public abstract class AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE
   }
 
   @Nullable
-  public final ICombinator <KEYTYPE> getKeyCombinator ()
+  public final IAggregator <KEYTYPE, KEYTYPE> getKeyCombinator ()
   {
     return m_aKeyCombinator;
   }

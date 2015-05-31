@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.combine.CombinatorStringWithSeparator;
+import com.helger.commons.aggregate.AggregatorStringWithSeparator;
 import com.helger.commons.mock.PHTestUtils;
 
 /**
@@ -35,11 +35,11 @@ public final class DefaultFolderTreeItemFactoryTest
   @Test
   public void testBasic ()
   {
-    final DefaultFolderTreeItemFactory <String, String, List <String>> ftif = new DefaultFolderTreeItemFactory <String, String, List <String>> (new CombinatorStringWithSeparator ("/"));
+    final DefaultFolderTreeItemFactory <String, String, List <String>> ftif = new DefaultFolderTreeItemFactory <String, String, List <String>> (new AggregatorStringWithSeparator ("/"));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (ftif,
-                                                                    new DefaultFolderTreeItemFactory <String, String, List <String>> (new CombinatorStringWithSeparator ("/")));
+                                                                    new DefaultFolderTreeItemFactory <String, String, List <String>> (new AggregatorStringWithSeparator ("/")));
     assertNotNull (ftif.createRoot ());
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (ftif,
-                                                                        new DefaultFolderTreeItemFactory <String, String, List <String>> (new CombinatorStringWithSeparator ("/")));
+                                                                        new DefaultFolderTreeItemFactory <String, String, List <String>> (new AggregatorStringWithSeparator ("/")));
   }
 }
