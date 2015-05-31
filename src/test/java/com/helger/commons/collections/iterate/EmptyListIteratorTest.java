@@ -18,7 +18,6 @@ package com.helger.commons.collections.iterate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.NoSuchElementException;
@@ -27,7 +26,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link EmptyListIterator}
- * 
+ *
  * @author Philip Helger
  */
 public final class EmptyListIteratorTest
@@ -35,7 +34,7 @@ public final class EmptyListIteratorTest
   @Test
   public void testAll ()
   {
-    final EmptyListIterator <String> eit = EmptyListIterator.getInstance ();
+    final EmptyListIterator <String> eit = new EmptyListIterator <String> ();
     assertFalse (eit.hasNext ());
     assertFalse (eit.hasPrevious ());
     assertEquals (-1, eit.previousIndex ());
@@ -81,9 +80,6 @@ public final class EmptyListIteratorTest
     catch (final UnsupportedOperationException ex)
     {}
 
-    assertTrue (eit.equals (EmptyListIterator.getInstance ()));
     assertFalse (eit.equals ("other thinggy"));
-    assertTrue (eit.hashCode () == EmptyListIterator.getInstance ().hashCode ());
-    assertTrue (eit.toString ().equals (EmptyListIterator.getInstance ().toString ()));
   }
 }

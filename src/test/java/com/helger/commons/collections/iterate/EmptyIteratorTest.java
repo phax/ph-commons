@@ -17,7 +17,6 @@
 package com.helger.commons.collections.iterate;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.NoSuchElementException;
@@ -26,7 +25,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link EmptyIterator}
- * 
+ *
  * @author Philip Helger
  */
 public final class EmptyIteratorTest
@@ -34,7 +33,7 @@ public final class EmptyIteratorTest
   @Test
   public void testAll ()
   {
-    final EmptyIterator <String> eit = EmptyIterator.getInstance ();
+    final EmptyIterator <String> eit = new EmptyIterator <String> ();
     assertFalse (eit.hasNext ());
 
     try
@@ -52,9 +51,6 @@ public final class EmptyIteratorTest
     catch (final UnsupportedOperationException ex)
     {}
 
-    assertTrue (eit.equals (EmptyIterator.getInstance ()));
     assertFalse (eit.equals ("sthg else"));
-    assertTrue (eit.hashCode () == EmptyIterator.getInstance ().hashCode ());
-    assertTrue (eit.toString ().equals (EmptyIterator.getInstance ().toString ()));
   }
 }

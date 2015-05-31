@@ -19,29 +19,21 @@ package com.helger.commons.collections.iterate;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Represents a fixed {@link Enumeration} implementation that contains no
  * elements.
- * 
+ *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        The type to be contained in the operation.
  */
 @Immutable
-public final class EmptyEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
+public class EmptyEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
 {
-  /* The one and only instance of this enumeration */
-  private static final EmptyEnumeration <Object> s_aInstance = new EmptyEnumeration <Object> ();
-
-  private EmptyEnumeration ()
-  {}
-
   public boolean hasMoreElements ()
   {
     return false;
@@ -70,11 +62,5 @@ public final class EmptyEnumeration <ELEMENTTYPE> implements Enumeration <ELEMEN
   public String toString ()
   {
     return new ToStringGenerator (this).toString ();
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> EmptyEnumeration <ELEMENTTYPE> getInstance ()
-  {
-    return GenericReflection.<EmptyEnumeration <Object>, EmptyEnumeration <ELEMENTTYPE>> uncheckedCast (s_aInstance);
   }
 }

@@ -50,7 +50,6 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.ReturnsMutableObject;
 import com.helger.commons.collections.impl.EmptySortedSet;
 import com.helger.commons.collections.impl.NonBlockingStack;
-import com.helger.commons.collections.iterate.CombinedEnumeration;
 import com.helger.commons.collections.iterate.CombinedIterator;
 import com.helger.commons.collections.iterate.EmptyEnumeration;
 import com.helger.commons.collections.iterate.EmptyIterator;
@@ -2685,19 +2684,19 @@ public final class CollectionHelper
   @Nonnull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getIterator (@Nullable final Iterable <ELEMENTTYPE> aCont)
   {
-    return aCont == null ? EmptyIterator.<ELEMENTTYPE> getInstance () : getIterator (aCont.iterator ());
+    return aCont == null ? new EmptyIterator <ELEMENTTYPE> () : getIterator (aCont.iterator ());
   }
 
   @Nonnull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getIterator (@Nullable final Iterator <ELEMENTTYPE> aIter)
   {
-    return aIter == null ? EmptyIterator.<ELEMENTTYPE> getInstance () : aIter;
+    return aIter == null ? new EmptyIterator <ELEMENTTYPE> () : aIter;
   }
 
   @Nonnull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getIterator (@Nullable final ELEMENTTYPE... aArray)
   {
-    return ArrayHelper.isEmpty (aArray) ? EmptyIterator.<ELEMENTTYPE> getInstance ()
+    return ArrayHelper.isEmpty (aArray) ? new EmptyIterator <ELEMENTTYPE> ()
                                        : getIterator (newList (aArray).iterator ());
   }
 
@@ -2705,13 +2704,13 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getReverseIterator (@Nullable final List <? extends ELEMENTTYPE> aCont)
   {
     if (isEmpty (aCont))
-      return EmptyIterator.<ELEMENTTYPE> getInstance ();
+      return new EmptyIterator <ELEMENTTYPE> ();
 
     /**
      * Performance note: this implementation is much faster than building a
      * temporary list in reverse order and returning a forward iterator!
      */
-    return ReverseListIterator.create (aCont);
+    return new ReverseListIterator <ELEMENTTYPE> (aCont);
   }
 
   /**
@@ -2724,7 +2723,7 @@ public final class CollectionHelper
   @Nonnull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getEmptyIterator ()
   {
-    return EmptyIterator.<ELEMENTTYPE> getInstance ();
+    return new EmptyIterator <ELEMENTTYPE> ();
   }
 
   /**
@@ -2758,7 +2757,7 @@ public final class CollectionHelper
   @Nonnull
   public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getEnumeration (@Nullable final Iterable <ELEMENTTYPE> aCont)
   {
-    return isEmpty (aCont) ? EmptyEnumeration.<ELEMENTTYPE> getInstance () : getEnumeration (aCont.iterator ());
+    return isEmpty (aCont) ? new EmptyEnumeration <ELEMENTTYPE> () : getEnumeration (aCont.iterator ());
   }
 
   /**
@@ -2789,7 +2788,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getEnumeration (@Nullable final Iterator <ELEMENTTYPE> aIter)
   {
     if (aIter == null)
-      return EmptyEnumeration.<ELEMENTTYPE> getInstance ();
+      return new EmptyEnumeration <ELEMENTTYPE> ();
 
     return new EnumerationFromIterator <ELEMENTTYPE> (aIter);
   }
@@ -2809,27 +2808,8 @@ public final class CollectionHelper
   public static <KEYTYPE, VALUETYPE> Enumeration <Map.Entry <KEYTYPE, VALUETYPE>> getEnumeration (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
     if (aMap == null)
-      return EmptyEnumeration.<Map.Entry <KEYTYPE, VALUETYPE>> getInstance ();
+      return new EmptyEnumeration <Map.Entry <KEYTYPE, VALUETYPE>> ();
     return getEnumeration (aMap.entrySet ());
-  }
-
-  /**
-   * Get a merged enumeration of both enumeration. The first enumeration is
-   * enumerated first, the second one afterwards.
-   *
-   * @param <ELEMENTTYPE>
-   *        The type of elements to be enumerated.
-   * @param aEnum1
-   *        First enumeration. May be <code>null</code>.
-   * @param aEnum2
-   *        Second enumeration. May be <code>null</code>.
-   * @return The merged enumeration. Never <code>null</code>.
-   */
-  @Nonnull
-  public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getCombinedEnumeration (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum1,
-                                                                                @Nullable final Enumeration <? extends ELEMENTTYPE> aEnum2)
-  {
-    return new CombinedEnumeration <ELEMENTTYPE> (aEnum1, aEnum2);
   }
 
   /**
@@ -2842,7 +2822,7 @@ public final class CollectionHelper
   @Nonnull
   public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getEmptyEnumeration ()
   {
-    return EmptyEnumeration.<ELEMENTTYPE> getInstance ();
+    return new EmptyEnumeration <ELEMENTTYPE> ();
   }
 
   @Nullable

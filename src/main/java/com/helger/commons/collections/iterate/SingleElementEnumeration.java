@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
@@ -34,8 +34,8 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <ELEMENTTYPE>
  *        The type of object to enumerate.
  */
-@NotThreadSafe
-public final class SingleElementEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
+@Immutable
+public class SingleElementEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
 {
   private boolean m_bHasMoreElements;
   private final ELEMENTTYPE m_aElement;

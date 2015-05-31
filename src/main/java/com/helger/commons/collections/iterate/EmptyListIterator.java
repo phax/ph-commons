@@ -19,28 +19,21 @@ package com.helger.commons.collections.iterate;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.ThreadSafe;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotations.UnsupportedOperation;
-import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Utility implementation of the {@link ListIterator} for an empty list :)
- * 
+ *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        The type of the list iterator
  */
-@ThreadSafe
-public final class EmptyListIterator <ELEMENTTYPE> implements ListIterator <ELEMENTTYPE>
+@Immutable
+public class EmptyListIterator <ELEMENTTYPE> implements ListIterator <ELEMENTTYPE>
 {
-  private static final EmptyListIterator <Object> s_aInstance = new EmptyListIterator <Object> ();
-
-  private EmptyListIterator ()
-  {}
-
   @UnsupportedOperation
   public void add (final ELEMENTTYPE o)
   {
@@ -107,11 +100,5 @@ public final class EmptyListIterator <ELEMENTTYPE> implements ListIterator <ELEM
   public String toString ()
   {
     return new ToStringGenerator (this).toString ();
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> EmptyListIterator <ELEMENTTYPE> getInstance ()
-  {
-    return GenericReflection.<EmptyListIterator <Object>, EmptyListIterator <ELEMENTTYPE>> uncheckedCast (s_aInstance);
   }
 }

@@ -17,7 +17,6 @@
 package com.helger.commons.collections;
 
 import static com.helger.commons.collections.CollectionHelper.containsAnyNullElement;
-import static com.helger.commons.collections.CollectionHelper.getCombinedEnumeration;
 import static com.helger.commons.collections.CollectionHelper.getCombinedMap;
 import static com.helger.commons.collections.CollectionHelper.getConcatenatedInline;
 import static com.helger.commons.collections.CollectionHelper.getConcatenatedList;
@@ -2271,8 +2270,8 @@ public final class CollectionHelperTest extends AbstractPHTestCase
     assertTrue (isEmpty (new HashMap <Short, String> ()));
     assertFalse (isEmpty (newList ("d", "c", "b", "a")));
     assertTrue (isEmpty ((Iterable <String>) new NonBlockingStack <String> ()));
-    assertTrue (isEmpty (EmptyEnumeration.<Double> getInstance ()));
-    assertTrue (isEmpty (EmptyIterator.<Double> getInstance ()));
+    assertTrue (isEmpty (new EmptyEnumeration <Double> ()));
+    assertTrue (isEmpty (new EmptyIterator <Double> ()));
   }
 
   @Test
@@ -2570,40 +2569,6 @@ public final class CollectionHelperTest extends AbstractPHTestCase
   }
 
   @Test
-  public void testGetCombinedEnumeration ()
-  {
-    Enumeration <String> e = getCombinedEnumeration (getEnumeration ("a", "b"), getEnumeration ("c", "d"));
-    assertTrue (e.hasMoreElements ());
-    List <String> aList = newList (e);
-    assertNotNull (aList);
-    assertEquals (4, aList.size ());
-    assertEquals ("a", aList.get (0));
-    assertEquals ("b", aList.get (1));
-    assertEquals ("c", aList.get (2));
-    assertEquals ("d", aList.get (3));
-
-    e = getCombinedEnumeration (getEnumeration ("a", "b"), null);
-    aList = newList (e);
-    assertNotNull (aList);
-    assertEquals (2, aList.size ());
-    assertEquals ("a", aList.get (0));
-    assertEquals ("b", aList.get (1));
-
-    e = getCombinedEnumeration (null, getEnumeration ("c", "d"));
-    aList = newList (e);
-    assertNotNull (aList);
-    assertEquals (2, aList.size ());
-    assertEquals ("c", aList.get (0));
-    assertEquals ("d", aList.get (1));
-
-    e = getCombinedEnumeration (null, null);
-    assertFalse (e.hasMoreElements ());
-    aList = newList (e);
-    assertNotNull (aList);
-    assertTrue (aList.isEmpty ());
-  }
-
-  @Test
   public void testFirstAndLast ()
   {
     final List <String> aList = newList ("s1", "s2", "s3");
@@ -2685,7 +2650,7 @@ public final class CollectionHelperTest extends AbstractPHTestCase
   {
     assertTrue (isEmpty ((Iterator <?>) null));
     assertTrue (isEmpty (new ArrayList <String> ().iterator ()));
-    assertTrue (isEmpty (EmptyIterator.<String> getInstance ()));
+    assertTrue (isEmpty (new EmptyIterator <String> ()));
     assertFalse (isEmpty (newList ("any").iterator ()));
   }
 
@@ -2703,7 +2668,7 @@ public final class CollectionHelperTest extends AbstractPHTestCase
   {
     assertTrue (isEmpty ((Enumeration <?>) null));
     assertTrue (isEmpty (getEnumeration (new ArrayList <String> ())));
-    assertTrue (isEmpty (EmptyEnumeration.<String> getInstance ()));
+    assertTrue (isEmpty (new EmptyEnumeration <String> ()));
     assertFalse (isEmpty (getEnumeration (newList ("any"))));
   }
 

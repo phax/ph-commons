@@ -144,7 +144,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public Iterator <? extends IMicroAttribute> getAttributeIterator ()
   {
     if (hasNoAttributes ())
-      return EmptyIterator.getInstance ();
+      return new EmptyIterator <IMicroAttribute> ();
     return m_aAttrs.values ().iterator ();
   }
 

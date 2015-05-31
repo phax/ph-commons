@@ -50,7 +50,7 @@ public final class CombinedIteratorTest
     {}
 
     // both empty
-    es = CombinedIterator.create (EmptyIterator.<String> getInstance (), EmptyIterator.<String> getInstance ());
+    es = CombinedIterator.create (new EmptyIterator <String> (), new EmptyIterator <String> ());
     assertFalse (es.hasNext ());
     try
     {
@@ -78,7 +78,7 @@ public final class CombinedIteratorTest
     {}
 
     // one empty
-    es = CombinedIterator.create (CollectionHelper.getIterator ("a", "b", "c"), EmptyIterator.<String> getInstance ());
+    es = CombinedIterator.create (CollectionHelper.getIterator ("a", "b", "c"), new EmptyIterator <String> ());
     assertTrue (es.hasNext ());
     assertEquals ("a", es.next ());
     assertTrue (es.hasNext ());
@@ -112,7 +112,7 @@ public final class CombinedIteratorTest
     {}
 
     // other one empty
-    es = CombinedIterator.create (EmptyIterator.<String> getInstance (), CollectionHelper.getIterator ("a", "b", "c"));
+    es = CombinedIterator.create (new EmptyIterator <String> (), CollectionHelper.getIterator ("a", "b", "c"));
     assertTrue (es.hasNext ());
     assertEquals ("a", es.next ());
     assertTrue (es.hasNext ());

@@ -92,7 +92,7 @@ public final class CombinedIterator <ELEMENTTYPE> implements Iterator <ELEMENTTY
                                                              @Nullable final Iterator <? extends ELEMENTTYPE> aIter2)
   {
     if (aIter1 == null && aIter2 == null)
-      return EmptyIterator.<ELEMENTTYPE> getInstance ();
+      return new EmptyIterator <ELEMENTTYPE> ();
     if (aIter1 == null)
       return (Iterator <ELEMENTTYPE>) aIter2;
     if (aIter2 == null)

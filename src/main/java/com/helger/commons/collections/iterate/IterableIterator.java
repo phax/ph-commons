@@ -28,14 +28,14 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * This class is used for simpler iteration over an Iterator via the new "for"
  * syntax.
- * 
+ *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        The type of elements to iterate.
  */
 public class IterableIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTTYPE>
 {
-  private static final IterableIterator <Object> s_aEmpty = new IterableIterator <Object> (EmptyIterator.getInstance ());
+  private static final IterableIterator <Object> s_aEmpty = new IterableIterator <Object> (new EmptyIterator <Object> ());
 
   private final Iterator <ELEMENTTYPE> m_aIter;
 

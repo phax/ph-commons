@@ -141,7 +141,7 @@ public class SingleElementList <ELEMENTTYPE> implements List <ELEMENTTYPE>
   @Nonnull
   public Iterator <ELEMENTTYPE> iterator ()
   {
-    return m_bHasElement ? SingleElementIterator.create (m_aElement) : EmptyIterator.<ELEMENTTYPE> getInstance ();
+    return m_bHasElement ? SingleElementIterator.create (m_aElement) : new EmptyIterator <ELEMENTTYPE> ();
   }
 
   public int lastIndexOf (@Nullable final Object aElement)
@@ -152,8 +152,7 @@ public class SingleElementList <ELEMENTTYPE> implements List <ELEMENTTYPE>
   @Nonnull
   public ListIterator <ELEMENTTYPE> listIterator ()
   {
-    return m_bHasElement ? SingleElementListIterator.create (m_aElement)
-                        : EmptyListIterator.<ELEMENTTYPE> getInstance ();
+    return m_bHasElement ? SingleElementListIterator.create (m_aElement) : new EmptyListIterator <ELEMENTTYPE> ();
   }
 
   @Nonnull

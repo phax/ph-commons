@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotations.UnsupportedOperation;
 import com.helger.commons.equals.EqualsUtils;
@@ -35,8 +35,8 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <ELEMENTTYPE>
  *        The type of object to iterate.
  */
-@NotThreadSafe
-public final class SingleElementIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
+@Immutable
+public class SingleElementIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
 {
   private boolean m_bHasNext;
   private final ELEMENTTYPE m_aElement;

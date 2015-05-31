@@ -16,7 +16,6 @@
  */
 package com.helger.commons.collections.iterate;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
@@ -26,7 +25,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link EmptyEnumeration}.
- * 
+ *
  * @author Philip Helger
  */
 public final class EmptyEnumerationTest
@@ -34,7 +33,7 @@ public final class EmptyEnumerationTest
   @Test
   public void testAll ()
   {
-    final EmptyEnumeration <String> es = EmptyEnumeration.<String> getInstance ();
+    final EmptyEnumeration <String> es = new EmptyEnumeration <String> ();
     assertFalse (es.hasMoreElements ());
     try
     {
@@ -43,11 +42,7 @@ public final class EmptyEnumerationTest
     }
     catch (final NoSuchElementException ex)
     {}
-    final EmptyEnumeration <Integer> ei = EmptyEnumeration.<Integer> getInstance ();
-    assertEquals (es, ei);
     assertFalse (es.equals (null));
     assertFalse (es.equals ("any"));
-    assertEquals (es.hashCode (), ei.hashCode ());
-    assertEquals (es.toString (), ei.toString ());
   }
 }

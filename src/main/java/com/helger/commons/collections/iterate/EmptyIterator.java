@@ -19,28 +19,21 @@ package com.helger.commons.collections.iterate;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.ThreadSafe;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotations.UnsupportedOperation;
-import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Implementation of an empty enumerator.
- * 
+ *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        The pseudo element type to iterate
  */
-@ThreadSafe
-public final class EmptyIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
+@Immutable
+public class EmptyIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
 {
-  private static final EmptyIterator <Object> s_aInstance = new EmptyIterator <Object> ();
-
-  private EmptyIterator ()
-  {}
-
   public boolean hasNext ()
   {
     return false;
@@ -75,11 +68,5 @@ public final class EmptyIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
   public String toString ()
   {
     return new ToStringGenerator (this).toString ();
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> EmptyIterator <ELEMENTTYPE> getInstance ()
-  {
-    return GenericReflection.<EmptyIterator <Object>, EmptyIterator <ELEMENTTYPE>> uncheckedCast (s_aInstance);
   }
 }

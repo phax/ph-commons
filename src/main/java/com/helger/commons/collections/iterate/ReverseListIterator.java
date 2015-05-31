@@ -22,6 +22,7 @@ import java.util.NoSuchElementException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.UnsupportedOperation;
@@ -29,12 +30,13 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A reverse iterator for an existing list
- * 
+ *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        The element type to be iterated
  */
-public final class ReverseListIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
+@NotThreadSafe
+public class ReverseListIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
 {
   private final List <? extends ELEMENTTYPE> m_aList;
   private int m_nIndex;
@@ -70,11 +72,5 @@ public final class ReverseListIterator <ELEMENTTYPE> implements Iterator <ELEMEN
   public String toString ()
   {
     return new ToStringGenerator (this).append ("list", m_aList).append ("index", m_nIndex).toString ();
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> ReverseListIterator <ELEMENTTYPE> create (@Nonnull final List <? extends ELEMENTTYPE> aList)
-  {
-    return new ReverseListIterator <ELEMENTTYPE> (aList);
   }
 }
