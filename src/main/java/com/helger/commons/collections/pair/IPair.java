@@ -16,18 +16,20 @@
  */
 package com.helger.commons.collections.pair;
 
+import java.io.Serializable;
+
 import javax.annotation.Nullable;
 
 /**
  * Represents a basic read only pair.
- * 
+ *
  * @author Philip Helger
  * @param <DATA1TYPE>
  *        First type.
  * @param <DATA2TYPE>
  *        Second type.
  */
-public interface IPair <DATA1TYPE, DATA2TYPE>
+public interface IPair <DATA1TYPE, DATA2TYPE> extends Serializable
 {
   /**
    * @return The first element. May be <code>null</code>.

@@ -16,12 +16,14 @@
  */
 package com.helger.commons.collections.triple;
 
+import java.io.Serializable;
+
 import javax.annotation.Nullable;
 
 /**
  * Represents an abstract triple (an object with exactly three element) that is
  * readonly.
- * 
+ *
  * @author Philip Helger
  * @param <DATA1TYPE>
  *        Type of the first element
@@ -30,7 +32,7 @@ import javax.annotation.Nullable;
  * @param <DATA3TYPE>
  *        Type of the third element
  */
-public interface ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>
+public interface ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE> extends Serializable
 {
   /**
    * @return The first element. May be <code>null</code>.
