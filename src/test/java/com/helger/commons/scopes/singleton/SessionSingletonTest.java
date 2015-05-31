@@ -18,6 +18,7 @@ package com.helger.commons.scopes.singleton;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -30,7 +31,6 @@ import org.junit.rules.TestRule;
 import com.helger.commons.GlobalDebug;
 import com.helger.commons.mock.PHTestUtils;
 import com.helger.commons.scopes.mock.ScopeTestRule;
-import com.helger.commons.scopes.singleton.SessionSingleton;
 
 /**
  * Test class for class {@link SessionSingleton}.<br>
@@ -77,5 +77,25 @@ public final class SessionSingletonTest
     {
       // Expected
     }
+  }
+
+  @Test
+  public void testBasicWithScopeCtor () throws Exception
+  {
+    assertTrue (SessionSingleton.getAllSessionSingletons ().isEmpty ());
+    assertFalse (SessionSingleton.isSessionSingletonInstantiated (MockSessionSingletonWithScopeCtor.class));
+    assertNull (SessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingletonWithScopeCtor.class));
+
+    final MockSessionSingletonWithScopeCtor a = MockSessionSingletonWithScopeCtor.getInstance ();
+    assertNotNull (a);
+    assertTrue (SessionSingleton.isSessionSingletonInstantiated (MockSessionSingletonWithScopeCtor.class));
+    assertSame (a, SessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingletonWithScopeCtor.class));
+    assertNotNull (a.getScope ());
+    assertEquals (0, a.get ());
+    a.inc ();
+    assertEquals (1, a.get ());
+    assertSame (a, MockSessionSingletonWithScopeCtor.getInstance ());
+
+    PHTestUtils.testDefaultSerialization (a);
   }
 }

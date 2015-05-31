@@ -18,6 +18,7 @@ package com.helger.commons.scopes.singleton;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -29,7 +30,6 @@ import org.junit.rules.TestRule;
 
 import com.helger.commons.GlobalDebug;
 import com.helger.commons.scopes.mock.ScopeTestRule;
-import com.helger.commons.scopes.singleton.RequestSingleton;
 
 /**
  * Test class for class {@link RequestSingleton}.<br>
@@ -76,5 +76,26 @@ public final class RequestSingletonTest
     {
       // Expected
     }
+  }
+
+  @Test
+  public void testBasicWithScopeCtor () throws Exception
+  {
+    assertTrue (RequestSingleton.getAllRequestSingletons ().isEmpty ());
+    assertFalse (RequestSingleton.isRequestSingletonInstantiated (MockRequestSingletonWithScopeCtor.class));
+    assertNull (RequestSingleton.getRequestSingletonIfInstantiated (MockRequestSingletonWithScopeCtor.class));
+
+    final MockRequestSingletonWithScopeCtor a = MockRequestSingletonWithScopeCtor.getInstance ();
+    assertNotNull (a);
+    assertTrue (RequestSingleton.isRequestSingletonInstantiated (MockRequestSingletonWithScopeCtor.class));
+    assertSame (a, RequestSingleton.getRequestSingletonIfInstantiated (MockRequestSingletonWithScopeCtor.class));
+    assertNotNull (a.getScope ());
+    assertEquals (0, a.get ());
+    a.inc ();
+    assertEquals (1, a.get ());
+
+    final MockRequestSingletonWithScopeCtor b = MockRequestSingletonWithScopeCtor.getInstance ();
+    assertNotNull (b.getScope ());
+    assertSame (a, b);
   }
 }
