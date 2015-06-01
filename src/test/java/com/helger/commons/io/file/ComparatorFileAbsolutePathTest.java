@@ -37,7 +37,7 @@ public final class ComparatorFileAbsolutePathTest extends AbstractPHTestCase
   public void testIndexOfExtension ()
   {
     final List <File> aList = CollectionHelper.newList (new File ("abc"), new File ("dir/aaa"), new File ("ABB"));
-    CollectionHelper.getSortedInline (aList, new ComparatorFileAbsolutePath (L_DE));
+    CollectionHelper.getSortedInline (aList, new ComparatorFileAbsolutePath ());
     assertEquals (3, aList.size ());
     assertEquals ("ABB", aList.get (0).getName ());
     assertEquals ("abc", aList.get (1).getName ());

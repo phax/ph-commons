@@ -37,7 +37,7 @@ public final class ComparatorFileNameTest extends AbstractPHTestCase
   public void testIndexOfExtension ()
   {
     final List <File> aList = CollectionHelper.newList (new File ("abc"), new File ("dir/aaa"), new File ("ABB"));
-    CollectionHelper.getSortedInline (aList, new ComparatorFileName (L_DE));
+    CollectionHelper.getSortedInline (aList, new ComparatorFileName ());
     assertEquals (3, aList.size ());
     assertEquals ("aaa", aList.get (0).getName ());
     assertEquals ("ABB", aList.get (1).getName ());

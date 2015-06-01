@@ -54,8 +54,8 @@ public final class CompareUtilsTest extends AbstractPHTestCase
     // Using the system collaor
     assertEquals (+1, CompareUtils.nullSafeCompare ("1.1 a", "1.1.1 a", Collator.getInstance (L_DE)));
 
-    assertEquals (-1, CompareUtils.nullSafeCompare (L_DE, L_EN, new ComparatorLocale (L_DE)));
-    assertEquals (+1, CompareUtils.nullSafeCompare (L_DE, null, new ComparatorLocale (L_DE)));
-    assertEquals (-1, CompareUtils.nullSafeCompare (null, L_EN, new ComparatorLocale (L_DE)));
+    assertEquals (-1, CompareUtils.nullSafeCompare (L_DE, L_EN, new ComparatorLocale ()));
+    assertEquals (+1, CompareUtils.nullSafeCompare (L_DE, null, new ComparatorLocale ()));
+    assertEquals (-1, CompareUtils.nullSafeCompare (null, L_EN, new ComparatorLocale ()));
   }
 }

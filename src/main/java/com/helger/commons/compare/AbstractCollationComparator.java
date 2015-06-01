@@ -23,9 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.string.ToStringGenerator;
 
 /**
  * An abstract implementation of a {@link java.util.Comparator} that uses
@@ -36,10 +34,8 @@ import com.helger.commons.string.ToStringGenerator;
  *        the type of object to be compared
  */
 @NotThreadSafe
-public abstract class AbstractCollationComparator <DATATYPE> extends AbstractComparator <DATATYPE>
+public abstract class AbstractCollationComparator <DATATYPE> extends AbstractPartComparator <DATATYPE, String>
 {
-  private final Collator m_aCollator;
-
   /**
    * Comparator with default sort order and specified sort locale.
    *
@@ -48,7 +44,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
    */
   public AbstractCollationComparator (@Nullable final Locale aSortLocale)
   {
-    m_aCollator = CollatorUtils.getCollatorSpaceBeforeDot (aSortLocale);
+    super (new ComparatorStringWithCollator (aSortLocale));
   }
 
   /**
@@ -59,8 +55,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
    */
   public AbstractCollationComparator (@Nonnull final Collator aCollator)
   {
-    ValueEnforcer.notNull (aCollator, "Collator");
-    m_aCollator = (Collator) aCollator.clone ();
+    super (new ComparatorStringWithCollator (aCollator));
   }
 
   /**
@@ -71,32 +66,6 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
   @ReturnsMutableCopy
   public final Collator getCollator ()
   {
-    return (Collator) m_aCollator.clone ();
-  }
-
-  /**
-   * Abstract method that needs to be overridden to convert an object to a
-   * string representation for comparison.
-   *
-   * @param aObject
-   *        The object to be converted. May not be <code>null</code> depending
-   *        on the elements to be sorted.
-   * @return The string representation of the object. May be <code>null</code>.
-   */
-  @Nullable
-  protected abstract String getAsString (@Nonnull DATATYPE aObject);
-
-  @Override
-  protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)
-  {
-    final String s1 = getAsString (aElement1);
-    final String s2 = getAsString (aElement2);
-    return CompareUtils.nullSafeCompare (s1, s2, m_aCollator, isNullValuesComeFirst ());
-  }
-
-  @Override
-  public String toString ()
-  {
-    return ToStringGenerator.getDerived (super.toString ()).append ("collator", m_aCollator).toString ();
+    return ((ComparatorStringWithCollator) getPartComparator ()).getCollator ();
   }
 }

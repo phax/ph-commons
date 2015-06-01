@@ -19,33 +19,33 @@ package com.helger.commons.compare;
 import javax.annotation.Nonnull;
 
 /**
- * Abstract comparator that handles values that can be represented as double
+ * Abstract comparator that handles values that can be represented as float
  * values.
  *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type to be compared. Must somehow have a value that can be
- *        compared as a double value.
+ *        compared as a float value.
  */
-public abstract class AbstractDoubleComparator <DATATYPE> extends AbstractComparator <DATATYPE>
+public abstract class AbstractFloatComparator <DATATYPE> extends AbstractComparator <DATATYPE>
 {
-  public AbstractDoubleComparator ()
+  public AbstractFloatComparator ()
   {}
 
   /**
-   * Protected method to convert the passed object into a double value.
+   * Protected method to convert the passed object into a float value.
    *
    * @param aObject
    *        The source object
-   * @return The result double value.
+   * @return The result float value.
    */
-  protected abstract double getAsDouble (@Nonnull DATATYPE aObject);
+  protected abstract float getAsFloat (@Nonnull DATATYPE aObject);
 
   @Override
   protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)
   {
-    final double d1 = getAsDouble (aElement1);
-    final double d2 = getAsDouble (aElement2);
-    return CompareUtils.compare (d1, d2);
+    final float f1 = getAsFloat (aElement1);
+    final float f2 = getAsFloat (aElement2);
+    return CompareUtils.compare (f1, f2);
   }
 }

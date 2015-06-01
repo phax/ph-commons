@@ -16,7 +16,6 @@
  */
 package com.helger.commons.compare;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -29,70 +28,71 @@ import javax.annotation.concurrent.NotThreadSafe;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.mock.PHAssert;
 
 /**
- * Test class for {@link AbstractLongComparator}
+ * Test class for {@link AbstractFloatComparator}
  *
  * @author Philip Helger
  */
-public final class AbstractLongComparatorFuncTest
+public final class AbstractFloatComparatorFuncTest
 {
   @NotThreadSafe
-  private static final class MockComparator extends AbstractLongComparator <Long>
+  private static final class MockComparator extends AbstractFloatComparator <Float>
   {
     MockComparator ()
     {}
 
     @Override
-    protected long getAsLong (@Nonnull final Long aInt)
+    protected float getAsFloat (@Nonnull final Float aValue)
     {
-      return aInt.longValue ();
+      return aValue.floatValue ();
     }
   }
 
   @Test
   public void testAll ()
   {
-    final Long [] x = new Long [] { Long.valueOf (3), Long.valueOf (3), Long.valueOf (-56), Long.valueOf (1) };
+    final Float [] x = new Float [] { Float.valueOf (3), Float.valueOf (3), Float.valueOf (-56), Float.valueOf (1) };
 
     // default: sort ascending
-    List <Long> l = CollectionHelper.getSorted (x, new MockComparator ());
+    List <Float> l = CollectionHelper.getSorted (x, new MockComparator ());
     assertNotNull (l);
-    assertEquals (-56, l.get (0).intValue ());
-    assertEquals (1, l.get (1).intValue ());
-    assertEquals (3, l.get (2).intValue ());
-    assertEquals (3, l.get (3).intValue ());
+    PHAssert.assertEquals (-56, l.get (0).doubleValue ());
+    PHAssert.assertEquals (1, l.get (1).doubleValue ());
+    PHAssert.assertEquals (3, l.get (2).doubleValue ());
+    PHAssert.assertEquals (3, l.get (3).doubleValue ());
 
     // Explicitly sort ascending
     l = CollectionHelper.getSorted (x, new MockComparator ().setSortOrder (ESortOrder.ASCENDING));
     assertNotNull (l);
-    assertEquals (-56, l.get (0).intValue ());
-    assertEquals (1, l.get (1).intValue ());
-    assertEquals (3, l.get (2).intValue ());
-    assertEquals (3, l.get (3).intValue ());
+    PHAssert.assertEquals (-56, l.get (0).doubleValue ());
+    PHAssert.assertEquals (1, l.get (1).doubleValue ());
+    PHAssert.assertEquals (3, l.get (2).doubleValue ());
+    PHAssert.assertEquals (3, l.get (3).doubleValue ());
 
     // Explicitly sort descending
     l = CollectionHelper.getSorted (x, new MockComparator ().setSortOrder (ESortOrder.DESCENDING));
     assertNotNull (l);
-    assertEquals (3, l.get (0).intValue ());
-    assertEquals (3, l.get (1).intValue ());
-    assertEquals (1, l.get (2).intValue ());
-    assertEquals (-56, l.get (3).intValue ());
+    PHAssert.assertEquals (3, l.get (0).doubleValue ());
+    PHAssert.assertEquals (3, l.get (1).doubleValue ());
+    PHAssert.assertEquals (1, l.get (2).doubleValue ());
+    PHAssert.assertEquals (-56, l.get (3).doubleValue ());
 
     // change dynamically
-    final AbstractComparator <Long> c = new MockComparator ().setSortOrder (ESortOrder.ASCENDING);
+    final AbstractComparator <Float> c = new MockComparator ().setSortOrder (ESortOrder.ASCENDING);
     l = CollectionHelper.getSorted (x, c);
-    assertEquals (-56, l.get (0).intValue ());
-    assertEquals (1, l.get (1).intValue ());
-    assertEquals (3, l.get (2).intValue ());
-    assertEquals (3, l.get (3).intValue ());
+    PHAssert.assertEquals (-56, l.get (0).doubleValue ());
+    PHAssert.assertEquals (1, l.get (1).doubleValue ());
+    PHAssert.assertEquals (3, l.get (2).doubleValue ());
+    PHAssert.assertEquals (3, l.get (3).doubleValue ());
 
     // change to descending
     l = CollectionHelper.getSorted (x, c.setSortOrder (ESortOrder.DESCENDING));
-    assertEquals (3, l.get (0).intValue ());
-    assertEquals (3, l.get (1).intValue ());
-    assertEquals (1, l.get (2).intValue ());
-    assertEquals (-56, l.get (3).intValue ());
+    PHAssert.assertEquals (3, l.get (0).doubleValue ());
+    PHAssert.assertEquals (3, l.get (1).doubleValue ());
+    PHAssert.assertEquals (1, l.get (2).doubleValue ());
+    PHAssert.assertEquals (-56, l.get (3).doubleValue ());
   }
 
   /**

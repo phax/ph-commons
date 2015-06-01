@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import org.junit.Test;
@@ -46,7 +47,8 @@ public final class AbstractCollationComparatorTest
     }
 
     @Override
-    protected String getAsString (final String sObject)
+    @Nonnull
+    protected String getPart (@Nonnull final String sObject)
     {
       return sObject;
     }

@@ -54,7 +54,8 @@ public class ComparatorString extends AbstractCollationComparator <String>
   }
 
   @Override
-  protected String getAsString (@Nullable final String sValue)
+  @Nonnull
+  protected String getPart (@Nonnull final String sValue)
   {
     return sValue;
   }

@@ -37,6 +37,6 @@ public final class ComparatorLocaleTest extends AbstractPHTestCase
   public void testAll ()
   {
     final Set <Locale> aAll = LocaleCache.getAllLocales ();
-    assertEquals (aAll.size (), CollectionHelper.getSorted (aAll, new ComparatorLocale (L_DE)).size ());
+    assertEquals (aAll.size (), CollectionHelper.getSorted (aAll, new ComparatorLocale ()).size ());
   }
 }

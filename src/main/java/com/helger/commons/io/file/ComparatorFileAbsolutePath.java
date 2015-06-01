@@ -17,13 +17,11 @@
 package com.helger.commons.io.file;
 
 import java.io.File;
-import java.util.Locale;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractCollationComparator;
+import com.helger.commons.compare.AbstractPartComparatorComparable;
 
 /**
  * Sort files by their absolute path name.
@@ -31,15 +29,13 @@ import com.helger.commons.compare.AbstractCollationComparator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorFileAbsolutePath extends AbstractCollationComparator <File>
+public class ComparatorFileAbsolutePath extends AbstractPartComparatorComparable <File, String>
 {
-  public ComparatorFileAbsolutePath (@Nullable final Locale aSortLocale)
-  {
-    super (aSortLocale);
-  }
+  public ComparatorFileAbsolutePath ()
+  {}
 
   @Override
-  protected String getAsString (@Nonnull final File aObject)
+  protected String getPart (@Nonnull final File aObject)
   {
     return aObject.getAbsolutePath ();
   }

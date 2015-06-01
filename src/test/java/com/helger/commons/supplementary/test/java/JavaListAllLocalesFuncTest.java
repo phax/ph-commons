@@ -42,8 +42,7 @@ public final class JavaListAllLocalesFuncTest
   @Test
   public void testListAllSerbianCountries ()
   {
-    for (final Locale aLocale : CollectionHelper.getSorted (Locale.getAvailableLocales (),
-                                                            new ComparatorLocale (Locale.US)))
+    for (final Locale aLocale : CollectionHelper.getSorted (Locale.getAvailableLocales (), new ComparatorLocale ()))
       if (aLocale.getLanguage ().equals ("sr") ||
           aLocale.getLanguage ().equals ("sh") ||
           aLocale.getLanguage ().equals ("bs"))

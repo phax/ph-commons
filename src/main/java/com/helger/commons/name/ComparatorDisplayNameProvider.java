@@ -76,7 +76,7 @@ public class ComparatorDisplayNameProvider <DATATYPE> extends AbstractCollationC
   }
 
   @Override
-  protected String getAsString (final DATATYPE aObject)
+  protected String getPart (@Nonnull final DATATYPE aObject)
   {
     return m_aDisplayNameProvider.getDisplayName (aObject);
   }

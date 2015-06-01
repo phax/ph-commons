@@ -16,13 +16,10 @@
  */
 package com.helger.commons.concurrent;
 
-import java.util.Locale;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractCollationComparator;
+import com.helger.commons.compare.AbstractPartComparatorComparable;
 
 /**
  * {@link java.util.Comparator} for ordering {@link Thread} objects by their
@@ -31,15 +28,13 @@ import com.helger.commons.compare.AbstractCollationComparator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorThreadName extends AbstractCollationComparator <Thread>
+public class ComparatorThreadName extends AbstractPartComparatorComparable <Thread, String>
 {
-  public ComparatorThreadName (@Nullable final Locale aSortLocale)
-  {
-    super (aSortLocale);
-  }
+  public ComparatorThreadName ()
+  {}
 
   @Override
-  protected String getAsString (@Nonnull final Thread aThread)
+  protected String getPart (@Nonnull final Thread aThread)
   {
     return aThread.getName ();
   }

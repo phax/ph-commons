@@ -16,6 +16,7 @@
  */
 package com.helger.commons.name;
 
+import java.text.Collator;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -53,6 +54,21 @@ public class ComparatorHasDisplayText <DATATYPE extends IHasDisplayText> extends
     m_aContentLocale = ValueEnforcer.notNull (aContentLocale, "ContentLocale");
   }
 
+  /**
+   * Constructor.
+   *
+   * @param aCollator
+   *        The {@link Collator} to use. May not be <code>null</code>.
+   * @param aContentLocale
+   *        The locale to be used to retrieve the display text of an object. May
+   *        not be <code>null</code>.
+   */
+  public ComparatorHasDisplayText (@Nonnull final Collator aCollator, @Nonnull final Locale aContentLocale)
+  {
+    super (aCollator);
+    m_aContentLocale = ValueEnforcer.notNull (aContentLocale, "ContentLocale");
+  }
+
   @Nonnull
   public Locale getContentLocale ()
   {
@@ -60,7 +76,7 @@ public class ComparatorHasDisplayText <DATATYPE extends IHasDisplayText> extends
   }
 
   @Override
-  protected String getAsString (final DATATYPE aObject)
+  protected String getPart (@Nonnull final DATATYPE aObject)
   {
     return aObject.getDisplayText (m_aContentLocale);
   }

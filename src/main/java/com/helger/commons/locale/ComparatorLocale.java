@@ -16,14 +16,12 @@
  */
 package com.helger.commons.locale;
 
-import java.text.Collator;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractCollationComparator;
+import com.helger.commons.compare.AbstractPartComparatorComparable;
 
 /**
  * Compare {@link Locale} objects by their String representation.
@@ -31,20 +29,13 @@ import com.helger.commons.compare.AbstractCollationComparator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorLocale extends AbstractCollationComparator <Locale>
+public class ComparatorLocale extends AbstractPartComparatorComparable <Locale, String>
 {
-  public ComparatorLocale (@Nullable final Locale aSortLocale)
-  {
-    super (aSortLocale);
-  }
-
-  public ComparatorLocale (@Nonnull final Collator aCollator)
-  {
-    super (aCollator);
-  }
+  public ComparatorLocale ()
+  {}
 
   @Override
-  protected String getAsString (@Nonnull final Locale aLocale)
+  protected String getPart (@Nonnull final Locale aLocale)
   {
     return aLocale.toString ();
   }

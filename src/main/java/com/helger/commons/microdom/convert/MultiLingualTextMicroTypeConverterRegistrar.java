@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.annotations.IsSPIImplementation;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.collections.CollectionHelper;
@@ -56,8 +55,7 @@ public final class MultiLingualTextMicroTypeConverterRegistrar implements IMicro
     {
       final ISimpleMultiLingualText aMLT = (ISimpleMultiLingualText) aSource;
       final IMicroElement eMText = new MicroElement (sNamespaceURI, sTagName);
-      for (final Locale aLocale : CollectionHelper.getSorted (aMLT.getAllLocales (),
-                                                              new ComparatorLocale (CGlobal.DEFAULT_LOCALE)))
+      for (final Locale aLocale : CollectionHelper.getSorted (aMLT.getAllLocales (), new ComparatorLocale ()))
       {
         final IMicroElement eText = eMText.appendElement (sNamespaceURI, ELEMENT_TEXT);
         eText.setAttribute (ATTR_LOCALE, aLocale.toString ());

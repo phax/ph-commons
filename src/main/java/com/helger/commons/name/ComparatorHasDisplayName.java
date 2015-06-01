@@ -18,6 +18,7 @@ package com.helger.commons.name;
 
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
@@ -46,7 +47,7 @@ public class ComparatorHasDisplayName <DATATYPE extends IHasDisplayName> extends
   }
 
   @Override
-  protected String getAsString (final DATATYPE aObject)
+  protected String getPart (@Nonnull final DATATYPE aObject)
   {
     return aObject.getDisplayName ();
   }

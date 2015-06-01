@@ -43,13 +43,13 @@ public class ComparatorLocaleDisplayNameInLocale extends AbstractCollationCompar
   }
 
   @Nonnull
-  public Locale getContentLocale ()
+  public final Locale getContentLocale ()
   {
     return m_aContentLocale;
   }
 
   @Override
-  protected String getAsString (@Nullable final Locale aLocale)
+  protected String getPart (@Nullable final Locale aLocale)
   {
     return LocaleUtils.getLocaleDisplayName (aLocale, m_aContentLocale);
   }

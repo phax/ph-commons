@@ -35,7 +35,7 @@ public final class ComparatorThreadNameTest extends AbstractPHTestCase
   public void testBasic ()
   {
     final List <Thread> aList = CollectionHelper.newList (new Thread ("name1"), new Thread ("name2"));
-    CollectionHelper.getSortedInline (aList, new ComparatorThreadName (L_DE));
-    CollectionHelper.getSortedInline (aList, new ComparatorThreadName (L_DE).setSortOrder (ESortOrder.DESCENDING));
+    CollectionHelper.getSortedInline (aList, new ComparatorThreadName ());
+    CollectionHelper.getSortedInline (aList, new ComparatorThreadName ().setSortOrder (ESortOrder.DESCENDING));
   }
 }

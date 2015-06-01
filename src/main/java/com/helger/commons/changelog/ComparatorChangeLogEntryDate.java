@@ -19,7 +19,8 @@ package com.helger.commons.changelog;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractLongComparator;
+import com.helger.commons.compare.AbstractComparator;
+import com.helger.commons.compare.CompareUtils;
 
 /**
  * Special comparator to sort change log entries by their date and in case of
@@ -28,19 +29,22 @@ import com.helger.commons.compare.AbstractLongComparator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorChangeLogEntryDate extends AbstractLongComparator <ChangeLogEntry>
+public class ComparatorChangeLogEntryDate extends AbstractComparator <ChangeLogEntry>
 {
   /**
    * Comparator with default sort order and no nested comparator.
    */
   public ComparatorChangeLogEntryDate ()
-  {
-    setNestedComparator (new ComparatorChangeLogEntryComponent ());
-  }
+  {}
 
   @Override
-  protected long getAsLong (@Nonnull final ChangeLogEntry aObject)
+  protected int mainCompare (@Nonnull final ChangeLogEntry aElement1, @Nonnull final ChangeLogEntry aElement2)
   {
-    return aObject.getDate ().getTime ();
+    int ret = CompareUtils.compare (aElement1.getDate ().getTime (), aElement2.getDate ().getTime ());
+    if (ret == 0)
+    {
+      ret = aElement1.getChangeLog ().getComponent ().compareTo (aElement2.getChangeLog ().getComponent ());
+    }
+    return ret;
   }
 }

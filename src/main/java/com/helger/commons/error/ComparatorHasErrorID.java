@@ -16,14 +16,11 @@
  */
 package com.helger.commons.error;
 
-import java.text.Collator;
-import java.util.Locale;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractCollationComparator;
+import com.helger.commons.compare.AbstractPartComparatorComparable;
 
 /**
  * Special comparator that compares based on an error ID
@@ -33,33 +30,14 @@ import com.helger.commons.compare.AbstractCollationComparator;
  *        Data type
  */
 @NotThreadSafe
-public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends AbstractCollationComparator <DATATYPE>
+public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends AbstractPartComparatorComparable <DATATYPE, String>
 {
-  /**
-   * Comparator with default sort order and specified sort locale.
-   *
-   * @param aSortLocale
-   *        The locale to use. May be <code>null</code>.
-   */
-  public ComparatorHasErrorID (@Nullable final Locale aSortLocale)
-  {
-    super (aSortLocale);
-  }
-
-  /**
-   * Constructor with {@link Collator} using the default sort order
-   *
-   * @param aCollator
-   *        The {@link Collator} to use. May not be <code>null</code>.
-   */
-  public ComparatorHasErrorID (@Nonnull final Collator aCollator)
-  {
-    super (aCollator);
-  }
+  public ComparatorHasErrorID ()
+  {}
 
   @Override
   @Nullable
-  protected String getAsString (@Nonnull final DATATYPE aObject)
+  protected String getPart (@Nonnull final DATATYPE aObject)
   {
     return aObject.getErrorID ();
   }

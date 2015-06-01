@@ -31,32 +31,35 @@ import org.junit.Test;
 import com.helger.commons.collections.CollectionHelper;
 
 /**
- * Test class for {@link AbstractLongComparator}
+ * Test class for {@link AbstractIntComparator}
  *
  * @author Philip Helger
  */
-public final class AbstractLongComparatorFuncTest
+public final class AbstractIntComparatorFuncTest
 {
   @NotThreadSafe
-  private static final class MockComparator extends AbstractLongComparator <Long>
+  private static final class MockComparator extends AbstractIntComparator <Integer>
   {
     MockComparator ()
     {}
 
     @Override
-    protected long getAsLong (@Nonnull final Long aInt)
+    protected int getAsInt (@Nonnull final Integer aInt)
     {
-      return aInt.longValue ();
+      return aInt.intValue ();
     }
   }
 
   @Test
   public void testAll ()
   {
-    final Long [] x = new Long [] { Long.valueOf (3), Long.valueOf (3), Long.valueOf (-56), Long.valueOf (1) };
+    final Integer [] x = new Integer [] { Integer.valueOf (3),
+                                         Integer.valueOf (3),
+                                         Integer.valueOf (-56),
+                                         Integer.valueOf (1) };
 
     // default: sort ascending
-    List <Long> l = CollectionHelper.getSorted (x, new MockComparator ());
+    List <Integer> l = CollectionHelper.getSorted (x, new MockComparator ());
     assertNotNull (l);
     assertEquals (-56, l.get (0).intValue ());
     assertEquals (1, l.get (1).intValue ());
@@ -80,7 +83,7 @@ public final class AbstractLongComparatorFuncTest
     assertEquals (-56, l.get (3).intValue ());
 
     // change dynamically
-    final AbstractComparator <Long> c = new MockComparator ().setSortOrder (ESortOrder.ASCENDING);
+    final AbstractComparator <Integer> c = new MockComparator ().setSortOrder (ESortOrder.ASCENDING);
     l = CollectionHelper.getSorted (x, c);
     assertEquals (-56, l.get (0).intValue ());
     assertEquals (1, l.get (1).intValue ());
