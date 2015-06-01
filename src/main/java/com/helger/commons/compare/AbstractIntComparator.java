@@ -16,7 +16,6 @@
  */
 package com.helger.commons.compare;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 /**
@@ -32,20 +31,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 public abstract class AbstractIntComparator <DATATYPE> extends AbstractComparator <DATATYPE>
 {
   public AbstractIntComparator ()
-  {
-    super ();
-  }
-
-  /**
-   * Compare with a special order.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public AbstractIntComparator (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
+  {}
 
   /**
    * Protected method to convert the passed object into an int value.

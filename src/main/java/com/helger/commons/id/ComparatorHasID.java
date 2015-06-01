@@ -23,7 +23,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractPartComparator;
-import com.helger.commons.compare.ESortOrder;
 
 /**
  * This is a collation {@link java.util.Comparator} for objects that implement
@@ -48,19 +47,6 @@ public class ComparatorHasID <IDTYPE, DATATYPE extends IHasID <IDTYPE>> extends 
   public ComparatorHasID (@Nonnull final Comparator <? super IDTYPE> aIDComparator)
   {
     super (aIDComparator);
-  }
-
-  /**
-   * Constructor with sort order and no nested comparator.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   * @param aIDComparator
-   *        The comparator for comparing the IDs. May not be <code>null</code>.
-   */
-  public ComparatorHasID (@Nonnull final ESortOrder eSortOrder, @Nonnull final Comparator <? super IDTYPE> aIDComparator)
-  {
-    super (eSortOrder, aIDComparator);
   }
 
   @Override

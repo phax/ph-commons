@@ -36,27 +36,14 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public abstract class AbstractComparator <DATATYPE> implements Comparator <DATATYPE>, Serializable
 {
-  private ESortOrder m_eSortOrder;
+  private ESortOrder m_eSortOrder = ESortOrder.DEFAULT;
   private Comparator <? super DATATYPE> m_aNestedComparator;
 
   /**
    * Comparator with default sort order and no nested comparator.
    */
   public AbstractComparator ()
-  {
-    this (ESortOrder.DEFAULT);
-  }
-
-  /**
-   * Constructor with sort order.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public AbstractComparator (@Nonnull final ESortOrder eSortOrder)
-  {
-    m_eSortOrder = ValueEnforcer.notNull (eSortOrder, "SortOrder");
-  }
+  {}
 
   /**
    * @return The currently assigned sort order. Never <code>null</code>.

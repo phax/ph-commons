@@ -21,7 +21,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractPartComparatorComparable;
-import com.helger.commons.compare.ESortOrder;
 
 /**
  * Special comparator to sort change logs by their component.
@@ -35,20 +34,7 @@ public class ComparatorChangeLogComponent extends AbstractPartComparatorComparab
    * Comparator with default sort order and no nested comparator.
    */
   public ComparatorChangeLogComponent ()
-  {
-    super ();
-  }
-
-  /**
-   * Constructor with sort order.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public ComparatorChangeLogComponent (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
+  {}
 
   @Override
   @Nullable

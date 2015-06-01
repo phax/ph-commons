@@ -16,7 +16,6 @@
  */
 package com.helger.commons.compare;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
@@ -37,20 +36,7 @@ public abstract class AbstractPartComparatorComparable <DATATYPE, PARTTYPE exten
    * Comparator with default sort order.
    */
   public AbstractPartComparatorComparable ()
-  {
-    super ();
-  }
-
-  /**
-   * Constructor with sort order.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public AbstractPartComparatorComparable (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
+  {}
 
   @Nullable
   protected abstract PARTTYPE getPart (DATATYPE aObject);

@@ -16,10 +16,8 @@
  */
 package com.helger.commons.tree.utils.sort;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 
 /**
@@ -39,18 +37,5 @@ public class ComparatorDefaultTreeItemWithIDDataComparable <IDTYPE, DATATYPE ext
    * Comparator with default sort order.
    */
   public ComparatorDefaultTreeItemWithIDDataComparable ()
-  {
-    super ();
-  }
-
-  /**
-   * Constructor with sort order.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public ComparatorDefaultTreeItemWithIDDataComparable (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
+  {}
 }

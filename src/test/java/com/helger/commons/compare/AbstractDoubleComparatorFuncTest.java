@@ -44,11 +44,6 @@ public final class AbstractDoubleComparatorFuncTest
     MockComparator ()
     {}
 
-    MockComparator (final ESortOrder eSortOrder)
-    {
-      super (eSortOrder);
-    }
-
     @Override
     protected double getAsDouble (@Nullable final Double aValue)
     {
@@ -73,7 +68,7 @@ public final class AbstractDoubleComparatorFuncTest
     PHAssert.assertEquals (3, l.get (3).doubleValue ());
 
     // Explicitly sort ascending
-    l = CollectionHelper.getSorted (x, new MockComparator (ESortOrder.ASCENDING));
+    l = CollectionHelper.getSorted (x, new MockComparator ().setSortOrder (ESortOrder.ASCENDING));
     assertNotNull (l);
     PHAssert.assertEquals (-56, l.get (0).doubleValue ());
     PHAssert.assertEquals (1, l.get (1).doubleValue ());
@@ -81,7 +76,7 @@ public final class AbstractDoubleComparatorFuncTest
     PHAssert.assertEquals (3, l.get (3).doubleValue ());
 
     // Explicitly sort descending
-    l = CollectionHelper.getSorted (x, new MockComparator (ESortOrder.DESCENDING));
+    l = CollectionHelper.getSorted (x, new MockComparator ().setSortOrder (ESortOrder.DESCENDING));
     assertNotNull (l);
     PHAssert.assertEquals (3, l.get (0).doubleValue ());
     PHAssert.assertEquals (3, l.get (1).doubleValue ());
@@ -89,7 +84,7 @@ public final class AbstractDoubleComparatorFuncTest
     PHAssert.assertEquals (-56, l.get (3).doubleValue ());
 
     // change dynamically
-    final MockComparator c = new MockComparator (ESortOrder.ASCENDING);
+    final AbstractComparator <Double> c = new MockComparator ().setSortOrder (ESortOrder.ASCENDING);
     l = CollectionHelper.getSorted (x, c);
     PHAssert.assertEquals (-56, l.get (0).doubleValue ());
     PHAssert.assertEquals (1, l.get (1).doubleValue ());
@@ -111,6 +106,6 @@ public final class AbstractDoubleComparatorFuncTest
   public void testIsAscending ()
   {
     assertTrue (new MockComparator ().getSortOrder ().isAscending ());
-    assertFalse (new MockComparator (ESortOrder.DESCENDING).getSortOrder ().isAscending ());
+    assertFalse (new MockComparator ().setSortOrder (ESortOrder.DESCENDING).getSortOrder ().isAscending ());
   }
 }

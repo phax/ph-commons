@@ -20,7 +20,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractLongComparator;
-import com.helger.commons.compare.ESortOrder;
 
 /**
  * Special comparator to sort change log entries by their date and in case of
@@ -36,18 +35,6 @@ public class ComparatorChangeLogEntryDate extends AbstractLongComparator <Change
    */
   public ComparatorChangeLogEntryDate ()
   {
-    this (ESortOrder.DEFAULT);
-  }
-
-  /**
-   * Constructor with sort order.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public ComparatorChangeLogEntryDate (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
     setNestedComparator (new ComparatorChangeLogEntryComponent ());
   }
 

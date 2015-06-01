@@ -16,7 +16,6 @@
  */
 package com.helger.commons.compare;
 
-import javax.annotation.Nonnull;
 
 /**
  * Abstract comparator that handles values that can be represented as double
@@ -32,17 +31,6 @@ public abstract class AbstractDoubleComparator <DATATYPE> extends AbstractCompar
   public AbstractDoubleComparator ()
   {
     super ();
-  }
-
-  /**
-   * Compare with a special order.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public AbstractDoubleComparator (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
   }
 
   /**

@@ -21,7 +21,6 @@ import java.util.Comparator;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 
 /**
@@ -46,19 +45,5 @@ public class ComparatorDefaultTreeItemWithIDData <IDTYPE, DATATYPE> extends Comp
   public ComparatorDefaultTreeItemWithIDData (@Nonnull final Comparator <? super DATATYPE> aDataComparator)
   {
     super (aDataComparator);
-  }
-
-  /**
-   * Constructor with sort order.
-   *
-   * @param aDataComparator
-   *        Comparator for the data elements. May not be <code>null</code>.
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public ComparatorDefaultTreeItemWithIDData (@Nonnull final ESortOrder eSortOrder,
-                                              @Nonnull final Comparator <? super DATATYPE> aDataComparator)
-  {
-    super (eSortOrder, aDataComparator);
   }
 }

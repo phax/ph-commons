@@ -36,19 +36,21 @@ public final class ComparatorHasIDIntegerTest
   public void testAll ()
   {
     final List <? extends IHasID <Integer>> aList = CollectionHelper.newList (new MockHasIDInteger (5),
-                                                                             new MockHasIDInteger (3),
-                                                                             new MockHasIDInteger (7));
+                                                                              new MockHasIDInteger (3),
+                                                                              new MockHasIDInteger (7));
     CollectionHelper.getSortedInline (aList, new ComparatorHasIDInteger <IHasID <Integer>> ());
     assertEquals (3, aList.get (0).getID ().intValue ());
     assertEquals (5, aList.get (1).getID ().intValue ());
     assertEquals (7, aList.get (2).getID ().intValue ());
 
-    CollectionHelper.getSortedInline (aList, new ComparatorHasIDInteger <IHasID <Integer>> (ESortOrder.ASCENDING));
+    CollectionHelper.getSortedInline (aList,
+                                      new ComparatorHasIDInteger <IHasID <Integer>> ().setSortOrder (ESortOrder.ASCENDING));
     assertEquals (3, aList.get (0).getID ().intValue ());
     assertEquals (5, aList.get (1).getID ().intValue ());
     assertEquals (7, aList.get (2).getID ().intValue ());
 
-    CollectionHelper.getSortedInline (aList, new ComparatorHasIDInteger <IHasID <Integer>> (ESortOrder.DESCENDING));
+    CollectionHelper.getSortedInline (aList,
+                                      new ComparatorHasIDInteger <IHasID <Integer>> ().setSortOrder (ESortOrder.DESCENDING));
     assertEquals (7, aList.get (0).getID ().intValue ());
     assertEquals (5, aList.get (1).getID ().intValue ());
     assertEquals (3, aList.get (2).getID ().intValue ());

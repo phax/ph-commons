@@ -36,9 +36,7 @@ public class ComparatorComparable <DATATYPE extends Comparable <? super DATATYPE
    * Comparator with default sort order and no nested comparator.
    */
   public ComparatorComparable ()
-  {
-    super ();
-  }
+  {}
 
   @Override
   protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)

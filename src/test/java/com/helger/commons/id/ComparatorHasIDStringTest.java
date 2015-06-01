@@ -36,19 +36,21 @@ public final class ComparatorHasIDStringTest
   public void testAll ()
   {
     final List <? extends IHasID <String>> aList = CollectionHelper.newList (new MockHasIDString (5),
-                                                                            new MockHasIDString (3),
-                                                                            new MockHasIDString (7));
+                                                                             new MockHasIDString (3),
+                                                                             new MockHasIDString (7));
     CollectionHelper.getSortedInline (aList, new ComparatorHasIDString <IHasID <String>> ());
     assertEquals ("3", aList.get (0).getID ());
     assertEquals ("5", aList.get (1).getID ());
     assertEquals ("7", aList.get (2).getID ());
 
-    CollectionHelper.getSortedInline (aList, new ComparatorHasIDString <IHasID <String>> (ESortOrder.ASCENDING));
+    CollectionHelper.getSortedInline (aList,
+                                      new ComparatorHasIDString <IHasID <String>> ().setSortOrder (ESortOrder.ASCENDING));
     assertEquals ("3", aList.get (0).getID ());
     assertEquals ("5", aList.get (1).getID ());
     assertEquals ("7", aList.get (2).getID ());
 
-    CollectionHelper.getSortedInline (aList, new ComparatorHasIDString <IHasID <String>> (ESortOrder.DESCENDING));
+    CollectionHelper.getSortedInline (aList,
+                                      new ComparatorHasIDString <IHasID <String>> ().setSortOrder (ESortOrder.DESCENDING));
     assertEquals ("7", aList.get (0).getID ());
     assertEquals ("5", aList.get (1).getID ());
     assertEquals ("3", aList.get (2).getID ());

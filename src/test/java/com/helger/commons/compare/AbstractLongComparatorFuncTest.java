@@ -44,11 +44,6 @@ public final class AbstractLongComparatorFuncTest
     MockComparator ()
     {}
 
-    MockComparator (final ESortOrder eSortOrder)
-    {
-      super (eSortOrder);
-    }
-
     @Override
     protected long getAsLong (@Nullable final Integer aInt)
     {
@@ -73,7 +68,7 @@ public final class AbstractLongComparatorFuncTest
     assertEquals (3, l.get (3).intValue ());
 
     // Explicitly sort ascending
-    l = CollectionHelper.getSorted (x, new MockComparator (ESortOrder.ASCENDING));
+    l = CollectionHelper.getSorted (x, new MockComparator ().setSortOrder (ESortOrder.ASCENDING));
     assertNotNull (l);
     assertEquals (-56, l.get (0).intValue ());
     assertEquals (1, l.get (1).intValue ());
@@ -81,7 +76,7 @@ public final class AbstractLongComparatorFuncTest
     assertEquals (3, l.get (3).intValue ());
 
     // Explicitly sort descending
-    l = CollectionHelper.getSorted (x, new MockComparator (ESortOrder.DESCENDING));
+    l = CollectionHelper.getSorted (x, new MockComparator ().setSortOrder (ESortOrder.DESCENDING));
     assertNotNull (l);
     assertEquals (3, l.get (0).intValue ());
     assertEquals (3, l.get (1).intValue ());
@@ -89,7 +84,7 @@ public final class AbstractLongComparatorFuncTest
     assertEquals (-56, l.get (3).intValue ());
 
     // change dynamically
-    final MockComparator c = new MockComparator (ESortOrder.ASCENDING);
+    final AbstractComparator <Integer> c = new MockComparator ().setSortOrder (ESortOrder.ASCENDING);
     l = CollectionHelper.getSorted (x, c);
     assertEquals (-56, l.get (0).intValue ());
     assertEquals (1, l.get (1).intValue ());
@@ -111,7 +106,6 @@ public final class AbstractLongComparatorFuncTest
   public void testIsAscending ()
   {
     assertTrue (new MockComparator ().getSortOrder ().isAscending ());
-    assertFalse (new MockComparator (ESortOrder.DESCENDING).getSortOrder ().isAscending ());
     assertFalse (new MockComparator ().setSortOrder (ESortOrder.DESCENDING).getSortOrder ().isAscending ());
   }
 }

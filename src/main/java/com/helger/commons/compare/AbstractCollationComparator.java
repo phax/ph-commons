@@ -65,6 +65,10 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
     m_aCollator = (Collator) aCollator.clone ();
   }
 
+  /**
+   * @return A copy of the {@link Collator} as passed or created in the
+   *         constructor. Never <code>null</code>.
+   */
   @Nonnull
   @ReturnsMutableCopy
   public final Collator getCollator ()

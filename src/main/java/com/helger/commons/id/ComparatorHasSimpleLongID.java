@@ -16,13 +16,11 @@
  */
 package com.helger.commons.id;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.compare.AbstractLongComparator;
-import com.helger.commons.compare.ESortOrder;
 
 /**
  * This is a collation {@link java.util.Comparator} for objects that implement
@@ -39,20 +37,7 @@ public class ComparatorHasSimpleLongID <DATATYPE extends IHasSimpleLongID> exten
    * Comparator with default sort order and no nested comparator.
    */
   public ComparatorHasSimpleLongID ()
-  {
-    super ();
-  }
-
-  /**
-   * Constructor with sort order.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public ComparatorHasSimpleLongID (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
+  {}
 
   @Override
   protected long getAsLong (@Nullable final DATATYPE aObject)

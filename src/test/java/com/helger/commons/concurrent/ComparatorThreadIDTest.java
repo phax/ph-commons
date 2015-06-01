@@ -35,6 +35,6 @@ public final class ComparatorThreadIDTest
   {
     final List <Thread> aList = CollectionHelper.newList (new Thread ("name1"), new Thread ("name2"));
     CollectionHelper.getSortedInline (aList, new ComparatorThreadID ());
-    CollectionHelper.getSortedInline (aList, new ComparatorThreadID (ESortOrder.DESCENDING));
+    CollectionHelper.getSortedInline (aList, new ComparatorThreadID ().setSortOrder (ESortOrder.DESCENDING));
   }
 }

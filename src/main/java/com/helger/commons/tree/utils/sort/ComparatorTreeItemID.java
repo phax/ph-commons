@@ -21,7 +21,6 @@ import java.util.Comparator;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.id.ComparatorHasID;
 import com.helger.commons.tree.withid.ITreeItemWithID;
 
@@ -49,19 +48,5 @@ public class ComparatorTreeItemID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItem
   public ComparatorTreeItemID (@Nonnull final Comparator <? super KEYTYPE> aIDComparator)
   {
     super (aIDComparator);
-  }
-
-  /**
-   * Constructor with sort order and no nested comparator.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   * @param aIDComparator
-   *        The comparator for comparing the IDs. May not be <code>null</code>.
-   */
-  public ComparatorTreeItemID (@Nonnull final ESortOrder eSortOrder,
-                               @Nonnull final Comparator <? super KEYTYPE> aIDComparator)
-  {
-    super (eSortOrder, aIDComparator);
   }
 }

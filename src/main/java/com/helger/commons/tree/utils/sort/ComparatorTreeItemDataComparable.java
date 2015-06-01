@@ -21,7 +21,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractPartComparatorComparable;
-import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.tree.IBasicTreeItem;
 
 /**
@@ -43,20 +42,7 @@ public class ComparatorTreeItemDataComparable <DATATYPE extends Comparable <? su
    * Comparator with default sort order.
    */
   public ComparatorTreeItemDataComparable ()
-  {
-    super ();
-  }
-
-  /**
-   * Constructor with sort order.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public ComparatorTreeItemDataComparable (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
+  {}
 
   @Override
   @Nullable

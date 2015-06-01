@@ -16,10 +16,7 @@
  */
 package com.helger.commons.id;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.compare.ESortOrder;
 
 /**
  * This is a collation {@link java.util.Comparator} for objects that implement
@@ -36,18 +33,5 @@ public class ComparatorHasIDString <DATATYPE extends IHasID <String>> extends Co
    * Comparator with default sort order and no nested comparator.
    */
   public ComparatorHasIDString ()
-  {
-    super ();
-  }
-
-  /**
-   * Constructor with sort order.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public ComparatorHasIDString (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
+  {}
 }

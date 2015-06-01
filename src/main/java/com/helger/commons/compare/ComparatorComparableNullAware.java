@@ -41,9 +41,7 @@ public class ComparatorComparableNullAware <DATATYPE extends Comparable <? super
    * Comparator with default sort order.
    */
   public ComparatorComparableNullAware ()
-  {
-    super ();
-  }
+  {}
 
   public final boolean isNullValuesComeFirst ()
   {

@@ -21,7 +21,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractPartComparatorComparable;
-import com.helger.commons.compare.ESortOrder;
 
 /**
  * Comparator comparing {@link ITriple} objects by the third element
@@ -38,14 +37,7 @@ import com.helger.commons.compare.ESortOrder;
 public class ComparatorTripleThird <DATA1TYPE, DATA2TYPE, DATA3TYPE extends Comparable <? super DATA3TYPE>> extends AbstractPartComparatorComparable <ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>, DATA3TYPE>
 {
   public ComparatorTripleThird ()
-  {
-    super ();
-  }
-
-  public ComparatorTripleThird (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
+  {}
 
   @Override
   @Nullable

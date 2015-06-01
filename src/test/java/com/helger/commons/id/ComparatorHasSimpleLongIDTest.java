@@ -36,19 +36,21 @@ public final class ComparatorHasSimpleLongIDTest
   public void testAll ()
   {
     final List <? extends IHasSimpleLongID> aList = CollectionHelper.newList (new MockHasSimpleLongID (5),
-                                                                             new MockHasSimpleLongID (3),
-                                                                             new MockHasSimpleLongID (7));
+                                                                              new MockHasSimpleLongID (3),
+                                                                              new MockHasSimpleLongID (7));
     CollectionHelper.getSortedInline (aList, new ComparatorHasSimpleLongID <IHasSimpleLongID> ());
     assertEquals (3, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (7, aList.get (2).getID ());
 
-    CollectionHelper.getSortedInline (aList, new ComparatorHasSimpleLongID <IHasSimpleLongID> (ESortOrder.ASCENDING));
+    CollectionHelper.getSortedInline (aList,
+                                      new ComparatorHasSimpleLongID <IHasSimpleLongID> ().setSortOrder (ESortOrder.ASCENDING));
     assertEquals (3, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (7, aList.get (2).getID ());
 
-    CollectionHelper.getSortedInline (aList, new ComparatorHasSimpleLongID <IHasSimpleLongID> (ESortOrder.DESCENDING));
+    CollectionHelper.getSortedInline (aList,
+                                      new ComparatorHasSimpleLongID <IHasSimpleLongID> ().setSortOrder (ESortOrder.DESCENDING));
     assertEquals (7, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (3, aList.get (2).getID ());

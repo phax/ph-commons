@@ -16,13 +16,11 @@
  */
 package com.helger.commons.concurrent;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.compare.AbstractLongComparator;
-import com.helger.commons.compare.ESortOrder;
 
 /**
  * {@link java.util.Comparator} for ordering {@link Thread} objects by their ID.
@@ -33,14 +31,7 @@ import com.helger.commons.compare.ESortOrder;
 public class ComparatorThreadID extends AbstractLongComparator <Thread>
 {
   public ComparatorThreadID ()
-  {
-    super ();
-  }
-
-  public ComparatorThreadID (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
+  {}
 
   @Override
   protected long getAsLong (@Nullable final Thread aThread)

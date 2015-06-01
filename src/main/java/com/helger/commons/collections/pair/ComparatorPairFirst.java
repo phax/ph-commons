@@ -21,7 +21,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractPartComparatorComparable;
-import com.helger.commons.compare.ESortOrder;
 
 /**
  * Comparator comparing {@link IPair} objects by the first element
@@ -36,14 +35,7 @@ import com.helger.commons.compare.ESortOrder;
 public class ComparatorPairFirst <DATA1TYPE extends Comparable <? super DATA1TYPE>, DATA2TYPE> extends AbstractPartComparatorComparable <IPair <DATA1TYPE, DATA2TYPE>, DATA1TYPE>
 {
   public ComparatorPairFirst ()
-  {
-    super ();
-  }
-
-  public ComparatorPairFirst (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
+  {}
 
   @Override
   @Nullable
