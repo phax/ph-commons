@@ -16,6 +16,7 @@
  */
 package com.helger.commons.compare;
 
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 /**
@@ -40,10 +41,10 @@ public abstract class AbstractIntComparator <DATATYPE> extends AbstractComparato
    *        The source object
    * @return The result int value.
    */
-  protected abstract int getAsInt (DATATYPE aObject);
+  protected abstract int getAsInt (@Nonnull DATATYPE aObject);
 
   @Override
-  protected final int mainCompare (final DATATYPE aElement1, final DATATYPE aElement2)
+  protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)
   {
     final int n1 = getAsInt (aElement1);
     final int n2 = getAsInt (aElement2);

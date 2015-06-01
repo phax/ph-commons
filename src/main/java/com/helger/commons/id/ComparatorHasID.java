@@ -51,7 +51,7 @@ public class ComparatorHasID <IDTYPE, DATATYPE extends IHasID <IDTYPE>> extends 
 
   @Override
   @Nullable
-  protected IDTYPE getPart (final DATATYPE aObject)
+  protected IDTYPE getPart (@Nonnull final DATATYPE aObject)
   {
     return aObject.getID ();
   }

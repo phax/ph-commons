@@ -37,7 +37,9 @@ public class ComparatorQName extends AbstractComparator <QName>
   @Override
   protected int mainCompare (@Nonnull final QName aElement1, @Nonnull final QName aElement2)
   {
-    int ret = CompareUtils.nullSafeCompare (aElement1.getNamespaceURI (), aElement2.getNamespaceURI ());
+    int ret = CompareUtils.nullSafeCompare (aElement1.getNamespaceURI (),
+                                            aElement2.getNamespaceURI (),
+                                            isNullValuesComeFirst ());
     if (ret == 0)
       ret = aElement1.getLocalPart ().compareTo (aElement2.getLocalPart ());
     return ret;

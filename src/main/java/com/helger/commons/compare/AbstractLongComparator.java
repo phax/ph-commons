@@ -16,6 +16,7 @@
  */
 package com.helger.commons.compare;
 
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 /**
@@ -40,10 +41,10 @@ public abstract class AbstractLongComparator <DATATYPE> extends AbstractComparat
    *        The source object
    * @return The result long value.
    */
-  protected abstract long getAsLong (DATATYPE aObject);
+  protected abstract long getAsLong (@Nonnull DATATYPE aObject);
 
   @Override
-  protected final int mainCompare (final DATATYPE aElement1, final DATATYPE aElement2)
+  protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)
   {
     final long n1 = getAsLong (aElement1);
     final long n2 = getAsLong (aElement2);

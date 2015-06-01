@@ -23,12 +23,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import org.junit.Test;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.collections.CollectionHelper;
 
 /**
@@ -45,9 +44,9 @@ public final class AbstractLongComparatorFuncTest
     {}
 
     @Override
-    protected long getAsLong (@Nullable final Integer aInt)
+    protected long getAsLong (@Nonnull final Integer aInt)
     {
-      return aInt == null ? CGlobal.ILLEGAL_ULONG : aInt.longValue ();
+      return aInt.longValue ();
     }
   }
 

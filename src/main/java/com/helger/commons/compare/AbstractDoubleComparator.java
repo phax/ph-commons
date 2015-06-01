@@ -16,6 +16,7 @@
  */
 package com.helger.commons.compare;
 
+import javax.annotation.Nonnull;
 
 /**
  * Abstract comparator that handles values that can be represented as double
@@ -40,10 +41,10 @@ public abstract class AbstractDoubleComparator <DATATYPE> extends AbstractCompar
    *        The source object
    * @return The result double value.
    */
-  protected abstract double getAsDouble (DATATYPE aObject);
+  protected abstract double getAsDouble (@Nonnull DATATYPE aObject);
 
   @Override
-  protected final int mainCompare (final DATATYPE aElement1, final DATATYPE aElement2)
+  protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)
   {
     final double d1 = getAsDouble (aElement1);
     final double d2 = getAsDouble (aElement2);

@@ -22,12 +22,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import org.junit.Test;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.PHAssert;
 
@@ -45,9 +44,9 @@ public final class AbstractDoubleComparatorFuncTest
     {}
 
     @Override
-    protected double getAsDouble (@Nullable final Double aValue)
+    protected double getAsDouble (@Nonnull final Double aValue)
     {
-      return aValue == null ? CGlobal.ILLEGAL_DOUBLE : aValue.doubleValue ();
+      return aValue.doubleValue ();
     }
   }
 

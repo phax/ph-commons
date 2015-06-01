@@ -14,27 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.concurrent;
+package com.helger.commons.compare;
+
+import java.util.Comparator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import javax.annotation.Nullable;
 
-import com.helger.commons.compare.AbstractLongComparator;
-
-/**
- * {@link java.util.Comparator} for ordering {@link Thread} objects by their ID.
- *
- * @author Philip Helger
- */
-@NotThreadSafe
-public class ComparatorThreadID extends AbstractLongComparator <Thread>
+public class ComparatorMapKey <KEYTYPE, VALUETYPE> extends AbstractPartComparator <Map.Entry <KEYTYPE, VALUETYPE>, KEYTYPE>
 {
-  public ComparatorThreadID ()
-  {}
+  public ComparatorMapKey (@Nonnull final Comparator <? super KEYTYPE> aPartComparator)
+  {
+    super (aPartComparator);
+  }
 
   @Override
-  protected long getAsLong (@Nonnull final Thread aThread)
+  @Nullable
+  protected KEYTYPE getPart (@Nonnull final Entry <KEYTYPE, VALUETYPE> aObject)
   {
-    return aThread.getId ();
+    return aObject.getKey ();
   }
 }

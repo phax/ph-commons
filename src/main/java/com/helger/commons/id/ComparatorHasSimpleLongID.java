@@ -16,10 +16,9 @@
  */
 package com.helger.commons.id;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.compare.AbstractLongComparator;
 
 /**
@@ -40,8 +39,8 @@ public class ComparatorHasSimpleLongID <DATATYPE extends IHasSimpleLongID> exten
   {}
 
   @Override
-  protected long getAsLong (@Nullable final DATATYPE aObject)
+  protected long getAsLong (@Nonnull final DATATYPE aObject)
   {
-    return aObject == null ? CGlobal.ILLEGAL_ULONG : aObject.getID ();
+    return aObject.getID ();
   }
 }

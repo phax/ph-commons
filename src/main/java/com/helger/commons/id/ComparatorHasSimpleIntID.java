@@ -16,10 +16,9 @@
  */
 package com.helger.commons.id;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.compare.AbstractIntComparator;
 
 /**
@@ -40,8 +39,8 @@ public class ComparatorHasSimpleIntID <DATATYPE extends IHasSimpleIntID> extends
   {}
 
   @Override
-  protected int getAsInt (@Nullable final DATATYPE aObject)
+  protected int getAsInt (@Nonnull final DATATYPE aObject)
   {
-    return aObject == null ? CGlobal.ILLEGAL_UINT : aObject.getID ();
+    return aObject.getID ();
   }
 }

@@ -28,15 +28,13 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * An abstract implementation of a {@link java.util.Comparator} that uses
- * collations for ordering. This is only necessary when comparing strings.
+ * An implementation of a {@link java.util.Comparator} that compares
+ * {@link String} objects with a {@link Collator}.
  *
  * @author Philip Helger
- * @param <DATATYPE>
- *        the type of object to be compared
  */
 @NotThreadSafe
-public abstract class AbstractCollationComparator <DATATYPE> extends AbstractComparator <DATATYPE>
+public class ComparatorStringWithCollator extends AbstractComparator <String>
 {
   private final Collator m_aCollator;
 
@@ -46,7 +44,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
    * @param aSortLocale
    *        The locale to use. May be <code>null</code>.
    */
-  public AbstractCollationComparator (@Nullable final Locale aSortLocale)
+  public ComparatorStringWithCollator (@Nullable final Locale aSortLocale)
   {
     m_aCollator = CollatorUtils.getCollatorSpaceBeforeDot (aSortLocale);
   }
@@ -57,7 +55,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
    * @param aCollator
    *        The {@link Collator} to use. May not be <code>null</code>.
    */
-  public AbstractCollationComparator (@Nonnull final Collator aCollator)
+  public ComparatorStringWithCollator (@Nonnull final Collator aCollator)
   {
     ValueEnforcer.notNull (aCollator, "Collator");
     m_aCollator = (Collator) aCollator.clone ();
@@ -74,24 +72,10 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
     return (Collator) m_aCollator.clone ();
   }
 
-  /**
-   * Abstract method that needs to be overridden to convert an object to a
-   * string representation for comparison.
-   *
-   * @param aObject
-   *        The object to be converted. May not be <code>null</code> depending
-   *        on the elements to be sorted.
-   * @return The string representation of the object. May be <code>null</code>.
-   */
-  @Nullable
-  protected abstract String getAsString (@Nonnull DATATYPE aObject);
-
   @Override
-  protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)
+  protected final int mainCompare (@Nonnull final String sElement1, @Nonnull final String sElement2)
   {
-    final String s1 = getAsString (aElement1);
-    final String s2 = getAsString (aElement2);
-    return CompareUtils.nullSafeCompare (s1, s2, m_aCollator, isNullValuesComeFirst ());
+    return CompareUtils.nullSafeCompare (sElement1, sElement2, m_aCollator, isNullValuesComeFirst ());
   }
 
   @Override
