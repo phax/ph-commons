@@ -34,10 +34,10 @@ public final class FormatterProviderConstantTest
   @Test
   public void testAll ()
   {
-    final FormatterProviderConstant fp = new FormatterProviderConstant (new BracketFormatter ());
+    final FormatterProviderConstant fp = new FormatterProviderConstant (new FormatterBracket ());
     final IFormatter f1 = fp.getFormatter ();
     assertNotNull (f1);
-    assertTrue (f1 instanceof BracketFormatter);
+    assertTrue (f1 instanceof FormatterBracket);
     final IFormatter f2 = fp.getFormatter ();
     assertSame (f1, f2);
     CommonsTestUtils.testToStringImplementation (fp);

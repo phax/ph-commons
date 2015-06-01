@@ -20,19 +20,19 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * A formatter that adds a suffix to a string.
+ * A formatter that skips a prefix from a string.
  *
  * @author Philip Helger
  */
-public class StringSuffixFormatter extends StringPrefixAndSuffixFormatter
+public class FormatterStringSkipPrefix extends FormatterStringSkipPrefixAndSuffix
 {
-  public StringSuffixFormatter (@Nonnull final String sSuffix)
+  public FormatterStringSkipPrefix (@Nonnull final String sPrefix)
   {
-    super ("", sSuffix);
+    super (sPrefix, "");
   }
 
-  public StringSuffixFormatter (@Nullable final IFormatter aPrevFormatter, @Nonnull final String sSuffix)
+  public FormatterStringSkipPrefix (@Nullable final IFormatter aPrevFormatter, @Nonnull final String sPrefix)
   {
-    super (aPrevFormatter, "", sSuffix);
+    super (aPrevFormatter, sPrefix, "");
   }
 }

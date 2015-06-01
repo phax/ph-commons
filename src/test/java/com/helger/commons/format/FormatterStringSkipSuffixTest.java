@@ -20,22 +20,22 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.format.StringSkipPrefixAndSuffixFormatter;
+import com.helger.commons.format.FormatterStringSkipSuffix;
 import com.helger.commons.mock.CommonsTestUtils;
 
 /**
- * Test class for class {@link StringSkipPrefixAndSuffixFormatter}.
+ * Test class for class {@link FormatterStringSkipSuffix}.
  * 
  * @author Philip Helger
  */
-public final class StringSkipPrefixAndSuffixFormatterTest
+public final class FormatterStringSkipSuffixTest
 {
   @Test
   public void testAll ()
   {
-    final StringSkipPrefixAndSuffixFormatter fp = new StringSkipPrefixAndSuffixFormatter ("a", "o");
-    assertEquals ("bc", fp.getFormattedValue ("abco"));
-    assertEquals ("bc", fp.getFormattedValue ("abc"));
+    final FormatterStringSkipSuffix fp = new FormatterStringSkipSuffix ("o");
+    assertEquals ("abc", fp.getFormattedValue ("abco"));
+    assertEquals ("abc", fp.getFormattedValue ("abc"));
     assertEquals ("bc", fp.getFormattedValue ("bco"));
     assertEquals ("bc", fp.getFormattedValue ("bc"));
     CommonsTestUtils.testToStringImplementation (fp);

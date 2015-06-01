@@ -29,17 +29,17 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class StringSkipPrefixAndSuffixFormatter extends AbstractStringFormatter
+public class FormatterStringSkipPrefixAndSuffix extends AbstractFormatterString
 {
   private final String m_sPrefix;
   private final String m_sSuffix;
 
-  public StringSkipPrefixAndSuffixFormatter (@Nonnull final String sPrefix, @Nonnull final String sSuffix)
+  public FormatterStringSkipPrefixAndSuffix (@Nonnull final String sPrefix, @Nonnull final String sSuffix)
   {
     this (null, sPrefix, sSuffix);
   }
 
-  public StringSkipPrefixAndSuffixFormatter (@Nullable final IFormatter aPrevFormatter,
+  public FormatterStringSkipPrefixAndSuffix (@Nullable final IFormatter aPrevFormatter,
                                              @Nonnull final String sPrefix,
                                              @Nonnull final String sSuffix)
   {
@@ -79,7 +79,7 @@ public class StringSkipPrefixAndSuffixFormatter extends AbstractStringFormatter
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final StringSkipPrefixAndSuffixFormatter rhs = (StringSkipPrefixAndSuffixFormatter) o;
+    final FormatterStringSkipPrefixAndSuffix rhs = (FormatterStringSkipPrefixAndSuffix) o;
     return m_sPrefix.equals (rhs.m_sPrefix) && m_sSuffix.equals (rhs.m_sSuffix);
   }
 

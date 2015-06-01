@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FormattedObject implements IFormattedObject
+public class FormatableObject implements IFormatableObject
 {
   /** The current value. Maybe <code>null</code>. */
   private final Object m_aValue;
@@ -47,7 +47,7 @@ public class FormattedObject implements IFormattedObject
    * @param aFormatter
    *        The optional formatter to use. May be <code>null</code>.
    */
-  public FormattedObject (@Nullable final Object aValue, @Nullable final IFormatter aFormatter)
+  public FormatableObject (@Nullable final Object aValue, @Nullable final IFormatter aFormatter)
   {
     m_aValue = aValue;
     m_aFormatter = aFormatter;
@@ -61,7 +61,7 @@ public class FormattedObject implements IFormattedObject
    * @param aFormatterProvider
    *        The formatter provider to use. May not be <code>null</code>.
    */
-  public FormattedObject (@Nullable final Object aValue, @Nonnull final IFormatterProvider aFormatterProvider)
+  public FormatableObject (@Nullable final Object aValue, @Nonnull final IFormatterProvider aFormatterProvider)
   {
     ValueEnforcer.notNull (aFormatterProvider, "FormatterProvider");
     m_aValue = aValue;
@@ -93,7 +93,7 @@ public class FormattedObject implements IFormattedObject
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final FormattedObject rhs = (FormattedObject) o;
+    final FormatableObject rhs = (FormatableObject) o;
     return EqualsUtils.equals (m_aValue, rhs.m_aValue) && EqualsUtils.equals (m_aFormatter, rhs.m_aFormatter);
   }
 

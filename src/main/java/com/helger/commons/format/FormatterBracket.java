@@ -23,14 +23,14 @@ import javax.annotation.Nullable;
  *
  * @author Philip Helger
  */
-public class BracketFormatter extends StringPrefixAndSuffixFormatter
+public class FormatterBracket extends FormatterStringPrefixAndSuffix
 {
-  public BracketFormatter ()
+  public FormatterBracket ()
   {
     this (null);
   }
 
-  public BracketFormatter (@Nullable final IFormatter aPrevFormatter)
+  public FormatterBracket (@Nullable final IFormatter aPrevFormatter)
   {
     super (aPrevFormatter, "[", "]");
   }

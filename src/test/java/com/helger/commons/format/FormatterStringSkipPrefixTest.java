@@ -16,23 +16,28 @@
  */
 package com.helger.commons.format;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+import com.helger.commons.format.FormatterStringSkipPrefix;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
- * A formatter that skips a suffix from a string.
- *
+ * Test class for class {@link FormatterStringSkipPrefix}.
+ * 
  * @author Philip Helger
  */
-public class StringSkipSuffixFormatter extends StringSkipPrefixAndSuffixFormatter
+public final class FormatterStringSkipPrefixTest
 {
-  public StringSkipSuffixFormatter (@Nonnull final String sSuffix)
+  @Test
+  public void testAll ()
   {
-    super ("", sSuffix);
-  }
-
-  public StringSkipSuffixFormatter (@Nullable final IFormatter aPrevFormatter, @Nonnull final String sSuffix)
-  {
-    super (aPrevFormatter, "", sSuffix);
+    final FormatterStringSkipPrefix fp = new FormatterStringSkipPrefix ("a");
+    assertEquals ("bco", fp.getFormattedValue ("abco"));
+    assertEquals ("bc", fp.getFormattedValue ("abc"));
+    assertEquals ("bco", fp.getFormattedValue ("bco"));
+    assertEquals ("bc", fp.getFormattedValue ("bc"));
+    CommonsTestUtils.testToStringImplementation (fp);
   }
 }

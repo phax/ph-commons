@@ -28,17 +28,17 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class StringPrefixAndSuffixFormatter extends AbstractStringFormatter
+public class FormatterStringPrefixAndSuffix extends AbstractFormatterString
 {
   private final String m_sPrefix;
   private final String m_sSuffix;
 
-  public StringPrefixAndSuffixFormatter (@Nonnull final String sPrefix, @Nonnull final String sSuffix)
+  public FormatterStringPrefixAndSuffix (@Nonnull final String sPrefix, @Nonnull final String sSuffix)
   {
     this (null, sPrefix, sSuffix);
   }
 
-  public StringPrefixAndSuffixFormatter (@Nullable final IFormatter aPrevFormatter,
+  public FormatterStringPrefixAndSuffix (@Nullable final IFormatter aPrevFormatter,
                                          @Nonnull final String sPrefix,
                                          @Nonnull final String sSuffix)
   {
@@ -72,7 +72,7 @@ public class StringPrefixAndSuffixFormatter extends AbstractStringFormatter
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final StringPrefixAndSuffixFormatter rhs = (StringPrefixAndSuffixFormatter) o;
+    final FormatterStringPrefixAndSuffix rhs = (FormatterStringPrefixAndSuffix) o;
     return m_sPrefix.equals (rhs.m_sPrefix) && m_sSuffix.equals (rhs.m_sSuffix);
   }
 

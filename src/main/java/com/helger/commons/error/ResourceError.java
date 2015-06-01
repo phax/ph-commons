@@ -118,7 +118,7 @@ public class ResourceError implements IResourceError
 
     // Linked exception
     if (m_aLinkedException != null)
-      ret += " (" + m_aLinkedException.getMessage () + ")";
+      ret += " (" + m_aLinkedException.getClass ().getName () + ": " + m_aLinkedException.getMessage () + ")";
     return ret;
   }
 

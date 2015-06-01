@@ -29,14 +29,14 @@ import com.helger.commons.typeconvert.TypeConverter;
  *
  * @author Philip Helger
  */
-public abstract class AbstractStringFormatter implements IFormatter
+public abstract class AbstractFormatterString implements IFormatter
 {
   private final IFormatter m_aPrevFormatter;
 
   /**
    * Default constructor
    */
-  public AbstractStringFormatter ()
+  public AbstractFormatterString ()
   {
     this (null);
   }
@@ -46,7 +46,7 @@ public abstract class AbstractStringFormatter implements IFormatter
    *        Optional previous formatter to be invoked, before this formatter is
    *        invoked. May be <code>null</code>.
    */
-  public AbstractStringFormatter (@Nullable final IFormatter aPrevFormatter)
+  public AbstractFormatterString (@Nullable final IFormatter aPrevFormatter)
   {
     m_aPrevFormatter = aPrevFormatter;
   }
@@ -92,8 +92,10 @@ public abstract class AbstractStringFormatter implements IFormatter
   @Nullable
   public final String getFormattedValue (@Nullable final Object aValue)
   {
-    // Invoked any nested previous formatter
+    // Invoked any previous formatter before formatting with this object
     final Object aBase = m_aPrevFormatter == null ? aValue : m_aPrevFormatter.getFormattedValue (aValue);
+
+    // Main formatting
     return getFormattedValueAsString (aBase);
   }
 

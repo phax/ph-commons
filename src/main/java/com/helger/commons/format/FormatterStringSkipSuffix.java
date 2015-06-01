@@ -16,38 +16,23 @@
  */
 package com.helger.commons.format;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.IHasStringRepresentation;
-
 /**
- * Basic interface for special objects having a certain string representation.
+ * A formatter that skips a suffix from a string.
  *
  * @author Philip Helger
  */
-public interface IFormattedObject extends IHasStringRepresentation
+public class FormatterStringSkipSuffix extends FormatterStringSkipPrefixAndSuffix
 {
-  /**
-   * Get the original value.
-   *
-   * @return The unformatted value. May be <code>null</code>.
-   */
-  @Nullable
-  Object getValue ();
+  public FormatterStringSkipSuffix (@Nonnull final String sSuffix)
+  {
+    super ("", sSuffix);
+  }
 
-  /**
-   * @return The formatter to be used for formatting this object. Never
-   *         <code>null</code>.
-   */
-  @Nullable
-  IFormatter getFormatter ();
-
-  /**
-   * Get the value converted to a string with the specified formatter.
-   *
-   * @return the string representation of the value. May be <code>null</code>
-   *         dependent on the semantics of the formatter.
-   */
-  @Nullable
-  String getAsString ();
+  public FormatterStringSkipSuffix (@Nullable final IFormatter aPrevFormatter, @Nonnull final String sSuffix)
+  {
+    super (aPrevFormatter, "", sSuffix);
+  }
 }

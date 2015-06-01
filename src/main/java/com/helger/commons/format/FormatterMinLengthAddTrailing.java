@@ -26,23 +26,23 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A string formatter that ensures that a string has a minimum length by filling
- * the remaining chars with a custom character at front (leading).
+ * the remaining chars with a custom character at the end (trailing).
  *
  * @author Philip Helger
  */
-public final class MinLengthAddLeadingFormatter extends AbstractStringFormatter
+public final class FormatterMinLengthAddTrailing extends AbstractFormatterString
 {
   private final int m_nMinLength;
   private final char m_cFill;
 
-  public MinLengthAddLeadingFormatter (@Nonnegative final int nMinLength, final char cFill)
+  public FormatterMinLengthAddTrailing (@Nonnegative final int nMinLength, final char cFill)
   {
     this (null, nMinLength, cFill);
   }
 
-  public MinLengthAddLeadingFormatter (@Nullable final IFormatter aPrevFormatter,
-                                       @Nonnegative final int nMinLength,
-                                       final char cFill)
+  public FormatterMinLengthAddTrailing (@Nullable final IFormatter aPrevFormatter,
+                                        @Nonnegative final int nMinLength,
+                                        final char cFill)
   {
     super (aPrevFormatter);
     ValueEnforcer.isGT0 (nMinLength, "MinLength");
@@ -67,7 +67,7 @@ public final class MinLengthAddLeadingFormatter extends AbstractStringFormatter
     final String s = getValueAsString (aValue);
     if (s.length () >= m_nMinLength)
       return s;
-    return StringHelper.getRepeated (m_cFill, m_nMinLength - s.length ()) + s;
+    return s + StringHelper.getRepeated (m_cFill, m_nMinLength - s.length ());
   }
 
   @Override
@@ -77,7 +77,7 @@ public final class MinLengthAddLeadingFormatter extends AbstractStringFormatter
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final MinLengthAddLeadingFormatter rhs = (MinLengthAddLeadingFormatter) o;
+    final FormatterMinLengthAddTrailing rhs = (FormatterMinLengthAddTrailing) o;
     return m_nMinLength == rhs.m_nMinLength && m_cFill == rhs.m_cFill;
   }
 

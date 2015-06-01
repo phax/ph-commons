@@ -24,14 +24,14 @@ import javax.annotation.Nullable;
  *
  * @author Philip Helger
  */
-public class StringPrefixFormatter extends StringPrefixAndSuffixFormatter
+public class FormatterStringPrefix extends FormatterStringPrefixAndSuffix
 {
-  public StringPrefixFormatter (@Nonnull final String sPrefix)
+  public FormatterStringPrefix (@Nonnull final String sPrefix)
   {
     super (sPrefix, "");
   }
 
-  public StringPrefixFormatter (@Nullable final IFormatter aPrevFormatter, @Nonnull final String sPrefix)
+  public FormatterStringPrefix (@Nullable final IFormatter aPrevFormatter, @Nonnull final String sPrefix)
   {
     super (aPrevFormatter, sPrefix, "");
   }
