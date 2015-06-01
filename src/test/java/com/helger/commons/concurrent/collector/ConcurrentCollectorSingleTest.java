@@ -28,7 +28,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link ConcurrentCollectorSingle}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ConcurrentCollectorSingleTest
@@ -39,13 +39,13 @@ public final class ConcurrentCollectorSingleTest
   {
     try
     {
-      new ConcurrentCollectorSingle <String> (-1, null);
+      new ConcurrentCollectorSingle <String> (-1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    ConcurrentCollectorSingle <String> ccm = new ConcurrentCollectorSingle <String> (5, null);
+    ConcurrentCollectorSingle <String> ccm = new ConcurrentCollectorSingle <String> (5);
     assertEquals (0, ccm.getQueueLength ());
 
     try
@@ -66,7 +66,8 @@ public final class ConcurrentCollectorSingleTest
     catch (final IllegalStateException ex)
     {}
 
-    ccm = new ConcurrentCollectorSingle <String> (5, new IThrowingRunnableWithParameter <String> ()
+    ccm = new ConcurrentCollectorSingle <String> (5);
+    ccm.setPerformer (new IThrowingRunnableWithParameter <String> ()
     {
       public void run (final String aCurrentObject) throws Exception
       {}

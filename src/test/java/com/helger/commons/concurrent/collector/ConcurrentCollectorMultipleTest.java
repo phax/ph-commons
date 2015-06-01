@@ -30,7 +30,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link ConcurrentCollectorMultiple}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ConcurrentCollectorMultipleTest
@@ -41,27 +41,27 @@ public final class ConcurrentCollectorMultipleTest
   {
     try
     {
-      new ConcurrentCollectorMultiple <String> (-1, 3, null);
+      new ConcurrentCollectorMultiple <String> (-1, 3);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      new ConcurrentCollectorMultiple <String> (50, -1, null);
+      new ConcurrentCollectorMultiple <String> (50, -1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      new ConcurrentCollectorMultiple <String> (5, 6, null);
+      new ConcurrentCollectorMultiple <String> (5, 6);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    ConcurrentCollectorMultiple <String> ccm = new ConcurrentCollectorMultiple <String> (5, 5, null);
+    ConcurrentCollectorMultiple <String> ccm = new ConcurrentCollectorMultiple <String> (5, 5);
     assertEquals (0, ccm.getQueueLength ());
 
     try
@@ -82,7 +82,8 @@ public final class ConcurrentCollectorMultipleTest
     catch (final IllegalStateException ex)
     {}
 
-    ccm = new ConcurrentCollectorMultiple <String> (5, 5, new IThrowingRunnableWithParameter <List <String>> ()
+    ccm = new ConcurrentCollectorMultiple <String> (5, 5);
+    ccm.setPerformer (new IThrowingRunnableWithParameter <List <String>> ()
     {
       public void run (final List <String> aCurrentObject) throws Exception
       {}

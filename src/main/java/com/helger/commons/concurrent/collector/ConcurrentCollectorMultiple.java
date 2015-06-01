@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.callback.IThrowingRunnableWithParameter;
 import com.helger.commons.lang.GenericReflection;
+import com.helger.commons.state.ESuccess;
 
 /**
  * Concurrent collector that performs action on multiple objects at once
@@ -50,28 +51,12 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
 
   /**
    * Constructor that uses {@link #DEFAULT_MAX_QUEUE_SIZE} elements as the
-   * maximum queue length.
+   * maximum queue length and {@link #DEFAULT_MAX_PERFORM_COUNT} as the max
+   * perform count.
    */
   public ConcurrentCollectorMultiple ()
   {
-    this (null);
-  }
-
-  /**
-   * Constructor that uses {@link #DEFAULT_MAX_QUEUE_SIZE} elements as the
-   * maximum queue length and {@link #DEFAULT_MAX_PERFORM_COUNT} as the max
-   * perform count.
-   *
-   * @param aPerformer
-   *        The callback to be invoked everytime objects are collected. May be
-   *        <code>null</code> but in that case
-   *        {@link #setPerformer(IThrowingRunnableWithParameter)} must be
-   *        invoked!
-   */
-  @SuppressWarnings ("javadoc")
-  public ConcurrentCollectorMultiple (@Nullable final IThrowingRunnableWithParameter <List <DATATYPE>> aPerformer)
-  {
-    this (DEFAULT_MAX_QUEUE_SIZE, DEFAULT_MAX_PERFORM_COUNT, aPerformer);
+    this (DEFAULT_MAX_QUEUE_SIZE, DEFAULT_MAX_PERFORM_COUNT);
   }
 
   /**
@@ -82,31 +67,46 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    *        0.
    * @param nMaxPerformCount
    *        The maximum number of objects to be put in the queue for execution.
-   * @param aPerformer
-   *        The callback to be invoked everytime objects are collected. May be
-   *        <code>null</code> but in that case
-   *        {@link #setPerformer(IThrowingRunnableWithParameter)} must be
-   *        invoked!
    */
-  @SuppressWarnings ("javadoc")
-  public ConcurrentCollectorMultiple (@Nonnegative final int nMaxQueueSize,
-                                      @Nonnegative final int nMaxPerformCount,
-                                      @Nullable final IThrowingRunnableWithParameter <List <DATATYPE>> aPerformer)
+  public ConcurrentCollectorMultiple (@Nonnegative final int nMaxQueueSize, @Nonnegative final int nMaxPerformCount)
   {
     super (nMaxQueueSize);
-    if (nMaxPerformCount > nMaxQueueSize || nMaxPerformCount < 1)
+    ValueEnforcer.isGT0 (nMaxPerformCount, "MaxPerformCount");
+    if (nMaxPerformCount > nMaxQueueSize)
       throw new IllegalArgumentException ("max perform size is illegal: " + nMaxPerformCount);
     m_nMaxPerformCount = nMaxPerformCount;
-    if (aPerformer != null)
-      setPerformer (aPerformer);
   }
 
+  /**
+   * @return The current performer set. <code>null</code> if none was explicitly
+   *         set.
+   */
+  @Nullable
+  protected final IThrowingRunnableWithParameter <List <DATATYPE>> getPerformer ()
+  {
+    return m_aPerformer;
+  }
+
+  /**
+   * Set the performer to be used. This method must be invoked before the
+   * collector can be run. The passed implementation must be rock-solid as this
+   * class will not make any retries. If the passed performer throws and
+   * exception without handling the objects correct the objects will be lost!
+   *
+   * @param aPerformer
+   *        The performer to be used. May not be <code>null</code>.
+   * @throws IllegalStateException
+   *         If another performer is already present!
+   */
   protected final void setPerformer (@Nonnull final IThrowingRunnableWithParameter <List <DATATYPE>> aPerformer)
   {
+    if (m_aPerformer != null)
+      throw new IllegalStateException ("Another performer is already set!");
     m_aPerformer = ValueEnforcer.notNull (aPerformer, "Performer");
   }
 
-  private void _executeCallback (@Nonnull final List <DATATYPE> aObjectsToPerform)
+  @Nonnull
+  private ESuccess _perform (@Nonnull final List <DATATYPE> aObjectsToPerform)
   {
     if (!aObjectsToPerform.isEmpty ())
     {
@@ -120,12 +120,17 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
       {
         s_aLogger.error ("Failed to perform actions on " +
                          aObjectsToPerform.size () +
-                         " objects - objects have been lost!", t);
+                         " objects with performer " +
+                         m_aPerformer +
+                         " - objects are lost!", t);
+        return ESuccess.FAILURE;
       }
 
-      // clear perform list after execution
+      // clear perform-list anyway
       aObjectsToPerform.clear ();
     }
+
+    return ESuccess.SUCCESS;
   }
 
   public final void run ()
@@ -164,7 +169,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
           aObjectsToPerform.add (GenericReflection.<Object, DATATYPE> uncheckedCast (aCurrentObject));
         }
 
-        _executeCallback (aObjectsToPerform);
+        _perform (aObjectsToPerform);
 
         // In case we received a stop message while getting the bulk messages
         // above -> break the loop manually
@@ -175,7 +180,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
       }
 
       // perform any remaining actions
-      _executeCallback (aObjectsToPerform);
+      _perform (aObjectsToPerform);
     }
     catch (final Throwable t)
     {

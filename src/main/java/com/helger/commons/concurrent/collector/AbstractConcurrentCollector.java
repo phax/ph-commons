@@ -23,6 +23,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.GuardedBy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,7 @@ import com.helger.commons.state.ESuccess;
 
 /**
  * Abstract concurrent collector.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of the objects in the queue.
@@ -53,14 +54,16 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThro
   // It's a list of Object because otherwise we could not use a static
   // STOP_OBJECT that works for every type. But it is ensured that the queue
   // contains only objects of type T
+  @GuardedBy ("m_aRWLock")
   protected final BlockingQueue <Object> m_aQueue;
 
   // Is the queue stopped?
+  @GuardedBy ("m_aRWLock")
   private boolean m_bStopTakingNewObjects = false;
 
   /**
    * Constructor.
-   * 
+   *
    * @param nMaxQueueSize
    *        The maximum number of items that can be in the queue. Must be &gt;
    *        0.

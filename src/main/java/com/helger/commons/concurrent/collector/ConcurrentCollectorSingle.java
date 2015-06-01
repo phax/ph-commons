@@ -46,23 +46,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
    */
   public ConcurrentCollectorSingle ()
   {
-    this (null);
-  }
-
-  /**
-   * Constructor that uses {@link #DEFAULT_MAX_QUEUE_SIZE} elements as the
-   * maximum queue length.
-   *
-   * @param aPerformer
-   *        The callback to be invoked everytime objects are collected. May be
-   *        <code>null</code> but in that case
-   *        {@link #setPerformer(IThrowingRunnableWithParameter)} must be
-   *        invoked!
-   */
-  @SuppressWarnings ("javadoc")
-  public ConcurrentCollectorSingle (@Nullable final IThrowingRunnableWithParameter <DATATYPE> aPerformer)
-  {
-    this (DEFAULT_MAX_QUEUE_SIZE, aPerformer);
+    this (DEFAULT_MAX_QUEUE_SIZE);
   }
 
   /**
@@ -71,27 +55,41 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
    * @param nMaxQueueSize
    *        The maximum number of items that can be in the queue. Must be &gt;
    *        0.
-   * @param aPerformer
-   *        The callback to be invoked everytime objects are collected. May be
-   *        <code>null</code> but in that case
-   *        {@link #setPerformer(IThrowingRunnableWithParameter)} must be
-   *        invoked!
    */
-  @SuppressWarnings ("javadoc")
-  public ConcurrentCollectorSingle (@Nonnegative final int nMaxQueueSize,
-                                    @Nullable final IThrowingRunnableWithParameter <DATATYPE> aPerformer)
+  public ConcurrentCollectorSingle (@Nonnegative final int nMaxQueueSize)
   {
     super (nMaxQueueSize);
-    if (aPerformer != null)
-      setPerformer (aPerformer);
   }
 
+  /**
+   * @return The current performer set. <code>null</code> if none was explicitly
+   *         set.
+   */
+  @Nullable
+  protected final IThrowingRunnableWithParameter <DATATYPE> getPerformer ()
+  {
+    return m_aPerformer;
+  }
+
+  /**
+   * Set the performer to be used. This method must be invoked before the
+   * collector can be run. The passed implementation must be rock-solid as this
+   * class will not make any retries. If the passed performer throws and
+   * exception without handling the objects correct the objects will be lost!
+   *
+   * @param aPerformer
+   *        The performer to be used. May not be <code>null</code>.
+   * @throws IllegalStateException
+   *         If another performer is already present!
+   */
   protected final void setPerformer (@Nonnull final IThrowingRunnableWithParameter <DATATYPE> aPerformer)
   {
+    if (m_aPerformer != null)
+      throw new IllegalStateException ("Another performer is already set!");
     m_aPerformer = ValueEnforcer.notNull (aPerformer, "Performer");
   }
 
-  private void _executeCallback (final DATATYPE aObject)
+  private void _perform (final DATATYPE aObject)
   {
     try
     {
@@ -101,7 +99,9 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
     }
     catch (final Throwable t)
     {
-      s_aLogger.error ("Failed to perform actions on object - object has been lost!", t);
+      s_aLogger.error ("Failed to perform actions on object with performer " +
+                       m_aPerformer +
+                       " - object has been lost!", t);
     }
   }
 
@@ -119,7 +119,8 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
         final Object aCurrentObject = m_aQueue.take ();
         if (aCurrentObject == STOP_QUEUE_OBJECT)
           break;
-        _executeCallback (GenericReflection.<Object, DATATYPE> uncheckedCast (aCurrentObject));
+
+        _perform (GenericReflection.<Object, DATATYPE> uncheckedCast (aCurrentObject));
       }
     }
     catch (final Throwable t)
