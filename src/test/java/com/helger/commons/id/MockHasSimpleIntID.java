@@ -16,7 +16,6 @@
  */
 package com.helger.commons.id;
 
-
 public final class MockHasSimpleIntID implements IHasSimpleIntID
 {
   private final int m_nID;

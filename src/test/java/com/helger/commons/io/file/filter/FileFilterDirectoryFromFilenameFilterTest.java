@@ -53,6 +53,6 @@ public final class FileFilterDirectoryFromFilenameFilterTest
     assertFalse (aFilter.accept (null));
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aFilter,
-                                                                    new FileFilterDirectoryFromFilenameFilter (ff));
+                                                                 new FileFilterDirectoryFromFilenameFilter (ff));
   }
 }

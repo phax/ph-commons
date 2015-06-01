@@ -50,14 +50,14 @@ public final class SingleMapEntryTest
     assertNotNull (e.toString ());
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new SingleMapEntry <String, Object> ("Key", "value"),
-                                                                    new SingleMapEntry <String, Object> ("Key", "value"));
+                                                                 new SingleMapEntry <String, Object> ("Key", "value"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleMapEntry <String, Object> ("Key",
-                                                                                                             "value"),
-                                                                        new SingleMapEntry <String, Object> ("Key",
-                                                                                                             "value2"));
+                                                                                                          "value"),
+                                                                     new SingleMapEntry <String, Object> ("Key",
+                                                                                                          "value2"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleMapEntry <String, Object> ("Key",
-                                                                                                             "value"),
-                                                                        new SingleMapEntry <String, Object> ("Key2",
-                                                                                                             "value"));
+                                                                                                          "value"),
+                                                                     new SingleMapEntry <String, Object> ("Key2",
+                                                                                                          "value"));
   }
 }

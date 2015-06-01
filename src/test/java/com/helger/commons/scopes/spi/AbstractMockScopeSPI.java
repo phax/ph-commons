@@ -16,7 +16,6 @@
  */
 package com.helger.commons.scopes.spi;
 
-
 /**
  * Abstract base class for all Mock SPI implementations
  * 

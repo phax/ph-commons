@@ -36,7 +36,7 @@ public final class ASCIIHexCodecTest
   {
     final String sEncoded = "616263\n" + "414243>";
     final byte [] aDecoded = new ASCIIHexCodec ().getDecoded (CharsetManager.getAsBytes (sEncoded,
-                                                                                     CCharset.CHARSET_US_ASCII_OBJ));
+                                                                                         CCharset.CHARSET_US_ASCII_OBJ));
     final String sDecoded = CharsetManager.getAsString (aDecoded, CCharset.CHARSET_US_ASCII_OBJ);
     assertEquals ("abcABC", sDecoded);
   }

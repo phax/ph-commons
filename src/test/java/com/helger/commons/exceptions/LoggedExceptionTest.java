@@ -28,7 +28,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class LoggedExceptionTest
 {
   @Test
-  @SuppressFBWarnings (value = { "RV_EXCEPTION_NOT_THROWN", "RV_RETURN_VALUE_IGNORED" }, justification = "only constructor tests")
+  @SuppressFBWarnings (value = { "RV_EXCEPTION_NOT_THROWN", "RV_RETURN_VALUE_IGNORED" },
+                       justification = "only constructor tests")
   public void testAll ()
   {
     new LoggedException ();

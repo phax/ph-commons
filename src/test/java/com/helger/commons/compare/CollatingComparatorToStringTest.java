@@ -39,9 +39,12 @@ public final class CollatingComparatorToStringTest extends AbstractPHTestCase
   {
     final List <String> l = CollectionHelper.newList ("a", "b", "c");
     assertEquals (3, CollectionHelper.getSorted (l, new CollatingComparatorToString (L_EN)).size ());
-    assertEquals (3, CollectionHelper.getSorted (l, new CollatingComparatorToString (L_EN).setSortOrder (ESortOrder.DESCENDING))
+    assertEquals (3,
+                  CollectionHelper.getSorted (l,
+                                              new CollatingComparatorToString (L_EN).setSortOrder (ESortOrder.DESCENDING))
+                                  .size ());
+    assertEquals (3, CollectionHelper.getSorted (l, new CollatingComparatorToString (Collator.getInstance (L_FR)))
                                      .size ());
-    assertEquals (3, CollectionHelper.getSorted (l, new CollatingComparatorToString (Collator.getInstance (L_FR))).size ());
 
     try
     {

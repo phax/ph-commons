@@ -16,7 +16,6 @@
  */
 package com.helger.commons.mock;
 
-
 /**
  * Runtime exception for test cases.
  * 

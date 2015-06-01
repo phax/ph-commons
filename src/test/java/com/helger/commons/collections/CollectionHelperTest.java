@@ -2458,7 +2458,7 @@ public final class CollectionHelperTest extends AbstractPHTestCase
 
     // reverse sort
     it = getSortedByKey (aMap, new CollatingComparator (Locale.US).setSortOrder (ESortOrder.DESCENDING)).entrySet ()
-                                                                                                              .iterator ();
+                                                                                                        .iterator ();
     assertEquals ("K3", it.next ().getKey ());
     assertEquals ("K2", it.next ().getKey ());
     assertEquals ("K1", it.next ().getKey ());
@@ -2493,7 +2493,7 @@ public final class CollectionHelperTest extends AbstractPHTestCase
 
     // reverse sort
     it = getSortedByValue (aMap, new CollatingComparator (Locale.US).setSortOrder (ESortOrder.DESCENDING)).entrySet ()
-                                                                                                                .iterator ();
+                                                                                                          .iterator ();
     assertEquals ("ValueC", it.next ().getValue ());
     assertEquals ("ValueB", it.next ().getValue ());
     assertEquals ("ValueA", it.next ().getValue ());

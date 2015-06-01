@@ -16,7 +16,6 @@
  */
 package com.helger.commons.tree.utils.xml;
 
-
 /**
  * This interface collects both unidirectional converters and creates a
  * bidirectional converter.
@@ -25,9 +24,7 @@ package com.helger.commons.tree.utils.xml;
  * @param <DATATYPE>
  *        The type of the tree item data
  */
-public interface IConverterTreeXML <DATATYPE> extends
-                                              IConverterTreeItemToMicroNode <DATATYPE>,
-                                              IConverterMicroNodeToTreeItem <DATATYPE>
+public interface IConverterTreeXML <DATATYPE> extends IConverterTreeItemToMicroNode <DATATYPE>, IConverterMicroNodeToTreeItem <DATATYPE>
 {
   /* empty */
 }

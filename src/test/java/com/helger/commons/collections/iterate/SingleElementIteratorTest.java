@@ -59,10 +59,10 @@ public final class SingleElementIteratorTest
     {}
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new SingleElementIterator <String> ("any"),
-                                                                    new SingleElementIterator <String> ("any"));
+                                                                 new SingleElementIterator <String> ("any"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleElementIterator <String> ("any"),
-                                                                        new SingleElementIterator <String> ("any2"));
+                                                                     new SingleElementIterator <String> ("any2"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleElementIterator <String> ("any"),
-                                                                        new SingleElementIterator <Integer> (Integer.valueOf (1)));
+                                                                     new SingleElementIterator <Integer> (Integer.valueOf (1)));
   }
 }

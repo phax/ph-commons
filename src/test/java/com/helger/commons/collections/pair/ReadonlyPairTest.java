@@ -81,16 +81,16 @@ public final class ReadonlyPairTest
     assertFalse (aPair.equals (aPair2));
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> (null, null),
-                                                                    new ReadonlyPair <String, Double> (null, null));
+                                                                 new ReadonlyPair <String, Double> (null, null));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> ("Nix da", null),
-                                                                    new ReadonlyPair <String, Double> ("Nix da", null));
+                                                                 new ReadonlyPair <String, Double> ("Nix da", null));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> (null, "Nix da"),
-                                                                    new ReadonlyPair <String, String> (null, "Nix da"));
+                                                                 new ReadonlyPair <String, String> (null, "Nix da"));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> ("Nix", "da"),
-                                                                    new ReadonlyPair <String, String> ("Nix", "da"));
+                                                                 new ReadonlyPair <String, String> ("Nix", "da"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ReadonlyPair <String, String> ("Nix", "da"),
-                                                                        new ReadonlyPair <String, String> ("Nix", "da2"));
+                                                                     new ReadonlyPair <String, String> ("Nix", "da2"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (ReadonlyPair.create ("Nix", "da"),
-                                                                        ReadonlyPair.create ("Nix2", "da"));
+                                                                     ReadonlyPair.create ("Nix2", "da"));
   }
 }

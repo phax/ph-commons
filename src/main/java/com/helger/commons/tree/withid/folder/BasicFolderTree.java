@@ -38,9 +38,7 @@ import com.helger.commons.tree.withid.unique.BasicTreeWithGlobalUniqueID;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class BasicFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>> extends
-                                                                                                                                                                       BasicTreeWithGlobalUniqueID <KEYTYPE, COLLTYPE, ITEMTYPE> implements
-                                                                                                                                                                                                                                IFolderTree <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>
+public class BasicFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>> extends BasicTreeWithGlobalUniqueID <KEYTYPE, COLLTYPE, ITEMTYPE> implements IFolderTree <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>
 {
   /**
    * Constructor

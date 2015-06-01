@@ -26,8 +26,7 @@ import javax.annotation.Nullable;
  * @param <PARENTTYPE>
  *        The data type of the parent object.
  */
-public class ParentProviderHasParent <PARENTTYPE extends IHasParent <PARENTTYPE>> implements
-                                                                                  IParentProvider <PARENTTYPE>
+public class ParentProviderHasParent <PARENTTYPE extends IHasParent <PARENTTYPE>> implements IParentProvider <PARENTTYPE>
 {
   @Nullable
   public PARENTTYPE getParent (@Nullable final PARENTTYPE aCurrent)

@@ -45,8 +45,8 @@ public final class FileLongIDFactoryTest
       PHTestUtils.testDefaultImplementationWithEqualContentObject (x, new FileLongIDFactory (f));
       PHTestUtils.testDefaultImplementationWithDifferentContentObject (x, new FileLongIDFactory (f2));
       PHTestUtils.testDefaultImplementationWithDifferentContentObject (x,
-                                                                          new FileLongIDFactory (f,
-                                                                                                 FileLongIDFactory.DEFAULT_RESERVE_COUNT * 2));
+                                                                       new FileLongIDFactory (f,
+                                                                                              FileLongIDFactory.DEFAULT_RESERVE_COUNT * 2));
 
       for (int i = 0; i < x.getReserveCount () * 10; ++i)
         assertEquals (i, x.getNewID ());

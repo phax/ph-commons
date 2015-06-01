@@ -56,10 +56,10 @@ public final class IterableIteratorTest
 
     assertEquals (3, CollectionHelper.newList (IterableIterator.create (new String [] { "a", "b", "c" })).size ());
     assertEquals (3, CollectionHelper.newList (IterableIterator.create (CollectionHelper.newList ("a", "b", "c")))
-                                    .size ());
+                                     .size ());
     assertEquals (3,
-                  CollectionHelper.newList (IterableIterator.create (CollectionHelper.newList ("a", "b", "c").iterator ()))
-                                 .size ());
+                  CollectionHelper.newList (IterableIterator.create (CollectionHelper.newList ("a", "b", "c")
+                                                                                     .iterator ())).size ());
     PHTestUtils.testToStringImplementation (iit);
 
     try

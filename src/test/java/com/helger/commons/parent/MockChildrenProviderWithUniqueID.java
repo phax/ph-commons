@@ -21,8 +21,7 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-public final class MockChildrenProviderWithUniqueID extends MockChildrenProvider implements
-                                                                                IChildrenProviderWithUniqueID <String, MockHasChildren>
+public final class MockChildrenProviderWithUniqueID extends MockChildrenProvider implements IChildrenProviderWithUniqueID <String, MockHasChildren>
 {
   private final Map <String, MockHasChildren> m_aMap = new HashMap <String, MockHasChildren> ();
 

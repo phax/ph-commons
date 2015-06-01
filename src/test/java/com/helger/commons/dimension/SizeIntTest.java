@@ -58,12 +58,9 @@ public final class SizeIntTest
     catch (final IllegalArgumentException ex)
     {}
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new SizeInt (320, 240), new SizeInt (320,
-                                                                                                                   240));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240),
-                                                                        new SizeInt (321, 240));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240),
-                                                                        new SizeInt (320, 241));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new SizeInt (320, 240), new SizeInt (320, 240));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240), new SizeInt (321, 240));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240), new SizeInt (320, 241));
   }
 
   @Test

@@ -325,11 +325,11 @@ public final class SingleElementListTest
   public void testStdMethods ()
   {
     PHTestUtils.testDefaultImplementationWithEqualContentObject (SingleElementList.create ("init"),
-                                                                    SingleElementList.create ("init"));
+                                                                 SingleElementList.create ("init"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (SingleElementList.create ("init"),
-                                                                        SingleElementList.create ("init2"));
+                                                                     SingleElementList.create ("init2"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (SingleElementList.create ("init"),
-                                                                        SingleElementList.create (Boolean.TRUE));
+                                                                     SingleElementList.create (Boolean.TRUE));
     assertArrayEquals (SingleElementList.create ("init").toArray (), SingleElementList.create ("init").toArray ());
     assertArrayEquals (SingleElementList.create ("init").toArray (new String [0]),
                        SingleElementList.create ("init").toArray (new String [0]));

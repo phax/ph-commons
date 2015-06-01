@@ -109,14 +109,14 @@ public final class ArrayEnumerationTest
     // equals...
     ae = new ArrayEnumeration <String> ("Hallo", "Welt", "from", "Copenhagen");
     PHTestUtils.testDefaultImplementationWithEqualContentObject (ae, new ArrayEnumeration <String> ("Hallo",
-                                                                                                       "Welt",
-                                                                                                       "from",
-                                                                                                       "Copenhagen"));
+                                                                                                    "Welt",
+                                                                                                    "from",
+                                                                                                    "Copenhagen"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (ae, new ArrayEnumeration <String> ("Hallo",
-                                                                                                           "Welt",
-                                                                                                           "from"));
+                                                                                                        "Welt",
+                                                                                                        "from"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (ae,
-                                                                        new ArrayEnumeration <Integer> (Integer.valueOf (5)));
+                                                                     new ArrayEnumeration <Integer> (Integer.valueOf (5)));
     // Different index
     final ArrayEnumeration <String> ae2 = new ArrayEnumeration <String> ("Hallo", "Welt", "from", "Copenhagen");
     ae2.nextElement ();

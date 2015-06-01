@@ -83,6 +83,6 @@ public final class DefaultResourceProviderTest
   public void testEqualsAndHashcode ()
   {
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new DefaultResourceProvider (),
-                                                                    new DefaultResourceProvider ());
+                                                                 new DefaultResourceProvider ());
   }
 }

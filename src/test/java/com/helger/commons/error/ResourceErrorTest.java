@@ -97,28 +97,28 @@ public final class ResourceErrorTest
     assertTrue (re.isNoError ());
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceError (loc,
-                                                                                       EErrorLevel.ERROR,
-                                                                                       "mock error"),
-                                                                    new ResourceError (loc,
-                                                                                       EErrorLevel.ERROR,
-                                                                                       "mock error"));
+                                                                                    EErrorLevel.ERROR,
+                                                                                    "mock error"),
+                                                                 new ResourceError (loc,
+                                                                                    EErrorLevel.ERROR,
+                                                                                    "mock error"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceError (loc,
-                                                                                           EErrorLevel.ERROR,
-                                                                                           "mock error"),
-                                                                        new ResourceError (loc2,
-                                                                                           EErrorLevel.ERROR,
-                                                                                           "mock error"));
+                                                                                        EErrorLevel.ERROR,
+                                                                                        "mock error"),
+                                                                     new ResourceError (loc2,
+                                                                                        EErrorLevel.ERROR,
+                                                                                        "mock error"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceError (loc,
-                                                                                           EErrorLevel.ERROR,
-                                                                                           "mock error"),
-                                                                        new ResourceError (loc,
-                                                                                           EErrorLevel.FATAL_ERROR,
-                                                                                           "mock error"));
+                                                                                        EErrorLevel.ERROR,
+                                                                                        "mock error"),
+                                                                     new ResourceError (loc,
+                                                                                        EErrorLevel.FATAL_ERROR,
+                                                                                        "mock error"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceError (loc,
-                                                                                           EErrorLevel.ERROR,
-                                                                                           "mock error"),
-                                                                        new ResourceError (loc,
-                                                                                           EErrorLevel.ERROR,
-                                                                                           "mock error2"));
+                                                                                        EErrorLevel.ERROR,
+                                                                                        "mock error"),
+                                                                     new ResourceError (loc,
+                                                                                        EErrorLevel.ERROR,
+                                                                                        "mock error2"));
   }
 }

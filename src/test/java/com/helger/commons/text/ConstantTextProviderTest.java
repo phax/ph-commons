@@ -91,10 +91,10 @@ public final class ConstantTextProviderTest
   public void testStandard ()
   {
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider ("any"),
-                                                                    new ConstantTextProvider ("any"));
+                                                                 new ConstantTextProvider ("any"));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider (""),
-                                                                    new ConstantTextProvider (""));
+                                                                 new ConstantTextProvider (""));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ConstantTextProvider ("any"),
-                                                                        new ConstantTextProvider ("anyy"));
+                                                                     new ConstantTextProvider ("anyy"));
   }
 }

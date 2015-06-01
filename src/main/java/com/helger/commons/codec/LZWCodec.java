@@ -328,9 +328,9 @@ public class LZWCodec extends AbstractByteArrayCodec
                 aByteSeq = ArrayHelper.getConcatenated (aPrevByteSeq, aPrevByteSeq[0]);
               else
                 throw new DecodeException ("Error decoding LZW: unexpected code " +
-                                            nCode +
-                                            " while next free code is " +
-                                            nNextFreeCode);
+                                           nCode +
+                                           " while next free code is " +
+                                           nNextFreeCode);
             aOS.write (aByteSeq);
             aDict.addEntry (ArrayHelper.getConcatenated (aPrevByteSeq, aByteSeq[0]), false);
             aPrevByteSeq = aByteSeq;

@@ -35,8 +35,7 @@ public final class StringIDFromGlobalLongIDFactoryTest
   {
     final StringIDFromGlobalLongIDFactory x = new StringIDFromGlobalLongIDFactory ("idd");
     PHTestUtils.testDefaultImplementationWithEqualContentObject (x, new StringIDFromGlobalLongIDFactory ("idd"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (x,
-                                                                        new StringIDFromGlobalLongIDFactory ("prefix"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (x, new StringIDFromGlobalLongIDFactory ("prefix"));
     assertTrue (x.getNewID ().startsWith ("idd"));
 
     try

@@ -48,7 +48,7 @@ public class CollatingComparatorDisplayNameProvider <DATATYPE> extends AbstractC
    *        The display text provider to be used. May not be <code>null</code>.
    */
   public CollatingComparatorDisplayNameProvider (@Nullable final Locale aSortLocale,
-                                        @Nonnull final IDisplayNameProvider <DATATYPE> aDisplayNameProvider)
+                                                 @Nonnull final IDisplayNameProvider <DATATYPE> aDisplayNameProvider)
   {
     super (aSortLocale);
     m_aDisplayNameProvider = ValueEnforcer.notNull (aDisplayNameProvider, "DisplayNameProvider");
@@ -63,7 +63,7 @@ public class CollatingComparatorDisplayNameProvider <DATATYPE> extends AbstractC
    *        The display text provider to be used. May not be <code>null</code>.
    */
   public CollatingComparatorDisplayNameProvider (@Nullable final Collator aCollator,
-                                        @Nonnull final IDisplayNameProvider <DATATYPE> aDisplayNameProvider)
+                                                 @Nonnull final IDisplayNameProvider <DATATYPE> aDisplayNameProvider)
   {
     super (aCollator);
     m_aDisplayNameProvider = ValueEnforcer.notNull (aDisplayNameProvider, "DisplayNameProvider");

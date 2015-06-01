@@ -35,8 +35,7 @@ public final class StringIDFromGlobalIntIDFactoryTest
   {
     final StringIDFromGlobalIntIDFactory x = new StringIDFromGlobalIntIDFactory ("idd");
     PHTestUtils.testDefaultImplementationWithEqualContentObject (x, new StringIDFromGlobalIntIDFactory ("idd"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (x,
-                                                                        new StringIDFromGlobalIntIDFactory ("prefix"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (x, new StringIDFromGlobalIntIDFactory ("prefix"));
     assertTrue (x.getNewID ().startsWith ("idd"));
 
     try

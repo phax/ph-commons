@@ -37,6 +37,7 @@ public final class CollatingComparatorLocaleDisplayNameTest extends AbstractPHTe
   public void testAll ()
   {
     final Set <Locale> aAll = LocaleCache.getAllLocales ();
-    assertEquals (aAll.size (), CollectionHelper.getSorted (aAll, new CollatingComparatorLocaleDisplayName (L_DE)).size ());
+    assertEquals (aAll.size (), CollectionHelper.getSorted (aAll, new CollatingComparatorLocaleDisplayName (L_DE))
+                                                .size ());
   }
 }

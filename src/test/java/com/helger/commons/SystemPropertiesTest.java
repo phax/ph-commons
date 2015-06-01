@@ -40,7 +40,7 @@ public final class SystemPropertiesTest extends AbstractPHTestCase
   public void testGetAll ()
   {
     for (final Map.Entry <String, String> aEntry : CollectionHelper.getSortedByKey (SystemProperties.getAllProperties ())
-                                                                  .entrySet ())
+                                                                   .entrySet ())
       m_aLogger.info ("[all] " + aEntry.getKey () + "=" + aEntry.getValue ());
 
     for (final String sKey : SystemProperties.getAllPropertyNames ())

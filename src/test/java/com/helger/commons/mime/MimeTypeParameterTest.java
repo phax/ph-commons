@@ -42,7 +42,7 @@ public final class MimeTypeParameterTest extends AbstractPHTestCase
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (p, new MimeTypeParameter ("charset", "iso-8859-1"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charsetname",
-                                                                                                  "iso-8859-1"));
+                                                                                               "iso-8859-1"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charset", "utf-8"));
 
     p = new MimeTypeParameter ("charset", "foo bar");

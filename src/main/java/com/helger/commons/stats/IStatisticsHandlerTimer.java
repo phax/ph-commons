@@ -16,7 +16,6 @@
  */
 package com.helger.commons.stats;
 
-
 /**
  * Read only statistics handler for times.
  *

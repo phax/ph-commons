@@ -190,24 +190,20 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
     final List <String> [] aArray = ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
                                                           CollectionHelper.newList ("c", "d"));
     assertTrue (ContainerEqualsUtils.equals (aArray, aArray));
-    assertTrue (ContainerEqualsUtils.equals (aArray,
-                                             ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
-                                                                   CollectionHelper.newList ("c", "d"))));
+    assertTrue (ContainerEqualsUtils.equals (aArray, ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
+                                                                           CollectionHelper.newList ("c", "d"))));
     assertTrue (ContainerEqualsUtils.equals (new List <?> [0], new List <?> [] {}));
 
     assertFalse (ContainerEqualsUtils.equals (aArray, new List <?> [0]));
     assertFalse (ContainerEqualsUtils.equals (new List <?> [0], aArray));
     assertFalse (ContainerEqualsUtils.equals (aArray, ArrayHelper.newArray (CollectionHelper.newList ("a", "b"))));
-    assertFalse (ContainerEqualsUtils.equals (aArray,
-                                              ArrayHelper.newArray (CollectionHelper.newList ("A", "b"),
-                                                                    CollectionHelper.newList ("c", "d"))));
-    assertFalse (ContainerEqualsUtils.equals (aArray,
-                                              ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
-                                                                    CollectionHelper.newList ("c", "D"))));
-    assertFalse (ContainerEqualsUtils.equals (aArray,
-                                              ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
-                                                                    CollectionHelper.newList ("c", "d"),
-                                                                    CollectionHelper.newList ("e", "f"))));
+    assertFalse (ContainerEqualsUtils.equals (aArray, ArrayHelper.newArray (CollectionHelper.newList ("A", "b"),
+                                                                            CollectionHelper.newList ("c", "d"))));
+    assertFalse (ContainerEqualsUtils.equals (aArray, ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
+                                                                            CollectionHelper.newList ("c", "D"))));
+    assertFalse (ContainerEqualsUtils.equals (aArray, ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
+                                                                            CollectionHelper.newList ("c", "d"),
+                                                                            CollectionHelper.newList ("e", "f"))));
     assertFalse (ContainerEqualsUtils.equals (aArray, ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
                                                                             (List <String>) null)));
     assertFalse (ContainerEqualsUtils.equals (aArray, CollectionHelper.newList ("a", "b", "c")));
@@ -273,7 +269,7 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
     assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), CollectionHelper.newList ("a", "B", "c").iterator ()));
     assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), CollectionHelper.newList ("a", "b", "C").iterator ()));
     assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), CollectionHelper.newList ("a", "b", "c", "d")
-                                                                                .iterator ()));
+                                                                                 .iterator ()));
     assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), CollectionHelper.newSet ("a", "b", "c")));
     assertFalse (ContainerEqualsUtils.equals (aCont.iterator (), ArrayHelper.newArray ("a", "b", "c")));
   }
@@ -358,9 +354,9 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
                                               CollectionHelper.getEnumeration (CollectionHelper.newList ("a", "b", "C"))));
     assertFalse (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
                                               CollectionHelper.getEnumeration (CollectionHelper.newList ("a",
-                                                                                                       "b",
-                                                                                                       "c",
-                                                                                                       "d"))));
+                                                                                                         "b",
+                                                                                                         "c",
+                                                                                                         "d"))));
     assertFalse (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
                                               CollectionHelper.getEnumeration (new SMap ("a", "b").add ("c", "d"))));
     assertFalse (ContainerEqualsUtils.equals (CollectionHelper.getEnumeration (aCont),
@@ -384,7 +380,8 @@ public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
 
     assertFalse (ContainerEqualsUtils.equalsAsList (null, "abc"));
     assertFalse (ContainerEqualsUtils.equalsAsList ("abc", null));
-    assertFalse (ContainerEqualsUtils.equalsAsList (CollectionHelper.newList ("a", "b"), ArrayHelper.newArray ("a", "B")));
+    assertFalse (ContainerEqualsUtils.equalsAsList (CollectionHelper.newList ("a", "b"),
+                                                    ArrayHelper.newArray ("a", "B")));
     assertFalse (ContainerEqualsUtils.equalsAsList (CollectionHelper.newList (null, "b"),
                                                     ArrayHelper.newArray ("a", (String) null)));
   }

@@ -167,20 +167,20 @@ public final class VendorInfo
   public static List <String> getFileHeaderLines ()
   {
     return CollectionHelper.newList ("THIS FILE IS GENERATED - DO NOT EDIT",
-                                    "",
-                                    "Copyright",
-                                    "",
-                                    "Copyright (c) " +
-                                        getVendorName () +
-                                        " " +
-                                        getInceptionYear () +
-                                        " - " +
-                                        CGlobal.CURRENT_YEAR,
-                                    getVendorURL (),
-                                    "",
-                                    "All Rights Reserved",
-                                    "Use, duplication or disclosure restricted by " + getVendorName (),
-                                    "",
-                                    getVendorLocation () + ", " + getInceptionYear () + " - " + CGlobal.CURRENT_YEAR);
+                                     "",
+                                     "Copyright",
+                                     "",
+                                     "Copyright (c) " +
+                                         getVendorName () +
+                                         " " +
+                                         getInceptionYear () +
+                                         " - " +
+                                         CGlobal.CURRENT_YEAR,
+                                     getVendorURL (),
+                                     "",
+                                     "All Rights Reserved",
+                                     "Use, duplication or disclosure restricted by " + getVendorName (),
+                                     "",
+                                     getVendorLocation () + ", " + getInceptionYear () + " - " + CGlobal.CURRENT_YEAR);
   }
 }

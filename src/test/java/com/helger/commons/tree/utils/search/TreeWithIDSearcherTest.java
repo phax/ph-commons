@@ -40,9 +40,9 @@ public final class TreeWithIDSearcherTest
   public void testSearch ()
   {
     final DefaultTreeWithID <String, MockHasParent> aTree = TreeWithIDBuilder.buildTree (CollectionHelper.newList (new MockHasParent ("a"),
-                                                                                                                  new MockHasParent ("ab"),
-                                                                                                                  new MockHasParent ("abc"),
-                                                                                                                  new MockHasParent ("abd")));
+                                                                                                                   new MockHasParent ("ab"),
+                                                                                                                   new MockHasParent ("abc"),
+                                                                                                                   new MockHasParent ("abd")));
     List <DefaultTreeItemWithID <String, MockHasParent>> aList = TreeWithIDSearcher.findAllItemsWithIDRecursive (aTree,
                                                                                                                  "abc");
     assertNotNull (aList);

@@ -51,10 +51,10 @@ public final class FileSystemByteStreamResolverTest
     assertTrue (FileOperations.deleteFile (new File ("$deleteme.txt")).isSuccess ());
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamResolver (new File (".")),
-                                                                    new FileSystemByteStreamResolver (new File (".")));
+                                                                 new FileSystemByteStreamResolver (new File (".")));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamResolver (new File (".")),
-                                                                    new FileSystemByteStreamResolver ("."));
+                                                                 new FileSystemByteStreamResolver ("."));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new FileSystemByteStreamResolver (new File (".")),
-                                                                        new FileSystemByteStreamResolver (new File ("..")));
+                                                                     new FileSystemByteStreamResolver (new File ("..")));
   }
 }

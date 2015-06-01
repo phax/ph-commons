@@ -45,10 +45,9 @@ public final class MutableBooleanTest
     assertFalse (x.set (true).isChanged ());
     assertTrue (x.booleanValue ());
     assertSame (Boolean.TRUE, x.getAsBoolean ());
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MutableBoolean (true),
-                                                                    new MutableBoolean (true));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MutableBoolean (true), new MutableBoolean (true));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MutableBoolean (true),
-                                                                        new MutableBoolean (false));
+                                                                     new MutableBoolean (false));
     PHTestUtils.testGetClone (new MutableBoolean (true));
   }
 
@@ -60,7 +59,6 @@ public final class MutableBooleanTest
     assertNotNull (b);
     assertTrue (b.booleanValue ());
     assertTrue (TypeConverter.convertToBoolean (x));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (x,
-                                                                    TypeConverter.convert (true, MutableBoolean.class));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (x, TypeConverter.convert (true, MutableBoolean.class));
   }
 }

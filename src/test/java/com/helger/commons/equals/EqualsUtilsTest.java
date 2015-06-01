@@ -254,7 +254,8 @@ public final class EqualsUtilsTest extends AbstractPHTestCase
     assertTrue (EqualsUtils.equals (CollectionHelper.newList ("a", "b", "c"), CollectionHelper.newList ("a", "b", "c")));
     assertTrue (EqualsUtils.equals (CollectionHelper.newUnmodifiableList ("a", "b", "c"),
                                     CollectionHelper.newUnmodifiableList ("a", "b", "c")));
-    assertTrue (EqualsUtils.equals (CollectionHelper.newStack ("a", "b", "c"), CollectionHelper.newStack ("a", "b", "c")));
+    assertTrue (EqualsUtils.equals (CollectionHelper.newStack ("a", "b", "c"),
+                                    CollectionHelper.newStack ("a", "b", "c")));
     assertTrue (EqualsUtils.equals (CollectionHelper.newList ("a", "b", "c").iterator (),
                                     CollectionHelper.newList ("a", "b", "c").iterator ()));
     assertTrue (EqualsUtils.equals (CollectionHelper.getEnumeration ("a", "b", "c"),

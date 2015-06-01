@@ -16,7 +16,6 @@
  */
 package com.helger.commons.dimension;
 
-
 /**
  * Interface for objects having a width and a height.
  * 

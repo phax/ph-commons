@@ -244,9 +244,9 @@ public final class ClassPathResourceTest
     final ClassPathResource aCPISP2 = new ClassPathResource ("folder/test1.txt");
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aCPISP1a, aCPISP1b);
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aCPISP1a,
-                                                                    new ClassPathResource ("cp:folder/test2.txt"));
+                                                                 new ClassPathResource ("cp:folder/test2.txt"));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aCPISP1a,
-                                                                    new ClassPathResource ("classpath:folder/test2.txt"));
+                                                                 new ClassPathResource ("classpath:folder/test2.txt"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (aCPISP1a, aCPISP2);
     PHTestUtils.testDefaultSerialization (aCPISP1a);
     PHTestUtils.testDefaultSerialization (new ClassPathResource ("folder/test2.txt"));
@@ -254,7 +254,7 @@ public final class ClassPathResourceTest
     {
       // Can't serialize with class loader
       PHTestUtils.testDefaultSerialization (new ClassPathResource ("folder/test2.txt",
-                                                                      ClassHelper.getDefaultClassLoader ()));
+                                                                   ClassHelper.getDefaultClassLoader ()));
       fail ();
     }
     catch (final IllegalStateException ex)

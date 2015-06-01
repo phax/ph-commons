@@ -40,14 +40,14 @@ public final class XMLEmitterTest extends AbstractPHTestCase
   {
     assertEquals ("<!DOCTYPE qname PUBLIC \"pubid\" \"sysid\">",
                   XMLEmitter.getDocTypeHTMLRepresentation (EXMLSerializeVersion.XML_10,
-                                                                EXMLIncorrectCharacterHandling.DEFAULT,
-                                                                new MicroDocumentType ("qname", "pubid", "sysid")));
+                                                           EXMLIncorrectCharacterHandling.DEFAULT,
+                                                           new MicroDocumentType ("qname", "pubid", "sysid")));
     assertEquals ("<!DOCTYPE qname PUBLIC \"pubid\" \"sysid\">",
                   XMLEmitter.getDocTypeHTMLRepresentation (EXMLSerializeVersion.XML_11,
-                                                                EXMLIncorrectCharacterHandling.DEFAULT,
-                                                                new MicroDocumentType ("qname", "pubid", "sysid")));
+                                                           EXMLIncorrectCharacterHandling.DEFAULT,
+                                                           new MicroDocumentType ("qname", "pubid", "sysid")));
     PHTestUtils.testToStringImplementation (new XMLEmitter (new ByteArrayOutputStreamProvider ().getWriter (CCharset.CHARSET_ISO_8859_1_OBJ,
-                                                                                                                    EAppend.DEFAULT),
-                                                                    XMLWriterSettings.DEFAULT_XML_SETTINGS));
+                                                                                                            EAppend.DEFAULT),
+                                                            XMLWriterSettings.DEFAULT_XML_SETTINGS));
   }
 }

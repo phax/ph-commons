@@ -43,11 +43,10 @@ public final class FactoryConstantValueTest
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aFactory, new FactoryConstantValue <T> (aValue));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aFactory, FactoryConstantValue.create (aValue));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aFactory,
-                                                                        new FactoryConstantValue <T> (aValue2));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aFactory, new FactoryConstantValue <T> (aValue2));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (aFactory, FactoryConstantValue.create (aValue2));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (aFactory,
-                                                                        new FactoryConstantValue <BigDecimal> (BigDecimal.ONE));
+                                                                     new FactoryConstantValue <BigDecimal> (BigDecimal.ONE));
   }
 
   @Test

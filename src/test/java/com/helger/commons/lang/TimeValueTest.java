@@ -47,11 +47,11 @@ public final class TimeValueTest
     assertEquals (5000000000L, t.getAsNanos ());
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new TimeValue (TimeUnit.SECONDS, 5),
-                                                                    new TimeValue (TimeUnit.SECONDS, 5));
+                                                                 new TimeValue (TimeUnit.SECONDS, 5));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new TimeValue (TimeUnit.SECONDS, 5),
-                                                                        new TimeValue (TimeUnit.SECONDS, 4));
+                                                                     new TimeValue (TimeUnit.SECONDS, 4));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new TimeValue (TimeUnit.SECONDS, 5),
-                                                                        new TimeValue (TimeUnit.NANOSECONDS, 5));
+                                                                     new TimeValue (TimeUnit.NANOSECONDS, 5));
     try
     {
       new TimeValue (null, 5);

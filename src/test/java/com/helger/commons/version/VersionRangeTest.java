@@ -403,18 +403,17 @@ public final class VersionRangeTest
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("(1.3,2.0]"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("(1.2,2.1]"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(,2.0]"),
-                                                                        new VersionRange ("(,2.1]"));
+                                                                     new VersionRange ("(,2.1]"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(1.2]"),
-                                                                        new VersionRange ("(1.3]"));
+                                                                     new VersionRange ("(1.3]"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(1.2,]"),
-                                                                        new VersionRange ("(,2.0]"));
+                                                                     new VersionRange ("(,2.0]"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(,2.0]"),
-                                                                        new VersionRange ("(1.2,]"));
+                                                                     new VersionRange ("(1.2,]"));
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new VersionRange ("(1.2]"),
-                                                                    new VersionRange ("(1.2]"));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new VersionRange ("(1.2]"), new VersionRange ("(1.2]"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(1.2]"),
-                                                                        new VersionRange ("(1.2)"));
+                                                                     new VersionRange ("(1.2)"));
   }
 
   @Test

@@ -51,8 +51,9 @@ public final class ChildElementIteratorTest extends AbstractPHTestCase
     eRoot.appendChild (doc.createTextNode (" - "));
     eRoot.appendChild (doc.createElement ("Welt"));
     assertEquals (2, CollectionHelper.newList (new ChildElementIterator (eRoot)).size ());
-    assertEquals (1, CollectionHelper.newList (new ChildElementIterator (eRoot, new FilterElementWithTagName ("Hallo")))
-                                    .size ());
+    assertEquals (1,
+                  CollectionHelper.newList (new ChildElementIterator (eRoot, new FilterElementWithTagName ("Hallo")))
+                                  .size ());
 
     try
     {

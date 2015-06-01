@@ -34,6 +34,7 @@ public final class CollatingComparatorLocaleCountryTest extends AbstractPHTestCa
   @Test
   public void testSort ()
   {
-    assertNotNull (CollectionHelper.getSorted (LocaleCache.getAllLocales (), new CollatingComparatorLocaleCountry (L_DE)));
+    assertNotNull (CollectionHelper.getSorted (LocaleCache.getAllLocales (),
+                                               new CollatingComparatorLocaleCountry (L_DE)));
   }
 }

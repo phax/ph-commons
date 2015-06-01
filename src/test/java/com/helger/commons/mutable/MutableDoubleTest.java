@@ -83,10 +83,9 @@ public final class MutableDoubleTest
     x.set (1);
     assertTrue (x.isGreater0 ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MutableDouble (3.1415),
-                                                                    new MutableDouble (3.1415));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MutableDouble (3.1415), new MutableDouble (3.1415));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MutableDouble (3.1415),
-                                                                        new MutableDouble (3.141));
+                                                                     new MutableDouble (3.141));
     PHTestUtils.testGetClone (new MutableDouble (47.11));
   }
 }

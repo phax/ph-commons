@@ -37,9 +37,9 @@ public final class DefaultFolderTreeItemFactoryTest
   {
     final DefaultFolderTreeItemFactory <String, String, List <String>> ftif = new DefaultFolderTreeItemFactory <String, String, List <String>> (new AggregatorStringWithSeparator ("/"));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (ftif,
-                                                                    new DefaultFolderTreeItemFactory <String, String, List <String>> (new AggregatorStringWithSeparator ("/")));
+                                                                 new DefaultFolderTreeItemFactory <String, String, List <String>> (new AggregatorStringWithSeparator ("/")));
     assertNotNull (ftif.createRoot ());
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (ftif,
-                                                                        new DefaultFolderTreeItemFactory <String, String, List <String>> (new AggregatorStringWithSeparator ("/")));
+                                                                     new DefaultFolderTreeItemFactory <String, String, List <String>> (new AggregatorStringWithSeparator ("/")));
   }
 }

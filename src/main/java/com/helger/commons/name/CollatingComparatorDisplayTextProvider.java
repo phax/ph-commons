@@ -52,8 +52,8 @@ public class CollatingComparatorDisplayTextProvider <DATATYPE> extends AbstractC
    *        not be <code>null</code>.
    */
   public CollatingComparatorDisplayTextProvider (@Nullable final Locale aSortLocale,
-                                        @Nonnull final IDisplayTextProvider <DATATYPE> aDisplayTextProvider,
-                                        @Nonnull final Locale aContentLocale)
+                                                 @Nonnull final IDisplayTextProvider <DATATYPE> aDisplayTextProvider,
+                                                 @Nonnull final Locale aContentLocale)
   {
     super (aSortLocale);
     m_aDisplayTextProvider = ValueEnforcer.notNull (aDisplayTextProvider, "DisplayTextProvider");
@@ -72,8 +72,8 @@ public class CollatingComparatorDisplayTextProvider <DATATYPE> extends AbstractC
    *        not be <code>null</code>.
    */
   public CollatingComparatorDisplayTextProvider (@Nullable final Collator aCollator,
-                                        @Nonnull final IDisplayTextProvider <DATATYPE> aDisplayTextProvider,
-                                        @Nonnull final Locale aContentLocale)
+                                                 @Nonnull final IDisplayTextProvider <DATATYPE> aDisplayTextProvider,
+                                                 @Nonnull final Locale aContentLocale)
   {
     super (aCollator);
     m_aDisplayTextProvider = ValueEnforcer.notNull (aDisplayTextProvider, "DisplayTextProvider");

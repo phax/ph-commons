@@ -16,7 +16,6 @@
  */
 package com.helger.commons.name;
 
-
 public final class MockHasDisplayName implements IHasDisplayName
 {
   private final String m_sName;

@@ -37,7 +37,7 @@ public class CollatingComparatorLocaleDisplayCountryInLocale extends AbstractCol
   private final Locale m_aContentLocale;
 
   public CollatingComparatorLocaleDisplayCountryInLocale (@Nullable final Locale aSortLocale,
-                                                 @Nonnull final Locale aContentLocale)
+                                                          @Nonnull final Locale aContentLocale)
   {
     super (aSortLocale);
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");

@@ -116,47 +116,47 @@ public final class FormattedObjectTest
   public void testImpl ()
   {
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new FormattedObject ("Any", new BracketFormatter ()),
-                                                                    new FormattedObject ("Any", new BracketFormatter ()));
+                                                                 new FormattedObject ("Any", new BracketFormatter ()));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new FormattedObject ("Any",
-                                                                                             new BracketFormatter ()),
-                                                                        new FormattedObject ("Any2",
-                                                                                             new BracketFormatter ()));
+                                                                                          new BracketFormatter ()),
+                                                                     new FormattedObject ("Any2",
+                                                                                          new BracketFormatter ()));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new FormattedObject ("Any",
-                                                                                             new BracketFormatter ()),
-                                                                        new FormattedObject ("Any",
-                                                                                             new StringPrefixFormatter ("oprefix")));
+                                                                                          new BracketFormatter ()),
+                                                                     new FormattedObject ("Any",
+                                                                                          new StringPrefixFormatter ("oprefix")));
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new BracketFormatter (), new BracketFormatter ());
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new MinLengthAddLeadingFormatter (10, ' '),
-                                                                    new MinLengthAddLeadingFormatter (10, ' '));
+                                                                 new MinLengthAddLeadingFormatter (10, ' '));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MinLengthAddLeadingFormatter (10, ' '),
-                                                                        new MinLengthAddLeadingFormatter (10, 'x'));
+                                                                     new MinLengthAddLeadingFormatter (10, 'x'));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MinLengthAddLeadingFormatter (10, ' '),
-                                                                        new MinLengthAddLeadingFormatter (5, ' '));
+                                                                     new MinLengthAddLeadingFormatter (5, ' '));
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new MinLengthAddTrailingFormatter (10, ' '),
-                                                                    new MinLengthAddTrailingFormatter (10, ' '));
+                                                                 new MinLengthAddTrailingFormatter (10, ' '));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MinLengthAddTrailingFormatter (10, ' '),
-                                                                        new MinLengthAddTrailingFormatter (10, 'x'));
+                                                                     new MinLengthAddTrailingFormatter (10, 'x'));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MinLengthAddTrailingFormatter (10, ' '),
-                                                                        new MinLengthAddTrailingFormatter (5, ' '));
+                                                                     new MinLengthAddTrailingFormatter (5, ' '));
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new StringPrefixAndSuffixFormatter ("p", "s"),
-                                                                    new StringPrefixAndSuffixFormatter ("p", "s"));
+                                                                 new StringPrefixAndSuffixFormatter ("p", "s"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new StringPrefixAndSuffixFormatter ("p", "s"),
-                                                                        new StringPrefixAndSuffixFormatter ("p", "ss"));
+                                                                     new StringPrefixAndSuffixFormatter ("p", "ss"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new StringPrefixAndSuffixFormatter ("p", "s"),
-                                                                        new StringPrefixAndSuffixFormatter ("pp", "s"));
+                                                                     new StringPrefixAndSuffixFormatter ("pp", "s"));
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new StringPrefixFormatter ("p"),
-                                                                    new StringPrefixFormatter ("p"));
+                                                                 new StringPrefixFormatter ("p"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new StringPrefixFormatter ("p"),
-                                                                        new StringPrefixFormatter ("pp"));
+                                                                     new StringPrefixFormatter ("pp"));
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new StringSuffixFormatter ("s"),
-                                                                    new StringSuffixFormatter ("s"));
+                                                                 new StringSuffixFormatter ("s"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new StringSuffixFormatter ("s"),
-                                                                        new StringSuffixFormatter ("ss"));
+                                                                     new StringSuffixFormatter ("ss"));
   }
 }

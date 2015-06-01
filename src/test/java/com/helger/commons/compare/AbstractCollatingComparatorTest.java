@@ -68,7 +68,8 @@ public final class AbstractCollatingComparatorTest
     assertArrayEquals (new String [] { S3, S1, S2 }, l.toArray ());
 
     // Explicitly sort descending
-    l = CollectionHelper.getSorted (x, new MockCollatingComparatorString (Locale.US).setSortOrder (ESortOrder.DESCENDING));
+    l = CollectionHelper.getSorted (x,
+                                    new MockCollatingComparatorString (Locale.US).setSortOrder (ESortOrder.DESCENDING));
     assertArrayEquals (new String [] { S2, S1, S3 }, l.toArray ());
 
     // change dynamically
@@ -97,11 +98,13 @@ public final class AbstractCollatingComparatorTest
     assertArrayEquals (new String [] { S2, S3, S1 }, l.toArray ());
 
     // sort ascending manually
-    l = CollectionHelper.getSorted (x, new MockCollatingComparatorString (Locale.GERMAN).setSortOrder (ESortOrder.ASCENDING));
+    l = CollectionHelper.getSorted (x,
+                                    new MockCollatingComparatorString (Locale.GERMAN).setSortOrder (ESortOrder.ASCENDING));
     assertArrayEquals (new String [] { S2, S3, S1 }, l.toArray ());
 
     // sort descending manually
-    l = CollectionHelper.getSorted (x, new MockCollatingComparatorString (Locale.GERMAN).setSortOrder (ESortOrder.DESCENDING));
+    l = CollectionHelper.getSorted (x,
+                                    new MockCollatingComparatorString (Locale.GERMAN).setSortOrder (ESortOrder.DESCENDING));
     assertArrayEquals (new String [] { S1, S3, S2 }, l.toArray ());
 
     // null locale allowed
@@ -119,7 +122,7 @@ public final class AbstractCollatingComparatorTest
   {
     assertTrue (new MockCollatingComparatorString (Locale.CANADA_FRENCH).getSortOrder ().isAscending ());
     assertFalse (new MockCollatingComparatorString (Locale.CANADA_FRENCH).setSortOrder (ESortOrder.DESCENDING)
-                                                                .getSortOrder ()
-                                                                .isAscending ());
+                                                                         .getSortOrder ()
+                                                                         .isAscending ());
   }
 }

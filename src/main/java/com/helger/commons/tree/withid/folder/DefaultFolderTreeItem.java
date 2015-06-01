@@ -33,8 +33,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  *        Collection type consisting of value elements
  */
 @NotThreadSafe
-public class DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>> extends
-                                                                                               BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE>>
+public class DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>> extends BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE>>
 {
   /**
    * Constructor for root object

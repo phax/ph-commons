@@ -16,8 +16,6 @@
  */
 package com.helger.commons.callback;
 
-
-
 /**
  * Simple callback interface to allow generic iteration with a typed callback
  * function. This is similar to {@link INonThrowingRunnable} except that a

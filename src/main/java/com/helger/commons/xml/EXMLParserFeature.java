@@ -520,25 +520,25 @@ public enum EXMLParserFeature implements IHasName
    * This map contains all necessary settings to avoid XXE attacks.
    */
   public static final Map <EXMLParserFeature, Boolean> AVOID_XXE_SETTINGS = CollectionHelper.newUnmodifiableMap (new EXMLParserFeature [] { DISALLOW_DOCTYPE_DECL,
-                                                                                                                                          EXTERNAL_GENERAL_ENTITIES,
-                                                                                                                                          EXTERNAL_PARAMETER_ENTITIES },
-                                                                                                                new Boolean [] { Boolean.TRUE,
-                                                                                                                                Boolean.FALSE,
-                                                                                                                                Boolean.FALSE });
+                                                                                                                                           EXTERNAL_GENERAL_ENTITIES,
+                                                                                                                                           EXTERNAL_PARAMETER_ENTITIES },
+                                                                                                                 new Boolean [] { Boolean.TRUE,
+                                                                                                                                 Boolean.FALSE,
+                                                                                                                                 Boolean.FALSE });
 
   /**
    * This map contains all necessary settings to avoid entity expansion overflow
    * attacks.
    */
   public static final Map <EXMLParserFeature, Boolean> AVOID_DOS_SETTINGS = CollectionHelper.newUnmodifiableMap (new EXMLParserFeature [] { SECURE_PROCESSING },
-                                                                                                                new Boolean [] { Boolean.TRUE });
+                                                                                                                 new Boolean [] { Boolean.TRUE });
 
   /**
    * This map contains all necessary settings to avoid all known XML attacks
    */
   @SuppressWarnings ("unchecked")
   public static final Map <EXMLParserFeature, Boolean> AVOID_XML_ATTACKS = CollectionHelper.newUnmodifiableMap (ArrayHelper.newArray (AVOID_XXE_SETTINGS,
-                                                                                                                                     AVOID_DOS_SETTINGS));
+                                                                                                                                      AVOID_DOS_SETTINGS));
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (EXMLParserFeature.class);
 

@@ -73,10 +73,10 @@ public final class FileSystemResourceProviderTest
   public void testEqualsAndHashcode ()
   {
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemResourceProvider (),
-                                                                    new FileSystemResourceProvider ());
+                                                                 new FileSystemResourceProvider ());
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemResourceProvider ("src/test/resources"),
-                                                                    new FileSystemResourceProvider ("src/test/resources"));
+                                                                 new FileSystemResourceProvider ("src/test/resources"));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemResourceProvider ("src/test/resources"),
-                                                                    new FileSystemResourceProvider (new File ("src/test/resources")));
+                                                                 new FileSystemResourceProvider (new File ("src/test/resources")));
   }
 }

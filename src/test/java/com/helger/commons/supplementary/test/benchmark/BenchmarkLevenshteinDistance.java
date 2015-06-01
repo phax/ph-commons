@@ -43,7 +43,7 @@ import com.helger.commons.string.utils.LevenshteinDistance;
  * [   5] Info    12.08.2010 12:58:39 [com.phloc.test.benchmark.AbstractBenchmarkTask] LevDist1b: 4,791,247.561 ns
  * [   6] Info    12.08.2010 12:58:43 [com.phloc.test.benchmark.AbstractBenchmarkTask] LevDist2a: 12,323,263.15 ns
  * [   7] Info    12.08.2010 12:58:46 [com.phloc.test.benchmark.AbstractBenchmarkTask] LevDist2b: 10,900,994.4 ns
- *
+ * 
  * [   1] Info    12.08.2010 12:59:43 [com.phloc.test.benchmark.AbstractBenchmarkTask] Runtime: Date=Thu Aug 12 12:59:43 CEST 2010; Java=1.6.0_21; OS=Windows Vista [6.0]; User=philip; Procs=4
  * [   2] Info    12.08.2010 12:59:43 [com.phloc.test.benchmark.AbstractBenchmarkTask] Comparing 100 strings from word list; The longest string is 1024 chars!
  * [   3] Info    12.08.2010 12:59:48 [com.phloc.test.benchmark.AbstractBenchmarkTask] *LevDist0: 18,640,355.13 ns

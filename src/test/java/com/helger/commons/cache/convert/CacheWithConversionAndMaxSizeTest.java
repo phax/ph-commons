@@ -38,10 +38,10 @@ public final class CacheWithConversionAndMaxSizeTest
   public void testAll ()
   {
     final Map <String, Integer> aMap = CollectionHelper.newMap (new String [] { "In", "In2" },
-                                                               new Integer [] { Integer.valueOf (1),
-                                                                               Integer.valueOf (2) });
+                                                                new Integer [] { Integer.valueOf (1),
+                                                                                Integer.valueOf (2) });
     final CacheWithConversionAndMaxSize <String, Integer> aCache = new CacheWithConversionAndMaxSize <String, Integer> ("test",
-                                                                                                                                    1);
+                                                                                                                        1);
     assertEquals ("test", aCache.getName ());
     assertEquals (1, aCache.getMaxSize ());
     // Get from map

@@ -49,10 +49,10 @@ public final class ReadonlyIntPairTest
     assertEquals (2, aPair2.getSecond ());
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyIntPair (5, -30),
-                                                                    new ReadonlyIntPair (5, -30));
+                                                                 new ReadonlyIntPair (5, -30));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ReadonlyIntPair (5, -30),
-                                                                        new ReadonlyIntPair (-5, -30));
+                                                                     new ReadonlyIntPair (-5, -30));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ReadonlyIntPair (5, -30),
-                                                                        new ReadonlyIntPair (5, 30));
+                                                                     new ReadonlyIntPair (5, 30));
   }
 }

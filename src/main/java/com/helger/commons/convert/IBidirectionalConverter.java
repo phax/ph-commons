@@ -16,7 +16,6 @@
  */
 package com.helger.commons.convert;
 
-
 /**
  * This is a very simple type conversion interface for compile type conversions.
  * 

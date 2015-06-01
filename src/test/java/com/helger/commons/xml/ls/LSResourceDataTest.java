@@ -47,15 +47,15 @@ public final class LSResourceDataTest
     assertNotNull (rd.getBaseURI ());
     assertTrue (rd.getBaseURI ().endsWith ("xml/schema2.xsd"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (rd, new LSResourceData (null,
-                                                                                                null,
-                                                                                                null,
-                                                                                                null,
-                                                                                                null));
+                                                                                             null,
+                                                                                             null,
+                                                                                             null,
+                                                                                             null));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (rd,
-                                                                    new LSResourceData (rd.getType (),
-                                                                                        rd.getNamespaceURI (),
-                                                                                        rd.getPublicID (),
-                                                                                        rd.getSystemID (),
-                                                                                        rd.getBaseURI ()));
+                                                                 new LSResourceData (rd.getType (),
+                                                                                     rd.getNamespaceURI (),
+                                                                                     rd.getPublicID (),
+                                                                                     rd.getSystemID (),
+                                                                                     rd.getBaseURI ()));
   }
 }

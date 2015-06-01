@@ -54,14 +54,14 @@ public final class ResourceLocationTest
     assertEquals ("xx(5:7) @ field", re.getAsString ());
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceLocation ("xx", "field"),
-                                                                    new ResourceLocation ("xx", "field"));
+                                                                 new ResourceLocation ("xx", "field"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", "field"),
-                                                                        new ResourceLocation ("xx2", "field"));
+                                                                     new ResourceLocation ("xx2", "field"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", "field"),
-                                                                        new ResourceLocation ("xx", "field2"));
+                                                                     new ResourceLocation ("xx", "field2"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", 0, 1, "field"),
-                                                                        new ResourceLocation ("xx", 0, 0, "field"));
+                                                                     new ResourceLocation ("xx", 0, 0, "field"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", 0, 1, "field"),
-                                                                        new ResourceLocation ("xx", 1, 1, "field"));
+                                                                     new ResourceLocation ("xx", 1, 1, "field"));
   }
 }

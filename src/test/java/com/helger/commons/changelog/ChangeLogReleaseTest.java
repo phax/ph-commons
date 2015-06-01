@@ -50,12 +50,12 @@ public final class ChangeLogReleaseTest
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aRelease, new ChangeLogRelease (aDate, aVersion));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (aRelease,
-                                                                        new ChangeLogRelease (new GregorianCalendar (2010,
-                                                                                                                     Calendar.JULY,
-                                                                                                                     6).getTime (),
-                                                                                              aVersion));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aRelease,
-                                                                        new ChangeLogRelease (aDate, new Version (1,
+                                                                     new ChangeLogRelease (new GregorianCalendar (2010,
+                                                                                                                  Calendar.JULY,
+                                                                                                                  6).getTime (),
+                                                                                           aVersion));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aRelease, new ChangeLogRelease (aDate,
+                                                                                                     new Version (1,
                                                                                                                   2,
                                                                                                                   4)));
 

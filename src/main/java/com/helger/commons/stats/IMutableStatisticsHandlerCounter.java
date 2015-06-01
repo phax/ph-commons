@@ -16,7 +16,6 @@
  */
 package com.helger.commons.stats;
 
-
 /**
  * Statistics handler for a counter.
  *

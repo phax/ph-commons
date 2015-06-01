@@ -33,8 +33,7 @@ import com.helger.commons.tree.withid.DefaultTreeItemWithID;
  *        The type of the elements contained in the tree
  */
 @NotThreadSafe
-public class DefaultTreeWithGlobalUniqueID <KEYTYPE, DATATYPE> extends
-                                                               BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
+public class DefaultTreeWithGlobalUniqueID <KEYTYPE, DATATYPE> extends BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
 {
   public DefaultTreeWithGlobalUniqueID ()
   {

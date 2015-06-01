@@ -95,16 +95,16 @@ public final class PairTest
     assertFalse (aPair.equals (aPair2));
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> (null, null),
-                                                                    new Pair <String, Double> (null, null));
+                                                                 new Pair <String, Double> (null, null));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> ("Nix da", null),
-                                                                    new Pair <String, Double> ("Nix da", null));
+                                                                 new Pair <String, Double> ("Nix da", null));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> (null, "Nix da"),
-                                                                    new Pair <String, String> (null, "Nix da"));
+                                                                 new Pair <String, String> (null, "Nix da"));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> ("Nix", "da"),
-                                                                    new Pair <String, String> ("Nix", "da"));
+                                                                 new Pair <String, String> ("Nix", "da"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new Pair <String, String> ("Nix", "da"),
-                                                                        new Pair <String, String> ("Nix", "da2"));
+                                                                     new Pair <String, String> ("Nix", "da2"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (Pair.create ("Nix", "da"),
-                                                                        Pair.create ("Nix2", "da"));
+                                                                     Pair.create ("Nix2", "da"));
   }
 }

@@ -56,8 +56,8 @@ public final class EmailAddressTest
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aMA, new EmailAddress ("ph@example.org"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (aMA, new EmailAddress ("ph@example2.org"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aMA, new EmailAddress ("ph@example.org",
-                                                                                               "My name"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aMA,
+                                                                     new EmailAddress ("ph@example.org", "My name"));
     PHTestUtils.testDefaultSerialization (new EmailAddress ("ph@example.org", "My name"));
 
     aMA = new EmailAddress ("ph@example.org", "Philip");

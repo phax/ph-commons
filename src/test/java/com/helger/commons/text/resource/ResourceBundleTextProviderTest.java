@@ -46,13 +46,13 @@ public final class ResourceBundleTextProviderTest extends AbstractPHTestCase
     assertEquals ("äöü", aRBT.getTextWithLocaleFallbackAndArgs (L_DE, "egal"));
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
-                                                                    new ResourceBundleTextProvider (key));
+                                                                 new ResourceBundleTextProvider (key));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
-                                                                    new ResourceBundleTextProvider ("properties/test-iso8859",
-                                                                                                    "key1"));
+                                                                 new ResourceBundleTextProvider ("properties/test-iso8859",
+                                                                                                 "key1"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceBundleTextProvider (key),
-                                                                        new ResourceBundleTextProvider ("properties/test-iso8859",
-                                                                                                        "key2"));
+                                                                     new ResourceBundleTextProvider ("properties/test-iso8859",
+                                                                                                     "key2"));
 
     try
     {

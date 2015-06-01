@@ -42,7 +42,7 @@ public final class CollatingComparatorHasDisplayTextTest extends AbstractPHTestC
                                                                       MockHasDisplayText.createDE_EN ("de3", "en1"));
     List <MockHasDisplayText> l2 = CollectionHelper.getSorted (aList,
                                                                new CollatingComparatorHasDisplayText <IHasDisplayText> (L_DE,
-                                                                                                               L_DE));
+                                                                                                                        L_DE));
     assertEquals (3, l2.size ());
     assertEquals ("de1", l2.get (0).getDisplayText (L_DE));
     assertEquals ("de2", l2.get (1).getDisplayText (L_DE));

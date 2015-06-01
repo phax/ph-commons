@@ -16,8 +16,6 @@
  */
 package com.helger.commons.callback;
 
-
-
 /**
  * Like the {@link java.util.concurrent.Callable} interface but not throwing an
  * exception!

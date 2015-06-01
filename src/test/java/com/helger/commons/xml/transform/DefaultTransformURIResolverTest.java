@@ -39,8 +39,7 @@ public final class DefaultTransformURIResolverTest
   {
     for (int i = 0; i < 2; ++i)
     {
-      final DefaultTransformURIResolver res = new DefaultTransformURIResolver (i == 0
-                                                                                     ? null
+      final DefaultTransformURIResolver res = new DefaultTransformURIResolver (i == 0 ? null
                                                                                      : new LoggingTransformURIResolver ());
       final TransformerFactory fac = XMLTransformerFactory.createTransformerFactory (null, res);
       assertNotNull (fac);

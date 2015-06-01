@@ -83,10 +83,9 @@ public final class MutableFloatTest
     x.set (1);
     assertTrue (x.isGreater0 ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MutableFloat (3.1415f),
-                                                                    new MutableFloat (3.1415f));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MutableFloat (3.1415f), new MutableFloat (3.1415f));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MutableFloat (3.1415f),
-                                                                        new MutableFloat (3.141f));
+                                                                     new MutableFloat (3.141f));
     PHTestUtils.testGetClone (new MutableFloat (47.11f));
   }
 }

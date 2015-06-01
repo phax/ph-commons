@@ -38,7 +38,7 @@ public final class AggregatorConstantTest
     final AggregatorConstant <String, String> a1 = new AggregatorConstant <String, String> ("foo");
     PHTestUtils.testDefaultImplementationWithEqualContentObject (a1, new AggregatorConstant <String, String> ("foo"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (a1,
-                                                                        new AggregatorConstant <String, String> ("bar"));
+                                                                     new AggregatorConstant <String, String> ("bar"));
 
     assertEquals ("foo", a1.aggregate (CollectionHelper.newList ("a", "b")));
     assertEquals ("foo", a1.aggregate (new ArrayList <String> ()));

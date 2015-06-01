@@ -36,7 +36,8 @@ public class CollatingComparatorLocaleDisplayNameInLocale extends AbstractCollat
 {
   private final Locale m_aContentLocale;
 
-  public CollatingComparatorLocaleDisplayNameInLocale (@Nullable final Locale aSortLocale, @Nonnull final Locale aContentLocale)
+  public CollatingComparatorLocaleDisplayNameInLocale (@Nullable final Locale aSortLocale,
+                                                       @Nonnull final Locale aContentLocale)
   {
     super (aSortLocale);
     m_aContentLocale = ValueEnforcer.notNull (aContentLocale, "ContentLocale");

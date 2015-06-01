@@ -671,19 +671,17 @@ public final class VersionTest
   public void testHashCode ()
   {
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, 4), new Version (1, 2, 3, 4));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, 4),
-                                                                    new Version (1, 2, 3, "4"));
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, 4), new Version (1, 2, 3, "4"));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, 4), new Version ("1.2.3.4"));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1), new Version ("1"));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new Version ("1"), new Version ("   1"));
 
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, 4), new Version (1, 2, 3));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, 4), new Version (1,
-                                                                                                               2,
-                                                                                                               3,
-                                                                                                               "5"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, 4),
-                                                                        new Version ("1.3.3.4"));
+                                                                                                            2,
+                                                                                                            3,
+                                                                                                            "5"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, 4), new Version ("1.3.3.4"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (2), new Version ("1"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new Version ("1"), new Version ("   11"));
   }

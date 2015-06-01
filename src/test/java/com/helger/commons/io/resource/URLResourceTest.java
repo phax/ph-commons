@@ -92,7 +92,7 @@ public final class URLResourceTest extends AbstractPHTestCase
     PHTestUtils.testDefaultImplementationWithEqualContentObject (ur, new URLResource (aFileURL));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (ur, ur.getReadableCloneForPath (aFileURL));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (ur,
-                                                                    ur.getReadableCloneForPath (aFileURL.toExternalForm ()));
+                                                                 ur.getReadableCloneForPath (aFileURL.toExternalForm ()));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (ur, new URLResource (aNoNExistingURL));
 
     assertNotNull (URLResource.getAsFile (aFileURL));

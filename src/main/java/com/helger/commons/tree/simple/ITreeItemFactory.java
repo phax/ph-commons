@@ -30,9 +30,7 @@ import com.helger.commons.factory.IHierarchicalRootFactory;
  * @param <ITEMTYPE>
  *        item implementation type
  */
-public interface ITreeItemFactory <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> extends
-                                                                                              IHierarchicalFactory <ITEMTYPE>,
-                                                                                              IHierarchicalRootFactory <ITEMTYPE>
+public interface ITreeItemFactory <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> extends IHierarchicalFactory <ITEMTYPE>, IHierarchicalRootFactory <ITEMTYPE>
 {
   /**
    * {@inheritDoc}

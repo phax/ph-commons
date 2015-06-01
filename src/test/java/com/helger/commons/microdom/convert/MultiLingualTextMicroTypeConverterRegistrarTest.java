@@ -64,9 +64,9 @@ public final class MultiLingualTextMicroTypeConverterRegistrarTest
   public void testReadonlyMultiLingualText ()
   {
     final ReadonlyMultiLingualText aMLT = new ReadonlyMultiLingualText (CollectionHelper.newMap (new Locale [] { Locale.GERMAN,
-                                                                                                               Locale.CHINA },
-                                                                                                new String [] { "Cumberlandstraße",
-                                                                                                               "Whatspever" }));
+                                                                                                                Locale.CHINA },
+                                                                                                 new String [] { "Cumberlandstraße",
+                                                                                                                "Whatspever" }));
 
     final IMicroElement aElement = MicroTypeConverter.convertToMicroElement (aMLT, "mtext");
     assertNotNull (aElement);

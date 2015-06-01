@@ -99,11 +99,11 @@ public final class ThirdPartyModuleTest
   public void testStd ()
   {
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new ThirdPartyModule ("displayname",
-                                                                                          "owner",
-                                                                                          ELicense.APACHE1),
-                                                                    new ThirdPartyModule ("displayname",
-                                                                                          "owner",
-                                                                                          ELicense.APACHE1));
+                                                                                       "owner",
+                                                                                       ELicense.APACHE1),
+                                                                 new ThirdPartyModule ("displayname",
+                                                                                       "owner",
+                                                                                       ELicense.APACHE1));
     final ThirdPartyModule mod = new ThirdPartyModule ("displayname",
                                                        "owner",
                                                        ELicense.APACHE1,
@@ -111,47 +111,46 @@ public final class ThirdPartyModuleTest
                                                        "url",
                                                        true);
     PHTestUtils.testDefaultImplementationWithEqualContentObject (mod, new ThirdPartyModule ("displayname",
-                                                                                               "owner",
-                                                                                               ELicense.APACHE1,
-                                                                                               new Version ("1.1"),
-                                                                                               "url",
-                                                                                               true));
+                                                                                            "owner",
+                                                                                            ELicense.APACHE1,
+                                                                                            new Version ("1.1"),
+                                                                                            "url",
+                                                                                            true));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname2",
-                                                                                                   "owner",
-                                                                                                   ELicense.APACHE1,
-                                                                                                   new Version ("1.1"),
-                                                                                                   "url",
-                                                                                                   true));
+                                                                                                "owner",
+                                                                                                ELicense.APACHE1,
+                                                                                                new Version ("1.1"),
+                                                                                                "url",
+                                                                                                true));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
-                                                                                                   "owner2",
-                                                                                                   ELicense.APACHE1,
-                                                                                                   new Version ("1.1"),
-                                                                                                   "url",
-                                                                                                   true));
+                                                                                                "owner2",
+                                                                                                ELicense.APACHE1,
+                                                                                                new Version ("1.1"),
+                                                                                                "url",
+                                                                                                true));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
-                                                                                                   "owner",
-                                                                                                   ELicense.APACHE2,
-                                                                                                   new Version ("1.1"),
-                                                                                                   "url",
-                                                                                                   true));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mod,
-                                                                        new ThirdPartyModule ("displayname",
-                                                                                              "owner",
-                                                                                              ELicense.APACHE1,
-                                                                                              new Version ("1.1.2"),
-                                                                                              "url",
-                                                                                              true));
+                                                                                                "owner",
+                                                                                                ELicense.APACHE2,
+                                                                                                new Version ("1.1"),
+                                                                                                "url",
+                                                                                                true));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
-                                                                                                   "owner",
-                                                                                                   ELicense.APACHE1,
-                                                                                                   new Version ("1.1"),
-                                                                                                   "url2",
-                                                                                                   true));
+                                                                                                "owner",
+                                                                                                ELicense.APACHE1,
+                                                                                                new Version ("1.1.2"),
+                                                                                                "url",
+                                                                                                true));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
-                                                                                                   "owner",
-                                                                                                   ELicense.APACHE1,
-                                                                                                   new Version ("1.1"),
-                                                                                                   "url",
-                                                                                                   false));
+                                                                                                "owner",
+                                                                                                ELicense.APACHE1,
+                                                                                                new Version ("1.1"),
+                                                                                                "url2",
+                                                                                                true));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
+                                                                                                "owner",
+                                                                                                ELicense.APACHE1,
+                                                                                                new Version ("1.1"),
+                                                                                                "url",
+                                                                                                false));
   }
 }

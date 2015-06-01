@@ -16,7 +16,6 @@
  */
 package com.helger.commons.parent;
 
-
 /**
  * An abstract implementation of the {@link IChildrenProviderWithUniqueID}
  * interface that works with all types that implement {@link IHasChildren}. The
@@ -29,9 +28,7 @@ package com.helger.commons.parent;
  * @param <CHILDTYPE>
  *        The data type of the child objects.
  */
-public abstract class AbstractChildrenProviderWithUniqueIDHasChildren <KEYTYPE, CHILDTYPE extends IHasChildren <CHILDTYPE>> extends
-                                                                                                                            ChildrenProviderHasChildren <CHILDTYPE> implements
-                                                                                                                                                                   IChildrenProviderWithUniqueID <KEYTYPE, CHILDTYPE>
+public abstract class AbstractChildrenProviderWithUniqueIDHasChildren <KEYTYPE, CHILDTYPE extends IHasChildren <CHILDTYPE>> extends ChildrenProviderHasChildren <CHILDTYPE> implements IChildrenProviderWithUniqueID <KEYTYPE, CHILDTYPE>
 {
   /* empty */
 }

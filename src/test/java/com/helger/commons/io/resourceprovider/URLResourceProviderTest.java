@@ -56,7 +56,6 @@ public final class URLResourceProviderTest
   @Test
   public void testEqualsAndHashcode ()
   {
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new URLResourceProvider (),
-                                                                    new URLResourceProvider ());
+    PHTestUtils.testDefaultImplementationWithEqualContentObject (new URLResourceProvider (), new URLResourceProvider ());
   }
 }

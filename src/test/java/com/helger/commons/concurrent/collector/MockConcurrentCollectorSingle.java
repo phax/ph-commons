@@ -18,8 +18,7 @@ package com.helger.commons.concurrent.collector;
 
 import com.helger.commons.callback.IThrowingRunnableWithParameter;
 
-final class MockConcurrentCollectorSingle extends ConcurrentCollectorSingle <String> implements
-                                                                                    IThrowingRunnableWithParameter <String>
+final class MockConcurrentCollectorSingle extends ConcurrentCollectorSingle <String> implements IThrowingRunnableWithParameter <String>
 {
   private int m_nPerformCount = 0;
 

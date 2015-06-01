@@ -28,8 +28,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  *        The object type
  */
 @NotThreadSafe
-public final class SimpleIntIDProviderFromHasSimpleIntID <VALUETYPE extends IHasSimpleIntID> implements
-                                                                                             ISimpleIntIDProvider <VALUETYPE>
+public final class SimpleIntIDProviderFromHasSimpleIntID <VALUETYPE extends IHasSimpleIntID> implements ISimpleIntIDProvider <VALUETYPE>
 {
   public int getID (@Nonnull final VALUETYPE aObject)
   {

@@ -45,8 +45,8 @@ public final class FileIntIDFactoryTest
       PHTestUtils.testDefaultImplementationWithEqualContentObject (x, new FileIntIDFactory (f));
       PHTestUtils.testDefaultImplementationWithDifferentContentObject (x, new FileIntIDFactory (f2));
       PHTestUtils.testDefaultImplementationWithDifferentContentObject (x,
-                                                                          new FileIntIDFactory (f,
-                                                                                                FileIntIDFactory.DEFAULT_RESERVE_COUNT * 2));
+                                                                       new FileIntIDFactory (f,
+                                                                                             FileIntIDFactory.DEFAULT_RESERVE_COUNT * 2));
 
       for (int i = 0; i < x.getReserveCount () * 10; ++i)
         assertEquals (i, x.getNewID ());

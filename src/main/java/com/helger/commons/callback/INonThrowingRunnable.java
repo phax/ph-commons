@@ -16,7 +16,6 @@
  */
 package com.helger.commons.callback;
 
-
 /**
  * A simple interface that looks like {@link java.lang.Runnable} but follows our
  * naming conventions.

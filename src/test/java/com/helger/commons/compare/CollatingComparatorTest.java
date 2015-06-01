@@ -47,11 +47,9 @@ public final class CollatingComparatorTest extends AbstractPHTestCase
                                   .size ());
     assertEquals (3, CollectionHelper.getSorted (l, new CollatingComparator (L_EN)).size ());
     assertEquals (3,
-                  CollectionHelper.getSorted (l,
-                                              new CollatingComparator (L_FR).setSortOrder (ESortOrder.DESCENDING))
+                  CollectionHelper.getSorted (l, new CollatingComparator (L_FR).setSortOrder (ESortOrder.DESCENDING))
                                   .size ());
-    assertEquals (3, CollectionHelper.getSorted (l, new CollatingComparator (Collator.getInstance (L_FR)))
-                                     .size ());
+    assertEquals (3, CollectionHelper.getSorted (l, new CollatingComparator (Collator.getInstance (L_FR))).size ());
     assertEquals (3,
                   CollectionHelper.getSorted (l,
                                               new CollatingComparator (Collator.getInstance (L_FR)).setSortOrder (ESortOrder.DESCENDING))

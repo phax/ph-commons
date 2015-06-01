@@ -51,10 +51,10 @@ public final class SingleElementEnumerationTest
     assertFalse (eit.hasMoreElements ());
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new SingleElementEnumeration <String> ("any"),
-                                                                    new SingleElementEnumeration <String> ("any"));
+                                                                 new SingleElementEnumeration <String> ("any"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleElementEnumeration <String> ("any"),
-                                                                        new SingleElementEnumeration <String> ("any2"));
+                                                                     new SingleElementEnumeration <String> ("any2"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleElementEnumeration <String> ("any"),
-                                                                        new SingleElementEnumeration <Integer> (Integer.valueOf (1)));
+                                                                     new SingleElementEnumeration <Integer> (Integer.valueOf (1)));
   }
 }

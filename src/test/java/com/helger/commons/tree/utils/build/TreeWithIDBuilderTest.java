@@ -53,9 +53,9 @@ public final class TreeWithIDBuilderTest
   public void testBuildFromParent ()
   {
     final DefaultTreeWithID <String, MockHasParent> aTree = TreeWithIDBuilder.buildTree (CollectionHelper.newList (new MockHasParent ("a"),
-                                                                                                                  new MockHasParent ("ab"),
-                                                                                                                  new MockHasParent ("abc"),
-                                                                                                                  new MockHasParent ("abd")));
+                                                                                                                   new MockHasParent ("ab"),
+                                                                                                                   new MockHasParent ("abc"),
+                                                                                                                   new MockHasParent ("abd")));
     assertNotNull (aTree.getRootItem ());
     assertNull (aTree.getRootItem ().getID ());
     assertEquals (1, aTree.getRootItem ().getChildCount ());
@@ -65,9 +65,9 @@ public final class TreeWithIDBuilderTest
     assertEquals ("abd", aTree.getRootItem ().getChildAtIndex (0).getChildAtIndex (0).getChildAtIndex (1).getID ());
 
     assertNotNull (TreeWithIDBuilder.buildTree (CollectionHelper.newList (new MockHasParent ("abc"),
-                                                                         new MockHasParent ("abd"),
-                                                                         new MockHasParent ("a"),
-                                                                         new MockHasParent ("ab"))));
+                                                                          new MockHasParent ("abd"),
+                                                                          new MockHasParent ("a"),
+                                                                          new MockHasParent ("ab"))));
 
     try
     {

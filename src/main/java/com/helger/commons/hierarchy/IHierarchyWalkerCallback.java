@@ -16,8 +16,6 @@
  */
 package com.helger.commons.hierarchy;
 
-
-
 /**
  * Interface for walking a hierarchy without the possibilities to alter they way
  * how the hierarchy is iterated.

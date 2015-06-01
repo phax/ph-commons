@@ -26,8 +26,7 @@ import com.helger.commons.factory.IFactoryWithParameter;
  * 
  * @author Philip Helger
  */
-public interface IValidationEventHandlerFactory extends
-                                               IFactoryWithParameter <ValidationEventHandler, ValidationEventHandler>
+public interface IValidationEventHandlerFactory extends IFactoryWithParameter <ValidationEventHandler, ValidationEventHandler>
 {
   /**
    * Create a validation event handler

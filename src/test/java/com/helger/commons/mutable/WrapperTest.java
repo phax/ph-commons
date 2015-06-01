@@ -70,7 +70,6 @@ public final class WrapperTest
     {}
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (Wrapper.create ("any"), Wrapper.create ("any"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (Wrapper.create ("any"),
-                                                                        Wrapper.create ("other"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (Wrapper.create ("any"), Wrapper.create ("other"));
   }
 }

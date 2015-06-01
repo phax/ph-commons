@@ -25,7 +25,8 @@ import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
- * Test class for class {@link CollatingComparatorLocaleDisplayLanguageInLocale}.
+ * Test class for class {@link CollatingComparatorLocaleDisplayLanguageInLocale}
+ * .
  *
  * @author Philip Helger
  */
@@ -35,6 +36,6 @@ public final class CollatingComparatorLocaleDisplayLanguageInLocaleTest extends 
   public void testSort ()
   {
     assertNotNull (CollectionHelper.getSorted (LocaleCache.getAllLocales (),
-                                              new CollatingComparatorLocaleDisplayLanguageInLocale (L_DE, L_EN)));
+                                               new CollatingComparatorLocaleDisplayLanguageInLocale (L_DE, L_EN)));
   }
 }

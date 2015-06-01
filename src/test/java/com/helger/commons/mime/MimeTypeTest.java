@@ -48,9 +48,8 @@ public final class MimeTypeTest extends AbstractPHTestCase
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (mt, new MimeType (EMimeContentType.TEXT, "junit"));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.APPLICATION,
-                                                                                          "junit"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.TEXT,
-                                                                                          "testng"));
+                                                                                       "junit"));
+    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.TEXT, "testng"));
     PHTestUtils.testGetClone (mt);
     PHTestUtils.testDefaultSerialization (mt);
 

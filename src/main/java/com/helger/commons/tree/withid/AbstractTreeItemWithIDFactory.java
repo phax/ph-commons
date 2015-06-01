@@ -33,8 +33,7 @@ import com.helger.commons.annotations.OverrideOnDemand;
  *        tree item implementation type
  */
 @NotThreadSafe
-public abstract class AbstractTreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> implements
-                                                                                                                                        ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE>
+public abstract class AbstractTreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> implements ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE>
 {
   @OverrideOnDemand
   public void onRemoveItem (@Nonnull final ITEMTYPE aItem)

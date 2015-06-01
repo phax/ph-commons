@@ -65,10 +65,10 @@ public final class ChangeLogEntryTest extends AbstractPHTestCase
     assertTrue (aEntry.isIncompatible ());
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (aEntry, new ChangeLogEntry (aChangeLog,
-                                                                                                aDate,
-                                                                                                EChangeLogAction.ADD,
-                                                                                                EChangeLogCategory.API,
-                                                                                                true));
+                                                                                             aDate,
+                                                                                             EChangeLogAction.ADD,
+                                                                                             EChangeLogCategory.API,
+                                                                                             true));
 
     ChangeLogEntry aEntry2 = new ChangeLogEntry (aChangeLog, aDate, EChangeLogAction.ADD, EChangeLogCategory.API, true);
     aEntry2.setText (L_DE, "Ist doch auc egal :)");
@@ -79,31 +79,31 @@ public final class ChangeLogEntryTest extends AbstractPHTestCase
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry, aEntry2);
 
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry,
-                                                                        new ChangeLogEntry (aChangeLog,
-                                                                                            aDate,
-                                                                                            EChangeLogAction.ADD,
-                                                                                            EChangeLogCategory.API,
-                                                                                            false));
+                                                                     new ChangeLogEntry (aChangeLog,
+                                                                                         aDate,
+                                                                                         EChangeLogAction.ADD,
+                                                                                         EChangeLogCategory.API,
+                                                                                         false));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry,
-                                                                        new ChangeLogEntry (aChangeLog,
-                                                                                            new GregorianCalendar (2010,
-                                                                                                                   Calendar.JULY,
-                                                                                                                   6).getTime (),
-                                                                                            EChangeLogAction.ADD,
-                                                                                            EChangeLogCategory.API,
-                                                                                            true));
+                                                                     new ChangeLogEntry (aChangeLog,
+                                                                                         new GregorianCalendar (2010,
+                                                                                                                Calendar.JULY,
+                                                                                                                6).getTime (),
+                                                                                         EChangeLogAction.ADD,
+                                                                                         EChangeLogCategory.API,
+                                                                                         true));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry,
-                                                                        new ChangeLogEntry (aChangeLog,
-                                                                                            aDate,
-                                                                                            EChangeLogAction.CHANGE,
-                                                                                            EChangeLogCategory.API,
-                                                                                            true));
+                                                                     new ChangeLogEntry (aChangeLog,
+                                                                                         aDate,
+                                                                                         EChangeLogAction.CHANGE,
+                                                                                         EChangeLogCategory.API,
+                                                                                         true));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry,
-                                                                        new ChangeLogEntry (aChangeLog,
-                                                                                            aDate,
-                                                                                            EChangeLogAction.ADD,
-                                                                                            EChangeLogCategory.BUSINESS_LOGIC,
-                                                                                            true));
+                                                                     new ChangeLogEntry (aChangeLog,
+                                                                                         aDate,
+                                                                                         EChangeLogAction.ADD,
+                                                                                         EChangeLogCategory.BUSINESS_LOGIC,
+                                                                                         true));
 
     // Check the text afterwards
     assertFalse (aEntry.setText (L_DE, null).isChanged ());

@@ -37,6 +37,7 @@ public final class CollatingComparatorLocaleDisplayNameNativeTest extends Abstra
   public void testAll ()
   {
     final Set <Locale> aAll = LocaleCache.getAllLocales ();
-    assertEquals (aAll.size (), CollectionHelper.getSorted (aAll, new CollatingComparatorLocaleDisplayNameNative (L_DE)).size ());
+    assertEquals (aAll.size (),
+                  CollectionHelper.getSorted (aAll, new CollatingComparatorLocaleDisplayNameNative (L_DE)).size ());
   }
 }

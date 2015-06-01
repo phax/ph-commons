@@ -71,10 +71,10 @@ public final class ClassPathResourceProviderTest
   public void testEqualsAndHashcode ()
   {
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new ClassPathResourceProvider (),
-                                                                    new ClassPathResourceProvider ());
+                                                                 new ClassPathResourceProvider ());
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ClassPathResourceProvider (),
-                                                                        new ClassPathResourceProvider ("folder"));
+                                                                     new ClassPathResourceProvider ("folder"));
     PHTestUtils.testDefaultImplementationWithEqualContentObject (new ClassPathResourceProvider ("folder"),
-                                                                    new ClassPathResourceProvider ("folder"));
+                                                                 new ClassPathResourceProvider ("folder"));
   }
 }
