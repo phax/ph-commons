@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.compare.ComparatorStringCollating;
+import com.helger.commons.compare.CollatingComparator;
 import com.helger.commons.locale.LocaleCache;
 
 public class JavaCollatorFuncTest
@@ -62,7 +62,7 @@ public class JavaCollatorFuncTest
 
     final Locale aLocale = LocaleCache.getLocale ("de_DE");
 
-    for (final String s : CollectionHelper.getSorted (aSet, new ComparatorStringCollating (Locale.US)))
+    for (final String s : CollectionHelper.getSorted (aSet, new CollatingComparator (Locale.US)))
     {
       s_aLogger.info (s);
     }
@@ -71,7 +71,7 @@ public class JavaCollatorFuncTest
     final Collator aColl = Collator.getInstance (aLocale);
     aColl.setStrength (Collator.TERTIARY);
     aColl.setDecomposition (Collator.FULL_DECOMPOSITION);
-    for (final String s : CollectionHelper.getSorted (aSet, new ComparatorStringCollating (aColl)))
+    for (final String s : CollectionHelper.getSorted (aSet, new CollatingComparator (aColl)))
     {
       s_aLogger.info (s);
     }
@@ -84,7 +84,7 @@ public class JavaCollatorFuncTest
     final RuleBasedCollator collator2 = new RuleBasedCollator (sNewRules);
     collator2.setStrength (Collator.TERTIARY);
     collator2.setDecomposition (Collator.FULL_DECOMPOSITION);
-    for (final String s : CollectionHelper.getSorted (aSet, new ComparatorStringCollating (collator2)))
+    for (final String s : CollectionHelper.getSorted (aSet, new CollatingComparator (collator2)))
     {
       s_aLogger.info (s);
     }

@@ -23,18 +23,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.string.StringHelper;
 
 /**
- * An abstract implementation of a {@link java.util.Comparator} that uses
- * collations for ordering. This is only necessary when comparing strings.
+ * A simple collation aware comparator that compares objects by their "toString"
+ * representation.
  *
  * @author Philip Helger
- * @param <DATATYPE>
- *        the type of object to be compared
  */
 @NotThreadSafe
-public abstract class AbstractCollatingComparator <DATATYPE> extends AbstractPartComparator <DATATYPE, String>
+public class CollatingComparatorToString extends AbstractCollatingComparator <Object>
 {
   /**
    * Comparator with default sort order and specified sort locale.
@@ -42,9 +40,9 @@ public abstract class AbstractCollatingComparator <DATATYPE> extends AbstractPar
    * @param aSortLocale
    *        The locale to use. May be <code>null</code>.
    */
-  public AbstractCollatingComparator (@Nullable final Locale aSortLocale)
+  public CollatingComparatorToString (@Nullable final Locale aSortLocale)
   {
-    super (new CollatingComparator (aSortLocale));
+    super (aSortLocale);
   }
 
   /**
@@ -53,19 +51,14 @@ public abstract class AbstractCollatingComparator <DATATYPE> extends AbstractPar
    * @param aCollator
    *        The {@link Collator} to use. May not be <code>null</code>.
    */
-  public AbstractCollatingComparator (@Nonnull final Collator aCollator)
+  public CollatingComparatorToString (@Nonnull final Collator aCollator)
   {
-    super (new CollatingComparator (aCollator));
+    super (aCollator);
   }
 
-  /**
-   * @return A copy of the {@link Collator} as passed or created in the
-   *         constructor. Never <code>null</code>.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  public final Collator getCollator ()
+  @Override
+  protected String getPart (@Nullable final Object aValue)
   {
-    return ((CollatingComparator) getPartComparator ()).getCollator ();
+    return StringHelper.getToString (aValue, "");
   }
 }

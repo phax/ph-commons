@@ -25,7 +25,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.compare.ComparatorStringCollating;
+import com.helger.commons.compare.CollatingComparator;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 import com.helger.commons.tree.withid.DefaultTreeWithID;
 
@@ -50,7 +50,7 @@ public final class TreeWithIDSorterTest
     i2.createChildItem ("p2", "Apache Software Foundation");
 
     // Sort all items by value
-    TreeWithIDSorter.sortByValue (aTree, new ComparatorStringCollating (Locale.US));
+    TreeWithIDSorter.sortByValue (aTree, new CollatingComparator (Locale.US));
 
     assertEquals (2, aTree.getRootItem ().getChildCount ());
     List <? extends DefaultTreeItemWithID <String, String>> aChildren = aTree.getRootItem ().getAllChildren ();
@@ -67,7 +67,7 @@ public final class TreeWithIDSorterTest
     assertEquals ("temp", i1.getChildAtIndex (2).getData ());
 
     // Sort all items by keys
-    TreeWithIDSorter.sortByID (aTree, new ComparatorStringCollating (Locale.US));
+    TreeWithIDSorter.sortByID (aTree, new CollatingComparator (Locale.US));
 
     assertEquals (2, aTree.getRootItem ().getChildCount ());
     aChildren = aTree.getRootItem ().getAllChildren ();

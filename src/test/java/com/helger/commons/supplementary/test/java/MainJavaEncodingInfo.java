@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.compare.ComparatorAsString;
+import com.helger.commons.compare.CollatingComparatorToString;
 import com.helger.commons.system.SystemHelper;
 
 public final class MainJavaEncodingInfo
@@ -34,7 +34,7 @@ public final class MainJavaEncodingInfo
   public static void main (final String [] args)
   {
     for (final Map.Entry <Object, Object> aEntry : CollectionHelper.getSortedByKey (System.getProperties (),
-                                                                                    new ComparatorAsString (Locale.US))
+                                                                                    new CollatingComparatorToString (Locale.US))
                                                                    .entrySet ())
       s_aLogger.info (aEntry.getKey () + " == " + aEntry.getValue ());
     s_aLogger.info ("Default Locale: " + SystemHelper.getSystemLocale ());

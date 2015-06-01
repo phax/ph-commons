@@ -23,28 +23,30 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.string.ToStringGenerator;
 
 /**
- * An abstract implementation of a {@link java.util.Comparator} that uses
- * collations for ordering. This is only necessary when comparing strings.
+ * An implementation of a {@link java.util.Comparator} that compares
+ * {@link String} objects with a {@link Collator}.
  *
  * @author Philip Helger
- * @param <DATATYPE>
- *        the type of object to be compared
  */
 @NotThreadSafe
-public abstract class AbstractCollatingComparator <DATATYPE> extends AbstractPartComparator <DATATYPE, String>
+public class CollatingComparator extends AbstractComparator <String>
 {
+  private final Collator m_aCollator;
+
   /**
    * Comparator with default sort order and specified sort locale.
    *
    * @param aSortLocale
    *        The locale to use. May be <code>null</code>.
    */
-  public AbstractCollatingComparator (@Nullable final Locale aSortLocale)
+  public CollatingComparator (@Nullable final Locale aSortLocale)
   {
-    super (new CollatingComparator (aSortLocale));
+    m_aCollator = CollatorUtils.getCollatorSpaceBeforeDot (aSortLocale);
   }
 
   /**
@@ -53,9 +55,10 @@ public abstract class AbstractCollatingComparator <DATATYPE> extends AbstractPar
    * @param aCollator
    *        The {@link Collator} to use. May not be <code>null</code>.
    */
-  public AbstractCollatingComparator (@Nonnull final Collator aCollator)
+  public CollatingComparator (@Nonnull final Collator aCollator)
   {
-    super (new CollatingComparator (aCollator));
+    ValueEnforcer.notNull (aCollator, "Collator");
+    m_aCollator = (Collator) aCollator.clone ();
   }
 
   /**
@@ -66,6 +69,18 @@ public abstract class AbstractCollatingComparator <DATATYPE> extends AbstractPar
   @ReturnsMutableCopy
   public final Collator getCollator ()
   {
-    return ((CollatingComparator) getPartComparator ()).getCollator ();
+    return (Collator) m_aCollator.clone ();
+  }
+
+  @Override
+  protected final int mainCompare (@Nonnull final String sElement1, @Nonnull final String sElement2)
+  {
+    return m_aCollator.compare (sElement1, sElement2);
+  }
+
+  @Override
+  public String toString ()
+  {
+    return ToStringGenerator.getDerived (super.toString ()).append ("collator", m_aCollator).toString ();
   }
 }

@@ -80,8 +80,13 @@ public final class CollatorUtils
       final Collator aCollator = Collator.getInstance (aLocale);
       if (aCollator == null)
       {
-        s_aLogger.error ("Failed to get Collator for Locale " + aLocale + " - using Collator for default locale!");
-        return Collator.getInstance (SystemHelper.getSystemLocale ());
+        final Locale aSystemLocale = SystemHelper.getSystemLocale ();
+        s_aLogger.error ("Failed to get Collator for Locale " +
+                         aLocale +
+                         " - using Collator for syste locale " +
+                         aSystemLocale +
+                         "!");
+        return Collator.getInstance (aSystemLocale);
       }
       if (!(aCollator instanceof RuleBasedCollator))
       {
