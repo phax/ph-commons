@@ -28,6 +28,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collections.ECollectionBaseType;
 import com.helger.commons.lang.ClassHelper;
 
 /**
@@ -39,70 +40,44 @@ import com.helger.commons.lang.ClassHelper;
  *
  * @author Philip Helger
  */
-public final class ContainerEqualsUtils
+public final class CollectionEqualsUtils
 {
-  /**
-   * This enum differentiates the different meta container types.
-   *
-   * @author Philip Helger
-   */
-  public static enum EContainerType
-  {
-    /**
-     * The collection type applies to all Collection objects that are not Sets,
-     * and will be compared in their regular order.
-     */
-    COLLECTION,
-    /** Sets represent unordered container */
-    SET,
-    /** Maps are key-value-containers */
-    MAP,
-    /** Arrays */
-    ARRAY,
-    /** Iterator */
-    ITERATOR,
-    /** Iterable */
-    ITERABLE,
-    /** Enumeration */
-    ENUMERATION
-  }
-
-  private ContainerEqualsUtils ()
+  private CollectionEqualsUtils ()
   {}
 
   @Nullable
-  public static EContainerType getContainerTypeOfClass (@Nullable final Class <?> aClass)
+  public static ECollectionBaseType getCollectionBaseTypeOfClass (@Nullable final Class <?> aClass)
   {
     if (aClass != null)
     {
       // Query Set before Collection, because Set is derived from Collection!
       if (Set.class.isAssignableFrom (aClass))
-        return EContainerType.SET;
+        return ECollectionBaseType.SET;
       if (Collection.class.isAssignableFrom (aClass))
-        return EContainerType.COLLECTION;
+        return ECollectionBaseType.COLLECTION;
       if (Map.class.isAssignableFrom (aClass))
-        return EContainerType.MAP;
+        return ECollectionBaseType.MAP;
       if (ClassHelper.isArrayClass (aClass))
-        return EContainerType.ARRAY;
+        return ECollectionBaseType.ARRAY;
       if (Iterator.class.isAssignableFrom (aClass))
-        return EContainerType.ITERATOR;
+        return ECollectionBaseType.ITERATOR;
       if (Iterable.class.isAssignableFrom (aClass))
-        return EContainerType.ITERABLE;
+        return ECollectionBaseType.ITERABLE;
       if (Enumeration.class.isAssignableFrom (aClass))
-        return EContainerType.ENUMERATION;
+        return ECollectionBaseType.ENUMERATION;
     }
     return null;
   }
 
   @Nullable
-  public static EContainerType getContainerTypeOfObject (@Nullable final Object aObj)
+  public static ECollectionBaseType getContainerTypeOfObject (@Nullable final Object aObj)
   {
-    return aObj == null ? null : getContainerTypeOfClass (aObj.getClass ());
+    return aObj == null ? null : getCollectionBaseTypeOfClass (aObj.getClass ());
   }
 
   public static boolean isContainerClass (@Nullable final Class <?> aClass)
   {
-    return getContainerTypeOfClass (aClass) != null;
+    return getCollectionBaseTypeOfClass (aClass) != null;
   }
 
   public static boolean isContainerObject (@Nullable final Object aObj)
@@ -149,8 +124,8 @@ public final class ContainerEqualsUtils
     if (aObj1 == null || aObj2 == null)
       return false;
 
-    final EContainerType eType1 = getContainerTypeOfObject (aObj1);
-    final EContainerType eType2 = getContainerTypeOfObject (aObj2);
+    final ECollectionBaseType eType1 = getContainerTypeOfObject (aObj1);
+    final ECollectionBaseType eType2 = getContainerTypeOfObject (aObj2);
     if (eType1 == null)
       throw new IllegalArgumentException ("The first parameter is not a container type: " + aObj1);
     if (eType2 == null)
@@ -314,7 +289,7 @@ public final class ContainerEqualsUtils
   {
     ValueEnforcer.notNull (aObj, "Object");
 
-    final EContainerType eType = getContainerTypeOfObject (aObj);
+    final ECollectionBaseType eType = getContainerTypeOfObject (aObj);
     if (eType == null)
     {
       // It's not a supported container -> create a new list with one element
