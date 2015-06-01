@@ -54,13 +54,13 @@ public abstract class AbstractLongComparator <DATATYPE> extends AbstractComparat
    *        The source object
    * @return The result long value.
    */
-  protected abstract long asLong (DATATYPE aObject);
+  protected abstract long getAsLong (DATATYPE aObject);
 
   @Override
   protected final int mainCompare (final DATATYPE aElement1, final DATATYPE aElement2)
   {
-    final long n1 = asLong (aElement1);
-    final long n2 = asLong (aElement2);
+    final long n1 = getAsLong (aElement1);
+    final long n2 = getAsLong (aElement2);
     return CompareUtils.compare (n1, n2);
   }
 }

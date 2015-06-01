@@ -27,15 +27,15 @@ import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.compare.ComparatorAsString;
 import com.helger.commons.system.SystemHelper;
 
-public final class JavaEncodingInfoFuncTest
+public final class MainJavaEncodingInfo
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JavaEncodingInfoFuncTest.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainJavaEncodingInfo.class);
 
   public static void main (final String [] args)
   {
     for (final Map.Entry <Object, Object> aEntry : CollectionHelper.getSortedByKey (System.getProperties (),
-                                                                                   new ComparatorAsString ())
-                                                                  .entrySet ())
+                                                                                    new ComparatorAsString (Locale.US))
+                                                                   .entrySet ())
       s_aLogger.info (aEntry.getKey () + " == " + aEntry.getValue ());
     s_aLogger.info ("Default Locale: " + SystemHelper.getSystemLocale ());
     s_aLogger.info ("All locales:");

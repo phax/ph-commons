@@ -32,14 +32,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 public class ComparatorString extends AbstractCollationComparator <String>
 {
   /**
-   * Comparator with default locale {@link Collator} and default sort order.
-   */
-  public ComparatorString ()
-  {
-    super ();
-  }
-
-  /**
    * Comparator with default sort order and specified sort locale.
    *
    * @param aSortLocale
@@ -48,19 +40,6 @@ public class ComparatorString extends AbstractCollationComparator <String>
   public ComparatorString (@Nullable final Locale aSortLocale)
   {
     super (aSortLocale);
-  }
-
-  /**
-   * Constructor with locale and sort order.
-   *
-   * @param aSortLocale
-   *        The locale to use. May be <code>null</code>.
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public ComparatorString (@Nullable final Locale aSortLocale, @Nonnull final ESortOrder eSortOrder)
-  {
-    super (aSortLocale, eSortOrder);
   }
 
   /**
@@ -74,21 +53,8 @@ public class ComparatorString extends AbstractCollationComparator <String>
     super (aCollator);
   }
 
-  /**
-   * Constructor with {@link Collator} and sort order.
-   *
-   * @param aCollator
-   *        The {@link Collator} to use. May not be <code>null</code>.
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public ComparatorString (@Nonnull final Collator aCollator, @Nonnull final ESortOrder eSortOrder)
-  {
-    super (aCollator, eSortOrder);
-  }
-
   @Override
-  protected String asString (@Nullable final String sValue)
+  protected String getAsString (@Nullable final String sValue)
   {
     return sValue;
   }

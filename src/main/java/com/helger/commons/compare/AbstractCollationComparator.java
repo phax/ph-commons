@@ -38,26 +38,9 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public abstract class AbstractCollationComparator <DATATYPE> extends AbstractComparator <DATATYPE>
 {
+  public static final boolean DEFAULT_CASE_INSENSITIVE = false;
+
   private final Collator m_aCollator;
-
-  /**
-   * Comparator with default locale {@link Collator} and default sort order.
-   */
-  public AbstractCollationComparator ()
-  {
-    this ((Locale) null, ESortOrder.DEFAULT);
-  }
-
-  /**
-   * Comparator with default locale {@link Collator}.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public AbstractCollationComparator (@Nonnull final ESortOrder eSortOrder)
-  {
-    this ((Locale) null, eSortOrder);
-  }
 
   /**
    * Comparator with default sort order and specified sort locale.
@@ -67,20 +50,6 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
    */
   public AbstractCollationComparator (@Nullable final Locale aSortLocale)
   {
-    this (aSortLocale, ESortOrder.DEFAULT);
-  }
-
-  /**
-   * Constructor with locale and sort order.
-   *
-   * @param aSortLocale
-   *        The locale to use. May be <code>null</code>.
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public AbstractCollationComparator (@Nullable final Locale aSortLocale, @Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
     m_aCollator = CollatorUtils.getCollatorSpaceBeforeDot (aSortLocale);
   }
 
@@ -92,20 +61,6 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
    */
   public AbstractCollationComparator (@Nonnull final Collator aCollator)
   {
-    this (aCollator, ESortOrder.DEFAULT);
-  }
-
-  /**
-   * Constructor with {@link Collator} and sort order.
-   *
-   * @param aCollator
-   *        The {@link Collator} to use. May not be <code>null</code>.
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public AbstractCollationComparator (@Nonnull final Collator aCollator, @Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
     ValueEnforcer.notNull (aCollator, "Collator");
     m_aCollator = (Collator) aCollator.clone ();
   }
@@ -127,12 +82,12 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
    * @return The string representation of the object. May be <code>null</code>.
    */
   @Nullable
-  protected abstract String asString (@Nonnull DATATYPE aObject);
+  protected abstract String getAsString (@Nonnull DATATYPE aObject);
 
   @Nullable
   private String _nullSafeGetAsString (@Nullable final DATATYPE aObject)
   {
-    return aObject == null ? null : asString (aObject);
+    return aObject == null ? null : getAsString (aObject);
   }
 
   @Override

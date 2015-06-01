@@ -39,7 +39,7 @@ public class ComparatorThreadName extends AbstractCollationComparator <Thread>
   }
 
   @Override
-  protected String asString (@Nonnull final Thread aThread)
+  protected String getAsString (@Nonnull final Thread aThread)
   {
     return aThread.getName ();
   }

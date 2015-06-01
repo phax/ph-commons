@@ -35,25 +35,6 @@ import com.helger.commons.string.StringHelper;
 public class ComparatorAsString extends AbstractCollationComparator <Object>
 {
   /**
-   * Comparator with default locale {@link Collator} and default sort order.
-   */
-  public ComparatorAsString ()
-  {
-    super ();
-  }
-
-  /**
-   * Comparator with default locale {@link Collator}.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public ComparatorAsString (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
-
-  /**
    * Comparator with default sort order and specified sort locale.
    *
    * @param aSortLocale
@@ -62,19 +43,6 @@ public class ComparatorAsString extends AbstractCollationComparator <Object>
   public ComparatorAsString (@Nullable final Locale aSortLocale)
   {
     super (aSortLocale);
-  }
-
-  /**
-   * Constructor with locale and sort order.
-   *
-   * @param aSortLocale
-   *        The locale to use. May be <code>null</code>.
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public ComparatorAsString (@Nullable final Locale aSortLocale, @Nonnull final ESortOrder eSortOrder)
-  {
-    super (aSortLocale, eSortOrder);
   }
 
   /**
@@ -88,21 +56,8 @@ public class ComparatorAsString extends AbstractCollationComparator <Object>
     super (aCollator);
   }
 
-  /**
-   * Constructor with {@link Collator} and sort order.
-   *
-   * @param aCollator
-   *        The {@link Collator} to use. May not be <code>null</code>.
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public ComparatorAsString (@Nonnull final Collator aCollator, @Nonnull final ESortOrder eSortOrder)
-  {
-    super (aCollator, eSortOrder);
-  }
-
   @Override
-  protected String asString (@Nullable final Object aValue)
+  protected String getAsString (@Nullable final Object aValue)
   {
     return StringHelper.getToString (aValue, "");
   }

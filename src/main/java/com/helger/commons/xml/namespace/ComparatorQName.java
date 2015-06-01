@@ -22,7 +22,6 @@ import javax.xml.namespace.QName;
 
 import com.helger.commons.compare.AbstractComparator;
 import com.helger.commons.compare.CompareUtils;
-import com.helger.commons.compare.ESortOrder;
 
 /**
  * Comparator for {@link QName} objects
@@ -34,11 +33,6 @@ public class ComparatorQName extends AbstractComparator <QName>
 {
   public ComparatorQName ()
   {}
-
-  public ComparatorQName (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
 
   @Override
   protected int mainCompare (@Nonnull final QName aElement1, @Nonnull final QName aElement2)

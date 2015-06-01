@@ -40,23 +40,13 @@ public final class AbstractCollationComparatorTest
   @NotThreadSafe
   private static final class MockComparatorString extends AbstractCollationComparator <String>
   {
-    MockComparatorString (final ESortOrder eSortOrder)
-    {
-      super (eSortOrder);
-    }
-
     MockComparatorString (final Locale aSortLocale)
     {
       super (aSortLocale);
     }
 
-    MockComparatorString (final Locale aSortLocale, final ESortOrder eSortOrder)
-    {
-      super (aSortLocale, eSortOrder);
-    }
-
     @Override
-    protected String asString (final String sObject)
+    protected String getAsString (final String sObject)
     {
       return sObject;
     }
@@ -71,15 +61,16 @@ public final class AbstractCollationComparatorTest
     final String [] x = new String [] { S1, S2, S3 };
 
     // Explicitly sort ascending
-    List <String> l = CollectionHelper.getSorted (x, new MockComparatorString (ESortOrder.ASCENDING));
+    List <String> l = CollectionHelper.getSorted (x,
+                                                  new MockComparatorString (Locale.US).setSortOrder (ESortOrder.ASCENDING));
     assertArrayEquals (new String [] { S3, S1, S2 }, l.toArray ());
 
     // Explicitly sort descending
-    l = CollectionHelper.getSorted (x, new MockComparatorString (ESortOrder.DESCENDING));
+    l = CollectionHelper.getSorted (x, new MockComparatorString (Locale.US).setSortOrder (ESortOrder.DESCENDING));
     assertArrayEquals (new String [] { S2, S1, S3 }, l.toArray ());
 
     // change dynamically
-    final MockComparatorString c = new MockComparatorString (ESortOrder.ASCENDING);
+    final AbstractComparator <String> c = new MockComparatorString (Locale.US).setSortOrder (ESortOrder.ASCENDING);
     l = CollectionHelper.getSorted (x, c);
     assertArrayEquals (new String [] { S3, S1, S2 }, l.toArray ());
 
@@ -104,11 +95,11 @@ public final class AbstractCollationComparatorTest
     assertArrayEquals (new String [] { S2, S3, S1 }, l.toArray ());
 
     // sort ascending manually
-    l = CollectionHelper.getSorted (x, new MockComparatorString (Locale.GERMAN, ESortOrder.ASCENDING));
+    l = CollectionHelper.getSorted (x, new MockComparatorString (Locale.GERMAN).setSortOrder (ESortOrder.ASCENDING));
     assertArrayEquals (new String [] { S2, S3, S1 }, l.toArray ());
 
     // sort descending manually
-    l = CollectionHelper.getSorted (x, new MockComparatorString (Locale.GERMAN, ESortOrder.DESCENDING));
+    l = CollectionHelper.getSorted (x, new MockComparatorString (Locale.GERMAN).setSortOrder (ESortOrder.DESCENDING));
     assertArrayEquals (new String [] { S1, S3, S2 }, l.toArray ());
 
     // null locale allowed
@@ -125,8 +116,8 @@ public final class AbstractCollationComparatorTest
   public void testIsAscending ()
   {
     assertTrue (new MockComparatorString (Locale.CANADA_FRENCH).getSortOrder ().isAscending ());
-    assertFalse (new MockComparatorString (Locale.CANADA_FRENCH, ESortOrder.DESCENDING).getSortOrder ().isAscending ());
-    assertTrue (new MockComparatorString (ESortOrder.ASCENDING).getSortOrder ().isAscending ());
-    assertFalse (new MockComparatorString (ESortOrder.DESCENDING).getSortOrder ().isAscending ());
+    assertFalse (new MockComparatorString (Locale.CANADA_FRENCH).setSortOrder (ESortOrder.DESCENDING)
+                                                                .getSortOrder ()
+                                                                .isAscending ());
   }
 }

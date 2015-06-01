@@ -50,7 +50,7 @@ public final class AbstractDoubleComparatorFuncTest
     }
 
     @Override
-    protected double asDouble (@Nullable final Double aValue)
+    protected double getAsDouble (@Nullable final Double aValue)
     {
       return aValue == null ? CGlobal.ILLEGAL_DOUBLE : aValue.doubleValue ();
     }

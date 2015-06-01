@@ -40,17 +40,6 @@ public class ComparatorComparable <DATATYPE extends Comparable <? super DATATYPE
     super ();
   }
 
-  /**
-   * Constructor with sort order.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public ComparatorComparable (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
-
   @Override
   protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)
   {

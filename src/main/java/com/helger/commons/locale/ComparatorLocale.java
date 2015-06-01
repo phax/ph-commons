@@ -16,6 +16,7 @@
  */
 package com.helger.commons.locale;
 
+import java.text.Collator;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -32,18 +33,18 @@ import com.helger.commons.compare.AbstractCollationComparator;
 @NotThreadSafe
 public class ComparatorLocale extends AbstractCollationComparator <Locale>
 {
-  public ComparatorLocale ()
-  {
-    super ((Locale) null);
-  }
-
   public ComparatorLocale (@Nullable final Locale aSortLocale)
   {
     super (aSortLocale);
   }
 
+  public ComparatorLocale (@Nonnull final Collator aCollator)
+  {
+    super (aCollator);
+  }
+
   @Override
-  protected String asString (@Nonnull final Locale aLocale)
+  protected String getAsString (@Nonnull final Locale aLocale)
   {
     return aLocale.toString ();
   }

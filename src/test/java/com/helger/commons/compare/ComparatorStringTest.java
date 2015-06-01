@@ -21,6 +21,7 @@ import static org.junit.Assert.fail;
 
 import java.text.Collator;
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.Test;
 
@@ -39,17 +40,19 @@ public final class ComparatorStringTest extends AbstractPHTestCase
   public void testAll ()
   {
     final List <String> l = CollectionHelper.newList ("a", null, "c");
-    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString ()).size ());
-    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString ().setSortOrder (ESortOrder.DESCENDING))
-                                     .size ());
+    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString (Locale.US)).size ());
+    assertEquals (3,
+                  CollectionHelper.getSorted (l, new ComparatorString (Locale.US).setSortOrder (ESortOrder.DESCENDING))
+                                  .size ());
     assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString (L_EN)).size ());
-    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString (L_FR, ESortOrder.DESCENDING)).size ());
+    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString (L_FR).setSortOrder (ESortOrder.DESCENDING))
+                                     .size ());
     assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString (Collator.getInstance (L_FR))).size ());
     assertEquals (3,
                   CollectionHelper.getSorted (l,
-                                              new ComparatorString (Collator.getInstance (L_FR), ESortOrder.DESCENDING))
+                                              new ComparatorString (Collator.getInstance (L_FR)).setSortOrder (ESortOrder.DESCENDING))
                                   .size ());
-    PHTestUtils.testToStringImplementation (new ComparatorString ());
+    PHTestUtils.testToStringImplementation (new ComparatorString (Locale.US));
 
     try
     {

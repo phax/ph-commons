@@ -54,13 +54,13 @@ public abstract class AbstractIntComparator <DATATYPE> extends AbstractComparato
    *        The source object
    * @return The result int value.
    */
-  protected abstract int asInt (DATATYPE aObject);
+  protected abstract int getAsInt (DATATYPE aObject);
 
   @Override
   protected final int mainCompare (final DATATYPE aElement1, final DATATYPE aElement2)
   {
-    final int n1 = asInt (aElement1);
-    final int n2 = asInt (aElement2);
+    final int n1 = getAsInt (aElement1);
+    final int n2 = getAsInt (aElement2);
     return CompareUtils.compare (n1, n2);
   }
 }

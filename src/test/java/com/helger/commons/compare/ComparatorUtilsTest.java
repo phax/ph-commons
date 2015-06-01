@@ -18,6 +18,8 @@ package com.helger.commons.compare;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Locale;
+
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
@@ -35,8 +37,8 @@ public final class ComparatorUtilsTest
   {
     assertEquals (3,
                   CollectionHelper.getSorted (CollectionHelper.newList (new MockHasIDString (3),
-                                                                      new MockHasIDString (2),
-                                                                      new MockHasIDString (1)),
-                                             new ComparatorAsString ()).size ());
+                                                                        new MockHasIDString (2),
+                                                                        new MockHasIDString (1)),
+                                              new ComparatorAsString (Locale.US)).size ());
   }
 }

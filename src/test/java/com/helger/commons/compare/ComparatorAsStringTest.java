@@ -38,22 +38,14 @@ public final class ComparatorAsStringTest extends AbstractPHTestCase
   public void testAll ()
   {
     final List <String> l = CollectionHelper.newList ("a", "b", "c");
-    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorAsString ()).size ());
-    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorAsString (ESortOrder.DESCENDING)).size ());
     assertEquals (3, CollectionHelper.getSorted (l, new ComparatorAsString (L_EN)).size ());
+    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorAsString (L_EN).setSortOrder (ESortOrder.DESCENDING))
+                                     .size ());
     assertEquals (3, CollectionHelper.getSorted (l, new ComparatorAsString (Collator.getInstance (L_FR))).size ());
 
     try
     {
-      new ComparatorAsString ((ESortOrder) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-
-    try
-    {
-      new ComparatorAsString ().setSortOrder ((ESortOrder) null);
+      new ComparatorAsString (L_EN).setSortOrder ((ESortOrder) null);
       fail ();
     }
     catch (final NullPointerException ex)

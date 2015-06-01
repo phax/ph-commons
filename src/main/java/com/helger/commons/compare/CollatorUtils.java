@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotations.ELockType;
 import com.helger.commons.annotations.IsLocked;
 import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.cache.AbstractNotifyingCache;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -132,6 +133,7 @@ public final class CollatorUtils
    * @return The created {@link RuleBasedCollator} and never <code>null</code>.
    */
   @Nonnull
+  @ReturnsMutableCopy
   public static Collator getCollatorSpaceBeforeDot (@Nullable final Locale aLocale)
   {
     // Ensure to not pass null locale in

@@ -39,7 +39,7 @@ public class ComparatorLocaleCountry extends AbstractCollationComparator <Locale
   }
 
   @Override
-  protected String asString (@Nonnull final Locale aLocale)
+  protected String getAsString (@Nonnull final Locale aLocale)
   {
     return aLocale.getCountry ();
   }

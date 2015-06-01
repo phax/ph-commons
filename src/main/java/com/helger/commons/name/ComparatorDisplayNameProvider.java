@@ -16,6 +16,7 @@
  */
 package com.helger.commons.name;
 
+import java.text.Collator;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -24,7 +25,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.compare.AbstractCollationComparator;
-import com.helger.commons.compare.ESortOrder;
 
 /**
  * This is a collation {@link java.util.Comparator} for objects that implement
@@ -37,7 +37,7 @@ import com.helger.commons.compare.ESortOrder;
 @NotThreadSafe
 public class ComparatorDisplayNameProvider <DATATYPE> extends AbstractCollationComparator <DATATYPE>
 {
-  private IDisplayNameProvider <DATATYPE> m_aDisplayNameProvider;
+  private final IDisplayNameProvider <DATATYPE> m_aDisplayNameProvider;
 
   /**
    * Constructor.
@@ -50,24 +50,22 @@ public class ComparatorDisplayNameProvider <DATATYPE> extends AbstractCollationC
   public ComparatorDisplayNameProvider (@Nullable final Locale aSortLocale,
                                         @Nonnull final IDisplayNameProvider <DATATYPE> aDisplayNameProvider)
   {
-    this (aSortLocale, aDisplayNameProvider, ESortOrder.DEFAULT);
+    super (aSortLocale);
+    m_aDisplayNameProvider = ValueEnforcer.notNull (aDisplayNameProvider, "DisplayNameProvider");
   }
 
   /**
    * Constructor.
    *
-   * @param aSortLocale
-   *        The locale to be used for sorting. May be <code>null</code>.
+   * @param aCollator
+   *        The {@link Collator} to use. May not be <code>null</code>.
    * @param aDisplayNameProvider
    *        The display text provider to be used. May not be <code>null</code>.
-   * @param eSortOrder
-   *        The sort order to be used. May not be <code>null</code>.
    */
-  public ComparatorDisplayNameProvider (@Nullable final Locale aSortLocale,
-                                        @Nonnull final IDisplayNameProvider <DATATYPE> aDisplayNameProvider,
-                                        @Nonnull final ESortOrder eSortOrder)
+  public ComparatorDisplayNameProvider (@Nullable final Collator aCollator,
+                                        @Nonnull final IDisplayNameProvider <DATATYPE> aDisplayNameProvider)
   {
-    super (aSortLocale, eSortOrder);
+    super (aCollator);
     m_aDisplayNameProvider = ValueEnforcer.notNull (aDisplayNameProvider, "DisplayNameProvider");
   }
 
@@ -78,7 +76,7 @@ public class ComparatorDisplayNameProvider <DATATYPE> extends AbstractCollationC
   }
 
   @Override
-  protected String asString (final DATATYPE aObject)
+  protected String getAsString (final DATATYPE aObject)
   {
     return m_aDisplayNameProvider.getDisplayName (aObject);
   }

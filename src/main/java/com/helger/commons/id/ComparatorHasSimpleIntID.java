@@ -55,7 +55,7 @@ public class ComparatorHasSimpleIntID <DATATYPE extends IHasSimpleIntID> extends
   }
 
   @Override
-  protected int asInt (@Nullable final DATATYPE aObject)
+  protected int getAsInt (@Nullable final DATATYPE aObject)
   {
     return aObject == null ? CGlobal.ILLEGAL_UINT : aObject.getID ();
   }

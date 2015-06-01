@@ -36,14 +36,6 @@ import com.helger.commons.compare.AbstractCollationComparator;
 public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends AbstractCollationComparator <DATATYPE>
 {
   /**
-   * Comparator with default locale {@link Collator} and default sort order.
-   */
-  public ComparatorHasErrorID ()
-  {
-    super ();
-  }
-
-  /**
    * Comparator with default sort order and specified sort locale.
    *
    * @param aSortLocale
@@ -67,7 +59,7 @@ public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends Abstrac
 
   @Override
   @Nullable
-  protected String asString (@Nonnull final DATATYPE aObject)
+  protected String getAsString (@Nonnull final DATATYPE aObject)
   {
     return aObject.getErrorID ();
   }

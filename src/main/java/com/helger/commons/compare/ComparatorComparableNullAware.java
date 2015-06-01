@@ -45,17 +45,6 @@ public class ComparatorComparableNullAware <DATATYPE extends Comparable <? super
     super ();
   }
 
-  /**
-   * Constructor with sort order.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   */
-  public ComparatorComparableNullAware (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
-
   public final boolean isNullValuesComeFirst ()
   {
     return m_bNullValuesComeFirst;

@@ -43,7 +43,7 @@ public class ComparatorThreadID extends AbstractLongComparator <Thread>
   }
 
   @Override
-  protected long asLong (@Nullable final Thread aThread)
+  protected long getAsLong (@Nullable final Thread aThread)
   {
     return aThread == null ? CGlobal.ILLEGAL_ULONG : aThread.getId ();
   }

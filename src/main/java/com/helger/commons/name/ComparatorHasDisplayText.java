@@ -24,7 +24,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.compare.AbstractCollationComparator;
-import com.helger.commons.compare.ESortOrder;
 
 /**
  * This is a collation {@link java.util.Comparator} for objects that implement
@@ -50,25 +49,7 @@ public class ComparatorHasDisplayText <DATATYPE extends IHasDisplayText> extends
    */
   public ComparatorHasDisplayText (@Nullable final Locale aSortLocale, @Nonnull final Locale aContentLocale)
   {
-    this (aSortLocale, aContentLocale, ESortOrder.DEFAULT);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param aSortLocale
-   *        The locale to be used for sorting. May be <code>null</code>.
-   * @param aContentLocale
-   *        The locale to be used to retrieve the display text of an object. May
-   *        not be <code>null</code>.
-   * @param eSortOrder
-   *        The sort order to be used. May not be <code>null</code>.
-   */
-  public ComparatorHasDisplayText (@Nullable final Locale aSortLocale,
-                                   @Nonnull final Locale aContentLocale,
-                                   @Nonnull final ESortOrder eSortOrder)
-  {
-    super (aSortLocale, eSortOrder);
+    super (aSortLocale);
     m_aContentLocale = ValueEnforcer.notNull (aContentLocale, "ContentLocale");
   }
 
@@ -79,7 +60,7 @@ public class ComparatorHasDisplayText <DATATYPE extends IHasDisplayText> extends
   }
 
   @Override
-  protected String asString (final DATATYPE aObject)
+  protected String getAsString (final DATATYPE aObject)
   {
     return aObject.getDisplayText (m_aContentLocale);
   }

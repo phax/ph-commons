@@ -38,15 +38,10 @@ public final class ComparatorComparableTest extends AbstractPHTestCase
   {
     final List <String> l = CollectionHelper.newList ("a", "b", "c");
     assertEquals (3, CollectionHelper.getSorted (l, new ComparatorComparable <String> ()).size ());
-    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorComparable <String> (ESortOrder.DESCENDING)).size ());
-
-    try
-    {
-      new ComparatorComparable <String> ((ESortOrder) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
+    assertEquals (3,
+                  CollectionHelper.getSorted (l,
+                                              new ComparatorComparable <String> ().setSortOrder (ESortOrder.DESCENDING))
+                                  .size ());
 
     try
     {

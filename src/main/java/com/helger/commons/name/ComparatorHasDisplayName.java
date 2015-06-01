@@ -46,7 +46,7 @@ public class ComparatorHasDisplayName <DATATYPE extends IHasDisplayName> extends
   }
 
   @Override
-  protected String asString (final DATATYPE aObject)
+  protected String getAsString (final DATATYPE aObject)
   {
     return aObject.getDisplayName ();
   }

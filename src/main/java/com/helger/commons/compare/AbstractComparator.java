@@ -123,9 +123,9 @@ public abstract class AbstractComparator <DATATYPE> implements Comparator <DATAT
     // Main compare
     int nCompare = mainCompare (aElement1, aElement2);
 
+    // Invoke the nested comparator for 2nd level comparison (if any)
     if (nCompare == 0 && m_aNestedComparator != null)
     {
-      // Invoke the nested comparator for 2nd level comparison
       nCompare = m_aNestedComparator.compare (aElement1, aElement2);
     }
 

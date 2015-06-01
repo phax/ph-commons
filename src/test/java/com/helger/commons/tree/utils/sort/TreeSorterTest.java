@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.Test;
 
@@ -49,7 +50,7 @@ public final class TreeSorterTest
     i2.createChildItem ("Apache Software Foundation");
 
     // Sort all items by String
-    TreeSorter.sort (aTree, new ComparatorString ());
+    TreeSorter.sort (aTree, new ComparatorString (Locale.US));
 
     assertEquals (2, aTree.getRootItem ().getChildCount ());
     final List <? extends DefaultTreeItem <String>> aChildren = aTree.getRootItem ().getAllChildren ();

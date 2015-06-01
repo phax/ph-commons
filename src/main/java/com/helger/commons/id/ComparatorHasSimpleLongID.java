@@ -55,7 +55,7 @@ public class ComparatorHasSimpleLongID <DATATYPE extends IHasSimpleLongID> exten
   }
 
   @Override
-  protected long asLong (@Nullable final DATATYPE aObject)
+  protected long getAsLong (@Nullable final DATATYPE aObject)
   {
     return aObject == null ? CGlobal.ILLEGAL_ULONG : aObject.getID ();
   }

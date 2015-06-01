@@ -19,8 +19,7 @@ package com.helger.commons.changelog;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractComparator;
-import com.helger.commons.compare.CompareUtils;
+import com.helger.commons.compare.AbstractLongComparator;
 import com.helger.commons.compare.ESortOrder;
 
 /**
@@ -30,14 +29,14 @@ import com.helger.commons.compare.ESortOrder;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorChangeLogEntryDate extends AbstractComparator <ChangeLogEntry>
+public class ComparatorChangeLogEntryDate extends AbstractLongComparator <ChangeLogEntry>
 {
   /**
    * Comparator with default sort order and no nested comparator.
    */
   public ComparatorChangeLogEntryDate ()
   {
-    super ();
+    this (ESortOrder.DEFAULT);
   }
 
   /**
@@ -49,19 +48,12 @@ public class ComparatorChangeLogEntryDate extends AbstractComparator <ChangeLogE
   public ComparatorChangeLogEntryDate (@Nonnull final ESortOrder eSortOrder)
   {
     super (eSortOrder);
+    setNestedComparator (new ComparatorChangeLogEntryComponent ());
   }
 
   @Override
-  protected int mainCompare (@Nonnull final ChangeLogEntry aEntry1, @Nonnull final ChangeLogEntry aEntry2)
+  protected long getAsLong (@Nonnull final ChangeLogEntry aObject)
   {
-    final long n1 = aEntry1.getDate ().getTime ();
-    final long n2 = aEntry2.getDate ().getTime ();
-    int i = CompareUtils.compare (n1, n2);
-    if (i == 0)
-    {
-      i = CompareUtils.nullSafeCompare (aEntry1.getChangeLog ().getComponent (), aEntry2.getChangeLog ()
-                                                                                        .getComponent ());
-    }
-    return i;
+    return aObject.getDate ().getTime ();
   }
 }

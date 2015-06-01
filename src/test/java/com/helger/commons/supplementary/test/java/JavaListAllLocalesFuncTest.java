@@ -34,7 +34,7 @@ public final class JavaListAllLocalesFuncTest
   public void testListAllCountries ()
   {
     for (final Locale aLocale : CollectionHelper.getSorted (Locale.getAvailableLocales (),
-                                                           new ComparatorLocaleCountry (null)))
+                                                            new ComparatorLocaleCountry (Locale.US)))
       if (aLocale.getCountry ().length () > 0)
         s_aLogger.info (aLocale.getCountry () + " " + aLocale.getDisplayCountry () + " (" + aLocale.toString () + ")");
   }
@@ -42,7 +42,8 @@ public final class JavaListAllLocalesFuncTest
   @Test
   public void testListAllSerbianCountries ()
   {
-    for (final Locale aLocale : CollectionHelper.getSorted (Locale.getAvailableLocales (), new ComparatorLocale (null)))
+    for (final Locale aLocale : CollectionHelper.getSorted (Locale.getAvailableLocales (),
+                                                            new ComparatorLocale (Locale.US)))
       if (aLocale.getLanguage ().equals ("sr") ||
           aLocale.getLanguage ().equals ("sh") ||
           aLocale.getLanguage ().equals ("bs"))

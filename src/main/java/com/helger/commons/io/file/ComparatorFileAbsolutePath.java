@@ -24,7 +24,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractCollationComparator;
-import com.helger.commons.compare.ESortOrder;
 
 /**
  * Sort files by their absolute path name.
@@ -34,21 +33,13 @@ import com.helger.commons.compare.ESortOrder;
 @NotThreadSafe
 public class ComparatorFileAbsolutePath extends AbstractCollationComparator <File>
 {
-  public ComparatorFileAbsolutePath ()
-  {}
-
   public ComparatorFileAbsolutePath (@Nullable final Locale aSortLocale)
   {
     super (aSortLocale);
   }
 
-  public ComparatorFileAbsolutePath (@Nullable final Locale aSortLocale, @Nonnull final ESortOrder eSortOrder)
-  {
-    super (aSortLocale, eSortOrder);
-  }
-
   @Override
-  protected String asString (@Nonnull final File aObject)
+  protected String getAsString (@Nonnull final File aObject)
   {
     return aObject.getAbsolutePath ();
   }

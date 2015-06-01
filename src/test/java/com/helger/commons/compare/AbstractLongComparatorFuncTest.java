@@ -50,7 +50,7 @@ public final class AbstractLongComparatorFuncTest
     }
 
     @Override
-    protected long asLong (@Nullable final Integer aInt)
+    protected long getAsLong (@Nullable final Integer aInt)
     {
       return aInt == null ? CGlobal.ILLEGAL_ULONG : aInt.longValue ();
     }

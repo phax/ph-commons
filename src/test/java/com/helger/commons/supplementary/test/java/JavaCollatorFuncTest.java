@@ -62,7 +62,7 @@ public class JavaCollatorFuncTest
 
     final Locale aLocale = LocaleCache.getLocale ("de_DE");
 
-    for (final String s : CollectionHelper.getSorted (aSet, new ComparatorString ()))
+    for (final String s : CollectionHelper.getSorted (aSet, new ComparatorString (Locale.US)))
     {
       s_aLogger.info (s);
     }

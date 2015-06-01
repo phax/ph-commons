@@ -14,21 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mime;
+package com.helger.commons.changelog;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractPartComparatorComparable;
 import com.helger.commons.compare.ESortOrder;
 
+/**
+ * Special comparator to sort change log entries by their component.
+ *
+ * @author Philip Helger
+ */
 @NotThreadSafe
-public class ComparatorMimeTypeInfoPrimaryMimeType extends AbstractPartComparatorComparable <MimeTypeInfo, String>
+public class ComparatorChangeLogEntryComponent extends AbstractPartComparatorComparable <ChangeLogEntry, String>
 {
   /**
    * Comparator with default sort order and no nested comparator.
    */
-  public ComparatorMimeTypeInfoPrimaryMimeType ()
+  public ComparatorChangeLogEntryComponent ()
   {
     super ();
   }
@@ -39,15 +45,15 @@ public class ComparatorMimeTypeInfoPrimaryMimeType extends AbstractPartComparato
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    */
-  public ComparatorMimeTypeInfoPrimaryMimeType (@Nonnull final ESortOrder eSortOrder)
+  public ComparatorChangeLogEntryComponent (@Nonnull final ESortOrder eSortOrder)
   {
     super (eSortOrder);
   }
 
   @Override
-  @Nonnull
-  protected String getPart (@Nonnull final MimeTypeInfo aObject)
+  @Nullable
+  protected String getPart (@Nonnull final ChangeLogEntry aChangeLogEntry)
   {
-    return aObject.getPrimaryMimeTypeWithSource ().getMimeTypeAsString ();
+    return aChangeLogEntry.getChangeLog ().getComponent ();
   }
 }

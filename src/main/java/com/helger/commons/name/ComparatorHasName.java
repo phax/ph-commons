@@ -40,7 +40,7 @@ public class ComparatorHasName <DATATYPE extends IHasName> extends AbstractColla
   }
 
   @Override
-  protected String asString (final DATATYPE aObject)
+  protected String getAsString (final DATATYPE aObject)
   {
     return aObject.getName ();
   }

@@ -52,13 +52,13 @@ public abstract class AbstractDoubleComparator <DATATYPE> extends AbstractCompar
    *        The source object
    * @return The result double value.
    */
-  protected abstract double asDouble (DATATYPE aObject);
+  protected abstract double getAsDouble (DATATYPE aObject);
 
   @Override
   protected final int mainCompare (final DATATYPE aElement1, final DATATYPE aElement2)
   {
-    final double d1 = asDouble (aElement1);
-    final double d2 = asDouble (aElement2);
+    final double d1 = getAsDouble (aElement1);
+    final double d2 = getAsDouble (aElement2);
     return CompareUtils.compare (d1, d2);
   }
 }

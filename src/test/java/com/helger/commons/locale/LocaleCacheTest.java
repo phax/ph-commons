@@ -91,11 +91,10 @@ public final class LocaleCacheTest extends AbstractPHTestCase
   public void testCompare ()
   {
     final Set <Locale> aLocales = LocaleCache.getAllLocales ();
-    assertEquals (aLocales.size (), CollectionHelper.getSorted (aLocales, new ComparatorLocale ()).size ());
     assertEquals (aLocales.size (), CollectionHelper.getSorted (aLocales, new ComparatorLocaleDisplayName (L_DE))
-                                                   .size ());
+                                                    .size ());
     assertEquals (aLocales.size (), CollectionHelper.getSorted (aLocales, new ComparatorLocaleDisplayNameNative (L_DE))
-                                                   .size ());
+                                                    .size ());
     assertEquals (aLocales.size (),
                   CollectionHelper.getSorted (aLocales, new ComparatorLocaleDisplayNameInLocale (L_DE, L_EN)).size ());
   }
