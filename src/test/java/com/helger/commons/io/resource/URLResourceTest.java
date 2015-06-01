@@ -30,15 +30,15 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link URLResource}.
  * 
  * @author Philip Helger
  */
-public final class URLResourceTest extends AbstractPHTestCase
+public final class URLResourceTest extends AbstractCommonsTestCase
 {
   @Test
   public void testCtor () throws MalformedURLException
@@ -89,11 +89,11 @@ public final class URLResourceTest extends AbstractPHTestCase
     ur.getReader (CCharset.CHARSET_ISO_8859_1_OBJ).close ();
 
     final URL aNoNExistingURL = new File ("pom2.xml").toURI ().toURL ();
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (ur, new URLResource (aFileURL));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (ur, ur.getReadableCloneForPath (aFileURL));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (ur,
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (ur, new URLResource (aFileURL));
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (ur, ur.getReadableCloneForPath (aFileURL));
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (ur,
                                                                  ur.getReadableCloneForPath (aFileURL.toExternalForm ()));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (ur, new URLResource (aNoNExistingURL));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (ur, new URLResource (aNoNExistingURL));
 
     assertNotNull (URLResource.getAsFile (aFileURL));
     assertNotNull (URLResource.getAsFile (aNoNExistingURL));
@@ -135,6 +135,6 @@ public final class URLResourceTest extends AbstractPHTestCase
   @Test
   public void testSerialize () throws Exception
   {
-    PHTestUtils.testDefaultSerialization (new URLResource ("http://www.phloc.com"));
+    CommonsTestUtils.testDefaultSerialization (new URLResource ("http://www.phloc.com"));
   }
 }

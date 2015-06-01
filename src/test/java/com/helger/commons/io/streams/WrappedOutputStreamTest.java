@@ -25,7 +25,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link WrappedOutputStream}.
@@ -45,7 +45,7 @@ public final class WrappedOutputStreamTest
     ws.flush ();
     ws.close ();
     assertEquals ("abcd", baos.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ));
-    PHTestUtils.testToStringImplementation (ws);
+    CommonsTestUtils.testToStringImplementation (ws);
 
     try
     {

@@ -25,7 +25,7 @@ import org.junit.Test;
 
 import com.helger.commons.factory.FactoryConstantValue;
 import com.helger.commons.factory.IFactory;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link FactoryConstantValue}.
@@ -41,11 +41,11 @@ public final class FactoryConstantValueTest
     assertSame (aValue, aFactory.create ());
     assertSame (aValue, aFactory.create ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aFactory, new FactoryConstantValue <T> (aValue));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aFactory, FactoryConstantValue.create (aValue));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aFactory, new FactoryConstantValue <T> (aValue2));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aFactory, FactoryConstantValue.create (aValue2));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aFactory,
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (aFactory, new FactoryConstantValue <T> (aValue));
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (aFactory, FactoryConstantValue.create (aValue));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (aFactory, new FactoryConstantValue <T> (aValue2));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (aFactory, FactoryConstantValue.create (aValue2));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (aFactory,
                                                                      new FactoryConstantValue <BigDecimal> (BigDecimal.ONE));
   }
 

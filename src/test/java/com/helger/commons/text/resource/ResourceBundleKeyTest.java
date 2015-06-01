@@ -21,15 +21,15 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link ResourceBundleKey}.
  * 
  * @author Philip Helger
  */
-public final class ResourceBundleKeyTest extends AbstractPHTestCase
+public final class ResourceBundleKeyTest extends AbstractCommonsTestCase
 {
   @Test
   public void testCtor ()
@@ -49,15 +49,15 @@ public final class ResourceBundleKeyTest extends AbstractPHTestCase
     catch (final IllegalArgumentException ex)
     {}
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleKey ("properties/test-iso8859",
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleKey ("properties/test-iso8859",
                                                                                         "key1"),
                                                                  new ResourceBundleKey ("properties/test-iso8859",
                                                                                         "key1"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859",
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859",
                                                                                             "key1"),
                                                                      new ResourceBundleKey ("properties/test-iso8859-1",
                                                                                             "key1"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859",
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859",
                                                                                             "key1"),
                                                                      new ResourceBundleKey ("properties/test-iso8859",
                                                                                             "key2"));

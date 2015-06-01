@@ -23,15 +23,15 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link ComparatorStringShortestFirst}.
  *
  * @author Philip Helger
  */
-public final class ComparatorStringShortestFirstTest extends AbstractPHTestCase
+public final class ComparatorStringShortestFirstTest extends AbstractCommonsTestCase
 {
   @Test
   public void testBasic ()
@@ -43,7 +43,7 @@ public final class ComparatorStringShortestFirstTest extends AbstractPHTestCase
     assertEquals ("a", s.get (1));
     assertEquals ("dd", s.get (2));
 
-    PHTestUtils.testToStringImplementation (new ComparatorStringShortestFirst ());
+    CommonsTestUtils.testToStringImplementation (new ComparatorStringShortestFirst ());
   }
 
   @Test

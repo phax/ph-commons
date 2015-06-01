@@ -25,14 +25,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link ChildElementIterator}.
  *
  * @author Philip Helger
  */
-public final class ChildElementIteratorTest extends AbstractPHTestCase
+public final class ChildElementIteratorTest extends AbstractCommonsTestCase
 {
   @Test
   public void testGetRecursiveChildIter ()

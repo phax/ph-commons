@@ -35,14 +35,14 @@ import com.helger.commons.compare.ISerializableComparator;
 import com.helger.commons.convert.IUnidirectionalConverter;
 import com.helger.commons.convert.UnidirectionalConverterStringInteger;
 import com.helger.commons.filter.FilterNotNull;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link ContainerConversionHelper}
  *
  * @author Philip Helger
  */
-public final class ContainerConversionHelperTest extends AbstractPHTestCase
+public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
 {
   private static final class MyIntegerCompi implements ISerializableComparator <Integer>
   {

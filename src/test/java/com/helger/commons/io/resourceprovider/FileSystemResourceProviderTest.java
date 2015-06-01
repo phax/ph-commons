@@ -28,7 +28,7 @@ import java.io.File;
 import org.junit.Test;
 
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link FileSystemResourceProvider}.
@@ -72,11 +72,11 @@ public final class FileSystemResourceProviderTest
   @Test
   public void testEqualsAndHashcode ()
   {
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemResourceProvider (),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemResourceProvider (),
                                                                  new FileSystemResourceProvider ());
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemResourceProvider ("src/test/resources"),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemResourceProvider ("src/test/resources"),
                                                                  new FileSystemResourceProvider ("src/test/resources"));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemResourceProvider ("src/test/resources"),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemResourceProvider ("src/test/resources"),
                                                                  new FileSystemResourceProvider (new File ("src/test/resources")));
   }
 }

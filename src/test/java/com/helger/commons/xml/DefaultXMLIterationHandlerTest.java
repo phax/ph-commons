@@ -23,14 +23,14 @@ import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.MicroDocumentType;
 import com.helger.commons.microdom.serialize.MicroSerializer;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link DefaultXMLIterationHandler}.
  * 
  * @author Philip Helger
  */
-public final class DefaultXMLIterationHandlerTest extends AbstractPHTestCase
+public final class DefaultXMLIterationHandlerTest extends AbstractCommonsTestCase
 {
   @Test
   public void testAll ()

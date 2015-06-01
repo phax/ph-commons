@@ -14,29 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mock;
+package com.helger.commons.mock.exception;
+
+import java.io.IOException;
 
 /**
- * Non-runtime exception for test cases.
- * 
+ * IO exception for test cases.
+ *
  * @author Philip Helger
  */
-public class MockException extends Exception implements IMockException
+public class MockIOException extends IOException implements IMockException
 {
-  public MockException ()
+  public MockIOException ()
   {}
 
-  public MockException (final String s)
+  public MockIOException (final String s)
   {
     super (s);
   }
 
-  public MockException (final Throwable t)
+  // Java 1.5 does not have an overload for Throwable or String+Throwable
+  public MockIOException (final Throwable t)
   {
     super (t);
   }
 
-  public MockException (final String s, final Throwable t)
+  public MockIOException (final String s, final Throwable t)
   {
     super (s, t);
   }

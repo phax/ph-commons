@@ -29,8 +29,8 @@ import org.junit.Test;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.PHAssert;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsAssert;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link MapBasedAttributeContainerAny}.
@@ -69,8 +69,8 @@ public final class MapBasedAttributeContainerTest
     assertEquals (17, x.getAttributeAsInt ("key"));
     assertEquals (CGlobal.ILLEGAL_UINT, x.getAttributeAsInt ("key2"));
     assertEquals (Integer.valueOf (17), x.getCastedAttribute ("key"));
-    PHAssert.assertEquals (17, x.getAttributeAsDouble ("key"));
-    PHAssert.assertEquals (CGlobal.ILLEGAL_DOUBLE, x.getAttributeAsDouble ("key2"));
+    CommonsAssert.assertEquals (17, x.getAttributeAsDouble ("key"));
+    CommonsAssert.assertEquals (CGlobal.ILLEGAL_DOUBLE, x.getAttributeAsDouble ("key2"));
     assertFalse (x.getAttributeAsBoolean ("key"));
     assertFalse (x.getAttributeAsBoolean ("key2"));
     assertTrue (x.removeAttribute ("key").isChanged ());
@@ -82,9 +82,9 @@ public final class MapBasedAttributeContainerTest
     assertFalse (x.containsAttribute ("null1"));
     assertTrue (x.removeAttribute ("null1").isUnchanged ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainerAny <String> (),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainerAny <String> (),
                                                                  new MapBasedAttributeContainerAny <String> ());
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                      "key2" },
                                                                                                                                       new Object [] { "value",
                                                                                                                                                      "value2" })),
@@ -92,7 +92,7 @@ public final class MapBasedAttributeContainerTest
                                                                                                                                                      "key2" },
                                                                                                                                       new Object [] { "value",
                                                                                                                                                      "value2" })));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                          "key2" },
                                                                                                                                           new Object [] { "value",
                                                                                                                                                          "value2" })),

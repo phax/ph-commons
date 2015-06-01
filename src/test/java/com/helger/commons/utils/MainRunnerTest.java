@@ -23,8 +23,8 @@ import java.util.concurrent.Callable;
 import org.junit.Test;
 
 import com.helger.commons.callback.IThrowingRunnable;
-import com.helger.commons.mock.MockException;
-import com.helger.commons.mock.MockRuntimeException;
+import com.helger.commons.mock.exception.MockException;
+import com.helger.commons.mock.exception.MockRuntimeException;
 
 /**
  * Test class for {@link MainRunner}

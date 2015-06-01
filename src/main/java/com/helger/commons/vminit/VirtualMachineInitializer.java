@@ -22,7 +22,7 @@ import com.helger.commons.annotations.CodingStyleguideUnaware;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.cleanup.CommonsCleanup;
 import com.helger.commons.lang.ServiceLoaderUtils;
-import com.helger.commons.mock.IMockException;
+import com.helger.commons.mock.exception.IMockException;
 
 /**
  * This class should be run upon VM initialization. This should be the very

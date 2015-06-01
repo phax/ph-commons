@@ -30,8 +30,8 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsTestUtils;
 import com.helger.commons.text.IMultiLingualText;
 import com.helger.commons.text.IReadonlyMultiLingualText;
 import com.helger.commons.text.MultiLingualText;
@@ -44,7 +44,7 @@ import com.helger.commons.text.TextProvider;
  *
  * @author Philip Helger
  */
-public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
+public final class MultiLingualTextThreadSafeTest extends AbstractCommonsTestCase
 {
   @Test
   public void testCtor ()
@@ -239,9 +239,9 @@ public final class MultiLingualTextThreadSafeTest extends AbstractPHTestCase
     t.setText (L_DE, "x");
     t.setText (L_EN, "y");
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (t, new MultiLingualTextThreadSafe (t));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (t, new MultiLingualTextThreadSafe ());
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (t,
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (t, new MultiLingualTextThreadSafe (t));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (t, new MultiLingualTextThreadSafe ());
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (t,
                                                                      new MultiLingualTextThreadSafe (new ReadonlyMultiLingualText (CollectionHelper.newMap (L_DE,
                                                                                                                                                             "x"))));
   }

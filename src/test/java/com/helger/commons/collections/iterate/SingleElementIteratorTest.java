@@ -25,7 +25,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link SingleElementIterator}
@@ -58,11 +58,11 @@ public final class SingleElementIteratorTest
     catch (final UnsupportedOperationException ex)
     {}
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new SingleElementIterator <String> ("any"),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new SingleElementIterator <String> ("any"),
                                                                  new SingleElementIterator <String> ("any"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleElementIterator <String> ("any"),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleElementIterator <String> ("any"),
                                                                      new SingleElementIterator <String> ("any2"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleElementIterator <String> ("any"),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleElementIterator <String> ("any"),
                                                                      new SingleElementIterator <Integer> (Integer.valueOf (1)));
   }
 }

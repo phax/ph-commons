@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.helger.commons.collections.impl.SingleMapEntry;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link SingleMapEntry}.
@@ -49,13 +49,13 @@ public final class SingleMapEntryTest
     assertEquals (e.hashCode (), new SingleMapEntry <String, Object> ("Key", "new").hashCode ());
     assertNotNull (e.toString ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new SingleMapEntry <String, Object> ("Key", "value"),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new SingleMapEntry <String, Object> ("Key", "value"),
                                                                  new SingleMapEntry <String, Object> ("Key", "value"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleMapEntry <String, Object> ("Key",
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleMapEntry <String, Object> ("Key",
                                                                                                           "value"),
                                                                      new SingleMapEntry <String, Object> ("Key",
                                                                                                           "value2"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleMapEntry <String, Object> ("Key",
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleMapEntry <String, Object> ("Key",
                                                                                                           "value"),
                                                                      new SingleMapEntry <String, Object> ("Key2",
                                                                                                           "value"));

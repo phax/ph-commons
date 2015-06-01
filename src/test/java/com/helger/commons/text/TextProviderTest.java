@@ -27,8 +27,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.DebugModeTestRule;
+import com.helger.commons.junit.DebugModeTestRule;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.text.ISimpleMultiLingualText;
 import com.helger.commons.text.ITextProvider;
 import com.helger.commons.text.TextProvider;
@@ -38,7 +38,7 @@ import com.helger.commons.text.TextProvider;
  * 
  * @author Philip Helger
  */
-public final class TextProviderTest extends AbstractPHTestCase
+public final class TextProviderTest extends AbstractCommonsTestCase
 {
   @Rule
   public final TestRule m_aRule = new DebugModeTestRule ();

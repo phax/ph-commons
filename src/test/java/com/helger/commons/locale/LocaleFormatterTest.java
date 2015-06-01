@@ -30,8 +30,8 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHAssert;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.string.StringParser;
 
 /**
@@ -39,7 +39,7 @@ import com.helger.commons.string.StringParser;
  *
  * @author Philip Helger
  */
-public final class LocaleFormatterTest extends AbstractPHTestCase
+public final class LocaleFormatterTest extends AbstractCommonsTestCase
 {
   @Test
   public void testGetFormatted_Double ()
@@ -96,8 +96,8 @@ public final class LocaleFormatterTest extends AbstractPHTestCase
   @Test
   public void testParse ()
   {
-    PHAssert.assertEquals (1.1, LocaleFormatter.parse ("1,1", L_DE).doubleValue ());
-    PHAssert.assertEquals (1.1, LocaleFormatter.parse ("1.1", L_EN).doubleValue ());
+    CommonsAssert.assertEquals (1.1, LocaleFormatter.parse ("1,1", L_DE).doubleValue ());
+    CommonsAssert.assertEquals (1.1, LocaleFormatter.parse ("1.1", L_EN).doubleValue ());
     assertNull (LocaleFormatter.parse ("wir sitzen da und denken nach", L_DE));
     assertNull (LocaleFormatter.parse ("", L_DE));
     assertNull (LocaleFormatter.parse (null, L_DE));
@@ -121,9 +121,9 @@ public final class LocaleFormatterTest extends AbstractPHTestCase
   @Test
   public void testParseDouble ()
   {
-    PHAssert.assertEquals (1.1, LocaleFormatter.parseDouble ("1,1", L_DE, CGlobal.ILLEGAL_DOUBLE));
-    PHAssert.assertEquals (1.1, LocaleFormatter.parseDouble ("1.1", L_EN, CGlobal.ILLEGAL_DOUBLE));
-    PHAssert.assertEquals (CGlobal.ILLEGAL_DOUBLE,
+    CommonsAssert.assertEquals (1.1, LocaleFormatter.parseDouble ("1,1", L_DE, CGlobal.ILLEGAL_DOUBLE));
+    CommonsAssert.assertEquals (1.1, LocaleFormatter.parseDouble ("1.1", L_EN, CGlobal.ILLEGAL_DOUBLE));
+    CommonsAssert.assertEquals (CGlobal.ILLEGAL_DOUBLE,
                            LocaleFormatter.parseDouble ("und wir denken und denken", L_EN, CGlobal.ILLEGAL_DOUBLE));
   }
 

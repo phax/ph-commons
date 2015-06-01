@@ -29,7 +29,7 @@ import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.convert.MicroTypeConverter;
 import com.helger.commons.microdom.convert.MultiLingualTextMicroTypeConverterRegistrar;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 import com.helger.commons.text.ISimpleMultiLingualText;
 import com.helger.commons.text.MultiLingualText;
 import com.helger.commons.text.ReadonlyMultiLingualText;
@@ -57,7 +57,7 @@ public final class MultiLingualTextMicroTypeConverterRegistrarTest
     assertEquals (aMLT, aMLT2);
     assertNull (MicroTypeConverter.convertToNative (null, MultiLingualText.class));
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aMLT, aMLT2);
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (aMLT, aMLT2);
   }
 
   @Test
@@ -75,7 +75,7 @@ public final class MultiLingualTextMicroTypeConverterRegistrarTest
     assertEquals (aMLT, aMLT2);
     assertNull (MicroTypeConverter.convertToNative (null, ReadonlyMultiLingualText.class));
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aMLT, aMLT2);
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (aMLT, aMLT2);
   }
 
   @Test
@@ -93,6 +93,6 @@ public final class MultiLingualTextMicroTypeConverterRegistrarTest
     assertEquals (new ReadonlyMultiLingualText (aMLT), aMLT2);
     assertNull (MicroTypeConverter.convertToNative (null, TextProvider.class));
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyMultiLingualText (aMLT), aMLT2);
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyMultiLingualText (aMLT), aMLT2);
   }
 }

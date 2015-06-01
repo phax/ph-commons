@@ -28,7 +28,7 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.lang.ServiceLoaderUtils;
-import com.helger.commons.mock.IMockException;
+import com.helger.commons.mock.exception.IMockException;
 import com.helger.commons.scopes.domain.IApplicationScope;
 import com.helger.commons.scopes.domain.IGlobalScope;
 import com.helger.commons.scopes.domain.IRequestScope;

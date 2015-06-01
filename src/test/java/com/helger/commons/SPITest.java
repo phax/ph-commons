@@ -18,13 +18,13 @@ package com.helger.commons;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 public class SPITest
 {
   @Test
   public void testBasic () throws Exception
   {
-    PHTestUtils.testIfAllSPIImplementationsAreValid (true);
+    CommonsTestUtils.testIfAllSPIImplementationsAreValid (true);
   }
 }

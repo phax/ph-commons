@@ -24,14 +24,14 @@ import java.util.Set;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link CollatingComparatorLocaleDisplayNameNative}.
  *
  * @author Philip Helger
  */
-public final class CollatingComparatorLocaleDisplayNameNativeTest extends AbstractPHTestCase
+public final class CollatingComparatorLocaleDisplayNameNativeTest extends AbstractCommonsTestCase
 {
   @Test
   public void testAll ()

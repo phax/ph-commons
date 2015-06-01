@@ -27,14 +27,14 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link SystemProperties}
  *
  * @author Philip Helger
  */
-public final class SystemPropertiesTest extends AbstractPHTestCase
+public final class SystemPropertiesTest extends AbstractCommonsTestCase
 {
   @Test
   public void testGetAll ()

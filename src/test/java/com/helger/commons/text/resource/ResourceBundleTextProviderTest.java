@@ -21,15 +21,15 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link ResourceBundleTextProvider}.
  * 
  * @author Philip Helger
  */
-public final class ResourceBundleTextProviderTest extends AbstractPHTestCase
+public final class ResourceBundleTextProviderTest extends AbstractCommonsTestCase
 {
   @Test
   public void testISO8859 ()
@@ -45,12 +45,12 @@ public final class ResourceBundleTextProviderTest extends AbstractPHTestCase
     assertEquals ("äöü", aRBT.getTextWithArgs (L_DE, "egal"));
     assertEquals ("äöü", aRBT.getTextWithLocaleFallbackAndArgs (L_DE, "egal"));
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
                                                                  new ResourceBundleTextProvider (key));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
                                                                  new ResourceBundleTextProvider ("properties/test-iso8859",
                                                                                                  "key1"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceBundleTextProvider (key),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceBundleTextProvider (key),
                                                                      new ResourceBundleTextProvider ("properties/test-iso8859",
                                                                                                      "key2"));
 

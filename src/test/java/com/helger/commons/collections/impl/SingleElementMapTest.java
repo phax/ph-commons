@@ -30,14 +30,14 @@ import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.impl.SingleElementMap;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link SingleElementMap}.
  *
  * @author Philip Helger
  */
-public final class SingleElementMapTest extends AbstractPHTestCase
+public final class SingleElementMapTest extends AbstractCommonsTestCase
 {
   @Test
   public void testEmptyCtor ()

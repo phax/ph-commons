@@ -32,7 +32,7 @@ import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.MicroEvent;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link MicroEvent}.
@@ -50,13 +50,13 @@ public final class MicroEventTest
     assertEquals (EMicroEvent.NODE_INSERTED, e.getEventType ());
     assertSame (e1, e.getSourceNode ());
     assertSame (e2, e.getTargetNode ());
-    PHTestUtils.testToStringImplementation (e);
+    CommonsTestUtils.testToStringImplementation (e);
 
     e = new MicroEvent (EMicroEvent.NODE_INSERTED, null, null);
     assertEquals (EMicroEvent.NODE_INSERTED, e.getEventType ());
     assertNull (e.getSourceNode ());
     assertNull (e.getTargetNode ());
-    PHTestUtils.testToStringImplementation (e);
+    CommonsTestUtils.testToStringImplementation (e);
 
     try
     {

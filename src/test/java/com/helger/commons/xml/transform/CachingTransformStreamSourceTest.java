@@ -31,7 +31,7 @@ import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.streamprovider.MockNullInputStreamProvider;
 import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link CachingTransformStreamSource}.
@@ -75,7 +75,7 @@ public final class CachingTransformStreamSourceTest
     assertNull (src.getSystemId ());
     assertNull (src.getPublicId ());
 
-    PHTestUtils.testToStringImplementation (src);
+    CommonsTestUtils.testToStringImplementation (src);
 
     try
     {

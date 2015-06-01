@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.thread.ComparatorThreadName;
 
 /**
@@ -30,7 +30,7 @@ import com.helger.commons.thread.ComparatorThreadName;
  *
  * @author Philip Helger
  */
-public final class ComparatorThreadNameTest extends AbstractPHTestCase
+public final class ComparatorThreadNameTest extends AbstractCommonsTestCase
 {
   @Test
   public void testBasic ()

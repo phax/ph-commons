@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * JUnit test for class {@link VersionRange}.
@@ -394,32 +394,32 @@ public final class VersionRangeTest
     assertTrue (vr1.equals (vr1));
     assertFalse (vr1.equals (null));
     assertFalse (vr1.equals ("Not a VersionRange"));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (vr1, new VersionRange ("(1.2,2.0]"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("[1.2,2.0]"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("(1.2,2.0)"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("[1.2,2.0)"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("(1.2,]"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("(,2.0]"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("(1.3,2.0]"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("(1.2,2.1]"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(,2.0]"),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (vr1, new VersionRange ("(1.2,2.0]"));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("[1.2,2.0]"));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("(1.2,2.0)"));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("[1.2,2.0)"));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("(1.2,]"));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("(,2.0]"));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("(1.3,2.0]"));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("(1.2,2.1]"));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(,2.0]"),
                                                                      new VersionRange ("(,2.1]"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(1.2]"),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(1.2]"),
                                                                      new VersionRange ("(1.3]"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(1.2,]"),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(1.2,]"),
                                                                      new VersionRange ("(,2.0]"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(,2.0]"),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(,2.0]"),
                                                                      new VersionRange ("(1.2,]"));
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new VersionRange ("(1.2]"), new VersionRange ("(1.2]"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(1.2]"),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new VersionRange ("(1.2]"), new VersionRange ("(1.2]"));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(1.2]"),
                                                                      new VersionRange ("(1.2)"));
   }
 
   @Test
   public void testSerialization () throws Exception
   {
-    PHTestUtils.testDefaultSerialization (new VersionRange ("(1.2]"));
-    PHTestUtils.testDefaultSerialization (new VersionRange ("(0)"));
+    CommonsTestUtils.testDefaultSerialization (new VersionRange ("(1.2]"));
+    CommonsTestUtils.testDefaultSerialization (new VersionRange ("(0)"));
   }
 }

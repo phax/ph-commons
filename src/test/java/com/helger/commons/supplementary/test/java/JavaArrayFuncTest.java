@@ -25,7 +25,7 @@ import java.lang.reflect.Array;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHAssert;
+import com.helger.commons.mock.CommonsAssert;
 
 public final class JavaArrayFuncTest
 {
@@ -56,8 +56,8 @@ public final class JavaArrayFuncTest
     }
     catch (final IllegalArgumentException ex)
     {}
-    PHAssert.assertEquals (1, Array.getDouble (aIntArray, 0));
-    PHAssert.assertEquals (1, Array.getFloat (aIntArray, 0));
+    CommonsAssert.assertEquals (1, Array.getDouble (aIntArray, 0));
+    CommonsAssert.assertEquals (1, Array.getFloat (aIntArray, 0));
     assertEquals (1, Array.getInt (aIntArray, 0));
     assertEquals (1, Array.getLong (aIntArray, 0));
     try

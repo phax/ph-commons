@@ -31,6 +31,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
+import com.helger.commons.junit.DebugModeTestRule;
 import com.helger.commons.microdom.EMicroNodeType;
 import com.helger.commons.microdom.IHasElementName;
 import com.helger.commons.microdom.IMicroComment;
@@ -43,9 +44,8 @@ import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.MicroException;
 import com.helger.commons.microdom.MicroQName;
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.DebugModeTestRule;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsTestUtils;
 import com.helger.commons.text.MultiLingualText;
 import com.helger.commons.typeconvert.TypeConverterException;
 
@@ -56,7 +56,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-public final class MicroElementTest extends AbstractPHTestCase
+public final class MicroElementTest extends AbstractCommonsTestCase
 {
   @Rule
   public final TestRule m_aRule = new DebugModeTestRule ();
@@ -112,7 +112,7 @@ public final class MicroElementTest extends AbstractPHTestCase
     assertNotNull (e.getAllChildElements ());
     assertTrue (e.getAllChildElements ().isEmpty ());
     assertSame (EMicroNodeType.ELEMENT, e.getType ());
-    PHTestUtils.testToStringImplementation (e);
+    CommonsTestUtils.testToStringImplementation (e);
 
     e = new MicroElement ("myns", "xyz");
     assertNull (e.getAttributeValue ("attr"));
@@ -184,14 +184,14 @@ public final class MicroElementTest extends AbstractPHTestCase
     assertNotNull (eRoot.getAllChildElements ());
     assertTrue (eRoot.getAllChildElements ().isEmpty ());
     assertFalse (eRoot.hasChildElements ());
-    PHTestUtils.testToStringImplementation (eRoot);
+    CommonsTestUtils.testToStringImplementation (eRoot);
 
     final IMicroElement e1 = eRoot.appendElement ("level1");
     e1.appendElement ("e11");
     eRoot.appendText ("My text node");
     eRoot.appendComment ("Comment");
     eRoot.appendElement ("xyz");
-    PHTestUtils.testToStringImplementation (eRoot);
+    CommonsTestUtils.testToStringImplementation (eRoot);
 
     assertNotNull (eRoot.getAllChildElements ());
     assertEquals (2, eRoot.getAllChildElements ().size ());

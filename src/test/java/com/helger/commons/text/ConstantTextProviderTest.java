@@ -23,7 +23,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 import com.helger.commons.text.ConstantTextProvider;
 
 /**
@@ -90,11 +90,11 @@ public final class ConstantTextProviderTest
   @Test
   public void testStandard ()
   {
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider ("any"),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider ("any"),
                                                                  new ConstantTextProvider ("any"));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider (""),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider (""),
                                                                  new ConstantTextProvider (""));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ConstantTextProvider ("any"),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ConstantTextProvider ("any"),
                                                                      new ConstantTextProvider ("anyy"));
   }
 }

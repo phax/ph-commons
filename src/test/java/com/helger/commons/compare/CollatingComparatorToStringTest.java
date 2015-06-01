@@ -25,14 +25,14 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link CollatingComparatorToString}.
  *
  * @author Philip Helger
  */
-public final class CollatingComparatorToStringTest extends AbstractPHTestCase
+public final class CollatingComparatorToStringTest extends AbstractCommonsTestCase
 {
   @Test
   public void testAll ()

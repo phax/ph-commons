@@ -24,8 +24,8 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.streamprovider.ByteArrayOutputStreamProvider;
 import com.helger.commons.microdom.MicroDocumentType;
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsTestUtils;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 
 /**
@@ -33,7 +33,7 @@ import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
  * 
  * @author Philip Helger
  */
-public final class XMLEmitterTest extends AbstractPHTestCase
+public final class XMLEmitterTest extends AbstractCommonsTestCase
 {
   @Test
   public void testMisc ()
@@ -46,7 +46,7 @@ public final class XMLEmitterTest extends AbstractPHTestCase
                   XMLEmitter.getDocTypeHTMLRepresentation (EXMLSerializeVersion.XML_11,
                                                            EXMLIncorrectCharacterHandling.DEFAULT,
                                                            new MicroDocumentType ("qname", "pubid", "sysid")));
-    PHTestUtils.testToStringImplementation (new XMLEmitter (new ByteArrayOutputStreamProvider ().getWriter (CCharset.CHARSET_ISO_8859_1_OBJ,
+    CommonsTestUtils.testToStringImplementation (new XMLEmitter (new ByteArrayOutputStreamProvider ().getWriter (CCharset.CHARSET_ISO_8859_1_OBJ,
                                                                                                             EAppend.DEFAULT),
                                                             XMLWriterSettings.DEFAULT_XML_SETTINGS));
   }

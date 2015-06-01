@@ -21,7 +21,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -51,9 +51,9 @@ public final class AggregatorStringWithSeparatorTest
     catch (final NullPointerException ex)
     {}
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new AggregatorStringWithSeparator (";"),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new AggregatorStringWithSeparator (";"),
                                                                  new AggregatorStringWithSeparator (";"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new AggregatorStringWithSeparator (";"),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new AggregatorStringWithSeparator (";"),
                                                                      new AggregatorStringWithSeparator (","));
   }
 }

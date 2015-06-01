@@ -26,9 +26,9 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.MockException;
-import com.helger.commons.mock.MockIOException;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.exception.MockException;
+import com.helger.commons.mock.exception.MockIOException;
 
 /**
  * Test class for class {@link FileIOError}.
@@ -179,58 +179,58 @@ public final class FileIOErrorTest
   {
     // ctor 1
     final FileIOError e1 = new FileIOError (EFileIOOperation.COPY_FILE, EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (e1,
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (e1,
                                                                  new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                   EFileIOErrorCode.SOURCE_DOES_NOT_EXIST));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (e1,
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (e1,
                                                                      new FileIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
                                                                                       EFileIOErrorCode.SOURCE_DOES_NOT_EXIST));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (e1,
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (e1,
                                                                      new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                       EFileIOErrorCode.SOURCE_EQUALS_TARGET));
 
     // ctor 2
     final FileIOError e2 = new FileIOError (EFileIOOperation.COPY_FILE, EFileIOErrorCode.SOURCE_DOES_NOT_EXIST, f1);
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (e2,
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (e2,
                                                                  new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                   EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                   f1));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (e2,
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (e2,
                                                                      new FileIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
                                                                                       EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                       f1));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (e2,
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (e2,
                                                                      new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                       EFileIOErrorCode.SOURCE_EQUALS_TARGET,
                                                                                       f1));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (e2,
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (e2,
                                                                      new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                       EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                       f2));
 
     // ctor 3
     final FileIOError e3 = new FileIOError (EFileIOOperation.COPY_FILE, EFileIOErrorCode.SOURCE_DOES_NOT_EXIST, f1, f2);
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (e3,
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (e3,
                                                                  new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                   EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                   f1,
                                                                                   f2));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (e3,
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (e3,
                                                                      new FileIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
                                                                                       EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                       f1,
                                                                                       f2));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (e3,
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (e3,
                                                                      new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                       EFileIOErrorCode.SOURCE_EQUALS_TARGET,
                                                                                       f1,
                                                                                       f2));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (e3,
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (e3,
                                                                      new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                       EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                       f2,
                                                                                       f2));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (e3,
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (e3,
                                                                      new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                       EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                       f1,
@@ -239,19 +239,19 @@ public final class FileIOErrorTest
     // ctor 4
     final Exception e = new MockException ();
     final FileIOError e4 = new FileIOError (EFileIOOperation.COPY_FILE, EFileIOErrorCode.SOURCE_DOES_NOT_EXIST, e);
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (e4,
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (e4,
                                                                  new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                   EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                   e));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (e4,
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (e4,
                                                                      new FileIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
                                                                                       EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                       e));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (e4,
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (e4,
                                                                      new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                       EFileIOErrorCode.SOURCE_EQUALS_TARGET,
                                                                                       e));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (e4,
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (e4,
                                                                      new FileIOError (EFileIOOperation.COPY_FILE,
                                                                                       EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
                                                                                       new MockIOException ()));

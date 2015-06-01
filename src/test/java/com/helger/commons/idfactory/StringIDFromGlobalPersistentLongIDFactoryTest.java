@@ -21,7 +21,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link StringIDFromGlobalPersistentLongIDFactory}.
@@ -35,9 +35,9 @@ public final class StringIDFromGlobalPersistentLongIDFactoryTest
   {
     GlobalIDFactory.setPersistentLongIDFactory (new MemoryStaticLongIDFactory ());
     final StringIDFromGlobalPersistentLongIDFactory x = new StringIDFromGlobalPersistentLongIDFactory ("idd");
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (x,
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (x,
                                                                  new StringIDFromGlobalPersistentLongIDFactory ("idd"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (x,
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (x,
                                                                      new StringIDFromGlobalPersistentLongIDFactory ("prefix"));
     assertTrue (x.getNewID ().startsWith ("idd"));
 

@@ -21,14 +21,14 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link ResourceBundleUtils}.
  * 
  * @author Philip Helger
  */
-public final class ResourceBundleUtilsTest extends AbstractPHTestCase
+public final class ResourceBundleUtilsTest extends AbstractCommonsTestCase
 {
   @Test
   public void testGetString ()

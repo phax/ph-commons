@@ -19,7 +19,7 @@ package com.helger.commons.callback.exception;
 import org.junit.Test;
 
 import com.helger.commons.callback.exception.LoggingExceptionCallback;
-import com.helger.commons.mock.MockException;
+import com.helger.commons.mock.exception.MockException;
 
 /**
  * Test class for class {@link LoggingExceptionCallback}

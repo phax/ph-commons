@@ -28,15 +28,15 @@ import java.util.Vector;
 import org.junit.Test;
 
 import com.helger.commons.callback.IThrowingRunnable;
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link CollatorUtils}.
  * 
  * @author Philip Helger
  */
-public final class CollatorUtilsTest extends AbstractPHTestCase
+public final class CollatorUtilsTest extends AbstractCommonsTestCase
 {
   @Test
   public void testGetCollatorSpaceBeforeDot ()
@@ -46,14 +46,14 @@ public final class CollatorUtilsTest extends AbstractPHTestCase
     final Collator c2 = CollatorUtils.getCollatorSpaceBeforeDot (L_DE);
     assertNotNull (c2);
     assertTrue (c != c2);
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (c, c2);
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (c, c2);
 
     // Unknown locale
     assertNotNull (CollatorUtils.getCollatorSpaceBeforeDot (new Locale ("xy", "87")));
 
     final List <Collator> res = new Vector <Collator> ();
     final int nMax = 100;
-    PHTestUtils.testInParallel (nMax, new IThrowingRunnable ()
+    CommonsTestUtils.testInParallel (nMax, new IThrowingRunnable ()
     {
       public void run () throws Exception
       {
@@ -63,14 +63,14 @@ public final class CollatorUtilsTest extends AbstractPHTestCase
 
     assertEquals (nMax, res.size ());
     for (int i = 1; i < nMax; ++i)
-      PHTestUtils.testDefaultImplementationWithEqualContentObject (res.get (0), res.get (i));
+      CommonsTestUtils.testDefaultImplementationWithEqualContentObject (res.get (0), res.get (i));
   }
 
   @Test
   public void testSort ()
   {
     final int nMax = 10000;
-    PHTestUtils.testInParallel (nMax, new IThrowingRunnable ()
+    CommonsTestUtils.testInParallel (nMax, new IThrowingRunnable ()
     {
       public void run () throws Exception
       {

@@ -65,14 +65,14 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @author Philip Helger
  */
 @Immutable
-public final class PHTestUtils
+public final class CommonsTestUtils
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PHTestUtils.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (CommonsTestUtils.class);
 
   @PresentForCodeCoverage
-  private static final PHTestUtils s_aInstance = new PHTestUtils ();
+  private static final CommonsTestUtils s_aInstance = new CommonsTestUtils ();
 
-  private PHTestUtils ()
+  private CommonsTestUtils ()
   {}
 
   private static void _assertTrue (@Nonnull final String sMsg, final boolean bTrue)

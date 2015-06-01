@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link MemoryStaticIntIDFactory}.
@@ -34,6 +34,6 @@ public final class MemoryStaticIntIDFactoryTest
   {
     final MemoryStaticIntIDFactory x = new MemoryStaticIntIDFactory ();
     assertTrue (x.getNewID () >= MemoryStaticIntIDFactory.INITIAL_ID);
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (x, new MemoryStaticIntIDFactory ());
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (x, new MemoryStaticIntIDFactory ());
   }
 }

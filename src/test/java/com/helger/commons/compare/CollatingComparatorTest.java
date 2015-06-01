@@ -26,15 +26,15 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link CollatingComparator}.
  *
  * @author Philip Helger
  */
-public final class CollatingComparatorTest extends AbstractPHTestCase
+public final class CollatingComparatorTest extends AbstractCommonsTestCase
 {
   @Test
   public void testAll ()
@@ -54,7 +54,7 @@ public final class CollatingComparatorTest extends AbstractPHTestCase
                   CollectionHelper.getSorted (l,
                                               new CollatingComparator (Collator.getInstance (L_FR)).setSortOrder (ESortOrder.DESCENDING))
                                   .size ());
-    PHTestUtils.testToStringImplementation (new CollatingComparator (Locale.US));
+    CommonsTestUtils.testToStringImplementation (new CollatingComparator (Locale.US));
 
     try
     {

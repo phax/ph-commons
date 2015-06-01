@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link Pair}.
@@ -94,17 +94,17 @@ public final class PairTest
     aPair2 = new Pair <String, Double> ("Nice text", Double.valueOf (3.14));
     assertFalse (aPair.equals (aPair2));
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> (null, null),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> (null, null),
                                                                  new Pair <String, Double> (null, null));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> ("Nix da", null),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> ("Nix da", null),
                                                                  new Pair <String, Double> ("Nix da", null));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> (null, "Nix da"),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> (null, "Nix da"),
                                                                  new Pair <String, String> (null, "Nix da"));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> ("Nix", "da"),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> ("Nix", "da"),
                                                                  new Pair <String, String> ("Nix", "da"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new Pair <String, String> ("Nix", "da"),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new Pair <String, String> ("Nix", "da"),
                                                                      new Pair <String, String> ("Nix", "da2"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (Pair.create ("Nix", "da"),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (Pair.create ("Nix", "da"),
                                                                      Pair.create ("Nix2", "da"));
   }
 }

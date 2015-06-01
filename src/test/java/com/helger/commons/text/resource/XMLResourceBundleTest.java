@@ -31,7 +31,7 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.FileUtils;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link XMLResourceBundle}.
@@ -39,7 +39,7 @@ import com.helger.commons.mock.AbstractPHTestCase;
  * @author Philip Helger
  */
 // SKIPJDK5
-public final class XMLResourceBundleTest extends AbstractPHTestCase
+public final class XMLResourceBundleTest extends AbstractCommonsTestCase
 {
   @Test
   public void testAll () throws IOException

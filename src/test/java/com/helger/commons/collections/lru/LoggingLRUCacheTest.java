@@ -21,7 +21,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link LoggingLRUCache}.
@@ -35,10 +35,10 @@ public final class LoggingLRUCacheTest
   {
     final LoggingLRUCache <String, String> c = new LoggingLRUCache <String, String> ("name", 5);
     assertEquals ("name", c.getCacheName ());
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (c, new LoggingLRUCache <String, String> ("name", 5));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (c, new LoggingLRUCache <String, String> ("name2",
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (c, new LoggingLRUCache <String, String> ("name", 5));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (c, new LoggingLRUCache <String, String> ("name2",
                                                                                                               5));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (c,
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (c,
                                                                      new LoggingLRUCache <String, String> ("name", 6));
 
     // Check overflow

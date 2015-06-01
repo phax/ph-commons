@@ -41,7 +41,7 @@ import org.junit.Test;
 import com.helger.commons.collections.ArrayHelper;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.impl.NonBlockingStack;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.url.SMap;
 
 /**
@@ -49,7 +49,7 @@ import com.helger.commons.url.SMap;
  *
  * @author Philip Helger
  */
-public final class ContainerEqualsUtilsTest extends AbstractPHTestCase
+public final class ContainerEqualsUtilsTest extends AbstractCommonsTestCase
 {
   @Test
   public void testBasic ()

@@ -26,15 +26,15 @@ import org.junit.Test;
 
 import com.helger.commons.aggregate.AggregatorStringWithSeparator;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link DefaultFolderTree}.
  *
  * @author Philip Helger
  */
-public final class DefaultFolderTreeTest extends AbstractPHTestCase
+public final class DefaultFolderTreeTest extends AbstractCommonsTestCase
 {
   @Test
   public void testBasic ()
@@ -65,6 +65,6 @@ public final class DefaultFolderTreeTest extends AbstractPHTestCase
     assertNotNull (i3);
     assertTrue (i1 != i3);
 
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (i1, i3);
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (i1, i3);
   }
 }

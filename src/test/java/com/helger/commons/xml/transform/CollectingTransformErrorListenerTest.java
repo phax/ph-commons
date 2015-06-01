@@ -31,8 +31,8 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsTestUtils;
 import com.helger.commons.xml.XMLFactory;
 
 /**
@@ -40,7 +40,7 @@ import com.helger.commons.xml.XMLFactory;
  *
  * @author Philip Helger
  */
-public final class CollectingTransformErrorListenerTest extends AbstractPHTestCase
+public final class CollectingTransformErrorListenerTest extends AbstractCommonsTestCase
 {
   @Test
   public void testAll () throws TransformerConfigurationException, TransformerException
@@ -78,6 +78,6 @@ public final class CollectingTransformErrorListenerTest extends AbstractPHTestCa
     assertNull (XMLTransformerFactory.newTemplates (fac, new ClassPathResource ("test1.txt")));
     assertTrue (el.getResourceErrors ().containsAtLeastOneError ());
 
-    PHTestUtils.testToStringImplementation (el);
+    CommonsTestUtils.testToStringImplementation (el);
   }
 }

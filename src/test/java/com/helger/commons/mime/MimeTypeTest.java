@@ -27,15 +27,15 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link MimeType}
  * 
  * @author Philip Helger
  */
-public final class MimeTypeTest extends AbstractPHTestCase
+public final class MimeTypeTest extends AbstractCommonsTestCase
 {
   @Test
   public void testCtor ()
@@ -46,16 +46,16 @@ public final class MimeTypeTest extends AbstractPHTestCase
     assertEquals ("text/junit", mt.getAsString ());
     assertEquals ("text/junit", mt.getAsStringWithoutParameters ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (mt, new MimeType (EMimeContentType.TEXT, "junit"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.APPLICATION,
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (mt, new MimeType (EMimeContentType.TEXT, "junit"));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.APPLICATION,
                                                                                        "junit"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.TEXT, "testng"));
-    PHTestUtils.testGetClone (mt);
-    PHTestUtils.testDefaultSerialization (mt);
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.TEXT, "testng"));
+    CommonsTestUtils.testGetClone (mt);
+    CommonsTestUtils.testDefaultSerialization (mt);
 
     mt.addParameter ("charset", CCharset.CHARSET_UTF_8);
-    PHTestUtils.testGetClone (mt);
-    PHTestUtils.testDefaultSerialization (mt);
+    CommonsTestUtils.testGetClone (mt);
+    CommonsTestUtils.testDefaultSerialization (mt);
 
     try
     {

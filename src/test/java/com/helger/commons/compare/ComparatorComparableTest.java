@@ -24,14 +24,14 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link ComparatorComparable}.
  *
  * @author Philip Helger
  */
-public final class ComparatorComparableTest extends AbstractPHTestCase
+public final class ComparatorComparableTest extends AbstractCommonsTestCase
 {
   @Test
   public void testAll ()

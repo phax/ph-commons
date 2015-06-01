@@ -23,8 +23,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHAssert;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsAssert;
+import com.helger.commons.mock.CommonsTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -40,8 +40,8 @@ public final class SizeDoubleTest
   public void testCtor ()
   {
     final SizeDouble aID = new SizeDouble (320, 240);
-    PHAssert.assertEquals (320, aID.getWidth ());
-    PHAssert.assertEquals (240, aID.getHeight ());
+    CommonsAssert.assertEquals (320, aID.getWidth ());
+    CommonsAssert.assertEquals (240, aID.getHeight ());
 
     try
     {
@@ -58,10 +58,10 @@ public final class SizeDoubleTest
     catch (final IllegalArgumentException ex)
     {}
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new SizeDouble (320, 240), new SizeDouble (320, 240));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240), new SizeDouble (321,
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new SizeDouble (320, 240), new SizeDouble (320, 240));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240), new SizeDouble (321,
                                                                                                                 240));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240), new SizeDouble (320,
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240), new SizeDouble (320,
                                                                                                                 241));
   }
 
@@ -72,18 +72,18 @@ public final class SizeDoubleTest
 
     // Width
     SizeDouble aID2 = aID.getBestMatchingSize (160, 180);
-    PHAssert.assertEquals (160, aID2.getWidth ());
-    PHAssert.assertEquals (120, aID2.getHeight ());
+    CommonsAssert.assertEquals (160, aID2.getWidth ());
+    CommonsAssert.assertEquals (120, aID2.getHeight ());
 
     // Height
     aID2 = aID.getBestMatchingSize (260, 120);
-    PHAssert.assertEquals (160, aID2.getWidth ());
-    PHAssert.assertEquals (120, aID2.getHeight ());
+    CommonsAssert.assertEquals (160, aID2.getWidth ());
+    CommonsAssert.assertEquals (120, aID2.getHeight ());
 
     // WIdth
     aID2 = aID.getBestMatchingSize (48, 120);
-    PHAssert.assertEquals (48, aID2.getWidth ());
-    PHAssert.assertEquals (36, aID2.getHeight ());
+    CommonsAssert.assertEquals (48, aID2.getWidth ());
+    CommonsAssert.assertEquals (36, aID2.getHeight ());
 
     assertEquals (aID, aID.getBestMatchingSize (640, 481));
     assertEquals (aID, aID.getBestMatchingSize (641, 480));
@@ -112,18 +112,18 @@ public final class SizeDoubleTest
   {
     final SizeDouble aID = new SizeDouble (100, 150);
     SizeDouble aID2 = aID.getScaledToWidth (150);
-    PHAssert.assertEquals (150, aID2.getWidth ());
-    PHAssert.assertEquals (225, aID2.getHeight ());
+    CommonsAssert.assertEquals (150, aID2.getWidth ());
+    CommonsAssert.assertEquals (225, aID2.getHeight ());
     aID2 = aID.getScaledToHeight (300);
-    PHAssert.assertEquals (200, aID2.getWidth ());
-    PHAssert.assertEquals (300, aID2.getHeight ());
+    CommonsAssert.assertEquals (200, aID2.getWidth ());
+    CommonsAssert.assertEquals (300, aID2.getHeight ());
     aID2 = aID.getScaledToWidth (50);
-    PHAssert.assertEquals (50, aID2.getWidth ());
-    PHAssert.assertEquals (75, aID2.getHeight ());
+    CommonsAssert.assertEquals (50, aID2.getWidth ());
+    CommonsAssert.assertEquals (75, aID2.getHeight ());
     assertSame (aID2, aID2.getScaledToWidth (50));
     aID2 = aID.getScaledToHeight (75);
-    PHAssert.assertEquals (50, aID2.getWidth ());
-    PHAssert.assertEquals (75, aID2.getHeight ());
+    CommonsAssert.assertEquals (50, aID2.getWidth ());
+    CommonsAssert.assertEquals (75, aID2.getHeight ());
     assertSame (aID2, aID2.getScaledToHeight (75));
 
     try

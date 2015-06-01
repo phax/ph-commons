@@ -33,7 +33,7 @@ import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.MicroDocumentType;
 import com.helger.commons.microdom.MicroException;
 import com.helger.commons.microdom.MicroText;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link MicroDocument}.
@@ -116,7 +116,7 @@ public final class MicroDocumentTest
   public void testToString ()
   {
     final IMicroDocument d = new MicroDocument ();
-    PHTestUtils.testToStringImplementation (d);
+    CommonsTestUtils.testToStringImplementation (d);
   }
 
   @Test

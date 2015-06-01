@@ -30,7 +30,7 @@ import org.junit.Test;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.jaxb.JAXBContextCache;
 import com.helger.commons.jaxb.MockJAXBArchive;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 import com.helger.commons.xml.transform.TransformSourceFactory;
 
 /**
@@ -73,6 +73,6 @@ public final class CollectingValidationEventHandlerTest
     assertEquals (1, evh.getResourceErrors ().getSize ());
 
     // For code coverage completion
-    PHTestUtils.testToStringImplementation (evh);
+    CommonsTestUtils.testToStringImplementation (evh);
   }
 }

@@ -25,15 +25,15 @@ import javax.xml.transform.TransformerFactory;
 import org.junit.Test;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link LoggingTransformErrorListener}.
  * 
  * @author Philip Helger
  */
-public final class LoggingTransformErrorListenerTest extends AbstractPHTestCase
+public final class LoggingTransformErrorListenerTest extends AbstractCommonsTestCase
 {
   @Test
   public void testAll ()
@@ -54,6 +54,6 @@ public final class LoggingTransformErrorListenerTest extends AbstractPHTestCase
     // Read invalid XSLT
     assertNull (XMLTransformerFactory.newTemplates (fac, new ClassPathResource ("test1.txt")));
 
-    PHTestUtils.testToStringImplementation (el);
+    CommonsTestUtils.testToStringImplementation (el);
   }
 }

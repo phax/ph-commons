@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.dimension.SizeInt;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -58,9 +58,9 @@ public final class SizeIntTest
     catch (final IllegalArgumentException ex)
     {}
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new SizeInt (320, 240), new SizeInt (320, 240));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240), new SizeInt (321, 240));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240), new SizeInt (320, 241));
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new SizeInt (320, 240), new SizeInt (320, 240));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240), new SizeInt (321, 240));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240), new SizeInt (320, 241));
   }
 
   @Test

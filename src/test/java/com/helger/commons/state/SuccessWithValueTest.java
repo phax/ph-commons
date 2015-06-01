@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.state.SuccessWithValue;
 
@@ -47,9 +47,9 @@ public final class SuccessWithValueTest
     assertEquals ("other", x.getIfFailure ("other"));
     assertNull (x.getIfFailureOrNull ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (x, SuccessWithValue.createSuccess ("bla"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (x, SuccessWithValue.createFailure ("bla"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (x, SuccessWithValue.createSuccess ("Other"));
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (x, SuccessWithValue.createSuccess ("bla"));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (x, SuccessWithValue.createFailure ("bla"));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (x, SuccessWithValue.createSuccess ("Other"));
 
     x = new SuccessWithValue <String> (ESuccess.SUCCESS, null);
     assertNull (x.get ());

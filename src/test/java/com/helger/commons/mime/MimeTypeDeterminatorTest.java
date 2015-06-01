@@ -21,14 +21,14 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link MimeTypeDeterminator}
  *
  * @author Philip Helger
  */
-public final class MimeTypeDeterminatorTest extends AbstractPHTestCase
+public final class MimeTypeDeterminatorTest extends AbstractCommonsTestCase
 {
   /**
    * Test for method getMIMETypeFromBytes

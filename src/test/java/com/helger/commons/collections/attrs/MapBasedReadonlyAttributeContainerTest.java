@@ -29,7 +29,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link MapBasedReadonlyAttributeContainer}.
@@ -65,7 +65,7 @@ public final class MapBasedReadonlyAttributeContainerTest
     assertFalse (x.getAllAttributes ().isEmpty ());
     assertFalse (x.getAllAttributeNames ().isEmpty ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedReadonlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new MapBasedReadonlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                                         "key2" },
                                                                                                                                                          new Serializable [] { "value",
                                                                                                                                                                               "value2" })),
@@ -73,7 +73,7 @@ public final class MapBasedReadonlyAttributeContainerTest
                                                                                                                                                                         "key2" },
                                                                                                                                                          new Serializable [] { "value",
                                                                                                                                                                               "value2" })));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedReadonlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new MapBasedReadonlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                                             "key2" },
                                                                                                                                                              new Serializable [] { "value",
                                                                                                                                                                                   "value2" })),

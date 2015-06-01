@@ -32,8 +32,8 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsTestUtils;
 import com.helger.commons.text.IMultiLingualText;
 import com.helger.commons.text.IReadonlyMultiLingualText;
 import com.helger.commons.text.MultiLingualText;
@@ -45,7 +45,7 @@ import com.helger.commons.text.TextProvider;
  *
  * @author Philip Helger
  */
-public final class MultiLingualTextTest extends AbstractPHTestCase
+public final class MultiLingualTextTest extends AbstractCommonsTestCase
 {
   @Test
   public void testCtor ()
@@ -175,7 +175,7 @@ public final class MultiLingualTextTest extends AbstractPHTestCase
   public void testEquals ()
   {
     final IMultiLingualText aMLT = new MultiLingualText ();
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aMLT, new MultiLingualText ());
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (aMLT, new MultiLingualText ());
   }
 
   @Test

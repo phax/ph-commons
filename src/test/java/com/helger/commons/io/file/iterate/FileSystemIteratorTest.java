@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.iterate.IIterableIterator;
 import com.helger.commons.io.file.filter.FileFilterFileOnly;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link FileSystemIterator}.
@@ -64,7 +64,7 @@ public final class FileSystemIteratorTest
     while (it.hasNext ())
       it.next ();
 
-    PHTestUtils.testToStringImplementation (it);
+    CommonsTestUtils.testToStringImplementation (it);
 
     // Non-existing directory
     it = new FileSystemIterator (new File ("anydir"));

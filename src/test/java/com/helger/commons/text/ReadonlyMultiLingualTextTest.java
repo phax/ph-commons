@@ -28,8 +28,8 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsTestUtils;
 import com.helger.commons.text.IReadonlyMultiLingualText;
 import com.helger.commons.text.ISimpleMultiLingualText;
 import com.helger.commons.text.MultiLingualText;
@@ -40,7 +40,7 @@ import com.helger.commons.text.ReadonlyMultiLingualText;
  *
  * @author Philip Helger
  */
-public final class ReadonlyMultiLingualTextTest extends AbstractPHTestCase
+public final class ReadonlyMultiLingualTextTest extends AbstractCommonsTestCase
 {
   @Test
   public void testCtor ()
@@ -88,14 +88,14 @@ public final class ReadonlyMultiLingualTextTest extends AbstractPHTestCase
     assertFalse (aMLT.containsLocaleWithFallback (L_FR));
     assertEquals (2, aMLT.getAllTexts ().size ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aMLT,
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (aMLT,
                                                                  new ReadonlyMultiLingualText (CollectionHelper.newMap (new Locale [] { L_DE,
                                                                                                                                        L_EN },
                                                                                                                         new String [] { "de",
                                                                                                                                        "en" })));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyMultiLingualText (),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyMultiLingualText (),
                                                                  new ReadonlyMultiLingualText ());
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadonlyMultiLingualText ());
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadonlyMultiLingualText ());
 
     try
     {

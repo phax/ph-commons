@@ -19,8 +19,9 @@ package com.helger.commons.exceptions;
 import javax.annotation.Nullable;
 
 /**
- * This class should be used when an error occurs in the initialization phase.
- * 
+ * This class should be used when an error occurs in the initialization phase
+ * (e.g. in static blocks of classes).
+ *
  * @author Philip Helger
  */
 public class InitializationException extends RuntimeException

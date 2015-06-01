@@ -18,6 +18,8 @@ package com.helger.commons.mock;
 
 import org.junit.Test;
 
+import com.helger.commons.mock.exception.MockRuntimeException;
+
 /**
  * Test class for class {@link MockRuntimeException}.
  * 

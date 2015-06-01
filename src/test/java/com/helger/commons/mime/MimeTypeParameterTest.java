@@ -22,15 +22,15 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link MimeTypeParameter}
  * 
  * @author Philip Helger
  */
-public final class MimeTypeParameterTest extends AbstractPHTestCase
+public final class MimeTypeParameterTest extends AbstractCommonsTestCase
 {
   @Test
   public void testBasic ()
@@ -40,10 +40,10 @@ public final class MimeTypeParameterTest extends AbstractPHTestCase
     assertEquals ("iso-8859-1", p.getValue ());
     assertFalse (p.isValueRequiringQuoting ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (p, new MimeTypeParameter ("charset", "iso-8859-1"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charsetname",
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (p, new MimeTypeParameter ("charset", "iso-8859-1"));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charsetname",
                                                                                                "iso-8859-1"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charset", "utf-8"));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charset", "utf-8"));
 
     p = new MimeTypeParameter ("charset", "foo bar");
     assertEquals ("charset", p.getAttribute ());

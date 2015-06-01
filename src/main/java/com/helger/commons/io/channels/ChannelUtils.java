@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.IMockException;
+import com.helger.commons.mock.exception.IMockException;
 import com.helger.commons.state.ESuccess;
 
 /**

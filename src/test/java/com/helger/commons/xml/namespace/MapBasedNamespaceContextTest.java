@@ -26,7 +26,7 @@ import javax.xml.XMLConstants;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link MapBasedNamespaceContext}.
@@ -88,7 +88,7 @@ public final class MapBasedNamespaceContextTest
     assertEquals ("http://1", c.getNamespaceURI ("tns"));
     assertEquals ("http://default", c.getNamespaceURI (XMLConstants.DEFAULT_NS_PREFIX));
 
-    PHTestUtils.testToStringImplementation (c);
-    PHTestUtils.testDefaultSerialization (c);
+    CommonsTestUtils.testToStringImplementation (c);
+    CommonsTestUtils.testDefaultSerialization (c);
   }
 }

@@ -25,7 +25,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link SingleElementEnumeration}
@@ -50,11 +50,11 @@ public final class SingleElementEnumerationTest
     {}
     assertFalse (eit.hasMoreElements ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new SingleElementEnumeration <String> ("any"),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new SingleElementEnumeration <String> ("any"),
                                                                  new SingleElementEnumeration <String> ("any"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleElementEnumeration <String> ("any"),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleElementEnumeration <String> ("any"),
                                                                      new SingleElementEnumeration <String> ("any2"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleElementEnumeration <String> ("any"),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleElementEnumeration <String> ("any"),
                                                                      new SingleElementEnumeration <Integer> (Integer.valueOf (1)));
   }
 }

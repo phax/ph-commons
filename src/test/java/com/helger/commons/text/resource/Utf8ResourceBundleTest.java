@@ -26,14 +26,14 @@ import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link Utf8ResourceBundle}.
  *
  * @author Philip Helger
  */
-public final class Utf8ResourceBundleTest extends AbstractPHTestCase
+public final class Utf8ResourceBundleTest extends AbstractCommonsTestCase
 {
   @Test
   public void testAll ()

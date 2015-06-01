@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link MutableDouble}.
@@ -83,9 +83,9 @@ public final class MutableDoubleTest
     x.set (1);
     assertTrue (x.isGreater0 ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new MutableDouble (3.1415), new MutableDouble (3.1415));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new MutableDouble (3.1415),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new MutableDouble (3.1415), new MutableDouble (3.1415));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new MutableDouble (3.1415),
                                                                      new MutableDouble (3.141));
-    PHTestUtils.testGetClone (new MutableDouble (47.11));
+    CommonsTestUtils.testGetClone (new MutableDouble (47.11));
   }
 }

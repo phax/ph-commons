@@ -24,7 +24,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link WrappedInputStream}.
@@ -49,7 +49,7 @@ public final class WrappedInputStreamTest
     ws.reset ();
     assertEquals (100, ws.available ());
     ws.close ();
-    PHTestUtils.testToStringImplementation (ws);
+    CommonsTestUtils.testToStringImplementation (ws);
 
     try
     {

@@ -22,14 +22,14 @@ import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.locale.LocaleCache;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link CollatingComparatorLocaleCountry}.
  *
  * @author Philip Helger
  */
-public final class CollatingComparatorLocaleCountryTest extends AbstractPHTestCase
+public final class CollatingComparatorLocaleCountryTest extends AbstractCommonsTestCase
 {
   @Test
   public void testSort ()

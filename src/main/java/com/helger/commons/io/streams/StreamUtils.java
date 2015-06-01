@@ -58,7 +58,7 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.IInputStreamProvider;
-import com.helger.commons.mock.IMockException;
+import com.helger.commons.mock.exception.IMockException;
 import com.helger.commons.mutable.MutableLong;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.stats.IMutableStatisticsHandlerSize;

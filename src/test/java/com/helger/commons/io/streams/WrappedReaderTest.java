@@ -25,7 +25,7 @@ import java.nio.CharBuffer;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -52,7 +52,7 @@ public final class WrappedReaderTest
     ws.reset ();
     assertEquals (100, ws.skip (100));
     ws.close ();
-    PHTestUtils.testToStringImplementation (ws);
+    CommonsTestUtils.testToStringImplementation (ws);
 
     WrappedReader aReader = null;
     try

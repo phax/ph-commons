@@ -28,7 +28,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.ArrayHelper;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link IterableIterator}.
@@ -60,7 +60,7 @@ public final class IterableIteratorTest
     assertEquals (3,
                   CollectionHelper.newList (IterableIterator.create (CollectionHelper.newList ("a", "b", "c")
                                                                                      .iterator ())).size ());
-    PHTestUtils.testToStringImplementation (iit);
+    CommonsTestUtils.testToStringImplementation (iit);
 
     try
     {

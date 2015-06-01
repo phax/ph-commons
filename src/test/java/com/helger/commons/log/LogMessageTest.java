@@ -27,8 +27,8 @@ import java.util.Date;
 import org.junit.Test;
 
 import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.mock.MockException;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.exception.MockException;
 
 /**
  * Test class for class {@link LogMessage}.
@@ -45,7 +45,7 @@ public final class LogMessageTest
     assertSame (EErrorLevel.WARN, lm.getErrorLevel ());
     assertEquals ("Msg", lm.getMessage ());
     assertNotNull (lm.getThrowable ());
-    PHTestUtils.testToStringImplementation (lm);
+    CommonsTestUtils.testToStringImplementation (lm);
 
     try
     {

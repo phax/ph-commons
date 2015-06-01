@@ -29,7 +29,7 @@ import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IHasErrorLevel;
 import com.helger.commons.log.LogUtils;
-import com.helger.commons.mock.IMockException;
+import com.helger.commons.mock.exception.IMockException;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

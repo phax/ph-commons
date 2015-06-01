@@ -20,9 +20,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
-public final class JavaCharToLowercaseFuncTest extends AbstractPHTestCase
+public final class JavaCharToLowercaseFuncTest extends AbstractCommonsTestCase
 {
   @Test
   public void testAllCharsets ()

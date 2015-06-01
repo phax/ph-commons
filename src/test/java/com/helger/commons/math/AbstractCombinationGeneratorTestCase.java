@@ -19,14 +19,14 @@ package com.helger.commons.math;
 import java.util.List;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test base class for combinator testing
  *
  * @author Philip Helger
  */
-public abstract class AbstractCombinationGeneratorTestCase extends AbstractPHTestCase
+public abstract class AbstractCombinationGeneratorTestCase extends AbstractCommonsTestCase
 {
   protected static final List <String> HUGE_LIST = CollectionHelper.newUnmodifiableList ("a",
                                                                                          "b",

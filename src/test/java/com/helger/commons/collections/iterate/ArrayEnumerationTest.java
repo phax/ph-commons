@@ -26,7 +26,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -108,18 +108,18 @@ public final class ArrayEnumerationTest
 
     // equals...
     ae = new ArrayEnumeration <String> ("Hallo", "Welt", "from", "Copenhagen");
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (ae, new ArrayEnumeration <String> ("Hallo",
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (ae, new ArrayEnumeration <String> ("Hallo",
                                                                                                     "Welt",
                                                                                                     "from",
                                                                                                     "Copenhagen"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (ae, new ArrayEnumeration <String> ("Hallo",
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (ae, new ArrayEnumeration <String> ("Hallo",
                                                                                                         "Welt",
                                                                                                         "from"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (ae,
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (ae,
                                                                      new ArrayEnumeration <Integer> (Integer.valueOf (5)));
     // Different index
     final ArrayEnumeration <String> ae2 = new ArrayEnumeration <String> ("Hallo", "Welt", "from", "Copenhagen");
     ae2.nextElement ();
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (ae, ae2);
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (ae, ae2);
   }
 }

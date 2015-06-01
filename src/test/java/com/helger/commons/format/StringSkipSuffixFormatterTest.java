@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.helger.commons.format.StringSkipSuffixFormatter;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link StringSkipSuffixFormatter}.
@@ -38,6 +38,6 @@ public final class StringSkipSuffixFormatterTest
     assertEquals ("abc", fp.getFormattedValue ("abc"));
     assertEquals ("bc", fp.getFormattedValue ("bco"));
     assertEquals ("bc", fp.getFormattedValue ("bc"));
-    PHTestUtils.testToStringImplementation (fp);
+    CommonsTestUtils.testToStringImplementation (fp);
   }
 }

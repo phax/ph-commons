@@ -19,7 +19,7 @@ package com.helger.commons.io.streams;
 import java.io.Closeable;
 import java.io.IOException;
 
-import com.helger.commons.mock.MockIOException;
+import com.helger.commons.mock.exception.MockIOException;
 
 /**
  * Mock implementation of the {@link Closeable} interface just throwing a

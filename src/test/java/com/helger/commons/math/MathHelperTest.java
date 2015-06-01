@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.mock.PHAssert;
+import com.helger.commons.mock.CommonsAssert;
 
 /**
  * Test class for class {@link MathHelper}.
@@ -37,9 +37,9 @@ public final class MathHelperTest
   @Test
   public void testGetDividedDouble ()
   {
-    PHAssert.assertEquals (1.5, MathHelper.getDividedDouble (3, 2));
-    PHAssert.assertEquals (Double.NaN, MathHelper.getDividedDouble (5, 0));
-    PHAssert.assertEquals (Double.NaN, MathHelper.getDividedDouble (0, 0));
+    CommonsAssert.assertEquals (1.5, MathHelper.getDividedDouble (3, 2));
+    CommonsAssert.assertEquals (Double.NaN, MathHelper.getDividedDouble (5, 0));
+    CommonsAssert.assertEquals (Double.NaN, MathHelper.getDividedDouble (0, 0));
   }
 
   @Test
@@ -132,19 +132,19 @@ public final class MathHelperTest
   @Test
   public void testGetMaxFloat ()
   {
-    PHAssert.assertEquals (5, MathHelper.getMaxFloat (5));
-    PHAssert.assertEquals (5, MathHelper.getMaxFloat (5, 5, 5, 5));
-    PHAssert.assertEquals (5, MathHelper.getMaxFloat (5, 3, 2, 1));
-    PHAssert.assertEquals (7, MathHelper.getMaxFloat (5, 3, 7, 4));
+    CommonsAssert.assertEquals (5, MathHelper.getMaxFloat (5));
+    CommonsAssert.assertEquals (5, MathHelper.getMaxFloat (5, 5, 5, 5));
+    CommonsAssert.assertEquals (5, MathHelper.getMaxFloat (5, 3, 2, 1));
+    CommonsAssert.assertEquals (7, MathHelper.getMaxFloat (5, 3, 7, 4));
   }
 
   @Test
   public void testGetMaxDouble ()
   {
-    PHAssert.assertEquals (5, MathHelper.getMaxDouble (5));
-    PHAssert.assertEquals (5, MathHelper.getMaxDouble (5, 5, 5, 5));
-    PHAssert.assertEquals (5, MathHelper.getMaxDouble (5, 3, 2, 1));
-    PHAssert.assertEquals (7, MathHelper.getMaxDouble (5, 3, 7, 4));
+    CommonsAssert.assertEquals (5, MathHelper.getMaxDouble (5));
+    CommonsAssert.assertEquals (5, MathHelper.getMaxDouble (5, 5, 5, 5));
+    CommonsAssert.assertEquals (5, MathHelper.getMaxDouble (5, 3, 2, 1));
+    CommonsAssert.assertEquals (7, MathHelper.getMaxDouble (5, 3, 7, 4));
   }
 
   @Test
@@ -168,19 +168,19 @@ public final class MathHelperTest
   @Test
   public void testGetMinFloat ()
   {
-    PHAssert.assertEquals (5, MathHelper.getMinFloat (5));
-    PHAssert.assertEquals (5, MathHelper.getMinFloat (5, 5, 5, 5));
-    PHAssert.assertEquals (1, MathHelper.getMinFloat (5, 3, 2, 1));
-    PHAssert.assertEquals (3, MathHelper.getMinFloat (5, 3, 7, 4));
+    CommonsAssert.assertEquals (5, MathHelper.getMinFloat (5));
+    CommonsAssert.assertEquals (5, MathHelper.getMinFloat (5, 5, 5, 5));
+    CommonsAssert.assertEquals (1, MathHelper.getMinFloat (5, 3, 2, 1));
+    CommonsAssert.assertEquals (3, MathHelper.getMinFloat (5, 3, 7, 4));
   }
 
   @Test
   public void testGetMinDouble ()
   {
-    PHAssert.assertEquals (5, MathHelper.getMinDouble (5));
-    PHAssert.assertEquals (5, MathHelper.getMinDouble (5, 5, 5, 5));
-    PHAssert.assertEquals (1, MathHelper.getMinDouble (5, 3, 2, 1));
-    PHAssert.assertEquals (3, MathHelper.getMinDouble (5, 3, 7, 4));
+    CommonsAssert.assertEquals (5, MathHelper.getMinDouble (5));
+    CommonsAssert.assertEquals (5, MathHelper.getMinDouble (5, 5, 5, 5));
+    CommonsAssert.assertEquals (1, MathHelper.getMinDouble (5, 3, 2, 1));
+    CommonsAssert.assertEquals (3, MathHelper.getMinDouble (5, 3, 7, 4));
   }
 
   @Test
@@ -220,21 +220,21 @@ public final class MathHelperTest
   @Test
   public void testAbsFloat ()
   {
-    PHAssert.assertEquals (0F, MathHelper.abs (0F));
-    PHAssert.assertEquals (5F, MathHelper.abs (-5F));
-    PHAssert.assertEquals (5F, MathHelper.abs (5F));
-    PHAssert.assertEquals (Float.MAX_VALUE, MathHelper.abs (-Float.MAX_VALUE));
-    PHAssert.assertEquals (Float.MIN_VALUE, MathHelper.abs (Float.MIN_VALUE));
+    CommonsAssert.assertEquals (0F, MathHelper.abs (0F));
+    CommonsAssert.assertEquals (5F, MathHelper.abs (-5F));
+    CommonsAssert.assertEquals (5F, MathHelper.abs (5F));
+    CommonsAssert.assertEquals (Float.MAX_VALUE, MathHelper.abs (-Float.MAX_VALUE));
+    CommonsAssert.assertEquals (Float.MIN_VALUE, MathHelper.abs (Float.MIN_VALUE));
   }
 
   @Test
   public void testAbsDouble ()
   {
-    PHAssert.assertEquals (0D, MathHelper.abs (0D));
-    PHAssert.assertEquals (5D, MathHelper.abs (-5D));
-    PHAssert.assertEquals (5D, MathHelper.abs (5D));
-    PHAssert.assertEquals (Double.MAX_VALUE, MathHelper.abs (-Double.MAX_VALUE));
-    PHAssert.assertEquals (Double.MIN_VALUE, MathHelper.abs (Double.MIN_VALUE));
+    CommonsAssert.assertEquals (0D, MathHelper.abs (0D));
+    CommonsAssert.assertEquals (5D, MathHelper.abs (-5D));
+    CommonsAssert.assertEquals (5D, MathHelper.abs (5D));
+    CommonsAssert.assertEquals (Double.MAX_VALUE, MathHelper.abs (-Double.MAX_VALUE));
+    CommonsAssert.assertEquals (Double.MIN_VALUE, MathHelper.abs (Double.MIN_VALUE));
   }
 
   @Test

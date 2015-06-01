@@ -21,7 +21,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -38,10 +38,10 @@ public final class DefaultTreeWithIDTest
     final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <String, String> ();
     assertNotNull (t.getRootItem ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (t, new DefaultTreeWithID <String, String> ());
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (t, new DefaultTreeWithID <String, String> ());
     final DefaultTreeWithID <String, String> t2 = new DefaultTreeWithID <String, String> ();
     t2.getRootItem ().createChildItem ("dataid", "data");
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (t, t2);
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (t, t2);
 
     try
     {

@@ -115,7 +115,7 @@ import com.helger.commons.collections.multimap.MultiHashMapHashSetBased;
 import com.helger.commons.compare.CollatingComparator;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.compare.ISerializableComparator;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -124,7 +124,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-public final class CollectionHelperTest extends AbstractPHTestCase
+public final class CollectionHelperTest extends AbstractCommonsTestCase
 {
   @Test
   public void testGetNotNull ()

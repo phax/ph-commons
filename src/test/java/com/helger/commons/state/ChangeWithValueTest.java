@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 import com.helger.commons.state.ChangeWithValue;
 import com.helger.commons.state.EChange;
 
@@ -47,9 +47,9 @@ public final class ChangeWithValueTest
     assertEquals ("other", x.getIfUnchanged ("other"));
     assertNull (x.getIfUnchangedOrNull ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (x, ChangeWithValue.createChanged ("bla"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createUnchanged ("bla"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createChanged ("Other"));
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (x, ChangeWithValue.createChanged ("bla"));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createUnchanged ("bla"));
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createChanged ("Other"));
 
     x = new ChangeWithValue <String> (EChange.CHANGED, null);
     assertNull (x.get ());

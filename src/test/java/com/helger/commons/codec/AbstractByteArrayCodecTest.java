@@ -26,7 +26,7 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.codec.IByteArrayCodec;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.random.VerySecureRandom;
 
 /**
@@ -35,7 +35,7 @@ import com.helger.commons.random.VerySecureRandom;
  *
  * @author Philip Helger
  */
-public abstract class AbstractByteArrayCodecTest extends AbstractPHTestCase
+public abstract class AbstractByteArrayCodecTest extends AbstractCommonsTestCase
 {
   @Nonnull
   protected abstract IByteArrayCodec createByteArrayCodec ();

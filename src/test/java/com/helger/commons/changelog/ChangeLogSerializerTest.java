@@ -32,7 +32,7 @@ import org.xml.sax.SAXException;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.serialize.MicroDOMInputStreamProvider;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 import com.helger.commons.version.Version;
 import com.helger.commons.xml.sax.ReadableResourceSAXInputSource;
 import com.helger.commons.xml.schema.XMLSchemaCache;
@@ -115,7 +115,7 @@ public final class ChangeLogSerializerTest
                                                                                                      .getSchema (new ClassPathResource (CChangeLog.CHANGELOG_XSD_10))));
     assertNotNull (aW3CDoc);
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aCL, aCL2);
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (aCL, aCL2);
 
     try
     {

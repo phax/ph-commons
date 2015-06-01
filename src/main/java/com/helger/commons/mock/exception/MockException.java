@@ -14,15 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mock;
+package com.helger.commons.mock.exception;
 
 /**
- * This is a marker interface for mock exceptions. It should be used to easily
- * identify mock exceptions from regular exceptions.
- *
+ * Non-runtime exception for test cases.
+ * 
  * @author Philip Helger
  */
-public interface IMockException
+public class MockException extends Exception implements IMockException
 {
-  /* empty */
+  public MockException ()
+  {}
+
+  public MockException (final String s)
+  {
+    super (s);
+  }
+
+  public MockException (final Throwable t)
+  {
+    super (t);
+  }
+
+  public MockException (final String s, final Throwable t)
+  {
+    super (s, t);
+  }
 }

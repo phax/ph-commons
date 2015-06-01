@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link TimeValue}.
@@ -46,11 +46,11 @@ public final class TimeValueTest
     assertEquals (5000000, t.getAsMicros ());
     assertEquals (5000000000L, t.getAsNanos ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new TimeValue (TimeUnit.SECONDS, 5),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new TimeValue (TimeUnit.SECONDS, 5),
                                                                  new TimeValue (TimeUnit.SECONDS, 5));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new TimeValue (TimeUnit.SECONDS, 5),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new TimeValue (TimeUnit.SECONDS, 5),
                                                                      new TimeValue (TimeUnit.SECONDS, 4));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new TimeValue (TimeUnit.SECONDS, 5),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new TimeValue (TimeUnit.SECONDS, 5),
                                                                      new TimeValue (TimeUnit.NANOSECONDS, 5));
     try
     {

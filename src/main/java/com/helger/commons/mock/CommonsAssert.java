@@ -28,14 +28,14 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
  * @author Philip Helger
  */
 @Immutable
-public final class PHAssert
+public final class CommonsAssert
 {
   private static final double DOUBLE_ALLOWED_ROUNDING_DIFFERENCE = 0.001;
 
   @PresentForCodeCoverage
-  private static final PHAssert s_aInstance = new PHAssert ();
+  private static final CommonsAssert s_aInstance = new CommonsAssert ();
 
-  private PHAssert ()
+  private CommonsAssert ()
   {}
 
   public static void assertEquals (final double x, final double y)

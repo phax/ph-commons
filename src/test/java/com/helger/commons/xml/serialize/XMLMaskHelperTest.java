@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.xml.EXMLCharMode;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 
@@ -32,7 +32,7 @@ import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
  * 
  * @author Philip Helger
  */
-public final class XMLMaskHelperTest extends AbstractPHTestCase
+public final class XMLMaskHelperTest extends AbstractCommonsTestCase
 {
   @Test
   public void testGetMaskedXMLText ()

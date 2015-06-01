@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -31,7 +31,7 @@ import com.helger.commons.string.StringHelper;
  * 
  * @author Philip Helger
  */
-public final class EMimeContentTypeTest extends AbstractPHTestCase
+public final class EMimeContentTypeTest extends AbstractCommonsTestCase
 {
   @Test
   public void testAll ()

@@ -25,7 +25,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link HashingOutputStream}.
@@ -65,7 +65,7 @@ public final class HashingOutputStreamTest
         // Must be equal
         assertArrayEquals (aDigest1, aDigest2);
 
-        PHTestUtils.testToStringImplementation (aHIS1);
+        CommonsTestUtils.testToStringImplementation (aHIS1);
       }
       finally
       {

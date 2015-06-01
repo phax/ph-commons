@@ -24,7 +24,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link MessageDigestGenerator}.
@@ -146,6 +146,6 @@ public final class MessageDigestGeneratorTest
     md.reset ();
     md.update ((byte) 6);
 
-    PHTestUtils.testToStringImplementation (md);
+    CommonsTestUtils.testToStringImplementation (md);
   }
 }

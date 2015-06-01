@@ -28,7 +28,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.PHAssert;
+import com.helger.commons.mock.CommonsAssert;
 
 /**
  * Test class for {@link AbstractFloatComparator}
@@ -58,41 +58,41 @@ public final class AbstractFloatComparatorFuncTest
     // default: sort ascending
     List <Float> l = CollectionHelper.getSorted (x, new MockComparator ());
     assertNotNull (l);
-    PHAssert.assertEquals (-56, l.get (0).doubleValue ());
-    PHAssert.assertEquals (1, l.get (1).doubleValue ());
-    PHAssert.assertEquals (3, l.get (2).doubleValue ());
-    PHAssert.assertEquals (3, l.get (3).doubleValue ());
+    CommonsAssert.assertEquals (-56, l.get (0).doubleValue ());
+    CommonsAssert.assertEquals (1, l.get (1).doubleValue ());
+    CommonsAssert.assertEquals (3, l.get (2).doubleValue ());
+    CommonsAssert.assertEquals (3, l.get (3).doubleValue ());
 
     // Explicitly sort ascending
     l = CollectionHelper.getSorted (x, new MockComparator ().setSortOrder (ESortOrder.ASCENDING));
     assertNotNull (l);
-    PHAssert.assertEquals (-56, l.get (0).doubleValue ());
-    PHAssert.assertEquals (1, l.get (1).doubleValue ());
-    PHAssert.assertEquals (3, l.get (2).doubleValue ());
-    PHAssert.assertEquals (3, l.get (3).doubleValue ());
+    CommonsAssert.assertEquals (-56, l.get (0).doubleValue ());
+    CommonsAssert.assertEquals (1, l.get (1).doubleValue ());
+    CommonsAssert.assertEquals (3, l.get (2).doubleValue ());
+    CommonsAssert.assertEquals (3, l.get (3).doubleValue ());
 
     // Explicitly sort descending
     l = CollectionHelper.getSorted (x, new MockComparator ().setSortOrder (ESortOrder.DESCENDING));
     assertNotNull (l);
-    PHAssert.assertEquals (3, l.get (0).doubleValue ());
-    PHAssert.assertEquals (3, l.get (1).doubleValue ());
-    PHAssert.assertEquals (1, l.get (2).doubleValue ());
-    PHAssert.assertEquals (-56, l.get (3).doubleValue ());
+    CommonsAssert.assertEquals (3, l.get (0).doubleValue ());
+    CommonsAssert.assertEquals (3, l.get (1).doubleValue ());
+    CommonsAssert.assertEquals (1, l.get (2).doubleValue ());
+    CommonsAssert.assertEquals (-56, l.get (3).doubleValue ());
 
     // change dynamically
     final AbstractComparator <Float> c = new MockComparator ().setSortOrder (ESortOrder.ASCENDING);
     l = CollectionHelper.getSorted (x, c);
-    PHAssert.assertEquals (-56, l.get (0).doubleValue ());
-    PHAssert.assertEquals (1, l.get (1).doubleValue ());
-    PHAssert.assertEquals (3, l.get (2).doubleValue ());
-    PHAssert.assertEquals (3, l.get (3).doubleValue ());
+    CommonsAssert.assertEquals (-56, l.get (0).doubleValue ());
+    CommonsAssert.assertEquals (1, l.get (1).doubleValue ());
+    CommonsAssert.assertEquals (3, l.get (2).doubleValue ());
+    CommonsAssert.assertEquals (3, l.get (3).doubleValue ());
 
     // change to descending
     l = CollectionHelper.getSorted (x, c.setSortOrder (ESortOrder.DESCENDING));
-    PHAssert.assertEquals (3, l.get (0).doubleValue ());
-    PHAssert.assertEquals (3, l.get (1).doubleValue ());
-    PHAssert.assertEquals (1, l.get (2).doubleValue ());
-    PHAssert.assertEquals (-56, l.get (3).doubleValue ());
+    CommonsAssert.assertEquals (3, l.get (0).doubleValue ());
+    CommonsAssert.assertEquals (3, l.get (1).doubleValue ());
+    CommonsAssert.assertEquals (1, l.get (2).doubleValue ());
+    CommonsAssert.assertEquals (-56, l.get (3).doubleValue ());
   }
 
   /**

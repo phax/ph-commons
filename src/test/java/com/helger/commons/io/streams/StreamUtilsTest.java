@@ -42,7 +42,7 @@ import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.streamprovider.ByteArrayInputStreamProvider;
-import com.helger.commons.mock.MockIOException;
+import com.helger.commons.mock.exception.MockIOException;
 import com.helger.commons.mutable.MutableLong;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

@@ -49,7 +49,7 @@ import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.streams.NonBlockingStringReader;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.io.streams.StringInputStream;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.EXMLParserFeature;
 import com.helger.commons.xml.sax.CachingSAXInputSource;
@@ -360,7 +360,7 @@ public final class DOMReaderTest
   @Test
   public void testMultithreadedDOM ()
   {
-    PHTestUtils.testInParallel (100, new IThrowingRunnable ()
+    CommonsTestUtils.testInParallel (100, new IThrowingRunnable ()
     {
       public void run () throws Exception
       {

@@ -22,14 +22,14 @@ import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link ECountry}.
  * 
  * @author Philip Helger
  */
-public final class ECountryTest extends AbstractPHTestCase
+public final class ECountryTest extends AbstractCommonsTestCase
 {
   @Test
   public void testAll ()

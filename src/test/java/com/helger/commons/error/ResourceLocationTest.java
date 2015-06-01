@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link ResourceLocation}.
@@ -53,15 +53,15 @@ public final class ResourceLocationTest
     assertEquals ("field", re.getField ());
     assertEquals ("xx(5:7) @ field", re.getAsString ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceLocation ("xx", "field"),
+    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceLocation ("xx", "field"),
                                                                  new ResourceLocation ("xx", "field"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", "field"),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", "field"),
                                                                      new ResourceLocation ("xx2", "field"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", "field"),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", "field"),
                                                                      new ResourceLocation ("xx", "field2"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", 0, 1, "field"),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", 0, 1, "field"),
                                                                      new ResourceLocation ("xx", 0, 0, "field"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", 0, 1, "field"),
+    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", 0, 1, "field"),
                                                                      new ResourceLocation ("xx", 1, 1, "field"));
   }
 }

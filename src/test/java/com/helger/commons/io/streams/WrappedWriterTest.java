@@ -23,7 +23,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 /**
  * Test class for class {@link WrappedWriter}.
@@ -47,7 +47,7 @@ public final class WrappedWriterTest
     assertEquals ("abcdefg0123", aSW.getAsString ());
     ws.flush ();
     ws.close ();
-    PHTestUtils.testToStringImplementation (ws);
+    CommonsTestUtils.testToStringImplementation (ws);
 
     try
     {

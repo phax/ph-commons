@@ -32,7 +32,7 @@ import com.helger.commons.microdom.MicroCDATA;
 import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.MicroEntityReference;
 import com.helger.commons.microdom.MicroException;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -61,7 +61,7 @@ public final class MicroEntityReferenceTest
     assertNotNull (e.getNodeName ());
     assertNotNull (e.getNodeValue ());
     assertSame (EMicroNodeType.ENTITY_REFERENCE, e.getType ());
-    PHTestUtils.testToStringImplementation (e);
+    CommonsTestUtils.testToStringImplementation (e);
 
     assertTrue (e.isEqualContent (e));
     assertFalse (e.isEqualContent (null));

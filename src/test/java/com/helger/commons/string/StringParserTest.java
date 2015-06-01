@@ -26,8 +26,8 @@ import java.math.BigInteger;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractPHTestCase;
-import com.helger.commons.mock.PHAssert;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.mutable.Wrapper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -37,7 +37,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-public final class StringParserTest extends AbstractPHTestCase
+public final class StringParserTest extends AbstractCommonsTestCase
 {
   @Test
   @SuppressFBWarnings (value = "DM_BOOLEAN_CTOR")
@@ -421,16 +421,16 @@ public final class StringParserTest extends AbstractPHTestCase
     final double dDefault = 3.145667;
 
     // Object
-    PHAssert.assertEquals (dDefault, StringParser.parseDouble ((Object) null, dDefault));
-    PHAssert.assertEquals (1, StringParser.parseDouble (BigDecimal.ONE, dDefault));
-    PHAssert.assertEquals (dDefault, StringParser.parseDouble (Wrapper.create ("any"), dDefault));
+    CommonsAssert.assertEquals (dDefault, StringParser.parseDouble ((Object) null, dDefault));
+    CommonsAssert.assertEquals (1, StringParser.parseDouble (BigDecimal.ONE, dDefault));
+    CommonsAssert.assertEquals (dDefault, StringParser.parseDouble (Wrapper.create ("any"), dDefault));
 
     // String
-    PHAssert.assertEquals (dDefault, StringParser.parseDouble ((String) null, dDefault));
-    PHAssert.assertEquals (dDefault, StringParser.parseDouble ("", dDefault));
-    PHAssert.assertEquals (1.2, StringParser.parseDouble ("1.2", dDefault));
-    PHAssert.assertEquals (-1.23456, StringParser.parseDouble ("-1.23456", dDefault));
-    PHAssert.assertEquals (dDefault, StringParser.parseDouble ("bla", dDefault));
+    CommonsAssert.assertEquals (dDefault, StringParser.parseDouble ((String) null, dDefault));
+    CommonsAssert.assertEquals (dDefault, StringParser.parseDouble ("", dDefault));
+    CommonsAssert.assertEquals (1.2, StringParser.parseDouble ("1.2", dDefault));
+    CommonsAssert.assertEquals (-1.23456, StringParser.parseDouble ("-1.23456", dDefault));
+    CommonsAssert.assertEquals (dDefault, StringParser.parseDouble ("bla", dDefault));
   }
 
   @Test
@@ -441,15 +441,15 @@ public final class StringParserTest extends AbstractPHTestCase
     // Object
     assertNull (StringParser.parseDoubleObj ((Object) null));
     assertEquals (aDefault, StringParser.parseDoubleObj ((Object) null, aDefault));
-    PHAssert.assertEquals (1, StringParser.parseDoubleObj (BigDecimal.ONE, aDefault));
+    CommonsAssert.assertEquals (1, StringParser.parseDoubleObj (BigDecimal.ONE, aDefault));
     assertEquals (aDefault, StringParser.parseDoubleObj (Wrapper.create ("any"), aDefault));
 
     // String
     assertNull (StringParser.parseDoubleObj ("foo"));
     assertEquals (aDefault, StringParser.parseDoubleObj ((String) null, aDefault));
     assertEquals (aDefault, StringParser.parseDoubleObj ("", aDefault));
-    PHAssert.assertEquals (1.2, StringParser.parseDoubleObj ("1.2", aDefault));
-    PHAssert.assertEquals (-1.23456, StringParser.parseDoubleObj ("-1.23456", aDefault));
+    CommonsAssert.assertEquals (1.2, StringParser.parseDoubleObj ("1.2", aDefault));
+    CommonsAssert.assertEquals (-1.23456, StringParser.parseDoubleObj ("-1.23456", aDefault));
     assertEquals (aDefault, StringParser.parseDoubleObj ("bla", aDefault));
   }
 
@@ -459,16 +459,16 @@ public final class StringParserTest extends AbstractPHTestCase
     final float fDefault = 3.145667f;
 
     // Object
-    PHAssert.assertEquals (fDefault, StringParser.parseFloat ((Object) null, fDefault));
-    PHAssert.assertEquals (1, StringParser.parseFloat (BigDecimal.ONE, fDefault));
-    PHAssert.assertEquals (fDefault, StringParser.parseFloat (Wrapper.create ("any"), fDefault));
+    CommonsAssert.assertEquals (fDefault, StringParser.parseFloat ((Object) null, fDefault));
+    CommonsAssert.assertEquals (1, StringParser.parseFloat (BigDecimal.ONE, fDefault));
+    CommonsAssert.assertEquals (fDefault, StringParser.parseFloat (Wrapper.create ("any"), fDefault));
 
     // String
-    PHAssert.assertEquals (fDefault, StringParser.parseFloat ((String) null, fDefault));
-    PHAssert.assertEquals (fDefault, StringParser.parseFloat ("", fDefault));
-    PHAssert.assertEquals (1.2, StringParser.parseFloat ("1.2", fDefault));
-    PHAssert.assertEquals (-1.23456, StringParser.parseFloat ("-1.23456", fDefault));
-    PHAssert.assertEquals (fDefault, StringParser.parseFloat ("bla", fDefault));
+    CommonsAssert.assertEquals (fDefault, StringParser.parseFloat ((String) null, fDefault));
+    CommonsAssert.assertEquals (fDefault, StringParser.parseFloat ("", fDefault));
+    CommonsAssert.assertEquals (1.2, StringParser.parseFloat ("1.2", fDefault));
+    CommonsAssert.assertEquals (-1.23456, StringParser.parseFloat ("-1.23456", fDefault));
+    CommonsAssert.assertEquals (fDefault, StringParser.parseFloat ("bla", fDefault));
   }
 
   @Test
@@ -479,15 +479,15 @@ public final class StringParserTest extends AbstractPHTestCase
     // Object
     assertNull (StringParser.parseFloatObj ((Object) null));
     assertEquals (aDefault, StringParser.parseFloatObj ((Object) null, aDefault));
-    PHAssert.assertEquals (1, StringParser.parseFloatObj (BigDecimal.ONE, aDefault));
+    CommonsAssert.assertEquals (1, StringParser.parseFloatObj (BigDecimal.ONE, aDefault));
     assertEquals (aDefault, StringParser.parseFloatObj (Wrapper.create ("any"), aDefault));
 
     // String
     assertNull (StringParser.parseFloatObj ("foo"));
     assertEquals (aDefault, StringParser.parseFloatObj ((String) null, aDefault));
     assertEquals (aDefault, StringParser.parseFloatObj ("", aDefault));
-    PHAssert.assertEquals (1.2f, StringParser.parseFloatObj ("1.2", aDefault));
-    PHAssert.assertEquals (-1.23456f, StringParser.parseFloatObj ("-1.23456", aDefault));
+    CommonsAssert.assertEquals (1.2f, StringParser.parseFloatObj ("1.2", aDefault));
+    CommonsAssert.assertEquals (-1.23456f, StringParser.parseFloatObj ("-1.23456", aDefault));
     assertEquals (aDefault, StringParser.parseFloatObj ("bla", aDefault));
   }
 
