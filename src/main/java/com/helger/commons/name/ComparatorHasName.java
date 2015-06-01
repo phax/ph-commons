@@ -18,30 +18,25 @@ package com.helger.commons.name;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractCollationComparator;
-import com.helger.commons.compare.ESortOrder;
 
 /**
  * This is a collation {@link java.util.Comparator} for objects that implement
  * the {@link IHasName} interface.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of elements to be compared.
  */
-public final class ComparatorHasName <DATATYPE extends IHasName> extends AbstractCollationComparator <DATATYPE>
+@NotThreadSafe
+public class ComparatorHasName <DATATYPE extends IHasName> extends AbstractCollationComparator <DATATYPE>
 {
   public ComparatorHasName (@Nullable final Locale aSortLocale)
   {
     super (aSortLocale);
-  }
-
-  public ComparatorHasName (@Nullable final Locale aSortLocale, @Nonnull final ESortOrder eSortOrder)
-  {
-    super (aSortLocale, eSortOrder);
   }
 
   @Override

@@ -21,16 +21,16 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.compare.AbstractIntegerComparator;
+import com.helger.commons.compare.AbstractLongComparator;
 import com.helger.commons.compare.ESortOrder;
 
 /**
  * {@link java.util.Comparator} for ordering {@link Thread} objects by their ID.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class ComparatorThreadID extends AbstractIntegerComparator <Thread>
+public class ComparatorThreadID extends AbstractLongComparator <Thread>
 {
   public ComparatorThreadID ()
   {

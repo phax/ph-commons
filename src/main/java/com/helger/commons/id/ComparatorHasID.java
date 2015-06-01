@@ -20,6 +20,7 @@ import java.util.Comparator;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractPartComparator;
 import com.helger.commons.compare.ESortOrder;
@@ -28,19 +29,19 @@ import com.helger.commons.compare.ESortOrder;
  * This is a collation {@link java.util.Comparator} for objects that implement
  * the {@link IHasID} interface with a class that does NOT implements
  * {@link Comparable}.
- * 
+ *
  * @author Philip Helger
  * @param <IDTYPE>
  *        The type of the ID
  * @param <DATATYPE>
  *        The type of elements to be compared.
  */
-public class ComparatorHasID <IDTYPE, DATATYPE extends IHasID <IDTYPE>> extends
-                                                                        AbstractPartComparator <DATATYPE, IDTYPE>
+@NotThreadSafe
+public class ComparatorHasID <IDTYPE, DATATYPE extends IHasID <IDTYPE>> extends AbstractPartComparator <DATATYPE, IDTYPE>
 {
   /**
    * Comparator with default sort order and no nested comparator.
-   * 
+   *
    * @param aIDComparator
    *        The comparator for comparing the IDs. May not be <code>null</code>.
    */
@@ -51,7 +52,7 @@ public class ComparatorHasID <IDTYPE, DATATYPE extends IHasID <IDTYPE>> extends
 
   /**
    * Constructor with sort order and no nested comparator.
-   * 
+   *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    * @param aIDComparator
@@ -60,39 +61,6 @@ public class ComparatorHasID <IDTYPE, DATATYPE extends IHasID <IDTYPE>> extends
   public ComparatorHasID (@Nonnull final ESortOrder eSortOrder, @Nonnull final Comparator <? super IDTYPE> aIDComparator)
   {
     super (eSortOrder, aIDComparator);
-  }
-
-  /**
-   * Comparator with default sort order and a nested comparator.
-   * 
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   * @param aIDComparator
-   *        The comparator for comparing the IDs. May not be <code>null</code>.
-   */
-  public ComparatorHasID (@Nullable final Comparator <? super DATATYPE> aNestedComparator,
-                          @Nonnull final Comparator <? super IDTYPE> aIDComparator)
-  {
-    super (aNestedComparator, aIDComparator);
-  }
-
-  /**
-   * Constructor with sort order and a nested comparator.
-   * 
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   * @param aIDComparator
-   *        The comparator for comparing the IDs. May not be <code>null</code>.
-   */
-  public ComparatorHasID (@Nonnull final ESortOrder eSortOrder,
-                          @Nullable final Comparator <? super DATATYPE> aNestedComparator,
-                          @Nonnull final Comparator <? super IDTYPE> aIDComparator)
-  {
-    super (eSortOrder, aNestedComparator, aIDComparator);
   }
 
   @Override

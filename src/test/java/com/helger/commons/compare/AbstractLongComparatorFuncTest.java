@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import org.junit.Test;
 
@@ -31,18 +32,19 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.collections.CollectionHelper;
 
 /**
- * Test class for {@link AbstractIntegerComparator}
+ * Test class for {@link AbstractLongComparator}
  *
  * @author Philip Helger
  */
-public final class AbstractIntegerComparatorTest
+public final class AbstractLongComparatorFuncTest
 {
-  private static final class ComparatorMockNumeric extends AbstractIntegerComparator <Integer>
+  @NotThreadSafe
+  private static final class MockComparator extends AbstractLongComparator <Integer>
   {
-    ComparatorMockNumeric ()
+    MockComparator ()
     {}
 
-    ComparatorMockNumeric (final ESortOrder eSortOrder)
+    MockComparator (final ESortOrder eSortOrder)
     {
       super (eSortOrder);
     }
@@ -63,7 +65,7 @@ public final class AbstractIntegerComparatorTest
                                          Integer.valueOf (1) };
 
     // default: sort ascending
-    List <Integer> l = CollectionHelper.getSorted (x, new ComparatorMockNumeric ());
+    List <Integer> l = CollectionHelper.getSorted (x, new MockComparator ());
     assertNotNull (l);
     assertEquals (-56, l.get (0).intValue ());
     assertEquals (1, l.get (1).intValue ());
@@ -71,7 +73,7 @@ public final class AbstractIntegerComparatorTest
     assertEquals (3, l.get (3).intValue ());
 
     // Explicitly sort ascending
-    l = CollectionHelper.getSorted (x, new ComparatorMockNumeric (ESortOrder.ASCENDING));
+    l = CollectionHelper.getSorted (x, new MockComparator (ESortOrder.ASCENDING));
     assertNotNull (l);
     assertEquals (-56, l.get (0).intValue ());
     assertEquals (1, l.get (1).intValue ());
@@ -79,7 +81,7 @@ public final class AbstractIntegerComparatorTest
     assertEquals (3, l.get (3).intValue ());
 
     // Explicitly sort descending
-    l = CollectionHelper.getSorted (x, new ComparatorMockNumeric (ESortOrder.DESCENDING));
+    l = CollectionHelper.getSorted (x, new MockComparator (ESortOrder.DESCENDING));
     assertNotNull (l);
     assertEquals (3, l.get (0).intValue ());
     assertEquals (3, l.get (1).intValue ());
@@ -87,7 +89,7 @@ public final class AbstractIntegerComparatorTest
     assertEquals (-56, l.get (3).intValue ());
 
     // change dynamically
-    final ComparatorMockNumeric c = new ComparatorMockNumeric (ESortOrder.ASCENDING);
+    final MockComparator c = new MockComparator (ESortOrder.ASCENDING);
     l = CollectionHelper.getSorted (x, c);
     assertEquals (-56, l.get (0).intValue ());
     assertEquals (1, l.get (1).intValue ());
@@ -108,7 +110,8 @@ public final class AbstractIntegerComparatorTest
   @Test
   public void testIsAscending ()
   {
-    assertTrue (new ComparatorMockNumeric ().getSortOrder ().isAscending ());
-    assertFalse (new ComparatorMockNumeric (ESortOrder.DESCENDING).getSortOrder ().isAscending ());
+    assertTrue (new MockComparator ().getSortOrder ().isAscending ());
+    assertFalse (new MockComparator (ESortOrder.DESCENDING).getSortOrder ().isAscending ());
+    assertFalse (new MockComparator ().setSortOrder (ESortOrder.DESCENDING).getSortOrder ().isAscending ());
   }
 }

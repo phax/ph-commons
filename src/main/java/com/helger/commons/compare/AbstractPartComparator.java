@@ -20,6 +20,7 @@ import java.util.Comparator;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 
@@ -29,75 +30,46 @@ import com.helger.commons.ValueEnforcer;
  *
  * @author Philip Helger
  * @param <DATATYPE>
- *        The type of elements to be compared.
+ *        The data type to be compared
  * @param <PARTTYPE>
  *        The part type that is extracted from the data element and compared
  */
+@NotThreadSafe
 public abstract class AbstractPartComparator <DATATYPE, PARTTYPE> extends AbstractComparator <DATATYPE>
 {
   private Comparator <? super PARTTYPE> m_aPartComparator;
 
   /**
-   * Comparator with default sort order and no nested comparator.
+   * Comparator with default sort order and a part comparator.
    *
    * @param aPartComparator
-   *        The comparator for comparing the IDs. May not be <code>null</code>.
+   *        The comparator for comparing the extracted parts. May not be
+   *        <code>null</code>.
    */
   public AbstractPartComparator (@Nonnull final Comparator <? super PARTTYPE> aPartComparator)
   {
-    this (ESortOrder.DEFAULT, (Comparator <? super DATATYPE>) null, aPartComparator);
+    this (ESortOrder.DEFAULT, aPartComparator);
   }
 
   /**
-   * Constructor with sort order and no nested comparator.
+   * Constructor with sort order and a part comparator.
    *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    * @param aPartComparator
-   *        The comparator for comparing the IDs. May not be <code>null</code>.
+   *        The comparator for comparing the extracted parts. May not be
+   *        <code>null</code>.
    */
   public AbstractPartComparator (@Nonnull final ESortOrder eSortOrder,
                                  @Nonnull final Comparator <? super PARTTYPE> aPartComparator)
   {
-    this (eSortOrder, (Comparator <? super DATATYPE>) null, aPartComparator);
-  }
-
-  /**
-   * Comparator with default sort order and a nested comparator.
-   *
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   * @param aPartComparator
-   *        The comparator for comparing the IDs. May not be <code>null</code>.
-   */
-  public AbstractPartComparator (@Nullable final Comparator <? super DATATYPE> aNestedComparator,
-                                 @Nonnull final Comparator <? super PARTTYPE> aPartComparator)
-  {
-    this (ESortOrder.DEFAULT, aNestedComparator, aPartComparator);
-  }
-
-  /**
-   * Constructor with sort order and a nested comparator.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   * @param aPartComparator
-   *        The comparator for comparing the IDs. May not be <code>null</code>.
-   */
-  public AbstractPartComparator (@Nonnull final ESortOrder eSortOrder,
-                                 @Nullable final Comparator <? super DATATYPE> aNestedComparator,
-                                 @Nonnull final Comparator <? super PARTTYPE> aPartComparator)
-  {
-    super (eSortOrder, aNestedComparator);
+    super (eSortOrder);
     m_aPartComparator = ValueEnforcer.notNull (aPartComparator, "PartComparator");
   }
 
   /**
-   * @return The part comparator. May be <code>null</code>.
+   * @return The part comparator specified in the constructor. May be
+   *         <code>null</code>.
    */
   @Nonnull
   public final Comparator <? super PARTTYPE> getPartComparator ()

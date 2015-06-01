@@ -16,10 +16,8 @@
  */
 package com.helger.commons.tree.utils.sort;
 
-import java.util.Comparator;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.id.ComparatorHasIDComparable;
@@ -37,6 +35,7 @@ import com.helger.commons.tree.withid.ITreeItemWithID;
  * @param <ITEMTYPE>
  *        tree item implementation type
  */
+@NotThreadSafe
 public class ComparatorTreeItemIDComparable <KEYTYPE extends Comparable <? super KEYTYPE>, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends ComparatorHasIDComparable <KEYTYPE, ITEMTYPE>
 {
   /**
@@ -56,32 +55,5 @@ public class ComparatorTreeItemIDComparable <KEYTYPE extends Comparable <? super
   public ComparatorTreeItemIDComparable (@Nonnull final ESortOrder eSortOrder)
   {
     super (eSortOrder);
-  }
-
-  /**
-   * Comparator with default sort order and a nested comparator.
-   *
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public ComparatorTreeItemIDComparable (@Nullable final Comparator <? super ITEMTYPE> aNestedComparator)
-  {
-    super (aNestedComparator);
-  }
-
-  /**
-   * Comparator with sort order and a nested comparator.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public ComparatorTreeItemIDComparable (@Nonnull final ESortOrder eSortOrder,
-                                         @Nullable final Comparator <? super ITEMTYPE> aNestedComparator)
-  {
-    super (eSortOrder, aNestedComparator);
   }
 }

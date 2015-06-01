@@ -2433,7 +2433,7 @@ public final class CollectionHelperTest extends AbstractPHTestCase
   public void testGetSortedByKey ()
   {
     assertNull (getSortedByKey ((Map <String, ?>) null));
-    assertNull (getSortedByKey (null, new ComparatorString (ESortOrder.DESCENDING)));
+    assertNull (getSortedByKey (null, new ComparatorString ().setSortOrder (ESortOrder.DESCENDING)));
 
     try
     {
@@ -2454,7 +2454,7 @@ public final class CollectionHelperTest extends AbstractPHTestCase
     assertEquals ("K3", it.next ().getKey ());
 
     // reverse sort
-    it = getSortedByKey (aMap, new ComparatorString (ESortOrder.DESCENDING)).entrySet ().iterator ();
+    it = getSortedByKey (aMap, new ComparatorString ().setSortOrder (ESortOrder.DESCENDING)).entrySet ().iterator ();
     assertEquals ("K3", it.next ().getKey ());
     assertEquals ("K2", it.next ().getKey ());
     assertEquals ("K1", it.next ().getKey ());
@@ -2467,7 +2467,7 @@ public final class CollectionHelperTest extends AbstractPHTestCase
   public void testGetSortedByValue ()
   {
     assertNull (getSortedByValue ((Map <?, String>) null));
-    assertNull (getSortedByValue (null, new ComparatorString (ESortOrder.DESCENDING)));
+    assertNull (getSortedByValue (null, new ComparatorString ().setSortOrder (ESortOrder.DESCENDING)));
 
     try
     {
@@ -2488,7 +2488,7 @@ public final class CollectionHelperTest extends AbstractPHTestCase
     assertEquals ("ValueC", it.next ().getValue ());
 
     // reverse sort
-    it = getSortedByValue (aMap, new ComparatorString (ESortOrder.DESCENDING)).entrySet ().iterator ();
+    it = getSortedByValue (aMap, new ComparatorString ().setSortOrder (ESortOrder.DESCENDING)).entrySet ().iterator ();
     assertEquals ("ValueC", it.next ().getValue ());
     assertEquals ("ValueB", it.next ().getValue ());
     assertEquals ("ValueA", it.next ().getValue ());

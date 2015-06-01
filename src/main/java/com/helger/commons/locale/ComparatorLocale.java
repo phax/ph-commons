@@ -20,15 +20,17 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractCollationComparator;
 
 /**
  * Compare {@link Locale} objects by their String representation.
- * 
+ *
  * @author Philip Helger
  */
-public final class ComparatorLocale extends AbstractCollationComparator <Locale>
+@NotThreadSafe
+public class ComparatorLocale extends AbstractCollationComparator <Locale>
 {
   public ComparatorLocale ()
   {

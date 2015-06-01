@@ -19,7 +19,7 @@ package com.helger.commons.tree.utils.sort;
 import java.util.Comparator;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
@@ -34,7 +34,8 @@ import com.helger.commons.tree.withid.DefaultTreeItemWithID;
  * @param <DATATYPE>
  *        tree item value type
  */
-public final class ComparatorDefaultTreeItemWithIDData <IDTYPE, DATATYPE> extends ComparatorTreeItemData <DATATYPE, DefaultTreeItemWithID <IDTYPE, DATATYPE>>
+@NotThreadSafe
+public class ComparatorDefaultTreeItemWithIDData <IDTYPE, DATATYPE> extends ComparatorTreeItemData <DATATYPE, DefaultTreeItemWithID <IDTYPE, DATATYPE>>
 {
   /**
    * Constructor with default sort order.
@@ -59,38 +60,5 @@ public final class ComparatorDefaultTreeItemWithIDData <IDTYPE, DATATYPE> extend
                                               @Nonnull final Comparator <? super DATATYPE> aDataComparator)
   {
     super (eSortOrder, aDataComparator);
-  }
-
-  /**
-   * Comparator with default sort order and a nested comparator.
-   *
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   * @param aDataComparator
-   *        The comparator for comparing the IDs. May not be <code>null</code>.
-   */
-  public ComparatorDefaultTreeItemWithIDData (@Nullable final Comparator <? super DefaultTreeItemWithID <IDTYPE, DATATYPE>> aNestedComparator,
-                                              @Nonnull final Comparator <? super DATATYPE> aDataComparator)
-  {
-    super (aNestedComparator, aDataComparator);
-  }
-
-  /**
-   * Constructor with sort order and a nested comparator.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   * @param aDataComparator
-   *        The comparator for comparing the IDs. May not be <code>null</code>.
-   */
-  public ComparatorDefaultTreeItemWithIDData (@Nonnull final ESortOrder eSortOrder,
-                                              @Nullable final Comparator <? super DefaultTreeItemWithID <IDTYPE, DATATYPE>> aNestedComparator,
-                                              @Nonnull final Comparator <? super DATATYPE> aDataComparator)
-  {
-    super (eSortOrder, aNestedComparator, aDataComparator);
   }
 }

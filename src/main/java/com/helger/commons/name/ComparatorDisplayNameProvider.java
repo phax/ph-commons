@@ -20,6 +20,7 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.compare.AbstractCollationComparator;
@@ -28,18 +29,19 @@ import com.helger.commons.compare.ESortOrder;
 /**
  * This is a collation {@link java.util.Comparator} for objects that implement
  * the {@link IDisplayNameProvider} interface.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of elements to be compared.
  */
-public final class ComparatorDisplayNameProvider <DATATYPE> extends AbstractCollationComparator <DATATYPE>
+@NotThreadSafe
+public class ComparatorDisplayNameProvider <DATATYPE> extends AbstractCollationComparator <DATATYPE>
 {
   private IDisplayNameProvider <DATATYPE> m_aDisplayNameProvider;
 
   /**
    * Constructor.
-   * 
+   *
    * @param aSortLocale
    *        The locale to be used for sorting. May be <code>null</code>.
    * @param aDisplayNameProvider
@@ -53,7 +55,7 @@ public final class ComparatorDisplayNameProvider <DATATYPE> extends AbstractColl
 
   /**
    * Constructor.
-   * 
+   *
    * @param aSortLocale
    *        The locale to be used for sorting. May be <code>null</code>.
    * @param aDisplayNameProvider

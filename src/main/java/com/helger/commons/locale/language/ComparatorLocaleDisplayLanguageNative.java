@@ -20,16 +20,18 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractCollationComparator;
 
 /**
  * {@link java.util.Comparator} that sorts {@link Locale} objects by their
  * language display name in its own locale.
- * 
+ *
  * @author Philip Helger
  */
-public final class ComparatorLocaleDisplayLanguageNative extends AbstractCollationComparator <Locale>
+@NotThreadSafe
+public class ComparatorLocaleDisplayLanguageNative extends AbstractCollationComparator <Locale>
 {
   public ComparatorLocaleDisplayLanguageNative (@Nullable final Locale aSortLocale)
   {

@@ -14,49 +14,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.id;
+package com.helger.commons.compare;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.CGlobal;
-import com.helger.commons.compare.AbstractLongComparator;
-import com.helger.commons.compare.ESortOrder;
-
 /**
- * This is a collation {@link java.util.Comparator} for objects that implement
- * the {@link IHasSimpleIntID} interface.
+ * Abstract comparator that handles values that can be represented as int
+ * values.
  *
  * @author Philip Helger
  * @param <DATATYPE>
- *        The type of elements to be compared.
+ *        The data type to be compared. Must somehow have a value that can be
+ *        compared as a int value.
  */
 @NotThreadSafe
-public class ComparatorHasSimpleLongID <DATATYPE extends IHasSimpleLongID> extends AbstractLongComparator <DATATYPE>
+public abstract class AbstractIntComparator <DATATYPE> extends AbstractComparator <DATATYPE>
 {
-  /**
-   * Comparator with default sort order and no nested comparator.
-   */
-  public ComparatorHasSimpleLongID ()
+  public AbstractIntComparator ()
   {
     super ();
   }
 
   /**
-   * Constructor with sort order.
+   * Compare with a special order.
    *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    */
-  public ComparatorHasSimpleLongID (@Nonnull final ESortOrder eSortOrder)
+  public AbstractIntComparator (@Nonnull final ESortOrder eSortOrder)
   {
     super (eSortOrder);
   }
 
+  /**
+   * Protected method to convert the passed object into an int value.
+   *
+   * @param aObject
+   *        The source object
+   * @return The result int value.
+   */
+  protected abstract int asInt (DATATYPE aObject);
+
   @Override
-  protected long asLong (@Nullable final DATATYPE aObject)
+  protected final int mainCompare (final DATATYPE aElement1, final DATATYPE aElement2)
   {
-    return aObject == null ? CGlobal.ILLEGAL_ULONG : aObject.getID ();
+    final int n1 = asInt (aElement1);
+    final int n2 = asInt (aElement2);
+    return CompareUtils.compare (n1, n2);
   }
 }

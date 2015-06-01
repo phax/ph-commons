@@ -19,18 +19,21 @@ package com.helger.commons.locale;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractCollationComparator;
 
 /**
  * {@link java.util.Comparator} to sort {@link Locale} objects in the order
  * given by their native name.
- * 
+ *
  * @author Philip Helger
  */
-public final class ComparatorLocaleDisplayNameNative extends AbstractCollationComparator <Locale>
+@NotThreadSafe
+public class ComparatorLocaleDisplayNameNative extends AbstractCollationComparator <Locale>
 {
-  public ComparatorLocaleDisplayNameNative (final Locale aSortLocale)
+  public ComparatorLocaleDisplayNameNative (@Nullable final Locale aSortLocale)
   {
     super (aSortLocale);
   }

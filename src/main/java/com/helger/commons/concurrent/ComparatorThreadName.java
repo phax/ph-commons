@@ -23,25 +23,19 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractCollationComparator;
-import com.helger.commons.compare.ESortOrder;
 
 /**
  * {@link java.util.Comparator} for ordering {@link Thread} objects by their
  * name.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class ComparatorThreadName extends AbstractCollationComparator <Thread>
+public class ComparatorThreadName extends AbstractCollationComparator <Thread>
 {
   public ComparatorThreadName (@Nullable final Locale aSortLocale)
   {
     super (aSortLocale);
-  }
-
-  public ComparatorThreadName (@Nullable final Locale aSortLocale, @Nonnull final ESortOrder eSortOrder)
-  {
-    super (aSortLocale, eSortOrder);
   }
 
   @Override

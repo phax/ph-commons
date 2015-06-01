@@ -16,10 +16,8 @@
  */
 package com.helger.commons.changelog;
 
-import java.util.Comparator;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractComparator;
 import com.helger.commons.compare.CompareUtils;
@@ -28,10 +26,11 @@ import com.helger.commons.compare.ESortOrder;
 /**
  * Special comparator to sort change log entries by their date and in case of
  * equality by the parent change logs component name.
- * 
+ *
  * @author Philip Helger
  */
-public final class ComparatorChangeLogEntryDate extends AbstractComparator <ChangeLogEntry>
+@NotThreadSafe
+public class ComparatorChangeLogEntryDate extends AbstractComparator <ChangeLogEntry>
 {
   /**
    * Comparator with default sort order and no nested comparator.
@@ -43,40 +42,13 @@ public final class ComparatorChangeLogEntryDate extends AbstractComparator <Chan
 
   /**
    * Constructor with sort order.
-   * 
+   *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    */
   public ComparatorChangeLogEntryDate (@Nonnull final ESortOrder eSortOrder)
   {
     super (eSortOrder);
-  }
-
-  /**
-   * Comparator with default sort order and a nested comparator.
-   * 
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public ComparatorChangeLogEntryDate (@Nullable final Comparator <? super ChangeLogEntry> aNestedComparator)
-  {
-    super (aNestedComparator);
-  }
-
-  /**
-   * Comparator with sort order and a nested comparator.
-   * 
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public ComparatorChangeLogEntryDate (@Nonnull final ESortOrder eSortOrder,
-                                       @Nullable final Comparator <? super ChangeLogEntry> aNestedComparator)
-  {
-    super (eSortOrder, aNestedComparator);
   }
 
   @Override

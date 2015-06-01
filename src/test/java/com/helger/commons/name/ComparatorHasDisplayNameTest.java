@@ -37,16 +37,17 @@ public final class ComparatorHasDisplayNameTest extends AbstractPHTestCase
   public void testAll ()
   {
     final List <MockHasDisplayName> aList = CollectionHelper.newList (new MockHasDisplayName (10),
-                                                                     new MockHasDisplayName (2),
-                                                                     new MockHasDisplayName (5));
+                                                                      new MockHasDisplayName (2),
+                                                                      new MockHasDisplayName (5));
     List <MockHasDisplayName> l2 = CollectionHelper.getSorted (aList,
-                                                              new ComparatorHasDisplayName <IHasDisplayName> (L_DE));
+                                                               new ComparatorHasDisplayName <IHasDisplayName> (L_DE));
     assertEquals (3, l2.size ());
     assertEquals ("10", l2.get (0).getDisplayName ());
     assertEquals ("2", l2.get (1).getDisplayName ());
     assertEquals ("5", l2.get (2).getDisplayName ());
 
-    l2 = CollectionHelper.getSorted (aList, new ComparatorHasDisplayName <IHasDisplayName> (L_DE, ESortOrder.DESCENDING));
+    l2 = CollectionHelper.getSorted (aList,
+                                     new ComparatorHasDisplayName <IHasDisplayName> (L_DE).setSortOrder (ESortOrder.DESCENDING));
     assertEquals (3, l2.size ());
     assertEquals ("5", l2.get (0).getDisplayName ());
     assertEquals ("2", l2.get (1).getDisplayName ());

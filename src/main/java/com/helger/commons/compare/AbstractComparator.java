@@ -21,17 +21,19 @@ import java.util.Comparator;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Abstract comparator class that supports a sort order. This comparator may
- * only be applied on non-<code>null</code> values.
+ * Abstract comparator class that supports a sort order and a nested comparator.
  *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type to be compared
  */
+@NotThreadSafe
 public abstract class AbstractComparator <DATATYPE> implements Comparator <DATATYPE>, Serializable
 {
   private ESortOrder m_eSortOrder;
@@ -42,7 +44,7 @@ public abstract class AbstractComparator <DATATYPE> implements Comparator <DATAT
    */
   public AbstractComparator ()
   {
-    this (ESortOrder.DEFAULT, null);
+    this (ESortOrder.DEFAULT);
   }
 
   /**
@@ -53,35 +55,7 @@ public abstract class AbstractComparator <DATATYPE> implements Comparator <DATAT
    */
   public AbstractComparator (@Nonnull final ESortOrder eSortOrder)
   {
-    this (eSortOrder, null);
-  }
-
-  /**
-   * Comparator with default sort order and a nested comparator.
-   *
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public AbstractComparator (@Nullable final Comparator <? super DATATYPE> aNestedComparator)
-  {
-    this (ESortOrder.DEFAULT, aNestedComparator);
-  }
-
-  /**
-   * Comparator with sort order and a nested comparator.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public AbstractComparator (@Nonnull final ESortOrder eSortOrder,
-                             @Nullable final Comparator <? super DATATYPE> aNestedComparator)
-  {
     m_eSortOrder = ValueEnforcer.notNull (eSortOrder, "SortOrder");
-    m_aNestedComparator = aNestedComparator;
   }
 
   /**
@@ -117,6 +91,22 @@ public abstract class AbstractComparator <DATATYPE> implements Comparator <DATAT
   }
 
   /**
+   * Set a nested comparator to be invoked if the comparison result of this
+   * comparator is 0.
+   *
+   * @param aNestedComparator
+   *        The nested comparator to be invoked, when the main comparison
+   *        resulted in 0. May be <code>null</code>.
+   * @return this
+   */
+  @Nonnull
+  public final AbstractComparator <DATATYPE> setNestedComparator (@Nullable final Comparator <? super DATATYPE> aNestedComparator)
+  {
+    m_aNestedComparator = aNestedComparator;
+    return this;
+  }
+
+  /**
    * @param aElement1
    *        First element to compare. No information on the <code>null</code>
    *        status.
@@ -130,7 +120,9 @@ public abstract class AbstractComparator <DATATYPE> implements Comparator <DATAT
 
   public final int compare (final DATATYPE aElement1, final DATATYPE aElement2)
   {
+    // Main compare
     int nCompare = mainCompare (aElement1, aElement2);
+
     if (nCompare == 0 && m_aNestedComparator != null)
     {
       // Invoke the nested comparator for 2nd level comparison
@@ -139,5 +131,13 @@ public abstract class AbstractComparator <DATATYPE> implements Comparator <DATAT
 
     // Apply sort order by switching the sign of the return value
     return m_eSortOrder.isAscending () ? nCompare : -nCompare;
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("sortOrder", m_eSortOrder)
+                                       .appendIfNotNull ("nestedComparator", m_aNestedComparator)
+                                       .toString ();
   }
 }

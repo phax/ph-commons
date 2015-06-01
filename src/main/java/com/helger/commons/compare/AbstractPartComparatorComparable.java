@@ -16,23 +16,22 @@
  */
 package com.helger.commons.compare;
 
-import java.util.Comparator;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 /**
  * This class is an {@link AbstractComparator} that extracts a certain data
  * element from the main object to compare.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type to be compared
  * @param <PARTTYPE>
  *        The part type that is extracted from the data element and compared
  */
-public abstract class AbstractPartComparatorComparable <DATATYPE, PARTTYPE extends Comparable <? super PARTTYPE>> extends
-                                                                                                                  AbstractComparator <DATATYPE>
+@NotThreadSafe
+public abstract class AbstractPartComparatorComparable <DATATYPE, PARTTYPE extends Comparable <? super PARTTYPE>> extends AbstractComparator <DATATYPE>
 {
   /**
    * Comparator with default sort order.
@@ -44,40 +43,13 @@ public abstract class AbstractPartComparatorComparable <DATATYPE, PARTTYPE exten
 
   /**
    * Constructor with sort order.
-   * 
+   *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    */
   public AbstractPartComparatorComparable (@Nonnull final ESortOrder eSortOrder)
   {
     super (eSortOrder);
-  }
-
-  /**
-   * Comparator with default sort order and a nested comparator.
-   * 
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public AbstractPartComparatorComparable (@Nullable final Comparator <? super DATATYPE> aNestedComparator)
-  {
-    super (aNestedComparator);
-  }
-
-  /**
-   * Comparator with sort order and a nested comparator.
-   * 
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public AbstractPartComparatorComparable (@Nonnull final ESortOrder eSortOrder,
-                                           @Nullable final Comparator <? super DATATYPE> aNestedComparator)
-  {
-    super (eSortOrder, aNestedComparator);
   }
 
   @Nullable

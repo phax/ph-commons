@@ -18,21 +18,22 @@ package com.helger.commons.collections.pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractPartComparatorComparable;
 import com.helger.commons.compare.ESortOrder;
 
 /**
  * Comparator comparing {@link IPair} objects by the second element
- * 
+ *
  * @author Philip Helger
  * @param <DATA1TYPE>
  *        pair first type
  * @param <DATA2TYPE>
  *        pair second type
  */
-public class ComparatorPairSecond <DATA1TYPE, DATA2TYPE extends Comparable <? super DATA2TYPE>> extends
-                                                                                                AbstractPartComparatorComparable <IPair <DATA1TYPE, DATA2TYPE>, DATA2TYPE>
+@NotThreadSafe
+public class ComparatorPairSecond <DATA1TYPE, DATA2TYPE extends Comparable <? super DATA2TYPE>> extends AbstractPartComparatorComparable <IPair <DATA1TYPE, DATA2TYPE>, DATA2TYPE>
 {
   public ComparatorPairSecond ()
   {

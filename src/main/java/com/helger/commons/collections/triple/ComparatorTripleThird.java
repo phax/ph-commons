@@ -18,6 +18,7 @@ package com.helger.commons.collections.triple;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractPartComparatorComparable;
 import com.helger.commons.compare.ESortOrder;
@@ -33,6 +34,7 @@ import com.helger.commons.compare.ESortOrder;
  * @param <DATA3TYPE>
  *        triple third type
  */
+@NotThreadSafe
 public class ComparatorTripleThird <DATA1TYPE, DATA2TYPE, DATA3TYPE extends Comparable <? super DATA3TYPE>> extends AbstractPartComparatorComparable <ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>, DATA3TYPE>
 {
   public ComparatorTripleThird ()

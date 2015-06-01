@@ -40,14 +40,15 @@ public final class ComparatorStringTest extends AbstractPHTestCase
   {
     final List <String> l = CollectionHelper.newList ("a", null, "c");
     assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString ()).size ());
-    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString (ESortOrder.DESCENDING)).size ());
+    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString ().setSortOrder (ESortOrder.DESCENDING))
+                                     .size ());
     assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString (L_EN)).size ());
     assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString (L_FR, ESortOrder.DESCENDING)).size ());
     assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString (Collator.getInstance (L_FR))).size ());
     assertEquals (3,
                   CollectionHelper.getSorted (l,
-                                             new ComparatorString (Collator.getInstance (L_FR), ESortOrder.DESCENDING))
-                                 .size ());
+                                              new ComparatorString (Collator.getInstance (L_FR), ESortOrder.DESCENDING))
+                                  .size ());
     PHTestUtils.testToStringImplementation (new ComparatorString ());
 
     try

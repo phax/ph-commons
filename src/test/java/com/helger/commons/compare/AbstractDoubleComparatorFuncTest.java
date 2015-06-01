@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import org.junit.Test;
 
@@ -31,18 +32,19 @@ import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.PHAssert;
 
 /**
- * Test class for {@link AbstractNumericComparator}
+ * Test class for {@link AbstractDoubleComparator}
  *
  * @author Philip Helger
  */
-public final class AbstractNumericComparatorTest
+public final class AbstractDoubleComparatorFuncTest
 {
-  private static final class ComparatorMockNumeric extends AbstractNumericComparator <Double>
+  @NotThreadSafe
+  private static final class MockComparator extends AbstractDoubleComparator <Double>
   {
-    ComparatorMockNumeric ()
+    MockComparator ()
     {}
 
-    ComparatorMockNumeric (final ESortOrder eSortOrder)
+    MockComparator (final ESortOrder eSortOrder)
     {
       super (eSortOrder);
     }
@@ -63,7 +65,7 @@ public final class AbstractNumericComparatorTest
                                        Double.valueOf (1) };
 
     // default: sort ascending
-    List <Double> l = CollectionHelper.getSorted (x, new ComparatorMockNumeric ());
+    List <Double> l = CollectionHelper.getSorted (x, new MockComparator ());
     assertNotNull (l);
     PHAssert.assertEquals (-56, l.get (0).doubleValue ());
     PHAssert.assertEquals (1, l.get (1).doubleValue ());
@@ -71,7 +73,7 @@ public final class AbstractNumericComparatorTest
     PHAssert.assertEquals (3, l.get (3).doubleValue ());
 
     // Explicitly sort ascending
-    l = CollectionHelper.getSorted (x, new ComparatorMockNumeric (ESortOrder.ASCENDING));
+    l = CollectionHelper.getSorted (x, new MockComparator (ESortOrder.ASCENDING));
     assertNotNull (l);
     PHAssert.assertEquals (-56, l.get (0).doubleValue ());
     PHAssert.assertEquals (1, l.get (1).doubleValue ());
@@ -79,7 +81,7 @@ public final class AbstractNumericComparatorTest
     PHAssert.assertEquals (3, l.get (3).doubleValue ());
 
     // Explicitly sort descending
-    l = CollectionHelper.getSorted (x, new ComparatorMockNumeric (ESortOrder.DESCENDING));
+    l = CollectionHelper.getSorted (x, new MockComparator (ESortOrder.DESCENDING));
     assertNotNull (l);
     PHAssert.assertEquals (3, l.get (0).doubleValue ());
     PHAssert.assertEquals (3, l.get (1).doubleValue ());
@@ -87,7 +89,7 @@ public final class AbstractNumericComparatorTest
     PHAssert.assertEquals (-56, l.get (3).doubleValue ());
 
     // change dynamically
-    final ComparatorMockNumeric c = new ComparatorMockNumeric (ESortOrder.ASCENDING);
+    final MockComparator c = new MockComparator (ESortOrder.ASCENDING);
     l = CollectionHelper.getSorted (x, c);
     PHAssert.assertEquals (-56, l.get (0).doubleValue ());
     PHAssert.assertEquals (1, l.get (1).doubleValue ());
@@ -108,7 +110,7 @@ public final class AbstractNumericComparatorTest
   @Test
   public void testIsAscending ()
   {
-    assertTrue (new ComparatorMockNumeric ().getSortOrder ().isAscending ());
-    assertFalse (new ComparatorMockNumeric (ESortOrder.DESCENDING).getSortOrder ().isAscending ());
+    assertTrue (new MockComparator ().getSortOrder ().isAscending ());
+    assertFalse (new MockComparator (ESortOrder.DESCENDING).getSortOrder ().isAscending ());
   }
 }

@@ -17,6 +17,7 @@
 package com.helger.commons.xml.namespace;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.namespace.QName;
 
 import com.helger.commons.compare.AbstractComparator;
@@ -25,9 +26,10 @@ import com.helger.commons.compare.ESortOrder;
 
 /**
  * Comparator for {@link QName} objects
- * 
+ *
  * @author Philip Helger
  */
+@NotThreadSafe
 public class ComparatorQName extends AbstractComparator <QName>
 {
   public ComparatorQName ()

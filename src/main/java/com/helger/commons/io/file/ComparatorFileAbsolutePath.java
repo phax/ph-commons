@@ -17,7 +17,6 @@
 package com.helger.commons.io.file;
 
 import java.io.File;
-import java.util.Comparator;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -33,7 +32,7 @@ import com.helger.commons.compare.ESortOrder;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class ComparatorFileAbsolutePath extends AbstractCollationComparator <File>
+public class ComparatorFileAbsolutePath extends AbstractCollationComparator <File>
 {
   public ComparatorFileAbsolutePath ()
   {}
@@ -43,33 +42,9 @@ public final class ComparatorFileAbsolutePath extends AbstractCollationComparato
     super (aSortLocale);
   }
 
-  public ComparatorFileAbsolutePath (@Nonnull final ESortOrder eSortOrder)
+  public ComparatorFileAbsolutePath (@Nullable final Locale aSortLocale, @Nonnull final ESortOrder eSortOrder)
   {
-    super (eSortOrder);
-  }
-
-  public ComparatorFileAbsolutePath (@Nullable final Comparator <? super File> aNestedComparator)
-  {
-    super (aNestedComparator);
-  }
-
-  public ComparatorFileAbsolutePath (@Nonnull final ESortOrder eSortOrder,
-                                     @Nullable final Comparator <? super File> aNestedComparator)
-  {
-    super (eSortOrder, aNestedComparator);
-  }
-
-  public ComparatorFileAbsolutePath (@Nullable final Locale aSortLocale,
-                                     @Nullable final Comparator <? super File> aNestedComparator)
-  {
-    super (aSortLocale, aNestedComparator);
-  }
-
-  public ComparatorFileAbsolutePath (@Nullable final Locale aSortLocale,
-                                     @Nonnull final ESortOrder eSortOrder,
-                                     @Nullable final Comparator <? super File> aNestedComparator)
-  {
-    super (aSortLocale, eSortOrder, aNestedComparator);
+    super (aSortLocale, eSortOrder);
   }
 
   @Override

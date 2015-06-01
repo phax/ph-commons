@@ -16,14 +16,13 @@
  */
 package com.helger.commons.mime;
 
-import java.util.Comparator;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractComparator;
 import com.helger.commons.compare.ESortOrder;
 
+@NotThreadSafe
 public class ComparatorMimeTypeInfoPrimaryMimeType extends AbstractComparator <MimeTypeInfo>
 {
   /**
@@ -45,38 +44,11 @@ public class ComparatorMimeTypeInfoPrimaryMimeType extends AbstractComparator <M
     super (eSortOrder);
   }
 
-  /**
-   * Comparator with default sort order and a nested comparator.
-   *
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public ComparatorMimeTypeInfoPrimaryMimeType (@Nullable final Comparator <? super MimeTypeInfo> aNestedComparator)
-  {
-    super (aNestedComparator);
-  }
-
-  /**
-   * Comparator with sort order and a nested comparator.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public ComparatorMimeTypeInfoPrimaryMimeType (@Nonnull final ESortOrder eSortOrder,
-                                                @Nullable final Comparator <? super MimeTypeInfo> aNestedComparator)
-  {
-    super (eSortOrder, aNestedComparator);
-  }
-
   @Override
   protected int mainCompare (@Nonnull final MimeTypeInfo aElement1, @Nonnull final MimeTypeInfo aElement2)
   {
-    return aElement1.getPrimaryMimeTypeWithSource ()
-                    .getMimeTypeAsString ()
-                    .compareToIgnoreCase (aElement2.getPrimaryMimeTypeWithSource ().getMimeTypeAsString ());
+    final String s1 = aElement1.getPrimaryMimeTypeWithSource ().getMimeTypeAsString ();
+    final String s2 = aElement2.getPrimaryMimeTypeWithSource ().getMimeTypeAsString ();
+    return s1.compareToIgnoreCase (s2);
   }
 }

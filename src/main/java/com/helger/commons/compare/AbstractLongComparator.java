@@ -16,10 +16,8 @@
  */
 package com.helger.commons.compare;
 
-import java.util.Comparator;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 /**
  * Abstract comparator that handles values that can be represented as long
@@ -30,9 +28,10 @@ import javax.annotation.Nullable;
  *        The data type to be compared. Must somehow have a value that can be
  *        compared as a long value.
  */
-public abstract class AbstractIntegerComparator <DATATYPE> extends AbstractComparator <DATATYPE>
+@NotThreadSafe
+public abstract class AbstractLongComparator <DATATYPE> extends AbstractComparator <DATATYPE>
 {
-  public AbstractIntegerComparator ()
+  public AbstractLongComparator ()
   {
     super ();
   }
@@ -43,38 +42,18 @@ public abstract class AbstractIntegerComparator <DATATYPE> extends AbstractCompa
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    */
-  public AbstractIntegerComparator (@Nonnull final ESortOrder eSortOrder)
+  public AbstractLongComparator (@Nonnull final ESortOrder eSortOrder)
   {
     super (eSortOrder);
   }
 
   /**
-   * Comparator with default sort order and a nested comparator.
-   *
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
+   * Protected method to convert the passed object into a long value.
+   * 
+   * @param aObject
+   *        The source object
+   * @return The result long value.
    */
-  public AbstractIntegerComparator (@Nullable final Comparator <? super DATATYPE> aNestedComparator)
-  {
-    super (aNestedComparator);
-  }
-
-  /**
-   * Comparator with sort order and a nested comparator.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public AbstractIntegerComparator (@Nonnull final ESortOrder eSortOrder,
-                                    @Nullable final Comparator <? super DATATYPE> aNestedComparator)
-  {
-    super (eSortOrder, aNestedComparator);
-  }
-
   protected abstract long asLong (DATATYPE aObject);
 
   @Override

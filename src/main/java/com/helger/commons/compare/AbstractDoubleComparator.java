@@ -16,65 +16,42 @@
  */
 package com.helger.commons.compare;
 
-import java.util.Comparator;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Abstract comparator that handles values that can be represented as double
  * values.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type to be compared. Must somehow have a value that can be
  *        compared as a double value.
  */
-public abstract class AbstractNumericComparator <DATATYPE> extends AbstractComparator <DATATYPE>
+public abstract class AbstractDoubleComparator <DATATYPE> extends AbstractComparator <DATATYPE>
 {
-  public AbstractNumericComparator ()
+  public AbstractDoubleComparator ()
   {
     super ();
   }
 
   /**
    * Compare with a special order.
-   * 
+   *
    * @param eSortOrder
    *        The sort order to use. May not be <code>null</code>.
    */
-  public AbstractNumericComparator (@Nonnull final ESortOrder eSortOrder)
+  public AbstractDoubleComparator (@Nonnull final ESortOrder eSortOrder)
   {
     super (eSortOrder);
   }
 
   /**
-   * Comparator with default sort order and a nested comparator.
-   * 
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
+   * Protected method to convert the passed object into a double value.
+   *
+   * @param aObject
+   *        The source object
+   * @return The result double value.
    */
-  public AbstractNumericComparator (@Nullable final Comparator <? super DATATYPE> aNestedComparator)
-  {
-    super (aNestedComparator);
-  }
-
-  /**
-   * Comparator with sort order and a nested comparator.
-   * 
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public AbstractNumericComparator (@Nonnull final ESortOrder eSortOrder,
-                                    @Nullable final Comparator <? super DATATYPE> aNestedComparator)
-  {
-    super (eSortOrder, aNestedComparator);
-  }
-
   protected abstract double asDouble (DATATYPE aObject);
 
   @Override

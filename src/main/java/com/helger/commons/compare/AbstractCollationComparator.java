@@ -17,11 +17,11 @@
 package com.helger.commons.compare;
 
 import java.text.Collator;
-import java.util.Comparator;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
@@ -35,6 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <DATATYPE>
  *        the type of object to be compared
  */
+@NotThreadSafe
 public abstract class AbstractCollationComparator <DATATYPE> extends AbstractComparator <DATATYPE>
 {
   private final Collator m_aCollator;
@@ -44,20 +45,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
    */
   public AbstractCollationComparator ()
   {
-    this ((Locale) null, ESortOrder.DEFAULT, (Comparator <? super DATATYPE>) null);
-  }
-
-  /**
-   * Comparator with default locale {@link Collator} and default sort order and
-   * a nested comparator.
-   *
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public AbstractCollationComparator (@Nullable final Comparator <? super DATATYPE> aNestedComparator)
-  {
-    this ((Locale) null, ESortOrder.DEFAULT, aNestedComparator);
+    this ((Locale) null, ESortOrder.DEFAULT);
   }
 
   /**
@@ -68,22 +56,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
    */
   public AbstractCollationComparator (@Nonnull final ESortOrder eSortOrder)
   {
-    this ((Locale) null, eSortOrder, (Comparator <? super DATATYPE>) null);
-  }
-
-  /**
-   * Comparator with default locale {@link Collator} and a nested comparator.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public AbstractCollationComparator (@Nonnull final ESortOrder eSortOrder,
-                                      @Nullable final Comparator <? super DATATYPE> aNestedComparator)
-  {
-    this ((Locale) null, eSortOrder, aNestedComparator);
+    this ((Locale) null, eSortOrder);
   }
 
   /**
@@ -94,23 +67,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
    */
   public AbstractCollationComparator (@Nullable final Locale aSortLocale)
   {
-    this (aSortLocale, ESortOrder.DEFAULT, (Comparator <? super DATATYPE>) null);
-  }
-
-  /**
-   * Comparator with default sort order but special locale and a nested
-   * comparator.
-   *
-   * @param aSortLocale
-   *        The locale to use. May be <code>null</code>.
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public AbstractCollationComparator (@Nullable final Locale aSortLocale,
-                                      @Nullable final Comparator <? super DATATYPE> aNestedComparator)
-  {
-    this (aSortLocale, ESortOrder.DEFAULT, aNestedComparator);
+    this (aSortLocale, ESortOrder.DEFAULT);
   }
 
   /**
@@ -123,25 +80,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
    */
   public AbstractCollationComparator (@Nullable final Locale aSortLocale, @Nonnull final ESortOrder eSortOrder)
   {
-    this (aSortLocale, eSortOrder, (Comparator <? super DATATYPE>) null);
-  }
-
-  /**
-   * Constructor with locale and sort order and a nested comparator.
-   *
-   * @param aSortLocale
-   *        The locale to use. May be <code>null</code>.
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public AbstractCollationComparator (@Nullable final Locale aSortLocale,
-                                      @Nonnull final ESortOrder eSortOrder,
-                                      @Nullable final Comparator <? super DATATYPE> aNestedComparator)
-  {
-    super (eSortOrder, aNestedComparator);
+    super (eSortOrder);
     m_aCollator = CollatorUtils.getCollatorSpaceBeforeDot (aSortLocale);
   }
 
@@ -153,23 +92,7 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
    */
   public AbstractCollationComparator (@Nonnull final Collator aCollator)
   {
-    this (aCollator, ESortOrder.DEFAULT, (Comparator <? super DATATYPE>) null);
-  }
-
-  /**
-   * Constructor with {@link Collator} using the default sort order and a nested
-   * comparator.
-   *
-   * @param aCollator
-   *        The {@link Collator} to use. May not be <code>null</code>.
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public AbstractCollationComparator (@Nonnull final Collator aCollator,
-                                      @Nullable final Comparator <? super DATATYPE> aNestedComparator)
-  {
-    this (aCollator, ESortOrder.DEFAULT, aNestedComparator);
+    this (aCollator, ESortOrder.DEFAULT);
   }
 
   /**
@@ -182,32 +105,14 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
    */
   public AbstractCollationComparator (@Nonnull final Collator aCollator, @Nonnull final ESortOrder eSortOrder)
   {
-    this (aCollator, eSortOrder, (Comparator <? super DATATYPE>) null);
-  }
-
-  /**
-   * Constructor with {@link Collator} and sort order and a nested comparator.
-   *
-   * @param aCollator
-   *        The {@link Collator} to use. May not be <code>null</code>.
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0.
-   */
-  public AbstractCollationComparator (@Nonnull final Collator aCollator,
-                                      @Nonnull final ESortOrder eSortOrder,
-                                      @Nullable final Comparator <? super DATATYPE> aNestedComparator)
-  {
-    super (eSortOrder, aNestedComparator);
+    super (eSortOrder);
     ValueEnforcer.notNull (aCollator, "Collator");
     m_aCollator = (Collator) aCollator.clone ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public Collator getCollator ()
+  public final Collator getCollator ()
   {
     return (Collator) m_aCollator.clone ();
   }
@@ -241,8 +146,6 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractCom
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("sortOrder", getSortOrder ())
-                                       .append ("collator", m_aCollator)
-                                       .toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("collator", m_aCollator).toString ();
   }
 }
