@@ -41,7 +41,7 @@ public final class TripleUtils
   public static <V1 extends Comparable <? super V1>, V2, V3> List <ITriple <V1, V2, V3>> getSortedByTripleFirst (@Nonnull final Collection <? extends ITriple <V1, V2, V3>> aList)
   {
     // get sorted entry list
-    return CollectionHelper.getSorted (aList, new ComparatorTripleFirst <V1, V2, V3> ());
+    return CollectionHelper.getSorted (aList, new ComparatorTripleFirstComparable <V1, V2, V3> ());
   }
 
   @Nonnull
@@ -49,7 +49,7 @@ public final class TripleUtils
   public static <V1, V2 extends Comparable <? super V2>, V3> List <ITriple <V1, V2, V3>> getSortedByTripleSecond (@Nonnull final Collection <? extends ITriple <V1, V2, V3>> aList)
   {
     // get sorted entry list
-    return CollectionHelper.getSorted (aList, new ComparatorTripleSecond <V1, V2, V3> ());
+    return CollectionHelper.getSorted (aList, new ComparatorTripleSecondComparable <V1, V2, V3> ());
   }
 
   @Nonnull
@@ -57,6 +57,6 @@ public final class TripleUtils
   public static <V1, V2, V3 extends Comparable <? super V3>> List <ITriple <V1, V2, V3>> getSortedByTripleThird (@Nonnull final Collection <? extends ITriple <V1, V2, V3>> aList)
   {
     // get sorted entry list
-    return CollectionHelper.getSorted (aList, new ComparatorTripleThird <V1, V2, V3> ());
+    return CollectionHelper.getSorted (aList, new ComparatorTripleThirdComparable <V1, V2, V3> ());
   }
 }

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.compare;
+package com.helger.commons.collections.impl;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -22,12 +22,14 @@ import java.util.Map.Entry;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ComparatorMapKeyComparable <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> extends AbstractPartComparatorComparable <Map.Entry <KEYTYPE, VALUETYPE>, KEYTYPE>
+import com.helger.commons.compare.AbstractPartComparatorComparable;
+
+public class ComparatorMapValueComparable <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>> extends AbstractPartComparatorComparable <Map.Entry <KEYTYPE, VALUETYPE>, VALUETYPE>
 {
   @Override
   @Nullable
-  protected KEYTYPE getPart (@Nonnull final Entry <KEYTYPE, VALUETYPE> aObject)
+  protected VALUETYPE getPart (@Nonnull final Entry <KEYTYPE, VALUETYPE> aObject)
   {
-    return aObject.getKey ();
+    return aObject.getValue ();
   }
 }

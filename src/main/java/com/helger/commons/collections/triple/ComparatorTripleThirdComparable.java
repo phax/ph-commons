@@ -23,7 +23,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.compare.AbstractPartComparatorComparable;
 
 /**
- * Comparator comparing {@link ITriple} objects by the second element
+ * Comparator comparing {@link ITriple} objects by the third element
  *
  * @author Philip Helger
  * @param <DATA1TYPE>
@@ -34,15 +34,15 @@ import com.helger.commons.compare.AbstractPartComparatorComparable;
  *        triple third type
  */
 @NotThreadSafe
-public class ComparatorTripleSecond <DATA1TYPE, DATA2TYPE extends Comparable <? super DATA2TYPE>, DATA3TYPE> extends AbstractPartComparatorComparable <ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>, DATA2TYPE>
+public class ComparatorTripleThirdComparable <DATA1TYPE, DATA2TYPE, DATA3TYPE extends Comparable <? super DATA3TYPE>> extends AbstractPartComparatorComparable <ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>, DATA3TYPE>
 {
-  public ComparatorTripleSecond ()
+  public ComparatorTripleThirdComparable ()
   {}
 
   @Override
   @Nullable
-  protected DATA2TYPE getPart (@Nonnull final ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE> aObject)
+  protected DATA3TYPE getPart (@Nonnull final ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE> aObject)
   {
-    return aObject.getSecond ();
+    return aObject.getThird ();
   }
 }

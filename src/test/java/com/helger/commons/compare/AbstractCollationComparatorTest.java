@@ -32,14 +32,14 @@ import com.helger.commons.charset.CSpecialChars;
 import com.helger.commons.collections.CollectionHelper;
 
 /**
- * Test class for {@link AbstractCollationComparator}
+ * Test class for {@link AbstractCollatingComparator}
  *
  * @author Philip Helger
  */
 public final class AbstractCollationComparatorTest
 {
   @NotThreadSafe
-  private static final class MockComparatorString extends AbstractCollationComparator <String>
+  private static final class MockComparatorString extends AbstractCollatingComparator <String>
   {
     MockComparatorString (final Locale aSortLocale)
     {

@@ -86,7 +86,7 @@ public final class CompareUtils
    */
   public static int compare (final byte n1, final byte n2)
   {
-    return n1 < n2 ? -1 : n1 > n2 ? +1 : 0;
+    return n1 < n2 ? -1 : n1 == n2 ? 0 : +1;
   }
 
   /**
@@ -100,7 +100,7 @@ public final class CompareUtils
    */
   public static int compare (final char n1, final char n2)
   {
-    return n1 < n2 ? -1 : n1 > n2 ? +1 : 0;
+    return n1 < n2 ? -1 : n1 == n2 ? 0 : +1;
   }
 
   /**
@@ -142,7 +142,7 @@ public final class CompareUtils
    */
   public static int compare (final int n1, final int n2)
   {
-    return n1 < n2 ? -1 : n1 > n2 ? +1 : 0;
+    return n1 < n2 ? -1 : n1 == n2 ? 0 : +1;
   }
 
   /**
@@ -156,7 +156,7 @@ public final class CompareUtils
    */
   public static int compare (final long n1, final long n2)
   {
-    return n1 < n2 ? -1 : n1 > n2 ? +1 : 0;
+    return n1 < n2 ? -1 : n1 == n2 ? 0 : +1;
   }
 
   /**
@@ -170,7 +170,7 @@ public final class CompareUtils
    */
   public static int compare (final short n1, final short n2)
   {
-    return n1 < n2 ? -1 : n1 > n2 ? +1 : 0;
+    return n1 < n2 ? -1 : n1 == n2 ? 0 : +1;
   }
 
   /**

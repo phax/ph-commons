@@ -14,33 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collections.pair;
+package com.helger.commons.collections.impl;
+
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractPartComparatorComparable;
 
-/**
- * Comparator comparing {@link IPair} objects by the second element
- *
- * @author Philip Helger
- * @param <DATA1TYPE>
- *        pair first type
- * @param <DATA2TYPE>
- *        pair second type
- */
-@NotThreadSafe
-public class ComparatorPairSecond <DATA1TYPE, DATA2TYPE extends Comparable <? super DATA2TYPE>> extends AbstractPartComparatorComparable <IPair <DATA1TYPE, DATA2TYPE>, DATA2TYPE>
+public class ComparatorMapKeyComparable <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> extends AbstractPartComparatorComparable <Map.Entry <KEYTYPE, VALUETYPE>, KEYTYPE>
 {
-  public ComparatorPairSecond ()
-  {}
-
   @Override
   @Nullable
-  protected DATA2TYPE getPart (@Nonnull final IPair <DATA1TYPE, DATA2TYPE> aObject)
+  protected KEYTYPE getPart (@Nonnull final Entry <KEYTYPE, VALUETYPE> aObject)
   {
-    return aObject.getSecond ();
+    return aObject.getKey ();
   }
 }

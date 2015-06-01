@@ -30,33 +30,37 @@ import com.helger.commons.mock.AbstractPHTestCase;
 import com.helger.commons.mock.PHTestUtils;
 
 /**
- * Test class for class {@link ComparatorString}.
+ * Test class for class {@link ComparatorStringCollating}.
  *
  * @author Philip Helger
  */
-public final class ComparatorStringTest extends AbstractPHTestCase
+public final class ComparatorStringWithCollatorTest extends AbstractPHTestCase
 {
   @Test
   public void testAll ()
   {
     final List <String> l = CollectionHelper.newList ("a", null, "c");
-    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString (Locale.US)).size ());
-    assertEquals (3,
-                  CollectionHelper.getSorted (l, new ComparatorString (Locale.US).setSortOrder (ESortOrder.DESCENDING))
-                                  .size ());
-    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString (L_EN)).size ());
-    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString (L_FR).setSortOrder (ESortOrder.DESCENDING))
-                                     .size ());
-    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorString (Collator.getInstance (L_FR))).size ());
+    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorStringCollating (Locale.US)).size ());
     assertEquals (3,
                   CollectionHelper.getSorted (l,
-                                              new ComparatorString (Collator.getInstance (L_FR)).setSortOrder (ESortOrder.DESCENDING))
+                                              new ComparatorStringCollating (Locale.US).setSortOrder (ESortOrder.DESCENDING))
                                   .size ());
-    PHTestUtils.testToStringImplementation (new ComparatorString (Locale.US));
+    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorStringCollating (L_EN)).size ());
+    assertEquals (3,
+                  CollectionHelper.getSorted (l,
+                                              new ComparatorStringCollating (L_FR).setSortOrder (ESortOrder.DESCENDING))
+                                  .size ());
+    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorStringCollating (Collator.getInstance (L_FR)))
+                                     .size ());
+    assertEquals (3,
+                  CollectionHelper.getSorted (l,
+                                              new ComparatorStringCollating (Collator.getInstance (L_FR)).setSortOrder (ESortOrder.DESCENDING))
+                                  .size ());
+    PHTestUtils.testToStringImplementation (new ComparatorStringCollating (Locale.US));
 
     try
     {
-      new ComparatorString ((Collator) null);
+      new ComparatorStringCollating ((Collator) null);
       fail ();
     }
     catch (final NullPointerException ex)

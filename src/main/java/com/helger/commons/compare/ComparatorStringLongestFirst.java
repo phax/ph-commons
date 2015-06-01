@@ -29,9 +29,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 @NotThreadSafe
 public class ComparatorStringLongestFirst extends AbstractComparator <String>
 {
-  /**
-   * Comparator without a nested comparator.
-   */
   public ComparatorStringLongestFirst ()
   {}
 

@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractCollationComparator;
+import com.helger.commons.compare.AbstractCollatingComparator;
 
 /**
  * This is a collation {@link java.util.Comparator} for objects that implement
@@ -33,7 +33,7 @@ import com.helger.commons.compare.AbstractCollationComparator;
  *        The type of elements to be compared.
  */
 @NotThreadSafe
-public class ComparatorHasName <DATATYPE extends IHasName> extends AbstractCollationComparator <DATATYPE>
+public class ComparatorHasName <DATATYPE extends IHasName> extends AbstractCollatingComparator <DATATYPE>
 {
   public ComparatorHasName (@Nullable final Locale aSortLocale)
   {

@@ -40,6 +40,9 @@ public class ReverseComparator <T> implements Comparator <T>, Serializable
     m_aComparator = ValueEnforcer.notNull (aComparator, "Comparator");
   }
 
+  /**
+   * @return The original comparator as passed in the constructor.
+   */
   @Nonnull
   public Comparator <T> getOriginalComparator ()
   {

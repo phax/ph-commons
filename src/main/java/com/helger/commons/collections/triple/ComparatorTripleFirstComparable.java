@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collections.pair;
+package com.helger.commons.collections.triple;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -23,23 +23,25 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.compare.AbstractPartComparatorComparable;
 
 /**
- * Comparator comparing {@link IPair} objects by the first element
+ * Comparator comparing {@link ITriple} objects by the first element
  *
  * @author Philip Helger
  * @param <DATA1TYPE>
- *        pair first type
+ *        triple first type
  * @param <DATA2TYPE>
- *        pair second type
+ *        triple second type
+ * @param <DATA3TYPE>
+ *        triple third type
  */
 @NotThreadSafe
-public class ComparatorPairFirst <DATA1TYPE extends Comparable <? super DATA1TYPE>, DATA2TYPE> extends AbstractPartComparatorComparable <IPair <DATA1TYPE, DATA2TYPE>, DATA1TYPE>
+public class ComparatorTripleFirstComparable <DATA1TYPE extends Comparable <? super DATA1TYPE>, DATA2TYPE, DATA3TYPE> extends AbstractPartComparatorComparable <ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>, DATA1TYPE>
 {
-  public ComparatorPairFirst ()
+  public ComparatorTripleFirstComparable ()
   {}
 
   @Override
   @Nullable
-  protected DATA1TYPE getPart (@Nonnull final IPair <DATA1TYPE, DATA2TYPE> aObject)
+  protected DATA1TYPE getPart (@Nonnull final ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE> aObject)
   {
     return aObject.getFirst ();
   }

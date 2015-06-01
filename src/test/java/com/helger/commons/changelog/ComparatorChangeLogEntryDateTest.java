@@ -27,7 +27,7 @@ import org.junit.Test;
 import com.helger.commons.collections.CollectionHelper;
 
 /**
- * Test class for class {@link ComparatorChangeLogEntryDate}.
+ * Test class for class {@link ComparatorChangeLogEntryDateAndComponent}.
  *
  * @author Philip Helger
  */
@@ -39,7 +39,7 @@ public final class ComparatorChangeLogEntryDateTest
     final List <ChangeLogEntry> aEntries = new ArrayList <ChangeLogEntry> ();
     for (final ChangeLog aCL : ChangeLogSerializer.readAllChangeLogs ().values ())
       aEntries.addAll (aCL.getAllEntries ());
-    assertSame (aEntries, CollectionHelper.getSortedInline (aEntries, new ComparatorChangeLogEntryDate ()));
+    assertSame (aEntries, CollectionHelper.getSortedInline (aEntries, new ComparatorChangeLogEntryDateAndComponent ()));
     assertTrue (CollectionHelper.getFirstElement (aEntries).getDate ().getTime () < CollectionHelper.getLastElement (aEntries)
                                                                                                   .getDate ()
                                                                                                   .getTime ());

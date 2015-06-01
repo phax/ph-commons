@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.compare.AbstractCollationComparator;
+import com.helger.commons.compare.AbstractCollatingComparator;
 
 /**
  * This is a collation {@link java.util.Comparator} for objects that implement
@@ -35,7 +35,7 @@ import com.helger.commons.compare.AbstractCollationComparator;
  *        The type of elements to be compared.
  */
 @NotThreadSafe
-public class ComparatorDisplayTextProvider <DATATYPE> extends AbstractCollationComparator <DATATYPE>
+public class ComparatorDisplayTextProvider <DATATYPE> extends AbstractCollatingComparator <DATATYPE>
 {
   private final IDisplayTextProvider <DATATYPE> m_aDisplayTextProvider;
   private final Locale m_aContentLocale;

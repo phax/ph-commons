@@ -14,26 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.compare;
+package com.helger.commons.io.file;
 
-import java.util.Comparator;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.io.File;
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
-public class ComparatorMapKey <KEYTYPE, VALUETYPE> extends AbstractPartComparator <Map.Entry <KEYTYPE, VALUETYPE>, KEYTYPE>
+import com.helger.commons.compare.AbstractCollatingComparator;
+
+/**
+ * Sort files by their base name.
+ *
+ * @author Philip Helger
+ */
+@NotThreadSafe
+public class ComparatorFileNameCollating extends AbstractCollatingComparator <File>
 {
-  public ComparatorMapKey (@Nonnull final Comparator <? super KEYTYPE> aPartComparator)
+  public ComparatorFileNameCollating (@Nonnull final Locale aSortLocale)
   {
-    super (aPartComparator);
+    super (aSortLocale);
   }
 
   @Override
-  @Nullable
-  protected KEYTYPE getPart (@Nonnull final Entry <KEYTYPE, VALUETYPE> aObject)
+  protected String getPart (@Nonnull final File aObject)
   {
-    return aObject.getKey ();
+    return aObject.getName ();
   }
 }

@@ -34,7 +34,7 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
  *        the type of object to be compared
  */
 @NotThreadSafe
-public abstract class AbstractCollationComparator <DATATYPE> extends AbstractPartComparator <DATATYPE, String>
+public abstract class AbstractCollatingComparator <DATATYPE> extends AbstractPartComparator <DATATYPE, String>
 {
   /**
    * Comparator with default sort order and specified sort locale.
@@ -42,9 +42,9 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractPar
    * @param aSortLocale
    *        The locale to use. May be <code>null</code>.
    */
-  public AbstractCollationComparator (@Nullable final Locale aSortLocale)
+  public AbstractCollatingComparator (@Nullable final Locale aSortLocale)
   {
-    super (new ComparatorStringWithCollator (aSortLocale));
+    super (new ComparatorStringCollating (aSortLocale));
   }
 
   /**
@@ -53,9 +53,9 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractPar
    * @param aCollator
    *        The {@link Collator} to use. May not be <code>null</code>.
    */
-  public AbstractCollationComparator (@Nonnull final Collator aCollator)
+  public AbstractCollatingComparator (@Nonnull final Collator aCollator)
   {
-    super (new ComparatorStringWithCollator (aCollator));
+    super (new ComparatorStringCollating (aCollator));
   }
 
   /**
@@ -66,6 +66,6 @@ public abstract class AbstractCollationComparator <DATATYPE> extends AbstractPar
   @ReturnsMutableCopy
   public final Collator getCollator ()
   {
-    return ((ComparatorStringWithCollator) getPartComparator ()).getCollator ();
+    return ((ComparatorStringCollating) getPartComparator ()).getCollator ();
   }
 }

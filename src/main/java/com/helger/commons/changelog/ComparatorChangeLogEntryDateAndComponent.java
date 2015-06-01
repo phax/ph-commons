@@ -29,12 +29,12 @@ import com.helger.commons.compare.CompareUtils;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorChangeLogEntryDate extends AbstractComparator <ChangeLogEntry>
+public class ComparatorChangeLogEntryDateAndComponent extends AbstractComparator <ChangeLogEntry>
 {
   /**
    * Comparator with default sort order and no nested comparator.
    */
-  public ComparatorChangeLogEntryDate ()
+  public ComparatorChangeLogEntryDateAndComponent ()
   {}
 
   @Override

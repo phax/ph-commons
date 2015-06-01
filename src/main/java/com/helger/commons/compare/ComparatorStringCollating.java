@@ -23,23 +23,30 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.string.ToStringGenerator;
+
 /**
- * A simple collation aware comparator that compares String objects.
+ * An implementation of a {@link java.util.Comparator} that compares
+ * {@link String} objects with a {@link Collator}.
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorString extends AbstractCollationComparator <String>
+public class ComparatorStringCollating extends AbstractComparator <String>
 {
+  private final Collator m_aCollator;
+
   /**
    * Comparator with default sort order and specified sort locale.
    *
    * @param aSortLocale
    *        The locale to use. May be <code>null</code>.
    */
-  public ComparatorString (@Nullable final Locale aSortLocale)
+  public ComparatorStringCollating (@Nullable final Locale aSortLocale)
   {
-    super (aSortLocale);
+    m_aCollator = CollatorUtils.getCollatorSpaceBeforeDot (aSortLocale);
   }
 
   /**
@@ -48,15 +55,32 @@ public class ComparatorString extends AbstractCollationComparator <String>
    * @param aCollator
    *        The {@link Collator} to use. May not be <code>null</code>.
    */
-  public ComparatorString (@Nonnull final Collator aCollator)
+  public ComparatorStringCollating (@Nonnull final Collator aCollator)
   {
-    super (aCollator);
+    ValueEnforcer.notNull (aCollator, "Collator");
+    m_aCollator = (Collator) aCollator.clone ();
+  }
+
+  /**
+   * @return A copy of the {@link Collator} as passed or created in the
+   *         constructor. Never <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public final Collator getCollator ()
+  {
+    return (Collator) m_aCollator.clone ();
   }
 
   @Override
-  @Nonnull
-  protected String getPart (@Nonnull final String sValue)
+  protected final int mainCompare (@Nonnull final String sElement1, @Nonnull final String sElement2)
   {
-    return sValue;
+    return m_aCollator.compare (sElement1, sElement2);
+  }
+
+  @Override
+  public String toString ()
+  {
+    return ToStringGenerator.getDerived (super.toString ()).append ("collator", m_aCollator).toString ();
   }
 }

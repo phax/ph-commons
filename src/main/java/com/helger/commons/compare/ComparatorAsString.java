@@ -32,7 +32,7 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorAsString extends AbstractCollationComparator <Object>
+public class ComparatorAsString extends AbstractCollatingComparator <Object>
 {
   /**
    * Comparator with default sort order and specified sort locale.

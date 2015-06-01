@@ -27,21 +27,20 @@ import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractPHTestCase;
 
 /**
- * Test class for class {@link ComparatorFileName}.
+ * Test class for class {@link ComparatorFileNameCollating}.
  *
  * @author Philip Helger
  */
-public final class ComparatorFileNameTest extends AbstractPHTestCase
+public final class ComparatorFileNameCollatingTest extends AbstractPHTestCase
 {
   @Test
   public void testIndexOfExtension ()
   {
     final List <File> aList = CollectionHelper.newList (new File ("abc"), new File ("dir/aaa"), new File ("ABB"));
-    CollectionHelper.getSortedInline (aList, new ComparatorFileName ());
+    CollectionHelper.getSortedInline (aList, new ComparatorFileNameCollating (L_DE));
     assertEquals (3, aList.size ());
-    // Upper case before lower case
-    assertEquals ("ABB", aList.get (0).getName ());
-    assertEquals ("aaa", aList.get (1).getName ());
+    assertEquals ("aaa", aList.get (0).getName ());
+    assertEquals ("ABB", aList.get (1).getName ());
     assertEquals ("abc", aList.get (2).getName ());
   }
 }

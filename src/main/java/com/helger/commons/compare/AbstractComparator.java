@@ -147,10 +147,13 @@ public abstract class AbstractComparator <DATATYPE> implements Comparator <DATAT
       }
       else
         if (aElement2 == null)
+        {
+          // Second element is null
           nCompare = m_bNullValuesComeFirst ? +1 : -1;
+        }
         else
         {
-          // Main compare
+          // Both are not null - compare
           nCompare = mainCompare (aElement1, aElement2);
         }
 

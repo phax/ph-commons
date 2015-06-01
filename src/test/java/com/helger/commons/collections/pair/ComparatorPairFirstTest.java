@@ -26,7 +26,7 @@ import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
 
 /**
- * Test class for class {@link ComparatorPairFirst}.
+ * Test class for class {@link ComparatorPairFirstComparable}.
  *
  * @author Philip Helger
  */
@@ -41,14 +41,14 @@ public final class ComparatorPairFirstTest
                                                                                  ReadonlyPair.create ("k1", "v1"));
     assertEquals (3, aList.size ());
 
-    CollectionHelper.getSortedInline (aList, new ComparatorPairFirst <String, String> ());
+    CollectionHelper.getSortedInline (aList, new ComparatorPairFirstComparable <String, String> ());
     assertEquals (3, aList.size ());
     assertEquals ("k1", aList.get (0).getFirst ());
     assertEquals ("k2", aList.get (1).getFirst ());
     assertEquals ("k3", aList.get (2).getFirst ());
 
     CollectionHelper.getSortedInline (aList,
-                                      new ComparatorPairFirst <String, String> ().setSortOrder (ESortOrder.DESCENDING));
+                                      new ComparatorPairFirstComparable <String, String> ().setSortOrder (ESortOrder.DESCENDING));
     assertEquals (3, aList.size ());
     assertEquals ("k3", aList.get (0).getFirst ());
     assertEquals ("k2", aList.get (1).getFirst ());

@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractCollationComparator;
+import com.helger.commons.compare.AbstractCollatingComparator;
 
 /**
  * {@link java.util.Comparator} that sorts {@link Locale} objects by their
@@ -31,7 +31,7 @@ import com.helger.commons.compare.AbstractCollationComparator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorLocaleDisplayCountryNative extends AbstractCollationComparator <Locale>
+public class ComparatorLocaleDisplayCountryNative extends AbstractCollatingComparator <Locale>
 {
   public ComparatorLocaleDisplayCountryNative (@Nullable final Locale aSortLocale)
   {

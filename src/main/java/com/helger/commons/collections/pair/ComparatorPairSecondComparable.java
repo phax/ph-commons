@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collections.triple;
+package com.helger.commons.collections.pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -23,26 +23,24 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.compare.AbstractPartComparatorComparable;
 
 /**
- * Comparator comparing {@link ITriple} objects by the third element
+ * Comparator comparing {@link IPair} objects by the second element
  *
  * @author Philip Helger
  * @param <DATA1TYPE>
- *        triple first type
+ *        pair first type
  * @param <DATA2TYPE>
- *        triple second type
- * @param <DATA3TYPE>
- *        triple third type
+ *        pair second type
  */
 @NotThreadSafe
-public class ComparatorTripleThird <DATA1TYPE, DATA2TYPE, DATA3TYPE extends Comparable <? super DATA3TYPE>> extends AbstractPartComparatorComparable <ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE>, DATA3TYPE>
+public class ComparatorPairSecondComparable <DATA1TYPE, DATA2TYPE extends Comparable <? super DATA2TYPE>> extends AbstractPartComparatorComparable <IPair <DATA1TYPE, DATA2TYPE>, DATA2TYPE>
 {
-  public ComparatorTripleThird ()
+  public ComparatorPairSecondComparable ()
   {}
 
   @Override
   @Nullable
-  protected DATA3TYPE getPart (@Nonnull final ITriple <DATA1TYPE, DATA2TYPE, DATA3TYPE> aObject)
+  protected DATA2TYPE getPart (@Nonnull final IPair <DATA1TYPE, DATA2TYPE> aObject)
   {
-    return aObject.getThird ();
+    return aObject.getSecond ();
   }
 }

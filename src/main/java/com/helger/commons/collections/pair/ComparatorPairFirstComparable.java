@@ -14,33 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.locale.language;
-
-import java.util.Locale;
+package com.helger.commons.collections.pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractCollatingComparator;
+import com.helger.commons.compare.AbstractPartComparatorComparable;
 
 /**
- * {@link java.util.Comparator} that sorts {@link Locale} objects by their
- * language display name in its own locale.
+ * Comparator comparing {@link IPair} objects by the first element
  *
  * @author Philip Helger
+ * @param <DATA1TYPE>
+ *        pair first type
+ * @param <DATA2TYPE>
+ *        pair second type
  */
 @NotThreadSafe
-public class ComparatorLocaleDisplayLanguageNative extends AbstractCollatingComparator <Locale>
+public class ComparatorPairFirstComparable <DATA1TYPE extends Comparable <? super DATA1TYPE>, DATA2TYPE> extends AbstractPartComparatorComparable <IPair <DATA1TYPE, DATA2TYPE>, DATA1TYPE>
 {
-  public ComparatorLocaleDisplayLanguageNative (@Nullable final Locale aSortLocale)
-  {
-    super (aSortLocale);
-  }
+  public ComparatorPairFirstComparable ()
+  {}
 
   @Override
-  protected String getPart (@Nonnull final Locale aLocale)
+  @Nullable
+  protected DATA1TYPE getPart (@Nonnull final IPair <DATA1TYPE, DATA2TYPE> aObject)
   {
-    return aLocale.getDisplayLanguage (aLocale);
+    return aObject.getFirst ();
   }
 }
