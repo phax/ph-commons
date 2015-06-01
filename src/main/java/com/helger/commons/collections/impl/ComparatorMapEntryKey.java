@@ -25,17 +25,17 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.compare.AbstractPartComparator;
 
-public class ComparatorMapValue <KEYTYPE, VALUETYPE> extends AbstractPartComparator <Map.Entry <KEYTYPE, VALUETYPE>, VALUETYPE>
+public class ComparatorMapEntryKey <KEYTYPE, VALUETYPE> extends AbstractPartComparator <Map.Entry <KEYTYPE, VALUETYPE>, KEYTYPE>
 {
-  public ComparatorMapValue (@Nonnull final Comparator <? super VALUETYPE> aPartComparator)
+  public ComparatorMapEntryKey (@Nonnull final Comparator <? super KEYTYPE> aPartComparator)
   {
     super (aPartComparator);
   }
 
   @Override
   @Nullable
-  protected VALUETYPE getPart (@Nonnull final Entry <KEYTYPE, VALUETYPE> aObject)
+  protected KEYTYPE getPart (@Nonnull final Entry <KEYTYPE, VALUETYPE> aObject)
   {
-    return aObject.getValue ();
+    return aObject.getKey ();
   }
 }

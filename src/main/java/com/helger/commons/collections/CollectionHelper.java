@@ -48,10 +48,10 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsImmutableObject;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.ReturnsMutableObject;
-import com.helger.commons.collections.impl.ComparatorMapKey;
-import com.helger.commons.collections.impl.ComparatorMapKeyComparable;
-import com.helger.commons.collections.impl.ComparatorMapValue;
-import com.helger.commons.collections.impl.ComparatorMapValueComparable;
+import com.helger.commons.collections.impl.ComparatorMapEntryKey;
+import com.helger.commons.collections.impl.ComparatorMapEntryKeyComparable;
+import com.helger.commons.collections.impl.ComparatorMapEntryValue;
+import com.helger.commons.collections.impl.ComparatorMapEntryValueComparable;
 import com.helger.commons.collections.impl.EmptySortedSet;
 import com.helger.commons.collections.impl.NonBlockingStack;
 import com.helger.commons.collections.iterate.CombinedIterator;
@@ -2548,7 +2548,7 @@ public final class CollectionHelper
 
     // get sorted entry list
     final List <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
-    Collections.sort (aList, new ComparatorMapKeyComparable <KEYTYPE, VALUETYPE> ().setSortOrder (eSortOrder));
+    Collections.sort (aList, new ComparatorMapEntryKeyComparable <KEYTYPE, VALUETYPE> ().setSortOrder (eSortOrder));
     return newOrderedMap (aList);
   }
 
@@ -2577,7 +2577,7 @@ public final class CollectionHelper
 
     // get sorted Map.Entry list by Entry.getValue ()
     final List <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
-    Collections.sort (aList, new ComparatorMapKey <KEYTYPE, VALUETYPE> (aKeyComparator));
+    Collections.sort (aList, new ComparatorMapEntryKey <KEYTYPE, VALUETYPE> (aKeyComparator));
     return newOrderedMap (aList);
   }
 
@@ -2622,7 +2622,7 @@ public final class CollectionHelper
 
     // get sorted entry list
     final List <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
-    Collections.sort (aList, new ComparatorMapValueComparable <KEYTYPE, VALUETYPE> ().setSortOrder (eSortOrder));
+    Collections.sort (aList, new ComparatorMapEntryValueComparable <KEYTYPE, VALUETYPE> ().setSortOrder (eSortOrder));
     return newOrderedMap (aList);
   }
 
@@ -2651,7 +2651,7 @@ public final class CollectionHelper
 
     // get sorted Map.Entry list by Entry.getValue ()
     final List <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
-    Collections.sort (aList, new ComparatorMapValue <KEYTYPE, VALUETYPE> (aValueComparator));
+    Collections.sort (aList, new ComparatorMapEntryValue <KEYTYPE, VALUETYPE> (aValueComparator));
     return newOrderedMap (aList);
   }
 

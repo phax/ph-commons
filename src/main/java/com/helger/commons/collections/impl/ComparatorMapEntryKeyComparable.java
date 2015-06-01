@@ -16,22 +16,16 @@
  */
 package com.helger.commons.collections.impl;
 
-import java.util.Comparator;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.compare.AbstractPartComparator;
+import com.helger.commons.compare.AbstractPartComparatorComparable;
 
-public class ComparatorMapKey <KEYTYPE, VALUETYPE> extends AbstractPartComparator <Map.Entry <KEYTYPE, VALUETYPE>, KEYTYPE>
+public class ComparatorMapEntryKeyComparable <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> extends AbstractPartComparatorComparable <Map.Entry <KEYTYPE, VALUETYPE>, KEYTYPE>
 {
-  public ComparatorMapKey (@Nonnull final Comparator <? super KEYTYPE> aPartComparator)
-  {
-    super (aPartComparator);
-  }
-
   @Override
   @Nullable
   protected KEYTYPE getPart (@Nonnull final Entry <KEYTYPE, VALUETYPE> aObject)
