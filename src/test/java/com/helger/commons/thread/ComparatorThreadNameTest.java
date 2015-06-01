@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.concurrent;
+package com.helger.commons.thread;
 
 import java.util.List;
 
@@ -23,6 +23,7 @@ import org.junit.Test;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.thread.ComparatorThreadName;
 
 /**
  * Test class for class {@link ComparatorThreadName}.

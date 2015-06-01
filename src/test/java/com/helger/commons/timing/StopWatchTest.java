@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.concurrent.ThreadUtils;
+import com.helger.commons.thread.ThreadHelper;
 
 /**
  * Test class for class {@link StopWatch}.
@@ -48,13 +48,13 @@ public final class StopWatchTest
 
     assertTrue (sw.start ().isChanged ());
     assertTrue (sw.isStarted ());
-    ThreadUtils.sleep (1000);
+    ThreadHelper.sleep (1000);
     assertTrue (sw.stopAndGetMillis () > 0);
     assertFalse (sw.isStarted ());
 
     assertTrue (sw.start ().isChanged ());
     assertTrue (sw.isStarted ());
-    ThreadUtils.sleep (10);
+    ThreadHelper.sleep (10);
     assertTrue (sw.stopAndGetNanos () > 0);
     assertFalse (sw.isStarted ());
     assertTrue (sw.getNanos () > 0);

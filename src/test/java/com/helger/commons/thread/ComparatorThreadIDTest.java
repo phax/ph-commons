@@ -14,33 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.file;
+package com.helger.commons.thread;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
 import java.util.List;
 
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.mock.AbstractPHTestCase;
+import com.helger.commons.compare.ESortOrder;
+import com.helger.commons.thread.ComparatorThreadID;
 
 /**
- * Test class for class {@link ComparatorFileNameCollating}.
+ * Test class for class {@link ComparatorThreadID}.
  *
  * @author Philip Helger
  */
-public final class ComparatorFileNameCollatingTest extends AbstractPHTestCase
+public final class ComparatorThreadIDTest
 {
   @Test
-  public void testIndexOfExtension ()
+  public void testBasic ()
   {
-    final List <File> aList = CollectionHelper.newList (new File ("abc"), new File ("dir/aaa"), new File ("ABB"));
-    CollectionHelper.getSortedInline (aList, new ComparatorFileNameCollating (L_DE));
-    assertEquals (3, aList.size ());
-    assertEquals ("aaa", aList.get (0).getName ());
-    assertEquals ("ABB", aList.get (1).getName ());
-    assertEquals ("abc", aList.get (2).getName ());
+    final List <Thread> aList = CollectionHelper.newList (new Thread ("name1"), new Thread ("name2"));
+    CollectionHelper.getSortedInline (aList, new ComparatorThreadID ());
+    CollectionHelper.getSortedInline (aList, new ComparatorThreadID ().setSortOrder (ESortOrder.DESCENDING));
   }
 }

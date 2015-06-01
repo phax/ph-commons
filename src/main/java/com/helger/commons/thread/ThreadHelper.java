@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.concurrent;
+package com.helger.commons.thread;
 
 import java.util.concurrent.TimeUnit;
 
@@ -33,9 +33,9 @@ import com.helger.commons.state.ESuccess;
  * @author Philip Helger
  */
 @Immutable
-public final class ThreadUtils
+public final class ThreadHelper
 {
-  private ThreadUtils ()
+  private ThreadHelper ()
   {}
 
   /**

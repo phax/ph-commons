@@ -14,27 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.concurrent;
+package com.helger.commons.compare;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractLongComparator;
-
 /**
- * {@link java.util.Comparator} for ordering {@link Thread} objects by their ID.
+ * A special comparator that sorts String, but the shortest strings come first.
+ * For all strings with an equal length, they are sorted in regular,
+ * non-collated order.
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorThreadID extends AbstractLongComparator <Thread>
+public class ComparatorStringShortestFirst extends AbstractComparator <String>
 {
-  public ComparatorThreadID ()
+  public ComparatorStringShortestFirst ()
   {}
 
   @Override
-  protected long getAsLong (@Nonnull final Thread aThread)
+  protected int mainCompare (@Nonnull final String sElement1, @Nonnull final String sElement2)
   {
-    return aThread.getId ();
+    // The shorter, the earlier in the results
+    int ret = CompareUtils.compare (sElement1.length (), sElement2.length ());
+    if (ret == 0)
+    {
+      // Important to compare the content as well because with ret==0,
+      // elements would eventually be removed (e.g. from a TreeMap)
+      ret = sElement1.compareTo (sElement2);
+    }
+    return ret;
   }
 }

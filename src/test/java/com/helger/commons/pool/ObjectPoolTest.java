@@ -25,8 +25,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.concurrent.ThreadUtils;
 import com.helger.commons.factory.FactoryConstantValue;
+import com.helger.commons.thread.ThreadHelper;
 
 /**
  * Test class for class {@link ObjectPool}.
@@ -70,7 +70,7 @@ public final class ObjectPoolTest
       }
     };
     aThread.start ();
-    ThreadUtils.sleep (100);
+    ThreadHelper.sleep (100);
     aThread.interrupt ();
     aThread.join ();
   }

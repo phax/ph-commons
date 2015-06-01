@@ -31,8 +31,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.concurrent.ThreadUtils;
 import com.helger.commons.state.EChange;
+import com.helger.commons.thread.ThreadHelper;
 import com.helger.commons.timing.StopWatch;
 
 /**
@@ -279,7 +279,7 @@ public class FileMonitorManager implements Runnable
           final int nChecksPerRun = getChecksPerRun ();
 
           if (nChecksPerRun > 0 && (nFileNameIndex % nChecksPerRun) == 0)
-            ThreadUtils.sleep (getDelay ());
+            ThreadHelper.sleep (getDelay ());
 
           if (m_aMonitorThread == null || m_aMonitorThread.isInterrupted () || !m_bShouldRun)
             break mainloop;
@@ -292,7 +292,7 @@ public class FileMonitorManager implements Runnable
       }
 
       // Wait some time
-      ThreadUtils.sleep (getDelay ());
+      ThreadHelper.sleep (getDelay ());
 
       if (s_aLogger.isDebugEnabled ())
         s_aLogger.debug ("Checking for file modifications took " + aSW.stopAndGetMillis () + " ms");

@@ -30,9 +30,9 @@ import com.helger.commons.compare.AbstractCollatingComparator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorFileNameCollating extends AbstractCollatingComparator <File>
+public class ComparatorCollatingFileName extends AbstractCollatingComparator <File>
 {
-  public ComparatorFileNameCollating (@Nonnull final Locale aSortLocale)
+  public ComparatorCollatingFileName (@Nonnull final Locale aSortLocale)
   {
     super (aSortLocale);
   }

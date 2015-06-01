@@ -16,7 +16,6 @@
  */
 package com.helger.commons.compare;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
 import javax.annotation.Nonnull;
@@ -34,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The data type to be compared
  */
 @NotThreadSafe
-public abstract class AbstractComparator <DATATYPE> implements Comparator <DATATYPE>, Serializable
+public abstract class AbstractComparator <DATATYPE> implements ISerializableComparator <DATATYPE>
 {
   private ESortOrder m_eSortOrder = ESortOrder.DEFAULT;
   private boolean m_bNullValuesComeFirst = CompareUtils.DEFAULT_NULL_VALUES_COME_FIRST;
@@ -133,7 +132,6 @@ public abstract class AbstractComparator <DATATYPE> implements Comparator <DATAT
   public final int compare (final DATATYPE aElement1, final DATATYPE aElement2)
   {
     int nCompare;
-
     if (aElement1 == aElement2)
     {
       // The same object

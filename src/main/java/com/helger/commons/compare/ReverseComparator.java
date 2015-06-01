@@ -16,7 +16,6 @@
  */
 package com.helger.commons.compare;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
 import javax.annotation.Nonnull;
@@ -31,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <T>
  *        Data type to compare
  */
-public class ReverseComparator <T> implements Comparator <T>, Serializable
+public class ReverseComparator <T> implements ISerializableComparator <T>
 {
   private final Comparator <T> m_aComparator;
 

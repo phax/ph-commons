@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.concurrent.ThreadUtils;
+import com.helger.commons.thread.ThreadHelper;
 
 public class FileMonitorTest
 {
@@ -65,7 +65,7 @@ public class FileMonitorTest
     aMgr.createFileMonitor (aChangeListener).setRecursive (bRecursive).addMonitoredFile (aMonitorFile);
     aMgr.start ();
     assertTrue (aMgr.isRunning ());
-    ThreadUtils.sleepSeconds (5);
+    ThreadHelper.sleepSeconds (5);
     aMgr.stop ();
   }
 }

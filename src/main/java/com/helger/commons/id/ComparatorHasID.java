@@ -19,7 +19,6 @@ package com.helger.commons.id;
 import java.util.Comparator;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractPartComparator;
@@ -50,7 +49,7 @@ public class ComparatorHasID <IDTYPE, DATATYPE extends IHasID <IDTYPE>> extends 
   }
 
   @Override
-  @Nullable
+  @Nonnull
   protected IDTYPE getPart (@Nonnull final DATATYPE aObject)
   {
     return aObject.getID ();

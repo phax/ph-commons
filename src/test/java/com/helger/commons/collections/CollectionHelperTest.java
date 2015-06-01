@@ -76,7 +76,6 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -99,6 +98,8 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 
 import com.helger.commons.collections.impl.NonBlockingStack;
@@ -113,6 +114,7 @@ import com.helger.commons.collections.multimap.MultiHashMapArrayListBased;
 import com.helger.commons.collections.multimap.MultiHashMapHashSetBased;
 import com.helger.commons.compare.ComparatorStringCollating;
 import com.helger.commons.compare.ESortOrder;
+import com.helger.commons.compare.ISerializableComparator;
 import com.helger.commons.mock.AbstractPHTestCase;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -2144,12 +2146,12 @@ public final class CollectionHelperTest extends AbstractPHTestCase
     assertEquals (aSorted.get (3), "d");
   }
 
-  private static final class MyStringCompi implements Comparator <String>, Serializable
+  private static final class MyStringCompi implements ISerializableComparator <String>
   {
     public MyStringCompi ()
     {}
 
-    public int compare (final String sStr1, final String sStr2)
+    public int compare (@Nonnull final String sStr1, @Nonnull final String sStr2)
     {
       if (sStr1.equals ("b"))
         return -1;
@@ -2456,7 +2458,7 @@ public final class CollectionHelperTest extends AbstractPHTestCase
 
     // reverse sort
     it = getSortedByKey (aMap, new ComparatorStringCollating (Locale.US).setSortOrder (ESortOrder.DESCENDING)).entrySet ()
-                                                                                                                 .iterator ();
+                                                                                                              .iterator ();
     assertEquals ("K3", it.next ().getKey ());
     assertEquals ("K2", it.next ().getKey ());
     assertEquals ("K1", it.next ().getKey ());
@@ -2469,8 +2471,7 @@ public final class CollectionHelperTest extends AbstractPHTestCase
   public void testGetSortedByValue ()
   {
     assertNull (getSortedByValue ((Map <?, String>) null));
-    assertNull (getSortedByValue (null,
-                                  new ComparatorStringCollating (Locale.US).setSortOrder (ESortOrder.DESCENDING)));
+    assertNull (getSortedByValue (null, new ComparatorStringCollating (Locale.US).setSortOrder (ESortOrder.DESCENDING)));
 
     try
     {
@@ -2492,7 +2493,7 @@ public final class CollectionHelperTest extends AbstractPHTestCase
 
     // reverse sort
     it = getSortedByValue (aMap, new ComparatorStringCollating (Locale.US).setSortOrder (ESortOrder.DESCENDING)).entrySet ()
-                                                                                                                   .iterator ();
+                                                                                                                .iterator ();
     assertEquals ("ValueC", it.next ().getValue ());
     assertEquals ("ValueB", it.next ().getValue ());
     assertEquals ("ValueA", it.next ().getValue ());

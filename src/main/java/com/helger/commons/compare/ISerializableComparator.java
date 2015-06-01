@@ -14,28 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.concurrent;
+package com.helger.commons.compare;
 
-import javax.annotation.Nonnull;
+import java.io.Serializable;
+import java.util.Comparator;
+
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractPartComparatorComparable;
-
 /**
- * {@link java.util.Comparator} for ordering {@link Thread} objects by their
- * name.
+ * A special interface that combines {@link Comparator} and {@link Serializable}
+ * for easier reuse since {@link Comparator}s should be Serializable.
  *
  * @author Philip Helger
+ * @param <DATATYPE>
+ *        The data type to be compared
  */
 @NotThreadSafe
-public class ComparatorThreadName extends AbstractPartComparatorComparable <Thread, String>
+public interface ISerializableComparator <DATATYPE> extends Comparator <DATATYPE>, Serializable
 {
-  public ComparatorThreadName ()
-  {}
-
-  @Override
-  protected String getPart (@Nonnull final Thread aThread)
-  {
-    return aThread.getName ();
-  }
+  /* empty */
 }

@@ -22,9 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -33,6 +31,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.compare.ISerializableComparator;
 import com.helger.commons.convert.IUnidirectionalConverter;
 import com.helger.commons.convert.UnidirectionalConverterStringInteger;
 import com.helger.commons.filter.FilterNotNull;
@@ -45,7 +44,7 @@ import com.helger.commons.mock.AbstractPHTestCase;
  */
 public final class ContainerConversionHelperTest extends AbstractPHTestCase
 {
-  private static final class MyIntegerCompi implements Comparator <Integer>, Serializable
+  private static final class MyIntegerCompi implements ISerializableComparator <Integer>
   {
     public MyIntegerCompi ()
     {}

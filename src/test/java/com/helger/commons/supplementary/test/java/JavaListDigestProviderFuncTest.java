@@ -16,20 +16,19 @@
  */
 package com.helger.commons.supplementary.test.java;
 
-import java.io.Serializable;
 import java.security.Provider;
 import java.security.Security;
-import java.util.Comparator;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.compare.ISerializableComparator;
 
 public final class JavaListDigestProviderFuncTest
 {
-  private static final class ProviderComparator implements Comparator <Provider>, Serializable
+  private static final class ProviderComparator implements ISerializableComparator <Provider>
   {
     public int compare (final Provider o1, final Provider o2)
     {
@@ -37,7 +36,7 @@ public final class JavaListDigestProviderFuncTest
     }
   }
 
-  private static final class AlgorithmComparator implements Comparator <Object>, Serializable
+  private static final class AlgorithmComparator implements ISerializableComparator <Object>
   {
     public int compare (final Object o1, final Object o2)
     {
@@ -51,7 +50,7 @@ public final class JavaListDigestProviderFuncTest
   public void testListAllDigestProvider ()
   {
     for (final Provider element : CollectionHelper.getSorted (CollectionHelper.newList (Security.getProviders ()),
-                                                             new ProviderComparator ()))
+                                                              new ProviderComparator ()))
     {
       s_aLogger.info ("Provider: '" + element + "'");
 
