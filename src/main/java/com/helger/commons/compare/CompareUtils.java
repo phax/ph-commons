@@ -213,9 +213,13 @@ public final class CompareUtils
                                                                                       @Nullable final DATATYPE aObj2,
                                                                                       final boolean bNullValuesComeFirst)
   {
-    return aObj1 == aObj2 ? 0 : aObj1 == null ? (bNullValuesComeFirst ? -1 : +1)
-                                             : aObj2 == null ? (bNullValuesComeFirst ? +1 : -1)
-                                                            : aObj1.compareTo (aObj2);
+    if (aObj1 == aObj2)
+      return 0;
+    if (aObj1 == null)
+      return bNullValuesComeFirst ? -1 : +1;
+    if (aObj2 == null)
+      return bNullValuesComeFirst ? +1 : -1;
+    return aObj1.compareTo (aObj2);
   }
 
   /**
@@ -268,9 +272,13 @@ public final class CompareUtils
                                                 @Nonnull final Comparator <DATATYPE> aComp,
                                                 final boolean bNullValuesComeFirst)
   {
-    return aObj1 == aObj2 ? 0 : aObj1 == null ? (bNullValuesComeFirst ? -1 : +1)
-                                             : aObj2 == null ? (bNullValuesComeFirst ? +1 : -1) : aComp.compare (aObj1,
-                                                                                                                 aObj2);
+    if (aObj1 == aObj2)
+      return 0;
+    if (aObj1 == null)
+      return bNullValuesComeFirst ? -1 : +1;
+    if (aObj2 == null)
+      return bNullValuesComeFirst ? +1 : -1;
+    return aComp.compare (aObj1, aObj2);
   }
 
   public static int nullSafeCompare (@Nullable final String sStr1,
@@ -303,9 +311,13 @@ public final class CompareUtils
                                      @Nonnull final Collator aCollator,
                                      final boolean bNullValuesComeFirst)
   {
-    return sStr1 == sStr2 ? 0 : sStr1 == null ? (bNullValuesComeFirst ? -1 : +1)
-                                             : sStr2 == null ? (bNullValuesComeFirst ? +1 : -1)
-                                                            : aCollator.compare (sStr1, sStr2);
+    if (sStr1 == sStr2)
+      return 0;
+    if (sStr1 == null)
+      return bNullValuesComeFirst ? -1 : +1;
+    if (sStr2 == null)
+      return bNullValuesComeFirst ? +1 : -1;
+    return aCollator.compare (sStr1, sStr2);
   }
 
   public static int nullSafeCompareIgnoreCase (@Nullable final String sStr1, @Nullable final String sStr2)
@@ -319,8 +331,12 @@ public final class CompareUtils
                                                @Nullable final String sStr2,
                                                final boolean bNullValuesComeFirst)
   {
-    return sStr1 == sStr2 ? 0 : sStr1 == null ? (bNullValuesComeFirst ? -1 : +1)
-                                             : sStr2 == null ? (bNullValuesComeFirst ? +1 : -1)
-                                                            : sStr1.compareToIgnoreCase (sStr2);
+    if (sStr1 == sStr2)
+      return 0;
+    if (sStr1 == null)
+      return bNullValuesComeFirst ? -1 : +1;
+    if (sStr2 == null)
+      return bNullValuesComeFirst ? +1 : -1;
+    return sStr1.compareToIgnoreCase (sStr2);
   }
 }

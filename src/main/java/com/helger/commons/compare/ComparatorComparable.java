@@ -19,7 +19,10 @@ package com.helger.commons.compare;
 import java.util.Comparator;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
+
+import com.helger.commons.string.ToStringGenerator;
 
 /**
  * This is another *lol* class: a {@link Comparator} for {@link Comparable}
@@ -32,15 +35,51 @@ import javax.annotation.concurrent.NotThreadSafe;
 @NotThreadSafe
 public class ComparatorComparable <DATATYPE extends Comparable <? super DATATYPE>> extends AbstractComparator <DATATYPE>
 {
+  private boolean m_bNullValuesComeFirst = CompareUtils.DEFAULT_NULL_VALUES_COME_FIRST;
+
   /**
    * Comparator with default sort order and no nested comparator.
    */
   public ComparatorComparable ()
   {}
 
-  @Override
-  protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)
+  /**
+   * @return <code>true</code> if <code>null</code> values are to be ordered
+   *         before non-<code>null</code> values, <code>false</code> if
+   *         <code>null</code> are to be sorted after non-<code>null</code>
+   *         values.
+   */
+  public final boolean isNullValuesComeFirst ()
   {
-    return aElement1.compareTo (aElement2);
+    return m_bNullValuesComeFirst;
+  }
+
+  /**
+   * Change the sort position of <code>null</code> values.
+   *
+   * @param bNullValuesComeFirst
+   *        <code>true</code> if <code>null</code> values should come first,
+   *        <code>false</code> if <code>null</code> values should go last.
+   * @return this
+   */
+  @Nonnull
+  public final ComparatorComparable <DATATYPE> setNullValuesComeFirst (final boolean bNullValuesComeFirst)
+  {
+    m_bNullValuesComeFirst = bNullValuesComeFirst;
+    return this;
+  }
+
+  @Override
+  protected final int mainCompare (@Nullable final DATATYPE aElement1, @Nullable final DATATYPE aElement2)
+  {
+    return CompareUtils.nullSafeCompare (aElement1, aElement2, m_bNullValuesComeFirst);
+  }
+
+  @Override
+  public String toString ()
+  {
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("nullValuesComeFirst", m_bNullValuesComeFirst)
+                            .toString ();
   }
 }
