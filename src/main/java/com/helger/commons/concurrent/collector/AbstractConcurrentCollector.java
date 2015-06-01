@@ -39,7 +39,7 @@ import com.helger.commons.state.ESuccess;
  * @param <DATATYPE>
  *        The type of the objects in the queue.
  */
-public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThrowingRunnable, IConcurrentCollector <DATATYPE>
+public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThrowingRunnable, IMutableConcurrentCollector <DATATYPE>
 {
   /**
    * Default maximum queue size
@@ -78,7 +78,6 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThro
   public final ESuccess queueObject (@Nonnull final DATATYPE aObject)
   {
     ValueEnforcer.notNull (aObject, "Object");
-
     if (isStopped ())
       throw new IllegalStateException ("The queue is already stopped and does not take any more elements");
 
@@ -96,6 +95,19 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThro
     finally
     {
       m_aRWLock.writeLock ().unlock ();
+    }
+  }
+
+  public boolean isQueueEmpty ()
+  {
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return m_aQueue.isEmpty ();
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
     }
   }
 
@@ -119,7 +131,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThro
     m_aRWLock.writeLock ().lock ();
     try
     {
-      // put specific stop queue
+      // put specific stop queue object
       m_aQueue.put (STOP_QUEUE_OBJECT);
       m_bStopTakingNewObjects = true;
       return ESuccess.SUCCESS;

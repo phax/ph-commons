@@ -16,34 +16,36 @@
  */
 package com.helger.commons.concurrent.collector;
 
-import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+
+import com.helger.commons.state.ESuccess;
 
 /**
- * Base interface for a concurrent queue worker.
+ * Base interface for a concurrent queue worker. It asynchronously collects
+ * objects to handle (via the {@link #queueObject(Object)} method).
  *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of objects to be queued
  */
-public interface IConcurrentCollector <DATATYPE>
+public interface IMutableConcurrentCollector <DATATYPE> extends IConcurrentCollector <DATATYPE>
 {
   /**
-   * @return <code>true</code> if the queue is empty, <code>false</code>
-   *         otherwise.
-   */
-  boolean isQueueEmpty ();
-
-  /**
-   * @return The number of objects currently in the queue.
-   */
-  @Nonnegative
-  int getQueueLength ();
-
-  /**
-   * Check if this collector is already stopped.
+   * Submit an object to the queue.
    *
-   * @return <code>true</code> if the collector is stopped, <code>false</code>
-   *         otherwise.
+   * @param aObject
+   *        The object to submit. May not be <code>null</code>.
+   * @return {@link ESuccess}
    */
-  boolean isStopped ();
+  @Nonnull
+  ESuccess queueObject (@Nonnull DATATYPE aObject);
+
+  /**
+   * Stop taking new objects in the collector. Returns directly and does not
+   * wait until the processing finished.
+   *
+   * @return {@link ESuccess}
+   */
+  @Nonnull
+  ESuccess stopQueuingNewObjects ();
 }
