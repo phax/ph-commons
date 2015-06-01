@@ -24,8 +24,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.compare.AbstractPartComparator;
 
 /**
- * This is a collation {@link java.util.Comparator} for objects that implement
- * the {@link IHasID} interface with a class that does NOT implements
+ * This is a {@link java.util.Comparator} for objects that implement the
+ * {@link IHasID} interface with a class that does NOT implements
  * {@link Comparable}.
  *
  * @author Philip Helger

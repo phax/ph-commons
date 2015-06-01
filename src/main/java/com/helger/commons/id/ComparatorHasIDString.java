@@ -19,8 +19,8 @@ package com.helger.commons.id;
 import javax.annotation.concurrent.NotThreadSafe;
 
 /**
- * This is a collation {@link java.util.Comparator} for objects that implement
- * the {@link IHasID} interface with {@link String}.
+ * This is a {@link java.util.Comparator} for objects that implement the
+ * {@link IHasID} interface with {@link String}.
  *
  * @author Philip Helger
  * @param <DATATYPE>

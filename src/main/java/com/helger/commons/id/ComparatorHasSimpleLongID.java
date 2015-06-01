@@ -22,8 +22,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.compare.AbstractLongComparator;
 
 /**
- * This is a collation {@link java.util.Comparator} for objects that implement
- * the {@link IHasSimpleIntID} interface.
+ * This is a {@link java.util.Comparator} for objects that implement the
+ * {@link IHasSimpleIntID} interface.
  *
  * @author Philip Helger
  * @param <DATATYPE>
