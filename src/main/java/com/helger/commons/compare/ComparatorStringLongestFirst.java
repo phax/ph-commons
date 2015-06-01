@@ -16,7 +16,10 @@
  */
 package com.helger.commons.compare;
 
+import java.util.Comparator;
+
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 /**
@@ -29,8 +32,27 @@ import javax.annotation.concurrent.NotThreadSafe;
 @NotThreadSafe
 public class ComparatorStringLongestFirst extends AbstractComparator <String>
 {
+  private final Comparator <? super String> m_aContentComparator;
+
   public ComparatorStringLongestFirst ()
-  {}
+  {
+    this (null);
+  }
+
+  public ComparatorStringLongestFirst (@Nullable final Comparator <? super String> aContentComparator)
+  {
+    m_aContentComparator = aContentComparator;
+  }
+
+  /**
+   * @return The content comparator passed in the constructor. May be
+   *         <code>null</code>.
+   */
+  @Nullable
+  public final Comparator <? super String> getContentComparator ()
+  {
+    return m_aContentComparator;
+  }
 
   @Override
   protected int mainCompare (@Nonnull final String sElement1, @Nonnull final String sElement2)
@@ -41,7 +63,10 @@ public class ComparatorStringLongestFirst extends AbstractComparator <String>
     {
       // Important to compare the content as well because with ret==0,
       // elements would eventually be removed (e.g. from a TreeMap)
-      ret = sElement1.compareTo (sElement2);
+      if (m_aContentComparator == null)
+        ret = sElement1.compareTo (sElement2);
+      else
+        ret = m_aContentComparator.compare (sElement1, sElement2);
     }
     return ret;
   }
