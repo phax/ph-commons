@@ -24,7 +24,6 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.collections.pair.ReadonlyPair;
 import com.helger.commons.id.MockHasIDInteger;
 import com.helger.commons.id.MockHasIDString;
 import com.helger.commons.name.MockHasName;
@@ -53,17 +52,6 @@ public final class IUnidirectionalConverterTest
   @Test
   public void testConversion ()
   {
-    @SuppressWarnings ("unchecked")
-    final List <ReadonlyPair <Integer, String>> aPairs = CollectionHelper.newList (ReadonlyPair.create (Integer.valueOf (1),
-                                                                                                        "Hallo"),
-                                                                                   ReadonlyPair.create (Integer.valueOf (2),
-                                                                                                        "welt"),
-                                                                                   ReadonlyPair.create (Integer.valueOf (47),
-                                                                                                        "!"));
-    _test (UnidirectionalConverterPairFirst.<Integer, String> create (), aPairs, CollectionHelper.newIntList (1, 2, 47));
-    _test (UnidirectionalConverterPairSecond.<Integer, String> create (),
-           aPairs,
-           CollectionHelper.newList ("Hallo", "welt", "!"));
     _test (new UnidirectionalConverterStringInteger (),
            CollectionHelper.newList ("1", "2", "47"),
            CollectionHelper.newIntList (1, 2, 47));
