@@ -20,7 +20,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.SystemProperties;
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.compare.CollatorUtils;
+import com.helger.commons.compare.CollatorHelper;
 import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.gfx.ImageDataManager;
 import com.helger.commons.hash.HashCodeImplementationRegistry;
@@ -28,7 +28,7 @@ import com.helger.commons.jaxb.JAXBContextCache;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.locale.LocaleCache;
-import com.helger.commons.locale.LocaleUtils;
+import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.locale.country.CountryCache;
 import com.helger.commons.microdom.convert.MicroTypeConverterRegistry;
 import com.helger.commons.mime.MimeTypeDeterminator;
@@ -37,7 +37,7 @@ import com.helger.commons.regex.RegExPool;
 import com.helger.commons.serialize.convert.SerializationConverterRegistry;
 import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.text.resolve.DefaultTextResolver;
-import com.helger.commons.text.resource.ResourceBundleUtils;
+import com.helger.commons.text.resource.ResourceBundleHelper;
 import com.helger.commons.thirdparty.ThirdPartyModuleRegistry;
 import com.helger.commons.typeconvert.TypeConverterRegistry;
 import com.helger.commons.url.URLProtocolRegistry;
@@ -87,10 +87,10 @@ public final class CommonsCleanup
     ImageDataManager.clearCache ();
     DefaultTextResolver.clearCache ();
     EnumHelper.clearCache ();
-    ResourceBundleUtils.clearCache ();
+    ResourceBundleHelper.clearCache ();
     RegExPool.clearPatternCache ();
-    CollatorUtils.clearCache ();
-    LocaleUtils.clearCache ();
+    CollatorHelper.clearCache ();
+    LocaleHelper.clearCache ();
     if (JAXBContextCache.isInstantiated ())
       JAXBContextCache.getInstance ().clearCache ();
     if (XMLSchemaCache.isInstantiated ())

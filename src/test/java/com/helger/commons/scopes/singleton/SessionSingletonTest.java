@@ -29,7 +29,7 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 
 import com.helger.commons.GlobalDebug;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.scopes.mock.ScopeTestRule;
 
 /**
@@ -58,7 +58,7 @@ public final class SessionSingletonTest
     assertEquals (1, a.get ());
     assertSame (a, MockSessionSingleton.getInstance ());
 
-    CommonsTestUtils.testDefaultSerialization (a);
+    CommonsTestHelper.testDefaultSerialization (a);
   }
 
   @SuppressWarnings ("deprecation")
@@ -96,6 +96,6 @@ public final class SessionSingletonTest
     assertEquals (1, a.get ());
     assertSame (a, MockSessionSingletonWithScopeCtor.getInstance ());
 
-    CommonsTestUtils.testDefaultSerialization (a);
+    CommonsTestHelper.testDefaultSerialization (a);
   }
 }

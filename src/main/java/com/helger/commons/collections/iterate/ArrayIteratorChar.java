@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.UnsupportedOperation;
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -91,7 +91,7 @@ public final class ArrayIteratorChar
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ArrayIteratorChar rhs = (ArrayIteratorChar) o;
-    return EqualsUtils.equals (m_aArray, rhs.m_aArray) && m_nIndex == rhs.m_nIndex;
+    return EqualsHelper.equals (m_aArray, rhs.m_aArray) && m_nIndex == rhs.m_nIndex;
   }
 
   @Override

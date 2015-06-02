@@ -32,7 +32,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.EChange;
@@ -458,9 +458,9 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final BasicTreeItemWithID <?, ?, ?> rhs = (BasicTreeItemWithID <?, ?, ?>) o;
-    return EqualsUtils.equals (m_aDataID, rhs.m_aDataID) &&
-           EqualsUtils.equals (m_aData, rhs.m_aData) &&
-           EqualsUtils.equals (m_aChildMap, rhs.m_aChildMap);
+    return EqualsHelper.equals (m_aDataID, rhs.m_aDataID) &&
+           EqualsHelper.equals (m_aData, rhs.m_aData) &&
+           EqualsHelper.equals (m_aChildMap, rhs.m_aChildMap);
   }
 
   @Override

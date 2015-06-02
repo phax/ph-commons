@@ -21,7 +21,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -38,8 +38,8 @@ public final class MemoryLongIDFactoryTest
   {
     final MemoryLongIDFactory x = new MemoryLongIDFactory (9);
     assertEquals (9, x.getNewID ());
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (x, new MemoryLongIDFactory (10));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (x, new MemoryLongIDFactory (11));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, new MemoryLongIDFactory (10));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, new MemoryLongIDFactory (11));
 
     try
     {

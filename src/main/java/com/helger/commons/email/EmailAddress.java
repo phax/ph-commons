@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -52,10 +52,10 @@ public class EmailAddress implements IEmailAddress
   public EmailAddress (@Nonnull final String sAddress, @Nullable final String sPersonal)
   {
     ValueEnforcer.notNull (sAddress, "EmailAddress");
-    ValueEnforcer.isTrue (EmailAddressUtils.isValid (sAddress), "The passed email address '" +
+    ValueEnforcer.isTrue (EmailAddressHelper.isValid (sAddress), "The passed email address '" +
                                                                 sAddress +
                                                                 "' is illegal!");
-    m_sAddress = EmailAddressUtils.getUnifiedEmailAddress (sAddress);
+    m_sAddress = EmailAddressHelper.getUnifiedEmailAddress (sAddress);
     m_sPersonal = StringHelper.hasNoText (sPersonal) ? null : sPersonal;
   }
 
@@ -87,7 +87,7 @@ public class EmailAddress implements IEmailAddress
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final EmailAddress rhs = (EmailAddress) o;
-    return m_sAddress.equals (rhs.m_sAddress) && EqualsUtils.equals (m_sPersonal, rhs.m_sPersonal);
+    return m_sAddress.equals (rhs.m_sAddress) && EqualsHelper.equals (m_sPersonal, rhs.m_sPersonal);
   }
 
   @Override

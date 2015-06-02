@@ -24,7 +24,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.IHasStringRepresentation;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -363,7 +363,7 @@ public final class VersionRange implements Comparable <VersionRange>, IHasString
     return m_bIncludeFloor == rhs.m_bIncludeFloor &&
            m_aFloorVersion.equals (rhs.m_aFloorVersion) &&
            m_bIncludeCeil == rhs.m_bIncludeCeil &&
-           EqualsUtils.equals (m_aCeilVersion, rhs.m_aCeilVersion);
+           EqualsHelper.equals (m_aCeilVersion, rhs.m_aCeilVersion);
   }
 
   @Override

@@ -25,7 +25,7 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -82,7 +82,7 @@ public final class DefaultResourceProviderTest
   @Test
   public void testEqualsAndHashcode ()
   {
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new DefaultResourceProvider (),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new DefaultResourceProvider (),
                                                                  new DefaultResourceProvider ());
   }
 }

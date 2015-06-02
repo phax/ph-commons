@@ -48,6 +48,6 @@ public abstract class AbstractLongComparator <DATATYPE> extends AbstractComparat
   {
     final long n1 = getAsLong (aElement1);
     final long n2 = getAsLong (aElement2);
-    return CompareUtils.compare (n1, n2);
+    return CompareHelper.compare (n1, n2);
   }
 }

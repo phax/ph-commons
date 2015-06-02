@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MutableFloat}.
@@ -83,9 +83,9 @@ public final class MutableFloatTest
     x.set (1);
     assertTrue (x.isGreater0 ());
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new MutableFloat (3.1415f), new MutableFloat (3.1415f));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new MutableFloat (3.1415f),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableFloat (3.1415f), new MutableFloat (3.1415f));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableFloat (3.1415f),
                                                                      new MutableFloat (3.141f));
-    CommonsTestUtils.testGetClone (new MutableFloat (47.11f));
+    CommonsTestHelper.testGetClone (new MutableFloat (47.11f));
   }
 }

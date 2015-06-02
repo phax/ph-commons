@@ -21,7 +21,7 @@ import java.io.Serializable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.GenericReflection;
@@ -68,7 +68,7 @@ public final class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>,
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FactoryNewInstance <?> rhs = (FactoryNewInstance <?>) o;
-    return EqualsUtils.equals (m_aClass, rhs.m_aClass);
+    return EqualsHelper.equals (m_aClass, rhs.m_aClass);
   }
 
   @Override

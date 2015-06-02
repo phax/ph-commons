@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -117,10 +117,10 @@ public class ResourceLocation implements IResourceLocation
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ResourceLocation rhs = (ResourceLocation) o;
-    return EqualsUtils.equals (m_sResourceID, rhs.m_sResourceID) &&
+    return EqualsHelper.equals (m_sResourceID, rhs.m_sResourceID) &&
            m_nLineNumber == rhs.m_nLineNumber &&
            m_nColumnNumber == rhs.m_nColumnNumber &&
-           EqualsUtils.equals (m_sField, rhs.m_sField);
+           EqualsHelper.equals (m_sField, rhs.m_sField);
   }
 
   @Override

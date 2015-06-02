@@ -26,7 +26,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -108,18 +108,18 @@ public final class ArrayEnumerationTest
 
     // equals...
     ae = new ArrayEnumeration <String> ("Hallo", "Welt", "from", "Copenhagen");
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (ae, new ArrayEnumeration <String> ("Hallo",
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ae, new ArrayEnumeration <String> ("Hallo",
                                                                                                     "Welt",
                                                                                                     "from",
                                                                                                     "Copenhagen"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (ae, new ArrayEnumeration <String> ("Hallo",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae, new ArrayEnumeration <String> ("Hallo",
                                                                                                         "Welt",
                                                                                                         "from"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (ae,
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
                                                                      new ArrayEnumeration <Integer> (Integer.valueOf (5)));
     // Different index
     final ArrayEnumeration <String> ae2 = new ArrayEnumeration <String> ("Hallo", "Welt", "from", "Copenhagen");
     ae2.nextElement ();
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (ae, ae2);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae, ae2);
   }
 }

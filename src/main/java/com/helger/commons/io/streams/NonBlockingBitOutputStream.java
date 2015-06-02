@@ -166,8 +166,8 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
    */
   public void close ()
   {
-    StreamUtils.flush (this);
-    StreamUtils.close (m_aOS);
+    StreamHelper.flush (this);
+    StreamHelper.close (m_aOS);
     m_aOS = null;
   }
 

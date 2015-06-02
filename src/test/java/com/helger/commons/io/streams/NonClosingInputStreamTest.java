@@ -58,7 +58,7 @@ public final class NonClosingInputStreamTest
   {
     final MockCloseCountingInputStream aX = new MockCloseCountingInputStream (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes ("abc",
                                                                                                                                               CCharset.CHARSET_ISO_8859_1_OBJ)));
-    StreamUtils.copyInputStreamToOutputStream (aX, new NonBlockingByteArrayOutputStream ());
+    StreamHelper.copyInputStreamToOutputStream (aX, new NonBlockingByteArrayOutputStream ());
     assertEquals (1, aX.getCloseCount ());
   }
 
@@ -67,7 +67,7 @@ public final class NonClosingInputStreamTest
   {
     final MockCloseCountingInputStream aX = new MockCloseCountingInputStream (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes ("abc",
                                                                                                                                               CCharset.CHARSET_ISO_8859_1_OBJ)));
-    StreamUtils.copyInputStreamToOutputStream (new NonClosingInputStream (aX), new NonBlockingByteArrayOutputStream ());
+    StreamHelper.copyInputStreamToOutputStream (new NonClosingInputStream (aX), new NonBlockingByteArrayOutputStream ());
     assertEquals (0, aX.getCloseCount ());
   }
 }

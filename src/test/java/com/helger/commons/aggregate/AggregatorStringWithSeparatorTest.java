@@ -21,7 +21,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -51,9 +51,9 @@ public final class AggregatorStringWithSeparatorTest
     catch (final NullPointerException ex)
     {}
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new AggregatorStringWithSeparator (";"),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new AggregatorStringWithSeparator (";"),
                                                                  new AggregatorStringWithSeparator (";"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new AggregatorStringWithSeparator (";"),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new AggregatorStringWithSeparator (";"),
                                                                      new AggregatorStringWithSeparator (","));
   }
 }

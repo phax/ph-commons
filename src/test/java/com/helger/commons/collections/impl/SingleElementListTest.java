@@ -28,7 +28,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.impl.SingleElementList;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -324,11 +324,11 @@ public final class SingleElementListTest
   @Test
   public void testStdMethods ()
   {
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (SingleElementList.create ("init"),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (SingleElementList.create ("init"),
                                                                  SingleElementList.create ("init"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (SingleElementList.create ("init"),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (SingleElementList.create ("init"),
                                                                      SingleElementList.create ("init2"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (SingleElementList.create ("init"),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (SingleElementList.create ("init"),
                                                                      SingleElementList.create (Boolean.TRUE));
     assertArrayEquals (SingleElementList.create ("init").toArray (), SingleElementList.create ("init").toArray ());
     assertArrayEquals (SingleElementList.create ("init").toArray (new String [0]),

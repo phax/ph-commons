@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MutableLong}.
@@ -84,8 +84,8 @@ public final class MutableLongTest
     x.set (1);
     assertTrue (x.isGreater0 ());
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new MutableLong (-7000), new MutableLong (-7000));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new MutableLong (600), new MutableLong (700));
-    CommonsTestUtils.testGetClone (new MutableLong (Long.MIN_VALUE));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableLong (-7000), new MutableLong (-7000));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableLong (600), new MutableLong (700));
+    CommonsTestHelper.testGetClone (new MutableLong (Long.MIN_VALUE));
   }
 }

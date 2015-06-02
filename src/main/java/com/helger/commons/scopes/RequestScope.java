@@ -28,7 +28,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.CGStringHelper;
 import com.helger.commons.scopes.domain.IRequestScope;
 import com.helger.commons.string.ToStringGenerator;
@@ -50,9 +50,9 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
     m_sSessionID = ValueEnforcer.notEmpty (sSessionID, "SessionID");
 
     // done initialization
-    if (ScopeUtils.debugRequestScopeLifeCycle (s_aLogger))
+    if (ScopeHelper.debugRequestScopeLifeCycle (s_aLogger))
       s_aLogger.info ("Created request scope '" + sScopeID + "' of class " + CGStringHelper.getClassLocalName (this),
-                      ScopeUtils.getDebugStackTrace ());
+                      ScopeHelper.getDebugStackTrace ());
   }
 
   @Nonnull
@@ -75,17 +75,17 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
   @Override
   protected void preDestroy ()
   {
-    if (ScopeUtils.debugRequestScopeLifeCycle (s_aLogger))
+    if (ScopeHelper.debugRequestScopeLifeCycle (s_aLogger))
       s_aLogger.info ("Destroying request scope '" + getID () + "' of class " + CGStringHelper.getClassLocalName (this),
-                      ScopeUtils.getDebugStackTrace ());
+                      ScopeHelper.getDebugStackTrace ());
   }
 
   @Override
   protected void postDestroy ()
   {
-    if (ScopeUtils.debugRequestScopeLifeCycle (s_aLogger))
+    if (ScopeHelper.debugRequestScopeLifeCycle (s_aLogger))
       s_aLogger.info ("Destroyed request scope '" + getID () + "' of class " + CGStringHelper.getClassLocalName (this),
-                      ScopeUtils.getDebugStackTrace ());
+                      ScopeHelper.getDebugStackTrace ());
   }
 
   @Nullable
@@ -140,7 +140,7 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
 
   public boolean hasAttributeValue (@Nullable final String sName, @Nullable final String sDesiredValue)
   {
-    return EqualsUtils.equals (getAttributeAsString (sName), sDesiredValue);
+    return EqualsHelper.equals (getAttributeAsString (sName), sDesiredValue);
   }
 
   public boolean hasAttributeValue (@Nullable final String sName,
@@ -148,7 +148,7 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
                                     final boolean bDefault)
   {
     final String sValue = getAttributeAsString (sName);
-    return sValue == null ? bDefault : EqualsUtils.equals (sValue, sDesiredValue);
+    return sValue == null ? bDefault : EqualsHelper.equals (sValue, sDesiredValue);
   }
 
   @Override

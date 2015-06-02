@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link CollatingComparator}.
@@ -54,7 +54,7 @@ public final class CollatingComparatorTest extends AbstractCommonsTestCase
                   CollectionHelper.getSorted (l,
                                               new CollatingComparator (Collator.getInstance (L_FR)).setSortOrder (ESortOrder.DESCENDING))
                                   .size ());
-    CommonsTestUtils.testToStringImplementation (new CollatingComparator (Locale.US));
+    CommonsTestHelper.testToStringImplementation (new CollatingComparator (Locale.US));
 
     try
     {

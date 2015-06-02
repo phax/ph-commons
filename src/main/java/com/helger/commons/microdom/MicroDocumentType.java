@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -96,8 +96,8 @@ public final class MicroDocumentType extends AbstractMicroNode implements IMicro
       return false;
     final MicroDocumentType rhs = (MicroDocumentType) o;
     return m_sQualifiedName.equals (rhs.m_sQualifiedName) &&
-           EqualsUtils.equals (m_sPublicID, rhs.m_sPublicID) &&
-           EqualsUtils.equals (m_sSystemID, rhs.m_sSystemID);
+           EqualsHelper.equals (m_sPublicID, rhs.m_sPublicID) &&
+           EqualsHelper.equals (m_sSystemID, rhs.m_sSystemID);
   }
 
   @Override

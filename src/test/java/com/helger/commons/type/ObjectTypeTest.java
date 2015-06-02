@@ -21,7 +21,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -39,14 +39,14 @@ public final class ObjectTypeTest
     final ObjectType x = new ObjectType ("any");
     assertEquals ("any", x.getObjectTypeName ());
     assertEquals (0, x.compareTo (x));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (x, new ObjectType ("any"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, new ObjectType ("any"));
 
     final ObjectType y = new ObjectType ("any2");
     assertEquals (-1, x.compareTo (y));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (x, y);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, y);
 
     // Serialization
-    CommonsTestUtils.testDefaultSerialization (x);
+    CommonsTestHelper.testDefaultSerialization (x);
 
     try
     {

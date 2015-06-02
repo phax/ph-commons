@@ -31,9 +31,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.streams.NonBlockingStringWriter;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.stats.IMutableStatisticsHandlerSize;
@@ -95,7 +95,7 @@ public final class MicroWriter
   {
     ValueEnforcer.notNull (aFile, "File");
 
-    final OutputStream aOS = FileUtils.getOutputStream (aFile);
+    final OutputStream aOS = FileHelper.getOutputStream (aFile);
     if (aOS == null)
       return ESuccess.FAILURE;
 
@@ -154,7 +154,7 @@ public final class MicroWriter
     }
     finally
     {
-      StreamUtils.close (aOS);
+      StreamHelper.close (aOS);
     }
   }
 
@@ -190,7 +190,7 @@ public final class MicroWriter
     }
     finally
     {
-      StreamUtils.close (aWriter);
+      StreamHelper.close (aWriter);
     }
   }
 
@@ -217,7 +217,7 @@ public final class MicroWriter
     }
     finally
     {
-      StreamUtils.close (aWriter);
+      StreamHelper.close (aWriter);
     }
     return null;
   }

@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link Pair}.
@@ -94,17 +94,17 @@ public final class PairTest
     aPair2 = new Pair <String, Double> ("Nice text", Double.valueOf (3.14));
     assertFalse (aPair.equals (aPair2));
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> (null, null),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Pair <String, String> (null, null),
                                                                  new Pair <String, Double> (null, null));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> ("Nix da", null),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Pair <String, String> ("Nix da", null),
                                                                  new Pair <String, Double> ("Nix da", null));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> (null, "Nix da"),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Pair <String, String> (null, "Nix da"),
                                                                  new Pair <String, String> (null, "Nix da"));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new Pair <String, String> ("Nix", "da"),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Pair <String, String> ("Nix", "da"),
                                                                  new Pair <String, String> ("Nix", "da"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new Pair <String, String> ("Nix", "da"),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Pair <String, String> ("Nix", "da"),
                                                                      new Pair <String, String> ("Nix", "da2"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (Pair.create ("Nix", "da"),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (Pair.create ("Nix", "da"),
                                                                      Pair.create ("Nix2", "da"));
   }
 }

@@ -22,8 +22,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.helger.commons.io.file.FileUtils;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.file.FileHelper;
+import com.helger.commons.io.streams.StreamHelper;
 
 public final class MainValidFileNames
 {
@@ -38,14 +38,14 @@ public final class MainValidFileNames
     System.out.println ("--- testing name: " + sName + " ---");
     System.out.println (sName + ".exists()=" + f.exists ());
     System.out.println (sName + ".getAbsolutePath()=" + f.getAbsolutePath ());
-    System.out.println (sName + ".canRead()=" + FileUtils.canRead (f));
-    System.out.println (sName + ".canWrite()=" + FileUtils.canWrite (f));
+    System.out.println (sName + ".canRead()=" + FileHelper.canRead (f));
+    System.out.println (sName + ".canWrite()=" + FileHelper.canWrite (f));
 
     System.out.println ("Writing into " + fileName + " ...");
     OutputStream out = null;
     try
     {
-      out = FileUtils.getOutputStream (f);
+      out = FileHelper.getOutputStream (f);
       out.write (42);
     }// try
     catch (final IOException ex)
@@ -69,8 +69,8 @@ public final class MainValidFileNames
 
     System.out.println (sName + ".exists()=" + f.exists ());
     System.out.println (sName + ".getAbsolutePath()=" + f.getAbsolutePath ());
-    System.out.println (sName + ".canRead()=" + FileUtils.canRead (f));
-    System.out.println (sName + ".canWrite()=" + FileUtils.canWrite (f));
+    System.out.println (sName + ".canRead()=" + FileHelper.canRead (f));
+    System.out.println (sName + ".canWrite()=" + FileHelper.canWrite (f));
     System.out.println ("Reading from " + fileName + " ...");
     FileInputStream in = null;
     try
@@ -88,7 +88,7 @@ public final class MainValidFileNames
     }
     finally
     {
-      StreamUtils.close (in);
+      StreamHelper.close (in);
     }
   }
 

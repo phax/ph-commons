@@ -46,6 +46,6 @@ public abstract class AbstractDoubleComparator <DATATYPE> extends AbstractCompar
   {
     final double d1 = getAsDouble (aElement1);
     final double d2 = getAsDouble (aElement2);
-    return CompareUtils.compare (d1, d2);
+    return CompareHelper.compare (d1, d2);
   }
 }

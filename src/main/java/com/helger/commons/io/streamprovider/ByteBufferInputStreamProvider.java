@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.IInputStreamAndReaderProvider;
 import com.helger.commons.io.streams.ByteBufferInputStream;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -58,7 +58,7 @@ public class ByteBufferInputStreamProvider implements IInputStreamAndReaderProvi
   @Nonnull
   public final InputStreamReader getReader (@Nonnull final Charset aCharset)
   {
-    return StreamUtils.createReader (getInputStream (), aCharset);
+    return StreamHelper.createReader (getInputStream (), aCharset);
   }
 
   @Override

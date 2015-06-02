@@ -19,7 +19,7 @@ package com.helger.commons.factory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -53,7 +53,7 @@ public final class FactoryConstantValue <DATATYPE> implements IFactory <DATATYPE
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FactoryConstantValue <?> rhs = (FactoryConstantValue <?>) o;
-    return EqualsUtils.equals (m_aConstantValue, rhs.m_aConstantValue);
+    return EqualsHelper.equals (m_aConstantValue, rhs.m_aConstantValue);
   }
 
   @Override

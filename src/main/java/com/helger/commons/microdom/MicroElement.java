@@ -37,7 +37,7 @@ import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.iterate.EmptyIterator;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -441,7 +441,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   @Nonnull
   public EChange setNamespaceURI (@Nullable final String sNamespaceURI)
   {
-    if (EqualsUtils.equals (m_sNamespaceURI, sNamespaceURI))
+    if (EqualsHelper.equals (m_sNamespaceURI, sNamespaceURI))
       return EChange.UNCHANGED;
     m_sNamespaceURI = sNamespaceURI;
     return EChange.CHANGED;
@@ -459,7 +459,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   public boolean hasNamespaceURI (@Nullable final String sNamespaceURI)
   {
-    return EqualsUtils.equals (m_sNamespaceURI, sNamespaceURI);
+    return EqualsHelper.equals (m_sNamespaceURI, sNamespaceURI);
   }
 
   @Nullable
@@ -814,9 +814,9 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     if (!super.isEqualContent (o))
       return false;
     final MicroElement rhs = (MicroElement) o;
-    return EqualsUtils.equals (m_sNamespaceURI, rhs.m_sNamespaceURI) &&
+    return EqualsHelper.equals (m_sNamespaceURI, rhs.m_sNamespaceURI) &&
            m_sTagName.equals (rhs.m_sTagName) &&
-           EqualsUtils.equals (m_aAttrs, rhs.m_aAttrs);
+           EqualsHelper.equals (m_aAttrs, rhs.m_aAttrs);
   }
 
   @Override

@@ -30,7 +30,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.ReturnsMutableObject;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.GenericReflection;
 
@@ -429,7 +429,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -449,7 +449,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -469,7 +469,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -489,7 +489,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -509,7 +509,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -529,7 +529,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -549,7 +549,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -569,7 +569,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -589,7 +589,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -610,7 +610,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -630,7 +630,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -650,7 +650,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -670,7 +670,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -690,7 +690,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -710,7 +710,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -730,7 +730,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -750,7 +750,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -770,7 +770,7 @@ public final class ArrayHelper
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsUtils.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -3998,7 +3998,7 @@ public final class ArrayHelper
       else
       {
         // Use equals implementation
-        if (!EqualsUtils.equals (aItem1, aItem2))
+        if (!EqualsHelper.equals (aItem1, aItem2))
           return false;
       }
     }

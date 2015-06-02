@@ -21,7 +21,7 @@ import javax.xml.bind.JAXBElement;
 
 import com.helger.commons.annotations.IsSPIImplementation;
 import com.helger.commons.equals.EqualsImplementationRegistry;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.equals.IEqualsImplementation;
 import com.helger.commons.equals.IEqualsImplementationRegistrarSPI;
 import com.helger.commons.equals.IEqualsImplementationRegistry;
@@ -44,7 +44,7 @@ public final class JAXBEqualsImplementationRegistrarSPI implements IEqualsImplem
       return EqualsImplementationRegistry.areEqual (aRealObj1.getDeclaredType (), aRealObj2.getDeclaredType ()) &&
              EqualsImplementationRegistry.areEqual (aRealObj1.getName (), aRealObj2.getName ()) &&
              EqualsImplementationRegistry.areEqual (aRealObj1.getScope (), aRealObj2.getScope ()) &&
-             EqualsUtils.equals (aRealObj1.isNil (), aRealObj2.isNil ()) &&
+             EqualsHelper.equals (aRealObj1.isNil (), aRealObj2.isNil ()) &&
              EqualsImplementationRegistry.areEqual (aRealObj1.getValue (), aRealObj2.getValue ());
     }
   }

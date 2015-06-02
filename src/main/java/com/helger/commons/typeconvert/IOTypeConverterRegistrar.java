@@ -40,7 +40,7 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.typeconvert.rule.AbstractTypeConverterRuleAssignableSourceFixedDestination;
-import com.helger.commons.url.URLUtils;
+import com.helger.commons.url.URLHelper;
 
 /**
  * Register the IO specific type converter
@@ -72,7 +72,7 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
     {
       public URL convert (@Nonnull final Object aSource)
       {
-        return URLUtils.getAsURL (((File) aSource).toURI ());
+        return URLHelper.getAsURL (((File) aSource).toURI ());
       }
     });
     aRegistry.registerTypeConverter (URI.class, File.class, new ITypeConverter ()
@@ -86,7 +86,7 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
     {
       public URL convert (@Nonnull final Object aSource)
       {
-        return URLUtils.getAsURL ((URI) aSource);
+        return URLHelper.getAsURL ((URI) aSource);
       }
     });
     aRegistry.registerTypeConverter (URL.class, String.class, new ITypeConverter ()
@@ -116,7 +116,7 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
     {
       public URI convert (@Nonnull final Object aSource)
       {
-        return URLUtils.getAsURI ((URL) aSource);
+        return URLHelper.getAsURI ((URL) aSource);
       }
     });
     aRegistry.registerTypeConverter (String.class, File.class, new ITypeConverter ()
@@ -130,14 +130,14 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
     {
       public URI convert (@Nonnull final Object aSource)
       {
-        return URLUtils.getAsURI ((String) aSource);
+        return URLHelper.getAsURI ((String) aSource);
       }
     });
     aRegistry.registerTypeConverter (String.class, URL.class, new ITypeConverter ()
     {
       public URL convert (@Nonnull final Object aSource)
       {
-        return URLUtils.getAsURL ((String) aSource);
+        return URLHelper.getAsURL ((String) aSource);
       }
     });
 

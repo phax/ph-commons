@@ -46,13 +46,13 @@ public final class EqualsImplementationRegistryTest extends AbstractCommonsTestC
     ((Element) aRoot2.appendChild (d2.createElement ("child"))).setAttribute ("any", "works");
 
     // Regular
-    assertTrue (EqualsUtils.equals (d1, d2));
+    assertTrue (EqualsHelper.equals (d1, d2));
 
     // 1 level array
-    assertTrue (EqualsUtils.equals (ArrayHelper.newArray (d1), ArrayHelper.newArray (d2)));
+    assertTrue (EqualsHelper.equals (ArrayHelper.newArray (d1), ArrayHelper.newArray (d2)));
 
     // 2 level array
-    assertTrue (EqualsUtils.equals (ArrayHelper.newArray (ArrayHelper.newArray (d1)),
+    assertTrue (EqualsHelper.equals (ArrayHelper.newArray (ArrayHelper.newArray (d1)),
                                     ArrayHelper.newArray (ArrayHelper.newArray (d2))));
   }
 }

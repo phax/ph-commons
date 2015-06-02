@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -80,7 +80,7 @@ public class ASCIIHexCodec extends AbstractByteArrayDecoder
     }
     finally
     {
-      StreamUtils.close (aBAOS);
+      StreamHelper.close (aBAOS);
     }
   }
 }

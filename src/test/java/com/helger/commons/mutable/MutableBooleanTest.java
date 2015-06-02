@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.typeconvert.TypeConverter;
 
 /**
@@ -45,10 +45,10 @@ public final class MutableBooleanTest
     assertFalse (x.set (true).isChanged ());
     assertTrue (x.booleanValue ());
     assertSame (Boolean.TRUE, x.getAsBoolean ());
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new MutableBoolean (true), new MutableBoolean (true));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new MutableBoolean (true),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableBoolean (true), new MutableBoolean (true));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableBoolean (true),
                                                                      new MutableBoolean (false));
-    CommonsTestUtils.testGetClone (new MutableBoolean (true));
+    CommonsTestHelper.testGetClone (new MutableBoolean (true));
   }
 
   @Test
@@ -59,6 +59,6 @@ public final class MutableBooleanTest
     assertNotNull (b);
     assertTrue (b.booleanValue ());
     assertTrue (TypeConverter.convertToBoolean (x));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (x, TypeConverter.convert (true, MutableBoolean.class));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, TypeConverter.convert (true, MutableBoolean.class));
   }
 }

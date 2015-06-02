@@ -52,6 +52,6 @@ public class CollatingComparatorLocaleDisplayNameInLocale extends AbstractCollat
   @Override
   protected String getPart (@Nullable final Locale aLocale)
   {
-    return LocaleUtils.getLocaleDisplayName (aLocale, m_aContentLocale);
+    return LocaleHelper.getLocaleDisplayName (aLocale, m_aContentLocale);
   }
 }

@@ -21,7 +21,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.namespace.QName;
 
 import com.helger.commons.compare.AbstractComparator;
-import com.helger.commons.compare.CompareUtils;
+import com.helger.commons.compare.CompareHelper;
 
 /**
  * Comparator for {@link QName} objects
@@ -37,7 +37,7 @@ public class ComparatorQName extends AbstractComparator <QName>
   @Override
   protected int mainCompare (@Nonnull final QName aElement1, @Nonnull final QName aElement2)
   {
-    int ret = CompareUtils.nullSafeCompare (aElement1.getNamespaceURI (),
+    int ret = CompareHelper.nullSafeCompare (aElement1.getNamespaceURI (),
                                             aElement2.getNamespaceURI (),
                                             isNullValuesComeFirst ());
     if (ret == 0)

@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -122,7 +122,7 @@ public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final AbstractFilter <?> rhs = (AbstractFilter <?>) o;
-    return EqualsUtils.equals (m_aNestedFilter, rhs.m_aNestedFilter);
+    return EqualsHelper.equals (m_aNestedFilter, rhs.m_aNestedFilter);
   }
 
   @Override

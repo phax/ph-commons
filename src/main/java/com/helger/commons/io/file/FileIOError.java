@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.ISuccessIndicator;
 import com.helger.commons.string.ToStringGenerator;
@@ -179,9 +179,9 @@ public final class FileIOError implements ISuccessIndicator, Serializable
     final FileIOError rhs = (FileIOError) o;
     return m_eOperation == rhs.m_eOperation &&
            m_eCode == rhs.m_eCode &&
-           EqualsUtils.equals (m_aFile1, rhs.m_aFile1) &&
-           EqualsUtils.equals (m_aFile2, rhs.m_aFile2) &&
-           EqualsUtils.equals (m_aException, rhs.m_aException);
+           EqualsHelper.equals (m_aFile1, rhs.m_aFile1) &&
+           EqualsHelper.equals (m_aFile2, rhs.m_aFile2) &&
+           EqualsHelper.equals (m_aException, rhs.m_aException);
   }
 
   @Override

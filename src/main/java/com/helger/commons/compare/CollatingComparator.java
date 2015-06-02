@@ -46,7 +46,7 @@ public class CollatingComparator extends AbstractComparator <String>
    */
   public CollatingComparator (@Nullable final Locale aSortLocale)
   {
-    m_aCollator = CollatorUtils.getCollatorSpaceBeforeDot (aSortLocale);
+    m_aCollator = CollatorHelper.getCollatorSpaceBeforeDot (aSortLocale);
   }
 
   /**

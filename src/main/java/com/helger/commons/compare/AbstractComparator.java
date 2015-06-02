@@ -36,7 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
 public abstract class AbstractComparator <DATATYPE> implements ISerializableComparator <DATATYPE>
 {
   private ESortOrder m_eSortOrder = ESortOrder.DEFAULT;
-  private boolean m_bNullValuesComeFirst = CompareUtils.DEFAULT_NULL_VALUES_COME_FIRST;
+  private boolean m_bNullValuesComeFirst = CompareHelper.DEFAULT_NULL_VALUES_COME_FIRST;
   private Comparator <? super DATATYPE> m_aNestedComparator;
 
   /**

@@ -29,9 +29,9 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.IChangeCallback;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.locale.LocaleCache;
-import com.helger.commons.locale.LocaleUtils;
+import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.state.EChange;
 
 /**
@@ -122,7 +122,7 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
       final String sOldText = super.internalGetText (aContentLocale);
 
       // Did anything change?
-      if (EqualsUtils.equals (sOldText, sText))
+      if (EqualsHelper.equals (sOldText, sText))
         return EChange.UNCHANGED;
 
       if (!_beforeChange ())
@@ -143,7 +143,7 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
   @Nonnull
   public EChange removeText (@Nonnull final Locale aContentLocale)
   {
-    for (final Locale aCurrentLocale : LocaleUtils.getCalculatedLocaleListForResolving (aContentLocale))
+    for (final Locale aCurrentLocale : LocaleHelper.getCalculatedLocaleListForResolving (aContentLocale))
       if (super.containsLocale (aCurrentLocale))
       {
         if (!_beforeChange ())

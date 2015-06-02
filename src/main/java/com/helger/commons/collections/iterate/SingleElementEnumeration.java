@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -70,7 +70,7 @@ public class SingleElementEnumeration <ELEMENTTYPE> implements Enumeration <ELEM
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleElementEnumeration <?> rhs = (SingleElementEnumeration <?>) o;
-    return m_bHasMoreElements == rhs.m_bHasMoreElements && EqualsUtils.equals (m_aElement, rhs.m_aElement);
+    return m_bHasMoreElements == rhs.m_bHasMoreElements && EqualsHelper.equals (m_aElement, rhs.m_aElement);
   }
 
   @Override

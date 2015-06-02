@@ -65,25 +65,25 @@ public final class ResourceBundleKey implements Serializable
   @Nullable
   public String getString (@Nonnull final Locale aContentLocale)
   {
-    return ResourceBundleUtils.getString (m_sBundleName, aContentLocale, m_sKey);
+    return ResourceBundleHelper.getString (m_sBundleName, aContentLocale, m_sKey);
   }
 
   @Nullable
   public String getString (@Nonnull final Locale aContentLocale, @Nonnull final ClassLoader aClassLoader)
   {
-    return ResourceBundleUtils.getString (m_sBundleName, aContentLocale, m_sKey, aClassLoader);
+    return ResourceBundleHelper.getString (m_sBundleName, aContentLocale, m_sKey, aClassLoader);
   }
 
   @Nullable
   public String getUtf8String (@Nonnull final Locale aContentLocale)
   {
-    return ResourceBundleUtils.getUtf8String (m_sBundleName, aContentLocale, m_sKey);
+    return ResourceBundleHelper.getUtf8String (m_sBundleName, aContentLocale, m_sKey);
   }
 
   @Nullable
   public String getUtf8String (@Nonnull final Locale aContentLocale, @Nonnull final ClassLoader aClassLoader)
   {
-    return ResourceBundleUtils.getUtf8String (m_sBundleName, aContentLocale, m_sKey, aClassLoader);
+    return ResourceBundleHelper.getUtf8String (m_sBundleName, aContentLocale, m_sKey, aClassLoader);
   }
 
   @Override

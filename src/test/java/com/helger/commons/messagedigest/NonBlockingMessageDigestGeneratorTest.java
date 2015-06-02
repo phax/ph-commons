@@ -24,7 +24,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link NonBlockingMessageDigestGenerator}.
@@ -146,6 +146,6 @@ public final class NonBlockingMessageDigestGeneratorTest
     md.reset ();
     md.update ((byte) 6);
 
-    CommonsTestUtils.testToStringImplementation (md);
+    CommonsTestHelper.testToStringImplementation (md);
   }
 }

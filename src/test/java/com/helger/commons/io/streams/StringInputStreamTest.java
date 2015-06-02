@@ -37,12 +37,12 @@ public final class StringInputStreamTest
   {
     final String sTestString = "test äöü 123 - This counts!";
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    StreamUtils.copyInputStreamToOutputStream (new StringInputStream (sTestString, CCharset.CHARSET_ISO_8859_1_OBJ),
+    StreamHelper.copyInputStreamToOutputStream (new StringInputStream (sTestString, CCharset.CHARSET_ISO_8859_1_OBJ),
                                                aBAOS);
     assertEquals (sTestString, aBAOS.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ));
     aBAOS.reset ();
     final Charset aCS = CharsetManager.getCharsetFromName ("UTF-16");
-    StreamUtils.copyInputStreamToOutputStream (new StringInputStream (sTestString, aCS), aBAOS);
+    StreamHelper.copyInputStreamToOutputStream (new StringInputStream (sTestString, aCS), aBAOS);
     assertEquals (sTestString, aBAOS.getAsString (aCS));
   }
 }

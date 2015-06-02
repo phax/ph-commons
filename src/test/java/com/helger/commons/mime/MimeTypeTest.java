@@ -28,7 +28,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MimeType}
@@ -46,16 +46,16 @@ public final class MimeTypeTest extends AbstractCommonsTestCase
     assertEquals ("text/junit", mt.getAsString ());
     assertEquals ("text/junit", mt.getAsStringWithoutParameters ());
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (mt, new MimeType (EMimeContentType.TEXT, "junit"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.APPLICATION,
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (mt, new MimeType (EMimeContentType.TEXT, "junit"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.APPLICATION,
                                                                                        "junit"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.TEXT, "testng"));
-    CommonsTestUtils.testGetClone (mt);
-    CommonsTestUtils.testDefaultSerialization (mt);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.TEXT, "testng"));
+    CommonsTestHelper.testGetClone (mt);
+    CommonsTestHelper.testDefaultSerialization (mt);
 
     mt.addParameter ("charset", CCharset.CHARSET_UTF_8);
-    CommonsTestUtils.testGetClone (mt);
-    CommonsTestUtils.testDefaultSerialization (mt);
+    CommonsTestHelper.testGetClone (mt);
+    CommonsTestHelper.testDefaultSerialization (mt);
 
     try
     {

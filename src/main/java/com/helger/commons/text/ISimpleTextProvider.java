@@ -51,7 +51,7 @@ public interface ISimpleTextProvider extends Serializable
    * @param aContentLocale
    *        The locale to use. May not be <code>null</code>.
    * @return <code>null</code> if no text for the given locale was found.
-   * @see com.helger.commons.locale.LocaleUtils#getCalculatedLocaleListForResolving(Locale)
+   * @see com.helger.commons.locale.LocaleHelper#getCalculatedLocaleListForResolving(Locale)
    */
   @Nullable
   String getTextWithLocaleFallback (@Nonnull Locale aContentLocale);

@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 import org.junit.Test;
 
 import com.helger.commons.hierarchy.DefaultHierarchyWalkerCallback;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.filter.FilenameFilterEndsWith;
 import com.helger.commons.tree.utils.walk.TreeWalker;
 import com.helger.commons.tree.withid.folder.DefaultFolderTreeItem;
@@ -85,7 +85,7 @@ public final class FileSystemFolderTreeTest
                               {
                                 if (aFolder != null)
                                   for (final File aFile : aFolder.getData ())
-                                    assertTrue (FileUtils.existsFile (aFile));
+                                    assertTrue (FileHelper.existsFile (aFile));
                               }
                             });
 

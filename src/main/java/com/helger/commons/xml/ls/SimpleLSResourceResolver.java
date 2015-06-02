@@ -36,7 +36,7 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.url.URLUtils;
+import com.helger.commons.url.URLHelper;
 
 /**
  * A simple LS resource resolver that can handle URLs, JAR files and file system
@@ -87,7 +87,7 @@ public class SimpleLSResourceResolver implements LSResourceResolver
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("Trying to resolve resource " + sSystemId + " from base " + sBaseURI);
 
-    final URL aSystemURL = URLUtils.getAsURL (sSystemId);
+    final URL aSystemURL = URLHelper.getAsURL (sSystemId);
 
     // Absolute URL requested?
     if (aSystemURL != null && !aSystemURL.getProtocol ().equals (URLResource.PROTOCOL_FILE))
@@ -129,7 +129,7 @@ public class SimpleLSResourceResolver implements LSResourceResolver
     }
 
     // Try whether the base is a URI
-    final URL aBaseURL = URLUtils.getAsURL (sBaseURI);
+    final URL aBaseURL = URLHelper.getAsURL (sBaseURI);
 
     // Handle "file" protocol separately
     if (aBaseURL != null && !aBaseURL.getProtocol ().equals (URLResource.PROTOCOL_FILE))

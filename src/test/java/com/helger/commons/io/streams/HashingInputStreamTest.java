@@ -27,7 +27,7 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link HashingInputStream}.
@@ -51,7 +51,7 @@ public final class HashingInputStreamTest
                                                                                                                                CCharset.CHARSET_ISO_8859_1_OBJ)),
                                                                eMDAlgo);
       assertTrue (aHIS1.read () != -1);
-      StreamUtils.copyInputStreamToOutputStream (aHIS1, new NonBlockingByteArrayOutputStream ());
+      StreamHelper.copyInputStreamToOutputStream (aHIS1, new NonBlockingByteArrayOutputStream ());
       final byte [] aDigest1 = aHIS1.getDigest ();
 
       // Second hash
@@ -59,13 +59,13 @@ public final class HashingInputStreamTest
                                                                                                                                CCharset.CHARSET_ISO_8859_1_OBJ)),
                                                                eMDAlgo);
       assertTrue (aHIS2.read () != -1);
-      StreamUtils.copyInputStreamToOutputStream (aHIS2, new NonBlockingByteArrayOutputStream ());
+      StreamHelper.copyInputStreamToOutputStream (aHIS2, new NonBlockingByteArrayOutputStream ());
       final byte [] aDigest2 = aHIS2.getDigest ();
 
       // Must be equal
       assertArrayEquals (aDigest1, aDigest2);
 
-      CommonsTestUtils.testToStringImplementation (aHIS1);
+      CommonsTestHelper.testToStringImplementation (aHIS1);
     }
   }
 }

@@ -47,7 +47,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.io.streams.NonBlockingBufferedReader;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 
 /**
  * A very simple CSV reader released under a commercial-friendly license.
@@ -107,7 +107,7 @@ public class CSVReader implements Closeable, Iterable <List <String>>
     ValueEnforcer.notNull (aReader, "Reader");
     ValueEnforcer.notNull (aParser, "Parser");
 
-    Reader aInternallyBufferedReader = StreamUtils.getBuffered (aReader);
+    Reader aInternallyBufferedReader = StreamHelper.getBuffered (aReader);
     if (bKeepCR)
       m_aLineReader = new CSVLineReaderKeepCR (aInternallyBufferedReader);
     else

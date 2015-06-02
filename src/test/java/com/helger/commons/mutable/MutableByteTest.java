@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MutableByte}.
@@ -102,8 +102,8 @@ public final class MutableByteTest
     x.set (1);
     assertTrue (x.isGreater0 ());
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new MutableByte (-7), new MutableByte (-7));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new MutableByte (6), new MutableByte (7));
-    CommonsTestUtils.testGetClone (new MutableByte (Integer.MAX_VALUE));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableByte (-7), new MutableByte (-7));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableByte (6), new MutableByte (7));
+    CommonsTestHelper.testGetClone (new MutableByte (Integer.MAX_VALUE));
   }
 }

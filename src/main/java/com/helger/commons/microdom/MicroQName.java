@@ -28,8 +28,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.GlobalDebug;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.compare.CompareUtils;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.compare.CompareHelper;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -103,7 +103,7 @@ public final class MicroQName implements IMicroQName, Comparable <MicroQName>
 
   public boolean hasNamespaceURI (@Nullable final String sNamespaceURI)
   {
-    return EqualsUtils.equals (m_sNamespaceURI, sNamespaceURI);
+    return EqualsHelper.equals (m_sNamespaceURI, sNamespaceURI);
   }
 
   @Nonnull
@@ -127,7 +127,7 @@ public final class MicroQName implements IMicroQName, Comparable <MicroQName>
 
   public int compareTo (@Nonnull final MicroQName o)
   {
-    int ret = CompareUtils.nullSafeCompare (m_sNamespaceURI, o.m_sNamespaceURI);
+    int ret = CompareHelper.nullSafeCompare (m_sNamespaceURI, o.m_sNamespaceURI);
     if (ret == 0)
       ret = m_sName.compareTo (o.m_sName);
     return ret;
@@ -141,7 +141,7 @@ public final class MicroQName implements IMicroQName, Comparable <MicroQName>
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MicroQName rhs = (MicroQName) o;
-    return EqualsUtils.equals (m_sNamespaceURI, rhs.m_sNamespaceURI) && m_sName.equals (rhs.m_sName);
+    return EqualsHelper.equals (m_sNamespaceURI, rhs.m_sNamespaceURI) && m_sName.equals (rhs.m_sName);
   }
 
   @Override

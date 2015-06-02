@@ -20,7 +20,7 @@ import java.util.Collection;
 
 import javax.annotation.Nullable;
 
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.id.IHasID;
 
 /**
@@ -44,7 +44,7 @@ public class ChildrenProviderHasChildrenWithID <KEYTYPE, CHILDTYPE extends IHasC
       final Collection <? extends CHILDTYPE> aChildren = aCurrent.getAllChildren ();
       if (aChildren != null)
         for (final CHILDTYPE aChild : aChildren)
-          if (aChild != null && EqualsUtils.equals (aChild.getID (), aID))
+          if (aChild != null && EqualsHelper.equals (aChild.getID (), aID))
             return aChild;
     }
     return null;

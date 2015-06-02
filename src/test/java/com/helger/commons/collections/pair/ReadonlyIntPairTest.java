@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link ReadonlyIntPair}.
@@ -48,11 +48,11 @@ public final class ReadonlyIntPairTest
     assertEquals (5, aPair2.getFirst ());
     assertEquals (2, aPair2.getSecond ());
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyIntPair (5, -30),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadonlyIntPair (5, -30),
                                                                  new ReadonlyIntPair (5, -30));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ReadonlyIntPair (5, -30),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ReadonlyIntPair (5, -30),
                                                                      new ReadonlyIntPair (-5, -30));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ReadonlyIntPair (5, -30),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ReadonlyIntPair (5, -30),
                                                                      new ReadonlyIntPair (5, 30));
   }
 }

@@ -36,7 +36,7 @@ import com.helger.commons.annotations.UseDirectEqualsAndHashCode;
 import com.helger.commons.cache.AnnotationUsageCache;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
-import com.helger.commons.lang.ServiceLoaderUtils;
+import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.state.EChange;
 
 /**
@@ -123,7 +123,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     }
 
     // Register all implementations via SPI
-    for (final IEqualsImplementationRegistrarSPI aRegistrar : ServiceLoaderUtils.getAllSPIImplementations (IEqualsImplementationRegistrarSPI.class))
+    for (final IEqualsImplementationRegistrarSPI aRegistrar : ServiceLoaderHelper.getAllSPIImplementations (IEqualsImplementationRegistrarSPI.class))
       aRegistrar.registerEqualsImplementations (this);
   }
 

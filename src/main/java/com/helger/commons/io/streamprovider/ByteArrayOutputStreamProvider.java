@@ -26,7 +26,7 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.IOutputStreamAndWriterProvider;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -52,7 +52,7 @@ public class ByteArrayOutputStreamProvider implements IOutputStreamAndWriterProv
   @Nonnull
   public final OutputStreamWriter getWriter (@Nonnull final Charset aCharset, @Nonnull final EAppend eAppend)
   {
-    return StreamUtils.createWriter (getOutputStream (eAppend), aCharset);
+    return StreamHelper.createWriter (getOutputStream (eAppend), aCharset);
   }
 
   /**

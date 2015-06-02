@@ -26,7 +26,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.IHasStringRepresentation;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
@@ -483,7 +483,7 @@ public final class Version implements Comparable <Version>, IHasStringRepresenta
     return m_nMajor == rhs.m_nMajor &&
            m_nMinor == rhs.m_nMinor &&
            m_nMicro == rhs.m_nMicro &&
-           EqualsUtils.equals (m_sQualifier, rhs.m_sQualifier);
+           EqualsHelper.equals (m_sQualifier, rhs.m_sQualifier);
   }
 
   @Override

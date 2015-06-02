@@ -21,8 +21,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CDefault;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.compare.CompareUtils;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.compare.CompareHelper;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -148,7 +148,7 @@ public final class MutableDouble extends AbstractMutableNumeric <MutableDouble>
   @Nonnull
   public EChange set (final double dValue)
   {
-    if (EqualsUtils.equals (dValue, m_dValue))
+    if (EqualsHelper.equals (dValue, m_dValue))
       return EChange.UNCHANGED;
     m_dValue = dValue;
     return EChange.CHANGED;
@@ -163,7 +163,7 @@ public final class MutableDouble extends AbstractMutableNumeric <MutableDouble>
 
   public boolean is0 ()
   {
-    return EqualsUtils.equals (m_dValue, 0);
+    return EqualsHelper.equals (m_dValue, 0);
   }
 
   public boolean isNot0 ()
@@ -173,27 +173,27 @@ public final class MutableDouble extends AbstractMutableNumeric <MutableDouble>
 
   public boolean isSmaller0 ()
   {
-    return CompareUtils.compare (m_dValue, 0) < 0;
+    return CompareHelper.compare (m_dValue, 0) < 0;
   }
 
   public boolean isSmallerOrEqual0 ()
   {
-    return CompareUtils.compare (m_dValue, 0) <= 0;
+    return CompareHelper.compare (m_dValue, 0) <= 0;
   }
 
   public boolean isGreater0 ()
   {
-    return CompareUtils.compare (m_dValue, 0) > 0;
+    return CompareHelper.compare (m_dValue, 0) > 0;
   }
 
   public boolean isGreaterOrEqual0 ()
   {
-    return CompareUtils.compare (m_dValue, 0) >= 0;
+    return CompareHelper.compare (m_dValue, 0) >= 0;
   }
 
   public int compareTo (@Nonnull final MutableDouble rhs)
   {
-    return CompareUtils.compare (m_dValue, rhs.m_dValue);
+    return CompareHelper.compare (m_dValue, rhs.m_dValue);
   }
 
   @Nonnull
@@ -210,7 +210,7 @@ public final class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MutableDouble rhs = (MutableDouble) o;
-    return EqualsUtils.equals (m_dValue, rhs.m_dValue);
+    return EqualsHelper.equals (m_dValue, rhs.m_dValue);
   }
 
   @Override

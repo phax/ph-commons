@@ -172,7 +172,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
     }
     finally
     {
-      StreamUtils.close (aOS);
+      StreamHelper.close (aOS);
     }
   }
 

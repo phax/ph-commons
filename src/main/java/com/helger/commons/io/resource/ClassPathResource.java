@@ -32,10 +32,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -262,7 +262,7 @@ public class ClassPathResource implements IReadableResource
   @Nullable
   public Reader getReader (@Nonnull final Charset aCharset)
   {
-    return StreamUtils.createReader (getInputStream (), aCharset);
+    return StreamHelper.createReader (getInputStream (), aCharset);
   }
 
   /**
@@ -279,7 +279,7 @@ public class ClassPathResource implements IReadableResource
   @Nullable
   public Reader getReaderNoCache (@Nonnull final ClassLoader aClassLoader, @Nonnull final Charset aCharset)
   {
-    return StreamUtils.createReader (getInputStreamNoCache (aClassLoader), aCharset);
+    return StreamHelper.createReader (getInputStreamNoCache (aClassLoader), aCharset);
   }
 
   public boolean exists ()
@@ -477,8 +477,8 @@ public class ClassPathResource implements IReadableResource
       return false;
     final ClassPathResource rhs = (ClassPathResource) o;
     // URL and URLresolved are state variables
-    return EqualsUtils.equals (m_sPath, rhs.m_sPath) &&
-           EqualsUtils.equals (_getSpecifiedClassLoader (), rhs._getSpecifiedClassLoader ());
+    return EqualsHelper.equals (m_sPath, rhs.m_sPath) &&
+           EqualsHelper.equals (_getSpecifiedClassLoader (), rhs._getSpecifiedClassLoader ());
   }
 
   @Override

@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsAssert;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -58,10 +58,10 @@ public final class SizeDoubleTest
     catch (final IllegalArgumentException ex)
     {}
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new SizeDouble (320, 240), new SizeDouble (320, 240));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240), new SizeDouble (321,
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SizeDouble (320, 240), new SizeDouble (320, 240));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240), new SizeDouble (321,
                                                                                                                 240));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240), new SizeDouble (320,
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240), new SizeDouble (320,
                                                                                                                 241));
   }
 

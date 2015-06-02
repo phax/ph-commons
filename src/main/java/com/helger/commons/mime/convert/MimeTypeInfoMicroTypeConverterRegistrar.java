@@ -29,7 +29,7 @@ import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.convert.IMicroTypeConverter;
 import com.helger.commons.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.commons.microdom.convert.IMicroTypeConverterRegistry;
-import com.helger.commons.microdom.utils.MicroUtils;
+import com.helger.commons.microdom.utils.MicroHelper;
 import com.helger.commons.mime.MimeType;
 import com.helger.commons.mime.MimeTypeInfo;
 import com.helger.commons.mime.MimeTypeInfo.ExtensionWithSource;
@@ -67,7 +67,7 @@ public final class MimeTypeInfoMicroTypeConverterRegistrar implements IMicroType
         aMimeTypes.add (new MimeTypeWithSource (aMimeType, sSource));
       }
 
-      final String sComment = MicroUtils.getChildTextContent (aElement, ELEMENT_COMMENT);
+      final String sComment = MicroHelper.getChildTextContent (aElement, ELEMENT_COMMENT);
 
       final Set <String> aParentTypes = new LinkedHashSet <String> ();
       for (final IMicroElement eParentType : aElement.getAllChildElements (ELEMENT_PARENT_TYPE))

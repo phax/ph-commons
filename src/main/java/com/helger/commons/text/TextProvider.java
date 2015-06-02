@@ -38,7 +38,7 @@ import com.helger.commons.annotations.ReturnsMutableObject;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.locale.LocaleCache;
-import com.helger.commons.locale.LocaleUtils;
+import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -170,7 +170,7 @@ public class TextProvider extends AbstractTextProvider implements IReadonlyMulti
   @Nullable
   protected final Locale internalGetLocaleToUseWithFallback (@Nonnull final Locale aContentLocale)
   {
-    return LocaleUtils.getLocaleToUseOrNull (aContentLocale, m_aTexts.keySet ());
+    return LocaleHelper.getLocaleToUseOrNull (aContentLocale, m_aTexts.keySet ());
   }
 
   @Override
@@ -209,7 +209,7 @@ public class TextProvider extends AbstractTextProvider implements IReadonlyMulti
   public final boolean containsLocaleWithFallback (@Nullable final Locale aContentLocale)
   {
     if (aContentLocale != null)
-      for (final Locale aCurrentLocale : LocaleUtils.getCalculatedLocaleListForResolving (aContentLocale))
+      for (final Locale aCurrentLocale : LocaleHelper.getCalculatedLocaleListForResolving (aContentLocale))
         if (containsLocale (aCurrentLocale))
           return true;
     return false;

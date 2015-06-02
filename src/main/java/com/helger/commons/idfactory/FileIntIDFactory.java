@@ -26,7 +26,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.hash.HashCodeGenerator;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.string.StringParser;
 import com.helger.commons.string.ToStringGenerator;
@@ -58,7 +58,7 @@ public class FileIntIDFactory extends AbstractPersistingIntIDFactory
   {
     super (nReserveCount);
     ValueEnforcer.notNull (aFile, "File");
-    if (!FileUtils.canReadAndWriteFile (aFile))
+    if (!FileHelper.canReadAndWriteFile (aFile))
       throw new IllegalArgumentException ("Cannot read and/or write the file " + aFile + "!");
     m_aFile = aFile;
   }

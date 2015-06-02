@@ -25,7 +25,7 @@ import javax.xml.transform.TransformerFactory;
 import org.junit.Test;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link DefaultTransformURIResolver}.
@@ -56,7 +56,7 @@ public final class DefaultTransformURIResolverTest
       t1 = XMLTransformerFactory.newTemplates (fac, new ClassPathResource ("xml/test3.xslt"));
       assertNull (t1);
 
-      CommonsTestUtils.testToStringImplementation (res);
+      CommonsTestHelper.testToStringImplementation (res);
     }
   }
 }

@@ -19,7 +19,7 @@ package com.helger.commons.xml.ls;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -88,11 +88,11 @@ public final class LSResourceData
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final LSResourceData rhs = (LSResourceData) o;
-    return EqualsUtils.equals (m_sType, rhs.m_sType) &&
-           EqualsUtils.equals (m_sNamespaceURI, rhs.m_sNamespaceURI) &&
-           EqualsUtils.equals (m_sPublicID, rhs.m_sPublicID) &&
-           EqualsUtils.equals (m_sSystemID, rhs.m_sSystemID) &&
-           EqualsUtils.equals (m_sBaseURI, rhs.m_sBaseURI);
+    return EqualsHelper.equals (m_sType, rhs.m_sType) &&
+           EqualsHelper.equals (m_sNamespaceURI, rhs.m_sNamespaceURI) &&
+           EqualsHelper.equals (m_sPublicID, rhs.m_sPublicID) &&
+           EqualsHelper.equals (m_sSystemID, rhs.m_sSystemID) &&
+           EqualsHelper.equals (m_sBaseURI, rhs.m_sBaseURI);
   }
 
   @Override

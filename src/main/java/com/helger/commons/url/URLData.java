@@ -27,7 +27,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.ReturnsMutableObject;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -130,8 +130,8 @@ public class URLData implements IURLData
       return false;
     final URLData rhs = (URLData) o;
     return m_sPath.equals (rhs.m_sPath) &&
-           EqualsUtils.equals (m_aParams, rhs.m_aParams) &&
-           EqualsUtils.equals (m_sAnchor, rhs.m_sAnchor);
+           EqualsHelper.equals (m_aParams, rhs.m_aParams) &&
+           EqualsHelper.equals (m_sAnchor, rhs.m_sAnchor);
   }
 
   @Override

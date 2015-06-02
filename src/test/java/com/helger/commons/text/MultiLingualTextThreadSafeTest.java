@@ -31,7 +31,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.IMultiLingualText;
 import com.helger.commons.text.IReadonlyMultiLingualText;
 import com.helger.commons.text.MultiLingualText;
@@ -239,9 +239,9 @@ public final class MultiLingualTextThreadSafeTest extends AbstractCommonsTestCas
     t.setText (L_DE, "x");
     t.setText (L_EN, "y");
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (t, new MultiLingualTextThreadSafe (t));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (t, new MultiLingualTextThreadSafe ());
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (t,
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t, new MultiLingualTextThreadSafe (t));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t, new MultiLingualTextThreadSafe ());
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t,
                                                                      new MultiLingualTextThreadSafe (new ReadonlyMultiLingualText (CollectionHelper.newMap (L_DE,
                                                                                                                                                             "x"))));
   }

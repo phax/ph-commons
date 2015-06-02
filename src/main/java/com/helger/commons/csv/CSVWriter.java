@@ -47,7 +47,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.collections.iterate.ArrayIterator;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 
 /**
  * A very simple CSV writer released under a commercial-friendly license.
@@ -489,6 +489,6 @@ public class CSVWriter implements Closeable, Flushable
    */
   public void flushQuietly ()
   {
-    StreamUtils.flush (this);
+    StreamHelper.flush (this);
   }
 }

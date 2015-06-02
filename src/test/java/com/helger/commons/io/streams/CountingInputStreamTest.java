@@ -24,7 +24,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link CountingInputStream}.
@@ -40,9 +40,9 @@ public final class CountingInputStreamTest
     final CountingInputStream aCIS = new CountingInputStream (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes (sTestString,
                                                                                                                               CCharset.CHARSET_ISO_8859_1_OBJ)));
     aCIS.read ();
-    StreamUtils.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
+    StreamHelper.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
     assertEquals (sTestString.length (), aCIS.getBytesRead ());
     assertEquals (sTestString.length (), aCIS.getPosition ());
-    CommonsTestUtils.testToStringImplementation (aCIS);
+    CommonsTestHelper.testToStringImplementation (aCIS);
   }
 }

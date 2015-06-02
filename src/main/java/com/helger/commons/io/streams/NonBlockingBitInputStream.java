@@ -74,7 +74,7 @@ public class NonBlockingBitInputStream implements Closeable
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aByteOrder, "ByteOrder");
 
-    m_aIS = StreamUtils.getBuffered (aIS);
+    m_aIS = StreamHelper.getBuffered (aIS);
     m_bHighOrderBitFirst = aByteOrder.equals (ByteOrder.LITTLE_ENDIAN);
     m_nNextBitIndex = CGlobal.BITS_PER_BYTE;
   }
@@ -144,7 +144,7 @@ public class NonBlockingBitInputStream implements Closeable
    */
   public void close ()
   {
-    StreamUtils.close (m_aIS);
+    StreamHelper.close (m_aIS);
     m_aIS = null;
   }
 

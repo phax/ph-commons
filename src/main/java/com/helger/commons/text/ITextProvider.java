@@ -57,7 +57,7 @@ public interface ITextProvider extends ISimpleTextProvider
    *        The arguments to be added into the string. May be <code>null</code>
    *        but this makes no sense.
    * @return <code>null</code> if no text for the given locale was found.
-   * @see com.helger.commons.locale.LocaleUtils#getCalculatedLocaleListForResolving(Locale)
+   * @see com.helger.commons.locale.LocaleHelper#getCalculatedLocaleListForResolving(Locale)
    */
   @Nullable
   String getTextWithLocaleFallbackAndArgs (@Nonnull Locale aContentLocale, @Nullable Object... aArgs);

@@ -57,9 +57,9 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
     super (sScopeID);
 
     // Sessions are always displayed to see what's happening
-    if (ScopeUtils.debugSessionScopeLifeCycle (s_aLogger))
+    if (ScopeHelper.debugSessionScopeLifeCycle (s_aLogger))
       s_aLogger.info ("Created session scope '" + getID () + "' of class " + CGStringHelper.getClassLocalName (this),
-                      ScopeUtils.getDebugStackTrace ());
+                      ScopeHelper.getDebugStackTrace ());
   }
 
   public void initScope ()
@@ -90,17 +90,17 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
   @Override
   protected void preDestroy ()
   {
-    if (ScopeUtils.debugSessionScopeLifeCycle (s_aLogger))
+    if (ScopeHelper.debugSessionScopeLifeCycle (s_aLogger))
       s_aLogger.info ("Destroying session scope '" + getID () + "' of class " + CGStringHelper.getClassLocalName (this),
-                      ScopeUtils.getDebugStackTrace ());
+                      ScopeHelper.getDebugStackTrace ());
   }
 
   @Override
   protected void postDestroy ()
   {
-    if (ScopeUtils.debugSessionScopeLifeCycle (s_aLogger))
+    if (ScopeHelper.debugSessionScopeLifeCycle (s_aLogger))
       s_aLogger.info ("Destroyed session scope '" + getID () + "' of class " + CGStringHelper.getClassLocalName (this),
-                      ScopeUtils.getDebugStackTrace ());
+                      ScopeHelper.getDebugStackTrace ());
   }
 
   @Nonnull

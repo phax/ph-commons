@@ -27,7 +27,7 @@ import org.junit.Test;
 import com.helger.commons.aggregate.AggregatorStringWithSeparator;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link DefaultFolderTree}.
@@ -65,6 +65,6 @@ public final class DefaultFolderTreeTest extends AbstractCommonsTestCase
     assertNotNull (i3);
     assertTrue (i1 != i3);
 
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (i1, i3);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (i1, i3);
   }
 }

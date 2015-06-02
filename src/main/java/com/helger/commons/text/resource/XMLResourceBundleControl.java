@@ -29,7 +29,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 
 //SKIPJDK5
 /**
@@ -70,14 +70,14 @@ public final class XMLResourceBundleControl extends ResourceBundle.Control
       final URL aResourceUrl = aClassLoader.getResource (sResourceName);
       if (aResourceUrl != null)
       {
-        final InputStream aIS = StreamUtils.getBuffered (URLResource.getInputStream (aResourceUrl));
+        final InputStream aIS = StreamHelper.getBuffered (URLResource.getInputStream (aResourceUrl));
         try
         {
           return new XMLResourceBundle (aIS);
         }
         finally
         {
-          StreamUtils.close (aIS);
+          StreamHelper.close (aIS);
         }
       }
     }

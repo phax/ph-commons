@@ -22,7 +22,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.convert.MicroTypeConverter;
 
@@ -109,7 +109,7 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
     final IMicroElement eChildElement = eDataElement.getFirstChildElement ();
     if (eChildElement != null)
     {
-      if (!EqualsUtils.equals (m_sNamespaceURI, eChildElement.getNamespaceURI ()))
+      if (!EqualsHelper.equals (m_sNamespaceURI, eChildElement.getNamespaceURI ()))
         throw new IllegalStateException ("Namespace mismatch! Expected: " + m_sNamespaceURI);
       if (!m_sElementName.equals (eChildElement.getTagName ()))
         throw new IllegalStateException ("Tag name mismatch! Expected: " + m_sElementName);

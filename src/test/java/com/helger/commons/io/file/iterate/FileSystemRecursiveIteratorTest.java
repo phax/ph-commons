@@ -28,7 +28,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.iterate.IIterableIterator;
 import com.helger.commons.io.file.filter.FileFilterFileOnly;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link FileSystemRecursiveIterator}.
@@ -80,7 +80,7 @@ public final class FileSystemRecursiveIteratorTest
     catch (final UnsupportedOperationException ex)
     {}
 
-    CommonsTestUtils.testToStringImplementation (it);
+    CommonsTestHelper.testToStringImplementation (it);
 
     // With one filter
     it = FileSystemRecursiveIterator.create (new File ("."), new FileFilterFileOnly ());

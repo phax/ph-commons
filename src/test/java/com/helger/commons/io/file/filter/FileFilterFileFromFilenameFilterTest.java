@@ -26,7 +26,7 @@ import java.io.FilenameFilter;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link FileFilterFileFromFilenameFilter}.
@@ -51,6 +51,6 @@ public final class FileFilterFileFromFilenameFilterTest
     // null
     assertFalse (aFilter.accept (null));
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (aFilter, new FileFilterFileFromFilenameFilter (ff));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aFilter, new FileFilterFileFromFilenameFilter (ff));
   }
 }

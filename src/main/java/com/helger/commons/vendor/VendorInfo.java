@@ -28,7 +28,7 @@ import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.email.EmailAddressUtils;
+import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.EURLProtocol;
 import com.helger.commons.url.IURLProtocol;
@@ -153,7 +153,7 @@ public final class VendorInfo
   public static void setVendorEmail (@Nonnull @Nonempty final String sVendorEmail)
   {
     ValueEnforcer.notEmpty (sVendorEmail, "VendorEmail");
-    if (!EmailAddressUtils.isValid (sVendorEmail))
+    if (!EmailAddressHelper.isValid (sVendorEmail))
       throw new IllegalArgumentException ("Illegal vendor email: " + sVendorEmail);
     s_sVendorEmail = sVendorEmail;
     s_sVendorEmailSuffix = StringHelper.getFromFirstIncl (sVendorEmail, '@');

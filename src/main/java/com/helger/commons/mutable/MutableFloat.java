@@ -21,8 +21,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CDefault;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.compare.CompareUtils;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.compare.CompareHelper;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -148,7 +148,7 @@ public final class MutableFloat extends AbstractMutableNumeric <MutableFloat>
   @Nonnull
   public EChange set (final float fValue)
   {
-    if (EqualsUtils.equals (fValue, m_fValue))
+    if (EqualsHelper.equals (fValue, m_fValue))
       return EChange.UNCHANGED;
     m_fValue = fValue;
     return EChange.CHANGED;
@@ -163,7 +163,7 @@ public final class MutableFloat extends AbstractMutableNumeric <MutableFloat>
 
   public boolean is0 ()
   {
-    return EqualsUtils.equals (m_fValue, 0f);
+    return EqualsHelper.equals (m_fValue, 0f);
   }
 
   public boolean isNot0 ()
@@ -173,27 +173,27 @@ public final class MutableFloat extends AbstractMutableNumeric <MutableFloat>
 
   public boolean isSmaller0 ()
   {
-    return CompareUtils.compare (m_fValue, 0f) < 0;
+    return CompareHelper.compare (m_fValue, 0f) < 0;
   }
 
   public boolean isSmallerOrEqual0 ()
   {
-    return CompareUtils.compare (m_fValue, 0f) <= 0;
+    return CompareHelper.compare (m_fValue, 0f) <= 0;
   }
 
   public boolean isGreater0 ()
   {
-    return CompareUtils.compare (m_fValue, 0f) > 0;
+    return CompareHelper.compare (m_fValue, 0f) > 0;
   }
 
   public boolean isGreaterOrEqual0 ()
   {
-    return CompareUtils.compare (m_fValue, 0f) >= 0;
+    return CompareHelper.compare (m_fValue, 0f) >= 0;
   }
 
   public int compareTo (@Nonnull final MutableFloat rhs)
   {
-    return CompareUtils.compare (m_fValue, rhs.m_fValue);
+    return CompareHelper.compare (m_fValue, rhs.m_fValue);
   }
 
   @Nonnull
@@ -210,7 +210,7 @@ public final class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MutableFloat rhs = (MutableFloat) o;
-    return EqualsUtils.equals (m_fValue, rhs.m_fValue);
+    return EqualsHelper.equals (m_fValue, rhs.m_fValue);
   }
 
   @Override

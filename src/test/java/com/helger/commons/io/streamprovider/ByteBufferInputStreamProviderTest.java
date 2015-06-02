@@ -26,7 +26,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 
 /**
  * Test class for class {@link ByteBufferInputStreamProvider}.
@@ -42,8 +42,8 @@ public final class ByteBufferInputStreamProviderTest
     final ByteBuffer bb = ByteBuffer.wrap (aBytes);
     final ByteBufferInputStreamProvider aISP = new ByteBufferInputStreamProvider (bb);
     final InputStream aIS = aISP.getInputStream ();
-    assertArrayEquals (aBytes, StreamUtils.getAllBytes (aIS));
-    StreamUtils.close (aISP.getReader (CCharset.CHARSET_UTF_8_OBJ));
+    assertArrayEquals (aBytes, StreamHelper.getAllBytes (aIS));
+    StreamHelper.close (aISP.getReader (CCharset.CHARSET_UTF_8_OBJ));
     assertNotNull (aISP.toString ());
   }
 }

@@ -22,7 +22,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -47,9 +47,9 @@ public final class JavaFileFuncTest
       s_aLogger.info ("  isDirectory:  " + f.isDirectory ());
       s_aLogger.info ("  isFile:       " + f.isFile ());
       s_aLogger.info ("  isHidden:     " + f.isHidden ());
-      s_aLogger.info ("  canRead:      " + FileUtils.canRead (f));
-      s_aLogger.info ("  canWrite:     " + FileUtils.canWrite (f));
-      s_aLogger.info ("  canExecute:   " + FileUtils.canExecute (f));
+      s_aLogger.info ("  canRead:      " + FileHelper.canRead (f));
+      s_aLogger.info ("  canWrite:     " + FileHelper.canWrite (f));
+      s_aLogger.info ("  canExecute:   " + FileHelper.canExecute (f));
     }
   }
 
@@ -63,7 +63,7 @@ public final class JavaFileFuncTest
     File f = new File ("pom.xml\u0000.txt");
     _log (f);
 
-    f = FileUtils.getSecureFile (f);
+    f = FileHelper.getSecureFile (f);
     _log (f);
   }
 }

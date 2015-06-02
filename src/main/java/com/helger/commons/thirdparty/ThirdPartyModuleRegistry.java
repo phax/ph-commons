@@ -29,7 +29,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.lang.ServiceLoaderUtils;
+import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.state.EChange;
 
 /**
@@ -126,7 +126,7 @@ public final class ThirdPartyModuleRegistry
     }
 
     // Load all SPI implementations
-    for (final IThirdPartyModuleProviderSPI aTPM : ServiceLoaderUtils.getAllSPIImplementations (IThirdPartyModuleProviderSPI.class))
+    for (final IThirdPartyModuleProviderSPI aTPM : ServiceLoaderHelper.getAllSPIImplementations (IThirdPartyModuleProviderSPI.class))
     {
       final IThirdPartyModule [] aModules = aTPM.getAllThirdPartyModules ();
       if (aModules != null)

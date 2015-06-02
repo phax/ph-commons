@@ -170,8 +170,8 @@ public final class LocaleCache
                                   @Nullable final String sCountry,
                                   @Nullable final String sVariant)
   {
-    final String sRealLanguage = StringHelper.getNotNull (LocaleUtils.getValidLanguageCode (sLanguage));
-    final String sRealCountry = StringHelper.getNotNull (LocaleUtils.getValidCountryCode (sCountry));
+    final String sRealLanguage = StringHelper.getNotNull (LocaleHelper.getValidLanguageCode (sLanguage));
+    final String sRealCountry = StringHelper.getNotNull (LocaleHelper.getValidCountryCode (sCountry));
     final String sRealVariant = StringHelper.getNotNull (sVariant);
     final String sLocaleKey = _buildLocaleString (sRealLanguage, sRealCountry, sRealVariant);
     if (sLocaleKey.length () == 0)
@@ -297,8 +297,8 @@ public final class LocaleCache
                                           @Nullable final String sCountry,
                                           @Nullable final String sVariant)
   {
-    final String sRealLanguage = StringHelper.getNotNull (LocaleUtils.getValidLanguageCode (sLanguage));
-    final String sRealCountry = StringHelper.getNotNull (LocaleUtils.getValidCountryCode (sCountry));
+    final String sRealLanguage = StringHelper.getNotNull (LocaleHelper.getValidLanguageCode (sLanguage));
+    final String sRealCountry = StringHelper.getNotNull (LocaleHelper.getValidCountryCode (sCountry));
     final String sRealVariant = StringHelper.getNotNull (sVariant);
     return _buildLocaleString (sRealLanguage, sRealCountry, sRealVariant);
   }

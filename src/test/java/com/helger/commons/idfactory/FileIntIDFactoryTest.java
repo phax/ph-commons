@@ -24,7 +24,7 @@ import java.io.File;
 import org.junit.Test;
 
 import com.helger.commons.io.file.FileOperations;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link FileIntIDFactory}.
@@ -42,9 +42,9 @@ public final class FileIntIDFactoryTest
     {
       final FileIntIDFactory x = new FileIntIDFactory (f);
       // Compare before retrieving an ID!
-      CommonsTestUtils.testDefaultImplementationWithEqualContentObject (x, new FileIntIDFactory (f));
-      CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (x, new FileIntIDFactory (f2));
-      CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (x,
+      CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, new FileIntIDFactory (f));
+      CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, new FileIntIDFactory (f2));
+      CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x,
                                                                        new FileIntIDFactory (f,
                                                                                              FileIntIDFactory.DEFAULT_RESERVE_COUNT * 2));
 

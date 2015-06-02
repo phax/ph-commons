@@ -26,7 +26,7 @@ import java.util.NoSuchElementException;
 import org.junit.Test;
 
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -109,17 +109,17 @@ public final class ArrayIteratorTest
   public void testStdMethods ()
   {
     final ArrayIterator <String> ae = ArrayIterator.create (ArrayHelper.newArray ("Hallo", "Welt", "from", "Copenhagen"));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (ae,
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ae,
                                                                  ArrayIterator.create (ArrayHelper.newArray ("Hallo",
                                                                                                              "Welt",
                                                                                                              "from",
                                                                                                              "Copenhagen")));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (ae,
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
                                                                      ArrayIterator.create (ArrayHelper.newArray ("Hallo",
                                                                                                                  "Welt",
                                                                                                                  "from")));
     ae.next ();
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (ae,
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
                                                                      ArrayIterator.create (ArrayHelper.newArray ("Hallo",
                                                                                                                  "Welt",
                                                                                                                  "from",

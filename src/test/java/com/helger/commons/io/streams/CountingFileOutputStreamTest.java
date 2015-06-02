@@ -44,7 +44,7 @@ public final class CountingFileOutputStreamTest
     {
       CountingFileOutputStream aCFOS = new CountingFileOutputStream (f);
       assertEquals (0, aCFOS.getBytesWritten ());
-      StreamUtils.copyInputStreamToOutputStream (new StringInputStream ("abc", CCharset.CHARSET_ISO_8859_1_OBJ), aCFOS);
+      StreamHelper.copyInputStreamToOutputStream (new StringInputStream ("abc", CCharset.CHARSET_ISO_8859_1_OBJ), aCFOS);
       aCFOS.write ('a');
       aCFOS.write (CharsetManager.getAsBytes ("axy", CCharset.CHARSET_ISO_8859_1_OBJ));
       assertEquals (7, aCFOS.getBytesWritten ());

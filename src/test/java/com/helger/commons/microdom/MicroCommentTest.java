@@ -33,7 +33,7 @@ import com.helger.commons.microdom.MicroComment;
 import com.helger.commons.microdom.MicroContainer;
 import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.MicroException;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MicroComment}.
@@ -62,7 +62,7 @@ public final class MicroCommentTest
     assertNotNull (e.getNodeName ());
     assertNotNull (e.getNodeValue ());
     assertSame (EMicroNodeType.COMMENT, e.getType ());
-    CommonsTestUtils.testToStringImplementation (e);
+    CommonsTestHelper.testToStringImplementation (e);
 
     e.setData ("allo");
     assertEquals ("allo", e.getData ().toString ());

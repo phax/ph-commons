@@ -28,7 +28,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -106,7 +106,7 @@ public final class MessageDigestValue
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MessageDigestValue rhs = (MessageDigestValue) o;
-    return m_eAlgorithm.equals (rhs.m_eAlgorithm) && EqualsUtils.equals (m_aDigestBytes, rhs.m_aDigestBytes);
+    return m_eAlgorithm.equals (rhs.m_eAlgorithm) && EqualsHelper.equals (m_aDigestBytes, rhs.m_aDigestBytes);
   }
 
   @Override

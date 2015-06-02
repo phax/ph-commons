@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link LSResourceData}.
@@ -46,12 +46,12 @@ public final class LSResourceDataTest
     assertEquals ("schema1.xsd", rd.getSystemID ());
     assertNotNull (rd.getBaseURI ());
     assertTrue (rd.getBaseURI ().endsWith ("xml/schema2.xsd"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (rd, new LSResourceData (null,
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (rd, new LSResourceData (null,
                                                                                              null,
                                                                                              null,
                                                                                              null,
                                                                                              null));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (rd,
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (rd,
                                                                  new LSResourceData (rd.getType (),
                                                                                      rd.getNamespaceURI (),
                                                                                      rd.getPublicID (),

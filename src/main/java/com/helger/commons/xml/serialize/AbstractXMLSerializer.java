@@ -38,7 +38,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.io.streams.NonBlockingBufferedWriter;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.xml.IXMLIterationHandler;
@@ -505,7 +505,7 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
     // No previous and no next sibling
     emitNode (aXMLWriter, null, aNode, null);
     // Flush is important for Writer!
-    StreamUtils.flush (aWriter);
+    StreamHelper.flush (aWriter);
   }
 
   public final void write (@Nonnull final NODETYPE aNode, @Nonnull final IXMLIterationHandler aXMLEmitter)
@@ -520,7 +520,7 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
     ValueEnforcer.notNull (aOS, "OutputStream");
 
     // Create a writer for the passed output stream
-    final NonBlockingBufferedWriter aWriter = new NonBlockingBufferedWriter (StreamUtils.createWriter (aOS,
+    final NonBlockingBufferedWriter aWriter = new NonBlockingBufferedWriter (StreamHelper.createWriter (aOS,
                                                                                                        m_aSettings.getCharsetObj ()));
     // Inside the other write method, the writer must be flushed!
     write (aNode, aWriter);

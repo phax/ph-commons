@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.WillClose;
 
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 
 /**
  * @author Apache Abdera
@@ -51,7 +51,7 @@ public class CodepointIteratorReadableByteChannel extends CodepointIteratorByteB
     }
     finally
     {
-      StreamUtils.close (aChannel);
+      StreamHelper.close (aChannel);
     }
   }
 

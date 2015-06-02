@@ -28,7 +28,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.impl.NonBlockingStack;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link NonBlockingStack}
@@ -140,18 +140,18 @@ public final class NonBlockingStackTest
     assertEquals ("h", aStack.pop ());
     assertEquals ("g", aStack.pop ());
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> (),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> (),
                                                                  new NonBlockingStack <String> ());
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> ("a", "b"),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> ("a", "b"),
                                                                  new NonBlockingStack <String> ("a", "b"));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> (CollectionHelper.newList ("a",
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> (CollectionHelper.newList ("a",
                                                                                                                           "b")),
                                                                  new NonBlockingStack <String> (CollectionHelper.newList ("a",
                                                                                                                           "b")));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new NonBlockingStack <String> (CollectionHelper.newList ("a",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new NonBlockingStack <String> (CollectionHelper.newList ("a",
                                                                                                                               "b")),
                                                                      new NonBlockingStack <String> (CollectionHelper.newList ("a")));
-    CommonsTestUtils.testGetClone (new NonBlockingStack <String> ("a", "b"));
-    CommonsTestUtils.testGetClone (new NonBlockingStack <String> ());
+    CommonsTestHelper.testGetClone (new NonBlockingStack <String> ("a", "b"));
+    CommonsTestHelper.testGetClone (new NonBlockingStack <String> ());
   }
 }

@@ -30,8 +30,8 @@ import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.streamprovider.MockNullInputStreamProvider;
-import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link CachingTransformStreamSource}.
@@ -48,34 +48,34 @@ public final class CachingTransformStreamSourceTest
     CachingTransformStreamSource src = new CachingTransformStreamSource (aRes);
     InputStream is = src.getInputStream ();
     assertNotNull (is);
-    StreamUtils.close (is);
+    StreamHelper.close (is);
     is = src.getInputStream ();
     assertNotNull (is);
-    StreamUtils.close (is);
+    StreamHelper.close (is);
     assertEquals (aRes.getResourceID (), src.getSystemId ());
     assertNull (src.getPublicId ());
 
     src = new CachingTransformStreamSource ((IInputStreamProvider) aRes);
     is = src.getInputStream ();
     assertNotNull (is);
-    StreamUtils.close (is);
+    StreamHelper.close (is);
     is = src.getInputStream ();
     assertNotNull (is);
-    StreamUtils.close (is);
+    StreamHelper.close (is);
     assertNull (src.getSystemId ());
     assertNull (src.getPublicId ());
 
     src = new CachingTransformStreamSource (aRes.getInputStream ());
     is = src.getInputStream ();
     assertNotNull (is);
-    StreamUtils.close (is);
+    StreamHelper.close (is);
     is = src.getInputStream ();
     assertNotNull (is);
-    StreamUtils.close (is);
+    StreamHelper.close (is);
     assertNull (src.getSystemId ());
     assertNull (src.getPublicId ());
 
-    CommonsTestUtils.testToStringImplementation (src);
+    CommonsTestHelper.testToStringImplementation (src);
 
     try
     {

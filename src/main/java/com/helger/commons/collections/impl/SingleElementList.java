@@ -34,7 +34,7 @@ import com.helger.commons.collections.iterate.EmptyIterator;
 import com.helger.commons.collections.iterate.EmptyListIterator;
 import com.helger.commons.collections.iterate.SingleElementIterator;
 import com.helger.commons.collections.iterate.SingleElementListIterator;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
@@ -110,7 +110,7 @@ public class SingleElementList <ELEMENTTYPE> implements List <ELEMENTTYPE>
 
   public boolean contains (@Nullable final Object aElement)
   {
-    return m_bHasElement && EqualsUtils.equals (m_aElement, aElement);
+    return m_bHasElement && EqualsHelper.equals (m_aElement, aElement);
   }
 
   public boolean containsAll (@Nonnull final Collection <?> aElements)
@@ -274,7 +274,7 @@ public class SingleElementList <ELEMENTTYPE> implements List <ELEMENTTYPE>
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleElementList <?> rhs = (SingleElementList <?>) o;
-    return m_bHasElement == rhs.m_bHasElement && EqualsUtils.equals (m_aElement, rhs.m_aElement);
+    return m_bHasElement == rhs.m_bHasElement && EqualsHelper.equals (m_aElement, rhs.m_aElement);
   }
 
   @Override

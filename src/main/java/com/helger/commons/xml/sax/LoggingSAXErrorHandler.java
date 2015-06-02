@@ -30,7 +30,7 @@ import com.helger.commons.annotations.CodingStyleguideUnaware;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.error.IErrorLevel;
-import com.helger.commons.log.LogUtils;
+import com.helger.commons.log.LogHelper;
 
 /**
  * java.xml error handler that simply logs data to a logger.
@@ -71,6 +71,6 @@ public class LoggingSAXErrorHandler extends AbstractSAXErrorHandler
   @Override
   protected void internalLog (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
   {
-    LogUtils.log (s_aLogger, aErrorLevel, getErrorMessage (aErrorLevel, aException));
+    LogHelper.log (s_aLogger, aErrorLevel, getErrorMessage (aErrorLevel, aException));
   }
 }

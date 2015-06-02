@@ -21,7 +21,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CDefault;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.compare.CompareUtils;
+import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -220,7 +220,7 @@ public final class MutableChar extends AbstractMutableInteger <MutableChar>
 
   public int compareTo (@Nonnull final MutableChar rhs)
   {
-    return CompareUtils.compare (m_cValue, rhs.m_cValue);
+    return CompareHelper.compare (m_cValue, rhs.m_cValue);
   }
 
   @Nonnull

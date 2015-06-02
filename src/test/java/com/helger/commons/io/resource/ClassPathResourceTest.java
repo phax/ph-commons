@@ -31,9 +31,9 @@ import java.net.URL;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -76,12 +76,12 @@ public final class ClassPathResourceTest
       }
       finally
       {
-        StreamUtils.close (aIS2);
+        StreamHelper.close (aIS2);
       }
     }
     finally
     {
-      StreamUtils.close (aIS1);
+      StreamHelper.close (aIS1);
     }
 
     aCPISP.getReader (CCharset.CHARSET_ISO_8859_1_OBJ).close ();
@@ -117,12 +117,12 @@ public final class ClassPathResourceTest
       }
       finally
       {
-        StreamUtils.close (aIS2);
+        StreamHelper.close (aIS2);
       }
     }
     finally
     {
-      StreamUtils.close (aIS1);
+      StreamHelper.close (aIS1);
     }
   }
 
@@ -149,12 +149,12 @@ public final class ClassPathResourceTest
       }
       finally
       {
-        StreamUtils.close (aIS2);
+        StreamHelper.close (aIS2);
       }
     }
     finally
     {
-      StreamUtils.close (aIS1);
+      StreamHelper.close (aIS1);
     }
   }
 
@@ -180,12 +180,12 @@ public final class ClassPathResourceTest
       }
       finally
       {
-        StreamUtils.close (aIS2);
+        StreamHelper.close (aIS2);
       }
     }
     finally
     {
-      StreamUtils.close (aIS1);
+      StreamHelper.close (aIS1);
     }
   }
 
@@ -242,18 +242,18 @@ public final class ClassPathResourceTest
     final ClassPathResource aCPISP1a = new ClassPathResource ("folder/test2.txt");
     final ClassPathResource aCPISP1b = new ClassPathResource ("folder/test2.txt");
     final ClassPathResource aCPISP2 = new ClassPathResource ("folder/test1.txt");
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (aCPISP1a, aCPISP1b);
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (aCPISP1a,
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a, aCPISP1b);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a,
                                                                  new ClassPathResource ("cp:folder/test2.txt"));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (aCPISP1a,
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a,
                                                                  new ClassPathResource ("classpath:folder/test2.txt"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (aCPISP1a, aCPISP2);
-    CommonsTestUtils.testDefaultSerialization (aCPISP1a);
-    CommonsTestUtils.testDefaultSerialization (new ClassPathResource ("folder/test2.txt"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aCPISP1a, aCPISP2);
+    CommonsTestHelper.testDefaultSerialization (aCPISP1a);
+    CommonsTestHelper.testDefaultSerialization (new ClassPathResource ("folder/test2.txt"));
     try
     {
       // Can't serialize with class loader
-      CommonsTestUtils.testDefaultSerialization (new ClassPathResource ("folder/test2.txt",
+      CommonsTestHelper.testDefaultSerialization (new ClassPathResource ("folder/test2.txt",
                                                                    ClassHelper.getDefaultClassLoader ()));
       fail ();
     }

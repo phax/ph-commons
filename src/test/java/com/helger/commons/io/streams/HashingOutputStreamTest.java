@@ -25,7 +25,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link HashingOutputStream}.
@@ -50,14 +50,14 @@ public final class HashingOutputStreamTest
 
         // First hash
         aHIS1 = new HashingOutputStream (new NonBlockingByteArrayOutputStream (), eMDAlgo);
-        StreamUtils.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream (sTestString,
+        StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream (sTestString,
                                                                                     CCharset.CHARSET_ISO_8859_1_OBJ),
                                                              new NonBlockingByteArrayOutputStream ());
         final byte [] aDigest1 = aHIS1.getDigest ();
 
         // Second hash
         aHIS2 = new HashingOutputStream (new NonBlockingByteArrayOutputStream (), eMDAlgo);
-        StreamUtils.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream (sTestString,
+        StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream (sTestString,
                                                                                     CCharset.CHARSET_ISO_8859_1_OBJ),
                                                              new NonBlockingByteArrayOutputStream ());
         final byte [] aDigest2 = aHIS2.getDigest ();
@@ -65,7 +65,7 @@ public final class HashingOutputStreamTest
         // Must be equal
         assertArrayEquals (aDigest1, aDigest2);
 
-        CommonsTestUtils.testToStringImplementation (aHIS1);
+        CommonsTestHelper.testToStringImplementation (aHIS1);
       }
       finally
       {

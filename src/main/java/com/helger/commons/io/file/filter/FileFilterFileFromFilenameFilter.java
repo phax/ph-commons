@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 
 /**
  * A special file filter that uses and external filename filter to determine the
@@ -42,6 +42,6 @@ public class FileFilterFileFromFilenameFilter extends AbstractFileFilter
   @Override
   public boolean matchesThisFilter (@Nullable final File aFile)
   {
-    return aFile != null && FileUtils.existsFile (aFile);
+    return aFile != null && FileHelper.existsFile (aFile);
   }
 }

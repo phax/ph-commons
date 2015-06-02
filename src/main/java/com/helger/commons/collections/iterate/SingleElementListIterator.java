@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotations.UnsupportedOperation;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -115,7 +115,7 @@ public class SingleElementListIterator <ELEMENTTYPE> implements ListIterator <EL
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleElementListIterator <?> rhs = (SingleElementListIterator <?>) o;
-    return m_bHasNext == rhs.m_bHasNext && EqualsUtils.equals (m_aElement, rhs.m_aElement);
+    return m_bHasNext == rhs.m_bHasNext && EqualsHelper.equals (m_aElement, rhs.m_aElement);
   }
 
   @Override

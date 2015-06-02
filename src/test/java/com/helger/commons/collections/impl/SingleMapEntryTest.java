@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.helger.commons.collections.impl.SingleMapEntry;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link SingleMapEntry}.
@@ -49,13 +49,13 @@ public final class SingleMapEntryTest
     assertEquals (e.hashCode (), new SingleMapEntry <String, Object> ("Key", "new").hashCode ());
     assertNotNull (e.toString ());
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new SingleMapEntry <String, Object> ("Key", "value"),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SingleMapEntry <String, Object> ("Key", "value"),
                                                                  new SingleMapEntry <String, Object> ("Key", "value"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleMapEntry <String, Object> ("Key",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleMapEntry <String, Object> ("Key",
                                                                                                           "value"),
                                                                      new SingleMapEntry <String, Object> ("Key",
                                                                                                           "value2"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new SingleMapEntry <String, Object> ("Key",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleMapEntry <String, Object> ("Key",
                                                                                                           "value"),
                                                                      new SingleMapEntry <String, Object> ("Key2",
                                                                                                           "value"));

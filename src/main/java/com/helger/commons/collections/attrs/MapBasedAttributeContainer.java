@@ -27,7 +27,7 @@ import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
@@ -121,7 +121,7 @@ public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE> extends MapBasedRea
       return EChange.UNCHANGED;
 
     final VALUETYPE aOldValue = m_aAttrs.put (aName, aValue);
-    return EChange.valueOf (!EqualsUtils.equals (aValue, aOldValue));
+    return EChange.valueOf (!EqualsHelper.equals (aValue, aOldValue));
   }
 
   /**

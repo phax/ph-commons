@@ -29,7 +29,7 @@ import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.IInputStreamResolver;
 import com.helger.commons.io.IOutputStreamResolver;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -67,13 +67,13 @@ public class FileSystemByteStreamResolver implements IInputStreamResolver, IOutp
   @Nullable
   public InputStream getInputStream (@Nonnull final String sName)
   {
-    return FileUtils.getInputStream (new File (m_aBasePath, sName));
+    return FileHelper.getInputStream (new File (m_aBasePath, sName));
   }
 
   @Nullable
   public OutputStream getOutputStream (@Nonnull final String sName, @Nonnull final EAppend eAppend)
   {
-    return FileUtils.getOutputStream (new File (m_aBasePath, sName), eAppend);
+    return FileHelper.getOutputStream (new File (m_aBasePath, sName), eAppend);
   }
 
   @Override

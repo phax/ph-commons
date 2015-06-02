@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -106,7 +106,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MicroDataAware rhs = (MicroDataAware) o;
-    return EqualsUtils.equals (m_aSB, rhs.m_aSB);
+    return EqualsHelper.equals (m_aSB, rhs.m_aSB);
   }
 
   @Override

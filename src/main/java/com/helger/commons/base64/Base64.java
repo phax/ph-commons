@@ -39,10 +39,10 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 
 /**
  * <p>
@@ -1584,10 +1584,10 @@ public final class Base64
     }
     finally
     {
-      StreamUtils.close (oos);
-      StreamUtils.close (gzos);
-      StreamUtils.close (b64os);
-      StreamUtils.close (baos);
+      StreamHelper.close (oos);
+      StreamHelper.close (gzos);
+      StreamHelper.close (b64os);
+      StreamHelper.close (baos);
     }
 
     // Return value according to relevant encoding.
@@ -1833,9 +1833,9 @@ public final class Base64
       }
       finally
       {
-        StreamUtils.close (gzos);
-        StreamUtils.close (b64os);
-        StreamUtils.close (baos);
+        StreamHelper.close (gzos);
+        StreamHelper.close (b64os);
+        StreamHelper.close (baos);
       }
 
       return baos.toByteArray ();
@@ -2232,9 +2232,9 @@ public final class Base64
         }
         finally
         {
-          StreamUtils.close (baos);
-          StreamUtils.close (gzis);
-          StreamUtils.close (bais);
+          StreamHelper.close (baos);
+          StreamHelper.close (gzis);
+          StreamHelper.close (bais);
         }
       }
     }
@@ -2324,8 +2324,8 @@ public final class Base64
     }
     finally
     {
-      StreamUtils.close (bais);
-      StreamUtils.close (ois);
+      StreamHelper.close (bais);
+      StreamHelper.close (ois);
     }
 
     return obj;
@@ -2356,12 +2356,12 @@ public final class Base64
     Base64OutputStream bos = null;
     try
     {
-      bos = new Base64OutputStream (FileUtils.getOutputStream (sFilename), ENCODE);
+      bos = new Base64OutputStream (FileHelper.getOutputStream (sFilename), ENCODE);
       bos.write (aDataToEncode);
     }
     finally
     {
-      StreamUtils.close (bos);
+      StreamHelper.close (bos);
     }
   }
 
@@ -2386,12 +2386,12 @@ public final class Base64
     Base64OutputStream bos = null;
     try
     {
-      bos = new Base64OutputStream (FileUtils.getOutputStream (filename), DECODE);
+      bos = new Base64OutputStream (FileHelper.getOutputStream (filename), DECODE);
       bos.write (CharsetManager.getAsBytes (dataToDecode, PREFERRED_ENCODING));
     }
     finally
     {
-      StreamUtils.close (bos);
+      StreamHelper.close (bos);
     }
   }
 
@@ -2430,7 +2430,7 @@ public final class Base64
       buffer = new byte [(int) file.length ()];
 
       // Open a stream
-      bis = new Base64InputStream (StreamUtils.getBuffered (FileUtils.getInputStream (file)), DECODE);
+      bis = new Base64InputStream (StreamHelper.getBuffered (FileHelper.getInputStream (file)), DECODE);
 
       // Read until done
       while ((numBytes = bis.read (buffer, length, 4096)) >= 0)
@@ -2444,7 +2444,7 @@ public final class Base64
     }
     finally
     {
-      StreamUtils.close (bis);
+      StreamHelper.close (bis);
     }
 
     return decodedData;
@@ -2481,7 +2481,7 @@ public final class Base64
       int numBytes;
 
       // Open a stream
-      bis = new Base64InputStream (StreamUtils.getBuffered (FileUtils.getInputStream (file)), ENCODE);
+      bis = new Base64InputStream (StreamHelper.getBuffered (FileHelper.getInputStream (file)), ENCODE);
 
       // Read until done
       while ((numBytes = bis.read (buffer, length, 4096)) >= 0)
@@ -2494,7 +2494,7 @@ public final class Base64
     }
     finally
     {
-      StreamUtils.close (bis);
+      StreamHelper.close (bis);
     }
 
     return encodedData;
@@ -2517,13 +2517,13 @@ public final class Base64
     OutputStream out = null;
     try
     {
-      out = StreamUtils.getBuffered (FileUtils.getOutputStream (outfile));
+      out = StreamHelper.getBuffered (FileHelper.getOutputStream (outfile));
       // Strict, 7-bit output.
       out.write (CharsetManager.getAsBytes (encoded, PREFERRED_ENCODING));
     }
     finally
     {
-      StreamUtils.close (out);
+      StreamHelper.close (out);
     }
   }
 
@@ -2544,12 +2544,12 @@ public final class Base64
     OutputStream out = null;
     try
     {
-      out = StreamUtils.getBuffered (FileUtils.getOutputStream (outfile));
+      out = StreamHelper.getBuffered (FileHelper.getOutputStream (outfile));
       out.write (decoded);
     }
     finally
     {
-      StreamUtils.close (out);
+      StreamHelper.close (out);
     }
   }
 

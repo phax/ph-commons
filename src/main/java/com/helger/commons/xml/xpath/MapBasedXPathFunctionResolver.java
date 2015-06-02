@@ -31,7 +31,7 @@ import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -252,7 +252,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MapBasedXPathFunctionResolver rhs = (MapBasedXPathFunctionResolver) o;
-    return EqualsUtils.equals (m_aMap, rhs.m_aMap);
+    return EqualsHelper.equals (m_aMap, rhs.m_aMap);
   }
 
   @Override

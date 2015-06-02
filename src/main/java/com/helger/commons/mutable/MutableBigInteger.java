@@ -24,7 +24,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.math.MathHelper;
 import com.helger.commons.state.EChange;
@@ -277,7 +277,7 @@ public final class MutableBigInteger extends AbstractMutableNumeric <MutableBigI
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MutableBigInteger rhs = (MutableBigInteger) o;
-    return EqualsUtils.equals (m_aValue, rhs.m_aValue);
+    return EqualsHelper.equals (m_aValue, rhs.m_aValue);
   }
 
   @Override

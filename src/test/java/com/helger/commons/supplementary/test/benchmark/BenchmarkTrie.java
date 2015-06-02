@@ -30,7 +30,7 @@ import java.util.TreeMap;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.locale.LocaleFormatter;
 import com.helger.commons.string.StringHelper;
 
@@ -62,7 +62,7 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
       if (ret.size () > 999)
         break;
     }
-    StreamUtils.close (aBR);
+    StreamHelper.close (aBR);
     return ret;
   }
 

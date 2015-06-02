@@ -28,7 +28,7 @@ import java.math.RoundingMode;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -62,7 +62,7 @@ public final class JavaBigDecimalFuncTest
 
     // equals with different scale
     assertFalse (new BigDecimal ("20").equals (new BigDecimal ("20.0")));
-    assertTrue (EqualsUtils.equals (new BigDecimal ("20"), new BigDecimal ("20.0")));
+    assertTrue (EqualsHelper.equals (new BigDecimal ("20"), new BigDecimal ("20.0")));
     assertTrue (new BigDecimal ("20").setScale (1).equals (new BigDecimal ("20.0")));
   }
 }

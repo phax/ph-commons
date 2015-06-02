@@ -30,7 +30,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.CodingStyleguideUnaware;
 import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IResourceError;
-import com.helger.commons.log.LogUtils;
+import com.helger.commons.log.LogHelper;
 
 /**
  * {@link javax.xml.transform.ErrorListener} that simply logs data to a logger.
@@ -68,6 +68,6 @@ public class LoggingTransformErrorListener extends AbstractTransformErrorListene
   {
     final IErrorLevel aErrorLevel = aResError.getErrorLevel ();
     final String sText = aResError.getAsString (m_aDisplayLocale);
-    LogUtils.log (s_aLogger, aErrorLevel, sText);
+    LogHelper.log (s_aLogger, aErrorLevel, sText);
   }
 }

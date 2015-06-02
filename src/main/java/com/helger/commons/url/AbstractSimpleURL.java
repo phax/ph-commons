@@ -29,7 +29,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.ReturnsMutableObject;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -54,7 +54,7 @@ public abstract class AbstractSimpleURL implements ISimpleURL
 
   public AbstractSimpleURL (@Nonnull final String sHref)
   {
-    this (URLUtils.getAsURLData (sHref));
+    this (URLHelper.getAsURLData (sHref));
   }
 
   public AbstractSimpleURL (@Nonnull final String sHref, @Nullable final Map <String, String> aParams)
@@ -150,13 +150,13 @@ public abstract class AbstractSimpleURL implements ISimpleURL
   @Nonnull
   public final String getAsString ()
   {
-    return URLUtils.getURLString (this, (Charset) null);
+    return URLHelper.getURLString (this, (Charset) null);
   }
 
   @Nonnull
   public final String getAsStringWithEncodedParameters ()
   {
-    return getAsStringWithEncodedParameters (URLUtils.CHARSET_URL_OBJ);
+    return getAsStringWithEncodedParameters (URLHelper.CHARSET_URL_OBJ);
   }
 
   @Nonnull
@@ -164,7 +164,7 @@ public abstract class AbstractSimpleURL implements ISimpleURL
   {
     ValueEnforcer.notNull (aParameterCharset, "ParameterCharset");
 
-    return URLUtils.getURLString (this, aParameterCharset);
+    return URLHelper.getURLString (this, aParameterCharset);
   }
 
   @Override
@@ -176,8 +176,8 @@ public abstract class AbstractSimpleURL implements ISimpleURL
       return false;
     final AbstractSimpleURL rhs = (AbstractSimpleURL) o;
     return m_sPath.equals (rhs.m_sPath) &&
-           EqualsUtils.equals (m_aParams, rhs.m_aParams) &&
-           EqualsUtils.equals (m_sAnchor, rhs.m_sAnchor);
+           EqualsHelper.equals (m_aParams, rhs.m_aParams) &&
+           EqualsHelper.equals (m_sAnchor, rhs.m_sAnchor);
   }
 
   @Override

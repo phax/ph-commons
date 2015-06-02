@@ -29,7 +29,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotations.ReturnsImmutableObject;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -66,12 +66,12 @@ public final class SingleElementMap <KEYTYPE, VALUETYPE> implements Map <KEYTYPE
 
   public boolean containsKey (@Nullable final Object aKey)
   {
-    return m_bHasElement && EqualsUtils.equals (m_aKey, aKey);
+    return m_bHasElement && EqualsHelper.equals (m_aKey, aKey);
   }
 
   public boolean containsValue (@Nullable final Object aValue)
   {
-    return m_bHasElement && EqualsUtils.equals (m_aValue, aValue);
+    return m_bHasElement && EqualsHelper.equals (m_aValue, aValue);
   }
 
   @Nullable
@@ -89,7 +89,7 @@ public final class SingleElementMap <KEYTYPE, VALUETYPE> implements Map <KEYTYPE
   public VALUETYPE put (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aElement)
   {
     VALUETYPE aOldElement = null;
-    if (EqualsUtils.equals (aKey, m_aKey))
+    if (EqualsHelper.equals (aKey, m_aKey))
     {
       // Key is the same as before -> return old value
       aOldElement = m_aValue;
@@ -166,8 +166,8 @@ public final class SingleElementMap <KEYTYPE, VALUETYPE> implements Map <KEYTYPE
       return false;
     final SingleElementMap <?, ?> rhs = (SingleElementMap <?, ?>) o;
     return m_bHasElement == rhs.m_bHasElement &&
-           EqualsUtils.equals (m_aKey, rhs.m_aKey) &&
-           EqualsUtils.equals (m_aValue, rhs.m_aValue);
+           EqualsHelper.equals (m_aKey, rhs.m_aKey) &&
+           EqualsHelper.equals (m_aValue, rhs.m_aValue);
   }
 
   @Override

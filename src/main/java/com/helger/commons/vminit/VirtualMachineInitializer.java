@@ -21,7 +21,7 @@ import java.util.List;
 import com.helger.commons.annotations.CodingStyleguideUnaware;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.cleanup.CommonsCleanup;
-import com.helger.commons.lang.ServiceLoaderUtils;
+import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.mock.exception.IMockException;
 
 /**
@@ -38,7 +38,7 @@ public final class VirtualMachineInitializer
   static
   {
     // Get all SPI implementations
-    s_aSPIs = ServiceLoaderUtils.getAllSPIImplementations (IVirtualMachineEventSPI.class);
+    s_aSPIs = ServiceLoaderHelper.getAllSPIImplementations (IVirtualMachineEventSPI.class);
   }
 
   @PresentForCodeCoverage

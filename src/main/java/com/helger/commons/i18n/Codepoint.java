@@ -28,7 +28,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.compare.CompareUtils;
+import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 
 /**
@@ -197,7 +197,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
    */
   public char getHighSurrogate ()
   {
-    return CodepointUtils.getHighSurrogate (m_nValue);
+    return CodepointHelper.getHighSurrogate (m_nValue);
   }
 
   /**
@@ -205,7 +205,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
    */
   public char getLowSurrogate ()
   {
-    return CodepointUtils.getLowSurrogate (m_nValue);
+    return CodepointHelper.getLowSurrogate (m_nValue);
   }
 
   /**
@@ -213,36 +213,36 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
    */
   public boolean isBidi ()
   {
-    return CodepointUtils.isBidi (m_nValue);
+    return CodepointHelper.isBidi (m_nValue);
   }
 
   public boolean isDigit ()
   {
-    return CodepointUtils.isDigit (m_nValue);
+    return CodepointHelper.isDigit (m_nValue);
   }
 
   public boolean isAlpha ()
   {
-    return CodepointUtils.isAlpha (m_nValue);
+    return CodepointHelper.isAlpha (m_nValue);
   }
 
   public boolean isAlphaDigit ()
   {
-    return CodepointUtils.isAlpha (m_nValue);
+    return CodepointHelper.isAlpha (m_nValue);
   }
 
   @Nonnull
   @Nonempty
   public String getAsString ()
   {
-    return CodepointUtils.getAsString (m_nValue);
+    return CodepointHelper.getAsString (m_nValue);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public char [] getAsChars ()
   {
-    return CodepointUtils.getAsCharArray (m_nValue);
+    return CodepointHelper.getAsCharArray (m_nValue);
   }
 
   /**
@@ -304,7 +304,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
 
   public int compareTo (@Nonnull final Codepoint o)
   {
-    return CompareUtils.compare (m_nValue, o.m_nValue);
+    return CompareHelper.compare (m_nValue, o.m_nValue);
   }
 
   @Override

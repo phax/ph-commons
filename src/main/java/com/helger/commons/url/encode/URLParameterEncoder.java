@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.codec.IEncoder;
-import com.helger.commons.url.URLUtils;
+import com.helger.commons.url.URLHelper;
 
 /**
  * Encoder for URLs
@@ -42,6 +42,6 @@ public class URLParameterEncoder implements IEncoder <String>
   @Nullable
   public String getEncoded (@Nullable final String sInput)
   {
-    return sInput == null ? null : URLUtils.urlEncode (sInput, m_aCharset);
+    return sInput == null ? null : URLHelper.urlEncode (sInput, m_aCharset);
   }
 }

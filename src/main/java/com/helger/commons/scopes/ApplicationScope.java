@@ -46,12 +46,12 @@ public class ApplicationScope extends AbstractMapBasedScope implements IApplicat
   {
     super (sScopeID);
 
-    if (ScopeUtils.debugApplicationScopeLifeCycle (s_aLogger))
+    if (ScopeHelper.debugApplicationScopeLifeCycle (s_aLogger))
       s_aLogger.info ("Created application scope '" +
                           sScopeID +
                           "' of class " +
                           CGStringHelper.getClassLocalName (this),
-                      ScopeUtils.getDebugStackTrace ());
+                      ScopeHelper.getDebugStackTrace ());
   }
 
   public void initScope ()
@@ -60,22 +60,22 @@ public class ApplicationScope extends AbstractMapBasedScope implements IApplicat
   @Override
   protected void preDestroy ()
   {
-    if (ScopeUtils.debugApplicationScopeLifeCycle (s_aLogger))
+    if (ScopeHelper.debugApplicationScopeLifeCycle (s_aLogger))
       s_aLogger.info ("Destroying application scope '" +
                           getID () +
                           "' of class " +
                           CGStringHelper.getClassLocalName (this),
-                      ScopeUtils.getDebugStackTrace ());
+                      ScopeHelper.getDebugStackTrace ());
   }
 
   @Override
   protected void postDestroy ()
   {
-    if (ScopeUtils.debugApplicationScopeLifeCycle (s_aLogger))
+    if (ScopeHelper.debugApplicationScopeLifeCycle (s_aLogger))
       s_aLogger.info ("Destroyed application scope '" +
                           getID () +
                           "' of class " +
                           CGStringHelper.getClassLocalName (this),
-                      ScopeUtils.getDebugStackTrace ());
+                      ScopeHelper.getDebugStackTrace ());
   }
 }

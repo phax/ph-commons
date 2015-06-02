@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MutableChar}.
@@ -104,8 +104,8 @@ public final class MutableCharTest
     x.set (1);
     assertTrue (x.isGreater0 ());
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new MutableChar (-7), new MutableChar (-7));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new MutableChar (6), new MutableChar (7));
-    CommonsTestUtils.testGetClone (new MutableChar (Integer.MAX_VALUE));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableChar (-7), new MutableChar (-7));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableChar (6), new MutableChar (7));
+    CommonsTestHelper.testGetClone (new MutableChar (Integer.MAX_VALUE));
   }
 }

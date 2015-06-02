@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link Wrapper}.
@@ -69,7 +69,7 @@ public final class WrapperTest
     catch (final NullPointerException ex)
     {}
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (Wrapper.create ("any"), Wrapper.create ("any"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (Wrapper.create ("any"), Wrapper.create ("other"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (Wrapper.create ("any"), Wrapper.create ("any"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (Wrapper.create ("any"), Wrapper.create ("other"));
   }
 }

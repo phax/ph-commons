@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.aggregate.IAggregator;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.tree.withid.BasicTreeItemWithID;
@@ -115,7 +115,7 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
     if (!super.equals (o))
       return false;
     final BasicFolderTreeItem <?, ?, ?, ?> rhs = (BasicFolderTreeItem <?, ?, ?, ?>) o;
-    return EqualsUtils.equals (m_aKeyCombinator, rhs.m_aKeyCombinator);
+    return EqualsHelper.equals (m_aKeyCombinator, rhs.m_aKeyCombinator);
   }
 
   @Override

@@ -33,7 +33,7 @@ import org.xml.sax.InputSource;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.xml.sax.InputSourceFactory;
 import com.helger.commons.xml.serialize.ISAXReaderSettings;
@@ -115,7 +115,7 @@ public final class MicroReader
     }
     finally
     {
-      StreamUtils.close (aIS);
+      StreamHelper.close (aIS);
     }
   }
 
@@ -185,7 +185,7 @@ public final class MicroReader
     }
     finally
     {
-      StreamUtils.close (aReader);
+      StreamHelper.close (aReader);
     }
   }
 

@@ -36,7 +36,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.pool.IObjectPool;
 import com.helger.commons.pool.ObjectPool;
 import com.helger.commons.state.ESuccess;
@@ -162,7 +162,7 @@ public final class SAXReader
     }
     finally
     {
-      StreamUtils.close (aIS);
+      StreamHelper.close (aIS);
     }
   }
 
@@ -178,7 +178,7 @@ public final class SAXReader
     }
     finally
     {
-      StreamUtils.close (aReader);
+      StreamHelper.close (aReader);
     }
   }
 
@@ -268,8 +268,8 @@ public final class SAXReader
     {
       // Close both byte stream and character stream, as we don't know which one
       // was used
-      StreamUtils.close (aIS.getByteStream ());
-      StreamUtils.close (aIS.getCharacterStream ());
+      StreamHelper.close (aIS.getByteStream ());
+      StreamHelper.close (aIS.getCharacterStream ());
     }
     s_aSaxErrorCounterHdl.increment ();
     return ESuccess.FAILURE;

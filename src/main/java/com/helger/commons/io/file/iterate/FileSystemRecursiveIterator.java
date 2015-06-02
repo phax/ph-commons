@@ -35,7 +35,7 @@ import com.helger.commons.collections.iterate.FilterIterator;
 import com.helger.commons.collections.iterate.IIterableIterator;
 import com.helger.commons.filter.FilterListAll;
 import com.helger.commons.filter.IFilter;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -45,7 +45,7 @@ import com.helger.commons.string.ToStringGenerator;
  * first iteration, because as soon as a directory is encountered, the children
  * of this directory are iterated.<br>
  * Note: the order of iteration is undefined and depends on the order returned
- * by {@link FileUtils#getDirectoryContent(File)}.
+ * by {@link FileHelper#getDirectoryContent(File)}.
  *
  * @author Philip Helger
  */
@@ -113,7 +113,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
     ValueEnforcer.notNull (aBaseDir, "BaseDirectory");
     m_nStartLevel = _getLevel (aBaseDir);
     m_aRecursionFilter = aRecursionFilter;
-    m_aFilesLeft = FileUtils.getDirectoryContent (aBaseDir);
+    m_aFilesLeft = FileHelper.getDirectoryContent (aBaseDir);
   }
 
   @Nonnegative
@@ -169,7 +169,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
       {
         // insert all children of the current directory at the beginning of the
         // list
-        m_aFilesLeft.addAll (0, FileUtils.getDirectoryContent (aFile));
+        m_aFilesLeft.addAll (0, FileHelper.getDirectoryContent (aFile));
       }
     return aFile;
   }

@@ -36,14 +36,14 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.mutable.IWrapper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.url.ISimpleURL;
-import com.helger.commons.url.URLUtils;
+import com.helger.commons.url.URLHelper;
 
 /**
  * Implementation of the {@link IReadableResource} interface for URL objects.
@@ -92,7 +92,7 @@ public class URLResource implements IReadableResource
    */
   public static boolean isExplicitURLResource (@Nullable final String sName)
   {
-    return URLUtils.getAsURL (sName) != null;
+    return URLHelper.getAsURL (sName) != null;
   }
 
   @Nonnull
@@ -110,7 +110,7 @@ public class URLResource implements IReadableResource
   @Nullable
   public static InputStream getInputStream (@Nonnull final URL aURL)
   {
-    return URLUtils.getInputStream (aURL,
+    return URLHelper.getInputStream (aURL,
                                     DEFAULT_CONNECT_TIMEOUT,
                                     DEFAULT_READ_TIMEOUT,
                                     null,
@@ -155,13 +155,13 @@ public class URLResource implements IReadableResource
                                      @Nullable final INonThrowingRunnableWithParameter <URLConnection> aConnectionModifier,
                                      @Nullable final IWrapper <IOException> aExceptionHolder)
   {
-    return URLUtils.getInputStream (m_aURL, nConnectTimeoutMS, nReadTimeoutMS, aConnectionModifier, aExceptionHolder);
+    return URLHelper.getInputStream (m_aURL, nConnectTimeoutMS, nReadTimeoutMS, aConnectionModifier, aExceptionHolder);
   }
 
   @Nullable
   public Reader getReader (@Nonnull final Charset aCharset)
   {
-    return StreamUtils.createReader (getInputStream (), aCharset);
+    return StreamHelper.createReader (getInputStream (), aCharset);
   }
 
   public boolean exists ()
@@ -185,7 +185,7 @@ public class URLResource implements IReadableResource
     }
     finally
     {
-      StreamUtils.close (aIS);
+      StreamHelper.close (aIS);
     }
   }
 
@@ -198,7 +198,7 @@ public class URLResource implements IReadableResource
   @Nullable
   public URI getAsURI ()
   {
-    return URLUtils.getAsURI (m_aURL);
+    return URLHelper.getAsURI (m_aURL);
   }
 
   @Nonnull
@@ -256,7 +256,7 @@ public class URLResource implements IReadableResource
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final URLResource rhs = (URLResource) o;
-    return EqualsUtils.equals (m_aURL, rhs.m_aURL);
+    return EqualsHelper.equals (m_aURL, rhs.m_aURL);
   }
 
   @Override

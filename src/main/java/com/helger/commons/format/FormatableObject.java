@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -94,7 +94,7 @@ public class FormatableObject implements IFormatableObject
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FormatableObject rhs = (FormatableObject) o;
-    return EqualsUtils.equals (m_aValue, rhs.m_aValue) && EqualsUtils.equals (m_aFormatter, rhs.m_aFormatter);
+    return EqualsHelper.equals (m_aValue, rhs.m_aValue) && EqualsHelper.equals (m_aFormatter, rhs.m_aFormatter);
   }
 
   @Override

@@ -31,7 +31,7 @@ import org.junit.Test;
 
 import com.helger.commons.io.streams.NonBlockingBufferedReader;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.random.VerySecureRandom;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -139,12 +139,12 @@ public final class CharsetManagerTest
     NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (new InputStreamReader (new NonBlockingByteArrayInputStream (b),
                                                                                               CCharset.CHARSET_UTF_8_OBJ));
     assertEquals (sAlpha, aReader.readLine ());
-    StreamUtils.close (aReader);
+    StreamHelper.close (aReader);
 
     aReader = new NonBlockingBufferedReader (new InputStreamReader (new NonBlockingByteArrayInputStream (b),
                                                                     CCharset.CHARSET_UTF_8_OBJ));
     assertEquals (sAlpha, aReader.readLine ());
-    StreamUtils.close (aReader);
+    StreamHelper.close (aReader);
   }
 
   @Test

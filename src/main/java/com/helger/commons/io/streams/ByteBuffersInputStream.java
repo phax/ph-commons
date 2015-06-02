@@ -27,7 +27,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.lang.ByteBufferUtils;
+import com.helger.commons.lang.ByteBufferHelper;
 
 /**
  * {@link java.io.InputStream} wrapped around one or more
@@ -256,7 +256,7 @@ public final class ByteBuffersInputStream extends InputStream
     {
       final ByteBuffer aByteBuffer = m_aBuffers[m_nBufferIndex];
       if (aByteBuffer.hasRemaining ())
-        nBytesRead += ByteBufferUtils.transfer (aByteBuffer, aDestByteBuffer, false);
+        nBytesRead += ByteBufferHelper.transfer (aByteBuffer, aDestByteBuffer, false);
       if (!aDestByteBuffer.hasRemaining ())
         break;
       // Try next ByteBuffer

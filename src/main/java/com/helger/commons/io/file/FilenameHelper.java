@@ -33,7 +33,7 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.exceptions.InitializationException;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.SystemHelper;
@@ -479,7 +479,7 @@ public final class FilenameHelper
   public static boolean isEqualIgnoreFileSeparator (@Nullable final String sAbsoluteFilename1,
                                                     @Nullable final String sAbsoluteFilename2)
   {
-    return EqualsUtils.equals (getPathUsingUnixSeparator (sAbsoluteFilename1),
+    return EqualsHelper.equals (getPathUsingUnixSeparator (sAbsoluteFilename1),
                                getPathUsingUnixSeparator (sAbsoluteFilename2));
   }
 
@@ -871,7 +871,7 @@ public final class FilenameHelper
 
   /**
    * Get a clean path of the passed file resolving all "." and ".." paths.<br>
-   * Note: in case {@link FileUtils#getCanonicalPath(File)} fails,
+   * Note: in case {@link FileHelper#getCanonicalPath(File)} fails,
    * {@link #getCleanPath(String)} is used as a fallback.<br>
    * Note 2: no cleansing operations beside "." and ".." are returned. You need
    * to ensure yourself, that the returned file name is valid!
@@ -894,7 +894,7 @@ public final class FilenameHelper
         // This works only if the file exists
         // Note: getCanonicalPath may be a bottleneck on Unix based file
         // systems!
-        return getPathUsingUnixSeparator (FileUtils.getCanonicalPath (aFile));
+        return getPathUsingUnixSeparator (FileHelper.getCanonicalPath (aFile));
       }
       catch (final IOException ex)
       {

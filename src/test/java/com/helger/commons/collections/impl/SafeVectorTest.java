@@ -25,7 +25,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.impl.SafeVector;
 import com.helger.commons.factory.FactoryNewInstance;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link SafeVector}.
@@ -92,8 +92,8 @@ public final class SafeVectorTest
     final SafeVector <String> sl2 = new SafeVector <String> ();
     sl2.set (10, "any");
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (sl, sl2);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (sl, sl2);
     sl2.set (9, "x");
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (sl, sl2);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (sl, sl2);
   }
 }

@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link ResourceLocation}.
@@ -53,15 +53,15 @@ public final class ResourceLocationTest
     assertEquals ("field", re.getField ());
     assertEquals ("xx(5:7) @ field", re.getAsString ());
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceLocation ("xx", "field"),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceLocation ("xx", "field"),
                                                                  new ResourceLocation ("xx", "field"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", "field"),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", "field"),
                                                                      new ResourceLocation ("xx2", "field"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", "field"),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", "field"),
                                                                      new ResourceLocation ("xx", "field2"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", 0, 1, "field"),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", 0, 1, "field"),
                                                                      new ResourceLocation ("xx", 0, 0, "field"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", 0, 1, "field"),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", 0, 1, "field"),
                                                                      new ResourceLocation ("xx", 1, 1, "field"));
   }
 }

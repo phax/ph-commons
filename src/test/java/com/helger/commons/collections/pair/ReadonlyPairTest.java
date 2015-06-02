@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link ReadonlyPair}.
@@ -80,17 +80,17 @@ public final class ReadonlyPairTest
     aPair2 = new ReadonlyPair <String, Double> ("Nice text", Double.valueOf (3.14));
     assertFalse (aPair.equals (aPair2));
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> (null, null),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> (null, null),
                                                                  new ReadonlyPair <String, Double> (null, null));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> ("Nix da", null),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> ("Nix da", null),
                                                                  new ReadonlyPair <String, Double> ("Nix da", null));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> (null, "Nix da"),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> (null, "Nix da"),
                                                                  new ReadonlyPair <String, String> (null, "Nix da"));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> ("Nix", "da"),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadonlyPair <String, String> ("Nix", "da"),
                                                                  new ReadonlyPair <String, String> ("Nix", "da"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ReadonlyPair <String, String> ("Nix", "da"),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ReadonlyPair <String, String> ("Nix", "da"),
                                                                      new ReadonlyPair <String, String> ("Nix", "da2"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (ReadonlyPair.create ("Nix", "da"),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ReadonlyPair.create ("Nix", "da"),
                                                                      ReadonlyPair.create ("Nix2", "da"));
   }
 }

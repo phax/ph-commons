@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -167,7 +167,7 @@ public final class SizeFloat implements IHasWidthAndHeightFloat, Serializable
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SizeFloat rhs = (SizeFloat) o;
-    return EqualsUtils.equals (m_dWidth, rhs.m_dWidth) && EqualsUtils.equals (m_dHeight, rhs.m_dHeight);
+    return EqualsHelper.equals (m_dWidth, rhs.m_dWidth) && EqualsHelper.equals (m_dHeight, rhs.m_dHeight);
   }
 
   @Override

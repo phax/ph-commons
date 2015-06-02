@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.aggregate.IAggregator;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.tree.withid.unique.AbstractTreeItemWithUniqueIDFactory;
@@ -86,7 +86,7 @@ public abstract class AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE
     if (!super.equals (o))
       return false;
     final AbstractFolderTreeItemFactory <?, ?, ?, ?> rhs = (AbstractFolderTreeItemFactory <?, ?, ?, ?>) o;
-    return EqualsUtils.equals (m_aKeyCombinator, rhs.m_aKeyCombinator);
+    return EqualsHelper.equals (m_aKeyCombinator, rhs.m_aKeyCombinator);
   }
 
   @Override

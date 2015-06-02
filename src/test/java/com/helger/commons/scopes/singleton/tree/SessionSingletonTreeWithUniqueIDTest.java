@@ -27,7 +27,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.scopes.mock.ScopeTestRule;
 import com.helger.commons.scopes.singleton.SessionSingleton;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
@@ -59,7 +59,7 @@ public final class SessionSingletonTreeWithUniqueIDTest
     assertSame (a, b);
 
     if (false)
-      CommonsTestUtils.testDefaultSerialization (a);
+      CommonsTestHelper.testDefaultSerialization (a);
 
     assertNotNull (a.getRootItem ());
     assertFalse (a.hasChildren (a.getRootItem ()));

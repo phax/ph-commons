@@ -26,7 +26,7 @@ import org.junit.Test;
 
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link LoggingTransformErrorListener}.
@@ -54,6 +54,6 @@ public final class LoggingTransformErrorListenerTest extends AbstractCommonsTest
     // Read invalid XSLT
     assertNull (XMLTransformerFactory.newTemplates (fac, new ClassPathResource ("test1.txt")));
 
-    CommonsTestUtils.testToStringImplementation (el);
+    CommonsTestHelper.testToStringImplementation (el);
   }
 }

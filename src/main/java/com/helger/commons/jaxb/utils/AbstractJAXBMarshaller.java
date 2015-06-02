@@ -56,9 +56,9 @@ import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.IWritableResource;
 import com.helger.commons.io.streams.NonBlockingStringWriter;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.jaxb.JAXBContextCache;
-import com.helger.commons.jaxb.JAXBMarshallerUtils;
+import com.helger.commons.jaxb.JAXBMarshallerHelper;
 import com.helger.commons.jaxb.validation.AbstractValidationEventHandler;
 import com.helger.commons.jaxb.validation.CollectingLoggingValidationEventHandlerFactory;
 import com.helger.commons.jaxb.validation.CollectingValidationEventHandler;
@@ -569,7 +569,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
     else
       m_aLastEventHandler = null;
 
-    JAXBMarshallerUtils.setFormattedOutput (aMarshaller, m_bWriteFormatted);
+    JAXBMarshallerHelper.setFormattedOutput (aMarshaller, m_bWriteFormatted);
 
     // Set XSD (if any)
     final Schema aValidationSchema = createValidationSchema ();
@@ -642,7 +642,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
     finally
     {
       // Needs to be manually closed
-      StreamUtils.close (aOS);
+      StreamHelper.close (aOS);
     }
   }
 

@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 
 /**
  * Test class for {@link ClassPathHelper}
@@ -59,7 +59,7 @@ public final class ClassPathHelperTest
     ClassPathHelper.printClassPathEntries (new PrintStream (baos, false, CCharset.CHARSET_ISO_8859_1));
     assertTrue (baos.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ).length () > 0);
     assertTrue (baos.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ).indexOf ("\n") > 0);
-    StreamUtils.close (baos);
+    StreamHelper.close (baos);
 
     // Use special separator
     baos = new NonBlockingByteArrayOutputStream ();
@@ -67,6 +67,6 @@ public final class ClassPathHelperTest
     assertTrue (baos.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ).length () > 0);
     assertTrue (baos.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ).indexOf ("$$$") > 0);
     assertTrue (baos.getAsString (CCharset.CHARSET_UTF_8_OBJ).indexOf ("$$$") > 0);
-    StreamUtils.close (baos);
+    StreamHelper.close (baos);
   }
 }

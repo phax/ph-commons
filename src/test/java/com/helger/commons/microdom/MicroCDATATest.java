@@ -31,7 +31,7 @@ import com.helger.commons.microdom.IMicroCDATA;
 import com.helger.commons.microdom.MicroCDATA;
 import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.MicroException;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MicroCDATA}.
@@ -60,7 +60,7 @@ public final class MicroCDATATest
     assertNotNull (e.getNodeName ());
     assertNotNull (e.getNodeValue ());
     assertSame (EMicroNodeType.CDATA, e.getType ());
-    CommonsTestUtils.testToStringImplementation (e);
+    CommonsTestHelper.testToStringImplementation (e);
 
     e.setData ("allo");
     assertEquals ("allo", e.getData ().toString ());

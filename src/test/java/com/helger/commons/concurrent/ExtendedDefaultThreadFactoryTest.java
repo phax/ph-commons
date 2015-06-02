@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.helger.commons.callback.INonThrowingRunnable;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -46,6 +46,6 @@ public final class ExtendedDefaultThreadFactoryTest
       }
     });
     assertNotNull (t);
-    CommonsTestUtils.testToStringImplementation (x);
+    CommonsTestHelper.testToStringImplementation (x);
   }
 }

@@ -32,7 +32,7 @@ import org.junit.Test;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.filter.FilterNotNull;
 import com.helger.commons.filter.IFilter;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for {@link FilterIterator}
@@ -246,7 +246,7 @@ public final class FilterIteratorTest
     assertEquals ("s2", it.next ());
     assertEquals ("s3", it.next ());
 
-    CommonsTestUtils.testToStringImplementation (it);
+    CommonsTestHelper.testToStringImplementation (it);
 
     try
     {

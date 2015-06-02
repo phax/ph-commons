@@ -36,7 +36,7 @@ import com.helger.commons.io.streams.NonBlockingBitInputStream;
 import com.helger.commons.io.streams.NonBlockingBitOutputStream;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -270,8 +270,8 @@ public class LZWCodec extends AbstractByteArrayCodec
     final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer);
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
     getDecodedLZW (aBAIS, aBAOS);
-    StreamUtils.close (aBAOS);
-    StreamUtils.close (aBAIS);
+    StreamHelper.close (aBAOS);
+    StreamHelper.close (aBAIS);
     return aBAOS.toByteArray ();
   }
 
@@ -454,7 +454,7 @@ public class LZWCodec extends AbstractByteArrayCodec
     finally
     {
       // Flush but do not close
-      StreamUtils.flush (aBOS);
+      StreamHelper.flush (aBOS);
     }
   }
 

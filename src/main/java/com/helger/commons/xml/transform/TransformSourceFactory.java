@@ -38,7 +38,7 @@ import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.streams.ByteBufferInputStream;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
-import com.helger.commons.url.URLUtils;
+import com.helger.commons.url.URLHelper;
 
 /**
  * Factory class to create the correct {@link javax.xml.transform.Source}
@@ -64,7 +64,7 @@ public final class TransformSourceFactory
   @Nonnull
   public static ResourceStreamSource create (@Nonnull final URI aURI)
   {
-    return create (URLUtils.getAsURL (aURI));
+    return create (URLHelper.getAsURL (aURI));
   }
 
   @Nonnull

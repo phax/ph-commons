@@ -43,7 +43,7 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.locale.ELocaleName;
 import com.helger.commons.locale.LocaleCache;
@@ -224,7 +224,7 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
     {
       final String sValue = TypeConverter.convertIfNecessary (aSrcValue, String.class);
       final Object aObj2 = TypeConverter.convertIfNecessary (sValue, aSrcValue.getClass ());
-      assertTrue (EqualsUtils.equals (aSrcValue, aObj2));
+      assertTrue (EqualsHelper.equals (aSrcValue, aObj2));
     }
 
     // Test conversion if no explicit converter available for source class, but
@@ -268,7 +268,7 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
       final String sLocale = TypeConverter.convertIfNecessary (aLocale, String.class);
       assertNotNull (aLocale.toString (), sLocale);
       final Locale aLocale2 = TypeConverter.convertIfNecessary (sLocale, Locale.class);
-      assertTrue (EqualsUtils.equals (aLocale, aLocale2));
+      assertTrue (EqualsHelper.equals (aLocale, aLocale2));
     }
   }
 

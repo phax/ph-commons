@@ -31,7 +31,7 @@ import com.helger.commons.microdom.IMicroDocumentType;
 import com.helger.commons.microdom.MicroCDATA;
 import com.helger.commons.microdom.MicroDocumentType;
 import com.helger.commons.microdom.MicroException;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MicroDocumentType}.
@@ -57,7 +57,7 @@ public final class MicroDocumentTypeTest
     assertNotNull (e.getNodeName ());
     assertNotNull (e.getNodeValue ());
     assertSame (EMicroNodeType.DOCUMENT_TYPE, e.getType ());
-    CommonsTestUtils.testToStringImplementation (e);
+    CommonsTestHelper.testToStringImplementation (e);
 
     assertFalse (e.isEqualContent (null));
     assertTrue (e.isEqualContent (e));

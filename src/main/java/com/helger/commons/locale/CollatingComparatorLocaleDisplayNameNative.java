@@ -41,6 +41,6 @@ public class CollatingComparatorLocaleDisplayNameNative extends AbstractCollatin
   @Override
   protected String getPart (@Nonnull final Locale aLocale)
   {
-    return LocaleUtils.getLocaleNativeDisplayName (aLocale);
+    return LocaleHelper.getLocaleNativeDisplayName (aLocale);
   }
 }

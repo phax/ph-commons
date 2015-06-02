@@ -27,7 +27,7 @@ import java.util.Locale;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.locale.LocaleFormatter;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.utils.LevenshteinDistance;
@@ -79,7 +79,7 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
           break;
       }
     }
-    StreamUtils.close (aBR);
+    StreamHelper.close (aBR);
     return ret;
   }
 

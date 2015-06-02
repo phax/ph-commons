@@ -40,7 +40,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.factory.IFactory;
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.pool.IObjectPool;
 import com.helger.commons.pool.ObjectPool;
 import com.helger.commons.stats.IMutableStatisticsHandlerCounter;
@@ -109,7 +109,7 @@ public final class DOMReader
     }
     finally
     {
-      StreamUtils.close (aIS);
+      StreamHelper.close (aIS);
     }
   }
 
@@ -131,7 +131,7 @@ public final class DOMReader
     }
     finally
     {
-      StreamUtils.close (aReader);
+      StreamHelper.close (aReader);
     }
   }
 
@@ -360,8 +360,8 @@ public final class DOMReader
     {
       // Close both byte stream and character stream, as we don't know which one
       // was used
-      StreamUtils.close (aInputSource.getByteStream ());
-      StreamUtils.close (aInputSource.getCharacterStream ());
+      StreamHelper.close (aInputSource.getByteStream ());
+      StreamHelper.close (aInputSource.getCharacterStream ());
     }
     return aDoc;
   }

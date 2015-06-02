@@ -37,9 +37,9 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.IReadWriteResource;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FilenameHelper;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -111,7 +111,7 @@ public class FileSystemResource implements IReadWriteResource
   {
     ValueEnforcer.notNull (aFile, "File");
 
-    return FileUtils.getInputStream (aFile);
+    return FileHelper.getInputStream (aFile);
   }
 
   @Nullable
@@ -120,7 +120,7 @@ public class FileSystemResource implements IReadWriteResource
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (aCharset, "Charset");
 
-    return StreamUtils.createReader (getInputStream (aFile), aCharset);
+    return StreamHelper.createReader (getInputStream (aFile), aCharset);
   }
 
   @Nullable
@@ -141,7 +141,7 @@ public class FileSystemResource implements IReadWriteResource
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eAppend, "Append");
 
-    return FileUtils.getOutputStream (aFile, eAppend);
+    return FileHelper.getOutputStream (aFile, eAppend);
   }
 
   @Nullable
@@ -153,7 +153,7 @@ public class FileSystemResource implements IReadWriteResource
     ValueEnforcer.notNull (aCharset, "Charset");
     ValueEnforcer.notNull (eAppend, "Append");
 
-    return StreamUtils.createWriter (getOutputStream (aFile, eAppend), aCharset);
+    return StreamHelper.createWriter (getOutputStream (aFile, eAppend), aCharset);
   }
 
   @Nullable
@@ -221,7 +221,7 @@ public class FileSystemResource implements IReadWriteResource
    */
   public boolean canRead ()
   {
-    return FileUtils.canRead (m_aFile);
+    return FileHelper.canRead (m_aFile);
   }
 
   /**
@@ -235,7 +235,7 @@ public class FileSystemResource implements IReadWriteResource
    */
   public boolean canWrite ()
   {
-    return FileUtils.canWrite (m_aFile);
+    return FileHelper.canWrite (m_aFile);
   }
 
   /**
@@ -247,7 +247,7 @@ public class FileSystemResource implements IReadWriteResource
    */
   public boolean canExecute ()
   {
-    return FileUtils.canExecute (m_aFile);
+    return FileHelper.canExecute (m_aFile);
   }
 
   @Override

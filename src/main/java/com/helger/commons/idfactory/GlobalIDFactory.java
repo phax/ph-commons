@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.state.EChange;
 
 /**
@@ -85,7 +85,7 @@ public final class GlobalIDFactory
     s_aRWLock.writeLock ().lock ();
     try
     {
-      if (EqualsUtils.equals (s_aIntIDFactory, aFactory))
+      if (EqualsHelper.equals (s_aIntIDFactory, aFactory))
         return EChange.UNCHANGED;
       if (s_aLogger.isInfoEnabled ())
         s_aLogger.info ("Setting in-memory int ID factory " + aFactory);
@@ -123,7 +123,7 @@ public final class GlobalIDFactory
     s_aRWLock.writeLock ().lock ();
     try
     {
-      if (EqualsUtils.equals (s_aPersistentIntIDFactory, aFactory))
+      if (EqualsHelper.equals (s_aPersistentIntIDFactory, aFactory))
         return EChange.UNCHANGED;
       if (s_aLogger.isInfoEnabled ())
         s_aLogger.info ("Setting persistent int ID factory " + aFactory);
@@ -161,7 +161,7 @@ public final class GlobalIDFactory
     s_aRWLock.writeLock ().lock ();
     try
     {
-      if (EqualsUtils.equals (s_aLongIDFactory, aFactory))
+      if (EqualsHelper.equals (s_aLongIDFactory, aFactory))
         return EChange.UNCHANGED;
       if (s_aLogger.isInfoEnabled ())
         s_aLogger.info ("Setting in-memory long ID factory " + aFactory);
@@ -199,7 +199,7 @@ public final class GlobalIDFactory
     s_aRWLock.writeLock ().lock ();
     try
     {
-      if (EqualsUtils.equals (s_aPersistentLongIDFactory, aFactory))
+      if (EqualsHelper.equals (s_aPersistentLongIDFactory, aFactory))
         return EChange.UNCHANGED;
       if (s_aLogger.isInfoEnabled ())
         s_aLogger.info ("Setting persistent long ID factory " + aFactory);
@@ -237,7 +237,7 @@ public final class GlobalIDFactory
     s_aRWLock.writeLock ().lock ();
     try
     {
-      if (EqualsUtils.equals (s_aStringIDFactory, aFactory))
+      if (EqualsHelper.equals (s_aStringIDFactory, aFactory))
         return EChange.UNCHANGED;
       if (s_aLogger.isInfoEnabled ())
         s_aLogger.info ("Setting in-memory string ID factory " + aFactory);
@@ -275,7 +275,7 @@ public final class GlobalIDFactory
     s_aRWLock.writeLock ().lock ();
     try
     {
-      if (EqualsUtils.equals (s_aPersistentStringIDFactory, aFactory))
+      if (EqualsHelper.equals (s_aPersistentStringIDFactory, aFactory))
         return EChange.UNCHANGED;
       if (s_aLogger.isInfoEnabled ())
         s_aLogger.info ("Setting persistent string ID factory " + aFactory);

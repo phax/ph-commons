@@ -33,7 +33,7 @@ import org.xml.sax.SAXException;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.commons.xml.DefaultXMLIterationHandler;
 import com.helger.commons.xml.EXMLVersion;
@@ -269,7 +269,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
     final String sINDENT = XMLWriterSettings.DEFAULT_INDENTATION_STRING;
     final String sTAGNAME = "notext";
 
-    CommonsTestUtils.testInParallel (1000, new Runnable ()
+    CommonsTestHelper.testInParallel (1000, new Runnable ()
     {
       public void run ()
       {

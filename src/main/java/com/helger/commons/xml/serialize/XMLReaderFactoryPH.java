@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.priviledged.PrivilegedActionSystemGetProperty;
 
 /**
@@ -271,14 +271,14 @@ public final class XMLReaderFactoryPH
                 }
                 finally
                 {
-                  StreamUtils.close (reader);
+                  StreamHelper.close (reader);
                 }
                 // [ph] Remember the read class name
                 s_sPreviouslyReadClassname = className;
               }
               finally
               {
-                StreamUtils.close (in);
+                StreamHelper.close (in);
               }
             }
           }

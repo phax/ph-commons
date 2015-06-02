@@ -24,7 +24,7 @@ import java.io.File;
 import org.junit.Test;
 
 import com.helger.commons.io.file.FileOperations;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link FileLongIDFactory}.
@@ -42,9 +42,9 @@ public final class FileLongIDFactoryTest
     {
       final FileLongIDFactory x = new FileLongIDFactory (f);
       // Compare before retrieving an ID!
-      CommonsTestUtils.testDefaultImplementationWithEqualContentObject (x, new FileLongIDFactory (f));
-      CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (x, new FileLongIDFactory (f2));
-      CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (x,
+      CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, new FileLongIDFactory (f));
+      CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, new FileLongIDFactory (f2));
+      CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x,
                                                                        new FileLongIDFactory (f,
                                                                                               FileLongIDFactory.DEFAULT_RESERVE_COUNT * 2));
 

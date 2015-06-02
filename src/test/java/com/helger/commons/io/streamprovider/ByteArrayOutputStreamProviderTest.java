@@ -28,7 +28,7 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.streams.NonBlockingStringReader;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.io.streams.StringInputStream;
 
 /**
@@ -44,15 +44,15 @@ public final class ByteArrayOutputStreamProviderTest
     final ByteArrayOutputStreamProvider aOSP = new ByteArrayOutputStreamProvider ();
     final OutputStream aOS = aOSP.getOutputStream (EAppend.DEFAULT);
     assertNotNull (aOS);
-    StreamUtils.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream ("Hiho", CCharset.CHARSET_ISO_8859_1_OBJ),
+    StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream ("Hiho", CCharset.CHARSET_ISO_8859_1_OBJ),
                                                          aOS);
     assertEquals ("Hiho", aOSP.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ));
     assertArrayEquals (CharsetManager.getAsBytes ("Hiho", CCharset.CHARSET_ISO_8859_1_OBJ), aOSP.getBytes ());
     // Close the underlying OS
-    StreamUtils.close (aOSP.getWriter (CCharset.CHARSET_UTF_8_OBJ, EAppend.DEFAULT));
+    StreamHelper.close (aOSP.getWriter (CCharset.CHARSET_UTF_8_OBJ, EAppend.DEFAULT));
 
     // Reader/Writer
-    StreamUtils.copyReaderToWriterAndCloseWriter (new NonBlockingStringReader ("Hiho"),
+    StreamHelper.copyReaderToWriterAndCloseWriter (new NonBlockingStringReader ("Hiho"),
                                                   aOSP.getWriter (CCharset.CHARSET_UTF_8_OBJ, EAppend.DEFAULT));
     assertEquals ("Hiho", aOSP.getAsString (CCharset.CHARSET_UTF_8_OBJ));
   }

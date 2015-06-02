@@ -28,7 +28,7 @@ import org.xml.sax.InputSource;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 
 /**
  * {@link org.xml.sax.InputSource} that ensures that the passed
@@ -43,7 +43,7 @@ public class CachingSAXInputSource extends InputSource
   @Nonnull
   private static NonBlockingByteArrayInputStream _getCachedInputStream (@Nonnull @WillClose final InputStream aIS)
   {
-    return new NonBlockingByteArrayInputStream (StreamUtils.getAllBytes (aIS));
+    return new NonBlockingByteArrayInputStream (StreamHelper.getAllBytes (aIS));
   }
 
   public CachingSAXInputSource (@Nonnull final IReadableResource aRes)

@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.id.IHasID;
 
 public final class MockHasChildren implements IHasChildren <MockHasChildren>, IHasID <String>
@@ -66,7 +66,7 @@ public final class MockHasChildren implements IHasChildren <MockHasChildren>, IH
   public MockHasChildren getChildWithID (final String sID)
   {
     for (final MockHasChildren aChild : m_aList)
-      if (EqualsUtils.equals (aChild.m_sID, sID))
+      if (EqualsHelper.equals (aChild.m_sID, sID))
         return aChild;
     return null;
   }

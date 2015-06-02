@@ -27,8 +27,8 @@ import org.junit.Test;
 
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileOperations;
-import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link FileSystemByteStreamResolver}.
@@ -43,18 +43,18 @@ public final class FileSystemByteStreamResolverTest
     final FileSystemByteStreamResolver aFSSR = new FileSystemByteStreamResolver (new File ("."));
     final InputStream aIS = aFSSR.getInputStream ("pom.xml");
     assertNotNull (aIS);
-    StreamUtils.close (aIS);
+    StreamHelper.close (aIS);
 
     final OutputStream aOS = aFSSR.getOutputStream ("$deleteme.txt", EAppend.DEFAULT);
     assertNotNull (aOS);
-    StreamUtils.close (aOS);
+    StreamHelper.close (aOS);
     assertTrue (FileOperations.deleteFile (new File ("$deleteme.txt")).isSuccess ());
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamResolver (new File (".")),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamResolver (new File (".")),
                                                                  new FileSystemByteStreamResolver (new File (".")));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamResolver (new File (".")),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamResolver (new File (".")),
                                                                  new FileSystemByteStreamResolver ("."));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new FileSystemByteStreamResolver (new File (".")),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FileSystemByteStreamResolver (new File (".")),
                                                                      new FileSystemByteStreamResolver (new File ("..")));
   }
 }

@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -76,7 +76,7 @@ public final class ReadonlyPair <DATA1TYPE, DATA2TYPE> implements IPair <DATA1TY
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ReadonlyPair <?, ?> rhs = (ReadonlyPair <?, ?>) o;
-    return EqualsUtils.equals (m_aFirst, rhs.m_aFirst) && EqualsUtils.equals (m_aSecond, rhs.m_aSecond);
+    return EqualsHelper.equals (m_aFirst, rhs.m_aFirst) && EqualsHelper.equals (m_aSecond, rhs.m_aSecond);
   }
 
   @Override

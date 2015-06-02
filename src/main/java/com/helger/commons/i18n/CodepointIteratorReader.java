@@ -21,7 +21,7 @@ import java.io.Reader;
 import javax.annotation.Nonnull;
 import javax.annotation.WillClose;
 
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 
 /**
  * @author Apache Abdera
@@ -30,6 +30,6 @@ public class CodepointIteratorReader extends CodepointIteratorCharArray
 {
   public CodepointIteratorReader (@Nonnull @WillClose final Reader aReader)
   {
-    super (StreamUtils.getAllCharacters (aReader));
+    super (StreamHelper.getAllCharacters (aReader));
   }
 }

@@ -22,7 +22,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -91,7 +91,7 @@ public final class MicroProcessingInstruction extends AbstractMicroNode implemen
     if (!(o instanceof MicroProcessingInstruction))
       return false;
     final MicroProcessingInstruction rhs = (MicroProcessingInstruction) o;
-    return m_sTarget.equals (rhs.m_sTarget) && EqualsUtils.equals (m_sData, rhs.m_sData);
+    return m_sTarget.equals (rhs.m_sTarget) && EqualsHelper.equals (m_sData, rhs.m_sData);
   }
 
   @Override

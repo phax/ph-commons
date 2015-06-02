@@ -18,7 +18,7 @@ package com.helger.commons.tree.withid.unique;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link DefaultTreeItemWithUniqueIDFactory}.
@@ -32,10 +32,10 @@ public final class DefaultTreeItemWithUniqueIDFactoryTest
   {
     final DefaultTreeItemWithUniqueIDFactory <String, String> x = new DefaultTreeItemWithUniqueIDFactory <String, String> ();
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (x,
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x,
                                                                  new DefaultTreeItemWithUniqueIDFactory <String, String> ());
     x.create (x.createRoot (), "any");
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (x,
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x,
                                                                      new DefaultTreeItemWithUniqueIDFactory <String, String> ());
   }
 }

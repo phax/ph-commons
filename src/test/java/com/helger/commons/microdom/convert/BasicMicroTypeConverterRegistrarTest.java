@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.convert.BasicMicroTypeConverterRegistrar;
 import com.helger.commons.microdom.convert.MicroTypeConverter;
@@ -122,7 +122,7 @@ public final class BasicMicroTypeConverterRegistrarTest
       // Convert back to native
       final Object aNative = MicroTypeConverter.convertToNative (aElement, aObj.getClass ());
       assertNotNull (aNative);
-      assertTrue (EqualsUtils.equals (aObj, aNative));
+      assertTrue (EqualsHelper.equals (aObj, aNative));
     }
 
     // These object don't implement equals!

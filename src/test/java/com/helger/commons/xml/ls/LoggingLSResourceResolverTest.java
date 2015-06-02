@@ -18,7 +18,7 @@ package com.helger.commons.xml.ls;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link LoggingLSResourceResolver}.
@@ -33,7 +33,7 @@ public final class LoggingLSResourceResolverTest
     LoggingLSResourceResolver lrr = new LoggingLSResourceResolver ();
     lrr.resolveResource ("xsd", "nsuri", null, "sysid", "baseURI");
 
-    CommonsTestUtils.testToStringImplementation (lrr);
+    CommonsTestHelper.testToStringImplementation (lrr);
 
     lrr = new LoggingLSResourceResolver (new LoggingLSResourceResolver ());
     lrr.resolveResource ("xsd", "nsuri", null, "sysid", "baseURI");

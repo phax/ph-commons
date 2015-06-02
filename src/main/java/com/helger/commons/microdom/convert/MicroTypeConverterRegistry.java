@@ -34,7 +34,7 @@ import com.helger.commons.GlobalDebug;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
-import com.helger.commons.lang.ServiceLoaderUtils;
+import com.helger.commons.lang.ServiceLoaderHelper;
 
 /**
  * A utility class for converting objects from and to
@@ -239,7 +239,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     }
 
     // Register all custom micro type converter
-    for (final IMicroTypeConverterRegistrarSPI aSPI : ServiceLoaderUtils.getAllSPIImplementations (IMicroTypeConverterRegistrarSPI.class))
+    for (final IMicroTypeConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (IMicroTypeConverterRegistrarSPI.class))
       aSPI.registerMicroTypeConverter (this);
 
     if (GlobalDebug.isDebugMode ())

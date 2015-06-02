@@ -32,8 +32,8 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.FilenameHelper;
-import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.system.EOperatingSystem;
 
 /**
@@ -90,16 +90,16 @@ public final class FileSystemResourceTest
     assertTrue (fr.exists ());
     assertTrue (fr.getResourceID ().endsWith ("pom.xml"));
     assertTrue (fr.getPath ().endsWith ("pom.xml"));
-    StreamUtils.close (fr.getReader (CCharset.CHARSET_ISO_8859_1_OBJ));
-    final byte [] aBytes = StreamUtils.getAllBytes (fr);
+    StreamHelper.close (fr.getReader (CCharset.CHARSET_ISO_8859_1_OBJ));
+    final byte [] aBytes = StreamHelper.getAllBytes (fr);
     assertTrue (aBytes.length > 0);
     assertNotNull (fr.getAsURL ());
     assertNotNull (fr.getAsFile ());
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (fr, new FileSystemResource ("pom.xml"));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (fr, fr.getReadableCloneForPath ("pom.xml"));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (fr, fr.getWritableCloneForPath ("pom.xml"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (fr, new FileSystemResource ("pom.xml2"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (fr, new FileSystemResource ("pom.xml"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (fr, fr.getReadableCloneForPath ("pom.xml"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (fr, fr.getWritableCloneForPath ("pom.xml"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (fr, new FileSystemResource ("pom.xml2"));
 
     fr = new FileSystemResource ("this file does not exist");
     assertFalse (fr.exists ());
@@ -116,17 +116,17 @@ public final class FileSystemResourceTest
       final FileSystemResource fr = new FileSystemResource (f);
       OutputStream aOS = fr.getOutputStream (EAppend.TRUNCATE);
       assertNotNull (aOS);
-      StreamUtils.close (aOS);
+      StreamHelper.close (aOS);
       aOS = fr.getOutputStream (EAppend.APPEND);
       assertNotNull (aOS);
-      StreamUtils.close (aOS);
+      StreamHelper.close (aOS);
 
       Writer w = fr.getWriter (CCharset.CHARSET_ISO_8859_1_OBJ, EAppend.TRUNCATE);
       assertNotNull (w);
-      StreamUtils.close (w);
+      StreamHelper.close (w);
       w = fr.getWriter (CCharset.CHARSET_ISO_8859_1_OBJ, EAppend.APPEND);
       assertNotNull (w);
-      StreamUtils.close (w);
+      StreamHelper.close (w);
     }
     finally
     {
@@ -137,6 +137,6 @@ public final class FileSystemResourceTest
   @Test
   public void testSerialize () throws Exception
   {
-    CommonsTestUtils.testDefaultSerialization (new FileSystemResource ("file.txt"));
+    CommonsTestHelper.testDefaultSerialization (new FileSystemResource ("file.txt"));
   }
 }

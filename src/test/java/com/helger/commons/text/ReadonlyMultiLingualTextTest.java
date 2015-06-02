@@ -29,7 +29,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.IReadonlyMultiLingualText;
 import com.helger.commons.text.ISimpleMultiLingualText;
 import com.helger.commons.text.MultiLingualText;
@@ -88,14 +88,14 @@ public final class ReadonlyMultiLingualTextTest extends AbstractCommonsTestCase
     assertFalse (aMLT.containsLocaleWithFallback (L_FR));
     assertEquals (2, aMLT.getAllTexts ().size ());
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (aMLT,
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMLT,
                                                                  new ReadonlyMultiLingualText (CollectionHelper.newMap (new Locale [] { L_DE,
                                                                                                                                        L_EN },
                                                                                                                         new String [] { "de",
                                                                                                                                        "en" })));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ReadonlyMultiLingualText (),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadonlyMultiLingualText (),
                                                                  new ReadonlyMultiLingualText ());
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadonlyMultiLingualText ());
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadonlyMultiLingualText ());
 
     try
     {

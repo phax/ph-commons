@@ -27,7 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.aggregate.AggregatorStringWithSeparatorIgnoreNull;
 import com.helger.commons.filter.IFilter;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.tree.withid.folder.DefaultFolderTree;
 import com.helger.commons.tree.withid.folder.DefaultFolderTreeItem;
@@ -47,7 +47,7 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, List 
                                 @Nullable final IFilter <File> aFileFilter)
   {
     if (aDir != null)
-      for (final File aChild : FileUtils.getDirectoryContent (aDir))
+      for (final File aChild : FileHelper.getDirectoryContent (aDir))
       {
         if (aChild.isFile ())
         {

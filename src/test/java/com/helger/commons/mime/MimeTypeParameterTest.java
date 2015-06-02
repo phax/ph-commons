@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MimeTypeParameter}
@@ -40,10 +40,10 @@ public final class MimeTypeParameterTest extends AbstractCommonsTestCase
     assertEquals ("iso-8859-1", p.getValue ());
     assertFalse (p.isValueRequiringQuoting ());
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (p, new MimeTypeParameter ("charset", "iso-8859-1"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charsetname",
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (p, new MimeTypeParameter ("charset", "iso-8859-1"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charsetname",
                                                                                                "iso-8859-1"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charset", "utf-8"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charset", "utf-8"));
 
     p = new MimeTypeParameter ("charset", "foo bar");
     assertEquals ("charset", p.getAttribute ());

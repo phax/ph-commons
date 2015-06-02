@@ -33,12 +33,12 @@ import org.xml.sax.InputSource;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.streams.ByteBufferInputStream;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
-import com.helger.commons.url.URLUtils;
+import com.helger.commons.url.URLHelper;
 
 /**
  * Factory class to create the correct {@link InputSource} objects for different
@@ -64,7 +64,7 @@ public final class InputSourceFactory
   @Nonnull
   public static InputSource create (@Nonnull final URI aURI)
   {
-    return create (URLUtils.getAsURL (aURI));
+    return create (URLHelper.getAsURL (aURI));
   }
 
   @Nonnull
@@ -90,7 +90,7 @@ public final class InputSourceFactory
       if (aFile != null)
       {
         // Potentially use memory mapped files
-        return create (FileUtils.getInputStream (aFile));
+        return create (FileHelper.getInputStream (aFile));
       }
     }
     return new ReadableResourceSAXInputSource (aResource);

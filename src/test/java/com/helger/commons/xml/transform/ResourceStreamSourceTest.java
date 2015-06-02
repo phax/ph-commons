@@ -29,8 +29,8 @@ import org.junit.Test;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.streamprovider.MockNullInputStreamProvider;
-import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link ResourceStreamSource}.
@@ -47,11 +47,11 @@ public final class ResourceStreamSourceTest
     final ResourceStreamSource src = new ResourceStreamSource (aRes);
     final InputStream is = src.getInputStream ();
     assertNotNull (is);
-    StreamUtils.close (is);
+    StreamHelper.close (is);
     assertEquals (aRes.getResourceID (), src.getSystemId ());
     assertNull (src.getPublicId ());
 
-    CommonsTestUtils.testToStringImplementation (src);
+    CommonsTestHelper.testToStringImplementation (src);
 
     try
     {

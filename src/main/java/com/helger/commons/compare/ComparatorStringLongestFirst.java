@@ -58,7 +58,7 @@ public class ComparatorStringLongestFirst extends AbstractComparator <String>
   protected int mainCompare (@Nonnull final String sElement1, @Nonnull final String sElement2)
   {
     // The longer, the earlier in the results
-    int ret = CompareUtils.compare (sElement2.length (), sElement1.length ());
+    int ret = CompareHelper.compare (sElement2.length (), sElement1.length ());
     if (ret == 0)
     {
       // Important to compare the content as well because with ret==0,

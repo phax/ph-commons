@@ -32,7 +32,7 @@ import com.helger.commons.microdom.MicroCDATA;
 import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.MicroException;
 import com.helger.commons.microdom.MicroProcessingInstruction;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -62,7 +62,7 @@ public final class MicroProcessingInstructionTest
     assertNotNull (e.getNodeName ());
     assertNotNull (e.getNodeValue ());
     assertSame (EMicroNodeType.PROCESSING_INSTRUCTION, e.getType ());
-    CommonsTestUtils.testToStringImplementation (e);
+    CommonsTestHelper.testToStringImplementation (e);
 
     e = new MicroProcessingInstruction ("xyz", "data");
     assertNotNull (e);

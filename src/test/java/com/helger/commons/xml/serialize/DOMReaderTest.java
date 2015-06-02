@@ -47,9 +47,9 @@ import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.streams.NonBlockingStringReader;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.io.streams.StringInputStream;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.EXMLParserFeature;
 import com.helger.commons.xml.sax.CachingSAXInputSource;
@@ -360,7 +360,7 @@ public final class DOMReaderTest
   @Test
   public void testMultithreadedDOM ()
   {
-    CommonsTestUtils.testInParallel (100, new IThrowingRunnable ()
+    CommonsTestHelper.testInParallel (100, new IThrowingRunnable ()
     {
       public void run () throws Exception
       {
@@ -375,7 +375,7 @@ public final class DOMReaderTest
     // Include a dummy file
     final File aFile = new File ("src/test/resources/test1.txt");
     assertTrue (aFile.exists ());
-    final String sFileContent = StreamUtils.getAllBytesAsString (new FileSystemResource (aFile),
+    final String sFileContent = StreamHelper.getAllBytesAsString (new FileSystemResource (aFile),
                                                                  CCharset.CHARSET_ISO_8859_1_OBJ);
 
     // The XML with XXE problem

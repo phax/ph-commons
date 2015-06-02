@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.version.Version;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -50,32 +50,32 @@ public final class CustomLicenseTest
     assertNull (cl2.getVersion ());
     assertNull (cl2.getURL ());
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (cl2, new CustomLicense ("cl1", "License", null, null));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (cl, new CustomLicense ("cl1",
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (cl2, new CustomLicense ("cl1", "License", null, null));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (cl, new CustomLicense ("cl1",
                                                                                         "License",
                                                                                         new Version ("1.2"),
                                                                                         "url"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl12",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl12",
                                                                                             "License",
                                                                                             new Version ("1.2"),
                                                                                             "url"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
                                                                                             "License2",
                                                                                             new Version ("1.2"),
                                                                                             "url"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
                                                                                             "License",
                                                                                             new Version ("1.1"),
                                                                                             "url"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
                                                                                             "License",
                                                                                             null,
                                                                                             "url"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
                                                                                             "License",
                                                                                             new Version ("1.2"),
                                                                                             "url2"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1",
                                                                                             "License",
                                                                                             new Version ("1.2"),
                                                                                             null));

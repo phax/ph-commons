@@ -46,8 +46,8 @@ public final class JAXBMarshallerFuncTest
     @Override
     protected void customizeMarshaller (@Nonnull final Marshaller aMarshaller)
     {
-      JAXBMarshallerUtils.setFormattedOutput (aMarshaller, true);
-      JAXBMarshallerUtils.setSunNamespacePrefixMapper (aMarshaller,
+      JAXBMarshallerHelper.setFormattedOutput (aMarshaller, true);
+      JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller,
                                                        new MapBasedNamespaceContext ().addMapping ("def", "urn:test"));
     }
 

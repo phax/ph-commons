@@ -29,7 +29,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -352,7 +352,7 @@ public class MimeType implements IMimeType, Comparable <MimeType>
     final MimeType rhs = (MimeType) o;
     return m_eContentType.equals (rhs.m_eContentType) &&
            m_sContentSubType.equals (rhs.m_sContentSubType) &&
-           EqualsUtils.equals (m_aParameters, rhs.m_aParameters);
+           EqualsHelper.equals (m_aParameters, rhs.m_aParameters);
   }
 
   @Override

@@ -28,7 +28,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -405,7 +405,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
            m_eIndent.equals (rhs.m_eIndent) &&
            m_eIncorrectCharacterHandling.equals (rhs.m_eIncorrectCharacterHandling) &&
            m_aCharset.equals (rhs.m_aCharset) &&
-           EqualsUtils.equals (m_aNamespaceContext, rhs.m_aNamespaceContext) &&
+           EqualsHelper.equals (m_aNamespaceContext, rhs.m_aNamespaceContext) &&
            m_bUseDoubleQuotesForAttributes == rhs.m_bUseDoubleQuotesForAttributes &&
            m_bSpaceOnSelfClosedElement == rhs.m_bSpaceOnSelfClosedElement &&
            m_eNewLineMode.equals (rhs.m_eNewLineMode) &&

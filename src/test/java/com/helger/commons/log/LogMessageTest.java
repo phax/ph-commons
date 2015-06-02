@@ -27,7 +27,7 @@ import java.util.Date;
 import org.junit.Test;
 
 import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.mock.exception.MockException;
 
 /**
@@ -45,7 +45,7 @@ public final class LogMessageTest
     assertSame (EErrorLevel.WARN, lm.getErrorLevel ());
     assertEquals ("Msg", lm.getMessage ());
     assertNotNull (lm.getThrowable ());
-    CommonsTestUtils.testToStringImplementation (lm);
+    CommonsTestHelper.testToStringImplementation (lm);
 
     try
     {

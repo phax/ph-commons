@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.UnsupportedOperation;
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -67,7 +67,7 @@ public abstract class AbstractMemoryReadableResource implements IReadableResourc
   @Nullable
   public Reader getReader (@Nonnull final Charset aCharset)
   {
-    return StreamUtils.createReader (getInputStream (), aCharset);
+    return StreamHelper.createReader (getInputStream (), aCharset);
   }
 
   @Nonnull

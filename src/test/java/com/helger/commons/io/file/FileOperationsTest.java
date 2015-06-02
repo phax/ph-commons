@@ -52,11 +52,11 @@ public final class FileOperationsTest
   public void testCreateDir ()
   {
     final File aDir1 = new File ("TestDir");
-    assertFalse (FileUtils.existsDir (aDir1));
+    assertFalse (FileHelper.existsDir (aDir1));
     _expectedSuccess (FileOperations.createDir (aDir1));
     try
     {
-      assertTrue (FileUtils.existsDir (aDir1));
+      assertTrue (FileHelper.existsDir (aDir1));
 
       // directory already exists
       _expectedError (FileOperations.createDir (aDir1), EFileIOErrorCode.TARGET_ALREADY_EXISTS);
@@ -64,7 +64,7 @@ public final class FileOperationsTest
     finally
     {
       _expectedSuccess (FileOperations.deleteDir (aDir1));
-      assertFalse (FileUtils.existsDir (aDir1));
+      assertFalse (FileHelper.existsDir (aDir1));
     }
 
     // Invalid directory name
@@ -84,11 +84,11 @@ public final class FileOperationsTest
   public void testCreateDirIfNotExisting ()
   {
     final File aDir1 = new File ("TestDir");
-    assertFalse (FileUtils.existsDir (aDir1));
+    assertFalse (FileHelper.existsDir (aDir1));
     _expectedSuccess (FileOperations.createDirIfNotExisting (aDir1));
     try
     {
-      assertTrue (FileUtils.existsDir (aDir1));
+      assertTrue (FileHelper.existsDir (aDir1));
 
       // directory already exists
       _expectedSuccess (FileOperations.createDirIfNotExisting (aDir1));
@@ -96,7 +96,7 @@ public final class FileOperationsTest
     finally
     {
       _expectedSuccess (FileOperations.deleteDir (aDir1));
-      assertFalse (FileUtils.existsDir (aDir1));
+      assertFalse (FileHelper.existsDir (aDir1));
     }
 
     // Invalid directory name
@@ -117,13 +117,13 @@ public final class FileOperationsTest
   {
     final File aDir1 = new File ("TestDir");
     final File aDir11 = new File (aDir1, "TestSubDir");
-    assertFalse (FileUtils.existsDir (aDir1));
-    assertFalse (FileUtils.existsDir (aDir11));
+    assertFalse (FileHelper.existsDir (aDir1));
+    assertFalse (FileHelper.existsDir (aDir11));
     _expectedSuccess (FileOperations.createDirRecursive (aDir11));
     try
     {
-      assertTrue (FileUtils.existsDir (aDir1));
-      assertTrue (FileUtils.existsDir (aDir11));
+      assertTrue (FileHelper.existsDir (aDir1));
+      assertTrue (FileHelper.existsDir (aDir11));
 
       // directory already exists
       _expectedError (FileOperations.createDirRecursive (aDir1), EFileIOErrorCode.TARGET_ALREADY_EXISTS);
@@ -132,8 +132,8 @@ public final class FileOperationsTest
     finally
     {
       _expectedSuccess (FileOperations.deleteDirRecursive (aDir1));
-      assertFalse (FileUtils.existsDir (aDir11));
-      assertFalse (FileUtils.existsDir (aDir1));
+      assertFalse (FileHelper.existsDir (aDir11));
+      assertFalse (FileHelper.existsDir (aDir1));
       _expectedError (FileOperations.deleteDirRecursive (aDir1), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
     }
 
@@ -155,13 +155,13 @@ public final class FileOperationsTest
   {
     final File aDir1 = new File ("TestDir");
     final File aDir11 = new File (aDir1, "TestSubDir");
-    assertFalse (FileUtils.existsDir (aDir1));
-    assertFalse (FileUtils.existsDir (aDir11));
+    assertFalse (FileHelper.existsDir (aDir1));
+    assertFalse (FileHelper.existsDir (aDir11));
     _expectedSuccess (FileOperations.createDirRecursiveIfNotExisting (aDir11));
     try
     {
-      assertTrue (FileUtils.existsDir (aDir1));
-      assertTrue (FileUtils.existsDir (aDir11));
+      assertTrue (FileHelper.existsDir (aDir1));
+      assertTrue (FileHelper.existsDir (aDir11));
 
       // directory already exists
       _expectedSuccess (FileOperations.createDirRecursiveIfNotExisting (aDir1));
@@ -170,8 +170,8 @@ public final class FileOperationsTest
     finally
     {
       _expectedSuccess (FileOperations.deleteDirRecursive (aDir1));
-      assertFalse (FileUtils.existsDir (aDir11));
-      assertFalse (FileUtils.existsDir (aDir1));
+      assertFalse (FileHelper.existsDir (aDir11));
+      assertFalse (FileHelper.existsDir (aDir1));
       _expectedError (FileOperations.deleteDirRecursive (aDir1), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
     }
 
@@ -194,35 +194,35 @@ public final class FileOperationsTest
     final File aSrcDir = new File ("SourceDir");
     final File aDstDir = new File ("DestDir");
     assertTrue (!aSrcDir.equals (aDstDir));
-    assertFalse (FileUtils.existsDir (aSrcDir));
-    assertFalse (FileUtils.existsDir (aDstDir));
+    assertFalse (FileHelper.existsDir (aSrcDir));
+    assertFalse (FileHelper.existsDir (aDstDir));
 
     // create source directory
     _expectedSuccess (FileOperations.createDir (aSrcDir));
     try
     {
-      assertTrue (FileUtils.existsDir (aSrcDir));
-      assertFalse (FileUtils.existsDir (aDstDir));
+      assertTrue (FileHelper.existsDir (aSrcDir));
+      assertFalse (FileHelper.existsDir (aDstDir));
 
       // rename
       _expectedSuccess (FileOperations.renameDir (aSrcDir, aDstDir));
-      assertFalse (FileUtils.existsDir (aSrcDir));
-      assertTrue (FileUtils.existsDir (aDstDir));
+      assertFalse (FileHelper.existsDir (aSrcDir));
+      assertTrue (FileHelper.existsDir (aDstDir));
 
       // rename again
       _expectedError (FileOperations.renameDir (aSrcDir, aDstDir), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
-      assertFalse (FileUtils.existsDir (aSrcDir));
-      assertTrue (FileUtils.existsDir (aDstDir));
+      assertFalse (FileHelper.existsDir (aSrcDir));
+      assertTrue (FileHelper.existsDir (aDstDir));
 
       // rename same
       _expectedError (FileOperations.renameDir (aDstDir, aDstDir), EFileIOErrorCode.SOURCE_EQUALS_TARGET);
-      assertFalse (FileUtils.existsDir (aSrcDir));
-      assertTrue (FileUtils.existsDir (aDstDir));
+      assertFalse (FileHelper.existsDir (aSrcDir));
+      assertTrue (FileHelper.existsDir (aDstDir));
 
       // rename back
       _expectedSuccess (FileOperations.renameDir (aDstDir, aSrcDir));
-      assertTrue (FileUtils.existsDir (aSrcDir));
-      assertFalse (FileUtils.existsDir (aDstDir));
+      assertTrue (FileHelper.existsDir (aSrcDir));
+      assertFalse (FileHelper.existsDir (aDstDir));
 
       // create destination directory
       _expectedSuccess (FileOperations.createDir (aDstDir));
@@ -246,8 +246,8 @@ public final class FileOperationsTest
       // Don't know where we are in case of an error -> no expected result
       FileOperations.deleteDir (aSrcDir);
       FileOperations.deleteDir (aDstDir);
-      assertFalse (FileUtils.existsDir (aSrcDir));
-      assertFalse (FileUtils.existsDir (aDstDir));
+      assertFalse (FileHelper.existsDir (aSrcDir));
+      assertFalse (FileHelper.existsDir (aDstDir));
     }
 
     try
@@ -283,11 +283,11 @@ public final class FileOperationsTest
   {
     final File aFile = new File ("dummy.txt");
     final File aFile2 = new File ("dummy2.txt");
-    assertFalse (FileUtils.existsFile (aFile));
+    assertFalse (FileHelper.existsFile (aFile));
     try
     {
       SimpleFileIO.writeFile (aFile, CharsetManager.getAsBytes ("abc", CCharset.CHARSET_ISO_8859_1_OBJ));
-      assertTrue (FileUtils.existsFile (aFile));
+      assertTrue (FileHelper.existsFile (aFile));
 
       SimpleFileIO.writeFile (aFile2, CharsetManager.getAsBytes ("abc", CCharset.CHARSET_ISO_8859_1_OBJ));
       _expectedError (FileOperations.renameFile (aFile, aFile2), EFileIOErrorCode.TARGET_ALREADY_EXISTS);
@@ -330,21 +330,21 @@ public final class FileOperationsTest
     final File aFile2 = new File ("dummy2.txt");
     try
     {
-      assertFalse (FileUtils.existsFile (aFile));
-      assertFalse (FileUtils.existsFile (aFile2));
+      assertFalse (FileHelper.existsFile (aFile));
+      assertFalse (FileHelper.existsFile (aFile2));
 
       _expectedError (FileOperations.copyFile (aFile, aFile2), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
 
       SimpleFileIO.writeFile (aFile, CharsetManager.getAsBytes ("abc", CCharset.CHARSET_ISO_8859_1_OBJ));
-      assertTrue (FileUtils.existsFile (aFile));
+      assertTrue (FileHelper.existsFile (aFile));
 
       SimpleFileIO.writeFile (aFile2, CharsetManager.getAsBytes ("abc", CCharset.CHARSET_ISO_8859_1_OBJ));
       _expectedError (FileOperations.copyFile (aFile, aFile2), EFileIOErrorCode.TARGET_ALREADY_EXISTS);
       _expectedSuccess (FileOperations.deleteFile (aFile2));
 
       _expectedSuccess (FileOperations.copyFile (aFile, aFile2));
-      assertTrue (FileUtils.existsFile (aFile));
-      assertTrue (FileUtils.existsFile (aFile2));
+      assertTrue (FileHelper.existsFile (aFile));
+      assertTrue (FileHelper.existsFile (aFile2));
       assertTrue (Arrays.equals (SimpleFileIO.readFileBytes (aFile), SimpleFileIO.readFileBytes (aFile2)));
       _expectedError (FileOperations.copyFile (aFile, aFile), EFileIOErrorCode.SOURCE_EQUALS_TARGET);
       _expectedError (FileOperations.copyFile (aFile, new File ("target/../" + aFile.getName ())),
@@ -397,12 +397,12 @@ public final class FileOperationsTest
       _expectedSuccess (FileOperations.createDir (new File (fDir, "subdir")));
       for (int i = 1; i <= 10; ++i)
         SimpleFileIO.writeFile (new File (fDir, "subdir/file" + i), "Hallo", CCharset.CHARSET_ISO_8859_1_OBJ);
-      assertEquals (11, FileUtils.getDirectoryObjectCount (fDir));
+      assertEquals (11, FileHelper.getDirectoryObjectCount (fDir));
 
-      assertFalse (FileUtils.existsDir (fDir2));
+      assertFalse (FileHelper.existsDir (fDir2));
       _expectedSuccess (FileOperations.copyDirRecursive (fDir, fDir2));
-      assertTrue (FileUtils.existsDir (fDir2));
-      assertEquals (11, FileUtils.getDirectoryObjectCount (fDir2));
+      assertTrue (FileHelper.existsDir (fDir2));
+      assertEquals (11, FileHelper.getDirectoryObjectCount (fDir2));
     }
     finally
     {
@@ -433,11 +433,11 @@ public final class FileOperationsTest
     try
     {
       _expectedError (FileOperations.deleteDir (aDir), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
-      assertFalse (FileUtils.existsDir (aDir));
+      assertFalse (FileHelper.existsDir (aDir));
       _expectedSuccess (FileOperations.createDir (aDir));
-      assertEquals (0, FileUtils.getDirectoryObjectCount (aDir));
+      assertEquals (0, FileHelper.getDirectoryObjectCount (aDir));
       _expectedSuccess (FileOperations.deleteDir (aDir));
-      assertFalse (FileUtils.existsDir (aDir));
+      assertFalse (FileHelper.existsDir (aDir));
     }
     finally
     {
@@ -459,7 +459,7 @@ public final class FileOperationsTest
     final File aDir = new File ("deldirrec.test");
     try
     {
-      assertFalse (FileUtils.existsDir (aDir));
+      assertFalse (FileHelper.existsDir (aDir));
       _expectedError (FileOperations.deleteDirRecursive (aDir), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
       _expectedSuccess (FileOperations.createDir (aDir));
       for (int i = 0; i < 10; ++i)
@@ -472,12 +472,12 @@ public final class FileOperationsTest
                                 "Inhalt von file subdir/test" + i,
                                 CCharset.CHARSET_ISO_8859_1_OBJ);
       }
-      assertEquals (20, FileUtils.getDirectoryObjectCount (aDir));
+      assertEquals (20, FileHelper.getDirectoryObjectCount (aDir));
       // Cannot use regular delete, because the directory is not empty!
       _expectedError (FileOperations.deleteDir (aDir), EFileIOErrorCode.OPERATION_FAILED);
-      assertTrue (FileUtils.existsDir (aDir));
+      assertTrue (FileHelper.existsDir (aDir));
       _expectedSuccess (FileOperations.deleteDirRecursive (aDir));
-      assertFalse (FileUtils.existsDir (aDir));
+      assertFalse (FileHelper.existsDir (aDir));
     }
     finally
     {
@@ -502,9 +502,9 @@ public final class FileOperationsTest
     try
     {
       SimpleFileIO.writeFile (f, CharsetManager.getAsBytes ("abc", CCharset.CHARSET_ISO_8859_1_OBJ));
-      assertTrue (FileUtils.existsFile (f));
+      assertTrue (FileHelper.existsFile (f));
       _expectedSuccess (FileOperations.deleteFile (f));
-      assertFalse (FileUtils.existsFile (f));
+      assertFalse (FileHelper.existsFile (f));
       _expectedError (FileOperations.deleteFile (f), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
     }
     finally

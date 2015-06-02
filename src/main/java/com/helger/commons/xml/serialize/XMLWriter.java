@@ -33,7 +33,7 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.io.streams.NonBlockingStringWriter;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.stats.IMutableStatisticsHandlerSize;
 import com.helger.commons.stats.StatisticsManager;
@@ -119,7 +119,7 @@ public final class XMLWriter
     }
     finally
     {
-      StreamUtils.close (aOS);
+      StreamHelper.close (aOS);
     }
     return ESuccess.FAILURE;
   }
@@ -182,7 +182,7 @@ public final class XMLWriter
     }
     finally
     {
-      StreamUtils.close (aWriter);
+      StreamHelper.close (aWriter);
     }
     return ESuccess.FAILURE;
   }
@@ -208,7 +208,7 @@ public final class XMLWriter
     finally
     {
       // don't forget to close the stream!
-      StreamUtils.close (aWriter);
+      StreamHelper.close (aWriter);
     }
     return null;
   }

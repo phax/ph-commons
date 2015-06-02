@@ -38,10 +38,10 @@ import com.helger.commons.GlobalDebug;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.locale.LocaleUtils;
+import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.stats.IMutableStatisticsHandlerKeyedCounter;
 import com.helger.commons.stats.StatisticsManager;
-import com.helger.commons.text.resource.ResourceBundleUtils;
+import com.helger.commons.text.resource.ResourceBundleHelper;
 
 /**
  * Text resolving class that performs the fallback handling for locales other
@@ -133,7 +133,7 @@ public final class EnumTextResolverWithPropertiesOverrideAndFallback extends Abs
       if (!m_bUseResourceBundleCache)
       {
         // Do not use the cache!
-        return ResourceBundleUtils.getResourceBundle (sBundleName, aLocale);
+        return ResourceBundleHelper.getResourceBundle (sBundleName, aLocale);
       }
 
       // Existing cache value? May be null!
@@ -153,7 +153,7 @@ public final class EnumTextResolverWithPropertiesOverrideAndFallback extends Abs
         return m_aResourceBundleCache.get (sBundleName);
 
       // Resolve the resource bundle
-      final ResourceBundle ret = ResourceBundleUtils.getResourceBundle (sBundleName, aLocale);
+      final ResourceBundle ret = ResourceBundleHelper.getResourceBundle (sBundleName, aLocale);
       m_aResourceBundleCache.put (sBundleName, ret);
       return ret;
     }
@@ -169,12 +169,12 @@ public final class EnumTextResolverWithPropertiesOverrideAndFallback extends Abs
                                               @Nonnull final Locale aContentLocale)
   {
     // Try all possible locales of the passed locale
-    for (final Locale aLocale : LocaleUtils.getCalculatedLocaleListForResolving (aContentLocale))
+    for (final Locale aLocale : LocaleHelper.getCalculatedLocaleListForResolving (aContentLocale))
     {
       // Explicitly use a bundle name containing the locale in the base name to
       // avoid strange fallback behaviour to the default locale
       final String sBundleName = PREFIX_OVERRIDE + aLocale.toString ();
-      final String ret = ResourceBundleUtils.getString (_getResourceBundle (sBundleName, aLocale), sID);
+      final String ret = ResourceBundleHelper.getString (_getResourceBundle (sBundleName, aLocale), sID);
       if (ret != null)
       {
         // Match!
@@ -199,12 +199,12 @@ public final class EnumTextResolverWithPropertiesOverrideAndFallback extends Abs
                                               @Nonnull final Locale aContentLocale)
   {
     // Try all possible locales of the passed locale
-    for (final Locale aLocale : LocaleUtils.getCalculatedLocaleListForResolving (aContentLocale))
+    for (final Locale aLocale : LocaleHelper.getCalculatedLocaleListForResolving (aContentLocale))
     {
       // Explicitly use a bundle name containing the locale in the base name to
       // avoid strange fallback behaviour to the default locale
       final String sBundleName = PREFIX_FALLBACK + aLocale.toString ();
-      final String ret = ResourceBundleUtils.getString (_getResourceBundle (sBundleName, aLocale), sID);
+      final String ret = ResourceBundleHelper.getString (_getResourceBundle (sBundleName, aLocale), sID);
       if (ret != null)
       {
         m_aRWLock.writeLock ().lock ();
@@ -275,7 +275,7 @@ public final class EnumTextResolverWithPropertiesOverrideAndFallback extends Abs
     m_aRWLock.writeLock ().lock ();
     try
     {
-      ResourceBundleUtils.clearCache ();
+      ResourceBundleHelper.clearCache ();
       m_aUsedOverrideBundles.clear ();
       m_aUsedFallbackBundles.clear ();
       m_aResourceBundleCache.clear ();

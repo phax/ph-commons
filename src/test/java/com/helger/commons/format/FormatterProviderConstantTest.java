@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link FormatterProviderConstant}.
@@ -40,6 +40,6 @@ public final class FormatterProviderConstantTest
     assertTrue (f1 instanceof FormatterBracket);
     final IFormatter f2 = fp.getFormatter ();
     assertSame (f1, f2);
-    CommonsTestUtils.testToStringImplementation (fp);
+    CommonsTestHelper.testToStringImplementation (fp);
   }
 }

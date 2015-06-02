@@ -29,7 +29,7 @@ import java.util.ServiceLoader;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.parent.MockChildrenProvider;
 import com.helger.commons.state.IClearable;
 import com.helger.commons.state.IStoppable;
@@ -65,7 +65,7 @@ public final class ServiceLoaderFuncTest
     }
     catch (final UnsupportedOperationException ex)
     {}
-    CommonsTestUtils.testToStringImplementation (aSL);
+    CommonsTestHelper.testToStringImplementation (aSL);
   }
 
   @Test

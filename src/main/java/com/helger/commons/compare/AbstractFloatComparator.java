@@ -46,6 +46,6 @@ public abstract class AbstractFloatComparator <DATATYPE> extends AbstractCompara
   {
     final float f1 = getAsFloat (aElement1);
     final float f2 = getAsFloat (aElement2);
-    return CompareUtils.compare (f1, f2);
+    return CompareHelper.compare (f1, f2);
   }
 }

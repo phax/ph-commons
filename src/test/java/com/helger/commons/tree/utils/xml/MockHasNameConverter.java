@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.utils.MicroUtils;
+import com.helger.commons.microdom.utils.MicroHelper;
 import com.helger.commons.name.MockHasName;
 
 public final class MockHasNameConverter implements IConverterTreeXML <MockHasName>
@@ -41,6 +41,6 @@ public final class MockHasNameConverter implements IConverterTreeXML <MockHasNam
   @Nonnull
   public MockHasName getAsDataValue (final IMicroElement eDataElement)
   {
-    return new MockHasName (MicroUtils.getChildTextContent (eDataElement, getNamespaceURI (), "name"));
+    return new MockHasName (MicroHelper.getChildTextContent (eDataElement, getNamespaceURI (), "name"));
   }
 }

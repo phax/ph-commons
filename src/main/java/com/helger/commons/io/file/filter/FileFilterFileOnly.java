@@ -21,7 +21,7 @@ import java.io.File;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 
 /**
  * A file filter that accepts only files.
@@ -34,6 +34,6 @@ public class FileFilterFileOnly extends AbstractFileFilter
   @Override
   public boolean matchesThisFilter (@Nullable final File aFile)
   {
-    return aFile != null && FileUtils.existsFile (aFile);
+    return aFile != null && FileHelper.existsFile (aFile);
   }
 }

@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link ResourceBundleTextProvider}.
@@ -45,12 +45,12 @@ public final class ResourceBundleTextProviderTest extends AbstractCommonsTestCas
     assertEquals ("äöü", aRBT.getTextWithArgs (L_DE, "egal"));
     assertEquals ("äöü", aRBT.getTextWithLocaleFallbackAndArgs (L_DE, "egal"));
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
                                                                  new ResourceBundleTextProvider (key));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
                                                                  new ResourceBundleTextProvider ("properties/test-iso8859",
                                                                                                  "key1"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceBundleTextProvider (key),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleTextProvider (key),
                                                                      new ResourceBundleTextProvider ("properties/test-iso8859",
                                                                                                      "key2"));
 

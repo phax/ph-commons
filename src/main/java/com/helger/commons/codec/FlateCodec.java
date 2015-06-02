@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 
 /**
  * Encoder and decoder for flate compression
@@ -69,13 +69,13 @@ public class FlateCodec extends AbstractByteArrayCodec
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
     try
     {
-      if (StreamUtils.copyInputStreamToOutputStream (aDecodeIS, aBAOS).isFailure ())
+      if (StreamHelper.copyInputStreamToOutputStream (aDecodeIS, aBAOS).isFailure ())
         throw new DecodeException ("Failed to flate decode!");
       return aBAOS.toByteArray ();
     }
     finally
     {
-      StreamUtils.close (aBAOS);
+      StreamHelper.close (aBAOS);
     }
   }
 
@@ -93,7 +93,7 @@ public class FlateCodec extends AbstractByteArrayCodec
 
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
     final DeflaterOutputStream aEncodeOS = new DeflaterOutputStream (aBAOS);
-    if (StreamUtils.copyInputStreamToOutputStreamAndCloseOS (new NonBlockingByteArrayInputStream (aBuffer), aEncodeOS)
+    if (StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new NonBlockingByteArrayInputStream (aBuffer), aEncodeOS)
                    .isFailure ())
       throw new EncodeException ("Failed to flate encode!");
     return aBAOS.toByteArray ();

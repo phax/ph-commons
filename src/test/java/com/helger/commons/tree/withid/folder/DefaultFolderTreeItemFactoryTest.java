@@ -23,7 +23,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.aggregate.AggregatorStringWithSeparator;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link DefaultFolderTreeItemFactory}.
@@ -36,10 +36,10 @@ public final class DefaultFolderTreeItemFactoryTest
   public void testBasic ()
   {
     final DefaultFolderTreeItemFactory <String, String, List <String>> ftif = new DefaultFolderTreeItemFactory <String, String, List <String>> (new AggregatorStringWithSeparator ("/"));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (ftif,
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ftif,
                                                                  new DefaultFolderTreeItemFactory <String, String, List <String>> (new AggregatorStringWithSeparator ("/")));
     assertNotNull (ftif.createRoot ());
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (ftif,
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ftif,
                                                                      new DefaultFolderTreeItemFactory <String, String, List <String>> (new AggregatorStringWithSeparator ("/")));
   }
 }

@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.lang.ServiceLoaderUtils;
+import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.mock.exception.IMockException;
 import com.helger.commons.scopes.domain.IApplicationScope;
 import com.helger.commons.scopes.domain.IGlobalScope;
@@ -57,11 +57,11 @@ public final class ScopeSPIManager
   static
   {
     // Register all listeners
-    s_aGlobalSPIs = ServiceLoaderUtils.getAllSPIImplementations (IGlobalScopeSPI.class);
-    s_aApplicationSPIs = ServiceLoaderUtils.getAllSPIImplementations (IApplicationScopeSPI.class);
-    s_aSessionSPIs = ServiceLoaderUtils.getAllSPIImplementations (ISessionScopeSPI.class);
-    s_aSessionApplicationSPIs = ServiceLoaderUtils.getAllSPIImplementations (ISessionApplicationScopeSPI.class);
-    s_aRequestSPIs = ServiceLoaderUtils.getAllSPIImplementations (IRequestScopeSPI.class);
+    s_aGlobalSPIs = ServiceLoaderHelper.getAllSPIImplementations (IGlobalScopeSPI.class);
+    s_aApplicationSPIs = ServiceLoaderHelper.getAllSPIImplementations (IApplicationScopeSPI.class);
+    s_aSessionSPIs = ServiceLoaderHelper.getAllSPIImplementations (ISessionScopeSPI.class);
+    s_aSessionApplicationSPIs = ServiceLoaderHelper.getAllSPIImplementations (ISessionApplicationScopeSPI.class);
+    s_aRequestSPIs = ServiceLoaderHelper.getAllSPIImplementations (IRequestScopeSPI.class);
   }
 
   @PresentForCodeCoverage

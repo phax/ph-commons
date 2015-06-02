@@ -34,7 +34,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.locale.LocaleCache;
-import com.helger.commons.locale.LocaleUtils;
+import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 
@@ -93,7 +93,7 @@ public final class CountryCache
   EChange addCountry (@Nonnull final String sCountry)
   {
     ValueEnforcer.notNull (sCountry, "Country");
-    final String sValidCountry = LocaleUtils.getValidCountryCode (sCountry);
+    final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
     if (sValidCountry == null)
       throw new IllegalArgumentException ("illegal country code '" + sCountry + "'");
     if (!sCountry.equals (sValidCountry))
@@ -127,7 +127,7 @@ public final class CountryCache
     if (sCountry.indexOf (CGlobal.LOCALE_SEPARATOR) >= 0)
       return getCountry (LocaleCache.getLocale (sCountry));
 
-    final String sValidCountry = LocaleUtils.getValidCountryCode (sCountry);
+    final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
     if (!containsCountry (sValidCountry))
       s_aLogger.warn ("Trying to retrieve unsupported country " + sCountry);
     return LocaleCache.getLocale ("", sValidCountry, "");
@@ -190,7 +190,7 @@ public final class CountryCache
     if (sCountry == null)
       return false;
 
-    final String sValidCountry = LocaleUtils.getValidCountryCode (sCountry);
+    final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
     if (sValidCountry == null)
       return false;
     m_aRWLock.readLock ().lock ();

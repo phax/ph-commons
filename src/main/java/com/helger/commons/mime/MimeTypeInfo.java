@@ -28,7 +28,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -90,7 +90,7 @@ public final class MimeTypeInfo
       if (o == null || !getClass ().equals (o.getClass ()))
         return false;
       final MimeTypeWithSource rhs = (MimeTypeWithSource) o;
-      return m_aMimeType.equals (rhs.m_aMimeType) && EqualsUtils.equals (m_sSource, rhs.m_sSource);
+      return m_aMimeType.equals (rhs.m_aMimeType) && EqualsHelper.equals (m_sSource, rhs.m_sSource);
     }
 
     @Override
@@ -158,7 +158,7 @@ public final class MimeTypeInfo
       if (o == null || !getClass ().equals (o.getClass ()))
         return false;
       final ExtensionWithSource rhs = (ExtensionWithSource) o;
-      return m_sExt.equals (rhs.m_sExt) && EqualsUtils.equals (m_sSource, rhs.m_sSource);
+      return m_sExt.equals (rhs.m_sExt) && EqualsHelper.equals (m_sSource, rhs.m_sSource);
     }
 
     @Override

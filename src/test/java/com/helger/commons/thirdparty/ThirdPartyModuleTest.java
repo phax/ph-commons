@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.version.Version;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -98,7 +98,7 @@ public final class ThirdPartyModuleTest
   @Test
   public void testStd ()
   {
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ThirdPartyModule ("displayname",
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ThirdPartyModule ("displayname",
                                                                                        "owner",
                                                                                        ELicense.APACHE1),
                                                                  new ThirdPartyModule ("displayname",
@@ -110,43 +110,43 @@ public final class ThirdPartyModuleTest
                                                        new Version ("1.1"),
                                                        "url",
                                                        true);
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (mod, new ThirdPartyModule ("displayname",
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (mod, new ThirdPartyModule ("displayname",
                                                                                             "owner",
                                                                                             ELicense.APACHE1,
                                                                                             new Version ("1.1"),
                                                                                             "url",
                                                                                             true));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname2",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname2",
                                                                                                 "owner",
                                                                                                 ELicense.APACHE1,
                                                                                                 new Version ("1.1"),
                                                                                                 "url",
                                                                                                 true));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
                                                                                                 "owner2",
                                                                                                 ELicense.APACHE1,
                                                                                                 new Version ("1.1"),
                                                                                                 "url",
                                                                                                 true));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
                                                                                                 "owner",
                                                                                                 ELicense.APACHE2,
                                                                                                 new Version ("1.1"),
                                                                                                 "url",
                                                                                                 true));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
                                                                                                 "owner",
                                                                                                 ELicense.APACHE1,
                                                                                                 new Version ("1.1.2"),
                                                                                                 "url",
                                                                                                 true));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
                                                                                                 "owner",
                                                                                                 ELicense.APACHE1,
                                                                                                 new Version ("1.1"),
                                                                                                 "url2",
                                                                                                 true));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mod, new ThirdPartyModule ("displayname",
                                                                                                 "owner",
                                                                                                 ELicense.APACHE1,
                                                                                                 new Version ("1.1"),

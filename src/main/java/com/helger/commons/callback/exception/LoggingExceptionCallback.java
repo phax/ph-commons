@@ -28,7 +28,7 @@ import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IHasErrorLevel;
-import com.helger.commons.log.LogUtils;
+import com.helger.commons.log.LogHelper;
 import com.helger.commons.mock.exception.IMockException;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -98,7 +98,7 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
   {
     final String sLogMessage = getLogMessage (t);
     final boolean bLogException = isLogException (t);
-    LogUtils.log (s_aLogger, m_aErrorLevel, sLogMessage, bLogException ? t : null);
+    LogHelper.log (s_aLogger, m_aErrorLevel, sLogMessage, bLogException ? t : null);
   }
 
   @Override

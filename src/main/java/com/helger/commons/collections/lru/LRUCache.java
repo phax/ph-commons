@@ -25,7 +25,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.UseDirectEqualsAndHashCode;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -104,7 +104,7 @@ public class LRUCache <KEYTYPE, VALUETYPE> extends LinkedHashMap <KEYTYPE, VALUE
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final LRUCache <?, ?> rhs = (LRUCache <?, ?>) o;
-    return EqualsUtils.equals (m_nMaxSize, rhs.m_nMaxSize) && entrySet ().equals (rhs.entrySet ());
+    return EqualsHelper.equals (m_nMaxSize, rhs.m_nMaxSize) && entrySet ().equals (rhs.entrySet ());
   }
 
   @Override

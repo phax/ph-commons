@@ -28,7 +28,7 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -157,7 +157,7 @@ public class QuotedPrintableCodec extends AbstractByteArrayCodec
     }
     finally
     {
-      StreamUtils.close (aBAOS);
+      StreamHelper.close (aBAOS);
     }
   }
 

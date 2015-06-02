@@ -33,7 +33,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.IMultiLingualText;
 import com.helger.commons.text.IReadonlyMultiLingualText;
 import com.helger.commons.text.MultiLingualText;
@@ -175,7 +175,7 @@ public final class MultiLingualTextTest extends AbstractCommonsTestCase
   public void testEquals ()
   {
     final IMultiLingualText aMLT = new MultiLingualText ();
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (aMLT, new MultiLingualText ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMLT, new MultiLingualText ());
   }
 
   @Test

@@ -24,8 +24,8 @@ import java.io.InputStream;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link StringInputStreamProvider}.
@@ -41,40 +41,40 @@ public final class StringInputStreamProviderTest
 
     // String constructor
     InputStream aIS = new StringInputStreamProvider (s, CCharset.CHARSET_UTF_8_OBJ).getInputStream ();
-    assertEquals (s, StreamUtils.getAllBytesAsString (aIS, CCharset.CHARSET_UTF_8_OBJ));
+    assertEquals (s, StreamHelper.getAllBytesAsString (aIS, CCharset.CHARSET_UTF_8_OBJ));
 
     // char[] constructor
     aIS = new StringInputStreamProvider (s.toCharArray (), CCharset.CHARSET_UTF_8_OBJ).getInputStream ();
-    assertEquals (s, StreamUtils.getAllBytesAsString (aIS, CCharset.CHARSET_UTF_8_OBJ));
+    assertEquals (s, StreamHelper.getAllBytesAsString (aIS, CCharset.CHARSET_UTF_8_OBJ));
 
     // CharSequence constructor
     aIS = new StringInputStreamProvider (new StringBuilder (s), CCharset.CHARSET_UTF_8_OBJ).getInputStream ();
-    assertEquals (s, StreamUtils.getAllBytesAsString (aIS, CCharset.CHARSET_UTF_8_OBJ));
+    assertEquals (s, StreamHelper.getAllBytesAsString (aIS, CCharset.CHARSET_UTF_8_OBJ));
   }
 
   @Test
   public void testBOM ()
   {
     // BOM is emitted
-    byte [] aBytes = StreamUtils.getAllBytes (new StringInputStreamProvider ("abc", CCharset.CHARSET_UTF_16_OBJ));
+    byte [] aBytes = StreamHelper.getAllBytes (new StringInputStreamProvider ("abc", CCharset.CHARSET_UTF_16_OBJ));
     assertArrayEquals (new byte [] { (byte) 0xfe, (byte) 0xff, 0, 'a', 0, 'b', 0, 'c' }, aBytes);
 
     // No BOM is emitted!
-    aBytes = StreamUtils.getAllBytes (new StringInputStreamProvider ("abc", CCharset.CHARSET_UTF_16BE_OBJ));
+    aBytes = StreamHelper.getAllBytes (new StringInputStreamProvider ("abc", CCharset.CHARSET_UTF_16BE_OBJ));
     assertArrayEquals (new byte [] { 0, 'a', 0, 'b', 0, 'c' }, aBytes);
 
     // No BOM is emitted!
-    aBytes = StreamUtils.getAllBytes (new StringInputStreamProvider ("abc", CCharset.CHARSET_UTF_16LE_OBJ));
+    aBytes = StreamHelper.getAllBytes (new StringInputStreamProvider ("abc", CCharset.CHARSET_UTF_16LE_OBJ));
     assertArrayEquals (new byte [] { 'a', 0, 'b', 0, 'c', 0 }, aBytes);
 
     // No BOM is emitted!
-    aBytes = StreamUtils.getAllBytes (new StringInputStreamProvider ("abc", CCharset.CHARSET_UTF_8_OBJ));
+    aBytes = StreamHelper.getAllBytes (new StringInputStreamProvider ("abc", CCharset.CHARSET_UTF_8_OBJ));
     assertArrayEquals (new byte [] { 'a', 'b', 'c' }, aBytes);
   }
 
   @Test
   public void testSerialization ()
   {
-    CommonsTestUtils.testDefaultSerialization (new StringInputStreamProvider ("Hallo Weltäöü", CCharset.CHARSET_UTF_8_OBJ));
+    CommonsTestHelper.testDefaultSerialization (new StringInputStreamProvider ("Hallo Weltäöü", CCharset.CHARSET_UTF_8_OBJ));
   }
 }

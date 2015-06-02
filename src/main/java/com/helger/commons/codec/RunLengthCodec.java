@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 
 /**
  * Decoder for run length encoding
@@ -81,8 +81,8 @@ public class RunLengthCodec extends AbstractByteArrayDecoder
     }
     finally
     {
-      StreamUtils.close (aBAOS);
-      StreamUtils.close (aBAIS);
+      StreamHelper.close (aBAOS);
+      StreamHelper.close (aBAIS);
     }
   }
 }

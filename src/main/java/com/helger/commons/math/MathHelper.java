@@ -29,7 +29,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 
 /**
  * Contains several math help routines.
@@ -340,7 +340,7 @@ public final class MathHelper
    */
   public static boolean isEqualToZero (@Nonnull final BigDecimal aValue)
   {
-    return EqualsUtils.equals (aValue, BigDecimal.ZERO);
+    return EqualsHelper.equals (aValue, BigDecimal.ZERO);
   }
 
   /**
@@ -350,7 +350,7 @@ public final class MathHelper
    */
   public static boolean isNotEqualToZero (@Nonnull final BigDecimal aValue)
   {
-    return !EqualsUtils.equals (aValue, BigDecimal.ZERO);
+    return !EqualsHelper.equals (aValue, BigDecimal.ZERO);
   }
 
   /**
@@ -400,7 +400,7 @@ public final class MathHelper
    */
   public static boolean isEqualToOne (@Nonnull final BigDecimal aValue)
   {
-    return EqualsUtils.equals (aValue, BigDecimal.ONE);
+    return EqualsHelper.equals (aValue, BigDecimal.ONE);
   }
 
   /**
@@ -410,7 +410,7 @@ public final class MathHelper
    */
   public static boolean isNotEqualToOne (@Nonnull final BigDecimal aValue)
   {
-    return !EqualsUtils.equals (aValue, BigDecimal.ONE);
+    return !EqualsHelper.equals (aValue, BigDecimal.ONE);
   }
 
   /**
@@ -460,7 +460,7 @@ public final class MathHelper
    */
   public static boolean isEqualToTen (@Nonnull final BigDecimal aValue)
   {
-    return EqualsUtils.equals (aValue, BigDecimal.TEN);
+    return EqualsHelper.equals (aValue, BigDecimal.TEN);
   }
 
   /**
@@ -470,7 +470,7 @@ public final class MathHelper
    */
   public static boolean isNotEqualToTen (@Nonnull final BigDecimal aValue)
   {
-    return !EqualsUtils.equals (aValue, BigDecimal.TEN);
+    return !EqualsHelper.equals (aValue, BigDecimal.TEN);
   }
 
   /**
@@ -520,7 +520,7 @@ public final class MathHelper
    */
   public static boolean isEqualTo100 (@Nonnull final BigDecimal aValue)
   {
-    return EqualsUtils.equals (aValue, CGlobal.BIGDEC_100);
+    return EqualsHelper.equals (aValue, CGlobal.BIGDEC_100);
   }
 
   /**
@@ -530,7 +530,7 @@ public final class MathHelper
    */
   public static boolean isNotEqualTo100 (@Nonnull final BigDecimal aValue)
   {
-    return !EqualsUtils.equals (aValue, CGlobal.BIGDEC_100);
+    return !EqualsHelper.equals (aValue, CGlobal.BIGDEC_100);
   }
 
   /**
@@ -580,7 +580,7 @@ public final class MathHelper
    */
   public static boolean isEqualToZero (@Nonnull final BigInteger aValue)
   {
-    return EqualsUtils.equals (aValue, BigInteger.ZERO);
+    return EqualsHelper.equals (aValue, BigInteger.ZERO);
   }
 
   /**
@@ -590,7 +590,7 @@ public final class MathHelper
    */
   public static boolean isNotEqualToZero (@Nonnull final BigInteger aValue)
   {
-    return !EqualsUtils.equals (aValue, BigInteger.ZERO);
+    return !EqualsHelper.equals (aValue, BigInteger.ZERO);
   }
 
   /**
@@ -640,7 +640,7 @@ public final class MathHelper
    */
   public static boolean isEqualToOne (@Nonnull final BigInteger aValue)
   {
-    return EqualsUtils.equals (aValue, BigInteger.ONE);
+    return EqualsHelper.equals (aValue, BigInteger.ONE);
   }
 
   /**
@@ -650,7 +650,7 @@ public final class MathHelper
    */
   public static boolean isNotEqualToOne (@Nonnull final BigInteger aValue)
   {
-    return !EqualsUtils.equals (aValue, BigInteger.ONE);
+    return !EqualsHelper.equals (aValue, BigInteger.ONE);
   }
 
   /**
@@ -700,7 +700,7 @@ public final class MathHelper
    */
   public static boolean isEqualToTen (@Nonnull final BigInteger aValue)
   {
-    return EqualsUtils.equals (aValue, BigInteger.TEN);
+    return EqualsHelper.equals (aValue, BigInteger.TEN);
   }
 
   /**
@@ -710,7 +710,7 @@ public final class MathHelper
    */
   public static boolean isNotEqualToTen (@Nonnull final BigInteger aValue)
   {
-    return !EqualsUtils.equals (aValue, BigInteger.TEN);
+    return !EqualsHelper.equals (aValue, BigInteger.TEN);
   }
 
   /**
@@ -760,7 +760,7 @@ public final class MathHelper
    */
   public static boolean isEqualTo100 (@Nonnull final BigInteger aValue)
   {
-    return EqualsUtils.equals (aValue, CGlobal.BIGINT_100);
+    return EqualsHelper.equals (aValue, CGlobal.BIGINT_100);
   }
 
   /**
@@ -770,7 +770,7 @@ public final class MathHelper
    */
   public static boolean isNotEqualTo100 (@Nonnull final BigInteger aValue)
   {
-    return !EqualsUtils.equals (aValue, CGlobal.BIGINT_100);
+    return !EqualsHelper.equals (aValue, CGlobal.BIGINT_100);
   }
 
   /**

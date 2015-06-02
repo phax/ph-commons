@@ -34,7 +34,7 @@ import com.helger.commons.io.IInputStreamResolver;
 import com.helger.commons.io.IOutputStreamResolver;
 import com.helger.commons.io.IReaderResolver;
 import com.helger.commons.io.IWriterResolver;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -92,13 +92,13 @@ public final class FileSystemCharStreamResolver implements IInputStreamResolver,
   @Nullable
   public Reader getReader (@Nonnull final String sName)
   {
-    return StreamUtils.createReader (getInputStream (sName), m_aCharset);
+    return StreamHelper.createReader (getInputStream (sName), m_aCharset);
   }
 
   @Nullable
   public Writer getWriter (@Nonnull final String sName, @Nonnull final EAppend eAppend)
   {
-    return StreamUtils.createWriter (getOutputStream (sName, eAppend), m_aCharset);
+    return StreamHelper.createWriter (getOutputStream (sName, eAppend), m_aCharset);
   }
 
   @Override

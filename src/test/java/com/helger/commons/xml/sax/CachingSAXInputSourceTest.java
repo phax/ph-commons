@@ -29,8 +29,8 @@ import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.streamprovider.MockNullInputStreamProvider;
-import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link CachingSAXInputSource}.
@@ -46,25 +46,25 @@ public final class CachingSAXInputSourceTest
 
     CachingSAXInputSource is = new CachingSAXInputSource (aRes);
     assertEquals (aRes.getResourceID (), is.getSystemId ());
-    assertNotNull (StreamUtils.getAllBytes (is.getByteStream ()));
+    assertNotNull (StreamHelper.getAllBytes (is.getByteStream ()));
 
     is = new CachingSAXInputSource ((IInputStreamProvider) aRes);
     assertNull (is.getSystemId ());
-    assertNotNull (StreamUtils.getAllBytes (is.getByteStream ()));
+    assertNotNull (StreamHelper.getAllBytes (is.getByteStream ()));
 
     is = new CachingSAXInputSource (aRes, "sysid");
     assertEquals ("sysid", is.getSystemId ());
-    assertNotNull (StreamUtils.getAllBytes (is.getByteStream ()));
+    assertNotNull (StreamHelper.getAllBytes (is.getByteStream ()));
 
     is = new CachingSAXInputSource (aRes.getInputStream ());
     assertNull (is.getSystemId ());
-    assertNotNull (StreamUtils.getAllBytes (is.getByteStream ()));
+    assertNotNull (StreamHelper.getAllBytes (is.getByteStream ()));
 
     is = new CachingSAXInputSource (aRes.getInputStream (), "sysid");
     assertEquals ("sysid", is.getSystemId ());
-    assertNotNull (StreamUtils.getAllBytes (is.getByteStream ()));
+    assertNotNull (StreamHelper.getAllBytes (is.getByteStream ()));
 
-    CommonsTestUtils.testToStringImplementation (is);
+    CommonsTestHelper.testToStringImplementation (is);
 
     try
     {

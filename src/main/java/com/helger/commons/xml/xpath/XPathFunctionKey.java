@@ -22,7 +22,7 @@ import javax.annotation.concurrent.Immutable;
 import javax.xml.namespace.QName;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.compare.CompareUtils;
+import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -72,15 +72,15 @@ public final class XPathFunctionKey implements Comparable <XPathFunctionKey>
   public int compareTo (@Nonnull final XPathFunctionKey o)
   {
     // 1st namespace URI
-    int ret = CompareUtils.nullSafeCompare (m_aFunctionName.getNamespaceURI (), o.m_aFunctionName.getNamespaceURI ());
+    int ret = CompareHelper.nullSafeCompare (m_aFunctionName.getNamespaceURI (), o.m_aFunctionName.getNamespaceURI ());
     if (ret == 0)
     {
       // 2nd local part
-      ret = CompareUtils.nullSafeCompare (m_aFunctionName.getLocalPart (), o.m_aFunctionName.getLocalPart ());
+      ret = CompareHelper.nullSafeCompare (m_aFunctionName.getLocalPart (), o.m_aFunctionName.getLocalPart ());
       if (ret == 0)
       {
         // 3rd parameter count
-        ret = CompareUtils.compare (m_nArity, o.m_nArity);
+        ret = CompareHelper.compare (m_nArity, o.m_nArity);
       }
     }
     return ret;

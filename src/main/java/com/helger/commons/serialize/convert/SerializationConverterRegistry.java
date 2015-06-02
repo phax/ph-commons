@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
-import com.helger.commons.lang.ServiceLoaderUtils;
+import com.helger.commons.lang.ServiceLoaderHelper;
 
 /**
  * The registry that keeps the mappings for serialization converters.
@@ -223,7 +223,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
     }
 
     // Register all custom micro type converter
-    for (final ISerializationConverterRegistrarSPI aSPI : ServiceLoaderUtils.getAllSPIImplementations (ISerializationConverterRegistrarSPI.class))
+    for (final ISerializationConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (ISerializationConverterRegistrarSPI.class))
       aSPI.registerSerializationConverter (this);
     s_aLogger.info (getRegisteredSerializationConverterCount () + " serialization converters registered");
   }

@@ -20,7 +20,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.string.StringParser;
 
 /**
@@ -54,7 +54,7 @@ public enum EJavaVersion
   {
     m_dMinVersionIncl = CGlobal.ILLEGAL_DOUBLE;
     m_dMaxVersionExcl = CGlobal.ILLEGAL_DOUBLE;
-    m_bIsIt = EqualsUtils.equals (CGlobal.ILLEGAL_DOUBLE, JavaVersionConstants.CLASS_VERSION);
+    m_bIsIt = EqualsHelper.equals (CGlobal.ILLEGAL_DOUBLE, JavaVersionConstants.CLASS_VERSION);
   }
 
   /**

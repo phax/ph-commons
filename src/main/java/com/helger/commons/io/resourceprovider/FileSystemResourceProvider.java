@@ -26,12 +26,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.IWritableResource;
 import com.helger.commons.io.IWritableResourceProvider;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.URLResource;
@@ -67,11 +67,11 @@ public final class FileSystemResourceProvider implements IWritableResourceProvid
         throw new IllegalArgumentException ("Passed base path '" + aBasePath + "' does not exist!");
       if (!aBasePath.isDirectory ())
         throw new IllegalArgumentException ("Passed base path '" + aBasePath + "' is not a directory!");
-      if (!FileUtils.canRead (aBasePath))
+      if (!FileHelper.canRead (aBasePath))
         s_aLogger.warn ("Cannot read passed base path '" + aBasePath + "'!");
-      if (!FileUtils.canWrite (aBasePath))
+      if (!FileHelper.canWrite (aBasePath))
         s_aLogger.warn ("Cannot write passed base path '" + aBasePath + "'!");
-      if (!FileUtils.canExecute (aBasePath))
+      if (!FileHelper.canExecute (aBasePath))
         s_aLogger.warn ("Cannot execute in passed base path '" + aBasePath + "'!");
     }
     m_aBasePath = aBasePath;
@@ -133,7 +133,7 @@ public final class FileSystemResourceProvider implements IWritableResourceProvid
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FileSystemResourceProvider rhs = (FileSystemResourceProvider) o;
-    return EqualsUtils.equals (m_aBasePath, rhs.m_aBasePath);
+    return EqualsHelper.equals (m_aBasePath, rhs.m_aBasePath);
   }
 
   @Override

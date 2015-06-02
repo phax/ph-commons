@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.lang.ByteBufferUtils;
+import com.helger.commons.lang.ByteBufferHelper;
 
 /**
  * {@link InputStream} wrapped around a single {@link ByteBuffer}.
@@ -164,7 +164,7 @@ public final class ByteBufferInputStream extends InputStream
 
     long nBytesRead = 0;
     if (m_aBuffer.hasRemaining ())
-      nBytesRead += ByteBufferUtils.transfer (m_aBuffer, aDestByteBuffer, false);
+      nBytesRead += ByteBufferHelper.transfer (m_aBuffer, aDestByteBuffer, false);
     return nBytesRead;
   }
 }

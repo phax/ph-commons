@@ -39,7 +39,7 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.system.EOperatingSystem;
 
 /**
@@ -137,7 +137,7 @@ public final class FontKerningFuncTest
       }
       finally
       {
-        StreamUtils.close (aDIS);
+        StreamHelper.close (aDIS);
       }
     }
 
@@ -172,7 +172,7 @@ public final class FontKerningFuncTest
       for (int i = 0; i < nTableCount; i++)
       {
         m_nBytePosition += tagBytes.length;
-        StreamUtils.readFully (aIS, tagBytes);
+        StreamHelper.readFully (aIS, tagBytes);
         final String tag = CharsetManager.getAsString (tagBytes, CCharset.CHARSET_ISO_8859_1_OBJ);
 
         _skip (aIS, 4);
@@ -257,7 +257,7 @@ public final class FontKerningFuncTest
 
     private void _skip (final InputStream aIS, final int bytes) throws IOException
     {
-      StreamUtils.skipFully (aIS, bytes);
+      StreamHelper.skipFully (aIS, bytes);
       m_nBytePosition += bytes;
     }
 
@@ -265,7 +265,7 @@ public final class FontKerningFuncTest
     {
       if (false)
         s_aLogger.info ("position=" + position + "; pos=" + m_nBytePosition);
-      StreamUtils.skipFully (aIS, position - m_nBytePosition);
+      StreamHelper.skipFully (aIS, position - m_nBytePosition);
       m_nBytePosition = position;
     }
   }

@@ -45,7 +45,7 @@ import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.MicroException;
 import com.helger.commons.microdom.MicroQName;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.MultiLingualText;
 import com.helger.commons.typeconvert.TypeConverterException;
 
@@ -112,7 +112,7 @@ public final class MicroElementTest extends AbstractCommonsTestCase
     assertNotNull (e.getAllChildElements ());
     assertTrue (e.getAllChildElements ().isEmpty ());
     assertSame (EMicroNodeType.ELEMENT, e.getType ());
-    CommonsTestUtils.testToStringImplementation (e);
+    CommonsTestHelper.testToStringImplementation (e);
 
     e = new MicroElement ("myns", "xyz");
     assertNull (e.getAttributeValue ("attr"));
@@ -184,14 +184,14 @@ public final class MicroElementTest extends AbstractCommonsTestCase
     assertNotNull (eRoot.getAllChildElements ());
     assertTrue (eRoot.getAllChildElements ().isEmpty ());
     assertFalse (eRoot.hasChildElements ());
-    CommonsTestUtils.testToStringImplementation (eRoot);
+    CommonsTestHelper.testToStringImplementation (eRoot);
 
     final IMicroElement e1 = eRoot.appendElement ("level1");
     e1.appendElement ("e11");
     eRoot.appendText ("My text node");
     eRoot.appendComment ("Comment");
     eRoot.appendElement ("xyz");
-    CommonsTestUtils.testToStringImplementation (eRoot);
+    CommonsTestHelper.testToStringImplementation (eRoot);
 
     assertNotNull (eRoot.getAllChildElements ());
     assertEquals (2, eRoot.getAllChildElements ().size ());

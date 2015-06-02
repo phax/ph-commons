@@ -33,7 +33,7 @@ import com.helger.commons.microdom.MicroContainer;
 import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.MicroText;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MicroContainer}.
@@ -60,7 +60,7 @@ public final class MicroContainerTest
     assertNotNull (e.getNodeValue ());
     assertTrue (e.isEqualContent (e.getClone ()));
     assertSame (EMicroNodeType.CONTAINER, e.getType ());
-    CommonsTestUtils.testToStringImplementation (e);
+    CommonsTestHelper.testToStringImplementation (e);
 
     e.appendElement ("any");
     assertNotNull (e);

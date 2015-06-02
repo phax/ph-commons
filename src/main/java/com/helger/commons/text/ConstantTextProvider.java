@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.name.IHasDisplayText;
@@ -87,7 +87,7 @@ public class ConstantTextProvider extends AbstractTextProvider implements IHasDi
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ConstantTextProvider rhs = (ConstantTextProvider) o;
-    return EqualsUtils.equals (m_sFixedText, rhs.m_sFixedText);
+    return EqualsHelper.equals (m_sFixedText, rhs.m_sFixedText);
   }
 
   @Override

@@ -30,7 +30,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.file.FileOperations;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
@@ -51,7 +51,7 @@ public final class XMLResourceBundleTest extends AbstractCommonsTestCase
       final Properties p = new Properties ();
       p.setProperty ("prop1", "Value 1");
       p.setProperty ("prop2", "äöü");
-      p.storeToXML (FileUtils.getOutputStream (aFile), null, CCharset.CHARSET_UTF_8);
+      p.storeToXML (FileHelper.getOutputStream (aFile), null, CCharset.CHARSET_UTF_8);
 
       // Read again
       final ResourceBundle aRB = XMLResourceBundle.getXMLBundle ("unittest-xml-props");

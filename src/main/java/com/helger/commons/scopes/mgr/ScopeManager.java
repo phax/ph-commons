@@ -31,7 +31,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.scopes.MetaScopeFactory;
-import com.helger.commons.scopes.ScopeUtils;
+import com.helger.commons.scopes.ScopeHelper;
 import com.helger.commons.scopes.domain.IApplicationScope;
 import com.helger.commons.scopes.domain.IGlobalScope;
 import com.helger.commons.scopes.domain.IRequestScope;
@@ -110,8 +110,8 @@ public final class ScopeManager
       s_aGlobalScope = aGlobalScope;
 
       aGlobalScope.initScope ();
-      if (ScopeUtils.debugGlobalScopeLifeCycle (s_aLogger))
-        s_aLogger.info ("Global scope '" + aGlobalScope.getID () + "' initialized!", ScopeUtils.getDebugStackTrace ());
+      if (ScopeHelper.debugGlobalScopeLifeCycle (s_aLogger))
+        s_aLogger.info ("Global scope '" + aGlobalScope.getID () + "' initialized!", ScopeHelper.getDebugStackTrace ());
 
       // Invoke SPIs
       ScopeSPIManager.onGlobalScopeBegin (aGlobalScope);
@@ -186,8 +186,8 @@ public final class ScopeManager
         s_aGlobalScope = null;
 
         // done
-        if (ScopeUtils.debugGlobalScopeLifeCycle (s_aLogger))
-          s_aLogger.info ("Global scope '" + sDestroyedScopeID + "' shut down!", ScopeUtils.getDebugStackTrace ());
+        if (ScopeHelper.debugGlobalScopeLifeCycle (s_aLogger))
+          s_aLogger.info ("Global scope '" + sDestroyedScopeID + "' shut down!", ScopeHelper.getDebugStackTrace ());
       }
       else
         s_aLogger.warn ("No global scope present that could be shut down!");

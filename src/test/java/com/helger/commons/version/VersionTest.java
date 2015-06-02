@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -670,20 +670,20 @@ public final class VersionTest
   @Test
   public void testHashCode ()
   {
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, 4), new Version (1, 2, 3, 4));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, 4), new Version (1, 2, 3, "4"));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, 4), new Version ("1.2.3.4"));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new Version (1), new Version ("1"));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new Version ("1"), new Version ("   1"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, 4), new Version (1, 2, 3, 4));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, 4), new Version (1, 2, 3, "4"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, 4), new Version ("1.2.3.4"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1), new Version ("1"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version ("1"), new Version ("   1"));
 
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, 4), new Version (1, 2, 3));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, 4), new Version (1,
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, 4), new Version (1, 2, 3));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, 4), new Version (1,
                                                                                                             2,
                                                                                                             3,
                                                                                                             "5"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, 4), new Version ("1.3.3.4"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new Version (2), new Version ("1"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new Version ("1"), new Version ("   11"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, 4), new Version ("1.3.3.4"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (2), new Version ("1"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version ("1"), new Version ("   11"));
   }
 
   @Test
@@ -706,7 +706,7 @@ public final class VersionTest
   @Test
   public void testSerialization () throws Exception
   {
-    CommonsTestUtils.testDefaultSerialization (new Version (1, 2, 3));
-    CommonsTestUtils.testDefaultSerialization (new Version ("1.2a"));
+    CommonsTestHelper.testDefaultSerialization (new Version (1, 2, 3));
+    CommonsTestHelper.testDefaultSerialization (new Version ("1.2a"));
   }
 }

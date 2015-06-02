@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.scopes.ScopeUtils;
+import com.helger.commons.scopes.ScopeHelper;
 import com.helger.commons.scopes.domain.ISessionScope;
 import com.helger.commons.scopes.mgr.ScopeManager;
 import com.helger.commons.scopes.spi.ScopeSPIManager;
@@ -34,7 +34,7 @@ public final class ScopeSPIManagerTest
 {
   static
   {
-    ScopeUtils.setLifeCycleDebuggingEnabled (true);
+    ScopeHelper.setLifeCycleDebuggingEnabled (true);
   }
 
   @Test

@@ -32,7 +32,7 @@ import org.w3c.dom.Document;
 
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.xml.XMLFactory;
 
 /**
@@ -78,6 +78,6 @@ public final class CollectingTransformErrorListenerTest extends AbstractCommonsT
     assertNull (XMLTransformerFactory.newTemplates (fac, new ClassPathResource ("test1.txt")));
     assertTrue (el.getResourceErrors ().containsAtLeastOneError ());
 
-    CommonsTestUtils.testToStringImplementation (el);
+    CommonsTestHelper.testToStringImplementation (el);
   }
 }

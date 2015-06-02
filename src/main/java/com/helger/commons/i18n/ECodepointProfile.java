@@ -34,150 +34,150 @@ public enum ECodepointProfile
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.isAlpha (codepoint);
+      return !CodepointHelper.isAlpha (codepoint);
     }
   }),
   ALPHANUM (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.isAlphaDigit (codepoint);
+      return !CodepointHelper.isAlphaDigit (codepoint);
     }
   }),
   FRAGMENT (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.isFragment (codepoint);
+      return !CodepointHelper.isFragment (codepoint);
     }
   }),
   IFRAGMENT (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.is_ifragment (codepoint);
+      return !CodepointHelper.is_ifragment (codepoint);
     }
   }),
   PATH (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.isPath (codepoint);
+      return !CodepointHelper.isPath (codepoint);
     }
   }),
   IPATH (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.is_ipath (codepoint);
+      return !CodepointHelper.is_ipath (codepoint);
     }
   }),
   IUSERINFO (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.is_iuserinfo (codepoint);
+      return !CodepointHelper.is_iuserinfo (codepoint);
     }
   }),
   USERINFO (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.isUserInfo (codepoint);
+      return !CodepointHelper.isUserInfo (codepoint);
     }
   }),
   QUERY (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.isQuery (codepoint);
+      return !CodepointHelper.isQuery (codepoint);
     }
   }),
   IQUERY (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.is_iquery (codepoint);
+      return !CodepointHelper.is_iquery (codepoint);
     }
   }),
   SCHEME (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.isScheme (codepoint);
+      return !CodepointHelper.isScheme (codepoint);
     }
   }),
   PATHNODELIMS (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.isPathNoDelims (codepoint);
+      return !CodepointHelper.isPathNoDelims (codepoint);
     }
   }),
   IPATHNODELIMS (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.is_ipathnodelims (codepoint);
+      return !CodepointHelper.is_ipathnodelims (codepoint);
     }
   }),
   IPATHNODELIMS_SEG (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.is_ipathnodelims (codepoint) && codepoint != '@' && codepoint != ':';
+      return !CodepointHelper.is_ipathnodelims (codepoint) && codepoint != '@' && codepoint != ':';
     }
   }),
   IREGNAME (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.is_iregname (codepoint);
+      return !CodepointHelper.is_iregname (codepoint);
     }
   }),
   IHOST (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.is_ihost (codepoint);
+      return !CodepointHelper.is_ihost (codepoint);
     }
   }),
   IPRIVATE (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.is_iprivate (codepoint);
+      return !CodepointHelper.is_iprivate (codepoint);
     }
   }),
   RESERVED (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.isReserved (codepoint);
+      return !CodepointHelper.isReserved (codepoint);
     }
   }),
   IUNRESERVED (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.is_iunreserved (codepoint);
+      return !CodepointHelper.is_iunreserved (codepoint);
     }
   }),
   UNRESERVED (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.isUnreserved (codepoint);
+      return !CodepointHelper.isUnreserved (codepoint);
     }
   }),
   SCHEMESPECIFICPART (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.is_iunreserved (codepoint) &&
-             !CodepointUtils.isReserved (codepoint) &&
-             !CodepointUtils.is_iprivate (codepoint) &&
-             !CodepointUtils.isPctEnc (codepoint) &&
+      return !CodepointHelper.is_iunreserved (codepoint) &&
+             !CodepointHelper.isReserved (codepoint) &&
+             !CodepointHelper.is_iprivate (codepoint) &&
+             !CodepointHelper.isPctEnc (codepoint) &&
              codepoint != '#';
     }
   }),
@@ -185,35 +185,35 @@ public enum ECodepointProfile
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.is_regname (codepoint) &&
-             !CodepointUtils.isUserInfo (codepoint) &&
-             !CodepointUtils.isGenDelim (codepoint);
+      return !CodepointHelper.is_regname (codepoint) &&
+             !CodepointHelper.isUserInfo (codepoint) &&
+             !CodepointHelper.isGenDelim (codepoint);
     }
   }),
   ASCIISANSCRLF (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.inRange (codepoint, 1, 9) && !CodepointUtils.inRange (codepoint, 14, 127);
+      return !CodepointHelper.inRange (codepoint, 1, 9) && !CodepointHelper.inRange (codepoint, 14, 127);
     }
   }),
   PCT (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.isPctEnc (codepoint);
+      return !CodepointHelper.isPctEnc (codepoint);
     }
   }),
   STD3ASCIIRULES (new ICodepointFilter ()
   {
     public boolean accept (final int codepoint)
     {
-      return !CodepointUtils.inRange (codepoint, 0x0000, 0x002C) &&
-             !CodepointUtils.inRange (codepoint, 0x002E, 0x002F) &&
-             !CodepointUtils.inRange (codepoint, 0x003A, 0x0040) &&
-             !CodepointUtils.inRange (codepoint, 0x005B, 0x005E) &&
-             !CodepointUtils.inRange (codepoint, 0x0060, 0x0060) &&
-             !CodepointUtils.inRange (codepoint, 0x007B, 0x007F);
+      return !CodepointHelper.inRange (codepoint, 0x0000, 0x002C) &&
+             !CodepointHelper.inRange (codepoint, 0x002E, 0x002F) &&
+             !CodepointHelper.inRange (codepoint, 0x003A, 0x0040) &&
+             !CodepointHelper.inRange (codepoint, 0x005B, 0x005E) &&
+             !CodepointHelper.inRange (codepoint, 0x0060, 0x0060) &&
+             !CodepointHelper.inRange (codepoint, 0x007B, 0x007F);
     }
   });
 

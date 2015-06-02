@@ -32,7 +32,7 @@ import com.helger.commons.microdom.MicroCDATA;
 import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.MicroException;
 import com.helger.commons.microdom.MicroText;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MicroText}.
@@ -61,7 +61,7 @@ public final class MicroTextTest
     assertNotNull (e.getNodeName ());
     assertNotNull (e.getNodeValue ());
     assertSame (EMicroNodeType.TEXT, e.getType ());
-    CommonsTestUtils.testToStringImplementation (e);
+    CommonsTestHelper.testToStringImplementation (e);
 
     e.setData ("allo");
     assertEquals ("allo", e.getData ().toString ());

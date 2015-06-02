@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link ResourceBundleKey}.
@@ -49,20 +49,20 @@ public final class ResourceBundleKeyTest extends AbstractCommonsTestCase
     catch (final IllegalArgumentException ex)
     {}
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ResourceBundleKey ("properties/test-iso8859",
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleKey ("properties/test-iso8859",
                                                                                         "key1"),
                                                                  new ResourceBundleKey ("properties/test-iso8859",
                                                                                         "key1"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859",
                                                                                             "key1"),
                                                                      new ResourceBundleKey ("properties/test-iso8859-1",
                                                                                             "key1"));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859",
                                                                                             "key1"),
                                                                      new ResourceBundleKey ("properties/test-iso8859",
                                                                                             "key2"));
 
-    ResourceBundleUtils.clearCache ();
+    ResourceBundleHelper.clearCache ();
   }
 
   @Test

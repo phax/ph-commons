@@ -26,7 +26,7 @@ import java.net.URL;
 import org.junit.Test;
 
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.URLResource;
@@ -70,7 +70,7 @@ public final class IOTypeConverterRegistrarTest
     assertEquals (f, TypeConverter.convertIfNecessary (s, File.class));
 
     // FileSystemResource <--> URL
-    final URL u = FileUtils.getCanonicalFile (f).toURI ().toURL ();
+    final URL u = FileHelper.getCanonicalFile (f).toURI ().toURL ();
     final FileSystemResource fs = TypeConverter.convertIfNecessary (u, FileSystemResource.class);
     try
     {

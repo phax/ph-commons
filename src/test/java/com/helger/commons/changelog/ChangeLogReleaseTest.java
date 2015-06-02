@@ -27,7 +27,7 @@ import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.version.Version;
 
 /**
@@ -48,13 +48,13 @@ public final class ChangeLogReleaseTest
     assertTrue (aDate != aRelease.getDate ());
     assertSame (aVersion, aRelease.getVersion ());
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (aRelease, new ChangeLogRelease (aDate, aVersion));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (aRelease,
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aRelease, new ChangeLogRelease (aDate, aVersion));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aRelease,
                                                                      new ChangeLogRelease (new GregorianCalendar (2010,
                                                                                                                   Calendar.JULY,
                                                                                                                   6).getTime (),
                                                                                            aVersion));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (aRelease, new ChangeLogRelease (aDate,
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aRelease, new ChangeLogRelease (aDate,
                                                                                                      new Version (1,
                                                                                                                   2,
                                                                                                                   4)));

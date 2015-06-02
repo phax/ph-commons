@@ -25,7 +25,7 @@ import java.nio.CharBuffer;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -52,7 +52,7 @@ public final class WrappedReaderTest
     ws.reset ();
     assertEquals (100, ws.skip (100));
     ws.close ();
-    CommonsTestUtils.testToStringImplementation (ws);
+    CommonsTestHelper.testToStringImplementation (ws);
 
     WrappedReader aReader = null;
     try
@@ -64,7 +64,7 @@ public final class WrappedReaderTest
     {}
     finally
     {
-      StreamUtils.close (aReader);
+      StreamHelper.close (aReader);
     }
   }
 }

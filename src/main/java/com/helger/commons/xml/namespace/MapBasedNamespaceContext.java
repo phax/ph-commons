@@ -32,7 +32,7 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.multimap.IMultiMapSetBased;
 import com.helger.commons.collections.multimap.MultiHashMapHashSetBased;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -162,7 +162,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MapBasedNamespaceContext rhs = (MapBasedNamespaceContext) o;
-    return EqualsUtils.equals (m_sDefaultNamespaceURI, rhs.m_sDefaultNamespaceURI) &&
+    return EqualsHelper.equals (m_sDefaultNamespaceURI, rhs.m_sDefaultNamespaceURI) &&
            m_aPrefix2NS.equals (rhs.m_aPrefix2NS) &&
            m_aNS2Prefix.equals (rhs.m_aNS2Prefix);
   }

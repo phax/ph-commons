@@ -19,7 +19,7 @@ package com.helger.commons.codec;
 import javax.annotation.Nullable;
 
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 
 /**
  * Decoder for ASCII85 encoded values
@@ -144,7 +144,7 @@ public class ASCII85Codec extends AbstractByteArrayDecoder
     }
     finally
     {
-      StreamUtils.close (aBAOS);
+      StreamHelper.close (aBAOS);
     }
   }
 }

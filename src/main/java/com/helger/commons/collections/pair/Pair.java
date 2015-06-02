@@ -22,7 +22,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -71,7 +71,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
   @Nonnull
   public EChange setFirst (@Nullable final DATA1TYPE aFirst)
   {
-    if (EqualsUtils.equals (aFirst, m_aFirst))
+    if (EqualsHelper.equals (aFirst, m_aFirst))
       return EChange.UNCHANGED;
     m_aFirst = aFirst;
     return EChange.CHANGED;
@@ -86,7 +86,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
   @Nonnull
   public EChange setSecond (@Nullable final DATA2TYPE aSecond)
   {
-    if (EqualsUtils.equals (aSecond, m_aSecond))
+    if (EqualsHelper.equals (aSecond, m_aSecond))
       return EChange.UNCHANGED;
     m_aSecond = aSecond;
     return EChange.CHANGED;
@@ -106,7 +106,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final Pair <?, ?> rhs = (Pair <?, ?>) o;
-    return EqualsUtils.equals (m_aFirst, rhs.m_aFirst) && EqualsUtils.equals (m_aSecond, rhs.m_aSecond);
+    return EqualsHelper.equals (m_aFirst, rhs.m_aFirst) && EqualsHelper.equals (m_aSecond, rhs.m_aSecond);
   }
 
   @Override

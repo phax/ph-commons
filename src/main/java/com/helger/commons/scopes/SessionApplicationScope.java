@@ -42,12 +42,12 @@ public class SessionApplicationScope extends AbstractMapBasedScope implements IS
   {
     super (sScopeID);
 
-    if (ScopeUtils.debugSessionApplicationScopeLifeCycle (s_aLogger))
+    if (ScopeHelper.debugSessionApplicationScopeLifeCycle (s_aLogger))
       s_aLogger.info ("Created session application scope '" +
                           sScopeID +
                           "' of class " +
                           CGStringHelper.getClassLocalName (this),
-                      ScopeUtils.getDebugStackTrace ());
+                      ScopeHelper.getDebugStackTrace ());
   }
 
   public void initScope ()
@@ -56,22 +56,22 @@ public class SessionApplicationScope extends AbstractMapBasedScope implements IS
   @Override
   protected void preDestroy ()
   {
-    if (ScopeUtils.debugSessionApplicationScopeLifeCycle (s_aLogger))
+    if (ScopeHelper.debugSessionApplicationScopeLifeCycle (s_aLogger))
       s_aLogger.info ("Destroying session application scope '" +
                           getID () +
                           "' of class " +
                           CGStringHelper.getClassLocalName (this),
-                      ScopeUtils.getDebugStackTrace ());
+                      ScopeHelper.getDebugStackTrace ());
   }
 
   @Override
   protected void postDestroy ()
   {
-    if (ScopeUtils.debugSessionApplicationScopeLifeCycle (s_aLogger))
+    if (ScopeHelper.debugSessionApplicationScopeLifeCycle (s_aLogger))
       s_aLogger.info ("Destroyed session application scope '" +
                           getID () +
                           "' of class " +
                           CGStringHelper.getClassLocalName (this),
-                      ScopeUtils.getDebugStackTrace ());
+                      ScopeHelper.getDebugStackTrace ());
   }
 }

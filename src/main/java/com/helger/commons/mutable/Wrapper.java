@@ -23,7 +23,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -83,7 +83,7 @@ public class Wrapper <DATATYPE> implements IWrapper <DATATYPE>, ICloneable <Wrap
   @Nonnull
   public EChange set (@Nullable final DATATYPE aObj)
   {
-    if (EqualsUtils.equals (m_aObj, aObj))
+    if (EqualsHelper.equals (m_aObj, aObj))
       return EChange.UNCHANGED;
     m_aObj = aObj;
     return EChange.CHANGED;
@@ -104,7 +104,7 @@ public class Wrapper <DATATYPE> implements IWrapper <DATATYPE>, ICloneable <Wrap
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final Wrapper <?> rhs = (Wrapper <?>) o;
-    return EqualsUtils.equals (m_aObj, rhs.m_aObj);
+    return EqualsHelper.equals (m_aObj, rhs.m_aObj);
   }
 
   @Override

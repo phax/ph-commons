@@ -22,7 +22,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.version.Version;
@@ -99,8 +99,8 @@ public final class CustomLicense implements ILicense
     final CustomLicense rhs = (CustomLicense) o;
     return m_sID.equals (rhs.m_sID) &&
            m_sName.equals (rhs.m_sName) &&
-           EqualsUtils.equals (m_aVersion, rhs.m_aVersion) &&
-           EqualsUtils.equals (m_sWebSiteURL, rhs.m_sWebSiteURL);
+           EqualsHelper.equals (m_aVersion, rhs.m_aVersion) &&
+           EqualsHelper.equals (m_sWebSiteURL, rhs.m_sWebSiteURL);
   }
 
   @Override

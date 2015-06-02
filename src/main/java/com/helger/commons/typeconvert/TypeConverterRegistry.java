@@ -40,7 +40,7 @@ import com.helger.commons.collections.multimap.IMultiMapListBased;
 import com.helger.commons.collections.multimap.MultiTreeMapArrayListBased;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
-import com.helger.commons.lang.ServiceLoaderUtils;
+import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.mutable.Wrapper;
 import com.helger.commons.state.EContinue;
 
@@ -466,7 +466,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     }
 
     // Register all custom type converter
-    for (final ITypeConverterRegistrarSPI aSPI : ServiceLoaderUtils.getAllSPIImplementations (ITypeConverterRegistrarSPI.class))
+    for (final ITypeConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (ITypeConverterRegistrarSPI.class))
       aSPI.registerTypeConverter (this);
 
     if (GlobalDebug.isDebugMode ())

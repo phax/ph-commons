@@ -38,7 +38,7 @@ import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.io.file.FileOperationManager;
 import com.helger.commons.io.file.FileOperations;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.LoggingFileOperationCallback;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.system.EOperatingSystem;
@@ -143,12 +143,12 @@ public final class JavaFileAccessFuncTest
       _exec ("chmod", "-v", "711", fTempDir.getAbsolutePath ());
 
       // Test there readability
-      final List <File> aFiles = FileUtils.getDirectoryContent (fTempDir);
+      final List <File> aFiles = FileHelper.getDirectoryContent (fTempDir);
       for (final File f : CollectionHelper.getSorted (aFiles))
       {
-        final boolean bCanRead = FileUtils.canRead (f);
-        final boolean bCanWrite = FileUtils.canWrite (f);
-        final boolean bCanExec = FileUtils.canRead (f);
+        final boolean bCanRead = FileHelper.canRead (f);
+        final boolean bCanWrite = FileHelper.canWrite (f);
+        final boolean bCanExec = FileHelper.canRead (f);
         final String sRights = bCanRead + "/" + bCanWrite + "/" + bCanExec;
         final File f2 = new File (f.getParentFile (), f.getName () + "2");
 

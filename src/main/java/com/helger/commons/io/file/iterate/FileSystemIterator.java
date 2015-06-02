@@ -27,7 +27,7 @@ import com.helger.commons.collections.iterate.IIterableIterator;
 import com.helger.commons.collections.iterate.IterableIterator;
 import com.helger.commons.filter.FilterListAll;
 import com.helger.commons.filter.IFilter;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.filter.IFileFilter;
 
 /**
@@ -58,7 +58,7 @@ public final class FileSystemIterator extends IterableIterator <File>
    */
   public FileSystemIterator (@Nonnull final File aBaseDir)
   {
-    super (FileUtils.getDirectoryContent (aBaseDir));
+    super (FileHelper.getDirectoryContent (aBaseDir));
   }
 
   /**

@@ -23,7 +23,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.ConstantTextProvider;
 
 /**
@@ -90,11 +90,11 @@ public final class ConstantTextProviderTest
   @Test
   public void testStandard ()
   {
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider ("any"),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider ("any"),
                                                                  new ConstantTextProvider ("any"));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider (""),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider (""),
                                                                  new ConstantTextProvider (""));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (new ConstantTextProvider ("any"),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ConstantTextProvider ("any"),
                                                                      new ConstantTextProvider ("anyy"));
   }
 }

@@ -27,7 +27,7 @@ import javax.xml.transform.stream.StreamSource;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -62,7 +62,7 @@ public class CachingTransformStreamSource extends StreamSource
 
   public CachingTransformStreamSource (@Nonnull @WillClose final InputStream aIS, @Nullable final String sSystemID)
   {
-    super (new NonBlockingByteArrayInputStream (StreamUtils.getAllBytes (aIS)), sSystemID);
+    super (new NonBlockingByteArrayInputStream (StreamHelper.getAllBytes (aIS)), sSystemID);
   }
 
   @Override

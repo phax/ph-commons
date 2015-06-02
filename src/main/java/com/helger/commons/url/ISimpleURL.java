@@ -56,7 +56,7 @@ public interface ISimpleURL extends IURLData, IHasStringRepresentation
   /**
    * @return The final string representation of this URL with encoded URL
    *         parameter keys and values. Using the default URL charset as
-   *         determined by {@link URLUtils#CHARSET_URL}.
+   *         determined by {@link URLHelper#CHARSET_URL}.
    */
   @Nonnull
   String getAsStringWithEncodedParameters ();

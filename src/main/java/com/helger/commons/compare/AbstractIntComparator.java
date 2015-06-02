@@ -48,6 +48,6 @@ public abstract class AbstractIntComparator <DATATYPE> extends AbstractComparato
   {
     final int n1 = getAsInt (aElement1);
     final int n2 = getAsInt (aElement2);
-    return CompareUtils.compare (n1, n2);
+    return CompareHelper.compare (n1, n2);
   }
 }

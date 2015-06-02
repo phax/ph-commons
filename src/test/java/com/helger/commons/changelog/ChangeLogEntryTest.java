@@ -30,7 +30,7 @@ import java.util.GregorianCalendar;
 import org.junit.Test;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.IMultiLingualText;
 import com.helger.commons.text.MultiLingualText;
 import com.helger.commons.text.TextProvider;
@@ -64,7 +64,7 @@ public final class ChangeLogEntryTest extends AbstractCommonsTestCase
     assertTrue (aEntry.getAllIssues ().isEmpty ());
     assertTrue (aEntry.isIncompatible ());
 
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (aEntry, new ChangeLogEntry (aChangeLog,
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aEntry, new ChangeLogEntry (aChangeLog,
                                                                                              aDate,
                                                                                              EChangeLogAction.ADD,
                                                                                              EChangeLogCategory.API,
@@ -72,19 +72,19 @@ public final class ChangeLogEntryTest extends AbstractCommonsTestCase
 
     ChangeLogEntry aEntry2 = new ChangeLogEntry (aChangeLog, aDate, EChangeLogAction.ADD, EChangeLogCategory.API, true);
     aEntry2.setText (L_DE, "Ist doch auc egal :)");
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry, aEntry2);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aEntry, aEntry2);
 
     aEntry2 = new ChangeLogEntry (aChangeLog, aDate, EChangeLogAction.ADD, EChangeLogCategory.API, true);
     aEntry2.addIssue ("phloc-1234");
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry, aEntry2);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aEntry, aEntry2);
 
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry,
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aEntry,
                                                                      new ChangeLogEntry (aChangeLog,
                                                                                          aDate,
                                                                                          EChangeLogAction.ADD,
                                                                                          EChangeLogCategory.API,
                                                                                          false));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry,
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aEntry,
                                                                      new ChangeLogEntry (aChangeLog,
                                                                                          new GregorianCalendar (2010,
                                                                                                                 Calendar.JULY,
@@ -92,13 +92,13 @@ public final class ChangeLogEntryTest extends AbstractCommonsTestCase
                                                                                          EChangeLogAction.ADD,
                                                                                          EChangeLogCategory.API,
                                                                                          true));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry,
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aEntry,
                                                                      new ChangeLogEntry (aChangeLog,
                                                                                          aDate,
                                                                                          EChangeLogAction.CHANGE,
                                                                                          EChangeLogCategory.API,
                                                                                          true));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (aEntry,
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aEntry,
                                                                      new ChangeLogEntry (aChangeLog,
                                                                                          aDate,
                                                                                          EChangeLogAction.ADD,

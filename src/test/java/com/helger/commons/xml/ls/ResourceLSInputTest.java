@@ -30,8 +30,8 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.streams.StreamUtils;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link ResourceLSInput}.
@@ -47,7 +47,7 @@ public final class ResourceLSInputTest
     assertNull (lsi.getBaseURI ());
     final InputStream aIS = lsi.getByteStream ();
     assertNotNull (aIS);
-    StreamUtils.close (aIS);
+    StreamHelper.close (aIS);
     assertFalse (lsi.getCertifiedText ());
     assertNull (lsi.getCharacterStream ());
     assertNull (lsi.getEncoding ());
@@ -81,7 +81,7 @@ public final class ResourceLSInputTest
     lsi.setStringData ("str");
     assertEquals ("str", lsi.getStringData ());
 
-    CommonsTestUtils.testToStringImplementation (lsi);
+    CommonsTestHelper.testToStringImplementation (lsi);
 
     try
     {

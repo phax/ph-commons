@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.IReadableResourceProvider;
@@ -77,7 +77,7 @@ public final class ClassPathResourceProvider implements IReadableResourceProvide
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ClassPathResourceProvider rhs = (ClassPathResourceProvider) o;
-    return EqualsUtils.equals (m_sPrefix, rhs.m_sPrefix);
+    return EqualsHelper.equals (m_sPrefix, rhs.m_sPrefix);
   }
 
   @Override

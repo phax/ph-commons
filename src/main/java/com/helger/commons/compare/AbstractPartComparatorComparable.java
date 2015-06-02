@@ -58,6 +58,6 @@ public abstract class AbstractPartComparatorComparable <DATATYPE, PARTTYPE exten
     final PARTTYPE aPart2 = getPart (aElement2);
 
     // The extracted parts may be null again so use check order of null values
-    return CompareUtils.nullSafeCompare (aPart1, aPart2, isNullValuesComeFirst ());
+    return CompareHelper.nullSafeCompare (aPart1, aPart2, isNullValuesComeFirst ());
   }
 }

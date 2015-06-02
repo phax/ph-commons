@@ -21,7 +21,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -78,7 +78,7 @@ public class SingleMapEntry <KEYTYPE, VALUETYPE> implements Map.Entry <KEYTYPE, 
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleMapEntry <?, ?> rhs = (SingleMapEntry <?, ?>) o;
-    return EqualsUtils.equals (m_aKey, rhs.m_aKey) && EqualsUtils.equals (m_aValue, rhs.m_aValue);
+    return EqualsHelper.equals (m_aKey, rhs.m_aKey) && EqualsHelper.equals (m_aValue, rhs.m_aValue);
   }
 
   @Override

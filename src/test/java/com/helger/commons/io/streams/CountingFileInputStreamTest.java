@@ -23,7 +23,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link CountingFileInputStream}.
@@ -40,12 +40,12 @@ public final class CountingFileInputStreamTest
     {
       aCIS.read ();
       assertEquals (1, aCIS.read (new byte [5], 1, 1));
-      StreamUtils.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
-      CommonsTestUtils.testToStringImplementation (aCIS);
+      StreamHelper.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
+      CommonsTestHelper.testToStringImplementation (aCIS);
     }
     finally
     {
-      StreamUtils.close (aCIS);
+      StreamHelper.close (aCIS);
     }
 
     aCIS = new CountingFileInputStream (new File ("pom.xml"));
@@ -53,12 +53,12 @@ public final class CountingFileInputStreamTest
     {
       aCIS.read ();
       assertEquals (1, aCIS.read (new byte [5], 1, 1));
-      StreamUtils.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
-      CommonsTestUtils.testToStringImplementation (aCIS);
+      StreamHelper.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
+      CommonsTestHelper.testToStringImplementation (aCIS);
     }
     finally
     {
-      StreamUtils.close (aCIS);
+      StreamHelper.close (aCIS);
     }
   }
 }

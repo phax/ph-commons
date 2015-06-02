@@ -24,7 +24,7 @@ import org.junit.Test;
 
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link ComparatorStringLongestFirst}.
@@ -43,7 +43,7 @@ public final class ComparatorStringLongestFirstTest extends AbstractCommonsTestC
     assertEquals ("A", s.get (1));
     assertEquals ("a", s.get (2));
 
-    CommonsTestUtils.testToStringImplementation (new ComparatorStringLongestFirst ());
+    CommonsTestHelper.testToStringImplementation (new ComparatorStringLongestFirst ());
   }
 
   @Test

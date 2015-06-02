@@ -29,9 +29,9 @@ import java.net.URL;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link URLResource}.
@@ -82,18 +82,18 @@ public final class URLResourceTest extends AbstractCommonsTestCase
     assertTrue (ur.exists ());
     assertTrue (ur.getResourceID ().endsWith ("/pom.xml"));
     assertTrue (ur.getPath ().endsWith ("/pom.xml"));
-    final byte [] aBytes = StreamUtils.getAllBytes (ur);
+    final byte [] aBytes = StreamHelper.getAllBytes (ur);
     assertTrue (aBytes.length > 0);
     assertNotNull (ur.getAsURL ());
     assertNotNull (ur.getAsFile ());
     ur.getReader (CCharset.CHARSET_ISO_8859_1_OBJ).close ();
 
     final URL aNoNExistingURL = new File ("pom2.xml").toURI ().toURL ();
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (ur, new URLResource (aFileURL));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (ur, ur.getReadableCloneForPath (aFileURL));
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (ur,
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur, new URLResource (aFileURL));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur, ur.getReadableCloneForPath (aFileURL));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur,
                                                                  ur.getReadableCloneForPath (aFileURL.toExternalForm ()));
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (ur, new URLResource (aNoNExistingURL));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ur, new URLResource (aNoNExistingURL));
 
     assertNotNull (URLResource.getAsFile (aFileURL));
     assertNotNull (URLResource.getAsFile (aNoNExistingURL));
@@ -135,6 +135,6 @@ public final class URLResourceTest extends AbstractCommonsTestCase
   @Test
   public void testSerialize () throws Exception
   {
-    CommonsTestUtils.testDefaultSerialization (new URLResource ("http://www.phloc.com"));
+    CommonsTestHelper.testDefaultSerialization (new URLResource ("http://www.phloc.com"));
   }
 }

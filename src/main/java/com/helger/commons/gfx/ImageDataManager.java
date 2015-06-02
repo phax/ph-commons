@@ -43,7 +43,7 @@ import com.helger.commons.collections.lru.LRUCache;
 import com.helger.commons.dimension.SizeInt;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.stats.IMutableStatisticsHandlerCache;
 import com.helger.commons.stats.StatisticsManager;
@@ -126,7 +126,7 @@ public final class ImageDataManager
     finally
     {
       // ImageIO.read doesn't close the stream!
-      StreamUtils.close (aIS);
+      StreamHelper.close (aIS);
     }
     return aData;
   }

@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link SimpleURL}.
@@ -139,6 +139,6 @@ public final class SimpleURLTest
     final ISimpleURL aURL2 = new SimpleURL (aURL);
     assertEquals (aURL, aURL2);
 
-    CommonsTestUtils.testGetClone (aURL);
+    CommonsTestHelper.testGetClone (aURL);
   }
 }

@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link HasDisplayTextWithArgs}.
@@ -39,7 +39,7 @@ public final class HasDisplayTextWithArgsTest extends AbstractCommonsTestCase
     final HasDisplayTextWithArgs x = new HasDisplayTextWithArgs (t, "Welt");
     assertEquals ("Hallo Welt", x.getDisplayText (L_DE));
     assertNull (x.getDisplayText (L_FR));
-    CommonsTestUtils.testToStringImplementation (x);
+    CommonsTestHelper.testToStringImplementation (x);
 
     try
     {

@@ -22,7 +22,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.version.Version;
@@ -158,8 +158,8 @@ public final class ThirdPartyModule implements IThirdPartyModule
     return m_sDisplayName.equals (rhs.m_sDisplayName) &&
            m_sCopyrightOwner.equals (rhs.m_sCopyrightOwner) &&
            m_aLicense.equals (rhs.m_aLicense) &&
-           EqualsUtils.equals (m_aVersion, rhs.m_aVersion) &&
-           EqualsUtils.equals (m_sWebSiteURL, rhs.m_sWebSiteURL) &&
+           EqualsHelper.equals (m_aVersion, rhs.m_aVersion) &&
+           EqualsHelper.equals (m_sWebSiteURL, rhs.m_sWebSiteURL) &&
            m_bOptional == rhs.m_bOptional;
   }
 

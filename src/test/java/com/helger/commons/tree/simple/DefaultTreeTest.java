@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.tree.utils.sort.ComparatorDefaultTreeItemComparable;
 
 /**
@@ -67,9 +67,9 @@ public final class DefaultTreeTest
   public void testEqualsHashCode ()
   {
     final DefaultTree <String> t = new DefaultTree <String> ();
-    CommonsTestUtils.testDefaultImplementationWithEqualContentObject (t, new DefaultTree <String> ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t, new DefaultTree <String> ());
     t.getRootItem ().createChildItem ("data");
-    CommonsTestUtils.testDefaultImplementationWithDifferentContentObject (t, new DefaultTree <String> ());
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t, new DefaultTree <String> ());
   }
 
   @Test
