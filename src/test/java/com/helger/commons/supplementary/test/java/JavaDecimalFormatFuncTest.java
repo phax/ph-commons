@@ -27,7 +27,6 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.lang.DecimalFormatSymbolsFactory;
 import com.helger.commons.locale.LocaleCache;
 
 public final class JavaDecimalFormatFuncTest
@@ -36,7 +35,7 @@ public final class JavaDecimalFormatFuncTest
   public void testDecimalFormat ()
   {
     // for better comparison
-    final DecimalFormatSymbols aDFS = DecimalFormatSymbolsFactory.getInstance (Locale.ENGLISH);
+    final DecimalFormatSymbols aDFS = DecimalFormatSymbols.getInstance (Locale.ENGLISH);
 
     // The 0 symbol shows a digit or 0 if no digit present
     NumberFormat formatter = new DecimalFormat ("000000", aDFS);
@@ -122,7 +121,7 @@ public final class JavaDecimalFormatFuncTest
     assertEquals ("#,##0.00 ", patternWithoutCurSym);
 
     curFormat = new DecimalFormat (patternWithoutCurSym);
-    ((DecimalFormat) curFormat).setDecimalFormatSymbols (DecimalFormatSymbolsFactory.getInstance (CGlobal.LOCALE_FIXED_NUMBER_FORMAT));
+    ((DecimalFormat) curFormat).setDecimalFormatSymbols (DecimalFormatSymbols.getInstance (CGlobal.LOCALE_FIXED_NUMBER_FORMAT));
     assertEquals ("3.14 ", curFormat.format (3.1415));
   }
 

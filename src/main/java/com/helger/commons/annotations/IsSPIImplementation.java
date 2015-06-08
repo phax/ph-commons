@@ -29,16 +29,12 @@ import java.lang.annotation.Target;
  * constructor and that no references from any other Java source file may be
  * present. If this annotation is used, it implies that the semantics of
  * {@link UsedViaReflection} also apply.
- * 
+ *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
 @Target ({ ElementType.TYPE })
 @Documented
-// IFJDK5
-// @SuppressWarnings ("javadoc")
-// ELSE
-// ENDIF
 public @interface IsSPIImplementation
 {
   String value() default "";

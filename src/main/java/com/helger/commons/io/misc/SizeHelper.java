@@ -28,7 +28,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.lang.DecimalFormatSymbolsFactory;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -36,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  * etc. notation.<br>
  * This class is not thread-safe, because the {@link DecimalFormat} class is not
  * thread-safe!
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -63,7 +62,7 @@ public final class SizeHelper
   public SizeHelper (@Nonnull final Locale aDisplayLocale)
   {
     ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
-    m_aDFS = DecimalFormatSymbolsFactory.getInstance (aDisplayLocale);
+    m_aDFS = DecimalFormatSymbols.getInstance (aDisplayLocale);
     m_aDF0 = new DecimalFormat ("0", m_aDFS);
     m_aDF1 = new DecimalFormat ("0.0", m_aDFS);
     m_aDF2 = new DecimalFormat ("0.00", m_aDFS);
@@ -169,7 +168,7 @@ public final class SizeHelper
   /**
    * Get the best matching formatting of the passed value. No fraction digits
    * will be emitted.
-   * 
+   *
    * @param aSize
    *        The value to be converted to a size value. May not be
    *        <code>null</code>.
@@ -186,7 +185,7 @@ public final class SizeHelper
 
   /**
    * Get the best matching formatting of the passed value.
-   * 
+   *
    * @param aSize
    *        The value to be converted to a size value. May not be
    *        <code>null</code>.
@@ -216,7 +215,7 @@ public final class SizeHelper
   /**
    * Get the best matching formatting of the passed value. No fraction digits
    * will be emitted.
-   * 
+   *
    * @param aSize
    *        The value to be converted to a size value. May not be
    *        <code>null</code>.
@@ -233,7 +232,7 @@ public final class SizeHelper
 
   /**
    * Get the best matching formatting of the passed value.
-   * 
+   *
    * @param aSize
    *        The value to be converted to a size value. May not be
    *        <code>null</code>.
@@ -291,7 +290,7 @@ public final class SizeHelper
   /**
    * Get the size helper for the passed locale. The locale determines the
    * formatting of the numeric value.
-   * 
+   *
    * @param aDisplayLocale
    *        The locale to be used.
    * @return The non-<code>null</code> {@link SizeHelper} object for the passed

@@ -38,12 +38,8 @@ public final class LocaleTypeConverterRegistrar implements ITypeConverterRegistr
     public Locale convert (@Nonnull final Object aSource)
     {
       final String sSource = (String) aSource;
-      // Special handling for ROOT locale
-      // IFJDK5
-      // ELSE
       if ("".equals (sSource))
         return Locale.ROOT;
-      // ENDIF
       return LocaleCache.getLocale (sSource);
     }
   }

@@ -161,11 +161,7 @@ public final class FileHelper
   public static boolean canExecute (@Nonnull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
-    // IFJDK5
-    // return true;
-    // ELSE
     return aFile.canExecute ();
-    // ENDIF
   }
 
   /**

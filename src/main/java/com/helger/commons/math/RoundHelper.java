@@ -19,6 +19,7 @@ package com.helger.commons.math;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 import javax.annotation.Nonnegative;
@@ -27,7 +28,6 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.lang.DecimalFormatSymbolsFactory;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -187,7 +187,7 @@ public final class RoundHelper
 
     // Avoid negative scales
     final DecimalFormat aDF = new DecimalFormat ();
-    aDF.setDecimalFormatSymbols (DecimalFormatSymbolsFactory.getInstance (aLocale));
+    aDF.setDecimalFormatSymbols (DecimalFormatSymbols.getInstance (aLocale));
     aDF.setMaximumFractionDigits (nScale);
     aDF.setMinimumFractionDigits (nScale);
 
