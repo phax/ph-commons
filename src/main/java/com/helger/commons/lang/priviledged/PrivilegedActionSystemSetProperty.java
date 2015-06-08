@@ -14,26 +14,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.priviledged;
+package com.helger.commons.lang.priviledged;
 
 import java.security.PrivilegedAction;
-import java.util.Properties;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
+
 /**
- * A special privileged object, that calls <code>System.getProperties</code>
+ * A special privileged object, that calls <code>System.setProperty</code>
  * 
  * @author Philip Helger
  */
-public final class PrivilegedActionSystemGetProperties implements PrivilegedAction <Properties>
+public final class PrivilegedActionSystemSetProperty implements PrivilegedAction <String>
 {
-  public PrivilegedActionSystemGetProperties ()
-  {}
+  private final String m_sKey;
+  private final String m_sValue;
+
+  public PrivilegedActionSystemSetProperty (@Nonnull final String sKey, @Nonnull final String sValue)
+  {
+    m_sKey = ValueEnforcer.notNull (sKey, "Key");
+    m_sValue = ValueEnforcer.notNull (sValue, "Value");
+  }
 
   @Nullable
-  public Properties run ()
+  public String run ()
   {
-    return System.getProperties ();
+    return System.setProperty (m_sKey, m_sValue);
   }
 }

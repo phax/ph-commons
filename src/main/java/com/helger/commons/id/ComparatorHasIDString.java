@@ -27,7 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  *        The type of elements to be compared.
  */
 @NotThreadSafe
-public class ComparatorHasIDString <DATATYPE extends IHasID <String>> extends ComparatorHasIDComparable <String, DATATYPE>
+public class ComparatorHasIDString <DATATYPE extends IHasID <String>> extends ComparatorHasIDComparable <DATATYPE, String>
 {
   /**
    * Comparator with default sort order and no nested comparator.

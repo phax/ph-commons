@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.utils;
+package com.helger.commons.lang;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -28,7 +28,7 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.util.ClassPathHelper;
+import com.helger.commons.lang.ClassPathHelper;
 
 /**
  * Test class for {@link ClassPathHelper}

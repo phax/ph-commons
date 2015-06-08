@@ -14,23 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.priviledged;
+package com.helger.commons.lang.priviledged;
 
 import java.security.PrivilegedAction;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
+
 /**
- * A special privileged object, that calls
- * <code>ClassLoader.getSystemClassLoader ()</code>
+ * A special privileged object, that calls <code>System.clearProperty</code>
  * 
  * @author Philip Helger
  */
-public final class PrivilegedActionGetSystemClassLoader implements PrivilegedAction <ClassLoader>
+public final class PrivilegedActionSystemClearProperty implements PrivilegedAction <String>
 {
-  @Nullable
-  public ClassLoader run ()
+  private final String m_sKey;
+
+  public PrivilegedActionSystemClearProperty (@Nonnull final String sKey)
   {
-    return ClassLoader.getSystemClassLoader ();
+    m_sKey = ValueEnforcer.notNull (sKey, "Key");
+  }
+
+  @Nullable
+  public String run ()
+  {
+    return System.clearProperty (m_sKey);
   }
 }

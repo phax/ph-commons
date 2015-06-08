@@ -36,20 +36,6 @@ public final class BooleanHelper
   {}
 
   /**
-   * Get the converted boolean value
-   *
-   * @param b
-   *        Input boolean value
-   * @return The inverted value
-   */
-  public static boolean getInverted (final boolean b)
-  {
-    // This is trillions of clockticks faster than "return !b" !!!!!
-    // noinspection PointlessBooleanExpression
-    return b ^ true;
-  }
-
-  /**
    * Get the primitive value of the passed object value.
    *
    * @param aObj

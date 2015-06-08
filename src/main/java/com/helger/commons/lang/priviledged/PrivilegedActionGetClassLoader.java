@@ -14,34 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.url.encode;
+package com.helger.commons.lang.priviledged;
 
-import java.nio.charset.Charset;
+import java.security.PrivilegedAction;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.codec.IDecoder;
-import com.helger.commons.url.URLHelper;
 
 /**
- * Decoder for URL parameters
+ * A special privileged object, that calls <code>class.getClassLoader ()</code>
  * 
  * @author Philip Helger
  */
-public class URLParameterDecoder implements IDecoder <String>
+public final class PrivilegedActionGetClassLoader implements PrivilegedAction <ClassLoader>
 {
-  private final Charset m_aCharset;
+  private final Class <?> m_aBaseClass;
 
-  public URLParameterDecoder (@Nonnull final Charset aCharset)
+  public PrivilegedActionGetClassLoader (@Nonnull final Class <?> aBaseClass)
   {
-    m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
+    m_aBaseClass = ValueEnforcer.notNull (aBaseClass, "BaseClass");
   }
 
   @Nullable
-  public String getDecoded (@Nullable final String sInput)
+  public ClassLoader run ()
   {
-    return sInput == null ? null : URLHelper.urlDecode (sInput, m_aCharset);
+    return m_aBaseClass.getClassLoader ();
   }
 }

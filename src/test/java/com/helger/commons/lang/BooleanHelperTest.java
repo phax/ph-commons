@@ -23,18 +23,11 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link BooleanHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class BooleanHelperTest
 {
-  @Test
-  public void testGetInverted ()
-  {
-    assertFalse (BooleanHelper.getInverted (true));
-    assertTrue (BooleanHelper.getInverted (false));
-  }
-
   @Test
   public void testGetBooleanValue ()
   {

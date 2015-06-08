@@ -21,8 +21,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import com.helger.commons.priviledged.AccessControllerHelper;
-import com.helger.commons.priviledged.PrivilegedActionAccessibleObjectSetAccessible;
+import com.helger.commons.lang.priviledged.AccessControllerHelper;
+import com.helger.commons.lang.priviledged.PrivilegedActionAccessibleObjectSetAccessible;
 
 public class MainJavaCreateNewEnum
 {

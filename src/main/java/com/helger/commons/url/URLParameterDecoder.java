@@ -14,34 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.priviledged;
+package com.helger.commons.url;
 
-import java.security.PrivilegedAction;
+import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.codec.IDecoder;
 
 /**
- * A special privileged object, that calls <code>System.setProperty</code>
+ * Decoder for URL parameters
  * 
  * @author Philip Helger
  */
-public final class PrivilegedActionSystemSetProperty implements PrivilegedAction <String>
+public class URLParameterDecoder implements IDecoder <String>
 {
-  private final String m_sKey;
-  private final String m_sValue;
+  private final Charset m_aCharset;
 
-  public PrivilegedActionSystemSetProperty (@Nonnull final String sKey, @Nonnull final String sValue)
+  public URLParameterDecoder (@Nonnull final Charset aCharset)
   {
-    m_sKey = ValueEnforcer.notNull (sKey, "Key");
-    m_sValue = ValueEnforcer.notNull (sValue, "Value");
+    m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
   }
 
   @Nullable
-  public String run ()
+  public String getDecoded (@Nullable final String sInput)
   {
-    return System.setProperty (m_sKey, m_sValue);
+    return sInput == null ? null : URLHelper.urlDecode (sInput, m_aCharset);
   }
 }

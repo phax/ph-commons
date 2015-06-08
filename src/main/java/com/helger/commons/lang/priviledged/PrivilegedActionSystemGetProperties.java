@@ -14,27 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.url.encode;
+package com.helger.commons.lang.priviledged;
 
-import static org.junit.Assert.assertEquals;
+import java.security.PrivilegedAction;
+import java.util.Properties;
 
-import org.junit.Test;
-
-import com.helger.commons.charset.CCharset;
+import javax.annotation.Nullable;
 
 /**
- * Test class for class {@link URLParameterDecoder}.
+ * A special privileged object, that calls <code>System.getProperties</code>
  * 
  * @author Philip Helger
  */
-public final class URLParameterDecoderTest
+public final class PrivilegedActionSystemGetProperties implements PrivilegedAction <Properties>
 {
-  @Test
-  public void testDecode ()
+  public PrivilegedActionSystemGetProperties ()
+  {}
+
+  @Nullable
+  public Properties run ()
   {
-    final URLParameterDecoder aPD = new URLParameterDecoder (CCharset.CHARSET_ISO_8859_1_OBJ);
-    assertEquals ("a b c", aPD.getDecoded ("a%20b+c"));
-    assertEquals ("a b c:d", aPD.getDecoded ("a%20b+c%3Ad"));
-    assertEquals ("a b c:d", aPD.getDecoded ("a%20b+c%3ad"));
+    return System.getProperties ();
   }
 }

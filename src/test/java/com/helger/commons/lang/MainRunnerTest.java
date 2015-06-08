@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.utils;
+package com.helger.commons.lang;
 
 import static org.junit.Assert.fail;
 
@@ -23,9 +23,9 @@ import java.util.concurrent.Callable;
 import org.junit.Test;
 
 import com.helger.commons.callback.IThrowingRunnable;
+import com.helger.commons.lang.MainRunner;
 import com.helger.commons.mock.exception.MockException;
 import com.helger.commons.mock.exception.MockRuntimeException;
-import com.helger.commons.util.MainRunner;
 
 /**
  * Test class for {@link MainRunner}

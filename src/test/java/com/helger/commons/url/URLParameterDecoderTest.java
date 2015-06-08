@@ -14,32 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.priviledged;
+package com.helger.commons.url;
 
-import java.security.PrivilegedAction;
+import static org.junit.Assert.assertEquals;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.junit.Test;
 
-import com.helger.commons.ValueEnforcer;
+import com.helger.commons.charset.CCharset;
 
 /**
- * A special privileged object, that calls <code>System.clearProperty</code>
+ * Test class for class {@link URLParameterDecoder}.
  * 
  * @author Philip Helger
  */
-public final class PrivilegedActionSystemClearProperty implements PrivilegedAction <String>
+public final class URLParameterDecoderTest
 {
-  private final String m_sKey;
-
-  public PrivilegedActionSystemClearProperty (@Nonnull final String sKey)
+  @Test
+  public void testDecode ()
   {
-    m_sKey = ValueEnforcer.notNull (sKey, "Key");
-  }
-
-  @Nullable
-  public String run ()
-  {
-    return System.clearProperty (m_sKey);
+    final URLParameterDecoder aPD = new URLParameterDecoder (CCharset.CHARSET_ISO_8859_1_OBJ);
+    assertEquals ("a b c", aPD.getDecoded ("a%20b+c"));
+    assertEquals ("a b c:d", aPD.getDecoded ("a%20b+c%3Ad"));
+    assertEquals ("a b c:d", aPD.getDecoded ("a%20b+c%3ad"));
   }
 }

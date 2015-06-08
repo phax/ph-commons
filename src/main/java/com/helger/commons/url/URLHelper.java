@@ -66,7 +66,6 @@ import com.helger.commons.mime.IMimeType;
 import com.helger.commons.mutable.IWrapper;
 import com.helger.commons.mutable.Wrapper;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.url.encode.URLParameterEncoder;
 
 /**
  * URL utilities.

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.priviledged;
+package com.helger.commons.lang.priviledged;
 
 import java.security.PrivilegedAction;
 
@@ -22,15 +22,15 @@ import javax.annotation.Nullable;
 
 /**
  * A special privileged object, that calls
- * <code>Thread.currentThread ().getContextClassLoader ()</code>
+ * <code>ClassLoader.getSystemClassLoader ()</code>
  * 
  * @author Philip Helger
  */
-public final class PrivilegedActionGetContextClassLoader implements PrivilegedAction <ClassLoader>
+public final class PrivilegedActionGetSystemClassLoader implements PrivilegedAction <ClassLoader>
 {
   @Nullable
   public ClassLoader run ()
   {
-    return Thread.currentThread ().getContextClassLoader ();
+    return ClassLoader.getSystemClassLoader ();
   }
 }

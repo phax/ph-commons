@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.url.encode;
+package com.helger.commons.url;
 
 import java.nio.charset.Charset;
 
@@ -23,7 +23,6 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.codec.IEncoder;
-import com.helger.commons.url.URLHelper;
 
 /**
  * Encoder for URLs

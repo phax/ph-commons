@@ -33,11 +33,11 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotations.DevelopersNote;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.priviledged.AccessControllerHelper;
-import com.helger.commons.priviledged.PrivilegedActionSystemClearProperty;
-import com.helger.commons.priviledged.PrivilegedActionSystemGetProperties;
-import com.helger.commons.priviledged.PrivilegedActionSystemGetProperty;
-import com.helger.commons.priviledged.PrivilegedActionSystemSetProperty;
+import com.helger.commons.lang.priviledged.AccessControllerHelper;
+import com.helger.commons.lang.priviledged.PrivilegedActionSystemClearProperty;
+import com.helger.commons.lang.priviledged.PrivilegedActionSystemGetProperties;
+import com.helger.commons.lang.priviledged.PrivilegedActionSystemGetProperty;
+import com.helger.commons.lang.priviledged.PrivilegedActionSystemSetProperty;
 
 /**
  * This class wraps all the Java system properties like version number etc.

@@ -32,9 +32,9 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsImmutableObject;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.priviledged.PrivilegedActionGetClassLoader;
-import com.helger.commons.priviledged.PrivilegedActionGetContextClassLoader;
-import com.helger.commons.priviledged.PrivilegedActionGetSystemClassLoader;
+import com.helger.commons.lang.priviledged.PrivilegedActionGetClassLoader;
+import com.helger.commons.lang.priviledged.PrivilegedActionGetContextClassLoader;
+import com.helger.commons.lang.priviledged.PrivilegedActionGetSystemClassLoader;
 
 /**
  * Small class helper utility stuff class.

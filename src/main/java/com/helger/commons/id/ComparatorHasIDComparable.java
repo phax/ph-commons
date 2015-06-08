@@ -27,13 +27,13 @@ import com.helger.commons.compare.AbstractPartComparatorComparable;
  * {@link IHasID} interface with a class that implements {@link Comparable}.
  *
  * @author Philip Helger
- * @param <IDTYPE>
- *        The type of the ID
  * @param <DATATYPE>
  *        The type of elements to be compared.
+ * @param <IDTYPE>
+ *        The type of the ID of data type
  */
 @NotThreadSafe
-public class ComparatorHasIDComparable <IDTYPE extends Comparable <? super IDTYPE>, DATATYPE extends IHasID <IDTYPE>> extends AbstractPartComparatorComparable <DATATYPE, IDTYPE>
+public class ComparatorHasIDComparable <DATATYPE extends IHasID <IDTYPE>, IDTYPE extends Comparable <? super IDTYPE>> extends AbstractPartComparatorComparable <DATATYPE, IDTYPE>
 {
   /**
    * Comparator with default sort order and no nested comparator.

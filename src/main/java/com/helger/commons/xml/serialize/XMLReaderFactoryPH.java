@@ -28,7 +28,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.priviledged.PrivilegedActionSystemGetProperty;
+import com.helger.commons.lang.priviledged.PrivilegedActionSystemGetProperty;
 
 /**
  * Factory for creating an XML reader. <blockquote>
