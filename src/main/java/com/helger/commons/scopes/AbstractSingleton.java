@@ -36,7 +36,7 @@ import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.UsedViaReflection;
 import com.helger.commons.callback.INonThrowingCallableWithParameter;
-import com.helger.commons.exceptions.LoggedRuntimeException;
+import com.helger.commons.exception.LoggedRuntimeException;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.priviledged.PrivilegedActionAccessibleObjectSetAccessible;

@@ -21,8 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.exceptions.LoggedException;
-import com.helger.commons.exceptions.LoggedRuntimeException;
+import com.helger.commons.exception.LoggedException;
+import com.helger.commons.exception.LoggedRuntimeException;
 
 /**
  * Test class for class {@link LogHelper}.

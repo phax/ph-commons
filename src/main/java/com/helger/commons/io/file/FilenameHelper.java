@@ -34,7 +34,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.exceptions.InitializationException;
+import com.helger.commons.exception.InitializationException;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.SystemHelper;
 

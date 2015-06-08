@@ -16,7 +16,7 @@
  */
 package com.helger.commons.microdom;
 
-import com.helger.commons.exceptions.LoggedRuntimeException;
+import com.helger.commons.exception.LoggedRuntimeException;
 
 /**
  * Special MicroDOM exception.

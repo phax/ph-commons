@@ -29,7 +29,7 @@ import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.convert.IMicroTypeConverter;
 import com.helger.commons.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.commons.microdom.convert.IMicroTypeConverterRegistry;
-import com.helger.commons.microdom.utils.MicroHelper;
+import com.helger.commons.microdom.util.MicroHelper;
 import com.helger.commons.mime.MimeType;
 import com.helger.commons.mime.MimeTypeInfo;
 import com.helger.commons.mime.MimeTypeInfo.ExtensionWithSource;

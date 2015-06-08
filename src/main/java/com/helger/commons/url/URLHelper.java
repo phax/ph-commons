@@ -57,7 +57,7 @@ import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
 import com.helger.commons.codec.IdentityCodec;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.exceptions.InitializationException;
+import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;

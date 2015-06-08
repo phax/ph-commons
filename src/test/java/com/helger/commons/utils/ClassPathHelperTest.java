@@ -28,6 +28,7 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.util.ClassPathHelper;
 
 /**
  * Test class for {@link ClassPathHelper}

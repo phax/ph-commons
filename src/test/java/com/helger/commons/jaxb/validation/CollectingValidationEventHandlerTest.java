@@ -30,6 +30,10 @@ import org.junit.Test;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.jaxb.JAXBContextCache;
 import com.helger.commons.jaxb.MockJAXBArchive;
+import com.helger.commons.jaxb.validation.CollectingValidationEventHandler;
+import com.helger.commons.jaxb.validation.CollectingValidationEventHandlerFactory;
+import com.helger.commons.jaxb.validation.LoggingValidationEventHandler;
+import com.helger.commons.jaxb.validation.LoggingValidationEventHandlerFactory;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.xml.transform.TransformSourceFactory;
 

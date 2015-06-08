@@ -25,6 +25,7 @@ import org.junit.Test;
 import com.helger.commons.callback.IThrowingRunnable;
 import com.helger.commons.mock.exception.MockException;
 import com.helger.commons.mock.exception.MockRuntimeException;
+import com.helger.commons.util.MainRunner;
 
 /**
  * Test class for {@link MainRunner}

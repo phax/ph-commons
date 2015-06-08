@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.exceptions.InitializationException;
+import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.IReadableResource;
 
 /**

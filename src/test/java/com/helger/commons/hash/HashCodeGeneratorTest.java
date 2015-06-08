@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.exceptions.LoggedRuntimeException;
+import com.helger.commons.exception.LoggedRuntimeException;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.random.VerySecureRandom;
 import com.helger.commons.state.EChange;

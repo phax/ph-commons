@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.tree.utils.sort.ComparatorDefaultTreeItemComparable;
+import com.helger.commons.tree.util.sort.ComparatorDefaultTreeItemComparable;
 
 /**
  * Test class for class {@link DefaultTree}.

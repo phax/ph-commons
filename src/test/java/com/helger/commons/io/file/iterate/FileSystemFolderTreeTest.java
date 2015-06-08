@@ -29,7 +29,7 @@ import org.junit.Test;
 import com.helger.commons.hierarchy.DefaultHierarchyWalkerCallback;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.filter.FilenameFilterEndsWith;
-import com.helger.commons.tree.utils.walk.TreeWalker;
+import com.helger.commons.tree.util.walk.TreeWalker;
 import com.helger.commons.tree.withid.folder.DefaultFolderTreeItem;
 
 /**

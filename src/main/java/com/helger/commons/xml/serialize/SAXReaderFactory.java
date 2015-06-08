@@ -22,7 +22,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
-import com.helger.commons.exceptions.InitializationException;
+import com.helger.commons.exception.InitializationException;
 import com.helger.commons.factory.IFactory;
 
 public final class SAXReaderFactory implements IFactory <org.xml.sax.XMLReader>

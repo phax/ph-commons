@@ -30,7 +30,7 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.locale.LocaleFormatter;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.utils.LevenshteinDistance;
+import com.helger.commons.string.util.LevenshteinDistance;
 
 /**
  * Check different levenshtein impolementations.<br>
