@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.filter.FilterListAll;
 import com.helger.commons.filter.FilterNotNull;
 import com.helger.commons.filter.FilterNull;

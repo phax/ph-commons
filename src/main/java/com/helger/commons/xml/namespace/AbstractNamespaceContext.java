@@ -23,8 +23,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.XMLConstants;
 
-import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.collections.iterate.SingleElementIterator;
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.iterate.SingleElementIterator;
 
 /**
  * Represents an abstract namespace context that does the predefined mapping as

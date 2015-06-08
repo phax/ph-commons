@@ -26,7 +26,7 @@ import org.w3c.dom.NodeList;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.UnsupportedOperation;
-import com.helger.commons.collections.iterate.IIterableIterator;
+import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

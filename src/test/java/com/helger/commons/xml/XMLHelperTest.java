@@ -34,8 +34,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.collections.iterate.IterableIterator;
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.xml.xpath.XPathExpressionHelper;
 

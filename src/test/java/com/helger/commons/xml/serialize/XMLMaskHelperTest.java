@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ArrayHelper;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.xml.EXMLCharMode;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;

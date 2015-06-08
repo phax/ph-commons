@@ -31,7 +31,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsImmutableObject;
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.priviledged.PrivilegedActionGetClassLoader;
 import com.helger.commons.priviledged.PrivilegedActionGetContextClassLoader;
 import com.helger.commons.priviledged.PrivilegedActionGetSystemClassLoader;

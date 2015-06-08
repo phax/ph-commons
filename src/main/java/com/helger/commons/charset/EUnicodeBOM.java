@@ -27,7 +27,7 @@ import com.helger.commons.IHasByteSize;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ArrayHelper;
+import com.helger.commons.collection.ArrayHelper;
 
 /**
  * Defines the most common Byte Order Markers for Unicode encoded text files.<br>

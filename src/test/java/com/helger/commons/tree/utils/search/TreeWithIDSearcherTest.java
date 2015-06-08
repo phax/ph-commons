@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.parent.MockHasParent;
 import com.helger.commons.tree.utils.build.TreeWithIDBuilder;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;

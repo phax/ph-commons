@@ -38,9 +38,9 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.collections.impl.NonBlockingStack;
+import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.url.SMap;
 

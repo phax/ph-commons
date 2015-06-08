@@ -32,7 +32,7 @@ import com.helger.commons.annotations.ELockType;
 import com.helger.commons.annotations.MustBeLocked;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.stats.IMutableStatisticsHandlerCache;
 import com.helger.commons.stats.IMutableStatisticsHandlerCounter;

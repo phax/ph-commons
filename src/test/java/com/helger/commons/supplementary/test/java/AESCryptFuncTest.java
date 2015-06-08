@@ -31,7 +31,7 @@ import org.junit.Test;
 import com.helger.commons.CGlobal;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.collections.ArrayHelper;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.random.VerySecureRandom;
 import com.helger.commons.system.CryptoPolicy;
 

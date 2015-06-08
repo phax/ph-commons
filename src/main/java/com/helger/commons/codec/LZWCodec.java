@@ -31,7 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collections.ArrayHelper;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.streams.NonBlockingBitInputStream;
 import com.helger.commons.io.streams.NonBlockingBitOutputStream;
 import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;

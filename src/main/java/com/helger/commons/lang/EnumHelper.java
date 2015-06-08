@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.collections.ArrayHelper;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.id.IHasSimpleIntID;
 import com.helger.commons.name.IHasName;

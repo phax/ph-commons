@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 
 public final class UniCodeFuncTest
 {

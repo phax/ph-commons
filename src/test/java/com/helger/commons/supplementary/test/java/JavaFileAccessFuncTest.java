@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.SystemProperties;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.file.FileOperationManager;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.FileHelper;

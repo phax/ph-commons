@@ -34,7 +34,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotations.IsSPIImplementation;
 import com.helger.commons.base64.Base64;
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.typeconvert.rule.AbstractTypeConverterRuleAnySourceFixedDestination;
 
 /**

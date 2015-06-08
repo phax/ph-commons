@@ -29,7 +29,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import org.junit.Test;
 
 import com.helger.commons.charset.CSpecialChars;
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 
 /**
  * Test class for {@link AbstractCollatingComparator}

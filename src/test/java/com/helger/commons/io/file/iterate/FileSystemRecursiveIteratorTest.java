@@ -26,7 +26,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.iterate.IIterableIterator;
+import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.io.file.filter.FileFilterFileOnly;
 import com.helger.commons.mock.CommonsTestHelper;
 

@@ -27,8 +27,8 @@ import javax.xml.XMLConstants;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.collections.iterate.SingleElementIterator;
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.iterate.SingleElementIterator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

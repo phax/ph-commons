@@ -27,7 +27,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

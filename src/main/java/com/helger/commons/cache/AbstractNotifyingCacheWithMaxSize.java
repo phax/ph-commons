@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collections.lru.LoggingLRUCache;
+import com.helger.commons.collection.lru.LoggingLRUCache;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

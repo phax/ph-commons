@@ -36,7 +36,7 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingCallableWithParameter;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.callback.adapter.AdapterRunnableToCallableWithParameter;
-import com.helger.commons.collections.attrs.MapBasedAttributeContainer;
+import com.helger.commons.collection.attrs.MapBasedAttributeContainer;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 

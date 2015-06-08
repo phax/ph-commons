@@ -24,7 +24,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.convert.UnidirectionalConverterMapGet;
 
 /**

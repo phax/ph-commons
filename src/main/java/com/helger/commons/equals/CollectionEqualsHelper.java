@@ -27,8 +27,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.collections.ECollectionBaseType;
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ECollectionBaseType;
 import com.helger.commons.lang.ClassHelper;
 
 /**

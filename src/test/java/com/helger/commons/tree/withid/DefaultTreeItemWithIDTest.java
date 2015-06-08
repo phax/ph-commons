@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.tree.utils.sort.ComparatorDefaultTreeItemWithIDDataComparable;
 import com.helger.commons.tree.utils.sort.ComparatorTreeItemIDComparable;

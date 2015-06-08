@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingCallableWithParameter;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
-import com.helger.commons.collections.attrs.IMutableAttributeContainer;
+import com.helger.commons.collection.attrs.IMutableAttributeContainer;
 import com.helger.commons.id.IHasID;
 
 /**

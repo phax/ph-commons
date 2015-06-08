@@ -41,9 +41,9 @@ import org.w3c.dom.Text;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.collections.iterate.IIterableIterator;
+import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.iterate.IIterableIterator;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

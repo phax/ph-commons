@@ -32,7 +32,7 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.junit.DebugModeTestRule;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.system.SystemHelper;

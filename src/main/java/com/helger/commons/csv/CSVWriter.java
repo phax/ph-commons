@@ -46,7 +46,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.collections.iterate.ArrayIterator;
+import com.helger.commons.collection.iterate.ArrayIterator;
 import com.helger.commons.io.streams.StreamHelper;
 
 /**

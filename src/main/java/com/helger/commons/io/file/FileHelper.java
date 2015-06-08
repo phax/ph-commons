@@ -51,7 +51,7 @@ import com.helger.commons.SystemProperties;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.misc.SizeHelper;
 import com.helger.commons.io.streams.ByteBufferInputStream;

@@ -19,7 +19,7 @@ package com.helger.commons.stats.utils;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.stats.IStatisticsHandlerCache;
 import com.helger.commons.stats.IStatisticsHandlerCounter;
