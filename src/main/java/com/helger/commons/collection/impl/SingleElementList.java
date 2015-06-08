@@ -35,7 +35,7 @@ import com.helger.commons.collection.iterate.EmptyListIterator;
 import com.helger.commons.collection.iterate.SingleElementIterator;
 import com.helger.commons.collection.iterate.SingleElementListIterator;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
 

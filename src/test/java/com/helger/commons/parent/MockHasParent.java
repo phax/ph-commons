@@ -18,7 +18,7 @@ package com.helger.commons.parent;
 
 import javax.annotation.Nullable;
 
-import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.string.ToStringGenerator;
 

@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  * Indicate that a class's native implementations of {@link #equals(Object)} and
  * {@link #hashCode()} should be used an no wrapper. This is only important to
  * the classes {@link com.helger.commons.equals.EqualsImplementationRegistry}
- * and {@link com.helger.commons.hash.HashCodeImplementationRegistry}.
+ * and {@link com.helger.commons.hashcode.HashCodeImplementationRegistry}.
  *
  * @author Philip Helger
  */

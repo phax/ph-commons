@@ -23,7 +23,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.compare.CollatorHelper;
 import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.gfx.ImageDataManager;
-import com.helger.commons.hash.HashCodeImplementationRegistry;
+import com.helger.commons.hashcode.HashCodeImplementationRegistry;
 import com.helger.commons.jaxb.JAXBContextCache;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.EnumHelper;

@@ -14,27 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.hash;
+package com.helger.commons.hashcode;
 
-import com.helger.commons.IAppendable;
+import javax.annotation.Nonnull;
 
 /**
- * Base interface for hash code generators.
+ * Base interface for a registry that contains hashCode implementations.
  * 
  * @author Philip Helger
  */
-public interface IHashCodeGenerator extends IAppendable <IHashCodeGenerator>
+public interface IHashCodeImplementationRegistry
 {
-  /** Represents an illegal hash code that is never to be returned! */
-  int ILLEGAL_HASHCODE = 0;
-
   /**
-   * Retrieve the final hash code. Once this method has been called, no further
-   * calls to append can be done since the hash value is locked!
+   * Register a new hashCode implementation
    * 
-   * @return The finally completed hash code. The returned value is never
-   *         {@link #ILLEGAL_HASHCODE}. If the calculated hash code would be
-   *         {@link #ILLEGAL_HASHCODE} it is changed to -1 instead.
+   * @param aClass
+   *        The class for which the hashCode implementation is valid
+   * @param aImpl
+   *        The main implementation
    */
-  int getHashCode ();
+  void registerHashCodeImplementation (@Nonnull Class <?> aClass, @Nonnull IHashCodeImplementation aImpl);
 }

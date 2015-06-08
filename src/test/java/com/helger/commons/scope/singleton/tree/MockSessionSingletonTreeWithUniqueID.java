@@ -19,7 +19,7 @@ package com.helger.commons.scope.singleton.tree;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.scope.singleton.tree.SessionSingletonTreeWithUniqueID;
 
 public final class MockSessionSingletonTreeWithUniqueID extends SessionSingletonTreeWithUniqueID <String, String>

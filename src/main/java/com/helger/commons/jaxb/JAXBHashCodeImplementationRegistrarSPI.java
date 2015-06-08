@@ -20,10 +20,10 @@ import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
 
 import com.helger.commons.annotation.IsSPIImplementation;
-import com.helger.commons.hash.HashCodeGenerator;
-import com.helger.commons.hash.IHashCodeImplementation;
-import com.helger.commons.hash.IHashCodeImplementationRegistrarSPI;
-import com.helger.commons.hash.IHashCodeImplementationRegistry;
+import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.hashcode.IHashCodeImplementation;
+import com.helger.commons.hashcode.IHashCodeImplementationRegistrarSPI;
+import com.helger.commons.hashcode.IHashCodeImplementationRegistry;
 
 /**
  * Implementation of {@link IHashCodeImplementationRegistrarSPI} for

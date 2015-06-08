@@ -42,7 +42,7 @@ import com.helger.commons.system.EJavaVersion;
 /**
  * This class registers the default equals implementations. The implementations
  * in here should be aligned with the implementations in the
- * {@link com.helger.commons.hash.DefaultHashCodeImplementationRegistrarSPI}
+ * {@link com.helger.commons.hashcode.DefaultHashCodeImplementationRegistrarSPI}
  *
  * @author Philip Helger
  */

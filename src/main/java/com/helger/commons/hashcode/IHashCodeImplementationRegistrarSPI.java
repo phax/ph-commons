@@ -14,24 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.hash;
+package com.helger.commons.hashcode;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.IsSPIInterface;
+
 /**
- * Base interface for a registry that contains hashCode implementations.
+ * SPI registry interface to implement your custom hashCode implementations.
  * 
  * @author Philip Helger
  */
-public interface IHashCodeImplementationRegistry
+@IsSPIInterface
+public interface IHashCodeImplementationRegistrarSPI
 {
   /**
-   * Register a new hashCode implementation
+   * Register a bunch of custom hashCode implementations
    * 
-   * @param aClass
-   *        The class for which the hashCode implementation is valid
-   * @param aImpl
-   *        The main implementation
+   * @param aRegistry
+   *        The registry to register at.
    */
-  void registerHashCodeImplementation (@Nonnull Class <?> aClass, @Nonnull IHashCodeImplementation aImpl);
+  void registerHashCodeImplementations (@Nonnull IHashCodeImplementationRegistry aRegistry);
 }

@@ -34,7 +34,7 @@ import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.IChangeCallback;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
