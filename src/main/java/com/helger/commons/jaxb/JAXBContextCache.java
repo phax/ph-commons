@@ -28,8 +28,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.GlobalDebug;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.ELockType;
-import com.helger.commons.annotations.IsLocked;
+import com.helger.commons.annotation.ELockType;
+import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.cache.AbstractNotifyingCache;
 import com.helger.commons.lang.GenericReflection;
 

@@ -19,7 +19,7 @@ package com.helger.commons.hierarchy;
 import javax.annotation.Nonnegative;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 
-import com.helger.commons.annotations.OverrideOnDemand;
+import com.helger.commons.annotation.OverrideOnDemand;
 
 /**
  * The default implementation of the {@link IBaseHierarchyWalker} interface.

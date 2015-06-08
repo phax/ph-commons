@@ -18,7 +18,7 @@ package com.helger.commons.thirdparty;
 
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.IsSPIImplementation;
+import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.version.Version;
 
 /**

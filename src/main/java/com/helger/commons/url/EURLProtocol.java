@@ -19,7 +19,7 @@ package com.helger.commons.url;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 
 /**
  * Specifies a list of known protocols.<br>

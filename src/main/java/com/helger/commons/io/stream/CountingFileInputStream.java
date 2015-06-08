@@ -23,9 +23,9 @@ import java.io.IOException;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.stats.IMutableStatisticsHandlerCounter;
-import com.helger.commons.stats.IMutableStatisticsHandlerSize;
-import com.helger.commons.stats.StatisticsManager;
+import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
+import com.helger.commons.statistics.IMutableStatisticsHandlerSize;
+import com.helger.commons.statistics.StatisticsManager;
 
 /**
  * A special {@link FileInputStream} sub class that keeps track of all read

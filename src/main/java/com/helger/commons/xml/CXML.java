@@ -19,7 +19,7 @@ package com.helger.commons.xml;
 import javax.annotation.concurrent.Immutable;
 import javax.xml.XMLConstants;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * This is just a workaround if Xerces is not in the build path. Normally you

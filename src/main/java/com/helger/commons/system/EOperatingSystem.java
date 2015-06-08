@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.SystemProperties;
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.name.IHasDisplayName;
 
 /**

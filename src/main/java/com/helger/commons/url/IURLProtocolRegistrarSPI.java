@@ -20,7 +20,7 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.IsSPIInterface;
+import com.helger.commons.annotation.IsSPIInterface;
 
 /**
  * Interface for a registrar providing custom URL protocols

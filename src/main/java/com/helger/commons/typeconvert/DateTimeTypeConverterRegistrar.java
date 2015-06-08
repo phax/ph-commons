@@ -22,7 +22,7 @@ import java.util.Date;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.IsSPIImplementation;
+import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.string.StringParser;
 import com.helger.commons.typeconvert.rule.AbstractTypeConverterRuleAssignableSourceFixedDestination;
 

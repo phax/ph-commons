@@ -28,8 +28,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.DOMImplementation;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.xml.dom.EXMLDOMFeature;
 import com.helger.commons.xml.dom.EXMLDOMFeatureVersion;

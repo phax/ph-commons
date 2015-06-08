@@ -27,9 +27,9 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.IHasSize;
 import com.helger.commons.IHasStringRepresentation;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.DevelopersNote;
-import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.annotations.ReturnsMutableObject;
+import com.helger.commons.annotation.DevelopersNote;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 
 /**
  * A non-synchronized copy of the class {@link java.io.StringWriter}.<br>

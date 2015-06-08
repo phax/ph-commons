@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.UnsupportedOperation;
+import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

@@ -41,9 +41,9 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.math.MathHelper;

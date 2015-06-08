@@ -19,7 +19,7 @@ package com.helger.commons.vminit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotations.IsSPIImplementation;
+import com.helger.commons.annotation.IsSPIImplementation;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

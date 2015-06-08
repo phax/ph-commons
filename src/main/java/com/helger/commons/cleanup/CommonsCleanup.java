@@ -19,7 +19,7 @@ package com.helger.commons.cleanup;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.SystemProperties;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.compare.CollatorHelper;
 import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.gfx.ImageDataManager;
@@ -35,7 +35,7 @@ import com.helger.commons.mime.MimeTypeDeterminator;
 import com.helger.commons.mime.MimeTypeInfoManager;
 import com.helger.commons.regex.RegExPool;
 import com.helger.commons.serialize.convert.SerializationConverterRegistry;
-import com.helger.commons.stats.StatisticsManager;
+import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.text.resolve.DefaultTextResolver;
 import com.helger.commons.text.resource.ResourceBundleHelper;
 import com.helger.commons.thirdparty.ThirdPartyModuleRegistry;

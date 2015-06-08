@@ -28,7 +28,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Node;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.IWritableResource;
 
 /**

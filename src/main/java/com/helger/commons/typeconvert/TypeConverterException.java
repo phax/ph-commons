@@ -20,8 +20,8 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.NoTranslationRequired;
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.NoTranslationRequired;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.text.TextFormatter;
 
 /**

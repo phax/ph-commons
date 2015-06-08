@@ -19,8 +19,8 @@ package com.helger.commons.cache;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
-import com.helger.commons.annotations.ELockType;
-import com.helger.commons.annotations.IsLocked;
+import com.helger.commons.annotation.ELockType;
+import com.helger.commons.annotation.IsLocked;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

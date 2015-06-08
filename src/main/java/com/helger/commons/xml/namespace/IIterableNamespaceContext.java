@@ -21,8 +21,8 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.xml.namespace.NamespaceContext;
 
-import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 
 /**
  * A special namespace context interface that allows the iteration of the

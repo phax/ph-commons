@@ -24,9 +24,9 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.string.StringHelper;

@@ -23,8 +23,8 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.Validator;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.xml.sax.CollectingSAXErrorHandler;

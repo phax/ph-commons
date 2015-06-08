@@ -30,14 +30,14 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.stats.IMutableStatisticsHandlerSize;
-import com.helger.commons.stats.StatisticsManager;
+import com.helger.commons.statistics.IMutableStatisticsHandlerSize;
+import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.xml.serialize.IXMLSerializer;
 import com.helger.commons.xml.serialize.IXMLWriterSettings;
 import com.helger.commons.xml.serialize.XMLWriterSettings;

@@ -27,9 +27,9 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.annotations.ReturnsMutableObject;
+import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.GenericReflection;

@@ -32,8 +32,8 @@ import javax.annotation.WillNotClose;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.DevelopersNote;
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.DevelopersNote;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 
 /**

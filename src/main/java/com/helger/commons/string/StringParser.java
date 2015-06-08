@@ -26,8 +26,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * This class contains the methods to parse String objects to numeric values.

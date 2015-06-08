@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.callback.IThrowingRunnable;
 import com.helger.commons.callback.adapter.AdapterRunnableToThrowingRunnable;
 import com.helger.commons.charset.CCharset;

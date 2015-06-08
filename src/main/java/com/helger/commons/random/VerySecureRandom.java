@@ -21,7 +21,7 @@ import java.security.SecureRandom;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * A secure random generator initialized with another secure random generator.

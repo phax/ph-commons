@@ -19,7 +19,7 @@ package com.helger.commons.io;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 
 /**
  * Resource provider interface for readable and writable resources.

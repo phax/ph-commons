@@ -19,7 +19,7 @@ package com.helger.commons.lang;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * Misc helper methods for handling booleans.

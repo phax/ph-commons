@@ -32,7 +32,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.IsSPIImplementation;
+import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.typeconvert.rule.AbstractTypeConverterRuleAnySourceFixedDestination;

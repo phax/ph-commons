@@ -25,9 +25,9 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.io.EAppend;
-import com.helger.commons.stats.IMutableStatisticsHandlerCounter;
-import com.helger.commons.stats.IMutableStatisticsHandlerSize;
-import com.helger.commons.stats.StatisticsManager;
+import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
+import com.helger.commons.statistics.IMutableStatisticsHandlerSize;
+import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

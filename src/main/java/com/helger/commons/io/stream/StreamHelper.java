@@ -51,17 +51,17 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.mock.exception.IMockException;
 import com.helger.commons.mutable.MutableLong;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.stats.IMutableStatisticsHandlerSize;
-import com.helger.commons.stats.StatisticsManager;
+import com.helger.commons.statistics.IMutableStatisticsHandlerSize;
+import com.helger.commons.statistics.StatisticsManager;
 
 /**
  * Some very basic IO stream utility stuff. All input stream (=reading) related

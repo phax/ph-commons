@@ -29,7 +29,7 @@ import org.w3c.dom.DocumentType;
 
 import com.helger.commons.SystemProperties;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.xml.serialize.DOMReaderDefaultSettings;
 

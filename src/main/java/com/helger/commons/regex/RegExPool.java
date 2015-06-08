@@ -23,9 +23,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.RegEx;
 
-import com.helger.commons.annotations.ELockType;
-import com.helger.commons.annotations.IsLocked;
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.ELockType;
+import com.helger.commons.annotation.IsLocked;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.cache.AbstractNotifyingCacheWithMaxSize;
 import com.helger.commons.state.EChange;
 

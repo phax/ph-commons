@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.parent.IChildrenProvider;

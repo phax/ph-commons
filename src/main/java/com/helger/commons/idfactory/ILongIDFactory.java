@@ -16,7 +16,7 @@
  */
 package com.helger.commons.idfactory;
 
-import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 
 /**
  * Interface for an object creating unique long IDs.

@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.xml.EXMLParserFeature;
 import com.helger.commons.xml.EXMLParserProperty;

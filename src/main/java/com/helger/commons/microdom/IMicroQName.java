@@ -22,9 +22,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.namespace.QName;
 
-import com.helger.commons.annotations.MustImplementComparable;
-import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.MustImplementComparable;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.commons.annotation.Nonempty;
 
 /**
  * Represents a simple qualified name. A combination of namespace URI and local

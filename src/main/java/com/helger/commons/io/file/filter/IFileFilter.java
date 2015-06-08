@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 
-import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.filter.IFilter;
 
 /**

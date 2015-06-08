@@ -27,7 +27,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
 
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IHasResourceErrorGroup;
 import com.helger.commons.error.IResourceErrorGroup;

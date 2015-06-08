@@ -25,11 +25,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.callback.IThrowingRunnable;
 import com.helger.commons.callback.adapter.AdapterRunnableToCallable;
-import com.helger.commons.stats.IMutableStatisticsHandlerTimer;
-import com.helger.commons.stats.StatisticsManager;
+import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
+import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.timing.StopWatch;
 
 /**

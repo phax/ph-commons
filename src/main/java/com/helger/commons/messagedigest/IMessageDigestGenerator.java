@@ -22,7 +22,7 @@ import java.security.Provider;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 
 /**
  * Base interface for a message digest generator (using hash algorithms like MD5

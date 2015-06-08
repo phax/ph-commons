@@ -32,9 +32,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.ELockType;
-import com.helger.commons.annotations.MustBeLocked;
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.ELockType;
+import com.helger.commons.annotation.MustBeLocked;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.collection.ArrayHelper;

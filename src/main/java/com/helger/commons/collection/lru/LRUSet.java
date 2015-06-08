@@ -26,8 +26,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.annotations.OverrideOnDemand;
-import com.helger.commons.annotations.UseDirectEqualsAndHashCode;
+import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.annotation.UseDirectEqualsAndHashCode;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 

@@ -23,9 +23,9 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.stats.IMutableStatisticsHandlerCounter;
-import com.helger.commons.stats.IMutableStatisticsHandlerKeyedCounter;
-import com.helger.commons.stats.StatisticsManager;
+import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
+import com.helger.commons.statistics.IMutableStatisticsHandlerKeyedCounter;
+import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.text.ISimpleTextProvider;
 import com.helger.commons.text.ITextProvider;
 import com.helger.commons.text.TextFormatter;

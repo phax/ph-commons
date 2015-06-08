@@ -18,7 +18,7 @@ package com.helger.commons.charset;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * These constants only exist to work around the common file encoding problem

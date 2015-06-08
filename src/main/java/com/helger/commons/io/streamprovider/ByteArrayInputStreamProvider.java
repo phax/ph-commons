@@ -25,7 +25,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.IInputStreamAndReaderProvider;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;

@@ -16,7 +16,7 @@
  */
 package com.helger.commons.factory;
 
-import com.helger.commons.annotations.DevelopersNote;
+import com.helger.commons.annotation.DevelopersNote;
 
 /**
  * This is a generic interface for creating objects of a certain type.

@@ -26,8 +26,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.ShouldBeDeprecated;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ShouldBeDeprecated;
 
 @Immutable
 public final class ValueEnforcer

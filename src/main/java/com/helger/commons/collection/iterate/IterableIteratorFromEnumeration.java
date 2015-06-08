@@ -23,7 +23,7 @@ import java.util.NoSuchElementException;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.UnsupportedOperation;
+import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

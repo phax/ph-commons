@@ -18,7 +18,7 @@ package com.helger.commons;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * A class containing default values for all primitive and primitive wrapper

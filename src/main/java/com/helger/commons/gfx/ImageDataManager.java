@@ -36,8 +36,8 @@ import javax.imageio.ImageIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.lru.LRUCache;
 import com.helger.commons.dimension.SizeInt;
@@ -45,8 +45,8 @@ import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.EChange;
-import com.helger.commons.stats.IMutableStatisticsHandlerCache;
-import com.helger.commons.stats.StatisticsManager;
+import com.helger.commons.statistics.IMutableStatisticsHandlerCache;
+import com.helger.commons.statistics.StatisticsManager;
 
 /**
  * This service class is used to cache information about images. It is used to

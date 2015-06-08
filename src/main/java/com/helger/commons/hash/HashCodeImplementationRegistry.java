@@ -32,7 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.UseDirectEqualsAndHashCode;
+import com.helger.commons.annotation.UseDirectEqualsAndHashCode;
 import com.helger.commons.cache.AnnotationUsageCache;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;

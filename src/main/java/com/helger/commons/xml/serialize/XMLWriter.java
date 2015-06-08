@@ -31,12 +31,12 @@ import org.w3c.dom.Node;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.stats.IMutableStatisticsHandlerSize;
-import com.helger.commons.stats.StatisticsManager;
+import com.helger.commons.statistics.IMutableStatisticsHandlerSize;
+import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.xml.EXMLVersion;
 
 /**

@@ -18,8 +18,8 @@ package com.helger.commons.vminit;
 
 import java.util.List;
 
-import com.helger.commons.annotations.CodingStyleguideUnaware;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.cleanup.CommonsCleanup;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.mock.exception.IMockException;

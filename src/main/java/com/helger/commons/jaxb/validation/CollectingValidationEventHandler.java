@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.xml.bind.ValidationEventHandler;
 
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.error.IHasResourceErrorGroup;
 import com.helger.commons.error.IResourceError;
 import com.helger.commons.error.IResourceErrorGroup;

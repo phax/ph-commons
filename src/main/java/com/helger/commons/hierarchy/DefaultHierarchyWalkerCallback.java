@@ -16,7 +16,7 @@
  */
 package com.helger.commons.hierarchy;
 
-import com.helger.commons.annotations.OverrideOnDemand;
+import com.helger.commons.annotation.OverrideOnDemand;
 
 /**
  * The default implementation of the {@link IHierarchyWalkerCallback} interface

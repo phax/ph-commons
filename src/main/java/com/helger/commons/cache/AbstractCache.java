@@ -28,15 +28,15 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.ELockType;
-import com.helger.commons.annotations.MustBeLocked;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.OverrideOnDemand;
+import com.helger.commons.annotation.ELockType;
+import com.helger.commons.annotation.MustBeLocked;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.state.EChange;
-import com.helger.commons.stats.IMutableStatisticsHandlerCache;
-import com.helger.commons.stats.IMutableStatisticsHandlerCounter;
-import com.helger.commons.stats.StatisticsManager;
+import com.helger.commons.statistics.IMutableStatisticsHandlerCache;
+import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
+import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

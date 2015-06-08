@@ -28,7 +28,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.XMLConstants;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.multimap.IMultiMapSetBased;
 import com.helger.commons.collection.multimap.MultiHashMapHashSetBased;

@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.IsSPIImplementation;
+import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;

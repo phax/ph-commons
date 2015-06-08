@@ -18,7 +18,7 @@ package com.helger.commons.changelog;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * This class contains constants for the use of changelogs.

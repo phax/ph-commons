@@ -23,7 +23,7 @@ import java.util.Locale;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * A class declaring system wide constants. Its main use is giving a semantic

@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.convert.IUnidirectionalConverter;
 import com.helger.commons.convert.UnidirectionalConverterIdentity;

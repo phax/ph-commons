@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.IsSPIImplementation;
+import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.mutable.MutableBigDecimal;
 import com.helger.commons.mutable.MutableBigInteger;
 import com.helger.commons.mutable.MutableBoolean;

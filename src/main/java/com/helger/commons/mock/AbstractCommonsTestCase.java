@@ -23,7 +23,7 @@ import javax.annotation.concurrent.Immutable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotations.CodingStyleguideUnaware;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 
 /**
  * Base class for all JUnit tests requiring setup and teardown handling.<br>

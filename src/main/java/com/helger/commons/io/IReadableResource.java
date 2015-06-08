@@ -18,7 +18,7 @@ package com.helger.commons.io;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 
 /**
  * Base interface for an abstract readable resource.

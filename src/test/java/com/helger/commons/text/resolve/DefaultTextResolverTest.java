@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
 
 import org.junit.Test;
 
-import com.helger.commons.annotations.NoTranslationRequired;
+import com.helger.commons.annotation.NoTranslationRequired;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.name.IHasDisplayText;
 import com.helger.commons.name.IHasDisplayTextWithArgs;

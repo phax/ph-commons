@@ -29,7 +29,7 @@ import java.net.URL;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.IsSPIImplementation;
+import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IOutputStreamProvider;

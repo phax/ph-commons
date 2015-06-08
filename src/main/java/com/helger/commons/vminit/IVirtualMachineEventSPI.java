@@ -16,7 +16,7 @@
  */
 package com.helger.commons.vminit;
 
-import com.helger.commons.annotations.IsSPIInterface;
+import com.helger.commons.annotation.IsSPIInterface;
 
 /**
  * The callback to implemented by VM startup SPIs. Unfortunately you need to

@@ -35,7 +35,7 @@ import javax.annotation.Nonnull;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.helger.commons.annotations.IsSPIImplementation;
+import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.system.EJavaVersion;
 

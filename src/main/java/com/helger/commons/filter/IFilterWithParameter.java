@@ -16,7 +16,7 @@
  */
 package com.helger.commons.filter;
 
-import com.helger.commons.annotations.DevelopersNote;
+import com.helger.commons.annotation.DevelopersNote;
 
 /**
  * A generic filter interface for simple object selection based on a parameter.

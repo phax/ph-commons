@@ -33,16 +33,16 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.pool.IObjectPool;
 import com.helger.commons.pool.ObjectPool;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.stats.IMutableStatisticsHandlerCounter;
-import com.helger.commons.stats.IMutableStatisticsHandlerTimer;
-import com.helger.commons.stats.StatisticsManager;
+import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
+import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
+import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.timing.StopWatch;
 import com.helger.commons.xml.sax.InputSourceFactory;
 

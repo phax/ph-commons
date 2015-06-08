@@ -28,7 +28,7 @@ import java.math.BigInteger;
 
 import org.junit.Test;
 
-import com.helger.commons.annotations.ReturnsImmutableObject;
+import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.name.IHasName;
 import com.helger.commons.system.EOperatingSystem;
 

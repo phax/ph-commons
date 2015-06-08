@@ -28,8 +28,8 @@ import javax.management.JMException;
 import javax.management.ObjectName;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.exception.LoggedRuntimeException;
 import com.helger.commons.lang.CGStringHelper;
 

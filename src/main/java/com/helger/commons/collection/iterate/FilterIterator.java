@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.UnsupportedOperation;
+import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.string.ToStringGenerator;
 

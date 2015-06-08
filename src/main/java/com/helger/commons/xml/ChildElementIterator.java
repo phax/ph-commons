@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.helger.commons.annotations.UnsupportedOperation;
+import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.collection.iterate.FilterIterator;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.filter.IFilter;

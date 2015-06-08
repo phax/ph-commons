@@ -30,7 +30,7 @@ import javax.annotation.concurrent.Immutable;
 
 import org.xml.sax.InputSource;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;

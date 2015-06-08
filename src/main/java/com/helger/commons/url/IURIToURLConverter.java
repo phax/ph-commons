@@ -18,7 +18,7 @@ package com.helger.commons.url;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 
 /**
  * A generic converted from String URI to {@link ISimpleURL}.

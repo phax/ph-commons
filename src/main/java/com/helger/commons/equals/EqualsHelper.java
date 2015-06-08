@@ -19,7 +19,7 @@ package com.helger.commons.equals;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

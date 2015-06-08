@@ -25,7 +25,7 @@ import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.equals.EqualsHelper;

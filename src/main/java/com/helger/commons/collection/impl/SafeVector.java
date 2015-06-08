@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.factory.FactoryNull;
 import com.helger.commons.factory.IFactory;
 import com.helger.commons.hash.HashCodeGenerator;

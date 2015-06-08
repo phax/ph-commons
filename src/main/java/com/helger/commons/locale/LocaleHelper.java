@@ -29,11 +29,11 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.ELockType;
-import com.helger.commons.annotations.IsLocked;
-import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.annotations.ReturnsImmutableObject;
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.ELockType;
+import com.helger.commons.annotation.IsLocked;
+import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsImmutableObject;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.cache.AbstractNotifyingCache;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.regex.RegExHelper;

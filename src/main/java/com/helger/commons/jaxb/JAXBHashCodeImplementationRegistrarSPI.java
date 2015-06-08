@@ -19,7 +19,7 @@ package com.helger.commons.jaxb;
 import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
 
-import com.helger.commons.annotations.IsSPIImplementation;
+import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.hash.IHashCodeImplementation;
 import com.helger.commons.hash.IHashCodeImplementationRegistrarSPI;

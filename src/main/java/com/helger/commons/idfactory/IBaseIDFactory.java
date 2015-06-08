@@ -16,7 +16,7 @@
  */
 package com.helger.commons.idfactory;
 
-import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 
 /**
  * Base marker interface for all ID factories. It's only sense is to group all

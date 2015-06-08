@@ -21,7 +21,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.UnsupportedOperation;
+import com.helger.commons.annotation.UnsupportedOperation;
 
 /**
  * Provides an iterator over Unicode Codepoints

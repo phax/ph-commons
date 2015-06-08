@@ -28,9 +28,9 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.OverrideOnDemand;
-import com.helger.commons.annotations.UnsupportedOperation;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.collection.iterate.FilterIterator;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.filter.FilterListAll;

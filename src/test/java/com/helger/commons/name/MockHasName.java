@@ -19,7 +19,7 @@ package com.helger.commons.name;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hash.HashCodeGenerator;
 
 public final class MockHasName implements IHasName, Comparable <MockHasName>

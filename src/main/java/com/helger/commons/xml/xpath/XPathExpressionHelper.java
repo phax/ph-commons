@@ -33,8 +33,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * Utility class to evaluate XPath expressions more easily

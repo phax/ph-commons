@@ -24,7 +24,7 @@ import java.util.NoSuchElementException;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.UnsupportedOperation;
+import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.microdom.IMicroNode;
 

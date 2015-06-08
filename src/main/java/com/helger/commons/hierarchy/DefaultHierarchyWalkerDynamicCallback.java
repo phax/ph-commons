@@ -18,7 +18,7 @@ package com.helger.commons.hierarchy;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.annotations.OverrideOnDemand;
+import com.helger.commons.annotation.OverrideOnDemand;
 
 /**
  * The default implementation of the {@link IHierarchyWalkerDynamicCallback}

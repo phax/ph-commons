@@ -36,7 +36,7 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.ext.LexicalHandler;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.microdom.EMicroNodeType;

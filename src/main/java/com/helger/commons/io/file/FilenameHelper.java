@@ -31,8 +31,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.string.StringHelper;

@@ -19,7 +19,7 @@ package com.helger.commons.tree.withid;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.annotations.OverrideOnDemand;
+import com.helger.commons.annotation.OverrideOnDemand;
 
 /**
  * Abstract tree item with ID factory implementation

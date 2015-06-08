@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.stream.StreamHelper;
