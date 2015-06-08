@@ -361,7 +361,7 @@ public class CSVWriter implements Closeable, Flushable
    *        a string array with each comma-separated element as a separate
    *        entry.
    */
-  public void writeNext (@Nullable final String [] aNextLine)
+  public void writeNext (@Nullable final String... aNextLine)
   {
     writeNext (aNextLine, DEFAULT_QUOTE_ALL);
   }
