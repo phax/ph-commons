@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.channels;
+package com.helger.commons.io.channel;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -76,11 +76,9 @@ public final class ChannelHelper
                                   @Nonnull @WillNotClose final WritableByteChannel aDest) throws IOException
   {
     ValueEnforcer.notNull (aSrc, "SourceChannel");
-    if (!aSrc.isOpen ())
-      throw new IllegalArgumentException ("sourceChannel is not open!");
+    ValueEnforcer.isTrue (aSrc.isOpen (), "SourceChannel is not open!");
     ValueEnforcer.notNull (aDest, "DestinationChannel");
-    if (!aDest.isOpen ())
-      throw new IllegalArgumentException ("desitnationChannel is not open!");
+    ValueEnforcer.isTrue (aDest.isOpen (), "DestinationChannel is not open!");
 
     long nBytesWritten;
     if (USE_COPY_V1)
