@@ -34,12 +34,11 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -187,64 +186,6 @@ public final class StreamHelper
       }
     }
 
-    return ESuccess.FAILURE;
-  }
-
-  /**
-   * Special close version for {@link Socket} as they are not implementing
-   * {@link Closeable} :(
-   *
-   * @param aSocket
-   *        The socket to be closed. May be <code>null</code>.
-   * @return {@link ESuccess} if the object was successfully closed.
-   */
-  @Nonnull
-  public static ESuccess close (@Nullable @WillClose final Socket aSocket)
-  {
-    if (aSocket != null && !aSocket.isClosed ())
-    {
-      try
-      {
-        // close object
-        aSocket.close ();
-        return ESuccess.SUCCESS;
-      }
-      catch (final IOException ex)
-      {
-        if (!isKnownEOFException (ex))
-          s_aLogger.error ("Failed to close socket " + aSocket.getClass ().getName (),
-                           ex instanceof IMockException ? null : ex);
-      }
-    }
-    return ESuccess.FAILURE;
-  }
-
-  /**
-   * Special close version for {@link ServerSocket} as they are not implementing
-   * {@link Closeable} :(
-   *
-   * @param aSocket
-   *        The socket to be closed. May be <code>null</code>.
-   * @return {@link ESuccess} if the object was successfully closed.
-   */
-  @Nonnull
-  public static ESuccess close (@Nullable @WillClose final ServerSocket aSocket)
-  {
-    if (aSocket != null && !aSocket.isClosed ())
-    {
-      try
-      {
-        // close object
-        aSocket.close ();
-        return ESuccess.SUCCESS;
-      }
-      catch (final IOException ex)
-      {
-        if (!isKnownEOFException (ex))
-          s_aLogger.error ("Failed to close server socket " + aSocket.getClass ().getName (),
-                           ex instanceof IMockException ? null : ex);
-      }
-    }
     return ESuccess.FAILURE;
   }
 
@@ -972,8 +913,8 @@ public final class StreamHelper
                                              @Nullable final Long aLimit)
   {
     ValueEnforcer.notEmpty (aBuffer, "Buffer");
-    if (aLimit != null && aLimit.longValue () < 0)
-      throw new IllegalArgumentException ("Limit may not be negative!");
+    if (aLimit != null)
+      ValueEnforcer.isGE0 (aLimit.longValue (), "Limit");
 
     try
     {
@@ -1101,7 +1042,7 @@ public final class StreamHelper
   public static List <String> readStreamLines (@Nullable final IInputStreamProvider aISP,
                                                @Nonnull final Charset aCharset,
                                                @Nonnegative final int nLinesToSkip,
-                                               final int nLinesToRead)
+                                               @CheckForSigned final int nLinesToRead)
   {
     if (aISP == null)
       return null;
@@ -1176,7 +1117,7 @@ public final class StreamHelper
   public static List <String> readStreamLines (@WillClose @Nullable final InputStream aIS,
                                                @Nonnull final Charset aCharset,
                                                @Nonnegative final int nLinesToSkip,
-                                               final int nLinesToRead)
+                                               @CheckForSigned final int nLinesToRead)
   {
     if (aIS == null)
       return null;
