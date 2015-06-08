@@ -32,7 +32,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.io.EAppend;
-import com.helger.commons.io.channels.ChannelHelper;
+import com.helger.commons.io.channel.ChannelHelper;
 import com.helger.commons.state.ESuccess;
 
 /**
