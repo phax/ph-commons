@@ -38,8 +38,8 @@ import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
+import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
+import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 
 /**
  * Test class for class {@link Base64}.<br>

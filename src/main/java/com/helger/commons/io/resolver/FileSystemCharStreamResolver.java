@@ -34,7 +34,7 @@ import com.helger.commons.io.IInputStreamResolver;
 import com.helger.commons.io.IOutputStreamResolver;
 import com.helger.commons.io.IReaderResolver;
 import com.helger.commons.io.IWriterResolver;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

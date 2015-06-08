@@ -26,8 +26,8 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnull;
 import javax.annotation.WillClose;
 
-import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * @author Apache Abdera

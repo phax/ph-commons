@@ -35,7 +35,7 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.io.streams.StringInputStream;
+import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.IMicroNode;

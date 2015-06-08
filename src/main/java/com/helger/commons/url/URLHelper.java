@@ -59,7 +59,7 @@ import com.helger.commons.codec.IdentityCodec;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.exceptions.InitializationException;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.microdom.reader.XMLMapHandler;
 import com.helger.commons.mime.IMimeType;

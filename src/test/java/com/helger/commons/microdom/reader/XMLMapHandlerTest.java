@@ -34,9 +34,9 @@ import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IOutputStreamProvider;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streamprovider.ByteArrayOutputStreamProvider;
 import com.helger.commons.io.streamprovider.StringInputStreamProvider;
-import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 
 /**
  * Test class for {@link XMLMapHandler}.

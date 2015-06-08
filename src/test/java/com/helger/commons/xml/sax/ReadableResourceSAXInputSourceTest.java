@@ -24,8 +24,8 @@ import org.junit.Test;
 
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.io.streamprovider.MockNullInputStreamProvider;
-import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

@@ -37,7 +37,7 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.io.streams.NonBlockingStringWriter;
+import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

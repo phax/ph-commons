@@ -27,7 +27,7 @@ import java.util.Locale;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.locale.LocaleFormatter;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.utils.LevenshteinDistance;

@@ -36,7 +36,7 @@ import org.w3c.dom.Node;
 
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.streams.NonBlockingStringWriter;
+import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 import com.helger.commons.xml.EXMLVersion;
 import com.helger.commons.xml.XMLFactory;

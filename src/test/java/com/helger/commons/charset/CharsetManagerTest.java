@@ -29,9 +29,9 @@ import java.util.Arrays;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.helger.commons.io.streams.NonBlockingBufferedReader;
-import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.NonBlockingBufferedReader;
+import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.random.VerySecureRandom;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

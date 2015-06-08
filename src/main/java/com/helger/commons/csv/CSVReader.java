@@ -46,8 +46,8 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.io.streams.NonBlockingBufferedReader;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.NonBlockingBufferedReader;
+import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * A very simple CSV reader released under a commercial-friendly license.

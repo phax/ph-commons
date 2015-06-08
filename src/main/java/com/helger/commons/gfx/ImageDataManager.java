@@ -43,7 +43,7 @@ import com.helger.commons.collection.lru.LRUCache;
 import com.helger.commons.dimension.SizeInt;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.stats.IMutableStatisticsHandlerCache;
 import com.helger.commons.stats.StatisticsManager;

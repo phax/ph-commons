@@ -31,7 +31,7 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
+import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.system.ENewLineMode;

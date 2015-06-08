@@ -33,7 +33,7 @@ import org.xml.sax.InputSource;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.xml.sax.InputSourceFactory;
 import com.helger.commons.xml.serialize.ISAXReaderSettings;

@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.priviledged.PrivilegedActionSystemGetProperty;
 
 /**

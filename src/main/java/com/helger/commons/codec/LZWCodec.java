@@ -32,11 +32,11 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.io.streams.NonBlockingBitInputStream;
-import com.helger.commons.io.streams.NonBlockingBitOutputStream;
-import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.NonBlockingBitInputStream;
+import com.helger.commons.io.stream.NonBlockingBitOutputStream;
+import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
+import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

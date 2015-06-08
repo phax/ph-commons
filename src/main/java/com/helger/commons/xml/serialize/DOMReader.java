@@ -40,7 +40,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.factory.IFactory;
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.pool.IObjectPool;
 import com.helger.commons.pool.ObjectPool;
 import com.helger.commons.stats.IMutableStatisticsHandlerCounter;

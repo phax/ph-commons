@@ -21,7 +21,7 @@ import java.io.Reader;
 import javax.annotation.Nonnull;
 import javax.annotation.WillClose;
 
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * @author Apache Abdera

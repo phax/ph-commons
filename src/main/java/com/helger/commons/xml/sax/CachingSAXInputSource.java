@@ -27,8 +27,8 @@ import org.xml.sax.InputSource;
 
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
+import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * {@link org.xml.sax.InputSource} that ensures that the passed

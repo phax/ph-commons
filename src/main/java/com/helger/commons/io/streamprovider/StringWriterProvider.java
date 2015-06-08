@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.IWriterProvider;
-import com.helger.commons.io.streams.NonBlockingStringWriter;
+import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

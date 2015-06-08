@@ -29,8 +29,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.IInputStreamAndReaderProvider;
 import com.helger.commons.io.IReaderProvider;
-import com.helger.commons.io.streams.NonBlockingStringReader;
-import com.helger.commons.io.streams.StringInputStream;
+import com.helger.commons.io.stream.NonBlockingStringReader;
+import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.serialize.convert.SerializationConverter;
 import com.helger.commons.string.ToStringGenerator;
 

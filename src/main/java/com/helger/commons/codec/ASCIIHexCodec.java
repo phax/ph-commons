@@ -19,8 +19,8 @@ package com.helger.commons.codec;
 import javax.annotation.Nullable;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 
 /**

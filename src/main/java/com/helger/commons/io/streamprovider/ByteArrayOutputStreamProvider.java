@@ -25,8 +25,8 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.IOutputStreamAndWriterProvider;
-import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

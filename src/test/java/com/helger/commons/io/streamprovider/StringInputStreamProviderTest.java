@@ -24,7 +24,7 @@ import java.io.InputStream;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

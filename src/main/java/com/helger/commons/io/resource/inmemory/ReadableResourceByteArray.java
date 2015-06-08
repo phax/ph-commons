@@ -26,7 +26,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
+import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

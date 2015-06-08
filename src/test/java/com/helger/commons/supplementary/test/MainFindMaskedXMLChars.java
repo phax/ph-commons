@@ -25,7 +25,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.helger.commons.io.streams.NonBlockingStringWriter;
+import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.xml.EXMLVersion;
 import com.helger.commons.xml.XMLFactory;

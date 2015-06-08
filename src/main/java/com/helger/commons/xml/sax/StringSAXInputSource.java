@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 import org.xml.sax.InputSource;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.streams.NonBlockingStringReader;
+import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

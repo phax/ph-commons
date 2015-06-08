@@ -29,7 +29,7 @@ import java.net.URL;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.url.URLHelper;

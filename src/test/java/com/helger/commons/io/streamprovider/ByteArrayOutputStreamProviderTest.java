@@ -27,9 +27,9 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.EAppend;
-import com.helger.commons.io.streams.NonBlockingStringReader;
-import com.helger.commons.io.streams.StreamHelper;
-import com.helger.commons.io.streams.StringInputStream;
+import com.helger.commons.io.stream.NonBlockingStringReader;
+import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.io.stream.StringInputStream;
 
 /**
  * Test class for class {@link ByteArrayOutputStreamProvider}.

@@ -32,7 +32,7 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.FilenameHelper;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.system.EOperatingSystem;
 

@@ -24,8 +24,8 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.IInputStreamAndReaderProvider;
-import com.helger.commons.io.streams.ByteBufferInputStream;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.ByteBufferInputStream;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

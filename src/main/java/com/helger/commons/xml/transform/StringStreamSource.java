@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.transform.stream.StreamSource;
 
-import com.helger.commons.io.streams.NonBlockingStringReader;
+import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

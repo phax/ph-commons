@@ -33,7 +33,7 @@ import javax.xml.namespace.QName;
 import org.junit.Test;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.streams.NonBlockingStringWriter;
+import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.xml.transform.TransformSourceFactory;
 
 /**

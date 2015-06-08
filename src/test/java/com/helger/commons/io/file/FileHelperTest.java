@@ -33,7 +33,7 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.system.EOperatingSystem;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

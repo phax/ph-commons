@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.StreamHelper;
 
 public final class MainValidFileNames
 {

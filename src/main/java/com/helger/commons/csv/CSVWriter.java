@@ -47,7 +47,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.collection.iterate.ArrayIterator;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * A very simple CSV writer released under a commercial-friendly license.

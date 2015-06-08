@@ -26,8 +26,8 @@ import javax.xml.transform.stream.StreamSource;
 
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.streams.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

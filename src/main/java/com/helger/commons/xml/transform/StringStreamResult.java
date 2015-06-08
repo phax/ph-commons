@@ -22,7 +22,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.transform.stream.StreamResult;
 
 import com.helger.commons.IHasStringRepresentation;
-import com.helger.commons.io.streams.NonBlockingStringWriter;
+import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

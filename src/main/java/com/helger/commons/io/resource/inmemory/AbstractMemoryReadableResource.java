@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.UnsupportedOperation;
 import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

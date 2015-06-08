@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.streams.NonBlockingBufferedReader;
+import com.helger.commons.io.stream.NonBlockingBufferedReader;
 
 /**
  * A special implementation of {@link ICSVLineReader} using a
