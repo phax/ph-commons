@@ -22,11 +22,11 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 
+import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -53,8 +53,6 @@ import com.helger.commons.url.URLHelper;
 @Immutable
 public class URLResource implements IReadableResource
 {
-  /** The protocol for file resources */
-  public static final String PROTOCOL_FILE = "file";
   public static final int DEFAULT_CONNECT_TIMEOUT = -1;
   public static final int DEFAULT_READ_TIMEOUT = -1;
 
@@ -111,10 +109,10 @@ public class URLResource implements IReadableResource
   public static InputStream getInputStream (@Nonnull final URL aURL)
   {
     return URLHelper.getInputStream (aURL,
-                                    DEFAULT_CONNECT_TIMEOUT,
-                                    DEFAULT_READ_TIMEOUT,
-                                    null,
-                                    (IWrapper <IOException>) null);
+                                     DEFAULT_CONNECT_TIMEOUT,
+                                     DEFAULT_READ_TIMEOUT,
+                                     null,
+                                     (IWrapper <IOException>) null);
   }
 
   @Nullable
@@ -124,7 +122,8 @@ public class URLResource implements IReadableResource
   }
 
   @Nullable
-  public InputStream getInputStream (final int nConnectTimeoutMS, final int nReadTimeoutMS)
+  public InputStream getInputStream (@CheckForSigned final int nConnectTimeoutMS,
+                                     @CheckForSigned final int nReadTimeoutMS)
   {
     return getInputStream (nConnectTimeoutMS,
                            nReadTimeoutMS,
@@ -139,8 +138,8 @@ public class URLResource implements IReadableResource
   }
 
   @Nullable
-  public InputStream getInputStream (final int nConnectTimeoutMS,
-                                     final int nReadTimeoutMS,
+  public InputStream getInputStream (@CheckForSigned final int nConnectTimeoutMS,
+                                     @CheckForSigned final int nReadTimeoutMS,
                                      @Nullable final IWrapper <IOException> aExceptionHolder)
   {
     return getInputStream (nConnectTimeoutMS,
@@ -150,8 +149,8 @@ public class URLResource implements IReadableResource
   }
 
   @Nullable
-  public InputStream getInputStream (final int nConnectTimeoutMS,
-                                     final int nReadTimeoutMS,
+  public InputStream getInputStream (@CheckForSigned final int nConnectTimeoutMS,
+                                     @CheckForSigned final int nReadTimeoutMS,
                                      @Nullable final INonThrowingRunnableWithParameter <URLConnection> aConnectionModifier,
                                      @Nullable final IWrapper <IOException> aExceptionHolder)
   {
@@ -161,13 +160,14 @@ public class URLResource implements IReadableResource
   @Nullable
   public Reader getReader (@Nonnull final Charset aCharset)
   {
+    // use the default settings
     return StreamHelper.createReader (getInputStream (), aCharset);
   }
 
   public boolean exists ()
   {
     // 1. as file
-    if (PROTOCOL_FILE.equals (m_aURL.getProtocol ()))
+    if (URLHelper.PROTOCOL_FILE.equals (m_aURL.getProtocol ()))
       return getAsFile ().exists ();
 
     // Not a file URL
@@ -202,31 +202,9 @@ public class URLResource implements IReadableResource
   }
 
   @Nonnull
-  public static File getAsFile (@Nonnull final URL aURL)
-  {
-    ValueEnforcer.notNull (aURL, "URL");
-    if (!PROTOCOL_FILE.equals (aURL.getProtocol ()))
-      throw new IllegalArgumentException ("Not a file URL: " + aURL);
-
-    File aFile;
-    try
-    {
-      aFile = new File (aURL.toURI ().getSchemeSpecificPart ());
-    }
-    catch (final URISyntaxException ex)
-    {
-      // Fallback for URLs that are not valid URIs
-      aFile = new File (aURL.getPath ());
-    }
-
-    // This file may be non-existing
-    return aFile;
-  }
-
-  @Nonnull
   public File getAsFile ()
   {
-    return getAsFile (m_aURL);
+    return URLHelper.getAsFile (m_aURL);
   }
 
   @Nonnull

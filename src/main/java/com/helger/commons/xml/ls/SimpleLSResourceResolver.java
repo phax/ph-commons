@@ -90,7 +90,7 @@ public class SimpleLSResourceResolver implements LSResourceResolver
     final URL aSystemURL = URLHelper.getAsURL (sSystemId);
 
     // Absolute URL requested?
-    if (aSystemURL != null && !aSystemURL.getProtocol ().equals (URLResource.PROTOCOL_FILE))
+    if (aSystemURL != null && !aSystemURL.getProtocol ().equals (URLHelper.PROTOCOL_FILE))
     {
       // Destination system ID seems to be an absolute URL!
       return new URLResource (aSystemURL);
@@ -132,7 +132,7 @@ public class SimpleLSResourceResolver implements LSResourceResolver
     final URL aBaseURL = URLHelper.getAsURL (sBaseURI);
 
     // Handle "file" protocol separately
-    if (aBaseURL != null && !aBaseURL.getProtocol ().equals (URLResource.PROTOCOL_FILE))
+    if (aBaseURL != null && !aBaseURL.getProtocol ().equals (URLHelper.PROTOCOL_FILE))
     {
       return new URLResource (FilenameHelper.getCleanConcatenatedUrlPath (sBaseURI, sSystemId));
     }
@@ -140,7 +140,7 @@ public class SimpleLSResourceResolver implements LSResourceResolver
     // Base is potentially a URL
     File aBase;
     if (aBaseURL != null)
-      aBase = URLResource.getAsFile (aBaseURL);
+      aBase = URLHelper.getAsFile (aBaseURL);
     else
       aBase = new File (sBaseURI);
 
@@ -153,7 +153,7 @@ public class SimpleLSResourceResolver implements LSResourceResolver
     // Get the system ID file
     File aSystemId;
     if (aSystemURL != null)
-      aSystemId = URLResource.getAsFile (aSystemURL);
+      aSystemId = URLHelper.getAsFile (aSystemURL);
     else
       aSystemId = new File (sSystemId);
 

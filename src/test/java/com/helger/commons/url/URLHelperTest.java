@@ -17,8 +17,10 @@
 package com.helger.commons.url;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -131,14 +133,14 @@ public final class URLHelperTest
     try
     {
       final InputStream aIS = URLHelper.postAndGetInputStream (new URL ("http://localhost:8080/view/?menuitem=e2p"),
-                                                              1000,
-                                                              -1,
-                                                              CMimeType.APPLICATION_X_WWW_FORM_URLENCODED,
-                                                              CharsetManager.getAsBytes ("sender=true",
-                                                                                         CCharset.CHARSET_UTF_8_OBJ),
-                                                              null,
-                                                              null,
-                                                              null);
+                                                               1000,
+                                                               -1,
+                                                               CMimeType.APPLICATION_X_WWW_FORM_URLENCODED,
+                                                               CharsetManager.getAsBytes ("sender=true",
+                                                                                          CCharset.CHARSET_UTF_8_OBJ),
+                                                               null,
+                                                               null,
+                                                               null);
       final byte [] aContent = StreamHelper.getAllBytes (aIS);
       s_aLogger.info ("Read " +
                       aContent.length +
@@ -167,6 +169,13 @@ public final class URLHelperTest
     // Using identity encoder
     assertEquals ("a=b&c=d&e",
                   URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d&e"),
-                                                      IdentityCodec.<String> create ()));
+                                                       IdentityCodec.<String> create ()));
+  }
+
+  @Test
+  public void testIsClassPathURLExisting ()
+  {
+    assertTrue (URLHelper.isClassPathURLExisting ("/test1.txt"));
+    assertFalse (URLHelper.isClassPathURLExisting ("/test1 not existing.txt"));
   }
 }

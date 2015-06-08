@@ -39,7 +39,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link ClassPathResource}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ClassPathResourceTest
@@ -90,8 +90,6 @@ public final class ClassPathResourceTest
     assertFalse (new ClassPathResource ("/test1 not existing.txt").canRead ());
     assertNotNull (ClassPathResource.getAsFile ("/test1.txt"));
     assertNull (ClassPathResource.getAsFile ("/test1 not existing.txt"));
-    assertTrue (ClassPathResource.canRead ("/test1.txt"));
-    assertFalse (ClassPathResource.canRead ("/test1 not existing.txt"));
   }
 
   @Test
@@ -244,9 +242,9 @@ public final class ClassPathResourceTest
     final ClassPathResource aCPISP2 = new ClassPathResource ("folder/test1.txt");
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a, aCPISP1b);
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a,
-                                                                 new ClassPathResource ("cp:folder/test2.txt"));
+                                                                       new ClassPathResource ("cp:folder/test2.txt"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a,
-                                                                 new ClassPathResource ("classpath:folder/test2.txt"));
+                                                                       new ClassPathResource ("classpath:folder/test2.txt"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aCPISP1a, aCPISP2);
     CommonsTestHelper.testDefaultSerialization (aCPISP1a);
     CommonsTestHelper.testDefaultSerialization (new ClassPathResource ("folder/test2.txt"));
@@ -254,7 +252,7 @@ public final class ClassPathResourceTest
     {
       // Can't serialize with class loader
       CommonsTestHelper.testDefaultSerialization (new ClassPathResource ("folder/test2.txt",
-                                                                   ClassHelper.getDefaultClassLoader ()));
+                                                                         ClassHelper.getDefaultClassLoader ()));
       fail ();
     }
     catch (final IllegalStateException ex)

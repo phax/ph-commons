@@ -16,6 +16,7 @@
  */
 package com.helger.commons.url;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -37,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.jar.JarEntry;
 
+import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
@@ -58,6 +60,7 @@ import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.exceptions.InitializationException;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.streams.StreamHelper;
+import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.microdom.reader.XMLMapHandler;
 import com.helger.commons.mime.IMimeType;
 import com.helger.commons.mutable.IWrapper;
@@ -93,6 +96,9 @@ public final class URLHelper
   /** Separator between URL path and anchor name: # */
   public static final char HASH = '#';
   public static final String HASH_STR = Character.toString (HASH);
+
+  /** The protocol for file resources */
+  public static final String PROTOCOL_FILE = "file";
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (URLHelper.class);
 
@@ -605,8 +611,8 @@ public final class URLHelper
    */
   @Nullable
   public static InputStream getInputStream (@Nonnull final URL aURL,
-                                            final int nConnectTimeoutMS,
-                                            final int nReadTimeoutMS,
+                                            @CheckForSigned final int nConnectTimeoutMS,
+                                            @CheckForSigned final int nReadTimeoutMS,
                                             @Nullable final INonThrowingRunnableWithParameter <URLConnection> aConnectionModifier,
                                             @Nullable final IWrapper <IOException> aExceptionHolder)
   {
@@ -844,5 +850,114 @@ public final class URLHelper
           aSB.append (EQUALS).append (aParameterEncoder.getEncoded (sValue));
       }
     return aSB.toString ();
+  }
+
+  @Nonnull
+  public static File getAsFile (@Nonnull final URL aURL)
+  {
+    ValueEnforcer.notNull (aURL, "URL");
+    if (!PROTOCOL_FILE.equals (aURL.getProtocol ()))
+      throw new IllegalArgumentException ("Not a file URL: " + aURL);
+
+    File aFile;
+    try
+    {
+      aFile = new File (aURL.toURI ().getSchemeSpecificPart ());
+    }
+    catch (final URISyntaxException ex)
+    {
+      // Fallback for URLs that are not valid URIs
+      aFile = new File (aURL.getPath ());
+    }
+
+    // This file may be non-existing
+    return aFile;
+  }
+
+  @Nullable
+  public static File getAsFileOrNull (@Nonnull final URL aURL)
+  {
+    if (aURL != null)
+      try
+      {
+        return getAsFile (aURL);
+      }
+      catch (final IllegalArgumentException ex)
+      {
+        // Happens for non-file URLs
+      }
+    return null;
+  }
+
+  /**
+   * Get the URL for the specified path using automatic class loader handling.
+   * The class loaders are iterated in the following order:
+   * <ol>
+   * <li>Default class loader (usually the context class loader)</li>
+   * <li>The class loader of this class</li>
+   * <li>The system class loader</li>
+   * </ol>
+   *
+   * @param sPath
+   *        The path to be resolved. May neither be <code>null</code> nor empty.
+   * @return <code>null</code> if the path could not be resolved.
+   */
+  @Nullable
+  public static URL getClassPathURL (@Nonnull @Nonempty final String sPath)
+  {
+    ValueEnforcer.notEmpty (sPath, "Path");
+
+    // Ensure the path starts with a "/"
+    final String sRealPath = sPath.startsWith ("/") ? sPath : '/' + sPath;
+
+    // Use the default class loader. Returns null if not found
+    URL ret = ClassHelper.getDefaultClassLoader ().getResource (sRealPath);
+    if (ret == null)
+    {
+      // This is essential if we're running as a web application!!!
+      ret = ClassPathResource.class.getResource (sRealPath);
+      if (ret == null)
+      {
+        // this is a fix for a user that needed to have the application
+        // loaded by the bootstrap classloader
+        ret = ClassLoader.getSystemClassLoader ().getResource (sRealPath);
+      }
+    }
+    return ret;
+  }
+
+  /**
+   * Get the input stream of the passed resource using the specified class
+   * loader only.
+   *
+   * @param sPath
+   *        The path to be resolved. May neither be <code>null</code> nor empty.
+   * @param aClassLoader
+   *        The class loader to be used. May not be <code>null</code>.
+   * @return <code>null</code> if the path could not be resolved using the
+   *         specified class loader.
+   */
+  @Nullable
+  public static URL getClassPathURL (@Nonnull @Nonempty final String sPath, @Nonnull final ClassLoader aClassLoader)
+  {
+    ValueEnforcer.notNull (aClassLoader, "ClassLoader");
+    ValueEnforcer.notEmpty (sPath, "Path");
+
+    // Ensure the path starts with a "/"
+    final String sRealPath = sPath.startsWith ("/") ? sPath : '/' + sPath;
+
+    // returns null if not found
+    return aClassLoader.getResource (sRealPath);
+  }
+
+  public static boolean isClassPathURLExisting (@Nonnull @Nonempty final String sPath)
+  {
+    return getClassPathURL (sPath) != null;
+  }
+
+  public static boolean isClassPathURLExisting (@Nonnull @Nonempty final String sPath,
+                                                @Nonnull final ClassLoader aClassLoader)
+  {
+    return getClassPathURL (sPath, aClassLoader) != null;
   }
 }

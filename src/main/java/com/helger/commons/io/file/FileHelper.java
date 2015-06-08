@@ -26,9 +26,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
+import java.io.Reader;
+import java.io.Writer;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
+import java.nio.charset.Charset;
 import java.util.List;
 
 import javax.annotation.CheckForSigned;
@@ -53,6 +58,8 @@ import com.helger.commons.io.streams.ByteBufferInputStream;
 import com.helger.commons.io.streams.ByteBufferOutputStream;
 import com.helger.commons.io.streams.CountingFileInputStream;
 import com.helger.commons.io.streams.CountingFileOutputStream;
+import com.helger.commons.io.streams.NonBlockingBufferedReader;
+import com.helger.commons.io.streams.NonBlockingBufferedWriter;
 import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EValidity;
@@ -402,6 +409,8 @@ public final class FileHelper
   @Nullable
   public static InputStream getInputStream (@Nonnull final String sFilename)
   {
+    ValueEnforcer.notNull (sFilename, "Filename");
+
     return getInputStream (new File (sFilename));
   }
 
@@ -426,6 +435,40 @@ public final class FileHelper
       }
     }
     return aFIS;
+  }
+
+  @Nullable
+  public static Reader getReader (@Nonnull final String sFilename, @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (sFilename, "FileName");
+
+    return getReader (new File (sFilename), aCharset);
+  }
+
+  @Nullable
+  public static Reader getReader (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+    ValueEnforcer.notNull (aCharset, "Charset");
+
+    return StreamHelper.createReader (getInputStream (aFile), aCharset);
+  }
+
+  @Nullable
+  public static Reader getBufferedReader (@Nonnull final String sFilename, @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (sFilename, "FileName");
+
+    return getBufferedReader (new File (sFilename), aCharset);
+  }
+
+  @Nullable
+  public static Reader getBufferedReader (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+    ValueEnforcer.notNull (aCharset, "Charset");
+
+    return new NonBlockingBufferedReader (getReader (aFile, aCharset));
   }
 
   /**
@@ -563,6 +606,48 @@ public final class FileHelper
   public static OutputStream getOutputStream (@Nonnull final File aFile)
   {
     return getOutputStream (aFile, EAppend.DEFAULT);
+  }
+
+  @Nullable
+  public static Writer getWriter (@Nonnull final String sFilename,
+                                  @Nonnull final EAppend eAppend,
+                                  @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (sFilename, "FileName");
+
+    return getWriter (new File (sFilename), eAppend, aCharset);
+  }
+
+  @Nullable
+  public static Writer getWriter (@Nonnull final File aFile,
+                                  @Nonnull final EAppend eAppend,
+                                  @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+    ValueEnforcer.notNull (aCharset, "Charset");
+
+    return StreamHelper.createWriter (getOutputStream (aFile, eAppend), aCharset);
+  }
+
+  @Nullable
+  public static Writer getBufferedWriter (@Nonnull final String sFilename,
+                                          @Nonnull final EAppend eAppend,
+                                          @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (sFilename, "FileName");
+
+    return getBufferedWriter (new File (sFilename), eAppend, aCharset);
+  }
+
+  @Nullable
+  public static Writer getBufferedWriter (@Nonnull final File aFile,
+                                          @Nonnull final EAppend eAppend,
+                                          @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+    ValueEnforcer.notNull (aCharset, "Charset");
+
+    return new NonBlockingBufferedWriter (getWriter (aFile, eAppend, aCharset));
   }
 
   @Nonnull
@@ -910,5 +995,21 @@ public final class FileHelper
     ValueEnforcer.notNull (aFileFilter, "FileFilter");
 
     return _getDirectoryContent (aDirectory, aDirectory.listFiles (aFileFilter));
+  }
+
+  @Nullable
+  public static URL getAsURL (@Nonnull final File aFile)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+
+    try
+    {
+      return aFile.toURI ().toURL ();
+    }
+    catch (final MalformedURLException ex)
+    {
+      s_aLogger.warn ("Failed to convert file to URL: " + aFile, ex);
+      return null;
+    }
   }
 }

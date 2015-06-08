@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -30,16 +29,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.IReadWriteResource;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FilenameHelper;
-import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -52,8 +47,6 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class FileSystemResource implements IReadWriteResource
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (FileSystemResource.class);
-
   private final File m_aFile;
   private final String m_sPath;
   private Integer m_aHashCode;
@@ -107,65 +100,27 @@ public class FileSystemResource implements IReadWriteResource
   }
 
   @Nullable
-  public static InputStream getInputStream (@Nonnull final File aFile)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-
-    return FileHelper.getInputStream (aFile);
-  }
-
-  @Nullable
-  public static Reader getReader (@Nonnull final File aFile, @Nonnull final Charset aCharset)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-    ValueEnforcer.notNull (aCharset, "Charset");
-
-    return StreamHelper.createReader (getInputStream (aFile), aCharset);
-  }
-
-  @Nullable
   public InputStream getInputStream ()
   {
-    return getInputStream (m_aFile);
+    return FileHelper.getInputStream (m_aFile);
   }
 
   @Nullable
   public Reader getReader (@Nonnull final Charset aCharset)
   {
-    return getReader (m_aFile, aCharset);
-  }
-
-  @Nullable
-  public static OutputStream getOutputStream (@Nonnull final File aFile, @Nonnull final EAppend eAppend)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-    ValueEnforcer.notNull (eAppend, "Append");
-
-    return FileHelper.getOutputStream (aFile, eAppend);
-  }
-
-  @Nullable
-  public static Writer getWriter (@Nonnull final File aFile,
-                                  @Nonnull final Charset aCharset,
-                                  @Nonnull final EAppend eAppend)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-    ValueEnforcer.notNull (aCharset, "Charset");
-    ValueEnforcer.notNull (eAppend, "Append");
-
-    return StreamHelper.createWriter (getOutputStream (aFile, eAppend), aCharset);
+    return FileHelper.getReader (m_aFile, aCharset);
   }
 
   @Nullable
   public OutputStream getOutputStream (@Nonnull final EAppend eAppend)
   {
-    return getOutputStream (m_aFile, eAppend);
+    return FileHelper.getOutputStream (m_aFile, eAppend);
   }
 
   @Nullable
   public Writer getWriter (@Nonnull final Charset aCharset, @Nonnull final EAppend eAppend)
   {
-    return getWriter (m_aFile, aCharset, eAppend);
+    return FileHelper.getWriter (m_aFile, eAppend, aCharset);
   }
 
   public boolean exists ()
@@ -174,23 +129,9 @@ public class FileSystemResource implements IReadWriteResource
   }
 
   @Nullable
-  public static URL getAsURL (final File aFile)
-  {
-    try
-    {
-      return aFile.toURI ().toURL ();
-    }
-    catch (final MalformedURLException ex)
-    {
-      s_aLogger.warn ("Failed to convert file to URL: " + aFile, ex);
-      return null;
-    }
-  }
-
-  @Nullable
   public URL getAsURL ()
   {
-    return getAsURL (m_aFile);
+    return FileHelper.getAsURL (m_aFile);
   }
 
   @Nonnull

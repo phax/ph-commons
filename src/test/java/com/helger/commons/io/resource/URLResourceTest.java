@@ -32,10 +32,11 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.streams.StreamHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.commons.url.URLHelper;
 
 /**
  * Test class for class {@link URLResource}.
- * 
+ *
  * @author Philip Helger
  */
 public final class URLResourceTest extends AbstractCommonsTestCase
@@ -92,21 +93,21 @@ public final class URLResourceTest extends AbstractCommonsTestCase
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur, new URLResource (aFileURL));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur, ur.getReadableCloneForPath (aFileURL));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur,
-                                                                 ur.getReadableCloneForPath (aFileURL.toExternalForm ()));
+                                                                       ur.getReadableCloneForPath (aFileURL.toExternalForm ()));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ur, new URLResource (aNoNExistingURL));
 
-    assertNotNull (URLResource.getAsFile (aFileURL));
-    assertNotNull (URLResource.getAsFile (aNoNExistingURL));
+    assertNotNull (URLHelper.getAsFile (aFileURL));
+    assertNotNull (URLHelper.getAsFile (aNoNExistingURL));
     try
     {
-      URLResource.getAsFile (null);
+      URLHelper.getAsFile (null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      URLResource.getAsFile (new URL ("http://www.google.com"));
+      URLHelper.getAsFile (new URL ("http://www.google.com"));
       fail ();
     }
     catch (final IllegalArgumentException ex)
