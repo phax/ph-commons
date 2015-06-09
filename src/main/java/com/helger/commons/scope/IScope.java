@@ -89,7 +89,8 @@ public interface IScope extends IMutableAttributeContainer <String, Object>, IHa
    * Perform stuff as a single action. All actions are executed in a write-lock!
    *
    * @param aRunnable
-   *        The action to be executed. May not be <code>null</code>.
+   *        The action to be executed. May not be <code>null</code>. The
+   *        parameter to the runnable is <code>this</code> scope.
    */
   void runAtomic (@Nonnull INonThrowingRunnableWithParameter <IScope> aRunnable);
 
@@ -97,7 +98,8 @@ public interface IScope extends IMutableAttributeContainer <String, Object>, IHa
    * Perform stuff as a single action. All actions are executed in a write-lock!
    *
    * @param aCallable
-   *        The action to be executed. May not be <code>null</code>.
+   *        The action to be executed. May not be <code>null</code>. The
+   *        parameter to the callable is <code>this</code> scope.
    * @return The result from the callable. May be <code>null</code>.
    */
   @Nullable

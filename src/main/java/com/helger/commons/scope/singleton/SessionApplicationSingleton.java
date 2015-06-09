@@ -48,7 +48,7 @@ public abstract class SessionApplicationSingleton extends AbstractSingleton impl
     writeAbstractSingletonFields (aOOS);
   }
 
-  private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException
+  private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException, ClassNotFoundException
   {
     readAbstractSingletonFields (aOIS);
   }

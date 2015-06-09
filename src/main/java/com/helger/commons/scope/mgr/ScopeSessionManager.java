@@ -21,8 +21,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -67,7 +65,6 @@ public class ScopeSessionManager extends GlobalSingleton
   private static volatile ScopeSessionManager s_aInstance = null;
 
   /** All contained session scopes. */
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   @GuardedBy ("m_aRWLock")
   private final Map <String, ISessionScope> m_aSessionScopes = new HashMap <String, ISessionScope> ();
   @GuardedBy ("m_aRWLock")
