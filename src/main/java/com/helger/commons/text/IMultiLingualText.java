@@ -17,77 +17,21 @@
 package com.helger.commons.text;
 
 import java.util.Locale;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.callback.CallbackList;
-import com.helger.commons.callback.IChangeCallback;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.IClearable;
 
 /**
- * Interface for a writable version of a multilingual text
+ * Readonly interface for a multilingual text
  *
  * @author Philip Helger
  */
-public interface IMultiLingualText extends IReadonlyMultiLingualText, IClearable
+public interface IMultiLingualText extends ISimpleMultiLingualText
 {
   /**
-   * Add a text in the specified locale. If a text with the same locale is
-   * already present, <code>false</code> is returned.
-   *
-   * @param aContentLocale
-   *        The locale in which the text should be set. May not be
-   *        <code>null</code>.
-   * @param sText
-   *        The text to be set. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the text was added,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return A map over all contained locale/text pairs. Never <code>null</code>
+   *         .
    */
   @Nonnull
-  EChange addText (@Nonnull Locale aContentLocale, @Nullable String sText);
-
-  /**
-   * Set a text in the specified locale. If a text with the same locale is
-   * already present, the old value is overwritten.
-   *
-   * @param aContentLocale
-   *        The locale in which the text should be set. May not be
-   *        <code>null</code> .
-   * @param sText
-   *        The text to be set. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the text was set,
-   *         {@link EChange#UNCHANGED} otherwise.
-   */
-  @Nonnull
-  EChange setText (@Nonnull Locale aContentLocale, @Nullable String sText);
-
-  /**
-   * Remove the text with the specified locale.
-   *
-   * @param aContentLocale
-   *        The locale to be removed. May not be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the text was remove,
-   *         {@link EChange#UNCHANGED} otherwise.
-   */
-  @Nonnull
-  EChange removeText (@Nonnull Locale aContentLocale);
-
-  /**
-   * Assign all fields from the passed object. All existing texts are removed!
-   *
-   * @param aMLT
-   *        The object to read the content from. May not be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the assignment changed anything,
-   *         {@link EChange#UNCHANGED} otherwise.
-   */
-  @Nonnull
-  EChange assignFrom (@Nonnull IReadonlyMultiLingualText aMLT);
-
-  /**
-   * @return The change notify callbacks. Never <code>null</code>.
-   */
-  @Nonnull
-  CallbackList <IChangeCallback <IMultiLingualText>> getChangeNotifyCallbacks ();
+  Map <Locale, String> getAllTexts ();
 }

@@ -30,7 +30,7 @@ import org.junit.rules.TestRule;
 import com.helger.commons.junit.DebugModeTestRule;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.text.ISimpleMultiLingualText;
-import com.helger.commons.text.ITextProvider;
+import com.helger.commons.text.IHasTextWithArgs;
 import com.helger.commons.text.TextProvider;
 
 /**
@@ -76,7 +76,7 @@ public final class TextProviderTest extends AbstractCommonsTestCase
   @Test
   public void testGetTextWithArgs ()
   {
-    final ITextProvider aTP = TextProvider.create_DE_EN ("Hallo {0}", "{0} Hello");
+    final IHasTextWithArgs aTP = TextProvider.create_DE_EN ("Hallo {0}", "{0} Hello");
     assertEquals ("Hallo {0}", aTP.getTextWithLocaleFallback (L_DE_DE));
     assertEquals ("Hallo {0}", aTP.getTextWithLocaleFallback (L_DE));
     assertNull (aTP.getTextWithLocaleFallback (L_FR));

@@ -26,9 +26,9 @@ import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.commons.statistics.IMutableStatisticsHandlerKeyedCounter;
 import com.helger.commons.statistics.StatisticsManager;
-import com.helger.commons.text.ISimpleTextProvider;
-import com.helger.commons.text.ITextProvider;
-import com.helger.commons.text.TextFormatter;
+import com.helger.commons.text.IHasText;
+import com.helger.commons.text.IHasTextWithArgs;
+import com.helger.commons.text.util.TextHelper;
 
 /**
  * Resolves texts either from an override, a text provider or otherwise uses a
@@ -74,7 +74,7 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
 
   @Nullable
   private String _getText (@Nonnull final Enum <?> aEnum,
-                           @Nonnull final ISimpleTextProvider aTP,
+                           @Nonnull final IHasText aTP,
                            @Nonnull final Locale aContentLocale,
                            final boolean bIsWithArgs)
   {
@@ -108,7 +108,7 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
 
   @Nullable
   public final String getText (@Nonnull final Enum <?> aEnum,
-                               @Nonnull final ISimpleTextProvider aTP,
+                               @Nonnull final IHasText aTP,
                                @Nonnull final Locale aContentLocale)
   {
     return _getText (aEnum, aTP, aContentLocale, false);
@@ -116,13 +116,13 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
 
   @Nullable
   public final String getTextWithArgs (@Nonnull final Enum <?> aEnum,
-                                       @Nonnull final ITextProvider aTP,
+                                       @Nonnull final IHasTextWithArgs aTP,
                                        @Nonnull final Locale aContentLocale,
                                        @Nullable final Object... aArgs)
   {
     // The same as getText
     final String sText = _getText (aEnum, aTP, aContentLocale, true);
     // And if something was found, resolve the arguments
-    return TextFormatter.getFormattedText (sText, aArgs);
+    return TextHelper.getFormattedText (sText, aArgs);
   }
 }

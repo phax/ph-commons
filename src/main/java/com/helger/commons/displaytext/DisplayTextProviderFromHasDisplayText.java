@@ -14,24 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.text;
+package com.helger.commons.displaytext;
 
 import java.util.Locale;
-import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
- * Readonly interface for a multilingual text
- *
+ * Default implementation of {@link IDisplayTextProvider} for
+ * {@link IHasDisplayText} objects.
+ * 
  * @author Philip Helger
  */
-public interface IReadonlyMultiLingualText extends ISimpleMultiLingualText
+public final class DisplayTextProviderFromHasDisplayText implements IDisplayTextProvider <IHasDisplayText>
 {
-  /**
-   * @return A map over all contained locale/text pairs. Never <code>null</code>
-   *         .
-   */
-  @Nonnull
-  Map <Locale, String> getAllTexts ();
+  @Nullable
+  public String getDisplayText (@Nullable final IHasDisplayText aObject, @Nonnull final Locale aContentLocale)
+  {
+    return aObject == null ? null : aObject.getDisplayText (aContentLocale);
+  }
 }

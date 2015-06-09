@@ -16,49 +16,43 @@
  */
 package com.helger.commons.text;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * Basic interface for object providing multilingual texts with and without
- * arguments.
+ * Basic interface for object providing multilingual texts without arguments.
+ * See also {@link IHasTextWithArgs} for a derived interface with argument
+ * handling.
  *
  * @author Philip Helger
  */
-public interface ITextProvider extends ISimpleTextProvider
+public interface IHasText extends Serializable
 {
   /**
    * Get the text specific for the passed locale. The implementation class MUST
    * NOT add locale-generalisation when resolving the text ("de_DE" =&gt; "de"
-   * =&gt; <i>default</i>). The placeholders will be resolved with the
-   * {@link java.text.MessageFormat#format(Object)} method.
+   * =&gt; <i>default</i>).
    *
    * @param aContentLocale
    *        The locale to use. May not be <code>null</code>.
-   * @param aArgs
-   *        The arguments to be added into the string. May be <code>null</code>
-   *        but this makes no sense.
    * @return <code>null</code> if no text for the given locale was found.
    */
   @Nullable
-  String getTextWithArgs (@Nonnull Locale aContentLocale, @Nullable Object... aArgs);
+  String getText (@Nonnull Locale aContentLocale);
 
   /**
    * Get the text specific for the passed locale. The implementation class MUST
    * add locale-generalisation when resolving the text ("de_DE" =&gt; "de" =&gt;
-   * <i>default</i>). The placeholders will be resolved with the
-   * {@link java.text.MessageFormat#format(Object)} method.
+   * <i>default</i>).
    *
    * @param aContentLocale
    *        The locale to use. May not be <code>null</code>.
-   * @param aArgs
-   *        The arguments to be added into the string. May be <code>null</code>
-   *        but this makes no sense.
    * @return <code>null</code> if no text for the given locale was found.
    * @see com.helger.commons.locale.LocaleHelper#getCalculatedLocaleListForResolving(Locale)
    */
   @Nullable
-  String getTextWithLocaleFallbackAndArgs (@Nonnull Locale aContentLocale, @Nullable Object... aArgs);
+  String getTextWithLocaleFallback (@Nonnull Locale aContentLocale);
 }

@@ -61,7 +61,7 @@ public class ReadonlyMultiLingualText extends TextProvider
       internalAddText (aLocale, aSimpleMLT.getText (aLocale));
   }
 
-  public ReadonlyMultiLingualText (@Nonnull final IReadonlyMultiLingualText aMLT)
+  public ReadonlyMultiLingualText (@Nonnull final IMultiLingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 

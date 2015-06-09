@@ -41,16 +41,16 @@ import com.helger.commons.state.EChange;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class MultiLingualText extends TextProvider implements IMultiLingualText
+public class MultiLingualText extends TextProvider implements IMutableMultiLingualText
 {
   // Because of the transient field
   private static final long serialVersionUID = 136888667633487L;
 
   /** Default empty multilingual text - don't modify this object!!! */
-  public static final IMultiLingualText EMPTY_MULTILINGUAL_TEXT = new MultiLingualText ();
+  public static final IMutableMultiLingualText EMPTY_MULTILINGUAL_TEXT = new MultiLingualText ();
 
   /** A list of callback upon change. */
-  private final CallbackList <IChangeCallback <IMultiLingualText>> m_aChangeNotifyCallbacks = new CallbackList <IChangeCallback <IMultiLingualText>> ();
+  private final CallbackList <IChangeCallback <IMutableMultiLingualText>> m_aChangeNotifyCallbacks = new CallbackList <IChangeCallback <IMutableMultiLingualText>> ();
 
   public MultiLingualText ()
   {}
@@ -74,7 +74,7 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
       internalAddText (aLocale, aSimpleMLT.getText (aLocale));
   }
 
-  public MultiLingualText (@Nonnull final IReadonlyMultiLingualText aMLT)
+  public MultiLingualText (@Nonnull final IMultiLingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 
@@ -84,7 +84,7 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
 
   private boolean _beforeChange ()
   {
-    for (final IChangeCallback <IMultiLingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
+    for (final IChangeCallback <IMutableMultiLingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
       if (aCallback.beforeChange (this).isBreak ())
         return false;
     return true;
@@ -92,7 +92,7 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
 
   private void _afterChange ()
   {
-    for (final IChangeCallback <IMultiLingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
+    for (final IChangeCallback <IMutableMultiLingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
       aCallback.afterChange (this);
   }
 
@@ -168,7 +168,7 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
   }
 
   @Nonnull
-  public EChange assignFrom (@Nonnull final IReadonlyMultiLingualText aMLT)
+  public EChange assignFrom (@Nonnull final IMultiLingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 
@@ -185,7 +185,7 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
 
   @Nonnull
   @ReturnsMutableObject (reason = "design")
-  public CallbackList <IChangeCallback <IMultiLingualText>> getChangeNotifyCallbacks ()
+  public CallbackList <IChangeCallback <IMutableMultiLingualText>> getChangeNotifyCallbacks ()
   {
     return m_aChangeNotifyCallbacks;
   }
@@ -203,9 +203,9 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
   }
 
   @Nonnull
-  public static IMultiLingualText createFromMap (@Nonnull final Map <String, String> aMap)
+  public static IMutableMultiLingualText createFromMap (@Nonnull final Map <String, String> aMap)
   {
-    final IMultiLingualText ret = new MultiLingualText ();
+    final IMutableMultiLingualText ret = new MultiLingualText ();
     for (final Entry <String, String> aEntry : aMap.entrySet ())
     {
       final String sText = aEntry.getValue ();
@@ -228,10 +228,10 @@ public class MultiLingualText extends TextProvider implements IMultiLingualText
    *         <code>null</code>.
    */
   @Nonnull
-  public static IMultiLingualText getCopyWithLocales (@Nonnull final IReadonlyMultiLingualText aMLT,
+  public static IMutableMultiLingualText getCopyWithLocales (@Nonnull final IMultiLingualText aMLT,
                                                       @Nonnull final Collection <Locale> aContentLocales)
   {
-    final IMultiLingualText ret = new MultiLingualText ();
+    final IMutableMultiLingualText ret = new MultiLingualText ();
     for (final Locale aConrentLocale : aContentLocales)
       if (aMLT.containsLocale (aConrentLocale))
         ret.setText (aConrentLocale, aMLT.getText (aConrentLocale));

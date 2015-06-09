@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.text;
+package com.helger.commons.text.util;
 
 import java.util.Locale;
 
@@ -22,24 +22,25 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.displaytext.IHasDisplayText;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.name.IHasDisplayName;
-import com.helger.commons.name.IHasDisplayText;
 import com.helger.commons.name.IHasName;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.text.AbstractHasTextWithArgs;
 
 /**
- * An implementation of the {@link com.helger.commons.text.ITextProvider}
+ * An implementation of the {@link com.helger.commons.text.IHasTextWithArgs}
  * interface that always returns a constant string. Use this only for texts that
  * never need to be translated!<br>
  * {@link IHasDisplayText}, {@link IHasDisplayName} and {@link IHasName} are
  * only implemented, so that instances of this class can also be used as valid
  * substitutes for these interfaces.
- * 
+ *
  * @author Philip Helger
  */
-public class ConstantTextProvider extends AbstractTextProvider implements IHasDisplayText, IHasDisplayName, IHasName
+public class ConstantTextProvider extends AbstractHasTextWithArgs implements IHasDisplayText, IHasDisplayName, IHasName
 {
   private final String m_sFixedText;
 
@@ -99,6 +100,6 @@ public class ConstantTextProvider extends AbstractTextProvider implements IHasDi
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("text", m_sFixedText).toString ();
+    return new ToStringGenerator (null).append ("FixedText", m_sFixedText).toString ();
   }
 }

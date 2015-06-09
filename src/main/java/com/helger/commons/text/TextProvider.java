@@ -45,11 +45,11 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * An in-memory implementation of the
- * {@link com.helger.commons.text.ITextProvider} interface.
+ * {@link com.helger.commons.text.IHasTextWithArgs} interface.
  *
  * @author Philip Helger
  */
-public class TextProvider extends AbstractTextProvider implements IReadonlyMultiLingualText
+public class TextProvider extends AbstractHasTextWithArgs implements IMultiLingualText
 {
   /** German locale used */
   public static final Locale DE = LocaleCache.getLocale ("de");
@@ -183,7 +183,7 @@ public class TextProvider extends AbstractTextProvider implements IReadonlyMulti
 
   @Nonnull
   @ReturnsMutableObject (reason = "Internal use only")
-  public final Set <Locale> internalGetAllLocales ()
+  protected final Set <Locale> internalGetAllLocales ()
   {
     return m_aTexts.keySet ();
   }

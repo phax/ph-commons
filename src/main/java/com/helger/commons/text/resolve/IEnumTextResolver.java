@@ -21,8 +21,8 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.text.ISimpleTextProvider;
-import com.helger.commons.text.ITextProvider;
+import com.helger.commons.text.IHasText;
+import com.helger.commons.text.IHasTextWithArgs;
 
 /**
  * Base interface for an enum-based text resolver.
@@ -44,7 +44,7 @@ public interface IEnumTextResolver
    * @return <code>null</code> if no text could be resolved.
    */
   @Nullable
-  String getText (@Nonnull Enum <?> aEnum, @Nonnull ISimpleTextProvider aTP, @Nonnull Locale aContentLocale);
+  String getText (@Nonnull Enum <?> aEnum, @Nonnull IHasText aTP, @Nonnull Locale aContentLocale);
 
   /**
    * Get the text of an enumeration item with placeholder texts being replaced.
@@ -63,7 +63,7 @@ public interface IEnumTextResolver
    */
   @Nullable
   String getTextWithArgs (@Nonnull Enum <?> aEnum,
-                          @Nonnull ITextProvider aTP,
+                          @Nonnull IHasTextWithArgs aTP,
                           @Nonnull Locale aContentLocale,
                           @Nullable Object... aArgs);
 }

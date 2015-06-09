@@ -30,7 +30,7 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.text.IReadonlyMultiLingualText;
+import com.helger.commons.text.IMultiLingualText;
 import com.helger.commons.text.ISimpleMultiLingualText;
 import com.helger.commons.text.MultiLingualText;
 import com.helger.commons.text.ReadonlyMultiLingualText;
@@ -45,7 +45,7 @@ public final class ReadonlyMultiLingualTextTest extends AbstractCommonsTestCase
   @Test
   public void testCtor ()
   {
-    IReadonlyMultiLingualText aMLT = new ReadonlyMultiLingualText ();
+    IMultiLingualText aMLT = new ReadonlyMultiLingualText ();
     assertEquals (0, aMLT.getSize ());
     assertNotNull (aMLT.getAllLocales ());
     assertTrue (aMLT.getAllLocales ().isEmpty ());
@@ -106,7 +106,7 @@ public final class ReadonlyMultiLingualTextTest extends AbstractCommonsTestCase
     {}
     try
     {
-      new ReadonlyMultiLingualText ((IReadonlyMultiLingualText) null);
+      new ReadonlyMultiLingualText ((IMultiLingualText) null);
       fail ();
     }
     catch (final NullPointerException ex)

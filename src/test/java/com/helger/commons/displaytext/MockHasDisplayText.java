@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.name;
+package com.helger.commons.displaytext;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.displaytext.IHasDisplayText;
 import com.helger.commons.text.TextProvider;
 
 public final class MockHasDisplayText implements IHasDisplayText

@@ -21,22 +21,24 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.text.util.TextHelper;
+
 /**
- * An abstract implementation of the {@link ITextProvider} that has default
+ * An abstract implementation of the {@link IHasTextWithArgs} that has default
  * implementations for the formatting things.
  * 
  * @author Philip Helger
  */
-public abstract class AbstractTextProvider extends AbstractSimpleTextProvider implements ITextProvider
+public abstract class AbstractHasTextWithArgs extends AbstractHasText implements IHasTextWithArgs
 {
-  protected AbstractTextProvider ()
+  protected AbstractHasTextWithArgs ()
   {}
 
   @Nullable
   public final String getTextWithArgs (@Nonnull final Locale aContentLocale, @Nullable final Object... aArgs)
   {
     final String sText = getText (aContentLocale);
-    return TextFormatter.getFormattedText (sText, aArgs);
+    return TextHelper.getFormattedText (sText, aArgs);
   }
 
   @Nullable
@@ -44,6 +46,6 @@ public abstract class AbstractTextProvider extends AbstractSimpleTextProvider im
                                                         @Nullable final Object... aArgs)
   {
     final String sText = getTextWithLocaleFallback (aContentLocale);
-    return TextFormatter.getFormattedText (sText, aArgs);
+    return TextHelper.getFormattedText (sText, aArgs);
   }
 }

@@ -34,8 +34,8 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.commons.text.IMutableMultiLingualText;
 import com.helger.commons.text.IMultiLingualText;
-import com.helger.commons.text.IReadonlyMultiLingualText;
 import com.helger.commons.text.MultiLingualText;
 import com.helger.commons.text.ReadonlyMultiLingualText;
 import com.helger.commons.text.TextProvider;
@@ -50,7 +50,7 @@ public final class MultiLingualTextTest extends AbstractCommonsTestCase
   @Test
   public void testCtor ()
   {
-    IMultiLingualText aMLT = new MultiLingualText ();
+    IMutableMultiLingualText aMLT = new MultiLingualText ();
     assertEquals (0, aMLT.getSize ());
     assertNotNull (aMLT.getAllLocales ());
     assertTrue (aMLT.getAllLocales ().isEmpty ());
@@ -62,7 +62,7 @@ public final class MultiLingualTextTest extends AbstractCommonsTestCase
 
     try
     {
-      new MultiLingualText ((IReadonlyMultiLingualText) null);
+      new MultiLingualText ((IMultiLingualText) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -72,7 +72,7 @@ public final class MultiLingualTextTest extends AbstractCommonsTestCase
   @Test
   public void testAddText ()
   {
-    final IMultiLingualText aMLT = new MultiLingualText ();
+    final IMutableMultiLingualText aMLT = new MultiLingualText ();
     final MockChangeCallback aNotify = new MockChangeCallback ();
     try
     {
@@ -119,7 +119,7 @@ public final class MultiLingualTextTest extends AbstractCommonsTestCase
   @Test
   public void testSetText ()
   {
-    final IMultiLingualText aMLT = new MultiLingualText ();
+    final IMutableMultiLingualText aMLT = new MultiLingualText ();
 
     try
     {
@@ -156,14 +156,14 @@ public final class MultiLingualTextTest extends AbstractCommonsTestCase
   @Test
   public void testGetCopyWithLocales ()
   {
-    final IMultiLingualText aMLT = new MultiLingualText ();
+    final IMutableMultiLingualText aMLT = new MultiLingualText ();
     assertTrue (aMLT.setText (Locale.ENGLISH, "Hi").isChanged ());
     assertTrue (aMLT.setText (Locale.GERMAN, "Moin").isChanged ());
     assertEquals (aMLT.getSize (), 2);
 
     final List <Locale> aLocaleList = new ArrayList <Locale> ();
     aLocaleList.add (Locale.ENGLISH);
-    final IReadonlyMultiLingualText aMLT2 = MultiLingualText.getCopyWithLocales (aMLT, aLocaleList);
+    final IMultiLingualText aMLT2 = MultiLingualText.getCopyWithLocales (aMLT, aLocaleList);
     assertTrue (aMLT2.containsLocale (Locale.ENGLISH));
     assertFalse (aMLT2.containsLocale (Locale.GERMAN));
 
@@ -174,7 +174,7 @@ public final class MultiLingualTextTest extends AbstractCommonsTestCase
   @Test
   public void testEquals ()
   {
-    final IMultiLingualText aMLT = new MultiLingualText ();
+    final IMutableMultiLingualText aMLT = new MultiLingualText ();
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMLT, new MultiLingualText ());
   }
 
@@ -182,7 +182,7 @@ public final class MultiLingualTextTest extends AbstractCommonsTestCase
   public void testCreateFromRequest ()
   {
     final Map <String, String> aParamNames = new HashMap <String, String> ();
-    IReadonlyMultiLingualText aMLT = MultiLingualText.createFromMap (aParamNames);
+    IMultiLingualText aMLT = MultiLingualText.createFromMap (aParamNames);
     assertEquals (aMLT.getSize (), 0);
 
     aParamNames.put ("de", "x");

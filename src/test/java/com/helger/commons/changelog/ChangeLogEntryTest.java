@@ -31,7 +31,7 @@ import org.junit.Test;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.text.IMultiLingualText;
+import com.helger.commons.text.IMutableMultiLingualText;
 import com.helger.commons.text.MultiLingualText;
 import com.helger.commons.text.TextProvider;
 
@@ -112,7 +112,7 @@ public final class ChangeLogEntryTest extends AbstractCommonsTestCase
     assertTrue (aEntry.setText (L_DE, "Unit test ").isChanged ());
     assertEquals ("Unit test", aEntry.getText (L_DE));
 
-    final IMultiLingualText aMLT = new MultiLingualText (TextProvider.create_DE_EN ("de", "en"));
+    final IMutableMultiLingualText aMLT = new MultiLingualText (TextProvider.create_DE_EN ("de", "en"));
     assertTrue (aEntry.setText (aMLT).isChanged ());
     assertFalse (aEntry.setText (aMLT).isChanged ());
 

@@ -24,7 +24,7 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.text.ConstantTextProvider;
+import com.helger.commons.text.util.ConstantTextProvider;
 
 /**
  * Test class for class {@link ConstantTextProvider}.

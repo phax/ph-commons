@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Translatable;
-import com.helger.commons.name.IHasDisplayText;
+import com.helger.commons.displaytext.IHasDisplayText;
 import com.helger.commons.text.TextProvider;
 import com.helger.commons.text.resolve.DefaultTextResolver;
 

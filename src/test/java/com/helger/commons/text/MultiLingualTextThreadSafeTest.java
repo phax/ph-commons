@@ -32,8 +32,8 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.commons.text.IMutableMultiLingualText;
 import com.helger.commons.text.IMultiLingualText;
-import com.helger.commons.text.IReadonlyMultiLingualText;
 import com.helger.commons.text.MultiLingualText;
 import com.helger.commons.text.MultiLingualTextThreadSafe;
 import com.helger.commons.text.ReadonlyMultiLingualText;
@@ -49,7 +49,7 @@ public final class MultiLingualTextThreadSafeTest extends AbstractCommonsTestCas
   @Test
   public void testCtor ()
   {
-    IMultiLingualText aMLT = new MultiLingualTextThreadSafe ();
+    IMutableMultiLingualText aMLT = new MultiLingualTextThreadSafe ();
     assertEquals (0, aMLT.getSize ());
     assertNotNull (aMLT.getAllLocales ());
     assertTrue (aMLT.getAllLocales ().isEmpty ());
@@ -71,7 +71,7 @@ public final class MultiLingualTextThreadSafeTest extends AbstractCommonsTestCas
   @Test
   public void testAddText ()
   {
-    final IMultiLingualText aMLT = new MultiLingualTextThreadSafe ();
+    final IMutableMultiLingualText aMLT = new MultiLingualTextThreadSafe ();
     final MockChangeCallback aNotify = new MockChangeCallback ();
     aMLT.getChangeNotifyCallbacks ().addCallback (aNotify);
 
@@ -111,7 +111,7 @@ public final class MultiLingualTextThreadSafeTest extends AbstractCommonsTestCas
   @Test
   public void testSetText ()
   {
-    final IMultiLingualText aMLT = new MultiLingualTextThreadSafe ();
+    final IMutableMultiLingualText aMLT = new MultiLingualTextThreadSafe ();
 
     try
     {
@@ -147,7 +147,7 @@ public final class MultiLingualTextThreadSafeTest extends AbstractCommonsTestCas
   @Test
   public void testEquals ()
   {
-    final IMultiLingualText aMLT = new MultiLingualTextThreadSafe ();
+    final IMutableMultiLingualText aMLT = new MultiLingualTextThreadSafe ();
     assertEquals (aMLT, aMLT);
     assertFalse (aMLT.equals ("any String"));
     assertFalse (aMLT.equals (null));
@@ -157,7 +157,7 @@ public final class MultiLingualTextThreadSafeTest extends AbstractCommonsTestCas
   public void testCreateFromRequest ()
   {
     final Map <String, String> aParamNames = new HashMap <String, String> ();
-    IReadonlyMultiLingualText aMLT = MultiLingualTextThreadSafe.createFromMap (aParamNames);
+    IMultiLingualText aMLT = MultiLingualTextThreadSafe.createFromMap (aParamNames);
     assertEquals (aMLT.getSize (), 0);
 
     aParamNames.put ("de", "x");
@@ -181,7 +181,7 @@ public final class MultiLingualTextThreadSafeTest extends AbstractCommonsTestCas
   @Test
   public void testClear ()
   {
-    final IMultiLingualText t = new MultiLingualTextThreadSafe ();
+    final IMutableMultiLingualText t = new MultiLingualTextThreadSafe ();
     assertTrue (t.isEmpty ());
     assertTrue (t.clear ().isUnchanged ());
     assertTrue (t.setText (L_DE, "de").isChanged ());
@@ -193,7 +193,7 @@ public final class MultiLingualTextThreadSafeTest extends AbstractCommonsTestCas
   @Test
   public void testAssignFrom ()
   {
-    final IMultiLingualText t = new MultiLingualTextThreadSafe ();
+    final IMutableMultiLingualText t = new MultiLingualTextThreadSafe ();
 
     // 1 element
     assertTrue (t.assignFrom (new ReadonlyMultiLingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
@@ -221,7 +221,7 @@ public final class MultiLingualTextThreadSafeTest extends AbstractCommonsTestCas
   @Test
   public void testRemove ()
   {
-    final IMultiLingualText t = new MultiLingualTextThreadSafe ();
+    final IMutableMultiLingualText t = new MultiLingualTextThreadSafe ();
     assertTrue (t.setText (L_DE, "de").isChanged ());
     assertEquals (1, t.getSize ());
     assertFalse (t.removeText (L_EN).isChanged ());

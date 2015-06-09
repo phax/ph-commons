@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.NoTranslationRequired;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.text.TextFormatter;
+import com.helger.commons.text.util.TextHelper;
 
 /**
  * Exceptions of this type are only thrown from the {@link TypeConverter} class
@@ -55,7 +55,7 @@ public final class TypeConverterException extends RuntimeException
     {
       if (m_nParamCount != 1)
         throw new IllegalStateException ("Message does not expect 1 parameter!");
-      return TextFormatter.getFormattedText (m_sMsg, aDstClass.getName ());
+      return TextHelper.getFormattedText (m_sMsg, aDstClass.getName ());
     }
 
     @Nonnull
@@ -64,7 +64,7 @@ public final class TypeConverterException extends RuntimeException
     {
       if (m_nParamCount != 2)
         throw new IllegalStateException ("Message does not expect 2 parameters!");
-      return TextFormatter.getFormattedText (m_sMsg, aSrcClass.getName (), aDstClass.getName ());
+      return TextHelper.getFormattedText (m_sMsg, aSrcClass.getName (), aDstClass.getName ());
     }
   }
 

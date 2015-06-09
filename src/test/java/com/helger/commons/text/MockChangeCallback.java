@@ -22,9 +22,9 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.callback.IChangeCallback;
 import com.helger.commons.state.EContinue;
-import com.helger.commons.text.IMultiLingualText;
+import com.helger.commons.text.IMutableMultiLingualText;
 
-public final class MockChangeCallback implements IChangeCallback <IMultiLingualText>
+public final class MockChangeCallback implements IChangeCallback <IMutableMultiLingualText>
 {
   private int m_nCallCountBefore = 0;
   private int m_nCallCountAfter = 0;
@@ -33,14 +33,14 @@ public final class MockChangeCallback implements IChangeCallback <IMultiLingualT
   {}
 
   @Nonnull
-  public EContinue beforeChange (final IMultiLingualText aObjectToChange)
+  public EContinue beforeChange (final IMutableMultiLingualText aObjectToChange)
   {
     assertNotNull (aObjectToChange);
     m_nCallCountBefore++;
     return EContinue.CONTINUE;
   }
 
-  public void afterChange (final IMultiLingualText aChangedObject)
+  public void afterChange (final IMutableMultiLingualText aChangedObject)
   {
     assertNotNull (aChangedObject);
     m_nCallCountAfter++;

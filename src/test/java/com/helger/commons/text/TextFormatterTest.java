@@ -21,10 +21,10 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.commons.text.TextFormatter;
+import com.helger.commons.text.util.TextHelper;
 
 /**
- * Test class for class {@link TextFormatter}.
+ * Test class for class {@link TextHelper}.
  * 
  * @author Philip Helger
  */
@@ -33,13 +33,13 @@ public final class TextFormatterTest
   @Test
   public void test ()
   {
-    assertEquals ("a", TextFormatter.getFormattedText ("a", (Object []) null));
-    assertEquals ("a", TextFormatter.getFormattedText ("a", new Object [0]));
-    assertEquals ("a{0}", TextFormatter.getFormattedText ("a{0}", new Object [0]));
-    assertEquals ("anull", TextFormatter.getFormattedText ("a{0}", (Object) null));
-    assertEquals ("ab", TextFormatter.getFormattedText ("a{0}", "b"));
-    assertEquals ("ab{1}", TextFormatter.getFormattedText ("a{0}{1}", "b"));
-    assertEquals ("anull{1}", TextFormatter.getFormattedText ("a{0}{1}", (Object) null));
-    assertNull (TextFormatter.getFormattedText ((String) null, "b"));
+    assertEquals ("a", TextHelper.getFormattedText ("a", (Object []) null));
+    assertEquals ("a", TextHelper.getFormattedText ("a", new Object [0]));
+    assertEquals ("a{0}", TextHelper.getFormattedText ("a{0}", new Object [0]));
+    assertEquals ("anull", TextHelper.getFormattedText ("a{0}", (Object) null));
+    assertEquals ("ab", TextHelper.getFormattedText ("a{0}", "b"));
+    assertEquals ("ab{1}", TextHelper.getFormattedText ("a{0}{1}", "b"));
+    assertEquals ("anull{1}", TextHelper.getFormattedText ("a{0}{1}", (Object) null));
+    assertNull (TextHelper.getFormattedText ((String) null, "b"));
   }
 }

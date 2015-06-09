@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.text;
+package com.helger.commons.text.util;
 
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -32,12 +32,12 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
  * @author Philip Helger
  */
 @Immutable
-public final class TextFormatter
+public final class TextHelper
 {
   @PresentForCodeCoverage
-  private static final TextFormatter s_aInstance = new TextFormatter ();
+  private static final TextHelper s_aInstance = new TextHelper ();
 
-  private TextFormatter ()
+  private TextHelper ()
   {}
 
   @Nullable

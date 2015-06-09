@@ -24,14 +24,14 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 
 /**
- * An abstract implementation of the {@link ISimpleTextProvider} that has
+ * An abstract implementation of the {@link IHasText} that has
  * default implementations for the formatting things.
  * 
  * @author Philip Helger
  */
-public abstract class AbstractSimpleTextProvider implements ISimpleTextProvider
+public abstract class AbstractHasText implements IHasText
 {
-  protected AbstractSimpleTextProvider ()
+  protected AbstractHasText ()
   {}
 
   /**

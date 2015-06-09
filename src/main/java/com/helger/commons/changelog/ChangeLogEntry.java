@@ -32,8 +32,8 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.text.IMutableMultiLingualText;
 import com.helger.commons.text.IMultiLingualText;
-import com.helger.commons.text.IReadonlyMultiLingualText;
 import com.helger.commons.text.MultiLingualText;
 import com.helger.commons.text.ReadonlyMultiLingualText;
 
@@ -49,7 +49,7 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
   private final EChangeLogAction m_eAction;
   private final EChangeLogCategory m_eCategory;
   private final boolean m_bIsIncompatible;
-  private final IMultiLingualText m_aTexts = new MultiLingualText ();
+  private final IMutableMultiLingualText m_aTexts = new MultiLingualText ();
   private final List <String> m_aIssues = new ArrayList <String> ();
 
   /**
@@ -125,7 +125,7 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
    * @return {@link EChange}
    */
   @Nonnull
-  EChange setText (@Nonnull final IReadonlyMultiLingualText aMLT)
+  EChange setText (@Nonnull final IMultiLingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 
@@ -156,7 +156,7 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
    */
   @Nonnull
   @ReturnsMutableCopy
-  public IReadonlyMultiLingualText getAllTexts ()
+  public IMultiLingualText getAllTexts ()
   {
     return new ReadonlyMultiLingualText (m_aTexts);
   }

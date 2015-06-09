@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.name;
+package com.helger.commons.displaytext;
 
 import java.util.Locale;
 
@@ -26,7 +26,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.text.TextFormatter;
+import com.helger.commons.text.util.TextHelper;
 
 /**
  * A special implementation of {@link IHasDisplayText} that encapsulates
@@ -62,7 +62,7 @@ public final class HasDisplayTextWithArgs implements IHasDisplayText
   public String getDisplayText (@Nonnull final Locale aContentLocale)
   {
     final String sText = m_aParentText.getDisplayText (aContentLocale);
-    return TextFormatter.getFormattedText (sText, m_aArgs);
+    return TextHelper.getFormattedText (sText, m_aArgs);
   }
 
   @Override

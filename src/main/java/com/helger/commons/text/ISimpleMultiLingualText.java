@@ -20,15 +20,15 @@ import com.helger.commons.IHasLocales;
 import com.helger.commons.IHasSize;
 
 /**
- * This is an in-between interface between the {@link ITextProvider} and the
- * {@link IReadonlyMultiLingualText}. The practical purpose of this interface is
- * to have a simple serializable multi lingual text.<br>
+ * This is an in-between interface between the {@link IHasTextWithArgs} and the
+ * {@link IMultiLingualText}. The practical purpose of this interface is
+ * to have a simple serializable multilingual text.<br>
  * It only defines the read-access methods, to allow for immutable
  * implementations.
- * 
+ *
  * @author Philip Helger
  */
-public interface ISimpleMultiLingualText extends ITextProvider, IHasLocales, IHasSize
+public interface ISimpleMultiLingualText extends IHasTextWithArgs, IHasLocales, IHasSize
 {
   /* empty */
 }
