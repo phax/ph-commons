@@ -18,7 +18,7 @@ package com.helger.commons.format;
 
 import javax.annotation.Nullable;
 
-import com.helger.commons.IHasStringRepresentation;
+import com.helger.commons.lang.IHasStringRepresentation;
 
 /**
  * Basic interface for special objects having a certain string representation.

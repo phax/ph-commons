@@ -23,9 +23,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.SystemProperties;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.system.SystemProperties;
 
 /**
  * Utility class for dealing with the Java class path.

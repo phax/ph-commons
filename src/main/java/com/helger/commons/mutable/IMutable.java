@@ -16,7 +16,7 @@
  */
 package com.helger.commons.mutable;
 
-import com.helger.commons.ICloneable;
+import com.helger.commons.lang.ICloneable;
 
 /**
  * Base interface for all mutable objects

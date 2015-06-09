@@ -24,8 +24,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.SystemProperties;
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.system.SystemProperties;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

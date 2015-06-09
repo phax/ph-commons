@@ -17,12 +17,13 @@
 package com.helger.commons;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
 /**
  * Test class for class {@link CGlobal}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CGlobalTest
@@ -35,5 +36,18 @@ public final class CGlobalTest
     assertEquals (1024L * 1024 * 1024, CGlobal.BYTES_PER_GIGABYTE);
     assertEquals (1024L * 1024 * 1024 * 1024, CGlobal.BYTES_PER_TERABYTE);
     assertEquals (1024L * 1024 * 1024 * 1024 * 1024, CGlobal.BYTES_PER_PETABYTE);
+  }
+
+  @Test
+  public void testDefaults ()
+  {
+    assertNotNull (CGlobal.DEFAULT_BOOLEAN_OBJ);
+    assertNotNull (CGlobal.DEFAULT_BYTE_OBJ);
+    assertNotNull (CGlobal.DEFAULT_CHAR_OBJ);
+    assertNotNull (CGlobal.DEFAULT_DOUBLE_OBJ);
+    assertNotNull (CGlobal.DEFAULT_FLOAT_OBJ);
+    assertNotNull (CGlobal.DEFAULT_INT_OBJ);
+    assertNotNull (CGlobal.DEFAULT_LONG_OBJ);
+    assertNotNull (CGlobal.DEFAULT_SHORT_OBJ);
   }
 }

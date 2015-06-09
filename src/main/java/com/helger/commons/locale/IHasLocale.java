@@ -14,27 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons;
+package com.helger.commons.locale;
 
-import javax.annotation.Nonnegative;
+import java.util.Locale;
+
+import javax.annotation.Nonnull;
 
 /**
- * Base interface for all objects having a certain size.
- *
+ * Base interface for objects having a locale.
+ * 
  * @author Philip Helger
  */
-public interface IHasSize
+public interface IHasLocale
 {
   /**
-   * @return The number of contained elements. Always &ge; 0.
+   * @return The relevant locale. May not be <code>null</code>.
    */
-  @Nonnegative
-  int getSize ();
-
-  /**
-   * @return <code>true</code> if no items are present, <code>false</code> if at
-   *         least a single item is present.
-   * @see #getSize()
-   */
-  boolean isEmpty ();
+  @Nonnull
+  Locale getLocale ();
 }

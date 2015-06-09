@@ -19,7 +19,6 @@ package com.helger.commons.system;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.SystemProperties;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.string.StringParser;
 

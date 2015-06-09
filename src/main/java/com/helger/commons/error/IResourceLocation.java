@@ -21,7 +21,7 @@ import java.io.Serializable;
 import javax.annotation.Nullable;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.IHasStringRepresentation;
+import com.helger.commons.lang.IHasStringRepresentation;
 
 /**
  * Interface indication the position of something within a single resource

@@ -24,12 +24,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.IHasSize;
-import com.helger.commons.IHasStringRepresentation;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.lang.IHasSize;
+import com.helger.commons.lang.IHasStringRepresentation;
 
 /**
  * A non-synchronized copy of the class {@link java.io.StringWriter}.<br>

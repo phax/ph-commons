@@ -21,7 +21,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.IHasSize;
+import com.helger.commons.lang.IHasSize;
 
 /**
  * Contains a list of resource errors and some sanity access methods.

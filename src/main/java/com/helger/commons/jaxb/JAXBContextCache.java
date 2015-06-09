@@ -26,11 +26,11 @@ import javax.xml.bind.annotation.XmlSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.GlobalDebug;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.cache.AbstractNotifyingCache;
+import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.lang.GenericReflection;
 
 /**

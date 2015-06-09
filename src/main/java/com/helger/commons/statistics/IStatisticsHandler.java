@@ -19,8 +19,8 @@ package com.helger.commons.statistics;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
-import com.helger.commons.IHasStringRepresentation;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.lang.IHasStringRepresentation;
 
 /**
  * Base interface for all statistic handlers

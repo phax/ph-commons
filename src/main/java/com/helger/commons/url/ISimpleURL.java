@@ -21,7 +21,7 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.IHasStringRepresentation;
+import com.helger.commons.lang.IHasStringRepresentation;
 
 /**
  * Interface for a simple URL that works around the issues with the Java default

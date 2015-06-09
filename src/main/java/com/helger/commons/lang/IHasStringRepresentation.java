@@ -14,21 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons;
+package com.helger.commons.lang;
 
 import javax.annotation.Nonnull;
 
 /**
- * Base interface for objects having a plain text representation. This is useful
- * for search indexing and searching.
+ * Base interface for all objects having an explicit string representation (e.g.
+ * version numbers)
  * 
  * @author Philip Helger
  */
-public interface IHasPlainText
+public interface IHasStringRepresentation
 {
   /**
-   * @return The plain text representation of this text.
+   * @return The non-<code>null</code> string representation of this object.
    */
   @Nonnull
-  String getPlainText ();
+  String getAsString ();
 }

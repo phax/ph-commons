@@ -18,7 +18,7 @@ package com.helger.commons.cache;
 
 import javax.annotation.Nullable;
 
-import com.helger.commons.IHasSize;
+import com.helger.commons.lang.IHasSize;
 import com.helger.commons.name.IHasName;
 
 /**

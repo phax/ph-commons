@@ -20,7 +20,6 @@ import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.SystemProperties;
 import com.helger.commons.string.StringParser;
 
 /**

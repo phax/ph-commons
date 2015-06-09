@@ -16,8 +16,8 @@
  */
 package com.helger.commons.text;
 
-import com.helger.commons.IHasLocales;
-import com.helger.commons.IHasSize;
+import com.helger.commons.lang.IHasSize;
+import com.helger.commons.locale.IHasLocales;
 
 /**
  * This is an in-between interface between the {@link IHasTextWithArgs} and the

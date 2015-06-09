@@ -14,12 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons;
+package com.helger.commons.debug;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
+import com.helger.commons.debug.GlobalDebug;
 
 /**
  * Tests for class {@link GlobalDebug}

@@ -14,24 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons;
+package com.helger.commons.locale;
+
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
 /**
- * This is a type-safe replacement interface for the default
- * {@link java.lang.Cloneable} interface since it contains the desired return
- * type and is accessible solely by the interface.
+ * Base interface for objects having a country locale.
  * 
  * @author Philip Helger
- * @param <DATATYPE>
- *        The type to be returned by the {@link #getClone()} method.
  */
-public interface ICloneable <DATATYPE>
+public interface IHasCountry
 {
   /**
-   * @return A 100% deep-copy of the implementing class.
+   * @return The relevant country locale. May not be <code>null</code>.
    */
   @Nonnull
-  DATATYPE getClone ();
+  Locale getCountry ();
 }

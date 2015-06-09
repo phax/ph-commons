@@ -14,22 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons;
-
-import java.util.Locale;
+package com.helger.commons.text;
 
 import javax.annotation.Nonnull;
 
 /**
- * Base interface for objects having a locale.
+ * Base interface for objects having a plain text representation. This is useful
+ * for search indexing and searching.
  * 
  * @author Philip Helger
  */
-public interface IHasLocale
+public interface IHasPlainText
 {
   /**
-   * @return The relevant locale. May not be <code>null</code>.
+   * @return The plain text representation of this text.
    */
   @Nonnull
-  Locale getLocale ();
+  String getPlainText ();
 }

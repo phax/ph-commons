@@ -14,21 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons;
+package com.helger.commons.lang;
 
 import javax.annotation.Nonnull;
 
 /**
- * Base interface for all objects having an explicit string representation (e.g.
- * version numbers)
+ * This is a type-safe replacement interface for the default
+ * {@link java.lang.Cloneable} interface since it contains the desired return
+ * type and is accessible solely by the interface.
  * 
  * @author Philip Helger
+ * @param <DATATYPE>
+ *        The type to be returned by the {@link #getClone()} method.
  */
-public interface IHasStringRepresentation
+public interface ICloneable <DATATYPE>
 {
   /**
-   * @return The non-<code>null</code> string representation of this object.
+   * @return A 100% deep-copy of the implementing class.
    */
   @Nonnull
-  String getAsString ();
+  DATATYPE getClone ();
 }

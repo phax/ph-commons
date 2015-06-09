@@ -14,21 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons;
+package com.helger.commons.text;
 
-import javax.annotation.Nonnegative;
+import javax.annotation.Nullable;
 
 /**
- * Base interface for all components having a size. This may apply to files or
- * in-memory data structures but not to collections (list, set, map, ...).
+ * Base interface for objects that have a locale <b>independent</b> description.
  * 
  * @author Philip Helger
  */
-public interface IHasByteSize
+public interface IHasDescription
 {
   /**
-   * @return The number of bytes. The values must be &ge; 0.
+   * @return The description of this object. May be <code>null</code>.
    */
-  @Nonnegative
-  long getSizeInBytes ();
+  @Nullable
+  String getDescription ();
 }

@@ -18,8 +18,6 @@ package com.helger.commons.system;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.SystemProperties;
-
 /**
  * Determine the current JVM (Java Virtual Machine) vendor.
  *

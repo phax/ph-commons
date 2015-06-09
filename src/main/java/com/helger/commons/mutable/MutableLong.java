@@ -19,7 +19,7 @@ package com.helger.commons.mutable;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.CDefault;
+import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -36,7 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
 public final class MutableLong extends AbstractMutableInteger <MutableLong>
 {
   /** The default value if the default constructor is used. */
-  public static final long DEFAULT_VALUE = CDefault.DEFAULT_LONG;
+  public static final long DEFAULT_VALUE = CGlobal.DEFAULT_LONG;
 
   private long m_nValue;
 

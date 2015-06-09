@@ -16,7 +16,6 @@
  */
 package com.helger.commons.lang;
 
-import com.helger.commons.ICloneable;
 
 /**
  * This class needs to be in the same package as {@link CloneHelper} so that the

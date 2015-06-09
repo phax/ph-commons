@@ -23,13 +23,13 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.helger.commons.SystemProperties;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.serialize.MicroReader;
 import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.system.SystemProperties;
 import com.helger.commons.xml.EXMLVersion;
 
 /**

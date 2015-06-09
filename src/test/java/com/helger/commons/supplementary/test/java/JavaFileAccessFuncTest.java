@@ -32,7 +32,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.SystemProperties;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.CollectionHelper;
@@ -42,6 +41,7 @@ import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.LoggingFileOperationCallback;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.system.EOperatingSystem;
+import com.helger.commons.system.SystemProperties;
 
 public final class JavaFileAccessFuncTest
 {

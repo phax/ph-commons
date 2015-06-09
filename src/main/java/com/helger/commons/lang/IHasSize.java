@@ -14,29 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons;
+package com.helger.commons.lang;
 
-import static org.junit.Assert.assertNotNull;
-
-import org.junit.Test;
+import javax.annotation.Nonnegative;
 
 /**
- * Test class for class {@link CDefault}.
- * 
+ * Base interface for all objects having a certain size.
+ *
  * @author Philip Helger
  */
-public final class CDefaultTest
+public interface IHasSize
 {
-  @Test
-  public void testConstants ()
-  {
-    assertNotNull (CDefault.DEFAULT_BOOLEAN_OBJ);
-    assertNotNull (CDefault.DEFAULT_BYTE_OBJ);
-    assertNotNull (CDefault.DEFAULT_CHAR_OBJ);
-    assertNotNull (CDefault.DEFAULT_DOUBLE_OBJ);
-    assertNotNull (CDefault.DEFAULT_FLOAT_OBJ);
-    assertNotNull (CDefault.DEFAULT_INT_OBJ);
-    assertNotNull (CDefault.DEFAULT_LONG_OBJ);
-    assertNotNull (CDefault.DEFAULT_SHORT_OBJ);
-  }
+  /**
+   * @return The number of contained elements. Always &ge; 0.
+   */
+  @Nonnegative
+  int getSize ();
+
+  /**
+   * @return <code>true</code> if no items are present, <code>false</code> if at
+   *         least a single item is present.
+   * @see #getSize()
+   */
+  boolean isEmpty ();
 }

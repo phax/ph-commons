@@ -18,7 +18,7 @@ package com.helger.commons.io;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.IHasBooleanRepresentation;
+import com.helger.commons.lang.IHasBooleanRepresentation;
 
 /**
  * Small enum for determining the append or truncate state of output streams.

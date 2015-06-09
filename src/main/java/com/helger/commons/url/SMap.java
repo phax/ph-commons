@@ -24,8 +24,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.ICloneable;
 import com.helger.commons.annotation.DevelopersNote;
+import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
 
 /**

@@ -23,12 +23,12 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.ICloneable;
-import com.helger.commons.IHasStringRepresentation;
 import com.helger.commons.annotation.MustImplementComparable;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.lang.ICloneable;
+import com.helger.commons.lang.IHasStringRepresentation;
 
 /**
  * Interface for the structured representation of a single MIME type.

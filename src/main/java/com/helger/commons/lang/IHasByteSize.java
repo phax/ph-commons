@@ -14,22 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons;
+package com.helger.commons.lang;
 
-import java.util.Locale;
-
-import javax.annotation.Nonnull;
+import javax.annotation.Nonnegative;
 
 /**
- * Base interface for objects having a country locale.
+ * Base interface for all components having a size. This may apply to files or
+ * in-memory data structures but not to collections (list, set, map, ...).
  * 
  * @author Philip Helger
  */
-public interface IHasCountry
+public interface IHasByteSize
 {
   /**
-   * @return The relevant country locale. May not be <code>null</code>.
+   * @return The number of bytes. The values must be &ge; 0.
    */
-  @Nonnull
-  Locale getCountry ();
+  @Nonnegative
+  long getSizeInBytes ();
 }

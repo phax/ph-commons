@@ -16,7 +16,7 @@
  */
 package com.helger.commons.hashcode;
 
-import com.helger.commons.IAppendable;
+import com.helger.commons.lang.IAppendable;
 
 /**
  * Base interface for hash code generators.
