@@ -22,13 +22,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.displaytext.IHasDisplayText;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.name.IHasName;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.AbstractHasTextWithArgs;
+import com.helger.commons.text.display.IHasDisplayText;
 
 /**
  * An implementation of the {@link com.helger.commons.text.IHasTextWithArgs}

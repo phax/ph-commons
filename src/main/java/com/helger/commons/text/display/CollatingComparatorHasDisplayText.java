@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.displaytext;
+package com.helger.commons.text.display;
 
 import java.text.Collator;
 import java.util.Locale;
@@ -28,16 +28,15 @@ import com.helger.commons.compare.AbstractCollatingComparator;
 
 /**
  * This is a collation {@link java.util.Comparator} for objects that implement
- * the {@link IDisplayTextProvider} interface.
+ * the {@link IHasDisplayText} interface.
  *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of elements to be compared.
  */
 @NotThreadSafe
-public class CollatingComparatorDisplayTextProvider <DATATYPE> extends AbstractCollatingComparator <DATATYPE>
+public class CollatingComparatorHasDisplayText <DATATYPE extends IHasDisplayText> extends AbstractCollatingComparator <DATATYPE>
 {
-  private final IDisplayTextProvider <DATATYPE> m_aDisplayTextProvider;
   private final Locale m_aContentLocale;
 
   /**
@@ -45,18 +44,13 @@ public class CollatingComparatorDisplayTextProvider <DATATYPE> extends AbstractC
    *
    * @param aSortLocale
    *        The locale to be used for sorting. May be <code>null</code>.
-   * @param aDisplayTextProvider
-   *        The display text provider to be used. May not be <code>null</code>.
    * @param aContentLocale
    *        The locale to be used to retrieve the display text of an object. May
    *        not be <code>null</code>.
    */
-  public CollatingComparatorDisplayTextProvider (@Nullable final Locale aSortLocale,
-                                                 @Nonnull final IDisplayTextProvider <DATATYPE> aDisplayTextProvider,
-                                                 @Nonnull final Locale aContentLocale)
+  public CollatingComparatorHasDisplayText (@Nullable final Locale aSortLocale, @Nonnull final Locale aContentLocale)
   {
     super (aSortLocale);
-    m_aDisplayTextProvider = ValueEnforcer.notNull (aDisplayTextProvider, "DisplayTextProvider");
     m_aContentLocale = ValueEnforcer.notNull (aContentLocale, "ContentLocale");
   }
 
@@ -65,25 +59,14 @@ public class CollatingComparatorDisplayTextProvider <DATATYPE> extends AbstractC
    *
    * @param aCollator
    *        The {@link Collator} to use. May not be <code>null</code>.
-   * @param aDisplayTextProvider
-   *        The display text provider to be used. May not be <code>null</code>.
    * @param aContentLocale
    *        The locale to be used to retrieve the display text of an object. May
    *        not be <code>null</code>.
    */
-  public CollatingComparatorDisplayTextProvider (@Nullable final Collator aCollator,
-                                                 @Nonnull final IDisplayTextProvider <DATATYPE> aDisplayTextProvider,
-                                                 @Nonnull final Locale aContentLocale)
+  public CollatingComparatorHasDisplayText (@Nonnull final Collator aCollator, @Nonnull final Locale aContentLocale)
   {
     super (aCollator);
-    m_aDisplayTextProvider = ValueEnforcer.notNull (aDisplayTextProvider, "DisplayTextProvider");
     m_aContentLocale = ValueEnforcer.notNull (aContentLocale, "ContentLocale");
-  }
-
-  @Nonnull
-  public IDisplayTextProvider <DATATYPE> getDisplayTextProvider ()
-  {
-    return m_aDisplayTextProvider;
   }
 
   @Nonnull
@@ -95,6 +78,6 @@ public class CollatingComparatorDisplayTextProvider <DATATYPE> extends AbstractC
   @Override
   protected String getPart (@Nonnull final DATATYPE aObject)
   {
-    return m_aDisplayTextProvider.getDisplayText (aObject, m_aContentLocale);
+    return aObject.getDisplayText (m_aContentLocale);
   }
 }

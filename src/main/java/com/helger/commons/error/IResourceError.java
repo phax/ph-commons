@@ -23,9 +23,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.displaytext.IHasDisplayText;
 import com.helger.commons.state.IErrorIndicator;
 import com.helger.commons.state.ISuccessIndicator;
+import com.helger.commons.text.display.IHasDisplayText;
 
 /**
  * Interface for an error that can be drilled down to a certain resource (e.g. a

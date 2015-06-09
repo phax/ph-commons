@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.displaytext;
+package com.helger.commons.text.display;
 
 import java.util.Locale;
 
@@ -22,16 +22,22 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * Default implementation of {@link IDisplayTextProvider} for
- * {@link IHasDisplayText} objects.
+ * Base interface for objects that have a locale <b>dependent</b> display name.
  * 
  * @author Philip Helger
  */
-public final class DisplayTextProviderFromHasDisplayText implements IDisplayTextProvider <IHasDisplayText>
+public interface IHasDisplayTextWithArgs
 {
+  /**
+   * @param aContentLocale
+   *        The locale to be used for resolving. May not be <code>null</code>.
+   * @param aArgs
+   *        Arguments for formatting the provided text. May be <code>null</code>
+   *        but this makes no sense.
+   * @return The display text of the object in the given locale. May be
+   *         <code>null</code> if the text could not be resolved in the passed
+   *         locale.
+   */
   @Nullable
-  public String getDisplayText (@Nullable final IHasDisplayText aObject, @Nonnull final Locale aContentLocale)
-  {
-    return aObject == null ? null : aObject.getDisplayText (aContentLocale);
-  }
+  String getDisplayTextWithArgs (@Nonnull Locale aContentLocale, @Nullable Object... aArgs);
 }

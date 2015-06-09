@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.displaytext;
+package com.helger.commons.text.display;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -25,9 +25,9 @@ import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
-import com.helger.commons.displaytext.CollatingComparatorHasDisplayText;
-import com.helger.commons.displaytext.IHasDisplayText;
 import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.text.display.CollatingComparatorHasDisplayText;
+import com.helger.commons.text.display.IHasDisplayText;
 
 /**
  * Test class for class {@link CollatingComparatorHasDisplayText}.

@@ -14,30 +14,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.displaytext;
+package com.helger.commons.text.display;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * Base interface for objects that have a locale <b>dependent</b> display name.
+ * Interface for a handler that provides the locale <b>dependent</b> name of an
+ * object.
  * 
  * @author Philip Helger
+ * @param <DATATYPE>
+ *        The data type to retrieve the display text from
  */
-public interface IHasDisplayTextWithArgs
+public interface IDisplayTextProvider <DATATYPE> extends Serializable
 {
   /**
+   * Get the display text of the passed object in the given locale.
+   * 
+   * @param aObject
+   *        The object to be used. May be <code>null</code>.
    * @param aContentLocale
-   *        The locale to be used for resolving. May not be <code>null</code>.
-   * @param aArgs
-   *        Arguments for formatting the provided text. May be <code>null</code>
-   *        but this makes no sense.
-   * @return The display text of the object in the given locale. May be
-   *         <code>null</code> if the text could not be resolved in the passed
-   *         locale.
+   *        The display locale to be used. May not be <code>null</code>.
+   * @return The display text of the passed object in the given locale. May be
+   *         <code>null</code>.
    */
   @Nullable
-  String getDisplayTextWithArgs (@Nonnull Locale aContentLocale, @Nullable Object... aArgs);
+  String getDisplayText (@Nullable DATATYPE aObject, @Nonnull Locale aContentLocale);
 }

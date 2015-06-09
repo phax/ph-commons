@@ -24,10 +24,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.displaytext.IHasDisplayText;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.text.display.IHasDisplayText;
 
 /**
  * Country enum.

@@ -22,7 +22,6 @@ import javax.xml.transform.ErrorListener;
 import javax.xml.transform.SourceLocator;
 import javax.xml.transform.TransformerException;
 
-import com.helger.commons.displaytext.IHasDisplayText;
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IResourceError;
@@ -31,6 +30,7 @@ import com.helger.commons.error.ResourceError;
 import com.helger.commons.error.ResourceLocation;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.text.display.IHasDisplayText;
 
 /**
  * Abstract implementation of a transformation {@link ErrorListener}.

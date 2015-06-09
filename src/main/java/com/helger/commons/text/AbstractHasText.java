@@ -24,9 +24,9 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 
 /**
- * An abstract implementation of the {@link IHasText} that has
- * default implementations for the formatting things.
- * 
+ * An abstract implementation of the {@link IHasText} that has default
+ * implementations for the formatting things.
+ *
  * @author Philip Helger
  */
 public abstract class AbstractHasText implements IHasText
@@ -36,9 +36,9 @@ public abstract class AbstractHasText implements IHasText
 
   /**
    * Main text resolving
-   * 
+   *
    * @param aContentLocale
-   *        locale to use
+   *        Locale to use. Never <code>null</code>.
    * @return <code>null</code> if no such text present in the passed locale
    */
   @Nullable
@@ -46,9 +46,9 @@ public abstract class AbstractHasText implements IHasText
 
   /**
    * Determine the locale to use.
-   * 
+   *
    * @param aContentLocale
-   *        Requested locale
+   *        Requested locale. Never <code>null</code>.
    * @return The locale to use. May be <code>null</code>.
    */
   @Nullable
