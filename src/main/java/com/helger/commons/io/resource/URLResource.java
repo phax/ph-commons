@@ -40,10 +40,10 @@ import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.mutable.IWrapper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.commons.url.URLHelper;
+import com.helger.commons.wrapper.IMutableWrapper;
 
 /**
  * Implementation of the {@link IReadableResource} interface for URL objects.
@@ -112,7 +112,7 @@ public class URLResource implements IReadableResource
                                      DEFAULT_CONNECT_TIMEOUT,
                                      DEFAULT_READ_TIMEOUT,
                                      null,
-                                     (IWrapper <IOException>) null);
+                                     (IMutableWrapper <IOException>) null);
   }
 
   @Nullable
@@ -128,11 +128,11 @@ public class URLResource implements IReadableResource
     return getInputStream (nConnectTimeoutMS,
                            nReadTimeoutMS,
                            (INonThrowingRunnableWithParameter <URLConnection>) null,
-                           (IWrapper <IOException>) null);
+                           (IMutableWrapper <IOException>) null);
   }
 
   @Nullable
-  public InputStream getInputStream (@Nullable final IWrapper <IOException> aExceptionHolder)
+  public InputStream getInputStream (@Nullable final IMutableWrapper <IOException> aExceptionHolder)
   {
     return getInputStream (DEFAULT_CONNECT_TIMEOUT, DEFAULT_READ_TIMEOUT, aExceptionHolder);
   }
@@ -140,7 +140,7 @@ public class URLResource implements IReadableResource
   @Nullable
   public InputStream getInputStream (@CheckForSigned final int nConnectTimeoutMS,
                                      @CheckForSigned final int nReadTimeoutMS,
-                                     @Nullable final IWrapper <IOException> aExceptionHolder)
+                                     @Nullable final IMutableWrapper <IOException> aExceptionHolder)
   {
     return getInputStream (nConnectTimeoutMS,
                            nReadTimeoutMS,
@@ -152,7 +152,7 @@ public class URLResource implements IReadableResource
   public InputStream getInputStream (@CheckForSigned final int nConnectTimeoutMS,
                                      @CheckForSigned final int nReadTimeoutMS,
                                      @Nullable final INonThrowingRunnableWithParameter <URLConnection> aConnectionModifier,
-                                     @Nullable final IWrapper <IOException> aExceptionHolder)
+                                     @Nullable final IMutableWrapper <IOException> aExceptionHolder)
   {
     return URLHelper.getInputStream (m_aURL, nConnectTimeoutMS, nReadTimeoutMS, aConnectionModifier, aExceptionHolder);
   }

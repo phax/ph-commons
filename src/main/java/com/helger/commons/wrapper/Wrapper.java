@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mutable;
+package com.helger.commons.wrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,7 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The type of object to be wrapped.
  */
 @NotThreadSafe
-public class Wrapper <DATATYPE> implements IWrapper <DATATYPE>, ICloneable <Wrapper <DATATYPE>>
+public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneable <Wrapper <DATATYPE>>
 {
   private DATATYPE m_aObj;
 
@@ -64,7 +64,7 @@ public class Wrapper <DATATYPE> implements IWrapper <DATATYPE>, ICloneable <Wrap
    * @param aRhs
    *        The other wrapper to use. May not be <code>null</code>.
    */
-  public Wrapper (@Nonnull final IReadonlyWrapper <DATATYPE> aRhs)
+  public Wrapper (@Nonnull final IWrapper <DATATYPE> aRhs)
   {
     m_aObj = ValueEnforcer.notNull (aRhs, "Wrapper").get ();
   }

@@ -17,7 +17,7 @@
 package com.helger.commons.mutable;
 
 /**
- * Base implementation class for {@link IMutableInteger} extending
+ * Base implementation class for {@link IMutableInteger} transitively extending
  * {@link Number} class.
  *
  * @author Philip Helger

@@ -23,8 +23,8 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.mutable.IReadonlyWrapper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.wrapper.IWrapper;
 
 /**
  * Wraps a success indicator and an arbitrary value.
@@ -34,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The data type that is wrapped together with the success indicator
  */
 @Immutable
-public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IReadonlyWrapper <DATATYPE>
+public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper <DATATYPE>
 {
   private final ESuccess m_eSuccess;
   private final DATATYPE m_aObj;

@@ -23,8 +23,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.mutable.IReadonlyWrapper;
-import com.helger.commons.mutable.Wrapper;
+import com.helger.commons.wrapper.IWrapper;
+import com.helger.commons.wrapper.Wrapper;
 
 /**
  * This is a wrapper around any object that is scope renewal aware.
@@ -59,7 +59,7 @@ public class ScopeRenewalAwareWrapper <DATATYPE extends Serializable> extends Wr
    * @param rhs
    *        The other wrapper to use. May not be <code>null</code>.
    */
-  public ScopeRenewalAwareWrapper (@Nonnull final IReadonlyWrapper <DATATYPE> rhs)
+  public ScopeRenewalAwareWrapper (@Nonnull final IWrapper <DATATYPE> rhs)
   {
     super (rhs);
   }

@@ -28,7 +28,7 @@ import org.junit.Test;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsAssert;
-import com.helger.commons.mutable.Wrapper;
+import com.helger.commons.wrapper.Wrapper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

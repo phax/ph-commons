@@ -14,28 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mutable;
+package com.helger.commons.wrapper;
 
 import javax.annotation.Nullable;
 
+import com.helger.commons.state.EChange;
+
 /**
- * Base interface for wrapping an object within another object.
+ * Base interface for mutable wrapping an object within another object.
  * 
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of the wrapped object.
  */
-public interface IReadonlyWrapper <DATATYPE>
+public interface IMutableWrapper <DATATYPE> extends IWrapper <DATATYPE>
 {
   /**
-   * @return The currently wrapped object. May be <code>null</code>.
+   * Change the wrapped object.
+   * 
+   * @param aObj
+   *        The new object to be wrapped. May be <code>null</code>.
+   * @return {@link EChange}
    */
   @Nullable
-  DATATYPE get ();
-
-  /**
-   * @return <code>true</code> if the contained value is not <code>null</code>,
-   *         <code>false</code> if it is <code>null</code>.
-   */
-  boolean isSet ();
+  EChange set (@Nullable DATATYPE aObj);
 }

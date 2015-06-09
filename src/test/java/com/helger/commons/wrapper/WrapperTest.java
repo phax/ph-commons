@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mutable;
+package com.helger.commons.wrapper;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -25,6 +25,8 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.commons.wrapper.IWrapper;
+import com.helger.commons.wrapper.Wrapper;
 
 /**
  * Test class for class {@link Wrapper}.
@@ -63,7 +65,7 @@ public final class WrapperTest
     // illegal ctor
     try
     {
-      new Wrapper <String> ((IReadonlyWrapper <String>) null);
+      new Wrapper <String> ((IWrapper <String>) null);
       fail ();
     }
     catch (final NullPointerException ex)

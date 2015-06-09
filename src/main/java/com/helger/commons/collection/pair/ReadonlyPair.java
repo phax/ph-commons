@@ -28,7 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A generic pair class. It wraps two objects of arbitrary type. If you just
  * want to wrap a single object, look at class
- * {@link com.helger.commons.mutable.Wrapper}.
+ * {@link com.helger.commons.wrapper.Wrapper}.
  *
  * @author Philip Helger
  * @param <DATA1TYPE>

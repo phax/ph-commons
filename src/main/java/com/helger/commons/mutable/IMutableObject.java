@@ -16,26 +16,16 @@
  */
 package com.helger.commons.mutable;
 
-import javax.annotation.Nullable;
-
-import com.helger.commons.state.EChange;
+import com.helger.commons.lang.ICloneable;
 
 /**
- * Base interface for mutable wrapping an object within another object.
- * 
+ * Base interface for all mutable objects
+ *
  * @author Philip Helger
- * @param <DATATYPE>
- *        The type of the wrapped object.
+ * @param <IMPLTYPE>
+ *        Implementation type
  */
-public interface IWrapper <DATATYPE> extends IReadonlyWrapper <DATATYPE>
+public interface IMutableObject <IMPLTYPE extends IMutableObject <IMPLTYPE>> extends Comparable <IMPLTYPE>, ICloneable <IMPLTYPE>
 {
-  /**
-   * Change the wrapped object.
-   * 
-   * @param aObj
-   *        The new object to be wrapped. May be <code>null</code>.
-   * @return {@link EChange}
-   */
-  @Nullable
-  EChange set (@Nullable DATATYPE aObj);
+  /* empty */
 }

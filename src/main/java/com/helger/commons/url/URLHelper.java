@@ -63,9 +63,9 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.microdom.reader.XMLMapHandler;
 import com.helger.commons.mime.IMimeType;
-import com.helger.commons.mutable.IWrapper;
-import com.helger.commons.mutable.Wrapper;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.wrapper.IMutableWrapper;
+import com.helger.commons.wrapper.Wrapper;
 
 /**
  * URL utilities.
@@ -613,7 +613,7 @@ public final class URLHelper
                                             @CheckForSigned final int nConnectTimeoutMS,
                                             @CheckForSigned final int nReadTimeoutMS,
                                             @Nullable final INonThrowingRunnableWithParameter <URLConnection> aConnectionModifier,
-                                            @Nullable final IWrapper <IOException> aExceptionHolder)
+                                            @Nullable final IMutableWrapper <IOException> aExceptionHolder)
   {
     ValueEnforcer.notNull (aURL, "URL");
 
@@ -760,7 +760,7 @@ public final class URLHelper
                                                    @Nonnull final byte [] aContentBytes,
                                                    @Nullable final Map <String, String> aAdditionalHTTPHeaders,
                                                    @Nullable final INonThrowingRunnableWithParameter <URLConnection> aConnectionModifier,
-                                                   @Nullable final IWrapper <IOException> aExceptionHolder)
+                                                   @Nullable final IMutableWrapper <IOException> aExceptionHolder)
   {
     ValueEnforcer.notNull (aURL, "URL");
     ValueEnforcer.notNull (aContentBytes, "ContentBytes");

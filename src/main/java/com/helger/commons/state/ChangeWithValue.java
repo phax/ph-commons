@@ -23,8 +23,8 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.mutable.IReadonlyWrapper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.wrapper.IWrapper;
 
 /**
  * Wraps a change indicator and an arbitrary value.
@@ -34,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The data type that is wrapped together with the change indicator
  */
 @Immutable
-public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IReadonlyWrapper <DATATYPE>
+public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <DATATYPE>
 {
   private final EChange m_eChange;
   private final DATATYPE m_aObj;

@@ -23,7 +23,7 @@ package com.helger.commons.mutable;
  * @param <IMPLTYPE>
  *        Implementation type
  */
-public interface IMutableNumeric <IMPLTYPE extends IMutableNumeric <IMPLTYPE>> extends IMutable <IMPLTYPE>
+public interface IMutableNumeric <IMPLTYPE extends IMutableNumeric <IMPLTYPE>> extends IMutableObject <IMPLTYPE>
 {
   /**
    * @return <code>true</code> if the value is 0

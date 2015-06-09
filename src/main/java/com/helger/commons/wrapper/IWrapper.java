@@ -14,18 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mutable;
+package com.helger.commons.wrapper;
 
-import com.helger.commons.lang.ICloneable;
+import javax.annotation.Nullable;
 
 /**
- * Base interface for all mutable objects
- *
+ * Base interface for wrapping an object within another object.
+ * 
  * @author Philip Helger
- * @param <IMPLTYPE>
- *        Implementation type
+ * @param <DATATYPE>
+ *        The type of the wrapped object.
  */
-public interface IMutable <IMPLTYPE extends IMutable <IMPLTYPE>> extends Comparable <IMPLTYPE>, ICloneable <IMPLTYPE>
+public interface IWrapper <DATATYPE>
 {
-  /* empty */
+  /**
+   * @return The currently wrapped object. May be <code>null</code>.
+   */
+  @Nullable
+  DATATYPE get ();
+
+  /**
+   * @return <code>true</code> if the contained value is not <code>null</code>,
+   *         <code>false</code> if it is <code>null</code>.
+   */
+  boolean isSet ();
 }

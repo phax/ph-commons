@@ -41,8 +41,8 @@ import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.ServiceLoaderHelper;
-import com.helger.commons.mutable.Wrapper;
 import com.helger.commons.state.EContinue;
+import com.helger.commons.wrapper.Wrapper;
 
 /**
  * This class contains all the default type converters for the default types
