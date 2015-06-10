@@ -30,7 +30,7 @@ import org.junit.Test;
 
 import com.helger.commons.annotation.NoTranslationRequired;
 import com.helger.commons.locale.LocaleCache;
-import com.helger.commons.text.ReadonlyMapBasedMultilingualText;
+import com.helger.commons.text.ReadOnlyMapBasedMultilingualText;
 import com.helger.commons.text.display.IHasDisplayText;
 import com.helger.commons.text.display.IHasDisplayTextWithArgs;
 import com.helger.commons.text.util.TextHelper;
@@ -49,7 +49,7 @@ public final class DefaultTextResolverTest
     TEXT2 ("Text2de", "Text2en"),
     TEXT3 ("Text3{0}de", "Text3{0}en");
 
-    private final ReadonlyMapBasedMultilingualText m_aTP;
+    private final ReadOnlyMapBasedMultilingualText m_aTP;
 
     private EText (final String sDE, final String sEN)
     {

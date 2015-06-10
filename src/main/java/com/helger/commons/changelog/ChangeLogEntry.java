@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.IMutableMultilingualText;
 import com.helger.commons.text.MultilingualText;
-import com.helger.commons.text.ReadonlyMultilingualText;
+import com.helger.commons.text.ReadOnlyMultilingualText;
 
 /**
  * This class represents a single entry in the changelog.
@@ -158,7 +158,7 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
   @ReturnsMutableCopy
   public IMultilingualText getAllTexts ()
   {
-    return new ReadonlyMultilingualText (m_aTexts);
+    return new ReadOnlyMultilingualText (m_aTexts);
   }
 
   /**

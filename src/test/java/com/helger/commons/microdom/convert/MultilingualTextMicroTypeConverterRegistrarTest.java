@@ -29,9 +29,9 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.IMultilingualText;
-import com.helger.commons.text.ReadonlyMapBasedMultilingualText;
+import com.helger.commons.text.ReadOnlyMapBasedMultilingualText;
 import com.helger.commons.text.MultilingualText;
-import com.helger.commons.text.ReadonlyMultilingualText;
+import com.helger.commons.text.ReadOnlyMultilingualText;
 import com.helger.commons.text.util.TextHelper;
 
 /**
@@ -62,7 +62,7 @@ public final class MultilingualTextMicroTypeConverterRegistrarTest
   @Test
   public void testReadonlyMultiLingualText ()
   {
-    final ReadonlyMultilingualText aMLT = new ReadonlyMultilingualText (CollectionHelper.newMap (new Locale [] { Locale.GERMAN,
+    final ReadOnlyMultilingualText aMLT = new ReadOnlyMultilingualText (CollectionHelper.newMap (new Locale [] { Locale.GERMAN,
                                                                                                                 Locale.CHINA },
                                                                                                  new String [] { "Cumberlandstraße",
                                                                                                                 "Whatspever" }));
@@ -70,9 +70,9 @@ public final class MultilingualTextMicroTypeConverterRegistrarTest
     final IMicroElement aElement = MicroTypeConverter.convertToMicroElement (aMLT, "mtext");
     assertNotNull (aElement);
 
-    final ReadonlyMultilingualText aMLT2 = MicroTypeConverter.convertToNative (aElement, ReadonlyMultilingualText.class);
+    final ReadOnlyMultilingualText aMLT2 = MicroTypeConverter.convertToNative (aElement, ReadOnlyMultilingualText.class);
     assertEquals (aMLT, aMLT2);
-    assertNull (MicroTypeConverter.convertToNative (null, ReadonlyMultilingualText.class));
+    assertNull (MicroTypeConverter.convertToNative (null, ReadOnlyMultilingualText.class));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMLT, aMLT2);
   }
@@ -88,10 +88,10 @@ public final class MultilingualTextMicroTypeConverterRegistrarTest
     // The result must be a ReadonlyMultiLingualText because it is the first
     // registered converter
     final IMultilingualText aMLT2 = MicroTypeConverter.convertToNative (aElement, IMultilingualText.class);
-    assertTrue (aMLT2 instanceof ReadonlyMultilingualText);
-    assertEquals (new ReadonlyMultilingualText (aMLT), aMLT2);
-    assertNull (MicroTypeConverter.convertToNative (null, ReadonlyMapBasedMultilingualText.class));
+    assertTrue (aMLT2 instanceof ReadOnlyMultilingualText);
+    assertEquals (new ReadOnlyMultilingualText (aMLT), aMLT2);
+    assertNull (MicroTypeConverter.convertToNative (null, ReadOnlyMapBasedMultilingualText.class));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadonlyMultilingualText (aMLT), aMLT2);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadOnlyMultilingualText (aMLT), aMLT2);
   }
 }

@@ -186,12 +186,12 @@ public final class MultilingualTextTest extends AbstractCommonsTestCase
     final MultilingualText t = new MultilingualText ();
 
     // 1 element
-    assertTrue (t.assignFrom (new ReadonlyMultilingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
+    assertTrue (t.assignFrom (new ReadOnlyMultilingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
     assertEquals (1, t.getSize ());
     assertTrue (t.containsLocale (L_DE));
 
     // Assign the exact same content again
-    assertFalse (t.assignFrom (new ReadonlyMultilingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
+    assertFalse (t.assignFrom (new ReadOnlyMultilingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
     assertEquals (1, t.getSize ());
     assertTrue (t.containsLocale (L_DE));
 

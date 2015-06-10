@@ -37,19 +37,19 @@ import com.helger.commons.string.ToStringGenerator;
  *        Second type.
  */
 @Immutable
-public final class ReadonlyPair <DATA1TYPE, DATA2TYPE> implements IPair <DATA1TYPE, DATA2TYPE>
+public final class ReadOnlyPair <DATA1TYPE, DATA2TYPE> implements IPair <DATA1TYPE, DATA2TYPE>
 {
   private final DATA1TYPE m_aFirst;
   private final DATA2TYPE m_aSecond;
 
-  public <T2 extends DATA1TYPE, U2 extends DATA2TYPE> ReadonlyPair (@Nullable final T2 aFirst,
+  public <T2 extends DATA1TYPE, U2 extends DATA2TYPE> ReadOnlyPair (@Nullable final T2 aFirst,
                                                                     @Nullable final U2 aSecond)
   {
     m_aFirst = aFirst;
     m_aSecond = aSecond;
   }
 
-  public ReadonlyPair (@Nonnull final IPair <? extends DATA1TYPE, ? extends DATA2TYPE> rhs)
+  public ReadOnlyPair (@Nonnull final IPair <? extends DATA1TYPE, ? extends DATA2TYPE> rhs)
   {
     ValueEnforcer.notNull (rhs, "Pair");
     m_aFirst = rhs.getFirst ();
@@ -75,7 +75,7 @@ public final class ReadonlyPair <DATA1TYPE, DATA2TYPE> implements IPair <DATA1TY
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final ReadonlyPair <?, ?> rhs = (ReadonlyPair <?, ?>) o;
+    final ReadOnlyPair <?, ?> rhs = (ReadOnlyPair <?, ?>) o;
     return EqualsHelper.equals (m_aFirst, rhs.m_aFirst) && EqualsHelper.equals (m_aSecond, rhs.m_aSecond);
   }
 
@@ -92,8 +92,8 @@ public final class ReadonlyPair <DATA1TYPE, DATA2TYPE> implements IPair <DATA1TY
   }
 
   @Nonnull
-  public static <T, U> ReadonlyPair <T, U> create (@Nullable final T aFirst, @Nullable final U aSecond)
+  public static <T, U> ReadOnlyPair <T, U> create (@Nullable final T aFirst, @Nullable final U aSecond)
   {
-    return new ReadonlyPair <T, U> (aFirst, aSecond);
+    return new ReadOnlyPair <T, U> (aFirst, aSecond);
   }
 }

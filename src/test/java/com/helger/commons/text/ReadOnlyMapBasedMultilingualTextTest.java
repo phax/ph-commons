@@ -32,11 +32,11 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.text.util.TextHelper;
 
 /**
- * Test class for class {@link ReadonlyMapBasedMultilingualText}.
+ * Test class for class {@link ReadOnlyMapBasedMultilingualText}.
  *
  * @author Philip Helger
  */
-public final class ReadonlyMapBasedMultilingualTextTest extends AbstractCommonsTestCase
+public final class ReadOnlyMapBasedMultilingualTextTest extends AbstractCommonsTestCase
 {
   @Rule
   public final TestRule m_aRule = new DebugModeTestRule ();
@@ -81,7 +81,7 @@ public final class ReadonlyMapBasedMultilingualTextTest extends AbstractCommonsT
     IMultilingualText aTP = TextHelper.create_DE_EN ("Hallo", "Hello");
     assertFalse (aTP.isEmpty ());
 
-    aTP = new ReadonlyMapBasedMultilingualText ();
+    aTP = new ReadOnlyMapBasedMultilingualText ();
     assertTrue (aTP.isEmpty ());
   }
 
@@ -92,7 +92,7 @@ public final class ReadonlyMapBasedMultilingualTextTest extends AbstractCommonsT
     assertNotNull (TextHelper.create_DE_EN ("Test {0} 123!", ""));
     assertNotNull (TextHelper.create_DE_EN ("Test ''{0}'' 123!", ""));
 
-    ReadonlyMapBasedMultilingualText.setPerformConsistencyChecks (true);
+    ReadOnlyMapBasedMultilingualText.setPerformConsistencyChecks (true);
     try
     {
       // should log a warning
@@ -134,7 +134,7 @@ public final class ReadonlyMapBasedMultilingualTextTest extends AbstractCommonsT
     }
     finally
     {
-      ReadonlyMapBasedMultilingualText.setPerformConsistencyChecks (false);
+      ReadOnlyMapBasedMultilingualText.setPerformConsistencyChecks (false);
     }
   }
 }

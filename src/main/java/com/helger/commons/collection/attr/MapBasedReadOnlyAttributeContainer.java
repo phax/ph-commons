@@ -44,23 +44,23 @@ import com.helger.commons.string.ToStringGenerator;
  *        Value type
  */
 @NotThreadSafe
-public class MapBasedReadonlyAttributeContainer <KEYTYPE, VALUETYPE> extends AbstractReadonlyAttributeContainer <KEYTYPE, VALUETYPE>
+public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> extends AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE>
 {
   /** Main attribute storage. */
   protected final Map <KEYTYPE, VALUETYPE> m_aAttrs;
 
-  public MapBasedReadonlyAttributeContainer (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MapBasedReadOnlyAttributeContainer (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     this (true, new HashMap <KEYTYPE, VALUETYPE> ());
     m_aAttrs.put (aKey, aValue);
   }
 
-  public MapBasedReadonlyAttributeContainer (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public MapBasedReadOnlyAttributeContainer (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     this (true, new HashMap <KEYTYPE, VALUETYPE> (aMap));
   }
 
-  public MapBasedReadonlyAttributeContainer (@Nonnull final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
+  public MapBasedReadOnlyAttributeContainer (@Nonnull final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
   {
     this (true, new HashMap <KEYTYPE, VALUETYPE> (aCont.getAllAttributes ()));
   }
@@ -73,7 +73,7 @@ public class MapBasedReadonlyAttributeContainer <KEYTYPE, VALUETYPE> extends Abs
    * @param aAttrMap
    *        The attribute map to be used.
    */
-  protected MapBasedReadonlyAttributeContainer (final boolean bDummy, @Nonnull final Map <KEYTYPE, VALUETYPE> aAttrMap)
+  protected MapBasedReadOnlyAttributeContainer (final boolean bDummy, @Nonnull final Map <KEYTYPE, VALUETYPE> aAttrMap)
   {
     m_aAttrs = ValueEnforcer.notNull (aAttrMap, "AttrMap");
   }
@@ -130,7 +130,7 @@ public class MapBasedReadonlyAttributeContainer <KEYTYPE, VALUETYPE> extends Abs
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final MapBasedReadonlyAttributeContainer <?, ?> rhs = (MapBasedReadonlyAttributeContainer <?, ?>) o;
+    final MapBasedReadOnlyAttributeContainer <?, ?> rhs = (MapBasedReadOnlyAttributeContainer <?, ?>) o;
     return m_aAttrs.equals (rhs.m_aAttrs);
   }
 

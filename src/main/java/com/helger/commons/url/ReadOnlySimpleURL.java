@@ -27,29 +27,29 @@ import javax.annotation.Nullable;
  * 
  * @author Philip Helger
  */
-public final class ReadonlySimpleURL extends AbstractSimpleURL
+public final class ReadOnlySimpleURL extends AbstractSimpleURL
 {
   /** Empty URL */
-  public static final ReadonlySimpleURL EMPTY_URL = new ReadonlySimpleURL (URLData.EMPTY_URL_DATA);
+  public static final ReadOnlySimpleURL EMPTY_URL = new ReadOnlySimpleURL (URLData.EMPTY_URL_DATA);
 
-  public ReadonlySimpleURL (@Nonnull final String sHref)
+  public ReadOnlySimpleURL (@Nonnull final String sHref)
   {
     super (sHref);
   }
 
-  public ReadonlySimpleURL (@Nonnull final String sHref, @Nullable final Map <String, String> aParams)
+  public ReadOnlySimpleURL (@Nonnull final String sHref, @Nullable final Map <String, String> aParams)
   {
     super (sHref, aParams);
   }
 
-  public ReadonlySimpleURL (@Nonnull final String sHref,
+  public ReadOnlySimpleURL (@Nonnull final String sHref,
                             @Nullable final Map <String, String> aParams,
                             @Nullable final String sAnchor)
   {
     super (sHref, aParams, sAnchor);
   }
 
-  public ReadonlySimpleURL (@Nonnull final IURLData aURL)
+  public ReadOnlySimpleURL (@Nonnull final IURLData aURL)
   {
     super (aURL);
   }

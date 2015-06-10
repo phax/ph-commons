@@ -32,23 +32,23 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
- * Test class for class {@link ReadonlyMultilingualText}.
+ * Test class for class {@link ReadOnlyMultilingualText}.
  *
  * @author Philip Helger
  */
-public final class ReadonlyMultilingualTextTest extends AbstractCommonsTestCase
+public final class ReadOnlyMultilingualTextTest extends AbstractCommonsTestCase
 {
   @Test
   public void testCtor ()
   {
-    IMultilingualText aMLT = new ReadonlyMultilingualText ();
+    IMultilingualText aMLT = new ReadOnlyMultilingualText ();
     assertEquals (0, aMLT.getSize ());
     assertNotNull (aMLT.getAllLocales ());
     assertTrue (aMLT.getAllLocales ().isEmpty ());
 
     final Map <Locale, String> aMap = CollectionHelper.newMap (new Locale [] { L_DE, L_EN },
                                                                new String [] { "de", "en" });
-    aMLT = new ReadonlyMultilingualText (aMap);
+    aMLT = new ReadOnlyMultilingualText (aMap);
     assertEquals (2, aMLT.getSize ());
     assertEquals (2, aMLT.getAllLocales ().size ());
     assertTrue (aMLT.containsLocale (L_DE));
@@ -62,7 +62,7 @@ public final class ReadonlyMultilingualTextTest extends AbstractCommonsTestCase
     final MultilingualText t = new MultilingualText ();
     for (final Map.Entry <Locale, String> aEntry : aMap.entrySet ())
       t.setText (aEntry.getKey (), aEntry.getValue ());
-    aMLT = new ReadonlyMultilingualText (t);
+    aMLT = new ReadOnlyMultilingualText (t);
     assertEquals (2, aMLT.getSize ());
     assertEquals (2, aMLT.getAllLocales ().size ());
     assertTrue (aMLT.containsLocale (L_DE));
@@ -73,7 +73,7 @@ public final class ReadonlyMultilingualTextTest extends AbstractCommonsTestCase
     assertFalse (aMLT.containsLocaleWithFallback (L_FR));
     assertEquals (2, aMLT.getAllTexts ().size ());
 
-    aMLT = new ReadonlyMultilingualText (t);
+    aMLT = new ReadOnlyMultilingualText (t);
     assertEquals (2, aMLT.getSize ());
     assertEquals (2, aMLT.getAllLocales ().size ());
     assertTrue (aMLT.containsLocale (L_DE));
@@ -85,24 +85,24 @@ public final class ReadonlyMultilingualTextTest extends AbstractCommonsTestCase
     assertEquals (2, aMLT.getAllTexts ().size ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMLT,
-                                                                       new ReadonlyMultilingualText (CollectionHelper.newMap (new Locale [] { L_DE,
+                                                                       new ReadOnlyMultilingualText (CollectionHelper.newMap (new Locale [] { L_DE,
                                                                                                                                              L_EN },
                                                                                                                               new String [] { "de",
                                                                                                                                              "en" })));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadonlyMultilingualText (),
-                                                                       new ReadonlyMultilingualText ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadonlyMultilingualText ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadOnlyMultilingualText (),
+                                                                       new ReadOnlyMultilingualText ());
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadOnlyMultilingualText ());
 
     try
     {
-      new ReadonlyMultilingualText ((Map <Locale, String>) null);
+      new ReadOnlyMultilingualText ((Map <Locale, String>) null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      new ReadonlyMultilingualText ((IMultilingualText) null);
+      new ReadOnlyMultilingualText ((IMultilingualText) null);
       fail ();
     }
     catch (final NullPointerException ex)

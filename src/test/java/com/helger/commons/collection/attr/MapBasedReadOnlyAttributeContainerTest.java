@@ -30,26 +30,26 @@ import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.attr.MapBasedAttributeContainerAny;
-import com.helger.commons.collection.attr.MapBasedReadonlyAttributeContainer;
+import com.helger.commons.collection.attr.MapBasedReadOnlyAttributeContainer;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
- * Test class for class {@link MapBasedReadonlyAttributeContainer}.
+ * Test class for class {@link MapBasedReadOnlyAttributeContainer}.
  *
  * @author Philip Helger
  */
-public final class MapBasedReadonlyAttributeContainerTest
+public final class MapBasedReadOnlyAttributeContainerTest
 {
   @Test
   public void testInit ()
   {
-    MapBasedReadonlyAttributeContainer <String, Serializable> x = new MapBasedReadonlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] {},
+    MapBasedReadOnlyAttributeContainer <String, Serializable> x = new MapBasedReadOnlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] {},
                                                                                                                                                           new Serializable [] {}));
     assertNotNull (x.getAllAttributeNames ());
     assertTrue (x.getAllAttributeNames ().isEmpty ());
     assertTrue (x.containsNoAttribute ());
 
-    x = new MapBasedReadonlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
+    x = new MapBasedReadOnlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
                                                                                                                "key2",
                                                                                                                "key3" },
                                                                                                 new Serializable [] { "value",
@@ -67,15 +67,15 @@ public final class MapBasedReadonlyAttributeContainerTest
     assertFalse (x.getAllAttributes ().isEmpty ());
     assertFalse (x.getAllAttributeNames ().isEmpty ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapBasedReadonlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapBasedReadOnlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                                         "key2" },
                                                                                                                                                          new Serializable [] { "value",
                                                                                                                                                                               "value2" })),
-                                                                 new MapBasedReadonlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
+                                                                 new MapBasedReadOnlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                                         "key2" },
                                                                                                                                                          new Serializable [] { "value",
                                                                                                                                                                               "value2" })));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapBasedReadonlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapBasedReadOnlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                                             "key2" },
                                                                                                                                                              new Serializable [] { "value",
                                                                                                                                                                                   "value2" })),
@@ -86,7 +86,7 @@ public final class MapBasedReadonlyAttributeContainerTest
 
     try
     {
-      new MapBasedReadonlyAttributeContainer <String, Serializable> ((Map <String, Serializable>) null);
+      new MapBasedReadOnlyAttributeContainer <String, Serializable> ((Map <String, Serializable>) null);
       fail ();
     }
     catch (final NullPointerException ex)

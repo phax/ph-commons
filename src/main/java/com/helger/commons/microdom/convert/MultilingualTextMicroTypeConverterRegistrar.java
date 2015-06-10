@@ -31,11 +31,11 @@ import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.MultilingualText;
-import com.helger.commons.text.ReadonlyMultilingualText;
+import com.helger.commons.text.ReadOnlyMultilingualText;
 
 /**
  * {@link IMicroTypeConverterRegistrarSPI} implementation for
- * {@link ReadonlyMultilingualText} and {@link MultilingualText}.
+ * {@link ReadOnlyMultilingualText} and {@link MultilingualText}.
  *
  * @author Philip Helger
  */
@@ -77,12 +77,12 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
     }
   }
 
-  public static final class ReadonlyMultiLingualTextConverter extends AbstractMLTConverter
+  public static final class ReadOnlyMultiLingualTextConverter extends AbstractMLTConverter
   {
     @Nonnull
-    public ReadonlyMultilingualText convertToNative (@Nonnull final IMicroElement aElement)
+    public ReadOnlyMultilingualText convertToNative (@Nonnull final IMicroElement aElement)
     {
-      return new ReadonlyMultilingualText (convertToMLT (aElement));
+      return new ReadOnlyMultilingualText (convertToMLT (aElement));
     }
   }
 
@@ -98,8 +98,8 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
   public void registerMicroTypeConverter (@Nonnull final IMicroTypeConverterRegistry aRegistry)
   {
     // Register the read-only version first!
-    aRegistry.registerMicroElementTypeConverter (ReadonlyMultilingualText.class,
-                                                 new ReadonlyMultiLingualTextConverter ());
+    aRegistry.registerMicroElementTypeConverter (ReadOnlyMultilingualText.class,
+                                                 new ReadOnlyMultiLingualTextConverter ());
 
     // Register the writable version afterwards!
     aRegistry.registerMicroElementTypeConverter (MultilingualText.class, new MultiLingualTextConverter ());

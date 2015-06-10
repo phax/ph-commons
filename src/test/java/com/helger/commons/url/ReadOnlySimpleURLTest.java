@@ -21,15 +21,15 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Test class for class {@link ReadonlySimpleURL}.
+ * Test class for class {@link ReadOnlySimpleURL}.
  * 
  * @author Philip Helger
  */
-public final class ReadonlySimpleURLTest
+public final class ReadOnlySimpleURLTest
 {
   private static void _checkAsString (final String sHref)
   {
-    assertEquals (sHref, new ReadonlySimpleURL (sHref).getAsString ());
+    assertEquals (sHref, new ReadOnlySimpleURL (sHref).getAsString ());
   }
 
   @Test
@@ -52,9 +52,9 @@ public final class ReadonlySimpleURLTest
     _checkAsString ("http://www.phloc.com/folder/;jsessionid=1234?x=y&z=z");
 
     // asString results in slightly different but semantically equivalent URLs
-    assertEquals ("http://www.phloc.com/", new ReadonlySimpleURL ("http://www.phloc.com/?").getAsString ());
+    assertEquals ("http://www.phloc.com/", new ReadOnlySimpleURL ("http://www.phloc.com/?").getAsString ());
     assertEquals ("http://www.phloc.com/#anchor",
-                  new ReadonlySimpleURL ("http://www.phloc.com/?#anchor").getAsString ());
+                  new ReadOnlySimpleURL ("http://www.phloc.com/?#anchor").getAsString ());
   }
 
   private static void _checkAsEncodedString (final String sHref)
@@ -64,7 +64,7 @@ public final class ReadonlySimpleURLTest
 
   private static void _checkAsEncodedString (final String sHref, final String sEncodedHref)
   {
-    assertEquals (sEncodedHref, new ReadonlySimpleURL (sHref).getAsStringWithEncodedParameters ());
+    assertEquals (sEncodedHref, new ReadOnlySimpleURL (sHref).getAsStringWithEncodedParameters ());
   }
 
   @Test
@@ -91,36 +91,36 @@ public final class ReadonlySimpleURLTest
 
     // asString results in slightly different but semantically equivalent URLs
     assertEquals ("http://www.phloc.com/",
-                  new ReadonlySimpleURL ("http://www.phloc.com/?").getAsStringWithEncodedParameters ());
+                  new ReadOnlySimpleURL ("http://www.phloc.com/?").getAsStringWithEncodedParameters ());
   }
 
   @Test
   public void testCtor ()
   {
     // only href
-    ISimpleURL aURL = new ReadonlySimpleURL ("http://www.phloc.com");
+    ISimpleURL aURL = new ReadOnlySimpleURL ("http://www.phloc.com");
     assertEquals ("http://www.phloc.com", aURL.getAsString ());
 
     // params
     // 1. default
-    aURL = new ReadonlySimpleURL ("http://www.phloc.com", new SMap ("a", "b"));
+    aURL = new ReadOnlySimpleURL ("http://www.phloc.com", new SMap ("a", "b"));
     assertEquals ("http://www.phloc.com?a=b", aURL.getAsString ());
     // 2. plus params in href
-    aURL = new ReadonlySimpleURL ("http://www.phloc.com?x=y", new SMap ("a", "b"));
+    aURL = new ReadOnlySimpleURL ("http://www.phloc.com?x=y", new SMap ("a", "b"));
     assertEquals ("http://www.phloc.com?x=y&a=b", aURL.getAsString ());
     // 3. overwrite parameter in href
-    aURL = new ReadonlySimpleURL ("http://www.phloc.com?a=a", new SMap ("a", "b"));
+    aURL = new ReadOnlySimpleURL ("http://www.phloc.com?a=a", new SMap ("a", "b"));
     assertEquals ("http://www.phloc.com?a=b", aURL.getAsString ());
 
     // anchor
     // 1. default
-    aURL = new ReadonlySimpleURL ("http://www.phloc.com", new SMap ("a", "b"), "root");
+    aURL = new ReadOnlySimpleURL ("http://www.phloc.com", new SMap ("a", "b"), "root");
     assertEquals ("http://www.phloc.com?a=b#root", aURL.getAsString ());
     // 2. overwrite anchor
-    aURL = new ReadonlySimpleURL ("http://www.phloc.com#main", new SMap ("a", "b"), "root");
+    aURL = new ReadOnlySimpleURL ("http://www.phloc.com#main", new SMap ("a", "b"), "root");
     assertEquals ("http://www.phloc.com?a=b#root", aURL.getAsString ());
     // 3. only anchor in href
-    aURL = new ReadonlySimpleURL ("http://www.phloc.com#main", new SMap ("a", "b"));
+    aURL = new ReadOnlySimpleURL ("http://www.phloc.com#main", new SMap ("a", "b"));
     assertEquals ("http://www.phloc.com?a=b#main", aURL.getAsString ());
   }
 }

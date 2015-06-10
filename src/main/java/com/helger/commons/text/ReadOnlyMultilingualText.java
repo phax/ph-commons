@@ -31,21 +31,21 @@ import com.helger.commons.ValueEnforcer;
  * @author Philip Helger
  */
 @Immutable
-public class ReadonlyMultilingualText extends ReadonlyMapBasedMultilingualText
+public class ReadOnlyMultilingualText extends ReadOnlyMapBasedMultilingualText
 {
   /**
    * Create an empty read-only multilingual text. Handle with care, as this type
    * does not allow for public modification!
    */
-  public ReadonlyMultilingualText ()
+  public ReadOnlyMultilingualText ()
   {}
 
-  public ReadonlyMultilingualText (@Nonnull final Locale aContentLocale, @Nonnull final String sValue)
+  public ReadOnlyMultilingualText (@Nonnull final Locale aContentLocale, @Nonnull final String sValue)
   {
     internalAddText (aContentLocale, sValue);
   }
 
-  public ReadonlyMultilingualText (@Nonnull final Map <Locale, String> aContent)
+  public ReadOnlyMultilingualText (@Nonnull final Map <Locale, String> aContent)
   {
     ValueEnforcer.notNull (aContent, "Content");
 
@@ -53,7 +53,7 @@ public class ReadonlyMultilingualText extends ReadonlyMapBasedMultilingualText
       internalAddText (aEntry);
   }
 
-  public ReadonlyMultilingualText (@Nonnull final IMultilingualText aMLT)
+  public ReadOnlyMultilingualText (@Nonnull final IMultilingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 

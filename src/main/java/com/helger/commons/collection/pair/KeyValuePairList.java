@@ -44,7 +44,7 @@ public class KeyValuePairList <DATA1TYPE, DATA2TYPE> extends ArrayList <IPair <D
 
   public void add (@Nullable final DATA1TYPE aKey, @Nullable final DATA2TYPE aValue)
   {
-    super.add (ReadonlyPair.create (aKey, aValue));
+    super.add (ReadOnlyPair.create (aKey, aValue));
   }
 
   /**

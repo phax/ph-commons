@@ -48,14 +48,14 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class ReadonlyMapBasedMultilingualText extends AbstractHasTextWithArgs implements IMultilingualText
+public class ReadOnlyMapBasedMultilingualText extends AbstractHasTextWithArgs implements IMultilingualText
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ReadonlyMapBasedMultilingualText.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (ReadOnlyMapBasedMultilingualText.class);
   private static final AtomicBoolean s_aConsistencyChecksEnabled = new AtomicBoolean (GlobalDebug.isDebugMode ());
 
   private final Map <Locale, String> m_aTexts;
 
-  public ReadonlyMapBasedMultilingualText ()
+  public ReadOnlyMapBasedMultilingualText ()
   {
     // Use a HashMap by default
     this (new HashMap <Locale, String> ());
@@ -68,7 +68,7 @@ public class ReadonlyMapBasedMultilingualText extends AbstractHasTextWithArgs im
    * @param aMapToUse
    *        The map to use. Must not be <code>null</code> and must be writable.
    */
-  protected ReadonlyMapBasedMultilingualText (@Nonnull final Map <Locale, String> aMapToUse)
+  protected ReadOnlyMapBasedMultilingualText (@Nonnull final Map <Locale, String> aMapToUse)
   {
     m_aTexts = ValueEnforcer.notNull (aMapToUse, "MapToUse");
   }
@@ -235,7 +235,7 @@ public class ReadonlyMapBasedMultilingualText extends AbstractHasTextWithArgs im
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final ReadonlyMapBasedMultilingualText rhs = (ReadonlyMapBasedMultilingualText) o;
+    final ReadOnlyMapBasedMultilingualText rhs = (ReadOnlyMapBasedMultilingualText) o;
     return m_aTexts.equals (rhs.m_aTexts);
   }
 
