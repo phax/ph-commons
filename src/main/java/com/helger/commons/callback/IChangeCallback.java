@@ -16,8 +16,6 @@
  */
 package com.helger.commons.callback;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.state.EContinue;
@@ -29,7 +27,7 @@ import com.helger.commons.state.EContinue;
  * @param <DATATYPE>
  *        The type of object that is changed
  */
-public interface IChangeCallback <DATATYPE> extends ICallback, Serializable
+public interface IChangeCallback <DATATYPE> extends ICallback
 {
   /**
    * Called before the object will be changed.

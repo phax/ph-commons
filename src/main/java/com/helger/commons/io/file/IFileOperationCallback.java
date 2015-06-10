@@ -17,7 +17,6 @@
 package com.helger.commons.io.file;
 
 import java.io.File;
-import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,7 +28,7 @@ import com.helger.commons.callback.ICallback;
  *
  * @author Philip Helger
  */
-public interface IFileOperationCallback extends ICallback, Serializable
+public interface IFileOperationCallback extends ICallback
 {
   /**
    * Called upon operation success.

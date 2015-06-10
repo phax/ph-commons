@@ -16,12 +16,14 @@
  */
 package com.helger.commons.callback;
 
+import java.io.Serializable;
+
 /**
- * Marker interface for callback interfaces.
+ * Marker interface for callback interfaces. All callbacks must be serializable.
  *
  * @author Philip Helger
  */
-public interface ICallback
+public interface ICallback extends Serializable
 {
   /* empty */
 }
