@@ -27,7 +27,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ShouldBeDeprecated;
 
 @Immutable
 public final class ValueEnforcer
@@ -488,31 +487,6 @@ public final class ValueEnforcer
    */
   @Nonnull
   public static <T extends Iterable <?>> T notEmptyNoNullValue (final T aValue, final String sName)
-  {
-    notEmpty (aValue, sName);
-    noNullValue (aValue, sName);
-    return aValue;
-  }
-
-  /**
-   * Check that the passed collection is neither <code>null</code> nor empty and
-   * that no <code>null</code> value is contained.<br>
-   * Note: this is only contained for binary backwards compatibility and cannot
-   * be removed to avoid breaking stuff. It is internally handled exactly like
-   * the Iterable version.
-   *
-   * @param aValue
-   *        The collection to check.
-   * @param sName
-   *        The name of the value (e.g. the parameter name)
-   * @return The passed value and never <code>null</code>.
-   * @throws IllegalArgumentException
-   *         if the passed value is empty or a <code>null</code> value is
-   *         contained
-   */
-  @Nonnull
-  @ShouldBeDeprecated
-  public static <T extends Collection <?>> T notEmptyNoNullValue (final T aValue, final String sName)
   {
     notEmpty (aValue, sName);
     noNullValue (aValue, sName);

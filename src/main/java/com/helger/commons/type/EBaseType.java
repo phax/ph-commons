@@ -20,16 +20,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ShouldBeDeprecated;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
 
 /**
  * Contains generic type definitions independent from the underlying language.
- * 
+ *
  * @author Philip Helger
  */
-@ShouldBeDeprecated
 public enum EBaseType implements IHasID <String>
 {
   /** boolean: true or false */
