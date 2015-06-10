@@ -16,7 +16,6 @@
  */
 package com.helger.commons.callback;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -43,7 +42,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The callback type.
  */
 @ThreadSafe
-public class CallbackList <CALLBACKTYPE extends ICallback> implements ICloneable <CallbackList <CALLBACKTYPE>>, Serializable
+public class CallbackList <CALLBACKTYPE extends ICallback> implements ICallbackList <CALLBACKTYPE>, ICloneable <CallbackList <CALLBACKTYPE>>
 {
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
 
@@ -129,10 +128,6 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements ICloneable
     }
   }
 
-  /**
-   * @return A list of all callbacks. Never <code>null</code> and only
-   *         containing non-<code>null</code> elements.
-   */
   @Nonnull
   @ReturnsMutableCopy
   public List <CALLBACKTYPE> getAllCallbacks ()
