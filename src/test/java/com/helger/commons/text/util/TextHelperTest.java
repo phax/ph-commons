@@ -14,24 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.text;
+package com.helger.commons.text.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.text.util.TextHelper;
+import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.text.MultilingualText;
 
 /**
  * Test class for class {@link TextHelper}.
- * 
+ *
  * @author Philip Helger
  */
-public final class TextFormatterTest
+public final class TextHelperTest extends AbstractCommonsTestCase
 {
   @Test
-  public void test ()
+  public void testGetFormattedText ()
   {
     assertEquals ("a", TextHelper.getFormattedText ("a", (Object []) null));
     assertEquals ("a", TextHelper.getFormattedText ("a", new Object [0]));
@@ -41,5 +48,23 @@ public final class TextFormatterTest
     assertEquals ("ab{1}", TextHelper.getFormattedText ("a{0}{1}", "b"));
     assertEquals ("anull{1}", TextHelper.getFormattedText ("a{0}{1}", (Object) null));
     assertNull (TextHelper.getFormattedText ((String) null, "b"));
+  }
+
+  @Test
+  public void testGetCopyWithLocales ()
+  {
+    final MultilingualText aMLT = new MultilingualText ();
+    assertTrue (aMLT.setText (Locale.ENGLISH, "Hi").isChanged ());
+    assertTrue (aMLT.setText (Locale.GERMAN, "Moin").isChanged ());
+    assertEquals (aMLT.getSize (), 2);
+
+    final List <Locale> aLocaleList = new ArrayList <Locale> ();
+    aLocaleList.add (Locale.ENGLISH);
+    final MultilingualText aMLT2 = TextHelper.getCopyWithLocales (aMLT, aLocaleList);
+    assertTrue (aMLT2.containsLocale (Locale.ENGLISH));
+    assertFalse (aMLT2.containsLocale (Locale.GERMAN));
+
+    assertTrue (aMLT.containsLocale (Locale.ENGLISH));
+    assertTrue (aMLT.containsLocale (Locale.GERMAN));
   }
 }

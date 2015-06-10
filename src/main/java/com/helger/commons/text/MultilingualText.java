@@ -16,36 +16,26 @@
  */
 package com.helger.commons.text;
 
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.callback.CallbackList;
-import com.helger.commons.callback.IChangeCallback;
-import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.locale.LocaleCache;
-import com.helger.commons.locale.LocaleHelper;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.EContinue;
 
 /**
  * This class represents a multilingual text. It is internally represented as a
- * map from {@link Locale} to the language dependent name.
+ * {@link HashMap} from {@link Locale} to the language dependent name.
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class MultilingualText extends ReadonlyMapBasedMultilingualText implements IMutableMultilingualText
+public class MultilingualText extends MapBasedMultilingualText
 {
-  /** A list of callback upon change. */
-  private final CallbackList <IChangeCallback <IMutableMultilingualText>> m_aChangeNotifyCallbacks = new CallbackList <IChangeCallback <IMutableMultilingualText>> ();
-
   public MultilingualText ()
   {}
 
@@ -71,119 +61,10 @@ public class MultilingualText extends ReadonlyMapBasedMultilingualText implement
   }
 
   @Nonnull
-  private EContinue _beforeChange ()
-  {
-    for (final IChangeCallback <IMutableMultilingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
-      if (aCallback.beforeChange (this).isBreak ())
-        return EContinue.BREAK;
-    return EContinue.CONTINUE;
-  }
-
-  private void _afterChange ()
-  {
-    for (final IChangeCallback <IMutableMultilingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
-      aCallback.afterChange (this);
-  }
-
-  @Nonnull
-  public EChange addText (@Nonnull final Locale aContentLocale, @Nullable final String sText)
-  {
-    ValueEnforcer.notNull (aContentLocale, "ContentLocale");
-
-    if (super.containsLocale (aContentLocale))
-      return EChange.UNCHANGED;
-
-    if (_beforeChange ().isBreak ())
-      return EChange.UNCHANGED;
-    internalAddText (aContentLocale, sText);
-    _afterChange ();
-    return EChange.CHANGED;
-  }
-
-  @Nonnull
-  public EChange setText (@Nonnull final Locale aContentLocale, @Nullable final String sText)
-  {
-    ValueEnforcer.notNull (aContentLocale, "ContentLocale");
-
-    if (containsLocale (aContentLocale))
-    {
-      // Text for this locale already contained
-      final String sOldText = internalGetText (aContentLocale);
-
-      // Did anything change?
-      if (EqualsHelper.equals (sOldText, sText))
-        return EChange.UNCHANGED;
-
-      if (_beforeChange ().isBreak ())
-        return EChange.UNCHANGED;
-      internalSetText (aContentLocale, sText);
-      _afterChange ();
-      return EChange.CHANGED;
-    }
-
-    // New text
-    if (_beforeChange ().isBreak ())
-      return EChange.UNCHANGED;
-    internalAddText (aContentLocale, sText);
-    _afterChange ();
-    return EChange.CHANGED;
-  }
-
-  @Nonnull
-  public EChange removeText (@Nonnull final Locale aContentLocale)
-  {
-    ValueEnforcer.notNull (aContentLocale, "ContentLocale");
-
-    // Always use locale fallbacks
-    for (final Locale aCurrentLocale : LocaleHelper.getCalculatedLocaleListForResolving (aContentLocale))
-      if (super.containsLocale (aCurrentLocale))
-      {
-        if (_beforeChange ().isBreak ())
-          return EChange.UNCHANGED;
-        internalRemoveText (aCurrentLocale);
-        _afterChange ();
-        return EChange.CHANGED;
-      }
-    return EChange.UNCHANGED;
-  }
-
-  @Nonnull
-  public EChange clear ()
-  {
-    if (isEmpty () || _beforeChange ().isBreak ())
-      return EChange.UNCHANGED;
-
-    internalClear ();
-    _afterChange ();
-    return EChange.CHANGED;
-  }
-
-  @Nonnull
-  public EChange assignFrom (@Nonnull final IMultilingualText aMLT)
-  {
-    ValueEnforcer.notNull (aMLT, "MLT");
-
-    if (getAllTexts ().equals (aMLT.getAllTexts ()) || _beforeChange ().isBreak ())
-      return EChange.UNCHANGED;
-
-    // Remove all existing texts and assign the new ones
-    internalClear ();
-    for (final Map.Entry <Locale, String> aEntry : aMLT.getAllTexts ().entrySet ())
-      internalAddText (aEntry);
-    _afterChange ();
-    return EChange.CHANGED;
-  }
-
-  @Nonnull
-  @ReturnsMutableObject (reason = "design")
-  public CallbackList <IChangeCallback <IMutableMultilingualText>> getChangeNotifyCallbacks ()
-  {
-    return m_aChangeNotifyCallbacks;
-  }
-
-  @Nonnull
   public static MultilingualText createFromMap (@Nonnull final Map <String, String> aMap)
   {
+    ValueEnforcer.notNull (aMap, "Map");
+
     final MultilingualText ret = new MultilingualText ();
     for (final Entry <String, String> aEntry : aMap.entrySet ())
     {
