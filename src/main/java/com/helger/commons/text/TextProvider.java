@@ -148,18 +148,6 @@ public class TextProvider extends AbstractHasTextWithArgs implements IMultiLingu
   }
 
   @Nonnull
-  public final TextProvider addTextDE (@Nonnull final String sDE)
-  {
-    return internalAddText (DE, sDE);
-  }
-
-  @Nonnull
-  public final TextProvider addTextEN (@Nonnull final String sEN)
-  {
-    return internalAddText (EN, sEN);
-  }
-
-  @Nonnull
   @ReturnsMutableObject (reason = "Internal use only")
   protected final Map <Locale, String> internalGetMap ()
   {
@@ -262,18 +250,18 @@ public class TextProvider extends AbstractHasTextWithArgs implements IMultiLingu
   @Nonnull
   public static TextProvider create_DE (@Nonnull final String sDE)
   {
-    return new TextProvider ().addTextDE (sDE);
+    return new TextProvider ().internalAddText (DE, sDE);
   }
 
   @Nonnull
   public static TextProvider create_EN (@Nonnull final String sEN)
   {
-    return new TextProvider ().addTextEN (sEN);
+    return new TextProvider ().internalAddText (EN, sEN);
   }
 
   @Nonnull
   public static TextProvider create_DE_EN (@Nonnull final String sDE, @Nonnull final String sEN)
   {
-    return new TextProvider ().addTextDE (sDE).addTextEN (sEN);
+    return new TextProvider ().internalAddText (DE, sDE).internalAddText (EN, sEN);
   }
 }

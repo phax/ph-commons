@@ -16,7 +16,6 @@
  */
 package com.helger.commons.text;
 
-import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -29,7 +28,7 @@ import javax.annotation.Nullable;
  *
  * @author Philip Helger
  */
-public interface IHasText extends Serializable
+public interface IHasText
 {
   /**
    * Get the text specific for the passed locale. The implementation class MUST

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.text.util;
+package com.helger.commons.text.display;
 
 import java.util.Locale;
 
@@ -26,35 +26,27 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.text.AbstractHasTextWithArgs;
 
 /**
- * An implementation of the {@link com.helger.commons.text.IHasTextWithArgs}
- * interface that always returns a constant string. Use this only for texts that
- * never need to be translated!
+ * An implementation of the {@link IHasDisplayText} interface that always
+ * returns a constant string. Use this only for texts that never need to be
+ * translated!
  *
  * @author Philip Helger
  */
 @Immutable
-public class ConstantTextProvider extends AbstractHasTextWithArgs
+public class ConstantHasDisplayText implements IHasDisplayText
 {
   private final String m_sFixedText;
 
-  public ConstantTextProvider (@Nonnull final String sFixedText)
+  public ConstantHasDisplayText (@Nonnull final String sFixedText)
   {
     m_sFixedText = ValueEnforcer.notNull (sFixedText, "FixedText");
   }
 
   @Override
-  protected Locale internalGetLocaleToUseWithFallback (@Nonnull final Locale aContentLocale)
-  {
-    // No fallback handling needed
-    return aContentLocale;
-  }
-
-  @Override
   @Nullable
-  protected String internalGetText (@Nonnull final Locale aContentLocale)
+  public String getDisplayText (@Nonnull final Locale aContentLocale)
   {
     return m_sFixedText;
   }
@@ -66,7 +58,7 @@ public class ConstantTextProvider extends AbstractHasTextWithArgs
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final ConstantTextProvider rhs = (ConstantTextProvider) o;
+    final ConstantHasDisplayText rhs = (ConstantHasDisplayText) o;
     return EqualsHelper.equals (m_sFixedText, rhs.m_sFixedText);
   }
 

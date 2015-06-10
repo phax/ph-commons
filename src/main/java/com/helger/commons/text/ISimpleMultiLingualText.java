@@ -16,19 +16,21 @@
  */
 package com.helger.commons.text;
 
+import java.io.Serializable;
+
 import com.helger.commons.lang.IHasSize;
 import com.helger.commons.locale.IHasLocales;
 
 /**
  * This is an in-between interface between the {@link IHasTextWithArgs} and the
- * {@link IMultiLingualText}. The practical purpose of this interface is
- * to have a simple serializable multilingual text.<br>
+ * {@link IMultiLingualText}. The practical purpose of this interface is to have
+ * a simple serializable multilingual text.<br>
  * It only defines the read-access methods, to allow for immutable
  * implementations.
  *
  * @author Philip Helger
  */
-public interface ISimpleMultiLingualText extends IHasTextWithArgs, IHasLocales, IHasSize
+public interface ISimpleMultiLingualText extends IHasTextWithArgs, IHasLocales, IHasSize, Serializable
 {
   /* empty */
 }

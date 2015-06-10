@@ -27,8 +27,8 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.text.display.ConstantHasDisplayText;
 import com.helger.commons.text.display.IHasDisplayText;
-import com.helger.commons.text.util.ConstantTextProvider;
 
 /**
  * Default implementation of the {@link IResourceError} interface. The
@@ -56,7 +56,7 @@ public class ResourceError implements IResourceError
                         @Nonnull final String sErrorText,
                         @Nullable final Throwable aLinkedException)
   {
-    this (aLocation, aErrorLevel, new ConstantTextProvider (sErrorText), aLinkedException);
+    this (aLocation, aErrorLevel, new ConstantHasDisplayText (sErrorText), aLinkedException);
   }
 
   public ResourceError (@Nonnull final IResourceLocation aLocation,

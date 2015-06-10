@@ -28,7 +28,7 @@ import com.helger.commons.text.util.ConstantTextProvider;
 
 /**
  * Test class for class {@link ConstantTextProvider}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ConstantTextProviderTest
@@ -37,9 +37,6 @@ public final class ConstantTextProviderTest
   public void testAll ()
   {
     final ConstantTextProvider aCDN = new ConstantTextProvider ("any");
-    assertEquals ("any", aCDN.getDisplayName ());
-    assertEquals ("any", aCDN.getDisplayText (Locale.GERMAN));
-    assertEquals ("any", aCDN.getName ());
     assertEquals ("any", aCDN.getText (Locale.GERMAN));
     assertEquals ("any", aCDN.getTextWithLocaleFallback (Locale.GERMAN));
     assertEquals ("any", aCDN.getTextWithArgs (Locale.GERMAN));
@@ -91,10 +88,10 @@ public final class ConstantTextProviderTest
   public void testStandard ()
   {
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider ("any"),
-                                                                 new ConstantTextProvider ("any"));
+                                                                       new ConstantTextProvider ("any"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider (""),
-                                                                 new ConstantTextProvider (""));
+                                                                       new ConstantTextProvider (""));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ConstantTextProvider ("any"),
-                                                                     new ConstantTextProvider ("anyy"));
+                                                                           new ConstantTextProvider ("anyy"));
   }
 }
