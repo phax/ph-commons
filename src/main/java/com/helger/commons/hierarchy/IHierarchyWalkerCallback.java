@@ -24,7 +24,7 @@ package com.helger.commons.hierarchy;
  * @param <DATATYPE>
  *        The type of object to be iterated.
  */
-public interface IHierarchyWalkerCallback <DATATYPE> extends IBaseHierarchyWalker
+public interface IHierarchyWalkerCallback <DATATYPE> extends IBaseHierarchyWalkerCallback
 {
   /**
    * Called before eventual children of the current item are iterated.

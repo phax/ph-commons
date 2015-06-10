@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
  * @param <DATATYPE>
  *        The type of object to be iterated.
  */
-public interface IHierarchyWalkerDynamicCallback <DATATYPE> extends IBaseHierarchyWalker
+public interface IHierarchyWalkerDynamicCallback <DATATYPE> extends IBaseHierarchyWalkerCallback
 {
   /**
    * Called before eventual children of the current item are iterated.

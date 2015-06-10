@@ -18,12 +18,14 @@ package com.helger.commons.hierarchy;
 
 import javax.annotation.Nonnegative;
 
+import com.helger.commons.callback.ICallback;
+
 /**
- * Base interface for iterating a hierarchy.
- * 
+ * Base interface with callbacks for iterating a hierarchy.
+ *
  * @author Philip Helger
  */
-public interface IBaseHierarchyWalker
+public interface IBaseHierarchyWalkerCallback extends ICallback
 {
   /**
    * Called before the tree walking starts.

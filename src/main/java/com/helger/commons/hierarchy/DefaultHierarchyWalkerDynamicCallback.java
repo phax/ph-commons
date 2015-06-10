@@ -28,7 +28,7 @@ import com.helger.commons.annotation.OverrideOnDemand;
  * @param <DATATYPE>
  *        The type of object in the hierarchy to be iterated
  */
-public class DefaultHierarchyWalkerDynamicCallback <DATATYPE> extends DefaultHierarchyWalker implements IHierarchyWalkerDynamicCallback <DATATYPE>
+public class DefaultHierarchyWalkerDynamicCallback <DATATYPE> extends BaseHierarchyWalkerCallback implements IHierarchyWalkerDynamicCallback <DATATYPE>
 {
   public DefaultHierarchyWalkerDynamicCallback ()
   {

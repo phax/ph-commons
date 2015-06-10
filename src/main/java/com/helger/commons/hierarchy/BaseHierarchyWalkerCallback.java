@@ -22,20 +22,20 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.commons.annotation.OverrideOnDemand;
 
 /**
- * The default implementation of the {@link IBaseHierarchyWalker} interface.
+ * The default implementation of the {@link IBaseHierarchyWalkerCallback} interface.
  * 
  * @author Philip Helger
  */
-public class DefaultHierarchyWalker implements IBaseHierarchyWalker
+public class BaseHierarchyWalkerCallback implements IBaseHierarchyWalkerCallback
 {
   private int m_nLevel;
 
-  public DefaultHierarchyWalker ()
+  public BaseHierarchyWalkerCallback ()
   {
     this (0);
   }
 
-  public DefaultHierarchyWalker (final int nInitialLevel)
+  public BaseHierarchyWalkerCallback (final int nInitialLevel)
   {
     m_nLevel = nInitialLevel;
   }
