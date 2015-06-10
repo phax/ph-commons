@@ -66,9 +66,7 @@ public abstract class AbstractNotifyingCacheWithMaxSize <KEYTYPE, VALUETYPE> ext
   @Nonnull
   protected final Map <KEYTYPE, VALUETYPE> createCache ()
   {
-    final LoggingLRUMap <KEYTYPE, VALUETYPE> aMap = new LoggingLRUMap <KEYTYPE, VALUETYPE> (m_nMaxSize);
-    aMap.setMapName (getName ());
-    return aMap;
+    return new LoggingLRUMap <KEYTYPE, VALUETYPE> (m_nMaxSize).setMapName (getName ());
   }
 
   @Override

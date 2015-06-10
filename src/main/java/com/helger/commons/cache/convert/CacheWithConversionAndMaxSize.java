@@ -60,9 +60,7 @@ public class CacheWithConversionAndMaxSize <KEYTYPE, VALUETYPE> extends CacheWit
   @Nonnull
   protected final Map <KEYTYPE, VALUETYPE> createCache ()
   {
-    final LoggingLRUMap <KEYTYPE, VALUETYPE> aMap = new LoggingLRUMap <KEYTYPE, VALUETYPE> (m_nMaxSize);
-    aMap.setMapName (getName ());
-    return aMap;
+    return new LoggingLRUMap <KEYTYPE, VALUETYPE> (m_nMaxSize).setMapName (getName ());
   }
 
   @Override
