@@ -1,3 +1,3 @@
 com.helger.commons.microdom.convert.BasicMicroTypeConverterRegistrar
-com.helger.commons.microdom.convert.MultiLingualTextMicroTypeConverterRegistrar
+com.helger.commons.microdom.convert.MultilingualTextMicroTypeConverterRegistrar
 com.helger.commons.mime.MimeTypeInfoMicroTypeConverterRegistrar
