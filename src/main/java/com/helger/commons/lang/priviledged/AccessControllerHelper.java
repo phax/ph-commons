@@ -31,7 +31,7 @@ import com.helger.commons.ValueEnforcer;
 
 /**
  * Simple wrapper around {@link AccessController} to catch exceptions centrally.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -53,7 +53,7 @@ public final class AccessControllerHelper
     }
     catch (final AccessControlException ex)
     {
-      s_aLogger.error (ex.getMessage (), ex.getCause ());
+      s_aLogger.error ("Failed to execute PrivilegedAction " + aAction, ex);
       return null;
     }
   }
