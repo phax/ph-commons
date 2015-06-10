@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
 /**
  * This is an indicator, that an object is aware to break the style guide. This
  * may be evaluated in coding style guide checks.
- * 
+ *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
@@ -40,5 +40,15 @@ import java.lang.annotation.Target;
 @Documented
 public @interface CodingStyleguideUnaware
 {
+  /**
+   * @return Optional comment why this element is coding styleguide unaware.
+   */
   String value() default "";
+
+  /**
+   * @return Optional code identifying the reason why this element is coding
+   *         styleguide unaware. The interpretation of this code is usage
+   *         dependent.
+   */
+  String code() default "";
 }
