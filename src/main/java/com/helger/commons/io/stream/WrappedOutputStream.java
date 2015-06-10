@@ -25,8 +25,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A wrapper around another {@link OutputStream}. Pass through of all
- * {@link OutputStream} methods.
+ * A wrapper around another {@link FilterOutputStream} to make the wrapped
+ * {@link OutputStream} accessible.
  *
  * @author Philip Helger
  */
@@ -38,7 +38,7 @@ public class WrappedOutputStream extends FilterOutputStream
   }
 
   @Nonnull
-  public OutputStream getWrappedOutputStream ()
+  public final OutputStream getWrappedOutputStream ()
   {
     return out;
   }

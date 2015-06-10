@@ -17,58 +17,49 @@
 package com.helger.commons.io.stream;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
 import com.helger.commons.messagedigest.IMessageDigestGenerator;
 import com.helger.commons.messagedigest.NonBlockingMessageDigestGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A wrapper around an {@link InputStream} that performs a hashing while
- * reading.
+ * A wrapper around an {@link OutputStream} that creates a message digest while
+ * writing.
  *
  * @see IMessageDigestGenerator
  * @author Philip Helger
  */
-public class HashingInputStream extends WrappedInputStream
+public class MessageDigestOutputStream extends WrappedOutputStream
 {
   private final IMessageDigestGenerator m_aMDGen;
 
-  public HashingInputStream (@Nonnull final InputStream aSourceIS, @Nonnull final EMessageDigestAlgorithm eMDAlgorithm)
+  public MessageDigestOutputStream (@Nonnull final OutputStream aSourceOS, @Nonnull final EMessageDigestAlgorithm eMDAlgorithm)
   {
-    super (aSourceIS);
+    super (aSourceOS);
     m_aMDGen = new NonBlockingMessageDigestGenerator (eMDAlgorithm);
   }
 
   @Override
-  public int read () throws IOException
+  public void write (final int n) throws IOException
   {
-    final int ret = super.read ();
-    if (ret != -1)
-      m_aMDGen.update ((byte) ret);
-    return ret;
-  }
-
-  @Override
-  public int read (final byte [] b, final int nOffset, final int nLength) throws IOException
-  {
-    final int ret = super.read (b, nOffset, nLength);
-    if (ret != -1)
-      m_aMDGen.update (b, nOffset, ret);
-    return ret;
+    super.write (n);
+    m_aMDGen.update ((byte) n);
   }
 
   /**
-   * Get the message digest of this stream. Call this only once the read has
-   * been finished. Never call this in the middle of reading a stream, because
+   * Get the message digest of this stream. Call this only once the writing has
+   * been finished. Never call this in the middle of writing a stream, because
    * the digest cannot be updated afterwards.
    *
-   * @return The message digest of this stream.
+   * @return The message digest of this stream. Never <code>null</code>.
    */
   @Nonnull
+  @ReturnsMutableCopy
   public byte [] getDigest ()
   {
     return m_aMDGen.getDigest ();

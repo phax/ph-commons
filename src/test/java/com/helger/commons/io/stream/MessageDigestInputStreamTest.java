@@ -26,7 +26,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.io.stream.HashingInputStream;
+import com.helger.commons.io.stream.MessageDigestInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
@@ -34,11 +34,11 @@ import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
- * Test class for class {@link HashingInputStream}.
+ * Test class for class {@link MessageDigestInputStream}.
  * 
  * @author Philip Helger
  */
-public final class HashingInputStreamTest
+public final class MessageDigestInputStreamTest
 {
   private static final Random s_aRandom = new Random ();
 
@@ -51,7 +51,7 @@ public final class HashingInputStreamTest
       final String sTestString = "test" + eMDAlgo.getAlgorithm () + "-xxx" + s_aRandom.nextDouble ();
 
       // First hash
-      final HashingInputStream aHIS1 = new HashingInputStream (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes (sTestString,
+      final MessageDigestInputStream aHIS1 = new MessageDigestInputStream (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes (sTestString,
                                                                                                                                CCharset.CHARSET_ISO_8859_1_OBJ)),
                                                                eMDAlgo);
       assertTrue (aHIS1.read () != -1);
@@ -59,7 +59,7 @@ public final class HashingInputStreamTest
       final byte [] aDigest1 = aHIS1.getDigest ();
 
       // Second hash
-      final HashingInputStream aHIS2 = new HashingInputStream (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes (sTestString,
+      final MessageDigestInputStream aHIS2 = new MessageDigestInputStream (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes (sTestString,
                                                                                                                                CCharset.CHARSET_ISO_8859_1_OBJ)),
                                                                eMDAlgo);
       assertTrue (aHIS2.read () != -1);

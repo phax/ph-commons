@@ -16,21 +16,20 @@
  */
 package com.helger.commons.io.stream;
 
-import java.io.InputStream;
+import java.io.Writer;
 
 import javax.annotation.Nonnull;
 
 /**
- * A special {@link InputStream} that does not close the stream. This is e.g.
- * helpful for reading from streams within a ZIP file.
+ * A special {@link Writer} that does not close the stream.
  *
  * @author Philip Helger
  */
-public class NonClosingInputStream extends WrappedInputStream
+public class NonClosingWriter extends WrappedWriter
 {
-  public NonClosingInputStream (@Nonnull final InputStream aSourceIS)
+  public NonClosingWriter (@Nonnull final Writer aSourceWriter)
   {
-    super (aSourceIS);
+    super (aSourceWriter);
   }
 
   @Override

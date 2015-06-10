@@ -25,8 +25,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A wrapper around another {@link Writer}. Pass through of all {@link Writer}
- * methods.
+ * A wrapper around another {@link FilterWriter} to make the wrapped
+ * {@link Writer} accessible.
  *
  * @author Philip Helger
  */
@@ -38,7 +38,7 @@ public class WrappedWriter extends FilterWriter
   }
 
   @Nonnull
-  public Writer getWrappedWriter ()
+  public final Writer getWrappedWriter ()
   {
     return out;
   }

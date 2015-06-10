@@ -33,13 +33,13 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class DebugInputStream extends WrappedInputStream
+public class LoggingInputStream extends WrappedInputStream
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (DebugInputStream.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingInputStream.class);
 
   private long m_nPosition = 0;
 
-  public DebugInputStream (@Nonnull final InputStream aSourceIS)
+  public LoggingInputStream (@Nonnull final InputStream aSourceIS)
   {
     super (aSourceIS);
   }

@@ -120,7 +120,7 @@ public class NonBlockingBitInputStream implements Closeable
   public int readBit () throws IOException
   {
     if (m_aIS == null)
-      throw new IOException ("Already closed");
+      throw new IOException ("BitInputStream is already closed");
 
     if (m_nNextBitIndex == CGlobal.BITS_PER_BYTE)
     {

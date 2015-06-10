@@ -73,16 +73,18 @@ public class CountingInputStream extends WrappedInputStream
     return nSkipped;
   }
 
+  @SuppressWarnings ("sync-override")
   @Override
-  public synchronized void mark (@Nonnegative final int nReadlimit)
+  public void mark (@Nonnegative final int nReadlimit)
   {
     // May throw an exception!
     super.mark (nReadlimit);
     m_nMark = m_nPosition;
   }
 
+  @SuppressWarnings ("sync-override")
   @Override
-  public synchronized void reset () throws IOException
+  public void reset () throws IOException
   {
     // May throw an exception!
     super.reset ();

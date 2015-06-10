@@ -107,7 +107,7 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
   public void writeBit (final int aBit) throws IOException
   {
     if (m_aOS == null)
-      throw new IllegalStateException ("Already closed");
+      throw new IllegalStateException ("BitOutputStream is already closed");
     if (aBit != CGlobal.BIT_NOT_SET && aBit != CGlobal.BIT_SET)
       throw new IllegalArgumentException (aBit + " is not a bit");
 

@@ -24,7 +24,7 @@ import java.util.Random;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.stream.HashingOutputStream;
+import com.helger.commons.io.stream.MessageDigestOutputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.io.stream.StringInputStream;
@@ -32,11 +32,11 @@ import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
- * Test class for class {@link HashingOutputStream}.
+ * Test class for class {@link MessageDigestOutputStream}.
  * 
  * @author Philip Helger
  */
-public final class HashingOutputStreamTest
+public final class MessageDigestOutputStreamTest
 {
   private static final Random s_aRandom = new Random ();
 
@@ -46,21 +46,21 @@ public final class HashingOutputStreamTest
     // For all algorithms
     for (final EMessageDigestAlgorithm eMDAlgo : EMessageDigestAlgorithm.values ())
     {
-      HashingOutputStream aHIS2 = null;
-      HashingOutputStream aHIS1 = null;
+      MessageDigestOutputStream aHIS2 = null;
+      MessageDigestOutputStream aHIS1 = null;
       try
       {
         final String sTestString = "test" + eMDAlgo.getAlgorithm () + "-xxx" + s_aRandom.nextDouble ();
 
         // First hash
-        aHIS1 = new HashingOutputStream (new NonBlockingByteArrayOutputStream (), eMDAlgo);
+        aHIS1 = new MessageDigestOutputStream (new NonBlockingByteArrayOutputStream (), eMDAlgo);
         StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream (sTestString,
                                                                                     CCharset.CHARSET_ISO_8859_1_OBJ),
                                                              new NonBlockingByteArrayOutputStream ());
         final byte [] aDigest1 = aHIS1.getDigest ();
 
         // Second hash
-        aHIS2 = new HashingOutputStream (new NonBlockingByteArrayOutputStream (), eMDAlgo);
+        aHIS2 = new MessageDigestOutputStream (new NonBlockingByteArrayOutputStream (), eMDAlgo);
         StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream (sTestString,
                                                                                     CCharset.CHARSET_ISO_8859_1_OBJ),
                                                              new NonBlockingByteArrayOutputStream ());

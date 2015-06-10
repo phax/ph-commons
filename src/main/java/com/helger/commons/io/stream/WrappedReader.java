@@ -25,8 +25,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A wrapper around another {@link Reader}. Pass through of all {@link Reader}
- * methods.
+ * A wrapper around another {@link FilterReader} to make the wrapped
+ * {@link Reader} accessible.
  *
  * @author Philip Helger
  */
@@ -38,7 +38,7 @@ public class WrappedReader extends FilterReader
   }
 
   @Nonnull
-  public Reader getWrappedReader ()
+  public final Reader getWrappedReader ()
   {
     return in;
   }
