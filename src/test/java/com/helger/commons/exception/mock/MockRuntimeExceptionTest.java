@@ -14,40 +14,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mock;
+package com.helger.commons.exception.mock;
 
 import org.junit.Test;
 
-import com.helger.commons.exception.mock.MockException;
+import com.helger.commons.exception.mock.MockRuntimeException;
 
 /**
- * Test class for class {@link MockException}.
+ * Test class for class {@link MockRuntimeException}.
  * 
  * @author Philip Helger
  */
-public final class MockExceptionTest
+public final class MockRuntimeExceptionTest
 {
-  @Test (expected = MockException.class)
-  public void testEmpty () throws MockException
+  @Test (expected = MockRuntimeException.class)
+  public void testEmpty ()
   {
-    throw new MockException ();
+    throw new MockRuntimeException ();
   }
 
-  @Test (expected = MockException.class)
-  public void testWithMessage () throws MockException
+  @Test (expected = MockRuntimeException.class)
+  public void testWithMessage ()
   {
-    throw new MockException ("msg");
+    throw new MockRuntimeException ("msg");
   }
 
-  @Test (expected = MockException.class)
-  public void testWithException () throws MockException
+  @Test (expected = MockRuntimeException.class)
+  public void testWithException ()
   {
-    throw new MockException (new Exception ());
+    throw new MockRuntimeException (new Exception ());
   }
 
-  @Test (expected = MockException.class)
-  public void testWithExceptionAndMessage () throws MockException
+  @Test (expected = MockRuntimeException.class)
+  public void testWithExceptionAndMessage ()
   {
-    throw new MockException ("msg", new Exception ());
+    throw new MockRuntimeException ("msg", new Exception ());
   }
 }
