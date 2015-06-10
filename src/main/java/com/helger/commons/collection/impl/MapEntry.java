@@ -39,12 +39,12 @@ import com.helger.commons.string.ToStringGenerator;
  *        The value type.
  */
 @NotThreadSafe
-public class SingleMapEntry <KEYTYPE, VALUETYPE> implements Map.Entry <KEYTYPE, VALUETYPE>
+public class MapEntry <KEYTYPE, VALUETYPE> implements Map.Entry <KEYTYPE, VALUETYPE>
 {
   private final KEYTYPE m_aKey;
   private VALUETYPE m_aValue;
 
-  public SingleMapEntry (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MapEntry (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     m_aKey = aKey;
     m_aValue = aValue;
@@ -77,7 +77,7 @@ public class SingleMapEntry <KEYTYPE, VALUETYPE> implements Map.Entry <KEYTYPE, 
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final SingleMapEntry <?, ?> rhs = (SingleMapEntry <?, ?>) o;
+    final MapEntry <?, ?> rhs = (MapEntry <?, ?>) o;
     return EqualsHelper.equals (m_aKey, rhs.m_aKey) && EqualsHelper.equals (m_aValue, rhs.m_aValue);
   }
 

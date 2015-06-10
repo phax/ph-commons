@@ -22,20 +22,20 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.SingleMapEntry;
+import com.helger.commons.collection.impl.MapEntry;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
- * Test class for class {@link SingleMapEntry}.
+ * Test class for class {@link MapEntry}.
  * 
  * @author Philip Helger
  */
-public final class SingleMapEntryTest
+public final class MapEntryTest
 {
   @Test
   public void testCtor ()
   {
-    final SingleMapEntry <String, Object> e = new SingleMapEntry <String, Object> ("Key", "value");
+    final MapEntry <String, Object> e = new MapEntry <String, Object> ("Key", "value");
     assertEquals ("Key", e.getKey ());
     assertEquals ("value", e.getValue ());
     assertEquals ("value", e.setValue ("new"));
@@ -44,20 +44,20 @@ public final class SingleMapEntryTest
     assertFalse (e.equals (null));
     assertFalse (e.equals ("bla"));
     assertEquals (e, e);
-    assertEquals (e, new SingleMapEntry <String, Object> ("Key", "new"));
-    assertFalse (e.equals (new SingleMapEntry <String, Object> ("Key", Integer.valueOf (17))));
-    assertEquals (e.hashCode (), new SingleMapEntry <String, Object> ("Key", "new").hashCode ());
+    assertEquals (e, new MapEntry <String, Object> ("Key", "new"));
+    assertFalse (e.equals (new MapEntry <String, Object> ("Key", Integer.valueOf (17))));
+    assertEquals (e.hashCode (), new MapEntry <String, Object> ("Key", "new").hashCode ());
     assertNotNull (e.toString ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SingleMapEntry <String, Object> ("Key", "value"),
-                                                                 new SingleMapEntry <String, Object> ("Key", "value"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleMapEntry <String, Object> ("Key",
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapEntry <String, Object> ("Key", "value"),
+                                                                 new MapEntry <String, Object> ("Key", "value"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <String, Object> ("Key",
                                                                                                           "value"),
-                                                                     new SingleMapEntry <String, Object> ("Key",
+                                                                     new MapEntry <String, Object> ("Key",
                                                                                                           "value2"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleMapEntry <String, Object> ("Key",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <String, Object> ("Key",
                                                                                                           "value"),
-                                                                     new SingleMapEntry <String, Object> ("Key2",
+                                                                     new MapEntry <String, Object> ("Key2",
                                                                                                           "value"));
   }
 }

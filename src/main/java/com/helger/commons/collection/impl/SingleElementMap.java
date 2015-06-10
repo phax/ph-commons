@@ -153,7 +153,7 @@ public final class SingleElementMap <KEYTYPE, VALUETYPE> implements Map <KEYTYPE
   {
     final Set <Map.Entry <KEYTYPE, VALUETYPE>> aSet = new HashSet <Entry <KEYTYPE, VALUETYPE>> (size ());
     if (m_bHasElement)
-      aSet.add (new SingleMapEntry <KEYTYPE, VALUETYPE> (m_aKey, m_aValue));
+      aSet.add (new MapEntry <KEYTYPE, VALUETYPE> (m_aKey, m_aValue));
     return aSet;
   }
 
