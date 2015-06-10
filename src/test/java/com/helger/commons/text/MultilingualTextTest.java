@@ -34,6 +34,7 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.commons.text.util.TextHelper;
 
 /**
  * Test class for class {@link MultilingualText}.
@@ -50,7 +51,7 @@ public final class MultilingualTextTest extends AbstractCommonsTestCase
     assertNotNull (aMLT.getAllLocales ());
     assertTrue (aMLT.getAllLocales ().isEmpty ());
 
-    aMLT = new MultilingualText (MapBasedMultilingualText.create_DE_EN ("de", "en"));
+    aMLT = TextHelper.create_DE_EN ("de", "en");
     assertEquals (2, aMLT.getSize ());
     assertEquals ("de", aMLT.getText (L_DE));
     assertEquals ("en", aMLT.getText (L_EN));

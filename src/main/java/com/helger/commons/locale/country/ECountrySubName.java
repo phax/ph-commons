@@ -25,6 +25,7 @@ import com.helger.commons.annotation.Translatable;
 import com.helger.commons.text.MapBasedMultilingualText;
 import com.helger.commons.text.display.IHasDisplayText;
 import com.helger.commons.text.resolve.DefaultTextResolver;
+import com.helger.commons.text.util.TextHelper;
 
 /**
  * Country sub-element name enum.
@@ -211,7 +212,7 @@ public enum ECountrySubName implements IHasDisplayText
 
   private ECountrySubName (@Nonnull final String sDE, @Nonnull final String sEN)
   {
-    m_aTP = MapBasedMultilingualText.create_DE_EN (sDE, sEN);
+    m_aTP = TextHelper.create_DE_EN (sDE, sEN);
   }
 
   @Nullable

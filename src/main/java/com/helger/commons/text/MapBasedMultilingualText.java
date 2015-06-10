@@ -36,7 +36,6 @@ import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.state.EChange;
@@ -50,11 +49,6 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class MapBasedMultilingualText extends AbstractHasTextWithArgs implements IMultilingualText
 {
-  /** German locale used */
-  public static final Locale DE = LocaleCache.getLocale ("de");
-  /** English locale used */
-  public static final Locale EN = LocaleCache.getLocale ("en");
-
   private static final Logger s_aLogger = LoggerFactory.getLogger (MapBasedMultilingualText.class);
   private static final AtomicBoolean s_aConsistencyChecksEnabled = new AtomicBoolean (GlobalDebug.isDebugMode ());
 
@@ -253,23 +247,5 @@ public class MapBasedMultilingualText extends AbstractHasTextWithArgs implements
   public String toString ()
   {
     return new ToStringGenerator (this).append ("texts", m_aTexts).toString ();
-  }
-
-  @Nonnull
-  public static MapBasedMultilingualText create_DE (@Nonnull final String sDE)
-  {
-    return new MapBasedMultilingualText ().internalAddText (DE, sDE);
-  }
-
-  @Nonnull
-  public static MapBasedMultilingualText create_EN (@Nonnull final String sEN)
-  {
-    return new MapBasedMultilingualText ().internalAddText (EN, sEN);
-  }
-
-  @Nonnull
-  public static MapBasedMultilingualText create_DE_EN (@Nonnull final String sDE, @Nonnull final String sEN)
-  {
-    return new MapBasedMultilingualText ().internalAddText (DE, sDE).internalAddText (EN, sEN);
   }
 }

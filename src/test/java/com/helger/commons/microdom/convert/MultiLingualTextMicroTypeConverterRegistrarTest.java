@@ -32,6 +32,7 @@ import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.MapBasedMultilingualText;
 import com.helger.commons.text.MultilingualText;
 import com.helger.commons.text.ReadonlyMultilingualText;
+import com.helger.commons.text.util.TextHelper;
 
 /**
  * Test class for class {@link MultilingualTextMicroTypeConverterRegistrar}.
@@ -79,7 +80,7 @@ public final class MultiLingualTextMicroTypeConverterRegistrarTest
   @Test
   public void testTextProvider ()
   {
-    final MapBasedMultilingualText aMLT = MapBasedMultilingualText.create_DE_EN ("de", "en");
+    final MapBasedMultilingualText aMLT = TextHelper.create_DE_EN ("de", "en");
 
     final IMicroElement aElement = MicroTypeConverter.convertToMicroElement (aMLT, "mtext");
     assertNotNull (aElement);

@@ -32,6 +32,7 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.commons.text.util.TextHelper;
 
 /**
  * Test class for class {@link MultilingualTextThreadSafe}.
@@ -48,7 +49,7 @@ public final class MultilingualTextThreadSafeTest extends AbstractCommonsTestCas
     assertNotNull (aMLT.getAllLocales ());
     assertTrue (aMLT.getAllLocales ().isEmpty ());
 
-    aMLT = new MultilingualTextThreadSafe (MapBasedMultilingualText.create_DE_EN ("de", "en"));
+    aMLT = new MultilingualTextThreadSafe (TextHelper.create_DE_EN ("de", "en"));
     assertEquals (2, aMLT.getSize ());
     assertEquals ("de", aMLT.getText (L_DE));
     assertEquals ("en", aMLT.getText (L_EN));

@@ -29,6 +29,7 @@ import org.junit.rules.TestRule;
 
 import com.helger.commons.junit.DebugModeTestRule;
 import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.text.util.TextHelper;
 
 /**
  * Test class for class {@link MapBasedMultilingualText}.
@@ -43,17 +44,17 @@ public final class MapBasedMultilingualTextTest extends AbstractCommonsTestCase
   @Test
   public void testGetText ()
   {
-    MapBasedMultilingualText aTP = MapBasedMultilingualText.create_DE_EN ("Hallo", "Hello");
+    MapBasedMultilingualText aTP = TextHelper.create_DE_EN ("Hallo", "Hello");
     assertEquals ("Hallo", aTP.getText (L_DE_DE));
     assertEquals ("Hallo", aTP.getText (L_DE));
     assertNull (aTP.getText (L_FR));
 
-    aTP = MapBasedMultilingualText.create_DE ("Hallo");
+    aTP = TextHelper.create_DE ("Hallo");
     assertEquals ("Hallo", aTP.getText (L_DE_DE));
     assertEquals ("Hallo", aTP.getText (L_DE));
     assertNull (aTP.getText (L_FR));
 
-    aTP = MapBasedMultilingualText.create_EN ("Hello");
+    aTP = TextHelper.create_EN ("Hello");
     assertEquals ("Hello", aTP.getText (L_EN_US));
     assertEquals ("Hello", aTP.getText (L_EN_GB));
     assertEquals ("Hello", aTP.getText (L_EN));
@@ -63,7 +64,7 @@ public final class MapBasedMultilingualTextTest extends AbstractCommonsTestCase
   @Test
   public void testIsEmpty ()
   {
-    MapBasedMultilingualText aTP = MapBasedMultilingualText.create_DE_EN ("Hallo", "Hello");
+    MapBasedMultilingualText aTP = TextHelper.create_DE_EN ("Hallo", "Hello");
     assertFalse (aTP.isEmpty ());
 
     aTP = new MapBasedMultilingualText ();
@@ -73,7 +74,7 @@ public final class MapBasedMultilingualTextTest extends AbstractCommonsTestCase
   @Test
   public void testGetTextWithArgs ()
   {
-    final IHasTextWithArgs aTP = MapBasedMultilingualText.create_DE_EN ("Hallo {0}", "{0} Hello");
+    final IHasTextWithArgs aTP = TextHelper.create_DE_EN ("Hallo {0}", "{0} Hello");
     assertEquals ("Hallo {0}", aTP.getText (L_DE_DE));
     assertEquals ("Hallo {0}", aTP.getText (L_DE));
     assertNull (aTP.getText (L_FR));
@@ -87,20 +88,20 @@ public final class MapBasedMultilingualTextTest extends AbstractCommonsTestCase
   @Test
   public void testQuotes ()
   {
-    assertNotNull (MapBasedMultilingualText.create_DE_EN ("Test 123!", ""));
-    assertNotNull (MapBasedMultilingualText.create_DE_EN ("Test {0} 123!", ""));
-    assertNotNull (MapBasedMultilingualText.create_DE_EN ("Test ''{0}'' 123!", ""));
+    assertNotNull (TextHelper.create_DE_EN ("Test 123!", ""));
+    assertNotNull (TextHelper.create_DE_EN ("Test {0} 123!", ""));
+    assertNotNull (TextHelper.create_DE_EN ("Test ''{0}'' 123!", ""));
 
     MapBasedMultilingualText.setPerformConsistencyChecks (true);
     try
     {
       // should log a warning
-      MapBasedMultilingualText.create_DE_EN ("Test\\nmasked new line", "");
+      TextHelper.create_DE_EN ("Test\\nmasked new line", "");
 
       try
       {
         // Must use two single quotes
-        MapBasedMultilingualText.create_DE_EN ("Test '{0}' 123!", "");
+        TextHelper.create_DE_EN ("Test '{0}' 123!", "");
         fail ();
       }
       catch (final IllegalArgumentException ex)
@@ -108,7 +109,7 @@ public final class MapBasedMultilingualTextTest extends AbstractCommonsTestCase
 
       try
       {
-        MapBasedMultilingualText.create_DE_EN ("'{0}' 123!", "");
+        TextHelper.create_DE_EN ("'{0}' 123!", "");
         fail ();
       }
       catch (final IllegalArgumentException ex)
@@ -116,7 +117,7 @@ public final class MapBasedMultilingualTextTest extends AbstractCommonsTestCase
 
       try
       {
-        MapBasedMultilingualText.create_DE_EN ("Test '{0}'", "");
+        TextHelper.create_DE_EN ("Test '{0}'", "");
         fail ();
       }
       catch (final IllegalArgumentException ex)
@@ -125,7 +126,7 @@ public final class MapBasedMultilingualTextTest extends AbstractCommonsTestCase
       try
       {
         // Requires only a single quote
-        MapBasedMultilingualText.create_DE ("Test '' no arguments");
+        TextHelper.create_DE ("Test '' no arguments");
         fail ();
       }
       catch (final IllegalArgumentException ex)

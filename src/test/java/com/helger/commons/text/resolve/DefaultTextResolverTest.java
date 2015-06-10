@@ -33,6 +33,7 @@ import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.text.MapBasedMultilingualText;
 import com.helger.commons.text.display.IHasDisplayText;
 import com.helger.commons.text.display.IHasDisplayTextWithArgs;
+import com.helger.commons.text.util.TextHelper;
 
 /**
  * Test class for class {@link DefaultTextResolver}.
@@ -52,7 +53,7 @@ public final class DefaultTextResolverTest
 
     private EText (final String sDE, final String sEN)
     {
-      m_aTP = MapBasedMultilingualText.create_DE_EN (sDE, sEN);
+      m_aTP = TextHelper.create_DE_EN (sDE, sEN);
     }
 
     @Nullable
@@ -71,9 +72,9 @@ public final class DefaultTextResolverTest
   @Test
   public void testGetText ()
   {
-    final Locale aDE = MapBasedMultilingualText.DE;
+    final Locale aDE = TextHelper.DE;
     final Locale aDE_AT = LocaleCache.getLocale ("de", "AT");
-    final Locale aEN = MapBasedMultilingualText.EN;
+    final Locale aEN = TextHelper.EN;
     final Locale aEN_US = LocaleCache.getLocale ("en", "US");
     final Locale aSR = LocaleCache.getLocale ("sr", "RS");
 
@@ -102,8 +103,8 @@ public final class DefaultTextResolverTest
   @Test
   public void testGetTextWithArgs ()
   {
-    final Locale aDE = MapBasedMultilingualText.DE;
-    final Locale aEN = MapBasedMultilingualText.EN;
+    final Locale aDE = TextHelper.DE;
+    final Locale aEN = TextHelper.EN;
 
     // Regular
     assertEquals ("Text3abcde", EText.TEXT3.getDisplayTextWithArgs (aDE, "abc"));

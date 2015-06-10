@@ -32,12 +32,11 @@ import org.junit.Test;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.IMutableMultilingualText;
-import com.helger.commons.text.MultilingualText;
-import com.helger.commons.text.MapBasedMultilingualText;
+import com.helger.commons.text.util.TextHelper;
 
 /**
  * Test class for class {@link ChangeLogEntry}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ChangeLogEntryTest extends AbstractCommonsTestCase
@@ -64,11 +63,12 @@ public final class ChangeLogEntryTest extends AbstractCommonsTestCase
     assertTrue (aEntry.getAllIssues ().isEmpty ());
     assertTrue (aEntry.isIncompatible ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aEntry, new ChangeLogEntry (aChangeLog,
-                                                                                             aDate,
-                                                                                             EChangeLogAction.ADD,
-                                                                                             EChangeLogCategory.API,
-                                                                                             true));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aEntry,
+                                                                       new ChangeLogEntry (aChangeLog,
+                                                                                           aDate,
+                                                                                           EChangeLogAction.ADD,
+                                                                                           EChangeLogCategory.API,
+                                                                                           true));
 
     ChangeLogEntry aEntry2 = new ChangeLogEntry (aChangeLog, aDate, EChangeLogAction.ADD, EChangeLogCategory.API, true);
     aEntry2.setText (L_DE, "Ist doch auc egal :)");
@@ -79,31 +79,31 @@ public final class ChangeLogEntryTest extends AbstractCommonsTestCase
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aEntry, aEntry2);
 
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aEntry,
-                                                                     new ChangeLogEntry (aChangeLog,
-                                                                                         aDate,
-                                                                                         EChangeLogAction.ADD,
-                                                                                         EChangeLogCategory.API,
-                                                                                         false));
+                                                                           new ChangeLogEntry (aChangeLog,
+                                                                                               aDate,
+                                                                                               EChangeLogAction.ADD,
+                                                                                               EChangeLogCategory.API,
+                                                                                               false));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aEntry,
-                                                                     new ChangeLogEntry (aChangeLog,
-                                                                                         new GregorianCalendar (2010,
-                                                                                                                Calendar.JULY,
-                                                                                                                6).getTime (),
-                                                                                         EChangeLogAction.ADD,
-                                                                                         EChangeLogCategory.API,
-                                                                                         true));
+                                                                           new ChangeLogEntry (aChangeLog,
+                                                                                               new GregorianCalendar (2010,
+                                                                                                                      Calendar.JULY,
+                                                                                                                      6).getTime (),
+                                                                                               EChangeLogAction.ADD,
+                                                                                               EChangeLogCategory.API,
+                                                                                               true));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aEntry,
-                                                                     new ChangeLogEntry (aChangeLog,
-                                                                                         aDate,
-                                                                                         EChangeLogAction.CHANGE,
-                                                                                         EChangeLogCategory.API,
-                                                                                         true));
+                                                                           new ChangeLogEntry (aChangeLog,
+                                                                                               aDate,
+                                                                                               EChangeLogAction.CHANGE,
+                                                                                               EChangeLogCategory.API,
+                                                                                               true));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aEntry,
-                                                                     new ChangeLogEntry (aChangeLog,
-                                                                                         aDate,
-                                                                                         EChangeLogAction.ADD,
-                                                                                         EChangeLogCategory.BUSINESS_LOGIC,
-                                                                                         true));
+                                                                           new ChangeLogEntry (aChangeLog,
+                                                                                               aDate,
+                                                                                               EChangeLogAction.ADD,
+                                                                                               EChangeLogCategory.BUSINESS_LOGIC,
+                                                                                               true));
 
     // Check the text afterwards
     assertFalse (aEntry.setText (L_DE, null).isChanged ());
@@ -112,7 +112,7 @@ public final class ChangeLogEntryTest extends AbstractCommonsTestCase
     assertTrue (aEntry.setText (L_DE, "Unit test ").isChanged ());
     assertEquals ("Unit test", aEntry.getText (L_DE));
 
-    final IMutableMultilingualText aMLT = new MultilingualText (MapBasedMultilingualText.create_DE_EN ("de", "en"));
+    final IMutableMultilingualText aMLT = TextHelper.create_DE_EN ("de", "en");
     assertTrue (aEntry.setText (aMLT).isChanged ());
     assertFalse (aEntry.setText (aMLT).isChanged ());
 

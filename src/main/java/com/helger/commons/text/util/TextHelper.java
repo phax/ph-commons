@@ -25,6 +25,8 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.locale.LocaleCache;
+import com.helger.commons.text.MultilingualText;
 
 /**
  * Utility methods for formatting text using {@link MessageFormat}.
@@ -34,6 +36,11 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 @Immutable
 public final class TextHelper
 {
+  /** German locale used */
+  public static final Locale DE = LocaleCache.getLocale ("de");
+  /** English locale used */
+  public static final Locale EN = LocaleCache.getLocale ("en");
+
   @PresentForCodeCoverage
   private static final TextHelper s_aInstance = new TextHelper ();
 
@@ -79,5 +86,30 @@ public final class TextHelper
 
     final MessageFormat aMF = new MessageFormat (sText, aDisplayLocale);
     return aMF.format (aArgs);
+  }
+
+  @Nonnull
+  public static MultilingualText create_DE (@Nonnull final String sDE)
+  {
+    final MultilingualText ret = new MultilingualText ();
+    ret.addText (DE, sDE);
+    return ret;
+  }
+
+  @Nonnull
+  public static MultilingualText create_EN (@Nonnull final String sEN)
+  {
+    final MultilingualText ret = new MultilingualText ();
+    ret.addText (EN, sEN);
+    return ret;
+  }
+
+  @Nonnull
+  public static MultilingualText create_DE_EN (@Nonnull final String sDE, @Nonnull final String sEN)
+  {
+    final MultilingualText ret = new MultilingualText ();
+    ret.addText (DE, sDE);
+    ret.addText (EN, sEN);
+    return ret;
   }
 }
