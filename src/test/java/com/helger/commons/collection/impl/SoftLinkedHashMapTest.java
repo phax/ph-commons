@@ -9,21 +9,24 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.mutable.MutableBoolean;
 
-public final class SoftHashMapTest
+public final class SoftLinkedHashMapTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SoftHashMapTest.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (SoftLinkedHashMapTest.class);
 
   @Test
   public void testBasic ()
   {
     final MutableBoolean aChange = new MutableBoolean (false);
-    final SoftLinkedHashMap <Integer, BigDecimal> map = new SoftLinkedHashMap <Integer, BigDecimal> (2)
+    final SoftLinkedHashMap <Integer, BigDecimal> map = new SoftLinkedHashMap <Integer, BigDecimal> (1)
     {
       @Override
       protected void onEntryRemoved (final Integer aKey)
@@ -31,13 +34,24 @@ public final class SoftHashMapTest
         s_aLogger.info ("Removed key " + aKey);
         aChange.set (true);
       }
+
+      @Override
+      protected void onRemoveEldestEntry (@Nonnegative final int nSize,
+                                          @Nonnull final Map.Entry <Integer, BigDecimal> aEldest)
+      {
+        s_aLogger.info ("Removed eldest entry " + aEldest.getKey ());
+      }
     };
+
+    // Entry to be removed
+    map.put (Integer.valueOf (0), BigDecimal.ZERO);
 
     BigDecimal aOne = new BigDecimal ("+1.000");
     final Integer aKey = Integer.valueOf (1);
     map.put (aKey, aOne);
     s_aLogger.info ("Mapped value: " + map.get (aKey));
     assertNotNull (map.get (aKey));
+    assertEquals (1, map.size ());
     aOne = null;
 
     final Set <Map.Entry <Integer, BigDecimal>> aEntries = map.entrySet ();
@@ -57,5 +71,6 @@ public final class SoftHashMapTest
     }
     s_aLogger.info ("Mapped value (should be null): " + map.get (aKey));
     assertNull (map.get (aKey));
+    assertEquals (0, map.size ());
   }
 }
