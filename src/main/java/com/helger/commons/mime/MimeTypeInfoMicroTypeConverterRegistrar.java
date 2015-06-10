@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mime.convert;
+package com.helger.commons.mime;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -30,11 +30,8 @@ import com.helger.commons.microdom.convert.IMicroTypeConverter;
 import com.helger.commons.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.commons.microdom.convert.IMicroTypeConverterRegistry;
 import com.helger.commons.microdom.util.MicroHelper;
-import com.helger.commons.mime.MimeType;
-import com.helger.commons.mime.MimeTypeInfo;
 import com.helger.commons.mime.MimeTypeInfo.ExtensionWithSource;
 import com.helger.commons.mime.MimeTypeInfo.MimeTypeWithSource;
-import com.helger.commons.mime.MimeTypeParser;
 import com.helger.commons.string.StringHelper;
 
 /**
