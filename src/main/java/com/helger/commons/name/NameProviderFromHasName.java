@@ -20,10 +20,10 @@ import javax.annotation.Nullable;
 
 /**
  * Default implementation of {@link INameProvider} for {@link IHasName} objects.
- * 
+ *
  * @author Philip Helger
  */
-public final class NameProviderFromHasName implements INameProvider <IHasName>
+public class NameProviderFromHasName implements INameProvider <IHasName>
 {
   @Nullable
   public String getName (@Nullable final IHasName aObject)

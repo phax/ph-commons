@@ -21,10 +21,10 @@ import javax.annotation.Nullable;
 /**
  * Default implementation of {@link IDisplayNameProvider} for
  * {@link IHasDisplayName} objects.
- * 
+ *
  * @author Philip Helger
  */
-public final class DisplayNameProviderFromHasDisplayName implements IDisplayNameProvider <IHasDisplayName>
+public class DisplayNameProviderFromHasDisplayName implements IDisplayNameProvider <IHasDisplayName>
 {
   @Nullable
   public String getDisplayName (@Nullable final IHasDisplayName aObject)
