@@ -32,10 +32,10 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.text.IMutableMultiLingualText;
-import com.helger.commons.text.IMultiLingualText;
-import com.helger.commons.text.MultiLingualText;
-import com.helger.commons.text.ReadonlyMultiLingualText;
+import com.helger.commons.text.IMultilingualText;
+import com.helger.commons.text.IMutableMultilingualText;
+import com.helger.commons.text.MultilingualText;
+import com.helger.commons.text.ReadonlyMultilingualText;
 
 /**
  * This class represents a single entry in the changelog.
@@ -49,7 +49,7 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
   private final EChangeLogAction m_eAction;
   private final EChangeLogCategory m_eCategory;
   private final boolean m_bIsIncompatible;
-  private final IMutableMultiLingualText m_aTexts = new MultiLingualText ();
+  private final IMutableMultilingualText m_aTexts = new MultilingualText ();
   private final List <String> m_aIssues = new ArrayList <String> ();
 
   /**
@@ -125,7 +125,7 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
    * @return {@link EChange}
    */
   @Nonnull
-  EChange setText (@Nonnull final IMultiLingualText aMLT)
+  EChange setText (@Nonnull final IMultilingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 
@@ -156,9 +156,9 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
    */
   @Nonnull
   @ReturnsMutableCopy
-  public IMultiLingualText getAllTexts ()
+  public IMultilingualText getAllTexts ()
   {
-    return new ReadonlyMultiLingualText (m_aTexts);
+    return new ReadonlyMultilingualText (m_aTexts);
   }
 
   /**
@@ -169,9 +169,9 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
    * @return <code>null</code> if no such text is contained.
    */
   @Nullable
-  public String getText (final Locale aContentLocale)
+  public String getText (@Nonnull final Locale aContentLocale)
   {
-    return m_aTexts.getTextWithLocaleFallback (aContentLocale);
+    return m_aTexts.getText (aContentLocale);
   }
 
   /**

@@ -23,12 +23,10 @@ import org.junit.Test;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.text.resourcebundle.ResourceBundleKey;
-import com.helger.commons.text.resourcebundle.ResourceBundleTextProvider;
 
 /**
  * Test class for class {@link ResourceBundleTextProvider}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ResourceBundleTextProviderTest extends AbstractCommonsTestCase
@@ -43,18 +41,16 @@ public final class ResourceBundleTextProviderTest extends AbstractCommonsTestCas
 
     final ResourceBundleTextProvider aRBT = new ResourceBundleTextProvider (key);
     assertEquals ("äöü", aRBT.getText (L_DE));
-    assertEquals ("äöü", aRBT.getTextWithLocaleFallback (L_DE));
     assertEquals ("äöü", aRBT.getTextWithArgs (L_DE, "egal"));
-    assertEquals ("äöü", aRBT.getTextWithLocaleFallbackAndArgs (L_DE, "egal"));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
-                                                                 new ResourceBundleTextProvider (key));
+                                                                       new ResourceBundleTextProvider (key));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
-                                                                 new ResourceBundleTextProvider ("properties/test-iso8859",
-                                                                                                 "key1"));
+                                                                       new ResourceBundleTextProvider ("properties/test-iso8859",
+                                                                                                       "key1"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleTextProvider (key),
-                                                                     new ResourceBundleTextProvider ("properties/test-iso8859",
-                                                                                                     "key2"));
+                                                                           new ResourceBundleTextProvider ("properties/test-iso8859",
+                                                                                                           "key2"));
 
     try
     {

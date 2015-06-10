@@ -31,9 +31,9 @@ import javax.annotation.Nullable;
 public interface IHasText
 {
   /**
-   * Get the text specific for the passed locale. The implementation class MUST
-   * NOT add locale-generalisation when resolving the text ("de_DE" =&gt; "de"
-   * =&gt; <i>default</i>).
+   * Get the text specific for the passed locale. The implementation class MAY
+   * add locale-generalisation when resolving the text ("de_DE" =&gt; "de" =&gt;
+   * <i>default</i>).
    *
    * @param aContentLocale
    *        The locale to use. May not be <code>null</code>.
@@ -41,17 +41,4 @@ public interface IHasText
    */
   @Nullable
   String getText (@Nonnull Locale aContentLocale);
-
-  /**
-   * Get the text specific for the passed locale. The implementation class MUST
-   * add locale-generalisation when resolving the text ("de_DE" =&gt; "de" =&gt;
-   * <i>default</i>).
-   *
-   * @param aContentLocale
-   *        The locale to use. May not be <code>null</code>.
-   * @return <code>null</code> if no text for the given locale was found.
-   * @see com.helger.commons.locale.LocaleHelper#getCalculatedLocaleListForResolving(Locale)
-   */
-  @Nullable
-  String getTextWithLocaleFallback (@Nonnull Locale aContentLocale);
 }

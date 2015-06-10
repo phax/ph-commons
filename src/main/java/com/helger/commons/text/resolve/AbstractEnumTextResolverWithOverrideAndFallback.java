@@ -94,7 +94,7 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
     {
       // No override was found
       // -> Try to get the text from the text provider
-      ret = aTP.getTextWithLocaleFallback (aContentLocale);
+      ret = aTP.getText (aContentLocale);
       if (ret == null)
       {
         // The text was not found -> try the fallback (e.g. for different

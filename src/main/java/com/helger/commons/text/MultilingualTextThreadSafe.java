@@ -29,6 +29,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
@@ -45,14 +46,14 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @ThreadSafe
-public class MultiLingualTextThreadSafe implements IMutableMultiLingualText
+public class MultilingualTextThreadSafe implements IMutableMultilingualText
 {
   protected final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
-  private final MultiLingualText m_aMLT;
+  private final MultilingualText m_aMLT;
 
-  public MultiLingualTextThreadSafe ()
+  public MultilingualTextThreadSafe ()
   {
-    m_aMLT = new MultiLingualText ();
+    m_aMLT = new MultilingualText ();
   }
 
   /**
@@ -61,20 +62,20 @@ public class MultiLingualTextThreadSafe implements IMutableMultiLingualText
    * @param aSimpleMLT
    *        The simple multi lingual text to use.
    */
-  public MultiLingualTextThreadSafe (@Nonnull final ISimpleMultiLingualText aSimpleMLT)
+  public MultilingualTextThreadSafe (@Nonnull final ISimpleMultilingualText aSimpleMLT)
   {
     ValueEnforcer.notNull (aSimpleMLT, "SimpleMLT");
 
     // Create a copy of the multilingual text!
-    m_aMLT = new MultiLingualText (aSimpleMLT);
+    m_aMLT = new MultilingualText (aSimpleMLT);
   }
 
-  public MultiLingualTextThreadSafe (@Nonnull final IMultiLingualText aMLT)
+  public MultilingualTextThreadSafe (@Nonnull final IMultilingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 
     // Create a copy of the multilingual text!
-    m_aMLT = new MultiLingualText (aMLT);
+    m_aMLT = new MultilingualText (aMLT);
   }
 
   @Nullable
@@ -92,17 +93,11 @@ public class MultiLingualTextThreadSafe implements IMutableMultiLingualText
   }
 
   @Nullable
-  public String getTextWithLocaleFallback (@Nonnull final Locale aContentLocale)
+  @Deprecated
+  @DevelopersNote ("Use getText instead")
+  public String getTextWithArgs (@Nonnull final Locale aContentLocale)
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMLT.getTextWithLocaleFallback (aContentLocale);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return getText (aContentLocale);
   }
 
   @Nullable
@@ -112,20 +107,6 @@ public class MultiLingualTextThreadSafe implements IMutableMultiLingualText
     try
     {
       return m_aMLT.getTextWithArgs (aContentLocale, aArgs);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
-  }
-
-  @Nullable
-  public String getTextWithLocaleFallbackAndArgs (@Nonnull final Locale aContentLocale, @Nullable final Object... aArgs)
-  {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMLT.getTextWithLocaleFallbackAndArgs (aContentLocale, aArgs);
     }
     finally
     {
@@ -287,7 +268,7 @@ public class MultiLingualTextThreadSafe implements IMutableMultiLingualText
   }
 
   @Nonnull
-  public EChange assignFrom (@Nonnull final IMultiLingualText aMLT)
+  public EChange assignFrom (@Nonnull final IMultilingualText aMLT)
   {
     m_aRWLock.writeLock ().lock ();
     try
@@ -302,7 +283,7 @@ public class MultiLingualTextThreadSafe implements IMutableMultiLingualText
 
   @Nonnull
   @ReturnsMutableObject (reason = "design")
-  public CallbackList <IChangeCallback <IMutableMultiLingualText>> getChangeNotifyCallbacks ()
+  public CallbackList <IChangeCallback <IMutableMultilingualText>> getChangeNotifyCallbacks ()
   {
     m_aRWLock.writeLock ().lock ();
     try
@@ -322,7 +303,7 @@ public class MultiLingualTextThreadSafe implements IMutableMultiLingualText
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final MultiLingualTextThreadSafe rhs = (MultiLingualTextThreadSafe) o;
+    final MultilingualTextThreadSafe rhs = (MultilingualTextThreadSafe) o;
     return m_aMLT.equals (rhs.m_aMLT);
   }
 
@@ -339,9 +320,9 @@ public class MultiLingualTextThreadSafe implements IMutableMultiLingualText
   }
 
   @Nonnull
-  public static IMutableMultiLingualText createFromMap (@Nonnull final Map <String, String> aMap)
+  public static IMutableMultilingualText createFromMap (@Nonnull final Map <String, String> aMap)
   {
-    final IMutableMultiLingualText ret = new MultiLingualTextThreadSafe ();
+    final IMutableMultilingualText ret = new MultilingualTextThreadSafe ();
     for (final Entry <String, String> aEntry : aMap.entrySet ())
     {
       final String sText = aEntry.getValue ();

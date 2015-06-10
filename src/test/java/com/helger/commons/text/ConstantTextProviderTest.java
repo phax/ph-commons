@@ -38,9 +38,7 @@ public final class ConstantTextProviderTest
   {
     final ConstantTextProvider aCDN = new ConstantTextProvider ("any");
     assertEquals ("any", aCDN.getText (Locale.GERMAN));
-    assertEquals ("any", aCDN.getTextWithLocaleFallback (Locale.GERMAN));
-    assertEquals ("any", aCDN.getTextWithArgs (Locale.GERMAN));
-    assertEquals ("any", aCDN.getTextWithLocaleFallbackAndArgs (Locale.GERMAN));
+    assertEquals ("any", aCDN.getTextWithArgs (Locale.GERMAN, "foo", "bar"));
 
     try
     {
@@ -52,7 +50,7 @@ public final class ConstantTextProviderTest
     {}
     try
     {
-      // null not allowed
+      // null locale not allowed
       aCDN.getText (null);
       fail ();
     }
@@ -60,24 +58,8 @@ public final class ConstantTextProviderTest
     {}
     try
     {
-      // null not allowed
-      aCDN.getTextWithArgs (null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      // null not allowed
-      aCDN.getTextWithLocaleFallback (null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      // null not allowed
-      aCDN.getTextWithLocaleFallbackAndArgs (null);
+      // null locale not allowed
+      aCDN.getTextWithArgs (null, "any");
       fail ();
     }
     catch (final NullPointerException ex)

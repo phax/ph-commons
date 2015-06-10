@@ -31,9 +31,9 @@ import org.junit.Test;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.text.IMutableMultiLingualText;
-import com.helger.commons.text.MultiLingualText;
-import com.helger.commons.text.TextProvider;
+import com.helger.commons.text.IMutableMultilingualText;
+import com.helger.commons.text.MultilingualText;
+import com.helger.commons.text.MapBasedMultilingualText;
 
 /**
  * Test class for class {@link ChangeLogEntry}.
@@ -112,7 +112,7 @@ public final class ChangeLogEntryTest extends AbstractCommonsTestCase
     assertTrue (aEntry.setText (L_DE, "Unit test ").isChanged ());
     assertEquals ("Unit test", aEntry.getText (L_DE));
 
-    final IMutableMultiLingualText aMLT = new MultiLingualText (TextProvider.create_DE_EN ("de", "en"));
+    final IMutableMultilingualText aMLT = new MultilingualText (MapBasedMultilingualText.create_DE_EN ("de", "en"));
     assertTrue (aEntry.setText (aMLT).isChanged ());
     assertFalse (aEntry.setText (aMLT).isChanged ());
 

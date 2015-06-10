@@ -29,19 +29,19 @@ import com.helger.commons.locale.ComparatorLocale;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroElement;
-import com.helger.commons.text.ISimpleMultiLingualText;
-import com.helger.commons.text.MultiLingualText;
-import com.helger.commons.text.ReadonlyMultiLingualText;
+import com.helger.commons.text.ISimpleMultilingualText;
+import com.helger.commons.text.MultilingualText;
+import com.helger.commons.text.ReadonlyMultilingualText;
 
 /**
  * {@link IMicroTypeConverterRegistrarSPI} implementation for
- * {@link ReadonlyMultiLingualText} and {@link MultiLingualText}.
+ * {@link ReadonlyMultilingualText} and {@link MultilingualText}.
  *
  * @author Philip Helger
  */
 @Immutable
 @IsSPIImplementation
-public final class MultiLingualTextMicroTypeConverterRegistrar implements IMicroTypeConverterRegistrarSPI
+public final class MultilingualTextMicroTypeConverterRegistrar implements IMicroTypeConverterRegistrarSPI
 {
   private abstract static class AbstractMLTConverter implements IMicroTypeConverter
   {
@@ -53,7 +53,7 @@ public final class MultiLingualTextMicroTypeConverterRegistrar implements IMicro
                                                       @Nullable final String sNamespaceURI,
                                                       @Nonnull @Nonempty final String sTagName)
     {
-      final ISimpleMultiLingualText aMLT = (ISimpleMultiLingualText) aSource;
+      final ISimpleMultilingualText aMLT = (ISimpleMultilingualText) aSource;
       final IMicroElement eMText = new MicroElement (sNamespaceURI, sTagName);
       for (final Locale aLocale : CollectionHelper.getSorted (aMLT.getAllLocales (), new ComparatorLocale ()))
       {
@@ -65,9 +65,9 @@ public final class MultiLingualTextMicroTypeConverterRegistrar implements IMicro
     }
 
     @Nonnull
-    protected static MultiLingualText convertToMLT (@Nonnull final IMicroElement aElement)
+    protected static MultilingualText convertToMLT (@Nonnull final IMicroElement aElement)
     {
-      final MultiLingualText aMLT = new MultiLingualText ();
+      final MultilingualText aMLT = new MultilingualText ();
       for (final IMicroElement eText : aElement.getAllChildElements (ELEMENT_TEXT))
       {
         final Locale aLocale = LocaleCache.getLocale (eText.getAttributeValue (ATTR_LOCALE));
@@ -80,16 +80,16 @@ public final class MultiLingualTextMicroTypeConverterRegistrar implements IMicro
   public static final class ReadonlyMultiLingualTextConverter extends AbstractMLTConverter
   {
     @Nonnull
-    public ReadonlyMultiLingualText convertToNative (@Nonnull final IMicroElement aElement)
+    public ReadonlyMultilingualText convertToNative (@Nonnull final IMicroElement aElement)
     {
-      return new ReadonlyMultiLingualText (convertToMLT (aElement));
+      return new ReadonlyMultilingualText (convertToMLT (aElement));
     }
   }
 
   public static final class MultiLingualTextConverter extends AbstractMLTConverter
   {
     @Nonnull
-    public MultiLingualText convertToNative (@Nonnull final IMicroElement aElement)
+    public MultilingualText convertToNative (@Nonnull final IMicroElement aElement)
     {
       return convertToMLT (aElement);
     }
@@ -98,10 +98,10 @@ public final class MultiLingualTextMicroTypeConverterRegistrar implements IMicro
   public void registerMicroTypeConverter (@Nonnull final IMicroTypeConverterRegistry aRegistry)
   {
     // Register the read-only version first!
-    aRegistry.registerMicroElementTypeConverter (ReadonlyMultiLingualText.class,
+    aRegistry.registerMicroElementTypeConverter (ReadonlyMultilingualText.class,
                                                  new ReadonlyMultiLingualTextConverter ());
 
     // Register the writable version afterwards!
-    aRegistry.registerMicroElementTypeConverter (MultiLingualText.class, new MultiLingualTextConverter ());
+    aRegistry.registerMicroElementTypeConverter (MultilingualText.class, new MultiLingualTextConverter ());
   }
 }

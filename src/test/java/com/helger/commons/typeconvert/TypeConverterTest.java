@@ -68,7 +68,7 @@ import com.helger.commons.state.ETopBottom;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.state.EValidity;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.text.MultiLingualText;
+import com.helger.commons.text.MultilingualText;
 import com.helger.commons.typeconvert.TypeConverterException.EReason;
 
 /**
@@ -329,7 +329,7 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   {
     try
     {
-      final MultiLingualText m = TypeConverter.convertIfNecessary ("1234", MultiLingualText.class);
+      final MultilingualText m = TypeConverter.convertIfNecessary ("1234", MultilingualText.class);
       assertNotNull (m);
       fail ();
     }

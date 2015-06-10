@@ -33,6 +33,7 @@ import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.state.EChange;
+import com.helger.commons.state.EContinue;
 
 /**
  * This class represents a multilingual text. It is internally represented as a
@@ -41,21 +42,21 @@ import com.helger.commons.state.EChange;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class MultiLingualText extends TextProvider implements IMutableMultiLingualText
+public class MultilingualText extends MapBasedMultilingualText implements IMutableMultilingualText
 {
   // Because of the transient field
   private static final long serialVersionUID = 136888667633487L;
 
   /** Default empty multilingual text - don't modify this object!!! */
-  public static final IMutableMultiLingualText EMPTY_MULTILINGUAL_TEXT = new MultiLingualText ();
+  public static final IMutableMultilingualText EMPTY_MULTILINGUAL_TEXT = new MultilingualText ();
 
   /** A list of callback upon change. */
-  private final CallbackList <IChangeCallback <IMutableMultiLingualText>> m_aChangeNotifyCallbacks = new CallbackList <IChangeCallback <IMutableMultiLingualText>> ();
+  private final CallbackList <IChangeCallback <IMutableMultilingualText>> m_aChangeNotifyCallbacks = new CallbackList <IChangeCallback <IMutableMultilingualText>> ();
 
-  public MultiLingualText ()
+  public MultilingualText ()
   {}
 
-  public MultiLingualText (@Nonnull final Locale aContentLocale, @Nonnull final String sValue)
+  public MultilingualText (@Nonnull final Locale aContentLocale, @Nonnull final String sValue)
   {
     internalAddText (aContentLocale, sValue);
   }
@@ -64,9 +65,9 @@ public class MultiLingualText extends TextProvider implements IMutableMultiLingu
    * Constructor especially for the static TextProvider.createXXX methods
    *
    * @param aSimpleMLT
-   *        The simple multi lingual text to use.
+   *        The simple multilingual text to use.
    */
-  public MultiLingualText (@Nonnull final ISimpleMultiLingualText aSimpleMLT)
+  public MultilingualText (@Nonnull final ISimpleMultilingualText aSimpleMLT)
   {
     ValueEnforcer.notNull (aSimpleMLT, "SimpleMLT");
 
@@ -74,7 +75,7 @@ public class MultiLingualText extends TextProvider implements IMutableMultiLingu
       internalAddText (aLocale, aSimpleMLT.getText (aLocale));
   }
 
-  public MultiLingualText (@Nonnull final IMultiLingualText aMLT)
+  public MultilingualText (@Nonnull final IMultilingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 
@@ -82,17 +83,18 @@ public class MultiLingualText extends TextProvider implements IMutableMultiLingu
       internalAddText (aEntry.getKey (), aEntry.getValue ());
   }
 
-  private boolean _beforeChange ()
+  @Nonnull
+  private EContinue _beforeChange ()
   {
-    for (final IChangeCallback <IMutableMultiLingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
+    for (final IChangeCallback <IMutableMultilingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
       if (aCallback.beforeChange (this).isBreak ())
-        return false;
-    return true;
+        return EContinue.BREAK;
+    return EContinue.CONTINUE;
   }
 
   private void _afterChange ()
   {
-    for (final IChangeCallback <IMutableMultiLingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
+    for (final IChangeCallback <IMutableMultilingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
       aCallback.afterChange (this);
   }
 
@@ -104,7 +106,7 @@ public class MultiLingualText extends TextProvider implements IMutableMultiLingu
     if (super.containsLocale (aContentLocale))
       return EChange.UNCHANGED;
 
-    if (!_beforeChange ())
+    if (_beforeChange ().isBreak ())
       return EChange.UNCHANGED;
     internalAddText (aContentLocale, sText);
     _afterChange ();
@@ -125,7 +127,7 @@ public class MultiLingualText extends TextProvider implements IMutableMultiLingu
       if (EqualsHelper.equals (sOldText, sText))
         return EChange.UNCHANGED;
 
-      if (!_beforeChange ())
+      if (_beforeChange ().isBreak ())
         return EChange.UNCHANGED;
       internalSetText (aContentLocale, sText);
       _afterChange ();
@@ -133,7 +135,7 @@ public class MultiLingualText extends TextProvider implements IMutableMultiLingu
     }
 
     // New text
-    if (!_beforeChange ())
+    if (_beforeChange ().isBreak ())
       return EChange.UNCHANGED;
     internalAddText (aContentLocale, sText);
     _afterChange ();
@@ -146,7 +148,7 @@ public class MultiLingualText extends TextProvider implements IMutableMultiLingu
     for (final Locale aCurrentLocale : LocaleHelper.getCalculatedLocaleListForResolving (aContentLocale))
       if (super.containsLocale (aCurrentLocale))
       {
-        if (!_beforeChange ())
+        if (_beforeChange ().isBreak ())
           return EChange.UNCHANGED;
         internalRemoveText (aCurrentLocale);
         _afterChange ();
@@ -158,21 +160,20 @@ public class MultiLingualText extends TextProvider implements IMutableMultiLingu
   @Nonnull
   public EChange clear ()
   {
-    if (!isEmpty () && _beforeChange ())
-    {
-      internalClear ();
-      _afterChange ();
-      return EChange.CHANGED;
-    }
-    return EChange.UNCHANGED;
+    if (isEmpty () || _beforeChange ().isBreak ())
+      return EChange.UNCHANGED;
+
+    internalClear ();
+    _afterChange ();
+    return EChange.CHANGED;
   }
 
   @Nonnull
-  public EChange assignFrom (@Nonnull final IMultiLingualText aMLT)
+  public EChange assignFrom (@Nonnull final IMultilingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 
-    if (getAllTexts ().equals (aMLT.getAllTexts ()) || !_beforeChange ())
+    if (getAllTexts ().equals (aMLT.getAllTexts ()) || _beforeChange ().isBreak ())
       return EChange.UNCHANGED;
 
     // Remove all existing texts and assign the new ones
@@ -185,27 +186,15 @@ public class MultiLingualText extends TextProvider implements IMutableMultiLingu
 
   @Nonnull
   @ReturnsMutableObject (reason = "design")
-  public CallbackList <IChangeCallback <IMutableMultiLingualText>> getChangeNotifyCallbacks ()
+  public CallbackList <IChangeCallback <IMutableMultilingualText>> getChangeNotifyCallbacks ()
   {
     return m_aChangeNotifyCallbacks;
   }
 
-  @Override
-  public boolean equals (final Object o)
-  {
-    return super.equals (o);
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    return super.hashCode ();
-  }
-
   @Nonnull
-  public static IMutableMultiLingualText createFromMap (@Nonnull final Map <String, String> aMap)
+  public static IMutableMultilingualText createFromMap (@Nonnull final Map <String, String> aMap)
   {
-    final IMutableMultiLingualText ret = new MultiLingualText ();
+    final IMutableMultilingualText ret = new MultilingualText ();
     for (final Entry <String, String> aEntry : aMap.entrySet ())
     {
       final String sText = aEntry.getValue ();
@@ -220,7 +209,7 @@ public class MultiLingualText extends TextProvider implements IMutableMultiLingu
    * copied.
    *
    * @param aMLT
-   *        The initial multi lingual text.
+   *        The initial multilingual text. May not be <code>null</code>.
    * @param aContentLocales
    *        The list of locales of which the strings are desired. May not be
    *        <code>null</code>.
@@ -228,10 +217,10 @@ public class MultiLingualText extends TextProvider implements IMutableMultiLingu
    *         <code>null</code>.
    */
   @Nonnull
-  public static IMutableMultiLingualText getCopyWithLocales (@Nonnull final IMultiLingualText aMLT,
-                                                      @Nonnull final Collection <Locale> aContentLocales)
+  public static IMutableMultilingualText getCopyWithLocales (@Nonnull final IMultilingualText aMLT,
+                                                             @Nonnull final Collection <Locale> aContentLocales)
   {
-    final IMutableMultiLingualText ret = new MultiLingualText ();
+    final IMutableMultilingualText ret = new MultilingualText ();
     for (final Locale aConrentLocale : aContentLocales)
       if (aMLT.containsLocale (aConrentLocale))
         ret.setText (aConrentLocale, aMLT.getText (aConrentLocale));

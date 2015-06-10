@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.text.TextProvider;
+import com.helger.commons.text.MapBasedMultilingualText;
 import com.helger.commons.text.display.IHasDisplayText;
 
 public final class MockHasDisplayText implements IHasDisplayText
@@ -50,7 +50,7 @@ public final class MockHasDisplayText implements IHasDisplayText
   @Nonnull
   public static MockHasDisplayText createDE_EN (@Nullable final String sDE, @Nullable final String sEN)
   {
-    return new MockHasDisplayText (CollectionHelper.newMap (new Locale [] { TextProvider.DE, TextProvider.EN },
+    return new MockHasDisplayText (CollectionHelper.newMap (new Locale [] { MapBasedMultilingualText.DE, MapBasedMultilingualText.EN },
                                                             new String [] { sDE, sEN }));
   }
 }

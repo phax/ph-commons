@@ -49,20 +49,28 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class TextProvider extends AbstractHasTextWithArgs implements IMultiLingualText
+public class MapBasedMultilingualText extends AbstractHasTextWithArgs implements IMultilingualText
 {
   /** German locale used */
   public static final Locale DE = LocaleCache.getLocale ("de");
   /** English locale used */
   public static final Locale EN = LocaleCache.getLocale ("en");
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (TextProvider.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MapBasedMultilingualText.class);
   private static final AtomicBoolean s_aConsistencyChecksEnabled = new AtomicBoolean (GlobalDebug.isDebugMode ());
 
-  private final Map <Locale, String> m_aTexts = new HashMap <Locale, String> ();
+  private final Map <Locale, String> m_aTexts;
 
-  public TextProvider ()
-  {}
+  public MapBasedMultilingualText ()
+  {
+    // Use a HashMap by default
+    this (new HashMap <Locale, String> ());
+  }
+
+  protected MapBasedMultilingualText (@Nonnull final Map <Locale, String> aMapToUse)
+  {
+    m_aTexts = ValueEnforcer.notNull (aMapToUse, "MapToUse");
+  }
 
   /**
    * Enable or disable the internal consistency checks.
@@ -109,7 +117,8 @@ public class TextProvider extends AbstractHasTextWithArgs implements IMultiLingu
   }
 
   @Nonnull
-  protected final TextProvider internalAddText (@Nonnull final Locale aContentLocale, @Nonnull final String sValue)
+  protected final MapBasedMultilingualText internalAddText (@Nonnull final Locale aContentLocale,
+                                                            @Nonnull final String sValue)
   {
     if (m_aTexts.containsKey (aContentLocale))
       throw new IllegalArgumentException ("Locale '" +
@@ -121,7 +130,8 @@ public class TextProvider extends AbstractHasTextWithArgs implements IMultiLingu
   }
 
   @Nonnull
-  protected final TextProvider internalSetText (@Nonnull final Locale aContentLocale, @Nullable final String sValue)
+  protected final MapBasedMultilingualText internalSetText (@Nonnull final Locale aContentLocale,
+                                                            @Nullable final String sValue)
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
@@ -229,7 +239,7 @@ public class TextProvider extends AbstractHasTextWithArgs implements IMultiLingu
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final TextProvider rhs = (TextProvider) o;
+    final MapBasedMultilingualText rhs = (MapBasedMultilingualText) o;
     return m_aTexts.equals (rhs.m_aTexts);
   }
 
@@ -248,20 +258,20 @@ public class TextProvider extends AbstractHasTextWithArgs implements IMultiLingu
   }
 
   @Nonnull
-  public static TextProvider create_DE (@Nonnull final String sDE)
+  public static MapBasedMultilingualText create_DE (@Nonnull final String sDE)
   {
-    return new TextProvider ().internalAddText (DE, sDE);
+    return new MapBasedMultilingualText ().internalAddText (DE, sDE);
   }
 
   @Nonnull
-  public static TextProvider create_EN (@Nonnull final String sEN)
+  public static MapBasedMultilingualText create_EN (@Nonnull final String sEN)
   {
-    return new TextProvider ().internalAddText (EN, sEN);
+    return new MapBasedMultilingualText ().internalAddText (EN, sEN);
   }
 
   @Nonnull
-  public static TextProvider create_DE_EN (@Nonnull final String sDE, @Nonnull final String sEN)
+  public static MapBasedMultilingualText create_DE_EN (@Nonnull final String sDE, @Nonnull final String sEN)
   {
-    return new TextProvider ().internalAddText (DE, sDE).internalAddText (EN, sEN);
+    return new MapBasedMultilingualText ().internalAddText (DE, sDE).internalAddText (EN, sEN);
   }
 }

@@ -21,12 +21,13 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.text.util.TextHelper;
 
 /**
  * An abstract implementation of the {@link IHasTextWithArgs} that has default
  * implementations for the formatting things.
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractHasTextWithArgs extends AbstractHasText implements IHasTextWithArgs
@@ -35,17 +36,17 @@ public abstract class AbstractHasTextWithArgs extends AbstractHasText implements
   {}
 
   @Nullable
-  public final String getTextWithArgs (@Nonnull final Locale aContentLocale, @Nullable final Object... aArgs)
+  @Deprecated
+  @DevelopersNote ("Use getText instead!")
+  public String getTextWithArgs (@Nonnull final Locale aContentLocale)
   {
-    final String sText = getText (aContentLocale);
-    return TextHelper.getFormattedText (sText, aArgs);
+    return getText (aContentLocale);
   }
 
   @Nullable
-  public final String getTextWithLocaleFallbackAndArgs (@Nonnull final Locale aContentLocale,
-                                                        @Nullable final Object... aArgs)
+  public final String getTextWithArgs (@Nonnull final Locale aContentLocale, @Nullable final Object... aArgs)
   {
-    final String sText = getTextWithLocaleFallback (aContentLocale);
+    final String sText = getText (aContentLocale);
     return TextHelper.getFormattedText (sText, aArgs);
   }
 }

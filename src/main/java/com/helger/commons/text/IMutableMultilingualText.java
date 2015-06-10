@@ -31,7 +31,7 @@ import com.helger.commons.state.IClearable;
  *
  * @author Philip Helger
  */
-public interface IMutableMultiLingualText extends IMultiLingualText, IClearable
+public interface IMutableMultilingualText extends IMultilingualText, IClearable
 {
   /**
    * Add a text in the specified locale. If a text with the same locale is
@@ -83,11 +83,11 @@ public interface IMutableMultiLingualText extends IMultiLingualText, IClearable
    *         {@link EChange#UNCHANGED} otherwise.
    */
   @Nonnull
-  EChange assignFrom (@Nonnull IMultiLingualText aMLT);
+  EChange assignFrom (@Nonnull IMultilingualText aMLT);
 
   /**
    * @return The change notify callbacks. Never <code>null</code>.
    */
   @Nonnull
-  CallbackList <IChangeCallback <IMutableMultiLingualText>> getChangeNotifyCallbacks ();
+  CallbackList <IChangeCallback <IMutableMultilingualText>> getChangeNotifyCallbacks ();
 }

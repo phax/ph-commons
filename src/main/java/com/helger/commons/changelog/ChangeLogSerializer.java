@@ -49,7 +49,7 @@ import com.helger.commons.microdom.convert.MicroTypeConverter;
 import com.helger.commons.microdom.serialize.MicroReader;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
-import com.helger.commons.text.MultiLingualText;
+import com.helger.commons.text.MultilingualText;
 import com.helger.commons.version.Version;
 import com.helger.commons.xml.CXML;
 
@@ -186,7 +186,7 @@ public final class ChangeLogSerializer
           aErrorCallback.run ("No change element present!");
           continue;
         }
-        final MultiLingualText aMLT = MicroTypeConverter.convertToNative (eChange, MultiLingualText.class);
+        final MultilingualText aMLT = MicroTypeConverter.convertToNative (eChange, MultilingualText.class);
         if (aMLT == null)
         {
           aErrorCallback.run ("Failed to read multi lingual text in change element!");

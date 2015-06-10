@@ -21,6 +21,8 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.DevelopersNote;
+
 /**
  * Basic interface for object providing multilingual texts with and without
  * arguments.
@@ -30,9 +32,24 @@ import javax.annotation.Nullable;
 public interface IHasTextWithArgs extends IHasText
 {
   /**
-   * Get the text specific for the passed locale. The implementation class MUST
-   * NOT add locale-generalisation when resolving the text ("de_DE" =&gt; "de"
-   * =&gt; <i>default</i>). The placeholders will be resolved with the
+   * Get the text specific for the passed locale. The implementation class MAY
+   * add locale-generalisation when resolving the text ("de_DE" =&gt; "de" =&gt;
+   * <i>default</i>).
+   *
+   * @param aContentLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @return <code>null</code> if no text for the given locale was found.
+   * @deprecated Use {@link #getText(Locale)} instead!
+   */
+  @Nullable
+  @Deprecated
+  @DevelopersNote ("Use getText instead!")
+  String getTextWithArgs (@Nonnull Locale aContentLocale);
+
+  /**
+   * Get the text specific for the passed locale. The implementation class MAY
+   * add locale-generalisation when resolving the text ("de_DE" =&gt; "de" =&gt;
+   * <i>default</i>). The placeholders will be resolved with the
    * {@link java.text.MessageFormat#format(Object)} method.
    *
    * @param aContentLocale
@@ -44,21 +61,4 @@ public interface IHasTextWithArgs extends IHasText
    */
   @Nullable
   String getTextWithArgs (@Nonnull Locale aContentLocale, @Nullable Object... aArgs);
-
-  /**
-   * Get the text specific for the passed locale. The implementation class MUST
-   * add locale-generalisation when resolving the text ("de_DE" =&gt; "de" =&gt;
-   * <i>default</i>). The placeholders will be resolved with the
-   * {@link java.text.MessageFormat#format(Object)} method.
-   *
-   * @param aContentLocale
-   *        The locale to use. May not be <code>null</code>.
-   * @param aArgs
-   *        The arguments to be added into the string. May be <code>null</code>
-   *        but this makes no sense.
-   * @return <code>null</code> if no text for the given locale was found.
-   * @see com.helger.commons.locale.LocaleHelper#getCalculatedLocaleListForResolving(Locale)
-   */
-  @Nullable
-  String getTextWithLocaleFallbackAndArgs (@Nonnull Locale aContentLocale, @Nullable Object... aArgs);
 }

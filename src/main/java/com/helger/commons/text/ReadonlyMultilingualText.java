@@ -31,21 +31,21 @@ import com.helger.commons.ValueEnforcer;
  * @author Philip Helger
  */
 @Immutable
-public class ReadonlyMultiLingualText extends TextProvider
+public class ReadonlyMultilingualText extends MapBasedMultilingualText
 {
   /**
    * Create an empty read-only multilingual text. Handle with care, as this type
    * does not allow for public modification!
    */
-  public ReadonlyMultiLingualText ()
+  public ReadonlyMultilingualText ()
   {}
 
-  public ReadonlyMultiLingualText (@Nonnull final Locale aContentLocale, @Nonnull final String sValue)
+  public ReadonlyMultilingualText (@Nonnull final Locale aContentLocale, @Nonnull final String sValue)
   {
     internalAddText (aContentLocale, sValue);
   }
 
-  public ReadonlyMultiLingualText (@Nonnull final Map <Locale, String> aContent)
+  public ReadonlyMultilingualText (@Nonnull final Map <Locale, String> aContent)
   {
     ValueEnforcer.notNull (aContent, "Content");
 
@@ -53,7 +53,7 @@ public class ReadonlyMultiLingualText extends TextProvider
       internalAddText (aEntry.getKey (), aEntry.getValue ());
   }
 
-  public ReadonlyMultiLingualText (@Nonnull final ISimpleMultiLingualText aSimpleMLT)
+  public ReadonlyMultilingualText (@Nonnull final ISimpleMultilingualText aSimpleMLT)
   {
     ValueEnforcer.notNull (aSimpleMLT, "SimpleMLT");
 
@@ -61,7 +61,7 @@ public class ReadonlyMultiLingualText extends TextProvider
       internalAddText (aLocale, aSimpleMLT.getText (aLocale));
   }
 
-  public ReadonlyMultiLingualText (@Nonnull final IMultiLingualText aMLT)
+  public ReadonlyMultilingualText (@Nonnull final IMultilingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 

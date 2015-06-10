@@ -30,29 +30,29 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.text.IMultiLingualText;
-import com.helger.commons.text.ISimpleMultiLingualText;
-import com.helger.commons.text.MultiLingualText;
-import com.helger.commons.text.ReadonlyMultiLingualText;
+import com.helger.commons.text.IMultilingualText;
+import com.helger.commons.text.ISimpleMultilingualText;
+import com.helger.commons.text.MultilingualText;
+import com.helger.commons.text.ReadonlyMultilingualText;
 
 /**
- * Test class for class {@link ReadonlyMultiLingualText}.
+ * Test class for class {@link ReadonlyMultilingualText}.
  *
  * @author Philip Helger
  */
-public final class ReadonlyMultiLingualTextTest extends AbstractCommonsTestCase
+public final class ReadonlyMultilingualTextTest extends AbstractCommonsTestCase
 {
   @Test
   public void testCtor ()
   {
-    IMultiLingualText aMLT = new ReadonlyMultiLingualText ();
+    IMultilingualText aMLT = new ReadonlyMultilingualText ();
     assertEquals (0, aMLT.getSize ());
     assertNotNull (aMLT.getAllLocales ());
     assertTrue (aMLT.getAllLocales ().isEmpty ());
 
     final Map <Locale, String> aMap = CollectionHelper.newMap (new Locale [] { L_DE, L_EN },
                                                                new String [] { "de", "en" });
-    aMLT = new ReadonlyMultiLingualText (aMap);
+    aMLT = new ReadonlyMultilingualText (aMap);
     assertEquals (2, aMLT.getSize ());
     assertEquals (2, aMLT.getAllLocales ().size ());
     assertTrue (aMLT.containsLocale (L_DE));
@@ -63,10 +63,10 @@ public final class ReadonlyMultiLingualTextTest extends AbstractCommonsTestCase
     assertFalse (aMLT.containsLocaleWithFallback (L_FR));
     assertEquals (2, aMLT.getAllTexts ().size ());
 
-    final MultiLingualText t = new MultiLingualText ();
+    final MultilingualText t = new MultilingualText ();
     for (final Map.Entry <Locale, String> aEntry : aMap.entrySet ())
       t.setText (aEntry.getKey (), aEntry.getValue ());
-    aMLT = new ReadonlyMultiLingualText (t);
+    aMLT = new ReadonlyMultilingualText (t);
     assertEquals (2, aMLT.getSize ());
     assertEquals (2, aMLT.getAllLocales ().size ());
     assertTrue (aMLT.containsLocale (L_DE));
@@ -77,7 +77,7 @@ public final class ReadonlyMultiLingualTextTest extends AbstractCommonsTestCase
     assertFalse (aMLT.containsLocaleWithFallback (L_FR));
     assertEquals (2, aMLT.getAllTexts ().size ());
 
-    aMLT = new ReadonlyMultiLingualText ((ISimpleMultiLingualText) t);
+    aMLT = new ReadonlyMultilingualText ((ISimpleMultilingualText) t);
     assertEquals (2, aMLT.getSize ());
     assertEquals (2, aMLT.getAllLocales ().size ());
     assertTrue (aMLT.containsLocale (L_DE));
@@ -89,31 +89,31 @@ public final class ReadonlyMultiLingualTextTest extends AbstractCommonsTestCase
     assertEquals (2, aMLT.getAllTexts ().size ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMLT,
-                                                                 new ReadonlyMultiLingualText (CollectionHelper.newMap (new Locale [] { L_DE,
+                                                                 new ReadonlyMultilingualText (CollectionHelper.newMap (new Locale [] { L_DE,
                                                                                                                                        L_EN },
                                                                                                                         new String [] { "de",
                                                                                                                                        "en" })));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadonlyMultiLingualText (),
-                                                                 new ReadonlyMultiLingualText ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadonlyMultiLingualText ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadonlyMultilingualText (),
+                                                                 new ReadonlyMultilingualText ());
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadonlyMultilingualText ());
 
     try
     {
-      new ReadonlyMultiLingualText ((Map <Locale, String>) null);
+      new ReadonlyMultilingualText ((Map <Locale, String>) null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      new ReadonlyMultiLingualText ((IMultiLingualText) null);
+      new ReadonlyMultilingualText ((IMultilingualText) null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      new ReadonlyMultiLingualText ((ISimpleMultiLingualText) null);
+      new ReadonlyMultilingualText ((ISimpleMultilingualText) null);
       fail ();
     }
     catch (final NullPointerException ex)

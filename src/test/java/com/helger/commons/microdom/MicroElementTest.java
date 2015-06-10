@@ -46,7 +46,7 @@ import com.helger.commons.microdom.MicroException;
 import com.helger.commons.microdom.MicroQName;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.text.MultiLingualText;
+import com.helger.commons.text.MultilingualText;
 import com.helger.commons.typeconvert.TypeConverterException;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -132,7 +132,7 @@ public final class MicroElementTest extends AbstractCommonsTestCase
 
     try
     {
-      e.getAttributeValueWithConversion ("attr", MultiLingualText.class);
+      e.getAttributeValueWithConversion ("attr", MultilingualText.class);
       fail ();
     }
     catch (final TypeConverterException ex)

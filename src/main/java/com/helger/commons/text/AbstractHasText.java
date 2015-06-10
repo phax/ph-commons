@@ -35,16 +35,6 @@ public abstract class AbstractHasText implements IHasText
   {}
 
   /**
-   * Main text resolving
-   *
-   * @param aContentLocale
-   *        Locale to use. Never <code>null</code>.
-   * @return <code>null</code> if no such text present in the passed locale
-   */
-  @Nullable
-  protected abstract String internalGetText (@Nonnull Locale aContentLocale);
-
-  /**
    * Determine the locale to use.
    *
    * @param aContentLocale
@@ -54,16 +44,18 @@ public abstract class AbstractHasText implements IHasText
   @Nullable
   protected abstract Locale internalGetLocaleToUseWithFallback (@Nonnull Locale aContentLocale);
 
+  /**
+   * Main text resolving
+   *
+   * @param aContentLocale
+   *        Locale to use. Never <code>null</code>.
+   * @return <code>null</code> if no such text present in the passed locale
+   */
+  @Nullable
+  protected abstract String internalGetText (@Nonnull Locale aContentLocale);
+
   @Nullable
   public final String getText (@Nonnull final Locale aContentLocale)
-  {
-    ValueEnforcer.notNull (aContentLocale, "ContentLocale");
-
-    return internalGetText (aContentLocale);
-  }
-
-  @Nullable
-  public final String getTextWithLocaleFallback (@Nonnull final Locale aContentLocale)
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 

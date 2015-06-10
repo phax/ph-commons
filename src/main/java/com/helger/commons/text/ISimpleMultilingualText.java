@@ -16,22 +16,21 @@
  */
 package com.helger.commons.text;
 
-import java.util.Locale;
-import java.util.Map;
+import java.io.Serializable;
 
-import javax.annotation.Nonnull;
+import com.helger.commons.lang.IHasSize;
+import com.helger.commons.locale.IHasLocales;
 
 /**
- * Readonly interface for a multilingual text
+ * This is an in-between interface between the {@link IHasTextWithArgs} and the
+ * {@link IMultilingualText}. The practical purpose of this interface is to have
+ * a simple serializable multilingual text.<br>
+ * It only defines the read-access methods, to allow for immutable
+ * implementations.
  *
  * @author Philip Helger
  */
-public interface IMultiLingualText extends ISimpleMultiLingualText
+public interface ISimpleMultilingualText extends IHasTextWithArgs, IHasLocales, IHasSize, Serializable
 {
-  /**
-   * @return A map over all contained locale/text pairs. Never <code>null</code>
-   *         .
-   */
-  @Nonnull
-  Map <Locale, String> getAllTexts ();
+  /* empty */
 }

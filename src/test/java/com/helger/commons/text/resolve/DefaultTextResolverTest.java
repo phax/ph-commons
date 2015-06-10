@@ -30,7 +30,7 @@ import org.junit.Test;
 
 import com.helger.commons.annotation.NoTranslationRequired;
 import com.helger.commons.locale.LocaleCache;
-import com.helger.commons.text.TextProvider;
+import com.helger.commons.text.MapBasedMultilingualText;
 import com.helger.commons.text.display.IHasDisplayText;
 import com.helger.commons.text.display.IHasDisplayTextWithArgs;
 
@@ -48,11 +48,11 @@ public final class DefaultTextResolverTest
     TEXT2 ("Text2de", "Text2en"),
     TEXT3 ("Text3{0}de", "Text3{0}en");
 
-    private final TextProvider m_aTP;
+    private final MapBasedMultilingualText m_aTP;
 
     private EText (final String sDE, final String sEN)
     {
-      m_aTP = TextProvider.create_DE_EN (sDE, sEN);
+      m_aTP = MapBasedMultilingualText.create_DE_EN (sDE, sEN);
     }
 
     @Nullable
@@ -71,9 +71,9 @@ public final class DefaultTextResolverTest
   @Test
   public void testGetText ()
   {
-    final Locale aDE = TextProvider.DE;
+    final Locale aDE = MapBasedMultilingualText.DE;
     final Locale aDE_AT = LocaleCache.getLocale ("de", "AT");
-    final Locale aEN = TextProvider.EN;
+    final Locale aEN = MapBasedMultilingualText.EN;
     final Locale aEN_US = LocaleCache.getLocale ("en", "US");
     final Locale aSR = LocaleCache.getLocale ("sr", "RS");
 
@@ -102,8 +102,8 @@ public final class DefaultTextResolverTest
   @Test
   public void testGetTextWithArgs ()
   {
-    final Locale aDE = TextProvider.DE;
-    final Locale aEN = TextProvider.EN;
+    final Locale aDE = MapBasedMultilingualText.DE;
+    final Locale aEN = MapBasedMultilingualText.EN;
 
     // Regular
     assertEquals ("Text3abcde", EText.TEXT3.getDisplayTextWithArgs (aDE, "abc"));
