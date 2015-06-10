@@ -77,26 +77,31 @@ public final class MultiLingualTextMicroTypeConverterRegistrar implements IMicro
     }
   }
 
+  public static final class ReadonlyMultiLingualTextConverter extends AbstractMLTConverter
+  {
+    @Nonnull
+    public ReadonlyMultiLingualText convertToNative (@Nonnull final IMicroElement aElement)
+    {
+      return new ReadonlyMultiLingualText (convertToMLT (aElement));
+    }
+  }
+
+  public static final class MultiLingualTextConverter extends AbstractMLTConverter
+  {
+    @Nonnull
+    public MultiLingualText convertToNative (@Nonnull final IMicroElement aElement)
+    {
+      return convertToMLT (aElement);
+    }
+  }
+
   public void registerMicroTypeConverter (@Nonnull final IMicroTypeConverterRegistry aRegistry)
   {
     // Register the read-only version first!
-    aRegistry.registerMicroElementTypeConverter (ReadonlyMultiLingualText.class, new AbstractMLTConverter ()
-    {
-      @Nonnull
-      public ReadonlyMultiLingualText convertToNative (@Nonnull final IMicroElement aElement)
-      {
-        return new ReadonlyMultiLingualText (convertToMLT (aElement));
-      }
-    });
+    aRegistry.registerMicroElementTypeConverter (ReadonlyMultiLingualText.class,
+                                                 new ReadonlyMultiLingualTextConverter ());
 
     // Register the writable version afterwards!
-    aRegistry.registerMicroElementTypeConverter (MultiLingualText.class, new AbstractMLTConverter ()
-    {
-      @Nonnull
-      public MultiLingualText convertToNative (@Nonnull final IMicroElement aElement)
-      {
-        return convertToMLT (aElement);
-      }
-    });
+    aRegistry.registerMicroElementTypeConverter (MultiLingualText.class, new MultiLingualTextConverter ());
   }
 }

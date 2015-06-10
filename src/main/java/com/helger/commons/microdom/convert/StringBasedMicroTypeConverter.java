@@ -26,8 +26,9 @@ import com.helger.commons.typeconvert.TypeConverter;
 
 /**
  * An implementation if {@link IMicroTypeConverter} that uses a regular type
- * converter conversion from and to string for conversion.
- * 
+ * converter conversion (see {@link TypeConverter}) from and to string for
+ * conversion.
+ *
  * @author Philip Helger
  */
 public final class StringBasedMicroTypeConverter implements IMicroTypeConverter
