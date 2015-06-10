@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mock.exception;
+package com.helger.commons.exception.mock;
 
 /**
  * Runtime exception for test cases.

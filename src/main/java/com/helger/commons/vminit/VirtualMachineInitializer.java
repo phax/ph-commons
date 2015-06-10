@@ -21,8 +21,8 @@ import java.util.List;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.cleanup.CommonsCleanup;
+import com.helger.commons.exception.mock.IMockException;
 import com.helger.commons.lang.ServiceLoaderHelper;
-import com.helger.commons.mock.exception.IMockException;
 
 /**
  * This class should be run upon VM initialization. This should be the very

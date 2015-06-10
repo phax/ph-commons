@@ -17,7 +17,7 @@
 package com.helger.commons.vminit;
 
 import com.helger.commons.annotation.IsSPIImplementation;
-import com.helger.commons.mock.exception.MockException;
+import com.helger.commons.exception.mock.MockException;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

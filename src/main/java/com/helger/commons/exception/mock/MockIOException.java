@@ -14,15 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mock.exception;
+package com.helger.commons.exception.mock;
+
+import java.io.IOException;
 
 /**
- * This is a marker interface for mock exceptions. It should be used to easily
- * identify mock exceptions from regular exceptions.
+ * IO exception for test cases.
  *
  * @author Philip Helger
  */
-public interface IMockException
+public class MockIOException extends IOException implements IMockException
 {
-  /* empty */
+  public MockIOException ()
+  {}
+
+  public MockIOException (final String s)
+  {
+    super (s);
+  }
+
+  // Java 1.5 does not have an overload for Throwable or String+Throwable
+  public MockIOException (final Throwable t)
+  {
+    super (t);
+  }
+
+  public MockIOException (final String s, final Throwable t)
+  {
+    super (s, t);
+  }
 }

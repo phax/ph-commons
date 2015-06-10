@@ -27,8 +27,8 @@ import java.util.Date;
 import org.junit.Test;
 
 import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.exception.mock.MockException;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.mock.exception.MockException;
 
 /**
  * Test class for class {@link LogMessage}.

@@ -26,9 +26,9 @@ import java.io.File;
 
 import org.junit.Test;
 
+import com.helger.commons.exception.mock.MockException;
+import com.helger.commons.exception.mock.MockIOException;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.mock.exception.MockException;
-import com.helger.commons.mock.exception.MockIOException;
 
 /**
  * Test class for class {@link FileIOError}.

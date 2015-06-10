@@ -38,6 +38,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.exception.mock.MockIOException;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
@@ -49,7 +50,6 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.io.stream.WrappedInputStream;
 import com.helger.commons.io.stream.WrappedReader;
 import com.helger.commons.io.streamprovider.ByteArrayInputStreamProvider;
-import com.helger.commons.mock.exception.MockIOException;
 import com.helger.commons.mutable.MutableLong;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
