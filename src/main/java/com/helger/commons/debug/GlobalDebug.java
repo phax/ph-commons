@@ -79,16 +79,16 @@ public final class GlobalDebug
    */
   public static void setJavaCommonComponentsDebugMode (final boolean bDebugMode)
   {
-    // Enable or disable JAXP debugging!
-    // Note: this property is read only on Ubuntu, defined by the following
+    // Set JAXP debugging!
+    // Note: this property is read-only on Ubuntu, defined by the following
     // policy file: /etc/tomcat6/policy.d/04webapps.policy
-    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JAXP_DEBUG, Boolean.toString (bDebugMode));
+    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JAXP_DEBUG, bDebugMode);
 
-    // Enable javax.activation debugging
-    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JAVAX_ACTIVATION_DEBUG, Boolean.toString (bDebugMode));
+    // Set javax.activation debugging
+    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JAVAX_ACTIVATION_DEBUG, bDebugMode);
 
-    // Enable javax.mail debugging
-    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_MAIL_DEBUG, Boolean.toString (bDebugMode));
+    // Set javax.mail debugging
+    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_MAIL_DEBUG, bDebugMode);
   }
 
   /**

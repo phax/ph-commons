@@ -27,7 +27,7 @@ import com.helger.commons.lang.IHasSize;
 import com.helger.commons.locale.IHasLocales;
 
 /**
- * Readonly interface for a multilingual text
+ * Read-only interface for a multilingual text
  *
  * @author Philip Helger
  */

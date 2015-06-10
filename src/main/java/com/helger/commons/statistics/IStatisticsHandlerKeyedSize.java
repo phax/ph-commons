@@ -17,7 +17,7 @@
 package com.helger.commons.statistics;
 
 /**
- * Readonly statistics handler for keyed sizes.
+ * Read-only statistics handler for keyed sizes.
  *
  * @author Philip Helger
  */

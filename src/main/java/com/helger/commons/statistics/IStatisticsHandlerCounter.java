@@ -19,7 +19,7 @@ package com.helger.commons.statistics;
 import javax.annotation.CheckForSigned;
 
 /**
- * Read only statistics handler for a counter.
+ * Read-only statistics handler for a counter.
  *
  * @author Philip Helger
  */

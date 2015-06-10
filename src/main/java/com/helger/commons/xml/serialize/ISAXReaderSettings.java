@@ -25,10 +25,10 @@ import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.ext.LexicalHandler;
 
 /**
- * Read only interface for the {@link SAXReaderSettings}. Implementations of
+ * Read-only interface for the {@link SAXReaderSettings}. Implementations of
  * this interface are meant to define settings that can be used with
  * org.xml.sax.XMLReader instances.
- * 
+ *
  * @author Philip Helger
  */
 public interface ISAXReaderSettings extends IBaseXMLReaderSettings
@@ -68,7 +68,7 @@ public interface ISAXReaderSettings extends IBaseXMLReaderSettings
    * Check if the current settings require a separate
    * {@link javax.xml.parsers.DocumentBuilderFactory} or if a pooled default
    * object can be used.
-   * 
+   *
    * @return <code>true</code> if a separate
    *         {@link javax.xml.parsers.DocumentBuilderFactory} is required,
    *         <code>false</code> if not.
@@ -77,7 +77,7 @@ public interface ISAXReaderSettings extends IBaseXMLReaderSettings
 
   /**
    * Apply all settings of this object onto the specified XMLReader object
-   * 
+   *
    * @param aParser
    *        The XML reader to apply the settings onto. May not be
    *        <code>null</code>.

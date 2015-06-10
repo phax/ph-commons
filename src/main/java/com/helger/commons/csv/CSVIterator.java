@@ -83,6 +83,6 @@ public class CSVIterator implements Iterator <List <String>>
    */
   public void remove ()
   {
-    throw new UnsupportedOperationException ("This is a read only CSV iterator.");
+    throw new UnsupportedOperationException ("This is a read-only CSV iterator.");
   }
 }

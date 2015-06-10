@@ -19,7 +19,7 @@ package com.helger.commons.statistics;
 import javax.annotation.Nonnegative;
 
 /**
- * Read only statistics handler for cache hit/miss
+ * Read-only statistics handler for cache hit/miss
  *
  * @author Philip Helger
  */

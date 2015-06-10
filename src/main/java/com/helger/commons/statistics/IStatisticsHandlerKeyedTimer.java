@@ -17,7 +17,7 @@
 package com.helger.commons.statistics;
 
 /**
- * Read only statistics handler for keyed timer.
+ * Read-only statistics handler for keyed timer.
  *
  * @author Philip Helger
  */

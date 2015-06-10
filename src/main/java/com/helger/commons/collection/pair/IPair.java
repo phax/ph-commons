@@ -21,7 +21,7 @@ import java.io.Serializable;
 import javax.annotation.Nullable;
 
 /**
- * Represents a basic read only pair.
+ * Represents a basic read-only pair.
  *
  * @author Philip Helger
  * @param <DATA1TYPE>
