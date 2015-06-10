@@ -26,7 +26,7 @@ import javax.annotation.RegEx;
 import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.cache.AbstractNotifyingCacheWithMaxSize;
+import com.helger.commons.cache.AbstractNotifyingCache;
 import com.helger.commons.state.EChange;
 
 /**
@@ -35,7 +35,7 @@ import com.helger.commons.state.EChange;
  *
  * @author Philip Helger
  */
-public final class RegExPool extends AbstractNotifyingCacheWithMaxSize <RegExPattern, Pattern>
+public final class RegExPool extends AbstractNotifyingCache <RegExPattern, Pattern>
 {
   /** The default number of items to keep in the cache */
   public static final int MAX_CACHE_SIZE = 1000;
@@ -45,7 +45,7 @@ public final class RegExPool extends AbstractNotifyingCacheWithMaxSize <RegExPat
 
   private RegExPool ()
   {
-    super (RegExPool.class.getName (), MAX_CACHE_SIZE);
+    super (MAX_CACHE_SIZE, RegExPool.class.getName ());
   }
 
   @Override

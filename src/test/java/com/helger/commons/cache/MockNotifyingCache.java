@@ -16,25 +16,20 @@
  */
 package com.helger.commons.cache;
 
-import static org.junit.Assert.assertEquals;
+import javax.annotation.Nullable;
 
-import org.junit.Test;
+import com.helger.commons.string.StringHelper;
 
-/**
- * Test class for class {@link AbstractNotifyingCacheWithMaxSize}.
- *
- * @author Philip Helger
- */
-public final class AbstractNotifyingCacheWithMaxSizeTest
+public final class MockNotifyingCache extends AbstractNotifyingCache <String, String>
 {
-  @Test
-  public void testAll ()
+  public MockNotifyingCache (final int nMaxSize)
   {
-    final MockNotifyingCacheWithMaxSize c = new MockNotifyingCacheWithMaxSize (5);
-    assertEquals (5, c.getMaxSize ());
+    super (nMaxSize, "Mock");
+  }
 
-    for (int i = 0; i < c.getMaxSize () + 1; ++i)
-      c.getFromCache ("key" + i);
-    assertEquals (5, c.getSize ());
+  @Override
+  protected String getValueToCache (@Nullable final String aKey)
+  {
+    return StringHelper.getNotNull (aKey);
   }
 }

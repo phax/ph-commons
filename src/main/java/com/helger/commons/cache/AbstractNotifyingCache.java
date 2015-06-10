@@ -16,9 +16,11 @@
  */
 package com.helger.commons.cache;
 
+import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
+import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.IsLocked;
 
@@ -39,7 +41,12 @@ public abstract class AbstractNotifyingCache <KEYTYPE, VALUETYPE> extends Abstra
 {
   public AbstractNotifyingCache (@Nonnull final String sCacheName)
   {
-    super (sCacheName);
+    this (CGlobal.ILLEGAL_UINT, sCacheName);
+  }
+
+  public AbstractNotifyingCache (@CheckForSigned final int nMaxSize, @Nonnull final String sCacheName)
+  {
+    super (nMaxSize, sCacheName);
   }
 
   /**

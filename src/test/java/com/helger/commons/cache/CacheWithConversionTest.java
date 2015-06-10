@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.cache.convert;
+package com.helger.commons.cache;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -24,24 +24,52 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.helger.commons.cache.CacheWithConversion;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.convert.UnidirectionalConverterMapGet;
 
 /**
- * Test class for class {@link CacheWithConversionAndMaxSize}.
+ * Test class for class {@link CacheWithConversion}.
  *
  * @author Philip Helger
  */
-public final class CacheWithConversionAndMaxSizeTest
+public final class CacheWithConversionTest
 {
   @Test
   public void testAll ()
   {
+    final Map <String, Integer> aMap = CollectionHelper.newMap ("In", Integer.valueOf (1));
+    final CacheWithConversion <String, Integer> aCache = new CacheWithConversion <String, Integer> ("test");
+    assertEquals ("test", aCache.getName ());
+    // Get from map
+    assertEquals (Integer.valueOf (1),
+                  aCache.getFromCache ("In", new UnidirectionalConverterMapGet <String, Integer> (aMap)));
+    // Use cached value
+    assertEquals (Integer.valueOf (1),
+                  aCache.getFromCache ("In", new UnidirectionalConverterMapGet <String, Integer> (aMap)));
+    // Use cached value
+    assertEquals (Integer.valueOf (1), aCache.getFromCache ("In"));
+    // No such cached value
+    assertNull (aCache.getFromCache ("Gibts Ned"));
+    try
+    {
+      // Cannot convert the passed key!
+      aCache.getFromCache ("Gibts Ned", new UnidirectionalConverterMapGet <String, Integer> (aMap));
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {}
+    // No such cached value
+    assertNull (aCache.getFromCache ("Gibts Ned"));
+  }
+
+  @Test
+  public void testWithMaxSize ()
+  {
     final Map <String, Integer> aMap = CollectionHelper.newMap (new String [] { "In", "In2" },
                                                                 new Integer [] { Integer.valueOf (1),
                                                                                 Integer.valueOf (2) });
-    final CacheWithConversionAndMaxSize <String, Integer> aCache = new CacheWithConversionAndMaxSize <String, Integer> ("test",
-                                                                                                                        1);
+    final CacheWithConversion <String, Integer> aCache = new CacheWithConversion <String, Integer> (1, "test");
     assertEquals ("test", aCache.getName ());
     assertEquals (1, aCache.getMaxSize ());
     // Get from map
@@ -77,13 +105,5 @@ public final class CacheWithConversionAndMaxSizeTest
     assertEquals (Integer.valueOf (2), aCache.getFromCache ("In2"));
     // No longer in the cache
     assertNull (aCache.getFromCache ("In"));
-
-    try
-    {
-      new CacheWithConversionAndMaxSize <String, Integer> ("test", 0);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
   }
 }

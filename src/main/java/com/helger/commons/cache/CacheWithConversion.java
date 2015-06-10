@@ -14,18 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.cache.convert;
+package com.helger.commons.cache;
 
+import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
-import com.helger.commons.cache.AbstractCache;
+import com.helger.commons.CGlobal;
 import com.helger.commons.convert.IUnidirectionalConverter;
 
 /**
  * A special cache that can create the value to be cache automatically from the
  * key.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        Cache key type
@@ -37,13 +38,18 @@ public class CacheWithConversion <KEYTYPE, VALUETYPE> extends AbstractCache <KEY
 {
   public CacheWithConversion (@Nonnull final String sCacheName)
   {
-    super (sCacheName);
+    this (CGlobal.ILLEGAL_UINT, sCacheName);
+  }
+
+  public CacheWithConversion (@CheckForSigned final int nMaxSize, @Nonnull final String sCacheName)
+  {
+    super (nMaxSize, sCacheName);
   }
 
   /**
    * Get the value from the cache. If no value is yet in the cache, the passed
    * converter is used to get the value to cache.
-   * 
+   *
    * @param aKey
    *        The key of the cached object. May not be <code>null</code>.
    * @param aValueRetriever

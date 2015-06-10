@@ -17,22 +17,25 @@
 package com.helger.commons.cache;
 
 import java.util.Map;
-import java.util.WeakHashMap;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.annotation.concurrent.ThreadSafe;
 
+import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.impl.SoftHashMap;
+import com.helger.commons.collection.impl.SoftLinkedHashMap;
 import com.helger.commons.state.EChange;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCache;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
@@ -55,18 +58,37 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   public static final String STATISTICS_PREFIX = "cache:";
 
   protected final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final int m_nMaxSize;
   private final String m_sCacheName;
   protected final IMutableStatisticsHandlerCache m_aCacheAccessStats;
   private final IMutableStatisticsHandlerCounter m_aCacheRemoveStats;
   private final IMutableStatisticsHandlerCounter m_aCacheClearStats;
-  private volatile Map <KEYTYPE, VALUETYPE> m_aCache;
+  private Map <KEYTYPE, VALUETYPE> m_aCache;
 
-  public AbstractCache (@Nonnull @Nonempty final String sCacheName)
+  public AbstractCache (@Nonnull final String sCacheName)
   {
+    this (CGlobal.ILLEGAL_UINT, sCacheName);
+  }
+
+  public AbstractCache (@CheckForSigned final int nMaxSize, @Nonnull @Nonempty final String sCacheName)
+  {
+    m_nMaxSize = nMaxSize;
     m_sCacheName = ValueEnforcer.notEmpty (sCacheName, "cacheName");
     m_aCacheAccessStats = StatisticsManager.getCacheHandler (STATISTICS_PREFIX + sCacheName + "$access");
     m_aCacheRemoveStats = StatisticsManager.getCounterHandler (STATISTICS_PREFIX + sCacheName + "$remove");
     m_aCacheClearStats = StatisticsManager.getCounterHandler (STATISTICS_PREFIX + sCacheName + "$clear");
+  }
+
+  public final int getMaxSize ()
+  {
+    // No need to lock, as it is final
+    return m_nMaxSize;
+  }
+
+  public final boolean hasMaxSize ()
+  {
+    // No need to lock, as it is final
+    return m_nMaxSize > 0;
   }
 
   @Nonnull
@@ -85,7 +107,8 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   @OverrideOnDemand
   protected Map <KEYTYPE, VALUETYPE> createCache ()
   {
-    return new WeakHashMap <KEYTYPE, VALUETYPE> ();
+    return hasMaxSize () ? new SoftLinkedHashMap <KEYTYPE, VALUETYPE> (m_nMaxSize)
+                        : new SoftHashMap <KEYTYPE, VALUETYPE> ();
   }
 
   /**
