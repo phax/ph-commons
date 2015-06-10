@@ -19,7 +19,9 @@ package com.helger.commons.xml.serialize;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,6 +30,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.namespace.QName;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.microdom.IMicroDocumentType;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -395,6 +398,25 @@ public class XMLEmitter extends DefaultXMLIterationHandler
     }
   }
 
+  private static final Set <String> EMPTY_HTML_TAGS = CollectionHelper.newSet ("AREA",
+                                                                               "BASE",
+                                                                               "BASEFONT",
+                                                                               "BR",
+                                                                               "COL",
+                                                                               "FRAME",
+                                                                               "HR",
+                                                                               "IMG",
+                                                                               "INPUT",
+                                                                               "ISINDEX",
+                                                                               "LINK",
+                                                                               "META",
+                                                                               "PARAM");
+
+  private static boolean _isHTMLEmptyTag (@Nonnull final String sTagName)
+  {
+    return EMPTY_HTML_TAGS.contains (sTagName.toUpperCase (Locale.US));
+  }
+
   @Override
   public void onElementEnd (@Nullable final String sNamespacePrefix,
                             @Nonnull final String sTagName,
@@ -404,7 +426,7 @@ public class XMLEmitter extends DefaultXMLIterationHandler
     if (!bPrintClosingTag && m_aSettings.getFormat ().isHTML ())
     {
       // In HTML all tags are closed, if not explicitly marked as empty
-      bPrintClosingTag = !HTMLdtd.isEmptyTag (sTagName);
+      bPrintClosingTag = !_isHTMLEmptyTag (sTagName);
     }
 
     if (bPrintClosingTag)
