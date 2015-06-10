@@ -23,6 +23,8 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
 /**
  * Base interface for objects having zero or more locales.
  *
@@ -34,6 +36,7 @@ public interface IHasLocales
    * @return The locales of this object. May not be <code>null</code>.
    */
   @Nonnull
+  @ReturnsMutableCopy
   Collection <Locale> getAllLocales ();
 
   /**

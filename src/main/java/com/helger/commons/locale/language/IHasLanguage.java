@@ -14,22 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.locale;
+package com.helger.commons.locale.language;
 
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
 /**
- * Base interface for objects having a country locale.
- * 
+ * Base interface for objects having a language locale.
+ *
  * @author Philip Helger
  */
-public interface IHasCountry
+public interface IHasLanguage
 {
   /**
-   * @return The relevant country locale. May not be <code>null</code>.
+   * @return The relevant language locale. May not be <code>null</code>.
    */
   @Nonnull
-  Locale getCountry ();
+  Locale getLanguage ();
 }

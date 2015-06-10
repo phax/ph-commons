@@ -26,6 +26,11 @@ import com.helger.commons.text.TextProvider;
 import com.helger.commons.text.display.IHasDisplayText;
 import com.helger.commons.text.resolve.DefaultTextResolver;
 
+/**
+ * Special locale names that are not part of the Java runtime.
+ * 
+ * @author Philip Helger
+ */
 @Translatable
 public enum ELocaleName implements IHasDisplayText
 {
