@@ -43,6 +43,7 @@ public final class SoftHashMapTest
     final Set <Map.Entry <Integer, BigDecimal>> aEntries = map.entrySet ();
     assertEquals (1, aEntries.size ());
 
+    s_aLogger.info ("Filling memory please wait");
     try
     {
       final ArrayList <Object []> allocations = new ArrayList <Object []> ();
@@ -54,7 +55,7 @@ public final class SoftHashMapTest
     {
       // great!
     }
-    s_aLogger.info ("Mapped value: " + map.get (aKey));
+    s_aLogger.info ("Mapped value (should be null): " + map.get (aKey));
     assertNull (map.get (aKey));
   }
 }

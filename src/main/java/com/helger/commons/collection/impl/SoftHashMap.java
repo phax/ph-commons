@@ -27,6 +27,7 @@ import com.helger.commons.annotation.OverrideOnDemand;
  */
 public class SoftHashMap <K, V> extends AbstractMap <K, V>
 {
+
   /**
    * We define our own subclass of SoftReference which contains not only the
    * value but also the key to make it easier to find the entry in the HashMap
@@ -75,6 +76,135 @@ public class SoftHashMap <K, V> extends AbstractMap <K, V>
       final SoftValue <K, V> aOld = aNew;
       m_aSoftValue = aNew;
       return aOld;
+    }
+  }
+
+  private static final class SoftEntrySet <K, V> implements Set <Map.Entry <K, V>>
+  {
+    private final Set <Entry <K, SoftValue <K, V>>> m_aSrcEntrySet;
+    private final ReferenceQueue <V> m_aQueue;
+
+    private SoftEntrySet (final Set <Entry <K, SoftValue <K, V>>> aSrcEntrySet, final ReferenceQueue <V> aQueue)
+    {
+      m_aSrcEntrySet = aSrcEntrySet;
+      m_aQueue = aQueue;
+    }
+
+    public boolean add (final Map.Entry <K, V> aEntry)
+    {
+      return m_aSrcEntrySet.add (new SoftMapEntry <K, V> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
+    }
+
+    public boolean addAll (final Collection <? extends Map.Entry <K, V>> c)
+    {
+      boolean result = false;
+      for (final Map.Entry <K, V> e : c)
+        if (this.add (e))
+          result = true;
+      return result;
+    }
+
+    public void clear ()
+    {
+      m_aSrcEntrySet.clear ();
+    }
+
+    @SuppressWarnings ("unchecked")
+    public boolean contains (final Object o)
+    {
+      if (!(o instanceof Map.Entry))
+        return false;
+      final Map.Entry <K, V> e = (Map.Entry <K, V>) o;
+      return m_aSrcEntrySet.contains (new SoftMapEntry <K, V> (e.getKey (), e.getValue (), m_aQueue));
+    }
+
+    public boolean containsAll (final Collection <?> c)
+    {
+      for (final Object x : c)
+        if (!this.contains (x))
+          return false;
+      return true;
+    }
+
+    public boolean isEmpty ()
+    {
+      return m_aSrcEntrySet.isEmpty ();
+    }
+
+    public Iterator <Map.Entry <K, V>> iterator ()
+    {
+      final Iterator <Map.Entry <K, SoftValue <K, V>>> SrcIter = m_aSrcEntrySet.iterator ();
+      return new Iterator <Map.Entry <K, V>> ()
+      {
+        public boolean hasNext ()
+        {
+          return SrcIter.hasNext ();
+        }
+
+        public Map.Entry <K, V> next ()
+        {
+          final Map.Entry <K, SoftValue <K, V>> e = SrcIter.next ();
+          return new MapEntry <K, V> (e.getKey (), e.getValue ().get ());
+        }
+
+        public void remove ()
+        {
+          SrcIter.remove ();
+        }
+      };
+    }
+
+    @SuppressWarnings ("unchecked")
+    public boolean remove (final Object o)
+    {
+      if (!(o instanceof Map.Entry <?, ?>))
+        return false;
+      final Map.Entry <K, V> aEntry = (Map.Entry <K, V>) o;
+      return m_aSrcEntrySet.remove (new SoftMapEntry <K, V> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
+    }
+
+    public boolean removeAll (final Collection <?> c)
+    {
+      boolean result = false;
+      for (final Object x : c)
+        if (this.remove (x))
+          result = true;
+      return result;
+    }
+
+    public boolean retainAll (final Collection <?> c)
+    {
+      throw new UnsupportedOperationException ();
+    }
+
+    public int size ()
+    {
+      return m_aSrcEntrySet.size ();
+    }
+
+    @Nonnull
+    public Object [] toArray ()
+    {
+      return toArray (new MapEntry <?, ?> [0]);
+    }
+
+    @Nonnull
+    @SuppressWarnings ("unchecked")
+    public <T> T [] toArray (@Nullable final T [] a)
+    {
+      MapEntry <K, V> [] result = null;
+      if (a != null && a instanceof MapEntry <?, ?> [] && a.length >= size ())
+        result = (MapEntry <K, V> []) a;
+      else
+        result = (MapEntry <K, V> []) new Object [size ()];
+
+      final Object [] aSrcArray = m_aSrcEntrySet.toArray ();
+      for (int i = 0; i < aSrcArray.length; i++)
+      {
+        final Map.Entry <K, SoftValue <K, V>> e = (Map.Entry <K, SoftValue <K, V>>) aSrcArray[i];
+        result[i] = new MapEntry <K, V> (e.getKey (), e.getValue ().get ());
+      }
+      return (T []) result;
     }
   }
 
@@ -176,126 +306,9 @@ public class SoftHashMap <K, V> extends AbstractMap <K, V>
   }
 
   @Override
-  @SuppressWarnings ("unchecked")
   public Set <Map.Entry <K, V>> entrySet ()
   {
     final Set <Map.Entry <K, SoftValue <K, V>>> aSrcEntrySet = m_aSrcMap.entrySet ();
-
-    return new Set <Map.Entry <K, V>> ()
-    {
-      public boolean add (final Map.Entry <K, V> aEntry)
-      {
-        return aSrcEntrySet.add (new SoftMapEntry <K, V> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
-      }
-
-      public boolean addAll (final Collection <? extends Map.Entry <K, V>> c)
-      {
-        boolean result = false;
-        for (final Map.Entry <K, V> e : c)
-          if (this.add (e))
-            result = true;
-        return result;
-      }
-
-      public void clear ()
-      {
-        aSrcEntrySet.clear ();
-      }
-
-      public boolean contains (final Object o)
-      {
-        if (!(o instanceof Map.Entry))
-          return false;
-        final Map.Entry <K, V> e = (Map.Entry <K, V>) o;
-        return aSrcEntrySet.contains (new SoftMapEntry <K, V> (e.getKey (), e.getValue (), m_aQueue));
-      }
-
-      public boolean containsAll (final Collection <?> c)
-      {
-        for (final Object x : c)
-          if (!this.contains (x))
-            return false;
-        return true;
-      }
-
-      public boolean isEmpty ()
-      {
-        return aSrcEntrySet.isEmpty ();
-      }
-
-      public Iterator <Map.Entry <K, V>> iterator ()
-      {
-        final Iterator <Map.Entry <K, SoftValue <K, V>>> SrcIter = aSrcEntrySet.iterator ();
-        return new Iterator <Map.Entry <K, V>> ()
-        {
-          public boolean hasNext ()
-          {
-            return SrcIter.hasNext ();
-          }
-
-          public Map.Entry <K, V> next ()
-          {
-            final Map.Entry <K, SoftValue <K, V>> e = SrcIter.next ();
-            return new MapEntry <K, V> (e.getKey (), e.getValue ().get ());
-          }
-
-          public void remove ()
-          {
-            SrcIter.remove ();
-          }
-        };
-      }
-
-      public boolean remove (final Object o)
-      {
-        if (!(o instanceof Map.Entry <?, ?>))
-          return false;
-        final Map.Entry <K, V> aEntry = (Map.Entry <K, V>) o;
-        return aSrcEntrySet.remove (new SoftMapEntry <K, V> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
-      }
-
-      public boolean removeAll (final Collection <?> c)
-      {
-        boolean result = false;
-        for (final Object x : c)
-          if (this.remove (x))
-            result = true;
-        return result;
-      }
-
-      public boolean retainAll (final Collection <?> c)
-      {
-        throw new UnsupportedOperationException ();
-      }
-
-      public int size ()
-      {
-        return aSrcEntrySet.size ();
-      }
-
-      @Nonnull
-      public Object [] toArray ()
-      {
-        return toArray (new MapEntry <?, ?> [0]);
-      }
-
-      @Nonnull
-      public <T> T [] toArray (@Nullable final T [] a)
-      {
-        MapEntry <K, V> [] result = null;
-        if (a != null && a instanceof MapEntry <?, ?> [] && a.length >= size ())
-          result = (MapEntry <K, V> []) a;
-        else
-          result = (MapEntry <K, V> []) new Object [size ()];
-
-        final Object [] aSrcArray = aSrcEntrySet.toArray ();
-        for (int i = 0; i < aSrcArray.length; i++)
-        {
-          final Map.Entry <K, SoftValue <K, V>> e = (Map.Entry <K, SoftValue <K, V>>) aSrcArray[i];
-          result[i] = new MapEntry <K, V> (e.getKey (), e.getValue ().get ());
-        }
-        return (T []) result;
-      }
-    };
+    return new SoftEntrySet <K, V> (aSrcEntrySet, m_aQueue);
   }
 }
