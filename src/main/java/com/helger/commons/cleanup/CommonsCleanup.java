@@ -37,7 +37,7 @@ import com.helger.commons.serialize.convert.SerializationConverterRegistry;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.system.SystemProperties;
 import com.helger.commons.text.resolve.DefaultTextResolver;
-import com.helger.commons.text.resource.ResourceBundleHelper;
+import com.helger.commons.text.resourcebundle.ResourceBundleHelper;
 import com.helger.commons.thirdparty.ThirdPartyModuleRegistry;
 import com.helger.commons.typeconvert.TypeConverterRegistry;
 import com.helger.commons.url.URLProtocolRegistry;

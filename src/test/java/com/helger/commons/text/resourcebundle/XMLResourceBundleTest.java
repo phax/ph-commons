@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.text.resource;
+package com.helger.commons.text.resourcebundle;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -32,6 +32,7 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.text.resourcebundle.XMLResourceBundle;
 
 /**
  * Test class for class {@link XMLResourceBundle}.

@@ -19,10 +19,9 @@ package com.helger.commons.type;
 import java.io.Serializable;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.ThreadSafe;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -36,11 +35,11 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-@ThreadSafe
-@DevelopersNote ("The mutable m_aHashCode does not contradict thread safety")
+@Immutable
 public class ObjectType implements Comparable <ObjectType>, Serializable
 {
   private final String m_sName;
+  // The mutable m_aHashCode does not contradict thread safety
   private Integer m_aHashCode;
 
   public ObjectType (@Nonnull @Nonempty final String sName)

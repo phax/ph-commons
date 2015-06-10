@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.text.resource;
+package com.helger.commons.text.resourcebundle;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -27,6 +27,8 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.text.resourcebundle.Utf8PropertyResourceBundle;
+import com.helger.commons.text.resourcebundle.Utf8ResourceBundle;
 
 /**
  * Test class for class {@link Utf8ResourceBundle}.

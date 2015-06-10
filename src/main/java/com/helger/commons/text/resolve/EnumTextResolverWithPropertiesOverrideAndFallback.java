@@ -41,7 +41,7 @@ import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.statistics.IMutableStatisticsHandlerKeyedCounter;
 import com.helger.commons.statistics.StatisticsManager;
-import com.helger.commons.text.resource.ResourceBundleHelper;
+import com.helger.commons.text.resourcebundle.ResourceBundleHelper;
 
 /**
  * Text resolving class that performs the fallback handling for locales other
