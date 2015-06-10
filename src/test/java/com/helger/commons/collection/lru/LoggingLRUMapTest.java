@@ -17,11 +17,11 @@
 package com.helger.commons.collection.lru;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.lru.LoggingLRUMap;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -34,13 +34,16 @@ public final class LoggingLRUMapTest
   @Test
   public void testAll ()
   {
-    final LoggingLRUMap <String, String> c = new LoggingLRUMap <String, String> ("name", 5);
-    assertEquals ("name", c.getCacheName ());
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new LoggingLRUMap <String, String> ("name", 5));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c, new LoggingLRUMap <String, String> ("name2",
-                                                                                                              5));
+    final LoggingLRUMap <String, String> c = new LoggingLRUMap <String, String> (5);
+    assertNull (c.getMapName ());
+    c.setMapName ("name");
+    assertEquals ("name", c.getMapName ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c,
+                                                                       new LoggingLRUMap <String, String> (5).setMapName ("name"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                     new LoggingLRUMap <String, String> ("name", 6));
+                                                                           new LoggingLRUMap <String, String> (5).setMapName ("name2"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
+                                                                           new LoggingLRUMap <String, String> (6).setMapName ("name"));
 
     // Check overflow
     for (int i = 0; i < c.getMaxSize () + 1; ++i)
@@ -50,7 +53,7 @@ public final class LoggingLRUMapTest
     try
     {
       // Invalid name
-      new LoggingLRUMap <String, String> ("", 5);
+      new LoggingLRUMap <String, String> (-1);
       fail ();
     }
     catch (final IllegalArgumentException ex)

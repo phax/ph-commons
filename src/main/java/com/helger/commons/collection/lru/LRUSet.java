@@ -60,11 +60,11 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements S
     }
   }
 
-  private final LRUCacheMap m_aCache;
+  private final LRUCacheMap m_aMap;
 
   public LRUSet (@Nonnegative final int nMaxSize)
   {
-    m_aCache = new LRUCacheMap (nMaxSize);
+    m_aMap = new LRUCacheMap (nMaxSize);
   }
 
   /**
@@ -86,7 +86,7 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements S
   @Nonnegative
   public final int getMaxSize ()
   {
-    return m_aCache.getMaxSize ();
+    return m_aMap.getMaxSize ();
   }
 
   @Override
@@ -94,7 +94,7 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements S
   {
     if (contains (aItem))
       return false;
-    m_aCache.put (aItem, Boolean.TRUE);
+    m_aMap.put (aItem, Boolean.TRUE);
     return true;
   }
 
@@ -102,14 +102,14 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements S
   @Nonnull
   public Iterator <ELEMENTTYPE> iterator ()
   {
-    return m_aCache.keySet ().iterator ();
+    return m_aMap.keySet ().iterator ();
   }
 
   @Override
   @Nonnegative
   public int size ()
   {
-    return m_aCache.size ();
+    return m_aMap.size ();
   }
 
   @Override
@@ -120,18 +120,18 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements S
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final LRUSet <?> rhs = (LRUSet <?>) o;
-    return m_aCache.equals (rhs.m_aCache);
+    return m_aMap.equals (rhs.m_aMap);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aCache).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aMap).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("cache", m_aCache).toString ();
+    return new ToStringGenerator (this).append ("map", m_aMap).toString ();
   }
 }

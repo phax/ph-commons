@@ -29,7 +29,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A special cache that can create the value to be cache automatically from the
  * key. It also has an upper limit of elements that can reside inside the cache.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        Cache key type
@@ -60,7 +60,9 @@ public class CacheWithConversionAndMaxSize <KEYTYPE, VALUETYPE> extends CacheWit
   @Nonnull
   protected final Map <KEYTYPE, VALUETYPE> createCache ()
   {
-    return new LoggingLRUMap <KEYTYPE, VALUETYPE> (getName (), m_nMaxSize);
+    final LoggingLRUMap <KEYTYPE, VALUETYPE> aMap = new LoggingLRUMap <KEYTYPE, VALUETYPE> (m_nMaxSize);
+    aMap.setMapName (getName ());
+    return aMap;
   }
 
   @Override

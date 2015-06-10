@@ -20,13 +20,14 @@ import java.util.Map;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.UseDirectEqualsAndHashCode;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -41,38 +42,45 @@ import com.helger.commons.string.ToStringGenerator;
  *        Map value type
  */
 @NotThreadSafe
+@UseDirectEqualsAndHashCode
 public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETYPE>
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingLRUMap.class);
 
-  private final String m_sCacheName;
+  private String m_sMapName;
 
-  public LoggingLRUMap (@Nonnull @Nonempty final String sCacheName, @Nonnegative final int nMaxSize)
+  public LoggingLRUMap (@Nonnegative final int nMaxSize)
   {
     super (nMaxSize);
-    m_sCacheName = ValueEnforcer.notEmpty (sCacheName, "CacheName");
+  }
+
+  @Nullable
+  public String getMapName ()
+  {
+    return m_sMapName;
   }
 
   @Nonnull
-  @Nonempty
-  public String getCacheName ()
+  public LoggingLRUMap <KEYTYPE, VALUETYPE> setMapName (@Nullable final String sMapName)
   {
-    return m_sCacheName;
+    m_sMapName = sMapName;
+    return this;
   }
 
   @Override
   protected void onRemoveEldestEntry (@Nonnegative final int nSize, @Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEntry)
   {
-    s_aLogger.warn ("Cache '" +
-                    m_sCacheName +
-                    "' is full with " +
+    s_aLogger.warn ("Map" +
+                    (m_sMapName != null ? " '" + m_sMapName + "'" : "") +
+                    " is full with " +
                     nSize +
-                    "/" +
+                    " ≥ " +
                     getMaxSize () +
-                    " items! Removed " +
+                    " items! Removed key (" +
                     aEntry.getKey () +
-                    "//" +
-                    aEntry.getValue ());
+                    ") and value (" +
+                    aEntry.getValue () +
+                    ")");
   }
 
   @Override
@@ -83,18 +91,18 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
     if (!super.equals (o))
       return false;
     final LoggingLRUMap <?, ?> rhs = (LoggingLRUMap <?, ?>) o;
-    return m_sCacheName.equals (rhs.m_sCacheName);
+    return EqualsHelper.equals (m_sMapName, rhs.m_sMapName);
   }
 
   @Override
   public int hashCode ()
   {
-    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_sCacheName).getHashCode ();
+    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_sMapName).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("cacheName", m_sCacheName).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("MapName", m_sMapName).toString ();
   }
 }
