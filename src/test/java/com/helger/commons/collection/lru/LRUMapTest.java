@@ -21,21 +21,21 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.lru.LRUCache;
+import com.helger.commons.collection.lru.LRUMap;
 
 /**
- * Test for class {@link LRUCache}
+ * Test for class {@link LRUMap}
  *
  * @author Philip Helger
  */
-public final class LRUCacheTest
+public final class LRUMapTest
 {
   private static final int MAX_SIZE = 5;
 
   @Test
   public void testLRUCache ()
   {
-    final LRUCache <Integer, String> aCache = new LRUCache <Integer, String> (MAX_SIZE);
+    final LRUMap <Integer, String> aCache = new LRUMap <Integer, String> (MAX_SIZE);
     for (int i = 0; i < MAX_SIZE * 2; ++i)
     {
       if (i < MAX_SIZE)

@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.lru.LRUCache;
+import com.helger.commons.collection.lru.LRUMap;
 import com.helger.commons.dimension.SizeInt;
 import com.helger.commons.io.IInputStreamProvider;
 import com.helger.commons.io.IReadableResource;
@@ -62,7 +62,7 @@ public final class ImageDataManager
   private static final IMutableStatisticsHandlerCache s_aStatsHdl = StatisticsManager.getCacheHandler (ImageDataManager.class);
   private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
   @GuardedBy ("s_aRWLock")
-  private static final Map <IReadableResource, SizeInt> s_aImageData = new LRUCache <IReadableResource, SizeInt> (1000);
+  private static final Map <IReadableResource, SizeInt> s_aImageData = new LRUMap <IReadableResource, SizeInt> (1000);
   @GuardedBy ("s_aRWLock")
   private static final Set <IReadableResource> s_aNonExistingResources = new HashSet <IReadableResource> ();
 

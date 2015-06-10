@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A special ordered map, that has an upper limit of contained elements. It is
- * therefore a "Last Recently Used" cache.
+ * therefore a "Last Recently Used" map.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -41,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 @NotThreadSafe
 @UseDirectEqualsAndHashCode
-public class LRUCache <KEYTYPE, VALUETYPE> extends LinkedHashMap <KEYTYPE, VALUETYPE>
+public class LRUMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KEYTYPE, VALUETYPE>
 {
   // Note: 0.75f is the same as HashMap.DEFAULT_LOAD_FACTOR
   private static final float DEFAULT_LOAD_FACTOR = 0.75f;
@@ -54,7 +54,7 @@ public class LRUCache <KEYTYPE, VALUETYPE> extends LinkedHashMap <KEYTYPE, VALUE
    * @param nMaxSize
    *        The maximum number of elements in this cache. May not be &lt; 0.
    */
-  public LRUCache (@Nonnegative final int nMaxSize)
+  public LRUMap (@Nonnegative final int nMaxSize)
   {
     // We need the special constructor with access ordering!
     super (nMaxSize, DEFAULT_LOAD_FACTOR, true);
@@ -74,24 +74,28 @@ public class LRUCache <KEYTYPE, VALUETYPE> extends LinkedHashMap <KEYTYPE, VALUE
   /**
    * Protected method that is invoked every time the oldest entry is removed.
    *
+   * @param nSize
+   *        Current size of the map. Always &ge; 0.
    * @param aEldest
    *        The map entry that is removed. Never <code>null</code>.
    */
   @OverrideOnDemand
-  protected void onRemoveEldestEntry (@Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEldest)
+  protected void onRemoveEldestEntry (@Nonnegative final int nSize,
+                                      @Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEldest)
   {}
 
   @Override
   protected final boolean removeEldestEntry (@Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEldest)
   {
-    if (size () <= m_nMaxSize)
+    final int nSize = size ();
+    if (nSize <= m_nMaxSize)
     {
       // No need to remove anything
       return false;
     }
 
     // Invoke protected method
-    onRemoveEldestEntry (aEldest);
+    onRemoveEldestEntry (nSize, aEldest);
     return true;
   }
 
@@ -103,7 +107,7 @@ public class LRUCache <KEYTYPE, VALUETYPE> extends LinkedHashMap <KEYTYPE, VALUE
     // Special case because LinkedHashMap implementation is a bit bogus
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final LRUCache <?, ?> rhs = (LRUCache <?, ?>) o;
+    final LRUMap <?, ?> rhs = (LRUMap <?, ?>) o;
     return EqualsHelper.equals (m_nMaxSize, rhs.m_nMaxSize) && entrySet ().equals (rhs.entrySet ());
   }
 

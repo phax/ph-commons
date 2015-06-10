@@ -21,26 +21,26 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.lru.LoggingLRUCache;
+import com.helger.commons.collection.lru.LoggingLRUMap;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
- * Test class for class {@link LoggingLRUCache}.
+ * Test class for class {@link LoggingLRUMap}.
  *
  * @author Philip Helger
  */
-public final class LoggingLRUCacheTest
+public final class LoggingLRUMapTest
 {
   @Test
   public void testAll ()
   {
-    final LoggingLRUCache <String, String> c = new LoggingLRUCache <String, String> ("name", 5);
+    final LoggingLRUMap <String, String> c = new LoggingLRUMap <String, String> ("name", 5);
     assertEquals ("name", c.getCacheName ());
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new LoggingLRUCache <String, String> ("name", 5));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c, new LoggingLRUCache <String, String> ("name2",
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new LoggingLRUMap <String, String> ("name", 5));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c, new LoggingLRUMap <String, String> ("name2",
                                                                                                               5));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                     new LoggingLRUCache <String, String> ("name", 6));
+                                                                     new LoggingLRUMap <String, String> ("name", 6));
 
     // Check overflow
     for (int i = 0; i < c.getMaxSize () + 1; ++i)
@@ -50,7 +50,7 @@ public final class LoggingLRUCacheTest
     try
     {
       // Invalid name
-      new LoggingLRUCache <String, String> ("", 5);
+      new LoggingLRUMap <String, String> ("", 5);
       fail ();
     }
     catch (final IllegalArgumentException ex)

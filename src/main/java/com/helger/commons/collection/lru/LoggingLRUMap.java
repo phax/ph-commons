@@ -31,22 +31,23 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A specific {@link LRUCache} that emits a warning once the cache is full.
+ * A specific {@link LRUMap} that emits a warning once the map is full and the
+ * oldest entry gets discarded.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
- *        Cache key type
+ *        Map key type
  * @param <VALUETYPE>
- *        Cache value type
+ *        Map value type
  */
 @NotThreadSafe
-public class LoggingLRUCache <KEYTYPE, VALUETYPE> extends LRUCache <KEYTYPE, VALUETYPE>
+public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETYPE>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingLRUCache.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingLRUMap.class);
 
   private final String m_sCacheName;
 
-  public LoggingLRUCache (@Nonnull @Nonempty final String sCacheName, @Nonnegative final int nMaxSize)
+  public LoggingLRUMap (@Nonnull @Nonempty final String sCacheName, @Nonnegative final int nMaxSize)
   {
     super (nMaxSize);
     m_sCacheName = ValueEnforcer.notEmpty (sCacheName, "CacheName");
@@ -60,11 +61,13 @@ public class LoggingLRUCache <KEYTYPE, VALUETYPE> extends LRUCache <KEYTYPE, VAL
   }
 
   @Override
-  protected void onRemoveEldestEntry (@Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEntry)
+  protected void onRemoveEldestEntry (@Nonnegative final int nSize, @Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEntry)
   {
     s_aLogger.warn ("Cache '" +
                     m_sCacheName +
                     "' is full with " +
+                    nSize +
+                    "/" +
                     getMaxSize () +
                     " items! Removed " +
                     aEntry.getKey () +
@@ -79,7 +82,7 @@ public class LoggingLRUCache <KEYTYPE, VALUETYPE> extends LRUCache <KEYTYPE, VAL
       return true;
     if (!super.equals (o))
       return false;
-    final LoggingLRUCache <?, ?> rhs = (LoggingLRUCache <?, ?>) o;
+    final LoggingLRUMap <?, ?> rhs = (LoggingLRUMap <?, ?>) o;
     return m_sCacheName.equals (rhs.m_sCacheName);
   }
 

@@ -34,7 +34,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.IterableIterator;
-import com.helger.commons.collection.lru.LRUCache;
+import com.helger.commons.collection.lru.LRUMap;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -122,7 +122,7 @@ public final class ClassHierarchyCache
   }
 
   private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
-  private static final Map <String, ClassList> s_aClassHierarchy = new LRUCache <String, ClassList> (1000);
+  private static final Map <String, ClassList> s_aClassHierarchy = new LRUMap <String, ClassList> (1000);
 
   @PresentForCodeCoverage
   private static final ClassHierarchyCache s_aInstance = new ClassHierarchyCache ();

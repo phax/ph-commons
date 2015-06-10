@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.lru.LoggingLRUCache;
+import com.helger.commons.collection.lru.LoggingLRUMap;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -66,7 +66,7 @@ public abstract class AbstractNotifyingCacheWithMaxSize <KEYTYPE, VALUETYPE> ext
   @Nonnull
   protected final Map <KEYTYPE, VALUETYPE> createCache ()
   {
-    return new LoggingLRUCache <KEYTYPE, VALUETYPE> (getName (), m_nMaxSize);
+    return new LoggingLRUMap <KEYTYPE, VALUETYPE> (getName (), m_nMaxSize);
   }
 
   @Override

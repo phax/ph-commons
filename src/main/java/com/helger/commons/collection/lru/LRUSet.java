@@ -34,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A special ordered set, that has an upper limit of contained elements. It is
  * therefore a "Last Recently Used" cache.<br>
- * The underlying data structure is a {@link LRUCache} map.
+ * The underlying data structure is a {@link LRUMap} map.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
@@ -45,51 +45,39 @@ import com.helger.commons.string.ToStringGenerator;
 public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements Serializable
 {
   @UseDirectEqualsAndHashCode
-  private static final class LRUCacheMap <ELEMENTTYPE> extends LRUCache <ELEMENTTYPE, Boolean>
+  private final class LRUCacheMap extends LRUMap <ELEMENTTYPE, Boolean>
   {
-    private final LRUSet <ELEMENTTYPE> m_aOwningSet;
-
-    LRUCacheMap (@Nonnegative final int nMaxSize, @Nonnull final LRUSet <ELEMENTTYPE> aOwningSet)
+    LRUCacheMap (@Nonnegative final int nMaxSize)
     {
       super (nMaxSize);
-      m_aOwningSet = aOwningSet;
     }
 
     @Override
-    protected void onRemoveEldestEntry (final Map.Entry <ELEMENTTYPE, Boolean> aEldest)
+    protected void onRemoveEldestEntry (@Nonnegative final int nSize,
+                                        @Nonnull final Map.Entry <ELEMENTTYPE, Boolean> aEldest)
     {
-      m_aOwningSet.onRemoveEldestEntry (aEldest.getKey ());
-    }
-
-    @Override
-    public boolean equals (final Object o)
-    {
-      return super.equals (o);
-    }
-
-    @Override
-    public int hashCode ()
-    {
-      return super.hashCode ();
+      LRUSet.this.onRemoveEldestEntry (nSize, aEldest.getKey ());
     }
   }
 
-  private final LRUCacheMap <ELEMENTTYPE> m_aCache;
+  private final LRUCacheMap m_aCache;
 
   public LRUSet (@Nonnegative final int nMaxSize)
   {
-    m_aCache = new LRUCacheMap <ELEMENTTYPE> (nMaxSize, this);
+    m_aCache = new LRUCacheMap (nMaxSize);
   }
 
   /**
    * Protected method that is invoked every time an element is removed from the
    * cache, because the maximum size is exceeded.
    *
+   * @param nSize
+   *        Current size of the map. Always &ge; 0.
    * @param aEldest
    *        The entry that is to be removed. Never <code>null</code>.
    */
   @OverrideOnDemand
-  protected void onRemoveEldestEntry (@Nonnull final ELEMENTTYPE aEldest)
+  protected void onRemoveEldestEntry (@Nonnegative final int nSize, @Nonnull final ELEMENTTYPE aEldest)
   {}
 
   /**
