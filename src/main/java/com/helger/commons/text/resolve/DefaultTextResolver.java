@@ -25,6 +25,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.text.IHasText;
 import com.helger.commons.text.IHasTextWithArgs;
 
 /**
@@ -67,7 +68,7 @@ public final class DefaultTextResolver
    */
   @Nullable
   public static String getText (@Nonnull final Enum <?> aEnum,
-                                @Nonnull final IHasTextWithArgs aTP,
+                                @Nonnull final IHasText aTP,
                                 @Nonnull final Locale aContentLocale)
   {
     return s_aResolver.getText (aEnum, aTP, aContentLocale);

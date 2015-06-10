@@ -32,11 +32,11 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.text.util.TextHelper;
 
 /**
- * Test class for class {@link MapBasedMultilingualText}.
+ * Test class for class {@link ReadonlyMapBasedMultilingualText}.
  *
  * @author Philip Helger
  */
-public final class MapBasedMultilingualTextTest extends AbstractCommonsTestCase
+public final class ReadonlyMapBasedMultilingualTextTest extends AbstractCommonsTestCase
 {
   @Rule
   public final TestRule m_aRule = new DebugModeTestRule ();
@@ -44,7 +44,7 @@ public final class MapBasedMultilingualTextTest extends AbstractCommonsTestCase
   @Test
   public void testGetText ()
   {
-    MapBasedMultilingualText aTP = TextHelper.create_DE_EN ("Hallo", "Hello");
+    IMultilingualText aTP = TextHelper.create_DE_EN ("Hallo", "Hello");
     assertEquals ("Hallo", aTP.getText (L_DE_DE));
     assertEquals ("Hallo", aTP.getText (L_DE));
     assertNull (aTP.getText (L_FR));
@@ -62,16 +62,6 @@ public final class MapBasedMultilingualTextTest extends AbstractCommonsTestCase
   }
 
   @Test
-  public void testIsEmpty ()
-  {
-    MapBasedMultilingualText aTP = TextHelper.create_DE_EN ("Hallo", "Hello");
-    assertFalse (aTP.isEmpty ());
-
-    aTP = new MapBasedMultilingualText ();
-    assertTrue (aTP.isEmpty ());
-  }
-
-  @Test
   public void testGetTextWithArgs ()
   {
     final IHasTextWithArgs aTP = TextHelper.create_DE_EN ("Hallo {0}", "{0} Hello");
@@ -86,13 +76,23 @@ public final class MapBasedMultilingualTextTest extends AbstractCommonsTestCase
   }
 
   @Test
+  public void testIsEmpty ()
+  {
+    IMultilingualText aTP = TextHelper.create_DE_EN ("Hallo", "Hello");
+    assertFalse (aTP.isEmpty ());
+
+    aTP = new ReadonlyMapBasedMultilingualText ();
+    assertTrue (aTP.isEmpty ());
+  }
+
+  @Test
   public void testQuotes ()
   {
     assertNotNull (TextHelper.create_DE_EN ("Test 123!", ""));
     assertNotNull (TextHelper.create_DE_EN ("Test {0} 123!", ""));
     assertNotNull (TextHelper.create_DE_EN ("Test ''{0}'' 123!", ""));
 
-    MapBasedMultilingualText.setPerformConsistencyChecks (true);
+    ReadonlyMapBasedMultilingualText.setPerformConsistencyChecks (true);
     try
     {
       // should log a warning
@@ -134,7 +134,7 @@ public final class MapBasedMultilingualTextTest extends AbstractCommonsTestCase
     }
     finally
     {
-      MapBasedMultilingualText.setPerformConsistencyChecks (false);
+      ReadonlyMapBasedMultilingualText.setPerformConsistencyChecks (false);
     }
   }
 }

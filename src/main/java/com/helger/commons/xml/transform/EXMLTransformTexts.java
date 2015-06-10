@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Translatable;
-import com.helger.commons.text.MapBasedMultilingualText;
+import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.display.IHasDisplayText;
 import com.helger.commons.text.resolve.DefaultTextResolver;
 import com.helger.commons.text.util.TextHelper;
@@ -34,7 +34,7 @@ public enum EXMLTransformTexts implements IHasDisplayText
   TRANSFORMATION_ERROR ("Transformationsfehler", "Transformation error"),
   TRANSFORMATION_FATAL_ERROR ("Schwerer Transformationsfehler", "Transformation fatal error");
 
-  private final MapBasedMultilingualText m_aTP;
+  private final IMultilingualText m_aTP;
 
   private EXMLTransformTexts (@Nonnull final String sDE, @Nonnull final String sEN)
   {

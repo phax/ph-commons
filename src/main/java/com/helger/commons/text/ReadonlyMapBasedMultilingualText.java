@@ -42,25 +42,33 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * An in-memory implementation of the
- * {@link com.helger.commons.text.IHasTextWithArgs} interface.
+ * A {@link Map} based implementation of {@link IMultilingualText} that does not
+ * provide writing methods to the outside and is only to be used as a
+ * non-abstract base class.
  *
  * @author Philip Helger
  */
-public class MapBasedMultilingualText extends AbstractHasTextWithArgs implements IMultilingualText
+public class ReadonlyMapBasedMultilingualText extends AbstractHasTextWithArgs implements IMultilingualText
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MapBasedMultilingualText.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (ReadonlyMapBasedMultilingualText.class);
   private static final AtomicBoolean s_aConsistencyChecksEnabled = new AtomicBoolean (GlobalDebug.isDebugMode ());
 
   private final Map <Locale, String> m_aTexts;
 
-  public MapBasedMultilingualText ()
+  public ReadonlyMapBasedMultilingualText ()
   {
     // Use a HashMap by default
     this (new HashMap <Locale, String> ());
   }
 
-  protected MapBasedMultilingualText (@Nonnull final Map <Locale, String> aMapToUse)
+  /**
+   * Protected constructor that specifies the underlying {@link Map} to use. Use
+   * this constructor to e.g. provide a concurrent {@link HashMap} or similar.
+   *
+   * @param aMapToUse
+   *        The map to use. Must not be <code>null</code> and must be writable.
+   */
+  protected ReadonlyMapBasedMultilingualText (@Nonnull final Map <Locale, String> aMapToUse)
   {
     m_aTexts = ValueEnforcer.notNull (aMapToUse, "MapToUse");
   }
@@ -109,45 +117,40 @@ public class MapBasedMultilingualText extends AbstractHasTextWithArgs implements
     }
   }
 
-  @Nonnull
-  protected final MapBasedMultilingualText internalAddText (@Nonnull final Locale aContentLocale,
-                                                            @Nonnull final String sValue)
+  protected final void internalAddText (@Nonnull final Map.Entry <Locale, String> aEntry)
   {
-    if (m_aTexts.containsKey (aContentLocale))
-      throw new IllegalArgumentException ("Locale '" +
-                                          aContentLocale +
-                                          "' already contained in TextProvider: " +
-                                          toString ());
-
-    return internalSetText (aContentLocale, sValue);
+    internalAddText (aEntry.getKey (), aEntry.getValue ());
   }
 
-  @Nonnull
-  protected final MapBasedMultilingualText internalSetText (@Nonnull final Locale aContentLocale,
-                                                            @Nullable final String sValue)
+  protected final void internalAddText (@Nonnull final Locale aContentLocale, @Nullable final String sValue)
   {
+    // Check here as well, because this method is invoked in constructors of
+    // derived classes
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
+    if (m_aTexts.containsKey (aContentLocale))
+      throw new IllegalArgumentException ("Locale '" + aContentLocale + "' already contained: " + this.toString ());
+
+    internalSetText (aContentLocale, sValue);
+  }
+
+  protected final void internalSetText (@Nonnull final Locale aContentLocale, @Nullable final String sValue)
+  {
     if (sValue != null && s_aConsistencyChecksEnabled.get ())
       _performConsistencyChecks (sValue);
 
     m_aTexts.put (aContentLocale, sValue);
-    return this;
   }
 
   @Nonnull
-  protected final EChange internalRemoveText (@Nullable final Locale aLocale)
+  protected final EChange internalRemoveText (@Nullable final Locale aContentLocale)
   {
-    return EChange.valueOf (m_aTexts.remove (aLocale) != null);
+    return EChange.valueOf (m_aTexts.remove (aContentLocale) != null);
   }
 
-  @Nonnull
-  protected final EChange internalClear ()
+  protected final void internalClear ()
   {
-    if (m_aTexts.isEmpty ())
-      return EChange.UNCHANGED;
     m_aTexts.clear ();
-    return EChange.CHANGED;
   }
 
   @Nonnull
@@ -161,6 +164,7 @@ public class MapBasedMultilingualText extends AbstractHasTextWithArgs implements
   @Nullable
   protected final Locale internalGetLocaleToUseWithFallback (@Nonnull final Locale aContentLocale)
   {
+    // Always perform locale fallback resolution
     return LocaleHelper.getLocaleToUseOrNull (aContentLocale, m_aTexts.keySet ());
   }
 
@@ -231,7 +235,7 @@ public class MapBasedMultilingualText extends AbstractHasTextWithArgs implements
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final MapBasedMultilingualText rhs = (MapBasedMultilingualText) o;
+    final ReadonlyMapBasedMultilingualText rhs = (ReadonlyMapBasedMultilingualText) o;
     return m_aTexts.equals (rhs.m_aTexts);
   }
 

@@ -25,13 +25,13 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 
 /**
- * This class represents a multilingual text. It is internally represented as a
- * map from {@link Locale} to the language dependent string.
+ * This class represents a multilingual text that cannot be altered after the
+ * constructor.
  *
  * @author Philip Helger
  */
 @Immutable
-public class ReadonlyMultilingualText extends MapBasedMultilingualText
+public class ReadonlyMultilingualText extends ReadonlyMapBasedMultilingualText
 {
   /**
    * Create an empty read-only multilingual text. Handle with care, as this type
@@ -50,7 +50,7 @@ public class ReadonlyMultilingualText extends MapBasedMultilingualText
     ValueEnforcer.notNull (aContent, "Content");
 
     for (final Map.Entry <Locale, String> aEntry : aContent.entrySet ())
-      internalAddText (aEntry.getKey (), aEntry.getValue ());
+      internalAddText (aEntry);
   }
 
   public ReadonlyMultilingualText (@Nonnull final IMultilingualText aMLT)
@@ -58,6 +58,6 @@ public class ReadonlyMultilingualText extends MapBasedMultilingualText
     ValueEnforcer.notNull (aMLT, "MLT");
 
     for (final Map.Entry <Locale, String> aEntry : aMLT.getAllTexts ().entrySet ())
-      internalAddText (aEntry.getKey (), aEntry.getValue ());
+      internalAddText (aEntry);
   }
 }

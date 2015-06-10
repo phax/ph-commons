@@ -17,6 +17,7 @@
 package com.helger.commons.text.util;
 
 import java.text.MessageFormat;
+import java.util.Collection;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -25,7 +26,9 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.locale.LocaleCache;
+import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.MultilingualText;
 
 /**
@@ -89,6 +92,7 @@ public final class TextHelper
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public static MultilingualText create_DE (@Nonnull final String sDE)
   {
     final MultilingualText ret = new MultilingualText ();
@@ -97,6 +101,7 @@ public final class TextHelper
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public static MultilingualText create_EN (@Nonnull final String sEN)
   {
     final MultilingualText ret = new MultilingualText ();
@@ -105,11 +110,36 @@ public final class TextHelper
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public static MultilingualText create_DE_EN (@Nonnull final String sDE, @Nonnull final String sEN)
   {
     final MultilingualText ret = new MultilingualText ();
     ret.addText (DE, sDE);
     ret.addText (EN, sEN);
+    return ret;
+  }
+
+  /**
+   * Get a copy of this object with the specified locales. The default locale is
+   * copied.
+   *
+   * @param aMLT
+   *        The initial multilingual text. May not be <code>null</code>.
+   * @param aContentLocales
+   *        The list of locales of which the strings are desired. May not be
+   *        <code>null</code>.
+   * @return The object containing only the texts of the given locales. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static MultilingualText getCopyWithLocales (@Nonnull final IMultilingualText aMLT,
+                                                     @Nonnull final Collection <Locale> aContentLocales)
+  {
+    final MultilingualText ret = new MultilingualText ();
+    for (final Locale aConrentLocale : aContentLocales)
+      if (aMLT.containsLocale (aConrentLocale))
+        ret.setText (aConrentLocale, aMLT.getText (aConrentLocale));
     return ret;
   }
 }

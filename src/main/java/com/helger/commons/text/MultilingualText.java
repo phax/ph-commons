@@ -16,7 +16,6 @@
  */
 package com.helger.commons.text;
 
-import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -42,7 +41,7 @@ import com.helger.commons.state.EContinue;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class MultilingualText extends MapBasedMultilingualText implements IMutableMultilingualText
+public class MultilingualText extends ReadonlyMapBasedMultilingualText implements IMutableMultilingualText
 {
   /** A list of callback upon change. */
   private final CallbackList <IChangeCallback <IMutableMultilingualText>> m_aChangeNotifyCallbacks = new CallbackList <IChangeCallback <IMutableMultilingualText>> ();
@@ -55,12 +54,20 @@ public class MultilingualText extends MapBasedMultilingualText implements IMutab
     internalAddText (aContentLocale, sValue);
   }
 
+  public MultilingualText (@Nonnull final Map <Locale, String> aContent)
+  {
+    ValueEnforcer.notNull (aContent, "Content");
+
+    for (final Map.Entry <Locale, String> aEntry : aContent.entrySet ())
+      internalAddText (aEntry);
+  }
+
   public MultilingualText (@Nonnull final IMultilingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 
     for (final Map.Entry <Locale, String> aEntry : aMLT.getAllTexts ().entrySet ())
-      internalAddText (aEntry.getKey (), aEntry.getValue ());
+      internalAddText (aEntry);
   }
 
   @Nonnull
@@ -101,7 +108,7 @@ public class MultilingualText extends MapBasedMultilingualText implements IMutab
     if (containsLocale (aContentLocale))
     {
       // Text for this locale already contained
-      final String sOldText = super.internalGetText (aContentLocale);
+      final String sOldText = internalGetText (aContentLocale);
 
       // Did anything change?
       if (EqualsHelper.equals (sOldText, sText))
@@ -125,6 +132,9 @@ public class MultilingualText extends MapBasedMultilingualText implements IMutab
   @Nonnull
   public EChange removeText (@Nonnull final Locale aContentLocale)
   {
+    ValueEnforcer.notNull (aContentLocale, "ContentLocale");
+
+    // Always use locale fallbacks
     for (final Locale aCurrentLocale : LocaleHelper.getCalculatedLocaleListForResolving (aContentLocale))
       if (super.containsLocale (aCurrentLocale))
       {
@@ -159,7 +169,7 @@ public class MultilingualText extends MapBasedMultilingualText implements IMutab
     // Remove all existing texts and assign the new ones
     internalClear ();
     for (final Map.Entry <Locale, String> aEntry : aMLT.getAllTexts ().entrySet ())
-      internalAddText (aEntry.getKey (), aEntry.getValue ());
+      internalAddText (aEntry);
     _afterChange ();
     return EChange.CHANGED;
   }
@@ -172,38 +182,15 @@ public class MultilingualText extends MapBasedMultilingualText implements IMutab
   }
 
   @Nonnull
-  public static IMutableMultilingualText createFromMap (@Nonnull final Map <String, String> aMap)
+  public static MultilingualText createFromMap (@Nonnull final Map <String, String> aMap)
   {
-    final IMutableMultilingualText ret = new MultilingualText ();
+    final MultilingualText ret = new MultilingualText ();
     for (final Entry <String, String> aEntry : aMap.entrySet ())
     {
       final String sText = aEntry.getValue ();
       if (sText != null)
         ret.setText (LocaleCache.getLocale (aEntry.getKey ()), sText);
     }
-    return ret;
-  }
-
-  /**
-   * Get a copy of this object with the specified locales. The default locale is
-   * copied.
-   *
-   * @param aMLT
-   *        The initial multilingual text. May not be <code>null</code>.
-   * @param aContentLocales
-   *        The list of locales of which the strings are desired. May not be
-   *        <code>null</code>.
-   * @return The object containing only the texts of the given locales. Never
-   *         <code>null</code>.
-   */
-  @Nonnull
-  public static IMutableMultilingualText getCopyWithLocales (@Nonnull final IMultilingualText aMLT,
-                                                             @Nonnull final Collection <Locale> aContentLocales)
-  {
-    final IMutableMultilingualText ret = new MultilingualText ();
-    for (final Locale aConrentLocale : aContentLocales)
-      if (aMLT.containsLocale (aConrentLocale))
-        ret.setText (aConrentLocale, aMLT.getText (aConrentLocale));
     return ret;
   }
 }

@@ -23,9 +23,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -147,24 +145,6 @@ public final class MultilingualTextTest extends AbstractCommonsTestCase
     assertTrue (aMLT.getAllLocales ().contains (Locale.GERMAN));
     assertEquals (aMLT.getText (Locale.ENGLISH), "Hello2");
     assertEquals (aMLT.getText (Locale.GERMAN), "Hallo2");
-  }
-
-  @Test
-  public void testGetCopyWithLocales ()
-  {
-    final IMutableMultilingualText aMLT = new MultilingualText ();
-    assertTrue (aMLT.setText (Locale.ENGLISH, "Hi").isChanged ());
-    assertTrue (aMLT.setText (Locale.GERMAN, "Moin").isChanged ());
-    assertEquals (aMLT.getSize (), 2);
-
-    final List <Locale> aLocaleList = new ArrayList <Locale> ();
-    aLocaleList.add (Locale.ENGLISH);
-    final IMultilingualText aMLT2 = MultilingualText.getCopyWithLocales (aMLT, aLocaleList);
-    assertTrue (aMLT2.containsLocale (Locale.ENGLISH));
-    assertFalse (aMLT2.containsLocale (Locale.GERMAN));
-
-    assertTrue (aMLT.containsLocale (Locale.ENGLISH));
-    assertTrue (aMLT.containsLocale (Locale.GERMAN));
   }
 
   @Test
