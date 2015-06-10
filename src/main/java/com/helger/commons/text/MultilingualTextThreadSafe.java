@@ -56,20 +56,6 @@ public class MultilingualTextThreadSafe implements IMutableMultilingualText
     m_aMLT = new MultilingualText ();
   }
 
-  /**
-   * Constructor especially for the static TextProvider.createXXX methods
-   *
-   * @param aSimpleMLT
-   *        The simple multi lingual text to use.
-   */
-  public MultilingualTextThreadSafe (@Nonnull final ISimpleMultilingualText aSimpleMLT)
-  {
-    ValueEnforcer.notNull (aSimpleMLT, "SimpleMLT");
-
-    // Create a copy of the multilingual text!
-    m_aMLT = new MultilingualText (aSimpleMLT);
-  }
-
   public MultilingualTextThreadSafe (@Nonnull final IMultilingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");

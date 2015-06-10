@@ -21,13 +21,14 @@ import javax.annotation.Nonnull;
 /**
  * Base interface for objects having a plain text representation. This is useful
  * for search indexing and searching.
- * 
+ *
  * @author Philip Helger
  */
 public interface IHasPlainText
 {
   /**
-   * @return The plain text representation of this text.
+   * @return The plain text representation of this text. May not be
+   *         <code>null</code>.
    */
   @Nonnull
   String getPlainText ();

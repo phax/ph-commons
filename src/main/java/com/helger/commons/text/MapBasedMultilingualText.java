@@ -31,7 +31,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.CollectionHelper;
@@ -172,9 +171,8 @@ public class MapBasedMultilingualText extends AbstractHasTextWithArgs implements
   }
 
   @Override
-  @OverrideOnDemand
   @Nullable
-  protected String internalGetText (@Nonnull final Locale aContentLocale)
+  protected final String internalGetText (@Nonnull final Locale aContentLocale)
   {
     return m_aTexts.get (aContentLocale);
   }

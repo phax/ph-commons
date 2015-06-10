@@ -30,10 +30,6 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.text.IMultilingualText;
-import com.helger.commons.text.ISimpleMultilingualText;
-import com.helger.commons.text.MultilingualText;
-import com.helger.commons.text.ReadonlyMultilingualText;
 
 /**
  * Test class for class {@link ReadonlyMultilingualText}.
@@ -77,7 +73,7 @@ public final class ReadonlyMultilingualTextTest extends AbstractCommonsTestCase
     assertFalse (aMLT.containsLocaleWithFallback (L_FR));
     assertEquals (2, aMLT.getAllTexts ().size ());
 
-    aMLT = new ReadonlyMultilingualText ((ISimpleMultilingualText) t);
+    aMLT = new ReadonlyMultilingualText (t);
     assertEquals (2, aMLT.getSize ());
     assertEquals (2, aMLT.getAllLocales ().size ());
     assertTrue (aMLT.containsLocale (L_DE));
@@ -89,12 +85,12 @@ public final class ReadonlyMultilingualTextTest extends AbstractCommonsTestCase
     assertEquals (2, aMLT.getAllTexts ().size ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMLT,
-                                                                 new ReadonlyMultilingualText (CollectionHelper.newMap (new Locale [] { L_DE,
-                                                                                                                                       L_EN },
-                                                                                                                        new String [] { "de",
-                                                                                                                                       "en" })));
+                                                                       new ReadonlyMultilingualText (CollectionHelper.newMap (new Locale [] { L_DE,
+                                                                                                                                             L_EN },
+                                                                                                                              new String [] { "de",
+                                                                                                                                             "en" })));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadonlyMultilingualText (),
-                                                                 new ReadonlyMultilingualText ());
+                                                                       new ReadonlyMultilingualText ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadonlyMultilingualText ());
 
     try
@@ -107,13 +103,6 @@ public final class ReadonlyMultilingualTextTest extends AbstractCommonsTestCase
     try
     {
       new ReadonlyMultilingualText ((IMultilingualText) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      new ReadonlyMultilingualText ((ISimpleMultilingualText) null);
       fail ();
     }
     catch (final NullPointerException ex)

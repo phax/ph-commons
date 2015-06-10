@@ -53,14 +53,6 @@ public class ReadonlyMultilingualText extends MapBasedMultilingualText
       internalAddText (aEntry.getKey (), aEntry.getValue ());
   }
 
-  public ReadonlyMultilingualText (@Nonnull final ISimpleMultilingualText aSimpleMLT)
-  {
-    ValueEnforcer.notNull (aSimpleMLT, "SimpleMLT");
-
-    for (final Locale aLocale : aSimpleMLT.getAllLocales ())
-      internalAddText (aLocale, aSimpleMLT.getText (aLocale));
-  }
-
   public ReadonlyMultilingualText (@Nonnull final IMultilingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");

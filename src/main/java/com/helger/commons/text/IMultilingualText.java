@@ -16,22 +16,28 @@
  */
 package com.helger.commons.text;
 
+import java.io.Serializable;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.lang.IHasSize;
+import com.helger.commons.locale.IHasLocales;
 
 /**
  * Readonly interface for a multilingual text
  *
  * @author Philip Helger
  */
-public interface IMultilingualText extends ISimpleMultilingualText
+public interface IMultilingualText extends IHasTextWithArgs, IHasLocales, IHasSize, Serializable
 {
   /**
    * @return A map over all contained locale/text pairs. Never <code>null</code>
    *         .
    */
   @Nonnull
+  @ReturnsMutableCopy
   Map <Locale, String> getAllTexts ();
 }

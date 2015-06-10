@@ -44,12 +44,6 @@ import com.helger.commons.state.EContinue;
 @NotThreadSafe
 public class MultilingualText extends MapBasedMultilingualText implements IMutableMultilingualText
 {
-  // Because of the transient field
-  private static final long serialVersionUID = 136888667633487L;
-
-  /** Default empty multilingual text - don't modify this object!!! */
-  public static final IMutableMultilingualText EMPTY_MULTILINGUAL_TEXT = new MultilingualText ();
-
   /** A list of callback upon change. */
   private final CallbackList <IChangeCallback <IMutableMultilingualText>> m_aChangeNotifyCallbacks = new CallbackList <IChangeCallback <IMutableMultilingualText>> ();
 
@@ -59,20 +53,6 @@ public class MultilingualText extends MapBasedMultilingualText implements IMutab
   public MultilingualText (@Nonnull final Locale aContentLocale, @Nonnull final String sValue)
   {
     internalAddText (aContentLocale, sValue);
-  }
-
-  /**
-   * Constructor especially for the static TextProvider.createXXX methods
-   *
-   * @param aSimpleMLT
-   *        The simple multilingual text to use.
-   */
-  public MultilingualText (@Nonnull final ISimpleMultilingualText aSimpleMLT)
-  {
-    ValueEnforcer.notNull (aSimpleMLT, "SimpleMLT");
-
-    for (final Locale aLocale : aSimpleMLT.getAllLocales ())
-      internalAddText (aLocale, aSimpleMLT.getText (aLocale));
   }
 
   public MultilingualText (@Nonnull final IMultilingualText aMLT)

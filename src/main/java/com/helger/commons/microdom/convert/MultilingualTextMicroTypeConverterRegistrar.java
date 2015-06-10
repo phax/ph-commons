@@ -29,7 +29,7 @@ import com.helger.commons.locale.ComparatorLocale;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroElement;
-import com.helger.commons.text.ISimpleMultilingualText;
+import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.MultilingualText;
 import com.helger.commons.text.ReadonlyMultilingualText;
 
@@ -53,7 +53,7 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
                                                       @Nullable final String sNamespaceURI,
                                                       @Nonnull @Nonempty final String sTagName)
     {
-      final ISimpleMultilingualText aMLT = (ISimpleMultilingualText) aSource;
+      final IMultilingualText aMLT = (IMultilingualText) aSource;
       final IMicroElement eMText = new MicroElement (sNamespaceURI, sTagName);
       for (final Locale aLocale : CollectionHelper.getSorted (aMLT.getAllLocales (), new ComparatorLocale ()))
       {

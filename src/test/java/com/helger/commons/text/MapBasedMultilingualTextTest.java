@@ -43,7 +43,7 @@ public final class MapBasedMultilingualTextTest extends AbstractCommonsTestCase
   @Test
   public void testGetText ()
   {
-    ISimpleMultilingualText aTP = MapBasedMultilingualText.create_DE_EN ("Hallo", "Hello");
+    MapBasedMultilingualText aTP = MapBasedMultilingualText.create_DE_EN ("Hallo", "Hello");
     assertEquals ("Hallo", aTP.getText (L_DE_DE));
     assertEquals ("Hallo", aTP.getText (L_DE));
     assertNull (aTP.getText (L_FR));
@@ -63,7 +63,7 @@ public final class MapBasedMultilingualTextTest extends AbstractCommonsTestCase
   @Test
   public void testIsEmpty ()
   {
-    ISimpleMultilingualText aTP = MapBasedMultilingualText.create_DE_EN ("Hallo", "Hello");
+    MapBasedMultilingualText aTP = MapBasedMultilingualText.create_DE_EN ("Hallo", "Hello");
     assertFalse (aTP.isEmpty ());
 
     aTP = new MapBasedMultilingualText ();
