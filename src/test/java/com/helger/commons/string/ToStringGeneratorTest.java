@@ -28,7 +28,6 @@ import javax.annotation.Nullable;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.pair.ReadOnlyPair;
 import com.helger.commons.compare.ESortOrder;
 
 /**
@@ -68,7 +67,6 @@ public final class ToStringGeneratorTest
     _testNullable (null);
     _test ("Hallo");
     _test (Long.valueOf (123456789));
-    _test (ReadOnlyPair.create ("Hello", "World"));
     _test (CollectionHelper.newList ("Hello", "World"));
     _test (CollectionHelper.newMap ("Hello", "Hallo", "World", "Welt"));
     _test (new BigDecimal ("234324.23421378091235931253769"));
