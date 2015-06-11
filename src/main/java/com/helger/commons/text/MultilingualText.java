@@ -34,7 +34,7 @@ import com.helger.commons.locale.LocaleCache;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class MultilingualText extends MapBasedMultilingualText
+public class MultilingualText extends AbstractMapBasedMultilingualText
 {
   public MultilingualText ()
   {}

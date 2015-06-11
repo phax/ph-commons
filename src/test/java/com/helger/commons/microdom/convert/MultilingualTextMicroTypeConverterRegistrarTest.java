@@ -29,7 +29,7 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.IMultilingualText;
-import com.helger.commons.text.ReadOnlyMapBasedMultilingualText;
+import com.helger.commons.text.AbstractReadOnlyMapBasedMultilingualText;
 import com.helger.commons.text.MultilingualText;
 import com.helger.commons.text.ReadOnlyMultilingualText;
 import com.helger.commons.text.util.TextHelper;
@@ -90,7 +90,7 @@ public final class MultilingualTextMicroTypeConverterRegistrarTest
     final IMultilingualText aMLT2 = MicroTypeConverter.convertToNative (aElement, IMultilingualText.class);
     assertTrue (aMLT2 instanceof ReadOnlyMultilingualText);
     assertEquals (new ReadOnlyMultilingualText (aMLT), aMLT2);
-    assertNull (MicroTypeConverter.convertToNative (null, ReadOnlyMapBasedMultilingualText.class));
+    assertNull (MicroTypeConverter.convertToNative (null, AbstractReadOnlyMapBasedMultilingualText.class));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadOnlyMultilingualText (aMLT), aMLT2);
   }

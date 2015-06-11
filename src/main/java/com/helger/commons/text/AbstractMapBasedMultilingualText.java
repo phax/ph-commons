@@ -41,12 +41,12 @@ import com.helger.commons.state.EContinue;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class MapBasedMultilingualText extends ReadOnlyMapBasedMultilingualText implements IMutableMultilingualText
+public class AbstractMapBasedMultilingualText extends AbstractReadOnlyMapBasedMultilingualText implements IMutableMultilingualText
 {
   /** A list of callback upon change. */
   private final CallbackList <IChangeCallback <IMutableMultilingualText>> m_aChangeNotifyCallbacks = new CallbackList <IChangeCallback <IMutableMultilingualText>> ();
 
-  public MapBasedMultilingualText ()
+  public AbstractMapBasedMultilingualText ()
   {}
 
   /**
@@ -56,7 +56,7 @@ public class MapBasedMultilingualText extends ReadOnlyMapBasedMultilingualText i
    * @param aMapToUse
    *        The map to use. Must not be <code>null</code> and must be writable.
    */
-  protected MapBasedMultilingualText (@Nonnull final Map <Locale, String> aMapToUse)
+  protected AbstractMapBasedMultilingualText (@Nonnull final Map <Locale, String> aMapToUse)
   {
     super (aMapToUse);
   }

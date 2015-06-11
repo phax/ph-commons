@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.text.util;
+package com.helger.commons.text;
 
 import java.util.Locale;
 
@@ -26,7 +26,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.text.AbstractHasTextWithArgs;
 
 /**
  * An implementation of the {@link com.helger.commons.text.IHasTextWithArgs}
@@ -36,11 +35,11 @@ import com.helger.commons.text.AbstractHasTextWithArgs;
  * @author Philip Helger
  */
 @Immutable
-public class ConstantTextProvider extends AbstractHasTextWithArgs
+public class ConstantHasTextWithArgs extends AbstractHasTextWithArgs
 {
   private final String m_sFixedText;
 
-  public ConstantTextProvider (@Nonnull final String sFixedText)
+  public ConstantHasTextWithArgs (@Nonnull final String sFixedText)
   {
     m_sFixedText = ValueEnforcer.notNull (sFixedText, "FixedText");
   }
@@ -66,7 +65,7 @@ public class ConstantTextProvider extends AbstractHasTextWithArgs
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final ConstantTextProvider rhs = (ConstantTextProvider) o;
+    final ConstantHasTextWithArgs rhs = (ConstantHasTextWithArgs) o;
     return EqualsHelper.equals (m_sFixedText, rhs.m_sFixedText);
   }
 

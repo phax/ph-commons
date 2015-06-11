@@ -24,26 +24,24 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.text.util.ConstantTextProvider;
 
 /**
- * Test class for class {@link ConstantTextProvider}.
+ * Test class for class {@link ConstantHasText}.
  *
  * @author Philip Helger
  */
-public final class ConstantTextProviderTest
+public final class ConstantHasTextTest
 {
   @Test
   public void testAll ()
   {
-    final ConstantTextProvider aCDN = new ConstantTextProvider ("any");
+    final ConstantHasText aCDN = new ConstantHasText ("any");
     assertEquals ("any", aCDN.getText (Locale.GERMAN));
-    assertEquals ("any", aCDN.getTextWithArgs (Locale.GERMAN, "foo", "bar"));
 
     try
     {
       // null not allowed
-      new ConstantTextProvider (null);
+      new ConstantHasText (null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -56,24 +54,16 @@ public final class ConstantTextProviderTest
     }
     catch (final NullPointerException ex)
     {}
-    try
-    {
-      // null locale not allowed
-      aCDN.getTextWithArgs (null, "any");
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
   }
 
   @Test
   public void testStandard ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider ("any"),
-                                                                       new ConstantTextProvider ("any"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantTextProvider (""),
-                                                                       new ConstantTextProvider (""));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ConstantTextProvider ("any"),
-                                                                           new ConstantTextProvider ("anyy"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantHasText ("any"),
+                                                                       new ConstantHasText ("any"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantHasText (""),
+                                                                       new ConstantHasText (""));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ConstantHasText ("any"),
+                                                                           new ConstantHasText ("anyy"));
   }
 }

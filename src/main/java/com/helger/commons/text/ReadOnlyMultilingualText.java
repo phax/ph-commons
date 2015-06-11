@@ -31,7 +31,7 @@ import com.helger.commons.ValueEnforcer;
  * @author Philip Helger
  */
 @Immutable
-public class ReadOnlyMultilingualText extends ReadOnlyMapBasedMultilingualText
+public class ReadOnlyMultilingualText extends AbstractReadOnlyMapBasedMultilingualText
 {
   /**
    * Create an empty read-only multilingual text. Handle with care, as this type

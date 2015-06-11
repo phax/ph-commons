@@ -32,7 +32,7 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.text.util.TextHelper;
 
 /**
- * Test class for class {@link ReadOnlyMapBasedMultilingualText}.
+ * Test class for class {@link AbstractReadOnlyMapBasedMultilingualText}.
  *
  * @author Philip Helger
  */
@@ -81,7 +81,7 @@ public final class ReadOnlyMapBasedMultilingualTextTest extends AbstractCommonsT
     IMultilingualText aTP = TextHelper.create_DE_EN ("Hallo", "Hello");
     assertFalse (aTP.isEmpty ());
 
-    aTP = new ReadOnlyMapBasedMultilingualText ();
+    aTP = new ReadOnlyMultilingualText ();
     assertTrue (aTP.isEmpty ());
   }
 
@@ -92,7 +92,7 @@ public final class ReadOnlyMapBasedMultilingualTextTest extends AbstractCommonsT
     assertNotNull (TextHelper.create_DE_EN ("Test {0} 123!", ""));
     assertNotNull (TextHelper.create_DE_EN ("Test ''{0}'' 123!", ""));
 
-    ReadOnlyMapBasedMultilingualText.setPerformConsistencyChecks (true);
+    AbstractReadOnlyMapBasedMultilingualText.setPerformConsistencyChecks (true);
     try
     {
       // should log a warning
@@ -134,7 +134,7 @@ public final class ReadOnlyMapBasedMultilingualTextTest extends AbstractCommonsT
     }
     finally
     {
-      ReadOnlyMapBasedMultilingualText.setPerformConsistencyChecks (false);
+      AbstractReadOnlyMapBasedMultilingualText.setPerformConsistencyChecks (false);
     }
   }
 }
