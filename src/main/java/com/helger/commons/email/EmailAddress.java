@@ -53,8 +53,8 @@ public class EmailAddress implements IEmailAddress
   {
     ValueEnforcer.notNull (sAddress, "EmailAddress");
     ValueEnforcer.isTrue (EmailAddressHelper.isValid (sAddress), "The passed email address '" +
-                                                                sAddress +
-                                                                "' is illegal!");
+                                                                 sAddress +
+                                                                 "' is illegal!");
     m_sAddress = EmailAddressHelper.getUnifiedEmailAddress (sAddress);
     m_sPersonal = StringHelper.hasNoText (sPersonal) ? null : sPersonal;
   }

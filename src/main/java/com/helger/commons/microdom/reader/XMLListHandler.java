@@ -87,8 +87,7 @@ public final class XMLListHandler
   }
 
   @Nonnull
-  public static ESuccess readList (@Nonnull final IHasInputStream aISP,
-                                   @Nonnull final Collection <String> aTargetList)
+  public static ESuccess readList (@Nonnull final IHasInputStream aISP, @Nonnull final Collection <String> aTargetList)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
 
@@ -198,8 +197,7 @@ public final class XMLListHandler
   }
 
   @Nonnull
-  public static ESuccess writeList (@Nonnull final Collection <String> aCollection,
-                                    @Nonnull final IHasOutputStream aOSP)
+  public static ESuccess writeList (@Nonnull final Collection <String> aCollection, @Nonnull final IHasOutputStream aOSP)
   {
     ValueEnforcer.notNull (aOSP, "OutputStreamProvider");
 

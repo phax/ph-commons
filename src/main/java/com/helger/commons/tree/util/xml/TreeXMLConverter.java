@@ -96,37 +96,37 @@ public final class TreeXMLConverter
     final NonBlockingStack <IMicroElement> aParents = new NonBlockingStack <IMicroElement> ();
     aParents.push (eRoot);
     TreeVisitor.visitTree (aTree,
-                          new ChildrenProviderHasChildrenSorting <ITEMTYPE> (aItemComparator),
-                          new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
-                          {
-                            @Override
-                            @Nonnull
-                            public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final ITEMTYPE aItem)
-                            {
-                              if (aItem != null)
-                              {
-                                // create item element
-                                final IMicroElement eItem = aParents.peek ().appendElement (ELEMENT_ITEM);
-                                eItem.setAttribute (ATTR_ID, aIDConverter.convert (aItem.getID ()));
+                           new ChildrenProviderHasChildrenSorting <ITEMTYPE> (aItemComparator),
+                           new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
+                           {
+                             @Override
+                             @Nonnull
+                             public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final ITEMTYPE aItem)
+                             {
+                               if (aItem != null)
+                               {
+                                 // create item element
+                                 final IMicroElement eItem = aParents.peek ().appendElement (ELEMENT_ITEM);
+                                 eItem.setAttribute (ATTR_ID, aIDConverter.convert (aItem.getID ()));
 
-                                // append data
-                                final IMicroElement eData = eItem.appendElement (ELEMENT_DATA);
-                                aDataConverter.appendDataValue (eData, aItem.getData ());
+                                 // append data
+                                 final IMicroElement eData = eItem.appendElement (ELEMENT_DATA);
+                                 aDataConverter.appendDataValue (eData, aItem.getData ());
 
-                                aParents.push (eItem);
-                              }
-                              return EHierarchyVisitorReturn.CONTINUE;
-                            }
+                                 aParents.push (eItem);
+                               }
+                               return EHierarchyVisitorReturn.CONTINUE;
+                             }
 
-                            @Override
-                            @Nonnull
-                            public EHierarchyVisitorReturn onItemAfterChildren (@Nullable final ITEMTYPE aItem)
-                            {
-                              if (aItem != null)
-                                aParents.pop ();
-                              return EHierarchyVisitorReturn.CONTINUE;
-                            }
-                          });
+                             @Override
+                             @Nonnull
+                             public EHierarchyVisitorReturn onItemAfterChildren (@Nullable final ITEMTYPE aItem)
+                             {
+                               if (aItem != null)
+                                 aParents.pop ();
+                               return EHierarchyVisitorReturn.CONTINUE;
+                             }
+                           });
     return eRoot;
   }
 
@@ -140,37 +140,37 @@ public final class TreeXMLConverter
     final NonBlockingStack <IMicroElement> aParents = new NonBlockingStack <IMicroElement> ();
     aParents.push (eRoot);
     TreeVisitor.visitTree (aTree,
-                          new ChildrenProviderHasChildrenSorting <ITEMTYPE> (aItemComparator),
-                          new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
-                          {
-                            @Override
-                            @Nonnull
-                            public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final ITEMTYPE aItem)
-                            {
-                              if (aItem != null)
-                              {
-                                // create item element
-                                final IMicroElement eItem = aParents.peek ()
-                                                                    .appendElement (sNamespaceURI, ELEMENT_ITEM);
+                           new ChildrenProviderHasChildrenSorting <ITEMTYPE> (aItemComparator),
+                           new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
+                           {
+                             @Override
+                             @Nonnull
+                             public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final ITEMTYPE aItem)
+                             {
+                               if (aItem != null)
+                               {
+                                 // create item element
+                                 final IMicroElement eItem = aParents.peek ().appendElement (sNamespaceURI,
+                                                                                             ELEMENT_ITEM);
 
-                                // append data
-                                final IMicroElement eData = eItem.appendElement (sNamespaceURI, ELEMENT_DATA);
-                                aDataConverter.appendDataValue (eData, aItem.getData ());
+                                 // append data
+                                 final IMicroElement eData = eItem.appendElement (sNamespaceURI, ELEMENT_DATA);
+                                 aDataConverter.appendDataValue (eData, aItem.getData ());
 
-                                aParents.push (eItem);
-                              }
-                              return EHierarchyVisitorReturn.CONTINUE;
-                            }
+                                 aParents.push (eItem);
+                               }
+                               return EHierarchyVisitorReturn.CONTINUE;
+                             }
 
-                            @Override
-                            @Nonnull
-                            public EHierarchyVisitorReturn onItemAfterChildren (@Nullable final ITEMTYPE aItem)
-                            {
-                              if (aItem != null)
-                                aParents.pop ();
-                              return EHierarchyVisitorReturn.CONTINUE;
-                            }
-                          });
+                             @Override
+                             @Nonnull
+                             public EHierarchyVisitorReturn onItemAfterChildren (@Nullable final ITEMTYPE aItem)
+                             {
+                               if (aItem != null)
+                                 aParents.pop ();
+                               return EHierarchyVisitorReturn.CONTINUE;
+                             }
+                           });
     return eRoot;
   }
 

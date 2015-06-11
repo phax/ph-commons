@@ -24,11 +24,11 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.tree.IBasicTree;
 import com.helger.commons.tree.simple.ITreeItem;
-import com.helger.commons.tree.util.visit.TreeVisitor;
 
 /**
  * Sort {@link com.helger.commons.tree.simple.ITree} instances recursively.
@@ -44,17 +44,14 @@ public final class TreeSorter
   private TreeSorter ()
   {}
 
-  private static <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void _sort (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
+  private static <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void _sort (@Nonnull final IBasicTree <? extends DATATYPE, ITEMTYPE> aTree,
                                                                                          @Nonnull final Comparator <? super ITEMTYPE> aComparator)
   {
     ValueEnforcer.notNull (aTree, "Tree");
     ValueEnforcer.notNull (aComparator, "Comparator");
 
-    // sort root manually
-    aTree.getRootItem ().reorderChildItems (aComparator);
-
     // and now start iterating
-    TreeVisitor.visitTree (aTree, new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
+    ChildrenProviderHierarchyVisitor.visitFrom (aTree.getRootItem (), new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
     {
       @Override
       @Nonnull
@@ -64,7 +61,7 @@ public final class TreeSorter
           aTreeItem.reorderChildItems (aComparator);
         return EHierarchyVisitorReturn.CONTINUE;
       }
-    });
+    }, true);
   }
 
   /**
@@ -75,7 +72,7 @@ public final class TreeSorter
    * @param aValueComparator
    *        The comparator to be used for sorting the tree items on each level.
    */
-  public static <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void sort (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
+  public static <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void sort (@Nonnull final IBasicTree <? extends DATATYPE, ITEMTYPE> aTree,
                                                                                        @Nonnull final Comparator <? super DATATYPE> aValueComparator)
   {
     final ComparatorTreeItemData <DATATYPE, ITEMTYPE> aItemComp = new ComparatorTreeItemData <DATATYPE, ITEMTYPE> (aValueComparator);

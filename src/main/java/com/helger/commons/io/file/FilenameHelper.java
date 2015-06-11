@@ -480,7 +480,7 @@ public final class FilenameHelper
                                                     @Nullable final String sAbsoluteFilename2)
   {
     return EqualsHelper.equals (getPathUsingUnixSeparator (sAbsoluteFilename1),
-                               getPathUsingUnixSeparator (sAbsoluteFilename2));
+                                getPathUsingUnixSeparator (sAbsoluteFilename2));
   }
 
   /**

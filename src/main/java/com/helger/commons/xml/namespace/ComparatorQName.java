@@ -38,8 +38,8 @@ public class ComparatorQName extends AbstractComparator <QName>
   protected int mainCompare (@Nonnull final QName aElement1, @Nonnull final QName aElement2)
   {
     int ret = CompareHelper.nullSafeCompare (aElement1.getNamespaceURI (),
-                                            aElement2.getNamespaceURI (),
-                                            isNullValuesComeFirst ());
+                                             aElement2.getNamespaceURI (),
+                                             isNullValuesComeFirst ());
     if (ret == 0)
       ret = aElement1.getLocalPart ().compareTo (aElement2.getLocalPart ());
     return ret;

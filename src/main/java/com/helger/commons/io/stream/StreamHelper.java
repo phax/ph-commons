@@ -1013,8 +1013,7 @@ public final class StreamHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static List <String> readStreamLines (@Nullable final IHasInputStream aISP,
-                                               @Nonnull final Charset aCharset)
+  public static List <String> readStreamLines (@Nullable final IHasInputStream aISP, @Nonnull final Charset aCharset)
   {
     return readStreamLines (aISP, aCharset, 0, CGlobal.ILLEGAL_UINT);
   }

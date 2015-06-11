@@ -43,16 +43,16 @@ import com.helger.commons.tree.IBasicTreeItem;
 @Immutable
 public final class TreeVisitor
 {
-  public static final class HierarchyVisitorCallbackWithConversion <ITEMTYPE, DATATYPE> extends DefaultHierarchyVisitorCallback <ITEMTYPE>
+  public static class HierarchyVisitorCallbackWithConversion <ITEMTYPE, DATATYPE> extends DefaultHierarchyVisitorCallback <ITEMTYPE>
   {
     private final IHierarchyVisitorCallback <? super DATATYPE> m_aDataCallback;
     private final IUnidirectionalConverter <ITEMTYPE, DATATYPE> m_aConverter;
 
-    private HierarchyVisitorCallbackWithConversion (@Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback,
-                                                    @Nonnull final IUnidirectionalConverter <ITEMTYPE, DATATYPE> aConverter)
+    public HierarchyVisitorCallbackWithConversion (@Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback,
+                                                   @Nonnull final IUnidirectionalConverter <ITEMTYPE, DATATYPE> aConverter)
     {
-      m_aDataCallback = aDataCallback;
-      m_aConverter = aConverter;
+      m_aDataCallback = ValueEnforcer.notNull (aDataCallback, "DataCallback");
+      m_aConverter = ValueEnforcer.notNull (aConverter, "Converter");
     }
 
     @Override
@@ -80,14 +80,16 @@ public final class TreeVisitor
     @Nonnull
     public EHierarchyVisitorReturn onItemBeforeChildren (@Nonnull final ITEMTYPE aItem)
     {
-      return m_aDataCallback.onItemBeforeChildren (m_aConverter.convert (aItem));
+      final DATATYPE aConvertedValue = m_aConverter.convert (aItem);
+      return m_aDataCallback.onItemBeforeChildren (aConvertedValue);
     }
 
     @Override
     @Nonnull
     public EHierarchyVisitorReturn onItemAfterChildren (@Nonnull final ITEMTYPE aItem)
     {
-      return m_aDataCallback.onItemAfterChildren (m_aConverter.convert (aItem));
+      final DATATYPE aConvertedValue = m_aConverter.convert (aItem);
+      return m_aDataCallback.onItemAfterChildren (aConvertedValue);
     }
 
     @Override

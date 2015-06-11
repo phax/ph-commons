@@ -89,8 +89,7 @@ public final class XMLMapHandler
   }
 
   @Nonnull
-  public static ESuccess readMap (@Nonnull final IHasInputStream aISP,
-                                  @Nonnull final Map <String, String> aTargetMap)
+  public static ESuccess readMap (@Nonnull final IHasInputStream aISP, @Nonnull final Map <String, String> aTargetMap)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
 

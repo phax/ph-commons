@@ -89,8 +89,7 @@ public final class SAXReader
   }
 
   @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull final IHasInputStream aISP,
-                                     @Nonnull final ISAXReaderSettings aSettings)
+  public static ESuccess readXMLSAX (@Nonnull final IHasInputStream aISP, @Nonnull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aISP), aSettings);
   }

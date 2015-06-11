@@ -20,15 +20,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
 
 import org.junit.Test;
 
+import com.helger.commons.compare.AbstractComparator;
 import com.helger.commons.compare.CollatingComparator;
+import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.tree.simple.DefaultTree;
 import com.helger.commons.tree.simple.DefaultTreeItem;
-import com.helger.commons.tree.util.sort.TreeSorter;
 
 /**
  * Test class for class {@link TreeSorter}
@@ -38,7 +40,7 @@ import com.helger.commons.tree.util.sort.TreeSorter;
 public final class TreeSorterTest
 {
   @Test
-  public void testTree ()
+  public void testTreeString ()
   {
     final DefaultTree <String> aTree = new DefaultTree <String> ();
     assertNotNull (aTree.getRootItem ());
@@ -66,5 +68,42 @@ public final class TreeSorterTest
     assertEquals ("sxs", i1.getChildAtIndex (0).getData ());
     assertEquals ("System32", i1.getChildAtIndex (1).getData ());
     assertEquals ("temp", i1.getChildAtIndex (2).getData ());
+  }
+
+  @Test
+  public void testTreeNumeric ()
+  {
+    final DefaultTree <BigDecimal> aTree = new DefaultTree <BigDecimal> ();
+    final DefaultTreeItem <BigDecimal> i1 = aTree.getRootItem ().createChildItem (BigDecimal.valueOf (2));
+    i1.createChildItem (BigDecimal.valueOf (20));
+    i1.createChildItem (BigDecimal.valueOf (22));
+    i1.createChildItem (BigDecimal.valueOf (21));
+    final DefaultTreeItem <BigDecimal> i2 = aTree.getRootItem ().createChildItem (BigDecimal.valueOf (1));
+    i2.createChildItem (BigDecimal.valueOf (12));
+    i2.createChildItem (BigDecimal.valueOf (11));
+
+    // Sort all items by String
+    TreeSorter.sort (aTree, new AbstractComparator <Number> ()
+    {
+      @Override
+      protected int mainCompare (final Number aElement1, final Number aElement2)
+      {
+        return CompareHelper.compare (aElement1.intValue (), aElement2.intValue ());
+      }
+    });
+
+    assertEquals (2, aTree.getRootItem ().getChildCount ());
+    final List <? extends DefaultTreeItem <BigDecimal>> aChildren = aTree.getRootItem ().getAllChildren ();
+    assertSame (i2, aChildren.get (0));
+    assertSame (i1, aChildren.get (1));
+    // Test Apache (children must also be sorted)
+    assertEquals (2, i2.getChildCount ());
+    assertEquals (BigDecimal.valueOf (11), i2.getChildAtIndex (0).getData ());
+    assertEquals (BigDecimal.valueOf (12), i2.getChildAtIndex (1).getData ());
+    // Test Windows
+    assertEquals (3, i1.getChildCount ());
+    assertEquals (BigDecimal.valueOf (20), i1.getChildAtIndex (0).getData ());
+    assertEquals (BigDecimal.valueOf (21), i1.getChildAtIndex (1).getData ());
+    assertEquals (BigDecimal.valueOf (22), i1.getChildAtIndex (2).getData ());
   }
 }

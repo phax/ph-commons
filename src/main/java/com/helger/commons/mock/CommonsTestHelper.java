@@ -411,7 +411,7 @@ public final class CommonsTestHelper
 
           // Check content
           final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamHelper.createReader (FileHelper.getInputStream (aFile),
-                                                                                                             CCharset.CHARSET_SERVICE_LOADER_OBJ));
+                                                                                                              CCharset.CHARSET_SERVICE_LOADER_OBJ));
           try
           {
             int nCount = 0;

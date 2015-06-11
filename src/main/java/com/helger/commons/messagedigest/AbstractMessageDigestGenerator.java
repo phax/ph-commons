@@ -25,8 +25,8 @@ import com.helger.commons.charset.CharsetManager;
 
 /**
  * Base class for creating a cryptographic hash value. Don't mix it up with the
- * {@link com.helger.commons.hashcode.HashCodeGenerator} which is used to generate
- * hash values for Java objects.
+ * {@link com.helger.commons.hashcode.HashCodeGenerator} which is used to
+ * generate hash values for Java objects.
  *
  * @author Philip Helger
  */

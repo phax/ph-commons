@@ -31,9 +31,9 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Special {@link StreamResult} implementation that writes to
- * {@link IWritableResource} or {@link IHasOutputStream} objects. The
- * system ID of the stream source is automatically determined from the resource
- * or can be manually passed in.
+ * {@link IWritableResource} or {@link IHasOutputStream} objects. The system ID
+ * of the stream source is automatically determined from the resource or can be
+ * manually passed in.
  * 
  * @author Philip Helger
  */

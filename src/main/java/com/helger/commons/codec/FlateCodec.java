@@ -94,7 +94,7 @@ public class FlateCodec extends AbstractByteArrayCodec
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
     final DeflaterOutputStream aEncodeOS = new DeflaterOutputStream (aBAOS);
     if (StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new NonBlockingByteArrayInputStream (aBuffer), aEncodeOS)
-                   .isFailure ())
+                    .isFailure ())
       throw new EncodeException ("Failed to flate encode!");
     return aBAOS.toByteArray ();
   }

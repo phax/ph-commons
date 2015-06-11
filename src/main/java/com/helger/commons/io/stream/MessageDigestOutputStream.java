@@ -38,7 +38,8 @@ public class MessageDigestOutputStream extends WrappedOutputStream
 {
   private final IMessageDigestGenerator m_aMDGen;
 
-  public MessageDigestOutputStream (@Nonnull final OutputStream aSourceOS, @Nonnull final EMessageDigestAlgorithm eMDAlgorithm)
+  public MessageDigestOutputStream (@Nonnull final OutputStream aSourceOS,
+                                    @Nonnull final EMessageDigestAlgorithm eMDAlgorithm)
   {
     super (aSourceOS);
     m_aMDGen = new NonBlockingMessageDigestGenerator (eMDAlgorithm);

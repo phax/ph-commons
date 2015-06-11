@@ -28,8 +28,9 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.CollectionHelper;
 
 /**
- * An implementation of the {@link com.helger.commons.hierarchy.IChildrenProvider}
- * interface that works with all types that implement
+ * An implementation of the
+ * {@link com.helger.commons.hierarchy.IChildrenProvider} interface that works
+ * with all types that implement
  * {@link com.helger.commons.hierarchy.IHasChildren}. It automatically sorts the
  * returned children by the specified comparator.
  *

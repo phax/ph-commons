@@ -214,7 +214,7 @@ public final class EnumHelper
    */
   @Nullable
   public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasIntID> ENUMTYPE getFromIDOrNull (@Nonnull final Class <ENUMTYPE> aClass,
-                                                                                               final int nID)
+                                                                                         final int nID)
   {
     return getFromIDOrDefault (aClass, nID, null);
   }
@@ -234,8 +234,8 @@ public final class EnumHelper
    */
   @Nullable
   public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasIntID> ENUMTYPE getFromIDOrDefault (@Nonnull final Class <ENUMTYPE> aClass,
-                                                                                                  final int nID,
-                                                                                                  @Nullable final ENUMTYPE aDefault)
+                                                                                            final int nID,
+                                                                                            @Nullable final ENUMTYPE aDefault)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
@@ -321,7 +321,7 @@ public final class EnumHelper
    */
   @Nonnull
   public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasIntID> ENUMTYPE getFromIDOrThrow (@Nonnull final Class <ENUMTYPE> aClass,
-                                                                                                final int nID)
+                                                                                          final int nID)
   {
     final ENUMTYPE aEnum = getFromIDOrNull (aClass, nID);
     if (aEnum == null)
