@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.id.IHasSimpleIntID;
+import com.helger.commons.id.IHasIntID;
 
 /**
  * Test class for class {@link EnumHelper}.
@@ -36,7 +36,7 @@ import com.helger.commons.id.IHasSimpleIntID;
  */
 public final class EnumHelperTest
 {
-  public static enum EHasSimpleID implements IHasSimpleIntID
+  public static enum EHasSimpleID implements IHasIntID
   {
     A,
     B;
@@ -51,6 +51,7 @@ public final class EnumHelperTest
   public void testGetEnumID ()
   {
     assertEquals ("com.helger.commons.compare.ESortOrder.ASCENDING", EnumHelper.getEnumID (ESortOrder.ASCENDING));
+    assertEquals ("com.helger.commons.lang.EnumHelperTest$EHasSimpleID.A", EnumHelper.getEnumID (EHasSimpleID.A));
 
     try
     {

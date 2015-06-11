@@ -35,22 +35,22 @@ public final class ComparatorHasSimpleIntIDTest
   @Test
   public void testAll ()
   {
-    final List <? extends IHasSimpleIntID> aList = CollectionHelper.newList (new MockHasSimpleIntID (5),
-                                                                             new MockHasSimpleIntID (3),
-                                                                             new MockHasSimpleIntID (7));
-    CollectionHelper.getSortedInline (aList, new ComparatorHasSimpleIntID <IHasSimpleIntID> ());
+    final List <? extends IHasIntID> aList = CollectionHelper.newList (new MockHasIntID (5),
+                                                                             new MockHasIntID (3),
+                                                                             new MockHasIntID (7));
+    CollectionHelper.getSortedInline (aList, new ComparatorHasSimpleIntID <IHasIntID> ());
     assertEquals (3, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (7, aList.get (2).getID ());
 
     CollectionHelper.getSortedInline (aList,
-                                      new ComparatorHasSimpleIntID <IHasSimpleIntID> ().setSortOrder (ESortOrder.ASCENDING));
+                                      new ComparatorHasSimpleIntID <IHasIntID> ().setSortOrder (ESortOrder.ASCENDING));
     assertEquals (3, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (7, aList.get (2).getID ());
 
     CollectionHelper.getSortedInline (aList,
-                                      new ComparatorHasSimpleIntID <IHasSimpleIntID> ().setSortOrder (ESortOrder.DESCENDING));
+                                      new ComparatorHasSimpleIntID <IHasIntID> ().setSortOrder (ESortOrder.DESCENDING));
     assertEquals (7, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (3, aList.get (2).getID ());

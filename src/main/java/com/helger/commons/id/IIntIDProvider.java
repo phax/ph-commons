@@ -16,17 +16,26 @@
  */
 package com.helger.commons.id;
 
-public final class MockHasSimpleIntID implements IHasSimpleIntID
+import java.io.Serializable;
+
+import javax.annotation.Nonnull;
+
+/**
+ * Interface for objects having an int ID.
+ *
+ * @author Philip Helger
+ * @param <VALUETYPE>
+ *        Object type
+ */
+public interface IIntIDProvider <VALUETYPE> extends Serializable
 {
-  private final int m_nID;
-
-  public MockHasSimpleIntID (final int nID)
-  {
-    m_nID = nID;
-  }
-
-  public int getID ()
-  {
-    return m_nID;
-  }
+  /**
+   * Get the ID of the passed object.
+   *
+   * @param aObject
+   *        The object who's ID is to be retrieved. May not be <code>null</code>
+   *        .
+   * @return The ID of the object.
+   */
+  int getID (@Nonnull VALUETYPE aObject);
 }

@@ -16,24 +16,17 @@
  */
 package com.helger.commons.id;
 
-import javax.annotation.Nonnull;
-
-/**
- * Interface for objects having an int ID.
- * 
- * @author Philip Helger
- * @param <VALUETYPE>
- *        Object type
- */
-public interface ISimpleIntIDProvider <VALUETYPE>
+public final class MockHasIntID implements IHasIntID
 {
-  /**
-   * Get the ID of the passed object.
-   * 
-   * @param aObject
-   *        The object who's ID is to be retrieved. May not be <code>null</code>
-   *        .
-   * @return The ID of the object.
-   */
-  int getID (@Nonnull VALUETYPE aObject);
+  private final int m_nID;
+
+  public MockHasIntID (final int nID)
+  {
+    m_nID = nID;
+  }
+
+  public int getID ()
+  {
+    return m_nID;
+  }
 }

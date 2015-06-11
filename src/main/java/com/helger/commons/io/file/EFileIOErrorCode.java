@@ -22,7 +22,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.id.IHasSimpleIntID;
+import com.helger.commons.id.IHasIntID;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.state.ISuccessIndicator;
 
@@ -31,7 +31,7 @@ import com.helger.commons.state.ISuccessIndicator;
  *
  * @author Philip Helger
  */
-public enum EFileIOErrorCode implements ISuccessIndicator, IHasSimpleIntID
+public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
 {
   /** Generic error code: no error. */
   NO_ERROR (0),

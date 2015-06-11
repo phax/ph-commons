@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 
 import org.w3c.dom.Node;
 
-import com.helger.commons.id.IHasSimpleIntID;
+import com.helger.commons.id.IHasIntID;
 import com.helger.commons.lang.EnumHelper;
 
 /**
@@ -30,7 +30,7 @@ import com.helger.commons.lang.EnumHelper;
  * 
  * @author Philip Helger
  */
-public enum EXMLDOMNodeType implements IHasSimpleIntID
+public enum EXMLDOMNodeType implements IHasIntID
 {
   /**
    * The node is an <code>Element</code>.

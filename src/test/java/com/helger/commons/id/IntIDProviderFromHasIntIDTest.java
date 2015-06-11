@@ -16,22 +16,21 @@
  */
 package com.helger.commons.id;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 /**
- * A simple {@link ISimpleIntIDProvider} implementation for objects implementing
- * the {@link IHasSimpleIntID} interface
+ * Test class for class {@link IntIDProviderFromHasIntID}.
  * 
  * @author Philip Helger
- * @param <VALUETYPE>
- *        The object type
  */
-@NotThreadSafe
-public final class SimpleIntIDProviderFromHasSimpleIntID <VALUETYPE extends IHasSimpleIntID> implements ISimpleIntIDProvider <VALUETYPE>
+public final class IntIDProviderFromHasIntIDTest
 {
-  public int getID (@Nonnull final VALUETYPE aObject)
+  @Test
+  public void testAll ()
   {
-    return aObject.getID ();
+    final IntIDProviderFromHasIntID <MockHasIntID> x = new IntIDProviderFromHasIntID <MockHasIntID> ();
+    assertEquals (-3, x.getID (new MockHasIntID (-3)));
   }
 }

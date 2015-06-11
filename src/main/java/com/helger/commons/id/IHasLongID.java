@@ -16,18 +16,15 @@
  */
 package com.helger.commons.id;
 
-import javax.annotation.Nonnull;
-
 /**
  * Base interface for all objects having a long ID.
  * 
  * @author Philip Helger
  */
-public interface IHasLongID extends IHasSimpleLongID
+public interface IHasLongID
 {
   /**
-   * @return The {@link Long} representation of the contained "long" ID.
+   * @return The simple long ID of this object.
    */
-  @Nonnull
-  Long getIDObj ();
+  long getID ();
 }

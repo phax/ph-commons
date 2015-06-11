@@ -16,15 +16,17 @@
  */
 package com.helger.commons.id;
 
-/**
- * Base interface for all objects having a long ID.
- * 
- * @author Philip Helger
- */
-public interface IHasSimpleLongID
+public final class MockHasLongID implements IHasLongID
 {
-  /**
-   * @return The simple long ID of this object.
-   */
-  long getID ();
+  private final long m_nID;
+
+  public MockHasLongID (final long nID)
+  {
+    m_nID = nID;
+  }
+
+  public long getID ()
+  {
+    return m_nID;
+  }
 }

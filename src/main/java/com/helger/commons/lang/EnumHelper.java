@@ -33,7 +33,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.id.IHasID;
-import com.helger.commons.id.IHasSimpleIntID;
+import com.helger.commons.id.IHasIntID;
 import com.helger.commons.name.IHasName;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -213,7 +213,7 @@ public final class EnumHelper
    * @return <code>null</code> if no enum item with the given ID is present.
    */
   @Nullable
-  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasSimpleIntID> ENUMTYPE getFromIDOrNull (@Nonnull final Class <ENUMTYPE> aClass,
+  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasIntID> ENUMTYPE getFromIDOrNull (@Nonnull final Class <ENUMTYPE> aClass,
                                                                                                final int nID)
   {
     return getFromIDOrDefault (aClass, nID, null);
@@ -233,7 +233,7 @@ public final class EnumHelper
    * @return The default parameter if no enum item with the given ID is present.
    */
   @Nullable
-  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasSimpleIntID> ENUMTYPE getFromIDOrDefault (@Nonnull final Class <ENUMTYPE> aClass,
+  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasIntID> ENUMTYPE getFromIDOrDefault (@Nonnull final Class <ENUMTYPE> aClass,
                                                                                                   final int nID,
                                                                                                   @Nullable final ENUMTYPE aDefault)
   {
@@ -320,7 +320,7 @@ public final class EnumHelper
    *         if no enum item with the given ID is present
    */
   @Nonnull
-  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasSimpleIntID> ENUMTYPE getFromIDOrThrow (@Nonnull final Class <ENUMTYPE> aClass,
+  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasIntID> ENUMTYPE getFromIDOrThrow (@Nonnull final Class <ENUMTYPE> aClass,
                                                                                                 final int nID)
   {
     final ENUMTYPE aEnum = getFromIDOrNull (aClass, nID);

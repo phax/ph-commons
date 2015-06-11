@@ -16,18 +16,15 @@
  */
 package com.helger.commons.id;
 
-import javax.annotation.Nonnull;
-
 /**
  * Base interface for all objects having an int ID.
- * 
+ *
  * @author Philip Helger
  */
-public interface IHasIntID extends IHasSimpleIntID
+public interface IHasIntID
 {
   /**
-   * @return The {@link Integer} representation of the contained "int" ID.
+   * @return The primitive int ID of this object.
    */
-  @Nonnull
-  Integer getIDObj ();
+  int getID ();
 }

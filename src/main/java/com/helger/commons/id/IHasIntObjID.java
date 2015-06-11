@@ -16,17 +16,18 @@
  */
 package com.helger.commons.id;
 
-public final class MockHasSimpleLongID implements IHasSimpleLongID
+import javax.annotation.Nonnull;
+
+/**
+ * Base interface for all objects having an int ID.
+ * 
+ * @author Philip Helger
+ */
+public interface IHasIntObjID extends IHasIntID
 {
-  private final long m_nID;
-
-  public MockHasSimpleLongID (final long nID)
-  {
-    m_nID = nID;
-  }
-
-  public long getID ()
-  {
-    return m_nID;
-  }
+  /**
+   * @return The {@link Integer} representation of the contained "int" ID.
+   */
+  @Nonnull
+  Integer getIDObj ();
 }

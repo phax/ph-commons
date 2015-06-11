@@ -16,22 +16,26 @@
  */
 package com.helger.commons.id;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
 
 /**
- * A simple {@link ISimpleIntIDProvider} implementation for objects implementing
- * the {@link IHasSimpleIntID} interface
- * 
+ * Interface for objects having a long ID.
+ *
  * @author Philip Helger
  * @param <VALUETYPE>
- *        The object type
+ *        Object type
  */
-@NotThreadSafe
-public final class SimpleLongIDProviderFromHasSimpleLongID <VALUETYPE extends IHasSimpleLongID> implements ISimpleLongIDProvider <VALUETYPE>
+public interface ILongIDProvider <VALUETYPE> extends Serializable
 {
-  public long getID (@Nonnull final VALUETYPE aObject)
-  {
-    return aObject.getID ();
-  }
+  /**
+   * Get the ID of the passed object.
+   *
+   * @param aObject
+   *        The object who's ID is to be retrieved. May not be <code>null</code>
+   *        .
+   * @return The ID of the object.
+   */
+  long getID (@Nonnull VALUETYPE aObject);
 }

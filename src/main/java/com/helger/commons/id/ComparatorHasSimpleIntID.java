@@ -23,14 +23,14 @@ import com.helger.commons.compare.AbstractIntComparator;
 
 /**
  * This is a {@link java.util.Comparator} for objects that implement the
- * {@link IHasSimpleIntID} interface.
+ * {@link IHasIntID} interface.
  *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of elements to be compared.
  */
 @NotThreadSafe
-public class ComparatorHasSimpleIntID <DATATYPE extends IHasSimpleIntID> extends AbstractIntComparator <DATATYPE>
+public class ComparatorHasSimpleIntID <DATATYPE extends IHasIntID> extends AbstractIntComparator <DATATYPE>
 {
   /**
    * Comparator with default sort order and no nested comparator.

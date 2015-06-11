@@ -16,15 +16,22 @@
  */
 package com.helger.commons.id;
 
+import javax.annotation.Nonnull;
+import javax.annotation.concurrent.NotThreadSafe;
+
 /**
- * Base interface for all objects having an int ID.
+ * A simple {@link IIntIDProvider} implementation for objects implementing
+ * the {@link IHasIntID} interface
  * 
  * @author Philip Helger
+ * @param <VALUETYPE>
+ *        The object type
  */
-public interface IHasSimpleIntID
+@NotThreadSafe
+public final class LongIDProviderFromHasLongID <VALUETYPE extends IHasLongID> implements ILongIDProvider <VALUETYPE>
 {
-  /**
-   * @return The simple int ID of this object.
-   */
-  int getID ();
+  public long getID (@Nonnull final VALUETYPE aObject)
+  {
+    return aObject.getID ();
+  }
 }

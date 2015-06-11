@@ -21,16 +21,16 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Test class for class {@link SimpleLongIDProviderFromHasSimpleLongID}.
+ * Test class for class {@link LongIDProviderFromHasLongID}.
  * 
  * @author Philip Helger
  */
-public final class SimpleLongIDProviderFromHasSimpleLongIDTest
+public final class LongIDProviderFromHasLongIDTest
 {
   @Test
   public void testAll ()
   {
-    final SimpleLongIDProviderFromHasSimpleLongID <MockHasSimpleLongID> x = new SimpleLongIDProviderFromHasSimpleLongID <MockHasSimpleLongID> ();
-    assertEquals (5L, x.getID (new MockHasSimpleLongID (5L)));
+    final LongIDProviderFromHasLongID <MockHasLongID> x = new LongIDProviderFromHasLongID <MockHasLongID> ();
+    assertEquals (5L, x.getID (new MockHasLongID (5L)));
   }
 }

@@ -16,21 +16,18 @@
  */
 package com.helger.commons.id;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import javax.annotation.Nonnull;
 
 /**
- * Test class for class {@link SimpleIntIDProviderFromHasSimpleIntID}.
+ * Base interface for all objects having a long ID.
  * 
  * @author Philip Helger
  */
-public final class SimpleIntIDProviderFromHasSimpleIntIDTest
+public interface IHasLongObjID extends IHasLongID
 {
-  @Test
-  public void testAll ()
-  {
-    final SimpleIntIDProviderFromHasSimpleIntID <MockHasSimpleIntID> x = new SimpleIntIDProviderFromHasSimpleIntID <MockHasSimpleIntID> ();
-    assertEquals (-3, x.getID (new MockHasSimpleIntID (-3)));
-  }
+  /**
+   * @return The {@link Long} representation of the contained "long" ID.
+   */
+  @Nonnull
+  Long getIDObj ();
 }
