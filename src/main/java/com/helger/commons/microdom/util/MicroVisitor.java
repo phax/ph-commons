@@ -19,6 +19,7 @@ package com.helger.commons.microdom.util;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
@@ -52,6 +53,7 @@ public final class MicroVisitor
   public static void visit (@Nonnull final IMicroNode aNode,
                             @Nonnull final IHierarchyVisitorCallback <? super IMicroNode> aCallback)
   {
+    ValueEnforcer.notNull (aNode, "Node");
     ChildrenProviderHierarchyVisitor.visitFrom (aNode, aCallback, false);
   }
 
@@ -70,6 +72,7 @@ public final class MicroVisitor
                                                    @Nonnull final IChildrenProvider <T> aChildrenProvider,
                                                    @Nonnull final IHierarchyVisitorCallback <? super T> aCallback)
   {
+    ValueEnforcer.notNull (aNode, "Node");
     ChildrenProviderHierarchyVisitor.visitFrom (aNode, aChildrenProvider, aCallback, false);
   }
 }
