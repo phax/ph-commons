@@ -25,6 +25,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.hierarchy.ChildrenProviderHasChildren;
 import com.helger.commons.hierarchy.IChildrenProvider;
+import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.hierarchy.visit.IHierarchyVisitorCallback;
@@ -47,142 +48,64 @@ public final class TreeVisitor
   private TreeVisitor ()
   {}
 
-  @Nonnull
-  private static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> EHierarchyVisitorReturn _walkTree (@Nonnull final ITEMTYPE aTreeItem,
-                                                                                                                     @Nonnull final IChildrenProvider <ITEMTYPE> aChildrenProvider,
-                                                                                                                     @Nonnull final IHierarchyVisitorCallback <? super ITEMTYPE> aCallback)
+  public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTree (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
+                                                                                                 @Nonnull final IHierarchyVisitorCallback <? super ITEMTYPE> aCallback)
   {
-    // prefix insertion
-    final EHierarchyVisitorReturn eRetPrefix = aCallback.onItemBeforeChildren (aTreeItem);
-
-    // call children only if mode is continue
-    EHierarchyVisitorReturn eRetChildren = EHierarchyVisitorReturn.CONTINUE;
-    if (eRetPrefix == EHierarchyVisitorReturn.CONTINUE && aChildrenProvider.hasChildren (aTreeItem))
-    {
-      // iterate children
-      aCallback.onLevelDown ();
-      try
-      {
-        for (final ITEMTYPE aChildItem : aChildrenProvider.getAllChildren (aTreeItem))
-        {
-          // recursive call
-          eRetChildren = _walkTree (aChildItem, aChildrenProvider, aCallback);
-          if (eRetChildren == EHierarchyVisitorReturn.USE_PARENTS_NEXT_SIBLING)
-          {
-            // If we don't want the children to be enumerated, break this loop
-            // and continue as normal
-            eRetChildren = EHierarchyVisitorReturn.CONTINUE;
-            break;
-          }
-
-          if (eRetChildren == EHierarchyVisitorReturn.STOP_ITERATION)
-          {
-            // stop iterating and propagate the return code to the root
-            break;
-          }
-        }
-      }
-      finally
-      {
-        // callback
-        aCallback.onLevelUp ();
-      }
-    }
-
-    // postfix insertion even if prefix iteration failed
-    final EHierarchyVisitorReturn eRetPostfix = aCallback.onItemAfterChildren (aTreeItem);
-
-    // most stringent first
-    if (eRetPrefix == EHierarchyVisitorReturn.STOP_ITERATION ||
-        eRetChildren == EHierarchyVisitorReturn.STOP_ITERATION ||
-        eRetPostfix == EHierarchyVisitorReturn.STOP_ITERATION)
-    {
-      // stop complete iteration
-      return EHierarchyVisitorReturn.STOP_ITERATION;
-    }
-    if (eRetPrefix == EHierarchyVisitorReturn.USE_PARENTS_NEXT_SIBLING ||
-        eRetChildren == EHierarchyVisitorReturn.USE_PARENTS_NEXT_SIBLING ||
-        eRetPostfix == EHierarchyVisitorReturn.USE_PARENTS_NEXT_SIBLING)
-    {
-      // skip children and siblings
-      return EHierarchyVisitorReturn.USE_PARENTS_NEXT_SIBLING;
-    }
-
-    // continue
-    return EHierarchyVisitorReturn.CONTINUE;
+    visitTree (aTree, new ChildrenProviderHasChildren <ITEMTYPE> (), aCallback);
   }
 
-  public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void walkTree (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
-                                                                                                @Nonnull final IHierarchyVisitorCallback <? super ITEMTYPE> aCallback)
+  public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTree (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
+                                                                                                 @Nonnull final IChildrenProvider <ITEMTYPE> aChildrenResolver,
+                                                                                                 @Nonnull final IHierarchyVisitorCallback <? super ITEMTYPE> aCallback)
   {
-    walkTree (aTree, new ChildrenProviderHasChildren <ITEMTYPE> (), aCallback);
+    ValueEnforcer.notNull (aTree, "Tree");
+    visitTreeItem (aTree.getRootItem (), aChildrenResolver, aCallback);
   }
 
-  public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void walkTree (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
-                                                                                                @Nonnull final IChildrenProvider <ITEMTYPE> aChildrenResolver,
-                                                                                                @Nonnull final IHierarchyVisitorCallback <? super ITEMTYPE> aCallback)
+  public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTreeData (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
+                                                                                                     @Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback)
+  {
+    visitTreeData (aTree, new ChildrenProviderHasChildren <ITEMTYPE> (), aDataCallback);
+  }
+
+  public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTreeData (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
+                                                                                                     @Nonnull final IChildrenProvider <ITEMTYPE> aChildrenProvider,
+                                                                                                     @Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback)
   {
     ValueEnforcer.notNull (aTree, "Tree");
 
-    walkSubTree (aTree.getRootItem (), aChildrenResolver, aCallback);
+    visitTreeItemData (aTree.getRootItem (), aChildrenProvider, aDataCallback);
   }
 
-  public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void walkTreeData (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
-                                                                                                    @Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback)
-  {
-    walkTreeData (aTree, new ChildrenProviderHasChildren <ITEMTYPE> (), aDataCallback);
-  }
-
-  public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void walkTreeData (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
-                                                                                                    @Nonnull final IChildrenProvider <ITEMTYPE> aChildrenProvider,
-                                                                                                    @Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback)
-  {
-    ValueEnforcer.notNull (aTree, "Tree");
-
-    walkSubTreeData (aTree.getRootItem (), aChildrenProvider, aDataCallback);
-  }
-
-  public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void walkSubTree (@Nonnull final ITEMTYPE aTreeItem,
-                                                                                                   @Nonnull final IHierarchyVisitorCallback <? super ITEMTYPE> aCallback)
-  {
-    walkSubTree (aTreeItem, new ChildrenProviderHasChildren <ITEMTYPE> (), aCallback);
-  }
-
-  public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void walkSubTree (@Nonnull final ITEMTYPE aTreeItem,
-                                                                                                   @Nonnull final IChildrenProvider <ITEMTYPE> aChildrenProvider,
-                                                                                                   @Nonnull final IHierarchyVisitorCallback <? super ITEMTYPE> aCallback)
+  public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTreeItem (@Nonnull final ITEMTYPE aTreeItem,
+                                                                                                     @Nonnull final IHierarchyVisitorCallback <? super ITEMTYPE> aCallback)
   {
     ValueEnforcer.notNull (aTreeItem, "TreeItem");
-    ValueEnforcer.notNull (aChildrenProvider, "ChildrenProvider");
-    ValueEnforcer.notNull (aCallback, "Callback");
-
-    aCallback.begin ();
-    try
-    {
-      if (aChildrenProvider.hasChildren (aTreeItem))
-        for (final ITEMTYPE aChildItem : aChildrenProvider.getAllChildren (aTreeItem))
-          _walkTree (aChildItem, aChildrenProvider, aCallback);
-    }
-    finally
-    {
-      aCallback.end ();
-    }
+    ChildrenProviderHierarchyVisitor.visitFrom (aTreeItem, aCallback, false);
   }
 
-  public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void walkSubTreeData (@Nonnull final ITEMTYPE aTreeItem,
-                                                                                                       @Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback)
+  public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTreeItem (@Nonnull final ITEMTYPE aTreeItem,
+                                                                                                     @Nonnull final IChildrenProvider <ITEMTYPE> aChildrenProvider,
+                                                                                                     @Nonnull final IHierarchyVisitorCallback <? super ITEMTYPE> aCallback)
   {
-    walkSubTreeData (aTreeItem, new ChildrenProviderHasChildren <ITEMTYPE> (), aDataCallback);
+    ValueEnforcer.notNull (aTreeItem, "TreeItem");
+    ChildrenProviderHierarchyVisitor.visitFrom (aTreeItem, aChildrenProvider, aCallback, false);
   }
 
-  public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void walkSubTreeData (@Nonnull final ITEMTYPE aTreeItem,
-                                                                                                       @Nonnull final IChildrenProvider <ITEMTYPE> aChildrenProvider,
-                                                                                                       @Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback)
+  public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTreeItemData (@Nonnull final ITEMTYPE aTreeItem,
+                                                                                                         @Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback)
+  {
+    visitTreeItemData (aTreeItem, new ChildrenProviderHasChildren <ITEMTYPE> (), aDataCallback);
+  }
+
+  public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTreeItemData (@Nonnull final ITEMTYPE aTreeItem,
+                                                                                                         @Nonnull final IChildrenProvider <ITEMTYPE> aChildrenProvider,
+                                                                                                         @Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback)
   {
     ValueEnforcer.notNull (aDataCallback, "DataCallback");
 
     // Wrap callback
-    walkSubTree (aTreeItem, aChildrenProvider, new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
+    visitTreeItem (aTreeItem, aChildrenProvider, new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
     {
       @Override
       public void begin ()

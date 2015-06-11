@@ -95,7 +95,7 @@ public final class TreeXMLConverter
     final IMicroElement eRoot = new MicroElement (ELEMENT_ROOT);
     final NonBlockingStack <IMicroElement> aParents = new NonBlockingStack <IMicroElement> ();
     aParents.push (eRoot);
-    TreeVisitor.walkTree (aTree,
+    TreeVisitor.visitTree (aTree,
                           new ChildrenProviderHasChildrenSorting <ITEMTYPE> (aItemComparator),
                           new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
                           {
@@ -139,7 +139,7 @@ public final class TreeXMLConverter
     final IMicroElement eRoot = new MicroElement (sNamespaceURI, ELEMENT_ROOT);
     final NonBlockingStack <IMicroElement> aParents = new NonBlockingStack <IMicroElement> ();
     aParents.push (eRoot);
-    TreeVisitor.walkTree (aTree,
+    TreeVisitor.visitTree (aTree,
                           new ChildrenProviderHasChildrenSorting <ITEMTYPE> (aItemComparator),
                           new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
                           {

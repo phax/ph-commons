@@ -87,7 +87,7 @@ public final class TreeVisitorTest
 
       // count at before children
       final MutableInt mi = new MutableInt ();
-      TreeVisitor.walkTree (_createTree (nLevel, nItemsPerLevel),
+      TreeVisitor.visitTree (_createTree (nLevel, nItemsPerLevel),
                                   new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                                   {
                                     @Override
@@ -103,7 +103,7 @@ public final class TreeVisitorTest
 
       // count at before children
       mi.set (0);
-      TreeVisitor.walkSubTree (_createTree (nLevel, nItemsPerLevel).getRootItem (),
+      TreeVisitor.visitTreeItem (_createTree (nLevel, nItemsPerLevel).getRootItem (),
                                      new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                                      {
                                        @Override
@@ -119,7 +119,7 @@ public final class TreeVisitorTest
 
       // count at after children
       mi.set (0);
-      TreeVisitor.walkTree (_createTree (nLevel, nItemsPerLevel),
+      TreeVisitor.visitTree (_createTree (nLevel, nItemsPerLevel),
                                   new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                                   {
                                     @Override
@@ -135,7 +135,7 @@ public final class TreeVisitorTest
 
       // count at after children
       mi.set (0);
-      TreeVisitor.walkSubTree (_createTree (nLevel, nItemsPerLevel).getRootItem (),
+      TreeVisitor.visitTreeItem (_createTree (nLevel, nItemsPerLevel).getRootItem (),
                                      new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                                      {
                                        @Override
@@ -190,36 +190,36 @@ public final class TreeVisitorTest
 
       // count at before children
       final MutableInt mi = new MutableInt ();
-      TreeVisitor.walkTree (_createTreeWithID (nLevel, nItemsPerLevel), new MockTreeVisitorCallback (mi));
+      TreeVisitor.visitTree (_createTreeWithID (nLevel, nItemsPerLevel), new MockTreeVisitorCallback (mi));
       assertEquals (nExpected, mi.intValue ());
 
       // count at before children
       mi.set (0);
-      TreeVisitor.walkSubTree (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (),
+      TreeVisitor.visitTreeItem (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (),
                                      new MockTreeVisitorCallback (mi));
       assertEquals (nExpected, mi.intValue ());
 
       // count at after children
       mi.set (0);
-      TreeVisitor.walkTree (_createTreeWithID (nLevel, nItemsPerLevel), new MockTreeVisitorCallback (mi));
+      TreeVisitor.visitTree (_createTreeWithID (nLevel, nItemsPerLevel), new MockTreeVisitorCallback (mi));
       assertEquals (nExpected, mi.intValue ());
 
       // count at after children
       mi.set (0);
-      TreeVisitor.walkSubTree (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (),
+      TreeVisitor.visitTreeItem (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (),
                                      new MockTreeVisitorCallback (mi));
       assertEquals (nExpected, mi.intValue ());
 
       try
       {
-        TreeVisitor.walkTree ((DefaultTreeWithID <String, Object>) null, new MockTreeVisitorCallback (mi));
+        TreeVisitor.visitTree ((DefaultTreeWithID <String, Object>) null, new MockTreeVisitorCallback (mi));
         fail ();
       }
       catch (final NullPointerException ex)
       {}
       try
       {
-        TreeVisitor.walkSubTree ((DefaultTreeItemWithID <String, Object>) null,
+        TreeVisitor.visitTreeItem ((DefaultTreeItemWithID <String, Object>) null,
                                        new MockTreeVisitorCallback (mi));
         fail ();
       }
@@ -227,7 +227,7 @@ public final class TreeVisitorTest
       {}
       try
       {
-        TreeVisitor.walkSubTree (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (), null);
+        TreeVisitor.visitTreeItem (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (), null);
         fail ();
       }
       catch (final NullPointerException ex)

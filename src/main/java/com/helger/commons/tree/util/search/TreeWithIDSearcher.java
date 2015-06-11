@@ -89,7 +89,7 @@ public final class TreeWithIDSearcher
                                                                                                                                                  @Nullable final KEYTYPE aSearchID)
   {
     final List <ITEMTYPE> aRetList = new ArrayList <ITEMTYPE> ();
-    TreeVisitor.walkSubTree (aTreeItem, new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
+    TreeVisitor.visitTreeItem (aTreeItem, new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
     {
       @Override
       @Nonnull

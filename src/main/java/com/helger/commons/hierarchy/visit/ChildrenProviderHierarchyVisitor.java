@@ -172,14 +172,14 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
     new ChildrenProviderHierarchyVisitor <CHILDTYPE> (aChildrenProvider, aCallback).visit (null, bInvokeOnStartObject);
   }
 
-  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitFrom (@Nonnull final CHILDTYPE aStartObject,
+  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitFrom (@Nullable final CHILDTYPE aStartObject,
                                                                              @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
                                                                              final boolean bInvokeOnStartObject)
   {
     visitFrom (aStartObject, new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback, bInvokeOnStartObject);
   }
 
-  public static <CHILDTYPE> void visitFrom (@Nonnull final CHILDTYPE aStartObject,
+  public static <CHILDTYPE> void visitFrom (@Nullable final CHILDTYPE aStartObject,
                                             @Nonnull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
                                             @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
                                             final boolean bInvokeOnStartObject)

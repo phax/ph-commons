@@ -79,7 +79,7 @@ public final class FileSystemFolderTreeTest
     FileSystemFolderTree aTree = new FileSystemFolderTree (new File (".").getAbsoluteFile (),
                                                            null,
                                                            new FilenameFilterEndsWith (".java"));
-    TreeVisitor.walkSubTree (aTree.getRootItem (),
+    TreeVisitor.visitTreeItem (aTree.getRootItem (),
                              new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ()
                              {
                                @Override
@@ -95,12 +95,12 @@ public final class FileSystemFolderTreeTest
 
     // Only dir filter
     aTree = new FileSystemFolderTree (new File (".").getAbsoluteFile (), new FilenameFilterEndsWith ("src"), null);
-    TreeVisitor.walkSubTree (aTree.getRootItem (),
+    TreeVisitor.visitTreeItem (aTree.getRootItem (),
                              new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ());
 
     // No filter
     aTree = new FileSystemFolderTree (new File (".").getAbsoluteFile ());
-    TreeVisitor.walkSubTree (aTree.getRootItem (),
+    TreeVisitor.visitTreeItem (aTree.getRootItem (),
                              new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ());
   }
 }

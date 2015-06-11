@@ -54,7 +54,7 @@ public final class TreeSorter
     aTree.getRootItem ().reorderChildItems (aComparator);
 
     // and now start iterating
-    TreeVisitor.walkTree (aTree, new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
+    TreeVisitor.visitTree (aTree, new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
     {
       @Override
       @Nonnull

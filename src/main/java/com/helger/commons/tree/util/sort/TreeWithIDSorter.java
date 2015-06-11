@@ -55,7 +55,7 @@ public final class TreeWithIDSorter
     aTree.getRootItem ().reorderChildrenByItems (aComparator);
 
     // and now start iterating
-    TreeVisitor.walkTree (aTree, new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
+    TreeVisitor.visitTree (aTree, new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
     {
       @Override
       public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final ITEMTYPE aTreeItem)
