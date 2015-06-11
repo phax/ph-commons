@@ -20,7 +20,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.callback.IThrowingRunnableWithParameter;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -33,11 +32,11 @@ import com.helger.commons.string.ToStringGenerator;
  *        The parameter type.
  */
 @Immutable
-public class AdapterRunnableToRunnableWithParameter <PARAMTYPE> implements INonThrowingRunnableWithParameter <PARAMTYPE>
+public class AdapterRunnableToThrowingRunnableWithParameter <PARAMTYPE> implements IThrowingRunnableWithParameter <PARAMTYPE>
 {
   private final Runnable m_aRunnable;
 
-  public AdapterRunnableToRunnableWithParameter (@Nonnull final Runnable aRunnable)
+  public AdapterRunnableToThrowingRunnableWithParameter (@Nonnull final Runnable aRunnable)
   {
     m_aRunnable = ValueEnforcer.notNull (aRunnable, "Runnable");
   }
@@ -48,7 +47,7 @@ public class AdapterRunnableToRunnableWithParameter <PARAMTYPE> implements INonT
     return m_aRunnable;
   }
 
-  public void run (final PARAMTYPE aParam)
+  public void run (final PARAMTYPE aParam) throws Exception
   {
     m_aRunnable.run ();
   }
