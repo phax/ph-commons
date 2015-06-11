@@ -22,14 +22,16 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.junit.Test;
 
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.filter.FilenameFilterEndsWith;
-import com.helger.commons.tree.util.walk.TreeWalker;
+import com.helger.commons.tree.util.visit.TreeVisitor;
 import com.helger.commons.tree.withid.folder.DefaultFolderTreeItem;
 
 /**
@@ -77,26 +79,28 @@ public final class FileSystemFolderTreeTest
     FileSystemFolderTree aTree = new FileSystemFolderTree (new File (".").getAbsoluteFile (),
                                                            null,
                                                            new FilenameFilterEndsWith (".java"));
-    TreeWalker.walkSubTree (aTree.getRootItem (),
-                            new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ()
-                            {
-                              @Override
-                              public void onItemBeforeChildren (@Nullable final DefaultFolderTreeItem <String, File, List <File>> aFolder)
-                              {
-                                if (aFolder != null)
-                                  for (final File aFile : aFolder.getData ())
-                                    assertTrue (FileHelper.existsFile (aFile));
-                              }
-                            });
+    TreeVisitor.walkSubTree (aTree.getRootItem (),
+                             new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ()
+                             {
+                               @Override
+                               @Nonnull
+                               public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final DefaultFolderTreeItem <String, File, List <File>> aFolder)
+                               {
+                                 if (aFolder != null)
+                                   for (final File aFile : aFolder.getData ())
+                                     assertTrue (FileHelper.existsFile (aFile));
+                                 return EHierarchyVisitorReturn.CONTINUE;
+                               }
+                             });
 
     // Only dir filter
     aTree = new FileSystemFolderTree (new File (".").getAbsoluteFile (), new FilenameFilterEndsWith ("src"), null);
-    TreeWalker.walkSubTree (aTree.getRootItem (),
-                            new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ());
+    TreeVisitor.walkSubTree (aTree.getRootItem (),
+                             new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ());
 
     // No filter
     aTree = new FileSystemFolderTree (new File (".").getAbsoluteFile ());
-    TreeWalker.walkSubTree (aTree.getRootItem (),
-                            new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ());
+    TreeVisitor.walkSubTree (aTree.getRootItem (),
+                             new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ());
   }
 }

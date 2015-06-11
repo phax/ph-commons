@@ -21,10 +21,8 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.hierarchy.IChildrenProvider;
-import com.helger.commons.hierarchy.visit.ChildrenProviderVisitor;
-import com.helger.commons.hierarchy.visit.ChildrenProviderVisitorDynamic;
+import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
 import com.helger.commons.hierarchy.visit.IHierarchyVisitorCallback;
-import com.helger.commons.hierarchy.visit.IHierarchyVisitorDynamicCallback;
 import com.helger.commons.microdom.IMicroNode;
 
 /**
@@ -54,7 +52,7 @@ public final class MicroVisitor
   public static void visit (@Nonnull final IMicroNode aNode,
                             @Nonnull final IHierarchyVisitorCallback <? super IMicroNode> aCallback)
   {
-    ChildrenProviderVisitor.visitAllFrom (aNode, aCallback);
+    ChildrenProviderHierarchyVisitor.visitAllFrom (aNode, aCallback);
   }
 
   /**
@@ -72,39 +70,6 @@ public final class MicroVisitor
                                                    @Nonnull final IChildrenProvider <T> aChildrenProvider,
                                                    @Nonnull final IHierarchyVisitorCallback <? super T> aCallback)
   {
-    ChildrenProviderVisitor.visitAllFrom (aNode, aChildrenProvider, aCallback);
-  }
-
-  /**
-   * Iterate the passed node and invoke the callback for all child nodes. The
-   * callback is not invoked for the passed node itself!
-   *
-   * @param aNode
-   *        The node to iterate. May not be <code>null</code>.
-   * @param aCallback
-   *        The callback to call. May not be <code>null</code>.
-   */
-  public static void visit (@Nonnull final IMicroNode aNode,
-                            @Nonnull final IHierarchyVisitorDynamicCallback <? super IMicroNode> aCallback)
-  {
-    ChildrenProviderVisitorDynamic.visitAllFrom (aNode, aCallback);
-  }
-
-  /**
-   * Iterate the passed node and invoke the callback for all child nodes. The
-   * callback is not invoked for the passed node itself!
-   *
-   * @param aNode
-   *        The node to iterate. May not be <code>null</code>.
-   * @param aChildrenProvider
-   *        The child resolver to use. May not be <code>null</code>.
-   * @param aCallback
-   *        The callback to call. May not be <code>null</code>.
-   */
-  public static <T extends IMicroNode> void visit (@Nonnull final T aNode,
-                                                   @Nonnull final IChildrenProvider <T> aChildrenProvider,
-                                                   @Nonnull final IHierarchyVisitorDynamicCallback <? super T> aCallback)
-  {
-    ChildrenProviderVisitorDynamic.visitAllFrom (aNode, aChildrenProvider, aCallback);
+    ChildrenProviderHierarchyVisitor.visitAllFrom (aNode, aChildrenProvider, aCallback);
   }
 }

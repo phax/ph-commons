@@ -16,7 +16,6 @@
  */
 package com.helger.commons.convert;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -33,19 +32,5 @@ public class UnidirectionalConverterIdentity <DATATYPE> implements IUnidirection
   public DATATYPE convert (@Nullable final DATATYPE aInput)
   {
     return aInput;
-  }
-
-  /**
-   * Get a converter instance that does not conversion at all. Just to fulfill
-   * API compatibility.
-   *
-   * @param <DATATYPE>
-   *        The type of input and output object
-   * @return A non-<code>null</code> converter object.
-   */
-  @Nonnull
-  public static <DATATYPE> UnidirectionalConverterIdentity <DATATYPE> create ()
-  {
-    return new UnidirectionalConverterIdentity <DATATYPE> ();
   }
 }

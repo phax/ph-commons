@@ -25,6 +25,7 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.hierarchy.visit.IHierarchyVisitorCallback;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.microdom.IMicroDocument;
@@ -51,10 +52,12 @@ public final class MicroVisitorTest
     MicroVisitor.visit (doc, new DefaultHierarchyVisitorCallback <IMicroNode> ()
     {
       @Override
-      public void onItemBeforeChildren (final IMicroNode aItem)
+      @Nonnull
+      public EHierarchyVisitorReturn onItemBeforeChildren (final IMicroNode aItem)
       {
         if (aItem.isProcessingInstruction ())
           aInt.inc ();
+        return EHierarchyVisitorReturn.CONTINUE;
       }
     });
     assertEquals (3, aInt.intValue ());
@@ -64,10 +67,12 @@ public final class MicroVisitorTest
     MicroVisitor.visit (doc.getDocumentElement (), new DefaultHierarchyVisitorCallback <IMicroNode> ()
     {
       @Override
-      public void onItemBeforeChildren (@Nonnull final IMicroNode aItem)
+      @Nonnull
+      public EHierarchyVisitorReturn onItemBeforeChildren (@Nonnull final IMicroNode aItem)
       {
         if (aItem.isProcessingInstruction ())
           aInt.inc ();
+        return EHierarchyVisitorReturn.CONTINUE;
       }
     });
     assertEquals (1, aInt.intValue ());

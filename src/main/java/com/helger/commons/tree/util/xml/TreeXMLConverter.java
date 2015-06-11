@@ -28,6 +28,7 @@ import com.helger.commons.convert.IUnidirectionalConverter;
 import com.helger.commons.convert.UnidirectionalConverterIdentity;
 import com.helger.commons.hierarchy.ChildrenProviderHasChildrenSorting;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.id.ComparatorHasIDString;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
@@ -36,7 +37,7 @@ import com.helger.commons.microdom.util.ChildrenProviderElementWithName;
 import com.helger.commons.microdom.util.MicroVisitor;
 import com.helger.commons.tree.IBasicTree;
 import com.helger.commons.tree.simple.ITreeItem;
-import com.helger.commons.tree.util.walk.TreeWalker;
+import com.helger.commons.tree.util.visit.TreeVisitor;
 import com.helger.commons.tree.withid.BasicTreeWithID;
 import com.helger.commons.tree.withid.DefaultTreeWithID;
 import com.helger.commons.tree.withid.ITreeItemWithID;
@@ -81,7 +82,7 @@ public final class TreeXMLConverter
   {
     return getTreeWithIDAsXML (aTree,
                                new ComparatorHasIDString <ITEMTYPE> (),
-                               UnidirectionalConverterIdentity.<String> create (),
+                               new UnidirectionalConverterIdentity <String> (),
                                aConverter);
   }
 
@@ -94,34 +95,38 @@ public final class TreeXMLConverter
     final IMicroElement eRoot = new MicroElement (ELEMENT_ROOT);
     final NonBlockingStack <IMicroElement> aParents = new NonBlockingStack <IMicroElement> ();
     aParents.push (eRoot);
-    TreeWalker.walkTree (aTree,
-                         new ChildrenProviderHasChildrenSorting <ITEMTYPE> (aItemComparator),
-                         new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
-                         {
-                           @Override
-                           public void onItemBeforeChildren (@Nullable final ITEMTYPE aItem)
-                           {
-                             if (aItem != null)
-                             {
-                               // create item element
-                               final IMicroElement eItem = aParents.peek ().appendElement (ELEMENT_ITEM);
-                               eItem.setAttribute (ATTR_ID, aIDConverter.convert (aItem.getID ()));
+    TreeVisitor.walkTree (aTree,
+                          new ChildrenProviderHasChildrenSorting <ITEMTYPE> (aItemComparator),
+                          new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
+                          {
+                            @Override
+                            @Nonnull
+                            public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final ITEMTYPE aItem)
+                            {
+                              if (aItem != null)
+                              {
+                                // create item element
+                                final IMicroElement eItem = aParents.peek ().appendElement (ELEMENT_ITEM);
+                                eItem.setAttribute (ATTR_ID, aIDConverter.convert (aItem.getID ()));
 
-                               // append data
-                               final IMicroElement eData = eItem.appendElement (ELEMENT_DATA);
-                               aDataConverter.appendDataValue (eData, aItem.getData ());
+                                // append data
+                                final IMicroElement eData = eItem.appendElement (ELEMENT_DATA);
+                                aDataConverter.appendDataValue (eData, aItem.getData ());
 
-                               aParents.push (eItem);
-                             }
-                           }
+                                aParents.push (eItem);
+                              }
+                              return EHierarchyVisitorReturn.CONTINUE;
+                            }
 
-                           @Override
-                           public void onItemAfterChildren (@Nullable final ITEMTYPE aItem)
-                           {
-                             if (aItem != null)
-                               aParents.pop ();
-                           }
-                         });
+                            @Override
+                            @Nonnull
+                            public EHierarchyVisitorReturn onItemAfterChildren (@Nullable final ITEMTYPE aItem)
+                            {
+                              if (aItem != null)
+                                aParents.pop ();
+                              return EHierarchyVisitorReturn.CONTINUE;
+                            }
+                          });
     return eRoot;
   }
 
@@ -134,33 +139,38 @@ public final class TreeXMLConverter
     final IMicroElement eRoot = new MicroElement (sNamespaceURI, ELEMENT_ROOT);
     final NonBlockingStack <IMicroElement> aParents = new NonBlockingStack <IMicroElement> ();
     aParents.push (eRoot);
-    TreeWalker.walkTree (aTree,
-                         new ChildrenProviderHasChildrenSorting <ITEMTYPE> (aItemComparator),
-                         new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
-                         {
-                           @Override
-                           public void onItemBeforeChildren (@Nullable final ITEMTYPE aItem)
-                           {
-                             if (aItem != null)
-                             {
-                               // create item element
-                               final IMicroElement eItem = aParents.peek ().appendElement (sNamespaceURI, ELEMENT_ITEM);
+    TreeVisitor.walkTree (aTree,
+                          new ChildrenProviderHasChildrenSorting <ITEMTYPE> (aItemComparator),
+                          new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
+                          {
+                            @Override
+                            @Nonnull
+                            public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final ITEMTYPE aItem)
+                            {
+                              if (aItem != null)
+                              {
+                                // create item element
+                                final IMicroElement eItem = aParents.peek ()
+                                                                    .appendElement (sNamespaceURI, ELEMENT_ITEM);
 
-                               // append data
-                               final IMicroElement eData = eItem.appendElement (sNamespaceURI, ELEMENT_DATA);
-                               aDataConverter.appendDataValue (eData, aItem.getData ());
+                                // append data
+                                final IMicroElement eData = eItem.appendElement (sNamespaceURI, ELEMENT_DATA);
+                                aDataConverter.appendDataValue (eData, aItem.getData ());
 
-                               aParents.push (eItem);
-                             }
-                           }
+                                aParents.push (eItem);
+                              }
+                              return EHierarchyVisitorReturn.CONTINUE;
+                            }
 
-                           @Override
-                           public void onItemAfterChildren (@Nullable final ITEMTYPE aItem)
-                           {
-                             if (aItem != null)
-                               aParents.pop ();
-                           }
-                         });
+                            @Override
+                            @Nonnull
+                            public EHierarchyVisitorReturn onItemAfterChildren (@Nullable final ITEMTYPE aItem)
+                            {
+                              if (aItem != null)
+                                aParents.pop ();
+                              return EHierarchyVisitorReturn.CONTINUE;
+                            }
+                          });
     return eRoot;
   }
 
@@ -173,32 +183,35 @@ public final class TreeXMLConverter
     final NonBlockingStack <ITEMTYPE> aParents = new NonBlockingStack <ITEMTYPE> ();
     aParents.push (aTree.getRootItem ());
     MicroVisitor.visit (aElement,
-                          new ChildrenProviderElementWithName (sNamespaceURI, ELEMENT_ITEM),
-                          new DefaultHierarchyVisitorCallback <IMicroElement> ()
+                        new ChildrenProviderElementWithName (sNamespaceURI, ELEMENT_ITEM),
+                        new DefaultHierarchyVisitorCallback <IMicroElement> ()
+                        {
+                          @Override
+                          @Nonnull
+                          public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final IMicroElement eItem)
                           {
-                            @Override
-                            public void onItemBeforeChildren (@Nullable final IMicroElement eItem)
+                            if (eItem != null)
                             {
-                              if (eItem != null)
-                              {
-                                final KEYTYPE aTreeItemID = aIDConverter.convert (eItem.getAttributeValue (ATTR_ID));
+                              final KEYTYPE aTreeItemID = aIDConverter.convert (eItem.getAttributeValue (ATTR_ID));
 
-                                final IMicroElement eData = eItem.getFirstChildElement (sNamespaceURI, ELEMENT_DATA);
-                                final DATATYPE aTreeItemValue = aDataConverter.getAsDataValue (eData);
+                              final IMicroElement eData = eItem.getFirstChildElement (sNamespaceURI, ELEMENT_DATA);
+                              final DATATYPE aTreeItemValue = aDataConverter.getAsDataValue (eData);
 
-                                final ITEMTYPE aTreeItem = aParents.peek ().createChildItem (aTreeItemID,
-                                                                                             aTreeItemValue);
-                                aParents.push (aTreeItem);
-                              }
+                              final ITEMTYPE aTreeItem = aParents.peek ().createChildItem (aTreeItemID, aTreeItemValue);
+                              aParents.push (aTreeItem);
                             }
+                            return EHierarchyVisitorReturn.CONTINUE;
+                          }
 
-                            @Override
-                            public void onItemAfterChildren (@Nullable final IMicroElement aItem)
-                            {
-                              if (aItem != null)
-                                aParents.pop ();
-                            }
-                          });
+                          @Override
+                          @Nonnull
+                          public EHierarchyVisitorReturn onItemAfterChildren (@Nullable final IMicroElement aItem)
+                          {
+                            if (aItem != null)
+                              aParents.pop ();
+                            return EHierarchyVisitorReturn.CONTINUE;
+                          }
+                        });
   }
 
   @Nonnull
@@ -213,7 +226,7 @@ public final class TreeXMLConverter
                                                                                                             @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
   {
     return TreeXMLConverter.<String, DATATYPE> getXMLAsTreeWithUniqueID (aElement,
-                                                                         UnidirectionalConverterIdentity.<String> create (),
+                                                                         new UnidirectionalConverterIdentity <String> (),
                                                                          aDataConverter);
   }
 

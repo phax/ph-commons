@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.tree.util.walk;
+package com.helger.commons.tree.util.visit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -25,23 +25,23 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorDynamicCallback;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.tree.simple.DefaultTree;
 import com.helger.commons.tree.simple.DefaultTreeItem;
-import com.helger.commons.tree.util.walk.TreeWalkerDynamic;
+import com.helger.commons.tree.util.visit.TreeVisitor;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 import com.helger.commons.tree.withid.DefaultTreeWithID;
 
 /**
- * Test class for class {@link TreeWalkerDynamic}.
+ * Test class for class {@link TreeVisitor}.
  * 
  * @author Philip Helger
  */
-public final class TreeWalkerDynamicTest
+public final class TreeVisitorTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (TreeWalkerDynamicTest.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (TreeVisitorTest.class);
 
   private static void _fillTree (final DefaultTreeItem <String> aParentItem, final int nLevels, final int nItemsPerLevel)
   {
@@ -87,8 +87,8 @@ public final class TreeWalkerDynamicTest
 
       // count at before children
       final MutableInt mi = new MutableInt ();
-      TreeWalkerDynamic.walkTree (_createTree (nLevel, nItemsPerLevel),
-                                  new DefaultHierarchyVisitorDynamicCallback <DefaultTreeItem <String>> ()
+      TreeVisitor.walkTree (_createTree (nLevel, nItemsPerLevel),
+                                  new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                                   {
                                     @Override
                                     public EHierarchyVisitorReturn onItemBeforeChildren (final DefaultTreeItem <String> aItem)
@@ -103,8 +103,8 @@ public final class TreeWalkerDynamicTest
 
       // count at before children
       mi.set (0);
-      TreeWalkerDynamic.walkSubTree (_createTree (nLevel, nItemsPerLevel).getRootItem (),
-                                     new DefaultHierarchyVisitorDynamicCallback <DefaultTreeItem <String>> ()
+      TreeVisitor.walkSubTree (_createTree (nLevel, nItemsPerLevel).getRootItem (),
+                                     new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                                      {
                                        @Override
                                        public EHierarchyVisitorReturn onItemBeforeChildren (final DefaultTreeItem <String> aItem)
@@ -119,8 +119,8 @@ public final class TreeWalkerDynamicTest
 
       // count at after children
       mi.set (0);
-      TreeWalkerDynamic.walkTree (_createTree (nLevel, nItemsPerLevel),
-                                  new DefaultHierarchyVisitorDynamicCallback <DefaultTreeItem <String>> ()
+      TreeVisitor.walkTree (_createTree (nLevel, nItemsPerLevel),
+                                  new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                                   {
                                     @Override
                                     public EHierarchyVisitorReturn onItemAfterChildren (final DefaultTreeItem <String> aItem)
@@ -135,8 +135,8 @@ public final class TreeWalkerDynamicTest
 
       // count at after children
       mi.set (0);
-      TreeWalkerDynamic.walkSubTree (_createTree (nLevel, nItemsPerLevel).getRootItem (),
-                                     new DefaultHierarchyVisitorDynamicCallback <DefaultTreeItem <String>> ()
+      TreeVisitor.walkSubTree (_createTree (nLevel, nItemsPerLevel).getRootItem (),
+                                     new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                                      {
                                        @Override
                                        public EHierarchyVisitorReturn onItemAfterChildren (final DefaultTreeItem <String> aItem)
@@ -190,44 +190,44 @@ public final class TreeWalkerDynamicTest
 
       // count at before children
       final MutableInt mi = new MutableInt ();
-      TreeWalkerDynamic.walkTree (_createTreeWithID (nLevel, nItemsPerLevel), new MockTreeWalkerDynamicCallback (mi));
+      TreeVisitor.walkTree (_createTreeWithID (nLevel, nItemsPerLevel), new MockTreeVisitorCallback (mi));
       assertEquals (nExpected, mi.intValue ());
 
       // count at before children
       mi.set (0);
-      TreeWalkerDynamic.walkSubTree (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (),
-                                     new MockTreeWalkerDynamicCallback (mi));
+      TreeVisitor.walkSubTree (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (),
+                                     new MockTreeVisitorCallback (mi));
       assertEquals (nExpected, mi.intValue ());
 
       // count at after children
       mi.set (0);
-      TreeWalkerDynamic.walkTree (_createTreeWithID (nLevel, nItemsPerLevel), new MockTreeWalkerDynamicCallback (mi));
+      TreeVisitor.walkTree (_createTreeWithID (nLevel, nItemsPerLevel), new MockTreeVisitorCallback (mi));
       assertEquals (nExpected, mi.intValue ());
 
       // count at after children
       mi.set (0);
-      TreeWalkerDynamic.walkSubTree (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (),
-                                     new MockTreeWalkerDynamicCallback (mi));
+      TreeVisitor.walkSubTree (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (),
+                                     new MockTreeVisitorCallback (mi));
       assertEquals (nExpected, mi.intValue ());
 
       try
       {
-        TreeWalkerDynamic.walkTree ((DefaultTreeWithID <String, Object>) null, new MockTreeWalkerDynamicCallback (mi));
+        TreeVisitor.walkTree ((DefaultTreeWithID <String, Object>) null, new MockTreeVisitorCallback (mi));
         fail ();
       }
       catch (final NullPointerException ex)
       {}
       try
       {
-        TreeWalkerDynamic.walkSubTree ((DefaultTreeItemWithID <String, Object>) null,
-                                       new MockTreeWalkerDynamicCallback (mi));
+        TreeVisitor.walkSubTree ((DefaultTreeItemWithID <String, Object>) null,
+                                       new MockTreeVisitorCallback (mi));
         fail ();
       }
       catch (final NullPointerException ex)
       {}
       try
       {
-        TreeWalkerDynamic.walkSubTree (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (), null);
+        TreeVisitor.walkSubTree (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (), null);
         fail ();
       }
       catch (final NullPointerException ex)

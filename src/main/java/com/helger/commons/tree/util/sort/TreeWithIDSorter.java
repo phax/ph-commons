@@ -25,8 +25,9 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.tree.IBasicTree;
-import com.helger.commons.tree.util.walk.TreeWalker;
+import com.helger.commons.tree.util.visit.TreeVisitor;
 import com.helger.commons.tree.withid.ITreeItemWithID;
 
 /**
@@ -54,13 +55,14 @@ public final class TreeWithIDSorter
     aTree.getRootItem ().reorderChildrenByItems (aComparator);
 
     // and now start iterating
-    TreeWalker.walkTree (aTree, new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
+    TreeVisitor.walkTree (aTree, new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
     {
       @Override
-      public void onItemBeforeChildren (@Nullable final ITEMTYPE aTreeItem)
+      public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final ITEMTYPE aTreeItem)
       {
         if (aTreeItem != null)
           aTreeItem.reorderChildrenByItems (aComparator);
+        return EHierarchyVisitorReturn.CONTINUE;
       }
     });
   }

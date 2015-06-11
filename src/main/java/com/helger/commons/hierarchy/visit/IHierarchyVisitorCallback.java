@@ -16,29 +16,66 @@
  */
 package com.helger.commons.hierarchy.visit;
 
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+
+import com.helger.commons.callback.ICallback;
+
 /**
- * Interface for walking a hierarchy without the possibilities to alter they way
- * how the hierarchy is iterated.
- * 
+ * Base interface with callbacks for visiting a hierarchy.
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of object to be iterated.
  */
-public interface IHierarchyVisitorCallback <DATATYPE> extends IBaseHierarchyVisitorCallback
+public interface IHierarchyVisitorCallback <DATATYPE> extends ICallback
 {
   /**
-   * Called before eventual children of the current item are iterated.
-   * 
-   * @param aItem
-   *        The current tree item. May be <code>null</code>.
+   * Called before the tree walking starts.
    */
-  void onItemBeforeChildren (DATATYPE aItem);
+  void begin ();
+
+  /**
+   * @return The level of the current node within the hierarchy. Always &ge; 0.
+   *         The root item has level 0.
+   */
+  @Nonnegative
+  int getLevel ();
+
+  /**
+   * Called before the tree walker descends into the next tree level.
+   */
+  void onLevelDown ();
+
+  /**
+   * Called after the tree walker ascends into the previous tree level.
+   */
+  void onLevelUp ();
+
+  /**
+   * Called before eventual children of the current item are iterated.
+   *
+   * @param aItem
+   *        The current item. May be <code>null</code>.
+   * @return A non-<code>null</code> status code that determines how to continue
+   *         iteration.
+   */
+  @Nonnull
+  EHierarchyVisitorReturn onItemBeforeChildren (DATATYPE aItem);
 
   /**
    * Called after eventual children of the current item were iterated.
-   * 
+   *
    * @param aItem
-   *        The current tree item. May be <code>null</code>.
+   *        The current item. May be <code>null</code>.
+   * @return A non-<code>null</code> status code that determines how to continue
+   *         iteration.
    */
-  void onItemAfterChildren (DATATYPE aItem);
+  @Nonnull
+  EHierarchyVisitorReturn onItemAfterChildren (DATATYPE aItem);
+
+  /**
+   * Called after the tree walking ended.
+   */
+  void end ();
 }

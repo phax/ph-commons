@@ -16,33 +16,67 @@
  */
 package com.helger.commons.hierarchy.visit;
 
-import com.helger.commons.annotation.OverrideOnDemand;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 /**
  * The default implementation of the {@link IHierarchyVisitorCallback} interface
- * doing nothing.
- * 
+ * doing nothing except counting levels.
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of object in the hierarchy to be iterated
  */
-public class DefaultHierarchyVisitorCallback <DATATYPE> extends AbstractHierarchyVisitorCallback implements IHierarchyVisitorCallback <DATATYPE>
+public class DefaultHierarchyVisitorCallback <DATATYPE> implements IHierarchyVisitorCallback <DATATYPE>
 {
+  private int m_nLevel;
+
   public DefaultHierarchyVisitorCallback ()
   {
-    super ();
+    this (0);
   }
 
   public DefaultHierarchyVisitorCallback (final int nInitialLevel)
   {
-    super (nInitialLevel);
+    m_nLevel = nInitialLevel;
   }
 
-  @OverrideOnDemand
-  public void onItemBeforeChildren (final DATATYPE aItem)
+  public void begin ()
   {}
 
-  @OverrideOnDemand
-  public void onItemAfterChildren (final DATATYPE aItem)
+  @Nonnegative
+  public int getLevel ()
+  {
+    return m_nLevel;
+  }
+
+  @OverridingMethodsMustInvokeSuper
+  public void onLevelDown ()
+  {
+    ++m_nLevel;
+  }
+
+  @OverridingMethodsMustInvokeSuper
+  public void onLevelUp ()
+  {
+    --m_nLevel;
+  }
+
+  @Nonnull
+  public EHierarchyVisitorReturn onItemBeforeChildren (final DATATYPE aItem)
+  {
+    // Always continue
+    return EHierarchyVisitorReturn.CONTINUE;
+  }
+
+  @Nonnull
+  public EHierarchyVisitorReturn onItemAfterChildren (final DATATYPE aItem)
+  {
+    // Always continue
+    return EHierarchyVisitorReturn.CONTINUE;
+  }
+
+  public void end ()
   {}
 }

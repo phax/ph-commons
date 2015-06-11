@@ -30,11 +30,6 @@ public enum EHierarchyVisitorReturn
   CONTINUE,
 
   /**
-   * Skip the child elements of the current element and go to the next sibling.
-   */
-  USE_NEXT_SIBLING,
-
-  /**
    * Skip the child elements and all siblings of the current content element and
    * go to the parent element's sibling.
    */
@@ -43,5 +38,10 @@ public enum EHierarchyVisitorReturn
   /**
    * Stop the iteration completely.
    */
-  STOP_ITERATION
+  STOP_ITERATION;
+
+  public boolean isContinue ()
+  {
+    return this == CONTINUE;
+  }
 }

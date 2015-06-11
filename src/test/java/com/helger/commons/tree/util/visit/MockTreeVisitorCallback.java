@@ -14,26 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.tree.util.walk;
+package com.helger.commons.tree.util.visit;
 
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 
-public final class MockTreeWalkerCallback extends DefaultHierarchyVisitorCallback <DefaultTreeItemWithID <String, Object>>
+public final class MockTreeVisitorCallback extends DefaultHierarchyVisitorCallback <DefaultTreeItemWithID <String, Object>>
 {
   private final MutableInt m_aMI;
 
-  public MockTreeWalkerCallback (final MutableInt mi)
+  public MockTreeVisitorCallback (final MutableInt mi)
   {
     m_aMI = mi;
   }
 
   @Override
-  public void onItemBeforeChildren (final DefaultTreeItemWithID <String, Object> aItem)
+  public EHierarchyVisitorReturn onItemBeforeChildren (final DefaultTreeItemWithID <String, Object> aItem)
   {
     if (getLevel () < 0)
       throw new IllegalStateException ();
     m_aMI.inc ();
+    return EHierarchyVisitorReturn.CONTINUE;
   }
 }

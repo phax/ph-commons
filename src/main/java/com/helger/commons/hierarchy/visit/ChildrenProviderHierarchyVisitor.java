@@ -17,6 +17,7 @@
 package com.helger.commons.hierarchy.visit;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
@@ -33,13 +34,13 @@ import com.helger.commons.hierarchy.IHasChildren;
  *        The type of children to visit
  */
 @Immutable
-public class ChildrenProviderVisitor <CHILDTYPE> implements IVisitor <CHILDTYPE>
+public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyVisitor <CHILDTYPE>
 {
   private final IChildrenProvider <CHILDTYPE> m_aChildrenProvider;
   private final IHierarchyVisitorCallback <? super CHILDTYPE> m_aCallback;
 
-  public ChildrenProviderVisitor (@Nonnull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
-                                  @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
+  public ChildrenProviderHierarchyVisitor (@Nonnull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
+                                           @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
   {
     m_aChildrenProvider = ValueEnforcer.notNull (aChildrenProvider, "ChildrenProvider");
     m_aCallback = ValueEnforcer.notNull (aCallback, "Callback");
@@ -57,17 +58,15 @@ public class ChildrenProviderVisitor <CHILDTYPE> implements IVisitor <CHILDTYPE>
     return m_aCallback;
   }
 
-  private void _visitRecursive (@Nonnull final CHILDTYPE aObject)
+  @Nonnull
+  private EHierarchyVisitorReturn _visitRecursive (final CHILDTYPE aObject)
   {
-    // Only the root level is null -> otherwise we end up in a potentially
-    // endless recursion
-    ValueEnforcer.notNull (aObject, "Object");
-
     // prefix insertion
-    m_aCallback.onItemBeforeChildren (aObject);
+    final EHierarchyVisitorReturn eRetPrefix = m_aCallback.onItemBeforeChildren (aObject);
 
     // call children only if mode is continue
-    if (m_aChildrenProvider.hasChildren (aObject))
+    EHierarchyVisitorReturn eRetChildren = EHierarchyVisitorReturn.CONTINUE;
+    if (eRetPrefix.isContinue () && m_aChildrenProvider.hasChildren (aObject))
     {
       // iterate children
       m_aCallback.onLevelDown ();
@@ -76,7 +75,21 @@ public class ChildrenProviderVisitor <CHILDTYPE> implements IVisitor <CHILDTYPE>
         for (final CHILDTYPE aChildObject : m_aChildrenProvider.getAllChildren (aObject))
         {
           // recursive call
-          _visitRecursive (aChildObject);
+          eRetChildren = _visitRecursive (aChildObject);
+          if (eRetChildren == EHierarchyVisitorReturn.USE_PARENTS_NEXT_SIBLING)
+          {
+            // If we don't want the children to be enumerated, break this
+            // loop
+            // and continue as normal
+            eRetChildren = EHierarchyVisitorReturn.CONTINUE;
+            break;
+          }
+
+          if (eRetChildren == EHierarchyVisitorReturn.STOP_ITERATION)
+          {
+            // stop iterating and propagate the return code to the root
+            break;
+          }
         }
       }
       finally
@@ -87,26 +100,29 @@ public class ChildrenProviderVisitor <CHILDTYPE> implements IVisitor <CHILDTYPE>
     }
 
     // postfix insertion even if prefix iteration failed
-    m_aCallback.onItemAfterChildren (aObject);
+    final EHierarchyVisitorReturn eRetPostfix = m_aCallback.onItemAfterChildren (aObject);
+
+    // most stringent first
+    if (eRetPrefix == EHierarchyVisitorReturn.STOP_ITERATION ||
+        eRetChildren == EHierarchyVisitorReturn.STOP_ITERATION ||
+        eRetPostfix == EHierarchyVisitorReturn.STOP_ITERATION)
+    {
+      // stop complete iteration
+      return EHierarchyVisitorReturn.STOP_ITERATION;
+    }
+    if (eRetPrefix == EHierarchyVisitorReturn.USE_PARENTS_NEXT_SIBLING ||
+        eRetChildren == EHierarchyVisitorReturn.USE_PARENTS_NEXT_SIBLING ||
+        eRetPostfix == EHierarchyVisitorReturn.USE_PARENTS_NEXT_SIBLING)
+    {
+      // skip children and siblings
+      return EHierarchyVisitorReturn.USE_PARENTS_NEXT_SIBLING;
+    }
+
+    // continue
+    return EHierarchyVisitorReturn.CONTINUE;
   }
 
-  public void visitAll ()
-  {
-    m_aCallback.begin ();
-    try
-    {
-      // null == root level
-      if (m_aChildrenProvider.hasChildren (null))
-        for (final CHILDTYPE aRootChild : m_aChildrenProvider.getAllChildren (null))
-          _visitRecursive (aRootChild);
-    }
-    finally
-    {
-      m_aCallback.end ();
-    }
-  }
-
-  public void visitAllFrom (@Nonnull final CHILDTYPE aObject)
+  public void visitAllFromIncl (@Nonnull final CHILDTYPE aObject)
   {
     ValueEnforcer.notNull (aObject, "Object");
 
@@ -121,15 +137,34 @@ public class ChildrenProviderVisitor <CHILDTYPE> implements IVisitor <CHILDTYPE>
     }
   }
 
+  public void visitAllFromExcl (@Nullable final CHILDTYPE aObject)
+  {
+    m_aCallback.begin ();
+    try
+    {
+      if (m_aChildrenProvider.hasChildren (aObject))
+        for (final CHILDTYPE aRootChild : m_aChildrenProvider.getAllChildren (aObject))
+        {
+          final EHierarchyVisitorReturn eRet = _visitRecursive (aRootChild);
+          if (!eRet.isContinue ())
+            break;
+        }
+    }
+    finally
+    {
+      m_aCallback.end ();
+    }
+  }
+
   public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAll (@Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
   {
     visitAll (new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback);
   }
 
-  public static <CHILDTYPE> void visitAll (@Nonnull final IChildrenProvider <CHILDTYPE> aChildProvider,
+  public static <CHILDTYPE> void visitAll (@Nonnull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
                                            @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
   {
-    new ChildrenProviderVisitor <CHILDTYPE> (aChildProvider, aCallback).visitAll ();
+    new ChildrenProviderHierarchyVisitor <CHILDTYPE> (aChildrenProvider, aCallback).visitAllFromExcl (null);
   }
 
   public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAllFrom (@Nonnull final CHILDTYPE aObject,
@@ -139,9 +174,9 @@ public class ChildrenProviderVisitor <CHILDTYPE> implements IVisitor <CHILDTYPE>
   }
 
   public static <CHILDTYPE> void visitAllFrom (@Nonnull final CHILDTYPE aObject,
-                                               @Nonnull final IChildrenProvider <CHILDTYPE> aChildProvider,
+                                               @Nonnull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
                                                @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
   {
-    new ChildrenProviderVisitor <CHILDTYPE> (aChildProvider, aCallback).visitAllFrom (aObject);
+    new ChildrenProviderHierarchyVisitor <CHILDTYPE> (aChildrenProvider, aCallback).visitAllFromIncl (aObject);
   }
 }

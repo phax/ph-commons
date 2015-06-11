@@ -23,11 +23,11 @@ import org.junit.Test;
 import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.hierarchy.MockChildrenProvider;
 import com.helger.commons.hierarchy.MockHasChildren;
-import com.helger.commons.hierarchy.visit.ChildrenProviderVisitorDynamic;
-import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorDynamicCallback;
+import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 
 /**
- * Test class for class {@link ChildrenProviderVisitorDynamic}.
+ * Test class for class {@link ChildrenProviderHierarchyVisitor}.
  * 
  * @author Philip Helger
  */
@@ -42,20 +42,20 @@ public final class ChildrenProviderVisitorDynamicTest
     final IChildrenProvider <MockHasChildren> cp = new MockChildrenProvider (hc1);
 
     // Having children
-    ChildrenProviderVisitorDynamic.visitAll (cp, new DefaultHierarchyVisitorDynamicCallback <MockHasChildren> ());
+    ChildrenProviderHierarchyVisitor.visitAll (cp, new DefaultHierarchyVisitorCallback <MockHasChildren> ());
 
     // Not having children
-    ChildrenProviderVisitorDynamic.visitAll (new MockChildrenProvider (hca),
-                                                new DefaultHierarchyVisitorDynamicCallback <MockHasChildren> ());
+    ChildrenProviderHierarchyVisitor.visitAll (new MockChildrenProvider (hca),
+                                                new DefaultHierarchyVisitorCallback <MockHasChildren> ());
 
     // Start explicitly at object
-    ChildrenProviderVisitorDynamic.visitAllFrom (hc1,
+    ChildrenProviderHierarchyVisitor.visitAllFrom (hc1,
                                                    cp,
-                                                   new DefaultHierarchyVisitorDynamicCallback <MockHasChildren> ());
+                                                   new DefaultHierarchyVisitorCallback <MockHasChildren> ());
     // no provider
     try
     {
-      ChildrenProviderVisitorDynamic.visitAll (null, new DefaultHierarchyVisitorDynamicCallback <MockHasChildren> ());
+      ChildrenProviderHierarchyVisitor.visitAll (null, new DefaultHierarchyVisitorCallback <MockHasChildren> ());
       fail ();
     }
     catch (final NullPointerException ex)
@@ -64,7 +64,7 @@ public final class ChildrenProviderVisitorDynamicTest
     // no callback
     try
     {
-      ChildrenProviderVisitorDynamic.visitAll (cp, null);
+      ChildrenProviderHierarchyVisitor.visitAll (cp, null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -73,9 +73,9 @@ public final class ChildrenProviderVisitorDynamicTest
     // Nothing to walk
     try
     {
-      ChildrenProviderVisitorDynamic.visitAllFrom (null,
+      ChildrenProviderHierarchyVisitor.visitAllFrom (null,
                                                      cp,
-                                                     new DefaultHierarchyVisitorDynamicCallback <MockHasChildren> ());
+                                                     new DefaultHierarchyVisitorCallback <MockHasChildren> ());
       fail ();
     }
     catch (final NullPointerException ex)

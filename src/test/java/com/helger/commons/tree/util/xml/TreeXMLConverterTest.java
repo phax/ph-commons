@@ -30,7 +30,6 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.name.MockHasName;
 import com.helger.commons.tree.simple.DefaultTree;
 import com.helger.commons.tree.util.sort.ComparatorDefaultTreeItemComparable;
-import com.helger.commons.tree.util.xml.TreeXMLConverter;
 import com.helger.commons.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 
 /**
@@ -64,14 +63,14 @@ public final class TreeXMLConverterTest extends AbstractCommonsTestCase
 
     // and convert the document again to a tree
     t2 = TreeXMLConverter.getXMLAsTreeWithUniqueID (aDoc2,
-                                                    UnidirectionalConverterIdentity.<String> create (),
+                                                    new UnidirectionalConverterIdentity <String> (),
                                                     new MockHasNameConverter ());
     assertNotNull (t2);
     assertEquals (t1, t2);
 
     // and convert the document again to a tree
     assertNotNull (TreeXMLConverter.getXMLAsTreeWithID (aDoc2,
-                                                        UnidirectionalConverterIdentity.<String> create (),
+                                                        new UnidirectionalConverterIdentity <String> (),
                                                         new MockHasNameConverter ()));
   }
 

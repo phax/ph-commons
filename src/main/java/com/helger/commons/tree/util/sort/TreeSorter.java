@@ -25,9 +25,10 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.tree.IBasicTree;
 import com.helger.commons.tree.simple.ITreeItem;
-import com.helger.commons.tree.util.walk.TreeWalker;
+import com.helger.commons.tree.util.visit.TreeVisitor;
 
 /**
  * Sort {@link com.helger.commons.tree.simple.ITree} instances recursively.
@@ -53,13 +54,15 @@ public final class TreeSorter
     aTree.getRootItem ().reorderChildItems (aComparator);
 
     // and now start iterating
-    TreeWalker.walkTree (aTree, new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
+    TreeVisitor.walkTree (aTree, new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
     {
       @Override
-      public void onItemBeforeChildren (@Nullable final ITEMTYPE aTreeItem)
+      @Nonnull
+      public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final ITEMTYPE aTreeItem)
       {
         if (aTreeItem != null)
           aTreeItem.reorderChildItems (aComparator);
+        return EHierarchyVisitorReturn.CONTINUE;
       }
     });
   }
