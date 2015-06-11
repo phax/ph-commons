@@ -80,7 +80,7 @@ public final class DOMReaderDefaultSettings
   @GuardedBy ("s_aRWLock")
   private static EntityResolver s_aDefaultEntityResolver;
   @GuardedBy ("s_aRWLock")
-  private static ErrorHandler s_aDefaultErrorHandler = LoggingSAXErrorHandler.getInstance ();
+  private static ErrorHandler s_aDefaultErrorHandler = new LoggingSAXErrorHandler ();
 
   // Handling properties
   @GuardedBy ("s_aRWLock")

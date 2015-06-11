@@ -104,8 +104,7 @@ public final class MicroReaderTest
                                                                                                      CCharset.CHARSET_ISO_8859_1_OBJ)));
     assertNotNull (aDoc);
 
-    aDoc = MicroReader.readMicroXML (s,
-                                     new SAXReaderSettings ().setErrorHandler (LoggingSAXErrorHandler.getInstance ()));
+    aDoc = MicroReader.readMicroXML (s, new SAXReaderSettings ().setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNotNull (aDoc);
 
     final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();

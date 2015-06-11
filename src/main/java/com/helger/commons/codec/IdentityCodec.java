@@ -16,11 +16,8 @@
  */
 package com.helger.commons.codec;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.lang.GenericReflection;
 
 /**
  * The most simple codec, that does not do anything :)
@@ -32,9 +29,7 @@ import com.helger.commons.lang.GenericReflection;
 @Immutable
 public final class IdentityCodec <DATATYPE> implements ICodec <DATATYPE>
 {
-  private static final IdentityCodec <Object> s_aInstance = new IdentityCodec <Object> ();
-
-  private IdentityCodec ()
+  public IdentityCodec ()
   {}
 
   @Nullable
@@ -49,16 +44,5 @@ public final class IdentityCodec <DATATYPE> implements ICodec <DATATYPE>
   {
     // Return "as-is"
     return aInput;
-  }
-
-  /**
-   * Factory method for this class
-   *
-   * @return Always the same instance and never <code>null</code>.
-   */
-  @Nonnull
-  public static <DATATYPE> IdentityCodec <DATATYPE> create ()
-  {
-    return GenericReflection.<IdentityCodec <Object>, IdentityCodec <DATATYPE>> uncheckedCast (s_aInstance);
   }
 }

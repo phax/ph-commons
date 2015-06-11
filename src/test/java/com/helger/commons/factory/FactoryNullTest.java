@@ -18,16 +18,12 @@ package com.helger.commons.factory;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
-import com.helger.commons.factory.FactoryNull;
-import com.helger.commons.factory.IFactory;
-
 /**
  * Test class for class {@link FactoryNull}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FactoryNullTest
@@ -35,13 +31,11 @@ public final class FactoryNullTest
   @Test
   public void testNullFactory ()
   {
-    final IFactory <?> aFactory = FactoryNull.getInstance ();
+    final IFactory <?> aFactory = new FactoryNull <Object> ();
     assertNotNull (aFactory);
     assertNull (aFactory.create ());
     assertNull (aFactory.create ());
     assertNull (aFactory.create ());
     assertNull (aFactory.create ());
-
-    assertSame (aFactory, FactoryNull.getInstance ());
   }
 }

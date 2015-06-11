@@ -53,7 +53,7 @@ public class SafeArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE>
    */
   public SafeArrayList ()
   {
-    this (FactoryNull.<ELEMENTTYPE> getInstance ());
+    this (new FactoryNull <ELEMENTTYPE> ());
   }
 
   /**

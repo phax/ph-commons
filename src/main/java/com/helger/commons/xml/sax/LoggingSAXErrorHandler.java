@@ -42,7 +42,6 @@ import com.helger.commons.log.LogHelper;
 public class LoggingSAXErrorHandler extends AbstractSAXErrorHandler
 {
   protected static final Logger s_aLogger = LoggerFactory.getLogger (LoggingSAXErrorHandler.class);
-  private static final LoggingSAXErrorHandler s_aInstance = new LoggingSAXErrorHandler ();
 
   public LoggingSAXErrorHandler ()
   {}
@@ -50,12 +49,6 @@ public class LoggingSAXErrorHandler extends AbstractSAXErrorHandler
   public LoggingSAXErrorHandler (@Nullable final ErrorHandler aWrappedErrorHandler)
   {
     super (aWrappedErrorHandler);
-  }
-
-  @Nonnull
-  public static LoggingSAXErrorHandler getInstance ()
-  {
-    return s_aInstance;
   }
 
   @Nonnull

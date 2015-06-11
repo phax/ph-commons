@@ -213,12 +213,11 @@ public final class DOMReaderTest
     final String sValid = "<?xml version='1.0'?><root xmlns='http://www.example.org/schema1'><a>1</a><b>2</b></root>";
     Document doc = DOMReader.readXMLDOM (sValid, new DOMReaderSettings ().setSchema (aSchema));
     assertNotNull (doc);
-    doc = DOMReader.readXMLDOM (sValid,
-                                new DOMReaderSettings ().setErrorHandler (LoggingSAXErrorHandler.getInstance ()));
+    doc = DOMReader.readXMLDOM (sValid, new DOMReaderSettings ().setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNotNull (doc);
     doc = DOMReader.readXMLDOM (sValid,
                                 new DOMReaderSettings ().setSchema (aSchema)
-                                                        .setErrorHandler (LoggingSAXErrorHandler.getInstance ()));
+                                                        .setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNotNull (doc);
 
     DOMReader.readXMLDOM (new NonBlockingStringReader (sValid), new DOMReaderSettings ().setSchema (aSchema));
@@ -228,39 +227,39 @@ public final class DOMReaderTest
     assertNotNull (doc);
     doc = DOMReader.readXMLDOM (new NonBlockingStringReader (sValid),
                                 new DOMReaderSettings ().setSchema (aSchema)
-                                                        .setErrorHandler (LoggingSAXErrorHandler.getInstance ()));
+                                                        .setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNotNull (doc);
 
     doc = DOMReader.readXMLDOM (new StringInputStream (sValid, CCharset.CHARSET_ISO_8859_1_OBJ),
                                 new DOMReaderSettings ().setSchema (aSchema));
     assertNotNull (doc);
     doc = DOMReader.readXMLDOM (new StringInputStream (sValid, CCharset.CHARSET_ISO_8859_1_OBJ),
-                                new DOMReaderSettings ().setErrorHandler (LoggingSAXErrorHandler.getInstance ()));
+                                new DOMReaderSettings ().setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNotNull (doc);
     doc = DOMReader.readXMLDOM (new StringInputStream (sValid, CCharset.CHARSET_ISO_8859_1_OBJ),
                                 new DOMReaderSettings ().setSchema (aSchema)
-                                                        .setErrorHandler (LoggingSAXErrorHandler.getInstance ()));
+                                                        .setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNotNull (doc);
 
     doc = DOMReader.readXMLDOM (new StringSAXInputSource (sValid), new DOMReaderSettings ().setSchema (aSchema));
     assertNotNull (doc);
     doc = DOMReader.readXMLDOM (new StringSAXInputSource (sValid),
-                                new DOMReaderSettings ().setErrorHandler (LoggingSAXErrorHandler.getInstance ()));
+                                new DOMReaderSettings ().setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNotNull (doc);
     doc = DOMReader.readXMLDOM (new StringSAXInputSource (sValid),
                                 new DOMReaderSettings ().setSchema (aSchema)
-                                                        .setErrorHandler (LoggingSAXErrorHandler.getInstance ()));
+                                                        .setErrorHandler (new LoggingSAXErrorHandler ()));
 
     assertNotNull (doc);
     doc = DOMReader.readXMLDOM (new ClassPathResource ("xml/schema1-valid.xml"),
                                 new DOMReaderSettings ().setSchema (aSchema));
     assertNotNull (doc);
     doc = DOMReader.readXMLDOM (new ClassPathResource ("xml/schema1-valid.xml"),
-                                new DOMReaderSettings ().setErrorHandler (LoggingSAXErrorHandler.getInstance ()));
+                                new DOMReaderSettings ().setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNotNull (doc);
     doc = DOMReader.readXMLDOM (new ClassPathResource ("xml/schema1-valid.xml"),
                                 new DOMReaderSettings ().setSchema (aSchema)
-                                                        .setErrorHandler (LoggingSAXErrorHandler.getInstance ()));
+                                                        .setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNotNull (doc);
 
     // Read invalid (<c> tag is unknown)
@@ -269,33 +268,33 @@ public final class DOMReaderTest
     assertNull (doc);
     doc = DOMReader.readXMLDOM (sInvalid,
                                 new DOMReaderSettings ().setSchema (aSchema)
-                                                        .setErrorHandler (LoggingSAXErrorHandler.getInstance ()));
+                                                        .setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNull (doc);
     doc = DOMReader.readXMLDOM (new NonBlockingStringReader (sInvalid), new DOMReaderSettings ().setSchema (aSchema));
     assertNull (doc);
     doc = DOMReader.readXMLDOM (new NonBlockingStringReader (sInvalid),
                                 new DOMReaderSettings ().setSchema (aSchema)
-                                                        .setErrorHandler (LoggingSAXErrorHandler.getInstance ()));
+                                                        .setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNull (doc);
     doc = DOMReader.readXMLDOM (new StringInputStream (sInvalid, CCharset.CHARSET_ISO_8859_1_OBJ),
                                 new DOMReaderSettings ().setSchema (aSchema));
     assertNull (doc);
     doc = DOMReader.readXMLDOM (new StringInputStream (sInvalid, CCharset.CHARSET_ISO_8859_1_OBJ),
                                 new DOMReaderSettings ().setSchema (aSchema)
-                                                        .setErrorHandler (LoggingSAXErrorHandler.getInstance ()));
+                                                        .setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNull (doc);
     doc = DOMReader.readXMLDOM (new StringSAXInputSource (sInvalid), new DOMReaderSettings ().setSchema (aSchema));
     assertNull (doc);
     doc = DOMReader.readXMLDOM (new StringSAXInputSource (sInvalid),
                                 new DOMReaderSettings ().setSchema (aSchema)
-                                                        .setErrorHandler (LoggingSAXErrorHandler.getInstance ()));
+                                                        .setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNull (doc);
     doc = DOMReader.readXMLDOM (new ClassPathResource ("xml/schema1-invalid.xml"),
                                 new DOMReaderSettings ().setSchema (aSchema));
     assertNull (doc);
     doc = DOMReader.readXMLDOM (new ClassPathResource ("xml/schema1-invalid.xml"),
                                 new DOMReaderSettings ().setSchema (aSchema)
-                                                        .setErrorHandler (LoggingSAXErrorHandler.getInstance ()));
+                                                        .setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNull (doc);
 
     try
@@ -376,7 +375,7 @@ public final class DOMReaderTest
     final File aFile = new File ("src/test/resources/test1.txt");
     assertTrue (aFile.exists ());
     final String sFileContent = StreamHelper.getAllBytesAsString (new FileSystemResource (aFile),
-                                                                 CCharset.CHARSET_ISO_8859_1_OBJ);
+                                                                  CCharset.CHARSET_ISO_8859_1_OBJ);
 
     // The XML with XXE problem
     final String sXML = "<?xml version='1.0' encoding='utf-8'?>" +

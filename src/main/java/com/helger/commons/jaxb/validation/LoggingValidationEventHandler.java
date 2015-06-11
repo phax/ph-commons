@@ -33,14 +33,13 @@ import com.helger.commons.error.IResourceError;
  * An implementation of the JAXB {@link javax.xml.bind.ValidationEventHandler}
  * interface. It simply prints the messages to a logger before the original
  * handler handles them.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
 public class LoggingValidationEventHandler extends AbstractValidationEventHandler
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingValidationEventHandler.class);
-  private static final LoggingValidationEventHandler s_aInstance = new LoggingValidationEventHandler ();
 
   public LoggingValidationEventHandler ()
   {
@@ -50,12 +49,6 @@ public class LoggingValidationEventHandler extends AbstractValidationEventHandle
   public LoggingValidationEventHandler (@Nullable final ValidationEventHandler aOrigHandler)
   {
     super (aOrigHandler);
-  }
-
-  @Nonnull
-  public static LoggingValidationEventHandler getInstance ()
-  {
-    return s_aInstance;
   }
 
   @Override

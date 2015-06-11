@@ -24,23 +24,15 @@ import com.helger.commons.error.IResourceError;
 /**
  * An implementation of the JAXB {@link javax.xml.bind.ValidationEventHandler}
  * interface that does nothing an swallows all errors.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
 public class DoNothingValidationEventHandler extends AbstractValidationEventHandler
 {
-  private static final DoNothingValidationEventHandler s_aInstance = new DoNothingValidationEventHandler ();
-
   public DoNothingValidationEventHandler ()
   {
     super ();
-  }
-
-  @Nonnull
-  public static DoNothingValidationEventHandler getInstance ()
-  {
-    return s_aInstance;
   }
 
   @Override

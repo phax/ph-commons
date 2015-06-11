@@ -54,7 +54,6 @@ import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
-import com.helger.commons.codec.IdentityCodec;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.exception.InitializationException;
@@ -270,7 +269,7 @@ public final class URLHelper
   @Nonnull
   public static IURLData getAsURLData (@Nonnull final String sHref)
   {
-    return getAsURLData (sHref, IdentityCodec.<String> create ());
+    return getAsURLData (sHref, null);
   }
 
   /**
@@ -279,14 +278,13 @@ public final class URLHelper
    * @param sHref
    *        The URL to be parsed
    * @param aParameterDecoder
-   *        The parameter decoder to use. May not be <code>null</code>.
+   *        The parameter decoder to use. May be <code>null</code>.
    * @return the corresponding {@link IURLData} representation of the passed URL
    */
   @Nonnull
-  public static IURLData getAsURLData (@Nonnull final String sHref, @Nonnull final IDecoder <String> aParameterDecoder)
+  public static IURLData getAsURLData (@Nonnull final String sHref, @Nullable final IDecoder <String> aParameterDecoder)
   {
     ValueEnforcer.notNull (sHref, "Href");
-    ValueEnforcer.notNull (aParameterDecoder, "ParameterDecoder");
 
     final String sRealHref = sHref.trim ();
 
@@ -344,7 +342,7 @@ public final class URLHelper
   @Nonnull
   @ReturnsMutableCopy
   private static Map <String, String> _getQueryStringAsMap (@Nullable final String sQueryString,
-                                                            @Nonnull final IDecoder <String> aParameterDecoder)
+                                                            @Nullable final IDecoder <String> aParameterDecoder)
   {
     final Map <String, String> aMap = new LinkedHashMap <String, String> ();
     if (StringHelper.hasText (sQueryString))
@@ -360,8 +358,12 @@ public final class URLHelper
             final String sValue = aParts.size () == 2 ? aParts.get (1) : "";
             if (sValue == null)
               throw new NullPointerException ("parameter value may not be null");
-            // Now decode the name and the value
-            aMap.put (aParameterDecoder.getDecoded (sKey), aParameterDecoder.getDecoded (sValue));
+            if (aParameterDecoder != null)
+
+              // Now decode the name and the value
+              aMap.put (aParameterDecoder.getDecoded (sKey), aParameterDecoder.getDecoded (sValue));
+            else
+              aMap.put (sKey, sValue);
           }
         }
     }
@@ -372,7 +374,7 @@ public final class URLHelper
   @ReturnsMutableCopy
   public static Map <String, String> getQueryStringAsMap (@Nullable final String sQueryString)
   {
-    return _getQueryStringAsMap (sQueryString, IdentityCodec.<String> create ());
+    return _getQueryStringAsMap (sQueryString, null);
   }
 
   @Nonnull
@@ -391,7 +393,7 @@ public final class URLHelper
    * @param sAnchor
    *        An optional anchor to be added. May be <code>null</code>.
    * @param aParameterEncoder
-   *        The parameters encoding to be used. May not be <code>null</code>.
+   *        The parameters encoding to be used. May be <code>null</code>.
    * @return May be <code>null</code> if path, anchor and parameters are
    *         <code>null</code>.
    */
@@ -399,10 +401,8 @@ public final class URLHelper
   public static String getURLString (@Nullable final String sPath,
                                      @Nullable final Map <String, String> aParams,
                                      @Nullable final String sAnchor,
-                                     @Nonnull final IEncoder <String> aParameterEncoder)
+                                     @Nullable final IEncoder <String> aParameterEncoder)
   {
-    ValueEnforcer.notNull (aParameterEncoder, "ParameterEncoder");
-
     final boolean bHasParams = CollectionHelper.isNotEmpty (aParams);
     final boolean bHasAnchor = StringHelper.hasText (sAnchor);
 
@@ -440,12 +440,18 @@ public final class URLHelper
       {
         // Key
         final String sKey = aEntry.getKey ();
-        aSB.append (aParameterEncoder.getEncoded (sKey));
+        if (aParameterEncoder != null)
+          aSB.append (aParameterEncoder.getEncoded (sKey));
+        else
+          aSB.append (sKey);
 
         // Value
         final String sValue = aEntry.getValue ();
         if (StringHelper.hasText (sValue))
-          aSB.append (EQUALS).append (aParameterEncoder.getEncoded (sValue));
+          if (aParameterEncoder != null)
+            aSB.append (EQUALS).append (aParameterEncoder.getEncoded (sValue));
+          else
+            aSB.append (EQUALS).append (sValue);
 
         // Separator
         aSB.append (AMPERSAND);
@@ -490,11 +496,8 @@ public final class URLHelper
                                      @Nullable final String sAnchor,
                                      @Nullable final Charset aParameterCharset)
   {
-    IEncoder <String> aParameterEncoder;
-    if (aParameterCharset == null)
-      aParameterEncoder = IdentityCodec.create ();
-    else
-      aParameterEncoder = new URLParameterEncoder (aParameterCharset);
+    final IEncoder <String> aParameterEncoder = aParameterCharset == null ? null
+                                                                         : new URLParameterEncoder (aParameterCharset);
     return getURLString (sPath, aParams, sAnchor, aParameterEncoder);
   }
 
@@ -818,16 +821,14 @@ public final class URLHelper
    *        Parameter map. May be <code>null</code> or empty.
    * @param aParameterEncoder
    *        The encoder to be used to encode parameter names and parameter
-   *        values. May not be <code>null</code>. This may be e.g. a
+   *        values. May be <code>null</code>. This may be e.g. a
    *        {@link URLParameterEncoder}.
    * @return A non-<code>null</code> string
    */
   @Nonnull
   public static String getApplicationFormEncoded (@Nullable final Map <String, String> aParams,
-                                                  @Nonnull final IEncoder <String> aParameterEncoder)
+                                                  @Nullable final IEncoder <String> aParameterEncoder)
   {
-    ValueEnforcer.notNull (aParameterEncoder, "ParameterEncoder");
-
     if (CollectionHelper.isEmpty (aParams))
       return "";
 
@@ -841,12 +842,18 @@ public final class URLHelper
 
         // Key
         final String sKey = aEntry.getKey ();
-        aSB.append (aParameterEncoder.getEncoded (sKey));
+        if (aParameterEncoder != null)
+          aSB.append (aParameterEncoder.getEncoded (sKey));
+        else
+          aSB.append (sKey);
 
         // Value
         final String sValue = aEntry.getValue ();
         if (StringHelper.hasText (sValue))
-          aSB.append (EQUALS).append (aParameterEncoder.getEncoded (sValue));
+          if (aParameterEncoder != null)
+            aSB.append (EQUALS).append (aParameterEncoder.getEncoded (sValue));
+          else
+            aSB.append (EQUALS).append (sValue);
       }
     return aSB.toString ();
   }

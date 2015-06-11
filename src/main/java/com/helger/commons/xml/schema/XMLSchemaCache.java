@@ -30,7 +30,7 @@ import com.helger.commons.xml.sax.LoggingSAXErrorHandler;
 
 /**
  * This class is used to cache XML schema objects.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
@@ -38,7 +38,7 @@ public class XMLSchemaCache extends DefaultSchemaCache
 {
   private static final class SingletonHolder
   {
-    static final XMLSchemaCache s_aInstance = new XMLSchemaCache (LoggingSAXErrorHandler.getInstance (),
+    static final XMLSchemaCache s_aInstance = new XMLSchemaCache (new LoggingSAXErrorHandler (),
                                                                   new SimpleLSResourceResolver ());
   }
 

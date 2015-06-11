@@ -26,25 +26,24 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.iterate.EmptyIterator;
-import com.helger.commons.lang.GenericReflection;
 
 /**
  * Default implementation of an empty sorted set.
  *
  * @author Philip Helger
+ * @param <T>
+ *        Content type
  */
-public final class EmptySortedSet extends AbstractSet <Object> implements SortedSet <Object>
+public final class EmptySortedSet <T> extends AbstractSet <T> implements SortedSet <T>
 {
-  private static final EmptySortedSet INSTANCE = new EmptySortedSet ();
-
-  private EmptySortedSet ()
+  public EmptySortedSet ()
   {}
 
   @Override
   @Nonnull
-  public Iterator <Object> iterator ()
+  public Iterator <T> iterator ()
   {
-    return new EmptyIterator <Object> ();
+    return new EmptyIterator <T> ();
   }
 
   @Override
@@ -73,45 +72,32 @@ public final class EmptySortedSet extends AbstractSet <Object> implements Sorted
   }
 
   @Nonnull
-  public SortedSet <Object> subSet (final Object fromElement, final Object toElement)
+  public SortedSet <T> subSet (final Object fromElement, final Object toElement)
   {
     return this;
   }
 
   @Nonnull
-  public SortedSet <Object> headSet (final Object toElement)
+  public SortedSet <T> headSet (final Object toElement)
   {
     return this;
   }
 
   @Nonnull
-  public SortedSet <Object> tailSet (final Object fromElement)
+  public SortedSet <T> tailSet (final Object fromElement)
   {
     return this;
   }
 
   @Nullable
-  public Object first ()
+  public T first ()
   {
     return null;
   }
 
   @Nullable
-  public Object last ()
+  public T last ()
   {
     return null;
-  }
-
-  // Preserves singleton property
-  @Nonnull
-  private Object readResolve ()
-  {
-    return INSTANCE;
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> SortedSet <ELEMENTTYPE> getInstance ()
-  {
-    return GenericReflection.<EmptySortedSet, SortedSet <ELEMENTTYPE>> uncheckedCast (INSTANCE);
   }
 }

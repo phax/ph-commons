@@ -18,11 +18,9 @@ package com.helger.commons.factory;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -34,9 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public final class FactoryNull <DATATYPE> implements IFactory <DATATYPE>, Serializable
 {
-  private static final FactoryNull <Object> s_aInstance = new FactoryNull <Object> ();
-
-  private FactoryNull ()
+  public FactoryNull ()
   {}
 
   @Nullable
@@ -65,11 +61,5 @@ public final class FactoryNull <DATATYPE> implements IFactory <DATATYPE>, Serial
   public String toString ()
   {
     return new ToStringGenerator (this).toString ();
-  }
-
-  @Nonnull
-  public static <DATATYPE> FactoryNull <DATATYPE> getInstance ()
-  {
-    return GenericReflection.<FactoryNull <Object>, FactoryNull <DATATYPE>> uncheckedCast (s_aInstance);
   }
 }

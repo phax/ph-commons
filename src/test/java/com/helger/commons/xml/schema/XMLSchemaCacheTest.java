@@ -39,7 +39,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link XMLSchemaCache}.
- * 
+ *
  * @author Philip Helger
  */
 public final class XMLSchemaCacheTest
@@ -104,7 +104,7 @@ public final class XMLSchemaCacheTest
   public void testCustom ()
   {
     @PresentForCodeCoverage
-    XMLSchemaCache sc = new XMLSchemaCache (LoggingSAXErrorHandler.getInstance ());
+    XMLSchemaCache sc = new XMLSchemaCache (new LoggingSAXErrorHandler ());
     assertNotNull (sc);
 
     final CollectingLSResourceResolver crr = new CollectingLSResourceResolver ();

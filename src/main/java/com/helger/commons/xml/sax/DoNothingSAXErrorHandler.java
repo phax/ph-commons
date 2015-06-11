@@ -31,16 +31,8 @@ import com.helger.commons.error.IErrorLevel;
 @Immutable
 public class DoNothingSAXErrorHandler extends AbstractSAXErrorHandler
 {
-  private static final DoNothingSAXErrorHandler s_aInstance = new DoNothingSAXErrorHandler ();
-
   public DoNothingSAXErrorHandler ()
   {}
-
-  @Nonnull
-  public static DoNothingSAXErrorHandler getInstance ()
-  {
-    return s_aInstance;
-  }
 
   @Override
   protected void internalLog (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)

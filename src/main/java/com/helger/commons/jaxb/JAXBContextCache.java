@@ -89,8 +89,8 @@ public final class JAXBContextCache extends AbstractNotifyingCache <Package, JAX
     }
     catch (final JAXBException ex)
     {
-      final String sMsg = "Failed to create JAXB context for package " + aPackage.getName ();
-      s_aLogger.error (sMsg);
+      final String sMsg = "Failed to create JAXB context for package '" + aPackage.getName () + "'";
+      s_aLogger.error (sMsg + ": " + ex.getMessage ());
       throw new IllegalArgumentException (sMsg, ex);
     }
   }
@@ -101,24 +101,22 @@ public final class JAXBContextCache extends AbstractNotifyingCache <Package, JAX
     ValueEnforcer.notNull (aClass, "Class");
 
     final Package aPackage = aClass.getPackage ();
-    if (aPackage.getAnnotation (XmlSchema.class) == null)
+    if (aPackage.getAnnotation (XmlSchema.class) != null)
+      return getFromCache (aPackage);
+
+    // E.g. an internal class - try anyway!
+    if (GlobalDebug.isDebugMode ())
+      s_aLogger.info ("Creating JAXB context for class " + aClass.getName ());
+
+    try
     {
-      // E.g. an internal class - try anyway!
-      if (GlobalDebug.isDebugMode ())
-        s_aLogger.info ("Creating JAXB context for class " + aClass.getName ());
-
-      try
-      {
-        return JAXBContext.newInstance (aClass);
-      }
-      catch (final JAXBException ex)
-      {
-        final String sMsg = "Failed to create JAXB context for class " + aClass.getName ();
-        s_aLogger.error (sMsg);
-        throw new IllegalArgumentException (sMsg, ex);
-      }
+      return JAXBContext.newInstance (aClass);
     }
-
-    return getFromCache (aPackage);
+    catch (final JAXBException ex)
+    {
+      final String sMsg = "Failed to create JAXB context for class '" + aClass.getName () + "'";
+      s_aLogger.error (sMsg + ": " + ex.getMessage ());
+      throw new IllegalArgumentException (sMsg, ex);
+    }
   }
 }

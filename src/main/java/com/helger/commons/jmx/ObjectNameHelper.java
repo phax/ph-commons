@@ -41,12 +41,12 @@ import com.helger.commons.lang.CGStringHelper;
 @ThreadSafe
 public final class ObjectNameHelper
 {
-  @PresentForCodeCoverage
-  private static final ObjectNameHelper s_aInstance = new ObjectNameHelper ();
-
   private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
   @GuardedBy ("s_aRWLock")
   private static String s_sDefaultJMXDomain = CJMX.PH_JMX_DOMAIN;
+
+  @PresentForCodeCoverage
+  private static final ObjectNameHelper s_aInstance = new ObjectNameHelper ();
 
   private ObjectNameHelper ()
   {}

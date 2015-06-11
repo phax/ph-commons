@@ -32,7 +32,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.codec.IdentityCodec;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.mime.CMimeType;
 
@@ -166,9 +165,7 @@ public final class URLHelperTest
     assertEquals ("a=b&c=d%26e", URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d&e"), enc));
 
     // Using identity encoder
-    assertEquals ("a=b&c=d&e",
-                  URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d&e"),
-                                                       IdentityCodec.<String> create ()));
+    assertEquals ("a=b&c=d&e", URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d&e"), null));
   }
 
   @Test

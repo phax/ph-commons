@@ -23,7 +23,7 @@ import javax.xml.bind.ValidationEventHandler;
 /**
  * Implementation of {@link IValidationEventHandlerFactory} creating
  * {@link DoNothingValidationEventHandler} objects.
- * 
+ *
  * @author Philip Helger
  */
 public class DoNothingValidationEventHandlerFactory implements IValidationEventHandlerFactory
@@ -34,6 +34,6 @@ public class DoNothingValidationEventHandlerFactory implements IValidationEventH
   @Nonnull
   public DoNothingValidationEventHandler create (@Nullable final ValidationEventHandler aOldEventHandler)
   {
-    return DoNothingValidationEventHandler.getInstance ();
+    return new DoNothingValidationEventHandler ();
   }
 }

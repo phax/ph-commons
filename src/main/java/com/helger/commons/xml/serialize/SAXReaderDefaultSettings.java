@@ -63,7 +63,7 @@ public final class SAXReaderDefaultSettings
   @GuardedBy ("s_aRWLock")
   private static ContentHandler s_aDefaultContentHandler;
   @GuardedBy ("s_aRWLock")
-  private static ErrorHandler s_aDefaultErrorHandler = LoggingSAXErrorHandler.getInstance ();
+  private static ErrorHandler s_aDefaultErrorHandler = new LoggingSAXErrorHandler ();
   @GuardedBy ("s_aRWLock")
   private static final EnumMap <EXMLParserProperty, Object> s_aDefaultProperties = new EnumMap <EXMLParserProperty, Object> (EXMLParserProperty.class);
   @GuardedBy ("s_aRWLock")

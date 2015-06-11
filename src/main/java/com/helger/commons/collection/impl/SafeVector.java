@@ -53,7 +53,7 @@ public class SafeVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE>
    */
   public SafeVector ()
   {
-    this (FactoryNull.<ELEMENTTYPE> getInstance ());
+    this (new FactoryNull <ELEMENTTYPE> ());
   }
 
   /**

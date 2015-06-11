@@ -1357,7 +1357,7 @@ public final class CollectionHelper
   @ReturnsImmutableObject
   public static <ELEMENTTYPE> SortedSet <ELEMENTTYPE> newUnmodifiableSortedSet ()
   {
-    return EmptySortedSet.<ELEMENTTYPE> getInstance ();
+    return new EmptySortedSet <ELEMENTTYPE> ();
   }
 
   @Nonnull
