@@ -25,7 +25,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerCallback;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.tree.IBasicTree;
 import com.helger.commons.tree.util.walk.TreeWalker;
 import com.helger.commons.tree.withid.ITreeItemWithID;
@@ -88,7 +88,7 @@ public final class TreeWithIDSearcher
                                                                                                                                                  @Nullable final KEYTYPE aSearchID)
   {
     final List <ITEMTYPE> aRetList = new ArrayList <ITEMTYPE> ();
-    TreeWalker.walkSubTree (aTreeItem, new DefaultHierarchyWalkerCallback <ITEMTYPE> ()
+    TreeWalker.walkSubTree (aTreeItem, new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
     {
       @Override
       public void onItemBeforeChildren (@Nullable final ITEMTYPE aItem)

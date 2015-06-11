@@ -68,7 +68,9 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
   @Nonnegative
   public int getChildCount (@Nullable final IMicroElement aCurrent)
   {
-    return aCurrent == null ? 0 : getAllChildren (aCurrent).size ();
+    if (aCurrent == null)
+      return 0;
+    return getAllChildren (aCurrent).size ();
   }
 
   @Nonnull

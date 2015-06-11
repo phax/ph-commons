@@ -16,23 +16,33 @@
  */
 package com.helger.commons.hierarchy.visit;
 
-import static org.junit.Assert.assertSame;
-
-import org.junit.Test;
-
-import com.helger.commons.hierarchy.visit.EHierarchyCallbackReturn;
+import com.helger.commons.annotation.OverrideOnDemand;
 
 /**
- * Test class for class {@link EHierarchyCallbackReturn}.
+ * The default implementation of the {@link IHierarchyVisitorCallback} interface
+ * doing nothing.
  * 
  * @author Philip Helger
+ * @param <DATATYPE>
+ *        The type of object in the hierarchy to be iterated
  */
-public final class EHierarchyCallbackReturnTest
+public class DefaultHierarchyVisitorCallback <DATATYPE> extends AbstractHierarchyVisitorCallback implements IHierarchyVisitorCallback <DATATYPE>
 {
-  @Test
-  public void testAll ()
+  public DefaultHierarchyVisitorCallback ()
   {
-    for (final EHierarchyCallbackReturn e : EHierarchyCallbackReturn.values ())
-      assertSame (e, EHierarchyCallbackReturn.valueOf (e.name ()));
+    super ();
   }
+
+  public DefaultHierarchyVisitorCallback (final int nInitialLevel)
+  {
+    super (nInitialLevel);
+  }
+
+  @OverrideOnDemand
+  public void onItemBeforeChildren (final DATATYPE aItem)
+  {}
+
+  @OverrideOnDemand
+  public void onItemAfterChildren (final DATATYPE aItem)
+  {}
 }

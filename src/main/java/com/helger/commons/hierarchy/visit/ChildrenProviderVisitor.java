@@ -20,7 +20,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.hierarchy.ChildrenProviderHasChildren;
 import com.helger.commons.hierarchy.IChildrenProvider;
+import com.helger.commons.hierarchy.IHasChildren;
 
 /**
  * Recursively visit all children provided by a given {@link IChildrenProvider}
@@ -28,16 +30,16 @@ import com.helger.commons.hierarchy.IChildrenProvider;
  *
  * @author Philip Helger
  * @param <CHILDTYPE>
- *        The type of children to walk
+ *        The type of children to visit
  */
 @Immutable
-public final class ChildrenProviderWalker <CHILDTYPE>
+public final class ChildrenProviderVisitor <CHILDTYPE> implements IVisitor <CHILDTYPE>
 {
   private final IChildrenProvider <CHILDTYPE> m_aChildrenProvider;
-  private final IHierarchyWalkerCallback <CHILDTYPE> m_aCallback;
+  private final IHierarchyVisitorCallback <? super CHILDTYPE> m_aCallback;
 
-  public ChildrenProviderWalker (@Nonnull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
-                                 @Nonnull final IHierarchyWalkerCallback <CHILDTYPE> aCallback)
+  public ChildrenProviderVisitor (@Nonnull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
+                                  @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
   {
     m_aChildrenProvider = ValueEnforcer.notNull (aChildrenProvider, "ChildrenProvider");
     m_aCallback = ValueEnforcer.notNull (aCallback, "Callback");
@@ -50,12 +52,12 @@ public final class ChildrenProviderWalker <CHILDTYPE>
   }
 
   @Nonnull
-  public IHierarchyWalkerCallback <CHILDTYPE> getCallback ()
+  public IHierarchyVisitorCallback <? super CHILDTYPE> getCallback ()
   {
     return m_aCallback;
   }
 
-  private void _walkRecursive (@Nonnull final CHILDTYPE aObject)
+  private void _visitRecursive (@Nonnull final CHILDTYPE aObject)
   {
     // Only the root level is null -> otherwise we end up in a potentially
     // endless recursion
@@ -74,7 +76,7 @@ public final class ChildrenProviderWalker <CHILDTYPE>
         for (final CHILDTYPE aChildObject : m_aChildrenProvider.getAllChildren (aObject))
         {
           // recursive call
-          _walkRecursive (aChildObject);
+          _visitRecursive (aChildObject);
         }
       }
       finally
@@ -88,7 +90,7 @@ public final class ChildrenProviderWalker <CHILDTYPE>
     m_aCallback.onItemAfterChildren (aObject);
   }
 
-  public void walk ()
+  public void visitAll ()
   {
     m_aCallback.begin ();
     try
@@ -96,7 +98,7 @@ public final class ChildrenProviderWalker <CHILDTYPE>
       // null == root level
       if (m_aChildrenProvider.hasChildren (null))
         for (final CHILDTYPE aRootChild : m_aChildrenProvider.getAllChildren (null))
-          _walkRecursive (aRootChild);
+          _visitRecursive (aRootChild);
     }
     finally
     {
@@ -104,14 +106,14 @@ public final class ChildrenProviderWalker <CHILDTYPE>
     }
   }
 
-  public void walkSub (@Nonnull final CHILDTYPE aObject)
+  public void visitAllFrom (@Nonnull final CHILDTYPE aObject)
   {
     ValueEnforcer.notNull (aObject, "Object");
 
     m_aCallback.begin ();
     try
     {
-      _walkRecursive (aObject);
+      _visitRecursive (aObject);
     }
     finally
     {
@@ -119,16 +121,27 @@ public final class ChildrenProviderWalker <CHILDTYPE>
     }
   }
 
-  public static <CHILDTYPE> void walkProvider (@Nonnull final IChildrenProvider <CHILDTYPE> aChildProvider,
-                                               @Nonnull final IHierarchyWalkerCallback <CHILDTYPE> aCallback)
+  public static <CHILDTYPE> void visitAll (@Nonnull final IChildrenProvider <CHILDTYPE> aChildProvider,
+                                           @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
   {
-    new ChildrenProviderWalker <CHILDTYPE> (aChildProvider, aCallback).walk ();
+    new ChildrenProviderVisitor <CHILDTYPE> (aChildProvider, aCallback).visitAll ();
   }
 
-  public static <CHILDTYPE> void walkSubProvider (@Nonnull final CHILDTYPE aObject,
-                                                  @Nonnull final IChildrenProvider <CHILDTYPE> aChildProvider,
-                                                  @Nonnull final IHierarchyWalkerCallback <CHILDTYPE> aCallback)
+  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAll (@Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
   {
-    new ChildrenProviderWalker <CHILDTYPE> (aChildProvider, aCallback).walkSub (aObject);
+    visitAll (new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback);
+  }
+
+  public static <CHILDTYPE> void visitAllFrom (@Nonnull final CHILDTYPE aObject,
+                                               @Nonnull final IChildrenProvider <CHILDTYPE> aChildProvider,
+                                               @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
+  {
+    new ChildrenProviderVisitor <CHILDTYPE> (aChildProvider, aCallback).visitAllFrom (aObject);
+  }
+
+  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAllFrom (@Nonnull final CHILDTYPE aObject,
+                                                                                @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
+  {
+    visitAllFrom (aObject, new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback);
   }
 }

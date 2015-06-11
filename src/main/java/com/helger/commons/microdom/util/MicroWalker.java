@@ -19,11 +19,10 @@ package com.helger.commons.microdom.util;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.hierarchy.ChildrenProviderHasChildren;
 import com.helger.commons.hierarchy.IChildrenProvider;
-import com.helger.commons.hierarchy.visit.IHierarchyWalkerCallback;
+import com.helger.commons.hierarchy.visit.ChildrenProviderVisitor;
+import com.helger.commons.hierarchy.visit.IHierarchyVisitorCallback;
 import com.helger.commons.microdom.IMicroNode;
 
 /**
@@ -41,22 +40,6 @@ public final class MicroWalker
   private MicroWalker ()
   {}
 
-  private static <T extends IMicroNode> void _walkNode (@Nonnull final T aNode,
-                                                        @Nonnull final IChildrenProvider <T> aChildrenResolver,
-                                                        @Nonnull final IHierarchyWalkerCallback <? super T> aCallback)
-  {
-    aCallback.onItemBeforeChildren (aNode);
-    if (aChildrenResolver.hasChildren (aNode))
-      for (final T aChildItem : aChildrenResolver.getAllChildren (aNode))
-      {
-        aCallback.onLevelDown ();
-        // recursive call
-        _walkNode (aChildItem, aChildrenResolver, aCallback);
-        aCallback.onLevelUp ();
-      }
-    aCallback.onItemAfterChildren (aNode);
-  }
-
   /**
    * Iterate the passed node and invoke the callback for all child nodes. The
    * callback is not invoked for the passed node itself!
@@ -67,9 +50,9 @@ public final class MicroWalker
    *        The callback to call. May not be <code>null</code>.
    */
   public static void walkNode (@Nonnull final IMicroNode aNode,
-                               @Nonnull final IHierarchyWalkerCallback <? super IMicroNode> aCallback)
+                               @Nonnull final IHierarchyVisitorCallback <? super IMicroNode> aCallback)
   {
-    walkNode (aNode, new ChildrenProviderHasChildren <IMicroNode> (), aCallback);
+    ChildrenProviderVisitor.visitAllFrom (aNode, aCallback);
   }
 
   /**
@@ -78,28 +61,15 @@ public final class MicroWalker
    *
    * @param aNode
    *        The node to iterate. May not be <code>null</code>.
-   * @param aChildrenResolver
+   * @param aChildrenProvider
    *        The child resolver to use. May not be <code>null</code>.
    * @param aCallback
    *        The callback to call. May not be <code>null</code>.
    */
   public static <T extends IMicroNode> void walkNode (@Nonnull final T aNode,
-                                                      @Nonnull final IChildrenProvider <T> aChildrenResolver,
-                                                      @Nonnull final IHierarchyWalkerCallback <? super T> aCallback)
+                                                      @Nonnull final IChildrenProvider <T> aChildrenProvider,
+                                                      @Nonnull final IHierarchyVisitorCallback <? super T> aCallback)
   {
-    ValueEnforcer.notNull (aNode, "Node");
-    ValueEnforcer.notNull (aCallback, "Callback");
-
-    aCallback.begin ();
-    try
-    {
-      if (aChildrenResolver.hasChildren (aNode))
-        for (final T aChildItem : aChildrenResolver.getAllChildren (aNode))
-          _walkNode (aChildItem, aChildrenResolver, aCallback);
-    }
-    finally
-    {
-      aCallback.end ();
-    }
+    ChildrenProviderVisitor.visitAllFrom (aNode, aChildrenProvider, aCallback);
   }
 }

@@ -16,33 +16,29 @@
  */
 package com.helger.commons.hierarchy.visit;
 
-import com.helger.commons.annotation.OverrideOnDemand;
-
 /**
- * The default implementation of the {@link IHierarchyWalkerCallback} interface
- * doing nothing.
+ * Interface for walking a hierarchy without the possibilities to alter they way
+ * how the hierarchy is iterated.
  * 
  * @author Philip Helger
  * @param <DATATYPE>
- *        The type of object in the hierarchy to be iterated
+ *        The type of object to be iterated.
  */
-public class DefaultHierarchyWalkerCallback <DATATYPE> extends BaseHierarchyWalkerCallback implements IHierarchyWalkerCallback <DATATYPE>
+public interface IHierarchyVisitorCallback <DATATYPE> extends IBaseHierarchyVisitorCallback
 {
-  public DefaultHierarchyWalkerCallback ()
-  {
-    super ();
-  }
+  /**
+   * Called before eventual children of the current item are iterated.
+   * 
+   * @param aItem
+   *        The current tree item. May be <code>null</code>.
+   */
+  void onItemBeforeChildren (DATATYPE aItem);
 
-  public DefaultHierarchyWalkerCallback (final int nInitialLevel)
-  {
-    super (nInitialLevel);
-  }
-
-  @OverrideOnDemand
-  public void onItemBeforeChildren (final DATATYPE aItem)
-  {}
-
-  @OverrideOnDemand
-  public void onItemAfterChildren (final DATATYPE aItem)
-  {}
+  /**
+   * Called after eventual children of the current item were iterated.
+   * 
+   * @param aItem
+   *        The current tree item. May be <code>null</code>.
+   */
+  void onItemAfterChildren (DATATYPE aItem);
 }

@@ -25,7 +25,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerCallback;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.tree.simple.DefaultTree;
 import com.helger.commons.tree.simple.DefaultTreeItem;
@@ -87,7 +87,7 @@ public final class TreeWalkerTest
       // count at before children
       final MutableInt mi = new MutableInt ();
       TreeWalker.walkTree (_createTree (nLevel, nItemsPerLevel),
-                           new DefaultHierarchyWalkerCallback <DefaultTreeItem <String>> ()
+                           new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                            {
                              @Override
                              public void onItemBeforeChildren (final DefaultTreeItem <String> aItem)
@@ -102,7 +102,7 @@ public final class TreeWalkerTest
       // count at before children
       mi.set (0);
       TreeWalker.walkSubTree (_createTree (nLevel, nItemsPerLevel).getRootItem (),
-                              new DefaultHierarchyWalkerCallback <DefaultTreeItem <String>> ()
+                              new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                               {
                                 @Override
                                 public void onItemBeforeChildren (final DefaultTreeItem <String> aItem)
@@ -117,7 +117,7 @@ public final class TreeWalkerTest
       // count at after children
       mi.set (0);
       TreeWalker.walkTree (_createTree (nLevel, nItemsPerLevel),
-                           new DefaultHierarchyWalkerCallback <DefaultTreeItem <String>> ()
+                           new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                            {
                              @Override
                              public void onItemAfterChildren (final DefaultTreeItem <String> aItem)
@@ -132,7 +132,7 @@ public final class TreeWalkerTest
       // count at after children
       mi.set (0);
       TreeWalker.walkSubTree (_createTree (nLevel, nItemsPerLevel).getRootItem (),
-                              new DefaultHierarchyWalkerCallback <DefaultTreeItem <String>> ()
+                              new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                               {
                                 @Override
                                 public void onItemAfterChildren (final DefaultTreeItem <String> aItem)

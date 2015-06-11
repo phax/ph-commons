@@ -16,32 +16,41 @@
  */
 package com.helger.commons.hierarchy.visit;
 
+import javax.annotation.Nonnegative;
+
+import com.helger.commons.callback.ICallback;
+
 /**
- * Return value for hierarchy iteration.
+ * Base interface with callbacks for visiting a hierarchy.
  *
  * @author Philip Helger
  */
-public enum EHierarchyCallbackReturn
+public interface IBaseHierarchyVisitorCallback extends ICallback
 {
   /**
-   * Continue with the next element. This may either be the first child element
-   * or the next sibling.
+   * Called before the tree walking starts.
    */
-  CONTINUE,
+  void begin ();
 
   /**
-   * Skip the child elements of the current element and go to the next sibling.
+   * Called before the tree walker descends into the next tree level.
    */
-  USE_NEXT_SIBLING,
+  void onLevelDown ();
 
   /**
-   * Skip the child elements and all siblings of the current content element and
-   * go to the parent element's sibling.
+   * @return The level of the current node within the hierarchy. Always &ge; 0.
+   *         The root item has level 0.
    */
-  USE_PARENTS_NEXT_SIBLING,
+  @Nonnegative
+  int getLevel ();
 
   /**
-   * Stop the iteration completely.
+   * Called after the tree walker ascends into the previous tree level.
    */
-  STOP_ITERATION
+  void onLevelUp ();
+
+  /**
+   * Called after the tree walking ended.
+   */
+  void end ();
 }

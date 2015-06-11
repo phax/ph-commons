@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 import org.junit.Test;
 
-import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerCallback;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.filter.FilenameFilterEndsWith;
 import com.helger.commons.tree.util.walk.TreeWalker;
@@ -78,7 +78,7 @@ public final class FileSystemFolderTreeTest
                                                            null,
                                                            new FilenameFilterEndsWith (".java"));
     TreeWalker.walkSubTree (aTree.getRootItem (),
-                            new DefaultHierarchyWalkerCallback <DefaultFolderTreeItem <String, File, List <File>>> ()
+                            new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ()
                             {
                               @Override
                               public void onItemBeforeChildren (@Nullable final DefaultFolderTreeItem <String, File, List <File>> aFolder)
@@ -92,11 +92,11 @@ public final class FileSystemFolderTreeTest
     // Only dir filter
     aTree = new FileSystemFolderTree (new File (".").getAbsoluteFile (), new FilenameFilterEndsWith ("src"), null);
     TreeWalker.walkSubTree (aTree.getRootItem (),
-                            new DefaultHierarchyWalkerCallback <DefaultFolderTreeItem <String, File, List <File>>> ());
+                            new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ());
 
     // No filter
     aTree = new FileSystemFolderTree (new File (".").getAbsoluteFile ());
     TreeWalker.walkSubTree (aTree.getRootItem (),
-                            new DefaultHierarchyWalkerCallback <DefaultFolderTreeItem <String, File, List <File>>> ());
+                            new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ());
   }
 }

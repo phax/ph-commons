@@ -23,15 +23,15 @@ import org.junit.Test;
 import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.hierarchy.MockChildrenProvider;
 import com.helger.commons.hierarchy.MockHasChildren;
-import com.helger.commons.hierarchy.visit.ChildrenProviderWalker;
-import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerCallback;
+import com.helger.commons.hierarchy.visit.ChildrenProviderVisitorDynamic;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorDynamicCallback;
 
 /**
- * Test class for class {@link ChildrenProviderWalker}.
+ * Test class for class {@link ChildrenProviderVisitorDynamic}.
  * 
  * @author Philip Helger
  */
-public final class ChildrenProviderWalkerTest
+public final class ChildrenProviderVisitorDynamicTest
 {
   @Test
   public void testAll ()
@@ -42,19 +42,20 @@ public final class ChildrenProviderWalkerTest
     final IChildrenProvider <MockHasChildren> cp = new MockChildrenProvider (hc1);
 
     // Having children
-    ChildrenProviderWalker.walkProvider (cp, new DefaultHierarchyWalkerCallback <MockHasChildren> ());
+    ChildrenProviderVisitorDynamic.visitAll (cp, new DefaultHierarchyVisitorDynamicCallback <MockHasChildren> ());
 
     // Not having children
-    ChildrenProviderWalker.walkProvider (new MockChildrenProvider (hca),
-                                         new DefaultHierarchyWalkerCallback <MockHasChildren> ());
+    ChildrenProviderVisitorDynamic.visitAll (new MockChildrenProvider (hca),
+                                                new DefaultHierarchyVisitorDynamicCallback <MockHasChildren> ());
 
     // Start explicitly at object
-    ChildrenProviderWalker.walkSubProvider (hc1, cp, new DefaultHierarchyWalkerCallback <MockHasChildren> ());
-
+    ChildrenProviderVisitorDynamic.visitAllFrom (hc1,
+                                                   cp,
+                                                   new DefaultHierarchyVisitorDynamicCallback <MockHasChildren> ());
     // no provider
     try
     {
-      ChildrenProviderWalker.walkProvider (null, new DefaultHierarchyWalkerCallback <MockHasChildren> ());
+      ChildrenProviderVisitorDynamic.visitAll (null, new DefaultHierarchyVisitorDynamicCallback <MockHasChildren> ());
       fail ();
     }
     catch (final NullPointerException ex)
@@ -63,7 +64,7 @@ public final class ChildrenProviderWalkerTest
     // no callback
     try
     {
-      ChildrenProviderWalker.walkProvider (cp, null);
+      ChildrenProviderVisitorDynamic.visitAll (cp, null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -72,7 +73,9 @@ public final class ChildrenProviderWalkerTest
     // Nothing to walk
     try
     {
-      ChildrenProviderWalker.walkSubProvider (null, cp, new DefaultHierarchyWalkerCallback <MockHasChildren> ());
+      ChildrenProviderVisitorDynamic.visitAllFrom (null,
+                                                     cp,
+                                                     new DefaultHierarchyVisitorDynamicCallback <MockHasChildren> ());
       fail ();
     }
     catch (final NullPointerException ex)

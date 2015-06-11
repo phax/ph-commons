@@ -17,28 +17,31 @@
 package com.helger.commons.hierarchy.visit;
 
 /**
- * Interface for walking a hierarchy without the possibilities to alter they way
- * how the hierarchy is iterated.
- * 
+ * Return value for hierarchy iteration.
+ *
  * @author Philip Helger
- * @param <DATATYPE>
- *        The type of object to be iterated.
  */
-public interface IHierarchyWalkerCallback <DATATYPE> extends IBaseHierarchyWalkerCallback
+public enum EHierarchyVisitorReturn
 {
   /**
-   * Called before eventual children of the current item are iterated.
-   * 
-   * @param aItem
-   *        The current tree item. May be <code>null</code>.
+   * Continue with the next element. This may either be the first child element
+   * or the next sibling.
    */
-  void onItemBeforeChildren (DATATYPE aItem);
+  CONTINUE,
 
   /**
-   * Called after eventual children of the current item were iterated.
-   * 
-   * @param aItem
-   *        The current tree item. May be <code>null</code>.
+   * Skip the child elements of the current element and go to the next sibling.
    */
-  void onItemAfterChildren (DATATYPE aItem);
+  USE_NEXT_SIBLING,
+
+  /**
+   * Skip the child elements and all siblings of the current content element and
+   * go to the parent element's sibling.
+   */
+  USE_PARENTS_NEXT_SIBLING,
+
+  /**
+   * Stop the iteration completely.
+   */
+  STOP_ITERATION
 }

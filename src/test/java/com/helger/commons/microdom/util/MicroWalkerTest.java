@@ -24,17 +24,16 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerCallback;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.microdom.serialize.MicroReader;
-import com.helger.commons.microdom.util.MicroWalker;
 import com.helger.commons.mutable.MutableInt;
 
 /**
  * Test class for class {@link MicroWalker}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroWalkerTest
@@ -48,7 +47,7 @@ public final class MicroWalkerTest
 
     // Count processing instruction
     final MutableInt aInt = new MutableInt (0);
-    MicroWalker.walkNode (doc, new DefaultHierarchyWalkerCallback <IMicroNode> ()
+    MicroWalker.walkNode (doc, new DefaultHierarchyVisitorCallback <IMicroNode> ()
     {
       @Override
       public void onItemBeforeChildren (final IMicroNode aItem)
@@ -61,7 +60,7 @@ public final class MicroWalkerTest
 
     // Start from the root document -> only 1 left
     aInt.set (0);
-    MicroWalker.walkNode (doc.getDocumentElement (), new DefaultHierarchyWalkerCallback <IMicroNode> ()
+    MicroWalker.walkNode (doc.getDocumentElement (), new DefaultHierarchyVisitorCallback <IMicroNode> ()
     {
       @Override
       public void onItemBeforeChildren (@Nonnull final IMicroNode aItem)
@@ -74,7 +73,7 @@ public final class MicroWalkerTest
 
     try
     {
-      MicroWalker.walkNode (null, new DefaultHierarchyWalkerCallback <IMicroNode> ());
+      MicroWalker.walkNode (null, new DefaultHierarchyVisitorCallback <IMicroNode> ());
       fail ();
     }
     catch (final NullPointerException ex)

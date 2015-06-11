@@ -16,41 +16,27 @@
  */
 package com.helger.commons.hierarchy.visit;
 
-import javax.annotation.Nonnegative;
-
-import com.helger.commons.callback.ICallback;
+import javax.annotation.Nonnull;
 
 /**
- * Base interface with callbacks for iterating a hierarchy.
+ * Visitor interface
  *
  * @author Philip Helger
+ * @param <DATATYPE>
+ *        The data type to be visited
  */
-public interface IBaseHierarchyWalkerCallback extends ICallback
+public interface IVisitor <DATATYPE>
 {
   /**
-   * Called before the tree walking starts.
+   * Visit all elements.
    */
-  void begin ();
+  void visitAll ();
 
   /**
-   * Called before the tree walker descends into the next tree level.
+   * Visit all objects, starting at the specified one.
+   *
+   * @param aObject
+   *        The object to start from. May not be <code>null</code>.
    */
-  void onLevelDown ();
-
-  /**
-   * @return The level of the current node within the tree. The root item has
-   *         level 0.
-   */
-  @Nonnegative
-  int getLevel ();
-
-  /**
-   * Called after the tree walker ascends into the previous tree level.
-   */
-  void onLevelUp ();
-
-  /**
-   * Called after the tree walking ended.
-   */
-  void end ();
+  void visitAllFrom (@Nonnull DATATYPE aObject);
 }

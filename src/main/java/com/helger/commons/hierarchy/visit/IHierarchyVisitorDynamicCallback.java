@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
  * @param <DATATYPE>
  *        The type of object to be iterated.
  */
-public interface IHierarchyWalkerDynamicCallback <DATATYPE> extends IBaseHierarchyWalkerCallback
+public interface IHierarchyVisitorDynamicCallback <DATATYPE> extends IBaseHierarchyVisitorCallback
 {
   /**
    * Called before eventual children of the current item are iterated.
@@ -37,7 +37,7 @@ public interface IHierarchyWalkerDynamicCallback <DATATYPE> extends IBaseHierarc
    *         iteration.
    */
   @Nonnull
-  EHierarchyCallbackReturn onItemBeforeChildren (DATATYPE aItem);
+  EHierarchyVisitorReturn onItemBeforeChildren (DATATYPE aItem);
 
   /**
    * Called after eventual children of the current item were iterated.
@@ -48,5 +48,5 @@ public interface IHierarchyWalkerDynamicCallback <DATATYPE> extends IBaseHierarc
    *         iteration.
    */
   @Nonnull
-  EHierarchyCallbackReturn onItemAfterChildren (DATATYPE aItem);
+  EHierarchyVisitorReturn onItemAfterChildren (DATATYPE aItem);
 }

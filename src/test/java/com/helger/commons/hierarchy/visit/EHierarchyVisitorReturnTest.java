@@ -14,26 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.tree.util.walk;
+package com.helger.commons.hierarchy.visit;
 
-import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
-import com.helger.commons.mutable.MutableInt;
-import com.helger.commons.tree.withid.DefaultTreeItemWithID;
+import static org.junit.Assert.assertSame;
 
-public final class MockTreeWalkerCallback extends DefaultHierarchyVisitorCallback <DefaultTreeItemWithID <String, Object>>
+import org.junit.Test;
+
+import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
+
+/**
+ * Test class for class {@link EHierarchyVisitorReturn}.
+ * 
+ * @author Philip Helger
+ */
+public final class EHierarchyVisitorReturnTest
 {
-  private final MutableInt m_aMI;
-
-  public MockTreeWalkerCallback (final MutableInt mi)
+  @Test
+  public void testAll ()
   {
-    m_aMI = mi;
-  }
-
-  @Override
-  public void onItemBeforeChildren (final DefaultTreeItemWithID <String, Object> aItem)
-  {
-    if (getLevel () < 0)
-      throw new IllegalStateException ();
-    m_aMI.inc ();
+    for (final EHierarchyVisitorReturn e : EHierarchyVisitorReturn.values ())
+      assertSame (e, EHierarchyVisitorReturn.valueOf (e.name ()));
   }
 }

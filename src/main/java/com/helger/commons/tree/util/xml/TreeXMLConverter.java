@@ -27,7 +27,7 @@ import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.convert.IUnidirectionalConverter;
 import com.helger.commons.convert.UnidirectionalConverterIdentity;
 import com.helger.commons.hierarchy.ChildrenProviderHasChildrenSorting;
-import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerCallback;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.id.ComparatorHasIDString;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
@@ -96,7 +96,7 @@ public final class TreeXMLConverter
     aParents.push (eRoot);
     TreeWalker.walkTree (aTree,
                          new ChildrenProviderHasChildrenSorting <ITEMTYPE> (aItemComparator),
-                         new DefaultHierarchyWalkerCallback <ITEMTYPE> ()
+                         new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
                          {
                            @Override
                            public void onItemBeforeChildren (@Nullable final ITEMTYPE aItem)
@@ -136,7 +136,7 @@ public final class TreeXMLConverter
     aParents.push (eRoot);
     TreeWalker.walkTree (aTree,
                          new ChildrenProviderHasChildrenSorting <ITEMTYPE> (aItemComparator),
-                         new DefaultHierarchyWalkerCallback <ITEMTYPE> ()
+                         new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
                          {
                            @Override
                            public void onItemBeforeChildren (@Nullable final ITEMTYPE aItem)
@@ -174,7 +174,7 @@ public final class TreeXMLConverter
     aParents.push (aTree.getRootItem ());
     MicroWalker.walkNode (aElement,
                           new ChildrenProviderElementWithName (sNamespaceURI, ELEMENT_ITEM),
-                          new DefaultHierarchyWalkerCallback <IMicroElement> ()
+                          new DefaultHierarchyVisitorCallback <IMicroElement> ()
                           {
                             @Override
                             public void onItemBeforeChildren (@Nullable final IMicroElement eItem)

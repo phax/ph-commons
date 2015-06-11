@@ -25,8 +25,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerDynamicCallback;
-import com.helger.commons.hierarchy.visit.EHierarchyCallbackReturn;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorDynamicCallback;
+import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.tree.simple.DefaultTree;
 import com.helger.commons.tree.simple.DefaultTreeItem;
@@ -88,15 +88,15 @@ public final class TreeWalkerDynamicTest
       // count at before children
       final MutableInt mi = new MutableInt ();
       TreeWalkerDynamic.walkTree (_createTree (nLevel, nItemsPerLevel),
-                                  new DefaultHierarchyWalkerDynamicCallback <DefaultTreeItem <String>> ()
+                                  new DefaultHierarchyVisitorDynamicCallback <DefaultTreeItem <String>> ()
                                   {
                                     @Override
-                                    public EHierarchyCallbackReturn onItemBeforeChildren (final DefaultTreeItem <String> aItem)
+                                    public EHierarchyVisitorReturn onItemBeforeChildren (final DefaultTreeItem <String> aItem)
                                     {
                                       if (getLevel () < 0)
                                         throw new IllegalStateException ();
                                       mi.inc ();
-                                      return EHierarchyCallbackReturn.CONTINUE;
+                                      return EHierarchyVisitorReturn.CONTINUE;
                                     }
                                   });
       assertEquals (nExpected, mi.intValue ());
@@ -104,15 +104,15 @@ public final class TreeWalkerDynamicTest
       // count at before children
       mi.set (0);
       TreeWalkerDynamic.walkSubTree (_createTree (nLevel, nItemsPerLevel).getRootItem (),
-                                     new DefaultHierarchyWalkerDynamicCallback <DefaultTreeItem <String>> ()
+                                     new DefaultHierarchyVisitorDynamicCallback <DefaultTreeItem <String>> ()
                                      {
                                        @Override
-                                       public EHierarchyCallbackReturn onItemBeforeChildren (final DefaultTreeItem <String> aItem)
+                                       public EHierarchyVisitorReturn onItemBeforeChildren (final DefaultTreeItem <String> aItem)
                                        {
                                          if (getLevel () < 0)
                                            throw new IllegalStateException ();
                                          mi.inc ();
-                                         return EHierarchyCallbackReturn.CONTINUE;
+                                         return EHierarchyVisitorReturn.CONTINUE;
                                        }
                                      });
       assertEquals (nExpected, mi.intValue ());
@@ -120,15 +120,15 @@ public final class TreeWalkerDynamicTest
       // count at after children
       mi.set (0);
       TreeWalkerDynamic.walkTree (_createTree (nLevel, nItemsPerLevel),
-                                  new DefaultHierarchyWalkerDynamicCallback <DefaultTreeItem <String>> ()
+                                  new DefaultHierarchyVisitorDynamicCallback <DefaultTreeItem <String>> ()
                                   {
                                     @Override
-                                    public EHierarchyCallbackReturn onItemAfterChildren (final DefaultTreeItem <String> aItem)
+                                    public EHierarchyVisitorReturn onItemAfterChildren (final DefaultTreeItem <String> aItem)
                                     {
                                       if (getLevel () < 0)
                                         throw new IllegalStateException ();
                                       mi.inc ();
-                                      return EHierarchyCallbackReturn.CONTINUE;
+                                      return EHierarchyVisitorReturn.CONTINUE;
                                     }
                                   });
       assertEquals (nExpected, mi.intValue ());
@@ -136,15 +136,15 @@ public final class TreeWalkerDynamicTest
       // count at after children
       mi.set (0);
       TreeWalkerDynamic.walkSubTree (_createTree (nLevel, nItemsPerLevel).getRootItem (),
-                                     new DefaultHierarchyWalkerDynamicCallback <DefaultTreeItem <String>> ()
+                                     new DefaultHierarchyVisitorDynamicCallback <DefaultTreeItem <String>> ()
                                      {
                                        @Override
-                                       public EHierarchyCallbackReturn onItemAfterChildren (final DefaultTreeItem <String> aItem)
+                                       public EHierarchyVisitorReturn onItemAfterChildren (final DefaultTreeItem <String> aItem)
                                        {
                                          if (getLevel () < 0)
                                            throw new IllegalStateException ();
                                          mi.inc ();
-                                         return EHierarchyCallbackReturn.CONTINUE;
+                                         return EHierarchyVisitorReturn.CONTINUE;
                                        }
                                      });
       assertEquals (nExpected, mi.intValue ());

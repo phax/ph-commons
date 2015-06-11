@@ -16,12 +16,12 @@
  */
 package com.helger.commons.tree.util.walk;
 
-import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerDynamicCallback;
-import com.helger.commons.hierarchy.visit.EHierarchyCallbackReturn;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorDynamicCallback;
+import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 
-public final class MockTreeWalkerDynamicCallback extends DefaultHierarchyWalkerDynamicCallback <DefaultTreeItemWithID <String, Object>>
+public final class MockTreeWalkerDynamicCallback extends DefaultHierarchyVisitorDynamicCallback <DefaultTreeItemWithID <String, Object>>
 {
   private final MutableInt m_aMI;
 
@@ -31,11 +31,11 @@ public final class MockTreeWalkerDynamicCallback extends DefaultHierarchyWalkerD
   }
 
   @Override
-  public EHierarchyCallbackReturn onItemBeforeChildren (final DefaultTreeItemWithID <String, Object> aItem)
+  public EHierarchyVisitorReturn onItemBeforeChildren (final DefaultTreeItemWithID <String, Object> aItem)
   {
     if (getLevel () < 0)
       throw new IllegalStateException ();
     m_aMI.inc ();
-    return EHierarchyCallbackReturn.CONTINUE;
+    return EHierarchyVisitorReturn.CONTINUE;
   }
 }
