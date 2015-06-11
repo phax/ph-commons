@@ -14,17 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io;
+package com.helger.commons.io.resource;
+
+import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.commons.io.IHasOutputStreamAndWriter;
 
 /**
- * Base interface for an abstract resource that is both readable and writable.
- * 
+ * Base interface for an abstract writable resource.
+ *
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IReadWriteResource extends IReadableResource, IWritableResource
+public interface IWritableResource extends IHasOutputStreamAndWriter, IResourceBase
 {
-  /* empty */
+  /**
+   * Get a new resource of the same implementation type as this object but for a
+   * different path.
+   *
+   * @param sPath
+   *        The new path to use. May not be <code>null</code>.
+   * @return The resource of the same implementation but a different path. May
+   *         not be <code>null</code>.
+   */
+  @Nonnull
+  IWritableResource getWritableCloneForPath (@Nonnull String sPath);
 }

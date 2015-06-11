@@ -32,14 +32,13 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.EAppend;
-import com.helger.commons.io.IReadWriteResource;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Implementation of the {@link com.helger.commons.io.IReadableResource} and
- * {@link com.helger.commons.io.IWritableResource} interfaces for file system
+ * Implementation of the {@link com.helger.commons.io.resource.IReadableResource} and
+ * {@link com.helger.commons.io.resource.IWritableResource} interfaces for file system
  * objects.
  *
  * @author Philip Helger

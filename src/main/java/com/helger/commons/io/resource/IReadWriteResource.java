@@ -14,21 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io;
-
-import javax.annotation.Nonnull;
+package com.helger.commons.io.resource;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 
 /**
- * Base interface for an abstract readable resource.
+ * Base interface for an abstract resource that is both readable and writable.
  * 
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IReadableResource extends IHasInputStreamAndReader, IResourceBase
+public interface IReadWriteResource extends IReadableResource, IWritableResource
 {
-  // Change return type
-  @Nonnull
-  IReadableResource getReadableCloneForPath (@Nonnull String sPath);
+  /* empty */
 }

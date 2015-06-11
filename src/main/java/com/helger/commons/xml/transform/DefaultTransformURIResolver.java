@@ -21,7 +21,7 @@ import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 
-import com.helger.commons.io.IReadableResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.xml.ls.SimpleLSResourceResolver;
 
 /**

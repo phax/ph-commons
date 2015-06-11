@@ -30,10 +30,10 @@ import org.w3c.dom.ls.LSResourceResolver;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.URLHelper;

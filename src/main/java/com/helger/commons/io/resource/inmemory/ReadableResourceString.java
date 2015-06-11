@@ -21,7 +21,7 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.io.IReadableResource;
+import com.helger.commons.io.resource.IReadableResource;
 
 /**
  * An in-memory {@link IReadableResource} based on a {@link String} which is
@@ -35,5 +35,4 @@ public class ReadableResourceString extends ReadableResourceByteArray
   {
     super (CharsetManager.getAsBytes (sString, aCharset));
   }
-
 }

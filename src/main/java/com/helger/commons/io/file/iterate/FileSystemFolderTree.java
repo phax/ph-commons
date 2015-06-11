@@ -26,9 +26,9 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.aggregate.AggregatorStringWithSeparatorIgnoreNull;
-import com.helger.commons.filter.IFilter;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FilenameHelper;
+import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.tree.withid.folder.DefaultFolderTree;
 import com.helger.commons.tree.withid.folder.DefaultFolderTreeItem;
 
@@ -43,8 +43,8 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, List 
 {
   private static void _iterate (@Nonnull final DefaultFolderTreeItem <String, File, List <File>> aTreeItem,
                                 @Nonnull final File aDir,
-                                @Nullable final IFilter <File> aDirFilter,
-                                @Nullable final IFilter <File> aFileFilter)
+                                @Nullable final IFileFilter aDirFilter,
+                                @Nullable final IFileFilter aFileFilter)
   {
     if (aDir != null)
       for (final File aChild : FileHelper.getDirectoryContent (aDir))
@@ -79,24 +79,23 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, List 
 
   public FileSystemFolderTree (@Nonnull final File aStartDir)
   {
-    this (aStartDir, (IFilter <File>) null, (IFilter <File>) null);
+    this (aStartDir, (IFileFilter) null, (IFileFilter) null);
   }
 
   public FileSystemFolderTree (@Nonnull final String sStartDir,
-                               @Nullable final IFilter <File> aDirFilter,
-                               @Nullable final IFilter <File> aFileFilter)
+                               @Nullable final IFileFilter aDirFilter,
+                               @Nullable final IFileFilter aFileFilter)
   {
     this (new File (sStartDir), aDirFilter, aFileFilter);
   }
 
   public FileSystemFolderTree (@Nonnull final File aStartDir,
-                               @Nullable final IFilter <File> aDirFilter,
-                               @Nullable final IFilter <File> aFileFilter)
+                               @Nullable final IFileFilter aDirFilter,
+                               @Nullable final IFileFilter aFileFilter)
   {
     super (new AggregatorStringWithSeparatorIgnoreNull ("/"));
     ValueEnforcer.notNull (aStartDir, "StartDirectory");
-    if (!aStartDir.isDirectory ())
-      throw new IllegalArgumentException ("Start directory is not a directory!");
+    ValueEnforcer.isTrue (aStartDir.isDirectory (), "Start directory is not a directory!");
 
     final DefaultFolderTreeItem <String, File, List <File>> aStart = getRootItem ().createChildItem (aStartDir.getName (),
                                                                                                      new ArrayList <File> ());

@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.io.IReadableResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

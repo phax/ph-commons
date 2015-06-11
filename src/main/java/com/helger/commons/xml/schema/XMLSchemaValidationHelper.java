@@ -26,7 +26,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.error.IResourceErrorGroup;
-import com.helger.commons.io.IReadableResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.xml.sax.CollectingSAXErrorHandler;
 import com.helger.commons.xml.transform.TransformSourceFactory;
 

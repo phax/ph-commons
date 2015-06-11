@@ -38,7 +38,7 @@ import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.cache.AbstractNotifyingCache;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.io.IReadableResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.xml.transform.TransformSourceFactory;

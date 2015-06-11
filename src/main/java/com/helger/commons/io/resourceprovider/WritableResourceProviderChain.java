@@ -27,9 +27,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.IReadableResourceProvider;
-import com.helger.commons.io.IWritableResource;
-import com.helger.commons.io.IWritableResourceProvider;
+import com.helger.commons.io.resource.IWritableResource;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

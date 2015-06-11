@@ -26,7 +26,6 @@ import com.helger.commons.collection.iterate.FilterIterator;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.filter.FilterListAll;
-import com.helger.commons.filter.IFilter;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.filter.IFileFilter;
 
@@ -72,8 +71,7 @@ public final class FileSystemIterator extends IterableIterator <File>
    * @return The matching iterator.
    */
   @Nonnull
-  public static IIterableIterator <File> create (@Nonnull final String sBaseDir,
-                                                 @Nonnull final IFilter <File> aFileFilter)
+  public static IIterableIterator <File> create (@Nonnull final String sBaseDir, @Nonnull final IFileFilter aFileFilter)
   {
     return new FilterIterator <File> (new FileSystemIterator (sBaseDir), aFileFilter);
   }
@@ -89,7 +87,7 @@ public final class FileSystemIterator extends IterableIterator <File>
    * @return The matching iterator.
    */
   @Nonnull
-  public static IIterableIterator <File> create (@Nonnull final File fBaseDir, @Nonnull final IFilter <File> aFileFilter)
+  public static IIterableIterator <File> create (@Nonnull final File fBaseDir, @Nonnull final IFileFilter aFileFilter)
   {
     return new FilterIterator <File> (new FileSystemIterator (fBaseDir), aFileFilter);
   }

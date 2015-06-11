@@ -28,8 +28,8 @@ import javax.xml.validation.Schema;
 import org.junit.Test;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.xml.ls.CollectingLSResourceResolver;
 import com.helger.commons.xml.ls.LSResourceData;
 import com.helger.commons.xml.ls.LoggingLSResourceResolver;

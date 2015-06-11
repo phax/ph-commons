@@ -41,9 +41,9 @@ import org.xml.sax.SAXParseException;
 
 import com.helger.commons.callback.IThrowingRunnable;
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingStringReader;

@@ -26,7 +26,7 @@ import javax.xml.transform.stream.StreamResult;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.IHasOutputStream;
-import com.helger.commons.io.IWritableResource;
+import com.helger.commons.io.resource.IWritableResource;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

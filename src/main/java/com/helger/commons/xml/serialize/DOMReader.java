@@ -39,7 +39,7 @@ import org.xml.sax.SAXException;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.factory.IFactory;
-import com.helger.commons.io.IReadableResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.pool.IObjectPool;
 import com.helger.commons.pool.ObjectPool;

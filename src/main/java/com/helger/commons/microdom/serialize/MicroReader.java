@@ -32,7 +32,7 @@ import org.xml.sax.InputSource;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.IReadableResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.xml.sax.InputSourceFactory;

@@ -32,9 +32,9 @@ import org.xml.sax.InputSource;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.FileSystemResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.stream.ByteBufferInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;

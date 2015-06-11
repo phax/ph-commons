@@ -54,7 +54,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
 {
   private final int m_nStartLevel;
   private int m_nLevel = 0;
-  private final IFilter <File> m_aRecursionFilter;
+  private final IFileFilter m_aRecursionFilter;
   private final List <File> m_aFilesLeft;
 
   @Nonnegative
@@ -71,7 +71,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    */
   public FileSystemRecursiveIterator (@Nonnull final String sBaseDir)
   {
-    this (new File (sBaseDir), (IFilter <File>) null);
+    this (new File (sBaseDir), (IFileFilter) null);
   }
 
   /**
@@ -82,7 +82,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    */
   public FileSystemRecursiveIterator (@Nonnull final File aBaseDir)
   {
-    this (aBaseDir, (IFilter <File>) null);
+    this (aBaseDir, (IFileFilter) null);
   }
 
   /**
@@ -94,7 +94,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    *        An optional filter that controls, into which sub-directories this
    *        iterator should descend to. May be <code>null</code>.
    */
-  public FileSystemRecursiveIterator (@Nonnull final String sBaseDir, @Nullable final IFilter <File> aRecursionFilter)
+  public FileSystemRecursiveIterator (@Nonnull final String sBaseDir, @Nullable final IFileFilter aRecursionFilter)
   {
     this (new File (sBaseDir), aRecursionFilter);
   }
@@ -108,7 +108,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    *        An optional filter that controls, into which sub-directories this
    *        iterator should descend to. May be <code>null</code>.
    */
-  public FileSystemRecursiveIterator (@Nonnull final File aBaseDir, @Nullable final IFilter <File> aRecursionFilter)
+  public FileSystemRecursiveIterator (@Nonnull final File aBaseDir, @Nullable final IFileFilter aRecursionFilter)
   {
     ValueEnforcer.notNull (aBaseDir, "BaseDirectory");
     m_nStartLevel = _getLevel (aBaseDir);
@@ -123,7 +123,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
   }
 
   @Nullable
-  public IFilter <File> getRecursionFilter ()
+  public IFileFilter getRecursionFilter ()
   {
     return m_aRecursionFilter;
   }
@@ -214,8 +214,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    * @return Never <code>null</code>.
    */
   @Nonnull
-  public static IIterableIterator <File> create (@Nonnull final String sBaseDir,
-                                                 @Nonnull final IFilter <File> aFileFilter)
+  public static IIterableIterator <File> create (@Nonnull final String sBaseDir, @Nonnull final IFileFilter aFileFilter)
   {
     return create (new File (sBaseDir), aFileFilter);
   }
@@ -238,7 +237,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    * @return Never <code>null</code>.
    */
   @Nonnull
-  public static IIterableIterator <File> create (@Nonnull final File fBaseDir, @Nonnull final IFilter <File> aFileFilter)
+  public static IIterableIterator <File> create (@Nonnull final File fBaseDir, @Nonnull final IFileFilter aFileFilter)
   {
     return new FilterIterator <File> (new FileSystemRecursiveIterator (fBaseDir), aFileFilter);
   }

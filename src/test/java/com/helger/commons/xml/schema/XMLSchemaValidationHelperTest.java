@@ -29,8 +29,8 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.error.IResourceErrorGroup;
-import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.xml.serialize.DOMReader;
 
 /**

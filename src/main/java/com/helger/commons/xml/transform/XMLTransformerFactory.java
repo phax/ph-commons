@@ -35,7 +35,7 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.exception.InitializationException;
-import com.helger.commons.io.IReadableResource;
+import com.helger.commons.io.resource.IReadableResource;
 
 /**
  * A global factory for XML transformation objects.

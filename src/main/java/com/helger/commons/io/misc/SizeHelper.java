@@ -54,23 +54,28 @@ public final class SizeHelper
   /** Suffix for Petabytes */
   public static final String PB_SUFFIX = "PB";
 
-  private final DecimalFormat m_aDF0;
-  private final DecimalFormat m_aDF1;
-  private final DecimalFormat m_aDF2;
   private final DecimalFormatSymbols m_aDFS;
+  private DecimalFormat m_aDF0;
+  private DecimalFormat m_aDF1;
+  private DecimalFormat m_aDF2;
 
   public SizeHelper (@Nonnull final Locale aDisplayLocale)
   {
     ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
     m_aDFS = DecimalFormatSymbols.getInstance (aDisplayLocale);
-    m_aDF0 = new DecimalFormat ("0", m_aDFS);
-    m_aDF1 = new DecimalFormat ("0.0", m_aDFS);
-    m_aDF2 = new DecimalFormat ("0.00", m_aDFS);
+  }
+
+  public SizeHelper (@Nonnull final DecimalFormatSymbols aDFS)
+  {
+    m_aDFS = ValueEnforcer.notNull (aDFS, "DecimalFormatSymbols");
   }
 
   @Nonnull
   private String _format (final long nSize)
   {
+    // Lazy init
+    if (m_aDF0 == null)
+      m_aDF0 = new DecimalFormat ("0", m_aDFS);
     return m_aDF0.format (nSize);
   }
 
@@ -84,9 +89,17 @@ public final class SizeHelper
 
     // Cache for the most common formats
     if (nDecimals == 1)
+    {
+      if (m_aDF1 == null)
+        m_aDF1 = new DecimalFormat ("0.0", m_aDFS);
       return m_aDF1.format (dSize);
+    }
     if (nDecimals == 2)
+    {
+      if (m_aDF2 == null)
+        m_aDF2 = new DecimalFormat ("0.00", m_aDFS);
       return m_aDF2.format (dSize);
+    }
 
     // build formatting string with at least 3 decimals
     final StringBuilder aFormat = new StringBuilder ("0.000");

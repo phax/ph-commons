@@ -34,7 +34,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
