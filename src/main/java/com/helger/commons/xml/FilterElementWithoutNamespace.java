@@ -21,9 +21,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import org.w3c.dom.Element;
 
-import com.helger.commons.filter.AbstractSerializableFilter;
+import com.helger.commons.filter.AbstractFilter;
 import com.helger.commons.filter.IFilter;
-import com.helger.commons.filter.ISerializableFilter;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -33,14 +32,14 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FilterElementWithoutNamespace extends AbstractSerializableFilter <Element>
+public class FilterElementWithoutNamespace extends AbstractFilter <Element>
 {
   public FilterElementWithoutNamespace ()
   {
     this (null);
   }
 
-  public FilterElementWithoutNamespace (@Nullable final ISerializableFilter <? super Element> aNestedFilter)
+  public FilterElementWithoutNamespace (@Nullable final IFilter <? super Element> aNestedFilter)
   {
     super (aNestedFilter);
   }

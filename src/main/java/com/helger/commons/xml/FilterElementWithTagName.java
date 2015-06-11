@@ -24,20 +24,19 @@ import org.w3c.dom.Element;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.filter.AbstractSerializableFilter;
-import com.helger.commons.filter.ISerializableFilter;
+import com.helger.commons.filter.AbstractFilter;
+import com.helger.commons.filter.IFilter;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * An implementation of {@link ISerializableFilter} on {@link Element} objects
- * that will only return elements with a certain tag name and without a
- * namespace URI.
+ * An implementation of {@link IFilter} on {@link Element} objects that will
+ * only return elements with a certain tag name and without a namespace URI.
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class FilterElementWithTagName extends AbstractSerializableFilter <Element>
+public final class FilterElementWithTagName extends AbstractFilter <Element>
 {
   private final String m_sTagName;
 
@@ -47,7 +46,7 @@ public final class FilterElementWithTagName extends AbstractSerializableFilter <
   }
 
   public FilterElementWithTagName (@Nonnull @Nonempty final String sTagName,
-                                   @Nullable final ISerializableFilter <? super Element> aNestedFilter)
+                                   @Nullable final IFilter <? super Element> aNestedFilter)
   {
     super (aNestedFilter);
     m_sTagName = ValueEnforcer.notNull (sTagName, "TagName");

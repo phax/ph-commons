@@ -16,22 +16,24 @@
  */
 package com.helger.commons.filter;
 
+import java.io.Serializable;
+
 import com.helger.commons.annotation.DevelopersNote;
 
 /**
  * A generic filter interface for simple object selection. If you need an
  * additional parameter for determining whether to filter an object or not, you
  * may use the {@link IFilterWithParameter} instead.
- * 
+ *
  * @author Philip
  * @param <DATATYPE>
  *        The type of object to filter.
  */
-public interface IFilter <DATATYPE>
+public interface IFilter <DATATYPE> extends Serializable
 {
   /**
    * Check if the given value matches the filter or not.
-   * 
+   *
    * @param aValue
    *        The object to filter. May be <code>null</code> depending on the
    *        implementation.

@@ -30,14 +30,14 @@ import com.helger.commons.string.ToStringGenerator;
  *        The data type to filter.
  */
 @NotThreadSafe
-public class FilterNull <DATATYPE> extends AbstractSerializableFilter <DATATYPE>
+public class FilterNull <DATATYPE> extends AbstractFilter <DATATYPE>
 {
   public FilterNull ()
   {
     this (null);
   }
 
-  public FilterNull (@Nullable final ISerializableFilter <? super DATATYPE> aNestedFilter)
+  public FilterNull (@Nullable final IFilter <? super DATATYPE> aNestedFilter)
   {
     super (aNestedFilter);
   }

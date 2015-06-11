@@ -25,20 +25,19 @@ import org.w3c.dom.Element;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.filter.AbstractSerializableFilter;
-import com.helger.commons.filter.ISerializableFilter;
+import com.helger.commons.filter.AbstractFilter;
+import com.helger.commons.filter.IFilter;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * An implementation of {@link ISerializableFilter} on {@link Element} objects
- * that will only return elements with a certain namespace URI and a certain
- * local name.
+ * An implementation of {@link IFilter} on {@link Element} objects that will
+ * only return elements with a certain namespace URI and a certain local name.
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FilterElementWithNamespaceAndLocalName extends AbstractSerializableFilter <Element>
+public class FilterElementWithNamespaceAndLocalName extends AbstractFilter <Element>
 {
   private final String m_sNamespaceURI;
   private final String m_sLocalName;
@@ -51,7 +50,7 @@ public class FilterElementWithNamespaceAndLocalName extends AbstractSerializable
 
   public FilterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
                                                  @Nonnull @Nonempty final String sLocalName,
-                                                 @Nullable final ISerializableFilter <? super Element> aNestedFilter)
+                                                 @Nullable final IFilter <? super Element> aNestedFilter)
   {
     super (aNestedFilter);
     m_sNamespaceURI = sNamespaceURI;

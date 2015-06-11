@@ -22,19 +22,19 @@ import javax.annotation.concurrent.NotThreadSafe;
 import org.w3c.dom.Element;
 
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.filter.AbstractSerializableFilter;
-import com.helger.commons.filter.ISerializableFilter;
+import com.helger.commons.filter.AbstractFilter;
+import com.helger.commons.filter.IFilter;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * An implementation of {@link ISerializableFilter} on {@link Element} objects
- * that will only return elements with a certain namespace URI.
+ * An implementation of {@link IFilter} on {@link Element} objects that will
+ * only return elements with a certain namespace URI.
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FilterElementWithNamespace extends AbstractSerializableFilter <Element>
+public class FilterElementWithNamespace extends AbstractFilter <Element>
 {
   private final String m_sNamespaceURI;
 
@@ -44,7 +44,7 @@ public class FilterElementWithNamespace extends AbstractSerializableFilter <Elem
   }
 
   public FilterElementWithNamespace (@Nullable final String sNamespaceURI,
-                                     @Nullable final ISerializableFilter <? super Element> aNestedFilter)
+                                     @Nullable final IFilter <? super Element> aNestedFilter)
   {
     super (aNestedFilter);
     m_sNamespaceURI = sNamespaceURI;
