@@ -34,10 +34,8 @@ import com.helger.commons.string.ToStringGenerator;
 public final class MemoryIntIDFactory implements IIntIDFactory
 {
   /** The default start ID to use. */
-  @Nonnegative
   public static final int DEFAULT_START_ID = 10000;
 
-  @Nonnegative
   private final AtomicInteger m_aID;
 
   public MemoryIntIDFactory ()
@@ -52,7 +50,6 @@ public final class MemoryIntIDFactory implements IIntIDFactory
     m_aID = new AtomicInteger (nStartID);
   }
 
-  @Nonnegative
   public int getNewID ()
   {
     return m_aID.getAndIncrement ();
