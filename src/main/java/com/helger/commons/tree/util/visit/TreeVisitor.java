@@ -23,6 +23,7 @@ import org.w3c.dom.traversal.TreeWalker;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.convert.IUnidirectionalConverter;
 import com.helger.commons.hierarchy.ChildrenProviderHasChildren;
 import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
@@ -42,6 +43,61 @@ import com.helger.commons.tree.IBasicTreeItem;
 @Immutable
 public final class TreeVisitor
 {
+  public static final class HierarchyVisitorCallbackWithConversion <ITEMTYPE, DATATYPE> extends DefaultHierarchyVisitorCallback <ITEMTYPE>
+  {
+    private final IHierarchyVisitorCallback <? super DATATYPE> m_aDataCallback;
+    private final IUnidirectionalConverter <ITEMTYPE, DATATYPE> m_aConverter;
+
+    private HierarchyVisitorCallbackWithConversion (@Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback,
+                                                    @Nonnull final IUnidirectionalConverter <ITEMTYPE, DATATYPE> aConverter)
+    {
+      m_aDataCallback = aDataCallback;
+      m_aConverter = aConverter;
+    }
+
+    @Override
+    public void begin ()
+    {
+      super.begin ();
+      m_aDataCallback.begin ();
+    }
+
+    @Override
+    public void onLevelDown ()
+    {
+      super.onLevelDown ();
+      m_aDataCallback.onLevelDown ();
+    }
+
+    @Override
+    public void onLevelUp ()
+    {
+      m_aDataCallback.onLevelUp ();
+      super.onLevelUp ();
+    }
+
+    @Override
+    @Nonnull
+    public EHierarchyVisitorReturn onItemBeforeChildren (@Nonnull final ITEMTYPE aItem)
+    {
+      return m_aDataCallback.onItemBeforeChildren (m_aConverter.convert (aItem));
+    }
+
+    @Override
+    @Nonnull
+    public EHierarchyVisitorReturn onItemAfterChildren (@Nonnull final ITEMTYPE aItem)
+    {
+      return m_aDataCallback.onItemAfterChildren (m_aConverter.convert (aItem));
+    }
+
+    @Override
+    public void end ()
+    {
+      m_aDataCallback.end ();
+      super.end ();
+    }
+  }
+
   @PresentForCodeCoverage
   private static final TreeVisitor s_aInstance = new TreeVisitor ();
 
@@ -105,49 +161,15 @@ public final class TreeVisitor
     ValueEnforcer.notNull (aDataCallback, "DataCallback");
 
     // Wrap callback
-    visitTreeItem (aTreeItem, aChildrenProvider, new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
-    {
-      @Override
-      public void begin ()
-      {
-        super.begin ();
-        aDataCallback.begin ();
-      }
-
-      @Override
-      public void onLevelDown ()
-      {
-        super.onLevelDown ();
-        aDataCallback.onLevelDown ();
-      }
-
-      @Override
-      public void onLevelUp ()
-      {
-        aDataCallback.onLevelUp ();
-        super.onLevelUp ();
-      }
-
-      @Override
-      @Nonnull
-      public EHierarchyVisitorReturn onItemBeforeChildren (@Nonnull final ITEMTYPE aItem)
-      {
-        return aDataCallback.onItemBeforeChildren (aItem.getData ());
-      }
-
-      @Override
-      @Nonnull
-      public EHierarchyVisitorReturn onItemAfterChildren (@Nonnull final ITEMTYPE aItem)
-      {
-        return aDataCallback.onItemAfterChildren (aItem.getData ());
-      }
-
-      @Override
-      public void end ()
-      {
-        aDataCallback.end ();
-        super.end ();
-      }
-    });
+    visitTreeItem (aTreeItem,
+                   aChildrenProvider,
+                   new HierarchyVisitorCallbackWithConversion <ITEMTYPE, DATATYPE> (aDataCallback,
+                                                                                    new IUnidirectionalConverter <ITEMTYPE, DATATYPE> ()
+                                                                                    {
+                                                                                      public DATATYPE convert (final ITEMTYPE aSource)
+                                                                                      {
+                                                                                        return aSource.getData ();
+                                                                                      }
+                                                                                    }));
   }
 }
