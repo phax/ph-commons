@@ -36,7 +36,7 @@ public enum EHierarchyVisitorReturn
   USE_PARENTS_NEXT_SIBLING,
 
   /**
-   * Stop the iteration completely.
+   * Stop the iteration completely and immediately.
    */
   STOP_ITERATION;
 

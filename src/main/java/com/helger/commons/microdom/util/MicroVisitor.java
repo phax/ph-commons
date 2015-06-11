@@ -52,7 +52,7 @@ public final class MicroVisitor
   public static void visit (@Nonnull final IMicroNode aNode,
                             @Nonnull final IHierarchyVisitorCallback <? super IMicroNode> aCallback)
   {
-    ChildrenProviderHierarchyVisitor.visitAllFrom (aNode, aCallback);
+    ChildrenProviderHierarchyVisitor.visitFrom (aNode, aCallback, false);
   }
 
   /**
@@ -70,6 +70,6 @@ public final class MicroVisitor
                                                    @Nonnull final IChildrenProvider <T> aChildrenProvider,
                                                    @Nonnull final IHierarchyVisitorCallback <? super T> aCallback)
   {
-    ChildrenProviderHierarchyVisitor.visitAllFrom (aNode, aChildrenProvider, aCallback);
+    ChildrenProviderHierarchyVisitor.visitFrom (aNode, aChildrenProvider, aCallback, false);
   }
 }

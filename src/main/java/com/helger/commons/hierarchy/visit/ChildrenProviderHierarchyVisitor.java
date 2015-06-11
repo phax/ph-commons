@@ -46,12 +46,20 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
     m_aCallback = ValueEnforcer.notNull (aCallback, "Callback");
   }
 
+  /**
+   * @return The children provider as passed in the constructor. Never
+   *         <code>null</code>.
+   */
   @Nonnull
   public IChildrenProvider <CHILDTYPE> getChildrenProvider ()
   {
     return m_aChildrenProvider;
   }
 
+  /**
+   * @return The callback to be executed as passed in the constructor. Never
+   *         <code>null</code>.
+   */
   @Nonnull
   public IHierarchyVisitorCallback <? super CHILDTYPE> getCallback ()
   {
@@ -59,19 +67,20 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
   }
 
   @Nonnull
-  private EHierarchyVisitorReturn _visitRecursive (final CHILDTYPE aObject)
+  private EHierarchyVisitorReturn _visitRecursive (@Nullable final CHILDTYPE aObject)
   {
-    // prefix insertion
+    // prefix callback
     final EHierarchyVisitorReturn eRetPrefix = m_aCallback.onItemBeforeChildren (aObject);
 
     // call children only if mode is continue
     EHierarchyVisitorReturn eRetChildren = EHierarchyVisitorReturn.CONTINUE;
     if (eRetPrefix.isContinue () && m_aChildrenProvider.hasChildren (aObject))
     {
-      // iterate children
+      // Callback on descend
       m_aCallback.onLevelDown ();
       try
       {
+        // iterate children
         for (final CHILDTYPE aChildObject : m_aChildrenProvider.getAllChildren (aObject))
         {
           // recursive call
@@ -79,8 +88,7 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
           if (eRetChildren == EHierarchyVisitorReturn.USE_PARENTS_NEXT_SIBLING)
           {
             // If we don't want the children to be enumerated, break this
-            // loop
-            // and continue as normal
+            // loop and continue as normal
             eRetChildren = EHierarchyVisitorReturn.CONTINUE;
             break;
           }
@@ -99,7 +107,7 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
       }
     }
 
-    // postfix insertion even if prefix iteration failed
+    // postfix callback even if prefix iteration failed
     final EHierarchyVisitorReturn eRetPostfix = m_aCallback.onItemAfterChildren (aObject);
 
     // most stringent first
@@ -110,6 +118,7 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
       // stop complete iteration
       return EHierarchyVisitorReturn.STOP_ITERATION;
     }
+
     if (eRetPrefix == EHierarchyVisitorReturn.USE_PARENTS_NEXT_SIBLING ||
         eRetChildren == EHierarchyVisitorReturn.USE_PARENTS_NEXT_SIBLING ||
         eRetPostfix == EHierarchyVisitorReturn.USE_PARENTS_NEXT_SIBLING)
@@ -122,14 +131,27 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
     return EHierarchyVisitorReturn.CONTINUE;
   }
 
-  public void visitAllFromIncl (@Nonnull final CHILDTYPE aObject)
+  public void visit (@Nullable final CHILDTYPE aStartObject, final boolean bInvokeOnStartObject)
   {
-    ValueEnforcer.notNull (aObject, "Object");
-
     m_aCallback.begin ();
     try
     {
-      _visitRecursive (aObject);
+      if (bInvokeOnStartObject)
+      {
+        // Include the start object
+        _visitRecursive (aStartObject);
+      }
+      else
+      {
+        // Use only the children of the start object
+        if (m_aChildrenProvider.hasChildren (aStartObject))
+          for (final CHILDTYPE aRootChild : m_aChildrenProvider.getAllChildren (aStartObject))
+          {
+            final EHierarchyVisitorReturn eRet = _visitRecursive (aRootChild);
+            if (!eRet.isContinue ())
+              break;
+          }
+      }
     }
     finally
     {
@@ -137,46 +159,32 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
     }
   }
 
-  public void visitAllFromExcl (@Nullable final CHILDTYPE aObject)
+  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAll (@Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
+                                                                            final boolean bInvokeOnStartObject)
   {
-    m_aCallback.begin ();
-    try
-    {
-      if (m_aChildrenProvider.hasChildren (aObject))
-        for (final CHILDTYPE aRootChild : m_aChildrenProvider.getAllChildren (aObject))
-        {
-          final EHierarchyVisitorReturn eRet = _visitRecursive (aRootChild);
-          if (!eRet.isContinue ())
-            break;
-        }
-    }
-    finally
-    {
-      m_aCallback.end ();
-    }
-  }
-
-  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAll (@Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
-  {
-    visitAll (new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback);
+    visitAll (new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback, bInvokeOnStartObject);
   }
 
   public static <CHILDTYPE> void visitAll (@Nonnull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
-                                           @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
+                                           @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
+                                           final boolean bInvokeOnStartObject)
   {
-    new ChildrenProviderHierarchyVisitor <CHILDTYPE> (aChildrenProvider, aCallback).visitAllFromExcl (null);
+    new ChildrenProviderHierarchyVisitor <CHILDTYPE> (aChildrenProvider, aCallback).visit (null, bInvokeOnStartObject);
   }
 
-  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAllFrom (@Nonnull final CHILDTYPE aObject,
-                                                                                @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
+  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitFrom (@Nonnull final CHILDTYPE aStartObject,
+                                                                             @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
+                                                                             final boolean bInvokeOnStartObject)
   {
-    visitAllFrom (aObject, new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback);
+    visitFrom (aStartObject, new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback, bInvokeOnStartObject);
   }
 
-  public static <CHILDTYPE> void visitAllFrom (@Nonnull final CHILDTYPE aObject,
-                                               @Nonnull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
-                                               @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
+  public static <CHILDTYPE> void visitFrom (@Nonnull final CHILDTYPE aStartObject,
+                                            @Nonnull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
+                                            @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
+                                            final boolean bInvokeOnStartObject)
   {
-    new ChildrenProviderHierarchyVisitor <CHILDTYPE> (aChildrenProvider, aCallback).visitAllFromIncl (aObject);
+    new ChildrenProviderHierarchyVisitor <CHILDTYPE> (aChildrenProvider, aCallback).visit (aStartObject,
+                                                                                           bInvokeOnStartObject);
   }
 }

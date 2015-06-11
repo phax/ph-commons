@@ -16,7 +16,6 @@
  */
 package com.helger.commons.hierarchy.visit;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -29,19 +28,16 @@ import javax.annotation.Nullable;
 public interface IHierarchyVisitor <DATATYPE>
 {
   /**
-   * Visit all objects, starting and including at the specified one.
+   * Visit all objects, starting specified one.
    *
-   * @param aObject
-   *        The object to start from. May not be <code>null</code>.
-   */
-  void visitAllFromIncl (@Nonnull DATATYPE aObject);
-
-  /**
-   * Visit all objects, starting but excluding at the specified one.
-   *
-   * @param aObject
+   * @param aStartObject
    *        The object to start from. May be <code>null</code> to indicate the
    *        hierarchy root.
+   * @param bInvokeOnStartObject
+   *        <code>true</code> to indicate that the callback should also be
+   *        invoked on the first element, <code>false</code> to indicate that
+   *        the callback should only be invoked for the children of the passed
+   *        element.
    */
-  void visitAllFromExcl (@Nullable DATATYPE aObject);
+  void visit (@Nullable DATATYPE aStartObject, boolean bInvokeOnStartObject);
 }

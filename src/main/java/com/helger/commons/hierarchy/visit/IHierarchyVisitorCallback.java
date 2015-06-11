@@ -43,17 +43,20 @@ public interface IHierarchyVisitorCallback <DATATYPE> extends ICallback
   int getLevel ();
 
   /**
-   * Called before the tree walker descends into the next tree level.
+   * Called before the tree walker descends into the next tree level. After this
+   * call {@link #getLevel()} should return a value increased by 1.
    */
   void onLevelDown ();
 
   /**
-   * Called after the tree walker ascends into the previous tree level.
+   * Called after the tree walker ascends into the previous tree level. After
+   * this call {@link #getLevel()} should return a value decreased by 1.
    */
   void onLevelUp ();
 
   /**
-   * Called before eventual children of the current item are iterated.
+   * Called before children of the current item are visited. This method is also
+   * to be called if no children are present at all.
    *
    * @param aItem
    *        The current item. May be <code>null</code>.
@@ -64,7 +67,10 @@ public interface IHierarchyVisitorCallback <DATATYPE> extends ICallback
   EHierarchyVisitorReturn onItemBeforeChildren (DATATYPE aItem);
 
   /**
-   * Called after eventual children of the current item were iterated.
+   * Called after eventual children of the current item were visited. This
+   * method is also to be called if no children are present at all. This method
+   * has always to be called if {@link #onItemBeforeChildren(Object)} was
+   * called.
    *
    * @param aItem
    *        The current item. May be <code>null</code>.

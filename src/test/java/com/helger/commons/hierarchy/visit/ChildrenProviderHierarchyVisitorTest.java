@@ -23,15 +23,13 @@ import org.junit.Test;
 import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.hierarchy.MockChildrenProvider;
 import com.helger.commons.hierarchy.MockHasChildren;
-import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
-import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 
 /**
  * Test class for class {@link ChildrenProviderHierarchyVisitor}.
- * 
+ *
  * @author Philip Helger
  */
-public final class ChildrenProviderVisitorTest
+public final class ChildrenProviderHierarchyVisitorTest
 {
   @Test
   public void testAll ()
@@ -42,19 +40,19 @@ public final class ChildrenProviderVisitorTest
     final IChildrenProvider <MockHasChildren> cp = new MockChildrenProvider (hc1);
 
     // Having children
-    ChildrenProviderHierarchyVisitor.visitAll (cp, new DefaultHierarchyVisitorCallback <MockHasChildren> ());
+    ChildrenProviderHierarchyVisitor.visitAll (cp, new DefaultHierarchyVisitorCallback <MockHasChildren> (), false);
 
     // Not having children
     ChildrenProviderHierarchyVisitor.visitAll (new MockChildrenProvider (hca),
-                                         new DefaultHierarchyVisitorCallback <MockHasChildren> ());
+                                               new DefaultHierarchyVisitorCallback <MockHasChildren> (),
+                                               false);
 
     // Start explicitly at object
-    ChildrenProviderHierarchyVisitor.visitAllFrom (hc1, cp, new DefaultHierarchyVisitorCallback <MockHasChildren> ());
-
+    ChildrenProviderHierarchyVisitor.visitFrom (hc1, cp, new DefaultHierarchyVisitorCallback <MockHasChildren> (), true);
     // no provider
     try
     {
-      ChildrenProviderHierarchyVisitor.visitAll (null, new DefaultHierarchyVisitorCallback <MockHasChildren> ());
+      ChildrenProviderHierarchyVisitor.visitAll (null, new DefaultHierarchyVisitorCallback <MockHasChildren> (), true);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -63,16 +61,16 @@ public final class ChildrenProviderVisitorTest
     // no callback
     try
     {
-      ChildrenProviderHierarchyVisitor.visitAll (cp, null);
+      ChildrenProviderHierarchyVisitor.visitAll (cp, null, false);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
 
-    // Nothing to walk
+    // no callback
     try
     {
-      ChildrenProviderHierarchyVisitor.visitAllFrom (null, cp, new DefaultHierarchyVisitorCallback <MockHasChildren> ());
+      ChildrenProviderHierarchyVisitor.visitFrom (null, cp, null, true);
       fail ();
     }
     catch (final NullPointerException ex)
