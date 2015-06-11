@@ -44,26 +44,26 @@ import com.helger.commons.state.ESuccess;
 public final class FileOperations
 {
   /** The default value for warning if we're about to delete the root directory. */
-  public static final boolean DEFAULT_WARN_ON_DELETE_ROOT = true;
+  public static final boolean DEFAULT_EXCEPTION_ON_DELETE_ROOT = true;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (FileOperations.class);
+
+  private static volatile boolean s_bExceptionOnDeleteRoot = DEFAULT_EXCEPTION_ON_DELETE_ROOT;
 
   @PresentForCodeCoverage
   private static final FileOperations s_aInstance = new FileOperations ();
 
-  private static volatile boolean s_bWarnOnDeleteRoot = DEFAULT_WARN_ON_DELETE_ROOT;
-
   private FileOperations ()
   {}
 
-  public static boolean isWarnOnDeleteRoot ()
+  public static boolean isExceptionOnDeleteRoot ()
   {
-    return s_bWarnOnDeleteRoot;
+    return s_bExceptionOnDeleteRoot;
   }
 
-  public static void setWarnOnDeleteRoot (final boolean bWarnOnDeleteRoot)
+  public static void setExceptionOnDeleteRoot (final boolean bExceptionOnDeleteRoot)
   {
-    s_bWarnOnDeleteRoot = bWarnOnDeleteRoot;
+    s_bExceptionOnDeleteRoot = bExceptionOnDeleteRoot;
   }
 
   /**
@@ -185,7 +185,7 @@ public final class FileOperations
     if (!FileHelper.existsDir (aDir))
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.DELETE_DIR, aDir);
 
-    if (isWarnOnDeleteRoot ())
+    if (isExceptionOnDeleteRoot ())
     {
       // Check that we're not deleting the complete hard drive...
       if (aDir.getAbsoluteFile ().getParent () == null)
@@ -244,7 +244,7 @@ public final class FileOperations
     if (!FileHelper.existsDir (aDir))
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.DELETE_DIR_RECURSIVE, aDir);
 
-    if (isWarnOnDeleteRoot ())
+    if (isExceptionOnDeleteRoot ())
     {
       // Check that we're not deleting the complete hard drive...
       if (aDir.getAbsoluteFile ().getParent () == null)

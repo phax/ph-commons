@@ -87,15 +87,13 @@ public final class FileHelper
    * Check if the passed file exists. Must be existing and a file.
    *
    * @param aFile
-   *        The file to be checked for existence. May not be <code>null</code> .
-   * @return <code>true</code> if the {@link File} is a file and exists,
-   *         <code>false</code> otherwise.
+   *        The file to be checked for existence. May be <code>null</code> .
+   * @return <code>true</code> if the passed file is non-<code>null</code>, is a
+   *         file and exists, <code>false</code> otherwise.
    */
-  public static boolean existsFile (@Nonnull final File aFile)
+  public static boolean existsFile (@Nullable final File aFile)
   {
-    ValueEnforcer.notNull (aFile, "File");
-
-    return aFile.isFile ();
+    return aFile != null && aFile.isFile ();
   }
 
   /**
@@ -103,17 +101,14 @@ public final class FileHelper
    * directory!
    *
    * @param aDir
-   *        The directory to be checked for existence. May not be
-   *        <code>null</code>.
-   * @return <code>true</code> if the {@link File} is a directory and exists,
-   *         <code>false</code> otherwise.
+   *        The directory to be checked for existence. May be <code>null</code>.
+   * @return <code>true</code> if the passed directory is not <code>null</code>,
+   *         is a directory and exists, <code>false</code> otherwise.
    */
-  public static boolean existsDir (@Nonnull final File aDir)
+  public static boolean existsDir (@Nullable final File aDir)
   {
-    ValueEnforcer.notNull (aDir, "Directory");
-
     // returns true if it exists() AND is a directory!
-    return aDir.isDirectory ();
+    return aDir != null && aDir.isDirectory ();
   }
 
   /**
@@ -121,15 +116,14 @@ public final class FileHelper
    * pathname.
    *
    * @param aFile
-   *        The file to be checked. May not be <code>null</code>.
+   *        The file to be checked. May be <code>null</code>.
    * @return <code>true</code> if and only if the file specified by this
-   *         abstract pathname exists <em>and</em> can be read by the
-   *         application; <code>false</code> otherwise
+   *         abstract pathname is not <code>null</code>, exists <em>and</em> can
+   *         be read by the application; <code>false</code> otherwise
    */
-  public static boolean canRead (@Nonnull final File aFile)
+  public static boolean canRead (@Nullable final File aFile)
   {
-    ValueEnforcer.notNull (aFile, "File");
-    return aFile.canRead ();
+    return aFile != null && aFile.canRead ();
   }
 
   /**
@@ -137,16 +131,15 @@ public final class FileHelper
    * pathname.
    *
    * @param aFile
-   *        The file to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if and only if the file system actually contains
-   *         a file denoted by this abstract pathname <em>and</em> the
-   *         application is allowed to write to the file; <code>false</code>
-   *         otherwise.
+   *        The file to be checked. May be <code>null</code>.
+   * @return <code>true</code> if and only if the parameter is not
+   *         <code>null</code>, the file system actually contains a file denoted
+   *         by this abstract pathname <em>and</em> the application is allowed
+   *         to write to the file; <code>false</code> otherwise.
    */
-  public static boolean canWrite (@Nonnull final File aFile)
+  public static boolean canWrite (@Nullable final File aFile)
   {
-    ValueEnforcer.notNull (aFile, "File");
-    return aFile.canWrite ();
+    return aFile != null && aFile.canWrite ();
   }
 
   /**
@@ -154,14 +147,14 @@ public final class FileHelper
    * pathname.
    *
    * @param aFile
-   *        The file to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if and only if the abstract pathname exists
-   *         <em>and</em> the application is allowed to execute the file
+   *        The file to be checked. May be <code>null</code>.
+   * @return <code>true</code> if and only if the abstract pathname is not
+   *         <code>null</code>, exists <em>and</em> the application is allowed
+   *         to execute the file
    */
-  public static boolean canExecute (@Nonnull final File aFile)
+  public static boolean canExecute (@Nullable final File aFile)
   {
-    ValueEnforcer.notNull (aFile, "File");
-    return aFile.canExecute ();
+    return aFile != null && aFile.canExecute ();
   }
 
   /**
@@ -170,12 +163,13 @@ public final class FileHelper
    * directory
    *
    * @param aFile
-   *        The file to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if the file can be read or write
+   *        The file to be checked. May be <code>null</code>.
+   * @return <code>true</code> if the file can be read and written
    */
-  public static boolean canReadAndWriteFile (@Nonnull final File aFile)
+  public static boolean canReadAndWriteFile (@Nullable final File aFile)
   {
-    ValueEnforcer.notNull (aFile, "File");
+    if (aFile == null)
+      return false;
 
     if (existsFile (aFile))
     {
@@ -246,19 +240,22 @@ public final class FileHelper
    *
    * @param aFile
    *        The file to get the canonical path from. May be <code>null</code>.
-   * @return <code>null</code> if the passed file is <code>null</code>.
+   * @return <code>null</code> if the passed file is <code>null</code> or an
+   *         exception occurred.
    */
   @Nullable
   public static File getCanonicalFileOrNull (@Nullable final File aFile)
   {
-    try
-    {
-      return getCanonicalFile (aFile);
-    }
-    catch (final IOException ex)
-    {
-      return null;
-    }
+    if (aFile != null)
+      try
+      {
+        return aFile.getCanonicalFile ();
+      }
+      catch (final IOException ex)
+      {
+        // fall through
+      }
+    return null;
   }
 
   /**
@@ -291,14 +288,18 @@ public final class FileHelper
   @Nullable
   public static String getCanonicalPathOrNull (@Nullable final File aFile)
   {
-    try
-    {
-      return getCanonicalPath (aFile);
-    }
-    catch (final IOException ex)
-    {
-      return null;
-    }
+    if (aFile != null)
+      try
+      {
+        // Note: getCanonicalPath may be a bottleneck on Unix based file
+        // systems!
+        return aFile.getCanonicalPath ();
+      }
+      catch (final IOException ex)
+      {
+        // fall through
+      }
+    return null;
   }
 
   /**
@@ -340,21 +341,6 @@ public final class FileHelper
       aParent = aParent.getParentFile ();
     }
     return false;
-  }
-
-  @CheckForSigned
-  public static long getFileSize (@Nonnull @WillNotClose final FileChannel aChannel)
-  {
-    if (aChannel != null)
-      try
-      {
-        return aChannel.size ();
-      }
-      catch (final IOException ex)
-      {
-        // fall-through
-      }
-    return -1;
   }
 
   @Nullable
@@ -402,6 +388,21 @@ public final class FileHelper
     return aFIS == null ? null : aFIS.getChannel ();
   }
 
+  @CheckForSigned
+  public static long getFileSize (@Nonnull @WillNotClose final FileChannel aChannel)
+  {
+    if (aChannel != null)
+      try
+      {
+        return aChannel.size ();
+      }
+      catch (final IOException ex)
+      {
+        // fall-through
+      }
+    return -1;
+  }
+
   @Nullable
   public static InputStream getInputStream (@Nonnull final String sFilename)
   {
@@ -436,7 +437,7 @@ public final class FileHelper
   @Nullable
   public static Reader getReader (@Nonnull final String sFilename, @Nonnull final Charset aCharset)
   {
-    ValueEnforcer.notNull (sFilename, "FileName");
+    ValueEnforcer.notNull (sFilename, "Filename");
 
     return getReader (new File (sFilename), aCharset);
   }
@@ -887,8 +888,7 @@ public final class FileHelper
   public static int getDirectoryObjectCount (@Nonnull final File aDirectory)
   {
     ValueEnforcer.notNull (aDirectory, "Directory");
-    if (!aDirectory.isDirectory ())
-      throw new IllegalArgumentException ("Passed object is not a directory: " + aDirectory);
+    ValueEnforcer.isTrue (aDirectory.isDirectory (), "Passed object is not a directory: " + aDirectory);
 
     int ret = 0;
     for (final File aChild : getDirectoryContent (aDirectory))
