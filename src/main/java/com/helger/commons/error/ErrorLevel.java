@@ -31,12 +31,12 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class SimpleErrorLevel implements IErrorLevel
+public class ErrorLevel implements IErrorLevel
 {
   private final String m_sID;
   private final int m_nNumericLevel;
 
-  public SimpleErrorLevel (@Nonnull @Nonempty final String sID, @Nonnegative final int nNumericLevel)
+  public ErrorLevel (@Nonnull @Nonempty final String sID, @Nonnegative final int nNumericLevel)
   {
     m_sID = ValueEnforcer.notEmpty (sID, "ID");
     m_nNumericLevel = nNumericLevel;
@@ -121,7 +121,7 @@ public class SimpleErrorLevel implements IErrorLevel
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final SimpleErrorLevel rhs = (SimpleErrorLevel) o;
+    final ErrorLevel rhs = (ErrorLevel) o;
     return m_sID.equals (rhs.m_sID) && m_nNumericLevel == rhs.m_nNumericLevel;
   }
 
