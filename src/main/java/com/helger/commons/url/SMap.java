@@ -17,7 +17,6 @@
 package com.helger.commons.url;
 
 import java.util.LinkedHashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -27,6 +26,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.typeconvert.TypeConverter;
 
 /**
  * A special URL parameter map that is made for best inline usage. It's simply a
@@ -66,11 +66,6 @@ public class SMap extends LinkedHashMap <String, String> implements ICloneable <
     add (sName, nValue);
   }
 
-  public SMap (@Nonnull final String sName, @Nonnull final Locale aValue)
-  {
-    add (sName, aValue);
-  }
-
   /**
    * Important: this method must be present, because the underlying AbstractMap
    * otherwise throws an exception if this method is not overridden!!!
@@ -99,6 +94,12 @@ public class SMap extends LinkedHashMap <String, String> implements ICloneable <
   }
 
   @Nonnull
+  public SMap addIfNotNull (@Nonnull final String sName, @Nonnull final Object aValue)
+  {
+    return addIfNotNull (sName, TypeConverter.convertIfNecessary (aValue, String.class));
+  }
+
+  @Nonnull
   public SMap addIfNotNull (@Nonnull final String sName, @Nullable final String sValue)
   {
     if (sValue != null)
@@ -115,16 +116,16 @@ public class SMap extends LinkedHashMap <String, String> implements ICloneable <
   }
 
   @Nonnull
+  public SMap add (@Nonnull final String sName, @Nonnull final Object aValue)
+  {
+    return add (sName, TypeConverter.convertIfNecessary (aValue, String.class));
+  }
+
+  @Nonnull
   public SMap add (@Nonnull final String sName, @Nonnull final String sValue)
   {
     super.put (sName, sValue);
     return this;
-  }
-
-  @Nonnull
-  public SMap add (@Nonnull final String sName, @Nonnull final Locale aLocale)
-  {
-    return add (sName, aLocale.toString ());
   }
 
   @Nonnull
