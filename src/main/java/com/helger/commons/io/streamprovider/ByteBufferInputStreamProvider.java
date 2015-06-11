@@ -23,7 +23,7 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.IInputStreamAndReaderProvider;
+import com.helger.commons.io.IHasInputStreamAndReader;
 import com.helger.commons.io.stream.ByteBufferInputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -34,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class ByteBufferInputStreamProvider implements IInputStreamAndReaderProvider
+public class ByteBufferInputStreamProvider implements IHasInputStreamAndReader
 {
   private final ByteBuffer m_aBuffer;
 

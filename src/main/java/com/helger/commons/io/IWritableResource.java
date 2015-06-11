@@ -26,7 +26,7 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IWritableResource extends IOutputStreamAndWriterProvider, IResourceBase
+public interface IWritableResource extends IHasOutputStreamAndWriter, IResourceBase
 {
   // Change return type
   @Nonnull

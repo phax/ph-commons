@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.io.IInputStreamAndReaderProvider;
+import com.helger.commons.io.IHasInputStreamAndReader;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -39,7 +39,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-public class ByteArrayInputStreamProvider implements IInputStreamAndReaderProvider, Serializable
+public class ByteArrayInputStreamProvider implements IHasInputStreamAndReader, Serializable
 {
   private final byte [] m_aData;
   private final int m_nOfs;

@@ -27,8 +27,8 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.IInputStreamAndReaderProvider;
-import com.helger.commons.io.IReaderProvider;
+import com.helger.commons.io.IHasInputStreamAndReader;
+import com.helger.commons.io.IHasReader;
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.serialize.convert.SerializationConverter;
@@ -39,7 +39,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class StringInputStreamProvider implements IInputStreamAndReaderProvider, IReaderProvider, Serializable
+public class StringInputStreamProvider implements IHasInputStreamAndReader, IHasReader, Serializable
 {
   private String m_sData;
   private Charset m_aCharset;

@@ -16,23 +16,28 @@
  */
 package com.helger.commons.io;
 
-import java.io.Writer;
+import java.io.Reader;
+import java.nio.charset.Charset;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * A callback interface to retrieve {@link Writer} objects.
- * 
+ * A callback interface to retrieve {@link Reader} objects based on
+ * InputStreams.
+ *
  * @author Philip Helger
  */
-public interface IWriterProvider
+public interface IHasInputStreamAndReader extends IHasInputStream
 {
   /**
-   * Get the writer to write to an object. Each time this method is call, a new
-   * {@link Writer} needs to be created!
-   * 
-   * @return <code>null</code> if resolving failed.
+   * Get an {@link Reader} based on this input stream provider using the given
+   * charset.
+   *
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if no input stream could be retrieved.
    */
   @Nullable
-  Writer getWriter ();
+  Reader getReader (@Nonnull Charset aCharset);
 }

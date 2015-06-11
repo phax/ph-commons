@@ -34,7 +34,7 @@ import org.xml.sax.SAXParseException;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.pool.IObjectPool;
@@ -89,7 +89,7 @@ public final class SAXReader
   }
 
   @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull final IInputStreamProvider aISP,
+  public static ESuccess readXMLSAX (@Nonnull final IHasInputStream aISP,
                                      @Nonnull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aISP), aSettings);

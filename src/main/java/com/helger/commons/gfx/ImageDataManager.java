@@ -41,7 +41,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.lru.LRUMap;
 import com.helger.commons.dimension.SizeInt;
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.EChange;
@@ -73,7 +73,7 @@ public final class ImageDataManager
   {}
 
   @Nullable
-  private static SizeInt _readImageData (@Nonnull final IInputStreamProvider aRes)
+  private static SizeInt _readImageData (@Nonnull final IHasInputStream aRes)
   {
     SizeInt aData = null;
     InputStream aIS = null;

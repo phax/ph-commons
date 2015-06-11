@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.EAppend;
-import com.helger.commons.io.IOutputStreamAndWriterProvider;
+import com.helger.commons.io.IHasOutputStreamAndWriter;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -34,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class ByteArrayOutputStreamProvider implements IOutputStreamAndWriterProvider, Serializable
+public class ByteArrayOutputStreamProvider implements IHasOutputStreamAndWriter, Serializable
 {
   private final NonBlockingByteArrayOutputStream m_aOS = new NonBlockingByteArrayOutputStream ();
 

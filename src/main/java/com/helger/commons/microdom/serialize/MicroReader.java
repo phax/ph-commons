@@ -31,7 +31,7 @@ import javax.annotation.concurrent.Immutable;
 import org.xml.sax.InputSource;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.microdom.IMicroDocument;
@@ -151,13 +151,13 @@ public final class MicroReader
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@Nullable final IInputStreamProvider aISP)
+  public static IMicroDocument readMicroXML (@Nullable final IHasInputStream aISP)
   {
     return readMicroXML (aISP, (ISAXReaderSettings) null);
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@Nullable final IInputStreamProvider aISP,
+  public static IMicroDocument readMicroXML (@Nullable final IHasInputStream aISP,
                                              @Nullable final ISAXReaderSettings aSettings)
   {
     if (aISP == null)

@@ -34,8 +34,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.EAppend;
-import com.helger.commons.io.IInputStreamProvider;
-import com.helger.commons.io.IOutputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
+import com.helger.commons.io.IHasOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
@@ -79,7 +79,7 @@ public final class XMLListHandler
 
   @Nullable
   @ReturnsMutableCopy
-  public static List <String> readList (@Nonnull final IInputStreamProvider aISP)
+  public static List <String> readList (@Nonnull final IHasInputStream aISP)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
 
@@ -87,7 +87,7 @@ public final class XMLListHandler
   }
 
   @Nonnull
-  public static ESuccess readList (@Nonnull final IInputStreamProvider aISP,
+  public static ESuccess readList (@Nonnull final IHasInputStream aISP,
                                    @Nonnull final Collection <String> aTargetList)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
@@ -199,7 +199,7 @@ public final class XMLListHandler
 
   @Nonnull
   public static ESuccess writeList (@Nonnull final Collection <String> aCollection,
-                                    @Nonnull final IOutputStreamProvider aOSP)
+                                    @Nonnull final IHasOutputStream aOSP)
   {
     ValueEnforcer.notNull (aOSP, "OutputStreamProvider");
 

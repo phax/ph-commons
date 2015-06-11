@@ -26,7 +26,7 @@ import org.w3c.dom.ls.LSInput;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.UnsupportedOperation;
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -37,7 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class ResourceLSInput implements LSInput
 {
-  private final IInputStreamProvider m_aISP;
+  private final IHasInputStream m_aISP;
   private String m_sEncoding;
   private String m_sPublicId;
   private String m_sSystemId;
@@ -50,7 +50,7 @@ public class ResourceLSInput implements LSInput
     this (aResource, aResource.getResourceID ());
   }
 
-  public ResourceLSInput (@Nonnull final IInputStreamProvider aISP, @Nullable final String sSystemID)
+  public ResourceLSInput (@Nonnull final IHasInputStream aISP, @Nullable final String sSystemID)
   {
     m_aISP = ValueEnforcer.notNull (aISP, "InputStreamProvider");
     m_sSystemId = sSystemID;

@@ -25,7 +25,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import org.xml.sax.InputSource;
 
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
@@ -51,12 +51,12 @@ public class CachingSAXInputSource extends InputSource
     this (aRes.getInputStream (), aRes.getResourceID ());
   }
 
-  public CachingSAXInputSource (@Nonnull final IInputStreamProvider aISP)
+  public CachingSAXInputSource (@Nonnull final IHasInputStream aISP)
   {
     this (aISP.getInputStream (), null);
   }
 
-  public CachingSAXInputSource (@Nonnull final IInputStreamProvider aISP, @Nullable final String sSystemID)
+  public CachingSAXInputSource (@Nonnull final IHasInputStream aISP, @Nullable final String sSystemID)
   {
     this (aISP.getInputStream (), sSystemID);
   }

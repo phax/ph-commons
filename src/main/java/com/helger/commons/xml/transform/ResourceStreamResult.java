@@ -25,13 +25,13 @@ import javax.xml.transform.stream.StreamResult;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.EAppend;
-import com.helger.commons.io.IOutputStreamProvider;
+import com.helger.commons.io.IHasOutputStream;
 import com.helger.commons.io.IWritableResource;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Special {@link StreamResult} implementation that writes to
- * {@link IWritableResource} or {@link IOutputStreamProvider} objects. The
+ * {@link IWritableResource} or {@link IHasOutputStream} objects. The
  * system ID of the stream source is automatically determined from the resource
  * or can be manually passed in.
  * 
@@ -40,14 +40,14 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class ResourceStreamResult extends StreamResult
 {
-  private final IOutputStreamProvider m_aOSP;
+  private final IHasOutputStream m_aOSP;
 
   public ResourceStreamResult (@Nonnull final IWritableResource aResource)
   {
     this (aResource, aResource.getResourceID ());
   }
 
-  public ResourceStreamResult (@Nonnull final IOutputStreamProvider aOSP, @Nullable final String sSystemID)
+  public ResourceStreamResult (@Nonnull final IHasOutputStream aOSP, @Nullable final String sSystemID)
   {
     m_aOSP = ValueEnforcer.notNull (aOSP, "OutputStreamProvider");
     setSystemId (sSystemID);

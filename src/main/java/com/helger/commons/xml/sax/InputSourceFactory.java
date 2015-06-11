@@ -31,7 +31,7 @@ import javax.annotation.concurrent.Immutable;
 import org.xml.sax.InputSource;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.FileSystemResource;
@@ -74,7 +74,7 @@ public final class InputSourceFactory
   }
 
   @Nullable
-  public static InputSource create (@Nonnull final IInputStreamProvider aISP)
+  public static InputSource create (@Nonnull final IHasInputStream aISP)
   {
     if (aISP instanceof IReadableResource)
       return create ((IReadableResource) aISP);

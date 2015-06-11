@@ -26,7 +26,7 @@ import java.io.InputStream;
 
 import org.junit.Test;
 
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
@@ -55,7 +55,7 @@ public final class CachingTransformStreamSourceTest
     assertEquals (aRes.getResourceID (), src.getSystemId ());
     assertNull (src.getPublicId ());
 
-    src = new CachingTransformStreamSource ((IInputStreamProvider) aRes);
+    src = new CachingTransformStreamSource ((IHasInputStream) aRes);
     is = src.getInputStream ();
     assertNotNull (is);
     StreamHelper.close (is);
@@ -93,7 +93,7 @@ public final class CachingTransformStreamSourceTest
     {}
     try
     {
-      new CachingTransformStreamSource ((IInputStreamProvider) null);
+      new CachingTransformStreamSource ((IHasInputStream) null);
       fail ();
     }
     catch (final NullPointerException ex)

@@ -33,8 +33,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.EAppend;
-import com.helger.commons.io.IInputStreamProvider;
-import com.helger.commons.io.IOutputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
+import com.helger.commons.io.IHasOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
@@ -81,7 +81,7 @@ public final class XMLMapHandler
 
   @Nullable
   @ReturnsMutableCopy
-  public static Map <String, String> readMap (@Nonnull final IInputStreamProvider aISP)
+  public static Map <String, String> readMap (@Nonnull final IHasInputStream aISP)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
 
@@ -89,7 +89,7 @@ public final class XMLMapHandler
   }
 
   @Nonnull
-  public static ESuccess readMap (@Nonnull final IInputStreamProvider aISP,
+  public static ESuccess readMap (@Nonnull final IHasInputStream aISP,
                                   @Nonnull final Map <String, String> aTargetMap)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
@@ -207,7 +207,7 @@ public final class XMLMapHandler
   }
 
   @Nonnull
-  public static ESuccess writeMap (@Nonnull final Map <String, String> aMap, @Nonnull final IOutputStreamProvider aOSP)
+  public static ESuccess writeMap (@Nonnull final Map <String, String> aMap, @Nonnull final IHasOutputStream aOSP)
   {
     ValueEnforcer.notNull (aOSP, "OutputStreamProvider");
 

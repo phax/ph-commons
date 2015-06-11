@@ -57,7 +57,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.exception.mock.IMockException;
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.mutable.MutableLong;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.statistics.IMutableStatisticsHandlerSize;
@@ -587,7 +587,7 @@ public final class StreamHelper
    *         resolved input stream is <code>null</code>.
    */
   @Nullable
-  public static byte [] getAllBytes (@Nullable final IInputStreamProvider aISP)
+  public static byte [] getAllBytes (@Nullable final IHasInputStream aISP)
   {
     if (aISP == null)
       return null;
@@ -623,7 +623,7 @@ public final class StreamHelper
    *         input stream is <code>null</code>.
    */
   @Nullable
-  public static String getAllBytesAsString (@Nullable final IInputStreamProvider aISP,
+  public static String getAllBytesAsString (@Nullable final IHasInputStream aISP,
                                             @Nonnull @Nonempty final Charset aCharset)
   {
     if (aISP == null)
@@ -1013,7 +1013,7 @@ public final class StreamHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static List <String> readStreamLines (@Nullable final IInputStreamProvider aISP,
+  public static List <String> readStreamLines (@Nullable final IHasInputStream aISP,
                                                @Nonnull final Charset aCharset)
   {
     return readStreamLines (aISP, aCharset, 0, CGlobal.ILLEGAL_UINT);
@@ -1039,7 +1039,7 @@ public final class StreamHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static List <String> readStreamLines (@Nullable final IInputStreamProvider aISP,
+  public static List <String> readStreamLines (@Nullable final IHasInputStream aISP,
                                                @Nonnull final Charset aCharset,
                                                @Nonnegative final int nLinesToSkip,
                                                @CheckForSigned final int nLinesToRead)

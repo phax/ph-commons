@@ -30,8 +30,8 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.IInputStreamProvider;
-import com.helger.commons.io.IOutputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
+import com.helger.commons.io.IHasOutputStream;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
@@ -70,14 +70,14 @@ public final class XMLMapHandlerTest
 
     try
     {
-      XMLMapHandler.readMap ((IInputStreamProvider) null);
+      XMLMapHandler.readMap ((IHasInputStream) null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      XMLMapHandler.readMap ((IInputStreamProvider) null, aMap);
+      XMLMapHandler.readMap ((IHasInputStream) null, aMap);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -122,7 +122,7 @@ public final class XMLMapHandlerTest
 
     try
     {
-      XMLMapHandler.writeMap (aMap, (IOutputStreamProvider) null);
+      XMLMapHandler.writeMap (aMap, (IHasOutputStream) null);
       fail ();
     }
     catch (final NullPointerException ex)

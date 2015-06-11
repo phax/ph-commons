@@ -30,7 +30,7 @@ import org.xml.sax.InputSource;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
@@ -69,7 +69,7 @@ public final class MicroReaderTest
     assertNull (MicroReader.readMicroXML ((InputSource) null));
     assertNull (MicroReader.readMicroXML ((InputStream) null));
     assertNull (MicroReader.readMicroXML ((IReadableResource) null));
-    assertNull (MicroReader.readMicroXML ((IInputStreamProvider) null));
+    assertNull (MicroReader.readMicroXML ((IHasInputStream) null));
     assertNull (MicroReader.readMicroXML ((Reader) null));
     assertNull (MicroReader.readMicroXML ((String) null));
     assertNull (MicroReader.readMicroXML ((CharSequence) null));
@@ -318,7 +318,7 @@ public final class MicroReaderTest
   public void testReadNonExistingResource ()
   {
     assertNull (MicroReader.readMicroXML (new ClassPathResource ("does-not-exist.xml")));
-    assertNull (MicroReader.readMicroXML ((IInputStreamProvider) new ClassPathResource ("does-not-exist.xml")));
+    assertNull (MicroReader.readMicroXML ((IHasInputStream) new ClassPathResource ("does-not-exist.xml")));
   }
 
   @Test

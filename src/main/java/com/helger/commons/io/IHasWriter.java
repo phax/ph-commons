@@ -16,26 +16,23 @@
  */
 package com.helger.commons.io;
 
-import java.io.OutputStream;
+import java.io.Writer;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * A callback interface to retrieve {@link OutputStream} objects.
+ * A callback interface to retrieve {@link Writer} objects.
  * 
  * @author Philip Helger
  */
-public interface IOutputStreamProvider
+public interface IHasWriter
 {
   /**
-   * Get the output stream to read from the object. Each time this method is
-   * call, a new {@link OutputStream} needs to be created!
+   * Get the writer to write to an object. Each time this method is call, a new
+   * {@link Writer} needs to be created!
    * 
-   * @param eAppend
-   *        appending mode. May not be <code>null</code>.
    * @return <code>null</code> if resolving failed.
    */
   @Nullable
-  OutputStream getOutputStream (@Nonnull EAppend eAppend);
+  Writer getWriter ();
 }

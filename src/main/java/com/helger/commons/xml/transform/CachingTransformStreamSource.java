@@ -24,7 +24,7 @@ import javax.annotation.WillClose;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.transform.stream.StreamSource;
 
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
@@ -45,12 +45,12 @@ public class CachingTransformStreamSource extends StreamSource
     this (aResource.getInputStream (), aResource.getResourceID ());
   }
 
-  public CachingTransformStreamSource (@Nonnull final IInputStreamProvider aIIS)
+  public CachingTransformStreamSource (@Nonnull final IHasInputStream aIIS)
   {
     this (aIIS, null);
   }
 
-  public CachingTransformStreamSource (@Nonnull final IInputStreamProvider aIIS, @Nullable final String sSystemID)
+  public CachingTransformStreamSource (@Nonnull final IHasInputStream aIIS, @Nullable final String sSystemID)
   {
     this (aIIS.getInputStream (), sSystemID);
   }

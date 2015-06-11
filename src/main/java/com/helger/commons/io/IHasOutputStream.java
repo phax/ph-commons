@@ -16,23 +16,26 @@
  */
 package com.helger.commons.io;
 
-import java.io.InputStream;
+import java.io.OutputStream;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * A callback interface to retrieve {@link InputStream} objects.
+ * A callback interface to retrieve {@link OutputStream} objects.
  * 
  * @author Philip Helger
  */
-public interface IInputStreamProvider
+public interface IHasOutputStream
 {
   /**
-   * Get the input stream to read from the object. Each time this method is
-   * call, a new {@link InputStream} needs to be created!
+   * Get the output stream to read from the object. Each time this method is
+   * call, a new {@link OutputStream} needs to be created!
    * 
+   * @param eAppend
+   *        appending mode. May not be <code>null</code>.
    * @return <code>null</code> if resolving failed.
    */
   @Nullable
-  InputStream getInputStream ();
+  OutputStream getOutputStream (@Nonnull EAppend eAppend);
 }

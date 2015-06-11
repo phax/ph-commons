@@ -26,13 +26,13 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Special {@link InputSource} implementation that reads from
- * {@link IReadableResource} or {@link IInputStreamProvider} objects. The system
+ * {@link IReadableResource} or {@link IHasInputStream} objects. The system
  * ID of the stream source is automatically determined from the resource or can
  * be manually passed in.
  *
@@ -42,21 +42,21 @@ public class ReadableResourceSAXInputSource extends InputSource
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ReadableResourceSAXInputSource.class);
 
-  private final IInputStreamProvider m_aISP;
+  private final IHasInputStream m_aISP;
 
   public ReadableResourceSAXInputSource (@Nonnull final IReadableResource aResource)
   {
     this (aResource, aResource.getResourceID ());
   }
 
-  public ReadableResourceSAXInputSource (@Nonnull final IInputStreamProvider aISP, @Nullable final String sSystemID)
+  public ReadableResourceSAXInputSource (@Nonnull final IHasInputStream aISP, @Nullable final String sSystemID)
   {
     m_aISP = ValueEnforcer.notNull (aISP, "InputStreamProvider");
     setSystemId (sSystemID);
   }
 
   @Nonnull
-  public IInputStreamProvider getInputStreamProvider ()
+  public IHasInputStream getInputStreamProvider ()
   {
     return m_aISP;
   }

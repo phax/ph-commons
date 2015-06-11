@@ -21,9 +21,9 @@ import java.io.Serializable;
 
 import javax.annotation.Nullable;
 
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 
-public final class MockNullInputStreamProvider implements IInputStreamProvider, Serializable
+public final class MockNullInputStreamProvider implements IHasInputStream, Serializable
 {
   @Nullable
   public InputStream getInputStream ()

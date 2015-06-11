@@ -31,11 +31,11 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.io.EAppend;
-import com.helger.commons.io.IInputStreamProvider;
-import com.helger.commons.io.IOutputStreamProvider;
-import com.helger.commons.io.IReaderProvider;
+import com.helger.commons.io.IHasInputStream;
+import com.helger.commons.io.IHasOutputStream;
+import com.helger.commons.io.IHasReader;
 import com.helger.commons.io.IResourceBase;
-import com.helger.commons.io.IWriterProvider;
+import com.helger.commons.io.IHasWriter;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.URLResource;
@@ -172,42 +172,42 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
     });
 
     // IInputStreamProvider to InputStream
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IInputStreamProvider.class,
+    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IHasInputStream.class,
                                                                                                         InputStream.class)
     {
       public InputStream convert (@Nonnull final Object aSource)
       {
-        return ((IInputStreamProvider) aSource).getInputStream ();
+        return ((IHasInputStream) aSource).getInputStream ();
       }
     });
 
     // IOutputStreamProvider to OutputStream
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IOutputStreamProvider.class,
+    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IHasOutputStream.class,
                                                                                                         OutputStream.class)
     {
       public OutputStream convert (@Nonnull final Object aSource)
       {
-        return ((IOutputStreamProvider) aSource).getOutputStream (EAppend.DEFAULT);
+        return ((IHasOutputStream) aSource).getOutputStream (EAppend.DEFAULT);
       }
     });
 
     // IReaderProvider to Reader
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IReaderProvider.class,
+    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IHasReader.class,
                                                                                                         Reader.class)
     {
       public Reader convert (@Nonnull final Object aSource)
       {
-        return ((IReaderProvider) aSource).getReader ();
+        return ((IHasReader) aSource).getReader ();
       }
     });
 
     // IWriterProvider to Writer
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IWriterProvider.class,
+    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IHasWriter.class,
                                                                                                         Writer.class)
     {
       public Writer convert (@Nonnull final Object aSource)
       {
-        return ((IWriterProvider) aSource).getWriter ();
+        return ((IHasWriter) aSource).getWriter ();
       }
     });
 

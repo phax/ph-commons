@@ -16,28 +16,23 @@
  */
 package com.helger.commons.io;
 
-import java.io.Reader;
-import java.nio.charset.Charset;
+import java.io.InputStream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * A callback interface to retrieve {@link Reader} objects based on
- * InputStreams.
- *
+ * A callback interface to retrieve {@link InputStream} objects.
+ * 
  * @author Philip Helger
  */
-public interface IInputStreamAndReaderProvider extends IInputStreamProvider
+public interface IHasInputStream
 {
   /**
-   * Get an {@link Reader} based on this input stream provider using the given
-   * charset.
-   *
-   * @param aCharset
-   *        The charset to use. May not be <code>null</code>.
-   * @return <code>null</code> if no input stream could be retrieved.
+   * Get the input stream to read from the object. Each time this method is
+   * call, a new {@link InputStream} needs to be created!
+   * 
+   * @return <code>null</code> if resolving failed.
    */
   @Nullable
-  Reader getReader (@Nonnull Charset aCharset);
+  InputStream getInputStream ();
 }

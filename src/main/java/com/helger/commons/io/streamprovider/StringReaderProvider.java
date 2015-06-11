@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.IReaderProvider;
+import com.helger.commons.io.IHasReader;
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -32,7 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  * 
  * @author Philip Helger
  */
-public class StringReaderProvider implements IReaderProvider, Serializable
+public class StringReaderProvider implements IHasReader, Serializable
 {
   private final String m_sData;
 

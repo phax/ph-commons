@@ -25,7 +25,7 @@ import java.io.InputStream;
 
 import org.junit.Test;
 
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
@@ -48,7 +48,7 @@ public final class CachingSAXInputSourceTest
     assertEquals (aRes.getResourceID (), is.getSystemId ());
     assertNotNull (StreamHelper.getAllBytes (is.getByteStream ()));
 
-    is = new CachingSAXInputSource ((IInputStreamProvider) aRes);
+    is = new CachingSAXInputSource ((IHasInputStream) aRes);
     assertNull (is.getSystemId ());
     assertNotNull (StreamHelper.getAllBytes (is.getByteStream ()));
 
@@ -75,14 +75,14 @@ public final class CachingSAXInputSourceTest
     {}
     try
     {
-      new CachingSAXInputSource ((IInputStreamProvider) null);
+      new CachingSAXInputSource ((IHasInputStream) null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      new CachingSAXInputSource ((IInputStreamProvider) null, "sysid");
+      new CachingSAXInputSource ((IHasInputStream) null, "sysid");
       fail ();
     }
     catch (final NullPointerException ex)

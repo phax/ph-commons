@@ -26,7 +26,7 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IReadableResource extends IInputStreamAndReaderProvider, IResourceBase
+public interface IReadableResource extends IHasInputStreamAndReader, IResourceBase
 {
   // Change return type
   @Nonnull

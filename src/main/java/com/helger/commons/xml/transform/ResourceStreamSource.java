@@ -24,13 +24,13 @@ import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.transform.stream.StreamSource;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Special {@link StreamSource} implementation that reads from
- * {@link IReadableResource} or {@link IInputStreamProvider} objects. The system
+ * {@link IReadableResource} or {@link IHasInputStream} objects. The system
  * ID of the stream source is automatically determined from the resource or can
  * be manually passed in.
  *
@@ -39,21 +39,21 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class ResourceStreamSource extends StreamSource
 {
-  private final IInputStreamProvider m_aISP;
+  private final IHasInputStream m_aISP;
 
   public ResourceStreamSource (@Nonnull final IReadableResource aResource)
   {
     this (aResource, aResource.getResourceID ());
   }
 
-  public ResourceStreamSource (@Nonnull final IInputStreamProvider aISP, @Nullable final String sSystemID)
+  public ResourceStreamSource (@Nonnull final IHasInputStream aISP, @Nullable final String sSystemID)
   {
     m_aISP = ValueEnforcer.notNull (aISP, "InputStreamProvider");
     setSystemId (sSystemID);
   }
 
   @Nonnull
-  public IInputStreamProvider getInputStreamProvider ()
+  public IHasInputStream getInputStreamProvider ()
   {
     return m_aISP;
   }

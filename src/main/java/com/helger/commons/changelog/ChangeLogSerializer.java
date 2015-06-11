@@ -39,7 +39,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.microdom.IMicroDocument;
@@ -99,7 +99,7 @@ public final class ChangeLogSerializer
    * @return <code>null</code> if the passed ISP was <code>null</code>.
    */
   @Nullable
-  public static ChangeLog readChangeLog (@Nullable final IInputStreamProvider aISP)
+  public static ChangeLog readChangeLog (@Nullable final IHasInputStream aISP)
   {
     return readChangeLog (aISP, s_aLoggingCallback);
   }
@@ -115,7 +115,7 @@ public final class ChangeLogSerializer
    * @return <code>null</code> if the passed ISP was <code>null</code>.
    */
   @Nullable
-  public static ChangeLog readChangeLog (@Nullable final IInputStreamProvider aISP,
+  public static ChangeLog readChangeLog (@Nullable final IHasInputStream aISP,
                                          @Nonnull final INonThrowingRunnableWithParameter <String> aErrorCallback)
   {
     ValueEnforcer.notNull (aErrorCallback, "ErrorCallback");

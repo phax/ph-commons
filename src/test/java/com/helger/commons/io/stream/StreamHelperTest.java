@@ -39,7 +39,7 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.exception.mock.MockIOException;
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
@@ -250,14 +250,14 @@ public final class StreamHelperTest
     final byte [] aInput = CharsetManager.getAsBytes (sInput, CCharset.CHARSET_ISO_8859_1_OBJ);
     assertArrayEquals (aInput, StreamHelper.getAllBytes (new ByteArrayInputStreamProvider (aInput)));
     assertArrayEquals (aInput, StreamHelper.getAllBytes (new NonBlockingByteArrayInputStream (aInput)));
-    assertNull (StreamHelper.getAllBytes ((IInputStreamProvider) null));
+    assertNull (StreamHelper.getAllBytes ((IHasInputStream) null));
     assertNull (StreamHelper.getAllBytes ((InputStream) null));
 
     assertEquals (sInput, StreamHelper.getAllBytesAsString (new ByteArrayInputStreamProvider (aInput),
                                                            CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (sInput, StreamHelper.getAllBytesAsString (new NonBlockingByteArrayInputStream (aInput),
                                                            CCharset.CHARSET_ISO_8859_1_OBJ));
-    assertNull (StreamHelper.getAllBytesAsString ((IInputStreamProvider) null, CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertNull (StreamHelper.getAllBytesAsString ((IHasInputStream) null, CCharset.CHARSET_ISO_8859_1_OBJ));
     assertNull (StreamHelper.getAllBytesAsString ((InputStream) null, CCharset.CHARSET_ISO_8859_1_OBJ));
     try
     {

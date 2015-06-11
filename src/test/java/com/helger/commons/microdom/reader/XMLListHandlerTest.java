@@ -32,8 +32,8 @@ import java.util.Set;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.IInputStreamProvider;
-import com.helger.commons.io.IOutputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
+import com.helger.commons.io.IHasOutputStream;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
@@ -86,14 +86,14 @@ public final class XMLListHandlerTest
     final IReadableResource aRes = new ClassPathResource ("xml/list.xml");
     try
     {
-      XMLListHandler.readList ((IInputStreamProvider) null);
+      XMLListHandler.readList ((IHasInputStream) null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      XMLListHandler.readList ((IInputStreamProvider) null, aList);
+      XMLListHandler.readList ((IHasInputStream) null, aList);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -134,7 +134,7 @@ public final class XMLListHandlerTest
     final List <String> aList = new ArrayList <String> ();
     try
     {
-      XMLListHandler.writeList (aList, (IOutputStreamProvider) null);
+      XMLListHandler.writeList (aList, (IHasOutputStream) null);
       fail ();
     }
     catch (final NullPointerException ex)

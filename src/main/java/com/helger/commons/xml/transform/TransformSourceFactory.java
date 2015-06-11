@@ -33,7 +33,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.w3c.dom.Node;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.io.IInputStreamProvider;
+import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.stream.ByteBufferInputStream;
@@ -74,7 +74,7 @@ public final class TransformSourceFactory
   }
 
   @Nonnull
-  public static StreamSource create (@Nonnull final IInputStreamProvider aISP)
+  public static StreamSource create (@Nonnull final IHasInputStream aISP)
   {
     if (aISP instanceof IReadableResource)
       return create ((IReadableResource) aISP);

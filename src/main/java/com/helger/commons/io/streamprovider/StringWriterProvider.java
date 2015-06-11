@@ -21,7 +21,7 @@ import java.io.Serializable;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.IWriterProvider;
+import com.helger.commons.io.IHasWriter;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -30,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
  * 
  * @author Philip Helger
  */
-public class StringWriterProvider implements IWriterProvider, Serializable
+public class StringWriterProvider implements IHasWriter, Serializable
 {
   public StringWriterProvider ()
   {}
