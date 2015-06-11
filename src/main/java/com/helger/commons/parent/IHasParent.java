@@ -19,22 +19,17 @@ package com.helger.commons.parent;
 import javax.annotation.Nullable;
 
 /**
- * This helper interface is required to build a tree. It should be used like
- * this:<br>
- * <code>class A implements IHasParent &lt;A&gt;
- * {
- *   A getParent () { ... }
- * }</code>
- * 
+ * This helper interface is required to build a hierarchy of objects.
+ *
  * @author Philip
  * @param <PARENTTYPE>
- *        The type of object to get a parent from
+ *        The type of the parent objects
  */
 public interface IHasParent <PARENTTYPE>
 {
   /**
    * Get the parent object of this object.
-   * 
+   *
    * @return The parent object or <code>null</code> if this object has no
    *         parent.
    */
