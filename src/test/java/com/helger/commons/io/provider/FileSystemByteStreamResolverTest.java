@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.resolver;
+package com.helger.commons.io.provider;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -31,8 +31,8 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
- * Test class for class {@link FileSystemByteStreamResolver}.
- * 
+ * Test class for class {@link FileSystemByteStreamProvider}.
+ *
  * @author Philip Helger
  */
 public final class FileSystemByteStreamResolverTest
@@ -40,7 +40,7 @@ public final class FileSystemByteStreamResolverTest
   @Test
   public void testAll ()
   {
-    final FileSystemByteStreamResolver aFSSR = new FileSystemByteStreamResolver (new File ("."));
+    final FileSystemByteStreamProvider aFSSR = new FileSystemByteStreamProvider (new File ("."));
     final InputStream aIS = aFSSR.getInputStream ("pom.xml");
     assertNotNull (aIS);
     StreamHelper.close (aIS);
@@ -50,11 +50,11 @@ public final class FileSystemByteStreamResolverTest
     StreamHelper.close (aOS);
     assertTrue (FileOperations.deleteFile (new File ("$deleteme.txt")).isSuccess ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamResolver (new File (".")),
-                                                                 new FileSystemByteStreamResolver (new File (".")));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamResolver (new File (".")),
-                                                                 new FileSystemByteStreamResolver ("."));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FileSystemByteStreamResolver (new File (".")),
-                                                                     new FileSystemByteStreamResolver (new File ("..")));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamProvider (new File (".")),
+                                                                       new FileSystemByteStreamProvider (new File (".")));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamProvider (new File (".")),
+                                                                       new FileSystemByteStreamProvider ("."));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FileSystemByteStreamProvider (new File (".")),
+                                                                           new FileSystemByteStreamProvider (new File ("..")));
   }
 }

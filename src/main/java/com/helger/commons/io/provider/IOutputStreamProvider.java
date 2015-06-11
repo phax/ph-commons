@@ -14,12 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io;
+package com.helger.commons.io.provider;
 
 import java.io.OutputStream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.helger.commons.io.EAppend;
 
 /**
  * A callback interface to retrieve {@link OutputStream} objects from a given
@@ -27,7 +29,7 @@ import javax.annotation.Nullable;
  * 
  * @author Philip Helger
  */
-public interface IOutputStreamResolver
+public interface IOutputStreamProvider
 {
   /**
    * Get the output stream from the given name.

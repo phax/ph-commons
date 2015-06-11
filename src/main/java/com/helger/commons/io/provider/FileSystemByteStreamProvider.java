@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.resolver;
+package com.helger.commons.io.provider;
 
 import java.io.File;
 import java.io.InputStream;
@@ -27,34 +27,30 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.EAppend;
-import com.helger.commons.io.IInputStreamResolver;
-import com.helger.commons.io.IOutputStreamResolver;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Implementation of the {@link IInputStreamResolver} and
- * {@link IOutputStreamResolver} interfaces for {@link File} objects.
+ * Implementation of the {@link IInputStreamProvider} and
+ * {@link IOutputStreamProvider} interfaces for {@link File} objects.
  *
  * @author Philip Helger
  */
 @Immutable
-public class FileSystemByteStreamResolver implements IInputStreamResolver, IOutputStreamResolver
+public class FileSystemByteStreamProvider implements IInputStreamProvider, IOutputStreamProvider
 {
   private final File m_aBasePath;
 
-  public FileSystemByteStreamResolver (@Nonnull final String sBasePath)
+  public FileSystemByteStreamProvider (@Nonnull final String sBasePath)
   {
     this (new File (sBasePath));
   }
 
-  public FileSystemByteStreamResolver (@Nonnull final File aBasePath)
+  public FileSystemByteStreamProvider (@Nonnull final File aBasePath)
   {
     ValueEnforcer.notNull (aBasePath, "BasePath");
-    if (!aBasePath.exists ())
-      throw new IllegalArgumentException ("Base path does not exist: " + aBasePath);
-    if (!aBasePath.isDirectory ())
-      throw new IllegalArgumentException ("Only directories are allowed as base path: " + aBasePath);
+    ValueEnforcer.isTrue (aBasePath.exists (), "Base path does not exist: " + aBasePath);
+    ValueEnforcer.isTrue (aBasePath.isDirectory (), "Only directories are allowed as base path: " + aBasePath);
     m_aBasePath = aBasePath;
   }
 
@@ -83,7 +79,7 @@ public class FileSystemByteStreamResolver implements IInputStreamResolver, IOutp
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final FileSystemByteStreamResolver rhs = (FileSystemByteStreamResolver) o;
+    final FileSystemByteStreamProvider rhs = (FileSystemByteStreamProvider) o;
     return m_aBasePath.equals (rhs.m_aBasePath);
   }
 

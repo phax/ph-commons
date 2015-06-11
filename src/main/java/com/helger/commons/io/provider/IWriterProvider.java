@@ -14,19 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io;
+package com.helger.commons.io.provider;
 
 import java.io.Writer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.io.EAppend;
+
 /**
  * A callback interface to retrieve {@link Writer} objects from a given name.
  * 
  * @author Philip Helger
  */
-public interface IWriterResolver
+public interface IWriterProvider
 {
   /**
    * Get the writer from the given name.

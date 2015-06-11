@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io;
+package com.helger.commons.io.provider;
 
 import java.io.Reader;
 
@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
  * 
  * @author Philip Helger
  */
-public interface IReaderResolver
+public interface IReaderProvider
 {
   /**
    * Get the reader from the given name.

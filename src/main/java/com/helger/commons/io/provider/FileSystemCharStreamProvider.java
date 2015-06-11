@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.resolver;
+package com.helger.commons.io.provider;
 
 import java.io.File;
 import java.io.InputStream;
@@ -30,38 +30,29 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.EAppend;
-import com.helger.commons.io.IInputStreamResolver;
-import com.helger.commons.io.IOutputStreamResolver;
-import com.helger.commons.io.IReaderResolver;
-import com.helger.commons.io.IWriterResolver;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Implementation of the {@link IInputStreamResolver} and
- * {@link IOutputStreamResolver} interfaces for {@link File} objects.
+ * Implementation of the {@link IInputStreamProvider} and
+ * {@link IOutputStreamProvider} interfaces for {@link File} objects.
  *
  * @author Philip Helger
  */
 @Immutable
-public final class FileSystemCharStreamResolver implements IInputStreamResolver, IOutputStreamResolver, IReaderResolver, IWriterResolver
+public final class FileSystemCharStreamProvider implements IInputStreamProvider, IOutputStreamProvider, IReaderProvider, IWriterProvider
 {
-  private final FileSystemByteStreamResolver m_aByteStreamResolver;
+  private final FileSystemByteStreamProvider m_aByteStreamResolver;
   private final Charset m_aCharset;
 
-  public FileSystemCharStreamResolver (@Nonnull final String sBasePath, @Nonnull final Charset aCharset)
+  public FileSystemCharStreamProvider (@Nonnull final String sBasePath, @Nonnull final Charset aCharset)
   {
     this (new File (sBasePath), aCharset);
   }
 
-  public FileSystemCharStreamResolver (@Nonnull final File aBasePath, @Nonnull final Charset aCharset)
+  public FileSystemCharStreamProvider (@Nonnull final File aBasePath, @Nonnull final Charset aCharset)
   {
-    ValueEnforcer.notNull (aBasePath, "BasePath");
-    if (!aBasePath.exists ())
-      throw new IllegalArgumentException ("Base path does not exist: " + aBasePath);
-    if (!aBasePath.isDirectory ())
-      throw new IllegalArgumentException ("Only directories are allowed as base path: " + aBasePath);
-    m_aByteStreamResolver = new FileSystemByteStreamResolver (aBasePath);
+    m_aByteStreamResolver = new FileSystemByteStreamProvider (aBasePath);
     m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
   }
 
@@ -108,7 +99,7 @@ public final class FileSystemCharStreamResolver implements IInputStreamResolver,
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final FileSystemCharStreamResolver rhs = (FileSystemCharStreamResolver) o;
+    final FileSystemCharStreamProvider rhs = (FileSystemCharStreamProvider) o;
     return m_aByteStreamResolver.equals (rhs.m_aByteStreamResolver) && m_aCharset.equals (rhs.m_aCharset);
   }
 

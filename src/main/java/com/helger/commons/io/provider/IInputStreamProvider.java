@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io;
+package com.helger.commons.io.provider;
 
 import java.io.InputStream;
 
@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
  * 
  * @author Philip Helger
  */
-public interface IInputStreamResolver
+public interface IInputStreamProvider
 {
   /**
    * Get the input stream from the given name.
