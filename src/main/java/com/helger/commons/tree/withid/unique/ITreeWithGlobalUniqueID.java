@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.hierarchy.IChildrenProviderWithID;
-import com.helger.commons.hierarchy.IChildrenProviderWithUniqueID;
 import com.helger.commons.state.EChange;
 import com.helger.commons.tree.withid.ITreeItemWithID;
 import com.helger.commons.tree.withid.ITreeWithID;
@@ -41,7 +40,7 @@ import com.helger.commons.tree.withid.ITreeWithID;
  * @param <ITEMTYPE>
  *        The type of the tree item that will be stored in this tree.
  */
-public interface ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends ITreeWithID <KEYTYPE, DATATYPE, ITEMTYPE>, IChildrenProviderWithID <KEYTYPE, ITEMTYPE>, IChildrenProviderWithUniqueID <KEYTYPE, ITEMTYPE>
+public interface ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends ITreeWithID <KEYTYPE, DATATYPE, ITEMTYPE>, IChildrenProviderWithID <KEYTYPE, ITEMTYPE>
 {
   /**
    * Check if a tree item corresponding to the given ID is present.
