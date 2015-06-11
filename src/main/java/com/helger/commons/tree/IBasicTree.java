@@ -18,6 +18,8 @@ package com.helger.commons.tree;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.hierarchy.IHasChildren;
+
 /**
  * Base interface for a tree.
  *
@@ -27,7 +29,7 @@ import javax.annotation.Nonnull;
  *        tree item implementation type
  * @author Philip Helger
  */
-public interface IBasicTree <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>>
+public interface IBasicTree <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> extends IHasChildren <ITEMTYPE>
 {
   /**
    * @return The root item of the tree. Never <code>null</code>. The root item

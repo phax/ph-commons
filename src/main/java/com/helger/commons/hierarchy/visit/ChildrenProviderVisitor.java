@@ -33,7 +33,7 @@ import com.helger.commons.hierarchy.IHasChildren;
  *        The type of children to visit
  */
 @Immutable
-public final class ChildrenProviderVisitor <CHILDTYPE> implements IVisitor <CHILDTYPE>
+public class ChildrenProviderVisitor <CHILDTYPE> implements IVisitor <CHILDTYPE>
 {
   private final IChildrenProvider <CHILDTYPE> m_aChildrenProvider;
   private final IHierarchyVisitorCallback <? super CHILDTYPE> m_aCallback;

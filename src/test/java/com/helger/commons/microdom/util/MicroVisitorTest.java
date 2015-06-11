@@ -25,6 +25,7 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.commons.hierarchy.visit.IHierarchyVisitorCallback;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroNode;
@@ -32,14 +33,14 @@ import com.helger.commons.microdom.serialize.MicroReader;
 import com.helger.commons.mutable.MutableInt;
 
 /**
- * Test class for class {@link MicroWalker}.
+ * Test class for class {@link MicroVisitor}.
  *
  * @author Philip Helger
  */
-public final class MicroWalkerTest
+public final class MicroVisitorTest
 {
   @Test
-  public void testWalkNode ()
+  public void testVisitStatic ()
   {
     // Read file with processing instruction
     final IMicroDocument doc = MicroReader.readMicroXML (new ClassPathResource ("xml/xml-processing-instruction.xml"));
@@ -47,7 +48,7 @@ public final class MicroWalkerTest
 
     // Count processing instruction
     final MutableInt aInt = new MutableInt (0);
-    MicroWalker.walkNode (doc, new DefaultHierarchyVisitorCallback <IMicroNode> ()
+    MicroVisitor.visit (doc, new DefaultHierarchyVisitorCallback <IMicroNode> ()
     {
       @Override
       public void onItemBeforeChildren (final IMicroNode aItem)
@@ -60,7 +61,7 @@ public final class MicroWalkerTest
 
     // Start from the root document -> only 1 left
     aInt.set (0);
-    MicroWalker.walkNode (doc.getDocumentElement (), new DefaultHierarchyVisitorCallback <IMicroNode> ()
+    MicroVisitor.visit (doc.getDocumentElement (), new DefaultHierarchyVisitorCallback <IMicroNode> ()
     {
       @Override
       public void onItemBeforeChildren (@Nonnull final IMicroNode aItem)
@@ -73,14 +74,14 @@ public final class MicroWalkerTest
 
     try
     {
-      MicroWalker.walkNode (null, new DefaultHierarchyVisitorCallback <IMicroNode> ());
+      MicroVisitor.visit (null, new DefaultHierarchyVisitorCallback <IMicroNode> ());
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      MicroWalker.walkNode (doc, null);
+      MicroVisitor.visit (doc, (IHierarchyVisitorCallback <IMicroNode>) null);
       fail ();
     }
     catch (final NullPointerException ex)

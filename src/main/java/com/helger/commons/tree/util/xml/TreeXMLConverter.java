@@ -33,7 +33,7 @@ import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.util.ChildrenProviderElementWithName;
-import com.helger.commons.microdom.util.MicroWalker;
+import com.helger.commons.microdom.util.MicroVisitor;
 import com.helger.commons.tree.IBasicTree;
 import com.helger.commons.tree.simple.ITreeItem;
 import com.helger.commons.tree.util.walk.TreeWalker;
@@ -172,7 +172,7 @@ public final class TreeXMLConverter
     final String sNamespaceURI = aDataConverter.getNamespaceURI ();
     final NonBlockingStack <ITEMTYPE> aParents = new NonBlockingStack <ITEMTYPE> ();
     aParents.push (aTree.getRootItem ());
-    MicroWalker.walkNode (aElement,
+    MicroVisitor.visit (aElement,
                           new ChildrenProviderElementWithName (sNamespaceURI, ELEMENT_ITEM),
                           new DefaultHierarchyVisitorCallback <IMicroElement> ()
                           {

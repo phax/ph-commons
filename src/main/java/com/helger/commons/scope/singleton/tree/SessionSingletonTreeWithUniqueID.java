@@ -22,6 +22,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.scope.singleton.SessionSingleton;
 import com.helger.commons.state.EChange;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
@@ -48,6 +49,24 @@ public abstract class SessionSingletonTreeWithUniqueID <KEYTYPE, VALUETYPE> exte
 
   public SessionSingletonTreeWithUniqueID ()
   {}
+
+  public final boolean hasChildren ()
+  {
+    return m_aTree.hasChildren ();
+  }
+
+  @Nonnegative
+  public int getChildCount ()
+  {
+    return m_aTree.getChildCount ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public final Collection <? extends DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getAllChildren ()
+  {
+    return m_aTree.getAllChildren ();
+  }
 
   @Nonnull
   public DefaultTreeItemWithID <KEYTYPE, VALUETYPE> getRootItem ()

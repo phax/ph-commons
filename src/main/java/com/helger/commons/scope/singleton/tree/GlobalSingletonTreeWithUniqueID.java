@@ -22,6 +22,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.scope.singleton.GlobalSingleton;
 import com.helger.commons.state.EChange;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
@@ -45,6 +46,24 @@ public abstract class GlobalSingletonTreeWithUniqueID <KEYTYPE, VALUETYPE> exten
 
   public GlobalSingletonTreeWithUniqueID ()
   {}
+
+  public final boolean hasChildren ()
+  {
+    return m_aTree.hasChildren ();
+  }
+
+  @Nonnegative
+  public int getChildCount ()
+  {
+    return m_aTree.getChildCount ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public final Collection <? extends DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getAllChildren ()
+  {
+    return m_aTree.getAllChildren ();
+  }
 
   @Nonnull
   public DefaultTreeItemWithID <KEYTYPE, VALUETYPE> getRootItem ()

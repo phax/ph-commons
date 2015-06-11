@@ -16,17 +16,22 @@
  */
 package com.helger.commons.tree.simple;
 
+import java.util.Collection;
+
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Root class for a simple tree. The elements of the tree are not sorted by any
  * means.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        tree item value type
@@ -37,20 +42,40 @@ import com.helger.commons.string.ToStringGenerator;
 public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> implements ITree <DATATYPE, ITEMTYPE>
 {
   // Root item.
-  private final ITEMTYPE m_aRoot;
+  private final ITEMTYPE m_aRootItem;
 
   public BasicTree (@Nonnull final ITreeItemFactory <DATATYPE, ITEMTYPE> aFactory)
   {
     ValueEnforcer.notNull (aFactory, "Factory");
-    m_aRoot = aFactory.createRoot ();
-    if (m_aRoot == null)
+    m_aRootItem = aFactory.createRoot ();
+    if (m_aRootItem == null)
       throw new IllegalStateException ("Failed to create root item!");
+  }
+
+  public final boolean hasChildren ()
+  {
+    // root item is always present
+    return true;
+  }
+
+  @Nonnegative
+  public int getChildCount ()
+  {
+    // Exactly 1 root item is present
+    return 1;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public final Collection <? extends ITEMTYPE> getAllChildren ()
+  {
+    return CollectionHelper.newList (m_aRootItem);
   }
 
   @Nonnull
   public final ITEMTYPE getRootItem ()
   {
-    return m_aRoot;
+    return m_aRootItem;
   }
 
   @Override
@@ -61,18 +86,18 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final BasicTree <?, ?> rhs = (BasicTree <?, ?>) o;
-    return m_aRoot.equals (rhs.m_aRoot);
+    return m_aRootItem.equals (rhs.m_aRootItem);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aRoot).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aRootItem).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("root", m_aRoot).toString ();
+    return new ToStringGenerator (this).append ("RootItem", m_aRootItem).toString ();
   }
 }

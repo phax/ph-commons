@@ -23,7 +23,7 @@ import com.helger.commons.annotation.OverrideOnDemand;
 /**
  * The default implementation of the {@link IHierarchyVisitorDynamicCallback}
  * interface doing nothing.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of object in the hierarchy to be iterated
@@ -44,6 +44,7 @@ public class DefaultHierarchyVisitorDynamicCallback <DATATYPE> extends AbstractH
   @Nonnull
   public EHierarchyVisitorReturn onItemBeforeChildren (final DATATYPE aItem)
   {
+    // Always continue
     return EHierarchyVisitorReturn.CONTINUE;
   }
 
@@ -51,6 +52,7 @@ public class DefaultHierarchyVisitorDynamicCallback <DATATYPE> extends AbstractH
   @Nonnull
   public EHierarchyVisitorReturn onItemAfterChildren (final DATATYPE aItem)
   {
+    // Always continue
     return EHierarchyVisitorReturn.CONTINUE;
   }
 }

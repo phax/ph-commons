@@ -56,7 +56,7 @@ public interface IChildrenProvider <CHILDTYPE>
    *
    * @param aCurrent
    *        The object to determine the children of. No <code>null</code> or
-   *        non- <code>null</code> constraint possible.
+   *        non-<code>null</code> constraint possible.
    * @return The child objects, or <code>null</code> if there are no children.
    *         If <code>null</code> is passed, the resolver is expected to return
    *         any possible top level (root) elements. This method may NOT return
