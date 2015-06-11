@@ -40,7 +40,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link FileHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FileHelperTest
@@ -51,14 +51,6 @@ public final class FileHelperTest
     assertFalse (FileHelper.existsFile (new File ("oaaajeee")));
     assertTrue (FileHelper.existsFile (ClassPathResource.getAsFile ("streamutils-lines")));
     assertFalse (FileHelper.existsFile (new File ("src")));
-
-    try
-    {
-      FileHelper.existsFile (null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
   }
 
   @Test
@@ -67,14 +59,6 @@ public final class FileHelperTest
     assertFalse (FileHelper.existsDir (new File ("oaaajeee")));
     assertTrue (FileHelper.existsDir (new File ("src")));
     assertFalse (FileHelper.existsDir (ClassPathResource.getAsFile ("streamutils-lines")));
-
-    try
-    {
-      FileHelper.existsDir (null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
   }
 
   @Test
@@ -87,7 +71,7 @@ public final class FileHelperTest
     assertTrue (FileHelper.ensureParentDirectoryIsPresent (new File ("src")).isUnchanged ());
     // Existing file
     assertTrue (FileHelper.ensureParentDirectoryIsPresent (ClassPathResource.getAsFile ("streamutils-lines"))
-                         .isUnchanged ());
+                          .isUnchanged ());
 
     // Non existing object
     try
