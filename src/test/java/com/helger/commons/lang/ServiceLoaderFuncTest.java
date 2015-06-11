@@ -29,8 +29,8 @@ import java.util.ServiceLoader;
 
 import org.junit.Test;
 
+import com.helger.commons.hierarchy.MockChildrenProvider;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.parent.MockChildrenProvider;
 import com.helger.commons.state.IClearable;
 import com.helger.commons.state.IStoppable;
 import com.helger.commons.type.IHasType;

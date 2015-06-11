@@ -21,10 +21,10 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.hierarchy.DefaultHierarchyWalkerCallback;
-import com.helger.commons.hierarchy.IHierarchyWalkerCallback;
-import com.helger.commons.parent.ChildrenProviderHasChildren;
-import com.helger.commons.parent.IChildrenProvider;
+import com.helger.commons.hierarchy.ChildrenProviderHasChildren;
+import com.helger.commons.hierarchy.IChildrenProvider;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerCallback;
+import com.helger.commons.hierarchy.visit.IHierarchyWalkerCallback;
 import com.helger.commons.tree.IBasicTree;
 import com.helger.commons.tree.IBasicTreeItem;
 

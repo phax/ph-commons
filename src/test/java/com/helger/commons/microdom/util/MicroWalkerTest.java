@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.hierarchy.DefaultHierarchyWalkerCallback;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerCallback;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroNode;

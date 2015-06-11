@@ -28,11 +28,11 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.hierarchy.IChildrenProvider;
+import com.helger.commons.hierarchy.IHasParent;
+import com.helger.commons.hierarchy.IParentProvider;
+import com.helger.commons.hierarchy.ParentProviderHasParent;
 import com.helger.commons.id.IHasID;
-import com.helger.commons.parent.IChildrenProvider;
-import com.helger.commons.parent.IHasParent;
-import com.helger.commons.parent.IParentProvider;
-import com.helger.commons.parent.ParentProviderHasParent;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 import com.helger.commons.tree.withid.DefaultTreeWithID;
 

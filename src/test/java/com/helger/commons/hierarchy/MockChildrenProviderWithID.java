@@ -14,26 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.tree.util.walk;
+package com.helger.commons.hierarchy;
 
-import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerCallback;
-import com.helger.commons.mutable.MutableInt;
-import com.helger.commons.tree.withid.DefaultTreeItemWithID;
+import javax.annotation.Nullable;
 
-public final class MockTreeWalkerCallback extends DefaultHierarchyWalkerCallback <DefaultTreeItemWithID <String, Object>>
+import com.helger.commons.hierarchy.IChildrenProviderWithID;
+
+public final class MockChildrenProviderWithID extends MockChildrenProvider implements IChildrenProviderWithID <String, MockHasChildren>
 {
-  private final MutableInt m_aMI;
-
-  public MockTreeWalkerCallback (final MutableInt mi)
+  @Nullable
+  public MockHasChildren getChildWithID (@Nullable final MockHasChildren aCurrent, final String aID)
   {
-    m_aMI = mi;
-  }
-
-  @Override
-  public void onItemBeforeChildren (final DefaultTreeItemWithID <String, Object> aItem)
-  {
-    if (getLevel () < 0)
-      throw new IllegalStateException ();
-    m_aMI.inc ();
+    return aCurrent == null ? null : aCurrent.getChildWithID (aID);
   }
 }

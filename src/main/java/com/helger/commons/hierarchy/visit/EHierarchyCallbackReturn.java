@@ -14,26 +14,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.tree.util.walk;
+package com.helger.commons.hierarchy.visit;
 
-import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerCallback;
-import com.helger.commons.mutable.MutableInt;
-import com.helger.commons.tree.withid.DefaultTreeItemWithID;
-
-public final class MockTreeWalkerCallback extends DefaultHierarchyWalkerCallback <DefaultTreeItemWithID <String, Object>>
+/**
+ * Return value for hierarchy iteration.
+ *
+ * @author Philip Helger
+ */
+public enum EHierarchyCallbackReturn
 {
-  private final MutableInt m_aMI;
+  /**
+   * Continue with the next element. This may either be the first child element
+   * or the next sibling.
+   */
+  CONTINUE,
 
-  public MockTreeWalkerCallback (final MutableInt mi)
-  {
-    m_aMI = mi;
-  }
+  /**
+   * Skip the child elements of the current element and go to the next sibling.
+   */
+  USE_NEXT_SIBLING,
 
-  @Override
-  public void onItemBeforeChildren (final DefaultTreeItemWithID <String, Object> aItem)
-  {
-    if (getLevel () < 0)
-      throw new IllegalStateException ();
-    m_aMI.inc ();
-  }
+  /**
+   * Skip the child elements and all siblings of the current content element and
+   * go to the parent element's sibling.
+   */
+  USE_PARENTS_NEXT_SIBLING,
+
+  /**
+   * Stop the iteration completely.
+   */
+  STOP_ITERATION
 }

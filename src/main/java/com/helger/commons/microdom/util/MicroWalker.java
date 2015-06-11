@@ -21,10 +21,10 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.hierarchy.IHierarchyWalkerCallback;
+import com.helger.commons.hierarchy.ChildrenProviderHasChildren;
+import com.helger.commons.hierarchy.IChildrenProvider;
+import com.helger.commons.hierarchy.visit.IHierarchyWalkerCallback;
 import com.helger.commons.microdom.IMicroNode;
-import com.helger.commons.parent.ChildrenProviderHasChildren;
-import com.helger.commons.parent.IChildrenProvider;
 
 /**
  * Helper class that walks an {@link com.helger.commons.microdom.IMicroDocument}

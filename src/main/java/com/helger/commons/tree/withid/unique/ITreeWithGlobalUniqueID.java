@@ -22,8 +22,8 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.parent.IChildrenProviderWithID;
-import com.helger.commons.parent.IChildrenProviderWithUniqueID;
+import com.helger.commons.hierarchy.IChildrenProviderWithID;
+import com.helger.commons.hierarchy.IChildrenProviderWithUniqueID;
 import com.helger.commons.state.EChange;
 import com.helger.commons.tree.withid.ITreeItemWithID;
 import com.helger.commons.tree.withid.ITreeWithID;

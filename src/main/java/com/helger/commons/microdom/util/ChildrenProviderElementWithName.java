@@ -26,8 +26,8 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.parent.IChildrenProvider;
 import com.helger.commons.string.StringHelper;
 
 /**

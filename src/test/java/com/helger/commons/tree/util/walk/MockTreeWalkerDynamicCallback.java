@@ -16,8 +16,8 @@
  */
 package com.helger.commons.tree.util.walk;
 
-import com.helger.commons.hierarchy.DefaultHierarchyWalkerDynamicCallback;
-import com.helger.commons.hierarchy.EHierarchyCallbackReturn;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerDynamicCallback;
+import com.helger.commons.hierarchy.visit.EHierarchyCallbackReturn;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 

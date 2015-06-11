@@ -25,8 +25,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.hierarchy.DefaultHierarchyWalkerDynamicCallback;
-import com.helger.commons.hierarchy.EHierarchyCallbackReturn;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerDynamicCallback;
+import com.helger.commons.hierarchy.visit.EHierarchyCallbackReturn;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.tree.simple.DefaultTree;
 import com.helger.commons.tree.simple.DefaultTreeItem;

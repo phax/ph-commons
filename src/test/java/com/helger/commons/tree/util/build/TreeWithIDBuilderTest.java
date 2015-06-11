@@ -26,12 +26,12 @@ import java.util.Collection;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.hierarchy.IParentProvider;
+import com.helger.commons.hierarchy.MockChildrenProvider;
+import com.helger.commons.hierarchy.MockHasChildren;
+import com.helger.commons.hierarchy.MockHasParent;
+import com.helger.commons.hierarchy.ParentProviderHasParent;
 import com.helger.commons.id.MockHasIDString;
-import com.helger.commons.parent.IParentProvider;
-import com.helger.commons.parent.MockChildrenProvider;
-import com.helger.commons.parent.MockHasChildren;
-import com.helger.commons.parent.MockHasParent;
-import com.helger.commons.parent.ParentProviderHasParent;
 import com.helger.commons.tree.util.build.TreeWithIDBuilder;
 import com.helger.commons.tree.withid.DefaultTreeWithID;
 

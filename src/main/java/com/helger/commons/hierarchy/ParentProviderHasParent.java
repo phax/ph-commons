@@ -14,26 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.tree.util.walk;
+package com.helger.commons.hierarchy;
 
-import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerCallback;
-import com.helger.commons.mutable.MutableInt;
-import com.helger.commons.tree.withid.DefaultTreeItemWithID;
+import javax.annotation.Nullable;
 
-public final class MockTreeWalkerCallback extends DefaultHierarchyWalkerCallback <DefaultTreeItemWithID <String, Object>>
+/**
+ * A standard implementation of the {@link IParentProvider} interface that works
+ * with all types that implement {@link IHasParent}.
+ * 
+ * @author Philip Helger
+ * @param <PARENTTYPE>
+ *        The data type of the parent object.
+ */
+public class ParentProviderHasParent <PARENTTYPE extends IHasParent <PARENTTYPE>> implements IParentProvider <PARENTTYPE>
 {
-  private final MutableInt m_aMI;
-
-  public MockTreeWalkerCallback (final MutableInt mi)
+  @Nullable
+  public PARENTTYPE getParent (@Nullable final PARENTTYPE aCurrent)
   {
-    m_aMI = mi;
-  }
-
-  @Override
-  public void onItemBeforeChildren (final DefaultTreeItemWithID <String, Object> aItem)
-  {
-    if (getLevel () < 0)
-      throw new IllegalStateException ();
-    m_aMI.inc ();
+    return aCurrent == null ? null : aCurrent.getParent ();
   }
 }

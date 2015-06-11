@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 import org.junit.Test;
 
-import com.helger.commons.hierarchy.DefaultHierarchyWalkerCallback;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerCallback;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.filter.FilenameFilterEndsWith;
 import com.helger.commons.tree.util.walk.TreeWalker;

@@ -14,26 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.tree.util.walk;
+package com.helger.commons.hierarchy;
 
-import com.helger.commons.hierarchy.visit.DefaultHierarchyWalkerCallback;
-import com.helger.commons.mutable.MutableInt;
-import com.helger.commons.tree.withid.DefaultTreeItemWithID;
+import javax.annotation.Nullable;
 
-public final class MockTreeWalkerCallback extends DefaultHierarchyWalkerCallback <DefaultTreeItemWithID <String, Object>>
+/**
+ * This helper interface is required to build a hierarchy of objects.
+ *
+ * @author Philip
+ * @param <PARENTTYPE>
+ *        The type of the parent objects
+ */
+public interface IHasParent <PARENTTYPE>
 {
-  private final MutableInt m_aMI;
-
-  public MockTreeWalkerCallback (final MutableInt mi)
-  {
-    m_aMI = mi;
-  }
-
-  @Override
-  public void onItemBeforeChildren (final DefaultTreeItemWithID <String, Object> aItem)
-  {
-    if (getLevel () < 0)
-      throw new IllegalStateException ();
-    m_aMI.inc ();
-  }
+  /**
+   * Get the parent object of this object.
+   *
+   * @return The parent object or <code>null</code> if this object has no
+   *         parent.
+   */
+  @Nullable
+  PARENTTYPE getParent ();
 }

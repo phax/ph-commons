@@ -27,9 +27,9 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.hierarchy.IHasChildrenSorted;
+import com.helger.commons.hierarchy.IHasParent;
 import com.helger.commons.lang.ICloneable;
-import com.helger.commons.parent.IHasChildrenSorted;
-import com.helger.commons.parent.IHasParent;
 import com.helger.commons.state.EChange;
 
 /**
