@@ -16,6 +16,8 @@
  */
 package com.helger.commons.exception;
 
+import java.io.IOException;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -28,7 +30,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Philip Helger
  */
-public class LoggedException extends Exception implements ILoggedException
+public class LoggedIOException extends IOException implements ILoggedException
 {
   /**
    * The default setting, whether runtime exceptions are logged, if no parameter
@@ -36,52 +38,52 @@ public class LoggedException extends Exception implements ILoggedException
    */
   public static final boolean DEFAULT_DO_LOG = true;
 
-  public static final String MSG_TEXT = "Exception created.";
+  public static final String MSG_TEXT = "IOException created.";
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (Logger.ROOT_LOGGER_NAME);
 
-  public LoggedException ()
+  public LoggedIOException ()
   {
     this (DEFAULT_DO_LOG);
   }
 
-  public LoggedException (final boolean bLog)
+  public LoggedIOException (final boolean bLog)
   {
     super ();
     if (bLog)
       s_aLogger.error (MSG_TEXT, this);
   }
 
-  public LoggedException (@Nullable final String sMsg)
+  public LoggedIOException (@Nullable final String sMsg)
   {
     this (DEFAULT_DO_LOG, sMsg);
   }
 
-  public LoggedException (final boolean bLog, @Nullable final String sMsg)
+  public LoggedIOException (final boolean bLog, @Nullable final String sMsg)
   {
     super (sMsg);
     if (bLog)
       s_aLogger.error (MSG_TEXT, this);
   }
 
-  public LoggedException (@Nullable final Throwable t)
+  public LoggedIOException (@Nullable final Throwable t)
   {
     this (DEFAULT_DO_LOG, t);
   }
 
-  public LoggedException (final boolean bLog, @Nullable final Throwable t)
+  public LoggedIOException (final boolean bLog, @Nullable final Throwable t)
   {
     super (t);
     if (bLog)
       s_aLogger.error (MSG_TEXT, this);
   }
 
-  public LoggedException (@Nullable final String sMsg, @Nullable final Throwable t)
+  public LoggedIOException (@Nullable final String sMsg, @Nullable final Throwable t)
   {
     this (DEFAULT_DO_LOG, sMsg, t);
   }
 
-  public LoggedException (final boolean bLog, @Nullable final String sMsg, @Nullable final Throwable t)
+  public LoggedIOException (final boolean bLog, @Nullable final String sMsg, @Nullable final Throwable t)
   {
     super (sMsg, t);
     if (bLog)
@@ -89,22 +91,22 @@ public class LoggedException extends Exception implements ILoggedException
   }
 
   @Nonnull
-  public static Exception newException (@Nullable final Throwable t)
+  public static IOException newException (@Nullable final Throwable t)
   {
-    if (t instanceof LoggedException)
-      return (LoggedException) t;
+    if (t instanceof LoggedIOException)
+      return (LoggedIOException) t;
     if (t instanceof ILoggedException)
-      return new Exception (t);
-    return new LoggedException (t);
+      return new IOException (t);
+    return new LoggedIOException (t);
   }
 
   @Nonnull
-  public static Exception newException (@Nullable final String sMsg, @Nullable final Throwable t)
+  public static IOException newException (@Nullable final String sMsg, @Nullable final Throwable t)
   {
-    if (t instanceof LoggedException)
-      return (LoggedException) t;
+    if (t instanceof LoggedIOException)
+      return (LoggedIOException) t;
     if (t instanceof ILoggedException)
-      return new Exception (sMsg, t);
-    return new LoggedException (sMsg, t);
+      return new IOException (sMsg, t);
+    return new LoggedIOException (sMsg, t);
   }
 }

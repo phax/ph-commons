@@ -93,7 +93,7 @@ public class LoggedRuntimeException extends RuntimeException implements ILoggedE
   {
     if (t instanceof LoggedRuntimeException)
       return (LoggedRuntimeException) t;
-    if (t instanceof LoggedException)
+    if (t instanceof ILoggedException)
       return new RuntimeException (t);
     return new LoggedRuntimeException (t);
   }
@@ -103,7 +103,7 @@ public class LoggedRuntimeException extends RuntimeException implements ILoggedE
   {
     if (t instanceof LoggedRuntimeException)
       return (LoggedRuntimeException) t;
-    if (t instanceof LoggedException)
+    if (t instanceof ILoggedException)
       return new RuntimeException (sMsg, t);
     return new LoggedRuntimeException (sMsg, t);
   }
