@@ -20,7 +20,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -61,11 +60,9 @@ public class FormatableObject implements IFormatableObject
    * @param aFormatterProvider
    *        The formatter provider to use. May not be <code>null</code>.
    */
-  public FormatableObject (@Nullable final Object aValue, @Nonnull final IFormatterProvider aFormatterProvider)
+  public FormatableObject (@Nullable final Object aValue, @Nonnull final IHasFormatter aFormatterProvider)
   {
-    ValueEnforcer.notNull (aFormatterProvider, "FormatterProvider");
-    m_aValue = aValue;
-    m_aFormatter = aFormatterProvider.getFormatter ();
+    this (aValue, aFormatterProvider.getFormatter ());
   }
 
   @Nullable

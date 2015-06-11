@@ -45,7 +45,7 @@ public final class FormatableObjectTest
     assertEquals ("[[Any]]", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject ("Any", new IFormatterProvider ()
+    aFO = new FormatableObject ("Any", new IHasFormatter ()
     {
       public IFormatter getFormatter ()
       {

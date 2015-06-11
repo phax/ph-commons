@@ -18,33 +18,20 @@ package com.helger.commons.format;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.string.ToStringGenerator;
-
 /**
- * Implementation of the {@link IFormatterProvider} interface always returning a
- * constant value.
+ * If a class implements this interface, it claims that its value can be
+ * formatted using an {@link IFormatter} object.
  * 
  * @author Philip Helger
  */
-public final class FormatterProviderConstant implements IFormatterProvider
+public interface IHasFormatter
 {
-  private final IFormatter m_aFormatter;
-
-  public FormatterProviderConstant (@Nonnull final IFormatter aFormatter)
-  {
-    m_aFormatter = ValueEnforcer.notNull (aFormatter, "Formatter");
-  }
-
+  /**
+   * Get the required formatting object to handle values of this context. This
+   * may never be <code>null</code>.
+   * 
+   * @return The formatting object. Never <code>null</code>.
+   */
   @Nonnull
-  public IFormatter getFormatter ()
-  {
-    return m_aFormatter;
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).append ("formatter", m_aFormatter).toString ();
-  }
+  IFormatter getFormatter ();
 }
