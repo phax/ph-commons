@@ -18,16 +18,35 @@ package com.helger.commons.equals;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
+import java.util.TreeSet;
+import java.util.Vector;
+
+import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.string.StringParser;
+import com.helger.commons.url.SMap;
 
 /**
  * Test class for class {@link EqualsHelper}.
@@ -253,14 +272,354 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
 
     assertTrue (EqualsHelper.equals (CollectionHelper.newList ("a", "b", "c"), CollectionHelper.newList ("a", "b", "c")));
     assertTrue (EqualsHelper.equals (CollectionHelper.newUnmodifiableList ("a", "b", "c"),
-                                    CollectionHelper.newUnmodifiableList ("a", "b", "c")));
+                                     CollectionHelper.newUnmodifiableList ("a", "b", "c")));
     assertTrue (EqualsHelper.equals (CollectionHelper.newStack ("a", "b", "c"),
-                                    CollectionHelper.newStack ("a", "b", "c")));
+                                     CollectionHelper.newStack ("a", "b", "c")));
     assertTrue (EqualsHelper.equals (CollectionHelper.newList ("a", "b", "c").iterator (),
-                                    CollectionHelper.newList ("a", "b", "c").iterator ()));
+                                     CollectionHelper.newList ("a", "b", "c").iterator ()));
     assertTrue (EqualsHelper.equals (CollectionHelper.getEnumeration ("a", "b", "c"),
-                                    CollectionHelper.getEnumeration ("a", "b", "c")));
+                                     CollectionHelper.getEnumeration ("a", "b", "c")));
     assertFalse (EqualsHelper.equals (CollectionHelper.newUnmodifiableList ("a", "b", "c"),
-                                     CollectionHelper.newList ("a", "b", "c")));
+                                      CollectionHelper.newList ("a", "b", "c")));
+  }
+
+  @Test
+  public void testBasic ()
+  {
+    // Same objects - are tested first
+    assertTrue (EqualsHelper.equalsCollection (null, null));
+    assertTrue (EqualsHelper.equalsCollection ("abc", "abc"));
+
+    // One argument is null
+    assertFalse (EqualsHelper.equalsCollection ("abc", null));
+    assertFalse (EqualsHelper.equalsCollection (null, "abc"));
+
+    // Non-containers
+    try
+    {
+      EqualsHelper.equalsCollection ("abc", new String ("abc"));
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+    try
+    {
+      EqualsHelper.equalsCollection (CollectionHelper.newList ("abc"), "abc");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+    try
+    {
+      EqualsHelper.equalsCollection ("abc", CollectionHelper.newList ("abc"));
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+  }
+
+  @Test
+  public void testList ()
+  {
+    final List <String> aCont = CollectionHelper.newList ("a", "b", "c");
+    assertTrue (EqualsHelper.equalsCollection (aCont, aCont));
+    assertTrue (EqualsHelper.equalsCollection (aCont, CollectionHelper.makeUnmodifiable (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (aCont, Collections.synchronizedList (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (aCont, new ArrayList <String> (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (aCont, new LinkedList <String> (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (aCont, new Vector <String> (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (aCont, new NonBlockingStack <String> (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (aCont, CollectionHelper.newQueue (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.newQueue (aCont), aCont));
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.newQueue (aCont), CollectionHelper.newQueue (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (new ArrayList <String> (), new LinkedList <String> ()));
+    assertTrue (EqualsHelper.equalsCollection (new NonBlockingStack <String> (), new Vector <String> ()));
+    assertTrue (EqualsHelper.equalsCollection (new NonBlockingStack <String> (), new Stack <String> ()));
+
+    assertFalse (EqualsHelper.equalsCollection (aCont, new LinkedList <String> ()));
+    assertFalse (EqualsHelper.equalsCollection (new LinkedList <String> (), aCont));
+    assertFalse (EqualsHelper.equalsCollection (aCont, new ArrayList <String> ()));
+    assertFalse (EqualsHelper.equalsCollection (aCont, CollectionHelper.newList ("a", "b")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, CollectionHelper.newList ("A", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, CollectionHelper.newList ("a", "B", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, CollectionHelper.newList ("a", "b", "C")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, CollectionHelper.newList ("a", "b", "c", "d")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, CollectionHelper.newSet ("a", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, ArrayHelper.newArray ("a", "b", "c")));
+  }
+
+  @Test
+  public void testSet ()
+  {
+    final Set <String> aCont = CollectionHelper.newSet ("a", "b", "c");
+    assertTrue (EqualsHelper.equalsCollection (aCont, aCont));
+    assertTrue (EqualsHelper.equalsCollection (aCont, CollectionHelper.makeUnmodifiable (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (aCont, Collections.synchronizedSet (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (aCont, new HashSet <String> (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (aCont, new LinkedHashSet <String> (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (aCont, new TreeSet <String> (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (new HashSet <String> (), new LinkedHashSet <String> ()));
+    assertTrue (EqualsHelper.equalsCollection (new TreeSet <String> (), new HashSet <String> ()));
+
+    assertFalse (EqualsHelper.equalsCollection (aCont, new HashSet <String> ()));
+    assertFalse (EqualsHelper.equalsCollection (new HashSet <String> (), aCont));
+    assertFalse (EqualsHelper.equalsCollection (aCont, new TreeSet <String> ()));
+    assertFalse (EqualsHelper.equalsCollection (aCont, CollectionHelper.newSet ("a", "b")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, CollectionHelper.newSet ("A", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, CollectionHelper.newSet ("a", "B", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, CollectionHelper.newSet ("a", "b", "C")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, CollectionHelper.newSet ("a", "b", "c", "d")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, CollectionHelper.newList ("a", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, ArrayHelper.newArray ("a", "b", "c")));
+  }
+
+  @Test
+  public void testMap ()
+  {
+    final SMap aMap = new SMap ("a", "b").add ("c", "d");
+    assertTrue (EqualsHelper.equalsCollection (aMap, aMap));
+    assertTrue (EqualsHelper.equalsCollection (aMap, CollectionHelper.makeUnmodifiable (aMap)));
+    assertTrue (EqualsHelper.equalsCollection (aMap, Collections.synchronizedMap (aMap)));
+    assertTrue (EqualsHelper.equalsCollection (aMap, new SMap ("a", "b").add ("c", "d")));
+    assertTrue (EqualsHelper.equalsCollection (new HashMap <Integer, Integer> (), new HashMap <Double, Float> ()));
+
+    assertFalse (EqualsHelper.equalsCollection (aMap, new HashMap <Integer, Integer> ()));
+    assertFalse (EqualsHelper.equalsCollection (new HashMap <Integer, Integer> (), aMap));
+    assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ("a", "b")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ("A", "b").add ("c", "d")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ("a", "B").add ("c", "d")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ("a", "b").add ("C", "d")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ("a", "b").add ("c", "D")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ("a", "b").add ("c", "d").add ("e", "f")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, CollectionHelper.newList ("a", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, CollectionHelper.newSet ("a", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, ArrayHelper.newArray ("a", "b", "c")));
+  }
+
+  @Test
+  public void testArray ()
+  {
+    final String [] aArray = ArrayHelper.newArray ("a", "b", "c");
+    assertTrue (EqualsHelper.equalsCollection (aArray, aArray));
+    assertTrue (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray ("a", "b", "c")));
+    assertTrue (EqualsHelper.equalsCollection (new String [0], new String [] {}));
+
+    assertFalse (EqualsHelper.equalsCollection (aArray, new String [0]));
+    assertFalse (EqualsHelper.equalsCollection (new String [0], aArray));
+    assertFalse (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray ("a", "b")));
+    assertFalse (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray ("A", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray ("a", "B", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray ("a", "b", "C")));
+    assertFalse (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray ("a", "b", "c", "d")));
+    assertFalse (EqualsHelper.equalsCollection (aArray, CollectionHelper.newList ("a", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aArray, CollectionHelper.newSet ("a", "b", "c")));
+  }
+
+  @SuppressWarnings ("unchecked")
+  @Test
+  public void testArrayComplex ()
+  {
+    final List <String> [] aArray = ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
+                                                          CollectionHelper.newList ("c", "d"));
+    assertTrue (EqualsHelper.equalsCollection (aArray, aArray));
+    assertTrue (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
+                                                                             CollectionHelper.newList ("c", "d"))));
+    assertTrue (EqualsHelper.equalsCollection (new List <?> [0], new List <?> [] {}));
+
+    assertFalse (EqualsHelper.equalsCollection (aArray, new List <?> [0]));
+    assertFalse (EqualsHelper.equalsCollection (new List <?> [0], aArray));
+    assertFalse (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray (CollectionHelper.newList ("a", "b"))));
+    assertFalse (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray (CollectionHelper.newList ("A", "b"),
+                                                                              CollectionHelper.newList ("c", "d"))));
+    assertFalse (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
+                                                                              CollectionHelper.newList ("c", "D"))));
+    assertFalse (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
+                                                                              CollectionHelper.newList ("c", "d"),
+                                                                              CollectionHelper.newList ("e", "f"))));
+    assertFalse (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
+                                                                              (List <String>) null)));
+    assertFalse (EqualsHelper.equalsCollection (aArray, CollectionHelper.newList ("a", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aArray, CollectionHelper.newSet ("a", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray ("a", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray ("a", null, "c")));
+  }
+
+  @Test
+  public void testComplex ()
+  {
+    final Map <List <String>, Set <String>> aMap = new HashMap <List <String>, Set <String>> ();
+    aMap.put (CollectionHelper.newList ("a", "b", "c"), CollectionHelper.newSet ("a", "b", "c"));
+    aMap.put (CollectionHelper.newList ("a", "b", "d"), CollectionHelper.newSet ("a", "b", "d"));
+    assertTrue (EqualsHelper.equalsCollection (aMap, CollectionHelper.newMap (aMap)));
+
+    assertFalse (EqualsHelper.equalsCollection (aMap, ArrayHelper.newArray ("a", "b", "c", "d")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, CollectionHelper.newList ("a", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, CollectionHelper.newSet ("a", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ().add ("a", "b")));
+    final Map <List <String>, String> aMap2 = new HashMap <List <String>, String> ();
+    aMap2.put (CollectionHelper.newList ("a", "b", "c"), "d");
+    aMap2.put (CollectionHelper.newList ("a", "b", "d"), "e");
+    aMap2.put (CollectionHelper.newList ("a", "b", "e"), null);
+    aMap2.put (null, "g");
+    assertFalse (EqualsHelper.equalsCollection (aMap, aMap2));
+    assertFalse (EqualsHelper.equalsCollection (aMap2, aMap));
+    final Map <String, List <String>> aMap3 = new HashMap <String, List <String>> ();
+    aMap3.put ("d", CollectionHelper.newList ("a", "b", "c"));
+    aMap3.put ("e", CollectionHelper.newList ("a", "b", "d"));
+    aMap3.put (null, CollectionHelper.newList ("a", "b", "e"));
+    aMap3.put ("g", null);
+    assertFalse (EqualsHelper.equalsCollection (aMap, aMap3));
+    assertFalse (EqualsHelper.equalsCollection (aMap3, aMap));
+  }
+
+  @Test
+  public void testIterator ()
+  {
+    final List <String> aCont = CollectionHelper.newList ("a", "b", "c");
+    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), aCont.iterator ()));
+    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), CollectionHelper.makeUnmodifiable (aCont).iterator ()));
+    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), Collections.synchronizedList (aCont).iterator ()));
+    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), new ArrayList <String> (aCont).iterator ()));
+    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), new LinkedList <String> (aCont).iterator ()));
+    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), new Vector <String> (aCont).iterator ()));
+    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), new NonBlockingStack <String> (aCont).iterator ()));
+    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), CollectionHelper.newQueue (aCont).iterator ()));
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.newQueue (aCont), aCont));
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.newQueue (aCont), CollectionHelper.newQueue (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (new ArrayList <String> ().iterator (),
+                                               new LinkedList <String> ().iterator ()));
+    assertTrue (EqualsHelper.equalsCollection (new NonBlockingStack <String> ().iterator (),
+                                               new Vector <String> ().iterator ()));
+    assertTrue (EqualsHelper.equalsCollection (new NonBlockingStack <String> ().iterator (),
+                                               new Stack <String> ().iterator ()));
+
+    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), new LinkedList <String> ().iterator ()));
+    assertFalse (EqualsHelper.equalsCollection (new LinkedList <String> ().iterator (), aCont.iterator ()));
+    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), new ArrayList <String> ().iterator ()));
+    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), CollectionHelper.newList ("a", "b").iterator ()));
+    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), CollectionHelper.newList ("A", "b", "c").iterator ()));
+    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), CollectionHelper.newList ("a", "B", "c").iterator ()));
+    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), CollectionHelper.newList ("a", "b", "C").iterator ()));
+    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), CollectionHelper.newList ("a", "b", "c", "d")
+                                                                                   .iterator ()));
+    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), CollectionHelper.newSet ("a", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), ArrayHelper.newArray ("a", "b", "c")));
+  }
+
+  private static final class MockIterable implements Iterable <String>
+  {
+    private final List <String> m_aList;
+
+    public MockIterable (final String... aValues)
+    {
+      m_aList = CollectionHelper.newList (aValues);
+    }
+
+    @Nonnull
+    public Iterator <String> iterator ()
+    {
+      return m_aList.iterator ();
+    }
+  }
+
+  @Test
+  public void testIterable ()
+  {
+    final Iterable <String> aCont = new MockIterable ("a", "b", "c");
+    assertTrue (EqualsHelper.equalsCollection (aCont, aCont));
+    assertTrue (EqualsHelper.equalsCollection (aCont, new MockIterable ("a", "b", "c")));
+    assertTrue (EqualsHelper.equalsCollection (new MockIterable (), new MockIterable ()));
+
+    assertFalse (EqualsHelper.equalsCollection (aCont, new MockIterable ()));
+    assertFalse (EqualsHelper.equalsCollection (new MockIterable (), aCont));
+    assertFalse (EqualsHelper.equalsCollection (aCont, new MockIterable ("a", "b")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, new MockIterable ("A", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, new MockIterable ("a", "B", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, new MockIterable ("a", "b", "C")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, new MockIterable ("a", "b", "c", "d")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, CollectionHelper.newSet ("a", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (aCont, ArrayHelper.newArray ("a", "b", "c")));
+  }
+
+  @Test
+  public void testEnumeration ()
+  {
+    final List <String> aCont = CollectionHelper.newList ("a", "b", "c");
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                               CollectionHelper.getEnumeration (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                               CollectionHelper.getEnumeration (CollectionHelper.makeUnmodifiable (aCont))));
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                               CollectionHelper.getEnumeration (Collections.synchronizedList (aCont))));
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                               CollectionHelper.getEnumeration (new ArrayList <String> (aCont))));
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                               CollectionHelper.getEnumeration (new LinkedList <String> (aCont))));
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                               CollectionHelper.getEnumeration (new Vector <String> (aCont))));
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                               CollectionHelper.getEnumeration (new NonBlockingStack <String> (aCont))));
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                               CollectionHelper.getEnumeration (CollectionHelper.newQueue (aCont))));
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.newQueue (aCont), aCont));
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.newQueue (aCont), CollectionHelper.newQueue (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (new ArrayList <String> ()),
+                                               CollectionHelper.getEnumeration (new LinkedList <String> ())));
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (new NonBlockingStack <String> ()),
+                                               CollectionHelper.getEnumeration (new Vector <String> ())));
+    assertTrue (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (new NonBlockingStack <String> ()),
+                                               CollectionHelper.getEnumeration (new Stack <String> ())));
+
+    assertFalse (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                                CollectionHelper.getEnumeration (new LinkedList <String> ())));
+    assertFalse (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (new LinkedList <String> ()),
+                                                CollectionHelper.getEnumeration (aCont)));
+    assertFalse (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                                CollectionHelper.getEnumeration (new ArrayList <String> ())));
+    assertFalse (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                                CollectionHelper.getEnumeration (CollectionHelper.newList ("a", "b"))));
+    assertFalse (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                                CollectionHelper.getEnumeration (CollectionHelper.newList ("A",
+                                                                                                           "b",
+                                                                                                           "c"))));
+    assertFalse (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                                CollectionHelper.getEnumeration (CollectionHelper.newList ("a",
+                                                                                                           "B",
+                                                                                                           "c"))));
+    assertFalse (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                                CollectionHelper.getEnumeration (CollectionHelper.newList ("a",
+                                                                                                           "b",
+                                                                                                           "C"))));
+    assertFalse (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                                CollectionHelper.getEnumeration (CollectionHelper.newList ("a",
+                                                                                                           "b",
+                                                                                                           "c",
+                                                                                                           "d"))));
+    assertFalse (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                                CollectionHelper.getEnumeration (new SMap ("a", "b").add ("c", "d"))));
+    assertFalse (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                                CollectionHelper.newSet ("a", "b", "c")));
+    assertFalse (EqualsHelper.equalsCollection (CollectionHelper.getEnumeration (aCont),
+                                                ArrayHelper.newArray ("a", "b", "c")));
+  }
+
+  @Test
+  public void testEqualsAsCollection ()
+  {
+    assertTrue (EqualsHelper.equalsAsList (null, null));
+    assertTrue (EqualsHelper.equalsAsList (CollectionHelper.newList ("a", "b"), ArrayHelper.newArray ("a", "b")));
+    assertTrue (EqualsHelper.equalsAsList (CollectionHelper.newList ("a", "b"), CollectionHelper.newList ("a", "b")
+                                                                                                .iterator ()));
+    assertTrue (EqualsHelper.equalsAsList (CollectionHelper.newList ("a", "b"),
+                                           CollectionHelper.getEnumeration ("a", "b")));
+    assertTrue (EqualsHelper.equalsAsList (CollectionHelper.newList ("a", "b"),
+                                           CollectionHelper.newOrderedSet ("a", "b")));
+    assertTrue (EqualsHelper.equalsAsList (CollectionHelper.newList ("a", "b"), new MockIterable ("a", "b")));
+
+    assertFalse (EqualsHelper.equalsAsList (null, "abc"));
+    assertFalse (EqualsHelper.equalsAsList ("abc", null));
+    assertFalse (EqualsHelper.equalsAsList (CollectionHelper.newList ("a", "b"), ArrayHelper.newArray ("a", "B")));
+    assertFalse (EqualsHelper.equalsAsList (CollectionHelper.newList (null, "b"),
+                                            ArrayHelper.newArray ("a", (String) null)));
   }
 }

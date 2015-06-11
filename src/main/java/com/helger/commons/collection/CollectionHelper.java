@@ -66,6 +66,7 @@ import com.helger.commons.collection.multimap.IMultiMapSetBased;
 import com.helger.commons.collection.multimap.MultiHashMapHashSetBased;
 import com.helger.commons.compare.ComparatorComparable;
 import com.helger.commons.compare.ESortOrder;
+import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.state.EChange;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -84,6 +85,98 @@ public final class CollectionHelper
 
   private CollectionHelper ()
   {}
+
+  @Nullable
+  public static ECollectionBaseType getCollectionBaseTypeOfClass (@Nullable final Class <?> aClass)
+  {
+    if (aClass != null)
+    {
+      // Query Set before Collection, because Set is derived from Collection!
+      if (Set.class.isAssignableFrom (aClass))
+        return ECollectionBaseType.SET;
+      if (Collection.class.isAssignableFrom (aClass))
+        return ECollectionBaseType.COLLECTION;
+      if (Map.class.isAssignableFrom (aClass))
+        return ECollectionBaseType.MAP;
+      if (ClassHelper.isArrayClass (aClass))
+        return ECollectionBaseType.ARRAY;
+      if (Iterator.class.isAssignableFrom (aClass))
+        return ECollectionBaseType.ITERATOR;
+      if (Iterable.class.isAssignableFrom (aClass))
+        return ECollectionBaseType.ITERABLE;
+      if (Enumeration.class.isAssignableFrom (aClass))
+        return ECollectionBaseType.ENUMERATION;
+    }
+    return null;
+  }
+
+  @Nullable
+  public static ECollectionBaseType getCollectionBaseTypeOfObject (@Nullable final Object aObj)
+  {
+    return aObj == null ? null : getCollectionBaseTypeOfClass (aObj.getClass ());
+  }
+
+  public static boolean isCollectionClass (@Nullable final Class <?> aClass)
+  {
+    return getCollectionBaseTypeOfClass (aClass) != null;
+  }
+
+  public static boolean isCollectionObject (@Nullable final Object aObj)
+  {
+    return getCollectionBaseTypeOfObject (aObj) != null;
+  }
+
+  /**
+   * Get the passed object as a {@link List} object. This is helpful in case you
+   * want to compare the String array ["a", "b"] with the List&lt;String&gt;
+   * ("a", "b") If the passed object is not a recognized. container type, than a
+   * new list with one element is created!
+   *
+   * @param aObj
+   *        The object to be converted. May not be <code>null</code>.
+   * @return The object as a collection. Never <code>null</code>.
+   */
+  @Nonnull
+  public static List <?> getAsList (@Nonnull final Object aObj)
+  {
+    ValueEnforcer.notNull (aObj, "Object");
+
+    final ECollectionBaseType eType = getCollectionBaseTypeOfObject (aObj);
+    if (eType == null)
+    {
+      // It's not a supported container -> create a new list with one element
+      return newList (aObj);
+    }
+
+    switch (eType)
+    {
+      case COLLECTION:
+        // It's already a collection
+        if (aObj instanceof List <?>)
+          return (List <?>) aObj;
+        return newList ((Collection <?>) aObj);
+      case SET:
+        // Convert to list
+        return newList ((Set <?>) aObj);
+      case MAP:
+        // Use the entry set of the map as list
+        return newList (((Map <?, ?>) aObj).entrySet ());
+      case ARRAY:
+        // Convert the array to a list
+        return newList ((Object []) aObj);
+      case ITERATOR:
+        // Convert the iterator to a list
+        return newList ((Iterator <?>) aObj);
+      case ITERABLE:
+        // Convert the iterable to a list
+        return newList ((Iterable <?>) aObj);
+      case ENUMERATION:
+        // Convert the enumeration to a list
+        return newList ((Enumeration <?>) aObj);
+      default:
+        throw new IllegalStateException ("Unhandled collection type " + eType + "!");
+    }
+  }
 
   @Nonnull
   public static <ELEMENTTYPE> List <? extends ELEMENTTYPE> getNotNull (@Nullable final List <? extends ELEMENTTYPE> aList)
