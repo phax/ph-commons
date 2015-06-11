@@ -34,12 +34,12 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class SizeInt implements IHasWidthAndHeightInt, Serializable
+public class SizeInt implements IHasDimensionInt, Serializable
 {
   private final int m_nWidth;
   private final int m_nHeight;
 
-  public SizeInt (@Nonnull final IHasWidthAndHeightInt aObj)
+  public SizeInt (@Nonnull final IHasDimensionInt aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
@@ -120,7 +120,7 @@ public final class SizeInt implements IHasWidthAndHeightInt, Serializable
 
   @Nonnull
   @CheckReturnValue
-  public SizeInt getAdded (@Nonnull final IHasWidthAndHeightInt aToAdd)
+  public SizeInt getAdded (@Nonnull final IHasDimensionInt aToAdd)
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
@@ -129,7 +129,7 @@ public final class SizeInt implements IHasWidthAndHeightInt, Serializable
 
   @Nonnull
   @CheckReturnValue
-  public SizeInt getSubtracted (@Nonnull final IHasWidthAndHeightInt aToSubtract)
+  public SizeInt getSubtracted (@Nonnull final IHasDimensionInt aToSubtract)
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 

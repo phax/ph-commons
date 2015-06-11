@@ -18,10 +18,10 @@ package com.helger.commons.dimension;
 
 /**
  * Interface for objects having a width and a height.
- * 
+ *
  * @author Philip Helger
  */
-public interface IHasWidthAndHeightInt extends IHasWidthInt, IHasHeightInt
+public interface IHasDimensionDouble extends IHasWidthDouble, IHasHeightDouble
 {
   /* empty */
 }

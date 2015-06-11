@@ -21,7 +21,7 @@ package com.helger.commons.dimension;
  *
  * @author Philip Helger
  */
-public interface IHasWidthAndHeightFloat extends IHasWidthFloat, IHasHeightFloat
+public interface IHasDimensionFloat extends IHasWidthFloat, IHasHeightFloat
 {
   /* empty */
 }

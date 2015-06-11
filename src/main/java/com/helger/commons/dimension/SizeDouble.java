@@ -34,17 +34,17 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class SizeDouble implements IHasWidthAndHeightDouble, Serializable
+public class SizeDouble implements IHasDimensionDouble, Serializable
 {
   private final double m_dWidth;
   private final double m_dHeight;
 
-  public SizeDouble (@Nonnull final IHasWidthAndHeightInt aObj)
+  public SizeDouble (@Nonnull final IHasDimensionInt aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
-  public SizeDouble (@Nonnull final IHasWidthAndHeightDouble aObj)
+  public SizeDouble (@Nonnull final IHasDimensionDouble aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
@@ -125,7 +125,7 @@ public final class SizeDouble implements IHasWidthAndHeightDouble, Serializable
 
   @Nonnull
   @CheckReturnValue
-  public SizeDouble getAdded (@Nonnull final IHasWidthAndHeightInt aToAdd)
+  public SizeDouble getAdded (@Nonnull final IHasDimensionInt aToAdd)
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
@@ -134,7 +134,7 @@ public final class SizeDouble implements IHasWidthAndHeightDouble, Serializable
 
   @Nonnull
   @CheckReturnValue
-  public SizeDouble getAdded (@Nonnull final IHasWidthAndHeightDouble aToAdd)
+  public SizeDouble getAdded (@Nonnull final IHasDimensionFloat aToAdd)
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
@@ -143,7 +143,16 @@ public final class SizeDouble implements IHasWidthAndHeightDouble, Serializable
 
   @Nonnull
   @CheckReturnValue
-  public SizeDouble getSubtracted (@Nonnull final IHasWidthAndHeightInt aToSubtract)
+  public SizeDouble getAdded (@Nonnull final IHasDimensionDouble aToAdd)
+  {
+    ValueEnforcer.notNull (aToAdd, "ToAdd");
+
+    return new SizeDouble (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
+  }
+
+  @Nonnull
+  @CheckReturnValue
+  public SizeDouble getSubtracted (@Nonnull final IHasDimensionInt aToSubtract)
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 
@@ -152,7 +161,16 @@ public final class SizeDouble implements IHasWidthAndHeightDouble, Serializable
 
   @Nonnull
   @CheckReturnValue
-  public SizeDouble getSubtracted (@Nonnull final IHasWidthAndHeightDouble aToSubtract)
+  public SizeDouble getSubtracted (@Nonnull final IHasDimensionFloat aToSubtract)
+  {
+    ValueEnforcer.notNull (aToSubtract, "ToSubtract");
+
+    return new SizeDouble (m_dWidth - aToSubtract.getWidth (), m_dHeight - aToSubtract.getHeight ());
+  }
+
+  @Nonnull
+  @CheckReturnValue
+  public SizeDouble getSubtracted (@Nonnull final IHasDimensionDouble aToSubtract)
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 

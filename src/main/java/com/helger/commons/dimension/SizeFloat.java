@@ -34,17 +34,17 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class SizeFloat implements IHasWidthAndHeightFloat, Serializable
+public class SizeFloat implements IHasDimensionFloat, Serializable
 {
   private final float m_dWidth;
   private final float m_dHeight;
 
-  public SizeFloat (@Nonnull final IHasWidthAndHeightInt aObj)
+  public SizeFloat (@Nonnull final IHasDimensionInt aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
-  public SizeFloat (@Nonnull final IHasWidthAndHeightFloat aObj)
+  public SizeFloat (@Nonnull final IHasDimensionFloat aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
@@ -125,7 +125,7 @@ public final class SizeFloat implements IHasWidthAndHeightFloat, Serializable
 
   @Nonnull
   @CheckReturnValue
-  public SizeFloat getAdded (@Nonnull final IHasWidthAndHeightInt aToAdd)
+  public SizeFloat getAdded (@Nonnull final IHasDimensionInt aToAdd)
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
@@ -134,7 +134,7 @@ public final class SizeFloat implements IHasWidthAndHeightFloat, Serializable
 
   @Nonnull
   @CheckReturnValue
-  public SizeFloat getAdded (@Nonnull final IHasWidthAndHeightFloat aToAdd)
+  public SizeFloat getAdded (@Nonnull final IHasDimensionFloat aToAdd)
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
@@ -143,7 +143,7 @@ public final class SizeFloat implements IHasWidthAndHeightFloat, Serializable
 
   @Nonnull
   @CheckReturnValue
-  public SizeFloat getSubtracted (@Nonnull final IHasWidthAndHeightInt aToSubtract)
+  public SizeFloat getSubtracted (@Nonnull final IHasDimensionInt aToSubtract)
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 
@@ -152,7 +152,7 @@ public final class SizeFloat implements IHasWidthAndHeightFloat, Serializable
 
   @Nonnull
   @CheckReturnValue
-  public SizeFloat getSubtracted (@Nonnull final IHasWidthAndHeightFloat aToSubtract)
+  public SizeFloat getSubtracted (@Nonnull final IHasDimensionFloat aToSubtract)
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 
