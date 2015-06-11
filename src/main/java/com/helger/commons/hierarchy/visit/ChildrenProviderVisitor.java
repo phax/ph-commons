@@ -121,15 +121,21 @@ public class ChildrenProviderVisitor <CHILDTYPE> implements IVisitor <CHILDTYPE>
     }
   }
 
+  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAll (@Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
+  {
+    visitAll (new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback);
+  }
+
   public static <CHILDTYPE> void visitAll (@Nonnull final IChildrenProvider <CHILDTYPE> aChildProvider,
                                            @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
   {
     new ChildrenProviderVisitor <CHILDTYPE> (aChildProvider, aCallback).visitAll ();
   }
 
-  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAll (@Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
+  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAllFrom (@Nonnull final CHILDTYPE aObject,
+                                                                                @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
   {
-    visitAll (new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback);
+    visitAllFrom (aObject, new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback);
   }
 
   public static <CHILDTYPE> void visitAllFrom (@Nonnull final CHILDTYPE aObject,
@@ -137,11 +143,5 @@ public class ChildrenProviderVisitor <CHILDTYPE> implements IVisitor <CHILDTYPE>
                                                @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
   {
     new ChildrenProviderVisitor <CHILDTYPE> (aChildProvider, aCallback).visitAllFrom (aObject);
-  }
-
-  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAllFrom (@Nonnull final CHILDTYPE aObject,
-                                                                                @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
-  {
-    visitAllFrom (aObject, new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback);
   }
 }

@@ -151,15 +151,21 @@ public class ChildrenProviderVisitorDynamic <CHILDTYPE> implements IVisitor <CHI
     }
   }
 
+  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAll (@Nonnull final IHierarchyVisitorDynamicCallback <? super CHILDTYPE> aCallback)
+  {
+    visitAll (new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback);
+  }
+
   public static <CHILDTYPE> void visitAll (@Nonnull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
                                            @Nonnull final IHierarchyVisitorDynamicCallback <? super CHILDTYPE> aCallback)
   {
     new ChildrenProviderVisitorDynamic <CHILDTYPE> (aChildrenProvider, aCallback).visitAll ();
   }
 
-  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAll (@Nonnull final IHierarchyVisitorDynamicCallback <? super CHILDTYPE> aCallback)
+  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAllFrom (@Nonnull final CHILDTYPE aObject,
+                                                                                @Nonnull final IHierarchyVisitorDynamicCallback <? super CHILDTYPE> aCallback)
   {
-    visitAll (new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback);
+    visitAllFrom (aObject, new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback);
   }
 
   public static <CHILDTYPE> void visitAllFrom (@Nonnull final CHILDTYPE aObject,
@@ -167,11 +173,5 @@ public class ChildrenProviderVisitorDynamic <CHILDTYPE> implements IVisitor <CHI
                                                @Nonnull final IHierarchyVisitorDynamicCallback <? super CHILDTYPE> aCallback)
   {
     new ChildrenProviderVisitorDynamic <CHILDTYPE> (aChildrenProvider, aCallback).visitAllFrom (aObject);
-  }
-
-  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAllFrom (@Nonnull final CHILDTYPE aObject,
-                                                                                @Nonnull final IHierarchyVisitorDynamicCallback <? super CHILDTYPE> aCallback)
-  {
-    visitAllFrom (aObject, new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback);
   }
 }
