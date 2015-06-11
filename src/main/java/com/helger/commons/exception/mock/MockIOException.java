@@ -33,7 +33,6 @@ public class MockIOException extends IOException implements IMockException
     super (s);
   }
 
-  // Java 1.5 does not have an overload for Throwable or String+Throwable
   public MockIOException (final Throwable t)
   {
     super (t);
