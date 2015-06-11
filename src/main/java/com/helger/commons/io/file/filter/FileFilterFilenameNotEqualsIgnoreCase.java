@@ -29,22 +29,22 @@ import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A filename filter that checks whether a file has the specified name. The
- * implementation is done via {@link String#equalsIgnoreCase(String)} so it is
- * case insensitive.
+ * A filename filter that checks whether a file does not have the specified
+ * name. The implementation is done via {@link String#equalsIgnoreCase(String)}
+ * so it is case insensitive.
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FilenameFilterEqualsIgnoreCase extends AbstractFileFilter
+public class FileFilterFilenameNotEqualsIgnoreCase extends AbstractFileFilter
 {
   private final String m_sFilename;
 
   /**
    * @param sFilename
-   *        The extension to use. May neither be <code>null</code> nor empty.
+   *        The filename to use. May neither be <code>null</code> nor empty.
    */
-  public FilenameFilterEqualsIgnoreCase (@Nonnull @Nonempty final String sFilename)
+  public FileFilterFilenameNotEqualsIgnoreCase (@Nonnull @Nonempty final String sFilename)
   {
     m_sFilename = ValueEnforcer.notEmpty (sFilename, "Filename");
   }
@@ -59,7 +59,7 @@ public class FilenameFilterEqualsIgnoreCase extends AbstractFileFilter
   @Override
   public boolean matchesThisFilter (@Nullable final File aFile)
   {
-    return aFile != null && m_sFilename.equalsIgnoreCase (FilenameHelper.getSecureFilename (aFile.getName ()));
+    return aFile != null && !m_sFilename.equalsIgnoreCase (FilenameHelper.getSecureFilename (aFile.getName ()));
   }
 
   @Override
@@ -69,7 +69,7 @@ public class FilenameFilterEqualsIgnoreCase extends AbstractFileFilter
       return true;
     if (!super.equals (o))
       return false;
-    final FilenameFilterEqualsIgnoreCase rhs = (FilenameFilterEqualsIgnoreCase) o;
+    final FileFilterFilenameNotEqualsIgnoreCase rhs = (FileFilterFilenameNotEqualsIgnoreCase) o;
     return m_sFilename.equals (rhs.m_sFilename);
   }
 

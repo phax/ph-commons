@@ -29,11 +29,11 @@ import org.junit.Test;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Test class for class {@link FilenameFilterEqualsIgnoreCase}.
+ * Test class for class {@link FileFilterFilenameEqualsIgnoreCase}.
  * 
  * @author Philip Helger
  */
-public final class FilenameFilterEqualsIgnoreCaseTest
+public final class FileFilterFilenameEqualsIgnoreCaseTest
 {
   @Test
   @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
@@ -42,13 +42,13 @@ public final class FilenameFilterEqualsIgnoreCaseTest
     try
     {
       // null not allowed
-      new FilenameFilterEqualsIgnoreCase (null);
+      new FileFilterFilenameEqualsIgnoreCase (null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
 
-    final FilenameFilter ff = new FilenameFilterEqualsIgnoreCase ("file.htm");
+    final FilenameFilter ff = new FileFilterFilenameEqualsIgnoreCase ("file.htm");
     assertNotNull (ff);
     assertTrue (ff.accept (null, "file.htm"));
     assertTrue (ff.accept (new File ("dir"), "file.htm"));

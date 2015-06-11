@@ -33,26 +33,25 @@ import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A filter that only accepts certain file names, based on a regular expression.
- * If at least one regular expressions is fulfilled, the file is accepted. The
+ * A filter that rejects certain file names, based on a regular expression. If
+ * at least one regular expressions is fulfilled, the file is rejected. The
  * filter is applied on directories and files!
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FilenameFilterMatchAnyRegEx extends AbstractFileFilter
+public class FileFilterFilenameMatchNoRegEx extends AbstractFileFilter
 {
   private final String [] m_aRegExs;
 
-  public FilenameFilterMatchAnyRegEx (@Nonnull @Nonempty final String sRegEx)
+  public FileFilterFilenameMatchNoRegEx (@Nonnull @Nonempty final String sRegEx)
   {
     this (new String [] { sRegEx });
   }
 
-  public FilenameFilterMatchAnyRegEx (@Nonnull @Nonempty final String... aRegExs)
+  public FileFilterFilenameMatchNoRegEx (@Nonnull @Nonempty final String... aRegExs)
   {
-    ValueEnforcer.notEmpty (aRegExs, "RegularExpressions");
-    m_aRegExs = ArrayHelper.getCopy (aRegExs);
+    m_aRegExs = ArrayHelper.getCopy (ValueEnforcer.notEmpty (aRegExs, "RegularExpressions"));
   }
 
   @Nonnull
@@ -65,15 +64,15 @@ public class FilenameFilterMatchAnyRegEx extends AbstractFileFilter
   @Override
   public boolean matchesThisFilter (@Nullable final File aFile)
   {
-    if (aFile != null)
-    {
-      final String sRealName = FilenameHelper.getSecureFilename (aFile.getName ());
-      if (sRealName != null)
-        for (final String sRegEx : m_aRegExs)
-          if (RegExHelper.stringMatchesPattern (sRegEx, sRealName))
-            return true;
-    }
-    return false;
+    if (aFile == null)
+      return false;
+    final String sRealName = FilenameHelper.getSecureFilename (aFile.getName ());
+    if (sRealName == null)
+      return false;
+    for (final String sRegEx : m_aRegExs)
+      if (RegExHelper.stringMatchesPattern (sRegEx, sRealName))
+        return false;
+    return true;
   }
 
   @Override
@@ -83,7 +82,7 @@ public class FilenameFilterMatchAnyRegEx extends AbstractFileFilter
       return true;
     if (!super.equals (o))
       return false;
-    final FilenameFilterMatchAnyRegEx rhs = (FilenameFilterMatchAnyRegEx) o;
+    final FileFilterFilenameMatchNoRegEx rhs = (FileFilterFilenameMatchNoRegEx) o;
     return Arrays.equals (m_aRegExs, rhs.m_aRegExs);
   }
 

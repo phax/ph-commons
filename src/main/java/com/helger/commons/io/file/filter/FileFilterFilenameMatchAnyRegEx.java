@@ -17,6 +17,7 @@
 package com.helger.commons.io.file.filter;
 
 import java.io.File;
+import java.util.Arrays;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -24,36 +25,41 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.file.FilenameHelper;
+import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A filename filter that checks whether a file starts with a certain text. The
- * implementation is done via {@link String#startsWith(String)} so it is case
- * sensitive.
+ * A filter that only accepts certain file names, based on a regular expression.
+ * If at least one regular expressions is fulfilled, the file is accepted. The
+ * filter is applied on directories and files!
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FilenameFilterStartsWith extends AbstractFileFilter
+public class FileFilterFilenameMatchAnyRegEx extends AbstractFileFilter
 {
-  private final String m_sPrefix;
+  private final String [] m_aRegExs;
 
-  /**
-   * @param sPrefix
-   *        The extension to use. May neither be <code>null</code> nor empty.
-   */
-  public FilenameFilterStartsWith (@Nonnull @Nonempty final String sPrefix)
+  public FileFilterFilenameMatchAnyRegEx (@Nonnull @Nonempty final String sRegEx)
   {
-    m_sPrefix = ValueEnforcer.notEmpty (sPrefix, "Prefix");
+    this (new String [] { sRegEx });
+  }
+
+  public FileFilterFilenameMatchAnyRegEx (@Nonnull @Nonempty final String... aRegExs)
+  {
+    ValueEnforcer.notEmpty (aRegExs, "RegularExpressions");
+    m_aRegExs = ArrayHelper.getCopy (aRegExs);
   }
 
   @Nonnull
-  @Nonempty
-  public String getPrefix ()
+  @ReturnsMutableCopy
+  public String [] getAllRegularExpressions ()
   {
-    return m_sPrefix;
+    return ArrayHelper.getCopy (m_aRegExs);
   }
 
   @Override
@@ -61,9 +67,11 @@ public class FilenameFilterStartsWith extends AbstractFileFilter
   {
     if (aFile != null)
     {
-      final String sSecureFilename = FilenameHelper.getSecureFilename (aFile.getName ());
-      if (sSecureFilename != null)
-        return sSecureFilename.startsWith (m_sPrefix);
+      final String sRealName = FilenameHelper.getSecureFilename (aFile.getName ());
+      if (sRealName != null)
+        for (final String sRegEx : m_aRegExs)
+          if (RegExHelper.stringMatchesPattern (sRegEx, sRealName))
+            return true;
     }
     return false;
   }
@@ -75,19 +83,19 @@ public class FilenameFilterStartsWith extends AbstractFileFilter
       return true;
     if (!super.equals (o))
       return false;
-    final FilenameFilterStartsWith rhs = (FilenameFilterStartsWith) o;
-    return m_sPrefix.equals (rhs.m_sPrefix);
+    final FileFilterFilenameMatchAnyRegEx rhs = (FileFilterFilenameMatchAnyRegEx) o;
+    return Arrays.equals (m_aRegExs, rhs.m_aRegExs);
   }
 
   @Override
   public int hashCode ()
   {
-    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_sPrefix).getHashCode ();
+    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_aRegExs).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("prefix", m_sPrefix).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("regExs", m_aRegExs).toString ();
   }
 }

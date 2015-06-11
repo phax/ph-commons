@@ -29,31 +29,31 @@ import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A filename filter that checks whether a file has the specified extension. The
- * implementation is done via {@link String#endsWith(String)} so it is case
+ * A filename filter that checks whether a file starts with a certain text. The
+ * implementation is done via {@link String#startsWith(String)} so it is case
  * sensitive.
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class FilenameFilterEndsWith extends AbstractFileFilter
+public class FileFilterFilenameStartsWith extends AbstractFileFilter
 {
-  private final String m_sSuffix;
+  private final String m_sPrefix;
 
   /**
-   * @param sSuffix
-   *        The suffix to use. May neither be <code>null</code> nor empty.
+   * @param sPrefix
+   *        The extension to use. May neither be <code>null</code> nor empty.
    */
-  public FilenameFilterEndsWith (@Nonnull @Nonempty final String sSuffix)
+  public FileFilterFilenameStartsWith (@Nonnull @Nonempty final String sPrefix)
   {
-    m_sSuffix = ValueEnforcer.notEmpty (sSuffix, "Suffix");
+    m_sPrefix = ValueEnforcer.notEmpty (sPrefix, "Prefix");
   }
 
   @Nonnull
   @Nonempty
-  public String getSuffix ()
+  public String getPrefix ()
   {
-    return m_sSuffix;
+    return m_sPrefix;
   }
 
   @Override
@@ -63,7 +63,7 @@ public final class FilenameFilterEndsWith extends AbstractFileFilter
     {
       final String sSecureFilename = FilenameHelper.getSecureFilename (aFile.getName ());
       if (sSecureFilename != null)
-        return sSecureFilename.endsWith (m_sSuffix);
+        return sSecureFilename.startsWith (m_sPrefix);
     }
     return false;
   }
@@ -75,19 +75,19 @@ public final class FilenameFilterEndsWith extends AbstractFileFilter
       return true;
     if (!super.equals (o))
       return false;
-    final FilenameFilterEndsWith rhs = (FilenameFilterEndsWith) o;
-    return m_sSuffix.equals (rhs.m_sSuffix);
+    final FileFilterFilenameStartsWith rhs = (FileFilterFilenameStartsWith) o;
+    return m_sPrefix.equals (rhs.m_sPrefix);
   }
 
   @Override
   public int hashCode ()
   {
-    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_sSuffix).getHashCode ();
+    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_sPrefix).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("suffix", m_sSuffix).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("prefix", m_sPrefix).toString ();
   }
 }

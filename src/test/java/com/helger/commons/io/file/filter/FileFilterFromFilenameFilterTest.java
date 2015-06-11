@@ -38,7 +38,7 @@ public final class FileFilterFromFilenameFilterTest
   @Test
   public void testGetFileNameFilter ()
   {
-    final FilenameFilter ff = new FilenameFilterMatchAnyRegEx (".*\\.xml$", ".*\\.htm$", "src");
+    final FilenameFilter ff = new FileFilterFilenameMatchAnyRegEx (".*\\.xml$", ".*\\.htm$", "src");
     final FileFilter aFilter = new FileFilterFromFilenameFilter (ff);
     assertNotNull (aFilter);
 

@@ -16,45 +16,40 @@
  */
 package com.helger.commons.io.file.filter;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.FilenameFilter;
+import java.io.FileFilter;
 
 import org.junit.Test;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
- * Test class for class {@link FilenameFilterStartsWith}.
- * 
+ * Test class for class {@link FileFilterFilenameHidden}.
+ *
  * @author Philip Helger
  */
-public final class FilenameFilterStartsWithTest
+public final class FileFilterFilenameHiddenTest
 {
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
-  public void testAll ()
+  public void testGetFilterDirectoryHidden ()
   {
-    try
-    {
-      // null not allowed
-      new FilenameFilterStartsWith (null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
+    final FileFilter aFilter = new FileFilterFilenameHidden ();
+    assertNotNull (aFilter);
 
-    final FilenameFilter ff = new FilenameFilterStartsWith ("file");
-    assertNotNull (ff);
-    assertTrue (ff.accept (null, "file.htm"));
-    assertTrue (ff.accept (new File ("dir"), "file.htm"));
-    assertFalse (ff.accept (null, "hello.html"));
-    assertFalse (ff.accept (new File ("dir"), "hello.html"));
-    assertFalse (ff.accept (null, null));
-    assertFalse (ff.accept (null, ""));
+    // file
+    assertFalse (aFilter.accept (new File ("pom.xml")));
+    // not existing file
+    assertFalse (aFilter.accept (new File ("file.htm")));
+    // directory
+    assertFalse (aFilter.accept (new File ("src")));
+    // not existing directory
+    assertTrue (aFilter.accept (new File (".internal")));
+    // null
+    assertFalse (aFilter.accept (null));
+
+    assertEquals (aFilter, new FileFilterFilenameHidden ());
   }
 }

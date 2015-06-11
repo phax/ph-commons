@@ -34,6 +34,6 @@ public class FileFilterFileOnly extends AbstractFileFilter
   @Override
   public boolean matchesThisFilter (@Nullable final File aFile)
   {
-    return aFile != null && FileHelper.existsFile (aFile);
+    return FileHelper.existsFile (aFile);
   }
 }

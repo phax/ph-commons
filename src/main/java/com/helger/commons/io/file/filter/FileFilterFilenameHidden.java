@@ -17,31 +17,24 @@
 package com.helger.commons.io.file.filter;
 
 import java.io.File;
-import java.io.FilenameFilter;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.io.file.FileHelper;
+import com.helger.commons.io.file.FilenameHelper;
 
 /**
- * A special file filter that uses and external filename filter to determine the
- * validity. This filter only works for files.
+ * A file filter that matches if the passed filename is hidden, meaning it does
+ * start with "." (hidden directory on Unix systems)
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FileFilterFileFromFilenameFilter extends AbstractFileFilter
+public class FileFilterFilenameHidden extends AbstractFileFilter
 {
-  public FileFilterFileFromFilenameFilter (@Nonnull final FilenameFilter aFilenameFilter)
-  {
-    super (new FileFilterFromFilenameFilter (aFilenameFilter));
-  }
-
   @Override
   public boolean matchesThisFilter (@Nullable final File aFile)
   {
-    return aFile != null && FileHelper.existsFile (aFile);
+    return FilenameHelper.isHiddenFilename (aFile);
   }
 }

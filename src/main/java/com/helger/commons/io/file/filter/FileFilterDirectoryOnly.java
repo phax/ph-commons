@@ -21,6 +21,8 @@ import java.io.File;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.io.file.FileHelper;
+
 /**
  * A file filter that accepts only directories.
  *
@@ -32,6 +34,6 @@ public class FileFilterDirectoryOnly extends AbstractFileFilter
   @Override
   public boolean matchesThisFilter (@Nullable final File aFile)
   {
-    return aFile != null && aFile.isDirectory ();
+    return FileHelper.existsDir (aFile);
   }
 }

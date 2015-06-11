@@ -21,6 +21,7 @@ import java.io.File;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FilenameHelper;
 
 /**
@@ -35,6 +36,6 @@ public class FileFilterDirectoryPublic extends AbstractFileFilter
   @Override
   public boolean matchesThisFilter (@Nullable final File aFile)
   {
-    return aFile != null && aFile.isDirectory () && !FilenameHelper.isHiddenFilename (aFile);
+    return FileHelper.existsDir (aFile) && !FilenameHelper.isHiddenFilename (aFile);
   }
 }

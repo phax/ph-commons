@@ -36,7 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FilenameFilterEquals extends AbstractFileFilter
+public class FileFilterFilenameEquals extends AbstractFileFilter
 {
   private final String m_sFilename;
 
@@ -44,7 +44,7 @@ public class FilenameFilterEquals extends AbstractFileFilter
    * @param sFilename
    *        The filename to use. May neither be <code>null</code> nor empty.
    */
-  public FilenameFilterEquals (@Nonnull @Nonempty final String sFilename)
+  public FileFilterFilenameEquals (@Nonnull @Nonempty final String sFilename)
   {
     m_sFilename = ValueEnforcer.notEmpty (sFilename, "Filename");
   }
@@ -69,7 +69,7 @@ public class FilenameFilterEquals extends AbstractFileFilter
       return true;
     if (!super.equals (o))
       return false;
-    final FilenameFilterEquals rhs = (FilenameFilterEquals) o;
+    final FileFilterFilenameEquals rhs = (FileFilterFilenameEquals) o;
     return m_sFilename.equals (rhs.m_sFilename);
   }
 

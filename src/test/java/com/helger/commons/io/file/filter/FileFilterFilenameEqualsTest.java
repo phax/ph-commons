@@ -29,13 +29,12 @@ import org.junit.Test;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Test class for class {@link FilenameFilterMatchAnyRegEx}.
+ * Test class for class {@link FileFilterFilenameEquals}.
  * 
  * @author Philip Helger
  */
-public final class FilenameFilterMatchAnyRegExTest
+public final class FileFilterFilenameEqualsTest
 {
-
   @Test
   @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testAll ()
@@ -43,18 +42,18 @@ public final class FilenameFilterMatchAnyRegExTest
     try
     {
       // null not allowed
-      new FilenameFilterMatchAnyRegEx ((String []) null);
+      new FileFilterFilenameEquals (null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
 
-    final FilenameFilter ff = new FilenameFilterMatchAnyRegEx (".*htm$");
+    final FilenameFilter ff = new FileFilterFilenameEquals ("file.htm");
     assertNotNull (ff);
     assertTrue (ff.accept (null, "file.htm"));
     assertTrue (ff.accept (new File ("dir"), "file.htm"));
-    assertFalse (ff.accept (null, "file.html"));
-    assertFalse (ff.accept (new File ("dir"), "file.html"));
+    assertFalse (ff.accept (null, "hello.html"));
+    assertFalse (ff.accept (new File ("dir"), "hello.html"));
     assertFalse (ff.accept (null, null));
     assertFalse (ff.accept (null, ""));
   }

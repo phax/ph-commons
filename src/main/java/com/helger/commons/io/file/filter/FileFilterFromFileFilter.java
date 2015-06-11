@@ -17,7 +17,7 @@
 package com.helger.commons.io.file.filter;
 
 import java.io.File;
-import java.io.FilenameFilter;
+import java.io.FileFilter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,32 +28,31 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A special file filter that uses and external {@link FilenameFilter} to
- * determine the validity. This filter works for all types of {@link File}
- * objects.
+ * A special file filter that uses and external {@link FileFilter} to determine
+ * the validity. This filter works for all types of {@link File} objects.
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FileFilterFromFilenameFilter extends AbstractFileFilter
+public class FileFilterFromFileFilter extends AbstractFileFilter
 {
-  private final FilenameFilter m_aFilenameFilter;
+  private final FileFilter m_aFileFilter;
 
-  public FileFilterFromFilenameFilter (@Nonnull final FilenameFilter aFilenameFilter)
+  public FileFilterFromFileFilter (@Nonnull final FileFilter aFileFilter)
   {
-    m_aFilenameFilter = ValueEnforcer.notNull (aFilenameFilter, "FilenameFilter");
+    m_aFileFilter = ValueEnforcer.notNull (aFileFilter, "FileFilter");
   }
 
   @Nonnull
-  public FilenameFilter getFilenameFilter ()
+  public FileFilter getFileFilter ()
   {
-    return m_aFilenameFilter;
+    return m_aFileFilter;
   }
 
   @Override
   public boolean matchesThisFilter (@Nullable final File aFile)
   {
-    return aFile != null && m_aFilenameFilter.accept (aFile.getParentFile (), aFile.getName ());
+    return aFile != null && m_aFileFilter.accept (aFile);
   }
 
   @Override
@@ -63,7 +62,7 @@ public class FileFilterFromFilenameFilter extends AbstractFileFilter
       return true;
     if (!super.equals (o))
       return false;
-    // FilenameFilter does not necessarily implement equals/hashCode :(
+    // FileFilter does not necessarily implement equals/hashCode :(
     return true;
   }
 
@@ -76,6 +75,6 @@ public class FileFilterFromFilenameFilter extends AbstractFileFilter
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("FilenameFilter", m_aFilenameFilter).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("FileFilter", m_aFileFilter).toString ();
   }
 }

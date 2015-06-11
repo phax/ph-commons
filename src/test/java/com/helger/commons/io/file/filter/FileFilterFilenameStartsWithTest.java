@@ -19,38 +19,42 @@ package com.helger.commons.io.file.filter;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FilenameFilter;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Test class for class {@link FileFilterFileFromFilenameFilter}.
+ * Test class for class {@link FileFilterFilenameStartsWith}.
  * 
  * @author Philip Helger
  */
-public final class FileFilterFileFromFilenameFilterTest
+public final class FileFilterFilenameStartsWithTest
 {
   @Test
-  public void testGetFileNameFilter ()
+  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
+  public void testAll ()
   {
-    final FilenameFilter ff = new FilenameFilterEndsWith (".xml");
-    final FileFilter aFilter = new FileFilterFileFromFilenameFilter (ff);
-    assertNotNull (aFilter);
+    try
+    {
+      // null not allowed
+      new FileFilterFilenameStartsWith (null);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
 
-    // file
-    assertTrue (aFilter.accept (new File ("pom.xml")));
-    // not existing file
-    assertFalse (aFilter.accept (new File ("file.htm")));
-    // directory
-    assertFalse (aFilter.accept (new File ("src")));
-    // null
-    assertFalse (aFilter.accept (null));
-
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aFilter, new FileFilterFileFromFilenameFilter (ff));
+    final FilenameFilter ff = new FileFilterFilenameStartsWith ("file");
+    assertNotNull (ff);
+    assertTrue (ff.accept (null, "file.htm"));
+    assertTrue (ff.accept (new File ("dir"), "file.htm"));
+    assertFalse (ff.accept (null, "hello.html"));
+    assertFalse (ff.accept (new File ("dir"), "hello.html"));
+    assertFalse (ff.accept (null, null));
+    assertFalse (ff.accept (null, ""));
   }
 }

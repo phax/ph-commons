@@ -93,6 +93,7 @@ public final class FileHelper
    */
   public static boolean existsFile (@Nullable final File aFile)
   {
+    // returns true if it exists() AND is a file!
     return aFile != null && aFile.isFile ();
   }
 
