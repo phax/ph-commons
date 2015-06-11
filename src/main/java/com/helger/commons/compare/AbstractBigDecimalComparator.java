@@ -46,8 +46,8 @@ public abstract class AbstractBigDecimalComparator <DATATYPE> extends AbstractCo
   @Override
   protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)
   {
-    final BigDecimal a1 = getAsBigDecimal (aElement1);
-    final BigDecimal a2 = getAsBigDecimal (aElement2);
-    return CompareHelper.nullSafeCompare (a1, a2);
+    final BigDecimal aBD1 = getAsBigDecimal (aElement1);
+    final BigDecimal aBD2 = getAsBigDecimal (aElement2);
+    return CompareHelper.compare (aBD1, aBD2);
   }
 }

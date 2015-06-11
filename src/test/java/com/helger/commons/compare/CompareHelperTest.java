@@ -37,25 +37,25 @@ public final class CompareHelperTest extends AbstractCommonsTestCase
   {
     final String s1 = "A";
     final String s2 = "B";
-    assertEquals (-1, CompareHelper.nullSafeCompare (s1, s2));
-    assertEquals (+1, CompareHelper.nullSafeCompare (s2, s1));
-    assertEquals (0, CompareHelper.nullSafeCompare (s1, s1));
-    assertEquals (0, CompareHelper.nullSafeCompare (s2, s2));
+    assertEquals (-1, CompareHelper.compare (s1, s2));
+    assertEquals (+1, CompareHelper.compare (s2, s1));
+    assertEquals (0, CompareHelper.compare (s1, s1));
+    assertEquals (0, CompareHelper.compare (s2, s2));
 
-    assertEquals (+1, CompareHelper.nullSafeCompare (s1, null));
-    assertEquals (+1, CompareHelper.nullSafeCompare (s2, null));
-    assertEquals (-1, CompareHelper.nullSafeCompare (null, s1));
-    assertEquals (-1, CompareHelper.nullSafeCompare (null, s2));
-    assertEquals (0, CompareHelper.nullSafeCompare ((String) null, null));
+    assertEquals (+1, CompareHelper.compare (s1, null));
+    assertEquals (+1, CompareHelper.compare (s2, null));
+    assertEquals (-1, CompareHelper.compare (null, s1));
+    assertEquals (-1, CompareHelper.compare (null, s2));
+    assertEquals (0, CompareHelper.compare ((String) null, null));
 
     // Using our collator
-    assertEquals (-1, CompareHelper.nullSafeCompare ("1.1 a", "1.1.1 a", L_DE));
-    assertEquals (-1, CompareHelper.nullSafeCompare ("1.1 a", "1.1.1 a", CollatorHelper.getCollatorSpaceBeforeDot (L_DE)));
-    // Using the system collaor
-    assertEquals (+1, CompareHelper.nullSafeCompare ("1.1 a", "1.1.1 a", Collator.getInstance (L_DE)));
+    assertEquals (-1, CompareHelper.compare ("1.1 a", "1.1.1 a", L_DE));
+    assertEquals (-1, CompareHelper.compare ("1.1 a", "1.1.1 a", CollatorHelper.getCollatorSpaceBeforeDot (L_DE)));
+    // Using the system collator
+    assertEquals (+1, CompareHelper.compare ("1.1 a", "1.1.1 a", Collator.getInstance (L_DE)));
 
-    assertEquals (-1, CompareHelper.nullSafeCompare (L_DE, L_EN, new ComparatorLocale ()));
-    assertEquals (+1, CompareHelper.nullSafeCompare (L_DE, null, new ComparatorLocale ()));
-    assertEquals (-1, CompareHelper.nullSafeCompare (null, L_EN, new ComparatorLocale ()));
+    assertEquals (-1, CompareHelper.compare (L_DE, L_EN, new ComparatorLocale ()));
+    assertEquals (+1, CompareHelper.compare (L_DE, null, new ComparatorLocale ()));
+    assertEquals (-1, CompareHelper.compare (null, L_EN, new ComparatorLocale ()));
   }
 }

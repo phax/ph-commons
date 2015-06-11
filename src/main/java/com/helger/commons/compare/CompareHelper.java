@@ -186,11 +186,11 @@ public final class CompareHelper
    *        Second object to compare. May be <code>null</code>.
    * @return 0 if they are equal (or both <code>null</code>), -1 or +1.
    */
-  public static <DATATYPE extends Comparable <? super DATATYPE>> int nullSafeCompare (@Nullable final DATATYPE aObj1,
-                                                                                      @Nullable final DATATYPE aObj2)
+  public static <DATATYPE extends Comparable <? super DATATYPE>> int compare (@Nullable final DATATYPE aObj1,
+                                                                              @Nullable final DATATYPE aObj2)
   {
-    // Legacy behaviour: null values come first
-    return nullSafeCompare (aObj1, aObj2, DEFAULT_NULL_VALUES_COME_FIRST);
+    // Legacy behavior: null values come first
+    return compare (aObj1, aObj2, DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
   /**
@@ -209,9 +209,9 @@ public final class CompareHelper
    *        non-<code>null</code> values
    * @return 0 if they are equal (or both <code>null</code>), -1 or +1.
    */
-  public static <DATATYPE extends Comparable <? super DATATYPE>> int nullSafeCompare (@Nullable final DATATYPE aObj1,
-                                                                                      @Nullable final DATATYPE aObj2,
-                                                                                      final boolean bNullValuesComeFirst)
+  public static <DATATYPE extends Comparable <? super DATATYPE>> int compare (@Nullable final DATATYPE aObj1,
+                                                                              @Nullable final DATATYPE aObj2,
+                                                                              final boolean bNullValuesComeFirst)
   {
     if (aObj1 == aObj2)
       return 0;
@@ -239,12 +239,12 @@ public final class CompareHelper
    *        <code>null</code>.
    * @return 0 if they are equal (or both <code>null</code>), -1 or +1.
    */
-  public static <DATATYPE> int nullSafeCompare (@Nullable final DATATYPE aObj1,
-                                                @Nullable final DATATYPE aObj2,
-                                                @Nonnull final Comparator <DATATYPE> aComp)
+  public static <DATATYPE> int compare (@Nullable final DATATYPE aObj1,
+                                        @Nullable final DATATYPE aObj2,
+                                        @Nonnull final Comparator <? super DATATYPE> aComp)
   {
-    // Legacy behaviour: null values come first
-    return nullSafeCompare (aObj1, aObj2, aComp, DEFAULT_NULL_VALUES_COME_FIRST);
+    // Legacy behavior: null values come first
+    return compare (aObj1, aObj2, aComp, DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
   /**
@@ -267,10 +267,10 @@ public final class CompareHelper
    *        non-<code>null</code> values
    * @return 0 if they are equal (or both <code>null</code>), -1 or +1.
    */
-  public static <DATATYPE> int nullSafeCompare (@Nullable final DATATYPE aObj1,
-                                                @Nullable final DATATYPE aObj2,
-                                                @Nonnull final Comparator <DATATYPE> aComp,
-                                                final boolean bNullValuesComeFirst)
+  public static <DATATYPE> int compare (@Nullable final DATATYPE aObj1,
+                                        @Nullable final DATATYPE aObj2,
+                                        @Nonnull final Comparator <? super DATATYPE> aComp,
+                                        final boolean bNullValuesComeFirst)
   {
     if (aObj1 == aObj2)
       return 0;
@@ -281,35 +281,35 @@ public final class CompareHelper
     return aComp.compare (aObj1, aObj2);
   }
 
-  public static int nullSafeCompare (@Nullable final String sStr1,
-                                     @Nullable final String sStr2,
-                                     @Nonnull final Locale aSortLocale)
+  public static int compare (@Nullable final String sStr1,
+                             @Nullable final String sStr2,
+                             @Nonnull final Locale aSortLocale)
   {
-    // Legacy behaviour: null values come first
-    return nullSafeCompare (sStr1, sStr2, aSortLocale, DEFAULT_NULL_VALUES_COME_FIRST);
+    // Legacy behavior: null values come first
+    return compare (sStr1, sStr2, aSortLocale, DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
-  public static int nullSafeCompare (@Nullable final String sStr1,
-                                     @Nullable final String sStr2,
-                                     @Nonnull final Locale aSortLocale,
-                                     final boolean bNullValuesComeFirst)
+  public static int compare (@Nullable final String sStr1,
+                             @Nullable final String sStr2,
+                             @Nonnull final Locale aSortLocale,
+                             final boolean bNullValuesComeFirst)
   {
-    return nullSafeCompare (sStr1, sStr2, CollatorHelper.getCollatorSpaceBeforeDot (aSortLocale), bNullValuesComeFirst);
+    return compare (sStr1, sStr2, CollatorHelper.getCollatorSpaceBeforeDot (aSortLocale), bNullValuesComeFirst);
   }
 
-  public static int nullSafeCompare (@Nullable final String sStr1,
-                                     @Nullable final String sStr2,
-                                     @Nonnull final Collator aCollator)
+  public static int compare (@Nullable final String sStr1,
+                             @Nullable final String sStr2,
+                             @Nonnull final Collator aCollator)
   {
-    // Legacy behaviour: null values come first
-    return nullSafeCompare (sStr1, sStr2, aCollator, DEFAULT_NULL_VALUES_COME_FIRST);
+    // Legacy behavior: null values come first
+    return compare (sStr1, sStr2, aCollator, DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
   @SuppressFBWarnings ({ "ES_COMPARING_PARAMETER_STRING_WITH_EQ" })
-  public static int nullSafeCompare (@Nullable final String sStr1,
-                                     @Nullable final String sStr2,
-                                     @Nonnull final Collator aCollator,
-                                     final boolean bNullValuesComeFirst)
+  public static int compare (@Nullable final String sStr1,
+                             @Nullable final String sStr2,
+                             @Nonnull final Collator aCollator,
+                             final boolean bNullValuesComeFirst)
   {
     if (sStr1 == sStr2)
       return 0;
@@ -320,16 +320,16 @@ public final class CompareHelper
     return aCollator.compare (sStr1, sStr2);
   }
 
-  public static int nullSafeCompareIgnoreCase (@Nullable final String sStr1, @Nullable final String sStr2)
+  public static int compareIgnoreCase (@Nullable final String sStr1, @Nullable final String sStr2)
   {
-    // Legacy behaviour: null values come first
-    return nullSafeCompareIgnoreCase (sStr1, sStr2, DEFAULT_NULL_VALUES_COME_FIRST);
+    // Legacy behavior: null values come first
+    return compareIgnoreCase (sStr1, sStr2, DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
   @SuppressFBWarnings ({ "ES_COMPARING_PARAMETER_STRING_WITH_EQ" })
-  public static int nullSafeCompareIgnoreCase (@Nullable final String sStr1,
-                                               @Nullable final String sStr2,
-                                               final boolean bNullValuesComeFirst)
+  public static int compareIgnoreCase (@Nullable final String sStr1,
+                                       @Nullable final String sStr2,
+                                       final boolean bNullValuesComeFirst)
   {
     if (sStr1 == sStr2)
       return 0;

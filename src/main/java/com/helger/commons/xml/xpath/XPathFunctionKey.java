@@ -72,11 +72,11 @@ public final class XPathFunctionKey implements Comparable <XPathFunctionKey>
   public int compareTo (@Nonnull final XPathFunctionKey o)
   {
     // 1st namespace URI
-    int ret = CompareHelper.nullSafeCompare (m_aFunctionName.getNamespaceURI (), o.m_aFunctionName.getNamespaceURI ());
+    int ret = CompareHelper.compare (m_aFunctionName.getNamespaceURI (), o.m_aFunctionName.getNamespaceURI ());
     if (ret == 0)
     {
       // 2nd local part
-      ret = CompareHelper.nullSafeCompare (m_aFunctionName.getLocalPart (), o.m_aFunctionName.getLocalPart ());
+      ret = CompareHelper.compare (m_aFunctionName.getLocalPart (), o.m_aFunctionName.getLocalPart ());
       if (ret == 0)
       {
         // 3rd parameter count

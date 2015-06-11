@@ -75,9 +75,9 @@ public final class CollatorHelperTest extends AbstractCommonsTestCase
       public void run () throws Exception
       {
         Collator c = CollatorHelper.getCollatorSpaceBeforeDot (L_DE);
-        assertEquals (-1, CompareHelper.nullSafeCompare ("1.1 a", "1.1.1 a", c));
+        assertEquals (-1, CompareHelper.compare ("1.1 a", "1.1.1 a", c));
         c = CollatorHelper.getCollatorSpaceBeforeDot (L_EN);
-        assertEquals (-1, CompareHelper.nullSafeCompare ("1.1 a", "1.1.1 a", c));
+        assertEquals (-1, CompareHelper.compare ("1.1 a", "1.1.1 a", c));
       }
     });
   }

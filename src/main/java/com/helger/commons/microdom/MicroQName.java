@@ -127,7 +127,7 @@ public final class MicroQName implements IMicroQName, Comparable <MicroQName>
 
   public int compareTo (@Nonnull final MicroQName o)
   {
-    int ret = CompareHelper.nullSafeCompare (m_sNamespaceURI, o.m_sNamespaceURI);
+    int ret = CompareHelper.compare (m_sNamespaceURI, o.m_sNamespaceURI);
     if (ret == 0)
       ret = m_sName.compareTo (o.m_sName);
     return ret;

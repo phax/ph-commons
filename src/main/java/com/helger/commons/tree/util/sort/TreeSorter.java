@@ -50,7 +50,7 @@ public final class TreeSorter
     ValueEnforcer.notNull (aTree, "Tree");
     ValueEnforcer.notNull (aComparator, "Comparator");
 
-    // and now start iterating
+    // and now start iterating (including the root item)
     ChildrenProviderHierarchyVisitor.visitFrom (aTree.getRootItem (), new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
     {
       @Override
