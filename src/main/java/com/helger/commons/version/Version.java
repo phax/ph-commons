@@ -412,6 +412,23 @@ public final class Version implements Comparable <Version>, IHasStringRepresenta
   @Nonnull
   public String getAsString (final boolean bPrintZeroElements)
   {
+    return getAsString (bPrintZeroElements, false);
+  }
+
+  /**
+   * Get the string representation of the version number.
+   *
+   * @param bPrintZeroElements
+   *        If <code>true</code> than trailing zeroes are printed, otherwise
+   *        printed zeroes are not printed.
+   * @param bPrintAtLeastMajorAndMinor
+   *        <code>true</code> if major and minor part should always be printed,
+   *        independent of their value
+   * @return Never <code>null</code>.
+   */
+  @Nonnull
+  public String getAsString (final boolean bPrintZeroElements, final boolean bPrintAtLeastMajorAndMinor)
+  {
     // Build from back to front
     final StringBuilder aSB = new StringBuilder (m_sQualifier != null ? m_sQualifier : "");
     if (m_nMicro > 0 || aSB.length () > 0 || bPrintZeroElements)
@@ -421,14 +438,14 @@ public final class Version implements Comparable <Version>, IHasStringRepresenta
         aSB.insert (0, '.');
       aSB.insert (0, m_nMicro);
     }
-    if (m_nMinor > 0 || aSB.length () > 0 || bPrintZeroElements)
+    if (bPrintAtLeastMajorAndMinor || m_nMinor > 0 || aSB.length () > 0 || bPrintZeroElements)
     {
       // Minor version
       if (aSB.length () > 0)
         aSB.insert (0, '.');
       aSB.insert (0, m_nMinor);
     }
-    if (m_nMajor > 0 || aSB.length () > 0 || bPrintZeroElements)
+    if (bPrintAtLeastMajorAndMinor || m_nMajor > 0 || aSB.length () > 0 || bPrintZeroElements)
     {
       // Major version
       if (aSB.length () > 0)

@@ -596,6 +596,7 @@ public final class VersionTest
   {
     Version v = new Version (1, 2, 3);
     assertEquals ("1.2.3", v.getAsString (true));
+    assertEquals ("1.2.3", v.getAsString (true, true));
     assertEquals (v, new Version (v.getAsString (true)));
 
     v = new Version ("1.2.3.");
@@ -612,30 +613,44 @@ public final class VersionTest
 
     v = new Version ("1.2.3");
     assertEquals ("1.2.3", v.getAsString (true));
+    assertEquals ("1.2.3", v.getAsString (false));
+    assertEquals ("1.2.3", v.getAsString (false, true));
     assertEquals (v, new Version (v.getAsString (true)));
 
     v = new Version ("1.2.0");
     assertEquals ("1.2.0", v.getAsString (true));
+    assertEquals ("1.2", v.getAsString (false));
+    assertEquals ("1.2", v.getAsString (false, true));
     assertEquals (v, new Version (v.getAsString (true)));
 
     v = new Version ("1.0.2");
     assertEquals ("1.0.2", v.getAsString (true));
+    assertEquals ("1.0.2", v.getAsString (false));
+    assertEquals ("1.0.2", v.getAsString (false, true));
     assertEquals (v, new Version (v.getAsString (true)));
 
     v = new Version ("4.5");
     assertEquals ("4.5.0", v.getAsString (true));
+    assertEquals ("4.5", v.getAsString (false));
+    assertEquals ("4.5", v.getAsString (false, true));
     assertEquals (v, new Version (v.getAsString (true)));
 
     v = new Version ("4.0");
     assertEquals ("4.0.0", v.getAsString (true));
+    assertEquals ("4", v.getAsString (false));
+    assertEquals ("4.0", v.getAsString (false, true));
     assertEquals (v, new Version (v.getAsString (true)));
 
     v = new Version ("6");
     assertEquals ("6.0.0", v.getAsString (true));
+    assertEquals ("6", v.getAsString (false));
+    assertEquals ("6.0", v.getAsString (false, true));
     assertEquals (v, new Version (v.getAsString (true)));
 
     v = new Version (null);
     assertEquals ("0.0.0", v.getAsString (true));
+    assertEquals ("0", v.getAsString (false));
+    assertEquals ("0.0", v.getAsString (false, true));
     assertEquals (v, new Version (v.getAsString (true)));
 
     v = new Version (".2");
