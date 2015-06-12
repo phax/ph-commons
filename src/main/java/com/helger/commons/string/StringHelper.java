@@ -334,14 +334,20 @@ public final class StringHelper
   @Nonnull
   public static String getLeadingZero (@Nonnull final String sValue, final int nChars)
   {
+    return getWithLeading (sValue, nChars, '0');
+  }
+
+  @Nonnull
+  public static String getWithLeading (@Nonnull final String sValue, final int nChars, final char cPrefix)
+  {
     final int nLen = sValue.length ();
     if (nLen >= nChars)
       return sValue;
 
-    // prepend '0's
+    // prepend prefix chars
     final StringBuilder aSB = new StringBuilder (nChars);
     for (int i = 0; i < nChars - nLen; ++i)
-      aSB.append ('0');
+      aSB.append (cPrefix);
     return aSB.append (sValue).toString ();
   }
 
@@ -686,7 +692,7 @@ public final class StringHelper
   @Nonnull
   public static String getImploded (@Nonnull final String sSep, @Nullable final Iterable <?> aElements)
   {
-    ValueEnforcer.notNull (sSep, "serparator");
+    ValueEnforcer.notNull (sSep, "separator");
 
     final StringBuilder aSB = new StringBuilder ();
     if (aElements != null)
