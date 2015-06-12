@@ -106,14 +106,6 @@ public final class Version implements Comparable <Version>, IHasStringRepresenta
     this (nMajor, nMinor, nMicro, null);
   }
 
-  public Version (@Nonnegative final int nMajor,
-                  @Nonnegative final int nMinor,
-                  @Nonnegative final int nMicro,
-                  @Nonnegative final int nQualifier)
-  {
-    this (nMajor, nMinor, nMicro, Integer.toString (nQualifier));
-  }
-
   /**
    * Create a new version with 3 integer values and a qualifier.
    *
