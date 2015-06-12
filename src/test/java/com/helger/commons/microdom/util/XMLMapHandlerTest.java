@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.microdom.reader;
+package com.helger.commons.microdom.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -37,6 +37,7 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streamprovider.ByteArrayOutputStreamProvider;
 import com.helger.commons.io.streamprovider.StringInputStreamProvider;
+import com.helger.commons.microdom.util.XMLMapHandler;
 
 /**
  * Test class for {@link XMLMapHandler}.

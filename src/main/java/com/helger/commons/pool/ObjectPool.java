@@ -42,7 +42,7 @@ import com.helger.commons.state.ESuccess;
  *        The type of the objects contained in the pool.
  */
 @ThreadSafe
-public final class ObjectPool <DATATYPE> implements IObjectPool <DATATYPE>
+public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE>
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ObjectPool.class);
 

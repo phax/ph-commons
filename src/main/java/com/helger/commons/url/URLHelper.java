@@ -60,7 +60,7 @@ import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.microdom.reader.XMLMapHandler;
+import com.helger.commons.microdom.util.XMLMapHandler;
 import com.helger.commons.mime.IMimeType;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.wrapper.IMutableWrapper;

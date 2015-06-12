@@ -20,8 +20,8 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.RegEx;
+import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.IsLocked;
@@ -35,6 +35,7 @@ import com.helger.commons.state.EChange;
  *
  * @author Philip Helger
  */
+@ThreadSafe
 public final class RegExPool extends AbstractNotifyingCache <RegExPattern, Pattern>
 {
   /** The default number of items to keep in the cache */
@@ -49,11 +50,11 @@ public final class RegExPool extends AbstractNotifyingCache <RegExPattern, Patte
   }
 
   @Override
-  @Nullable
+  @Nonnull
   @IsLocked (ELockType.WRITE)
-  protected Pattern getValueToCache (@Nullable @RegEx final RegExPattern aRegEx)
+  protected Pattern getValueToCache (@Nonnull final RegExPattern aRegEx)
   {
-    return aRegEx == null ? null : aRegEx.getAsPattern ();
+    return aRegEx.getAsPattern ();
   }
 
   /**

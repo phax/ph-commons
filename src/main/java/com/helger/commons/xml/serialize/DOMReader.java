@@ -41,7 +41,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.factory.IFactory;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.pool.IObjectPool;
+import com.helger.commons.pool.IMutableObjectPool;
 import com.helger.commons.pool.ObjectPool;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
@@ -76,7 +76,7 @@ public final class DOMReader
                                                                                                                      "$DOMERRORS");
 
   // In practice no more than 5 readers are required (even 3 would be enough)
-  private static final IObjectPool <DocumentBuilder> s_aDOMPool = new ObjectPool <DocumentBuilder> (5,
+  private static final IMutableObjectPool <DocumentBuilder> s_aDOMPool = new ObjectPool <DocumentBuilder> (5,
                                                                                                     new DOMReaderFactory ());
 
   @PresentForCodeCoverage

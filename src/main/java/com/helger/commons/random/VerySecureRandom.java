@@ -85,6 +85,10 @@ public final class VerySecureRandom
   private VerySecureRandom ()
   {}
 
+  /**
+   * @return The {@link SecureRandom} instance that does the hard work. Never
+   *         <code>null</code>.
+   */
   @Nonnull
   public static SecureRandom getInstance ()
   {

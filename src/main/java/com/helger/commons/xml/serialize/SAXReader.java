@@ -37,7 +37,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.pool.IObjectPool;
+import com.helger.commons.pool.IMutableObjectPool;
 import com.helger.commons.pool.ObjectPool;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
@@ -61,7 +61,7 @@ public final class SAXReader
                                                                                                                      "$error");
 
   // In practice no more than 5 readers are required (even 3 would be enough)
-  private static final IObjectPool <org.xml.sax.XMLReader> s_aSAXPool = new ObjectPool <org.xml.sax.XMLReader> (5,
+  private static final IMutableObjectPool <org.xml.sax.XMLReader> s_aSAXPool = new ObjectPool <org.xml.sax.XMLReader> (5,
                                                                                                                 new SAXReaderFactory ());
 
   @PresentForCodeCoverage

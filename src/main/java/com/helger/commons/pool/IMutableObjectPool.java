@@ -28,7 +28,7 @@ import com.helger.commons.state.ESuccess;
  * @param <DATATYPE>
  *        The type of object to be pooled.
  */
-public interface IObjectPool <DATATYPE>
+public interface IMutableObjectPool <DATATYPE>
 {
   /**
    * Borrow an object from the pool. This method blocks until an object is

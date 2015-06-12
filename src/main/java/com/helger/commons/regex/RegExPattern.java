@@ -48,7 +48,18 @@ public final class RegExPattern implements Serializable
   private final int m_nOptions;
   private Pattern m_aPattern;
 
+  // Status vars
   private Integer m_aHashCode;
+
+  public static boolean areDebugConsistencyChecksEnabled ()
+  {
+    return s_aCheckConsistencyEnabled.get ();
+  }
+
+  public static void enableDebugConsistencyChecks (final boolean bEnable)
+  {
+    s_aCheckConsistencyEnabled.set (bEnable);
+  }
 
   public static void checkPatternConsistency (@Nonnull @RegEx final String sRegEx) throws IllegalArgumentException
   {
@@ -119,6 +130,10 @@ public final class RegExPattern implements Serializable
     }
   }
 
+  /**
+   * @return The source regular expression string. Neither <code>null</code> nor
+   *         empty.
+   */
   @Nonnull
   @Nonempty
   @RegEx
@@ -127,12 +142,18 @@ public final class RegExPattern implements Serializable
     return m_sRegEx;
   }
 
+  /**
+   * @return The RegEx options provided in the constructor. 0 means no options.
+   */
   @Nonnegative
   public int getOptions ()
   {
     return m_nOptions;
   }
 
+  /**
+   * @return The compiled pattern. Never <code>null</code>.
+   */
   @Nonnull
   public Pattern getAsPattern ()
   {
@@ -164,15 +185,5 @@ public final class RegExPattern implements Serializable
   public String toString ()
   {
     return new ToStringGenerator (this).append ("regex", m_sRegEx).append ("options", m_nOptions).toString ();
-  }
-
-  public static boolean areDebugConsistencyChecksEnabled ()
-  {
-    return s_aCheckConsistencyEnabled.get ();
-  }
-
-  public static void enableDebugConsistencyChecks (final boolean bEnable)
-  {
-    s_aCheckConsistencyEnabled.set (bEnable);
   }
 }

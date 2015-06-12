@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.microdom.reader;
+package com.helger.commons.microdom.util;
 
 import java.io.InputStream;
 import java.io.OutputStream;
