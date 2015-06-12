@@ -26,12 +26,12 @@ import com.helger.commons.statistics.IStatisticsHandlerSize;
 import com.helger.commons.statistics.IStatisticsHandlerTimer;
 
 /**
- * Default implementation of the {@link IStatisticsVisitor} interface that does
+ * Default implementation of the {@link IStatisticsVisitorCallback} interface that does
  * nothing.
  * 
  * @author Philip Helger
  */
-public class DefaultStatisticsVisitor implements IStatisticsVisitor
+public class DefaultStatisticsVisitorCallback implements IStatisticsVisitorCallback
 {
   @OverrideOnDemand
   public void onCache (final String sName, final IStatisticsHandlerCache aHandler)

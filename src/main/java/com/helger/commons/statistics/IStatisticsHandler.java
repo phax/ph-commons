@@ -16,29 +16,20 @@
  */
 package com.helger.commons.statistics;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import java.io.Serializable;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.IHasStringRepresentation;
+import javax.annotation.Nonnegative;
 
 /**
  * Base interface for all statistic handlers
- * 
+ *
  * @author Philip Helger
  */
-public interface IStatisticsHandler extends IHasStringRepresentation
+public interface IStatisticsHandler extends Serializable
 {
   /**
    * @return The number of times this statistics hander was invoked.
    */
   @Nonnegative
   int getInvocationCount ();
-
-  /**
-   * @return An internal string representation of the statistics handler.
-   */
-  @Nonnull
-  @Nonempty
-  String getAsString ();
 }

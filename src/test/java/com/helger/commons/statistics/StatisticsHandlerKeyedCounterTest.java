@@ -17,19 +17,16 @@
 package com.helger.commons.statistics;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.statistics.StatisticsHandlerKeyedCounter;
 
 /**
  * Test class for class {@link StatisticsHandlerKeyedCounter}.
  *
  * @author Philip Helger
  */
-@SuppressWarnings ("javadoc")
 public final class StatisticsHandlerKeyedCounterTest
 {
   @Test
@@ -52,6 +49,5 @@ public final class StatisticsHandlerKeyedCounterTest
     assertEquals (3L, sh.getCount ("key1"));
     assertEquals (1L, sh.getCount ("key2"));
     assertEquals (2, sh.getAllKeys ().size ());
-    assertNotNull (sh.getAsString ());
   }
 }

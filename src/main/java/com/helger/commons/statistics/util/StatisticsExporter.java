@@ -23,7 +23,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroDocument;
-import com.helger.commons.statistics.visit.StatisticsWalker;
+import com.helger.commons.statistics.visit.StatisticsVisitor;
 
 /**
  * Class for exporting statistics.
@@ -81,7 +81,7 @@ public final class StatisticsExporter
   {
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eRoot = aDoc.appendElement (ELEMENT_STATISTICS);
-    StatisticsWalker.walkStatistics (new StatisticsVisitorToXML (eRoot));
+    StatisticsVisitor.visitStatistics (new StatisticsVisitorCallbackToXML (eRoot));
     return aDoc;
   }
 }

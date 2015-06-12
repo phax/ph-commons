@@ -17,14 +17,12 @@
 package com.helger.commons.statistics;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.math.BigInteger;
 
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.statistics.StatisticsHandlerSize;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -33,7 +31,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-@SuppressWarnings ("javadoc")
 public final class StatisticsHandlerSizeTest
 {
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
@@ -65,7 +62,5 @@ public final class StatisticsHandlerSizeTest
     assertEquals (45, sh.getMax ());
     assertEquals (BigInteger.valueOf (75), sh.getSum ());
     sh.addSize (-1);
-
-    assertNotNull (sh.getAsString ());
   }
 }

@@ -28,20 +28,20 @@ import com.helger.commons.statistics.IStatisticsHandlerKeyedSize;
 import com.helger.commons.statistics.IStatisticsHandlerKeyedTimer;
 import com.helger.commons.statistics.IStatisticsHandlerSize;
 import com.helger.commons.statistics.IStatisticsHandlerTimer;
-import com.helger.commons.statistics.visit.DefaultStatisticsVisitor;
-import com.helger.commons.statistics.visit.IStatisticsVisitor;
+import com.helger.commons.statistics.visit.DefaultStatisticsVisitorCallback;
+import com.helger.commons.statistics.visit.IStatisticsVisitorCallback;
 
 /**
- * Special implementation of the {@link IStatisticsVisitor} interface that fills
- * a micro element with all current values
+ * Special implementation of the {@link IStatisticsVisitorCallback} interface
+ * that fills a micro element with all current values
  *
  * @author Philip Helger
  */
-public class StatisticsVisitorToXML extends DefaultStatisticsVisitor
+public class StatisticsVisitorCallbackToXML extends DefaultStatisticsVisitorCallback
 {
   private final IMicroElement m_eRoot;
 
-  public StatisticsVisitorToXML (@Nonnull final IMicroElement eRoot)
+  public StatisticsVisitorCallbackToXML (@Nonnull final IMicroElement eRoot)
   {
     m_eRoot = ValueEnforcer.notNull (eRoot, "Root");
   }
@@ -62,9 +62,9 @@ public class StatisticsVisitorToXML extends DefaultStatisticsVisitor
     if (aHandler.getInvocationCount () > 0)
       m_eRoot.appendElement (StatisticsExporter.ELEMENT_CACHE)
              .setAttribute (StatisticsExporter.ATTR_NAME, sName)
-             .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, Integer.toString (aHandler.getInvocationCount ()))
-             .setAttribute (StatisticsExporter.ATTR_HITS, Integer.toString (aHandler.getHits ()))
-             .setAttribute (StatisticsExporter.ATTR_MISSES, Integer.toString (aHandler.getMisses ()));
+             .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ())
+             .setAttribute (StatisticsExporter.ATTR_HITS, aHandler.getHits ())
+             .setAttribute (StatisticsExporter.ATTR_MISSES, aHandler.getMisses ());
   }
 
   @Override
@@ -73,11 +73,11 @@ public class StatisticsVisitorToXML extends DefaultStatisticsVisitor
     if (aHandler.getInvocationCount () > 0)
       m_eRoot.appendElement (StatisticsExporter.ELEMENT_TIMER)
              .setAttribute (StatisticsExporter.ATTR_NAME, sName)
-             .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, Integer.toString (aHandler.getInvocationCount ()))
-             .setAttribute (StatisticsExporter.ATTR_MIN, Long.toString (aHandler.getMin ()))
-             .setAttribute (StatisticsExporter.ATTR_AVERAGE, Long.toString (aHandler.getAverage ()))
-             .setAttribute (StatisticsExporter.ATTR_MAX, Long.toString (aHandler.getMax ()))
-             .setAttribute (StatisticsExporter.ATTR_SUM, aHandler.getSum ().toString ());
+             .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ())
+             .setAttribute (StatisticsExporter.ATTR_MIN, aHandler.getMin ())
+             .setAttribute (StatisticsExporter.ATTR_AVERAGE, aHandler.getAverage ())
+             .setAttribute (StatisticsExporter.ATTR_MAX, aHandler.getMax ())
+             .setAttributeWithConversion (StatisticsExporter.ATTR_SUM, aHandler.getSum ());
   }
 
   @Override
@@ -88,17 +88,16 @@ public class StatisticsVisitorToXML extends DefaultStatisticsVisitor
       final IMicroElement eKeyedTimer = m_eRoot.appendElement (StatisticsExporter.ELEMENT_KEYEDTIMER)
                                                .setAttribute (StatisticsExporter.ATTR_NAME, sName)
                                                .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
-                                                              Integer.toString (aHandler.getInvocationCount ()));
+                                                              aHandler.getInvocationCount ());
       for (final String sKey : CollectionHelper.getSorted (aHandler.getAllKeys ()))
       {
         eKeyedTimer.appendElement (StatisticsExporter.ELEMENT_KEY)
                    .setAttribute (StatisticsExporter.ATTR_NAME, sKey)
-                   .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
-                                  Integer.toString (aHandler.getInvocationCount (sKey)))
-                   .setAttribute (StatisticsExporter.ATTR_MIN, Long.toString (aHandler.getMin (sKey)))
-                   .setAttribute (StatisticsExporter.ATTR_AVERAGE, Long.toString (aHandler.getAverage (sKey)))
-                   .setAttribute (StatisticsExporter.ATTR_MAX, Long.toString (aHandler.getMax (sKey)))
-                   .setAttribute (StatisticsExporter.ATTR_SUM, aHandler.getSum (sKey).toString ());
+                   .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount (sKey))
+                   .setAttribute (StatisticsExporter.ATTR_MIN, aHandler.getMin (sKey))
+                   .setAttribute (StatisticsExporter.ATTR_AVERAGE, aHandler.getAverage (sKey))
+                   .setAttribute (StatisticsExporter.ATTR_MAX, aHandler.getMax (sKey))
+                   .setAttributeWithConversion (StatisticsExporter.ATTR_SUM, aHandler.getSum (sKey));
       }
     }
   }
@@ -109,11 +108,11 @@ public class StatisticsVisitorToXML extends DefaultStatisticsVisitor
     if (aHandler.getInvocationCount () > 0)
       m_eRoot.appendElement (StatisticsExporter.ELEMENT_SIZE)
              .setAttribute (StatisticsExporter.ATTR_NAME, sName)
-             .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, Integer.toString (aHandler.getInvocationCount ()))
-             .setAttribute (StatisticsExporter.ATTR_MIN, Long.toString (aHandler.getMin ()))
-             .setAttribute (StatisticsExporter.ATTR_AVERAGE, Long.toString (aHandler.getAverage ()))
-             .setAttribute (StatisticsExporter.ATTR_MAX, Long.toString (aHandler.getMax ()))
-             .setAttribute (StatisticsExporter.ATTR_SUM, aHandler.getSum ().toString ());
+             .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ())
+             .setAttribute (StatisticsExporter.ATTR_MIN, aHandler.getMin ())
+             .setAttribute (StatisticsExporter.ATTR_AVERAGE, aHandler.getAverage ())
+             .setAttribute (StatisticsExporter.ATTR_MAX, aHandler.getMax ())
+             .setAttributeWithConversion (StatisticsExporter.ATTR_SUM, aHandler.getSum ());
   }
 
   @Override
@@ -124,17 +123,16 @@ public class StatisticsVisitorToXML extends DefaultStatisticsVisitor
       final IMicroElement eKeyedSize = m_eRoot.appendElement (StatisticsExporter.ELEMENT_KEYEDSIZE)
                                               .setAttribute (StatisticsExporter.ATTR_NAME, sName)
                                               .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
-                                                             Integer.toString (aHandler.getInvocationCount ()));
+                                                             aHandler.getInvocationCount ());
       for (final String sKey : CollectionHelper.getSorted (aHandler.getAllKeys ()))
       {
         eKeyedSize.appendElement (StatisticsExporter.ELEMENT_KEY)
                   .setAttribute (StatisticsExporter.ATTR_NAME, sKey)
-                  .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
-                                 Integer.toString (aHandler.getInvocationCount (sKey)))
-                  .setAttribute (StatisticsExporter.ATTR_MIN, Long.toString (aHandler.getMin (sKey)))
-                  .setAttribute (StatisticsExporter.ATTR_AVERAGE, Long.toString (aHandler.getAverage (sKey)))
-                  .setAttribute (StatisticsExporter.ATTR_MAX, Long.toString (aHandler.getMax (sKey)))
-                  .setAttribute (StatisticsExporter.ATTR_SUM, aHandler.getSum (sKey).toString ());
+                  .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount (sKey))
+                  .setAttribute (StatisticsExporter.ATTR_MIN, aHandler.getMin (sKey))
+                  .setAttribute (StatisticsExporter.ATTR_AVERAGE, aHandler.getAverage (sKey))
+                  .setAttribute (StatisticsExporter.ATTR_MAX, aHandler.getMax (sKey))
+                  .setAttributeWithConversion (StatisticsExporter.ATTR_SUM, aHandler.getSum (sKey));
       }
     }
   }
@@ -145,8 +143,8 @@ public class StatisticsVisitorToXML extends DefaultStatisticsVisitor
     if (aHandler.getInvocationCount () > 0)
       m_eRoot.appendElement (StatisticsExporter.ELEMENT_COUNTER)
              .setAttribute (StatisticsExporter.ATTR_NAME, sName)
-             .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, Integer.toString (aHandler.getInvocationCount ()))
-             .setAttribute (StatisticsExporter.ATTR_COUNT, Long.toString (aHandler.getCount ()));
+             .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ())
+             .setAttribute (StatisticsExporter.ATTR_COUNT, aHandler.getCount ());
   }
 
   @Override
@@ -157,14 +155,13 @@ public class StatisticsVisitorToXML extends DefaultStatisticsVisitor
       final IMicroElement eKeyedCounter = m_eRoot.appendElement (StatisticsExporter.ELEMENT_KEYEDCOUNTER)
                                                  .setAttribute (StatisticsExporter.ATTR_NAME, sName)
                                                  .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
-                                                                Integer.toString (aHandler.getInvocationCount ()));
+                                                                aHandler.getInvocationCount ());
       for (final String sKey : CollectionHelper.getSorted (aHandler.getAllKeys ()))
       {
         eKeyedCounter.appendElement (StatisticsExporter.ELEMENT_KEY)
                      .setAttribute (StatisticsExporter.ATTR_NAME, sKey)
-                     .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
-                                    Integer.toString (aHandler.getInvocationCount (sKey)))
-                     .setAttribute (StatisticsExporter.ATTR_COUNT, Long.toString (aHandler.getCount (sKey)));
+                     .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount (sKey))
+                     .setAttribute (StatisticsExporter.ATTR_COUNT, aHandler.getCount (sKey));
       }
     }
   }

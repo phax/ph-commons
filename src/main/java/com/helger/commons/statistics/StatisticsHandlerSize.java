@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  * @author Philip Helger
  */
 @ThreadSafe
-final class StatisticsHandlerSize extends AbstractStatisticsHandlerNumeric implements IMutableStatisticsHandlerSize
+public class StatisticsHandlerSize extends AbstractStatisticsHandlerNumeric implements IMutableStatisticsHandlerSize
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (StatisticsHandlerSize.class);
 

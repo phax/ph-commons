@@ -18,11 +18,11 @@ package com.helger.commons.statistics.visit;
 
 import org.junit.Test;
 
-import com.helger.commons.statistics.visit.DefaultStatisticsVisitor;
-import com.helger.commons.statistics.visit.StatisticsWalker;
+import com.helger.commons.statistics.visit.DefaultStatisticsVisitorCallback;
+import com.helger.commons.statistics.visit.StatisticsVisitor;
 
 /**
- * Test class for class {@link StatisticsWalker}.
+ * Test class for class {@link StatisticsVisitor}.
  * 
  * @author Philip Helger
  */
@@ -32,6 +32,6 @@ public final class StatisticsWalkerTest
   public void testWalkStatistics ()
   {
     // Just walk and do nothing :)
-    StatisticsWalker.walkStatistics (new DefaultStatisticsVisitor ());
+    StatisticsVisitor.visitStatistics (new DefaultStatisticsVisitorCallback ());
   }
 }

@@ -19,10 +19,7 @@ package com.helger.commons.statistics;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.annotation.Nonempty;
 
 /**
  * Default implementation of {@link IMutableStatisticsHandlerCache}
@@ -30,7 +27,7 @@ import com.helger.commons.annotation.Nonempty;
  * @author Philip Helger
  */
 @ThreadSafe
-final class StatisticsHandlerCache implements IMutableStatisticsHandlerCache
+public class StatisticsHandlerCache implements IMutableStatisticsHandlerCache
 {
   private final AtomicInteger m_aHits = new AtomicInteger ();
   private final AtomicInteger m_aMisses = new AtomicInteger ();
@@ -61,12 +58,5 @@ final class StatisticsHandlerCache implements IMutableStatisticsHandlerCache
   public int getMisses ()
   {
     return m_aMisses.intValue ();
-  }
-
-  @Nonnull
-  @Nonempty
-  public String getAsString ()
-  {
-    return "invocations=" + getInvocationCount () + ";hits=" + getHits () + ";misses=" + getMisses ();
   }
 }

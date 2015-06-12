@@ -18,6 +18,7 @@ package com.helger.commons.statistics.visit;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.callback.ICallback;
 import com.helger.commons.statistics.IStatisticsHandlerCache;
 import com.helger.commons.statistics.IStatisticsHandlerCounter;
 import com.helger.commons.statistics.IStatisticsHandlerKeyedCounter;
@@ -28,10 +29,10 @@ import com.helger.commons.statistics.IStatisticsHandlerTimer;
 
 /**
  * Callback interface for visiting statistics.
- * 
+ *
  * @author Philip Helger
  */
-public interface IStatisticsVisitor
+public interface IStatisticsVisitorCallback extends ICallback
 {
   void onCache (@Nonnull String sName, @Nonnull IStatisticsHandlerCache aHandler);
 

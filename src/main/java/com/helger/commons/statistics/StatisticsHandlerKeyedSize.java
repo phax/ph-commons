@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
  * @author Philip Helger
  */
 @ThreadSafe
-final class StatisticsHandlerKeyedSize extends AbstractStatisticsHandlerKeyedNumeric implements IMutableStatisticsHandlerKeyedSize
+public class StatisticsHandlerKeyedSize extends AbstractStatisticsHandlerKeyedNumeric implements IMutableStatisticsHandlerKeyedSize
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (StatisticsHandlerKeyedSize.class);
 

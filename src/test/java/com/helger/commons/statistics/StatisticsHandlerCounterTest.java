@@ -17,18 +17,14 @@
 package com.helger.commons.statistics;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
-
-import com.helger.commons.statistics.StatisticsHandlerCounter;
 
 /**
  * Test class for class {@link StatisticsHandlerCounter}.
  *
  * @author Philip Helger
  */
-@SuppressWarnings ("javadoc")
 public final class StatisticsHandlerCounterTest
 {
   @Test
@@ -40,6 +36,5 @@ public final class StatisticsHandlerCounterTest
     assertEquals (1, sh.getInvocationCount ());
     sh.increment (2);
     assertEquals (2, sh.getInvocationCount ());
-    assertNotNull (sh.getAsString ());
   }
 }

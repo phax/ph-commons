@@ -26,7 +26,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.Nonempty;
 
 /**
  * Abstract base class for numeric statistic handler
@@ -36,7 +35,7 @@ import com.helger.commons.annotation.Nonempty;
 @ThreadSafe
 public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHandlerNumeric
 {
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final transient ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   private int m_nInvocationCount = 0;
   private long m_nMin = CGlobal.ILLEGAL_ULONG;
   private long m_nMax = CGlobal.ILLEGAL_ULONG;
@@ -130,21 +129,5 @@ public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHan
     {
       m_aRWLock.readLock ().unlock ();
     }
-  }
-
-  @Nonnull
-  @Nonempty
-  public String getAsString ()
-  {
-    return "invocations=" +
-           getInvocationCount () +
-           ";sum=" +
-           getSum () +
-           ";min=" +
-           getMin () +
-           ";avg=" +
-           getAverage () +
-           ";max=" +
-           getMax ();
   }
 }

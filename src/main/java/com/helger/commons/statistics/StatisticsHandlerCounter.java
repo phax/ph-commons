@@ -21,10 +21,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.annotation.Nonempty;
 
 /**
  * Default implementation of {@link IMutableStatisticsHandlerCounter}
@@ -32,7 +29,7 @@ import com.helger.commons.annotation.Nonempty;
  * @author Philip Helger
  */
 @ThreadSafe
-final class StatisticsHandlerCounter implements IMutableStatisticsHandlerCounter
+public class StatisticsHandlerCounter implements IMutableStatisticsHandlerCounter
 {
   private final AtomicInteger m_aInvocationCount = new AtomicInteger ();
   private final AtomicLong m_aCount = new AtomicLong ();
@@ -59,12 +56,5 @@ final class StatisticsHandlerCounter implements IMutableStatisticsHandlerCounter
   {
     m_aInvocationCount.incrementAndGet ();
     m_aCount.addAndGet (nByHowMany);
-  }
-
-  @Nonnull
-  @Nonempty
-  public String getAsString ()
-  {
-    return "invocations=" + getInvocationCount () + ";count=" + getCount ();
   }
 }

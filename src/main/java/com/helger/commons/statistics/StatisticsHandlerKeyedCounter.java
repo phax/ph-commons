@@ -16,6 +16,7 @@
  */
 package com.helger.commons.statistics;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -31,7 +32,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -42,10 +42,10 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @ThreadSafe
-final class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerKeyedCounter
+public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerKeyedCounter
 {
   @NotThreadSafe
-  private static final class Value
+  private static final class Value implements Serializable
   {
     private int m_nInvocationCount;
     private long m_nCount;
@@ -83,7 +83,7 @@ final class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerKe
     }
   }
 
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final transient ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   private final AtomicInteger m_aInvocationCount = new AtomicInteger ();
   private final Map <String, Value> m_aMap = new HashMap <String, Value> ();
 
@@ -154,21 +154,6 @@ final class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerKe
     {
       final Value aCount = m_aMap.get (sKey);
       return aCount == null ? CGlobal.ILLEGAL_UINT : aCount.getInvocationCount ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
-  }
-
-  @Nonnull
-  @Nonempty
-  public String getAsString ()
-  {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return "invocations=" + getInvocationCount () + "; keyed=" + m_aMap.entrySet ();
     }
     finally
     {

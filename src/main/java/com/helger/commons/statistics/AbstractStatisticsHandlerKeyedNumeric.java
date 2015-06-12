@@ -16,6 +16,7 @@
  */
 package com.helger.commons.statistics;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +32,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -44,7 +44,7 @@ import com.helger.commons.string.ToStringGenerator;
 @ThreadSafe
 public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisticsHandlerKeyedNumeric
 {
-  private static final class Value
+  private static final class Value implements Serializable
   {
     private int m_nInvocationCount;
     private long m_nMin;
@@ -111,7 +111,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
     }
   }
 
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final transient ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   private final AtomicInteger m_aInvocationCount = new AtomicInteger (0);
   private final Map <String, Value> m_aMap = new HashMap <String, Value> ();
 
@@ -227,12 +227,5 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
     {
       m_aRWLock.readLock ().unlock ();
     }
-  }
-
-  @Nonnull
-  @Nonempty
-  public String getAsString ()
-  {
-    return "invocations=" + getInvocationCount () + ";map=" + m_aMap.entrySet ();
   }
 }

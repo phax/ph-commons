@@ -17,7 +17,6 @@
 package com.helger.commons.statistics;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.math.BigInteger;
@@ -25,14 +24,12 @@ import java.math.BigInteger;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.statistics.StatisticsHandlerKeyedTimer;
 
 /**
  * Test class for class {@link StatisticsHandlerKeyedTimer}.
  *
  * @author Philip Helger
  */
-@SuppressWarnings ("javadoc")
 public final class StatisticsHandlerKeyedTimerTest
 {
   @Test
@@ -79,6 +76,5 @@ public final class StatisticsHandlerKeyedTimerTest
     assertEquals (1000L, sh.getAverage ("key2"));
 
     assertEquals (2, sh.getAllKeys ().size ());
-    assertNotNull (sh.getAsString ());
   }
 }

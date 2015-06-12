@@ -39,30 +39,30 @@ import com.helger.commons.statistics.StatisticsManager;
  * @author Philip Helger
  */
 @Immutable
-public final class StatisticsWalker
+public final class StatisticsVisitor
 {
   @PresentForCodeCoverage
-  private static final StatisticsWalker s_aInstance = new StatisticsWalker ();
+  private static final StatisticsVisitor s_aInstance = new StatisticsVisitor ();
 
-  private StatisticsWalker ()
+  private StatisticsVisitor ()
   {}
 
   /**
    * Walk all available statistics elements with the passed statistics visitor.
    *
-   * @param aVisitor
+   * @param aCallback
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void walkStatistics (@Nonnull final IStatisticsVisitor aVisitor)
+  public static void visitStatistics (@Nonnull final IStatisticsVisitorCallback aCallback)
   {
-    ValueEnforcer.notNull (aVisitor, "Visitor");
+    ValueEnforcer.notNull (aCallback, "Callback");
 
     // For all cache handler
     List <String> aHandlers = CollectionHelper.getSorted (StatisticsManager.getAllCacheHandler ());
     for (final String sName : aHandlers)
     {
       final IStatisticsHandlerCache aHandler = StatisticsManager.getCacheHandler (sName);
-      aVisitor.onCache (sName, aHandler);
+      aCallback.onCache (sName, aHandler);
     }
 
     // For all timer handler
@@ -70,7 +70,7 @@ public final class StatisticsWalker
     for (final String sName : aHandlers)
     {
       final IStatisticsHandlerTimer aHandler = StatisticsManager.getTimerHandler (sName);
-      aVisitor.onTimer (sName, aHandler);
+      aCallback.onTimer (sName, aHandler);
     }
 
     // For all keyed timer handler
@@ -78,7 +78,7 @@ public final class StatisticsWalker
     for (final String sName : aHandlers)
     {
       final IStatisticsHandlerKeyedTimer aHandler = StatisticsManager.getKeyedTimerHandler (sName);
-      aVisitor.onKeyedTimer (sName, aHandler);
+      aCallback.onKeyedTimer (sName, aHandler);
     }
 
     // For all size handler
@@ -86,7 +86,7 @@ public final class StatisticsWalker
     for (final String sName : aHandlers)
     {
       final IStatisticsHandlerSize aHandler = StatisticsManager.getSizeHandler (sName);
-      aVisitor.onSize (sName, aHandler);
+      aCallback.onSize (sName, aHandler);
     }
 
     // For all keyed size handler
@@ -94,7 +94,7 @@ public final class StatisticsWalker
     for (final String sName : aHandlers)
     {
       final IStatisticsHandlerKeyedSize aHandler = StatisticsManager.getKeyedSizeHandler (sName);
-      aVisitor.onKeyedSize (sName, aHandler);
+      aCallback.onKeyedSize (sName, aHandler);
     }
 
     // For all counter handler
@@ -102,7 +102,7 @@ public final class StatisticsWalker
     for (final String sName : aHandlers)
     {
       final IStatisticsHandlerCounter aHandler = StatisticsManager.getCounterHandler (sName);
-      aVisitor.onCounter (sName, aHandler);
+      aCallback.onCounter (sName, aHandler);
     }
 
     // For all keyed counter handler
@@ -110,7 +110,7 @@ public final class StatisticsWalker
     for (final String sName : aHandlers)
     {
       final IStatisticsHandlerKeyedCounter aHandler = StatisticsManager.getKeyedCounterHandler (sName);
-      aVisitor.onKeyedCounter (sName, aHandler);
+      aCallback.onKeyedCounter (sName, aHandler);
     }
   }
 }

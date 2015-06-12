@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  * @author Philip Helger
  */
 @ThreadSafe
-final class StatisticsHandlerTimer extends AbstractStatisticsHandlerNumeric implements IMutableStatisticsHandlerTimer
+public class StatisticsHandlerTimer extends AbstractStatisticsHandlerNumeric implements IMutableStatisticsHandlerTimer
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (StatisticsHandlerTimer.class);
 
