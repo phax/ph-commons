@@ -338,7 +338,58 @@ public interface IMicroElement extends IMicroNodeWithChildren
 
   /**
    * Set an attribute value of this element. This is a shortcut for
-   * <code>setAttribute(name, Integer.toString (nValue))</code>.
+   * <code>setAttribute(sAttrName, Boolean.toString (nValue))</code>. That
+   * means, that the serialized value of the attribute is either
+   * <code>true</code> or <code>false</code>. If you need something else (like
+   * "yes" or "no") don't use this method.
+   *
+   * @param sAttrName
+   *        Name of the attribute. May neither be <code>null</code> nor empty.
+   * @param bAttrValue
+   *        The new value to be set.
+   * @return this
+   */
+  @Nonnull
+  IMicroElement setAttribute (@Nonnull String sAttrName, boolean bAttrValue);
+
+  /**
+   * Set an attribute value of this element. This is a shortcut for
+   * <code>setAttribute(sNamespaceURI, sAttrName, Boolean.toString (nValue))</code>
+   * . That means, that the serialized value of the attribute is either
+   * <code>true</code> or <code>false</code>. If you need something else (like
+   * "yes" or "no") don't use this method.
+   *
+   * @param sNamespaceURI
+   *        Namespace URI to use. May be <code>null</code>.
+   * @param sAttrName
+   *        Name of the attribute. May neither be <code>null</code> nor empty.
+   * @param bAttrValue
+   *        The new value to be set.
+   * @return this
+   */
+  @Nonnull
+  IMicroElement setAttribute (@Nullable String sNamespaceURI, @Nonnull String sAttrName, boolean bAttrValue);
+
+  /**
+   * Set an attribute value of this element. This is a shortcut for
+   * <code>setAttribute(aAttrName, Boolean.toString (nValue))</code>. That
+   * means, that the serialized value of the attribute is either
+   * <code>true</code> or <code>false</code>. If you need something else (like
+   * "yes" or "no") don't use this method.
+   *
+   * @param aAttrName
+   *        Qualified name of the attribute. May neither be <code>null</code>
+   *        nor empty.
+   * @param bAttrValue
+   *        The new value to be set.
+   * @return this
+   */
+  @Nonnull
+  IMicroElement setAttribute (@Nonnull IMicroQName aAttrName, boolean bAttrValue);
+
+  /**
+   * Set an attribute value of this element. This is a shortcut for
+   * <code>setAttribute(sAttrName, Integer.toString (nValue))</code>.
    *
    * @param sAttrName
    *        Name of the attribute. May neither be <code>null</code> nor empty.
@@ -351,7 +402,8 @@ public interface IMicroElement extends IMicroNodeWithChildren
 
   /**
    * Set an attribute value of this element. This is a shortcut for
-   * <code>setAttribute(name, Integer.toString (nValue))</code>.
+   * <code>setAttribute(sNamespaceURI, sAttrName, Integer.toString (nValue))</code>
+   * .
    *
    * @param sNamespaceURI
    *        Namespace URI to use. May be <code>null</code>.
@@ -366,7 +418,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
 
   /**
    * Set an attribute value of this element. This is a shortcut for
-   * <code>setAttribute(name, Integer.toString (nValue))</code>.
+   * <code>setAttribute(aAttrName, Integer.toString (nValue))</code>.
    *
    * @param aAttrName
    *        Qualified name of the attribute. May neither be <code>null</code>

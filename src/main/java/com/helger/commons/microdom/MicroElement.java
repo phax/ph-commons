@@ -362,6 +362,26 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   }
 
   @Nonnull
+  public IMicroElement setAttribute (@Nonnull final String sAttrName, final boolean bAttrValue)
+  {
+    return setAttribute (sAttrName, Boolean.toString (bAttrValue));
+  }
+
+  @Nonnull
+  public IMicroElement setAttribute (@Nullable final String sNamespaceURI,
+                                     @Nonnull final String sAttrName,
+                                     final boolean bAttrValue)
+  {
+    return setAttribute (sNamespaceURI, sAttrName, Boolean.toString (bAttrValue));
+  }
+
+  @Nonnull
+  public IMicroElement setAttribute (@Nonnull final IMicroQName aAttrName, final boolean bAttrValue)
+  {
+    return setAttribute (aAttrName, Boolean.toString (bAttrValue));
+  }
+
+  @Nonnull
   public IMicroElement setAttribute (@Nonnull final String sAttrName, final int nAttrValue)
   {
     return setAttribute (sAttrName, Integer.toString (nAttrValue));
