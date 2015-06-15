@@ -58,16 +58,6 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   private final String m_sTagName;
   private Map <IMicroQName, MicroAttribute> m_aAttrs;
 
-  public MicroElement (@Nonnull final IHasElementName aElementNameProvider)
-  {
-    this (null, aElementNameProvider.getElementName ());
-  }
-
-  public MicroElement (@Nullable final String sNamespaceURI, @Nonnull final IHasElementName aElementNameProvider)
-  {
-    this (sNamespaceURI, aElementNameProvider.getElementName ());
-  }
-
   public MicroElement (@Nonnull @Nonempty final String sTagName)
   {
     this (null, sTagName);
@@ -601,23 +591,6 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <IMicroElement> getAllChildElements (@Nonnull final IHasElementName aElementNameProvider)
-  {
-    ValueEnforcer.notNull (aElementNameProvider, "ElementNameProvider");
-    return getAllChildElements (aElementNameProvider.getElementName ());
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public List <IMicroElement> getAllChildElements (@Nullable final String sNamespaceURI,
-                                                   @Nonnull final IHasElementName aElementNameProvider)
-  {
-    ValueEnforcer.notNull (aElementNameProvider, "ElementNameProvider");
-    return getAllChildElements (sNamespaceURI, aElementNameProvider.getElementName ());
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
   public List <IMicroElement> getAllChildElementsRecursive ()
   {
     final List <IMicroElement> ret = new ArrayList <IMicroElement> ();
@@ -711,19 +684,6 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return false;
   }
 
-  public boolean hasChildElements (@Nonnull final IHasElementName aElementNameProvider)
-  {
-    ValueEnforcer.notNull (aElementNameProvider, "ElementNameProvider");
-    return hasChildElements (aElementNameProvider.getElementName ());
-  }
-
-  public boolean hasChildElements (@Nullable final String sNamespaceURI,
-                                   @Nonnull final IHasElementName aElementNameProvider)
-  {
-    ValueEnforcer.notNull (aElementNameProvider, "ElementNameProvider");
-    return hasChildElements (sNamespaceURI, aElementNameProvider.getElementName ());
-  }
-
   @Nullable
   public IMicroElement getFirstChildElement ()
   {
@@ -793,21 +753,6 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
               }
           }
     return null;
-  }
-
-  @Nullable
-  public IMicroElement getFirstChildElement (@Nonnull final IHasElementName aElementNameProvider)
-  {
-    ValueEnforcer.notNull (aElementNameProvider, "ElementNameProvider");
-    return getFirstChildElement (aElementNameProvider.getElementName ());
-  }
-
-  @Nullable
-  public IMicroElement getFirstChildElement (@Nullable final String sNamespaceURI,
-                                             @Nonnull final IHasElementName aElementNameProvider)
-  {
-    ValueEnforcer.notNull (aElementNameProvider, "ElementNameProvider");
-    return getFirstChildElement (sNamespaceURI, aElementNameProvider.getElementName ());
   }
 
   @Nonnull

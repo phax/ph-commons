@@ -439,32 +439,6 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
   IMicroElement appendElement (@Nullable String sNamespaceURI, @Nonnull @Nonempty String sTagName) throws MicroException;
 
   /**
-   * Append an element without namespace to this node.
-   *
-   * @param aElementNameProvider
-   *        Element name provider. May not be <code>null</code>.
-   * @return The created element
-   * @throws MicroException
-   *         if this node cannot have children
-   */
-  @Nonnull
-  IMicroElement appendElement (@Nonnull IHasElementName aElementNameProvider) throws MicroException;
-
-  /**
-   * Append an element with namespace to this node.
-   *
-   * @param sNamespaceURI
-   *        Namespace URI to use. May be <code>null</code>.
-   * @param aElementNameProvider
-   *        Element name provider. May not be <code>null</code>.
-   * @return The created element
-   * @throws MicroException
-   *         if this node cannot have children
-   */
-  @Nonnull
-  IMicroElement appendElement (@Nullable String sNamespaceURI, @Nonnull IHasElementName aElementNameProvider) throws MicroException;
-
-  /**
    * Append a processing instruction to this node.
    *
    * @param sTarget

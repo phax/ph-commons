@@ -80,20 +80,43 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * Check if this element has an attribute with the specified name.
    *
    * @param aAttrName
-   *        The qualified attribute name to check.
+   *        The qualified attribute name to check. May be <code>null</code>.
    * @return <code>true</code> if such an attribute is present,
    *         <code>false</code> otherwise
    */
   boolean hasAttribute (@Nullable IMicroQName aAttrName);
 
+  /**
+   * Get the attribute object with the specified name.
+   *
+   * @param sAttrName
+   *        The attribute locale name to query. May be <code>null</code>.
+   * @return <code>null</code> of no such attribute object exists.
+   */
   @Nullable
   IMicroAttribute getAttributeObj (@Nullable String sAttrName);
 
+  /**
+   * Get the attribute object with the specified namespace URI and local name.
+   *
+   * @param sNamespaceURI
+   *        Namespace URI to use. May be <code>null</code>.
+   * @param sAttrName
+   *        The attribute locale name to query. May be <code>null</code>.
+   * @return <code>null</code> of no such attribute object exists.
+   */
   @Nullable
   IMicroAttribute getAttributeObj (@Nullable String sNamespaceURI, @Nullable String sAttrName);
 
+  /**
+   * Get the attribute object with the specified qualified name.
+   *
+   * @param aAttrName
+   *        The qualified attribute name to check. May be <code>null</code>.
+   * @return <code>null</code> of no such attribute object exists.
+   */
   @Nullable
-  IMicroAttribute getAttributeObj (@Nullable IMicroQName aQName);
+  IMicroAttribute getAttributeObj (@Nullable IMicroQName aAttrName);
 
   /**
    * Get the attribute value of the given attribute name. If this element has no
@@ -124,7 +147,8 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * such attribute, <code>null</code> is returned.
    *
    * @param aAttrName
-   *        The qualified attribute name to retrieve the value of.
+   *        The qualified attribute name to retrieve the value of. May be
+   *        <code>null</code>.
    * @return The assigned attribute value or <code>null</code>.
    */
   @Nullable
@@ -679,33 +703,6 @@ public interface IMicroElement extends IMicroNodeWithChildren
   List <IMicroElement> getAllChildElements (@Nullable String sNamespaceURI, @Nullable String sLocalName);
 
   /**
-   * Get a list of all direct child elements having the specified tag name.
-   * Micro container children are inlined.
-   *
-   * @param aElementNameProvider
-   *        Element name provider. May not be <code>null</code>.
-   * @return Never be <code>null</code>.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  List <IMicroElement> getAllChildElements (@Nonnull IHasElementName aElementNameProvider);
-
-  /**
-   * Get a list of all direct child elements having the specified namespace and
-   * the specified tag name. Micro container children are inlined.
-   *
-   * @param sNamespaceURI
-   *        The namespace URI to check. May be <code>null</code>.
-   * @param aElementNameProvider
-   *        Element name provider. May not be <code>null</code>.
-   * @return Never be <code>null</code>.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  List <IMicroElement> getAllChildElements (@Nullable String sNamespaceURI,
-                                            @Nonnull IHasElementName aElementNameProvider);
-
-  /**
    * Recursively get all child elements. Micro container children are inlined.
    *
    * @return A list containing all recursively contained elements. May not be
@@ -748,30 +745,6 @@ public interface IMicroElement extends IMicroNodeWithChildren
   boolean hasChildElements (@Nullable String sNamespaceURI, @Nullable String sLocalName);
 
   /**
-   * Check if this element has at least one child element with the specified tag
-   * name. Micro container children are also checked.
-   *
-   * @param aElementNameProvider
-   *        Element name provider. May not be <code>null</code>.
-   * @return <code>true</code> if this element has at least one child element
-   *         with the specified tag name
-   */
-  boolean hasChildElements (@Nonnull IHasElementName aElementNameProvider);
-
-  /**
-   * Check if this element has at least one child element with the specified
-   * namespace URI and tag name. Micro container children are also checked.
-   *
-   * @param sNamespaceURI
-   *        The namespace URI to check. May be <code>null</code>.
-   * @param aElementNameProvider
-   *        Element name provider. May not be <code>null</code>.
-   * @return <code>true</code> if this element has at least one child element
-   *         with the specified namespace URI and tag name
-   */
-  boolean hasChildElements (@Nullable String sNamespaceURI, @Nonnull IHasElementName aElementNameProvider);
-
-  /**
    * Get the first child element of this element. Micro container children are
    * also checked.
    *
@@ -804,30 +777,6 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nullable
   IMicroElement getFirstChildElement (@Nullable String sNamespaceURI, @Nullable String sLocalName);
-
-  /**
-   * Get the first child element with the given tag name. Micro container
-   * children are also checked.
-   *
-   * @param aElementNameProvider
-   *        Element name provider. May not be <code>null</code>.
-   * @return <code>null</code> if no such child element is present
-   */
-  @Nullable
-  IMicroElement getFirstChildElement (@Nonnull IHasElementName aElementNameProvider);
-
-  /**
-   * Get the first child element with the given tag name and the given
-   * namespace. Micro container children are also checked.
-   *
-   * @param sNamespaceURI
-   *        The namespace URL to search.
-   * @param aElementNameProvider
-   *        Element name provider. May not be <code>null</code>.
-   * @return <code>null</code> if no such child element is present
-   */
-  @Nullable
-  IMicroElement getFirstChildElement (@Nullable String sNamespaceURI, @Nonnull IHasElementName aElementNameProvider);
 
   /**
    * {@inheritDoc}

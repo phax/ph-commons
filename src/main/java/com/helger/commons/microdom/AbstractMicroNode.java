@@ -291,21 +291,6 @@ public abstract class AbstractMicroNode implements IMicroNode
   }
 
   @Nonnull
-  public final IMicroElement appendElement (@Nonnull final IHasElementName aElementNameProvider)
-  {
-    return appendElement (null, aElementNameProvider);
-  }
-
-  @Nonnull
-  public final IMicroElement appendElement (@Nullable final String sNamespaceURI,
-                                            @Nonnull final IHasElementName aElementNameProvider)
-  {
-    ValueEnforcer.notNull (aElementNameProvider, "ElementNameProvider");
-
-    return appendElement (sNamespaceURI, aElementNameProvider.getElementName ());
-  }
-
-  @Nonnull
   public final IMicroProcessingInstruction appendProcessingInstruction (@Nonnull @Nonempty final String sTarget,
                                                                         @Nullable final String sData)
   {

@@ -16,6 +16,7 @@
  */
 package com.helger.commons.microdom.serialize;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import javax.annotation.Nonnull;
@@ -30,6 +31,8 @@ import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.timing.StopWatch;
 import com.helger.commons.xml.DefaultXMLIterationHandler;
+import com.helger.commons.xml.serialize.EXMLSerializeIndent;
+import com.helger.commons.xml.serialize.XMLWriterSettings;
 
 /**
  * Test class for class {@link MicroSerializer}
@@ -101,7 +104,7 @@ public final class MicroSerializerTest
        * After changing StringBuilder to Writer:<br>
        * Average: 47.0 millisecs<br>
        */
-      if (nRun < 2)
+      if (nRun < 3)
       {
         aMS.write (doc, aWriter);
         nWarmUpRuns++;
@@ -119,5 +122,54 @@ public final class MicroSerializerTest
 
     // Just do nothing :)
     aMS.write (doc, new DefaultXMLIterationHandler ());
+  }
+
+  @Test
+  public void testIndent ()
+  {
+    final IMicroDocument aDoc = new MicroDocument ();
+    final IMicroElement eHTML = aDoc.appendElement ("html");
+    final IMicroElement eBody = eHTML.appendElement ("body");
+    eBody.appendElement ("div");
+    eBody.appendElement ("span").appendText ("bla");
+    eBody.appendElement ("span").appendElement ("span").appendElement ("span").setAttribute ("a", 3).appendText ("");
+    final IMicroElement eSpan3 = eBody.appendElement ("span");
+    eSpan3.appendText ("f");
+    eSpan3.appendText ("oo");
+    eSpan3.appendElement ("strong").appendText ("bar");
+    eSpan3.appendText ("baz");
+    eBody.appendElement ("div");
+
+    final String sCRLF = XMLWriterSettings.DEFAULT_XML_SETTINGS.getNewLineString ();
+    final String s = MicroWriter.getNodeAsString (aDoc,
+                                                  new XMLWriterSettings ().setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN));
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                  sCRLF +
+                  "<html>" +
+                  sCRLF +
+                  "  <body>" +
+                  sCRLF +
+                  "    <div />" +
+                  sCRLF +
+                  "    <span>bla</span>" +
+                  sCRLF +
+                  "    <span>" +
+                  sCRLF +
+                  "      <span>" +
+                  sCRLF +
+                  "        <span a=\"3\"></span>" +
+                  sCRLF +
+                  "      </span>" +
+                  sCRLF +
+                  "    </span>" +
+                  sCRLF +
+                  "    <span>foo<strong>bar</strong>baz</span>" +
+                  sCRLF +
+                  "    <div />" +
+                  sCRLF +
+                  "  </body>" +
+                  sCRLF +
+                  "</html>" +
+                  sCRLF, s);
   }
 }

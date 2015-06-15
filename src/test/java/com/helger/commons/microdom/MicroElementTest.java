@@ -32,18 +32,6 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 
 import com.helger.commons.junit.DebugModeTestRule;
-import com.helger.commons.microdom.EMicroNodeType;
-import com.helger.commons.microdom.IHasElementName;
-import com.helger.commons.microdom.IMicroComment;
-import com.helger.commons.microdom.IMicroContainer;
-import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.IMicroNode;
-import com.helger.commons.microdom.IMicroText;
-import com.helger.commons.microdom.MicroComment;
-import com.helger.commons.microdom.MicroDocument;
-import com.helger.commons.microdom.MicroElement;
-import com.helger.commons.microdom.MicroException;
-import com.helger.commons.microdom.MicroQName;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.MultilingualText;
@@ -65,20 +53,6 @@ public final class MicroElementTest extends AbstractCommonsTestCase
   @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testCreation ()
   {
-    try
-    {
-      new MicroElement ((IHasElementName) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      new MicroElement (null, (IHasElementName) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
     try
     {
       new MicroElement ((String) null);
@@ -427,49 +401,6 @@ public final class MicroElementTest extends AbstractCommonsTestCase
     assertFalse (eRoot.hasChildElements (null, (String) null));
     assertNull (eRoot.getFirstChildElement ((String) null));
     assertNull (eRoot.getFirstChildElement (null, (String) null));
-
-    try
-    {
-      eRoot.getAllChildElements ((IHasElementName) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      eRoot.getAllChildElements (null, (IHasElementName) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      eRoot.hasChildElements ((IHasElementName) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      eRoot.hasChildElements (null, (IHasElementName) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      eRoot.getFirstChildElement ((IHasElementName) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      eRoot.getFirstChildElement (null, (IHasElementName) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
 
     List <IMicroElement> x = eRoot.getAllChildElements (NSURI, "a");
     assertNotNull (x);
