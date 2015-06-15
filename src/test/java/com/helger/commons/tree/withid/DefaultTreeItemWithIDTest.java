@@ -28,8 +28,8 @@ import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.tree.util.sort.ComparatorDefaultTreeItemWithIDDataComparable;
-import com.helger.commons.tree.util.sort.ComparatorTreeItemIDComparable;
+import com.helger.commons.tree.sort.ComparatorDefaultTreeItemWithIDDataComparable;
+import com.helger.commons.tree.sort.ComparatorTreeItemIDComparable;
 
 /**
  * Test class for class {@link DefaultTreeItemWithID}.

@@ -31,7 +31,7 @@ import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.filter.FileFilterFilenameEndsWith;
-import com.helger.commons.tree.util.visit.TreeVisitor;
+import com.helger.commons.tree.util.TreeVisitor;
 import com.helger.commons.tree.withid.folder.DefaultFolderTreeItem;
 
 /**
