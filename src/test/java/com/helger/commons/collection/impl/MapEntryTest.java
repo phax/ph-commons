@@ -50,14 +50,14 @@ public final class MapEntryTest
     assertNotNull (e.toString ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapEntry <String, Object> ("Key", "value"),
-                                                                 new MapEntry <String, Object> ("Key", "value"));
+                                                                       new MapEntry <String, Object> ("Key", "value"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <String, Object> ("Key",
                                                                                                           "value"),
-                                                                     new MapEntry <String, Object> ("Key",
+                                                                           new MapEntry <String, Object> ("Key",
                                                                                                           "value2"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <String, Object> ("Key",
                                                                                                           "value"),
-                                                                     new MapEntry <String, Object> ("Key2",
+                                                                           new MapEntry <String, Object> ("Key2",
                                                                                                           "value"));
   }
 }

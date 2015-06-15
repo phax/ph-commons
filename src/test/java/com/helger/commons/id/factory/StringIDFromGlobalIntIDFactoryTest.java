@@ -36,7 +36,8 @@ public final class StringIDFromGlobalIntIDFactoryTest
   {
     final StringIDFromGlobalIntIDFactory x = new StringIDFromGlobalIntIDFactory ("idd");
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, new StringIDFromGlobalIntIDFactory ("idd"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, new StringIDFromGlobalIntIDFactory ("prefix"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x,
+                                                                           new StringIDFromGlobalIntIDFactory ("prefix"));
     assertTrue (x.getNewID ().startsWith ("idd"));
 
     try

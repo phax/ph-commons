@@ -60,10 +60,10 @@ public final class SingleElementIteratorTest
     {}
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SingleElementIterator <String> ("any"),
-                                                                 new SingleElementIterator <String> ("any"));
+                                                                       new SingleElementIterator <String> ("any"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementIterator <String> ("any"),
-                                                                     new SingleElementIterator <String> ("any2"));
+                                                                           new SingleElementIterator <String> ("any2"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementIterator <String> ("any"),
-                                                                     new SingleElementIterator <Integer> (Integer.valueOf (1)));
+                                                                           new SingleElementIterator <Integer> (Integer.valueOf (1)));
   }
 }

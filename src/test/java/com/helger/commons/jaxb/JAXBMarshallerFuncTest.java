@@ -47,7 +47,7 @@ public final class JAXBMarshallerFuncTest
     {
       JAXBMarshallerHelper.setFormattedOutput (aMarshaller, true);
       JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller,
-                                                       new MapBasedNamespaceContext ().addMapping ("def", "urn:test"));
+                                                        new MapBasedNamespaceContext ().addMapping ("def", "urn:test"));
     }
 
     @Override

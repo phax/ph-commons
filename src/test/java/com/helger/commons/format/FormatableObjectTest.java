@@ -115,48 +115,52 @@ public final class FormatableObjectTest
   @Test
   public void testImpl ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatableObject ("Any", new FormatterBracket ()),
-                                                                 new FormatableObject ("Any", new FormatterBracket ()));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatableObject ("Any",
+                                                                                             new FormatterBracket ()),
+                                                                       new FormatableObject ("Any",
+                                                                                             new FormatterBracket ()));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatableObject ("Any",
-                                                                                          new FormatterBracket ()),
-                                                                     new FormatableObject ("Any2",
-                                                                                          new FormatterBracket ()));
+                                                                                                 new FormatterBracket ()),
+                                                                           new FormatableObject ("Any2",
+                                                                                                 new FormatterBracket ()));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatableObject ("Any",
-                                                                                          new FormatterBracket ()),
-                                                                     new FormatableObject ("Any",
-                                                                                          new FormatterStringPrefix ("oprefix")));
+                                                                                                 new FormatterBracket ()),
+                                                                           new FormatableObject ("Any",
+                                                                                                 new FormatterStringPrefix ("oprefix")));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatterBracket (), new FormatterBracket ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatterMinLengthAddLeading (10, ' '),
-                                                                 new FormatterMinLengthAddLeading (10, ' '));
+                                                                       new FormatterMinLengthAddLeading (10, ' '));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterMinLengthAddLeading (10, ' '),
-                                                                     new FormatterMinLengthAddLeading (10, 'x'));
+                                                                           new FormatterMinLengthAddLeading (10, 'x'));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterMinLengthAddLeading (10, ' '),
-                                                                     new FormatterMinLengthAddLeading (5, ' '));
+                                                                           new FormatterMinLengthAddLeading (5, ' '));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatterMinLengthAddTrailing (10, ' '),
-                                                                 new FormatterMinLengthAddTrailing (10, ' '));
+                                                                       new FormatterMinLengthAddTrailing (10, ' '));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterMinLengthAddTrailing (10, ' '),
-                                                                     new FormatterMinLengthAddTrailing (10, 'x'));
+                                                                           new FormatterMinLengthAddTrailing (10, 'x'));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterMinLengthAddTrailing (10, ' '),
-                                                                     new FormatterMinLengthAddTrailing (5, ' '));
+                                                                           new FormatterMinLengthAddTrailing (5, ' '));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatterStringPrefixAndSuffix ("p", "s"),
-                                                                 new FormatterStringPrefixAndSuffix ("p", "s"));
+                                                                       new FormatterStringPrefixAndSuffix ("p", "s"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterStringPrefixAndSuffix ("p", "s"),
-                                                                     new FormatterStringPrefixAndSuffix ("p", "ss"));
+                                                                           new FormatterStringPrefixAndSuffix ("p",
+                                                                                                               "ss"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterStringPrefixAndSuffix ("p", "s"),
-                                                                     new FormatterStringPrefixAndSuffix ("pp", "s"));
+                                                                           new FormatterStringPrefixAndSuffix ("pp",
+                                                                                                               "s"));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatterStringPrefix ("p"),
-                                                                 new FormatterStringPrefix ("p"));
+                                                                       new FormatterStringPrefix ("p"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterStringPrefix ("p"),
-                                                                     new FormatterStringPrefix ("pp"));
+                                                                           new FormatterStringPrefix ("pp"));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatterStringSuffix ("s"),
-                                                                 new FormatterStringSuffix ("s"));
+                                                                       new FormatterStringSuffix ("s"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterStringSuffix ("s"),
-                                                                     new FormatterStringSuffix ("ss"));
+                                                                           new FormatterStringSuffix ("ss"));
   }
 }

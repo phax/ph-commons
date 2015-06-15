@@ -44,9 +44,9 @@ import com.helger.commons.lang.priviledged.PrivilegedActionSystemGetProperty;
  * <pre>
  * try
  * {
- *   XMLReader myReader = XMLReaderFactory.createXMLReader ();
+ *   XMLReader myReader = XMLReaderFactoryCommons.createXMLReader ();
  * }
- * catch (SAXException e)
+ * catch (final SAXException e)
  * {
  *   System.err.println (e.getMessage ());
  * }

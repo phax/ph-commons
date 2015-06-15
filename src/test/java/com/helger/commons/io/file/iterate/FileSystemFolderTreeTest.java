@@ -80,27 +80,27 @@ public final class FileSystemFolderTreeTest
                                                            null,
                                                            new FileFilterFilenameEndsWith (".java"));
     TreeVisitor.visitTreeItem (aTree.getRootItem (),
-                             new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ()
-                             {
-                               @Override
-                               @Nonnull
-                               public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final DefaultFolderTreeItem <String, File, List <File>> aFolder)
+                               new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ()
                                {
-                                 if (aFolder != null)
-                                   for (final File aFile : aFolder.getData ())
-                                     assertTrue (FileHelper.existsFile (aFile));
-                                 return EHierarchyVisitorReturn.CONTINUE;
-                               }
-                             });
+                                 @Override
+                                 @Nonnull
+                                 public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final DefaultFolderTreeItem <String, File, List <File>> aFolder)
+                                 {
+                                   if (aFolder != null)
+                                     for (final File aFile : aFolder.getData ())
+                                       assertTrue (FileHelper.existsFile (aFile));
+                                   return EHierarchyVisitorReturn.CONTINUE;
+                                 }
+                               });
 
     // Only dir filter
     aTree = new FileSystemFolderTree (new File (".").getAbsoluteFile (), new FileFilterFilenameEndsWith ("src"), null);
     TreeVisitor.visitTreeItem (aTree.getRootItem (),
-                             new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ());
+                               new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ());
 
     // No filter
     aTree = new FileSystemFolderTree (new File (".").getAbsoluteFile ());
     TreeVisitor.visitTreeItem (aTree.getRootItem (),
-                             new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ());
+                               new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ());
   }
 }

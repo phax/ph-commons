@@ -46,8 +46,8 @@ public final class FileLongIDFactoryTest
       CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, new FileLongIDFactory (f));
       CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, new FileLongIDFactory (f2));
       CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x,
-                                                                       new FileLongIDFactory (f,
-                                                                                              FileLongIDFactory.DEFAULT_RESERVE_COUNT * 2));
+                                                                             new FileLongIDFactory (f,
+                                                                                                    FileLongIDFactory.DEFAULT_RESERVE_COUNT * 2));
 
       for (int i = 0; i < x.getReserveCount () * 10; ++i)
         assertEquals (i, x.getNewID ());

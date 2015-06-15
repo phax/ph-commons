@@ -196,23 +196,23 @@ public final class StreamHelperTest
     final byte [] aInput = CharsetManager.getAsBytes ("Hello12Bytes", CCharset.CHARSET_ISO_8859_1_OBJ);
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
     assertTrue (StreamHelper.copyInputStreamToOutputStreamWithLimit (new NonBlockingByteArrayInputStream (aInput),
-                                                                    aBAOS,
-                                                                    5).isSuccess ());
+                                                                     aBAOS,
+                                                                     5).isSuccess ());
     assertEquals ("Hello", aBAOS.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ));
     aBAOS.reset ();
     assertTrue (StreamHelper.copyInputStreamToOutputStreamWithLimit (new NonBlockingByteArrayInputStream (aInput),
-                                                                    aBAOS,
-                                                                    7).isSuccess ());
+                                                                     aBAOS,
+                                                                     7).isSuccess ());
     assertEquals ("Hello12", aBAOS.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ));
     aBAOS.reset ();
     assertTrue (StreamHelper.copyInputStreamToOutputStreamWithLimit (new NonBlockingByteArrayInputStream (aInput),
-                                                                    aBAOS,
-                                                                    0).isSuccess ());
+                                                                     aBAOS,
+                                                                     0).isSuccess ());
     assertEquals ("", aBAOS.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ));
     aBAOS.reset ();
     assertTrue (StreamHelper.copyInputStreamToOutputStreamWithLimit (new NonBlockingByteArrayInputStream (aInput),
-                                                                    aBAOS,
-                                                                    9999).isSuccess ());
+                                                                     aBAOS,
+                                                                     9999).isSuccess ());
     assertEquals ("Hello12Bytes", aBAOS.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ));
     aBAOS.reset ();
 
@@ -254,9 +254,9 @@ public final class StreamHelperTest
     assertNull (StreamHelper.getAllBytes ((InputStream) null));
 
     assertEquals (sInput, StreamHelper.getAllBytesAsString (new ByteArrayInputStreamProvider (aInput),
-                                                           CCharset.CHARSET_ISO_8859_1_OBJ));
+                                                            CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (sInput, StreamHelper.getAllBytesAsString (new NonBlockingByteArrayInputStream (aInput),
-                                                           CCharset.CHARSET_ISO_8859_1_OBJ));
+                                                            CCharset.CHARSET_ISO_8859_1_OBJ));
     assertNull (StreamHelper.getAllBytesAsString ((IHasInputStream) null, CCharset.CHARSET_ISO_8859_1_OBJ));
     assertNull (StreamHelper.getAllBytesAsString ((InputStream) null, CCharset.CHARSET_ISO_8859_1_OBJ));
     try
@@ -275,7 +275,7 @@ public final class StreamHelperTest
     assertNull (StreamHelper.readStreamLines ((IReadableResource) null, CCharset.CHARSET_ISO_8859_1_OBJ));
     assertNull (StreamHelper.readStreamLines (new ClassPathResource ("gibts-ned"), CCharset.CHARSET_ISO_8859_1_OBJ));
     assertNull (StreamHelper.readStreamLines (ClassPathResource.getInputStream ("gibts-ned"),
-                                             CCharset.CHARSET_ISO_8859_1_OBJ));
+                                              CCharset.CHARSET_ISO_8859_1_OBJ));
 
     final IReadableResource aRes = new ClassPathResource ("streamutils-lines");
 

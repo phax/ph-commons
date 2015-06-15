@@ -55,15 +55,15 @@ public final class MessageDigestOutputStreamTest
         // First hash
         aHIS1 = new MessageDigestOutputStream (new NonBlockingByteArrayOutputStream (), eMDAlgo);
         StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream (sTestString,
-                                                                                    CCharset.CHARSET_ISO_8859_1_OBJ),
-                                                             new NonBlockingByteArrayOutputStream ());
+                                                                                     CCharset.CHARSET_ISO_8859_1_OBJ),
+                                                              new NonBlockingByteArrayOutputStream ());
         final byte [] aDigest1 = aHIS1.getDigest ();
 
         // Second hash
         aHIS2 = new MessageDigestOutputStream (new NonBlockingByteArrayOutputStream (), eMDAlgo);
         StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream (sTestString,
-                                                                                    CCharset.CHARSET_ISO_8859_1_OBJ),
-                                                             new NonBlockingByteArrayOutputStream ());
+                                                                                     CCharset.CHARSET_ISO_8859_1_OBJ),
+                                                              new NonBlockingByteArrayOutputStream ());
         final byte [] aDigest2 = aHIS2.getDigest ();
 
         // Must be equal

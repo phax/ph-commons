@@ -52,17 +52,17 @@ public final class ResourceBundleKeyTest extends AbstractCommonsTestCase
     {}
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleKey ("properties/test-iso8859",
-                                                                                        "key1"),
-                                                                 new ResourceBundleKey ("properties/test-iso8859",
-                                                                                        "key1"));
+                                                                                              "key1"),
+                                                                       new ResourceBundleKey ("properties/test-iso8859",
+                                                                                              "key1"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859",
-                                                                                            "key1"),
-                                                                     new ResourceBundleKey ("properties/test-iso8859-1",
-                                                                                            "key1"));
+                                                                                                  "key1"),
+                                                                           new ResourceBundleKey ("properties/test-iso8859-1",
+                                                                                                  "key1"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859",
-                                                                                            "key1"),
-                                                                     new ResourceBundleKey ("properties/test-iso8859",
-                                                                                            "key2"));
+                                                                                                  "key1"),
+                                                                           new ResourceBundleKey ("properties/test-iso8859",
+                                                                                                  "key2"));
 
     ResourceBundleHelper.clearCache ();
   }

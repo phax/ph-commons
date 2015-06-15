@@ -46,10 +46,13 @@ public final class MimeTypeTest extends AbstractCommonsTestCase
     assertEquals ("text/junit", mt.getAsString ());
     assertEquals ("text/junit", mt.getAsStringWithoutParameters ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (mt, new MimeType (EMimeContentType.TEXT, "junit"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.APPLICATION,
-                                                                                       "junit"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.TEXT, "testng"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (mt,
+                                                                       new MimeType (EMimeContentType.TEXT, "junit"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt,
+                                                                           new MimeType (EMimeContentType.APPLICATION,
+                                                                                         "junit"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.TEXT,
+                                                                                             "testng"));
     CommonsTestHelper.testGetClone (mt);
     CommonsTestHelper.testDefaultSerialization (mt);
 

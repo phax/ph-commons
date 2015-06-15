@@ -74,31 +74,31 @@ public final class XMLWriterSettingsTest
     assertFalse (mws.isPutNamespaceContextPrefixesInRoot ());
 
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                     new XMLWriterSettings ().setFormat (EXMLSerializeFormat.HTML));
+                                                                           new XMLWriterSettings ().setFormat (EXMLSerializeFormat.HTML));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                     new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE));
+                                                                           new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                     new XMLWriterSettings ().setSerializeComments (EXMLSerializeComments.IGNORE));
+                                                                           new XMLWriterSettings ().setSerializeComments (EXMLSerializeComments.IGNORE));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                     new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE));
+                                                                           new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                     new XMLWriterSettings ().setCharset (CCharset.CHARSET_US_ASCII_OBJ));
+                                                                           new XMLWriterSettings ().setCharset (CCharset.CHARSET_US_ASCII_OBJ));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                     new XMLWriterSettings ().setNamespaceContext (new MapBasedNamespaceContext ().addMapping ("prefix",
-                                                                                                                                                               "uri")));
+                                                                           new XMLWriterSettings ().setNamespaceContext (new MapBasedNamespaceContext ().addMapping ("prefix",
+                                                                                                                                                                     "uri")));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                     new XMLWriterSettings ().setSpaceOnSelfClosedElement (false));
+                                                                           new XMLWriterSettings ().setSpaceOnSelfClosedElement (false));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                     new XMLWriterSettings ().setUseDoubleQuotesForAttributes (false));
+                                                                           new XMLWriterSettings ().setUseDoubleQuotesForAttributes (false));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                     new XMLWriterSettings ().setNewLineMode (ENewLineMode.DEFAULT == ENewLineMode.WINDOWS ? ENewLineMode.UNIX
-                                                                                                                                                          : ENewLineMode.WINDOWS));
+                                                                           new XMLWriterSettings ().setNewLineMode (ENewLineMode.DEFAULT == ENewLineMode.WINDOWS ? ENewLineMode.UNIX
+                                                                                                                                                                : ENewLineMode.WINDOWS));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                     new XMLWriterSettings ().setIndentationString ("\t"));
+                                                                           new XMLWriterSettings ().setIndentationString ("\t"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                     new XMLWriterSettings ().setEmitNamespaces (false));
+                                                                           new XMLWriterSettings ().setEmitNamespaces (false));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                     new XMLWriterSettings ().setPutNamespaceContextPrefixesInRoot (true));
+                                                                           new XMLWriterSettings ().setPutNamespaceContextPrefixesInRoot (true));
 
     // Now try all permutations
     final XMLWriterSettings aXWS = new XMLWriterSettings ();

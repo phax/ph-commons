@@ -52,10 +52,10 @@ public final class SingleElementEnumerationTest
     assertFalse (eit.hasMoreElements ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SingleElementEnumeration <String> ("any"),
-                                                                 new SingleElementEnumeration <String> ("any"));
+                                                                       new SingleElementEnumeration <String> ("any"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementEnumeration <String> ("any"),
-                                                                     new SingleElementEnumeration <String> ("any2"));
+                                                                           new SingleElementEnumeration <String> ("any2"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementEnumeration <String> ("any"),
-                                                                     new SingleElementEnumeration <Integer> (Integer.valueOf (1)));
+                                                                           new SingleElementEnumeration <Integer> (Integer.valueOf (1)));
   }
 }

@@ -52,8 +52,8 @@ public final class AggregatorStringWithSeparatorTest
     {}
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new AggregatorStringWithSeparator (";"),
-                                                                 new AggregatorStringWithSeparator (";"));
+                                                                       new AggregatorStringWithSeparator (";"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new AggregatorStringWithSeparator (";"),
-                                                                     new AggregatorStringWithSeparator (","));
+                                                                           new AggregatorStringWithSeparator (","));
   }
 }

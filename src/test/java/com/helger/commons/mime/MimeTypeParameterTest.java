@@ -40,10 +40,12 @@ public final class MimeTypeParameterTest extends AbstractCommonsTestCase
     assertEquals ("iso-8859-1", p.getValue ());
     assertFalse (p.isValueRequiringQuoting ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (p, new MimeTypeParameter ("charset", "iso-8859-1"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (p, new MimeTypeParameter ("charset",
+                                                                                                 "iso-8859-1"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charsetname",
-                                                                                               "iso-8859-1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charset", "utf-8"));
+                                                                                                     "iso-8859-1"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p,
+                                                                           new MimeTypeParameter ("charset", "utf-8"));
 
     p = new MimeTypeParameter ("charset", "foo bar");
     assertEquals ("charset", p.getAttribute ());

@@ -111,19 +111,19 @@ public final class ArrayIteratorTest
   {
     final ArrayIterator <String> ae = ArrayIterator.create (ArrayHelper.newArray ("Hallo", "Welt", "from", "Copenhagen"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ae,
-                                                                 ArrayIterator.create (ArrayHelper.newArray ("Hallo",
-                                                                                                             "Welt",
-                                                                                                             "from",
-                                                                                                             "Copenhagen")));
+                                                                       ArrayIterator.create (ArrayHelper.newArray ("Hallo",
+                                                                                                                   "Welt",
+                                                                                                                   "from",
+                                                                                                                   "Copenhagen")));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
-                                                                     ArrayIterator.create (ArrayHelper.newArray ("Hallo",
-                                                                                                                 "Welt",
-                                                                                                                 "from")));
+                                                                           ArrayIterator.create (ArrayHelper.newArray ("Hallo",
+                                                                                                                       "Welt",
+                                                                                                                       "from")));
     ae.next ();
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
-                                                                     ArrayIterator.create (ArrayHelper.newArray ("Hallo",
-                                                                                                                 "Welt",
-                                                                                                                 "from",
-                                                                                                                 "Copenhagen")));
+                                                                           ArrayIterator.create (ArrayHelper.newArray ("Hallo",
+                                                                                                                       "Welt",
+                                                                                                                       "from",
+                                                                                                                       "Copenhagen")));
   }
 }

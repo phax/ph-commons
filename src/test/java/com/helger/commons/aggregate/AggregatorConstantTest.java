@@ -36,9 +36,10 @@ public final class AggregatorConstantTest
   public void testAll ()
   {
     final AggregatorConstant <String, String> a1 = new AggregatorConstant <String, String> ("foo");
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (a1, new AggregatorConstant <String, String> ("foo"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (a1,
+                                                                       new AggregatorConstant <String, String> ("foo"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (a1,
-                                                                     new AggregatorConstant <String, String> ("bar"));
+                                                                           new AggregatorConstant <String, String> ("bar"));
 
     assertEquals ("foo", a1.aggregate (CollectionHelper.newList ("a", "b")));
     assertEquals ("foo", a1.aggregate (new ArrayList <String> ()));

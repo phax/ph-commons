@@ -39,9 +39,9 @@ public final class StringIDFromGlobalPersistentIntIDFactoryTest
     GlobalIDFactory.setPersistentIntIDFactory (new MemoryStaticIntIDFactory ());
     final StringIDFromGlobalPersistentIntIDFactory x = new StringIDFromGlobalPersistentIntIDFactory ("idd");
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x,
-                                                                 new StringIDFromGlobalPersistentIntIDFactory ("idd"));
+                                                                       new StringIDFromGlobalPersistentIntIDFactory ("idd"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x,
-                                                                     new StringIDFromGlobalPersistentIntIDFactory ("prefix"));
+                                                                           new StringIDFromGlobalPersistentIntIDFactory ("prefix"));
     assertTrue (x.getNewID ().startsWith ("idd"));
 
     try

@@ -53,6 +53,6 @@ public final class EqualsImplementationRegistryTest extends AbstractCommonsTestC
 
     // 2 level array
     assertTrue (EqualsHelper.equals (ArrayHelper.newArray (ArrayHelper.newArray (d1)),
-                                    ArrayHelper.newArray (ArrayHelper.newArray (d2))));
+                                     ArrayHelper.newArray (ArrayHelper.newArray (d2))));
   }
 }

@@ -45,9 +45,10 @@ public final class MutableBooleanTest
     assertFalse (x.set (true).isChanged ());
     assertTrue (x.booleanValue ());
     assertSame (Boolean.TRUE, x.getAsBoolean ());
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableBoolean (true), new MutableBoolean (true));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableBoolean (true),
+                                                                       new MutableBoolean (true));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableBoolean (true),
-                                                                     new MutableBoolean (false));
+                                                                           new MutableBoolean (false));
     CommonsTestHelper.testGetClone (new MutableBoolean (true));
   }
 
@@ -59,6 +60,7 @@ public final class MutableBooleanTest
     assertNotNull (b);
     assertTrue (b.booleanValue ());
     assertTrue (TypeConverter.convertToBoolean (x));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, TypeConverter.convert (true, MutableBoolean.class));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, TypeConverter.convert (true,
+                                                                                                 MutableBoolean.class));
   }
 }

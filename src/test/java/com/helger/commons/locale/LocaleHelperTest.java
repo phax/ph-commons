@@ -166,11 +166,12 @@ public final class LocaleHelperTest extends AbstractCommonsTestCase
     assertSame (L_DE, LocaleHelper.getLocaleToUseOrFallback (L_DE, aLocales, null));
     assertEquals (L_DE, LocaleHelper.getLocaleToUseOrFallback (L_DE_AT, aLocales, null));
     assertEquals (CGlobal.LOCALE_ALL, LocaleHelper.getLocaleToUseOrFallback (L_FR, aLocales, null));
-    assertEquals (CGlobal.LOCALE_ALL, LocaleHelper.getLocaleToUseOrFallback (CGlobal.LOCALE_INDEPENDENT, aLocales, null));
+    assertEquals (CGlobal.LOCALE_ALL,
+                  LocaleHelper.getLocaleToUseOrFallback (CGlobal.LOCALE_INDEPENDENT, aLocales, null));
     assertEquals (CGlobal.LOCALE_INDEPENDENT,
                   LocaleHelper.getLocaleToUseOrFallback (L_FR,
-                                                        CollectionHelper.newList (CGlobal.LOCALE_INDEPENDENT),
-                                                        null));
+                                                         CollectionHelper.newList (CGlobal.LOCALE_INDEPENDENT),
+                                                         null));
     assertNull (LocaleHelper.getLocaleToUseOrFallback (L_FR, CollectionHelper.newList (L_DE, L_EN), null));
     assertEquals (L_FR_FR, LocaleHelper.getLocaleToUseOrFallback (L_FR, CollectionHelper.newList (L_DE, L_EN), L_FR_FR));
     assertEquals (L_FR_FR, LocaleHelper.getLocaleToUseOrFallback (L_FR, CollectionHelper.newList (L_FR_FR), null));

@@ -54,14 +54,14 @@ public final class ResourceLocationTest
     assertEquals ("xx(5:7) @ field", re.getAsString ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceLocation ("xx", "field"),
-                                                                 new ResourceLocation ("xx", "field"));
+                                                                       new ResourceLocation ("xx", "field"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", "field"),
-                                                                     new ResourceLocation ("xx2", "field"));
+                                                                           new ResourceLocation ("xx2", "field"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", "field"),
-                                                                     new ResourceLocation ("xx", "field2"));
+                                                                           new ResourceLocation ("xx", "field2"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", 0, 1, "field"),
-                                                                     new ResourceLocation ("xx", 0, 0, "field"));
+                                                                           new ResourceLocation ("xx", 0, 0, "field"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceLocation ("xx", 0, 1, "field"),
-                                                                     new ResourceLocation ("xx", 1, 1, "field"));
+                                                                           new ResourceLocation ("xx", 1, 1, "field"));
   }
 }

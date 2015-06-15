@@ -95,6 +95,7 @@ public final class LRUSetTest
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ret, new LRUSet <String> (4));
     ret.add ("a");
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ret, new LRUSet <String> (4));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new LRUSet <String> (3), new LRUSet <String> (4));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new LRUSet <String> (3),
+                                                                           new LRUSet <String> (4));
   }
 }

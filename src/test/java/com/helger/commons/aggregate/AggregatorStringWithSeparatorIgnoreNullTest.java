@@ -53,8 +53,8 @@ public final class AggregatorStringWithSeparatorIgnoreNullTest
     {}
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new AggregatorStringWithSeparatorIgnoreNull (";"),
-                                                                 new AggregatorStringWithSeparatorIgnoreNull (";"));
+                                                                       new AggregatorStringWithSeparatorIgnoreNull (";"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new AggregatorStringWithSeparatorIgnoreNull (";"),
-                                                                     new AggregatorStringWithSeparatorIgnoreNull (","));
+                                                                           new AggregatorStringWithSeparatorIgnoreNull (","));
   }
 }

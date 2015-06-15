@@ -16,7 +16,6 @@
  */
 package com.helger.commons.tree;
 
-
 /**
  * Base interface for a simple tree
  * 

@@ -33,9 +33,9 @@ public final class DefaultTreeItemWithUniqueIDFactoryTest
     final DefaultTreeItemWithUniqueIDFactory <String, String> x = new DefaultTreeItemWithUniqueIDFactory <String, String> ();
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x,
-                                                                 new DefaultTreeItemWithUniqueIDFactory <String, String> ());
+                                                                       new DefaultTreeItemWithUniqueIDFactory <String, String> ());
     x.create (x.createRoot (), "any");
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x,
-                                                                     new DefaultTreeItemWithUniqueIDFactory <String, String> ());
+                                                                           new DefaultTreeItemWithUniqueIDFactory <String, String> ());
   }
 }

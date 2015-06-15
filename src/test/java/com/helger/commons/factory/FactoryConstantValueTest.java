@@ -43,10 +43,12 @@ public final class FactoryConstantValueTest
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aFactory, new FactoryConstantValue <T> (aValue));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aFactory, FactoryConstantValue.create (aValue));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aFactory, new FactoryConstantValue <T> (aValue2));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aFactory, FactoryConstantValue.create (aValue2));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aFactory,
-                                                                     new FactoryConstantValue <BigDecimal> (BigDecimal.ONE));
+                                                                           new FactoryConstantValue <T> (aValue2));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aFactory,
+                                                                           FactoryConstantValue.create (aValue2));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aFactory,
+                                                                           new FactoryConstantValue <BigDecimal> (BigDecimal.ONE));
   }
 
   @Test

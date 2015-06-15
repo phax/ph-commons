@@ -62,7 +62,7 @@ public final class SAXReader
 
   // In practice no more than 5 readers are required (even 3 would be enough)
   private static final IMutableObjectPool <org.xml.sax.XMLReader> s_aSAXPool = new ObjectPool <org.xml.sax.XMLReader> (5,
-                                                                                                                new SAXReaderFactory ());
+                                                                                                                       new SAXReaderFactory ());
 
   @PresentForCodeCoverage
   private static final SAXReader s_aInstance = new SAXReader ();

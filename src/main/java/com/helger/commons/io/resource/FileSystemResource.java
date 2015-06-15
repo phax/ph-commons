@@ -37,9 +37,10 @@ import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Implementation of the {@link com.helger.commons.io.resource.IReadableResource} and
- * {@link com.helger.commons.io.resource.IWritableResource} interfaces for file system
- * objects.
+ * Implementation of the
+ * {@link com.helger.commons.io.resource.IReadableResource} and
+ * {@link com.helger.commons.io.resource.IWritableResource} interfaces for file
+ * system objects.
  *
  * @author Philip Helger
  */

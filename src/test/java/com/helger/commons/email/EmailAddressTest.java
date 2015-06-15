@@ -56,8 +56,8 @@ public final class EmailAddressTest
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMA, new EmailAddress ("ph@example.org"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMA, new EmailAddress ("ph@example2.org"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMA,
-                                                                     new EmailAddress ("ph@example.org", "My name"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMA, new EmailAddress ("ph@example.org",
+                                                                                                  "My name"));
     CommonsTestHelper.testDefaultSerialization (new EmailAddress ("ph@example.org", "My name"));
 
     aMA = new EmailAddress ("ph@example.org", "Philip");

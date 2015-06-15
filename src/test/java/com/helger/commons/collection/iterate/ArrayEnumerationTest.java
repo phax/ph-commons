@@ -110,14 +110,14 @@ public final class ArrayEnumerationTest
     // equals...
     ae = new ArrayEnumeration <String> ("Hallo", "Welt", "from", "Copenhagen");
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ae, new ArrayEnumeration <String> ("Hallo",
-                                                                                                    "Welt",
-                                                                                                    "from",
-                                                                                                    "Copenhagen"));
+                                                                                                          "Welt",
+                                                                                                          "from",
+                                                                                                          "Copenhagen"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae, new ArrayEnumeration <String> ("Hallo",
-                                                                                                        "Welt",
-                                                                                                        "from"));
+                                                                                                              "Welt",
+                                                                                                              "from"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
-                                                                     new ArrayEnumeration <Integer> (Integer.valueOf (5)));
+                                                                           new ArrayEnumeration <Integer> (Integer.valueOf (5)));
     // Different index
     final ArrayEnumeration <String> ae2 = new ArrayEnumeration <String> ("Hallo", "Welt", "from", "Copenhagen");
     ae2.nextElement ();

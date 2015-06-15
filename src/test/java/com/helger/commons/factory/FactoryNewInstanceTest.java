@@ -116,8 +116,8 @@ public final class FactoryNewInstanceTest
   public void testEqualsAndHashCode ()
   {
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (FactoryNewInstance.create (String.class),
-                                                                 FactoryNewInstance.create (String.class));
+                                                                       FactoryNewInstance.create (String.class));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (FactoryNewInstance.create (String.class),
-                                                                     FactoryNewInstance.create (StringBuilder.class));
+                                                                           FactoryNewInstance.create (StringBuilder.class));
   }
 }

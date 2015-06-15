@@ -44,8 +44,8 @@ public final class ByteArrayOutputStreamProviderTest
     final ByteArrayOutputStreamProvider aOSP = new ByteArrayOutputStreamProvider ();
     final OutputStream aOS = aOSP.getOutputStream (EAppend.DEFAULT);
     assertNotNull (aOS);
-    StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream ("Hiho", CCharset.CHARSET_ISO_8859_1_OBJ),
-                                                         aOS);
+    StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream ("Hiho",
+                                                                                 CCharset.CHARSET_ISO_8859_1_OBJ), aOS);
     assertEquals ("Hiho", aOSP.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ));
     assertArrayEquals (CharsetManager.getAsBytes ("Hiho", CCharset.CHARSET_ISO_8859_1_OBJ), aOSP.getBytes ());
     // Close the underlying OS
@@ -53,7 +53,7 @@ public final class ByteArrayOutputStreamProviderTest
 
     // Reader/Writer
     StreamHelper.copyReaderToWriterAndCloseWriter (new NonBlockingStringReader ("Hiho"),
-                                                  aOSP.getWriter (CCharset.CHARSET_UTF_8_OBJ, EAppend.DEFAULT));
+                                                   aOSP.getWriter (CCharset.CHARSET_UTF_8_OBJ, EAppend.DEFAULT));
     assertEquals ("Hiho", aOSP.getAsString (CCharset.CHARSET_UTF_8_OBJ));
   }
 }

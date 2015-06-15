@@ -77,7 +77,7 @@ public final class DOMReader
 
   // In practice no more than 5 readers are required (even 3 would be enough)
   private static final IMutableObjectPool <DocumentBuilder> s_aDOMPool = new ObjectPool <DocumentBuilder> (5,
-                                                                                                    new DOMReaderFactory ());
+                                                                                                           new DOMReaderFactory ());
 
   @PresentForCodeCoverage
   private static final DOMReader s_aInstance = new DOMReader ();

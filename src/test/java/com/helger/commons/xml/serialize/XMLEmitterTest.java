@@ -47,7 +47,7 @@ public final class XMLEmitterTest extends AbstractCommonsTestCase
                                                            EXMLIncorrectCharacterHandling.DEFAULT,
                                                            new MicroDocumentType ("qname", "pubid", "sysid")));
     CommonsTestHelper.testToStringImplementation (new XMLEmitter (new ByteArrayOutputStreamProvider ().getWriter (CCharset.CHARSET_ISO_8859_1_OBJ,
-                                                                                                            EAppend.DEFAULT),
-                                                            XMLWriterSettings.DEFAULT_XML_SETTINGS));
+                                                                                                                  EAppend.DEFAULT),
+                                                                  XMLWriterSettings.DEFAULT_XML_SETTINGS));
   }
 }

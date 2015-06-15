@@ -84,23 +84,23 @@ public final class MapBasedAttributeContainerTest
     assertTrue (x.removeAttribute ("null1").isUnchanged ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainerAny <String> (),
-                                                                 new MapBasedAttributeContainerAny <String> ());
+                                                                       new MapBasedAttributeContainerAny <String> ());
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                     "key2" },
-                                                                                                                                      new Object [] { "value",
-                                                                                                                                                     "value2" })),
-                                                                 new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                     "key2" },
-                                                                                                                                      new Object [] { "value",
-                                                                                                                                                     "value2" })));
+                                                                                                                                                           "key2" },
+                                                                                                                                            new Object [] { "value",
+                                                                                                                                                           "value2" })),
+                                                                       new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
+                                                                                                                                                           "key2" },
+                                                                                                                                            new Object [] { "value",
+                                                                                                                                                           "value2" })));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                         "key2" },
-                                                                                                                                          new Object [] { "value",
-                                                                                                                                                         "value2" })),
-                                                                     new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                         "key2" },
-                                                                                                                                          new Object [] { "value",
-                                                                                                                                                         "value" })));
+                                                                                                                                                               "key2" },
+                                                                                                                                                new Object [] { "value",
+                                                                                                                                                               "value2" })),
+                                                                           new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
+                                                                                                                                                               "key2" },
+                                                                                                                                                new Object [] { "value",
+                                                                                                                                                               "value" })));
 
     try
     {

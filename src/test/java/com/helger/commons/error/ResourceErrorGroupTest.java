@@ -199,15 +199,16 @@ public final class ResourceErrorGroupTest
 
     assertEquals (1, CollectionHelper.newList (aREG2).size ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceErrorGroup (), new ResourceErrorGroup ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceErrorGroup (),
+                                                                       new ResourceErrorGroup ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceErrorGroup (),
-                                                                     new ResourceErrorGroup (new ResourceError (loc,
-                                                                                                                EErrorLevel.ERROR,
-                                                                                                                "mock error"),
-                                                                                             new ResourceError (loc,
-                                                                                                                EErrorLevel.WARN,
-                                                                                                                "mock msg")));
+                                                                           new ResourceErrorGroup (new ResourceError (loc,
+                                                                                                                      EErrorLevel.ERROR,
+                                                                                                                      "mock error"),
+                                                                                                   new ResourceError (loc,
+                                                                                                                      EErrorLevel.WARN,
+                                                                                                                      "mock msg")));
     CommonsTestHelper.testGetClone (new ResourceErrorGroup (new ResourceError (loc, EErrorLevel.ERROR, "mock error"),
-                                                      new ResourceError (loc, EErrorLevel.WARN, "mock msg")));
+                                                            new ResourceError (loc, EErrorLevel.WARN, "mock msg")));
   }
 }

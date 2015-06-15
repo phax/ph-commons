@@ -36,8 +36,8 @@ public final class ComparatorHasSimpleLongIDTest
   public void testAll ()
   {
     final List <? extends IHasLongID> aList = CollectionHelper.newList (new MockHasLongID (5),
-                                                                              new MockHasLongID (3),
-                                                                              new MockHasLongID (7));
+                                                                        new MockHasLongID (3),
+                                                                        new MockHasLongID (7));
     CollectionHelper.getSortedInline (aList, new ComparatorHasSimpleLongID <IHasLongID> ());
     assertEquals (3, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());

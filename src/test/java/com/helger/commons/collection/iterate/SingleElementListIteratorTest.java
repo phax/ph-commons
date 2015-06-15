@@ -94,10 +94,10 @@ public final class SingleElementListIteratorTest
     {}
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SingleElementListIterator <String> ("any"),
-                                                                 new SingleElementListIterator <String> ("any"));
+                                                                       new SingleElementListIterator <String> ("any"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementListIterator <String> ("any"),
-                                                                     new SingleElementListIterator <String> ("any2"));
+                                                                           new SingleElementListIterator <String> ("any2"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementListIterator <String> ("any"),
-                                                                     new SingleElementListIterator <Integer> (Integer.valueOf (1)));
+                                                                           new SingleElementListIterator <Integer> (Integer.valueOf (1)));
   }
 }

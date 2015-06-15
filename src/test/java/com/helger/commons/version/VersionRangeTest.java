@@ -403,17 +403,18 @@ public final class VersionRangeTest
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("(1.3,2.0]"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, new VersionRange ("(1.2,2.1]"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(,2.0]"),
-                                                                     new VersionRange ("(,2.1]"));
+                                                                           new VersionRange ("(,2.1]"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(1.2]"),
-                                                                     new VersionRange ("(1.3]"));
+                                                                           new VersionRange ("(1.3]"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(1.2,]"),
-                                                                     new VersionRange ("(,2.0]"));
+                                                                           new VersionRange ("(,2.0]"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(,2.0]"),
-                                                                     new VersionRange ("(1.2,]"));
+                                                                           new VersionRange ("(1.2,]"));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new VersionRange ("(1.2]"), new VersionRange ("(1.2]"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new VersionRange ("(1.2]"),
+                                                                       new VersionRange ("(1.2]"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new VersionRange ("(1.2]"),
-                                                                     new VersionRange ("(1.2)"));
+                                                                           new VersionRange ("(1.2)"));
   }
 
   @Test

@@ -242,7 +242,7 @@ public final class DefaultTreeItemWithIDTest
     t2.getRootItem ().createChildItem ("dataid", "Data");
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t.getRootItem (),
-                                                                 new DefaultTreeWithID <String, String> ().getRootItem ());
+                                                                       new DefaultTreeWithID <String, String> ().getRootItem ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t.getRootItem (), t2.getRootItem ());
   }
 

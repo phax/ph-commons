@@ -71,10 +71,10 @@ public final class ClassPathResourceProviderTest
   public void testEqualsAndHashcode ()
   {
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ClassPathResourceProvider (),
-                                                                 new ClassPathResourceProvider ());
+                                                                       new ClassPathResourceProvider ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ClassPathResourceProvider (),
-                                                                     new ClassPathResourceProvider ("folder"));
+                                                                           new ClassPathResourceProvider ("folder"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ClassPathResourceProvider ("folder"),
-                                                                 new ClassPathResourceProvider ("folder"));
+                                                                       new ClassPathResourceProvider ("folder"));
   }
 }

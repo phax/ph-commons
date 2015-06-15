@@ -88,65 +88,65 @@ public final class TreeVisitorTest
       // count at before children
       final MutableInt mi = new MutableInt ();
       TreeVisitor.visitTree (_createTree (nLevel, nItemsPerLevel),
-                                  new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
-                                  {
-                                    @Override
-                                    public EHierarchyVisitorReturn onItemBeforeChildren (final DefaultTreeItem <String> aItem)
-                                    {
-                                      if (getLevel () < 0)
-                                        throw new IllegalStateException ();
-                                      mi.inc ();
-                                      return EHierarchyVisitorReturn.CONTINUE;
-                                    }
-                                  });
+                             new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
+                             {
+                               @Override
+                               public EHierarchyVisitorReturn onItemBeforeChildren (final DefaultTreeItem <String> aItem)
+                               {
+                                 if (getLevel () < 0)
+                                   throw new IllegalStateException ();
+                                 mi.inc ();
+                                 return EHierarchyVisitorReturn.CONTINUE;
+                               }
+                             });
       assertEquals (nExpected, mi.intValue ());
 
       // count at before children
       mi.set (0);
       TreeVisitor.visitTreeItem (_createTree (nLevel, nItemsPerLevel).getRootItem (),
-                                     new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
-                                     {
-                                       @Override
-                                       public EHierarchyVisitorReturn onItemBeforeChildren (final DefaultTreeItem <String> aItem)
-                                       {
-                                         if (getLevel () < 0)
-                                           throw new IllegalStateException ();
-                                         mi.inc ();
-                                         return EHierarchyVisitorReturn.CONTINUE;
-                                       }
-                                     });
+                                 new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
+                                 {
+                                   @Override
+                                   public EHierarchyVisitorReturn onItemBeforeChildren (final DefaultTreeItem <String> aItem)
+                                   {
+                                     if (getLevel () < 0)
+                                       throw new IllegalStateException ();
+                                     mi.inc ();
+                                     return EHierarchyVisitorReturn.CONTINUE;
+                                   }
+                                 });
       assertEquals (nExpected, mi.intValue ());
 
       // count at after children
       mi.set (0);
       TreeVisitor.visitTree (_createTree (nLevel, nItemsPerLevel),
-                                  new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
-                                  {
-                                    @Override
-                                    public EHierarchyVisitorReturn onItemAfterChildren (final DefaultTreeItem <String> aItem)
-                                    {
-                                      if (getLevel () < 0)
-                                        throw new IllegalStateException ();
-                                      mi.inc ();
-                                      return EHierarchyVisitorReturn.CONTINUE;
-                                    }
-                                  });
+                             new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
+                             {
+                               @Override
+                               public EHierarchyVisitorReturn onItemAfterChildren (final DefaultTreeItem <String> aItem)
+                               {
+                                 if (getLevel () < 0)
+                                   throw new IllegalStateException ();
+                                 mi.inc ();
+                                 return EHierarchyVisitorReturn.CONTINUE;
+                               }
+                             });
       assertEquals (nExpected, mi.intValue ());
 
       // count at after children
       mi.set (0);
       TreeVisitor.visitTreeItem (_createTree (nLevel, nItemsPerLevel).getRootItem (),
-                                     new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
-                                     {
-                                       @Override
-                                       public EHierarchyVisitorReturn onItemAfterChildren (final DefaultTreeItem <String> aItem)
-                                       {
-                                         if (getLevel () < 0)
-                                           throw new IllegalStateException ();
-                                         mi.inc ();
-                                         return EHierarchyVisitorReturn.CONTINUE;
-                                       }
-                                     });
+                                 new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
+                                 {
+                                   @Override
+                                   public EHierarchyVisitorReturn onItemAfterChildren (final DefaultTreeItem <String> aItem)
+                                   {
+                                     if (getLevel () < 0)
+                                       throw new IllegalStateException ();
+                                     mi.inc ();
+                                     return EHierarchyVisitorReturn.CONTINUE;
+                                   }
+                                 });
       assertEquals (nExpected, mi.intValue ());
     }
   }
@@ -196,7 +196,7 @@ public final class TreeVisitorTest
       // count at before children
       mi.set (0);
       TreeVisitor.visitTreeItem (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (),
-                                     new MockTreeVisitorCallback (mi));
+                                 new MockTreeVisitorCallback (mi));
       assertEquals (nExpected, mi.intValue ());
 
       // count at after children
@@ -207,7 +207,7 @@ public final class TreeVisitorTest
       // count at after children
       mi.set (0);
       TreeVisitor.visitTreeItem (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (),
-                                     new MockTreeVisitorCallback (mi));
+                                 new MockTreeVisitorCallback (mi));
       assertEquals (nExpected, mi.intValue ());
 
       try
@@ -219,8 +219,7 @@ public final class TreeVisitorTest
       {}
       try
       {
-        TreeVisitor.visitTreeItem ((DefaultTreeItemWithID <String, Object>) null,
-                                       new MockTreeVisitorCallback (mi));
+        TreeVisitor.visitTreeItem ((DefaultTreeItemWithID <String, Object>) null, new MockTreeVisitorCallback (mi));
         fail ();
       }
       catch (final NullPointerException ex)
