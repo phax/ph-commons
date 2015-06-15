@@ -180,6 +180,7 @@ public final class XMLSerializerCommons extends AbstractXMLSerializer <Node>
     // May be null!
     final Document aDoc = aElement.getOwnerDocument ();
     final boolean bEmitNamespaces = m_aSettings.isEmitNamespaces ();
+    final EXMLSerializeIndent eIndent = m_aSettings.getIndent ();
     final NodeList aChildNodeList = aElement.getChildNodes ();
     final boolean bHasChildren = aChildNodeList.getLength () > 0;
 
@@ -232,8 +233,11 @@ public final class XMLSerializerCommons extends AbstractXMLSerializer <Node>
           aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName), sAttrValue);
       }
 
+      // Has indent only if enabled, and an indent string is not empty
+      final boolean bHasIndent = eIndent.isIndent () && m_aIndent.length () > 0;
+
       // indent only if predecessor was an element
-      if (m_aSettings.getIndent ().isIndent () && bIndentPrev && m_aIndent.length () > 0)
+      if (bHasIndent && bIndentPrev)
         aXMLWriter.onContentElementWhitespace (m_aIndent);
 
       aXMLWriter.onElementStart (sElementNSPrefix, sTagName, aAttrMap, bHasChildren);
@@ -242,7 +246,7 @@ public final class XMLSerializerCommons extends AbstractXMLSerializer <Node>
       if (bHasChildren)
       {
         // do we have enclosing elements?
-        if (m_aSettings.getIndent ().isAlign () && bHasChildElement)
+        if (eIndent.isAlign () && bHasChildElement)
           aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());
 
         // increment indent
@@ -256,13 +260,13 @@ public final class XMLSerializerCommons extends AbstractXMLSerializer <Node>
         m_aIndent.delete (m_aIndent.length () - sIndent.length (), m_aIndent.length ());
 
         // add closing tag
-        if (m_aSettings.getIndent ().isIndent () && bHasChildElement && m_aIndent.length () > 0)
+        if (bHasIndent && bHasChildElement)
           aXMLWriter.onContentElementWhitespace (m_aIndent);
       }
 
       aXMLWriter.onElementEnd (sElementNSPrefix, sTagName, bHasChildren);
 
-      if (m_aSettings.getIndent ().isAlign () && bIndentNext)
+      if (eIndent.isAlign () && bIndentNext)
         aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());
     }
     finally

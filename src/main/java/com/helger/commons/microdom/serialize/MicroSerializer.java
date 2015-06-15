@@ -39,6 +39,7 @@ import com.helger.commons.microdom.IMicroText;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.IXMLIterationHandler;
 import com.helger.commons.xml.serialize.AbstractXMLSerializer;
+import com.helger.commons.xml.serialize.EXMLSerializeIndent;
 import com.helger.commons.xml.serialize.IXMLWriterSettings;
 import com.helger.commons.xml.serialize.XMLWriterSettings;
 
@@ -195,6 +196,7 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     final String sTagName = aElement.getLocalName () != null ? aElement.getLocalName () : aElement.getTagName ();
 
     final boolean bEmitNamespaces = m_aSettings.isEmitNamespaces ();
+    final EXMLSerializeIndent eIndent = m_aSettings.getIndent ();
     final List <IMicroNode> aChildNodeList = aElement.getAllChildren ();
     final boolean bHasChildren = aElement.hasChildren ();
 
@@ -231,10 +233,12 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
           final String sAttrValue = aEntry.getValue ();
           String sAttrNSPrefix = null;
           if (bEmitNamespaces)
+          {
             sAttrNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
                                                                          sAttrName,
                                                                          sAttrValue,
                                                                          aAttrMap);
+          }
 
           if (sAttrNSPrefix != null)
             aAttrMap.put (new QName (sAttrNamespaceURI, aAttrName.getName (), sAttrNSPrefix), sAttrValue);
@@ -243,8 +247,11 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
         }
       }
 
+      // Has indent only if enabled, and an indent string is not empty
+      final boolean bHasIndent = eIndent.isIndent () && m_aIndent.length () > 0;
+
       // indent only if predecessor was an element
-      if (m_aSettings.getIndent ().isIndent () && bIndentPrev && m_aIndent.length () > 0)
+      if (bHasIndent && bIndentPrev)
         aXMLWriter.onContentElementWhitespace (m_aIndent);
 
       aXMLWriter.onElementStart (sElementNSPrefix, sTagName, aAttrMap, bHasChildren);
@@ -253,7 +260,7 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       if (bHasChildren)
       {
         // do we have enclosing elements?
-        if (m_aSettings.getIndent ().isAlign () && bHasChildElement)
+        if (eIndent.isAlign () && bHasChildElement)
           aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());
 
         // increment indent
@@ -268,13 +275,13 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
         m_aIndent.delete (m_aIndent.length () - sIndent.length (), m_aIndent.length ());
 
         // add closing tag
-        if (m_aSettings.getIndent ().isIndent () && bHasChildElement && m_aIndent.length () > 0)
+        if (bHasIndent && bHasChildElement)
           aXMLWriter.onContentElementWhitespace (m_aIndent);
       }
 
       aXMLWriter.onElementEnd (sElementNSPrefix, sTagName, bHasChildren);
 
-      if (m_aSettings.getIndent ().isAlign () && bIndentNext)
+      if (eIndent.isAlign () && bIndentNext)
         aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());
     }
     finally
