@@ -343,19 +343,19 @@ public final class XMLHelperTest extends AbstractCommonsTestCase
   }
 
   @Test
-  public void testIsTextNode ()
+  public void testIsInlineNode ()
   {
     final Document doc = XMLFactory.newDocument ();
-    assertFalse (XMLHelper.isTextNode (doc.createAttribute ("attr")));
-    assertFalse (XMLHelper.isTextNode (doc.createAttributeNS (TEST_NS, "attr")));
-    assertTrue (XMLHelper.isTextNode (doc.createCDATASection ("cdata")));
-    assertFalse (XMLHelper.isTextNode (doc.createComment ("comment")));
-    assertFalse (XMLHelper.isTextNode (doc.createDocumentFragment ()));
-    assertFalse (XMLHelper.isTextNode (doc.createElement ("el")));
-    assertFalse (XMLHelper.isTextNode (doc.createElementNS (TEST_NS, "el")));
-    assertTrue (XMLHelper.isTextNode (doc.createEntityReference ("entref")));
-    assertFalse (XMLHelper.isTextNode (doc.createProcessingInstruction ("target", "data")));
-    assertTrue (XMLHelper.isTextNode (doc.createTextNode ("text")));
+    assertFalse (XMLHelper.isInlineNode (doc.createAttribute ("attr")));
+    assertFalse (XMLHelper.isInlineNode (doc.createAttributeNS (TEST_NS, "attr")));
+    assertTrue (XMLHelper.isInlineNode (doc.createCDATASection ("cdata")));
+    assertFalse (XMLHelper.isInlineNode (doc.createComment ("comment")));
+    assertFalse (XMLHelper.isInlineNode (doc.createDocumentFragment ()));
+    assertFalse (XMLHelper.isInlineNode (doc.createElement ("el")));
+    assertFalse (XMLHelper.isInlineNode (doc.createElementNS (TEST_NS, "el")));
+    assertTrue (XMLHelper.isInlineNode (doc.createEntityReference ("entref")));
+    assertFalse (XMLHelper.isInlineNode (doc.createProcessingInstruction ("target", "data")));
+    assertTrue (XMLHelper.isInlineNode (doc.createTextNode ("text")));
   }
 
   @Test

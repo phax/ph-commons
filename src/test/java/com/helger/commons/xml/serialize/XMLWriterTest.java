@@ -259,7 +259,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
     }
 
     assertTrue (XMLWriter.writeToStream (doc, new NonBlockingByteArrayOutputStream ()).isSuccess ());
-    new XMLSerializerPH ().write (doc, new DefaultXMLIterationHandler ());
+    new XMLSerializerCommons ().write (doc, new DefaultXMLIterationHandler ());
   }
 
   @Test

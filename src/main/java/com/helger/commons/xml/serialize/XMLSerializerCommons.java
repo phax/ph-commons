@@ -49,14 +49,14 @@ import com.helger.commons.xml.namespace.ComparatorQName;
  *
  * @author Philip Helger
  */
-public final class XMLSerializerPH extends AbstractXMLSerializer <Node>
+public final class XMLSerializerCommons extends AbstractXMLSerializer <Node>
 {
-  public XMLSerializerPH ()
+  public XMLSerializerCommons ()
   {
     this (XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
 
-  public XMLSerializerPH (@Nonnull final IXMLWriterSettings aSettings)
+  public XMLSerializerCommons (@Nonnull final IXMLWriterSettings aSettings)
   {
     super (aSettings);
   }
@@ -184,9 +184,9 @@ public final class XMLSerializerPH extends AbstractXMLSerializer <Node>
     final boolean bHasChildren = aChildNodeList.getLength () > 0;
 
     final boolean bIsRootElement = aDoc != null && aElement.equals (aDoc.getDocumentElement ());
-    final boolean bIndentPrev = aPrevSibling == null || !XMLHelper.isTextNode (aPrevSibling) || bIsRootElement;
-    final boolean bIndentNext = aNextSibling == null || !XMLHelper.isTextNode (aNextSibling);
-    final boolean bHasChildElement = bHasChildren && !XMLHelper.isTextNode (aElement.getFirstChild ());
+    final boolean bIndentPrev = aPrevSibling == null || !XMLHelper.isInlineNode (aPrevSibling) || bIsRootElement;
+    final boolean bIndentNext = aNextSibling == null || !XMLHelper.isInlineNode (aNextSibling);
+    final boolean bHasChildElement = bHasChildren && !XMLHelper.isInlineNode (aElement.getFirstChild ());
 
     // get all attributes (sorting is important because the order from
     // getAttributes is not guaranteed to be consistent!)

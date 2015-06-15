@@ -28,8 +28,6 @@ import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import org.w3c.dom.Attr;
-import org.w3c.dom.CharacterData;
-import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.EntityReference;
@@ -451,17 +449,16 @@ public final class XMLHelper
 
   /**
    * Check if the passed node is a text node. This includes all nodes derived
-   * from {@link CharacterData} which are not {@link Comment} nodes as well as
-   * {@link EntityReference} nodes.
+   * from {@link Text} (Text and CData) or {@link EntityReference} nodes.
    *
    * @param aNode
    *        The node to be checked.
    * @return <code>true</code> if the passed node is a text node,
    *         <code>false</code> otherwise.
    */
-  public static boolean isTextNode (@Nullable final Node aNode)
+  public static boolean isInlineNode (@Nullable final Node aNode)
   {
-    return (aNode instanceof CharacterData && !(aNode instanceof Comment)) || aNode instanceof EntityReference;
+    return aNode instanceof Text || aNode instanceof EntityReference;
   }
 
   /**

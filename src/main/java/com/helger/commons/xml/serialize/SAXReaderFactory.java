@@ -40,7 +40,7 @@ public final class SAXReaderFactory implements IFactory <org.xml.sax.XMLReader>
     {
       org.xml.sax.XMLReader ret;
       if (true)
-        ret = XMLReaderFactoryPH.createXMLReader ();
+        ret = XMLReaderFactoryCommons.createXMLReader ();
       else
       {
         // This fails with Xerces on the classpath

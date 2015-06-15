@@ -183,7 +183,7 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
 
   private static boolean _isInlineNode (@Nonnull final IMicroNode aNode)
   {
-    return ((aNode.isText () || aNode.isCDATA ()) && !aNode.isComment ()) || aNode.isEntityReference ();
+    return aNode.isText () || aNode.isCDATA () || aNode.isEntityReference ();
   }
 
   private void _writeElement (@Nonnull final IXMLIterationHandler aXMLWriter,

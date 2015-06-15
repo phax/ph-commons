@@ -69,7 +69,7 @@ import com.helger.commons.lang.priviledged.PrivilegedActionSystemGetProperty;
  * @author David Megginson, David Brownell
  * @version 2.0.1 (sax2r2)
  */
-public final class XMLReaderFactoryPH
+public final class XMLReaderFactoryCommons
 {
   /**
    * This class is duplicated for each JAXP subpackage so keep it in sync. It is
@@ -166,7 +166,7 @@ public final class XMLReaderFactoryPH
    * This constructor prevents the class from being instantiated.
    * </p>
    */
-  private XMLReaderFactoryPH ()
+  private XMLReaderFactoryCommons ()
   {}
 
   private static final String PROPERTY_NAME = "org.xml.sax.driver";
