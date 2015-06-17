@@ -558,7 +558,7 @@ public final class XMLHelper
   /**
    * Get the full qualified attribute name to use for the given namespace
    * prefix. The result will e.g. be <code>xmlns</code> or
-   * <code>xmlns:foo</code>.
+   * <code>{http://www.w3.org/2000/xmlns/}xmlns:foo</code>.
    *
    * @param sNSPrefix
    *        The namespace prefix to build the attribute name from. May be
@@ -573,7 +573,11 @@ public final class XMLHelper
     if (sNSPrefix != null && sNSPrefix.contains (CXML.XML_PREFIX_NAMESPACE_SEP_STR))
       throw new IllegalArgumentException ("prefix is invalid: " + sNSPrefix);
     if (sNSPrefix == null || sNSPrefix.equals (XMLConstants.DEFAULT_NS_PREFIX))
-      return new QName (CXML.XML_ATTR_XMLNS);
+    {
+      // Default (empty) namespace prefix
+      return new QName (XMLConstants.XMLNS_ATTRIBUTE_NS_URI, CXML.XML_ATTR_XMLNS);
+    }
+    // Named XML namespace prefix
     return new QName (XMLConstants.XMLNS_ATTRIBUTE_NS_URI, sNSPrefix, CXML.XML_ATTR_XMLNS);
   }
 
@@ -581,7 +585,10 @@ public final class XMLHelper
   public static String getNamespaceURI (@Nullable final Node aNode)
   {
     if (aNode instanceof Document)
+    {
+      // Recurse into document element
       return getNamespaceURI (((Document) aNode).getDocumentElement ());
+    }
     if (aNode != null)
       return aNode.getNamespaceURI ();
     return null;
@@ -591,7 +598,10 @@ public final class XMLHelper
   public static String getElementName (@Nullable final Node aNode)
   {
     if (aNode instanceof Document)
+    {
+      // Recurse into document element
       return getElementName (((Document) aNode).getDocumentElement ());
+    }
     if (aNode instanceof Element)
     {
       String ret = aNode.getLocalName ();
@@ -610,6 +620,6 @@ public final class XMLHelper
 
   public static boolean isEmpty (@Nullable final NodeList aNL)
   {
-    return getLength (aNL) == 0;
+    return aNL == null ? true : aNL.getLength () == 0;
   }
 }

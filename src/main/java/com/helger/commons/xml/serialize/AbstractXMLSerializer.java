@@ -200,12 +200,23 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
       m_aStack.add (0, aNSL);
     }
 
+    /**
+     * Add a new prefix-namespace URI mapping at the current stack level
+     *
+     * @param sPrefix
+     *        Prefix to use. May be <code>null</code>.
+     * @param sNamespaceURI
+     *        Namespace URI to use. May neither be <code>null</code> nor empty.
+     */
     public void addNamespaceMapping (@Nullable final String sPrefix, @Nonnull @Nonempty final String sNamespaceURI)
     {
       // Add the namespace to the current level
       m_aStack.get (0).addPrefixNamespaceMapping (sPrefix, sNamespaceURI);
     }
 
+    /**
+     * End the current namespace level.
+     */
     public void pop ()
     {
       // remove at front
@@ -471,6 +482,7 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
       {
         if (aNC instanceof IIterableNamespaceContext)
         {
+          // Put all on top-level
           for (final Map.Entry <String, String> aEntry : ((IIterableNamespaceContext) aNC).getPrefixToNamespaceURIMap ()
                                                                                           .entrySet ())
           {
