@@ -64,6 +64,7 @@ public final class LocaleHelper
     @Override
     @Nullable
     @IsLocked (ELockType.WRITE)
+    @ReturnsImmutableObject
     protected List <Locale> getValueToCache (@Nullable final Locale aBaseLocale)
     {
       if (aBaseLocale == null)
