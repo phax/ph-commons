@@ -28,6 +28,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsImmutableObject;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -149,6 +150,7 @@ public final class SingleElementMap <KEYTYPE, VALUETYPE> implements Map <KEYTYPE
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public Set <Map.Entry <KEYTYPE, VALUETYPE>> entrySet ()
   {
     final Set <Map.Entry <KEYTYPE, VALUETYPE>> aSet = new HashSet <Entry <KEYTYPE, VALUETYPE>> (size ());
