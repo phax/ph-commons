@@ -31,7 +31,7 @@ import org.xml.sax.SAXException;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.xml.serialize.DOMReader;
+import com.helger.commons.xml.serialize.read.DOMReader;
 
 /**
  * Test class for class {@link XMLSchemaValidationHelper}.

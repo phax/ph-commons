@@ -14,28 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.microdom.serialize;
+package com.helger.commons.xml.serialize.write;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.microdom.IMicroDocument;
-import com.helger.commons.microdom.MicroDocument;
-import com.helger.commons.xml.serialize.write.XMLWriterSettings;
+import com.helger.commons.xml.serialize.write.EXMLSerializeComments;
 
 /**
- * Test class for class {@link MicroDOMInputStreamProvider}.
+ * Test class for class {@link EXMLSerializeComments}.
  * 
  * @author Philip Helger
  */
-public final class MicroDOMInputStreamProviderTest
+public final class EXMLSerializeCommentsTest
 {
   @Test
-  public void testSimple ()
+  public void testAll ()
   {
-    final IMicroDocument aDoc = new MicroDocument ();
-    aDoc.appendElement ("test");
-    assertNotNull (new MicroDOMInputStreamProvider (aDoc, XMLWriterSettings.DEFAULT_XML_CHARSET_OBJ).getInputStream ());
+    for (final EXMLSerializeComments e : EXMLSerializeComments.values ())
+      assertSame (e, EXMLSerializeComments.valueOf (e.name ()));
+    assertTrue (EXMLSerializeComments.EMIT.isEmit ());
+    assertFalse (EXMLSerializeComments.IGNORE.isEmit ());
   }
 }

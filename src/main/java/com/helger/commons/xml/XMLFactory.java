@@ -31,7 +31,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.system.SystemProperties;
-import com.helger.commons.xml.serialize.DOMReaderDefaultSettings;
+import com.helger.commons.xml.serialize.read.DOMReaderDefaultSettings;
 
 /**
  * Utility class for creating XML DOM documents.

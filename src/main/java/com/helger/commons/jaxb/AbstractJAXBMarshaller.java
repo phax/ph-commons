@@ -67,8 +67,8 @@ import com.helger.commons.xml.EXMLParserFeature;
 import com.helger.commons.xml.XMLFactory;
 import com.helger.commons.xml.sax.InputSourceFactory;
 import com.helger.commons.xml.schema.XMLSchemaCache;
-import com.helger.commons.xml.serialize.SAXReaderFactory;
-import com.helger.commons.xml.serialize.SAXReaderSettings;
+import com.helger.commons.xml.serialize.read.SAXReaderFactory;
+import com.helger.commons.xml.serialize.read.SAXReaderSettings;
 import com.helger.commons.xml.transform.TransformResultFactory;
 import com.helger.commons.xml.transform.TransformSourceFactory;
 

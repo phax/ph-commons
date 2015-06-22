@@ -42,7 +42,7 @@ import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.serialize.MicroReader;
 import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.xml.serialize.XMLWriterSettings;
+import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 
 /**
  * Simple class that reads a generic String-to-String mapping from a classpath

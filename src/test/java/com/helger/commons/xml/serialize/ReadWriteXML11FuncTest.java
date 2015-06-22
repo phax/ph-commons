@@ -21,6 +21,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+import javax.annotation.Nonnegative;
+
 import org.junit.Test;
 
 import com.helger.commons.microdom.IMicroDocument;
@@ -31,6 +33,8 @@ import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.SystemProperties;
 import com.helger.commons.xml.EXMLVersion;
+import com.helger.commons.xml.serialize.read.SAXReaderFactory;
+import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 
 /**
  * Test whether reading of XML 1.1 documents is valid.<br>
@@ -40,14 +44,14 @@ import com.helger.commons.xml.EXMLVersion;
  * "http://stackoverflow.com/questions/4988114/java-standard-lib-produce-wrong-xml-1-1"
  * >Link 1</a></li>
  * </ul>
- * 
+ *
  * @author Philip Helger
  */
 public final class ReadWriteXML11FuncTest
 {
   private static final XMLWriterSettings XWS_11 = new XMLWriterSettings ().setXMLVersion (EXMLVersion.XML_11);
 
-  private static void _generateXmlFile (final String sFilename, final int nElementCount) throws Exception
+  private static void _generateXmlFile (final String sFilename, @Nonnegative final int nElementCount) throws Exception
   {
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eMain = aDoc.appendElement ("main_tag");

@@ -36,12 +36,12 @@ import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.MicroEntityReference;
 import com.helger.commons.xml.EXMLVersion;
 import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
-import com.helger.commons.xml.serialize.EXMLSerializeDocType;
-import com.helger.commons.xml.serialize.EXMLSerializeFormat;
-import com.helger.commons.xml.serialize.EXMLSerializeIndent;
-import com.helger.commons.xml.serialize.EXMLSerializeVersion;
-import com.helger.commons.xml.serialize.XMLCharHelper;
-import com.helger.commons.xml.serialize.XMLWriterSettings;
+import com.helger.commons.xml.serialize.write.EXMLSerializeDocType;
+import com.helger.commons.xml.serialize.write.EXMLSerializeFormat;
+import com.helger.commons.xml.serialize.write.EXMLSerializeIndent;
+import com.helger.commons.xml.serialize.write.EXMLSerializeVersion;
+import com.helger.commons.xml.serialize.write.XMLCharHelper;
+import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 
 /**
  * Test class for class {@link MicroWriter}.

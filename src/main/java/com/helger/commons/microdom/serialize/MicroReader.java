@@ -36,9 +36,9 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.xml.sax.InputSourceFactory;
-import com.helger.commons.xml.serialize.ISAXReaderSettings;
-import com.helger.commons.xml.serialize.SAXReader;
-import com.helger.commons.xml.serialize.SAXReaderSettings;
+import com.helger.commons.xml.serialize.read.ISAXReaderSettings;
+import com.helger.commons.xml.serialize.read.SAXReader;
+import com.helger.commons.xml.serialize.read.SAXReaderSettings;
 
 /**
  * Utility class to read an XML stream into an {@link IMicroDocument}.

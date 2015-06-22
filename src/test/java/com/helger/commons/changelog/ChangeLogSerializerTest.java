@@ -36,9 +36,9 @@ import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.version.Version;
 import com.helger.commons.xml.sax.ReadableResourceSAXInputSource;
 import com.helger.commons.xml.schema.XMLSchemaCache;
-import com.helger.commons.xml.serialize.DOMReader;
-import com.helger.commons.xml.serialize.DOMReaderSettings;
-import com.helger.commons.xml.serialize.XMLWriterSettings;
+import com.helger.commons.xml.serialize.read.DOMReader;
+import com.helger.commons.xml.serialize.read.DOMReaderSettings;
+import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

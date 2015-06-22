@@ -38,10 +38,10 @@ import com.helger.commons.microdom.IMicroQName;
 import com.helger.commons.microdom.IMicroText;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.IXMLIterationHandler;
-import com.helger.commons.xml.serialize.AbstractXMLSerializer;
-import com.helger.commons.xml.serialize.EXMLSerializeIndent;
-import com.helger.commons.xml.serialize.IXMLWriterSettings;
-import com.helger.commons.xml.serialize.XMLWriterSettings;
+import com.helger.commons.xml.serialize.write.AbstractXMLSerializer;
+import com.helger.commons.xml.serialize.write.EXMLSerializeIndent;
+import com.helger.commons.xml.serialize.write.IXMLWriterSettings;
+import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 
 /**
  * Materializes micro nodes into a string representation.

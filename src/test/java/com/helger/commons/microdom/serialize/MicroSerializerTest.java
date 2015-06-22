@@ -31,8 +31,8 @@ import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.timing.StopWatch;
 import com.helger.commons.xml.DefaultXMLIterationHandler;
-import com.helger.commons.xml.serialize.EXMLSerializeIndent;
-import com.helger.commons.xml.serialize.XMLWriterSettings;
+import com.helger.commons.xml.serialize.write.EXMLSerializeIndent;
+import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 
 /**
  * Test class for class {@link MicroSerializer}

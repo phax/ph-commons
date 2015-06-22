@@ -29,7 +29,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.xml.serialize.XMLWriter;
+import com.helger.commons.xml.serialize.write.XMLWriter;
 
 /**
  * Test class for {@link XMLWriter} for DOM4J objects.

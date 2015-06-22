@@ -40,12 +40,12 @@ import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 import com.helger.commons.xml.EXMLVersion;
 import com.helger.commons.xml.XMLFactory;
-import com.helger.commons.xml.serialize.DOMReader;
-import com.helger.commons.xml.serialize.EXMLSerializeIndent;
-import com.helger.commons.xml.serialize.EXMLSerializeVersion;
-import com.helger.commons.xml.serialize.XMLCharHelper;
-import com.helger.commons.xml.serialize.XMLWriter;
-import com.helger.commons.xml.serialize.XMLWriterSettings;
+import com.helger.commons.xml.serialize.read.DOMReader;
+import com.helger.commons.xml.serialize.write.EXMLSerializeIndent;
+import com.helger.commons.xml.serialize.write.EXMLSerializeVersion;
+import com.helger.commons.xml.serialize.write.XMLCharHelper;
+import com.helger.commons.xml.serialize.write.XMLWriter;
+import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 
 /**
  * Test class for class {@link XMLTransformerFactory}.

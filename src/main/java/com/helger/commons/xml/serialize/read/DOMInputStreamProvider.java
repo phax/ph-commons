@@ -14,60 +14,61 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.microdom.serialize;
+package com.helger.commons.xml.serialize.read;
 
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 
+import org.w3c.dom.Node;
+
 import com.helger.commons.io.streamprovider.StringInputStreamProvider;
-import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.xml.serialize.write.IXMLWriterSettings;
+import com.helger.commons.xml.serialize.write.XMLWriter;
 import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 
 /**
- * A special input stream provider that takes an existing {@link IMicroNode} and
+ * A special input stream provider that takes an existing {@link Node} and
  * converts it to a byte array.
  *
  * @author Philip Helger
  */
-public class MicroDOMInputStreamProvider extends StringInputStreamProvider
+public class DOMInputStreamProvider extends StringInputStreamProvider
 {
   /**
-   * Constructor for MicroNodes using the default charset.
+   * Constructor for W3C nodes using the default XML charset.
    *
    * @param aNode
    *        The node to be streamed. May not be <code>null</code>.
-   * @see XMLWriterSettings#DEFAULT_XML_CHARSET
    */
-  public MicroDOMInputStreamProvider (@Nonnull final IMicroNode aNode)
+  public DOMInputStreamProvider (@Nonnull final Node aNode)
   {
     this (aNode, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
 
   /**
-   * Constructor for MicroNodes.
+   * Constructor for W3C nodes.
    *
    * @param aNode
    *        The node to be streamed. May not be <code>null</code>.
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.
    */
-  public MicroDOMInputStreamProvider (@Nonnull final IMicroNode aNode, @Nonnull final Charset aCharset)
+  public DOMInputStreamProvider (@Nonnull final Node aNode, @Nonnull final Charset aCharset)
   {
     this (aNode, new XMLWriterSettings ().setCharset (aCharset));
   }
 
   /**
-   * Constructor for micro nodes.
+   * Constructor for W3C nodes.
    *
    * @param aNode
    *        The node to be streamed. May not be <code>null</code>.
    * @param aSettings
    *        The settings to use. May not be <code>null</code>.
    */
-  public MicroDOMInputStreamProvider (@Nonnull final IMicroNode aNode, @Nonnull final IXMLWriterSettings aSettings)
+  public DOMInputStreamProvider (@Nonnull final Node aNode, @Nonnull final IXMLWriterSettings aSettings)
   {
-    super (MicroWriter.getNodeAsString (aNode, aSettings), aSettings.getCharsetObj ());
+    super (XMLWriter.getNodeAsString (aNode, aSettings), aSettings.getCharsetObj ());
   }
 }

@@ -47,11 +47,11 @@ import com.helger.commons.xml.sax.EmptyEntityResolver;
 import com.helger.commons.xml.sax.InputSourceFactory;
 import com.helger.commons.xml.sax.LoggingSAXErrorHandler;
 import com.helger.commons.xml.sax.StringSAXInputSource;
-import com.helger.commons.xml.serialize.EXMLSerializeIndent;
-import com.helger.commons.xml.serialize.ISAXReaderSettings;
-import com.helger.commons.xml.serialize.SAXReader;
-import com.helger.commons.xml.serialize.SAXReaderSettings;
-import com.helger.commons.xml.serialize.XMLWriterSettings;
+import com.helger.commons.xml.serialize.read.ISAXReaderSettings;
+import com.helger.commons.xml.serialize.read.SAXReader;
+import com.helger.commons.xml.serialize.read.SAXReaderSettings;
+import com.helger.commons.xml.serialize.write.EXMLSerializeIndent;
+import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 
 /**
  * Test class for class {@link MicroReader}.

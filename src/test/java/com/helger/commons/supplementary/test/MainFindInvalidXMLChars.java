@@ -28,7 +28,7 @@ import org.w3c.dom.Element;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.xml.EXMLVersion;
 import com.helger.commons.xml.XMLFactory;
-import com.helger.commons.xml.serialize.DOMReader;
+import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.commons.xml.transform.XMLTransformerFactory;
 
 public class MainFindInvalidXMLChars
