@@ -157,16 +157,20 @@ public class XMLEmitter extends DefaultXMLIterationHandler
   }
 
   @Override
-  public void onDocumentStart (@Nullable final EXMLVersion eVersion,
+  public void onDocumentStart (@Nullable final EXMLVersion eXMLVersion,
                                @Nullable final String sEncoding,
                                final boolean bStandalone)
   {
-    if (eVersion != null && m_eXMLVersion.isXML ())
-      m_eXMLVersion = EXMLSerializeVersion.getFromXMLVersionOrThrow (eVersion);
+    if (eXMLVersion != null && m_eXMLVersion.isXML ())
+    {
+      // Maybe switch from 1.0 to 1.1 or vice versa
+      m_eXMLVersion = EXMLSerializeVersion.getFromXMLVersionOrThrow (eXMLVersion);
+    }
+
     if (m_eXMLVersion.requiresXMLDeclaration ())
     {
       _append (PI_START)._append ("xml version=")._appendAttrValue (m_eXMLVersion.getXMLVersionString ());
-      if (sEncoding != null)
+      if (StringHelper.hasText (sEncoding))
         _append (" encoding=")._appendAttrValue (sEncoding);
       if (bStandalone)
         _append (" standalone=")._appendAttrValue ("yes");
