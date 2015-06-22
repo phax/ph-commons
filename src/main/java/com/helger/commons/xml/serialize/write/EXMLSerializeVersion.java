@@ -37,11 +37,8 @@ public enum EXMLSerializeVersion implements IHasID <String>
   /** XML 1.1 */
   XML_11 ("xml11", EXMLVersion.XML_11),
 
-  /** HTML &le; 4 */
-  HTML ("html", null),
-
-  /** XHTML */
-  XHTML ("xhtml", EXMLVersion.XML_10);
+  /** HTML4 and XHTML */
+  HTML ("html", null);
 
   private final String m_sID;
   private final EXMLVersion m_eXMLVersion;
@@ -72,21 +69,19 @@ public enum EXMLSerializeVersion implements IHasID <String>
    */
   public boolean isHTML ()
   {
-    return this == HTML || this == XHTML;
+    return this == HTML;
   }
 
-  /**
-   * @return <code>true</code> for all except HTML
-   */
-  public boolean requiresXMLDeclaration ()
+  @Nullable
+  public EXMLVersion getXMLVersionOrDefault (@Nullable final EXMLVersion eDefault)
   {
-    return m_eXMLVersion != null;
+    // May be null for HTML so use the provided default
+    return m_eXMLVersion == null ? eDefault : m_eXMLVersion;
   }
 
   /**
    * @return <code>null</code> if no XML version is required, the respective
    *         version string otherwise.
-   * @see #requiresXMLDeclaration()
    */
   @Nullable
   public String getXMLVersionString ()

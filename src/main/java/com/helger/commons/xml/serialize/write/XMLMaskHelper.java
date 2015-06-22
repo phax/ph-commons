@@ -466,7 +466,6 @@ public final class XMLMaskHelper
         }
         break;
       case HTML:
-      case XHTML:
         switch (eXMLCharMode)
         {
           case ATTRIBUTE_VALUE_SINGLE_QUOTES:
@@ -517,7 +516,6 @@ public final class XMLMaskHelper
         }
         break;
       case HTML:
-      case XHTML:
         switch (eXMLCharMode)
         {
           case ATTRIBUTE_VALUE_SINGLE_QUOTES:

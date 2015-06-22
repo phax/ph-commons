@@ -21,12 +21,14 @@ import com.helger.commons.string.ToStringGenerator;
 public class XMLBracketModeDeterminatorHTML5 implements IXMLBracketModeDeterminator
 {
   // Source: http://www.w3.org/TR/html-markup/syntax.html#void-element
+  // Added myself: frame
   private static final Set <String> VOID_ELEMENTS = CollectionHelper.newSet ("AREA",
                                                                              "BASE",
                                                                              "BR",
                                                                              "COL",
                                                                              "COMMAND",
                                                                              "EMBED",
+                                                                             "FRAME",
                                                                              "HR",
                                                                              "IMG",
                                                                              "INPUT",
@@ -51,8 +53,9 @@ public class XMLBracketModeDeterminatorHTML5 implements IXMLBracketModeDetermina
   {
     // In HTML all tags are closed, if not explicitly marked as empty
     if (!bHasChildren && _isVoidElement (sTagName))
-      return EXMLSerializeBracketMode.OPEN_ONLY;
+      return EXMLSerializeBracketMode.SELF_CLOSED;
 
+    // A non-void element must have an end tag, unless ...
     return EXMLSerializeBracketMode.OPEN_CLOSE;
   }
 

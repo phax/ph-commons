@@ -109,7 +109,7 @@ public class XMLSerializerCommons extends AbstractXMLSerializer <Node>
 
   private void _writeDocument (@Nonnull final IXMLIterationHandler aXMLWriter, @Nonnull final Document aDocument)
   {
-    if (m_aSettings.getFormat ().isXML ())
+    if (m_aSettings.getSerializeXMLDecl ().isEmit ())
     {
       String sXMLVersion = null;
       boolean bIsDocumentStandalone = false;
@@ -124,7 +124,7 @@ public class XMLSerializerCommons extends AbstractXMLSerializer <Node>
         // AbstractMethodError: getXmlVersion and getXmlStandalone
       }
       final EXMLVersion eXMLVersion = EXMLVersion.getFromVersionOrDefault (sXMLVersion, m_aSettings.getXMLVersion ());
-      aXMLWriter.onDocumentStart (eXMLVersion,
+      aXMLWriter.onXMLDeclaration (eXMLVersion,
                                   m_aSettings.getCharset (),
                                   bIsDocumentStandalone || aDocument.getDoctype () == null);
     }
@@ -241,7 +241,13 @@ public class XMLSerializerCommons extends AbstractXMLSerializer <Node>
       if (bHasIndent && bIndentPrev)
         aXMLWriter.onContentElementWhitespace (m_aIndent);
 
-      aXMLWriter.onElementStart (sElementNSPrefix, sTagName, aAttrMap, bHasChildren);
+      final EXMLSerializeBracketMode eBracketMode = m_aSettings.getBracketModeDeterminator ()
+                                                               .getBracketMode (sElementNSPrefix,
+                                                                                sTagName,
+                                                                                aAttrMap,
+                                                                                bHasChildren);
+
+      aXMLWriter.onElementStart (sElementNSPrefix, sTagName, aAttrMap, bHasChildren, eBracketMode);
 
       // write child nodes (if present)
       if (bHasChildren)
@@ -265,7 +271,7 @@ public class XMLSerializerCommons extends AbstractXMLSerializer <Node>
           aXMLWriter.onContentElementWhitespace (m_aIndent);
       }
 
-      aXMLWriter.onElementEnd (sElementNSPrefix, sTagName, bHasChildren);
+      aXMLWriter.onElementEnd (sElementNSPrefix, sTagName, bHasChildren, eBracketMode);
 
       if (eIndent.isAlign () && bIndentNext)
         aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());

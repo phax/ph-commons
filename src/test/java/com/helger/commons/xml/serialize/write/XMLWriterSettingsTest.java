@@ -33,12 +33,6 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
-import com.helger.commons.xml.serialize.write.EXMLSerializeComments;
-import com.helger.commons.xml.serialize.write.EXMLSerializeDocType;
-import com.helger.commons.xml.serialize.write.EXMLSerializeFormat;
-import com.helger.commons.xml.serialize.write.EXMLSerializeIndent;
-import com.helger.commons.xml.serialize.write.IXMLWriterSettings;
-import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 
 /**
  * Test class for class {@link XMLWriterSettings}.
@@ -53,10 +47,10 @@ public final class XMLWriterSettingsTest
   public void testDefault ()
   {
     IXMLWriterSettings mws = XMLWriterSettings.DEFAULT_XML_SETTINGS;
+    assertEquals (EXMLSerializeXMLDecl.EMIT, mws.getSerializeXMLDecl ());
     assertEquals (EXMLSerializeDocType.EMIT, mws.getSerializeDocType ());
     assertEquals (EXMLSerializeComments.EMIT, mws.getSerializeComments ());
     assertEquals (XMLWriterSettings.DEFAULT_XML_CHARSET, mws.getCharset ());
-    assertEquals (EXMLSerializeFormat.XML, mws.getFormat ());
     assertEquals (EXMLSerializeIndent.INDENT_AND_ALIGN, mws.getIndent ());
     assertEquals (CCharset.CHARSET_UTF_8_OBJ, mws.getCharsetObj ());
     assertTrue (mws.isSpaceOnSelfClosedElement ());
@@ -68,10 +62,10 @@ public final class XMLWriterSettingsTest
     assertFalse (mws.isPutNamespaceContextPrefixesInRoot ());
 
     mws = new XMLWriterSettings ();
+    assertEquals (EXMLSerializeXMLDecl.EMIT, mws.getSerializeXMLDecl ());
     assertEquals (EXMLSerializeDocType.EMIT, mws.getSerializeDocType ());
     assertEquals (EXMLSerializeComments.EMIT, mws.getSerializeComments ());
     assertEquals (XMLWriterSettings.DEFAULT_XML_CHARSET, mws.getCharset ());
-    assertEquals (EXMLSerializeFormat.XML, mws.getFormat ());
     assertEquals (EXMLSerializeIndent.INDENT_AND_ALIGN, mws.getIndent ());
     assertEquals (CCharset.CHARSET_UTF_8_OBJ, mws.getCharsetObj ());
     assertTrue (mws.isSpaceOnSelfClosedElement ());
@@ -80,7 +74,7 @@ public final class XMLWriterSettingsTest
     assertFalse (mws.isPutNamespaceContextPrefixesInRoot ());
 
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setFormat (EXMLSerializeFormat.HTML));
+                                                                           new XMLWriterSettings ().setSerializeXMLDecl (EXMLSerializeXMLDecl.IGNORE));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
                                                                            new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
@@ -105,21 +99,25 @@ public final class XMLWriterSettingsTest
                                                                            new XMLWriterSettings ().setEmitNamespaces (false));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
                                                                            new XMLWriterSettings ().setPutNamespaceContextPrefixesInRoot (true));
+  }
 
+  @Test
+  public void testPermutations ()
+  {
     // Now try all permutations
     final XMLWriterSettings aXWS = new XMLWriterSettings ();
-    for (final EXMLSerializeDocType eDocType : EXMLSerializeDocType.values ())
+    for (final EXMLSerializeXMLDecl eXMLDecl : EXMLSerializeXMLDecl.values ())
     {
-      aXWS.setSerializeDocType (eDocType);
-      assertEquals (eDocType, aXWS.getSerializeDocType ());
-      for (final EXMLSerializeComments eComments : EXMLSerializeComments.values ())
+      aXWS.setSerializeXMLDecl (eXMLDecl);
+      assertEquals (eXMLDecl, aXWS.getSerializeXMLDecl ());
+      for (final EXMLSerializeDocType eDocType : EXMLSerializeDocType.values ())
       {
-        aXWS.setSerializeComments (eComments);
-        assertEquals (eComments, aXWS.getSerializeComments ());
-        for (final EXMLSerializeFormat eFormat : EXMLSerializeFormat.values ())
+        aXWS.setSerializeDocType (eDocType);
+        assertEquals (eDocType, aXWS.getSerializeDocType ());
+        for (final EXMLSerializeComments eComments : EXMLSerializeComments.values ())
         {
-          aXWS.setFormat (eFormat);
-          assertEquals (eFormat, aXWS.getFormat ());
+          aXWS.setSerializeComments (eComments);
+          assertEquals (eComments, aXWS.getSerializeComments ());
           for (final EXMLSerializeIndent eIndent : EXMLSerializeIndent.values ())
           {
             aXWS.setIndent (eIndent);
@@ -158,9 +156,9 @@ public final class XMLWriterSettingsTest
                           {
                             aXWS.setPutNamespaceContextPrefixesInRoot (bPutNamespaceContextPrefixesInRoot);
                             assertTrue (bPutNamespaceContextPrefixesInRoot == aXWS.isPutNamespaceContextPrefixesInRoot ());
-                            final XMLWriterSettings aXWS2 = new XMLWriterSettings ().setSerializeDocType (eDocType)
+                            final XMLWriterSettings aXWS2 = new XMLWriterSettings ().setSerializeXMLDecl (eXMLDecl)
+                                                                                    .setSerializeDocType (eDocType)
                                                                                     .setSerializeComments (eComments)
-                                                                                    .setFormat (eFormat)
                                                                                     .setIndent (eIndent)
                                                                                     .setIncorrectCharacterHandling (eIncorrectCharHandling)
                                                                                     .setCharset (aCS)
@@ -189,13 +187,17 @@ public final class XMLWriterSettingsTest
             }
             assertEquals (eIndent, aXWS.getIndent ());
           }
-          assertEquals (eFormat, aXWS.getFormat ());
+          assertEquals (eComments, aXWS.getSerializeComments ());
         }
-        assertEquals (eComments, aXWS.getSerializeComments ());
+        assertEquals (eDocType, aXWS.getSerializeDocType ());
       }
-      assertEquals (eDocType, aXWS.getSerializeDocType ());
+      assertEquals (eXMLDecl, aXWS.getSerializeXMLDecl ());
     }
+  }
 
+  @Test
+  public void testNullParams ()
+  {
     try
     {
       new XMLWriterSettings ().setCharset ((Charset) null);
@@ -205,14 +207,14 @@ public final class XMLWriterSettingsTest
     {}
     try
     {
-      new XMLWriterSettings ().setFormat (null);
+      new XMLWriterSettings ().setIndent (null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      new XMLWriterSettings ().setIndent (null);
+      new XMLWriterSettings ().setSerializeXMLDecl (null);
       fail ();
     }
     catch (final NullPointerException ex)

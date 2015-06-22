@@ -36,7 +36,7 @@ import com.helger.commons.xml.schema.XMLSchemaCache;
 
 /**
  * Test class for class {@link XMLFactory}.
- * 
+ *
  * @author Philip Helger
  */
 public final class XMLFactoryTest extends AbstractCommonsTestCase
@@ -93,7 +93,7 @@ public final class XMLFactoryTest extends AbstractCommonsTestCase
     assertNotNull (doc);
     assertNull (doc.getDoctype ());
     assertNull (doc.getDocumentElement ());
-    assertEquals (EXMLVersion.DEFAULT.getVersion (), doc.getXmlVersion ());
+    assertEquals (EXMLVersion.XML_10.getVersion (), doc.getXmlVersion ());
 
     doc = XMLFactory.newDocument (EXMLVersion.XML_11);
     assertNotNull (doc);
@@ -109,7 +109,7 @@ public final class XMLFactoryTest extends AbstractCommonsTestCase
     assertNull (doc.getDoctype ().getSystemId ());
     assertNotNull (doc.getDocumentElement ());
     assertEquals ("qname", doc.getDocumentElement ().getTagName ());
-    assertEquals (EXMLVersion.DEFAULT.getVersion (), doc.getXmlVersion ());
+    assertEquals (EXMLVersion.XML_10.getVersion (), doc.getXmlVersion ());
 
     doc = XMLFactory.newDocument (EXMLVersion.XML_11, "qname", "pubid", "sysid");
     assertNotNull (doc);

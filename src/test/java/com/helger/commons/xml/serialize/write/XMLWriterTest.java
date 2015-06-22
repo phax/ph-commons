@@ -40,15 +40,6 @@ import com.helger.commons.xml.EXMLVersion;
 import com.helger.commons.xml.XMLFactory;
 import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
 import com.helger.commons.xml.serialize.read.DOMReader;
-import com.helger.commons.xml.serialize.write.EXMLSerializeComments;
-import com.helger.commons.xml.serialize.write.EXMLSerializeDocType;
-import com.helger.commons.xml.serialize.write.EXMLSerializeFormat;
-import com.helger.commons.xml.serialize.write.EXMLSerializeIndent;
-import com.helger.commons.xml.serialize.write.EXMLSerializeVersion;
-import com.helger.commons.xml.serialize.write.XMLCharHelper;
-import com.helger.commons.xml.serialize.write.XMLSerializerCommons;
-import com.helger.commons.xml.serialize.write.XMLWriter;
-import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 import com.helger.commons.xml.transform.StringStreamResult;
 import com.helger.commons.xml.transform.XMLTransformerFactory;
 
@@ -89,8 +80,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
 
     // test including doc type
     {
-      final String sResult = XMLWriter.getNodeAsString (doc,
-                                                        new XMLWriterSettings ().setFormat (EXMLSerializeFormat.HTML));
+      final String sResult = XMLWriter.getNodeAsString (doc, XMLWriterSettings.createForXHTML ());
       assertEquals ("<!DOCTYPE html PUBLIC \"" +
                     DOCTYPE_XHTML10_QNAME +
                     "\"" +
@@ -111,15 +101,14 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                     CRLF +
                     "</html>" +
                     CRLF, sResult);
-      assertEquals (sResult,
-                    XMLWriter.getNodeAsString (doc, new XMLWriterSettings ().setFormat (EXMLSerializeFormat.HTML)));
+      assertEquals (sResult, XMLWriter.getNodeAsString (doc, XMLWriterSettings.createForXHTML ()));
     }
 
     // test without doc type
     {
       final String sResult = XMLWriter.getNodeAsString (doc,
-                                                        new XMLWriterSettings ().setFormat (EXMLSerializeFormat.HTML)
-                                                                                .setSerializeDocType (EXMLSerializeDocType.IGNORE));
+                                                        XMLWriterSettings.createForXHTML ()
+                                                                         .setSerializeDocType (EXMLSerializeDocType.IGNORE));
       assertEquals ("<html xmlns=\"" +
                     DOCTYPE_XHTML10_URI +
                     "\">" +
@@ -136,15 +125,15 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
 
     {
       final String sResult = XMLWriter.getNodeAsString (doc,
-                                                        new XMLWriterSettings ().setFormat (EXMLSerializeFormat.HTML)
-                                                                                .setSerializeDocType (EXMLSerializeDocType.IGNORE)
-                                                                                .setIndent (EXMLSerializeIndent.NONE));
+                                                        XMLWriterSettings.createForXHTML ()
+                                                                         .setSerializeDocType (EXMLSerializeDocType.IGNORE)
+                                                                         .setIndent (EXMLSerializeIndent.NONE));
       assertEquals ("<html xmlns=\"" + DOCTYPE_XHTML10_URI + "\"><head>Hallo</head>" + sSerTagName + "</html>", sResult);
       assertEquals (sResult,
                     XMLWriter.getNodeAsString (doc,
-                                               new XMLWriterSettings ().setFormat (EXMLSerializeFormat.HTML)
-                                                                       .setSerializeDocType (EXMLSerializeDocType.IGNORE)
-                                                                       .setIndent (EXMLSerializeIndent.NONE)));
+                                               XMLWriterSettings.createForXHTML ()
+                                                                .setSerializeDocType (EXMLSerializeDocType.IGNORE)
+                                                                .setIndent (EXMLSerializeIndent.NONE)));
     }
 
     // add text element
@@ -154,12 +143,12 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
     aNoText.appendChild (doc.createCDATASection ("!!!"));
     aNoText.appendChild (doc.createComment ("No"));
 
-    // test including doc type
+    // test without doc type
     {
       final String sResult = XMLWriter.getNodeAsString (doc,
-                                                        new XMLWriterSettings ().setFormat (EXMLSerializeFormat.HTML)
-                                                                                .setSerializeDocType (EXMLSerializeDocType.IGNORE)
-                                                                                .setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN));
+                                                        XMLWriterSettings.createForXHTML ()
+                                                                         .setSerializeDocType (EXMLSerializeDocType.IGNORE)
+                                                                         .setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN));
       assertEquals ("<html xmlns=\"" +
                     DOCTYPE_XHTML10_URI +
                     "\">" +
@@ -295,8 +284,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
         aNoText.appendChild (doc.createTextNode (""));
 
         // test including doc type
-        final String sResult = XMLWriter.getNodeAsString (doc,
-                                                          new XMLWriterSettings ().setFormat (EXMLSerializeFormat.HTML));
+        final String sResult = XMLWriter.getNodeAsString (doc, XMLWriterSettings.createForXHTML ());
         assertEquals ("<!DOCTYPE html PUBLIC \"" +
                       DOCTYPE_XHTML10_QNAME +
                       "\"" +
@@ -317,9 +305,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                       CRLF +
                       "</html>" +
                       CRLF, sResult);
-        assertEquals (sResult,
-                      XMLWriter.getNodeAsString (doc, new XMLWriterSettings ().setFormat (EXMLSerializeFormat.HTML)));
-
+        assertEquals (sResult, XMLWriter.getNodeAsString (doc, XMLWriterSettings.createForXHTML ()));
       }
     });
   }

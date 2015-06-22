@@ -34,16 +34,22 @@ import com.helger.commons.xml.EXMLVersion;
 public interface IXMLWriterSettings
 {
   /**
-   * @return Create XML or HTML? Default is <code>XML</code>.
-   */
-  @Nonnull
-  EXMLSerializeFormat getFormat ();
-
-  /**
    * @return The XML version to use. Default is <code>1.0</code>
    */
   @Nonnull
   EXMLVersion getXMLVersion ();
+
+  /**
+   * @return The XML serialize version to use. Default is <code>XML 1.0</code>
+   */
+  @Nonnull
+  EXMLSerializeVersion getSerializeVersion ();
+
+  /**
+   * @return Write XML declaration? Default is <code>true</code>.
+   */
+  @Nonnull
+  EXMLSerializeXMLDecl getSerializeXMLDecl ();
 
   /**
    * @return Write document type? Default is <code>true</code>.
@@ -93,6 +99,13 @@ public interface IXMLWriterSettings
    *         quotes, <code>false</code> if single quotes should be used.
    */
   boolean isUseDoubleQuotesForAttributes ();
+
+  /**
+   * @return The bracket mode determinator to use. This must be changed when
+   *         e.g. serializing HTML. Never <code>null</code>.
+   */
+  @Nonnull
+  IXMLBracketModeDeterminator getBracketModeDeterminator ();
 
   /**
    * Determine if a self closed element (an element having no children) should

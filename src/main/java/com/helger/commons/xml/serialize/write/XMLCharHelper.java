@@ -638,7 +638,6 @@ public final class XMLCharHelper
       case XML_11:
         return INVALID_NAME_START_CHAR_XML11.get (c);
       case HTML:
-      case XHTML:
         return INVALID_CHAR_HTML.get (c);
       default:
         throw new IllegalArgumentException ("Unsupported XML version " + eXMLVersion + "!");
@@ -664,7 +663,6 @@ public final class XMLCharHelper
       case XML_11:
         return INVALID_NAME_CHAR_XML11.get (c);
       case HTML:
-      case XHTML:
         return INVALID_CHAR_HTML.get (c);
       default:
         throw new IllegalArgumentException ("Unsupported XML version " + eXMLVersion + "!");
@@ -752,7 +750,6 @@ public final class XMLCharHelper
       case XML_11:
         return INVALID_TEXT_VALUE_CHAR_XML11.get (c);
       case HTML:
-      case XHTML:
         return INVALID_CHAR_HTML.get (c);
       default:
         throw new IllegalArgumentException ("Unsupported XML version " + eXMLVersion + "!");
@@ -814,7 +811,6 @@ public final class XMLCharHelper
       case XML_11:
         return INVALID_CDATA_VALUE_CHAR_XML11.get (c);
       case HTML:
-      case XHTML:
         return INVALID_CHAR_HTML.get (c);
       default:
         throw new IllegalArgumentException ("Unsupported XML version " + eXMLVersion + "!");
@@ -876,7 +872,6 @@ public final class XMLCharHelper
       case XML_11:
         return INVALID_ATTR_VALUE_CHAR_XML11.get (c);
       case HTML:
-      case XHTML:
         return INVALID_CHAR_HTML.get (c);
       default:
         throw new IllegalArgumentException ("Unsupported XML version " + eXMLVersion + "!");

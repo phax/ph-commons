@@ -6,13 +6,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.namespace.QName;
 
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+
 /**
  * Interface used in writing XML to determine which of the bracket strategies as
  * outlined in {@link EXMLSerializeBracketMode} should be used for a single
  * element.
- * 
+ *
  * @author Philip Helger
  */
+@MustImplementEqualsAndHashcode
 public interface IXMLBracketModeDeterminator
 {
   /**

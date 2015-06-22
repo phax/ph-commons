@@ -19,9 +19,7 @@ package com.helger.commons.xml.serialize.write;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,7 +28,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.namespace.QName;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.microdom.IMicroDocumentType;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -71,13 +68,7 @@ public class XMLEmitter extends DefaultXMLIterationHandler
   {
     m_aWriter = ValueEnforcer.notNull (aWriter, "Writer");
     m_aSettings = ValueEnforcer.notNull (aSettings, "Settings");
-    if (aSettings.getFormat ().isHTML ())
-      m_eXMLVersion = EXMLSerializeVersion.HTML;
-    else
-      if (aSettings.getFormat ().isXHTML ())
-        m_eXMLVersion = EXMLSerializeVersion.XHTML;
-      else
-        m_eXMLVersion = EXMLSerializeVersion.getFromXMLVersionOrThrow (aSettings.getXMLVersion ());
+    m_eXMLVersion = aSettings.getSerializeVersion ();
     m_cAttrValueBoundary = aSettings.isUseDoubleQuotesForAttributes () ? '"' : '\'';
     m_eAttrValueCharMode = aSettings.isUseDoubleQuotesForAttributes () ? EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES
                                                                       : EXMLCharMode.ATTRIBUTE_VALUE_SINGLE_QUOTES;
@@ -157,27 +148,25 @@ public class XMLEmitter extends DefaultXMLIterationHandler
   }
 
   @Override
-  public void onDocumentStart (@Nullable final EXMLVersion eXMLVersion,
-                               @Nullable final String sEncoding,
-                               final boolean bStandalone)
+  public void onXMLDeclaration (@Nullable final EXMLVersion eXMLVersion,
+                                @Nullable final String sEncoding,
+                                final boolean bStandalone)
   {
-    if (eXMLVersion != null && m_eXMLVersion.isXML ())
+    if (eXMLVersion != null)
     {
-      // Maybe switch from 1.0 to 1.1 or vice versa
+      // Maybe switch from 1.0 to 1.1 or vice versa at the very beginning of the
+      // document
       m_eXMLVersion = EXMLSerializeVersion.getFromXMLVersionOrThrow (eXMLVersion);
     }
 
-    if (m_eXMLVersion.requiresXMLDeclaration ())
-    {
-      _append (PI_START)._append ("xml version=")._appendAttrValue (m_eXMLVersion.getXMLVersionString ());
-      if (StringHelper.hasText (sEncoding))
-        _append (" encoding=")._appendAttrValue (sEncoding);
-      if (bStandalone)
-        _append (" standalone=")._appendAttrValue ("yes");
-      _append (PI_END);
-      if (m_aSettings.getIndent ().isAlign ())
-        _append (m_aSettings.getNewLineString ());
-    }
+    _append (PI_START)._append ("xml version=")._appendAttrValue (m_eXMLVersion.getXMLVersionString ());
+    if (StringHelper.hasText (sEncoding))
+      _append (" encoding=")._appendAttrValue (sEncoding);
+    if (bStandalone)
+      _append (" standalone=")._appendAttrValue ("yes");
+    _append (PI_END);
+    if (m_aSettings.getIndent ().isAlign ())
+      _append (m_aSettings.getNewLineString ());
   }
 
   /**
@@ -354,7 +343,8 @@ public class XMLEmitter extends DefaultXMLIterationHandler
   public void onElementStart (@Nullable final String sNamespacePrefix,
                               @Nonnull final String sTagName,
                               @Nullable final Map <QName, String> aAttrs,
-                              final boolean bHasChildren)
+                              final boolean bHasChildren,
+                              @Nonnull final EXMLSerializeBracketMode eBracketMode)
   {
     _append ('<');
     if (StringHelper.hasText (sNamespacePrefix))
@@ -385,56 +375,26 @@ public class XMLEmitter extends DefaultXMLIterationHandler
       }
     }
 
-    if (m_aSettings.getFormat ().isHTML ())
+    if (eBracketMode == EXMLSerializeBracketMode.SELF_CLOSED)
     {
-      // HTML has no self closed tags!
-      _append ('>');
+      // Note: according to HTML compatibility guideline a space should be added
+      // before the self-closing
+      _append (m_aSettings.isSpaceOnSelfClosedElement () ? " />" : "/>");
     }
     else
     {
-      // Either leave tag open or close it
-      // Note: according to HTML compatibility guideline a space should be added
-      // before the self-closing
-      if (bHasChildren)
-        _append ('>');
-      else
-        _append (m_aSettings.isSpaceOnSelfClosedElement () ? " />" : "/>");
+      // Either "open close" or "open only"
+      _append ('>');
     }
-  }
-
-  private static final Set <String> EMPTY_HTML_TAGS = CollectionHelper.newSet ("AREA",
-                                                                               "BASE",
-                                                                               "BASEFONT",
-                                                                               "BR",
-                                                                               "COL",
-                                                                               "FRAME",
-                                                                               "HR",
-                                                                               "IMG",
-                                                                               "INPUT",
-                                                                               "ISINDEX",
-                                                                               "LINK",
-                                                                               "META",
-                                                                               "PARAM");
-
-  private static boolean _isHTMLClosedTag (@Nonnull final String sTagName)
-  {
-    // In HTML all tags are closed, if not explicitly marked as empty
-    return !EMPTY_HTML_TAGS.contains (sTagName.toUpperCase (Locale.US));
   }
 
   @Override
   public void onElementEnd (@Nullable final String sNamespacePrefix,
                             @Nonnull final String sTagName,
-                            final boolean bHasChildren)
+                            final boolean bHasChildren,
+                            @Nonnull final EXMLSerializeBracketMode eBracketMode)
   {
-    boolean bPrintClosingTag = bHasChildren;
-    if (!bPrintClosingTag && m_aSettings.getFormat ().isHTML ())
-    {
-      // Special HTML check
-      bPrintClosingTag = _isHTMLClosedTag (sTagName);
-    }
-
-    if (bPrintClosingTag)
+    if (eBracketMode == EXMLSerializeBracketMode.OPEN_CLOSE)
     {
       _append ("</");
       if (StringHelper.hasText (sNamespacePrefix))
@@ -449,6 +409,8 @@ public class XMLEmitter extends DefaultXMLIterationHandler
     return new ToStringGenerator (this).append ("writer", m_aWriter)
                                        .append ("settings", m_aSettings)
                                        .append ("version", m_eXMLVersion)
+                                       .append ("attrValueBoundary", m_cAttrValueBoundary)
+                                       .append ("attrValueCharMode", m_eAttrValueCharMode)
                                        .toString ();
   }
 }

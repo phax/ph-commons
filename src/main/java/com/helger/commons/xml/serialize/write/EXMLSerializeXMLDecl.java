@@ -24,19 +24,20 @@ import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
 
 /**
- * Determines the output format for XML serialization. XML or HTML?
- * 
+ * Used for creating string representation of XML. Determines whether the XML
+ * declaration (<code>&lt;?xml version=... encoding=...?&gt;</code>) should be
+ * emitted or ignored.
+ *
  * @author Philip Helger
  */
-public enum EXMLSerializeFormat implements IHasID <String>
+public enum EXMLSerializeXMLDecl implements IHasID <String>
 {
-  HTML ("html"),
-  XHTML ("xhtml"),
-  XML ("xml");
+  EMIT ("emit"),
+  IGNORE ("ignore");
 
   private final String m_sID;
 
-  private EXMLSerializeFormat (@Nonnull @Nonempty final String sID)
+  private EXMLSerializeXMLDecl (@Nonnull @Nonempty final String sID)
   {
     m_sID = sID;
   }
@@ -49,32 +50,16 @@ public enum EXMLSerializeFormat implements IHasID <String>
   }
 
   /**
-   * @return <code>true</code> if the serialization format is HTML
+   * @return <code>true</code> it emit is enabled
    */
-  public boolean isHTML ()
+  public boolean isEmit ()
   {
-    return this == HTML;
-  }
-
-  /**
-   * @return <code>true</code> if the serialization format is XHTML
-   */
-  public boolean isXHTML ()
-  {
-    return this == XHTML;
-  }
-
-  /**
-   * @return <code>true</code> if the serialization format is XML
-   */
-  public boolean isXML ()
-  {
-    return this == XML;
+    return this == EMIT;
   }
 
   @Nullable
-  public static EXMLSerializeFormat getFromIDOrNull (@Nullable final String sID)
+  public static EXMLSerializeXMLDecl getFromIDOrNull (@Nullable final String sID)
   {
-    return EnumHelper.getFromIDOrNull (EXMLSerializeFormat.class, sID);
+    return EnumHelper.getFromIDOrNull (EXMLSerializeXMLDecl.class, sID);
   }
 }

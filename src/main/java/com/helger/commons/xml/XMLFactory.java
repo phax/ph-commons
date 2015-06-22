@@ -214,7 +214,7 @@ public final class XMLFactory
 
   /**
    * Create a new XML document without document type using version
-   * {@link EXMLVersion#DEFAULT}. The default document builder is used.
+   * {@link EXMLVersion#XML_10}. The default document builder is used.
    *
    * @return The created document. Never <code>null</code>.
    */
@@ -226,7 +226,7 @@ public final class XMLFactory
 
   /**
    * Create a new XML document without document type using version
-   * {@link EXMLVersion#DEFAULT}. A custom document builder is used.
+   * {@link EXMLVersion#XML_10}. A custom document builder is used.
    *
    * @param aDocBuilder
    *        The document builder to use. May not be <code>null</code>.
@@ -244,7 +244,7 @@ public final class XMLFactory
    *
    * @param eVersion
    *        The XML version to use. If <code>null</code> is passed,
-   *        {@link EXMLVersion#DEFAULT} will be used.
+   *        {@link EXMLVersion#XML_10} will be used.
    * @return The created document. Never <code>null</code>.
    */
   @Nonnull
@@ -261,7 +261,7 @@ public final class XMLFactory
    *        The document builder to use. May not be <code>null</code>.
    * @param eVersion
    *        The XML version to use. If <code>null</code> is passed,
-   *        {@link EXMLVersion#DEFAULT} will be used.
+   *        {@link EXMLVersion#XML_10} will be used.
    * @return The created document. Never <code>null</code>.
    */
   @Nonnull
@@ -270,13 +270,13 @@ public final class XMLFactory
     ValueEnforcer.notNull (aDocBuilder, "DocBuilder");
 
     final Document aDoc = aDocBuilder.newDocument ();
-    aDoc.setXmlVersion ((eVersion != null ? eVersion : EXMLVersion.DEFAULT).getVersion ());
+    aDoc.setXmlVersion ((eVersion != null ? eVersion : EXMLVersion.XML_10).getVersion ());
     return aDoc;
   }
 
   /**
    * Create a new document with a document type using version
-   * {@link EXMLVersion#DEFAULT}.
+   * {@link EXMLVersion#XML_10}.
    *
    * @param sQualifiedName
    *        The qualified name to use.
@@ -300,7 +300,7 @@ public final class XMLFactory
    *
    * @param eVersion
    *        The XML version to use. If <code>null</code> is passed,
-   *        {@link EXMLVersion#DEFAULT} will be used.
+   *        {@link EXMLVersion#XML_10} will be used.
    * @param sQualifiedName
    *        The qualified name to use.
    * @param sPublicId
@@ -325,7 +325,7 @@ public final class XMLFactory
    *        the document builder to be used. May not be <code>null</code>.
    * @param eVersion
    *        The XML version to use. If <code>null</code> is passed,
-   *        {@link EXMLVersion#DEFAULT} will be used.
+   *        {@link EXMLVersion#XML_10} will be used.
    * @param sQualifiedName
    *        The qualified name to use.
    * @param sPublicId
@@ -347,7 +347,7 @@ public final class XMLFactory
     final DocumentType aDocType = aDomImpl.createDocumentType (sQualifiedName, sPublicId, sSystemId);
 
     final Document aDoc = aDomImpl.createDocument (sSystemId, sQualifiedName, aDocType);
-    aDoc.setXmlVersion ((eVersion != null ? eVersion : EXMLVersion.DEFAULT).getVersion ());
+    aDoc.setXmlVersion ((eVersion != null ? eVersion : EXMLVersion.XML_10).getVersion ());
     return aDoc;
   }
 }

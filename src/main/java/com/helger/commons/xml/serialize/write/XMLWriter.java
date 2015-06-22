@@ -48,7 +48,7 @@ import com.helger.commons.xml.EXMLVersion;
 public final class XMLWriter
 {
   /** The default XML version to be used */
-  public static final EXMLVersion DEFAULT_XML_VERSION = EXMLVersion.DEFAULT;
+  public static final EXMLVersion DEFAULT_XML_VERSION = EXMLVersion.XML_10;
   /** By default no XML namespace map is present */
   public static final NamespaceContext DEFAULT_NAMESPACE_CTX = null;
 

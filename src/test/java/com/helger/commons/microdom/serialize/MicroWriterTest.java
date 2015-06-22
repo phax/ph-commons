@@ -37,7 +37,6 @@ import com.helger.commons.microdom.MicroEntityReference;
 import com.helger.commons.xml.EXMLVersion;
 import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
 import com.helger.commons.xml.serialize.write.EXMLSerializeDocType;
-import com.helger.commons.xml.serialize.write.EXMLSerializeFormat;
 import com.helger.commons.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.commons.xml.serialize.write.EXMLSerializeVersion;
 import com.helger.commons.xml.serialize.write.XMLCharHelper;
@@ -65,7 +64,7 @@ public final class MicroWriterTest
   private static void _testGetNodeAsXHTMLString (final IMicroNode aNode)
   {
     // try all permutations
-    final XMLWriterSettings aSettings = new XMLWriterSettings ().setFormat (EXMLSerializeFormat.HTML);
+    final XMLWriterSettings aSettings = XMLWriterSettings.createForXHTML ();
     for (int nCharSet = 0; nCharSet < 2; ++nCharSet)
     {
       aSettings.setCharset (nCharSet == 1 ? CCharset.CHARSET_ISO_8859_1_OBJ : CCharset.CHARSET_UTF_8_OBJ);
@@ -186,14 +185,16 @@ public final class MicroWriterTest
   @Test
   public void testXMLVersion ()
   {
-    for (final EXMLVersion eVersion : EXMLVersion.values ())
+    for (final EXMLSerializeVersion eVersion : EXMLSerializeVersion.values ())
     {
       final IMicroDocument aDoc = MicroReader.readMicroXML (TEST_XML);
       final XMLWriterSettings aSettings = new XMLWriterSettings ();
-      aSettings.setXMLVersion (eVersion);
+      aSettings.setSerializeVersion (eVersion);
       final String sXML = MicroWriter.getNodeAsString (aDoc, aSettings);
       assertNotNull (sXML);
-      assertTrue (sXML.contains ("version=\"" + eVersion.getVersion () + "\""));
+      assertTrue (sXML.contains ("version=\"" +
+                                 eVersion.getXMLVersionOrDefault (EXMLVersion.XML_10).getVersion () +
+                                 "\""));
     }
   }
 
@@ -346,10 +347,9 @@ public final class MicroWriterTest
   @Test
   public void testSpecialCharactersXML10Text ()
   {
-    final EXMLVersion eXMLVersion = EXMLVersion.XML_10;
-    final EXMLSerializeVersion eXMLSerializeVersion = EXMLSerializeVersion.getFromXMLVersionOrThrow (eXMLVersion);
+    final EXMLSerializeVersion eXMLSerializeVersion = EXMLSerializeVersion.XML_10;
 
-    final XMLWriterSettings aSettings = new XMLWriterSettings ().setXMLVersion (eXMLVersion);
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setSerializeVersion (eXMLSerializeVersion);
     for (int i = Character.MIN_VALUE; i <= Character.MAX_VALUE; ++i)
       if (!XMLCharHelper.isInvalidXMLTextChar (eXMLSerializeVersion, (char) i))
       {
@@ -368,10 +368,9 @@ public final class MicroWriterTest
   @Test
   public void testSpecialCharactersXML10CDATA ()
   {
-    final EXMLVersion eXMLVersion = EXMLVersion.XML_10;
-    final EXMLSerializeVersion eXMLSerializeVersion = EXMLSerializeVersion.getFromXMLVersionOrThrow (eXMLVersion);
+    final EXMLSerializeVersion eXMLSerializeVersion = EXMLSerializeVersion.XML_10;
 
-    final XMLWriterSettings aSettings = new XMLWriterSettings ().setXMLVersion (eXMLVersion);
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setSerializeVersion (eXMLSerializeVersion);
     for (int i = Character.MIN_VALUE; i <= Character.MAX_VALUE; ++i)
       if (!XMLCharHelper.isInvalidXMLCDATAChar (eXMLSerializeVersion, (char) i))
       {
@@ -397,10 +396,9 @@ public final class MicroWriterTest
   @Test
   public void testSpecialCharactersXML11Text ()
   {
-    final EXMLVersion eXMLVersion = EXMLVersion.XML_11;
-    final EXMLSerializeVersion eXMLSerializeVersion = EXMLSerializeVersion.getFromXMLVersionOrThrow (eXMLVersion);
+    final EXMLSerializeVersion eXMLSerializeVersion = EXMLSerializeVersion.XML_11;
 
-    final XMLWriterSettings aSettings = new XMLWriterSettings ().setXMLVersion (eXMLVersion);
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setSerializeVersion (eXMLSerializeVersion);
     for (int i = Character.MIN_VALUE; i <= Character.MAX_VALUE; ++i)
       if (!XMLCharHelper.isInvalidXMLTextChar (eXMLSerializeVersion, (char) i))
       {
@@ -426,10 +424,9 @@ public final class MicroWriterTest
   @Test
   public void testSpecialCharactersXML11CDATA ()
   {
-    final EXMLVersion eXMLVersion = EXMLVersion.XML_11;
-    final EXMLSerializeVersion eXMLSerializeVersion = EXMLSerializeVersion.getFromXMLVersionOrThrow (eXMLVersion);
+    final EXMLSerializeVersion eXMLSerializeVersion = EXMLSerializeVersion.XML_11;
 
-    final XMLWriterSettings aSettings = new XMLWriterSettings ().setXMLVersion (eXMLVersion);
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setSerializeVersion (eXMLSerializeVersion);
     for (int i = Character.MIN_VALUE; i <= Character.MAX_VALUE; ++i)
       if (!XMLCharHelper.isInvalidXMLCDATAChar (eXMLSerializeVersion, (char) i))
       {

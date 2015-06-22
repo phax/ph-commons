@@ -39,6 +39,7 @@ import com.helger.commons.microdom.IMicroText;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.IXMLIterationHandler;
 import com.helger.commons.xml.serialize.write.AbstractXMLSerializer;
+import com.helger.commons.xml.serialize.write.EXMLSerializeBracketMode;
 import com.helger.commons.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.commons.xml.serialize.write.IXMLWriterSettings;
 import com.helger.commons.xml.serialize.write.XMLWriterSettings;
@@ -128,8 +129,8 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
 
   private void _writeDocument (@Nonnull final IXMLIterationHandler aXMLWriter, final IMicroDocument aDocument)
   {
-    if (m_aSettings.getFormat ().isXML ())
-      aXMLWriter.onDocumentStart (m_aSettings.getXMLVersion (), m_aSettings.getCharset (), aDocument.isStandalone ());
+    if (m_aSettings.getSerializeXMLDecl ().isEmit ())
+      aXMLWriter.onXMLDeclaration (m_aSettings.getXMLVersion (), m_aSettings.getCharset (), aDocument.isStandalone ());
 
     if (aDocument.hasChildren ())
       _writeNodeList (aXMLWriter, aDocument.getAllChildren ());
@@ -255,7 +256,13 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       if (bHasIndent && bIndentPrev)
         aXMLWriter.onContentElementWhitespace (m_aIndent);
 
-      aXMLWriter.onElementStart (sElementNSPrefix, sTagName, aAttrMap, bHasChildren);
+      final EXMLSerializeBracketMode eBracketMode = m_aSettings.getBracketModeDeterminator ()
+                                                               .getBracketMode (sElementNSPrefix,
+                                                                                sTagName,
+                                                                                aAttrMap,
+                                                                                bHasChildren);
+
+      aXMLWriter.onElementStart (sElementNSPrefix, sTagName, aAttrMap, bHasChildren, eBracketMode);
 
       // write child nodes (if present)
       if (bHasChildren)
@@ -280,7 +287,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
           aXMLWriter.onContentElementWhitespace (m_aIndent);
       }
 
-      aXMLWriter.onElementEnd (sElementNSPrefix, sTagName, bHasChildren);
+      aXMLWriter.onElementEnd (sElementNSPrefix, sTagName, bHasChildren, eBracketMode);
 
       if (eIndent.isAlign () && bIndentNext)
         aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());

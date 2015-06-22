@@ -22,6 +22,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.namespace.QName;
 
+import com.helger.commons.xml.serialize.write.EXMLSerializeBracketMode;
+
 /**
  * Callback interface when iterating XML nodes.
  *
@@ -30,11 +32,11 @@ import javax.xml.namespace.QName;
 public interface IXMLIterationHandler
 {
   /**
-   * At the very beginning of the document.
+   * At the very beginning of the document (XML declaration).
    *
    * @param eVersion
    *        The XML version to use. If <code>null</code> is passed,
-   *        {@link EXMLVersion#DEFAULT} will be used.
+   *        {@link EXMLVersion#XML_10} will be used.
    * @param sEncoding
    *        The encoding to be used for this document. It may be
    *        <code>null</code> but it is strongly recommended to write a correct
@@ -43,7 +45,7 @@ public interface IXMLIterationHandler
    *        if <code>true</code> this is a standalone XML document without a
    *        connection to an existing DTD or XML schema
    */
-  void onDocumentStart (@Nullable EXMLVersion eVersion, @Nullable String sEncoding, boolean bStandalone);
+  void onXMLDeclaration (@Nullable EXMLVersion eVersion, @Nullable String sEncoding, boolean bStandalone);
 
   /**
    * On XML document type.
@@ -124,11 +126,14 @@ public interface IXMLIterationHandler
    *        Optional set of attributes.
    * @param bHasChildren
    *        <code>true</code> if the current element has children
+   * @param eBracketMode
+   *        Bracket mode to use. Never <code>null</code>.
    */
   void onElementStart (@Nullable String sNamespacePrefix,
                        @Nonnull String sTagName,
                        @Nullable Map <QName, String> aAttrs,
-                       boolean bHasChildren);
+                       boolean bHasChildren,
+                       @Nonnull EXMLSerializeBracketMode eBracketMode);
 
   /**
    * End of an element.
@@ -139,6 +144,11 @@ public interface IXMLIterationHandler
    *        Tag name
    * @param bHasChildren
    *        <code>true</code> if the current element has children
+   * @param eBracketMode
+   *        Bracket mode to use. Never <code>null</code>.
    */
-  void onElementEnd (@Nullable String sNamespacePrefix, @Nonnull String sTagName, boolean bHasChildren);
+  void onElementEnd (@Nullable String sNamespacePrefix,
+                     @Nonnull String sTagName,
+                     boolean bHasChildren,
+                     @Nonnull EXMLSerializeBracketMode eBracketMode);
 }

@@ -25,6 +25,7 @@ import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.equals.EqualsHelper;
@@ -74,8 +75,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   /** The default settings to use */
   public static final IXMLWriterSettings DEFAULT_XML_SETTINGS = new XMLWriterSettings ();
 
-  private EXMLSerializeFormat m_eFormat = EXMLSerializeFormat.XML;
   private EXMLVersion m_eXMLVersion = EXMLVersion.XML_10;
+  private EXMLSerializeVersion m_eSerializeVersion = EXMLSerializeVersion.XML_10;
+  private EXMLSerializeXMLDecl m_eSerializeXMLDecl = EXMLSerializeXMLDecl.EMIT;
   private EXMLSerializeDocType m_eSerializeDocType = EXMLSerializeDocType.EMIT;
   private EXMLSerializeComments m_eSerializeComments = EXMLSerializeComments.EMIT;
   private EXMLSerializeIndent m_eIndent = EXMLSerializeIndent.INDENT_AND_ALIGN;
@@ -83,18 +85,21 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   private Charset m_aCharset = DEFAULT_XML_CHARSET_OBJ;
   private NamespaceContext m_aNamespaceContext = new MapBasedNamespaceContext ();
   private boolean m_bUseDoubleQuotesForAttributes = DEFAULT_USE_DOUBLE_QUOTES_FOR_ATTRIBUTES;
+  private IXMLBracketModeDeterminator m_aBracketModeDeterminator = new XMLBracketModeDeterminatorXML ();
   private boolean m_bSpaceOnSelfClosedElement = DEFAULT_SPACE_ON_SELF_CLOSED_ELEMENT;
   private ENewLineMode m_eNewLineMode = ENewLineMode.DEFAULT;
   private String m_sIndentationString = DEFAULT_INDENTATION_STRING;
   private boolean m_bEmitNamespaces = DEFAULT_EMIT_NAMESPACES;
   private boolean m_bPutNamespaceContextPrefixesInRoot = DEFAULT_PUT_NAMESPACE_CONTEXT_PREFIXES_IN_ROOT;
+
+  // Status vars
   private String m_sIndentationStringToString;
 
   /**
    * Creates a default settings object with the following settings:
    * <ul>
-   * <li>XML output</li>
    * <li>XML version 1.0</li>
+   * <li>with XML declaration</li>
    * <li>with document type</li>
    * <li>with comments</li>
    * <li>Indented and aligned</li>
@@ -117,14 +122,15 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   {
     ValueEnforcer.notNull (aOther, "Other");
 
-    setFormat (aOther.getFormat ());
-    setXMLVersion (aOther.getXMLVersion ());
+    setSerializeVersion (aOther.getSerializeVersion ());
+    setSerializeXMLDecl (aOther.getSerializeXMLDecl ());
     setSerializeDocType (aOther.getSerializeDocType ());
     setSerializeComments (aOther.getSerializeComments ());
     setIndent (aOther.getIndent ());
     setIncorrectCharacterHandling (aOther.getIncorrectCharacterHandling ());
     setCharset (aOther.getCharsetObj ());
     setNamespaceContext (aOther.getNamespaceContext ());
+    setBracketModeDeterminator (aOther.getBracketModeDeterminator ());
     setUseDoubleQuotesForAttributes (aOther.isUseDoubleQuotesForAttributes ());
     setSpaceOnSelfClosedElement (aOther.isSpaceOnSelfClosedElement ());
     setNewLineMode (aOther.getNewLineMode ());
@@ -133,44 +139,51 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     setPutNamespaceContextPrefixesInRoot (aOther.isPutNamespaceContextPrefixesInRoot ());
   }
 
-  /**
-   * Set the XML serialization format to use.
-   *
-   * @param eFormat
-   *        The new format. May not be <code>null</code>.
-   * @return this
-   */
   @Nonnull
-  public final XMLWriterSettings setFormat (@Nonnull final EXMLSerializeFormat eFormat)
+  public EXMLVersion getXMLVersion ()
   {
-    m_eFormat = ValueEnforcer.notNull (eFormat, "Format");
-    return this;
-  }
-
-  @Nonnull
-  public EXMLSerializeFormat getFormat ()
-  {
-    return m_eFormat;
+    return m_eXMLVersion;
   }
 
   /**
    * Set the preferred XML version to use.
    *
-   * @param eVersion
-   *        The XML version. May not be <code>null</code>.
+   * @param eSerializeVersion
+   *        The XML serialize version. May not be <code>null</code>.
    * @return this
    */
   @Nonnull
-  public final XMLWriterSettings setXMLVersion (@Nonnull final EXMLVersion eVersion)
+  public final XMLWriterSettings setSerializeVersion (@Nonnull final EXMLSerializeVersion eSerializeVersion)
   {
-    m_eXMLVersion = ValueEnforcer.notNull (eVersion, "Version");
+    m_eSerializeVersion = ValueEnforcer.notNull (eSerializeVersion, "Version");
+    m_eXMLVersion = eSerializeVersion.getXMLVersionOrDefault (EXMLVersion.XML_10);
     return this;
   }
 
   @Nonnull
-  public EXMLVersion getXMLVersion ()
+  public EXMLSerializeVersion getSerializeVersion ()
   {
-    return m_eXMLVersion;
+    return m_eSerializeVersion;
+  }
+
+  /**
+   * Set the way how to handle the XML declaration.
+   *
+   * @param eSerializeXMLDecl
+   *        XML declaration handling. May not be <code>null</code>.
+   * @return this
+   */
+  @Nonnull
+  public final XMLWriterSettings setSerializeXMLDecl (@Nonnull final EXMLSerializeXMLDecl eSerializeXMLDecl)
+  {
+    m_eSerializeXMLDecl = ValueEnforcer.notNull (eSerializeXMLDecl, "SerializeXMLDecl");
+    return this;
+  }
+
+  @Nonnull
+  public EXMLSerializeXMLDecl getSerializeXMLDecl ()
+  {
+    return m_eSerializeXMLDecl;
   }
 
   /**
@@ -313,6 +326,20 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
+  public final XMLWriterSettings setBracketModeDeterminator (@Nonnull final IXMLBracketModeDeterminator aBracketModeDeterminator)
+  {
+    ValueEnforcer.notNull (aBracketModeDeterminator, "BracketModeDeterminator");
+    m_aBracketModeDeterminator = aBracketModeDeterminator;
+    return this;
+  }
+
+  @Nonnull
+  public IXMLBracketModeDeterminator getBracketModeDeterminator ()
+  {
+    return m_aBracketModeDeterminator;
+  }
+
+  @Nonnull
   public final XMLWriterSettings setSpaceOnSelfClosedElement (final boolean bSpaceOnSelfClosedElement)
   {
     m_bSpaceOnSelfClosedElement = bSpaceOnSelfClosedElement;
@@ -398,8 +425,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
       return false;
     final XMLWriterSettings rhs = (XMLWriterSettings) o;
     // namespace context does not necessarily implement equals/hashCode
-    return m_eFormat.equals (rhs.m_eFormat) &&
-           m_eXMLVersion.equals (rhs.m_eXMLVersion) &&
+    return m_eXMLVersion.equals (rhs.m_eXMLVersion) &&
+           m_eSerializeXMLDecl.equals (rhs.m_eSerializeXMLDecl) &&
            m_eSerializeDocType.equals (rhs.m_eSerializeDocType) &&
            m_eSerializeComments.equals (rhs.m_eSerializeComments) &&
            m_eIndent.equals (rhs.m_eIndent) &&
@@ -407,6 +434,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
            m_aCharset.equals (rhs.m_aCharset) &&
            EqualsHelper.equals (m_aNamespaceContext, rhs.m_aNamespaceContext) &&
            m_bUseDoubleQuotesForAttributes == rhs.m_bUseDoubleQuotesForAttributes &&
+           m_aBracketModeDeterminator.equals (rhs.m_aBracketModeDeterminator) &&
            m_bSpaceOnSelfClosedElement == rhs.m_bSpaceOnSelfClosedElement &&
            m_eNewLineMode.equals (rhs.m_eNewLineMode) &&
            m_sIndentationString.equals (rhs.m_sIndentationString) &&
@@ -418,8 +446,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   public int hashCode ()
   {
     // namespace context does not necessarily implement equals/hashCode
-    return new HashCodeGenerator (this).append (m_eFormat)
-                                       .append (m_eXMLVersion)
+    return new HashCodeGenerator (this).append (m_eXMLVersion)
+                                       .append (m_eSerializeXMLDecl)
                                        .append (m_eSerializeDocType)
                                        .append (m_eSerializeComments)
                                        .append (m_eIndent)
@@ -427,6 +455,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .append (m_aCharset)
                                        .append (m_aNamespaceContext)
                                        .append (m_bUseDoubleQuotesForAttributes)
+                                       .append (m_aBracketModeDeterminator)
                                        .append (m_bSpaceOnSelfClosedElement)
                                        .append (m_eNewLineMode)
                                        .append (m_sIndentationString)
@@ -441,8 +470,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     if (m_sIndentationStringToString == null)
       m_sIndentationStringToString = StringHelper.getHexEncoded (CharsetManager.getAsBytes (m_sIndentationString,
                                                                                             CCharset.CHARSET_ISO_8859_1_OBJ));
-    return new ToStringGenerator (this).append ("format", m_eFormat)
-                                       .append ("xmlVersion", m_eXMLVersion)
+    return new ToStringGenerator (this).append ("xmlVersion", m_eXMLVersion)
+                                       .append ("serializeXMLDecl", m_eSerializeXMLDecl)
                                        .append ("serializeDocType", m_eSerializeDocType)
                                        .append ("serializeComments", m_eSerializeComments)
                                        .append ("indent", m_eIndent)
@@ -450,6 +479,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .append ("charset", m_aCharset)
                                        .append ("namespaceContext", m_aNamespaceContext)
                                        .append ("doubleQuotesForAttrs", m_bUseDoubleQuotesForAttributes)
+                                       .append ("bracketModeDeterminator", m_aBracketModeDeterminator)
                                        .append ("spaceOnSelfClosedElement", m_bSpaceOnSelfClosedElement)
                                        .append ("newlineMode", m_eNewLineMode)
                                        .append ("indentationString", m_sIndentationStringToString)
@@ -457,5 +487,38 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .append ("putNamespaceContextPrefixesInRoot",
                                                 m_bPutNamespaceContextPrefixesInRoot)
                                        .toString ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static XMLWriterSettings createForHTML4 ()
+  {
+    return new XMLWriterSettings ().setSerializeVersion (EXMLSerializeVersion.HTML)
+                                   .setSerializeXMLDecl (EXMLSerializeXMLDecl.IGNORE)
+                                   .setBracketModeDeterminator (new XMLBracketModeDeterminatorHTML4 ())
+                                   .setSpaceOnSelfClosedElement (true)
+                                   .setPutNamespaceContextPrefixesInRoot (true);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static XMLWriterSettings createForXHTML ()
+  {
+    return new XMLWriterSettings ().setSerializeVersion (EXMLSerializeVersion.HTML)
+                                   .setSerializeXMLDecl (EXMLSerializeXMLDecl.IGNORE)
+                                   .setBracketModeDeterminator (new XMLBracketModeDeterminatorHTML4 ())
+                                   .setSpaceOnSelfClosedElement (true)
+                                   .setPutNamespaceContextPrefixesInRoot (true);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static XMLWriterSettings createForHTML5 ()
+  {
+    return new XMLWriterSettings ().setSerializeVersion (EXMLSerializeVersion.HTML)
+                                   .setSerializeXMLDecl (EXMLSerializeXMLDecl.IGNORE)
+                                   .setBracketModeDeterminator (new XMLBracketModeDeterminatorHTML5 ())
+                                   .setSpaceOnSelfClosedElement (true)
+                                   .setPutNamespaceContextPrefixesInRoot (true);
   }
 }

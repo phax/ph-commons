@@ -26,12 +26,10 @@ import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.xml.EXMLCharMode;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
-import com.helger.commons.xml.serialize.write.EXMLSerializeVersion;
-import com.helger.commons.xml.serialize.write.XMLMaskHelper;
 
 /**
  * Test class for class {@link XMLMaskHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class XMLMaskHelperTest extends AbstractCommonsTestCase
@@ -55,11 +53,6 @@ public final class XMLMaskHelperTest extends AbstractCommonsTestCase
                                                               EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                               EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
                                                               "\u0001")));
-    assertEquals ("\u0001",
-                  new String (XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XHTML,
-                                                              EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
-                                                              EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
-                                                              "\u0001")));
 
     // Replace with ""
     assertArrayEquals (ArrayHelper.EMPTY_CHAR_ARRAY,
@@ -77,11 +70,6 @@ public final class XMLMaskHelperTest extends AbstractCommonsTestCase
                                                        EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                        EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
                                                        "\u0000"));
-    assertArrayEquals (ArrayHelper.EMPTY_CHAR_ARRAY,
-                       XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XHTML,
-                                                       EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
-                                                       EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
-                                                       "\u0000"));
 
     // Invalid char inbetween
     assertArrayEquals ("abc".toCharArray (),
@@ -96,11 +84,6 @@ public final class XMLMaskHelperTest extends AbstractCommonsTestCase
                                                        "ab\u0000c"));
     assertArrayEquals ("abc".toCharArray (),
                        XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.HTML,
-                                                       EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
-                                                       EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
-                                                       "ab\u0000c"));
-    assertArrayEquals ("abc".toCharArray (),
-                       XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XHTML,
                                                        EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                        EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
                                                        "ab\u0000c"));
@@ -136,16 +119,6 @@ public final class XMLMaskHelperTest extends AbstractCommonsTestCase
     }
     catch (final IllegalArgumentException ex)
     {}
-    try
-    {
-      XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XHTML,
-                                      EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
-                                      EXMLIncorrectCharacterHandling.THROW_EXCEPTION,
-                                      "\u0000");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
 
     // Emit as usual
     assertArrayEquals ("1 &amp; \u0001".toCharArray (),
@@ -163,11 +136,6 @@ public final class XMLMaskHelperTest extends AbstractCommonsTestCase
                                                        EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                        EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
                                                        "1 & \u0001"));
-    assertArrayEquals ("1 &amp; \u0001".toCharArray (),
-                       XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XHTML,
-                                                       EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
-                                                       EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
-                                                       "1 & \u0001"));
 
     // Emit as usual
     assertArrayEquals ("1 &amp; \u0001".toCharArray (),
@@ -182,11 +150,6 @@ public final class XMLMaskHelperTest extends AbstractCommonsTestCase
                                                        "1 & \u0001"));
     assertArrayEquals ("1 &amp; \u0001".toCharArray (),
                        XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.HTML,
-                                                       EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
-                                                       EXMLIncorrectCharacterHandling.WRITE_TO_FILE_LOG_WARNING,
-                                                       "1 & \u0001"));
-    assertArrayEquals ("1 &amp; \u0001".toCharArray (),
-                       XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XHTML,
                                                        EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                        EXMLIncorrectCharacterHandling.WRITE_TO_FILE_LOG_WARNING,
                                                        "1 & \u0001"));
@@ -207,11 +170,6 @@ public final class XMLMaskHelperTest extends AbstractCommonsTestCase
                                                        EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                        EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
                                                        "1 & \u0001"));
-    assertArrayEquals ("1 &amp; ".toCharArray (),
-                       XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XHTML,
-                                                       EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
-                                                       EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
-                                                       "1 & \u0001"));
 
     // Special chars
     assertArrayEquals ("ab&lt;cd>ef&amp;gh&quot;ij".toCharArray (),
@@ -226,11 +184,6 @@ public final class XMLMaskHelperTest extends AbstractCommonsTestCase
                                                        "ab<cd>ef&gh\"ij"));
     assertArrayEquals ("ab&lt;cd&gt;ef&amp;gh&quot;ij".toCharArray (),
                        XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.HTML,
-                                                       EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
-                                                       EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
-                                                       "ab<cd>ef&gh\"ij"));
-    assertArrayEquals ("ab&lt;cd&gt;ef&amp;gh&quot;ij".toCharArray (),
-                       XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XHTML,
                                                        EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                        EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
                                                        "ab<cd>ef&gh\"ij"));
@@ -251,11 +204,6 @@ public final class XMLMaskHelperTest extends AbstractCommonsTestCase
                                                        EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                        EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
                                                        "'ab'\"cd\""));
-    assertArrayEquals ("&#39;ab&#39;&quot;cd&quot;".toCharArray (),
-                       XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XHTML,
-                                                       EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
-                                                       EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
-                                                       "'ab'\"cd\""));
 
     // Different quotes - single quotes
     assertArrayEquals ("&apos;ab&apos;\"cd\"".toCharArray (),
@@ -270,11 +218,6 @@ public final class XMLMaskHelperTest extends AbstractCommonsTestCase
                                                        "'ab'\"cd\""));
     assertArrayEquals ("&#39;ab&#39;\"cd\"".toCharArray (),
                        XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.HTML,
-                                                       EXMLCharMode.ATTRIBUTE_VALUE_SINGLE_QUOTES,
-                                                       EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
-                                                       "'ab'\"cd\""));
-    assertArrayEquals ("&#39;ab&#39;\"cd\"".toCharArray (),
-                       XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XHTML,
                                                        EXMLCharMode.ATTRIBUTE_VALUE_SINGLE_QUOTES,
                                                        EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
                                                        "'ab'\"cd\""));

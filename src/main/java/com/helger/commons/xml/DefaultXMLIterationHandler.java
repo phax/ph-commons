@@ -22,6 +22,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.namespace.QName;
 
+import com.helger.commons.xml.serialize.write.EXMLSerializeBracketMode;
+
 /**
  * Empty implementation of {@link IXMLIterationHandler} that does nothing.
  *
@@ -32,7 +34,7 @@ public class DefaultXMLIterationHandler implements IXMLIterationHandler
   public DefaultXMLIterationHandler ()
   {}
 
-  public void onDocumentStart (@Nullable final EXMLVersion eVersion,
+  public void onXMLDeclaration (@Nullable final EXMLVersion eVersion,
                                @Nullable final String sEncoding,
                                final boolean bStandalone)
   {}
@@ -63,11 +65,13 @@ public class DefaultXMLIterationHandler implements IXMLIterationHandler
   public void onElementStart (@Nullable final String sNamespacePrefix,
                               @Nonnull final String sTagName,
                               @Nullable final Map <QName, String> aAttrs,
-                              final boolean bHasChildren)
+                              final boolean bHasChildren,
+                              @Nonnull final EXMLSerializeBracketMode eBracketMode)
   {}
 
   public void onElementEnd (@Nullable final String sNamespacePrefix,
                             @Nonnull final String sTagName,
-                            final boolean bHasChildren)
+                            final boolean bHasChildren,
+                            @Nonnull final EXMLSerializeBracketMode eBracketMode)
   {}
 }

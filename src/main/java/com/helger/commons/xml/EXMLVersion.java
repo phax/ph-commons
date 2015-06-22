@@ -24,22 +24,16 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * XML version determinator.
- * 
+ *
  * @author boris
  */
 public enum EXMLVersion
 {
-  /** XML 1.0 */
+  /** XML 1.0 - this should be the default */
   XML_10 ("1.0"),
 
   /** XML 1.1 */
   XML_11 ("1.1");
-
-  /**
-   * The default XML version to be used, if none is specified. This resolves to
-   * XML version 1.0
-   */
-  public static final EXMLVersion DEFAULT = XML_10;
 
   private final String m_sVersion;
 
@@ -60,7 +54,7 @@ public enum EXMLVersion
 
   /**
    * Find the {@link EXMLVersion} object matching the passed version string.
-   * 
+   *
    * @param sVersion
    *        The version string to search. May be <code>null</code>.
    * @return <code>null</code> if no such {@link EXMLVersion} object is present.
@@ -73,7 +67,7 @@ public enum EXMLVersion
 
   /**
    * Find the {@link EXMLVersion} object matching the passed version string.
-   * 
+   *
    * @param sVersion
    *        The version string to search. May be <code>null</code>.
    * @param eDefault
