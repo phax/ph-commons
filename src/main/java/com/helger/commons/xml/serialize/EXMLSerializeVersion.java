@@ -26,7 +26,7 @@ import com.helger.commons.xml.EXMLVersion;
 
 /**
  * XML serialization version.
- * 
+ *
  * @author Philip Helger
  */
 public enum EXMLSerializeVersion implements IHasID <String>
@@ -37,7 +37,7 @@ public enum EXMLSerializeVersion implements IHasID <String>
   /** XML 1.1 */
   XML_11 ("xml11", EXMLVersion.XML_11),
 
-  /** HTML */
+  /** HTML &le; 4 */
   HTML ("html", null),
 
   /** XHTML */
@@ -97,7 +97,7 @@ public enum EXMLSerializeVersion implements IHasID <String>
   /**
    * Get the {@link EXMLSerializeVersion} from the specified {@link EXMLVersion}
    * .
-   * 
+   *
    * @param eXMLVersion
    *        XML version to query. May not be <code>null</code>.
    * @return Never <code>null</code>.

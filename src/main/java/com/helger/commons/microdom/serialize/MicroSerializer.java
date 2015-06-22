@@ -48,7 +48,7 @@ import com.helger.commons.xml.serialize.XMLWriterSettings;
  *
  * @author Philip
  */
-public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
+public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
 {
   public MicroSerializer ()
   {
@@ -222,6 +222,7 @@ public final class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
         sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI, bIsRootElement, aAttrMap);
       }
 
+      // Get all attributes
       if (aElement.hasAttributes ())
       {
         // Delivers an ordered copy!

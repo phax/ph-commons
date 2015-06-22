@@ -412,9 +412,10 @@ public class XMLEmitter extends DefaultXMLIterationHandler
                                                                                "META",
                                                                                "PARAM");
 
-  private static boolean _isHTMLEmptyTag (@Nonnull final String sTagName)
+  private static boolean _isHTMLClosedTag (@Nonnull final String sTagName)
   {
-    return EMPTY_HTML_TAGS.contains (sTagName.toUpperCase (Locale.US));
+    // In HTML all tags are closed, if not explicitly marked as empty
+    return !EMPTY_HTML_TAGS.contains (sTagName.toUpperCase (Locale.US));
   }
 
   @Override
@@ -425,8 +426,8 @@ public class XMLEmitter extends DefaultXMLIterationHandler
     boolean bPrintClosingTag = bHasChildren;
     if (!bPrintClosingTag && m_aSettings.getFormat ().isHTML ())
     {
-      // In HTML all tags are closed, if not explicitly marked as empty
-      bPrintClosingTag = !_isHTMLEmptyTag (sTagName);
+      // Special HTML check
+      bPrintClosingTag = _isHTMLClosedTag (sTagName);
     }
 
     if (bPrintClosingTag)

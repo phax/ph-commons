@@ -50,7 +50,7 @@ public final class SAXReaderTest
   @AfterClass
   public static void ac ()
   {
-    SAXReaderDefaultSettings.setExceptionHandler (new XMLLoggingExceptionHandler ());
+    SAXReaderDefaultSettings.setExceptionHandler (new XMLLoggingExceptionCallback ());
   }
 
   @Test

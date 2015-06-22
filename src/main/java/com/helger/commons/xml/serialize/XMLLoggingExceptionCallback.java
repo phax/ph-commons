@@ -39,12 +39,12 @@ import com.helger.commons.xml.sax.AbstractSAXErrorHandler;
  *
  * @author Philip Helger
  */
-public class XMLLoggingExceptionHandler extends LoggingExceptionCallback
+public class XMLLoggingExceptionCallback extends LoggingExceptionCallback
 {
-  public XMLLoggingExceptionHandler ()
+  public XMLLoggingExceptionCallback ()
   {}
 
-  public XMLLoggingExceptionHandler (@Nonnull final IErrorLevel aErrorLevel)
+  public XMLLoggingExceptionCallback (@Nonnull final IErrorLevel aErrorLevel)
   {
     super (aErrorLevel);
   }

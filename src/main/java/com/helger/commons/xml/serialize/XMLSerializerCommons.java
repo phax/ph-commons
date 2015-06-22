@@ -49,7 +49,7 @@ import com.helger.commons.xml.namespace.ComparatorQName;
  *
  * @author Philip Helger
  */
-public final class XMLSerializerCommons extends AbstractXMLSerializer <Node>
+public class XMLSerializerCommons extends AbstractXMLSerializer <Node>
 {
   public XMLSerializerCommons ()
   {
@@ -207,6 +207,7 @@ public final class XMLSerializerCommons extends AbstractXMLSerializer <Node>
         sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI, bIsRootElement, aAttrMap);
       }
 
+      // Get all attributes
       final NamedNodeMap aAttrs = aElement.getAttributes ();
       for (int i = 0; i < aAttrs.getLength (); ++i)
       {

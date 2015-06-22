@@ -69,7 +69,7 @@ public final class SAXReaderDefaultSettings
   @GuardedBy ("s_aRWLock")
   private static final EnumMap <EXMLParserFeature, Boolean> s_aDefaultFeatures = new EnumMap <EXMLParserFeature, Boolean> (EXMLParserFeature.class);
   @GuardedBy ("s_aRWLock")
-  private static IExceptionCallback <Throwable> s_aDefaultExceptionHandler = new XMLLoggingExceptionHandler ();
+  private static IExceptionCallback <Throwable> s_aDefaultExceptionHandler = new XMLLoggingExceptionCallback ();
   @GuardedBy ("s_aRWLock")
   private static boolean s_bDefaultRequiresNewXMLParserExplicitly = DEFAULT_REQUIRES_NEW_XML_PARSER_EXPLICITLY;
 

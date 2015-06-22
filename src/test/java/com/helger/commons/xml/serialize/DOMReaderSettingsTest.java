@@ -44,7 +44,7 @@ public final class DOMReaderSettingsTest
   @AfterClass
   public static void ac ()
   {
-    DOMReaderDefaultSettings.setExceptionHandler (new XMLLoggingExceptionHandler ());
+    DOMReaderDefaultSettings.setExceptionHandler (new XMLLoggingExceptionCallback ());
   }
 
   @Test
