@@ -24,15 +24,19 @@ import com.helger.commons.annotation.Nonempty;
 
 /**
  * Determines the different newline modes for th different operating systems.
- * 
+ *
  * @author Philip Helger
  */
 public enum ENewLineMode
 {
+  /** Unix style - just \n (0x0A) */
   UNIX ("\n"),
+  /** Mac style - just \r (0x0D) */
   MAC ("\r"),
+  /** Windows style - \r\n (0x0D 0x0A) */
   WINDOWS ("\r\n");
 
+  /** The default newline mode as indicated by the system properties */
   public static final ENewLineMode DEFAULT = getFromTextOrDefault (CGlobal.LINE_SEPARATOR,
                                                                    EOperatingSystem.getCurrentOS ().getNewLineMode ());
 
@@ -44,7 +48,8 @@ public enum ENewLineMode
   }
 
   /**
-   * @return The textual representation of the new line in this mode.
+   * @return The textual representation of the new line in this mode. Neither
+   *         <code>null</code> nor empty.
    */
   @Nonnull
   @Nonempty
