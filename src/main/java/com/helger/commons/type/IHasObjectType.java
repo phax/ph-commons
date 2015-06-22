@@ -23,11 +23,11 @@ import javax.annotation.Nonnull;
  * 
  * @author Philip Helger
  */
-public interface IHasType
+public interface IHasObjectType
 {
   /**
    * @return The type of the object. Never <code>null</code>.
    */
   @Nonnull
-  ObjectType getTypeID ();
+  ObjectType getObjectType ();
 }

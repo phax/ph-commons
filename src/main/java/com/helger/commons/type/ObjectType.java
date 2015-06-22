@@ -24,6 +24,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.name.IHasName;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -36,7 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class ObjectType implements Comparable <ObjectType>, Serializable
+public class ObjectType implements Comparable <ObjectType>, Serializable, IHasName
 {
   private final String m_sName;
   // The mutable m_aHashCode does not contradict thread safety
@@ -49,7 +50,7 @@ public class ObjectType implements Comparable <ObjectType>, Serializable
 
   @Nonnull
   @Nonempty
-  public String getObjectTypeName ()
+  public String getName ()
   {
     return m_sName;
   }
@@ -82,6 +83,6 @@ public class ObjectType implements Comparable <ObjectType>, Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("name", m_sName).toString ();
+    return new ToStringGenerator (this).append ("Name", m_sName).toString ();
   }
 }

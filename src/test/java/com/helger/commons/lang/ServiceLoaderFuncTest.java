@@ -33,7 +33,7 @@ import com.helger.commons.hierarchy.MockChildrenProvider;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.state.IClearable;
 import com.helger.commons.state.IStoppable;
-import com.helger.commons.type.IHasType;
+import com.helger.commons.type.IHasObjectType;
 
 /**
  * Test class for class {@link ServiceLoader}.
@@ -72,8 +72,8 @@ public final class ServiceLoaderFuncTest
   public void testLoadNonExistingImplementation ()
   {
     // The service file contains a non-existing implementation class
-    final Iterable <IHasType> aSL = ServiceLoader.load (IHasType.class);
-    final Iterator <IHasType> it = aSL.iterator ();
+    final Iterable <IHasObjectType> aSL = ServiceLoader.load (IHasObjectType.class);
+    final Iterator <IHasObjectType> it = aSL.iterator ();
     assertNotNull (it);
     assertTrue (it.hasNext ());
     try
@@ -89,8 +89,8 @@ public final class ServiceLoaderFuncTest
   public void testLoadNonExistingImplementationWithSpecialCL ()
   {
     // The service file contains a non-existing implementation class
-    final Iterable <IHasType> aSL = ServiceLoader.loadInstalled (IHasType.class);
-    final Iterator <IHasType> it = aSL.iterator ();
+    final Iterable <IHasObjectType> aSL = ServiceLoader.loadInstalled (IHasObjectType.class);
+    final Iterator <IHasObjectType> it = aSL.iterator ();
     assertNotNull (it);
     assertFalse (it.hasNext ());
   }

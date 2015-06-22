@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.id.IHasID;
-import com.helger.commons.type.IHasType;
+import com.helger.commons.type.IHasObjectType;
 import com.helger.commons.type.ITypedObject;
 import com.helger.commons.type.TypedObject;
 
@@ -57,7 +57,7 @@ public final class ClassHierarchyCacheTest
     aHierarchy = ClassHierarchyCache.getClassHierarchy (TypedObject.class);
     assertTrue (aHierarchy.size () >= 6);
     assertTrue (aHierarchy.contains (TypedObject.class));
-    assertTrue (aHierarchy.contains (IHasType.class));
+    assertTrue (aHierarchy.contains (IHasObjectType.class));
     assertTrue (aHierarchy.contains (ITypedObject.class));
     assertTrue (aHierarchy.contains (IHasID.class));
     assertTrue (aHierarchy.contains (Object.class));

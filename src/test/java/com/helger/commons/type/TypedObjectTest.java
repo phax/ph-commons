@@ -36,7 +36,7 @@ public final class TypedObjectTest
     final ObjectType ot1 = new ObjectType ("type1");
     final ObjectType ot2 = new ObjectType ("type2");
     final TypedObject <String> t1 = TypedObject.create (ot1, "id1");
-    assertSame (ot1, t1.getTypeID ());
+    assertSame (ot1, t1.getObjectType ());
     assertEquals ("id1", t1.getID ());
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t1, TypedObject.create (ot1, "id1"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t1, TypedObject.create (t1));

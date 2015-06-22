@@ -25,7 +25,7 @@ import com.helger.commons.id.IHasID;
  * @param <IDTYPE>
  *        The type of the ID.
  */
-public interface ITypedObject <IDTYPE> extends IHasType, IHasID <IDTYPE>
+public interface ITypedObject <IDTYPE> extends IHasObjectType, IHasID <IDTYPE>
 {
   /* empty */
 }

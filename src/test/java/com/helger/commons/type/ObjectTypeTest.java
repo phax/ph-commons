@@ -27,7 +27,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link ObjectType}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ObjectTypeTest
@@ -37,12 +37,13 @@ public final class ObjectTypeTest
   public void testAll () throws Exception
   {
     final ObjectType x = new ObjectType ("any");
-    assertEquals ("any", x.getObjectTypeName ());
+    assertEquals ("any", x.getName ());
     assertEquals (0, x.compareTo (x));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, new ObjectType ("any"));
 
     final ObjectType y = new ObjectType ("any2");
     assertEquals (-1, x.compareTo (y));
+    assertEquals (+1, y.compareTo (x));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, y);
 
     // Serialization

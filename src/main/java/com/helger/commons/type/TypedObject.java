@@ -36,24 +36,24 @@ import com.helger.commons.string.ToStringGenerator;
 @Immutable
 public final class TypedObject <IDTYPE extends Serializable> implements ITypedObject <IDTYPE>, Serializable
 {
-  private final ObjectType m_aTypeID;
-  private final IDTYPE m_aID;
+  private ObjectType m_aObjectType;
+  private IDTYPE m_aID;
 
   public TypedObject (@Nonnull final ITypedObject <IDTYPE> aObj)
   {
-    this (aObj.getTypeID (), aObj.getID ());
+    this (aObj.getObjectType (), aObj.getID ());
   }
 
-  public TypedObject (@Nonnull final ObjectType aTypeID, @Nonnull final IDTYPE aID)
+  public TypedObject (@Nonnull final ObjectType aObjectType, @Nonnull final IDTYPE aID)
   {
-    m_aTypeID = ValueEnforcer.notNull (aTypeID, "TypeID");
+    m_aObjectType = ValueEnforcer.notNull (aObjectType, "ObjectType");
     m_aID = ValueEnforcer.notNull (aID, "ID");
   }
 
   @Nonnull
-  public ObjectType getTypeID ()
+  public ObjectType getObjectType ()
   {
-    return m_aTypeID;
+    return m_aObjectType;
   }
 
   @Nonnull
@@ -70,19 +70,19 @@ public final class TypedObject <IDTYPE extends Serializable> implements ITypedOb
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final TypedObject <?> rhs = (TypedObject <?>) o;
-    return m_aTypeID.equals (rhs.m_aTypeID) && m_aID.equals (rhs.m_aID);
+    return m_aObjectType.equals (rhs.m_aObjectType) && m_aID.equals (rhs.m_aID);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aTypeID).append (m_aID).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aObjectType).append (m_aID).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("type", m_aTypeID).append ("id", m_aID).toString ();
+    return new ToStringGenerator (this).append ("ObjectType", m_aObjectType).append ("ID", m_aID).toString ();
   }
 
   @Nonnull
