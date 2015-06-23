@@ -25,7 +25,7 @@ import javax.xml.namespace.QName;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 
 /**
- * Interface used in writing XML to determine which of the bracket strategies as
+ * Interface used in writing XML to determine which of the bracket mode as
  * outlined in {@link EXMLSerializeBracketMode} should be used for a single
  * element.
  *
