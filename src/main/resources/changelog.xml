@@ -17,8 +17,17 @@
     limitations under the License.
 
 -->
-<changelog xmlns="http://www.phloc.com/ns/changelog/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="ph-commons">
+<changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <entry date="2015-06-23" category="api" action="change" incompatible="true">
+    <change>
+      <text locale="en">Reworked XML indentation customization</text>
+    </change>
+  </entry>
+  <entry date="2015-06-01" category="api" action="change" incompatible="true">
+    <change>
+      <text locale="en">Reworked more or less all packages and unified class names</text>
+    </change>
+  </entry>
   <entry date="2015-05-13" category="api" action="change" incompatible="true">
     <change>
       <text locale="en">Reworked codec package and integrated contents of encode package</text>

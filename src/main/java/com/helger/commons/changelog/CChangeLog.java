@@ -29,7 +29,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 public final class CChangeLog
 {
   /** The namespace used in XML */
-  public static final String CHANGELOG_NAMESPACE_10 = "http://www.phloc.com/ns/changelog/1.0";
+  public static final String CHANGELOG_NAMESPACE_10 = "http://www.helger.com/xsd/changelog/1.0";
   /** The classpath relative path to the changelog XSD file */
   public static final String CHANGELOG_XSD_10 = "schemas/changelog-1.0.xsd";
   /** The schemaLocation value of the changeLog 1.0 XSD */

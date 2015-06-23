@@ -18,14 +18,18 @@
 
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-           xmlns="http://www.phloc.com/ns/changelog/1.0"
-           targetNamespace="http://www.phloc.com/ns/changelog/1.0"
+           xmlns="http://www.helger.com/xsd/changelog/1.0"
+           targetNamespace="http://www.helger.com/xsd/changelog/1.0"
            elementFormDefault="qualified"
            attributeFormDefault="unqualified">
   <xs:annotation>
     <xs:documentation>
       This schema defines how the structured changelog.xml files should look like.
-      Last modification: 2011-07-29, Philip
+      Last modification: 2015-06-23, Philip
+      
+      History: 
+        2015-06-23 - changed namespace URI
+        2011-07-29 - initial release
     </xs:documentation>
   </xs:annotation>         
            
