@@ -44,32 +44,29 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.xml.transform.TransformSourceFactory;
 
 /**
- * Abstract base class for caching abstract {@link Schema} objects. A
- * {@link Schema} is immutable and can therefore safely be used in
- * multi-threaded environments.
+ * Base class for caching abstract {@link Schema} objects. A {@link Schema} is
+ * immutable and can therefore safely be used in multi-threaded environments.
  *
  * @author Philip Helger
  */
 @ThreadSafe
-public class DefaultSchemaCache extends AbstractNotifyingCache <List <? extends IReadableResource>, Schema>
+public class SchemaCache extends AbstractNotifyingCache <List <? extends IReadableResource>, Schema>
 {
   private final String m_sSchemaTypeName;
   private final SchemaFactory m_aSchemaFactory;
-  private final ErrorHandler m_aErrorHandler;
 
-  public DefaultSchemaCache (@Nonnull final String sSchemaTypeName,
-                             @Nonnull final SchemaFactory aSchemaFactory,
-                             @Nullable final ErrorHandler aErrorHandler,
-                             @Nullable final LSResourceResolver aResourceResolver)
+  public SchemaCache (@Nonnull final String sSchemaTypeName,
+                      @Nonnull final SchemaFactory aSchemaFactory,
+                      @Nullable final ErrorHandler aErrorHandler,
+                      @Nullable final LSResourceResolver aResourceResolver)
   {
-    super (DefaultSchemaCache.class.getName () + "$" + sSchemaTypeName);
+    super (SchemaCache.class.getName () + "$" + sSchemaTypeName);
     ValueEnforcer.notNull (sSchemaTypeName, "SchemaTypeName");
     ValueEnforcer.notNull (aSchemaFactory, "SchemaFactory");
     m_sSchemaTypeName = sSchemaTypeName;
     m_aSchemaFactory = aSchemaFactory;
     m_aSchemaFactory.setErrorHandler (aErrorHandler);
     m_aSchemaFactory.setResourceResolver (aResourceResolver);
-    m_aErrorHandler = aErrorHandler;
   }
 
   @Nonnull
@@ -87,7 +84,13 @@ public class DefaultSchemaCache extends AbstractNotifyingCache <List <? extends 
   @Nullable
   public ErrorHandler getErrorHandler ()
   {
-    return m_aErrorHandler;
+    return m_aSchemaFactory.getErrorHandler ();
+  }
+
+  @Nullable
+  public LSResourceResolver getResourceResolver ()
+  {
+    return m_aSchemaFactory.getResourceResolver ();
   }
 
   @Override
@@ -186,7 +189,7 @@ public class DefaultSchemaCache extends AbstractNotifyingCache <List <? extends 
     ValueEnforcer.notNull (aSchema, "Schema");
 
     final Validator aValidator = aSchema.newValidator ();
-    aValidator.setErrorHandler (m_aErrorHandler);
+    aValidator.setErrorHandler (m_aSchemaFactory.getErrorHandler ());
     return aValidator;
   }
 

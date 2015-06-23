@@ -34,15 +34,19 @@ import com.helger.commons.xml.sax.LoggingSAXErrorHandler;
  * @author Philip Helger
  */
 @ThreadSafe
-public class XMLSchemaCache extends DefaultSchemaCache
+public class XMLSchemaCache extends SchemaCache
 {
   private static final class SingletonHolder
   {
-    static final XMLSchemaCache s_aInstance = new XMLSchemaCache (new LoggingSAXErrorHandler (),
-                                                                  new SimpleLSResourceResolver ());
+    static final XMLSchemaCache s_aInstance = new XMLSchemaCache ();
   }
 
   private static boolean s_bDefaultInstantiated = false;
+
+  public XMLSchemaCache ()
+  {
+    this (new LoggingSAXErrorHandler (), new SimpleLSResourceResolver ());
+  }
 
   public XMLSchemaCache (@Nullable final ErrorHandler aErrorHandler)
   {
@@ -68,7 +72,8 @@ public class XMLSchemaCache extends DefaultSchemaCache
   @Nonnull
   public static XMLSchemaCache getInstance ()
   {
+    final XMLSchemaCache ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
-    return SingletonHolder.s_aInstance;
+    return ret;
   }
 }
