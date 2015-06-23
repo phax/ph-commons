@@ -38,7 +38,6 @@ import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.statistics.IMutableStatisticsHandlerSize;
 import com.helger.commons.statistics.StatisticsManager;
-import com.helger.commons.xml.serialize.write.IXMLSerializer;
 import com.helger.commons.xml.serialize.write.IXMLWriterSettings;
 import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 
@@ -148,7 +147,7 @@ public final class MicroWriter
 
     try
     {
-      final IXMLSerializer <IMicroNode> aSerializer = new MicroSerializer (aSettings);
+      final MicroSerializer aSerializer = new MicroSerializer (aSettings);
       aSerializer.write (aNode, aOS);
       return ESuccess.SUCCESS;
     }
@@ -184,7 +183,7 @@ public final class MicroWriter
 
     try
     {
-      final IXMLSerializer <IMicroNode> aSerializer = new MicroSerializer (aSettings);
+      final MicroSerializer aSerializer = new MicroSerializer (aSettings);
       aSerializer.write (aNode, aWriter);
       return ESuccess.SUCCESS;
     }

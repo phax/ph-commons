@@ -104,7 +104,7 @@ public final class XMLWriter
 
     try
     {
-      final IXMLSerializer <Node> aSerializer = new XMLSerializer (aSettings);
+      final XMLSerializer aSerializer = new XMLSerializer (aSettings);
       aSerializer.write (aNode, aOS);
       return ESuccess.SUCCESS;
     }
@@ -167,7 +167,7 @@ public final class XMLWriter
 
     try
     {
-      final IXMLSerializer <Node> aSerializer = new XMLSerializer (aSettings);
+      final XMLSerializer aSerializer = new XMLSerializer (aSettings);
       aSerializer.write (aNode, aWriter);
       return ESuccess.SUCCESS;
     }

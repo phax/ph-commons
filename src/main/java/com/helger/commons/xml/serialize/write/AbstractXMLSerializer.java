@@ -52,7 +52,7 @@ import com.helger.commons.xml.namespace.IIterableNamespaceContext;
  * @param <NODETYPE>
  *        The DOM node type to use
  */
-public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer <NODETYPE>
+public abstract class AbstractXMLSerializer <NODETYPE>
 {
   /**
    * The prefix to be used for created namespace prefixes :) (e.g. for "ns0" or
@@ -510,21 +510,20 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
     return new XMLEmitter (aWriter, aSettings);
   }
 
-  public final void write (@Nonnull final NODETYPE aNode, @Nonnull @WillNotClose final Writer aWriter)
-  {
-    final XMLEmitter aXMLWriter = createXMLEmitter (aWriter, m_aSettings);
-    // No previous and no next sibling
-    emitNode (aXMLWriter, null, aNode, null);
-    // Flush is important for Writer!
-    StreamHelper.flush (aWriter);
-  }
-
   public final void write (@Nonnull final NODETYPE aNode, @Nonnull final XMLEmitter aXMLEmitter)
   {
     // No previous and no next sibling
     emitNode (aXMLEmitter, null, aNode, null);
   }
 
+  /**
+   * Write the specified node to the specified {@link OutputStream}.
+   *
+   * @param aNode
+   *        The node to write. May not be <code>null</code>.
+   * @param aOS
+   *        The stream to serialize onto. May not be <code>null</code>.
+   */
   public final void write (@Nonnull final NODETYPE aNode, @Nonnull @WillNotClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aNode, "Node");
@@ -536,6 +535,23 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
     // Inside the other write method, the writer must be flushed!
     write (aNode, aWriter);
     // Do not close the writer!
+  }
+
+  /**
+   * Write the specified node to the specified {@link Writer}.
+   *
+   * @param aNode
+   *        The node to write. May not be <code>null</code>.
+   * @param aWriter
+   *        The writer to serialize onto. May not be <code>null</code>.
+   */
+  public final void write (@Nonnull final NODETYPE aNode, @Nonnull @WillNotClose final Writer aWriter)
+  {
+    final XMLEmitter aXMLWriter = createXMLEmitter (aWriter, m_aSettings);
+    // No previous and no next sibling
+    emitNode (aXMLWriter, null, aNode, null);
+    // Flush is important for Writer!
+    StreamHelper.flush (aWriter);
   }
 
   @Override
