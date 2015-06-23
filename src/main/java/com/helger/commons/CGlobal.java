@@ -23,9 +23,6 @@ import java.util.Locale;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.system.SystemProperties;
-
 /**
  * A class declaring system wide constants. Its main use is giving a semantic
  * meaning to constant values.
@@ -332,9 +329,6 @@ public final class CGlobal
   /** The BigDecimal representation of 1000 */
   public static final BigDecimal BIGDEC_1000 = new BigDecimal ("1000");
 
-  /** The system line separator */
-  public static final String LINE_SEPARATOR = SystemProperties.getLineSeparator ();
-
   /**
    * Separates language and country in a locale string representation.
    */
@@ -427,9 +421,6 @@ public final class CGlobal
   public static final Long DEFAULT_LONG_OBJ = Long.valueOf (DEFAULT_LONG);
   /** Short value of {@link #DEFAULT_SHORT} */
   public static final Short DEFAULT_SHORT_OBJ = Short.valueOf (DEFAULT_SHORT);
-
-  @PresentForCodeCoverage
-  private static final CGlobal s_aInstance = new CGlobal ();
 
   private CGlobal ()
   {}

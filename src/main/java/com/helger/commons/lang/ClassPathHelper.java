@@ -17,14 +17,15 @@
 package com.helger.commons.lang;
 
 import java.io.PrintStream;
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.system.ENewLineMode;
 import com.helger.commons.system.SystemProperties;
 
 /**
@@ -52,6 +53,17 @@ public final class ClassPathHelper
   }
 
   /**
+   * Add all class path entries into the provided target list.
+   *
+   * @param aTarget
+   *        The target collection to be filled. May not be null.
+   */
+  public static void getAllClassPathEntries (@Nonnull final Collection <String> aTarget)
+  {
+    StringHelper.getExploded (SystemProperties.getPathSeparator (), SystemProperties.getJavaClassPath (), -1, aTarget);
+  }
+
+  /**
    * Print all class path entries on the passed print stream, using the system
    * line separator
    *
@@ -60,7 +72,7 @@ public final class ClassPathHelper
    */
   public static void printClassPathEntries (@Nonnull final PrintStream aPS)
   {
-    printClassPathEntries (aPS, CGlobal.LINE_SEPARATOR);
+    printClassPathEntries (aPS, ENewLineMode.DEFAULT.getText ());
   }
 
   /**

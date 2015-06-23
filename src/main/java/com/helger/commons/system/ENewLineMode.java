@@ -19,7 +19,6 @@ package com.helger.commons.system;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;
 
 /**
@@ -37,7 +36,7 @@ public enum ENewLineMode
   WINDOWS ("\r\n");
 
   /** The default newline mode as indicated by the system properties */
-  public static final ENewLineMode DEFAULT = getFromTextOrDefault (CGlobal.LINE_SEPARATOR,
+  public static final ENewLineMode DEFAULT = getFromTextOrDefault (SystemProperties.getLineSeparator (),
                                                                    EOperatingSystem.getCurrentOS ().getNewLineMode ());
 
   private final String m_sText;

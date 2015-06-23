@@ -25,7 +25,6 @@ import java.nio.charset.Charset;
 
 import org.junit.Test;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -56,7 +55,7 @@ public final class XMLWriterSettingsTest
     assertTrue (mws.isSpaceOnSelfClosedElement ());
     assertTrue (mws.isUseDoubleQuotesForAttributes ());
     assertEquals (ENewLineMode.DEFAULT, mws.getNewLineMode ());
-    assertEquals (CGlobal.LINE_SEPARATOR, mws.getNewLineString ());
+    assertEquals (ENewLineMode.DEFAULT.getText (), mws.getNewLineString ());
     assertEquals ("  ", mws.getIndentationString ());
     assertTrue (mws.isEmitNamespaces ());
     assertFalse (mws.isPutNamespaceContextPrefixesInRoot ());

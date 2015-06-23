@@ -14,9 +14,9 @@ Add the following to your pom.xml to use this artifact:
 
 #Coding conventions
 
-The following list gives a short overview of special programming techniques that are used inside ph-commons
+The following list gives a short overview of special programming techniques that are used inside ph-commons. These descriptions apply to version 6.
 
-  * All interfaces are named starting with a capital 'I' followed by a second uppercase character (like in `IHasID`)
+  * All interfaces are named starting with a capital 'I' followed by a second uppercase character (like in `IHasID`). By default all interfaces contain only read-only methods except the interface name starts with `IMutable` in which case the interface also contains modifying methods.
   * All enumerations are named starting with a capital 'E' followed by a second uppercase character (like in `EUnicodeBOM`)
   * All member variables are private or protected and use the Hungarian notation (like `aList`). The used prefixes are:
     * `a` for all kind of objects that do not fall into any other category
@@ -34,15 +34,16 @@ The following list gives a short overview of special programming techniques that
  
 
 #Contents
-In general I tried to make the source comments as usefull as possible. Therefore here only an alphabetic package list with the respective contents is shown:
+In general I tried to make the source comments as useful as possible. Therefore here only an alphabetic package list with the respective contents is shown:
 
-  * `com.helger.commons` - The base package that contains very basic interface and a few classes like `CGlobal` and `GlobalDebug` which are in this package, to avoid cyclic package references. 
-  * `com.helger.commons.aggregate` - contains a generic aggregator that cann aggregate multiple values to a single value.
+  * `com.helger.commons` - The base package that contains only a class with only constant values (`CGlobal`) and a programming utility class (`ValueEnforcer`). 
+  * `com.helger.commons.aggregate` - contains a generic aggregator and multiple implementations that can aggregate multiple values to a single value.
   * `com.helger.commons.annotations` - contains all the Java annotations defined in this project. This include e.g. `@Nonempty`, `@ReturnsMutableCopy` or `@DevelopersNote`.
-  * `com.helger.commons.base64` - contains the Base64 implementation from http://iharder.net/base64 in a slightly adopted version plus some utility methods in class `Base64Helper`.
-  * `com.helger.commons.cache` - defines basic classes used for caching data
-  * `com.helger.commons.cache.convert` - special version of a cache that uses a data converter to create the cachable content
+  * `com.helger.commons.base64` - contains the Base64 implementation from http://iharder.net/base64 in a slightly adopted version.
+  * `com.helger.commons.cache` - defines generic interfaces and classes for caching data
   * `com.helger.commons.callback` - contains all kind of simple data structures that are to be used for callbacks and external exception handling. Additionally special forms of `Runnable` and `Callable` are present in this package.
+  * `com.helger.commons.callback.adapter` - special adapter class implementations that can convert between `Callable`, `Runnable` etc.
+  * `com.helger.commons.callback.exception` - special callback implementations to catch `Exception`s.
   * `com.helger.commons.changelog` - contains everything needed for having a structured change log (= history of changes) of software components. A complete list of all changes can be found in class `ChangeLog` containing multiple entries.
   * `com.helger.commons.charset` - contains stuff necessary for simple String character set/encoding and decoding as well as an enumeration for Unicode BOM (Byte Order Mark).
   * `com.helger.commons.cleanup` - contains a central class to cleanup and/or reset most of the runtime data and caches used in this project. This is especially helpful in unit tests when testing this project.

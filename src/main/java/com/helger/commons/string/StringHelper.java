@@ -1202,8 +1202,8 @@ public final class StringHelper
    *        returned as is. If max items is larger than the number of elements
    *        found, it has no effect.
    * @param aCollection
-   *        The non-<code>null</code> collection that should be filled with the
-   *        exploded elements
+   *        The non-<code>null</code> target collection that should be filled
+   *        with the exploded elements
    * @return The passed collection and never <code>null</code>.
    */
   @Nonnull
@@ -1303,8 +1303,8 @@ public final class StringHelper
    *        returned as is. If max items is larger than the number of elements
    *        found, it has no effect.
    * @param aCollection
-   *        The non-<code>null</code> collection that should be filled with the
-   *        exploded elements
+   *        The non-<code>null</code> target collection that should be filled
+   *        with the exploded elements
    * @return The passed collection and never <code>null</code>.
    */
   @Nonnull
