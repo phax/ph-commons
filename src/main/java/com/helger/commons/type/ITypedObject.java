@@ -19,8 +19,8 @@ package com.helger.commons.type;
 import com.helger.commons.id.IHasID;
 
 /**
- * Base interface for objects having a type and an ID.
- * 
+ * Base interface for objects having an {@link ObjectType} and an ID.
+ *
  * @author Philip Helger
  * @param <IDTYPE>
  *        The type of the ID.

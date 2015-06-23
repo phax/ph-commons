@@ -19,8 +19,8 @@ package com.helger.commons.type;
 import javax.annotation.Nonnull;
 
 /**
- * Base interface for all objects having a certain type.
- * 
+ * Base interface for all objects having a certain {@link ObjectType}.
+ *
  * @author Philip Helger
  */
 public interface IHasObjectType

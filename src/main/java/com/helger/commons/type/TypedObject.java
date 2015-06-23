@@ -26,7 +26,7 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Base implementation of an object that has a type and an ID.<br>
+ * Base implementation of an object that has an {@link ObjectType} and an ID.<br>
  * This class is immutable if the type of the ID is immutable.
  *
  * @author Philip Helger
@@ -39,11 +39,24 @@ public final class TypedObject <IDTYPE extends Serializable> implements ITypedOb
   private ObjectType m_aObjectType;
   private IDTYPE m_aID;
 
+  /**
+   * @param aObj
+   *        The typed object to copy the stuff from. May not be
+   *        <code>null</code>.
+   */
   public TypedObject (@Nonnull final ITypedObject <IDTYPE> aObj)
   {
     this (aObj.getObjectType (), aObj.getID ());
   }
 
+  /**
+   * Constructor.
+   *
+   * @param aObjectType
+   *        Object type to use. May not be <code>null</code>.
+   * @param aID
+   *        ID to be used. May not be <code>null</code>.
+   */
   public TypedObject (@Nonnull final ObjectType aObjectType, @Nonnull final IDTYPE aID)
   {
     m_aObjectType = ValueEnforcer.notNull (aObjectType, "ObjectType");
@@ -85,16 +98,33 @@ public final class TypedObject <IDTYPE extends Serializable> implements ITypedOb
     return new ToStringGenerator (this).append ("ObjectType", m_aObjectType).append ("ID", m_aID).toString ();
   }
 
+  /**
+   * Factory method
+   *
+   * @param aObj
+   *        The typed object to copy the stuff from. May not be
+   *        <code>null</code>.
+   * @return new {@link TypedObject}
+   */
   @Nonnull
   public static <IDTYPE extends Serializable> TypedObject <IDTYPE> create (@Nonnull final ITypedObject <IDTYPE> aObj)
   {
     return new TypedObject <IDTYPE> (aObj);
   }
 
+  /**
+   * Factory method
+   *
+   * @param aObjectType
+   *        Object type to use. May not be <code>null</code>.
+   * @param aID
+   *        ID to be used. May not be <code>null</code>.
+   * @return new {@link TypedObject}
+   */
   @Nonnull
-  public static <IDTYPE extends Serializable> TypedObject <IDTYPE> create (@Nonnull final ObjectType aTypeID,
+  public static <IDTYPE extends Serializable> TypedObject <IDTYPE> create (@Nonnull final ObjectType aObjectType,
                                                                            @Nonnull final IDTYPE aID)
   {
-    return new TypedObject <IDTYPE> (aTypeID, aID);
+    return new TypedObject <IDTYPE> (aObjectType, aID);
   }
 }
