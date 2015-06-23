@@ -43,8 +43,6 @@ import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.commons.xml.transform.StringStreamResult;
 import com.helger.commons.xml.transform.XMLTransformerFactory;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for {@link XMLWriter}
  *
@@ -56,10 +54,6 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
   private static final String DOCTYPE_XHTML10_URI = "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd";
   private static final String CRLF = ENewLineMode.DEFAULT.getText ();
 
-  /**
-   * Test the method getXHTMLString
-   */
-  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   @Test
   public void testGetXHTMLString ()
   {
@@ -524,5 +518,48 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                   + "<child1 attr1=\"value1\" />"
                   + "<child2 attr2=\"value2\" />"
                   + "</root>", s);
+  }
+
+  @Test
+  public void testHTML4BracketMode ()
+  {
+    final String sINDENT = XMLWriterSettings.DEFAULT_INDENTATION_STRING;
+
+    final Document doc = XMLFactory.newDocument ("html", DOCTYPE_XHTML10_QNAME, DOCTYPE_XHTML10_URI);
+    final Element aHead = (Element) doc.getDocumentElement ().appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI,
+                                                                                                "head"));
+    aHead.appendChild (doc.createTextNode ("Hallo"));
+    final Element aNoText = (Element) doc.getDocumentElement ().appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI,
+                                                                                                  "body"));
+    aNoText.appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI, "img"));
+
+    // test including doc type
+    final String sResult = XMLWriter.getNodeAsString (doc, XMLWriterSettings.createForXHTML ());
+    assertEquals ("<!DOCTYPE html PUBLIC \"" +
+                  DOCTYPE_XHTML10_QNAME +
+                  "\" \"" +
+                  DOCTYPE_XHTML10_URI +
+                  "\">" +
+                  CRLF +
+                  "<html xmlns=\"" +
+                  DOCTYPE_XHTML10_URI +
+                  "\">" +
+                  CRLF +
+                  sINDENT +
+                  "<head>Hallo</head>" +
+                  CRLF +
+                  sINDENT +
+                  "<body>" +
+                  CRLF +
+                  sINDENT +
+                  sINDENT +
+                  // Unclosed img :)
+                  "<img>" +
+                  CRLF +
+                  sINDENT +
+                  "</body>" +
+                  CRLF +
+                  "</html>" +
+                  CRLF, sResult);
   }
 }
