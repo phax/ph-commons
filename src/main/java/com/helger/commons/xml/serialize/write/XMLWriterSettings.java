@@ -77,7 +77,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
 
   private EXMLVersion m_eXMLVersion = EXMLVersion.XML_10;
   private EXMLSerializeVersion m_eSerializeVersion = EXMLSerializeVersion.XML_10;
-  private EXMLSerializeXMLDecl m_eSerializeXMLDecl = EXMLSerializeXMLDecl.EMIT;
+  private EXMLSerializeXMLDeclaration m_eSerializeXMLDecl = EXMLSerializeXMLDeclaration.EMIT;
   private EXMLSerializeDocType m_eSerializeDocType = EXMLSerializeDocType.EMIT;
   private EXMLSerializeComments m_eSerializeComments = EXMLSerializeComments.EMIT;
   private EXMLSerializeIndent m_eIndent = EXMLSerializeIndent.INDENT_AND_ALIGN;
@@ -123,7 +123,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     ValueEnforcer.notNull (aOther, "Other");
 
     setSerializeVersion (aOther.getSerializeVersion ());
-    setSerializeXMLDecl (aOther.getSerializeXMLDecl ());
+    setSerializeXMLDeclaration (aOther.getSerializeXMLDeclaration ());
     setSerializeDocType (aOther.getSerializeDocType ());
     setSerializeComments (aOther.getSerializeComments ());
     setIndent (aOther.getIndent ());
@@ -174,14 +174,14 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    * @return this
    */
   @Nonnull
-  public final XMLWriterSettings setSerializeXMLDecl (@Nonnull final EXMLSerializeXMLDecl eSerializeXMLDecl)
+  public final XMLWriterSettings setSerializeXMLDeclaration (@Nonnull final EXMLSerializeXMLDeclaration eSerializeXMLDecl)
   {
     m_eSerializeXMLDecl = ValueEnforcer.notNull (eSerializeXMLDecl, "SerializeXMLDecl");
     return this;
   }
 
   @Nonnull
-  public EXMLSerializeXMLDecl getSerializeXMLDecl ()
+  public EXMLSerializeXMLDeclaration getSerializeXMLDeclaration ()
   {
     return m_eSerializeXMLDecl;
   }
@@ -494,7 +494,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   public static XMLWriterSettings createForHTML4 ()
   {
     return new XMLWriterSettings ().setSerializeVersion (EXMLSerializeVersion.HTML)
-                                   .setSerializeXMLDecl (EXMLSerializeXMLDecl.IGNORE)
+                                   .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE)
                                    .setBracketModeDeterminator (new XMLBracketModeDeterminatorHTML4 ())
                                    .setSpaceOnSelfClosedElement (true)
                                    .setPutNamespaceContextPrefixesInRoot (true);
@@ -505,7 +505,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   public static XMLWriterSettings createForXHTML ()
   {
     return new XMLWriterSettings ().setSerializeVersion (EXMLSerializeVersion.HTML)
-                                   .setSerializeXMLDecl (EXMLSerializeXMLDecl.IGNORE)
+                                   .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE)
                                    .setBracketModeDeterminator (new XMLBracketModeDeterminatorHTML4 ())
                                    .setSpaceOnSelfClosedElement (true)
                                    .setPutNamespaceContextPrefixesInRoot (true);
@@ -516,7 +516,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   public static XMLWriterSettings createForHTML5 ()
   {
     return new XMLWriterSettings ().setSerializeVersion (EXMLSerializeVersion.HTML)
-                                   .setSerializeXMLDecl (EXMLSerializeXMLDecl.IGNORE)
+                                   .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE)
                                    .setBracketModeDeterminator (new XMLBracketModeDeterminatorHTML5 ())
                                    .setSpaceOnSelfClosedElement (true)
                                    .setPutNamespaceContextPrefixesInRoot (true);

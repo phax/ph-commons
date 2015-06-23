@@ -37,11 +37,11 @@ import com.helger.commons.microdom.IMicroProcessingInstruction;
 import com.helger.commons.microdom.IMicroQName;
 import com.helger.commons.microdom.IMicroText;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.xml.IXMLIterationHandler;
 import com.helger.commons.xml.serialize.write.AbstractXMLSerializer;
 import com.helger.commons.xml.serialize.write.EXMLSerializeBracketMode;
 import com.helger.commons.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.commons.xml.serialize.write.IXMLWriterSettings;
+import com.helger.commons.xml.serialize.write.XMLEmitter;
 import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 
 /**
@@ -62,7 +62,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
   }
 
   @Override
-  protected void emitNode (@Nonnull final IXMLIterationHandler aXMLWriter,
+  protected void emitNode (@Nonnull final XMLEmitter aXMLWriter,
                            @Nullable final IMicroNode aPrevSibling,
                            @Nonnull final IMicroNode aNode,
                            @Nullable final IMicroNode aNextSibling)
@@ -114,8 +114,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
    * @param aChildren
    *        The node list to be serialized. May not be <code>null</code>.
    */
-  private void _writeNodeList (@Nonnull final IXMLIterationHandler aXMLWriter,
-                               @Nonnull final List <IMicroNode> aChildren)
+  private void _writeNodeList (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final List <IMicroNode> aChildren)
   {
     final int nLastIndex = aChildren.size () - 1;
     for (int nIndex = 0; nIndex <= nLastIndex; ++nIndex)
@@ -127,46 +126,46 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     }
   }
 
-  private void _writeDocument (@Nonnull final IXMLIterationHandler aXMLWriter, final IMicroDocument aDocument)
+  private void _writeDocument (@Nonnull final XMLEmitter aXMLWriter, final IMicroDocument aDocument)
   {
-    if (m_aSettings.getSerializeXMLDecl ().isEmit ())
+    if (m_aSettings.getSerializeXMLDeclaration ().isEmit ())
       aXMLWriter.onXMLDeclaration (m_aSettings.getXMLVersion (), m_aSettings.getCharset (), aDocument.isStandalone ());
 
     if (aDocument.hasChildren ())
       _writeNodeList (aXMLWriter, aDocument.getAllChildren ());
   }
 
-  private void _writeDocumentType (@Nonnull final IXMLIterationHandler aXMLWriter, final IMicroDocumentType aDocType)
+  private void _writeDocumentType (@Nonnull final XMLEmitter aXMLWriter, final IMicroDocumentType aDocType)
   {
     if (m_aSettings.getSerializeDocType ().isEmit ())
       aXMLWriter.onDocumentType (aDocType.getQualifiedName (), aDocType.getPublicID (), aDocType.getSystemID ());
   }
 
-  private static void _writeProcessingInstruction (@Nonnull final IXMLIterationHandler aXMLWriter,
+  private static void _writeProcessingInstruction (@Nonnull final XMLEmitter aXMLWriter,
                                                    @Nonnull final IMicroProcessingInstruction aPI)
   {
     aXMLWriter.onProcessingInstruction (aPI.getTarget (), aPI.getData ());
   }
 
-  private void _writeContainer (@Nonnull final IXMLIterationHandler aXMLWriter, final IMicroContainer aContainer)
+  private void _writeContainer (@Nonnull final XMLEmitter aXMLWriter, final IMicroContainer aContainer)
   {
     // A container has no own properties!
     if (aContainer.hasChildren ())
       _writeNodeList (aXMLWriter, aContainer.getAllChildren ());
   }
 
-  private static void _writeEntityReference (@Nonnull final IXMLIterationHandler aXMLWriter,
+  private static void _writeEntityReference (@Nonnull final XMLEmitter aXMLWriter,
                                              @Nonnull final IMicroEntityReference aEntRef)
   {
     aXMLWriter.onEntityReference (aEntRef.getName ());
   }
 
-  private static void _writeText (@Nonnull final IXMLIterationHandler aXMLWriter, @Nonnull final IMicroText aText)
+  private static void _writeText (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final IMicroText aText)
   {
     aXMLWriter.onText (aText.getData ().toString (), aText.isEscape ());
   }
 
-  private void _writeComment (@Nonnull final IXMLIterationHandler aXMLWriter, @Nonnull final IMicroComment aComment)
+  private void _writeComment (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final IMicroComment aComment)
   {
     if (m_aSettings.getSerializeComments ().isEmit ())
     {
@@ -178,7 +177,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     }
   }
 
-  private static void _writeCDATA (@Nonnull final IXMLIterationHandler aXMLWriter, @Nonnull final IMicroCDATA aCDATA)
+  private static void _writeCDATA (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final IMicroCDATA aCDATA)
   {
     aXMLWriter.onCDATA (aCDATA.getData ().toString ());
   }
@@ -188,7 +187,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     return aNode.isText () || aNode.isCDATA () || aNode.isEntityReference ();
   }
 
-  private void _writeElement (@Nonnull final IXMLIterationHandler aXMLWriter,
+  private void _writeElement (@Nonnull final XMLEmitter aXMLWriter,
                               @Nullable final IMicroNode aPrevSibling,
                               @Nonnull final IMicroElement aElement,
                               @Nullable final IMicroNode aNextSibling)

@@ -41,7 +41,6 @@ import com.helger.commons.io.stream.NonBlockingBufferedWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.xml.IXMLIterationHandler;
 import com.helger.commons.xml.XMLHelper;
 import com.helger.commons.xml.namespace.IIterableNamespaceContext;
 
@@ -498,7 +497,7 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
     }
   }
 
-  protected abstract void emitNode (@Nonnull final IXMLIterationHandler aXMLWriter,
+  protected abstract void emitNode (@Nonnull final XMLEmitter aXMLWriter,
                                     @Nullable final NODETYPE aPrevSibling,
                                     @Nonnull final NODETYPE aNode,
                                     @Nullable final NODETYPE aNextSibling);
@@ -520,7 +519,7 @@ public abstract class AbstractXMLSerializer <NODETYPE> implements IXMLSerializer
     StreamHelper.flush (aWriter);
   }
 
-  public final void write (@Nonnull final NODETYPE aNode, @Nonnull final IXMLIterationHandler aXMLEmitter)
+  public final void write (@Nonnull final NODETYPE aNode, @Nonnull final XMLEmitter aXMLEmitter)
   {
     // No previous and no next sibling
     emitNode (aXMLEmitter, null, aNode, null);

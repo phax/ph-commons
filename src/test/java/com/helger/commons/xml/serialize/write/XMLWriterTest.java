@@ -35,7 +35,6 @@ import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.system.ENewLineMode;
-import com.helger.commons.xml.DefaultXMLIterationHandler;
 import com.helger.commons.xml.EXMLVersion;
 import com.helger.commons.xml.XMLFactory;
 import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
@@ -252,7 +251,6 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
     }
 
     assertTrue (XMLWriter.writeToStream (doc, new NonBlockingByteArrayOutputStream ()).isSuccess ());
-    new XMLSerializerCommons ().write (doc, new DefaultXMLIterationHandler ());
   }
 
   @Test

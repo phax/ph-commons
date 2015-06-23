@@ -39,30 +39,25 @@ import org.w3c.dom.Text;
 
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.EXMLVersion;
-import com.helger.commons.xml.IXMLIterationHandler;
 import com.helger.commons.xml.XMLHelper;
 import com.helger.commons.xml.namespace.ComparatorQName;
 
 /**
- * org.w3c.dom.Node serializer that correctly handles HTML empty elements
- * (&lt;span&gt;&lt;/span&gt; vs. &lt;span /&gt;).
+ * Internal XML serializer that takes org.w3c.dom.Node objects, extracts the
+ * information to serialize and passes the respective information to an
+ * {@link XMLEmitter} object.
  *
  * @author Philip Helger
  */
-public class XMLSerializerCommons extends AbstractXMLSerializer <Node>
+public class XMLSerializer extends AbstractXMLSerializer <Node>
 {
-  public XMLSerializerCommons ()
-  {
-    this (XMLWriterSettings.DEFAULT_XML_SETTINGS);
-  }
-
-  public XMLSerializerCommons (@Nonnull final IXMLWriterSettings aSettings)
+  public XMLSerializer (@Nonnull final IXMLWriterSettings aSettings)
   {
     super (aSettings);
   }
 
   @Override
-  protected void emitNode (@Nonnull final IXMLIterationHandler aXMLWriter,
+  protected void emitNode (@Nonnull final XMLEmitter aXMLWriter,
                            @Nullable final Node aPrevSibling,
                            @Nonnull final Node aNode,
                            @Nullable final Node aNextSibling)
@@ -95,7 +90,7 @@ public class XMLSerializerCommons extends AbstractXMLSerializer <Node>
                     throw new IllegalArgumentException ("Passed node type " + nNodeType + " is not yet supported");
   }
 
-  private void _writeNodeList (@Nonnull final IXMLIterationHandler aXMLWriter, @Nonnull final NodeList aChildren)
+  private void _writeNodeList (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final NodeList aChildren)
   {
     final int nLastIndex = aChildren.getLength () - 1;
     for (int nIndex = 0; nIndex <= nLastIndex; ++nIndex)
@@ -107,9 +102,9 @@ public class XMLSerializerCommons extends AbstractXMLSerializer <Node>
     }
   }
 
-  private void _writeDocument (@Nonnull final IXMLIterationHandler aXMLWriter, @Nonnull final Document aDocument)
+  private void _writeDocument (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final Document aDocument)
   {
-    if (m_aSettings.getSerializeXMLDecl ().isEmit ())
+    if (m_aSettings.getSerializeXMLDeclaration ().isEmit ())
     {
       String sXMLVersion = null;
       boolean bIsDocumentStandalone = false;
@@ -125,32 +120,32 @@ public class XMLSerializerCommons extends AbstractXMLSerializer <Node>
       }
       final EXMLVersion eXMLVersion = EXMLVersion.getFromVersionOrDefault (sXMLVersion, m_aSettings.getXMLVersion ());
       aXMLWriter.onXMLDeclaration (eXMLVersion,
-                                  m_aSettings.getCharset (),
-                                  bIsDocumentStandalone || aDocument.getDoctype () == null);
+                                   m_aSettings.getCharset (),
+                                   bIsDocumentStandalone || aDocument.getDoctype () == null);
     }
 
     _writeNodeList (aXMLWriter, aDocument.getChildNodes ());
   }
 
-  private void _writeDocumentType (@Nonnull final IXMLIterationHandler aXMLWriter, @Nonnull final DocumentType aDocType)
+  private void _writeDocumentType (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final DocumentType aDocType)
   {
     if (m_aSettings.getSerializeDocType ().isEmit ())
       aXMLWriter.onDocumentType (aDocType.getName (), aDocType.getPublicId (), aDocType.getSystemId ());
   }
 
-  private static void _writeProcessingInstruction (@Nonnull final IXMLIterationHandler aXMLWriter,
+  private static void _writeProcessingInstruction (@Nonnull final XMLEmitter aXMLWriter,
                                                    @Nonnull final ProcessingInstruction aPI)
   {
     aXMLWriter.onProcessingInstruction (aPI.getTarget (), aPI.getData ());
   }
 
-  private static void _writeEntityReference (@Nonnull final IXMLIterationHandler aXMLWriter,
+  private static void _writeEntityReference (@Nonnull final XMLEmitter aXMLWriter,
                                              @Nonnull final EntityReference aEntRef)
   {
     aXMLWriter.onEntityReference (aEntRef.getNodeName ());
   }
 
-  private void _writeComment (@Nonnull final IXMLIterationHandler aXMLWriter, @Nonnull final Comment aComment)
+  private void _writeComment (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final Comment aComment)
   {
     if (m_aSettings.getSerializeComments ().isEmit ())
     {
@@ -158,18 +153,18 @@ public class XMLSerializerCommons extends AbstractXMLSerializer <Node>
     }
   }
 
-  private static void _writeText (@Nonnull final IXMLIterationHandler aXMLWriter, @Nonnull final Text aText)
+  private static void _writeText (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final Text aText)
   {
     // DOM text is always escaped!
     aXMLWriter.onText (aText.getData (), true);
   }
 
-  private static void _writeCDATA (@Nonnull final IXMLIterationHandler aXMLWriter, @Nonnull final Text aText)
+  private static void _writeCDATA (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final Text aText)
   {
     aXMLWriter.onCDATA (aText.getData ());
   }
 
-  private void _writeElement (@Nonnull final IXMLIterationHandler aXMLWriter,
+  private void _writeElement (@Nonnull final XMLEmitter aXMLWriter,
                               @Nullable final Node aPrevSibling,
                               @Nonnull final Element aElement,
                               @Nullable final Node aNextSibling)

@@ -23,18 +23,18 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
- * Test class for class {@link EXMLSerializeXMLDecl}.
+ * Test class for class {@link EXMLSerializeXMLDeclaration}.
  *
  * @author Philip Helger
  */
-public final class EXMLSerializeXMLDeclTest
+public final class EXMLSerializeXMLDeclarationTest
 {
   @Test
   public void testAll ()
   {
-    for (final EXMLSerializeXMLDecl e : EXMLSerializeXMLDecl.values ())
-      assertSame (e, EXMLSerializeXMLDecl.valueOf (e.name ()));
-    assertTrue (EXMLSerializeXMLDecl.EMIT.isEmit ());
-    assertFalse (EXMLSerializeXMLDecl.IGNORE.isEmit ());
+    for (final EXMLSerializeXMLDeclaration e : EXMLSerializeXMLDeclaration.values ())
+      assertSame (e, EXMLSerializeXMLDeclaration.valueOf (e.name ()));
+    assertTrue (EXMLSerializeXMLDeclaration.EMIT.isEmit ());
+    assertFalse (EXMLSerializeXMLDeclaration.IGNORE.isEmit ());
   }
 }

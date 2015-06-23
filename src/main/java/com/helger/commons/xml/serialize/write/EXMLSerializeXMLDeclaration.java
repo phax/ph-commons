@@ -30,14 +30,14 @@ import com.helger.commons.lang.EnumHelper;
  *
  * @author Philip Helger
  */
-public enum EXMLSerializeXMLDecl implements IHasID <String>
+public enum EXMLSerializeXMLDeclaration implements IHasID <String>
 {
   EMIT ("emit"),
   IGNORE ("ignore");
 
   private final String m_sID;
 
-  private EXMLSerializeXMLDecl (@Nonnull @Nonempty final String sID)
+  private EXMLSerializeXMLDeclaration (@Nonnull @Nonempty final String sID)
   {
     m_sID = sID;
   }
@@ -58,8 +58,8 @@ public enum EXMLSerializeXMLDecl implements IHasID <String>
   }
 
   @Nullable
-  public static EXMLSerializeXMLDecl getFromIDOrNull (@Nullable final String sID)
+  public static EXMLSerializeXMLDeclaration getFromIDOrNull (@Nullable final String sID)
   {
-    return EnumHelper.getFromIDOrNull (EXMLSerializeXMLDecl.class, sID);
+    return EnumHelper.getFromIDOrNull (EXMLSerializeXMLDeclaration.class, sID);
   }
 }

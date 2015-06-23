@@ -32,7 +32,6 @@ import com.helger.commons.microdom.IMicroDocumentType;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.xml.CXML;
-import com.helger.commons.xml.DefaultXMLIterationHandler;
 import com.helger.commons.xml.EXMLCharMode;
 import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 import com.helger.commons.xml.EXMLVersion;
@@ -43,7 +42,7 @@ import com.helger.commons.xml.EXMLVersion;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class XMLEmitter extends DefaultXMLIterationHandler
+public class XMLEmitter
 {
   /** By default an exception is thrown for nested comments */
   public static final boolean DEFAULT_THROW_EXCEPTION_ON_NESTED_COMMENTS = true;
@@ -147,7 +146,20 @@ public class XMLEmitter extends DefaultXMLIterationHandler
     return _append (m_cAttrValueBoundary)._appendMasked (m_eAttrValueCharMode, sValue)._append (m_cAttrValueBoundary);
   }
 
-  @Override
+  /**
+   * At the very beginning of the document (XML declaration).
+   *
+   * @param eXMLVersion
+   *        The XML version to use. If <code>null</code> is passed,
+   *        {@link EXMLVersion#XML_10} will be used.
+   * @param sEncoding
+   *        The encoding to be used for this document. It may be
+   *        <code>null</code> but it is strongly recommended to write a correct
+   *        charset.
+   * @param bStandalone
+   *        if <code>true</code> this is a standalone XML document without a
+   *        connection to an existing DTD or XML schema
+   */
   public void onXMLDeclaration (@Nullable final EXMLVersion eXMLVersion,
                                 @Nullable final String sEncoding,
                                 final boolean bStandalone)
@@ -247,7 +259,16 @@ public class XMLEmitter extends DefaultXMLIterationHandler
     return aSB.append ('>').toString ();
   }
 
-  @Override
+  /**
+   * On XML document type.
+   *
+   * @param sQualifiedElementName
+   *        Qualified name of the root element.
+   * @param sPublicID
+   *        Document type public ID
+   * @param sSystemID
+   *        Document type system ID
+   */
   public void onDocumentType (@Nonnull final String sQualifiedElementName,
                               @Nullable final String sPublicID,
                               @Nullable final String sSystemID)
@@ -264,7 +285,14 @@ public class XMLEmitter extends DefaultXMLIterationHandler
       _append (m_aSettings.getNewLineString ());
   }
 
-  @Override
+  /**
+   * On processing instruction
+   *
+   * @param sTarget
+   *        The target
+   * @param sData
+   *        The data (attributes as a string)
+   */
   public void onProcessingInstruction (@Nonnull final String sTarget, @Nullable final String sData)
   {
     _append (PI_START)._append (sTarget);
@@ -275,20 +303,35 @@ public class XMLEmitter extends DefaultXMLIterationHandler
       _append (m_aSettings.getNewLineString ());
   }
 
-  @Override
+  /**
+   * On entity reference.
+   *
+   * @param sEntityRef
+   *        The reference (without '&amp;' and ';' !!)
+   */
   public void onEntityReference (@Nonnull final String sEntityRef)
   {
     _append (ER_START)._append (sEntityRef)._append (ER_END);
   }
 
-  @Override
+  /**
+   * Ignorable whitespace characters.
+   *
+   * @param aWhitespaces
+   *        The whitespace character sequence
+   */
   public void onContentElementWhitespace (@Nullable final CharSequence aWhitespaces)
   {
     if (StringHelper.hasText (aWhitespaces))
       _append (aWhitespaces.toString ());
   }
 
-  @Override
+  /**
+   * Comment node.
+   *
+   * @param sComment
+   *        The comment text
+   */
   public void onComment (@Nullable final String sComment)
   {
     if (StringHelper.hasText (sComment))
@@ -301,7 +344,16 @@ public class XMLEmitter extends DefaultXMLIterationHandler
     }
   }
 
-  @Override
+  /**
+   * Text node.
+   *
+   * @param sText
+   *        The contained text
+   * @param bEscape
+   *        If <code>true</code> the text should be XML masked,
+   *        <code>false</code> if not. The <code>false</code> case is especially
+   *        interesting for HTML inline JS and CSS code.
+   */
   public void onText (@Nullable final String sText, final boolean bEscape)
   {
     if (bEscape)
@@ -310,7 +362,12 @@ public class XMLEmitter extends DefaultXMLIterationHandler
       _append (sText);
   }
 
-  @Override
+  /**
+   * CDATA node.
+   *
+   * @param sText
+   *        The contained text
+   */
   public void onCDATA (@Nullable final String sText)
   {
     if (StringHelper.hasText (sText))
@@ -339,7 +396,20 @@ public class XMLEmitter extends DefaultXMLIterationHandler
     }
   }
 
-  @Override
+  /**
+   * Start of an element.
+   *
+   * @param sNamespacePrefix
+   *        Optional namespace prefix. May be <code>null</code>.
+   * @param sTagName
+   *        Tag name
+   * @param aAttrs
+   *        Optional set of attributes.
+   * @param bHasChildren
+   *        <code>true</code> if the current element has children
+   * @param eBracketMode
+   *        Bracket mode to use. Never <code>null</code>.
+   */
   public void onElementStart (@Nullable final String sNamespacePrefix,
                               @Nonnull final String sTagName,
                               @Nullable final Map <QName, String> aAttrs,
@@ -388,7 +458,18 @@ public class XMLEmitter extends DefaultXMLIterationHandler
     }
   }
 
-  @Override
+  /**
+   * End of an element.
+   *
+   * @param sNamespacePrefix
+   *        Optional namespace prefix. May be <code>null</code>.
+   * @param sTagName
+   *        Tag name
+   * @param bHasChildren
+   *        <code>true</code> if the current element has children
+   * @param eBracketMode
+   *        Bracket mode to use. Never <code>null</code>.
+   */
   public void onElementEnd (@Nullable final String sNamespacePrefix,
                             @Nonnull final String sTagName,
                             final boolean bHasChildren,

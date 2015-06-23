@@ -49,7 +49,7 @@ public interface IXMLWriterSettings
    * @return Write XML declaration? Default is <code>true</code>.
    */
   @Nonnull
-  EXMLSerializeXMLDecl getSerializeXMLDecl ();
+  EXMLSerializeXMLDeclaration getSerializeXMLDeclaration ();
 
   /**
    * @return Write document type? Default is <code>true</code>.

@@ -47,7 +47,7 @@ public final class XMLWriterSettingsTest
   public void testDefault ()
   {
     IXMLWriterSettings mws = XMLWriterSettings.DEFAULT_XML_SETTINGS;
-    assertEquals (EXMLSerializeXMLDecl.EMIT, mws.getSerializeXMLDecl ());
+    assertEquals (EXMLSerializeXMLDeclaration.EMIT, mws.getSerializeXMLDeclaration ());
     assertEquals (EXMLSerializeDocType.EMIT, mws.getSerializeDocType ());
     assertEquals (EXMLSerializeComments.EMIT, mws.getSerializeComments ());
     assertEquals (XMLWriterSettings.DEFAULT_XML_CHARSET, mws.getCharset ());
@@ -62,7 +62,7 @@ public final class XMLWriterSettingsTest
     assertFalse (mws.isPutNamespaceContextPrefixesInRoot ());
 
     mws = new XMLWriterSettings ();
-    assertEquals (EXMLSerializeXMLDecl.EMIT, mws.getSerializeXMLDecl ());
+    assertEquals (EXMLSerializeXMLDeclaration.EMIT, mws.getSerializeXMLDeclaration ());
     assertEquals (EXMLSerializeDocType.EMIT, mws.getSerializeDocType ());
     assertEquals (EXMLSerializeComments.EMIT, mws.getSerializeComments ());
     assertEquals (XMLWriterSettings.DEFAULT_XML_CHARSET, mws.getCharset ());
@@ -74,7 +74,7 @@ public final class XMLWriterSettingsTest
     assertFalse (mws.isPutNamespaceContextPrefixesInRoot ());
 
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setSerializeXMLDecl (EXMLSerializeXMLDecl.IGNORE));
+                                                                           new XMLWriterSettings ().setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
                                                                            new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
@@ -106,10 +106,10 @@ public final class XMLWriterSettingsTest
   {
     // Now try all permutations
     final XMLWriterSettings aXWS = new XMLWriterSettings ();
-    for (final EXMLSerializeXMLDecl eXMLDecl : EXMLSerializeXMLDecl.values ())
+    for (final EXMLSerializeXMLDeclaration eXMLDecl : EXMLSerializeXMLDeclaration.values ())
     {
-      aXWS.setSerializeXMLDecl (eXMLDecl);
-      assertEquals (eXMLDecl, aXWS.getSerializeXMLDecl ());
+      aXWS.setSerializeXMLDeclaration (eXMLDecl);
+      assertEquals (eXMLDecl, aXWS.getSerializeXMLDeclaration ());
       for (final EXMLSerializeDocType eDocType : EXMLSerializeDocType.values ())
       {
         aXWS.setSerializeDocType (eDocType);
@@ -156,7 +156,7 @@ public final class XMLWriterSettingsTest
                           {
                             aXWS.setPutNamespaceContextPrefixesInRoot (bPutNamespaceContextPrefixesInRoot);
                             assertTrue (bPutNamespaceContextPrefixesInRoot == aXWS.isPutNamespaceContextPrefixesInRoot ());
-                            final XMLWriterSettings aXWS2 = new XMLWriterSettings ().setSerializeXMLDecl (eXMLDecl)
+                            final XMLWriterSettings aXWS2 = new XMLWriterSettings ().setSerializeXMLDeclaration (eXMLDecl)
                                                                                     .setSerializeDocType (eDocType)
                                                                                     .setSerializeComments (eComments)
                                                                                     .setIndent (eIndent)
@@ -191,7 +191,7 @@ public final class XMLWriterSettingsTest
         }
         assertEquals (eDocType, aXWS.getSerializeDocType ());
       }
-      assertEquals (eXMLDecl, aXWS.getSerializeXMLDecl ());
+      assertEquals (eXMLDecl, aXWS.getSerializeXMLDeclaration ());
     }
   }
 
@@ -214,7 +214,7 @@ public final class XMLWriterSettingsTest
     {}
     try
     {
-      new XMLWriterSettings ().setSerializeXMLDecl (null);
+      new XMLWriterSettings ().setSerializeXMLDeclaration (null);
       fail ();
     }
     catch (final NullPointerException ex)

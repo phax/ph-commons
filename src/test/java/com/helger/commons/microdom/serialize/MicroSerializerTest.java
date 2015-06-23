@@ -30,7 +30,6 @@ import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.timing.StopWatch;
-import com.helger.commons.xml.DefaultXMLIterationHandler;
 import com.helger.commons.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 
@@ -119,9 +118,6 @@ public final class MicroSerializerTest
       assertTrue (!aWriter.isEmpty ());
     }
     s_aLogger.info ("Average MicroDOM write: " + ((double) nMilliSecs / (nRun - nWarmUpRuns)) + " millisecs");
-
-    // Just do nothing :)
-    aMS.write (doc, new DefaultXMLIterationHandler ());
   }
 
   @Test
