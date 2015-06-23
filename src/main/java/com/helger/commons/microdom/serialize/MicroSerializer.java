@@ -196,7 +196,6 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     final String sTagName = aElement.getLocalName () != null ? aElement.getLocalName () : aElement.getTagName ();
 
     final boolean bEmitNamespaces = m_aSettings.isEmitNamespaces ();
-    final EXMLSerializeIndent eIndent = m_aSettings.getIndent ();
     final List <IMicroNode> aChildNodeList = aElement.getAllChildren ();
     final boolean bHasChildren = aElement.hasChildren ();
 
@@ -248,6 +247,12 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
         }
       }
 
+      // Determine indent
+      final EXMLSerializeIndent eIndent = m_aSettings.getIndentDeterminator ().getIndent (sElementNSPrefix,
+                                                                                          sTagName,
+                                                                                          aAttrMap,
+                                                                                          bHasChildren,
+                                                                                          m_aSettings.getIndent ());
       // Has indent only if enabled, and an indent string is not empty
       final boolean bHasIndent = eIndent.isIndent () && m_aIndent.length () > 0;
 

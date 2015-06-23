@@ -64,10 +64,18 @@ public interface IXMLWriterSettings
   EXMLSerializeComments getSerializeComments ();
 
   /**
-   * @return Indent code? Default is <code>indent and aligned</code>.
+   * @return Indent and/or align code? Default is
+   *         <code>indent and aligned</code>.
    */
   @Nonnull
   EXMLSerializeIndent getIndent ();
+
+  /**
+   * @return The dynamic (per-element) indentation determinator. This must be
+   *         changed when e.g. serializing HTML. Never <code>null</code>.
+   */
+  @Nonnull
+  IXMLIndentDeterminator getIndentDeterminator ();
 
   /**
    * @return The incorrect character handling to be used. May not be
@@ -101,8 +109,9 @@ public interface IXMLWriterSettings
   boolean isUseDoubleQuotesForAttributes ();
 
   /**
-   * @return The bracket mode determinator to use. This must be changed when
-   *         e.g. serializing HTML. Never <code>null</code>.
+   * @return The dynamic (per-element) bracket mode determinator to use. This
+   *         must be changed when e.g. serializing HTML. Never <code>null</code>
+   *         .
    */
   @Nonnull
   IXMLBracketModeDeterminator getBracketModeDeterminator ();

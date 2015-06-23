@@ -175,7 +175,6 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
     // May be null!
     final Document aDoc = aElement.getOwnerDocument ();
     final boolean bEmitNamespaces = m_aSettings.isEmitNamespaces ();
-    final EXMLSerializeIndent eIndent = m_aSettings.getIndent ();
     final NodeList aChildNodeList = aElement.getChildNodes ();
     final boolean bHasChildren = aChildNodeList.getLength () > 0;
 
@@ -229,6 +228,12 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
           aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName), sAttrValue);
       }
 
+      // Determine indent
+      final EXMLSerializeIndent eIndent = m_aSettings.getIndentDeterminator ().getIndent (sElementNSPrefix,
+                                                                                          sTagName,
+                                                                                          aAttrMap,
+                                                                                          bHasChildren,
+                                                                                          m_aSettings.getIndent ());
       // Has indent only if enabled, and an indent string is not empty
       final boolean bHasIndent = eIndent.isIndent () && m_aIndent.length () > 0;
 

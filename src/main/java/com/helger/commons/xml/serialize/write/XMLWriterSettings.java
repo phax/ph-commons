@@ -81,6 +81,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   private EXMLSerializeDocType m_eSerializeDocType = EXMLSerializeDocType.EMIT;
   private EXMLSerializeComments m_eSerializeComments = EXMLSerializeComments.EMIT;
   private EXMLSerializeIndent m_eIndent = EXMLSerializeIndent.INDENT_AND_ALIGN;
+  private IXMLIndentDeterminator m_aIndentDeterminator = new XMLIndentDeterminatorXML ();
   private EXMLIncorrectCharacterHandling m_eIncorrectCharacterHandling = EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING;
   private Charset m_aCharset = DEFAULT_XML_CHARSET_OBJ;
   private NamespaceContext m_aNamespaceContext = new MapBasedNamespaceContext ();
@@ -127,6 +128,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     setSerializeDocType (aOther.getSerializeDocType ());
     setSerializeComments (aOther.getSerializeComments ());
     setIndent (aOther.getIndent ());
+    setIndentDeterminator (aOther.getIndentDeterminator ());
     setIncorrectCharacterHandling (aOther.getIncorrectCharacterHandling ());
     setCharset (aOther.getCharsetObj ());
     setNamespaceContext (aOther.getNamespaceContext ());
@@ -244,6 +246,26 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   public EXMLSerializeIndent getIndent ()
   {
     return m_eIndent;
+  }
+
+  /**
+   * Set the dynamic (per-element) indent determinator to be used.
+   * 
+   * @param aIndentDeterminator
+   *        The object to use. May not be <code>null</code>.
+   * @return this
+   */
+  @Nonnull
+  public final XMLWriterSettings setIndentDeterminator (@Nonnull final IXMLIndentDeterminator aIndentDeterminator)
+  {
+    m_aIndentDeterminator = ValueEnforcer.notNull (aIndentDeterminator, "IndentDeterminator");
+    return this;
+  }
+
+  @Nonnull
+  public IXMLIndentDeterminator getIndentDeterminator ()
+  {
+    return m_aIndentDeterminator;
   }
 
   /**
@@ -430,6 +452,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
            m_eSerializeDocType.equals (rhs.m_eSerializeDocType) &&
            m_eSerializeComments.equals (rhs.m_eSerializeComments) &&
            m_eIndent.equals (rhs.m_eIndent) &&
+           m_aIndentDeterminator.equals (rhs.m_aIndentDeterminator) &&
            m_eIncorrectCharacterHandling.equals (rhs.m_eIncorrectCharacterHandling) &&
            m_aCharset.equals (rhs.m_aCharset) &&
            EqualsHelper.equals (m_aNamespaceContext, rhs.m_aNamespaceContext) &&
@@ -451,6 +474,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .append (m_eSerializeDocType)
                                        .append (m_eSerializeComments)
                                        .append (m_eIndent)
+                                       .append (m_aIndentDeterminator)
                                        .append (m_eIncorrectCharacterHandling)
                                        .append (m_aCharset)
                                        .append (m_aNamespaceContext)
@@ -475,6 +499,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .append ("serializeDocType", m_eSerializeDocType)
                                        .append ("serializeComments", m_eSerializeComments)
                                        .append ("indent", m_eIndent)
+                                       .append ("indentDeterminator", m_aIndentDeterminator)
                                        .append ("incorrectCharHandling", m_eIncorrectCharacterHandling)
                                        .append ("charset", m_aCharset)
                                        .append ("namespaceContext", m_aNamespaceContext)
@@ -495,6 +520,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   {
     return new XMLWriterSettings ().setSerializeVersion (EXMLSerializeVersion.HTML)
                                    .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE)
+                                   .setIndentDeterminator (new XMLIndentDeterminatorHTML ())
                                    .setBracketModeDeterminator (new XMLBracketModeDeterminatorHTML4 ())
                                    .setSpaceOnSelfClosedElement (true)
                                    .setPutNamespaceContextPrefixesInRoot (true);
@@ -506,6 +532,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   {
     return new XMLWriterSettings ().setSerializeVersion (EXMLSerializeVersion.HTML)
                                    .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE)
+                                   .setIndentDeterminator (new XMLIndentDeterminatorHTML ())
                                    .setBracketModeDeterminator (new XMLBracketModeDeterminatorHTML4 ())
                                    .setSpaceOnSelfClosedElement (true)
                                    .setPutNamespaceContextPrefixesInRoot (true);
@@ -517,6 +544,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   {
     return new XMLWriterSettings ().setSerializeVersion (EXMLSerializeVersion.HTML)
                                    .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE)
+                                   .setIndentDeterminator (new XMLIndentDeterminatorHTML ())
                                    .setBracketModeDeterminator (new XMLBracketModeDeterminatorHTML5 ())
                                    .setSpaceOnSelfClosedElement (true)
                                    .setPutNamespaceContextPrefixesInRoot (true);

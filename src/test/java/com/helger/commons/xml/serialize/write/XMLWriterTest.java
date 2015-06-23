@@ -25,6 +25,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -523,16 +524,16 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
   {
     final String sINDENT = XMLWriterSettings.DEFAULT_INDENTATION_STRING;
 
-    final Document doc = XMLFactory.newDocument ("html", DOCTYPE_XHTML10_QNAME, DOCTYPE_XHTML10_URI);
-    final Element aHead = (Element) doc.getDocumentElement ().appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI,
-                                                                                                "head"));
-    aHead.appendChild (doc.createTextNode ("Hallo"));
-    final Element aNoText = (Element) doc.getDocumentElement ().appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI,
+    final Document aDoc = XMLFactory.newDocument ("html", DOCTYPE_XHTML10_QNAME, DOCTYPE_XHTML10_URI);
+    final Element aHead = (Element) aDoc.getDocumentElement ().appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI,
+                                                                                                  "head"));
+    aHead.appendChild (aDoc.createTextNode ("Hallo"));
+    final Element aBody = (Element) aDoc.getDocumentElement ().appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI,
                                                                                                   "body"));
-    aNoText.appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI, "img"));
+    aBody.appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "img"));
 
     // test including doc type
-    final String sResult = XMLWriter.getNodeAsString (doc, XMLWriterSettings.createForXHTML ());
+    final String sResult = XMLWriter.getNodeAsString (aDoc, XMLWriterSettings.createForXHTML ());
     assertEquals ("<!DOCTYPE html PUBLIC \"" +
                   DOCTYPE_XHTML10_QNAME +
                   "\" \"" +
@@ -553,6 +554,52 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                   sINDENT +
                   // Unclosed img :)
                   "<img>" +
+                  CRLF +
+                  sINDENT +
+                  "</body>" +
+                  CRLF +
+                  "</html>" +
+                  CRLF, sResult);
+  }
+
+  @Test
+  @Ignore
+  public void testHTMLIndent ()
+  {
+    final String sINDENT = XMLWriterSettings.DEFAULT_INDENTATION_STRING;
+
+    final Document aDoc = XMLFactory.newDocument ("html", DOCTYPE_XHTML10_QNAME, DOCTYPE_XHTML10_URI);
+    final Element aHead = (Element) aDoc.getDocumentElement ().appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI,
+                                                                                                  "head"));
+    aHead.appendChild (aDoc.createTextNode ("Hallo"));
+    final Element aBody = (Element) aDoc.getDocumentElement ().appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI,
+                                                                                                  "body"));
+    final Element aPre = (Element) aBody.appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "pre"));
+    final Element aDiv = (Element) aPre.appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "div"));
+    aDiv.appendChild (aDoc.createTextNode ("pre formatted"));
+
+    // test including doc type
+    final String sResult = XMLWriter.getNodeAsString (aDoc, XMLWriterSettings.createForXHTML ());
+    assertEquals ("<!DOCTYPE html PUBLIC \"" +
+                  DOCTYPE_XHTML10_QNAME +
+                  "\" \"" +
+                  DOCTYPE_XHTML10_URI +
+                  "\">" +
+                  CRLF +
+                  "<html xmlns=\"" +
+                  DOCTYPE_XHTML10_URI +
+                  "\">" +
+                  CRLF +
+                  sINDENT +
+                  "<head>Hallo</head>" +
+                  CRLF +
+                  sINDENT +
+                  "<body>" +
+                  CRLF +
+                  sINDENT +
+                  sINDENT +
+                  // pre not indented
+                  "<pre><div>pre formatted</div></pre>" +
                   CRLF +
                   sINDENT +
                   "</body>" +
