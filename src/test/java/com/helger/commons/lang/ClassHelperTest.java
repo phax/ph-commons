@@ -16,6 +16,7 @@
  */
 package com.helger.commons.lang;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -63,7 +64,7 @@ public final class ClassHelperTest
   @Test
   public void testGetClassLoader ()
   {
-    assertNotNull (ClassHelper.getDefaultClassLoader ());
+    assertNotNull (ClassLoaderHelper.getDefaultClassLoader ());
   }
 
   @Test
@@ -348,5 +349,86 @@ public final class ClassHelperTest
     assertTrue (ClassHelper.isIntegerClass (BigInteger.class));
     assertFalse (ClassHelper.isIntegerClass (null));
     assertFalse (ClassHelper.isIntegerClass (String.class));
+  }
+
+  @Test
+  public void testGetClassLocalNameClassOfQ ()
+  {
+    assertEquals ("String", ClassHelper.getClassLocalName ((Object) ""));
+    assertEquals ("ClassHelper", ClassHelper.getClassLocalName (ClassHelper.class));
+    assertEquals ("ClassHelper", ClassHelper.getClassLocalName (ClassHelper.class.getName ()));
+    assertEquals ("Test", ClassHelper.getClassLocalName ("Test"));
+    assertEquals ("", ClassHelper.getClassLocalName (""));
+    assertNull (ClassHelper.getClassLocalName ((Object) null));
+    assertNull (ClassHelper.getClassLocalName ((String) null));
+    assertNull (ClassHelper.getClassLocalName ((Class <?>) null));
+  }
+
+  @Test
+  public void testGetClassPackageName ()
+  {
+    assertEquals ("java.lang", ClassHelper.getClassPackageName (String.class));
+    assertEquals ("a.b", ClassHelper.getClassPackageName ("a.b.c"));
+    assertEquals ("a.b", ClassHelper.getClassPackageName ("a.b.c2"));
+    assertEquals ("abra.bbra", ClassHelper.getClassPackageName ("abra.bbra.c2"));
+    assertEquals ("", ClassHelper.getClassPackageName ("ClassNameOnly"));
+    assertEquals ("x", ClassHelper.getClassPackageName ("x.ClassNameOnly"));
+    assertEquals ("java.lang", ClassHelper.getClassPackageName (String.class));
+    assertNull (ClassHelper.getClassPackageName ((Class <?>) null));
+    assertNull (ClassHelper.getClassPackageName ((String) null));
+  }
+
+  @Test
+  public void testGetSafeClassName ()
+  {
+    assertEquals ("null", ClassHelper.getSafeClassName (null));
+    assertEquals ("java.lang.String", ClassHelper.getSafeClassName (String.class));
+    assertEquals ("java.lang.String", ClassHelper.getSafeClassName ("Lol"));
+  }
+
+  @Test
+  public void testGetDirectoryFromPackage ()
+  {
+    assertEquals ("java/lang", ClassHelper.getDirectoryFromPackage (String.class.getPackage ()));
+    assertEquals ("", ClassHelper.getDirectoryFromPackage (""));
+    assertEquals ("x", ClassHelper.getDirectoryFromPackage ("x"));
+    assertEquals ("x/y", ClassHelper.getDirectoryFromPackage ("x.y"));
+    assertEquals ("the/little/white/cat", ClassHelper.getDirectoryFromPackage ("the.little.white.cat"));
+
+    assertNull (ClassHelper.getDirectoryFromPackage ((Package) null));
+    assertNull (ClassHelper.getDirectoryFromPackage ((String) null));
+  }
+
+  @Test
+  public void testGetPathFromClass ()
+  {
+    assertEquals ("java/lang/String", ClassHelper.getPathFromClass (String.class));
+    assertEquals ("", ClassHelper.getPathFromClass (""));
+    assertEquals ("x", ClassHelper.getPathFromClass ("x"));
+    assertEquals ("x/y", ClassHelper.getPathFromClass ("x.y"));
+    assertEquals ("the/little/white/cat", ClassHelper.getPathFromClass ("the.little.white.cat"));
+    assertNull (ClassHelper.getPathFromClass ((Class <?>) null));
+    assertNull (ClassHelper.getPathFromClass ((String) null));
+  }
+
+  @Test
+  public void testGetClassFromPath ()
+  {
+    assertEquals ("java.lang.String", ClassHelper.getClassFromPath ("java/lang/String"));
+    assertEquals ("", ClassHelper.getClassFromPath (""));
+    assertEquals ("x", ClassHelper.getClassFromPath ("x"));
+    assertEquals ("x.y", ClassHelper.getClassFromPath ("x/y"));
+    assertEquals ("x.y", ClassHelper.getClassFromPath ("x\\y"));
+    assertEquals ("the.little.white.cat", ClassHelper.getClassFromPath ("the\\little/white\\cat"));
+    assertNull (ClassHelper.getClassFromPath ((String) null));
+  }
+
+  @Test
+  public void testGetObjectAddress ()
+  {
+    assertEquals ("0x00000000", ClassHelper.getObjectAddress (null));
+    assertNotNull (ClassHelper.getObjectAddress (""));
+    assertNotNull (ClassHelper.getObjectAddress (String.class));
+    assertNotNull (ClassHelper.getObjectAddress (Double.valueOf (4)));
   }
 }

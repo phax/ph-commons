@@ -32,7 +32,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.ClassHelper;
+import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -252,7 +252,7 @@ public final class ClassPathResourceTest
     {
       // Can't serialize with class loader
       CommonsTestHelper.testDefaultSerialization (new ClassPathResource ("folder/test2.txt",
-                                                                         ClassHelper.getDefaultClassLoader ()));
+                                                                         ClassLoaderHelper.getDefaultClassLoader ()));
       fail ();
     }
     catch (final IllegalStateException ex)

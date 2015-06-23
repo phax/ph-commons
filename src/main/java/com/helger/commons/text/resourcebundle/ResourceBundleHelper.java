@@ -29,7 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.lang.ClassHelper;
+import com.helger.commons.lang.ClassLoaderHelper;
 
 /**
  * Resource bundle utility methods
@@ -51,7 +51,7 @@ public final class ResourceBundleHelper
   public static ResourceBundle getResourceBundle (@Nonnull final String sBundleName,
                                                   @Nonnull final Locale aContentLocale)
   {
-    return getResourceBundle (sBundleName, aContentLocale, ClassHelper.getDefaultClassLoader ());
+    return getResourceBundle (sBundleName, aContentLocale, ClassLoaderHelper.getDefaultClassLoader ());
   }
 
   @Nullable
@@ -73,7 +73,7 @@ public final class ResourceBundleHelper
   public static ResourceBundle getUtf8ResourceBundle (@Nonnull final String sBundleName,
                                                       @Nonnull final Locale aContentLocale)
   {
-    return getUtf8ResourceBundle (sBundleName, aContentLocale, ClassHelper.getDefaultClassLoader ());
+    return getUtf8ResourceBundle (sBundleName, aContentLocale, ClassLoaderHelper.getDefaultClassLoader ());
   }
 
   @Nullable
@@ -146,7 +146,7 @@ public final class ResourceBundleHelper
    */
   public static void clearCache ()
   {
-    clearCache (ClassHelper.getDefaultClassLoader ());
+    clearCache (ClassLoaderHelper.getDefaultClassLoader ());
   }
 
   /**

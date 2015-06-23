@@ -41,7 +41,7 @@ import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.lang.ClassHelper;
+import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroDocument;
@@ -238,7 +238,7 @@ public final class ChangeLogSerializer
   @ReturnsMutableCopy
   public static Map <URI, ChangeLog> readAllChangeLogs (@Nonnull final INonThrowingRunnableWithParameter <String> aErrorCallback)
   {
-    return readAllChangeLogs (aErrorCallback, ClassHelper.getDefaultClassLoader ());
+    return readAllChangeLogs (aErrorCallback, ClassLoaderHelper.getDefaultClassLoader ());
   }
 
   @Nonnull

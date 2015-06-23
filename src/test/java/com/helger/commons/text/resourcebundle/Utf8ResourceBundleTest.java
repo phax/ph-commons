@@ -25,10 +25,8 @@ import java.util.ResourceBundle;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.lang.ClassHelper;
+import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.text.resourcebundle.Utf8PropertyResourceBundle;
-import com.helger.commons.text.resourcebundle.Utf8ResourceBundle;
 
 /**
  * Test class for class {@link Utf8ResourceBundle}.
@@ -44,7 +42,7 @@ public final class Utf8ResourceBundleTest extends AbstractCommonsTestCase
     assertNotNull (Utf8ResourceBundle.getBundle ("properties/test-utf8", L_DE));
     final ResourceBundle rb = Utf8ResourceBundle.getBundle ("properties/test-utf8",
                                                             L_DE,
-                                                            ClassHelper.getDefaultClassLoader ());
+                                                            ClassLoaderHelper.getDefaultClassLoader ());
     assertNotNull (rb);
     assertTrue (rb instanceof Utf8PropertyResourceBundle);
     assertEquals (2, CollectionHelper.newList (rb.getKeys ()).size ());

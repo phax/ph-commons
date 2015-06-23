@@ -29,7 +29,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.lang.CGStringHelper;
+import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.scope.domain.IRequestScope;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -51,7 +51,7 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
 
     // done initialization
     if (ScopeHelper.debugRequestScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Created request scope '" + sScopeID + "' of class " + CGStringHelper.getClassLocalName (this),
+      s_aLogger.info ("Created request scope '" + sScopeID + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -76,7 +76,7 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
   protected void preDestroy ()
   {
     if (ScopeHelper.debugRequestScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroying request scope '" + getID () + "' of class " + CGStringHelper.getClassLocalName (this),
+      s_aLogger.info ("Destroying request scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -84,7 +84,7 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
   protected void postDestroy ()
   {
     if (ScopeHelper.debugRequestScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroyed request scope '" + getID () + "' of class " + CGStringHelper.getClassLocalName (this),
+      s_aLogger.info ("Destroyed request scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 

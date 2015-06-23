@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.CGStringHelper;
+import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.scope.domain.ISessionApplicationScope;
 
 /**
@@ -46,7 +46,7 @@ public class SessionApplicationScope extends AbstractMapBasedScope implements IS
       s_aLogger.info ("Created session application scope '" +
                           sScopeID +
                           "' of class " +
-                          CGStringHelper.getClassLocalName (this),
+                          ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -60,7 +60,7 @@ public class SessionApplicationScope extends AbstractMapBasedScope implements IS
       s_aLogger.info ("Destroying session application scope '" +
                           getID () +
                           "' of class " +
-                          CGStringHelper.getClassLocalName (this),
+                          ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -71,7 +71,7 @@ public class SessionApplicationScope extends AbstractMapBasedScope implements IS
       s_aLogger.info ("Destroyed session application scope '" +
                           getID () +
                           "' of class " +
-                          CGStringHelper.getClassLocalName (this),
+                          ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 }

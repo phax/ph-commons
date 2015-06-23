@@ -31,7 +31,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.lang.CGStringHelper;
+import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.scope.domain.ISessionApplicationScope;
 import com.helger.commons.scope.domain.ISessionScope;
 import com.helger.commons.scope.spi.ScopeSPIManager;
@@ -58,7 +58,7 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
 
     // Sessions are always displayed to see what's happening
     if (ScopeHelper.debugSessionScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Created session scope '" + getID () + "' of class " + CGStringHelper.getClassLocalName (this),
+      s_aLogger.info ("Created session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -91,7 +91,7 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
   protected void preDestroy ()
   {
     if (ScopeHelper.debugSessionScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroying session scope '" + getID () + "' of class " + CGStringHelper.getClassLocalName (this),
+      s_aLogger.info ("Destroying session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -99,7 +99,7 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
   protected void postDestroy ()
   {
     if (ScopeHelper.debugSessionScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroyed session scope '" + getID () + "' of class " + CGStringHelper.getClassLocalName (this),
+      s_aLogger.info ("Destroyed session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 

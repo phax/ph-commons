@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.CGStringHelper;
+import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.scope.domain.IApplicationScope;
 
 /**
@@ -47,10 +47,7 @@ public class ApplicationScope extends AbstractMapBasedScope implements IApplicat
     super (sScopeID);
 
     if (ScopeHelper.debugApplicationScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Created application scope '" +
-                          sScopeID +
-                          "' of class " +
-                          CGStringHelper.getClassLocalName (this),
+      s_aLogger.info ("Created application scope '" + sScopeID + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -64,7 +61,7 @@ public class ApplicationScope extends AbstractMapBasedScope implements IApplicat
       s_aLogger.info ("Destroying application scope '" +
                           getID () +
                           "' of class " +
-                          CGStringHelper.getClassLocalName (this),
+                          ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -72,10 +69,7 @@ public class ApplicationScope extends AbstractMapBasedScope implements IApplicat
   protected void postDestroy ()
   {
     if (ScopeHelper.debugApplicationScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroyed application scope '" +
-                          getID () +
-                          "' of class " +
-                          CGStringHelper.getClassLocalName (this),
+      s_aLogger.info ("Destroyed application scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 }

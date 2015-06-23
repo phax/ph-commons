@@ -156,7 +156,7 @@ public final class GenericReflectionTest
     assertNotNull (GenericReflection.newInstance (StringBuilder.class.getName (), CharSequence.class));
     assertNull (GenericReflection.newInstance (MockNoPublicCtor.class.getName (), Object.class));
 
-    final ClassLoader cl = ClassHelper.getDefaultClassLoader ();
+    final ClassLoader cl = ClassLoaderHelper.getDefaultClassLoader ();
     assertNull (GenericReflection.newInstance (null, Object.class, cl));
     assertNull (GenericReflection.newInstance ("", Object.class, cl));
     assertNull (GenericReflection.newInstance (String.class.getName (), null, cl));

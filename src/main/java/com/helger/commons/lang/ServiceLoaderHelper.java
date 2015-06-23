@@ -48,7 +48,7 @@ public final class ServiceLoaderHelper
   @Nonnull
   private static ClassLoader _getDefaultClassLoader ()
   {
-    return ClassHelper.getDefaultClassLoader ();
+    return ClassLoaderHelper.getDefaultClassLoader ();
   }
 
   /**

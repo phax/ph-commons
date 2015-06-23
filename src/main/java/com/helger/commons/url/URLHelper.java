@@ -59,7 +59,7 @@ import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.ClassHelper;
+import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.microdom.util.XMLMapHandler;
 import com.helger.commons.mime.IMimeType;
 import com.helger.commons.string.StringHelper;
@@ -917,7 +917,7 @@ public final class URLHelper
     final String sRealPath = sPath.startsWith ("/") ? sPath : '/' + sPath;
 
     // Use the default class loader. Returns null if not found
-    URL ret = ClassHelper.getDefaultClassLoader ().getResource (sRealPath);
+    URL ret = ClassLoaderHelper.getDefaultClassLoader ().getResource (sRealPath);
     if (ret == null)
     {
       // This is essential if we're running as a web application!!!

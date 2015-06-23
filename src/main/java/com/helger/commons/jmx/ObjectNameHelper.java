@@ -31,7 +31,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.exception.LoggedRuntimeException;
-import com.helger.commons.lang.CGStringHelper;
+import com.helger.commons.lang.ClassHelper;
 
 /**
  * Utility class to create JMX {@link ObjectName} objects.
@@ -155,7 +155,7 @@ public final class ObjectNameHelper
     ValueEnforcer.notNull (aObj, "Object");
 
     final Hashtable <String, String> aParams = new Hashtable <String, String> ();
-    aParams.put (CJMX.PROPERTY_TYPE, CGStringHelper.getClassLocalName (aObj));
+    aParams.put (CJMX.PROPERTY_TYPE, ClassHelper.getClassLocalName (aObj));
     return create (aParams);
   }
 
@@ -177,7 +177,7 @@ public final class ObjectNameHelper
     ValueEnforcer.notNull (sName, "Name");
 
     final Hashtable <String, String> aParams = new Hashtable <String, String> ();
-    aParams.put (CJMX.PROPERTY_TYPE, CGStringHelper.getClassLocalName (aObj));
+    aParams.put (CJMX.PROPERTY_TYPE, ClassHelper.getClassLocalName (aObj));
     aParams.put (CJMX.PROPERTY_NAME, getCleanPropertyValue (sName));
     return create (aParams);
   }

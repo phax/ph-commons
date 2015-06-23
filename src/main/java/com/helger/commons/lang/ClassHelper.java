@@ -19,7 +19,6 @@ package com.helger.commons.lang;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.security.AccessController;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
@@ -29,15 +28,14 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.lang.priviledged.PrivilegedActionGetClassLoader;
-import com.helger.commons.lang.priviledged.PrivilegedActionGetContextClassLoader;
-import com.helger.commons.lang.priviledged.PrivilegedActionGetSystemClassLoader;
+import com.helger.commons.string.StringHelper;
 
 /**
- * Small class helper utility stuff class.
+ * {@link Class} helper methods.
  *
  * @author Philip Helger
  */
@@ -72,53 +70,6 @@ public final class ClassHelper
 
   private ClassHelper ()
   {}
-
-  @Nonnull
-  public static ClassLoader getSystemClassLoader ()
-  {
-    if (System.getSecurityManager () == null)
-      return ClassLoader.getSystemClassLoader ();
-
-    return AccessController.doPrivileged (new PrivilegedActionGetSystemClassLoader ());
-  }
-
-  @Nonnull
-  public static ClassLoader getContextClassLoader ()
-  {
-    if (System.getSecurityManager () == null)
-      return Thread.currentThread ().getContextClassLoader ();
-
-    return AccessController.doPrivileged (new PrivilegedActionGetContextClassLoader ());
-  }
-
-  @Nonnull
-  public static ClassLoader getClassClassLoader (@Nonnull final Class <?> aClass)
-  {
-    if (System.getSecurityManager () == null)
-      return aClass.getClassLoader ();
-
-    return AccessController.doPrivileged (new PrivilegedActionGetClassLoader (aClass));
-  }
-
-  @Nonnull
-  public static ClassLoader getDefaultClassLoader ()
-  {
-    ClassLoader ret = null;
-    try
-    {
-      ret = getContextClassLoader ();
-    }
-    catch (final RuntimeException ex)
-    {
-      // e.g. security exception
-    }
-
-    // Fallback to class loader of this class
-    if (ret == null)
-      ret = getClassClassLoader (ClassHelper.class);
-
-    return ret;
-  }
 
   public static boolean isPublicClass (@Nullable final Class <?> aClass)
   {
@@ -376,5 +327,209 @@ public final class ClassHelper
   public static String getClassName (@Nullable final Object aObject)
   {
     return aObject == null ? null : aObject.getClass ().getName ();
+  }
+
+  /**
+   * Get the name of the object's class without the package.
+   *
+   * @param aObject
+   *        The object to get the information from. May be <code>null</code> .
+   * @return The local name of the passed object's class.
+   */
+  @Nullable
+  public static String getClassLocalName (@Nullable final Object aObject)
+  {
+    return aObject == null ? null : getClassLocalName (aObject.getClass ());
+  }
+
+  /**
+   * Get the name of the class without the package.
+   *
+   * @param aClass
+   *        The class to get the information from. May be <code>null</code>.
+   * @return The local name of the passed class.
+   */
+  @Nullable
+  public static String getClassLocalName (@Nullable final Class <?> aClass)
+  {
+    return aClass == null ? null : getClassLocalName (aClass.getName ());
+  }
+
+  /**
+   * Get the name of the class without the package.
+   *
+   * @param sClassName
+   *        The fully qualified name of the class. May be <code>null</code>.
+   * @return The local name of the passed class. Never <code>null</code>.
+   */
+  @Nullable
+  public static String getClassLocalName (@Nullable final String sClassName)
+  {
+    if (sClassName == null)
+      return null;
+
+    final int nIndex = sClassName.lastIndexOf ('.');
+    return nIndex == -1 ? sClassName : sClassName.substring (nIndex + 1);
+  }
+
+  /**
+   * Get the name of the package the passed object resides in.
+   *
+   * @param aObject
+   *        The class to get the information from. May be <code>null</code>.
+   * @return The package name of the passed object.
+   */
+  @Nullable
+  public static String getClassPackageName (@Nullable final Object aObject)
+  {
+    return aObject == null ? null : getClassPackageName (aObject.getClass ());
+  }
+
+  /**
+   * Get the name of the package the passed class resides in.
+   *
+   * @param aClass
+   *        The class to get the information from. May not be <code>null</code>.
+   * @return The package name of the passed class.
+   */
+  @Nullable
+  public static String getClassPackageName (@Nullable final Class <?> aClass)
+  {
+    return aClass == null ? null : getClassPackageName (aClass.getName ());
+  }
+
+  /**
+   * Get the name of the package the passed class resides in.
+   *
+   * @param sClassName
+   *        The name class to get the information from. May be <code>null</code>
+   *        .
+   * @return The package name of the passed class.
+   */
+  @Nullable
+  public static String getClassPackageName (@Nullable final String sClassName)
+  {
+    if (sClassName == null)
+      return null;
+
+    final int nIndex = sClassName.lastIndexOf ('.');
+    return nIndex == -1 ? "" : sClassName.substring (0, nIndex);
+  }
+
+  /**
+   * Get the class name of the passed object. If the object itself is of type
+   * {@link Class}, its name is retrieved, other {@link #getClass()} is called.
+   *
+   * @param aObject
+   *        The object who's class name is to be retrieved.
+   * @return <code>&quot;null&quot;</code> for a <code>null</code> parameter
+   */
+  @Nonnull
+  @Nonempty
+  public static String getSafeClassName (@Nullable final Object aObject)
+  {
+    if (aObject instanceof Class <?>)
+      return ((Class <?>) aObject).getName ();
+    if (aObject != null)
+      return aObject.getClass ().getName ();
+    return "null";
+  }
+
+  /**
+   * Convert a package name to a relative directory name.
+   *
+   * @param aPackage
+   *        The package to be converted. May be <code>null</code>.
+   * @return The directory name using forward slashes (/) instead of the dots.
+   */
+  @Nullable
+  public static String getDirectoryFromPackage (@Nullable final Package aPackage)
+  {
+    // No differentiation
+    return aPackage == null ? null : getPathFromClass (aPackage.getName ());
+  }
+
+  /**
+   * Convert a package name to a relative directory name.
+   *
+   * @param sPackage
+   *        The name of the package to be converted. May be <code>null</code>.
+   * @return The directory name using forward slashes (/) instead of the dots.
+   */
+  @Nullable
+  public static String getDirectoryFromPackage (@Nullable final String sPackage)
+  {
+    // No differentiation
+    return getPathFromClass (sPackage);
+  }
+
+  /**
+   * Get the path representation of the passed class. The path representation is
+   * achieved by replacing all dots (.) with forward slashes (/) in the class
+   * name.
+   *
+   * @param aClass
+   *        The class of which the path is to be retrieved. May be
+   *        <code>null</code>.
+   * @return The path representation. Never <code>null</code>.
+   */
+  @Nullable
+  public static String getPathFromClass (@Nullable final Class <?> aClass)
+  {
+    return aClass == null ? null : getPathFromClass (aClass.getName ());
+  }
+
+  /**
+   * Get the path representation of the passed class name. The path
+   * representation is achieved by replacing all dots (.) with forward slashes
+   * (/) in the class name.
+   *
+   * @param sClassName
+   *        The class name of which the path is to be retrieved. May be
+   *        <code>null</code>.
+   * @return The path representation
+   */
+  @Nullable
+  public static String getPathFromClass (@Nullable final String sClassName)
+  {
+    return sClassName == null ? null : sClassName.replace ('.', '/');
+  }
+
+  /**
+   * Get the class name of the passed path. The class name is retrieved by
+   * replacing all path separators (\ and /) with dots (.). This method does not
+   * handle the file extension, so it's up to the caller to skip of any file
+   * extension!
+   *
+   * @param sPath
+   *        The path to be converted. May be <code>null</code>.
+   * @return The class name.
+   */
+  @Nullable
+  public static String getClassFromPath (@Nullable final String sPath)
+  {
+    return sPath == null ? null : sPath.replace ('\\', '.').replace ('/', '.');
+  }
+
+  /**
+   * Get the hex representation of the passed object's address. Note that this
+   * method makes no differentiation between 32 and 64 bit architectures. The
+   * result is always a hexadecimal value preceded by "0x" and followed by
+   * exactly 8 characters.
+   *
+   * @param aObject
+   *        The object who's address is to be retrieved. May be
+   *        <code>null</code>.
+   * @return Depending on the current architecture. Always starting with "0x"
+   *         and than containing the address.
+   * @see System#identityHashCode(Object)
+   */
+  @Nonnull
+  @Nonempty
+  public static String getObjectAddress (@Nullable final Object aObject)
+  {
+    if (aObject == null)
+      return "0x00000000";
+    return "0x" + StringHelper.getHexStringLeadingZero (System.identityHashCode (aObject), 8);
   }
 }
