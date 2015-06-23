@@ -142,7 +142,8 @@ public interface IXMLWriterSettings
   String getNewLineString ();
 
   /**
-   * @return The string to be used for indentation. By default it is 2 spaces.
+   * @return The string to be used for indentation of a single level. By default
+   *         it is 2 spaces.
    */
   @Nonnull
   @Nonempty

@@ -25,7 +25,6 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -563,10 +562,10 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
   }
 
   @Test
-  @Ignore
   public void testHTMLIndent ()
   {
-    final String sINDENT = XMLWriterSettings.DEFAULT_INDENTATION_STRING;
+    final XMLWriterSettings xs = XMLWriterSettings.createForXHTML ().setSerializeDocType (EXMLSerializeDocType.IGNORE);
+    final String sINDENT = xs.getIndentationString ();
 
     final Document aDoc = XMLFactory.newDocument ("html", DOCTYPE_XHTML10_QNAME, DOCTYPE_XHTML10_URI);
     final Element aHead = (Element) aDoc.getDocumentElement ().appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI,
@@ -578,15 +577,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
     final Element aDiv = (Element) aPre.appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "div"));
     aDiv.appendChild (aDoc.createTextNode ("pre formatted"));
 
-    // test including doc type
-    final String sResult = XMLWriter.getNodeAsString (aDoc, XMLWriterSettings.createForXHTML ());
-    assertEquals ("<!DOCTYPE html PUBLIC \"" +
-                  DOCTYPE_XHTML10_QNAME +
-                  "\" \"" +
-                  DOCTYPE_XHTML10_URI +
-                  "\">" +
-                  CRLF +
-                  "<html xmlns=\"" +
+    assertEquals ("<html xmlns=\"" +
                   DOCTYPE_XHTML10_URI +
                   "\">" +
                   CRLF +
@@ -605,6 +596,31 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                   "</body>" +
                   CRLF +
                   "</html>" +
-                  CRLF, sResult);
+                  CRLF, XMLWriter.getNodeAsString (aDoc, xs));
+
+    // Special handling with void element
+    aPre.removeChild (aDiv);
+    aPre.appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "img"));
+
+    assertEquals ("<html xmlns=\"" +
+                  DOCTYPE_XHTML10_URI +
+                  "\">" +
+                  CRLF +
+                  sINDENT +
+                  "<head>Hallo</head>" +
+                  CRLF +
+                  sINDENT +
+                  "<body>" +
+                  CRLF +
+                  sINDENT +
+                  sINDENT +
+                  // pre not indented
+                  "<pre><img></pre>" +
+                  CRLF +
+                  sINDENT +
+                  "</body>" +
+                  CRLF +
+                  "</html>" +
+                  CRLF, XMLWriter.getNodeAsString (aDoc, xs));
   }
 }

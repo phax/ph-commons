@@ -28,7 +28,7 @@ import com.helger.commons.lang.EnumHelper;
  * means: newlines after certain elements. Indent means: adding blanks at the
  * beginning of the line to reflect the tree structure of an XML document more
  * visibly.
- * 
+ *
  * @author Philip Helger
  */
 public enum EXMLSerializeIndent implements IHasID <String>
@@ -36,15 +36,17 @@ public enum EXMLSerializeIndent implements IHasID <String>
   /** Neither indent nor align */
   NONE ("none", false, false),
   /** No indent but align */
-  ALIGN_ONLY ("align", true, false),
+  ALIGN_ONLY ("align", false, true),
+  /** Indent but no align. */
+  INDENT_ONLY ("indent", true, false),
   /** Both indent and align. */
   INDENT_AND_ALIGN ("indentalign", true, true);
 
   private final String m_sID;
-  private final boolean m_bAlign;
   private final boolean m_bIndent;
+  private final boolean m_bAlign;
 
-  private EXMLSerializeIndent (@Nonnull @Nonempty final String sID, final boolean bAlign, final boolean bIndent)
+  private EXMLSerializeIndent (@Nonnull @Nonempty final String sID, final boolean bIndent, final boolean bAlign)
   {
     m_sID = sID;
     m_bAlign = bAlign;
@@ -59,6 +61,14 @@ public enum EXMLSerializeIndent implements IHasID <String>
   }
 
   /**
+   * @return <code>true</code> if the XML output should be formatted nicely
+   */
+  public boolean isIndent ()
+  {
+    return m_bIndent;
+  }
+
+  /**
    * @return <code>true</code> if newlines should be emitted
    */
   public boolean isAlign ()
@@ -66,12 +76,28 @@ public enum EXMLSerializeIndent implements IHasID <String>
     return m_bAlign;
   }
 
-  /**
-   * @return <code>true</code> if the XML output should be formatted nicely
-   */
-  public boolean isIndent ()
+  @Nonnull
+  public EXMLSerializeIndent getWithoutIndent ()
   {
-    return m_bIndent;
+    return m_bAlign ? ALIGN_ONLY : NONE;
+  }
+
+  @Nonnull
+  public EXMLSerializeIndent getWithIndent ()
+  {
+    return m_bAlign ? INDENT_AND_ALIGN : INDENT_ONLY;
+  }
+
+  @Nonnull
+  public EXMLSerializeIndent getWithoutAlign ()
+  {
+    return m_bIndent ? INDENT_ONLY : NONE;
+  }
+
+  @Nonnull
+  public EXMLSerializeIndent getWithAlign ()
+  {
+    return m_bIndent ? INDENT_AND_ALIGN : ALIGN_ONLY;
   }
 
   @Nullable

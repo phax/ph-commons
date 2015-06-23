@@ -37,8 +37,8 @@ public interface IXMLBracketModeDeterminator
   /**
    * Determine the bracket mode for an XML element.
    *
-   * @param sNamespacePrefix
-   *        Optional namespace prefix. May be <code>null</code>.
+   * @param sNamespaceURI
+   *        Optional namespace URI. May be <code>null</code>.
    * @param sTagName
    *        Tag name
    * @param aAttrs
@@ -48,7 +48,7 @@ public interface IXMLBracketModeDeterminator
    * @return The bracket mode to be used. May not be <code>null</code>.
    */
   @Nonnull
-  EXMLSerializeBracketMode getBracketMode (@Nullable String sNamespacePrefix,
+  EXMLSerializeBracketMode getBracketMode (@Nullable String sNamespaceURI,
                                            @Nonnull String sTagName,
                                            @Nullable Map <QName, String> aAttrs,
                                            boolean bHasChildren);

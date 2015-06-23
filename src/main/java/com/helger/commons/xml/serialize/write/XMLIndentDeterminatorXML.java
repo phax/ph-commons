@@ -34,7 +34,22 @@ import com.helger.commons.string.ToStringGenerator;
 public class XMLIndentDeterminatorXML implements IXMLIndentDeterminator
 {
   @Nonnull
-  public EXMLSerializeIndent getIndent (@Nullable final String sNamespacePrefix,
+  public EXMLSerializeIndent getIndentOuter (@Nullable final String sParentNamespaceURI,
+                                             @Nullable final String sParentTagName,
+                                             @Nullable final String sNamespaceURI,
+                                             @Nonnull final String sTagName,
+                                             @Nullable final Map <QName, String> aAttrs,
+                                             final boolean bHasChildren,
+                                             @Nonnull final EXMLSerializeIndent eDefaultIndent)
+  {
+    // Always use the default
+    return eDefaultIndent;
+  }
+
+  @Nonnull
+  public EXMLSerializeIndent getIndentInner (@Nullable final String sParentNamespaceURI,
+                                             @Nullable final String sParentTagName,
+                                             @Nullable final String sNamespaceURI,
                                              @Nonnull final String sTagName,
                                              @Nullable final Map <QName, String> aAttrs,
                                              final boolean bHasChildren,

@@ -58,13 +58,14 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
 
   @Override
   protected void emitNode (@Nonnull final XMLEmitter aXMLWriter,
+                           @Nullable final Node aParentNode,
                            @Nullable final Node aPrevSibling,
                            @Nonnull final Node aNode,
                            @Nullable final Node aNextSibling)
   {
     final short nNodeType = aNode.getNodeType ();
     if (nNodeType == Node.ELEMENT_NODE)
-      _writeElement (aXMLWriter, aPrevSibling, (Element) aNode, aNextSibling);
+      _writeElement (aXMLWriter, aParentNode, aPrevSibling, (Element) aNode, aNextSibling);
     else
       if (nNodeType == Node.TEXT_NODE)
         _writeText (aXMLWriter, (Text) aNode);
@@ -90,12 +91,15 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
                     throw new IllegalArgumentException ("Passed node type " + nNodeType + " is not yet supported");
   }
 
-  private void _writeNodeList (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final NodeList aChildren)
+  private void _writeNodeList (@Nonnull final XMLEmitter aXMLWriter,
+                               @Nonnull final Node aParentNode,
+                               @Nonnull final NodeList aChildren)
   {
     final int nLastIndex = aChildren.getLength () - 1;
     for (int nIndex = 0; nIndex <= nLastIndex; ++nIndex)
     {
       emitNode (aXMLWriter,
+                aParentNode,
                 nIndex == 0 ? null : aChildren.item (nIndex - 1),
                 aChildren.item (nIndex),
                 nIndex == nLastIndex ? null : aChildren.item (nIndex + 1));
@@ -124,7 +128,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
                                    bIsDocumentStandalone || aDocument.getDoctype () == null);
     }
 
-    _writeNodeList (aXMLWriter, aDocument.getChildNodes ());
+    _writeNodeList (aXMLWriter, aDocument, aDocument.getChildNodes ());
   }
 
   private void _writeDocumentType (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final DocumentType aDocType)
@@ -165,6 +169,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
   }
 
   private void _writeElement (@Nonnull final XMLEmitter aXMLWriter,
+                              @Nullable final Node aParentNode,
                               @Nullable final Node aPrevSibling,
                               @Nonnull final Element aElement,
                               @Nullable final Node aNextSibling)
@@ -181,7 +186,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
     final boolean bIsRootElement = aDoc != null && aElement.equals (aDoc.getDocumentElement ());
     final boolean bIndentPrev = aPrevSibling == null || !XMLHelper.isInlineNode (aPrevSibling) || bIsRootElement;
     final boolean bIndentNext = aNextSibling == null || !XMLHelper.isInlineNode (aNextSibling);
-    final boolean bHasChildElement = bHasChildren && !XMLHelper.isInlineNode (aElement.getFirstChild ());
+    final boolean bIsFirstChildElement = bHasChildren && !XMLHelper.isInlineNode (aElement.getFirstChild ());
 
     // get all attributes (sorting is important because the order from
     // getAttributes is not guaranteed to be consistent!)
@@ -194,10 +199,11 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
     try
     {
       // resolve Namespace prefix
+      String sElementNamespaceURI = null;
       String sElementNSPrefix = null;
       if (bEmitNamespaces)
       {
-        final String sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
+        sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
         sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI, bIsRootElement, aAttrMap);
       }
 
@@ -229,51 +235,69 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       }
 
       // Determine indent
-      final EXMLSerializeIndent eIndent = m_aSettings.getIndentDeterminator ().getIndent (sElementNSPrefix,
-                                                                                          sTagName,
-                                                                                          aAttrMap,
-                                                                                          bHasChildren,
-                                                                                          m_aSettings.getIndent ());
-      // Has indent only if enabled, and an indent string is not empty
-      final boolean bHasIndent = eIndent.isIndent () && m_aIndent.length () > 0;
-
-      // indent only if predecessor was an element
-      if (bHasIndent && bIndentPrev)
-        aXMLWriter.onContentElementWhitespace (m_aIndent);
-
+      final Element aParentElement = aParentNode != null && aParentNode.getNodeType () == Node.ELEMENT_NODE ? (Element) aParentNode
+                                                                                                           : null;
+      final String sParentNamespaceURI = aParentElement != null ? aParentNode.getNamespaceURI () : null;
+      final String sParentTagName = aParentElement != null ? aParentElement.getLocalName () != null ? aParentElement.getLocalName ()
+                                                                                                   : aParentElement.getTagName ()
+                                                          : null;
+      final EXMLSerializeIndent eIndentOuter = m_aSettings.getIndentDeterminator ()
+                                                          .getIndentOuter (sParentNamespaceURI,
+                                                                           sParentTagName,
+                                                                           sElementNamespaceURI,
+                                                                           sTagName,
+                                                                           aAttrMap,
+                                                                           bHasChildren,
+                                                                           m_aSettings.getIndent ());
       final EXMLSerializeBracketMode eBracketMode = m_aSettings.getBracketModeDeterminator ()
-                                                               .getBracketMode (sElementNSPrefix,
+                                                               .getBracketMode (sElementNamespaceURI,
                                                                                 sTagName,
                                                                                 aAttrMap,
                                                                                 bHasChildren);
 
+      // Indent?
+      if (eIndentOuter.isIndent () && m_aIndent.length () > 0 && bIndentPrev)
+        aXMLWriter.onContentElementWhitespace (m_aIndent);
+
+      // Open tag
       aXMLWriter.onElementStart (sElementNSPrefix, sTagName, aAttrMap, bHasChildren, eBracketMode);
 
       // write child nodes (if present)
       if (bHasChildren)
       {
-        // do we have enclosing elements?
-        if (eIndent.isAlign () && bHasChildElement)
+        final EXMLSerializeIndent eIndentInner = m_aSettings.getIndentDeterminator ()
+                                                            .getIndentInner (sParentNamespaceURI,
+                                                                             sParentTagName,
+                                                                             sElementNamespaceURI,
+                                                                             sTagName,
+                                                                             aAttrMap,
+                                                                             bHasChildren,
+                                                                             m_aSettings.getIndent ());
+
+        // Align?
+        if (eIndentInner.isAlign () && bIsFirstChildElement)
           aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());
 
         // increment indent
-        final String sIndent = m_aSettings.getIndentationString ();
-        m_aIndent.append (sIndent);
+        final String sIndentPerLevel = m_aSettings.getIndentationString ();
+        m_aIndent.append (sIndentPerLevel);
 
         // recursively process child nodes
-        _writeNodeList (aXMLWriter, aChildNodeList);
+        _writeNodeList (aXMLWriter, aElement, aChildNodeList);
 
         // decrement indent
-        m_aIndent.delete (m_aIndent.length () - sIndent.length (), m_aIndent.length ());
+        m_aIndent.delete (m_aIndent.length () - sIndentPerLevel.length (), m_aIndent.length ());
 
-        // add closing tag
-        if (bHasIndent && bHasChildElement)
+        // Indent?
+        if (eIndentInner.isIndent () && m_aIndent.length () > 0 && bIsFirstChildElement)
           aXMLWriter.onContentElementWhitespace (m_aIndent);
       }
 
+      // add closing tag
       aXMLWriter.onElementEnd (sElementNSPrefix, sTagName, bHasChildren, eBracketMode);
 
-      if (eIndent.isAlign () && bIndentNext)
+      // Align?
+      if (eIndentOuter.isAlign () && bIndentNext)
         aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());
     }
     finally

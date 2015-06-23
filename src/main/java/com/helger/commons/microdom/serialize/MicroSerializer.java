@@ -63,6 +63,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
 
   @Override
   protected void emitNode (@Nonnull final XMLEmitter aXMLWriter,
+                           @Nullable final IMicroNode aParentNode,
                            @Nullable final IMicroNode aPrevSibling,
                            @Nonnull final IMicroNode aNode,
                            @Nullable final IMicroNode aNextSibling)
@@ -70,7 +71,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     ValueEnforcer.notNull (aNode, "Node");
 
     if (aNode.isElement ())
-      _writeElement (aXMLWriter, aPrevSibling, (IMicroElement) aNode, aNextSibling);
+      _writeElement (aXMLWriter, aParentNode, aPrevSibling, (IMicroElement) aNode, aNextSibling);
     else
       if (aNode.isText ())
         _writeText (aXMLWriter, (IMicroText) aNode);
@@ -94,7 +95,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
                     _writeProcessingInstruction (aXMLWriter, (IMicroProcessingInstruction) aNode);
                   else
                     if (aNode.isContainer ())
-                      _writeContainer (aXMLWriter, (IMicroContainer) aNode);
+                      _writeContainer (aXMLWriter, aParentNode, (IMicroContainer) aNode);
                     else
                       throw new IllegalArgumentException ("Passed node type " +
                                                           aNode.getClass ().getName () +
@@ -111,15 +112,20 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
    *
    * @param aXMLWriter
    *        The XML writer to use. May not be <code>null</code>.
+   * @param aParentNode
+   *        The parent node to be used. May not be <code>null</code>.
    * @param aChildren
    *        The node list to be serialized. May not be <code>null</code>.
    */
-  private void _writeNodeList (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final List <IMicroNode> aChildren)
+  private void _writeNodeList (@Nonnull final XMLEmitter aXMLWriter,
+                               @Nullable final IMicroNode aParentNode,
+                               @Nonnull final List <IMicroNode> aChildren)
   {
     final int nLastIndex = aChildren.size () - 1;
     for (int nIndex = 0; nIndex <= nLastIndex; ++nIndex)
     {
       emitNode (aXMLWriter,
+                aParentNode,
                 nIndex == 0 ? null : aChildren.get (nIndex - 1),
                 aChildren.get (nIndex),
                 nIndex == nLastIndex ? null : aChildren.get (nIndex + 1));
@@ -132,7 +138,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       aXMLWriter.onXMLDeclaration (m_aSettings.getXMLVersion (), m_aSettings.getCharset (), aDocument.isStandalone ());
 
     if (aDocument.hasChildren ())
-      _writeNodeList (aXMLWriter, aDocument.getAllChildren ());
+      _writeNodeList (aXMLWriter, aDocument, aDocument.getAllChildren ());
   }
 
   private void _writeDocumentType (@Nonnull final XMLEmitter aXMLWriter, final IMicroDocumentType aDocType)
@@ -147,11 +153,13 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     aXMLWriter.onProcessingInstruction (aPI.getTarget (), aPI.getData ());
   }
 
-  private void _writeContainer (@Nonnull final XMLEmitter aXMLWriter, final IMicroContainer aContainer)
+  private void _writeContainer (@Nonnull final XMLEmitter aXMLWriter,
+                                @Nonnull final IMicroNode aParentNode,
+                                @Nonnull final IMicroContainer aContainer)
   {
     // A container has no own properties!
     if (aContainer.hasChildren ())
-      _writeNodeList (aXMLWriter, aContainer.getAllChildren ());
+      _writeNodeList (aXMLWriter, aParentNode, aContainer.getAllChildren ());
   }
 
   private static void _writeEntityReference (@Nonnull final XMLEmitter aXMLWriter,
@@ -188,12 +196,13 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
   }
 
   private void _writeElement (@Nonnull final XMLEmitter aXMLWriter,
+                              @Nullable final IMicroNode aParentNode,
                               @Nullable final IMicroNode aPrevSibling,
                               @Nonnull final IMicroElement aElement,
                               @Nullable final IMicroNode aNextSibling)
   {
     // use either local name or tag name (depending on namespace prefix)
-    final String sTagName = aElement.getLocalName () != null ? aElement.getLocalName () : aElement.getTagName ();
+    final String sTagName = aElement.getTagName ();
 
     final boolean bEmitNamespaces = m_aSettings.isEmitNamespaces ();
     final List <IMicroNode> aChildNodeList = aElement.getAllChildren ();
@@ -202,7 +211,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     final boolean bIsRootElement = aElement.getParent () != null && aElement.getParent ().isDocument ();
     final boolean bIndentPrev = aPrevSibling == null || !_isInlineNode (aPrevSibling) || bIsRootElement;
     final boolean bIndentNext = aNextSibling == null || !_isInlineNode (aNextSibling);
-    final boolean bHasChildElement = bHasChildren && !_isInlineNode (aElement.getFirstChild ());
+    final boolean bIsFirstChildElement = bHasChildren && !_isInlineNode (aElement.getFirstChild ());
 
     // get all attributes (order is important!)
     final Map <QName, String> aAttrMap = new LinkedHashMap <QName, String> ();
@@ -214,10 +223,11 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     try
     {
       // resolve Namespace prefix
+      String sElementNamespaceURI = null;
       String sElementNSPrefix = null;
       if (bEmitNamespaces)
       {
-        final String sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
+        sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
         sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI, bIsRootElement, aAttrMap);
       }
 
@@ -248,20 +258,25 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       }
 
       // Determine indent
-      final EXMLSerializeIndent eIndent = m_aSettings.getIndentDeterminator ().getIndent (sElementNSPrefix,
-                                                                                          sTagName,
-                                                                                          aAttrMap,
-                                                                                          bHasChildren,
-                                                                                          m_aSettings.getIndent ());
+      final IMicroElement aParentElement = aParentNode != null && aParentNode.isElement () ? (IMicroElement) aParentNode
+                                                                                          : null;
+      final String sParentNamespaceURI = aParentElement != null ? aParentElement.getNamespaceURI () : null;
+      final String sParentTagName = aParentElement != null ? aParentElement.getTagName () : null;
+      final EXMLSerializeIndent eIndentOuter = m_aSettings.getIndentDeterminator ()
+                                                          .getIndentOuter (sParentNamespaceURI,
+                                                                           sParentTagName,
+                                                                           sElementNamespaceURI,
+                                                                           sTagName,
+                                                                           aAttrMap,
+                                                                           bHasChildren,
+                                                                           m_aSettings.getIndent ());
       // Has indent only if enabled, and an indent string is not empty
-      final boolean bHasIndent = eIndent.isIndent () && m_aIndent.length () > 0;
-
       // indent only if predecessor was an element
-      if (bHasIndent && bIndentPrev)
+      if (eIndentOuter.isIndent () && m_aIndent.length () > 0 && bIndentPrev)
         aXMLWriter.onContentElementWhitespace (m_aIndent);
 
       final EXMLSerializeBracketMode eBracketMode = m_aSettings.getBracketModeDeterminator ()
-                                                               .getBracketMode (sElementNSPrefix,
+                                                               .getBracketMode (sElementNamespaceURI,
                                                                                 sTagName,
                                                                                 aAttrMap,
                                                                                 bHasChildren);
@@ -271,8 +286,17 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       // write child nodes (if present)
       if (bHasChildren)
       {
+        final EXMLSerializeIndent eIndentInner = m_aSettings.getIndentDeterminator ()
+                                                            .getIndentOuter (sParentNamespaceURI,
+                                                                             sParentTagName,
+                                                                             sElementNamespaceURI,
+                                                                             sTagName,
+                                                                             aAttrMap,
+                                                                             bHasChildren,
+                                                                             m_aSettings.getIndent ());
+
         // do we have enclosing elements?
-        if (eIndent.isAlign () && bHasChildElement)
+        if (eIndentInner.isAlign () && bIsFirstChildElement)
           aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());
 
         // increment indent
@@ -281,19 +305,19 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
 
         // recursively process child nodes
         if (aChildNodeList != null)
-          _writeNodeList (aXMLWriter, aChildNodeList);
+          _writeNodeList (aXMLWriter, aElement, aChildNodeList);
 
         // decrement indent
         m_aIndent.delete (m_aIndent.length () - sIndent.length (), m_aIndent.length ());
 
         // add closing tag
-        if (bHasIndent && bHasChildElement)
+        if (eIndentInner.isIndent () && m_aIndent.length () > 0 && bIsFirstChildElement)
           aXMLWriter.onContentElementWhitespace (m_aIndent);
       }
 
       aXMLWriter.onElementEnd (sElementNSPrefix, sTagName, bHasChildren, eBracketMode);
 
-      if (eIndent.isAlign () && bIndentNext)
+      if (eIndentOuter.isAlign () && bIndentNext)
         aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());
     }
     finally

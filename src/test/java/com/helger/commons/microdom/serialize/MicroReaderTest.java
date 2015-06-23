@@ -36,7 +36,6 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.NonBlockingStringReader;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.io.streamprovider.StringInputStreamProvider;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
@@ -287,9 +286,7 @@ public final class MicroReaderTest
     final IMicroDocument aDoc = MicroReader.readMicroXML (s);
     assertNotNull (aDoc);
 
-    final NonBlockingStringWriter aWriter = new NonBlockingStringWriter ();
-    new MicroSerializer (xs).write (aDoc, aWriter);
-    String sXML = aWriter.getAsString ();
+    String sXML = MicroWriter.getNodeAsString (aDoc, xs);
     assertEquals ("<?xml version='1.0' encoding='UTF-8'?>"
                   + "<a1:verrryoot xmlns:a1='uri1'>"
                   + "<a1:root>"
@@ -300,9 +297,7 @@ public final class MicroReaderTest
                   + "</a1:verrryoot>", sXML);
 
     xs.setPutNamespaceContextPrefixesInRoot (true);
-    aWriter.reset ();
-    new MicroSerializer (xs).write (aDoc, aWriter);
-    sXML = aWriter.getAsString ();
+    sXML = MicroWriter.getNodeAsString (aDoc, xs);
     assertEquals ("<?xml version='1.0' encoding='UTF-8'?>"
                   + "<a1:verrryoot xmlns:a1='uri1' xmlns:a2='uri2'>"
                   + "<a1:root>"

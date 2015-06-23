@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 import javax.xml.namespace.QName;
 
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -35,17 +36,43 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class XMLIndentDeterminatorHTML implements IXMLIndentDeterminator
 {
+  private static boolean _isPreOrCode (@Nonnull final String sTagName)
+  {
+    final String sUCTagName = sTagName.toUpperCase (Locale.US);
+    return sUCTagName.equals ("PRE") || sUCTagName.equals ("CODE");
+  }
+
   @Nonnull
-  public EXMLSerializeIndent getIndent (@Nullable final String sNamespacePrefix,
+  public EXMLSerializeIndent getIndentOuter (@Nullable final String sParentNamespaceURI,
+                                             @Nullable final String sParentTagName,
+                                             @Nullable final String sNamespaceURI,
                                              @Nonnull final String sTagName,
                                              @Nullable final Map <QName, String> aAttrs,
                                              final boolean bHasChildren,
                                              @Nonnull final EXMLSerializeIndent eDefaultIndent)
   {
-    final String sUCTagName = sTagName.toUpperCase (Locale.US);
-    if (sUCTagName.equals ("PRE") || sUCTagName.equals ("CODE"))
+    if (StringHelper.hasText (sParentTagName) && _isPreOrCode (sParentTagName))
     {
-      // Never indent or align PRE or CODE tags
+      // Don't indent or align
+      return EXMLSerializeIndent.NONE;
+    }
+
+    // Always use the default
+    return eDefaultIndent;
+  }
+
+  @Nonnull
+  public EXMLSerializeIndent getIndentInner (@Nullable final String sParentNamespaceURI,
+                                             @Nullable final String sParentTagName,
+                                             @Nullable final String sNamespaceURI,
+                                             @Nonnull final String sTagName,
+                                             @Nullable final Map <QName, String> aAttrs,
+                                             final boolean bHasChildren,
+                                             @Nonnull final EXMLSerializeIndent eDefaultIndent)
+  {
+    if (_isPreOrCode (sTagName))
+    {
+      // Don't indent or align
       return EXMLSerializeIndent.NONE;
     }
 

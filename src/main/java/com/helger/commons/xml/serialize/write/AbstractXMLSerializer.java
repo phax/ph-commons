@@ -498,6 +498,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
   }
 
   protected abstract void emitNode (@Nonnull final XMLEmitter aXMLWriter,
+                                    @Nullable final NODETYPE aParentNode,
                                     @Nullable final NODETYPE aPrevSibling,
                                     @Nonnull final NODETYPE aNode,
                                     @Nullable final NODETYPE aNextSibling);
@@ -512,8 +513,9 @@ public abstract class AbstractXMLSerializer <NODETYPE>
 
   public final void write (@Nonnull final NODETYPE aNode, @Nonnull final XMLEmitter aXMLEmitter)
   {
+    // No parent node
     // No previous and no next sibling
-    emitNode (aXMLEmitter, null, aNode, null);
+    emitNode (aXMLEmitter, null, null, aNode, null);
   }
 
   /**
@@ -548,8 +550,9 @@ public abstract class AbstractXMLSerializer <NODETYPE>
   public final void write (@Nonnull final NODETYPE aNode, @Nonnull @WillNotClose final Writer aWriter)
   {
     final XMLEmitter aXMLWriter = createXMLEmitter (aWriter, m_aSettings);
+    // No parent node
     // No previous and no next sibling
-    emitNode (aXMLWriter, null, aNode, null);
+    emitNode (aXMLWriter, null, null, aNode, null);
     // Flush is important for Writer!
     StreamHelper.flush (aWriter);
   }

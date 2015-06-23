@@ -35,12 +35,18 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 public interface IXMLIndentDeterminator
 {
   /**
-   * Determine the indentation mode for an XML element.
+   * Determine the outer indentation mode (before the start tag and after the
+   * closing tag).
    *
-   * @param sNamespacePrefix
-   *        Optional namespace prefix. May be <code>null</code>.
+   * @param sParentNamespaceURI
+   *        Optional namespace URI of the parent element (if any). May be
+   *        <code>null</code>.
+   * @param sParentTagName
+   *        Tag name of the parent element (if any). May be <code>null</code>.
+   * @param sNamespaceURI
+   *        Optional namespace URI. May be <code>null</code>.
    * @param sTagName
-   *        Tag name
+   *        Tag name.
    * @param aAttrs
    *        Optional set of attributes.
    * @param bHasChildren
@@ -51,7 +57,40 @@ public interface IXMLIndentDeterminator
    * @return The indentation mode to be used. May not be <code>null</code>.
    */
   @Nonnull
-  EXMLSerializeIndent getIndent (@Nullable String sNamespacePrefix,
+  EXMLSerializeIndent getIndentOuter (@Nullable String sParentNamespaceURI,
+                                      @Nullable String sParentTagName,
+                                      @Nullable String sNamespaceURI,
+                                      @Nonnull String sTagName,
+                                      @Nullable Map <QName, String> aAttrs,
+                                      boolean bHasChildren,
+                                      @Nonnull EXMLSerializeIndent eDefaultIndent);
+
+  /**
+   * Determine the outer indentation mode (after the start tag and before the
+   * closing tag).
+   *
+   * @param sParentNamespaceURI
+   *        Optional namespace URI of the parent element (if any). May be
+   *        <code>null</code>.
+   * @param sParentTagName
+   *        Tag name of the parent element (if any). May be <code>null</code>.
+   * @param sNamespaceURI
+   *        Optional namespace URI. May be <code>null</code>.
+   * @param sTagName
+   *        Tag name.
+   * @param aAttrs
+   *        Optional set of attributes.
+   * @param bHasChildren
+   *        <code>true</code> if the current element has children
+   * @param eDefaultIndent
+   *        The default indentation mode provided by the
+   *        {@link IXMLWriterSettings}. Never <code>null</code>.
+   * @return The indentation mode to be used. May not be <code>null</code>.
+   */
+  @Nonnull
+  EXMLSerializeIndent getIndentInner (@Nullable String sParentNamespaceURI,
+                                      @Nullable String sParentTagName,
+                                      @Nullable String sNamespaceURI,
                                       @Nonnull String sTagName,
                                       @Nullable Map <QName, String> aAttrs,
                                       boolean bHasChildren,

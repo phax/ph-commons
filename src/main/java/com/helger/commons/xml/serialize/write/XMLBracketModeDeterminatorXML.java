@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class XMLBracketModeDeterminatorXML implements IXMLBracketModeDeterminator
 {
   @Nonnull
-  public EXMLSerializeBracketMode getBracketMode (@Nullable final String sNamespacePrefix,
+  public EXMLSerializeBracketMode getBracketMode (@Nullable final String sNamespaceURI,
                                                   @Nonnull final String sTagName,
                                                   @Nullable final Map <QName, String> aAttrs,
                                                   final boolean bHasChildren)
