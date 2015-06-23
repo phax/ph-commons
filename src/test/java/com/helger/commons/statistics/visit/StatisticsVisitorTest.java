@@ -26,7 +26,7 @@ import com.helger.commons.statistics.visit.StatisticsVisitor;
  * 
  * @author Philip Helger
  */
-public final class StatisticsWalkerTest
+public final class StatisticsVisitorTest
 {
   @Test
   public void testWalkStatistics ()
