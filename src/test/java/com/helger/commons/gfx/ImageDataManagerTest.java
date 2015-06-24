@@ -25,7 +25,7 @@ import com.helger.commons.io.resource.ClassPathResource;
 
 /**
  * Test class for class {@link ImageDataManager}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ImageDataManagerTest
@@ -33,21 +33,21 @@ public final class ImageDataManagerTest
   @Test
   public void testGetImageSize ()
   {
-    assertNull (ImageDataManager.getImageSize (null));
+    assertNull (ImageDataManager.getInstance ().getImageSize (null));
 
     // Valid file
     ClassPathResource aRes = new ClassPathResource ("gfx/bullet_green.gif");
-    assertNotNull (ImageDataManager.getImageSize (aRes));
-    assertNotNull (ImageDataManager.getImageSize (aRes));
+    assertNotNull (ImageDataManager.getInstance ().getImageSize (aRes));
+    assertNotNull (ImageDataManager.getInstance ().getImageSize (aRes));
 
     // Not an image
     aRes = new ClassPathResource ("xml/buildinfo.xml");
-    assertNull (ImageDataManager.getImageSize (aRes));
-    assertNull (ImageDataManager.getImageSize (aRes));
+    assertNull (ImageDataManager.getInstance ().getImageSize (aRes));
+    assertNull (ImageDataManager.getInstance ().getImageSize (aRes));
 
     // Non existing file
     aRes = new ClassPathResource ("gfx/non_existing_file");
-    assertNull (ImageDataManager.getImageSize (aRes));
-    assertNull (ImageDataManager.getImageSize (aRes));
+    assertNull (ImageDataManager.getInstance ().getImageSize (aRes));
+    assertNull (ImageDataManager.getInstance ().getImageSize (aRes));
   }
 }

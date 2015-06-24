@@ -26,6 +26,7 @@ import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
@@ -36,8 +37,8 @@ import javax.imageio.ImageIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.lru.LRUMap;
 import com.helger.commons.dimension.SizeInt;
@@ -56,21 +57,44 @@ import com.helger.commons.statistics.StatisticsManager;
  * @author Philip Helger
  */
 @ThreadSafe
+@Singleton
 public final class ImageDataManager
 {
+  private static final class SingletonHolder
+  {
+    static final ImageDataManager s_aInstance = new ImageDataManager (1000);
+  }
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (ImageDataManager.class);
   private static final IMutableStatisticsHandlerCache s_aStatsHdl = StatisticsManager.getCacheHandler (ImageDataManager.class);
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
-  @GuardedBy ("s_aRWLock")
-  private static final Map <IReadableResource, SizeInt> s_aImageData = new LRUMap <IReadableResource, SizeInt> (1000);
-  @GuardedBy ("s_aRWLock")
-  private static final Set <IReadableResource> s_aNonExistingResources = new HashSet <IReadableResource> ();
+  private static boolean s_bDefaultInstantiated = false;
 
-  @PresentForCodeCoverage
-  private static final ImageDataManager s_aInstance = new ImageDataManager ();
+  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  // The main cache
+  @GuardedBy ("m_aRWLock")
+  private final Map <IReadableResource, SizeInt> m_aImageData;
+  // A cache for all non-existing resources to avoid checking them over and over
+  // again
+  @GuardedBy ("m_aRWLock")
+  private final Set <IReadableResource> m_aNonExistingResources = new HashSet <IReadableResource> ();
 
-  private ImageDataManager ()
-  {}
+  private ImageDataManager (@Nonnegative final int nMaxCacheSize)
+  {
+    m_aImageData = new LRUMap <IReadableResource, SizeInt> (nMaxCacheSize);
+  }
+
+  public static boolean isInstantiated ()
+  {
+    return s_bDefaultInstantiated;
+  }
+
+  @Nonnull
+  public static ImageDataManager getInstance ()
+  {
+    final ImageDataManager ret = SingletonHolder.s_aInstance;
+    s_bDefaultInstantiated = true;
+    return ret;
+  }
 
   @Nullable
   private static SizeInt _readImageData (@Nonnull final IHasInputStream aRes)
@@ -132,7 +156,7 @@ public final class ImageDataManager
   }
 
   @Nullable
-  public static SizeInt getImageSize (@Nullable final IReadableResource aRes)
+  public SizeInt getImageSize (@Nullable final IReadableResource aRes)
   {
     if (aRes == null)
       return null;
@@ -142,11 +166,11 @@ public final class ImageDataManager
      * queried over and over but is not existing. The implementation inserts
      * null values for all elements that are invalid
      */
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
       // Valid image data?
-      final SizeInt aData = s_aImageData.get (aRes);
+      final SizeInt aData = m_aImageData.get (aRes);
       if (aData != null)
       {
         s_aStatsHdl.cacheHit ();
@@ -154,7 +178,7 @@ public final class ImageDataManager
       }
 
       // Known non-existing image data?
-      if (s_aNonExistingResources.contains (aRes))
+      if (m_aNonExistingResources.contains (aRes))
       {
         s_aStatsHdl.cacheHit ();
         return null;
@@ -162,26 +186,26 @@ public final class ImageDataManager
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
 
     // Main read data
     final SizeInt aData = _readImageData (aRes);
 
-    s_aRWLock.writeLock ().lock ();
+    m_aRWLock.writeLock ().lock ();
     try
     {
       // In case the image is invalid (why-so-ever), remember a null value
       if (aData == null)
-        s_aNonExistingResources.add (aRes);
+        m_aNonExistingResources.add (aRes);
       else
-        s_aImageData.put (aRes, aData);
+        m_aImageData.put (aRes, aData);
       s_aStatsHdl.cacheMiss ();
       return aData;
     }
     finally
     {
-      s_aRWLock.writeLock ().unlock ();
+      m_aRWLock.writeLock ().unlock ();
     }
   }
 
@@ -193,24 +217,24 @@ public final class ImageDataManager
    * @return Never <code>null</code>.
    */
   @Nonnull
-  public static EChange clearCachedSize (@Nullable final IReadableResource aRes)
+  public EChange clearCachedSize (@Nullable final IReadableResource aRes)
   {
     if (aRes != null)
     {
-      s_aRWLock.writeLock ().lock ();
+      m_aRWLock.writeLock ().lock ();
       try
       {
         // Existing resource?
-        if (s_aImageData.remove (aRes) != null)
+        if (m_aImageData.remove (aRes) != null)
           return EChange.CHANGED;
 
         // Non-existing resource?
-        if (s_aNonExistingResources.remove (aRes))
+        if (m_aNonExistingResources.remove (aRes))
           return EChange.CHANGED;
       }
       finally
       {
-        s_aRWLock.writeLock ().unlock ();
+        m_aRWLock.writeLock ().unlock ();
       }
     }
     return EChange.UNCHANGED;
@@ -222,53 +246,54 @@ public final class ImageDataManager
    * @return {@link EChange} - never null
    */
   @Nonnull
-  public static EChange clearCache ()
+  public EChange clearCache ()
   {
-    s_aRWLock.writeLock ().lock ();
+    m_aRWLock.writeLock ().lock ();
     try
     {
-      if (s_aImageData.isEmpty () && s_aNonExistingResources.isEmpty ())
+      if (m_aImageData.isEmpty () && m_aNonExistingResources.isEmpty ())
         return EChange.UNCHANGED;
 
-      s_aImageData.clear ();
-      s_aNonExistingResources.clear ();
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Cache was cleared: " + ImageDataManager.class.getName ());
-      return EChange.CHANGED;
+      m_aImageData.clear ();
+      m_aNonExistingResources.clear ();
     }
     finally
     {
-      s_aRWLock.writeLock ().unlock ();
+      m_aRWLock.writeLock ().unlock ();
+    }
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Cache was cleared: " + ImageDataManager.class.getName ());
+    return EChange.CHANGED;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public Map <IReadableResource, SizeInt> getAllCachedSizes ()
+  {
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return CollectionHelper.newMap (m_aImageData);
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
     }
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <IReadableResource, SizeInt> getAllCachedSizes ()
+  public Set <IReadableResource> getAllNotExistingResources ()
   {
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
-      return CollectionHelper.newMap (s_aImageData);
+      return CollectionHelper.newSet (m_aNonExistingResources);
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
-    }
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Set <IReadableResource> getAllNotExistingResources ()
-  {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newSet (s_aNonExistingResources);
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
   }
 }

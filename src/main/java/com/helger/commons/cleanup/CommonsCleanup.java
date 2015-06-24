@@ -85,7 +85,8 @@ public final class CommonsCleanup
       URLProtocolRegistry.getInstance ().reinitialize ();
 
     // Clear caches
-    ImageDataManager.clearCache ();
+    if (ImageDataManager.isInstantiated ())
+      ImageDataManager.getInstance ().clearCache ();
     DefaultTextResolver.clearCache ();
     EnumHelper.clearCache ();
     ResourceBundleHelper.clearCache ();
