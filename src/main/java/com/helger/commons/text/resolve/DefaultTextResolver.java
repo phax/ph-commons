@@ -17,14 +17,12 @@
 package com.helger.commons.text.resolve;
 
 import java.util.Locale;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.text.IHasText;
 import com.helger.commons.text.IHasTextWithArgs;
 
@@ -45,14 +43,10 @@ public final class DefaultTextResolver
   private DefaultTextResolver ()
   {}
 
-  public static boolean isUseResourceBundleCache ()
+  @Nonnull
+  public static EnumTextResolverWithPropertiesOverrideAndFallback getInternalResolver ()
   {
-    return s_aResolver.isUseResourceBundleCache ();
-  }
-
-  public static void setUseResourceBundleCache (final boolean bUseResourceBundleCache)
-  {
-    s_aResolver.setUseResourceBundleCache (bUseResourceBundleCache);
+    return s_aResolver;
   }
 
   /**
@@ -97,20 +91,6 @@ public final class DefaultTextResolver
                                         @Nullable final Object [] aArgs)
   {
     return s_aResolver.getTextWithArgs (aEnum, aTP, aContentLocale, aArgs);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Set <String> getAllUsedOverrideBundleNames ()
-  {
-    return s_aResolver.getAllUsedOverrideBundleNames ();
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Set <String> getAllUsedFallbackBundleNames ()
-  {
-    return s_aResolver.getAllUsedFallbackBundleNames ();
   }
 
   public static void clearCache ()

@@ -16,6 +16,8 @@
  */
 package com.helger.commons.thirdparty;
 
+import java.io.Serializable;
+
 import javax.annotation.Nullable;
 
 import com.helger.commons.id.IHasID;
@@ -24,10 +26,10 @@ import com.helger.commons.version.IHasVersion;
 
 /**
  * Represents a single license.
- * 
+ *
  * @author Philip Helger
  */
-public interface ILicense extends IHasID <String>, IHasDisplayName, IHasVersion
+public interface ILicense extends IHasID <String>, IHasDisplayName, IHasVersion, Serializable
 {
   @Nullable
   String getURL ();

@@ -16,6 +16,14 @@
  */
 package com.helger.commons.supplementary.test;
 
+import com.helger.commons.thread.ThreadHelper;
+
+/**
+ * Determine the maximum number of threads to be created. Warning: may
+ * potentially crash your system :)
+ * 
+ * @author Philip Helger
+ */
 public final class MainMaxThreadCount
 {
   private MainMaxThreadCount ()
@@ -30,22 +38,17 @@ public final class MainMaxThreadCount
     public void run ()
     {
       while (true)
-        try
-        {
-          Thread.sleep (60000);
-        }
-        catch (final InterruptedException e)
-        {}
+        ThreadHelper.sleep (60000);
     }
   }
 
   public static void main (final String [] aArgs)
   {
-    long count = 0;
+    long nCount = 0;
     while (true)
     {
       new TestThread ().start ();
-      System.out.println ("Started #" + ++count);
+      System.out.println ("Started #" + ++nCount);
     }
   }
 }

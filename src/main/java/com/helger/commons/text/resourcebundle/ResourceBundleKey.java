@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class ResourceBundleKey implements Serializable
+public class ResourceBundleKey implements Serializable
 {
   private final String m_sBundleName;
   private final String m_sKey;

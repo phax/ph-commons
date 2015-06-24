@@ -39,6 +39,9 @@ import com.helger.commons.text.util.TextHelper;
 @ThreadSafe
 public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements IEnumTextResolver
 {
+  public static final boolean DEFAULT_CHECK_FOR_OVERRIDE = true;
+  public static final boolean DEFAULT_CHECK_FOR_FALLBACK = true;
+
   private static final IMutableStatisticsHandlerKeyedCounter s_aStatsGetText = StatisticsManager.getKeyedCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
                                                                                                                          "$getText");
   private static final IMutableStatisticsHandlerKeyedCounter s_aStatsGetTextWithArgs = StatisticsManager.getKeyedCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
@@ -48,8 +51,33 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
   private static final IMutableStatisticsHandlerCounter s_aStatsFallback = StatisticsManager.getCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
                                                                                                                 "$FALLBACK");
 
+  private boolean m_bCheckForOverride = DEFAULT_CHECK_FOR_OVERRIDE;
+  private boolean m_bCheckForFallback = DEFAULT_CHECK_FOR_FALLBACK;
+
+  public final boolean isCheckForOverride ()
+  {
+    return m_bCheckForOverride;
+  }
+
+  public final void setCheckForOverride (final boolean bCheckForOverride)
+  {
+    m_bCheckForOverride = bCheckForOverride;
+  }
+
+  public final boolean isCheckForFallback ()
+  {
+    return m_bCheckForFallback;
+  }
+
+  public final void setCheckForFallback (final boolean bCheckForFallback)
+  {
+    m_bCheckForFallback = bCheckForFallback;
+  }
+
   /**
-   * This method must return the override string for the passed parameters.
+   * This method must return the override string for the passed parameters. This
+   * method is only called if {@link #isCheckForOverride()} is <code>true</code>
+   * .
    *
    * @param sID
    *        Unique string ID
@@ -61,7 +89,9 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
   protected abstract String internalGetOverrideString (@Nonnull String sID, @Nonnull Locale aContentLocale);
 
   /**
-   * This method must return the fallback string for the passed parameters.
+   * This method must return the fallback string for the passed parameters. This
+   * method is only called if {@link #isCheckForFallback()} is <code>true</code>
+   * .
    *
    * @param sID
    *        Unique string ID
@@ -80,30 +110,37 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
   {
     // Get the unique text element ID
     final String sID = EnumHelper.getEnumID (aEnum);
-    // Increment the statistics
+
+    // Increment the statistics first
     (bIsWithArgs ? s_aStatsGetTextWithArgs : s_aStatsGetText).increment (sID);
 
-    // Is there an override available?
-    String ret = internalGetOverrideString (sID, aContentLocale);
-    if (ret != null)
+    if (m_bCheckForOverride)
     {
-      // An override string was found!
-      s_aStatsOverride.increment ();
-    }
-    else
-    {
-      // No override was found
-      // -> Try to get the text from the text provider
-      ret = aTP.getText (aContentLocale);
-      if (ret == null)
+      // Is there an override available?
+      final String ret = internalGetOverrideString (sID, aContentLocale);
+      if (ret != null)
       {
-        // The text was not found -> try the fallback (e.g. for different
-        // locale)
-        s_aStatsFallback.increment ();
-        ret = internalGetFallbackString (sID, aContentLocale);
+        // An override string was found!
+        s_aStatsOverride.increment ();
+        return ret;
       }
     }
-    return ret;
+
+    // No override was found (or disabled)
+    // -> Try to get the text from the text provider directly
+    final String ret = aTP.getText (aContentLocale);
+    if (ret != null)
+      return ret;
+
+    if (m_bCheckForFallback)
+    {
+      // The text was not found -> try the fallback (e.g. for different
+      // locale)
+      s_aStatsFallback.increment ();
+      return internalGetFallbackString (sID, aContentLocale);
+    }
+
+    return null;
   }
 
   @Nullable
