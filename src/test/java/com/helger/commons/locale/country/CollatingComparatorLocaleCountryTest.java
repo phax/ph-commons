@@ -34,7 +34,7 @@ public final class CollatingComparatorLocaleCountryTest extends AbstractCommonsT
   @Test
   public void testSort ()
   {
-    assertNotNull (CollectionHelper.getSorted (LocaleCache.getAllLocales (),
+    assertNotNull (CollectionHelper.getSorted (LocaleCache.getInstance ().getAllLocales (),
                                                new CollatingComparatorLocaleCountry (L_DE)));
   }
 }

@@ -74,8 +74,8 @@ public final class LocaleHelperTest extends AbstractCommonsTestCase
   @Test
   public void testGetAllLocaleDisplayNames ()
   {
-    assertNotNull (LocaleHelper.getAllLocaleDisplayNames (LocaleCache.getLocale ("de")));
-    assertFalse (LocaleHelper.getAllLocaleDisplayNames (LocaleCache.getLocale ("de")).isEmpty ());
+    assertNotNull (LocaleHelper.getAllLocaleDisplayNames (LocaleCache.getInstance ().getLocale ("de")));
+    assertFalse (LocaleHelper.getAllLocaleDisplayNames (LocaleCache.getInstance ().getLocale ("de")).isEmpty ());
   }
 
   @Test
@@ -95,25 +95,25 @@ public final class LocaleHelperTest extends AbstractCommonsTestCase
     assertEquals (0, aList.size ());
 
     // Only the language
-    aList = LocaleHelper.getCalculatedLocaleListForResolving (LocaleCache.getLocale ("de"));
+    aList = LocaleHelper.getCalculatedLocaleListForResolving (LocaleCache.getInstance ().getLocale ("de"));
     assertNotNull (aList);
     assertEquals (1, aList.size ());
-    assertEquals (LocaleCache.getLocale ("de"), aList.get (0));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de"), aList.get (0));
 
     // Language + country
-    aList = LocaleHelper.getCalculatedLocaleListForResolving (LocaleCache.getLocale ("de", "AT"));
+    aList = LocaleHelper.getCalculatedLocaleListForResolving (LocaleCache.getInstance ().getLocale ("de", "AT"));
     assertNotNull (aList);
     assertEquals (2, aList.size ());
-    assertEquals (LocaleCache.getLocale ("de", "AT"), aList.get (0));
-    assertEquals (LocaleCache.getLocale ("de"), aList.get (1));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de", "AT"), aList.get (0));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de"), aList.get (1));
 
     // Language + country + Variant
-    aList = LocaleHelper.getCalculatedLocaleListForResolving (LocaleCache.getLocale ("de", "AT", "Wien"));
+    aList = LocaleHelper.getCalculatedLocaleListForResolving (LocaleCache.getInstance ().getLocale ("de", "AT", "Wien"));
     assertNotNull (aList);
     assertEquals (3, aList.size ());
-    assertEquals (LocaleCache.getLocale ("de", "AT", "Wien"), aList.get (0));
-    assertEquals (LocaleCache.getLocale ("de", "AT"), aList.get (1));
-    assertEquals (LocaleCache.getLocale ("de"), aList.get (2));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de", "AT", "Wien"), aList.get (0));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de", "AT"), aList.get (1));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de"), aList.get (2));
 
     // No language - only country
     aList = LocaleHelper.getCalculatedLocaleListForResolving (new Locale ("", "AT"));
@@ -130,18 +130,23 @@ public final class LocaleHelperTest extends AbstractCommonsTestCase
   public void testGetLocaleFromString ()
   {
     assertEquals (SystemHelper.getSystemLocale (), LocaleHelper.getLocaleFromString (""));
-    assertEquals (LocaleCache.getLocale ("de"), LocaleHelper.getLocaleFromString ("de"));
-    assertEquals (LocaleCache.getLocale ("de"), LocaleHelper.getLocaleFromString ("DE"));
-    assertEquals (LocaleCache.getLocale ("de", "AT"), LocaleHelper.getLocaleFromString ("de_AT"));
-    assertEquals (LocaleCache.getLocale ("de", "AT"), LocaleHelper.getLocaleFromString ("de_at"));
-    assertEquals (LocaleCache.getLocale ("de", "AT"), LocaleHelper.getLocaleFromString ("de_at"));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de"), LocaleHelper.getLocaleFromString ("de"));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de"), LocaleHelper.getLocaleFromString ("DE"));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de", "AT"), LocaleHelper.getLocaleFromString ("de_AT"));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de", "AT"), LocaleHelper.getLocaleFromString ("de_at"));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de", "AT"), LocaleHelper.getLocaleFromString ("de_at"));
     // only variant is not allowed!
-    assertEquals (LocaleCache.getLocale ("", "", ""), LocaleHelper.getLocaleFromString ("__wien"));
-    assertEquals (LocaleCache.getLocale ("de", "AT", "WIEN"), LocaleHelper.getLocaleFromString ("de_at_wien"));
-    assertEquals (LocaleCache.getLocale ("de", "", "WIEN"), LocaleHelper.getLocaleFromString ("de__wien"));
-    assertEquals (LocaleCache.getLocale ("", "AT", "WIEN"), LocaleHelper.getLocaleFromString ("_at_wien"));
-    assertEquals (LocaleCache.getLocale ("", "AT", "WIEN"), LocaleHelper.getLocaleFromString ("dee_at_wien"));
-    assertEquals (LocaleCache.getLocale ("de", "", "WIEN"), LocaleHelper.getLocaleFromString ("de_att_wien"));
+    assertEquals (LocaleCache.getInstance ().getLocale ("", "", ""), LocaleHelper.getLocaleFromString ("__wien"));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de", "AT", "WIEN"),
+                  LocaleHelper.getLocaleFromString ("de_at_wien"));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de", "", "WIEN"),
+                  LocaleHelper.getLocaleFromString ("de__wien"));
+    assertEquals (LocaleCache.getInstance ().getLocale ("", "AT", "WIEN"),
+                  LocaleHelper.getLocaleFromString ("_at_wien"));
+    assertEquals (LocaleCache.getInstance ().getLocale ("", "AT", "WIEN"),
+                  LocaleHelper.getLocaleFromString ("dee_at_wien"));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de", "", "WIEN"),
+                  LocaleHelper.getLocaleFromString ("de_att_wien"));
   }
 
   @Test
@@ -183,7 +188,7 @@ public final class LocaleHelperTest extends AbstractCommonsTestCase
     assertTrue (LocaleHelper.isSpecialLocale (CGlobal.LOCALE_ALL));
     assertTrue (LocaleHelper.isSpecialLocale (CGlobal.LOCALE_INDEPENDENT));
     assertFalse (LocaleHelper.isSpecialLocale (null));
-    assertFalse (LocaleHelper.isSpecialLocale (LocaleCache.getLocale ("de")));
+    assertFalse (LocaleHelper.isSpecialLocale (LocaleCache.getInstance ().getLocale ("de")));
   }
 
   @Test

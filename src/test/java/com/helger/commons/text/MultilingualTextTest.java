@@ -23,9 +23,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 import org.junit.Test;
 
@@ -152,21 +150,6 @@ public final class MultilingualTextTest extends AbstractCommonsTestCase
   {
     final IMutableMultilingualText aMLT = new MultilingualText ();
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMLT, new MultilingualText ());
-  }
-
-  @Test
-  public void testCreateFromRequest ()
-  {
-    final Map <String, String> aParamNames = new HashMap <String, String> ();
-    IMultilingualText aMLT = MultilingualText.createFromMap (aParamNames);
-    assertEquals (aMLT.getSize (), 0);
-
-    aParamNames.put ("de", "x");
-    aParamNames.put ("en", "y");
-    aMLT = MultilingualText.createFromMap (aParamNames);
-    assertEquals (aMLT.getSize (), 2);
-    assertEquals (aMLT.getText (L_DE), "x");
-    assertEquals (aMLT.getText (L_EN), "y");
   }
 
   @Test

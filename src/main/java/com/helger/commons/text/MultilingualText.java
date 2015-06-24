@@ -19,13 +19,11 @@ package com.helger.commons.text;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.locale.LocaleCache;
 
 /**
  * This class represents a multilingual text. It is internally represented as a
@@ -58,20 +56,5 @@ public class MultilingualText extends AbstractMapBasedMultilingualText
 
     for (final Map.Entry <Locale, String> aEntry : aMLT.getAllTexts ().entrySet ())
       internalAddText (aEntry);
-  }
-
-  @Nonnull
-  public static MultilingualText createFromMap (@Nonnull final Map <String, String> aMap)
-  {
-    ValueEnforcer.notNull (aMap, "Map");
-
-    final MultilingualText ret = new MultilingualText ();
-    for (final Entry <String, String> aEntry : aMap.entrySet ())
-    {
-      final String sText = aEntry.getValue ();
-      if (sText != null)
-        ret.setText (LocaleCache.getLocale (aEntry.getKey ()), sText);
-    }
-    return ret;
   }
 }

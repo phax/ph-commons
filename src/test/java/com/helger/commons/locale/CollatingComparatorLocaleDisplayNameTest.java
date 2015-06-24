@@ -36,7 +36,7 @@ public final class CollatingComparatorLocaleDisplayNameTest extends AbstractComm
   @Test
   public void testAll ()
   {
-    final Set <Locale> aAll = LocaleCache.getAllLocales ();
+    final Set <Locale> aAll = LocaleCache.getInstance ().getAllLocales ();
     assertEquals (aAll.size (), CollectionHelper.getSorted (aAll, new CollatingComparatorLocaleDisplayName (L_DE))
                                                 .size ());
   }

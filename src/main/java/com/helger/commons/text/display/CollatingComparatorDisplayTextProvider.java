@@ -80,12 +80,20 @@ public class CollatingComparatorDisplayTextProvider <DATATYPE> extends AbstractC
     m_aContentLocale = ValueEnforcer.notNull (aContentLocale, "ContentLocale");
   }
 
+  /**
+   * @return The display text provider passed in the constructor. Never
+   *         <code>null</code>.
+   */
   @Nonnull
   public IDisplayTextProvider <DATATYPE> getDisplayTextProvider ()
   {
     return m_aDisplayTextProvider;
   }
 
+  /**
+   * @return The content locale provided in the constructor. Never
+   *         <code>null</code>.
+   */
   @Nonnull
   public Locale getContentLocale ()
   {

@@ -60,7 +60,7 @@ public class JavaCollatorFuncTest
     aSet.add ("A A");
     aSet.add ("AA A");
 
-    final Locale aLocale = LocaleCache.getLocale ("de_DE");
+    final Locale aLocale = LocaleCache.getInstance ().getLocale ("de_DE");
 
     for (final String s : CollectionHelper.getSorted (aSet, new CollatingComparator (Locale.US)))
     {

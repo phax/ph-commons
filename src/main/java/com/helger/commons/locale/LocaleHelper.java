@@ -75,18 +75,20 @@ public final class LocaleHelper
       final String sLanguage = aBaseLocale.getLanguage ();
       if (sLanguage.length () > 0)
       {
+        final LocaleCache aLC = LocaleCache.getInstance ();
+
         // Use only the language
-        ret.add (0, LocaleCache.getLocale (sLanguage));
+        ret.add (0, aLC.getLocale (sLanguage));
         final String sCountry = aBaseLocale.getCountry ();
         if (sCountry.length () > 0)
         {
           // Use language + country
-          ret.add (0, LocaleCache.getLocale (sLanguage, sCountry));
+          ret.add (0, aLC.getLocale (sLanguage, sCountry));
           final String sVariant = aBaseLocale.getVariant ();
           if (sVariant.length () > 0)
           {
             // Use language + country + variant
-            ret.add (0, LocaleCache.getLocale (sLanguage, sCountry, sVariant));
+            ret.add (0, aLC.getLocale (sLanguage, sCountry, sVariant));
           }
         }
       }
@@ -161,7 +163,7 @@ public final class LocaleHelper
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
     final Map <Locale, String> ret = new HashMap <Locale, String> ();
-    for (final Locale aCurLocale : LocaleCache.getAllLocales ())
+    for (final Locale aCurLocale : LocaleCache.getInstance ().getAllLocales ())
       ret.put (aCurLocale, getLocaleDisplayName (aCurLocale, aContentLocale));
     return ret;
   }
@@ -268,7 +270,7 @@ public final class LocaleHelper
       sVariant = "";
 
     // And now resolve using the locale cache
-    return LocaleCache.getLocale (sLanguage, sCountry, sVariant);
+    return LocaleCache.getInstance ().getLocale (sLanguage, sCountry, sVariant);
   }
 
   @Nullable

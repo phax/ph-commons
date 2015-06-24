@@ -22,12 +22,15 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.junit.Test;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.MultilingualText;
 
 /**
@@ -66,5 +69,20 @@ public final class TextHelperTest extends AbstractCommonsTestCase
 
     assertTrue (aMLT.containsLocale (Locale.ENGLISH));
     assertTrue (aMLT.containsLocale (Locale.GERMAN));
+  }
+
+  @Test
+  public void testCreateMultilingualTextFromMap ()
+  {
+    final Map <String, String> aParamNames = new HashMap <String, String> ();
+    IMultilingualText aMLT = TextHelper.createMultilingualTextFromMap (aParamNames);
+    assertEquals (aMLT.getSize (), 0);
+
+    aParamNames.put ("de", "x");
+    aParamNames.put ("en", "y");
+    aMLT = TextHelper.createMultilingualTextFromMap (aParamNames);
+    assertEquals (aMLT.getSize (), 2);
+    assertEquals (aMLT.getText (L_DE), "x");
+    assertEquals (aMLT.getText (L_EN), "y");
   }
 }

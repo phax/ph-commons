@@ -130,8 +130,9 @@ public final class MimeTypeDeterminator
   @Nonnull
   public static MimeTypeDeterminator getInstance ()
   {
+    final MimeTypeDeterminator ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
-    return SingletonHolder.s_aInstance;
+    return ret;
   }
 
   /**

@@ -71,8 +71,8 @@ public final class CountryCacheTest
 
     assertEquals (CountryCache.getInstance ().getCountry ("ch"),
                   CountryCache.getInstance ().getCountry (new Locale ("de", "ch")));
-    assertEquals (LocaleCache.getLocale ("", "AT", ""), CountryCache.getInstance ().getCountry ("_AT"));
-    assertEquals (LocaleCache.getLocale ("", "AT", ""), CountryCache.getInstance ().getCountry ("de_AT"));
+    assertEquals (LocaleCache.getInstance ().getLocale ("", "AT", ""), CountryCache.getInstance ().getCountry ("_AT"));
+    assertEquals (LocaleCache.getInstance ().getLocale ("", "AT", ""), CountryCache.getInstance ().getCountry ("de_AT"));
     assertEquals (CountryCache.getInstance ().getCountry ("AT"),
                   CountryCache.getInstance ().getCountry (CountryCache.getInstance ().getCountry ("AT").toString ()));
     for (final String sLocale : CountryCache.getInstance ().getAllCountries ())
@@ -124,14 +124,14 @@ public final class CountryCacheTest
   public void testResetCache ()
   {
     // is always cleaned along with locale cache!
-    LocaleCache.resetCache ();
+    LocaleCache.getInstance ().resetCache ();
     CountryCache.getInstance ().resetCache ();
     final int nCount = CountryCache.getInstance ().getAllCountries ().size ();
     CountryCache.getInstance ().addCountry ("123");
     assertTrue (CountryCache.getInstance ().containsCountry ("123"));
     assertEquals (nCount + 1, CountryCache.getInstance ().getAllCountries ().size ());
     // is always cleaned along with locale cache!
-    LocaleCache.resetCache ();
+    LocaleCache.getInstance ().resetCache ();
     CountryCache.getInstance ().resetCache ();
     assertEquals (nCount, CountryCache.getInstance ().getAllCountries ().size ());
   }

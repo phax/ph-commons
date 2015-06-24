@@ -69,6 +69,10 @@ public class CollatingComparatorHasDisplayText <DATATYPE extends IHasDisplayText
     m_aContentLocale = ValueEnforcer.notNull (aContentLocale, "ContentLocale");
   }
 
+  /**
+   * @return The content locale provided in the constructor. Never
+   *         <code>null</code>.
+   */
   @Nonnull
   public Locale getContentLocale ()
   {

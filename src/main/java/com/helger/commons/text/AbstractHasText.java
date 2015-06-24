@@ -45,10 +45,11 @@ public abstract class AbstractHasText implements IHasText
   protected abstract Locale internalGetLocaleToUseWithFallback (@Nonnull Locale aContentLocale);
 
   /**
-   * Main text resolving
+   * Main text resolving. Get the text in the passed locale.
    *
    * @param aContentLocale
-   *        Locale to use. Never <code>null</code>.
+   *        Locale to use. This is the locale resolved internally. Never
+   *        <code>null</code>.
    * @return <code>null</code> if no such text present in the passed locale
    */
   @Nullable

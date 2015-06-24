@@ -36,7 +36,7 @@ public final class ComparatorLocaleTest extends AbstractCommonsTestCase
   @Test
   public void testAll ()
   {
-    final Set <Locale> aAll = LocaleCache.getAllLocales ();
+    final Set <Locale> aAll = LocaleCache.getInstance ().getAllLocales ();
     assertEquals (aAll.size (), CollectionHelper.getSorted (aAll, new ComparatorLocale ()).size ());
   }
 }

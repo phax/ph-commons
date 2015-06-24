@@ -75,13 +75,14 @@ public final class CountryCache
   @Nonnull
   public static CountryCache getInstance ()
   {
+    final CountryCache ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
-    return SingletonHolder.s_aInstance;
+    return ret;
   }
 
   private void _initialFillCache ()
   {
-    for (final Locale aLocale : LocaleCache.getAllLocales ())
+    for (final Locale aLocale : LocaleCache.getInstance ().getAllLocales ())
     {
       final String sCountry = aLocale.getCountry ();
       if (StringHelper.hasText (sCountry))
@@ -125,12 +126,12 @@ public final class CountryCache
     // Was something like "_AT" (e.g. the result of getCountry (...).toString
     // ()) passed in? -> indirect recursion
     if (sCountry.indexOf (CGlobal.LOCALE_SEPARATOR) >= 0)
-      return getCountry (LocaleCache.getLocale (sCountry));
+      return getCountry (LocaleCache.getInstance ().getLocale (sCountry));
 
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
     if (!containsCountry (sValidCountry))
       s_aLogger.warn ("Trying to retrieve unsupported country " + sCountry);
-    return LocaleCache.getLocale ("", sValidCountry, "");
+    return LocaleCache.getInstance ().getLocale ("", sValidCountry, "");
   }
 
   /**
@@ -160,7 +161,7 @@ public final class CountryCache
   {
     final Set <Locale> ret = new HashSet <Locale> ();
     for (final String sCountry : getAllCountries ())
-      ret.add (LocaleCache.getLocale ("", sCountry, ""));
+      ret.add (LocaleCache.getInstance ().getLocale ("", sCountry, ""));
     return ret;
   }
 

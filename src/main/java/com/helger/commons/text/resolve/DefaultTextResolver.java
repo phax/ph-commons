@@ -93,6 +93,9 @@ public final class DefaultTextResolver
     return s_aResolver.getTextWithArgs (aEnum, aTP, aContentLocale, aArgs);
   }
 
+  /**
+   * Clear the cache.
+   */
   public static void clearCache ()
   {
     s_aResolver.clearCache ();

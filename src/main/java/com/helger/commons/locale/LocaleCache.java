@@ -32,7 +32,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.string.StringHelper;
@@ -47,23 +46,25 @@ import com.helger.commons.string.StringHelper;
 @ThreadSafe
 public final class LocaleCache
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LocaleCache.class);
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
-
-  /** maps a string to a locale. */
-  private static final Map <String, Locale> s_aLocales = new HashMap <String, Locale> ();
-
-  static
+  private static final class SingletonHolder
   {
-    _initialFillCache ();
+    static final LocaleCache s_aInstance = new LocaleCache ();
   }
 
-  private static void _initialAdd (@Nonnull final Locale aLocale)
+  private static final Logger s_aLogger = LoggerFactory.getLogger (LocaleCache.class);
+  private static boolean s_bDefaultInstantiated = false;
+
+  private final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+
+  /** maps a string to a locale. */
+  private final Map <String, Locale> s_aLocales = new HashMap <String, Locale> ();
+
+  private void _initialAdd (@Nonnull final Locale aLocale)
   {
     s_aLocales.put (aLocale.toString (), aLocale);
   }
 
-  private static void _initialFillCache ()
+  private void _initialFillCache ()
   {
     // add pseudo locales
     _initialAdd (CGlobal.LOCALE_ALL);
@@ -80,11 +81,23 @@ public final class LocaleCache
       _initialAdd (new Locale (sLanguage, ""));
   }
 
-  @PresentForCodeCoverage
-  private static final LocaleCache s_aInstance = new LocaleCache ();
-
   private LocaleCache ()
-  {}
+  {
+    _initialFillCache ();
+  }
+
+  public static boolean isInstantiated ()
+  {
+    return s_bDefaultInstantiated;
+  }
+
+  @Nonnull
+  public static LocaleCache getInstance ()
+  {
+    final LocaleCache ret = SingletonHolder.s_aInstance;
+    s_bDefaultInstantiated = true;
+    return ret;
+  }
 
   /**
    * Get the {@link Locale} object matching the given language.
@@ -95,7 +108,7 @@ public final class LocaleCache
    *         <code>null</code> or empty
    */
   @Nullable
-  public static Locale getLocale (@Nullable final String sLanguage)
+  public Locale getLocale (@Nullable final String sLanguage)
   {
     if (sLanguage != null && sLanguage.length () > 2)
     {
@@ -121,7 +134,7 @@ public final class LocaleCache
    *         <code>null</code> or empty
    */
   @Nullable
-  public static Locale getLocale (@Nullable final String sLanguage, @Nullable final String sCountry)
+  public Locale getLocale (@Nullable final String sLanguage, @Nullable final String sCountry)
   {
     return getLocale (sLanguage, sCountry, "");
   }
@@ -166,9 +179,9 @@ public final class LocaleCache
    *         <code>null</code> or empty
    */
   @Nullable
-  public static Locale getLocale (@Nullable final String sLanguage,
-                                  @Nullable final String sCountry,
-                                  @Nullable final String sVariant)
+  public Locale getLocale (@Nullable final String sLanguage,
+                           @Nullable final String sCountry,
+                           @Nullable final String sVariant)
   {
     final String sRealLanguage = StringHelper.getNotNull (LocaleHelper.getValidLanguageCode (sLanguage));
     final String sRealCountry = StringHelper.getNotNull (LocaleHelper.getValidCountryCode (sCountry));
@@ -219,7 +232,7 @@ public final class LocaleCache
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Locale> getAllLocales ()
+  public Set <Locale> getAllLocales ()
   {
     s_aRWLock.readLock ().lock ();
     try
@@ -242,7 +255,7 @@ public final class LocaleCache
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Locale> getAllLanguages ()
+  public Set <Locale> getAllLanguages ()
   {
     final Set <Locale> ret = new HashSet <Locale> ();
     for (final Locale aLocale : getAllLocales ())
@@ -262,7 +275,7 @@ public final class LocaleCache
    * @return <code>true</code> if it is in the cache, <code>false</code>
    *         otherwise.
    */
-  public static boolean containsLocale (@Nullable final String sLanguage)
+  public boolean containsLocale (@Nullable final String sLanguage)
   {
     if (sLanguage != null && sLanguage.length () > 2)
     {
@@ -287,7 +300,7 @@ public final class LocaleCache
    * @return <code>true</code> if it is in the cache, <code>false</code>
    *         otherwise.
    */
-  public static boolean containsLocale (@Nullable final String sLanguage, @Nullable final String sCountry)
+  public boolean containsLocale (@Nullable final String sLanguage, @Nullable final String sCountry)
   {
     return containsLocale (sLanguage, sCountry, "");
   }
@@ -315,9 +328,9 @@ public final class LocaleCache
    * @return <code>true</code> if it is in the cache, <code>false</code>
    *         otherwise.
    */
-  public static boolean containsLocale (@Nullable final String sLanguage,
-                                        @Nullable final String sCountry,
-                                        @Nullable final String sVariant)
+  public boolean containsLocale (@Nullable final String sLanguage,
+                                 @Nullable final String sCountry,
+                                 @Nullable final String sVariant)
   {
     final String sLocaleKey = _createLocaleKey (sLanguage, sCountry, sVariant);
     if (sLocaleKey.length () == 0)
@@ -336,7 +349,7 @@ public final class LocaleCache
   /**
    * Reset the cache to the initial state.
    */
-  public static void resetCache ()
+  public void resetCache ()
   {
     s_aRWLock.writeLock ().lock ();
     try

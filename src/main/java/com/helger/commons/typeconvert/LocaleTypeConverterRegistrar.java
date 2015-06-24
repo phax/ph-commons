@@ -40,7 +40,7 @@ public final class LocaleTypeConverterRegistrar implements ITypeConverterRegistr
       final String sSource = (String) aSource;
       if ("".equals (sSource))
         return Locale.ROOT;
-      return LocaleCache.getLocale (sSource);
+      return LocaleCache.getInstance ().getLocale (sSource);
     }
   }
 

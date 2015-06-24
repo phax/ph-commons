@@ -65,7 +65,8 @@ public final class CommonsCleanup
   public static void cleanup ()
   {
     // Reset caches to the default values
-    LocaleCache.resetCache ();
+    if (LocaleCache.isInstantiated ())
+      LocaleCache.getInstance ().resetCache ();
     if (CountryCache.isInstantiated ())
       CountryCache.getInstance ().resetCache ();
     if (MimeTypeDeterminator.isInstantiated ())

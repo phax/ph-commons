@@ -263,7 +263,7 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   public void testLocale ()
   {
     // Check if conversion works for all locales
-    for (final Locale aLocale : LocaleCache.getAllLocales ())
+    for (final Locale aLocale : LocaleCache.getInstance ().getAllLocales ())
     {
       final String sLocale = TypeConverter.convertIfNecessary (aLocale, String.class);
       assertNotNull (aLocale.toString (), sLocale);

@@ -34,7 +34,7 @@ public final class CollatingComparatorLocaleDisplayCountryNativeTest extends Abs
   @Test
   public void testSort ()
   {
-    assertNotNull (CollectionHelper.getSorted (LocaleCache.getAllLocales (),
+    assertNotNull (CollectionHelper.getSorted (LocaleCache.getInstance ().getAllLocales (),
                                                new CollatingComparatorLocaleDisplayCountryNative (L_DE)));
   }
 }

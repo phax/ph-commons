@@ -41,44 +41,44 @@ public final class LocaleCacheTest extends AbstractCommonsTestCase
   @Test
   public void testGet ()
   {
-    assertNotNull (LocaleCache.getLocale ("de"));
-    assertNotNull (LocaleCache.getLocale ("de_at"));
-    assertNotNull (LocaleCache.getLocale ("de_surely_not_known"));
-    assertNull (LocaleCache.getLocale (null));
-    assertNull (LocaleCache.getLocale (""));
+    assertNotNull (LocaleCache.getInstance ().getLocale ("de"));
+    assertNotNull (LocaleCache.getInstance ().getLocale ("de_at"));
+    assertNotNull (LocaleCache.getInstance ().getLocale ("de_surely_not_known"));
+    assertNull (LocaleCache.getInstance ().getLocale (null));
+    assertNull (LocaleCache.getInstance ().getLocale (""));
 
-    assertNotNull (LocaleCache.getLocale ("de", "AT"));
-    assertEquals ("de_AT", LocaleCache.getLocale ("de", "AT").toString ());
-    assertEquals ("de_AT", LocaleCache.getLocale ("de", "at").toString ());
-    assertEquals ("de", LocaleCache.getLocale ("de", null).toString ());
-    assertEquals ("_AT", LocaleCache.getLocale (null, "AT").toString ());
-    assertNull (LocaleCache.getLocale (null, null));
+    assertNotNull (LocaleCache.getInstance ().getLocale ("de", "AT"));
+    assertEquals ("de_AT", LocaleCache.getInstance ().getLocale ("de", "AT").toString ());
+    assertEquals ("de_AT", LocaleCache.getInstance ().getLocale ("de", "at").toString ());
+    assertEquals ("de", LocaleCache.getInstance ().getLocale ("de", null).toString ());
+    assertEquals ("_AT", LocaleCache.getInstance ().getLocale (null, "AT").toString ());
+    assertNull (LocaleCache.getInstance ().getLocale (null, null));
 
-    assertNotNull (LocaleCache.getLocale ("de", "AT", "Vienna"));
+    assertNotNull (LocaleCache.getInstance ().getLocale ("de", "AT", "Vienna"));
     assertEquals ("de__Vienna", new Locale ("de", "", "Vienna").toString ());
-    assertEquals ("de__Vienna", LocaleCache.getLocale ("de", null, "Vienna").toString ());
-    assertEquals ("de_AT", LocaleCache.getLocale ("de", "AT", null).toString ());
+    assertEquals ("de__Vienna", LocaleCache.getInstance ().getLocale ("de", null, "Vienna").toString ());
+    assertEquals ("de_AT", LocaleCache.getInstance ().getLocale ("de", "AT", null).toString ());
   }
 
   @Test
   public void testGetInvalid ()
   {
-    assertNull (LocaleCache.getLocale ("gb result: chosen nickname \"stevenwhitecotton063\"; success;"));
-    assertNull (LocaleCache.getLocale ("aa bb"));
+    assertNull (LocaleCache.getInstance ().getLocale ("gb result: chosen nickname \"stevenwhitecotton063\"; success;"));
+    assertNull (LocaleCache.getInstance ().getLocale ("aa bb"));
   }
 
   @Test
   public void testGetAllLocales ()
   {
-    assertNotNull (LocaleCache.getAllLocales ());
-    for (final Locale aLocale : LocaleCache.getAllLocales ())
+    assertNotNull (LocaleCache.getInstance ().getAllLocales ());
+    for (final Locale aLocale : LocaleCache.getInstance ().getAllLocales ())
       assertNotNull (aLocale);
   }
 
   @Test
   public void testGetAllLanguages ()
   {
-    for (final Locale aLocale : LocaleCache.getAllLanguages ())
+    for (final Locale aLocale : LocaleCache.getInstance ().getAllLanguages ())
     {
       assertNotNull (aLocale);
       assertTrue (StringHelper.hasText (aLocale.getLanguage ()));
@@ -90,7 +90,7 @@ public final class LocaleCacheTest extends AbstractCommonsTestCase
   @Test
   public void testCompare ()
   {
-    final Set <Locale> aLocales = LocaleCache.getAllLocales ();
+    final Set <Locale> aLocales = LocaleCache.getInstance ().getAllLocales ();
     assertEquals (aLocales.size (),
                   CollectionHelper.getSorted (aLocales, new CollatingComparatorLocaleDisplayName (L_DE)).size ());
     assertEquals (aLocales.size (),
@@ -103,32 +103,32 @@ public final class LocaleCacheTest extends AbstractCommonsTestCase
   @Test
   public void testContainsLocale ()
   {
-    assertFalse (LocaleCache.containsLocale (null));
-    assertFalse (LocaleCache.containsLocale (null));
-    assertTrue (LocaleCache.containsLocale ("de"));
-    assertTrue (LocaleCache.containsLocale ("de_at"));
-    assertFalse (LocaleCache.containsLocale ("de_at_var"));
-    assertFalse (LocaleCache.containsLocale ("de_xx"));
-    assertFalse (LocaleCache.containsLocale ("deh"));
+    assertFalse (LocaleCache.getInstance ().containsLocale (null));
+    assertFalse (LocaleCache.getInstance ().containsLocale (null));
+    assertTrue (LocaleCache.getInstance ().containsLocale ("de"));
+    assertTrue (LocaleCache.getInstance ().containsLocale ("de_at"));
+    assertFalse (LocaleCache.getInstance ().containsLocale ("de_at_var"));
+    assertFalse (LocaleCache.getInstance ().containsLocale ("de_xx"));
+    assertFalse (LocaleCache.getInstance ().containsLocale ("deh"));
 
-    assertTrue (LocaleCache.containsLocale ("de", "at"));
-    assertFalse (LocaleCache.containsLocale ("de", "xx"));
+    assertTrue (LocaleCache.getInstance ().containsLocale ("de", "at"));
+    assertFalse (LocaleCache.getInstance ().containsLocale ("de", "xx"));
 
-    assertFalse (LocaleCache.containsLocale (null, null, null));
-    assertTrue (LocaleCache.containsLocale ("de", null, null));
-    assertTrue (LocaleCache.containsLocale ("de", "at", null));
-    assertFalse (LocaleCache.containsLocale ("de", "xx", null));
-    assertFalse (LocaleCache.containsLocale ("de", "at", "var"));
+    assertFalse (LocaleCache.getInstance ().containsLocale (null, null, null));
+    assertTrue (LocaleCache.getInstance ().containsLocale ("de", null, null));
+    assertTrue (LocaleCache.getInstance ().containsLocale ("de", "at", null));
+    assertFalse (LocaleCache.getInstance ().containsLocale ("de", "xx", null));
+    assertFalse (LocaleCache.getInstance ().containsLocale ("de", "at", "var"));
   }
 
   @Test
   public void testResetCache ()
   {
-    LocaleCache.resetCache ();
-    final int nCount = LocaleCache.getAllLanguages ().size ();
-    LocaleCache.getLocale ("xy");
-    assertEquals (nCount + 1, LocaleCache.getAllLanguages ().size ());
-    LocaleCache.resetCache ();
-    assertEquals (nCount, LocaleCache.getAllLanguages ().size ());
+    LocaleCache.getInstance ().resetCache ();
+    final int nCount = LocaleCache.getInstance ().getAllLanguages ().size ();
+    LocaleCache.getInstance ().getLocale ("xy");
+    assertEquals (nCount + 1, LocaleCache.getInstance ().getAllLanguages ().size ());
+    LocaleCache.getInstance ().resetCache ();
+    assertEquals (nCount, LocaleCache.getInstance ().getAllLanguages ().size ());
   }
 }

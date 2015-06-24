@@ -19,6 +19,8 @@ package com.helger.commons.text.util;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,9 +42,9 @@ import com.helger.commons.text.MultilingualText;
 public final class TextHelper
 {
   /** German locale used */
-  public static final Locale DE = LocaleCache.getLocale ("de");
+  public static final Locale DE = LocaleCache.getInstance ().getLocale ("de");
   /** English locale used */
-  public static final Locale EN = LocaleCache.getLocale ("en");
+  public static final Locale EN = LocaleCache.getInstance ().getLocale ("en");
 
   @PresentForCodeCoverage
   private static final TextHelper s_aInstance = new TextHelper ();
@@ -140,6 +142,23 @@ public final class TextHelper
     for (final Locale aConrentLocale : aContentLocales)
       if (aMLT.containsLocale (aConrentLocale))
         ret.setText (aConrentLocale, aMLT.getText (aConrentLocale));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static MultilingualText createMultilingualTextFromMap (@Nonnull final Map <String, String> aMap)
+  {
+    ValueEnforcer.notNull (aMap, "Map");
+
+    final MultilingualText ret = new MultilingualText ();
+    final LocaleCache aLC = LocaleCache.getInstance ();
+    for (final Entry <String, String> aEntry : aMap.entrySet ())
+    {
+      final String sText = aEntry.getValue ();
+      if (sText != null)
+        ret.setText (aLC.getLocale (aEntry.getKey ()), sText);
+    }
     return ret;
   }
 }
