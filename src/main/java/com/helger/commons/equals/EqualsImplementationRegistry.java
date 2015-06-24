@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.annotation.UseDirectEqualsAndHashCode;
 import com.helger.commons.cache.AnnotationUsageCache;
 import com.helger.commons.lang.ClassHelper;
@@ -45,6 +46,7 @@ import com.helger.commons.state.EChange;
  * @author Philip Helger
  */
 @ThreadSafe
+@Singleton
 public final class EqualsImplementationRegistry implements IEqualsImplementationRegistry
 {
   private static final class ArrayEqualsImplementation implements IEqualsImplementation
@@ -93,7 +95,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
 
   private EqualsImplementationRegistry ()
   {
-    _reinitialize ();
+    reinitialize ();
   }
 
   public static boolean isInstantiated ()
@@ -104,27 +106,9 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
   @Nonnull
   public static EqualsImplementationRegistry getInstance ()
   {
+    final EqualsImplementationRegistry ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
-    return SingletonHolder.s_aInstance;
-  }
-
-  private void _reinitialize ()
-  {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aMap.clear ();
-      m_aDirectEquals.clearCache ();
-      m_aImplementsEquals.clear ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
-
-    // Register all implementations via SPI
-    for (final IEqualsImplementationRegistrarSPI aRegistrar : ServiceLoaderHelper.getAllSPIImplementations (IEqualsImplementationRegistrarSPI.class))
-      aRegistrar.registerEqualsImplementations (this);
+    return ret;
   }
 
   public void registerEqualsImplementation (@Nonnull final Class <?> aClass, @Nonnull final IEqualsImplementation aImpl)
@@ -354,8 +338,25 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     return bAreEqual;
   }
 
-  public void clearCache ()
+  public void reinitialize ()
   {
-    _reinitialize ();
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      m_aMap.clear ();
+      m_aDirectEquals.clearCache ();
+      m_aImplementsEquals.clear ();
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+
+    // Register all implementations via SPI
+    for (final IEqualsImplementationRegistrarSPI aRegistrar : ServiceLoaderHelper.getAllSPIImplementations (IEqualsImplementationRegistrarSPI.class))
+      aRegistrar.registerEqualsImplementations (this);
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Reinitialized " + EqualsImplementationRegistry.class.getName ());
   }
 }

@@ -83,6 +83,10 @@ public final class CommonsCleanup
       TypeConverterRegistry.getInstance ().reinitialize ();
     if (URLProtocolRegistry.isInstantiated ())
       URLProtocolRegistry.getInstance ().reinitialize ();
+    if (EqualsImplementationRegistry.isInstantiated ())
+      EqualsImplementationRegistry.getInstance ().reinitialize ();
+    if (HashCodeImplementationRegistry.isInstantiated ())
+      HashCodeImplementationRegistry.getInstance ().reinitialize ();
 
     // Clear caches
     if (ImageDataManager.isInstantiated ())
@@ -100,10 +104,6 @@ public final class CommonsCleanup
     if (XMLSchemaCache.isInstantiated ())
       XMLSchemaCache.getInstance ().clearCache ();
     StatisticsManager.clearCache ();
-    if (EqualsImplementationRegistry.isInstantiated ())
-      EqualsImplementationRegistry.getInstance ().clearCache ();
-    if (HashCodeImplementationRegistry.isInstantiated ())
-      HashCodeImplementationRegistry.getInstance ().clearCache ();
     SystemProperties.clearWarnedPropertyNames ();
 
     // Clean this one last as it is used in equals and hashCode implementations!

@@ -25,6 +25,9 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
@@ -53,6 +56,8 @@ public final class StatisticsManager
   private static final Map <String, StatisticsHandlerKeyedSize> s_aHdlKeyedSize = new HashMap <String, StatisticsHandlerKeyedSize> ();
   private static final Map <String, StatisticsHandlerCounter> s_aHdlCounter = new HashMap <String, StatisticsHandlerCounter> ();
   private static final Map <String, StatisticsHandlerKeyedCounter> s_aHdlKeyedCounter = new HashMap <String, StatisticsHandlerKeyedCounter> ();
+
+  private static final Logger s_aLogger = LoggerFactory.getLogger (StatisticsManager.class);
 
   @PresentForCodeCoverage
   private static final StatisticsManager s_aInstance = new StatisticsManager ();
@@ -553,5 +558,8 @@ public final class StatisticsManager
     {
       s_aRWLockKeyedCounter.writeLock ().unlock ();
     }
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Cache was cleared: " + StatisticsManager.class.getName ());
   }
 }

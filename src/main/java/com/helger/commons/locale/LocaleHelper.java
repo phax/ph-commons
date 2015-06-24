@@ -26,6 +26,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
@@ -54,6 +55,7 @@ public final class LocaleHelper
    *
    * @author Philip Helger
    */
+  @ThreadSafe
   private static final class LocaleListCache extends AbstractNotifyingCache <Locale, List <Locale>>
   {
     public LocaleListCache ()

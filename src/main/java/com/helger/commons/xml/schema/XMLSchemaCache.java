@@ -25,6 +25,7 @@ import javax.xml.validation.SchemaFactory;
 import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.ErrorHandler;
 
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.xml.ls.SimpleLSResourceResolver;
 import com.helger.commons.xml.sax.LoggingSAXErrorHandler;
 
@@ -34,6 +35,7 @@ import com.helger.commons.xml.sax.LoggingSAXErrorHandler;
  * @author Philip Helger
  */
 @ThreadSafe
+@Singleton ("can be instantiated directly as well")
 public class XMLSchemaCache extends SchemaCache
 {
   private static final class SingletonHolder

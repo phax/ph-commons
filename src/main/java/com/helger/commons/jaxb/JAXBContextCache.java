@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.IsLocked;
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.cache.AbstractNotifyingCache;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.lang.GenericReflection;
@@ -40,6 +41,7 @@ import com.helger.commons.lang.GenericReflection;
  * @author Philip Helger
  */
 @ThreadSafe
+@Singleton
 public final class JAXBContextCache extends AbstractNotifyingCache <Package, JAXBContext>
 {
   private static final class SingletonHolder
@@ -64,8 +66,9 @@ public final class JAXBContextCache extends AbstractNotifyingCache <Package, JAX
   @Nonnull
   public static JAXBContextCache getInstance ()
   {
+    final JAXBContextCache ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
-    return SingletonHolder.s_aInstance;
+    return ret;
   }
 
   @Override

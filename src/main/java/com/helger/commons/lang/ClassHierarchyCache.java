@@ -29,6 +29,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.ThreadSafe;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -121,6 +124,8 @@ public final class ClassHierarchyCache
     }
   }
 
+  private static final Logger s_aLogger = LoggerFactory.getLogger (ClassHierarchyCache.class);
+
   private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
   private static final Map <String, ClassList> s_aClassHierarchy = new LRUMap <String, ClassList> (1000);
 
@@ -146,12 +151,15 @@ public final class ClassHierarchyCache
       if (s_aClassHierarchy.isEmpty ())
         return EChange.UNCHANGED;
       s_aClassHierarchy.clear ();
-      return EChange.CHANGED;
     }
     finally
     {
       s_aRWLock.writeLock ().unlock ();
     }
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Cache was cleared: " + ClassHierarchyCache.class.getName ());
+    return EChange.CHANGED;
   }
 
   @Nonnull
