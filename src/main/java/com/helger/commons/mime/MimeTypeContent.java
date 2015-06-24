@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Represent a single mapping from content bytes to an {@link IMimeType}.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -47,7 +47,7 @@ public class MimeTypeContent
 
   /**
    * Constructor
-   * 
+   *
    * @param aContentBytes
    *        The beginning bytes. May neither be <code>null</code> nor empty.
    * @param aMimeType
@@ -69,7 +69,7 @@ public class MimeTypeContent
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public byte [] getContentBytes ()
+  public byte [] getAllContentBytes ()
   {
     return ArrayHelper.getCopy (m_aContentBytes);
   }
@@ -85,9 +85,10 @@ public class MimeTypeContent
 
   /**
    * Write the content bytes to the specified output stream.
-   * 
+   *
    * @param aOS
-   *        The output stream to write to. May not be <code>null</code>.
+   *        The output stream to write to. The stream is NOT closed. May not be
+   *        <code>null</code>.
    * @throws IOException
    *         In case of a write error
    */
@@ -107,7 +108,7 @@ public class MimeTypeContent
 
   /**
    * Main match method
-   * 
+   *
    * @param aBytes
    *        The bytes to compare to this type.
    * @param nOffset
@@ -129,7 +130,7 @@ public class MimeTypeContent
 
   /**
    * Check if the passed byte array starts with the bytes of this object.
-   * 
+   *
    * @param aBytes
    *        The bytes to compare to. May not be <code>null</code>.
    * @return <code>true</code> if the passed bytes start with the bytes in this

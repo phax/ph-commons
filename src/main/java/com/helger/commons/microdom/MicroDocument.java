@@ -69,7 +69,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
     // Ensure that only one element is appended to the document root
     if (aChildNode.isElement ())
     {
-      final List <IMicroNode> aChildren = directGetChildren ();
+      final List <IMicroNode> aChildren = directGetAllChildren ();
       if (aChildren != null && !aChildren.isEmpty ())
         for (final IMicroNode aCurChild : aChildren)
           if (aCurChild.isElement ())
@@ -95,7 +95,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
   public IMicroDocumentType getDocType ()
   {
     if (hasChildren ())
-      for (final IMicroNode aChild : directGetChildren ())
+      for (final IMicroNode aChild : directGetAllChildren ())
         if (aChild.isDocumentType ())
           return (IMicroDocumentType) aChild;
     return null;
@@ -105,7 +105,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
   public IMicroElement getDocumentElement ()
   {
     if (hasChildren ())
-      for (final IMicroNode aChild : directGetChildren ())
+      for (final IMicroNode aChild : directGetAllChildren ())
         if (aChild.isElement ())
           return (IMicroElement) aChild;
     return null;

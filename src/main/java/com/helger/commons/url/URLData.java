@@ -97,8 +97,8 @@ public class URLData implements IURLData
   }
 
   @Nullable
-  @ReturnsMutableObject (reason = "Performance reasons")
-  public Map <String, String> directGetParams ()
+  @ReturnsMutableObject ("Performance reasons")
+  public Map <String, String> directGetAllParams ()
   {
     return m_aParams;
   }

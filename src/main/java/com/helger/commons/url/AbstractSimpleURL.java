@@ -117,8 +117,8 @@ public abstract class AbstractSimpleURL implements ISimpleURL
   }
 
   @Nonnull
-  @ReturnsMutableObject (reason = "design")
-  public final Map <String, String> directGetParams ()
+  @ReturnsMutableObject ("design")
+  public final Map <String, String> directGetAllParams ()
   {
     return m_aParams;
   }

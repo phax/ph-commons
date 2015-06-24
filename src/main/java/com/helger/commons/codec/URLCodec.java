@@ -100,6 +100,7 @@ public class URLCodec extends AbstractByteArrayCodec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] getEncodedURL (@Nonnull final BitSet aPrintableBitSet, @Nullable final byte [] aDecodedBuffer)
   {
     ValueEnforcer.notNull (aPrintableBitSet, "PrintableBitSet");
@@ -126,12 +127,14 @@ public class URLCodec extends AbstractByteArrayCodec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] getEncodedURL (@Nullable final byte [] aDecodedBuffer)
   {
     return getEncodedURL (PRINTABLE_CHARS, aDecodedBuffer);
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer)
   {
     if (aDecodedBuffer == null)
@@ -141,6 +144,7 @@ public class URLCodec extends AbstractByteArrayCodec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] getDecodedURL (@Nullable final byte [] aEncodedBuffer)
   {
     if (aEncodedBuffer == null)
@@ -182,6 +186,7 @@ public class URLCodec extends AbstractByteArrayCodec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] getDecodedURL (@Nullable final String sEncodedURL)
   {
     if (sEncodedURL == null)
@@ -191,6 +196,7 @@ public class URLCodec extends AbstractByteArrayCodec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
     return getDecodedURL (aEncodedBuffer);

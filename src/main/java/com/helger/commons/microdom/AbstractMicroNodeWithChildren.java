@@ -48,8 +48,8 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
    *         <code>null</code>.
    */
   @Nullable
-  @ReturnsMutableObject (reason = "efficient access")
-  final List <IMicroNode> directGetChildren ()
+  @ReturnsMutableObject ("efficient access")
+  final List <IMicroNode> directGetAllChildren ()
   {
     return m_aChildren;
   }
@@ -243,7 +243,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
       return null;
 
     final StringBuilder aSB = new StringBuilder ();
-    for (final IMicroNode aChild : directGetChildren ())
+    for (final IMicroNode aChild : directGetAllChildren ())
     {
       final EMicroNodeType eType = aChild.getType ();
       if (eType == EMicroNodeType.TEXT)

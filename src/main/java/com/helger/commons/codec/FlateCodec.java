@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
@@ -57,6 +58,7 @@ public class FlateCodec extends AbstractByteArrayCodec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] getDecodedFlate (@Nullable final byte [] aEncodedBuffer)
   {
     if (aEncodedBuffer == null)
@@ -80,12 +82,14 @@ public class FlateCodec extends AbstractByteArrayCodec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
     return getDecodedFlate (aEncodedBuffer);
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] getEncodedFlate (@Nullable final byte [] aBuffer)
   {
     if (aBuffer == null)
@@ -100,6 +104,7 @@ public class FlateCodec extends AbstractByteArrayCodec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getEncoded (@Nullable final byte [] aBuffer)
   {
     return getEncodedFlate (aBuffer);

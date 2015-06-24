@@ -115,7 +115,7 @@ public enum EUnicodeBOM implements IHasByteSize
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public byte [] getBytes ()
+  public byte [] getAllBytes ()
   {
     return ArrayHelper.getCopy (m_aBOMBytes);
   }

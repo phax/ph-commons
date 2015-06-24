@@ -138,7 +138,7 @@ public final class MessageDigestValue
   public static MessageDigestValue create (@Nonnull final byte [] aBytes,
                                            @Nonnull final EMessageDigestAlgorithm eAlgorithm)
   {
-    final byte [] aDigestBytes = MessageDigestGeneratorHelper.getDigest (aBytes, eAlgorithm);
+    final byte [] aDigestBytes = MessageDigestGeneratorHelper.getAllDigestBytes (aBytes, eAlgorithm);
     return new MessageDigestValue (eAlgorithm, aDigestBytes);
   }
 }

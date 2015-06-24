@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -191,8 +192,8 @@ public final class NonBlockingMessageDigestGenerator extends AbstractMessageDige
   }
 
   @Nonnull
-  @ReturnsMutableObject (reason = "design")
-  private byte [] _getDigest ()
+  @ReturnsMutableObject ("design")
+  private byte [] _getAllDigestBytes ()
   {
     if (m_aDigest == null)
       m_aDigest = m_aMessageDigest.digest ();
@@ -200,15 +201,17 @@ public final class NonBlockingMessageDigestGenerator extends AbstractMessageDige
   }
 
   @Nonnull
-  public byte [] getDigest ()
+  @ReturnsMutableCopy
+  public byte [] getAllDigestBytes ()
   {
-    return ArrayHelper.getCopy (_getDigest ());
+    return ArrayHelper.getCopy (_getAllDigestBytes ());
   }
 
   @Nonnull
-  public byte [] getDigest (@Nonnegative final int nLength)
+  @ReturnsMutableCopy
+  public byte [] getAllDigestBytes (@Nonnegative final int nLength)
   {
-    return ArrayHelper.getCopy (_getDigest (), 0, nLength);
+    return ArrayHelper.getCopy (_getAllDigestBytes (), 0, nLength);
   }
 
   @Override

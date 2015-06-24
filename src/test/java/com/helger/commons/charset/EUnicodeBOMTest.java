@@ -63,14 +63,14 @@ public final class EUnicodeBOMTest
     for (final EUnicodeBOM eBOM : EUnicodeBOM.values ())
     {
       // Check whether declared length matches byte length
-      assertEquals (eBOM.getSizeInBytes (), eBOM.getBytes ().length);
+      assertEquals (eBOM.getSizeInBytes (), eBOM.getAllBytes ().length);
       assertFalse (eBOM.isPresent (null));
       assertFalse (eBOM.isPresent (new byte [0]));
       assertFalse (eBOM.isPresent (new byte [] { 1 }));
       assertFalse (eBOM.isPresent (new byte [(int) eBOM.getSizeInBytes () + 1]));
-      assertTrue (eBOM.isPresent (eBOM.getBytes ()));
+      assertTrue (eBOM.isPresent (eBOM.getAllBytes ()));
       assertSame (eBOM, EUnicodeBOM.valueOf (eBOM.name ()));
-      assertSame (eBOM, EUnicodeBOM.getFromBytesOrNull (eBOM.getBytes ()));
+      assertSame (eBOM, EUnicodeBOM.getFromBytesOrNull (eBOM.getAllBytes ()));
       if (eBOM.getCharset () != null)
         assertTrue (StringHelper.hasText (eBOM.getCharsetName ()));
     }

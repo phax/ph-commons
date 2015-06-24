@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.charset.CCharset;
 
@@ -80,12 +81,14 @@ public class RFC1522BCodec extends AbstractRFC1522Codec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer)
   {
     return Base64.safeEncodeBytesToBytes (aDecodedBuffer);
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
     return Base64.safeDecode (aEncodedBuffer);

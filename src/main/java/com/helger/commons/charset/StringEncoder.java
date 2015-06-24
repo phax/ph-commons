@@ -28,6 +28,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.state.EFinish;
 
 /**
@@ -232,12 +233,13 @@ public final class StringEncoder
   /**
    * Returns a new byte array containing the UTF-8 version of source. The array
    * will be exactly the correct size for the string.
-   * 
+   *
    * @param sSource
    *        Source string
    * @return as encoded array
    */
   @Nonnull
+  @ReturnsMutableCopy
   public byte [] getAsNewArray (@Nonnull final String sSource)
   {
     // Optimized for short strings

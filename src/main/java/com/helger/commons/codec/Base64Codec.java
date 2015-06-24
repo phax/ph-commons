@@ -18,6 +18,7 @@ package com.helger.commons.codec;
 
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.base64.Base64;
 
 /**
@@ -31,6 +32,7 @@ public class Base64Codec extends AbstractByteArrayCodec
   {}
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer)
   {
     return Base64.safeEncodeBytesToBytes (aDecodedBuffer);

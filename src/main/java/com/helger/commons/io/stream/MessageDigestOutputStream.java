@@ -63,7 +63,7 @@ public class MessageDigestOutputStream extends WrappedOutputStream
   @ReturnsMutableCopy
   public byte [] getDigest ()
   {
-    return m_aMDGen.getDigest ();
+    return m_aMDGen.getAllDigestBytes ();
   }
 
   @Override

@@ -33,6 +33,7 @@ import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.SoftHashMap;
 import com.helger.commons.collection.impl.SoftLinkedHashMap;
@@ -104,6 +105,7 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
    * @return Never <code>null</code>.
    */
   @Nonnull
+  @ReturnsMutableCopy
   @OverrideOnDemand
   protected Map <KEYTYPE, VALUETYPE> createCache ()
   {

@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CCharset;
 
 /**
@@ -42,7 +43,7 @@ import com.helger.commons.charset.CCharset;
  * threads, the caller needs to ensure that suitable synchronisation is used to
  * ensure safe publication of the value between threads, and must not invoke
  * {@link #setEncodeBlanks(boolean)} after initial setup.
- * 
+ *
  * @see <a href="http://www.ietf.org/rfc/rfc1522.txt">MIME (Multipurpose
  *      Internet Mail Extensions) Part Two: Message Header Extensions for
  *      Non-ASCII Text</a>
@@ -117,7 +118,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
 
   /**
    * Constructor which allows for the selection of a default charset.
-   * 
+   *
    * @param aCharset
    *        the default string charset to use.
    */
@@ -140,7 +141,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
 
   /**
    * Tests if optional transformation of SPACE characters is to be used
-   * 
+   *
    * @return {@code true} if SPACE characters are to be transformed,
    *         {@code false} otherwise
    */
@@ -151,7 +152,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
 
   /**
    * Defines whether optional transformation of SPACE characters is to be used
-   * 
+   *
    * @param bEncodeBlanks
    *        {@code true} if SPACE characters are to be transformed,
    *        {@code false} otherwise
@@ -162,6 +163,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getEncoded (@Nullable final byte [] aBuffer)
   {
     if (aBuffer == null)
@@ -176,6 +178,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getDecoded (@Nullable final byte [] aBuffer) throws DecodeException
   {
     if (aBuffer == null)
@@ -208,7 +211,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
   /**
    * Encodes a string into its quoted-printable form using the default charset.
    * Unsafe characters are escaped.
-   * 
+   *
    * @param sText
    *        string to convert to quoted-printable form
    * @return quoted-printable string
@@ -225,7 +228,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
   /**
    * Decodes a quoted-printable string into its original form. Escaped
    * characters are converted back to their original representation.
-   * 
+   *
    * @param sText
    *        quoted-printable string to convert into its original form
    * @return original string

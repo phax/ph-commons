@@ -47,11 +47,11 @@ public final class SimpleFileIOTest
     assertTrue (SimpleFileIO.writeFile (f, CharsetManager.getAsBytes (s, CCharset.CHARSET_ISO_8859_1_OBJ)).isSuccess ());
     try
     {
-      final byte [] aBytes = SimpleFileIO.readFileBytes (f);
+      final byte [] aBytes = SimpleFileIO.getAllFileBytes (f);
       assertNotNull (aBytes);
       assertTrue (Arrays.equals (aBytes, CharsetManager.getAsBytes (s, CCharset.CHARSET_ISO_8859_1_OBJ)));
-      assertNull (SimpleFileIO.readFileBytes (null));
-      assertNull (SimpleFileIO.readFileBytes (new File ("non existing file")));
+      assertNull (SimpleFileIO.getAllFileBytes (null));
+      assertNull (SimpleFileIO.getAllFileBytes (new File ("non existing file")));
     }
     finally
     {
@@ -62,11 +62,11 @@ public final class SimpleFileIOTest
   @Test
   public void testReaFileLines ()
   {
-    assertNull (SimpleFileIO.readFileLines (null, CCharset.CHARSET_ISO_8859_1_OBJ));
-    assertNull (SimpleFileIO.readFileLines (new File ("ha ha said the clown"), CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertNull (SimpleFileIO.getAllFileLines (null, CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertNull (SimpleFileIO.getAllFileLines (new File ("ha ha said the clown"), CCharset.CHARSET_ISO_8859_1_OBJ));
     final File aFile = ClassPathResource.getAsFile ("streamutils-lines");
     assertTrue (aFile.exists ());
-    final List <String> lines = SimpleFileIO.readFileLines (aFile, CCharset.CHARSET_ISO_8859_1_OBJ);
+    final List <String> lines = SimpleFileIO.getAllFileLines (aFile, CCharset.CHARSET_ISO_8859_1_OBJ);
     assertEquals (10, lines.size ());
   }
 
@@ -76,11 +76,11 @@ public final class SimpleFileIOTest
     final File aFile = new File ("umlaut-tests.txt");
     final String s = "defäöüabc";
     assertEquals ("Source encoding of the Java file must be UTF-8!", 9, s.length ());
-    assertNull (SimpleFileIO.readFileAsString (null, CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertNull (SimpleFileIO.getFileAsString (null, CCharset.CHARSET_ISO_8859_1_OBJ));
     assertTrue (SimpleFileIO.writeFile (aFile, s, CCharset.CHARSET_UTF_8_OBJ).isSuccess ());
     try
     {
-      final String t = SimpleFileIO.readFileAsString (aFile, CCharset.CHARSET_UTF_8_OBJ);
+      final String t = SimpleFileIO.getFileAsString (aFile, CCharset.CHARSET_UTF_8_OBJ);
       assertEquals (s, t);
     }
     finally
@@ -90,7 +90,7 @@ public final class SimpleFileIOTest
     assertTrue (SimpleFileIO.writeFile (aFile, s, CCharset.CHARSET_ISO_8859_1_OBJ).isSuccess ());
     try
     {
-      final String t = SimpleFileIO.readFileAsString (aFile, CCharset.CHARSET_ISO_8859_1_OBJ);
+      final String t = SimpleFileIO.getFileAsString (aFile, CCharset.CHARSET_ISO_8859_1_OBJ);
       assertEquals (s, t);
     }
     finally

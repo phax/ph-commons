@@ -166,7 +166,7 @@ public class AbstractMapBasedMultilingualText extends AbstractReadOnlyMapBasedMu
   }
 
   @Nonnull
-  @ReturnsMutableObject (reason = "design")
+  @ReturnsMutableObject ("design")
   public final CallbackList <IChangeCallback <IMutableMultilingualText>> getChangeNotifyCallbacks ()
   {
     return m_aChangeNotifyCallbacks;

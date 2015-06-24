@@ -489,7 +489,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   {
     int ret = 0;
     if (hasChildren ())
-      for (final IMicroNode aChild : directGetChildren ())
+      for (final IMicroNode aChild : directGetAllChildren ())
       {
         if (aChild.isElement ())
         {
@@ -512,7 +512,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   {
     final List <IMicroElement> ret = new ArrayList <IMicroElement> ();
     if (hasChildren ())
-      for (final IMicroNode aChild : directGetChildren ())
+      for (final IMicroNode aChild : directGetAllChildren ())
       {
         if (aChild.isElement ())
         {
@@ -535,7 +535,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   {
     final List <IMicroElement> ret = new ArrayList <IMicroElement> ();
     if (hasChildren ())
-      for (final IMicroNode aChild : directGetChildren ())
+      for (final IMicroNode aChild : directGetAllChildren ())
         if (aChild.isElement ())
         {
           final IMicroElement aChildElement = (IMicroElement) aChild;
@@ -567,7 +567,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
     final List <IMicroElement> ret = new ArrayList <IMicroElement> ();
     if (hasChildren ())
-      for (final IMicroNode aChild : directGetChildren ())
+      for (final IMicroNode aChild : directGetAllChildren ())
         if (aChild.isElement ())
         {
           final IMicroElement aChildElement = (IMicroElement) aChild;
@@ -595,7 +595,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   {
     final List <IMicroElement> ret = new ArrayList <IMicroElement> ();
     if (hasChildren ())
-      for (final IMicroNode aChild : directGetChildren ())
+      for (final IMicroNode aChild : directGetAllChildren ())
         if (aChild.isElement ())
         {
           final IMicroElement aChildElement = (IMicroElement) aChild;
@@ -619,7 +619,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public boolean hasChildElements ()
   {
     if (hasChildren ())
-      for (final IMicroNode aChild : directGetChildren ())
+      for (final IMicroNode aChild : directGetAllChildren ())
         if (aChild.isElement ())
         {
           return true;
@@ -637,7 +637,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public boolean hasChildElements (@Nullable final String sTagName)
   {
     if (hasChildren ())
-      for (final IMicroNode aChild : directGetChildren ())
+      for (final IMicroNode aChild : directGetAllChildren ())
         if (aChild.isElement ())
         {
           if (((IMicroElement) aChild).getTagName ().equals (sTagName))
@@ -662,7 +662,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
       return hasChildElements (sLocalName);
 
     if (hasChildren ())
-      for (final IMicroNode aChild : directGetChildren ())
+      for (final IMicroNode aChild : directGetAllChildren ())
         if (aChild.isElement ())
         {
           final IMicroElement aChildElement = (IMicroElement) aChild;
@@ -688,7 +688,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public IMicroElement getFirstChildElement ()
   {
     if (hasChildren ())
-      for (final IMicroNode aChild : directGetChildren ())
+      for (final IMicroNode aChild : directGetAllChildren ())
         if (aChild.isElement ())
           return (IMicroElement) aChild;
         else
@@ -705,7 +705,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public IMicroElement getFirstChildElement (@Nullable final String sTagName)
   {
     if (hasChildren ())
-      for (final IMicroNode aChild : directGetChildren ())
+      for (final IMicroNode aChild : directGetAllChildren ())
         if (aChild.isElement ())
         {
           final IMicroElement aChildElement = (IMicroElement) aChild;
@@ -733,7 +733,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
       return getFirstChildElement (sLocalName);
 
     if (hasChildren ())
-      for (final IMicroNode aChild : directGetChildren ())
+      for (final IMicroNode aChild : directGetAllChildren ())
         if (aChild.isElement ())
         {
           final IMicroElement aChildElement = (IMicroElement) aChild;
@@ -766,7 +766,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
     // Deep clone all child nodes
     if (hasChildren ())
-      for (final IMicroNode aChildNode : directGetChildren ())
+      for (final IMicroNode aChildNode : directGetAllChildren ())
         ret.appendChild (aChildNode.getClone ());
     return ret;
   }

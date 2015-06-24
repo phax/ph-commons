@@ -2580,7 +2580,7 @@ public final class CollectionHelper
   }
 
   @Nullable
-  @ReturnsMutableObject (reason = "design")
+  @ReturnsMutableObject ("design")
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> List <ELEMENTTYPE> getSortedInline (@Nullable final List <ELEMENTTYPE> aList)
   {
     if (isNotEmpty (aList))
@@ -2589,7 +2589,7 @@ public final class CollectionHelper
   }
 
   @Nullable
-  @ReturnsMutableObject (reason = "design")
+  @ReturnsMutableObject ("design")
   public static <ELEMENTTYPE> List <ELEMENTTYPE> getSortedInline (@Nullable final List <ELEMENTTYPE> aList,
                                                                   @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
@@ -2761,7 +2761,7 @@ public final class CollectionHelper
   }
 
   @Nullable
-  @ReturnsMutableObject (reason = "semantics of this method")
+  @ReturnsMutableObject ("semantics of this method")
   public static <ELEMENTTYPE> List <ELEMENTTYPE> getReverseInlineList (@Nullable final List <ELEMENTTYPE> aList)
   {
     if (aList == null)
@@ -3494,7 +3494,7 @@ public final class CollectionHelper
   }
 
   @Nonnull
-  @ReturnsMutableObject (reason = "design")
+  @ReturnsMutableObject ("design")
   public static <ELEMENTTYPE, COLLTYPE extends Collection <? super ELEMENTTYPE>> COLLTYPE getConcatenatedInline (@Nonnull final COLLTYPE aCont,
                                                                                                                  @Nullable final ELEMENTTYPE... aElementsToAdd)
   {
@@ -3506,7 +3506,7 @@ public final class CollectionHelper
   }
 
   @Nonnull
-  @ReturnsMutableObject (reason = "design")
+  @ReturnsMutableObject ("design")
   public static <ELEMENTTYPE, COLLTYPE extends Collection <? super ELEMENTTYPE>> COLLTYPE getConcatenatedInline (@Nonnull final COLLTYPE aCont,
                                                                                                                  @Nullable final Collection <? extends ELEMENTTYPE> aElementsToAdd)
   {

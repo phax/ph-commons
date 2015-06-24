@@ -29,7 +29,7 @@ import com.helger.commons.annotation.ReturnsMutableObject;
 /**
  * Base interface representing the basic elements of a URL from a high level
  * perspective.
- * 
+ *
  * @author Philip Helger
  */
 public interface IURLData extends Serializable
@@ -68,8 +68,8 @@ public interface IURLData extends Serializable
    * @return A map of all query string parameters. May be <code>null</code>.
    */
   @Nullable
-  @ReturnsMutableObject (reason = "design")
-  Map <String, String> directGetParams ();
+  @ReturnsMutableObject ("design")
+  Map <String, String> directGetAllParams ();
 
   /**
    * @return A map of all query string parameters in the order they were passed

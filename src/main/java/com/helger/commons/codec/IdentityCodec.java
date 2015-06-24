@@ -19,6 +19,8 @@ package com.helger.commons.codec;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.annotation.ReturnsMutableObject;
+
 /**
  * The most simple codec, that does not do anything :)
  *
@@ -33,6 +35,7 @@ public final class IdentityCodec <DATATYPE> implements ICodec <DATATYPE>
   {}
 
   @Nullable
+  @ReturnsMutableObject ("design")
   public DATATYPE getDecoded (@Nullable final DATATYPE aInput)
   {
     // Return "as-is"
@@ -40,6 +43,7 @@ public final class IdentityCodec <DATATYPE> implements ICodec <DATATYPE>
   }
 
   @Nullable
+  @ReturnsMutableObject ("design")
   public DATATYPE getEncoded (@Nullable final DATATYPE aInput)
   {
     // Return "as-is"

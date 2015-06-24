@@ -36,6 +36,8 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
@@ -1311,6 +1313,7 @@ public final class Base64
    * guarantee as to which one will be picked.
    */
   @Nonnull
+  @ReturnsMutableObject ("design")
   static byte [] _getDecodabet (final int options)
   {
     if ((options & URL_SAFE) == URL_SAFE)
@@ -1767,6 +1770,7 @@ public final class Base64
    * @since 2.3.1
    */
   @Nonnull
+  @ReturnsMutableCopy
   public static byte [] encodeBytesToBytes (@Nonnull final byte [] source)
   {
     byte [] encoded;
@@ -1807,9 +1811,10 @@ public final class Base64
    * @since 2.3.1
    */
   @Nonnull
+  @ReturnsMutableCopy
   public static byte [] encodeBytesToBytes (@Nonnull final byte [] source,
-                                            final int off,
-                                            final int len,
+                                            @Nonnegative final int off,
+                                            @Nonnegative final int len,
                                             final int options) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (source, off, len);
@@ -2031,6 +2036,7 @@ public final class Base64
    * @since 2.3.1
    */
   @Nonnull
+  @ReturnsMutableCopy
   public static byte [] decode (@Nonnull final byte [] source) throws IOException
   {
     return decode (source, NO_OPTIONS);
@@ -2054,6 +2060,7 @@ public final class Base64
    * @since 2.3.1
    */
   @Nonnull
+  @ReturnsMutableCopy
   public static byte [] decode (@Nonnull final byte [] source, final int options) throws IOException
   {
     final byte [] decoded = decode (source, 0, source.length, options);
@@ -2082,41 +2089,35 @@ public final class Base64
    * @since 1.3
    */
   @Nonnull
+  @ReturnsMutableCopy
   public static byte [] decode (@Nonnull final byte [] source, final int off, final int len, final int options) throws IOException
   {
     // Lots of error checking and exception throwing
-    ValueEnforcer.notNull (source, "Source");
-    if (off < 0 || off + len > source.length)
-    {
-      throw new IllegalArgumentException ("Source array with length " +
-                                          source.length +
-                                          " cannot have offset of " +
-                                          off +
-                                          " and process " +
-                                          len +
-                                          " bytes.");
-    }
+    ValueEnforcer.isArrayOfsLen (source, off, len);
 
     if (len == 0)
       return ArrayHelper.EMPTY_BYTE_ARRAY;
 
-    if (len < 4)
-    {
-      throw new IllegalArgumentException ("Base64-encoded string must have at least four characters, but length specified was " +
-                                          len);
-    }
+    ValueEnforcer.isTrue (len >= 4,
+                          "Base64-encoded string must have at least four characters, but length specified was " + len);
 
     final byte [] aDecodabet = _getDecodabet (options);
 
-    final int len34 = len * 3 / 4; // Estimate on array size
-    final byte [] outBuff = new byte [len34]; // Upper limit on size of output
-    int outBuffPosn = 0; // Keep track of where we're writing
+    // Estimate on array size
+    final int len34 = len * 3 / 4;
+    // Upper limit on size of output
+    final byte [] outBuff = new byte [len34];
+    // Keep track of where we're writing
+    int outBuffPosn = 0;
 
-    final byte [] b4 = new byte [4]; // Four byte buffer from source,
-                                     // eliminating white space
-    int b4Posn = 0; // Keep track of four byte input buffer
-    int i; // Source array counter
-    byte sbiDecode; // Special value from DECODABET
+    // Four byte buffer from source, eliminating white space
+    final byte [] b4 = new byte [4];
+    // Keep track of four byte input buffer
+    int b4Posn = 0;
+    // Source array counter
+    int i;
+    // Special value from DECODABET
+    byte sbiDecode;
 
     for (i = off; i < off + len; i++)
     {
@@ -2147,7 +2148,7 @@ public final class Base64
         // There's a bad input character in the Base64 stream.
         throw new IOException ("Bad Base64 input character decimal " + (source[i] & 0xFF) + " in array position " + i);
       }
-    } // each input character
+    }
 
     final byte [] out = new byte [outBuffPosn];
     System.arraycopy (outBuff, 0, out, 0, outBuffPosn);
@@ -2166,6 +2167,7 @@ public final class Base64
    * @since 1.4
    */
   @Nonnull
+  @ReturnsMutableCopy
   public static byte [] decode (@Nonnull final String s) throws IOException
   {
     return decode (s, NO_OPTIONS);
@@ -2187,12 +2189,12 @@ public final class Base64
    * @since 1.4
    */
   @Nonnull
+  @ReturnsMutableCopy
   public static byte [] decode (@Nonnull final String s, final int options) throws IOException
   {
     ValueEnforcer.notNull (s, "InputString");
 
     byte [] bytes = CharsetManager.getAsBytes (s, PREFERRED_ENCODING);
-    // </change>
 
     // Decode
     bytes = decode (bytes, 0, bytes.length, options);
@@ -2224,7 +2226,6 @@ public final class Base64
 
           // No error? Get new bytes.
           bytes = baos.toByteArray ();
-
         }
         catch (final IOException e)
         {
@@ -2564,16 +2565,18 @@ public final class Base64
    * @return <code>null</code> if decoding failed.
    */
   @Nullable
-  public static byte [] safeDecode (@Nonnull final String sEncoded)
+  public static byte [] safeDecode (@Nullable final String sEncoded)
   {
-    try
-    {
-      return decode (sEncoded);
-    }
-    catch (final IOException t)
-    {
-      return null;
-    }
+    if (sEncoded != null)
+      try
+      {
+        return decode (sEncoded);
+      }
+      catch (final IOException t)
+      {
+        // fall through
+      }
+    return null;
   }
 
   /**
@@ -2584,6 +2587,7 @@ public final class Base64
    * @return <code>null</code> if decoding failed.
    */
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] safeDecode (@Nullable final byte [] aEncodedBytes)
   {
     if (aEncodedBytes != null)
@@ -2602,22 +2606,26 @@ public final class Base64
    * Decode the string and convert it back to a string.
    *
    * @param sEncoded
-   *        The encoded byte array.
+   *        The encoded string.
    * @param aCharset
    *        The character set to be used.
    * @return <code>null</code> if decoding failed.
    */
   @Nullable
-  public static String safeDecodeAsString (@Nonnull final String sEncoded, @Nonnull final Charset aCharset)
+  public static String safeDecodeAsString (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
   {
-    try
-    {
-      return CharsetManager.getAsString (decode (sEncoded, DONT_GUNZIP), aCharset);
-    }
-    catch (final Throwable t)
-    {
-      return null;
-    }
+    ValueEnforcer.notNull (aCharset, "Charset");
+    if (sEncoded != null)
+      try
+      {
+        final byte [] aDecoded = decode (sEncoded, DONT_GUNZIP);
+        return CharsetManager.getAsString (aDecoded, aCharset);
+      }
+      catch (final Throwable t)
+      {
+        // Fall throuh
+      }
+    return null;
   }
 
   /**
@@ -2630,23 +2638,28 @@ public final class Base64
    * @return <code>null</code> if decoding failed.
    */
   @Nullable
-  public static String safeDecodeAsString (@Nonnull final byte [] aEncodedBytes, @Nonnull final Charset aCharset)
+  public static String safeDecodeAsString (@Nullable final byte [] aEncodedBytes, @Nonnull final Charset aCharset)
   {
-    try
-    {
-      return CharsetManager.getAsString (decode (aEncodedBytes, DONT_GUNZIP), aCharset);
-    }
-    catch (final Throwable t)
-    {
-      return null;
-    }
+    ValueEnforcer.notNull (aCharset, "Charset");
+    if (aEncodedBytes != null)
+      try
+      {
+        final byte [] aDecoded = decode (aEncodedBytes, DONT_GUNZIP);
+        return CharsetManager.getAsString (aDecoded, aCharset);
+      }
+      catch (final Throwable t)
+      {
+        // Fall through
+      }
+    return null;
   }
 
   @Nullable
-  public static byte [] safeEncodeBytesToBytes (@Nonnull final byte [] source)
+  @ReturnsMutableCopy
+  public static byte [] safeEncodeBytesToBytes (@Nullable final byte [] aDecoded)
   {
-    if (source != null)
-      return encodeBytesToBytes (source);
+    if (aDecoded != null)
+      return encodeBytesToBytes (aDecoded);
     return null;
   }
 
@@ -2660,6 +2673,7 @@ public final class Base64
   @Nullable
   public static String safeEncode (@Nonnull final String s, @Nonnull final Charset aCharset)
   {
-    return encodeBytes (CharsetManager.getAsBytes (s, aCharset));
+    final byte [] aDecoded = CharsetManager.getAsBytes (s, aCharset);
+    return encodeBytes (aDecoded);
   }
 }

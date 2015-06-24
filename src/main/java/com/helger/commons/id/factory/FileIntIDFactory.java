@@ -75,7 +75,7 @@ public class FileIntIDFactory extends AbstractPersistingIntIDFactory
   @Override
   protected final int readAndUpdateIDCounter (@Nonnegative final int nReserveCount)
   {
-    final String sContent = SimpleFileIO.readFileAsString (m_aFile, CHARSET_TO_USE);
+    final String sContent = SimpleFileIO.getFileAsString (m_aFile, CHARSET_TO_USE);
     final int nRead = sContent != null ? StringParser.parseInt (sContent.trim (), 0) : 0;
     SimpleFileIO.writeFile (m_aFile, Integer.toString (nRead + nReserveCount), CHARSET_TO_USE);
     return nRead;

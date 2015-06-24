@@ -162,12 +162,12 @@ public final class MessageDigestGenerator extends AbstractMessageDigestGenerator
 
   @Nonnull
   @ReturnsMutableCopy
-  public byte [] getDigest ()
+  public byte [] getAllDigestBytes ()
   {
     m_aRWLock.writeLock ().lock ();
     try
     {
-      return m_aMDGen.getDigest ();
+      return m_aMDGen.getAllDigestBytes ();
     }
     finally
     {
@@ -177,13 +177,13 @@ public final class MessageDigestGenerator extends AbstractMessageDigestGenerator
 
   @Nonnull
   @ReturnsMutableCopy
-  public byte [] getDigest (@Nonnegative final int nLength)
+  public byte [] getAllDigestBytes (@Nonnegative final int nLength)
   {
     // Using a writeLock because it calculates the main digest on first call
     m_aRWLock.writeLock ().lock ();
     try
     {
-      return m_aMDGen.getDigest (nLength);
+      return m_aMDGen.getAllDigestBytes (nLength);
     }
     finally
     {

@@ -51,12 +51,12 @@ public abstract class AbstractMessageDigestGenerator implements IMessageDigestGe
 
   public final long getDigestLong ()
   {
-    return MessageDigestGeneratorHelper.getLongFromDigest (getDigest ());
+    return MessageDigestGeneratorHelper.getLongFromDigest (getAllDigestBytes ());
   }
 
   @Nonnull
   public final String getDigestHexString ()
   {
-    return MessageDigestGeneratorHelper.getHexValueFromDigest (getDigest ());
+    return MessageDigestGeneratorHelper.getHexValueFromDigest (getAllDigestBytes ());
   }
 }

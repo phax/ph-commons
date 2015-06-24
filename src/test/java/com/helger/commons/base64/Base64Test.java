@@ -187,7 +187,7 @@ public final class Base64Test
       SimpleFileIO.writeFile (f1, "Hallo Wält", CCharset.CHARSET_UTF_8_OBJ);
       Base64.encodeFileToFile (f1.getAbsolutePath (), f2.getAbsolutePath ());
       assertTrue (FileHelper.existsFile (f2));
-      final String sEncoded = SimpleFileIO.readFileAsString (f2, CCharset.CHARSET_UTF_8_OBJ);
+      final String sEncoded = SimpleFileIO.getFileAsString (f2, CCharset.CHARSET_UTF_8_OBJ);
       assertEquals ("Hallo Wält", Base64.safeDecodeAsString (sEncoded, CCharset.CHARSET_UTF_8_OBJ));
     }
     finally
@@ -207,7 +207,7 @@ public final class Base64Test
       final String sDecoded = "Hallo Wält";
       Base64.encodeToFile (CharsetManager.getAsBytes (sDecoded, CCharset.CHARSET_UTF_8_OBJ), f2.getAbsolutePath ());
       assertTrue (FileHelper.existsFile (f2));
-      final String sEncoded = SimpleFileIO.readFileAsString (f2, CCharset.CHARSET_UTF_8_OBJ);
+      final String sEncoded = SimpleFileIO.getFileAsString (f2, CCharset.CHARSET_UTF_8_OBJ);
       assertEquals ("Hallo Wält", Base64.safeDecodeAsString (sEncoded, CCharset.CHARSET_UTF_8_OBJ));
     }
     finally
@@ -229,7 +229,7 @@ public final class Base64Test
                                                              CCharset.CHARSET_ISO_8859_1_OBJ));
       Base64.decodeFileToFile (f1.getAbsolutePath (), f2.getAbsolutePath ());
       assertTrue (FileHelper.existsFile (f2));
-      final String sDecoded = SimpleFileIO.readFileAsString (f2, CCharset.CHARSET_UTF_8_OBJ);
+      final String sDecoded = SimpleFileIO.getFileAsString (f2, CCharset.CHARSET_UTF_8_OBJ);
       assertEquals ("Hallo Wält", sDecoded);
     }
     finally
@@ -249,7 +249,7 @@ public final class Base64Test
       final String sEncoded = Base64.safeEncode ("Hallo Wält", CCharset.CHARSET_UTF_8_OBJ);
       Base64.decodeToFile (sEncoded, f2.getAbsolutePath ());
       assertTrue (FileHelper.existsFile (f2));
-      final String sDecoded = SimpleFileIO.readFileAsString (f2, CCharset.CHARSET_UTF_8_OBJ);
+      final String sDecoded = SimpleFileIO.getFileAsString (f2, CCharset.CHARSET_UTF_8_OBJ);
       assertEquals ("Hallo Wält", sDecoded);
     }
     finally

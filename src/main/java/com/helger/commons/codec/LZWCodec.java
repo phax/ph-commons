@@ -31,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.NonBlockingBitInputStream;
 import com.helger.commons.io.stream.NonBlockingBitOutputStream;
@@ -262,6 +263,7 @@ public class LZWCodec extends AbstractByteArrayCodec
   {}
 
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] getDecodedLZW (@Nullable final byte [] aEncodedBuffer)
   {
     if (aEncodedBuffer == null)
@@ -349,12 +351,14 @@ public class LZWCodec extends AbstractByteArrayCodec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
     return getDecodedLZW (aEncodedBuffer);
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] getEncodedLZW (@Nullable final byte [] aBuffer)
   {
     if (aBuffer == null)
@@ -459,6 +463,7 @@ public class LZWCodec extends AbstractByteArrayCodec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getEncoded (@Nullable final byte [] aBuffer)
   {
     return getEncodedLZW (aBuffer);

@@ -72,7 +72,7 @@ public final class ByteBuffersInputStream extends InputStream
    */
   @Nonnull
   @ReturnsMutableCopy
-  public ByteBuffer [] getBuffers ()
+  public ByteBuffer [] getAllBuffers ()
   {
     _checkClosed ();
     return ArrayHelper.getCopy (m_aBuffers);

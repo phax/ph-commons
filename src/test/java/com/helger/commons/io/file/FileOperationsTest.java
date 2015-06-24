@@ -345,7 +345,7 @@ public final class FileOperationsTest
       _expectedSuccess (FileOperations.copyFile (aFile, aFile2));
       assertTrue (FileHelper.existsFile (aFile));
       assertTrue (FileHelper.existsFile (aFile2));
-      assertTrue (Arrays.equals (SimpleFileIO.readFileBytes (aFile), SimpleFileIO.readFileBytes (aFile2)));
+      assertTrue (Arrays.equals (SimpleFileIO.getAllFileBytes (aFile), SimpleFileIO.getAllFileBytes (aFile2)));
       _expectedError (FileOperations.copyFile (aFile, aFile), EFileIOErrorCode.SOURCE_EQUALS_TARGET);
       _expectedError (FileOperations.copyFile (aFile, new File ("target/../" + aFile.getName ())),
                       EFileIOErrorCode.SOURCE_EQUALS_TARGET);

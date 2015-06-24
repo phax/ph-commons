@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CharsetManager;
 
 /**
@@ -36,11 +37,13 @@ public abstract class AbstractByteArrayDecoder implements IByteArrayDecoder
   {}
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getDecoded (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
   {
     if (sEncoded == null)
       return null;
 
-    return getDecoded (CharsetManager.getAsBytes (sEncoded, aCharset));
+    final byte [] aEncoded = CharsetManager.getAsBytes (sEncoded, aCharset);
+    return getDecoded (aEncoded);
   }
 }

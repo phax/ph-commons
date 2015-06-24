@@ -238,7 +238,7 @@ public class NonBlockingStringWriter extends Writer implements IHasStringReprese
    *         care!
    */
   @Nonnull
-  @ReturnsMutableObject (reason = "design")
+  @ReturnsMutableObject ("design")
   public StringBuilder directGetStringBuilder ()
   {
     return m_aSB;

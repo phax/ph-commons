@@ -48,7 +48,7 @@ public abstract class AbstractWrappedList <ELEMENTTYPE> implements List <ELEMENT
   }
 
   @Nonnull
-  @ReturnsMutableObject (reason = "design")
+  @ReturnsMutableObject ("design")
   protected List <ELEMENTTYPE> getSrcList ()
   {
     return m_aSrc;

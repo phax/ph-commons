@@ -25,9 +25,9 @@ import java.lang.annotation.Target;
 /**
  * Indicates that a method returns a mutable object. This annotation is meant to
  * indicate that the internal object is returned in a mutable way. If a copy of
- * the internal object is rturned and is mutable, please use the
+ * the internal object is returned and is mutable, please use the
  * {@link ReturnsMutableCopy} annotation.
- * 
+ *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
@@ -36,5 +36,5 @@ import java.lang.annotation.Target;
 public @interface ReturnsMutableObject
 {
   /** Developer comment to explain why the mutable object is returned. */
-  String reason();
+  String value();
 }

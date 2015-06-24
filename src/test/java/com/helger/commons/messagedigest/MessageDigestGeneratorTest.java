@@ -124,9 +124,9 @@ public final class MessageDigestGeneratorTest
     md.update (CharsetManager.getAsBytes ("abc", CCharset.CHARSET_ISO_8859_1_OBJ));
     md.update (CharsetManager.getAsBytes ("abc", CCharset.CHARSET_ISO_8859_1_OBJ), 1, 1);
     md.update ("äöü", CCharset.CHARSET_UTF_8_OBJ);
-    assertNotNull (md.getDigest ());
-    assertNotNull (md.getDigest (2));
-    assertEquals (2, md.getDigest (2).length);
+    assertNotNull (md.getAllDigestBytes ());
+    assertNotNull (md.getAllDigestBytes (2));
+    assertEquals (2, md.getAllDigestBytes (2).length);
     try
     {
       // Already digested

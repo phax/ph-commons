@@ -434,7 +434,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   {
     if (m_aParentNode == null)
       return null;
-    final List <IMicroNode> aParentChildren = m_aParentNode.directGetChildren ();
+    final List <IMicroNode> aParentChildren = m_aParentNode.directGetAllChildren ();
     final int nIndex = aParentChildren.indexOf (this);
     if (nIndex == -1)
       throw new IllegalStateException ("this is no part of it's parents children");
@@ -446,7 +446,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   {
     if (m_aParentNode == null)
       return null;
-    final List <IMicroNode> aParentChildren = m_aParentNode.directGetChildren ();
+    final List <IMicroNode> aParentChildren = m_aParentNode.directGetAllChildren ();
     final int nIndex = aParentChildren.indexOf (this);
     if (nIndex == -1)
       throw new IllegalStateException ("this is no part of it's parents children");

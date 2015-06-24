@@ -55,7 +55,7 @@ public final class SimpleFileIO
    *         passed file does not exist.
    */
   @Nullable
-  public static byte [] readFileBytes (@Nullable final File aFile)
+  public static byte [] getAllFileBytes (@Nullable final File aFile)
   {
     return aFile == null ? null : StreamHelper.getAllBytes (FileHelper.getInputStream (aFile));
   }
@@ -72,7 +72,7 @@ public final class SimpleFileIO
    *         otherwise.
    */
   @Nullable
-  public static String readFileAsString (@Nullable final File aFile, @Nonnull final Charset aCharset)
+  public static String getFileAsString (@Nullable final File aFile, @Nonnull final Charset aCharset)
   {
     return aFile == null ? null : StreamHelper.getAllBytesAsString (FileHelper.getInputStream (aFile), aCharset);
   }
@@ -89,7 +89,7 @@ public final class SimpleFileIO
    *         otherwise.
    */
   @Nullable
-  public static List <String> readFileLines (@Nullable final File aFile, @Nonnull final Charset aCharset)
+  public static List <String> getAllFileLines (@Nullable final File aFile, @Nonnull final Charset aCharset)
   {
     return aFile == null ? null : StreamHelper.readStreamLines (FileHelper.getInputStream (aFile), aCharset);
   }

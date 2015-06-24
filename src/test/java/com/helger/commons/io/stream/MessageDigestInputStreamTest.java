@@ -56,7 +56,7 @@ public final class MessageDigestInputStreamTest
                                                                            eMDAlgo);
       assertTrue (aHIS1.read () != -1);
       StreamHelper.copyInputStreamToOutputStream (aHIS1, new NonBlockingByteArrayOutputStream ());
-      final byte [] aDigest1 = aHIS1.getDigest ();
+      final byte [] aDigest1 = aHIS1.getAllDigestBytes ();
 
       // Second hash
       final MessageDigestInputStream aHIS2 = new MessageDigestInputStream (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes (sTestString,
@@ -64,7 +64,7 @@ public final class MessageDigestInputStreamTest
                                                                            eMDAlgo);
       assertTrue (aHIS2.read () != -1);
       StreamHelper.copyInputStreamToOutputStream (aHIS2, new NonBlockingByteArrayOutputStream ());
-      final byte [] aDigest2 = aHIS2.getDigest ();
+      final byte [] aDigest2 = aHIS2.getAllDigestBytes ();
 
       // Must be equal
       assertArrayEquals (aDigest1, aDigest2);

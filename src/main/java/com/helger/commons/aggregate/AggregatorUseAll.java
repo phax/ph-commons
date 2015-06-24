@@ -21,6 +21,8 @@ import java.util.Collection;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.annotation.ReturnsMutableObject;
+
 /**
  * Always use the complete list of results.
  *
@@ -32,6 +34,7 @@ import javax.annotation.concurrent.Immutable;
 public class AggregatorUseAll <DATATYPE> extends AbstractAggregator <DATATYPE, Collection <DATATYPE>>
 {
   @Nullable
+  @ReturnsMutableObject ("design")
   public Collection <DATATYPE> aggregate (@Nullable final Collection <DATATYPE> aResults)
   {
     return aResults;

@@ -27,6 +27,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
+import com.helger.commons.lang.IHasSize;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -34,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class ReadableResourceByteArray extends AbstractMemoryReadableResource
+public class ReadableResourceByteArray extends AbstractMemoryReadableResource implements IHasSize
 {
   private final byte [] m_aBytes;
 
@@ -58,15 +59,20 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource
 
   @Nonnull
   @ReturnsMutableCopy
-  public byte [] getByteArray ()
+  public byte [] getAllBytes ()
   {
     return ArrayHelper.getCopy (m_aBytes);
   }
 
   @Nonnegative
-  public int size ()
+  public int getSize ()
   {
     return m_aBytes.length;
+  }
+
+  public boolean isEmpty ()
+  {
+    return m_aBytes.length == 0;
   }
 
   @Override

@@ -92,6 +92,7 @@ public class QuotedPrintableCodec extends AbstractByteArrayCodec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] getEncodedQuotedPrintable (@Nonnull final BitSet aPrintableBitSet,
                                                    @Nullable final byte [] aDecodedBuffer)
   {
@@ -112,18 +113,21 @@ public class QuotedPrintableCodec extends AbstractByteArrayCodec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] getEncodedQuotedPrintable (@Nullable final byte [] aDecodedBuffer)
   {
     return getEncodedQuotedPrintable (PRINTABLE_CHARS, aDecodedBuffer);
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer)
   {
     return getEncodedQuotedPrintable (aDecodedBuffer);
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] getDecodedQuotedPrintable (@Nullable final byte [] aEncodedBuffer)
   {
     if (aEncodedBuffer == null)
@@ -162,6 +166,7 @@ public class QuotedPrintableCodec extends AbstractByteArrayCodec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] getDecodedQuotedPrintable (@Nullable final String sEncodedText)
   {
     if (sEncodedText == null)
@@ -171,6 +176,7 @@ public class QuotedPrintableCodec extends AbstractByteArrayCodec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
     return getDecodedQuotedPrintable (aEncodedBuffer);

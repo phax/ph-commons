@@ -117,7 +117,7 @@ public final class MimeTypeDeterminator
     for (final EUnicodeBOM eBOM : EUnicodeBOM.values ())
       for (final byte [] aXML : aXMLStuff)
       {
-        final byte [] aData = ArrayHelper.getConcatenated (eBOM.getBytes (), aXML);
+        final byte [] aData = ArrayHelper.getConcatenated (eBOM.getAllBytes (), aXML);
         registerMimeTypeContent (new MimeTypeContent (aData, CMimeType.TEXT_XML));
       }
   }

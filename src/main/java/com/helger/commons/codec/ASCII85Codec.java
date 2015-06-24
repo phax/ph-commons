@@ -18,6 +18,8 @@ package com.helger.commons.codec;
 
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
 
@@ -39,18 +41,19 @@ public class ASCII85Codec extends AbstractByteArrayDecoder
   {}
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
     return getDecodedASCII85 (aEncodedBuffer);
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] getDecodedASCII85 (@Nullable final byte [] aEncodedBuffer)
   {
     if (aEncodedBuffer == null)
       return null;
-    if (aEncodedBuffer.length < 4)
-      throw new IllegalArgumentException ("Buffer too small: " + aEncodedBuffer.length);
+    ValueEnforcer.isTrue (aEncodedBuffer.length >= 4, "Buffer too small: " + aEncodedBuffer.length);
 
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
     try

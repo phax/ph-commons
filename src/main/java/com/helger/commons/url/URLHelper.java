@@ -754,8 +754,10 @@ public final class URLHelper
    * @param aExceptionHolder
    *        An optional exception holder for further outside investigation.
    * @return <code>null</code> if the input stream could not be opened.
+   * @deprecated Use Apache http client or the like for a much better handling
    */
   @Nullable
+  @Deprecated
   public static InputStream postAndGetInputStream (@Nonnull final URL aURL,
                                                    final int nConnectTimeoutMS,
                                                    final int nReadTimeoutMS,

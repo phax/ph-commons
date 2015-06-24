@@ -3675,7 +3675,7 @@ public final class ArrayHelper
    *         <code>null</code>.
    */
   @Nullable
-  @ReturnsMutableObject (reason = "use getCopy otherwise")
+  @ReturnsMutableObject ("use getCopy otherwise")
   public static boolean [] newBooleanArray (@Nullable final boolean... aArray)
   {
     return aArray;
@@ -3690,7 +3690,7 @@ public final class ArrayHelper
    *         <code>null</code>.
    */
   @Nullable
-  @ReturnsMutableObject (reason = "use getCopy otherwise")
+  @ReturnsMutableObject ("use getCopy otherwise")
   public static byte [] newByteArray (@Nullable final byte... aArray)
   {
     return aArray;
@@ -3705,7 +3705,7 @@ public final class ArrayHelper
    *         <code>null</code>.
    */
   @Nullable
-  @ReturnsMutableObject (reason = "use getCopy otherwise")
+  @ReturnsMutableObject ("use getCopy otherwise")
   public static char [] newCharArray (@Nullable final char... aArray)
   {
     return aArray;
@@ -3720,7 +3720,7 @@ public final class ArrayHelper
    *         <code>null</code>.
    */
   @Nullable
-  @ReturnsMutableObject (reason = "use getCopy otherwise")
+  @ReturnsMutableObject ("use getCopy otherwise")
   public static double [] newDoubleArray (@Nullable final double... aArray)
   {
     return aArray;
@@ -3735,7 +3735,7 @@ public final class ArrayHelper
    *         <code>null</code>.
    */
   @Nullable
-  @ReturnsMutableObject (reason = "use getCopy otherwise")
+  @ReturnsMutableObject ("use getCopy otherwise")
   public static float [] newFloatArray (@Nullable final float... aArray)
   {
     return aArray;
@@ -3750,7 +3750,7 @@ public final class ArrayHelper
    *         <code>null</code>.
    */
   @Nullable
-  @ReturnsMutableObject (reason = "use getCopy otherwise")
+  @ReturnsMutableObject ("use getCopy otherwise")
   public static int [] newIntArray (@Nullable final int... aArray)
   {
     return aArray;
@@ -3765,7 +3765,7 @@ public final class ArrayHelper
    *         <code>null</code>.
    */
   @Nullable
-  @ReturnsMutableObject (reason = "use getCopy otherwise")
+  @ReturnsMutableObject ("use getCopy otherwise")
   public static long [] newLongArray (@Nullable final long... aArray)
   {
     return aArray;
@@ -3780,7 +3780,7 @@ public final class ArrayHelper
    *         <code>null</code>.
    */
   @Nullable
-  @ReturnsMutableObject (reason = "use getCopy otherwise")
+  @ReturnsMutableObject ("use getCopy otherwise")
   public static short [] newShortArray (@Nullable final short... aArray)
   {
     return aArray;
@@ -3880,7 +3880,7 @@ public final class ArrayHelper
    * @return The wrapped array
    */
   @Nonnull
-  @ReturnsMutableObject (reason = "use getCopy otherwise")
+  @ReturnsMutableObject ("use getCopy otherwise")
   public static <ELEMENTTYPE> ELEMENTTYPE [] newArray (@Nonnull final ELEMENTTYPE... aArray)
   {
     ValueEnforcer.notNull (aArray, "Array");

@@ -57,7 +57,7 @@ public interface IMessageDigestGenerator
   int getDigestLength ();
 
   /**
-   * Update the hash with the given byte. After calling {@link #getDigest()}
+   * Update the hash with the given byte. After calling {@link #getAllDigestBytes()}
    * once, no further update is possible.
    *
    * @param aValue
@@ -69,7 +69,7 @@ public interface IMessageDigestGenerator
 
   /**
    * Update the hash with the bytes of the given string in the given charset.
-   * After calling {@link #getDigest()} once, no further update is possible.
+   * After calling {@link #getAllDigestBytes()} once, no further update is possible.
    *
    * @param sValue
    *        The string value to update the hash. May not be <code>null</code>.
@@ -83,7 +83,7 @@ public interface IMessageDigestGenerator
 
   /**
    * Update the hash with the given byte array. After calling
-   * {@link #getDigest()} once, no further update is possible.
+   * {@link #getAllDigestBytes()} once, no further update is possible.
    *
    * @param aValue
    *        The byte array to update the hash. May not be <code>null</code>.
@@ -94,7 +94,7 @@ public interface IMessageDigestGenerator
 
   /**
    * Update the hash with a slice of the given byte array. After calling
-   * {@link #getDigest()} once, no further update is possible.
+   * {@link #getAllDigestBytes()} once, no further update is possible.
    *
    * @param aValue
    *        The byte array to update the hash. May not be <code>null</code>.
@@ -122,11 +122,11 @@ public interface IMessageDigestGenerator
    */
   @Nonnull
   @ReturnsMutableCopy
-  byte [] getDigest ();
+  byte [] getAllDigestBytes ();
 
   /**
    * Get only a part of the digest, namely the first number of bytes. Calls
-   * {@link #getDigest()} internally so no further update is possible after this
+   * {@link #getAllDigestBytes()} internally so no further update is possible after this
    * method is called.
    *
    * @param nLength
@@ -135,11 +135,11 @@ public interface IMessageDigestGenerator
    */
   @Nonnull
   @ReturnsMutableCopy
-  byte [] getDigest (@Nonnegative int nLength);
+  byte [] getAllDigestBytes (@Nonnegative int nLength);
 
   /**
    * This method finalizes the hash generation and creates the index. Calls
-   * {@link #getDigest()} internally so no further update is possible after this
+   * {@link #getAllDigestBytes()} internally so no further update is possible after this
    * method is called.
    *
    * @return the generated hash value.
@@ -148,7 +148,7 @@ public interface IMessageDigestGenerator
 
   /**
    * This method converts the current hash digest to a hex string. Calls
-   * {@link #getDigest()} internally so no further update is possible after this
+   * {@link #getAllDigestBytes()} internally so no further update is possible after this
    * method is called.
    *
    * @return The hex value of the hash digest. Never <code>null</code>.

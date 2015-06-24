@@ -72,9 +72,9 @@ public class MessageDigestInputStream extends WrappedInputStream
    */
   @Nonnull
   @ReturnsMutableCopy
-  public byte [] getDigest ()
+  public byte [] getAllDigestBytes ()
   {
-    return m_aMDGen.getDigest ();
+    return m_aMDGen.getAllDigestBytes ();
   }
 
   @Override

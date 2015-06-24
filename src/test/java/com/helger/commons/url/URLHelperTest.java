@@ -124,6 +124,7 @@ public final class URLHelperTest
     }
   }
 
+  @SuppressWarnings ("deprecation")
   @Test
   @Ignore ("Works only when being online")
   public void testPosttInputStream ()

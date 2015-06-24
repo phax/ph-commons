@@ -75,7 +75,7 @@ public class FileLongIDFactory extends AbstractPersistingLongIDFactory
   @Override
   protected final long readAndUpdateIDCounter (@Nonnegative final int nReserveCount)
   {
-    final String sContent = SimpleFileIO.readFileAsString (m_aFile, CHARSET_TO_USE);
+    final String sContent = SimpleFileIO.getFileAsString (m_aFile, CHARSET_TO_USE);
     final long nRead = sContent != null ? StringParser.parseLong (sContent.trim (), 0) : 0;
     SimpleFileIO.writeFile (m_aFile, Long.toString (nRead + nReserveCount), CHARSET_TO_USE);
     return nRead;

@@ -19,6 +19,7 @@ package com.helger.commons.codec;
 import javax.annotation.Nullable;
 
 import com.helger.commons.CGlobal;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
@@ -34,12 +35,14 @@ public class ASCIIHexCodec extends AbstractByteArrayDecoder
   {}
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
     return getDecodedASCIIHex (aEncodedBuffer);
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] getDecodedASCIIHex (@Nullable final byte [] aEncodedBuffer)
   {
     if (aEncodedBuffer == null)

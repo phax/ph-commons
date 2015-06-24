@@ -25,6 +25,7 @@ import javax.imageio.ImageIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 
 /**
@@ -40,12 +41,14 @@ public class DCTCodec extends AbstractByteArrayDecoder
   {}
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
     return getDecodedDCT (aEncodedBuffer);
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] getDecodedDCT (@Nullable final byte [] aEncodedBuffer)
   {
     if (aEncodedBuffer == null)

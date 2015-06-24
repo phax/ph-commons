@@ -50,20 +50,20 @@ public final class MessageDigestGeneratorHelperTest
       }
 
       // Results must be equal
-      assertArrayEquals (aMD1.getDigest (), aMD2.getDigest ());
-      assertEquals (MessageDigestGeneratorHelper.getLongFromDigest (aMD1.getDigest ()),
-                    MessageDigestGeneratorHelper.getLongFromDigest (aMD2.getDigest ()));
-      assertEquals (MessageDigestGeneratorHelper.getHexValueFromDigest (aMD1.getDigest ()),
-                    MessageDigestGeneratorHelper.getHexValueFromDigest (aMD2.getDigest ()));
+      assertArrayEquals (aMD1.getAllDigestBytes (), aMD2.getAllDigestBytes ());
+      assertEquals (MessageDigestGeneratorHelper.getLongFromDigest (aMD1.getAllDigestBytes ()),
+                    MessageDigestGeneratorHelper.getLongFromDigest (aMD2.getAllDigestBytes ()));
+      assertEquals (MessageDigestGeneratorHelper.getHexValueFromDigest (aMD1.getAllDigestBytes ()),
+                    MessageDigestGeneratorHelper.getHexValueFromDigest (aMD2.getAllDigestBytes ()));
 
       final String s = "phloc commons is great";
       final byte [] aBytes = CharsetManager.getAsBytes (s, CCharset.CHARSET_ISO_8859_1_OBJ);
-      assertArrayEquals (MessageDigestGeneratorHelper.getDigest (eAlgo, aBytes),
-                         MessageDigestGeneratorHelper.getDigest (eAlgo, aBytes));
-      assertArrayEquals (MessageDigestGeneratorHelper.getDigest (eAlgo, aBytes, 5, 10),
-                         MessageDigestGeneratorHelper.getDigest (eAlgo, aBytes, 5, 10));
-      assertArrayEquals (MessageDigestGeneratorHelper.getDigest (eAlgo, s, CCharset.CHARSET_UTF_8_OBJ),
-                         MessageDigestGeneratorHelper.getDigest (eAlgo, s, CCharset.CHARSET_UTF_8_OBJ));
+      assertArrayEquals (MessageDigestGeneratorHelper.getAllDigestBytes (eAlgo, aBytes),
+                         MessageDigestGeneratorHelper.getAllDigestBytes (eAlgo, aBytes));
+      assertArrayEquals (MessageDigestGeneratorHelper.getAllDigestBytes (eAlgo, aBytes, 5, 10),
+                         MessageDigestGeneratorHelper.getAllDigestBytes (eAlgo, aBytes, 5, 10));
+      assertArrayEquals (MessageDigestGeneratorHelper.getAllDigestBytes (eAlgo, s, CCharset.CHARSET_UTF_8_OBJ),
+                         MessageDigestGeneratorHelper.getAllDigestBytes (eAlgo, s, CCharset.CHARSET_UTF_8_OBJ));
     }
   }
 }

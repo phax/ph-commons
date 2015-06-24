@@ -52,7 +52,7 @@ public class FilterListAll <DATATYPE> implements IFilter <DATATYPE>
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <? extends IFilter <? super DATATYPE>> getContainedFilters ()
+  public List <? extends IFilter <? super DATATYPE>> getAllContainedFilters ()
   {
     return CollectionHelper.newList (m_aFilters);
   }

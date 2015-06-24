@@ -119,10 +119,10 @@ public abstract class AbstractRFC1522Codec extends AbstractByteArrayCodec
     if (sEncodedText == null)
       return null;
 
-    if (!sEncodedText.startsWith (PREFIX))
-      throw new DecodeException ("RFC 1522 violation: malformed encoded content. Prefix missing.");
-    if (!sEncodedText.endsWith (POSTFIX))
-      throw new DecodeException ("RFC 1522 violation: malformed encoded content. Postfix missing.");
+    ValueEnforcer.isTrue (sEncodedText.startsWith (PREFIX),
+                          "RFC 1522 violation: malformed encoded content. Prefix missing.");
+    ValueEnforcer.isTrue (sEncodedText.endsWith (POSTFIX),
+                          "RFC 1522 violation: malformed encoded content. Postfix missing.");
 
     int nFrom = PREFIX.length ();
     final int nTerminator = sEncodedText.length () - POSTFIX.length ();

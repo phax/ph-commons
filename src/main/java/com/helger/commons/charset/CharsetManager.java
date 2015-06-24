@@ -30,6 +30,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsImmutableObject;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -121,6 +122,7 @@ public final class CharsetManager
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public static byte [] getAsBytes (@Nonnull final String sText, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (sText, "Text");

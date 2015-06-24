@@ -154,7 +154,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
   }
 
   @Nonnull
-  @ReturnsMutableObject (reason = "Internal use only")
+  @ReturnsMutableObject ("Internal use only")
   protected final Map <Locale, String> internalGetMap ()
   {
     return m_aTexts;
@@ -176,7 +176,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
   }
 
   @Nonnull
-  @ReturnsMutableObject (reason = "Internal use only")
+  @ReturnsMutableObject ("Internal use only")
   protected final Set <Locale> internalGetAllLocales ()
   {
     return m_aTexts.keySet ();
