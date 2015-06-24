@@ -28,8 +28,6 @@ import com.helger.commons.statistics.IStatisticsHandlerKeyedSize;
 import com.helger.commons.statistics.IStatisticsHandlerKeyedTimer;
 import com.helger.commons.statistics.IStatisticsHandlerSize;
 import com.helger.commons.statistics.IStatisticsHandlerTimer;
-import com.helger.commons.statistics.visit.DefaultStatisticsVisitorCallback;
-import com.helger.commons.statistics.visit.IStatisticsVisitorCallback;
 
 /**
  * Special implementation of the {@link IStatisticsVisitorCallback} interface

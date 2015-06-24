@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.statistics.visit;
+package com.helger.commons.statistics.util;
 
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.statistics.IStatisticsHandlerCache;

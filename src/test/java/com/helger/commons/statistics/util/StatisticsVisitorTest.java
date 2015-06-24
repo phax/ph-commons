@@ -14,12 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.statistics.visit;
+package com.helger.commons.statistics.util;
 
 import org.junit.Test;
 
-import com.helger.commons.statistics.visit.DefaultStatisticsVisitorCallback;
-import com.helger.commons.statistics.visit.StatisticsVisitor;
+import com.helger.commons.statistics.util.DefaultStatisticsVisitorCallback;
+import com.helger.commons.statistics.util.StatisticsVisitor;
 
 /**
  * Test class for class {@link StatisticsVisitor}.
