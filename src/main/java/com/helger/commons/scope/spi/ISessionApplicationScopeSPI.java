@@ -19,7 +19,7 @@ package com.helger.commons.scope.spi;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.IsSPIInterface;
-import com.helger.commons.scope.domain.ISessionApplicationScope;
+import com.helger.commons.scope.ISessionApplicationScope;
 
 /**
  * SPI for handling the session application scope lifecycle. Is invoked for

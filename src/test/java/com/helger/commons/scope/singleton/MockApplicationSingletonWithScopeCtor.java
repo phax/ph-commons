@@ -21,14 +21,14 @@ import javax.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.scope.IScope;
-import com.helger.commons.scope.singleton.ApplicationSingleton;
+import com.helger.commons.scope.singleton.AbstractApplicationSingleton;
 
 /**
- * Mock implementation of {@link ApplicationSingleton}
+ * Mock implementation of {@link AbstractApplicationSingleton}
  *
  * @author Philip Helger
  */
-public final class MockApplicationSingletonWithScopeCtor extends ApplicationSingleton
+public final class MockApplicationSingletonWithScopeCtor extends AbstractApplicationSingleton
 {
   private int i = 0;
   private final IScope m_aScope;

@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.scope.domain.ISessionApplicationScope;
 
 /**
  * Represents a single "session application scope". This is a scope that is

@@ -31,10 +31,10 @@ import org.junit.rules.TestRule;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.scope.mock.ScopeTestRule;
-import com.helger.commons.scope.singleton.SessionSingleton;
+import com.helger.commons.scope.singleton.AbstractSessionSingleton;
 
 /**
- * Test class for class {@link SessionSingleton}.<br>
+ * Test class for class {@link AbstractSessionSingleton}.<br>
  * Note: must reside here for Mock* stuff!
  *
  * @author Philip Helger
@@ -47,13 +47,13 @@ public final class SessionSingletonTest
   @Test
   public void testBasic () throws Exception
   {
-    assertTrue (SessionSingleton.getAllSessionSingletons ().isEmpty ());
-    assertFalse (SessionSingleton.isSessionSingletonInstantiated (MockSessionSingleton.class));
-    assertNull (SessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingleton.class));
+    assertTrue (AbstractSessionSingleton.getAllSessionSingletons ().isEmpty ());
+    assertFalse (AbstractSessionSingleton.isSessionSingletonInstantiated (MockSessionSingleton.class));
+    assertNull (AbstractSessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingleton.class));
 
     final MockSessionSingleton a = MockSessionSingleton.getInstance ();
-    assertTrue (SessionSingleton.isSessionSingletonInstantiated (MockSessionSingleton.class));
-    assertSame (a, SessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingleton.class));
+    assertTrue (AbstractSessionSingleton.isSessionSingletonInstantiated (MockSessionSingleton.class));
+    assertSame (a, AbstractSessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingleton.class));
     assertEquals (0, a.get ());
     a.inc ();
     assertEquals (1, a.get ());
@@ -83,14 +83,14 @@ public final class SessionSingletonTest
   @Test
   public void testBasicWithScopeCtor () throws Exception
   {
-    assertTrue (SessionSingleton.getAllSessionSingletons ().isEmpty ());
-    assertFalse (SessionSingleton.isSessionSingletonInstantiated (MockSessionSingletonWithScopeCtor.class));
-    assertNull (SessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingletonWithScopeCtor.class));
+    assertTrue (AbstractSessionSingleton.getAllSessionSingletons ().isEmpty ());
+    assertFalse (AbstractSessionSingleton.isSessionSingletonInstantiated (MockSessionSingletonWithScopeCtor.class));
+    assertNull (AbstractSessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingletonWithScopeCtor.class));
 
     final MockSessionSingletonWithScopeCtor a = MockSessionSingletonWithScopeCtor.getInstance ();
     assertNotNull (a);
-    assertTrue (SessionSingleton.isSessionSingletonInstantiated (MockSessionSingletonWithScopeCtor.class));
-    assertSame (a, SessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingletonWithScopeCtor.class));
+    assertTrue (AbstractSessionSingleton.isSessionSingletonInstantiated (MockSessionSingletonWithScopeCtor.class));
+    assertSame (a, AbstractSessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingletonWithScopeCtor.class));
     assertNotNull (a.getScope ());
     assertEquals (0, a.get ());
     a.inc ();

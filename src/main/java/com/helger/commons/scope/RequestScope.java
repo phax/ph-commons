@@ -30,7 +30,6 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.scope.domain.IRequestScope;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

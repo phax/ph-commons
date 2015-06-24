@@ -32,8 +32,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.scope.domain.ISessionApplicationScope;
-import com.helger.commons.scope.domain.ISessionScope;
+import com.helger.commons.scope.mgr.MetaScopeFactory;
 import com.helger.commons.scope.spi.ScopeSPIManager;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.string.StringHelper;
@@ -74,7 +73,7 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
       for (final ISessionApplicationScope aSessionAppScope : m_aSessionAppScopes.values ())
       {
         // Invoke SPIs
-        ScopeSPIManager.onSessionApplicationScopeEnd (aSessionAppScope);
+        ScopeSPIManager.getInstance ().onSessionApplicationScopeEnd (aSessionAppScope);
 
         // destroy the scope
         aSessionAppScope.destroyScope ();
@@ -186,7 +185,7 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
           aSessionAppScope.initScope ();
 
           // Invoke SPIs
-          ScopeSPIManager.onSessionApplicationScopeBegin (aSessionAppScope);
+          ScopeSPIManager.getInstance ().onSessionApplicationScopeBegin (aSessionAppScope);
         }
       }
       finally

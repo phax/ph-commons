@@ -33,6 +33,7 @@ import com.helger.commons.microdom.convert.MicroTypeConverterRegistry;
 import com.helger.commons.mime.MimeTypeDeterminator;
 import com.helger.commons.mime.MimeTypeInfoManager;
 import com.helger.commons.regex.RegExPool;
+import com.helger.commons.scope.spi.ScopeSPIManager;
 import com.helger.commons.serialize.convert.SerializationConverterRegistry;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.system.SystemProperties;
@@ -87,6 +88,8 @@ public final class CommonsCleanup
       EqualsImplementationRegistry.getInstance ().reinitialize ();
     if (HashCodeImplementationRegistry.isInstantiated ())
       HashCodeImplementationRegistry.getInstance ().reinitialize ();
+    if (ScopeSPIManager.isInstantiated ())
+      ScopeSPIManager.getInstance ().reinitialize ();
 
     // Clear caches
     if (ImageDataManager.isInstantiated ())

@@ -17,7 +17,7 @@
 package com.helger.commons.scope.spi;
 
 import com.helger.commons.annotation.IsSPIImplementation;
-import com.helger.commons.scope.domain.IApplicationScope;
+import com.helger.commons.scope.IApplicationScope;
 import com.helger.commons.scope.spi.IApplicationScopeSPI;
 
 @IsSPIImplementation

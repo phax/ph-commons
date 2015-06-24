@@ -33,11 +33,12 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.scope.IScope;
-import com.helger.commons.scope.domain.ISessionScope;
-import com.helger.commons.scope.singleton.GlobalSingleton;
+import com.helger.commons.scope.ISessionScope;
+import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
 import com.helger.commons.scope.spi.ScopeSPIManager;
 import com.helger.commons.state.EChange;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
@@ -54,7 +55,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @author Philip Helger
  */
 @ThreadSafe
-public class ScopeSessionManager extends GlobalSingleton
+@Singleton
+public class ScopeSessionManager extends AbstractGlobalSingleton
 {
   public static final boolean DEFAULT_DESTROY_ALL_SESSIONS_ON_SCOPE_END = true;
   public static final boolean DEFAULT_END_ALL_SESSIONS_ON_SCOPE_END = true;
@@ -143,7 +145,7 @@ public class ScopeSessionManager extends GlobalSingleton
     aSessionScope.initScope ();
 
     // Invoke SPIs
-    ScopeSPIManager.onSessionScopeBegin (aSessionScope);
+    ScopeSPIManager.getInstance ().onSessionScopeBegin (aSessionScope);
 
     // Increment statistics counter
     s_aUniqueSessionCounter.increment ();
@@ -197,7 +199,7 @@ public class ScopeSessionManager extends GlobalSingleton
         try
         {
           // Invoke SPIs
-          ScopeSPIManager.onSessionScopeEnd (aSessionScope);
+          ScopeSPIManager.getInstance ().onSessionScopeEnd (aSessionScope);
 
           // Destroy the scope
           aSessionScope.destroyScope ();

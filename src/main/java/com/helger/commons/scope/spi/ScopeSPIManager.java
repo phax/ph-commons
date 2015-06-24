@@ -17,23 +17,26 @@
 package com.helger.commons.scope.spi;
 
 import java.util.List;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.GuardedBy;
+import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.exception.mock.IMockException;
 import com.helger.commons.lang.ServiceLoaderHelper;
-import com.helger.commons.scope.domain.IApplicationScope;
-import com.helger.commons.scope.domain.IGlobalScope;
-import com.helger.commons.scope.domain.IRequestScope;
-import com.helger.commons.scope.domain.ISessionApplicationScope;
-import com.helger.commons.scope.domain.ISessionScope;
+import com.helger.commons.scope.IApplicationScope;
+import com.helger.commons.scope.IGlobalScope;
+import com.helger.commons.scope.IRequestScope;
+import com.helger.commons.scope.ISessionApplicationScope;
+import com.helger.commons.scope.ISessionScope;
 
 /**
  * This is an internal class, that triggers the SPI implementations registered
@@ -42,33 +45,69 @@ import com.helger.commons.scope.domain.ISessionScope;
  *
  * @author Philip Helger
  */
-@Immutable
+@ThreadSafe
+@Singleton
 public final class ScopeSPIManager
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ScopeSPIManager.class);
-
-  // non-web scopes
-  private static final List <IGlobalScopeSPI> s_aGlobalSPIs;
-  private static final List <IApplicationScopeSPI> s_aApplicationSPIs;
-  private static final List <ISessionScopeSPI> s_aSessionSPIs;
-  private static final List <ISessionApplicationScopeSPI> s_aSessionApplicationSPIs;
-  private static final List <IRequestScopeSPI> s_aRequestSPIs;
-
-  static
+  private static final class SingletonHolder
   {
-    // Register all listeners
-    s_aGlobalSPIs = ServiceLoaderHelper.getAllSPIImplementations (IGlobalScopeSPI.class);
-    s_aApplicationSPIs = ServiceLoaderHelper.getAllSPIImplementations (IApplicationScopeSPI.class);
-    s_aSessionSPIs = ServiceLoaderHelper.getAllSPIImplementations (ISessionScopeSPI.class);
-    s_aSessionApplicationSPIs = ServiceLoaderHelper.getAllSPIImplementations (ISessionApplicationScopeSPI.class);
-    s_aRequestSPIs = ServiceLoaderHelper.getAllSPIImplementations (IRequestScopeSPI.class);
+    static final ScopeSPIManager m_aInstance = new ScopeSPIManager ();
   }
 
-  @PresentForCodeCoverage
-  private static final ScopeSPIManager s_aInstance = new ScopeSPIManager ();
+  private static final Logger s_aLogger = LoggerFactory.getLogger (ScopeSPIManager.class);
+
+  private static boolean s_bDefaultInstantiated = false;
+
+  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  @GuardedBy ("m_aRWLock")
+  private List <IGlobalScopeSPI> m_aGlobalSPIs;
+  @GuardedBy ("m_aRWLock")
+  private List <IApplicationScopeSPI> m_aApplicationSPIs;
+  @GuardedBy ("m_aRWLock")
+  private List <ISessionScopeSPI> m_aSessionSPIs;
+  @GuardedBy ("m_aRWLock")
+  private List <ISessionApplicationScopeSPI> m_aSessionApplicationSPIs;
+  @GuardedBy ("m_aRWLock")
+  private List <IRequestScopeSPI> m_aRequestSPIs;
 
   private ScopeSPIManager ()
-  {}
+  {
+    reinitialize ();
+  }
+
+  public static boolean isInstantiated ()
+  {
+    return s_bDefaultInstantiated;
+  }
+
+  @Nonnull
+  public static ScopeSPIManager getInstance ()
+  {
+    final ScopeSPIManager ret = SingletonHolder.m_aInstance;
+    s_bDefaultInstantiated = true;
+    return ret;
+  }
+
+  public void reinitialize ()
+  {
+    // Register all listeners
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      m_aGlobalSPIs = ServiceLoaderHelper.getAllSPIImplementations (IGlobalScopeSPI.class);
+      m_aApplicationSPIs = ServiceLoaderHelper.getAllSPIImplementations (IApplicationScopeSPI.class);
+      m_aSessionSPIs = ServiceLoaderHelper.getAllSPIImplementations (ISessionScopeSPI.class);
+      m_aSessionApplicationSPIs = ServiceLoaderHelper.getAllSPIImplementations (ISessionApplicationScopeSPI.class);
+      m_aRequestSPIs = ServiceLoaderHelper.getAllSPIImplementations (IRequestScopeSPI.class);
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Reinitialized " + ScopeSPIManager.class.getName ());
+  }
 
   /**
    * @return All registered global scope SPI listeners. Never <code>null</code>
@@ -76,9 +115,17 @@ public final class ScopeSPIManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <IGlobalScopeSPI> getAllGlobalScopeSPIs ()
+  public List <IGlobalScopeSPI> getAllGlobalScopeSPIs ()
   {
-    return CollectionHelper.newList (s_aGlobalSPIs);
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return CollectionHelper.newList (m_aGlobalSPIs);
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
   }
 
   /**
@@ -87,9 +134,17 @@ public final class ScopeSPIManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <IApplicationScopeSPI> getAllApplicationScopeSPIs ()
+  public List <IApplicationScopeSPI> getAllApplicationScopeSPIs ()
   {
-    return CollectionHelper.newList (s_aApplicationSPIs);
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return CollectionHelper.newList (m_aApplicationSPIs);
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
   }
 
   /**
@@ -98,9 +153,17 @@ public final class ScopeSPIManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <ISessionScopeSPI> getAllSessionScopeSPIs ()
+  public List <ISessionScopeSPI> getAllSessionScopeSPIs ()
   {
-    return CollectionHelper.newList (s_aSessionSPIs);
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return CollectionHelper.newList (m_aSessionSPIs);
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
   }
 
   /**
@@ -109,9 +172,17 @@ public final class ScopeSPIManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <ISessionApplicationScopeSPI> getAllSessionApplicationScopeSPIs ()
+  public List <ISessionApplicationScopeSPI> getAllSessionApplicationScopeSPIs ()
   {
-    return CollectionHelper.newList (s_aSessionApplicationSPIs);
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return CollectionHelper.newList (m_aSessionApplicationSPIs);
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
   }
 
   /**
@@ -120,14 +191,22 @@ public final class ScopeSPIManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <IRequestScopeSPI> getAllRequestScopeSPIs ()
+  public List <IRequestScopeSPI> getAllRequestScopeSPIs ()
   {
-    return CollectionHelper.newList (s_aRequestSPIs);
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return CollectionHelper.newList (m_aRequestSPIs);
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
   }
 
-  public static void onGlobalScopeBegin (@Nonnull final IGlobalScope aGlobalScope)
+  public void onGlobalScopeBegin (@Nonnull final IGlobalScope aGlobalScope)
   {
-    for (final IGlobalScopeSPI aSPI : s_aGlobalSPIs)
+    for (final IGlobalScopeSPI aSPI : getAllGlobalScopeSPIs ())
       try
       {
         aSPI.onGlobalScopeBegin (aGlobalScope);
@@ -139,9 +218,9 @@ public final class ScopeSPIManager
       }
   }
 
-  public static void onGlobalScopeEnd (@Nonnull final IGlobalScope aGlobalScope)
+  public void onGlobalScopeEnd (@Nonnull final IGlobalScope aGlobalScope)
   {
-    for (final IGlobalScopeSPI aSPI : s_aGlobalSPIs)
+    for (final IGlobalScopeSPI aSPI : getAllGlobalScopeSPIs ())
       try
       {
         aSPI.onGlobalScopeEnd (aGlobalScope);
@@ -153,9 +232,9 @@ public final class ScopeSPIManager
       }
   }
 
-  public static void onApplicationScopeBegin (@Nonnull final IApplicationScope aApplicationScope)
+  public void onApplicationScopeBegin (@Nonnull final IApplicationScope aApplicationScope)
   {
-    for (final IApplicationScopeSPI aSPI : s_aApplicationSPIs)
+    for (final IApplicationScopeSPI aSPI : getAllApplicationScopeSPIs ())
       try
       {
         aSPI.onApplicationScopeBegin (aApplicationScope);
@@ -169,9 +248,9 @@ public final class ScopeSPIManager
       }
   }
 
-  public static void onApplicationScopeEnd (@Nonnull final IApplicationScope aApplicationScope)
+  public void onApplicationScopeEnd (@Nonnull final IApplicationScope aApplicationScope)
   {
-    for (final IApplicationScopeSPI aSPI : s_aApplicationSPIs)
+    for (final IApplicationScopeSPI aSPI : getAllApplicationScopeSPIs ())
       try
       {
         aSPI.onApplicationScopeEnd (aApplicationScope);
@@ -185,9 +264,9 @@ public final class ScopeSPIManager
       }
   }
 
-  public static void onSessionScopeBegin (@Nonnull final ISessionScope aSessionScope)
+  public void onSessionScopeBegin (@Nonnull final ISessionScope aSessionScope)
   {
-    for (final ISessionScopeSPI aSPI : s_aSessionSPIs)
+    for (final ISessionScopeSPI aSPI : getAllSessionScopeSPIs ())
       try
       {
         aSPI.onSessionScopeBegin (aSessionScope);
@@ -199,9 +278,9 @@ public final class ScopeSPIManager
       }
   }
 
-  public static void onSessionScopeEnd (@Nonnull final ISessionScope aSessionScope)
+  public void onSessionScopeEnd (@Nonnull final ISessionScope aSessionScope)
   {
-    for (final ISessionScopeSPI aSPI : s_aSessionSPIs)
+    for (final ISessionScopeSPI aSPI : getAllSessionScopeSPIs ())
       try
       {
         aSPI.onSessionScopeEnd (aSessionScope);
@@ -213,9 +292,9 @@ public final class ScopeSPIManager
       }
   }
 
-  public static void onSessionApplicationScopeBegin (@Nonnull final ISessionApplicationScope aSessionApplicationScope)
+  public void onSessionApplicationScopeBegin (@Nonnull final ISessionApplicationScope aSessionApplicationScope)
   {
-    for (final ISessionApplicationScopeSPI aSPI : s_aSessionApplicationSPIs)
+    for (final ISessionApplicationScopeSPI aSPI : getAllSessionApplicationScopeSPIs ())
       try
       {
         aSPI.onSessionApplicationScopeBegin (aSessionApplicationScope);
@@ -229,9 +308,9 @@ public final class ScopeSPIManager
       }
   }
 
-  public static void onSessionApplicationScopeEnd (@Nonnull final ISessionApplicationScope aSessionApplicationScope)
+  public void onSessionApplicationScopeEnd (@Nonnull final ISessionApplicationScope aSessionApplicationScope)
   {
-    for (final ISessionApplicationScopeSPI aSPI : s_aSessionApplicationSPIs)
+    for (final ISessionApplicationScopeSPI aSPI : getAllSessionApplicationScopeSPIs ())
       try
       {
         aSPI.onSessionApplicationScopeEnd (aSessionApplicationScope);
@@ -245,9 +324,9 @@ public final class ScopeSPIManager
       }
   }
 
-  public static void onRequestScopeBegin (@Nonnull final IRequestScope aRequestScope)
+  public void onRequestScopeBegin (@Nonnull final IRequestScope aRequestScope)
   {
-    for (final IRequestScopeSPI aSPI : s_aRequestSPIs)
+    for (final IRequestScopeSPI aSPI : getAllRequestScopeSPIs ())
       try
       {
         aSPI.onRequestScopeBegin (aRequestScope);
@@ -259,9 +338,9 @@ public final class ScopeSPIManager
       }
   }
 
-  public static void onRequestScopeEnd (@Nonnull final IRequestScope aRequestScope)
+  public void onRequestScopeEnd (@Nonnull final IRequestScope aRequestScope)
   {
-    for (final IRequestScopeSPI aSPI : s_aRequestSPIs)
+    for (final IRequestScopeSPI aSPI : getAllRequestScopeSPIs ())
       try
       {
         aSPI.onRequestScopeEnd (aRequestScope);

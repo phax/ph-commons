@@ -34,8 +34,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.scope.domain.IApplicationScope;
-import com.helger.commons.scope.domain.IGlobalScope;
+import com.helger.commons.scope.mgr.MetaScopeFactory;
 import com.helger.commons.scope.spi.ScopeSPIManager;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -75,7 +74,7 @@ public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
       for (final IApplicationScope aAppScope : m_aAppScopes.values ())
       {
         // Invoke SPIs
-        ScopeSPIManager.onApplicationScopeEnd (aAppScope);
+        ScopeSPIManager.getInstance ().onApplicationScopeEnd (aAppScope);
 
         // Destroy the scope
         aAppScope.destroyScope ();
@@ -152,7 +151,7 @@ public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
           aAppScope.initScope ();
 
           // Invoke SPIs
-          ScopeSPIManager.onApplicationScopeBegin (aAppScope);
+          ScopeSPIManager.getInstance ().onApplicationScopeBegin (aAppScope);
         }
       }
       finally

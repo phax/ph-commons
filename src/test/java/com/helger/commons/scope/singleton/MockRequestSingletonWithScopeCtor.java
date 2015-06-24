@@ -21,14 +21,14 @@ import javax.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.scope.IScope;
-import com.helger.commons.scope.singleton.RequestSingleton;
+import com.helger.commons.scope.singleton.AbstractRequestSingleton;
 
 /**
- * Mock implementation of {@link RequestSingleton}.
+ * Mock implementation of {@link AbstractRequestSingleton}.
  *
  * @author Philip Helger
  */
-public final class MockRequestSingletonWithScopeCtor extends RequestSingleton
+public final class MockRequestSingletonWithScopeCtor extends AbstractRequestSingleton
 {
   private int i = 0;
   private final IScope m_aScope;

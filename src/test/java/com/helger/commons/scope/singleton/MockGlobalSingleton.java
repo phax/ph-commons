@@ -20,14 +20,14 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.scope.IScope;
-import com.helger.commons.scope.singleton.GlobalSingleton;
+import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
 
 /**
- * Mock implementation of {@link GlobalSingleton}
+ * Mock implementation of {@link AbstractGlobalSingleton}
  *
  * @author Philip Helger
  */
-public final class MockGlobalSingleton extends GlobalSingleton
+public final class MockGlobalSingleton extends AbstractGlobalSingleton
 {
   static int s_nCtorCount = 0;
   static int s_nDtorCount = 0;

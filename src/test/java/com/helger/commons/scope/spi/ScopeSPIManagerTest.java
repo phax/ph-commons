@@ -20,10 +20,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.helger.commons.scope.ISessionScope;
 import com.helger.commons.scope.ScopeHelper;
-import com.helger.commons.scope.domain.ISessionScope;
 import com.helger.commons.scope.mgr.ScopeManager;
-import com.helger.commons.scope.spi.ScopeSPIManager;
 
 /**
  * Test class for class {@link ScopeSPIManager}.
@@ -40,11 +39,11 @@ public final class ScopeSPIManagerTest
   @Test
   public void testCount ()
   {
-    assertEquals (2, ScopeSPIManager.getAllGlobalScopeSPIs ().size ());
-    assertEquals (2, ScopeSPIManager.getAllApplicationScopeSPIs ().size ());
-    assertEquals (2, ScopeSPIManager.getAllSessionScopeSPIs ().size ());
-    assertEquals (2, ScopeSPIManager.getAllSessionApplicationScopeSPIs ().size ());
-    assertEquals (2, ScopeSPIManager.getAllRequestScopeSPIs ().size ());
+    assertEquals (2, ScopeSPIManager.getInstance ().getAllGlobalScopeSPIs ().size ());
+    assertEquals (2, ScopeSPIManager.getInstance ().getAllApplicationScopeSPIs ().size ());
+    assertEquals (2, ScopeSPIManager.getInstance ().getAllSessionScopeSPIs ().size ());
+    assertEquals (2, ScopeSPIManager.getInstance ().getAllSessionApplicationScopeSPIs ().size ());
+    assertEquals (2, ScopeSPIManager.getInstance ().getAllRequestScopeSPIs ().size ());
   }
 
   @Test

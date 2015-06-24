@@ -30,10 +30,10 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 
 import com.helger.commons.scope.mock.ScopeTestRule;
-import com.helger.commons.scope.singleton.GlobalSingleton;
+import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
 
 /**
- * Test class for class {@link GlobalSingleton}.
+ * Test class for class {@link AbstractGlobalSingleton}.
  *
  * @author Philip Helger
  */
@@ -59,15 +59,15 @@ public final class GlobalSingletonWithScopeCtorFuncTest
   @Test
   public void testBasic ()
   {
-    assertTrue (GlobalSingleton.getAllGlobalSingletons ().isEmpty ());
-    assertFalse (GlobalSingleton.isGlobalSingletonInstantiated (MockGlobalSingletonWithScopeCtor.class));
-    assertNull (GlobalSingleton.getGlobalSingletonIfInstantiated (MockGlobalSingletonWithScopeCtor.class));
+    assertTrue (AbstractGlobalSingleton.getAllGlobalSingletons ().isEmpty ());
+    assertFalse (AbstractGlobalSingleton.isGlobalSingletonInstantiated (MockGlobalSingletonWithScopeCtor.class));
+    assertNull (AbstractGlobalSingleton.getGlobalSingletonIfInstantiated (MockGlobalSingletonWithScopeCtor.class));
 
     final MockGlobalSingletonWithScopeCtor a = MockGlobalSingletonWithScopeCtor.getInstance ();
     assertNotNull (a);
     assertNotNull (a.getScope ());
-    assertTrue (GlobalSingleton.isGlobalSingletonInstantiated (MockGlobalSingletonWithScopeCtor.class));
-    assertSame (a, GlobalSingleton.getGlobalSingletonIfInstantiated (MockGlobalSingletonWithScopeCtor.class));
+    assertTrue (AbstractGlobalSingleton.isGlobalSingletonInstantiated (MockGlobalSingletonWithScopeCtor.class));
+    assertSame (a, AbstractGlobalSingleton.getGlobalSingletonIfInstantiated (MockGlobalSingletonWithScopeCtor.class));
 
     assertNotNull (MockGlobalSingletonWithScopeCtor.getInstance ());
     assertSame (a, MockGlobalSingletonWithScopeCtor.getInstance ());

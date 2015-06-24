@@ -19,7 +19,7 @@ package com.helger.commons.scope.spi;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.IsSPIInterface;
-import com.helger.commons.scope.domain.IGlobalScope;
+import com.helger.commons.scope.IGlobalScope;
 
 /**
  * SPI for handling the global scope lifecycle. Is invoked for non-web and web

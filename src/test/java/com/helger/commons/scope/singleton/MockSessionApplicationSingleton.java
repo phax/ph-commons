@@ -20,14 +20,14 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.scope.singleton.SessionApplicationSingleton;
+import com.helger.commons.scope.singleton.AbstractSessionApplicationSingleton;
 
 /**
- * Mock implementation of {@link SessionApplicationSingleton}.
+ * Mock implementation of {@link AbstractSessionApplicationSingleton}.
  *
  * @author Philip Helger
  */
-public final class MockSessionApplicationSingleton extends SessionApplicationSingleton
+public final class MockSessionApplicationSingleton extends AbstractSessionApplicationSingleton
 {
   private int i = 0;
 

@@ -32,10 +32,10 @@ import org.junit.rules.TestRule;
 
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.scope.mock.ScopeTestRule;
-import com.helger.commons.scope.singleton.GlobalSingleton;
+import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
 
 /**
- * Test class for class {@link GlobalSingleton}.
+ * Test class for class {@link AbstractGlobalSingleton}.
  *
  * @author Philip Helger
  */
@@ -61,14 +61,14 @@ public final class GlobalSingletonTest
   @Test
   public void testBasic ()
   {
-    assertTrue (GlobalSingleton.getAllGlobalSingletons ().isEmpty ());
-    assertFalse (GlobalSingleton.isGlobalSingletonInstantiated (MockGlobalSingleton.class));
-    assertNull (GlobalSingleton.getGlobalSingletonIfInstantiated (MockGlobalSingleton.class));
+    assertTrue (AbstractGlobalSingleton.getAllGlobalSingletons ().isEmpty ());
+    assertFalse (AbstractGlobalSingleton.isGlobalSingletonInstantiated (MockGlobalSingleton.class));
+    assertNull (AbstractGlobalSingleton.getGlobalSingletonIfInstantiated (MockGlobalSingleton.class));
 
     final MockGlobalSingleton a = MockGlobalSingleton.getInstance ();
     assertNotNull (a);
-    assertTrue (GlobalSingleton.isGlobalSingletonInstantiated (MockGlobalSingleton.class));
-    assertSame (a, GlobalSingleton.getGlobalSingletonIfInstantiated (MockGlobalSingleton.class));
+    assertTrue (AbstractGlobalSingleton.isGlobalSingletonInstantiated (MockGlobalSingleton.class));
+    assertSame (a, AbstractGlobalSingleton.getGlobalSingletonIfInstantiated (MockGlobalSingleton.class));
 
     assertNotNull (MockGlobalSingleton.getInstance ());
     assertSame (a, MockGlobalSingleton.getInstance ());

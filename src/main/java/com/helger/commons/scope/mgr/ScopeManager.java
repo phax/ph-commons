@@ -30,13 +30,12 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.scope.MetaScopeFactory;
+import com.helger.commons.scope.IApplicationScope;
+import com.helger.commons.scope.IGlobalScope;
+import com.helger.commons.scope.IRequestScope;
+import com.helger.commons.scope.ISessionApplicationScope;
+import com.helger.commons.scope.ISessionScope;
 import com.helger.commons.scope.ScopeHelper;
-import com.helger.commons.scope.domain.IApplicationScope;
-import com.helger.commons.scope.domain.IGlobalScope;
-import com.helger.commons.scope.domain.IRequestScope;
-import com.helger.commons.scope.domain.ISessionApplicationScope;
-import com.helger.commons.scope.domain.ISessionScope;
 import com.helger.commons.scope.spi.ScopeSPIManager;
 import com.helger.commons.string.StringHelper;
 
@@ -114,7 +113,7 @@ public final class ScopeManager
         s_aLogger.info ("Global scope '" + aGlobalScope.getID () + "' initialized!", ScopeHelper.getDebugStackTrace ());
 
       // Invoke SPIs
-      ScopeSPIManager.onGlobalScopeBegin (aGlobalScope);
+      ScopeSPIManager.getInstance ().onGlobalScopeBegin (aGlobalScope);
     }
     finally
     {
@@ -178,7 +177,7 @@ public final class ScopeManager
       if (s_aGlobalScope != null)
       {
         // Invoke SPI
-        ScopeSPIManager.onGlobalScopeEnd (s_aGlobalScope);
+        ScopeSPIManager.getInstance ().onGlobalScopeEnd (s_aGlobalScope);
 
         // Destroy and invalidate scope
         final String sDestroyedScopeID = s_aGlobalScope.getID ();
@@ -453,7 +452,7 @@ public final class ScopeManager
     aRequestScope.initScope ();
 
     // call SPIs
-    ScopeSPIManager.onRequestScopeBegin (aRequestScope);
+    ScopeSPIManager.getInstance ().onRequestScopeBegin (aRequestScope);
   }
 
   @Nonnull
@@ -502,7 +501,7 @@ public final class ScopeManager
   private static void _destroyRequestScope (@Nonnull final IRequestScope aRequestScope)
   {
     // call SPIs
-    ScopeSPIManager.onRequestScopeEnd (aRequestScope);
+    ScopeSPIManager.getInstance ().onRequestScopeEnd (aRequestScope);
 
     // Destroy scope
     aRequestScope.destroyScope ();
@@ -537,7 +536,7 @@ public final class ScopeManager
 
   /**
    * Check if the passed attribute name is an internal attribute.
-   * 
+   *
    * @param sAttributeName
    *        The name of the attribute to check. May be <code>null</code>.
    * @return <code>true</code> if the passed attribute name is not
