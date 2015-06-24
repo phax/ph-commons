@@ -25,6 +25,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.state.EChange;
 
 /**
@@ -61,9 +63,11 @@ public abstract class AbstractMultiHashMap <KEYTYPE, VALUETYPE, COLLTYPE extends
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   protected abstract COLLTYPE createNewCollection ();
 
   @Nonnull
+  @ReturnsMutableObject ("design")
   public COLLTYPE getOrCreate (@Nullable final KEYTYPE aKey)
   {
     COLLTYPE aCont = get (aKey);

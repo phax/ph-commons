@@ -23,6 +23,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.state.EChange;
 
 /**
@@ -43,9 +44,10 @@ public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VAL
    *
    * @param aKey
    *        The key to use. May not be <code>null</code>.
-   * @return {@link EChange}
+   * @return The mutable collection to be used. Never <code>null</code>.
    */
   @Nonnull
+  @ReturnsMutableObject ("design")
   COLLTYPE getOrCreate (@Nonnull KEYTYPE aKey);
 
   /**

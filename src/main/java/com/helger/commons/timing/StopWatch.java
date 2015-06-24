@@ -18,43 +18,35 @@ package com.helger.commons.timing;
 
 import java.io.Serializable;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CGlobal;
+import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.IStoppable;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Simple stop watch based on {@link System#nanoTime()}.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class StopWatch implements IStoppable, Serializable
+public class StopWatch implements IStoppable, Serializable
 {
-  /** By default the stop watch is not started automatically */
-  public static final boolean DEFAULT_START = false;
-
-  private long m_nStartDT;
-  private long m_nDurationNanos;
-
-  /**
-   * Create a new stop watch that is not yet started.
-   */
-  public StopWatch ()
-  {
-    this (DEFAULT_START);
-  }
+  private long m_nStartDT = 0;
+  private long m_nDurationNanos = 0;
 
   /**
    * Constructor.
-   * 
+   *
    * @param bStart
    *        if <code>true</code> the stop watch is directly started!
    */
-  public StopWatch (final boolean bStart)
+  protected StopWatch (final boolean bStart)
   {
     if (bStart)
       start ();
@@ -63,7 +55,7 @@ public final class StopWatch implements IStoppable, Serializable
   /**
    * Reset all saved durations, in case this stop watch is to be used in a loop.
    * Does not change the start/stop state.
-   * 
+   *
    * @return {@link EChange}.
    */
   @Nonnull
@@ -76,8 +68,17 @@ public final class StopWatch implements IStoppable, Serializable
   }
 
   /**
+   * @return The current time in nano seconds.
+   */
+  @OverrideOnDemand
+  protected long getCurrentNanoTime ()
+  {
+    return System.nanoTime ();
+  }
+
+  /**
    * Start the stop watch.
-   * 
+   *
    * @return {@link EChange}.
    */
   @Nonnull
@@ -86,13 +87,13 @@ public final class StopWatch implements IStoppable, Serializable
     // Already started?
     if (m_nStartDT > 0)
       return EChange.UNCHANGED;
-    m_nStartDT = System.nanoTime ();
+    m_nStartDT = getCurrentNanoTime ();
     return EChange.CHANGED;
   }
 
   /**
    * Stop the stop watch.
-   * 
+   *
    * @return {@link EChange#CHANGED} if the stop watch was previously running
    *         and is now stopped, and {@link EChange#UNCHANGED} if the stop watch
    *         was already stopped.
@@ -103,14 +104,15 @@ public final class StopWatch implements IStoppable, Serializable
     // Already stopped?
     if (m_nStartDT == 0)
       return EChange.UNCHANGED;
-    m_nDurationNanos += (System.nanoTime () - m_nStartDT);
+    final long nCurrentNanoTime = getCurrentNanoTime ();
+    m_nDurationNanos += (nCurrentNanoTime - m_nStartDT);
     m_nStartDT = 0;
     return EChange.CHANGED;
   }
 
   /**
    * Stops, resets and starts the stop watch.
-   * 
+   *
    * @see #stop()
    * @see #reset()
    * @see #start()
@@ -143,6 +145,7 @@ public final class StopWatch implements IStoppable, Serializable
   /**
    * @return The elapsed nano seconds (1000 nano seconds = 1 milli second).
    */
+  @Nonnegative
   public long getNanos ()
   {
     return m_nDurationNanos;
@@ -151,6 +154,7 @@ public final class StopWatch implements IStoppable, Serializable
   /**
    * @return The elapsed milli seconds.
    */
+  @Nonnegative
   public long getMillis ()
   {
     return m_nDurationNanos / CGlobal.NANOSECONDS_PER_MILLISECOND;
@@ -159,6 +163,7 @@ public final class StopWatch implements IStoppable, Serializable
   /**
    * @return The elapsed seconds.
    */
+  @Nonnegative
   public long getSeconds ()
   {
     return m_nDurationNanos / CGlobal.NANOSECONDS_PER_SECOND;
@@ -167,9 +172,10 @@ public final class StopWatch implements IStoppable, Serializable
   /**
    * Stop the stop watch and get the elapsed nanoseconds since the start. If the
    * stop watch was started and stopped multiple times, the duration is added.
-   * 
+   *
    * @return The elapsed nano seconds or 0 if the stop watch was never started.
    */
+  @Nonnegative
   public long stopAndGetNanos ()
   {
     stop ();
@@ -180,9 +186,10 @@ public final class StopWatch implements IStoppable, Serializable
    * Stop the stop watch and get the elapsed milliseconds since the start. If
    * the stop watch was started and stopped multiple times, the duration is
    * added.
-   * 
+   *
    * @return The elapsed milli seconds or 0 if the stop watch was never started.
    */
+  @Nonnegative
   public long stopAndGetMillis ()
   {
     stop ();
@@ -192,9 +199,10 @@ public final class StopWatch implements IStoppable, Serializable
   /**
    * Stop the stop watch and get the elapsed seconds since the start. If the
    * stop watch was started and stopped multiple times, the duration is added.
-   * 
+   *
    * @return The elapsed seconds or 0 if the stop watch was never started.
    */
+  @Nonnegative
   public long stopAndGetSeconds ()
   {
     stop ();
@@ -204,8 +212,30 @@ public final class StopWatch implements IStoppable, Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("startDT", m_nStartDT)
-                                       .append ("duration", m_nDurationNanos)
+    return new ToStringGenerator (this).append ("StartDT", m_nStartDT)
+                                       .append ("DurationNanos", m_nDurationNanos)
                                        .toString ();
+  }
+
+  /**
+   * @return A new {@link StopWatch} object that is started. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static StopWatch createdStarted ()
+  {
+    return new StopWatch (true);
+  }
+
+  /**
+   * @return A new {@link StopWatch} object that is NOT started. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static StopWatch createdStopped ()
+  {
+    return new StopWatch (false);
   }
 }

@@ -3787,6 +3787,7 @@ public final class ArrayHelper
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public static <ELEMENTTYPE> ELEMENTTYPE [] newArray (@Nonnull final Class <? extends ELEMENTTYPE> aClass,
                                                        @Nonnegative final int nSize)
   {
@@ -3809,6 +3810,7 @@ public final class ArrayHelper
    * @return Never <code>null</code>.
    */
   @Nonnull
+  @ReturnsMutableCopy
   public static <ELEMENTTYPE> ELEMENTTYPE [] newArraySameType (@Nonnull final ELEMENTTYPE [] aArray,
                                                                @Nonnegative final int nSize)
   {

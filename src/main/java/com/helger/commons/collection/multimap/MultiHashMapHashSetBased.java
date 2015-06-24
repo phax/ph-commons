@@ -24,10 +24,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
 /**
  * Multi map based on {@link java.util.HashMap} and {@link java.util.HashSet}
  * values.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        key type
@@ -57,6 +59,7 @@ public class MultiHashMapHashSetBased <KEYTYPE, VALUETYPE> extends AbstractMulti
 
   @Override
   @Nonnull
+  @ReturnsMutableCopy
   protected final Set <VALUETYPE> createNewCollection ()
   {
     return new HashSet <VALUETYPE> ();

@@ -90,15 +90,17 @@ public final class XMLDebug
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <EXMLDOMFeatureVersion, List <String>> getSupportedFeatures ()
+  public static Map <EXMLDOMFeatureVersion, List <String>> getAllSupportedFeatures ()
   {
     return CollectionHelper.newMap (s_aSupportedFeatures);
   }
 
   @Nullable
-  public static List <String> getSupportedFeatures (@Nonnull final EXMLDOMFeatureVersion eFeatureVersion)
+  @ReturnsMutableCopy
+  public static List <String> getAllSupportedFeatures (@Nonnull final EXMLDOMFeatureVersion eFeatureVersion)
   {
-    return s_aSupportedFeatures.get (eFeatureVersion);
+    final List <String> ret = s_aSupportedFeatures.get (eFeatureVersion);
+    return ret == null ? null : CollectionHelper.newList (ret);
   }
 
   /**

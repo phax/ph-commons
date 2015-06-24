@@ -24,10 +24,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
 /**
  * Multi map based on {@link java.util.WeakHashMap} and
  * {@link java.util.ArrayList} values.<br>
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        key type
@@ -57,6 +59,7 @@ public class MultiWeakHashMapArrayListBased <KEYTYPE, VALUETYPE> extends Abstrac
 
   @Override
   @Nonnull
+  @ReturnsMutableCopy
   protected final List <VALUETYPE> createNewCollection ()
   {
     return new ArrayList <VALUETYPE> ();

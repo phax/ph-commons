@@ -39,6 +39,7 @@ import org.w3c.dom.Text;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.iterate.IIterableIterator;
@@ -535,6 +536,7 @@ public final class XMLHelper
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static Map <String, String> getAllAttributesAsMap (@Nullable final Element aSrcNode)
   {
     if (aSrcNode != null)

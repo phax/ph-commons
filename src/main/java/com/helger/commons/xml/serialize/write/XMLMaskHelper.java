@@ -29,6 +29,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.EXMLCharMode;
@@ -434,6 +435,7 @@ public final class XMLMaskHelper
   {}
 
   @Nullable
+  @ReturnsMutableObject ("internal use only")
   private static char [] _findSourceMap (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                          @Nonnull final EXMLCharMode eXMLCharMode)
   {
@@ -484,6 +486,7 @@ public final class XMLMaskHelper
   }
 
   @Nullable
+  @ReturnsMutableObject ("internal use only")
   private static char [][] _findReplaceMap (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                             @Nonnull final EXMLCharMode eXMLCharMode)
   {

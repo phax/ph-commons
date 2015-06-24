@@ -47,14 +47,14 @@ public final class BenchmarkIntCharCount
     final int nMinValue = -1000000;
     final int nMaxValue = nMinValue * -1;
 
-    final StopWatch aSW1 = new StopWatch (true);
+    final StopWatch aSW1 = StopWatch.createdStarted ();
     int nSum1 = 0;
     for (int i = nMinValue; i <= nMaxValue; ++i)
       nSum1 += s_a1.getCharacterCount (i);
     aSW1.stop ();
     System.out.println ("Version 1 took " + aSW1.getMillis ());
 
-    final StopWatch aSW2 = new StopWatch (true);
+    final StopWatch aSW2 = StopWatch.createdStarted ();
     int nSum2 = 0;
     for (int i = nMinValue; i <= nMaxValue; ++i)
       nSum2 += s_a2.getCharacterCount (i);

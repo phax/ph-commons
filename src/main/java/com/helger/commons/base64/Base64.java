@@ -1297,6 +1297,7 @@ public final class Base64
    * guarantee as to which one will be picked.
    */
   @Nonnull
+  @ReturnsMutableObject ("design")
   private static byte [] _getAlphabet (final int options)
   {
     if ((options & URL_SAFE) == URL_SAFE)
@@ -1349,6 +1350,7 @@ public final class Base64
    * @since 1.5.1
    */
   @Nonnull
+  @ReturnsMutableObject ("passed parameter")
   static byte [] _encode3to4 (@Nonnull final byte [] b4,
                               @Nonnull final byte [] threeBytes,
                               @Nonnegative final int numSigBytes,
@@ -1389,6 +1391,7 @@ public final class Base64
    * @since 1.3
    */
   @Nonnull
+  @ReturnsMutableObject ("passed parameter")
   static byte [] _encode3to4 (@Nonnull final byte [] source,
                               @Nonnegative final int srcOffset,
                               @Nonnegative final int numSigBytes,
@@ -2412,6 +2415,7 @@ public final class Base64
    * @since 2.1
    */
   @Nonnull
+  @ReturnsMutableCopy
   public static byte [] decodeFromFile (@Nonnull final String filename) throws IOException
   {
     byte [] decodedData;
@@ -2565,6 +2569,7 @@ public final class Base64
    * @return <code>null</code> if decoding failed.
    */
   @Nullable
+  @ReturnsMutableCopy
   public static byte [] safeDecode (@Nullable final String sEncoded)
   {
     if (sEncoded != null)

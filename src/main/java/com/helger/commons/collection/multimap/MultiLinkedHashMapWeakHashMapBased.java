@@ -19,7 +19,10 @@ package com.helger.commons.collection.multimap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.helger.commons.annotation.ReturnsMutableCopy;
 
 public class MultiLinkedHashMapWeakHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE> extends AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
 {
@@ -45,6 +48,8 @@ public class MultiLinkedHashMapWeakHashMapBased <KEYTYPE1, KEYTYPE2 extends Comp
   }
 
   @Override
+  @Nonnull
+  @ReturnsMutableCopy
   protected WeakHashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
     return new WeakHashMap <KEYTYPE2, VALUETYPE> ();

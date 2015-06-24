@@ -220,7 +220,7 @@ public final class SAXReader
 
       try
       {
-        final StopWatch aSW = new StopWatch (true);
+        final StopWatch aSW = StopWatch.createdStarted ();
 
         // Apply settings
         aSettings.applyToSAXReader (aParser);

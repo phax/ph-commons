@@ -24,11 +24,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
 /**
  * Multi map based on {@link java.util.concurrent.ConcurrentHashMap} and
  * {@link LinkedHashSet} values.<br>
  * Important note: <code>null</code> keys are not allowed here!
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        key type
@@ -59,6 +61,7 @@ public class MultiConcurrentHashMapLinkedHashSetBased <KEYTYPE, VALUETYPE> exten
 
   @Override
   @Nonnull
+  @ReturnsMutableCopy
   protected final Set <VALUETYPE> createNewCollection ()
   {
     return new LinkedHashSet <VALUETYPE> ();

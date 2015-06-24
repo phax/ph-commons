@@ -20,7 +20,10 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.helger.commons.annotation.ReturnsMutableCopy;
 
 public class MultiTreeMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE> extends AbstractMultiTreeMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
 {
@@ -50,6 +53,8 @@ public class MultiTreeMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparab
   }
 
   @Override
+  @Nonnull
+  @ReturnsMutableCopy
   protected LinkedHashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
     return new LinkedHashMap <KEYTYPE2, VALUETYPE> ();

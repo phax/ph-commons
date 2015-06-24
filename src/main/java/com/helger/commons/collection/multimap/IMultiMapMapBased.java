@@ -22,6 +22,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.state.EChange;
 
 /**
@@ -42,9 +43,11 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends Map <
    *
    * @param aKey
    *        The key to use. May not be <code>null</code>.
-   * @return {@link EChange}
+   * @return The mutable map that can be modified later on. Never
+   *         <code>null</code>.
    */
   @Nonnull
+  @ReturnsMutableObject ("design")
   Map <KEYTYPE2, VALUETYPE> getOrCreate (@Nonnull KEYTYPE1 aKey);
 
   /**

@@ -27,7 +27,7 @@ import com.helger.commons.thread.ThreadHelper;
 
 /**
  * Test class for class {@link StopWatch}.
- * 
+ *
  * @author Philip Helger
  */
 public final class StopWatchTest
@@ -35,7 +35,7 @@ public final class StopWatchTest
   @Test
   public void testAll ()
   {
-    StopWatch sw = new StopWatch ();
+    StopWatch sw = StopWatch.createdStopped ();
     assertFalse (sw.isStarted ());
     assertEquals (0, sw.getSeconds ());
     assertEquals (0, sw.getMillis ());
@@ -64,7 +64,7 @@ public final class StopWatchTest
 
     assertNotNull (sw.toString ());
 
-    sw = new StopWatch (true);
+    sw = StopWatch.createdStarted ();
     assertTrue (sw.isStarted ());
   }
 }

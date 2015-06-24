@@ -34,6 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiTreeMapArrayListBased;
@@ -89,6 +90,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   }
 
   @Nonnull
+  @ReturnsMutableObject ("internal use only")
   private Map <Class <?>, ITypeConverter> _getOrCreateConverterMap (@Nonnull final Class <?> aClass)
   {
     Map <Class <?>, ITypeConverter> ret;

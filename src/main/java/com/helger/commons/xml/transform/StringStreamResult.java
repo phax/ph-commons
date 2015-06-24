@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.transform.stream.StreamResult;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.lang.IHasStringRepresentation;
 import com.helger.commons.string.ToStringGenerator;
@@ -61,6 +62,7 @@ public class StringStreamResult extends StreamResult implements IHasStringRepres
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public char [] getAsCharArray ()
   {
     return m_aSW.getAsCharArray ();

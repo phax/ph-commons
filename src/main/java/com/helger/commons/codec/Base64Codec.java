@@ -39,6 +39,7 @@ public class Base64Codec extends AbstractByteArrayCodec
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
   {
     return Base64.safeDecode (aEncodedBuffer);

@@ -95,7 +95,7 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
   @Test
   public void testHugeDataSet ()
   {
-    final StopWatch aSW = new StopWatch (true);
+    final StopWatch aSW = StopWatch.createdStarted ();
     try
     {
       // Takes approx. 490ms on PH main machine (2012-01-21)

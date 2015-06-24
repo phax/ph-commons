@@ -224,15 +224,18 @@ public class SingleElementList <ELEMENTTYPE> implements List <ELEMENTTYPE>
   }
 
   @Nonnull
-  public List <ELEMENTTYPE> subList (final int nFromIndex, final int nToIndex)
+  public List <ELEMENTTYPE> subList (@Nonnegative final int nFromIndex, @Nonnegative final int nToIndex)
   {
-    if (!m_bHasElement || nFromIndex != 0 || nToIndex != 0)
-      throw new IndexOutOfBoundsException ();
+    if (nFromIndex < 0 || nFromIndex > (m_bHasElement ? 1 : 0))
+      throw new IndexOutOfBoundsException ("Invalid from index " + nFromIndex);
+    if (nToIndex < 0 || nToIndex > (m_bHasElement ? 1 : 0))
+      throw new IndexOutOfBoundsException ("Invalid to index " + nToIndex);
 
-    final List <ELEMENTTYPE> ret = new ArrayList <ELEMENTTYPE> ();
-    if (m_bHasElement)
-      ret.add (m_aElement);
-    return ret;
+    // Empty
+    if (!m_bHasElement || nFromIndex == nToIndex)
+      return new ArrayList <ELEMENTTYPE> (0);
+
+    return this;
   }
 
   @Nonnull

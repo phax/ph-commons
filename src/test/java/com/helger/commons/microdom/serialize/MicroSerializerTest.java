@@ -90,7 +90,7 @@ public final class MicroSerializerTest
     int nMilliSecs = 0;
     int nRun = 0;
     int nWarmUpRuns = 0;
-    final StopWatch aSW = new StopWatch ();
+    final StopWatch aSW = StopWatch.createdStopped ();
     for (; nRun < 200; ++nRun)
     {
       aWriter.reset ();

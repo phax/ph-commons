@@ -29,6 +29,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.annotation.ReturnsMutableObject;
 
 /**
  * Soft {@link Map} implementation based on
@@ -333,6 +334,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
   }
 
   @Override
+  @ReturnsMutableObject ("design")
   public Set <Map.Entry <K, V>> entrySet ()
   {
     final Set <Map.Entry <K, SoftValue <K, V>>> aSrcEntrySet = m_aSrcMap.entrySet ();

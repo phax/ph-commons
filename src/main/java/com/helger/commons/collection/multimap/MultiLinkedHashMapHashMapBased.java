@@ -19,7 +19,10 @@ package com.helger.commons.collection.multimap;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.helger.commons.annotation.ReturnsMutableCopy;
 
 public class MultiLinkedHashMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
 {
@@ -44,6 +47,8 @@ public class MultiLinkedHashMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> exte
   }
 
   @Override
+  @Nonnull
+  @ReturnsMutableCopy
   protected HashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
     return new HashMap <KEYTYPE2, VALUETYPE> ();

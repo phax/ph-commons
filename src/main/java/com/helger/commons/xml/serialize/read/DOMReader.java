@@ -287,7 +287,7 @@ public final class DOMReader
     Document aDoc = null;
     try
     {
-      final StopWatch aSW = new StopWatch (true);
+      final StopWatch aSW = StopWatch.createdStarted ();
       DocumentBuilder aDocumentBuilder;
       boolean bFromPool = false;
       if (aSettings.requiresNewXMLParser ())

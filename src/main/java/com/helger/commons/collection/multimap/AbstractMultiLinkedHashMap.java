@@ -25,6 +25,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.state.EChange;
 
 /**
@@ -61,6 +62,7 @@ public abstract class AbstractMultiLinkedHashMap <KEYTYPE, VALUETYPE, COLLTYPE e
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   protected abstract COLLTYPE createNewCollection ();
 
   @Nonnull

@@ -67,14 +67,14 @@ public final class BenchmarkCharContains
         aStrs.add (sc + "\\" + sc);
       }
 
-    final StopWatch aSW1 = new StopWatch (true);
+    final StopWatch aSW1 = StopWatch.createdStarted ();
     int nSum1 = 0;
     for (final String s : aStrs)
       nSum1 += s_a1.containsPathSep (s) ? 1 : 0;
     aSW1.stop ();
     System.out.println ("Version 1 took " + aSW1.getMillis ());
 
-    final StopWatch aSW2 = new StopWatch (true);
+    final StopWatch aSW2 = StopWatch.createdStarted ();
     int nSum2 = 0;
     for (final String s : aStrs)
       nSum2 += s_a2.containsPathSep (s) ? 1 : 0;

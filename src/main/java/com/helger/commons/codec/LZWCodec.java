@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.NonBlockingBitInputStream;
 import com.helger.commons.io.stream.NonBlockingBitOutputStream;
@@ -196,7 +197,8 @@ public class LZWCodec extends AbstractByteArrayCodec
     }
 
     @Nullable
-    public byte [] getBytes (@Nonnegative final int nCode)
+    @ReturnsMutableObject ("speed")
+    public byte [] getAllBytes (@Nonnegative final int nCode)
     {
       return m_aTab[nCode];
     }
@@ -297,7 +299,7 @@ public class LZWCodec extends AbstractByteArrayCodec
       // May be EOF if encoded byte array was empty!
       if (nCode != AbstractLZWDictionary.CODE_EOF)
       {
-        byte [] aByteSeq = aDict.getBytes (nCode);
+        byte [] aByteSeq = aDict.getAllBytes (nCode);
         if (aByteSeq == null)
           throw new DecodeException ("Failed to resolve initial code " + nCode);
         aOS.write (aByteSeq);
@@ -316,7 +318,7 @@ public class LZWCodec extends AbstractByteArrayCodec
               break;
 
             // upon clear table, don't add something to the table
-            aByteSeq = aDict.getBytes (nCode);
+            aByteSeq = aDict.getAllBytes (nCode);
             aOS.write (aByteSeq);
             aPrevByteSeq = aByteSeq;
           }
@@ -324,7 +326,7 @@ public class LZWCodec extends AbstractByteArrayCodec
           {
             final int nNextFreeCode = aDict.getNextFreeCode ();
             if (nCode < nNextFreeCode)
-              aByteSeq = aDict.getBytes (nCode);
+              aByteSeq = aDict.getAllBytes (nCode);
             else
               if (nCode == nNextFreeCode)
                 aByteSeq = ArrayHelper.getConcatenated (aPrevByteSeq, aPrevByteSeq[0]);

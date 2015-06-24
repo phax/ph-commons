@@ -25,6 +25,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
 /**
  * Multi map based on {@link java.util.TreeMap} and {@link java.util.TreeSet}
  * values.<br>
@@ -63,6 +65,7 @@ public class MultiTreeMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable <? 
 
   @Override
   @Nonnull
+  @ReturnsMutableCopy
   protected final Set <VALUETYPE> createNewCollection ()
   {
     return new TreeSet <VALUETYPE> ();

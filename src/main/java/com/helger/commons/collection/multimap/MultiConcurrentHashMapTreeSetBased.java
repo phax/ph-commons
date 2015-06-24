@@ -24,6 +24,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
 /**
  * Multi map based on {@link java.util.concurrent.ConcurrentHashMap} and
  * {@link java.util.TreeSet} values.<br>
@@ -58,6 +60,7 @@ public class MultiConcurrentHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comp
 
   @Override
   @Nonnull
+  @ReturnsMutableCopy
   protected final Set <VALUETYPE> createNewCollection ()
   {
     return new TreeSet <VALUETYPE> ();

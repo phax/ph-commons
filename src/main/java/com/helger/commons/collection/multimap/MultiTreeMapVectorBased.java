@@ -25,10 +25,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
 /**
  * Multi map based on {@link java.util.TreeMap} and {@link java.util.Vector}
  * values.<br>
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        key type
@@ -63,6 +65,7 @@ public class MultiTreeMapVectorBased <KEYTYPE, VALUETYPE> extends AbstractMultiT
 
   @Override
   @Nonnull
+  @ReturnsMutableCopy
   protected final List <VALUETYPE> createNewCollection ()
   {
     return new Vector <VALUETYPE> ();

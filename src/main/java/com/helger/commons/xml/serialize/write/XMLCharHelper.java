@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.xml.EXMLCharMode;
 
@@ -700,6 +701,7 @@ public final class XMLCharHelper
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static Set <Character> getAllInvalidXMLNameChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                            @Nullable final String s)
   {
@@ -707,6 +709,7 @@ public final class XMLCharHelper
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static Set <Character> getAllInvalidXMLNameChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                            @Nullable final char [] aChars)
   {
@@ -773,6 +776,7 @@ public final class XMLCharHelper
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static Set <Character> getAllInvalidXMLTextChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                            @Nullable final String s)
   {
@@ -780,6 +784,7 @@ public final class XMLCharHelper
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static Set <Character> getAllInvalidXMLTextChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                            @Nullable final char [] aChars)
   {
@@ -834,6 +839,7 @@ public final class XMLCharHelper
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static Set <Character> getAllInvalidXMLCDATAChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                             @Nullable final String s)
   {
@@ -841,6 +847,7 @@ public final class XMLCharHelper
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static Set <Character> getAllInvalidXMLCDATAChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                             @Nullable final char [] aChars)
   {
@@ -895,6 +902,7 @@ public final class XMLCharHelper
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static Set <Character> getAllInvalidXMLAttributeValueChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                                      @Nullable final String s)
   {
@@ -902,6 +910,7 @@ public final class XMLCharHelper
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static Set <Character> getAllInvalidXMLAttributeValueChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                                      @Nullable final char [] aChars)
   {
@@ -944,6 +953,7 @@ public final class XMLCharHelper
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static Set <Character> getAllInvalidXMLChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                        @Nonnull final EXMLCharMode eXMLCharMode,
                                                        @Nullable final String s)
@@ -952,6 +962,7 @@ public final class XMLCharHelper
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public static Set <Character> getAllInvalidXMLChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                        @Nonnull final EXMLCharMode eXMLCharMode,
                                                        @Nullable final char [] aChars)

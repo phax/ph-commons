@@ -20,7 +20,10 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.helger.commons.annotation.ReturnsMutableCopy;
 
 public class MultiTreeMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends AbstractMultiTreeMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
 {
@@ -50,6 +53,8 @@ public class MultiTreeMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends Ab
   }
 
   @Override
+  @Nonnull
+  @ReturnsMutableCopy
   protected HashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
     return new HashMap <KEYTYPE2, VALUETYPE> ();

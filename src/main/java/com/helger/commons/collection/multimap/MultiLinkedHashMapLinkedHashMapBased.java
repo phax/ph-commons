@@ -19,7 +19,10 @@ package com.helger.commons.collection.multimap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.helger.commons.annotation.ReturnsMutableCopy;
 
 public class MultiLinkedHashMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE> extends AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
 {
@@ -45,6 +48,8 @@ public class MultiLinkedHashMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Co
   }
 
   @Override
+  @Nonnull
+  @ReturnsMutableCopy
   protected LinkedHashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
     return new LinkedHashMap <KEYTYPE2, VALUETYPE> ();

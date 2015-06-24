@@ -36,10 +36,10 @@ public final class XMLDebugTest
   public void testDebugFeatures ()
   {
     XMLDebug.debugLogDOMFeatures ();
-    assertNotNull (XMLDebug.getSupportedFeatures ());
+    assertNotNull (XMLDebug.getAllSupportedFeatures ());
 
     for (final EXMLDOMFeatureVersion eFeatureVersion : EXMLDOMFeatureVersion.values ())
-      assertNotNull (XMLDebug.getSupportedFeatures (eFeatureVersion));
+      assertNotNull (XMLDebug.getAllSupportedFeatures (eFeatureVersion));
   }
 
   @Test

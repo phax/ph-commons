@@ -21,6 +21,8 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
 /**
  * Interface for a single encoder
  *
@@ -39,6 +41,7 @@ public interface IByteArrayEncoder extends IEncoder <byte []>
    *         In case something goes wrong
    */
   @Nullable
+  @ReturnsMutableCopy
   byte [] getEncoded (@Nullable byte [] aDecodedBuffer);
 
   /**
@@ -53,5 +56,6 @@ public interface IByteArrayEncoder extends IEncoder <byte []>
    *         In case something goes wrong
    */
   @Nullable
+  @ReturnsMutableCopy
   byte [] getEncoded (@Nullable String sDecoded, @Nonnull Charset aCharset);
 }

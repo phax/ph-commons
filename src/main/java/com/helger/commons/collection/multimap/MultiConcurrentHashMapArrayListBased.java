@@ -24,11 +24,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
 /**
  * Multi map based on {@link java.util.concurrent.ConcurrentHashMap} and
  * {@link ArrayList} values.<br>
  * Important note: <code>null</code> keys are not allowed here!
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        key type
@@ -58,6 +60,7 @@ public class MultiConcurrentHashMapArrayListBased <KEYTYPE, VALUETYPE> extends A
 
   @Override
   @Nonnull
+  @ReturnsMutableCopy
   protected final List <VALUETYPE> createNewCollection ()
   {
     return new ArrayList <VALUETYPE> ();

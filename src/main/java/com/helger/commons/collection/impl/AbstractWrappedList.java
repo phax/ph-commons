@@ -156,6 +156,7 @@ public abstract class AbstractWrappedList <ELEMENTTYPE> implements List <ELEMENT
     return m_aSrc.size ();
   }
 
+  @ReturnsMutableObject ("as defined by List")
   public List <ELEMENTTYPE> subList (final int nFromIndex, final int nToIndex)
   {
     return m_aSrc.subList (nFromIndex, nToIndex);

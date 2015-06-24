@@ -262,7 +262,7 @@ public class FileMonitorManager implements Runnable
   {
     mainloop: while (m_aMonitorThread != null && !m_aMonitorThread.isInterrupted () && m_bShouldRun)
     {
-      final StopWatch aSW = new StopWatch (true);
+      final StopWatch aSW = StopWatch.createdStarted ();
 
       // Create a copy to avoid concurrent modification
       int nFileNameIndex = 0;

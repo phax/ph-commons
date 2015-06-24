@@ -25,6 +25,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.IHasStringRepresentation;
@@ -159,6 +160,7 @@ public final class Version implements Comparable <Version>, IHasStringRepresenta
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   private static String [] _extSplit (final String s)
   {
     final String [] aDotParts = StringHelper.getExplodedArray ('.', s, 2);

@@ -24,10 +24,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
 /**
  * Multi map based on {@link java.util.LinkedHashMap} and
  * {@link java.util.LinkedHashSet} values.<br>
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        key type
@@ -57,6 +59,7 @@ public class MultiLinkedHashMapLinkedHashSetBased <KEYTYPE, VALUETYPE> extends A
 
   @Override
   @Nonnull
+  @ReturnsMutableCopy
   protected final Set <VALUETYPE> createNewCollection ()
   {
     return new LinkedHashSet <VALUETYPE> ();

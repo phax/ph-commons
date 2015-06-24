@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -95,12 +96,14 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public final Collection <ITEMTYPE> getAllItems ()
   {
     return m_aFactory.getAllItems ();
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public final Collection <DATATYPE> getAllItemDatas ()
   {
     return m_aFactory.getAllItemDatas ();

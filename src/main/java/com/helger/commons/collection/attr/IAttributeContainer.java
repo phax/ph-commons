@@ -332,11 +332,13 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    * @return A non-<code>null</code> set of all attribute names.
    */
   @Nonnull
+  @ReturnsMutableCopy
   Set <KEYTYPE> getAllAttributeNames ();
 
   /**
    * @return A non-<code>null</code> collection of all attribute values.
    */
   @Nonnull
+  @ReturnsMutableCopy
   Collection <VALUETYPE> getAllAttributeValues ();
 }
