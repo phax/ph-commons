@@ -51,7 +51,7 @@ import com.helger.commons.text.resourcebundle.ResourceBundleHelper;
  * @author Philip Helger
  */
 @ThreadSafe
-public final class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractEnumTextResolverWithOverrideAndFallback
+public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractEnumTextResolverWithOverrideAndFallback
 {
   /** Default classpath prefix for override resources */
   public static final String PREFIX_OVERRIDE = "properties/override-";
@@ -279,12 +279,13 @@ public final class EnumTextResolverWithPropertiesOverrideAndFallback extends Abs
       m_aUsedOverrideBundles.clear ();
       m_aUsedFallbackBundles.clear ();
       m_aResourceBundleCache.clear ();
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Cache was cleared: " + getClass ().getName ());
     }
     finally
     {
       m_aRWLock.writeLock ().unlock ();
     }
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Cache was cleared: " + getClass ().getName ());
   }
 }

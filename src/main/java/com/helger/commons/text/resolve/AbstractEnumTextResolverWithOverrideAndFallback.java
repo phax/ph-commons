@@ -103,10 +103,10 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
   protected abstract String internalGetFallbackString (@Nonnull String sID, @Nonnull Locale aContentLocale);
 
   @Nullable
-  private String _getText (@Nonnull final Enum <?> aEnum,
-                           @Nonnull final IHasText aTP,
-                           @Nonnull final Locale aContentLocale,
-                           final boolean bIsWithArgs)
+  protected String internalGetText (@Nonnull final Enum <?> aEnum,
+                                    @Nonnull final IHasText aTP,
+                                    @Nonnull final Locale aContentLocale,
+                                    final boolean bIsWithArgs)
   {
     // Get the unique text element ID
     final String sID = EnumHelper.getEnumID (aEnum);
@@ -148,7 +148,7 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
                                @Nonnull final IHasText aTP,
                                @Nonnull final Locale aContentLocale)
   {
-    return _getText (aEnum, aTP, aContentLocale, false);
+    return internalGetText (aEnum, aTP, aContentLocale, false);
   }
 
   @Nullable
@@ -158,7 +158,7 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
                                        @Nullable final Object... aArgs)
   {
     // The same as getText
-    final String sText = _getText (aEnum, aTP, aContentLocale, true);
+    final String sText = internalGetText (aEnum, aTP, aContentLocale, true);
     // And if something was found, resolve the arguments
     return TextHelper.getFormattedText (sText, aArgs);
   }

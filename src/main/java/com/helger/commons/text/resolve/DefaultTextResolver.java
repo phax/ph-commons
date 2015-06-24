@@ -20,9 +20,9 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.ThreadSafe;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.text.IHasText;
 import com.helger.commons.text.IHasTextWithArgs;
 
@@ -32,72 +32,47 @@ import com.helger.commons.text.IHasTextWithArgs;
  *
  * @author Philip Helger
  */
-@Immutable
-public final class DefaultTextResolver
+@ThreadSafe
+@Singleton
+public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOverrideAndFallback
 {
-  private static final EnumTextResolverWithPropertiesOverrideAndFallback s_aResolver = new EnumTextResolverWithPropertiesOverrideAndFallback ();
+  private static final class SingletonHolder
+  {
+    static final DefaultTextResolver s_aInstance = new DefaultTextResolver ();
+  }
 
-  @PresentForCodeCoverage
-  private static final DefaultTextResolver s_aInstance = new DefaultTextResolver ();
+  private static boolean s_bDefaultInstantiated = false;
 
   private DefaultTextResolver ()
   {}
 
+  public static boolean isInstantiated ()
+  {
+    return s_bDefaultInstantiated;
+  }
+
   @Nonnull
-  public static EnumTextResolverWithPropertiesOverrideAndFallback getInternalResolver ()
+  public static DefaultTextResolver getInstance ()
   {
-    return s_aResolver;
+    final DefaultTextResolver ret = SingletonHolder.s_aInstance;
+    s_bDefaultInstantiated = true;
+    return ret;
   }
 
-  /**
-   * Get the text of the given element in the given locale.
-   *
-   * @param aEnum
-   *        The enum element required for ID resolution
-   * @param aTP
-   *        The text provider holding the static texts
-   * @param aContentLocale
-   *        The locale to be used for resolving
-   * @return The text or <code>null</code> if the text could not be resolved.
-   */
   @Nullable
-  public static String getText (@Nonnull final Enum <?> aEnum,
-                                @Nonnull final IHasText aTP,
-                                @Nonnull final Locale aContentLocale)
+  public static String getTextStatic (@Nonnull final Enum <?> aEnum,
+                                      @Nonnull final IHasText aTP,
+                                      @Nonnull final Locale aContentLocale)
   {
-    return s_aResolver.getText (aEnum, aTP, aContentLocale);
+    return getInstance ().getText (aEnum, aTP, aContentLocale);
   }
 
-  /**
-   * Get the text of the given element in the given locale using the passed
-   * arguments.
-   *
-   * @param aEnum
-   *        The enum element required for ID resolution
-   * @param aTP
-   *        The text provider holding the static texts
-   * @param aContentLocale
-   *        The locale to be used for resolving
-   * @param aArgs
-   *        The arguments to be inserted into the string, may be
-   *        <code>null</code>
-   * @return The text with the arguments replaced or <code>null</code> if the
-   *         passed text could not be resolved.
-   */
   @Nullable
-  public static String getTextWithArgs (@Nonnull final Enum <?> aEnum,
-                                        @Nonnull final IHasTextWithArgs aTP,
-                                        @Nonnull final Locale aContentLocale,
-                                        @Nullable final Object [] aArgs)
+  public static String getTextWithArgsStatic (@Nonnull final Enum <?> aEnum,
+                                              @Nonnull final IHasTextWithArgs aTP,
+                                              @Nonnull final Locale aContentLocale,
+                                              @Nullable final Object... aArgs)
   {
-    return s_aResolver.getTextWithArgs (aEnum, aTP, aContentLocale, aArgs);
-  }
-
-  /**
-   * Clear the cache.
-   */
-  public static void clearCache ()
-  {
-    s_aResolver.clearCache ();
+    return getInstance ().getTextWithArgs (aEnum, aTP, aContentLocale, aArgs);
   }
 }

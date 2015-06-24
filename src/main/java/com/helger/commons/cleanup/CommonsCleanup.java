@@ -64,7 +64,7 @@ public final class CommonsCleanup
    */
   public static void cleanup ()
   {
-    // Reset caches to the default values
+    // Reinitialize singletons to the default values
     if (LocaleCache.isInstantiated ())
       LocaleCache.getInstance ().reinitialize ();
     if (CountryCache.isInstantiated ())
@@ -87,7 +87,8 @@ public final class CommonsCleanup
     // Clear caches
     if (ImageDataManager.isInstantiated ())
       ImageDataManager.getInstance ().clearCache ();
-    DefaultTextResolver.clearCache ();
+    if (DefaultTextResolver.isInstantiated ())
+      DefaultTextResolver.getInstance ().clearCache ();
     EnumHelper.clearCache ();
     ResourceBundleHelper.clearCache ();
     RegExPool.clearPatternCache ();

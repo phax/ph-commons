@@ -59,13 +59,13 @@ public final class DefaultTextResolverTest
     @Nullable
     public String getDisplayText (@Nonnull final Locale aContentLocale)
     {
-      return DefaultTextResolver.getText (this, m_aTP, aContentLocale);
+      return DefaultTextResolver.getTextStatic (this, m_aTP, aContentLocale);
     }
 
     @Nullable
     public String getDisplayTextWithArgs (@Nonnull final Locale aContentLocale, @Nullable final Object... aArgs)
     {
-      return DefaultTextResolver.getTextWithArgs (this, m_aTP, aContentLocale, aArgs);
+      return DefaultTextResolver.getTextWithArgsStatic (this, m_aTP, aContentLocale, aArgs);
     }
   }
 
@@ -95,15 +95,11 @@ public final class DefaultTextResolverTest
     assertNull (EText.TEXT2.getDisplayText (aSR));
 
     // Check bundle names
-    assertTrue (DefaultTextResolver.getInternalResolver ()
-                                   .getAllUsedOverrideBundleNames ()
-                                   .contains ("properties/override-de"));
-    assertFalse (DefaultTextResolver.getInternalResolver ()
+    assertTrue (DefaultTextResolver.getInstance ().getAllUsedOverrideBundleNames ().contains ("properties/override-de"));
+    assertFalse (DefaultTextResolver.getInstance ()
                                     .getAllUsedOverrideBundleNames ()
                                     .contains ("properties/override-en"));
-    assertFalse (DefaultTextResolver.getInternalResolver ()
-                                    .getAllUsedFallbackBundleNames ()
-                                    .contains ("properties/sr_RS"));
+    assertFalse (DefaultTextResolver.getInstance ().getAllUsedFallbackBundleNames ().contains ("properties/sr_RS"));
   }
 
   @Test
@@ -120,7 +116,7 @@ public final class DefaultTextResolverTest
     assertEquals (EText.TEXT3.getDisplayText (aEN), EText.TEXT3.getDisplayTextWithArgs (aEN, (Object []) null));
 
     // Clear cache and try again (should not make any difference)
-    DefaultTextResolver.clearCache ();
+    DefaultTextResolver.getInstance ().clearCache ();
 
     // Regular
     assertEquals ("Text3abcde", EText.TEXT3.getDisplayTextWithArgs (aDE, "abc"));
