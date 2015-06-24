@@ -75,6 +75,7 @@ public final class SystemProperties
   public static final String SYSTEM_PROPERTY_USER_HOME = "user.home";
   public static final String SYSTEM_PROPERTY_USER_NAME = "user.name";
 
+  // JDK XML properties
   public static final String SYSTEM_PROPERTY_JDX_XML_ENTITY_EXPANSION_LIMIT = "jdx.xml.entityExpansionLimit";
   public static final String SYSTEM_PROPERTY_ENTITY_EXPANSION_LIMIT = "entityExpansionLimit";
   public static final String SYSTEM_PROPERTY_JDX_XML_ELEMENT_ATTRIBUTE_LIMIT = "jdx.xml.elementAttributeLimit";
@@ -84,6 +85,9 @@ public final class SystemProperties
   public static final String SYSTEM_PROPERTY_JDX_XML_TOTAL_ENTITY_SIZE_LIMIT = "jdx.xml.totalEntitySizeLimit";
   public static final String SYSTEM_PROPERTY_JDX_XML_MAX_GENERAL_ENTITY_SIZE_LIMIT = "jdx.xml.maxGeneralEntitySizeLimit";
   public static final String SYSTEM_PROPERTY_JDX_XML_MAX_PARAMETER_ENTITY_SIZE_LIMIT = "jdx.xml.maxParameterEntitySizeLimit";
+
+  // JDK serialization properties
+  public static final String SYSTEM_PROPERTY_SUN_IO_SERIALIZATION_EXTENDEDDEBUGINFO = "sun.io.serialization.extendedDebugInfo";
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (SystemProperties.class);
   private static final Set <String> s_aWarnedPropertyNames = Collections.synchronizedSet (new HashSet <String> ());
