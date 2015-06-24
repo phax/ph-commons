@@ -91,7 +91,8 @@ public final class CommonsCleanup
       DefaultTextResolver.getInstance ().clearCache ();
     EnumHelper.clearCache ();
     ResourceBundleHelper.clearCache ();
-    RegExPool.clearPatternCache ();
+    if (RegExPool.isInstantiated ())
+      RegExPool.getInstance ().clearCache ();
     CollatorHelper.clearCache ();
     LocaleHelper.clearCache ();
     if (JAXBContextCache.isInstantiated ())

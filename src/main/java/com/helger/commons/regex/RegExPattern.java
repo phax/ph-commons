@@ -152,7 +152,7 @@ public final class RegExPattern implements Serializable
   }
 
   /**
-   * @return The compiled pattern. Never <code>null</code>.
+   * @return The precompiled pattern. Never <code>null</code>.
    */
   @Nonnull
   public Pattern getAsPattern ()

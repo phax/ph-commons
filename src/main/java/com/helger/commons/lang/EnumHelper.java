@@ -494,13 +494,14 @@ public final class EnumHelper
       if (s_aIntCache.isEmpty ())
         return EChange.UNCHANGED;
       s_aIntCache.clear ();
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Cache was cleared: " + EnumHelper.class.getName ());
-      return EChange.CHANGED;
     }
     finally
     {
       s_aRWLockInt.writeLock ().unlock ();
     }
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Cache was cleared: " + EnumHelper.class.getName ());
+    return EChange.CHANGED;
   }
 }

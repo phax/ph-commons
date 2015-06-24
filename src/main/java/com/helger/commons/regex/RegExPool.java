@@ -26,8 +26,8 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.cache.AbstractNotifyingCache;
-import com.helger.commons.state.EChange;
 
 /**
  * This class provides a pool for cached regular expressions. It caches up to a
@@ -36,17 +36,35 @@ import com.helger.commons.state.EChange;
  * @author Philip Helger
  */
 @ThreadSafe
+@Singleton
 public final class RegExPool extends AbstractNotifyingCache <RegExPattern, Pattern>
 {
+  private static final class SingletonHolder
+  {
+    static final RegExPool s_aInstance = new RegExPool ();
+  }
+
   /** The default number of items to keep in the cache */
   public static final int MAX_CACHE_SIZE = 1000;
 
-  /** Default instance */
-  private static final RegExPool s_aInstance = new RegExPool ();
+  private static boolean s_bDefaultInstantiated = false;
 
   private RegExPool ()
   {
     super (MAX_CACHE_SIZE, RegExPool.class.getName ());
+  }
+
+  public static boolean isInstantiated ()
+  {
+    return s_bDefaultInstantiated;
+  }
+
+  @Nonnull
+  public static RegExPool getInstance ()
+  {
+    final RegExPool ret = SingletonHolder.s_aInstance;
+    s_bDefaultInstantiated = true;
+    return ret;
   }
 
   @Override
@@ -71,7 +89,7 @@ public final class RegExPool extends AbstractNotifyingCache <RegExPattern, Patte
   @Nonnull
   public static Pattern getPattern (@Nonnull @Nonempty @RegEx final String sRegEx)
   {
-    return s_aInstance.getFromCache (new RegExPattern (sRegEx));
+    return getInstance ().getFromCache (new RegExPattern (sRegEx));
   }
 
   /**
@@ -91,17 +109,6 @@ public final class RegExPool extends AbstractNotifyingCache <RegExPattern, Patte
   @Nonnull
   public static Pattern getPattern (@Nonnull @Nonempty @RegEx final String sRegEx, @Nonnegative final int nOptions)
   {
-    return s_aInstance.getFromCache (new RegExPattern (sRegEx, nOptions));
-  }
-
-  /**
-   * Clear all cached patterns.
-   *
-   * @return {@link EChange}
-   */
-  @Nonnull
-  public static EChange clearPatternCache ()
-  {
-    return s_aInstance.clearCache ();
+    return getInstance ().getFromCache (new RegExPattern (sRegEx, nOptions));
   }
 }
