@@ -35,6 +35,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.collection.ArrayHelper;
@@ -47,6 +48,7 @@ import com.helger.commons.state.EChange;
  * @author Philip Helger
  */
 @ThreadSafe
+@Singleton
 public final class MimeTypeDeterminator
 {
   private static final class SingletonHolder
@@ -294,19 +296,20 @@ public final class MimeTypeDeterminator
    * @see #registerMimeTypeContent(MimeTypeContent)
    * @see #unregisterMimeTypeContent(MimeTypeContent)
    */
-  public void resetCache ()
+  public void reinitialize ()
   {
     m_aRWLock.writeLock ().lock ();
     try
     {
       m_aMimeTypeContents.clear ();
       _registerDefaultMimeTypeContents ();
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Cache was reset: " + MimeTypeDeterminator.class.getName ());
     }
     finally
     {
       m_aRWLock.writeLock ().unlock ();
     }
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Reinitialized " + MimeTypeDeterminator.class.getName ());
   }
 }

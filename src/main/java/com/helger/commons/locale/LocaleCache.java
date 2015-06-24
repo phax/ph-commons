@@ -26,13 +26,17 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.CGlobal;
+import com.helger.commons.annotation.ELockType;
+import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.string.StringHelper;
 
@@ -44,6 +48,7 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @ThreadSafe
+@Singleton
 public final class LocaleCache
 {
   private static final class SingletonHolder
@@ -54,36 +59,15 @@ public final class LocaleCache
   private static final Logger s_aLogger = LoggerFactory.getLogger (LocaleCache.class);
   private static boolean s_bDefaultInstantiated = false;
 
-  private final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
 
   /** maps a string to a locale. */
-  private final Map <String, Locale> s_aLocales = new HashMap <String, Locale> ();
-
-  private void _initialAdd (@Nonnull final Locale aLocale)
-  {
-    s_aLocales.put (aLocale.toString (), aLocale);
-  }
-
-  private void _initialFillCache ()
-  {
-    // add pseudo locales
-    _initialAdd (CGlobal.LOCALE_ALL);
-    _initialAdd (CGlobal.LOCALE_INDEPENDENT);
-
-    // add all predefined languages
-    for (final Locale aLocale : Locale.getAvailableLocales ())
-      _initialAdd (aLocale);
-
-    // http://forums.sun.com/thread.jspa?threadID=525482&tstart=1411
-    for (final String sCountry : Locale.getISOCountries ())
-      _initialAdd (new Locale ("", sCountry));
-    for (final String sLanguage : Locale.getISOLanguages ())
-      _initialAdd (new Locale (sLanguage, ""));
-  }
+  @GuardedBy ("m_aRWLock")
+  private final Map <String, Locale> m_aLocales = new HashMap <String, Locale> ();
 
   private LocaleCache ()
   {
-    _initialFillCache ();
+    reinitialize ();
   }
 
   public static boolean isInstantiated ()
@@ -191,35 +175,35 @@ public final class LocaleCache
       return null;
     // try to resolve locale
     Locale aLocale;
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
-      aLocale = s_aLocales.get (sLocaleKey);
+      aLocale = m_aLocales.get (sLocaleKey);
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
 
     if (aLocale == null)
     {
-      s_aRWLock.writeLock ().lock ();
+      m_aRWLock.writeLock ().lock ();
       try
       {
         // Try fetching again in writeLock
-        aLocale = s_aLocales.get (sLocaleKey);
+        aLocale = m_aLocales.get (sLocaleKey);
         if (aLocale == null)
         {
           // not yet in cache, create a new one
           // -> may lead to illegal locales, but simpler than the error handling
           // for all the possible illegal values
           aLocale = new Locale (sRealLanguage, sRealCountry, sRealVariant);
-          s_aLocales.put (sLocaleKey, aLocale);
+          m_aLocales.put (sLocaleKey, aLocale);
         }
       }
       finally
       {
-        s_aRWLock.writeLock ().unlock ();
+        m_aRWLock.writeLock ().unlock ();
       }
     }
     return aLocale;
@@ -234,17 +218,17 @@ public final class LocaleCache
   @ReturnsMutableCopy
   public Set <Locale> getAllLocales ()
   {
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
-      final Set <Locale> ret = CollectionHelper.newSet (s_aLocales.values ());
+      final Set <Locale> ret = CollectionHelper.newSet (m_aLocales.values ());
       ret.remove (CGlobal.LOCALE_ALL);
       ret.remove (CGlobal.LOCALE_INDEPENDENT);
       return ret;
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
   }
 
@@ -335,33 +319,53 @@ public final class LocaleCache
     final String sLocaleKey = _createLocaleKey (sLanguage, sCountry, sVariant);
     if (sLocaleKey.length () == 0)
       return false;
-    s_aRWLock.readLock ().lock ();
+    m_aRWLock.readLock ().lock ();
     try
     {
-      return s_aLocales.containsKey (sLocaleKey);
+      return m_aLocales.containsKey (sLocaleKey);
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      m_aRWLock.readLock ().unlock ();
     }
+  }
+
+  @MustBeLocked (ELockType.WRITE)
+  private void _initialAdd (@Nonnull final Locale aLocale)
+  {
+    m_aLocales.put (aLocale.toString (), aLocale);
   }
 
   /**
    * Reset the cache to the initial state.
    */
-  public void resetCache ()
+  public void reinitialize ()
   {
-    s_aRWLock.writeLock ().lock ();
+    m_aRWLock.writeLock ().lock ();
     try
     {
-      s_aLocales.clear ();
-      _initialFillCache ();
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Cache was reset: " + LocaleCache.class.getName ());
+      m_aLocales.clear ();
+
+      // add pseudo locales
+      _initialAdd (CGlobal.LOCALE_ALL);
+      _initialAdd (CGlobal.LOCALE_INDEPENDENT);
+
+      // add all predefined languages
+      for (final Locale aLocale : Locale.getAvailableLocales ())
+        _initialAdd (aLocale);
+
+      // http://forums.sun.com/thread.jspa?threadID=525482&tstart=1411
+      for (final String sCountry : Locale.getISOCountries ())
+        _initialAdd (new Locale ("", sCountry));
+      for (final String sLanguage : Locale.getISOLanguages ())
+        _initialAdd (new Locale (sLanguage, ""));
     }
     finally
     {
-      s_aRWLock.writeLock ().unlock ();
+      m_aRWLock.writeLock ().unlock ();
     }
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Reinitialized " + LocaleCache.class.getName ());
   }
 }

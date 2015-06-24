@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiTreeMapArrayListBased;
@@ -53,6 +54,7 @@ import com.helger.commons.wrapper.Wrapper;
  * @author Philip Helger
  */
 @ThreadSafe
+@Singleton
 public final class TypeConverterRegistry implements ITypeConverterRegistry
 {
   private static final class SingletonHolder
@@ -85,8 +87,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   @Nonnull
   public static TypeConverterRegistry getInstance ()
   {
+    final TypeConverterRegistry ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
-    return SingletonHolder.s_aInstance;
+    return ret;
   }
 
   @Nonnull
@@ -471,10 +474,10 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     for (final ITypeConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (ITypeConverterRegistrarSPI.class))
       aSPI.registerTypeConverter (this);
 
-    if (GlobalDebug.isDebugMode ())
-      s_aLogger.info (getRegisteredTypeConverterCount () +
-                      " type converters and " +
-                      getRegisteredTypeConverterRuleCount () +
-                      " rules registered");
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug (getRegisteredTypeConverterCount () +
+                       " type converters and " +
+                       getRegisteredTypeConverterRuleCount () +
+                       " rules registered");
   }
 }

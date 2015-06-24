@@ -66,13 +66,13 @@ public final class CommonsCleanup
   {
     // Reset caches to the default values
     if (LocaleCache.isInstantiated ())
-      LocaleCache.getInstance ().resetCache ();
+      LocaleCache.getInstance ().reinitialize ();
     if (CountryCache.isInstantiated ())
-      CountryCache.getInstance ().resetCache ();
+      CountryCache.getInstance ().reinitialize ();
     if (MimeTypeDeterminator.isInstantiated ())
-      MimeTypeDeterminator.getInstance ().resetCache ();
+      MimeTypeDeterminator.getInstance ().reinitialize ();
     if (MimeTypeInfoManager.isDefaultInstantiated ())
-      MimeTypeInfoManager.getDefaultInstance ().resetCacheToDefault ();
+      MimeTypeInfoManager.getDefaultInstance ().reinitializeToDefault ();
     if (MicroTypeConverterRegistry.isInstantiated ())
       MicroTypeConverterRegistry.getInstance ().reinitialize ();
     if (SerializationConverterRegistry.isInstantiated ())

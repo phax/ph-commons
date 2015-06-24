@@ -124,15 +124,15 @@ public final class CountryCacheTest
   public void testResetCache ()
   {
     // is always cleaned along with locale cache!
-    LocaleCache.getInstance ().resetCache ();
-    CountryCache.getInstance ().resetCache ();
+    LocaleCache.getInstance ().reinitialize ();
+    CountryCache.getInstance ().reinitialize ();
     final int nCount = CountryCache.getInstance ().getAllCountries ().size ();
     CountryCache.getInstance ().addCountry ("123");
     assertTrue (CountryCache.getInstance ().containsCountry ("123"));
     assertEquals (nCount + 1, CountryCache.getInstance ().getAllCountries ().size ());
     // is always cleaned along with locale cache!
-    LocaleCache.getInstance ().resetCache ();
-    CountryCache.getInstance ().resetCache ();
+    LocaleCache.getInstance ().reinitialize ();
+    CountryCache.getInstance ().reinitialize ();
     assertEquals (nCount, CountryCache.getInstance ().getAllCountries ().size ());
   }
 

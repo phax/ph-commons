@@ -26,13 +26,14 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.lang.ServiceLoaderHelper;
 
@@ -44,7 +45,8 @@ import com.helger.commons.lang.ServiceLoaderHelper;
  * @author Boris Gregorcic
  * @author Philip Helger
  */
-@Immutable
+@ThreadSafe
+@Singleton
 public final class URLProtocolRegistry
 {
   private static final class SingletonHolder
@@ -73,41 +75,9 @@ public final class URLProtocolRegistry
   @Nonnull
   public static URLProtocolRegistry getInstance ()
   {
+    final URLProtocolRegistry ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
-    return SingletonHolder.s_aInstance;
-  }
-
-  /**
-   * Reinitialize all protocols. Adds all {@link EURLProtocol} values and
-   * invokes all SPI implementations.
-   */
-  public void reinitialize ()
-  {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aProtocols.clear ();
-
-      // Add all default protocols
-      for (final EURLProtocol aProtocol : EURLProtocol.values ())
-        m_aProtocols.put (aProtocol.getProtocol (), aProtocol);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
-
-    // Load all SPI implementations
-    for (final IURLProtocolRegistrarSPI aRegistrar : ServiceLoaderHelper.getAllSPIImplementations (IURLProtocolRegistrarSPI.class))
-    {
-      final Set <? extends IURLProtocol> aURLProtocols = aRegistrar.getAllProtocols ();
-      if (aURLProtocols != null)
-        for (final IURLProtocol aSPIProtocol : aURLProtocols)
-          registerProtocol (aSPIProtocol);
-    }
-
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug (getRegisteredProtocolCount () + " URL protocols registered");
+    return ret;
   }
 
   /**
@@ -129,12 +99,14 @@ public final class URLProtocolRegistry
       if (m_aProtocols.containsKey (sProtocol))
         throw new IllegalArgumentException ("Another handler for protocol '" + sProtocol + "' is already registered!");
       m_aProtocols.put (sProtocol, aProtocol);
-      s_aLogger.info ("Registered new custom URL protocol: " + aProtocol);
     }
     finally
     {
       m_aRWLock.writeLock ().unlock ();
     }
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Registered new custom URL protocol: " + aProtocol);
   }
 
   /**
@@ -247,5 +219,38 @@ public final class URLProtocolRegistry
   {
     final IURLProtocol aProtocol = getProtocol (sURL);
     return aProtocol == null ? sURL : sURL.substring (aProtocol.getProtocol ().length ());
+  }
+
+  /**
+   * Reinitialize all protocols. Adds all {@link EURLProtocol} values and
+   * invokes all SPI implementations.
+   */
+  public void reinitialize ()
+  {
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      m_aProtocols.clear ();
+
+      // Add all default protocols
+      for (final EURLProtocol aProtocol : EURLProtocol.values ())
+        m_aProtocols.put (aProtocol.getProtocol (), aProtocol);
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+
+    // Load all SPI implementations
+    for (final IURLProtocolRegistrarSPI aRegistrar : ServiceLoaderHelper.getAllSPIImplementations (IURLProtocolRegistrarSPI.class))
+    {
+      final Set <? extends IURLProtocol> aURLProtocols = aRegistrar.getAllProtocols ();
+      if (aURLProtocols != null)
+        for (final IURLProtocol aSPIProtocol : aURLProtocols)
+          registerProtocol (aSPIProtocol);
+    }
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug (getRegisteredProtocolCount () + " URL protocols registered");
   }
 }

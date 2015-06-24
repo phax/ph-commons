@@ -33,6 +33,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.annotation.VisibleForTesting;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
@@ -56,10 +57,12 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @ThreadSafe
+@Singleton
 public class MimeTypeInfoManager
 {
   private static final class SingletonHolder
   {
+    // Read default
     static final MimeTypeInfoManager s_aInstance = new MimeTypeInfoManager ().readDefault ();
   }
 
@@ -75,6 +78,9 @@ public class MimeTypeInfoManager
   @GuardedBy ("m_aRWLock")
   private final IMultiMapListBased <String, MimeTypeInfo> m_aMapExt = new MultiTreeMapArrayListBased <String, MimeTypeInfo> ();
 
+  /**
+   * Create a new empty (!!) instance.
+   */
   public MimeTypeInfoManager ()
   {}
 
@@ -90,8 +96,9 @@ public class MimeTypeInfoManager
   @Nonnull
   public static MimeTypeInfoManager getDefaultInstance ()
   {
+    final MimeTypeInfoManager ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
-    return SingletonHolder.s_aInstance;
+    return ret;
   }
 
   /**
@@ -103,8 +110,7 @@ public class MimeTypeInfoManager
   @Nonnull
   public MimeTypeInfoManager readDefault ()
   {
-    read (new ClassPathResource (MIME_TYPE_INFO_XML));
-    return this;
+    return read (new ClassPathResource (MIME_TYPE_INFO_XML));
   }
 
   /**
@@ -112,8 +118,10 @@ public class MimeTypeInfoManager
    *
    * @param aRes
    *        The resource to read. May not be <code>null</code>.
+   * @return this
    */
-  public void read (@Nonnull final IReadableResource aRes)
+  @Nonnull
+  public MimeTypeInfoManager read (@Nonnull final IReadableResource aRes)
   {
     ValueEnforcer.notNull (aRes, "Resource");
 
@@ -126,6 +134,7 @@ public class MimeTypeInfoManager
       final MimeTypeInfo aInfo = MicroTypeConverter.convertToNative (eItem, MimeTypeInfo.class);
       registerMimeType (aInfo);
     }
+    return this;
   }
 
   /**
@@ -163,7 +172,7 @@ public class MimeTypeInfoManager
     return ret;
   }
 
-  public void resetCacheToDefault ()
+  public void reinitializeToDefault ()
   {
     clearCache ();
     readDefault ();

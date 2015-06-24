@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.ServiceLoaderHelper;
@@ -43,6 +44,7 @@ import com.helger.commons.lang.ServiceLoaderHelper;
  * @author Philip Helger
  */
 @ThreadSafe
+@Singleton
 public final class SerializationConverterRegistry implements ISerializationConverterRegistry
 {
   private static final class SingletonHolder
@@ -76,8 +78,9 @@ public final class SerializationConverterRegistry implements ISerializationConve
   @Nonnull
   public static SerializationConverterRegistry getInstance ()
   {
+    final SerializationConverterRegistry ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
-    return SingletonHolder.s_aInstance;
+    return ret;
   }
 
   public void registerSerializationConverter (@Nonnull final Class <?> aClass,
@@ -225,6 +228,8 @@ public final class SerializationConverterRegistry implements ISerializationConve
     // Register all custom micro type converter
     for (final ISerializationConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (ISerializationConverterRegistrarSPI.class))
       aSPI.registerSerializationConverter (this);
-    s_aLogger.info (getRegisteredSerializationConverterCount () + " serialization converters registered");
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug (getRegisteredSerializationConverterCount () + " serialization converters registered");
   }
 }

@@ -26,8 +26,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.state.EChange;
@@ -38,6 +42,7 @@ import com.helger.commons.state.EChange;
  * @author Philip Helger
  */
 @ThreadSafe
+@Singleton
 public final class ThirdPartyModuleRegistry
 {
   private static final class SingletonHolder
@@ -45,6 +50,7 @@ public final class ThirdPartyModuleRegistry
     static final ThirdPartyModuleRegistry s_aInstance = new ThirdPartyModuleRegistry ();
   }
 
+  private static final Logger s_aLogger = LoggerFactory.getLogger (ThirdPartyModuleRegistry.class);
   private static boolean s_bDefaultInstantiated = false;
 
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
@@ -64,8 +70,9 @@ public final class ThirdPartyModuleRegistry
   @Nonnull
   public static ThirdPartyModuleRegistry getInstance ()
   {
+    final ThirdPartyModuleRegistry ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
-    return SingletonHolder.s_aInstance;
+    return ret;
   }
 
   @Nonnull
@@ -133,5 +140,8 @@ public final class ThirdPartyModuleRegistry
         for (final IThirdPartyModule aModule : aModules)
           registerThirdPartyModule (aModule);
     }
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Reinitialized " + ThirdPartyModuleRegistry.class.getName ());
   }
 }

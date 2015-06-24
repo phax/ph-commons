@@ -31,8 +31,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.ServiceLoaderHelper;
 
@@ -46,6 +46,7 @@ import com.helger.commons.lang.ServiceLoaderHelper;
  * @author Philip Helger
  */
 @ThreadSafe
+@Singleton
 public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegistry
 {
   private static final class SingletonHolder
@@ -78,8 +79,9 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   @Nonnull
   public static MicroTypeConverterRegistry getInstance ()
   {
+    final MicroTypeConverterRegistry ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
-    return SingletonHolder.s_aInstance;
+    return ret;
   }
 
   public void registerMicroElementTypeConverter (@Nonnull final Class <?> aClass,
@@ -242,7 +244,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     for (final IMicroTypeConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (IMicroTypeConverterRegistrarSPI.class))
       aSPI.registerMicroTypeConverter (this);
 
-    if (GlobalDebug.isDebugMode ())
-      s_aLogger.info (getRegisteredMicroTypeConverterCount () + " micro type converters registered");
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug (getRegisteredMicroTypeConverterCount () + " micro type converters registered");
   }
 }

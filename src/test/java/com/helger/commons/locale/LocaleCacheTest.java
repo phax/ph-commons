@@ -124,11 +124,11 @@ public final class LocaleCacheTest extends AbstractCommonsTestCase
   @Test
   public void testResetCache ()
   {
-    LocaleCache.getInstance ().resetCache ();
+    LocaleCache.getInstance ().reinitialize ();
     final int nCount = LocaleCache.getInstance ().getAllLanguages ().size ();
     LocaleCache.getInstance ().getLocale ("xy");
     assertEquals (nCount + 1, LocaleCache.getInstance ().getAllLanguages ().size ());
-    LocaleCache.getInstance ().resetCache ();
+    LocaleCache.getInstance ().reinitialize ();
     assertEquals (nCount, LocaleCache.getInstance ().getAllLanguages ().size ());
   }
 }

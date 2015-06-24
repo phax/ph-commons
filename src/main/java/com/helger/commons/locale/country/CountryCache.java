@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleHelper;
@@ -46,6 +47,7 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @ThreadSafe
+@Singleton
 public final class CountryCache
 {
   private static final class SingletonHolder
@@ -64,7 +66,7 @@ public final class CountryCache
 
   private CountryCache ()
   {
-    _initialFillCache ();
+    reinitialize ();
   }
 
   public static boolean isInstantiated ()
@@ -78,16 +80,6 @@ public final class CountryCache
     final CountryCache ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
     return ret;
-  }
-
-  private void _initialFillCache ()
-  {
-    for (final Locale aLocale : LocaleCache.getInstance ().getAllLocales ())
-    {
-      final String sCountry = aLocale.getCountry ();
-      if (StringHelper.hasText (sCountry))
-        addCountry (sCountry);
-    }
   }
 
   @Nonnull
@@ -208,19 +200,26 @@ public final class CountryCache
   /**
    * Reset the cache to the initial state.
    */
-  public void resetCache ()
+  public void reinitialize ()
   {
     m_aRWLock.writeLock ().lock ();
     try
     {
       m_aCountries.clear ();
-      _initialFillCache ();
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Cache was reset: " + CountryCache.class.getName ());
     }
     finally
     {
       m_aRWLock.writeLock ().unlock ();
     }
+
+    for (final Locale aLocale : LocaleCache.getInstance ().getAllLocales ())
+    {
+      final String sCountry = aLocale.getCountry ();
+      if (StringHelper.hasText (sCountry))
+        addCountry (sCountry);
+    }
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Reinitialized " + CountryCache.class.getName ());
   }
 }
