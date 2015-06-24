@@ -27,7 +27,6 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.SingleElementList;
 import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -197,13 +196,15 @@ public final class SingleElementListTest
   public void testSubList ()
   {
     final SingleElementList <String> aList = new SingleElementList <String> ("init");
-    assertEquals (1, aList.subList (0, 0).size ());
-    assertEquals ("init", aList.subList (0, 0).get (0));
+    assertEquals (0, aList.subList (0, 0).size ());
+    assertEquals (1, aList.subList (0, 1).size ());
+    assertEquals (0, aList.subList (1, 1).size ());
+    assertEquals ("init", aList.subList (0, 1).get (0));
 
     try
     {
-      // illegal from and to index
-      aList.subList (1, 1);
+      // illegal from index
+      aList.subList (-1, 0);
       fail ();
     }
     catch (final IndexOutOfBoundsException ex)
@@ -212,22 +213,13 @@ public final class SingleElementListTest
     try
     {
       // illegal to index
-      aList.subList (0, 1);
+      aList.subList (0, 2);
       fail ();
     }
     catch (final IndexOutOfBoundsException ex)
     {}
 
     _clear (aList);
-
-    try
-    {
-      // empty list
-      aList.subList (0, 0);
-      fail ();
-    }
-    catch (final IndexOutOfBoundsException ex)
-    {}
   }
 
   @Test
