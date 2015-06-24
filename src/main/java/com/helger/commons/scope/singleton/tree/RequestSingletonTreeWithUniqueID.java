@@ -130,6 +130,7 @@ public abstract class RequestSingletonTreeWithUniqueID <KEYTYPE, VALUETYPE> exte
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public Collection <VALUETYPE> getAllItemDatas ()
   {
     return m_aTree.getAllItemDatas ();

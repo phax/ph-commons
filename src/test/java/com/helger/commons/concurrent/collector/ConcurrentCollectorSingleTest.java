@@ -82,7 +82,7 @@ public final class ConcurrentCollectorSingleTest
     final int nPerThreadQueueAdd = 7230;
 
     final MockConcurrentCollectorSingle aQueue = new MockConcurrentCollectorSingle ();
-    final Thread aQueueThread = new Thread (aQueue, "MockConcurrentQueue");
+    final Thread aQueueThread = new Thread (aQueue, "ph-MockConcurrentQueue");
     aQueueThread.start ();
     assertEquals (0, aQueue.getPerformCount ());
     // create and run producers

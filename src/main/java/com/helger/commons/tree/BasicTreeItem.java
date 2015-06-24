@@ -87,10 +87,8 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   public BasicTreeItem (@Nonnull final ITEMTYPE aParent)
   {
     ValueEnforcer.notNull (aParent, "Parent");
-    if (!(aParent instanceof BasicTreeItem <?, ?>))
-      throw new IllegalArgumentException ("Parent is no BasicTreeItem");
-    if (aParent.getFactory () == null)
-      throw new IllegalStateException ("parent item has no factory");
+    ValueEnforcer.isTrue (aParent instanceof BasicTreeItem <?, ?>, "Parent is no BasicTreeItem");
+    ValueEnforcer.notNull (aParent.getFactory (), "parent item factory");
     m_aParent = aParent;
     m_aFactory = aParent.getFactory ();
     m_aData = null;
@@ -125,8 +123,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
 
   public final void setData (@Nullable final DATATYPE aData)
   {
-    if (!isValidData (aData))
-      throw new IllegalArgumentException ("The passed data object is invalid!");
+    ValueEnforcer.isTrue (isValidData (aData), "The passed data object is invalid!");
     m_aData = aData;
   }
 
@@ -200,6 +197,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public final List <DATATYPE> getAllChildDatas ()
   {
     if (m_aChildren == null)

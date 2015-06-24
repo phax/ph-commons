@@ -25,6 +25,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.resource.IWritableResource;
@@ -52,9 +53,21 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
       throw new IllegalArgumentException ("No writable resource provider passed - use a ReadableResourceProviderChain");
   }
 
+  public WritableResourceProviderChain (@Nonnull final Iterable <? extends IReadableResourceProvider> aResProviders)
+  {
+    super (aResProviders);
+
+    for (final IReadableResourceProvider aResProvider : aResProviders)
+      if (aResProvider instanceof IWritableResourceProvider)
+        m_aWritableResourceProviders.add ((IWritableResourceProvider) aResProvider);
+    if (m_aWritableResourceProviders.isEmpty ())
+      throw new IllegalArgumentException ("No writable resource provider passed - use a ReadableResourceProviderChain");
+  }
+
   @Nonnull
   @Nonempty
-  public List <IWritableResourceProvider> getAllNestedWritingResourceProviders ()
+  @ReturnsMutableCopy
+  public List <IWritableResourceProvider> getAllContainedWritingResourceProviders ()
   {
     return CollectionHelper.newList (m_aWritableResourceProviders);
   }
@@ -70,13 +83,16 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
 
   @Nonnull
   @OverrideOnDemand
-  public IWritableResource getWritableResource (final String sName)
+  public IWritableResource getWritableResource (@Nonnull final String sName)
   {
     // Use the first resource provider that supports the name
     for (final IWritableResourceProvider aResProvider : m_aWritableResourceProviders)
       if (aResProvider.supportsWriting (sName))
         return aResProvider.getWritableResource (sName);
-    throw new IllegalArgumentException ("Cannot handle writing '" + sName + "' by " + m_aReadingResourceProviders);
+    throw new IllegalArgumentException ("Cannot handle writing '" +
+                                        sName +
+                                        "' by any of " +
+                                        m_aReadingResourceProviders);
   }
 
   @Override

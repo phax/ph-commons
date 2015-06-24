@@ -21,6 +21,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.scope.AbstractSingleton;
 import com.helger.commons.scope.domain.IApplicationScope;
 import com.helger.commons.scope.mgr.ScopeManager;
@@ -104,6 +105,7 @@ public abstract class ApplicationSingleton extends AbstractSingleton
    *         the current application scope.
    */
   @Nonnull
+  @ReturnsMutableCopy
   public static final List <ApplicationSingleton> getAllApplicationSingletons ()
   {
     return getAllSingletons (_getStaticScope (false), ApplicationSingleton.class);

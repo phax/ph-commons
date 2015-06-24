@@ -25,14 +25,15 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A readable resource provider that chains multiple readable resource
- * providers.
+ * A readable resource provider that chains multiple
+ * {@link IReadableResourceProvider}.
  *
  * @author Philip Helger
  */
@@ -57,7 +58,8 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
 
   @Nonnull
   @Nonempty
-  public List <IReadableResourceProvider> getAllNestedReadingResourceProviders ()
+  @ReturnsMutableCopy
+  public List <IReadableResourceProvider> getAllContainedReadingResourceProviders ()
   {
     return CollectionHelper.newList (m_aReadingResourceProviders);
   }
@@ -79,7 +81,10 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
     for (final IReadableResourceProvider aResProvider : m_aReadingResourceProviders)
       if (aResProvider.supportsReading (sName))
         return aResProvider.getReadableResource (sName);
-    throw new IllegalArgumentException ("Cannot handle reading '" + sName + "' by " + m_aReadingResourceProviders);
+    throw new IllegalArgumentException ("Cannot handle reading '" +
+                                        sName +
+                                        "' by any of " +
+                                        m_aReadingResourceProviders);
   }
 
   @Override

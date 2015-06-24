@@ -20,9 +20,9 @@ import java.io.InputStream;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.resource.IReadableResource;
@@ -46,12 +46,13 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   }
 
   @Nonnull
+  @Nonempty
   public String getResourceID ()
   {
     return "byte[]";
   }
 
-  @Nullable
+  @Nonnull
   public InputStream getInputStream ()
   {
     return new NonBlockingByteArrayInputStream (m_aBytes);

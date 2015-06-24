@@ -21,11 +21,11 @@ import javax.annotation.Nonnull;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Default empty implementation of {@link IFileListener}
+ * Default empty implementation of {@link IFileMonitorCallback}
  * 
  * @author Philip Helger
  */
-public class DefaultFileListener implements IFileListener
+public class DefaultFileMonitorCallback implements IFileMonitorCallback
 {
   public void onFileCreated (@Nonnull final FileChangeEvent aEvent)
   {}

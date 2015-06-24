@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.io.monitor.FileMonitor;
 import com.helger.commons.io.monitor.FileMonitorManager;
-import com.helger.commons.io.monitor.IFileListener;
+import com.helger.commons.io.monitor.IFileMonitorCallback;
 import com.helger.commons.scope.IScope;
 import com.helger.commons.scope.singleton.GlobalSingleton;
 import com.helger.commons.state.EChange;
@@ -150,7 +150,7 @@ public class ScopedFileMonitorManager extends GlobalSingleton
    * @see #addFileMonitor(FileMonitor)
    */
   @Nonnull
-  public FileMonitor createFileMonitor (@Nonnull final IFileListener aListener)
+  public FileMonitor createFileMonitor (@Nonnull final IFileMonitorCallback aListener)
   {
     return m_aFMM.createFileMonitor (aListener);
   }

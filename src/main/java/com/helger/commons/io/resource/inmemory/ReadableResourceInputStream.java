@@ -19,15 +19,15 @@ package com.helger.commons.io.resource.inmemory;
 import java.io.InputStream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * An in-memory {@link IReadableResource} based on an {@link InputStream}.
- * 
+ *
  * @author Philip Helger
  */
 public class ReadableResourceInputStream extends AbstractMemoryReadableResource
@@ -40,12 +40,13 @@ public class ReadableResourceInputStream extends AbstractMemoryReadableResource
   }
 
   @Nonnull
+  @Nonempty
   public String getResourceID ()
   {
     return "input-stream";
   }
 
-  @Nullable
+  @Nonnull
   public InputStream getInputStream ()
   {
     return m_aIS;

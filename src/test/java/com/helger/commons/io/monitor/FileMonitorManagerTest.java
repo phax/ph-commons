@@ -26,14 +26,19 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.thread.ThreadHelper;
 
-public class FileMonitorTest
+/**
+ * Test class for class {@link FileMonitorManager}.
+ * 
+ * @author Philip Helger
+ */
+public final class FileMonitorManagerTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (FileMonitorTest.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (FileMonitorManagerTest.class);
 
   @Test
   public void testBasic ()
   {
-    final IFileListener aDeleteListener = new DefaultFileListener ()
+    final IFileMonitorCallback aDeleteListener = new DefaultFileMonitorCallback ()
     {
       @Override
       public void onFileDeleted (final FileChangeEvent event)
@@ -41,7 +46,7 @@ public class FileMonitorTest
         s_aLogger.info ("File deleted: " + event.getFile ().getAbsolutePath ());
       }
     };
-    final IFileListener aCreateListener = new DefaultFileListener ()
+    final IFileMonitorCallback aCreateListener = new DefaultFileMonitorCallback ()
     {
       @Override
       public void onFileCreated (final FileChangeEvent event)
@@ -49,7 +54,7 @@ public class FileMonitorTest
         s_aLogger.info ("File created: " + event.getFile ().getAbsolutePath ());
       }
     };
-    final IFileListener aChangeListener = new DefaultFileListener ()
+    final IFileMonitorCallback aChangeListener = new DefaultFileMonitorCallback ()
     {
       @Override
       public void onFileChanged (final FileChangeEvent event)

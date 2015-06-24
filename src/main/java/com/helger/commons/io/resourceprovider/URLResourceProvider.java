@@ -51,7 +51,7 @@ public final class URLResourceProvider implements IReadableResourceProvider
     }
     catch (final MalformedURLException ex)
     {
-      throw new IllegalArgumentException ("Passed name '" + sURL + "' is not an URL!", ex);
+      throw new IllegalArgumentException ("Passed name '" + sURL + "' is not a URL!", ex);
     }
   }
 

@@ -130,6 +130,7 @@ public abstract class GlobalSingletonTreeWithUniqueID <KEYTYPE, VALUETYPE> exten
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public Collection <VALUETYPE> getAllItemDatas ()
   {
     return m_aTree.getAllItemDatas ();

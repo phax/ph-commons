@@ -17,20 +17,22 @@
 package com.helger.commons.io.monitor;
 
 import java.io.File;
+import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * An event fired when a file is changed.
- * 
+ *
  * @author <a href="http://commons.apache.org/vfs/team-list.html">Commons VFS
  *         team</a>
  * @author Philip Helger
  */
-public class FileChangeEvent
+public class FileChangeEvent implements Serializable
 {
   /**
    * The file object
@@ -43,14 +45,31 @@ public class FileChangeEvent
   }
 
   /**
-   * Returns the file that changed.
-   * 
+   * Returns the file that changed as passed in the constructor.
+   *
    * @return The file that was changed. Never <code>null</code>.
    */
   @Nonnull
   public File getFile ()
   {
     return m_aFile;
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (o == null || !getClass ().equals (o.getClass ()))
+      return false;
+    final FileChangeEvent rhs = (FileChangeEvent) o;
+    return m_aFile.equals (rhs.m_aFile);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return new HashCodeGenerator (this).append (m_aFile).getHashCode ();
   }
 
   @Override

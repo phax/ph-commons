@@ -44,6 +44,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.math.MathHelper;
@@ -469,6 +470,7 @@ public final class StringHelper
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public static byte [] getHexDecoded (@Nonnull final String sInput)
   {
     ValueEnforcer.notNull (sInput, "Input");
@@ -477,6 +479,7 @@ public final class StringHelper
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public static byte [] getHexDecoded (@Nonnull final char [] aInput)
   {
     ValueEnforcer.notNull (aInput, "Input");
@@ -485,13 +488,13 @@ public final class StringHelper
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public static byte [] getHexDecoded (@Nonnull final char [] aInput,
                                        @Nonnegative final int nOfs,
                                        @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aInput, nOfs, nLen);
-    if ((nLen % 2) > 0)
-      throw new IllegalArgumentException ("Passed chars have no even length: " + nLen);
+    ValueEnforcer.isTrue ((nLen % 2) == 0, "Passed chars have no even length: " + nLen);
 
     final byte [] ret = new byte [nLen / 2];
     int nRetIdx = 0;
@@ -1207,6 +1210,7 @@ public final class StringHelper
    * @return The passed collection and never <code>null</code>.
    */
   @Nonnull
+  @ReturnsMutableObject ("The passed parameter")
   public static <COLLTYPE extends Collection <String>> COLLTYPE getExploded (final char cSep,
                                                                              @Nullable final String sElements,
                                                                              final int nMaxItems,

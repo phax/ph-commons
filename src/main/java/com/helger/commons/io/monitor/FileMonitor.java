@@ -26,6 +26,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.GuardedBy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,9 +39,10 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A polling file monitor implementation. Use
- * {@link FileMonitorManager#createFileMonitor(IFileListener)} to use this class
- * effectively. All files that have the same callback ({@link IFileListener})
- * can be encapsulated in the same {@link FileMonitor}.
+ * {@link FileMonitorManager#createFileMonitor(IFileMonitorCallback)} to use
+ * this class effectively. All files that have the same callback (
+ * {@link IFileMonitorCallback}) can be encapsulated in the same
+ * {@link FileMonitor}.
  *
  * @author Philip Helger
  */
@@ -51,8 +53,14 @@ public class FileMonitor
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
 
   /**
+   * A listener object that is notified on file creation and deletion.
+   */
+  private final IFileMonitorCallback m_aListener;
+
+  /**
    * Map from filename to File being monitored.
    */
+  @GuardedBy ("m_aRWLock")
   private final Map <String, FileMonitorAgent> m_aMonitorMap = new HashMap <String, FileMonitorAgent> ();
 
   /**
@@ -71,18 +79,16 @@ public class FileMonitor
    */
   private boolean m_bRecursive;
 
-  /**
-   * A listener object that if set, is notified on file creation and deletion.
-   */
-  private final IFileListener m_aListener;
-
-  public FileMonitor (@Nonnull final IFileListener aListener)
+  public FileMonitor (@Nonnull final IFileMonitorCallback aListener)
   {
     m_aListener = ValueEnforcer.notNull (aListener, "Listener");
   }
 
+  /**
+   * @return The listener as passed in the constructor. Never <code>null</code>.
+   */
   @Nonnull
-  public IFileListener getListener ()
+  public IFileMonitorCallback getListener ()
   {
     return m_aListener;
   }
@@ -103,7 +109,8 @@ public class FileMonitor
    * monitoring.
    *
    * @param bRecursive
-   *        true if monitoring should be enabled for children.
+   *        <code>true</code> if monitoring should be enabled for children,
+   *        <code>false</code> otherwise.
    * @return this
    */
   @Nonnull
@@ -145,6 +152,7 @@ public class FileMonitor
       if (m_aMonitorMap.containsKey (sKey))
         return EChange.UNCHANGED;
 
+      // Add monitored item
       m_aMonitorMap.put (sKey, new FileMonitorAgent (this, aFile));
     }
     finally
@@ -218,7 +226,10 @@ public class FileMonitor
   @Nonnull
   public EChange removeMonitoredFile (@Nonnull final File aFile)
   {
+    ValueEnforcer.notNull (aFile, "File");
+
     final String sKey = aFile.getAbsolutePath ();
+
     m_aRWLock.writeLock ().lock ();
     try
     {
@@ -276,7 +287,7 @@ public class FileMonitor
     }
     catch (final Throwable t)
     {
-      s_aLogger.error ("Failed to invoke onFileCreated listener", t);
+      s_aLogger.error ("Failed to invoke onFileCreated listener " + m_aListener + " on file " + aFile, t);
     }
 
     m_aAddStack.push (aFile);
@@ -297,7 +308,7 @@ public class FileMonitor
     }
     catch (final Throwable t)
     {
-      s_aLogger.error ("Failed to invoke onFileDeleted listener", t);
+      s_aLogger.error ("Failed to invoke onFileDeleted listener " + m_aListener + " for file " + aFile, t);
     }
 
     m_aDeleteStack.push (aFile);
@@ -317,7 +328,7 @@ public class FileMonitor
     }
     catch (final Throwable t)
     {
-      s_aLogger.error ("Failed to invoke onFileChanged listener", t);
+      s_aLogger.error ("Failed to invoke onFileChanged listener " + m_aListener + " for file " + aFile, t);
     }
   }
 
@@ -336,7 +347,7 @@ public class FileMonitor
     }
   }
 
-  void applyPendingRemovals ()
+  void applyPendingDeletes ()
   {
     // Remove listener for all deleted files
     while (!m_aDeleteStack.isEmpty ())

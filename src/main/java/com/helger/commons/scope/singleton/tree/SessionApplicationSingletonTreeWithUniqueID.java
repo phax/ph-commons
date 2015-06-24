@@ -133,6 +133,7 @@ public abstract class SessionApplicationSingletonTreeWithUniqueID <KEYTYPE, VALU
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public Collection <VALUETYPE> getAllItemDatas ()
   {
     return m_aTree.getAllItemDatas ();

@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.scope.AbstractSingleton;
 import com.helger.commons.scope.domain.ISessionScope;
 import com.helger.commons.scope.mgr.ScopeManager;
@@ -118,6 +119,7 @@ public abstract class SessionSingleton extends AbstractSingleton implements Seri
    *         the current session scope.
    */
   @Nonnull
+  @ReturnsMutableCopy
   public static final List <SessionSingleton> getAllSessionSingletons ()
   {
     return getAllSingletons (_getStaticScope (false), SessionSingleton.class);

@@ -34,8 +34,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.exception.LoggedRuntimeException;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.hashcode.IHashCodeGenerator;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.random.VerySecureRandom;
 import com.helger.commons.state.EChange;
@@ -251,7 +249,7 @@ public final class HashCodeGeneratorTest
     {
       for (int i = 0; i < nThreads; ++i)
       {
-        aThreads[i] = new Thread (r, "Thread" + i);
+        aThreads[i] = new Thread (r, "ph-Thread" + i);
         aThreads[i].start ();
       }
       for (int i = 0; i < nThreads; ++i)

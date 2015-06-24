@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * internal state. The different to {@link ReturnsMutableObject} is, that this
  * annotation indicates a copy is used, whereas {@link ReturnsMutableObject}
  * means that the internal contained is returned <b>and</b> is mutable!
- * 
+ *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)

@@ -38,16 +38,28 @@ public final class ClassPathResourceProvider implements IReadableResourceProvide
 {
   private final String m_sPrefix;
 
+  /**
+   * Constructor without prefix.
+   */
   public ClassPathResourceProvider ()
   {
     this (null);
   }
 
+  /**
+   * Constructor
+   * 
+   * @param sPrefix
+   *        The common prefix to use. May be <code>null</code>.
+   */
   public ClassPathResourceProvider (@Nullable final String sPrefix)
   {
     m_sPrefix = sPrefix;
   }
 
+  /**
+   * @return The prefix as passed in the constructor. May be <code>null</code>.
+   */
   @Nullable
   public String getPrefix ()
   {

@@ -21,6 +21,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.scope.AbstractSingleton;
 import com.helger.commons.scope.domain.IGlobalScope;
 import com.helger.commons.scope.mgr.ScopeManager;
@@ -101,6 +102,7 @@ public abstract class GlobalSingleton extends AbstractSingleton
    *         the current global scope.
    */
   @Nonnull
+  @ReturnsMutableCopy
   public static final List <GlobalSingleton> getAllGlobalSingletons ()
   {
     return getAllSingletons (_getStaticScope (false), GlobalSingleton.class);

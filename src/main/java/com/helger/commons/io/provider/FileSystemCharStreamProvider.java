@@ -112,7 +112,7 @@ public final class FileSystemCharStreamProvider implements IInputStreamProvider,
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("byteStreamResolver", m_aByteStreamResolver)
+    return new ToStringGenerator (this).append ("byteStreamResolver", m_aByteStreamResolver)
                                        .append ("charset", m_aCharset)
                                        .toString ();
   }

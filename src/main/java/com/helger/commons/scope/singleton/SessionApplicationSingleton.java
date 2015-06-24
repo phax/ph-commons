@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.scope.AbstractSingleton;
 import com.helger.commons.scope.domain.ISessionApplicationScope;
 import com.helger.commons.scope.mgr.ScopeManager;
@@ -119,6 +120,7 @@ public abstract class SessionApplicationSingleton extends AbstractSingleton impl
    *         the current session application scope.
    */
   @Nonnull
+  @ReturnsMutableCopy
   public static final List <SessionApplicationSingleton> getAllSessionApplicationSingletons ()
   {
     return getAllSingletons (_getStaticScope (false), SessionApplicationSingleton.class);

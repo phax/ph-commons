@@ -18,18 +18,20 @@ package com.helger.commons.io.monitor;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.callback.ICallback;
+
 /**
  * Listens for changes to a file.
- * 
+ *
  * @author <a href="http://commons.apache.org/vfs/team-list.html">Commons VFS
  *         team</a>
  * @author Philip Helger
  */
-public interface IFileListener
+public interface IFileMonitorCallback extends ICallback
 {
   /**
    * Called when a file is created.
-   * 
+   *
    * @param aEvent
    *        The FileChangeEvent. Never <code>null</code>.
    */
@@ -37,7 +39,7 @@ public interface IFileListener
 
   /**
    * Called when a file is deleted.
-   * 
+   *
    * @param aEvent
    *        The FileChangeEvent. Never <code>null</code>.
    */
@@ -45,7 +47,7 @@ public interface IFileListener
 
   /**
    * Called when a file is changed.
-   * 
+   *
    * @param aEvent
    *        The FileChangeEvent. Never <code>null</code>.
    */

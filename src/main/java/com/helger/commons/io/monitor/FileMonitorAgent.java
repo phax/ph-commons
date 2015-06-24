@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
@@ -29,10 +30,11 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * File monitor agent.
- * 
+ *
  * @author commons-vfs
  * @author Philip Helger
  */
+@NotThreadSafe
 final class FileMonitorAgent
 {
   private final FileMonitor m_aMonitor;
@@ -42,6 +44,12 @@ final class FileMonitorAgent
   private long m_nTimestamp;
   private final Set <String> m_aChildren = new HashSet <String> ();
 
+  /**
+   * @param aMonitor
+   *        Owning file monitor. May not be <code>null</code>.
+   * @param aFile
+   *        The file to be monitored. May not be <code>null</code>.
+   */
   FileMonitorAgent (@Nonnull final FileMonitor aMonitor, @Nonnull final File aFile)
   {
     m_aMonitor = ValueEnforcer.notNull (aMonitor, "Monitor");
@@ -70,7 +78,7 @@ final class FileMonitorAgent
   /**
    * Recursively fires create events for all children if recursive descent is
    * enabled. Otherwise the create event is only fired for the initial File.
-   * 
+   *
    * @param aCreatedFile
    *        The child to add.
    */
@@ -81,6 +89,7 @@ final class FileMonitorAgent
 
     if (m_aMonitor.isRecursive ())
     {
+      // Scan recursively
       final File [] aChildren = aCreatedFile.listFiles ();
       if (aChildren != null)
         for (final File aChild : aChildren)
@@ -97,7 +106,7 @@ final class FileMonitorAgent
     // See which new children are not listed in the current children
     // map.
     final Set <String> aNewChildren = new HashSet <String> ();
-    final NonBlockingStack <File> aCreatedChildren = new NonBlockingStack <File> ();
+    final NonBlockingStack <File> aNewCreatedChildren = new NonBlockingStack <File> ();
 
     final File [] aNewChildrenList = m_aFile.listFiles ();
     if (aNewChildrenList != null)
@@ -106,15 +115,15 @@ final class FileMonitorAgent
         final String sKey = aNewChild.getAbsolutePath ();
         aNewChildren.add (sKey);
         if (!m_aChildren.contains (sKey))
-          aCreatedChildren.push (aNewChild);
+          aNewCreatedChildren.push (aNewChild);
       }
 
     m_aChildren.clear ();
     m_aChildren.addAll (aNewChildren);
 
     // If there were missing children
-    while (!aCreatedChildren.isEmpty ())
-      _onFileCreateRecursive (aCreatedChildren.pop ());
+    while (!aNewCreatedChildren.isEmpty ())
+      _onFileCreateRecursive (aNewCreatedChildren.pop ());
   }
 
   void checkForModifications ()
@@ -123,16 +132,7 @@ final class FileMonitorAgent
     if (m_bExists)
     {
       // File previously existed
-      if (!bExistsNow)
-      {
-        // The file was deleted
-        m_bExists = bExistsNow;
-        m_nTimestamp = CGlobal.ILLEGAL_ULONG;
-
-        // Mark it as deleted
-        m_aMonitor.onFileDeleted (m_aFile);
-      }
-      else
+      if (bExistsNow)
       {
         // File previously existed and still exists
         // Check the timestamp to see if it has been modified
@@ -142,6 +142,15 @@ final class FileMonitorAgent
           m_nTimestamp = nNewTimestamp;
           m_aMonitor.onFileChanged (m_aFile);
         }
+      }
+      else
+      {
+        // The file was deleted
+        m_bExists = bExistsNow;
+        m_nTimestamp = CGlobal.ILLEGAL_ULONG;
+
+        // Mark it as deleted
+        m_aMonitor.onFileDeleted (m_aFile);
       }
     }
     else

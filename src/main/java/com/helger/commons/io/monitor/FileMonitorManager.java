@@ -128,7 +128,7 @@ public class FileMonitorManager implements Runnable
    * @see #addFileMonitor(FileMonitor)
    */
   @Nonnull
-  public FileMonitor createFileMonitor (@Nonnull final IFileListener aListener)
+  public FileMonitor createFileMonitor (@Nonnull final IFileMonitorCallback aListener)
   {
     final FileMonitor aMonitor = new FileMonitor (aListener);
     addFileMonitor (aMonitor);
@@ -225,7 +225,7 @@ public class FileMonitorManager implements Runnable
     if (m_aMonitorThread != null || !m_bShouldRun)
       throw new IllegalStateException ("Thread is already running!");
 
-    m_aMonitorThread = new Thread (this, "FileMonitor");
+    m_aMonitorThread = new Thread (this, "ph-FileMonitor");
     m_aMonitorThread.setDaemon (true);
     m_aMonitorThread.setPriority (Thread.MIN_PRIORITY);
     m_aMonitorThread.start ();
@@ -269,7 +269,7 @@ public class FileMonitorManager implements Runnable
       for (final FileMonitor aMonitor : getAllFileMonitors ())
       {
         // Remove listener for all deleted files
-        aMonitor.applyPendingRemovals ();
+        aMonitor.applyPendingDeletes ();
 
         // For all monitored files
         for (final FileMonitorAgent aAgent : aMonitor.getAllAgents ())

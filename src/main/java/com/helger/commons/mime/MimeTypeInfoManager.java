@@ -271,6 +271,7 @@ public class MimeTypeInfoManager
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public List <MimeTypeInfo> getAllInfosOfFilename (@Nullable final File aFile)
   {
     if (aFile == null)
@@ -281,6 +282,7 @@ public class MimeTypeInfoManager
   }
 
   @Nullable
+  @ReturnsMutableCopy
   public List <MimeTypeInfo> getAllInfosOfFilename (@Nullable final String sFilename)
   {
     if (StringHelper.hasNoText (sFilename))
@@ -299,6 +301,7 @@ public class MimeTypeInfoManager
    *         if no such extension is registered.
    */
   @Nullable
+  @ReturnsMutableCopy
   public List <MimeTypeInfo> getAllInfosOfExtension (@Nullable final String sExtension)
   {
     // Extension may be empty!
@@ -337,6 +340,7 @@ public class MimeTypeInfoManager
    *         the passed mime type is unknown.
    */
   @Nullable
+  @ReturnsMutableCopy
   public List <MimeTypeInfo> getAllInfosOfMimeType (@Nullable final IMimeType aMimeType)
   {
     if (aMimeType == null)
