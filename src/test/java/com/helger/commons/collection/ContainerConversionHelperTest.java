@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collection.convert;
+package com.helger.commons.collection;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -31,7 +31,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.convert.ContainerConversionHelper;
+import com.helger.commons.collection.ContainerConversionHelper;
 import com.helger.commons.compare.ISerializableComparator;
 import com.helger.commons.convert.IConverter;
 import com.helger.commons.convert.ConverterStringInteger;

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collection.convert;
+package com.helger.commons.collection;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -25,9 +25,9 @@ import java.util.Collection;
 
 import org.junit.Test;
 
+import com.helger.commons.collection.ArrayConversionHelper;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.convert.ArrayConversionHelper;
 import com.helger.commons.convert.IConverter;
 import com.helger.commons.convert.ConverterStringInteger;
 import com.helger.commons.mock.AbstractCommonsTestCase;
