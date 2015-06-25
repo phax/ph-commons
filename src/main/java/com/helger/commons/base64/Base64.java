@@ -2577,7 +2577,7 @@ public final class Base64
       {
         return decode (sEncoded);
       }
-      catch (final IOException t)
+      catch (final Exception ex)
       {
         // fall through
       }
@@ -2600,7 +2600,7 @@ public final class Base64
       {
         return decode (aEncodedBytes, DONT_GUNZIP);
       }
-      catch (final IOException t)
+      catch (final Exception ex)
       {
         // fall through
       }
@@ -2626,7 +2626,7 @@ public final class Base64
         final byte [] aDecoded = decode (sEncoded, DONT_GUNZIP);
         return CharsetManager.getAsString (aDecoded, aCharset);
       }
-      catch (final Throwable t)
+      catch (final Exception ex)
       {
         // Fall throuh
       }
@@ -2652,7 +2652,7 @@ public final class Base64
         final byte [] aDecoded = decode (aEncodedBytes, DONT_GUNZIP);
         return CharsetManager.getAsString (aDecoded, aCharset);
       }
-      catch (final Throwable t)
+      catch (final Exception ex)
       {
         // Fall through
       }

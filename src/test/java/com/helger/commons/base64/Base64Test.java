@@ -21,7 +21,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,8 +34,8 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.FileHelper;
+import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
@@ -297,14 +296,18 @@ public final class Base64Test
     assertEquals (sSource, Base64.safeDecodeAsString (CharsetManager.getAsBytes (sEncoded,
                                                                                  CCharset.CHARSET_ISO_8859_1_OBJ),
                                                       CCharset.CHARSET_ISO_8859_1_OBJ));
+  }
 
-    try
-    {
-      // Invalid input
-      assertNull (Base64.safeDecode ("xyz"));
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
+  @Test
+  public void testSafeDecode ()
+  {
+    assertEquals (0, Base64.safeDecode (new byte [0]).length);
+    assertNull (Base64.safeDecode (new byte [1]));
+    assertNull (Base64.safeDecode (new byte [2]));
+    assertNull (Base64.safeDecode (new byte [3]));
+    assertEquals (3, Base64.safeDecode (new byte [] { 'a', 'a', 'a', 'a' }).length);
+
+    // Invalid input (1-3 chars fail)
+    assertNull (Base64.safeDecode ("xyz"));
   }
 }
