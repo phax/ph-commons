@@ -19,7 +19,6 @@ package com.helger.commons.io.file.filter;
 import java.io.File;
 import java.io.FileFilter;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
@@ -39,13 +38,6 @@ public abstract class AbstractFileFilter extends AbstractFilter <File> implement
 {
   public AbstractFileFilter ()
   {
-    this (null);
-  }
-
-  public AbstractFileFilter (@Nonnull final IFilter <? super File> aNestedFilter)
-  {
-    super (aNestedFilter);
-
     // For file filter the matching strategy is "match all"
     setMatchingStrategy (EFilterMatchingStrategy.MATCH_ALL);
   }

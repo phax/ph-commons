@@ -45,14 +45,6 @@ public class FilterElementWithNamespaceAndLocalName extends AbstractFilter <Elem
   public FilterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
                                                  @Nonnull @Nonempty final String sLocalName)
   {
-    this (sNamespaceURI, sLocalName, null);
-  }
-
-  public FilterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
-                                                 @Nonnull @Nonempty final String sLocalName,
-                                                 @Nullable final IFilter <? super Element> aNestedFilter)
-  {
-    super (aNestedFilter);
     m_sNamespaceURI = sNamespaceURI;
     m_sLocalName = ValueEnforcer.notEmpty (sLocalName, "LocalName");
   }

@@ -35,14 +35,7 @@ import com.helger.commons.string.StringHelper;
 public class FilterElementWithoutNamespace extends AbstractFilter <Element>
 {
   public FilterElementWithoutNamespace ()
-  {
-    this (null);
-  }
-
-  public FilterElementWithoutNamespace (@Nullable final IFilter <? super Element> aNestedFilter)
-  {
-    super (aNestedFilter);
-  }
+  {}
 
   @Override
   public boolean matchesThisFilter (@Nullable final Element aElement)

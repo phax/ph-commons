@@ -32,11 +32,8 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class FilterFalse <DATATYPE> extends AbstractFilter <DATATYPE>
 {
-  // No need for a constructor with a nested filter
   public FilterFalse ()
-  {
-    super (null);
-  }
+  {}
 
   @Override
   public boolean matchesThisFilter (@Nullable final DATATYPE aValue)

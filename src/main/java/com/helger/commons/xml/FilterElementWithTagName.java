@@ -42,14 +42,7 @@ public final class FilterElementWithTagName extends AbstractFilter <Element>
 
   public FilterElementWithTagName (@Nonnull @Nonempty final String sTagName)
   {
-    this (sTagName, null);
-  }
-
-  public FilterElementWithTagName (@Nonnull @Nonempty final String sTagName,
-                                   @Nullable final IFilter <? super Element> aNestedFilter)
-  {
-    super (aNestedFilter);
-    m_sTagName = ValueEnforcer.notNull (sTagName, "TagName");
+    m_sTagName = ValueEnforcer.notEmpty (sTagName, "TagName");
   }
 
   @Nonnull

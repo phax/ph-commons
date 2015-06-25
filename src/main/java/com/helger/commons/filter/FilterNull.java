@@ -33,14 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class FilterNull <DATATYPE> extends AbstractFilter <DATATYPE>
 {
   public FilterNull ()
-  {
-    this (null);
-  }
-
-  public FilterNull (@Nullable final IFilter <? super DATATYPE> aNestedFilter)
-  {
-    super (aNestedFilter);
-  }
+  {}
 
   @Override
   public boolean matchesThisFilter (@Nullable final DATATYPE aValue)

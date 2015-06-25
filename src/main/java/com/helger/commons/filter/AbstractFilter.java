@@ -37,19 +37,13 @@ import com.helger.commons.string.ToStringGenerator;
 public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>
 {
   private EFilterMatchingStrategy m_eMatchingStrategy = EFilterMatchingStrategy.MATCH_ANY;
-  private final IFilter <? super DATATYPE> m_aNestedFilter;
+  private IFilter <? super DATATYPE> m_aNestedFilter;
 
   /**
    * Constructor.
-   *
-   * @param aNestedFilter
-   *        The nested filter to use. May be <code>null</code> to not have a
-   *        nested filter-
    */
-  public AbstractFilter (@Nullable final IFilter <? super DATATYPE> aNestedFilter)
-  {
-    m_aNestedFilter = aNestedFilter;
-  }
+  public AbstractFilter ()
+  {}
 
   /**
    * @return The filter matching strategy as provided in the constructor. Never
@@ -83,6 +77,21 @@ public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>
   public final IFilter <? super DATATYPE> getNestedFilter ()
   {
     return m_aNestedFilter;
+  }
+
+  /**
+   * Set the nested filter to be invoked if it matches this filter.
+   *
+   * @param aNestedFilter
+   *        The nested filter to use. May be <code>null</code> to not have a
+   *        nested filter-
+   * @return this
+   */
+  @Nonnull
+  public final AbstractFilter <DATATYPE> setNestedFilter (@Nullable final IFilter <? super DATATYPE> aNestedFilter)
+  {
+    m_aNestedFilter = aNestedFilter;
+    return this;
   }
 
   /**

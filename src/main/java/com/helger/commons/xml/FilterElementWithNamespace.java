@@ -40,13 +40,6 @@ public class FilterElementWithNamespace extends AbstractFilter <Element>
 
   public FilterElementWithNamespace (@Nullable final String sNamespaceURI)
   {
-    this (sNamespaceURI, null);
-  }
-
-  public FilterElementWithNamespace (@Nullable final String sNamespaceURI,
-                                     @Nullable final IFilter <? super Element> aNestedFilter)
-  {
-    super (aNestedFilter);
     m_sNamespaceURI = sNamespaceURI;
   }
 
