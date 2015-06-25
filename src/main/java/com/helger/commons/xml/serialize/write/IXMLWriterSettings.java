@@ -23,7 +23,6 @@ import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.system.ENewLineMode;
-import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 import com.helger.commons.xml.EXMLVersion;
 
 /**

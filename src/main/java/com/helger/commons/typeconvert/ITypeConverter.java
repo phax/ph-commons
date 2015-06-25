@@ -19,14 +19,14 @@ package com.helger.commons.typeconvert;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.convert.IUnidirectionalConverter;
+import com.helger.commons.convert.IConverter;
 
 /**
  * Special interface that is used to convert between values of different types.
  * 
  * @author Philip Helger
  */
-public interface ITypeConverter extends IUnidirectionalConverter <Object, Object>
+public interface ITypeConverter extends IConverter <Object, Object>
 {
   /**
    * Convert the passed source object to the destination type.

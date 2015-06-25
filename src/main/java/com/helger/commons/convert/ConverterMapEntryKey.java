@@ -14,25 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.xml;
+package com.helger.commons.convert;
 
-import javax.annotation.Nonnull;
+import java.util.Map;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
+import javax.annotation.Nullable;
 
 /**
- * Interface for object that have a representation as {@link Node}
- * 
+ * An implementation of {@link IConverter} that extracts the key
+ * from a Map.Entry.
+ *
  * @author Philip Helger
+ * @param <KEYTYPE>
+ *        Map key type
+ * @param <VALUETYPE>
+ *        Map value type
  */
-public interface IHasXMLRepresentation
+public class ConverterMapEntryKey <KEYTYPE, VALUETYPE> implements IConverter <Map.Entry <KEYTYPE, VALUETYPE>, KEYTYPE>
 {
-  /**
-   * @param aDoc
-   *        The owning DOM {@link Document}. May not be <code>null</code>.
-   * @return this as an {@link Node}. May not be <code>null</code>.
-   */
-  @Nonnull
-  Node getAsXMLNode (@Nonnull Document aDoc);
+  public ConverterMapEntryKey ()
+  {}
+
+  @Nullable
+  public KEYTYPE convert (@Nullable final Map.Entry <KEYTYPE, VALUETYPE> aEntry)
+  {
+    return aEntry == null ? null : aEntry.getKey ();
+  }
 }

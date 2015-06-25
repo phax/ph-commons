@@ -16,21 +16,14 @@
  */
 package com.helger.commons.convert;
 
-import javax.annotation.Nullable;
-
 /**
- * A dummy implementation of {@link IUnidirectionalConverterSameType} that uses
- * the input object as the output object.
- *
- * @author Philip Helger
+ * A specialized converter interface that does not do type transformations.
+ * 
  * @param <DATATYPE>
- *        The data type to be converted
+ *        Handled data type
+ * @author Philip Helger
  */
-public class UnidirectionalConverterIdentity <DATATYPE> implements IUnidirectionalConverterSameType <DATATYPE>
+public interface IConverterSameType <DATATYPE> extends IConverter <DATATYPE, DATATYPE>
 {
-  @Nullable
-  public DATATYPE convert (@Nullable final DATATYPE aInput)
-  {
-    return aInput;
-  }
+  /* empty */
 }

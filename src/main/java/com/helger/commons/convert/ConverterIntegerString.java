@@ -16,25 +16,19 @@
  */
 package com.helger.commons.convert;
 
+import javax.annotation.Nullable;
+
 /**
- * This is a very simple type conversion interface for compile type conversions.
- * 
- * @param <SRCTYPE>
- *        source type
- * @param <DSTTYPE>
- *        destination type
+ * A unidirectional converter that converts an {@link Integer} object to a
+ * {@link String}.
+ *
  * @author Philip Helger
  */
-public interface IUnidirectionalConverter <SRCTYPE, DSTTYPE>
+public class ConverterIntegerString implements IConverter <Integer, String>
 {
-  /**
-   * Convert the passed source object to the destination type.
-   * 
-   * @param aSource
-   *        The source object to be converted. No <code>null</code> or non-
-   *        <code>null</code> constraint possible.
-   * @return The converted value. No <code>null</code> or non- <code>null</code>
-   *         constraint possible.
-   */
-  DSTTYPE convert (SRCTYPE aSource);
+  @Nullable
+  public String convert (@Nullable final Integer aInput)
+  {
+    return aInput == null ? null : aInput.toString ();
+  }
 }

@@ -23,7 +23,7 @@ import org.w3c.dom.traversal.TreeWalker;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.convert.IUnidirectionalConverter;
+import com.helger.commons.convert.IConverter;
 import com.helger.commons.hierarchy.ChildrenProviderHasChildren;
 import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
@@ -46,10 +46,10 @@ public final class TreeVisitor
   public static class HierarchyVisitorCallbackWithConversion <ITEMTYPE, DATATYPE> extends DefaultHierarchyVisitorCallback <ITEMTYPE>
   {
     private final IHierarchyVisitorCallback <? super DATATYPE> m_aDataCallback;
-    private final IUnidirectionalConverter <ITEMTYPE, DATATYPE> m_aConverter;
+    private final IConverter <ITEMTYPE, DATATYPE> m_aConverter;
 
     public HierarchyVisitorCallbackWithConversion (@Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback,
-                                                   @Nonnull final IUnidirectionalConverter <ITEMTYPE, DATATYPE> aConverter)
+                                                   @Nonnull final IConverter <ITEMTYPE, DATATYPE> aConverter)
     {
       m_aDataCallback = ValueEnforcer.notNull (aDataCallback, "DataCallback");
       m_aConverter = ValueEnforcer.notNull (aConverter, "Converter");
@@ -166,7 +166,7 @@ public final class TreeVisitor
     visitTreeItem (aTreeItem,
                    aChildrenProvider,
                    new HierarchyVisitorCallbackWithConversion <ITEMTYPE, DATATYPE> (aDataCallback,
-                                                                                    new IUnidirectionalConverter <ITEMTYPE, DATATYPE> ()
+                                                                                    new IConverter <ITEMTYPE, DATATYPE> ()
                                                                                     {
                                                                                       public DATATYPE convert (final ITEMTYPE aSource)
                                                                                       {

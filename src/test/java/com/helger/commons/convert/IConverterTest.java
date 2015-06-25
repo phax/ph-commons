@@ -29,13 +29,13 @@ import com.helger.commons.id.MockHasIDString;
 import com.helger.commons.name.MockHasName;
 
 /**
- * Test class for implementation classes of {@link IUnidirectionalConverter}.
+ * Test class for implementation classes of {@link IConverter}.
  *
  * @author Philip Helger
  */
-public final class IUnidirectionalConverterTest
+public final class IConverterTest
 {
-  private <SRC, DST> void _test (final IUnidirectionalConverter <SRC, ? extends DST> aConv,
+  private <SRC, DST> void _test (final IConverter <SRC, ? extends DST> aConv,
                                  final List <? extends SRC> aSrcList,
                                  final List <? extends DST> aDstList)
   {
@@ -52,19 +52,19 @@ public final class IUnidirectionalConverterTest
   @Test
   public void testConversion ()
   {
-    _test (new UnidirectionalConverterStringInteger (),
+    _test (new ConverterStringInteger (),
            CollectionHelper.newList ("1", "2", "47"),
            CollectionHelper.newIntList (1, 2, 47));
-    _test (new UnidirectionalConverterIntegerString (),
+    _test (new ConverterIntegerString (),
            CollectionHelper.newIntList (1, 2, 47),
            CollectionHelper.newList ("1", "2", "47"));
-    _test (new UnidirectionalConverterHasNameString (),
+    _test (new ConverterHasNameString (),
            CollectionHelper.newList (new MockHasName (1), new MockHasName (2), new MockHasName (47)),
            CollectionHelper.newList ("1", "2", "47"));
-    _test (UnidirectionalConverterHasIDID.<String> create (),
+    _test (ConverterHasIDID.<String> create (),
            CollectionHelper.newList (new MockHasIDString (1), new MockHasIDString (2), new MockHasIDString (47)),
            CollectionHelper.newList ("1", "2", "47"));
-    _test (UnidirectionalConverterHasIDID.<Integer> create (),
+    _test (ConverterHasIDID.<Integer> create (),
            CollectionHelper.newList (new MockHasIDInteger (1), new MockHasIDInteger (2), new MockHasIDInteger (47)),
            CollectionHelper.newIntList (1, 2, 47));
   }

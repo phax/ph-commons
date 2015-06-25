@@ -34,7 +34,6 @@ import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.system.ENewLineMode;
-import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 import com.helger.commons.xml.EXMLVersion;
 import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
 

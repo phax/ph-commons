@@ -32,8 +32,6 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.xml.EXMLCharMode;
-import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 import com.helger.commons.xml.EXMLVersion;
 
 /**

@@ -24,8 +24,8 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.impl.NonBlockingStack;
-import com.helger.commons.convert.IUnidirectionalConverter;
-import com.helger.commons.convert.UnidirectionalConverterIdentity;
+import com.helger.commons.convert.IConverter;
+import com.helger.commons.convert.ConverterIdentity;
 import com.helger.commons.hierarchy.ChildrenProviderHasChildrenSorting;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
@@ -82,14 +82,14 @@ public final class TreeXMLConverter
   {
     return getTreeWithIDAsXML (aTree,
                                new ComparatorHasIDString <ITEMTYPE> (),
-                               new UnidirectionalConverterIdentity <String> (),
+                               new ConverterIdentity <String> (),
                                aConverter);
   }
 
   @Nonnull
   public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> IMicroElement getTreeWithIDAsXML (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                                                       @Nonnull final Comparator <? super ITEMTYPE> aItemComparator,
-                                                                                                                                      @Nonnull final IUnidirectionalConverter <KEYTYPE, String> aIDConverter,
+                                                                                                                                      @Nonnull final IConverter <KEYTYPE, String> aIDConverter,
                                                                                                                                       @Nonnull final IConverterTreeItemToMicroNode <? super DATATYPE> aDataConverter)
   {
     final IMicroElement eRoot = new MicroElement (ELEMENT_ROOT);
@@ -175,7 +175,7 @@ public final class TreeXMLConverter
   }
 
   private static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void _getXMLAsTreeWithID (@Nonnull final IMicroElement aElement,
-                                                                                                                               @Nonnull final IUnidirectionalConverter <String, KEYTYPE> aIDConverter,
+                                                                                                                               @Nonnull final IConverter <String, KEYTYPE> aIDConverter,
                                                                                                                                @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter,
                                                                                                                                @Nonnull final BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE> aTree)
   {
@@ -226,13 +226,13 @@ public final class TreeXMLConverter
                                                                                                             @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
   {
     return TreeXMLConverter.<String, DATATYPE> getXMLAsTreeWithUniqueID (aElement,
-                                                                         new UnidirectionalConverterIdentity <String> (),
+                                                                         new ConverterIdentity <String> (),
                                                                          aDataConverter);
   }
 
   @Nonnull
   public static <KEYTYPE, DATATYPE> DefaultTreeWithGlobalUniqueID <KEYTYPE, DATATYPE> getXMLAsTreeWithUniqueID (@Nonnull final IMicroDocument aDoc,
-                                                                                                                @Nonnull final IUnidirectionalConverter <String, KEYTYPE> aIDConverter,
+                                                                                                                @Nonnull final IConverter <String, KEYTYPE> aIDConverter,
                                                                                                                 @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
   {
     return getXMLAsTreeWithUniqueID (aDoc.getDocumentElement (), aIDConverter, aDataConverter);
@@ -240,7 +240,7 @@ public final class TreeXMLConverter
 
   @Nonnull
   public static <KEYTYPE, DATATYPE> DefaultTreeWithGlobalUniqueID <KEYTYPE, DATATYPE> getXMLAsTreeWithUniqueID (@Nonnull final IMicroElement aElement,
-                                                                                                                @Nonnull final IUnidirectionalConverter <String, KEYTYPE> aIDConverter,
+                                                                                                                @Nonnull final IConverter <String, KEYTYPE> aIDConverter,
                                                                                                                 @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
   {
     final DefaultTreeWithGlobalUniqueID <KEYTYPE, DATATYPE> aTree = new DefaultTreeWithGlobalUniqueID <KEYTYPE, DATATYPE> ();
@@ -250,7 +250,7 @@ public final class TreeXMLConverter
 
   @Nonnull
   public static <KEYTYPE, DATATYPE> DefaultTreeWithID <KEYTYPE, DATATYPE> getXMLAsTreeWithID (@Nonnull final IMicroDocument aDoc,
-                                                                                              @Nonnull final IUnidirectionalConverter <String, KEYTYPE> aIDConverter,
+                                                                                              @Nonnull final IConverter <String, KEYTYPE> aIDConverter,
                                                                                               @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
   {
     return getXMLAsTreeWithID (aDoc.getDocumentElement (), aIDConverter, aDataConverter);
@@ -258,7 +258,7 @@ public final class TreeXMLConverter
 
   @Nonnull
   public static <KEYTYPE, DATATYPE> DefaultTreeWithID <KEYTYPE, DATATYPE> getXMLAsTreeWithID (@Nonnull final IMicroElement aElement,
-                                                                                              @Nonnull final IUnidirectionalConverter <String, KEYTYPE> aIDConverter,
+                                                                                              @Nonnull final IConverter <String, KEYTYPE> aIDConverter,
                                                                                               @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
   {
     final DefaultTreeWithID <KEYTYPE, DATATYPE> aTree = new DefaultTreeWithID <KEYTYPE, DATATYPE> ();

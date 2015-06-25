@@ -27,7 +27,6 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.xml.EXMLCharMode;
 
 /**
  * This class contains XML utility methods for character handling.

@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.convert.IUnidirectionalConverter;
+import com.helger.commons.convert.IConverter;
 
 /**
  * A special cache that can create the value to be cache automatically from the
@@ -60,7 +60,7 @@ public class CacheWithConversion <KEYTYPE, VALUETYPE> extends AbstractCache <KEY
    */
   @Nonnull
   public final VALUETYPE getFromCache (@Nonnull final KEYTYPE aKey,
-                                       @Nonnull final IUnidirectionalConverter <KEYTYPE, VALUETYPE> aValueRetriever)
+                                       @Nonnull final IConverter <KEYTYPE, VALUETYPE> aValueRetriever)
   {
     // Already in the cache?
     VALUETYPE aValue = super.getFromCacheNoStats (aKey);

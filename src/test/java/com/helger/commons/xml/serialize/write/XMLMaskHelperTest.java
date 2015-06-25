@@ -24,8 +24,6 @@ import org.junit.Test;
 
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.xml.EXMLCharMode;
-import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 
 /**
  * Test class for class {@link XMLMaskHelper}.

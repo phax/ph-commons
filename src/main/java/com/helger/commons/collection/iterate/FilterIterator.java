@@ -27,8 +27,6 @@ import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.string.ToStringGenerator;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * A simple filter iterator that takes a base iterator and an additional filter
  * and returns only the items that match the filter.
@@ -41,14 +39,12 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
 {
   // base iterator
   private final Iterator <? extends ELEMENTTYPE> m_aBaseIter;
-
-  // current result value
-  @SuppressFBWarnings ("UWF_NULL_FIELD")
-  private ELEMENTTYPE m_aCurrent;
-  private boolean m_bHasNext = false;
-
   // the filter to use
   private final IFilter <ELEMENTTYPE> m_aFilter;
+
+  // status values
+  private ELEMENTTYPE m_aCurrent;
+  private boolean m_bHasNext = false;
 
   /**
    * Constructor.

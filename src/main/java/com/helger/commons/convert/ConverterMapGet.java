@@ -26,7 +26,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 
 /**
- * An implementation of {@link IUnidirectionalConverter} that converts from a
+ * An implementation of {@link IConverter} that converts from a
  * map key to a map value
  *
  * @author Philip Helger
@@ -35,11 +35,11 @@ import com.helger.commons.collection.CollectionHelper;
  * @param <VALUETYPE>
  *        Map value type
  */
-public class UnidirectionalConverterMapGet <KEYTYPE, VALUETYPE> implements IUnidirectionalConverter <KEYTYPE, VALUETYPE>
+public class ConverterMapGet <KEYTYPE, VALUETYPE> implements IConverter <KEYTYPE, VALUETYPE>
 {
   private final Map <KEYTYPE, VALUETYPE> m_aMap;
 
-  public UnidirectionalConverterMapGet (@Nonnull final Map <KEYTYPE, VALUETYPE> aMap)
+  public ConverterMapGet (@Nonnull final Map <KEYTYPE, VALUETYPE> aMap)
   {
     m_aMap = ValueEnforcer.notNull (aMap, "Map");
   }

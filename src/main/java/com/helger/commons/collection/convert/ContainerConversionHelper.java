@@ -34,7 +34,7 @@ import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.convert.IUnidirectionalConverter;
+import com.helger.commons.convert.IConverter;
 import com.helger.commons.filter.IFilter;
 
 /**
@@ -54,7 +54,7 @@ public final class ContainerConversionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newSet (@Nonnull final Iterator <? extends SRCTYPE> it,
-                                                         @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                         @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     final Set <DSTTYPE> ret = new HashSet <DSTTYPE> ();
     while (it.hasNext ())
@@ -65,7 +65,7 @@ public final class ContainerConversionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newSet (@Nonnull final Iterable <? extends SRCTYPE> aCont,
-                                                         @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                         @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     final Set <DSTTYPE> ret = new HashSet <DSTTYPE> ();
     for (final SRCTYPE aValue : aCont)
@@ -77,7 +77,7 @@ public final class ContainerConversionHelper
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newSet (@Nonnull final Iterable <? extends SRCTYPE> aCont,
                                                          @Nonnull final IFilter <? super SRCTYPE> aFilter,
-                                                         @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                         @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     final Set <DSTTYPE> ret = new HashSet <DSTTYPE> ();
     for (final SRCTYPE aIn : aCont)
@@ -89,7 +89,7 @@ public final class ContainerConversionHelper
   @Nonnull
   @ReturnsImmutableObject
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newUnmodifiableSet (@Nonnull final Iterator <? extends SRCTYPE> it,
-                                                                     @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                                     @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     return CollectionHelper.makeUnmodifiable (newSet (it, aConverter));
   }
@@ -97,7 +97,7 @@ public final class ContainerConversionHelper
   @Nonnull
   @ReturnsImmutableObject
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newUnmodifiableSet (@Nonnull final Iterable <? extends SRCTYPE> aCont,
-                                                                     @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                                     @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     return CollectionHelper.makeUnmodifiable (newSet (aCont, aConverter));
   }
@@ -106,7 +106,7 @@ public final class ContainerConversionHelper
   @ReturnsImmutableObject
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newUnmodifiableSet (@Nonnull final Iterable <? extends SRCTYPE> aCont,
                                                                      @Nonnull final IFilter <? super SRCTYPE> aFilter,
-                                                                     @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                                     @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     return CollectionHelper.makeUnmodifiable (ContainerConversionHelper.<SRCTYPE, DSTTYPE> newSet (aCont,
                                                                                                    aFilter,
@@ -116,7 +116,7 @@ public final class ContainerConversionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newOrderedSet (@Nonnull final Iterator <? extends SRCTYPE> it,
-                                                                @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                                @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     final Set <DSTTYPE> ret = new LinkedHashSet <DSTTYPE> ();
     while (it.hasNext ())
@@ -127,7 +127,7 @@ public final class ContainerConversionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newOrderedSet (@Nonnull final Iterable <? extends SRCTYPE> aCont,
-                                                                @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                                @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     final Set <DSTTYPE> ret = new LinkedHashSet <DSTTYPE> ();
     for (final SRCTYPE aValue : aCont)
@@ -139,7 +139,7 @@ public final class ContainerConversionHelper
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newOrderedSet (@Nonnull final Iterable <? extends SRCTYPE> aCont,
                                                                 @Nonnull final IFilter <? super SRCTYPE> aFilter,
-                                                                @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                                @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     final Set <DSTTYPE> ret = new LinkedHashSet <DSTTYPE> ();
     for (final SRCTYPE aIn : aCont)
@@ -151,7 +151,7 @@ public final class ContainerConversionHelper
   @Nonnull
   @ReturnsImmutableObject
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newUnmodifiableOrderedSet (@Nonnull final Iterator <? extends SRCTYPE> it,
-                                                                            @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                                            @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     return CollectionHelper.makeUnmodifiable (newOrderedSet (it, aConverter));
   }
@@ -159,7 +159,7 @@ public final class ContainerConversionHelper
   @Nonnull
   @ReturnsImmutableObject
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newUnmodifiableOrderedSet (@Nonnull final Iterable <? extends SRCTYPE> aCont,
-                                                                            @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                                            @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     return CollectionHelper.makeUnmodifiable (newOrderedSet (aCont, aConverter));
   }
@@ -168,7 +168,7 @@ public final class ContainerConversionHelper
   @ReturnsImmutableObject
   public static <SRCTYPE, DSTTYPE> Set <DSTTYPE> newUnmodifiableOrderedSet (@Nonnull final Iterable <? extends SRCTYPE> aCont,
                                                                             @Nonnull final IFilter <? super SRCTYPE> aFilter,
-                                                                            @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                                            @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     return CollectionHelper.makeUnmodifiable (ContainerConversionHelper.<SRCTYPE, DSTTYPE> newOrderedSet (aCont,
                                                                                                           aFilter,
@@ -178,7 +178,7 @@ public final class ContainerConversionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> List <DSTTYPE> newList (@Nullable final Iterable <? extends SRCTYPE> aCont,
-                                                           @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                           @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     final List <DSTTYPE> ret = new ArrayList <DSTTYPE> ();
     if (aCont != null)
@@ -190,7 +190,7 @@ public final class ContainerConversionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> List <DSTTYPE> newList (@Nullable final SRCTYPE [] aCont,
-                                                           @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                           @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     final List <DSTTYPE> ret = new ArrayList <DSTTYPE> (ArrayHelper.getSize (aCont));
     if (aCont != null)
@@ -203,7 +203,7 @@ public final class ContainerConversionHelper
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> List <DSTTYPE> newList (@Nullable final Iterable <? extends SRCTYPE> aCont,
                                                            @Nonnull final IFilter <? super SRCTYPE> aFilter,
-                                                           @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                           @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     final List <DSTTYPE> ret = new ArrayList <DSTTYPE> ();
     if (aCont != null)
@@ -216,7 +216,7 @@ public final class ContainerConversionHelper
   @Nonnull
   @ReturnsImmutableObject
   public static <SRCTYPE, DSTTYPE> List <DSTTYPE> newUnmodifiableList (@Nullable final Iterable <? extends SRCTYPE> aCont,
-                                                                       @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                                       @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     return CollectionHelper.makeUnmodifiable (newList (aCont, aConverter));
   }
@@ -224,7 +224,7 @@ public final class ContainerConversionHelper
   @Nonnull
   @ReturnsImmutableObject
   public static <SRCTYPE, DSTTYPE> List <DSTTYPE> newUnmodifiableList (@Nullable final SRCTYPE [] aCont,
-                                                                       @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                                       @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     return CollectionHelper.makeUnmodifiable (newList (aCont, aConverter));
   }
@@ -233,7 +233,7 @@ public final class ContainerConversionHelper
   @ReturnsImmutableObject
   public static <SRCTYPE, DSTTYPE> List <DSTTYPE> newUnmodifiableList (@Nullable final Iterable <? extends SRCTYPE> aCont,
                                                                        @Nonnull final IFilter <? super SRCTYPE> aFilter,
-                                                                       @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                                       @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     return CollectionHelper.makeUnmodifiable (ContainerConversionHelper.<SRCTYPE, DSTTYPE> newList (aCont,
                                                                                                     aFilter,
@@ -257,7 +257,7 @@ public final class ContainerConversionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE extends Comparable <? super DSTTYPE>> List <DSTTYPE> getSorted (@Nonnull final Iterator <? extends SRCTYPE> it,
-                                                                                                  @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                                                                  @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     ValueEnforcer.notNull (it, "Iterator");
     ValueEnforcer.notNull (aConverter, "Converter");
@@ -287,7 +287,7 @@ public final class ContainerConversionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> List <DSTTYPE> getSorted (@Nonnull final Iterator <? extends SRCTYPE> it,
-                                                             @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter,
+                                                             @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter,
                                                              @Nonnull final Comparator <? super DSTTYPE> aComparator)
   {
     ValueEnforcer.notNull (it, "Iterator");
@@ -317,7 +317,7 @@ public final class ContainerConversionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE extends Comparable <? super DSTTYPE>> List <DSTTYPE> getSorted (@Nonnull final Iterable <? extends SRCTYPE> aCont,
-                                                                                                  @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                                                                  @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     ValueEnforcer.notNull (aCont, "Container");
     ValueEnforcer.notNull (aConverter, "Converter");
@@ -347,7 +347,7 @@ public final class ContainerConversionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> List <DSTTYPE> getSorted (@Nonnull final Iterable <? extends SRCTYPE> aCont,
-                                                             @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter,
+                                                             @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter,
                                                              @Nonnull final Comparator <? super DSTTYPE> aComparator)
   {
     ValueEnforcer.notNull (aCont, "Container");
@@ -362,7 +362,7 @@ public final class ContainerConversionHelper
 
   @Nonnull
   public static <SRCTYPE, DSTTYPE> Iterator <DSTTYPE> getIterator (@Nonnull final Iterable <SRCTYPE> aCont,
-                                                                   @Nonnull final IUnidirectionalConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
+                                                                   @Nonnull final IConverter <? super SRCTYPE, ? extends DSTTYPE> aConverter)
   {
     ValueEnforcer.notNull (aCont, "Container");
     ValueEnforcer.notNull (aConverter, "Converter");

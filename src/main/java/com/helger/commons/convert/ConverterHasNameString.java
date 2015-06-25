@@ -18,37 +18,19 @@ package com.helger.commons.convert;
 
 import javax.annotation.Nullable;
 
-import com.helger.commons.string.StringParser;
+import com.helger.commons.name.IHasName;
 
 /**
- * Get a generic data converter that converts a string to an Integer. If the
- * conversion fails, the default value is returned from the converter.
+ * A unidirectional converter that extracts the name from an object implementing
+ * {@link IHasName}.
  *
  * @author Philip Helger
  */
-public class UnidirectionalConverterStringInteger implements IUnidirectionalConverter <String, Integer>
+public class ConverterHasNameString implements IConverter <IHasName, String>
 {
-  private final Integer m_aDefaultValue;
-
-  public UnidirectionalConverterStringInteger ()
-  {
-    this ((Integer) null);
-  }
-
-  public UnidirectionalConverterStringInteger (@Nullable final Integer aDefaultValue)
-  {
-    m_aDefaultValue = aDefaultValue;
-  }
-
   @Nullable
-  public Integer getDefaultValue ()
+  public String convert (@Nullable final IHasName aInput)
   {
-    return m_aDefaultValue;
-  }
-
-  @Nullable
-  public Integer convert (@Nullable final String sInput)
-  {
-    return StringParser.parseIntObj (sInput, m_aDefaultValue);
+    return aInput == null ? null : aInput.getName ();
   }
 }

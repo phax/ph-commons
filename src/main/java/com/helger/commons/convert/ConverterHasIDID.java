@@ -16,28 +16,30 @@
  */
 package com.helger.commons.convert;
 
-import java.util.Map;
-
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.id.IHasID;
+
 /**
- * An implementation of {@link IUnidirectionalConverter} that extracts the value
- * from a Map.Entry.
+ * A unidirectional converter that extracts the ID from an object implementing
+ * {@link IHasID}.
  *
  * @author Philip Helger
- * @param <KEYTYPE>
- *        Map key type
- * @param <VALUETYPE>
- *        Map value type
+ * @param <DATATYPE>
+ *        The ID type
  */
-public class UnidirectionalConverterMapEntryValue <KEYTYPE, VALUETYPE> implements IUnidirectionalConverter <Map.Entry <KEYTYPE, VALUETYPE>, VALUETYPE>
+public class ConverterHasIDID <DATATYPE> implements IConverter <IHasID <DATATYPE>, DATATYPE>
 {
-  public UnidirectionalConverterMapEntryValue ()
-  {}
-
   @Nullable
-  public VALUETYPE convert (@Nullable final Map.Entry <KEYTYPE, VALUETYPE> aEntry)
+  public DATATYPE convert (@Nullable final IHasID <DATATYPE> aInput)
   {
-    return aEntry == null ? null : aEntry.getValue ();
+    return aInput == null ? null : aInput.getID ();
+  }
+
+  @Nonnull
+  public static <DATATYPE> ConverterHasIDID <DATATYPE> create ()
+  {
+    return new ConverterHasIDID <DATATYPE> ();
   }
 }

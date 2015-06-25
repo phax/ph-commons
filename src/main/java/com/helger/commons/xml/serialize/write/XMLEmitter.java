@@ -32,8 +32,6 @@ import com.helger.commons.microdom.IMicroDocumentType;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.xml.CXML;
-import com.helger.commons.xml.EXMLCharMode;
-import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 import com.helger.commons.xml.EXMLVersion;
 
 /**

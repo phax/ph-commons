@@ -16,28 +16,39 @@
  */
 package com.helger.commons.convert;
 
-import java.util.Map;
-
 import javax.annotation.Nullable;
 
+import com.helger.commons.string.StringParser;
+
 /**
- * An implementation of {@link IUnidirectionalConverter} that extracts the key
- * from a Map.Entry.
+ * Get a generic data converter that converts a string to an Integer. If the
+ * conversion fails, the default value is returned from the converter.
  *
  * @author Philip Helger
- * @param <KEYTYPE>
- *        Map key type
- * @param <VALUETYPE>
- *        Map value type
  */
-public class UnidirectionalConverterMapEntryKey <KEYTYPE, VALUETYPE> implements IUnidirectionalConverter <Map.Entry <KEYTYPE, VALUETYPE>, KEYTYPE>
+public class ConverterStringInteger implements IConverter <String, Integer>
 {
-  public UnidirectionalConverterMapEntryKey ()
-  {}
+  private final Integer m_aDefaultValue;
+
+  public ConverterStringInteger ()
+  {
+    this ((Integer) null);
+  }
+
+  public ConverterStringInteger (@Nullable final Integer aDefaultValue)
+  {
+    m_aDefaultValue = aDefaultValue;
+  }
 
   @Nullable
-  public KEYTYPE convert (@Nullable final Map.Entry <KEYTYPE, VALUETYPE> aEntry)
+  public Integer getDefaultValue ()
   {
-    return aEntry == null ? null : aEntry.getKey ();
+    return m_aDefaultValue;
+  }
+
+  @Nullable
+  public Integer convert (@Nullable final String sInput)
+  {
+    return StringParser.parseIntObj (sInput, m_aDefaultValue);
   }
 }

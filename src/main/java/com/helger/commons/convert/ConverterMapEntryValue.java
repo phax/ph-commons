@@ -16,14 +16,28 @@
  */
 package com.helger.commons.convert;
 
+import java.util.Map;
+
+import javax.annotation.Nullable;
+
 /**
- * A specialized converter interface that does not do type transformations.
- * 
- * @param <DATATYPE>
- *        Handled data type
+ * An implementation of {@link IConverter} that extracts the value
+ * from a Map.Entry.
+ *
  * @author Philip Helger
+ * @param <KEYTYPE>
+ *        Map key type
+ * @param <VALUETYPE>
+ *        Map value type
  */
-public interface IUnidirectionalConverterSameType <DATATYPE> extends IUnidirectionalConverter <DATATYPE, DATATYPE>
+public class ConverterMapEntryValue <KEYTYPE, VALUETYPE> implements IConverter <Map.Entry <KEYTYPE, VALUETYPE>, VALUETYPE>
 {
-  /* empty */
+  public ConverterMapEntryValue ()
+  {}
+
+  @Nullable
+  public VALUETYPE convert (@Nullable final Map.Entry <KEYTYPE, VALUETYPE> aEntry)
+  {
+    return aEntry == null ? null : aEntry.getValue ();
+  }
 }

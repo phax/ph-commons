@@ -28,8 +28,8 @@ import org.junit.Test;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.convert.ArrayConversionHelper;
-import com.helger.commons.convert.IUnidirectionalConverter;
-import com.helger.commons.convert.UnidirectionalConverterStringInteger;
+import com.helger.commons.convert.IConverter;
+import com.helger.commons.convert.ConverterStringInteger;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
@@ -42,7 +42,7 @@ public final class ArrayConversionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testNewArrayFromCollectionWithConverter ()
   {
-    final IUnidirectionalConverter <String, Integer> conv = new UnidirectionalConverterStringInteger (null);
+    final IConverter <String, Integer> conv = new ConverterStringInteger (null);
 
     Integer [] x = ArrayConversionHelper.newArray (CollectionHelper.newList ("1", "2", "3"), conv, Integer.class);
     assertNotNull (x);
@@ -86,7 +86,7 @@ public final class ArrayConversionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testNewArrayFromArrayWithConverter ()
   {
-    final IUnidirectionalConverter <String, Integer> conv = new UnidirectionalConverterStringInteger (null);
+    final IConverter <String, Integer> conv = new ConverterStringInteger (null);
 
     Integer [] x = ArrayConversionHelper.newArray (new String [] { "1", "2", "3" }, conv, Integer.class);
     assertNotNull (x);
@@ -128,7 +128,7 @@ public final class ArrayConversionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testConvert ()
   {
-    final IUnidirectionalConverter <String, Integer> conv = new UnidirectionalConverterStringInteger (null);
+    final IConverter <String, Integer> conv = new ConverterStringInteger (null);
 
     final Integer [] dst = ArrayConversionHelper.newArray (new String [] { "2", "4", "6" }, conv, Integer.class);
     assertNotNull (dst);

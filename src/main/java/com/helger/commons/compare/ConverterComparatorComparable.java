@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.convert.IUnidirectionalConverter;
+import com.helger.commons.convert.IConverter;
 
 /**
  * This is a {@link java.util.Comparator} for objects which are extracted from a
@@ -36,7 +36,7 @@ import com.helger.commons.convert.IUnidirectionalConverter;
 @NotThreadSafe
 public class ConverterComparatorComparable <DATATYPE, PARTTYPE extends Comparable <? super PARTTYPE>> extends AbstractPartComparatorComparable <DATATYPE, PARTTYPE>
 {
-  private final IUnidirectionalConverter <DATATYPE, PARTTYPE> m_aConverter;
+  private final IConverter <DATATYPE, PARTTYPE> m_aConverter;
 
   /**
    * Constructor.
@@ -45,7 +45,7 @@ public class ConverterComparatorComparable <DATATYPE, PARTTYPE extends Comparabl
    *        The converter to be used to extract the part from the source object.
    *        May not be <code>null</code>.
    */
-  public ConverterComparatorComparable (@Nonnull final IUnidirectionalConverter <DATATYPE, PARTTYPE> aConverter)
+  public ConverterComparatorComparable (@Nonnull final IConverter <DATATYPE, PARTTYPE> aConverter)
   {
     m_aConverter = ValueEnforcer.notNull (aConverter, "Converter");
   }
@@ -54,7 +54,7 @@ public class ConverterComparatorComparable <DATATYPE, PARTTYPE extends Comparabl
    * @return The converter passed in the constructor. Never <code>null</code>.
    */
   @Nonnull
-  public final IUnidirectionalConverter <DATATYPE, PARTTYPE> getConverter ()
+  public final IConverter <DATATYPE, PARTTYPE> getConverter ()
   {
     return m_aConverter;
   }

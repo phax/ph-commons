@@ -16,30 +16,25 @@
  */
 package com.helger.commons.convert;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.id.IHasID;
-
 /**
- * A unidirectional converter that extracts the ID from an object implementing
- * {@link IHasID}.
- *
+ * This is a very simple type conversion interface for compile type conversions.
+ * 
+ * @param <SRCTYPE>
+ *        source type
+ * @param <DSTTYPE>
+ *        destination type
  * @author Philip Helger
- * @param <DATATYPE>
- *        The ID type
  */
-public class UnidirectionalConverterHasIDID <DATATYPE> implements IUnidirectionalConverter <IHasID <DATATYPE>, DATATYPE>
+public interface IConverter <SRCTYPE, DSTTYPE>
 {
-  @Nullable
-  public DATATYPE convert (@Nullable final IHasID <DATATYPE> aInput)
-  {
-    return aInput == null ? null : aInput.getID ();
-  }
-
-  @Nonnull
-  public static <DATATYPE> UnidirectionalConverterHasIDID <DATATYPE> create ()
-  {
-    return new UnidirectionalConverterHasIDID <DATATYPE> ();
-  }
+  /**
+   * Convert the passed source object to the destination type.
+   * 
+   * @param aSource
+   *        The source object to be converted. No <code>null</code> or non-
+   *        <code>null</code> constraint possible.
+   * @return The converted value. No <code>null</code> or non- <code>null</code>
+   *         constraint possible.
+   */
+  DSTTYPE convert (SRCTYPE aSource);
 }

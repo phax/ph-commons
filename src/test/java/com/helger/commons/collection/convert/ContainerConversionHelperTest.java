@@ -33,8 +33,8 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.convert.ContainerConversionHelper;
 import com.helger.commons.compare.ISerializableComparator;
-import com.helger.commons.convert.IUnidirectionalConverter;
-import com.helger.commons.convert.UnidirectionalConverterStringInteger;
+import com.helger.commons.convert.IConverter;
+import com.helger.commons.convert.ConverterStringInteger;
 import com.helger.commons.filter.FilterNotNull;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
@@ -64,28 +64,28 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
   public void testNewSetIteratorWithConverter ()
   {
     Iterator <String> it = CollectionHelper.newSet ("100", "-733").iterator ();
-    Set <Integer> aSet = ContainerConversionHelper.newSet (it, new UnidirectionalConverterStringInteger (null));
+    Set <Integer> aSet = ContainerConversionHelper.newSet (it, new ConverterStringInteger (null));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains (Integer.valueOf (100)));
     assertTrue (aSet.contains (Integer.valueOf (-733)));
 
     it = CollectionHelper.newSet ("100", "-733").iterator ();
-    aSet = ContainerConversionHelper.newUnmodifiableSet (it, new UnidirectionalConverterStringInteger (null));
+    aSet = ContainerConversionHelper.newUnmodifiableSet (it, new ConverterStringInteger (null));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains (Integer.valueOf (100)));
     assertTrue (aSet.contains (Integer.valueOf (-733)));
 
     it = CollectionHelper.newSet ("100", "-733").iterator ();
-    aSet = ContainerConversionHelper.newOrderedSet (it, new UnidirectionalConverterStringInteger (null));
+    aSet = ContainerConversionHelper.newOrderedSet (it, new ConverterStringInteger (null));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains (Integer.valueOf (100)));
     assertTrue (aSet.contains (Integer.valueOf (-733)));
 
     it = CollectionHelper.newSet ("100", "-733").iterator ();
-    aSet = ContainerConversionHelper.newUnmodifiableOrderedSet (it, new UnidirectionalConverterStringInteger (null));
+    aSet = ContainerConversionHelper.newUnmodifiableOrderedSet (it, new ConverterStringInteger (null));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains (Integer.valueOf (100)));
@@ -97,28 +97,28 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
   public void testNewSetIterableWithConverter ()
   {
     Set <Integer> aSet = ContainerConversionHelper.newSet (CollectionHelper.newList ("100", "-733"),
-                                                           new UnidirectionalConverterStringInteger (null));
+                                                           new ConverterStringInteger (null));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains (Integer.valueOf (100)));
     assertTrue (aSet.contains (Integer.valueOf (-733)));
 
     aSet = ContainerConversionHelper.newUnmodifiableSet (CollectionHelper.newList ("100", "-733"),
-                                                         new UnidirectionalConverterStringInteger (null));
+                                                         new ConverterStringInteger (null));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains (Integer.valueOf (100)));
     assertTrue (aSet.contains (Integer.valueOf (-733)));
 
     aSet = ContainerConversionHelper.newOrderedSet (CollectionHelper.newList ("100", "-733"),
-                                                    new UnidirectionalConverterStringInteger (null));
+                                                    new ConverterStringInteger (null));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains (Integer.valueOf (100)));
     assertTrue (aSet.contains (Integer.valueOf (-733)));
 
     aSet = ContainerConversionHelper.newUnmodifiableOrderedSet (CollectionHelper.newList ("100", "-733"),
-                                                                new UnidirectionalConverterStringInteger (null));
+                                                                new ConverterStringInteger (null));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains (Integer.valueOf (100)));
@@ -130,7 +130,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
   {
     Set <Integer> aSet = ContainerConversionHelper.newSet (CollectionHelper.newList ("100", null, "-733"),
                                                            new FilterNotNull <String> (),
-                                                           new UnidirectionalConverterStringInteger (null));
+                                                           new ConverterStringInteger (null));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains (Integer.valueOf (100)));
@@ -138,7 +138,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
 
     aSet = ContainerConversionHelper.newUnmodifiableSet (CollectionHelper.newList ("100", null, "-733"),
                                                          new FilterNotNull <String> (),
-                                                         new UnidirectionalConverterStringInteger (null));
+                                                         new ConverterStringInteger (null));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains (Integer.valueOf (100)));
@@ -146,7 +146,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
 
     aSet = ContainerConversionHelper.newOrderedSet (CollectionHelper.newList ("100", null, "-733"),
                                                     new FilterNotNull <String> (),
-                                                    new UnidirectionalConverterStringInteger (null));
+                                                    new ConverterStringInteger (null));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains (Integer.valueOf (100)));
@@ -154,7 +154,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
 
     aSet = ContainerConversionHelper.newUnmodifiableOrderedSet (CollectionHelper.newList ("100", null, "-733"),
                                                                 new FilterNotNull <String> (),
-                                                                new UnidirectionalConverterStringInteger (null));
+                                                                new ConverterStringInteger (null));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains (Integer.valueOf (100)));
@@ -168,18 +168,18 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     assertTrue (aSource.add ("100"));
     assertTrue (aSource.add ("-721"));
 
-    List <Integer> aList = ContainerConversionHelper.newList (aSource, new UnidirectionalConverterStringInteger (null));
+    List <Integer> aList = ContainerConversionHelper.newList (aSource, new ConverterStringInteger (null));
     assertNotNull (aList);
     assertEquals (2, aList.size ());
     assertTrue (aList.contains (Integer.valueOf (100)));
     assertTrue (aList.contains (Integer.valueOf (-721)));
 
     aList = ContainerConversionHelper.newList (new ArrayList <String> (),
-                                               new UnidirectionalConverterStringInteger (null));
+                                               new ConverterStringInteger (null));
     assertNotNull (aList);
     assertTrue (aList.isEmpty ());
 
-    aList = ContainerConversionHelper.newUnmodifiableList (aSource, new UnidirectionalConverterStringInteger (null));
+    aList = ContainerConversionHelper.newUnmodifiableList (aSource, new ConverterStringInteger (null));
     assertNotNull (aList);
     assertEquals (2, aList.size ());
     assertTrue (aList.contains (Integer.valueOf (100)));
@@ -191,17 +191,17 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
   {
     final String [] aSource = new String [] { "100", "-721" };
 
-    List <Integer> aList = ContainerConversionHelper.newList (aSource, new UnidirectionalConverterStringInteger (null));
+    List <Integer> aList = ContainerConversionHelper.newList (aSource, new ConverterStringInteger (null));
     assertNotNull (aList);
     assertEquals (2, aList.size ());
     assertTrue (aList.contains (Integer.valueOf (100)));
     assertTrue (aList.contains (Integer.valueOf (-721)));
 
-    aList = ContainerConversionHelper.newList (new String [0], new UnidirectionalConverterStringInteger (null));
+    aList = ContainerConversionHelper.newList (new String [0], new ConverterStringInteger (null));
     assertNotNull (aList);
     assertTrue (aList.isEmpty ());
 
-    aList = ContainerConversionHelper.newUnmodifiableList (aSource, new UnidirectionalConverterStringInteger (null));
+    aList = ContainerConversionHelper.newUnmodifiableList (aSource, new ConverterStringInteger (null));
     assertNotNull (aList);
     assertEquals (2, aList.size ());
     assertTrue (aList.contains (Integer.valueOf (100)));
@@ -218,7 +218,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
 
     List <Integer> aList = ContainerConversionHelper.newList (aSource,
                                                               new FilterNotNull <String> (),
-                                                              new UnidirectionalConverterStringInteger (null));
+                                                              new ConverterStringInteger (null));
     assertNotNull (aList);
     assertEquals (2, aList.size ());
     assertTrue (aList.contains (Integer.valueOf (100)));
@@ -226,13 +226,13 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
 
     aList = ContainerConversionHelper.newList (new ArrayList <String> (),
                                                new FilterNotNull <String> (),
-                                               new UnidirectionalConverterStringInteger (null));
+                                               new ConverterStringInteger (null));
     assertNotNull (aList);
     assertTrue (aList.isEmpty ());
 
     aList = ContainerConversionHelper.newUnmodifiableList (aSource,
                                                            new FilterNotNull <String> (),
-                                                           new UnidirectionalConverterStringInteger (null));
+                                                           new ConverterStringInteger (null));
     assertNotNull (aList);
     assertEquals (2, aList.size ());
     assertTrue (aList.contains (Integer.valueOf (100)));
@@ -245,7 +245,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     try
     {
       // null iterator not allowed
-      ContainerConversionHelper.getSorted ((Iterator <String>) null, new UnidirectionalConverterStringInteger (null));
+      ContainerConversionHelper.getSorted ((Iterator <String>) null, new ConverterStringInteger (null));
       fail ();
     }
     catch (final NullPointerException ex)
@@ -255,7 +255,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     {
       // null converter not allowed
       ContainerConversionHelper.getSorted (new ArrayList <String> ().iterator (),
-                                           (IUnidirectionalConverter <String, Integer>) null);
+                                           (IConverter <String, Integer>) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -263,7 +263,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
 
     final List <String> aList = CollectionHelper.newList ("6", "5", "4", "3");
     final List <Integer> aSorted = ContainerConversionHelper.getSorted (aList.iterator (),
-                                                                        new UnidirectionalConverterStringInteger (null));
+                                                                        new ConverterStringInteger (null));
     assertEquals (aSorted.size (), 4);
     assertEquals (aSorted.get (0), Integer.valueOf (3));
     assertEquals (aSorted.get (1), Integer.valueOf (4));
@@ -277,7 +277,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     try
     {
       // null iterator not allowed
-      ContainerConversionHelper.getSorted ((Iterable <String>) null, new UnidirectionalConverterStringInteger (null));
+      ContainerConversionHelper.getSorted ((Iterable <String>) null, new ConverterStringInteger (null));
       fail ();
     }
     catch (final NullPointerException ex)
@@ -286,7 +286,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     try
     {
       // null converter not allowed
-      ContainerConversionHelper.getSorted (new ArrayList <String> (), (IUnidirectionalConverter <String, Integer>) null);
+      ContainerConversionHelper.getSorted (new ArrayList <String> (), (IConverter <String, Integer>) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -294,7 +294,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
 
     final List <String> aList = CollectionHelper.newList ("6", "5", "4", "3");
     final List <Integer> aSorted = ContainerConversionHelper.getSorted (aList,
-                                                                        new UnidirectionalConverterStringInteger (null));
+                                                                        new ConverterStringInteger (null));
     assertEquals (aSorted.size (), 4);
     assertEquals (aSorted.get (0), Integer.valueOf (3));
     assertEquals (aSorted.get (1), Integer.valueOf (4));
@@ -309,7 +309,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     {
       // null iterator not allowed
       ContainerConversionHelper.getSorted ((Iterator <String>) null,
-                                           new UnidirectionalConverterStringInteger (null),
+                                           new ConverterStringInteger (null),
                                            new MyIntegerCompi ());
       fail ();
     }
@@ -320,7 +320,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     {
       // null converter not allowed
       ContainerConversionHelper.getSorted (new ArrayList <String> ().iterator (),
-                                           (IUnidirectionalConverter <String, Integer>) null,
+                                           (IConverter <String, Integer>) null,
                                            new MyIntegerCompi ());
       fail ();
     }
@@ -331,7 +331,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     {
       // null comparator not allowed
       ContainerConversionHelper.getSorted (new ArrayList <String> ().iterator (),
-                                           new UnidirectionalConverterStringInteger (null),
+                                           new ConverterStringInteger (null),
                                            null);
       fail ();
     }
@@ -340,7 +340,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
 
     final List <String> aList = CollectionHelper.newList ("6", "5", "4", "3");
     final List <Integer> aSorted = ContainerConversionHelper.getSorted (aList.iterator (),
-                                                                        new UnidirectionalConverterStringInteger (null),
+                                                                        new ConverterStringInteger (null),
                                                                         new MyIntegerCompi ());
     assertEquals (aSorted.size (), 4);
     assertEquals (aSorted.get (0), Integer.valueOf (4));
@@ -356,7 +356,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     {
       // null iterator not allowed
       ContainerConversionHelper.getSorted ((Iterable <String>) null,
-                                           new UnidirectionalConverterStringInteger (null),
+                                           new ConverterStringInteger (null),
                                            new MyIntegerCompi ());
       fail ();
     }
@@ -367,7 +367,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     {
       // null converter not allowed
       ContainerConversionHelper.getSorted (new ArrayList <String> (),
-                                           (IUnidirectionalConverter <String, Integer>) null,
+                                           (IConverter <String, Integer>) null,
                                            new MyIntegerCompi ());
       fail ();
     }
@@ -378,7 +378,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     {
       // null comparator not allowed
       ContainerConversionHelper.getSorted (new ArrayList <String> (),
-                                           new UnidirectionalConverterStringInteger (null),
+                                           new ConverterStringInteger (null),
                                            null);
       fail ();
     }
@@ -387,7 +387,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
 
     final List <String> aList = CollectionHelper.newList ("6", "5", "4", "3");
     final List <Integer> aSorted = ContainerConversionHelper.getSorted (aList,
-                                                                        new UnidirectionalConverterStringInteger (null),
+                                                                        new ConverterStringInteger (null),
                                                                         new MyIntegerCompi ());
     assertEquals (aSorted.size (), 4);
     assertEquals (aSorted.get (0), Integer.valueOf (4));
@@ -400,7 +400,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
   public void testGetIteratorWithConversion ()
   {
     final Iterator <Integer> it = ContainerConversionHelper.getIterator (CollectionHelper.newList ("100", "-25"),
-                                                                         new UnidirectionalConverterStringInteger (null));
+                                                                         new ConverterStringInteger (null));
     assertNotNull (it);
     assertTrue (it.hasNext ());
     assertEquals (Integer.valueOf (100), it.next ());

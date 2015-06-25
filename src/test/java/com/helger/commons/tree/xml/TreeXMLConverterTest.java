@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.commons.convert.UnidirectionalConverterIdentity;
+import com.helger.commons.convert.ConverterIdentity;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
@@ -64,14 +64,14 @@ public final class TreeXMLConverterTest extends AbstractCommonsTestCase
 
     // and convert the document again to a tree
     t2 = TreeXMLConverter.getXMLAsTreeWithUniqueID (aDoc2,
-                                                    new UnidirectionalConverterIdentity <String> (),
+                                                    new ConverterIdentity <String> (),
                                                     new MockHasNameConverter ());
     assertNotNull (t2);
     assertEquals (t1, t2);
 
     // and convert the document again to a tree
     assertNotNull (TreeXMLConverter.getXMLAsTreeWithID (aDoc2,
-                                                        new UnidirectionalConverterIdentity <String> (),
+                                                        new ConverterIdentity <String> (),
                                                         new MockHasNameConverter ()));
   }
 

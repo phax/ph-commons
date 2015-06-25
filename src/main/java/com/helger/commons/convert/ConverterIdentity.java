@@ -18,19 +18,19 @@ package com.helger.commons.convert;
 
 import javax.annotation.Nullable;
 
-import com.helger.commons.name.IHasName;
-
 /**
- * A unidirectional converter that extracts the name from an object implementing
- * {@link IHasName}.
+ * A dummy implementation of {@link IConverterSameType} that uses
+ * the input object as the output object.
  *
  * @author Philip Helger
+ * @param <DATATYPE>
+ *        The data type to be converted
  */
-public class UnidirectionalConverterHasNameString implements IUnidirectionalConverter <IHasName, String>
+public class ConverterIdentity <DATATYPE> implements IConverterSameType <DATATYPE>
 {
   @Nullable
-  public String convert (@Nullable final IHasName aInput)
+  public DATATYPE convert (@Nullable final DATATYPE aInput)
   {
-    return aInput == null ? null : aInput.getName ();
+    return aInput;
   }
 }

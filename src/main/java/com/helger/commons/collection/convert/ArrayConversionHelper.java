@@ -26,7 +26,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.convert.IUnidirectionalConverter;
+import com.helger.commons.convert.IConverter;
 
 /**
  * This utility class provides conversions from array objects.
@@ -45,7 +45,7 @@ public final class ArrayConversionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> DSTTYPE [] newArray (@Nonnull final Collection <? extends SRCTYPE> aList,
-                                                        @Nonnull final IUnidirectionalConverter <SRCTYPE, DSTTYPE> aConv,
+                                                        @Nonnull final IConverter <SRCTYPE, DSTTYPE> aConv,
                                                         @Nonnull final Class <DSTTYPE> aDstClass)
   {
     ValueEnforcer.notNull (aList, "List");
@@ -62,7 +62,7 @@ public final class ArrayConversionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> DSTTYPE [] newArray (@Nullable final SRCTYPE [] aArray,
-                                                        @Nonnull final IUnidirectionalConverter <SRCTYPE, DSTTYPE> aConv,
+                                                        @Nonnull final IConverter <SRCTYPE, DSTTYPE> aConv,
                                                         @Nonnull final Class <DSTTYPE> aDstClass)
   {
     ValueEnforcer.notNull (aConv, "Converter");

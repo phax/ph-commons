@@ -26,7 +26,7 @@ import org.junit.Test;
 
 import com.helger.commons.cache.CacheWithConversion;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.convert.UnidirectionalConverterMapGet;
+import com.helger.commons.convert.ConverterMapGet;
 
 /**
  * Test class for class {@link CacheWithConversion}.
@@ -43,10 +43,10 @@ public final class CacheWithConversionTest
     assertEquals ("test", aCache.getName ());
     // Get from map
     assertEquals (Integer.valueOf (1),
-                  aCache.getFromCache ("In", new UnidirectionalConverterMapGet <String, Integer> (aMap)));
+                  aCache.getFromCache ("In", new ConverterMapGet <String, Integer> (aMap)));
     // Use cached value
     assertEquals (Integer.valueOf (1),
-                  aCache.getFromCache ("In", new UnidirectionalConverterMapGet <String, Integer> (aMap)));
+                  aCache.getFromCache ("In", new ConverterMapGet <String, Integer> (aMap)));
     // Use cached value
     assertEquals (Integer.valueOf (1), aCache.getFromCache ("In"));
     // No such cached value
@@ -54,7 +54,7 @@ public final class CacheWithConversionTest
     try
     {
       // Cannot convert the passed key!
-      aCache.getFromCache ("Gibts Ned", new UnidirectionalConverterMapGet <String, Integer> (aMap));
+      aCache.getFromCache ("Gibts Ned", new ConverterMapGet <String, Integer> (aMap));
       fail ();
     }
     catch (final IllegalStateException ex)
@@ -74,10 +74,10 @@ public final class CacheWithConversionTest
     assertEquals (1, aCache.getMaxSize ());
     // Get from map
     assertEquals (Integer.valueOf (1),
-                  aCache.getFromCache ("In", new UnidirectionalConverterMapGet <String, Integer> (aMap)));
+                  aCache.getFromCache ("In", new ConverterMapGet <String, Integer> (aMap)));
     // Use cached value
     assertEquals (Integer.valueOf (1),
-                  aCache.getFromCache ("In", new UnidirectionalConverterMapGet <String, Integer> (aMap)));
+                  aCache.getFromCache ("In", new ConverterMapGet <String, Integer> (aMap)));
     // Use cached value
     assertEquals (Integer.valueOf (1), aCache.getFromCache ("In"));
     // No such cached value
@@ -85,7 +85,7 @@ public final class CacheWithConversionTest
     try
     {
       // Cannot convert the passed key!
-      aCache.getFromCache ("Gibts Ned", new UnidirectionalConverterMapGet <String, Integer> (aMap));
+      aCache.getFromCache ("Gibts Ned", new ConverterMapGet <String, Integer> (aMap));
       fail ();
     }
     catch (final IllegalStateException ex)
@@ -97,10 +97,10 @@ public final class CacheWithConversionTest
 
     // Get from map
     assertEquals (Integer.valueOf (2),
-                  aCache.getFromCache ("In2", new UnidirectionalConverterMapGet <String, Integer> (aMap)));
+                  aCache.getFromCache ("In2", new ConverterMapGet <String, Integer> (aMap)));
     // Use cached value
     assertEquals (Integer.valueOf (2),
-                  aCache.getFromCache ("In2", new UnidirectionalConverterMapGet <String, Integer> (aMap)));
+                  aCache.getFromCache ("In2", new ConverterMapGet <String, Integer> (aMap)));
     // Use cached value
     assertEquals (Integer.valueOf (2), aCache.getFromCache ("In2"));
     // No longer in the cache

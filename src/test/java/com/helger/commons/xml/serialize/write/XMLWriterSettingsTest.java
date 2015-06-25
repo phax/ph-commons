@@ -30,7 +30,6 @@ import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.ENewLineMode;
-import com.helger.commons.xml.EXMLIncorrectCharacterHandling;
 import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
 
 /**
