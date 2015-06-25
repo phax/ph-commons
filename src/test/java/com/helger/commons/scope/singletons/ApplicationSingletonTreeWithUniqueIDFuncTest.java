@@ -28,32 +28,34 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 
 import com.helger.commons.scope.mock.ScopeTestRule;
-import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
+import com.helger.commons.scope.singleton.AbstractApplicationSingleton;
+import com.helger.commons.scope.singletons.AbstractApplicationSingletonTreeWithUniqueID;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 
 /**
- * Test class for class {@link AbstractGlobalSingleton}.
+ * Test class for class {@link AbstractApplicationSingletonTreeWithUniqueID}.
  *
  * @author Philip Helger
  */
-public final class GlobalSingletonTreeWithUniqueIDTest
+public final class ApplicationSingletonTreeWithUniqueIDFuncTest
 {
   @Rule
   public final TestRule m_aScopeRule = new ScopeTestRule ();
 
   @Test
-  public void testBasic ()
+  public void testBasic () throws Exception
   {
-    assertTrue (AbstractGlobalSingleton.getAllGlobalSingletons ().isEmpty ());
-    assertFalse (AbstractGlobalSingleton.isGlobalSingletonInstantiated (MockGlobalSingletonTreeWithUniqueID.class));
-    assertNull (AbstractGlobalSingleton.getGlobalSingletonIfInstantiated (MockGlobalSingletonTreeWithUniqueID.class));
+    assertTrue (AbstractApplicationSingleton.getAllApplicationSingletons ().isEmpty ());
+    assertFalse (AbstractApplicationSingleton.isApplicationSingletonInstantiated (MockApplicationSingletonTreeWithUniqueID.class));
+    assertNull (AbstractApplicationSingleton.getApplicationSingletonIfInstantiated (MockApplicationSingletonTreeWithUniqueID.class));
 
-    final MockGlobalSingletonTreeWithUniqueID a = MockGlobalSingletonTreeWithUniqueID.getInstance ();
+    final MockApplicationSingletonTreeWithUniqueID a = MockApplicationSingletonTreeWithUniqueID.getInstance ();
     assertNotNull (a);
-    assertTrue (AbstractGlobalSingleton.isGlobalSingletonInstantiated (MockGlobalSingletonTreeWithUniqueID.class));
-    assertSame (a, AbstractGlobalSingleton.getGlobalSingletonIfInstantiated (MockGlobalSingletonTreeWithUniqueID.class));
+    assertTrue (AbstractApplicationSingleton.isApplicationSingletonInstantiated (MockApplicationSingletonTreeWithUniqueID.class));
+    assertSame (a,
+                AbstractApplicationSingleton.getApplicationSingletonIfInstantiated (MockApplicationSingletonTreeWithUniqueID.class));
 
-    final MockGlobalSingletonTreeWithUniqueID b = MockGlobalSingletonTreeWithUniqueID.getInstance ();
+    final MockApplicationSingletonTreeWithUniqueID b = MockApplicationSingletonTreeWithUniqueID.getInstance ();
     assertSame (a, b);
 
     assertNotNull (a.getRootItem ());

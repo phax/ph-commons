@@ -27,17 +27,18 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.scope.mock.ScopeTestRule;
-import com.helger.commons.scope.singleton.AbstractRequestSingleton;
+import com.helger.commons.scope.singleton.AbstractSessionApplicationSingleton;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 
 /**
- * Test class for class {@link AbstractRequestSingleton}.<br>
+ * Test class for class {@link AbstractSessionApplicationSingleton}.<br>
  * Note: must reside here for Mock* stuff!
  *
  * @author Philip Helger
  */
-public final class RequestSingletonTreeWithUniqueIDTest
+public final class SessionApplicationSingletonTreeWithUniqueIDFuncTest
 {
   @Rule
   public final TestRule m_aScopeRule = new ScopeTestRule ();
@@ -45,17 +46,21 @@ public final class RequestSingletonTreeWithUniqueIDTest
   @Test
   public void testBasic () throws Exception
   {
-    assertTrue (AbstractRequestSingleton.getAllRequestSingletons ().isEmpty ());
-    assertFalse (AbstractRequestSingleton.isRequestSingletonInstantiated (MockRequestSingletonTreeWithUniqueID.class));
-    assertNull (AbstractRequestSingleton.getRequestSingletonIfInstantiated (MockRequestSingletonTreeWithUniqueID.class));
+    assertTrue (AbstractSessionApplicationSingleton.getAllSessionApplicationSingletons ().isEmpty ());
+    assertFalse (AbstractSessionApplicationSingleton.isSessionApplicationSingletonInstantiated (MockSessionApplicationSingletonTreeWithUniqueID.class));
+    assertNull (AbstractSessionApplicationSingleton.getSessionApplicationSingletonIfInstantiated (MockSessionApplicationSingletonTreeWithUniqueID.class));
 
-    final MockRequestSingletonTreeWithUniqueID a = MockRequestSingletonTreeWithUniqueID.getInstance ();
+    final MockSessionApplicationSingletonTreeWithUniqueID a = MockSessionApplicationSingletonTreeWithUniqueID.getInstance ();
     assertNotNull (a);
-    assertTrue (AbstractRequestSingleton.isRequestSingletonInstantiated (MockRequestSingletonTreeWithUniqueID.class));
-    assertSame (a, AbstractRequestSingleton.getRequestSingletonIfInstantiated (MockRequestSingletonTreeWithUniqueID.class));
+    assertTrue (AbstractSessionApplicationSingleton.isSessionApplicationSingletonInstantiated (MockSessionApplicationSingletonTreeWithUniqueID.class));
+    assertSame (a,
+                AbstractSessionApplicationSingleton.getSessionApplicationSingletonIfInstantiated (MockSessionApplicationSingletonTreeWithUniqueID.class));
 
-    final MockRequestSingletonTreeWithUniqueID b = MockRequestSingletonTreeWithUniqueID.getInstance ();
+    final MockSessionApplicationSingletonTreeWithUniqueID b = MockSessionApplicationSingletonTreeWithUniqueID.getInstance ();
     assertSame (a, b);
+
+    if (false)
+      CommonsTestHelper.testDefaultSerialization (a);
 
     assertNotNull (a.getRootItem ());
     assertFalse (a.hasChildren (a.getRootItem ()));

@@ -26,8 +26,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 
 /**
- * An implementation of {@link IConverter} that converts from a
- * map key to a map value
+ * An implementation of {@link IConverter} that converts from a map key to a map
+ * value
  *
  * @author Philip Helger
  * @param <KEYTYPE>

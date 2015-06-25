@@ -174,8 +174,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     assertTrue (aList.contains (Integer.valueOf (100)));
     assertTrue (aList.contains (Integer.valueOf (-721)));
 
-    aList = ContainerConversionHelper.newList (new ArrayList <String> (),
-                                               new ConverterStringInteger (null));
+    aList = ContainerConversionHelper.newList (new ArrayList <String> (), new ConverterStringInteger (null));
     assertNotNull (aList);
     assertTrue (aList.isEmpty ());
 
@@ -254,8 +253,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     try
     {
       // null converter not allowed
-      ContainerConversionHelper.getSorted (new ArrayList <String> ().iterator (),
-                                           (IConverter <String, Integer>) null);
+      ContainerConversionHelper.getSorted (new ArrayList <String> ().iterator (), (IConverter <String, Integer>) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -293,8 +291,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     {}
 
     final List <String> aList = CollectionHelper.newList ("6", "5", "4", "3");
-    final List <Integer> aSorted = ContainerConversionHelper.getSorted (aList,
-                                                                        new ConverterStringInteger (null));
+    final List <Integer> aSorted = ContainerConversionHelper.getSorted (aList, new ConverterStringInteger (null));
     assertEquals (aSorted.size (), 4);
     assertEquals (aSorted.get (0), Integer.valueOf (3));
     assertEquals (aSorted.get (1), Integer.valueOf (4));
@@ -377,9 +374,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     try
     {
       // null comparator not allowed
-      ContainerConversionHelper.getSorted (new ArrayList <String> (),
-                                           new ConverterStringInteger (null),
-                                           null);
+      ContainerConversionHelper.getSorted (new ArrayList <String> (), new ConverterStringInteger (null), null);
       fail ();
     }
     catch (final NullPointerException ex)

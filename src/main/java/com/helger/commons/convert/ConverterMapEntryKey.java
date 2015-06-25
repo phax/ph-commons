@@ -21,8 +21,8 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 /**
- * An implementation of {@link IConverter} that extracts the key
- * from a Map.Entry.
+ * An implementation of {@link IConverter} that extracts the key from a
+ * Map.Entry.
  *
  * @author Philip Helger
  * @param <KEYTYPE>

@@ -19,8 +19,8 @@ package com.helger.commons.convert;
 import javax.annotation.Nullable;
 
 /**
- * A dummy implementation of {@link IConverterSameType} that uses
- * the input object as the output object.
+ * A dummy implementation of {@link IConverterSameType} that uses the input
+ * object as the output object.
  *
  * @author Philip Helger
  * @param <DATATYPE>

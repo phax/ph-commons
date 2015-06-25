@@ -57,8 +57,8 @@ public interface IMessageDigestGenerator
   int getDigestLength ();
 
   /**
-   * Update the hash with the given byte. After calling {@link #getAllDigestBytes()}
-   * once, no further update is possible.
+   * Update the hash with the given byte. After calling
+   * {@link #getAllDigestBytes()} once, no further update is possible.
    *
    * @param aValue
    *        The byte value to update the hash
@@ -69,7 +69,8 @@ public interface IMessageDigestGenerator
 
   /**
    * Update the hash with the bytes of the given string in the given charset.
-   * After calling {@link #getAllDigestBytes()} once, no further update is possible.
+   * After calling {@link #getAllDigestBytes()} once, no further update is
+   * possible.
    *
    * @param sValue
    *        The string value to update the hash. May not be <code>null</code>.
@@ -126,8 +127,8 @@ public interface IMessageDigestGenerator
 
   /**
    * Get only a part of the digest, namely the first number of bytes. Calls
-   * {@link #getAllDigestBytes()} internally so no further update is possible after this
-   * method is called.
+   * {@link #getAllDigestBytes()} internally so no further update is possible
+   * after this method is called.
    *
    * @param nLength
    *        The number of bytes to be retrieved. Must be &gt; 0.
@@ -139,8 +140,8 @@ public interface IMessageDigestGenerator
 
   /**
    * This method finalizes the hash generation and creates the index. Calls
-   * {@link #getAllDigestBytes()} internally so no further update is possible after this
-   * method is called.
+   * {@link #getAllDigestBytes()} internally so no further update is possible
+   * after this method is called.
    *
    * @return the generated hash value.
    */
@@ -148,8 +149,8 @@ public interface IMessageDigestGenerator
 
   /**
    * This method converts the current hash digest to a hex string. Calls
-   * {@link #getAllDigestBytes()} internally so no further update is possible after this
-   * method is called.
+   * {@link #getAllDigestBytes()} internally so no further update is possible
+   * after this method is called.
    *
    * @return The hex value of the hash digest. Never <code>null</code>.
    */

@@ -16,7 +16,6 @@
  */
 package com.helger.commons.scope;
 
-
 /**
  * Interface for a single application scope object.
  * 

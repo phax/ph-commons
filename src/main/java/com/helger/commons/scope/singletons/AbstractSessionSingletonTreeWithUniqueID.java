@@ -33,8 +33,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Represents a global singleton tree with a unique ID. It basically is a
- * {@link AbstractSessionSingleton} wrapping a {@link DefaultTreeWithGlobalUniqueID}
- * with the same API.
+ * {@link AbstractSessionSingleton} wrapping a
+ * {@link DefaultTreeWithGlobalUniqueID} with the same API.
  *
  * @author Philip Helger
  * @param <KEYTYPE>

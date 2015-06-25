@@ -42,11 +42,9 @@ public final class CacheWithConversionTest
     final CacheWithConversion <String, Integer> aCache = new CacheWithConversion <String, Integer> ("test");
     assertEquals ("test", aCache.getName ());
     // Get from map
-    assertEquals (Integer.valueOf (1),
-                  aCache.getFromCache ("In", new ConverterMapGet <String, Integer> (aMap)));
+    assertEquals (Integer.valueOf (1), aCache.getFromCache ("In", new ConverterMapGet <String, Integer> (aMap)));
     // Use cached value
-    assertEquals (Integer.valueOf (1),
-                  aCache.getFromCache ("In", new ConverterMapGet <String, Integer> (aMap)));
+    assertEquals (Integer.valueOf (1), aCache.getFromCache ("In", new ConverterMapGet <String, Integer> (aMap)));
     // Use cached value
     assertEquals (Integer.valueOf (1), aCache.getFromCache ("In"));
     // No such cached value
@@ -73,11 +71,9 @@ public final class CacheWithConversionTest
     assertEquals ("test", aCache.getName ());
     assertEquals (1, aCache.getMaxSize ());
     // Get from map
-    assertEquals (Integer.valueOf (1),
-                  aCache.getFromCache ("In", new ConverterMapGet <String, Integer> (aMap)));
+    assertEquals (Integer.valueOf (1), aCache.getFromCache ("In", new ConverterMapGet <String, Integer> (aMap)));
     // Use cached value
-    assertEquals (Integer.valueOf (1),
-                  aCache.getFromCache ("In", new ConverterMapGet <String, Integer> (aMap)));
+    assertEquals (Integer.valueOf (1), aCache.getFromCache ("In", new ConverterMapGet <String, Integer> (aMap)));
     // Use cached value
     assertEquals (Integer.valueOf (1), aCache.getFromCache ("In"));
     // No such cached value
@@ -96,11 +92,9 @@ public final class CacheWithConversionTest
     // Overwrite the item with a new one, therefore kicking the old one
 
     // Get from map
-    assertEquals (Integer.valueOf (2),
-                  aCache.getFromCache ("In2", new ConverterMapGet <String, Integer> (aMap)));
+    assertEquals (Integer.valueOf (2), aCache.getFromCache ("In2", new ConverterMapGet <String, Integer> (aMap)));
     // Use cached value
-    assertEquals (Integer.valueOf (2),
-                  aCache.getFromCache ("In2", new ConverterMapGet <String, Integer> (aMap)));
+    assertEquals (Integer.valueOf (2), aCache.getFromCache ("In2", new ConverterMapGet <String, Integer> (aMap)));
     // Use cached value
     assertEquals (Integer.valueOf (2), aCache.getFromCache ("In2"));
     // No longer in the cache
