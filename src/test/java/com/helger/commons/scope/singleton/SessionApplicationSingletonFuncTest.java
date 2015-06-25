@@ -31,15 +31,15 @@ import org.junit.rules.TestRule;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.scope.mock.ScopeTestRule;
-import com.helger.commons.scope.singleton.AbstractSessionSingleton;
+import com.helger.commons.scope.singleton.AbstractSessionApplicationSingleton;
 
 /**
- * Test class for class {@link AbstractSessionSingleton}.<br>
+ * Test class for class {@link AbstractSessionApplicationSingleton}.<br>
  * Note: must reside here for Mock* stuff!
  *
  * @author Philip Helger
  */
-public final class SessionSingletonTest
+public final class SessionApplicationSingletonFuncTest
 {
   @Rule
   public final TestRule m_aScopeRule = new ScopeTestRule ();
@@ -47,17 +47,18 @@ public final class SessionSingletonTest
   @Test
   public void testBasic () throws Exception
   {
-    assertTrue (AbstractSessionSingleton.getAllSessionSingletons ().isEmpty ());
-    assertFalse (AbstractSessionSingleton.isSessionSingletonInstantiated (MockSessionSingleton.class));
-    assertNull (AbstractSessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingleton.class));
+    assertTrue (AbstractSessionApplicationSingleton.getAllSessionApplicationSingletons ().isEmpty ());
+    assertFalse (AbstractSessionApplicationSingleton.isSessionApplicationSingletonInstantiated (MockSessionApplicationSingleton.class));
+    assertNull (AbstractSessionApplicationSingleton.getSessionApplicationSingletonIfInstantiated (MockSessionApplicationSingleton.class));
 
-    final MockSessionSingleton a = MockSessionSingleton.getInstance ();
-    assertTrue (AbstractSessionSingleton.isSessionSingletonInstantiated (MockSessionSingleton.class));
-    assertSame (a, AbstractSessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingleton.class));
+    final MockSessionApplicationSingleton a = MockSessionApplicationSingleton.getInstance ();
+    assertTrue (AbstractSessionApplicationSingleton.isSessionApplicationSingletonInstantiated (MockSessionApplicationSingleton.class));
+    assertSame (a,
+                AbstractSessionApplicationSingleton.getSessionApplicationSingletonIfInstantiated (MockSessionApplicationSingleton.class));
     assertEquals (0, a.get ());
     a.inc ();
     assertEquals (1, a.get ());
-    assertSame (a, MockSessionSingleton.getInstance ());
+    assertSame (a, MockSessionApplicationSingleton.getInstance ());
 
     CommonsTestHelper.testDefaultSerialization (a);
   }
@@ -71,7 +72,7 @@ public final class SessionSingletonTest
     try
     {
       // Is not meant to be invoked directly!
-      new MockSessionSingleton ();
+      new MockSessionApplicationSingleton ();
       fail ();
     }
     catch (final IllegalStateException ex)
@@ -83,19 +84,20 @@ public final class SessionSingletonTest
   @Test
   public void testBasicWithScopeCtor () throws Exception
   {
-    assertTrue (AbstractSessionSingleton.getAllSessionSingletons ().isEmpty ());
-    assertFalse (AbstractSessionSingleton.isSessionSingletonInstantiated (MockSessionSingletonWithScopeCtor.class));
-    assertNull (AbstractSessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingletonWithScopeCtor.class));
+    assertTrue (AbstractSessionApplicationSingleton.getAllSessionApplicationSingletons ().isEmpty ());
+    assertFalse (AbstractSessionApplicationSingleton.isSessionApplicationSingletonInstantiated (MockSessionApplicationSingletonWithScopeCtor.class));
+    assertNull (AbstractSessionApplicationSingleton.getSessionApplicationSingletonIfInstantiated (MockSessionApplicationSingletonWithScopeCtor.class));
 
-    final MockSessionSingletonWithScopeCtor a = MockSessionSingletonWithScopeCtor.getInstance ();
+    final MockSessionApplicationSingletonWithScopeCtor a = MockSessionApplicationSingletonWithScopeCtor.getInstance ();
     assertNotNull (a);
-    assertTrue (AbstractSessionSingleton.isSessionSingletonInstantiated (MockSessionSingletonWithScopeCtor.class));
-    assertSame (a, AbstractSessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingletonWithScopeCtor.class));
+    assertTrue (AbstractSessionApplicationSingleton.isSessionApplicationSingletonInstantiated (MockSessionApplicationSingletonWithScopeCtor.class));
+    assertSame (a,
+                AbstractSessionApplicationSingleton.getSessionApplicationSingletonIfInstantiated (MockSessionApplicationSingletonWithScopeCtor.class));
     assertNotNull (a.getScope ());
     assertEquals (0, a.get ());
     a.inc ();
     assertEquals (1, a.get ());
-    assertSame (a, MockSessionSingletonWithScopeCtor.getInstance ());
+    assertSame (a, MockSessionApplicationSingletonWithScopeCtor.getInstance ());
 
     CommonsTestHelper.testDefaultSerialization (a);
   }

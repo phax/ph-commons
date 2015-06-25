@@ -39,7 +39,7 @@ import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
  *
  * @author Philip Helger
  */
-public final class GlobalSingletonTest
+public final class GlobalSingletonFuncTest
 {
   @Rule
   public final TestRule m_aScopeRule = new ScopeTestRule ();

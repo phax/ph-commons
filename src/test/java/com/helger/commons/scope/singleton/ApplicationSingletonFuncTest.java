@@ -30,15 +30,15 @@ import org.junit.rules.TestRule;
 
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.scope.mock.ScopeTestRule;
-import com.helger.commons.scope.singleton.AbstractRequestSingleton;
+import com.helger.commons.scope.singleton.AbstractApplicationSingleton;
 
 /**
- * Test class for class {@link AbstractRequestSingleton}.<br>
+ * Test class for class {@link AbstractApplicationSingleton}.<br>
  * Note: must reside here for Mock* stuff!
  *
  * @author Philip Helger
  */
-public final class RequestSingletonTest
+public final class ApplicationSingletonFuncTest
 {
   @Rule
   public final TestRule m_aScopeRule = new ScopeTestRule ();
@@ -46,18 +46,18 @@ public final class RequestSingletonTest
   @Test
   public void testBasic () throws Exception
   {
-    assertTrue (AbstractRequestSingleton.getAllRequestSingletons ().isEmpty ());
-    assertFalse (AbstractRequestSingleton.isRequestSingletonInstantiated (MockRequestSingleton.class));
-    assertNull (AbstractRequestSingleton.getRequestSingletonIfInstantiated (MockRequestSingleton.class));
+    assertTrue (AbstractApplicationSingleton.getAllApplicationSingletons ().isEmpty ());
+    assertFalse (AbstractApplicationSingleton.isApplicationSingletonInstantiated (MockApplicationSingleton.class));
+    assertNull (AbstractApplicationSingleton.getApplicationSingletonIfInstantiated (MockApplicationSingleton.class));
 
-    final MockRequestSingleton a = MockRequestSingleton.getInstance ();
-    assertTrue (AbstractRequestSingleton.isRequestSingletonInstantiated (MockRequestSingleton.class));
-    assertSame (a, AbstractRequestSingleton.getRequestSingletonIfInstantiated (MockRequestSingleton.class));
+    final MockApplicationSingleton a = MockApplicationSingleton.getInstance ();
+    assertTrue (AbstractApplicationSingleton.isApplicationSingletonInstantiated (MockApplicationSingleton.class));
+    assertSame (a, AbstractApplicationSingleton.getApplicationSingletonIfInstantiated (MockApplicationSingleton.class));
     assertEquals (0, a.get ());
     a.inc ();
     assertEquals (1, a.get ());
 
-    final MockRequestSingleton b = MockRequestSingleton.getInstance ();
+    final MockApplicationSingleton b = MockApplicationSingleton.getInstance ();
     assertSame (a, b);
   }
 
@@ -70,7 +70,7 @@ public final class RequestSingletonTest
     try
     {
       // Is not meant to be invoked directly!
-      new MockRequestSingleton ();
+      new MockApplicationSingleton ();
       fail ();
     }
     catch (final IllegalStateException ex)
@@ -82,20 +82,21 @@ public final class RequestSingletonTest
   @Test
   public void testBasicWithScopeCtor () throws Exception
   {
-    assertTrue (AbstractRequestSingleton.getAllRequestSingletons ().isEmpty ());
-    assertFalse (AbstractRequestSingleton.isRequestSingletonInstantiated (MockRequestSingletonWithScopeCtor.class));
-    assertNull (AbstractRequestSingleton.getRequestSingletonIfInstantiated (MockRequestSingletonWithScopeCtor.class));
+    assertTrue (AbstractApplicationSingleton.getAllApplicationSingletons ().isEmpty ());
+    assertFalse (AbstractApplicationSingleton.isApplicationSingletonInstantiated (MockApplicationSingletonWithScopeCtor.class));
+    assertNull (AbstractApplicationSingleton.getApplicationSingletonIfInstantiated (MockApplicationSingletonWithScopeCtor.class));
 
-    final MockRequestSingletonWithScopeCtor a = MockRequestSingletonWithScopeCtor.getInstance ();
+    final MockApplicationSingletonWithScopeCtor a = MockApplicationSingletonWithScopeCtor.getInstance ();
     assertNotNull (a);
-    assertTrue (AbstractRequestSingleton.isRequestSingletonInstantiated (MockRequestSingletonWithScopeCtor.class));
-    assertSame (a, AbstractRequestSingleton.getRequestSingletonIfInstantiated (MockRequestSingletonWithScopeCtor.class));
+    assertTrue (AbstractApplicationSingleton.isApplicationSingletonInstantiated (MockApplicationSingletonWithScopeCtor.class));
+    assertSame (a,
+                AbstractApplicationSingleton.getApplicationSingletonIfInstantiated (MockApplicationSingletonWithScopeCtor.class));
     assertNotNull (a.getScope ());
     assertEquals (0, a.get ());
     a.inc ();
     assertEquals (1, a.get ());
 
-    final MockRequestSingletonWithScopeCtor b = MockRequestSingletonWithScopeCtor.getInstance ();
+    final MockApplicationSingletonWithScopeCtor b = MockApplicationSingletonWithScopeCtor.getInstance ();
     assertNotNull (b.getScope ());
     assertSame (a, b);
   }
