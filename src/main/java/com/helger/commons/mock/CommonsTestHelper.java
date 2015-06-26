@@ -406,7 +406,7 @@ public final class CommonsTestHelper
           {
             s_aLogger.warn ("No interface representing " + aFile.getName () + "exists: " + t.getMessage ());
             if (!bContinueOnError)
-              throw new Exception ("No interface representing " + aFile.getName () + "exists: " + t.getMessage ());
+              throw new Exception ("No interface representing " + aFile.getName () + " exists: " + t.getMessage ());
           }
 
           // Check content
