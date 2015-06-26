@@ -102,6 +102,13 @@ public abstract class AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VA
     return aCont == null ? EChange.UNCHANGED : EChange.valueOf (aCont.remove (aInnerKey) != null);
   }
 
+  @Nullable
+  public final VALUETYPE getSingle (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey)
+  {
+    final Map <KEYTYPE2, VALUETYPE> aCont = get (aKey);
+    return aCont == null ? null : aCont.get (aInnerKey);
+  }
+
   public final boolean containsSingle (@Nullable final KEYTYPE1 aKey, @Nullable final KEYTYPE2 aInnerKey)
   {
     final Map <KEYTYPE2, VALUETYPE> aCont = get (aKey);

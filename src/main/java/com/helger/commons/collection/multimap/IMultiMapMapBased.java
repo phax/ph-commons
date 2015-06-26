@@ -87,7 +87,19 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends Map <
   EChange removeSingle (@Nonnull KEYTYPE1 aKey, @Nonnull KEYTYPE2 aInnerKey);
 
   /**
-   * Check a single element from the container identified by the passed key is
+   * Get a single value from the container identified by the passed keys.
+   *
+   * @param aKey
+   *        The key to use. May not be <code>null</code>.
+   * @param aInnerKey
+   *        The key for the inner map to use. May not be <code>null</code>.
+   * @return <code>null</code> if no such value exists.
+   */
+  @Nullable
+  VALUETYPE getSingle (@Nonnull KEYTYPE1 aKey, @Nonnull KEYTYPE2 aInnerKey);
+
+  /**
+   * Check a single element from the container identified by the passed keys is
    * present.
    *
    * @param aKey
