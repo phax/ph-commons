@@ -48,6 +48,7 @@ import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.io.streamprovider.ByteArrayInputStreamProvider;
+import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.lang.StackTraceHelper;
@@ -404,9 +405,15 @@ public final class CommonsTestHelper
           }
           catch (final Throwable t)
           {
-            s_aLogger.warn ("No interface representing " + aFile.getName () + "exists: " + t.getMessage ());
+            final String sMsg = "No interface representing " +
+                                aFile.getName () +
+                                " exists: " +
+                                ClassHelper.getClassLocalName (t) +
+                                " - " +
+                                t.getMessage ();
+            s_aLogger.warn (sMsg);
             if (!bContinueOnError)
-              throw new Exception ("No interface representing " + aFile.getName () + " exists: " + t.getMessage ());
+              throw new Exception (sMsg);
           }
 
           // Check content
