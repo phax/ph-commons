@@ -30,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <DATATYPE>
  *        The return type of the factory
  */
-public final class FactoryConstantValue <DATATYPE> implements IFactory <DATATYPE>
+public class FactoryConstantValue <DATATYPE> implements IFactory <DATATYPE>
 {
   private final DATATYPE m_aConstantValue;
 

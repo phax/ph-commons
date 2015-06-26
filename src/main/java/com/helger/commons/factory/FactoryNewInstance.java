@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <DATATYPE>
  *        The return type of the factory
  */
-public final class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>, Serializable
+public class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>, Serializable
 {
   private final Class <? extends DATATYPE> m_aClass;
 

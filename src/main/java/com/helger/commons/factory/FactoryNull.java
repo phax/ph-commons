@@ -30,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <DATATYPE>
  *        Return type of the factory
  */
-public final class FactoryNull <DATATYPE> implements IFactory <DATATYPE>, Serializable
+public class FactoryNull <DATATYPE> implements IFactory <DATATYPE>, Serializable
 {
   public FactoryNull ()
   {}
