@@ -16,31 +16,23 @@
  */
 package com.helger.commons.compare;
 
-import java.util.Comparator;
-
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 /**
- * A {@link Comparator} for {@link Comparable} objects that can handle
- * <code>null</code> values.
+ * Case insensitive String comparator that can handle <code>null</code> values.
  *
  * @author Philip Helger
- * @param <DATATYPE>
- *        Data type to compare
  */
 @NotThreadSafe
-public class ComparatorComparable <DATATYPE extends Comparable <? super DATATYPE>> extends AbstractComparator <DATATYPE>
+public class ComparatorStringCaseInsensitve extends AbstractComparator <String>
 {
-  /**
-   * Comparator with default sort order and no nested comparator.
-   */
-  public ComparatorComparable ()
+  public ComparatorStringCaseInsensitve ()
   {}
 
   @Override
-  protected final int mainCompare (@Nullable final DATATYPE aElement1, @Nullable final DATATYPE aElement2)
+  protected final int mainCompare (@Nullable final String sElement1, @Nullable final String sElement2)
   {
-    return CompareHelper.compare (aElement1, aElement2, isNullValuesComeFirst ());
+    return CompareHelper.compareIgnoreCase (sElement1, sElement2, isNullValuesComeFirst ());
   }
 }
