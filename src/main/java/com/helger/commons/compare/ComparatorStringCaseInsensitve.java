@@ -16,7 +16,7 @@
  */
 package com.helger.commons.compare;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 /**
@@ -31,8 +31,8 @@ public class ComparatorStringCaseInsensitve extends AbstractComparator <String>
   {}
 
   @Override
-  protected final int mainCompare (@Nullable final String sElement1, @Nullable final String sElement2)
+  protected final int mainCompare (@Nonnull final String sElement1, @Nonnull final String sElement2)
   {
-    return CompareHelper.compareIgnoreCase (sElement1, sElement2, isNullValuesComeFirst ());
+    return sElement1.compareToIgnoreCase (sElement2);
   }
 }

@@ -48,6 +48,6 @@ public abstract class AbstractBigDecimalComparator <DATATYPE> extends AbstractCo
   {
     final BigDecimal aBD1 = getAsBigDecimal (aElement1);
     final BigDecimal aBD2 = getAsBigDecimal (aElement2);
-    return CompareHelper.compare (aBD1, aBD2);
+    return CompareHelper.compare (aBD1, aBD2, isNullValuesComeFirst ());
   }
 }

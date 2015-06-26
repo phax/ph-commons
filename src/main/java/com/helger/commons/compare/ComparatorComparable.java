@@ -18,7 +18,7 @@ package com.helger.commons.compare;
 
 import java.util.Comparator;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 /**
@@ -39,8 +39,8 @@ public class ComparatorComparable <DATATYPE extends Comparable <? super DATATYPE
   {}
 
   @Override
-  protected final int mainCompare (@Nullable final DATATYPE aElement1, @Nullable final DATATYPE aElement2)
+  protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)
   {
-    return CompareHelper.compare (aElement1, aElement2, isNullValuesComeFirst ());
+    return aElement1.compareTo (aElement2);
   }
 }

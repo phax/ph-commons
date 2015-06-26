@@ -16,7 +16,6 @@
  */
 package com.helger.commons.compare;
 
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 /**
@@ -25,11 +24,5 @@ import javax.annotation.concurrent.NotThreadSafe;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorString extends AbstractComparator <String>
-{
-  @Override
-  protected final int mainCompare (@Nullable final String sElement1, @Nullable final String sElement2)
-  {
-    return CompareHelper.compare (sElement1, sElement2, isNullValuesComeFirst ());
-  }
-}
+public class ComparatorString extends ComparatorComparable <String>
+{}
