@@ -36,7 +36,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingCallableWithParameter;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.callback.adapter.AdapterRunnableToCallableWithParameter;
-import com.helger.commons.collection.attr.MapBasedAttributeContainer;
+import com.helger.commons.collection.attr.MapBasedAttributeContainerAny;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -46,7 +46,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @ThreadSafe
-public abstract class AbstractMapBasedScope extends MapBasedAttributeContainer <String, Object> implements IScope
+public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAny <String> implements IScope
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractMapBasedScope.class);
 
