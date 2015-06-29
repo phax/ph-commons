@@ -249,7 +249,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
 
   /**
    * Set the dynamic (per-element) indent determinator to be used.
-   * 
+   *
    * @param aIndentDeterminator
    *        The object to use. May not be <code>null</code>.
    * @return this
@@ -532,7 +532,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return new XMLWriterSettings ().setSerializeVersion (EXMLSerializeVersion.HTML)
                                    .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE)
                                    .setIndentDeterminator (new XMLIndentDeterminatorHTML ())
-                                   .setBracketModeDeterminator (new XMLBracketModeDeterminatorHTML4 ())
+                                   .setBracketModeDeterminator (new XMLBracketModeDeterminatorXML ())
                                    .setSpaceOnSelfClosedElement (true)
                                    .setPutNamespaceContextPrefixesInRoot (true);
   }
