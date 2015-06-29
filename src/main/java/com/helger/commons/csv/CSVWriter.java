@@ -95,35 +95,10 @@ public class CSVWriter implements Closeable, Flushable
 
   /**
    * @return The default separator for this writer.
-   * @deprecated Use {@link #getSeparatorChar()} instead
-   */
-  @Deprecated
-  public char getSeparator ()
-  {
-    return getSeparatorChar ();
-  }
-
-  /**
-   * @return The default separator for this writer.
    */
   public char getSeparatorChar ()
   {
     return m_cSeparatorChar;
-  }
-
-  /**
-   * Sets the delimiter to use for separating entries.
-   *
-   * @param cSeparator
-   *        the delimiter to use for separating entries
-   * @return this
-   * @deprecated Use {@link #setSeparatorChar(char)} instead
-   */
-  @Deprecated
-  @Nonnull
-  public CSVWriter setSeparator (final char cSeparator)
-  {
-    return setSeparatorChar (cSeparator);
   }
 
   /**
@@ -140,16 +115,6 @@ public class CSVWriter implements Closeable, Flushable
       throw new UnsupportedOperationException ("The separator character must be defined!");
     m_cSeparatorChar = cSeparator;
     return this;
-  }
-
-  /**
-   * @return The default quotation character for this writer.
-   * @deprecated Use {@link #getQuoteChar()} instead
-   */
-  @Deprecated
-  public char getQuotechar ()
-  {
-    return getQuoteChar ();
   }
 
   /**
@@ -172,16 +137,6 @@ public class CSVWriter implements Closeable, Flushable
   {
     m_cQuoteChar = cQuoteChar;
     return this;
-  }
-
-  /**
-   * @return The default escape character for this writer.
-   * @deprecated Use {@link #getEscapeChar()} instead
-   */
-  @Deprecated
-  public char getEscape ()
-  {
-    return getEscapeChar ();
   }
 
   /**
