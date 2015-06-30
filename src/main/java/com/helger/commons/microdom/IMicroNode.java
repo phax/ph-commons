@@ -153,6 +153,8 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
   /**
    * Insert an existing node before a certain child node of this.
    *
+   * @param <NODETYPE>
+   *        Parameter type == return type
    * @param aChildNode
    *        The new child node to be inserted.
    * @param aSuccessor
@@ -162,11 +164,14 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    *         if this node cannot have children
    */
   @Nullable
-  <NODETYPE extends IMicroNode> NODETYPE insertBefore (@Nullable NODETYPE aChildNode, @Nonnull IMicroNode aSuccessor) throws MicroException;
+  <NODETYPE extends IMicroNode> NODETYPE insertBefore (@Nullable NODETYPE aChildNode,
+                                                       @Nonnull IMicroNode aSuccessor) throws MicroException;
 
   /**
    * Insert an existing node after a certain child node of this.
    *
+   * @param <NODETYPE>
+   *        Parameter type == return type
    * @param aChildNode
    *        The new child node to be inserted.
    * @param aPredecessor
@@ -176,11 +181,14 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    *         if this node cannot have children
    */
   @Nullable
-  <NODETYPE extends IMicroNode> NODETYPE insertAfter (@Nullable NODETYPE aChildNode, @Nonnull IMicroNode aPredecessor) throws MicroException;
+  <NODETYPE extends IMicroNode> NODETYPE insertAfter (@Nullable NODETYPE aChildNode,
+                                                      @Nonnull IMicroNode aPredecessor) throws MicroException;
 
   /**
    * Insert an existing node as a child at the specified index.
    *
+   * @param <NODETYPE>
+   *        Parameter type == return type
    * @param nIndex
    *        The index to insert. Must be &ge; 0.
    * @param aChildNode
@@ -190,7 +198,8 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    *         if this node cannot have children
    */
   @Nullable
-  <NODETYPE extends IMicroNode> NODETYPE insertAtIndex (@Nonnegative int nIndex, @Nullable NODETYPE aChildNode) throws MicroException;
+  <NODETYPE extends IMicroNode> NODETYPE insertAtIndex (@Nonnegative int nIndex,
+                                                        @Nullable NODETYPE aChildNode) throws MicroException;
 
   /**
    * Append a text node to this node.
@@ -286,7 +295,9 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    *         if this node cannot have children
    */
   @Nonnull
-  IMicroText appendIgnorableWhitespaceText (@Nonnull char [] aChars, @Nonnegative int nOfs, @Nonnegative int nLen) throws MicroException;
+  IMicroText appendIgnorableWhitespaceText (@Nonnull char [] aChars,
+                                            @Nonnegative int nOfs,
+                                            @Nonnegative int nLen) throws MicroException;
 
   /**
    * Append a CDATA node to this node.
@@ -382,7 +393,9 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    *         if this node cannot have children
    */
   @Nonnull
-  IMicroComment appendComment (@Nonnull char [] aChars, @Nonnegative int nOfs, @Nonnegative int nLen) throws MicroException;
+  IMicroComment appendComment (@Nonnull char [] aChars,
+                               @Nonnegative int nOfs,
+                               @Nonnegative int nLen) throws MicroException;
 
   /**
    * Append a comment node to this node. If the type of the value is not
@@ -436,7 +449,8 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    *         if this node cannot have children
    */
   @Nonnull
-  IMicroElement appendElement (@Nullable String sNamespaceURI, @Nonnull @Nonempty String sTagName) throws MicroException;
+  IMicroElement appendElement (@Nullable String sNamespaceURI,
+                               @Nonnull @Nonempty String sTagName) throws MicroException;
 
   /**
    * Append a processing instruction to this node.
@@ -450,7 +464,8 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    *         if this node cannot have children
    */
   @Nonnull
-  IMicroProcessingInstruction appendProcessingInstruction (@Nonnull @Nonempty String sTarget, @Nullable String sData) throws MicroException;
+  IMicroProcessingInstruction appendProcessingInstruction (@Nonnull @Nonempty String sTarget,
+                                                           @Nullable String sData) throws MicroException;
 
   /**
    * Append a new container to this node
