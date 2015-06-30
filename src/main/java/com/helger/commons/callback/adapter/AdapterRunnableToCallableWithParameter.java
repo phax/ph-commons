@@ -85,6 +85,8 @@ public class AdapterRunnableToCallableWithParameter <DATATYPE, PARAMTYPE> implem
    * @param aRunnable
    *        The runnable to be executed.
    * @return The created {@link AdapterRunnableToCallableWithParameter} object.
+   * @param <PARAMTYPE>
+   *        The parameter type.
    */
   @Nonnull
   public static <PARAMTYPE> AdapterRunnableToCallableWithParameter <Object, PARAMTYPE> createAdapter (@Nonnull final INonThrowingRunnableWithParameter <PARAMTYPE> aRunnable)
@@ -101,6 +103,10 @@ public class AdapterRunnableToCallableWithParameter <DATATYPE, PARAMTYPE> implem
    *        The expected result from calling {@link INonThrowingCallable#call()}
    *        . May be <code>null</code>.
    * @return The created {@link AdapterRunnableToCallableWithParameter} object.
+   * @param <DATATYPE>
+   *        The callable result type.
+   * @param <PARAMTYPE>
+   *        The parameter type.
    */
   @Nonnull
   public static <DATATYPE, PARAMTYPE> AdapterRunnableToCallableWithParameter <DATATYPE, PARAMTYPE> createAdapter (@Nonnull final INonThrowingRunnableWithParameter <PARAMTYPE> aRunnable,

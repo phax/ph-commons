@@ -35,6 +35,8 @@ import java.lang.annotation.Target;
 @Documented
 public @interface ReturnsMutableObject
 {
-  /** Developer comment to explain why the mutable object is returned. */
+  /**
+   * @return developer comment to explain why the mutable object is returned.
+   */
   String value();
 }

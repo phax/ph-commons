@@ -312,6 +312,8 @@ public final class ValueEnforcer
    * Check that the passed {@link Collection} is neither <code>null</code> nor
    * empty.
    *
+   * @param <T>
+   *        Type to be checked and returned
    * @param aValue
    *        The String to check.
    * @param sName
@@ -333,6 +335,8 @@ public final class ValueEnforcer
    * Check that the passed {@link Iterable} is neither <code>null</code> nor
    * empty.
    *
+   * @param <T>
+   *        Type to be checked and returned
    * @param aValue
    *        The String to check.
    * @param sName
@@ -353,6 +357,8 @@ public final class ValueEnforcer
   /**
    * Check that the passed Collection is neither <code>null</code> nor empty.
    *
+   * @param <T>
+   *        Type to be checked and returned
    * @param aValue
    *        The String to check.
    * @param sName

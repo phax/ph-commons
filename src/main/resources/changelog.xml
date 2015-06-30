@@ -18,6 +18,8 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <release date="2015-06-30" version="6.0.0" />
+  <release date="2015-06-27" version="6.0.0-beta2" />
   <release date="2015-06-25" version="6.0.0-beta1" />
   <entry date="2015-06-23" category="api" action="change" incompatible="true">
     <change>

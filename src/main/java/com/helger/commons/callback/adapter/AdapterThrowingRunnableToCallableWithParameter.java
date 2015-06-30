@@ -87,6 +87,8 @@ public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE
    *        The runnable to be executed.
    * @return The created {@link AdapterThrowingRunnableToCallableWithParameter}
    *         object.
+   * @param <PARAMTYPE>
+   *        The parameter type.
    */
   @Nonnull
   public static <PARAMTYPE> AdapterThrowingRunnableToCallableWithParameter <Object, PARAMTYPE> createAdapter (@Nonnull final IThrowingRunnableWithParameter <PARAMTYPE> aRunnable)
@@ -104,6 +106,10 @@ public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE
    *        May be <code>null</code>.
    * @return The created {@link AdapterThrowingRunnableToCallableWithParameter}
    *         object.
+   * @param <DATATYPE>
+   *        The callable result type.
+   * @param <PARAMTYPE>
+   *        The parameter type.
    */
   @Nonnull
   public static <DATATYPE, PARAMTYPE> AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE> createAdapter (@Nonnull final IThrowingRunnableWithParameter <PARAMTYPE> aRunnable,

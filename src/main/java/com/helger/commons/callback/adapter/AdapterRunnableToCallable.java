@@ -96,6 +96,8 @@ public class AdapterRunnableToCallable <DATATYPE> implements INonThrowingCallabl
    *        The expected result from calling {@link INonThrowingCallable#call()}
    *        . May be <code>null</code>.
    * @return The created {@link AdapterRunnableToCallable} object.
+   * @param <DATATYPE>
+   *        The callable result type.
    */
   @Nonnull
   public static <DATATYPE> AdapterRunnableToCallable <DATATYPE> createAdapter (@Nonnull final Runnable aRunnable,
