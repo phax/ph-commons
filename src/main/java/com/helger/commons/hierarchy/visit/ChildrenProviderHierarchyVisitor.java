@@ -74,6 +74,8 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
 
     // call children only if mode is continue
     EHierarchyVisitorReturn eRetChildren = EHierarchyVisitorReturn.CONTINUE;
+
+    // If eRetPrefix is USE_NEXT_SIBLING, simply continue!
     if (eRetPrefix.isContinue () && m_aChildrenProvider.hasChildren (aObject))
     {
       // Callback on descend

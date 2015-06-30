@@ -23,21 +23,28 @@ package com.helger.commons.hierarchy.visit;
  */
 public enum EHierarchyVisitorReturn
 {
-  /**
-   * Continue with the next element. This may either be the first child element
-   * or the next sibling.
-   */
+ /**
+  * Continue with the next element. This may either be the first child element
+  * or the next sibling.
+  */
   CONTINUE,
 
-  /**
-   * Skip the child elements and all siblings of the current content element and
-   * go to the parent element's sibling.
-   */
+ /**
+  * Skip the child elements of the current element and go to the next sibling.
+  * This can only be returned before children are iterated.<br />
+  * Important: this enum constant is never explicitly queried but it IS used!
+  */
+  USE_NEXT_SIBLING,
+
+ /**
+  * Skip the child elements and all siblings of the current content element and
+  * go to the parent element's sibling.
+  */
   USE_PARENTS_NEXT_SIBLING,
 
-  /**
-   * Stop the iteration completely and immediately.
-   */
+ /**
+  * Stop the iteration completely and immediately.
+  */
   STOP_ITERATION;
 
   public boolean isContinue ()
