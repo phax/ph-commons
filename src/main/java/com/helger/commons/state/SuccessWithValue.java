@@ -28,7 +28,7 @@ import com.helger.commons.wrapper.IWrapper;
 
 /**
  * Wraps a success indicator and an arbitrary value.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type that is wrapped together with the success indicator
@@ -41,7 +41,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
 
   /**
    * Constructor
-   * 
+   *
    * @param aSuccessIndicator
    *        The success indicator. May not be <code>null</code>.
    */
@@ -52,7 +52,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
 
   /**
    * Constructor
-   * 
+   *
    * @param aSuccessIndicator
    *        The success indicator. May not be <code>null</code>.
    * @param aObj
@@ -91,7 +91,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
   /**
    * Get the store value if this is a success. Otherwise the passed failure
    * value is returned.
-   * 
+   *
    * @param aFailureValue
    *        The failure value to be used. May be <code>null</code>.
    * @return Either the stored value or the failure value. May be
@@ -106,7 +106,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
   /**
    * Get the store value if this is a success. Otherwise <code>null</code> is
    * returned.
-   * 
+   *
    * @return Either the stored value or <code>null</code>.
    */
   @Nullable
@@ -118,7 +118,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
   /**
    * Get the store value if this is a failure. Otherwise the passed success
    * value is returned.
-   * 
+   *
    * @param aSuccessValue
    *        The failure value to be used. May be <code>null</code>.
    * @return Either the stored value or the failure value. May be
@@ -133,7 +133,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
   /**
    * Get the store value if this is a failure. Otherwise <code>null</code> is
    * returned.
-   * 
+   *
    * @return Either the stored value or <code>null</code>.
    */
   @Nullable
@@ -168,6 +168,8 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
   /**
    * Create a new object with the given value.
    * 
+   * @param <DATATYPE>
+   *        The data type that is wrapped together with the success indicator
    * @param aSuccessIndicator
    *        The success indicator. May not be <code>null</code>.
    * @param aValue
@@ -184,6 +186,8 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
   /**
    * Create a new success object with the given value.
    * 
+   * @param <DATATYPE>
+   *        The data type that is wrapped together with the success indicator
    * @param aValue
    *        The value to be used. May be <code>null</code>.
    * @return Never <code>null</code>.
@@ -197,6 +201,8 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
   /**
    * Create a new failure object with the given value.
    * 
+   * @param <DATATYPE>
+   *        The data type that is wrapped together with the success indicator
    * @param aValue
    *        The value to be used. May be <code>null</code>.
    * @return Never <code>null</code>.

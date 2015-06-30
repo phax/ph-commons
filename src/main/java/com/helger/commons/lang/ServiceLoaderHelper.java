@@ -45,16 +45,12 @@ public final class ServiceLoaderHelper
   private ServiceLoaderHelper ()
   {}
 
-  @Nonnull
-  private static ClassLoader _getDefaultClassLoader ()
-  {
-    return ClassLoaderHelper.getDefaultClassLoader ();
-  }
-
   /**
    * Uses the {@link ServiceLoader} to load all SPI implementations of the
    * passed class
    *
+   * @param <T>
+   *        The implementation type to be loaded
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
    * @return A list of all currently available plugins
@@ -63,13 +59,15 @@ public final class ServiceLoaderHelper
   @ReturnsMutableCopy
   public static <T> List <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass)
   {
-    return getAllSPIImplementations (aSPIClass, _getDefaultClassLoader (), null);
+    return getAllSPIImplementations (aSPIClass, ClassLoaderHelper.getDefaultClassLoader (), null);
   }
 
   /**
    * Uses the {@link ServiceLoader} to load all SPI implementations of the
    * passed class
    *
+   * @param <T>
+   *        The implementation type to be loaded
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
    * @param aClassLoader
@@ -89,6 +87,8 @@ public final class ServiceLoaderHelper
    * Uses the {@link ServiceLoader} to load all SPI implementations of the
    * passed class
    *
+   * @param <T>
+   *        The implementation type to be loaded
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
    * @param aLogger
@@ -100,13 +100,15 @@ public final class ServiceLoaderHelper
   public static <T> List <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
                                                        @Nullable final Logger aLogger)
   {
-    return getAllSPIImplementations (aSPIClass, _getDefaultClassLoader (), aLogger);
+    return getAllSPIImplementations (aSPIClass, ClassLoaderHelper.getDefaultClassLoader (), aLogger);
   }
 
   /**
    * Uses the {@link ServiceLoader} to load all SPI implementations of the
    * passed class
    *
+   * @param <T>
+   *        The implementation type to be loaded
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
    * @param aClassLoader
@@ -164,6 +166,8 @@ public final class ServiceLoaderHelper
    * Uses the {@link ServiceLoader} to load all SPI implementations of the
    * passed class and return only the first instance.
    *
+   * @param <T>
+   *        The implementation type to be loaded
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
    * @return A collection of all currently available plugins. Never
@@ -172,13 +176,15 @@ public final class ServiceLoaderHelper
   @Nullable
   public static <T> T getFirstSPIImplementation (@Nonnull final Class <T> aSPIClass)
   {
-    return getFirstSPIImplementation (aSPIClass, _getDefaultClassLoader (), null);
+    return getFirstSPIImplementation (aSPIClass, ClassLoaderHelper.getDefaultClassLoader (), null);
   }
 
   /**
    * Uses the {@link ServiceLoader} to load all SPI implementations of the
    * passed class and return only the first instance.
    *
+   * @param <T>
+   *        The implementation type to be loaded
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
    * @param aClassLoader
@@ -198,6 +204,8 @@ public final class ServiceLoaderHelper
    * Uses the {@link ServiceLoader} to load all SPI implementations of the
    * passed class and return only the first instance.
    *
+   * @param <T>
+   *        The implementation type to be loaded
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
    * @param aLogger
@@ -208,13 +216,15 @@ public final class ServiceLoaderHelper
   @Nullable
   public static <T> T getFirstSPIImplementation (@Nonnull final Class <T> aSPIClass, @Nullable final Logger aLogger)
   {
-    return getFirstSPIImplementation (aSPIClass, _getDefaultClassLoader (), aLogger);
+    return getFirstSPIImplementation (aSPIClass, ClassLoaderHelper.getDefaultClassLoader (), aLogger);
   }
 
   /**
    * Uses the {@link ServiceLoader} to load all SPI implementations of the
    * passed class and return only the first instance.
    *
+   * @param <T>
+   *        The implementation type to be loaded
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
    * @param aClassLoader

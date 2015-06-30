@@ -161,6 +161,8 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * the desired destination class. If no such attribute is present,
    * <code>null</code> is returned.
    *
+   * @param <DSTTYPE>
+   *        Destination type
    * @param sAttrName
    *        The attribute name to retrieve the value of.
    * @param aDstClass
@@ -179,6 +181,8 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * the desired destination class. If no such attribute is present,
    * <code>null</code> is returned.
    *
+   * @param <DSTTYPE>
+   *        Destination type
    * @param sNamespaceURI
    *        Namespace URI to use. May be <code>null</code>.
    * @param sAttrName
@@ -201,6 +205,8 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * the desired destination class. If no such attribute is present,
    * <code>null</code> is returned.
    *
+   * @param <DSTTYPE>
+   *        Destination type
    * @param aAttrName
    *        The attribute qualified name to retrieve the value of.
    * @param aDstClass
@@ -210,7 +216,8 @@ public interface IMicroElement extends IMicroNodeWithChildren
    *         if the value cannot be converted
    */
   @Nullable
-  <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable IMicroQName aAttrName, @Nonnull Class <DSTTYPE> aDstClass);
+  <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable IMicroQName aAttrName,
+                                                     @Nonnull Class <DSTTYPE> aDstClass);
 
   /**
    * Get a list of all attributes. Is ensured to be not <code>null</code> if

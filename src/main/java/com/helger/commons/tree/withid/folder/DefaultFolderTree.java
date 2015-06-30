@@ -66,13 +66,17 @@ public class DefaultFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <
   /**
    * Create a new {@link DefaultFolderTree} using a set as the container.
    *
+   * @param <KEYTYPE>
+   *        The type of the element keys.
+   * @param <DATATYPE>
+   *        The type of the elements contained in the tree
    * @param aKeyCombinator
    *        The key combinator to be used
    * @return The created default folder tree
    */
   @Nonnull
-  public static <K, V> DefaultFolderTree <K, V, Set <V>> createForSet (@Nonnull final IAggregator <K, K> aKeyCombinator)
+  public static <KEYTYPE, DATATYPE> DefaultFolderTree <KEYTYPE, DATATYPE, Set <DATATYPE>> createForSet (@Nonnull final IAggregator <KEYTYPE, KEYTYPE> aKeyCombinator)
   {
-    return new DefaultFolderTree <K, V, Set <V>> (aKeyCombinator);
+    return new DefaultFolderTree <KEYTYPE, DATATYPE, Set <DATATYPE>> (aKeyCombinator);
   }
 }

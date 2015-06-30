@@ -27,6 +27,7 @@ import javax.annotation.concurrent.Immutable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.ArrayHelper;
 
@@ -56,9 +57,43 @@ public final class GenericReflection
   }
 
   @Nonnull
+  public static <DATATYPE> Class <DATATYPE> getClassFromName (@Nonnull final ClassLoader aClassLoader,
+                                                              @Nonnull final String sName) throws ClassNotFoundException
+  {
+    ValueEnforcer.notNull (aClassLoader, "ClassLoader");
+    return uncheckedCast (aClassLoader.loadClass (sName));
+  }
+
+  @Nonnull
   public static <DATATYPE> Class <DATATYPE> getClassFromName (@Nonnull final String sName) throws ClassNotFoundException
   {
     return uncheckedCast (Class.forName (sName));
+  }
+
+  /**
+   * Get the class of the given name
+   *
+   * @param <DATATYPE>
+   *        The return type
+   * @param aClassLoader
+   *        The class loader to be used. May not be <code>null</code>.
+   * @param sName
+   *        The name to be resolved.
+   * @return <code>null</code> if the class could not be resolved
+   */
+  @Nullable
+  public static <DATATYPE> Class <DATATYPE> getClassFromNameSafe (@Nonnull final ClassLoader aClassLoader,
+                                                                  @Nonnull final String sName)
+  {
+    ValueEnforcer.notNull (aClassLoader, "ClassLoader");
+    try
+    {
+      return getClassFromName (aClassLoader, sName);
+    }
+    catch (final ClassNotFoundException e)
+    {
+      return null;
+    }
   }
 
   /**
@@ -107,6 +142,8 @@ public final class GenericReflection
    * This method dynamically invokes the method with the given name on the given
    * object.
    *
+   * @param <RETURNTYPE>
+   *        The method return type
    * @param aSrcObj
    *        The source object on which the method is to be invoked. May not be
    *        <code>null</code>.
@@ -130,8 +167,8 @@ public final class GenericReflection
   public static <RETURNTYPE> RETURNTYPE invokeMethod (@Nonnull final Object aSrcObj,
                                                       @Nonnull final String sMethodName,
                                                       @Nullable final Object... aArgs) throws NoSuchMethodException,
-                                                                                      IllegalAccessException,
-                                                                                      InvocationTargetException
+                                                                                       IllegalAccessException,
+                                                                                       InvocationTargetException
   {
     return GenericReflection.<RETURNTYPE> invokeMethod (aSrcObj, sMethodName, getClassArray (aArgs), aArgs);
   }
@@ -141,8 +178,8 @@ public final class GenericReflection
                                                       @Nonnull final String sMethodName,
                                                       @Nullable final Class <?> [] aArgClasses,
                                                       @Nullable final Object [] aArgs) throws NoSuchMethodException,
-                                                                                      IllegalAccessException,
-                                                                                      InvocationTargetException
+                                                                                       IllegalAccessException,
+                                                                                       InvocationTargetException
   {
     final Method aMethod = aSrcObj.getClass ().getDeclaredMethod (sMethodName, aArgClasses);
     final Object aReturn = aMethod.invoke (aSrcObj, aArgs);
@@ -153,9 +190,9 @@ public final class GenericReflection
   public static <RETURNTYPE> RETURNTYPE invokeStaticMethod (@Nonnull final String sClassName,
                                                             @Nonnull final String sMethodName,
                                                             @Nullable final Object... aArgs) throws NoSuchMethodException,
-                                                                                            IllegalAccessException,
-                                                                                            InvocationTargetException,
-                                                                                            ClassNotFoundException
+                                                                                             IllegalAccessException,
+                                                                                             InvocationTargetException,
+                                                                                             ClassNotFoundException
   {
     return GenericReflection.<RETURNTYPE> invokeStaticMethod (getClassFromName (sClassName), sMethodName, aArgs);
   }
@@ -164,8 +201,8 @@ public final class GenericReflection
   public static <RETURNTYPE> RETURNTYPE invokeStaticMethod (@Nonnull final Class <?> aClass,
                                                             @Nonnull final String sMethodName,
                                                             @Nullable final Object... aArgs) throws NoSuchMethodException,
-                                                                                            IllegalAccessException,
-                                                                                            InvocationTargetException
+                                                                                             IllegalAccessException,
+                                                                                             InvocationTargetException
   {
     return GenericReflection.<RETURNTYPE> invokeStaticMethod (aClass, sMethodName, getClassArray (aArgs), aArgs);
   }
@@ -175,9 +212,9 @@ public final class GenericReflection
                                                             @Nonnull final String sMethodName,
                                                             @Nullable final Class <?> [] aArgClasses,
                                                             @Nullable final Object [] aArgs) throws NoSuchMethodException,
-                                                                                            IllegalAccessException,
-                                                                                            InvocationTargetException,
-                                                                                            ClassNotFoundException
+                                                                                             IllegalAccessException,
+                                                                                             InvocationTargetException,
+                                                                                             ClassNotFoundException
   {
     return GenericReflection.<RETURNTYPE> invokeStaticMethod (getClassFromName (sClassName),
                                                               sMethodName,
@@ -190,8 +227,8 @@ public final class GenericReflection
                                                             @Nonnull final String sMethodName,
                                                             @Nullable final Class <?> [] aArgClasses,
                                                             @Nullable final Object [] aArgs) throws NoSuchMethodException,
-                                                                                            IllegalAccessException,
-                                                                                            InvocationTargetException
+                                                                                             IllegalAccessException,
+                                                                                             InvocationTargetException
   {
     final Method aMethod = aClass.getDeclaredMethod (sMethodName, aArgClasses);
     final Object aReturn = aMethod.invoke (null, aArgs);
@@ -225,9 +262,9 @@ public final class GenericReflection
    */
   @Nonnull
   public static <DATATYPE> DATATYPE newInstance (@Nonnull final DATATYPE aObj) throws IllegalAccessException,
-                                                                              NoSuchMethodException,
-                                                                              InvocationTargetException,
-                                                                              InstantiationException
+                                                                               NoSuchMethodException,
+                                                                               InvocationTargetException,
+                                                                               InstantiationException
   {
     return findConstructor (aObj).newInstance ();
   }
@@ -247,6 +284,28 @@ public final class GenericReflection
          * constructor may also end up in this catch block
          */
         s_aLogger.error ("Failed to instantiate " + aClass, t);
+      }
+    return null;
+  }
+
+  @Nullable
+  public static <DATATYPE> DATATYPE newInstance (@Nonnull final ClassLoader aClassLoader,
+                                                 @Nullable final String sClassName,
+                                                 @Nullable final Class <? extends DATATYPE> aDesiredType)
+  {
+    if (sClassName != null && aDesiredType != null)
+      try
+      {
+        return aDesiredType.cast (getClassFromName (aClassLoader, sClassName).newInstance ());
+      }
+      catch (final Throwable t)
+      {
+        /*
+         * Catch all exceptions because any exception thrown from the
+         * constructor (indirectly invoked by newInstance) may also end up in
+         * this catch block
+         */
+        s_aLogger.error ("Failed to instantiate '" + sClassName + "'", t);
       }
     return null;
   }

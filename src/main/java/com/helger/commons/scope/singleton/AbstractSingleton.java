@@ -100,7 +100,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    *         In case reading failed
    */
   protected final void readAbstractSingletonFields (@Nonnull final ObjectInputStream aOIS) throws IOException,
-                                                                                          ClassNotFoundException
+                                                                                           ClassNotFoundException
   {
     m_aStatus = (BitSet) aOIS.readObject ();
   }
@@ -362,6 +362,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    * Get the singleton object if it is already instantiated inside a scope or
    * <code>null</code> if it is not instantiated.
    *
+   * @param <T>
+   *        The type to be returned
    * @param aScope
    *        The scope to check. May be <code>null</code> to avoid constructing a
    *        scope.
@@ -461,6 +463,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    * Get the singleton object in the passed scope, using the passed class. If
    * the singleton is not yet instantiated, a new instance is created.
    *
+   * @param <T>
+   *        The singleton type
    * @param aScope
    *        The scope to be used. May not be <code>null</code>.
    * @param aClass
@@ -553,6 +557,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    * Get all singleton objects registered in the respective sub-class of this
    * class.
    *
+   * @param <T>
+   *        The singleton type to be retrieved
    * @param aScope
    *        The scope to use. May be <code>null</code> to avoid creating a new
    *        scope.

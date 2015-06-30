@@ -26,7 +26,8 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Base implementation of an object that has an {@link ObjectType} and an ID.<br>
+ * Base implementation of an object that has an {@link ObjectType} and an ID.
+ * <br>
  * This class is immutable if the type of the ID is immutable.
  *
  * @author Philip Helger
@@ -101,6 +102,8 @@ public final class TypedObject <IDTYPE extends Serializable> implements ITypedOb
   /**
    * Factory method
    *
+   * @param <IDTYPE>
+   *        The type of the ID.
    * @param aObj
    *        The typed object to copy the stuff from. May not be
    *        <code>null</code>.
@@ -115,6 +118,8 @@ public final class TypedObject <IDTYPE extends Serializable> implements ITypedOb
   /**
    * Factory method
    *
+   * @param <IDTYPE>
+   *        The type of the ID.
    * @param aObjectType
    *        Object type to use. May not be <code>null</code>.
    * @param aID

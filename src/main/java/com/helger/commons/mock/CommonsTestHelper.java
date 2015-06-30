@@ -166,7 +166,7 @@ public final class CommonsTestHelper
    * @param aObject
    *        The object to be tested.
    */
-  public static <DATATYPE> void testToStringImplementation (@Nonnull final DATATYPE aObject)
+  public static void testToStringImplementation (@Nonnull final Object aObject)
   {
     _assertNotNull ("Passed object may not be null!", aObject);
     _assertNotNull ("toString() may not return null!", aObject.toString ());
@@ -196,6 +196,8 @@ public final class CommonsTestHelper
    * Check if two different objects (who may not be the same) are equal to each
    * other. Checks toString, equals and hashCode.
    *
+   * @param <DATATYPE>
+   *        The data type to be used
    * @param aObject1
    *        First object. May not be <code>null</code>.
    * @param aObject2
@@ -213,6 +215,8 @@ public final class CommonsTestHelper
    * Check if two different objects are different to each other. Checks
    * toString, equals and hashCode.
    *
+   * @param <DATATYPE>
+   *        The data type to be used
    * @param aObject1
    *        First object. May not be <code>null</code>.
    * @param aObject2
@@ -301,6 +305,8 @@ public final class CommonsTestHelper
    * {@link #testDefaultImplementationWithEqualContentObject(Object, Object)} to
    * check for equality.
    *
+   * @param <T>
+   *        The data type to be used and returned
    * @param aObj
    *        The object to test
    * @return The object read after conversion
@@ -388,7 +394,8 @@ public final class CommonsTestHelper
   }
 
   @Nonnegative
-  public static int testIfAllSPIFilesAreValid (@Nonnull final String sBaseDir, final boolean bContinueOnError) throws Exception
+  public static int testIfAllSPIFilesAreValid (@Nonnull final String sBaseDir,
+                                               final boolean bContinueOnError) throws Exception
   {
     int nTotalImplementationCount = 0;
     final File aBaseDir = new File (sBaseDir);

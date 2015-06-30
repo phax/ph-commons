@@ -42,9 +42,9 @@ import com.helger.commons.collection.iterate.IIterableIterator;
  * @author Boris Gregorcic
  * @author Philip Helger
  * @param <DATATYPE>
- *        element type
+ *        Element type to be combined
  */
-public final class CombinationGenerator <DATATYPE> implements IIterableIterator <List <DATATYPE>>
+public class CombinationGenerator <DATATYPE> implements IIterableIterator <List <DATATYPE>>
 {
   private final DATATYPE [] m_aElements;
   private final int [] m_aIndexResult;
@@ -131,7 +131,7 @@ public final class CombinationGenerator <DATATYPE> implements IIterableIterator 
   {
     // Not for the very first item, as the first item is the original order
     final boolean bFirstItem = m_bUseLong ? m_nCombinationsLeft == m_nTotalCombinations
-                                         : m_aCombinationsLeft.equals (m_aTotalCombinations);
+                                          : m_aCombinationsLeft.equals (m_aTotalCombinations);
     if (!bFirstItem)
     {
       final int nElementCount = m_aElements.length;
@@ -178,6 +178,8 @@ public final class CombinationGenerator <DATATYPE> implements IIterableIterator 
   /**
    * Get a list of all permutations of the input elements.
    *
+   * @param <DATATYPE>
+   *        Element type to be combined
    * @param aInput
    *        Input list.
    * @param nSlotCount
@@ -198,6 +200,8 @@ public final class CombinationGenerator <DATATYPE> implements IIterableIterator 
   /**
    * Fill a list with all permutations of the input elements.
    *
+   * @param <DATATYPE>
+   *        Element type to be combined
    * @param aInput
    *        Input list.
    * @param nSlotCount

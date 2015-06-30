@@ -71,6 +71,10 @@ public final class TreeSorter
    *        The tree to be sorted.
    * @param aValueComparator
    *        The comparator to be used for sorting the tree items on each level.
+   * @param <DATATYPE>
+   *        The tree item data type
+   * @param <ITEMTYPE>
+   *        The tree item type
    */
   public static <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void sort (@Nonnull final IBasicTree <? extends DATATYPE, ITEMTYPE> aTree,
                                                                                        @Nonnull final Comparator <? super DATATYPE> aValueComparator)
@@ -86,6 +90,10 @@ public final class TreeSorter
    *
    * @param aTree
    *        The tree to be sorted.
+   * @param <DATATYPE>
+   *        The tree item data type
+   * @param <ITEMTYPE>
+   *        The tree item type
    */
   public static <DATATYPE extends Comparable <? super DATATYPE>, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void sort (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree)
   {

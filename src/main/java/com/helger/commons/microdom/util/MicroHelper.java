@@ -277,6 +277,8 @@ public final class MicroHelper
    * {@link com.helger.commons.typeconvert.TypeConverter} to the desired
    * destination type.
    *
+   * @param <DSTTYPE>
+   *        Destination type
    * @param eParentElement
    *        The parent element to use. May not be <code>null</code>.
    * @param sChildElementName
@@ -348,6 +350,8 @@ public final class MicroHelper
    * {@link com.helger.commons.typeconvert.TypeConverter} to the desired
    * destination type.
    *
+   * @param <DSTTYPE>
+   *        Destination type
    * @param eParentElement
    *        The parent element to use. May not be <code>null</code>.
    * @param sNamespaceURI

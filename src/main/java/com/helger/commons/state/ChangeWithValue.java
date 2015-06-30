@@ -28,7 +28,7 @@ import com.helger.commons.wrapper.IWrapper;
 
 /**
  * Wraps a change indicator and an arbitrary value.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type that is wrapped together with the change indicator
@@ -41,7 +41,7 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
 
   /**
    * Constructor
-   * 
+   *
    * @param aChangeIndicator
    *        The change indicator. May not be <code>null</code>.
    * @param aObj
@@ -80,7 +80,7 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
   /**
    * Get the store value if this is a change. Otherwise the passed unchanged
    * value is returned.
-   * 
+   *
    * @param aUnchangedValue
    *        The unchanged value to be used. May be <code>null</code>.
    * @return Either the stored value or the unchanged value. May be
@@ -95,7 +95,7 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
   /**
    * Get the store value if this is a changed. Otherwise <code>null</code> is
    * returned.
-   * 
+   *
    * @return Either the stored value or <code>null</code>.
    */
   @Nullable
@@ -107,7 +107,7 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
   /**
    * Get the store value if this is unchanged. Otherwise the passed changed
    * value is returned.
-   * 
+   *
    * @param aChangedValue
    *        The changed value to be used. May be <code>null</code>.
    * @return Either the stored value or the changed value. May be
@@ -122,7 +122,7 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
   /**
    * Get the store value if this is unchanged. Otherwise <code>null</code> is
    * returned.
-   * 
+   *
    * @return Either the stored value or <code>null</code>.
    */
   @Nullable
@@ -157,6 +157,8 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
   /**
    * Create a new changed object with the given value.
    * 
+   * @param <DATATYPE>
+   *        The data type that is wrapped together with the change indicator
    * @param aValue
    *        The value to be used. May be <code>null</code>.
    * @return Never <code>null</code>.
@@ -170,6 +172,8 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
   /**
    * Create a new unchanged object with the given value.
    * 
+   * @param <DATATYPE>
+   *        The data type that is wrapped together with the change indicator
    * @param aValue
    *        The value to be used. May be <code>null</code>.
    * @return Never <code>null</code>.

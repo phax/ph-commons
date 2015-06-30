@@ -338,7 +338,6 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    * Closing a <tt>ByteArrayOutputStream</tt> has no effect. The methods in this
    * class can be called after the stream has been closed without generating an
    * <tt>IOException</tt>.
-   * <p>
    */
   @Override
   public void close ()

@@ -49,9 +49,11 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
   protected abstract char get ();
 
   /**
+   * @param nIndex
+   *        Index to be retrieved
    * @return Get the specified char
    */
-  protected abstract char get (int index);
+  protected abstract char get (int nIndex);
 
   public boolean hasNext ()
   {

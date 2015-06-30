@@ -35,7 +35,8 @@ import com.helger.commons.id.IHasID;
  * <li>Application context - scope for an application (e.g. public and secure
  * application in one web application)</li>
  * <li>Session scope - for each user created session</li>
- * <li>Session application context - scope for an application within a session</li>
+ * <li>Session application context - scope for an application within a session
+ * </li>
  * <li>Request scope - for each user request</li>
  * </ul>
  * IMPORTANT: implementations of {@link IScope} must be thread safe!
@@ -101,6 +102,8 @@ public interface IScope extends IMutableAttributeContainerAny <String>, IHasID <
    *        The action to be executed. May not be <code>null</code>. The
    *        parameter to the callable is <code>this</code> scope.
    * @return The result from the callable. May be <code>null</code>.
+   * @param <T>
+   *        The return type of the callable
    */
   @Nullable
   <T> T runAtomic (@Nonnull INonThrowingCallableWithParameter <T, IScope> aCallable);

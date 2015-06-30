@@ -24,25 +24,26 @@ import javax.annotation.Nonnull;
 
 /**
  * Interface to be implemented to read and write objects.
- * 
+ *
  * @author Philip Helger
  */
 public interface ISerializationConverter
 {
   /**
    * Write the passed source object to the passed {@link ObjectOutputStream}.
-   * 
+   *
    * @param aSourceObject
    *        The source object to write. Never <code>null</code>.
    * @param aOOS
    *        The output stream to write to. Never <code>null</code>.
    * @throws IOException
+   *         In case of a stream error
    */
   void writeConvertedObject (@Nonnull Object aSourceObject, @Nonnull ObjectOutputStream aOOS) throws IOException;
 
   /**
    * Read the object from the specified {@link ObjectInputStream}.
-   * 
+   *
    * @param aOIS
    *        The object input stream to read from. Never <code>null</code>.
    * @return The read object. May not be <code>null</code>.

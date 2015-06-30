@@ -69,6 +69,8 @@ public final class ValueEnforcer
   /**
    * Check that the passed value is not <code>null</code>.
    *
+   * @param <T>
+   *        Type to be checked and returned
    * @param aValue
    *        The value to check.
    * @param sName
@@ -105,6 +107,8 @@ public final class ValueEnforcer
   /**
    * Check that the passed String is neither <code>null</code> nor empty.
    *
+   * @param <T>
+   *        Type to be checked and returned
    * @param aValue
    *        The String to check.
    * @param sName
@@ -125,6 +129,8 @@ public final class ValueEnforcer
   /**
    * Check that the passed Array is neither <code>null</code> nor empty.
    *
+   * @param <T>
+   *        Type to be checked and returned
    * @param aValue
    *        The Array to check.
    * @param sName
@@ -368,6 +374,8 @@ public final class ValueEnforcer
    * Check that the passed Array contains no <code>null</code> value. But the
    * whole array can be <code>null</code> or empty.
    *
+   * @param <T>
+   *        Type to be checked and returned
    * @param aValue
    *        The Array to check.
    * @param sName
@@ -397,6 +405,8 @@ public final class ValueEnforcer
    * Check that the passed iterable contains no <code>null</code> value. But the
    * whole iterable can be <code>null</code> or empty.
    *
+   * @param <T>
+   *        Type to be checked and returned
    * @param aValue
    *        The collection to check.
    * @param sName
@@ -426,6 +436,8 @@ public final class ValueEnforcer
    * Check that the passed map is neither <code>null</code> nor empty and that
    * no <code>null</code> key or value is contained.
    *
+   * @param <T>
+   *        Type to be checked and returned
    * @param aValue
    *        The map to check.
    * @param sName
@@ -455,6 +467,8 @@ public final class ValueEnforcer
    * Check that the passed Array is neither <code>null</code> nor empty and that
    * no <code>null</code> value is contained.
    *
+   * @param <T>
+   *        Type to be checked and returned
    * @param aValue
    *        The Array to check.
    * @param sName
@@ -476,6 +490,8 @@ public final class ValueEnforcer
    * Check that the passed collection is neither <code>null</code> nor empty and
    * that no <code>null</code> value is contained.
    *
+   * @param <T>
+   *        Type to be checked and returned
    * @param aValue
    *        The collection to check.
    * @param sName
@@ -497,6 +513,8 @@ public final class ValueEnforcer
    * Check that the passed map is neither <code>null</code> nor empty and that
    * no <code>null</code> value is contained.
    *
+   * @param <T>
+   *        Type to be checked and returned
    * @param aValue
    *        The map to check.
    * @param sName
@@ -518,6 +536,8 @@ public final class ValueEnforcer
    * Check that the passed value is not <code>null</code> and not equal to the
    * provided value.
    *
+   * @param <T>
+   *        Type to be checked and returned
    * @param aValue
    *        The value to check. May not be <code>null</code>.
    * @param sName
@@ -541,6 +561,8 @@ public final class ValueEnforcer
    * Check that the passed value is not <code>null</code> and equal to the
    * provided expected value.
    *
+   * @param <T>
+   *        Type to be checked and returned
    * @param aValue
    *        The value to check.
    * @param sName
@@ -571,6 +593,8 @@ public final class ValueEnforcer
    * Check that the passed value is the same as the provided expected value
    * using <code>==</code> to check comparison.
    *
+   * @param <T>
+   *        Type to be checked and returned
    * @param aValue
    *        The value to check.
    * @param sName
