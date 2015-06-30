@@ -62,9 +62,9 @@ import javax.xml.transform.dom.DOMResult;
 // - don't remove any existing method.
 
 /**
- * Implemented by the user application to determine URI -> prefix mapping. This
- * is considered as an interface, though it's implemented as an abstract class
- * to make it easy to add new methods in a future.
+ * Implemented by the user application to determine URI -&gt; prefix mapping.
+ * This is considered as an interface, though it's implemented as an abstract
+ * class to make it easy to add new methods in a future.
  *
  * @author Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
@@ -232,7 +232,7 @@ public abstract class NamespacePrefixMapper
    * conflicting binding information. It's a responsibility of the caller to
    * make sure that this doesn't happen even if the ancestor elements look like:
    * </p>
-   * 
+   *
    * <pre>
    *   &lt;foo:abc xmlns:foo="abc"&gt;
    *     &lt;foo:abc xmlns:foo="def"&gt;

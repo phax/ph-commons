@@ -27,8 +27,9 @@ import com.helger.commons.annotation.OverrideOnDemand;
 
 /**
  * Soft {@link HashMap} implementation based on
- * http://www.javaspecialists.eu/archive/Issue015.html<br />
- * The entrySet implementation is from org.hypergraphdb.util
+ * http://www.javaspecialists.eu/archive/Issue015.html<br>
+ * The <code>entrySet</code> implementation is from
+ * <code>org.hypergraphdb.util</code>
  *
  * @author Philip Helger
  * @param <K>

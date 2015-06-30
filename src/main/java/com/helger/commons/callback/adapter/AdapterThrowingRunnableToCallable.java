@@ -44,7 +44,8 @@ public class AdapterThrowingRunnableToCallable <DATATYPE> implements IThrowingCa
     this (aRunnable, null);
   }
 
-  public AdapterThrowingRunnableToCallable (@Nonnull final IThrowingRunnable aRunnable, @Nullable final DATATYPE aResult)
+  public AdapterThrowingRunnableToCallable (@Nonnull final IThrowingRunnable aRunnable,
+                                            @Nullable final DATATYPE aResult)
   {
     m_aRunnable = ValueEnforcer.notNull (aRunnable, "Runnable");
     m_aResult = aResult;
@@ -97,6 +98,8 @@ public class AdapterThrowingRunnableToCallable <DATATYPE> implements IThrowingCa
    *        The expected result from calling {@link IThrowingCallable#call()} .
    *        May be <code>null</code>.
    * @return The created {@link AdapterThrowingRunnableToCallable} object.
+   * @param <DATATYPE>
+   *        The callable result type.
    */
   @Nonnull
   public static <DATATYPE> AdapterThrowingRunnableToCallable <DATATYPE> createAdapter (@Nonnull final IThrowingRunnable aRunnable,

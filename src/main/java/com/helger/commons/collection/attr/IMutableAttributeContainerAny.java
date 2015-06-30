@@ -21,8 +21,8 @@ import javax.annotation.Nonnull;
 import com.helger.commons.state.EChange;
 
 /**
- * This is the writable extension of the {@link IAttributeContainer <String,
- * Object>}. <code>null</code> values are not allowed in this attribute
+ * This is the writable extension of the {@link IAttributeContainer &lt;String,
+ * Object&gt;}. <code>null</code> values are not allowed in this attribute
  * containers.
  *
  * @author Philip Helger

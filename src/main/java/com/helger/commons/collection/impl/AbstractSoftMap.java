@@ -33,8 +33,9 @@ import com.helger.commons.annotation.ReturnsMutableObject;
 
 /**
  * Soft {@link Map} implementation based on
- * http://www.javaspecialists.eu/archive/Issue015.html<br />
- * The entrySet implementation is from org.hypergraphdb.util
+ * http://www.javaspecialists.eu/archive/Issue015.html<br>
+ * The <code>entrySet</code> implementation is from
+ * <code>org.hypergraphdb.util</code>
  *
  * @author Philip Helger
  * @param <K>
@@ -249,9 +250,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
    * Callback method invoked after a map entry is garbage collected
    *
    * @param aKey
-   *        Key
-   * @param aValue
-   *        Value
+   *        Key the removed key
    */
   @OverrideOnDemand
   protected void onEntryRemoved (final K aKey)

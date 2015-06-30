@@ -44,7 +44,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Value type
  */
 @NotThreadSafe
-public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE> extends MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements ICloneable <MapBasedAttributeContainer <KEYTYPE, VALUETYPE>>
+public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE> extends MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE>implements ICloneable <MapBasedAttributeContainer <KEYTYPE, VALUETYPE>>
 {
   public MapBasedAttributeContainer ()
   {
@@ -158,8 +158,6 @@ public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE> extends MapBasedRea
    * Internal callback method that can be used to avoid removal of all
    * attributes.
    *
-   * @param aName
-   *        The attribute name. Never <code>null</code>.
    * @return {@link EContinue#CONTINUE} to indicate that the operation should
    *         continue. May not be <code>null</code>.
    */

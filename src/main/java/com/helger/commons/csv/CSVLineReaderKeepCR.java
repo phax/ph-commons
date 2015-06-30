@@ -29,8 +29,8 @@ import com.helger.commons.ValueEnforcer;
  * (https://sourceforge.net/p/opencsv/bugs/106/) where carriage returns were
  * being removed. This class allows the user to determine if they wish to keep
  * or remove them from the data being read.
- * <p/>
- * Created by scott on 2/19/15.
+ *
+ * @author scott on 2/19/15.
  */
 public class CSVLineReaderKeepCR implements ICSVLineReader
 {
