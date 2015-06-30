@@ -206,12 +206,12 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
 
   private static final class StringMapTST extends StringMapBase
   {
-    private final TST <String> m_aMap;
+    private final StringTrieFuncTest <String> m_aMap;
 
     public StringMapTST (final String [] aStrings)
     {
       super (aStrings);
-      m_aMap = new TST <String> ();
+      m_aMap = new StringTrieFuncTest <String> ();
     }
 
     @Override

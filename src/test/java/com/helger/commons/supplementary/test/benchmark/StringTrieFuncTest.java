@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
 
-public class TST <DATATYPE>
+public final class StringTrieFuncTest <DATATYPE>
 {
   private static class Node <DATATYPE>
   {

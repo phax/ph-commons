@@ -64,11 +64,11 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
     final String sSerTagName = "<" + sTAGNAME + "></" + sTAGNAME + ">";
 
     final Document doc = XMLFactory.newDocument ("html", DOCTYPE_XHTML10_QNAME, DOCTYPE_XHTML10_URI);
-    final Element aHead = (Element) doc.getDocumentElement ().appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI,
-                                                                                                "head"));
+    final Element aHead = (Element) doc.getDocumentElement ()
+                                       .appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI, "head"));
     aHead.appendChild (doc.createTextNode ("Hallo"));
-    final Element aNoText = (Element) doc.getDocumentElement ().appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI,
-                                                                                                  sTAGNAME));
+    final Element aNoText = (Element) doc.getDocumentElement ()
+                                         .appendChild (doc.createElementNS (DOCTYPE_XHTML10_URI, sTAGNAME));
     aNoText.appendChild (doc.createTextNode (""));
 
     // test including doc type
@@ -93,7 +93,8 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                     sSerTagName +
                     CRLF +
                     "</html>" +
-                    CRLF, sResult);
+                    CRLF,
+                    sResult);
       assertEquals (sResult, XMLWriter.getNodeAsString (doc, XMLWriterSettings.createForXHTML ()));
     }
 
@@ -113,7 +114,8 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                     sSerTagName +
                     CRLF +
                     "</html>" +
-                    CRLF, sResult);
+                    CRLF,
+                    sResult);
     }
 
     {
@@ -121,7 +123,12 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                                                         XMLWriterSettings.createForXHTML ()
                                                                          .setSerializeDocType (EXMLSerializeDocType.IGNORE)
                                                                          .setIndent (EXMLSerializeIndent.NONE));
-      assertEquals ("<html xmlns=\"" + DOCTYPE_XHTML10_URI + "\"><head>Hallo</head>" + sSerTagName + "</html>", sResult);
+      assertEquals ("<html xmlns=\"" +
+                    DOCTYPE_XHTML10_URI +
+                    "\"><head>Hallo</head>" +
+                    sSerTagName +
+                    "</html>",
+                    sResult);
       assertEquals (sResult,
                     XMLWriter.getNodeAsString (doc,
                                                XMLWriterSettings.createForXHTML ()
@@ -153,7 +160,8 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                     "<notext>Hallo <strong>Welt</strong><![CDATA[!!!]]><!--No--></notext>" +
                     CRLF +
                     "</html>" +
-                    CRLF, sResult);
+                    CRLF,
+                    sResult);
     }
 
     // test as XML (with doc type and indent)
@@ -182,7 +190,8 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                     "<notext>Hallo <strong>Welt</strong><![CDATA[!!!]]><!--No--></notext>" +
                     CRLF +
                     "</html>" +
-                    CRLF, sResult);
+                    CRLF,
+                    sResult);
     }
 
     // test as XML (without doc type and comments but indented)
@@ -206,7 +215,8 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                     "<notext>Hallo <strong>Welt</strong><![CDATA[!!!]]></notext>" +
                     CRLF +
                     "</html>" +
-                    CRLF, sResult);
+                    CRLF,
+                    sResult);
     }
 
     // test as XML (without doc type and comments but indented) with different
@@ -227,7 +237,8 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                     "<head>Hallo</head>\n" +
                     sINDENT +
                     "<notext>Hallo <strong>Welt</strong><![CDATA[!!!]]></notext>\n" +
-                    "</html>\n", sResult);
+                    "</html>\n",
+                    sResult);
     }
 
     // test as XML (without doc type and comments but indented) with different
@@ -247,7 +258,8 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                     "\">\n" +
                     "\t<head>Hallo</head>\n" +
                     "\t<notext>Hallo <strong>Welt</strong><![CDATA[!!!]]></notext>\n" +
-                    "</html>\n", sResult);
+                    "</html>\n",
+                    sResult);
     }
 
     assertTrue (XMLWriter.writeToStream (doc, new NonBlockingByteArrayOutputStream ()).isSuccess ());
@@ -296,7 +308,8 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                       sSerTagName +
                       CRLF +
                       "</html>" +
-                      CRLF, sResult);
+                      CRLF,
+                      sResult);
         assertEquals (sResult, XMLWriter.getNodeAsString (doc, XMLWriterSettings.createForXHTML ()));
       }
     });
@@ -334,62 +347,69 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setCharset (CCharset.CHARSET_ISO_8859_1_OBJ)
                                                                 .setIndent (EXMLSerializeIndent.NONE);
     String s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>"
-                  + "<root xmlns=\"ns1url\">"
-                  + "<ns0:child1 xmlns:ns0=\"ns2url\" />"
-                  + "<ns0:child2 xmlns:ns0=\"ns2url\" />"
-                  + "</root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
+                  "<root xmlns=\"ns1url\">" +
+                  "<ns0:child1 xmlns:ns0=\"ns2url\" />" +
+                  "<ns0:child2 xmlns:ns0=\"ns2url\" />" +
+                  "</root>",
+                  s);
 
     final MapBasedNamespaceContext aCtx = new MapBasedNamespaceContext ();
     aCtx.addMapping ("a", "ns1url");
     aSettings.setNamespaceContext (aCtx);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>"
-                  + "<a:root xmlns:a=\"ns1url\">"
-                  + "<ns0:child1 xmlns:ns0=\"ns2url\" />"
-                  + "<ns0:child2 xmlns:ns0=\"ns2url\" />"
-                  + "</a:root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
+                  "<a:root xmlns:a=\"ns1url\">" +
+                  "<ns0:child1 xmlns:ns0=\"ns2url\" />" +
+                  "<ns0:child2 xmlns:ns0=\"ns2url\" />" +
+                  "</a:root>",
+                  s);
 
     aCtx.addMapping ("xy", "ns2url");
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>"
-                  + "<a:root xmlns:a=\"ns1url\">"
-                  + "<xy:child1 xmlns:xy=\"ns2url\" />"
-                  + "<xy:child2 xmlns:xy=\"ns2url\" />"
-                  + "</a:root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
+                  "<a:root xmlns:a=\"ns1url\">" +
+                  "<xy:child1 xmlns:xy=\"ns2url\" />" +
+                  "<xy:child2 xmlns:xy=\"ns2url\" />" +
+                  "</a:root>",
+                  s);
 
     aSettings.setUseDoubleQuotesForAttributes (false);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>"
-                  + "<a:root xmlns:a='ns1url'>"
-                  + "<xy:child1 xmlns:xy='ns2url' />"
-                  + "<xy:child2 xmlns:xy='ns2url' />"
-                  + "</a:root>", s);
+    assertEquals ("<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>" +
+                  "<a:root xmlns:a='ns1url'>" +
+                  "<xy:child1 xmlns:xy='ns2url' />" +
+                  "<xy:child2 xmlns:xy='ns2url' />" +
+                  "</a:root>",
+                  s);
 
     aSettings.setSpaceOnSelfClosedElement (false);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>"
-                  + "<a:root xmlns:a='ns1url'>"
-                  + "<xy:child1 xmlns:xy='ns2url'/>"
-                  + "<xy:child2 xmlns:xy='ns2url'/>"
-                  + "</a:root>", s);
+    assertEquals ("<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>" +
+                  "<a:root xmlns:a='ns1url'>" +
+                  "<xy:child1 xmlns:xy='ns2url'/>" +
+                  "<xy:child2 xmlns:xy='ns2url'/>" +
+                  "</a:root>",
+                  s);
 
     aSettings.setPutNamespaceContextPrefixesInRoot (true);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>"
-                  + "<a:root xmlns:a='ns1url' xmlns:xy='ns2url'>"
-                  + "<xy:child1/>"
-                  + "<xy:child2/>"
-                  + "</a:root>", s);
+    assertEquals ("<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>" +
+                  "<a:root xmlns:a='ns1url' xmlns:xy='ns2url'>" +
+                  "<xy:child1/>" +
+                  "<xy:child2/>" +
+                  "</a:root>",
+                  s);
 
     eRoot.appendChild (aDoc.createElementNS ("ns3url", "zz"));
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>"
-                  + "<a:root xmlns:a='ns1url' xmlns:xy='ns2url'>"
-                  + "<xy:child1/>"
-                  + "<xy:child2/>"
-                  + "<ns0:zz xmlns:ns0='ns3url'/>"
-                  + "</a:root>", s);
+    assertEquals ("<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>" +
+                  "<a:root xmlns:a='ns1url' xmlns:xy='ns2url'>" +
+                  "<xy:child1/>" +
+                  "<xy:child2/>" +
+                  "<ns0:zz xmlns:ns0='ns3url'/>" +
+                  "</a:root>",
+                  s);
   }
 
   @Test
@@ -403,27 +423,30 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setCharset (CCharset.CHARSET_ISO_8859_1_OBJ)
                                                                 .setIndent (EXMLSerializeIndent.NONE);
     String s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>"
-                  + "<root xmlns=\"ns1url\">"
-                  + "<ns0:child1 xmlns:ns0=\"ns2url\" />"
-                  + "<ns0:child2 xmlns:ns0=\"ns2url\" />"
-                  + "</root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
+                  "<root xmlns=\"ns1url\">" +
+                  "<ns0:child1 xmlns:ns0=\"ns2url\" />" +
+                  "<ns0:child2 xmlns:ns0=\"ns2url\" />" +
+                  "</root>",
+                  s);
 
     aSettings.setEmitNamespaces (false);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>"
-                  + "<root>"
-                  + "<child1 />"
-                  + "<child2 />"
-                  + "</root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
+                  "<root>" +
+                  "<child1 />" +
+                  "<child2 />" +
+                  "</root>",
+                  s);
 
     aSettings.setPutNamespaceContextPrefixesInRoot (true);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>"
-                  + "<root>"
-                  + "<child1 />"
-                  + "<child2 />"
-                  + "</root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
+                  "<root>" +
+                  "<child1 />" +
+                  "<child2 />" +
+                  "</root>",
+                  s);
   }
 
   @Test
@@ -502,20 +525,22 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
     e2.setAttributeNS ("ns3url", "attr2", "value2");
 
     String s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>"
-                  + "<root xmlns=\"ns1url\">"
-                  + "<ns0:child1 xmlns:ns0=\"ns2url\" ns0:attr1=\"value1\" />"
-                  + "<ns0:child2 xmlns:ns0=\"ns2url\" xmlns:ns1=\"ns3url\" ns1:attr2=\"value2\" />"
-                  + "</root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
+                  "<root xmlns=\"ns1url\">" +
+                  "<ns0:child1 xmlns:ns0=\"ns2url\" ns0:attr1=\"value1\" />" +
+                  "<ns0:child2 xmlns:ns0=\"ns2url\" xmlns:ns1=\"ns3url\" ns1:attr2=\"value2\" />" +
+                  "</root>",
+                  s);
     assertEquals (s, XMLWriter.getNodeAsString (DOMReader.readXMLDOM (s), aSettings));
 
     aSettings.setEmitNamespaces (false);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>"
-                  + "<root>"
-                  + "<child1 attr1=\"value1\" />"
-                  + "<child2 attr2=\"value2\" />"
-                  + "</root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
+                  "<root>" +
+                  "<child1 attr1=\"value1\" />" +
+                  "<child2 attr2=\"value2\" />" +
+                  "</root>",
+                  s);
   }
 
   @Test
@@ -524,15 +549,15 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
     final String sINDENT = XMLWriterSettings.DEFAULT_INDENTATION_STRING;
 
     final Document aDoc = XMLFactory.newDocument ("html", DOCTYPE_XHTML10_QNAME, DOCTYPE_XHTML10_URI);
-    final Element aHead = (Element) aDoc.getDocumentElement ().appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI,
-                                                                                                  "head"));
+    final Element aHead = (Element) aDoc.getDocumentElement ()
+                                        .appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "head"));
     aHead.appendChild (aDoc.createTextNode ("Hallo"));
-    final Element aBody = (Element) aDoc.getDocumentElement ().appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI,
-                                                                                                  "body"));
+    final Element aBody = (Element) aDoc.getDocumentElement ()
+                                        .appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "body"));
     aBody.appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "img"));
 
     // test including doc type
-    final String sResult = XMLWriter.getNodeAsString (aDoc, XMLWriterSettings.createForXHTML ());
+    final String sResult = XMLWriter.getNodeAsString (aDoc, XMLWriterSettings.createForHTML4 ());
     assertEquals ("<!DOCTYPE html PUBLIC \"" +
                   DOCTYPE_XHTML10_QNAME +
                   "\" \"" +
@@ -558,21 +583,66 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                   "</body>" +
                   CRLF +
                   "</html>" +
-                  CRLF, sResult);
+                  CRLF,
+                  sResult);
   }
 
   @Test
-  public void testHTMLIndent ()
+  public void testXHTMLBracketMode ()
+  {
+    final String sINDENT = XMLWriterSettings.DEFAULT_INDENTATION_STRING;
+
+    final Document aDoc = XMLFactory.newDocument ("html", DOCTYPE_XHTML10_QNAME, DOCTYPE_XHTML10_URI);
+    final Element aHead = (Element) aDoc.getDocumentElement ()
+                                        .appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "head"));
+    aHead.appendChild (aDoc.createTextNode ("Hallo"));
+    final Element aBody = (Element) aDoc.getDocumentElement ()
+                                        .appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "body"));
+    aBody.appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "img"));
+
+    // test including doc type
+    final String sResult = XMLWriter.getNodeAsString (aDoc, XMLWriterSettings.createForXHTML ());
+    assertEquals ("<!DOCTYPE html PUBLIC \"" +
+                  DOCTYPE_XHTML10_QNAME +
+                  "\" \"" +
+                  DOCTYPE_XHTML10_URI +
+                  "\">" +
+                  CRLF +
+                  "<html xmlns=\"" +
+                  DOCTYPE_XHTML10_URI +
+                  "\">" +
+                  CRLF +
+                  sINDENT +
+                  "<head>Hallo</head>" +
+                  CRLF +
+                  sINDENT +
+                  "<body>" +
+                  CRLF +
+                  sINDENT +
+                  sINDENT +
+                  // self closed tag
+                  "<img />" +
+                  CRLF +
+                  sINDENT +
+                  "</body>" +
+                  CRLF +
+                  "</html>" +
+                  CRLF,
+                  sResult);
+  }
+
+  @Test
+  public void testXHTMLIndent ()
   {
     final XMLWriterSettings xs = XMLWriterSettings.createForXHTML ().setSerializeDocType (EXMLSerializeDocType.IGNORE);
     final String sINDENT = xs.getIndentationString ();
 
     final Document aDoc = XMLFactory.newDocument ("html", DOCTYPE_XHTML10_QNAME, DOCTYPE_XHTML10_URI);
-    final Element aHead = (Element) aDoc.getDocumentElement ().appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI,
-                                                                                                  "head"));
+    final Element aHead = (Element) aDoc.getDocumentElement ()
+                                        .appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "head"));
     aHead.appendChild (aDoc.createTextNode ("Hallo"));
-    final Element aBody = (Element) aDoc.getDocumentElement ().appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI,
-                                                                                                  "body"));
+    final Element aBody = (Element) aDoc.getDocumentElement ()
+                                        .appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "body"));
     final Element aPre = (Element) aBody.appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "pre"));
     final Element aDiv = (Element) aPre.appendChild (aDoc.createElementNS (DOCTYPE_XHTML10_URI, "div"));
     aDiv.appendChild (aDoc.createTextNode ("pre formatted"));
@@ -596,7 +666,8 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                   "</body>" +
                   CRLF +
                   "</html>" +
-                  CRLF, XMLWriter.getNodeAsString (aDoc, xs));
+                  CRLF,
+                  XMLWriter.getNodeAsString (aDoc, xs));
 
     // Special handling with void element
     aPre.removeChild (aDiv);
@@ -615,12 +686,13 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                   sINDENT +
                   sINDENT +
                   // pre not indented
-                  "<pre><img></pre>" +
+                  "<pre><img /></pre>" +
                   CRLF +
                   sINDENT +
                   "</body>" +
                   CRLF +
                   "</html>" +
-                  CRLF, XMLWriter.getNodeAsString (aDoc, xs));
+                  CRLF,
+                  XMLWriter.getNodeAsString (aDoc, xs));
   }
 }
