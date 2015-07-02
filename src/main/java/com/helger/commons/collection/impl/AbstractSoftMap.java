@@ -154,12 +154,12 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
     }
 
     @SuppressWarnings ("unchecked")
-    public boolean contains (final Object o)
+    public boolean contains (final Object aEntryObj)
     {
-      if (!(o instanceof Map.Entry))
+      if (!(aEntryObj instanceof Map.Entry))
         return false;
-      final Map.Entry <K, V> e = (Map.Entry <K, V>) o;
-      return m_aSrcEntrySet.contains (new SoftMapEntry <K, V> (e.getKey (), e.getValue (), m_aQueue));
+      final Map.Entry <K, V> aEntry = (Map.Entry <K, V>) aEntryObj;
+      return m_aSrcEntrySet.contains (new SoftMapEntry <K, V> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
     }
 
     public boolean containsAll (@Nonnull final Collection <?> c)
@@ -183,11 +183,11 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
     }
 
     @SuppressWarnings ("unchecked")
-    public boolean remove (final Object o)
+    public boolean remove (final Object aEntryObj)
     {
-      if (!(o instanceof Map.Entry <?, ?>))
+      if (!(aEntryObj instanceof Map.Entry <?, ?>))
         return false;
-      final Map.Entry <K, V> aEntry = (Map.Entry <K, V>) o;
+      final Map.Entry <K, V> aEntry = (Map.Entry <K, V>) aEntryObj;
       return m_aSrcEntrySet.remove (new SoftMapEntry <K, V> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
     }
 
@@ -224,7 +224,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
       if (a != null && a instanceof MapEntry <?, ?> [] && a.length >= size ())
         result = (MapEntry <K, V> []) a;
       else
-        result = (MapEntry <K, V> []) new Object [size ()];
+        result = (MapEntry <K, V> []) new MapEntry <?, ?> [size ()];
 
       final Object [] aSrcArray = m_aSrcEntrySet.toArray ();
       for (int i = 0; i < aSrcArray.length; i++)

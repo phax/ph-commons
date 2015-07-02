@@ -29,25 +29,14 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.mutable.MutableBoolean;
-
 public final class SoftHashMapTest
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (SoftHashMapTest.class);
 
   @Test
-  public void testBasic ()
+  public void testGarbageCollect ()
   {
-    final MutableBoolean aChange = new MutableBoolean (false);
-    final SoftLinkedHashMap <Integer, BigDecimal> map = new SoftLinkedHashMap <Integer, BigDecimal> (2)
-    {
-      @Override
-      protected void onEntryRemoved (final Integer aKey)
-      {
-        s_aLogger.info ("Removed key " + aKey);
-        aChange.set (true);
-      }
-    };
+    final SoftHashMap <Integer, BigDecimal> map = new SoftHashMap <Integer, BigDecimal> ();
 
     BigDecimal aOne = new BigDecimal ("+1.000");
     final Integer aKey = Integer.valueOf (1);
@@ -73,5 +62,18 @@ public final class SoftHashMapTest
     }
     s_aLogger.info ("Mapped value (should be null): " + map.get (aKey));
     assertNull (map.get (aKey));
+  }
+
+  @Test
+  public void testEntrySetToArray ()
+  {
+    final SoftHashMap <Integer, BigDecimal> map = new SoftHashMap <Integer, BigDecimal> ();
+
+    map.put (Integer.valueOf (1), new BigDecimal ("10"));
+    assertEquals (1, map.entrySet ().size ());
+    assertEquals (1, map.entrySet ().toArray ().length);
+    assertEquals (1, map.entrySet ().toArray (new Map.Entry [0]).length);
+    assertEquals (1, map.entrySet ().toArray (new Map.Entry [5]).length);
+    assertEquals (5, map.entrySet ().toArray (new MapEntry [5]).length);
   }
 }
