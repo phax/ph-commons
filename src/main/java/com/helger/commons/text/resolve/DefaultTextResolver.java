@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.text.IHasText;
 import com.helger.commons.text.IHasTextWithArgs;
@@ -65,6 +66,16 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
                                       @Nonnull final Locale aContentLocale)
   {
     return getInstance ().getText (aEnum, aTP, aContentLocale);
+  }
+
+  @Nullable
+  @Deprecated
+  @DevelopersNote ("Use getTextStatic instead when no argument is needed!")
+  public static String getTextWithArgsStatic (@Nonnull final Enum <?> aEnum,
+                                              @Nonnull final IHasTextWithArgs aTP,
+                                              @Nonnull final Locale aContentLocale)
+  {
+    return getInstance ().getTextWithArgs (aEnum, aTP, aContentLocale);
   }
 
   @Nullable
