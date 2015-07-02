@@ -22,7 +22,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.scope.IScope;
-import com.helger.commons.scope.singleton.AbstractSessionApplicationSingleton;
 
 /**
  * Mock implementation of {@link AbstractSessionApplicationSingleton}.
@@ -69,7 +68,7 @@ public final class MockSessionApplicationSingletonWithScopeCtor extends Abstract
   {
     if (o == this)
       return true;
-    if (!(o instanceof MockSessionApplicationSingletonWithScopeCtor))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     return i == ((MockSessionApplicationSingletonWithScopeCtor) o).i;
   }

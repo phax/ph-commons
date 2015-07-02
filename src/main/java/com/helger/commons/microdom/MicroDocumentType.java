@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Default implementation of the {@link IMicroDocumentType} interface.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroDocumentType extends AbstractMicroNode implements IMicroDocumentType
@@ -92,7 +92,7 @@ public final class MicroDocumentType extends AbstractMicroNode implements IMicro
   {
     if (o == this)
       return true;
-    if (!(o instanceof MicroDocumentType))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MicroDocumentType rhs = (MicroDocumentType) o;
     return m_sQualifiedName.equals (rhs.m_sQualifiedName) &&

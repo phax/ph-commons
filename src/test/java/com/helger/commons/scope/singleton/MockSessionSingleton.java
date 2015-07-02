@@ -20,7 +20,6 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.scope.singleton.AbstractSessionSingleton;
 
 /**
  * Mock implementation of {@link AbstractSessionSingleton}.
@@ -58,7 +57,7 @@ public final class MockSessionSingleton extends AbstractSessionSingleton
   {
     if (o == this)
       return true;
-    if (!(o instanceof MockSessionSingleton))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     return i == ((MockSessionSingleton) o).i;
   }

@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Default implementation of the {@link IMicroCDATA} interface.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroCDATA extends AbstractMicroNode implements IMicroCDATA
@@ -118,7 +118,7 @@ public final class MicroCDATA extends AbstractMicroNode implements IMicroCDATA
   {
     if (o == this)
       return true;
-    if (!(o instanceof MicroCDATA))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MicroCDATA rhs = (MicroCDATA) o;
     return m_aData.equals (rhs.m_aData);

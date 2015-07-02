@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Default implementation of the {@link IMicroComment} interface.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroComment extends AbstractMicroNode implements IMicroComment
@@ -118,7 +118,7 @@ public final class MicroComment extends AbstractMicroNode implements IMicroComme
   {
     if (o == this)
       return true;
-    if (!(o instanceof MicroComment))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MicroComment rhs = (MicroComment) o;
     return m_aData.equals (rhs.m_aData);

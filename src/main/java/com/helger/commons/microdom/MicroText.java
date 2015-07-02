@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Default implementation of the {@link IMicroText} interface.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroText extends AbstractMicroNode implements IMicroText
@@ -61,7 +61,7 @@ public final class MicroText extends AbstractMicroNode implements IMicroText
 
   /**
    * Constructor for cloning
-   * 
+   *
    * @param aData
    *        Cloned data
    * @param bIgnorableWhitespace
@@ -164,7 +164,7 @@ public final class MicroText extends AbstractMicroNode implements IMicroText
   {
     if (o == this)
       return true;
-    if (!(o instanceof MicroText))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MicroText rhs = (MicroText) o;
     return m_aData.equals (rhs.m_aData) && m_bIgnorableWhitespace == rhs.m_bIgnorableWhitespace;

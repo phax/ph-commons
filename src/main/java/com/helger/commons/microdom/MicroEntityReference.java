@@ -26,7 +26,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Default implementation of the {@link IMicroEntityReference} interface.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -77,7 +77,7 @@ public final class MicroEntityReference extends AbstractMicroNode implements IMi
   {
     if (o == this)
       return true;
-    if (!(o instanceof MicroEntityReference))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MicroEntityReference rhs = (MicroEntityReference) o;
     return m_sName.equals (rhs.m_sName);

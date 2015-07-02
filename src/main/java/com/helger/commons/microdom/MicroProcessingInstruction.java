@@ -27,7 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Default implementation of the {@link IMicroProcessingInstruction} interface.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -88,7 +88,7 @@ public final class MicroProcessingInstruction extends AbstractMicroNode implemen
   {
     if (o == this)
       return true;
-    if (!(o instanceof MicroProcessingInstruction))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MicroProcessingInstruction rhs = (MicroProcessingInstruction) o;
     return m_sTarget.equals (rhs.m_sTarget) && EqualsHelper.equals (m_sData, rhs.m_sData);
