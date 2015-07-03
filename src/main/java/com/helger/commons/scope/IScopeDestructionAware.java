@@ -28,8 +28,22 @@ import javax.annotation.Nonnull;
 public interface IScopeDestructionAware
 {
   /**
-   * Called before the owning scope is destroyed. You may perform some cleanup
-   * work in here.
+   * Called before the owning scope is destroyed. You may perform some last
+   * actions before the scope is really destroyed. This method is called after
+   * the <code>IScope.preDestroy()</code> callback is invoked and before the
+   * scope is set as being "in destruction".
+   *
+   * @param aScopeToBeDestroyed
+   *        The scope that will be destroyed. Never <code>null</code>.
+   * @throws Exception
+   *         in case of an error
+   */
+  void onBeforeScopeDestruction (@Nonnull IScope aScopeToBeDestroyed) throws Exception;
+
+  /**
+   * Called when the owning scope is destroyed. You may perform some cleanup
+   * work in here. This is method is called when the scope is already
+   * "in destruction".
    *
    * @param aScopeInDestruction
    *        The scope in destruction. Never <code>null</code>.

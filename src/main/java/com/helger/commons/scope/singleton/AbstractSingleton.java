@@ -61,8 +61,9 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
 {
   private static final int STATUS_IN_INSTANTIATION = 0;
   private static final int STATUS_INSTANTIATED = 1;
-  private static final int STATUS_IN_DESTRUCTION = 2;
-  private static final int STATUS_DESTROYED = 3;
+  private static final int STATUS_IN_PRE_DESTRUCTION = 2;
+  private static final int STATUS_IN_DESTRUCTION = 3;
+  private static final int STATUS_DESTROYED = 4;
 
   private static final int DEFAULT_KEY_LENGTH = 255;
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractSingleton.class);
@@ -222,6 +223,37 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     }
   }
 
+  protected final void setInPreDestruction (final boolean bInPreDestruction)
+  {
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      m_aStatus.set (STATUS_IN_PRE_DESTRUCTION, bInPreDestruction);
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+  }
+
+  /**
+   * @return <code>true</code> if this singleton is currently in the phase of
+   *         pre destruction, <code>false</code> if it is active or already
+   *         destroyed.
+   */
+  public final boolean isInPreDestruction ()
+  {
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return m_aStatus.get (STATUS_IN_PRE_DESTRUCTION);
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
+  }
+
   protected final void setInDestruction (final boolean bInDestruction)
   {
     m_aRWLock.writeLock ().lock ();
@@ -284,9 +316,54 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   }
 
   /**
+   * Called before this singleton is destroyed. This method is called when
+   * "inPreDestruction" is <code>true</code>, "inDestruction" is still
+   * <code>false</code> and "isDestroyed" is <code>false</code>.
+   *
+   * @param aScopeToBeDestroyed
+   *        The scope that will be destroyed. Never <code>null</code>.
+   * @throws Exception
+   *         If something goes wrong
+   */
+  @OverrideOnDemand
+  protected void onBeforeDestroy (@Nonnull final IScope aScopeToBeDestroyed) throws Exception
+  {}
+
+  /*
+   * Implementation of {@link IScopeDestructionAware}. Calls the protected
+   * {@link #onBeforeDestroy()} method.
+   */
+  public final void onBeforeScopeDestruction (@Nonnull final IScope aScopeToBeDestroyed) throws Exception
+  {
+    // Check init state
+    if (isInInstantiation ())
+      s_aLogger.warn ("Object currently in instantiation is destroyed soon: " + toString ());
+    else
+      if (!isInstantiated ())
+        s_aLogger.warn ("Object not instantiated is destroyed soon: " + toString ());
+
+    // Check destruction state
+    if (isInPreDestruction ())
+      s_aLogger.error ("Object already in pre destruction is destroyed soon again: " + toString ());
+    else
+      if (isInDestruction ())
+        s_aLogger.error ("Object already in destruction is destroyed soon again: " + toString ());
+      else
+        if (isDestroyed ())
+          s_aLogger.error ("Object already destroyed is destroyed soon again: " + toString ());
+
+    setInPreDestruction (true);
+
+    onBeforeDestroy (aScopeToBeDestroyed);
+
+    // do not reset PreDestruction - happens in onScopeDestruction
+  }
+
+  /**
    * Called when this singleton is destroyed. Perform all cleanup in this
-   * method. This method is called when "inDestruction" is <code>true</code> and
-   * "isDestroyed" is <code>false</code>.
+   * method. This method is called when "inPreDestruction" is <code>false</code>
+   * , "inDestruction" is <code>true</code> and "isDestroyed" is
+   * <code>false</code>.
    *
    * @param aScopeInDestruction
    *        The scope in destruction. Never <code>null</code>.
@@ -311,6 +388,9 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
         s_aLogger.warn ("Object not instantiated is now destroyed: " + toString ());
 
     // Check destruction state
+    if (!isInPreDestruction ())
+      s_aLogger.error ("Object should be in pre destruction phase but is not: " + toString ());
+
     if (isInDestruction ())
       s_aLogger.error ("Object already in destruction is now destroyed again: " + toString ());
     else
@@ -318,6 +398,9 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
         s_aLogger.error ("Object already destroyed is now destroyed again: " + toString ());
 
     setInDestruction (true);
+    // Set after destruction is set to true
+    setInPreDestruction (false);
+
     try
     {
       onDestroy (aScopeInDestruction);

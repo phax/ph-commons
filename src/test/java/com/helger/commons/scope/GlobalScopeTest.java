@@ -25,9 +25,6 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 
 import com.helger.commons.mutable.MutableBoolean;
-import com.helger.commons.scope.GlobalScope;
-import com.helger.commons.scope.IScope;
-import com.helger.commons.scope.IScopeDestructionAware;
 
 /**
  * Test class for class {@link GlobalScope}.
@@ -44,13 +41,24 @@ public final class GlobalScopeTest
     assertEquals (0, aGS.getAttributeCount ());
     assertTrue (aGS.setAttribute ("key1", "whatsoever").isChanged ());
     assertEquals (1, aGS.getAttributeCount ());
-    final MutableBoolean aDestroyed = new MutableBoolean (false);
+    final MutableBoolean aPreDestroyedCalled = new MutableBoolean (false);
+    final MutableBoolean aDestroyedCalled = new MutableBoolean (false);
     assertTrue (aGS.setAttribute ("key2", new IScopeDestructionAware ()
     {
+      public void onBeforeScopeDestruction (@Nonnull final IScope aScopeToBeDestroyed) throws Exception
+      {
+        assertFalse (aPreDestroyedCalled.booleanValue ());
+        assertFalse (aDestroyedCalled.booleanValue ());
+        // Mark as destroyed
+        aPreDestroyedCalled.set (true);
+      }
+
       public void onScopeDestruction (@Nonnull final IScope aScopeInDestruction) throws Exception
       {
+        assertTrue (aPreDestroyedCalled.booleanValue ());
+        assertFalse (aDestroyedCalled.booleanValue ());
         // Mark as destroyed
-        aDestroyed.set (true);
+        aDestroyedCalled.set (true);
       }
     }).isChanged ());
     assertEquals (2, aGS.getAttributeCount ());
@@ -58,20 +66,24 @@ public final class GlobalScopeTest
     assertTrue (aGS.setAttribute ("key3", null).isUnchanged ());
     assertEquals (2, aGS.getAttributeCount ());
     assertTrue (aGS.isValid ());
+    assertFalse (aGS.isInPreDestruction ());
     assertFalse (aGS.isInDestruction ());
     assertFalse (aGS.isDestroyed ());
 
     // Did the scope destruction aware class trigger?
-    assertFalse (aDestroyed.booleanValue ());
+    assertFalse (aPreDestroyedCalled.booleanValue ());
+    assertFalse (aDestroyedCalled.booleanValue ());
 
     // destroy scope
     aGS.destroyScope ();
 
     assertFalse (aGS.isValid ());
+    assertFalse (aGS.isInPreDestruction ());
     assertFalse (aGS.isInDestruction ());
     assertTrue (aGS.isDestroyed ());
 
     // Did the scope destruction aware class trigger?
-    assertTrue (aDestroyed.booleanValue ());
+    assertTrue (aPreDestroyedCalled.booleanValue ());
+    assertTrue (aDestroyedCalled.booleanValue ());
   }
 }

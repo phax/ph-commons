@@ -46,13 +46,15 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @ThreadSafe
-public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAny <String> implements IScope
+public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAny <String>implements IScope
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractMapBasedScope.class);
 
   protected ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   /** ID of the scope */
   private final String m_sScopeID;
+  /** Is the scope currently in pre destruction? */
+  private boolean m_bInPreDestruction = false;
   /** Is the scope currently in destruction? */
   private boolean m_bInDestruction = false;
   /** Is the scope already completely destroyed? */
@@ -82,7 +84,20 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
     m_aRWLock.readLock ().lock ();
     try
     {
-      return !m_bInDestruction && !m_bDestroyed;
+      return !m_bInPreDestruction && !m_bInDestruction && !m_bDestroyed;
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
+  }
+
+  public final boolean isInPreDestruction ()
+  {
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return m_bInPreDestruction;
     }
     finally
     {
@@ -118,7 +133,7 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
 
   /**
    * Override this method to perform further actions BEFORE the scope is
-   * destroyed.
+   * destroyed. The state is "in pre destruction".
    */
   @OverrideOnDemand
   protected void preDestroy ()
@@ -133,7 +148,7 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
 
   /**
    * Override this method to perform further actions AFTER the scope was
-   * destroyed.
+   * destroyed. The state is "destroyed".
    */
   @OverrideOnDemand
   protected void postDestroy ()
@@ -141,7 +156,31 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
 
   public final void destroyScope ()
   {
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      if (m_bInPreDestruction)
+        throw new IllegalStateException ("Scope " + getID () + " is already in pre destruction!");
+      m_bInPreDestruction = true;
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+
     preDestroy ();
+
+    // Call callback (if special interface is implemented)
+    for (final Object aValue : getAllAttributeValues ())
+      if (aValue instanceof IScopeDestructionAware)
+        try
+        {
+          ((IScopeDestructionAware) aValue).onBeforeScopeDestruction (this);
+        }
+        catch (final Throwable t)
+        {
+          s_aLogger.error ("Failed to call onBeforeScopeDestruction in scope " + getID () + " for " + aValue, t);
+        }
 
     m_aRWLock.writeLock ().lock ();
     try
@@ -150,7 +189,9 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
         throw new IllegalStateException ("Scope " + getID () + " is already destroyed!");
       if (m_bInDestruction)
         throw new IllegalStateException ("Scope " + getID () + " is already in destruction!");
+
       m_bInDestruction = true;
+      m_bInPreDestruction = false;
     }
     finally
     {
