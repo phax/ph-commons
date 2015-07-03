@@ -358,7 +358,8 @@ public final class FilenameHelperTest
                   FilenameHelper.getAsSecureValidASCIIFilename (CSpecialChars.AUML_LC_STR +
                                                                 CSpecialChars.OUML_LC +
                                                                 CSpecialChars.UUML_LC));
-    assertEquals ("h_user.txt", FilenameHelper.getAsSecureValidASCIIFilename ("h" + CSpecialChars.AUML_LC + "user.txt"));
+    assertEquals ("h_user.txt",
+                  FilenameHelper.getAsSecureValidASCIIFilename ("h" + CSpecialChars.AUML_LC + "user.txt"));
   }
 
   /**
@@ -533,11 +534,12 @@ public final class FilenameHelperTest
     assertEquals (sBasePath + "/target/file", FilenameHelper.getCleanPath (new File ("./target/./file/.")));
     assertEquals (sBasePath + "/target/file", FilenameHelper.getCleanPath (new File ("./target/////./file/.////")));
     assertEquals (sBasePath + "/target/file", FilenameHelper.getCleanPath (new File ("target/sub/../file")));
-    assertEquals ("\\\\server\\share\\dir\\file",
-                  FilenameHelper.getCleanPath (new File ("\\\\server\\share\\dir\\file")));
 
     if (EOperatingSystem.WINDOWS.isCurrentOS ())
     {
+      assertEquals ("\\\\server\\share\\dir\\file",
+                    FilenameHelper.getCleanPath (new File ("\\\\server\\share\\dir\\file")));
+
       final File aBaseFile = new File ("pom.xml");
       assertTrue (aBaseFile.exists ());
       assertFalse (FilenameHelper.isWindowsLocalUNCPath (aBaseFile));
@@ -546,14 +548,16 @@ public final class FilenameHelperTest
       File aFile = new File (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL1 + aBaseFile.getAbsolutePath ());
       assertTrue (aFile.exists ());
       assertTrue (FilenameHelper.isWindowsLocalUNCPath (aFile));
-      assertEquals (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL1 + aBaseFile.getAbsolutePath (),
+      assertEquals (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL1 +
+                    aBaseFile.getAbsolutePath (),
                     FilenameHelper.getCleanPath (aFile));
 
       // Prefix "\\?\" for a local UNC path
       aFile = new File (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL2 + aBaseFile.getAbsolutePath ());
       assertTrue (aFile.exists ());
       assertTrue (FilenameHelper.isWindowsLocalUNCPath (aFile));
-      assertEquals (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL2 + aBaseFile.getAbsolutePath (),
+      assertEquals (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL2 +
+                    aBaseFile.getAbsolutePath (),
                     FilenameHelper.getCleanPath (aFile));
     }
 
@@ -679,21 +683,27 @@ public final class FilenameHelperTest
   {
     final File aParentDir = new File (".");
     final String sParentBaseDir = FilenameHelper.getCleanPath (aParentDir);
-    assertEquals (sParentBaseDir + "/test.txt",
+    assertEquals (sParentBaseDir +
+                  "/test.txt",
                   FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aParentDir, "test.txt"));
     // Fails on Linux!
     if (false)
-      assertEquals (sParentBaseDir + "/test.txt",
+      assertEquals (sParentBaseDir +
+                    "/test.txt",
                     FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aParentDir, "/test.txt"));
-    assertEquals (sParentBaseDir + "/test.txt",
+    assertEquals (sParentBaseDir +
+                  "/test.txt",
                   FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aParentDir, "./test.txt"));
-    assertEquals (sParentBaseDir + "/dir/test.txt",
+    assertEquals (sParentBaseDir +
+                  "/dir/test.txt",
                   FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aParentDir, "dir/test.txt"));
-    assertEquals (sParentBaseDir + "/test.txt",
+    assertEquals (sParentBaseDir +
+                  "/test.txt",
                   FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aParentDir, "dir/../test.txt"));
     // Fails on Linux!
     if (false)
-      assertEquals (sParentBaseDir + "/test.txt",
+      assertEquals (sParentBaseDir +
+                    "/test.txt",
                     FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aParentDir, "/dir/../test.txt"));
     assertNull (FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aParentDir, "../test.txt"));
 
@@ -719,7 +729,8 @@ public final class FilenameHelperTest
     final File aRelativeParentDir = new File ("");
     final File aAbsoluteParentDir = aRelativeParentDir.getAbsoluteFile ();
     final File aChildDir = new File (aAbsoluteParentDir.getAbsolutePath () + "/pom.xml");
-    assertNull (FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aRelativeParentDir, aChildDir.getAbsolutePath ()));
+    assertNull (FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aRelativeParentDir,
+                                                                      aChildDir.getAbsolutePath ()));
     assertEquals (FilenameHelper.getCleanPath (aChildDir.getAbsolutePath ()),
                   FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aAbsoluteParentDir,
                                                                         aChildDir.getAbsolutePath ()));
