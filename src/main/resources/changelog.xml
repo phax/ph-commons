@@ -18,6 +18,11 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <entry date="2015-07-08" category="api" action="add" incompatible="true">
+    <change>
+      <text locale="en">JAXBContextCache can now handle custom ClassLoaders</text>
+    </change>
+  </entry>
   <entry date="2015-07-03" category="api" action="add" incompatible="true">
     <change>
       <text locale="en">Added special Scope and Singleton callback "preDestroy"</text>
