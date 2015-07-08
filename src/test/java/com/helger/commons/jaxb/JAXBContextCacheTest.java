@@ -34,11 +34,12 @@ import org.junit.Test;
 
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
+import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.xml.transform.TransformSourceFactory;
 
 /**
  * Test class for class {@link JAXBContextCache}.
- * 
+ *
  * @author Philip Helger
  */
 public final class JAXBContextCacheTest
@@ -63,7 +64,7 @@ public final class JAXBContextCacheTest
       JAXBContextCache.getInstance ().getFromCache ((Package) null);
       fail ();
     }
-    catch (final IllegalStateException ex)
+    catch (final NullPointerException ex)
     {}
   }
 
@@ -107,14 +108,31 @@ public final class JAXBContextCacheTest
   }
 
   @Test
-  public void testJavaLang () throws JAXBException
+  public void testMarshalString () throws JAXBException
   {
     final String sMsg = "Hello world";
     final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (String.class);
     final Marshaller m = aCtx.createMarshaller ();
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     m.marshal (new JAXBElement <String> (new QName ("element"), String.class, sMsg), aSW);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" + sMsg + "</element>",
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" +
+                  sMsg +
+                  "</element>",
+                  aSW.getAsString ());
+  }
+
+  @Test
+  public void testMarshalStringWithClassLoader () throws JAXBException
+  {
+    final String sMsg = "Hello world";
+    final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (String.class,
+                                                                           ClassLoaderHelper.getSystemClassLoader ());
+    final Marshaller m = aCtx.createMarshaller ();
+    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
+    m.marshal (new JAXBElement <String> (new QName ("element"), String.class, sMsg), aSW);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" +
+                  sMsg +
+                  "</element>",
                   aSW.getAsString ());
   }
 }
