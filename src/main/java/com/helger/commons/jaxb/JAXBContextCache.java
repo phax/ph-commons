@@ -32,6 +32,7 @@ import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.cache.AbstractNotifyingCache;
 import com.helger.commons.debug.GlobalDebug;
+import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.lang.GenericReflection;
 
 /**
@@ -71,11 +72,12 @@ public final class JAXBContextCache extends AbstractNotifyingCache <Package, JAX
     return ret;
   }
 
-  @Override
   @Nullable
-  @IsLocked (ELockType.WRITE)
-  public JAXBContext getValueToCache (@Nullable final Package aPackage)
+  private static JAXBContext _createFromPackage (@Nullable final Package aPackage,
+                                                 @Nonnull final ClassLoader aClassLoader)
   {
+    ValueEnforcer.notNull (aClassLoader, "ClassLoader");
+
     if (aPackage == null)
       return null;
 
@@ -88,24 +90,65 @@ public final class JAXBContextCache extends AbstractNotifyingCache <Package, JAX
       if (aPackage.getAnnotation (XmlSchema.class) == null &&
           GenericReflection.getClassFromNameSafe (aPackage.getName () + ".ObjectFactory") == null)
         s_aLogger.warn ("The package " + aPackage.getName () + " does not seem to be JAXB generated!");
-      return JAXBContext.newInstance (aPackage.getName ());
+      return JAXBContext.newInstance (aPackage.getName (), aClassLoader);
     }
     catch (final JAXBException ex)
     {
-      final String sMsg = "Failed to create JAXB context for package '" + aPackage.getName () + "'";
+      final String sMsg = "Failed to create JAXB context for package '" +
+                          aPackage.getName () +
+                          "' and ClassLoader " +
+                          aClassLoader;
       s_aLogger.error (sMsg + ": " + ex.getMessage ());
       throw new IllegalArgumentException (sMsg, ex);
     }
   }
 
+  @Override
   @Nullable
+  @IsLocked (ELockType.WRITE)
+  public JAXBContext getValueToCache (@Nullable final Package aPackage)
+  {
+    return _createFromPackage (aPackage, ClassLoaderHelper.getDefaultClassLoader ());
+  }
+
+  /**
+   * Special overload with package and {@link ClassLoader}. In this case the
+   * resulting value is NOT cached!
+   *
+   * @param aPackage
+   *        Package to load. May be <code>null</code>.
+   * @param aClassLoader
+   *        Class loader to use. May not be <code>null</code>.
+   * @return <code>null</code> if package is <code>null</code>.
+   */
+  @Nullable
+  public JAXBContext getFromCache (@Nullable final Package aPackage, @Nonnull final ClassLoader aClassLoader)
+  {
+    return _createFromPackage (aPackage, aClassLoader);
+  }
+
+  /**
+   * Get the {@link JAXBContext} from an existing {@link Class} object. If the
+   * class's owning package is a valid JAXB package, this method redirects to
+   * {@link #getFromCache(Package)} otherwise a new JAXB context is created and
+   * NOT cached.
+   *
+   * @param aClass
+   *        The class for which the JAXB context is to be created. May not be
+   *        <code>null</code>.
+   * @return Never <code>null</code>.
+   */
+  @Nonnull
   public JAXBContext getFromCache (@Nonnull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
     final Package aPackage = aClass.getPackage ();
     if (aPackage.getAnnotation (XmlSchema.class) != null)
+    {
+      // Redirect to cached version
       return getFromCache (aPackage);
+    }
 
     // E.g. an internal class - try anyway!
     if (GlobalDebug.isDebugMode ())
