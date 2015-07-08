@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.lang.priviledged.PrivilegedActionClassLoaderGetParent;
 import com.helger.commons.lang.priviledged.PrivilegedActionGetClassLoader;
 import com.helger.commons.lang.priviledged.PrivilegedActionGetContextClassLoader;
 import com.helger.commons.lang.priviledged.PrivilegedActionGetSystemClassLoader;
@@ -40,10 +41,15 @@ public final class ClassLoaderHelper
   private ClassLoaderHelper ()
   {}
 
+  private static boolean _hasNoSecurityManager ()
+  {
+    return System.getSecurityManager () == null;
+  }
+
   @Nonnull
   public static ClassLoader getSystemClassLoader ()
   {
-    if (System.getSecurityManager () == null)
+    if (_hasNoSecurityManager ())
       return ClassLoader.getSystemClassLoader ();
 
     return AccessController.doPrivileged (new PrivilegedActionGetSystemClassLoader ());
@@ -52,7 +58,7 @@ public final class ClassLoaderHelper
   @Nonnull
   public static ClassLoader getContextClassLoader ()
   {
-    if (System.getSecurityManager () == null)
+    if (_hasNoSecurityManager ())
       return Thread.currentThread ().getContextClassLoader ();
 
     return AccessController.doPrivileged (new PrivilegedActionGetContextClassLoader ());
@@ -61,10 +67,19 @@ public final class ClassLoaderHelper
   @Nonnull
   public static ClassLoader getClassClassLoader (@Nonnull final Class <?> aClass)
   {
-    if (System.getSecurityManager () == null)
+    if (_hasNoSecurityManager ())
       return aClass.getClassLoader ();
 
     return AccessController.doPrivileged (new PrivilegedActionGetClassLoader (aClass));
+  }
+
+  @Nonnull
+  public static ClassLoader getParentClassLoader (@Nonnull final ClassLoader aClassLoader)
+  {
+    if (_hasNoSecurityManager ())
+      return aClassLoader.getParent ();
+
+    return AccessController.doPrivileged (new PrivilegedActionClassLoaderGetParent (aClassLoader));
   }
 
   @Nonnull
