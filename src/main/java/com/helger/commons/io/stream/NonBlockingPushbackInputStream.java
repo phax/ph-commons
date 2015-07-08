@@ -35,15 +35,6 @@ public class NonBlockingPushbackInputStream extends FilterInputStream
   protected int m_nBufPos;
 
   /**
-   * Check to make sure that this stream has not been closed
-   */
-  private void _ensureOpen () throws IOException
-  {
-    if (in == null)
-      throw new IOException ("Stream closed");
-  }
-
-  /**
    * Creates a <code>PushbackInputStream</code> with a pushback buffer of the
    * specified <code>size</code>, and saves its argument, the input stream
    * <code>in</code>, for later use. Initially, there is no pushed-back byte
@@ -77,6 +68,32 @@ public class NonBlockingPushbackInputStream extends FilterInputStream
   public NonBlockingPushbackInputStream (@Nonnull final InputStream aIS)
   {
     this (aIS, 1);
+  }
+
+  /**
+   * Check to make sure that this stream has not been closed
+   */
+  private void _ensureOpen () throws IOException
+  {
+    if (in == null)
+      throw new IOException ("Stream closed");
+  }
+
+  /**
+   * @return The number of bytes currently in the "unread" buffer.
+   */
+  @Nonnegative
+  public int getUnreadCount ()
+  {
+    return m_aBuf.length - m_nBufPos;
+  }
+
+  /**
+   * @return <code>true</code> if at least one "unread" byte is present.
+   */
+  public boolean hasUnreadBytes ()
+  {
+    return m_nBufPos < m_aBuf.length;
   }
 
   /**

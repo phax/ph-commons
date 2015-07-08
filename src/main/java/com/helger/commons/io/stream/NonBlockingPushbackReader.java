@@ -62,6 +62,23 @@ public class NonBlockingPushbackReader extends FilterReader
   }
 
   /**
+   * @return The number of chars currently in the "unread" buffer.
+   */
+  @Nonnegative
+  public int getUnreadCount ()
+  {
+    return m_aBuf.length - m_nBufPos;
+  }
+
+  /**
+   * @return <code>true</code> if at least one "unread" char is present.
+   */
+  public boolean hasUnreadChars ()
+  {
+    return m_nBufPos < m_aBuf.length;
+  }
+
+  /**
    * Reads a single character.
    *
    * @return The character read, or -1 if the end of the stream has been reached
