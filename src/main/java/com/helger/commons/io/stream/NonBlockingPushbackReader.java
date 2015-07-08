@@ -10,11 +10,10 @@ import javax.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
 
 /**
- * A character-stream reader that allows characters to be pushed back into the
- * stream.
+ * A non-synchronized copy of the class {@link java.io.PushbackReader}.
  *
- * @version %I%, %E%
- * @author Mark Reinhold
+ * @author Philip Helger
+ * @see java.io.PushbackReader
  */
 public class NonBlockingPushbackReader extends FilterReader
 {
@@ -56,7 +55,7 @@ public class NonBlockingPushbackReader extends FilterReader
   /**
    * Checks to make sure that the stream has not been closed.
    */
-  private void ensureOpen () throws IOException
+  private void _ensureOpen () throws IOException
   {
     if (m_aBuf == null)
       throw new IOException ("Reader closed");
@@ -72,7 +71,7 @@ public class NonBlockingPushbackReader extends FilterReader
   @Override
   public int read () throws IOException
   {
-    ensureOpen ();
+    _ensureOpen ();
     if (m_nBufPos < m_aBuf.length)
       return m_aBuf[m_nBufPos++];
 
@@ -99,12 +98,13 @@ public class NonBlockingPushbackReader extends FilterReader
                    @Nonnegative final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
-    ensureOpen ();
+    _ensureOpen ();
+
+    if (nLen == 0)
+      return 0;
+
     try
     {
-      if (nLen == 0)
-        return 0;
-
       int nRealOfs = nOfs;
       int nRealLen = nLen;
       int nBufAvail = m_aBuf.length - m_nBufPos;
@@ -145,7 +145,7 @@ public class NonBlockingPushbackReader extends FilterReader
    */
   public void unread (final int c) throws IOException
   {
-    ensureOpen ();
+    _ensureOpen ();
     if (m_nBufPos == 0)
       throw new IOException ("Pushback buffer overflow");
     m_aBuf[--m_nBufPos] = (char) c;
@@ -172,7 +172,7 @@ public class NonBlockingPushbackReader extends FilterReader
                       @Nonnegative final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
-    ensureOpen ();
+    _ensureOpen ();
     if (nLen > m_nBufPos)
       throw new IOException ("Pushback buffer overflow");
     m_nBufPos -= nLen;
@@ -205,7 +205,7 @@ public class NonBlockingPushbackReader extends FilterReader
   @Override
   public boolean ready () throws IOException
   {
-    ensureOpen ();
+    _ensureOpen ();
     return (m_nBufPos < m_aBuf.length) || super.ready ();
   }
 
@@ -277,7 +277,7 @@ public class NonBlockingPushbackReader extends FilterReader
   {
     ValueEnforcer.isGE0 (nSkip, "SkipValue");
 
-    ensureOpen ();
+    _ensureOpen ();
 
     if (nSkip == 0)
       return 0L;
