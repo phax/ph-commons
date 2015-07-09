@@ -21,6 +21,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -60,6 +61,13 @@ public class MutableBoolean implements IMutableObject <MutableBoolean>
     this (aValue.m_bValue);
   }
 
+  /**
+   * This method is invoked after a value changed.
+   */
+  @OverrideOnDemand
+  protected void onAfterChange ()
+  {}
+
   public boolean booleanValue ()
   {
     return m_bValue;
@@ -91,6 +99,7 @@ public class MutableBoolean implements IMutableObject <MutableBoolean>
     if (m_bValue == bValue)
       return EChange.UNCHANGED;
     m_bValue = bValue;
+    onAfterChange ();
     return EChange.CHANGED;
   }
 
