@@ -17,11 +17,12 @@
 package com.helger.commons.xml.schema;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.xml.validation.Schema;
 
 /**
  * A simple interface, indicating that an item has a Schema object.
- * 
+ *
  * @author Philip Helger
  */
 public interface IHasSchema
@@ -31,4 +32,13 @@ public interface IHasSchema
    */
   @Nonnull
   Schema getSchema ();
+
+  /**
+   * @param aClassLoader
+   *        The class loader to be used. May be <code>null</code> indicating
+   *        that the default class loader should be used.
+   * @return The non-<code>null</code> Schema object
+   */
+  @Nonnull
+  Schema getSchema (@Nullable ClassLoader aClassLoader);
 }
