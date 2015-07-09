@@ -33,7 +33,7 @@ import com.helger.commons.version.Version;
  * @author Philip Helger
  */
 @Immutable
-public final class CustomLicense implements ILicense
+public class CustomLicense implements ILicense
 {
   private final String m_sID;
   private final String m_sName;
