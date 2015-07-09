@@ -35,6 +35,7 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
+import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.URLHelper;
 
@@ -44,19 +45,34 @@ import com.helger.commons.url.URLHelper;
  *
  * @author Philip Helger
  */
-public class SimpleLSResourceResolver implements LSResourceResolver
+public class SimpleLSResourceResolver implements LSResourceResolver, IHasClassLoader
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (SimpleLSResourceResolver.class);
+
+  private final ClassLoader m_aClassLoader;
   private final LSResourceResolver m_aWrappedResourceResolver;
 
   public SimpleLSResourceResolver ()
   {
-    this (null);
+    this (null, null);
   }
 
   public SimpleLSResourceResolver (@Nullable final LSResourceResolver aWrappedResourceResolver)
   {
+    this (null, aWrappedResourceResolver);
+  }
+
+  public SimpleLSResourceResolver (@Nullable final ClassLoader aClassLoader,
+                                   @Nullable final LSResourceResolver aWrappedResourceResolver)
+  {
+    m_aClassLoader = aClassLoader;
     m_aWrappedResourceResolver = aWrappedResourceResolver;
+  }
+
+  @Nullable
+  public ClassLoader getClassLoader ()
+  {
+    return m_aClassLoader;
   }
 
   @Nullable
@@ -80,6 +96,30 @@ public class SimpleLSResourceResolver implements LSResourceResolver
   @Nonnull
   public static IReadableResource doStandardResourceResolving (@Nullable final String sSystemId,
                                                                @Nullable final String sBaseURI) throws IOException
+  {
+    return doStandardResourceResolving (sSystemId, sBaseURI, (ClassLoader) null);
+  }
+
+  /**
+   * Do the standard resource resolving of sSystemId relative to sBaseURI
+   *
+   * @param sSystemId
+   *        The resource to search. May be <code>null</code> if base URI is set.
+   * @param sBaseURI
+   *        The base URI from where the search is initiated. May be
+   *        <code>null</code> if systemId is set.
+   * @param aClassLoader
+   *        The class loader to be used for {@link ClassPathResource} objects.
+   *        May be <code>null</code> in which case the default class loader is
+   *        used.
+   * @return The non-<code>null</code> resource. May be non-existing!
+   * @throws IOException
+   *         In case the file resolution (to an absolute file) fails.
+   */
+  @Nonnull
+  public static IReadableResource doStandardResourceResolving (@Nullable final String sSystemId,
+                                                               @Nullable final String sBaseURI,
+                                                               @Nullable final ClassLoader aClassLoader) throws IOException
   {
     if (sSystemId == null && sBaseURI == null)
       throw new IllegalArgumentException ("systemID and baseURI are null!");
@@ -114,7 +154,7 @@ public class SimpleLSResourceResolver implements LSResourceResolver
                                                                             : aBaseParent.getPath () + '/' + sSystemId);
 
       // Build result (must contain forward slashes!)
-      return new ClassPathResource (sPath);
+      return new ClassPathResource (sPath, aClassLoader);
     }
 
     if (ClassPathResource.isExplicitClassPathResource (sBaseURI))
@@ -124,7 +164,8 @@ public class SimpleLSResourceResolver implements LSResourceResolver
       final File aBaseFile = new File (sRealBaseURI).getParentFile ();
       return new ClassPathResource (FilenameHelper.getCleanConcatenatedUrlPath (aBaseFile == null ? "/"
                                                                                                   : aBaseFile.getPath (),
-                                                                                sSystemId));
+                                                                                sSystemId),
+                                    aClassLoader);
     }
 
     // Try whether the base is a URI
@@ -205,7 +246,7 @@ public class SimpleLSResourceResolver implements LSResourceResolver
                                                        @Nullable final String sSystemId,
                                                        @Nullable final String sBaseURI) throws Exception
   {
-    return doStandardResourceResolving (sSystemId, sBaseURI);
+    return doStandardResourceResolving (sSystemId, sBaseURI, m_aClassLoader);
   }
 
   /**
