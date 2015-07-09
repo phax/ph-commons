@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableShort extends AbstractMutableInteger <MutableShort>
+public class MutableShort extends AbstractMutableInteger <MutableShort>
 {
   /** The default value if the default constructor is used. */
   public static final short DEFAULT_VALUE = CGlobal.DEFAULT_SHORT;

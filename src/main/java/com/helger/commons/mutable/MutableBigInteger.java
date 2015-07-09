@@ -37,7 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger>
+public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger>
 {
   /** The default value if the default constructor is used. */
   public static final BigInteger DEFAULT_VALUE = BigInteger.ZERO;

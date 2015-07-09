@@ -34,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableDouble extends AbstractMutableNumeric <MutableDouble>
+public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
 {
   /** The default value if the default constructor is used. */
   public static final double DEFAULT_VALUE = CGlobal.DEFAULT_DOUBLE;

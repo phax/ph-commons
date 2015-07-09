@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableByte extends AbstractMutableInteger <MutableByte>
+public class MutableByte extends AbstractMutableInteger <MutableByte>
 {
   /** The default value if the default constructor is used. */
   public static final byte DEFAULT_VALUE = CGlobal.DEFAULT_BYTE;

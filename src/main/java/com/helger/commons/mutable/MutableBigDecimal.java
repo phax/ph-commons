@@ -38,7 +38,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal>
+public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal>
 {
   /** The default value if the default constructor is used. */
   public static final BigDecimal DEFAULT_VALUE = BigDecimal.ZERO;

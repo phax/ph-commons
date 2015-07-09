@@ -34,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableFloat extends AbstractMutableNumeric <MutableFloat>
+public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
 {
   /** The default value if the default constructor is used. */
   public static final float DEFAULT_VALUE = CGlobal.DEFAULT_FLOAT;

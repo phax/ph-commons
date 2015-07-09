@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableInt extends AbstractMutableInteger <MutableInt>
+public class MutableInt extends AbstractMutableInteger <MutableInt>
 {
   /** The default value if the default constructor is used. */
   public static final int DEFAULT_VALUE = CGlobal.DEFAULT_INT;

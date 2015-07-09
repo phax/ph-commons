@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class MutableBoolean implements IMutableObject <MutableBoolean>
+public class MutableBoolean implements IMutableObject <MutableBoolean>
 {
   /** The default value if the default constructor is used. */
   public static final boolean DEFAULT_VALUE = CGlobal.DEFAULT_BOOLEAN;
