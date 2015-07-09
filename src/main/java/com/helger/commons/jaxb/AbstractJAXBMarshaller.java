@@ -61,6 +61,7 @@ import com.helger.commons.jaxb.validation.AbstractValidationEventHandler;
 import com.helger.commons.jaxb.validation.CollectingLoggingValidationEventHandlerFactory;
 import com.helger.commons.jaxb.validation.CollectingValidationEventHandler;
 import com.helger.commons.jaxb.validation.IValidationEventHandlerFactory;
+import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.xml.EXMLParserFeature;
@@ -81,7 +82,7 @@ import com.helger.commons.xml.transform.TransformSourceFactory;
  *        The JAXB type to be marshalled
  */
 @NotThreadSafe
-public abstract class AbstractJAXBMarshaller <JAXBTYPE>
+public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoader
 {
   public static final boolean DEFAULT_READ_SECURE = true;
   public static final boolean DEFAULT_WRITE_FORMATTED = false;
@@ -94,6 +95,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   private ValidationEventHandler m_aLastEventHandler;
   private boolean m_bReadSecure = DEFAULT_READ_SECURE;
   private boolean m_bWriteFormatted = DEFAULT_WRITE_FORMATTED;
+  private ClassLoader m_aClassLoader;
 
   /**
    * Constructor.
@@ -152,6 +154,17 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
       for (final IReadableResource aXSD : aXSDs)
         m_aXSDs.add (aXSD);
     }
+  }
+
+  @Nullable
+  public final ClassLoader getClassLoader ()
+  {
+    return m_aClassLoader;
+  }
+
+  public final void setClassLoader (@Nullable final ClassLoader aClassLoader)
+  {
+    m_aClassLoader = aClassLoader;
   }
 
   /**
@@ -333,20 +346,25 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   @OverrideOnDemand
   protected Schema createValidationSchema ()
   {
-    return m_aXSDs.isEmpty () ? null : XMLSchemaCache.getInstance ().getSchema (m_aXSDs);
+    return m_aXSDs.isEmpty () ? null : XMLSchemaCache.getInstanceOfClassLoader (m_aClassLoader).getSchema (m_aXSDs);
   }
 
   /**
+   * @param aClassLoader
+   *        The class loader to be used for XML schema resolving. May be
+   *        <code>null</code>.
    * @return The JAXB unmarshaller to use. Never <code>null</code>.
    * @throws JAXBException
    *         In case the creation fails.
    */
   @Nonnull
-  private Unmarshaller _createUnmarshaller () throws JAXBException
+  private Unmarshaller _createUnmarshaller (@Nullable final ClassLoader aClassLoader) throws JAXBException
   {
     final Package aPackage = m_aType.getPackage ();
-    final JAXBContext aJAXBContext = useJAXBContextCache () ? JAXBContextCache.getInstance ().getFromCache (aPackage)
-                                                           : JAXBContext.newInstance (aPackage.getName ());
+    final JAXBContext aJAXBContext = useJAXBContextCache () ? JAXBContextCache.getInstance ().getFromCache (aPackage,
+                                                                                                            aClassLoader)
+                                                            : JAXBContext.newInstance (aPackage.getName (),
+                                                                                       aClassLoader);
 
     // create an Unmarshaller
     final Unmarshaller aUnmarshaller = aJAXBContext.createUnmarshaller ();
@@ -532,7 +550,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
 
     try
     {
-      final Unmarshaller aUnmarshaller = _createUnmarshaller ();
+      final Unmarshaller aUnmarshaller = _createUnmarshaller (m_aClassLoader);
       customizeUnmarshaller (aUnmarshaller);
       return aUnmarshaller.unmarshal (aSource, m_aType).getValue ();
     }
@@ -553,8 +571,10 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   private Marshaller _createMarshaller () throws JAXBException
   {
     final Package aPackage = m_aType.getPackage ();
-    final JAXBContext aJAXBContext = useJAXBContextCache () ? JAXBContextCache.getInstance ().getFromCache (aPackage)
-                                                           : JAXBContext.newInstance (aPackage.getName ());
+    final JAXBContext aJAXBContext = useJAXBContextCache () ? JAXBContextCache.getInstance ().getFromCache (aPackage,
+                                                                                                            m_aClassLoader)
+                                                            : JAXBContext.newInstance (aPackage.getName (),
+                                                                                       m_aClassLoader);
 
     // create an Unmarshaller
     final Marshaller aMarshaller = aJAXBContext.createMarshaller ();

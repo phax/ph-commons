@@ -106,6 +106,7 @@ public final class CommonsCleanup
       JAXBContextCache.getInstance ().clearCache ();
     if (XMLSchemaCache.isInstantiated ())
       XMLSchemaCache.getInstance ().clearCache ();
+    XMLSchemaCache.clearPerClassLoaderCache ();
     StatisticsManager.clearCache ();
     SystemProperties.clearWarnedPropertyNames ();
 

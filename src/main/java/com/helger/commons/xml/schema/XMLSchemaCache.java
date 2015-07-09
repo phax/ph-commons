@@ -16,8 +16,14 @@
  */
 package com.helger.commons.xml.schema;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.xml.XMLConstants;
 import javax.xml.validation.SchemaFactory;
@@ -83,5 +89,61 @@ public class XMLSchemaCache extends SchemaCache
     final XMLSchemaCache ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
     return ret;
+  }
+
+  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  @GuardedBy ("s_aRWLock")
+  private static final Map <String, XMLSchemaCache> s_aPerClassLoaderCache = new HashMap <String, XMLSchemaCache> ();
+
+  @Nonnull
+  public static XMLSchemaCache getInstanceOfClassLoader (@Nullable final ClassLoader aClassLoader)
+  {
+    if (aClassLoader == null)
+      return getInstance ();
+
+    final String sKey = aClassLoader.toString ();
+    XMLSchemaCache aCache = null;
+    s_aRWLock.readLock ().lock ();
+    try
+    {
+      aCache = s_aPerClassLoaderCache.get (sKey);
+    }
+    finally
+    {
+      s_aRWLock.readLock ().unlock ();
+    }
+    if (aCache == null)
+    {
+      // Not found in read-lock
+      s_aRWLock.writeLock ().lock ();
+      try
+      {
+        // Try again in write lock
+        aCache = s_aPerClassLoaderCache.get (sKey);
+        if (aCache == null)
+        {
+          aCache = new XMLSchemaCache (new SimpleLSResourceResolver (aClassLoader));
+          s_aPerClassLoaderCache.put (sKey, aCache);
+        }
+      }
+      finally
+      {
+        s_aRWLock.writeLock ().unlock ();
+      }
+    }
+    return aCache;
+  }
+
+  public static void clearPerClassLoaderCache ()
+  {
+    s_aRWLock.writeLock ().lock ();
+    try
+    {
+      s_aPerClassLoaderCache.clear ();
+    }
+    finally
+    {
+      s_aRWLock.writeLock ().unlock ();
+    }
   }
 }
