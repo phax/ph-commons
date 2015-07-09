@@ -25,8 +25,13 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.string.ToStringGenerator;
 
+/**
+ * The key class for the {@link JAXBContextCache}
+ * 
+ * @author Philip Helger
+ */
 @Immutable
-public final class JAXBContextCacheKey
+public class JAXBContextCacheKey
 {
   private final Package m_aPackage;
   private final ClassLoader m_aClassLoader;
