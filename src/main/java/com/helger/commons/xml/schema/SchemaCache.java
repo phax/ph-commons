@@ -93,24 +93,24 @@ public class SchemaCache extends AbstractNotifyingCache <List <? extends IReadab
     return m_aSchemaFactory.getResourceResolver ();
   }
 
-  @Override
-  @Nonnull
-  @IsLocked (ELockType.WRITE)
-  protected Schema getValueToCache (final List <? extends IReadableResource> aKey)
+  public static Schema createSchema (@Nonnull final SchemaFactory aSchemaFactory,
+                                     @Nonnull final String sSchemaTypeName,
+                                     @Nonnull @Nonempty final List <? extends IReadableResource> aResources)
   {
-    ValueEnforcer.notEmptyNoNullValue (aKey, "Resources");
+    ValueEnforcer.notNull (aSchemaFactory, "SchemaFactory");
+    ValueEnforcer.notEmptyNoNullValue (aResources, "Resources");
 
     // Collect all sources
-    final Source [] aSources = new Source [aKey.size ()];
-    for (int i = 0; i < aKey.size (); ++i)
-      aSources[i] = TransformSourceFactory.create (aKey.get (i));
+    final Source [] aSources = new Source [aResources.size ()];
+    for (int i = 0; i < aResources.size (); ++i)
+      aSources[i] = TransformSourceFactory.create (aResources.get (i));
 
     try
     {
-      final Schema ret = m_aSchemaFactory.newSchema (aSources);
+      final Schema ret = aSchemaFactory.newSchema (aSources);
       if (ret == null)
         throw new IllegalStateException ("Failed to create " +
-                                         m_sSchemaTypeName +
+                                         sSchemaTypeName +
                                          " schema from " +
                                          Arrays.toString (aSources));
       return ret;
@@ -118,10 +118,19 @@ public class SchemaCache extends AbstractNotifyingCache <List <? extends IReadab
     catch (final SAXException ex)
     {
       throw new IllegalArgumentException ("Failed to parse " +
-                                          m_sSchemaTypeName +
+                                          sSchemaTypeName +
                                           " from " +
-                                          Arrays.toString (aSources), ex);
+                                          Arrays.toString (aSources),
+                                          ex);
     }
+  }
+
+  @Override
+  @Nonnull
+  @IsLocked (ELockType.WRITE)
+  protected Schema getValueToCache (@Nonnull @Nonempty final List <? extends IReadableResource> aKey)
+  {
+    return createSchema (m_aSchemaFactory, m_sSchemaTypeName, aKey);
   }
 
   /**
