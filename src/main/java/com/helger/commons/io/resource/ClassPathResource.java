@@ -36,6 +36,7 @@ import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassLoaderHelper;
+import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.url.URLHelper;
@@ -46,7 +47,7 @@ import com.helger.commons.url.URLHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ClassPathResource implements IReadableResource
+public class ClassPathResource implements IReadableResource, IHasClassLoader
 {
   /** Use this prefix to uniquely identify classpath resources */
   public static final String CLASSPATH_PREFIX_LONG = "classpath:";

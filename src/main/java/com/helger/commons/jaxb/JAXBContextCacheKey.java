@@ -23,15 +23,16 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ClassLoaderHelper;
+import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * The key class for the {@link JAXBContextCache}
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
-public class JAXBContextCacheKey
+public class JAXBContextCacheKey implements IHasClassLoader
 {
   private final Package m_aPackage;
   private final ClassLoader m_aClassLoader;
@@ -52,8 +53,8 @@ public class JAXBContextCacheKey
   }
 
   /**
-   * @return The class loader passed in the constructor or the default
-   *         classloader. Never <code>null</code>-
+   * @return The class loader passed in the constructor or the default class
+   *         loader. Never <code>null</code>-
    */
   @Nonnull
   public ClassLoader getClassLoader ()
