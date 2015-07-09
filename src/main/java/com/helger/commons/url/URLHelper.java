@@ -101,7 +101,7 @@ public final class URLHelper
   private static final Logger s_aLogger = LoggerFactory.getLogger (URLHelper.class);
 
   private static char [] s_aCleanURLOld;
-  private static char [][] s_aCleanURLNew;
+  private static char [] [] s_aCleanURLNew;
 
   @PresentForCodeCoverage
   private static final URLHelper s_aInstance = new URLHelper ();
@@ -497,7 +497,7 @@ public final class URLHelper
                                      @Nullable final Charset aParameterCharset)
   {
     final IEncoder <String> aParameterEncoder = aParameterCharset == null ? null
-                                                                         : new URLParameterEncoder (aParameterCharset);
+                                                                          : new URLParameterEncoder (aParameterCharset);
     return getURLString (sPath, aParams, sAnchor, aParameterEncoder);
   }
 
@@ -927,7 +927,7 @@ public final class URLHelper
       if (ret == null)
       {
         // this is a fix for a user that needed to have the application
-        // loaded by the bootstrap classloader
+        // loaded by the bootstrap class loader
         ret = ClassLoader.getSystemClassLoader ().getResource (sRealPath);
       }
     }
