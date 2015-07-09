@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class TimeValue
+public class TimeValue
 {
   /** Special instance representing 1 second */
   public static final TimeValue SEC1 = new TimeValue (TimeUnit.SECONDS, 1);
