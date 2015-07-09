@@ -31,7 +31,7 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.compare.CollatingComparator;
 import com.helger.commons.locale.LocaleCache;
 
-public class JavaCollatorFuncTest
+public final class JavaCollatorFuncTest
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (JavaCollatorFuncTest.class);
 

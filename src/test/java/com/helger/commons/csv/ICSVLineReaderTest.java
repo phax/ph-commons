@@ -26,7 +26,12 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-public class ICSVLineReaderTest
+/**
+ * Test class for class {@link ICSVLineReader}.
+ * 
+ * @author Philip Helger
+ */
+public final class ICSVLineReaderTest
 {
   private static final String ORIGINAL = "This is the original string\r\n";
   private static final String WITH_CR = "This is the original string\r";
