@@ -161,7 +161,7 @@ public class ClassPathResource implements IReadableResource
   }
 
   @Nullable
-  private ClassLoader _getSpecifiedClassLoader ()
+  public ClassLoader getClassLoader ()
   {
     return m_aClassLoader == null ? null : m_aClassLoader.get ();
   }
@@ -308,7 +308,7 @@ public class ClassPathResource implements IReadableResource
   public InputStream getInputStream ()
   {
     final URL aURL = getAsURL ();
-    return _getInputStream (m_sPath, aURL, _getSpecifiedClassLoader ());
+    return _getInputStream (m_sPath, aURL, getClassLoader ());
   }
 
   /**
@@ -358,7 +358,7 @@ public class ClassPathResource implements IReadableResource
   @Nullable
   private URL _getAsURL ()
   {
-    final ClassLoader aClassLoader = _getSpecifiedClassLoader ();
+    final ClassLoader aClassLoader = getClassLoader ();
     if (aClassLoader == null)
       return URLHelper.getClassPathURL (m_sPath);
     return URLHelper.getClassPathURL (m_sPath, aClassLoader);
@@ -453,7 +453,7 @@ public class ClassPathResource implements IReadableResource
   @Nonnull
   public ClassPathResource getReadableCloneForPath (@Nonnull final String sPath)
   {
-    return new ClassPathResource (sPath, _getSpecifiedClassLoader ());
+    return new ClassPathResource (sPath, getClassLoader ());
   }
 
   @Override
@@ -465,8 +465,7 @@ public class ClassPathResource implements IReadableResource
       return false;
     final ClassPathResource rhs = (ClassPathResource) o;
     // URL and URLresolved are state variables
-    return EqualsHelper.equals (m_sPath, rhs.m_sPath) &&
-           EqualsHelper.equals (_getSpecifiedClassLoader (), rhs._getSpecifiedClassLoader ());
+    return EqualsHelper.equals (m_sPath, rhs.m_sPath) && EqualsHelper.equals (getClassLoader (), rhs.getClassLoader ());
   }
 
   @Override
@@ -479,7 +478,7 @@ public class ClassPathResource implements IReadableResource
   public String toString ()
   {
     return new ToStringGenerator (null).append ("cpPath", m_sPath)
-                                       .appendIfNotNull ("classLoader", _getSpecifiedClassLoader ())
+                                       .appendIfNotNull ("classLoader", getClassLoader ())
                                        .append ("urlResolved", m_bURLResolved)
                                        .append ("URL", m_aURL)
                                        .toString ();
