@@ -21,6 +21,7 @@ import java.security.AccessController;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.lang.priviledged.PrivilegedActionClassLoaderGetParent;
 import com.helger.commons.lang.priviledged.PrivilegedActionGetClassLoader;
@@ -67,6 +68,7 @@ public final class ClassLoaderHelper
   @Nonnull
   public static ClassLoader getClassClassLoader (@Nonnull final Class <?> aClass)
   {
+    ValueEnforcer.notNull (aClass, "Class");
     if (_hasNoSecurityManager ())
       return aClass.getClassLoader ();
 
@@ -76,6 +78,7 @@ public final class ClassLoaderHelper
   @Nonnull
   public static ClassLoader getParentClassLoader (@Nonnull final ClassLoader aClassLoader)
   {
+    ValueEnforcer.notNull (aClassLoader, "ClassLoader");
     if (_hasNoSecurityManager ())
       return aClassLoader.getParent ();
 
