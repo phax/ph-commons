@@ -54,12 +54,17 @@ public class SimpleLSResourceResolver implements LSResourceResolver, IHasClassLo
 
   public SimpleLSResourceResolver ()
   {
-    this (null, null);
+    this ((ClassLoader) null, (LSResourceResolver) null);
   }
 
   public SimpleLSResourceResolver (@Nullable final LSResourceResolver aWrappedResourceResolver)
   {
-    this (null, aWrappedResourceResolver);
+    this ((ClassLoader) null, aWrappedResourceResolver);
+  }
+
+  public SimpleLSResourceResolver (@Nullable final ClassLoader aClassLoader)
+  {
+    this (aClassLoader, (LSResourceResolver) null);
   }
 
   public SimpleLSResourceResolver (@Nullable final ClassLoader aClassLoader,
