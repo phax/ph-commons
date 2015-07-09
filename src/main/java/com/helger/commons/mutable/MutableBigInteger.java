@@ -134,6 +134,7 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     m_aValue = m_aValue.add (aDelta);
+    onAfterChange ();
     return m_aValue;
   }
 
@@ -181,6 +182,7 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
   {
     ValueEnforcer.notNull (aDivisor, "Divisor");
     m_aValue = m_aValue.divide (aDivisor);
+    onAfterChange ();
     return m_aValue;
   }
 
@@ -202,6 +204,7 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
   {
     ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
     m_aValue = m_aValue.multiply (aMultiplicand);
+    onAfterChange ();
     return m_aValue;
   }
 
@@ -225,6 +228,7 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     if (aValue.equals (m_aValue))
       return EChange.UNCHANGED;
     m_aValue = aValue;
+    onAfterChange ();
     return EChange.CHANGED;
   }
 

@@ -107,6 +107,7 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
   public int inc (final int nDelta)
   {
     m_nValue += nDelta;
+    onAfterChange ();
     return m_nValue;
   }
 
@@ -135,6 +136,7 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
   public int divide (final int nDivisor)
   {
     m_nValue /= nDivisor;
+    onAfterChange ();
     return m_nValue;
   }
 
@@ -147,6 +149,7 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
   public int multiply (final int nMultiplicand)
   {
     m_nValue *= nMultiplicand;
+    onAfterChange ();
     return m_nValue;
   }
 
@@ -162,6 +165,7 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
     if (m_nValue == nValue)
       return EChange.UNCHANGED;
     m_nValue = nValue;
+    onAfterChange ();
     return EChange.CHANGED;
   }
 

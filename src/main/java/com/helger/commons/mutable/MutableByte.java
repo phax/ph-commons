@@ -125,6 +125,7 @@ public class MutableByte extends AbstractMutableInteger <MutableByte>
   public int inc (final int nDelta)
   {
     m_nValue += nDelta;
+    onAfterChange ();
     return m_nValue;
   }
 
@@ -162,6 +163,7 @@ public class MutableByte extends AbstractMutableInteger <MutableByte>
     if (m_nValue == nValue)
       return EChange.UNCHANGED;
     m_nValue = nValue;
+    onAfterChange ();
     return EChange.CHANGED;
   }
 

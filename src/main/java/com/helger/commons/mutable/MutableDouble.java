@@ -96,6 +96,7 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
   public double inc (final double dDelta)
   {
     m_dValue += dDelta;
+    onAfterChange ();
     return m_dValue;
   }
 
@@ -124,6 +125,7 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
   public double divide (final double dDivisor)
   {
     m_dValue /= dDivisor;
+    onAfterChange ();
     return m_dValue;
   }
 
@@ -136,6 +138,7 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
   public double multiply (final double dMultiplicand)
   {
     m_dValue *= dMultiplicand;
+    onAfterChange ();
     return m_dValue;
   }
 
@@ -151,6 +154,7 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     if (EqualsHelper.equals (dValue, m_dValue))
       return EChange.UNCHANGED;
     m_dValue = dValue;
+    onAfterChange ();
     return EChange.CHANGED;
   }
 

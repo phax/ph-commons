@@ -21,6 +21,8 @@ import java.math.BigInteger;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.OverrideOnDemand;
+
 /**
  * Base implementation class for {@link IMutableNumeric} extending
  * {@link Number} class.
@@ -31,6 +33,14 @@ import javax.annotation.Nonnull;
  */
 public abstract class AbstractMutableNumeric <IMPLTYPE extends AbstractMutableNumeric <IMPLTYPE>> extends Number implements IMutableNumeric <IMPLTYPE>
 {
+  /**
+   * This method is invoked after a value changed. This method is also called if
+   * e.g. an increment of zero happens so no change effectively was performed.
+   */
+  @OverrideOnDemand
+  protected void onAfterChange ()
+  {}
+
   @Nonnull
   public final Byte getAsByte ()
   {

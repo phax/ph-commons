@@ -107,6 +107,7 @@ public class MutableLong extends AbstractMutableInteger <MutableLong>
   public long inc (final long nDelta)
   {
     m_nValue += nDelta;
+    onAfterChange ();
     return m_nValue;
   }
 
@@ -135,6 +136,7 @@ public class MutableLong extends AbstractMutableInteger <MutableLong>
   public long divide (final long nDivisor)
   {
     m_nValue /= nDivisor;
+    onAfterChange ();
     return m_nValue;
   }
 
@@ -147,6 +149,7 @@ public class MutableLong extends AbstractMutableInteger <MutableLong>
   public long multiply (final long nMultiplicand)
   {
     m_nValue *= nMultiplicand;
+    onAfterChange ();
     return m_nValue;
   }
 
@@ -162,6 +165,7 @@ public class MutableLong extends AbstractMutableInteger <MutableLong>
     if (nValue == m_nValue)
       return EChange.UNCHANGED;
     m_nValue = nValue;
+    onAfterChange ();
     return EChange.CHANGED;
   }
 

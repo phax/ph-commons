@@ -129,6 +129,7 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
   public int inc (final int nDelta)
   {
     m_cValue += nDelta;
+    onAfterChange ();
     return m_cValue;
   }
 
@@ -173,6 +174,7 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
     if (m_cValue == cValue)
       return EChange.UNCHANGED;
     m_cValue = cValue;
+    onAfterChange ();
     return EChange.CHANGED;
   }
 

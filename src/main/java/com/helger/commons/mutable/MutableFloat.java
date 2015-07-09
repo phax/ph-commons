@@ -96,6 +96,7 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
   public float inc (final float fDelta)
   {
     m_fValue += fDelta;
+    onAfterChange ();
     return m_fValue;
   }
 
@@ -124,6 +125,7 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
   public float divide (final float fDivisor)
   {
     m_fValue /= fDivisor;
+    onAfterChange ();
     return m_fValue;
   }
 
@@ -136,6 +138,7 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
   public float multiply (final float fMultiplicand)
   {
     m_fValue *= fMultiplicand;
+    onAfterChange ();
     return m_fValue;
   }
 
@@ -151,6 +154,7 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     if (EqualsHelper.equals (fValue, m_fValue))
       return EChange.UNCHANGED;
     m_fValue = fValue;
+    onAfterChange ();
     return EChange.CHANGED;
   }
 

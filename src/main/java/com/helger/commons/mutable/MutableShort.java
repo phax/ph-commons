@@ -125,6 +125,7 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
   public int inc (final int nDelta)
   {
     m_nValue += nDelta;
+    onAfterChange ();
     return m_nValue;
   }
 
@@ -162,6 +163,7 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
     if (m_nValue == nValue)
       return EChange.UNCHANGED;
     m_nValue = nValue;
+    onAfterChange ();
     return EChange.CHANGED;
   }
 
