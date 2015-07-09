@@ -45,6 +45,12 @@ public class XMLSchemaCache extends SchemaCache
 
   private static boolean s_bDefaultInstantiated = false;
 
+  @Nonnull
+  public static SchemaFactory createXSDSchemaFactory ()
+  {
+    return SchemaFactory.newInstance (XMLConstants.W3C_XML_SCHEMA_NS_URI);
+  }
+
   public XMLSchemaCache ()
   {
     this (new LoggingSAXErrorHandler (), new SimpleLSResourceResolver ());
@@ -63,7 +69,7 @@ public class XMLSchemaCache extends SchemaCache
   public XMLSchemaCache (@Nullable final ErrorHandler aErrorHandler,
                          @Nullable final LSResourceResolver aResourceResolver)
   {
-    super ("XSD", SchemaFactory.newInstance (XMLConstants.W3C_XML_SCHEMA_NS_URI), aErrorHandler, aResourceResolver);
+    super ("XSD", createXSDSchemaFactory (), aErrorHandler, aResourceResolver);
   }
 
   public static boolean isInstantiated ()

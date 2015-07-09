@@ -93,6 +93,7 @@ public class SchemaCache extends AbstractNotifyingCache <List <? extends IReadab
     return m_aSchemaFactory.getResourceResolver ();
   }
 
+  @Nonnull
   public static Schema createSchema (@Nonnull final SchemaFactory aSchemaFactory,
                                      @Nonnull final String sSchemaTypeName,
                                      @Nonnull @Nonempty final List <? extends IReadableResource> aResources)
@@ -256,11 +257,11 @@ public class SchemaCache extends AbstractNotifyingCache <List <? extends IReadab
    * Utility method to remove a single resource from the schema cache.
    *
    * @param aKey
-   *        The resource to remove
+   *        The resource to remove. May not be <code>null</code>.
    * @return {@link EChange}.
    */
   @Nonnull
-  public EChange removeFromCache (@Nullable final IReadableResource aKey)
+  public EChange removeFromCache (@Nonnull final IReadableResource aKey)
   {
     return removeFromCache (CollectionHelper.newList (aKey));
   }
