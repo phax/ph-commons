@@ -27,6 +27,7 @@ import com.helger.commons.lang.priviledged.PrivilegedActionClassLoaderGetParent;
 import com.helger.commons.lang.priviledged.PrivilegedActionGetClassLoader;
 import com.helger.commons.lang.priviledged.PrivilegedActionGetContextClassLoader;
 import com.helger.commons.lang.priviledged.PrivilegedActionGetSystemClassLoader;
+import com.helger.commons.lang.priviledged.PrivilegedActionSetContextClassLoader;
 
 /**
  * {@link ClassLoader} utility methods.
@@ -63,6 +64,15 @@ public final class ClassLoaderHelper
       return Thread.currentThread ().getContextClassLoader ();
 
     return AccessController.doPrivileged (new PrivilegedActionGetContextClassLoader ());
+  }
+
+  public static void setContextClassLoader (final ClassLoader aClassLoader)
+  {
+    ValueEnforcer.notNull (aClassLoader, "ClassLoader");
+    if (_hasNoSecurityManager ())
+      Thread.currentThread ().setContextClassLoader (aClassLoader);
+
+    AccessController.doPrivileged (new PrivilegedActionSetContextClassLoader (aClassLoader));
   }
 
   @Nonnull

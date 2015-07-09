@@ -923,12 +923,12 @@ public final class URLHelper
     if (ret == null)
     {
       // This is essential if we're running as a web application!!!
-      ret = ClassPathResource.class.getResource (sRealPath);
+      ret = ClassLoaderHelper.getClassClassLoader (URLHelper.class).getResource (sRealPath);
       if (ret == null)
       {
         // this is a fix for a user that needed to have the application
         // loaded by the bootstrap class loader
-        ret = ClassLoader.getSystemClassLoader ().getResource (sRealPath);
+        ret = ClassLoaderHelper.getSystemClassLoader ().getResource (sRealPath);
       }
     }
     return ret;
