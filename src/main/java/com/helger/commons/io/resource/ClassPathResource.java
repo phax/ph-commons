@@ -35,6 +35,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.url.URLHelper;
@@ -180,9 +181,76 @@ public class ClassPathResource implements IReadableResource
   }
 
   @Nullable
-  private static InputStream _getInputStream (@Nullable final URL aURL)
+  private static InputStream _getInputStream (@Nonnull @Nonempty final String sPath,
+                                              @Nullable final URL aURL,
+                                              @Nullable final ClassLoader aClassLoader)
   {
-    return aURL == null ? null : URLResource.getInputStream (aURL);
+    if (true)
+    {
+      // Simple version
+      InputStream ret = null;
+      if (aURL != null)
+      {
+        // Resolve from URL
+        ret = URLResource.getInputStream (aURL);
+      }
+      else
+        if (aClassLoader != null)
+        {
+          // Ensure the path starts with a "/"
+          final String sRealPath = sPath.startsWith ("/") ? sPath : '/' + sPath;
+
+          // No URL but ClassLoader - use path as is
+          ret = aClassLoader.getResourceAsStream (sRealPath);
+        }
+
+      return ret;
+    }
+
+    // Complex version
+    InputStream ret = null;
+    if (aURL != null)
+    {
+      // Try to resolve from URL
+      ret = URLResource.getInputStream (aURL);
+    }
+
+    if (ret == null)
+    {
+      // Not a URL resolvable InputStream - use path as is
+
+      if (aURL != null && "jar".equals (aURL.getProtocol ()) && sPath.endsWith ("/"))
+      {
+        // It's a directory in a JAR file - no InputStream on this one
+      }
+      else
+      {
+        // Determine ClassLoader to use
+        final ClassLoader aRealClassLoader = aClassLoader != null ? aClassLoader
+                                                                  : ClassLoaderHelper.getDefaultClassLoader ();
+
+        ret = aRealClassLoader.getResourceAsStream (sPath);
+        if (ret != null)
+          try
+          {
+            /*
+             * This will fail if ret is a FilterInputStream with a
+             * <code>null</code> contained InputStream. This happens e.g. when a
+             * JAR URL with a directory that does not end with a slash is
+             * returned.
+             */
+            ret.markSupported ();
+          }
+          catch (final NullPointerException ex)
+          {
+            // An InpuStream for a directory was retrieved - ignore
+            StreamHelper.close (ret);
+            ret = null;
+          }
+      }
+    }
+
+    return ret;
   }
 
   /**
@@ -202,7 +270,7 @@ public class ClassPathResource implements IReadableResource
   public static InputStream getInputStream (@Nonnull @Nonempty final String sPath)
   {
     final URL aURL = URLHelper.getClassPathURL (sPath);
-    return _getInputStream (aURL);
+    return _getInputStream (sPath, aURL, (ClassLoader) null);
   }
 
   /**
@@ -221,7 +289,7 @@ public class ClassPathResource implements IReadableResource
                                             @Nonnull final ClassLoader aClassLoader)
   {
     final URL aURL = URLHelper.getClassPathURL (sPath, aClassLoader);
-    return _getInputStream (aURL);
+    return _getInputStream (sPath, aURL, (ClassLoader) null);
   }
 
   /**
@@ -240,7 +308,7 @@ public class ClassPathResource implements IReadableResource
   public InputStream getInputStream ()
   {
     final URL aURL = getAsURL ();
-    return _getInputStream (aURL);
+    return _getInputStream (m_sPath, aURL, _getSpecifiedClassLoader ());
   }
 
   /**
@@ -255,7 +323,7 @@ public class ClassPathResource implements IReadableResource
   public InputStream getInputStreamNoCache (@Nonnull final ClassLoader aClassLoader)
   {
     final URL aURL = getAsURLNoCache (aClassLoader);
-    return _getInputStream (aURL);
+    return _getInputStream (m_sPath, aURL, aClassLoader);
   }
 
   @Nullable
@@ -287,10 +355,19 @@ public class ClassPathResource implements IReadableResource
     return getAsURL () != null;
   }
 
+  @Nullable
+  private URL _getAsURL ()
+  {
+    final ClassLoader aClassLoader = _getSpecifiedClassLoader ();
+    if (aClassLoader == null)
+      return URLHelper.getClassPathURL (m_sPath);
+    return URLHelper.getClassPathURL (m_sPath, aClassLoader);
+  }
+
   public boolean existsNoCacheUsage ()
   {
     // Resolve the URL again
-    return URLHelper.getClassPathURL (m_sPath) != null;
+    return _getAsURL () != null;
   }
 
   @Nullable
@@ -298,12 +375,7 @@ public class ClassPathResource implements IReadableResource
   {
     if (!m_bURLResolved)
     {
-      // Is a specific class loader defined?
-      final ClassLoader aClassLoader = _getSpecifiedClassLoader ();
-      if (aClassLoader == null)
-        m_aURL = URLHelper.getClassPathURL (m_sPath);
-      else
-        m_aURL = URLHelper.getClassPathURL (m_sPath, aClassLoader);
+      m_aURL = _getAsURL ();
 
       // Remember that we tried to resolve the URL - avoid retry
       m_bURLResolved = true;
