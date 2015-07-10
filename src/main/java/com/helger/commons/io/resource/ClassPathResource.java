@@ -190,16 +190,16 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     {
       // Simple version
       InputStream ret = null;
-      if (aURL != null)
+      if (aClassLoader != null)
       {
-        // Resolve from URL
-        ret = URLResource.getInputStream (aURL);
+        // An explicit ClassLoader was provided - use it
+        ret = ClassLoaderHelper.getResourceAsStream (aClassLoader, sPath);
       }
       else
-        if (aClassLoader != null)
+        if (aURL != null)
         {
-          // No URL but ClassLoader - use path as is
-          ret = ClassLoaderHelper.getResourceAsStream (aClassLoader, sPath);
+          // Resolve from URL
+          ret = URLResource.getInputStream (aURL);
         }
 
       return ret;
