@@ -23,101 +23,104 @@ import com.helger.commons.annotation.Nonempty;
 
 /**
  * Specifies a list of known protocols.<br>
- * Should be extended to the list defined at <a
- * href="http://www.iana.org/assignments/uri-schemes.html">the IANA</a>
+ * Should be extended to the list defined at
+ * <a href="http://www.iana.org/assignments/uri-schemes.html">the IANA</a>
  *
  * @author Philip Helger
  */
 public enum EURLProtocol implements IURLProtocol
 {
-  /** http (RFC2616). */
+ /** http (RFC2616). */
   HTTP ("http://"),
 
-  /** https (RFC2818). */
+ /** https (RFC2818). */
   HTTPS ("https://"),
 
-  /** Local file (RFC1738). */
+ /** Local file (RFC1738). */
   FILE ("file://"),
 
-  /** ftp (RFC1738). */
+ /** ftp (RFC1738). */
   FTP ("ftp://"),
 
-  /** Skype. */
+ /** OSGI bundle */
+  BUNDLE ("bundle://"),
+
+ /** Skype. */
   CALLTO ("callto:"),
 
-  /** Embedded data (RFC2397). */
+ /** Embedded data (RFC2397). */
   DATA ("data:"),
 
-  /** ftps. */
+ /** ftps. */
   FTPS ("ftps://"),
 
-  /** geographic coordinates (RFC5870). */
+ /** geographic coordinates (RFC5870). */
   GEO ("geo:"),
 
-  /** Gopher (RFC4266). */
+ /** Gopher (RFC4266). */
   GOPHER ("gopher://"),
 
-  /** JavaScript */
+ /** JavaScript */
   JAVASCRIPT ("javascript:"),
 
-  /** LDAP (RFC4516). */
+ /** LDAP (RFC4516). */
   LDAP ("ldap:"),
 
-  /** Email (RFC6068). */
+ /** Email (RFC6068). */
   MAILTO ("mailto:"),
 
-  /** MS Media Server. */
+ /** MS Media Server. */
   MMS ("mms:"),
 
-  /** News (RFC5538). */
+ /** News (RFC5538). */
   NEWS ("news:"),
 
-  /** NNTP (RFC5538). */
+ /** NNTP (RFC5538). */
   NNTP ("nntp:"),
 
-  /** POP3 (RFC2384). */
+ /** POP3 (RFC2384). */
   POP ("pop://"),
 
-  /** RSync. */
+ /** RSync. */
   RSYNC ("rsync:"),
 
-  /** RTMP */
+ /** RTMP */
   RTMP ("rtmp://"),
 
-  /** Real time streaming protocol (RFC2326). */
+ /** Real time streaming protocol (RFC2326). */
   RTSP ("rtsp://"),
 
-  /** Real time streaming protocol (unreliable) (RFC2326). */
+ /** Real time streaming protocol (unreliable) (RFC2326). */
   RTSPU ("rtspu://"),
 
-  /** scp. */
+ /** scp. */
   SCP ("scp://"),
 
-  /** sftp. */
+ /** sftp. */
   SFTP ("sftp://"),
 
-  /** shttp (RFC2660). */
+ /** shttp (RFC2660). */
   SHTTP ("shttp://"),
 
-  /** session initiation protocol (RFC3261). */
+ /** session initiation protocol (RFC3261). */
   SIP ("sip:"),
 
-  /** secure session initiation protocol (RFC3261). */
+ /** secure session initiation protocol (RFC3261). */
   SIPS ("sips:"),
 
-  /** Telephone (RFC3966). */
+ /** Telephone (RFC3966). */
   TEL ("tel:"),
 
-  /** Reference to interactive sessions (RFC4248). */
+ /** Reference to interactive sessions (RFC4248). */
   TELNET ("telnet://"),
 
-  /** URN (RFC2141) */
+ /** URN (RFC2141) */
   URN ("urn:"),
 
-  /** Web socket (RFC6455). */
+ /** Web socket (RFC6455). */
   WS ("ws://"),
 
-  /** Encrypted web socket (RFC6455). */
+ /** Encrypted web socket (RFC6455). */
   WSS ("wss://");
 
   private final String m_sProtocol;
