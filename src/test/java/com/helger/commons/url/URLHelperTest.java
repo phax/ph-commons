@@ -162,8 +162,10 @@ public final class URLHelperTest
     assertEquals ("a=b", URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b"), enc));
     assertEquals ("a=b&c=d", URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d"), enc));
     assertEquals ("a=b&c=d&e=f+g",
-                  URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d").add ("e", "f g"), enc));
-    assertEquals ("a=b&c=d%26e", URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d&e"), enc));
+                  URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d").add ("e", "f g"),
+                                                       enc));
+    assertEquals ("a=b&c=d%26e",
+                  URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d&e"), enc));
 
     // Using identity encoder
     assertEquals ("a=b&c=d&e", URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d&e"), null));
@@ -174,5 +176,11 @@ public final class URLHelperTest
   {
     assertTrue (URLHelper.isClassPathURLExisting ("/test1.txt"));
     assertFalse (URLHelper.isClassPathURLExisting ("/test1 not existing.txt"));
+  }
+
+  @Test
+  public void testGetAsURL ()
+  {
+    assertNull (URLHelper.getAsURL ("../common/file.xsd"));
   }
 }
