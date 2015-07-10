@@ -16,12 +16,16 @@
  */
 package com.helger.commons.lang;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.security.AccessController;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.lang.priviledged.PrivilegedActionClassLoaderGetParent;
 import com.helger.commons.lang.priviledged.PrivilegedActionGetClassLoader;
@@ -113,5 +117,66 @@ public final class ClassLoaderHelper
       ret = getClassClassLoader (ClassLoaderHelper.class);
 
     return ret;
+  }
+
+  @Nonnull
+  private static String _getPathWithoutLeadingSlash (@Nonnull @Nonempty final String sPath)
+  {
+    return sPath.charAt (0) == '/' ? sPath.substring (1) : sPath;
+  }
+
+  /**
+   * Get the URL of the passed resource using the specified class loader only.
+   * This is a sanity wrapper around
+   * <code>classLoader.getResource (sPath)</code>.
+   *
+   * @param aClassLoader
+   *        The class loader to be used. May not be <code>null</code>.
+   * @param sPath
+   *        The path to be resolved. May neither be <code>null</code> nor empty.
+   *        Internally it is ensured that the provided path does NOT start with
+   *        a slash.
+   * @return <code>null</code> if the path could not be resolved using the
+   *         specified class loader.
+   */
+  @Nullable
+  public static URL getResource (@Nonnull final ClassLoader aClassLoader, @Nonnull @Nonempty final String sPath)
+  {
+    ValueEnforcer.notNull (aClassLoader, "ClassLoader");
+    ValueEnforcer.notEmpty (sPath, "Path");
+
+    // Ensure the path does NOT starts with a "/"
+    final String sPathWithoutSlash = _getPathWithoutLeadingSlash (sPath);
+
+    // returns null if not found
+    return aClassLoader.getResource (sPathWithoutSlash);
+  }
+
+  /**
+   * Get the input stream of the passed resource using the specified class
+   * loader only. This is a sanity wrapper around
+   * <code>classLoader.getResourceAsStream (sPath)</code>.
+   *
+   * @param aClassLoader
+   *        The class loader to be used. May not be <code>null</code>.
+   * @param sPath
+   *        The path to be resolved. May neither be <code>null</code> nor empty.
+   *        Internally it is ensured that the provided path does NOT start with
+   *        a slash.
+   * @return <code>null</code> if the path could not be resolved using the
+   *         specified class loader.
+   */
+  @Nullable
+  public static InputStream getResourceAsStream (@Nonnull final ClassLoader aClassLoader,
+                                                 @Nonnull @Nonempty final String sPath)
+  {
+    ValueEnforcer.notNull (aClassLoader, "ClassLoader");
+    ValueEnforcer.notEmpty (sPath, "Path");
+
+    // Ensure the path does NOT starts with a "/"
+    final String sPathWithoutSlash = _getPathWithoutLeadingSlash (sPath);
+
+    // returns null if not found
+    return aClassLoader.getResourceAsStream (sPathWithoutSlash);
   }
 }

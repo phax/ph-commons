@@ -198,11 +198,8 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
       else
         if (aClassLoader != null)
         {
-          // Ensure the path starts with a "/"
-          final String sRealPath = sPath.startsWith ("/") ? sPath : '/' + sPath;
-
           // No URL but ClassLoader - use path as is
-          ret = aClassLoader.getResourceAsStream (sRealPath);
+          ret = ClassLoaderHelper.getResourceAsStream (aClassLoader, sPath);
         }
 
       return ret;
@@ -289,7 +286,7 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
   public static InputStream getInputStream (@Nonnull @Nonempty final String sPath,
                                             @Nonnull final ClassLoader aClassLoader)
   {
-    final URL aURL = URLHelper.getClassPathURL (sPath, aClassLoader);
+    final URL aURL = ClassLoaderHelper.getResource (aClassLoader, sPath);
     return _getInputStream (sPath, aURL, (ClassLoader) null);
   }
 
@@ -362,7 +359,8 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     final ClassLoader aClassLoader = getClassLoader ();
     if (aClassLoader == null)
       return URLHelper.getClassPathURL (m_sPath);
-    return URLHelper.getClassPathURL (m_sPath, aClassLoader);
+    final String sPath = m_sPath;
+    return ClassLoaderHelper.getResource (aClassLoader, sPath);
   }
 
   public boolean existsNoCacheUsage ()
@@ -396,7 +394,8 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
   @Nullable
   public URL getAsURLNoCache (@Nonnull final ClassLoader aClassLoader)
   {
-    return URLHelper.getClassPathURL (m_sPath, aClassLoader);
+    final String sPath = m_sPath;
+    return ClassLoaderHelper.getResource (aClassLoader, sPath);
   }
 
   /**
@@ -422,7 +421,7 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
   @Nullable
   public static File getAsFile (@Nonnull @Nonempty final String sPath, @Nonnull final ClassLoader aClassLoader)
   {
-    final URL aURL = URLHelper.getClassPathURL (sPath, aClassLoader);
+    final URL aURL = ClassLoaderHelper.getResource (aClassLoader, sPath);
     return URLHelper.getAsFileOrNull (aURL);
   }
 

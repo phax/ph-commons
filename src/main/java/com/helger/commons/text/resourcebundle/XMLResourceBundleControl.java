@@ -30,6 +30,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.lang.ClassLoaderHelper;
 
 //SKIPJDK5
 /**
@@ -67,7 +68,7 @@ public final class XMLResourceBundleControl extends ResourceBundle.Control
     {
       final String sBundleName = toBundleName (sBaseName, aLocale);
       final String sResourceName = toResourceName (sBundleName, sFormat);
-      final URL aResourceUrl = aClassLoader.getResource (sResourceName);
+      final URL aResourceUrl = ClassLoaderHelper.getResource (aClassLoader, sResourceName);
       if (aResourceUrl != null)
       {
         final InputStream aIS = StreamHelper.getBuffered (URLResource.getInputStream (aResourceUrl));

@@ -16,9 +16,11 @@
  */
 package com.helger.commons.lang;
 
+import java.io.InputStream;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URL;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
@@ -531,5 +533,65 @@ public final class ClassHelper
     if (aObject == null)
       return "0x00000000";
     return "0x" + StringHelper.getHexStringLeadingZero (System.identityHashCode (aObject), 8);
+  }
+
+  @Nonnull
+  private static String _getPathWithLeadingSlash (@Nonnull @Nonempty final String sPath)
+  {
+    return sPath.charAt (0) == '/' ? sPath : "/" + sPath;
+  }
+
+  /**
+   * Get the URL of the passed resource using the class loader of the specified
+   * class only. This is a sanity wrapper around
+   * <code>class.getResource (sPath)</code>.
+   *
+   * @param aClass
+   *        The class to be used. May not be <code>null</code>.
+   * @param sPath
+   *        The path to be resolved. May neither be <code>null</code> nor empty.
+   *        Internally it is ensured that the provided path does start with a
+   *        slash.
+   * @return <code>null</code> if the path could not be resolved using the
+   *         specified class loader.
+   */
+  @Nullable
+  public static URL getResource (@Nonnull final Class <?> aClass, @Nonnull @Nonempty final String sPath)
+  {
+    ValueEnforcer.notNull (aClass, "Class");
+    ValueEnforcer.notEmpty (sPath, "Path");
+
+    // Ensure the path does start with a "/"
+    final String sPathWithSlash = _getPathWithLeadingSlash (sPath);
+
+    // returns null if not found
+    return aClass.getResource (sPathWithSlash);
+  }
+
+  /**
+   * Get the input stream of the passed resource using the class loader of the
+   * specified class only. This is a sanity wrapper around
+   * <code>class.getResourceAsStream (sPath)</code>.
+   *
+   * @param aClass
+   *        The class to be used. May not be <code>null</code>.
+   * @param sPath
+   *        The path to be resolved. May neither be <code>null</code> nor empty.
+   *        Internally it is ensured that the provided path does start with a
+   *        slash.
+   * @return <code>null</code> if the path could not be resolved using the
+   *         specified class loader.
+   */
+  @Nullable
+  public static InputStream getResourceAsStream (@Nonnull final Class <?> aClass, @Nonnull @Nonempty final String sPath)
+  {
+    ValueEnforcer.notNull (aClass, "Class");
+    ValueEnforcer.notEmpty (sPath, "Path");
+
+    // Ensure the path does start with a "/"
+    final String sPathWithSlash = _getPathWithLeadingSlash (sPath);
+
+    // returns null if not found
+    return aClass.getResourceAsStream (sPathWithSlash);
   }
 }

@@ -59,6 +59,7 @@ import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.microdom.util.XMLMapHandler;
 import com.helger.commons.mime.IMimeType;
@@ -915,20 +916,17 @@ public final class URLHelper
   {
     ValueEnforcer.notEmpty (sPath, "Path");
 
-    // Ensure the path starts with a "/"
-    final String sRealPath = sPath.startsWith ("/") ? sPath : '/' + sPath;
-
     // Use the default class loader. Returns null if not found
-    URL ret = ClassLoaderHelper.getDefaultClassLoader ().getResource (sRealPath);
+    URL ret = ClassLoaderHelper.getResource (ClassLoaderHelper.getDefaultClassLoader (), sPath);
     if (ret == null)
     {
       // This is essential if we're running as a web application!!!
-      ret = ClassLoaderHelper.getClassClassLoader (URLHelper.class).getResource (sRealPath);
+      ret = ClassHelper.getResource (URLHelper.class, sPath);
       if (ret == null)
       {
         // this is a fix for a user that needed to have the application
         // loaded by the bootstrap class loader
-        ret = ClassLoaderHelper.getSystemClassLoader ().getResource (sRealPath);
+        ret = ClassLoaderHelper.getResource (ClassLoaderHelper.getSystemClassLoader (), sPath);
       }
     }
     return ret;
@@ -946,16 +944,10 @@ public final class URLHelper
    *         specified class loader.
    */
   @Nullable
+  @Deprecated
   public static URL getClassPathURL (@Nonnull @Nonempty final String sPath, @Nonnull final ClassLoader aClassLoader)
   {
-    ValueEnforcer.notNull (aClassLoader, "ClassLoader");
-    ValueEnforcer.notEmpty (sPath, "Path");
-
-    // Ensure the path starts with a "/"
-    final String sRealPath = sPath.startsWith ("/") ? sPath : '/' + sPath;
-
-    // returns null if not found
-    return aClassLoader.getResource (sRealPath);
+    return ClassLoaderHelper.getResource (aClassLoader, sPath);
   }
 
   public static boolean isClassPathURLExisting (@Nonnull @Nonempty final String sPath)
@@ -966,6 +958,6 @@ public final class URLHelper
   public static boolean isClassPathURLExisting (@Nonnull @Nonempty final String sPath,
                                                 @Nonnull final ClassLoader aClassLoader)
   {
-    return getClassPathURL (sPath, aClassLoader) != null;
+    return ClassLoaderHelper.getResource (aClassLoader, sPath) != null;
   }
 }
