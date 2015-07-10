@@ -31,7 +31,7 @@ import com.helger.commons.io.resource.URLResource;
 
 /**
  * Test class for class {@link SimpleLSResourceResolver}.
- * 
+ *
  * @author Philip Helger
  */
 public final class SimpleLSResourceResolverTest
@@ -42,25 +42,25 @@ public final class SimpleLSResourceResolverTest
     IReadableResource aRes;
 
     // Using URLs as the base
-    aRes = SimpleLSResourceResolver.doStandardResourceResolving ("", "http://www.phloc.com");
+    aRes = SimpleLSResourceResolver.doStandardResourceResolving ("", "http://www.helger.com");
     assertTrue (aRes instanceof URLResource);
-    assertEquals ("http://www.phloc.com", aRes.getPath ());
+    assertEquals ("http://www.helger.com", aRes.getPath ());
 
-    aRes = SimpleLSResourceResolver.doStandardResourceResolving ("dir/file.txt", "http://www.phloc.com");
+    aRes = SimpleLSResourceResolver.doStandardResourceResolving ("dir/file.txt", "http://www.helger.com");
     assertTrue (aRes instanceof URLResource);
-    assertEquals ("http://www.phloc.com/dir/file.txt", aRes.getPath ());
+    assertEquals ("http://www.helger.com/dir/file.txt", aRes.getPath ());
 
-    aRes = SimpleLSResourceResolver.doStandardResourceResolving ("../dir/file.txt", "http://www.phloc.com");
+    aRes = SimpleLSResourceResolver.doStandardResourceResolving ("../dir/file.txt", "http://www.helger.com");
     assertTrue (aRes instanceof URLResource);
-    assertEquals ("http://www.phloc.com/../dir/file.txt", aRes.getPath ());
+    assertEquals ("http://www.helger.com/../dir/file.txt", aRes.getPath ());
 
-    aRes = SimpleLSResourceResolver.doStandardResourceResolving ("../dir/file.txt", "http://www.phloc.com/abc/");
+    aRes = SimpleLSResourceResolver.doStandardResourceResolving ("../dir/file.txt", "http://www.helger.com/abc/");
     assertTrue (aRes instanceof URLResource);
-    assertEquals ("http://www.phloc.com/dir/file.txt", aRes.getPath ());
+    assertEquals ("http://www.helger.com/dir/file.txt", aRes.getPath ());
 
     // system ID is a fixed URL
     aRes = SimpleLSResourceResolver.doStandardResourceResolving ("http://www.example.org/file.txt",
-                                                                 "http://www.phloc.com/abc/");
+                                                                 "http://www.helger.com/abc/");
     assertTrue (aRes instanceof URLResource);
     assertEquals ("http://www.example.org/file.txt", aRes.getPath ());
 
@@ -111,6 +111,14 @@ public final class SimpleLSResourceResolverTest
     aRes = SimpleLSResourceResolver.doStandardResourceResolving (null, "pom.xml");
     assertTrue (aRes instanceof FileSystemResource);
     assertTrue (aRes.getPath (), aRes.getPath ().endsWith ("pom.xml"));
+
+    // System URL contains paths and base URL is a file
+    aRes = SimpleLSResourceResolver.doStandardResourceResolving ("../dir/file.txt",
+                                                                 "http://www.helger.com/abc/orig.file");
+    assertTrue (aRes instanceof URLResource);
+    // This looks weird, but the URL cannot determine whether "file.txt" is a
+    // file or a directory!
+    assertEquals ("http://www.helger.com/abc/dir/file.txt", aRes.getPath ());
 
     try
     {
