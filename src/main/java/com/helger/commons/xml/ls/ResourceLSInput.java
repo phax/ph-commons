@@ -68,6 +68,12 @@ public class ResourceLSInput implements LSInput
   }
 
   @Nonnull
+  public IHasInputStream getInputStreamProvider ()
+  {
+    return m_aISP;
+  }
+
+  @Nonnull
   public InputStream getByteStream ()
   {
     return m_aISP.getInputStream ();

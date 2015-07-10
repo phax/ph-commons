@@ -23,16 +23,11 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 import java.security.Permission;
-import java.util.HashMap;
 
-import org.apache.felix.framework.FrameworkFactory;
 import org.junit.Test;
-import org.osgi.framework.BundleException;
-import org.osgi.framework.launch.Framework;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
@@ -159,40 +154,5 @@ public final class SimpleLSResourceResolverTest
     }
     catch (final IllegalArgumentException ex)
     {}
-  }
-
-  @Test
-  public void testOSGIBundle () throws IOException, BundleException
-  {
-    IReadableResource aRes;
-
-    // Initializing Apache Felix as OSGI container is required to get the
-    // "bundle" URL protocol installed correctly
-    // Otherwise the first call would end up as a "file" resource ;-)
-    final Framework aOSGI = new FrameworkFactory ().newFramework (new HashMap <String, String> ());
-    aOSGI.start ();
-    try
-    {
-      // No class loader
-      aRes = SimpleLSResourceResolver.doStandardResourceResolving ("../common/UBL-CommonAggregateComponents-2.1.xsd",
-                                                                   "bundle://23.0:1/schemas/ubl21/maindoc/UBL-ApplicationResponse-2.1.xsd");
-      assertTrue (aRes instanceof URLResource);
-      // Wrong result!
-      assertEquals ("bundle://23.0:1/schemas/ubl21/maindoc/common/UBL-CommonAggregateComponents-2.1.xsd",
-                    aRes.getPath ());
-
-      // With class loader
-      aRes = SimpleLSResourceResolver.doStandardResourceResolving ("../common/UBL-CommonAggregateComponents-2.1.xsd",
-                                                                   "bundle://23.0:1/schemas/ubl21/maindoc/UBL-ApplicationResponse-2.1.xsd",
-                                                                   getClass ().getClassLoader ());
-      assertTrue (aRes instanceof ClassPathResource);
-      // Correct result!
-      assertEquals ("bundle://23.0:1/schemas/ubl21/common/UBL-CommonAggregateComponents-2.1.xsd", aRes.getPath ());
-
-    }
-    finally
-    {
-      aOSGI.stop ();
-    }
   }
 }

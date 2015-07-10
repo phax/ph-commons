@@ -175,42 +175,6 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
     // Try whether the base is a URI
     final URL aBaseURL = URLHelper.getAsURL (sBaseURI);
 
-    // OSGI special handling
-    if (aBaseURL != null && aClassLoader != null && aBaseURL.getProtocol ().equals (URLHelper.PROTOCOL_BUNDLE))
-    {
-      // URL Layout:
-      // bundle://<revision-id>:<bundle-classpath-index>/<resource-path>
-
-      // Example:
-      // SystemID
-      // ../common/UBL-CommonAggregateComponents-2.1.xsd
-      // BaseURI
-      // bundle://23.0:1/schemas/ubl21/maindoc/UBL-ApplicationResponse-2.1.xsd
-
-      // This does not work, because the same classpath index is used!
-
-      String sBundleBaseURI;
-      final String sBaseFilename = FilenameHelper.getWithoutPath (sBaseURI);
-      if (sBaseFilename != null && sBaseFilename.indexOf ('.') >= 0)
-      {
-        // Heuristics to check if the base URI is a file
-        // This is not ideal but should do the trick
-        sBundleBaseURI = FilenameHelper.getPath (sBaseURI);
-        // For the example this results in:
-        // bundle://23.0:1/schemas/ubl21/maindoc/
-      }
-      else
-      {
-        sBundleBaseURI = sBaseURI;
-      }
-
-      final String sNewPath = FilenameHelper.getCleanConcatenatedUrlPath (sBundleBaseURI, sSystemId);
-      final ClassPathResource ret = new ClassPathResource (sNewPath, aClassLoader);
-      if (DEBUG_RESOLVE)
-        s_aLogger.info ("  resolved base + system URL to " + ret);
-      return ret;
-    }
-
     // Handle "file" protocol separately
     if (aBaseURL != null && !aBaseURL.getProtocol ().equals (URLHelper.PROTOCOL_FILE))
     {
