@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.lang.SecurityManagerHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -46,8 +47,7 @@ public class ExtendedDefaultThreadFactory implements ThreadFactory
 
   public ExtendedDefaultThreadFactory (@Nonnull @Nonempty final String sPoolPrefix)
   {
-    final SecurityManager aSecMgr = System.getSecurityManager ();
-    m_aThreadGroup = aSecMgr != null ? aSecMgr.getThreadGroup () : Thread.currentThread ().getThreadGroup ();
+    m_aThreadGroup = SecurityManagerHelper.getThreadGroup ();
     m_sNamePrefix = sPoolPrefix + "[p" + s_aPoolNumber.getAndIncrement () + "-t";
   }
 
