@@ -2340,6 +2340,27 @@ public final class StringHelper
    *
    * @param sSrc
    *        The input source string
+   * @param cLead
+   *        The char to be trimmed of the beginning
+   * @return The trimmed string, or the original input string, if the lead was
+   *         not found
+   * @see #trimEnd(String, String)
+   * @see #trimStartAndEnd(String, String)
+   * @see #trimStartAndEnd(String, String, String)
+   */
+  @Nullable
+  @CheckReturnValue
+  public static String trimStart (@Nullable final String sSrc, final char cLead)
+  {
+    return startsWith (sSrc, cLead) ? sSrc.substring (1, sSrc.length ()) : sSrc;
+  }
+
+  /**
+   * Trim the passed lead from the source value. If the source value does not
+   * start with the passed lead, nothing happens.
+   *
+   * @param sSrc
+   *        The input source string
    * @param nCount
    *        The number of characters to trim at the end.
    * @return The trimmed string, or an empty string if nCount is &ge; the length
@@ -2373,6 +2394,27 @@ public final class StringHelper
   public static String trimEnd (@Nullable final String sSrc, @Nullable final String sTail)
   {
     return endsWith (sSrc, sTail) ? sSrc.substring (0, sSrc.length () - sTail.length ()) : sSrc;
+  }
+
+  /**
+   * Trim the passed tail from the source value. If the source value does not
+   * end with the passed tail, nothing happens.
+   *
+   * @param sSrc
+   *        The input source string
+   * @param cTail
+   *        The char to be trimmed of the end
+   * @return The trimmed string, or the original input string, if the tail was
+   *         not found
+   * @see #trimStart(String, String)
+   * @see #trimStartAndEnd(String, String)
+   * @see #trimStartAndEnd(String, String, String)
+   */
+  @Nullable
+  @CheckReturnValue
+  public static String trimEnd (@Nullable final String sSrc, final char cTail)
+  {
+    return endsWith (sSrc, cTail) ? sSrc.substring (0, sSrc.length () - 1) : sSrc;
   }
 
   /**
