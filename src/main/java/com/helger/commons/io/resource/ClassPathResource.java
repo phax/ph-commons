@@ -30,6 +30,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
@@ -186,67 +188,28 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
                                               @Nullable final URL aURL,
                                               @Nullable final ClassLoader aClassLoader)
   {
-    if (true)
-    {
-      // Simple version
-      InputStream ret = null;
-      if (aClassLoader != null)
-      {
-        // An explicit ClassLoader was provided - use it
-        ret = ClassLoaderHelper.getResourceAsStream (aClassLoader, sPath);
-      }
-      else
-        if (aURL != null)
-        {
-          // Resolve from URL
-          ret = URLResource.getInputStream (aURL);
-        }
+    final boolean DEBUG_IS = false;
 
-      return ret;
-    }
+    if (DEBUG_IS)
+      LoggerFactory.getLogger (ClassPathResource.class)
+                   .info ("_getInputStream ('" + sPath + "', " + aURL + ", " + aClassLoader + ")");
 
-    // Complex version
+    // Simple version
     InputStream ret = null;
-    if (aURL != null)
+    if (aClassLoader != null)
     {
-      // Try to resolve from URL
-      ret = URLResource.getInputStream (aURL);
+      // An explicit ClassLoader was provided - use it
+      ret = ClassLoaderHelper.getResourceAsStream (aClassLoader, sPath);
     }
-
-    if (ret == null)
-    {
-      // Not a URL resolvable InputStream - use path as is
-
-      if (aURL != null && "jar".equals (aURL.getProtocol ()) && sPath.endsWith ("/"))
+    else
+      if (aURL != null)
       {
-        // It's a directory in a JAR file - no InputStream on this one
+        // Resolve from URL
+        ret = URLResource.getInputStream (aURL);
       }
-      else
-      {
-        // Determine ClassLoader to use
-        final ClassLoader aRealClassLoader = aClassLoader != null ? aClassLoader
-                                                                  : ClassLoaderHelper.getDefaultClassLoader ();
 
-        ret = aRealClassLoader.getResourceAsStream (sPath);
-        if (ret != null)
-          try
-          {
-            /*
-             * This will fail if ret is a FilterInputStream with a
-             * <code>null</code> contained InputStream. This happens e.g. when a
-             * JAR URL with a directory that does not end with a slash is
-             * returned.
-             */
-            ret.markSupported ();
-          }
-          catch (final NullPointerException ex)
-          {
-            // An InpuStream for a directory was retrieved - ignore
-            StreamHelper.close (ret);
-            ret = null;
-          }
-      }
-    }
+    if (DEBUG_IS)
+      LoggerFactory.getLogger (ClassPathResource.class).info ("  returning " + ret);
 
     return ret;
   }

@@ -49,6 +49,8 @@ public class SimpleLSResourceResolver implements LSResourceResolver, IHasClassLo
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (SimpleLSResourceResolver.class);
 
+  private static final boolean DEBUG_RESOLVE = false;
+
   private final ClassLoader m_aClassLoader;
   private final LSResourceResolver m_aWrappedResourceResolver;
 
@@ -109,10 +111,11 @@ public class SimpleLSResourceResolver implements LSResourceResolver, IHasClassLo
    * Do the standard resource resolving of sSystemId relative to sBaseURI
    *
    * @param sSystemId
-   *        The resource to search. May be <code>null</code> if base URI is set.
+   *        The resource to search. May be relative to the base URI or absolute.
+   *        May be <code>null</code> if base URI is set.
    * @param sBaseURI
    *        The base URI from where the search is initiated. May be
-   *        <code>null</code> if systemId is set.
+   *        <code>null</code> if sSystemId is set.
    * @param aClassLoader
    *        The class loader to be used for {@link ClassPathResource} objects.
    *        May be <code>null</code> in which case the default class loader is
@@ -127,18 +130,28 @@ public class SimpleLSResourceResolver implements LSResourceResolver, IHasClassLo
                                                                @Nullable final ClassLoader aClassLoader) throws IOException
   {
     if (sSystemId == null && sBaseURI == null)
-      throw new IllegalArgumentException ("systemID and baseURI are null!");
+      throw new IllegalArgumentException ("Both systemID and baseURI are null!");
 
     if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Trying to resolve resource " + sSystemId + " from base " + sBaseURI);
+      s_aLogger.debug ("Trying to resolve resource " +
+                       sSystemId +
+                       " from base " +
+                       sBaseURI +
+                       (aClassLoader == null ? "" : " with ClassLoader " + aClassLoader));
+
+    if (DEBUG_RESOLVE)
+      s_aLogger.info ("doStandardResourceResolving (" + sSystemId + ", " + sBaseURI + ", " + aClassLoader + ")");
 
     final URL aSystemURL = URLHelper.getAsURL (sSystemId);
 
-    // Absolute URL requested?
+    // Absolute URL requested that is not a file?
     if (aSystemURL != null && !aSystemURL.getProtocol ().equals (URLHelper.PROTOCOL_FILE))
     {
       // Destination system ID seems to be an absolute URL!
-      return new URLResource (aSystemURL);
+      final URLResource ret = new URLResource (aSystemURL);
+      if (DEBUG_RESOLVE)
+        s_aLogger.info ("  resolved system URL to " + ret);
+      return ret;
     }
 
     // jar:file - regular JDK
@@ -159,7 +172,10 @@ public class SimpleLSResourceResolver implements LSResourceResolver, IHasClassLo
                                                                             : aBaseParent.getPath () + '/' + sSystemId);
 
       // Build result (must contain forward slashes!)
-      return new ClassPathResource (sPath, aClassLoader);
+      final ClassPathResource ret = new ClassPathResource (sPath, aClassLoader);
+      if (DEBUG_RESOLVE)
+        s_aLogger.info ("  resolved base + system URL to " + ret);
+      return ret;
     }
 
     if (ClassPathResource.isExplicitClassPathResource (sBaseURI))
@@ -167,45 +183,94 @@ public class SimpleLSResourceResolver implements LSResourceResolver, IHasClassLo
       // Skip leading "cp:" or "classpath:"
       final String sRealBaseURI = ClassPathResource.getWithoutClassPathPrefix (sBaseURI);
       final File aBaseFile = new File (sRealBaseURI).getParentFile ();
-      return new ClassPathResource (FilenameHelper.getCleanConcatenatedUrlPath (aBaseFile == null ? "/"
-                                                                                                  : aBaseFile.getPath (),
-                                                                                sSystemId),
-                                    aClassLoader);
+      final ClassPathResource ret = new ClassPathResource (FilenameHelper.getCleanConcatenatedUrlPath (aBaseFile == null ? "/"
+                                                                                                                         : aBaseFile.getPath (),
+                                                                                                       sSystemId),
+                                                           aClassLoader);
+      if (DEBUG_RESOLVE)
+        s_aLogger.info ("  resolved base + system URL to " + ret);
+      return ret;
     }
 
     // Try whether the base is a URI
     final URL aBaseURL = URLHelper.getAsURL (sBaseURI);
 
+    // OSGI special handling
+    if (aBaseURL != null && aClassLoader != null && aBaseURL.getProtocol ().equals (URLHelper.PROTOCOL_BUNDLE))
+    {
+      // URL Layout:
+      // bundle://<revision-id>:<bundle-classpath-index>/<resource-path>
+
+      // Example:
+      // SystemID
+      // ../common/UBL-CommonAggregateComponents-2.1.xsd
+      // BaseURI
+      // bundle://23.0:1/schemas/ubl21/maindoc/UBL-ApplicationResponse-2.1.xsd
+
+      // This does not work, because the same classpath index is used!
+
+      String sBundleBaseURI;
+      final String sBaseFilename = FilenameHelper.getWithoutPath (sBaseURI);
+      if (sBaseFilename != null && sBaseFilename.indexOf ('.') >= 0)
+      {
+        // Heuristics to check if the base URI is a file
+        // This is not ideal but should do the trick
+        sBundleBaseURI = FilenameHelper.getPath (sBaseURI);
+        // For the example this results in:
+        // bundle://23.0:1/schemas/ubl21/maindoc/
+      }
+      else
+      {
+        sBundleBaseURI = sBaseURI;
+      }
+
+      final String sNewPath = FilenameHelper.getCleanConcatenatedUrlPath (sBundleBaseURI, sSystemId);
+      final ClassPathResource ret = new ClassPathResource (sNewPath, aClassLoader);
+      if (DEBUG_RESOLVE)
+        s_aLogger.info ("  resolved base + system URL to " + ret);
+      return ret;
+    }
+
     // Handle "file" protocol separately
     if (aBaseURL != null && !aBaseURL.getProtocol ().equals (URLHelper.PROTOCOL_FILE))
     {
-      return new URLResource (FilenameHelper.getCleanConcatenatedUrlPath (sBaseURI, sSystemId));
+      final String sNewPath = FilenameHelper.getCleanConcatenatedUrlPath (sBaseURI, sSystemId);
+      final URLResource ret = new URLResource (sNewPath);
+      if (DEBUG_RESOLVE)
+        s_aLogger.info ("  resolved base + system URL to " + ret);
+      return ret;
     }
 
-    // Base is potentially a URL
-    File aBase;
+    // Base is not a URL or a file based URL
+    File aBaseFile;
     if (aBaseURL != null)
-      aBase = URLHelper.getAsFile (aBaseURL);
+      aBaseFile = URLHelper.getAsFile (aBaseURL);
     else
-      aBase = new File (sBaseURI);
+      aBaseFile = new File (sBaseURI);
 
     if (StringHelper.hasNoText (sSystemId))
     {
       // Nothing to resolve
-      return new FileSystemResource (aBase);
+      final FileSystemResource ret = new FileSystemResource (aBaseFile);
+      if (DEBUG_RESOLVE)
+        s_aLogger.info ("  resolved base URL to " + ret);
+      return ret;
     }
 
     // Get the system ID file
-    File aSystemId;
+    File aSystemFile;
     if (aSystemURL != null)
-      aSystemId = URLHelper.getAsFile (aSystemURL);
+      aSystemFile = URLHelper.getAsFile (aSystemURL);
     else
-      aSystemId = new File (sSystemId);
+      aSystemFile = new File (sSystemId);
 
-    final File aParent = aBase.getParentFile ();
-    final File aRealFile = new File (aParent, aSystemId.getPath ());
-    // FileSystemResource is canonicalized inside
-    return new FileSystemResource (aRealFile);
+    final File aParent = aBaseFile.getParentFile ();
+    final File aRealFile = new File (aParent, aSystemFile.getPath ());
+    // path is cleaned (canonicalized) inside FileSystemResource
+    final FileSystemResource ret = new FileSystemResource (aRealFile);
+    if (DEBUG_RESOLVE)
+      s_aLogger.info ("  resolved base + system URL to " + ret);
+    return ret;
   }
 
   /**
@@ -251,6 +316,19 @@ public class SimpleLSResourceResolver implements LSResourceResolver, IHasClassLo
                                                        @Nullable final String sSystemId,
                                                        @Nullable final String sBaseURI) throws Exception
   {
+    if (DEBUG_RESOLVE)
+      s_aLogger.info ("internalResolveResource (" +
+                      sType +
+                      ", " +
+                      sNamespaceURI +
+                      ", " +
+                      sPublicId +
+                      ", " +
+                      sSystemId +
+                      ", " +
+                      sBaseURI +
+                      ")");
+
     return doStandardResourceResolving (sSystemId, sBaseURI, m_aClassLoader);
   }
 

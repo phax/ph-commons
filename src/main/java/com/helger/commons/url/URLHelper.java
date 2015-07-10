@@ -99,6 +99,9 @@ public final class URLHelper
   /** The protocol for file resources */
   public static final String PROTOCOL_FILE = "file";
 
+  /** The protocol for OSGI bundle resources */
+  public static final String PROTOCOL_BUNDLE = "bundle";
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (URLHelper.class);
 
   private static char [] s_aCleanURLOld;
@@ -621,6 +624,22 @@ public final class URLHelper
   {
     ValueEnforcer.notNull (aURL, "URL");
 
+    final boolean DEBUG_IS = false;
+
+    if (DEBUG_IS)
+      s_aLogger.info ("getInputStream (" +
+                      aURL +
+                      ", " +
+                      nConnectTimeoutMS +
+                      ", " +
+                      nReadTimeoutMS +
+                      ", " +
+                      aConnectionModifier +
+                      ", " +
+                      aExceptionHolder +
+                      ")",
+                      new Exception ());
+
     URLConnection aConnection;
     HttpURLConnection aHTTPConnection = null;
     try
@@ -664,6 +683,9 @@ public final class URLHelper
 
       // by default follow-redirects is true for HTTPUrlConnections
       final InputStream ret = aConnection.getInputStream ();
+
+      if (DEBUG_IS)
+        s_aLogger.info ("  returning " + ret);
 
       return ret;
     }
