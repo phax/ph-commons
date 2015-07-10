@@ -27,6 +27,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.priviledged.PrivilegedActionClassLoaderGetParent;
 import com.helger.commons.lang.priviledged.PrivilegedActionGetClassLoader;
 import com.helger.commons.lang.priviledged.PrivilegedActionGetContextClassLoader;
@@ -177,6 +178,7 @@ public final class ClassLoaderHelper
     final String sPathWithoutSlash = _getPathWithoutLeadingSlash (sPath);
 
     // returns null if not found
-    return aClassLoader.getResourceAsStream (sPathWithoutSlash);
+    final InputStream aIS = aClassLoader.getResourceAsStream (sPathWithoutSlash);
+    return StreamHelper.checkForInvalidFilterInputStream (aIS);
   }
 }

@@ -34,6 +34,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -592,6 +593,7 @@ public final class ClassHelper
     final String sPathWithSlash = _getPathWithLeadingSlash (sPath);
 
     // returns null if not found
-    return aClass.getResourceAsStream (sPathWithSlash);
+    final InputStream aIS = aClass.getResourceAsStream (sPathWithSlash);
+    return StreamHelper.checkForInvalidFilterInputStream (aIS);
   }
 }
