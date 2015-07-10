@@ -27,7 +27,6 @@ import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import org.w3c.dom.ls.LSInput;
-import org.w3c.dom.ls.LSResourceResolver;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
@@ -38,28 +37,14 @@ import com.helger.commons.collection.CollectionHelper;
  * @author Philip Helger
  */
 @ThreadSafe
-public class CollectingLSResourceResolver implements LSResourceResolver
+public class CollectingLSResourceResolver extends AbstractLSResourceResolver
 {
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   @GuardedBy ("m_aRWLock")
   private final List <LSResourceData> m_aList = new ArrayList <LSResourceData> ();
-  private final LSResourceResolver m_aWrappedResourceResolver;
 
   public CollectingLSResourceResolver ()
-  {
-    this (null);
-  }
-
-  public CollectingLSResourceResolver (@Nullable final LSResourceResolver aWrappedResourceResolver)
-  {
-    m_aWrappedResourceResolver = aWrappedResourceResolver;
-  }
-
-  @Nullable
-  public LSResourceResolver getWrappedResourceResolver ()
-  {
-    return m_aWrappedResourceResolver;
-  }
+  {}
 
   @Nonnull
   @ReturnsMutableCopy
@@ -76,12 +61,13 @@ public class CollectingLSResourceResolver implements LSResourceResolver
     }
   }
 
+  @Override
   @Nullable
-  public LSInput resolveResource (@Nullable final String sType,
-                                  @Nullable final String sNamespaceURI,
-                                  @Nullable final String sPublicId,
-                                  @Nullable final String sSystemId,
-                                  @Nullable final String sBaseURI)
+  public LSInput mainResolveResource (@Nullable final String sType,
+                                      @Nullable final String sNamespaceURI,
+                                      @Nullable final String sPublicId,
+                                      @Nullable final String sSystemId,
+                                      @Nullable final String sBaseURI)
   {
     final LSResourceData aData = new LSResourceData (sType, sNamespaceURI, sPublicId, sSystemId, sBaseURI);
     m_aRWLock.writeLock ().lock ();
@@ -93,12 +79,6 @@ public class CollectingLSResourceResolver implements LSResourceResolver
     {
       m_aRWLock.writeLock ().unlock ();
     }
-
-    // Pass to parent (if available)
-    return m_aWrappedResourceResolver == null ? null : m_aWrappedResourceResolver.resolveResource (sType,
-                                                                                                   sNamespaceURI,
-                                                                                                   sPublicId,
-                                                                                                   sSystemId,
-                                                                                                   sBaseURI);
+    return null;
   }
 }

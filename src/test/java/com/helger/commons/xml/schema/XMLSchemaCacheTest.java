@@ -108,7 +108,7 @@ public final class XMLSchemaCacheTest
     assertNotNull (sc);
 
     final CollectingLSResourceResolver crr = new CollectingLSResourceResolver ();
-    sc = new XMLSchemaCache (new LoggingLSResourceResolver (crr));
+    sc = new XMLSchemaCache (new LoggingLSResourceResolver ().setWrappedResourceResolver (crr));
     assertNotNull (sc);
 
     // Valid schema

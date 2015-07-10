@@ -22,7 +22,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link LoggingLSResourceResolver}.
- * 
+ *
  * @author Philip Helger
  */
 public final class LoggingLSResourceResolverTest
@@ -35,7 +35,8 @@ public final class LoggingLSResourceResolverTest
 
     CommonsTestHelper.testToStringImplementation (lrr);
 
-    lrr = new LoggingLSResourceResolver (new LoggingLSResourceResolver ());
+    lrr = new LoggingLSResourceResolver ();
+    lrr.setWrappedResourceResolver (new LoggingLSResourceResolver ());
     lrr.resolveResource ("xsd", "nsuri", null, "sysid", "baseURI");
   }
 }

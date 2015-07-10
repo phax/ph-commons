@@ -28,34 +28,20 @@ import org.w3c.dom.ls.LSResourceResolver;
  *
  * @author Philip Helger
  */
-public class LoggingLSResourceResolver implements LSResourceResolver
+public class LoggingLSResourceResolver extends AbstractLSResourceResolver
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingLSResourceResolver.class);
 
-  private final LSResourceResolver m_aWrappedResourceResolver;
-
   public LoggingLSResourceResolver ()
-  {
-    this (null);
-  }
+  {}
 
-  public LoggingLSResourceResolver (@Nullable final LSResourceResolver aWrappedResourceResolver)
-  {
-    m_aWrappedResourceResolver = aWrappedResourceResolver;
-  }
-
+  @Override
   @Nullable
-  public LSResourceResolver getWrappedResourceResolver ()
-  {
-    return m_aWrappedResourceResolver;
-  }
-
-  @Nullable
-  public LSInput resolveResource (@Nullable final String sType,
-                                  @Nullable final String sNamespaceURI,
-                                  @Nullable final String sPublicId,
-                                  @Nullable final String sSystemId,
-                                  @Nullable final String sBaseURI)
+  public LSInput mainResolveResource (@Nullable final String sType,
+                                      @Nullable final String sNamespaceURI,
+                                      @Nullable final String sPublicId,
+                                      @Nullable final String sSystemId,
+                                      @Nullable final String sBaseURI)
   {
     if (s_aLogger.isInfoEnabled ())
       s_aLogger.info ("resolveResource (" +
@@ -69,12 +55,6 @@ public class LoggingLSResourceResolver implements LSResourceResolver
                       ", " +
                       sBaseURI +
                       ")");
-
-    // Pass to parent (if available)
-    return m_aWrappedResourceResolver == null ? null : m_aWrappedResourceResolver.resolveResource (sType,
-                                                                                                   sNamespaceURI,
-                                                                                                   sPublicId,
-                                                                                                   sSystemId,
-                                                                                                   sBaseURI);
+    return null;
   }
 }

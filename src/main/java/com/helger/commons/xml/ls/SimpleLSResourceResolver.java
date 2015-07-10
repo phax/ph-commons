@@ -26,7 +26,6 @@ import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
-import org.w3c.dom.ls.LSResourceResolver;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
@@ -45,47 +44,28 @@ import com.helger.commons.url.URLHelper;
  *
  * @author Philip Helger
  */
-public class SimpleLSResourceResolver implements LSResourceResolver, IHasClassLoader
+public class SimpleLSResourceResolver extends AbstractLSResourceResolver implements IHasClassLoader
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (SimpleLSResourceResolver.class);
 
   private static final boolean DEBUG_RESOLVE = false;
 
   private final ClassLoader m_aClassLoader;
-  private final LSResourceResolver m_aWrappedResourceResolver;
 
   public SimpleLSResourceResolver ()
   {
-    this ((ClassLoader) null, (LSResourceResolver) null);
-  }
-
-  public SimpleLSResourceResolver (@Nullable final LSResourceResolver aWrappedResourceResolver)
-  {
-    this ((ClassLoader) null, aWrappedResourceResolver);
+    this ((ClassLoader) null);
   }
 
   public SimpleLSResourceResolver (@Nullable final ClassLoader aClassLoader)
   {
-    this (aClassLoader, (LSResourceResolver) null);
-  }
-
-  public SimpleLSResourceResolver (@Nullable final ClassLoader aClassLoader,
-                                   @Nullable final LSResourceResolver aWrappedResourceResolver)
-  {
     m_aClassLoader = aClassLoader;
-    m_aWrappedResourceResolver = aWrappedResourceResolver;
   }
 
   @Nullable
   public ClassLoader getClassLoader ()
   {
     return m_aClassLoader;
-  }
-
-  @Nullable
-  public LSResourceResolver getWrappedResourceResolver ()
-  {
-    return m_aWrappedResourceResolver;
   }
 
   /**
@@ -365,12 +345,13 @@ public class SimpleLSResourceResolver implements LSResourceResolver, IHasClassLo
    *        resource being parsed, or <code>null</code> if there is no base URI.
    * @return <code>null</code> if the resource could not be resolved.
    */
+  @Override
   @Nullable
-  public final LSInput resolveResource (@Nonnull @Nonempty final String sType,
-                                        @Nullable final String sNamespaceURI,
-                                        @Nullable final String sPublicId,
-                                        @Nullable final String sSystemId,
-                                        @Nullable final String sBaseURI)
+  public final LSInput mainResolveResource (@Nonnull @Nonempty final String sType,
+                                            @Nullable final String sNamespaceURI,
+                                            @Nullable final String sPublicId,
+                                            @Nullable final String sSystemId,
+                                            @Nullable final String sBaseURI)
   {
     try
     {
@@ -399,12 +380,6 @@ public class SimpleLSResourceResolver implements LSResourceResolver, IHasClassLo
                                        ex);
     }
 
-    // Pass to parent (if available)
-    return m_aWrappedResourceResolver == null ? null
-                                              : m_aWrappedResourceResolver.resolveResource (sType,
-                                                                                            sNamespaceURI,
-                                                                                            sPublicId,
-                                                                                            sSystemId,
-                                                                                            sBaseURI);
+    return null;
   }
 }
