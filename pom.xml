@@ -119,6 +119,14 @@
       <version>${jaxb.impl.version}</version>
       <optional>true</optional>
     </dependency>
+    <!-- Required to use the special JAXB internal namespace mapper -->
+    <dependency>
+      <groupId>com.sun</groupId>
+      <artifactId>rt</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>${java.home}/lib/rt.jar</systemPath>
+    </dependency>
         
     <dependency>
       <groupId>dom4j</groupId>
@@ -149,6 +157,16 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <compilerArgs>
+            <!-- Required for linking with the com.sun.internal classes! -->
+            <arg>-XDignore.symbol.file</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
         <extensions>true</extensions>
@@ -158,7 +176,9 @@
               com.helger.commons.*
             </Export-Package>
             <Import-Package>
-              !javax.annotation.*,*
+              !javax.annotation.*,
+              com.sun.xml.internal.bind.marshaller;resolution:=optional,
+              *
             </Import-Package>
           </instructions>
         </configuration>
