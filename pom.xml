@@ -123,7 +123,7 @@
     <dependency>
       <groupId>com.sun</groupId>
       <artifactId>rt</artifactId>
-      <version>1.0</version>
+      <version>1.5.0_06</version>
       <scope>system</scope>
       <systemPath>${java.home}/lib/rt.jar</systemPath>
     </dependency>
@@ -161,9 +161,11 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <compilerArgs>
-            <!-- Required for linking with the com.sun.internal classes! -->
+            <!-- Required for linking against the com.sun.xml.internal classes! -->
             <arg>-XDignore.symbol.file</arg>
           </compilerArgs>
+          <!-- fork needs to be true in order to use the -X... arg -->
+          <fork>true</fork>
         </configuration>
       </plugin>
       <plugin>
