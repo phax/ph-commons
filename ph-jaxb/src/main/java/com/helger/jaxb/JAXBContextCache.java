@@ -84,7 +84,9 @@ public final class JAXBContextCache extends AbstractNotifyingCache <JAXBContextC
     final ClassLoader aClassLoader = aCacheKey.getClassLoader ();
 
     if (GlobalDebug.isDebugMode ())
-      s_aLogger.info ("Creating JAXB context for package " + aPackage.getName ());
+      s_aLogger.info ("Creating JAXB context for package " +
+                      aPackage.getName () +
+                      (aClassLoader == null ? "" : " using ClassLoader " + aClassLoader));
 
     try
     {
@@ -103,8 +105,8 @@ public final class JAXBContextCache extends AbstractNotifyingCache <JAXBContextC
     {
       final String sMsg = "Failed to create JAXB context for package '" +
                           aPackage.getName () +
-                          "' and ClassLoader " +
-                          aClassLoader;
+                          "'" +
+                          (aClassLoader == null ? "" : " using ClassLoader " + aClassLoader);
       s_aLogger.error (sMsg + ": " + ex.getMessage ());
       throw new IllegalArgumentException (sMsg, ex);
     }
