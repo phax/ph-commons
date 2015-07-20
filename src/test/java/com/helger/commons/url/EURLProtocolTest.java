@@ -24,7 +24,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link EURLProtocol}.
- * 
+ *
  * @author Philip Helger
  */
 public final class EURLProtocolTest

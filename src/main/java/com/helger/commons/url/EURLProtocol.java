@@ -60,6 +60,9 @@ public enum EURLProtocol implements IURLProtocol
  /** Gopher (RFC4266). */
   GOPHER ("gopher://"),
 
+ /** regular JAR */
+  JAR ("jar:"),
+
  /** JavaScript */
   JAVASCRIPT ("javascript:"),
 
@@ -120,8 +123,14 @@ public enum EURLProtocol implements IURLProtocol
  /** Web socket (RFC6455). */
   WS ("ws://"),
 
+ /** WebSphere JAR */
+  WSJAR ("wsjar:"),
+
  /** Encrypted web socket (RFC6455). */
-  WSS ("wss://");
+  WSS ("wss://"),
+
+ /** ZIP file */
+  ZIP ("zip:");
 
   private final String m_sProtocol;
 
