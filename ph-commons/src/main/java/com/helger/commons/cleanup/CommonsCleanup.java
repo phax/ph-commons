@@ -23,7 +23,6 @@ import com.helger.commons.compare.CollatorHelper;
 import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.gfx.ImageDataManager;
 import com.helger.commons.hashcode.HashCodeImplementationRegistry;
-import com.helger.commons.jaxb.JAXBContextCache;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.locale.LocaleCache;
@@ -102,8 +101,6 @@ public final class CommonsCleanup
       RegExPool.getInstance ().clearCache ();
     CollatorHelper.clearCache ();
     LocaleHelper.clearCache ();
-    if (JAXBContextCache.isInstantiated ())
-      JAXBContextCache.getInstance ().clearCache ();
     if (XMLSchemaCache.isInstantiated ())
       XMLSchemaCache.getInstance ().clearCache ();
     XMLSchemaCache.clearPerClassLoaderCache ();
