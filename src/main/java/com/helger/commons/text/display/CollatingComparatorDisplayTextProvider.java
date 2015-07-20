@@ -71,7 +71,7 @@ public class CollatingComparatorDisplayTextProvider <DATATYPE> extends AbstractC
    *        The locale to be used to retrieve the display text of an object. May
    *        not be <code>null</code>.
    */
-  public CollatingComparatorDisplayTextProvider (@Nullable final Collator aCollator,
+  public CollatingComparatorDisplayTextProvider (@Nonnull final Collator aCollator,
                                                  @Nonnull final IDisplayTextProvider <DATATYPE> aDisplayTextProvider,
                                                  @Nonnull final Locale aContentLocale)
   {
