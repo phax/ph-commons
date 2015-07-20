@@ -16,22 +16,49 @@
  */
 package com.helger.commons.filter;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.id.IHasID;
+import com.helger.commons.lang.EnumHelper;
+
 /**
  * Filter matching strategy for {@link IFilter} implementations based on
  * {@link AbstractFilter}.
  *
  * @author Philip Helger
  */
-public enum EFilterMatchingStrategy
+public enum EFilterMatchingStrategy implements IHasID <String>
 {
-  /**
-   * Match either this filter or an eventually present nested filter. If no
-   * nested filter is present, only this filter must match.
-   */
-  MATCH_ANY,
-  /**
-   * Math both this filter and an eventually present nested filter. If no nested
-   * filter is present, only this filter must match.
-   */
-  MATCH_ALL;
+ /**
+  * Match either this filter or an eventually present nested filter. If no
+  * nested filter is present, only this filter must match.
+  */
+  MATCH_ANY ("matchany"),
+ /**
+  * Math both this filter and an eventually present nested filter. If no nested
+  * filter is present, only this filter must match.
+  */
+  MATCH_ALL ("matchall");
+
+  private final String m_sID;
+
+  private EFilterMatchingStrategy (@Nonnull @Nonempty final String sID)
+  {
+    m_sID = sID;
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getID ()
+  {
+    return m_sID;
+  }
+
+  @Nullable
+  public static EFilterMatchingStrategy getFromIDOrNull (@Nullable final String sID)
+  {
+    return EnumHelper.getFromIDOrNull (EFilterMatchingStrategy.class, sID);
+  }
 }
