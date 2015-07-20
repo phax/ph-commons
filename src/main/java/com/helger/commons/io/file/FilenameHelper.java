@@ -99,27 +99,27 @@ public final class FilenameHelper
    * see http://en.wikipedia.org/wiki/Filename
    */
   private static final String [] ILLEGAL_PREFIXES = { "CLOCK$",
-                                                     "CON",
-                                                     "PRN",
-                                                     "AUX",
-                                                     "NUL",
-                                                     "COM2",
-                                                     "COM3",
-                                                     "COM4",
-                                                     "COM5",
-                                                     "COM6",
-                                                     "COM7",
-                                                     "COM8",
-                                                     "COM9",
-                                                     "LPT1",
-                                                     "LPT2",
-                                                     "LPT3",
-                                                     "LPT4",
-                                                     "LPT5",
-                                                     "LPT6",
-                                                     "LPT7",
-                                                     "LPT8",
-                                                     "LPT9" };
+                                                      "CON",
+                                                      "PRN",
+                                                      "AUX",
+                                                      "NUL",
+                                                      "COM2",
+                                                      "COM3",
+                                                      "COM4",
+                                                      "COM5",
+                                                      "COM6",
+                                                      "COM7",
+                                                      "COM8",
+                                                      "COM9",
+                                                      "LPT1",
+                                                      "LPT2",
+                                                      "LPT3",
+                                                      "LPT4",
+                                                      "LPT5",
+                                                      "LPT6",
+                                                      "LPT7",
+                                                      "LPT8",
+                                                      "LPT9" };
 
   private static final char [] ILLEGAL_SUFFIXES = new char [] { '.', ' ', '\t' };
 
@@ -300,8 +300,9 @@ public final class FilenameHelper
    */
   public static int getIndexOfLastSeparator (@Nullable final String sFilename)
   {
-    return sFilename == null ? CGlobal.ILLEGAL_UINT : Math.max (sFilename.lastIndexOf (UNIX_SEPARATOR),
-                                                                sFilename.lastIndexOf (WINDOWS_SEPARATOR));
+    return sFilename == null ? CGlobal.ILLEGAL_UINT
+                             : Math.max (sFilename.lastIndexOf (UNIX_SEPARATOR),
+                                         sFilename.lastIndexOf (WINDOWS_SEPARATOR));
   }
 
   /**
@@ -941,6 +942,7 @@ public final class FilenameHelper
     // strip the first "core" directory while keeping the "file:" prefix.
     // The same applies to http:// addresses where the domain should be kept!
     final int nProtoIdx = sPathToUse.indexOf ("://");
+    boolean bPrefixIsAbsolute = false;
     if (nProtoIdx > -1)
     {
       // Keep protocol and server name
@@ -967,6 +969,7 @@ public final class FilenameHelper
       {
         sPrefix += sPathToUse.substring (0, nPrefixIndex + 1);
         sPathToUse = sPathToUse.substring (nPrefixIndex + 1);
+        bPrefixIsAbsolute = true;
       }
     }
 
@@ -1014,12 +1017,14 @@ public final class FilenameHelper
         }
     }
 
-    // Remaining top paths need to be retained.
-    for (int i = 0; i < nParentFolders; i++)
-      aElements.add (0, PATH_PARENT);
+    if (!bPrefixIsAbsolute)
+    {
+      // Remaining top paths need to be retained.
+      for (int i = 0; i < nParentFolders; i++)
+        aElements.add (0, PATH_PARENT);
+    }
 
-    return sPrefix +
-           StringHelper.getImploded (bForceWindowsSeparator ? WINDOWS_SEPARATOR_STR : UNIX_SEPARATOR_STR, aElements);
+    return sPrefix + StringHelper.getImploded (bForceWindowsSeparator ? WINDOWS_SEPARATOR : UNIX_SEPARATOR, aElements);
   }
 
   /**
@@ -1181,7 +1186,11 @@ public final class FilenameHelper
     {
       if (!aParentDirectory.isAbsolute ())
       {
-        s_aLogger.error ("Cannot express absolute child file relative to a relative parent file!");
+        s_aLogger.error ("Cannot express absolute child file ('" +
+                         aSubFile +
+                         "') relative to a relative parent file ('" +
+                         aParentDirectory +
+                         "')!");
         return null;
       }
       sRelativeSubPath = getRelativeToParentDirectory (aSubFile, aParentDirectory);
