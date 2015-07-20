@@ -529,11 +529,14 @@ public final class FilenameHelperTest
   public void testGetCleanPath_File ()
   {
     final String sBasePath = FilenameHelper.getCleanPath (new File (""));
+    final String sRootPath = FilenameHelper.getCleanPath (new File ("/"));
+
     assertEquals (sBasePath + "/target/file", FilenameHelper.getCleanPath (new File ("target/file")));
     assertEquals (sBasePath + "/target/file", FilenameHelper.getCleanPath (new File ("target/./file")));
     assertEquals (sBasePath + "/target/file", FilenameHelper.getCleanPath (new File ("./target/./file/.")));
     assertEquals (sBasePath + "/target/file", FilenameHelper.getCleanPath (new File ("./target/////./file/.////")));
     assertEquals (sBasePath + "/target/file", FilenameHelper.getCleanPath (new File ("target/sub/../file")));
+    assertEquals (sRootPath + "file", FilenameHelper.getCleanPath (new File ("/../file").getAbsoluteFile ()));
 
     if (EOperatingSystem.WINDOWS.isCurrentOS ())
     {
