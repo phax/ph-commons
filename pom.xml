@@ -119,12 +119,6 @@
       <version>${jaxb.impl.version}</version>
       <optional>true</optional>
     </dependency>
-    <dependency>
-      <groupId>org.osgi</groupId>
-      <artifactId>org.osgi.core</artifactId>
-      <version>6.0.0</version>
-      <optional>true</optional>
-    </dependency>
         
     <dependency>
       <groupId>dom4j</groupId>
@@ -143,7 +137,7 @@
       <groupId>org.apache.felix</groupId>
       <artifactId>org.apache.felix.framework</artifactId>
       <version>5.0.1</version>
-      <scope>provided</scope>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -164,9 +158,7 @@
               com.helger.commons.*
             </Export-Package>
             <Import-Package>
-              !javax.annotation.*,
-              com.sun.xml.internal.bind.marshaller,
-              *
+              !javax.annotation.*,*
             </Import-Package>
           </instructions>
         </configuration>
