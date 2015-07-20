@@ -577,7 +577,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
       aInstance = aScope.runAtomic (new INonThrowingCallableWithParameter <T, IScope> ()
       {
         @Nonnull
-        public T call (@Nullable final IScope aInnerScope)
+        public T call (@Nonnull final IScope aInnerScope)
         {
           // try to resolve again in case it was set in the meantime
           T aInnerInstance = aClass.cast (aInnerScope.getAttributeObject (sSingletonScopeKey));
