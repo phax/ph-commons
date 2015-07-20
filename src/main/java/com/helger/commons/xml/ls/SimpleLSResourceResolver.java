@@ -18,6 +18,7 @@ package com.helger.commons.xml.ls;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.annotation.Nonnull;
@@ -47,8 +48,6 @@ import com.helger.commons.url.URLHelper;
 public class SimpleLSResourceResolver extends AbstractLSResourceResolver implements IHasClassLoader
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (SimpleLSResourceResolver.class);
-  /** Internal debug flag for console debugging */
-  private static final boolean DEBUG_RESOLVE = false;
 
   private final ClassLoader m_aClassLoader;
 
@@ -87,6 +86,107 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
     return doStandardResourceResolving (sSystemId, sBaseURI, (ClassLoader) null);
   }
 
+  public static boolean isExplicitJarFileResource (@Nullable final String sName)
+  {
+    // jar:file - regular JDK
+    // wsjar:file - Websphere
+    return StringHelper.startsWith (sName, "jar:file:") ||
+           StringHelper.startsWith (sName, "wsjar:file:") ||
+           StringHelper.startsWith (sName, "zip:file:");
+  }
+
+  @Nonnull
+  private static ClassPathResource _resolveClassPathResource (final String sSystemId,
+                                                              final String sBaseURI,
+                                                              final ClassLoader aClassLoader)
+  {
+    // Skip leading "cp:" or "classpath:"
+    final String sBaseURIWithoutPrefix = ClassPathResource.getWithoutClassPathPrefix (sBaseURI);
+
+    // Get the parent path of the base path
+    final File aBaseFile = new File (sBaseURIWithoutPrefix).getParentFile ();
+
+    // Concatenate the path with the URI to search
+    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId
+                                                                           : aBaseFile.getPath () + '/' + sSystemId);
+
+    final ClassPathResource ret = new ClassPathResource (sNewPath, aClassLoader);
+    if (DEBUG_RESOLVE)
+      s_aLogger.info ("  [ClassPath] resolved base + system to " + ret);
+    return ret;
+  }
+
+  @Nonnull
+  private static URLResource _resolveJarFileResource (@Nonnull final String sSystemId,
+                                                      @Nonnull final String sBaseURI) throws MalformedURLException
+  {
+    // Base URI is inside a jar file? Skip the JAR file
+    final int i = sBaseURI.indexOf ("!/");
+    String sPrefix;
+    String sBasePath;
+    if (i < 0)
+    {
+      sPrefix = "";
+      sBasePath = sBaseURI;
+    }
+    else
+    {
+      sPrefix = sBaseURI.substring (0, i + 2);
+      sBasePath = sBaseURI.substring (i + 2);
+    }
+
+    // Skip any potentially leading path separator
+    if (FilenameHelper.startsWithPathSeparatorChar (sBasePath))
+      sBasePath = sBasePath.substring (1);
+
+    // Get the parent path of the base path
+    final File aBaseFile = new File (sBasePath).getParentFile ();
+
+    // Concatenate the path with the URI to search
+    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId
+                                                                           : aBaseFile.getPath () + '/' + sSystemId);
+
+    final URLResource ret = new URLResource (sPrefix + sNewPath);
+    if (DEBUG_RESOLVE)
+      s_aLogger.info ("  [JarFile] resolved base + system to " + ret);
+    return ret;
+  }
+
+  @Nonnull
+  private static URLResource _resolveURLResource (final String sSystemId,
+                                                  final URL aBaseURL) throws MalformedURLException
+  {
+    // Take only the path
+    String sBasePath = aBaseURL.getPath ();
+
+    /*
+     * Heuristics to check if the base URI is a file is to check for the
+     * existence of a dot ('.') in the last part of the filename. This is not
+     * ideal but should do the trick In case you have a filename that has no
+     * extension (e.g. 'test') simply append a dot (e.g. 'test.') to have the
+     * same effect.
+     */
+    final String sBaseFilename = FilenameHelper.getWithoutPath (sBasePath);
+    if (sBaseFilename != null && sBaseFilename.indexOf ('.') >= 0)
+    {
+      // Take only the path
+      sBasePath = FilenameHelper.getPath (sBasePath);
+    }
+
+    // Concatenate the path with the URI to search
+    final String sNewPath = FilenameHelper.getCleanConcatenatedUrlPath (sBasePath, sSystemId);
+
+    // Rebuild the URL with the new path
+    final URL aNewURL = new URL (aBaseURL.getProtocol (),
+                                 aBaseURL.getHost (),
+                                 aBaseURL.getPort (),
+                                 URLHelper.getURLString (sNewPath, aBaseURL.getQuery (), aBaseURL.getRef ()));
+    final URLResource ret = new URLResource (aNewURL);
+    if (DEBUG_RESOLVE)
+      s_aLogger.info ("  [URL] resolved base + system to " + ret);
+    return ret;
+  }
+
   /**
    * Do the standard resource resolving of sSystemId relative to sBaseURI
    *
@@ -120,70 +220,37 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
                        (aClassLoader == null ? "" : " with ClassLoader " + aClassLoader));
 
     if (DEBUG_RESOLVE)
-      s_aLogger.info ("doStandardResourceResolving (" + sSystemId + ", " + sBaseURI + ", " + aClassLoader + ")");
+      s_aLogger.info ("doStandardResourceResolving ('" + sSystemId + "', '" + sBaseURI + "', " + aClassLoader + ")");
 
     final URL aSystemURL = URLHelper.getAsURL (sSystemId);
 
-    // Absolute URL requested that is not a file?
-    if (aSystemURL != null && !aSystemURL.getProtocol ().equals (URLHelper.PROTOCOL_FILE))
+    // Was an absolute URL requested?
+    if (aSystemURL != null)
     {
-      // Destination system ID seems to be an absolute URL!
-      final URLResource ret = new URLResource (aSystemURL);
-      if (DEBUG_RESOLVE)
-        s_aLogger.info ("  resolved system URL to " + ret);
-      return ret;
-    }
-
-    // jar:file - regular JDK
-    // wsjar:file - Websphere
-    if (StringHelper.startsWith (sBaseURI, "jar:file:") || StringHelper.startsWith (sBaseURI, "wsjar:file:"))
-    {
-      // Base URI is inside a jar file? Skip the JAR file
-      final int i = sBaseURI.indexOf ('!');
-      String sBasePath = i < 0 ? sBaseURI : sBaseURI.substring (i + 1);
-
-      // Skip any potentially leading path separator
-      if (FilenameHelper.startsWithPathSeparatorChar (sBasePath))
-        sBasePath = sBasePath.substring (1);
-
-      // Create relative path!
-      final File aBaseParent = new File (sBasePath).getParentFile ();
-      final String sPath = FilenameHelper.getCleanPath (aBaseParent == null ? sSystemId
-                                                                            : aBaseParent.getPath () + '/' + sSystemId);
-
-      // Build result (must contain forward slashes!)
-      final ClassPathResource ret = new ClassPathResource (sPath, aClassLoader);
-      if (DEBUG_RESOLVE)
-        s_aLogger.info ("  resolved base + system URL to " + ret);
-      return ret;
+      // File URL are handled separately, as they might be relative (as in
+      // 'file:../dir/include.xml')!
+      if (!aSystemURL.getProtocol ().equals (URLHelper.PROTOCOL_FILE))
+      {
+        final URLResource ret = new URLResource (aSystemURL);
+        if (DEBUG_RESOLVE)
+          s_aLogger.info ("  resolved system URL to " + ret);
+        return ret;
+      }
     }
 
     if (ClassPathResource.isExplicitClassPathResource (sBaseURI))
-    {
-      // Skip leading "cp:" or "classpath:"
-      final String sRealBaseURI = ClassPathResource.getWithoutClassPathPrefix (sBaseURI);
-      final File aBaseFile = new File (sRealBaseURI).getParentFile ();
-      final ClassPathResource ret = new ClassPathResource (FilenameHelper.getCleanConcatenatedUrlPath (aBaseFile == null ? "/"
-                                                                                                                         : aBaseFile.getPath (),
-                                                                                                       sSystemId),
-                                                           aClassLoader);
-      if (DEBUG_RESOLVE)
-        s_aLogger.info ("  resolved base + system URL to " + ret);
-      return ret;
-    }
+      return _resolveClassPathResource (sSystemId, sBaseURI, aClassLoader);
+
+    // jar:file or wsjar:file or zip:file???
+    if (isExplicitJarFileResource (sBaseURI))
+      return _resolveJarFileResource (sSystemId, sBaseURI);
 
     // Try whether the base is a URI
     final URL aBaseURL = URLHelper.getAsURL (sBaseURI);
 
     // Handle "file" protocol separately
     if (aBaseURL != null && !aBaseURL.getProtocol ().equals (URLHelper.PROTOCOL_FILE))
-    {
-      final String sNewPath = FilenameHelper.getCleanConcatenatedUrlPath (sBaseURI, sSystemId);
-      final URLResource ret = new URLResource (sNewPath);
-      if (DEBUG_RESOLVE)
-        s_aLogger.info ("  resolved base + system URL to " + ret);
-      return ret;
-    }
+      return _resolveURLResource (sSystemId, aBaseURL);
 
     // Base is not a URL or a file based URL
     File aBaseFile;
@@ -207,6 +274,14 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
       aSystemFile = URLHelper.getAsFile (aSystemURL);
     else
       aSystemFile = new File (sSystemId);
+
+    if (aSystemFile.isAbsolute ())
+    {
+      final FileSystemResource ret = new FileSystemResource (aSystemFile);
+      if (DEBUG_RESOLVE)
+        s_aLogger.info ("  resolved system URL to " + ret);
+      return ret;
+    }
 
     final File aParent = aBaseFile.getParentFile ();
     final File aRealFile = new File (aParent, aSystemFile.getPath ());
