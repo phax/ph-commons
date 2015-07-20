@@ -74,8 +74,7 @@ public abstract class AbstractSimpleURL implements ISimpleURL
                             @Nullable final String sAnchor)
   {
     this (sHref, aParams);
-    if (sAnchor != null)
-      m_sAnchor = sAnchor;
+    m_sAnchor = sAnchor;
   }
 
   public AbstractSimpleURL (@Nonnull final IURLData aURL)
