@@ -253,7 +253,8 @@ public final class ChangeLogSerializer
     {
       final Map <URI, ChangeLog> ret = new HashMap <URI, ChangeLog> ();
       // Find all change log XML files in the classpath
-      for (final URL aURL : CollectionHelper.newList (aClassLoader.getResources (CChangeLog.CHANGELOG_XML_FILENAME)))
+      for (final URL aURL : CollectionHelper.newList (ClassLoaderHelper.getResources (aClassLoader,
+                                                                                      CChangeLog.CHANGELOG_XML_FILENAME)))
       {
         final URLResource aRes = new URLResource (aURL);
         final ChangeLog aChangeLog = readChangeLog (aRes, aErrorCallback);
