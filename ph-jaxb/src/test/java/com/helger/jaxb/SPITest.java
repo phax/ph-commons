@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons;
+package com.helger.jaxb;
 
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test SPI definitions
- *
+ * 
  * @author Philip Helger
  */
 public final class SPITest
@@ -30,7 +30,6 @@ public final class SPITest
   @Test
   public void testBasic () throws Exception
   {
-    // Special case: allow for invalid ones!
-    CommonsTestHelper.testIfAllSPIImplementationsAreValid (true);
+    CommonsTestHelper.testIfAllSPIImplementationsAreValid ();
   }
 }
