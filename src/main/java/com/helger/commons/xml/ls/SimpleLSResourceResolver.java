@@ -47,7 +47,7 @@ import com.helger.commons.url.URLHelper;
 public class SimpleLSResourceResolver extends AbstractLSResourceResolver implements IHasClassLoader
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (SimpleLSResourceResolver.class);
-
+  /** Internal debug flag for console debugging */
   private static final boolean DEBUG_RESOLVE = false;
 
   private final ClassLoader m_aClassLoader;

@@ -26,6 +26,8 @@ import com.helger.commons.url.URLHelper;
 public class OSGIBundleLSResourceResolver extends AbstractLSResourceResolver
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (OSGIBundleLSResourceResolver.class);
+  /** Internal debug flag for console debugging */
+  private static final boolean DEBUG_RESOLVE = false;
 
   private final BundleContext m_aBundleContext;
 
@@ -66,6 +68,19 @@ public class OSGIBundleLSResourceResolver extends AbstractLSResourceResolver
                                       @Nullable final String sSystemId,
                                       @Nullable final String sBaseURI)
   {
+    if (DEBUG_RESOLVE)
+      s_aLogger.info ("mainResolveResource (" +
+                      sType +
+                      ", " +
+                      sNamespaceURI +
+                      ", " +
+                      sPublicId +
+                      ", " +
+                      sSystemId +
+                      ", " +
+                      sBaseURI +
+                      ")");
+
     if (StringHelper.hasText (sBaseURI))
     {
       // Try whether the base is a URI
@@ -123,6 +138,10 @@ public class OSGIBundleLSResourceResolver extends AbstractLSResourceResolver
         }
 
         final URLResource ret = new URLResource (aBundleURL);
+
+        if (DEBUG_RESOLVE)
+          s_aLogger.info ("  resolved base + system URL to " + ret);
+
         return new ResourceLSInput (ret);
       }
     }
