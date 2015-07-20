@@ -17,12 +17,17 @@
 package com.helger.commons.supplementary.test.java;
 
 import java.io.File;
+import java.io.IOException;
+
+import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.io.file.FileHelper;
+import com.helger.commons.io.file.FilenameHelper;
+import com.helger.commons.system.EOperatingSystem;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -30,26 +35,34 @@ public final class JavaFileFuncTest
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (JavaFileFuncTest.class);
 
-  private static void _log (final File f)
+  private static void _log (@Nonnull final File f)
   {
     s_aLogger.info ("Next file:");
-    s_aLogger.info ("  AbsolutePath: " + f.getAbsolutePath ());
-    s_aLogger.info ("  Name:         " + f.getName ());
-    s_aLogger.info ("  Path:         " + f.getPath ());
-    s_aLogger.info ("  Parent:       " + f.getParent ());
-    s_aLogger.info ("  Parent2:      " + f.getAbsoluteFile ().getParent ());
-    s_aLogger.info ("  Parent3:      " + f.getParentFile ());
-    s_aLogger.info ("  Parent4:      " + f.getAbsoluteFile ().getParentFile ());
-    s_aLogger.info ("  isAbsolute:   " + f.isAbsolute ());
-    s_aLogger.info ("  exists:       " + f.exists ());
+    s_aLogger.info ("  AbsolutePath:  " + f.getAbsolutePath ());
+    try
+    {
+      s_aLogger.info ("  CanonicalPath: " + f.getCanonicalPath ());
+    }
+    catch (final IOException ex)
+    {
+      s_aLogger.info ("  CanonicalPath: " + ex.getMessage ());
+    }
+    s_aLogger.info ("  Name:          " + f.getName ());
+    s_aLogger.info ("  Path:          " + f.getPath ());
+    s_aLogger.info ("  Parent:        " + f.getParent ());
+    s_aLogger.info ("  Parent2:       " + f.getAbsoluteFile ().getParent ());
+    s_aLogger.info ("  Parent3:       " + f.getParentFile ());
+    s_aLogger.info ("  Parent4:       " + f.getAbsoluteFile ().getParentFile ());
+    s_aLogger.info ("  isAbsolute:    " + f.isAbsolute ());
+    s_aLogger.info ("  exists:        " + f.exists ());
     if (f.exists ())
     {
-      s_aLogger.info ("  isDirectory:  " + f.isDirectory ());
-      s_aLogger.info ("  isFile:       " + f.isFile ());
-      s_aLogger.info ("  isHidden:     " + f.isHidden ());
-      s_aLogger.info ("  canRead:      " + FileHelper.canRead (f));
-      s_aLogger.info ("  canWrite:     " + FileHelper.canWrite (f));
-      s_aLogger.info ("  canExecute:   " + FileHelper.canExecute (f));
+      s_aLogger.info ("  isDirectory:   " + f.isDirectory ());
+      s_aLogger.info ("  isFile:        " + f.isFile ());
+      s_aLogger.info ("  isHidden:      " + f.isHidden ());
+      s_aLogger.info ("  canRead:       " + FileHelper.canRead (f));
+      s_aLogger.info ("  canWrite:      " + FileHelper.canWrite (f));
+      s_aLogger.info ("  canExecute:    " + FileHelper.canExecute (f));
     }
   }
 
@@ -58,7 +71,12 @@ public final class JavaFileFuncTest
   public void testGetPath ()
   {
     _log (new File ("pom.xml"));
+    if (EOperatingSystem.WINDOWS.isCurrentOS ())
+      _log (new File (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL1 + new File ("pom.xml").getAbsolutePath ()));
+    _log (new File ("pom.xml."));
     _log (new File ("c:\\pom.xml"));
+    _log (new File ("c:\\", "pom.xml"));
+    _log (new File ("c:\\", "pom"));
     _log (new File ("c:\\"));
     File f = new File ("pom.xml\u0000.txt");
     _log (f);
