@@ -62,7 +62,7 @@ public class CollatingComparatorDisplayNameProvider <DATATYPE> extends AbstractC
    * @param aDisplayNameProvider
    *        The display text provider to be used. May not be <code>null</code>.
    */
-  public CollatingComparatorDisplayNameProvider (@Nullable final Collator aCollator,
+  public CollatingComparatorDisplayNameProvider (@Nonnull final Collator aCollator,
                                                  @Nonnull final IDisplayNameProvider <DATATYPE> aDisplayNameProvider)
   {
     super (aCollator);
