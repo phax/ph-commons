@@ -57,6 +57,7 @@ import com.helger.commons.codec.IEncoder;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.exception.InitializationException;
+import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
@@ -103,6 +104,9 @@ public final class URLHelper
 
   private static char [] s_aCleanURLOld;
   private static char [] [] s_aCleanURLNew;
+
+  /** Internal debug logging flag */
+  private static final boolean DEBUG_GET_IS = false;
 
   @PresentForCodeCoverage
   private static final URLHelper s_aInstance = new URLHelper ();
@@ -330,7 +334,7 @@ public final class URLHelper
 
       // Maybe empty, if the URL ends with a '?'
       if (StringHelper.hasText (sQueryString))
-        aParams = _getQueryStringAsMap (sQueryString, aParameterDecoder);
+        aParams = getQueryStringAsMap (sQueryString, aParameterDecoder);
 
       sPath = sRemainingHref.substring (0, nQuestionIndex).trim ();
     }
@@ -342,8 +346,8 @@ public final class URLHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  private static Map <String, String> _getQueryStringAsMap (@Nullable final String sQueryString,
-                                                            @Nullable final IDecoder <String> aParameterDecoder)
+  public static Map <String, String> getQueryStringAsMap (@Nullable final String sQueryString,
+                                                          @Nullable final IDecoder <String> aParameterDecoder)
   {
     final Map <String, String> aMap = new LinkedHashMap <String, String> ();
     if (StringHelper.hasText (sQueryString))
@@ -360,9 +364,10 @@ public final class URLHelper
             if (sValue == null)
               throw new NullPointerException ("parameter value may not be null");
             if (aParameterDecoder != null)
-
+            {
               // Now decode the name and the value
               aMap.put (aParameterDecoder.getDecoded (sKey), aParameterDecoder.getDecoded (sValue));
+            }
             else
               aMap.put (sKey, sValue);
           }
@@ -375,7 +380,7 @@ public final class URLHelper
   @ReturnsMutableCopy
   public static Map <String, String> getQueryStringAsMap (@Nullable final String sQueryString)
   {
-    return _getQueryStringAsMap (sQueryString, null);
+    return getQueryStringAsMap (sQueryString, null);
   }
 
   @Nonnull
@@ -389,37 +394,47 @@ public final class URLHelper
    *
    * @param sPath
    *        The main path. May be <code>null</code>.
-   * @param aParams
-   *        The set of parameters to be appended. May be <code>null</code>.
+   * @param sQueryParams
+   *        The set of all query parameters already concatenated with the
+   *        correct characters (&amp; and =). May be <code>null</code>.
    * @param sAnchor
    *        An optional anchor to be added. May be <code>null</code>.
-   * @param aParameterEncoder
-   *        The parameters encoding to be used. May be <code>null</code>.
    * @return May be <code>null</code> if path, anchor and parameters are
    *         <code>null</code>.
    */
   @Nullable
   public static String getURLString (@Nullable final String sPath,
-                                     @Nullable final Map <String, String> aParams,
-                                     @Nullable final String sAnchor,
-                                     @Nullable final IEncoder <String> aParameterEncoder)
+                                     @Nullable final String sQueryParams,
+                                     @Nullable final String sAnchor)
   {
-    final boolean bHasParams = CollectionHelper.isNotEmpty (aParams);
+    final boolean bHasPath = StringHelper.hasText (sPath);
+    final boolean bHasQueryParams = StringHelper.hasText (sQueryParams);
     final boolean bHasAnchor = StringHelper.hasText (sAnchor);
 
     // return URL as is?
-    if (!bHasParams && !bHasAnchor)
+    if (!bHasQueryParams && !bHasAnchor)
     {
-      // Return URL as is
+      // Return URL as is (may be null)
       return sPath;
     }
 
     final StringBuilder aSB = new StringBuilder ();
-    if (StringHelper.hasText (sPath))
-      aSB.append (sPath);
-
-    if (bHasParams)
+    if (bHasPath)
     {
+      aSB.append (sPath);
+      if (sPath.contains (QUESTIONMARK_STR))
+        s_aLogger.warn ("Path contains the question mark ('?') character: '" + sPath + "'");
+      if (sPath.contains (AMPERSAND_STR))
+        s_aLogger.warn ("Path contains the ampersand ('&') character: '" + sPath + "'");
+      if (sPath.contains (HASH_STR))
+        s_aLogger.warn ("Path contains the hash ('#') character: '" + sPath + "'");
+    }
+
+    if (bHasQueryParams)
+    {
+      if (sQueryParams.contains (QUESTIONMARK_STR))
+        s_aLogger.warn ("Query parameters contain the question mark ('?') character: '" + sQueryParams + "'");
+
       final boolean bHasQuestionMark = aSB.indexOf (QUESTIONMARK_STR) >= 0;
 
       if (bHasQuestionMark)
@@ -436,35 +451,15 @@ public final class URLHelper
         aSB.append (QUESTIONMARK);
       }
 
-      // add all values
-      for (final Map.Entry <String, String> aEntry : aParams.entrySet ())
-      {
-        // Key
-        final String sKey = aEntry.getKey ();
-        if (aParameterEncoder != null)
-          aSB.append (aParameterEncoder.getEncoded (sKey));
-        else
-          aSB.append (sKey);
-
-        // Value
-        final String sValue = aEntry.getValue ();
-        if (StringHelper.hasText (sValue))
-          if (aParameterEncoder != null)
-            aSB.append (EQUALS).append (aParameterEncoder.getEncoded (sValue));
-          else
-            aSB.append (EQUALS).append (sValue);
-
-        // Separator
-        aSB.append (AMPERSAND);
-      }
-
-      // delete the last "&"
-      aSB.deleteCharAt (aSB.length () - 1);
+      // add all parameters
+      aSB.append (sQueryParams);
     }
 
     // Append anchor
     if (bHasAnchor)
     {
+      if (sAnchor.contains (HASH_STR))
+        s_aLogger.warn ("Anchor contains the hash ('#') character: '" + sAnchor + "'");
       if (StringHelper.getLastChar (aSB) != HASH)
         aSB.append (HASH);
       aSB.append (sAnchor);
@@ -477,12 +472,71 @@ public final class URLHelper
     return aSB.toString ();
   }
 
+  @Nullable
+  public static String getQueryParametersAsString (@Nullable final Map <String, String> aQueryParams,
+                                                   @Nullable final IEncoder <String> aQueryParameterEncoder)
+  {
+    if (CollectionHelper.isEmpty (aQueryParams))
+      return null;
+
+    final StringBuilder aSB = new StringBuilder ();
+    // add all values
+    for (final Map.Entry <String, String> aEntry : aQueryParams.entrySet ())
+    {
+      // Key
+      final String sKey = aEntry.getKey ();
+      if (aQueryParameterEncoder != null)
+        aSB.append (aQueryParameterEncoder.getEncoded (sKey));
+      else
+        aSB.append (sKey);
+
+      // Value
+      final String sValue = aEntry.getValue ();
+      if (StringHelper.hasText (sValue))
+        if (aQueryParameterEncoder != null)
+          aSB.append (EQUALS).append (aQueryParameterEncoder.getEncoded (sValue));
+        else
+          aSB.append (EQUALS).append (sValue);
+
+      // Separator
+      aSB.append (AMPERSAND);
+    }
+
+    // delete the last AMPERSAND
+    aSB.deleteCharAt (aSB.length () - 1);
+    return aSB.toString ();
+  }
+
   /**
    * Get the final representation of the URL using the specified elements.
    *
    * @param sPath
    *        The main path. May be <code>null</code>.
-   * @param aParams
+   * @param aQueryParams
+   *        The set of query parameters to be appended. May be <code>null</code>
+   *        .
+   * @param sAnchor
+   *        An optional anchor to be added. May be <code>null</code>.
+   * @param aQueryParameterEncoder
+   *        The parameters encoding to be used. May be <code>null</code>.
+   * @return May be <code>null</code> if path, anchor and parameters are
+   *         <code>null</code>.
+   */
+  @Nullable
+  public static String getURLString (@Nullable final String sPath,
+                                     @Nullable final Map <String, String> aQueryParams,
+                                     @Nullable final String sAnchor,
+                                     @Nullable final IEncoder <String> aQueryParameterEncoder)
+  {
+    return getURLString (sPath, getQueryParametersAsString (aQueryParams, aQueryParameterEncoder), sAnchor);
+  }
+
+  /**
+   * Get the final representation of the URL using the specified elements.
+   *
+   * @param sPath
+   *        The main path. May be <code>null</code>.
+   * @param aQueryParams
    *        The set of parameters to be appended. May be <code>null</code>.
    * @param sAnchor
    *        An optional anchor to be added. May be <code>null</code>.
@@ -493,13 +547,13 @@ public final class URLHelper
    */
   @Nullable
   public static String getURLString (@Nullable final String sPath,
-                                     @Nullable final Map <String, String> aParams,
+                                     @Nullable final Map <String, String> aQueryParams,
                                      @Nullable final String sAnchor,
                                      @Nullable final Charset aParameterCharset)
   {
-    final IEncoder <String> aParameterEncoder = aParameterCharset == null ? null
-                                                                          : new URLParameterEncoder (aParameterCharset);
-    return getURLString (sPath, aParams, sAnchor, aParameterEncoder);
+    final IEncoder <String> aQueryParameterEncoder = aParameterCharset == null ? null
+                                                                               : new URLParameterEncoder (aParameterCharset);
+    return getURLString (sPath, getQueryParametersAsString (aQueryParams, aQueryParameterEncoder), sAnchor);
   }
 
   /**
@@ -621,12 +675,10 @@ public final class URLHelper
   {
     ValueEnforcer.notNull (aURL, "URL");
 
-    final boolean DEBUG_IS = false;
-
-    if (DEBUG_IS)
-      s_aLogger.info ("getInputStream (" +
+    if (DEBUG_GET_IS)
+      s_aLogger.info ("getInputStream ('" +
                       aURL +
-                      ", " +
+                      "', " +
                       nConnectTimeoutMS +
                       ", " +
                       nReadTimeoutMS +
@@ -681,7 +733,7 @@ public final class URLHelper
       // by default follow-redirects is true for HTTPUrlConnections
       final InputStream ret = aConnection.getInputStream ();
 
-      if (DEBUG_IS)
+      if (DEBUG_GET_IS)
         s_aLogger.info ("  returning " + ret);
 
       return ret;
@@ -885,18 +937,25 @@ public final class URLHelper
   {
     ValueEnforcer.notNull (aURL, "URL");
     if (!PROTOCOL_FILE.equals (aURL.getProtocol ()))
-      throw new IllegalArgumentException ("Not a file URL: " + aURL);
+      throw new IllegalArgumentException ("Not a file URL: " + aURL.toExternalForm ());
 
+    String sPath;
     File aFile;
     try
     {
-      aFile = new File (aURL.toURI ().getSchemeSpecificPart ());
+      sPath = aURL.toURI ().getSchemeSpecificPart ();
+      aFile = new File (sPath);
     }
     catch (final URISyntaxException ex)
     {
       // Fallback for URLs that are not valid URIs
-      aFile = new File (aURL.getPath ());
+      sPath = aURL.getPath ();
+      aFile = new File (sPath);
     }
+
+    // In case the URL starts with a slash, make it absolute
+    if (FilenameHelper.startsWithPathSeparatorChar (sPath))
+      aFile = aFile.getAbsoluteFile ();
 
     // This file may be non-existing
     return aFile;
