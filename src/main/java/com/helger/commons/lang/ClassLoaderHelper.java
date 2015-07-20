@@ -16,9 +16,11 @@
  */
 package com.helger.commons.lang;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.security.AccessController;
+import java.util.Enumeration;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -151,6 +153,36 @@ public final class ClassLoaderHelper
 
     // returns null if not found
     return aClassLoader.getResource (sPathWithoutSlash);
+  }
+
+  /**
+   * Get all URLs of the passed resource using the specified class loader only.
+   * This is a sanity wrapper around
+   * <code>classLoader.getResources (sPath)</code>.
+   *
+   * @param aClassLoader
+   *        The class loader to be used. May not be <code>null</code>.
+   * @param sPath
+   *        The path to be resolved. May neither be <code>null</code> nor empty.
+   *        Internally it is ensured that the provided path does NOT start with
+   *        a slash.
+   * @return <code>null</code> if the path could not be resolved using the
+   *         specified class loader.
+   * @throws IOException
+   *         In case an internal error occurs.
+   */
+  @Nonnull
+  public static Enumeration <URL> getResources (@Nonnull final ClassLoader aClassLoader,
+                                                @Nonnull @Nonempty final String sPath) throws IOException
+  {
+    ValueEnforcer.notNull (aClassLoader, "ClassLoader");
+    ValueEnforcer.notEmpty (sPath, "Path");
+
+    // Ensure the path does NOT starts with a "/"
+    final String sPathWithoutSlash = _getPathWithoutLeadingSlash (sPath);
+
+    // returns null if not found
+    return aClassLoader.getResources (sPathWithoutSlash);
   }
 
   /**
