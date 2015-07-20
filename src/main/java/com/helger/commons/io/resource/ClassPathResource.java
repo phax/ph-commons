@@ -56,6 +56,9 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
   /** Use this prefix to uniquely identify classpath resources - alternative */
   public static final String CLASSPATH_PREFIX_SHORT = "cp:";
 
+  /** Internal debug logging flag */
+  private static final boolean DEBUG_GET_IS = false;
+
   private String m_sPath;
   private final WeakReference <ClassLoader> m_aClassLoader;
   private boolean m_bURLResolved = false;
@@ -137,6 +140,16 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     m_sPath = aOIS.readUTF ();
   }
 
+  /**
+   * Remove any leading explicit classpath resource prefixes.
+   *
+   * @param sPath
+   *        The source path to strip the class path prefixes from. May be
+   *        <code>null</code>.
+   * @return <code>null</code> if the parameter was <code>null</code>.
+   * @see #CLASSPATH_PREFIX_LONG
+   * @see #CLASSPATH_PREFIX_SHORT
+   */
   @Nullable
   public static String getWithoutClassPathPrefix (@Nullable final String sPath)
   {
@@ -188,9 +201,7 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
                                               @Nullable final URL aURL,
                                               @Nullable final ClassLoader aClassLoader)
   {
-    final boolean DEBUG_IS = false;
-
-    if (DEBUG_IS)
+    if (DEBUG_GET_IS)
       LoggerFactory.getLogger (ClassPathResource.class)
                    .info ("_getInputStream ('" + sPath + "', " + aURL + ", " + aClassLoader + ")");
 
@@ -208,7 +219,7 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
         ret = URLResource.getInputStream (aURL);
       }
 
-    if (DEBUG_IS)
+    if (DEBUG_GET_IS)
       LoggerFactory.getLogger (ClassPathResource.class).info ("  returning " + ret);
 
     return ret;
