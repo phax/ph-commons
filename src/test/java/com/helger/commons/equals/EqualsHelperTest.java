@@ -237,9 +237,9 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
   {
     _test ("s1", "s2");
     _test (StringParser.parseBigDecimal ("12562136756"), StringParser.parseBigDecimal ("67673455"));
-    _test (Double.valueOf (3.1415d), Double.valueOf (23.456d));
-    _test (Float.valueOf (3.1415f), Float.valueOf (23.456f));
-    _test (new URL ("http://www.phloc.com"), new URL ("http://www.google.com"));
+    _test (Double.valueOf (3.1234d), Double.valueOf (23.456d));
+    _test (Float.valueOf (3.1234f), Float.valueOf (23.456f));
+    _test (new URL ("http://www.helger.com"), new URL ("http://www.google.com"));
     _test (new boolean [] { true }, new boolean [] { false });
     _test (new byte [] { 1 }, new byte [] { 2 });
     _test (new char [] { 'a' }, new char [] { 'b' });
@@ -270,7 +270,8 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
     assertFalse (EqualsHelper.equals (aSB1, new StringBuffer ("Hallo")));
     assertFalse (EqualsHelper.equals (aSB1, null));
 
-    assertTrue (EqualsHelper.equals (CollectionHelper.newList ("a", "b", "c"), CollectionHelper.newList ("a", "b", "c")));
+    assertTrue (EqualsHelper.equals (CollectionHelper.newList ("a", "b", "c"),
+                                     CollectionHelper.newList ("a", "b", "c")));
     assertTrue (EqualsHelper.equals (CollectionHelper.newUnmodifiableList ("a", "b", "c"),
                                      CollectionHelper.newUnmodifiableList ("a", "b", "c")));
     assertTrue (EqualsHelper.equals (CollectionHelper.newStack ("a", "b", "c"),
@@ -433,9 +434,10 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
                                                                               CollectionHelper.newList ("c", "d"))));
     assertFalse (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
                                                                               CollectionHelper.newList ("c", "D"))));
-    assertFalse (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
-                                                                              CollectionHelper.newList ("c", "d"),
-                                                                              CollectionHelper.newList ("e", "f"))));
+    assertFalse (EqualsHelper.equalsCollection (aArray,
+                                                ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
+                                                                      CollectionHelper.newList ("c", "d"),
+                                                                      CollectionHelper.newList ("e", "f"))));
     assertFalse (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
                                                                               (List <String>) null)));
     assertFalse (EqualsHelper.equalsCollection (aArray, CollectionHelper.newList ("a", "b", "c")));
@@ -477,7 +479,8 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
   {
     final List <String> aCont = CollectionHelper.newList ("a", "b", "c");
     assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), aCont.iterator ()));
-    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), CollectionHelper.makeUnmodifiable (aCont).iterator ()));
+    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (),
+                                               CollectionHelper.makeUnmodifiable (aCont).iterator ()));
     assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), Collections.synchronizedList (aCont).iterator ()));
     assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), new ArrayList <String> (aCont).iterator ()));
     assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), new LinkedList <String> (aCont).iterator ()));
@@ -497,11 +500,14 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
     assertFalse (EqualsHelper.equalsCollection (new LinkedList <String> ().iterator (), aCont.iterator ()));
     assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), new ArrayList <String> ().iterator ()));
     assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), CollectionHelper.newList ("a", "b").iterator ()));
-    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), CollectionHelper.newList ("A", "b", "c").iterator ()));
-    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), CollectionHelper.newList ("a", "B", "c").iterator ()));
-    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), CollectionHelper.newList ("a", "b", "C").iterator ()));
-    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), CollectionHelper.newList ("a", "b", "c", "d")
-                                                                                   .iterator ()));
+    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (),
+                                                CollectionHelper.newList ("A", "b", "c").iterator ()));
+    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (),
+                                                CollectionHelper.newList ("a", "B", "c").iterator ()));
+    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (),
+                                                CollectionHelper.newList ("a", "b", "C").iterator ()));
+    assertFalse (EqualsHelper.equalsCollection (aCont.iterator (),
+                                                CollectionHelper.newList ("a", "b", "c", "d").iterator ()));
     assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), CollectionHelper.newSet ("a", "b", "c")));
     assertFalse (EqualsHelper.equalsCollection (aCont.iterator (), ArrayHelper.newArray ("a", "b", "c")));
   }
@@ -608,8 +614,8 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
   {
     assertTrue (EqualsHelper.equalsAsList (null, null));
     assertTrue (EqualsHelper.equalsAsList (CollectionHelper.newList ("a", "b"), ArrayHelper.newArray ("a", "b")));
-    assertTrue (EqualsHelper.equalsAsList (CollectionHelper.newList ("a", "b"), CollectionHelper.newList ("a", "b")
-                                                                                                .iterator ()));
+    assertTrue (EqualsHelper.equalsAsList (CollectionHelper.newList ("a", "b"),
+                                           CollectionHelper.newList ("a", "b").iterator ()));
     assertTrue (EqualsHelper.equalsAsList (CollectionHelper.newList ("a", "b"),
                                            CollectionHelper.getEnumeration ("a", "b")));
     assertTrue (EqualsHelper.equalsAsList (CollectionHelper.newList ("a", "b"),

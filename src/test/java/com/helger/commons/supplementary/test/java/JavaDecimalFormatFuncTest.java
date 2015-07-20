@@ -122,7 +122,7 @@ public final class JavaDecimalFormatFuncTest
 
     curFormat = new DecimalFormat (patternWithoutCurSym);
     ((DecimalFormat) curFormat).setDecimalFormatSymbols (DecimalFormatSymbols.getInstance (CGlobal.LOCALE_FIXED_NUMBER_FORMAT));
-    assertEquals ("3.14 ", curFormat.format (3.1415));
+    assertEquals ("3.12 ", curFormat.format (3.1234));
   }
 
   @Test
@@ -131,12 +131,12 @@ public final class JavaDecimalFormatFuncTest
     final NumberFormat aNF = NumberFormat.getNumberInstance (Locale.US);
     aNF.setMaximumFractionDigits (10);
 
-    double d = 3.1415;
-    assertEquals ("3.1415", aNF.format (d));
-    assertEquals ("3.1415", Double.toString (d));
+    double d = 3.1234;
+    assertEquals ("3.1234", aNF.format (d));
+    assertEquals ("3.1234", Double.toString (d));
 
-    d = 3.14159265359;
-    assertEquals ("3.1415926536", aNF.format (d));
-    assertEquals ("3.14159265359", Double.toString (d));
+    d = 3.12345678901;
+    assertEquals ("3.123456789", aNF.format (d));
+    assertEquals ("3.12345678901", Double.toString (d));
   }
 }

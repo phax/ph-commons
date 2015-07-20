@@ -23,7 +23,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link CloneHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CloneHelperTest
@@ -33,7 +33,7 @@ public final class CloneHelperTest
   {
     assertNull (CloneHelper.getClonedValue (null));
     assertEquals (CloneHelper.getClonedValue ("Hallo"), "Hallo");
-    assertEquals (CloneHelper.getClonedValue (Double.valueOf (3.1415)), Double.valueOf (3.1415));
+    assertEquals (CloneHelper.getClonedValue (Double.valueOf (3.1234)), Double.valueOf (3.1234));
 
     // java.lang.Cloneable
     final MockCloneable d0 = new MockCloneable ();

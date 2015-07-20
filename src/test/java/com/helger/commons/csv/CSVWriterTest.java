@@ -317,8 +317,7 @@ public final class CSVWriterTest
   @Test
   public void testStreamFlushing () throws IOException
   {
-
-    final String WRITE_FILE = "myfile.csv";
+    final String WRITE_FILE = "target/myfile.csv";
 
     final String [] nextLine = new String [] { "aaaa", "bbbb", "cccc", "dddd" };
 

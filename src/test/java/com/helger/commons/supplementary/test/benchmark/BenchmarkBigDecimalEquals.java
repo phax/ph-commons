@@ -18,6 +18,8 @@ package com.helger.commons.supplementary.test.benchmark;
 
 import java.math.BigDecimal;
 
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.random.VerySecureRandom;
 
 /**
@@ -75,7 +77,7 @@ public final class BenchmarkBigDecimalEquals extends AbstractBenchmarkTask
           b = aBD1.compareTo (aBD2) == 0;
         }
       if (b)
-      {}
+        LoggerFactory.getLogger ("test").info ("Equals: " + b);
     }
   }
 
@@ -100,7 +102,7 @@ public final class BenchmarkBigDecimalEquals extends AbstractBenchmarkTask
           b = aBD1.setScale (nMaxScale).equals (aBD2.setScale (nMaxScale));
         }
       if (b)
-      {}
+        LoggerFactory.getLogger ("test").info ("Equals: " + b);
     }
   }
 }

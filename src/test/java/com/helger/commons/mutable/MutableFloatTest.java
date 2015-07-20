@@ -27,7 +27,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MutableFloat}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MutableFloatTest
@@ -83,10 +83,10 @@ public final class MutableFloatTest
     x.set (1);
     assertTrue (x.isGreater0 ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableFloat (3.1415f),
-                                                                       new MutableFloat (3.1415f));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableFloat (3.1415f),
-                                                                           new MutableFloat (3.141f));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableFloat (3.1234f),
+                                                                       new MutableFloat (3.1234f));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableFloat (3.1234f),
+                                                                           new MutableFloat (3.123f));
     CommonsTestHelper.testGetClone (new MutableFloat (47.11f));
   }
 }

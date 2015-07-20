@@ -27,7 +27,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MutableDouble}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MutableDoubleTest
@@ -83,10 +83,10 @@ public final class MutableDoubleTest
     x.set (1);
     assertTrue (x.isGreater0 ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableDouble (3.1415),
-                                                                       new MutableDouble (3.1415));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableDouble (3.1415),
-                                                                           new MutableDouble (3.141));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableDouble (3.1234),
+                                                                       new MutableDouble (3.1234));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableDouble (3.1234),
+                                                                           new MutableDouble (3.123));
     CommonsTestHelper.testGetClone (new MutableDouble (47.11));
   }
 }

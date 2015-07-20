@@ -18,7 +18,6 @@ package com.helger.commons.csv;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -544,7 +543,6 @@ public final class CSVParserTest
   @Test
   public void validateEscapeStringBeforeRealTest ()
   {
-    assertNotNull (ESCAPE_TEST_STRING);
     assertEquals (9, ESCAPE_TEST_STRING.length ());
   }
 
