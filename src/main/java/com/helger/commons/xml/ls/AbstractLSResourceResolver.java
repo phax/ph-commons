@@ -31,6 +31,9 @@ import com.helger.commons.annotation.Nonempty;
  */
 public abstract class AbstractLSResourceResolver implements LSResourceResolver
 {
+  /** Internal debug flag for console debugging */
+  protected static final boolean DEBUG_RESOLVE = false;
+
   private LSResourceResolver m_aWrappedResourceResolver;
 
   public AbstractLSResourceResolver ()

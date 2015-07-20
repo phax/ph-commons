@@ -26,6 +26,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -39,6 +41,8 @@ import com.helger.commons.collection.CollectionHelper;
 @ThreadSafe
 public class CollectingLSResourceResolver extends AbstractLSResourceResolver
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (CollectingLSResourceResolver.class);
+
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   @GuardedBy ("m_aRWLock")
   private final List <LSResourceData> m_aList = new ArrayList <LSResourceData> ();
@@ -69,6 +73,19 @@ public class CollectingLSResourceResolver extends AbstractLSResourceResolver
                                       @Nullable final String sSystemId,
                                       @Nullable final String sBaseURI)
   {
+    if (DEBUG_RESOLVE)
+      s_aLogger.info ("mainResolveResource (" +
+                      sType +
+                      ", " +
+                      sNamespaceURI +
+                      ", " +
+                      sPublicId +
+                      ", " +
+                      sSystemId +
+                      ", " +
+                      sBaseURI +
+                      ")");
+
     final LSResourceData aData = new LSResourceData (sType, sNamespaceURI, sPublicId, sSystemId, sBaseURI);
     m_aRWLock.writeLock ().lock ();
     try
