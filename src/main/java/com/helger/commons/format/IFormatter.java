@@ -16,20 +16,22 @@
  */
 package com.helger.commons.format;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
  * A simple formatter interface that may be used to format arbitrary objects to
  * a string.
- * 
+ *
  * @author Philip Helger
  */
-public interface IFormatter
+public interface IFormatter extends Serializable
 {
   /**
    * Convert the passed value to a formatted string according to the pattern.
-   * 
+   *
    * @param aValue
    *        The source value to be formatted. May be <code>null</code>.
    * @return The formatted string. Never <code>null</code>.

@@ -18,6 +18,11 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <entry date="2015-07-20" category="api" action="change" incompatible="true">
+    <change>
+      <text locale="en">Made IFormatter extend Serializable</text>
+    </change>
+  </entry>
   <entry date="2015-07-20" category="api" action="add">
     <change>
       <text locale="en">Added ClassLoaderHelper.getResources() method</text>
