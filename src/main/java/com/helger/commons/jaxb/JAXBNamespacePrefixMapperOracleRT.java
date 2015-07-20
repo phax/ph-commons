@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.string.ToStringGenerator;
 import com.sun.xml.internal.bind.marshaller.NamespacePrefixMapper;
 
 /**
@@ -55,5 +56,11 @@ public class JAXBNamespacePrefixMapperOracleRT extends NamespacePrefixMapper
 
     // Use suggestion
     return sSuggestion;
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("NamespaceContext", m_aNC).toString ();
   }
 }
