@@ -18,6 +18,7 @@ package com.helger.commons.factory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -30,6 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <DATATYPE>
  *        The return type of the factory
  */
+@Immutable
 public class FactoryConstantValue <DATATYPE> implements IFactory <DATATYPE>
 {
   private final DATATYPE m_aConstantValue;
@@ -65,7 +67,7 @@ public class FactoryConstantValue <DATATYPE> implements IFactory <DATATYPE>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("constant", m_aConstantValue).toString ();
+    return new ToStringGenerator (this).append ("ConstantValue", m_aConstantValue).toString ();
   }
 
   @Nonnull

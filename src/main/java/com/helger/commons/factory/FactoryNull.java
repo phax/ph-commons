@@ -19,6 +19,7 @@ package com.helger.commons.factory;
 import java.io.Serializable;
 
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -30,6 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <DATATYPE>
  *        Return type of the factory
  */
+@Immutable
 public class FactoryNull <DATATYPE> implements IFactory <DATATYPE>, Serializable
 {
   public FactoryNull ()

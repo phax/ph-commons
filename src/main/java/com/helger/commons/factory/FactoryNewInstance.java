@@ -20,6 +20,7 @@ import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -35,6 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <DATATYPE>
  *        The return type of the factory
  */
+@Immutable
 public class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>, Serializable
 {
   private final Class <? extends DATATYPE> m_aClass;
@@ -44,7 +46,7 @@ public class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>, Seria
     if (bCheckInstancable && !ClassHelper.isInstancableClass (aClass))
       throw new IllegalArgumentException ("The passed class '" +
                                           aClass +
-                                          "' is not instancable or doesn't have a no-argument constructor!");
+                                          "' is not instancable or doesn't have a public no-argument constructor!");
     m_aClass = aClass;
   }
 
@@ -80,7 +82,7 @@ public class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>, Seria
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("class", m_aClass).toString ();
+    return new ToStringGenerator (this).append ("Class", m_aClass).toString ();
   }
 
   @Nonnull
