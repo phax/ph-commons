@@ -20,7 +20,62 @@
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
   <entry date="2015-07-20" category="api" action="add">
     <change>
-      <text locale="en">Added new class 'NonBlockingProperties'</text>
+      <text locale="en">Added ClassLoaderHelper.getResources() method</text>
+    </change>
+  </entry>
+  <entry date="2015-07-20" category="tech" action="fix">
+    <change>
+      <text locale="en">SimpleLSResourceResolver can now handle base URLs representing a file</text>
+    </change>
+  </entry>
+  <entry date="2015-07-20" category="api" action="add">
+    <change>
+      <text locale="en">Added new class NonBlockingProperties</text>
+    </change>
+  </entry>
+  <entry date="2015-07-10" category="api" action="add">
+    <change>
+      <text locale="en">Added StringHelper.trim(Start|End) overloads with a char</text>
+    </change>
+  </entry>
+  <entry date="2015-07-10" category="api" action="change">
+    <change>
+      <text locale="en">Extracted AbstractLSResourceResolver base class</text>
+    </change>
+  </entry>
+  <entry date="2015-07-10" category="api" action="add">
+    <change>
+      <text locale="en">Added SecurityManagerHelper class</text>
+    </change>
+  </entry>
+  <entry date="2015-07-09" category="api" action="add">
+    <change>
+      <text locale="en">Added protected onAfterChange methods in the Mutable* classes</text>
+    </change>
+  </entry>
+  <entry date="2015-07-09" category="api" action="change">
+    <change>
+      <text locale="en">Made all Mutable* classes non-final</text>
+    </change>
+  </entry>
+  <entry date="2015-07-09" category="api" action="change">
+    <change>
+      <text locale="en">Improved ClassLoader support in JAXBMarhsaller and XMLSchemaCache</text>
+    </change>
+  </entry>
+  <entry date="2015-07-09" category="api" action="add">
+    <change>
+      <text locale="en">SimpleLSResourceResolver can now handle explicit ClassLoaders</text>
+    </change>
+  </entry>
+  <entry date="2015-07-09" category="api" action="add">
+    <change>
+      <text locale="en">Added IHasClassLoader interface</text>
+    </change>
+  </entry>
+  <entry date="2015-07-09" category="api" action="change" incompatible="true">
+    <change>
+      <text locale="en">Extended IHasSchema with a method taking a ClassLoader</text>
     </change>
   </entry>
   <release date="2015-07-08" version="6.0.1" />
