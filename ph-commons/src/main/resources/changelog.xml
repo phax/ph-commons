@@ -18,6 +18,12 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <release date="2015-07-21" version="6.1.0" />
+  <entry date="2015-07-20" category="api" action="add">
+    <change>
+      <text locale="en">Extracted JAXB related stuff into a separate subproject 'ph-jaxb'</text>
+    </change>
+  </entry>
   <entry date="2015-07-20" category="api" action="add">
     <change>
       <text locale="en">Added IHasFilter interface</text>
