@@ -87,7 +87,7 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
     }
   }
 
-  public static final class MultiLingualTextConverter extends AbstractMLTConverter
+  public static final class MultilingualTextConverter extends AbstractMLTConverter
   {
     @Nonnull
     public MultilingualText convertToNative (@Nonnull final IMicroElement aElement)
@@ -103,6 +103,6 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
                                                  new ReadOnlyMultilingualTextConverter ());
 
     // Register the writable version afterwards!
-    aRegistry.registerMicroElementTypeConverter (MultilingualText.class, new MultiLingualTextConverter ());
+    aRegistry.registerMicroElementTypeConverter (MultilingualText.class, new MultilingualTextConverter ());
   }
 }
