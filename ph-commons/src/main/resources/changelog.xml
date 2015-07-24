@@ -18,6 +18,11 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <entry date="2015-07-24" category="api" action="add">
+    <change>
+      <text locale="en">Added @UnsafeAPI interface</text>
+    </change>
+  </entry>
   <release date="2015-07-21" version="6.1.0" />
   <entry date="2015-07-20" category="api" action="add">
     <change>
