@@ -49,17 +49,17 @@ import com.helger.commons.xml.serialize.write.XMLWriterSettings;
  */
 public final class MicroWriterTest
 {
-  private static final String TEST_XML = "<?xml version=\"1.0\"?>"
-                                         + "<!DOCTYPE verrryoot>"
-                                         + "<verrryoot xmlns=\"sthgelse\">"
-                                         + "<!-- arg - a comment -->"
-                                         + "<root xmlns=\"myuri\">"
-                                         + "<child xmlns=\"www.phloc.com\">"
-                                         + "<a:child2 xmlns:a=\"foo\">Value text - no entities!</a:child2>"
-                                         + "&lt;entity&gt;<![CDATA[xxx]]></child>"
-                                         + "</root>"
-                                         + "<?target value?>"
-                                         + "</verrryoot>";
+  private static final String TEST_XML = "<?xml version=\"1.0\"?>" +
+                                         "<!DOCTYPE verrryoot>" +
+                                         "<verrryoot xmlns=\"sthgelse\">" +
+                                         "<!-- arg - a comment -->" +
+                                         "<root xmlns=\"myuri\">" +
+                                         "<child xmlns=\"www.helger.com\">" +
+                                         "<a:child2 xmlns:a=\"foo\">Value text - no entities!</a:child2>" +
+                                         "&lt;entity&gt;<![CDATA[xxx]]></child>" +
+                                         "</root>" +
+                                         "<?target value?>" +
+                                         "</verrryoot>";
 
   private static void _testGetNodeAsXHTMLString (final IMicroNode aNode)
   {
@@ -237,58 +237,63 @@ public final class MicroWriterTest
     eRoot.appendElement ("ns3url", "child4").setAttribute ("ns4url", "attr1", "a");
 
     String s = MicroWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                  + "<root xmlns=\"ns1url\">"
-                  + "<ns0:child1 xmlns:ns0=\"ns2url\" />"
-                  + "<ns0:child2 xmlns:ns0=\"ns2url\" attr1=\"a\" />"
-                  + "<ns0:child3 xmlns:ns0=\"ns3url\" ns0:attr1=\"a\" />"
-                  + "<ns0:child4 xmlns:ns0=\"ns3url\" xmlns:ns1=\"ns4url\" ns1:attr1=\"a\" />"
-                  + "</root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+                  "<root xmlns=\"ns1url\">" +
+                  "<ns0:child1 xmlns:ns0=\"ns2url\" />" +
+                  "<ns0:child2 xmlns:ns0=\"ns2url\" attr1=\"a\" />" +
+                  "<ns0:child3 xmlns:ns0=\"ns3url\" ns0:attr1=\"a\" />" +
+                  "<ns0:child4 xmlns:ns0=\"ns3url\" xmlns:ns1=\"ns4url\" ns1:attr1=\"a\" />" +
+                  "</root>",
+                  s);
 
     final MapBasedNamespaceContext aCtx = new MapBasedNamespaceContext ();
     aCtx.addMapping ("a", "ns1url");
     aSettings.setNamespaceContext (aCtx);
     s = MicroWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                  + "<a:root xmlns:a=\"ns1url\">"
-                  + "<ns0:child1 xmlns:ns0=\"ns2url\" />"
-                  + "<ns0:child2 xmlns:ns0=\"ns2url\" attr1=\"a\" />"
-                  + "<ns0:child3 xmlns:ns0=\"ns3url\" ns0:attr1=\"a\" />"
-                  + "<ns0:child4 xmlns:ns0=\"ns3url\" xmlns:ns1=\"ns4url\" ns1:attr1=\"a\" />"
-                  + "</a:root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+                  "<a:root xmlns:a=\"ns1url\">" +
+                  "<ns0:child1 xmlns:ns0=\"ns2url\" />" +
+                  "<ns0:child2 xmlns:ns0=\"ns2url\" attr1=\"a\" />" +
+                  "<ns0:child3 xmlns:ns0=\"ns3url\" ns0:attr1=\"a\" />" +
+                  "<ns0:child4 xmlns:ns0=\"ns3url\" xmlns:ns1=\"ns4url\" ns1:attr1=\"a\" />" +
+                  "</a:root>",
+                  s);
 
     // Add mapping to namespace context
     aCtx.addMapping ("xy", "ns2url");
     s = MicroWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                  + "<a:root xmlns:a=\"ns1url\">"
-                  + "<xy:child1 xmlns:xy=\"ns2url\" />"
-                  + "<xy:child2 xmlns:xy=\"ns2url\" attr1=\"a\" />"
-                  + "<ns0:child3 xmlns:ns0=\"ns3url\" ns0:attr1=\"a\" />"
-                  + "<ns0:child4 xmlns:ns0=\"ns3url\" xmlns:ns1=\"ns4url\" ns1:attr1=\"a\" />"
-                  + "</a:root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+                  "<a:root xmlns:a=\"ns1url\">" +
+                  "<xy:child1 xmlns:xy=\"ns2url\" />" +
+                  "<xy:child2 xmlns:xy=\"ns2url\" attr1=\"a\" />" +
+                  "<ns0:child3 xmlns:ns0=\"ns3url\" ns0:attr1=\"a\" />" +
+                  "<ns0:child4 xmlns:ns0=\"ns3url\" xmlns:ns1=\"ns4url\" ns1:attr1=\"a\" />" +
+                  "</a:root>",
+                  s);
 
     // Put namespace context mappings in root
     aSettings.setPutNamespaceContextPrefixesInRoot (true);
     s = MicroWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                  + "<a:root xmlns:a=\"ns1url\" xmlns:xy=\"ns2url\">"
-                  + "<xy:child1 />"
-                  + "<xy:child2 attr1=\"a\" />"
-                  + "<ns0:child3 xmlns:ns0=\"ns3url\" ns0:attr1=\"a\" />"
-                  + "<ns0:child4 xmlns:ns0=\"ns3url\" xmlns:ns1=\"ns4url\" ns1:attr1=\"a\" />"
-                  + "</a:root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+                  "<a:root xmlns:a=\"ns1url\" xmlns:xy=\"ns2url\">" +
+                  "<xy:child1 />" +
+                  "<xy:child2 attr1=\"a\" />" +
+                  "<ns0:child3 xmlns:ns0=\"ns3url\" ns0:attr1=\"a\" />" +
+                  "<ns0:child4 xmlns:ns0=\"ns3url\" xmlns:ns1=\"ns4url\" ns1:attr1=\"a\" />" +
+                  "</a:root>",
+                  s);
 
     eRoot.appendElement ("ns3url", "zz");
     s = MicroWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                  + "<a:root xmlns:a=\"ns1url\" xmlns:xy=\"ns2url\">"
-                  + "<xy:child1 />"
-                  + "<xy:child2 attr1=\"a\" />"
-                  + "<ns0:child3 xmlns:ns0=\"ns3url\" ns0:attr1=\"a\" />"
-                  + "<ns0:child4 xmlns:ns0=\"ns3url\" xmlns:ns1=\"ns4url\" ns1:attr1=\"a\" />"
-                  + "<ns0:zz xmlns:ns0=\"ns3url\" />"
-                  + "</a:root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+                  "<a:root xmlns:a=\"ns1url\" xmlns:xy=\"ns2url\">" +
+                  "<xy:child1 />" +
+                  "<xy:child2 attr1=\"a\" />" +
+                  "<ns0:child3 xmlns:ns0=\"ns3url\" ns0:attr1=\"a\" />" +
+                  "<ns0:child4 xmlns:ns0=\"ns3url\" xmlns:ns1=\"ns4url\" ns1:attr1=\"a\" />" +
+                  "<ns0:zz xmlns:ns0=\"ns3url\" />" +
+                  "</a:root>",
+                  s);
   }
 
   @Test
@@ -304,44 +309,48 @@ public final class MicroWriterTest
     eRoot.appendElement ("ns3url", "child4").setAttribute ("ns4url", "attr1", "a");
 
     String s = MicroWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                  + "<root xmlns=\"ns1url\">"
-                  + "<ns0:child1 xmlns:ns0=\"ns2url\" />"
-                  + "<ns0:child2 xmlns:ns0=\"ns2url\" attr1=\"a\" />"
-                  + "<ns0:child3 xmlns:ns0=\"ns3url\" ns0:attr1=\"a\" />"
-                  + "<ns0:child4 xmlns:ns0=\"ns3url\" xmlns:ns1=\"ns4url\" ns1:attr1=\"a\" />"
-                  + "</root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+                  "<root xmlns=\"ns1url\">" +
+                  "<ns0:child1 xmlns:ns0=\"ns2url\" />" +
+                  "<ns0:child2 xmlns:ns0=\"ns2url\" attr1=\"a\" />" +
+                  "<ns0:child3 xmlns:ns0=\"ns3url\" ns0:attr1=\"a\" />" +
+                  "<ns0:child4 xmlns:ns0=\"ns3url\" xmlns:ns1=\"ns4url\" ns1:attr1=\"a\" />" +
+                  "</root>",
+                  s);
 
     aSettings.setPutNamespaceContextPrefixesInRoot (true);
     s = MicroWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                  + "<root xmlns=\"ns1url\">"
-                  + "<ns0:child1 xmlns:ns0=\"ns2url\" />"
-                  + "<ns0:child2 xmlns:ns0=\"ns2url\" attr1=\"a\" />"
-                  + "<ns0:child3 xmlns:ns0=\"ns3url\" ns0:attr1=\"a\" />"
-                  + "<ns0:child4 xmlns:ns0=\"ns3url\" xmlns:ns1=\"ns4url\" ns1:attr1=\"a\" />"
-                  + "</root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+                  "<root xmlns=\"ns1url\">" +
+                  "<ns0:child1 xmlns:ns0=\"ns2url\" />" +
+                  "<ns0:child2 xmlns:ns0=\"ns2url\" attr1=\"a\" />" +
+                  "<ns0:child3 xmlns:ns0=\"ns3url\" ns0:attr1=\"a\" />" +
+                  "<ns0:child4 xmlns:ns0=\"ns3url\" xmlns:ns1=\"ns4url\" ns1:attr1=\"a\" />" +
+                  "</root>",
+                  s);
 
     aSettings.setPutNamespaceContextPrefixesInRoot (false);
     aSettings.setEmitNamespaces (false);
     s = MicroWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                  + "<root>"
-                  + "<child1 />"
-                  + "<child2 attr1=\"a\" />"
-                  + "<child3 attr1=\"a\" />"
-                  + "<child4 attr1=\"a\" />"
-                  + "</root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+                  "<root>" +
+                  "<child1 />" +
+                  "<child2 attr1=\"a\" />" +
+                  "<child3 attr1=\"a\" />" +
+                  "<child4 attr1=\"a\" />" +
+                  "</root>",
+                  s);
 
     aSettings.setPutNamespaceContextPrefixesInRoot (true);
     s = MicroWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                  + "<root>"
-                  + "<child1 />"
-                  + "<child2 attr1=\"a\" />"
-                  + "<child3 attr1=\"a\" />"
-                  + "<child4 attr1=\"a\" />"
-                  + "</root>", s);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+                  "<root>" +
+                  "<child1 />" +
+                  "<child2 attr1=\"a\" />" +
+                  "<child3 attr1=\"a\" />" +
+                  "<child4 attr1=\"a\" />" +
+                  "</root>",
+                  s);
   }
 
   @Test
@@ -462,11 +471,12 @@ public final class MicroWriterTest
 
     {
       final String s = MicroWriter.getNodeAsString (aDoc, aSettings);
-      assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                    + "<root xmlns=\"ns1url\">"
-                    + "<ns0:child1 xmlns:ns0=\"ns2url\" ns0:attr1=\"value1\" />"
-                    + "<ns0:child2 xmlns:ns0=\"ns2url\" xmlns:ns1=\"ns3url\" ns1:attr2=\"value2\" />"
-                    + "</root>", s);
+      assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+                    "<root xmlns=\"ns1url\">" +
+                    "<ns0:child1 xmlns:ns0=\"ns2url\" ns0:attr1=\"value1\" />" +
+                    "<ns0:child2 xmlns:ns0=\"ns2url\" xmlns:ns1=\"ns3url\" ns1:attr2=\"value2\" />" +
+                    "</root>",
+                    s);
       assertEquals (s, MicroWriter.getNodeAsString (MicroReader.readMicroXML (s), aSettings));
       final IMicroDocument aDoc2 = MicroReader.readMicroXML (s);
       assertTrue (aDoc.isEqualContent (aDoc2));
@@ -478,11 +488,12 @@ public final class MicroWriterTest
       aNC.addMapping ("n2", "ns2url");
       aNC.addMapping ("n3", "ns3url");
       final String s = MicroWriter.getNodeAsString (aDoc, new XMLWriterSettings (aSettings).setNamespaceContext (aNC));
-      assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                    + "<n1:root xmlns:n1=\"ns1url\">"
-                    + "<n2:child1 xmlns:n2=\"ns2url\" n2:attr1=\"value1\" />"
-                    + "<n2:child2 xmlns:n2=\"ns2url\" xmlns:n3=\"ns3url\" n3:attr2=\"value2\" />"
-                    + "</n1:root>", s);
+      assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+                    "<n1:root xmlns:n1=\"ns1url\">" +
+                    "<n2:child1 xmlns:n2=\"ns2url\" n2:attr1=\"value1\" />" +
+                    "<n2:child2 xmlns:n2=\"ns2url\" xmlns:n3=\"ns3url\" n3:attr2=\"value2\" />" +
+                    "</n1:root>",
+                    s);
       final IMicroDocument aDoc2 = MicroReader.readMicroXML (s);
       assertNotNull (aDoc2);
       assertTrue (aDoc.isEqualContent (aDoc2));
@@ -494,11 +505,12 @@ public final class MicroWriterTest
       aNC.addMapping ("n2", "ns2url");
       aNC.addMapping ("", "ns3url");
       final String s = MicroWriter.getNodeAsString (aDoc, new XMLWriterSettings (aSettings).setNamespaceContext (aNC));
-      assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                    + "<n1:root xmlns:n1=\"ns1url\">"
-                    + "<n2:child1 xmlns:n2=\"ns2url\" n2:attr1=\"value1\" />"
-                    + "<n2:child2 xmlns:n2=\"ns2url\" xmlns=\"ns3url\" attr2=\"value2\" />"
-                    + "</n1:root>", s);
+      assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+                    "<n1:root xmlns:n1=\"ns1url\">" +
+                    "<n2:child1 xmlns:n2=\"ns2url\" n2:attr1=\"value1\" />" +
+                    "<n2:child2 xmlns:n2=\"ns2url\" xmlns=\"ns3url\" attr2=\"value2\" />" +
+                    "</n1:root>",
+                    s);
       final IMicroDocument aDoc2 = MicroReader.readMicroXML (s);
       assertNotNull (aDoc2);
       if (false)
@@ -513,11 +525,12 @@ public final class MicroWriterTest
       aNC.addMapping ("n1", "ns1url");
       aNC.addMapping ("n2", "ns2url");
       final String s = MicroWriter.getNodeAsString (aDoc, new XMLWriterSettings (aSettings).setNamespaceContext (aNC));
-      assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                    + "<n1:root xmlns:n1=\"ns1url\">"
-                    + "<n2:child1 xmlns:n2=\"ns2url\" n2:attr1=\"value1\" />"
-                    + "<n2:child2 xmlns:n2=\"ns2url\" xmlns:ns0=\"ns3url\" ns0:attr2=\"value2\" />"
-                    + "</n1:root>", s);
+      assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+                    "<n1:root xmlns:n1=\"ns1url\">" +
+                    "<n2:child1 xmlns:n2=\"ns2url\" n2:attr1=\"value1\" />" +
+                    "<n2:child2 xmlns:n2=\"ns2url\" xmlns:ns0=\"ns3url\" ns0:attr2=\"value2\" />" +
+                    "</n1:root>",
+                    s);
       final IMicroDocument aDoc2 = MicroReader.readMicroXML (s);
       assertNotNull (aDoc2);
       // Different namespace for attr2
@@ -526,11 +539,12 @@ public final class MicroWriterTest
 
     {
       final String s = MicroWriter.getNodeAsString (aDoc, new XMLWriterSettings (aSettings).setEmitNamespaces (false));
-      assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
-                    + "<root>"
-                    + "<child1 attr1=\"value1\" />"
-                    + "<child2 attr2=\"value2\" />"
-                    + "</root>", s);
+      assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+                    "<root>" +
+                    "<child1 attr1=\"value1\" />" +
+                    "<child2 attr2=\"value2\" />" +
+                    "</root>",
+                    s);
       final IMicroDocument aDoc2 = MicroReader.readMicroXML (s);
       assertNotNull (aDoc2);
     }

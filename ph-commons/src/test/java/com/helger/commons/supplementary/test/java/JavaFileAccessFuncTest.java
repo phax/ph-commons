@@ -35,9 +35,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FileOperationManager;
 import com.helger.commons.io.file.FileOperations;
-import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.LoggingFileOperationCallback;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.system.EOperatingSystem;
@@ -105,7 +105,7 @@ public final class JavaFileAccessFuncTest
     if (EOperatingSystem.getCurrentOS ().isUnixBased ())
     {
       final FileOperationManager aFOM = new FileOperationManager (new LoggingFileOperationCallback ());
-      final File fTempDir = new File (SystemProperties.getTmpDir (), "phloc");
+      final File fTempDir = new File (SystemProperties.getTmpDir (), "helger");
       FileOperations.createDirIfNotExisting (fTempDir);
       assertTrue (fTempDir.getAbsolutePath (), fTempDir.exists ());
 
@@ -126,11 +126,12 @@ public final class JavaFileAccessFuncTest
                       final String sMod = Integer.toString (nModeOwn) +
                                           Integer.toString (nModeGroup) +
                                           Integer.toString (nModeOther);
-                      final String sPrefix = "phloc-commons-";
+                      final String sPrefix = "ph-commons-";
 
                       final File fFile = new File (fTempDir, sPrefix + sMod + ".dat");
                       if (SimpleFileIO.writeFile (fFile,
-                                                  CharsetManager.getAsBytes ("content", CCharset.CHARSET_ISO_8859_1_OBJ))
+                                                  CharsetManager.getAsBytes ("content",
+                                                                             CCharset.CHARSET_ISO_8859_1_OBJ))
                                       .isSuccess ())
                         _exec ("chmod", sMod, fFile.getAbsolutePath ());
 

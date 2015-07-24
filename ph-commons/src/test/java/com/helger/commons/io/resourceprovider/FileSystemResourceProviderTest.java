@@ -32,7 +32,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link FileSystemResourceProvider}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FileSystemResourceProviderTest
@@ -43,7 +43,7 @@ public final class FileSystemResourceProviderTest
     final FileSystemResourceProvider aFSRP = new FileSystemResourceProvider ();
     assertNull (aFSRP.getBasePath ());
     assertFalse (aFSRP.supportsReading ("test1.txt"));
-    assertFalse (aFSRP.supportsReading ("http://www.phloc.com"));
+    assertFalse (aFSRP.supportsReading ("http://www.helger.com"));
     assertTrue (aFSRP.supportsReading (new File ("test1.txt").getAbsolutePath ()));
     IReadableResource aRes = aFSRP.getReadableResource (new File ("src/test/resources/test1.txt").getAbsolutePath ());
     assertNotNull (aRes);

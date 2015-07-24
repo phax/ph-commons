@@ -29,7 +29,7 @@ import com.helger.commons.xml.XMLFactory;
 
 /**
  * Test class for class {@link EqualsImplementationRegistry}.
- * 
+ *
  * @author Philip Helger
  */
 public final class EqualsImplementationRegistryTest extends AbstractCommonsTestCase
@@ -38,11 +38,11 @@ public final class EqualsImplementationRegistryTest extends AbstractCommonsTestC
   public void testEquals ()
   {
     final Document d1 = XMLFactory.newDocument ();
-    final Node aRoot1 = d1.appendChild (d1.createElementNS ("urn:my:phloc:test-namespace", "root"));
+    final Node aRoot1 = d1.appendChild (d1.createElementNS ("urn:my:helger:test-namespace", "root"));
     ((Element) aRoot1.appendChild (d1.createElement ("child"))).setAttribute ("any", "works");
 
     final Document d2 = XMLFactory.newDocument ();
-    final Node aRoot2 = d2.appendChild (d2.createElementNS ("urn:my:phloc:test-namespace", "root"));
+    final Node aRoot2 = d2.appendChild (d2.createElementNS ("urn:my:helger:test-namespace", "root"));
     ((Element) aRoot2.appendChild (d2.createElement ("child"))).setAttribute ("any", "works");
 
     // Regular

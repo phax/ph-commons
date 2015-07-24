@@ -28,7 +28,6 @@ import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.system.SystemProperties;
 
 /**
  * Test class for class {@link SystemProperties}
@@ -80,18 +79,18 @@ public final class SystemPropertiesTest extends AbstractCommonsTestCase
   public void testRemove ()
   {
     // Test remove
-    assertFalse (SystemProperties.containsPropertyName ("phloc.x"));
-    SystemProperties.setPropertyValue ("phloc.x", "y");
-    assertTrue (SystemProperties.containsPropertyName ("phloc.x"));
-    assertEquals ("y", SystemProperties.removePropertyValue ("phloc.x"));
-    assertFalse (SystemProperties.containsPropertyName ("phloc.x"));
-    assertNull (SystemProperties.removePropertyValue ("phloc.x"));
+    assertFalse (SystemProperties.containsPropertyName ("helger.x"));
+    SystemProperties.setPropertyValue ("helger.x", "y");
+    assertTrue (SystemProperties.containsPropertyName ("helger.x"));
+    assertEquals ("y", SystemProperties.removePropertyValue ("helger.x"));
+    assertFalse (SystemProperties.containsPropertyName ("helger.x"));
+    assertNull (SystemProperties.removePropertyValue ("helger.x"));
 
     // Test set to null
-    SystemProperties.setPropertyValue ("phloc.x", "y");
-    assertTrue (SystemProperties.containsPropertyName ("phloc.x"));
-    SystemProperties.setPropertyValue ("phloc.x", null);
-    assertFalse (SystemProperties.containsPropertyName ("phloc.x"));
+    SystemProperties.setPropertyValue ("helger.x", "y");
+    assertTrue (SystemProperties.containsPropertyName ("helger.x"));
+    SystemProperties.setPropertyValue ("helger.x", null);
+    assertFalse (SystemProperties.containsPropertyName ("helger.x"));
   }
 
   @Test

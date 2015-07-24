@@ -75,7 +75,7 @@ public final class ChangeLogEntryTest extends AbstractCommonsTestCase
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aEntry, aEntry2);
 
     aEntry2 = new ChangeLogEntry (aChangeLog, aDate, EChangeLogAction.ADD, EChangeLogCategory.API, true);
-    aEntry2.addIssue ("phloc-1234");
+    aEntry2.addIssue ("helger-1234");
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aEntry, aEntry2);
 
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aEntry,

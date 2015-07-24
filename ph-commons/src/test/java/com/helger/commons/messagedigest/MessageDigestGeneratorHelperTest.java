@@ -26,7 +26,7 @@ import com.helger.commons.charset.CharsetManager;
 
 /**
  * Test class for class {@link MessageDigestGeneratorHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MessageDigestGeneratorHelperTest
@@ -56,7 +56,7 @@ public final class MessageDigestGeneratorHelperTest
       assertEquals (MessageDigestGeneratorHelper.getHexValueFromDigest (aMD1.getAllDigestBytes ()),
                     MessageDigestGeneratorHelper.getHexValueFromDigest (aMD2.getAllDigestBytes ()));
 
-      final String s = "phloc commons is great";
+      final String s = "ph-commons is great";
       final byte [] aBytes = CharsetManager.getAsBytes (s, CCharset.CHARSET_ISO_8859_1_OBJ);
       assertArrayEquals (MessageDigestGeneratorHelper.getAllDigestBytes (eAlgo, aBytes),
                          MessageDigestGeneratorHelper.getAllDigestBytes (eAlgo, aBytes));

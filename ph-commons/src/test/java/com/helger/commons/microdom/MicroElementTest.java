@@ -140,8 +140,9 @@ public final class MicroElementTest extends AbstractCommonsTestCase
     assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement ("myns", "xy")));
     assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement ("myns2", "xyz")));
     assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement (null, "xyz")));
-    assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement ("myns", "xyz").setAttribute ("name",
-                                                                                                                 "value")));
+    assertFalse (new MicroElement ("myns",
+                                   "xyz").isEqualContent (new MicroElement ("myns", "xyz").setAttribute ("name",
+                                                                                                         "value")));
 
     e = new MicroElement ("ns1:element");
     assertNull (e.getLocalName ());
@@ -386,8 +387,8 @@ public final class MicroElementTest extends AbstractCommonsTestCase
   @Test
   public void testGetChildElementsNS ()
   {
-    final String NSURI = "http://www.phloc.com/unittest";
-    final String NSURI2 = "http://www.phloc.com/unittest/second";
+    final String NSURI = "http://www.helger.com/unittest";
+    final String NSURI2 = "http://www.helger.com/unittest/second";
     final IMicroElement eRoot = new MicroElement ("root");
     final IMicroElement a = eRoot.appendElement (NSURI, "a");
     final IMicroElement b = eRoot.appendElement (NSURI2, "b");

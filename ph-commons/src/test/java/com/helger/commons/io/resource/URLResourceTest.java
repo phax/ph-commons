@@ -44,17 +44,17 @@ public final class URLResourceTest extends AbstractCommonsTestCase
   @Test
   public void testCtor () throws MalformedURLException
   {
-    assertNotNull (new URLResource ("http://www.phloc.com"));
-    assertNotNull (new URLResource ("http://www.phloc.com/"));
-    assertNotNull (new URLResource ("http://www.phloc.com#anchor"));
-    assertNotNull (new URLResource ("http://www.phloc.com?param=value"));
-    assertNotNull (new URLResource ("http://www.phloc.com?param=value#anchor"));
-    assertNotNull (new URLResource ("http://www.phloc.com/path"));
-    assertNotNull (new URLResource ("http://www.phloc.com/path#anchor"));
-    assertNotNull (new URLResource ("http://www.phloc.com/path?param=value"));
-    assertNotNull (new URLResource ("http://www.phloc.com/path?param=value#anchor"));
+    assertNotNull (new URLResource ("http://www.helger.com"));
+    assertNotNull (new URLResource ("http://www.helger.com/"));
+    assertNotNull (new URLResource ("http://www.helger.com#anchor"));
+    assertNotNull (new URLResource ("http://www.helger.com?param=value"));
+    assertNotNull (new URLResource ("http://www.helger.com?param=value#anchor"));
+    assertNotNull (new URLResource ("http://www.helger.com/path"));
+    assertNotNull (new URLResource ("http://www.helger.com/path#anchor"));
+    assertNotNull (new URLResource ("http://www.helger.com/path?param=value"));
+    assertNotNull (new URLResource ("http://www.helger.com/path?param=value#anchor"));
     assertNotNull (new URLResource ("file://test.txt"));
-    new URLResource ("http://www.phloc.com").exists ();
+    new URLResource ("http://www.helger.com").exists ();
     new URLResource ("http://dfgsdfdfgsdfgsdfghhh").exists ();
 
     try
@@ -136,6 +136,6 @@ public final class URLResourceTest extends AbstractCommonsTestCase
   @Test
   public void testSerialize () throws Exception
   {
-    CommonsTestHelper.testDefaultSerialization (new URLResource ("http://www.phloc.com"));
+    CommonsTestHelper.testDefaultSerialization (new URLResource ("http://www.helger.com"));
   }
 }

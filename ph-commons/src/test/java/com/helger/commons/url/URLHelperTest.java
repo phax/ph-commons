@@ -80,10 +80,10 @@ public final class URLHelperTest
   @Test
   public void testGetURLData ()
   {
-    IURLData aData = URLHelper.getAsURLData ("http://www.phloc.com/folder?x=y&a=b#c");
+    IURLData aData = URLHelper.getAsURLData ("http://www.helger.com/folder?x=y&a=b#c");
     assertNotNull (aData);
     assertEquals (EURLProtocol.HTTP, aData.getProtocol ());
-    assertEquals ("http://www.phloc.com/folder", aData.getPath ());
+    assertEquals ("http://www.helger.com/folder", aData.getPath ());
     assertEquals (2, aData.getParamCount ());
     assertEquals ("y", aData.getAllParams ().get ("x"));
     assertEquals ("b", aData.getAllParams ().get ("a"));

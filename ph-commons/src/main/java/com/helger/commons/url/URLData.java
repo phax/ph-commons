@@ -43,7 +43,7 @@ public class URLData implements IURLData
   /**
    * The string representing an empty URL. Must contain at least one character.
    */
-  public static final URLData EMPTY_URL_DATA = new URLData (ISimpleURL.EMPTY_URL_STRING);
+  public static final URLData EMPTY_URL_DATA = new URLData ("");
 
   private final String m_sPath;
   private final Map <String, String> m_aParams;

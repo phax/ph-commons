@@ -24,7 +24,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link SimpleURL}.
- * 
+ *
  * @author Philip Helger
  */
 public final class SimpleURLTest
@@ -37,22 +37,22 @@ public final class SimpleURLTest
   @Test
   public void testAsString ()
   {
-    _checkAsString ("http://www.phloc.com");
-    _checkAsString ("http://www.phloc.com/directory");
-    _checkAsString ("http://www.phloc.com/#anchor");
-    _checkAsString ("http://www.phloc.com/?x=y");
-    _checkAsString ("http://www.phloc.com/?x=y#anchor");
-    _checkAsString ("http://www.phloc.com/?x=y&ab=cd");
+    _checkAsString ("http://www.helger.com");
+    _checkAsString ("http://www.helger.com/directory");
+    _checkAsString ("http://www.helger.com/#anchor");
+    _checkAsString ("http://www.helger.com/?x=y");
+    _checkAsString ("http://www.helger.com/?x=y#anchor");
+    _checkAsString ("http://www.helger.com/?x=y&ab=cd");
     _checkAsString ("/?x=y&ab=cd");
-    _checkAsString ("http://www.phloc.com/?this&that&thatalso");
+    _checkAsString ("http://www.helger.com/?this&that&thatalso");
     _checkAsString ("?this&that&thatalso");
-    _checkAsString ("http://www.phloc.com/?upper=LOWER&äöü=aou");
-    _checkAsString ("http://www.phloc.com/?upper=LOWER&äöü=aou#anchor");
+    _checkAsString ("http://www.helger.com/?upper=LOWER&äöü=aou");
+    _checkAsString ("http://www.helger.com/?upper=LOWER&äöü=aou#anchor");
     _checkAsString ("?upper=LOWER&äöü=aou");
 
     // asString results in slightly different but semantically equivalent URLs
-    assertEquals ("http://www.phloc.com/", new SimpleURL ("http://www.phloc.com/?").getAsString ());
-    assertEquals ("http://www.phloc.com/#anchor", new SimpleURL ("http://www.phloc.com/?#anchor").getAsString ());
+    assertEquals ("http://www.helger.com/", new SimpleURL ("http://www.helger.com/?").getAsString ());
+    assertEquals ("http://www.helger.com/#anchor", new SimpleURL ("http://www.helger.com/?#anchor").getAsString ());
   }
 
   private static void _checkAsEncodedString (final String sHref)
@@ -68,24 +68,25 @@ public final class SimpleURLTest
   @Test
   public void testAsEncodedString ()
   {
-    _checkAsEncodedString ("http://www.phloc.com");
-    _checkAsEncodedString ("http://www.phloc.com/directory");
-    _checkAsEncodedString ("http://www.phloc.com/#anchor");
-    _checkAsEncodedString ("http://www.phloc.com/?#anchor", "http://www.phloc.com/#anchor");
-    _checkAsEncodedString ("http://www.phloc.com/?x=y");
-    _checkAsEncodedString ("http://www.phloc.com/?x=y#anchor");
-    _checkAsEncodedString ("http://www.phloc.com/?x=y&ab=cd");
+    _checkAsEncodedString ("http://www.helger.com");
+    _checkAsEncodedString ("http://www.helger.com/directory");
+    _checkAsEncodedString ("http://www.helger.com/#anchor");
+    _checkAsEncodedString ("http://www.helger.com/?#anchor", "http://www.helger.com/#anchor");
+    _checkAsEncodedString ("http://www.helger.com/?x=y");
+    _checkAsEncodedString ("http://www.helger.com/?x=y#anchor");
+    _checkAsEncodedString ("http://www.helger.com/?x=y&ab=cd");
     _checkAsEncodedString ("/?x=y&ab=cd");
-    _checkAsEncodedString ("http://www.phloc.com/?this&that&thatalso");
+    _checkAsEncodedString ("http://www.helger.com/?this&that&thatalso");
     _checkAsEncodedString ("?this&that&thatalso");
-    _checkAsEncodedString ("http://www.phloc.com/?upper=LOWER&äöü=aou",
-                           "http://www.phloc.com/?upper=LOWER&%C3%A4%C3%B6%C3%BC=aou");
-    _checkAsEncodedString ("http://www.phloc.com/?upper=LOWER&äöü=aou#anchor",
-                           "http://www.phloc.com/?upper=LOWER&%C3%A4%C3%B6%C3%BC=aou#anchor");
+    _checkAsEncodedString ("http://www.helger.com/?upper=LOWER&äöü=aou",
+                           "http://www.helger.com/?upper=LOWER&%C3%A4%C3%B6%C3%BC=aou");
+    _checkAsEncodedString ("http://www.helger.com/?upper=LOWER&äöü=aou#anchor",
+                           "http://www.helger.com/?upper=LOWER&%C3%A4%C3%B6%C3%BC=aou#anchor");
     _checkAsEncodedString ("?upper=LOWER&äöü=aou", "?upper=LOWER&%C3%A4%C3%B6%C3%BC=aou");
 
     // asString results in slightly different but semantically equivalent URLs
-    assertEquals ("http://www.phloc.com/", new SimpleURL ("http://www.phloc.com/?").getAsStringWithEncodedParameters ());
+    assertEquals ("http://www.helger.com/",
+                  new SimpleURL ("http://www.helger.com/?").getAsStringWithEncodedParameters ());
   }
 
   @Test
@@ -93,7 +94,7 @@ public final class SimpleURLTest
   {
     // only href
     SimpleURL aURL = new SimpleURL ();
-    assertEquals ("?", aURL.getAsString ());
+    assertEquals ("", aURL.getAsString ());
 
     aURL = new SimpleURL ("");
     assertEquals ("", aURL.getAsString ());
@@ -110,30 +111,48 @@ public final class SimpleURLTest
     aURL = new SimpleURL ("  ?  #  ");
     assertEquals ("", aURL.getAsString ());
 
-    aURL = new SimpleURL ("http://www.phloc.com");
-    assertEquals ("http://www.phloc.com", aURL.getAsString ());
+    aURL = new SimpleURL ("http://www.helger.com");
+    assertEquals ("http://www.helger.com", aURL.getAsString ());
 
     // params
     // 1. default
-    aURL = new SimpleURL ("http://www.phloc.com", new SMap ("a", "b"));
-    assertEquals ("http://www.phloc.com?a=b", aURL.getAsString ());
+    aURL = new SimpleURL ("http://www.helger.com", new SMap ("a", "b"));
+    assertEquals ("http://www.helger.com?a=b", aURL.getAsString ());
     // 2. plus params in href
-    aURL = new SimpleURL ("http://www.phloc.com?x=y", new SMap ("a", "b"));
-    assertEquals ("http://www.phloc.com?x=y&a=b", aURL.getAsString ());
+    aURL = new SimpleURL ("http://www.helger.com?x=y", new SMap ("a", "b"));
+    assertEquals ("http://www.helger.com?x=y&a=b", aURL.getAsString ());
     // 3. overwrite parameter in href
-    aURL = new SimpleURL ("http://www.phloc.com?a=a", new SMap ("a", "b"));
-    assertEquals ("http://www.phloc.com?a=b", aURL.getAsString ());
+    aURL = new SimpleURL ("http://www.helger.com?a=a", new SMap ("a", "b"));
+    assertEquals ("http://www.helger.com?a=b", aURL.getAsString ());
+    // 4. only params
+    aURL = new SimpleURL ("", new SMap ("a", "b"));
+    assertEquals ("?a=b", aURL.getAsString ());
+    // 4a. only params
+    aURL = new SimpleURL ("?", new SMap ("a", "b"));
+    assertEquals ("?a=b", aURL.getAsString ());
+    // 4b. only params
+    aURL = new SimpleURL ("#", new SMap ("a", "b"));
+    assertEquals ("?a=b", aURL.getAsString ());
 
     // anchor
     // 1. default
-    aURL = new SimpleURL ("http://www.phloc.com", new SMap ("a", "b"), "root");
-    assertEquals ("http://www.phloc.com?a=b#root", aURL.getAsString ());
+    aURL = new SimpleURL ("http://www.helger.com", new SMap ("a", "b"), "root");
+    assertEquals ("http://www.helger.com?a=b#root", aURL.getAsString ());
     // 2. overwrite anchor
-    aURL = new SimpleURL ("http://www.phloc.com#main", new SMap ("a", "b"), "root");
-    assertEquals ("http://www.phloc.com?a=b#root", aURL.getAsString ());
+    aURL = new SimpleURL ("http://www.helger.com#main", new SMap ("a", "b"), "root");
+    assertEquals ("http://www.helger.com?a=b#root", aURL.getAsString ());
     // 3. only anchor in href
-    aURL = new SimpleURL ("http://www.phloc.com#main", new SMap ("a", "b"));
-    assertEquals ("http://www.phloc.com?a=b#main", aURL.getAsString ());
+    aURL = new SimpleURL ("http://www.helger.com#main", new SMap ("a", "b"));
+    assertEquals ("http://www.helger.com?a=b#main", aURL.getAsString ());
+    // 4. only params and anchor
+    aURL = new SimpleURL ("#main", new SMap ("a", "b"));
+    assertEquals ("?a=b#main", aURL.getAsString ());
+    // 5. only anchor
+    aURL = new SimpleURL ("#main");
+    assertEquals ("#main", aURL.getAsString ());
+    // 5a. only anchor
+    aURL = new SimpleURL ("", null, "main");
+    assertEquals ("#main", aURL.getAsString ());
 
     // Copy ctor
     final ISimpleURL aURL2 = new SimpleURL (aURL);

@@ -46,7 +46,7 @@ import com.helger.commons.xml.xpath.XPathExpressionHelper;
  */
 public final class XMLHelperTest extends AbstractCommonsTestCase
 {
-  private static final String TEST_NS = "http://www.phloc.com/dev/unittests/commons/";
+  private static final String TEST_NS = "http://www.helger.com/dev/unittests/commons/";
 
   @Nonnull
   private static Document _getTestDoc ()

@@ -14,24 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
-
- * Copyright (C) 2006-2012 phloc systems
- * http://www.phloc.com
- * office[at]phloc[dot]com
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.helger.commons.collection;
 
 import static com.helger.commons.collection.ArrayHelper.contains;
@@ -76,8 +58,6 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -498,7 +478,8 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
     assertNull (getAsObjectArray (null));
     assertNull (getAsObjectArray (new ArrayList <String> ()));
     assertArrayEquals (new Object [] { "Hallo" }, getAsObjectArray (CollectionHelper.newList ("Hallo")));
-    assertArrayEquals (new Object [] { "Hallo", "Welt" }, getAsObjectArray (CollectionHelper.newList ("Hallo", "Welt")));
+    assertArrayEquals (new Object [] { "Hallo", "Welt" },
+                       getAsObjectArray (CollectionHelper.newList ("Hallo", "Welt")));
     assertArrayEquals (new Object [] { I1, "Welt" }, getAsObjectArray (CollectionHelper.<Object> newList (I1, "Welt")));
   }
 
@@ -560,7 +541,8 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
                                  getConcatenated (new boolean [] { false, false }, new boolean [] { true })));
       assertTrue (Arrays.equals (new boolean [] { false, false },
                                  getConcatenated (new boolean [] { false, false }, (boolean []) null)));
-      assertTrue (Arrays.equals (new boolean [] { true }, getConcatenated ((boolean []) null, new boolean [] { true })));
+      assertTrue (Arrays.equals (new boolean [] { true },
+                                 getConcatenated ((boolean []) null, new boolean [] { true })));
       assertTrue (Arrays.equals (new boolean [] { false, false, true },
                                  getConcatenated (new boolean [] { false, false }, true)));
       assertTrue (Arrays.equals (new boolean [] { true }, getConcatenated ((boolean []) null, true)));
@@ -614,7 +596,8 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
     }
 
     {
-      assertTrue (Arrays.equals (new int [] { 1, 2, 3, 4 }, getConcatenated (new int [] { 1, 2 }, new int [] { 3, 4 })));
+      assertTrue (Arrays.equals (new int [] { 1, 2, 3, 4 },
+                                 getConcatenated (new int [] { 1, 2 }, new int [] { 3, 4 })));
       assertTrue (Arrays.equals (new int [] { 1, 2 }, getConcatenated (new int [] { 1, 2 }, (int []) null)));
       assertTrue (Arrays.equals (new int [] { 3, 4 }, getConcatenated ((int []) null, new int [] { 3, 4 })));
       assertTrue (Arrays.equals (new int [] { 1, 2, 3 }, getConcatenated (new int [] { 1, 2 }, 3)));

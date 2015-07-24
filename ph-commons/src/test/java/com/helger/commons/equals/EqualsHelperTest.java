@@ -84,10 +84,10 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
   @Test
   public void testEquals_URL () throws MalformedURLException
   {
-    final URL u1 = new URL ("http://www.phloc.com");
+    final URL u1 = new URL ("http://www.helger.com");
     final URL u2 = new URL ("http://www.mydomain.at");
     assertTrue (EqualsHelper.equals (u1, u1));
-    assertTrue (EqualsHelper.equals (u1, new URL ("http://www.phloc.com")));
+    assertTrue (EqualsHelper.equals (u1, new URL ("http://www.helger.com")));
     assertFalse (EqualsHelper.equals (u1, u2));
   }
 

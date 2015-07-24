@@ -28,7 +28,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link URLResourceProvider}.
- * 
+ *
  * @author Philip Helger
  */
 public final class URLResourceProviderTest
@@ -38,8 +38,8 @@ public final class URLResourceProviderTest
   {
     final URLResourceProvider aURLRP = new URLResourceProvider ();
     assertFalse (aURLRP.supportsReading ("test1.txt"));
-    assertTrue (aURLRP.supportsReading ("http://www.phloc.com"));
-    final IReadableResource aRes = aURLRP.getReadableResource ("http://www.phloc.com");
+    assertTrue (aURLRP.supportsReading ("http://www.helger.com"));
+    final IReadableResource aRes = aURLRP.getReadableResource ("http://www.helger.com");
     assertNotNull (aRes);
 
     assertFalse (aURLRP.supportsReading (null));

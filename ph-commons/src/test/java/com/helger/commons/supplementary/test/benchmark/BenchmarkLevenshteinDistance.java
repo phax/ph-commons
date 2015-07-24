@@ -36,21 +36,21 @@ import com.helger.commons.string.util.LevenshteinDistance;
  * Check different levenshtein impolementations.<br>
  *
  * <pre>
- * [   1] Info    12.08.2010 12:58:19 [com.phloc.test.benchmark.AbstractBenchmarkTask] Runtime: Date=Thu Aug 12 12:58:19 CEST 2010; Java=1.6.0_21; OS=Windows Vista [6.0]; User=philip; Procs=4
- * [   2] Info    12.08.2010 12:58:19 [com.phloc.test.benchmark.AbstractBenchmarkTask] Comparing 100 strings from word list; The longest string is 17 chars!
- * [   3] Info    12.08.2010 12:58:24 [com.phloc.test.benchmark.AbstractBenchmarkTask] *LevDist0: 3,780,023.369 ns
- * [   4] Info    12.08.2010 12:58:32 [com.phloc.test.benchmark.AbstractBenchmarkTask] LevDist1a: 4,850,148.202 ns
- * [   5] Info    12.08.2010 12:58:39 [com.phloc.test.benchmark.AbstractBenchmarkTask] LevDist1b: 4,791,247.561 ns
- * [   6] Info    12.08.2010 12:58:43 [com.phloc.test.benchmark.AbstractBenchmarkTask] LevDist2a: 12,323,263.15 ns
- * [   7] Info    12.08.2010 12:58:46 [com.phloc.test.benchmark.AbstractBenchmarkTask] LevDist2b: 10,900,994.4 ns
- * 
- * [   1] Info    12.08.2010 12:59:43 [com.phloc.test.benchmark.AbstractBenchmarkTask] Runtime: Date=Thu Aug 12 12:59:43 CEST 2010; Java=1.6.0_21; OS=Windows Vista [6.0]; User=philip; Procs=4
- * [   2] Info    12.08.2010 12:59:43 [com.phloc.test.benchmark.AbstractBenchmarkTask] Comparing 100 strings from word list; The longest string is 1024 chars!
- * [   3] Info    12.08.2010 12:59:48 [com.phloc.test.benchmark.AbstractBenchmarkTask] *LevDist0: 18,640,355.13 ns
- * [   4] Info    12.08.2010 12:59:55 [com.phloc.test.benchmark.AbstractBenchmarkTask] LevDist1a: 22,973,917.075 ns
- * [   5] Info    12.08.2010 13:00:01 [com.phloc.test.benchmark.AbstractBenchmarkTask] LevDist1b: 19,392,826.465 ns
- * [   6] Info    12.08.2010 13:00:14 [com.phloc.test.benchmark.AbstractBenchmarkTask] LevDist2a: 41,738,856.475 ns
- * [   7] Info    12.08.2010 13:00:24 [com.phloc.test.benchmark.AbstractBenchmarkTask] LevDist2b: 32,816,656.865 ns
+ * [   1] Info    12.08.2010 12:58:19 [AbstractBenchmarkTask] Runtime: Date=Thu Aug 12 12:58:19 CEST 2010; Java=1.6.0_21; OS=Windows Vista [6.0]; User=philip; Procs=4
+ * [   2] Info    12.08.2010 12:58:19 [AbstractBenchmarkTask] Comparing 100 strings from word list; The longest string is 17 chars!
+ * [   3] Info    12.08.2010 12:58:24 [AbstractBenchmarkTask] *LevDist0: 3,780,023.369 ns
+ * [   4] Info    12.08.2010 12:58:32 [AbstractBenchmarkTask] LevDist1a: 4,850,148.202 ns
+ * [   5] Info    12.08.2010 12:58:39 [AbstractBenchmarkTask] LevDist1b: 4,791,247.561 ns
+ * [   6] Info    12.08.2010 12:58:43 [AbstractBenchmarkTask] LevDist2a: 12,323,263.15 ns
+ * [   7] Info    12.08.2010 12:58:46 [AbstractBenchmarkTask] LevDist2b: 10,900,994.4 ns
+ *
+ * [   1] Info    12.08.2010 12:59:43 [AbstractBenchmarkTask] Runtime: Date=Thu Aug 12 12:59:43 CEST 2010; Java=1.6.0_21; OS=Windows Vista [6.0]; User=philip; Procs=4
+ * [   2] Info    12.08.2010 12:59:43 [AbstractBenchmarkTask] Comparing 100 strings from word list; The longest string is 1024 chars!
+ * [   3] Info    12.08.2010 12:59:48 [AbstractBenchmarkTask] *LevDist0: 18,640,355.13 ns
+ * [   4] Info    12.08.2010 12:59:55 [AbstractBenchmarkTask] LevDist1a: 22,973,917.075 ns
+ * [   5] Info    12.08.2010 13:00:01 [AbstractBenchmarkTask] LevDist1b: 19,392,826.465 ns
+ * [   6] Info    12.08.2010 13:00:14 [AbstractBenchmarkTask] LevDist2a: 41,738,856.475 ns
+ * [   7] Info    12.08.2010 13:00:24 [AbstractBenchmarkTask] LevDist2b: 32,816,656.865 ns
  * </pre>
  */
 public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
@@ -157,7 +157,7 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
 
   private static final class LevDist0StringHelper implements Runnable
   {
-    private final char [][] m_aStrings;
+    private final char [] [] m_aStrings;
     private final boolean m_bSimple;
 
     public LevDist0StringHelper (final String [] aStrings)
@@ -335,7 +335,7 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
       if (nLen2 == 0)
         return nLen1;
 
-      final int [][] T = new int [nLen1 + 1] [nLen2 + 1];
+      final int [] [] T = new int [nLen1 + 1] [nLen2 + 1];
 
       T[0][0] = 0;
       for (int j = 0; j < nLen2; j++)
@@ -347,8 +347,8 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
         for (int j = 0; j < nLen2; j++)
         {
           final int cost = sStr1.charAt (i) == sStr2.charAt (j) ? 0 : LV_COST_SUBSTITUTE;
-          T[i + 1][j + 1] = Math.min (Math.min (T[i][j] + cost, T[i][j + 1] + LV_COST_DELETE), T[i + 1][j] +
-                                                                                               LV_COST_INSERT);
+          T[i + 1][j + 1] = Math.min (Math.min (T[i][j] + cost, T[i][j + 1] + LV_COST_DELETE),
+                                      T[i + 1][j] + LV_COST_INSERT);
         }
       }
 
@@ -377,7 +377,7 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
       final char [] chs1 = sStr1.toCharArray ();
       final char [] chs2 = sStr2.toCharArray ();
 
-      final int [][] T = new int [nLen1 + 1] [nLen2 + 1];
+      final int [] [] T = new int [nLen1 + 1] [nLen2 + 1];
 
       T[0][0] = 0;
       for (int j = 0; j < nLen2; j++)
@@ -390,8 +390,8 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
         for (int j = 0; j < nLen2; j++)
         {
           final int cost = ch1 == chs2[j] ? 0 : LV_COST_SUBSTITUTE;
-          T[i + 1][j + 1] = Math.min (Math.min (T[i][j] + cost, T[i][j + 1] + LV_COST_DELETE), T[i + 1][j] +
-                                                                                               LV_COST_INSERT);
+          T[i + 1][j + 1] = Math.min (Math.min (T[i][j] + cost, T[i][j + 1] + LV_COST_DELETE),
+                                      T[i + 1][j] + LV_COST_INSERT);
         }
       }
 

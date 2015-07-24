@@ -24,7 +24,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link URLData}.
- * 
+ *
  * @author Philip Helger
  */
 public final class URLDataTest
@@ -33,7 +33,7 @@ public final class URLDataTest
   public void testGetAsString ()
   {
     assertFalse (URLData.EMPTY_URL_DATA.hasKnownProtocol ());
-    assertEquals ("?", URLData.EMPTY_URL_DATA.getPath ());
+    assertEquals ("", URLData.EMPTY_URL_DATA.getPath ());
     assertEquals (0, URLData.EMPTY_URL_DATA.getParamCount ());
     assertFalse (URLData.EMPTY_URL_DATA.hasAnchor ());
     assertNull (URLData.EMPTY_URL_DATA.getAnchor ());

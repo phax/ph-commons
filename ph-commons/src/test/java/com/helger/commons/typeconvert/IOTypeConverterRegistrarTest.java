@@ -30,12 +30,10 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.typeconvert.TypeConverter;
-import com.helger.commons.typeconvert.TypeConverterException;
 
 /**
  * Test class for class {@link IOTypeConverterRegistrar}.
- * 
+ *
  * @author Philip Helger
  */
 public final class IOTypeConverterRegistrarTest
@@ -44,11 +42,11 @@ public final class IOTypeConverterRegistrarTest
   public void testConvert () throws IOException
   {
     final IReadableResource [] aRess = new IReadableResource [] { new ClassPathResource ("Does not exist"),
-                                                                 new ClassPathResource ("test1.txt"),
-                                                                 new FileSystemResource ("does-not-exist-file"),
-                                                                 new FileSystemResource ("src/test/resources/test1.txt"),
-                                                                 new URLResource ("http://www.example.org/gibtsned"),
-                                                                 new URLResource ("file://src/test/resources/test1.txt") };
+                                                                  new ClassPathResource ("test1.txt"),
+                                                                  new FileSystemResource ("does-not-exist-file"),
+                                                                  new FileSystemResource ("src/test/resources/test1.txt"),
+                                                                  new URLResource ("http://www.example.org/gibtsned"),
+                                                                  new URLResource ("file://src/test/resources/test1.txt") };
     for (final IReadableResource aRes : aRess)
     {
       final String s = TypeConverter.convertIfNecessary (aRes, String.class);
@@ -82,7 +80,7 @@ public final class IOTypeConverterRegistrarTest
     assertEquals (u, TypeConverter.convertIfNecessary (fs, URL.class));
 
     // String <--> URLResource
-    final URLResource ur = new URLResource (new URL ("http://www.phloc.com"));
+    final URLResource ur = new URLResource (new URL ("http://www.helger.com"));
     final String s2 = TypeConverter.convertIfNecessary (ur, String.class);
     assertEquals (ur, TypeConverter.convertIfNecessary (s2, URLResource.class));
     try

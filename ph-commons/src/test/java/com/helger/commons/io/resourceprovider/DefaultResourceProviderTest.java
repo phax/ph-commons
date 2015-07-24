@@ -42,21 +42,21 @@ public final class DefaultResourceProviderTest
   {
     final DefaultResourceProvider aDRP = new DefaultResourceProvider ();
     assertTrue (aDRP.supportsReading ("test1.txt"));
-    assertTrue (aDRP.supportsReading ("http://www.phloc.com"));
+    assertTrue (aDRP.supportsReading ("http://www.helger.com"));
     assertTrue (aDRP.supportsReading (new File ("test1.txt").getAbsolutePath ()));
 
     assertNotNull (aDRP.getReadableResource ("test1.txt"));
-    assertNotNull (aDRP.getReadableResource ("http://www.phloc.com"));
+    assertNotNull (aDRP.getReadableResource ("http://www.helger.com"));
     assertNotNull (aDRP.getReadableResource (new File ("test1.txt").getAbsolutePath ()));
 
     assertTrue (aDRP.supportsWriting ("test1.txt"));
-    assertFalse (aDRP.supportsWriting ("http://www.phloc.com"));
+    assertFalse (aDRP.supportsWriting ("http://www.helger.com"));
     assertTrue (aDRP.supportsWriting (new File ("test1.txt").getAbsolutePath ()));
 
     assertNotNull (aDRP.getWritableResource ("test1.txt"));
     try
     {
-      aDRP.getWritableResource ("http://www.phloc.com");
+      aDRP.getWritableResource ("http://www.helger.com");
       fail ();
     }
     catch (final IllegalArgumentException ex)

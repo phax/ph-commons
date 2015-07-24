@@ -34,6 +34,7 @@ public interface ISimpleURL extends IURLData, IHasStringRepresentation
   /**
    * The string representing an empty URL. Must contain at least one character.
    */
+  @Deprecated
   String EMPTY_URL_STRING = "?";
 
   /**
