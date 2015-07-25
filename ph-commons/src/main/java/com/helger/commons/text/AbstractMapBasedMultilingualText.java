@@ -41,7 +41,7 @@ import com.helger.commons.state.EContinue;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class AbstractMapBasedMultilingualText extends AbstractReadOnlyMapBasedMultilingualText implements IMutableMultilingualText
+public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyMapBasedMultilingualText implements IMutableMultilingualText
 {
   /** A list of callback upon change. */
   private final CallbackList <IChangeCallback <IMutableMultilingualText>> m_aChangeNotifyCallbacks = new CallbackList <IChangeCallback <IMutableMultilingualText>> ();
