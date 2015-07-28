@@ -623,7 +623,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
       }
     }
 
-    if (GlobalDebug.isDebugMode ())
+    // This happens too often in practice, therefore this is disabled
+    if (false && GlobalDebug.isDebugMode ())
     {
       // Just a small note in case we're returning an incomplete object
       if (!aInstance.isInstantiated ())
