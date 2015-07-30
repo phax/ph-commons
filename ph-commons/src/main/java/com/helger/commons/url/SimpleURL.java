@@ -90,6 +90,12 @@ public class SimpleURL extends AbstractSimpleURL implements ICloneable <SimpleUR
   }
 
   @Nonnull
+  public SimpleURL add (@Nonnull @Nonempty final String sKey, final boolean bValue)
+  {
+    return add (sKey, Boolean.toString (bValue));
+  }
+
+  @Nonnull
   public SimpleURL add (@Nonnull @Nonempty final String sKey, final int nValue)
   {
     return add (sKey, Integer.toString (nValue));
