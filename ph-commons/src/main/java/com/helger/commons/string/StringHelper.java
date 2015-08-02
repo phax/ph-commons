@@ -3299,6 +3299,45 @@ public final class StringHelper
   }
 
   /**
+   * Get the passed string but never return an empty string. If the passed
+   * parameter is <code>null</code> or empty the second parameter is returned.
+   *
+   * @param s
+   *        The parameter to be not <code>null</code> nor empty.
+   * @param sDefaultIfEmpty
+   *        The value to be used of the first parameter is <code>null</code> or
+   *        empty. May be <code>null</code> but in this case the call to this
+   *        method is obsolete.
+   * @return The passed default value if the string is <code>null</code> or
+   *         empty, otherwise the input string.
+   */
+  @Nullable
+  public static String getNotEmpty (@Nullable final String s, @Nullable final String sDefaultIfEmpty)
+  {
+    return hasNoText (s) ? sDefaultIfEmpty : s;
+  }
+
+  /**
+   * Get the passed string but never return an empty char sequence. If the
+   * passed parameter is <code>null</code> or empty the second parameter is
+   * returned.
+   *
+   * @param s
+   *        The parameter to be not <code>null</code> nor empty.
+   * @param sDefaultIfEmpty
+   *        The value to be used of the first parameter is <code>null</code> or
+   *        empty. May be <code>null</code> but in this case the call to this
+   *        method is obsolete.
+   * @return The passed default value if the char sequence is <code>null</code>
+   *         or empty, otherwise the input char sequence.
+   */
+  @Nullable
+  public static CharSequence getNotEmpty (@Nullable final CharSequence s, @Nullable final CharSequence sDefaultIfEmpty)
+  {
+    return hasNoText (s) ? sDefaultIfEmpty : s;
+  }
+
+  /**
    * Convert the passed object to a string using the {@link Object#toString()}
    * method.
    *

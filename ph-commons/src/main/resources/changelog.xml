@@ -18,6 +18,16 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <entry date="2015-08-02" category="api" action="add">
+    <change>
+      <text locale="en">Added StringHelper.getNotEmpty methods</text>
+    </change>
+  </entry>
+  <entry date="2015-07-24" category="tech" action="change">
+    <change>
+      <text locale="en">Fixed a warning that was emitted for default SimpleURL objects</text>
+    </change>
+  </entry>
   <entry date="2015-07-24" category="api" action="add">
     <change>
       <text locale="en">Added @UnsafeAPI interface</text>
