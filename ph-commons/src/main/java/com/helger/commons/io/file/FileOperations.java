@@ -18,6 +18,8 @@ package com.helger.commons.io.file;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 
@@ -33,6 +35,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.channel.ChannelHelper;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
 
 /**
@@ -43,7 +46,9 @@ import com.helger.commons.state.ESuccess;
 @ThreadSafe
 public final class FileOperations
 {
-  /** The default value for warning if we're about to delete the root directory. */
+  /**
+   * The default value for warning if we're about to delete the root directory.
+   */
   public static final boolean DEFAULT_EXCEPTION_ON_DELETE_ROOT = true;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (FileOperations.class);
@@ -201,7 +206,7 @@ public final class FileOperations
     {
       // delete may return true even so it internally failed!
       final EFileIOErrorCode eError = aDir.delete () && !aDir.exists () ? EFileIOErrorCode.NO_ERROR
-                                                                       : EFileIOErrorCode.OPERATION_FAILED;
+                                                                        : EFileIOErrorCode.OPERATION_FAILED;
       return eError.getAsIOError (EFileIOOperation.DELETE_DIR, aDir);
     }
     catch (final SecurityException ex)
@@ -330,7 +335,7 @@ public final class FileOperations
     {
       // delete may return true even so it internally failed!
       final EFileIOErrorCode eError = aFile.delete () && !aFile.exists () ? EFileIOErrorCode.NO_ERROR
-                                                                         : EFileIOErrorCode.OPERATION_FAILED;
+                                                                          : EFileIOErrorCode.OPERATION_FAILED;
       return eError.getAsIOError (EFileIOOperation.DELETE_FILE, aFile);
     }
     catch (final SecurityException ex)
@@ -398,7 +403,7 @@ public final class FileOperations
     try
     {
       final EFileIOErrorCode eError = aSourceFile.renameTo (aTargetFile) ? EFileIOErrorCode.NO_ERROR
-                                                                        : EFileIOErrorCode.OPERATION_FAILED;
+                                                                         : EFileIOErrorCode.OPERATION_FAILED;
       return eError.getAsIOError (EFileIOOperation.RENAME_FILE, aSourceFile, aTargetFile);
     }
     catch (final SecurityException ex)
@@ -456,7 +461,7 @@ public final class FileOperations
     try
     {
       final EFileIOErrorCode eError = aSourceDir.renameTo (aTargetDir) ? EFileIOErrorCode.NO_ERROR
-                                                                      : EFileIOErrorCode.OPERATION_FAILED;
+                                                                       : EFileIOErrorCode.OPERATION_FAILED;
       return eError.getAsIOError (EFileIOOperation.RENAME_DIR, aSourceDir, aTargetDir);
     }
     catch (final SecurityException ex)
@@ -466,7 +471,8 @@ public final class FileOperations
   }
 
   /**
-   * Copy the content of the source file to the destination file
+   * Copy the content of the source file to the destination file using
+   * {@link FileChannel}. This version seems to fail with UNC paths.
    *
    * @param aSrcFile
    *        Source file. May not be <code>null</code>.
@@ -475,7 +481,7 @@ public final class FileOperations
    * @return {@link ESuccess}
    */
   @Nonnull
-  private static ESuccess _copyFile (@Nonnull final File aSrcFile, @Nonnull final File aDestFile)
+  private static ESuccess _copyFileViaChannel (@Nonnull final File aSrcFile, @Nonnull final File aDestFile)
   {
     final FileChannel aSrcChannel = FileHelper.getFileReadChannel (aSrcFile);
     if (aSrcChannel == null)
@@ -508,7 +514,10 @@ public final class FileOperations
 
           if (nBytesToRead != nBytesWritten)
           {
-            s_aLogger.error ("Failed to copy file. Meant to read " + nBytesToRead + " bytes but wrote " + nBytesWritten);
+            s_aLogger.error ("Failed to copy file. Meant to read " +
+                             nBytesToRead +
+                             " bytes but wrote " +
+                             nBytesWritten);
             return ESuccess.FAILURE;
           }
           return ESuccess.SUCCESS;
@@ -532,6 +541,44 @@ public final class FileOperations
     finally
     {
       ChannelHelper.close (aSrcChannel);
+    }
+  }
+
+  /**
+   * Copy the content of the source file to the destination file using
+   * {@link InputStream} and {@link OutputStream}.
+   *
+   * @param aSrcFile
+   *        Source file. May not be <code>null</code>.
+   * @param aDestFile
+   *        Destination file. May not be <code>null</code>.
+   * @return {@link ESuccess}
+   */
+  @Nonnull
+  private static ESuccess _copyFileViaStreams (@Nonnull final File aSrcFile, @Nonnull final File aDestFile)
+  {
+    final InputStream aSrcIS = FileHelper.getInputStream (aSrcFile);
+    if (aSrcIS == null)
+      return ESuccess.FAILURE;
+
+    try
+    {
+      final OutputStream aDstOS = FileHelper.getOutputStream (aDestFile, EAppend.TRUNCATE);
+      if (aDstOS == null)
+        return ESuccess.FAILURE;
+
+      try
+      {
+        return StreamHelper.copyInputStreamToOutputStream (aSrcIS, aDstOS);
+      }
+      finally
+      {
+        StreamHelper.close (aDstOS);
+      }
+    }
+    finally
+    {
+      StreamHelper.close (aSrcIS);
     }
   }
 
@@ -576,9 +623,20 @@ public final class FileOperations
     // Ensure the targets parent directory is present
     FileHelper.ensureParentDirectoryIsPresent (aTargetFile);
 
-    // Used FileChannel for better performance
-    final EFileIOErrorCode eError = _copyFile (aSourceFile, aTargetFile).isSuccess () ? EFileIOErrorCode.NO_ERROR
-                                                                                     : EFileIOErrorCode.OPERATION_FAILED;
+    ESuccess eSuccess;
+    if (false)
+    {
+      // Used FileChannel for better performance
+      // But they make problems when using UNC paths
+      eSuccess = _copyFileViaChannel (aSourceFile, aTargetFile);
+    }
+    else
+    {
+      // Streams are slower but more interoperable
+      eSuccess = _copyFileViaStreams (aSourceFile, aTargetFile);
+    }
+    final EFileIOErrorCode eError = eSuccess.isSuccess () ? EFileIOErrorCode.NO_ERROR
+                                                          : EFileIOErrorCode.OPERATION_FAILED;
     return eError.getAsIOError (EFileIOOperation.COPY_FILE, aSourceFile, aTargetFile);
   }
 

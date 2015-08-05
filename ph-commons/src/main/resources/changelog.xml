@@ -18,6 +18,11 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <entry date="2015-08-08" category="tech" action="fix">
+    <change>
+      <text locale="en">FileOperations.copyFile should now work with UNC paths as well</text>
+    </change>
+  </entry>
   <entry date="2015-08-02" category="api" action="add">
     <change>
       <text locale="en">Added StringHelper.getNotEmpty methods</text>
