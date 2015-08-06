@@ -18,7 +18,8 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
-  <entry date="2015-08-08" category="tech" action="fix">
+  <release date="2015-08-06" version="6.1.1" />
+  <entry date="2015-08-05" category="tech" action="fix">
     <change>
       <text locale="en">FileOperations.copyFile should now work with UNC paths as well</text>
     </change>
