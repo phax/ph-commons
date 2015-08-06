@@ -61,7 +61,7 @@ public class NonBlockingPushbackInputStream extends FilterInputStream
    * @param nSize
    *        the size of the pushback buffer.
    * @exception IllegalArgumentException
-   *            if size is <= 0
+   *            if size is &le; 0
    * @since JDK1.1
    */
   public NonBlockingPushbackInputStream (@Nonnull final InputStream aIS, @Nonnegative final int nSize)

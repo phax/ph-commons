@@ -47,7 +47,7 @@ public class NonBlockingPushbackReader extends FilterReader
    * @param nSize
    *        The size of the pushback buffer
    * @exception IllegalArgumentException
-   *            if size is <= 0
+   *            if size is &le; 0
    */
   public NonBlockingPushbackReader (@Nonnull final Reader aReader, @Nonnegative final int nSize)
   {

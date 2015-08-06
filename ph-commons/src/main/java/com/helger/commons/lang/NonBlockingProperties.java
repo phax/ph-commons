@@ -155,6 +155,7 @@ public class NonBlockingProperties extends TreeMap <String, String>
    * extended in this manner; every natural line that is a comment must have its
    * own comment indicator, as described below. Lines are read from input until
    * the end of the stream is reached.
+   * </p>
    * <p>
    * A natural line that contains only white space characters is considered
    * blank and is ignored. A comment line has an ASCII <code>'#'</code> or
@@ -164,6 +165,7 @@ public class NonBlockingProperties extends TreeMap <String, String>
    * <code>'&#92;u0020'</code>), tab (<code>'\t'</code>,
    * <code>'&#92;u0009'</code>), and form feed (<code>'\f'</code>,
    * <code>'&#92;u000C'</code>) to be white space.
+   * </p>
    * <p>
    * If a logical line is spread across several natural lines, the backslash
    * escaping the line terminator sequence, the line terminator sequence, and
@@ -178,14 +180,17 @@ public class NonBlockingProperties extends TreeMap <String, String>
    * processed from left to right, a non-zero even number of 2<i>n</i>
    * contiguous backslashes before a line terminator (or elsewhere) encodes
    * <i>n</i> backslashes after escape processing.
+   * </p>
    * <p>
    * The key contains all of the characters in the line starting with the first
    * non-white space character and up to, but not including, the first unescaped
    * <code>'='</code>, <code>':'</code>, or white space character other than a
    * line terminator. All of these key termination characters may be included in
    * the key by escaping them with a preceding backslash character; for example,
+   * </p>
    * <p>
    * <code>\:\=</code>
+   * </p>
    * <p>
    * would be the two-character key <code>":="</code>. Line terminator
    * characters can be included using <code>\r</code> and <code>\n</code> escape
@@ -197,49 +202,51 @@ public class NonBlockingProperties extends TreeMap <String, String>
    * string <code>&quot;&quot;</code>. Once the raw character sequences
    * constituting the key and element are identified, escape processing is
    * performed as described above.
+   * </p>
    * <p>
    * As an example, each of the following three lines specifies the key
    * <code>"Truth"</code> and the associated element value <code>"Beauty"</code>
    * :
-   * <p>
+   * </p>
    *
    * <pre>
    * Truth = Beauty
    *  Truth:Beauty
    * Truth      :Beauty
    * </pre>
-   *
-   * As another example, the following three lines specify a single property:
    * <p>
+   * As another example, the following three lines specify a single property:
+   * </p>
    *
    * <pre>
    * fruits                           apple, banana, pear, \
    *                                  cantaloupe, watermelon, \
    *                                  kiwi, mango
    * </pre>
-   *
-   * The key is <code>"fruits"</code> and the associated element is:
    * <p>
+   * The key is <code>"fruits"</code> and the associated element is:
+   * </p>
    *
    * <pre>
    * &quot;apple, banana, pear, cantaloupe, watermelon, kiwi, mango&quot;
    * </pre>
-   *
+   * <p>
    * Note that a space appears before each <code>\</code> so that a space will
    * appear after each comma in the final result; the <code>\</code>, line
    * terminator, and leading white space on the continuation line are merely
    * discarded and are <i>not</i> replaced by one or more other characters.
+   * </p>
    * <p>
    * As a third example, the line:
-   * <p>
+   * </p>
    *
    * <pre>
    * cheeses
    * </pre>
-   *
+   * <p>
    * specifies that the key is <code>"cheeses"</code> and the associated element
    * is the empty string <code>""</code>.
-   * <p>
+   * </p>
    * <p>
    * <a name="unicodeescapes"></a> Characters in keys and elements can be
    * represented in escape sequences similar to those used for character and
@@ -250,6 +257,7 @@ public class NonBlockingProperties extends TreeMap <String, String>
    * >&sect;3.10.6</a> of the <i>Java Language Specification</i>). The
    * differences from the character escape sequences and Unicode escapes used
    * for characters and strings are:
+   * </p>
    * <ul>
    * <li>Octal escapes are not recognized.
    * <li>The character sequence <code>\b</code> does <i>not</i> represent a
@@ -267,6 +275,7 @@ public class NonBlockingProperties extends TreeMap <String, String>
    * </ul>
    * <p>
    * The specified stream remains open after this method returns.
+   * </p>
    *
    * @param aReader
    *        the input character stream.
