@@ -18,6 +18,11 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <entry date="2015-08-14" category="api" action="change" incompatible="true">
+    <change>
+      <text locale="en">Extracted IChangeLogSerializerCallback interface</text>
+    </change>
+  </entry>
   <release date="2015-08-06" version="6.1.1" />
   <entry date="2015-08-05" category="tech" action="fix">
     <change>

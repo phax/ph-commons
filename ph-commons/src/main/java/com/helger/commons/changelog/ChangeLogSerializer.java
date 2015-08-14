@@ -37,7 +37,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.URLResource;
@@ -75,16 +74,10 @@ public final class ChangeLogSerializer
   private static final String ELEMENT_ISSUE = "issue";
   private static final String ELEMENT_RELEASE = "release";
 
+  private static final IChangeLogSerializerCallback s_aDefaultCallback = new LoggingChangeLogSerializerCallback ();
+
   @PresentForCodeCoverage
   private static final ChangeLogSerializer s_aInstance = new ChangeLogSerializer ();
-
-  private static final INonThrowingRunnableWithParameter <String> s_aLoggingCallback = new INonThrowingRunnableWithParameter <String> ()
-  {
-    public void run (final String sError)
-    {
-      s_aLogger.error (sError);
-    }
-  };
 
   private ChangeLogSerializer ()
   {}
@@ -101,7 +94,7 @@ public final class ChangeLogSerializer
   @Nullable
   public static ChangeLog readChangeLog (@Nullable final IHasInputStream aISP)
   {
-    return readChangeLog (aISP, s_aLoggingCallback);
+    return readChangeLog (aISP, s_aDefaultCallback);
   }
 
   /**
@@ -116,7 +109,7 @@ public final class ChangeLogSerializer
    */
   @Nullable
   public static ChangeLog readChangeLog (@Nullable final IHasInputStream aISP,
-                                         @Nonnull final INonThrowingRunnableWithParameter <String> aErrorCallback)
+                                         @Nonnull final IChangeLogSerializerCallback aErrorCallback)
   {
     ValueEnforcer.notNull (aErrorCallback, "ErrorCallback");
 
@@ -224,26 +217,26 @@ public final class ChangeLogSerializer
   @ReturnsMutableCopy
   public static Map <URI, ChangeLog> readAllChangeLogs ()
   {
-    return readAllChangeLogs (s_aLoggingCallback);
+    return readAllChangeLogs (s_aDefaultCallback);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static Map <URI, ChangeLog> readAllChangeLogs (@Nonnull final ClassLoader aClassLoader)
   {
-    return readAllChangeLogs (s_aLoggingCallback, aClassLoader);
+    return readAllChangeLogs (s_aDefaultCallback, aClassLoader);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <URI, ChangeLog> readAllChangeLogs (@Nonnull final INonThrowingRunnableWithParameter <String> aErrorCallback)
+  public static Map <URI, ChangeLog> readAllChangeLogs (@Nonnull final IChangeLogSerializerCallback aErrorCallback)
   {
     return readAllChangeLogs (aErrorCallback, ClassLoaderHelper.getDefaultClassLoader ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <URI, ChangeLog> readAllChangeLogs (@Nonnull final INonThrowingRunnableWithParameter <String> aErrorCallback,
+  public static Map <URI, ChangeLog> readAllChangeLogs (@Nonnull final IChangeLogSerializerCallback aErrorCallback,
                                                         @Nonnull final ClassLoader aClassLoader)
   {
     ValueEnforcer.notNull (aErrorCallback, "ErrorCallback");
