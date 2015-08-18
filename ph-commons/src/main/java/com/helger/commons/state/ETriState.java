@@ -26,14 +26,14 @@ import com.helger.commons.lang.EnumHelper;
 /**
  * Represents an object that has one of 3 different states compared to a boolean
  * that has only 2 different states.
- * 
+ *
  * @author Philip Helger
  */
-public enum ETriState implements IHasID <String>, ITriState
+public enum ETriState implements IHasID <String>,ITriState
 {
-  TRUE ("true", Boolean.TRUE),
-  FALSE ("false", Boolean.FALSE),
-  UNDEFINED ("undefined", null);
+ TRUE ("true", Boolean.TRUE),
+ FALSE ("false", Boolean.FALSE),
+ UNDEFINED ("undefined", null);
 
   private final String m_sID;
   private final Boolean m_aBoolean;
@@ -71,12 +71,25 @@ public enum ETriState implements IHasID <String>, ITriState
     return this == UNDEFINED;
   }
 
+  public boolean getAsBooleanValue ()
+  {
+    if (this == UNDEFINED)
+      throw new IllegalStateException ("The TriState is undefined!");
+    return m_aBoolean.booleanValue ();
+  }
+
   public boolean getAsBooleanValue (final boolean bUndefinedValue)
   {
     return this == UNDEFINED ? bUndefinedValue : m_aBoolean.booleanValue ();
   }
 
   @Nullable
+  public Boolean getAsBooleanObj ()
+  {
+    return m_aBoolean;
+  }
+
+  @Nonnull
   public Boolean getAsBooleanObj (final boolean aUndefinedValue)
   {
     return getAsBooleanObj (Boolean.valueOf (aUndefinedValue));
