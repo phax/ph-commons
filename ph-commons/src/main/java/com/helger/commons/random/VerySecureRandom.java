@@ -17,6 +17,7 @@
 package com.helger.commons.random;
 
 import java.security.SecureRandom;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
@@ -96,6 +97,9 @@ public final class VerySecureRandom
 
   static
   {
+    // Find a good description that states how it is done this way:
+    // https://www.cigital.com/blog/proper-use-of-javas-securerandom/
+
     // Initialize SecureRandom
     // This is a lengthy operation, to be done only upon
     // initialization of the application. Especial with Java <= 1.5 this whole
@@ -104,6 +108,9 @@ public final class VerySecureRandom
 
     // Get 128 random bytes
     aSecureRandom.nextBytes (new byte [128]);
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Generating intial seed for VerySecureRandom");
 
     // Create secure number generators with the random seed
     final byte [] aSeed = aSecureRandom.generateSeed (10);
@@ -119,6 +126,8 @@ public final class VerySecureRandom
   private VerySecureRandom ()
   {}
 
+  private static final AtomicInteger s_aCounter = new AtomicInteger (0);
+
   /**
    * @return The {@link SecureRandom} instance that does the hard work. Never
    *         <code>null</code>.
@@ -126,6 +135,15 @@ public final class VerySecureRandom
   @Nonnull
   public static SecureRandom getInstance ()
   {
+    if ((s_aCounter.incrementAndGet () % 20) == 0)
+    {
+      if (s_aLogger.isDebugEnabled ())
+        s_aLogger.debug ("Re-seeding VerySecureRandom");
+
+      // Re-seed sometimes :)
+      s_aSecureRandom.setSeed (s_aSecureRandom.generateSeed (10));
+    }
+
     return s_aSecureRandom;
   }
 }
