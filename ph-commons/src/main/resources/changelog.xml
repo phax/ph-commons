@@ -18,6 +18,11 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <entry date="2015-09-03" category="api" action="add">
+    <change>
+      <text locale="en">Extended StreamHelper with methods to safely read and write arbitrary long UTF strings</text>
+    </change>
+  </entry>
   <entry date="2015-08-18" category="api" action="add" incompatible="true">
     <change>
       <text locale="en">Extended ITriState interface with methods without a default value</text>

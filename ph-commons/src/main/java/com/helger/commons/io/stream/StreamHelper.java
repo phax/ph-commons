@@ -23,6 +23,8 @@ import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.Flushable;
 import java.io.IOException;
@@ -55,6 +57,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
+import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.exception.mock.IMockException;
 import com.helger.commons.io.IHasInputStream;
@@ -1553,5 +1556,54 @@ public final class StreamHelper
         return null;
       }
     return aIS;
+  }
+
+  /**
+   * Because {@link DataOutputStream#writeUTF(String)} has a limit of 64KB this
+   * methods provides a similar solution but simply writing the bytes.
+   *
+   * @param aDOS
+   *        {@link DataOutputStream} to write to. May not be <code>null</code>.
+   * @param s
+   *        The string to be written. May be <code>null</code>.
+   * @throws IOException
+   *         on write error
+   * @see #readSafeUTF(DataInputStream)
+   */
+  public static void writeSafeUTF (@Nonnull final DataOutputStream aDOS, @Nullable final String s) throws IOException
+  {
+    if (s == null)
+      aDOS.writeByte (0);
+    else
+    {
+      aDOS.writeByte (1);
+      aDOS.writeInt (s.length ());
+      aDOS.write (s.getBytes (CCharset.CHARSET_UTF_8_OBJ));
+    }
+  }
+
+  /**
+   * Because {@link DataOutputStream#writeUTF(String)} has a limit of 64KB this
+   * methods provides a similar solution for reading like
+   * {@link DataInputStream#readUTF()} but what was written in
+   * {@link #writeSafeUTF(DataOutputStream, String)}.
+   *
+   * @param aDIS
+   *        {@link DataInputStream} to read from. May not be <code>null</code>.
+   * @return The read string. May be <code>null</code>.
+   * @throws IOException
+   *         on read error
+   * @see #writeSafeUTF(DataOutputStream, String)
+   */
+  @Nullable
+  public static String readSafeUTF (@Nonnull final DataInputStream aDIS) throws IOException
+  {
+    if (aDIS.readByte () == 0)
+      return null;
+
+    final int nLength = aDIS.readInt ();
+    final byte [] aData = new byte [nLength];
+    aDIS.read (aData);
+    return new String (aData, CCharset.CHARSET_UTF_8_OBJ);
   }
 }
