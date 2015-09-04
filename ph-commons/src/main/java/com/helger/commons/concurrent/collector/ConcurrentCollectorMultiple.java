@@ -18,6 +18,7 @@ package com.helger.commons.concurrent.collector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -67,6 +68,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    *        0.
    * @param nMaxPerformCount
    *        The maximum number of objects to be put in the queue for execution.
+   *        Must be &gt; 0.
    */
   public ConcurrentCollectorMultiple (@Nonnegative final int nMaxQueueSize, @Nonnegative final int nMaxPerformCount)
   {
@@ -75,6 +77,44 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
     if (nMaxPerformCount > nMaxQueueSize)
       throw new IllegalArgumentException ("max perform size is illegal: " + nMaxPerformCount);
     m_nMaxPerformCount = nMaxPerformCount;
+  }
+
+  /**
+   * Constructor using an existing {@link BlockingQueue} and the default max
+   * perform count ({@value #DEFAULT_MAX_PERFORM_COUNT}).
+   *
+   * @param aQueue
+   *        {@link BlockingQueue} to use. May not be <code>null</code>.
+   */
+  public ConcurrentCollectorMultiple (@Nonnull final BlockingQueue <Object> aQueue)
+  {
+    this (aQueue, DEFAULT_MAX_PERFORM_COUNT);
+  }
+
+  /**
+   * Constructor using an existing {@link BlockingQueue}.
+   *
+   * @param aQueue
+   *        {@link BlockingQueue} to use. May not be <code>null</code>.
+   * @param nMaxPerformCount
+   *        The maximum number of objects to be put in the list for execution.
+   *        Must be &gt; 0.
+   */
+  public ConcurrentCollectorMultiple (@Nonnull final BlockingQueue <Object> aQueue,
+                                      @Nonnegative final int nMaxPerformCount)
+  {
+    super (aQueue);
+    m_nMaxPerformCount = ValueEnforcer.isGT0 (nMaxPerformCount, "MaxPerformCount");
+  }
+
+  /**
+   * @return The maximum number of objects to be put in the list for execution.
+   *         Always &ge; 0.
+   */
+  @Nonnegative
+  public final int getMaxPerformCount ()
+  {
+    return m_nMaxPerformCount;
   }
 
   /**
@@ -105,6 +145,15 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
     m_aPerformer = ValueEnforcer.notNull (aPerformer, "Performer");
   }
 
+  /**
+   * Internal method to invoke the performed for the passed list of objects.
+   *
+   * @param aObjectsToPerform
+   *        List of objects to be passed to the performer. Never
+   *        <code>null</code>. The length is at last
+   *        {@link #getMaxPerformCount()}.
+   * @return {@link ESuccess}
+   */
   @Nonnull
   private ESuccess _perform (@Nonnull final List <DATATYPE> aObjectsToPerform)
   {
@@ -134,6 +183,16 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
     return ESuccess.SUCCESS;
   }
 
+  /**
+   * This method starts the collector by taking objects from the internal
+   * {@link BlockingQueue}. So this method blocks and must be invoked from a
+   * separate thread. This method runs until {@link #stopQueuingNewObjects()} is
+   * new called and the queue is empty.
+   *
+   * @throws IllegalStateException
+   *         if no performer is set - see
+   *         {@link #setPerformer(IThrowingRunnableWithParameter)}
+   */
   public final void run ()
   {
     if (m_aPerformer == null)

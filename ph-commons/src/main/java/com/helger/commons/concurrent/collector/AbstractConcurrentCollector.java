@@ -16,6 +16,8 @@
  */
 package com.helger.commons.concurrent.collector;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -29,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingRunnable;
 import com.helger.commons.state.ESuccess;
 
@@ -62,7 +65,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThro
   private boolean m_bStopTakingNewObjects = false;
 
   /**
-   * Constructor.
+   * Constructor creating an {@link ArrayBlockingQueue} internally.
    *
    * @param nMaxQueueSize
    *        The maximum number of items that can be in the queue. Must be &gt;
@@ -70,8 +73,19 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThro
    */
   public AbstractConcurrentCollector (@Nonnegative final int nMaxQueueSize)
   {
-    ValueEnforcer.isGT0 (nMaxQueueSize, "MaxQueueSize");
-    m_aQueue = new ArrayBlockingQueue <Object> (nMaxQueueSize);
+    this (new ArrayBlockingQueue <Object> (ValueEnforcer.isGT0 (nMaxQueueSize, "MaxQueueSize")));
+  }
+
+  /**
+   * Constructor using an arbitrary {@link BlockingQueue}.
+   *
+   * @param aQueue
+   *        The {@link BlockingQueue} to be used. May not be <code>null</code>.
+   */
+  public AbstractConcurrentCollector (@Nonnull final BlockingQueue <Object> aQueue)
+  {
+    ValueEnforcer.notNull (aQueue, "Queue");
+    m_aQueue = aQueue;
   }
 
   @Nonnull
@@ -157,6 +171,24 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThro
     finally
     {
       m_aRWLock.readLock ().unlock ();
+    }
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public final List <Object> drainQueue ()
+  {
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      // put specific stop queue object
+      final List <Object> ret = new ArrayList <Object> ();
+      m_aQueue.drainTo (ret);
+      return ret;
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
     }
   }
 }

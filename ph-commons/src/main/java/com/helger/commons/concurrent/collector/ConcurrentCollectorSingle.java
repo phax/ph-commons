@@ -16,6 +16,8 @@
  */
 package com.helger.commons.concurrent.collector;
 
+import java.util.concurrent.BlockingQueue;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -59,6 +61,17 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
   public ConcurrentCollectorSingle (@Nonnegative final int nMaxQueueSize)
   {
     super (nMaxQueueSize);
+  }
+
+  /**
+   * Constructor using an existing {@link BlockingQueue}.
+   *
+   * @param aQueue
+   *        {@link BlockingQueue} to use. May not be <code>null</code>.
+   */
+  public ConcurrentCollectorSingle (@Nonnull final BlockingQueue <Object> aQueue)
+  {
+    super (aQueue);
   }
 
   /**
@@ -106,6 +119,16 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
     }
   }
 
+  /**
+   * This method starts the collector by taking objects from the internal
+   * {@link BlockingQueue}. So this method blocks and must be invoked from a
+   * separate thread. This method runs until {@link #stopQueuingNewObjects()} is
+   * new called and the queue is empty.
+   *
+   * @throws IllegalStateException
+   *         if no performer is set - see
+   *         {@link #setPerformer(IThrowingRunnableWithParameter)}
+   */
   public final void run ()
   {
     if (m_aPerformer == null)
