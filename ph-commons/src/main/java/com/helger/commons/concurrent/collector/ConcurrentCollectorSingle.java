@@ -66,7 +66,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
    *         set.
    */
   @Nullable
-  protected final IThrowingRunnableWithParameter <DATATYPE> getPerformer ()
+  public final IThrowingRunnableWithParameter <DATATYPE> getPerformer ()
   {
     return m_aPerformer;
   }
@@ -82,7 +82,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
    * @throws IllegalStateException
    *         If another performer is already present!
    */
-  protected final void setPerformer (@Nonnull final IThrowingRunnableWithParameter <DATATYPE> aPerformer)
+  public final void setPerformer (@Nonnull final IThrowingRunnableWithParameter <DATATYPE> aPerformer)
   {
     if (m_aPerformer != null)
       throw new IllegalStateException ("Another performer is already set!");
@@ -101,7 +101,8 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
     {
       s_aLogger.error ("Failed to perform actions on object with performer " +
                        m_aPerformer +
-                       " - object has been lost!", t);
+                       " - object has been lost!",
+                       t);
     }
   }
 

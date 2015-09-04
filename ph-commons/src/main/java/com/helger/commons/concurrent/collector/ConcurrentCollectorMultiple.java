@@ -82,7 +82,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    *         set.
    */
   @Nullable
-  protected final IThrowingRunnableWithParameter <List <DATATYPE>> getPerformer ()
+  public final IThrowingRunnableWithParameter <List <DATATYPE>> getPerformer ()
   {
     return m_aPerformer;
   }
@@ -98,7 +98,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    * @throws IllegalStateException
    *         If another performer is already present!
    */
-  protected final void setPerformer (@Nonnull final IThrowingRunnableWithParameter <List <DATATYPE>> aPerformer)
+  public final void setPerformer (@Nonnull final IThrowingRunnableWithParameter <List <DATATYPE>> aPerformer)
   {
     if (m_aPerformer != null)
       throw new IllegalStateException ("Another performer is already set!");
@@ -122,7 +122,8 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
                          aObjectsToPerform.size () +
                          " objects with performer " +
                          m_aPerformer +
-                         " - objects are lost!", t);
+                         " - objects are lost!",
+                         t);
         return ESuccess.FAILURE;
       }
 
