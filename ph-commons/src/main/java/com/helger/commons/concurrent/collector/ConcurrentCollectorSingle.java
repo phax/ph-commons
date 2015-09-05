@@ -92,14 +92,17 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
    *
    * @param aPerformer
    *        The performer to be used. May not be <code>null</code>.
+   * @return this for chaining
    * @throws IllegalStateException
    *         If another performer is already present!
    */
-  public final void setPerformer (@Nonnull final IThrowingRunnableWithParameter <DATATYPE> aPerformer)
+  @Nonnull
+  public final ConcurrentCollectorSingle <DATATYPE> setPerformer (@Nonnull final IThrowingRunnableWithParameter <DATATYPE> aPerformer)
   {
     if (m_aPerformer != null)
       throw new IllegalStateException ("Another performer is already set!");
     m_aPerformer = ValueEnforcer.notNull (aPerformer, "Performer");
+    return this;
   }
 
   private void _perform (final DATATYPE aObject)
