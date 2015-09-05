@@ -33,6 +33,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingRunnable;
+import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
 
 /**
@@ -49,7 +50,12 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThro
    */
   public static final int DEFAULT_MAX_QUEUE_SIZE = 100;
 
-  protected static final Object STOP_QUEUE_OBJECT = new Object ();
+  /**
+   * The STOP object that is internally added to the queue to indicate the last
+   * token
+   */
+  public static final Object STOP_QUEUE_OBJECT = new Object ();
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractConcurrentCollector.class);
 
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
@@ -176,19 +182,39 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThro
 
   @Nonnull
   @ReturnsMutableCopy
-  public final List <Object> drainQueue ()
+  public final List <DATATYPE> drainQueue ()
   {
+    // Drain all objects to this queue
+    final List <Object> aList = new ArrayList <Object> ();
     m_aRWLock.writeLock ().lock ();
     try
     {
-      // put specific stop queue object
-      final List <Object> ret = new ArrayList <Object> ();
-      m_aQueue.drainTo (ret);
-      return ret;
+      m_aQueue.drainTo (aList);
     }
     finally
     {
       m_aRWLock.writeLock ().unlock ();
     }
+
+    // Change data type
+    final List <DATATYPE> ret = new ArrayList <DATATYPE> ();
+    for (final Object aObj : aList)
+      if (aObj != STOP_QUEUE_OBJECT)
+        ret.add (GenericReflection.<Object, DATATYPE> uncheckedCast (aObj));
+      else
+      {
+        // Re-add the stop object, because loops in derived classes rely on this
+        // object
+        m_aRWLock.writeLock ().lock ();
+        try
+        {
+          m_aQueue.add (aObj);
+        }
+        finally
+        {
+          m_aRWLock.writeLock ().unlock ();
+        }
+      }
+    return ret;
   }
 }
