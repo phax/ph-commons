@@ -26,6 +26,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
+import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,17 +38,16 @@ import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
 
 /**
- * Abstract concurrent collector.
+ * Abstract concurrent collector based on {@link BlockingQueue}.
  *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of the objects in the queue.
  */
+@ThreadSafe
 public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThrowingRunnable, IMutableConcurrentCollector <DATATYPE>
 {
-  /**
-   * Default maximum queue size
-   */
+  /** Default maximum queue size */
   public static final int DEFAULT_MAX_QUEUE_SIZE = 100;
 
   /**
