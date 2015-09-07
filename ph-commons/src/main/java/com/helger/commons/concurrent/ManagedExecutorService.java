@@ -46,6 +46,30 @@ public final class ManagedExecutorService
   }
 
   /**
+   * Wait indefinitely on the {@link ExecutorService} until it terminates.
+   *
+   * @return {@link EInterrupt#INTERRUPTED} if the executor service was
+   *         interrupted while awaiting termination. Never <code>null</code>.
+   */
+  @Nonnull
+  public EInterrupt waitUntilAllTasksAreFinished ()
+  {
+    try
+    {
+      while (!m_aES.awaitTermination (1, TimeUnit.SECONDS))
+      {
+        // wait until completion
+      }
+    }
+    catch (final InterruptedException ex)
+    {
+      s_aLogger.error ("Error waiting for Executor service " + m_aES + " to end", ex);
+      return EInterrupt.INTERRUPTED;
+    }
+    return EInterrupt.NOT_INTERRUPTED;
+  }
+
+  /**
    * Call shutdown on the {@link ExecutorService} and wait indefinitely until it
    * terminated.
    *
@@ -55,25 +79,14 @@ public final class ManagedExecutorService
   @Nonnull
   public EInterrupt shutdownAndWaitUntilAllTasksAreFinished ()
   {
-    if (!m_aES.isShutdown ())
-    {
-      // accept no further requests
-      m_aES.shutdown ();
+    if (m_aES.isShutdown ())
+      return EInterrupt.NOT_INTERRUPTED;
 
-      try
-      {
-        while (!m_aES.awaitTermination (1, TimeUnit.SECONDS))
-        {
-          // wait until completion
-        }
-      }
-      catch (final InterruptedException ex)
-      {
-        s_aLogger.error ("Error waiting for Executor service " + m_aES + " to end", ex);
-        return EInterrupt.INTERRUPTED;
-      }
-    }
-    return EInterrupt.NOT_INTERRUPTED;
+    // accept no further requests
+    m_aES.shutdown ();
+
+    // Wait...
+    return waitUntilAllTasksAreFinished ();
   }
 
   @Nonnull
