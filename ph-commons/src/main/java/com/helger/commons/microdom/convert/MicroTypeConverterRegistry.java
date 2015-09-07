@@ -234,15 +234,20 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     try
     {
       m_aMap.clear ();
+
+      // Register all custom micro type converter
+      // Must be in writeLock to ensure no reads happen during initialization
+      for (final IMicroTypeConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (IMicroTypeConverterRegistrarSPI.class))
+      {
+        if (s_aLogger.isDebugEnabled ())
+          s_aLogger.debug ("Calling registerMicroTypeConverter on " + aSPI.getClass ().getName ());
+        aSPI.registerMicroTypeConverter (this);
+      }
     }
     finally
     {
       m_aRWLock.writeLock ().unlock ();
     }
-
-    // Register all custom micro type converter
-    for (final IMicroTypeConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (IMicroTypeConverterRegistrarSPI.class))
-      aSPI.registerMicroTypeConverter (this);
 
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug (getRegisteredMicroTypeConverterCount () + " micro type converters registered");

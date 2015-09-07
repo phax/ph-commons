@@ -470,18 +470,19 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     {
       m_aConverter.clear ();
       m_aRules.clear ();
+
+      // Register all custom type converter.
+      // Must be in writeLock to ensure no reads happen during initialization
+      for (final ITypeConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (ITypeConverterRegistrarSPI.class))
+      {
+        if (s_aLogger.isDebugEnabled ())
+          s_aLogger.debug ("Calling registerTypeConverter on " + aSPI.getClass ().getName ());
+        aSPI.registerTypeConverter (this);
+      }
     }
     finally
     {
       m_aRWLock.writeLock ().unlock ();
-    }
-
-    // Register all custom type converter
-    for (final ITypeConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (ITypeConverterRegistrarSPI.class))
-    {
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Calling registerTypeConverter on " + aSPI);
-      aSPI.registerTypeConverter (this);
     }
 
     if (s_aLogger.isDebugEnabled ())
