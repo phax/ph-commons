@@ -335,6 +335,12 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final void onBeforeScopeDestruction (@Nonnull final IScope aScopeToBeDestroyed) throws Exception
   {
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("onBeforeScopeDestruction for '" +
+                       toString () +
+                       "' in scope " +
+                       aScopeToBeDestroyed.toString ());
+
     // Check init state
     if (isInInstantiation ())
       s_aLogger.warn ("Object currently in instantiation is destroyed soon: " + toString ());
@@ -380,6 +386,9 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final void onScopeDestruction (@Nonnull final IScope aScopeInDestruction) throws Exception
   {
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("onScopeDestruction for '" + toString () + "' in scope " + aScopeInDestruction.toString ());
+
     // Check init state
     if (isInInstantiation ())
       s_aLogger.warn ("Object currently in instantiation is now destroyed: " + toString ());
