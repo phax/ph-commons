@@ -320,7 +320,9 @@ public final class TypeConverter
                       aSrcClass.getName () +
                       "' to '" +
                       aUsableDstClass.getName () +
-                      "' was found");
+                      "' was found (using provider " +
+                      aTypeConverterProvider.getClass ().getName () +
+                      ")");
       throw new TypeConverterException (aSrcClass, aUsableDstClass, EReason.NO_CONVERTER_FOUND);
     }
 

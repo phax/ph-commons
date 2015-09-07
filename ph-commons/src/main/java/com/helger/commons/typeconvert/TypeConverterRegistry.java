@@ -76,7 +76,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
 
   private TypeConverterRegistry ()
   {
-    reinitialize ();
+    _reinitialize ();
   }
 
   public static boolean isInstantiated ()
@@ -441,6 +441,12 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     {
       m_aRWLock.writeLock ().unlock ();
     }
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Registered type converter rule " +
+                       ClassHelper.getClassLocalName (aTypeConverterRule) +
+                       " with type " +
+                       aTypeConverterRule.getSubType ());
   }
 
   @Nonnegative
@@ -457,7 +463,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     }
   }
 
-  public void reinitialize ()
+  private void _reinitialize ()
   {
     m_aRWLock.writeLock ().lock ();
     try
@@ -472,12 +478,24 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
 
     // Register all custom type converter
     for (final ITypeConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (ITypeConverterRegistrarSPI.class))
+    {
+      if (s_aLogger.isDebugEnabled ())
+        s_aLogger.debug ("Calling registerTypeConverter on " + aSPI);
       aSPI.registerTypeConverter (this);
+    }
 
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug (getRegisteredTypeConverterCount () +
                        " type converters and " +
                        getRegisteredTypeConverterRuleCount () +
                        " rules registered");
+  }
+
+  public void reinitialize ()
+  {
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Reinitializing " + getClass ().getName ());
+
+    _reinitialize ();
   }
 }
