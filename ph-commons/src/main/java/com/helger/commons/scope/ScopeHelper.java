@@ -341,6 +341,10 @@ public final class ScopeHelper
    */
   public static boolean debugGlobalScopeLifeCycle (@Nonnull final Logger aLogger)
   {
+    // Also debug scopes, if debug logging is enabled
+    if (aLogger.isDebugEnabled ())
+      return true;
+
     return (isLifeCycleDebuggingEnabled () || isDebugGlobalScopeEnabled ()) && aLogger.isInfoEnabled ();
   }
 
@@ -355,6 +359,10 @@ public final class ScopeHelper
    */
   public static boolean debugApplicationScopeLifeCycle (@Nonnull final Logger aLogger)
   {
+    // Also debug scopes, if debug logging is enabled
+    if (aLogger.isDebugEnabled ())
+      return true;
+
     return (isLifeCycleDebuggingEnabled () || isDebugApplicationScopeEnabled ()) && aLogger.isInfoEnabled ();
   }
 
@@ -369,6 +377,10 @@ public final class ScopeHelper
    */
   public static boolean debugSessionScopeLifeCycle (@Nonnull final Logger aLogger)
   {
+    // Also debug scopes, if debug logging is enabled
+    if (aLogger.isDebugEnabled ())
+      return true;
+
     return (isLifeCycleDebuggingEnabled () || isDebugSessionScopeEnabled ()) && aLogger.isInfoEnabled ();
   }
 
@@ -383,6 +395,10 @@ public final class ScopeHelper
    */
   public static boolean debugSessionApplicationScopeLifeCycle (@Nonnull final Logger aLogger)
   {
+    // Also debug scopes, if debug logging is enabled
+    if (aLogger.isDebugEnabled ())
+      return true;
+
     return (isLifeCycleDebuggingEnabled () || isDebugSessionApplicationScopeEnabled ()) && aLogger.isInfoEnabled ();
   }
 
@@ -397,6 +413,10 @@ public final class ScopeHelper
    */
   public static boolean debugRequestScopeLifeCycle (@Nonnull final Logger aLogger)
   {
+    // Also debug scopes, if debug logging is enabled
+    if (aLogger.isDebugEnabled ())
+      return true;
+
     return (isLifeCycleDebuggingEnabled () || isDebugRequestScopeEnabled ()) && aLogger.isInfoEnabled ();
   }
 

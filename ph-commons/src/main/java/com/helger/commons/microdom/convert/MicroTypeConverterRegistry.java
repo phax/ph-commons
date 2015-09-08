@@ -167,8 +167,8 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
             ret = m_aMap.get (aCurDstClass);
             if (ret != null)
             {
-              if (s_aLogger.isDebugEnabled ())
-                s_aLogger.debug ("Using micro type converter " +
+              if (s_aLogger.isTraceEnabled ())
+                s_aLogger.trace ("Using micro type converter " +
                                  ret +
                                  " for class " +
                                  aDstClass +

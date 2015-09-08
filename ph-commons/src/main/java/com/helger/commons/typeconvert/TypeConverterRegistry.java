@@ -182,8 +182,8 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
             if (aSrcMap.put (aCurDstClass, aConverter) != null)
               s_aLogger.warn ("Overwriting converter from " + aSrcClass + " to " + aCurDstClass);
             else
-              if (s_aLogger.isDebugEnabled ())
-                s_aLogger.debug ("Registered type converter from '" +
+              if (s_aLogger.isTraceEnabled ())
+                s_aLogger.trace ("Registered type converter from '" +
                                  aSrcClass.toString () +
                                  "' to '" +
                                  aCurDstClass.toString () +
@@ -442,8 +442,8 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
       m_aRWLock.writeLock ().unlock ();
     }
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Registered type converter rule " +
+    if (s_aLogger.isTraceEnabled ())
+      s_aLogger.trace ("Registered type converter rule " +
                        ClassHelper.getClassLocalName (aTypeConverterRule) +
                        " with type " +
                        aTypeConverterRule.getSubType ());

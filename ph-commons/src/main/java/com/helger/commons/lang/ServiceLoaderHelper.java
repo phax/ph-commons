@@ -130,8 +130,8 @@ public final class ServiceLoaderHelper
 
     final Logger aRealLogger = aLogger != null ? aLogger : s_aLogger;
 
-    if (aRealLogger.isDebugEnabled ())
-      aRealLogger.debug ("Trying to load all SPI implementations of " + aSPIClass);
+    if (aRealLogger.isTraceEnabled ())
+      aRealLogger.trace ("Trying to retrieve all SPI implementations of " + aSPIClass);
 
     final ServiceLoader <T> aServiceLoader = ServiceLoader.<T> load (aSPIClass, aClassLoader);
     final List <T> ret = new ArrayList <T> ();
@@ -153,11 +153,7 @@ public final class ServiceLoaderHelper
     }
 
     if (aRealLogger.isDebugEnabled ())
-      aRealLogger.debug ("Finished loading all SPI implementations of " +
-                         aSPIClass +
-                         " --> returning " +
-                         ret.size () +
-                         " instances");
+      aRealLogger.debug ("Finished retrieving all SPI " + ret.size () + " implementations of " + aSPIClass);
 
     return ret;
   }
