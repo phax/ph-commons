@@ -153,7 +153,7 @@ public final class ServiceLoaderHelper
     }
 
     if (aRealLogger.isDebugEnabled ())
-      aRealLogger.debug ("Finished retrieving all SPI " + ret.size () + " implementations of " + aSPIClass);
+      aRealLogger.debug ("Finished retrieving all " + ret.size () + " SPI implementations of " + aSPIClass);
 
     return ret;
   }
@@ -251,7 +251,7 @@ public final class ServiceLoaderHelper
                         aSPIClass +
                         " but found " +
                         aAll.size () +
-                        ": " +
+                        " - using the first one. Details: " +
                         aAll);
     }
     return aAll.get (0);
