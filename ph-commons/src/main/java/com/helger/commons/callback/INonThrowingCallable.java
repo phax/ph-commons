@@ -19,16 +19,16 @@ package com.helger.commons.callback;
 /**
  * Like the {@link java.util.concurrent.Callable} interface but not throwing an
  * exception!
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The return type of the call.
  */
-public interface INonThrowingCallable <DATATYPE> extends IThrowingCallable <DATATYPE>
+public interface INonThrowingCallable <DATATYPE> extends IThrowingCallable <DATATYPE, Exception>
 {
   /**
    * The call back method to be called.
-   * 
+   *
    * @return Anything. May be <code>null</code> or non- <code>null</code>
    *         depending on the implementation.
    */

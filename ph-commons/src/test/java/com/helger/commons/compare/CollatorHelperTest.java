@@ -27,13 +27,12 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.helger.commons.callback.IThrowingRunnable;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link CollatorHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CollatorHelperTest extends AbstractCommonsTestCase
@@ -53,9 +52,9 @@ public final class CollatorHelperTest extends AbstractCommonsTestCase
 
     final List <Collator> res = new Vector <Collator> ();
     final int nMax = 100;
-    CommonsTestHelper.testInParallel (nMax, new IThrowingRunnable ()
+    CommonsTestHelper.testInParallel (nMax, new Runnable ()
     {
-      public void run () throws Exception
+      public void run ()
       {
         res.add (CollatorHelper.getCollatorSpaceBeforeDot (L_EN));
       }
@@ -70,9 +69,9 @@ public final class CollatorHelperTest extends AbstractCommonsTestCase
   public void testSort ()
   {
     final int nMax = 10000;
-    CommonsTestHelper.testInParallel (nMax, new IThrowingRunnable ()
+    CommonsTestHelper.testInParallel (nMax, new Runnable ()
     {
-      public void run () throws Exception
+      public void run ()
       {
         Collator c = CollatorHelper.getCollatorSpaceBeforeDot (L_DE);
         assertEquals (-1, CompareHelper.compare ("1.1 a", "1.1.1 a", c));

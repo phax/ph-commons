@@ -30,9 +30,11 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  * @param <PARAMTYPE>
  *        The parameter type.
+ * @param <EXTYPE>
+ *        Exception type to be thrown
  */
 @Immutable
-public class AdapterRunnableToThrowingRunnableWithParameter <PARAMTYPE> implements IThrowingRunnableWithParameter <PARAMTYPE>
+public class AdapterRunnableToThrowingRunnableWithParameter <PARAMTYPE, EXTYPE extends Throwable> implements IThrowingRunnableWithParameter <PARAMTYPE, EXTYPE>
 {
   private final Runnable m_aRunnable;
 
@@ -47,7 +49,7 @@ public class AdapterRunnableToThrowingRunnableWithParameter <PARAMTYPE> implemen
     return m_aRunnable;
   }
 
-  public void run (final PARAMTYPE aParam) throws Exception
+  public void run (final PARAMTYPE aParam) throws EXTYPE
   {
     m_aRunnable.run ();
   }

@@ -21,12 +21,14 @@ import java.util.concurrent.Callable;
 /**
  * This is the same as the {@link java.util.concurrent.Callable} interface but
  * following our naming conventions.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The return type of the call.
+ * @param <EXTYPE>
+ *        Exception type to be thrown
  */
-public interface IThrowingCallable <DATATYPE> extends Callable <DATATYPE>
+public interface IThrowingCallable <DATATYPE, EXTYPE extends Exception> extends Callable <DATATYPE>
 {
-  /* empty */
+  DATATYPE call () throws EXTYPE;
 }

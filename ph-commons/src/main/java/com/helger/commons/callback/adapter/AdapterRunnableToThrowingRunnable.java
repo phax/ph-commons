@@ -28,9 +28,11 @@ import com.helger.commons.string.ToStringGenerator;
  * {@link IThrowingRunnable}.
  *
  * @author Philip Helger
+ * @param <EXTYPE>
+ *        Exception type to be thrown
  */
 @Immutable
-public class AdapterRunnableToThrowingRunnable implements IThrowingRunnable
+public class AdapterRunnableToThrowingRunnable <EXTYPE extends Throwable> implements IThrowingRunnable <EXTYPE>
 {
   private final Runnable m_aRunnable;
 
@@ -45,7 +47,7 @@ public class AdapterRunnableToThrowingRunnable implements IThrowingRunnable
     return m_aRunnable;
   }
 
-  public void run () throws Exception
+  public void run () throws EXTYPE
   {
     m_aRunnable.run ();
   }

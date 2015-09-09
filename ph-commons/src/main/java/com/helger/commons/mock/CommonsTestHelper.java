@@ -349,7 +349,7 @@ public final class CommonsTestHelper
   public static void testInParallel (@Nonnegative final int nCalls, @Nonnull final Runnable aRunnable)
   {
     ValueEnforcer.notNull (aRunnable, "Runnable");
-    testInParallel (nCalls, new AdapterRunnableToThrowingRunnable (aRunnable));
+    testInParallel (nCalls, new AdapterRunnableToThrowingRunnable <Exception> (aRunnable));
   }
 
   /**
@@ -360,7 +360,8 @@ public final class CommonsTestHelper
    * @param aRunnable
    *        The runnable to execute. May not be <code>null</code>.
    */
-  public static void testInParallel (@Nonnegative final int nCalls, @Nonnull final IThrowingRunnable aRunnable)
+  public static void testInParallel (@Nonnegative final int nCalls,
+                                     @Nonnull final IThrowingRunnable <? extends Throwable> aRunnable)
   {
     ValueEnforcer.isGE0 (nCalls, "Calls");
     ValueEnforcer.notNull (aRunnable, "Runnable");

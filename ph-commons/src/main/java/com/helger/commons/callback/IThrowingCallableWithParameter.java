@@ -19,25 +19,27 @@ package com.helger.commons.callback;
 /**
  * Like the {@link java.util.concurrent.Callable} interface but including a
  * parameter!
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The return type of the call.
  * @param <PARAMTYPE>
  *        The parameter type.
+ * @param <EXTYPE>
+ *        Exception type to be thrown
  */
-public interface IThrowingCallableWithParameter <DATATYPE, PARAMTYPE>
+public interface IThrowingCallableWithParameter <DATATYPE, PARAMTYPE, EXTYPE extends Exception>
 {
   /**
    * The call back method to be called.
-   * 
+   *
    * @param aParameter
    *        The parameter to be passed in. May be <code>null</code> or non-
    *        <code>null</code> depending on the implementation.
    * @return Anything. May be <code>null</code> or non- <code>null</code>
    *         depending on the implementation.
-   * @throws Exception
+   * @throws EXTYPE
    *         in case something goes wrong
    */
-  DATATYPE call (PARAMTYPE aParameter) throws Exception;
+  DATATYPE call (PARAMTYPE aParameter) throws EXTYPE;
 }

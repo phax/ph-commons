@@ -20,16 +20,16 @@ package com.helger.commons.callback;
  * Simple callback interface to allow generic iteration with a typed callback
  * function. This is similar to {@link INonThrowingRunnable} except that a
  * parameter is present.
- * 
+ *
  * @author Philip Helger
  * @param <PARAMTYPE>
  *        The type of the parameter that is required for executing the callback.
  */
-public interface INonThrowingRunnableWithParameter <PARAMTYPE> extends IThrowingRunnableWithParameter <PARAMTYPE>
+public interface INonThrowingRunnableWithParameter <PARAMTYPE> extends IThrowingRunnableWithParameter <PARAMTYPE, Exception>
 {
   /**
    * The callback method that is invoked.
-   * 
+   *
    * @param aCurrentObject
    *        The current object. May be <code>null</code> or non-
    *        <code>null</code> depending on the implementation.

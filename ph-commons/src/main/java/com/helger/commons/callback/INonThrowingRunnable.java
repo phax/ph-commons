@@ -19,10 +19,10 @@ package com.helger.commons.callback;
 /**
  * A simple interface that looks like {@link java.lang.Runnable} but follows our
  * naming conventions.
- * 
+ *
  * @author Philip Helger
  */
-public interface INonThrowingRunnable extends Runnable, IThrowingRunnable
+public interface INonThrowingRunnable extends Runnable, IThrowingRunnable <Exception>
 {
   /**
    * Run it.

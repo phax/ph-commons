@@ -36,19 +36,21 @@ import com.helger.commons.string.ToStringGenerator;
  *        The callable result type.
  * @param <PARAMTYPE>
  *        The parameter type
+ * @param <EXTYPE>
+ *        Exception type to be thrown
  */
 @Immutable
-public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE> implements IThrowingCallableWithParameter <DATATYPE, PARAMTYPE>
+public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE, EXTYPE extends Exception> implements IThrowingCallableWithParameter <DATATYPE, PARAMTYPE, EXTYPE>
 {
-  private final IThrowingRunnableWithParameter <PARAMTYPE> m_aRunnable;
+  private final IThrowingRunnableWithParameter <PARAMTYPE, EXTYPE> m_aRunnable;
   private final DATATYPE m_aResult;
 
-  public AdapterThrowingRunnableToCallableWithParameter (@Nonnull final IThrowingRunnableWithParameter <PARAMTYPE> aRunnable)
+  public AdapterThrowingRunnableToCallableWithParameter (@Nonnull final IThrowingRunnableWithParameter <PARAMTYPE, EXTYPE> aRunnable)
   {
     this (aRunnable, null);
   }
 
-  public AdapterThrowingRunnableToCallableWithParameter (@Nonnull final IThrowingRunnableWithParameter <PARAMTYPE> aRunnable,
+  public AdapterThrowingRunnableToCallableWithParameter (@Nonnull final IThrowingRunnableWithParameter <PARAMTYPE, EXTYPE> aRunnable,
                                                          @Nullable final DATATYPE aResult)
   {
     m_aRunnable = ValueEnforcer.notNull (aRunnable, "Runnable");
@@ -56,7 +58,7 @@ public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE
   }
 
   @Nonnull
-  public IThrowingRunnableWithParameter <PARAMTYPE> getRunnable ()
+  public IThrowingRunnableWithParameter <PARAMTYPE, EXTYPE> getRunnable ()
   {
     return m_aRunnable;
   }
@@ -68,7 +70,7 @@ public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE
   }
 
   @Nullable
-  public DATATYPE call (final PARAMTYPE aParam) throws Exception
+  public DATATYPE call (final PARAMTYPE aParam) throws EXTYPE
   {
     m_aRunnable.run (aParam);
     return m_aResult;
@@ -89,11 +91,13 @@ public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE
    *         object.
    * @param <PARAMTYPE>
    *        The parameter type.
+   * @param <EXTYPE>
+   *        Exception type to be thrown
    */
   @Nonnull
-  public static <PARAMTYPE> AdapterThrowingRunnableToCallableWithParameter <Object, PARAMTYPE> createAdapter (@Nonnull final IThrowingRunnableWithParameter <PARAMTYPE> aRunnable)
+  public static <PARAMTYPE, EXTYPE extends Exception> AdapterThrowingRunnableToCallableWithParameter <Object, PARAMTYPE, EXTYPE> createAdapter (@Nonnull final IThrowingRunnableWithParameter <PARAMTYPE, EXTYPE> aRunnable)
   {
-    return new AdapterThrowingRunnableToCallableWithParameter <Object, PARAMTYPE> (aRunnable);
+    return new AdapterThrowingRunnableToCallableWithParameter <Object, PARAMTYPE, EXTYPE> (aRunnable);
   }
 
   /**
@@ -110,11 +114,13 @@ public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE
    *        The callable result type.
    * @param <PARAMTYPE>
    *        The parameter type.
+   * @param <EXTYPE>
+   *        Exception type to be thrown
    */
   @Nonnull
-  public static <DATATYPE, PARAMTYPE> AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE> createAdapter (@Nonnull final IThrowingRunnableWithParameter <PARAMTYPE> aRunnable,
-                                                                                                                          @Nullable final DATATYPE aResult)
+  public static <DATATYPE, PARAMTYPE, EXTYPE extends Exception> AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE, EXTYPE> createAdapter (@Nonnull final IThrowingRunnableWithParameter <PARAMTYPE, EXTYPE> aRunnable,
+                                                                                                                                                            @Nullable final DATATYPE aResult)
   {
-    return new AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE> (aRunnable, aResult);
+    return new AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE, EXTYPE> (aRunnable, aResult);
   }
 }

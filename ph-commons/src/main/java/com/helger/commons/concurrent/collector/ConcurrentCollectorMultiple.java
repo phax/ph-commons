@@ -48,7 +48,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
   @Nonnegative
   private final int m_nMaxPerformCount;
 
-  private IThrowingRunnableWithParameter <List <DATATYPE>> m_aPerformer;
+  private IThrowingRunnableWithParameter <List <DATATYPE>, ? extends Throwable> m_aPerformer;
 
   /**
    * Constructor that uses {@link #DEFAULT_MAX_QUEUE_SIZE} elements as the
@@ -122,7 +122,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    *         set.
    */
   @Nullable
-  public final IThrowingRunnableWithParameter <List <DATATYPE>> getPerformer ()
+  public final IThrowingRunnableWithParameter <List <DATATYPE>, ? extends Throwable> getPerformer ()
   {
     return m_aPerformer;
   }
@@ -140,7 +140,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    *         If another performer is already present!
    */
   @Nonnull
-  public final ConcurrentCollectorMultiple <DATATYPE> setPerformer (@Nonnull final IThrowingRunnableWithParameter <List <DATATYPE>> aPerformer)
+  public final ConcurrentCollectorMultiple <DATATYPE> setPerformer (@Nonnull final IThrowingRunnableWithParameter <List <DATATYPE>, ? extends Throwable> aPerformer)
   {
     if (m_aPerformer != null)
       throw new IllegalStateException ("Another performer is already set!");

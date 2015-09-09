@@ -83,7 +83,7 @@ public final class ConcurrentCollectorMultipleTest
     {}
 
     ccm = new ConcurrentCollectorMultiple <String> (5, 5);
-    ccm.setPerformer (new IThrowingRunnableWithParameter <List <String>> ()
+    ccm.setPerformer (new IThrowingRunnableWithParameter <List <String>, Exception> ()
     {
       public void run (final List <String> aCurrentObject) throws Exception
       {}

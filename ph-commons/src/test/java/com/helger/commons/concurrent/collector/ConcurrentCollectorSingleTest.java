@@ -67,7 +67,7 @@ public final class ConcurrentCollectorSingleTest
     {}
 
     ccm = new ConcurrentCollectorSingle <String> (5);
-    ccm.setPerformer (new IThrowingRunnableWithParameter <String> ()
+    ccm.setPerformer (new IThrowingRunnableWithParameter <String, Exception> ()
     {
       public void run (final String aCurrentObject) throws Exception
       {}

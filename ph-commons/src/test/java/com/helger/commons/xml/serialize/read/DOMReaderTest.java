@@ -59,8 +59,6 @@ import com.helger.commons.xml.sax.LoggingSAXErrorHandler;
 import com.helger.commons.xml.sax.ReadableResourceSAXInputSource;
 import com.helger.commons.xml.sax.StringSAXInputSource;
 import com.helger.commons.xml.schema.XMLSchemaCache;
-import com.helger.commons.xml.serialize.read.DOMReader;
-import com.helger.commons.xml.serialize.read.DOMReaderSettings;
 import com.helger.commons.xml.serialize.write.XMLWriter;
 
 /**
@@ -362,9 +360,9 @@ public final class DOMReaderTest
   @Test
   public void testMultithreadedDOM ()
   {
-    CommonsTestHelper.testInParallel (100, new IThrowingRunnable ()
+    CommonsTestHelper.testInParallel (100, new IThrowingRunnable <SAXException> ()
     {
-      public void run () throws Exception
+      public void run () throws SAXException
       {
         assertNotNull (DOMReader.readXMLDOM (new ClassPathResource ("xml/buildinfo.xml")));
       }
@@ -419,32 +417,35 @@ public final class DOMReaderTest
   public void testEntityExpansionLimit () throws SAXException
   {
     // The XML with XXE problem
-    final String sXML = "<?xml version='1.0' encoding='utf-8'?>"
-                        + "<!DOCTYPE root ["
-                        + " <!ELEMENT root ANY >"
-                        + " <!ENTITY e1 \"value\" >"
-                        + " <!ENTITY e2 \"&e1;&e1;&e1;&e1;&e1;&e1;&e1;&e1;&e1;&e1;\" >"
-                        + " <!ENTITY e3 \"&e2;&e2;&e2;&e2;&e2;&e2;&e2;&e2;&e2;&e2;\" >"
-                        + " <!ENTITY e4 \"&e3;&e3;&e3;&e3;&e3;&e3;&e3;&e3;&e3;&e3;\" >"
-                        + " <!ENTITY e5 \"&e4;&e4;&e4;&e4;&e4;&e4;&e4;&e4;&e4;&e4;\" >"
-                        + " <!ENTITY e6 \"&e5;&e5;&e5;&e5;&e5;&e5;&e5;&e5;&e5;&e5;\" >"
+    final String sXML = "<?xml version='1.0' encoding='utf-8'?>" +
+                        "<!DOCTYPE root [" +
+                        " <!ELEMENT root ANY >" +
+                        " <!ENTITY e1 \"value\" >" +
+                        " <!ENTITY e2 \"&e1;&e1;&e1;&e1;&e1;&e1;&e1;&e1;&e1;&e1;\" >" +
+                        " <!ENTITY e3 \"&e2;&e2;&e2;&e2;&e2;&e2;&e2;&e2;&e2;&e2;\" >" +
+                        " <!ENTITY e4 \"&e3;&e3;&e3;&e3;&e3;&e3;&e3;&e3;&e3;&e3;\" >" +
+                        " <!ENTITY e5 \"&e4;&e4;&e4;&e4;&e4;&e4;&e4;&e4;&e4;&e4;\" >" +
+                        " <!ENTITY e6 \"&e5;&e5;&e5;&e5;&e5;&e5;&e5;&e5;&e5;&e5;\" >"
                         // +
-                        // " <!ENTITY e7 \"&e6;&e6;&e6;&e6;&e6;&e6;&e6;&e6;&e6;&e6;\" >"
+                        // " <!ENTITY e7
+                        // \"&e6;&e6;&e6;&e6;&e6;&e6;&e6;&e6;&e6;&e6;\" >"
                         // +
-                        // " <!ENTITY e8 \"&e7;&e7;&e7;&e7;&e7;&e7;&e7;&e7;&e7;&e7;\" >"
+                        // " <!ENTITY e8
+                        // \"&e7;&e7;&e7;&e7;&e7;&e7;&e7;&e7;&e7;&e7;\" >"
                         // +
-                        // " <!ENTITY e9 \"&e8;&e8;&e8;&e8;&e8;&e8;&e8;&e8;&e8;&e8;\" >"
+                        // " <!ENTITY e9
+                        // \"&e8;&e8;&e8;&e8;&e8;&e8;&e8;&e8;&e8;&e8;\" >"
                         // +
-                        // " <!ENTITY e10 \"&e9;&e9;&e9;&e9;&e9;&e9;&e9;&e9;&e9;&e9;\" >"
-                        + "]>"
-                        + "<root>&e6;</root>";
+                        // " <!ENTITY e10
+                        // \"&e9;&e9;&e9;&e9;&e9;&e9;&e9;&e9;&e9;&e9;\" >"
+    + "]>" + "<root>&e6;</root>";
     final DOMReaderSettings aDRS = new DOMReaderSettings ();
 
     // Read successful - entity expansion!
     final Document aDoc = DOMReader.readXMLDOM (sXML, aDRS);
     assertNotNull (aDoc);
-    assertEquals (StringHelper.getRepeated ("value", (int) Math.pow (10, 5)), aDoc.getDocumentElement ()
-                                                                                  .getTextContent ());
+    assertEquals (StringHelper.getRepeated ("value", (int) Math.pow (10, 5)),
+                  aDoc.getDocumentElement ().getTextContent ());
 
     // Should fail because too many entity expansions
     try

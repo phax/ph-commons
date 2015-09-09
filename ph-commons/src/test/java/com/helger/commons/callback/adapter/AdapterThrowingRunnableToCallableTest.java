@@ -20,14 +20,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 import com.helger.commons.callback.IThrowingRunnable;
-import com.helger.commons.callback.adapter.AdapterThrowingRunnableToCallable;
 
 /**
  * Test class for class {@link AdapterThrowingRunnableToCallable}
- * 
+ *
  * @author Philip Helger
  */
 public final class AdapterThrowingRunnableToCallableTest
@@ -35,16 +36,17 @@ public final class AdapterThrowingRunnableToCallableTest
   @Test
   public void testAll () throws Exception
   {
-    final IThrowingRunnable r = new IThrowingRunnable ()
+    final IThrowingRunnable <IOException> r = new IThrowingRunnable <IOException> ()
     {
-      public void run () throws Exception
+      public void run () throws IOException
       {
         // empty
       }
     };
-    final AdapterThrowingRunnableToCallable <Object> rc = AdapterThrowingRunnableToCallable.createAdapter (r);
+    final AdapterThrowingRunnableToCallable <Object, IOException> rc = AdapterThrowingRunnableToCallable.createAdapter (r);
     assertNull (rc.call ());
-    final AdapterThrowingRunnableToCallable <String> rcs = AdapterThrowingRunnableToCallable.createAdapter (r, "abc");
+    final AdapterThrowingRunnableToCallable <String, IOException> rcs = AdapterThrowingRunnableToCallable.createAdapter (r,
+                                                                                                                         "abc");
     assertEquals ("abc", rcs.call ());
 
     try

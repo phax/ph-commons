@@ -23,6 +23,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.helger.commons.callback.IThrowingRunnable;
@@ -30,14 +31,10 @@ import com.helger.commons.callback.exception.DoNothingExceptionCallback;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.xml.sax.CachingSAXInputSource;
-import com.helger.commons.xml.serialize.read.SAXReader;
-import com.helger.commons.xml.serialize.read.SAXReaderDefaultSettings;
-import com.helger.commons.xml.serialize.read.SAXReaderSettings;
-import com.helger.commons.xml.serialize.read.XMLLoggingExceptionCallback;
 
 /**
  * Test class for {@link SAXReader}
- * 
+ *
  * @author Philip Helger
  */
 public final class SAXReaderTest
@@ -60,9 +57,9 @@ public final class SAXReaderTest
   @Test
   public void testMultithreadedSAX_CachingSAXInputSource ()
   {
-    CommonsTestHelper.testInParallel (1000, new IThrowingRunnable ()
+    CommonsTestHelper.testInParallel (1000, new IThrowingRunnable <SAXException> ()
     {
-      public void run () throws Exception
+      public void run () throws SAXException
       {
         assertTrue (SAXReader.readXMLSAX (new CachingSAXInputSource (new ClassPathResource ("xml/buildinfo.xml")),
                                           new SAXReaderSettings ().setContentHandler (new DefaultHandler ()))
@@ -74,9 +71,9 @@ public final class SAXReaderTest
   @Test
   public void testMultithreadedSAX_ReadableResourceSAXInputSource ()
   {
-    CommonsTestHelper.testInParallel (1000, new IThrowingRunnable ()
+    CommonsTestHelper.testInParallel (1000, new IThrowingRunnable <SAXException> ()
     {
-      public void run () throws Exception
+      public void run () throws SAXException
       {
         assertTrue (SAXReader.readXMLSAX (new ClassPathResource ("xml/buildinfo.xml"),
                                           new SAXReaderSettings ().setContentHandler (new DefaultHandler ()))

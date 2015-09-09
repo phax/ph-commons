@@ -20,14 +20,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 import com.helger.commons.callback.IThrowingRunnableWithParameter;
-import com.helger.commons.callback.adapter.AdapterThrowingRunnableToCallableWithParameter;
 
 /**
  * Test class for class {@link AdapterThrowingRunnableToCallableWithParameter}
- * 
+ *
  * @author Philip Helger
  */
 public final class AdapterThrowingRunnableToCallableWithParameterTest
@@ -35,17 +36,17 @@ public final class AdapterThrowingRunnableToCallableWithParameterTest
   @Test
   public void testAll () throws Exception
   {
-    final IThrowingRunnableWithParameter <String> r = new IThrowingRunnableWithParameter <String> ()
+    final IThrowingRunnableWithParameter <String, IOException> r = new IThrowingRunnableWithParameter <String, IOException> ()
     {
-      public void run (final String sCurrentObject)
+      public void run (final String sCurrentObject) throws IOException
       {
         // empty
       }
     };
-    final AdapterThrowingRunnableToCallableWithParameter <Object, String> rc = AdapterThrowingRunnableToCallableWithParameter.createAdapter (r);
+    final AdapterThrowingRunnableToCallableWithParameter <Object, String, IOException> rc = AdapterThrowingRunnableToCallableWithParameter.createAdapter (r);
     assertNull (rc.call ("any"));
-    final AdapterThrowingRunnableToCallableWithParameter <String, String> rcs = AdapterThrowingRunnableToCallableWithParameter.createAdapter (r,
-                                                                                                                                              "abc");
+    final AdapterThrowingRunnableToCallableWithParameter <String, String, IOException> rcs = AdapterThrowingRunnableToCallableWithParameter.createAdapter (r,
+                                                                                                                                                           "abc");
     assertEquals ("abc", rcs.call ("any"));
 
     try

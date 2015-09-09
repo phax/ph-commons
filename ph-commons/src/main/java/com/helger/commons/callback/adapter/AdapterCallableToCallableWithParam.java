@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.callback.IThrowingCallable;
 import com.helger.commons.callback.IThrowingCallableWithParameter;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -34,25 +35,27 @@ import com.helger.commons.string.ToStringGenerator;
  *        The callable result type.
  * @param <PARAMTYPE>
  *        The parameter type.
+ * @param <EXTYPE>
+ *        Exception type to be thrown
  */
 @Immutable
-public class AdapterCallableToCallableWithParam <DATATYPE, PARAMTYPE> implements IThrowingCallableWithParameter <DATATYPE, PARAMTYPE>
+public class AdapterCallableToCallableWithParam <DATATYPE, PARAMTYPE, EXTYPE extends Exception> implements IThrowingCallableWithParameter <DATATYPE, PARAMTYPE, EXTYPE>
 {
-  private final Callable <DATATYPE> m_aCallable;
+  private final IThrowingCallable <DATATYPE, EXTYPE> m_aCallable;
 
-  public AdapterCallableToCallableWithParam (@Nonnull final Callable <DATATYPE> aCallable)
+  public AdapterCallableToCallableWithParam (@Nonnull final IThrowingCallable <DATATYPE, EXTYPE> aCallable)
   {
     m_aCallable = ValueEnforcer.notNull (aCallable, "Callable");
   }
 
   @Nonnull
-  public Callable <DATATYPE> getCallable ()
+  public IThrowingCallable <DATATYPE, EXTYPE> getCallable ()
   {
     return m_aCallable;
   }
 
   @Nonnull
-  public DATATYPE call (@Nonnull final PARAMTYPE aParam) throws Exception
+  public DATATYPE call (@Nonnull final PARAMTYPE aParam) throws EXTYPE
   {
     return m_aCallable.call ();
   }

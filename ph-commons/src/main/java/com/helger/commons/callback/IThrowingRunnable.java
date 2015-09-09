@@ -21,16 +21,18 @@ package com.helger.commons.callback;
  * an exception on its execution.<br>
  * Note: It is not possible to extend {@link java.lang.Runnable} directly, as
  * derived interfaces are not allowed to add exception specifications.
- * 
+ *
  * @author Philip Helger
+ * @param <EXTYPE>
+ *        Exception type to be thrown
  */
-public interface IThrowingRunnable
+public interface IThrowingRunnable <EXTYPE extends Throwable>
 {
   /**
    * Run it.
-   * 
-   * @throws Exception
+   *
+   * @throws EXTYPE
    *         In case something goes wrong.
    */
-  void run () throws Exception;
+  void run () throws EXTYPE;
 }

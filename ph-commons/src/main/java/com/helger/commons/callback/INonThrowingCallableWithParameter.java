@@ -19,18 +19,18 @@ package com.helger.commons.callback;
 /**
  * Like the {@link java.util.concurrent.Callable} interface but not throwing an
  * exception and including a parameter!
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The return type of the call.
  * @param <PARAMTYPE>
  *        The parameter type.
  */
-public interface INonThrowingCallableWithParameter <DATATYPE, PARAMTYPE> extends IThrowingCallableWithParameter <DATATYPE, PARAMTYPE>
+public interface INonThrowingCallableWithParameter <DATATYPE, PARAMTYPE> extends IThrowingCallableWithParameter <DATATYPE, PARAMTYPE, Exception>
 {
   /**
    * The call back method to be called.
-   * 
+   *
    * @param aParameter
    *        The parameter to be passed in. May be <code>null</code> or non-
    *        <code>null</code> depending on the implementation.

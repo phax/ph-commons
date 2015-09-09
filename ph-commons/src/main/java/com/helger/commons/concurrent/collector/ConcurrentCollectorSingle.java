@@ -40,7 +40,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ConcurrentCollectorSingle.class);
 
-  private IThrowingRunnableWithParameter <DATATYPE> m_aPerformer;
+  private IThrowingRunnableWithParameter <DATATYPE, ? extends Throwable> m_aPerformer;
 
   /**
    * Constructor that uses {@link #DEFAULT_MAX_QUEUE_SIZE} elements as the
@@ -79,7 +79,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
    *         set.
    */
   @Nullable
-  public final IThrowingRunnableWithParameter <DATATYPE> getPerformer ()
+  public final IThrowingRunnableWithParameter <DATATYPE, ? extends Throwable> getPerformer ()
   {
     return m_aPerformer;
   }
@@ -97,7 +97,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
    *         If another performer is already present!
    */
   @Nonnull
-  public final ConcurrentCollectorSingle <DATATYPE> setPerformer (@Nonnull final IThrowingRunnableWithParameter <DATATYPE> aPerformer)
+  public final ConcurrentCollectorSingle <DATATYPE> setPerformer (@Nonnull final IThrowingRunnableWithParameter <DATATYPE, ? extends Throwable> aPerformer)
   {
     if (m_aPerformer != null)
       throw new IllegalStateException ("Another performer is already set!");

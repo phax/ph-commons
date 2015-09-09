@@ -20,7 +20,7 @@ import java.util.List;
 
 import com.helger.commons.callback.IThrowingRunnableWithParameter;
 
-final class MockConcurrentCollectorMultiple extends ConcurrentCollectorMultiple <String> implements IThrowingRunnableWithParameter <List <String>>
+final class MockConcurrentCollectorMultiple extends ConcurrentCollectorMultiple <String>implements IThrowingRunnableWithParameter <List <String>, Exception>
 {
   private int m_nPerformCount = 0;
 

@@ -32,19 +32,21 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  * @param <DATATYPE>
  *        The callable result type.
+ * @param <EXTYPE>
+ *        Exception type to be thrown
  */
 @Immutable
-public class AdapterThrowingRunnableToCallable <DATATYPE> implements IThrowingCallable <DATATYPE>
+public class AdapterThrowingRunnableToCallable <DATATYPE, EXTYPE extends Exception> implements IThrowingCallable <DATATYPE, EXTYPE>
 {
-  private final IThrowingRunnable m_aRunnable;
+  private final IThrowingRunnable <EXTYPE> m_aRunnable;
   private final DATATYPE m_aResult;
 
-  public AdapterThrowingRunnableToCallable (@Nonnull final IThrowingRunnable aRunnable)
+  public AdapterThrowingRunnableToCallable (@Nonnull final IThrowingRunnable <EXTYPE> aRunnable)
   {
     this (aRunnable, null);
   }
 
-  public AdapterThrowingRunnableToCallable (@Nonnull final IThrowingRunnable aRunnable,
+  public AdapterThrowingRunnableToCallable (@Nonnull final IThrowingRunnable <EXTYPE> aRunnable,
                                             @Nullable final DATATYPE aResult)
   {
     m_aRunnable = ValueEnforcer.notNull (aRunnable, "Runnable");
@@ -52,7 +54,7 @@ public class AdapterThrowingRunnableToCallable <DATATYPE> implements IThrowingCa
   }
 
   @Nonnull
-  public IThrowingRunnable getRunnable ()
+  public IThrowingRunnable <EXTYPE> getRunnable ()
   {
     return m_aRunnable;
   }
@@ -64,7 +66,7 @@ public class AdapterThrowingRunnableToCallable <DATATYPE> implements IThrowingCa
   }
 
   @Nullable
-  public DATATYPE call () throws Exception
+  public DATATYPE call () throws EXTYPE
   {
     m_aRunnable.run ();
     return m_aResult;
@@ -82,11 +84,13 @@ public class AdapterThrowingRunnableToCallable <DATATYPE> implements IThrowingCa
    * @param aRunnable
    *        The runnable to be executed.
    * @return The created {@link AdapterThrowingRunnableToCallable} object.
+   * @param <EXTYPE>
+   *        Exception type to be thrown
    */
   @Nonnull
-  public static AdapterThrowingRunnableToCallable <Object> createAdapter (@Nonnull final IThrowingRunnable aRunnable)
+  public static <EXTYPE extends Exception> AdapterThrowingRunnableToCallable <Object, EXTYPE> createAdapter (@Nonnull final IThrowingRunnable <EXTYPE> aRunnable)
   {
-    return new AdapterThrowingRunnableToCallable <Object> (aRunnable);
+    return new AdapterThrowingRunnableToCallable <Object, EXTYPE> (aRunnable);
   }
 
   /**
@@ -100,11 +104,13 @@ public class AdapterThrowingRunnableToCallable <DATATYPE> implements IThrowingCa
    * @return The created {@link AdapterThrowingRunnableToCallable} object.
    * @param <DATATYPE>
    *        The callable result type.
+   * @param <EXTYPE>
+   *        Exception type to be thrown
    */
   @Nonnull
-  public static <DATATYPE> AdapterThrowingRunnableToCallable <DATATYPE> createAdapter (@Nonnull final IThrowingRunnable aRunnable,
-                                                                                       @Nullable final DATATYPE aResult)
+  public static <DATATYPE, EXTYPE extends Exception> AdapterThrowingRunnableToCallable <DATATYPE, EXTYPE> createAdapter (@Nonnull final IThrowingRunnable <EXTYPE> aRunnable,
+                                                                                                                         @Nullable final DATATYPE aResult)
   {
-    return new AdapterThrowingRunnableToCallable <DATATYPE> (aRunnable, aResult);
+    return new AdapterThrowingRunnableToCallable <DATATYPE, EXTYPE> (aRunnable, aResult);
   }
 }
