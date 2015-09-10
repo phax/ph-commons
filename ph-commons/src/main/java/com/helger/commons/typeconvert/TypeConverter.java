@@ -102,7 +102,7 @@ public final class TypeConverter
    *
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
-   * @return <code>null</code> if the source value was <code>null</code>.
+   * @return The converted value.
    * @throws TypeConverterException
    *         if the source value is <code>null</code> or if no converter was
    *         found or if the converter returned a <code>null</code> object.
@@ -119,11 +119,30 @@ public final class TypeConverter
   }
 
   /**
+   * Convert the passed source value to boolean
+   *
+   * @param aSrcValue
+   *        The source value. May be <code>null</code>.
+   * @param bDefault
+   *        The default value to be returned if an error occurs during type
+   *        conversion.
+   * @return <code>null</code> if the source value was <code>null</code>.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
+   */
+  public static boolean convertToBoolean (@Nullable final Object aSrcValue, final boolean bDefault)
+  {
+    final Boolean aValue = convertIfNecessary (aSrcValue, Boolean.class, null);
+    return aValue == null ? bDefault : aValue.booleanValue ();
+  }
+
+  /**
    * Convert the passed source value to byte
    *
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
-   * @return <code>null</code> if the source value was <code>null</code>.
+   * @return The converted value.
    * @throws TypeConverterException
    *         if the source value is <code>null</code> or if no converter was
    *         found or if the converter returned a <code>null</code> object.
@@ -140,11 +159,30 @@ public final class TypeConverter
   }
 
   /**
+   * Convert the passed source value to byte
+   *
+   * @param aSrcValue
+   *        The source value. May be <code>null</code>.
+   * @param nDefault
+   *        The default value to be returned if an error occurs during type
+   *        conversion.
+   * @return The converted value.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
+   */
+  public static byte convertToByte (@Nullable final Object aSrcValue, final byte nDefault)
+  {
+    final Byte aValue = convertIfNecessary (aSrcValue, Byte.class, null);
+    return aValue == null ? nDefault : aValue.byteValue ();
+  }
+
+  /**
    * Convert the passed source value to char
    *
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
-   * @return <code>null</code> if the source value was <code>null</code>.
+   * @return The converted value.
    * @throws TypeConverterException
    *         if the source value is <code>null</code> or if no converter was
    *         found or if the converter returned a <code>null</code> object.
@@ -161,11 +199,30 @@ public final class TypeConverter
   }
 
   /**
+   * Convert the passed source value to char
+   *
+   * @param aSrcValue
+   *        The source value. May be <code>null</code>.
+   * @param cDefault
+   *        The default value to be returned if an error occurs during type
+   *        conversion.
+   * @return The converted value.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
+   */
+  public static char convertToChar (@Nullable final Object aSrcValue, final char cDefault)
+  {
+    final Character aValue = convertIfNecessary (aSrcValue, Character.class, null);
+    return aValue == null ? cDefault : aValue.charValue ();
+  }
+
+  /**
    * Convert the passed source value to double
    *
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
-   * @return <code>null</code> if the source value was <code>null</code>.
+   * @return The converted value.
    * @throws TypeConverterException
    *         if the source value is <code>null</code> or if no converter was
    *         found or if the converter returned a <code>null</code> object.
@@ -182,11 +239,30 @@ public final class TypeConverter
   }
 
   /**
+   * Convert the passed source value to double
+   *
+   * @param aSrcValue
+   *        The source value. May be <code>null</code>.
+   * @param dDefault
+   *        The default value to be returned if an error occurs during type
+   *        conversion.
+   * @return The converted value.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
+   */
+  public static double convertToDouble (@Nullable final Object aSrcValue, final double dDefault)
+  {
+    final Double aValue = convertIfNecessary (aSrcValue, Double.class, null);
+    return aValue == null ? dDefault : aValue.doubleValue ();
+  }
+
+  /**
    * Convert the passed source value to float
    *
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
-   * @return <code>null</code> if the source value was <code>null</code>.
+   * @return The converted value.
    * @throws TypeConverterException
    *         if the source value is <code>null</code> or if no converter was
    *         found or if the converter returned a <code>null</code> object.
@@ -203,11 +279,30 @@ public final class TypeConverter
   }
 
   /**
+   * Convert the passed source value to float
+   *
+   * @param aSrcValue
+   *        The source value. May be <code>null</code>.
+   * @param fDefault
+   *        The default value to be returned if an error occurs during type
+   *        conversion.
+   * @return The converted value.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
+   */
+  public static float convertToFloat (@Nullable final Object aSrcValue, final float fDefault)
+  {
+    final Float aValue = convertIfNecessary (aSrcValue, Float.class, null);
+    return aValue == null ? fDefault : aValue.floatValue ();
+  }
+
+  /**
    * Convert the passed source value to int
    *
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
-   * @return <code>null</code> if the source value was <code>null</code>.
+   * @return The converted value.
    * @throws TypeConverterException
    *         if the source value is <code>null</code> or if no converter was
    *         found or if the converter returned a <code>null</code> object.
@@ -224,11 +319,30 @@ public final class TypeConverter
   }
 
   /**
+   * Convert the passed source value to int
+   *
+   * @param aSrcValue
+   *        The source value. May be <code>null</code>.
+   * @param nDefault
+   *        The default value to be returned if an error occurs during type
+   *        conversion.
+   * @return The converted value.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
+   */
+  public static int convertToInt (@Nullable final Object aSrcValue, final int nDefault)
+  {
+    final Integer aValue = convertIfNecessary (aSrcValue, Integer.class, null);
+    return aValue == null ? nDefault : aValue.intValue ();
+  }
+
+  /**
    * Convert the passed source value to long
    *
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
-   * @return <code>null</code> if the source value was <code>null</code>.
+   * @return The converted value.
    * @throws TypeConverterException
    *         if the source value is <code>null</code> or if no converter was
    *         found or if the converter returned a <code>null</code> object.
@@ -245,11 +359,30 @@ public final class TypeConverter
   }
 
   /**
+   * Convert the passed source value to long
+   *
+   * @param aSrcValue
+   *        The source value. May be <code>null</code>.
+   * @param nDefault
+   *        The default value to be returned if an error occurs during type
+   *        conversion.
+   * @return The converted value.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
+   */
+  public static long convertToLong (@Nullable final Object aSrcValue, final long nDefault)
+  {
+    final Long aValue = convertIfNecessary (aSrcValue, Long.class, null);
+    return aValue == null ? nDefault : aValue.longValue ();
+  }
+
+  /**
    * Convert the passed source value to short
    *
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
-   * @return <code>null</code> if the source value was <code>null</code>.
+   * @return The converted value.
    * @throws TypeConverterException
    *         if the source value is <code>null</code> or if no converter was
    *         found or if the converter returned a <code>null</code> object.
@@ -263,6 +396,25 @@ public final class TypeConverter
       throw new TypeConverterException (short.class, EReason.NULL_SOURCE_NOT_ALLOWED);
     final Short aValue = convertIfNecessary (aSrcValue, Short.class);
     return aValue.shortValue ();
+  }
+
+  /**
+   * Convert the passed source value to short
+   *
+   * @param aSrcValue
+   *        The source value. May be <code>null</code>.
+   * @param nDefault
+   *        The default value to be returned if an error occurs during type
+   *        conversion.
+   * @return The converted value.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
+   */
+  public static short convertToShort (@Nullable final Object aSrcValue, final short nDefault)
+  {
+    final Short aValue = convertIfNecessary (aSrcValue, Short.class, null);
+    return aValue == null ? nDefault : aValue.shortValue ();
   }
 
   /**
@@ -351,7 +503,7 @@ public final class TypeConverter
    * @param <DSTTYPE>
    *        The destination type.
    * @param aTypeConverterProvider
-   *        The type converter provider. May not be <code>null</code>. .
+   *        The type converter provider. May not be <code>null</code>.
    * @param aSrcValue
    *        The source value. May be <code>null</code>.
    * @param aDstClass
@@ -427,7 +579,7 @@ public final class TypeConverter
    * @param <DSTTYPE>
    *        The destination type.
    * @param aTypeConverterProvider
-   *        The type converter provider. May not be <code>null</code>. .
+   *        The type converter provider. May not be <code>null</code>.
    * @param aSrcValue
    *        The source value. May be <code>null</code>.
    * @param aDstClass
