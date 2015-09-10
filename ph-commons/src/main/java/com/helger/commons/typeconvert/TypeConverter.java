@@ -103,12 +103,12 @@ public final class TypeConverter
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
    * @return <code>null</code> if the source value was <code>null</code>.
-   * @throws IllegalArgumentException
-   *         if the conversion process fails because either the conversion
-   *         failed, or no converter was found.
-   * @see TypeConverterProviderBestMatch
    * @throws TypeConverterException
-   *         if the source value is <code>null</code>
+   *         if the source value is <code>null</code> or if no converter was
+   *         found or if the converter returned a <code>null</code> object.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
    */
   public static boolean convertToBoolean (@Nonnull final Object aSrcValue)
   {
@@ -124,12 +124,12 @@ public final class TypeConverter
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
    * @return <code>null</code> if the source value was <code>null</code>.
-   * @throws IllegalArgumentException
-   *         if the conversion process fails because either the conversion
-   *         failed, or no converter was found.
-   * @see TypeConverterProviderBestMatch
    * @throws TypeConverterException
-   *         if the source value is <code>null</code>
+   *         if the source value is <code>null</code> or if no converter was
+   *         found or if the converter returned a <code>null</code> object.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
    */
   public static byte convertToByte (@Nonnull final Object aSrcValue)
   {
@@ -145,12 +145,12 @@ public final class TypeConverter
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
    * @return <code>null</code> if the source value was <code>null</code>.
-   * @throws IllegalArgumentException
-   *         if the conversion process fails because either the conversion
-   *         failed, or no converter was found.
-   * @see TypeConverterProviderBestMatch
    * @throws TypeConverterException
-   *         if the source value is <code>null</code>
+   *         if the source value is <code>null</code> or if no converter was
+   *         found or if the converter returned a <code>null</code> object.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
    */
   public static char convertToChar (@Nonnull final Object aSrcValue)
   {
@@ -166,12 +166,12 @@ public final class TypeConverter
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
    * @return <code>null</code> if the source value was <code>null</code>.
-   * @throws IllegalArgumentException
-   *         if the conversion process fails because either the conversion
-   *         failed, or no converter was found.
-   * @see TypeConverterProviderBestMatch
    * @throws TypeConverterException
-   *         if the source value is <code>null</code>
+   *         if the source value is <code>null</code> or if no converter was
+   *         found or if the converter returned a <code>null</code> object.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
    */
   public static double convertToDouble (@Nonnull final Object aSrcValue)
   {
@@ -187,12 +187,12 @@ public final class TypeConverter
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
    * @return <code>null</code> if the source value was <code>null</code>.
-   * @throws IllegalArgumentException
-   *         if the conversion process fails because either the conversion
-   *         failed, or no converter was found.
-   * @see TypeConverterProviderBestMatch
    * @throws TypeConverterException
-   *         if the source value is <code>null</code>
+   *         if the source value is <code>null</code> or if no converter was
+   *         found or if the converter returned a <code>null</code> object.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
    */
   public static float convertToFloat (@Nonnull final Object aSrcValue)
   {
@@ -208,12 +208,12 @@ public final class TypeConverter
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
    * @return <code>null</code> if the source value was <code>null</code>.
-   * @throws IllegalArgumentException
-   *         if the conversion process fails because either the conversion
-   *         failed, or no converter was found.
-   * @see TypeConverterProviderBestMatch
    * @throws TypeConverterException
-   *         if the source value is <code>null</code>
+   *         if the source value is <code>null</code> or if no converter was
+   *         found or if the converter returned a <code>null</code> object.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
    */
   public static int convertToInt (@Nonnull final Object aSrcValue)
   {
@@ -229,12 +229,12 @@ public final class TypeConverter
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
    * @return <code>null</code> if the source value was <code>null</code>.
-   * @throws IllegalArgumentException
-   *         if the conversion process fails because either the conversion
-   *         failed, or no converter was found.
-   * @see TypeConverterProviderBestMatch
    * @throws TypeConverterException
-   *         if the source value is <code>null</code>
+   *         if the source value is <code>null</code> or if no converter was
+   *         found or if the converter returned a <code>null</code> object.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
    */
   public static long convertToLong (@Nonnull final Object aSrcValue)
   {
@@ -250,12 +250,12 @@ public final class TypeConverter
    * @param aSrcValue
    *        The source value. May not be <code>null</code>.
    * @return <code>null</code> if the source value was <code>null</code>.
-   * @throws IllegalArgumentException
-   *         if the conversion process fails because either the conversion
-   *         failed, or no converter was found.
-   * @see TypeConverterProviderBestMatch
    * @throws TypeConverterException
-   *         if the source value is <code>null</code>
+   *         if the source value is <code>null</code> or if no converter was
+   *         found or if the converter returned a <code>null</code> object.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
    */
   public static short convertToShort (@Nonnull final Object aSrcValue)
   {
@@ -266,8 +266,8 @@ public final class TypeConverter
   }
 
   /**
-   * Convert the passed source value to the destination class, if a conversion
-   * is necessary. By default the fuzzy type converter provider is used.
+   * Convert the passed source value to the destination class using the best
+   * match type converter provider, if a conversion is necessary.
    *
    * @param <DSTTYPE>
    *        The destination type.
@@ -276,11 +276,11 @@ public final class TypeConverter
    * @param aDstClass
    *        The destination class to use.
    * @return <code>null</code> if the source value was <code>null</code>.
-   * @throws IllegalArgumentException
-   *         if the conversion process fails because either the conversion
-   *         failed, or no converter was found.
    * @throws TypeConverterException
-   *         If either no converter could be found, or if the conversion failed!
+   *         If no converter was found or if the converter returned a
+   *         <code>null</code> object.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
    */
   @Nullable
@@ -357,11 +357,11 @@ public final class TypeConverter
    * @param aDstClass
    *        The destination class to use.
    * @return <code>null</code> if the source value was <code>null</code>.
-   * @throws IllegalArgumentException
-   *         if the conversion process fails because either the conversion
-   *         failed, or no converter was found.
    * @throws TypeConverterException
-   *         If either no converter could be found, or if the conversion failed!
+   *         If no converter was found or if the converter returned a
+   *         <code>null</code> object.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
    */
   @Nullable
   public static <DSTTYPE> DSTTYPE convertIfNecessary (@Nonnull final ITypeConverterProvider aTypeConverterProvider,
@@ -391,5 +391,68 @@ public final class TypeConverter
     @SuppressWarnings ("unchecked")
     final DSTTYPE ret = (DSTTYPE) aRetVal;
     return ret;
+  }
+
+  /**
+   * Convert the passed source value to the destination class using the best
+   * match type converter provider, if a conversion is necessary.
+   *
+   * @param <DSTTYPE>
+   *        The destination type.
+   * @param aSrcValue
+   *        The source value. May be <code>null</code>.
+   * @param aDstClass
+   *        The destination class to use.
+   * @param aDefault
+   *        The default value to be returned, if an
+   *        {@link TypeConverterException} occurs.
+   * @return <code>null</code> if the source value was <code>null</code> or the
+   *         default value is <code>null</code>.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   * @see TypeConverterProviderBestMatch
+   */
+  @Nullable
+  public static <DSTTYPE> DSTTYPE convertIfNecessary (@Nullable final Object aSrcValue,
+                                                      @Nonnull final Class <DSTTYPE> aDstClass,
+                                                      @Nullable final DSTTYPE aDefault)
+  {
+    return convertIfNecessary (TypeConverterProviderBestMatch.getInstance (), aSrcValue, aDstClass, aDefault);
+  }
+
+  /**
+   * Convert the passed source value to the destination class, if a conversion
+   * is necessary.
+   *
+   * @param <DSTTYPE>
+   *        The destination type.
+   * @param aTypeConverterProvider
+   *        The type converter provider. May not be <code>null</code>. .
+   * @param aSrcValue
+   *        The source value. May be <code>null</code>.
+   * @param aDstClass
+   *        The destination class to use.
+   * @param aDefault
+   *        The default value to be returned, if an
+   *        {@link TypeConverterException} occurs.
+   * @return <code>null</code> if the source value was <code>null</code> or the
+   *         default value is <code>null</code>.
+   * @throws RuntimeException
+   *         If the converter itself throws an exception
+   */
+  @Nullable
+  public static <DSTTYPE> DSTTYPE convertIfNecessary (@Nonnull final ITypeConverterProvider aTypeConverterProvider,
+                                                      @Nullable final Object aSrcValue,
+                                                      @Nonnull final Class <DSTTYPE> aDstClass,
+                                                      @Nullable final DSTTYPE aDefault) throws TypeConverterException
+  {
+    try
+    {
+      return convertIfNecessary (TypeConverterProviderBestMatch.getInstance (), aSrcValue, aDstClass);
+    }
+    catch (final TypeConverterException ex)
+    {
+      return aDefault;
+    }
   }
 }
