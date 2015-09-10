@@ -18,18 +18,13 @@ package com.helger.commons.collection.attr;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Arrays;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.CGlobal;
 import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.string.StringParser;
 import com.helger.commons.typeconvert.TypeConverter;
 
 /**
@@ -46,8 +41,6 @@ import com.helger.commons.typeconvert.TypeConverter;
 @NotThreadSafe
 public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements IAttributeContainer <KEYTYPE, VALUETYPE>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractReadOnlyAttributeContainer.class);
-
   @Nullable
   public final <DATATYPE> DATATYPE getCastedAttribute (@Nullable final KEYTYPE aName)
   {
@@ -102,46 +95,25 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
    *         are discarded.
    */
   @Nullable
+  @Deprecated
   public static String getAsString (@Nullable final Object aParamName,
                                     @Nullable final Object aValue,
                                     @Nullable final String sDefault)
   {
-    if (aValue == null)
-      return sDefault;
-    if (aValue instanceof String)
-      return (String) aValue;
-    if (aValue instanceof String [])
-    {
-      // expected a single string but got an array
-      final String [] aArray = (String []) aValue;
-      s_aLogger.warn ("The parameter '" +
-                      String.valueOf (aParamName) +
-                      "' is an array with " +
-                      aArray.length +
-                      " items; using the first one if possible: " +
-                      Arrays.toString (aArray));
-      return aArray.length > 0 ? aArray[0] : sDefault;
-    }
-
-    return aValue.toString ();
+    return AttributeValueConverter.getAsString (aParamName, aValue, sDefault);
   }
 
   @Nullable
   public final String getAttributeAsString (@Nullable final KEYTYPE aName, @Nullable final String sDefault)
   {
     final Object aValue = getAttributeObject (aName);
-    return getAsString (aName, aValue, sDefault);
+    return AttributeValueConverter.getAsString (aName, aValue, sDefault);
   }
 
+  @Deprecated
   public static int getAsInt (@Nullable final Object aParamName, @Nullable final Object aValue, final int nDefault)
   {
-    if (aValue == null)
-      return nDefault;
-    if (aValue instanceof Number)
-      return ((Number) aValue).intValue ();
-    // Interpret as String
-    final String sValue = getAsString (aParamName, aValue, null);
-    return StringParser.parseInt (sValue, nDefault);
+    return AttributeValueConverter.getAsInt (aParamName, aValue, nDefault);
   }
 
   public final int getAttributeAsInt (@Nullable final KEYTYPE aName)
@@ -152,18 +124,13 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
   public final int getAttributeAsInt (@Nullable final KEYTYPE aName, final int nDefault)
   {
     final Object aValue = getAttributeObject (aName);
-    return getAsInt (aName, aValue, nDefault);
+    return AttributeValueConverter.getAsInt (aName, aValue, nDefault);
   }
 
+  @Deprecated
   public static long getAsLong (@Nullable final Object aParamName, @Nullable final Object aValue, final long nDefault)
   {
-    if (aValue == null)
-      return nDefault;
-    if (aValue instanceof Number)
-      return ((Number) aValue).longValue ();
-    // Interpret as String
-    final String sValue = getAsString (aParamName, aValue, null);
-    return StringParser.parseLong (sValue, nDefault);
+    return AttributeValueConverter.getAsLong (aParamName, aValue, nDefault);
   }
 
   public final long getAttributeAsLong (@Nullable final KEYTYPE aName)
@@ -174,20 +141,15 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
   public final long getAttributeAsLong (@Nullable final KEYTYPE aName, final long nDefault)
   {
     final Object aValue = getAttributeObject (aName);
-    return getAsLong (aName, aValue, nDefault);
+    return AttributeValueConverter.getAsLong (aName, aValue, nDefault);
   }
 
+  @Deprecated
   public static double getAsDouble (@Nullable final Object aParamName,
                                     @Nullable final Object aValue,
                                     final double dDefault)
   {
-    if (aValue == null)
-      return dDefault;
-    if (aValue instanceof Number)
-      return ((Number) aValue).doubleValue ();
-    // Interpret as String
-    final String sValue = getAsString (aParamName, aValue, null);
-    return StringParser.parseDouble (sValue, dDefault);
+    return AttributeValueConverter.getAsDouble (aParamName, aValue, dDefault);
   }
 
   public final double getAttributeAsDouble (@Nullable final KEYTYPE aName)
@@ -198,20 +160,15 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
   public final double getAttributeAsDouble (@Nullable final KEYTYPE aName, final double dDefault)
   {
     final Object aValue = getAttributeObject (aName);
-    return getAsDouble (aName, aValue, dDefault);
+    return AttributeValueConverter.getAsDouble (aName, aValue, dDefault);
   }
 
+  @Deprecated
   public static boolean getAsBoolean (@Nullable final Object aParamName,
                                       @Nullable final Object aValue,
                                       final boolean bDefault)
   {
-    if (aValue == null)
-      return bDefault;
-    if (aValue instanceof Boolean)
-      return ((Boolean) aValue).booleanValue ();
-    // Interpret as String
-    final String sValue = getAsString (aParamName, aValue, null);
-    return StringParser.parseBool (sValue, bDefault);
+    return AttributeValueConverter.getAsBoolean (aParamName, aValue, bDefault);
   }
 
   public final boolean getAttributeAsBoolean (@Nullable final KEYTYPE aName)
@@ -222,21 +179,16 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
   public final boolean getAttributeAsBoolean (@Nullable final KEYTYPE aName, final boolean bDefault)
   {
     final Object aValue = getAttributeObject (aName);
-    return getAsBoolean (aName, aValue, bDefault);
+    return AttributeValueConverter.getAsBoolean (aName, aValue, bDefault);
   }
 
   @Nullable
+  @Deprecated
   public static BigInteger getAsBigInteger (@Nullable final Object aParamName,
                                             @Nullable final Object aValue,
                                             @Nullable final BigInteger aDefault)
   {
-    if (aValue == null)
-      return aDefault;
-    if (aValue instanceof Number)
-      return BigInteger.valueOf (((Number) aValue).longValue ());
-    // Interpret as String
-    final String sValue = getAsString (aParamName, aValue, null);
-    return StringParser.parseBigInteger (sValue, aDefault);
+    return AttributeValueConverter.getAsBigInteger (aParamName, aValue, aDefault);
   }
 
   @Nullable
@@ -249,21 +201,16 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
   public final BigInteger getAttributeAsBigInteger (@Nullable final KEYTYPE aName, @Nullable final BigInteger aDefault)
   {
     final Object aValue = getAttributeObject (aName);
-    return getAsBigInteger (aName, aValue, aDefault);
+    return AttributeValueConverter.getAsBigInteger (aName, aValue, aDefault);
   }
 
   @Nullable
+  @Deprecated
   public static BigDecimal getAsBigDecimal (@Nullable final Object aParamName,
                                             @Nullable final Object aValue,
                                             @Nullable final BigDecimal aDefault)
   {
-    if (aValue == null)
-      return aDefault;
-    if (aValue instanceof Number)
-      return BigDecimal.valueOf (((Number) aValue).longValue ());
-    // Interpret as String
-    final String sValue = getAsString (aParamName, aValue, null);
-    return StringParser.parseBigDecimal (sValue, aDefault);
+    return AttributeValueConverter.getAsBigDecimal (aParamName, aValue, aDefault);
   }
 
   @Nullable
@@ -276,6 +223,6 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
   public final BigDecimal getAttributeAsBigDecimal (@Nullable final KEYTYPE aName, @Nullable final BigDecimal aDefault)
   {
     final Object aValue = getAttributeObject (aName);
-    return getAsBigDecimal (aName, aValue, aDefault);
+    return AttributeValueConverter.getAsBigDecimal (aName, aValue, aDefault);
   }
 }

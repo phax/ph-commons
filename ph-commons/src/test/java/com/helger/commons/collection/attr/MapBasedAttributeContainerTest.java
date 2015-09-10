@@ -23,13 +23,14 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Map;
 
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.attr.MapBasedAttributeContainerAny;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.mock.CommonsTestHelper;
 
@@ -66,13 +67,17 @@ public final class MapBasedAttributeContainerTest
     assertTrue (x.getAllAttributes ().isEmpty ());
     assertTrue (x.getAllAttributeNames ().isEmpty ());
     assertFalse (x.removeAttribute ("key2").isChanged ());
+
     assertTrue (x.setAttribute ("key", Integer.valueOf (17)).isChanged ());
+    assertTrue (x.getAttributeAsBoolean ("key"));
     assertEquals (17, x.getAttributeAsInt ("key"));
+    assertEquals (17, x.getAttributeAsLong ("key"));
     assertEquals (CGlobal.ILLEGAL_UINT, x.getAttributeAsInt ("key2"));
     assertEquals (Integer.valueOf (17), x.getCastedAttribute ("key"));
     CommonsAssert.assertEquals (17, x.getAttributeAsDouble ("key"));
     CommonsAssert.assertEquals (CGlobal.ILLEGAL_DOUBLE, x.getAttributeAsDouble ("key2"));
-    assertFalse (x.getAttributeAsBoolean ("key"));
+    assertEquals (new BigInteger ("17"), x.getAttributeAsBigInteger ("key"));
+    assertEquals (new BigDecimal ("17.0"), x.getAttributeAsBigDecimal ("key"));
     assertFalse (x.getAttributeAsBoolean ("key2"));
     assertTrue (x.removeAttribute ("key").isChanged ());
     assertFalse (x.removeAttribute ("key").isChanged ());
@@ -86,21 +91,21 @@ public final class MapBasedAttributeContainerTest
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainerAny <String> (),
                                                                        new MapBasedAttributeContainerAny <String> ());
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                           "key2" },
+                                                                                                                                                            "key2" },
                                                                                                                                             new Object [] { "value",
-                                                                                                                                                           "value2" })),
+                                                                                                                                                            "value2" })),
                                                                        new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                           "key2" },
+                                                                                                                                                            "key2" },
                                                                                                                                             new Object [] { "value",
-                                                                                                                                                           "value2" })));
+                                                                                                                                                            "value2" })));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                               "key2" },
+                                                                                                                                                                "key2" },
                                                                                                                                                 new Object [] { "value",
-                                                                                                                                                               "value2" })),
+                                                                                                                                                                "value2" })),
                                                                            new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                               "key2" },
+                                                                                                                                                                "key2" },
                                                                                                                                                 new Object [] { "value",
-                                                                                                                                                               "value" })));
+                                                                                                                                                                "value" })));
 
     try
     {
