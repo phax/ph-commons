@@ -15,7 +15,10 @@ import com.helger.commons.callback.IThrowingRunnable;
 /**
  * This is an extension around {@link ReentrantReadWriteLock} that allows for
  * easy usage with Java 8 :) See {@link #readLocked(Runnable)} and
- * {@link #writeLocked(Runnable)}
+ * {@link #writeLocked(Runnable)} method. For throwing versions see
+ * {@link #readLockedThrowing(IThrowingRunnable)} and
+ * {@link #writeLockedThrowing(IThrowingRunnable)}. Also methods for callables
+ * are available.
  *
  * @author Philip Helger
  */
@@ -23,11 +26,21 @@ public class SimpleReadWriteLock implements ReadWriteLock
 {
   private final ReentrantReadWriteLock m_aRWLock;
 
+  /**
+   * Default constructor creating a default {@link ReentrantReadWriteLock}
+   */
   public SimpleReadWriteLock ()
   {
     m_aRWLock = new ReentrantReadWriteLock ();
   }
 
+  /**
+   * Constructor creating a {@link ReentrantReadWriteLock} with the provided
+   * fairness
+   *
+   * @param bFair
+   *        <code>true</code> if this lock should use a fair ordering policy
+   */
   public SimpleReadWriteLock (final boolean bFair)
   {
     m_aRWLock = new ReentrantReadWriteLock (bFair);

@@ -16,9 +16,6 @@
  */
 package com.helger.commons.xml.sax;
 
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
@@ -28,6 +25,7 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IHasResourceErrorGroup;
 import com.helger.commons.error.IResourceErrorGroup;
@@ -44,7 +42,7 @@ import com.helger.commons.string.ToStringGenerator;
 @ThreadSafe
 public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler implements IHasResourceErrorGroup
 {
-  protected final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
   private final ResourceErrorGroup m_aErrors = new ResourceErrorGroup ();
 

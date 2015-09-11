@@ -17,8 +17,6 @@
 package com.helger.commons.cache;
 
 import java.util.Map;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
@@ -40,6 +38,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.SoftHashMap;
 import com.helger.commons.collection.impl.SoftLinkedHashMap;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.EChange;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCache;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
@@ -63,7 +62,7 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractCache.class);
 
-  protected final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final int m_nMaxSize;
   private final String m_sCacheName;
   protected final IMutableStatisticsHandlerCache m_aCacheAccessStats;
@@ -115,7 +114,7 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   protected Map <KEYTYPE, VALUETYPE> createCache ()
   {
     return hasMaxSize () ? new SoftLinkedHashMap <KEYTYPE, VALUETYPE> (m_nMaxSize)
-                        : new SoftHashMap <KEYTYPE, VALUETYPE> ();
+                         : new SoftHashMap <KEYTYPE, VALUETYPE> ();
   }
 
   /**

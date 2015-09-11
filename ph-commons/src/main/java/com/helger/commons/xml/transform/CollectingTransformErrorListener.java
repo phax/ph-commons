@@ -16,9 +16,6 @@
  */
 package com.helger.commons.xml.transform;
 
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
@@ -26,6 +23,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import javax.xml.transform.ErrorListener;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.error.IHasResourceErrorGroup;
 import com.helger.commons.error.IResourceError;
 import com.helger.commons.error.IResourceErrorGroup;
@@ -42,7 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
 @ThreadSafe
 public class CollectingTransformErrorListener extends AbstractTransformErrorListener implements IHasResourceErrorGroup
 {
-  protected final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
   private final ResourceErrorGroup m_aErrors = new ResourceErrorGroup ();
 
