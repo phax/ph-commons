@@ -18,6 +18,26 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <entry date="2015-09-10" category="api" action="add">
+    <change>
+      <text locale="en">Added new class SimpleReadWriteLock that encapsulates ReentrantReadWriteLock for easy usage with Java 8.</text>
+    </change>
+  </entry>
+  <entry date="2015-09-10" category="api" action="add">
+    <change>
+      <text locale="en">Extracted and improved the type conversions from AbstractReadOnlyAttributeContainer to AttributeValueConverter</text>
+    </change>
+  </entry>
+  <entry date="2015-09-10" category="api" action="add">
+    <change>
+      <text locale="en">Extended TypeConverter API to support methods that return a default upon TypeConverterException</text>
+    </change>
+  </entry>
+  <entry date="2015-09-09" category="api" action="change" incompatible="true">
+    <change>
+      <text locale="en">Added the exception type as a generics parameter to c.h.c.callback classes</text>
+    </change>
+  </entry>
   <entry date="2015-09-04" category="api" action="add">
     <change>
       <text locale="en">Extended API in c.h.c.concurrent.collector package</text>
