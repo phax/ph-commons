@@ -18,6 +18,7 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <release date="2015-09-13" version="6.2.0" />
   <entry date="2015-09-10" category="api" action="add">
     <change>
       <text locale="en">Added new class SimpleReadWriteLock that encapsulates ReentrantReadWriteLock for easy usage with Java 8.</text>
