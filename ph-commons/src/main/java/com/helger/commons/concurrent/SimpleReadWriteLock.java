@@ -1,5 +1,6 @@
 package com.helger.commons.concurrent;
 
+import java.io.Serializable;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -22,7 +23,7 @@ import com.helger.commons.callback.IThrowingRunnable;
  *
  * @author Philip Helger
  */
-public class SimpleReadWriteLock implements ReadWriteLock
+public class SimpleReadWriteLock implements ReadWriteLock, Serializable
 {
   private final ReentrantReadWriteLock m_aRWLock;
 
