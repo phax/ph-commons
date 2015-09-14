@@ -16,15 +16,13 @@
  */
 package com.helger.jaxb.validation;
 
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.xml.bind.ValidationEventHandler;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.error.IHasResourceErrorGroup;
 import com.helger.commons.error.IResourceError;
 import com.helger.commons.error.IResourceErrorGroup;
@@ -35,13 +33,13 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * An implementation of the JAXB {@link javax.xml.bind.ValidationEventHandler}
  * interface. It collects all events that occurred!
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
 public class CollectingValidationEventHandler extends AbstractValidationEventHandler implements IHasResourceErrorGroup
 {
-  protected final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final ResourceErrorGroup m_aErrors = new ResourceErrorGroup ();
 
   public CollectingValidationEventHandler ()
@@ -83,7 +81,7 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
 
   /**
    * Clear all currently stored errors.
-   * 
+   *
    * @return {@link EChange#CHANGED} if at least one item was cleared.
    */
   @Nonnull
