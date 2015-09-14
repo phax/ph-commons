@@ -2,13 +2,15 @@
 
 Java 1.6+ Library with tons of utility classes required in most of ph-* projects.
 
+Version 6.0.0 contains major changes and more or less all other projects were released to reflect the changes of 6.x. So please ensure to not mix 5.x and 6.x versions of ph-commons!
+
 #Maven usage
 Add the following to your pom.xml to use this artifact:
 ```
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>5.7.1</version>
+  <version>6.2.0</version>
 </dependency>
 ```
 
