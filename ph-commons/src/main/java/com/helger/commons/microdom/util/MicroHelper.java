@@ -19,9 +19,11 @@ package com.helger.commons.microdom.util;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+import javax.xml.XMLConstants;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.DocumentType;
+import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -174,7 +176,11 @@ public final class MicroHelper
       }
       case Node.ELEMENT_NODE:
       {
-        final IMicroElement aElement = new MicroElement (aNode.getNodeName ());
+        final Element aElement = (Element) aNode;
+        final String sNamespaceURI = aElement.getNamespaceURI ();
+        final IMicroElement eElement = sNamespaceURI != null ? new MicroElement (sNamespaceURI,
+                                                                                 aElement.getLocalName ())
+                                                             : new MicroElement (aElement.getTagName ());
         final NamedNodeMap aAttrs = aNode.getAttributes ();
         if (aAttrs != null)
         {
@@ -182,10 +188,18 @@ public final class MicroHelper
           for (int i = 0; i < nAttrCount; ++i)
           {
             final Attr aAttr = (Attr) aAttrs.item (i);
-            aElement.setAttribute (aAttr.getName (), aAttr.getValue ());
+            final String sAttrNamespaceURI = aAttr.getNamespaceURI ();
+            if (sAttrNamespaceURI != null)
+            {
+              // Ignore all "xmlns" attributes (special namespace URI!)
+              if (!XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sAttrNamespaceURI))
+                eElement.setAttribute (sAttrNamespaceURI, aAttr.getLocalName (), aAttr.getValue ());
+            }
+            else
+              eElement.setAttribute (aAttr.getName (), aAttr.getValue ());
           }
         }
-        ret = aElement;
+        ret = eElement;
         break;
       }
       case Node.CDATA_SECTION_NODE:

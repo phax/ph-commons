@@ -41,9 +41,9 @@ import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.MicroElement;
-import com.helger.commons.microdom.util.MicroHelper;
 import com.helger.commons.name.MockHasDisplayName;
 import com.helger.commons.xml.XMLFactory;
+import com.helger.commons.xml.serialize.read.DOMReader;
 
 /**
  * Test class for class {@link MicroHelper}.
@@ -109,17 +109,17 @@ public final class MicroHelperTest
   @Test
   public void testConvertToMicroNode () throws SAXException, IOException, ParserConfigurationException
   {
-    final String sXML = "<?xml version='1.0'?>"
-                        + "<!DOCTYPE root [ <!ENTITY sc \"sc.exe\"> <!ELEMENT root (child, child2)> <!ELEMENT child (#PCDATA)> <!ELEMENT child2 (#PCDATA)> ]>"
-                        + "<root attr='value'>"
-                        + "<![CDATA[hihi]]>"
-                        + "text"
-                        + "&sc;"
-                        + "<child xmlns='http://myns' a='b' />"
-                        + "<child2 />"
-                        + "<!-- comment -->"
-                        + "<?stylesheet x y z?>"
-                        + "</root>";
+    final String sXML = "<?xml version='1.0'?>" +
+                        "<!DOCTYPE root [ <!ENTITY sc \"sc.exe\"> <!ELEMENT root (child, child2)> <!ELEMENT child (#PCDATA)> <!ELEMENT child2 (#PCDATA)> ]>" +
+                        "<root attr='value'>" +
+                        "<![CDATA[hihi]]>" +
+                        "text" +
+                        "&sc;" +
+                        "<child xmlns='http://myns' a='b' />" +
+                        "<child2 />" +
+                        "<!-- comment -->" +
+                        "<?stylesheet x y z?>" +
+                        "</root>";
     final DocumentBuilderFactory aDBF = XMLFactory.createDefaultDocumentBuilderFactory ();
     aDBF.setCoalescing (false);
     aDBF.setIgnoringComments (false);
@@ -164,7 +164,8 @@ public final class MicroHelperTest
     y.appendElement ("a");
     assertEquals (CGlobal.BIGINT_100, MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
     y.appendCDATA ("234");
-    assertEquals (BigInteger.valueOf (100234), MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
+    assertEquals (BigInteger.valueOf (100234),
+                  MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
   }
 
   @Test
@@ -198,5 +199,26 @@ public final class MicroHelperTest
     y.appendCDATA ("234");
     assertEquals (BigInteger.valueOf (100234),
                   MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
+  }
+
+  @Test
+  public void testConvertToMicroElementWithNS () throws SAXException
+  {
+    final String sNS = "<root xmlns='blafoo'><ns2:element xmlns:ns2='ns2:uri' ns2:attr='value'>content</ns2:element></root>";
+    final Document aDoc = DOMReader.readXMLDOM (sNS);
+    assertNotNull (aDoc);
+    final IMicroDocument aMicroDoc = (IMicroDocument) MicroHelper.convertToMicroNode (aDoc);
+    assertNotNull (aMicroDoc);
+    final IMicroElement eRoot = aMicroDoc.getDocumentElement ();
+    assertNotNull (eRoot);
+    assertEquals ("blafoo", eRoot.getNamespaceURI ());
+    assertEquals ("root", eRoot.getLocalName ());
+    assertEquals ("root", eRoot.getTagName ());
+    assertEquals (0, eRoot.getAttributeCount ());
+    assertEquals (1, eRoot.getChildElementCount ());
+    final IMicroElement eElement = eRoot.getFirstChildElement ();
+    assertEquals ("ns2:uri", eElement.getNamespaceURI ());
+    assertEquals ("element", eElement.getLocalName ());
+    assertEquals ("element", eElement.getTagName ());
   }
 }

@@ -18,6 +18,11 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <entry date="2015-09-16" category="tech" action="fix">
+    <change>
+      <text locale="en">Fixed error in MicroHelper.convertToMicroNode on elements with namespace URIs</text>
+    </change>
+  </entry>
   <release date="2015-09-13" version="6.2.0" />
   <entry date="2015-09-10" category="api" action="add">
     <change>
