@@ -266,6 +266,7 @@ public final class JAXBMarshallerHelper
    * @see #isExternalSunJAXB2Marshaller(Marshaller)
    * @see #isInternalSunJAXB2Marshaller(Marshaller)
    * @throws IllegalArgumentException
+   *         If the passed NamespaceContext cannot be set.
    */
   public static void setSunNamespacePrefixMapper (@Nonnull final Marshaller aMarshaller,
                                                   @Nonnull final NamespaceContext aNamespaceContext) throws IllegalArgumentException
