@@ -22,6 +22,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.functional.IPredicate;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -34,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The type of object to filter.
  */
 @NotThreadSafe
-public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>
+public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>, IPredicate <DATATYPE>
 {
   private EFilterMatchingStrategy m_eMatchingStrategy = EFilterMatchingStrategy.MATCH_ANY;
   private IFilter <? super DATATYPE> m_aNestedFilter;
@@ -102,6 +103,11 @@ public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>
    * @return <code>true</code> if the value matches the filter
    */
   public abstract boolean matchesThisFilter (final DATATYPE aValue);
+
+  public final boolean test (final DATATYPE aValue)
+  {
+    return matchesFilter (aValue);
+  }
 
   public final boolean matchesFilter (final DATATYPE aValue)
   {

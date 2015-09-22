@@ -18,6 +18,16 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <entry date="2015-09-22" category="api" action="add">
+    <change>
+      <text locale="en">Added Java8 like functional interfaces in package com.helger.commons.functional</text>
+    </change>
+  </entry>
+  <entry date="2015-09-19" category="api" action="add">
+    <change>
+      <text locale="en">Added package com.helger.commons.errorlist from ph-validation</text>
+    </change>
+  </entry>
   <entry date="2015-09-16" category="tech" action="fix">
     <change>
       <text locale="en">Fixed error in MicroHelper.convertToMicroNode on elements with namespace URIs</text>
