@@ -18,7 +18,7 @@ package com.helger.commons.functional;
 
 /**
  * Represents a function that accepts one argument and produces a result.<br>
- * This method is comparable to Java 8 <code>java.util.function.Supplier</code>
+ * This method is comparable to Java 8 <code>java.util.function.Function</code>
  * and works as a placeholder.
  *
  * @author Philip Helger

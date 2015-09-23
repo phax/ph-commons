@@ -20,7 +20,7 @@ package com.helger.commons.functional;
  * Represents a supplier of results. <br>
  * There is no requirement that a new or distinct result be returned each time
  * the supplier is invoked.<br>
- * This method is comparable to Java 8 <code>java.util.function.Consumer</code>
+ * This method is comparable to Java 8 <code>java.util.function.Supplier</code>
  * and works as a placeholder.
  *
  * @author Philip Helger
