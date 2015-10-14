@@ -188,7 +188,7 @@ public final class ImageDataManager
       m_aRWLock.readLock ().unlock ();
     }
 
-    // Main read data
+    // Main read data outside of lock!
     final SizeInt aData = _readImageData (aRes);
 
     return m_aRWLock.writeLocked ( () -> {

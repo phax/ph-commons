@@ -235,23 +235,17 @@ public final class MimeTypeDeterminator
   @Nullable
   public IMimeType getMimeTypeFromBytes (@Nullable final byte [] b, @Nullable final IMimeType aDefault)
   {
-    if (b != null && b.length > 0)
-    {
-      m_aRWLock.readLock ().lock ();
-      try
-      {
-        for (final MimeTypeContent aMTC : m_aMimeTypeContents)
-          if (aMTC.matchesBeginning (b))
-            return aMTC.getMimeType ();
-      }
-      finally
-      {
-        m_aRWLock.readLock ().unlock ();
-      }
-    }
+    if (b == null || b.length == 0)
+      return aDefault;
 
-    // default fallback
-    return aDefault;
+    return m_aRWLock.readLocked ( () -> {
+      for (final MimeTypeContent aMTC : m_aMimeTypeContents)
+        if (aMTC.matchesBeginning (b))
+          return aMTC.getMimeType ();
+
+      // default fallback
+      return aDefault;
+    });
   }
 
   /**

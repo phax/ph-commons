@@ -16,9 +16,6 @@
  */
 package com.helger.commons.concurrent;
 
-import java.io.Serializable;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
@@ -43,17 +40,13 @@ import com.helger.commons.callback.IThrowingRunnable;
  *
  * @author Philip Helger
  */
-public class SimpleReadWriteLock implements ReadWriteLock, Serializable
+public class SimpleReadWriteLock extends ReentrantReadWriteLock
 {
-  private final ReentrantReadWriteLock m_aRWLock;
-
   /**
    * Default constructor creating a default {@link ReentrantReadWriteLock}
    */
   public SimpleReadWriteLock ()
-  {
-    m_aRWLock = new ReentrantReadWriteLock ();
-  }
+  {}
 
   /**
    * Constructor creating a {@link ReentrantReadWriteLock} with the provided
@@ -64,19 +57,7 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
    */
   public SimpleReadWriteLock (final boolean bFair)
   {
-    m_aRWLock = new ReentrantReadWriteLock (bFair);
-  }
-
-  @Nonnull
-  public Lock readLock ()
-  {
-    return m_aRWLock.readLock ();
-  }
-
-  @Nonnull
-  public Lock writeLock ()
-  {
-    return m_aRWLock.writeLock ();
+    super (bFair);
   }
 
   /**
@@ -89,14 +70,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aRunnable, "Runnable");
 
-    m_aRWLock.readLock ().lock ();
+    readLock ().lock ();
     try
     {
       aRunnable.run ();
     }
     finally
     {
-      m_aRWLock.readLock ().unlock ();
+      readLock ().unlock ();
     }
   }
 
@@ -114,14 +95,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aRunnable, "Runnable");
 
-    m_aRWLock.readLock ().lock ();
+    readLock ().lock ();
     try
     {
       aRunnable.run ();
     }
     finally
     {
-      m_aRWLock.readLock ().unlock ();
+      readLock ().unlock ();
     }
   }
 
@@ -139,14 +120,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
-    m_aRWLock.readLock ().lock ();
+    readLock ().lock ();
     try
     {
       return aSupplier.get ();
     }
     finally
     {
-      m_aRWLock.readLock ().unlock ();
+      readLock ().unlock ();
     }
   }
 
@@ -168,14 +149,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aCallable, "Callable");
 
-    m_aRWLock.readLock ().lock ();
+    readLock ().lock ();
     try
     {
       return aCallable.call ();
     }
     finally
     {
-      m_aRWLock.readLock ().unlock ();
+      readLock ().unlock ();
     }
   }
 
@@ -190,14 +171,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
-    m_aRWLock.readLock ().lock ();
+    readLock ().lock ();
     try
     {
       return aSupplier.getAsBoolean ();
     }
     finally
     {
-      m_aRWLock.readLock ().unlock ();
+      readLock ().unlock ();
     }
   }
 
@@ -212,14 +193,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
-    m_aRWLock.readLock ().lock ();
+    readLock ().lock ();
     try
     {
       return aSupplier.getAsDouble ();
     }
     finally
     {
-      m_aRWLock.readLock ().unlock ();
+      readLock ().unlock ();
     }
   }
 
@@ -234,14 +215,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
-    m_aRWLock.readLock ().lock ();
+    readLock ().lock ();
     try
     {
       return aSupplier.getAsInt ();
     }
     finally
     {
-      m_aRWLock.readLock ().unlock ();
+      readLock ().unlock ();
     }
   }
 
@@ -256,14 +237,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
-    m_aRWLock.readLock ().lock ();
+    readLock ().lock ();
     try
     {
       return aSupplier.getAsLong ();
     }
     finally
     {
-      m_aRWLock.readLock ().unlock ();
+      readLock ().unlock ();
     }
   }
 
@@ -277,14 +258,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aRunnable, "Runnable");
 
-    m_aRWLock.writeLock ().lock ();
+    writeLock ().lock ();
     try
     {
       aRunnable.run ();
     }
     finally
     {
-      m_aRWLock.writeLock ().unlock ();
+      writeLock ().unlock ();
     }
   }
 
@@ -302,14 +283,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aRunnable, "Runnable");
 
-    m_aRWLock.writeLock ().lock ();
+    writeLock ().lock ();
     try
     {
       aRunnable.run ();
     }
     finally
     {
-      m_aRWLock.writeLock ().unlock ();
+      writeLock ().unlock ();
     }
   }
 
@@ -327,14 +308,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
-    m_aRWLock.writeLock ().lock ();
+    writeLock ().lock ();
     try
     {
       return aSupplier.get ();
     }
     finally
     {
-      m_aRWLock.writeLock ().unlock ();
+      writeLock ().unlock ();
     }
   }
 
@@ -356,14 +337,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aCallable, "Callable");
 
-    m_aRWLock.writeLock ().lock ();
+    writeLock ().lock ();
     try
     {
       return aCallable.call ();
     }
     finally
     {
-      m_aRWLock.writeLock ().unlock ();
+      writeLock ().unlock ();
     }
   }
 
@@ -378,14 +359,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
-    m_aRWLock.writeLock ().lock ();
+    writeLock ().lock ();
     try
     {
       return aSupplier.getAsBoolean ();
     }
     finally
     {
-      m_aRWLock.writeLock ().unlock ();
+      writeLock ().unlock ();
     }
   }
 
@@ -400,14 +381,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
-    m_aRWLock.writeLock ().lock ();
+    writeLock ().lock ();
     try
     {
       return aSupplier.getAsDouble ();
     }
     finally
     {
-      m_aRWLock.writeLock ().unlock ();
+      writeLock ().unlock ();
     }
   }
 
@@ -422,14 +403,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
-    m_aRWLock.writeLock ().lock ();
+    writeLock ().lock ();
     try
     {
       return aSupplier.getAsInt ();
     }
     finally
     {
-      m_aRWLock.writeLock ().unlock ();
+      writeLock ().unlock ();
     }
   }
 
@@ -444,14 +425,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
-    m_aRWLock.writeLock ().lock ();
+    writeLock ().lock ();
     try
     {
       return aSupplier.getAsLong ();
     }
     finally
     {
-      m_aRWLock.writeLock ().unlock ();
+      writeLock ().unlock ();
     }
   }
 }

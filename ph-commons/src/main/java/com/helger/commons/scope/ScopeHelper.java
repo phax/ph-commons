@@ -16,15 +16,14 @@
  */
 package com.helger.commons.scope;
 
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
+
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 
 /**
  * Global scope utility methods that don't nicely fit somewhere else.
@@ -42,7 +41,7 @@ public final class ScopeHelper
   public static final boolean DEFAULT_DEBUG_REQUEST_SCOPE = false;
   public static final boolean DEFAULT_DEBUG_WITH_STACK_TRACE = false;
 
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
   private static boolean s_bDebugLifeCycle = DEFAULT_DEBUG_LIFE_CYCLE;
   @GuardedBy ("s_aRWLock")

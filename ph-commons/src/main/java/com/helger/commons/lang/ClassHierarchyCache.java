@@ -22,8 +22,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
@@ -38,6 +36,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.collection.lru.LRUMap;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -126,7 +125,7 @@ public final class ClassHierarchyCache
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (ClassHierarchyCache.class);
 
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   private static final Map <String, ClassList> s_aClassHierarchy = new LRUMap <String, ClassList> (1000);
 
   @PresentForCodeCoverage
@@ -145,21 +144,15 @@ public final class ClassHierarchyCache
   @Nonnull
   public static EChange clearCache ()
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
+    return s_aRWLock.writeLocked ( () -> {
       if (s_aClassHierarchy.isEmpty ())
         return EChange.UNCHANGED;
       s_aClassHierarchy.clear ();
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Cache was cleared: " + ClassHierarchyCache.class.getName ());
-    return EChange.CHANGED;
+      if (s_aLogger.isDebugEnabled ())
+        s_aLogger.debug ("Cache was cleared: " + ClassHierarchyCache.class.getName ());
+      return EChange.CHANGED;
+    });
   }
 
   @Nonnull
@@ -169,35 +162,21 @@ public final class ClassHierarchyCache
     final String sKey = aClass.getName ();
 
     // Get or update from cache
-    ClassList aClassList;
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      aClassList = s_aClassHierarchy.get (sKey);
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    ClassList aClassList = s_aRWLock.readLocked ( () -> s_aClassHierarchy.get (sKey));
 
     if (aClassList == null)
     {
-      s_aRWLock.writeLock ().lock ();
-      try
-      {
+      aClassList = s_aRWLock.writeLocked ( () -> {
         // try again in write lock
-        aClassList = s_aClassHierarchy.get (sKey);
-        if (aClassList == null)
+        ClassList aWLClassList = s_aClassHierarchy.get (sKey);
+        if (aWLClassList == null)
         {
           // Create a new class list
-          aClassList = new ClassList (aClass);
-          s_aClassHierarchy.put (sKey, aClassList);
+          aWLClassList = new ClassList (aClass);
+          s_aClassHierarchy.put (sKey, aWLClassList);
         }
-      }
-      finally
-      {
-        s_aRWLock.writeLock ().unlock ();
-      }
+        return aWLClassList;
+      });
     }
     return aClassList;
   }

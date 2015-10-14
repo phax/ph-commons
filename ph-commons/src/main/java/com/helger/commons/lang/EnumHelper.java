@@ -18,8 +18,6 @@ package com.helger.commons.lang;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -32,6 +30,7 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.id.IHasIntID;
 import com.helger.commons.name.IHasName;
@@ -48,7 +47,7 @@ public final class EnumHelper
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (EnumHelper.class);
   private static final Object [] NOT_CACHABLE = ArrayHelper.EMPTY_OBJECT_ARRAY;
-  private static final ReadWriteLock s_aRWLockInt = new ReentrantReadWriteLock ();
+  private static final SimpleReadWriteLock s_aRWLockInt = new SimpleReadWriteLock ();
   private static final Map <String, Object []> s_aIntCache = new HashMap <String, Object []> ();
 
   @PresentForCodeCoverage
@@ -240,24 +239,13 @@ public final class EnumHelper
     ValueEnforcer.notNull (aClass, "Class");
 
     final String sCacheKey = aClass.getName ();
-    Object [] aCachedData;
-    s_aRWLockInt.readLock ().lock ();
-    try
-    {
-      aCachedData = s_aIntCache.get (sCacheKey);
-    }
-    finally
-    {
-      s_aRWLockInt.readLock ().unlock ();
-    }
+    Object [] aCachedData = s_aRWLockInt.readLocked ( () -> s_aIntCache.get (sCacheKey));
     if (aCachedData == null)
     {
-      s_aRWLockInt.writeLock ().lock ();
-      try
-      {
+      aCachedData = s_aRWLockInt.writeLocked ( () -> {
         // Try again in write lock
-        aCachedData = s_aIntCache.get (sCacheKey);
-        if (aCachedData == null)
+        Object [] aWLCachedData = s_aIntCache.get (sCacheKey);
+        if (aWLCachedData == null)
         {
           // Create new cache entry
           int nMinID = Integer.MAX_VALUE;
@@ -273,22 +261,19 @@ public final class EnumHelper
           if (nMinID >= 0 && nMaxID <= CGlobal.MAX_BYTE_VALUE)
           {
             // Cachable!
-            aCachedData = new Object [nMaxID + 1];
+            aWLCachedData = new Object [nMaxID + 1];
             for (final ENUMTYPE aElement : aClass.getEnumConstants ())
-              aCachedData[aElement.getID ()] = aElement;
+              aWLCachedData[aElement.getID ()] = aElement;
           }
           else
           {
             // Enum not cachable
-            aCachedData = NOT_CACHABLE;
+            aWLCachedData = NOT_CACHABLE;
           }
-          s_aIntCache.put (sCacheKey, aCachedData);
+          s_aIntCache.put (sCacheKey, aWLCachedData);
         }
-      }
-      finally
-      {
-        s_aRWLockInt.writeLock ().unlock ();
-      }
+        return aWLCachedData;
+      });
     }
 
     if (aCachedData != NOT_CACHABLE)
@@ -488,20 +473,14 @@ public final class EnumHelper
   @Nonnull
   public static EChange clearCache ()
   {
-    s_aRWLockInt.writeLock ().lock ();
-    try
-    {
+    return s_aRWLockInt.writeLocked ( () -> {
       if (s_aIntCache.isEmpty ())
         return EChange.UNCHANGED;
       s_aIntCache.clear ();
-    }
-    finally
-    {
-      s_aRWLockInt.writeLock ().unlock ();
-    }
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Cache was cleared: " + EnumHelper.class.getName ());
-    return EChange.CHANGED;
+      if (s_aLogger.isDebugEnabled ())
+        s_aLogger.debug ("Cache was cleared: " + EnumHelper.class.getName ());
+      return EChange.CHANGED;
+    });
   }
 }

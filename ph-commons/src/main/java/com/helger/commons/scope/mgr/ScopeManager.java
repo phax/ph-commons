@@ -16,9 +16,6 @@
  */
 package com.helger.commons.scope.mgr;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
@@ -30,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.concurrent.SimpleLock;
 import com.helger.commons.scope.IApplicationScope;
 import com.helger.commons.scope.IGlobalScope;
 import com.helger.commons.scope.IRequestScope;
@@ -71,7 +69,7 @@ public final class ScopeManager
    */
   private static final String REQ_APPLICATION_ID = SCOPE_ATTRIBUTE_PREFIX_INTERNAL + "applicationscope";
 
-  private static final Lock s_aGlobalLock = new ReentrantLock ();
+  private static final SimpleLock s_aGlobalLock = new SimpleLock ();
 
   /** Global scope */
   @GuardedBy ("s_aGlobalLock")
@@ -98,9 +96,7 @@ public final class ScopeManager
   {
     ValueEnforcer.notNull (aGlobalScope, "GlobalScope");
 
-    s_aGlobalLock.lock ();
-    try
-    {
+    s_aGlobalLock.locked ( () -> {
       if (s_aGlobalScope != null)
         throw new IllegalStateException ("Another global scope with ID '" +
                                          s_aGlobalScope.getID () +
@@ -114,11 +110,7 @@ public final class ScopeManager
 
       // Invoke SPIs
       ScopeSPIManager.getInstance ().onGlobalScopeBegin (aGlobalScope);
-    }
-    finally
-    {
-      s_aGlobalLock.unlock ();
-    }
+    });
   }
 
   /**
@@ -165,9 +157,7 @@ public final class ScopeManager
    */
   public static void onGlobalEnd ()
   {
-    s_aGlobalLock.lock ();
-    try
-    {
+    s_aGlobalLock.locked ( () -> {
       /**
        * This code removes all attributes set for the global context. This is
        * necessary, since the attributes would survive a Tomcat servlet context
@@ -190,11 +180,7 @@ public final class ScopeManager
       }
       else
         s_aLogger.warn ("No global scope present that could be shut down!");
-    }
-    finally
-    {
-      s_aGlobalLock.unlock ();
-    }
+    });
   }
 
   // --- application scope ---

@@ -281,12 +281,8 @@ public class MimeTypeInfoManager
     if (sExtension == null)
       return null;
 
-    List <MimeTypeInfo> ret;
-
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      ret = m_aMapExt.get (sExtension);
+    return m_aRWLock.readLocked ( () -> {
+      List <MimeTypeInfo> ret = m_aMapExt.get (sExtension);
       if (ret == null)
       {
         // Especially on Windows, sometimes file extensions like "JPG" can be
@@ -294,14 +290,9 @@ public class MimeTypeInfoManager
         // extension.
         ret = m_aMapExt.get (sExtension.toLowerCase (Locale.US));
       }
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
-
-    // Create a copy if present
-    return ret == null ? null : CollectionHelper.newList (ret);
+      // Create a copy if present
+      return ret == null ? null : CollectionHelper.newList (ret);
+    });
   }
 
   /**

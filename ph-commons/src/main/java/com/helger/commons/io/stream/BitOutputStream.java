@@ -19,10 +19,10 @@ package com.helger.commons.io.stream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteOrder;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Nonnull;
+
+import com.helger.commons.concurrent.SimpleLock;
 
 /**
  * The BitOutputStream allows writing individual bits to a general Java
@@ -38,7 +38,7 @@ import javax.annotation.Nonnull;
  */
 public class BitOutputStream extends NonBlockingBitOutputStream
 {
-  private final Lock m_aLock = new ReentrantLock ();
+  private final SimpleLock m_aLock = new SimpleLock ();
 
   /**
    * Create a new bit output stream based on an existing Java OutputStream.
@@ -103,14 +103,6 @@ public class BitOutputStream extends NonBlockingBitOutputStream
   @Override
   public void close ()
   {
-    m_aLock.lock ();
-    try
-    {
-      super.close ();
-    }
-    finally
-    {
-      m_aLock.unlock ();
-    }
+    m_aLock.locked ( () -> super.close ());
   }
 }
