@@ -18,20 +18,20 @@ package com.helger.commons.xml;
 
 /**
  * Contains the types of XML parser features.
- * 
+ *
  * @author Philip Helger
  */
 public enum EXMLParserFeatureType
 {
-  /** General Features */
+ /** General Features */
   GENERAL,
 
-  /** DOM Features */
+ /** DOM Features */
   DOM,
 
-  /** SAX Features */
+ /** SAX Features */
   SAX,
 
-  /** XInclude Features */
+ /** XInclude Features */
   XINCLUDE;
 }

@@ -25,7 +25,7 @@ import com.helger.commons.tree.withid.DefaultTreeItemWithID;
  * A managed tree is a specialized version of the tree, where each item is
  * required to have a unique ID so that item searching can be performed quite
  * easily.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        The type of the key elements for the tree.

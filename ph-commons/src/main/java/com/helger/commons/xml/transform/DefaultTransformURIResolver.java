@@ -27,7 +27,7 @@ import com.helger.commons.xml.ls.SimpleLSResourceResolver;
 /**
  * Implementation of the {@link javax.xml.transform.URIResolver} interface using
  * {@link SimpleLSResourceResolver} to resolve resources.
- * 
+ *
  * @author Philip Helger
  */
 public class DefaultTransformURIResolver extends AbstractTransformURIResolver

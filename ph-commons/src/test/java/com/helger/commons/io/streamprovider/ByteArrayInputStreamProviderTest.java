@@ -29,7 +29,7 @@ import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * Test class for class {@link ByteArrayInputStreamProvider}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ByteArrayInputStreamProviderTest

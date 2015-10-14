@@ -23,7 +23,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 /**
  * This is a helper class that wraps a list of pair objects.
- * 
+ *
  * @author Philip Helger
  * @param <DATA1TYPE>
  *        First type of the pair type.
@@ -35,7 +35,7 @@ public class KeyValuePairList <DATA1TYPE, DATA2TYPE> extends ArrayList <IPair <D
 {
   /**
    * Add the pair to the list.
-   * 
+   *
    * @param aKey
    *        The key to be added. May be <code>null</code>.
    * @param aValue
@@ -49,7 +49,7 @@ public class KeyValuePairList <DATA1TYPE, DATA2TYPE> extends ArrayList <IPair <D
 
   /**
    * Add the pair only if the value is non-<code>null</code>
-   * 
+   *
    * @param aKey
    *        The key to be added. May be <code>null</code>.
    * @param aValue

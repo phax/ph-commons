@@ -21,7 +21,7 @@ import com.helger.commons.thread.ThreadHelper;
 /**
  * Determine the maximum number of threads to be created. Warning: may
  * potentially crash your system :)
- * 
+ *
  * @author Philip Helger
  */
 public final class MainMaxThreadCount

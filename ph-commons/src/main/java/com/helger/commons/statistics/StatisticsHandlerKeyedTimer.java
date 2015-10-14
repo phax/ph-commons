@@ -36,7 +36,12 @@ public class StatisticsHandlerKeyedTimer extends AbstractStatisticsHandlerKeyedN
   public void addTime (@Nullable final String sKey, @Nonnegative final long nMillis)
   {
     if (nMillis < 0)
-      s_aLogger.warn ("A negative value (" + nMillis + ") for key '" + sKey + "' is added to " + getClass ().getName ());
+      s_aLogger.warn ("A negative value (" +
+                      nMillis +
+                      ") for key '" +
+                      sKey +
+                      "' is added to " +
+                      getClass ().getName ());
     addValue (sKey, nMillis);
   }
 }

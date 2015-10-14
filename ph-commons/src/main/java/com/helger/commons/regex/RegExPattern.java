@@ -107,7 +107,8 @@ public final class RegExPattern implements Serializable
     this (sRegEx, 0);
   }
 
-  public RegExPattern (@Nonnull @Nonempty @RegEx final String sRegEx, @Nonnegative final int nOptions) throws IllegalArgumentException
+  public RegExPattern (@Nonnull @Nonempty @RegEx final String sRegEx,
+                       @Nonnegative final int nOptions) throws IllegalArgumentException
   {
     ValueEnforcer.notEmpty (sRegEx, "RegEx");
     ValueEnforcer.isGE0 (nOptions, "Options");
@@ -126,7 +127,8 @@ public final class RegExPattern implements Serializable
       throw new IllegalArgumentException ("Regular expression '" +
                                           m_sRegEx +
                                           "' is illegal" +
-                                          (m_nOptions == 0 ? "" : " with options " + m_nOptions), ex);
+                                          (m_nOptions == 0 ? "" : " with options " + m_nOptions),
+                                          ex);
     }
   }
 

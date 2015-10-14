@@ -52,13 +52,7 @@ public final class CollatorHelperTest extends AbstractCommonsTestCase
 
     final List <Collator> res = new Vector <Collator> ();
     final int nMax = 100;
-    CommonsTestHelper.testInParallel (nMax, new Runnable ()
-    {
-      public void run ()
-      {
-        res.add (CollatorHelper.getCollatorSpaceBeforeDot (L_EN));
-      }
-    });
+    CommonsTestHelper.testInParallel (nMax, (Runnable) () -> res.add (CollatorHelper.getCollatorSpaceBeforeDot (L_EN)));
 
     assertEquals (nMax, res.size ());
     for (int i = 1; i < nMax; ++i)
@@ -69,15 +63,11 @@ public final class CollatorHelperTest extends AbstractCommonsTestCase
   public void testSort ()
   {
     final int nMax = 10000;
-    CommonsTestHelper.testInParallel (nMax, new Runnable ()
-    {
-      public void run ()
-      {
-        Collator c = CollatorHelper.getCollatorSpaceBeforeDot (L_DE);
-        assertEquals (-1, CompareHelper.compare ("1.1 a", "1.1.1 a", c));
-        c = CollatorHelper.getCollatorSpaceBeforeDot (L_EN);
-        assertEquals (-1, CompareHelper.compare ("1.1 a", "1.1.1 a", c));
-      }
+    CommonsTestHelper.testInParallel (nMax, (Runnable) () -> {
+      Collator c = CollatorHelper.getCollatorSpaceBeforeDot (L_DE);
+      assertEquals (-1, CompareHelper.compare ("1.1 a", "1.1.1 a", c));
+      c = CollatorHelper.getCollatorSpaceBeforeDot (L_EN);
+      assertEquals (-1, CompareHelper.compare ("1.1 a", "1.1.1 a", c));
     });
   }
 }

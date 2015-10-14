@@ -26,12 +26,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.microdom.EMicroNodeType;
-import com.helger.commons.microdom.IMicroProcessingInstruction;
-import com.helger.commons.microdom.MicroCDATA;
-import com.helger.commons.microdom.MicroDocument;
-import com.helger.commons.microdom.MicroException;
-import com.helger.commons.microdom.MicroProcessingInstruction;
 import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -83,13 +77,15 @@ public final class MicroProcessingInstructionTest
     assertFalse (e.isEqualContent (new MicroDocument ()));
 
     assertTrue (new MicroProcessingInstruction ("xyz").isEqualContent (new MicroProcessingInstruction ("xyz")));
-    assertTrue (new MicroProcessingInstruction ("xyz", "data").isEqualContent (new MicroProcessingInstruction ("xyz",
-                                                                                                               "data")));
+    assertTrue (new MicroProcessingInstruction ("xyz",
+                                                "data").isEqualContent (new MicroProcessingInstruction ("xyz",
+                                                                                                        "data")));
     assertFalse (new MicroProcessingInstruction ("xyz").isEqualContent (new MicroProcessingInstruction ("xy")));
     assertFalse (new MicroProcessingInstruction ("xyz", "data").isEqualContent (new MicroProcessingInstruction ("xyz",
                                                                                                                 null)));
-    assertFalse (new MicroProcessingInstruction ("xyz", "data").isEqualContent (new MicroProcessingInstruction ("xyz",
-                                                                                                                "dat")));
+    assertFalse (new MicroProcessingInstruction ("xyz",
+                                                 "data").isEqualContent (new MicroProcessingInstruction ("xyz",
+                                                                                                         "dat")));
 
     try
     {

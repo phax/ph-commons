@@ -58,7 +58,10 @@ public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
     super (sScopeID);
 
     if (ScopeHelper.debugGlobalScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Created global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+      s_aLogger.info ("Created global scope '" +
+                      getID () +
+                      "' of class " +
+                      ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -91,7 +94,10 @@ public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
   protected void preDestroy ()
   {
     if (ScopeHelper.debugGlobalScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroying global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+      s_aLogger.info ("Destroying global scope '" +
+                      getID () +
+                      "' of class " +
+                      ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -99,7 +105,10 @@ public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
   protected void postDestroy ()
   {
     if (ScopeHelper.debugGlobalScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroyed global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+      s_aLogger.info ("Destroyed global scope '" +
+                      getID () +
+                      "' of class " +
+                      ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 

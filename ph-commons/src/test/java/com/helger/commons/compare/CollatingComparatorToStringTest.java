@@ -43,8 +43,9 @@ public final class CollatingComparatorToStringTest extends AbstractCommonsTestCa
                   CollectionHelper.getSorted (l,
                                               new CollatingComparatorToString (L_EN).setSortOrder (ESortOrder.DESCENDING))
                                   .size ());
-    assertEquals (3, CollectionHelper.getSorted (l, new CollatingComparatorToString (Collator.getInstance (L_FR)))
-                                     .size ());
+    assertEquals (3,
+                  CollectionHelper.getSorted (l, new CollatingComparatorToString (Collator.getInstance (L_FR)))
+                                  .size ());
 
     try
     {

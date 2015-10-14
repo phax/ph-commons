@@ -32,7 +32,6 @@ import org.junit.rules.TestRule;
 
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.scope.mock.ScopeTestRule;
-import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
 
 /**
  * Test class for class {@link AbstractGlobalSingleton}.

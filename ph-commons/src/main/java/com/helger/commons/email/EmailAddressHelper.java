@@ -26,7 +26,7 @@ import com.helger.commons.regex.RegExPool;
 
 /**
  * Perform simple email address validation based on a regular expression.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -44,7 +44,7 @@ public final class EmailAddressHelper
   /**
    * Get the unified version of an email address. It trims leading and trailing
    * spaces and lower-cases the email address.
-   * 
+   *
    * @param sEmailAddress
    *        The email address to unify. May be <code>null</code>.
    * @return The unified email address or <code>null</code> if the input address
@@ -59,7 +59,7 @@ public final class EmailAddressHelper
   /**
    * Checks if a value is a valid e-mail address according to a certain regular
    * expression.
-   * 
+   *
    * @param sEmailAddress
    *        The value validation is being performed on. A <code>null</code>
    *        value is considered invalid.

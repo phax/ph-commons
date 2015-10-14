@@ -27,69 +27,69 @@ import com.helger.commons.lang.EnumHelper;
 /**
  * Represents the different DOM node types. This is a type-safe version of the
  * node types defined in {@link org.w3c.dom.Node}.
- * 
+ *
  * @author Philip Helger
  */
 public enum EXMLDOMNodeType implements IHasIntID
 {
-  /**
-   * The node is an <code>Element</code>.
-   */
+ /**
+  * The node is an <code>Element</code>.
+  */
   ELEMENT_NODE (Node.ELEMENT_NODE),
 
-  /**
-   * The node is an <code>Attr</code>.
-   */
+ /**
+  * The node is an <code>Attr</code>.
+  */
   ATTRIBUTE_NODE (Node.ATTRIBUTE_NODE),
 
-  /**
-   * The node is a <code>Text</code> node.
-   */
+ /**
+  * The node is a <code>Text</code> node.
+  */
   TEXT_NODE (Node.TEXT_NODE),
 
-  /**
-   * The node is a <code>CDATASection</code>.
-   */
+ /**
+  * The node is a <code>CDATASection</code>.
+  */
   CDATA_SECTION_NODE (Node.CDATA_SECTION_NODE),
 
-  /**
-   * The node is an <code>EntityReference</code>.
-   */
+ /**
+  * The node is an <code>EntityReference</code>.
+  */
   ENTITY_REFERENCE_NODE (Node.ENTITY_REFERENCE_NODE),
 
-  /**
-   * The node is an <code>Entity</code>.
-   */
+ /**
+  * The node is an <code>Entity</code>.
+  */
   ENTITY_NODE (Node.ENTITY_NODE),
 
-  /**
-   * The node is a <code>ProcessingInstruction</code>.
-   */
+ /**
+  * The node is a <code>ProcessingInstruction</code>.
+  */
   PROCESSING_INSTRUCTION_NODE (Node.PROCESSING_INSTRUCTION_NODE),
 
-  /**
-   * The node is a <code>Comment</code>.
-   */
+ /**
+  * The node is a <code>Comment</code>.
+  */
   COMMENT_NODE (Node.COMMENT_NODE),
 
-  /**
-   * The node is a <code>Document</code>.
-   */
+ /**
+  * The node is a <code>Document</code>.
+  */
   DOCUMENT_NODE (Node.DOCUMENT_NODE),
 
-  /**
-   * The node is a <code>DocumentType</code>.
-   */
+ /**
+  * The node is a <code>DocumentType</code>.
+  */
   DOCUMENT_TYPE_NODE (Node.DOCUMENT_TYPE_NODE),
 
-  /**
-   * The node is a <code>DocumentFragment</code>.
-   */
+ /**
+  * The node is a <code>DocumentFragment</code>.
+  */
   DOCUMENT_FRAGMENT_NODE (Node.DOCUMENT_FRAGMENT_NODE),
 
-  /**
-   * The node is a <code>Notation</code>.
-   */
+ /**
+  * The node is a <code>Notation</code>.
+  */
   NOTATION_NODE (Node.NOTATION_NODE);
 
   private final int m_nValue;

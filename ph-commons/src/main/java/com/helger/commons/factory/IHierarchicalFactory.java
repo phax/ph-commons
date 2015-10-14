@@ -22,7 +22,7 @@ import com.helger.commons.annotation.DevelopersNote;
  * This is a generic interface for creating objects of a certain type that have
  * a parent item. For creating root items, please use the
  * {@link IHierarchicalRootFactory} interface!
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of object to create.
@@ -31,7 +31,7 @@ public interface IHierarchicalFactory <DATATYPE> extends IFactoryWithParameter <
 {
   /**
    * Create an object of the desired type.
-   * 
+   *
    * @param aParent
    *        The parent item to use. May never be <code>null</code>.
    * @return The created object.

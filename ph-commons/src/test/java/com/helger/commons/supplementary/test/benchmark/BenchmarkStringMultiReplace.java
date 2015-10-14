@@ -128,7 +128,7 @@ public final class BenchmarkStringMultiReplace extends AbstractBenchmarkTask
       final char [] aSrc = new char [RSRC.length];
       for (int i = 0; i < RSRC.length; ++i)
         aSrc[i] = RSRC[i].charAt (0);
-      final char [][] aDst = new char [RDST.length] [];
+      final char [] [] aDst = new char [RDST.length] [];
       for (int i = 0; i < RDST.length; ++i)
         aDst[i] = RDST[i].toCharArray ();
 

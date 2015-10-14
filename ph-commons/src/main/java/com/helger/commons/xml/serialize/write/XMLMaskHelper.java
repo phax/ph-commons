@@ -54,267 +54,267 @@ public final class XMLMaskHelper
   private static final char [] MASK_ATTRIBUTE_VALUE_XML10_DQ = new char [] { TAB, LF, CR, DOUBLE_QUOTE, AMPERSAND, LT };
   private static final char [] MASK_ATTRIBUTE_VALUE_XML10_SQ = new char [] { TAB, LF, CR, APOS, AMPERSAND, LT };
   private static final char [] MASK_TEXT_XML10 = new char [] { CR,
-                                                              AMPERSAND,
-                                                              LT,
-                                                              GT,
-                                                              0x7f,
-                                                              0x80,
-                                                              0x81,
-                                                              0x82,
-                                                              0x83,
-                                                              0x84,
-                                                              0x85,
-                                                              0x86,
-                                                              0x87,
-                                                              0x88,
-                                                              0x89,
-                                                              0x8a,
-                                                              0x8b,
-                                                              0x8c,
-                                                              0x8d,
-                                                              0x8e,
-                                                              0x8f,
-                                                              0x90,
-                                                              0x91,
-                                                              0x92,
-                                                              0x93,
-                                                              0x94,
-                                                              0x95,
-                                                              0x96,
-                                                              0x97,
-                                                              0x98,
-                                                              0x99,
-                                                              0x9a,
-                                                              0x9b,
-                                                              0x9c,
-                                                              0x9d,
-                                                              0x9e,
-                                                              0x9f };
+                                                               AMPERSAND,
+                                                               LT,
+                                                               GT,
+                                                               0x7f,
+                                                               0x80,
+                                                               0x81,
+                                                               0x82,
+                                                               0x83,
+                                                               0x84,
+                                                               0x85,
+                                                               0x86,
+                                                               0x87,
+                                                               0x88,
+                                                               0x89,
+                                                               0x8a,
+                                                               0x8b,
+                                                               0x8c,
+                                                               0x8d,
+                                                               0x8e,
+                                                               0x8f,
+                                                               0x90,
+                                                               0x91,
+                                                               0x92,
+                                                               0x93,
+                                                               0x94,
+                                                               0x95,
+                                                               0x96,
+                                                               0x97,
+                                                               0x98,
+                                                               0x99,
+                                                               0x9a,
+                                                               0x9b,
+                                                               0x9c,
+                                                               0x9d,
+                                                               0x9e,
+                                                               0x9f };
 
   // XML 1.1
   private static final char [] MASK_ATTRIBUTE_VALUE_XML11_DQ = new char [] { 0x1,
-                                                                            0x2,
-                                                                            0x3,
-                                                                            0x4,
-                                                                            0x5,
-                                                                            0x6,
-                                                                            0x7,
-                                                                            0x8,
-                                                                            0x9,
-                                                                            0xa,
-                                                                            0xb,
-                                                                            0xc,
-                                                                            0xd,
-                                                                            0xe,
-                                                                            0xf,
-                                                                            0x10,
-                                                                            0x11,
-                                                                            0x12,
-                                                                            0x13,
-                                                                            0x14,
-                                                                            0x15,
-                                                                            0x16,
-                                                                            0x17,
-                                                                            0x18,
-                                                                            0x19,
-                                                                            0x1a,
-                                                                            0x1b,
-                                                                            0x1c,
-                                                                            0x1d,
-                                                                            0x1e,
-                                                                            0x1f,
-                                                                            DOUBLE_QUOTE,
-                                                                            AMPERSAND,
-                                                                            LT };
+                                                                             0x2,
+                                                                             0x3,
+                                                                             0x4,
+                                                                             0x5,
+                                                                             0x6,
+                                                                             0x7,
+                                                                             0x8,
+                                                                             0x9,
+                                                                             0xa,
+                                                                             0xb,
+                                                                             0xc,
+                                                                             0xd,
+                                                                             0xe,
+                                                                             0xf,
+                                                                             0x10,
+                                                                             0x11,
+                                                                             0x12,
+                                                                             0x13,
+                                                                             0x14,
+                                                                             0x15,
+                                                                             0x16,
+                                                                             0x17,
+                                                                             0x18,
+                                                                             0x19,
+                                                                             0x1a,
+                                                                             0x1b,
+                                                                             0x1c,
+                                                                             0x1d,
+                                                                             0x1e,
+                                                                             0x1f,
+                                                                             DOUBLE_QUOTE,
+                                                                             AMPERSAND,
+                                                                             LT };
   private static final char [] MASK_ATTRIBUTE_VALUE_XML11_SQ = new char [] { 0x1,
-                                                                            0x2,
-                                                                            0x3,
-                                                                            0x4,
-                                                                            0x5,
-                                                                            0x6,
-                                                                            0x7,
-                                                                            0x8,
-                                                                            0x9,
-                                                                            0xa,
-                                                                            0xb,
-                                                                            0xc,
-                                                                            0xd,
-                                                                            0xe,
-                                                                            0xf,
-                                                                            0x10,
-                                                                            0x11,
-                                                                            0x12,
-                                                                            0x13,
-                                                                            0x14,
-                                                                            0x15,
-                                                                            0x16,
-                                                                            0x17,
-                                                                            0x18,
-                                                                            0x19,
-                                                                            0x1a,
-                                                                            0x1b,
-                                                                            0x1c,
-                                                                            0x1d,
-                                                                            0x1e,
-                                                                            0x1f,
-                                                                            APOS,
-                                                                            AMPERSAND,
-                                                                            LT };
+                                                                             0x2,
+                                                                             0x3,
+                                                                             0x4,
+                                                                             0x5,
+                                                                             0x6,
+                                                                             0x7,
+                                                                             0x8,
+                                                                             0x9,
+                                                                             0xa,
+                                                                             0xb,
+                                                                             0xc,
+                                                                             0xd,
+                                                                             0xe,
+                                                                             0xf,
+                                                                             0x10,
+                                                                             0x11,
+                                                                             0x12,
+                                                                             0x13,
+                                                                             0x14,
+                                                                             0x15,
+                                                                             0x16,
+                                                                             0x17,
+                                                                             0x18,
+                                                                             0x19,
+                                                                             0x1a,
+                                                                             0x1b,
+                                                                             0x1c,
+                                                                             0x1d,
+                                                                             0x1e,
+                                                                             0x1f,
+                                                                             APOS,
+                                                                             AMPERSAND,
+                                                                             LT };
   private static final char [] MASK_TEXT_XML11 = new char [] { 0x1,
-                                                              0x2,
-                                                              0x3,
-                                                              0x4,
-                                                              0x5,
-                                                              0x6,
-                                                              0x7,
-                                                              0x8,
-                                                              0xb,
-                                                              0xc,
-                                                              0xd,
-                                                              0xe,
-                                                              0xf,
-                                                              0x10,
-                                                              0x11,
-                                                              0x12,
-                                                              0x13,
-                                                              0x14,
-                                                              0x15,
-                                                              0x16,
-                                                              0x17,
-                                                              0x18,
-                                                              0x19,
-                                                              0x1a,
-                                                              0x1b,
-                                                              0x1c,
-                                                              0x1d,
-                                                              0x1e,
-                                                              0x1f,
-                                                              AMPERSAND,
-                                                              LT,
-                                                              GT,
-                                                              0x7f,
-                                                              0x80,
-                                                              0x81,
-                                                              0x82,
-                                                              0x83,
-                                                              0x84,
-                                                              0x85,
-                                                              0x86,
-                                                              0x87,
-                                                              0x88,
-                                                              0x89,
-                                                              0x8a,
-                                                              0x8b,
-                                                              0x8c,
-                                                              0x8d,
-                                                              0x8e,
-                                                              0x8f,
-                                                              0x90,
-                                                              0x91,
-                                                              0x92,
-                                                              0x93,
-                                                              0x94,
-                                                              0x95,
-                                                              0x96,
-                                                              0x97,
-                                                              0x98,
-                                                              0x99,
-                                                              0x9a,
-                                                              0x9b,
-                                                              0x9c,
-                                                              0x9d,
-                                                              0x9e,
-                                                              0x9f,
-                                                              0x2028 };
+                                                               0x2,
+                                                               0x3,
+                                                               0x4,
+                                                               0x5,
+                                                               0x6,
+                                                               0x7,
+                                                               0x8,
+                                                               0xb,
+                                                               0xc,
+                                                               0xd,
+                                                               0xe,
+                                                               0xf,
+                                                               0x10,
+                                                               0x11,
+                                                               0x12,
+                                                               0x13,
+                                                               0x14,
+                                                               0x15,
+                                                               0x16,
+                                                               0x17,
+                                                               0x18,
+                                                               0x19,
+                                                               0x1a,
+                                                               0x1b,
+                                                               0x1c,
+                                                               0x1d,
+                                                               0x1e,
+                                                               0x1f,
+                                                               AMPERSAND,
+                                                               LT,
+                                                               GT,
+                                                               0x7f,
+                                                               0x80,
+                                                               0x81,
+                                                               0x82,
+                                                               0x83,
+                                                               0x84,
+                                                               0x85,
+                                                               0x86,
+                                                               0x87,
+                                                               0x88,
+                                                               0x89,
+                                                               0x8a,
+                                                               0x8b,
+                                                               0x8c,
+                                                               0x8d,
+                                                               0x8e,
+                                                               0x8f,
+                                                               0x90,
+                                                               0x91,
+                                                               0x92,
+                                                               0x93,
+                                                               0x94,
+                                                               0x95,
+                                                               0x96,
+                                                               0x97,
+                                                               0x98,
+                                                               0x99,
+                                                               0x9a,
+                                                               0x9b,
+                                                               0x9c,
+                                                               0x9d,
+                                                               0x9e,
+                                                               0x9f,
+                                                               0x2028 };
 
   // HTML
   private static final char [] MASK_TEXT_HTML_DQ = new char [] { AMPERSAND,
-                                                                DOUBLE_QUOTE,
-                                                                LT,
-                                                                GT,
-                                                                APOS,
-                                                                0x80,
-                                                                0x81,
-                                                                0x82,
-                                                                0x83,
-                                                                0x84,
-                                                                0x85,
-                                                                0x86,
-                                                                0x87,
-                                                                0x88,
-                                                                0x89,
-                                                                0x8a,
-                                                                0x8b,
-                                                                0x8c,
-                                                                0x8d,
-                                                                0x8e,
-                                                                0x8f,
-                                                                0x90,
-                                                                0x91,
-                                                                0x92,
-                                                                0x93,
-                                                                0x94,
-                                                                0x95,
-                                                                0x96,
-                                                                0x97,
-                                                                0x98,
-                                                                0x99,
-                                                                0x9a,
-                                                                0x9b,
-                                                                0x9c,
-                                                                0x9d,
-                                                                0x9e,
-                                                                0x9f };
+                                                                 DOUBLE_QUOTE,
+                                                                 LT,
+                                                                 GT,
+                                                                 APOS,
+                                                                 0x80,
+                                                                 0x81,
+                                                                 0x82,
+                                                                 0x83,
+                                                                 0x84,
+                                                                 0x85,
+                                                                 0x86,
+                                                                 0x87,
+                                                                 0x88,
+                                                                 0x89,
+                                                                 0x8a,
+                                                                 0x8b,
+                                                                 0x8c,
+                                                                 0x8d,
+                                                                 0x8e,
+                                                                 0x8f,
+                                                                 0x90,
+                                                                 0x91,
+                                                                 0x92,
+                                                                 0x93,
+                                                                 0x94,
+                                                                 0x95,
+                                                                 0x96,
+                                                                 0x97,
+                                                                 0x98,
+                                                                 0x99,
+                                                                 0x9a,
+                                                                 0x9b,
+                                                                 0x9c,
+                                                                 0x9d,
+                                                                 0x9e,
+                                                                 0x9f };
   private static final char [] MASK_TEXT_HTML_SQ = new char [] { AMPERSAND,
-                                                                LT,
-                                                                GT,
-                                                                APOS,
-                                                                0x80,
-                                                                0x81,
-                                                                0x82,
-                                                                0x83,
-                                                                0x84,
-                                                                0x85,
-                                                                0x86,
-                                                                0x87,
-                                                                0x88,
-                                                                0x89,
-                                                                0x8a,
-                                                                0x8b,
-                                                                0x8c,
-                                                                0x8d,
-                                                                0x8e,
-                                                                0x8f,
-                                                                0x90,
-                                                                0x91,
-                                                                0x92,
-                                                                0x93,
-                                                                0x94,
-                                                                0x95,
-                                                                0x96,
-                                                                0x97,
-                                                                0x98,
-                                                                0x99,
-                                                                0x9a,
-                                                                0x9b,
-                                                                0x9c,
-                                                                0x9d,
-                                                                0x9e,
-                                                                0x9f };
+                                                                 LT,
+                                                                 GT,
+                                                                 APOS,
+                                                                 0x80,
+                                                                 0x81,
+                                                                 0x82,
+                                                                 0x83,
+                                                                 0x84,
+                                                                 0x85,
+                                                                 0x86,
+                                                                 0x87,
+                                                                 0x88,
+                                                                 0x89,
+                                                                 0x8a,
+                                                                 0x8b,
+                                                                 0x8c,
+                                                                 0x8d,
+                                                                 0x8e,
+                                                                 0x8f,
+                                                                 0x90,
+                                                                 0x91,
+                                                                 0x92,
+                                                                 0x93,
+                                                                 0x94,
+                                                                 0x95,
+                                                                 0x96,
+                                                                 0x97,
+                                                                 0x98,
+                                                                 0x99,
+                                                                 0x9a,
+                                                                 0x9b,
+                                                                 0x9c,
+                                                                 0x9d,
+                                                                 0x9e,
+                                                                 0x9f };
 
   // XML 1.0
-  private static final char [][] MASK_ATTRIBUTE_VALUE_XML10_DQ_REPLACE = new char [MASK_ATTRIBUTE_VALUE_XML10_DQ.length] [];
-  private static final char [][] MASK_ATTRIBUTE_VALUE_XML10_SQ_REPLACE = new char [MASK_ATTRIBUTE_VALUE_XML10_SQ.length] [];
-  private static final char [][] MASK_TEXT_XML10_REPLACE = new char [MASK_TEXT_XML10.length] [];
+  private static final char [] [] MASK_ATTRIBUTE_VALUE_XML10_DQ_REPLACE = new char [MASK_ATTRIBUTE_VALUE_XML10_DQ.length] [];
+  private static final char [] [] MASK_ATTRIBUTE_VALUE_XML10_SQ_REPLACE = new char [MASK_ATTRIBUTE_VALUE_XML10_SQ.length] [];
+  private static final char [] [] MASK_TEXT_XML10_REPLACE = new char [MASK_TEXT_XML10.length] [];
 
   // XML 1.1
-  private static final char [][] MASK_ATTRIBUTE_VALUE_XML11_DQ_REPLACE = new char [MASK_ATTRIBUTE_VALUE_XML11_DQ.length] [];
-  private static final char [][] MASK_ATTRIBUTE_VALUE_XML11_SQ_REPLACE = new char [MASK_ATTRIBUTE_VALUE_XML11_SQ.length] [];
-  private static final char [][] MASK_TEXT_XML11_REPLACE = new char [MASK_TEXT_XML11.length] [];
+  private static final char [] [] MASK_ATTRIBUTE_VALUE_XML11_DQ_REPLACE = new char [MASK_ATTRIBUTE_VALUE_XML11_DQ.length] [];
+  private static final char [] [] MASK_ATTRIBUTE_VALUE_XML11_SQ_REPLACE = new char [MASK_ATTRIBUTE_VALUE_XML11_SQ.length] [];
+  private static final char [] [] MASK_TEXT_XML11_REPLACE = new char [MASK_TEXT_XML11.length] [];
 
   // HTML
-  private static final char [][] MASK_TEXT_HTML_DQ_REPLACE = new char [MASK_TEXT_HTML_DQ.length] [];
-  private static final char [][] MASK_TEXT_HTML_SQ_REPLACE = new char [MASK_TEXT_HTML_SQ.length] [];
+  private static final char [] [] MASK_TEXT_HTML_DQ_REPLACE = new char [MASK_TEXT_HTML_DQ.length] [];
+  private static final char [] [] MASK_TEXT_HTML_SQ_REPLACE = new char [MASK_TEXT_HTML_SQ.length] [];
 
   /**
    * Get the entity reference for the specified character. This returns e.g.
@@ -485,8 +485,8 @@ public final class XMLMaskHelper
 
   @Nullable
   @ReturnsMutableObject ("internal use only")
-  private static char [][] _findReplaceMap (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                            @Nonnull final EXMLCharMode eXMLCharMode)
+  private static char [] [] _findReplaceMap (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                             @Nonnull final EXMLCharMode eXMLCharMode)
   {
     switch (eXMLVersion)
     {
@@ -556,9 +556,9 @@ public final class XMLMaskHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  private static char [][] _createEmptyReplacement (@Nonnull final char [] aSrcMap)
+  private static char [] [] _createEmptyReplacement (@Nonnull final char [] aSrcMap)
   {
-    final char [][] ret = new char [aSrcMap.length] [];
+    final char [] [] ret = new char [aSrcMap.length] [];
     for (int i = 0; i < aSrcMap.length; ++i)
       ret[i] = ArrayHelper.EMPTY_CHAR_ARRAY;
     return ret;
@@ -580,12 +580,14 @@ public final class XMLMaskHelper
     {
       if (XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, aChars))
       {
-        final Set <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion, eXMLCharMode, aChars);
+        final Set <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
+                                                                                      eXMLCharMode,
+                                                                                      aChars);
         eIncorrectCharHandling.notifyOnInvalidXMLCharacter (s, aAllInvalidChars);
         if (eIncorrectCharHandling.isReplaceWithNothing ())
         {
           final char [] aSrcMap = getAsCharArray (aAllInvalidChars);
-          final char [][] aDstMap = _createEmptyReplacement (aSrcMap);
+          final char [] [] aDstMap = _createEmptyReplacement (aSrcMap);
           aChars = StringHelper.replaceMultiple (s, aSrcMap, aDstMap);
         }
       }
@@ -598,7 +600,7 @@ public final class XMLMaskHelper
       // Nothing to replace
       return aChars;
     }
-    final char [][] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
+    final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
     return StringHelper.replaceMultiple (aChars, aSrcMap, aDstMap);
   }
 
@@ -634,7 +636,7 @@ public final class XMLMaskHelper
       if (eIncorrectCharHandling.isReplaceWithNothing ())
       {
         final char [] aSrcMap = getAsCharArray (aAllInvalidChars);
-        final char [][] aDstMap = _createEmptyReplacement (aSrcMap);
+        final char [] [] aDstMap = _createEmptyReplacement (aSrcMap);
         aChars = StringHelper.replaceMultiple (s, aSrcMap, aDstMap);
       }
     }
@@ -646,7 +648,7 @@ public final class XMLMaskHelper
       // Nothing to replace
       return aChars.length;
     }
-    final char [][] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
+    final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
     final int nResLen = StringHelper.getReplaceMultipleResultLength (aChars, aSrcMap, aDstMap);
     return nResLen == CGlobal.ILLEGAL_UINT ? aChars.length : nResLen;
   }
@@ -667,12 +669,14 @@ public final class XMLMaskHelper
     {
       if (XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, aChars))
       {
-        final Set <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion, eXMLCharMode, aChars);
+        final Set <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
+                                                                                      eXMLCharMode,
+                                                                                      aChars);
         eIncorrectCharHandling.notifyOnInvalidXMLCharacter (s, aAllInvalidChars);
         if (eIncorrectCharHandling.isReplaceWithNothing ())
         {
           final char [] aSrcMap = getAsCharArray (aAllInvalidChars);
-          final char [][] aDstMap = _createEmptyReplacement (aSrcMap);
+          final char [] [] aDstMap = _createEmptyReplacement (aSrcMap);
           aChars = StringHelper.replaceMultiple (s, aSrcMap, aDstMap);
         }
       }
@@ -687,7 +691,7 @@ public final class XMLMaskHelper
     }
     else
     {
-      final char [][] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
+      final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
       StringHelper.replaceMultipleTo (aChars, aSrcMap, aDstMap, aWriter);
     }
   }

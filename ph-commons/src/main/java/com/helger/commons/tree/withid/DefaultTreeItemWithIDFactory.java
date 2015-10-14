@@ -24,7 +24,7 @@ import com.helger.commons.ValueEnforcer;
 /**
  * Special implementation of {@link AbstractTreeItemWithIDFactory} using the
  * item type {@link DefaultTreeItemWithID}.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        tree item key type

@@ -20,7 +20,7 @@ import com.helger.commons.annotation.DevelopersNote;
 
 /**
  * This is a generic interface for creating objects of a certain type.
- * 
+ *
  * @author Philip
  * @param <DATATYPE>
  *        The type of object to create.
@@ -31,7 +31,7 @@ public interface IFactoryWithParameter <DATATYPE, PARAMTYPE>
 {
   /**
    * Create an object of the desired type.
-   * 
+   *
    * @param aParameter
    *        The parameter required to create the object. May be
    *        <code>null</code> depending on the implementation.

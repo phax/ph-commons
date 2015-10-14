@@ -32,8 +32,6 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
-import com.helger.jaxb.AbstractJAXBMarshaller;
-import com.helger.jaxb.JAXBMarshallerHelper;
 
 public final class JAXBMarshallerFuncTest
 {

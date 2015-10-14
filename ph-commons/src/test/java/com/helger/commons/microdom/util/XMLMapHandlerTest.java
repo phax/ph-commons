@@ -37,11 +37,10 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streamprovider.ByteArrayOutputStreamProvider;
 import com.helger.commons.io.streamprovider.StringInputStreamProvider;
-import com.helger.commons.microdom.util.XMLMapHandler;
 
 /**
  * Test class for {@link XMLMapHandler}.
- * 
+ *
  * @author Philip Helger
  */
 public final class XMLMapHandlerTest

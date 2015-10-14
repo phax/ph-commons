@@ -49,20 +49,12 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
   public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
   {
     // MutableBigDecimal
-    aRegistry.registerTypeConverter (MutableBigDecimal.class, BigDecimal.class, new ITypeConverter ()
-    {
-      public BigDecimal convert (@Nonnull final Object aSource)
-      {
-        return ((MutableBigDecimal) aSource).getAsBigDecimal ();
-      }
-    });
-    aRegistry.registerTypeConverter (BigDecimal.class, MutableBigDecimal.class, new ITypeConverter ()
-    {
-      public MutableBigDecimal convert (@Nonnull final Object aSource)
-      {
-        return new MutableBigDecimal ((BigDecimal) aSource);
-      }
-    });
+    aRegistry.registerTypeConverter (MutableBigDecimal.class,
+                                     BigDecimal.class,
+                                     (ITypeConverter) aSource -> ((MutableBigDecimal) aSource).getAsBigDecimal ());
+    aRegistry.registerTypeConverter (BigDecimal.class,
+                                     MutableBigDecimal.class,
+                                     (ITypeConverter) aSource -> new MutableBigDecimal ((BigDecimal) aSource));
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleFixedSourceAnyDestination (MutableBigDecimal.class)
     {
       @Override
@@ -82,20 +74,12 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     });
 
     // MutableBigInteger
-    aRegistry.registerTypeConverter (MutableBigInteger.class, BigInteger.class, new ITypeConverter ()
-    {
-      public BigInteger convert (@Nonnull final Object aSource)
-      {
-        return ((MutableBigInteger) aSource).getAsBigInteger ();
-      }
-    });
-    aRegistry.registerTypeConverter (BigInteger.class, MutableBigInteger.class, new ITypeConverter ()
-    {
-      public MutableBigInteger convert (@Nonnull final Object aSource)
-      {
-        return new MutableBigInteger ((BigInteger) aSource);
-      }
-    });
+    aRegistry.registerTypeConverter (MutableBigInteger.class,
+                                     BigInteger.class,
+                                     (ITypeConverter) aSource -> ((MutableBigInteger) aSource).getAsBigInteger ());
+    aRegistry.registerTypeConverter (BigInteger.class,
+                                     MutableBigInteger.class,
+                                     (ITypeConverter) aSource -> new MutableBigInteger ((BigInteger) aSource));
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleFixedSourceAnyDestination (MutableBigInteger.class)
     {
       @Override
@@ -115,20 +99,12 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     });
 
     // MutableBoolean
-    aRegistry.registerTypeConverter (MutableBoolean.class, Boolean.class, new ITypeConverter ()
-    {
-      public Boolean convert (@Nonnull final Object aSource)
-      {
-        return ((MutableBoolean) aSource).getAsBoolean ();
-      }
-    });
-    aRegistry.registerTypeConverter (Boolean.class, MutableBoolean.class, new ITypeConverter ()
-    {
-      public MutableBoolean convert (@Nonnull final Object aSource)
-      {
-        return new MutableBoolean ((Boolean) aSource);
-      }
-    });
+    aRegistry.registerTypeConverter (MutableBoolean.class,
+                                     Boolean.class,
+                                     (ITypeConverter) aSource -> ((MutableBoolean) aSource).getAsBoolean ());
+    aRegistry.registerTypeConverter (Boolean.class,
+                                     MutableBoolean.class,
+                                     (ITypeConverter) aSource -> new MutableBoolean ((Boolean) aSource));
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleFixedSourceAnyDestination (MutableBoolean.class)
     {
       @Override
@@ -148,20 +124,12 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     });
 
     // MutableByte
-    aRegistry.registerTypeConverter (MutableByte.class, Byte.class, new ITypeConverter ()
-    {
-      public Byte convert (@Nonnull final Object aSource)
-      {
-        return ((MutableByte) aSource).getAsByte ();
-      }
-    });
-    aRegistry.registerTypeConverter (Byte.class, MutableByte.class, new ITypeConverter ()
-    {
-      public MutableByte convert (@Nonnull final Object aSource)
-      {
-        return new MutableByte ((Byte) aSource);
-      }
-    });
+    aRegistry.registerTypeConverter (MutableByte.class,
+                                     Byte.class,
+                                     (ITypeConverter) aSource -> ((MutableByte) aSource).getAsByte ());
+    aRegistry.registerTypeConverter (Byte.class,
+                                     MutableByte.class,
+                                     (ITypeConverter) aSource -> new MutableByte ((Byte) aSource));
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleFixedSourceAnyDestination (MutableByte.class)
     {
       @Override
@@ -181,20 +149,12 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     });
 
     // MutableChar
-    aRegistry.registerTypeConverter (MutableChar.class, Character.class, new ITypeConverter ()
-    {
-      public Character convert (@Nonnull final Object aSource)
-      {
-        return ((MutableChar) aSource).getAsCharacter ();
-      }
-    });
-    aRegistry.registerTypeConverter (Character.class, MutableChar.class, new ITypeConverter ()
-    {
-      public MutableChar convert (@Nonnull final Object aSource)
-      {
-        return new MutableChar ((Character) aSource);
-      }
-    });
+    aRegistry.registerTypeConverter (MutableChar.class,
+                                     Character.class,
+                                     (ITypeConverter) aSource -> ((MutableChar) aSource).getAsCharacter ());
+    aRegistry.registerTypeConverter (Character.class,
+                                     MutableChar.class,
+                                     (ITypeConverter) aSource -> new MutableChar ((Character) aSource));
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleFixedSourceAnyDestination (MutableChar.class)
     {
       @Override
@@ -214,20 +174,12 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     });
 
     // MutableDouble
-    aRegistry.registerTypeConverter (MutableDouble.class, Double.class, new ITypeConverter ()
-    {
-      public Double convert (@Nonnull final Object aSource)
-      {
-        return ((MutableDouble) aSource).getAsDouble ();
-      }
-    });
-    aRegistry.registerTypeConverter (Double.class, MutableDouble.class, new ITypeConverter ()
-    {
-      public MutableDouble convert (@Nonnull final Object aSource)
-      {
-        return new MutableDouble ((Double) aSource);
-      }
-    });
+    aRegistry.registerTypeConverter (MutableDouble.class,
+                                     Double.class,
+                                     (ITypeConverter) aSource -> ((MutableDouble) aSource).getAsDouble ());
+    aRegistry.registerTypeConverter (Double.class,
+                                     MutableDouble.class,
+                                     (ITypeConverter) aSource -> new MutableDouble ((Double) aSource));
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleFixedSourceAnyDestination (MutableDouble.class)
     {
       @Override
@@ -247,20 +199,12 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     });
 
     // MutableFloat
-    aRegistry.registerTypeConverter (MutableFloat.class, Float.class, new ITypeConverter ()
-    {
-      public Float convert (@Nonnull final Object aSource)
-      {
-        return ((MutableFloat) aSource).getAsFloat ();
-      }
-    });
-    aRegistry.registerTypeConverter (Float.class, MutableFloat.class, new ITypeConverter ()
-    {
-      public MutableFloat convert (@Nonnull final Object aSource)
-      {
-        return new MutableFloat ((Float) aSource);
-      }
-    });
+    aRegistry.registerTypeConverter (MutableFloat.class,
+                                     Float.class,
+                                     (ITypeConverter) aSource -> ((MutableFloat) aSource).getAsFloat ());
+    aRegistry.registerTypeConverter (Float.class,
+                                     MutableFloat.class,
+                                     (ITypeConverter) aSource -> new MutableFloat ((Float) aSource));
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleFixedSourceAnyDestination (MutableFloat.class)
     {
       @Override
@@ -280,20 +224,12 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     });
 
     // MutableInt
-    aRegistry.registerTypeConverter (MutableInt.class, Integer.class, new ITypeConverter ()
-    {
-      public Integer convert (@Nonnull final Object aSource)
-      {
-        return ((MutableInt) aSource).getAsInteger ();
-      }
-    });
-    aRegistry.registerTypeConverter (Integer.class, MutableInt.class, new ITypeConverter ()
-    {
-      public MutableInt convert (@Nonnull final Object aSource)
-      {
-        return new MutableInt ((Integer) aSource);
-      }
-    });
+    aRegistry.registerTypeConverter (MutableInt.class,
+                                     Integer.class,
+                                     (ITypeConverter) aSource -> ((MutableInt) aSource).getAsInteger ());
+    aRegistry.registerTypeConverter (Integer.class,
+                                     MutableInt.class,
+                                     (ITypeConverter) aSource -> new MutableInt ((Integer) aSource));
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleFixedSourceAnyDestination (MutableInt.class)
     {
       @Override
@@ -313,20 +249,12 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     });
 
     // MutableLong
-    aRegistry.registerTypeConverter (MutableLong.class, Long.class, new ITypeConverter ()
-    {
-      public Long convert (@Nonnull final Object aSource)
-      {
-        return ((MutableLong) aSource).getAsLong ();
-      }
-    });
-    aRegistry.registerTypeConverter (Long.class, MutableLong.class, new ITypeConverter ()
-    {
-      public MutableLong convert (@Nonnull final Object aSource)
-      {
-        return new MutableLong ((Long) aSource);
-      }
-    });
+    aRegistry.registerTypeConverter (MutableLong.class,
+                                     Long.class,
+                                     (ITypeConverter) aSource -> ((MutableLong) aSource).getAsLong ());
+    aRegistry.registerTypeConverter (Long.class,
+                                     MutableLong.class,
+                                     (ITypeConverter) aSource -> new MutableLong ((Long) aSource));
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleFixedSourceAnyDestination (MutableLong.class)
     {
       @Override
@@ -346,20 +274,12 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     });
 
     // MutableShort
-    aRegistry.registerTypeConverter (MutableShort.class, Short.class, new ITypeConverter ()
-    {
-      public Short convert (@Nonnull final Object aSource)
-      {
-        return ((MutableShort) aSource).getAsShort ();
-      }
-    });
-    aRegistry.registerTypeConverter (Short.class, MutableShort.class, new ITypeConverter ()
-    {
-      public MutableShort convert (@Nonnull final Object aSource)
-      {
-        return new MutableShort ((Short) aSource);
-      }
-    });
+    aRegistry.registerTypeConverter (MutableShort.class,
+                                     Short.class,
+                                     (ITypeConverter) aSource -> ((MutableShort) aSource).getAsShort ());
+    aRegistry.registerTypeConverter (Short.class,
+                                     MutableShort.class,
+                                     (ITypeConverter) aSource -> new MutableShort ((Short) aSource));
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleFixedSourceAnyDestination (MutableShort.class)
     {
       @Override

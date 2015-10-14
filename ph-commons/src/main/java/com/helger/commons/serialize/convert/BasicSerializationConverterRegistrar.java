@@ -30,7 +30,7 @@ import com.helger.commons.charset.CharsetManager;
 /**
  * Implementation of {@link ISerializationConverterRegistrarSPI} for basic types
  * like Charset etc.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -39,7 +39,8 @@ public final class BasicSerializationConverterRegistrar implements ISerializatio
 {
   private static final class SerializationConverterCharset implements ISerializationConverter
   {
-    public void writeConvertedObject (@Nonnull final Object aSourceObject, @Nonnull final ObjectOutputStream aOOS) throws IOException
+    public void writeConvertedObject (@Nonnull final Object aSourceObject,
+                                      @Nonnull final ObjectOutputStream aOOS) throws IOException
     {
       aOOS.writeUTF (((Charset) aSourceObject).name ());
     }

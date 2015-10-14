@@ -27,7 +27,6 @@ import java.util.HashSet;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

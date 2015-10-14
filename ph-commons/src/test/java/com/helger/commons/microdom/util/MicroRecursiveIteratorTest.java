@@ -26,11 +26,10 @@ import org.junit.Test;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.microdom.serialize.MicroReader;
-import com.helger.commons.microdom.util.MicroRecursiveIterator;
 
 /**
  * Test class for class {@link MicroRecursiveIterator}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroRecursiveIteratorTest

@@ -28,20 +28,20 @@ public class MainJavaCreateNewEnum
 {
   public enum Day
   {
-    MON,
-    TUE,
-    WED,
-    TH,
-    FRI,
-    SAT,
-    SUN
+   MON,
+   TUE,
+   WED,
+   TH,
+   FRI,
+   SAT,
+   SUN
   }
 
   public static void main (final String [] args) throws IllegalArgumentException,
-                                                IllegalAccessException,
-                                                InvocationTargetException,
-                                                SecurityException,
-                                                NoSuchMethodException
+                                                 IllegalAccessException,
+                                                 InvocationTargetException,
+                                                 SecurityException,
+                                                 NoSuchMethodException
   {
     final Constructor <?> con = Day.class.getDeclaredConstructors ()[0];
     final Method [] methods = con.getClass ().getDeclaredMethods ();

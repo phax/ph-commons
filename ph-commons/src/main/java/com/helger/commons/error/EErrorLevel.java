@@ -30,15 +30,15 @@ import com.helger.commons.lang.EnumHelper;
  */
 public enum EErrorLevel implements IErrorLevel
 {
-  /** Success */
+ /** Success */
   SUCCESS ("success", 0),
-  /** Information level */
+ /** Information level */
   INFO ("info", 100),
-  /** Warning level. */
+ /** Warning level. */
   WARN ("warn", 200),
-  /** Error level */
+ /** Error level */
   ERROR ("error", 300),
-  /** Fatal error */
+ /** Fatal error */
   FATAL_ERROR ("fatal_error", 400);
 
   /** Lowest error level within this enum */

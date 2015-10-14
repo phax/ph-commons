@@ -157,9 +157,9 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
     final ValidationEventLocator aLocator = aEvent.getLocator ();
     final IResourceLocation aLocation = new ResourceLocation (getLocationResourceID (aLocator),
                                                               aLocator != null ? aLocator.getLineNumber ()
-                                                                              : IResourceLocation.ILLEGAL_NUMBER,
+                                                                               : IResourceLocation.ILLEGAL_NUMBER,
                                                               aLocator != null ? aLocator.getColumnNumber ()
-                                                                              : IResourceLocation.ILLEGAL_NUMBER);
+                                                                               : IResourceLocation.ILLEGAL_NUMBER);
     // Message may be null in some cases (e.g. when a linked exception is
     // present), but is not allowed to be null!
     String sMsg = aEvent.getMessage ();

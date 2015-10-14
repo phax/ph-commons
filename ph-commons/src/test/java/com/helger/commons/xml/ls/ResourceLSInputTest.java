@@ -35,7 +35,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link ResourceLSInput}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ResourceLSInputTest

@@ -46,10 +46,11 @@ public final class SingleErrorTest
     assertEquals ("any", aFE.getErrorText ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aFE, new SingleError (EErrorLevel.ERROR, "any"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aFE, new SingleError (EErrorLevel.WARN,
-                                                                                                 "any"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aFE, new SingleError (EErrorLevel.ERROR,
-                                                                                                 "any other"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aFE,
+                                                                           new SingleError (EErrorLevel.WARN, "any"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aFE,
+                                                                           new SingleError (EErrorLevel.ERROR,
+                                                                                            "any other"));
 
     try
     {

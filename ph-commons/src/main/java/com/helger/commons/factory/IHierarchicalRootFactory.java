@@ -20,7 +20,7 @@ import com.helger.commons.annotation.DevelopersNote;
 
 /**
  * This is a generic interface for creating root objects of a hierarchy.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of object to create.
@@ -29,7 +29,7 @@ public interface IHierarchicalRootFactory <DATATYPE>
 {
   /**
    * Create the root object. May be called only once.
-   * 
+   *
    * @return The root object. May be <code>null</code> depending on the
    *         implementation.
    */

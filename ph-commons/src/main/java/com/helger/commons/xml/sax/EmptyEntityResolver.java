@@ -24,7 +24,7 @@ import org.xml.sax.InputSource;
 /**
  * Special {@link EntityResolver} implementation that always delivers an empty
  * document.
- * 
+ *
  * @author Philip Helger
  */
 public class EmptyEntityResolver implements EntityResolver

@@ -225,7 +225,9 @@ public class Base64InputStream extends FilterInputStream
    * @since 1.3
    */
   @Override
-  public int read (@Nonnull final byte [] aDest, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public int read (@Nonnull final byte [] aDest,
+                   @Nonnegative final int nOfs,
+                   @Nonnegative final int nLen) throws IOException
   {
     int i = 0;
     for (; i < nLen; i++)

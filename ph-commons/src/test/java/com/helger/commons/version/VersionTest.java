@@ -685,18 +685,15 @@ public final class VersionTest
   @Test
   public void testHashCode ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"), new Version (1,
-                                                                                                                2,
-                                                                                                                3,
-                                                                                                                "4"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"),
+                                                                       new Version (1, 2, 3, "4"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"),
                                                                        new Version ("1.2.3.4"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1), new Version ("1"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version ("1"), new Version ("   1"));
 
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"), new Version (1,
-                                                                                                                    2,
-                                                                                                                    3));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
+                                                                           new Version (1, 2, 3));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
                                                                            new Version (1, 2, 3, "5"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),

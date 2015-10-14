@@ -23,21 +23,21 @@ package com.helger.commons.collection;
  */
 public enum ECollectionBaseType
 {
-  /**
-   * The collection type applies to all Collection objects that are not Sets,
-   * and will be compared in their regular order.
-   */
+ /**
+  * The collection type applies to all Collection objects that are not Sets, and
+  * will be compared in their regular order.
+  */
   COLLECTION,
-  /** Sets represent unordered container */
+ /** Sets represent unordered container */
   SET,
-  /** Maps are key-value-containers */
+ /** Maps are key-value-containers */
   MAP,
-  /** Arrays */
+ /** Arrays */
   ARRAY,
-  /** Iterator */
+ /** Iterator */
   ITERATOR,
-  /** Iterable */
+ /** Iterable */
   ITERABLE,
-  /** Enumeration */
+ /** Enumeration */
   ENUMERATION
 }

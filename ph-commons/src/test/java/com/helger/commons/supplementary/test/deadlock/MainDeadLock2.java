@@ -73,21 +73,11 @@ public final class MainDeadLock2
     tdc.addCallback (new LoggingThreadDeadlockCallback ());
 
     final A a = new A ();
-    final Thread t1 = new Thread (new Runnable ()
-    {
-      public void run ()
-      {
-        while (true)
-          a.f ();
-      }
-    }, "t1");
-    final Thread t2 = new Thread (new Runnable ()
-    {
-      public void run ()
-      {
-        a.g ();
-      }
-    }, "t2");
+    final Thread t1 = new Thread ((Runnable) () -> {
+      while (true)
+        a.f ();
+    } , "t1");
+    final Thread t2 = new Thread ((Runnable) () -> a.g (), "t2");
     t1.start ();
     t2.start ();
     s_aLogger.info ("Waiting");

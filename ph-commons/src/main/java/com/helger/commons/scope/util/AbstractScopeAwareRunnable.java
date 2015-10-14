@@ -27,7 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Abstract implementation of {@link Runnable} that handles WebScopes correctly.
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractScopeAwareRunnable implements INonThrowingRunnable

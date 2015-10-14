@@ -43,11 +43,11 @@ import com.helger.commons.text.util.TextHelper;
 public final class DefaultTextResolverTest
 {
   @NoTranslationRequired
-  public static enum EText implements IHasDisplayText, IHasDisplayTextWithArgs
+  public static enum EText implements IHasDisplayText,IHasDisplayTextWithArgs
   {
-    TEXT1 ("Text1de", "Text1en"),
-    TEXT2 ("Text2de", "Text2en"),
-    TEXT3 ("Text3{0}de", "Text3{0}en");
+   TEXT1 ("Text1de", "Text1en"),
+   TEXT2 ("Text2de", "Text2en"),
+   TEXT3 ("Text3{0}de", "Text3{0}en");
 
     private final AbstractReadOnlyMapBasedMultilingualText m_aTP;
 
@@ -95,7 +95,9 @@ public final class DefaultTextResolverTest
     assertNull (EText.TEXT2.getDisplayText (aSR));
 
     // Check bundle names
-    assertTrue (DefaultTextResolver.getInstance ().getAllUsedOverrideBundleNames ().contains ("properties/override-de"));
+    assertTrue (DefaultTextResolver.getInstance ()
+                                   .getAllUsedOverrideBundleNames ()
+                                   .contains ("properties/override-de"));
     assertFalse (DefaultTextResolver.getInstance ()
                                     .getAllUsedOverrideBundleNames ()
                                     .contains ("properties/override-en"));

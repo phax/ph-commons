@@ -28,7 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Special {@link StreamSource} implementation that reads from {@link String}
  * objects.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe

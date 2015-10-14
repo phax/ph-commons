@@ -45,7 +45,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @ThreadSafe
-public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAny <String>implements IScope
+public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAny <String> implements IScope
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractMapBasedScope.class);
 

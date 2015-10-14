@@ -21,8 +21,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.debug.GlobalDebug;
-
 /**
  * Tests for class {@link GlobalDebug}
  *

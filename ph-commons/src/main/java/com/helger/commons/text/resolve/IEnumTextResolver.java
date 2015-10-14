@@ -26,14 +26,14 @@ import com.helger.commons.text.IHasTextWithArgs;
 
 /**
  * Base interface for an enum-based text resolver.
- * 
+ *
  * @author Philip Helger
  */
 public interface IEnumTextResolver
 {
   /**
    * Get the text of an enumeration item.
-   * 
+   *
    * @param aEnum
    *        The enumeration item to get the unique ID of. May not be
    *        <code>null</code>.
@@ -48,7 +48,7 @@ public interface IEnumTextResolver
 
   /**
    * Get the text of an enumeration item with placeholder texts being replaced.
-   * 
+   *
    * @param aEnum
    *        The enumeration item to get the unique ID of. May not be
    *        <code>null</code>.

@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 /**
  * A standard implementation of the {@link IParentProvider} interface that works
  * with all types that implement {@link IHasParent}.
- * 
+ *
  * @author Philip Helger
  * @param <PARENTTYPE>
  *        The data type of the parent object.

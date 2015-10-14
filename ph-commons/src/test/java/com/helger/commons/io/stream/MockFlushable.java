@@ -20,7 +20,7 @@ import java.io.Flushable;
 
 /**
  * Mock implementation of the {@link Flushable} interface doing nothing.
- * 
+ *
  * @author Philip Helger
  */
 public class MockFlushable implements Flushable

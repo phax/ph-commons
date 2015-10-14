@@ -23,7 +23,7 @@ import org.w3c.dom.ls.LSResourceResolver;
 
 /**
  * A {@link LSResourceResolver} implementation that does nothing.
- * 
+ *
  * @author Philip Helger
  */
 public class DoNothingLSResourceResolver implements LSResourceResolver

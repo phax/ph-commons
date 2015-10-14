@@ -25,7 +25,6 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.lru.LRUSet;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

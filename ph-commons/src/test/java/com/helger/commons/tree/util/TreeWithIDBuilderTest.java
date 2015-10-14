@@ -32,7 +32,6 @@ import com.helger.commons.hierarchy.MockHasChildren;
 import com.helger.commons.hierarchy.MockHasParent;
 import com.helger.commons.hierarchy.ParentProviderHasParent;
 import com.helger.commons.id.MockHasIDString;
-import com.helger.commons.tree.util.TreeWithIDBuilder;
 import com.helger.commons.tree.withid.DefaultTreeWithID;
 
 /**

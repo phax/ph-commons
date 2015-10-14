@@ -27,7 +27,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MimeTypeParameter}
- * 
+ *
  * @author Philip Helger
  */
 public final class MimeTypeParameterTest extends AbstractCommonsTestCase
@@ -40,10 +40,11 @@ public final class MimeTypeParameterTest extends AbstractCommonsTestCase
     assertEquals ("iso-8859-1", p.getValue ());
     assertFalse (p.isValueRequiringQuoting ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (p, new MimeTypeParameter ("charset",
-                                                                                                 "iso-8859-1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charsetname",
-                                                                                                     "iso-8859-1"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (p,
+                                                                       new MimeTypeParameter ("charset", "iso-8859-1"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p,
+                                                                           new MimeTypeParameter ("charsetname",
+                                                                                                  "iso-8859-1"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p,
                                                                            new MimeTypeParameter ("charset", "utf-8"));
 

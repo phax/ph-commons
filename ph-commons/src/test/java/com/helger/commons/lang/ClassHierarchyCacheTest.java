@@ -33,7 +33,7 @@ import com.helger.commons.type.TypedObject;
 
 /**
  * Test class for class {@link ClassHierarchyCache}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ClassHierarchyCacheTest

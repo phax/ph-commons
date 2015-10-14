@@ -522,7 +522,7 @@ public final class MockJAXBIssue
 
     /**
      * Gets the value of the height property.
-     * 
+     *
      * @return height
      */
     public long getHeight ()
@@ -532,7 +532,7 @@ public final class MockJAXBIssue
 
     /**
      * Sets the value of the height property.
-     * 
+     *
      * @param value
      *        new height
      */

@@ -23,10 +23,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.filter.FilterListAny;
-import com.helger.commons.filter.FilterNotNull;
-import com.helger.commons.filter.FilterNull;
-import com.helger.commons.filter.IFilter;
 
 /**
  * Test class for class {@link FilterListAny}
@@ -35,7 +31,6 @@ import com.helger.commons.filter.IFilter;
  */
 public final class FilterListAnyTest
 {
-  @SuppressWarnings ("unchecked")
   @Test
   public void testAll ()
   {
@@ -51,7 +46,8 @@ public final class FilterListAnyTest
     assertFalse (aFilter.matchesFilter (""));
     assertFalse (aFilter.matchesFilter ("bla bla bla"));
 
-    aFilter = FilterListAny.create (CollectionHelper.newList (new FilterNull <String> (), new FilterNotNull <String> ()));
+    aFilter = FilterListAny.create (CollectionHelper.newList (new FilterNull <String> (),
+                                                              new FilterNotNull <String> ()));
     assertNotNull (aFilter);
     assertTrue (aFilter.matchesFilter (null));
     assertTrue (aFilter.matchesFilter (""));

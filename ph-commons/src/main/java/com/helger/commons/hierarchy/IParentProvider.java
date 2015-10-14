@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
  * This helper interface is required to build a generic tree. This is required
  * because the used interfaces do not provide a base interface implementing a
  * getParent method.
- * 
+ *
  * @author Philip Helger
  * @param <PARENTTYPE>
  *        The type of object to get a parent from
@@ -31,7 +31,7 @@ public interface IParentProvider <PARENTTYPE>
 {
   /**
    * Get the parent of the passed object.
-   * 
+   *
    * @param aCurrent
    *        The object to determine the parent of. No <code>null</code> or non-
    *        <code>null</code> constraint possible.

@@ -23,7 +23,7 @@ import com.helger.commons.annotation.IsSPIInterface;
 /**
  * SPI interface to be implemented by other modules wishing to register their
  * own micro-type converters.
- * 
+ *
  * @author Philip Helger
  */
 @IsSPIInterface
@@ -31,7 +31,7 @@ public interface IMicroTypeConverterRegistrarSPI
 {
   /**
    * Register all your dynamic micro type converters in the passed interface
-   * 
+   *
    * @param aRegistry
    *        The registry to register your converters. Never <code>null</code>.
    */

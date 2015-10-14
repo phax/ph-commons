@@ -23,7 +23,7 @@ import com.helger.commons.annotation.IsSPIInterface;
 /**
  * Implement this SPI interface if your JAR file contains external third party
  * modules.
- * 
+ *
  * @author Philip Helger
  */
 @IsSPIInterface

@@ -22,7 +22,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Just to indicate that a method has only increased visibility for testing.
- * 
+ *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.SOURCE)

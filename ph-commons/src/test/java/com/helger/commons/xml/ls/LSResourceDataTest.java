@@ -27,7 +27,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link LSResourceData}.
- * 
+ *
  * @author Philip Helger
  */
 public final class LSResourceDataTest
@@ -46,11 +46,12 @@ public final class LSResourceDataTest
     assertEquals ("schema1.xsd", rd.getSystemID ());
     assertNotNull (rd.getBaseURI ());
     assertTrue (rd.getBaseURI ().endsWith ("xml/schema2.xsd"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (rd, new LSResourceData (null,
-                                                                                                   null,
-                                                                                                   null,
-                                                                                                   null,
-                                                                                                   null));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (rd,
+                                                                           new LSResourceData (null,
+                                                                                               null,
+                                                                                               null,
+                                                                                               null,
+                                                                                               null));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (rd,
                                                                        new LSResourceData (rd.getType (),
                                                                                            rd.getNamespaceURI (),

@@ -18,8 +18,6 @@ package com.helger.commons.microdom.convert;
 
 import static org.junit.Assert.assertNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 
 import com.helger.commons.state.EContinue;
@@ -34,17 +32,10 @@ public final class MicroTypeConverterRegistryTest
   @Test
   public void testIterate ()
   {
-    MicroTypeConverterRegistry.getInstance ()
-                              .iterateAllRegisteredMicroTypeConverters (new IMicroTypeConverterCallback ()
-                              {
-                                @Nonnull
-                                public EContinue call (@Nonnull final Class <?> aClass,
-                                                       @Nonnull final IMicroTypeConverter aConverter)
-                                {
-                                  assertNotNull (aClass);
-                                  assertNotNull (aConverter);
-                                  return EContinue.CONTINUE;
-                                }
-                              });
+    MicroTypeConverterRegistry.getInstance ().iterateAllRegisteredMicroTypeConverters ( (aClass, aConverter) -> {
+      assertNotNull (aClass);
+      assertNotNull (aConverter);
+      return EContinue.CONTINUE;
+    });
   }
 }

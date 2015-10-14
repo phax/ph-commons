@@ -22,14 +22,14 @@ import com.helger.commons.annotation.Nonempty;
 
 /**
  * A generic converted from String URI to {@link ISimpleURL}.
- * 
+ *
  * @author Philip Helger
  */
 public interface IURIToURLConverter
 {
   /**
    * Convert the passed URI to a URL.
-   * 
+   *
    * @param sURI
    *        The URI to be converted.
    * @return The created URL.

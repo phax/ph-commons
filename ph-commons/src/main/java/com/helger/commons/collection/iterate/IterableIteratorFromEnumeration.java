@@ -28,7 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Create an iterable iterator from an existing enumeration.
- * 
+ *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        The element type to be enumerated.

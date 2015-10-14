@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
 /**
  * Just to indicate that a class is required to implement
  * {@link #equals(Object)} and {@link #hashCode()}.
- * 
+ *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)

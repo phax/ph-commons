@@ -22,7 +22,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 /**
  * Root class for a simple tree. The elements of the tree are not sorted by any
  * means.
- * 
+ *
  * @param <KEYTYPE>
  *        The type of the key elements for the tree.
  * @param <DATATYPE>

@@ -25,7 +25,7 @@ import com.helger.commons.ValueEnforcer;
 
 /**
  * A special privileged object, that calls <code>System.clearProperty</code>
- * 
+ *
  * @author Philip Helger
  */
 public final class PrivilegedActionSystemClearProperty implements PrivilegedAction <String>

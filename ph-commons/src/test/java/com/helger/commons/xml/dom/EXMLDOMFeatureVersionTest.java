@@ -25,7 +25,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link EXMLDOMFeatureVersion}.
- * 
+ *
  * @author Philip Helger
  */
 public final class EXMLDOMFeatureVersionTest

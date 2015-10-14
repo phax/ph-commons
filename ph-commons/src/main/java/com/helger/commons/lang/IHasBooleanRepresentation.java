@@ -18,7 +18,7 @@ package com.helger.commons.lang;
 
 /**
  * Base interface for all objects having an explicit boolean representation
- * 
+ *
  * @author Philip Helger
  */
 public interface IHasBooleanRepresentation

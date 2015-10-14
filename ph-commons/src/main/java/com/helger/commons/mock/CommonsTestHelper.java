@@ -371,19 +371,15 @@ public final class CommonsTestHelper
     final List <String> aErrors = new ArrayList <String> ();
     for (int i = 0; i < nCalls; ++i)
     {
-      aES.submit (new Runnable ()
-      {
-        public void run ()
+      aES.submit ( () -> {
+        try
         {
-          try
-          {
-            aRunnable.run ();
-          }
-          catch (final Throwable t)
-          {
-            // Remember thread stack
-            aErrors.add (t.getMessage () + "\n" + StackTraceHelper.getStackAsString (t));
-          }
+          aRunnable.run ();
+        }
+        catch (final Throwable t)
+        {
+          // Remember thread stack
+          aErrors.add (t.getMessage () + "\n" + StackTraceHelper.getStackAsString (t));
         }
       });
     }

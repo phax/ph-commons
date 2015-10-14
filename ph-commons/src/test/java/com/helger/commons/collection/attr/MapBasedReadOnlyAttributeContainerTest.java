@@ -29,8 +29,6 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.attr.MapBasedAttributeContainerAny;
-import com.helger.commons.collection.attr.MapBasedReadOnlyAttributeContainer;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -50,11 +48,11 @@ public final class MapBasedReadOnlyAttributeContainerTest
     assertTrue (x.containsNoAttribute ());
 
     x = new MapBasedReadOnlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                               "key2",
-                                                                                                               "key3" },
+                                                                                                                "key2",
+                                                                                                                "key3" },
                                                                                                 new Serializable [] { "value",
-                                                                                                                     "value2",
-                                                                                                                     null }));
+                                                                                                                      "value2",
+                                                                                                                      null }));
     assertEquals (3, x.getAttributeCount ());
     assertFalse (x.containsNoAttribute ());
     assertEquals ("value2", x.getAttributeObject ("key2"));
@@ -68,21 +66,21 @@ public final class MapBasedReadOnlyAttributeContainerTest
     assertFalse (x.getAllAttributeNames ().isEmpty ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapBasedReadOnlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                                              "key2" },
+                                                                                                                                                                               "key2" },
                                                                                                                                                                new Serializable [] { "value",
-                                                                                                                                                                                    "value2" })),
+                                                                                                                                                                                     "value2" })),
                                                                        new MapBasedReadOnlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                                              "key2" },
+                                                                                                                                                                               "key2" },
                                                                                                                                                                new Serializable [] { "value",
-                                                                                                                                                                                    "value2" })));
+                                                                                                                                                                                     "value2" })));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapBasedReadOnlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                                                  "key2" },
+                                                                                                                                                                                   "key2" },
                                                                                                                                                                    new Serializable [] { "value",
-                                                                                                                                                                                        "value2" })),
+                                                                                                                                                                                         "value2" })),
                                                                            new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                               "key2" },
+                                                                                                                                                                "key2" },
                                                                                                                                                 new Serializable [] { "value",
-                                                                                                                                                                     "value" })));
+                                                                                                                                                                      "value" })));
 
     try
     {

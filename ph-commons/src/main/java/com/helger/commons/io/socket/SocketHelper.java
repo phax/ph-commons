@@ -73,7 +73,8 @@ public final class SocketHelper
       catch (final IOException ex)
       {
         if (!StreamHelper.isKnownEOFException (ex))
-          s_aLogger.error ("Failed to close socket " + aSocket.getClass ().getName (),
+          s_aLogger.error ("Failed to close socket " +
+                           aSocket.getClass ().getName (),
                            ex instanceof IMockException ? null : ex);
       }
     }
@@ -102,7 +103,8 @@ public final class SocketHelper
       catch (final IOException ex)
       {
         if (!StreamHelper.isKnownEOFException (ex))
-          s_aLogger.error ("Failed to close server socket " + aSocket.getClass ().getName (),
+          s_aLogger.error ("Failed to close server socket " +
+                           aSocket.getClass ().getName (),
                            ex instanceof IMockException ? null : ex);
       }
     }

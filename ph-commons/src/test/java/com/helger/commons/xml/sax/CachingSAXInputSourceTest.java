@@ -34,7 +34,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link CachingSAXInputSource}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CachingSAXInputSourceTest

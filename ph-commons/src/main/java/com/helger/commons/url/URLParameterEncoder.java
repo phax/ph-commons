@@ -26,7 +26,7 @@ import com.helger.commons.codec.IEncoder;
 
 /**
  * Encoder for URLs
- * 
+ *
  * @author Philip Helger
  */
 public class URLParameterEncoder implements IEncoder <String>

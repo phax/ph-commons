@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Base interface for objects having a version.
- * 
+ *
  * @author Philip Helger
  */
 public interface IHasVersion

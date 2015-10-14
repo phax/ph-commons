@@ -31,7 +31,7 @@ import com.helger.commons.annotation.CodingStyleguideUnaware;
  * causes it to be run once before any of the test methods in the class. The
  * \@BeforeClass methods of super classes will be run before those the current
  * class.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable

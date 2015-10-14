@@ -73,9 +73,9 @@ public final class CodepointHelper
     for (int i = 0; i < aChars.length; i++)
     {
       final char n = aChars[i];
-      final int c = Character.isHighSurrogate (n) && i + 1 < aChars.length && Character.isLowSurrogate (aChars[i + 1]) ? Character.toCodePoint (n,
-                                                                                                                                                aChars[i++])
-                                                                                                                      : (int) n;
+      final int c = Character.isHighSurrogate (n) &&
+                    i + 1 < aChars.length &&
+                    Character.isLowSurrogate (aChars[i + 1]) ? Character.toCodePoint (n, aChars[i++]) : (int) n;
       if (c < nLow || c > nHigh)
         return false;
     }
@@ -103,8 +103,10 @@ public final class CodepointHelper
    */
   public static char getHighSurrogate (final int nCodepoint)
   {
-    return Character.isSupplementaryCodePoint (nCodepoint) ? (char) ((Character.MIN_HIGH_SURROGATE - (Character.MIN_SUPPLEMENTARY_CODE_POINT >> 10)) + (nCodepoint >> 10))
-                                                          : 0;
+    return Character.isSupplementaryCodePoint (nCodepoint) ? (char) ((Character.MIN_HIGH_SURROGATE -
+                                                                      (Character.MIN_SUPPLEMENTARY_CODE_POINT >> 10)) +
+                                                                     (nCodepoint >> 10))
+                                                           : 0;
   }
 
   /**

@@ -21,7 +21,7 @@ import com.helger.commons.annotation.DevelopersNote;
 /**
  * A generic filter interface for simple object selection based on a parameter.
  * If you don't need the parameter, use {@link IFilter} instead.
- * 
+ *
  * @author Philip
  * @param <DATATYPE>
  *        The type of object to filter.
@@ -32,7 +32,7 @@ public interface IFilterWithParameter <DATATYPE, PARAMTYPE>
 {
   /**
    * Check if the given value matches the filter or not.
-   * 
+   *
    * @param aValue
    *        The object to filter. May be <code>null</code> depending on the
    *        implementation.

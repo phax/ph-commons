@@ -22,14 +22,14 @@ import com.helger.commons.lang.IHasBooleanRepresentation;
 
 /**
  * Small enum for determining the append or truncate state of output streams.
- * 
+ *
  * @author Philip Helger
  */
 public enum EAppend implements IHasBooleanRepresentation
 {
-  /** Append to an existing object */
+ /** Append to an existing object */
   APPEND,
-  /** Truncate an eventually existing object and start over */
+ /** Truncate an eventually existing object and start over */
   TRUNCATE;
 
   /** The default is {@link #TRUNCATE} */

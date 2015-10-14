@@ -24,7 +24,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link ELeftRight}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ELeftRightTest

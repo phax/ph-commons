@@ -28,8 +28,6 @@ import org.junit.Test;
 
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -57,11 +55,13 @@ public final class IterableIteratorTest
     iit.remove ();
 
     assertEquals (3, CollectionHelper.newList (IterableIterator.create (new String [] { "a", "b", "c" })).size ());
-    assertEquals (3, CollectionHelper.newList (IterableIterator.create (CollectionHelper.newList ("a", "b", "c")))
-                                     .size ());
+    assertEquals (3,
+                  CollectionHelper.newList (IterableIterator.create (CollectionHelper.newList ("a", "b", "c")))
+                                  .size ());
     assertEquals (3,
                   CollectionHelper.newList (IterableIterator.create (CollectionHelper.newList ("a", "b", "c")
-                                                                                     .iterator ())).size ());
+                                                                                     .iterator ()))
+                                  .size ());
     CommonsTestHelper.testToStringImplementation (iit);
 
     try

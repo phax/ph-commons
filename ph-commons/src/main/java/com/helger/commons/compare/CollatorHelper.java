@@ -129,8 +129,8 @@ public final class CollatorHelper
   /**
    * Create a collator that is based on the standard collator but sorts spaces
    * before dots, because spaces are more important word separators than dots.
-   * Another example is the correct sorting of things like "1.1 a" vs.
-   * "1.1.1 b". This is the default collator used for sorting by default!
+   * Another example is the correct sorting of things like "1.1 a" vs. "1.1.1 b"
+   * . This is the default collator used for sorting by default!
    *
    * @param aLocale
    *        The locale for which the collator is to be retrieved. May be

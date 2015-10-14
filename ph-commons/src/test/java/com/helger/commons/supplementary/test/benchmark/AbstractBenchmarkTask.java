@@ -27,7 +27,7 @@ import com.helger.commons.system.SystemProperties;
 
 /**
  * Abstract benchmarking class.
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractBenchmarkTask
@@ -81,7 +81,7 @@ public abstract class AbstractBenchmarkTask
    * this is, in fact, the default garbage collector type.) The type of garbage
    * collectors to avoid are incremental, concurrent, or parallel ones.
    * <p>
-   * 
+   *
    * @param aTask
    *        The task to be executed
    * @return average execution time of a single invocation of task.run, in

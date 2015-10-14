@@ -22,13 +22,11 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.statistics.StatisticsManager;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link StatisticsManager}.
- * 
+ *
  * @author Philip Helger
  */
 public final class StatisticsManagerTest

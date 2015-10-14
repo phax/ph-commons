@@ -28,7 +28,7 @@ import com.helger.commons.statistics.IStatisticsHandlerTimer;
 /**
  * Default implementation of the {@link IStatisticsVisitorCallback} interface
  * that does nothing.
- * 
+ *
  * @author Philip Helger
  */
 public class DefaultStatisticsVisitorCallback implements IStatisticsVisitorCallback

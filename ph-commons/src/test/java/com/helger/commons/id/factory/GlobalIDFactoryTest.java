@@ -26,22 +26,11 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.helger.commons.id.factory.FileIntIDFactory;
-import com.helger.commons.id.factory.FileLongIDFactory;
-import com.helger.commons.id.factory.GlobalIDFactory;
-import com.helger.commons.id.factory.MemoryIntIDFactory;
-import com.helger.commons.id.factory.MemoryLongIDFactory;
-import com.helger.commons.id.factory.MemoryStaticIntIDFactory;
-import com.helger.commons.id.factory.MemoryStaticLongIDFactory;
-import com.helger.commons.id.factory.StringIDFromGlobalIntIDFactory;
-import com.helger.commons.id.factory.StringIDFromGlobalLongIDFactory;
-import com.helger.commons.id.factory.StringIDFromGlobalPersistentIntIDFactory;
-import com.helger.commons.id.factory.StringIDFromGlobalPersistentLongIDFactory;
 import com.helger.commons.io.file.FileOperations;
 
 /**
  * Test class for class {@link GlobalIDFactory}.
- * 
+ *
  * @author Philip Helger
  */
 public final class GlobalIDFactoryTest

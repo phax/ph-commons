@@ -30,7 +30,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link FileFilterFilenameEquals}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FileFilterFilenameEqualsTest

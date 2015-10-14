@@ -26,7 +26,7 @@ import com.helger.commons.charset.CharsetManager;
 
 /**
  * Register the locale specific type converter
- * 
+ *
  * @author Philip Helger
  */
 @Immutable

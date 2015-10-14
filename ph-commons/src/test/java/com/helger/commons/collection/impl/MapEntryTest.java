@@ -22,12 +22,11 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.MapEntry;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MapEntry}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MapEntryTest

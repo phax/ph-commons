@@ -25,14 +25,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.microdom.EMicroNodeType;
-import com.helger.commons.microdom.IMicroContainer;
-import com.helger.commons.microdom.IMicroNode;
-import com.helger.commons.microdom.MicroCDATA;
-import com.helger.commons.microdom.MicroContainer;
-import com.helger.commons.microdom.MicroDocument;
-import com.helger.commons.microdom.MicroElement;
-import com.helger.commons.microdom.MicroText;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

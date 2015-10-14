@@ -56,7 +56,8 @@ public interface IMimeType extends IHasStringRepresentation, ICloneable <IMimeTy
    * the {@link CMimeType#DEFAULT_QUOTING} quoting algorithm is used.
    *
    * @return The combined string to be used as text representation:
-   *         <code><em>contentType</em> '/' <em>subType</em> ( ';' <em>parameterName</em> '=' <em>parameterValue</em> )*</code>
+   *         <code><em>contentType</em> '/' <em>subType</em> ( ';'
+   *         <em>parameterName</em> '=' <em>parameterValue</em> )*</code>
    * @see #getAsString(EMimeQuoting)
    * @see #getAsStringWithoutParameters()
    */
@@ -71,7 +72,8 @@ public interface IMimeType extends IHasStringRepresentation, ICloneable <IMimeTy
    * @param eQuotingAlgorithm
    *        Quoting algorithm to be used
    * @return The combined string to be used as text representation:
-   *         <code><em>contentType</em> '/' <em>subType</em> ( ';' <em>parameterName</em> '=' <em>parameterValue</em> )*</code>
+   *         <code><em>contentType</em> '/' <em>subType</em> ( ';'
+   *         <em>parameterName</em> '=' <em>parameterValue</em> )*</code>
    * @see #getAsStringWithoutParameters()
    * @see #getParametersAsString(EMimeQuoting)
    */
@@ -81,8 +83,8 @@ public interface IMimeType extends IHasStringRepresentation, ICloneable <IMimeTy
 
   /**
    * @return The combined string to be used as text representation but without
-   *         the parameters:
-   *         <code><em>contentType</em> '/' <em>subType</em></code>
+   *         the parameters: <code><em>contentType</em> '/'
+   *         <em>subType</em></code>
    * @see #getAsString()
    */
   @Nonnull
@@ -97,8 +99,9 @@ public interface IMimeType extends IHasStringRepresentation, ICloneable <IMimeTy
    * @param eQuotingAlgorithm
    *        Quoting algorithm to be used
    * @return The combined string to be used as text representation:
-   *         <code>(';' <em>parameterName</em> '=' <em>parameterValue</em> )*</code>
-   *         . If no parameters are present, an empty String is returned!
+   *         <code>(';' <em>parameterName</em> '=' <em>parameterValue</em>
+   *         )*</code> . If no parameters are present, an empty String is
+   *         returned!
    * @see #getAsString(EMimeQuoting)
    * @see #getAsStringWithoutParameters()
    */

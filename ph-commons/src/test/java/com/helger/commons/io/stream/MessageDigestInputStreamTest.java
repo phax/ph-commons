@@ -26,16 +26,12 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.io.stream.MessageDigestInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MessageDigestInputStream}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MessageDigestInputStreamTest

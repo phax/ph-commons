@@ -24,7 +24,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link EFinish}.
- * 
+ *
  * @author Philip Helger
  */
 public final class EFinishTest

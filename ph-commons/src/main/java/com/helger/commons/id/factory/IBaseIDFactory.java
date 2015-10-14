@@ -21,7 +21,7 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 /**
  * Base marker interface for all ID factories. It's only sense is to group all
  * ID factories with the different types
- * 
+ *
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode

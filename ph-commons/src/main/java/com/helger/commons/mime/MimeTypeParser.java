@@ -40,20 +40,20 @@ public final class MimeTypeParser
   private static final MimeTypeParser s_aInstance = new MimeTypeParser ();
 
   private static final char [] TSPECIAL = new char [] { '(',
-                                                       ')',
-                                                       '<',
-                                                       '>',
-                                                       '@',
-                                                       ',',
-                                                       ';',
-                                                       ':',
-                                                       '\\',
-                                                       '"',
-                                                       '/',
-                                                       '[',
-                                                       ']',
-                                                       '?',
-                                                       '=' };
+                                                        ')',
+                                                        '<',
+                                                        '>',
+                                                        '@',
+                                                        ',',
+                                                        ';',
+                                                        ':',
+                                                        '\\',
+                                                        '"',
+                                                        '/',
+                                                        '[',
+                                                        ']',
+                                                        '?',
+                                                        '=' };
 
   private MimeTypeParser ()
   {}
@@ -206,7 +206,8 @@ public final class MimeTypeParser
                                              sParameterName +
                                              "' with value '" +
                                              sParameterValue +
-                                             "'", ex);
+                                             "'",
+                                             ex);
         }
 
         // Search for separator of next parameter
@@ -269,7 +270,8 @@ public final class MimeTypeParser
                                              sParameterName +
                                              "' with value '" +
                                              sParameterValue +
-                                             "'", ex);
+                                             "'",
+                                             ex);
         }
       }
     }
@@ -307,7 +309,8 @@ public final class MimeTypeParser
    *         In case of an error
    */
   @Nullable
-  public static MimeType parseMimeType (@Nullable final String sMimeType, @Nonnull final EMimeQuoting eQuotingAlgorithm) throws MimeTypeParserException
+  public static MimeType parseMimeType (@Nullable final String sMimeType,
+                                        @Nonnull final EMimeQuoting eQuotingAlgorithm) throws MimeTypeParserException
   {
     ValueEnforcer.notNull (eQuotingAlgorithm, "QuotingAlgorithm");
 

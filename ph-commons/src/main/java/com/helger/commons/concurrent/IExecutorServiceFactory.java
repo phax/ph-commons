@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Factory for creating {@link ExecutorService} instances.
- * 
+ *
  * @author Philip Helger
  */
 public interface IExecutorServiceFactory
@@ -32,7 +32,7 @@ public interface IExecutorServiceFactory
    * Get an {@link ExecutorService} for the given number of parallel tasks. It
    * is up to the implementation to interpret the value or not. The number of
    * parallel tasks can therefore considered a hint to the implementation.
-   * 
+   *
    * @param nParallelTasks
    *        The number of parallel tasks to perform. Needs to be &gt; 0.
    * @return A non-<code>null</code> {@link ExecutorService} object.

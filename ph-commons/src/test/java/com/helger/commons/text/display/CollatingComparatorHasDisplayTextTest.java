@@ -26,8 +26,6 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.text.display.CollatingComparatorHasDisplayText;
-import com.helger.commons.text.display.IHasDisplayText;
 
 /**
  * Test class for class {@link CollatingComparatorHasDisplayText}.
@@ -63,7 +61,8 @@ public final class CollatingComparatorHasDisplayTextTest extends AbstractCommons
     assertEquals ("en3", l2.get (2).getDisplayText (L_EN));
 
     l2 = CollectionHelper.getSorted (aList,
-                                     new CollatingComparatorHasDisplayText <IHasDisplayText> (L_DE, L_DE).setSortOrder (ESortOrder.DESCENDING));
+                                     new CollatingComparatorHasDisplayText <IHasDisplayText> (L_DE,
+                                                                                              L_DE).setSortOrder (ESortOrder.DESCENDING));
     assertEquals (3, l2.size ());
     assertEquals ("de3", l2.get (0).getDisplayText (L_DE));
     assertEquals ("de2", l2.get (1).getDisplayText (L_DE));
@@ -73,7 +72,8 @@ public final class CollatingComparatorHasDisplayTextTest extends AbstractCommons
     assertEquals ("en3", l2.get (2).getDisplayText (L_EN));
 
     l2 = CollectionHelper.getSorted (aList,
-                                     new CollatingComparatorHasDisplayText <IHasDisplayText> (L_DE, L_EN).setSortOrder (ESortOrder.DESCENDING));
+                                     new CollatingComparatorHasDisplayText <IHasDisplayText> (L_DE,
+                                                                                              L_EN).setSortOrder (ESortOrder.DESCENDING));
     assertEquals (3, l2.size ());
     assertEquals ("de1", l2.get (0).getDisplayText (L_DE));
     assertEquals ("de2", l2.get (1).getDisplayText (L_DE));

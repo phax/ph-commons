@@ -28,7 +28,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link EMimeContentType}
- * 
+ *
  * @author Philip Helger
  */
 public final class EMimeContentTypeTest extends AbstractCommonsTestCase

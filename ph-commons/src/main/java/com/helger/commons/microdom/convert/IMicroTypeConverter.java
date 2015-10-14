@@ -25,14 +25,14 @@ import com.helger.commons.microdom.IMicroElement;
 /**
  * Interface to be implemented to marshal between IMicroElement and a native
  * object.
- * 
+ *
  * @author Philip Helger
  */
 public interface IMicroTypeConverter
 {
   /**
    * Convert the passed object to a micro element using the specified tag name
-   * 
+   *
    * @param aObject
    *        The object to be converted. May not be <code>null</code>.
    * @param sNamespaceURI
@@ -50,7 +50,7 @@ public interface IMicroTypeConverter
 
   /**
    * Convert the passed object to a native element.
-   * 
+   *
    * @param aElement
    *        The micro element to be converted.
    * @return <code>null</code> if conversion to a native object failed.

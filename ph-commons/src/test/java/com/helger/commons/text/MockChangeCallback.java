@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.callback.IChangeCallback;
 import com.helger.commons.state.EContinue;
-import com.helger.commons.text.IMutableMultilingualText;
 
 public final class MockChangeCallback implements IChangeCallback <IMutableMultilingualText>
 {

@@ -26,7 +26,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link EmailAddress}.
- * 
+ *
  * @author Philip Helger
  */
 public final class EmailAddressTest
@@ -56,8 +56,9 @@ public final class EmailAddressTest
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMA, new EmailAddress ("ph@example.org"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMA, new EmailAddress ("ph@example2.org"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMA, new EmailAddress ("ph@example.org",
-                                                                                                  "My name"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMA,
+                                                                           new EmailAddress ("ph@example.org",
+                                                                                             "My name"));
     CommonsTestHelper.testDefaultSerialization (new EmailAddress ("ph@example.org", "My name"));
 
     aMA = new EmailAddress ("ph@example.org", "Philip");

@@ -23,13 +23,12 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.helger.commons.id.factory.FileIntIDFactory;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link FileIntIDFactory}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FileIntIDFactoryTest
@@ -47,7 +46,8 @@ public final class FileIntIDFactoryTest
       CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, new FileIntIDFactory (f2));
       CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x,
                                                                              new FileIntIDFactory (f,
-                                                                                                   FileIntIDFactory.DEFAULT_RESERVE_COUNT * 2));
+                                                                                                   FileIntIDFactory.DEFAULT_RESERVE_COUNT *
+                                                                                                      2));
 
       for (int i = 0; i < x.getReserveCount () * 10; ++i)
         assertEquals (i, x.getNewID ());

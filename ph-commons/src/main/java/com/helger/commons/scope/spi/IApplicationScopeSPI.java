@@ -24,7 +24,7 @@ import com.helger.commons.scope.IApplicationScope;
 /**
  * SPI for handling the application scope lifecycle. Is invoked for non-web and
  * web scopes.
- * 
+ *
  * @author Philip Helger
  */
 @IsSPIInterface
@@ -32,7 +32,7 @@ public interface IApplicationScopeSPI
 {
   /**
    * Called after the application scope was started
-   * 
+   *
    * @param aApplicationScope
    *        The application scope object to be used. Never <code>null</code>.
    */
@@ -40,7 +40,7 @@ public interface IApplicationScopeSPI
 
   /**
    * Called before the application scope is shut down
-   * 
+   *
    * @param aApplicationScope
    *        The application scope object to be used. Never <code>null</code>.
    */

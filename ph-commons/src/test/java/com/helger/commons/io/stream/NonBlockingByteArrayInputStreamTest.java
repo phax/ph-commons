@@ -24,7 +24,6 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.random.VerySecureRandom;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

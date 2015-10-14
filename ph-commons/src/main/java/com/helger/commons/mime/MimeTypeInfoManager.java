@@ -188,7 +188,8 @@ public class MimeTypeInfoManager
     m_aRWLock.readLock ().lock ();
     try
     {
-      for (final MimeTypeInfo aInfo : CollectionHelper.getSorted (m_aList, new ComparatorMimeTypeInfoPrimaryMimeType ()))
+      for (final MimeTypeInfo aInfo : CollectionHelper.getSorted (m_aList,
+                                                                  new ComparatorMimeTypeInfoPrimaryMimeType ()))
         eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aInfo, "item"));
     }
     finally

@@ -24,7 +24,7 @@ import com.helger.commons.typeconvert.ITypeConverterRule;
 
 /**
  * Abstract type converter rule implementation
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractTypeConverterRule implements ITypeConverterRule

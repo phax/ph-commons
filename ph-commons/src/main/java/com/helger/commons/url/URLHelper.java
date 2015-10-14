@@ -843,37 +843,33 @@ public final class URLHelper
     ValueEnforcer.notNull (aContentBytes, "ContentBytes");
 
     final Wrapper <OutputStream> aOpenedOS = new Wrapper <OutputStream> ();
-    final INonThrowingRunnableWithParameter <URLConnection> aPOSTModifier = new INonThrowingRunnableWithParameter <URLConnection> ()
-    {
-      public void run (@Nonnull final URLConnection aURLConnection)
+    final INonThrowingRunnableWithParameter <URLConnection> aPOSTModifier = aURLConnection -> {
+      final HttpURLConnection aHTTPURLConnection = (HttpURLConnection) aURLConnection;
+      try
       {
-        final HttpURLConnection aHTTPURLConnection = (HttpURLConnection) aURLConnection;
-        try
-        {
-          aHTTPURLConnection.setRequestMethod ("POST");
-          aHTTPURLConnection.setDoInput (true);
-          aHTTPURLConnection.setDoOutput (true);
-          if (aContentType != null)
-            aHTTPURLConnection.setRequestProperty ("Content-Type", aContentType.getAsString ());
-          aHTTPURLConnection.setRequestProperty ("Content-Length", Integer.toString (aContentBytes.length));
-          if (aAdditionalHTTPHeaders != null)
-            for (final Map.Entry <String, String> aEntry : aAdditionalHTTPHeaders.entrySet ())
-              aHTTPURLConnection.setRequestProperty (aEntry.getKey (), aEntry.getValue ());
+        aHTTPURLConnection.setRequestMethod ("POST");
+        aHTTPURLConnection.setDoInput (true);
+        aHTTPURLConnection.setDoOutput (true);
+        if (aContentType != null)
+          aHTTPURLConnection.setRequestProperty ("Content-Type", aContentType.getAsString ());
+        aHTTPURLConnection.setRequestProperty ("Content-Length", Integer.toString (aContentBytes.length));
+        if (aAdditionalHTTPHeaders != null)
+          for (final Map.Entry <String, String> aEntry : aAdditionalHTTPHeaders.entrySet ())
+            aHTTPURLConnection.setRequestProperty (aEntry.getKey (), aEntry.getValue ());
 
-          final OutputStream aOS = aHTTPURLConnection.getOutputStream ();
-          aOpenedOS.set (aOS);
-          aOS.write (aContentBytes);
-          aOS.flush ();
-        }
-        catch (final IOException ex)
-        {
-          throw new IllegalStateException ("Failed to POST data to " + aURL.toExternalForm (), ex);
-        }
-
-        // Run provided modifier (if any)
-        if (aConnectionModifier != null)
-          aConnectionModifier.run (aURLConnection);
+        final OutputStream aOS = aHTTPURLConnection.getOutputStream ();
+        aOpenedOS.set (aOS);
+        aOS.write (aContentBytes);
+        aOS.flush ();
       }
+      catch (final IOException ex)
+      {
+        throw new IllegalStateException ("Failed to POST data to " + aURL.toExternalForm (), ex);
+      }
+
+      // Run provided modifier (if any)
+      if (aConnectionModifier != null)
+        aConnectionModifier.run (aURLConnection);
     };
 
     try

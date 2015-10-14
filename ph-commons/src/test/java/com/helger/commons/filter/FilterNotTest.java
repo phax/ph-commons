@@ -23,11 +23,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.filter.FilterNot;
-import com.helger.commons.filter.FilterNotNull;
-import com.helger.commons.filter.FilterNull;
-import com.helger.commons.filter.IFilter;
-
 /**
  * Test class for class {@link FilterNot}
  *

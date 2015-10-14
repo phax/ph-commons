@@ -26,13 +26,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.microdom.EMicroNodeType;
-import com.helger.commons.microdom.IMicroDocument;
-import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.MicroDocument;
-import com.helger.commons.microdom.MicroDocumentType;
-import com.helger.commons.microdom.MicroException;
-import com.helger.commons.microdom.MicroText;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

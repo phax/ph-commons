@@ -26,20 +26,20 @@ import com.helger.commons.lang.EnumHelper;
 
 /**
  * Denotes the type of {@link IMicroNode} objects.
- * 
+ *
  * @author Philip Helger
  */
 public enum EMicroNodeType implements IHasIntID
 {
-  CDATA (1, Node.CDATA_SECTION_NODE),
-  COMMENT (2, Node.COMMENT_NODE),
-  CONTAINER (3),
-  DOCUMENT (4, Node.DOCUMENT_NODE),
-  DOCUMENT_TYPE (5, Node.DOCUMENT_TYPE_NODE),
-  ELEMENT (6, Node.ELEMENT_NODE),
-  ENTITY_REFERENCE (7, Node.ENTITY_REFERENCE_NODE),
-  PROCESSING_INSTRUCTION (8, Node.PROCESSING_INSTRUCTION_NODE),
-  TEXT (9, Node.TEXT_NODE);
+ CDATA (1, Node.CDATA_SECTION_NODE),
+ COMMENT (2, Node.COMMENT_NODE),
+ CONTAINER (3),
+ DOCUMENT (4, Node.DOCUMENT_NODE),
+ DOCUMENT_TYPE (5, Node.DOCUMENT_TYPE_NODE),
+ ELEMENT (6, Node.ELEMENT_NODE),
+ ENTITY_REFERENCE (7, Node.ENTITY_REFERENCE_NODE),
+ PROCESSING_INSTRUCTION (8, Node.PROCESSING_INSTRUCTION_NODE),
+ TEXT (9, Node.TEXT_NODE);
 
   /** Represents a non-existing DOM Node Type */
   public static final short ILLEGAL_DOM_NODE_TYPE = 0;

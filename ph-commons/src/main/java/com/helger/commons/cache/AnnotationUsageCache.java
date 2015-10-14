@@ -33,7 +33,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A simple cache for the usage of a certain annotation class at other classes.<br>
+ * A simple cache for the usage of a certain annotation class at other classes.
+ * <br>
  * Note: cannot use {@link com.helger.commons.cache.AbstractNotifyingCache}
  * because it would need a <code>Class&lt;?&gt;</code> as a key and this would
  * be a hard wired reference.

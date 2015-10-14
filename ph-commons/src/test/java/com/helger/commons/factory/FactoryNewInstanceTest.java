@@ -24,8 +24,6 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.commons.factory.FactoryNewInstance;
-import com.helger.commons.factory.IFactory;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

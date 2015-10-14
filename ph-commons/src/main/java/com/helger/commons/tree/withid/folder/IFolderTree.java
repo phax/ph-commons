@@ -22,7 +22,7 @@ import com.helger.commons.tree.withid.unique.ITreeWithGlobalUniqueID;
 
 /**
  * Base interface for a simple tree.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        Key type

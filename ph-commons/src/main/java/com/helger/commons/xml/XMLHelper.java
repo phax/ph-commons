@@ -228,9 +228,8 @@ public final class XMLHelper
                                                   @Nullable final String sNamespaceURI,
                                                   @Nonnull @Nonempty final String sLocalName)
   {
-    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNS (aParent,
-                                                                                      sNamespaceURI,
-                                                                                      sLocalName));
+    return aParent == null ? 0
+                           : CollectionHelper.getSize (getChildElementIteratorNS (aParent, sNamespaceURI, sLocalName));
   }
 
   /**
@@ -281,7 +280,8 @@ public final class XMLHelper
   {
     ValueEnforcer.notEmpty (sLocalName, "LocalName");
 
-    return new ChildElementIterator (aStartNode, new FilterElementWithNamespaceAndLocalName (sNamespaceURI, sLocalName));
+    return new ChildElementIterator (aStartNode,
+                                     new FilterElementWithNamespaceAndLocalName (sNamespaceURI, sLocalName));
   }
 
   public static boolean hasNamespaceURI (@Nullable final Node aNode, @Nullable final String sNamespaceURI)

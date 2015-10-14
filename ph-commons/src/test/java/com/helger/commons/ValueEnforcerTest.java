@@ -24,7 +24,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link ValueEnforcer}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ValueEnforcerTest

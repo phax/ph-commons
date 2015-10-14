@@ -47,7 +47,8 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
     this (null, sTagName);
   }
 
-  public ChildrenProviderElementWithName (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sTagName)
+  public ChildrenProviderElementWithName (@Nullable final String sNamespaceURI,
+                                          @Nonnull @Nonempty final String sTagName)
   {
     m_sNamespaceURI = sNamespaceURI;
     m_sTagName = ValueEnforcer.notEmpty (sTagName, "TagName");

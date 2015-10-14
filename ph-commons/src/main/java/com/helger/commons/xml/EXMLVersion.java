@@ -29,10 +29,10 @@ import com.helger.commons.string.StringHelper;
  */
 public enum EXMLVersion
 {
-  /** XML 1.0 - this should be the default */
+ /** XML 1.0 - this should be the default */
   XML_10 ("1.0"),
 
-  /** XML 1.1 */
+ /** XML 1.1 */
   XML_11 ("1.1");
 
   private final String m_sVersion;

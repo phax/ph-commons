@@ -21,10 +21,6 @@ import static org.junit.Assert.assertNotNull;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.microdom.EMicroEvent;
-import com.helger.commons.microdom.IMicroEvent;
-import com.helger.commons.microdom.IMicroEventTarget;
-
 final class MockMicroEventListener implements IMicroEventTarget
 {
   private final EMicroEvent m_eType;

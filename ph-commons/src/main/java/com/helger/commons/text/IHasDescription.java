@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 
 /**
  * Base interface for objects that have a locale <b>independent</b> description.
- * 
+ *
  * @author Philip Helger
  */
 public interface IHasDescription

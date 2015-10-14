@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 
 /**
  * Represents a complete document.
- * 
+ *
  * @author Philip Helger
  */
 public interface IMicroDocument extends IMicroNodeWithChildren
@@ -34,7 +34,7 @@ public interface IMicroDocument extends IMicroNodeWithChildren
 
   /**
    * Change the standalone state of this document.
-   * 
+   *
    * @param bIsStandalone
    *        The new value. <code>true</code> for standalone, <code>false</code>
    *        if not.

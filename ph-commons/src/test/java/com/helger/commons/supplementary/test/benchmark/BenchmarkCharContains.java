@@ -29,25 +29,15 @@ public final class BenchmarkCharContains
     boolean containsPathSep (String s);
   }
 
-  public static final IDoIt s_a1 = new IDoIt ()
-  {
-    public boolean containsPathSep (final String s)
-    {
-      if (s != null)
-        for (final char c : s.toCharArray ())
-          if (c == '/' || c == '\\')
-            return true;
-      return false;
-    }
+  public static final IDoIt s_a1 = s -> {
+    if (s != null)
+      for (final char c : s.toCharArray ())
+        if (c == '/' || c == '\\')
+          return true;
+    return false;
   };
 
-  public static final IDoIt s_a2 = new IDoIt ()
-  {
-    public boolean containsPathSep (final String s)
-    {
-      return s.indexOf ('/') >= 0 || s.indexOf ('\\') >= 0;
-    }
-  };
+  public static final IDoIt s_a2 = s -> s.indexOf ('/') >= 0 || s.indexOf ('\\') >= 0;
 
   public static void main (final String [] args)
   {

@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Base interface for size and timer handler.
- * 
+ *
  * @author Philip Helger
  */
 public interface IStatisticsHandlerNumeric extends IStatisticsHandler

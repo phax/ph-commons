@@ -23,7 +23,7 @@ import com.helger.commons.state.EContinue;
 /**
  * A callback interface that is used in several places of the type conversion
  * engine.
- * 
+ *
  * @author Philip Helger
  */
 public interface ITypeConverterCallback

@@ -22,11 +22,10 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.codec.ASCIIHexCodec;
 
 /**
  * Test class for class {@link ASCIIHexCodec}
- * 
+ *
  * @author Philip Helger
  */
 public final class ASCIIHexCodecTest

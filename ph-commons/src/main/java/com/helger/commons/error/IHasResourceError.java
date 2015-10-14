@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Interface representing an object having a resource error.
- * 
+ *
  * @author Philip Helger
  */
 public interface IHasResourceError

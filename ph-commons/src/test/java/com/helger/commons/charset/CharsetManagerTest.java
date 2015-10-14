@@ -96,17 +96,20 @@ public final class CharsetManagerTest
     assertEquals (3,
                   CharsetManager.getAsStringInOtherCharset (s,
                                                             CCharset.CHARSET_ISO_8859_1_OBJ,
-                                                            CCharset.CHARSET_UTF_8_OBJ).length ());
+                                                            CCharset.CHARSET_UTF_8_OBJ)
+                                .length ());
     assertEquals (4,
                   CharsetManager.getAsStringInOtherCharset (s,
                                                             CCharset.CHARSET_UTF_8_OBJ,
-                                                            CCharset.CHARSET_ISO_8859_1_OBJ).length ());
+                                                            CCharset.CHARSET_ISO_8859_1_OBJ)
+                                .length ());
     assertNull (CharsetManager.getAsStringInOtherCharset (null,
                                                           CCharset.CHARSET_ISO_8859_1_OBJ,
                                                           CCharset.CHARSET_UTF_8_OBJ));
-    assertEquals (s, CharsetManager.getAsStringInOtherCharset (s,
-                                                               CCharset.CHARSET_ISO_8859_1_OBJ,
-                                                               CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertEquals (s,
+                  CharsetManager.getAsStringInOtherCharset (s,
+                                                            CCharset.CHARSET_ISO_8859_1_OBJ,
+                                                            CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (s,
                   CharsetManager.getAsStringInOtherCharset (s, CCharset.CHARSET_UTF_8_OBJ, CCharset.CHARSET_UTF_8_OBJ));
 

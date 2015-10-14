@@ -339,17 +339,10 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
         // Perform a check, whether there is more than one potential converter
         // present!
         final List <String> aAllConverters = new ArrayList <String> ();
-        _iterateFuzzyConverters (aSrcClass, aDstClass, new ITypeConverterCallback ()
-        {
-          @Nonnull
-          public EContinue call (@Nonnull final Class <?> aCurSrcClass,
-                                 @Nonnull final Class <?> aCurDstClass,
-                                 @Nonnull final ITypeConverter aConverter)
-          {
-            final boolean bExact = aSrcClass.equals (aCurSrcClass) && aDstClass.equals (aCurDstClass);
-            aAllConverters.add ("[" + aCurSrcClass.getName () + "->" + aCurDstClass.getName () + "]");
-            return bExact ? EContinue.BREAK : EContinue.CONTINUE;
-          }
+        _iterateFuzzyConverters (aSrcClass, aDstClass, (aCurSrcClass, aCurDstClass, aConverter) -> {
+          final boolean bExact = aSrcClass.equals (aCurSrcClass) && aDstClass.equals (aCurDstClass);
+          aAllConverters.add ("[" + aCurSrcClass.getName () + "->" + aCurDstClass.getName () + "]");
+          return bExact ? EContinue.BREAK : EContinue.CONTINUE;
         });
         if (aAllConverters.size () > 1)
           s_aLogger.warn ("The fuzzy type converter resolver returned more than 1 match for the conversion from " +
@@ -362,16 +355,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
 
       // Iterate and find the first matching type converter
       final Wrapper <ITypeConverter> ret = new Wrapper <ITypeConverter> ();
-      _iterateFuzzyConverters (aSrcClass, aDstClass, new ITypeConverterCallback ()
-      {
-        @Nonnull
-        public EContinue call (@Nonnull final Class <?> aCurSrcClass,
-                               @Nonnull final Class <?> aCurDstClass,
-                               @Nonnull final ITypeConverter aConverter)
-        {
-          ret.set (aConverter);
-          return EContinue.BREAK;
-        }
+      _iterateFuzzyConverters (aSrcClass, aDstClass, (aCurSrcClass, aCurDstClass, aConverter) -> {
+        ret.set (aConverter);
+        return EContinue.BREAK;
       });
       return ret.get ();
     }

@@ -22,7 +22,7 @@ import com.helger.commons.annotation.IsSPIInterface;
 
 /**
  * SPI registry interface to implement your custom hashCode implementations.
- * 
+ *
  * @author Philip Helger
  */
 @IsSPIInterface
@@ -30,7 +30,7 @@ public interface IHashCodeImplementationRegistrarSPI
 {
   /**
    * Register a bunch of custom hashCode implementations
-   * 
+   *
    * @param aRegistry
    *        The registry to register at.
    */

@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Interface for objects having an ID.
- * 
+ *
  * @author Philip Helger
  * @param <VALUETYPE>
  *        Object type
@@ -33,7 +33,7 @@ public interface IIDProvider <VALUETYPE, IDTYPE> extends Serializable
 {
   /**
    * Get the ID of the passed object.
-   * 
+   *
    * @param aObject
    *        The object who's ID is to be retrieved. May not be <code>null</code>
    *        .

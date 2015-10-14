@@ -582,32 +582,27 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
       final MutableBoolean aFinalWasInstantiated = new MutableBoolean (false);
 
       // Safe instantiation:
-      aInstance = aScope.runAtomic (new INonThrowingCallableWithParameter <T, IScope> ()
-      {
-        @Nonnull
-        public T call (@Nonnull final IScope aInnerScope)
+      aInstance = aScope.runAtomic ((INonThrowingCallableWithParameter <T, IScope>) aInnerScope -> {
+        // try to resolve again in case it was set in the meantime
+        T aInnerInstance = aClass.cast (aInnerScope.getAttributeObject (sSingletonScopeKey));
+        if (aInnerInstance == null)
         {
-          // try to resolve again in case it was set in the meantime
-          T aInnerInstance = aClass.cast (aInnerScope.getAttributeObject (sSingletonScopeKey));
-          if (aInnerInstance == null)
-          {
-            // Main instantiation
-            aInnerInstance = _instantiateSingleton (aClass, aInnerScope);
+          // Main instantiation
+          aInnerInstance = _instantiateSingleton (aClass, aInnerScope);
 
-            // Set in scope
-            aInnerScope.setAttribute (sSingletonScopeKey, aInnerInstance);
+          // Set in scope
+          aInnerScope.setAttribute (sSingletonScopeKey, aInnerInstance);
 
-            // Remember that we instantiated the object
-            aFinalWasInstantiated.set (true);
+          // Remember that we instantiated the object
+          aFinalWasInstantiated.set (true);
 
-            // And some statistics
-            s_aStatsCounterInstantiate.increment (sSingletonScopeKey);
-          }
-
-          // We have the instance - maybe from re-querying the scope, maybe from
-          // instantiation
-          return aInnerInstance;
+          // And some statistics
+          s_aStatsCounterInstantiate.increment (sSingletonScopeKey);
         }
+
+        // We have the instance - maybe from re-querying the scope, maybe from
+        // instantiation
+        return aInnerInstance;
       });
 
       // Call outside the scope sync block, and after the instance was

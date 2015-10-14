@@ -397,8 +397,8 @@ public final class ScopeManager
     final ISessionScope aSessionScope = getSessionScope (bCreateIfNotExisting);
     // Session scope may only be null if bCreateIfNotExisting is false, else an
     // exception was already thrown in getSessionScope
-    return aSessionScope == null ? null : aSessionScope.getSessionApplicationScope (sApplicationID,
-                                                                                    bCreateIfNotExisting);
+    return aSessionScope == null ? null
+                                 : aSessionScope.getSessionApplicationScope (sApplicationID, bCreateIfNotExisting);
   }
 
   // --- request scope ---

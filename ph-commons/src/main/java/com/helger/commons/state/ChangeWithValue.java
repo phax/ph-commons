@@ -156,7 +156,7 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
 
   /**
    * Create a new changed object with the given value.
-   * 
+   *
    * @param <DATATYPE>
    *        The data type that is wrapped together with the change indicator
    * @param aValue
@@ -171,7 +171,7 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
 
   /**
    * Create a new unchanged object with the given value.
-   * 
+   *
    * @param <DATATYPE>
    *        The data type that is wrapped together with the change indicator
    * @param aValue

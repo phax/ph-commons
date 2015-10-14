@@ -657,7 +657,7 @@ public final class FileHelper
     }
     catch (final IllegalStateException ex)
     {
-      // Happens e.g. when the parent directory is "  "
+      // Happens e.g. when the parent directory is " "
       s_aLogger.warn ("Failed to create parent directory of '" + aFile + "'", ex);
       return EValidity.INVALID;
     }

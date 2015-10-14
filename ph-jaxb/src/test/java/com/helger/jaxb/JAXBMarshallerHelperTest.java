@@ -30,8 +30,6 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
-import com.helger.jaxb.JAXBContextCache;
-import com.helger.jaxb.JAXBMarshallerHelper;
 
 /**
  * Test class for class {@link JAXBMarshallerHelper}.

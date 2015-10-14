@@ -45,7 +45,7 @@ public final class AESCryptFuncTest
      * Create a new AES key from the given byte array. Please note that for more
      * than 16 bytes, you need the
      * "unlimited strength jurisdiction policy files".
-     * 
+     *
      * @param aBytes
      *        Byte array with 16, 24 or 32 bytes. May not be <code>null</code>.
      */

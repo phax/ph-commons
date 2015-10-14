@@ -44,7 +44,7 @@ import com.helger.commons.xml.XMLFactory;
 
 /**
  * DOM reader settings
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -99,7 +99,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
 
   /**
    * Copy constructor.
-   * 
+   *
    * @param aOther
    *        The settings object to copy from. May not be <code>null</code>.
    */

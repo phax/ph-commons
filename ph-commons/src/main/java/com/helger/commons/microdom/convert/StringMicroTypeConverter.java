@@ -27,7 +27,7 @@ import com.helger.commons.microdom.MicroElement;
 /**
  * Default {@link IMicroTypeConverter} implementation for {@link String}
  * objects.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable

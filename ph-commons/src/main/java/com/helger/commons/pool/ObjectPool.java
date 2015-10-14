@@ -36,7 +36,7 @@ import com.helger.commons.state.ESuccess;
 
 /**
  * A simple generic object pool with a fixed size determined in the constructor.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of the objects contained in the pool.
@@ -64,7 +64,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
   /**
    * Create a new object pool for a certain amount of items and a factory that
    * creates the objects on demand.
-   * 
+   *
    * @param nItemCount
    *        The number of items in the pool. Must be &ge; 1.
    * @param aFactory

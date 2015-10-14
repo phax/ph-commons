@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 /**
  * A special marker interface that is implemented by classes, that really
  * support having children!
- * 
+ *
  * @author Philip Helger
  */
 public interface IMicroNodeWithChildren extends IMicroNode
@@ -30,7 +30,7 @@ public interface IMicroNodeWithChildren extends IMicroNode
   /**
    * Get the concatenated text content of all direct {@link IMicroText} child
    * nodes of this element.
-   * 
+   *
    * @return <code>null</code> if the element contains no text node as child
    */
   @Nullable
@@ -40,7 +40,7 @@ public interface IMicroNodeWithChildren extends IMicroNode
    * Get the concatenated text content of all direct {@link IMicroText} child
    * nodes of this element. After concatenation, all leading and trailing spaces
    * are removed.
-   * 
+   *
    * @return <code>null</code> if the element contains no text node as child
    */
   @Nullable
@@ -51,7 +51,7 @@ public interface IMicroNodeWithChildren extends IMicroNode
    * nodes of this element. The value is converted via the
    * {@link com.helger.commons.typeconvert.TypeConverter} to the desired
    * destination class.
-   * 
+   *
    * @param <DSTTYPE>
    *        The destination type to convert the String textContent to.
    * @param aDstClass

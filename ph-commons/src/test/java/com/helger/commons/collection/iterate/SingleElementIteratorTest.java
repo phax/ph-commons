@@ -25,12 +25,11 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.iterate.SingleElementIterator;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link SingleElementIterator}
- * 
+ *
  * @author Philip Helger
  */
 public final class SingleElementIteratorTest

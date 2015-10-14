@@ -20,7 +20,7 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 
 /**
  * Base interface for an abstract resource that is both readable and writable.
- * 
+ *
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode

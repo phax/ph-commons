@@ -24,12 +24,10 @@ import org.junit.Test;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.text.display.HasDisplayTextWithArgs;
-import com.helger.commons.text.display.IHasDisplayText;
 
 /**
  * Test class for class {@link HasDisplayTextWithArgs}.
- * 
+ *
  * @author Philip Helger
  */
 public final class HasDisplayTextWithArgsTest extends AbstractCommonsTestCase

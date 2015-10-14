@@ -34,7 +34,7 @@ import com.helger.commons.io.stream.StreamHelper;
  * {@link org.xml.sax.InputSource} that ensures that the passed
  * {@link InputStream} is closed. This is achieved by copying the content in a
  * {@link NonBlockingByteArrayInputStream}.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe

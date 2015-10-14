@@ -25,14 +25,10 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.io.stream.CountingOutputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * Test class for class {@link CountingOutputStream}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CountingOutputStreamTest

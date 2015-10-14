@@ -23,11 +23,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.xml.serialize.read.SAXReaderDefaultSettings;
-
 /**
  * Test class for {@link SAXReaderDefaultSettings}
- * 
+ *
  * @author Philip Helger
  */
 public final class SAXReaderDefaultSettingsTest

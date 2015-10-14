@@ -24,7 +24,7 @@ import com.helger.commons.ValueEnforcer;
 /**
  * Implementation of the {@link ITreeItemFactory} for {@link DefaultTreeItem}
  * implementation
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        tree item value type

@@ -56,6 +56,6 @@ public class CollectingLoggingValidationEventHandlerFactory implements IValidati
   public CollectingValidationEventHandler create (@Nullable final ValidationEventHandler aOldEventHandler)
   {
     return new CollectingValidationEventHandler (new LoggingValidationEventHandler (m_bEncapsulateHandler ? aOldEventHandler
-                                                                                                         : null));
+                                                                                                          : null));
   }
 }

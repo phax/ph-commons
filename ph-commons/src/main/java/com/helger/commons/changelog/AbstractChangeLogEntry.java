@@ -28,7 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Base class for all changelog entries
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractChangeLogEntry implements Serializable
@@ -37,7 +37,7 @@ public abstract class AbstractChangeLogEntry implements Serializable
 
   /**
    * Constructor.
-   * 
+   *
    * @param aDate
    *        The release date. May not be <code>null</code>.
    */

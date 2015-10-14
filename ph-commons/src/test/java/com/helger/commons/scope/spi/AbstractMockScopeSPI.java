@@ -18,7 +18,7 @@ package com.helger.commons.scope.spi;
 
 /**
  * Abstract base class for all Mock SPI implementations
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractMockScopeSPI

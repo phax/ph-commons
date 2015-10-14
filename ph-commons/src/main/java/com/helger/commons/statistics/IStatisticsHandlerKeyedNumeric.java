@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 
 /**
  * Base interface for size and timer handler.
- * 
+ *
  * @author Philip Helger
  */
 public interface IStatisticsHandlerKeyedNumeric extends IStatisticsHandlerKeyed

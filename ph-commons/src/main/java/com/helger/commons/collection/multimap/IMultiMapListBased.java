@@ -26,7 +26,7 @@ import com.helger.commons.state.EChange;
 
 /**
  * Interface for a multi map that uses a {@link List} for the storage.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        Key type
@@ -38,7 +38,7 @@ public interface IMultiMapListBased <KEYTYPE, VALUETYPE> extends IMultiMap <KEYT
   /**
    * Add a single value into the container identified by the passed key at the
    * specified index.
-   * 
+   *
    * @param aKey
    *        The key to use. May not be <code>null</code>.
    * @param aValue

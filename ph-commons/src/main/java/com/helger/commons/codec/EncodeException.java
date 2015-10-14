@@ -18,7 +18,7 @@ package com.helger.commons.codec;
 
 /**
  * Exception occurred in an encoder
- * 
+ *
  * @author Philip Helger
  */
 public class EncodeException extends RuntimeException

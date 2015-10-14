@@ -90,7 +90,7 @@ public final class XMLWriterSettingsTest
                                                                            new XMLWriterSettings ().setUseDoubleQuotesForAttributes (false));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
                                                                            new XMLWriterSettings ().setNewLineMode (ENewLineMode.DEFAULT == ENewLineMode.WINDOWS ? ENewLineMode.UNIX
-                                                                                                                                                                : ENewLineMode.WINDOWS));
+                                                                                                                                                                 : ENewLineMode.WINDOWS));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
                                                                            new XMLWriterSettings ().setIndentationString ("\t"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,

@@ -30,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Abstract implementation of {@link Callable} that handles WebScopes correctly.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The return type of the function.
@@ -83,7 +83,7 @@ public abstract class AbstractScopeAwareCallable <DATATYPE> implements INonThrow
 
   /**
    * Implement your code in here
-   * 
+   *
    * @return The return value of the {@link #call()} method.
    */
   @Nullable

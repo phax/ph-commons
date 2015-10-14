@@ -19,7 +19,6 @@ package com.helger.commons.hierarchy;
 import javax.annotation.Nullable;
 
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.hierarchy.IHasParent;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.string.ToStringGenerator;
 

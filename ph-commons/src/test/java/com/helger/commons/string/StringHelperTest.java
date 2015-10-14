@@ -1562,11 +1562,17 @@ public final class StringHelperTest extends AbstractCommonsTestCase
     assertArrayEquals ("bb".toCharArray (),
                        StringHelper.replaceMultiple ("a", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }));
     assertArrayEquals ("bbbb".toCharArray (),
-                       StringHelper.replaceMultiple ("aa", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }));
+                       StringHelper.replaceMultiple ("aa",
+                                                     new char [] { 'a' },
+                                                     new char [] [] { "bb".toCharArray () }));
     assertArrayEquals ("cdc".toCharArray (),
-                       StringHelper.replaceMultiple ("cdc", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }));
+                       StringHelper.replaceMultiple ("cdc",
+                                                     new char [] { 'a' },
+                                                     new char [] [] { "bb".toCharArray () }));
     assertArrayEquals ("cbbc".toCharArray (),
-                       StringHelper.replaceMultiple ("cac", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }));
+                       StringHelper.replaceMultiple ("cac",
+                                                     new char [] { 'a' },
+                                                     new char [] [] { "bb".toCharArray () }));
     assertArrayEquals ("ddbbdd".toCharArray (),
                        StringHelper.replaceMultiple ("cac",
                                                      new char [] { 'a', 'c' },
@@ -1575,10 +1581,10 @@ public final class StringHelperTest extends AbstractCommonsTestCase
                        StringHelper.replaceMultiple ("<cac>",
                                                      new char [] { 'a', 'c' },
                                                      new char [] [] { "bb".toCharArray (), "dd".toCharArray () }));
-    assertArrayEquals (new char [0], StringHelper.replaceMultiple ("",
-                                                                   new char [] { 'a', 'c' },
-                                                                   new char [] [] { "bb".toCharArray (),
-                                                                                   "dd".toCharArray () }));
+    assertArrayEquals (new char [0],
+                       StringHelper.replaceMultiple ("",
+                                                     new char [] { 'a', 'c' },
+                                                     new char [] [] { "bb".toCharArray (), "dd".toCharArray () }));
     assertArrayEquals ("any".toCharArray (), StringHelper.replaceMultiple ("any", new char [0], new char [0] []));
     try
     {

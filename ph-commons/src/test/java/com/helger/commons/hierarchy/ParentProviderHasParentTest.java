@@ -21,11 +21,9 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.commons.hierarchy.ParentProviderHasParent;
-
 /**
  * Test class for class {@link ParentProviderHasParent}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ParentProviderHasParentTest

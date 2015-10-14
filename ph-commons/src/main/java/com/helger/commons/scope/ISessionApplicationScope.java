@@ -18,7 +18,7 @@ package com.helger.commons.scope;
 
 /**
  * Interface for a single session application scope object.
- * 
+ *
  * @author Philip Helger
  */
 public interface ISessionApplicationScope extends IScope

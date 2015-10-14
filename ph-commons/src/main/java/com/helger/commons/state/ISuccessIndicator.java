@@ -18,7 +18,7 @@ package com.helger.commons.state;
 
 /**
  * Very simple interface for an object that has success/failure indication.
- * 
+ *
  * @author Philip Helger
  */
 public interface ISuccessIndicator

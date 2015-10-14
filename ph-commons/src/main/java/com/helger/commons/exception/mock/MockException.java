@@ -18,7 +18,7 @@ package com.helger.commons.exception.mock;
 
 /**
  * Non-runtime exception for test cases.
- * 
+ *
  * @author Philip Helger
  */
 public class MockException extends Exception implements IMockException

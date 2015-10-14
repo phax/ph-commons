@@ -22,8 +22,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.callback.IThrowingRunnableWithParameter;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -67,11 +65,7 @@ public final class ConcurrentCollectorSingleTest
     {}
 
     ccm = new ConcurrentCollectorSingle <String> (5);
-    ccm.setPerformer (new IThrowingRunnableWithParameter <String, Exception> ()
-    {
-      public void run (final String aCurrentObject) throws Exception
-      {}
-    });
+    ccm.setPerformer (aCurrentObject -> {});
     assertNotNull (ccm);
   }
 

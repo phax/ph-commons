@@ -20,7 +20,7 @@ import com.helger.commons.exception.LoggedRuntimeException;
 
 /**
  * Special MicroDOM exception.
- * 
+ *
  * @author Philip Helger
  */
 public class MicroException extends LoggedRuntimeException

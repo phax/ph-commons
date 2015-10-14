@@ -18,7 +18,7 @@ package com.helger.commons.id;
 
 /**
  * Base interface for all objects having a long ID.
- * 
+ *
  * @author Philip Helger
  */
 public interface IHasLongID

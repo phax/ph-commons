@@ -167,7 +167,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
 
   /**
    * Create a new object with the given value.
-   * 
+   *
    * @param <DATATYPE>
    *        The data type that is wrapped together with the success indicator
    * @param aSuccessIndicator
@@ -185,7 +185,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
 
   /**
    * Create a new success object with the given value.
-   * 
+   *
    * @param <DATATYPE>
    *        The data type that is wrapped together with the success indicator
    * @param aValue
@@ -200,7 +200,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
 
   /**
    * Create a new failure object with the given value.
-   * 
+   *
    * @param <DATATYPE>
    *        The data type that is wrapped together with the success indicator
    * @param aValue

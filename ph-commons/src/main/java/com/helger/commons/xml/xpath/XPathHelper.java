@@ -179,7 +179,10 @@ public final class XPathHelper
   public static XPath createNewXPath (@Nonnull final XPathFactory aXPathFactory,
                                       @Nullable final NamespaceContext aNamespaceContext)
   {
-    return createNewXPath (aXPathFactory, (XPathVariableResolver) null, (XPathFunctionResolver) null, aNamespaceContext);
+    return createNewXPath (aXPathFactory,
+                           (XPathVariableResolver) null,
+                           (XPathFunctionResolver) null,
+                           aNamespaceContext);
   }
 
   /**

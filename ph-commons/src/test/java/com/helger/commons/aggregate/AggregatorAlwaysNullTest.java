@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link AggregatorAlwaysNull}.
@@ -36,7 +35,6 @@ public final class AggregatorAlwaysNullTest
   public void testAll ()
   {
     final AggregatorAlwaysNull <String, String> a1 = new AggregatorAlwaysNull <String, String> ();
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (a1, new AggregatorAlwaysNull <String, String> ());
     assertNull (a1.aggregate (CollectionHelper.newList ("a", "b")));
     assertNull (a1.aggregate (new ArrayList <String> ()));
   }

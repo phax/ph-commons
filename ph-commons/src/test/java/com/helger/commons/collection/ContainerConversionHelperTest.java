@@ -30,11 +30,9 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ContainerConversionHelper;
 import com.helger.commons.compare.ISerializableComparator;
-import com.helger.commons.convert.IConverter;
 import com.helger.commons.convert.ConverterStringInteger;
+import com.helger.commons.convert.IConverter;
 import com.helger.commons.filter.FilterNotNull;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 

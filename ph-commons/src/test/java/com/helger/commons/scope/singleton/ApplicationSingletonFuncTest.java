@@ -30,7 +30,6 @@ import org.junit.rules.TestRule;
 
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.scope.mock.ScopeTestRule;
-import com.helger.commons.scope.singleton.AbstractApplicationSingleton;
 
 /**
  * Test class for class {@link AbstractApplicationSingleton}.<br>

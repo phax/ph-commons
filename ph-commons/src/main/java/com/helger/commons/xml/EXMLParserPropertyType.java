@@ -18,17 +18,17 @@ package com.helger.commons.xml;
 
 /**
  * Contains the types of XML parser properties.
- * 
+ *
  * @author Philip Helger
  */
 public enum EXMLParserPropertyType
 {
-  /** General properties */
+ /** General properties */
   GENERAL,
 
-  /** DOM properties */
+ /** DOM properties */
   DOM,
 
-  /** SAX properties */
+ /** SAX properties */
   SAX;
 }

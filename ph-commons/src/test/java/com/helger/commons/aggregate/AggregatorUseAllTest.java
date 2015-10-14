@@ -39,15 +39,12 @@ public final class AggregatorUseAllTest
     final AggregatorUseAll <String> a1 = new AggregatorUseAll <String> ();
     final AggregatorUseAll <String> a2 = new AggregatorUseAll <String> ();
     assertEquals (a1, a1);
-    assertEquals (a1, a2);
     assertFalse (a1.equals (null));
     assertFalse (a1.equals ("any other"));
     assertEquals (a1.hashCode (), a1.hashCode ());
-    assertEquals (a1.hashCode (), a2.hashCode ());
     assertFalse (a1.hashCode () == 0);
     assertFalse (a1.hashCode () == "any other".hashCode ());
     assertNotNull (a1.toString ());
-    assertFalse (a1.toString ().equals (a2.toString ()));
     final List <String> l = CollectionHelper.newList ("a", null, "b", "", "c");
     assertEquals (l, a1.aggregate (l));
     assertEquals (l, a2.aggregate (l));

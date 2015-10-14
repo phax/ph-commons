@@ -26,7 +26,7 @@ import com.helger.commons.tree.withid.unique.BasicTreeWithGlobalUniqueID;
 /**
  * Abstract implementation class for a folder tree. The elements of the tree are
  * not sorted by any means.
- * 
+ *
  * @param <KEYTYPE>
  *        The type of the element keys.
  * @param <DATATYPE>
@@ -42,7 +42,7 @@ public class BasicFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DA
 {
   /**
    * Constructor
-   * 
+   *
    * @param aFactory
    *        The item factory to use. May not be <code>null</code>.
    */

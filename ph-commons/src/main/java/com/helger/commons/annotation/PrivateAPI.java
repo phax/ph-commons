@@ -24,7 +24,7 @@ import java.lang.annotation.RetentionPolicy;
  * Indicate that a public element is not meant for public use, but only for
  * project internal use. Because of dependencies it is not possible to lower the
  * visibility of this object.
- * 
+ *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.SOURCE)

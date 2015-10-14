@@ -166,6 +166,7 @@ public final class MicroSerializerTest
                   "  </body>" +
                   sCRLF +
                   "</html>" +
-                  sCRLF, s);
+                  sCRLF,
+                  s);
   }
 }

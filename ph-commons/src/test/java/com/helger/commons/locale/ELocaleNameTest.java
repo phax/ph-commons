@@ -25,7 +25,7 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link ELocaleName}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ELocaleNameTest extends AbstractCommonsTestCase

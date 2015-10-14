@@ -18,7 +18,7 @@ package com.helger.commons.state;
 
 /**
  * Simple interface for all objects that can be enabled and disabled.
- * 
+ *
  * @author Philip Helger
  */
 public interface IEnabledIndicator

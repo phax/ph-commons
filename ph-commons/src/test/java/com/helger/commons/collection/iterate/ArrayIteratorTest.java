@@ -26,7 +26,6 @@ import java.util.NoSuchElementException;
 import org.junit.Test;
 
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.iterate.ArrayIterator;
 import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -42,7 +41,10 @@ public final class ArrayIteratorTest
   @Test
   public void testAll ()
   {
-    final ArrayIterator <String> ae = ArrayIterator.create (ArrayHelper.newArray ("Hallo", "Welt", "from", "Copenhagen"));
+    final ArrayIterator <String> ae = ArrayIterator.create (ArrayHelper.newArray ("Hallo",
+                                                                                  "Welt",
+                                                                                  "from",
+                                                                                  "Copenhagen"));
     for (int i = 0; i < 10; ++i)
       assertTrue (ae.hasNext ());
     assertEquals ("Hallo", ae.next ());
@@ -109,7 +111,10 @@ public final class ArrayIteratorTest
   @Test
   public void testStdMethods ()
   {
-    final ArrayIterator <String> ae = ArrayIterator.create (ArrayHelper.newArray ("Hallo", "Welt", "from", "Copenhagen"));
+    final ArrayIterator <String> ae = ArrayIterator.create (ArrayHelper.newArray ("Hallo",
+                                                                                  "Welt",
+                                                                                  "from",
+                                                                                  "Copenhagen"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ae,
                                                                        ArrayIterator.create (ArrayHelper.newArray ("Hallo",
                                                                                                                    "Welt",

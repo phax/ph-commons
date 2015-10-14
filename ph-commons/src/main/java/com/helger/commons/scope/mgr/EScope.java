@@ -24,20 +24,20 @@ import com.helger.commons.scope.IScope;
 /**
  * This enumeration defines all the possible non-web scopes including some
  * utility methods on it.
- * 
+ *
  * @author Philip Helger
  */
 public enum EScope
 {
-  /** The global scope. */
+ /** The global scope. */
   GLOBAL,
-  /** The application scope. */
+ /** The application scope. */
   APPLICATION,
-  /** The session scope */
+ /** The session scope */
   SESSION,
-  /** The session application scope */
+ /** The session application scope */
   SESSION_APPLICATION,
-  /** The request scope. */
+ /** The request scope. */
   REQUEST;
 
   @Nonnull
@@ -54,7 +54,7 @@ public enum EScope
 
   /**
    * Resolve the currently matching scope of the given {@link EScope} value.
-   * 
+   *
    * @param eScope
    *        The scope to resolve to a real scope.
    * @param bCreateIfNotExisting

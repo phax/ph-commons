@@ -25,11 +25,8 @@ import java.util.Collection;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ArrayConversionHelper;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.convert.IConverter;
 import com.helger.commons.convert.ConverterStringInteger;
+import com.helger.commons.convert.IConverter;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**

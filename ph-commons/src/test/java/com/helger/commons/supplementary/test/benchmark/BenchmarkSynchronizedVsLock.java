@@ -45,15 +45,11 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
     if (nThreads == 1)
       return aObj;
 
-    return new Runnable ()
-    {
-      public void run ()
-      {
-        final ExecutorService aExecSvc = Executors.newFixedThreadPool (nThreads);
-        for (int i = 0; i < nThreads; ++i)
-          aExecSvc.submit (aObj);
-        new ManagedExecutorService (aExecSvc).shutdownAndWaitUntilAllTasksAreFinished ();
-      }
+    return () -> {
+      final ExecutorService aExecSvc = Executors.newFixedThreadPool (nThreads);
+      for (int i = 0; i < nThreads; ++i)
+        aExecSvc.submit (aObj);
+      new ManagedExecutorService (aExecSvc).shutdownAndWaitUntilAllTasksAreFinished ();
     };
   }
 

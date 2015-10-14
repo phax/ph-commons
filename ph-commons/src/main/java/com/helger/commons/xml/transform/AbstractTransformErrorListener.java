@@ -71,7 +71,7 @@ public abstract class AbstractTransformErrorListener implements ErrorListener
                                                                                                                        aLocator.getSystemId ()),
                                                                                  aLocator.getLineNumber (),
                                                                                  aLocator.getColumnNumber ())
-                                                        : new ResourceLocation (ex.getLocationAsString ());
+                                                         : new ResourceLocation (ex.getLocationAsString ());
     return new ResourceError (aLocation, aErrorLevel, aErrorMsg, ex);
   }
 

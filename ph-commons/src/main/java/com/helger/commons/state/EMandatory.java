@@ -20,13 +20,13 @@ import javax.annotation.Nonnull;
 
 /**
  * Small enum for setter method to identify whether a value is mandatory or not.
- * 
+ *
  * @author Philip Helger
  */
 public enum EMandatory implements IMandatoryIndicator
 {
-  MANDATORY,
-  OPTIONAL;
+ MANDATORY,
+ OPTIONAL;
 
   public boolean isMandatory ()
   {

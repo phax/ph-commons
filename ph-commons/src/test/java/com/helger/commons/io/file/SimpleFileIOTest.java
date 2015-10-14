@@ -34,7 +34,7 @@ import com.helger.commons.io.resource.ClassPathResource;
 
 /**
  * Test class for class {@link SimpleFileIO}.
- * 
+ *
  * @author Philip Helger
  */
 public final class SimpleFileIOTest
@@ -44,7 +44,8 @@ public final class SimpleFileIOTest
   {
     final String s = "äöü text";
     final File f = new File ("dummy.txt");
-    assertTrue (SimpleFileIO.writeFile (f, CharsetManager.getAsBytes (s, CCharset.CHARSET_ISO_8859_1_OBJ)).isSuccess ());
+    assertTrue (SimpleFileIO.writeFile (f, CharsetManager.getAsBytes (s, CCharset.CHARSET_ISO_8859_1_OBJ))
+                            .isSuccess ());
     try
     {
       final byte [] aBytes = SimpleFileIO.getAllFileBytes (f);

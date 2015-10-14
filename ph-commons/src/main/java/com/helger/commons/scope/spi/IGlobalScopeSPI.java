@@ -24,7 +24,7 @@ import com.helger.commons.scope.IGlobalScope;
 /**
  * SPI for handling the global scope lifecycle. Is invoked for non-web and web
  * scopes.
- * 
+ *
  * @author Philip Helger
  */
 @IsSPIInterface
@@ -32,7 +32,7 @@ public interface IGlobalScopeSPI
 {
   /**
    * Called after the global scope was started
-   * 
+   *
    * @param aGlobalScope
    *        The global scope object to be used. Never <code>null</code>.
    */
@@ -40,7 +40,7 @@ public interface IGlobalScopeSPI
 
   /**
    * Called before the global scope is shut down
-   * 
+   *
    * @param aGlobalScope
    *        The global scope object to be used. Never <code>null</code>.
    */

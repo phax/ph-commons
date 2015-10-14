@@ -22,13 +22,13 @@ import javax.annotation.Nullable;
 
 /**
  * Defines possible sort orders. The default is {@link #ASCENDING} sorting.
- * 
+ *
  * @author Philip Helger
  */
 public enum ESortOrder implements ISortOrderIndicator
 {
-  ASCENDING (1),
-  DESCENDING (0);
+ ASCENDING (1),
+ DESCENDING (0);
 
   /** The default sort order is {@link #ASCENDING} */
   public static final ESortOrder DEFAULT = ASCENDING;
@@ -71,7 +71,7 @@ public enum ESortOrder implements ISortOrderIndicator
    * Get the alternate sort order. If the current sort order is ascending, the
    * result will be descending and if this is descending, the return will be
    * ascending.
-   * 
+   *
    * @return Never <code>null</code>.
    */
   @Nonnull

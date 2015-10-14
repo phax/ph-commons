@@ -20,13 +20,13 @@ import javax.annotation.Nonnull;
 
 /**
  * Small enum for setter method to identify whether a value has changed or not.
- * 
+ *
  * @author Philip Helger
  */
 public enum EInterrupt implements IInterruptIndicator
 {
-  INTERRUPTED,
-  NOT_INTERRUPTED;
+ INTERRUPTED,
+ NOT_INTERRUPTED;
 
   public boolean isInterrupted ()
   {

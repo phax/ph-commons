@@ -25,7 +25,7 @@ import com.helger.commons.charset.CharsetManager;
 
 /**
  * Contains some utility methods for handling MIME types.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -36,7 +36,7 @@ public final class MimeTypeHelper
 
   /**
    * Determine the charset name from the provided MIME type.
-   * 
+   *
    * @param aMimeType
    *        The MIME type to query. May be <code>null</code>.
    * @return <code>null</code> if no MIME type was provided or if the MIME type
@@ -50,7 +50,7 @@ public final class MimeTypeHelper
 
   /**
    * Determine the charset from the provided MIME type.
-   * 
+   *
    * @param aMimeType
    *        The MIME type to query. May be <code>null</code>.
    * @return <code>null</code> if no MIME type was provided or if the MIME type

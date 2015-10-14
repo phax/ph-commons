@@ -142,7 +142,8 @@ public final class Version implements Comparable <Version>, IHasStringRepresenta
   /**
    * Construct a version object from a string.<br>
    * EBNF:<br>
-   * version ::= major( '.' minor ( '.' micro ( ( '.' | '-' ) qualifier )? )? )?<br>
+   * version ::= major( '.' minor ( '.' micro ( ( '.' | '-' ) qualifier )? )? )?
+   * <br>
    * major ::= number<br>
    * minor ::= number<br>
    * micro ::= number<br>

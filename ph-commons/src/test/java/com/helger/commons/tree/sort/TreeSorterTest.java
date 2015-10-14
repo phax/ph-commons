@@ -31,7 +31,6 @@ import com.helger.commons.compare.CollatingComparator;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.tree.DefaultTree;
 import com.helger.commons.tree.DefaultTreeItem;
-import com.helger.commons.tree.sort.TreeSorter;
 
 /**
  * Test class for class {@link TreeSorter}

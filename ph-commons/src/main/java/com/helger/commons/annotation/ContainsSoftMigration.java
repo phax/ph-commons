@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  * This is a source-only indicator for objects that contain soft migration. A
  * soft migration is something that migrates data on the fly and is usually
  * required only for one update.
- * 
+ *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)

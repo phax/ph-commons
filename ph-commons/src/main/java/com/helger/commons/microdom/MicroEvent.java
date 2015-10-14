@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Default implementation of the {@link IMicroEvent} interface.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable

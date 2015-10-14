@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 /**
  * Interface for a handler the provides the locale <b>independent</b> name of an
  * object.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type to retrieve the display name from
@@ -32,7 +32,7 @@ public interface IDisplayNameProvider <DATATYPE> extends Serializable
 {
   /**
    * Get the name of the passed object.
-   * 
+   *
    * @param aObject
    *        The object who's name is to be retrieved.
    * @return The name of the object. May be <code>null</code>.

@@ -21,7 +21,7 @@ package com.helger.commons.scope;
  * renewal. When renewing a session, all existing attributes will be checked for
  * this interface and if implementing it, they will be copied to the new
  * session.
- * 
+ *
  * @author Boris Gregorcic
  */
 public interface IScopeRenewalAware

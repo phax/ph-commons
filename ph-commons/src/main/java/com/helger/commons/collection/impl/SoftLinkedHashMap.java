@@ -41,6 +41,7 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
 {
   private final int m_nMaxSize;
 
+  @FunctionalInterface
   private static interface IRemoveEldest <K, V>
   {
     boolean removeEldestSoftEntry (Map.Entry <K, V> aEntry);
@@ -69,23 +70,19 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
   public SoftLinkedHashMap (@Nonnegative final int nMaxSize)
   {
     super (new InternalLinkedHashMap <K, V> (nMaxSize));
-    ((InternalLinkedHashMap <K, V>) m_aSrcMap).m_aCallback = new IRemoveEldest <K, V> ()
-    {
-      public boolean removeEldestSoftEntry (final Map.Entry <K, V> aEldest)
-      {
-        final int nSize = size ();
-        if (nSize <= m_nMaxSize)
-        {
-          // No need to remove anything
-          return false;
-        }
-
-        // Invoke protected method
-        onRemoveEldestEntry (nSize, aEldest);
-        return true;
-      }
-    };
     m_nMaxSize = nMaxSize;
+    ((InternalLinkedHashMap <K, V>) m_aSrcMap).m_aCallback = aEldest -> {
+      final int nSize = size ();
+      if (nSize <= m_nMaxSize)
+      {
+        // No need to remove anything
+        return false;
+      }
+
+      // Invoke protected method
+      SoftLinkedHashMap.this.onRemoveEldestEntry (nSize, aEldest);
+      return true;
+    };
   }
 
   /**

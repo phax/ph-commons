@@ -22,7 +22,6 @@ import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
-import com.helger.commons.thread.ComparatorThreadID;
 
 /**
  * Test class for class {@link ComparatorThreadID}.

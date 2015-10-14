@@ -20,20 +20,20 @@ import javax.annotation.Nonnegative;
 
 /**
  * An enumeration that encapsulates all available file IO operation types.
- * 
+ *
  * @author Philip Helger
  */
 public enum EFileIOOperation
 {
-  COPY_DIR_RECURSIVE (2),
-  COPY_FILE (2),
-  CREATE_DIR (1),
-  CREATE_DIR_RECURSIVE (1),
-  DELETE_DIR (1),
-  DELETE_DIR_RECURSIVE (1),
-  DELETE_FILE (1),
-  RENAME_DIR (2),
-  RENAME_FILE (2);
+ COPY_DIR_RECURSIVE (2),
+ COPY_FILE (2),
+ CREATE_DIR (1),
+ CREATE_DIR_RECURSIVE (1),
+ DELETE_DIR (1),
+ DELETE_DIR_RECURSIVE (1),
+ DELETE_FILE (1),
+ RENAME_DIR (2),
+ RENAME_FILE (2);
 
   private final int m_nParamCount;
 

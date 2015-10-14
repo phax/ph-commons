@@ -25,7 +25,6 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.codec.IByteArrayCodec;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.random.VerySecureRandom;
 

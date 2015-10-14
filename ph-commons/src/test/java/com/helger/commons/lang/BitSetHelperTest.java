@@ -27,7 +27,7 @@ import com.helger.commons.random.VerySecureRandom;
 
 /**
  * Test class for class {@link BitSetHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class BitSetHelperTest

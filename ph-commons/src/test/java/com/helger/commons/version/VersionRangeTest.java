@@ -29,7 +29,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * JUnit test for class {@link VersionRange}.
- * 
+ *
  * @author Philip Helger
  */
 public final class VersionRangeTest
@@ -270,15 +270,15 @@ public final class VersionRangeTest
   public void testGetAsString ()
   {
     final String [] aTrueTests = new String [] { "[1.2.3]",
-                                                "(1.2.3)",
-                                                "[1.2)",
-                                                "(3.4]",
-                                                "[12,12]",
-                                                "(1,4]",
-                                                "[1.2.3,4.5.6)",
-                                                "(47.11.0.alpha,58]",
-                                                "[1.2.3,1.2.3]",
-                                                VersionRange.DEFAULT_VERSION_RANGE_STRING };
+                                                 "(1.2.3)",
+                                                 "[1.2)",
+                                                 "(3.4]",
+                                                 "[12,12]",
+                                                 "(1,4]",
+                                                 "[1.2.3,4.5.6)",
+                                                 "(47.11.0.alpha,58]",
+                                                 "[1.2.3,1.2.3]",
+                                                 VersionRange.DEFAULT_VERSION_RANGE_STRING };
     for (final String element : aTrueTests)
     {
       final VersionRange vr = new VersionRange (element);
@@ -296,15 +296,15 @@ public final class VersionRangeTest
   public void testGetAsStringPrintZeroElements ()
   {
     final String [] aTrueTests = new String [] { "[1.2.3]",
-                                                "(1.2.3)",
-                                                "[1.2.0)",
-                                                "(3.4.0]",
-                                                "[12.0.0,12.0.0]",
-                                                "(1.0.0,4.0.0]",
-                                                "[1.2.3,4.5.6)",
-                                                "(47.11.0.alpha,58.0.0]",
-                                                "[1.2.3,1.2.3]",
-                                                "[0.0.0)" };
+                                                 "(1.2.3)",
+                                                 "[1.2.0)",
+                                                 "(3.4.0]",
+                                                 "[12.0.0,12.0.0]",
+                                                 "(1.0.0,4.0.0]",
+                                                 "[1.2.3,4.5.6)",
+                                                 "(47.11.0.alpha,58.0.0]",
+                                                 "[1.2.3,1.2.3]",
+                                                 "[0.0.0)" };
     for (final String element : aTrueTests)
     {
       final VersionRange vr = new VersionRange (element);

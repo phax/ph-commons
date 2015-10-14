@@ -27,7 +27,7 @@ import com.helger.commons.CGlobal;
 
 /**
  * Test class for class {@link EProcessorArchitecture}.
- * 
+ *
  * @author Philip Helger
  */
 public final class EProcessorArchitectureTest

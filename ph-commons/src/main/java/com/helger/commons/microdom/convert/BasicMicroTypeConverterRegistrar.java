@@ -41,7 +41,7 @@ import com.helger.commons.state.EValidity;
 /**
  * Implementation of {@link IMicroTypeConverterRegistrarSPI} for basic types
  * like Boolean, Byte, Integer, AtomicInteger etc.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -58,7 +58,8 @@ public final class BasicMicroTypeConverterRegistrar implements IMicroTypeConvert
                                                  new StringBasedMicroTypeConverter (AtomicBoolean.class));
     aRegistry.registerMicroElementTypeConverter (AtomicInteger.class,
                                                  new StringBasedMicroTypeConverter (AtomicInteger.class));
-    aRegistry.registerMicroElementTypeConverter (AtomicLong.class, new StringBasedMicroTypeConverter (AtomicLong.class));
+    aRegistry.registerMicroElementTypeConverter (AtomicLong.class,
+                                                 new StringBasedMicroTypeConverter (AtomicLong.class));
     aRegistry.registerMicroElementTypeConverter (Boolean.class, new StringBasedMicroTypeConverter (Boolean.class));
     aRegistry.registerMicroElementTypeConverter (Byte.class, new StringBasedMicroTypeConverter (Byte.class));
     aRegistry.registerMicroElementTypeConverter (Character.class, new StringBasedMicroTypeConverter (Character.class));
@@ -67,8 +68,10 @@ public final class BasicMicroTypeConverterRegistrar implements IMicroTypeConvert
     aRegistry.registerMicroElementTypeConverter (Integer.class, new StringBasedMicroTypeConverter (Integer.class));
     aRegistry.registerMicroElementTypeConverter (Long.class, new StringBasedMicroTypeConverter (Long.class));
     aRegistry.registerMicroElementTypeConverter (Short.class, new StringBasedMicroTypeConverter (Short.class));
-    aRegistry.registerMicroElementTypeConverter (BigDecimal.class, new StringBasedMicroTypeConverter (BigDecimal.class));
-    aRegistry.registerMicroElementTypeConverter (BigInteger.class, new StringBasedMicroTypeConverter (BigInteger.class));
+    aRegistry.registerMicroElementTypeConverter (BigDecimal.class,
+                                                 new StringBasedMicroTypeConverter (BigDecimal.class));
+    aRegistry.registerMicroElementTypeConverter (BigInteger.class,
+                                                 new StringBasedMicroTypeConverter (BigInteger.class));
     aRegistry.registerMicroElementTypeConverter (StringBuffer.class,
                                                  new StringBasedMicroTypeConverter (StringBuffer.class));
     aRegistry.registerMicroElementTypeConverter (StringBuilder.class,
@@ -80,11 +83,15 @@ public final class BasicMicroTypeConverterRegistrar implements IMicroTypeConvert
     aRegistry.registerMicroElementTypeConverter (EContinue.class, new StringBasedMicroTypeConverter (EContinue.class));
     aRegistry.registerMicroElementTypeConverter (EEnabled.class, new StringBasedMicroTypeConverter (EEnabled.class));
     aRegistry.registerMicroElementTypeConverter (EFinish.class, new StringBasedMicroTypeConverter (EFinish.class));
-    aRegistry.registerMicroElementTypeConverter (EInterrupt.class, new StringBasedMicroTypeConverter (EInterrupt.class));
-    aRegistry.registerMicroElementTypeConverter (ELeftRight.class, new StringBasedMicroTypeConverter (ELeftRight.class));
-    aRegistry.registerMicroElementTypeConverter (EMandatory.class, new StringBasedMicroTypeConverter (EMandatory.class));
+    aRegistry.registerMicroElementTypeConverter (EInterrupt.class,
+                                                 new StringBasedMicroTypeConverter (EInterrupt.class));
+    aRegistry.registerMicroElementTypeConverter (ELeftRight.class,
+                                                 new StringBasedMicroTypeConverter (ELeftRight.class));
+    aRegistry.registerMicroElementTypeConverter (EMandatory.class,
+                                                 new StringBasedMicroTypeConverter (EMandatory.class));
     aRegistry.registerMicroElementTypeConverter (ESuccess.class, new StringBasedMicroTypeConverter (ESuccess.class));
-    aRegistry.registerMicroElementTypeConverter (ETopBottom.class, new StringBasedMicroTypeConverter (ETopBottom.class));
+    aRegistry.registerMicroElementTypeConverter (ETopBottom.class,
+                                                 new StringBasedMicroTypeConverter (ETopBottom.class));
     aRegistry.registerMicroElementTypeConverter (ETriState.class, new StringBasedMicroTypeConverter (ETriState.class));
     aRegistry.registerMicroElementTypeConverter (EValidity.class, new StringBasedMicroTypeConverter (EValidity.class));
   }

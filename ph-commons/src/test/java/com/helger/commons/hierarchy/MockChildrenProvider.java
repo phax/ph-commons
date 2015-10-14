@@ -20,8 +20,6 @@ import java.util.Collection;
 
 import javax.annotation.Nullable;
 
-import com.helger.commons.hierarchy.IChildrenProvider;
-
 public class MockChildrenProvider implements IChildrenProvider <MockHasChildren>
 {
   private final MockHasChildren m_aRootItem;

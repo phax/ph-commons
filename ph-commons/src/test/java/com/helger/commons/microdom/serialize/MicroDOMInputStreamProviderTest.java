@@ -26,7 +26,7 @@ import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 
 /**
  * Test class for class {@link MicroDOMInputStreamProvider}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroDOMInputStreamProviderTest

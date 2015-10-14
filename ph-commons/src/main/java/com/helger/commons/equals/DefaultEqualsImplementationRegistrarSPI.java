@@ -359,8 +359,8 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
 
       final int nMaxScale = Math.max (aRealObj1.scale (), aRealObj2.scale ());
       // Use the same rounding mode for both
-      return aRealObj1.setScale (nMaxScale, RoundingMode.HALF_UP).equals (aRealObj2.setScale (nMaxScale,
-                                                                                              RoundingMode.HALF_UP));
+      return aRealObj1.setScale (nMaxScale, RoundingMode.HALF_UP)
+                      .equals (aRealObj2.setScale (nMaxScale, RoundingMode.HALF_UP));
     }
   }
 

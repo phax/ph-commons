@@ -25,8 +25,6 @@ import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.hierarchy.MockHasParent;
-import com.helger.commons.tree.util.TreeWithIDBuilder;
-import com.helger.commons.tree.util.TreeWithIDSearcher;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 import com.helger.commons.tree.withid.DefaultTreeWithID;
 

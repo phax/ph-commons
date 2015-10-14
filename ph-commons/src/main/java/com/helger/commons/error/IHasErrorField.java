@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 
 /**
  * Base interface for an object that has an error field.
- * 
+ *
  * @author Philip Helger
  */
 public interface IHasErrorField

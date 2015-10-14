@@ -30,7 +30,8 @@ import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.state.EChange;
 
 /**
- * Abstract multi map based on {@link java.util.concurrent.ConcurrentHashMap}.<br>
+ * Abstract multi map based on {@link java.util.concurrent.ConcurrentHashMap}.
+ * <br>
  * Important note: <code>null</code> keys are not allowed here!
  *
  * @author Philip Helger

@@ -23,13 +23,12 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.helger.commons.id.factory.FileLongIDFactory;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link FileLongIDFactory}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FileLongIDFactoryTest
@@ -47,7 +46,8 @@ public final class FileLongIDFactoryTest
       CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, new FileLongIDFactory (f2));
       CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x,
                                                                              new FileLongIDFactory (f,
-                                                                                                    FileLongIDFactory.DEFAULT_RESERVE_COUNT * 2));
+                                                                                                    FileLongIDFactory.DEFAULT_RESERVE_COUNT *
+                                                                                                       2));
 
       for (int i = 0; i < x.getReserveCount () * 10; ++i)
         assertEquals (i, x.getNewID ());

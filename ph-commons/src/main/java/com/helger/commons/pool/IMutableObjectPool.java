@@ -23,7 +23,7 @@ import com.helger.commons.state.ESuccess;
 
 /**
  * Simple pool interface.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of object to be pooled.
@@ -33,7 +33,7 @@ public interface IMutableObjectPool <DATATYPE>
   /**
    * Borrow an object from the pool. This method blocks until an object is
    * available.
-   * 
+   *
    * @return The borrowed object. May be <code>null</code> depending on the
    *         factory, and the locking used.
    */
@@ -42,7 +42,7 @@ public interface IMutableObjectPool <DATATYPE>
 
   /**
    * Return a previously borrowed object back to the pool.
-   * 
+   *
    * @param aItem
    *        The previously borrowed object to be returned. Never
    *        <code>null</code>.

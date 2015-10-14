@@ -18,11 +18,9 @@ package com.helger.commons.collection.multimap;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.multimap.MultiWeakHashMapVectorBased;
-
 /**
  * Test class for class {@link MultiWeakHashMapVectorBased}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MultiWeakHashMapVectorBasedTest extends AbstractMultiMapTestCase

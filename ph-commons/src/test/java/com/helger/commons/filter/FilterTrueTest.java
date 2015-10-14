@@ -21,9 +21,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.filter.FilterTrue;
-import com.helger.commons.filter.IFilter;
-
 /**
  * Test class for class {@link FilterTrue}
  *

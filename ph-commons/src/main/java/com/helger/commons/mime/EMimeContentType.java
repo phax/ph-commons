@@ -31,28 +31,28 @@ import com.helger.commons.string.StringHelper;
  */
 public enum EMimeContentType implements IHasID <String>
 {
-  APPLICATION ("application"),
-  AUDIO ("audio"),
-  EXAMPLE ("example"),
-  IMAGE ("image"),
-  MESSAGE ("message"),
-  MODEL ("model"),
-  MULTIPART ("multipart"),
-  TEXT ("text"),
-  VIDEO ("video"),
-  // Special ones
-  CHEMICAL ("chemical"),
-  FLV_APPLICATION ("flv-application"),
-  INODE ("inode"),
-  WWW ("www"),
-  X_CONFERENCE ("x-conference"),
-  X_CONTENT ("x-content"),
-  X_DIRECTORY ("x-directory"),
-  X_EPOC ("x-epoc"),
-  X_WORLD ("x-world"),
-  ZZ_APPLICATION ("zz-application"),
-  // Generic
-  _STAR ("*");
+ APPLICATION ("application"),
+ AUDIO ("audio"),
+ EXAMPLE ("example"),
+ IMAGE ("image"),
+ MESSAGE ("message"),
+ MODEL ("model"),
+ MULTIPART ("multipart"),
+ TEXT ("text"),
+ VIDEO ("video"),
+ // Special ones
+ CHEMICAL ("chemical"),
+ FLV_APPLICATION ("flv-application"),
+ INODE ("inode"),
+ WWW ("www"),
+ X_CONFERENCE ("x-conference"),
+ X_CONTENT ("x-content"),
+ X_DIRECTORY ("x-directory"),
+ X_EPOC ("x-epoc"),
+ X_WORLD ("x-world"),
+ ZZ_APPLICATION ("zz-application"),
+ // Generic
+ _STAR ("*");
 
   private final String m_sText;
 

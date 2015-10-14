@@ -205,7 +205,7 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
             int nsz = m_nPos * 2;
             if (nsz > m_nMarkLimit)
               nsz = m_nMarkLimit;
-            final byte nbuf [] = new byte [nsz];
+            final byte nbuf[] = new byte [nsz];
             System.arraycopy (buffer, 0, nbuf, 0, m_nPos);
             if (!s_aBufUpdater.compareAndSet (this, buffer, nbuf))
             {
@@ -251,7 +251,9 @@ public class NonBlockingBufferedInputStream extends FilterInputStream
    * Read characters into a portion of an array, reading from the underlying
    * stream at most once if necessary.
    */
-  private int _read1 (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  private int _read1 (@Nonnull final byte [] aBuf,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen) throws IOException
   {
     int nAvail = m_nCount - m_nPos;
     if (nAvail <= 0)

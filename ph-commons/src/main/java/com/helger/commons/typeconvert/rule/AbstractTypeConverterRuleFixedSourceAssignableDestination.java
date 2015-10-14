@@ -24,7 +24,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Abstract type converter than can convert from a base source class to a
  * destination class. Example from String.class to specific Enum.class
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractTypeConverterRuleFixedSourceAssignableDestination extends AbstractTypeConverterRule

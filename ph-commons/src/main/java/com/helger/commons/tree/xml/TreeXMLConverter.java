@@ -25,7 +25,6 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.impl.NonBlockingStack;
-import com.helger.commons.convert.ConverterIdentity;
 import com.helger.commons.hierarchy.ChildrenProviderHasChildrenSorting;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
@@ -80,10 +79,7 @@ public final class TreeXMLConverter
   public static <DATATYPE, ITEMTYPE extends ITreeItemWithID <String, DATATYPE, ITEMTYPE>> IMicroElement getTreeWithStringIDAsXML (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                                                   @Nonnull final IConverterTreeItemToMicroNode <? super DATATYPE> aConverter)
   {
-    return getTreeWithIDAsXML (aTree,
-                               new ComparatorHasIDString <ITEMTYPE> (),
-                               new ConverterIdentity <String> (),
-                               aConverter);
+    return getTreeWithIDAsXML (aTree, new ComparatorHasIDString <ITEMTYPE> (), aID -> aID, aConverter);
   }
 
   @Nonnull
@@ -225,9 +221,7 @@ public final class TreeXMLConverter
   public static <DATATYPE> DefaultTreeWithGlobalUniqueID <String, DATATYPE> getXMLAsTreeWithUniqueStringID (@Nonnull final IMicroElement aElement,
                                                                                                             @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
   {
-    return TreeXMLConverter.<String, DATATYPE> getXMLAsTreeWithUniqueID (aElement,
-                                                                         new ConverterIdentity <String> (),
-                                                                         aDataConverter);
+    return TreeXMLConverter.<String, DATATYPE> getXMLAsTreeWithUniqueID (aElement, aID -> aID, aDataConverter);
   }
 
   @Nonnull

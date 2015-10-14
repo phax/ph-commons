@@ -23,13 +23,11 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import com.helger.commons.factory.FactoryConstantValue;
-import com.helger.commons.factory.IFactory;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link FactoryConstantValue}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FactoryConstantValueTest

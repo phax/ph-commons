@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 /**
  * A special privileged object, that calls
  * <code>ClassLoader.getSystemClassLoader ()</code>
- * 
+ *
  * @author Philip Helger
  */
 public final class PrivilegedActionGetSystemClassLoader implements PrivilegedAction <ClassLoader>

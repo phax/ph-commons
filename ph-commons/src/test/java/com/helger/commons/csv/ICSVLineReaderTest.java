@@ -28,7 +28,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link ICSVLineReader}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ICSVLineReaderTest

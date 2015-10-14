@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 
 /**
  * MicroDOM internal event.
- * 
+ *
  * @author Philip Helger
  */
 public interface IMicroEvent

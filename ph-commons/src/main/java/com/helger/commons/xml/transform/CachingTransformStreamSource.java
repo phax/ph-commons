@@ -34,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  * {@link javax.xml.transform.Source} that ensures that the passed
  * {@link InputStream} is copied. This is achieved by copying the content in a
  * {@link NonBlockingByteArrayInputStream}.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe

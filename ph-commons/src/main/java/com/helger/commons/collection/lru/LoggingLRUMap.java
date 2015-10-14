@@ -68,7 +68,8 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
   }
 
   @Override
-  protected void onRemoveEldestEntry (@Nonnegative final int nSize, @Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEntry)
+  protected void onRemoveEldestEntry (@Nonnegative final int nSize,
+                                      @Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEntry)
   {
     s_aLogger.warn ("Map" +
                     (m_sMapName != null ? " '" + m_sMapName + "'" : "") +

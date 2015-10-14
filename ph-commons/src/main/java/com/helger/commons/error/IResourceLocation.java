@@ -25,7 +25,7 @@ import com.helger.commons.lang.IHasStringRepresentation;
 
 /**
  * Interface indication the position of something within a single resource
- * 
+ *
  * @author Philip Helger
  */
 public interface IResourceLocation extends IHasStringRepresentation, Serializable

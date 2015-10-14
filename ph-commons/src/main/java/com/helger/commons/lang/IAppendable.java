@@ -25,7 +25,7 @@ import org.w3c.dom.Node;
 
 /**
  * Defines a generic interface for appending objects to something.
- * 
+ *
  * @author Philip Helger
  * @param <THISTYPE>
  *        The implementation type.

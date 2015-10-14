@@ -20,7 +20,7 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 
 /**
  * Interface for an object creating unique int IDs.
- * 
+ *
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
@@ -28,7 +28,7 @@ public interface IIntIDFactory extends IBaseIDFactory
 {
   /**
    * Create a new unique integer ID.
-   * 
+   *
    * @return The newly created ID.
    */
   int getNewID ();

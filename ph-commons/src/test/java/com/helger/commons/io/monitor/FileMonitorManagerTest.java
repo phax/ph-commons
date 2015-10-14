@@ -28,7 +28,7 @@ import com.helger.commons.thread.ThreadHelper;
 
 /**
  * Test class for class {@link FileMonitorManager}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FileMonitorManagerTest

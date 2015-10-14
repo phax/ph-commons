@@ -54,9 +54,9 @@ public final class AbstractDoubleComparatorFuncTest
   public void testAll ()
   {
     final Double [] x = new Double [] { Double.valueOf (3),
-                                       Double.valueOf (3),
-                                       Double.valueOf (-56),
-                                       Double.valueOf (1) };
+                                        Double.valueOf (3),
+                                        Double.valueOf (-56),
+                                        Double.valueOf (1) };
 
     // default: sort ascending
     List <Double> l = CollectionHelper.getSorted (x, new MockComparator ());

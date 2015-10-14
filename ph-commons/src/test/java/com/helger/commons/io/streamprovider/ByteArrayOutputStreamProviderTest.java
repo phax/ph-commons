@@ -33,7 +33,7 @@ import com.helger.commons.io.stream.StringInputStream;
 
 /**
  * Test class for class {@link ByteArrayOutputStreamProvider}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ByteArrayOutputStreamProviderTest
@@ -45,7 +45,8 @@ public final class ByteArrayOutputStreamProviderTest
     final OutputStream aOS = aOSP.getOutputStream (EAppend.DEFAULT);
     assertNotNull (aOS);
     StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream ("Hiho",
-                                                                                 CCharset.CHARSET_ISO_8859_1_OBJ), aOS);
+                                                                                 CCharset.CHARSET_ISO_8859_1_OBJ),
+                                                          aOS);
     assertEquals ("Hiho", aOSP.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ));
     assertArrayEquals (CharsetManager.getAsBytes ("Hiho", CCharset.CHARSET_ISO_8859_1_OBJ), aOSP.getBytes ());
     // Close the underlying OS

@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A factory that creates String IDs based on a specified {@link IIntIDFactory}.
  * The implementation is as thread-safe as the used {@link IIntIDFactory}.
- * 
+ *
  * @author Philip Helger
  */
 public class StringIDFromIntIDFactory implements IStringIDFactory

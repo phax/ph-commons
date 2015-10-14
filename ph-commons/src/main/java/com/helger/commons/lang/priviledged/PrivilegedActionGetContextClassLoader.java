@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 /**
  * A special privileged object, that calls
  * <code>Thread.currentThread ().getContextClassLoader ()</code>
- * 
+ *
  * @author Philip Helger
  */
 public final class PrivilegedActionGetContextClassLoader implements PrivilegedAction <ClassLoader>

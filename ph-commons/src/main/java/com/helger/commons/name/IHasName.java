@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
  * that is not multilingual but should be human interpretable. If you need to
  * have a name that is displayed on the screen, please use the
  * {@link IHasDisplayName} interface.
- * 
+ *
  * @author Philip Helger
  */
 public interface IHasName

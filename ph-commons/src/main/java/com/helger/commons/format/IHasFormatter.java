@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 /**
  * If a class implements this interface, it claims that its value can be
  * formatted using an {@link IFormatter} object.
- * 
+ *
  * @author Philip Helger
  */
 public interface IHasFormatter
@@ -29,7 +29,7 @@ public interface IHasFormatter
   /**
    * Get the required formatting object to handle values of this context. This
    * may never be <code>null</code>.
-   * 
+   *
    * @return The formatting object. Never <code>null</code>.
    */
   @Nonnull

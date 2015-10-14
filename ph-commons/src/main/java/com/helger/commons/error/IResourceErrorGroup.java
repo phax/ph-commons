@@ -25,7 +25,7 @@ import com.helger.commons.lang.IHasSize;
 
 /**
  * Contains a list of resource errors and some sanity access methods.
- * 
+ *
  * @author Philip Helger
  */
 public interface IResourceErrorGroup extends IHasSize, Iterable <IResourceError>, IHasErrorLevels, Serializable
@@ -33,7 +33,7 @@ public interface IResourceErrorGroup extends IHasSize, Iterable <IResourceError>
   /**
    * Get a resource error group containing only the failure elements. All error
    * levels except {@link EErrorLevel#SUCCESS} are considered to be a failure!
-   * 
+   *
    * @return A resource error group containing only the failures.
    */
   @Nonnull
@@ -42,7 +42,7 @@ public interface IResourceErrorGroup extends IHasSize, Iterable <IResourceError>
   /**
    * Get a resource error group containing only the error elements. All error
    * levels &ge; {@link EErrorLevel#ERROR} are considered to be an error!
-   * 
+   *
    * @return A resource error group containing only the errors.
    */
   @Nonnull
@@ -50,7 +50,7 @@ public interface IResourceErrorGroup extends IHasSize, Iterable <IResourceError>
 
   /**
    * Get a list of all contained resource errors.
-   * 
+   *
    * @return A non-<code>null</code> list of all contained error objects
    */
   @Nonnull

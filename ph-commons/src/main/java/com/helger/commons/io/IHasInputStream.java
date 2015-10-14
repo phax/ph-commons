@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 
 /**
  * A callback interface to retrieve {@link InputStream} objects.
- * 
+ *
  * @author Philip Helger
  */
 public interface IHasInputStream
@@ -30,7 +30,7 @@ public interface IHasInputStream
   /**
    * Get the input stream to read from the object. Each time this method is
    * call, a new {@link InputStream} needs to be created!
-   * 
+   *
    * @return <code>null</code> if resolving failed.
    */
   @Nullable

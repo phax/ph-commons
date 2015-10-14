@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Marker interface to indicate that something can be stopped.
- * 
+ *
  * @author Philip Helger
  */
 public interface IStoppable

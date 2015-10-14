@@ -24,7 +24,7 @@ import com.helger.commons.annotation.OverrideOnDemand;
 
 /**
  * Special JUnit test rule to initialize scopes correctly.
- * 
+ *
  * @author Philip Helger
  */
 public class ScopeTestRule extends ExternalResource

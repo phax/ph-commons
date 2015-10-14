@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 /**
  * This is a helper interface that allows for setting character data. This is
  * required by text and comment nodes.
- * 
+ *
  * @author Philip Helger
  */
 public interface IMicroDataAware extends Serializable
@@ -39,7 +39,7 @@ public interface IMicroDataAware extends Serializable
 
   /**
    * Change the character sequence. Any previously set characters are lost.
-   * 
+   *
    * @param sData
    *        The new character sequence to be set.
    */
@@ -47,7 +47,7 @@ public interface IMicroDataAware extends Serializable
 
   /**
    * Append characters to the string.
-   * 
+   *
    * @param sData
    *        The characters to be appended.
    */
@@ -55,7 +55,7 @@ public interface IMicroDataAware extends Serializable
 
   /**
    * Append characters to the string.
-   * 
+   *
    * @param aChars
    *        Base character array. May not be <code>null</code>.
    * @param nOfs
@@ -67,7 +67,7 @@ public interface IMicroDataAware extends Serializable
 
   /**
    * Append a character to the string.
-   * 
+   *
    * @param cChar
    *        The character to append
    */
@@ -75,7 +75,7 @@ public interface IMicroDataAware extends Serializable
 
   /**
    * Add characters to the beginning of the current data.
-   * 
+   *
    * @param sData
    *        The characters to be added at the front.
    */
@@ -83,7 +83,7 @@ public interface IMicroDataAware extends Serializable
 
   /**
    * Add characters to the beginning of the current data.
-   * 
+   *
    * @param aChars
    *        Base character array. May not be <code>null</code>.
    * @param nOfs
@@ -95,7 +95,7 @@ public interface IMicroDataAware extends Serializable
 
   /**
    * Add a character to the beginning of the current data.
-   * 
+   *
    * @param cChar
    *        The character to preprend
    */

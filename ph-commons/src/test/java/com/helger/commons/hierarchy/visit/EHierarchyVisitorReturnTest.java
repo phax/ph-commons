@@ -20,11 +20,9 @@ import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
-import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
-
 /**
  * Test class for class {@link EHierarchyVisitorReturn}.
- * 
+ *
  * @author Philip Helger
  */
 public final class EHierarchyVisitorReturnTest

@@ -26,7 +26,7 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link ECountry}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ECountryTest extends AbstractCommonsTestCase

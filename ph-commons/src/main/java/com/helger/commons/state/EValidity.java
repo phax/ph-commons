@@ -20,13 +20,13 @@ import javax.annotation.Nonnull;
 
 /**
  * Small enum for checks to indicate valid or invalid.
- * 
+ *
  * @author Philip Helger
  */
 public enum EValidity implements IValidityIndicator
 {
-  VALID,
-  INVALID;
+ VALID,
+ INVALID;
 
   public boolean isValid ()
   {

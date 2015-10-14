@@ -29,7 +29,7 @@ import com.helger.commons.mock.CommonsAssert;
 
 /**
  * Test class for class {@link MathHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MathHelperTest

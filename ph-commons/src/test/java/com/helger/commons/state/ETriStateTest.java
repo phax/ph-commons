@@ -26,7 +26,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link ETriState}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ETriStateTest

@@ -18,7 +18,7 @@ package com.helger.commons.convert;
 
 /**
  * This is a very simple type conversion interface for compile type conversions.
- * 
+ *
  * @param <SRCTYPE>
  *        source type
  * @param <DSTTYPE>
@@ -29,7 +29,7 @@ public interface IBidirectionalConverter <SRCTYPE, DSTTYPE>
 {
   /**
    * Convert from SRC to DST.
-   * 
+   *
    * @param aSource
    *        The SRC object. No <code>null</code> or non- <code>null</code>
    *        constraint possible.
@@ -40,7 +40,7 @@ public interface IBidirectionalConverter <SRCTYPE, DSTTYPE>
 
   /**
    * Convert from DST to SRC
-   * 
+   *
    * @param aDest
    *        The DST object. No <code>null</code> or non- <code>null</code>
    *        constraint possible.

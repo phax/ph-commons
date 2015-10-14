@@ -41,9 +41,11 @@ public final class MimeTypeDeterminatorTest extends AbstractCommonsTestCase
                   MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("Anything",
                                                                              CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (CMimeType.TEXT_XML,
-                  MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("<?xml ", CCharset.CHARSET_ISO_8859_1_OBJ));
+                  MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("<?xml ",
+                                                                             CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (CMimeType.APPLICATION_PDF,
-                  MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("%PDF\n", CCharset.CHARSET_ISO_8859_1_OBJ));
+                  MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("%PDF\n",
+                                                                             CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (CMimeType.IMAGE_GIF,
                   MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("GIF87a\n",
                                                                              CCharset.CHARSET_ISO_8859_1_OBJ));
@@ -55,19 +57,21 @@ public final class MimeTypeDeterminatorTest extends AbstractCommonsTestCase
     assertEquals (CMimeType.IMAGE_TIFF,
                   MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("II\n", CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (CMimeType.IMAGE_PSD,
-                  MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("8BPS\n", CCharset.CHARSET_ISO_8859_1_OBJ));
+                  MimeTypeDeterminator.getInstance ().getMimeTypeFromString ("8BPS\n",
+                                                                             CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (CMimeType.IMAGE_JPG,
                   MimeTypeDeterminator.getInstance ()
                                       .getMimeTypeFromBytes (new byte [] { (byte) 0xff, (byte) 0xd8, 0 }));
     assertEquals (CMimeType.IMAGE_PNG,
-                  MimeTypeDeterminator.getInstance ().getMimeTypeFromBytes (new byte [] { (byte) 0x89,
-                                                                                         0x50,
-                                                                                         0x4e,
-                                                                                         0x47,
-                                                                                         0x0d,
-                                                                                         0x0a,
-                                                                                         0x1a,
-                                                                                         0x0a,
-                                                                                         0 }));
+                  MimeTypeDeterminator.getInstance ()
+                                      .getMimeTypeFromBytes (new byte [] { (byte) 0x89,
+                                                                           0x50,
+                                                                           0x4e,
+                                                                           0x47,
+                                                                           0x0d,
+                                                                           0x0a,
+                                                                           0x1a,
+                                                                           0x0a,
+                                                                           0 }));
   }
 }

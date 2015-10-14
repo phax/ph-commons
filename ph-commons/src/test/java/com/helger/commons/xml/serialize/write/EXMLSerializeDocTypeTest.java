@@ -22,11 +22,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.xml.serialize.write.EXMLSerializeDocType;
-
 /**
  * Test class for class {@link EXMLSerializeDocType}.
- * 
+ *
  * @author Philip Helger
  */
 public final class EXMLSerializeDocTypeTest

@@ -21,14 +21,14 @@ import javax.annotation.Nonnull;
 /**
  * This is the callback interface implemented by
  * {@link MicroTypeConverterRegistry} for registration via the SPI interface.
- * 
+ *
  * @author Philip Helger
  */
 public interface IMicroTypeConverterRegistry
 {
   /**
    * Register a new type converter.
-   * 
+   *
    * @param aClass
    *        The class for which the converter is meant. May not be
    *        <code>null</code>.

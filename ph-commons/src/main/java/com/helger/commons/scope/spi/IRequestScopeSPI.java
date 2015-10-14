@@ -24,7 +24,7 @@ import com.helger.commons.scope.IRequestScope;
 /**
  * SPI for handling the request scope lifecycle. Is invoked for non-web and web
  * scopes.
- * 
+ *
  * @author Philip Helger
  */
 @IsSPIInterface
@@ -32,7 +32,7 @@ public interface IRequestScopeSPI
 {
   /**
    * Called after the request scope was started
-   * 
+   *
    * @param aRequestScope
    *        The request scope object to be used. Never <code>null</code>.
    */
@@ -40,7 +40,7 @@ public interface IRequestScopeSPI
 
   /**
    * Called before the request scope is shut down
-   * 
+   *
    * @param aRequestScope
    *        The request scope object to be used. Never <code>null</code>.
    */

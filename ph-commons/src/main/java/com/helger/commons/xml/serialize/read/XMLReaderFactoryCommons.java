@@ -80,15 +80,11 @@ public final class XMLReaderFactoryCommons
   {
     ClassLoader getContextClassLoader () throws SecurityException
     {
-      return AccessController.doPrivileged (new PrivilegedAction <ClassLoader> ()
-      {
-        public ClassLoader run ()
-        {
-          ClassLoader cl = Thread.currentThread ().getContextClassLoader ();
-          if (cl == null)
-            cl = ClassLoader.getSystemClassLoader ();
-          return cl;
-        }
+      return AccessController.doPrivileged ((PrivilegedAction <ClassLoader>) () -> {
+        ClassLoader cl = Thread.currentThread ().getContextClassLoader ();
+        if (cl == null)
+          cl = ClassLoader.getSystemClassLoader ();
+        return cl;
       });
     }
 
@@ -97,20 +93,16 @@ public final class XMLReaderFactoryCommons
       return AccessController.doPrivileged (new PrivilegedActionSystemGetProperty (propName));
     }
 
+    @SuppressWarnings ("resource")
     InputStream getResourceAsStream (final ClassLoader cl, final String name)
     {
-      return AccessController.doPrivileged (new PrivilegedAction <InputStream> ()
-      {
-        @SuppressWarnings ("resource")
-        public InputStream run ()
-        {
-          InputStream ris;
-          if (cl == null)
-            ris = Object.class.getResourceAsStream (name);
-          else
-            ris = cl.getResourceAsStream (name);
-          return ris;
-        }
+      return AccessController.doPrivileged ((PrivilegedAction <InputStream>) () -> {
+        InputStream ris;
+        if (cl == null)
+          ris = Object.class.getResourceAsStream (name);
+        else
+          ris = cl.getResourceAsStream (name);
+        return ris;
       });
     }
   }

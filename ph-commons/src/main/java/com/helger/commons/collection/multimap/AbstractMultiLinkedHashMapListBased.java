@@ -29,7 +29,7 @@ import com.helger.commons.state.EChange;
 /**
  * Abstract multi map based on {@link java.util.LinkedHashMap} and
  * {@link java.util.List} values.<br>
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        key type
@@ -47,7 +47,8 @@ public abstract class AbstractMultiLinkedHashMapListBased <KEYTYPE, VALUETYPE> e
     putSingle (aKey, aValue);
   }
 
-  public AbstractMultiLinkedHashMapListBased (@Nullable final KEYTYPE aKey, @Nullable final List <VALUETYPE> aCollection)
+  public AbstractMultiLinkedHashMapListBased (@Nullable final KEYTYPE aKey,
+                                              @Nullable final List <VALUETYPE> aCollection)
   {
     put (aKey, aCollection);
   }

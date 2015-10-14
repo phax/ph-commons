@@ -30,20 +30,21 @@ import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.tree.DefaultTree;
 import com.helger.commons.tree.DefaultTreeItem;
-import com.helger.commons.tree.util.TreeVisitor;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 import com.helger.commons.tree.withid.DefaultTreeWithID;
 
 /**
  * Test class for class {@link TreeVisitor}.
- * 
+ *
  * @author Philip Helger
  */
 public final class TreeVisitorTest
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (TreeVisitorTest.class);
 
-  private static void _fillTree (final DefaultTreeItem <String> aParentItem, final int nLevels, final int nItemsPerLevel)
+  private static void _fillTree (final DefaultTreeItem <String> aParentItem,
+                                 final int nLevels,
+                                 final int nItemsPerLevel)
   {
     if (nLevels > 0)
       for (int i = 0; i < nItemsPerLevel; ++i)

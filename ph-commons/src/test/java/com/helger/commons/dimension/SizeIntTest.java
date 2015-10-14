@@ -23,14 +23,13 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.dimension.SizeInt;
 import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link SizeInt}.
- * 
+ *
  * @author Philip Helger
  */
 public final class SizeIntTest
@@ -59,10 +58,10 @@ public final class SizeIntTest
     {}
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SizeInt (320, 240), new SizeInt (320, 240));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240), new SizeInt (321,
-                                                                                                                240));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240), new SizeInt (320,
-                                                                                                                241));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240),
+                                                                           new SizeInt (321, 240));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240),
+                                                                           new SizeInt (320, 241));
   }
 
   @Test

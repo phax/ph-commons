@@ -26,14 +26,14 @@ import com.helger.commons.io.EAppend;
 /**
  * A callback interface to retrieve {@link OutputStream} objects from a given
  * name.
- * 
+ *
  * @author Philip Helger
  */
 public interface IOutputStreamProvider
 {
   /**
    * Get the output stream from the given name.
-   * 
+   *
    * @param sName
    *        The name to be resolved. May not be <code>null</code>.
    * @param eAppend

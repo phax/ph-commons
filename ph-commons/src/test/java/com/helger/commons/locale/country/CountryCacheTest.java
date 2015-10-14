@@ -45,8 +45,8 @@ public final class CountryCacheTest
   public void testGetCountryOfLocale ()
   {
     assertNull (CountryCache.getInstance ().getCountry ((Locale) null));
-    assertEquals (CountryCache.getInstance ().getCountry (LOCALE.getCountry ()), CountryCache.getInstance ()
-                                                                                             .getCountry (LOCALE));
+    assertEquals (CountryCache.getInstance ().getCountry (LOCALE.getCountry ()),
+                  CountryCache.getInstance ().getCountry (LOCALE));
   }
 
   @Test
@@ -72,7 +72,8 @@ public final class CountryCacheTest
     assertEquals (CountryCache.getInstance ().getCountry ("ch"),
                   CountryCache.getInstance ().getCountry (new Locale ("de", "ch")));
     assertEquals (LocaleCache.getInstance ().getLocale ("", "AT", ""), CountryCache.getInstance ().getCountry ("_AT"));
-    assertEquals (LocaleCache.getInstance ().getLocale ("", "AT", ""), CountryCache.getInstance ().getCountry ("de_AT"));
+    assertEquals (LocaleCache.getInstance ().getLocale ("", "AT", ""),
+                  CountryCache.getInstance ().getCountry ("de_AT"));
     assertEquals (CountryCache.getInstance ().getCountry ("AT"),
                   CountryCache.getInstance ().getCountry (CountryCache.getInstance ().getCountry ("AT").toString ()));
     for (final String sLocale : CountryCache.getInstance ().getAllCountries ())
@@ -116,8 +117,9 @@ public final class CountryCacheTest
   public void testContainsCountryByLocale ()
   {
     assertFalse (CountryCache.getInstance ().containsCountry ((Locale) null));
-    assertTrue (CountryCache.getInstance ().containsCountry (LOCALE.getCountry ()) == CountryCache.getInstance ()
-                                                                                                  .containsCountry (LOCALE));
+    assertTrue (CountryCache.getInstance ()
+                            .containsCountry (LOCALE.getCountry ()) == CountryCache.getInstance ()
+                                                                                   .containsCountry (LOCALE));
   }
 
   @Test

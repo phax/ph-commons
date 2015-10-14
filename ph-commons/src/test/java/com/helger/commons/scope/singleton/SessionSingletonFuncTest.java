@@ -31,7 +31,6 @@ import org.junit.rules.TestRule;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.scope.mock.ScopeTestRule;
-import com.helger.commons.scope.singleton.AbstractSessionSingleton;
 
 /**
  * Test class for class {@link AbstractSessionSingleton}.<br>
@@ -90,7 +89,8 @@ public final class SessionSingletonFuncTest
     final MockSessionSingletonWithScopeCtor a = MockSessionSingletonWithScopeCtor.getInstance ();
     assertNotNull (a);
     assertTrue (AbstractSessionSingleton.isSessionSingletonInstantiated (MockSessionSingletonWithScopeCtor.class));
-    assertSame (a, AbstractSessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingletonWithScopeCtor.class));
+    assertSame (a,
+                AbstractSessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingletonWithScopeCtor.class));
     assertNotNull (a.getScope ());
     assertEquals (0, a.get ());
     a.inc ();

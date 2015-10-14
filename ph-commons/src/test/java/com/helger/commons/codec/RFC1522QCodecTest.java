@@ -18,9 +18,6 @@ package com.helger.commons.codec;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.codec.IByteArrayCodec;
-import com.helger.commons.codec.RFC1522QCodec;
-
 /**
  * Test class for class {@link RFC1522QCodec}
  *

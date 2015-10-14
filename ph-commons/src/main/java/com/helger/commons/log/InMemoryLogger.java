@@ -85,7 +85,9 @@ public class InMemoryLogger implements Iterable <LogMessage>, IHasSize, IClearab
     log (eErrorLevel, aMsg, null);
   }
 
-  public void log (@Nonnull final IErrorLevel eErrorLevel, @Nonnull final Serializable aMsg, @Nullable final Throwable t)
+  public void log (@Nonnull final IErrorLevel eErrorLevel,
+                   @Nonnull final Serializable aMsg,
+                   @Nullable final Throwable t)
   {
     final LogMessage aLogMessage = createLogMessage (eErrorLevel, aMsg, t);
     if (aLogMessage != null)

@@ -23,7 +23,7 @@ import com.helger.commons.annotation.OverrideOnDemand;
 
 /**
  * Abstract tree item with ID factory implementation
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        tree item key type

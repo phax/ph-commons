@@ -25,7 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Abstract base implementation of the {@link URIResolver} interface.
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractTransformURIResolver implements URIResolver

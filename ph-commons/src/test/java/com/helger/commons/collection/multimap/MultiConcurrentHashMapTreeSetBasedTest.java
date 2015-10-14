@@ -18,12 +18,9 @@ package com.helger.commons.collection.multimap;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.multimap.IMultiMapSetBased;
-import com.helger.commons.collection.multimap.MultiConcurrentHashMapTreeSetBased;
-
 /**
  * Test class for class {@link MultiConcurrentHashMapTreeSetBased}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MultiConcurrentHashMapTreeSetBasedTest extends AbstractMultiMapTestCase

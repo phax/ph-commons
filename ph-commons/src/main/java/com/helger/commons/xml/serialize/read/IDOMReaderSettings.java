@@ -24,7 +24,7 @@ import javax.xml.validation.Schema;
 
 /**
  * Read-only interface for DOM reader settings.
- * 
+ *
  * @author Philip Helger
  */
 public interface IDOMReaderSettings extends IBaseXMLReaderSettings
@@ -88,7 +88,7 @@ public interface IDOMReaderSettings extends IBaseXMLReaderSettings
    * Check if the current settings require a separate
    * {@link javax.xml.parsers.DocumentBuilderFactory} or if a pooled default
    * object can be used.
-   * 
+   *
    * @return <code>true</code> if a separate
    *         {@link javax.xml.parsers.DocumentBuilderFactory} is required,
    *         <code>false</code> if not.
@@ -98,7 +98,7 @@ public interface IDOMReaderSettings extends IBaseXMLReaderSettings
   /**
    * Apply settings of this object onto the specified
    * {@link DocumentBuilderFactory} object.
-   * 
+   *
    * @param aDBF
    *        The {@link DocumentBuilderFactory} to apply the settings onto. May
    *        not be <code>null</code>.
@@ -108,7 +108,7 @@ public interface IDOMReaderSettings extends IBaseXMLReaderSettings
   /**
    * Apply settings of this object onto the specified {@link DocumentBuilder}
    * object.
-   * 
+   *
    * @param aDB
    *        The {@link DocumentBuilder} to apply the settings onto. May not be
    *        <code>null</code>.

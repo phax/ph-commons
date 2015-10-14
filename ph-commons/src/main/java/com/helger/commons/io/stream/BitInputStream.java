@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
  * read the next bit from the stream, as well as to read multiple bits at once
  * and write the resulting data into an integer value.<br>
  * For a non-blocking version see {@link NonBlockingBitInputStream}.
- * 
+ *
  * @author Andreas Jakl
  * @author Philip Helger
  */
@@ -41,7 +41,7 @@ public class BitInputStream extends NonBlockingBitInputStream
 
   /**
    * Create a new bit input stream based on an existing Java InputStream.
-   * 
+   *
    * @param aIS
    *        the input stream this class should read the bits from. May not be
    *        <code>null</code>.
@@ -55,7 +55,7 @@ public class BitInputStream extends NonBlockingBitInputStream
 
   /**
    * Read the next bit from the stream.
-   * 
+   *
    * @return 0 if the bit is 0, 1 if the bit is 1.
    * @throws IOException
    *         In case EOF is reached

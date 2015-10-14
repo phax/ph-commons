@@ -35,7 +35,7 @@ import com.helger.commons.callback.INonThrowingRunnableWithParameter;
  * not deliver duplicate result solutions. This implementation is flexible in
  * terms of handling the slots. This means it will also return result sets where
  * not all slots are filled.
- * 
+ *
  * @author Boris Gregorcic
  * @author Philip Helger
  * @param <DATATYPE>
@@ -49,7 +49,7 @@ public final class CombinationGeneratorFlexible <DATATYPE>
 
   /**
    * Ctor
-   * 
+   *
    * @param nSlotCount
    *        the number of slots to use
    * @param bAllowEmpty
@@ -64,7 +64,7 @@ public final class CombinationGeneratorFlexible <DATATYPE>
 
   /**
    * Iterate all combination, no matter they are unique or not.
-   * 
+   *
    * @param aElements
    *        List of elements.
    * @param aCallback
@@ -93,7 +93,7 @@ public final class CombinationGeneratorFlexible <DATATYPE>
 
   /**
    * Generate all combinations without duplicates.
-   * 
+   *
    * @param aElements
    *        the elements to distribute to the specified slots (may be empty!)
    * @return a set of slot allocations representing all possible combinations
@@ -105,13 +105,7 @@ public final class CombinationGeneratorFlexible <DATATYPE>
     ValueEnforcer.notNull (aElements, "Elements");
 
     final Set <List <DATATYPE>> aAllResults = new HashSet <List <DATATYPE>> ();
-    iterateAllCombinations (aElements, new INonThrowingRunnableWithParameter <List <DATATYPE>> ()
-    {
-      public void run (final List <DATATYPE> aCurrentObject)
-      {
-        aAllResults.add (aCurrentObject);
-      }
-    });
+    iterateAllCombinations (aElements, aCurrentObject -> aAllResults.add (aCurrentObject));
     return aAllResults;
   }
 

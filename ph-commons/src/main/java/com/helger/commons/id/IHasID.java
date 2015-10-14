@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Base interface for all objects having an ID.
- * 
+ *
  * @author Philip Helger
  * @param <IDTYPE>
  *        The type of the provided ID.
@@ -31,7 +31,7 @@ public interface IHasID <IDTYPE>
    * Get the unique ID of this object. If the type is {@link String} than the
    * returned value must match an XML NMToken expression (so e.g. no ':' in the
    * ID)!
-   * 
+   *
    * @return The ID of this object. May not be <code>null</code>.
    */
   @Nonnull

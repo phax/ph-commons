@@ -86,9 +86,9 @@ public final class ReadOnlyMultilingualTextTest extends AbstractCommonsTestCase
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMLT,
                                                                        new ReadOnlyMultilingualText (CollectionHelper.newMap (new Locale [] { L_DE,
-                                                                                                                                             L_EN },
+                                                                                                                                              L_EN },
                                                                                                                               new String [] { "de",
-                                                                                                                                             "en" })));
+                                                                                                                                              "en" })));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadOnlyMultilingualText (),
                                                                        new ReadOnlyMultilingualText ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadOnlyMultilingualText ());

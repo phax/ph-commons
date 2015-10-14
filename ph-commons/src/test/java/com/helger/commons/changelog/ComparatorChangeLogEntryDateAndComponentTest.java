@@ -40,8 +40,8 @@ public final class ComparatorChangeLogEntryDateAndComponentTest
     for (final ChangeLog aCL : ChangeLogSerializer.readAllChangeLogs ().values ())
       aEntries.addAll (aCL.getAllEntries ());
     assertSame (aEntries, CollectionHelper.getSortedInline (aEntries, new ComparatorChangeLogEntryDateAndComponent ()));
-    assertTrue (CollectionHelper.getFirstElement (aEntries).getDate ().getTime () < CollectionHelper.getLastElement (aEntries)
-                                                                                                    .getDate ()
-                                                                                                    .getTime ());
+    assertTrue (CollectionHelper.getFirstElement (aEntries)
+                                .getDate ()
+                                .getTime () < CollectionHelper.getLastElement (aEntries).getDate ().getTime ());
   }
 }

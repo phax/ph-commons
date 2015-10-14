@@ -37,7 +37,7 @@ import com.helger.commons.type.IHasObjectType;
 
 /**
  * Test class for class {@link ServiceLoader}.
- * 
+ *
  * @author Philip Helger
  */
 // SKIPJDK5
