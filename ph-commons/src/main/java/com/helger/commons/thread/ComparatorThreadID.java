@@ -29,9 +29,6 @@ import com.helger.commons.compare.AbstractLongComparator;
 @NotThreadSafe
 public class ComparatorThreadID extends AbstractLongComparator <Thread>
 {
-  public ComparatorThreadID ()
-  {}
-
   @Override
   protected long getAsLong (@Nonnull final Thread aThread)
   {

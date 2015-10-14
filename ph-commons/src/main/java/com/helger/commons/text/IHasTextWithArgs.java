@@ -44,7 +44,10 @@ public interface IHasTextWithArgs extends IHasText
   @Nullable
   @Deprecated
   @DevelopersNote ("Use getText instead!")
-  String getTextWithArgs (@Nonnull Locale aContentLocale);
+  default String getTextWithArgs (@Nonnull final Locale aContentLocale)
+  {
+    return getText (aContentLocale);
+  }
 
   /**
    * Get the text specific for the passed locale. The implementation class MAY

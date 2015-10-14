@@ -30,9 +30,6 @@ import com.helger.commons.compare.AbstractIntComparator;
 @NotThreadSafe
 public class ComparatorThreadPriority extends AbstractIntComparator <Thread>
 {
-  public ComparatorThreadPriority ()
-  {}
-
   @Override
   protected int getAsInt (@Nonnull final Thread aThread)
   {
