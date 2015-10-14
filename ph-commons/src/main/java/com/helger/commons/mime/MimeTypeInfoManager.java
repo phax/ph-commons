@@ -22,8 +22,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,6 +36,7 @@ import com.helger.commons.annotation.VisibleForTesting;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiTreeMapArrayListBased;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
@@ -70,7 +69,7 @@ public class MimeTypeInfoManager
 
   private static boolean s_bDefaultInstantiated = false;
 
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
   private final List <MimeTypeInfo> m_aList = new ArrayList <MimeTypeInfo> ();
   @GuardedBy ("m_aRWLock")
@@ -145,10 +144,8 @@ public class MimeTypeInfoManager
   @Nonnull
   public EChange clearCache ()
   {
-    EChange ret = EChange.UNCHANGED;
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    return m_aRWLock.writeLocked ( () -> {
+      EChange ret = EChange.UNCHANGED;
       if (!m_aList.isEmpty ())
       {
         m_aList.clear ();
@@ -164,12 +161,8 @@ public class MimeTypeInfoManager
         m_aMapMimeType.clear ();
         ret = EChange.CHANGED;
       }
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
-    return ret;
+      return ret;
+    });
   }
 
   public void reinitializeToDefault ()
@@ -185,17 +178,11 @@ public class MimeTypeInfoManager
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eRoot = aDoc.appendElement ("mime-type-info");
 
-    m_aRWLock.readLock ().lock ();
-    try
-    {
+    m_aRWLock.readLocked ( () -> {
       for (final MimeTypeInfo aInfo : CollectionHelper.getSorted (m_aList,
                                                                   new ComparatorMimeTypeInfoPrimaryMimeType ()))
         eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aInfo, "item"));
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    });
 
     return aDoc;
   }
@@ -208,9 +195,7 @@ public class MimeTypeInfoManager
 
     // Check if MimeType is unique
     // Note: Extension must not be unique
-    m_aRWLock.readLock ().lock ();
-    try
-    {
+    m_aRWLock.readLocked ( () -> {
       for (final MimeTypeWithSource aMimeType : aMimeTypes)
       {
         final List <MimeTypeInfo> aExisting = m_aMapMimeType.get (aMimeType.getMimeType ());
@@ -222,26 +207,16 @@ public class MimeTypeInfoManager
                                               "' is already registered: " +
                                               aExisting);
       }
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    });
 
     // Perform changes
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       m_aList.add (aInfo);
       for (final MimeTypeWithSource aMimeType : aMimeTypes)
         m_aMapMimeType.putSingle (aMimeType.getMimeType (), aInfo);
       for (final ExtensionWithSource aExt : aExtensions)
         m_aMapExt.putSingle (aExt.getExtension (), aInfo);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   @VisibleForTesting
@@ -250,16 +225,10 @@ public class MimeTypeInfoManager
     ValueEnforcer.notNull (aInfo, "Info");
     ValueEnforcer.notNull (aExt, "Ext");
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       m_aMapExt.putSingle (aExt.getExtension (), aInfo);
       aInfo.addExtension (aExt);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   @VisibleForTesting
@@ -268,16 +237,10 @@ public class MimeTypeInfoManager
     ValueEnforcer.notNull (aInfo, "Info");
     ValueEnforcer.notNull (aMimeType, "MimeType");
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       m_aMapMimeType.putSingle (aMimeType.getMimeType (), aInfo);
       aInfo.addMimeType (aMimeType);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   @Nullable
@@ -356,16 +319,7 @@ public class MimeTypeInfoManager
     if (aMimeType == null)
       return null;
 
-    List <MimeTypeInfo> ret;
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      ret = m_aMapMimeType.get (aMimeType);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    final List <MimeTypeInfo> ret = m_aRWLock.readLocked ( () -> m_aMapMimeType.get (aMimeType));
 
     // Create a copy if present
     return ret == null ? null : CollectionHelper.newList (ret);
@@ -379,15 +333,7 @@ public class MimeTypeInfoManager
   @ReturnsMutableCopy
   public List <MimeTypeInfo> getAllMimeTypeInfos ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newList (m_aList);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aList));
   }
 
   /**
@@ -399,16 +345,10 @@ public class MimeTypeInfoManager
   public Set <IMimeType> getAllMimeTypes ()
   {
     final Set <IMimeType> ret = new LinkedHashSet <IMimeType> ();
-    m_aRWLock.readLock ().lock ();
-    try
-    {
+    m_aRWLock.readLocked ( () -> {
       for (final MimeTypeInfo aInfo : m_aList)
         ret.addAll (aInfo.getAllMimeTypes ());
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    });
     return ret;
   }
 
@@ -421,16 +361,10 @@ public class MimeTypeInfoManager
   public Set <String> getAllMimeTypeStrings ()
   {
     final Set <String> ret = new LinkedHashSet <String> ();
-    m_aRWLock.readLock ().lock ();
-    try
-    {
+    m_aRWLock.readLocked ( () -> {
       for (final MimeTypeInfo aInfo : m_aList)
         ret.addAll (aInfo.getAllMimeTypeStrings ());
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    });
     return ret;
   }
 

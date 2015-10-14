@@ -80,54 +80,22 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
 
   public final boolean isValid ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return !m_bInPreDestruction && !m_bInDestruction && !m_bDestroyed;
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> !m_bInPreDestruction && !m_bInDestruction && !m_bDestroyed);
   }
 
   public final boolean isInPreDestruction ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_bInPreDestruction;
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_bInPreDestruction);
   }
 
   public final boolean isInDestruction ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_bInDestruction;
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_bInDestruction);
   }
 
   public final boolean isDestroyed ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_bDestroyed;
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_bDestroyed);
   }
 
   /**
@@ -155,17 +123,11 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
 
   public final void destroyScope ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       if (m_bInPreDestruction)
         throw new IllegalStateException ("Scope " + getID () + " is already in pre destruction!");
       m_bInPreDestruction = true;
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
 
     preDestroy ();
 
@@ -181,9 +143,7 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
           s_aLogger.error ("Failed to call onBeforeScopeDestruction in scope " + getID () + " for " + aValue, t);
         }
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       if (m_bDestroyed)
         throw new IllegalStateException ("Scope " + getID () + " is already destroyed!");
       if (m_bInDestruction)
@@ -191,11 +151,7 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
 
       m_bInDestruction = true;
       m_bInPreDestruction = false;
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
 
     // destroy all owned scopes before destroying this scope!
     destroyOwnedScopes ();
@@ -213,19 +169,13 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
         }
 
     // Finished destruction process -> remember this
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       // remove all attributes (double write lock is no problem)
       clear ();
 
       m_bDestroyed = true;
       m_bInDestruction = false;
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
 
     postDestroy ();
   }
@@ -241,15 +191,7 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
   {
     ValueEnforcer.notNull (aCallable, "Callable");
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      return aCallable.call (this);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    return m_aRWLock.writeLocked ( () -> aCallable.call (this));
   }
 
   @Nonnull

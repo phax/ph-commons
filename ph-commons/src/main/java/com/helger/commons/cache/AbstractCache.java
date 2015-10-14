@@ -155,15 +155,7 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
     ValueEnforcer.notNull (aKey, "cacheKey");
     ValueEnforcer.notNull (aValue, "cacheValue");
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      putInCacheNotLocked (aKey, aValue);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> putInCacheNotLocked (aKey, aValue));
   }
 
   @MustBeLocked (ELockType.READ)
@@ -179,15 +171,7 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   @OverridingMethodsMustInvokeSuper
   protected final VALUETYPE getFromCacheNoStats (@Nullable final KEYTYPE aKey)
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return getFromCacheNoStatsNotLocked (aKey);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> getFromCacheNoStatsNotLocked (aKey));
   }
 
   private void _updateStats (final boolean bMiss)
@@ -219,82 +203,46 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   @OverridingMethodsMustInvokeSuper
   public EChange removeFromCache (final KEYTYPE aKey)
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    return m_aRWLock.writeLocked ( () -> {
       if (m_aCache == null || m_aCache.remove (aKey) == null)
         return EChange.UNCHANGED;
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
-    m_aCacheRemoveStats.increment ();
-    return EChange.CHANGED;
+      m_aCacheRemoveStats.increment ();
+      return EChange.CHANGED;
+    });
   }
 
   @Nonnull
   @OverridingMethodsMustInvokeSuper
   public EChange clearCache ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    return m_aRWLock.writeLocked ( () -> {
       if (m_aCache == null || m_aCache.isEmpty ())
         return EChange.UNCHANGED;
 
       m_aCache.clear ();
       m_aCacheClearStats.increment ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Cache was cleared: " + getClass ().getName ());
+      if (s_aLogger.isDebugEnabled ())
+        s_aLogger.debug ("Cache was cleared: " + getClass ().getName ());
 
-    return EChange.CHANGED;
+      return EChange.CHANGED;
+    });
   }
 
   @Nonnegative
   public int getSize ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.getSize (m_aCache);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.getSize (m_aCache));
   }
 
   public boolean isEmpty ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.isEmpty (m_aCache);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.isEmpty (m_aCache));
   }
 
   public boolean isNotEmpty ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.isNotEmpty (m_aCache);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.isNotEmpty (m_aCache));
   }
 
   @Override

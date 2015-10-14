@@ -163,15 +163,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
 
   protected final void setInInstantiation (final boolean bInInstantiation)
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aStatus.set (STATUS_IN_INSTANTIATION, bInInstantiation);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aStatus.set (STATUS_IN_INSTANTIATION, bInInstantiation));
   }
 
   /**
@@ -181,28 +173,12 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final boolean isInInstantiation ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aStatus.get (STATUS_IN_INSTANTIATION);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aStatus.get (STATUS_IN_INSTANTIATION));
   }
 
   protected final void setInstantiated (final boolean bInstantiated)
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aStatus.set (STATUS_INSTANTIATED, bInstantiated);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aStatus.set (STATUS_INSTANTIATED, bInstantiated));
   }
 
   /**
@@ -211,28 +187,12 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final boolean isInstantiated ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aStatus.get (STATUS_INSTANTIATED);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aStatus.get (STATUS_INSTANTIATED));
   }
 
   protected final void setInPreDestruction (final boolean bInPreDestruction)
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aStatus.set (STATUS_IN_PRE_DESTRUCTION, bInPreDestruction);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aStatus.set (STATUS_IN_PRE_DESTRUCTION, bInPreDestruction));
   }
 
   /**
@@ -242,28 +202,12 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final boolean isInPreDestruction ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aStatus.get (STATUS_IN_PRE_DESTRUCTION);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aStatus.get (STATUS_IN_PRE_DESTRUCTION));
   }
 
   protected final void setInDestruction (final boolean bInDestruction)
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aStatus.set (STATUS_IN_DESTRUCTION, bInDestruction);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aStatus.set (STATUS_IN_DESTRUCTION, bInDestruction));
   }
 
   /**
@@ -273,28 +217,12 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final boolean isInDestruction ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aStatus.get (STATUS_IN_DESTRUCTION);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aStatus.get (STATUS_IN_DESTRUCTION));
   }
 
   protected final void setDestroyed (final boolean bDestroyed)
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aStatus.set (STATUS_DESTROYED, bDestroyed);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aStatus.set (STATUS_DESTROYED, bDestroyed));
   }
 
   /**
@@ -303,15 +231,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final boolean isDestroyed ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aStatus.get (STATUS_DESTROYED);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aStatus.get (STATUS_DESTROYED));
   }
 
   /**

@@ -76,44 +76,11 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
     return getAttributeAsString (aName, null);
   }
 
-  /**
-   * Get the string representation of the passed value, suitable for parameters.
-   *
-   * @param aParamName
-   *        The name of the parameters. Has just informal character, for
-   *        warnings. May be <code>null</code>.
-   * @param aValue
-   *        The value to be converted to a String. May be <code>null</code>.
-   *        Explicitly supported data types are: String, String[]. All other
-   *        data types are returned as "toString()".
-   * @param sDefault
-   *        The default value to be returned, if the passed value is
-   *        <code>null</code> or an empty String array.
-   * @return The default value if the value is <code>null</code> or an empty
-   *         String array, the value as string otherwise. If the value is a
-   *         String[] than the first element is returned, and the other elements
-   *         are discarded.
-   */
-  @Nullable
-  @Deprecated
-  public static String getAsString (@Nullable final Object aParamName,
-                                    @Nullable final Object aValue,
-                                    @Nullable final String sDefault)
-  {
-    return AttributeValueConverter.getAsString (aParamName, aValue, sDefault);
-  }
-
   @Nullable
   public final String getAttributeAsString (@Nullable final KEYTYPE aName, @Nullable final String sDefault)
   {
     final Object aValue = getAttributeObject (aName);
     return AttributeValueConverter.getAsString (aName, aValue, sDefault);
-  }
-
-  @Deprecated
-  public static int getAsInt (@Nullable final Object aParamName, @Nullable final Object aValue, final int nDefault)
-  {
-    return AttributeValueConverter.getAsInt (aParamName, aValue, nDefault);
   }
 
   public final int getAttributeAsInt (@Nullable final KEYTYPE aName)
@@ -127,12 +94,6 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
     return AttributeValueConverter.getAsInt (aName, aValue, nDefault);
   }
 
-  @Deprecated
-  public static long getAsLong (@Nullable final Object aParamName, @Nullable final Object aValue, final long nDefault)
-  {
-    return AttributeValueConverter.getAsLong (aParamName, aValue, nDefault);
-  }
-
   public final long getAttributeAsLong (@Nullable final KEYTYPE aName)
   {
     return getAttributeAsLong (aName, CGlobal.ILLEGAL_ULONG);
@@ -144,14 +105,6 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
     return AttributeValueConverter.getAsLong (aName, aValue, nDefault);
   }
 
-  @Deprecated
-  public static double getAsDouble (@Nullable final Object aParamName,
-                                    @Nullable final Object aValue,
-                                    final double dDefault)
-  {
-    return AttributeValueConverter.getAsDouble (aParamName, aValue, dDefault);
-  }
-
   public final double getAttributeAsDouble (@Nullable final KEYTYPE aName)
   {
     return getAttributeAsDouble (aName, CGlobal.ILLEGAL_UINT);
@@ -161,14 +114,6 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
   {
     final Object aValue = getAttributeObject (aName);
     return AttributeValueConverter.getAsDouble (aName, aValue, dDefault);
-  }
-
-  @Deprecated
-  public static boolean getAsBoolean (@Nullable final Object aParamName,
-                                      @Nullable final Object aValue,
-                                      final boolean bDefault)
-  {
-    return AttributeValueConverter.getAsBoolean (aParamName, aValue, bDefault);
   }
 
   public final boolean getAttributeAsBoolean (@Nullable final KEYTYPE aName)
@@ -183,15 +128,6 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
   }
 
   @Nullable
-  @Deprecated
-  public static BigInteger getAsBigInteger (@Nullable final Object aParamName,
-                                            @Nullable final Object aValue,
-                                            @Nullable final BigInteger aDefault)
-  {
-    return AttributeValueConverter.getAsBigInteger (aParamName, aValue, aDefault);
-  }
-
-  @Nullable
   public final BigInteger getAttributeAsBigInteger (@Nullable final KEYTYPE aName)
   {
     return getAttributeAsBigInteger (aName, null);
@@ -202,15 +138,6 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
   {
     final Object aValue = getAttributeObject (aName);
     return AttributeValueConverter.getAsBigInteger (aName, aValue, aDefault);
-  }
-
-  @Nullable
-  @Deprecated
-  public static BigDecimal getAsBigDecimal (@Nullable final Object aParamName,
-                                            @Nullable final Object aValue,
-                                            @Nullable final BigDecimal aDefault)
-  {
-    return AttributeValueConverter.getAsBigDecimal (aParamName, aValue, aDefault);
   }
 
   @Nullable

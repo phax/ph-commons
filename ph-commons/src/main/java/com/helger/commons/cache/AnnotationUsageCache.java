@@ -22,14 +22,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -44,7 +44,7 @@ import com.helger.commons.string.ToStringGenerator;
 @ThreadSafe
 public class AnnotationUsageCache implements Serializable
 {
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final Class <? extends Annotation> m_aAnnotationClass;
   @GuardedBy ("m_aRWLock")
   private final Map <String, Boolean> m_aMap = new HashMap <String, Boolean> ();
@@ -94,33 +94,19 @@ public class AnnotationUsageCache implements Serializable
 
     final String sClassName = aClass.getName ();
 
-    Boolean aIs;
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      aIs = m_aMap.get (sClassName);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    Boolean aIs = m_aRWLock.readLocked ((Supplier <Boolean>) () -> m_aMap.get (sClassName));
     if (aIs == null)
     {
-      m_aRWLock.writeLock ().lock ();
-      try
-      {
+      aIs = m_aRWLock.writeLocked ((Supplier <Boolean>) () -> {
         // Try again in write-lock
-        aIs = m_aMap.get (sClassName);
-        if (aIs == null)
+        Boolean aWLIs = m_aMap.get (sClassName);
+        if (aWLIs == null)
         {
-          aIs = Boolean.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null);
-          m_aMap.put (sClassName, aIs);
+          aWLIs = Boolean.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null);
+          m_aMap.put (sClassName, aWLIs);
         }
-      }
-      finally
-      {
-        m_aRWLock.writeLock ().unlock ();
-      }
+        return aWLIs;
+      });
     }
     return aIs.booleanValue ();
   }
@@ -131,28 +117,12 @@ public class AnnotationUsageCache implements Serializable
 
     final String sClassName = aClass.getName ();
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aMap.put (sClassName, Boolean.valueOf (bHasAnnotation));
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ((Runnable) () -> m_aMap.put (sClassName, Boolean.valueOf (bHasAnnotation)));
   }
 
   public void clearCache ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aMap.clear ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aMap.clear ());
   }
 
   @Override

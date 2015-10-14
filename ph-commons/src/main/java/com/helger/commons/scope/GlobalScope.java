@@ -71,9 +71,7 @@ public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
   @Override
   protected void destroyOwnedScopes ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       for (final IApplicationScope aAppScope : m_aAppScopes.values ())
       {
         // Invoke SPIs
@@ -83,11 +81,7 @@ public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
         aAppScope.destroyScope ();
       }
       m_aAppScopes.clear ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   @Override
@@ -134,39 +128,24 @@ public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
     ValueEnforcer.notEmpty (sApplicationID, "ApplicationID");
 
     // Read-lock only
-    IApplicationScope aAppScope;
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      aAppScope = m_aAppScopes.get (sApplicationID);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
-
+    IApplicationScope aAppScope = m_aRWLock.readLocked ( () -> m_aAppScopes.get (sApplicationID));
     if (aAppScope == null && bCreateIfNotExisting)
     {
       // now write lock
-      m_aRWLock.writeLock ().lock ();
-      try
-      {
+      aAppScope = m_aRWLock.writeLocked ( () -> {
         // Make sure it was not added in the mean time
-        aAppScope = m_aAppScopes.get (sApplicationID);
-        if (aAppScope == null)
+        IApplicationScope aWLAppScope = m_aAppScopes.get (sApplicationID);
+        if (aWLAppScope == null)
         {
-          aAppScope = createApplicationScope (sApplicationID);
-          m_aAppScopes.put (sApplicationID, aAppScope);
-          aAppScope.initScope ();
+          aWLAppScope = createApplicationScope (sApplicationID);
+          m_aAppScopes.put (sApplicationID, aWLAppScope);
+          aWLAppScope.initScope ();
 
           // Invoke SPIs
-          ScopeSPIManager.getInstance ().onApplicationScopeBegin (aAppScope);
+          ScopeSPIManager.getInstance ().onApplicationScopeBegin (aWLAppScope);
         }
-      }
-      finally
-      {
-        m_aRWLock.writeLock ().unlock ();
-      }
+        return aWLAppScope;
+      });
     }
     return aAppScope;
   }
@@ -175,29 +154,13 @@ public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
   @ReturnsMutableCopy
   public Map <String, IApplicationScope> getAllApplicationScopes ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newMap (m_aAppScopes);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newMap (m_aAppScopes));
   }
 
   @Nonnegative
   public int getApplicationScopeCount ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aAppScopes.size ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aAppScopes.size ());
   }
 
   @Override

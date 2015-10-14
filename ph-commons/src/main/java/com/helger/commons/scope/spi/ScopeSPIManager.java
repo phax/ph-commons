@@ -17,8 +17,6 @@
 package com.helger.commons.scope.spi;
 
 import java.util.List;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
@@ -30,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.exception.mock.IMockException;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.scope.IApplicationScope;
@@ -58,7 +57,7 @@ public final class ScopeSPIManager
 
   private static boolean s_bDefaultInstantiated = false;
 
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
   private List <IGlobalScopeSPI> m_aGlobalSPIs;
   @GuardedBy ("m_aRWLock")
@@ -91,19 +90,13 @@ public final class ScopeSPIManager
   public void reinitialize ()
   {
     // Register all listeners
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       m_aGlobalSPIs = ServiceLoaderHelper.getAllSPIImplementations (IGlobalScopeSPI.class);
       m_aApplicationSPIs = ServiceLoaderHelper.getAllSPIImplementations (IApplicationScopeSPI.class);
       m_aSessionSPIs = ServiceLoaderHelper.getAllSPIImplementations (ISessionScopeSPI.class);
       m_aSessionApplicationSPIs = ServiceLoaderHelper.getAllSPIImplementations (ISessionApplicationScopeSPI.class);
       m_aRequestSPIs = ServiceLoaderHelper.getAllSPIImplementations (IRequestScopeSPI.class);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
 
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("Reinitialized " + ScopeSPIManager.class.getName ());
@@ -117,15 +110,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public List <IGlobalScopeSPI> getAllGlobalScopeSPIs ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newList (m_aGlobalSPIs);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aGlobalSPIs));
   }
 
   /**
@@ -136,15 +121,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public List <IApplicationScopeSPI> getAllApplicationScopeSPIs ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newList (m_aApplicationSPIs);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aApplicationSPIs));
   }
 
   /**
@@ -155,15 +132,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public List <ISessionScopeSPI> getAllSessionScopeSPIs ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newList (m_aSessionSPIs);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aSessionSPIs));
   }
 
   /**
@@ -174,15 +143,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public List <ISessionApplicationScopeSPI> getAllSessionApplicationScopeSPIs ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newList (m_aSessionApplicationSPIs);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aSessionApplicationSPIs));
   }
 
   /**
@@ -193,15 +154,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public List <IRequestScopeSPI> getAllRequestScopeSPIs ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newList (m_aRequestSPIs);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aRequestSPIs));
   }
 
   public void onGlobalScopeBegin (@Nonnull final IGlobalScope aGlobalScope)
