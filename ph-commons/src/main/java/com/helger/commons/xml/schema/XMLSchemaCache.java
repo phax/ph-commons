@@ -18,8 +18,6 @@ package com.helger.commons.xml.schema;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -32,6 +30,7 @@ import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.ErrorHandler;
 
 import com.helger.commons.annotation.Singleton;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.xml.ls.SimpleLSResourceResolver;
 import com.helger.commons.xml.sax.LoggingSAXErrorHandler;
 
@@ -91,7 +90,7 @@ public class XMLSchemaCache extends SchemaCache
     return ret;
   }
 
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
   private static final Map <String, XMLSchemaCache> s_aPerClassLoaderCache = new HashMap <String, XMLSchemaCache> ();
 
@@ -102,48 +101,27 @@ public class XMLSchemaCache extends SchemaCache
       return getInstance ();
 
     final String sKey = aClassLoader.toString ();
-    XMLSchemaCache aCache = null;
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      aCache = s_aPerClassLoaderCache.get (sKey);
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    XMLSchemaCache aCache = s_aRWLock.readLocked ( () -> s_aPerClassLoaderCache.get (sKey));
+
     if (aCache == null)
     {
       // Not found in read-lock
-      s_aRWLock.writeLock ().lock ();
-      try
-      {
+      aCache = s_aRWLock.writeLocked ( () -> {
         // Try again in write lock
-        aCache = s_aPerClassLoaderCache.get (sKey);
-        if (aCache == null)
+        XMLSchemaCache aWLCache = s_aPerClassLoaderCache.get (sKey);
+        if (aWLCache == null)
         {
-          aCache = new XMLSchemaCache (new SimpleLSResourceResolver (aClassLoader));
-          s_aPerClassLoaderCache.put (sKey, aCache);
+          aWLCache = new XMLSchemaCache (new SimpleLSResourceResolver (aClassLoader));
+          s_aPerClassLoaderCache.put (sKey, aWLCache);
         }
-      }
-      finally
-      {
-        s_aRWLock.writeLock ().unlock ();
-      }
+        return aWLCache;
+      });
     }
     return aCache;
   }
 
   public static void clearPerClassLoaderCache ()
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_aPerClassLoaderCache.clear ();
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_aPerClassLoaderCache.clear ());
   }
 }

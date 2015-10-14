@@ -69,15 +69,7 @@ public final class ScopeHelper
    */
   public static void setLifeCycleDebuggingEnabled (final boolean bDebugLifeCycle)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_bDebugLifeCycle = bDebugLifeCycle;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_bDebugLifeCycle = bDebugLifeCycle);
   }
 
   /**
@@ -87,15 +79,7 @@ public final class ScopeHelper
    */
   public static boolean isLifeCycleDebuggingEnabled ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_bDebugLifeCycle;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_bDebugLifeCycle);
   }
 
   /**
@@ -107,15 +91,7 @@ public final class ScopeHelper
    */
   public static void setDebugGlobalScopeEnabled (final boolean bDebugScope)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_bDebugGlobalScope = bDebugScope;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_bDebugGlobalScope = bDebugScope);
   }
 
   /**
@@ -125,15 +101,7 @@ public final class ScopeHelper
    */
   public static boolean isDebugGlobalScopeEnabled ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_bDebugGlobalScope;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_bDebugGlobalScope);
   }
 
   /**
@@ -146,15 +114,7 @@ public final class ScopeHelper
    */
   public static void setDebugApplicationScopeEnabled (final boolean bDebugScope)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_bDebugApplicationScope = bDebugScope;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_bDebugApplicationScope = bDebugScope);
   }
 
   /**
@@ -164,15 +124,7 @@ public final class ScopeHelper
    */
   public static boolean isDebugApplicationScopeEnabled ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_bDebugApplicationScope;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_bDebugApplicationScope);
   }
 
   /**
@@ -185,15 +137,7 @@ public final class ScopeHelper
    */
   public static void setDebugSessionScopeEnabled (final boolean bDebugScope)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_bDebugSessionScope = bDebugScope;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_bDebugSessionScope = bDebugScope);
   }
 
   /**
@@ -203,15 +147,7 @@ public final class ScopeHelper
    */
   public static boolean isDebugSessionScopeEnabled ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_bDebugSessionScope;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_bDebugSessionScope);
   }
 
   /**
@@ -224,15 +160,7 @@ public final class ScopeHelper
    */
   public static void setDebugSessionApplicationScopeEnabled (final boolean bDebugScope)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_bDebugSessionApplicationScope = bDebugScope;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_bDebugSessionApplicationScope = bDebugScope);
   }
 
   /**
@@ -242,15 +170,7 @@ public final class ScopeHelper
    */
   public static boolean isDebugSessionApplicationScopeEnabled ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_bDebugSessionApplicationScope;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_bDebugSessionApplicationScope);
   }
 
   /**
@@ -263,15 +183,7 @@ public final class ScopeHelper
    */
   public static void setDebugRequestScopeEnabled (final boolean bDebugScope)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_bDebugRequestScope = bDebugScope;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_bDebugRequestScope = bDebugScope);
   }
 
   /**
@@ -281,15 +193,7 @@ public final class ScopeHelper
    */
   public static boolean isDebugRequestScopeEnabled ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_bDebugRequestScope;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_bDebugRequestScope);
   }
 
   /**
@@ -301,15 +205,7 @@ public final class ScopeHelper
    */
   public static void setDebugWithStackTrace (final boolean bDebugWithStackTrace)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_bDebugWithStackTrace = bDebugWithStackTrace;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_bDebugWithStackTrace = bDebugWithStackTrace);
   }
 
   /**
@@ -318,15 +214,7 @@ public final class ScopeHelper
    */
   public static boolean isDebugWithStackTrace ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_bDebugWithStackTrace;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_bDebugWithStackTrace);
   }
 
   /**

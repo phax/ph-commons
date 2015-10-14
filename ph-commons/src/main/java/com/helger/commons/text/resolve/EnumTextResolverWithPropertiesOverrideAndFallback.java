@@ -110,9 +110,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   @Nullable
   private ResourceBundle _getResourceBundle (@Nonnull @Nonempty final String sBundleName, @Nonnull final Locale aLocale)
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
+    ResourceBundle ret = m_aRWLock.readLocked ( () -> {
       if (!m_bUseResourceBundleCache)
       {
         // Do not use the cache!
@@ -122,22 +120,24 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
       // Existing cache value? May be null!
       if (m_aResourceBundleCache.containsKey (sBundleName))
         return m_aResourceBundleCache.get (sBundleName);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
-
-    return m_aRWLock.writeLocked ( () -> {
-      // Re-check in write lock
-      if (m_aResourceBundleCache.containsKey (sBundleName))
-        return m_aResourceBundleCache.get (sBundleName);
-
-      // Resolve the resource bundle
-      final ResourceBundle ret = ResourceBundleHelper.getResourceBundle (sBundleName, aLocale);
-      m_aResourceBundleCache.put (sBundleName, ret);
-      return ret;
+      return null;
     });
+
+    if (ret == null)
+    {
+      ret = m_aRWLock.writeLocked ( () -> {
+        // Re-check in write lock
+        if (m_aResourceBundleCache.containsKey (sBundleName))
+          return m_aResourceBundleCache.get (sBundleName);
+
+        // Resolve the resource bundle
+        final ResourceBundle aWLRB = ResourceBundleHelper.getResourceBundle (sBundleName, aLocale);
+        m_aResourceBundleCache.put (sBundleName, aWLRB);
+        return aWLRB;
+      });
+    }
+
+    return ret;
   }
 
   @Override
