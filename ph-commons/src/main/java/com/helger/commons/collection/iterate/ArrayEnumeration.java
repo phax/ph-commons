@@ -50,6 +50,7 @@ public final class ArrayEnumeration <ELEMENTTYPE> implements Enumeration <ELEMEN
    * @param aArray
    *        The array to enumerate. May not be <code>null</code>.
    */
+  @SafeVarargs
   public ArrayEnumeration (@Nonnull final ELEMENTTYPE... aArray)
   {
     this (aArray, 0, aArray.length);

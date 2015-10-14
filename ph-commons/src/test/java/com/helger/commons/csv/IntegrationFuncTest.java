@@ -64,31 +64,32 @@ public final class IntegrationFuncTest
   @Test
   public void testWriteRead () throws IOException
   {
-    final String [][] data = new String [] [] { { "hello, a test", "one nested \" test" },
-                                               { "\"\"", "test", null, "8" } };
+    final String [] [] data = new String [] [] { { "hello, a test", "one nested \" test" },
+                                                 { "\"\"", "test", null, "8" } };
 
-    final CSVWriter writer = new CSVWriter (new FileWriter (m_aTempFile));
-    for (final String [] aData : data)
+    try (final CSVWriter writer = new CSVWriter (new FileWriter (m_aTempFile)))
     {
-      writer.writeNext (aData);
-    }
-    writer.close ();
-
-    final CSVReader reader = new CSVReader (new FileReader (m_aTempFile));
-
-    List <String> line;
-    for (int row = 0; (line = reader.readNext ()) != null; row++)
-    {
-      assertTrue (line.size () == data[row].length);
-
-      for (int col = 0; col < line.size (); col++)
+      for (final String [] aData : data)
       {
-        if (data[row][col] == null)
-          assertEquals ("", line.get (col));
-        else
-          assertEquals (data[row][col], line.get (col));
+        writer.writeNext (aData);
       }
     }
-    reader.close ();
+
+    try (final CSVReader reader = new CSVReader (new FileReader (m_aTempFile)))
+    {
+      List <String> line;
+      for (int row = 0; (line = reader.readNext ()) != null; row++)
+      {
+        assertTrue (line.size () == data[row].length);
+
+        for (int col = 0; col < line.size (); col++)
+        {
+          if (data[row][col] == null)
+            assertEquals ("", line.get (col));
+          else
+            assertEquals (data[row][col], line.get (col));
+        }
+      }
+    }
   }
 }

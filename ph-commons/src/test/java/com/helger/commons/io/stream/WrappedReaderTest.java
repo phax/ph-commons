@@ -25,15 +25,12 @@ import java.nio.CharBuffer;
 
 import org.junit.Test;
 
-import com.helger.commons.io.stream.NonBlockingStringReader;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.io.stream.WrappedReader;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link WrappedReader}.
- * 
+ *
  * @author Philip Helger
  */
 public final class WrappedReaderTest
@@ -42,32 +39,27 @@ public final class WrappedReaderTest
   public void testAll () throws IOException
   {
     final NonBlockingStringReader baos = new NonBlockingStringReader (StringHelper.getRepeated ('a', 100));
-    final WrappedReader ws = new WrappedReader (baos);
-    assertTrue (ws.markSupported ());
-    assertTrue (ws.ready ());
-    ws.mark (0);
-    ws.read ();
-    assertEquals (4, ws.read (new char [4]));
-    assertEquals (1, ws.read (new char [5], 1, 1));
-    ws.read (CharBuffer.allocate (1));
-    assertEquals (4, ws.skip (4));
-    assertEquals (89, ws.skip (100));
-    ws.reset ();
-    assertEquals (100, ws.skip (100));
-    ws.close ();
-    CommonsTestHelper.testToStringImplementation (ws);
-
-    WrappedReader aReader = null;
-    try
+    try (final WrappedReader ws = new WrappedReader (baos))
     {
-      aReader = new WrappedReader (null);
+      assertTrue (ws.markSupported ());
+      assertTrue (ws.ready ());
+      ws.mark (0);
+      ws.read ();
+      assertEquals (4, ws.read (new char [4]));
+      assertEquals (1, ws.read (new char [5], 1, 1));
+      ws.read (CharBuffer.allocate (1));
+      assertEquals (4, ws.skip (4));
+      assertEquals (89, ws.skip (100));
+      ws.reset ();
+      assertEquals (100, ws.skip (100));
+      CommonsTestHelper.testToStringImplementation (ws);
+    }
+
+    try (WrappedReader aReader = new WrappedReader (null))
+    {
       fail ();
     }
     catch (final NullPointerException ex)
     {}
-    finally
-    {
-      StreamHelper.close (aReader);
-    }
   }
 }

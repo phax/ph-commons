@@ -793,6 +793,7 @@ public final class StringHelper
    *        The type of elements to be imploded.
    */
   @Nonnull
+  @SafeVarargs
   public static <ELEMENTTYPE> String getImploded (@Nullable final ELEMENTTYPE... aElements)
   {
     if (ArrayHelper.isEmpty (aElements))
@@ -842,6 +843,7 @@ public final class StringHelper
    *        The type of elements to be imploded.
    */
   @Nonnull
+  @SafeVarargs
   public static <ELEMENTTYPE> String getImploded (@Nonnull final String sSep, @Nullable final ELEMENTTYPE... aElements)
   {
     ValueEnforcer.notNull (sSep, "Separator");
@@ -864,6 +866,7 @@ public final class StringHelper
    *        The type of elements to be imploded.
    */
   @Nonnull
+  @SafeVarargs
   public static <ELEMENTTYPE> String getImploded (final char cSep, @Nullable final ELEMENTTYPE... aElements)
   {
     return getImploded (Character.toString (cSep), aElements);

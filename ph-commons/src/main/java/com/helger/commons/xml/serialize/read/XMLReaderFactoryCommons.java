@@ -33,8 +33,8 @@ import com.helger.commons.lang.priviledged.PrivilegedActionSystemGetProperty;
 /**
  * Factory for creating an XML reader. <blockquote>
  * <em>This module, both source code and documentation, is in the
- * Public Domain, and comes with <strong>NO WARRANTY</strong>.</em> See <a
- * href='http://www.saxproject.org'>http://www.saxproject.org</a> for further
+ * Public Domain, and comes with <strong>NO WARRANTY</strong>.</em> See
+ * <a href='http://www.saxproject.org'>http://www.saxproject.org</a> for further
  * information. </blockquote>
  * <p>
  * This class contains static methods for creating an XML reader from an
@@ -101,6 +101,7 @@ public final class XMLReaderFactoryCommons
     {
       return AccessController.doPrivileged (new PrivilegedAction <InputStream> ()
       {
+        @SuppressWarnings ("resource")
         public InputStream run ()
         {
           InputStream ris;
@@ -117,9 +118,9 @@ public final class XMLReaderFactoryCommons
   /**
    * Create a new instance of a class by name. <blockquote>
    * <em>This module, both source code and documentation, is in the
-   * Public Domain, and comes with <strong>NO WARRANTY</strong>.</em> See <a
-   * href='http://www.saxproject.org'>http://www.saxproject.org</a> for further
-   * information. </blockquote>
+   * Public Domain, and comes with <strong>NO WARRANTY</strong>.</em> See
+   * <a href='http://www.saxproject.org'>http://www.saxproject.org</a> for
+   * further information. </blockquote>
    * <p>
    * This class contains a static method for creating an instance of a class
    * from an explicit class name. It tries to use the thread's context
@@ -142,8 +143,8 @@ public final class XMLReaderFactoryCommons
      * this code is not exposed at the API level.
      */
     static Object newInstance (final ClassLoader classLoader, final String className) throws ClassNotFoundException,
-                                                                                     IllegalAccessException,
-                                                                                     InstantiationException
+                                                                                      IllegalAccessException,
+                                                                                      InstantiationException
     {
       // make sure we have access to restricted packages
       boolean internal = false;
@@ -354,7 +355,8 @@ public final class XMLReaderFactoryCommons
     {
       throw new SAXException ("SAX2 driver class " +
                               sClassName +
-                              " loaded but cannot be instantiated (no empty public constructor?)", e3);
+                              " loaded but cannot be instantiated (no empty public constructor?)",
+                              e3);
     }
     catch (final ClassCastException e4)
     {

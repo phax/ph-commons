@@ -102,8 +102,6 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.collection.iterate.ArrayEnumeration;
 import com.helger.commons.collection.iterate.EmptyEnumeration;
@@ -620,7 +618,8 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     catch (final IllegalArgumentException ex)
     {}
 
-    SortedMap <Integer, String> aSortedMap = newSortedMap (new Integer [] { I2, I4 }, new String [] { "Hallo", "Welt" });
+    SortedMap <Integer, String> aSortedMap = newSortedMap (new Integer [] { I2, I4 },
+                                                           new String [] { "Hallo", "Welt" });
     assertNotNull (aSortedMap);
     assertEquals (2, aSortedMap.size ());
     assertNotNull (aSortedMap.get (I2));
@@ -1518,7 +1517,8 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testNewUnmodifiableSortedSetIIterableIterator ()
   {
-    SortedSet <String> aUnmodifiableSet = newUnmodifiableSortedSet (IterableIterator.create (newList ("Hallo", "Welt")));
+    SortedSet <String> aUnmodifiableSet = newUnmodifiableSortedSet (IterableIterator.create (newList ("Hallo",
+                                                                                                      "Welt")));
     assertNotNull (aUnmodifiableSet);
     assertEquals (2, aUnmodifiableSet.size ());
     assertTrue (aUnmodifiableSet.contains ("Hallo"));
@@ -1728,7 +1728,8 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testNewUnmodifiableOrderedSetIIterableIterator ()
   {
-    Set <String> aUnmodifiableOrderedSet = newUnmodifiableOrderedSet (IterableIterator.create (newList ("Hallo", "Welt")));
+    Set <String> aUnmodifiableOrderedSet = newUnmodifiableOrderedSet (IterableIterator.create (newList ("Hallo",
+                                                                                                        "Welt")));
     assertNotNull (aUnmodifiableOrderedSet);
     assertEquals (2, aUnmodifiableOrderedSet.size ());
     assertTrue (aUnmodifiableOrderedSet.contains ("Hallo"));
@@ -2443,7 +2444,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     try
     {
       // null Comparator
-      getSortedByKey (newMap (), null);
+      getSortedByKey (newMap (), (Comparator <String>) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -2478,7 +2479,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     try
     {
       // null Comparator
-      getSortedByValue (newMap (), null);
+      getSortedByValue (newMap (), (Comparator <String>) null);
       fail ();
     }
     catch (final NullPointerException ex)

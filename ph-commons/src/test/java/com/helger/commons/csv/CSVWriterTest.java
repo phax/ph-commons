@@ -322,12 +322,12 @@ public final class CSVWriterTest
     final String [] nextLine = new String [] { "aaaa", "bbbb", "cccc", "dddd" };
 
     final FileWriter fileWriter = new FileWriter (WRITE_FILE);
-    final CSVWriter writer = new CSVWriter (fileWriter);
+    try (final CSVWriter writer = new CSVWriter (fileWriter))
+    {
+      writer.writeNext (nextLine);
 
-    writer.writeNext (nextLine);
-
-    // If this line is not executed, it is not written in the file.
-    writer.close ();
+      // If close is not executed, it is not written in the file.
+    }
   }
 
   @Test (expected = IOException.class)
@@ -380,11 +380,11 @@ public final class CSVWriterTest
     final File tempFile = File.createTempFile ("csvWriterTest", ".csv");
     tempFile.deleteOnExit ();
     final FileWriter fwriter = new FileWriter (tempFile);
-    final CSVWriter writer = new CSVWriter (fwriter);
-
-    // write the test data:
-    writer.writeNext (data);
-    writer.close ();
+    try (final CSVWriter writer = new CSVWriter (fwriter))
+    {
+      // write the test data:
+      writer.writeNext (data);
+    }
 
     try
     {
@@ -398,17 +398,16 @@ public final class CSVWriterTest
     }
 
     // read the data and compare.
-    final FileReader in = new FileReader (tempFile);
-
-    final StringBuilder aFileContents = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
-    int ch;
-    while ((ch = in.read ()) != -1)
+    try (final FileReader in = new FileReader (tempFile))
     {
-      aFileContents.append ((char) ch);
+      final StringBuilder aFileContents = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+      int ch;
+      while ((ch = in.read ()) != -1)
+      {
+        aFileContents.append ((char) ch);
+      }
+      assertEquals (oracle, aFileContents.toString ());
     }
-    in.close ();
-
-    assertEquals (oracle, aFileContents.toString ());
   }
 
   @Test

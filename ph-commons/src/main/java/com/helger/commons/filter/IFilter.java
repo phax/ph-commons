@@ -17,6 +17,7 @@
 package com.helger.commons.filter;
 
 import java.io.Serializable;
+import java.util.function.Predicate;
 
 import com.helger.commons.annotation.DevelopersNote;
 
@@ -29,7 +30,8 @@ import com.helger.commons.annotation.DevelopersNote;
  * @param <DATATYPE>
  *        The type of object to filter.
  */
-public interface IFilter <DATATYPE> extends Serializable
+@FunctionalInterface
+public interface IFilter <DATATYPE> extends Serializable, Predicate <DATATYPE>
 {
   /**
    * Check if the given value matches the filter or not.
@@ -42,4 +44,9 @@ public interface IFilter <DATATYPE> extends Serializable
    */
   @DevelopersNote ("No @Nullable annotation as we can make no assumptions on the state")
   boolean matchesFilter (DATATYPE aValue);
+
+  default boolean test (final DATATYPE aValue)
+  {
+    return matchesFilter (aValue);
+  }
 }

@@ -593,9 +593,10 @@ public final class CSVReaderTest
   @Test
   public void attemptToReadCloseStreamReturnsNull () throws IOException
   {
-    final BufferedReader bufferedReader = new BufferedReader (new StringReader (""));
-    bufferedReader.close ();
-    final CSVReader csvReader = new CSVReader (bufferedReader);
+    @SuppressWarnings ("resource")
+    final BufferedReader aBufferedReader = new BufferedReader (new StringReader (""));
+    aBufferedReader.close ();
+    final CSVReader csvReader = new CSVReader (aBufferedReader);
     assertNull (csvReader.readNext ());
   }
 

@@ -196,6 +196,7 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     return m_sPath;
   }
 
+  @SuppressWarnings ("resource")
   @Nullable
   private static InputStream _getInputStream (@Nonnull @Nonempty final String sPath,
                                               @Nullable final URL aURL,

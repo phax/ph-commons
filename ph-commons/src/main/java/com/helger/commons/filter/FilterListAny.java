@@ -40,6 +40,7 @@ public class FilterListAny <DATATYPE> implements IFilter <DATATYPE>
 {
   private final List <? extends IFilter <? super DATATYPE>> m_aFilters;
 
+  @SafeVarargs
   public FilterListAny (@Nullable final IFilter <? super DATATYPE>... aFilters)
   {
     m_aFilters = CollectionHelper.newList (aFilters);
@@ -89,6 +90,7 @@ public class FilterListAny <DATATYPE> implements IFilter <DATATYPE>
   }
 
   @Nonnull
+  @SafeVarargs
   public static <DATATYPE> FilterListAny <DATATYPE> create (@Nullable final IFilter <? super DATATYPE>... aFilters)
   {
     return new FilterListAny <DATATYPE> (aFilters);

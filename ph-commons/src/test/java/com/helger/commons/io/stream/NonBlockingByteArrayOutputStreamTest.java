@@ -22,18 +22,18 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.random.VerySecureRandom;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link NonBlockingByteArrayOutputStream}.
- * 
+ *
  * @author Philip Helger
  */
 public final class NonBlockingByteArrayOutputStreamTest
 {
+  @SuppressWarnings ("resource")
   @Test
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testAll () throws IOException
