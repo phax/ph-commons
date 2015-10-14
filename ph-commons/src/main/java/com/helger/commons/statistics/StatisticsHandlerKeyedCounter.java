@@ -21,8 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
@@ -34,6 +32,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -83,7 +82,7 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
     }
   }
 
-  private final transient ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final transient SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final AtomicInteger m_aInvocationCount = new AtomicInteger ();
   private final Map <String, Value> m_aMap = new HashMap <String, Value> ();
 
@@ -101,63 +100,37 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
   public void increment (@Nullable final String sKey, final long nByHowMany)
   {
     m_aInvocationCount.incrementAndGet ();
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       final Value aPerKey = m_aMap.get (sKey);
       if (aPerKey == null)
         m_aMap.put (sKey, new Value (nByHowMany));
       else
         aPerKey.increment (nByHowMany);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public Set <String> getAllKeys ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newSet (m_aMap.keySet ());
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newSet (m_aMap.keySet ()));
   }
 
   @CheckForSigned
   public long getCount (@Nullable final String sKey)
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
+    return m_aRWLock.readLocked ( () -> {
       final Value aCount = m_aMap.get (sKey);
       return aCount == null ? CGlobal.ILLEGAL_ULONG : aCount.getCount ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    });
   }
 
   @CheckForSigned
   public int getInvocationCount (@Nullable final String sKey)
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
+    return m_aRWLock.readLocked ( () -> {
       final Value aCount = m_aMap.get (sKey);
       return aCount == null ? CGlobal.ILLEGAL_UINT : aCount.getInvocationCount ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    });
   }
 }

@@ -17,8 +17,6 @@
 package com.helger.commons.statistics;
 
 import java.math.BigInteger;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
@@ -26,6 +24,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.CGlobal;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 
 /**
  * Abstract base class for numeric statistic handler
@@ -35,7 +34,7 @@ import com.helger.commons.CGlobal;
 @ThreadSafe
 public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHandlerNumeric
 {
-  private final transient ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final transient SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private int m_nInvocationCount = 0;
   private long m_nMin = CGlobal.ILLEGAL_ULONG;
   private long m_nMax = CGlobal.ILLEGAL_ULONG;
@@ -44,90 +43,46 @@ public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHan
   @Nonnegative
   public final int getInvocationCount ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_nInvocationCount;
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_nInvocationCount);
   }
 
   protected final void addValue (final long nValue)
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       m_nInvocationCount++;
       if (m_nMin == CGlobal.ILLEGAL_ULONG || nValue < m_nMin)
         m_nMin = nValue;
       if (m_nMax == CGlobal.ILLEGAL_ULONG || nValue > m_nMax)
         m_nMax = nValue;
       m_aSum = m_aSum.add (BigInteger.valueOf (nValue));
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   @Nonnull
   public final BigInteger getSum ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aSum;
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aSum);
   }
 
   @CheckForSigned
   public final long getMin ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_nMin;
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_nMin);
   }
 
   @CheckForSigned
   public final long getAverage ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
+    return m_aRWLock.readLocked ( () -> {
       if (m_nInvocationCount == 0)
         return CGlobal.ILLEGAL_ULONG;
       return m_aSum.divide (BigInteger.valueOf (m_nInvocationCount)).longValue ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    });
   }
 
   @CheckForSigned
   public long getMax ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_nMax;
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_nMax);
   }
 }

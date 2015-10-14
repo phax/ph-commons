@@ -57,30 +57,14 @@ public class CollectingTransformErrorListener extends AbstractTransformErrorList
   @Override
   protected void internalLog (@Nonnull final IResourceError aResError)
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aErrors.addResourceError (aResError);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aErrors.addResourceError (aResError));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public IResourceErrorGroup getResourceErrors ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aErrors.getClone ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aErrors.getClone ());
   }
 
   /**
@@ -91,15 +75,7 @@ public class CollectingTransformErrorListener extends AbstractTransformErrorList
   @Nonnull
   public EChange clearResourceErrors ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      return m_aErrors.clear ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    return m_aRWLock.writeLocked ( () -> m_aErrors.clear ());
   }
 
   @Override

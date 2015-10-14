@@ -18,8 +18,6 @@ package com.helger.commons.thirdparty;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -33,6 +31,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.state.EChange;
 
@@ -53,7 +52,7 @@ public final class ThirdPartyModuleRegistry
   private static final Logger s_aLogger = LoggerFactory.getLogger (ThirdPartyModuleRegistry.class);
   private static boolean s_bDefaultInstantiated = false;
 
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
   private final Set <IThirdPartyModule> m_aModules = new LinkedHashSet <IThirdPartyModule> ();
 
@@ -80,57 +79,25 @@ public final class ThirdPartyModuleRegistry
   {
     ValueEnforcer.notNull (aModule, "Module");
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      return EChange.valueOf (m_aModules.add (aModule));
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    return EChange.valueOf (m_aRWLock.writeLocked ( () -> m_aModules.add (aModule)));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public Set <IThirdPartyModule> getAllRegisteredThirdPartyModules ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newSet (m_aModules);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newSet (m_aModules));
   }
 
   @Nonnegative
   public int getRegisteredThirdPartyModuleCount ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aModules.size ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aModules.size ());
   }
 
   public void reinitialize ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aModules.clear ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aModules.clear ());
 
     // Load all SPI implementations
     for (final IThirdPartyModuleProviderSPI aTPM : ServiceLoaderHelper.getAllSPIImplementations (IThirdPartyModuleProviderSPI.class))
