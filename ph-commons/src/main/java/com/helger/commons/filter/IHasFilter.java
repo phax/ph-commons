@@ -16,6 +16,8 @@
  */
 package com.helger.commons.filter;
 
+import java.util.function.Predicate;
+
 import javax.annotation.Nullable;
 
 /**
@@ -25,11 +27,12 @@ import javax.annotation.Nullable;
  * @param <DATATYPE>
  *        The type of object to filter.
  */
+@FunctionalInterface
 public interface IHasFilter <DATATYPE>
 {
   /**
    * @return The filter object. May be <code>null</code>.
    */
   @Nullable
-  IFilter <DATATYPE> getFilter ();
+  Predicate <DATATYPE> getFilter ();
 }
