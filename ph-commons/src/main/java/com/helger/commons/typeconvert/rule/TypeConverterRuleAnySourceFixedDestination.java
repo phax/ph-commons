@@ -16,39 +16,37 @@
  */
 package com.helger.commons.typeconvert.rule;
 
+import java.util.function.Function;
+
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Abstract type converter than can convert from a base source class to a
- * destination class. Example from String.class to specific Enum.class
+ * Type converter than can convert from a base source class to a destination
+ * class. Example from Object.class to String.class
  *
  * @author Philip Helger
  */
-public abstract class AbstractTypeConverterRuleFixedSourceAssignableDestination extends AbstractTypeConverterRule
+public final class TypeConverterRuleAnySourceFixedDestination extends AbstractTypeConverterRule
 {
-  private final Class <?> m_aSrcClass;
   private final Class <?> m_aDstClass;
+  private final Function <Object, Object> m_aConverter;
 
-  public AbstractTypeConverterRuleFixedSourceAssignableDestination (@Nonnull final Class <?> aSrcClass,
-                                                                    @Nonnull final Class <?> aDstClass)
+  public TypeConverterRuleAnySourceFixedDestination (@Nonnull final Class <?> aDstClass,
+                                                     @Nonnull final Function <Object, Object> aConverter)
   {
-    super (ESubType.FIXED_SRC_ASSIGNABLE_DST);
-    m_aSrcClass = ValueEnforcer.notNull (aSrcClass, "SrcClass");
+    super (ESubType.ANY_SRC_FIXED_DST);
     m_aDstClass = ValueEnforcer.notNull (aDstClass, "DestClass");
+    m_aConverter = ValueEnforcer.notNull (aConverter, "Converter");
   }
 
   public final boolean canConvert (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
   {
-    return m_aSrcClass.equals (aSrcClass) && m_aDstClass.isAssignableFrom (aDstClass);
-  }
-
-  @Nonnull
-  public final Class <?> getSourceClass ()
-  {
-    return m_aSrcClass;
+    // source class can be anything
+    return m_aDstClass.equals (aDstClass);
   }
 
   @Nonnull
@@ -57,12 +55,18 @@ public abstract class AbstractTypeConverterRuleFixedSourceAssignableDestination 
     return m_aDstClass;
   }
 
+  @Nullable
+  public Object apply (@Nonnull final Object aSource)
+  {
+    return m_aConverter.apply (aSource);
+  }
+
   @Override
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("srcClass", m_aSrcClass.getName ())
                             .append ("dstClass", m_aDstClass.getName ())
+                            .append ("converter", m_aConverter)
                             .toString ();
   }
 }

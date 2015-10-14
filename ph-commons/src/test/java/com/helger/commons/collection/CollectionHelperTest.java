@@ -267,7 +267,6 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertEquals (I5, aMap2.get ("Hallo"));
   }
 
-  @SuppressWarnings ("unchecked")
   @Test
   public void testNewMap_MapArray ()
   {

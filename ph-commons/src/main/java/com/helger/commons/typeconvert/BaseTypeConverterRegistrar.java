@@ -31,10 +31,10 @@ import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
-import com.helger.commons.typeconvert.rule.AbstractTypeConverterRuleAnySourceFixedDestination;
-import com.helger.commons.typeconvert.rule.AbstractTypeConverterRuleAssignableSourceFixedDestination;
-import com.helger.commons.typeconvert.rule.AbstractTypeConverterRuleFixedSourceAnyDestination;
-import com.helger.commons.typeconvert.rule.AbstractTypeConverterRuleFixedSourceAssignableDestination;
+import com.helger.commons.typeconvert.rule.TypeConverterRuleAnySourceFixedDestination;
+import com.helger.commons.typeconvert.rule.TypeConverterRuleAssignableSourceFixedDestination;
+import com.helger.commons.typeconvert.rule.TypeConverterRuleFixedSourceAnyDestination;
+import com.helger.commons.typeconvert.rule.TypeConverterRuleFixedSourceAssignableDestination;
 
 /**
  * Register the base type converter
@@ -69,361 +69,293 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
   public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
   {
     // to Boolean
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (Number.class,
-                                                                                                        Boolean.class)
-    {
-      public Boolean apply (@Nonnull final Object aSource)
-      {
-        return Boolean.valueOf (((Number) aSource).intValue () != 0);
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (Number.class,
+                                                                                                Boolean.class,
+                                                                                                aSource -> Boolean.valueOf (((Number) aSource).intValue () != 0)));
     aRegistry.registerTypeConverter (Character.class,
                                      Boolean.class,
-                                     (ITypeConverter) aSource -> Boolean.valueOf (((Character) aSource).charValue () != 0));
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (Boolean.class)
-    {
-      public Boolean apply (@Nonnull final Object aSource)
-      {
-        return StringParser.parseBoolObj (aSource, (Boolean) null);
-      }
-    });
+                                     aSource -> Boolean.valueOf (((Character) aSource).charValue () != 0));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination (Boolean.class,
+                                                                                         aSource -> StringParser.parseBoolObj (aSource,
+                                                                                                                               (Boolean) null)));
 
     // to Byte
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (Number.class,
-                                                                                                        Byte.class)
-    {
-      public Byte apply (@Nonnull final Object aSource)
-      {
-        return Byte.valueOf (((Number) aSource).byteValue ());
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (Number.class,
+                                                                                                Byte.class,
+                                                                                                aSource -> Byte.valueOf (((Number) aSource).byteValue ())));
     aRegistry.registerTypeConverter (Boolean.class,
                                      Byte.class,
-                                     (ITypeConverter) aSource -> Byte.valueOf (((Boolean) aSource).booleanValue () ? (byte) 1
-                                                                                                                   : (byte) 0));
+                                     aSource -> Byte.valueOf (((Boolean) aSource).booleanValue () ? (byte) 1
+                                                                                                  : (byte) 0));
     aRegistry.registerTypeConverter (Character.class,
                                      Byte.class,
-                                     (ITypeConverter) aSource -> Byte.valueOf ((byte) ((Character) aSource).charValue ()));
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (Byte.class)
-    {
-      public Byte apply (@Nonnull final Object aSource)
-      {
-        return StringParser.parseByteObj (aSource, (Byte) null);
-      }
-    });
+                                     aSource -> Byte.valueOf ((byte) ((Character) aSource).charValue ()));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination (Byte.class,
+                                                                                         aSource -> StringParser.parseByteObj (aSource,
+                                                                                                                               (Byte) null)));
 
     // to Character
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (Number.class,
-                                                                                                        Character.class)
-    {
-      public Character apply (@Nonnull final Object aSource)
-      {
-        return Character.valueOf ((char) ((Number) aSource).intValue ());
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (Number.class,
+                                                                                                Character.class,
+                                                                                                aSource -> Character.valueOf ((char) ((Number) aSource).intValue ())));
     aRegistry.registerTypeConverter (Boolean.class,
                                      Character.class,
-                                     (ITypeConverter) aSource -> Character.valueOf (((Boolean) aSource).booleanValue () ? (char) 1
-                                                                                                                        : (char) 0));
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (Character.class)
-    {
-      public Character apply (@Nonnull final Object aSource)
-      {
-        final String sSource = aSource.toString ();
-        return sSource.length () == 1 ? Character.valueOf (sSource.charAt (0)) : null;
-      }
-    });
+                                     aSource -> Character.valueOf (((Boolean) aSource).booleanValue () ? (char) 1
+                                                                                                       : (char) 0));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination (Character.class, aSource -> {
+      final String sSource = aSource.toString ();
+      return sSource.length () == 1 ? Character.valueOf (sSource.charAt (0)) : null;
+    }));
 
     // to Double
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (Number.class,
-                                                                                                        Double.class)
-    {
-      public Double apply (@Nonnull final Object aSource)
-      {
-        return Double.valueOf (((Number) aSource).doubleValue ());
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (Number.class,
+                                                                                                Double.class,
+                                                                                                aSource -> Double.valueOf (((Number) aSource).doubleValue ())));
     aRegistry.registerTypeConverter (Boolean.class,
                                      Double.class,
-                                     (ITypeConverter) aSource -> Double.valueOf (((Boolean) aSource).booleanValue () ? 1d
-                                                                                                                     : 0d));
+                                     aSource -> Double.valueOf (((Boolean) aSource).booleanValue () ? 1d : 0d));
     aRegistry.registerTypeConverter (Character.class,
                                      Double.class,
-                                     (ITypeConverter) aSource -> Double.valueOf (((Character) aSource).charValue ()));
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (Double.class)
-    {
-      public Double apply (@Nonnull final Object aSource)
-      {
-        return StringParser.parseDoubleObj (aSource, (Double) null);
-      }
-    });
+                                     aSource -> Double.valueOf (((Character) aSource).charValue ()));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination (Double.class,
+                                                                                         aSource -> StringParser.parseDoubleObj (aSource,
+                                                                                                                                 (Double) null)));
 
     // to Float
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (Number.class,
-                                                                                                        Float.class)
-    {
-      public Float apply (@Nonnull final Object aSource)
-      {
-        return Float.valueOf (((Number) aSource).floatValue ());
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (Number.class,
+                                                                                                Float.class,
+                                                                                                aSource -> Float.valueOf (((Number) aSource).floatValue ())));
     aRegistry.registerTypeConverter (Boolean.class,
                                      Float.class,
-                                     (ITypeConverter) aSource -> Float.valueOf (((Boolean) aSource).booleanValue () ? 1f
-                                                                                                                    : 0f));
+                                     aSource -> Float.valueOf (((Boolean) aSource).booleanValue () ? 1f : 0f));
     aRegistry.registerTypeConverter (Character.class,
                                      Float.class,
-                                     (ITypeConverter) aSource -> Float.valueOf (((Character) aSource).charValue ()));
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (Float.class)
-    {
-      public Float apply (@Nonnull final Object aSource)
-      {
-        return StringParser.parseFloatObj (aSource, (Float) null);
-      }
-    });
+                                     aSource -> Float.valueOf (((Character) aSource).charValue ()));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination (Float.class,
+                                                                                         aSource -> StringParser.parseFloatObj (aSource,
+                                                                                                                                (Float) null)));
 
     // to Integer
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (Number.class,
-                                                                                                        Integer.class)
-    {
-      public Integer apply (@Nonnull final Object aSource)
-      {
-        return Integer.valueOf (((Number) aSource).intValue ());
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (Number.class,
+                                                                                                Integer.class,
+                                                                                                aSource -> Integer.valueOf (((Number) aSource).intValue ())));
     aRegistry.registerTypeConverter (Boolean.class,
                                      Integer.class,
-                                     (ITypeConverter) aSource -> Integer.valueOf (((Boolean) aSource).booleanValue () ? 1
-                                                                                                                      : 0));
+                                     aSource -> Integer.valueOf (((Boolean) aSource).booleanValue () ? 1 : 0));
     aRegistry.registerTypeConverter (Character.class,
                                      Integer.class,
-                                     (ITypeConverter) aSource -> Integer.valueOf (((Character) aSource).charValue ()));
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (Integer.class)
-    {
-      public Integer apply (@Nonnull final Object aSource)
-      {
-        return StringParser.parseIntObj (aSource, (Integer) null);
-      }
-    });
+                                     aSource -> Integer.valueOf (((Character) aSource).charValue ()));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination (Integer.class,
+                                                                                         aSource -> StringParser.parseIntObj (aSource,
+                                                                                                                              (Integer) null)));
 
     // to Long
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (Number.class,
-                                                                                                        Long.class)
-    {
-      public Long apply (@Nonnull final Object aSource)
-      {
-        return Long.valueOf (((Number) aSource).longValue ());
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (Number.class,
+                                                                                                Long.class,
+                                                                                                aSource -> Long.valueOf (((Number) aSource).longValue ())));
     aRegistry.registerTypeConverter (Boolean.class,
                                      Long.class,
-                                     (ITypeConverter) aSource -> Long.valueOf (((Boolean) aSource).booleanValue () ? 1L
-                                                                                                                   : 0L));
+                                     aSource -> Long.valueOf (((Boolean) aSource).booleanValue () ? 1L : 0L));
     aRegistry.registerTypeConverter (Character.class,
                                      Long.class,
-                                     (ITypeConverter) aSource -> Long.valueOf (((Character) aSource).charValue ()));
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (Long.class)
-    {
-      public Long apply (@Nonnull final Object aSource)
-      {
-        return StringParser.parseLongObj (aSource, (Long) null);
-      }
-    });
+                                     aSource -> Long.valueOf (((Character) aSource).charValue ()));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination (Long.class,
+                                                                                         aSource -> StringParser.parseLongObj (aSource,
+                                                                                                                               (Long) null)));
 
     // to Short
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (Number.class,
-                                                                                                        Short.class)
-    {
-      public Short apply (@Nonnull final Object aSource)
-      {
-        return Short.valueOf (((Number) aSource).shortValue ());
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (Number.class,
+                                                                                                Short.class,
+                                                                                                aSource -> Short.valueOf (((Number) aSource).shortValue ())));
     aRegistry.registerTypeConverter (Boolean.class,
                                      Short.class,
-                                     (ITypeConverter) aSource -> Short.valueOf (((Boolean) aSource).booleanValue () ? (short) 1
-                                                                                                                    : (short) 0));
+                                     aSource -> Short.valueOf (((Boolean) aSource).booleanValue () ? (short) 1
+                                                                                                   : (short) 0));
     aRegistry.registerTypeConverter (Character.class,
                                      Short.class,
-                                     (ITypeConverter) aSource -> Short.valueOf ((short) ((Character) aSource).charValue ()));
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (Short.class)
-    {
-      public Short apply (@Nonnull final Object aSource)
-      {
-        return StringParser.parseShortObj (aSource, (Short) null);
-      }
-    });
+                                     aSource -> Short.valueOf ((short) ((Character) aSource).charValue ()));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination (Short.class,
+                                                                                         aSource -> StringParser.parseShortObj (aSource,
+                                                                                                                                (Short) null)));
 
     // to String
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (String.class)
-    {
-      public String apply (@Nonnull final Object aSource)
-      {
-        return aSource.toString ();
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination (String.class,
+                                                                                         aSource -> aSource.toString ()));
 
     // to BigDecimal
     aRegistry.registerTypeConverter (BigInteger.class,
                                      BigDecimal.class,
-                                     (ITypeConverter) aSource -> new BigDecimal ((BigInteger) aSource));
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (Number.class,
-                                                                                                        BigDecimal.class)
-    {
-      public BigDecimal apply (@Nonnull final Object aSource)
-      {
-        return BigDecimal.valueOf (((Number) aSource).doubleValue ());
-      }
-    });
+                                     aSource -> new BigDecimal ((BigInteger) aSource));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (Number.class,
+                                                                                                BigDecimal.class,
+                                                                                                aSource -> BigDecimal.valueOf (((Number) aSource).doubleValue ())));
     aRegistry.registerTypeConverter (Boolean.class,
                                      BigDecimal.class,
-                                     (ITypeConverter) aSource -> ((Boolean) aSource).booleanValue () ? BigDecimal.ONE
-                                                                                                     : BigDecimal.ZERO);
+                                     aSource -> ((Boolean) aSource).booleanValue () ? BigDecimal.ONE : BigDecimal.ZERO);
     aRegistry.registerTypeConverter (Character.class,
                                      BigDecimal.class,
-                                     (ITypeConverter) aSource -> BigDecimal.valueOf (((Character) aSource).charValue ()));
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (BigDecimal.class)
-    {
-      public BigDecimal apply (@Nonnull final Object aSource)
-      {
-        return StringParser.parseBigDecimal (aSource.toString (), (BigDecimal) null);
-      }
-    });
+                                     aSource -> BigDecimal.valueOf (((Character) aSource).charValue ()));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination (BigDecimal.class,
+                                                                                         aSource -> StringParser.parseBigDecimal (aSource.toString (),
+                                                                                                                                  (BigDecimal) null)));
 
     // to BigInteger
     aRegistry.registerTypeConverter (BigDecimal.class,
                                      BigInteger.class,
-                                     (ITypeConverter) aSource -> ((BigDecimal) aSource).toBigInteger ());
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (Number.class,
-                                                                                                        BigInteger.class)
-    {
-      public BigInteger apply (@Nonnull final Object aSource)
-      {
-        return BigInteger.valueOf (((Number) aSource).longValue ());
-      }
-    });
+                                     aSource -> ((BigDecimal) aSource).toBigInteger ());
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (Number.class,
+                                                                                                BigInteger.class,
+                                                                                                aSource -> BigInteger.valueOf (((Number) aSource).longValue ())));
     aRegistry.registerTypeConverter (Boolean.class,
                                      BigInteger.class,
-                                     (ITypeConverter) aSource -> ((Boolean) aSource).booleanValue () ? BigInteger.ONE
-                                                                                                     : BigInteger.ZERO);
+                                     aSource -> ((Boolean) aSource).booleanValue () ? BigInteger.ONE : BigInteger.ZERO);
     aRegistry.registerTypeConverter (Character.class,
                                      BigInteger.class,
-                                     (ITypeConverter) aSource -> BigInteger.valueOf (((Character) aSource).charValue ()));
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (BigInteger.class)
-    {
-      public BigInteger apply (@Nonnull final Object aSource)
-      {
-        return StringParser.parseBigInteger (aSource.toString (), (BigInteger) null);
-      }
-    });
+                                     aSource -> BigInteger.valueOf (((Character) aSource).charValue ()));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination (BigInteger.class,
+                                                                                         aSource -> StringParser.parseBigInteger (aSource.toString (),
+                                                                                                                                  (BigInteger) null)));
 
     // AtomicBoolean
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleFixedSourceAnyDestination (AtomicBoolean.class)
-    {
-      @Override
-      protected Object getInBetweenValue (@Nonnull final Object aSource)
-      {
-        return Boolean.valueOf (((AtomicBoolean) aSource).get ());
-      }
-    });
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (AtomicBoolean.class)
-    {
-      public AtomicBoolean apply (@Nonnull final Object aSource)
-      {
-        return new AtomicBoolean (TypeConverter.convertIfNecessary (aSource, Boolean.class).booleanValue ());
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleFixedSourceAnyDestination (AtomicBoolean.class,
+                                                                                         aSource -> Boolean.valueOf (((AtomicBoolean) aSource).get ())));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination (AtomicBoolean.class,
+                                                                                         aSource -> new AtomicBoolean (TypeConverter.convertIfNecessary (aSource,
+                                                                                                                                                         Boolean.class)
+                                                                                                                                    .booleanValue ())));
 
     // AtomicInteger
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleFixedSourceAnyDestination (AtomicInteger.class)
-    {
-      @Override
-      protected Object getInBetweenValue (@Nonnull final Object aSource)
-      {
-        return Integer.valueOf (((AtomicInteger) aSource).get ());
-      }
-    });
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (AtomicInteger.class)
-    {
-      public AtomicInteger apply (@Nonnull final Object aSource)
-      {
-        return new AtomicInteger (TypeConverter.convertIfNecessary (aSource, Integer.class).intValue ());
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleFixedSourceAnyDestination (AtomicInteger.class,
+                                                                                         aSource -> Integer.valueOf (((AtomicInteger) aSource).get ())));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination (AtomicInteger.class,
+                                                                                         aSource -> new AtomicInteger (TypeConverter.convertIfNecessary (aSource,
+                                                                                                                                                         Integer.class)
+                                                                                                                                    .intValue ())));
 
     // AtomicLong
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleFixedSourceAnyDestination (AtomicLong.class)
-    {
-      @Override
-      protected Object getInBetweenValue (@Nonnull final Object aSource)
-      {
-        return Long.valueOf (((AtomicLong) aSource).get ());
-      }
-    });
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (AtomicLong.class)
-    {
-      public AtomicLong apply (@Nonnull final Object aSource)
-      {
-        return new AtomicLong (TypeConverter.convertIfNecessary (aSource, Long.class).longValue ());
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleFixedSourceAnyDestination (AtomicLong.class,
+                                                                                         aSource -> Long.valueOf (((AtomicLong) aSource).get ())));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination (AtomicLong.class,
+                                                                                         aSource -> new AtomicLong (TypeConverter.convertIfNecessary (aSource,
+                                                                                                                                                      Long.class)
+                                                                                                                                 .longValue ())));
 
     // to StringBuilder
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (StringBuilder.class)
-    {
-      public StringBuilder apply (@Nonnull final Object aSource)
-      {
-        if (aSource instanceof CharSequence)
-          return new StringBuilder ((CharSequence) aSource);
-        return new StringBuilder (TypeConverter.convertIfNecessary (aSource, String.class));
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination (StringBuilder.class,
+                                                                                         aSource -> {
+                                                                                           if (aSource instanceof CharSequence)
+                                                                                             return new StringBuilder ((CharSequence) aSource);
+                                                                                           return new StringBuilder (TypeConverter.convertIfNecessary (aSource,
+                                                                                                                                                       String.class));
+                                                                                         }));
 
     // to StringBuffer
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (StringBuffer.class)
-    {
-      public StringBuffer apply (@Nonnull final Object aSource)
-      {
-        if (aSource instanceof CharSequence)
-          return new StringBuffer ((CharSequence) aSource);
-        return new StringBuffer (TypeConverter.convertIfNecessary (aSource, String.class));
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination (StringBuffer.class,
+                                                                                         aSource -> {
+                                                                                           if (aSource instanceof CharSequence)
+                                                                                             return new StringBuffer ((CharSequence) aSource);
+                                                                                           return new StringBuffer (TypeConverter.convertIfNecessary (aSource,
+                                                                                                                                                      String.class));
+                                                                                         }));
 
     // Enum
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (Enum.class,
-                                                                                                        String.class)
-    {
-      @Nonnull
-      public String apply (@Nonnull final Object aSource)
-      {
-        // We need to append the Enum class name, otherwise we cannot resolve
-        // it! Use the colon as it is not allowed in class names.
-        return aSource.getClass ().getName () + ':' + ((Enum <?>) aSource).name ();
-      }
-    });
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleFixedSourceAssignableDestination (String.class,
-                                                                                                        Enum.class)
-    {
-      public Enum <?> apply (@Nonnull final Object aSource)
-      {
-        // Split class name and enum value name
-        final List <String> aParts = StringHelper.getExploded (':', (String) aSource, 2);
-        try
-        {
-          // Resolve any enum class
-          // Note: The explicit EChange is just here, because an explicit enum
-          // type is needed. It must of course not only be EChange :)
-          final Class <EChange> aClass = GenericReflection.getClassFromName (aParts.get (0));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (Enum.class,
+                                                                                                String.class,
+                                                                                                aSource ->
+                                                                                                /*
+                                                                                                 * We
+                                                                                                 * need
+                                                                                                 * to
+                                                                                                 * append
+                                                                                                 * the
+                                                                                                 * Enum
+                                                                                                 * class
+                                                                                                 * name,
+                                                                                                 * otherwise
+                                                                                                 * we
+                                                                                                 * cannot
+                                                                                                 * resolve
+                                                                                                 * it!
+                                                                                                 * Use
+                                                                                                 * the
+                                                                                                 * colon
+                                                                                                 * as
+                                                                                                 * it
+                                                                                                 * is
+                                                                                                 * not
+                                                                                                 * allowed
+                                                                                                 * in
+                                                                                                 * class
+                                                                                                 * names.
+                                                                                                 */
+                                                                                                aSource.getClass ()
+                                                                                                       .getName () +
+                                                                                                           ':' +
+                                                                                                           ((Enum <?>) aSource).name ()));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleFixedSourceAssignableDestination (String.class,
+                                                                                                Enum.class,
+                                                                                                (aSource) -> {
+                                                                                                  /*
+                                                                                                   * Split
+                                                                                                   * class
+                                                                                                   * name
+                                                                                                   * and
+                                                                                                   * enum
+                                                                                                   * value
+                                                                                                   * name
+                                                                                                   */
+                                                                                                  final List <String> aParts = StringHelper.getExploded (':',
+                                                                                                                                                         (String) aSource,
+                                                                                                                                                         2);
+                                                                                                  try
+                                                                                                  {
+                                                                                                    /*
+                                                                                                     * Resolve
+                                                                                                     * any
+                                                                                                     * enum
+                                                                                                     * class.
+                                                                                                     * Note:
+                                                                                                     * The
+                                                                                                     * explicit
+                                                                                                     * EChange
+                                                                                                     * is
+                                                                                                     * just
+                                                                                                     * here,
+                                                                                                     * because
+                                                                                                     * an
+                                                                                                     * explicit
+                                                                                                     * enum
+                                                                                                     * type
+                                                                                                     * is
+                                                                                                     * needed.
+                                                                                                     * It
+                                                                                                     * must
+                                                                                                     * of
+                                                                                                     * course
+                                                                                                     * not
+                                                                                                     * only
+                                                                                                     * be
+                                                                                                     * EChange
+                                                                                                     * :)
+                                                                                                     */
+                                                                                                    final Class <EChange> aClass = GenericReflection.getClassFromName (aParts.get (0));
 
-          // And look up the element by name
-          return Enum.valueOf (aClass, aParts.get (1));
-        }
-        catch (final ClassNotFoundException ex)
-        {
-          return null;
-        }
-      }
-    });
+                                                                                                    /*
+                                                                                                     * And
+                                                                                                     * look
+                                                                                                     * up
+                                                                                                     * the
+                                                                                                     * element
+                                                                                                     * by
+                                                                                                     * name
+                                                                                                     */
+                                                                                                    return Enum.valueOf (aClass,
+                                                                                                                         aParts.get (1));
+                                                                                                  }
+                                                                                                  catch (final ClassNotFoundException ex)
+                                                                                                  {
+                                                                                                    return null;
+                                                                                                  }
+                                                                                                }));
   }
 }
