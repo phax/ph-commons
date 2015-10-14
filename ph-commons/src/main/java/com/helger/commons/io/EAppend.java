@@ -16,16 +16,16 @@
  */
 package com.helger.commons.io;
 
-import javax.annotation.Nonnull;
+import java.util.function.BooleanSupplier;
 
-import com.helger.commons.lang.IHasBooleanRepresentation;
+import javax.annotation.Nonnull;
 
 /**
  * Small enum for determining the append or truncate state of output streams.
  *
  * @author Philip Helger
  */
-public enum EAppend implements IHasBooleanRepresentation
+public enum EAppend implements BooleanSupplier
 {
  /** Append to an existing object */
   APPEND,

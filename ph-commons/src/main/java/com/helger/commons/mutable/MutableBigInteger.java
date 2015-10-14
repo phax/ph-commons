@@ -237,11 +237,6 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return MathHelper.isEqualToZero (m_aValue);
   }
 
-  public boolean isNot0 ()
-  {
-    return MathHelper.isNotEqualToZero (m_aValue);
-  }
-
   public boolean isSmaller0 ()
   {
     return MathHelper.isLowerThanZero (m_aValue);

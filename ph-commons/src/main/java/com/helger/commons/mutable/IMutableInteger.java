@@ -33,5 +33,8 @@ public interface IMutableInteger <IMPLTYPE extends IMutableInteger <IMPLTYPE>> e
   /**
    * @return <code>true</code> if the value is odd
    */
-  boolean isOdd ();
+  default boolean isOdd ()
+  {
+    return !isEven ();
+  }
 }
