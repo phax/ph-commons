@@ -23,6 +23,7 @@ package com.helger.commons.convert;
  *        Handled data type
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IConverterSameType <DATATYPE> extends IConverter <DATATYPE, DATATYPE>
 {
   /* empty */

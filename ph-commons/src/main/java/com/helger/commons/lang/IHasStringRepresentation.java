@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasStringRepresentation
 {
   /**

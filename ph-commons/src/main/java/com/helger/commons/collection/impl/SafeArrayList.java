@@ -24,7 +24,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.factory.FactoryNull;
 import com.helger.commons.factory.IFactory;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -53,7 +52,7 @@ public class SafeArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE>
    */
   public SafeArrayList ()
   {
-    this (new FactoryNull <ELEMENTTYPE> ());
+    this ( () -> null);
   }
 
   /**

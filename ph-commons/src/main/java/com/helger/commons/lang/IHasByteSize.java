@@ -24,6 +24,7 @@ import javax.annotation.Nonnegative;
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasByteSize
 {
   /**

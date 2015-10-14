@@ -27,7 +27,8 @@ import com.helger.commons.annotation.DevelopersNote;
  * @param <DATATYPE>
  *        The type of object to create.
  */
-public interface IHierarchicalFactory <DATATYPE> extends IFactoryWithParameter <DATATYPE, DATATYPE>
+@FunctionalInterface
+public interface IHierarchicalFactory <DATATYPE>
 {
   /**
    * Create an object of the desired type.

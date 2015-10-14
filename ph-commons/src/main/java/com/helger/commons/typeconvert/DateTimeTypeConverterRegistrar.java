@@ -56,7 +56,7 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
                                                                                                         Calendar.class)
     {
       @Nonnull
-      public Calendar convert (@Nonnull final Object aSource)
+      public Calendar apply (@Nonnull final Object aSource)
       {
         final Calendar aCal = Calendar.getInstance ();
         aCal.setTimeInMillis (((Number) aSource).longValue ());
@@ -84,7 +84,7 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
                                                                                                         Date.class)
     {
       @Nonnull
-      public Date convert (@Nonnull final Object aSource)
+      public Date apply (@Nonnull final Object aSource)
       {
         return new Date (((Number) aSource).longValue ());
       }

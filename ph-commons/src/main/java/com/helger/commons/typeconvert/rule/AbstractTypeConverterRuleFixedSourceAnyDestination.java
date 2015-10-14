@@ -52,7 +52,7 @@ public abstract class AbstractTypeConverterRuleFixedSourceAnyDestination extends
   @Nonnull
   protected abstract Object getInBetweenValue (@Nonnull final Object aSource);
 
-  public final Object convert (@Nonnull final Object aSource)
+  public final Object apply (@Nonnull final Object aSource)
   {
     return TypeConverter.convertIfNecessary (getInBetweenValue (aSource), m_aEffectiveDstClass);
   }

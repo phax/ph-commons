@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface ITypeConverterProvider
 {
   /**

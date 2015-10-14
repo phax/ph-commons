@@ -33,20 +33,14 @@ import com.helger.commons.locale.LocaleCache;
 @IsSPIImplementation
 public final class LocaleTypeConverterRegistrar implements ITypeConverterRegistrarSPI
 {
-  private static final class TypeConverterStringLocale implements ITypeConverter
+  public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
   {
-    public Locale convert (@Nonnull final Object aSource)
-    {
+    // Locale
+    aRegistry.registerTypeConverter (String.class, Locale.class, aSource -> {
       final String sSource = (String) aSource;
       if ("".equals (sSource))
         return Locale.ROOT;
       return LocaleCache.getInstance ().getLocale (sSource);
-    }
-  }
-
-  public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
-  {
-    // Locale
-    aRegistry.registerTypeConverter (String.class, Locale.class, new TypeConverterStringLocale ());
+    });
   }
 }

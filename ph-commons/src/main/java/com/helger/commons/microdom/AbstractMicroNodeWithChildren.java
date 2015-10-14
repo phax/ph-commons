@@ -273,12 +273,6 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Nullable
-  public String getTextContentTrimmed ()
-  {
-    return StringHelper.trim (getTextContent ());
-  }
-
-  @Nullable
   public <DSTTYPE> DSTTYPE getTextContentWithConversion (@Nonnull final Class <DSTTYPE> aDstClass)
   {
     // Get the regular content

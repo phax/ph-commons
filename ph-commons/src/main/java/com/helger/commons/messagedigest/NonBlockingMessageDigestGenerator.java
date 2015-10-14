@@ -45,7 +45,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class NonBlockingMessageDigestGenerator extends AbstractMessageDigestGenerator
+public final class NonBlockingMessageDigestGenerator implements IMessageDigestGenerator
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (NonBlockingMessageDigestGenerator.class);
 

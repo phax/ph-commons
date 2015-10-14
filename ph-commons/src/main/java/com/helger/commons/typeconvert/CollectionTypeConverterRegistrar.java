@@ -66,7 +66,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     // to ArrayList<?>
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (ArrayList.class)
     {
-      public ArrayList <?> convert (@Nonnull final Object aSource)
+      public ArrayList <?> apply (@Nonnull final Object aSource)
       {
         if (aSource instanceof Collection <?>)
           return new ArrayList <Object> ((Collection <?>) aSource);
@@ -79,7 +79,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     // to Vector<?>
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (Vector.class)
     {
-      public Vector <?> convert (@Nonnull final Object aSource)
+      public Vector <?> apply (@Nonnull final Object aSource)
       {
         if (aSource instanceof Collection <?>)
           return new Vector <Object> ((Collection <?>) aSource);
@@ -92,7 +92,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     // to LinkedList<?>
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (LinkedList.class)
     {
-      public LinkedList <?> convert (@Nonnull final Object aSource)
+      public LinkedList <?> apply (@Nonnull final Object aSource)
       {
         if (aSource instanceof Collection <?>)
           return new LinkedList <Object> ((Collection <?>) aSource);
@@ -105,7 +105,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     // to CopyOnWriteArrayList<?>
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (CopyOnWriteArrayList.class)
     {
-      public CopyOnWriteArrayList <?> convert (@Nonnull final Object aSource)
+      public CopyOnWriteArrayList <?> apply (@Nonnull final Object aSource)
       {
         if (aSource instanceof Collection <?>)
           return new CopyOnWriteArrayList <Object> ((Collection <?>) aSource);
@@ -118,7 +118,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     // to List<?>
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (List.class)
     {
-      public List <?> convert (@Nonnull final Object aSource)
+      public List <?> apply (@Nonnull final Object aSource)
       {
         if (aSource instanceof Collection <?>)
           return CollectionHelper.newList ((Collection <?>) aSource);
@@ -129,7 +129,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     // to TreeSet<?>
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (TreeSet.class)
     {
-      public TreeSet <?> convert (@Nonnull final Object aSource)
+      public TreeSet <?> apply (@Nonnull final Object aSource)
       {
         if (aSource instanceof Collection <?>)
           return new TreeSet <Object> ((Collection <?>) aSource);
@@ -142,7 +142,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     // to LinkedHashSet<?>
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (LinkedHashSet.class)
     {
-      public LinkedHashSet <?> convert (@Nonnull final Object aSource)
+      public LinkedHashSet <?> apply (@Nonnull final Object aSource)
       {
         if (aSource instanceof Collection <?>)
           return new LinkedHashSet <Object> ((Collection <?>) aSource);
@@ -155,7 +155,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     // to CopyOnWriteArraySet<?>
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (CopyOnWriteArraySet.class)
     {
-      public CopyOnWriteArraySet <?> convert (@Nonnull final Object aSource)
+      public CopyOnWriteArraySet <?> apply (@Nonnull final Object aSource)
       {
         if (aSource instanceof Collection <?>)
           return new CopyOnWriteArraySet <Object> ((Collection <?>) aSource);
@@ -168,7 +168,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     // to Set<?>
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (Set.class)
     {
-      public Set <?> convert (@Nonnull final Object aSource)
+      public Set <?> apply (@Nonnull final Object aSource)
       {
         if (aSource instanceof Collection <?>)
           return CollectionHelper.newSet ((Collection <?>) aSource);
@@ -327,7 +327,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     // To array
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (boolean [].class)
     {
-      public boolean [] convert (@Nonnull final Object aSource)
+      public boolean [] apply (@Nonnull final Object aSource)
       {
         boolean [] ret;
         final Class <?> aSourceClass = aSource.getClass ();
@@ -364,7 +364,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
 
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (byte [].class)
     {
-      public byte [] convert (@Nonnull final Object aSource)
+      public byte [] apply (@Nonnull final Object aSource)
       {
         byte [] ret;
         final Class <?> aSourceClass = aSource.getClass ();
@@ -401,7 +401,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
 
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (char [].class)
     {
-      public char [] convert (@Nonnull final Object aSource)
+      public char [] apply (@Nonnull final Object aSource)
       {
         char [] ret;
         final Class <?> aSourceClass = aSource.getClass ();
@@ -438,7 +438,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
 
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (double [].class)
     {
-      public double [] convert (@Nonnull final Object aSource)
+      public double [] apply (@Nonnull final Object aSource)
       {
         double [] ret;
         final Class <?> aSourceClass = aSource.getClass ();
@@ -475,7 +475,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
 
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (float [].class)
     {
-      public float [] convert (@Nonnull final Object aSource)
+      public float [] apply (@Nonnull final Object aSource)
       {
         float [] ret;
         final Class <?> aSourceClass = aSource.getClass ();
@@ -512,7 +512,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
 
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (int [].class)
     {
-      public int [] convert (@Nonnull final Object aSource)
+      public int [] apply (@Nonnull final Object aSource)
       {
         int [] ret;
         final Class <?> aSourceClass = aSource.getClass ();
@@ -549,7 +549,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
 
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (long [].class)
     {
-      public long [] convert (@Nonnull final Object aSource)
+      public long [] apply (@Nonnull final Object aSource)
       {
         long [] ret;
         final Class <?> aSourceClass = aSource.getClass ();
@@ -586,7 +586,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
 
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (short [].class)
     {
-      public short [] convert (@Nonnull final Object aSource)
+      public short [] apply (@Nonnull final Object aSource)
       {
         short [] ret;
         final Class <?> aSourceClass = aSource.getClass ();
@@ -623,7 +623,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
 
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (String [].class)
     {
-      public String [] convert (@Nonnull final Object aSource)
+      public String [] apply (@Nonnull final Object aSource)
       {
         String [] ret;
         final Class <?> aSourceClass = aSource.getClass ();

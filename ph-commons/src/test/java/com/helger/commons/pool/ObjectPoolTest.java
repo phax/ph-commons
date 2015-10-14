@@ -25,7 +25,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.factory.FactoryConstantValue;
 import com.helger.commons.thread.ThreadHelper;
 
 /**
@@ -48,7 +47,7 @@ public final class ObjectPoolTest
       {
         try
         {
-          final ObjectPool <String> aOP = new ObjectPool <String> (ITEMS, new FactoryConstantValue <String> ("any"));
+          final ObjectPool <String> aOP = new ObjectPool <String> (ITEMS, () -> "any");
           for (int i = 0; i < ITEMS; ++i)
             assertEquals ("any", aOP.borrowObject ());
 

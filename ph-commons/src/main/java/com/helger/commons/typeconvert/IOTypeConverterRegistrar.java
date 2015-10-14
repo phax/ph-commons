@@ -95,7 +95,7 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class,
                                                                                                         String.class)
     {
-      public String convert (@Nonnull final Object aSource)
+      public String apply (@Nonnull final Object aSource)
       {
         return ((IResourceBase) aSource).getPath ();
       }
@@ -105,7 +105,7 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class,
                                                                                                         URL.class)
     {
-      public URL convert (@Nonnull final Object aSource)
+      public URL apply (@Nonnull final Object aSource)
       {
         return ((IResourceBase) aSource).getAsURL ();
       }
@@ -115,7 +115,7 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class,
                                                                                                         File.class)
     {
-      public File convert (@Nonnull final Object aSource)
+      public File apply (@Nonnull final Object aSource)
       {
         return ((IResourceBase) aSource).getAsFile ();
       }
@@ -125,7 +125,7 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IHasInputStream.class,
                                                                                                         InputStream.class)
     {
-      public InputStream convert (@Nonnull final Object aSource)
+      public InputStream apply (@Nonnull final Object aSource)
       {
         return ((IHasInputStream) aSource).getInputStream ();
       }
@@ -135,7 +135,7 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IHasOutputStream.class,
                                                                                                         OutputStream.class)
     {
-      public OutputStream convert (@Nonnull final Object aSource)
+      public OutputStream apply (@Nonnull final Object aSource)
       {
         return ((IHasOutputStream) aSource).getOutputStream (EAppend.DEFAULT);
       }
@@ -145,7 +145,7 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IHasReader.class,
                                                                                                         Reader.class)
     {
-      public Reader convert (@Nonnull final Object aSource)
+      public Reader apply (@Nonnull final Object aSource)
       {
         return ((IHasReader) aSource).getReader ();
       }
@@ -155,7 +155,7 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IHasWriter.class,
                                                                                                         Writer.class)
     {
-      public Writer convert (@Nonnull final Object aSource)
+      public Writer apply (@Nonnull final Object aSource)
       {
         return ((IHasWriter) aSource).getWriter ();
       }

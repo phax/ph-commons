@@ -479,7 +479,7 @@ public final class TypeConverter
     }
 
     // Okay, converter was found -> invoke it
-    final Object aRetVal = aConverter.convert (aSrcValue);
+    final Object aRetVal = aConverter.apply (aSrcValue);
     if (aRetVal == null)
     {
       s_aLogger.warn ("Type conversion from '" +

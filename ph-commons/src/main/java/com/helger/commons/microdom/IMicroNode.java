@@ -52,7 +52,10 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    *         class. It is currently implemented for {@link IMicroText},
    *         {@link IMicroComment} and {@link IMicroEntityReference}.
    */
-  String getNodeValue ();
+  default String getNodeValue ()
+  {
+    return "";
+  }
 
   /**
    * @return <code>true</code> if at least one child is present,
@@ -223,7 +226,10 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    *         if this node cannot have children
    */
   @Nonnull
-  IMicroText appendText (@Nonnull char [] aChars) throws MicroException;
+  default IMicroText appendText (@Nonnull final char [] aChars) throws MicroException
+  {
+    return appendText (aChars, 0, aChars.length);
+  }
 
   /**
    * Append a text node to this node.
@@ -278,7 +284,10 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    *         if this node cannot have children
    */
   @Nonnull
-  IMicroText appendIgnorableWhitespaceText (@Nonnull char [] aChars) throws MicroException;
+  default IMicroText appendIgnorableWhitespaceText (@Nonnull final char [] aChars) throws MicroException
+  {
+    return appendIgnorableWhitespaceText (aChars, 0, aChars.length);
+  }
 
   /**
    * Append a text node which is ignorable whitespace content to this node.
@@ -321,7 +330,10 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    *         if this node cannot have children
    */
   @Nonnull
-  IMicroCDATA appendCDATA (@Nonnull char [] aChars) throws MicroException;
+  default IMicroCDATA appendCDATA (@Nonnull final char [] aChars) throws MicroException
+  {
+    return appendCDATA (aChars, 0, aChars.length);
+  }
 
   /**
    * Append a CDATA node to this node.
@@ -376,7 +388,10 @@ public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted 
    *         if this node cannot have children
    */
   @Nonnull
-  IMicroComment appendComment (@Nonnull char [] aChars) throws MicroException;
+  default IMicroComment appendComment (@Nonnull final char [] aChars) throws MicroException
+  {
+    return appendComment (aChars, 0, aChars.length);
+  }
 
   /**
    * Append a comment node to this node.

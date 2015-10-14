@@ -33,27 +33,12 @@ import com.helger.commons.charset.CharsetManager;
 @IsSPIImplementation
 public final class CharsetTypeConverterRegistrar implements ITypeConverterRegistrarSPI
 {
-  private static final class TypeConverterStringCharset implements ITypeConverter
-  {
-    public Charset convert (@Nonnull final Object aSource)
-    {
-      return CharsetManager.getCharsetFromName ((String) aSource);
-    }
-  }
-
-  private static final class TypeConverterCharsetString implements ITypeConverter
-  {
-    @Nonnull
-    public String convert (@Nonnull final Object aSource)
-    {
-      return ((Charset) aSource).name ();
-    }
-  }
-
   public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
   {
     // Charset
-    aRegistry.registerTypeConverter (Charset.class, String.class, new TypeConverterCharsetString ());
-    aRegistry.registerTypeConverter (String.class, Charset.class, new TypeConverterStringCharset ());
+    aRegistry.registerTypeConverter (Charset.class,
+                                     String.class,
+                                     aSource -> CharsetManager.getCharsetFromName ((String) aSource));
+    aRegistry.registerTypeConverter (String.class, Charset.class, aSource -> ((Charset) aSource).name ());
   }
 }

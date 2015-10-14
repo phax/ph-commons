@@ -16,12 +16,15 @@
  */
 package com.helger.commons.lang;
 
+import java.util.function.BooleanSupplier;
+
 /**
  * Base interface for all objects having an explicit boolean representation
  *
  * @author Philip Helger
  */
-public interface IHasBooleanRepresentation
+@FunctionalInterface
+public interface IHasBooleanRepresentation extends BooleanSupplier
 {
   /**
    * @return The boolean representation of this object.

@@ -19,6 +19,8 @@ package com.helger.commons.microdom;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.string.StringHelper;
+
 /**
  * A special marker interface that is implemented by classes, that really
  * support having children!
@@ -44,7 +46,10 @@ public interface IMicroNodeWithChildren extends IMicroNode
    * @return <code>null</code> if the element contains no text node as child
    */
   @Nullable
-  String getTextContentTrimmed ();
+  default String getTextContentTrimmed ()
+  {
+    return StringHelper.trim (getTextContent ());
+  }
 
   /**
    * Get the concatenated text content of all direct {@link IMicroText} child

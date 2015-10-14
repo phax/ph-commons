@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public final class MessageDigestGenerator extends AbstractMessageDigestGenerator
+public final class MessageDigestGenerator implements IMessageDigestGenerator
 {
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   private final IMessageDigestGenerator m_aMDGen;

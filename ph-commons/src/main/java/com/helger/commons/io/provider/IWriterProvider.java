@@ -28,6 +28,7 @@ import com.helger.commons.io.EAppend;
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IWriterProvider
 {
   /**

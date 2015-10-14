@@ -67,7 +67,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (MutableBigDecimal.class)
     {
       @Nullable
-      public MutableBigDecimal convert (@Nonnull final Object aSource)
+      public MutableBigDecimal apply (@Nonnull final Object aSource)
       {
         return new MutableBigDecimal (TypeConverter.convertIfNecessary (aSource, BigDecimal.class));
       }
@@ -92,7 +92,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (MutableBigInteger.class)
     {
       @Nullable
-      public MutableBigInteger convert (@Nonnull final Object aSource)
+      public MutableBigInteger apply (@Nonnull final Object aSource)
       {
         return new MutableBigInteger (TypeConverter.convertIfNecessary (aSource, BigInteger.class));
       }
@@ -117,7 +117,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (MutableBoolean.class)
     {
       @Nullable
-      public MutableBoolean convert (@Nonnull final Object aSource)
+      public MutableBoolean apply (@Nonnull final Object aSource)
       {
         return new MutableBoolean (TypeConverter.convertIfNecessary (aSource, Boolean.class));
       }
@@ -142,7 +142,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (MutableByte.class)
     {
       @Nullable
-      public MutableByte convert (@Nonnull final Object aSource)
+      public MutableByte apply (@Nonnull final Object aSource)
       {
         return new MutableByte (TypeConverter.convertIfNecessary (aSource, Byte.class));
       }
@@ -167,7 +167,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (MutableChar.class)
     {
       @Nullable
-      public MutableChar convert (@Nonnull final Object aSource)
+      public MutableChar apply (@Nonnull final Object aSource)
       {
         return new MutableChar (TypeConverter.convertIfNecessary (aSource, Character.class));
       }
@@ -192,7 +192,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (MutableDouble.class)
     {
       @Nullable
-      public MutableDouble convert (@Nonnull final Object aSource)
+      public MutableDouble apply (@Nonnull final Object aSource)
       {
         return new MutableDouble (TypeConverter.convertIfNecessary (aSource, Double.class));
       }
@@ -217,7 +217,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (MutableFloat.class)
     {
       @Nullable
-      public MutableFloat convert (@Nonnull final Object aSource)
+      public MutableFloat apply (@Nonnull final Object aSource)
       {
         return new MutableFloat (TypeConverter.convertIfNecessary (aSource, Float.class));
       }
@@ -242,7 +242,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (MutableInt.class)
     {
       @Nullable
-      public MutableInt convert (@Nonnull final Object aSource)
+      public MutableInt apply (@Nonnull final Object aSource)
       {
         return new MutableInt (TypeConverter.convertIfNecessary (aSource, Integer.class));
       }
@@ -267,7 +267,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (MutableLong.class)
     {
       @Nullable
-      public MutableLong convert (@Nonnull final Object aSource)
+      public MutableLong apply (@Nonnull final Object aSource)
       {
         return new MutableLong (TypeConverter.convertIfNecessary (aSource, Long.class));
       }
@@ -292,7 +292,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAnySourceFixedDestination (MutableShort.class)
     {
       @Nullable
-      public MutableShort convert (@Nonnull final Object aSource)
+      public MutableShort apply (@Nonnull final Object aSource)
       {
         return new MutableShort (TypeConverter.convertIfNecessary (aSource, Short.class));
       }

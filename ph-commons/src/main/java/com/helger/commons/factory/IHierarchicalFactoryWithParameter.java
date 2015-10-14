@@ -28,7 +28,8 @@ import com.helger.commons.annotation.DevelopersNote;
  * @param <PARAMTYPE>
  *        The type of the parameter object.
  */
-public interface IHierarchicalFactoryWithParameter <DATATYPE, PARAMTYPE> extends IFactoryWithTwoParameters <DATATYPE, DATATYPE, PARAMTYPE>
+@FunctionalInterface
+public interface IHierarchicalFactoryWithParameter <DATATYPE, PARAMTYPE>
 {
   /**
    * Create an object of the desired type.
