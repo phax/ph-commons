@@ -31,7 +31,7 @@ import com.helger.commons.annotation.ReturnsMutableObject;
  *        The data type to aggregate
  */
 @Immutable
-public class AggregatorUseAll <DATATYPE> extends AbstractAggregator <DATATYPE, Collection <DATATYPE>>
+public class AggregatorUseAll <DATATYPE> implements IAggregator <DATATYPE, Collection <DATATYPE>>
 {
   @Nullable
   @ReturnsMutableObject ("design")

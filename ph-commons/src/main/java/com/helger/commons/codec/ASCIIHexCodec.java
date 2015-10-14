@@ -29,7 +29,7 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
-public class ASCIIHexCodec extends AbstractByteArrayDecoder
+public class ASCIIHexCodec implements IByteArrayDecoder
 {
   public ASCIIHexCodec ()
   {}

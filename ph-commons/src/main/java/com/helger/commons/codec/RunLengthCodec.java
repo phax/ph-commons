@@ -28,7 +28,7 @@ import com.helger.commons.io.stream.StreamHelper;
  *
  * @author Philip Helger
  */
-public class RunLengthCodec extends AbstractByteArrayDecoder
+public class RunLengthCodec implements IByteArrayDecoder
 {
   protected static final int RUN_LENGTH_EOD = 128;
 

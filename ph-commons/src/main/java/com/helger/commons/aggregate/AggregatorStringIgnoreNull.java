@@ -30,7 +30,7 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @Immutable
-public class AggregatorStringIgnoreNull extends AbstractAggregator <String, String>
+public class AggregatorStringIgnoreNull implements IAggregator <String, String>
 {
   @Nonnull
   public String aggregate (@Nonnull final Collection <String> aObjects)

@@ -26,7 +26,7 @@ import com.helger.commons.base64.Base64;
  *
  * @author Philip Helger
  */
-public class Base64Codec extends AbstractByteArrayCodec
+public class Base64Codec implements IByteArrayCodec
 {
   public Base64Codec ()
   {}

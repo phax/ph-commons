@@ -46,7 +46,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class LZWCodec extends AbstractByteArrayCodec
+public class LZWCodec implements IByteArrayCodec
 {
   /**
    * A single LZW node
@@ -133,7 +133,7 @@ public class LZWCodec extends AbstractByteArrayCodec
     /** Special code for end of file */
     public static final int CODE_EOF = 257;
 
-    protected byte [][] m_aTab;
+    protected byte [] [] m_aTab;
     protected int m_nFreeCode;
     protected int m_nCodeBits;
 
@@ -154,7 +154,7 @@ public class LZWCodec extends AbstractByteArrayCodec
       ValueEnforcer.notNull (aByteSeq, "ByteSeq");
       if (m_nFreeCode == m_aTab.length)
         throw bForEncode ? new EncodeException ("LZW encode table overflow")
-                        : new DecodeException ("LZW decode table overflow");
+                         : new DecodeException ("LZW decode table overflow");
 
       // Add this new String to the table
       m_aTab[m_nFreeCode] = aByteSeq;

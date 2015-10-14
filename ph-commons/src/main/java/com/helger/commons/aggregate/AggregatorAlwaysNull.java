@@ -31,7 +31,7 @@ import javax.annotation.concurrent.Immutable;
  *        Destination type
  */
 @Immutable
-public class AggregatorAlwaysNull <SRCTYPE, DSTTYPE> extends AbstractAggregator <SRCTYPE, DSTTYPE>
+public class AggregatorAlwaysNull <SRCTYPE, DSTTYPE> implements IAggregator <SRCTYPE, DSTTYPE>
 {
   @Nullable
   public DSTTYPE aggregate (@Nullable final Collection <SRCTYPE> aResults)

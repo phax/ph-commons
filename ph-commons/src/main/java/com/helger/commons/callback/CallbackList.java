@@ -18,8 +18,6 @@ package com.helger.commons.callback;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -30,6 +28,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -44,7 +43,7 @@ import com.helger.commons.string.ToStringGenerator;
 @ThreadSafe
 public class CallbackList <CALLBACKTYPE extends ICallback> implements ICallbackList <CALLBACKTYPE>, ICloneable <CallbackList <CALLBACKTYPE>>
 {
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   @GuardedBy ("m_aRWLock")
   private final List <CALLBACKTYPE> m_aCallbacks = new ArrayList <CALLBACKTYPE> ();
@@ -70,15 +69,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements ICallbackL
   {
     ValueEnforcer.notNull (aCallback, "Callback");
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aCallbacks.add (aCallback);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aCallbacks.add (aCallback));
     return this;
   }
 
@@ -95,15 +86,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements ICallbackL
     if (aCallback == null)
       return EChange.UNCHANGED;
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      return EChange.valueOf (m_aCallbacks.remove (aCallback));
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    return EChange.valueOf (m_aRWLock.writeLocked ( () -> m_aCallbacks.remove (aCallback)));
   }
 
   /**
@@ -114,88 +97,42 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements ICallbackL
   @Nonnull
   public EChange removeAllCallbacks ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    return m_aRWLock.writeLocked ( () -> {
       if (m_aCallbacks.isEmpty ())
         return EChange.UNCHANGED;
       m_aCallbacks.clear ();
       return EChange.CHANGED;
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public List <CALLBACKTYPE> getAllCallbacks ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newList (m_aCallbacks);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aCallbacks));
   }
 
   @Nullable
   public CALLBACKTYPE getCallbackAtIndex (@Nonnegative final int nIndex)
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.getSafe (m_aCallbacks, nIndex);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.getSafe (m_aCallbacks, nIndex));
   }
 
   @Nonnegative
   public int getCallbackCount ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aCallbacks.size ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aCallbacks.size ());
   }
 
   public boolean hasCallbacks ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return !m_aCallbacks.isEmpty ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> !m_aCallbacks.isEmpty ());
   }
 
   @Nonnull
   public CallbackList <CALLBACKTYPE> getClone ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return new CallbackList <CALLBACKTYPE> (this);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> new CallbackList <CALLBACKTYPE> (this));
   }
 
   @Override

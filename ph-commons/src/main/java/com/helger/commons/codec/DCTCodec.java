@@ -33,7 +33,7 @@ import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
  *
  * @author Philip Helger
  */
-public class DCTCodec extends AbstractByteArrayDecoder
+public class DCTCodec implements IByteArrayDecoder
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (DCTCodec.class);
 

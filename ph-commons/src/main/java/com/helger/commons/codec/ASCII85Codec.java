@@ -28,7 +28,7 @@ import com.helger.commons.io.stream.StreamHelper;
  *
  * @author Philip Helger
  */
-public class ASCII85Codec extends AbstractByteArrayDecoder
+public class ASCII85Codec implements IByteArrayDecoder
 {
   private static final int BIT1 = 8;
   private static final int BIT2 = 16;

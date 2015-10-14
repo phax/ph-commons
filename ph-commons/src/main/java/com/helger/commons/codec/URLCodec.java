@@ -35,7 +35,7 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
-public class URLCodec extends AbstractByteArrayCodec
+public class URLCodec implements IByteArrayCodec
 {
   private static final byte ESCAPE_CHAR = '%';
 

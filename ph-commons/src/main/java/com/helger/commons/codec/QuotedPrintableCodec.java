@@ -37,7 +37,7 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class QuotedPrintableCodec extends AbstractByteArrayCodec
+public class QuotedPrintableCodec implements IByteArrayCodec
 {
   private static final byte ESCAPE_CHAR = '=';
   private static final byte TAB = 9;

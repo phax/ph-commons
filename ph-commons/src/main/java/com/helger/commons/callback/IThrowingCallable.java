@@ -28,6 +28,7 @@ import java.util.concurrent.Callable;
  * @param <EXTYPE>
  *        Exception type to be thrown
  */
+@FunctionalInterface
 public interface IThrowingCallable <DATATYPE, EXTYPE extends Exception> extends Callable <DATATYPE>
 {
   DATATYPE call () throws EXTYPE;

@@ -31,12 +31,6 @@ import com.helger.commons.compare.CompareHelper;
 @NotThreadSafe
 public class ComparatorChangeLogEntryDateAndComponent extends AbstractComparator <ChangeLogEntry>
 {
-  /**
-   * Comparator with default sort order and no nested comparator.
-   */
-  public ComparatorChangeLogEntryDateAndComponent ()
-  {}
-
   @Override
   protected int mainCompare (@Nonnull final ChangeLogEntry aElement1, @Nonnull final ChangeLogEntry aElement2)
   {

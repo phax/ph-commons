@@ -16,12 +16,13 @@
  */
 package com.helger.commons.cache;
 
+import java.util.function.Function;
+
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.convert.IConverter;
 
 /**
  * A special cache that can create the value to be cache automatically from the
@@ -60,7 +61,7 @@ public class CacheWithConversion <KEYTYPE, VALUETYPE> extends AbstractCache <KEY
    */
   @Nonnull
   public final VALUETYPE getFromCache (@Nonnull final KEYTYPE aKey,
-                                       @Nonnull final IConverter <KEYTYPE, VALUETYPE> aValueRetriever)
+                                       @Nonnull final Function <KEYTYPE, VALUETYPE> aValueRetriever)
   {
     // Already in the cache?
     VALUETYPE aValue = super.getFromCacheNoStats (aKey);
@@ -77,7 +78,7 @@ public class CacheWithConversion <KEYTYPE, VALUETYPE> extends AbstractCache <KEY
         if (aValue == null)
         {
           // Get the value to cache
-          aValue = aValueRetriever.convert (aKey);
+          aValue = aValueRetriever.apply (aKey);
 
           // We cannot cache null values!
           if (aValue == null)
