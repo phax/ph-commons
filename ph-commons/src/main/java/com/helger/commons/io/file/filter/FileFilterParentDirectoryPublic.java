@@ -33,7 +33,7 @@ import com.helger.commons.io.file.FilenameHelper;
 public class FileFilterParentDirectoryPublic extends AbstractFileFilter
 {
   @Override
-  public boolean matchesThisFilter (@Nullable final File aFile)
+  public boolean directTest (@Nullable final File aFile)
   {
     final File aParentFile = aFile != null ? aFile.getAbsoluteFile ().getParentFile () : null;
     return aParentFile != null && !FilenameHelper.isHiddenFilename (aParentFile);

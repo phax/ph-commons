@@ -58,10 +58,10 @@ public class FilterListAll <DATATYPE> implements IFilter <DATATYPE>
     return CollectionHelper.newList (m_aFilters);
   }
 
-  public boolean matchesFilter (@Nullable final DATATYPE aValue)
+  public boolean test (@Nullable final DATATYPE aValue)
   {
     for (final IFilter <? super DATATYPE> aFilter : m_aFilters)
-      if (!aFilter.matchesFilter (aValue))
+      if (!aFilter.test (aValue))
         return false;
     return true;
   }

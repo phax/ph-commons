@@ -42,8 +42,7 @@ public class FilterElementWithNamespaceAndLocalName extends AbstractFilter <Elem
   private final String m_sNamespaceURI;
   private final String m_sLocalName;
 
-  public FilterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
-                                                 @Nonnull @Nonempty final String sLocalName)
+  public FilterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sLocalName)
   {
     m_sNamespaceURI = sNamespaceURI;
     m_sLocalName = ValueEnforcer.notEmpty (sLocalName, "LocalName");
@@ -63,11 +62,9 @@ public class FilterElementWithNamespaceAndLocalName extends AbstractFilter <Elem
   }
 
   @Override
-  public boolean matchesThisFilter (@Nullable final Element aElement)
+  public boolean directTest (@Nullable final Element aElement)
   {
-    return aElement != null &&
-           XMLHelper.hasNamespaceURI (aElement, m_sNamespaceURI) &&
-           aElement.getLocalName ().equals (m_sLocalName);
+    return aElement != null && XMLHelper.hasNamespaceURI (aElement, m_sNamespaceURI) && aElement.getLocalName ().equals (m_sLocalName);
   }
 
   @Override
@@ -84,18 +81,12 @@ public class FilterElementWithNamespaceAndLocalName extends AbstractFilter <Elem
   @Override
   public int hashCode ()
   {
-    return HashCodeGenerator.getDerived (super.hashCode ())
-                            .append (m_sNamespaceURI)
-                            .append (m_sLocalName)
-                            .getHashCode ();
+    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_sNamespaceURI).append (m_sLocalName).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ())
-                            .append ("namespaceURI", m_sNamespaceURI)
-                            .append ("localName", m_sLocalName)
-                            .toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("namespaceURI", m_sNamespaceURI).append ("localName", m_sLocalName).toString ();
   }
 }

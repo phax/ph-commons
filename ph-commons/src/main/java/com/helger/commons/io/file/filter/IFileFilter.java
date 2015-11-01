@@ -37,7 +37,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, IFilter <File>
 {
   default boolean accept (@Nullable final File aFile)
   {
-    return matchesFilter (aFile);
+    return test (aFile);
   }
 
   default boolean accept (@Nullable final File aDir, @Nullable final String sName)
@@ -46,6 +46,6 @@ public interface IFileFilter extends FileFilter, FilenameFilter, IFilter <File>
       return false;
 
     final File aFileToCheck = aDir != null ? new File (aDir, sName) : new File (sName);
-    return matchesFilter (aFileToCheck);
+    return test (aFileToCheck);
   }
 }

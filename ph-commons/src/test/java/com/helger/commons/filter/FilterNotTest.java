@@ -43,14 +43,14 @@ public final class FilterNotTest
 
     IFilter <String> aFilter = new FilterNot <String> (new FilterNotNull <String> ());
     assertNotNull (aFilter);
-    assertTrue (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
+    assertTrue (aFilter.test (null));
+    assertFalse (aFilter.test (""));
+    assertFalse (aFilter.test ("bla bla bla"));
 
     aFilter = new FilterNot <String> (new FilterNull <String> ());
     assertNotNull (aFilter);
-    assertFalse (aFilter.matchesFilter (null));
-    assertTrue (aFilter.matchesFilter (""));
-    assertTrue (aFilter.matchesFilter ("bla bla bla"));
+    assertFalse (aFilter.test (null));
+    assertTrue (aFilter.test (""));
+    assertTrue (aFilter.test ("bla bla bla"));
   }
 }

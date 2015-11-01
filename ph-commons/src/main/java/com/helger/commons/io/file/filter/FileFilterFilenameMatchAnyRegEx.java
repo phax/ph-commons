@@ -63,7 +63,7 @@ public class FileFilterFilenameMatchAnyRegEx extends AbstractFileFilter
   }
 
   @Override
-  public boolean matchesThisFilter (@Nullable final File aFile)
+  public boolean directTest (@Nullable final File aFile)
   {
     if (aFile != null)
     {

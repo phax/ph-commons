@@ -57,7 +57,7 @@ public class FileFilterFilenameEqualsIgnoreCase extends AbstractFileFilter
   }
 
   @Override
-  public boolean matchesThisFilter (@Nullable final File aFile)
+  public boolean directTest (@Nullable final File aFile)
   {
     return aFile != null && m_sFilename.equalsIgnoreCase (FilenameHelper.getSecureFilename (aFile.getName ()));
   }

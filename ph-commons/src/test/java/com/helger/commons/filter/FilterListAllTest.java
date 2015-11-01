@@ -36,27 +36,26 @@ public final class FilterListAllTest
   {
     IFilter <String> aFilter = FilterListAll.create (new FilterNull <String> (), new FilterNotNull <String> ());
     assertNotNull (aFilter);
-    assertFalse (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
+    assertFalse (aFilter.test (null));
+    assertFalse (aFilter.test (""));
+    assertFalse (aFilter.test ("bla bla bla"));
 
     aFilter = FilterListAll.create (new FilterNull <String> ());
     assertNotNull (aFilter);
-    assertTrue (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
+    assertTrue (aFilter.test (null));
+    assertFalse (aFilter.test (""));
+    assertFalse (aFilter.test ("bla bla bla"));
 
-    aFilter = FilterListAll.create (CollectionHelper.newList (new FilterNull <String> (),
-                                                              new FilterNotNull <String> ()));
+    aFilter = FilterListAll.create (CollectionHelper.newList (new FilterNull <String> (), new FilterNotNull <String> ()));
     assertNotNull (aFilter);
-    assertFalse (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
+    assertFalse (aFilter.test (null));
+    assertFalse (aFilter.test (""));
+    assertFalse (aFilter.test ("bla bla bla"));
 
     aFilter = FilterListAll.create (CollectionHelper.newList (new FilterNull <String> ()));
     assertNotNull (aFilter);
-    assertTrue (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
+    assertTrue (aFilter.test (null));
+    assertFalse (aFilter.test (""));
+    assertFalse (aFilter.test ("bla bla bla"));
   }
 }

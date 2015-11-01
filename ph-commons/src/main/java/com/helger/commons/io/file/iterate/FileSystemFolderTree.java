@@ -53,7 +53,7 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, List 
         {
           // file
           // Check against the optional filter
-          if (aFileFilter == null || aFileFilter.matchesFilter (aChild))
+          if (aFileFilter == null || aFileFilter.test (aChild))
             aTreeItem.getData ().add (aChild);
         }
         else
@@ -61,7 +61,7 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, List 
           {
             // directory
             // Check against the optional filter
-            if (aDirFilter == null || aDirFilter.matchesFilter (aChild))
+            if (aDirFilter == null || aDirFilter.test (aChild))
             {
               // create item and recursively descend
               final DefaultFolderTreeItem <String, File, List <File>> aChildItem = aTreeItem.createChildItem (aChild.getName (),
@@ -82,23 +82,18 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, List 
     this (aStartDir, (IFileFilter) null, (IFileFilter) null);
   }
 
-  public FileSystemFolderTree (@Nonnull final String sStartDir,
-                               @Nullable final IFileFilter aDirFilter,
-                               @Nullable final IFileFilter aFileFilter)
+  public FileSystemFolderTree (@Nonnull final String sStartDir, @Nullable final IFileFilter aDirFilter, @Nullable final IFileFilter aFileFilter)
   {
     this (new File (sStartDir), aDirFilter, aFileFilter);
   }
 
-  public FileSystemFolderTree (@Nonnull final File aStartDir,
-                               @Nullable final IFileFilter aDirFilter,
-                               @Nullable final IFileFilter aFileFilter)
+  public FileSystemFolderTree (@Nonnull final File aStartDir, @Nullable final IFileFilter aDirFilter, @Nullable final IFileFilter aFileFilter)
   {
     super (new AggregatorStringWithSeparatorIgnoreNull ("/"));
     ValueEnforcer.notNull (aStartDir, "StartDirectory");
     ValueEnforcer.isTrue (aStartDir.isDirectory (), "Start directory is not a directory!");
 
-    final DefaultFolderTreeItem <String, File, List <File>> aStart = getRootItem ().createChildItem (aStartDir.getName (),
-                                                                                                     new ArrayList <File> ());
+    final DefaultFolderTreeItem <String, File, List <File>> aStart = getRootItem ().createChildItem (aStartDir.getName (), new ArrayList <File> ());
     _iterate (aStart, aStartDir, aDirFilter, aFileFilter);
   }
 }

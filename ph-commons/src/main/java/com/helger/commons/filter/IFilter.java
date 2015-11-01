@@ -19,8 +19,6 @@ package com.helger.commons.filter;
 import java.io.Serializable;
 import java.util.function.Predicate;
 
-import com.helger.commons.annotation.DevelopersNote;
-
 /**
  * A generic filter interface for simple object selection. If you need an
  * additional parameter for determining whether to filter an object or not, you
@@ -33,20 +31,5 @@ import com.helger.commons.annotation.DevelopersNote;
 @FunctionalInterface
 public interface IFilter <DATATYPE> extends Serializable, Predicate <DATATYPE>
 {
-  /**
-   * Check if the given value matches the filter or not.
-   *
-   * @param aValue
-   *        The object to filter. May be <code>null</code> depending on the
-   *        implementation.
-   * @return <code>true</code> if the object match the filter,
-   *         <code>false</code> otherwise.
-   */
-  @DevelopersNote ("No @Nullable annotation as we can make no assumptions on the state")
-  boolean matchesFilter (DATATYPE aValue);
-
-  default boolean test (final DATATYPE aValue)
-  {
-    return matchesFilter (aValue);
-  }
+  /* empty */
 }

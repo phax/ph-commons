@@ -34,8 +34,8 @@ public final class FilterNotNullTest
   {
     final IFilter <String> aFilter = new FilterNotNull <String> ();
     assertNotNull (aFilter);
-    assertFalse (aFilter.matchesFilter (null));
-    assertTrue (aFilter.matchesFilter (""));
-    assertTrue (aFilter.matchesFilter ("bla bla bla"));
+    assertFalse (aFilter.test (null));
+    assertTrue (aFilter.test (""));
+    assertTrue (aFilter.test ("bla bla bla"));
   }
 }

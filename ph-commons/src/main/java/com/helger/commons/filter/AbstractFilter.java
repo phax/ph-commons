@@ -101,15 +101,15 @@ public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>
    *        The value to be matched
    * @return <code>true</code> if the value matches the filter
    */
-  public abstract boolean matchesThisFilter (final DATATYPE aValue);
+  public abstract boolean directTest (final DATATYPE aValue);
 
-  public final boolean matchesFilter (final DATATYPE aValue)
+  public final boolean test (final DATATYPE aValue)
   {
     final boolean bIsMatchAny = m_eMatchingStrategy.equals (EFilterMatchingStrategy.MATCH_ANY);
     final boolean bIsMatchAll = !bIsMatchAny;
 
     // Match this filter
-    final boolean bMatchesThisFilter = matchesThisFilter (aValue);
+    final boolean bMatchesThisFilter = directTest (aValue);
     if (bMatchesThisFilter && bIsMatchAny)
       return true;
     if (!bMatchesThisFilter && bIsMatchAll)
@@ -119,7 +119,7 @@ public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>
     if (m_aNestedFilter == null)
       return bMatchesThisFilter;
 
-    final boolean bMatchesNestedFilter = m_aNestedFilter.matchesFilter (aValue);
+    final boolean bMatchesNestedFilter = m_aNestedFilter.test (aValue);
     return bMatchesNestedFilter;
   }
 

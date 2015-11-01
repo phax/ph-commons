@@ -30,7 +30,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 public class FileFilterFalse extends AbstractFileFilter
 {
   @Override
-  public boolean matchesThisFilter (@Nullable final File aFile)
+  public boolean directTest (@Nullable final File aFile)
   {
     return false;
   }

@@ -36,7 +36,7 @@ public class FilterNotNull <DATATYPE> extends AbstractFilter <DATATYPE>
   {}
 
   @Override
-  public boolean matchesThisFilter (@Nullable final DATATYPE aValue)
+  public boolean directTest (@Nullable final DATATYPE aValue)
   {
     return aValue != null;
   }

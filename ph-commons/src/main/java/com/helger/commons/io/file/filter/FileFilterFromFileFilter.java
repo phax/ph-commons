@@ -50,7 +50,7 @@ public class FileFilterFromFileFilter extends AbstractFileFilter
   }
 
   @Override
-  public boolean matchesThisFilter (@Nullable final File aFile)
+  public boolean directTest (@Nullable final File aFile)
   {
     return aFile != null && m_aFileFilter.accept (aFile);
   }

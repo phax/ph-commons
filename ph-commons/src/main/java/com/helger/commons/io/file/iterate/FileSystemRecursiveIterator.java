@@ -151,7 +151,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
   @OverrideOnDemand
   protected boolean recurseIntoDirectory (@Nonnull final File aDirectory)
   {
-    return m_aRecursionFilter == null || m_aRecursionFilter.matchesFilter (aDirectory);
+    return m_aRecursionFilter == null || m_aRecursionFilter.test (aDirectory);
   }
 
   @Nonnull
@@ -261,8 +261,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    * @return Never <code>null</code>.
    */
   @Nonnull
-  public static IIterableIterator <File> create (@Nonnull final String sBaseDir,
-                                                 @Nonnull @Nonempty final IFileFilter... aFileFilters)
+  public static IIterableIterator <File> create (@Nonnull final String sBaseDir, @Nonnull @Nonempty final IFileFilter... aFileFilters)
   {
     return create (new File (sBaseDir), aFileFilters);
   }
@@ -286,10 +285,8 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    * @return Never <code>null</code>.
    */
   @Nonnull
-  public static IIterableIterator <File> create (@Nonnull final File fBaseDir,
-                                                 @Nonnull @Nonempty final IFileFilter... aFileFilters)
+  public static IIterableIterator <File> create (@Nonnull final File fBaseDir, @Nonnull @Nonempty final IFileFilter... aFileFilters)
   {
-    return new FilterIterator <File> (new FileSystemRecursiveIterator (fBaseDir),
-                                      new FilterListAll <File> (aFileFilters));
+    return new FilterIterator <File> (new FileSystemRecursiveIterator (fBaseDir), new FilterListAll <File> (aFileFilters));
   }
 }
