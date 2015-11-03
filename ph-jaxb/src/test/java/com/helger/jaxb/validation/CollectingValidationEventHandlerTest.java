@@ -31,7 +31,7 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.xml.transform.TransformSourceFactory;
 import com.helger.jaxb.JAXBContextCache;
-import com.helger.jaxb.MockJAXBArchive;
+import com.helger.jaxb.mock.external.MockJAXBArchive;
 import com.helger.jaxb.validation.CollectingValidationEventHandler;
 import com.helger.jaxb.validation.CollectingValidationEventHandlerFactory;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
