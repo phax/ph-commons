@@ -4,17 +4,17 @@ Java 1.6+ Library with tons of utility classes required in most of ph-* projects
 
 Version 6.0.0 contains major changes and more or less all other projects were released to reflect the changes of 6.x. So please ensure to not mix 5.x and 6.x versions of ph-commons!
 
-#Maven usage
+##Maven usage
 Add the following to your pom.xml to use this artifact:
 ```
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>6.2.0</version>
+  <version>6.2.1</version>
 </dependency>
 ```
 
-#Coding conventions
+##Coding conventions
 
 The following list gives a short overview of special programming techniques that are used inside ph-commons. These descriptions apply to version 6.
 
@@ -35,7 +35,7 @@ The following list gives a short overview of special programming techniques that
   * All logging is done via SLF4J. 
  
 
-#Contents
+##Contents
 In general I tried to make the source comments as useful as possible. Therefore here only an alphabetic package list with the respective contents is shown:
 
   * `com.helger.commons` - The base package that contains only a class with only constant values (`CGlobal`) and a programming utility class (`ValueEnforcer`). 
@@ -182,6 +182,19 @@ terfaces.
   * `com.helger.commons.xml.serialize` - XML reading and writing classes for SAX and DOM
   * `com.helger.commons.xml.transform` - utility classes for XSLT processing and URL processing
   * `com.helger.commons.xml.xpath` - utility classes for XPath handling incl. function and variable resolver
+
+#ph-jaxb
+A special JAXB helper project. It supports both the JDK included JAXB as well as an external JAXB that is used via a separate Maven artefact.
+
+##Maven usage
+Add the following to your pom.xml to use this artifact:
+```
+<dependency>
+  <groupId>com.helger</groupId>
+  <artifactId>ph-jaxb</artifactId>
+  <version>6.2.1</version>
+</dependency>
+```
 
 ---
 
