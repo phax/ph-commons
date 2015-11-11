@@ -32,30 +32,29 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
-import com.helger.jaxb.AbstractJAXBMarshaller;
-import com.helger.jaxb.JAXBMarshallerHelper;
 
 public final class JAXBMarshallerFuncTest
 {
-  private static final class MyMarshaller extends AbstractJAXBMarshaller <MockJAXBArchive>
+  private static final class MyMarshallerExternal extends AbstractJAXBMarshaller <com.helger.jaxb.mock.external.MockJAXBArchive>
   {
-    public MyMarshaller ()
+    public MyMarshallerExternal ()
     {
-      super (MockJAXBArchive.class, (IReadableResource) null);
+      super (com.helger.jaxb.mock.external.MockJAXBArchive.class, (IReadableResource) null);
     }
 
     @Override
     protected void customizeMarshaller (@Nonnull final Marshaller aMarshaller)
     {
       JAXBMarshallerHelper.setFormattedOutput (aMarshaller, true);
-      JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller,
-                                                        new MapBasedNamespaceContext ().addMapping ("def", "urn:test"));
+      JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller, new MapBasedNamespaceContext ().addMapping ("def", "urn:test"));
     }
 
     @Override
-    protected JAXBElement <MockJAXBArchive> wrapObject (final MockJAXBArchive aObject)
+    protected JAXBElement <com.helger.jaxb.mock.external.MockJAXBArchive> wrapObject (final com.helger.jaxb.mock.external.MockJAXBArchive aObject)
     {
-      return new JAXBElement <MockJAXBArchive> (new QName ("urn:test", "any"), MockJAXBArchive.class, aObject);
+      return new JAXBElement <com.helger.jaxb.mock.external.MockJAXBArchive> (new QName ("urn:test:external", "any"),
+                                                                              com.helger.jaxb.mock.external.MockJAXBArchive.class,
+                                                                              aObject);
     }
   }
 
@@ -64,7 +63,7 @@ public final class JAXBMarshallerFuncTest
   @Test
   public void testCloseOnWriteToOutputStream ()
   {
-    final MyMarshaller m = new MyMarshaller ();
+    final MyMarshallerExternal m = new MyMarshallerExternal ();
     final MutableBoolean aClosed = new MutableBoolean (false);
     final NonBlockingByteArrayOutputStream aOS = new NonBlockingByteArrayOutputStream ()
     {
@@ -76,7 +75,7 @@ public final class JAXBMarshallerFuncTest
       }
     };
     {
-      final MockJAXBArchive aArc = new MockJAXBArchive ();
+      final com.helger.jaxb.mock.external.MockJAXBArchive aArc = new com.helger.jaxb.mock.external.MockJAXBArchive ();
       aArc.setVersion ("1.23");
       m.write (aArc, aOS);
     }

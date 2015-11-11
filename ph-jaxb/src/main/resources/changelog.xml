@@ -18,6 +18,14 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-jaxb">
+  <release date="2015-11-03" version="6.2.1" />
+  <entry date="2015-11-03" category="tech" action="fix" incompatible="true">
+    <change>
+      <text locale="en">Fixed an internal JAXB property name</text>
+    </change>
+  </entry>
+  <release date="2015-09-13" version="6.2.0" />
+  <release date="2015-08-06" version="6.1.1" />
   <release date="2015-07-21" version="6.1.0" />
   <entry date="2015-07-20" category="api" action="add">
     <change>
