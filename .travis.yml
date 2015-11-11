@@ -1,7 +1,9 @@
 language: java
 
 jdk:
-  - openjdk6
+# Runs in an endless loop :(
+#  - openjdk6
+  - oraclejdk7
   
 cache:
   directories:
