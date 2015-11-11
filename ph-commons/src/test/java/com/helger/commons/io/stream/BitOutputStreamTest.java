@@ -24,15 +24,11 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.nio.ByteOrder;
+import java.util.Random;
 
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.io.stream.BitInputStream;
-import com.helger.commons.io.stream.BitOutputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.random.VerySecureRandom;
 
 /**
  * Test class for class {@link BitOutputStream}.
@@ -120,10 +116,11 @@ public final class BitOutputStreamTest
   @Test
   public void testWriteManyLittleEndian () throws IOException
   {
+    final Random aRandom = new Random ();
     for (int i = 0; i < 200; i += 3)
     {
       final byte [] buf = new byte [i * 100];
-      VerySecureRandom.getInstance ().nextBytes (buf);
+      aRandom.nextBytes (buf);
 
       final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
       final BitOutputStream aBOS = new BitOutputStream (aBAOS, ByteOrder.LITTLE_ENDIAN);
@@ -134,8 +131,7 @@ public final class BitOutputStreamTest
       // only for high order bit
       assertArrayEquals (buf, written);
 
-      final BitInputStream aBIS = new BitInputStream (new NonBlockingByteArrayInputStream (written),
-                                                      ByteOrder.LITTLE_ENDIAN);
+      final BitInputStream aBIS = new BitInputStream (new NonBlockingByteArrayInputStream (written), ByteOrder.LITTLE_ENDIAN);
       aBAOS.reset ();
       for (final byte element : written)
       {
@@ -153,10 +149,11 @@ public final class BitOutputStreamTest
   @Test
   public void testWriteManyBigEndian () throws IOException
   {
+    final Random aRandom = new Random ();
     for (int i = 0; i < 200; i += 3)
     {
       final byte [] buf = new byte [i * 100];
-      VerySecureRandom.getInstance ().nextBytes (buf);
+      aRandom.nextBytes (buf);
 
       final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
       final BitOutputStream aBOS = new BitOutputStream (aBAOS, ByteOrder.BIG_ENDIAN);
@@ -167,8 +164,7 @@ public final class BitOutputStreamTest
       final byte [] written = aBAOS.toByteArray ();
       // not the same as input
 
-      final BitInputStream aBIS = new BitInputStream (new NonBlockingByteArrayInputStream (written),
-                                                      ByteOrder.BIG_ENDIAN);
+      final BitInputStream aBIS = new BitInputStream (new NonBlockingByteArrayInputStream (written), ByteOrder.BIG_ENDIAN);
       aBAOS.reset ();
       for (final byte element : written)
       {
@@ -186,20 +182,20 @@ public final class BitOutputStreamTest
   @Test
   public void testReadWriteRandom () throws IOException
   {
+    final Random aRandom = new Random ();
     for (int i = 0; i < 200; i += 3)
     {
       final byte [] buf = new byte [i * 100];
-      VerySecureRandom.getInstance ().nextBytes (buf);
+      aRandom.nextBytes (buf);
 
-      final BitInputStream aBIS = new BitInputStream (new NonBlockingByteArrayInputStream (buf),
-                                                      ByteOrder.LITTLE_ENDIAN);
+      final BitInputStream aBIS = new BitInputStream (new NonBlockingByteArrayInputStream (buf), ByteOrder.LITTLE_ENDIAN);
       final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
       final BitOutputStream aBOS = new BitOutputStream (aBAOS, ByteOrder.LITTLE_ENDIAN);
 
       int nBitCount = buf.length * 8;
       while (nBitCount > 0)
       {
-        final int nBits = Math.min (nBitCount, Math.max (1, VerySecureRandom.getInstance ().nextInt (13)));
+        final int nBits = Math.min (nBitCount, Math.max (1, aRandom.nextInt (13)));
         aBOS.writeBits (aBIS.readBits (nBits), nBits);
         nBitCount -= nBits;
       }
