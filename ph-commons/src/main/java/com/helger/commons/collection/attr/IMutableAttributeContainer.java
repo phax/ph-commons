@@ -61,37 +61,10 @@ public interface IMutableAttributeContainer <KEYTYPE, VALUETYPE> extends IAttrib
    * @see #setAttribute(Object,Object)
    */
   @Nonnull
-  EChange addAttributes (@Nullable Map <? extends KEYTYPE, ? extends VALUETYPE> aValues);
-
-  /**
-   * Set/overwrite an arbitrary number of attribute values.
-   *
-   * @param aValues
-   *        The attributes to be set. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
-   * @see #setAttribute(Object,Object)
-   */
-  @Nonnull
-  EChange addAttributes (@Nullable IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aValues);
-
-  /**
-   * Set/overwrite an arbitrary number of attribute values clearing any existing
-   * values previously. This is a shortcut for
-   * <code>clear (); addAttributes (aValues);</code>.
-   *
-   * @param aValues
-   *        The map of attributes to be set. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
-   * @see #setAttribute(Object,Object)
-   */
-  @Nonnull
   EChange setAttributes (@Nullable Map <? extends KEYTYPE, ? extends VALUETYPE> aValues);
 
   /**
-   * Set/overwrite an arbitrary number of attribute values. This is a shortcut
-   * for <code>clear (); addAttributes (aValues);</code>.
+   * Set/overwrite an arbitrary number of attribute values.
    *
    * @param aValues
    *        The attributes to be set. May be <code>null</code>.
