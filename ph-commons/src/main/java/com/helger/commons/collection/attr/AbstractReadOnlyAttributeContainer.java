@@ -55,8 +55,7 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
   }
 
   @Nullable
-  public final <DATATYPE> DATATYPE getTypedAttribute (@Nullable final KEYTYPE aName,
-                                                      @Nonnull final Class <DATATYPE> aDstClass)
+  public final <DATATYPE> DATATYPE getTypedAttribute (@Nullable final KEYTYPE aName, @Nonnull final Class <DATATYPE> aDstClass)
   {
     return TypeConverter.convertIfNecessary (getAttributeObject (aName), aDstClass);
   }
@@ -96,9 +95,7 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
    */
   @Nullable
   @Deprecated
-  public static String getAsString (@Nullable final Object aParamName,
-                                    @Nullable final Object aValue,
-                                    @Nullable final String sDefault)
+  public static String getAsString (@Nullable final Object aParamName, @Nullable final Object aValue, @Nullable final String sDefault)
   {
     return AttributeValueConverter.getAsString (aParamName, aValue, sDefault);
   }
@@ -145,9 +142,7 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
   }
 
   @Deprecated
-  public static double getAsDouble (@Nullable final Object aParamName,
-                                    @Nullable final Object aValue,
-                                    final double dDefault)
+  public static double getAsDouble (@Nullable final Object aParamName, @Nullable final Object aValue, final double dDefault)
   {
     return AttributeValueConverter.getAsDouble (aParamName, aValue, dDefault);
   }
@@ -164,9 +159,7 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
   }
 
   @Deprecated
-  public static boolean getAsBoolean (@Nullable final Object aParamName,
-                                      @Nullable final Object aValue,
-                                      final boolean bDefault)
+  public static boolean getAsBoolean (@Nullable final Object aParamName, @Nullable final Object aValue, final boolean bDefault)
   {
     return AttributeValueConverter.getAsBoolean (aParamName, aValue, bDefault);
   }
@@ -184,9 +177,7 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
 
   @Nullable
   @Deprecated
-  public static BigInteger getAsBigInteger (@Nullable final Object aParamName,
-                                            @Nullable final Object aValue,
-                                            @Nullable final BigInteger aDefault)
+  public static BigInteger getAsBigInteger (@Nullable final Object aParamName, @Nullable final Object aValue, @Nullable final BigInteger aDefault)
   {
     return AttributeValueConverter.getAsBigInteger (aParamName, aValue, aDefault);
   }
@@ -206,9 +197,7 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
 
   @Nullable
   @Deprecated
-  public static BigDecimal getAsBigDecimal (@Nullable final Object aParamName,
-                                            @Nullable final Object aValue,
-                                            @Nullable final BigDecimal aDefault)
+  public static BigDecimal getAsBigDecimal (@Nullable final Object aParamName, @Nullable final Object aValue, @Nullable final BigDecimal aDefault)
   {
     return AttributeValueConverter.getAsBigDecimal (aParamName, aValue, aDefault);
   }

@@ -39,7 +39,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  * @param <VALUETYPE>
  *        Value type
  */
-public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
+public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Iterable <Map.Entry <KEYTYPE, VALUETYPE>>, Serializable
 {
   /**
    * @return The number of contained attributes. Always &ge; 0.
@@ -151,9 +151,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    * @return The passed default value if no such attribute exists
    */
   @Nullable
-  <DATATYPE> DATATYPE getTypedAttribute (@Nullable KEYTYPE aName,
-                                         @Nonnull Class <DATATYPE> aDstClass,
-                                         @Nullable DATATYPE aDefault);
+  <DATATYPE> DATATYPE getTypedAttribute (@Nullable KEYTYPE aName, @Nonnull Class <DATATYPE> aDstClass, @Nullable DATATYPE aDefault);
 
   /**
    * Get the attribute value associated to the given attribute name.<br>
