@@ -499,8 +499,14 @@ public final class FilenameHelperTest
   {
     assertEquals ("http://server/ctx/imgs/a.gif", FilenameHelper.getCleanConcatenatedUrlPath ("http://server/ctx/css/", "../imgs/a.gif"));
     assertEquals ("http://server/ctx/imgs/a.gif", FilenameHelper.getCleanConcatenatedUrlPath ("http://server/ctx/css", "../imgs/a.gif"));
-    assertEquals ("/../imgs/a.gif", FilenameHelper.getCleanConcatenatedUrlPath ("", "../imgs/a.gif"));
-    assertEquals ("/../imgs/a.gif", FilenameHelper.getCleanConcatenatedUrlPath ("", "/../imgs/a.gif"));
+    assertEquals ("http://server/imgs/a.gif", FilenameHelper.getCleanConcatenatedUrlPath ("http://server/css/", "../imgs/a.gif"));
+    assertEquals ("http://server/imgs/a.gif", FilenameHelper.getCleanConcatenatedUrlPath ("http://server/css", "../imgs/a.gif"));
+    assertEquals ("http://server/a.gif", FilenameHelper.getCleanConcatenatedUrlPath ("http://server/ctx/", "../a.gif"));
+    assertEquals ("http://server/a.gif", FilenameHelper.getCleanConcatenatedUrlPath ("http://server/ctx", "../a.gif"));
+    assertEquals ("http://server/a.gif", FilenameHelper.getCleanConcatenatedUrlPath ("http://server/", "../a.gif"));
+    assertEquals ("http://server/a.gif", FilenameHelper.getCleanConcatenatedUrlPath ("http://server", "../a.gif"));
+    assertEquals ("/imgs/a.gif", FilenameHelper.getCleanConcatenatedUrlPath ("", "../imgs/a.gif"));
+    assertEquals ("/imgs/a.gif", FilenameHelper.getCleanConcatenatedUrlPath ("", "/../imgs/a.gif"));
 
     try
     {
@@ -582,6 +588,12 @@ public final class FilenameHelperTest
     assertEquals ("target/file", FilenameHelper.getCleanPath ("./target/////./file/.////"));
     assertEquals ("target/file", FilenameHelper.getCleanPath ("target/sub/../file"));
     assertEquals ("../x/target/file", FilenameHelper.getCleanPath (".././x/./target/./sub/.././file"));
+    assertEquals ("../file", FilenameHelper.getCleanPath ("../file"));
+    assertEquals ("/file", FilenameHelper.getCleanPath ("/../file"));
+    assertEquals ("../dir/file", FilenameHelper.getCleanPath ("../dir/file"));
+    assertEquals ("/dir/file", FilenameHelper.getCleanPath ("/../dir/file"));
+    assertEquals ("../dir/file.x", FilenameHelper.getCleanPath ("../dir/file.x"));
+    assertEquals ("/dir/file.x", FilenameHelper.getCleanPath ("/../dir/file.x"));
   }
 
   @Test

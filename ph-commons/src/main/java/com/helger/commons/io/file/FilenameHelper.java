@@ -300,9 +300,7 @@ public final class FilenameHelper
    */
   public static int getIndexOfLastSeparator (@Nullable final String sFilename)
   {
-    return sFilename == null ? CGlobal.ILLEGAL_UINT
-                             : Math.max (sFilename.lastIndexOf (UNIX_SEPARATOR),
-                                         sFilename.lastIndexOf (WINDOWS_SEPARATOR));
+    return sFilename == null ? CGlobal.ILLEGAL_UINT : Math.max (sFilename.lastIndexOf (UNIX_SEPARATOR), sFilename.lastIndexOf (WINDOWS_SEPARATOR));
   }
 
   /**
@@ -477,11 +475,9 @@ public final class FilenameHelper
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    * @see #getPathUsingUnixSeparator(String)
    */
-  public static boolean isEqualIgnoreFileSeparator (@Nullable final String sAbsoluteFilename1,
-                                                    @Nullable final String sAbsoluteFilename2)
+  public static boolean isEqualIgnoreFileSeparator (@Nullable final String sAbsoluteFilename1, @Nullable final String sAbsoluteFilename2)
   {
-    return EqualsHelper.equals (getPathUsingUnixSeparator (sAbsoluteFilename1),
-                                getPathUsingUnixSeparator (sAbsoluteFilename2));
+    return EqualsHelper.equals (getPathUsingUnixSeparator (sAbsoluteFilename1), getPathUsingUnixSeparator (sAbsoluteFilename2));
   }
 
   /**
@@ -953,6 +949,7 @@ public final class FilenameHelper
       {
         sPrefix += sPathToUse.substring (0, nPrefixIndex + 1);
         sPathToUse = sPathToUse.substring (nPrefixIndex + 1);
+        bPrefixIsAbsolute = true;
       }
       else
       {
@@ -980,6 +977,10 @@ public final class FilenameHelper
     // Is it an absolute Path?
     if (StringHelper.startsWith (sPathToUse, UNIX_SEPARATOR))
     {
+      // If no other prefix is present yet, this seems to be an absolute path!
+      if (sPrefix.length () == 0)
+        bPrefixIsAbsolute = true;
+
       sPrefix += bForceWindowsSeparator ? WINDOWS_SEPARATOR : UNIX_SEPARATOR;
       sPathToUse = sPathToUse.substring (1);
     }
@@ -1029,7 +1030,7 @@ public final class FilenameHelper
 
   /**
    * Concatenate a base URL and a sub path incl. the path cleansing. More or
-   * less the same as calling <code>getCleanPath (sURL + sPath)</code>
+   * less the same as calling <code>getCleanPath (sURL + "/" + sPath)</code>
    *
    * @param sURL
    *        The base URL. May not be <code>null</code>.
@@ -1173,8 +1174,7 @@ public final class FilenameHelper
    * @see #getCleanPath(File)
    */
   @Nullable
-  public static String getAbsoluteWithEnsuredParentDirectory (@Nonnull final File aParentDirectory,
-                                                              @Nonnull final String sFilePath)
+  public static String getAbsoluteWithEnsuredParentDirectory (@Nonnull final File aParentDirectory, @Nonnull final String sFilePath)
   {
     ValueEnforcer.notNull (aParentDirectory, "ParentDirectory");
     ValueEnforcer.notNull (sFilePath, "FilePath");
@@ -1186,11 +1186,7 @@ public final class FilenameHelper
     {
       if (!aParentDirectory.isAbsolute ())
       {
-        s_aLogger.error ("Cannot express absolute child file ('" +
-                         aSubFile +
-                         "') relative to a relative parent file ('" +
-                         aParentDirectory +
-                         "')!");
+        s_aLogger.error ("Cannot express absolute child file ('" + aSubFile + "') relative to a relative parent file ('" + aParentDirectory + "')!");
         return null;
       }
       sRelativeSubPath = getRelativeToParentDirectory (aSubFile, aParentDirectory);
