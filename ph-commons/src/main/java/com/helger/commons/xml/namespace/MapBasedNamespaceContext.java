@@ -34,6 +34,7 @@ import com.helger.commons.collection.multimap.IMultiMapSetBased;
 import com.helger.commons.collection.multimap.MultiHashMapHashSetBased;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -43,7 +44,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class MapBasedNamespaceContext extends AbstractNamespaceContext
+public class MapBasedNamespaceContext extends AbstractNamespaceContext implements ICloneable <MapBasedNamespaceContext>
 {
   private String m_sDefaultNamespaceURI;
   private final Map <String, String> m_aPrefix2NS = new LinkedHashMap <String, String> ();
@@ -51,6 +52,21 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext
 
   public MapBasedNamespaceContext ()
   {}
+
+  public MapBasedNamespaceContext (@Nullable final MapBasedNamespaceContext aOther)
+  {
+    if (aOther != null)
+    {
+      m_sDefaultNamespaceURI = aOther.m_sDefaultNamespaceURI;
+      m_aPrefix2NS.putAll (aOther.m_aPrefix2NS);
+      m_aNS2Prefix.putAll (aOther.m_aNS2Prefix);
+    }
+  }
+
+  public MapBasedNamespaceContext (@Nullable final IIterableNamespaceContext aOther)
+  {
+    addMappings (aOther);
+  }
 
   @Override
   @Nullable
@@ -73,8 +89,24 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext
     return addMapping (XMLConstants.DEFAULT_NS_PREFIX, sNamespaceURI);
   }
 
+  @Nonnull
+  private MapBasedNamespaceContext _addMapping (@Nonnull final String sPrefix, @Nonnull final String sNamespaceURI, final boolean bAllowOverwrite)
+  {
+    ValueEnforcer.notNull (sPrefix, "Prefix");
+    ValueEnforcer.notNull (sNamespaceURI, "NamespaceURI");
+    if (!bAllowOverwrite && m_aPrefix2NS.containsKey (sPrefix))
+      throw new IllegalArgumentException ("The prefix '" + sPrefix + "' is already registered!");
+
+    if (sPrefix.equals (XMLConstants.DEFAULT_NS_PREFIX))
+      m_sDefaultNamespaceURI = sNamespaceURI;
+    m_aPrefix2NS.put (sPrefix, sNamespaceURI);
+    m_aNS2Prefix.putSingle (sNamespaceURI, sPrefix);
+    return this;
+  }
+
   /**
-   * Add a new prefix to namespace mapping.
+   * Add a new prefix to namespace mapping. If a prefix is already present, an
+   * IllegalArgumentException is thrown.
    *
    * @param sPrefix
    *        The prefix to be used. May not be <code>null</code>. If it equals
@@ -84,19 +116,51 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext
    *        The namespace URI to be mapped. May not be <code>null</code> but
    *        maybe empty.
    * @return this
+   * @throws IllegalArgumentException
+   *         If another mapping for the passed prefix is already present
+   * @see #setMapping(String, String)
    */
   @Nonnull
   public MapBasedNamespaceContext addMapping (@Nonnull final String sPrefix, @Nonnull final String sNamespaceURI)
   {
-    ValueEnforcer.notNull (sPrefix, "Prefix");
-    ValueEnforcer.notNull (sNamespaceURI, "NamespaceURI");
-    if (m_aPrefix2NS.containsKey (sPrefix))
-      throw new IllegalArgumentException ("The prefix '" + sPrefix + "' is already registered!");
+    return _addMapping (sPrefix, sNamespaceURI, false);
+  }
 
-    if (sPrefix.equals (XMLConstants.DEFAULT_NS_PREFIX))
-      m_sDefaultNamespaceURI = sNamespaceURI;
-    m_aPrefix2NS.put (sPrefix, sNamespaceURI);
-    m_aNS2Prefix.putSingle (sNamespaceURI, sPrefix);
+  /**
+   * Add a new prefix to namespace mapping. If a prefix is already present it is
+   * overwritten.
+   *
+   * @param sPrefix
+   *        The prefix to be used. May not be <code>null</code>. If it equals
+   *        {@link XMLConstants#DEFAULT_NS_PREFIX} that the namespace is
+   *        considered to be the default one.
+   * @param sNamespaceURI
+   *        The namespace URI to be mapped. May not be <code>null</code> but
+   *        maybe empty.
+   * @return this
+   * @see #addMapping(String, String)
+   */
+  @Nonnull
+  public MapBasedNamespaceContext setMapping (@Nonnull final String sPrefix, @Nonnull final String sNamespaceURI)
+  {
+    return _addMapping (sPrefix, sNamespaceURI, true);
+  }
+
+  @Nonnull
+  public final MapBasedNamespaceContext addMappings (@Nullable final IIterableNamespaceContext aOther)
+  {
+    if (aOther != null)
+      for (final Map.Entry <String, String> aEntry : aOther.getPrefixToNamespaceURIMap ().entrySet ())
+        addMapping (aEntry.getKey (), aEntry.getValue ());
+    return this;
+  }
+
+  @Nonnull
+  public final MapBasedNamespaceContext setMappings (@Nullable final IIterableNamespaceContext aOther)
+  {
+    if (aOther != null)
+      for (final Map.Entry <String, String> aEntry : aOther.getPrefixToNamespaceURIMap ().entrySet ())
+        setMapping (aEntry.getKey (), aEntry.getValue ());
     return this;
   }
 
@@ -109,7 +173,19 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext
 
     // Remove from namespace 2 prefix map as well
     if (m_aNS2Prefix.removeSingle (sNamespaceURI, sPrefix).isUnchanged ())
-      throw new IllegalStateException ("Internal inconsistency!");
+      throw new IllegalStateException ("Internal inconsistency removing '" + sPrefix + "' and '" + sNamespaceURI + "'");
+    return EChange.CHANGED;
+  }
+
+  @Nonnull
+  public EChange clear ()
+  {
+    if (m_aPrefix2NS.isEmpty ())
+      return EChange.UNCHANGED;
+
+    m_aPrefix2NS.clear ();
+    m_aNS2Prefix.clear ();
+    m_sDefaultNamespaceURI = null;
     return EChange.CHANGED;
   }
 
@@ -154,6 +230,13 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext
     return m_aPrefix2NS.size ();
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public MapBasedNamespaceContext getClone ()
+  {
+    return new MapBasedNamespaceContext (this);
+  }
+
   @Override
   public boolean equals (final Object o)
   {
@@ -170,10 +253,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sDefaultNamespaceURI)
-                                       .append (m_aPrefix2NS)
-                                       .append (m_aNS2Prefix)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_sDefaultNamespaceURI).append (m_aPrefix2NS).append (m_aNS2Prefix).getHashCode ();
   }
 
   @Override
