@@ -18,6 +18,16 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <entry date="2015-11-13" category="api" action="add">
+    <change>
+      <text locale="en">Extended MapBasedNamespaceContext API</text>
+    </change>
+  </entry>
+  <entry date="2015-11-13" category="api" action="fix">
+    <change>
+      <text locale="en">Added missing IMutableAttributeContainer interface on class MapBasedAttributeContainer</text>
+    </change>
+  </entry>
   <release date="2015-11-03" version="6.2.1" />
   <entry date="2015-10-23" category="api" action="add">
     <change>
