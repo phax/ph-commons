@@ -10,4 +10,4 @@
  * governing permissions and limitations under the License.
  */
 @javax.xml.bind.annotation.XmlSchema (elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package com.helger.jaxb;
+package com.helger.jaxb.mock.external;

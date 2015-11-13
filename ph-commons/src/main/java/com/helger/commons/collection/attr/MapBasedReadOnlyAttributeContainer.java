@@ -18,6 +18,7 @@ package com.helger.commons.collection.attr;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -76,6 +77,12 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> extends Abs
   protected MapBasedReadOnlyAttributeContainer (final boolean bDummy, @Nonnull final Map <KEYTYPE, VALUETYPE> aAttrMap)
   {
     m_aAttrs = ValueEnforcer.notNull (aAttrMap, "AttrMap");
+  }
+
+  @Nonnull
+  public Iterator <Map.Entry <KEYTYPE, VALUETYPE>> iterator ()
+  {
+    return m_aAttrs.entrySet ().iterator ();
   }
 
   public boolean containsAttribute (@Nullable final KEYTYPE aName)

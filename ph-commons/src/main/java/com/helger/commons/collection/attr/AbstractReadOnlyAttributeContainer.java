@@ -55,8 +55,7 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
   }
 
   @Nullable
-  public final <DATATYPE> DATATYPE getTypedAttribute (@Nullable final KEYTYPE aName,
-                                                      @Nonnull final Class <DATATYPE> aDstClass)
+  public final <DATATYPE> DATATYPE getTypedAttribute (@Nullable final KEYTYPE aName, @Nonnull final Class <DATATYPE> aDstClass)
   {
     return TypeConverter.convertIfNecessary (getAttributeObject (aName), aDstClass);
   }
@@ -76,7 +75,6 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
     return getAttributeAsString (aName, null);
   }
 
-  @Nullable
   public final String getAttributeAsString (@Nullable final KEYTYPE aName, @Nullable final String sDefault)
   {
     final Object aValue = getAttributeObject (aName);
@@ -105,6 +103,7 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
     return AttributeValueConverter.getAsLong (aName, aValue, nDefault);
   }
 
+
   public final double getAttributeAsDouble (@Nullable final KEYTYPE aName)
   {
     return getAttributeAsDouble (aName, CGlobal.ILLEGAL_UINT);
@@ -127,7 +126,6 @@ public abstract class AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> im
     return AttributeValueConverter.getAsBoolean (aName, aValue, bDefault);
   }
 
-  @Nullable
   public final BigInteger getAttributeAsBigInteger (@Nullable final KEYTYPE aName)
   {
     return getAttributeAsBigInteger (aName, null);

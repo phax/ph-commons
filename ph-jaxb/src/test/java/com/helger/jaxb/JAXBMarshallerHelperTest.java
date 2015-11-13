@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -38,14 +39,14 @@ import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
  */
 public final class JAXBMarshallerHelperTest
 {
-  @Test
-  public void testAll () throws JAXBException
+  private <T> void _testAll (@Nonnull final Class <T> aClass, final boolean bIsInternal) throws JAXBException
   {
-    final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (MockJAXBArchive.class);
+    final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (aClass);
     assertNotNull (aCtx);
 
     final Marshaller aMarshaller = aCtx.createMarshaller ();
     assertTrue (JAXBMarshallerHelper.isSunJAXB2Marshaller (aMarshaller));
+    assertTrue (bIsInternal == JAXBMarshallerHelper.isInternalSunJAXB2Marshaller (aMarshaller));
 
     // Encoding
     assertEquals (CCharset.CHARSET_UTF_8, JAXBMarshallerHelper.getEncoding (aMarshaller));
@@ -75,10 +76,15 @@ public final class JAXBMarshallerHelperTest
     // Namespace prefix mapper
     assertNull (JAXBMarshallerHelper.getSunNamespacePrefixMapper (aMarshaller));
     JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller,
-                                                      new MapBasedNamespaceContext ().addMapping ("p1",
-                                                                                                  "http://www.helger.com/namespace1")
-                                                                                     .addMapping ("p2",
-                                                                                                  "http://www.helger.com/namespace2"));
+                                                      new MapBasedNamespaceContext ().addMapping ("p1", "http://www.helger.com/namespace1")
+                                                                                     .addMapping ("p2", "http://www.helger.com/namespace2"));
     assertNotNull (JAXBMarshallerHelper.getSunNamespacePrefixMapper (aMarshaller));
+  }
+
+  @Test
+  public void testAll () throws JAXBException
+  {
+    _testAll (com.helger.jaxb.mock.external.MockJAXBArchive.class, false);
+    _testAll (com.helger.jaxb.mock.internal.MockJAXBArchive.class, true);
   }
 }

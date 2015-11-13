@@ -44,7 +44,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Value type
  */
 @NotThreadSafe
-public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE> extends MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements ICloneable <MapBasedAttributeContainer <KEYTYPE, VALUETYPE>>
+public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE> extends MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements IMutableAttributeContainer <KEYTYPE, VALUETYPE>, ICloneable <MapBasedAttributeContainer <KEYTYPE, VALUETYPE>>
 {
   public MapBasedAttributeContainer ()
   {
@@ -73,7 +73,7 @@ public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE> extends MapBasedRea
   }
 
   @Nonnull
-  public final EChange setAttributes (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aValues)
+  public final EChange addAttributes (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aValues)
   {
     EChange ret = EChange.UNCHANGED;
     if (aValues != null)
@@ -83,11 +83,27 @@ public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE> extends MapBasedRea
   }
 
   @Nonnull
-  public final EChange setAttributes (@Nullable final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aValues)
+  public final EChange addAttributes (@Nullable final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aValues)
   {
     if (aValues == null)
       return EChange.UNCHANGED;
-    return setAttributes (aValues.getAllAttributes ());
+    return addAttributes (aValues.getAllAttributes ());
+  }
+
+  @Nonnull
+  public final EChange setAttributes (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aValues)
+  {
+    EChange ret = clear ();
+    ret = ret.or (addAttributes (aValues));
+    return ret;
+  }
+
+  @Nonnull
+  public final EChange setAttributes (@Nullable final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aValues)
+  {
+    EChange ret = clear ();
+    ret = ret.or (addAttributes (aValues));
+    return ret;
   }
 
   /**
