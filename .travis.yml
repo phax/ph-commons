@@ -1,8 +1,9 @@
 language: java
 
 before_script:
+# should be empty
  - "echo $JAVA_OPTS"
- - "export JAVA_OPTS=$JAVA_OPTS -Xmx1g"
+ - "export JAVA_OPTS=-Xmx1g"
  
 jdk:
 # Runs in an endless loop :(
