@@ -81,8 +81,7 @@ public final class SimpleLSResourceResolverTest
   public void testDoStandardResourceResolving () throws IOException
   {
     final String sBaseDir = new File (".").getCanonicalFile ().getAbsolutePath () + File.separatorChar;
-    final String sBaseDirParent = new File (".").getCanonicalFile ().getParentFile ().getAbsolutePath () +
-                                  File.separatorChar;
+    final String sBaseDirParent = new File (".").getCanonicalFile ().getParentFile ().getAbsolutePath () + File.separatorChar;
 
     IReadableResource aRes;
 
@@ -97,15 +96,14 @@ public final class SimpleLSResourceResolverTest
 
     aRes = SimpleLSResourceResolver.doStandardResourceResolving ("../dir/file.txt", "http://www.helger.com");
     assertTrue (aRes instanceof URLResource);
-    assertEquals ("http://www.helger.com/../dir/file.txt", aRes.getPath ());
+    assertEquals ("http://www.helger.com/dir/file.txt", aRes.getPath ());
 
     aRes = SimpleLSResourceResolver.doStandardResourceResolving ("../dir/file.txt", "http://www.helger.com/abc/");
     assertTrue (aRes instanceof URLResource);
     assertEquals ("http://www.helger.com/dir/file.txt", aRes.getPath ());
 
     // system ID is a fixed URL
-    aRes = SimpleLSResourceResolver.doStandardResourceResolving ("http://www.example.org/file.txt",
-                                                                 "http://www.helger.com/abc/");
+    aRes = SimpleLSResourceResolver.doStandardResourceResolving ("http://www.example.org/file.txt", "http://www.helger.com/abc/");
     assertTrue (aRes instanceof URLResource);
     assertEquals ("http://www.example.org/file.txt", aRes.getPath ());
 
@@ -202,8 +200,7 @@ public final class SimpleLSResourceResolverTest
     assertEquals ("/dir/file.txt", aRes.getPath ());
 
     // System URL contains paths and base URL is a URL
-    aRes = SimpleLSResourceResolver.doStandardResourceResolving ("../dir/file.txt",
-                                                                 "http://www.helger.com/abc/orig.file");
+    aRes = SimpleLSResourceResolver.doStandardResourceResolving ("../dir/file.txt", "http://www.helger.com/abc/orig.file");
     assertTrue (aRes instanceof URLResource);
     assertEquals ("http://www.helger.com/dir/file.txt", aRes.getPath ());
 
