@@ -6,9 +6,10 @@ before_script:
  - "export JAVA_OPTS=-Xmx1g"
  
 jdk:
-# Runs in an endless loop :(
+# Runs in an endless loop for SecureRandom:(
 #  - openjdk6
-  - oraclejdk7
+#  - oraclejdk7
+  - oraclejdk8
   
 cache:
   directories:
