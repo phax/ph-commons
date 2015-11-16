@@ -29,6 +29,7 @@ import java.util.Random;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
+import com.helger.commons.random.VerySecureRandom;
 
 /**
  * Test class for class {@link BitOutputStream}.
@@ -116,7 +117,7 @@ public final class BitOutputStreamTest
   @Test
   public void testWriteManyLittleEndian () throws IOException
   {
-    final Random aRandom = new Random ();
+    final Random aRandom = VerySecureRandom.getInstance ();
     for (int i = 0; i < 200; i += 3)
     {
       final byte [] buf = new byte [i * 100];
@@ -149,7 +150,7 @@ public final class BitOutputStreamTest
   @Test
   public void testWriteManyBigEndian () throws IOException
   {
-    final Random aRandom = new Random ();
+    final Random aRandom = VerySecureRandom.getInstance ();
     for (int i = 0; i < 200; i += 3)
     {
       final byte [] buf = new byte [i * 100];
@@ -182,7 +183,7 @@ public final class BitOutputStreamTest
   @Test
   public void testReadWriteRandom () throws IOException
   {
-    final Random aRandom = new Random ();
+    final Random aRandom = VerySecureRandom.getInstance ();
     for (int i = 0; i < 200; i += 3)
     {
       final byte [] buf = new byte [i * 100];
