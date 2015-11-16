@@ -14,7 +14,7 @@ uHu4/XKtXs21U040Z0DoVZZqk3ZyVEdkfRdnkj3BuOkCuf4zPS+3+3y5QWWRmsTruVHETwUq3vBbo9DL
 before_script:
 # should be empty
  - "echo $JAVA_OPTS"
- - "export JAVA_OPTS=-Xmx1g"
+ - "export JAVA_OPTS=-Djava.security.egd=file:/dev/./urandom"
  
 jdk:
 # Runs in an endless loop for SecureRandom init on all JDK versions :(
