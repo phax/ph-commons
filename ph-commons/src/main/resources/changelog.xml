@@ -18,6 +18,11 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <entry date="2015-11-17" category="api" action="add">
+    <change>
+      <text locale="en">Added new interface IHasAttributes</text>
+    </change>
+  </entry>
   <entry date="2015-11-13" category="api" action="add">
     <change>
       <text locale="en">Extended MapBasedNamespaceContext API</text>
