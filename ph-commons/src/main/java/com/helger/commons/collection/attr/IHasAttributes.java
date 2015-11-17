@@ -50,7 +50,8 @@ public interface IHasAttributes <KEYTYPE, VALUETYPE>
   IMutableAttributeContainer <KEYTYPE, VALUETYPE> getMutableAttributes ();
 
   /**
-   * @return The map with all contained attributes.
+   * @return The map with all contained attributes. Never <code>null</code> but
+   *         maybe empty.
    */
   @Nonnull
   @ReturnsMutableCopy
