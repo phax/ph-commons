@@ -18,9 +18,15 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <release date="2015-11-19" version="6.2.2" />
   <entry date="2015-11-17" category="api" action="add">
     <change>
-      <text locale="en">Added new interface IHasAttributes</text>
+      <text locale="en">Added new interface IHasAttributes and IHasAttributesAny</text>
+    </change>
+  </entry>
+  <entry date="2015-11-13" category="tech" action="change">
+    <change>
+      <text locale="en">Improved handling of '..' when concatenating paths</text>
     </change>
   </entry>
   <entry date="2015-11-13" category="api" action="add">
@@ -36,7 +42,7 @@
   <release date="2015-11-03" version="6.2.1" />
   <entry date="2015-10-23" category="api" action="add">
     <change>
-      <text locale="en">Added new class NullOutputStream - a discard everything OutputStream</text>
+      <text locale="en">Added new class NullOutputStream - a "discard everything" OutputStream</text>
     </change>
   </entry>
   <entry date="2015-09-22" category="api" action="add">
