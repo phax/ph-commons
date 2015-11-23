@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -39,7 +40,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  * @param <VALUETYPE>
  *        Value type
  */
-public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Iterable <Map.Entry <KEYTYPE, VALUETYPE>>, Serializable
+public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
 {
   /**
    * @return The number of contained attributes. Always &ge; 0.
@@ -339,4 +340,10 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Iterable <Map.
   @Nonnull
   @ReturnsMutableCopy
   Collection <VALUETYPE> getAllAttributeValues ();
+
+  /**
+   * @return An iterator over all entries.
+   */
+  @Nonnull
+  Iterator <Map.Entry <KEYTYPE, VALUETYPE>> getIterator ();
 }

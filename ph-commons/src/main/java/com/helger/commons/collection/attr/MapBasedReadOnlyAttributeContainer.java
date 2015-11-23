@@ -80,7 +80,7 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> extends Abs
   }
 
   @Nonnull
-  public Iterator <Map.Entry <KEYTYPE, VALUETYPE>> iterator ()
+  public Iterator <Map.Entry <KEYTYPE, VALUETYPE>> getIterator ()
   {
     return m_aAttrs.entrySet ().iterator ();
   }
