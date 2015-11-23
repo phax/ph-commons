@@ -27,7 +27,7 @@ import com.helger.commons.annotation.ReturnsMutableObject;
  * @param <KEYTYPE>
  *        Key type
  */
-public interface IHasAttributesAny <KEYTYPE> extends IHasAttributes <KEYTYPE, Object>
+public interface IHasAttributesAny <KEYTYPE> extends IHasAttributes <KEYTYPE, Object>, IHasReadOnlyAttributesAny <KEYTYPE>
 {
   /**
    * @return The mutable attribute container. Never <code>null</code>.

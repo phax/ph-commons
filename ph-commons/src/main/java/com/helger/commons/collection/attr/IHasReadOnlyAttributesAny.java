@@ -16,25 +16,14 @@
  */
 package com.helger.commons.collection.attr;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.ReturnsMutableObject;
-
 /**
- * Base interface for objects having attributes
+ * Base interface for objects having attributes with arbitrary types
  *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        Key type
- * @param <VALUETYPE>
- *        Value type
  */
-public interface IHasAttributes <KEYTYPE, VALUETYPE> extends IHasReadOnlyAttributes <KEYTYPE, VALUETYPE>
+public interface IHasReadOnlyAttributesAny <KEYTYPE> extends IHasReadOnlyAttributes <KEYTYPE, Object>
 {
-  /**
-   * @return The mutable attribute container. Never <code>null</code>.
-   */
-  @Nonnull
-  @ReturnsMutableObject ("design")
-  IMutableAttributeContainer <KEYTYPE, VALUETYPE> getMutableAttributes ();
+  /* empty */
 }
