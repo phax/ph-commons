@@ -18,7 +18,7 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
-  <release date="2015-11-19" version="6.2.2" />
+  <release date="2015-11-23" version="6.2.2" />
   <entry date="2015-11-17" category="api" action="add">
     <change>
       <text locale="en">Added new interface IHasAttributes and IHasAttributesAny</text>
