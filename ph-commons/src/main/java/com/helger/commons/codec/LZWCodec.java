@@ -271,12 +271,12 @@ public class LZWCodec implements IByteArrayCodec
     if (aEncodedBuffer == null)
       return null;
 
-    final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer);
-    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    getDecodedLZW (aBAIS, aBAOS);
-    StreamHelper.close (aBAOS);
-    StreamHelper.close (aBAIS);
-    return aBAOS.toByteArray ();
+    try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer);
+        final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
+    {
+      getDecodedLZW (aBAIS, aBAOS);
+      return aBAOS.toByteArray ();
+    }
   }
 
   public static void getDecodedLZW (@Nonnull @WillNotClose final InputStream aEncodedIS,
@@ -285,8 +285,8 @@ public class LZWCodec implements IByteArrayCodec
     ValueEnforcer.notNull (aEncodedIS, "EncodedInputStream");
     ValueEnforcer.notNull (aOS, "OutputStream");
 
+    // Don't close!
     final NonBlockingBitInputStream aBIS = new NonBlockingBitInputStream (aEncodedIS, ByteOrder.LITTLE_ENDIAN);
-
     try
     {
       final LZWDecodeDictionary aDict = new LZWDecodeDictionary ();

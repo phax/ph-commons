@@ -1607,43 +1607,33 @@ public final class Base64
   public static String encodeObject (@Nonnull final Serializable serializableObject,
                                      final int options) throws IOException
   {
-    if (serializableObject == null)
-      throw new NullPointerException ("Cannot serialize a null object.");
+    ValueEnforcer.notNull (serializableObject, "Object");
 
-    // Streams
-    NonBlockingByteArrayOutputStream baos = null;
-    java.io.OutputStream b64os = null;
-    GZIPOutputStream gzos = null;
-    ObjectOutputStream oos = null;
-
-    try
+    // ObjectOutputStream -> (GZIP) -> Base64 -> ByteArrayOutputStream
+    try (final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
+        final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | options))
     {
-      // ObjectOutputStream -> (GZIP) -> Base64 -> ByteArrayOutputStream
-      baos = new NonBlockingByteArrayOutputStream ();
-      b64os = new Base64OutputStream (baos, ENCODE | options);
       if ((options & GZIP) != 0)
       {
         // Gzip
-        gzos = new GZIPOutputStream (b64os);
-        oos = new ObjectOutputStream (gzos);
+        try (GZIPOutputStream gzos = new GZIPOutputStream (b64os);
+            ObjectOutputStream oos = new ObjectOutputStream (gzos))
+        {
+          oos.writeObject (serializableObject);
+        }
       }
       else
       {
         // Not gzipped
-        oos = new ObjectOutputStream (b64os);
+        try (ObjectOutputStream oos = new ObjectOutputStream (b64os))
+        {
+          oos.writeObject (serializableObject);
+        }
       }
-      oos.writeObject (serializableObject);
-    }
-    finally
-    {
-      StreamHelper.close (oos);
-      StreamHelper.close (gzos);
-      StreamHelper.close (b64os);
-      StreamHelper.close (baos);
-    }
 
-    // Return value according to relevant encoding.
-    return CharsetManager.getAsString (baos.toByteArray (), PREFERRED_ENCODING);
+      // Return value according to relevant encoding.
+      return CharsetManager.getAsString (baos.toByteArray (), PREFERRED_ENCODING);
+    }
   }
 
   /**
@@ -1874,28 +1864,14 @@ public final class Base64
     // Compress?
     if ((options & GZIP) != 0)
     {
-      NonBlockingByteArrayOutputStream baos = null;
-      GZIPOutputStream gzos = null;
-      Base64OutputStream b64os = null;
-
-      try
+      // GZip -> Base64 -> ByteArray
+      try (final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
+          final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | options);
+          final GZIPOutputStream gzos = new GZIPOutputStream (b64os))
       {
-        // GZip -> Base64 -> ByteArray
-        baos = new NonBlockingByteArrayOutputStream ();
-        b64os = new Base64OutputStream (baos, ENCODE | options);
-        gzos = new GZIPOutputStream (b64os);
-
         gzos.write (source, off, len);
-        gzos.close ();
+        return baos.toByteArray ();
       }
-      finally
-      {
-        StreamHelper.close (gzos);
-        StreamHelper.close (b64os);
-        StreamHelper.close (baos);
-      }
-
-      return baos.toByteArray ();
     }
 
     // Else, don't compress. Better not to use streams at all then.
@@ -2262,18 +2238,12 @@ public final class Base64
       final int head = (bytes[0] & 0xff) | ((bytes[1] << 8) & 0xff00);
       if (GZIPInputStream.GZIP_MAGIC == head)
       {
-        NonBlockingByteArrayInputStream bais = null;
-        GZIPInputStream gzis = null;
-        NonBlockingByteArrayOutputStream baos = null;
-        final byte [] buffer = new byte [2048];
-        int length;
-
-        try
+        try (final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
+            final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (bytes);
+            final GZIPInputStream gzis = new GZIPInputStream (bais))
         {
-          baos = new NonBlockingByteArrayOutputStream ();
-          bais = new NonBlockingByteArrayInputStream (bytes);
-          gzis = new GZIPInputStream (bais);
-
+          final byte [] buffer = new byte [2048];
+          int length;
           while ((length = gzis.read (buffer)) >= 0)
           {
             baos.write (buffer, 0, length);
@@ -2285,12 +2255,6 @@ public final class Base64
         catch (final IOException e)
         {
           // Just return originally-decoded bytes
-        }
-        finally
-        {
-          StreamHelper.close (baos);
-          StreamHelper.close (gzis);
-          StreamHelper.close (bais);
         }
       }
     }
@@ -2345,14 +2309,11 @@ public final class Base64
     // Decode and gunzip if necessary
     final byte [] objBytes = decode (encodedObject, options);
 
-    NonBlockingByteArrayInputStream bais = null;
     ObjectInputStream ois = null;
     Object obj = null;
 
-    try
+    try (final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (objBytes))
     {
-      bais = new NonBlockingByteArrayInputStream (objBytes);
-
       // If no custom class loader is provided, use Java's builtin OIS.
       if (loader == null)
       {
@@ -2379,7 +2340,6 @@ public final class Base64
     }
     finally
     {
-      StreamHelper.close (bais);
       StreamHelper.close (ois);
     }
 
@@ -2408,15 +2368,9 @@ public final class Base64
   {
     ValueEnforcer.notNull (aDataToEncode, "DataToEncode");
 
-    Base64OutputStream bos = null;
-    try
+    try (final Base64OutputStream bos = new Base64OutputStream (FileHelper.getOutputStream (sFilename), ENCODE))
     {
-      bos = new Base64OutputStream (FileHelper.getOutputStream (sFilename), ENCODE);
       bos.write (aDataToEncode);
-    }
-    finally
-    {
-      StreamHelper.close (bos);
     }
   }
 
@@ -2439,15 +2393,9 @@ public final class Base64
   public static void decodeToFile (@Nonnull final String dataToDecode,
                                    @Nonnull final String filename) throws IOException
   {
-    Base64OutputStream bos = null;
-    try
+    try (final Base64OutputStream bos = new Base64OutputStream (FileHelper.getOutputStream (filename), DECODE))
     {
-      bos = new Base64OutputStream (FileHelper.getOutputStream (filename), DECODE);
       bos.write (CharsetManager.getAsBytes (dataToDecode, PREFERRED_ENCODING));
-    }
-    finally
-    {
-      StreamHelper.close (bos);
     }
   }
 
@@ -2470,41 +2418,34 @@ public final class Base64
   @ReturnsMutableCopy
   public static byte [] decodeFromFile (@Nonnull final String filename) throws IOException
   {
-    byte [] decodedData;
-    Base64InputStream bis = null;
-    try
+    // Set up some useful variables
+    final File file = new File (filename);
+
+    // Check for size of file
+    if (file.length () > Integer.MAX_VALUE)
+      throw new IOException ("File is too big for this convenience method (" + file.length () + " bytes).");
+
+    final byte [] buffer = new byte [(int) file.length ()];
+
+    // Open a stream
+    try (
+        final Base64InputStream bis = new Base64InputStream (StreamHelper.getBuffered (FileHelper.getInputStream (file)),
+                                                             DECODE))
     {
-      // Set up some useful variables
-      final File file = new File (filename);
-      byte [] buffer;
-      int length = 0;
+      int nOfs = 0;
       int numBytes;
 
-      // Check for size of file
-      if (file.length () > Integer.MAX_VALUE)
-        throw new IOException ("File is too big for this convenience method (" + file.length () + " bytes).");
-
-      buffer = new byte [(int) file.length ()];
-
-      // Open a stream
-      bis = new Base64InputStream (StreamHelper.getBuffered (FileHelper.getInputStream (file)), DECODE);
-
       // Read until done
-      while ((numBytes = bis.read (buffer, length, 4096)) >= 0)
+      while ((numBytes = bis.read (buffer, nOfs, 4096)) >= 0)
       {
-        length += numBytes;
+        nOfs += numBytes;
       }
 
       // Save in a variable to return
-      decodedData = new byte [length];
-      System.arraycopy (buffer, 0, decodedData, 0, length);
+      final byte [] decodedData = new byte [nOfs];
+      System.arraycopy (buffer, 0, decodedData, 0, nOfs);
+      return decodedData;
     }
-    finally
-    {
-      StreamHelper.close (bis);
-    }
-
-    return decodedData;
   }
 
   /**
@@ -2525,20 +2466,20 @@ public final class Base64
   @Nonnull
   public static String encodeFromFile (@Nonnull final String filename) throws IOException
   {
-    String encodedData = null;
-    Base64InputStream bis = null;
-    try
+    // Set up some useful variables
+    final File file = new File (filename);
+
+    // Open a stream
+    try (
+        final Base64InputStream bis = new Base64InputStream (StreamHelper.getBuffered (FileHelper.getInputStream (file)),
+                                                             ENCODE))
     {
-      // Set up some useful variables
-      final File file = new File (filename);
       // Need max() for math on small files (v2.2.1);
       // Need +1 for a few corner cases (v2.3.5)
       final byte [] buffer = new byte [Math.max ((int) (file.length () * 1.4 + 1), 40)];
+
       int length = 0;
       int numBytes;
-
-      // Open a stream
-      bis = new Base64InputStream (StreamHelper.getBuffered (FileHelper.getInputStream (file)), ENCODE);
 
       // Read until done
       while ((numBytes = bis.read (buffer, length, 4096)) >= 0)
@@ -2547,14 +2488,9 @@ public final class Base64
       }
 
       // Save in a variable to return
-      encodedData = CharsetManager.getAsString (buffer, 0, length, PREFERRED_ENCODING);
+      final String encodedData = CharsetManager.getAsString (buffer, 0, length, PREFERRED_ENCODING);
+      return encodedData;
     }
-    finally
-    {
-      StreamHelper.close (bis);
-    }
-
-    return encodedData;
   }
 
   /**
@@ -2571,16 +2507,10 @@ public final class Base64
   public static void encodeFileToFile (@Nonnull final String infile, @Nonnull final String outfile) throws IOException
   {
     final String encoded = encodeFromFile (infile);
-    OutputStream out = null;
-    try
+    try (final OutputStream out = StreamHelper.getBuffered (FileHelper.getOutputStream (outfile)))
     {
-      out = StreamHelper.getBuffered (FileHelper.getOutputStream (outfile));
       // Strict, 7-bit output.
       out.write (CharsetManager.getAsBytes (encoded, PREFERRED_ENCODING));
-    }
-    finally
-    {
-      StreamHelper.close (out);
     }
   }
 
@@ -2598,15 +2528,9 @@ public final class Base64
   public static void decodeFileToFile (@Nonnull final String infile, @Nonnull final String outfile) throws IOException
   {
     final byte [] decoded = decodeFromFile (infile);
-    OutputStream out = null;
-    try
+    try (final OutputStream out = StreamHelper.getBuffered (FileHelper.getOutputStream (outfile)))
     {
-      out = StreamHelper.getBuffered (FileHelper.getOutputStream (outfile));
       out.write (decoded);
-    }
-    finally
-    {
-      StreamHelper.close (out);
     }
   }
 

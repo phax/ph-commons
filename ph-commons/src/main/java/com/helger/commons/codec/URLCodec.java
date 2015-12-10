@@ -27,7 +27,6 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -150,8 +149,7 @@ public class URLCodec implements IByteArrayCodec
     if (aEncodedBuffer == null)
       return null;
 
-    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    try
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
     {
       final int nMax = aEncodedBuffer.length;
       for (int i = 0; i < nMax; i++)
@@ -178,10 +176,6 @@ public class URLCodec implements IByteArrayCodec
           }
       }
       return aBAOS.toByteArray ();
-    }
-    finally
-    {
-      StreamHelper.close (aBAOS);
     }
   }
 

@@ -21,7 +21,6 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * Decoder for run length encoding
@@ -51,9 +50,8 @@ public class RunLengthCodec implements IByteArrayDecoder
 
     int nDupAmount;
     final byte [] aReadBuffer = new byte [128];
-    final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer);
-    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    try
+    try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer);
+        final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
     {
       while ((nDupAmount = aBAIS.read ()) != -1 && nDupAmount != RUN_LENGTH_EOD)
       {
@@ -81,11 +79,6 @@ public class RunLengthCodec implements IByteArrayDecoder
         }
       }
       return aBAOS.toByteArray ();
-    }
-    finally
-    {
-      StreamHelper.close (aBAOS);
-      StreamHelper.close (aBAIS);
     }
   }
 }

@@ -68,16 +68,11 @@ public class FlateCodec implements IByteArrayCodec
       s_aLogger.warn ("ZLib header not found");
 
     final InflaterInputStream aDecodeIS = new InflaterInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer));
-    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    try
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
     {
       if (StreamHelper.copyInputStreamToOutputStream (aDecodeIS, aBAOS).isFailure ())
         throw new DecodeException ("Failed to flate decode!");
       return aBAOS.toByteArray ();
-    }
-    finally
-    {
-      StreamHelper.close (aBAOS);
     }
   }
 
@@ -95,12 +90,14 @@ public class FlateCodec implements IByteArrayCodec
     if (aBuffer == null)
       return null;
 
-    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    final DeflaterOutputStream aEncodeOS = new DeflaterOutputStream (aBAOS);
-    if (StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new NonBlockingByteArrayInputStream (aBuffer), aEncodeOS)
-                    .isFailure ())
-      throw new EncodeException ("Failed to flate encode!");
-    return aBAOS.toByteArray ();
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
+    {
+      final DeflaterOutputStream aEncodeOS = new DeflaterOutputStream (aBAOS);
+      if (StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aBuffer), aEncodeOS)
+                      .isFailure ())
+        throw new EncodeException ("Failed to flate encode!");
+      return aBAOS.toByteArray ();
+    }
   }
 
   @Nullable

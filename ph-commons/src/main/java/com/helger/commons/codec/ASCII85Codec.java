@@ -21,7 +21,6 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * Decoder for ASCII85 encoded values
@@ -55,8 +54,7 @@ public class ASCII85Codec implements IByteArrayDecoder
       return null;
     ValueEnforcer.isTrue (aEncodedBuffer.length >= 4, "Buffer too small: " + aEncodedBuffer.length);
 
-    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    try
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
     {
       int nEncodedCount = 0;
       final byte [] aBuffer = new byte [5];
@@ -144,10 +142,6 @@ public class ASCII85Codec implements IByteArrayDecoder
           break;
       }
       return aBAOS.toByteArray ();
-    }
-    finally
-    {
-      StreamHelper.close (aBAOS);
     }
   }
 }

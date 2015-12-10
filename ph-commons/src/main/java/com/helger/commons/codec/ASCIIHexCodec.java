@@ -21,7 +21,6 @@ import javax.annotation.Nullable;
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -48,8 +47,7 @@ public class ASCIIHexCodec implements IByteArrayDecoder
     if (aEncodedBuffer == null)
       return null;
 
-    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    try
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
     {
       boolean bFirstByte = true;
       int nFirstByte = 0;
@@ -80,10 +78,6 @@ public class ASCIIHexCodec implements IByteArrayDecoder
       if (!bFirstByte)
         aBAOS.write ((byte) (nFirstByte << 4));
       return aBAOS.toByteArray ();
-    }
-    finally
-    {
-      StreamHelper.close (aBAOS);
     }
   }
 }
