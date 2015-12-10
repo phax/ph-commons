@@ -1,9 +1,30 @@
 language: java
 
+env:
+  global:
+    - SONATYPE_USERNAME=ph@phloc.com
+    - secure: "OXL7CceXjZ5cGDKYRedp1E2Pw1STHq5+siik1GTICnA2YEiT8vDokofxH6oJ37nCltr8cLjyTXP6Gm1N+/r+7xp1f
+tOetOCHtufiHjdoY5JpYbjggMq2wfQiJVpu+2BQGUBffcL9Ka4JBcXc9ouF5XfovStuP6qWd3E7ZOR8L08RVnbxSFWzD5MMfuvvB
+mgcB6obtpTCqnzmgWoNeAWj72bALSlzqYqodM+x2PVVMpAAFS3P2KCpG8bFtrdXF0mUwFNAGFRtBJ7UlL7Ydfeq7dBP5sNRDqDOR
+g2H2fW9l6WnbuAqn0nczMTxhdQUlWWLWHKk0HGnlTu/8VuPyScZ0Jku7XmoWSJiKeBbooBZHaCxLv5WbsKUFMgzNXd0LqCWyj90f
+jqzjt7PQc1sXnCIeqBxIrJXfXUQkTQ9KV3iDL49IdV1AeMIi2Gpf0uxuCink65AFwn0uUeyfS00k0FROJzh+7bbvkheMWIAawOf6
+GgAm8tAjsmE4yejBl1E4xYKoHXY2Gs1tI+/v6CQ7R5VbA+Z/LiCTO8cozl2zI0DlN7VRVDmBt0WqUCdkZKF22jd1heuPx9yNRo8H
+uHu4/XKtXs21U040Z0DoVZZqk3ZyVEdkfRdnkj3BuOkCuf4zPS+3+3y5QWWRmsTruVHETwUq3vBbo9DLEUbxU6qag/Nnao="
+
+before_script:
+# should be empty
+ - "echo $JAVA_OPTS"
+ - "export JAVA_OPTS=-Djava.security.egd=file:/dev/./urandom"
+ - "export MAVEN_OPTS=-Djava.security.egd=file:/dev/./urandom"
+ 
 jdk:
   - oraclejdk8
   
 cache:
   directories:
   - $HOME/.m2
-  
+
+after_success:
+  - python mvn-settings-add-snapshot.py
+  - mvn clean deploy -DskipTests=true --settings ~/.m2/snapshot-settings.xml
+    
