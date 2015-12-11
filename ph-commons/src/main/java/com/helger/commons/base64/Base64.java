@@ -1610,8 +1610,8 @@ public final class Base64
     ValueEnforcer.notNull (serializableObject, "Object");
 
     // ObjectOutputStream -> (GZIP) -> Base64 -> ByteArrayOutputStream
-    try (final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
-        final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | options))
+    final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
+    try (final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | options))
     {
       if ((options & GZIP) != 0)
       {
@@ -1630,10 +1630,10 @@ public final class Base64
           oos.writeObject (serializableObject);
         }
       }
-
-      // Return value according to relevant encoding.
-      return CharsetManager.getAsString (baos.toByteArray (), PREFERRED_ENCODING);
     }
+
+    // Return value according to relevant encoding.
+    return CharsetManager.getAsString (baos.toByteArray (), PREFERRED_ENCODING);
   }
 
   /**
@@ -1865,13 +1865,13 @@ public final class Base64
     if ((options & GZIP) != 0)
     {
       // GZip -> Base64 -> ByteArray
-      try (final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
-          final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | options);
+      final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
+      try (final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | options);
           final GZIPOutputStream gzos = new GZIPOutputStream (b64os))
       {
         gzos.write (source, off, len);
-        return baos.toByteArray ();
       }
+      return baos.toByteArray ();
     }
 
     // Else, don't compress. Better not to use streams at all then.

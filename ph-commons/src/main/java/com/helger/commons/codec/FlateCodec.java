@@ -90,14 +90,19 @@ public class FlateCodec implements IByteArrayCodec
     if (aBuffer == null)
       return null;
 
-    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
+    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
+    final DeflaterOutputStream aEncodeOS = new DeflaterOutputStream (aBAOS);
+    try
     {
-      final DeflaterOutputStream aEncodeOS = new DeflaterOutputStream (aBAOS);
       if (StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aBuffer), aEncodeOS)
                       .isFailure ())
         throw new EncodeException ("Failed to flate encode!");
-      return aBAOS.toByteArray ();
     }
+    finally
+    {
+      StreamHelper.close (aEncodeOS);
+    }
+    return aBAOS.toByteArray ();
   }
 
   @Nullable
