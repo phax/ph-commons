@@ -57,7 +57,10 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
    * @return The first child or <code>null</code>.
    */
   @Nullable
-  CHILDTYPE getFirstChild ();
+  default CHILDTYPE getFirstChild ()
+  {
+    return getChildAtIndex (0);
+  }
 
   /**
    * Get the last child node or <code>null</code> if no child is present
@@ -65,5 +68,8 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
    * @return The last child or <code>null</code>.
    */
   @Nullable
-  CHILDTYPE getLastChild ();
+  default CHILDTYPE getLastChild ()
+  {
+    return getChildAtIndex (getChildCount () - 1);
+  }
 }

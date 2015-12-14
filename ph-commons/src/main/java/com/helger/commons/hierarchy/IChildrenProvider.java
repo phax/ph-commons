@@ -40,7 +40,24 @@ public interface IChildrenProvider <CHILDTYPE>
    * @return <code>true</code> if this item has children, <code>false</code>
    *         otherwise.
    */
-  boolean hasChildren (CHILDTYPE aCurrent);
+  default boolean hasChildren (final CHILDTYPE aCurrent)
+  {
+    return getChildCount (aCurrent) > 0;
+  }
+
+  /**
+   * Check if an item has no children.
+   *
+   * @param aCurrent
+   *        The object to determine the children of. No <code>null</code> or
+   *        non- <code>null</code> constraint possible.
+   * @return <code>true</code> if this item has no children, <code>false</code>
+   *         otherwise.
+   */
+  default boolean hasNoChildren (final CHILDTYPE aCurrent)
+  {
+    return !hasChildren (aCurrent);
+  }
 
   /**
    * @param aCurrent
