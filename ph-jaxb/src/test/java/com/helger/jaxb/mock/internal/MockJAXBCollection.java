@@ -109,7 +109,7 @@ public final class MockJAXBCollection
 
   /**
    * Sets the value of the id property.
-   * 
+   *
    * @param value
    *        new ID
    */

@@ -73,7 +73,7 @@ public final class MockJAXBArchive
    * <p>
    * Objects of the following type(s) are allowed in the list
    * {@link MockJAXBCollection }
-   * 
+   *
    * @return Collection
    */
   public List <MockJAXBCollection> getCollection ()
