@@ -11,7 +11,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>8.0.0-SNAPSHOT</version>
+  <version>6.2.3</version>
 </dependency>
 ```
 
