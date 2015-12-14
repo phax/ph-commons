@@ -25,7 +25,7 @@ import com.helger.commons.ValueEnforcer;
 
 /**
  * A special privileged object, that calls <code>class.getClassLoader ()</code>
- * 
+ *
  * @author Philip Helger
  */
 public final class PrivilegedActionGetClassLoader implements PrivilegedAction <ClassLoader>

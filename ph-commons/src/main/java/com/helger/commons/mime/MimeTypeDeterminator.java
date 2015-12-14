@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,6 +38,7 @@ import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.EChange;
 
 /**
@@ -71,7 +70,7 @@ public final class MimeTypeDeterminator
 
   private static boolean s_bDefaultInstantiated = false;
 
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   // Contains all byte[] to mime type mappings
   private final Set <MimeTypeContent> m_aMimeTypeContents = new HashSet <MimeTypeContent> ();
@@ -149,15 +148,7 @@ public final class MimeTypeDeterminator
   {
     ValueEnforcer.notNull (aMimeTypeContent, "MimeTypeContent");
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      return EChange.valueOf (m_aMimeTypeContents.add (aMimeTypeContent));
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    return EChange.valueOf (m_aRWLock.writeLocked ( () -> m_aMimeTypeContents.add (aMimeTypeContent)));
   }
 
   /**
@@ -174,15 +165,7 @@ public final class MimeTypeDeterminator
     if (aMimeTypeContent == null)
       return EChange.UNCHANGED;
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      return EChange.valueOf (m_aMimeTypeContents.remove (aMimeTypeContent));
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    return EChange.valueOf (m_aRWLock.writeLocked ( () -> m_aMimeTypeContents.remove (aMimeTypeContent)));
   }
 
   /**
@@ -252,23 +235,17 @@ public final class MimeTypeDeterminator
   @Nullable
   public IMimeType getMimeTypeFromBytes (@Nullable final byte [] b, @Nullable final IMimeType aDefault)
   {
-    if (b != null && b.length > 0)
-    {
-      m_aRWLock.readLock ().lock ();
-      try
-      {
-        for (final MimeTypeContent aMTC : m_aMimeTypeContents)
-          if (aMTC.matchesBeginning (b))
-            return aMTC.getMimeType ();
-      }
-      finally
-      {
-        m_aRWLock.readLock ().unlock ();
-      }
-    }
+    if (b == null || b.length == 0)
+      return aDefault;
 
-    // default fallback
-    return aDefault;
+    return m_aRWLock.readLocked ( () -> {
+      for (final MimeTypeContent aMTC : m_aMimeTypeContents)
+        if (aMTC.matchesBeginning (b))
+          return aMTC.getMimeType ();
+
+      // default fallback
+      return aDefault;
+    });
   }
 
   /**
@@ -279,15 +256,9 @@ public final class MimeTypeDeterminator
   @ReturnsMutableCopy
   public List <MimeTypeContent> getAllMimeTypeContents ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
+    return m_aRWLock.readLocked ( () -> {
       return CollectionHelper.newList (m_aMimeTypeContents);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    });
   }
 
   /**
@@ -298,16 +269,10 @@ public final class MimeTypeDeterminator
    */
   public void reinitialize ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       m_aMimeTypeContents.clear ();
       _registerDefaultMimeTypeContents ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
 
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("Reinitialized " + MimeTypeDeterminator.class.getName ());

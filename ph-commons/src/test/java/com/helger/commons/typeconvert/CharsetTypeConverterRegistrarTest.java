@@ -24,11 +24,10 @@ import java.nio.charset.Charset;
 import org.junit.Test;
 
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.typeconvert.TypeConverter;
 
 /**
  * Test class for class {@link CharsetTypeConverterRegistrar}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CharsetTypeConverterRegistrarTest

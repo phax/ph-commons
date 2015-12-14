@@ -30,7 +30,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link FileFilterFilenameMatchAnyRegEx}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FileFilterFilenameMatchAnyRegExTest

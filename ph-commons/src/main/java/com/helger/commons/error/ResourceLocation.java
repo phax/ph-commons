@@ -28,7 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Default implementation of the {@link IResourceLocation} interface. The
  * implementation is immutable.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable

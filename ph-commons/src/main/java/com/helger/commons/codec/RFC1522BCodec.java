@@ -27,8 +27,8 @@ import com.helger.commons.base64.Base64;
 import com.helger.commons.charset.CCharset;
 
 /**
- * Identical to the Base64 encoding defined by <a
- * href="http://www.ietf.org/rfc/rfc1521.txt">RFC 1521</a> and allows a
+ * Identical to the Base64 encoding defined by
+ * <a href="http://www.ietf.org/rfc/rfc1521.txt">RFC 1521</a> and allows a
  * character set to be specified.
  * <p>
  * <a href="http://www.ietf.org/rfc/rfc1522.txt">RFC 1522</a> describes

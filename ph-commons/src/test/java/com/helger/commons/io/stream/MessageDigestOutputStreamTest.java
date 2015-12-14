@@ -24,16 +24,12 @@ import java.util.Random;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.stream.MessageDigestOutputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MessageDigestOutputStream}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MessageDigestOutputStreamTest
@@ -41,47 +37,36 @@ public final class MessageDigestOutputStreamTest
   private static final Random s_aRandom = new Random ();
 
   @Test
-  public void testAll ()
+  public void testAll () throws IOException
   {
     // For all algorithms
     for (final EMessageDigestAlgorithm eMDAlgo : EMessageDigestAlgorithm.values ())
     {
-      MessageDigestOutputStream aHIS2 = null;
-      MessageDigestOutputStream aHIS1 = null;
-      try
-      {
-        final String sTestString = "test" + eMDAlgo.getAlgorithm () + "-xxx" + s_aRandom.nextDouble ();
+      final String sTestString = "test" + eMDAlgo.getAlgorithm () + "-xxx" + s_aRandom.nextDouble ();
 
-        // First hash
-        aHIS1 = new MessageDigestOutputStream (new NonBlockingByteArrayOutputStream (), eMDAlgo);
+      // First hash
+      try (MessageDigestOutputStream aHIS1 = new MessageDigestOutputStream (new NonBlockingByteArrayOutputStream (),
+                                                                            eMDAlgo))
+      {
         StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream (sTestString,
                                                                                      CCharset.CHARSET_ISO_8859_1_OBJ),
                                                               new NonBlockingByteArrayOutputStream ());
         final byte [] aDigest1 = aHIS1.getDigest ();
 
         // Second hash
-        aHIS2 = new MessageDigestOutputStream (new NonBlockingByteArrayOutputStream (), eMDAlgo);
-        StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream (sTestString,
-                                                                                     CCharset.CHARSET_ISO_8859_1_OBJ),
-                                                              new NonBlockingByteArrayOutputStream ());
-        final byte [] aDigest2 = aHIS2.getDigest ();
-
-        // Must be equal
-        assertArrayEquals (aDigest1, aDigest2);
-
-        CommonsTestHelper.testToStringImplementation (aHIS1);
-      }
-      finally
-      {
-        try
+        try (MessageDigestOutputStream aHIS2 = new MessageDigestOutputStream (new NonBlockingByteArrayOutputStream (),
+                                                                              eMDAlgo))
         {
-          if (aHIS1 != null)
-            aHIS1.close ();
-          if (aHIS2 != null)
-            aHIS2.close ();
+          StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream (sTestString,
+                                                                                       CCharset.CHARSET_ISO_8859_1_OBJ),
+                                                                new NonBlockingByteArrayOutputStream ());
+          final byte [] aDigest2 = aHIS2.getDigest ();
+
+          // Must be equal
+          assertArrayEquals (aDigest1, aDigest2);
+
+          CommonsTestHelper.testToStringImplementation (aHIS1);
         }
-        catch (final IOException ex)
-        {}
       }
     }
   }

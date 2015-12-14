@@ -54,9 +54,9 @@ public final class AbstractIntComparatorFuncTest
   public void testAll ()
   {
     final Integer [] x = new Integer [] { Integer.valueOf (3),
-                                         Integer.valueOf (3),
-                                         Integer.valueOf (-56),
-                                         Integer.valueOf (1) };
+                                          Integer.valueOf (3),
+                                          Integer.valueOf (-56),
+                                          Integer.valueOf (1) };
 
     // default: sort ascending
     List <Integer> l = CollectionHelper.getSorted (x, new MockComparator ());

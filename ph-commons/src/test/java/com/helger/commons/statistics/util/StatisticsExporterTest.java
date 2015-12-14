@@ -21,11 +21,10 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.helger.commons.microdom.IMicroDocument;
-import com.helger.commons.statistics.util.StatisticsExporter;
 
 /**
  * Test class for class {@link StatisticsExporter}.
- * 
+ *
  * @author Philip Helger
  */
 public final class StatisticsExporterTest

@@ -20,9 +20,10 @@ import javax.annotation.Nonnull;
 
 /**
  * Base interface for an attribute value provider.
- * 
+ *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasAttributeValue
 {
   /**

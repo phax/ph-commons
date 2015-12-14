@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -34,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingRunnable;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
 
@@ -58,7 +57,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThro
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractConcurrentCollector.class);
 
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   // It's a list of Object because otherwise we could not use a static
   // STOP_OBJECT that works for every type. But it is ensured that the queue
@@ -101,83 +100,53 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThro
     if (isStopped ())
       throw new IllegalStateException ("The queue is already stopped and does not take any more elements");
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aQueue.put (aObject);
-      return ESuccess.SUCCESS;
-    }
-    catch (final InterruptedException ex)
-    {
-      s_aLogger.error ("Failed to submit object to queue", ex);
-      return ESuccess.FAILURE;
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    return m_aRWLock.writeLocked ( () -> {
+      try
+      {
+        m_aQueue.put (aObject);
+        return ESuccess.SUCCESS;
+      }
+      catch (final InterruptedException ex)
+      {
+        s_aLogger.error ("Failed to submit object to queue", ex);
+        return ESuccess.FAILURE;
+      }
+    });
   }
 
   public boolean isQueueEmpty ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aQueue.isEmpty ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aQueue.isEmpty ());
   }
 
   @Nonnegative
   public final int getQueueLength ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aQueue.size ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aQueue.size ());
   }
 
   @Nonnull
   public final ESuccess stopQueuingNewObjects ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      // put specific stop queue object
-      m_aQueue.put (STOP_QUEUE_OBJECT);
-      m_bStopTakingNewObjects = true;
-      return ESuccess.SUCCESS;
-    }
-    catch (final InterruptedException ex)
-    {
-      s_aLogger.error ("Error stopping queue", ex);
-      return ESuccess.FAILURE;
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    return m_aRWLock.writeLocked ( () -> {
+      try
+      {
+        // put specific stop queue object
+        m_aQueue.put (STOP_QUEUE_OBJECT);
+        m_bStopTakingNewObjects = true;
+        return ESuccess.SUCCESS;
+      }
+      catch (final InterruptedException ex)
+      {
+        s_aLogger.error ("Error stopping queue", ex);
+        return ESuccess.FAILURE;
+      }
+    });
   }
 
   public final boolean isStopped ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_bStopTakingNewObjects;
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_bStopTakingNewObjects);
   }
 
   @Nonnull
@@ -186,15 +155,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThro
   {
     // Drain all objects to this queue
     final List <Object> aList = new ArrayList <Object> ();
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aQueue.drainTo (aList);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aQueue.drainTo (aList));
 
     // Change data type
     final List <DATATYPE> ret = new ArrayList <DATATYPE> ();
@@ -205,15 +166,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThro
       {
         // Re-add the stop object, because loops in derived classes rely on this
         // object
-        m_aRWLock.writeLock ().lock ();
-        try
-        {
-          m_aQueue.add (aObj);
-        }
-        finally
-        {
-          m_aRWLock.writeLock ().unlock ();
-        }
+        m_aRWLock.writeLocked ( () -> m_aQueue.add (aObj));
       }
     return ret;
   }

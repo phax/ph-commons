@@ -22,15 +22,16 @@ import javax.annotation.Nullable;
 
 /**
  * A callback interface to retrieve {@link Reader} objects.
- * 
+ *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasReader
 {
   /**
    * Get the reader to read from the object. Each time this method is call, a
    * new {@link Reader} needs to be created!
-   * 
+   *
    * @return <code>null</code> if resolving failed.
    */
   @Nullable

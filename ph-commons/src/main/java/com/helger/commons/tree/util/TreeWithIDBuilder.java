@@ -203,9 +203,9 @@ public final class TreeWithIDBuilder
       for (final DATATYPE aRootObject : aChildrenResolver.getAllChildren (null))
       {
         // it is a root item
-        final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aItem = aTree.getRootItem ()
-                                                                     .createChildItem (aRootObject.getID (),
-                                                                                       aRootObject);
+        final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aItem = aTree.getRootItem ().createChildItem (
+                                                                                                      aRootObject.getID (),
+                                                                                                      aRootObject);
         _buildTreeRecursive (aItem, aChildrenResolver);
       }
     return aTree;

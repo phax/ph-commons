@@ -24,7 +24,7 @@ import com.helger.commons.charset.CCharset;
 
 /**
  * Test class for class {@link URLParameterEncoder}.
- * 
+ *
  * @author Philip Helger
  */
 public final class URLParameterEncoderTest

@@ -27,9 +27,9 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CCharset;
 
 /**
- * Similar to the Quoted-Printable content-transfer-encoding defined in <a
- * href="http://www.ietf.org/rfc/rfc1521.txt">RFC 1521</a> and designed to allow
- * text containing mostly ASCII characters to be decipherable on an ASCII
+ * Similar to the Quoted-Printable content-transfer-encoding defined in
+ * <a href="http://www.ietf.org/rfc/rfc1521.txt">RFC 1521</a> and designed to
+ * allow text containing mostly ASCII characters to be decipherable on an ASCII
  * terminal without decoding.
  * <p>
  * <a href="http://www.ietf.org/rfc/rfc1522.txt">RFC 1522</a> describes

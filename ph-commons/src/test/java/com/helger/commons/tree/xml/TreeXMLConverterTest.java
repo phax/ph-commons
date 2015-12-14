@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.commons.convert.ConverterIdentity;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
@@ -31,7 +30,6 @@ import com.helger.commons.name.MockHasName;
 import com.helger.commons.tree.DefaultTree;
 import com.helger.commons.tree.sort.ComparatorDefaultTreeItemComparable;
 import com.helger.commons.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
-import com.helger.commons.tree.xml.TreeXMLConverter;
 
 /**
  * Test class for class {@link TreeXMLConverter}.
@@ -63,16 +61,12 @@ public final class TreeXMLConverterTest extends AbstractCommonsTestCase
     assertEquals (t1, t2);
 
     // and convert the document again to a tree
-    t2 = TreeXMLConverter.getXMLAsTreeWithUniqueID (aDoc2,
-                                                    new ConverterIdentity <String> (),
-                                                    new MockHasNameConverter ());
+    t2 = TreeXMLConverter.getXMLAsTreeWithUniqueID (aDoc2, aID -> aID, new MockHasNameConverter ());
     assertNotNull (t2);
     assertEquals (t1, t2);
 
     // and convert the document again to a tree
-    assertNotNull (TreeXMLConverter.getXMLAsTreeWithID (aDoc2,
-                                                        new ConverterIdentity <String> (),
-                                                        new MockHasNameConverter ()));
+    assertNotNull (TreeXMLConverter.getXMLAsTreeWithID (aDoc2, aID -> aID, new MockHasNameConverter ()));
   }
 
   @Test

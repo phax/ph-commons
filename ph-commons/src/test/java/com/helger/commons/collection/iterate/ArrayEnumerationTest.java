@@ -26,14 +26,13 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.iterate.ArrayEnumeration;
 import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link ArrayEnumeration}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ArrayEnumerationTest
@@ -109,13 +108,15 @@ public final class ArrayEnumerationTest
 
     // equals...
     ae = new ArrayEnumeration <String> ("Hallo", "Welt", "from", "Copenhagen");
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ae, new ArrayEnumeration <String> ("Hallo",
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ae,
+                                                                       new ArrayEnumeration <String> ("Hallo",
+                                                                                                      "Welt",
+                                                                                                      "from",
+                                                                                                      "Copenhagen"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
+                                                                           new ArrayEnumeration <String> ("Hallo",
                                                                                                           "Welt",
-                                                                                                          "from",
-                                                                                                          "Copenhagen"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae, new ArrayEnumeration <String> ("Hallo",
-                                                                                                              "Welt",
-                                                                                                              "from"));
+                                                                                                          "from"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
                                                                            new ArrayEnumeration <Integer> (Integer.valueOf (5)));
     // Different index

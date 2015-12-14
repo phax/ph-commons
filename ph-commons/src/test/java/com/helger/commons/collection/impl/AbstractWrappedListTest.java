@@ -30,7 +30,6 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.AbstractWrappedList;
 
 /**
  * Test class for class {@link AbstractWrappedList}.
@@ -49,7 +48,7 @@ public final class AbstractWrappedListTest
 
   @SuppressWarnings ("unchecked")
   private static <T> void _testList (final List <T> aList, final Class <T> aClass) throws InstantiationException,
-                                                                                  IllegalAccessException
+                                                                                   IllegalAccessException
   {
     // empty at the beginning
     assertTrue (aList.isEmpty ());

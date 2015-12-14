@@ -20,8 +20,6 @@ import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 import java.util.WeakHashMap;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -35,6 +33,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.ServiceLoaderHelper;
 
@@ -56,7 +55,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
 
   private static boolean s_bDefaultInstantiated = false;
 
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   // WeakHashMap because key is a class
   @GuardedBy ("m_aRWLock")
@@ -107,9 +106,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
     if (Serializable.class.isAssignableFrom (aClass))
       throw new IllegalArgumentException ("The provided " + aClass.toString () + " is already Serializable!");
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       // The main class should not already be registered
       if (m_aMap.containsKey (aClass))
         throw new IllegalArgumentException ("A micro type converter for class " + aClass + " is already registered!");
@@ -126,19 +123,13 @@ public final class SerializationConverterRegistry implements ISerializationConve
               s_aLogger.debug ("Registered serialization converter for '" + aCurSrcClass.toString () + "'");
           }
       }
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   @Nullable
   public ISerializationConverter getConverter (@Nullable final Class <?> aDstClass)
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
+    return m_aRWLock.readLocked ( () -> {
       // Check for an exact match first
       ISerializationConverter ret = m_aMap.get (aDstClass);
       if (ret == null)
@@ -165,11 +156,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
         }
       }
       return ret;
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    });
   }
 
   /**
@@ -182,16 +169,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
   public void iterateAllRegisteredSerializationConverters (@Nonnull final ISerializationConverterCallback aCallback)
   {
     // Create a copy of the map
-    Map <Class <?>, ISerializationConverter> aCopy;
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      aCopy = CollectionHelper.newMap (m_aMap);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    final Map <Class <?>, ISerializationConverter> aCopy = m_aRWLock.readLocked ( () -> CollectionHelper.newMap (m_aMap));
 
     // And iterate the copy
     for (final Map.Entry <Class <?>, ISerializationConverter> aEntry : aCopy.entrySet ())
@@ -202,28 +180,12 @@ public final class SerializationConverterRegistry implements ISerializationConve
   @Nonnegative
   public int getRegisteredSerializationConverterCount ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMap.size ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aMap.size ());
   }
 
   public void reinitialize ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aMap.clear ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aMap.clear ());
 
     // Register all custom micro type converter
     for (final ISerializationConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (ISerializationConverterRegistrarSPI.class))

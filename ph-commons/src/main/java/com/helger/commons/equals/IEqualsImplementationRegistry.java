@@ -20,14 +20,14 @@ import javax.annotation.Nonnull;
 
 /**
  * Base interface for a registry that contains equals implementations.
- * 
+ *
  * @author Philip Helger
  */
 public interface IEqualsImplementationRegistry
 {
   /**
    * Register a new equals implementation
-   * 
+   *
    * @param aClass
    *        The class for which the equals implementation is valid
    * @param aImpl

@@ -32,7 +32,7 @@ import com.helger.commons.xml.EXMLParserProperty;
 
 /**
  * Base Read-only interface for DOM and SAX reader settings.
- * 
+ *
  * @author Philip Helger
  */
 public interface IBaseXMLReaderSettings
@@ -44,7 +44,7 @@ public interface IBaseXMLReaderSettings
 
   /**
    * Get the value of the specified parser property
-   * 
+   *
    * @param eProperty
    *        The property to use. May be <code>null</code>.
    * @return <code>null</code> if no such property was found.
@@ -76,7 +76,7 @@ public interface IBaseXMLReaderSettings
 
   /**
    * Get the value of the specified parser feature
-   * 
+   *
    * @param eFeature
    *        The feature to search. May be <code>null</code>.
    * @return <code>null</code> if this feature is undefined.
@@ -115,7 +115,7 @@ public interface IBaseXMLReaderSettings
    * {@link javax.xml.parsers.DocumentBuilderFactory}/SAX
    * {@link org.xml.sax.XMLReader} object or if a pooled default object can be
    * used.
-   * 
+   *
    * @return <code>true</code> if a separate parser object is required,
    *         <code>false</code> if not.
    */

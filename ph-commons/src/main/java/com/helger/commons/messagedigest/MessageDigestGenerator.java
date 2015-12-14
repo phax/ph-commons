@@ -17,8 +17,6 @@
 package com.helger.commons.messagedigest;
 
 import java.security.Provider;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -26,6 +24,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -35,9 +34,9 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public final class MessageDigestGenerator extends AbstractMessageDigestGenerator
+public final class MessageDigestGenerator implements IMessageDigestGenerator
 {
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final IMessageDigestGenerator m_aMDGen;
 
   /**
@@ -118,16 +117,8 @@ public final class MessageDigestGenerator extends AbstractMessageDigestGenerator
   @Nonnull
   public MessageDigestGenerator update (final byte aValue)
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aMDGen.update (aValue);
-      return this;
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aMDGen.update (aValue));
+    return this;
   }
 
   @Nonnull
@@ -135,44 +126,20 @@ public final class MessageDigestGenerator extends AbstractMessageDigestGenerator
                                         @Nonnegative final int nOffset,
                                         @Nonnegative final int nLength)
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aMDGen.update (aValue, nOffset, nLength);
-      return this;
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aMDGen.update (aValue, nOffset, nLength));
+    return this;
   }
 
   public void reset ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aMDGen.reset ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aMDGen.reset ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public byte [] getAllDigestBytes ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      return m_aMDGen.getAllDigestBytes ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    return m_aRWLock.writeLocked ( () -> m_aMDGen.getAllDigestBytes ());
   }
 
   @Nonnull
@@ -180,15 +147,7 @@ public final class MessageDigestGenerator extends AbstractMessageDigestGenerator
   public byte [] getAllDigestBytes (@Nonnegative final int nLength)
   {
     // Using a writeLock because it calculates the main digest on first call
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      return m_aMDGen.getAllDigestBytes (nLength);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    return m_aRWLock.writeLocked ( () -> m_aMDGen.getAllDigestBytes (nLength));
   }
 
   @Override

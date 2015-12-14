@@ -375,6 +375,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE> Map <ELEMENTTYPE, ELEMENTTYPE> newMap (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
@@ -482,6 +483,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
+  @SafeVarargs
   public static <ELEMENTTYPE> Map <ELEMENTTYPE, ELEMENTTYPE> newUnmodifiableMap (@Nullable final ELEMENTTYPE... aValues)
   {
     return makeUnmodifiable (newMap (aValues));
@@ -543,6 +545,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE> Map <ELEMENTTYPE, ELEMENTTYPE> newOrderedMap (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
@@ -665,6 +668,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
+  @SafeVarargs
   public static <ELEMENTTYPE> Map <ELEMENTTYPE, ELEMENTTYPE> newUnmodifiableOrderedMap (@Nullable final ELEMENTTYPE... aValues)
   {
     return makeUnmodifiable (newOrderedMap (aValues));
@@ -726,6 +730,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeMap <ELEMENTTYPE, ELEMENTTYPE> newSortedMap (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
@@ -835,6 +840,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
+  @SafeVarargs
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedMap <ELEMENTTYPE, ELEMENTTYPE> newUnmodifiableSortedMap (@Nullable final ELEMENTTYPE... aValues)
   {
     return makeUnmodifiable (newSortedMap (aValues));
@@ -895,6 +901,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE> Set <ELEMENTTYPE> newSet (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
@@ -959,6 +966,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE extends Enum <ELEMENTTYPE>> EnumSet <ELEMENTTYPE> newEnumSet (@Nonnull final Class <ELEMENTTYPE> aEnumClass,
                                                                                            @Nullable final ELEMENTTYPE... aValues)
   {
@@ -1093,6 +1101,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
+  @SafeVarargs
   public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableSet (@Nullable final ELEMENTTYPE... aValues)
   {
     return makeUnmodifiable (newSet (aValues));
@@ -1209,6 +1218,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ELEMENTTYPE... aValues)
   {
     final TreeSet <ELEMENTTYPE> ret = new TreeSet <ELEMENTTYPE> (new ComparatorComparable <ELEMENTTYPE> ());
@@ -1373,6 +1383,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
+  @SafeVarargs
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <ELEMENTTYPE> newUnmodifiableSortedSet (@Nullable final ELEMENTTYPE... aValues)
   {
     return makeUnmodifiable (newSortedSet (aValues));
@@ -1487,6 +1498,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE> Set <ELEMENTTYPE> newOrderedSet (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
@@ -1653,6 +1665,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
+  @SafeVarargs
   public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableOrderedSet (@Nullable final ELEMENTTYPE... aValues)
   {
     return makeUnmodifiable (newOrderedSet (aValues));
@@ -1780,6 +1793,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE> List <ELEMENTTYPE> newList (@Nullable final ELEMENTTYPE... aValues)
   {
     // Don't user Arrays.asList since aIter returns an unmodifiable list!
@@ -1885,6 +1899,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE> Vector <ELEMENTTYPE> newVector (@Nullable final ELEMENTTYPE... aValues)
   {
     // Don't user Arrays.asVector since aIter returns an unmodifiable list!
@@ -2151,6 +2166,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
+  @SafeVarargs
   public static <ELEMENTTYPE> List <ELEMENTTYPE> newUnmodifiableList (@Nullable final ELEMENTTYPE... aValues)
   {
     return makeUnmodifiable (newList (aValues));
@@ -2284,6 +2300,7 @@ public final class CollectionHelper
    */
   @Nonnull
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack (@Nullable final ELEMENTTYPE... aValues)
   {
     return new NonBlockingStack <ELEMENTTYPE> (aValues);
@@ -2324,6 +2341,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE> Queue <ELEMENTTYPE> newQueue (@Nullable final ELEMENTTYPE... aValues)
   {
     // Don't user Arrays.asQueue since aIter returns an unmodifiable list!
@@ -2558,6 +2576,7 @@ public final class CollectionHelper
    */
   @Nonnull
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> List <ELEMENTTYPE> getSorted (@Nullable final ELEMENTTYPE... aCont)
   {
     return getSortedInline (newList (aCont));
@@ -2794,6 +2813,7 @@ public final class CollectionHelper
   }
 
   @Nonnull
+  @SafeVarargs
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getIterator (@Nullable final ELEMENTTYPE... aArray)
   {
     return ArrayHelper.isEmpty (aArray) ? new EmptyIterator <ELEMENTTYPE> ()
@@ -2870,6 +2890,7 @@ public final class CollectionHelper
    * @return an Enumeration object
    */
   @Nonnull
+  @SafeVarargs
   public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getEnumeration (@Nullable final ELEMENTTYPE... aArray)
   {
     return getEnumeration (getIterator (aArray));
@@ -3442,6 +3463,7 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE> List <ELEMENTTYPE> getConcatenatedList (@Nullable final Collection <? extends ELEMENTTYPE> aCont1,
                                                                       @Nullable final ELEMENTTYPE... aCont2)
   {
@@ -3499,6 +3521,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE> Set <ELEMENTTYPE> getConcatenatedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont1,
                                                                     @Nullable final ELEMENTTYPE... aCont2)
   {
@@ -3537,6 +3560,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableObject ("design")
+  @SafeVarargs
   public static <ELEMENTTYPE, COLLTYPE extends Collection <? super ELEMENTTYPE>> COLLTYPE getConcatenatedInline (@Nonnull final COLLTYPE aCont,
                                                                                                                  @Nullable final ELEMENTTYPE... aElementsToAdd)
   {

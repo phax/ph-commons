@@ -31,7 +31,7 @@ import com.helger.commons.state.ESuccess;
 
 /**
  * Some generic JMX utility classes
- * 
+ *
  * @author Philip Helger
  */
 @Immutable

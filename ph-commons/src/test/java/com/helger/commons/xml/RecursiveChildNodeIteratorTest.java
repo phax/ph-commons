@@ -30,7 +30,7 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link RecursiveChildNodeIterator}.
- * 
+ *
  * @author Philip Helger
  */
 public final class RecursiveChildNodeIteratorTest extends AbstractCommonsTestCase

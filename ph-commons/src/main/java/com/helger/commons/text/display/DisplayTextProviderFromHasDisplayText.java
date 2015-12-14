@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 /**
  * Default implementation of {@link IDisplayTextProvider} for
  * {@link IHasDisplayText} objects.
- * 
+ *
  * @author Philip Helger
  */
 public final class DisplayTextProviderFromHasDisplayText implements IDisplayTextProvider <IHasDisplayText>

@@ -36,12 +36,8 @@ public final class AdapterThrowingRunnableToCallableWithParameterTest
   @Test
   public void testAll () throws Exception
   {
-    final IThrowingRunnableWithParameter <String, IOException> r = new IThrowingRunnableWithParameter <String, IOException> ()
-    {
-      public void run (final String sCurrentObject) throws IOException
-      {
-        // empty
-      }
+    final IThrowingRunnableWithParameter <String, IOException> r = sCurrentObject -> {
+      // empty
     };
     final AdapterThrowingRunnableToCallableWithParameter <Object, String, IOException> rc = AdapterThrowingRunnableToCallableWithParameter.createAdapter (r);
     assertNull (rc.call ("any"));

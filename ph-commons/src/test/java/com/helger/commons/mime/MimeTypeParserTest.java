@@ -30,7 +30,7 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link MimeTypeParser}
- * 
+ *
  * @author Philip Helger
  */
 public final class MimeTypeParserTest extends AbstractCommonsTestCase
@@ -87,11 +87,11 @@ public final class MimeTypeParserTest extends AbstractCommonsTestCase
   public void testParseValid ()
   {
     final String [] aValid = new String [] { "text/x",
-                                            "text/x;",
-                                            "text/x;         ",
-                                            "text/x; param1=x",
-                                            "text/x;param1=x;param2=y",
-                                            " text / x ; param1 = x ; param2 = y " };
+                                             "text/x;",
+                                             "text/x;         ",
+                                             "text/x; param1=x",
+                                             "text/x;param1=x;param2=y",
+                                             " text / x ; param1 = x ; param2 = y " };
     for (final EMimeQuoting eQuoting : EMimeQuoting.values ())
       for (final String sValid : aValid)
       {
@@ -108,8 +108,8 @@ public final class MimeTypeParserTest extends AbstractCommonsTestCase
   public void testParseValidURLEscape ()
   {
     final String [] aValid = new String [] { "text/x;param1=%2c%2c%2c%2c%2c%2c",
-                                            "text/x;param1=%2c%2c%2c%2c%2c%2c;param2=%2c%2c%2c%2c%2c%2c",
-                                            " text / x ; param1 = x ; param2 = y ; param3 = ab%2cde; param4=%20%20" };
+                                             "text/x;param1=%2c%2c%2c%2c%2c%2c;param2=%2c%2c%2c%2c%2c%2c",
+                                             " text / x ; param1 = x ; param2 = y ; param3 = ab%2cde; param4=%20%20" };
     for (final EMimeQuoting eQuoting : EMimeQuoting.values ())
       for (final String sValid : aValid)
       {
@@ -126,25 +126,25 @@ public final class MimeTypeParserTest extends AbstractCommonsTestCase
   public void testParseInvalid ()
   {
     final String [] aInvalid = new String [] { "text",
-                                              "text/;",
-                                              "text/;  ",
-                                              "foo/bar",
-                                              "/x",
-                                              "te xt/x",
-                                              "text/x;param1",
-                                              "text/x; param1",
-                                              "text/x;param1 ",
-                                              "text/x;param1=",
-                                              "text/x;param1= ",
-                                              "text/x;param1 =",
-                                              "text/x;param1 = ",
-                                              "text/x;param1 = ;",
-                                              "text/x;param1 =x;",
-                                              "text/x;param1 =x;param2",
-                                              "text/x;param1 =x;param2=",
-                                              "text/x;param1 =x;param2= ",
-                                              "text/x;param1 =x;param2 =",
-                                              "text/x;param1 =x;param2 = " };
+                                               "text/;",
+                                               "text/;  ",
+                                               "foo/bar",
+                                               "/x",
+                                               "te xt/x",
+                                               "text/x;param1",
+                                               "text/x; param1",
+                                               "text/x;param1 ",
+                                               "text/x;param1=",
+                                               "text/x;param1= ",
+                                               "text/x;param1 =",
+                                               "text/x;param1 = ",
+                                               "text/x;param1 = ;",
+                                               "text/x;param1 =x;",
+                                               "text/x;param1 =x;param2",
+                                               "text/x;param1 =x;param2=",
+                                               "text/x;param1 =x;param2= ",
+                                               "text/x;param1 =x;param2 =",
+                                               "text/x;param1 =x;param2 = " };
     for (final EMimeQuoting eQuoting : EMimeQuoting.values ())
       for (final String sInvalid : aInvalid)
       {
@@ -161,26 +161,26 @@ public final class MimeTypeParserTest extends AbstractCommonsTestCase
   @Test
   public void testParseInvalidQuotedString ()
   {
-    final String [] aInvalid = new String [] {// Incorrectly quoted
-        "text/plain;param=\"",
-        "text/plain;param= \"",
-        "text/plain;param=\"abc",
-        "text/plain;param=\"abc\\",
-        "text/plain;param=\"abc\\\"",
-        // With leading token-based
-        // parameter
-        "text/plain;param0=xml;param=\"",
-        "text/plain;param0=xml;param= \"",
-        "text/plain;param0=xml;param=\"abc",
-        "text/plain;param0=xml;param=\"abc\\",
-        "text/plain;param0=xml;param=\"abc\\\"",
-        // With leading quoted string
-        // parameter
-        "text/plain;param0=\"foo bar\";param=\"",
-        "text/plain;param0=\"foo bar\";param= \"",
-        "text/plain;param0=\"foo bar\";param=\"abc",
-        "text/plain;param0=\"foo bar\";param=\"abc\\",
-        "text/plain;param0=\"foo bar\";param=\"abc\\\"" };
+    final String [] aInvalid = new String [] { // Incorrectly quoted
+                                               "text/plain;param=\"",
+                                               "text/plain;param= \"",
+                                               "text/plain;param=\"abc",
+                                               "text/plain;param=\"abc\\",
+                                               "text/plain;param=\"abc\\\"",
+                                               // With leading token-based
+                                               // parameter
+                                               "text/plain;param0=xml;param=\"",
+                                               "text/plain;param0=xml;param= \"",
+                                               "text/plain;param0=xml;param=\"abc",
+                                               "text/plain;param0=xml;param=\"abc\\",
+                                               "text/plain;param0=xml;param=\"abc\\\"",
+                                               // With leading quoted string
+                                               // parameter
+                                               "text/plain;param0=\"foo bar\";param=\"",
+                                               "text/plain;param0=\"foo bar\";param= \"",
+                                               "text/plain;param0=\"foo bar\";param=\"abc",
+                                               "text/plain;param0=\"foo bar\";param=\"abc\\",
+                                               "text/plain;param0=\"foo bar\";param=\"abc\\\"" };
     for (final String sInvalid : aInvalid)
     {
       try
@@ -196,13 +196,13 @@ public final class MimeTypeParserTest extends AbstractCommonsTestCase
   @Test
   public void testParseInvalidURLEscape ()
   {
-    final String [] aInvalid = new String [] {// Invalid URL escaped
-        "text/plain;param=abc%",
-        "text/plain;param=abc%1",
-        "text/plain;param=abc%bb%",
-        "text/plain;param=abc%bb%a",
-        "text/plain;param=abc%g0",
-        "text/plain;param=abc%0g" };
+    final String [] aInvalid = new String [] { // Invalid URL escaped
+                                               "text/plain;param=abc%",
+                                               "text/plain;param=abc%1",
+                                               "text/plain;param=abc%bb%",
+                                               "text/plain;param=abc%bb%a",
+                                               "text/plain;param=abc%g0",
+                                               "text/plain;param=abc%0g" };
     for (final String sInvalid : aInvalid)
     {
       try
@@ -218,13 +218,13 @@ public final class MimeTypeParserTest extends AbstractCommonsTestCase
   @Test
   public void testParseInvalidQuotedPrintable ()
   {
-    final String [] aInvalid = new String [] {// Invalid Quoted Printable
-        "text/plain;param=abc=",
-        "text/plain;param=abc=1",
-        "text/plain;param=abc=bb=",
-        "text/plain;param=abc=bb=a",
-        "text/plain;param=abc=g0",
-        "text/plain;param=abc=0g" };
+    final String [] aInvalid = new String [] { // Invalid Quoted Printable
+                                               "text/plain;param=abc=",
+                                               "text/plain;param=abc=1",
+                                               "text/plain;param=abc=bb=",
+                                               "text/plain;param=abc=bb=a",
+                                               "text/plain;param=abc=g0",
+                                               "text/plain;param=abc=0g" };
     for (final String sInvalid : aInvalid)
     {
       try

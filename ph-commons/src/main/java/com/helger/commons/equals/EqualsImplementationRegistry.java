@@ -21,11 +21,11 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
@@ -35,6 +35,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.annotation.UseDirectEqualsAndHashCode;
 import com.helger.commons.cache.AnnotationUsageCache;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.ServiceLoaderHelper;
@@ -82,9 +83,10 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
 
   private static boolean s_bDefaultInstantiated = false;
 
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   // Use a weak hash map, because the key is a class
+  @GuardedBy ("m_aRWLock")
   private final Map <Class <?>, IEqualsImplementation> m_aMap = new WeakHashMap <Class <?>, IEqualsImplementation> ();
 
   // Cache for classes where direct implementation should be used
@@ -119,9 +121,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     if (aClass.equals (Object.class))
       throw new IllegalArgumentException ("You cannot provide an equals implementation for Object.class!");
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       final IEqualsImplementation aOldImpl = m_aMap.get (aClass);
       if (aOldImpl == null)
         m_aMap.put (aClass, aImpl);
@@ -137,25 +137,13 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
                           ") so it is not overwritten with " +
                           aImpl.toString ());
       }
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   @Nonnull
   public EChange unregisterEqualsImplementation (@Nonnull final Class <?> aClass)
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      return EChange.valueOf (m_aMap.remove (aClass) != null);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    return EChange.valueOf (m_aRWLock.writeLocked ( () -> m_aMap.remove (aClass) != null));
   }
 
   private boolean _isUseDirectEquals (@Nonnull final Class <?> aClass)
@@ -167,25 +155,14 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
   {
     final String sClassName = aClass.getName ();
 
-    Boolean aImplementsEqualsItself;
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      aImplementsEqualsItself = m_aImplementsEquals.get (sClassName);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    Boolean aImplementsEqualsItself = m_aRWLock.readLocked ((Supplier <Boolean>) () -> m_aImplementsEquals.get (sClassName));
 
     if (aImplementsEqualsItself == null)
     {
-      m_aRWLock.writeLock ().lock ();
-      try
-      {
+      aImplementsEqualsItself = m_aRWLock.writeLocked ((Supplier <Boolean>) () -> {
         // Try again in write lock
-        aImplementsEqualsItself = m_aImplementsEquals.get (sClassName);
-        if (aImplementsEqualsItself == null)
+        Boolean aWLImplementsEqualsItself = m_aImplementsEquals.get (sClassName);
+        if (aWLImplementsEqualsItself == null)
         {
           // Determine
           boolean bRet = false;
@@ -199,14 +176,11 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
           {
             // ignore
           }
-          aImplementsEqualsItself = Boolean.valueOf (bRet);
-          m_aImplementsEquals.put (sClassName, aImplementsEqualsItself);
+          aWLImplementsEqualsItself = Boolean.valueOf (bRet);
+          m_aImplementsEquals.put (sClassName, aWLImplementsEqualsItself);
         }
-      }
-      finally
-      {
-        m_aRWLock.writeLock ().unlock ();
-      }
+        return aWLImplementsEqualsItself;
+      });
     }
 
     return aImplementsEqualsItself.booleanValue ();
@@ -340,17 +314,11 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
 
   public void reinitialize ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       m_aMap.clear ();
       m_aDirectEquals.clearCache ();
       m_aImplementsEquals.clear ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
 
     // Register all implementations via SPI
     for (final IEqualsImplementationRegistrarSPI aRegistrar : ServiceLoaderHelper.getAllSPIImplementations (IEqualsImplementationRegistrarSPI.class))

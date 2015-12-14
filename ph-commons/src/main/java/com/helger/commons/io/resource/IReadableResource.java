@@ -32,7 +32,7 @@ public interface IReadableResource extends IHasInputStreamAndReader, IResourceBa
   /**
    * Get a new resource of the same implementation type as this object but for a
    * different path.
-   * 
+   *
    * @param sPath
    *        The new path to use. May not be <code>null</code>.
    * @return The resource of the same implementation but a different path. May

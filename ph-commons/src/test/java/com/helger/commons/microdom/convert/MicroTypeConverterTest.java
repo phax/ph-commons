@@ -27,7 +27,7 @@ import com.helger.commons.typeconvert.TypeConverterException;
 
 /**
  * Test class for class {@link MicroTypeConverter}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroTypeConverterTest

@@ -30,7 +30,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link LoggingTransformErrorListener}.
- * 
+ *
  * @author Philip Helger
  */
 public final class LoggingTransformErrorListenerTest extends AbstractCommonsTestCase

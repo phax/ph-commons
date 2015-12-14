@@ -24,6 +24,7 @@ import com.helger.commons.callback.INonThrowingRunnableWithParameter;
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IChangeLogSerializerCallback extends INonThrowingRunnableWithParameter <String>, ICallback
 {
   /* empty */

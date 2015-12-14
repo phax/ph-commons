@@ -25,14 +25,15 @@ import com.helger.commons.io.EAppend;
 
 /**
  * A callback interface to retrieve {@link Writer} objects from a given name.
- * 
+ *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IWriterProvider
 {
   /**
    * Get the writer from the given name.
-   * 
+   *
    * @param sName
    *        The name to be resolved. May not be <code>null</code>.
    * @param eAppend

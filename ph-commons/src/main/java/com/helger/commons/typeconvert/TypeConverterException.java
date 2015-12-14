@@ -27,7 +27,7 @@ import com.helger.commons.text.util.TextHelper;
 /**
  * Exceptions of this type are only thrown from the {@link TypeConverter} class
  * if type conversion fails.
- * 
+ *
  * @author Philip Helger
  */
 public final class TypeConverterException extends RuntimeException
@@ -35,10 +35,10 @@ public final class TypeConverterException extends RuntimeException
   @NoTranslationRequired (value = "because whenever an exception is thrown, no locale is present!")
   public static enum EReason
   {
-    CONVERSION_FAILED (2, "Conversion from type {0} to type {1} failed!"),
-    NO_CONVERTER_FOUND (2, "No converter found to convert an object of type {0} to type {1}"),
-    NO_CONVERTER_FOUND_SINGLE (1, "No converter found to convert an object of type {0}"),
-    NULL_SOURCE_NOT_ALLOWED (1, "A null source object cannot be converted to type {0}");
+   CONVERSION_FAILED (2, "Conversion from type {0} to type {1} failed!"),
+   NO_CONVERTER_FOUND (2, "No converter found to convert an object of type {0} to type {1}"),
+   NO_CONVERTER_FOUND_SINGLE (1, "No converter found to convert an object of type {0}"),
+   NULL_SOURCE_NOT_ALLOWED (1, "A null source object cannot be converted to type {0}");
 
     private final int m_nParamCount;
     private final String m_sMsg;
@@ -74,7 +74,7 @@ public final class TypeConverterException extends RuntimeException
 
   /**
    * Constructor only with a destination class.
-   * 
+   *
    * @param aDstClass
    *        The conversion destination class. May not be <code>null</code>.
    * @param eReason
@@ -91,7 +91,7 @@ public final class TypeConverterException extends RuntimeException
 
   /**
    * Constructor.
-   * 
+   *
    * @param aSrcClass
    *        The conversion source class. May not be <code>null</code>.
    * @param aDstClass
@@ -109,7 +109,7 @@ public final class TypeConverterException extends RuntimeException
 
   /**
    * Constructor with a cause exception.
-   * 
+   *
    * @param aSrcClass
    *        The conversion source class. May not be <code>null</code>.
    * @param aDstClass

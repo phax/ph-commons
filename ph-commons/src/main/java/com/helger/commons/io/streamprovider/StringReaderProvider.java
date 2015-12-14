@@ -29,7 +29,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * An {@link java.io.Reader} provider based on a {@link String}.
- * 
+ *
  * @author Philip Helger
  */
 public class StringReaderProvider implements IHasReader, Serializable

@@ -26,12 +26,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.microdom.EMicroNodeType;
-import com.helger.commons.microdom.IMicroEntityReference;
-import com.helger.commons.microdom.MicroCDATA;
-import com.helger.commons.microdom.MicroDocument;
-import com.helger.commons.microdom.MicroEntityReference;
-import com.helger.commons.microdom.MicroException;
 import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

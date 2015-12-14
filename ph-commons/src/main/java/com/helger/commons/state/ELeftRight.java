@@ -20,13 +20,13 @@ import javax.annotation.Nonnull;
 
 /**
  * Small enum for left and right
- * 
+ *
  * @author Philip Helger
  */
 public enum ELeftRight implements ILeftRightIndicator
 {
-  LEFT,
-  RIGHT;
+ LEFT,
+ RIGHT;
 
   public boolean isLeft ()
   {

@@ -30,34 +30,34 @@ import com.helger.commons.lang.EnumHelper;
  */
 public enum EBaseType implements IHasID <String>
 {
-  /** boolean: true or false */
+ /** boolean: true or false */
   BOOLEAN ("boolean"),
 
-  /** byte array */
+ /** byte array */
   BYTE_ARRAY ("bytearray"),
 
-  /** date */
+ /** date */
   DATE ("date"),
 
-  /** date and time */
+ /** date and time */
   DATETIME ("datetime"),
 
-  /** double */
+ /** double */
   DOUBLE ("double"),
 
-  /** integer */
+ /** integer */
   INT ("int"),
 
-  /** multilingual text */
+ /** multilingual text */
   MTEXT ("mtext"),
 
-  /** string */
+ /** string */
   TEXT ("text"),
 
-  /** time */
+ /** time */
   TIME ("time"),
 
-  /** xml */
+ /** xml */
   XML ("xml");
 
   private final String m_sID;

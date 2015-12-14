@@ -26,7 +26,7 @@ import com.helger.commons.codec.IDecoder;
 
 /**
  * Decoder for URL parameters
- * 
+ *
  * @author Philip Helger
  */
 public class URLParameterDecoder implements IDecoder <String>

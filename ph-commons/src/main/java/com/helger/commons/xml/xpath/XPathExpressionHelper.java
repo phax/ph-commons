@@ -85,7 +85,8 @@ public final class XPathExpressionHelper
       throw new IllegalArgumentException ("Failed to evaluate XPath expression '" +
                                           sXPath +
                                           "' with return type " +
-                                          aReturnType.toString (), ex);
+                                          aReturnType.toString (),
+                                          ex);
     }
   }
 

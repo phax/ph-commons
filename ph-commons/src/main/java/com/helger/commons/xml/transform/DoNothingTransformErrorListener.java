@@ -25,7 +25,7 @@ import com.helger.commons.error.IResourceError;
 
 /**
  * {@link javax.xml.transform.ErrorListener} that does nothing.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable

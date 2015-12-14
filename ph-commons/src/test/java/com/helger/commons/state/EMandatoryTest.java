@@ -24,7 +24,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link EMandatory}.
- * 
+ *
  * @author Philip Helger
  */
 public final class EMandatoryTest

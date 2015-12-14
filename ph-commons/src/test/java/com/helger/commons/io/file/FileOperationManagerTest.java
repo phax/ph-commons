@@ -31,7 +31,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link FileOperationManager}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FileOperationManagerTest

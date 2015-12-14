@@ -27,6 +27,7 @@ package com.helger.commons.callback;
  * @param <EXTYPE>
  *        Exception type to be thrown
  */
+@FunctionalInterface
 public interface IThrowingRunnableWithParameter <PARAMTYPE, EXTYPE extends Throwable>
 {
   /**

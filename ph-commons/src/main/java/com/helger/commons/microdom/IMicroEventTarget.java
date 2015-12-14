@@ -20,14 +20,14 @@ import javax.annotation.Nonnull;
 
 /**
  * Interface for MicroDOM event handlers.
- * 
+ *
  * @author Philip Helger
  */
 public interface IMicroEventTarget
 {
   /**
    * Called when a {@link IMicroEvent} is triggered.
-   * 
+   *
    * @param aEvent
    *        The event. Never <code>null</code>.
    */

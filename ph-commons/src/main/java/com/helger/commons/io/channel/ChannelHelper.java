@@ -93,7 +93,8 @@ public final class ChannelHelper
    * writes it to the dest channel until EOF on src. This implementation makes
    * use of compact( ) on the temp buffer to pack down the data if the buffer
    * wasn't fully drained. This may result in data copying, but minimizes system
-   * calls. It also requires a cleanup loop to make sure all the data gets sent.<br>
+   * calls. It also requires a cleanup loop to make sure all the data gets sent.
+   * <br>
    * Source: Java NIO, page 60
    *
    * @param aSrc

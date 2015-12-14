@@ -21,7 +21,6 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.text.util.TextHelper;
 
 /**
@@ -34,14 +33,6 @@ public abstract class AbstractHasTextWithArgs extends AbstractHasText implements
 {
   protected AbstractHasTextWithArgs ()
   {}
-
-  @Nullable
-  @Deprecated
-  @DevelopersNote ("Use getText instead!")
-  public String getTextWithArgs (@Nonnull final Locale aContentLocale)
-  {
-    return getText (aContentLocale);
-  }
 
   @Nullable
   public final String getTextWithArgs (@Nonnull final Locale aContentLocale, @Nullable final Object... aArgs)

@@ -23,14 +23,14 @@ import com.helger.commons.state.EContinue;
 /**
  * A callback interface that is used to iterate all available micro type
  * converters.
- * 
+ *
  * @author Philip Helger
  */
 public interface IMicroTypeConverterCallback
 {
   /**
    * Invoked for each converter.
-   * 
+   *
    * @param aClass
    *        The class for which the converter was registered.
    * @param aConverter

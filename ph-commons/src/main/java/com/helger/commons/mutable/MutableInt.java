@@ -181,11 +181,6 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
     return m_nValue == 0;
   }
 
-  public boolean isNot0 ()
-  {
-    return m_nValue != 0;
-  }
-
   public boolean isSmaller0 ()
   {
     return m_nValue < 0;
@@ -209,11 +204,6 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
   public boolean isEven ()
   {
     return (m_nValue % 2) == 0;
-  }
-
-  public boolean isOdd ()
-  {
-    return (m_nValue % 2) != 0;
   }
 
   public int compareTo (@Nonnull final MutableInt rhs)

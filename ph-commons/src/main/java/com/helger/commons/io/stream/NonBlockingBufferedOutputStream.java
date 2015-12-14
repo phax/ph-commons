@@ -27,7 +27,7 @@ import com.helger.commons.ValueEnforcer;
 
 /**
  * A non-synchronized copy of the class {@link java.io.BufferedOutputStream}.
- * 
+ *
  * @author Philip Helger
  * @see java.io.BufferedOutputStream
  */
@@ -48,7 +48,7 @@ public class NonBlockingBufferedOutputStream extends FilterOutputStream
   /**
    * Creates a new buffered output stream to write data to the specified
    * underlying output stream.
-   * 
+   *
    * @param aOS
    *        the underlying output stream.
    */
@@ -60,7 +60,7 @@ public class NonBlockingBufferedOutputStream extends FilterOutputStream
   /**
    * Creates a new buffered output stream to write data to the specified
    * underlying output stream with the specified buffer size.
-   * 
+   *
    * @param aOS
    *        the underlying output stream.
    * @param nSize
@@ -87,7 +87,7 @@ public class NonBlockingBufferedOutputStream extends FilterOutputStream
 
   /**
    * Writes the specified byte to this buffered output stream.
-   * 
+   *
    * @param b
    *        the byte to be written.
    * @exception IOException
@@ -111,7 +111,7 @@ public class NonBlockingBufferedOutputStream extends FilterOutputStream
    * then this method will flush the buffer and write the bytes directly to the
    * underlying output stream. Thus redundant <code>BufferedOutputStream</code>s
    * will not copy data unnecessarily.
-   * 
+   *
    * @param aBuf
    *        the data.
    * @param nOfs
@@ -144,7 +144,7 @@ public class NonBlockingBufferedOutputStream extends FilterOutputStream
   /**
    * Flushes this buffered output stream. This forces any buffered output bytes
    * to be written out to the underlying output stream.
-   * 
+   *
    * @exception IOException
    *            if an I/O error occurs.
    */

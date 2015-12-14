@@ -23,7 +23,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.net.MalformedURLException;
@@ -34,7 +33,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
-import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -360,13 +358,8 @@ public final class DOMReaderTest
   @Test
   public void testMultithreadedDOM ()
   {
-    CommonsTestHelper.testInParallel (100, new IThrowingRunnable <SAXException> ()
-    {
-      public void run () throws SAXException
-      {
-        assertNotNull (DOMReader.readXMLDOM (new ClassPathResource ("xml/buildinfo.xml")));
-      }
-    });
+    CommonsTestHelper.testInParallel (100,
+                                      (IThrowingRunnable <SAXException>) () -> assertNotNull (DOMReader.readXMLDOM (new ClassPathResource ("xml/buildinfo.xml"))));
   }
 
   @Test
@@ -386,14 +379,8 @@ public final class DOMReaderTest
                         aFile.toURI ().toURL ().toExternalForm () +
                         "\" >]>" +
                         "<root>&xxe;</root>";
-    final DOMReaderSettings aDRS = new DOMReaderSettings ().setEntityResolver (new EntityResolver ()
-    {
-      public InputSource resolveEntity (final String publicId, final String systemId) throws SAXException, IOException
-      {
-        // Read as URL
-        return InputSourceFactory.create (new URLResource (systemId));
-      }
-    });
+    final DOMReaderSettings aDRS = new DOMReaderSettings ().setEntityResolver ( (publicId,
+                                                                                 systemId) -> InputSourceFactory.create (new URLResource (systemId)));
 
     // Read successful - entity expansion!
     final Document aDoc = DOMReader.readXMLDOM (sXML, aDRS);

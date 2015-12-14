@@ -20,7 +20,7 @@ import com.helger.commons.tree.IBasicTree;
 
 /**
  * Base interface for a tree with ID
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        tree item key type

@@ -22,7 +22,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Default empty implementation of {@link IFileMonitorCallback}
- * 
+ *
  * @author Philip Helger
  */
 public class DefaultFileMonitorCallback implements IFileMonitorCallback

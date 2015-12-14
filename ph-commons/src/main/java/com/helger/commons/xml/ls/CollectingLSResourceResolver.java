@@ -18,8 +18,6 @@ package com.helger.commons.xml.ls;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -32,6 +30,7 @@ import org.w3c.dom.ls.LSInput;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 
 /**
  * A class that collects all requested resources.
@@ -43,7 +42,7 @@ public class CollectingLSResourceResolver extends AbstractLSResourceResolver
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (CollectingLSResourceResolver.class);
 
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
   private final List <LSResourceData> m_aList = new ArrayList <LSResourceData> ();
 
@@ -54,15 +53,7 @@ public class CollectingLSResourceResolver extends AbstractLSResourceResolver
   @ReturnsMutableCopy
   public List <LSResourceData> getAllRequestedResources ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newList (m_aList);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aList));
   }
 
   @Override
@@ -87,15 +78,7 @@ public class CollectingLSResourceResolver extends AbstractLSResourceResolver
                       ")");
 
     final LSResourceData aData = new LSResourceData (sType, sNamespaceURI, sPublicId, sSystemId, sBaseURI);
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aList.add (aData);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aList.add (aData));
     return null;
   }
 }

@@ -42,30 +42,15 @@ public final class MainValidFileNames
     System.out.println (sName + ".canWrite()=" + FileHelper.canWrite (f));
 
     System.out.println ("Writing into " + fileName + " ...");
-    OutputStream out = null;
-    try
+
+    try (OutputStream out = FileHelper.getOutputStream (f))
     {
-      out = FileHelper.getOutputStream (f);
       out.write (42);
-    }// try
+    } // try
     catch (final IOException ex)
     {
       System.err.println (ex);
     }
-    finally
-    {
-      try
-      {
-        if (out != null)
-        {
-          out.close ();
-        }
-      }// try
-      catch (final IOException ex)
-      {
-        System.err.println ("error at closing " + fileName);
-      }
-    }// finally
 
     System.out.println (sName + ".exists()=" + f.exists ());
     System.out.println (sName + ".getAbsolutePath()=" + f.getAbsolutePath ());

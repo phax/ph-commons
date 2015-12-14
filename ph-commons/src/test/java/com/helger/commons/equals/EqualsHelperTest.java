@@ -416,7 +416,6 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
     assertFalse (EqualsHelper.equalsCollection (aArray, CollectionHelper.newSet ("a", "b", "c")));
   }
 
-  @SuppressWarnings ("unchecked")
   @Test
   public void testArrayComplex ()
   {

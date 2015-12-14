@@ -20,12 +20,9 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.commons.tree.DefaultTreeItem;
-import com.helger.commons.tree.DefaultTreeItemFactory;
-
 /**
  * Test class for class {@link DefaultTreeItemFactory}.
- * 
+ *
  * @author Philip Helger
  */
 public final class DefaultTreeItemFactoryTest

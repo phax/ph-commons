@@ -19,13 +19,14 @@ package com.helger.commons.codec;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.security.SecureRandom;
+
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.codec.IByteArrayCodec;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.random.VerySecureRandom;
 
@@ -82,15 +83,16 @@ public abstract class AbstractByteArrayCodecTest extends AbstractCommonsTestCase
   @Test
   public final void testByteArrayArbitraryRandomBytes ()
   {
+    final SecureRandom aRandom = VerySecureRandom.getInstance ();
     for (int i = 0; i < 500; ++i)
     {
       final byte [] buf = new byte [i];
-      VerySecureRandom.getInstance ().nextBytes (buf);
+      aRandom.nextBytes (buf);
       testByteArrayEncodeDecode (buf);
     }
 
     final byte [] aAny = new byte [1024];
-    VerySecureRandom.getInstance ().nextBytes (aAny);
+    aRandom.nextBytes (aAny);
     testByteArrayEncodeDecode (aAny);
   }
 }

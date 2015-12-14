@@ -34,7 +34,7 @@ public class MainTestSecurityManager
    *         Hopefully never
    */
   @SuppressFBWarnings (value = "DM_STRING_CTOR")
-  public static void main (final String args []) throws Exception
+  public static void main (final String args[]) throws Exception
   {
     if (false)
       System.setSecurityManager (new SecurityManager ());

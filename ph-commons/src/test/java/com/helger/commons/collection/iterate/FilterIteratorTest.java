@@ -30,8 +30,6 @@ import java.util.NoSuchElementException;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.iterate.FilterIterator;
-import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.filter.FilterNotNull;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.mock.CommonsTestHelper;

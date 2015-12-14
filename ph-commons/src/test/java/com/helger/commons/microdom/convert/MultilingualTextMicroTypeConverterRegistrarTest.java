@@ -28,8 +28,8 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.AbstractReadOnlyMapBasedMultilingualText;
+import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.MultilingualText;
 import com.helger.commons.text.ReadOnlyMultilingualText;
 import com.helger.commons.text.util.TextHelper;
@@ -63,14 +63,15 @@ public final class MultilingualTextMicroTypeConverterRegistrarTest
   public void testReadonlyMultiLingualText ()
   {
     final ReadOnlyMultilingualText aMLT = new ReadOnlyMultilingualText (CollectionHelper.newMap (new Locale [] { Locale.GERMAN,
-                                                                                                                Locale.CHINA },
+                                                                                                                 Locale.CHINA },
                                                                                                  new String [] { "Cumberlandstraße",
-                                                                                                                "Whatspever" }));
+                                                                                                                 "Whatspever" }));
 
     final IMicroElement aElement = MicroTypeConverter.convertToMicroElement (aMLT, "mtext");
     assertNotNull (aElement);
 
-    final ReadOnlyMultilingualText aMLT2 = MicroTypeConverter.convertToNative (aElement, ReadOnlyMultilingualText.class);
+    final ReadOnlyMultilingualText aMLT2 = MicroTypeConverter.convertToNative (aElement,
+                                                                               ReadOnlyMultilingualText.class);
     assertEquals (aMLT, aMLT2);
     assertNull (MicroTypeConverter.convertToNative (null, ReadOnlyMultilingualText.class));
 

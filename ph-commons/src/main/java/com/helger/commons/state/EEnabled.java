@@ -20,13 +20,13 @@ import javax.annotation.Nonnull;
 
 /**
  * Small enum for setter method to identify whether an object is enabled or not.
- * 
+ *
  * @author Philip Helger
  */
 public enum EEnabled implements IEnabledIndicator
 {
-  ENABLED,
-  DISABLED;
+ ENABLED,
+ DISABLED;
 
   public boolean isEnabled ()
   {

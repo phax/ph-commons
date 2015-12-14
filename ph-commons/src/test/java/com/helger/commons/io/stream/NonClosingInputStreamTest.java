@@ -24,16 +24,10 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.io.stream.CountingInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.NonClosingInputStream;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.io.stream.WrappedInputStream;
 
 /**
  * Test class for class {@link CountingInputStream}.
- * 
+ *
  * @author Philip Helger
  */
 public final class NonClosingInputStreamTest
@@ -73,7 +67,8 @@ public final class NonClosingInputStreamTest
   {
     final MockCloseCountingInputStream aX = new MockCloseCountingInputStream (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes ("abc",
                                                                                                                                               CCharset.CHARSET_ISO_8859_1_OBJ)));
-    StreamHelper.copyInputStreamToOutputStream (new NonClosingInputStream (aX), new NonBlockingByteArrayOutputStream ());
+    StreamHelper.copyInputStreamToOutputStream (new NonClosingInputStream (aX),
+                                                new NonBlockingByteArrayOutputStream ());
     assertEquals (0, aX.getCloseCount ());
   }
 }

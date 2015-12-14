@@ -19,7 +19,6 @@ package com.helger.commons.scope.singletons;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.commons.scope.singletons.AbstractRequestSingletonTreeWithUniqueID;
 
 public final class MockRequestSingletonTreeWithUniqueID extends AbstractRequestSingletonTreeWithUniqueID <String, String>
 {

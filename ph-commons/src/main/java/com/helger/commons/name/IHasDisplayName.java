@@ -23,9 +23,10 @@ import javax.annotation.Nonnull;
  * name.<br>
  * I contract to {@link IHasName} this interface is meant for display names of
  * objects (e.g. user names or folder names).
- * 
+ *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasDisplayName
 {
   /**

@@ -24,11 +24,11 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.string.StringParser;
-import com.helger.commons.typeconvert.rule.AbstractTypeConverterRuleAssignableSourceFixedDestination;
+import com.helger.commons.typeconvert.rule.TypeConverterRuleAssignableSourceFixedDestination;
 
 /**
  * Register the date and time specific type converter
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -38,95 +38,39 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
   public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
   {
     // Calendar
-    aRegistry.registerTypeConverter (Calendar.class, String.class, new ITypeConverter ()
-    {
-      @Nonnull
-      public String convert (@Nonnull final Object aSource)
-      {
-        return Long.toString (((Calendar) aSource).getTimeInMillis ());
-      }
+    aRegistry.registerTypeConverter (Calendar.class,
+                                     String.class,
+                                     aSource -> Long.toString (((Calendar) aSource).getTimeInMillis ()));
+    aRegistry.registerTypeConverter (Calendar.class,
+                                     Long.class,
+                                     aSource -> Long.valueOf (((Calendar) aSource).getTimeInMillis ()));
+    aRegistry.registerTypeConverter (Calendar.class, Date.class, aSource -> ((Calendar) aSource).getTime ());
+    aRegistry.registerTypeConverter (String.class, Calendar.class, aSource -> {
+      final Calendar aCal = Calendar.getInstance ();
+      aCal.setTimeInMillis (StringParser.parseLong ((String) aSource, 0));
+      return aCal;
     });
-    aRegistry.registerTypeConverter (Calendar.class, Long.class, new ITypeConverter ()
-    {
-      @Nonnull
-      public Long convert (@Nonnull final Object aSource)
-      {
-        return Long.valueOf (((Calendar) aSource).getTimeInMillis ());
-      }
-    });
-    aRegistry.registerTypeConverter (Calendar.class, Date.class, new ITypeConverter ()
-    {
-      @Nonnull
-      public Date convert (@Nonnull final Object aSource)
-      {
-        return ((Calendar) aSource).getTime ();
-      }
-    });
-    aRegistry.registerTypeConverter (String.class, Calendar.class, new ITypeConverter ()
-    {
-      @Nonnull
-      public Calendar convert (@Nonnull final Object aSource)
-      {
-        final Calendar aCal = Calendar.getInstance ();
-        aCal.setTimeInMillis (StringParser.parseLong ((String) aSource, 0));
-        return aCal;
-      }
-    });
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (Number.class,
-                                                                                                        Calendar.class)
-    {
-      @Nonnull
-      public Calendar convert (@Nonnull final Object aSource)
-      {
-        final Calendar aCal = Calendar.getInstance ();
-        aCal.setTimeInMillis (((Number) aSource).longValue ());
-        return aCal;
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (Number.class,
+                                                                                                Calendar.class,
+                                                                                                aSource -> {
+                                                                                                  final Calendar aCal = Calendar.getInstance ();
+                                                                                                  aCal.setTimeInMillis (((Number) aSource).longValue ());
+                                                                                                  return aCal;
+                                                                                                }));
 
     // Date
-    aRegistry.registerTypeConverter (Date.class, Calendar.class, new ITypeConverter ()
-    {
-      @Nonnull
-      public Calendar convert (@Nonnull final Object aSource)
-      {
-        final Calendar aCal = Calendar.getInstance ();
-        aCal.setTime ((Date) aSource);
-        return aCal;
-      }
+    aRegistry.registerTypeConverter (Date.class, Calendar.class, aSource -> {
+      final Calendar aCal = Calendar.getInstance ();
+      aCal.setTime ((Date) aSource);
+      return aCal;
     });
-    aRegistry.registerTypeConverter (Date.class, String.class, new ITypeConverter ()
-    {
-      @Nonnull
-      public String convert (@Nonnull final Object aSource)
-      {
-        return Long.toString (((Date) aSource).getTime ());
-      }
-    });
-    aRegistry.registerTypeConverter (Date.class, Long.class, new ITypeConverter ()
-    {
-      @Nonnull
-      public Long convert (@Nonnull final Object aSource)
-      {
-        return Long.valueOf (((Date) aSource).getTime ());
-      }
-    });
-    aRegistry.registerTypeConverter (String.class, Date.class, new ITypeConverter ()
-    {
-      @Nonnull
-      public Date convert (@Nonnull final Object aSource)
-      {
-        return new Date (StringParser.parseLong ((String) aSource, 0));
-      }
-    });
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (Number.class,
-                                                                                                        Date.class)
-    {
-      @Nonnull
-      public Date convert (@Nonnull final Object aSource)
-      {
-        return new Date (((Number) aSource).longValue ());
-      }
-    });
+    aRegistry.registerTypeConverter (Date.class, String.class, aSource -> Long.toString (((Date) aSource).getTime ()));
+    aRegistry.registerTypeConverter (Date.class, Long.class, aSource -> Long.valueOf (((Date) aSource).getTime ()));
+    aRegistry.registerTypeConverter (String.class,
+                                     Date.class,
+                                     aSource -> new Date (StringParser.parseLong ((String) aSource, 0)));
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (Number.class,
+                                                                                                Date.class,
+                                                                                                aSource -> new Date (((Number) aSource).longValue ())));
   }
 }

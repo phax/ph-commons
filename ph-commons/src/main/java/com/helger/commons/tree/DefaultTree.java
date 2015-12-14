@@ -22,7 +22,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 /**
  * Default implementation of the {@link ITree} interface using
  * {@link DefaultTreeItem} tree items
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        tree item value type

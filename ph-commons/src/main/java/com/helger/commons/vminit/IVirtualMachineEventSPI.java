@@ -22,7 +22,7 @@ import com.helger.commons.annotation.IsSPIInterface;
  * The callback to implemented by VM startup SPIs. Unfortunately you need to
  * manually call {@link VirtualMachineInitializer#runInitialization()} to get
  * this SPI up and running!
- * 
+ *
  * @author Philip Helger
  */
 @IsSPIInterface
@@ -30,7 +30,7 @@ public interface IVirtualMachineEventSPI
 {
   /**
    * Called upon Java VM initialization.
-   * 
+   *
    * @throws Exception
    *         in case of an error.
    * @see VirtualMachineInitializer#runInitialization()
@@ -41,7 +41,7 @@ public interface IVirtualMachineEventSPI
    * Called upon Java VM shutdown.<br>
    * Note for web applications: this happens when the application server is shut
    * down and not when an application is shut down!
-   * 
+   *
    * @throws Exception
    *         in case of an error.
    */

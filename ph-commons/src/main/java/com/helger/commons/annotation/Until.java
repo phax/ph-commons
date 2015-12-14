@@ -23,7 +23,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * A code comment for elements that were removed at a specific version. This is
  * present in contrary to {@link Since}.
- * 
+ *
  * @author Philip Helger
  * @see Since
  */

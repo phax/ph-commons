@@ -179,11 +179,6 @@ public class MutableByte extends AbstractMutableInteger <MutableByte>
     return m_nValue == 0;
   }
 
-  public boolean isNot0 ()
-  {
-    return m_nValue != 0;
-  }
-
   public boolean isSmaller0 ()
   {
     return m_nValue < 0;
@@ -207,11 +202,6 @@ public class MutableByte extends AbstractMutableInteger <MutableByte>
   public boolean isEven ()
   {
     return (m_nValue % 2) == 0;
-  }
-
-  public boolean isOdd ()
-  {
-    return (m_nValue % 2) != 0;
   }
 
   public int compareTo (@Nonnull final MutableByte rhs)

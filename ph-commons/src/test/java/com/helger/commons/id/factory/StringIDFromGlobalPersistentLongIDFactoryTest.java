@@ -21,14 +21,11 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.id.factory.GlobalIDFactory;
-import com.helger.commons.id.factory.MemoryStaticLongIDFactory;
-import com.helger.commons.id.factory.StringIDFromGlobalPersistentLongIDFactory;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link StringIDFromGlobalPersistentLongIDFactory}.
- * 
+ *
  * @author Philip Helger
  */
 public final class StringIDFromGlobalPersistentLongIDFactoryTest

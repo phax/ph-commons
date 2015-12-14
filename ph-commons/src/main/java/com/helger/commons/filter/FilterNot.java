@@ -46,9 +46,9 @@ public final class FilterNot <DATATYPE> implements IFilter <DATATYPE>
     return m_aOriginalFilter;
   }
 
-  public boolean matchesFilter (final DATATYPE aValue)
+  public boolean test (final DATATYPE aValue)
   {
-    return !m_aOriginalFilter.matchesFilter (aValue);
+    return !m_aOriginalFilter.test (aValue);
   }
 
   @Override

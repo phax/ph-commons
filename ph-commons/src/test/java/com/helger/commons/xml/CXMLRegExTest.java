@@ -22,7 +22,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link CXMLRegEx}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CXMLRegExTest

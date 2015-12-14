@@ -74,7 +74,7 @@ public class ThreadDeadlockDetectionTimer extends ThreadDeadlockDetector impleme
 
   /**
    * Stop the deadlock detection task
-   * 
+   *
    * @return {@link EChange}
    */
   @Nonnull

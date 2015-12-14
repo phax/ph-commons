@@ -32,7 +32,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for {@link SizeHelper}
- * 
+ *
  * @author Philip Helger
  */
 public final class SizeHelperTest

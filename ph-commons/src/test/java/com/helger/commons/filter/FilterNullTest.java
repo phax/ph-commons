@@ -22,9 +22,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.filter.FilterNull;
-import com.helger.commons.filter.IFilter;
-
 /**
  * Test class for class {@link FilterNull}
  *
@@ -37,8 +34,8 @@ public final class FilterNullTest
   {
     final IFilter <String> aFilter = new FilterNull <String> ();
     assertNotNull (aFilter);
-    assertTrue (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
+    assertTrue (aFilter.test (null));
+    assertFalse (aFilter.test (""));
+    assertFalse (aFilter.test ("bla bla bla"));
   }
 }

@@ -32,7 +32,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link FileIOError}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FileIOErrorTest

@@ -24,14 +24,15 @@ import javax.annotation.Nullable;
 /**
  * A callback interface to retrieve {@link InputStream} objects from a given
  * name.
- * 
+ *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IInputStreamProvider
 {
   /**
    * Get the input stream from the given name.
-   * 
+   *
    * @param sName
    *        The name to be resolved. May not be <code>null</code>.
    * @return <code>null</code> if resolving failed.

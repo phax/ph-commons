@@ -18,7 +18,7 @@ package com.helger.commons.scope;
 
 /**
  * Interface for a single application scope object.
- * 
+ *
  * @author Philip Helger
  */
 public interface IApplicationScope extends IScope

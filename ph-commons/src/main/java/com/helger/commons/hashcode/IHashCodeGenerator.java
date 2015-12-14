@@ -20,7 +20,7 @@ import com.helger.commons.lang.IAppendable;
 
 /**
  * Base interface for hash code generators.
- * 
+ *
  * @author Philip Helger
  */
 public interface IHashCodeGenerator extends IAppendable <IHashCodeGenerator>
@@ -31,7 +31,7 @@ public interface IHashCodeGenerator extends IAppendable <IHashCodeGenerator>
   /**
    * Retrieve the final hash code. Once this method has been called, no further
    * calls to append can be done since the hash value is locked!
-   * 
+   *
    * @return The finally completed hash code. The returned value is never
    *         {@link #ILLEGAL_HASHCODE}. If the calculated hash code would be
    *         {@link #ILLEGAL_HASHCODE} it is changed to -1 instead.

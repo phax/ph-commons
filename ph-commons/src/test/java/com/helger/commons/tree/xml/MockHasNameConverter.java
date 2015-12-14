@@ -22,7 +22,6 @@ import javax.annotation.Nullable;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.util.MicroHelper;
 import com.helger.commons.name.MockHasName;
-import com.helger.commons.tree.xml.IConverterTreeXML;
 
 public final class MockHasNameConverter implements IConverterTreeXML <MockHasName>
 {

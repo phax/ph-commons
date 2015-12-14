@@ -26,21 +26,9 @@ public final class BenchmarkIntCharCount
     int getCharacterCount (int n);
   }
 
-  public static final IDoIt s_a1 = new IDoIt ()
-  {
-    public int getCharacterCount (final int n)
-    {
-      return StringHelper.getCharacterCount (n);
-    }
-  };
+  public static final IDoIt s_a1 = n -> StringHelper.getCharacterCount (n);
 
-  public static final IDoIt s_a2 = new IDoIt ()
-  {
-    public int getCharacterCount (final int n)
-    {
-      return Integer.toString (n).length ();
-    }
-  };
+  public static final IDoIt s_a2 = n -> Integer.toString (n).length ();
 
   public static void main (final String [] args)
   {

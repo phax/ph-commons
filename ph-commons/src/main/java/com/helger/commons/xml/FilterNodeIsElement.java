@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class FilterNodeIsElement implements IFilter <Node>
+public class FilterNodeIsElement implements IFilter <Node>
 {
   private final IFilter <? super Element> m_aNestedElementFilter;
 
@@ -47,11 +47,11 @@ public final class FilterNodeIsElement implements IFilter <Node>
     m_aNestedElementFilter = aNestedElementFilter;
   }
 
-  public boolean matchesFilter (@Nullable final Node aNode)
+  public boolean test (@Nullable final Node aNode)
   {
     if (aNode == null || aNode.getNodeType () != Node.ELEMENT_NODE)
       return false;
-    return m_aNestedElementFilter == null || m_aNestedElementFilter.matchesFilter ((Element) aNode);
+    return m_aNestedElementFilter == null || m_aNestedElementFilter.test ((Element) aNode);
   }
 
   @Nullable

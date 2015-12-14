@@ -57,43 +57,19 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler implement
   @Override
   protected void internalLog (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aErrors.addResourceError (getSaxParseError (aErrorLevel, aException));
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aErrors.addResourceError (getSaxParseError (aErrorLevel, aException)));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public IResourceErrorGroup getResourceErrors ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aErrors.getClone ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aErrors.getClone ());
   }
 
   public boolean containsAtLeastOneError ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aErrors.containsAtLeastOneError ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aErrors.containsAtLeastOneError ());
   }
 
   /**
@@ -104,15 +80,7 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler implement
   @Nonnull
   public EChange clearResourceErrors ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      return m_aErrors.clear ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    return m_aRWLock.writeLocked ( () -> m_aErrors.clear ());
   }
 
   @Override

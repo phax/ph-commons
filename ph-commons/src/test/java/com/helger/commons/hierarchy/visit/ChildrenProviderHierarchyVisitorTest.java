@@ -48,7 +48,10 @@ public final class ChildrenProviderHierarchyVisitorTest
                                                false);
 
     // Start explicitly at object
-    ChildrenProviderHierarchyVisitor.visitFrom (hc1, cp, new DefaultHierarchyVisitorCallback <MockHasChildren> (), true);
+    ChildrenProviderHierarchyVisitor.visitFrom (hc1,
+                                                cp,
+                                                new DefaultHierarchyVisitorCallback <MockHasChildren> (),
+                                                true);
     // no provider
     try
     {

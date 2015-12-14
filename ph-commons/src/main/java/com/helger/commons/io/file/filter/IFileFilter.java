@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 
+import javax.annotation.Nullable;
+
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.filter.IFilter;
 
@@ -30,7 +32,20 @@ import com.helger.commons.filter.IFilter;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
+@FunctionalInterface
 public interface IFileFilter extends FileFilter, FilenameFilter, IFilter <File>
 {
-  /* empty */
+  default boolean accept (@Nullable final File aFile)
+  {
+    return test (aFile);
+  }
+
+  default boolean accept (@Nullable final File aDir, @Nullable final String sName)
+  {
+    if (sName == null)
+      return false;
+
+    final File aFileToCheck = aDir != null ? new File (aDir, sName) : new File (sName);
+    return test (aFileToCheck);
+  }
 }

@@ -32,7 +32,7 @@ import com.helger.commons.state.ISuccessIndicator;
 /**
  * Base interface for a single error, that has an error ID, and error level, and
  * error field name and an error text.
- * 
+ *
  * @author Philip Helger
  */
 public interface IError extends IHasErrorID, IHasErrorLevel, ISuccessIndicator, IErrorIndicator, ISeverityComparable <IError>, Serializable

@@ -16,7 +16,10 @@
  */
 package com.helger.commons.typeconvert.rule;
 
+import java.util.function.Function;
+
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
@@ -24,20 +27,23 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Abstract type converter than can convert from a base source class to a
  * destination class. Example from Number.class to String.class
- * 
+ *
  * @author Philip Helger
  */
-public abstract class AbstractTypeConverterRuleAssignableSourceFixedDestination extends AbstractTypeConverterRule
+public final class TypeConverterRuleAssignableSourceFixedDestination extends AbstractTypeConverterRule
 {
   private final Class <?> m_aSrcClass;
   private final Class <?> m_aDstClass;
+  private final Function <Object, Object> m_aConverter;
 
-  public AbstractTypeConverterRuleAssignableSourceFixedDestination (@Nonnull final Class <?> aSrcClass,
-                                                                    @Nonnull final Class <?> aDstClass)
+  public TypeConverterRuleAssignableSourceFixedDestination (@Nonnull final Class <?> aSrcClass,
+                                                            @Nonnull final Class <?> aDstClass,
+                                                            @Nonnull final Function <Object, Object> aConverter)
   {
     super (ESubType.ASSIGNABLE_SRC_FIXED_DST);
     m_aSrcClass = ValueEnforcer.notNull (aSrcClass, "SrcClass");
     m_aDstClass = ValueEnforcer.notNull (aDstClass, "DestClass");
+    m_aConverter = ValueEnforcer.notNull (aConverter, "Converter");
   }
 
   public final boolean canConvert (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
@@ -57,12 +63,19 @@ public abstract class AbstractTypeConverterRuleAssignableSourceFixedDestination 
     return m_aDstClass;
   }
 
+  @Nullable
+  public Object apply (@Nonnull final Object aSource)
+  {
+    return m_aConverter.apply (aSource);
+  }
+
   @Override
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("srcClass", m_aSrcClass.getName ())
                             .append ("dstClass", m_aDstClass.getName ())
+                            .append ("converter", m_aConverter)
                             .toString ();
   }
 }

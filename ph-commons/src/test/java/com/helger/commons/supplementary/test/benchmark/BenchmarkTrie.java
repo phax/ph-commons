@@ -36,7 +36,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Check different Maps with String keys.<br>
- * 
+ *
  * <pre>
  * </pre>
  */

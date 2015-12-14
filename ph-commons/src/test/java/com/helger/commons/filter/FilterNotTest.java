@@ -23,11 +23,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.filter.FilterNot;
-import com.helger.commons.filter.FilterNotNull;
-import com.helger.commons.filter.FilterNull;
-import com.helger.commons.filter.IFilter;
-
 /**
  * Test class for class {@link FilterNot}
  *
@@ -48,14 +43,14 @@ public final class FilterNotTest
 
     IFilter <String> aFilter = new FilterNot <String> (new FilterNotNull <String> ());
     assertNotNull (aFilter);
-    assertTrue (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
+    assertTrue (aFilter.test (null));
+    assertFalse (aFilter.test (""));
+    assertFalse (aFilter.test ("bla bla bla"));
 
     aFilter = new FilterNot <String> (new FilterNull <String> ());
     assertNotNull (aFilter);
-    assertFalse (aFilter.matchesFilter (null));
-    assertTrue (aFilter.matchesFilter (""));
-    assertTrue (aFilter.matchesFilter ("bla bla bla"));
+    assertFalse (aFilter.test (null));
+    assertTrue (aFilter.test (""));
+    assertTrue (aFilter.test ("bla bla bla"));
   }
 }

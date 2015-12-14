@@ -24,11 +24,9 @@ import java.util.concurrent.Executors;
 
 import org.junit.Test;
 
-import com.helger.commons.callback.INonThrowingRunnable;
-
 /**
  * Test class for class {@link ManagedExecutorService}
- * 
+ *
  * @author Philip Helger
  */
 public final class ManagedExecutorServiceTest
@@ -37,12 +35,8 @@ public final class ManagedExecutorServiceTest
   public void testAll ()
   {
     final ExecutorService aExecSvc = Executors.newFixedThreadPool (3);
-    aExecSvc.submit (new INonThrowingRunnable ()
-    {
-      public void run ()
-      {
-        // empty
-      }
+    aExecSvc.submit ( () -> {
+      // empty
     });
     assertTrue (new ManagedExecutorService (aExecSvc).shutdownAndWaitUntilAllTasksAreFinished ().isNotInterrupted ());
 

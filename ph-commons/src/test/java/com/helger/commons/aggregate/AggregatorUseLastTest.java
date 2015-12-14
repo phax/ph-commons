@@ -40,17 +40,13 @@ public final class AggregatorUseLastTest
   public void testAll ()
   {
     final AggregatorUseLast <String> a1 = new AggregatorUseLast <String> ();
-    final AggregatorUseLast <String> a2 = new AggregatorUseLast <String> ();
     assertEquals (a1, a1);
-    assertEquals (a1, a2);
     assertFalse (a1.equals (null));
     assertFalse (a1.equals ("any other"));
     assertEquals (a1.hashCode (), a1.hashCode ());
-    assertEquals (a1.hashCode (), a2.hashCode ());
     assertFalse (a1.hashCode () == 0);
     assertFalse (a1.hashCode () == "any other".hashCode ());
     assertNotNull (a1.toString ());
-    assertFalse (a1.toString ().equals (a2.toString ()));
     final List <String> l = CollectionHelper.newList ("a", null, "b", "", "c");
     assertEquals ("c", a1.aggregate (l));
     assertNull (a1.aggregate (new ArrayList <String> ()));

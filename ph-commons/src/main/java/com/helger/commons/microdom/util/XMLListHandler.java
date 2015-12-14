@@ -197,7 +197,8 @@ public final class XMLListHandler
   }
 
   @Nonnull
-  public static ESuccess writeList (@Nonnull final Collection <String> aCollection, @Nonnull final IHasOutputStream aOSP)
+  public static ESuccess writeList (@Nonnull final Collection <String> aCollection,
+                                    @Nonnull final IHasOutputStream aOSP)
   {
     ValueEnforcer.notNull (aOSP, "OutputStreamProvider");
 

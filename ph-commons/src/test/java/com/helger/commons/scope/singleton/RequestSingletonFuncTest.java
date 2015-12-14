@@ -30,7 +30,6 @@ import org.junit.rules.TestRule;
 
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.scope.mock.ScopeTestRule;
-import com.helger.commons.scope.singleton.AbstractRequestSingleton;
 
 /**
  * Test class for class {@link AbstractRequestSingleton}.<br>
@@ -89,7 +88,8 @@ public final class RequestSingletonFuncTest
     final MockRequestSingletonWithScopeCtor a = MockRequestSingletonWithScopeCtor.getInstance ();
     assertNotNull (a);
     assertTrue (AbstractRequestSingleton.isRequestSingletonInstantiated (MockRequestSingletonWithScopeCtor.class));
-    assertSame (a, AbstractRequestSingleton.getRequestSingletonIfInstantiated (MockRequestSingletonWithScopeCtor.class));
+    assertSame (a,
+                AbstractRequestSingleton.getRequestSingletonIfInstantiated (MockRequestSingletonWithScopeCtor.class));
     assertNotNull (a.getScope ());
     assertEquals (0, a.get ());
     a.inc ();

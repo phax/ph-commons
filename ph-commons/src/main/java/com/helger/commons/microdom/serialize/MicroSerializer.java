@@ -259,7 +259,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
 
       // Determine indent
       final IMicroElement aParentElement = aParentNode != null && aParentNode.isElement () ? (IMicroElement) aParentNode
-                                                                                          : null;
+                                                                                           : null;
       final String sParentNamespaceURI = aParentElement != null ? aParentElement.getNamespaceURI () : null;
       final String sParentTagName = aParentElement != null ? aParentElement.getTagName () : null;
       final EXMLSerializeIndent eIndentOuter = m_aSettings.getIndentDeterminator ()

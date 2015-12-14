@@ -23,7 +23,7 @@ import com.helger.commons.state.EChange;
 
 /**
  * Interface for a writable pair.
- * 
+ *
  * @author Philip Helger
  * @param <DATA1TYPE>
  *        First type.
@@ -34,7 +34,7 @@ public interface IMutablePair <DATA1TYPE, DATA2TYPE> extends IPair <DATA1TYPE, D
 {
   /**
    * Set the first value.
-   * 
+   *
    * @param aFirst
    *        The first value. May be <code>null</code>.
    * @return {@link EChange}
@@ -44,7 +44,7 @@ public interface IMutablePair <DATA1TYPE, DATA2TYPE> extends IPair <DATA1TYPE, D
 
   /**
    * Set the second value.
-   * 
+   *
    * @param aSecond
    *        The second value. May be <code>null</code>.
    * @return {@link EChange}

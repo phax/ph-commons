@@ -33,7 +33,7 @@ import com.helger.commons.charset.CharsetManager;
 
 /**
  * Test class for class {@link FileOperations}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FileOperationsTest
@@ -176,7 +176,8 @@ public final class FileOperationsTest
     }
 
     // Invalid directory name
-    _expectedError (FileOperations.createDirRecursiveIfNotExisting (new File ("\0")), EFileIOErrorCode.OPERATION_FAILED);
+    _expectedError (FileOperations.createDirRecursiveIfNotExisting (new File ("\0")),
+                    EFileIOErrorCode.OPERATION_FAILED);
 
     try
     {

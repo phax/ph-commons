@@ -26,16 +26,11 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.microdom.EMicroNodeType;
-import com.helger.commons.microdom.IMicroDocumentType;
-import com.helger.commons.microdom.MicroCDATA;
-import com.helger.commons.microdom.MicroDocumentType;
-import com.helger.commons.microdom.MicroException;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MicroDocumentType}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MicroDocumentTypeTest
@@ -65,7 +60,9 @@ public final class MicroDocumentTypeTest
     assertTrue (new MicroDocumentType ("qname", "pid", "sid").isEqualContent (new MicroDocumentType ("qname",
                                                                                                      "pid",
                                                                                                      "sid")));
-    assertTrue (new MicroDocumentType ("qname", null, null).isEqualContent (new MicroDocumentType ("qname", null, null)));
+    assertTrue (new MicroDocumentType ("qname", null, null).isEqualContent (new MicroDocumentType ("qname",
+                                                                                                   null,
+                                                                                                   null)));
     assertFalse (new MicroDocumentType ("qname", "pid", "sid").isEqualContent (new MicroDocumentType ("qname",
                                                                                                       "pid",
                                                                                                       "sid2")));

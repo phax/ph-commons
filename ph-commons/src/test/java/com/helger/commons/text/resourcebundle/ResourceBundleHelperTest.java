@@ -22,11 +22,10 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.text.resourcebundle.ResourceBundleHelper;
 
 /**
  * Test class for class {@link ResourceBundleHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ResourceBundleHelperTest extends AbstractCommonsTestCase

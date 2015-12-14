@@ -26,7 +26,7 @@ import com.helger.commons.exception.LoggedRuntimeException;
 
 /**
  * Test class for class {@link LogHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class LogHelperTest

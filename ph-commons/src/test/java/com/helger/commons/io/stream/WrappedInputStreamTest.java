@@ -24,17 +24,16 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.WrappedInputStream;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link WrappedInputStream}.
- * 
+ *
  * @author Philip Helger
  */
 public final class WrappedInputStreamTest
 {
+  @SuppressWarnings ("resource")
   @Test
   public void testAll () throws IOException
   {

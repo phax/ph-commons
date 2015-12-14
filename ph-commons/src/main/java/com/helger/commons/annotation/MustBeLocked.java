@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
  * a method is called inside the constructor of the owning class, as
  * constructor-calls of a single object are not accessed by multiple threads in
  * parallel.
- * 
+ *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)

@@ -18,7 +18,6 @@ package com.helger.commons.callback.exception;
 
 import org.junit.Test;
 
-import com.helger.commons.callback.exception.LoggingExceptionCallback;
 import com.helger.commons.exception.mock.MockException;
 
 /**

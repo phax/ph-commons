@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 /**
  * Interface for a handler that provides the locale <b>dependent</b> name of an
  * object.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type to retrieve the display text from
@@ -34,7 +34,7 @@ public interface IDisplayTextProvider <DATATYPE> extends Serializable
 {
   /**
    * Get the display text of the passed object in the given locale.
-   * 
+   *
    * @param aObject
    *        The object to be used. May be <code>null</code>.
    * @param aContentLocale

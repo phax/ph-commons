@@ -49,12 +49,6 @@ public abstract class AbstractMicroNode implements IMicroNode
   private AbstractMicroNodeWithChildren m_aParentNode;
   private Map <EMicroEvent, Set <IMicroEventTarget>> m_aEventTargets;
 
-  @OverrideOnDemand
-  public String getNodeValue ()
-  {
-    return "";
-  }
-
   /**
    * Callback that is invoked once a child is to be appended.
    *
@@ -156,12 +150,6 @@ public abstract class AbstractMicroNode implements IMicroNode
   }
 
   @Nonnull
-  public final IMicroText appendText (@Nonnull final char [] aChars)
-  {
-    return appendText (aChars, 0, aChars.length);
-  }
-
-  @Nonnull
   public final IMicroText appendText (@Nonnull final char [] aChars,
                                       @Nonnegative final int nOfs,
                                       @Nonnegative final int nLen)
@@ -188,12 +176,6 @@ public abstract class AbstractMicroNode implements IMicroNode
   }
 
   @Nonnull
-  public final IMicroText appendIgnorableWhitespaceText (@Nonnull final char [] aChars)
-  {
-    return appendIgnorableWhitespaceText (aChars, 0, aChars.length);
-  }
-
-  @Nonnull
   public final IMicroText appendIgnorableWhitespaceText (@Nonnull final char [] aChars,
                                                          @Nonnegative final int nOfs,
                                                          @Nonnegative final int nLen)
@@ -209,12 +191,6 @@ public abstract class AbstractMicroNode implements IMicroNode
     final MicroCDATA aNode = new MicroCDATA (sText);
     onAppendChild (aNode);
     return aNode;
-  }
-
-  @Nonnull
-  public final IMicroCDATA appendCDATA (@Nonnull final char [] aChars)
-  {
-    return appendCDATA (aChars, 0, aChars.length);
   }
 
   @Nonnull
@@ -241,12 +217,6 @@ public abstract class AbstractMicroNode implements IMicroNode
     final MicroComment aNode = new MicroComment (sText);
     onAppendChild (aNode);
     return aNode;
-  }
-
-  @Nonnull
-  public final IMicroComment appendComment (@Nonnull final char [] aChars)
-  {
-    return appendComment (aChars, 0, aChars.length);
   }
 
   @Nonnull

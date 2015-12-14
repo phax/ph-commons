@@ -57,7 +57,10 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
 
     // Sessions are always displayed to see what's happening
     if (ScopeHelper.debugSessionScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Created session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+      s_aLogger.info ("Created session scope '" +
+                      getID () +
+                      "' of class " +
+                      ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -67,9 +70,7 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
   @Override
   protected final void destroyOwnedScopes ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       for (final ISessionApplicationScope aSessionAppScope : m_aSessionAppScopes.values ())
       {
         // Invoke SPIs
@@ -79,18 +80,17 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
         aSessionAppScope.destroyScope ();
       }
       m_aSessionAppScopes.clear ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   @Override
   protected void preDestroy ()
   {
     if (ScopeHelper.debugSessionScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroying session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+      s_aLogger.info ("Destroying session scope '" +
+                      getID () +
+                      "' of class " +
+                      ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -98,7 +98,10 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
   protected void postDestroy ()
   {
     if (ScopeHelper.debugSessionScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroyed session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+      s_aLogger.info ("Destroyed session scope '" +
+                      getID () +
+                      "' of class " +
+                      ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -157,41 +160,26 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
 
     final String sAppScopeID = createApplicationScopeID (sApplicationID);
 
-    ISessionApplicationScope aSessionAppScope;
-
     // Try with read-lock only
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      aSessionAppScope = m_aSessionAppScopes.get (sAppScopeID);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    ISessionApplicationScope aSessionAppScope = m_aRWLock.readLocked ( () -> m_aSessionAppScopes.get (sAppScopeID));
 
     if (aSessionAppScope == null && bCreateIfNotExisting)
     {
-      m_aRWLock.writeLock ().lock ();
-      try
-      {
+      aSessionAppScope = m_aRWLock.writeLocked ( () -> {
         // Check again - now in write lock
-        aSessionAppScope = m_aSessionAppScopes.get (sAppScopeID);
-        if (aSessionAppScope == null)
+        ISessionApplicationScope aWLSessionAppScope = m_aSessionAppScopes.get (sAppScopeID);
+        if (aWLSessionAppScope == null)
         {
           // Definitively not present
-          aSessionAppScope = createSessionApplicationScope (sAppScopeID);
-          m_aSessionAppScopes.put (sAppScopeID, aSessionAppScope);
-          aSessionAppScope.initScope ();
+          aWLSessionAppScope = createSessionApplicationScope (sAppScopeID);
+          m_aSessionAppScopes.put (sAppScopeID, aWLSessionAppScope);
+          aWLSessionAppScope.initScope ();
 
           // Invoke SPIs
-          ScopeSPIManager.getInstance ().onSessionApplicationScopeBegin (aSessionAppScope);
+          ScopeSPIManager.getInstance ().onSessionApplicationScopeBegin (aWLSessionAppScope);
         }
-      }
-      finally
-      {
-        m_aRWLock.writeLock ().unlock ();
-      }
+        return aWLSessionAppScope;
+      });
     }
     return aSessionAppScope;
   }
@@ -202,48 +190,26 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
     ValueEnforcer.notEmpty (sScopeID, "ScopeID");
     ValueEnforcer.notNull (aScope, "Scope");
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       if (m_aSessionAppScopes.containsKey (sScopeID))
         throw new IllegalArgumentException ("A session application scope with the ID '" +
                                             sScopeID +
                                             "' is already contained!");
       m_aSessionAppScopes.put (sScopeID, aScope);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public Map <String, ISessionApplicationScope> getAllSessionApplicationScopes ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newMap (m_aSessionAppScopes);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newMap (m_aSessionAppScopes));
   }
 
   @Nonnegative
   public int getSessionApplicationScopeCount ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aSessionAppScopes.size ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aSessionAppScopes.size ());
   }
 
   @Override

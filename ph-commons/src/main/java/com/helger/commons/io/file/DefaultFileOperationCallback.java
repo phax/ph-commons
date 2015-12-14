@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 
 /**
  * Default implementation of {@link IFileOperationCallback} doing nothing.
- * 
+ *
  * @author Philip Helger
  */
 public class DefaultFileOperationCallback implements IFileOperationCallback

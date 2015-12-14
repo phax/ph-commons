@@ -16,6 +16,8 @@
  */
 package com.helger.commons.tree.util;
 
+import java.util.function.Function;
+
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
@@ -23,7 +25,6 @@ import org.w3c.dom.traversal.TreeWalker;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.convert.IConverter;
 import com.helger.commons.hierarchy.ChildrenProviderHasChildren;
 import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
@@ -46,10 +47,10 @@ public final class TreeVisitor
   public static class HierarchyVisitorCallbackWithConversion <ITEMTYPE, DATATYPE> extends DefaultHierarchyVisitorCallback <ITEMTYPE>
   {
     private final IHierarchyVisitorCallback <? super DATATYPE> m_aDataCallback;
-    private final IConverter <ITEMTYPE, DATATYPE> m_aConverter;
+    private final Function <ITEMTYPE, DATATYPE> m_aConverter;
 
     public HierarchyVisitorCallbackWithConversion (@Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback,
-                                                   @Nonnull final IConverter <ITEMTYPE, DATATYPE> aConverter)
+                                                   @Nonnull final Function <ITEMTYPE, DATATYPE> aConverter)
     {
       m_aDataCallback = ValueEnforcer.notNull (aDataCallback, "DataCallback");
       m_aConverter = ValueEnforcer.notNull (aConverter, "Converter");
@@ -80,7 +81,7 @@ public final class TreeVisitor
     @Nonnull
     public EHierarchyVisitorReturn onItemBeforeChildren (@Nonnull final ITEMTYPE aItem)
     {
-      final DATATYPE aConvertedValue = m_aConverter.convert (aItem);
+      final DATATYPE aConvertedValue = m_aConverter.apply (aItem);
       return m_aDataCallback.onItemBeforeChildren (aConvertedValue);
     }
 
@@ -88,7 +89,7 @@ public final class TreeVisitor
     @Nonnull
     public EHierarchyVisitorReturn onItemAfterChildren (@Nonnull final ITEMTYPE aItem)
     {
-      final DATATYPE aConvertedValue = m_aConverter.convert (aItem);
+      final DATATYPE aConvertedValue = m_aConverter.apply (aItem);
       return m_aDataCallback.onItemAfterChildren (aConvertedValue);
     }
 
@@ -166,12 +167,6 @@ public final class TreeVisitor
     visitTreeItem (aTreeItem,
                    aChildrenProvider,
                    new HierarchyVisitorCallbackWithConversion <ITEMTYPE, DATATYPE> (aDataCallback,
-                                                                                    new IConverter <ITEMTYPE, DATATYPE> ()
-                                                                                    {
-                                                                                      public DATATYPE convert (final ITEMTYPE aSource)
-                                                                                      {
-                                                                                        return aSource.getData ();
-                                                                                      }
-                                                                                    }));
+                                                                                    aSource -> aSource.getData ()));
   }
 }

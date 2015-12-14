@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Represents a text node.
- * 
+ *
  * @author Philip Helger
  */
 public interface IMicroText extends IMicroNode, IMicroDataAware
@@ -28,7 +28,7 @@ public interface IMicroText extends IMicroNode, IMicroDataAware
   /**
    * Check whether the text node consists solely of whitespaces. This may be
    * helpful in detecting XML that has been indented :)
-   * 
+   *
    * @return <code>true</code> if the text node consists solely of whitespaces
    *         (blank, tab etc.).
    */

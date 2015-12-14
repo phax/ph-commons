@@ -18,8 +18,6 @@ package com.helger.commons.hierarchy;
 
 import javax.annotation.Nullable;
 
-import com.helger.commons.hierarchy.IChildrenProviderWithID;
-
 public final class MockChildrenProviderWithID extends MockChildrenProvider implements IChildrenProviderWithID <String, MockHasChildren>
 {
   @Nullable

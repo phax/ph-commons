@@ -20,12 +20,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.id.factory.MemoryStaticLongIDFactory;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MemoryStaticLongIDFactory}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MemoryStaticLongIDFactoryTest

@@ -23,11 +23,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.system.CryptoPolicy;
-
 /**
  * Test class for class {@link CryptoPolicy}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CryptoPolicyTest

@@ -36,7 +36,8 @@ public class MultiLinkedHashMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> exte
     super (aKey, aInnerKey, aValue);
   }
 
-  public MultiLinkedHashMapHashMapBased (@Nullable final KEYTYPE1 aKey, @Nullable final Map <KEYTYPE2, VALUETYPE> aValue)
+  public MultiLinkedHashMapHashMapBased (@Nullable final KEYTYPE1 aKey,
+                                         @Nullable final Map <KEYTYPE2, VALUETYPE> aValue)
   {
     super (aKey, aValue);
   }

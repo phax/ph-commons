@@ -23,7 +23,6 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.thread.ComparatorThreadName;
 
 /**
  * Test class for class {@link ComparatorThreadName}.

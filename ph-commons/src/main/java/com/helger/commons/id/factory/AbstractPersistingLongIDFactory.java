@@ -16,13 +16,11 @@
  */
 package com.helger.commons.id.factory;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.concurrent.SimpleLock;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -31,13 +29,13 @@ import com.helger.commons.string.ToStringGenerator;
  * does it by reserving a range of <em>n</em> IDs so that not each ID
  * reservation requires IO. If only 1 ID is effectively used, the other
  * <em>n</em>-1 IDs are lost and will never be assigned to any object again.
- * 
+ *
  * @author Philip Helger
  */
 @ThreadSafe
 public abstract class AbstractPersistingLongIDFactory implements ILongIDFactory
 {
-  private final Lock m_aLock = new ReentrantLock ();
+  private final SimpleLock m_aLock = new SimpleLock ();
   private final int m_nReserveCount;
   private long m_nID = 0L;
   private long m_nLastID = -1L;
@@ -62,7 +60,7 @@ public abstract class AbstractPersistingLongIDFactory implements ILongIDFactory
    * to the device. This method should perform an atomic read and update to
    * avoid that ID can be reused.<br>
    * Pseudo code:
-   * 
+   *
    * <pre>
    * protected long readAndUpdateIDCounter (int nReserveCount)
    * {
@@ -71,7 +69,7 @@ public abstract class AbstractPersistingLongIDFactory implements ILongIDFactory
    *   return nRead;
    * }
    * </pre>
-   * 
+   *
    * @param nReserveCount
    *        the number that should be added to the read value. Always &gt; 0.
    * @return 0 if this method is called for a non-initialized device, the value
@@ -87,9 +85,7 @@ public abstract class AbstractPersistingLongIDFactory implements ILongIDFactory
    */
   public final long getNewID ()
   {
-    m_aLock.lock ();
-    try
-    {
+    return m_aLock.locked ( () -> {
       if (m_nID >= m_nLastID)
       {
         // Read new IDs
@@ -107,11 +103,7 @@ public abstract class AbstractPersistingLongIDFactory implements ILongIDFactory
         m_nLastID = nNewID + m_nReserveCount;
       }
       return m_nID++;
-    }
-    finally
-    {
-      m_aLock.unlock ();
-    }
+    });
   }
 
   @Override

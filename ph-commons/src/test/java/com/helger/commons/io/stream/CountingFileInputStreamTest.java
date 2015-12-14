@@ -23,14 +23,11 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.helger.commons.io.stream.CountingFileInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link CountingFileInputStream}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CountingFileInputStreamTest

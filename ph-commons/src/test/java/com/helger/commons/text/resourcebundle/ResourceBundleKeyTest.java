@@ -23,12 +23,10 @@ import org.junit.Test;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.text.resourcebundle.ResourceBundleHelper;
-import com.helger.commons.text.resourcebundle.ResourceBundleKey;
 
 /**
  * Test class for class {@link ResourceBundleKey}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ResourceBundleKeyTest extends AbstractCommonsTestCase

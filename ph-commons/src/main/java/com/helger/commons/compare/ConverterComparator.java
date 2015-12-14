@@ -17,13 +17,13 @@
 package com.helger.commons.compare;
 
 import java.util.Comparator;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.convert.IConverter;
 
 /**
  * This is a {@link java.util.Comparator} for objects which are extracted from a
@@ -38,7 +38,7 @@ import com.helger.commons.convert.IConverter;
 @NotThreadSafe
 public class ConverterComparator <DATATYPE, PARTTYPE> extends AbstractPartComparator <DATATYPE, PARTTYPE>
 {
-  private final IConverter <DATATYPE, PARTTYPE> m_aConverter;
+  private final Function <DATATYPE, PARTTYPE> m_aConverter;
 
   /**
    * Constructor.
@@ -50,7 +50,7 @@ public class ConverterComparator <DATATYPE, PARTTYPE> extends AbstractPartCompar
    *        May not be <code>null</code>.
    */
   public ConverterComparator (@Nonnull final Comparator <? super PARTTYPE> aPartComparator,
-                              @Nonnull final IConverter <DATATYPE, PARTTYPE> aConverter)
+                              @Nonnull final Function <DATATYPE, PARTTYPE> aConverter)
   {
     super (aPartComparator);
     m_aConverter = ValueEnforcer.notNull (aConverter, "Converter");
@@ -60,7 +60,7 @@ public class ConverterComparator <DATATYPE, PARTTYPE> extends AbstractPartCompar
    * @return The converter passed in the constructor. Never <code>null</code>.
    */
   @Nonnull
-  public final IConverter <DATATYPE, PARTTYPE> getConverter ()
+  public final Function <DATATYPE, PARTTYPE> getConverter ()
   {
     return m_aConverter;
   }
@@ -69,6 +69,6 @@ public class ConverterComparator <DATATYPE, PARTTYPE> extends AbstractPartCompar
   @Nullable
   protected final PARTTYPE getPart (@Nonnull final DATATYPE aObject)
   {
-    return m_aConverter.convert (aObject);
+    return m_aConverter.apply (aObject);
   }
 }

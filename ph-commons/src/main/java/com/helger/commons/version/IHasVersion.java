@@ -20,9 +20,10 @@ import javax.annotation.Nonnull;
 
 /**
  * Base interface for objects having a version.
- * 
+ *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasVersion
 {
   /**

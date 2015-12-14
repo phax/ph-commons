@@ -20,7 +20,7 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 
 /**
  * Interface for an object creating unique long IDs.
- * 
+ *
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
@@ -28,7 +28,7 @@ public interface ILongIDFactory extends IBaseIDFactory
 {
   /**
    * Create a new unique long ID.
-   * 
+   *
    * @return The newly created ID.
    */
   long getNewID ();

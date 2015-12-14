@@ -27,7 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  * Abstract multi map based on {@link java.util.concurrent.ConcurrentHashMap}
  * and {@link java.util.Set} values.<br>
  * Important note: <code>null</code> keys are not allowed here!
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        key type
@@ -45,7 +45,8 @@ public abstract class AbstractMultiConcurrentHashMapSetBased <KEYTYPE, VALUETYPE
     super (aKey, aValue);
   }
 
-  public AbstractMultiConcurrentHashMapSetBased (@Nonnull final KEYTYPE aKey, @Nonnull final Set <VALUETYPE> aCollection)
+  public AbstractMultiConcurrentHashMapSetBased (@Nonnull final KEYTYPE aKey,
+                                                 @Nonnull final Set <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }

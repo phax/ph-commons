@@ -44,6 +44,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
   public NonBlockingStack ()
   {}
 
+  @SafeVarargs
   public NonBlockingStack (@Nullable final ELEMENTTYPE... aElements)
   {
     CollectionHelper.getConcatenatedInline (this, aElements);
@@ -190,6 +191,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
   }
 
   @Nonnull
+  @SafeVarargs
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> create (@Nullable final ELEMENTTYPE... aElements)
   {
     return new NonBlockingStack <ELEMENTTYPE> (aElements);

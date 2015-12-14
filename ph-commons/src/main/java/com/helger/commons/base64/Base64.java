@@ -67,8 +67,8 @@ import com.helger.commons.io.stream.StreamHelper;
  * dialects.
  * </p>
  * <p>
- * Note, according to <a
- * href="http://www.faqs.org/rfcs/rfc3548.html">RFC3548</a>, Section 2.1,
+ * Note, according to
+ * <a href="http://www.faqs.org/rfcs/rfc3548.html">RFC3548</a>, Section 2.1,
  * implementations should not add line feeds unless explicitly told to do so.
  * I've got Base64 set to this behavior now, although earlier versions broke
  * lines by default.
@@ -160,11 +160,12 @@ import com.helger.commons.io.stream.StreamHelper;
  * URL and file name friendly format that preserves lexical ordering as
  * described in http://www.faqs.org/qa/rfcc-1940.html</li>
  * </ol>
- * Special thanks to Jim Kellerman at <a
- * href="http://www.powerset.com/">http://www.powerset.com/</a> for contributing
- * the new Base64 dialects.</li>
+ * Special thanks to Jim Kellerman at
+ * <a href="http://www.powerset.com/">http://www.powerset.com/</a> for
+ * contributing the new Base64 dialects.</li>
  * <li>v2.1 - Cleaned up javadoc comments and unused variables and methods.
- * Added some convenience methods for reading and writing to and from files.</li>
+ * Added some convenience methods for reading and writing to and from files.
+ * </li>
  * <li>v2.0.2 - Now specifies UTF-8 encoding in places where the code fails on
  * systems with other encodings (like EBCDIC).</li>
  * <li>v2.0.1 - Fixed an error when decoding a single byte, that is, when the
@@ -195,9 +196,9 @@ import com.helger.commons.io.stream.StreamHelper;
  * <p>
  * I am placing this code in the Public Domain. Do with it as you will. This
  * software comes with no guarantees or warranties but with plenty of
- * well-wishing instead! Please visit <a
- * href="http://iharder.net/base64">http://iharder.net/base64</a> periodically
- * to check for updates or to contribute improvements.
+ * well-wishing instead! Please visit
+ * <a href="http://iharder.net/base64">http://iharder.net/base64</a>
+ * periodically to check for updates or to contribute improvements.
  * </p>
  *
  * @author Robert Harder
@@ -219,10 +220,14 @@ public final class Base64
   /** Specify decoding in first bit. Value is zero. */
   public static final int DECODE = 0;
 
-  /** Specify that data should be gzip-compressed in second bit. Value is two. */
+  /**
+   * Specify that data should be gzip-compressed in second bit. Value is two.
+   */
   public static final int GZIP = 2;
 
-  /** Specify that gzipped data should <em>not</em> be automatically gunzipped. */
+  /**
+   * Specify that gzipped data should <em>not</em> be automatically gunzipped.
+   */
   public static final int DONT_GUNZIP = 4;
 
   /** Do break lines when encoding. Value is 8. */
@@ -230,19 +235,19 @@ public final class Base64
 
   /**
    * Encode using Base64-like encoding that is URL- and Filename-safe as
-   * described in Section 4 of RFC3548: <a
-   * href="http://www.faqs.org/rfcs/rfc3548.html"
-   * >http://www.faqs.org/rfcs/rfc3548.html</a>. It is important to note that
-   * data encoded this way is <em>not</em> officially valid Base64, or at the
-   * very least should not be called Base64 without also specifying that is was
-   * encoded using the URL- and Filename-safe dialect.
+   * described in Section 4 of RFC3548:
+   * <a href="http://www.faqs.org/rfcs/rfc3548.html" >http://www.faqs.org/rfcs/
+   * rfc3548.html</a>. It is important to note that data encoded this way is
+   * <em>not</em> officially valid Base64, or at the very least should not be
+   * called Base64 without also specifying that is was encoded using the URL-
+   * and Filename-safe dialect.
    */
   public static final int URL_SAFE = 16;
 
   /**
-   * Encode using the special "ordered" dialect of Base64 described here: <a
-   * href ="http://www.faqs.org/qa/rfcc-1940.html">http://www.faqs.org/qa/rfcc-
-   * 1940. html</a>.
+   * Encode using the special "ordered" dialect of Base64 described here:
+   * <a href ="http://www.faqs.org/qa/rfcc-1940.html">http://www.faqs.org/qa/
+   * rfcc- 1940. html</a>.
    */
   public static final int ORDERED = 32;
 
@@ -273,347 +278,727 @@ public final class Base64
    * values.
    */
   private static final byte [] _STANDARD_ALPHABET = { (byte) 'A',
-                                                     (byte) 'B',
-                                                     (byte) 'C',
-                                                     (byte) 'D',
-                                                     (byte) 'E',
-                                                     (byte) 'F',
-                                                     (byte) 'G',
-                                                     (byte) 'H',
-                                                     (byte) 'I',
-                                                     (byte) 'J',
-                                                     (byte) 'K',
-                                                     (byte) 'L',
-                                                     (byte) 'M',
-                                                     (byte) 'N',
-                                                     (byte) 'O',
-                                                     (byte) 'P',
-                                                     (byte) 'Q',
-                                                     (byte) 'R',
-                                                     (byte) 'S',
-                                                     (byte) 'T',
-                                                     (byte) 'U',
-                                                     (byte) 'V',
-                                                     (byte) 'W',
-                                                     (byte) 'X',
-                                                     (byte) 'Y',
-                                                     (byte) 'Z',
-                                                     (byte) 'a',
-                                                     (byte) 'b',
-                                                     (byte) 'c',
-                                                     (byte) 'd',
-                                                     (byte) 'e',
-                                                     (byte) 'f',
-                                                     (byte) 'g',
-                                                     (byte) 'h',
-                                                     (byte) 'i',
-                                                     (byte) 'j',
-                                                     (byte) 'k',
-                                                     (byte) 'l',
-                                                     (byte) 'm',
-                                                     (byte) 'n',
-                                                     (byte) 'o',
-                                                     (byte) 'p',
-                                                     (byte) 'q',
-                                                     (byte) 'r',
-                                                     (byte) 's',
-                                                     (byte) 't',
-                                                     (byte) 'u',
-                                                     (byte) 'v',
-                                                     (byte) 'w',
-                                                     (byte) 'x',
-                                                     (byte) 'y',
-                                                     (byte) 'z',
-                                                     (byte) '0',
-                                                     (byte) '1',
-                                                     (byte) '2',
-                                                     (byte) '3',
-                                                     (byte) '4',
-                                                     (byte) '5',
-                                                     (byte) '6',
-                                                     (byte) '7',
-                                                     (byte) '8',
-                                                     (byte) '9',
-                                                     (byte) '+',
-                                                     (byte) '/' };
+                                                      (byte) 'B',
+                                                      (byte) 'C',
+                                                      (byte) 'D',
+                                                      (byte) 'E',
+                                                      (byte) 'F',
+                                                      (byte) 'G',
+                                                      (byte) 'H',
+                                                      (byte) 'I',
+                                                      (byte) 'J',
+                                                      (byte) 'K',
+                                                      (byte) 'L',
+                                                      (byte) 'M',
+                                                      (byte) 'N',
+                                                      (byte) 'O',
+                                                      (byte) 'P',
+                                                      (byte) 'Q',
+                                                      (byte) 'R',
+                                                      (byte) 'S',
+                                                      (byte) 'T',
+                                                      (byte) 'U',
+                                                      (byte) 'V',
+                                                      (byte) 'W',
+                                                      (byte) 'X',
+                                                      (byte) 'Y',
+                                                      (byte) 'Z',
+                                                      (byte) 'a',
+                                                      (byte) 'b',
+                                                      (byte) 'c',
+                                                      (byte) 'd',
+                                                      (byte) 'e',
+                                                      (byte) 'f',
+                                                      (byte) 'g',
+                                                      (byte) 'h',
+                                                      (byte) 'i',
+                                                      (byte) 'j',
+                                                      (byte) 'k',
+                                                      (byte) 'l',
+                                                      (byte) 'm',
+                                                      (byte) 'n',
+                                                      (byte) 'o',
+                                                      (byte) 'p',
+                                                      (byte) 'q',
+                                                      (byte) 'r',
+                                                      (byte) 's',
+                                                      (byte) 't',
+                                                      (byte) 'u',
+                                                      (byte) 'v',
+                                                      (byte) 'w',
+                                                      (byte) 'x',
+                                                      (byte) 'y',
+                                                      (byte) 'z',
+                                                      (byte) '0',
+                                                      (byte) '1',
+                                                      (byte) '2',
+                                                      (byte) '3',
+                                                      (byte) '4',
+                                                      (byte) '5',
+                                                      (byte) '6',
+                                                      (byte) '7',
+                                                      (byte) '8',
+                                                      (byte) '9',
+                                                      (byte) '+',
+                                                      (byte) '/' };
 
   /**
    * Translates a Base64 value to either its 6-bit reconstruction value or a
    * negative number indicating some other meaning.
    **/
-  private static final byte [] _STANDARD_DECODABET = { -9, -9, -9, -9, -9, -9, -9, -9, -9, // Decimal
-                                                                                           // 0
-                                                                                           // -
-                                                                                           // 8
-                                                      -5,
-                                                      -5, // Whitespace: Tab and
-                                                          // Linefeed
-                                                      -9,
-                                                      -9, // Decimal 11 - 12
-                                                      -5, // Whitespace:
-                                                          // Carriage Return
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 14 - 26
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 27 - 31
-                                                      -5, // Whitespace: Space
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 33 - 42
-                                                      62, // Plus sign at
-                                                          // decimal 43
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 44 - 46
-                                                      63, // Slash at decimal 47
-                                                      52,
-                                                      53,
-                                                      54,
-                                                      55,
-                                                      56,
-                                                      57,
-                                                      58,
-                                                      59,
-                                                      60,
-                                                      61, // Numbers zero
-                                                          // through nine
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 58 - 60
-                                                      -1, // Equals sign at
-                                                          // decimal 61
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 62 - 64
-                                                      0,
-                                                      1,
-                                                      2,
-                                                      3,
-                                                      4,
-                                                      5,
-                                                      6,
-                                                      7,
-                                                      8,
-                                                      9,
-                                                      10,
-                                                      11,
-                                                      12,
-                                                      13, // Letters 'A' through
-                                                          // 'N'
-                                                      14,
-                                                      15,
-                                                      16,
-                                                      17,
-                                                      18,
-                                                      19,
-                                                      20,
-                                                      21,
-                                                      22,
-                                                      23,
-                                                      24,
-                                                      25, // Letters 'O' through
-                                                          // 'Z'
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 91 - 96
-                                                      26,
-                                                      27,
-                                                      28,
-                                                      29,
-                                                      30,
-                                                      31,
-                                                      32,
-                                                      33,
-                                                      34,
-                                                      35,
-                                                      36,
-                                                      37,
-                                                      38, // Letters 'a' through
-                                                          // 'm'
-                                                      39,
-                                                      40,
-                                                      41,
-                                                      42,
-                                                      43,
-                                                      44,
-                                                      45,
-                                                      46,
-                                                      47,
-                                                      48,
-                                                      49,
-                                                      50,
-                                                      51, // Letters 'n' through
-                                                          // 'z'
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9 // Decimal 123 - 127
-                                                      ,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 128 - 139
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 140 - 152
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 153 - 165
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 166 - 178
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 179 - 191
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 192 - 204
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 205 - 217
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 218 - 230
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 231 - 243
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9 // Decimal 244 - 255
+  private static final byte [] _STANDARD_DECODABET = { -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal
+                                                           // 0
+                                                           // -
+                                                           // 8
+                                                       -5,
+                                                       -5, // Whitespace: Tab
+                                                           // and
+                                                           // Linefeed
+                                                       -9,
+                                                       -9, // Decimal 11 - 12
+                                                       -5, // Whitespace:
+                                                           // Carriage Return
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 14 - 26
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 27 - 31
+                                                       -5, // Whitespace: Space
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 33 - 42
+                                                       62, // Plus sign at
+                                                           // decimal 43
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 44 - 46
+                                                       63, // Slash at decimal
+                                                           // 47
+                                                       52,
+                                                       53,
+                                                       54,
+                                                       55,
+                                                       56,
+                                                       57,
+                                                       58,
+                                                       59,
+                                                       60,
+                                                       61, // Numbers zero
+                                                           // through nine
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 58 - 60
+                                                       -1, // Equals sign at
+                                                           // decimal 61
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 62 - 64
+                                                       0,
+                                                       1,
+                                                       2,
+                                                       3,
+                                                       4,
+                                                       5,
+                                                       6,
+                                                       7,
+                                                       8,
+                                                       9,
+                                                       10,
+                                                       11,
+                                                       12,
+                                                       13, // Letters 'A'
+                                                           // through
+                                                           // 'N'
+                                                       14,
+                                                       15,
+                                                       16,
+                                                       17,
+                                                       18,
+                                                       19,
+                                                       20,
+                                                       21,
+                                                       22,
+                                                       23,
+                                                       24,
+                                                       25, // Letters 'O'
+                                                           // through
+                                                           // 'Z'
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 91 - 96
+                                                       26,
+                                                       27,
+                                                       28,
+                                                       29,
+                                                       30,
+                                                       31,
+                                                       32,
+                                                       33,
+                                                       34,
+                                                       35,
+                                                       36,
+                                                       37,
+                                                       38, // Letters 'a'
+                                                           // through
+                                                           // 'm'
+                                                       39,
+                                                       40,
+                                                       41,
+                                                       42,
+                                                       43,
+                                                       44,
+                                                       45,
+                                                       46,
+                                                       47,
+                                                       48,
+                                                       49,
+                                                       50,
+                                                       51, // Letters 'n'
+                                                           // through
+                                                           // 'z'
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9 // Decimal 123 - 127
+                                                       ,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 128 - 139
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 140 - 152
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 153 - 165
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 166 - 178
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 179 - 191
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 192 - 204
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 205 - 217
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 218 - 230
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 231 - 243
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9 // Decimal 244 - 255
   };
 
   /* ******** U R L S A F E B A S E 6 4 A L P H A B E T ******** */
 
   /**
    * Used in the URL- and Filename-safe dialect described in Section 4 of
-   * RFC3548: <a
-   * href="http://www.faqs.org/rfcs/rfc3548.html">http://www.faqs.org
+   * RFC3548:
+   * <a href="http://www.faqs.org/rfcs/rfc3548.html">http://www.faqs.org
    * /rfcs/rfc3548.html</a>. Notice that the last two bytes become "hyphen" and
    * "underscore" instead of "plus" and "slash."
    */
   private static final byte [] _URL_SAFE_ALPHABET = { (byte) 'A',
+                                                      (byte) 'B',
+                                                      (byte) 'C',
+                                                      (byte) 'D',
+                                                      (byte) 'E',
+                                                      (byte) 'F',
+                                                      (byte) 'G',
+                                                      (byte) 'H',
+                                                      (byte) 'I',
+                                                      (byte) 'J',
+                                                      (byte) 'K',
+                                                      (byte) 'L',
+                                                      (byte) 'M',
+                                                      (byte) 'N',
+                                                      (byte) 'O',
+                                                      (byte) 'P',
+                                                      (byte) 'Q',
+                                                      (byte) 'R',
+                                                      (byte) 'S',
+                                                      (byte) 'T',
+                                                      (byte) 'U',
+                                                      (byte) 'V',
+                                                      (byte) 'W',
+                                                      (byte) 'X',
+                                                      (byte) 'Y',
+                                                      (byte) 'Z',
+                                                      (byte) 'a',
+                                                      (byte) 'b',
+                                                      (byte) 'c',
+                                                      (byte) 'd',
+                                                      (byte) 'e',
+                                                      (byte) 'f',
+                                                      (byte) 'g',
+                                                      (byte) 'h',
+                                                      (byte) 'i',
+                                                      (byte) 'j',
+                                                      (byte) 'k',
+                                                      (byte) 'l',
+                                                      (byte) 'm',
+                                                      (byte) 'n',
+                                                      (byte) 'o',
+                                                      (byte) 'p',
+                                                      (byte) 'q',
+                                                      (byte) 'r',
+                                                      (byte) 's',
+                                                      (byte) 't',
+                                                      (byte) 'u',
+                                                      (byte) 'v',
+                                                      (byte) 'w',
+                                                      (byte) 'x',
+                                                      (byte) 'y',
+                                                      (byte) 'z',
+                                                      (byte) '0',
+                                                      (byte) '1',
+                                                      (byte) '2',
+                                                      (byte) '3',
+                                                      (byte) '4',
+                                                      (byte) '5',
+                                                      (byte) '6',
+                                                      (byte) '7',
+                                                      (byte) '8',
+                                                      (byte) '9',
+                                                      (byte) '-',
+                                                      (byte) '_' };
+
+  /**
+   * Used in decoding URL- and Filename-safe dialects of Base64.
+   */
+  private static final byte [] _URL_SAFE_DECODABET = { -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal
+                                                           // 0
+                                                           // -
+                                                           // 8
+                                                       -5,
+                                                       -5, // Whitespace: Tab
+                                                           // and
+                                                           // Linefeed
+                                                       -9,
+                                                       -9, // Decimal 11 - 12
+                                                       -5, // Whitespace:
+                                                           // Carriage Return
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 14 - 26
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 27 - 31
+                                                       -5, // Whitespace: Space
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 33 - 42
+                                                       -9, // Plus sign at
+                                                           // decimal 43
+                                                       -9, // Decimal 44
+                                                       62, // Minus sign at
+                                                           // decimal 45
+                                                       -9, // Decimal 46
+                                                       -9, // Slash at decimal
+                                                           // 47
+                                                       52,
+                                                       53,
+                                                       54,
+                                                       55,
+                                                       56,
+                                                       57,
+                                                       58,
+                                                       59,
+                                                       60,
+                                                       61, // Numbers zero
+                                                           // through nine
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 58 - 60
+                                                       -1, // Equals sign at
+                                                           // decimal 61
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 62 - 64
+                                                       0,
+                                                       1,
+                                                       2,
+                                                       3,
+                                                       4,
+                                                       5,
+                                                       6,
+                                                       7,
+                                                       8,
+                                                       9,
+                                                       10,
+                                                       11,
+                                                       12,
+                                                       13, // Letters 'A'
+                                                           // through
+                                                           // 'N'
+                                                       14,
+                                                       15,
+                                                       16,
+                                                       17,
+                                                       18,
+                                                       19,
+                                                       20,
+                                                       21,
+                                                       22,
+                                                       23,
+                                                       24,
+                                                       25, // Letters 'O'
+                                                           // through
+                                                           // 'Z'
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 91 - 94
+                                                       63, // Underscore at
+                                                           // decimal 95
+                                                       -9, // Decimal 96
+                                                       26,
+                                                       27,
+                                                       28,
+                                                       29,
+                                                       30,
+                                                       31,
+                                                       32,
+                                                       33,
+                                                       34,
+                                                       35,
+                                                       36,
+                                                       37,
+                                                       38, // Letters 'a'
+                                                           // through
+                                                           // 'm'
+                                                       39,
+                                                       40,
+                                                       41,
+                                                       42,
+                                                       43,
+                                                       44,
+                                                       45,
+                                                       46,
+                                                       47,
+                                                       48,
+                                                       49,
+                                                       50,
+                                                       51, // Letters 'n'
+                                                           // through
+                                                           // 'z'
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9 // Decimal 123 - 127
+                                                       ,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 128 - 139
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 140 - 152
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 153 - 165
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 166 - 178
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 179 - 191
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 192 - 204
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 205 - 217
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 218 - 230
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9, // Decimal 231 - 243
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9,
+                                                       -9 // Decimal 244 - 255
+  };
+
+  /* ******** O R D E R E D B A S E 6 4 A L P H A B E T ******** */
+
+  /**
+   * I don't get the point of this technique, but someone requested it, and it
+   * is described here:
+   * <a href="http://www.faqs.org/qa/rfcc-1940.html">http://www
+   * .faqs.org/qa/rfcc-1940.html</a>.
+   */
+  private static final byte [] _ORDERED_ALPHABET = { (byte) '-',
+                                                     (byte) '0',
+                                                     (byte) '1',
+                                                     (byte) '2',
+                                                     (byte) '3',
+                                                     (byte) '4',
+                                                     (byte) '5',
+                                                     (byte) '6',
+                                                     (byte) '7',
+                                                     (byte) '8',
+                                                     (byte) '9',
+                                                     (byte) 'A',
                                                      (byte) 'B',
                                                      (byte) 'C',
                                                      (byte) 'D',
@@ -639,6 +1024,7 @@ public final class Base64
                                                      (byte) 'X',
                                                      (byte) 'Y',
                                                      (byte) 'Z',
+                                                     (byte) '_',
                                                      (byte) 'a',
                                                      (byte) 'b',
                                                      (byte) 'c',
@@ -664,34 +1050,31 @@ public final class Base64
                                                      (byte) 'w',
                                                      (byte) 'x',
                                                      (byte) 'y',
-                                                     (byte) 'z',
-                                                     (byte) '0',
-                                                     (byte) '1',
-                                                     (byte) '2',
-                                                     (byte) '3',
-                                                     (byte) '4',
-                                                     (byte) '5',
-                                                     (byte) '6',
-                                                     (byte) '7',
-                                                     (byte) '8',
-                                                     (byte) '9',
-                                                     (byte) '-',
-                                                     (byte) '_' };
+                                                     (byte) 'z' };
 
   /**
-   * Used in decoding URL- and Filename-safe dialects of Base64.
+   * Used in decoding the "ordered" dialect of Base64.
    */
-  private static final byte [] _URL_SAFE_DECODABET = { -9, -9, -9, -9, -9, -9, -9, -9, -9, // Decimal
-                                                                                           // 0
-                                                                                           // -
-                                                                                           // 8
+  private static final byte [] _ORDERED_DECODABET = { -9,
+                                                      -9,
+                                                      -9,
+                                                      -9,
+                                                      -9,
+                                                      -9,
+                                                      -9,
+                                                      -9,
+                                                      -9, // Decimal
+                                                          // 0
+                                                          // -
+                                                          // 8
                                                       -5,
                                                       -5, // Whitespace: Tab and
                                                           // Linefeed
                                                       -9,
                                                       -9, // Decimal 11 - 12
                                                       -5, // Whitespace:
-                                                          // Carriage Return
+                                                          // Carriage
+                                                          // Return
                                                       -9,
                                                       -9,
                                                       -9,
@@ -722,32 +1105,14 @@ public final class Base64
                                                       -9,
                                                       -9, // Decimal 33 - 42
                                                       -9, // Plus sign at
-                                                          // decimal 43
+                                                          // decimal
+                                                          // 43
                                                       -9, // Decimal 44
-                                                      62, // Minus sign at
-                                                          // decimal 45
+                                                      0, // Minus sign at
+                                                         // decimal
+                                                         // 45
                                                       -9, // Decimal 46
                                                       -9, // Slash at decimal 47
-                                                      52,
-                                                      53,
-                                                      54,
-                                                      55,
-                                                      56,
-                                                      57,
-                                                      58,
-                                                      59,
-                                                      60,
-                                                      61, // Numbers zero
-                                                          // through nine
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 58 - 60
-                                                      -1, // Equals sign at
-                                                          // decimal 61
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 62 - 64
-                                                      0,
                                                       1,
                                                       2,
                                                       3,
@@ -757,11 +1122,20 @@ public final class Base64
                                                       7,
                                                       8,
                                                       9,
-                                                      10,
+                                                      10, // Numbers zero
+                                                          // through
+                                                          // nine
+                                                      -9,
+                                                      -9,
+                                                      -9, // Decimal 58 - 60
+                                                      -1, // Equals sign at
+                                                          // decimal 61
+                                                      -9,
+                                                      -9,
+                                                      -9, // Decimal 62 - 64
                                                       11,
                                                       12,
-                                                      13, // Letters 'A' through
-                                                          // 'N'
+                                                      13,
                                                       14,
                                                       15,
                                                       16,
@@ -771,17 +1145,10 @@ public final class Base64
                                                       20,
                                                       21,
                                                       22,
-                                                      23,
+                                                      23, // Letters 'A' through
+                                                          // 'M'
                                                       24,
-                                                      25, // Letters 'O' through
-                                                          // 'Z'
-                                                      -9,
-                                                      -9,
-                                                      -9,
-                                                      -9, // Decimal 91 - 94
-                                                      63, // Underscore at
-                                                          // decimal 95
-                                                      -9, // Decimal 96
+                                                      25,
                                                       26,
                                                       27,
                                                       28,
@@ -792,10 +1159,16 @@ public final class Base64
                                                       33,
                                                       34,
                                                       35,
-                                                      36,
-                                                      37,
-                                                      38, // Letters 'a' through
-                                                          // 'm'
+                                                      36, // Letters 'N' through
+                                                          // 'Z'
+                                                      -9,
+                                                      -9,
+                                                      -9,
+                                                      -9, // Decimal 91 - 94
+                                                      37, // Underscore at
+                                                          // decimal 95
+                                                      -9, // Decimal 96
+                                                      38,
                                                       39,
                                                       40,
                                                       41,
@@ -807,8 +1180,21 @@ public final class Base64
                                                       47,
                                                       48,
                                                       49,
-                                                      50,
-                                                      51, // Letters 'n' through
+                                                      50, // Letters 'a' through
+                                                          // 'm'
+                                                      51,
+                                                      52,
+                                                      53,
+                                                      54,
+                                                      55,
+                                                      56,
+                                                      57,
+                                                      58,
+                                                      59,
+                                                      60,
+                                                      61,
+                                                      62,
+                                                      63, // Letters 'n' through
                                                           // 'z'
                                                       -9,
                                                       -9,
@@ -816,6 +1202,7 @@ public final class Base64
                                                       -9,
                                                       -9 // Decimal 123 - 127
                                                       ,
+                                                      -9,
                                                       -9,
                                                       -9,
                                                       -9,
@@ -944,348 +1331,6 @@ public final class Base64
                                                       -9,
                                                       -9,
                                                       -9 // Decimal 244 - 255
-  };
-
-  /* ******** O R D E R E D B A S E 6 4 A L P H A B E T ******** */
-
-  /**
-   * I don't get the point of this technique, but someone requested it, and it
-   * is described here: <a
-   * href="http://www.faqs.org/qa/rfcc-1940.html">http://www
-   * .faqs.org/qa/rfcc-1940.html</a>.
-   */
-  private static final byte [] _ORDERED_ALPHABET = { (byte) '-',
-                                                    (byte) '0',
-                                                    (byte) '1',
-                                                    (byte) '2',
-                                                    (byte) '3',
-                                                    (byte) '4',
-                                                    (byte) '5',
-                                                    (byte) '6',
-                                                    (byte) '7',
-                                                    (byte) '8',
-                                                    (byte) '9',
-                                                    (byte) 'A',
-                                                    (byte) 'B',
-                                                    (byte) 'C',
-                                                    (byte) 'D',
-                                                    (byte) 'E',
-                                                    (byte) 'F',
-                                                    (byte) 'G',
-                                                    (byte) 'H',
-                                                    (byte) 'I',
-                                                    (byte) 'J',
-                                                    (byte) 'K',
-                                                    (byte) 'L',
-                                                    (byte) 'M',
-                                                    (byte) 'N',
-                                                    (byte) 'O',
-                                                    (byte) 'P',
-                                                    (byte) 'Q',
-                                                    (byte) 'R',
-                                                    (byte) 'S',
-                                                    (byte) 'T',
-                                                    (byte) 'U',
-                                                    (byte) 'V',
-                                                    (byte) 'W',
-                                                    (byte) 'X',
-                                                    (byte) 'Y',
-                                                    (byte) 'Z',
-                                                    (byte) '_',
-                                                    (byte) 'a',
-                                                    (byte) 'b',
-                                                    (byte) 'c',
-                                                    (byte) 'd',
-                                                    (byte) 'e',
-                                                    (byte) 'f',
-                                                    (byte) 'g',
-                                                    (byte) 'h',
-                                                    (byte) 'i',
-                                                    (byte) 'j',
-                                                    (byte) 'k',
-                                                    (byte) 'l',
-                                                    (byte) 'm',
-                                                    (byte) 'n',
-                                                    (byte) 'o',
-                                                    (byte) 'p',
-                                                    (byte) 'q',
-                                                    (byte) 'r',
-                                                    (byte) 's',
-                                                    (byte) 't',
-                                                    (byte) 'u',
-                                                    (byte) 'v',
-                                                    (byte) 'w',
-                                                    (byte) 'x',
-                                                    (byte) 'y',
-                                                    (byte) 'z' };
-
-  /**
-   * Used in decoding the "ordered" dialect of Base64.
-   */
-  private static final byte [] _ORDERED_DECODABET = { -9, -9, -9, -9, -9, -9, -9, -9, -9, // Decimal
-                                                                                          // 0
-                                                                                          // -
-                                                                                          // 8
-                                                     -5,
-                                                     -5, // Whitespace: Tab and
-                                                         // Linefeed
-                                                     -9,
-                                                     -9, // Decimal 11 - 12
-                                                     -5, // Whitespace: Carriage
-                                                         // Return
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9, // Decimal 14 - 26
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9, // Decimal 27 - 31
-                                                     -5, // Whitespace: Space
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9, // Decimal 33 - 42
-                                                     -9, // Plus sign at decimal
-                                                         // 43
-                                                     -9, // Decimal 44
-                                                     0, // Minus sign at decimal
-                                                        // 45
-                                                     -9, // Decimal 46
-                                                     -9, // Slash at decimal 47
-                                                     1,
-                                                     2,
-                                                     3,
-                                                     4,
-                                                     5,
-                                                     6,
-                                                     7,
-                                                     8,
-                                                     9,
-                                                     10, // Numbers zero through
-                                                         // nine
-                                                     -9,
-                                                     -9,
-                                                     -9, // Decimal 58 - 60
-                                                     -1, // Equals sign at
-                                                         // decimal 61
-                                                     -9,
-                                                     -9,
-                                                     -9, // Decimal 62 - 64
-                                                     11,
-                                                     12,
-                                                     13,
-                                                     14,
-                                                     15,
-                                                     16,
-                                                     17,
-                                                     18,
-                                                     19,
-                                                     20,
-                                                     21,
-                                                     22,
-                                                     23, // Letters 'A' through
-                                                         // 'M'
-                                                     24,
-                                                     25,
-                                                     26,
-                                                     27,
-                                                     28,
-                                                     29,
-                                                     30,
-                                                     31,
-                                                     32,
-                                                     33,
-                                                     34,
-                                                     35,
-                                                     36, // Letters 'N' through
-                                                         // 'Z'
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9, // Decimal 91 - 94
-                                                     37, // Underscore at
-                                                         // decimal 95
-                                                     -9, // Decimal 96
-                                                     38,
-                                                     39,
-                                                     40,
-                                                     41,
-                                                     42,
-                                                     43,
-                                                     44,
-                                                     45,
-                                                     46,
-                                                     47,
-                                                     48,
-                                                     49,
-                                                     50, // Letters 'a' through
-                                                         // 'm'
-                                                     51,
-                                                     52,
-                                                     53,
-                                                     54,
-                                                     55,
-                                                     56,
-                                                     57,
-                                                     58,
-                                                     59,
-                                                     60,
-                                                     61,
-                                                     62,
-                                                     63, // Letters 'n' through
-                                                         // 'z'
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9 // Decimal 123 - 127
-                                                     ,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9, // Decimal 128 - 139
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9, // Decimal 140 - 152
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9, // Decimal 153 - 165
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9, // Decimal 166 - 178
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9, // Decimal 179 - 191
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9, // Decimal 192 - 204
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9, // Decimal 205 - 217
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9, // Decimal 218 - 230
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9, // Decimal 231 - 243
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9,
-                                                     -9 // Decimal 244 - 255
   };
 
   /* ******** D E T E R M I N E W H I C H A L H A B E T ******** */
@@ -1559,41 +1604,32 @@ public final class Base64
    * @since 2.0
    */
   @Nonnull
-  public static String encodeObject (@Nonnull final Serializable serializableObject, final int options) throws IOException
+  public static String encodeObject (@Nonnull final Serializable serializableObject,
+                                     final int options) throws IOException
   {
-    if (serializableObject == null)
-      throw new NullPointerException ("Cannot serialize a null object.");
+    ValueEnforcer.notNull (serializableObject, "Object");
 
-    // Streams
-    NonBlockingByteArrayOutputStream baos = null;
-    java.io.OutputStream b64os = null;
-    GZIPOutputStream gzos = null;
-    ObjectOutputStream oos = null;
-
-    try
+    // ObjectOutputStream -> (GZIP) -> Base64 -> ByteArrayOutputStream
+    final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
+    try (final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | options))
     {
-      // ObjectOutputStream -> (GZIP) -> Base64 -> ByteArrayOutputStream
-      baos = new NonBlockingByteArrayOutputStream ();
-      b64os = new Base64OutputStream (baos, ENCODE | options);
       if ((options & GZIP) != 0)
       {
         // Gzip
-        gzos = new GZIPOutputStream (b64os);
-        oos = new ObjectOutputStream (gzos);
+        try (GZIPOutputStream gzos = new GZIPOutputStream (b64os);
+            ObjectOutputStream oos = new ObjectOutputStream (gzos))
+        {
+          oos.writeObject (serializableObject);
+        }
       }
       else
       {
         // Not gzipped
-        oos = new ObjectOutputStream (b64os);
+        try (ObjectOutputStream oos = new ObjectOutputStream (b64os))
+        {
+          oos.writeObject (serializableObject);
+        }
       }
-      oos.writeObject (serializableObject);
-    }
-    finally
-    {
-      StreamHelper.close (oos);
-      StreamHelper.close (gzos);
-      StreamHelper.close (b64os);
-      StreamHelper.close (baos);
     }
 
     // Return value according to relevant encoding.
@@ -1752,7 +1788,10 @@ public final class Base64
    * @since 2.0
    */
   @Nonnull
-  public static String encodeBytes (@Nonnull final byte [] source, final int off, final int len, final int options) throws IOException
+  public static String encodeBytes (@Nonnull final byte [] source,
+                                    final int off,
+                                    final int len,
+                                    final int options) throws IOException
   {
     final byte [] encoded = encodeBytesToBytes (source, off, len, options);
 
@@ -1825,27 +1864,13 @@ public final class Base64
     // Compress?
     if ((options & GZIP) != 0)
     {
-      NonBlockingByteArrayOutputStream baos = null;
-      GZIPOutputStream gzos = null;
-      Base64OutputStream b64os = null;
-
-      try
+      // GZip -> Base64 -> ByteArray
+      final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
+      try (final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | options);
+          final GZIPOutputStream gzos = new GZIPOutputStream (b64os))
       {
-        // GZip -> Base64 -> ByteArray
-        baos = new NonBlockingByteArrayOutputStream ();
-        b64os = new Base64OutputStream (baos, ENCODE | options);
-        gzos = new GZIPOutputStream (b64os);
-
         gzos.write (source, off, len);
-        gzos.close ();
       }
-      finally
-      {
-        StreamHelper.close (gzos);
-        StreamHelper.close (b64os);
-        StreamHelper.close (baos);
-      }
-
       return baos.toByteArray ();
     }
 
@@ -2093,7 +2118,10 @@ public final class Base64
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static byte [] decode (@Nonnull final byte [] source, final int off, final int len, final int options) throws IOException
+  public static byte [] decode (@Nonnull final byte [] source,
+                                final int off,
+                                final int len,
+                                final int options) throws IOException
   {
     // Lots of error checking and exception throwing
     ValueEnforcer.isArrayOfsLen (source, off, len);
@@ -2210,18 +2238,12 @@ public final class Base64
       final int head = (bytes[0] & 0xff) | ((bytes[1] << 8) & 0xff00);
       if (GZIPInputStream.GZIP_MAGIC == head)
       {
-        NonBlockingByteArrayInputStream bais = null;
-        GZIPInputStream gzis = null;
-        NonBlockingByteArrayOutputStream baos = null;
-        final byte [] buffer = new byte [2048];
-        int length;
-
-        try
+        try (final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
+            final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (bytes);
+            final GZIPInputStream gzis = new GZIPInputStream (bais))
         {
-          baos = new NonBlockingByteArrayOutputStream ();
-          bais = new NonBlockingByteArrayInputStream (bytes);
-          gzis = new GZIPInputStream (bais);
-
+          final byte [] buffer = new byte [2048];
+          int length;
           while ((length = gzis.read (buffer)) >= 0)
           {
             baos.write (buffer, 0, length);
@@ -2233,12 +2255,6 @@ public final class Base64
         catch (final IOException e)
         {
           // Just return originally-decoded bytes
-        }
-        finally
-        {
-          StreamHelper.close (baos);
-          StreamHelper.close (gzis);
-          StreamHelper.close (bais);
         }
       }
     }
@@ -2293,14 +2309,11 @@ public final class Base64
     // Decode and gunzip if necessary
     final byte [] objBytes = decode (encodedObject, options);
 
-    NonBlockingByteArrayInputStream bais = null;
     ObjectInputStream ois = null;
     Object obj = null;
 
-    try
+    try (final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (objBytes))
     {
-      bais = new NonBlockingByteArrayInputStream (objBytes);
-
       // If no custom class loader is provided, use Java's builtin OIS.
       if (loader == null)
       {
@@ -2313,8 +2326,7 @@ public final class Base64
         ois = new ObjectInputStream (bais)
         {
           @Override
-          public Class <?> resolveClass (final ObjectStreamClass streamClass) throws IOException,
-                                                                             ClassNotFoundException
+          public Class <?> resolveClass (final ObjectStreamClass streamClass) throws IOException, ClassNotFoundException
           {
             final Class <?> c = Class.forName (streamClass.getName (), false, loader);
             if (c != null)
@@ -2328,7 +2340,6 @@ public final class Base64
     }
     finally
     {
-      StreamHelper.close (bais);
       StreamHelper.close (ois);
     }
 
@@ -2357,15 +2368,9 @@ public final class Base64
   {
     ValueEnforcer.notNull (aDataToEncode, "DataToEncode");
 
-    Base64OutputStream bos = null;
-    try
+    try (final Base64OutputStream bos = new Base64OutputStream (FileHelper.getOutputStream (sFilename), ENCODE))
     {
-      bos = new Base64OutputStream (FileHelper.getOutputStream (sFilename), ENCODE);
       bos.write (aDataToEncode);
-    }
-    finally
-    {
-      StreamHelper.close (bos);
     }
   }
 
@@ -2385,17 +2390,12 @@ public final class Base64
    *         if there is an error
    * @since 2.1
    */
-  public static void decodeToFile (@Nonnull final String dataToDecode, @Nonnull final String filename) throws IOException
+  public static void decodeToFile (@Nonnull final String dataToDecode,
+                                   @Nonnull final String filename) throws IOException
   {
-    Base64OutputStream bos = null;
-    try
+    try (final Base64OutputStream bos = new Base64OutputStream (FileHelper.getOutputStream (filename), DECODE))
     {
-      bos = new Base64OutputStream (FileHelper.getOutputStream (filename), DECODE);
       bos.write (CharsetManager.getAsBytes (dataToDecode, PREFERRED_ENCODING));
-    }
-    finally
-    {
-      StreamHelper.close (bos);
     }
   }
 
@@ -2418,41 +2418,34 @@ public final class Base64
   @ReturnsMutableCopy
   public static byte [] decodeFromFile (@Nonnull final String filename) throws IOException
   {
-    byte [] decodedData;
-    Base64InputStream bis = null;
-    try
+    // Set up some useful variables
+    final File file = new File (filename);
+
+    // Check for size of file
+    if (file.length () > Integer.MAX_VALUE)
+      throw new IOException ("File is too big for this convenience method (" + file.length () + " bytes).");
+
+    final byte [] buffer = new byte [(int) file.length ()];
+
+    // Open a stream
+    try (
+        final Base64InputStream bis = new Base64InputStream (StreamHelper.getBuffered (FileHelper.getInputStream (file)),
+                                                             DECODE))
     {
-      // Set up some useful variables
-      final File file = new File (filename);
-      byte [] buffer;
-      int length = 0;
+      int nOfs = 0;
       int numBytes;
 
-      // Check for size of file
-      if (file.length () > Integer.MAX_VALUE)
-        throw new IOException ("File is too big for this convenience method (" + file.length () + " bytes).");
-
-      buffer = new byte [(int) file.length ()];
-
-      // Open a stream
-      bis = new Base64InputStream (StreamHelper.getBuffered (FileHelper.getInputStream (file)), DECODE);
-
       // Read until done
-      while ((numBytes = bis.read (buffer, length, 4096)) >= 0)
+      while ((numBytes = bis.read (buffer, nOfs, 4096)) >= 0)
       {
-        length += numBytes;
+        nOfs += numBytes;
       }
 
       // Save in a variable to return
-      decodedData = new byte [length];
-      System.arraycopy (buffer, 0, decodedData, 0, length);
+      final byte [] decodedData = new byte [nOfs];
+      System.arraycopy (buffer, 0, decodedData, 0, nOfs);
+      return decodedData;
     }
-    finally
-    {
-      StreamHelper.close (bis);
-    }
-
-    return decodedData;
   }
 
   /**
@@ -2473,20 +2466,20 @@ public final class Base64
   @Nonnull
   public static String encodeFromFile (@Nonnull final String filename) throws IOException
   {
-    String encodedData = null;
-    Base64InputStream bis = null;
-    try
+    // Set up some useful variables
+    final File file = new File (filename);
+
+    // Open a stream
+    try (
+        final Base64InputStream bis = new Base64InputStream (StreamHelper.getBuffered (FileHelper.getInputStream (file)),
+                                                             ENCODE))
     {
-      // Set up some useful variables
-      final File file = new File (filename);
       // Need max() for math on small files (v2.2.1);
       // Need +1 for a few corner cases (v2.3.5)
       final byte [] buffer = new byte [Math.max ((int) (file.length () * 1.4 + 1), 40)];
+
       int length = 0;
       int numBytes;
-
-      // Open a stream
-      bis = new Base64InputStream (StreamHelper.getBuffered (FileHelper.getInputStream (file)), ENCODE);
 
       // Read until done
       while ((numBytes = bis.read (buffer, length, 4096)) >= 0)
@@ -2495,14 +2488,9 @@ public final class Base64
       }
 
       // Save in a variable to return
-      encodedData = CharsetManager.getAsString (buffer, 0, length, PREFERRED_ENCODING);
+      final String encodedData = CharsetManager.getAsString (buffer, 0, length, PREFERRED_ENCODING);
+      return encodedData;
     }
-    finally
-    {
-      StreamHelper.close (bis);
-    }
-
-    return encodedData;
   }
 
   /**
@@ -2519,16 +2507,10 @@ public final class Base64
   public static void encodeFileToFile (@Nonnull final String infile, @Nonnull final String outfile) throws IOException
   {
     final String encoded = encodeFromFile (infile);
-    OutputStream out = null;
-    try
+    try (final OutputStream out = StreamHelper.getBuffered (FileHelper.getOutputStream (outfile)))
     {
-      out = StreamHelper.getBuffered (FileHelper.getOutputStream (outfile));
       // Strict, 7-bit output.
       out.write (CharsetManager.getAsBytes (encoded, PREFERRED_ENCODING));
-    }
-    finally
-    {
-      StreamHelper.close (out);
     }
   }
 
@@ -2546,15 +2528,9 @@ public final class Base64
   public static void decodeFileToFile (@Nonnull final String infile, @Nonnull final String outfile) throws IOException
   {
     final byte [] decoded = decodeFromFile (infile);
-    OutputStream out = null;
-    try
+    try (final OutputStream out = StreamHelper.getBuffered (FileHelper.getOutputStream (outfile)))
     {
-      out = StreamHelper.getBuffered (FileHelper.getOutputStream (outfile));
       out.write (decoded);
-    }
-    finally
-    {
-      StreamHelper.close (out);
     }
   }
 

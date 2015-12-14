@@ -23,7 +23,7 @@ import com.helger.commons.factory.IHierarchicalRootFactory;
 
 /**
  * Interface for a simple tree item factory
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        item value type

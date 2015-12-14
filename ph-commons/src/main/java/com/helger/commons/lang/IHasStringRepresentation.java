@@ -21,9 +21,10 @@ import javax.annotation.Nonnull;
 /**
  * Base interface for all objects having an explicit string representation (e.g.
  * version numbers)
- * 
+ *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasStringRepresentation
 {
   /**

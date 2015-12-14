@@ -28,7 +28,7 @@ import com.helger.commons.text.AbstractHasTextWithArgs;
 
 /**
  * This class encapsulates the resource bundle handling.
- * 
+ *
  * @author Philip Helger
  */
 public class ResourceBundleTextProvider extends AbstractHasTextWithArgs

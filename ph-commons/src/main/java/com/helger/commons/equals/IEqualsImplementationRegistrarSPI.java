@@ -22,7 +22,7 @@ import com.helger.commons.annotation.IsSPIInterface;
 
 /**
  * SPI registry interface to implement your custom equals implementations.
- * 
+ *
  * @author Philip Helger
  */
 @IsSPIInterface
@@ -30,7 +30,7 @@ public interface IEqualsImplementationRegistrarSPI
 {
   /**
    * Register a bunch of custom equals implementations
-   * 
+   *
    * @param aRegistry
    *        The registry to register at.
    */

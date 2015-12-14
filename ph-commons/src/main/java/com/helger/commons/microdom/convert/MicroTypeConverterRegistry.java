@@ -19,8 +19,6 @@ package com.helger.commons.microdom.convert;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 import java.util.WeakHashMap;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -33,6 +31,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.ServiceLoaderHelper;
 
@@ -58,7 +57,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
 
   private static boolean s_bDefaultInstantiated = false;
 
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   // WeakHashMap because key is a class
   private final Map <Class <?>, IMicroTypeConverter> m_aMap = new WeakHashMap <Class <?>, IMicroTypeConverter> ();
@@ -106,9 +105,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aConverter, "Converter");
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       // The main class should not already be registered
       if (m_aMap.containsKey (aClass))
         throw new IllegalArgumentException ("A micro type converter for class " + aClass + " is already registered!");
@@ -125,25 +122,13 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
               s_aLogger.debug ("Registered micro type converter for '" + aCurSrcClass.toString () + "'");
           }
       }
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   @Nullable
   public IMicroTypeConverter getConverterToMicroElement (@Nullable final Class <?> aSrcClass)
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMap.get (aSrcClass);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aMap.get (aSrcClass));
   }
 
   @Nullable
@@ -151,9 +136,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   {
     ValueEnforcer.notNull (aDstClass, "DestClass");
 
-    m_aRWLock.readLock ().lock ();
-    try
-    {
+    return m_aRWLock.readLocked ( () -> {
       // Check for an exact match first
       IMicroTypeConverter ret = m_aMap.get (aDstClass);
       if (ret == null)
@@ -180,11 +163,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
         }
       }
       return ret;
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    });
   }
 
   /**
@@ -197,16 +176,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   public void iterateAllRegisteredMicroTypeConverters (@Nonnull final IMicroTypeConverterCallback aCallback)
   {
     // Create a copy of the map
-    Map <Class <?>, IMicroTypeConverter> aCopy;
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      aCopy = CollectionHelper.newMap (m_aMap);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    final Map <Class <?>, IMicroTypeConverter> aCopy = m_aRWLock.readLocked ( () -> CollectionHelper.newMap (m_aMap));
 
     // And iterate the copy
     for (final Map.Entry <Class <?>, IMicroTypeConverter> aEntry : aCopy.entrySet ())
@@ -217,22 +187,12 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   @Nonnegative
   public int getRegisteredMicroTypeConverterCount ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMap.size ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aMap.size ());
   }
 
   public void reinitialize ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       m_aMap.clear ();
 
       // Register all custom micro type converter
@@ -243,11 +203,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
           s_aLogger.debug ("Calling registerMicroTypeConverter on " + aSPI.getClass ().getName ());
         aSPI.registerMicroTypeConverter (this);
       }
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
 
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug (getRegisteredMicroTypeConverterCount () + " micro type converters registered");

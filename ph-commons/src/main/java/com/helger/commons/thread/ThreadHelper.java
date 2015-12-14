@@ -29,7 +29,7 @@ import com.helger.commons.state.ESuccess;
 
 /**
  * Some thread utility methods.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -40,7 +40,7 @@ public final class ThreadHelper
 
   /**
    * Sleep the current thread for a certain amount of time
-   * 
+   *
    * @param nMinutes
    *        The minutes to sleep. Must be &ge; 0.
    * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted,
@@ -55,7 +55,7 @@ public final class ThreadHelper
 
   /**
    * Sleep the current thread for a certain amount of time
-   * 
+   *
    * @param nSeconds
    *        The seconds to sleep. Must be &ge; 0.
    * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted,
@@ -70,7 +70,7 @@ public final class ThreadHelper
 
   /**
    * Sleep the current thread for a certain amount of time
-   * 
+   *
    * @param aTimeValue
    *        The time value to use. May not be <code>null</code>.
    * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted,
@@ -85,7 +85,7 @@ public final class ThreadHelper
 
   /**
    * Sleep the current thread for a certain amount of time
-   * 
+   *
    * @param nDuration
    *        The duration to sleep. Must be &ge; 0.
    * @param aTimeUnit
@@ -104,7 +104,7 @@ public final class ThreadHelper
 
   /**
    * Sleep the current thread for a certain amount of time
-   * 
+   *
    * @param nMilliseconds
    *        The milliseconds to sleep. Must be &ge; 0.
    * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted,

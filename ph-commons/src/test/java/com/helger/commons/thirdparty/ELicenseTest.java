@@ -23,7 +23,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link ELicense}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ELicenseTest

@@ -39,7 +39,7 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IResourceBase;
 import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.typeconvert.rule.AbstractTypeConverterRuleAssignableSourceFixedDestination;
+import com.helger.commons.typeconvert.rule.TypeConverterRuleAssignableSourceFixedDestination;
 import com.helger.commons.url.URLHelper;
 
 /**
@@ -54,242 +54,113 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
   public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
   {
     // File
-    aRegistry.registerTypeConverter (File.class, String.class, new ITypeConverter ()
-    {
-      public String convert (@Nonnull final Object aSource)
+    aRegistry.registerTypeConverter (File.class, String.class, aSource -> ((File) aSource).getAbsolutePath ());
+    aRegistry.registerTypeConverter (File.class, URI.class, aSource -> ((File) aSource).toURI ());
+    aRegistry.registerTypeConverter (File.class, URL.class, aSource -> URLHelper.getAsURL (((File) aSource).toURI ()));
+    aRegistry.registerTypeConverter (URI.class, File.class, aSource -> new File ((URI) aSource));
+    aRegistry.registerTypeConverter (URI.class, URL.class, aSource -> URLHelper.getAsURL ((URI) aSource));
+    aRegistry.registerTypeConverter (URL.class, String.class, aSource -> ((URL) aSource).toExternalForm ());
+    aRegistry.registerTypeConverter (URL.class, File.class, aSource -> {
+      final URL aURL = (URL) aSource;
+      try
       {
-        return ((File) aSource).getAbsolutePath ();
+        return new File (aURL.toURI ().getSchemeSpecificPart ());
+      }
+      catch (final URISyntaxException ex)
+      {
+        // Fallback for URLs that are not valid URIs
+        return new File (aURL.getPath ());
       }
     });
-    aRegistry.registerTypeConverter (File.class, URI.class, new ITypeConverter ()
-    {
-      public URI convert (@Nonnull final Object aSource)
-      {
-        return ((File) aSource).toURI ();
-      }
-    });
-    aRegistry.registerTypeConverter (File.class, URL.class, new ITypeConverter ()
-    {
-      public URL convert (@Nonnull final Object aSource)
-      {
-        return URLHelper.getAsURL (((File) aSource).toURI ());
-      }
-    });
-    aRegistry.registerTypeConverter (URI.class, File.class, new ITypeConverter ()
-    {
-      public File convert (@Nonnull final Object aSource)
-      {
-        return new File ((URI) aSource);
-      }
-    });
-    aRegistry.registerTypeConverter (URI.class, URL.class, new ITypeConverter ()
-    {
-      public URL convert (@Nonnull final Object aSource)
-      {
-        return URLHelper.getAsURL ((URI) aSource);
-      }
-    });
-    aRegistry.registerTypeConverter (URL.class, String.class, new ITypeConverter ()
-    {
-      public String convert (@Nonnull final Object aSource)
-      {
-        return ((URL) aSource).toExternalForm ();
-      }
-    });
-    aRegistry.registerTypeConverter (URL.class, File.class, new ITypeConverter ()
-    {
-      public File convert (@Nonnull final Object aSource)
-      {
-        final URL aURL = (URL) aSource;
-        try
-        {
-          return new File (aURL.toURI ().getSchemeSpecificPart ());
-        }
-        catch (final URISyntaxException ex)
-        {
-          // Fallback for URLs that are not valid URIs
-          return new File (aURL.getPath ());
-        }
-      }
-    });
-    aRegistry.registerTypeConverter (URL.class, URI.class, new ITypeConverter ()
-    {
-      public URI convert (@Nonnull final Object aSource)
-      {
-        return URLHelper.getAsURI ((URL) aSource);
-      }
-    });
-    aRegistry.registerTypeConverter (String.class, File.class, new ITypeConverter ()
-    {
-      public File convert (@Nonnull final Object aSource)
-      {
-        return new File ((String) aSource);
-      }
-    });
-    aRegistry.registerTypeConverter (String.class, URI.class, new ITypeConverter ()
-    {
-      public URI convert (@Nonnull final Object aSource)
-      {
-        return URLHelper.getAsURI ((String) aSource);
-      }
-    });
-    aRegistry.registerTypeConverter (String.class, URL.class, new ITypeConverter ()
-    {
-      public URL convert (@Nonnull final Object aSource)
-      {
-        return URLHelper.getAsURL ((String) aSource);
-      }
-    });
+    aRegistry.registerTypeConverter (URL.class, URI.class, aSource -> URLHelper.getAsURI ((URL) aSource));
+    aRegistry.registerTypeConverter (String.class, File.class, aSource -> new File ((String) aSource));
+    aRegistry.registerTypeConverter (String.class, URI.class, aSource -> URLHelper.getAsURI ((String) aSource));
+    aRegistry.registerTypeConverter (String.class, URL.class, aSource -> URLHelper.getAsURL ((String) aSource));
 
     // IResourceBase to string
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class,
-                                                                                                        String.class)
-    {
-      public String convert (@Nonnull final Object aSource)
-      {
-        return ((IResourceBase) aSource).getPath ();
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class,
+                                                                                                String.class,
+                                                                                                aSource -> ((IResourceBase) aSource).getPath ()));
 
     // IReadableResource to URL
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class,
-                                                                                                        URL.class)
-    {
-      public URL convert (@Nonnull final Object aSource)
-      {
-        return ((IResourceBase) aSource).getAsURL ();
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class,
+                                                                                                URL.class,
+                                                                                                aSource -> ((IResourceBase) aSource).getAsURL ()));
 
     // IResourceBase to File
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class,
-                                                                                                        File.class)
-    {
-      public File convert (@Nonnull final Object aSource)
-      {
-        return ((IResourceBase) aSource).getAsFile ();
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class,
+                                                                                                File.class,
+                                                                                                aSource -> ((IResourceBase) aSource).getAsFile ()));
 
     // IInputStreamProvider to InputStream
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IHasInputStream.class,
-                                                                                                        InputStream.class)
-    {
-      public InputStream convert (@Nonnull final Object aSource)
-      {
-        return ((IHasInputStream) aSource).getInputStream ();
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (IHasInputStream.class,
+                                                                                                InputStream.class,
+                                                                                                aSource -> ((IHasInputStream) aSource).getInputStream ()));
 
     // IOutputStreamProvider to OutputStream
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IHasOutputStream.class,
-                                                                                                        OutputStream.class)
-    {
-      public OutputStream convert (@Nonnull final Object aSource)
-      {
-        return ((IHasOutputStream) aSource).getOutputStream (EAppend.DEFAULT);
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (IHasOutputStream.class,
+                                                                                                OutputStream.class,
+                                                                                                aSource -> ((IHasOutputStream) aSource).getOutputStream (EAppend.DEFAULT)));
 
     // IReaderProvider to Reader
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IHasReader.class,
-                                                                                                        Reader.class)
-    {
-      public Reader convert (@Nonnull final Object aSource)
-      {
-        return ((IHasReader) aSource).getReader ();
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (IHasReader.class,
+                                                                                                Reader.class,
+                                                                                                aSource -> ((IHasReader) aSource).getReader ()));
 
     // IWriterProvider to Writer
-    aRegistry.registerTypeConverterRule (new AbstractTypeConverterRuleAssignableSourceFixedDestination (IHasWriter.class,
-                                                                                                        Writer.class)
-    {
-      public Writer convert (@Nonnull final Object aSource)
-      {
-        return ((IHasWriter) aSource).getWriter ();
-      }
-    });
+    aRegistry.registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination (IHasWriter.class,
+                                                                                                Writer.class,
+                                                                                                aSource -> ((IHasWriter) aSource).getWriter ()));
 
     // ClassPathResource
-    aRegistry.registerTypeConverter (String.class, ClassPathResource.class, new ITypeConverter ()
-    {
-      public ClassPathResource convert (@Nonnull final Object aSource)
-      {
-        return new ClassPathResource ((String) aSource);
-      }
-    });
-    aRegistry.registerTypeConverter (URL.class, ClassPathResource.class, new ITypeConverter ()
-    {
-      public ClassPathResource convert (@Nonnull final Object aSource)
-      {
-        return new ClassPathResource ((URL) aSource);
-      }
-    });
+    aRegistry.registerTypeConverter (String.class,
+                                     ClassPathResource.class,
+                                     aSource -> new ClassPathResource ((String) aSource));
+    aRegistry.registerTypeConverter (URL.class,
+                                     ClassPathResource.class,
+                                     aSource -> new ClassPathResource ((URL) aSource));
 
     // FileSystemResource
-    aRegistry.registerTypeConverter (String.class, FileSystemResource.class, new ITypeConverter ()
-    {
-      public FileSystemResource convert (@Nonnull final Object aSource)
+    aRegistry.registerTypeConverter (String.class,
+                                     FileSystemResource.class,
+                                     aSource -> new FileSystemResource ((String) aSource));
+    aRegistry.registerTypeConverter (URL.class, FileSystemResource.class, aSource -> {
+      try
       {
-        return new FileSystemResource ((String) aSource);
+        final URI aURI = ((URL) aSource).toURI ();
+        return new FileSystemResource (aURI);
       }
-    });
-    aRegistry.registerTypeConverter (URL.class, FileSystemResource.class, new ITypeConverter ()
-    {
-      public FileSystemResource convert (@Nonnull final Object aSource)
+      catch (final IllegalArgumentException e1)
       {
-        try
-        {
-          final URI aURI = ((URL) aSource).toURI ();
-          return new FileSystemResource (aURI);
-        }
-        catch (final IllegalArgumentException e)
-        {
-          // When passing a "http://..." URL into the file ctor
-        }
-        catch (final URISyntaxException e)
-        {
-          // Fall through
-        }
-        return null;
+        // When passing a "http://..." URL into the file ctor
       }
+      catch (final URISyntaxException e2)
+      {
+        // Fall through
+      }
+      return null;
     });
 
     // URLResource
-    aRegistry.registerTypeConverter (String.class, URLResource.class, new ITypeConverter ()
-    {
-      public URLResource convert (@Nonnull final Object aSource)
+    aRegistry.registerTypeConverter (String.class, URLResource.class, aSource -> {
+      try
       {
-        try
-        {
-          return new URLResource ((String) aSource);
-        }
-        catch (final MalformedURLException e)
-        {
-          return null;
-        }
+        return new URLResource ((String) aSource);
+      }
+      catch (final MalformedURLException e)
+      {
+        return null;
       }
     });
-    aRegistry.registerTypeConverter (URL.class, URLResource.class, new ITypeConverter ()
-    {
-      public URLResource convert (@Nonnull final Object aSource)
+    aRegistry.registerTypeConverter (URL.class, URLResource.class, aSource -> new URLResource ((URL) aSource));
+    aRegistry.registerTypeConverter (URI.class, URLResource.class, aSource -> {
+      try
       {
-        return new URLResource ((URL) aSource);
+        return new URLResource ((URI) aSource);
       }
-    });
-    aRegistry.registerTypeConverter (URI.class, URLResource.class, new ITypeConverter ()
-    {
-      public URLResource convert (@Nonnull final Object aSource)
+      catch (final MalformedURLException ex)
       {
-        try
-        {
-          return new URLResource ((URI) aSource);
-        }
-        catch (final MalformedURLException ex)
-        {
-          return null;
-        }
+        return null;
       }
     });
   }

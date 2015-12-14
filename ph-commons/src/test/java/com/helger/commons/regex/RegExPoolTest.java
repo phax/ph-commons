@@ -32,7 +32,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for {@link RegExPool}.
- * 
+ *
  * @author Philip Helger
  */
 public final class RegExPoolTest extends AbstractCommonsTestCase

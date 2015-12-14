@@ -27,14 +27,14 @@ import com.helger.commons.scope.ISessionScope;
 
 /**
  * Interface for a non-web scope factory.
- * 
+ *
  * @author Philip Helger
  */
 public interface IScopeFactory
 {
   /**
    * Create a new global scope.
-   * 
+   *
    * @param sScopeID
    *        The scope ID to use. May neither be <code>null</code> nor empty.
    * @return Never <code>null</code>.
@@ -44,7 +44,7 @@ public interface IScopeFactory
 
   /**
    * Create a new application scope
-   * 
+   *
    * @param sScopeID
    *        The scope ID to use
    * @return Never <code>null</code>.
@@ -54,7 +54,7 @@ public interface IScopeFactory
 
   /**
    * Create a new session scope
-   * 
+   *
    * @param sScopeID
    *        The scope ID to use
    * @return Never <code>null</code>.
@@ -64,7 +64,7 @@ public interface IScopeFactory
 
   /**
    * Create a new session application scope
-   * 
+   *
    * @param sScopeID
    *        The scope ID to use
    * @return Never <code>null</code>.
@@ -74,7 +74,7 @@ public interface IScopeFactory
 
   /**
    * Create a new request scope
-   * 
+   *
    * @param sScopeID
    *        The scope ID to use. May neither be <code>null</code> nor empty.
    * @param sSessionID

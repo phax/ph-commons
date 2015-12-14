@@ -91,6 +91,7 @@ public final class ReadWriteXML11FuncTest
                 "\n" +
                 MicroWriter.getXMLString (aDoc) +
                 "\n\n" +
-                MicroWriter.getXMLString (aDoc2), aDoc.isEqualContent (aDoc2));
+                MicroWriter.getXMLString (aDoc2),
+                aDoc.isEqualContent (aDoc2));
   }
 }

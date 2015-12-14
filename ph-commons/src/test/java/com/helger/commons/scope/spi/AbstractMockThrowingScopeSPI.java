@@ -20,7 +20,7 @@ import com.helger.commons.exception.mock.MockRuntimeException;
 
 /**
  * Abstract base class for all Mock SPI implementations
- * 
+ *
  * @author Philip Helger
  */
 public abstract class AbstractMockThrowingScopeSPI

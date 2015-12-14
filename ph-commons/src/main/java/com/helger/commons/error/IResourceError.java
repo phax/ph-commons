@@ -32,7 +32,7 @@ import com.helger.commons.text.display.IHasDisplayText;
  * document). The name is a bit misleading, as an "IResourceError" can also
  * contain an INFO or a WARNING message! It has an error level, a multi lingual
  * error message, a location and a linked exception.
- * 
+ *
  * @author Philip Helger
  */
 public interface IResourceError extends IHasErrorLevel, IHasDisplayText, ISuccessIndicator, IErrorIndicator, ISeverityComparable <IResourceError>, Serializable
@@ -53,7 +53,7 @@ public interface IResourceError extends IHasErrorLevel, IHasDisplayText, ISucces
   /**
    * Get the error as a string representation, including error ID, error
    * location, error text and the linked exception.
-   * 
+   *
    * @param aDisplayLocale
    *        Locale to resolve the error text
    * @return The default string representation

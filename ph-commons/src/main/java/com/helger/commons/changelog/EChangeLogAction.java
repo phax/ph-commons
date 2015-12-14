@@ -25,16 +25,16 @@ import com.helger.commons.lang.EnumHelper;
 
 /**
  * Represents the possible actions in a change log.
- * 
+ *
  * @author Philip Helger
  */
 public enum EChangeLogAction implements IHasID <String>
 {
-  ADD ("add"),
-  REMOVE ("remove"),
-  CHANGE ("change"),
-  FIX ("fix"),
-  UPDATE ("update");
+ ADD ("add"),
+ REMOVE ("remove"),
+ CHANGE ("change"),
+ FIX ("fix"),
+ UPDATE ("update");
 
   private final String m_sID;
 

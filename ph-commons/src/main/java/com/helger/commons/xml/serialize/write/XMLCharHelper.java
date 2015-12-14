@@ -55,7 +55,8 @@ public final class XMLCharHelper
   {
     for (int c = Character.MIN_VALUE; c <= Character.MAX_VALUE; ++c)
     {
-      INVALID_NAME_START_CHAR_XML10.set (c, (c >= 0x0 && c <= 0x40) ||
+      INVALID_NAME_START_CHAR_XML10.set (c,
+                                         (c >= 0x0 && c <= 0x40) ||
                                             (c >= 0x5b && c <= 0x5e) ||
                                             (c == 0x60) ||
                                             (c >= 0x7b && c <= 0xbf) ||
@@ -261,7 +262,8 @@ public final class XMLCharHelper
                                             (c >= 0x312d && c <= 0x4dff) ||
                                             (c >= 0x9fa6 && c <= 0xabff) ||
                                             (c >= 0xd7a4 && c <= 0xffff));
-      INVALID_NAME_START_CHAR_XML11.set (c, (c >= 0x0 && c <= 0x40) ||
+      INVALID_NAME_START_CHAR_XML11.set (c,
+                                         (c >= 0x0 && c <= 0x40) ||
                                             (c >= 0x5b && c <= 0x5e) ||
                                             (c == 0x60) ||
                                             (c >= 0x7b && c <= 0xbf) ||
@@ -276,7 +278,8 @@ public final class XMLCharHelper
                                             (c >= 0xd800 && c <= 0xf8ff) ||
                                             (c >= 0xfdd0 && c <= 0xfdef) ||
                                             (c >= 0xfffe && c <= 0xffff));
-      INVALID_NAME_CHAR_XML10.set (c, (c >= 0x0 && c <= 0x2c) ||
+      INVALID_NAME_CHAR_XML10.set (c,
+                                   (c >= 0x0 && c <= 0x2c) ||
                                       (c == 0x2f) ||
                                       (c >= 0x3a && c <= 0x40) ||
                                       (c >= 0x5b && c <= 0x5e) ||
@@ -564,7 +567,8 @@ public final class XMLCharHelper
                                       (c >= 0x312d && c <= 0x4dff) ||
                                       (c >= 0x9fa6 && c <= 0xabff) ||
                                       (c >= 0xd7a4 && c <= 0xffff));
-      INVALID_NAME_CHAR_XML11.set (c, (c >= 0x0 && c <= 0x2c) ||
+      INVALID_NAME_CHAR_XML11.set (c,
+                                   (c >= 0x0 && c <= 0x2c) ||
                                       (c == 0x2f) ||
                                       (c >= 0x3a && c <= 0x40) ||
                                       (c >= 0x5b && c <= 0x5e) ||
@@ -582,19 +586,22 @@ public final class XMLCharHelper
                                       (c >= 0xd800 && c <= 0xf8ff) ||
                                       (c >= 0xfdd0 && c <= 0xfdef) ||
                                       (c >= 0xfffe && c <= 0xffff));
-      INVALID_VALUE_CHAR_XML10.set (c, (c >= 0x0 && c <= 0x8) ||
+      INVALID_VALUE_CHAR_XML10.set (c,
+                                    (c >= 0x0 && c <= 0x8) ||
                                        (c >= 0xb && c <= 0xc) ||
                                        (c >= 0xe && c <= 0x1f) ||
                                        (c >= 0xd800 && c <= 0xdfff) ||
                                        (c >= 0xfffe && c <= 0xffff));
       INVALID_TEXT_VALUE_CHAR_XML11.set (c, (c == 0x0) || (c >= 0xd800 && c <= 0xdfff) || (c >= 0xfffe && c <= 0xffff));
-      INVALID_CDATA_VALUE_CHAR_XML11.set (c, (c >= 0x0 && c <= 0x8) ||
+      INVALID_CDATA_VALUE_CHAR_XML11.set (c,
+                                          (c >= 0x0 && c <= 0x8) ||
                                              (c >= 0xb && c <= 0xc) ||
                                              (c >= 0xe && c <= 0x1f) ||
                                              (c >= 0x7f && c <= 0x9f) ||
                                              (c >= 0xd800 && c <= 0xdfff) ||
                                              (c >= 0xfffe && c <= 0xffff));
-      INVALID_ATTR_VALUE_CHAR_XML11.set (c, (c == 0x0) ||
+      INVALID_ATTR_VALUE_CHAR_XML11.set (c,
+                                         (c == 0x0) ||
                                             (c >= 0x7f && c <= 0x84) ||
                                             (c >= 0x86 && c <= 0x9f) ||
                                             (c >= 0xd800 && c <= 0xdfff) ||
@@ -603,7 +610,8 @@ public final class XMLCharHelper
        * Source: http://www.w3.org/TR/REC-html40/sgml/sgmldecl.html with sanity
        * handling for 0x80 - 0x9f
        */
-      INVALID_CHAR_HTML.set (c, (c >= 0x0 && c <= 0x8) ||
+      INVALID_CHAR_HTML.set (c,
+                             (c >= 0x0 && c <= 0x8) ||
                                 (c >= 0xb && c <= 0xc) ||
                                 (c >= 0xe && c <= 0x1f) ||
                                 (c == 0x7f) ||

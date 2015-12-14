@@ -217,7 +217,11 @@ public final class StackTraceHelper
       return "";
 
     // convert call stack to string
-    final StringBuilder aCallStack = _getRecursiveStackAsStringBuilder (t, null, null, 1, bOmitCommonStackTraceElements);
+    final StringBuilder aCallStack = _getRecursiveStackAsStringBuilder (t,
+                                                                        null,
+                                                                        null,
+                                                                        1,
+                                                                        bOmitCommonStackTraceElements);
 
     // avoid having a separator at the end -> remove the last char
     if (StringHelper.getLastChar (aCallStack) == STACKELEMENT_LINESEP)

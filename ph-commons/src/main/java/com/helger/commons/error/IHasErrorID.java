@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 
 /**
  * Interface for objects having an error ID
- * 
+ *
  * @author Philip Helger
  */
 public interface IHasErrorID

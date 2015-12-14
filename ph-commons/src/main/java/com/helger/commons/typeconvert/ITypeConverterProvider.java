@@ -22,14 +22,15 @@ import javax.annotation.Nullable;
 /**
  * Find the correct type converter provider from a source class to a destination
  * class.
- * 
+ *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface ITypeConverterProvider
 {
   /**
    * Find a type converter from the source class to the destination class.
-   * 
+   *
    * @param aSrcClass
    *        The source class. May not be <code>null</code>.
    * @param aDstClass

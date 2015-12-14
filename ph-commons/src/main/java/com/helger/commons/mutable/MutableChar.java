@@ -183,11 +183,6 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
     return m_cValue == 0;
   }
 
-  public boolean isNot0 ()
-  {
-    return m_cValue != 0;
-  }
-
   public boolean isSmaller0 ()
   {
     // char is always >= 0
@@ -213,11 +208,6 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
   public boolean isEven ()
   {
     return (m_cValue % 2) == 0;
-  }
-
-  public boolean isOdd ()
-  {
-    return (m_cValue % 2) != 0;
   }
 
   public int compareTo (@Nonnull final MutableChar rhs)

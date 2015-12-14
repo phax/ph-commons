@@ -32,7 +32,7 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link ChildNodeIterator}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ChildNodeIteratorTest extends AbstractCommonsTestCase

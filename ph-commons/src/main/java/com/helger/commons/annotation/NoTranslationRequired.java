@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
 /**
  * An informational annotation that indicates that a type does not require
  * translation.
- * 
+ *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)

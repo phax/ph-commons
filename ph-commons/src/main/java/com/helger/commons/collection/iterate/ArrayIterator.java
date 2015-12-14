@@ -43,6 +43,7 @@ public final class ArrayIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
   private final ELEMENTTYPE [] m_aArray;
   private int m_nIndex;
 
+  @SafeVarargs
   public ArrayIterator (@Nonnull final ELEMENTTYPE... aArray)
   {
     ValueEnforcer.notNull (aArray, "Array");

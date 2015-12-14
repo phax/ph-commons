@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
  * This is a type-safe replacement interface for the default
  * {@link java.lang.Cloneable} interface since it contains the desired return
  * type and is accessible solely by the interface.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type to be returned by the {@link #getClone()} method.

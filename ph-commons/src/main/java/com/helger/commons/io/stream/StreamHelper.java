@@ -1090,13 +1090,7 @@ public final class StreamHelper
                                       @Nonnull final List <String> aTargetList)
   {
     if (aIS != null)
-      readStreamLines (aIS, aCharset, 0, CGlobal.ILLEGAL_UINT, new INonThrowingRunnableWithParameter <String> ()
-      {
-        public void run (final String sLine)
-        {
-          aTargetList.add (sLine);
-        }
-      });
+      readStreamLines (aIS, aCharset, 0, CGlobal.ILLEGAL_UINT, sLine -> aTargetList.add (sLine));
   }
 
   /**
@@ -1129,13 +1123,7 @@ public final class StreamHelper
 
     // Read stream and collect all read lines in a list
     final List <String> ret = new ArrayList <String> ();
-    readStreamLines (aIS, aCharset, nLinesToSkip, nLinesToRead, new INonThrowingRunnableWithParameter <String> ()
-    {
-      public void run (final String sLine)
-      {
-        ret.add (sLine);
-      }
-    });
+    readStreamLines (aIS, aCharset, nLinesToSkip, nLinesToRead, sLine -> ret.add (sLine));
     return ret;
   }
 

@@ -144,8 +144,8 @@ public final class LevenshteinDistance
       for (i = 0; i < nLen1; i++)
       {
         nSubstCost = aStr1[i] == ch2 ? 0 : nCostSubstitution;
-        aCurRow[i + 1] = Math.min (Math.min (aCurRow[i] + nCostInsert, aPrevRow[i + 1] + nCostDelete), aPrevRow[i] +
-                                                                                                       nSubstCost);
+        aCurRow[i + 1] = Math.min (Math.min (aCurRow[i] + nCostInsert, aPrevRow[i + 1] + nCostDelete),
+                                   aPrevRow[i] + nSubstCost);
       }
 
       // swap current distance counts to 'previous row' distance counts

@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 
 /**
  * Represents a processing instruction.
- * 
+ *
  * @author Philip Helger
  */
 public interface IMicroProcessingInstruction extends IMicroNode

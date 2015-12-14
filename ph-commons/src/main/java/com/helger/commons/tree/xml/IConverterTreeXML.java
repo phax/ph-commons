@@ -19,7 +19,7 @@ package com.helger.commons.tree.xml;
 /**
  * This interface collects both unidirectional converters and creates a
  * bidirectional converter.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of the tree item data

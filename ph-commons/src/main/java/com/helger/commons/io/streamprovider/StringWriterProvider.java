@@ -27,7 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * An {@link java.io.Writer} provider based on a {@link String}.
- * 
+ *
  * @author Philip Helger
  */
 public class StringWriterProvider implements IHasWriter, Serializable

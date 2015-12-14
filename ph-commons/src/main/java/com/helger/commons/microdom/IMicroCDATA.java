@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Represents a CDATA node.
- * 
+ *
  * @author Philip Helger
  */
 public interface IMicroCDATA extends IMicroNode, IMicroDataAware

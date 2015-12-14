@@ -18,8 +18,7 @@ package com.helger.commons.xml.serialize.read;
 
 import java.util.EnumMap;
 import java.util.Map;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,6 +33,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.exception.IExceptionCallback;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.EChange;
 import com.helger.commons.xml.EXMLParserFeature;
 import com.helger.commons.xml.EXMLParserProperty;
@@ -52,7 +52,7 @@ public final class DOMReaderDefaultSettings
 {
   public static final boolean DEFAULT_REQUIRES_NEW_XML_PARSER_EXPLICITLY = false;
 
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
 
   // DocumentBuilderFactory properties
   @GuardedBy ("s_aRWLock")
@@ -96,224 +96,88 @@ public final class DOMReaderDefaultSettings
 
   public static boolean isNamespaceAware ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_bDefaultNamespaceAware;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_bDefaultNamespaceAware);
   }
 
   public static void setNamespaceAware (final boolean bNamespaceAware)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_bDefaultNamespaceAware = bNamespaceAware;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_bDefaultNamespaceAware = bNamespaceAware);
   }
 
   public static boolean isValidating ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_bDefaultValidating;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_bDefaultValidating);
   }
 
   public static void setValidating (final boolean bValidating)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_bDefaultValidating = bValidating;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_bDefaultValidating = bValidating);
   }
 
   public static boolean isIgnoringElementContentWhitespace ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_bDefaultIgnoringElementContentWhitespace;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_bDefaultIgnoringElementContentWhitespace);
   }
 
   public static void setIgnoringElementContentWhitespace (final boolean bIgnoringElementContentWhitespace)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_bDefaultIgnoringElementContentWhitespace = bIgnoringElementContentWhitespace;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_bDefaultIgnoringElementContentWhitespace = bIgnoringElementContentWhitespace);
   }
 
   public static boolean isExpandEntityReferences ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_bDefaultExpandEntityReferences;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_bDefaultExpandEntityReferences);
   }
 
   public static void setExpandEntityReferences (final boolean bExpandEntityReferences)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_bDefaultExpandEntityReferences = bExpandEntityReferences;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_bDefaultExpandEntityReferences = bExpandEntityReferences);
   }
 
   public static boolean isIgnoringComments ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_bDefaultIgnoringComments;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_bDefaultIgnoringComments);
   }
 
   public static void setIgnoringComments (final boolean bIgnoringComments)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_bDefaultIgnoringComments = bIgnoringComments;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_bDefaultIgnoringComments = bIgnoringComments);
   }
 
   public static boolean isCoalescing ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_bDefaultCoalescing;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_bDefaultCoalescing);
   }
 
   public static void setCoalescing (final boolean bCoalescing)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_bDefaultCoalescing = bCoalescing;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_bDefaultCoalescing = bCoalescing);
   }
 
   @Nullable
   public static Schema getSchema ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aDefaultSchema;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_aDefaultSchema);
   }
 
   public static void setSchema (@Nullable final Schema aSchema)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_aDefaultSchema = aSchema;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_aDefaultSchema = aSchema);
   }
 
   public static boolean isXIncludeAware ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_bDefaultXIncludeAware;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_bDefaultXIncludeAware);
   }
 
   public static void setXIncludeAware (final boolean bXIncludeAware)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_bDefaultXIncludeAware = bXIncludeAware;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_bDefaultXIncludeAware = bXIncludeAware);
   }
 
   public static boolean hasAnyProperties ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return !s_aDefaultProperties.isEmpty ();
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> !s_aDefaultProperties.isEmpty ());
   }
 
   @Nullable
@@ -322,30 +186,14 @@ public final class DOMReaderDefaultSettings
     if (eProperty == null)
       return null;
 
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aDefaultProperties.get (eProperty);
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_aDefaultProperties.get (eProperty));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static Map <EXMLParserProperty, Object> getAllPropertyValues ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return new EnumMap <EXMLParserProperty, Object> (s_aDefaultProperties);
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> new EnumMap <EXMLParserProperty, Object> (s_aDefaultProperties));
   }
 
   public static void setPropertyValue (@Nonnull final EXMLParserProperty eProperty,
@@ -353,33 +201,19 @@ public final class DOMReaderDefaultSettings
   {
     ValueEnforcer.notNull (eProperty, "Property");
 
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
+    s_aRWLock.writeLocked ( () -> {
       if (aPropertyValue != null)
         s_aDefaultProperties.put (eProperty, aPropertyValue);
       else
         s_aDefaultProperties.remove (eProperty);
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   public static void setPropertyValues (@Nullable final Map <EXMLParserProperty, ?> aProperties)
   {
     if (aProperties != null)
     {
-      s_aRWLock.writeLock ().lock ();
-      try
-      {
-        s_aDefaultProperties.putAll (aProperties);
-      }
-      finally
-      {
-        s_aRWLock.writeLock ().unlock ();
-      }
+      s_aRWLock.writeLocked ( () -> s_aDefaultProperties.putAll (aProperties));
     }
   }
 
@@ -389,45 +223,23 @@ public final class DOMReaderDefaultSettings
     if (eProperty == null)
       return EChange.UNCHANGED;
 
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      return EChange.valueOf (s_aDefaultProperties.remove (eProperty) != null);
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    return EChange.valueOf (s_aRWLock.writeLocked ( () -> s_aDefaultProperties.remove (eProperty) != null));
   }
 
   @Nonnull
   public static EChange removeAllPropertyValues ()
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
+    return s_aRWLock.writeLocked ( () -> {
       if (s_aDefaultProperties.isEmpty ())
         return EChange.UNCHANGED;
       s_aDefaultProperties.clear ();
       return EChange.CHANGED;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   public static boolean hasAnyFeature ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return !s_aDefaultFeatures.isEmpty ();
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> !s_aDefaultFeatures.isEmpty ());
   }
 
   @Nullable
@@ -437,78 +249,40 @@ public final class DOMReaderDefaultSettings
     if (eFeature == null)
       return null;
 
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aDefaultFeatures.get (eFeature);
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ((Supplier <Boolean>) () -> s_aDefaultFeatures.get (eFeature));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static Map <EXMLParserFeature, Boolean> getAllFeatureValues ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return new EnumMap <EXMLParserFeature, Boolean> (s_aDefaultFeatures);
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> new EnumMap <EXMLParserFeature, Boolean> (s_aDefaultFeatures));
   }
 
   public static void setFeatureValue (@Nonnull final EXMLParserFeature eFeature, final boolean bValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
 
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_aDefaultFeatures.put (eFeature, Boolean.valueOf (bValue));
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ((Runnable) () -> s_aDefaultFeatures.put (eFeature, Boolean.valueOf (bValue)));
   }
 
   public static void setFeatureValue (@Nonnull final EXMLParserFeature eFeature, @Nullable final Boolean aValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
 
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
+    s_aRWLock.writeLocked ( () -> {
       if (aValue == null)
         s_aDefaultFeatures.remove (eFeature);
       else
         s_aDefaultFeatures.put (eFeature, aValue);
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   public static void setFeatureValues (@Nullable final Map <EXMLParserFeature, Boolean> aValues)
   {
     if (aValues != null)
     {
-      s_aRWLock.writeLock ().lock ();
-      try
-      {
-        s_aDefaultFeatures.putAll (aValues);
-      }
-      finally
-      {
-        s_aRWLock.writeLock ().unlock ();
-      }
+      s_aRWLock.writeLocked ( () -> s_aDefaultFeatures.putAll (aValues));
     }
   }
 
@@ -518,39 +292,23 @@ public final class DOMReaderDefaultSettings
     if (eFeature == null)
       return EChange.UNCHANGED;
 
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      return EChange.valueOf (s_aDefaultFeatures.remove (eFeature) != null);
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    return EChange.valueOf (s_aRWLock.writeLocked ( () -> s_aDefaultFeatures.remove (eFeature) != null));
   }
 
   @Nonnull
   public static EChange removeAllFeatures ()
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
+    return s_aRWLock.writeLocked ( () -> {
       if (s_aDefaultFeatures.isEmpty ())
         return EChange.UNCHANGED;
       s_aDefaultFeatures.clear ();
       return EChange.CHANGED;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   public static boolean requiresNewXMLParser ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
+    return s_aRWLock.readLocked ( () -> {
       // Force a new XML parser?
       if (s_bDefaultRequiresNewXMLParserExplicitly)
         return true;
@@ -570,119 +328,51 @@ public final class DOMReaderDefaultSettings
       // Special case for JDK > 1.7.0_45 because of maximum entity expansion
       // See http://docs.oracle.com/javase/tutorial/jaxp/limits/limits.html
       return s_aDefaultEntityResolver != null;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    });
   }
 
   @Nullable
   public static EntityResolver getEntityResolver ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aDefaultEntityResolver;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_aDefaultEntityResolver);
   }
 
   public static void setEntityResolver (@Nullable final EntityResolver aEntityResolver)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_aDefaultEntityResolver = aEntityResolver;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_aDefaultEntityResolver = aEntityResolver);
   }
 
   @Nullable
   public static ErrorHandler getErrorHandler ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aDefaultErrorHandler;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_aDefaultErrorHandler);
   }
 
   public static void setErrorHandler (@Nullable final ErrorHandler aErrorHandler)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_aDefaultErrorHandler = aErrorHandler;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_aDefaultErrorHandler = aErrorHandler);
   }
 
   @Nonnull
   public static IExceptionCallback <Throwable> getExceptionHandler ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aDefaultExceptionHandler;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_aDefaultExceptionHandler);
   }
 
   public static void setExceptionHandler (@Nonnull final IExceptionCallback <Throwable> aExceptionHandler)
   {
     ValueEnforcer.notNull (aExceptionHandler, "ExceptionHandler");
 
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_aDefaultExceptionHandler = aExceptionHandler;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_aDefaultExceptionHandler = aExceptionHandler);
   }
 
   public static boolean isRequiresNewXMLParserExplicitly ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_bDefaultRequiresNewXMLParserExplicitly;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_bDefaultRequiresNewXMLParserExplicitly);
   }
 
   public static void setRequiresNewXMLParserExplicitly (final boolean bDefaultRequiresNewXMLParserExplicitly)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_bDefaultRequiresNewXMLParserExplicitly = bDefaultRequiresNewXMLParserExplicitly;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_bDefaultRequiresNewXMLParserExplicitly = bDefaultRequiresNewXMLParserExplicitly);
   }
 }

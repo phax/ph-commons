@@ -26,13 +26,11 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.xml.serialize.read.DOMInputStreamProvider;
-import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.commons.xml.serialize.write.XMLWriter;
 
 /**
  * Test class for class {@link DOMInputStreamProvider}.
- * 
+ *
  * @author Philip Helger
  */
 public final class DOMInputStreamProviderTest

@@ -57,7 +57,7 @@ public class FileFilterFilenameNotEquals extends AbstractFileFilter
   }
 
   @Override
-  public boolean matchesThisFilter (@Nullable final File aFile)
+  public boolean directTest (@Nullable final File aFile)
   {
     return aFile != null && !m_sFilename.equals (FilenameHelper.getSecureFilename (aFile.getName ()));
   }

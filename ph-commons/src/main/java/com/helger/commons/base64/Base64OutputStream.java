@@ -170,7 +170,9 @@ public class Base64OutputStream extends FilterOutputStream
    * @since 1.3
    */
   @Override
-  public void write (@Nonnull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public void write (@Nonnull final byte [] aBytes,
+                     @Nonnegative final int nOfs,
+                     @Nonnegative final int nLen) throws IOException
   {
     // Encoding suspended?
     if (m_bSuspendEncoding)

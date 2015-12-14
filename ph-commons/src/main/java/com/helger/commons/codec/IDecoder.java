@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
  *        data type
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IDecoder <DATATYPE>
 {
   /**

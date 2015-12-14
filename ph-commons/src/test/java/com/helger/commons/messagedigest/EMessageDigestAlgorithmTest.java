@@ -28,7 +28,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link EMessageDigestAlgorithm}.
- * 
+ *
  * @author Philip Helger
  */
 public final class EMessageDigestAlgorithmTest

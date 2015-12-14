@@ -16,14 +16,12 @@
  */
 package com.helger.commons.scope.mgr;
 
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 
 /**
  * The meta scope factory holding both the factory for non-web scopes as well as
@@ -34,7 +32,7 @@ import com.helger.commons.ValueEnforcer;
 @ThreadSafe
 public final class MetaScopeFactory
 {
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
 
   @GuardedBy ("s_aRWLock")
   private static IScopeFactory s_aScopeFactory = new DefaultScopeFactory ();
@@ -52,15 +50,7 @@ public final class MetaScopeFactory
   {
     ValueEnforcer.notNull (aScopeFactory, "ScopeFactory");
 
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_aScopeFactory = aScopeFactory;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_aScopeFactory = aScopeFactory);
   }
 
   /**
@@ -69,14 +59,6 @@ public final class MetaScopeFactory
   @Nonnull
   public static IScopeFactory getScopeFactory ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aScopeFactory;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_aScopeFactory);
   }
 }

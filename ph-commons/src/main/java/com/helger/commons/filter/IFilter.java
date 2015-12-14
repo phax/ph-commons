@@ -17,8 +17,7 @@
 package com.helger.commons.filter;
 
 import java.io.Serializable;
-
-import com.helger.commons.annotation.DevelopersNote;
+import java.util.function.Predicate;
 
 /**
  * A generic filter interface for simple object selection. If you need an
@@ -29,17 +28,8 @@ import com.helger.commons.annotation.DevelopersNote;
  * @param <DATATYPE>
  *        The type of object to filter.
  */
-public interface IFilter <DATATYPE> extends Serializable
+@FunctionalInterface
+public interface IFilter <DATATYPE> extends Serializable, Predicate <DATATYPE>
 {
-  /**
-   * Check if the given value matches the filter or not.
-   *
-   * @param aValue
-   *        The object to filter. May be <code>null</code> depending on the
-   *        implementation.
-   * @return <code>true</code> if the object match the filter,
-   *         <code>false</code> otherwise.
-   */
-  @DevelopersNote ("No @Nullable annotation as we can make no assumptions on the state")
-  boolean matchesFilter (DATATYPE aValue);
+  /* empty */
 }

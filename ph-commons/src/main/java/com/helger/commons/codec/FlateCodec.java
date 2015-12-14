@@ -35,7 +35,7 @@ import com.helger.commons.io.stream.StreamHelper;
  *
  * @author Philip Helger
  */
-public class FlateCodec extends AbstractByteArrayCodec
+public class FlateCodec implements IByteArrayCodec
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (FlateCodec.class);
 
@@ -68,16 +68,11 @@ public class FlateCodec extends AbstractByteArrayCodec
       s_aLogger.warn ("ZLib header not found");
 
     final InflaterInputStream aDecodeIS = new InflaterInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer));
-    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    try
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
     {
       if (StreamHelper.copyInputStreamToOutputStream (aDecodeIS, aBAOS).isFailure ())
         throw new DecodeException ("Failed to flate decode!");
       return aBAOS.toByteArray ();
-    }
-    finally
-    {
-      StreamHelper.close (aBAOS);
     }
   }
 
@@ -97,9 +92,16 @@ public class FlateCodec extends AbstractByteArrayCodec
 
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
     final DeflaterOutputStream aEncodeOS = new DeflaterOutputStream (aBAOS);
-    if (StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new NonBlockingByteArrayInputStream (aBuffer), aEncodeOS)
-                    .isFailure ())
-      throw new EncodeException ("Failed to flate encode!");
+    try
+    {
+      if (StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aBuffer), aEncodeOS)
+                      .isFailure ())
+        throw new EncodeException ("Failed to flate encode!");
+    }
+    finally
+    {
+      StreamHelper.close (aEncodeOS);
+    }
     return aBAOS.toByteArray ();
   }
 

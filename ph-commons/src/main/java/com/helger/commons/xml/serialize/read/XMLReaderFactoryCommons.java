@@ -33,8 +33,8 @@ import com.helger.commons.lang.priviledged.PrivilegedActionSystemGetProperty;
 /**
  * Factory for creating an XML reader. <blockquote>
  * <em>This module, both source code and documentation, is in the
- * Public Domain, and comes with <strong>NO WARRANTY</strong>.</em> See <a
- * href='http://www.saxproject.org'>http://www.saxproject.org</a> for further
+ * Public Domain, and comes with <strong>NO WARRANTY</strong>.</em> See
+ * <a href='http://www.saxproject.org'>http://www.saxproject.org</a> for further
  * information. </blockquote>
  * <p>
  * This class contains static methods for creating an XML reader from an
@@ -80,15 +80,11 @@ public final class XMLReaderFactoryCommons
   {
     ClassLoader getContextClassLoader () throws SecurityException
     {
-      return AccessController.doPrivileged (new PrivilegedAction <ClassLoader> ()
-      {
-        public ClassLoader run ()
-        {
-          ClassLoader cl = Thread.currentThread ().getContextClassLoader ();
-          if (cl == null)
-            cl = ClassLoader.getSystemClassLoader ();
-          return cl;
-        }
+      return AccessController.doPrivileged ((PrivilegedAction <ClassLoader>) () -> {
+        ClassLoader cl = Thread.currentThread ().getContextClassLoader ();
+        if (cl == null)
+          cl = ClassLoader.getSystemClassLoader ();
+        return cl;
       });
     }
 
@@ -97,19 +93,16 @@ public final class XMLReaderFactoryCommons
       return AccessController.doPrivileged (new PrivilegedActionSystemGetProperty (propName));
     }
 
+    @SuppressWarnings ("resource")
     InputStream getResourceAsStream (final ClassLoader cl, final String name)
     {
-      return AccessController.doPrivileged (new PrivilegedAction <InputStream> ()
-      {
-        public InputStream run ()
-        {
-          InputStream ris;
-          if (cl == null)
-            ris = Object.class.getResourceAsStream (name);
-          else
-            ris = cl.getResourceAsStream (name);
-          return ris;
-        }
+      return AccessController.doPrivileged ((PrivilegedAction <InputStream>) () -> {
+        InputStream ris;
+        if (cl == null)
+          ris = Object.class.getResourceAsStream (name);
+        else
+          ris = cl.getResourceAsStream (name);
+        return ris;
       });
     }
   }
@@ -117,9 +110,9 @@ public final class XMLReaderFactoryCommons
   /**
    * Create a new instance of a class by name. <blockquote>
    * <em>This module, both source code and documentation, is in the
-   * Public Domain, and comes with <strong>NO WARRANTY</strong>.</em> See <a
-   * href='http://www.saxproject.org'>http://www.saxproject.org</a> for further
-   * information. </blockquote>
+   * Public Domain, and comes with <strong>NO WARRANTY</strong>.</em> See
+   * <a href='http://www.saxproject.org'>http://www.saxproject.org</a> for
+   * further information. </blockquote>
    * <p>
    * This class contains a static method for creating an instance of a class
    * from an explicit class name. It tries to use the thread's context
@@ -142,8 +135,8 @@ public final class XMLReaderFactoryCommons
      * this code is not exposed at the API level.
      */
     static Object newInstance (final ClassLoader classLoader, final String className) throws ClassNotFoundException,
-                                                                                     IllegalAccessException,
-                                                                                     InstantiationException
+                                                                                      IllegalAccessException,
+                                                                                      InstantiationException
     {
       // make sure we have access to restricted packages
       boolean internal = false;
@@ -354,7 +347,8 @@ public final class XMLReaderFactoryCommons
     {
       throw new SAXException ("SAX2 driver class " +
                               sClassName +
-                              " loaded but cannot be instantiated (no empty public constructor?)", e3);
+                              " loaded but cannot be instantiated (no empty public constructor?)",
+                              e3);
     }
     catch (final ClassCastException e4)
     {

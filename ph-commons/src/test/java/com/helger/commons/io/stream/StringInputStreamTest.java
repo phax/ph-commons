@@ -24,13 +24,10 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.io.stream.StringInputStream;
 
 /**
  * Test class for class {@link StringInputStream}.
- * 
+ *
  * @author Philip Helger
  */
 public final class StringInputStreamTest

@@ -18,7 +18,7 @@ package com.helger.commons.i18n;
 
 /**
  * Filters are used in a variety of ways to filter or verify unicode codepoints
- * 
+ *
  * @author Apache Abdera
  */
 public interface ICodepointFilter

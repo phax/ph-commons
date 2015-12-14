@@ -19,8 +19,6 @@ package com.helger.commons.locale.country;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,6 +32,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.state.EChange;
@@ -59,7 +58,7 @@ public final class CountryCache
 
   private static boolean s_bDefaultInstantiated = false;
 
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   /** Contains all known countries (as ISO 3166 2-letter codes). */
   private final Set <String> m_aCountries = new HashSet <String> ();
@@ -92,15 +91,7 @@ public final class CountryCache
     if (!sCountry.equals (sValidCountry))
       throw new IllegalArgumentException ("invalid casing of '" + sCountry + "'");
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      return EChange.valueOf (m_aCountries.add (sValidCountry));
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    return EChange.valueOf (m_aRWLock.writeLocked ( () -> m_aCountries.add (sValidCountry)));
   }
 
   @Nullable
@@ -133,15 +124,7 @@ public final class CountryCache
   @ReturnsMutableCopy
   public Set <String> getAllCountries ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newSet (m_aCountries);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newSet (m_aCountries));
   }
 
   /**
@@ -186,15 +169,7 @@ public final class CountryCache
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
     if (sValidCountry == null)
       return false;
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aCountries.contains (sValidCountry);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aCountries.contains (sValidCountry));
   }
 
   /**
@@ -202,15 +177,7 @@ public final class CountryCache
    */
   public void reinitialize ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aCountries.clear ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aCountries.clear ());
 
     for (final Locale aLocale : LocaleCache.getInstance ().getAllLocales ())
     {

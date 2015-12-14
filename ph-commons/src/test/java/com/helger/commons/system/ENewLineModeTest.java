@@ -26,7 +26,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link ENewLineMode}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ENewLineModeTest

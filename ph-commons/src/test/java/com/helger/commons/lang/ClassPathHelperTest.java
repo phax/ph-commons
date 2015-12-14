@@ -28,11 +28,10 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.ClassPathHelper;
 
 /**
  * Test class for {@link ClassPathHelper}
- * 
+ *
  * @author Philip Helger
  */
 public final class ClassPathHelperTest
@@ -48,7 +47,7 @@ public final class ClassPathHelperTest
 
   /**
    * Test for method printClassPathEntries
-   * 
+   *
    * @throws UnsupportedEncodingException
    *         never
    */

@@ -34,7 +34,7 @@ import com.helger.commons.io.file.FilenameHelper;
 public class FileFilterDirectoryPublic extends AbstractFileFilter
 {
   @Override
-  public boolean matchesThisFilter (@Nullable final File aFile)
+  public boolean directTest (@Nullable final File aFile)
   {
     return FileHelper.existsDir (aFile) && !FilenameHelper.isHiddenFilename (aFile);
   }

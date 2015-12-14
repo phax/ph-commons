@@ -18,8 +18,6 @@ package com.helger.commons.pool;
 
 import java.util.Arrays;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -30,13 +28,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.concurrent.SimpleLock;
 import com.helger.commons.factory.IFactory;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
 
 /**
  * A simple generic object pool with a fixed size determined in the constructor.
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of the objects contained in the pool.
@@ -47,7 +46,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
   private static final Logger s_aLogger = LoggerFactory.getLogger (ObjectPool.class);
 
   // Lock for this object
-  private final Lock m_aLock = new ReentrantLock ();
+  private final SimpleLock m_aLock = new SimpleLock ();
 
   // Semaphore for the number of items
   private final Semaphore m_aAvailable;
@@ -64,7 +63,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
   /**
    * Create a new object pool for a certain amount of items and a factory that
    * creates the objects on demand.
-   * 
+   *
    * @param nItemCount
    *        The number of items in the pool. Must be &ge; 1.
    * @param aFactory
@@ -99,9 +98,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
       return null;
     }
 
-    m_aLock.lock ();
-    try
-    {
+    return m_aLock.locked ( () -> {
       // Find first unused item
       for (int i = 0; i < m_aItems.length; ++i)
         if (!m_aUsed[i])
@@ -118,19 +115,13 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
           return GenericReflection.<Object, DATATYPE> uncheckedCast (m_aItems[i]);
         }
       throw new IllegalStateException ("Should never be reached!");
-    }
-    finally
-    {
-      m_aLock.unlock ();
-    }
+    });
   }
 
   @Nonnull
   public ESuccess returnObject (@Nonnull final DATATYPE aItem)
   {
-    m_aLock.lock ();
-    try
-    {
+    return m_aLock.locked ( () -> {
       for (int i = 0; i < m_aItems.length; ++i)
         if (m_aUsed[i] && aItem == m_aItems[i])
         {
@@ -142,10 +133,6 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
         }
       s_aLogger.warn ("Object " + aItem + " is not pooled!");
       return ESuccess.FAILURE;
-    }
-    finally
-    {
-      m_aLock.unlock ();
-    }
+    });
   }
 }

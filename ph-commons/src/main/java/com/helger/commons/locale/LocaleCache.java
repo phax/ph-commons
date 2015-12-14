@@ -21,8 +21,6 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,6 +36,7 @@ import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -59,7 +58,7 @@ public final class LocaleCache
   private static final Logger s_aLogger = LoggerFactory.getLogger (LocaleCache.class);
   private static boolean s_bDefaultInstantiated = false;
 
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   /** maps a string to a locale. */
   @GuardedBy ("m_aRWLock")
@@ -173,38 +172,24 @@ public final class LocaleCache
     final String sLocaleKey = _buildLocaleString (sRealLanguage, sRealCountry, sRealVariant);
     if (sLocaleKey.length () == 0)
       return null;
-    // try to resolve locale
-    Locale aLocale;
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      aLocale = m_aLocales.get (sLocaleKey);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
 
+    // try to resolve locale
+    Locale aLocale = m_aRWLock.readLocked ( () -> m_aLocales.get (sLocaleKey));
     if (aLocale == null)
     {
-      m_aRWLock.writeLock ().lock ();
-      try
-      {
+      aLocale = m_aRWLock.writeLocked ( () -> {
         // Try fetching again in writeLock
-        aLocale = m_aLocales.get (sLocaleKey);
-        if (aLocale == null)
+        Locale aWLocale = m_aLocales.get (sLocaleKey);
+        if (aWLocale == null)
         {
           // not yet in cache, create a new one
           // -> may lead to illegal locales, but simpler than the error handling
           // for all the possible illegal values
-          aLocale = new Locale (sRealLanguage, sRealCountry, sRealVariant);
-          m_aLocales.put (sLocaleKey, aLocale);
+          aWLocale = new Locale (sRealLanguage, sRealCountry, sRealVariant);
+          m_aLocales.put (sLocaleKey, aWLocale);
         }
-      }
-      finally
-      {
-        m_aRWLock.writeLock ().unlock ();
-      }
+        return aWLocale;
+      });
     }
     return aLocale;
   }
@@ -218,18 +203,12 @@ public final class LocaleCache
   @ReturnsMutableCopy
   public Set <Locale> getAllLocales ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
+    return m_aRWLock.readLocked ( () -> {
       final Set <Locale> ret = CollectionHelper.newSet (m_aLocales.values ());
       ret.remove (CGlobal.LOCALE_ALL);
       ret.remove (CGlobal.LOCALE_INDEPENDENT);
       return ret;
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    });
   }
 
   /**
@@ -319,15 +298,7 @@ public final class LocaleCache
     final String sLocaleKey = _createLocaleKey (sLanguage, sCountry, sVariant);
     if (sLocaleKey.length () == 0)
       return false;
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aLocales.containsKey (sLocaleKey);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aLocales.containsKey (sLocaleKey));
   }
 
   @MustBeLocked (ELockType.WRITE)
@@ -341,9 +312,7 @@ public final class LocaleCache
    */
   public void reinitialize ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       m_aLocales.clear ();
 
       // add pseudo locales
@@ -359,11 +328,7 @@ public final class LocaleCache
         _initialAdd (new Locale ("", sCountry));
       for (final String sLanguage : Locale.getISOLanguages ())
         _initialAdd (new Locale (sLanguage, ""));
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
 
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("Reinitialized " + LocaleCache.class.getName ());

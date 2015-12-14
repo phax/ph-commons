@@ -20,7 +20,7 @@ package com.helger.commons.lang;
  * This class needs to be in the same package as {@link CloneHelper} so that the
  * test works!<br>
  * Should invoke the Object.clone() method.
- * 
+ *
  * @author Philip Helger
  */
 public final class MockICloneable implements ICloneable <MockICloneable>

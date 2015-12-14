@@ -212,6 +212,7 @@ public final class ArrayHelper
    * @return 0 if the passed array is <code>null</code> - it's length otherwise.
    */
   @Nonnegative
+  @SafeVarargs
   public static <ELEMENTTYPE> int getSize (@Nullable final ELEMENTTYPE... aArray)
   {
     return aArray == null ? 0 : aArray.length;
@@ -313,6 +314,7 @@ public final class ArrayHelper
    * @return <code>true</code> if the passed array is <code>null</code> or
    *         empty.
    */
+  @SafeVarargs
   public static <ELEMENTTYPE> boolean isEmpty (@Nullable final ELEMENTTYPE... aArray)
   {
     return getSize (aArray) == 0;
@@ -414,6 +416,7 @@ public final class ArrayHelper
    * @return <code>false</code> if the passed array is <code>null</code> or
    *         empty.
    */
+  @SafeVarargs
   public static <ELEMENTTYPE> boolean isNotEmpty (@Nullable final ELEMENTTYPE... aArray)
   {
     return getSize (aArray) > 0;
@@ -1072,6 +1075,7 @@ public final class ArrayHelper
    *         - the first element otherwise (may also be <code>null</code>).
    */
   @Nullable
+  @SafeVarargs
   public static <ELEMENTTYPE> ELEMENTTYPE getFirst (@Nullable final ELEMENTTYPE... aArray)
   {
     return getFirst (aArray, null);
@@ -1255,6 +1259,7 @@ public final class ArrayHelper
    *         - the last element otherwise (may also be <code>null</code>).
    */
   @Nullable
+  @SafeVarargs
   public static <ELEMENTTYPE> ELEMENTTYPE getLast (@Nullable final ELEMENTTYPE... aArray)
   {
     return getLast (aArray, null);
@@ -1838,6 +1843,7 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE> ELEMENTTYPE [] getCopy (@Nullable final ELEMENTTYPE... aArray)
   {
     return aArray == null ? null : getCopy (aArray, 0, aArray.length);
@@ -2727,6 +2733,7 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE> ELEMENTTYPE [] getAllExceptFirst (@Nullable final ELEMENTTYPE... aArray)
   {
     return getAllExceptFirst (aArray, 1);
@@ -2776,6 +2783,7 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE> ELEMENTTYPE [] getAllExcept (@Nullable final ELEMENTTYPE [] aArray,
                                                            @Nullable final ELEMENTTYPE... aElementsToRemove)
   {
@@ -3348,6 +3356,7 @@ public final class ArrayHelper
    */
   @Nullable
   @ReturnsMutableCopy
+  @SafeVarargs
   public static <ELEMENTTYPE> ELEMENTTYPE [] getAllExceptLast (@Nullable final ELEMENTTYPE... aArray)
   {
     return getAllExceptLast (aArray, 1);
@@ -3930,6 +3939,7 @@ public final class ArrayHelper
    */
   @Nonnull
   @ReturnsMutableObject ("use getCopy otherwise")
+  @SafeVarargs
   public static <ELEMENTTYPE> ELEMENTTYPE [] newArray (@Nonnull final ELEMENTTYPE... aArray)
   {
     ValueEnforcer.notNull (aArray, "Array");

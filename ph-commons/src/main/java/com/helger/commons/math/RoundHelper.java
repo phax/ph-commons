@@ -40,10 +40,10 @@ public final class RoundHelper
 {
   public static enum EDecimalType
   {
-    /** Fixed number representation */
+   /** Fixed number representation */
     FIX,
 
-    /** Exponential number representation */
+   /** Exponential number representation */
     EXP;
 
     public boolean isFixed ()

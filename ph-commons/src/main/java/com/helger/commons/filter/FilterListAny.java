@@ -40,6 +40,7 @@ public class FilterListAny <DATATYPE> implements IFilter <DATATYPE>
 {
   private final List <? extends IFilter <? super DATATYPE>> m_aFilters;
 
+  @SafeVarargs
   public FilterListAny (@Nullable final IFilter <? super DATATYPE>... aFilters)
   {
     m_aFilters = CollectionHelper.newList (aFilters);
@@ -57,10 +58,10 @@ public class FilterListAny <DATATYPE> implements IFilter <DATATYPE>
     return CollectionHelper.newList (m_aFilters);
   }
 
-  public boolean matchesFilter (@Nullable final DATATYPE aValue)
+  public boolean test (@Nullable final DATATYPE aValue)
   {
     for (final IFilter <? super DATATYPE> aFilter : m_aFilters)
-      if (aFilter.matchesFilter (aValue))
+      if (aFilter.test (aValue))
         return true;
     return false;
   }
@@ -89,6 +90,7 @@ public class FilterListAny <DATATYPE> implements IFilter <DATATYPE>
   }
 
   @Nonnull
+  @SafeVarargs
   public static <DATATYPE> FilterListAny <DATATYPE> create (@Nullable final IFilter <? super DATATYPE>... aFilters)
   {
     return new FilterListAny <DATATYPE> (aFilters);

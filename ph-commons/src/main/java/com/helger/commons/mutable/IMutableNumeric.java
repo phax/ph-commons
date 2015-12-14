@@ -33,7 +33,10 @@ public interface IMutableNumeric <IMPLTYPE extends IMutableNumeric <IMPLTYPE>> e
   /**
    * @return <code>true</code> if the value is not 0
    */
-  boolean isNot0 ();
+  default boolean isNot0 ()
+  {
+    return !is0 ();
+  }
 
   /**
    * @return <code>true</code> if the value is &lt; 0

@@ -29,14 +29,13 @@ import java.util.ResourceBundle;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.FileHelper;
+import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.text.resourcebundle.XMLResourceBundle;
 
 /**
  * Test class for class {@link XMLResourceBundle}.
- * 
+ *
  * @author Philip Helger
  */
 // SKIPJDK5

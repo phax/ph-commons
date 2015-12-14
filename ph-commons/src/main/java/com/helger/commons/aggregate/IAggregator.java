@@ -21,6 +21,8 @@ import java.util.Collection;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.collection.CollectionHelper;
+
 /**
  * Aggregate a list of input objects to an output object.
  *
@@ -49,6 +51,10 @@ public interface IAggregator <SRCTYPE, DSTTYPE>
    *        Source objects. May not be <code>null</code>.
    * @return The aggregated object. May be <code>null</code>.
    */
+  @SuppressWarnings ("unchecked")
   @Nullable
-  DSTTYPE aggregate (@Nonnull SRCTYPE... aObjects);
+  default DSTTYPE aggregate (@Nonnull final SRCTYPE... aObjects)
+  {
+    return aggregate (CollectionHelper.newList (aObjects));
+  }
 }

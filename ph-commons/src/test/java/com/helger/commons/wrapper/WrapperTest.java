@@ -25,12 +25,10 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.wrapper.IWrapper;
-import com.helger.commons.wrapper.Wrapper;
 
 /**
  * Test class for class {@link Wrapper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class WrapperTest

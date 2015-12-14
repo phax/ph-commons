@@ -23,10 +23,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.filter.FilterListAll;
-import com.helger.commons.filter.FilterNotNull;
-import com.helger.commons.filter.FilterNull;
-import com.helger.commons.filter.IFilter;
 
 /**
  * Test class for class {@link FilterListAll}
@@ -35,32 +31,31 @@ import com.helger.commons.filter.IFilter;
  */
 public final class FilterListAllTest
 {
-  @SuppressWarnings ("unchecked")
   @Test
   public void testAll ()
   {
     IFilter <String> aFilter = FilterListAll.create (new FilterNull <String> (), new FilterNotNull <String> ());
     assertNotNull (aFilter);
-    assertFalse (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
+    assertFalse (aFilter.test (null));
+    assertFalse (aFilter.test (""));
+    assertFalse (aFilter.test ("bla bla bla"));
 
     aFilter = FilterListAll.create (new FilterNull <String> ());
     assertNotNull (aFilter);
-    assertTrue (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
+    assertTrue (aFilter.test (null));
+    assertFalse (aFilter.test (""));
+    assertFalse (aFilter.test ("bla bla bla"));
 
     aFilter = FilterListAll.create (CollectionHelper.newList (new FilterNull <String> (), new FilterNotNull <String> ()));
     assertNotNull (aFilter);
-    assertFalse (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
+    assertFalse (aFilter.test (null));
+    assertFalse (aFilter.test (""));
+    assertFalse (aFilter.test ("bla bla bla"));
 
     aFilter = FilterListAll.create (CollectionHelper.newList (new FilterNull <String> ()));
     assertNotNull (aFilter);
-    assertTrue (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
+    assertTrue (aFilter.test (null));
+    assertFalse (aFilter.test (""));
+    assertFalse (aFilter.test ("bla bla bla"));
   }
 }

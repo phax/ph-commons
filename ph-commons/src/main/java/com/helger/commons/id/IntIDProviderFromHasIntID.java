@@ -22,7 +22,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 /**
  * A simple {@link IIntIDProvider} implementation for objects implementing the
  * {@link IHasIntID} interface
- * 
+ *
  * @author Philip Helger
  * @param <VALUETYPE>
  *        The object type

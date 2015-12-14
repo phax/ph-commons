@@ -18,12 +18,9 @@ package com.helger.commons.codec;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.codec.Base64Codec;
-import com.helger.commons.codec.IByteArrayCodec;
-
 /**
  * Test class for class {@link Base64Codec}
- * 
+ *
  * @author Philip Helger
  */
 public final class Base64CodecTest extends AbstractByteArrayCodecTest

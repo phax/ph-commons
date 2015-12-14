@@ -26,12 +26,10 @@ import java.nio.ByteOrder;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.io.stream.BitInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 
 /**
  * Test class for class {@link BitInputStream}.
- * 
+ *
  * @author Philip Helger
  */
 public final class BitInputStreamTest
@@ -47,41 +45,42 @@ public final class BitInputStreamTest
     catch (final NullPointerException ex)
     {}
     final NonBlockingByteArrayInputStream aBAOS = new NonBlockingByteArrayInputStream (new byte [10]);
-    final BitInputStream aBOS = new BitInputStream (aBAOS, ByteOrder.LITTLE_ENDIAN);
-    for (int i = 0; i < 5 * CGlobal.BITS_PER_BYTE; ++i)
-      assertEquals (CGlobal.BIT_NOT_SET, aBOS.readBit ());
-    try
+    try (final BitInputStream aBOS = new BitInputStream (aBAOS, ByteOrder.LITTLE_ENDIAN))
     {
-      aBOS.readBits (0);
-      fail ();
+      for (int i = 0; i < 5 * CGlobal.BITS_PER_BYTE; ++i)
+        assertEquals (CGlobal.BIT_NOT_SET, aBOS.readBit ());
+      try
+      {
+        aBOS.readBits (0);
+        fail ();
+      }
+      catch (final IllegalArgumentException ex)
+      {}
+      try
+      {
+        aBOS.readBits (33);
+        fail ();
+      }
+      catch (final IllegalArgumentException ex)
+      {}
+      for (int i = 0; i < 5; ++i)
+        assertEquals (0, aBOS.readBits (CGlobal.BITS_PER_BYTE));
+      try
+      {
+        aBOS.readBit ();
+        fail ();
+      }
+      catch (final EOFException ex)
+      {}
+      aBOS.close ();
+      try
+      {
+        aBOS.readBit ();
+        fail ();
+      }
+      catch (final IOException ex)
+      {}
     }
-    catch (final IllegalArgumentException ex)
-    {}
-    try
-    {
-      aBOS.readBits (33);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-    for (int i = 0; i < 5; ++i)
-      assertEquals (0, aBOS.readBits (CGlobal.BITS_PER_BYTE));
-    try
-    {
-      aBOS.readBit ();
-      fail ();
-    }
-    catch (final EOFException ex)
-    {}
-    aBOS.close ();
-    try
-    {
-      aBOS.readBit ();
-      fail ();
-    }
-    catch (final IOException ex)
-    {}
-    aBOS.close ();
   }
 
   @Test

@@ -23,199 +23,44 @@ import javax.annotation.Nonnull;
  */
 public enum ECodepointProfile
 {
-  NONE (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return true;
-    }
-  }),
-  ALPHA (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.isAlpha (codepoint);
-    }
-  }),
-  ALPHANUM (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.isAlphaDigit (codepoint);
-    }
-  }),
-  FRAGMENT (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.isFragment (codepoint);
-    }
-  }),
-  IFRAGMENT (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.is_ifragment (codepoint);
-    }
-  }),
-  PATH (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.isPath (codepoint);
-    }
-  }),
-  IPATH (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.is_ipath (codepoint);
-    }
-  }),
-  IUSERINFO (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.is_iuserinfo (codepoint);
-    }
-  }),
-  USERINFO (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.isUserInfo (codepoint);
-    }
-  }),
-  QUERY (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.isQuery (codepoint);
-    }
-  }),
-  IQUERY (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.is_iquery (codepoint);
-    }
-  }),
-  SCHEME (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.isScheme (codepoint);
-    }
-  }),
-  PATHNODELIMS (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.isPathNoDelims (codepoint);
-    }
-  }),
-  IPATHNODELIMS (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.is_ipathnodelims (codepoint);
-    }
-  }),
-  IPATHNODELIMS_SEG (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.is_ipathnodelims (codepoint) && codepoint != '@' && codepoint != ':';
-    }
-  }),
-  IREGNAME (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.is_iregname (codepoint);
-    }
-  }),
-  IHOST (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.is_ihost (codepoint);
-    }
-  }),
-  IPRIVATE (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.is_iprivate (codepoint);
-    }
-  }),
-  RESERVED (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.isReserved (codepoint);
-    }
-  }),
-  IUNRESERVED (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.is_iunreserved (codepoint);
-    }
-  }),
-  UNRESERVED (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.isUnreserved (codepoint);
-    }
-  }),
-  SCHEMESPECIFICPART (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.is_iunreserved (codepoint) &&
-             !CodepointHelper.isReserved (codepoint) &&
-             !CodepointHelper.is_iprivate (codepoint) &&
-             !CodepointHelper.isPctEnc (codepoint) &&
-             codepoint != '#';
-    }
-  }),
-  AUTHORITY (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.is_regname (codepoint) &&
-             !CodepointHelper.isUserInfo (codepoint) &&
-             !CodepointHelper.isGenDelim (codepoint);
-    }
-  }),
-  ASCIISANSCRLF (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.inRange (codepoint, 1, 9) && !CodepointHelper.inRange (codepoint, 14, 127);
-    }
-  }),
-  PCT (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.isPctEnc (codepoint);
-    }
-  }),
-  STD3ASCIIRULES (new ICodepointFilter ()
-  {
-    public boolean accept (final int codepoint)
-    {
-      return !CodepointHelper.inRange (codepoint, 0x0000, 0x002C) &&
-             !CodepointHelper.inRange (codepoint, 0x002E, 0x002F) &&
-             !CodepointHelper.inRange (codepoint, 0x003A, 0x0040) &&
-             !CodepointHelper.inRange (codepoint, 0x005B, 0x005E) &&
-             !CodepointHelper.inRange (codepoint, 0x0060, 0x0060) &&
-             !CodepointHelper.inRange (codepoint, 0x007B, 0x007F);
-    }
-  });
+ NONE (codepoint -> true),
+ ALPHA (codepoint -> !CodepointHelper.isAlpha (codepoint)),
+ ALPHANUM (codepoint -> !CodepointHelper.isAlphaDigit (codepoint)),
+ FRAGMENT (codepoint -> !CodepointHelper.isFragment (codepoint)),
+ IFRAGMENT (codepoint -> !CodepointHelper.is_ifragment (codepoint)),
+ PATH (codepoint -> !CodepointHelper.isPath (codepoint)),
+ IPATH (codepoint -> !CodepointHelper.is_ipath (codepoint)),
+ IUSERINFO (codepoint -> !CodepointHelper.is_iuserinfo (codepoint)),
+ USERINFO (codepoint -> !CodepointHelper.isUserInfo (codepoint)),
+ QUERY (codepoint -> !CodepointHelper.isQuery (codepoint)),
+ IQUERY (codepoint -> !CodepointHelper.is_iquery (codepoint)),
+ SCHEME (codepoint -> !CodepointHelper.isScheme (codepoint)),
+ PATHNODELIMS (codepoint -> !CodepointHelper.isPathNoDelims (codepoint)),
+ IPATHNODELIMS (codepoint -> !CodepointHelper.is_ipathnodelims (codepoint)),
+ IPATHNODELIMS_SEG (codepoint -> !CodepointHelper.is_ipathnodelims (codepoint) && codepoint != '@' && codepoint != ':'),
+ IREGNAME (codepoint -> !CodepointHelper.is_iregname (codepoint)),
+ IHOST (codepoint -> !CodepointHelper.is_ihost (codepoint)),
+ IPRIVATE (codepoint -> !CodepointHelper.is_iprivate (codepoint)),
+ RESERVED (codepoint -> !CodepointHelper.isReserved (codepoint)),
+ IUNRESERVED (codepoint -> !CodepointHelper.is_iunreserved (codepoint)),
+ UNRESERVED (codepoint -> !CodepointHelper.isUnreserved (codepoint)),
+ SCHEMESPECIFICPART (codepoint -> !CodepointHelper.is_iunreserved (codepoint) &&
+                                  !CodepointHelper.isReserved (codepoint) &&
+                                  !CodepointHelper.is_iprivate (codepoint) &&
+                                  !CodepointHelper.isPctEnc (codepoint) &&
+                                  codepoint != '#'),
+ AUTHORITY (codepoint -> !CodepointHelper.is_regname (codepoint) &&
+                         !CodepointHelper.isUserInfo (codepoint) &&
+                         !CodepointHelper.isGenDelim (codepoint)),
+ ASCIISANSCRLF (codepoint -> !CodepointHelper.inRange (codepoint, 1, 9) &&
+                             !CodepointHelper.inRange (codepoint, 14, 127)),
+ PCT (codepoint -> !CodepointHelper.isPctEnc (codepoint)),
+ STD3ASCIIRULES (codepoint -> !CodepointHelper.inRange (codepoint, 0x0000, 0x002C) &&
+                              !CodepointHelper.inRange (codepoint, 0x002E, 0x002F) &&
+                              !CodepointHelper.inRange (codepoint, 0x003A, 0x0040) &&
+                              !CodepointHelper.inRange (codepoint, 0x005B, 0x005E) &&
+                              !CodepointHelper.inRange (codepoint, 0x0060, 0x0060) &&
+                              !CodepointHelper.inRange (codepoint, 0x007B, 0x007F));
 
   private final ICodepointFilter m_aFilter;
 

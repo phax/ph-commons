@@ -25,13 +25,13 @@ import com.helger.commons.lang.EnumHelper;
 
 /**
  * Determines whether comments should be serialized or not.
- * 
+ *
  * @author Philip Helger
  */
 public enum EXMLSerializeComments implements IHasID <String>
 {
-  EMIT ("emit"),
-  IGNORE ("ignore");
+ EMIT ("emit"),
+ IGNORE ("ignore");
 
   private final String m_sID;
 

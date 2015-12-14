@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Logging implementation of {@link IChangeLogSerializerCallback}.
- * 
+ *
  * @author Philip Helger
  */
 public class LoggingChangeLogSerializerCallback implements IChangeLogSerializerCallback

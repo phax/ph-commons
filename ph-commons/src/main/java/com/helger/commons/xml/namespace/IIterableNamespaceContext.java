@@ -27,7 +27,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 /**
  * A special namespace context interface that allows the iteration of the
  * contained mappings.
- * 
+ *
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
@@ -35,7 +35,7 @@ public interface IIterableNamespaceContext extends NamespaceContext
 {
   /**
    * Get all contained mappings.
-   * 
+   *
    * @return The map with all prefixes mapped to the namespace URIs.
    */
   @Nonnull

@@ -18,11 +18,12 @@ package com.helger.commons.convert;
 
 /**
  * A specialized converter interface that does not do type transformations.
- * 
+ *
  * @param <DATATYPE>
  *        Handled data type
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IConverterSameType <DATATYPE> extends IConverter <DATATYPE, DATATYPE>
 {
   /* empty */

@@ -23,14 +23,15 @@ import javax.annotation.Nullable;
 
 /**
  * A callback interface to retrieve {@link Reader} objects from a given name.
- * 
+ *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IReaderProvider
 {
   /**
    * Get the reader from the given name.
-   * 
+   *
    * @param sName
    *        The name to be resolved. May not be <code>null</code>.
    * @return <code>null</code> if resolving failed.

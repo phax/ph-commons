@@ -28,7 +28,7 @@ import com.helger.commons.typeconvert.TypeConverterException.EReason;
 
 /**
  * Test class for class {@link TypeConverterException}.
- * 
+ *
  * @author Philip Helger
  */
 public final class TypeConverterExceptionTest

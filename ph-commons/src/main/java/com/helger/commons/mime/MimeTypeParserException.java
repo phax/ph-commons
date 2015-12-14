@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 
 /**
  * Exception for errors that occur during MIME type parsing.
- * 
+ *
  * @author Philip Helger
  */
 public class MimeTypeParserException extends RuntimeException

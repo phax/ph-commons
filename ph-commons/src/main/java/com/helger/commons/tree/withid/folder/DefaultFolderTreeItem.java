@@ -23,7 +23,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 /**
  * Default implementation of the {@link IFolderTreeItem} interface.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        Key type
@@ -37,7 +37,7 @@ public class DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collecti
 {
   /**
    * Constructor for root object
-   * 
+   *
    * @param aFactory
    *        The item factory to use.
    */
@@ -48,7 +48,7 @@ public class DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collecti
 
   /**
    * Constructor for normal elements
-   * 
+   *
    * @param aParent
    *        Parent item. May never be <code>null</code> since only the root has
    *        no parent.

@@ -22,7 +22,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.functional.IPredicate;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -35,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The type of object to filter.
  */
 @NotThreadSafe
-public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>, IPredicate <DATATYPE>
+public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>
 {
   private EFilterMatchingStrategy m_eMatchingStrategy = EFilterMatchingStrategy.MATCH_ANY;
   private IFilter <? super DATATYPE> m_aNestedFilter;
@@ -102,20 +101,15 @@ public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>, I
    *        The value to be matched
    * @return <code>true</code> if the value matches the filter
    */
-  public abstract boolean matchesThisFilter (final DATATYPE aValue);
+  public abstract boolean directTest (final DATATYPE aValue);
 
   public final boolean test (final DATATYPE aValue)
-  {
-    return matchesFilter (aValue);
-  }
-
-  public final boolean matchesFilter (final DATATYPE aValue)
   {
     final boolean bIsMatchAny = m_eMatchingStrategy.equals (EFilterMatchingStrategy.MATCH_ANY);
     final boolean bIsMatchAll = !bIsMatchAny;
 
     // Match this filter
-    final boolean bMatchesThisFilter = matchesThisFilter (aValue);
+    final boolean bMatchesThisFilter = directTest (aValue);
     if (bMatchesThisFilter && bIsMatchAny)
       return true;
     if (!bMatchesThisFilter && bIsMatchAll)
@@ -125,7 +119,7 @@ public abstract class AbstractFilter <DATATYPE> implements IFilter <DATATYPE>, I
     if (m_aNestedFilter == null)
       return bMatchesThisFilter;
 
-    final boolean bMatchesNestedFilter = m_aNestedFilter.matchesFilter (aValue);
+    final boolean bMatchesNestedFilter = m_aNestedFilter.test (aValue);
     return bMatchesNestedFilter;
   }
 

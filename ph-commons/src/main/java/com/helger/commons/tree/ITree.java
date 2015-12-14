@@ -18,7 +18,7 @@ package com.helger.commons.tree;
 
 /**
  * Base interface for a simple tree
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        tree item value type

@@ -24,11 +24,10 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.xml.XMLFactory;
-import com.helger.commons.xml.serialize.read.DOMReaderDefaultSettings;
 
 /**
  * Test class for {@link DOMReaderDefaultSettings}
- * 
+ *
  * @author Philip Helger
  */
 public final class DOMReaderDefaultSettingsTest

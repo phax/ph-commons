@@ -21,14 +21,13 @@ import javax.xml.bind.JAXBElement;
 
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.hashcode.IHashCodeImplementation;
 import com.helger.commons.hashcode.IHashCodeImplementationRegistrarSPI;
 import com.helger.commons.hashcode.IHashCodeImplementationRegistry;
 
 /**
  * Implementation of {@link IHashCodeImplementationRegistrarSPI} for
  * {@link JAXBElement}.
- * 
+ *
  * @author Philip Helger
  */
 @IsSPIImplementation
@@ -37,18 +36,14 @@ public final class JAXBHashCodeImplementationRegistrarSPI implements IHashCodeIm
   public void registerHashCodeImplementations (@Nonnull final IHashCodeImplementationRegistry aRegistry)
   {
     // JAXBElement does not implement hashCode!
-    aRegistry.registerHashCodeImplementation (JAXBElement.class, new IHashCodeImplementation ()
-    {
-      public int getHashCode (final Object aObj)
-      {
-        final JAXBElement <?> aRealObj = (JAXBElement <?>) aObj;
-        return new HashCodeGenerator (aRealObj.getClass ()).append (aRealObj.getDeclaredType ())
-                                                           .append (aRealObj.getName ())
-                                                           .append (aRealObj.getScope ())
-                                                           .append (aRealObj.isNil ())
-                                                           .append (aRealObj.getValue ())
-                                                           .getHashCode ();
-      }
+    aRegistry.registerHashCodeImplementation (JAXBElement.class, aObj -> {
+      final JAXBElement <?> aRealObj = (JAXBElement <?>) aObj;
+      return new HashCodeGenerator (aRealObj.getClass ()).append (aRealObj.getDeclaredType ())
+                                                         .append (aRealObj.getName ())
+                                                         .append (aRealObj.getScope ())
+                                                         .append (aRealObj.isNil ())
+                                                         .append (aRealObj.getValue ())
+                                                         .getHashCode ();
     });
   }
 }

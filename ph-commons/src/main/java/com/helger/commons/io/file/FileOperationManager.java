@@ -27,7 +27,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * Manage file operations, and persist the last errors for later retrieval, as
  * well as offering a callback mechanism for success/error handling.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe

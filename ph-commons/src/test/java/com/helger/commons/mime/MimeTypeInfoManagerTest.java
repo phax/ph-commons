@@ -67,8 +67,10 @@ public final class MimeTypeInfoManagerTest
     assertEquals (CMimeType.APPLICATION_MS_EXCEL, aMgr.getPrimaryMimeTypeForExtension ("XLS"));
     assertNull (aMgr.getPrimaryMimeTypeForExtension ("waerhaettedasgedacht"));
 
-    assertTrue (aMgr.getAllMimeTypeStringsForExtension ("xls").contains (CMimeType.APPLICATION_MS_EXCEL.getAsString ()));
-    assertTrue (aMgr.getAllMimeTypeStringsForExtension ("XLS").contains (CMimeType.APPLICATION_MS_EXCEL.getAsString ()));
+    assertTrue (aMgr.getAllMimeTypeStringsForExtension ("xls")
+                    .contains (CMimeType.APPLICATION_MS_EXCEL.getAsString ()));
+    assertTrue (aMgr.getAllMimeTypeStringsForExtension ("XLS")
+                    .contains (CMimeType.APPLICATION_MS_EXCEL.getAsString ()));
     assertTrue (aMgr.getAllMimeTypeStringsForExtension ("abersichernicht").isEmpty ());
 
     assertTrue (aMgr.getAllMimeTypesForExtension ("xml").contains (CMimeType.APPLICATION_XML));
@@ -79,32 +81,34 @@ public final class MimeTypeInfoManagerTest
     assertEquals (CMimeType.APPLICATION_MS_EXCEL_2007.getAsString (),
                   aMgr.getPrimaryMimeTypeStringForExtension ("xlsx"));
     assertEquals (CMimeType.APPLICATION_MS_WORD.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("doc"));
-    assertEquals (CMimeType.APPLICATION_MS_WORD_2007.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("docx"));
-    assertEquals (CMimeType.APPLICATION_MS_POWERPOINT.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("ppt"));
+    assertEquals (CMimeType.APPLICATION_MS_WORD_2007.getAsString (),
+                  aMgr.getPrimaryMimeTypeStringForExtension ("docx"));
+    assertEquals (CMimeType.APPLICATION_MS_POWERPOINT.getAsString (),
+                  aMgr.getPrimaryMimeTypeStringForExtension ("ppt"));
     assertEquals (CMimeType.APPLICATION_MS_POWERPOINT_2007.getAsString (),
                   aMgr.getPrimaryMimeTypeStringForExtension ("pptx"));
     assertEquals (CMimeType.APPLICATION_XML.getAsString (), aMgr.getPrimaryMimeTypeStringForExtension ("xml"));
     assertNull (aMgr.getPrimaryMimeTypeStringForExtension ("waerhaettedasgedacht"));
 
     for (final String sExt : new String [] { "xls",
-                                            "XLS",
-                                            "xlsx",
-                                            "XLSX",
-                                            "doc",
-                                            "DOC",
-                                            "docx",
-                                            "DOCX",
-                                            "ppt",
-                                            "PPT",
-                                            "pptx",
-                                            "PPTX",
-                                            "xml",
-                                            "XML",
-                                            "mp3",
-                                            "MP3",
-                                            "",
-                                            "exe",
-                                            "EXE" })
+                                             "XLS",
+                                             "xlsx",
+                                             "XLSX",
+                                             "doc",
+                                             "DOC",
+                                             "docx",
+                                             "DOCX",
+                                             "ppt",
+                                             "PPT",
+                                             "pptx",
+                                             "PPTX",
+                                             "xml",
+                                             "XML",
+                                             "mp3",
+                                             "MP3",
+                                             "",
+                                             "exe",
+                                             "EXE" })
     {
       assertTrue (sExt + " not found", aMgr.containsMimeTypeForExtension (sExt));
       assertFalse (sExt + " not found", aMgr.getAllMimeTypesForExtension (sExt).isEmpty ());

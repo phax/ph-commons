@@ -34,11 +34,11 @@ import com.helger.commons.codec.URLCodec;
  */
 public enum EMimeQuoting
 {
-  /**
-   * Create a quoted string according to RFC 822 (surrounding everything in
-   * double-quotes and masking using backslash).<br>
-   * Example: <code>foo bar</code> results in <code>"foo bar"</code>
-   */
+ /**
+  * Create a quoted string according to RFC 822 (surrounding everything in
+  * double-quotes and masking using backslash).<br>
+  * Example: <code>foo bar</code> results in <code>"foo bar"</code>
+  */
   QUOTED_STRING
   {
     @Override
@@ -69,11 +69,11 @@ public enum EMimeQuoting
     }
   },
 
-  /**
-   * Create a quoted printable String. Replace all non-printable characters with
-   * =XY where XY is the hex encoding of the char.<br>
-   * Example: <code>foo bar</code> results in <code>foo=20bar</code>
-   */
+ /**
+  * Create a quoted printable String. Replace all non-printable characters with
+  * =XY where XY is the hex encoding of the char.<br>
+  * Example: <code>foo bar</code> results in <code>foo=20bar</code>
+  */
   QUOTED_PRINTABLE
   {
     @Override
@@ -96,12 +96,12 @@ public enum EMimeQuoting
     }
   },
 
-  /**
-   * Create a URL escaped String. Replace all non-printable characters with %XY
-   * where XY is the hex encoding of the char. Special note: space (ASCII 20)
-   * should be escaped as "%20" and not as "+".<br>
-   * Example: <code>foo bar</code> results in <code>foo%20bar</code>
-   */
+ /**
+  * Create a URL escaped String. Replace all non-printable characters with %XY
+  * where XY is the hex encoding of the char. Special note: space (ASCII 20)
+  * should be escaped as "%20" and not as "+".<br>
+  * Example: <code>foo bar</code> results in <code>foo%20bar</code>
+  */
   URL_ESCAPE
   {
     @Override

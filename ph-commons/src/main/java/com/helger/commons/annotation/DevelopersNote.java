@@ -23,7 +23,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * Just a debugging measurement to add comments to all elements. This is for
  * easier searching than the predefined Eclipse comments.
- * 
+ *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)

@@ -48,7 +48,7 @@ public final class ClassPathResourceProvider implements IReadableResourceProvide
 
   /**
    * Constructor
-   * 
+   *
    * @param sPrefix
    *        The common prefix to use. May be <code>null</code>.
    */

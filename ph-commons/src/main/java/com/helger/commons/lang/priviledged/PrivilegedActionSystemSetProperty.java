@@ -25,7 +25,7 @@ import com.helger.commons.ValueEnforcer;
 
 /**
  * A special privileged object, that calls <code>System.setProperty</code>
- * 
+ *
  * @author Philip Helger
  */
 public final class PrivilegedActionSystemSetProperty implements PrivilegedAction <String>

@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 /**
  * Abstraction of the string parts of a URL but much simpler (and faster) than
  * {@link java.net.URL}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ReadOnlySimpleURL extends AbstractSimpleURL

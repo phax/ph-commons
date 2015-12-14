@@ -20,9 +20,10 @@ import javax.annotation.Nonnull;
 
 /**
  * Interface representing an object having a resource error group.
- * 
+ *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasResourceErrorGroup
 {
   /**

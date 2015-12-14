@@ -1,8 +1,9 @@
 #ph-commons
 
-Java 1.6+ Library with tons of utility classes required in most of ph-* projects.
+Java 1.8+ Library with tons of utility classes required in most of ph-* projects.
 
 Version 6.0.0 contains major changes and more or less all other projects were released to reflect the changes of 6.x. So please ensure to not mix 5.x and 6.x versions of ph-commons!
+Version 8.0.0 is the first to be used solely with Java 8.
 
 ##Maven usage
 Add the following to your pom.xml to use this artifact:
@@ -10,7 +11,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>6.2.3</version>
+  <version>8.0.0-SNAPSHOT</version>
 </dependency>
 ```
 

@@ -24,7 +24,7 @@ import com.helger.commons.io.resource.IWritableResource;
 
 /**
  * Resource provider interface for readable and writable resources.
- * 
+ *
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
@@ -34,7 +34,7 @@ public interface IWritableResourceProvider extends IReadableResourceProvider
    * Check if this resource provider can handle the resource with the passed
    * name. If there is no real check on whether your resource provider can
    * handle it, simply return <code>true</code>.
-   * 
+   *
    * @param sName
    *        The name to check. May be <code>null</code>.
    * @return <code>true</code> if the name is not <code>null</code> and can be
@@ -44,7 +44,7 @@ public interface IWritableResourceProvider extends IReadableResourceProvider
 
   /**
    * Get the resource specified by the given name for writing.
-   * 
+   *
    * @param sName
    *        The name of the resource to resolve.
    * @return The writable resource. Never <code>null</code>.

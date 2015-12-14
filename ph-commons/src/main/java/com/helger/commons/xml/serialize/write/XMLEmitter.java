@@ -68,7 +68,7 @@ public class XMLEmitter
     m_eXMLVersion = aSettings.getSerializeVersion ();
     m_cAttrValueBoundary = aSettings.isUseDoubleQuotesForAttributes () ? '"' : '\'';
     m_eAttrValueCharMode = aSettings.isUseDoubleQuotesForAttributes () ? EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES
-                                                                      : EXMLCharMode.ATTRIBUTE_VALUE_SINGLE_QUOTES;
+                                                                       : EXMLCharMode.ATTRIBUTE_VALUE_SINGLE_QUOTES;
   }
 
   /**

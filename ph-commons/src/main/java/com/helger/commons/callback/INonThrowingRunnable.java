@@ -22,6 +22,7 @@ package com.helger.commons.callback;
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface INonThrowingRunnable extends Runnable, IThrowingRunnable <Exception>
 {
   /**

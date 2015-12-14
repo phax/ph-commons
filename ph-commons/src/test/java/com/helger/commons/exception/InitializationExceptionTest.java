@@ -18,8 +18,6 @@ package com.helger.commons.exception;
 
 import org.junit.Test;
 
-import com.helger.commons.exception.InitializationException;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**

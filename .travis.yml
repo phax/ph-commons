@@ -18,9 +18,6 @@ before_script:
  - "export MAVEN_OPTS=-Djava.security.egd=file:/dev/./urandom"
  
 jdk:
-# Runs in an endless loop for SecureRandom init on all JDK versions :(
-#  - openjdk6
-#  - oraclejdk7
   - oraclejdk8
   
 cache:
@@ -30,4 +27,3 @@ cache:
 after_success:
   - python mvn-settings-add-snapshot.py
   - mvn clean deploy -DskipTests=true --settings ~/.m2/snapshot-settings.xml
-  

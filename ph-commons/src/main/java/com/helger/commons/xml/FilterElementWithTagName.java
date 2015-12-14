@@ -36,7 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class FilterElementWithTagName extends AbstractFilter <Element>
+public class FilterElementWithTagName extends AbstractFilter <Element>
 {
   private final String m_sTagName;
 
@@ -53,7 +53,7 @@ public final class FilterElementWithTagName extends AbstractFilter <Element>
   }
 
   @Override
-  public boolean matchesThisFilter (@Nullable final Element aElement)
+  public boolean directTest (@Nullable final Element aElement)
   {
     return aElement != null && aElement.getNamespaceURI () == null && aElement.getTagName ().equals (m_sTagName);
   }

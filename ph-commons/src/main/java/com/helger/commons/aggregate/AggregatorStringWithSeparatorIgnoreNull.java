@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class AggregatorStringWithSeparatorIgnoreNull extends AbstractAggregator <String, String>
+public final class AggregatorStringWithSeparatorIgnoreNull implements IAggregator <String, String>
 {
   private final String m_sSep;
 

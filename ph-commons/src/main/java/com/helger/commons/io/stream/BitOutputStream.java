@@ -19,10 +19,10 @@ package com.helger.commons.io.stream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteOrder;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Nonnull;
+
+import com.helger.commons.concurrent.SimpleLock;
 
 /**
  * The BitOutputStream allows writing individual bits to a general Java
@@ -32,17 +32,17 @@ import javax.annotation.Nonnull;
  * is flushed to the underlying output stream). It is also able to write an
  * integer value to the stream using the specified number of bits.<br>
  * For a non-blocking version see {@link NonBlockingBitOutputStream}.
- * 
+ *
  * @author Andreas Jakl
  * @author Philip Helger
  */
 public class BitOutputStream extends NonBlockingBitOutputStream
 {
-  private final Lock m_aLock = new ReentrantLock ();
+  private final SimpleLock m_aLock = new SimpleLock ();
 
   /**
    * Create a new bit output stream based on an existing Java OutputStream.
-   * 
+   *
    * @param aOS
    *        the output stream this class should use. May not be
    *        <code>null</code>.
@@ -57,7 +57,7 @@ public class BitOutputStream extends NonBlockingBitOutputStream
   /**
    * Write a single bit to the stream. It will only be flushed to the underlying
    * OutputStream when a byte has been completed or when flush() manually.
-   * 
+   *
    * @param aBit
    *        1 if the bit should be set, 0 if not
    * @throws IOException
@@ -79,7 +79,7 @@ public class BitOutputStream extends NonBlockingBitOutputStream
 
   /**
    * Write the current cache to the stream and reset the buffer.
-   * 
+   *
    * @throws IOException
    *         In case writing to the output stream failed
    */
@@ -103,14 +103,6 @@ public class BitOutputStream extends NonBlockingBitOutputStream
   @Override
   public void close ()
   {
-    m_aLock.lock ();
-    try
-    {
-      super.close ();
-    }
-    finally
-    {
-      m_aLock.unlock ();
-    }
+    m_aLock.locked ( () -> super.close ());
   }
 }

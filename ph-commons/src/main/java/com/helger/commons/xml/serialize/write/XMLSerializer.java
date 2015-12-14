@@ -235,12 +235,13 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       }
 
       // Determine indent
-      final Element aParentElement = aParentNode != null && aParentNode.getNodeType () == Node.ELEMENT_NODE ? (Element) aParentNode
-                                                                                                           : null;
+      final Element aParentElement = aParentNode != null && aParentNode.getNodeType () == Node.ELEMENT_NODE
+                                                                                                            ? (Element) aParentNode
+                                                                                                            : null;
       final String sParentNamespaceURI = aParentElement != null ? aParentNode.getNamespaceURI () : null;
       final String sParentTagName = aParentElement != null ? aParentElement.getLocalName () != null ? aParentElement.getLocalName ()
-                                                                                                   : aParentElement.getTagName ()
-                                                          : null;
+                                                                                                    : aParentElement.getTagName ()
+                                                           : null;
       final EXMLSerializeIndent eIndentOuter = m_aSettings.getIndentDeterminator ()
                                                           .getIndentOuter (sParentNamespaceURI,
                                                                            sParentTagName,

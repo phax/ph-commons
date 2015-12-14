@@ -44,7 +44,7 @@ import com.helger.commons.xml.EXMLParserProperty;
 
 /**
  * SAX reader settings
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -79,7 +79,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
 
   /**
    * Copy constructor
-   * 
+   *
    * @param aOther
    *        the object to copy the settings from. May not be <code>null</code>.
    */
@@ -396,7 +396,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
    * Create a clone of the passed settings, depending on the parameter. If the
    * parameter is <code>null</code> a new empty {@link SAXReaderSettings} object
    * is created, otherwise a copy of the parameter is created.
-   * 
+   *
    * @param aOther
    *        The parameter to be used. May be <code>null</code>.
    * @return Never <code>null</code>.

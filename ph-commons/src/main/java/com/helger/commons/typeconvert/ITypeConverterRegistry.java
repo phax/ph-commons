@@ -20,14 +20,14 @@ import javax.annotation.Nonnull;
 
 /**
  * Callback interface for registering new type converters.
- * 
+ *
  * @author Philip Helger
  */
 public interface ITypeConverterRegistry
 {
   /**
    * Register a type converter.
-   * 
+   *
    * @param aSrcClass
    *        A non-<code>null</code> source class to convert from. Must be an
    *        instancable class.
@@ -43,7 +43,7 @@ public interface ITypeConverterRegistry
 
   /**
    * Register a type converter.
-   * 
+   *
    * @param aSrcClasses
    *        A non-<code>null</code> collection of source classes to convert
    *        from. Must be an instancable class.
@@ -59,7 +59,7 @@ public interface ITypeConverterRegistry
 
   /**
    * Register a flexible type converter rule.
-   * 
+   *
    * @param aTypeConverterRule
    *        The type converter rule to be registered. May not be
    *        <code>null</code>.

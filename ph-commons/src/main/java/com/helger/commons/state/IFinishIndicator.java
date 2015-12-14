@@ -18,7 +18,7 @@ package com.helger.commons.state;
 
 /**
  * Very simple interface for an object that has finished/unfinished indication.
- * 
+ *
  * @author Philip Helger
  */
 public interface IFinishIndicator

@@ -21,7 +21,7 @@ import java.util.Iterator;
 /**
  * This is a merged interface of {@link Iterator} and {@link Iterable} for
  * simpler usage of iterators in the new Java 1.5 "for" constructs.
- * 
+ *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        The type of object to iterate
@@ -30,7 +30,7 @@ public interface IIterableIterator <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>,
 {
   /**
    * {@inheritDoc}
-   * 
+   *
    * @return The next element. No constraint whether the element can be
    *         <code>null</code> or non-<code>null</code>.
    */

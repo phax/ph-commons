@@ -17,6 +17,7 @@
 package com.helger.commons.charset;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
@@ -39,74 +40,74 @@ public final class CCharset
    * ISO-8859-1.
    */
   @Nonnull
-  public static final String CHARSET_ISO_8859_1 = "ISO-8859-1";
+  public static final String CHARSET_ISO_8859_1 = StandardCharsets.ISO_8859_1.name ();
 
   /**
    * The ISO-8859-1 charset object.
    */
   @Nonnull
-  public static final Charset CHARSET_ISO_8859_1_OBJ = CharsetManager.getCharsetFromName (CHARSET_ISO_8859_1);
+  public static final Charset CHARSET_ISO_8859_1_OBJ = StandardCharsets.ISO_8859_1;
 
   /**
    * The special US ACSII charset to be used in all applications. This is
    * US-ASCII.
    */
   @Nonnull
-  public static final String CHARSET_US_ASCII = "US-ASCII";
+  public static final String CHARSET_US_ASCII = StandardCharsets.US_ASCII.name ();
 
   /**
    * The US-ASCII charset object.
    */
   @Nonnull
-  public static final Charset CHARSET_US_ASCII_OBJ = CharsetManager.getCharsetFromName (CHARSET_US_ASCII);
+  public static final Charset CHARSET_US_ASCII_OBJ = StandardCharsets.US_ASCII;
 
   /**
    * The special UTF-8 charset to be used in all applications.
    */
   @Nonnull
-  public static final String CHARSET_UTF_8 = "UTF-8";
+  public static final String CHARSET_UTF_8 = StandardCharsets.UTF_8.name ();
 
   /**
    * The UTF-8 charset object.
    */
   @Nonnull
-  public static final Charset CHARSET_UTF_8_OBJ = CharsetManager.getCharsetFromName (CHARSET_UTF_8);
+  public static final Charset CHARSET_UTF_8_OBJ = StandardCharsets.UTF_8;
 
   /**
    * The special UTF-16 charset to be used in all applications.
    */
   @Nonnull
-  public static final String CHARSET_UTF_16 = "UTF-16";
+  public static final String CHARSET_UTF_16 = StandardCharsets.UTF_16.name ();
 
   /**
    * The UTF-16 charset object.
    */
   @Nonnull
-  public static final Charset CHARSET_UTF_16_OBJ = CharsetManager.getCharsetFromName (CHARSET_UTF_16);
+  public static final Charset CHARSET_UTF_16_OBJ = StandardCharsets.UTF_16;
 
   /**
    * The special UTF-16BE charset to be used in all applications.
    */
   @Nonnull
-  public static final String CHARSET_UTF_16BE = "UTF-16BE";
+  public static final String CHARSET_UTF_16BE = StandardCharsets.UTF_16BE.name ();
 
   /**
    * The UTF-16BE charset object.
    */
   @Nonnull
-  public static final Charset CHARSET_UTF_16BE_OBJ = CharsetManager.getCharsetFromName (CHARSET_UTF_16BE);
+  public static final Charset CHARSET_UTF_16BE_OBJ = StandardCharsets.UTF_16BE;
 
   /**
    * The special UTF-16LE charset to be used in all applications.
    */
   @Nonnull
-  public static final String CHARSET_UTF_16LE = "UTF-16LE";
+  public static final String CHARSET_UTF_16LE = StandardCharsets.UTF_16LE.name ();
 
   /**
    * The UTF-16LE charset object.
    */
   @Nonnull
-  public static final Charset CHARSET_UTF_16LE_OBJ = CharsetManager.getCharsetFromName (CHARSET_UTF_16LE);
+  public static final Charset CHARSET_UTF_16LE_OBJ = StandardCharsets.UTF_16LE;
 
   /**
    * The default charset to be used in all applications. Currently this is

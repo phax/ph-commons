@@ -31,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * This is a stupid wrapper around any object. Its original purpose was the
  * encapsulation of return values from within an anonymous class.
- * 
+ *
  * @author Philip
  * @param <DATATYPE>
  *        The type of object to be wrapped.
@@ -49,7 +49,7 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
 
   /**
    * Constructor with an existing object.
-   * 
+   *
    * @param aObj
    *        The existing object. May be <code>null</code>.
    */
@@ -60,7 +60,7 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
 
   /**
    * Copy constructor. Only takes wrappers of the same type.
-   * 
+   *
    * @param aRhs
    *        The other wrapper to use. May not be <code>null</code>.
    */
@@ -121,7 +121,7 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
 
   /**
    * Static factory method with automatic type deduction.
-   * 
+   *
    * @param <DATATYPE>
    *        The type to be wrapped.
    * @param aObj

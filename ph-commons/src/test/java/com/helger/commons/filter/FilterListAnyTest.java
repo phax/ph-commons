@@ -23,10 +23,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.filter.FilterListAny;
-import com.helger.commons.filter.FilterNotNull;
-import com.helger.commons.filter.FilterNull;
-import com.helger.commons.filter.IFilter;
 
 /**
  * Test class for class {@link FilterListAny}
@@ -35,32 +31,31 @@ import com.helger.commons.filter.IFilter;
  */
 public final class FilterListAnyTest
 {
-  @SuppressWarnings ("unchecked")
   @Test
   public void testAll ()
   {
     IFilter <String> aFilter = FilterListAny.create (new FilterNull <String> (), new FilterNotNull <String> ());
     assertNotNull (aFilter);
-    assertTrue (aFilter.matchesFilter (null));
-    assertTrue (aFilter.matchesFilter (""));
-    assertTrue (aFilter.matchesFilter ("bla bla bla"));
+    assertTrue (aFilter.test (null));
+    assertTrue (aFilter.test (""));
+    assertTrue (aFilter.test ("bla bla bla"));
 
     aFilter = FilterListAny.create (new FilterNull <String> ());
     assertNotNull (aFilter);
-    assertTrue (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
+    assertTrue (aFilter.test (null));
+    assertFalse (aFilter.test (""));
+    assertFalse (aFilter.test ("bla bla bla"));
 
     aFilter = FilterListAny.create (CollectionHelper.newList (new FilterNull <String> (), new FilterNotNull <String> ()));
     assertNotNull (aFilter);
-    assertTrue (aFilter.matchesFilter (null));
-    assertTrue (aFilter.matchesFilter (""));
-    assertTrue (aFilter.matchesFilter ("bla bla bla"));
+    assertTrue (aFilter.test (null));
+    assertTrue (aFilter.test (""));
+    assertTrue (aFilter.test ("bla bla bla"));
 
     aFilter = FilterListAny.create (CollectionHelper.newList (new FilterNull <String> ()));
     assertNotNull (aFilter);
-    assertTrue (aFilter.matchesFilter (null));
-    assertFalse (aFilter.matchesFilter (""));
-    assertFalse (aFilter.matchesFilter ("bla bla bla"));
+    assertTrue (aFilter.test (null));
+    assertFalse (aFilter.test (""));
+    assertFalse (aFilter.test ("bla bla bla"));
   }
 }

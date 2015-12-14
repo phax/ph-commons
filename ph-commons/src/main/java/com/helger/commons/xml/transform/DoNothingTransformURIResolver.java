@@ -22,7 +22,7 @@ import javax.xml.transform.TransformerException;
 
 /**
  * {@link javax.xml.transform.URIResolver} that does nothing.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe

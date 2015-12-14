@@ -80,29 +80,29 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
 {
   // All classes for which type converters from and to each other are defined
   private static final Class <?> [] CONVERTIBLE_CLASSES = new Class <?> [] { Boolean.class,
-                                                                            Byte.class,
-                                                                            Character.class,
-                                                                            Double.class,
-                                                                            Float.class,
-                                                                            Integer.class,
-                                                                            Long.class,
-                                                                            Short.class,
-                                                                            String.class,
-                                                                            StringBuilder.class,
-                                                                            StringBuffer.class,
-                                                                            BigDecimal.class,
-                                                                            BigInteger.class,
-                                                                            AtomicBoolean.class,
-                                                                            AtomicInteger.class,
-                                                                            AtomicLong.class,
-                                                                            MutableBoolean.class,
-                                                                            MutableByte.class,
-                                                                            MutableChar.class,
-                                                                            MutableDouble.class,
-                                                                            MutableFloat.class,
-                                                                            MutableInt.class,
-                                                                            MutableLong.class,
-                                                                            MutableShort.class };
+                                                                             Byte.class,
+                                                                             Character.class,
+                                                                             Double.class,
+                                                                             Float.class,
+                                                                             Integer.class,
+                                                                             Long.class,
+                                                                             Short.class,
+                                                                             String.class,
+                                                                             StringBuilder.class,
+                                                                             StringBuffer.class,
+                                                                             BigDecimal.class,
+                                                                             BigInteger.class,
+                                                                             AtomicBoolean.class,
+                                                                             AtomicInteger.class,
+                                                                             AtomicLong.class,
+                                                                             MutableBoolean.class,
+                                                                             MutableByte.class,
+                                                                             MutableChar.class,
+                                                                             MutableDouble.class,
+                                                                             MutableFloat.class,
+                                                                             MutableInt.class,
+                                                                             MutableLong.class,
+                                                                             MutableShort.class };
 
   @Nonnull
   private static Object _instantiate (@Nonnull final Class <?> aClass) throws Exception
@@ -194,32 +194,33 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   {
     // Check conversion with explicit converters defined
     final Object [] aDefinedObjs = new Object [] { BigDecimal.ONE,
-                                                  new BigDecimal (Double.MAX_VALUE),
-                                                  new BigDecimal ("123446712345678765456547865789762131.9999123446712345678765456547865789762131"),
-                                                  BigInteger.ZERO,
-                                                  new BigInteger ("123446712345678765456547865789762131"),
-                                                  Byte.valueOf ((byte) 5),
-                                                  Boolean.TRUE,
-                                                  Character.valueOf ('c'),
-                                                  Double.valueOf (1245.3433),
-                                                  Float.valueOf (31.451f),
-                                                  Integer.valueOf (17),
-                                                  Long.valueOf (Long.MAX_VALUE),
-                                                  Short.valueOf (Short.MIN_VALUE),
-                                                  EChange.CHANGED,
-                                                  EContinue.BREAK,
-                                                  EEnabled.DISABLED,
-                                                  EFinish.FINISHED,
-                                                  EInterrupt.INTERRUPTED,
-                                                  ELeftRight.RIGHT,
-                                                  EMandatory.MANDATORY,
-                                                  ESuccess.FAILURE,
-                                                  ETopBottom.BOTTOM,
-                                                  ETriState.UNDEFINED,
-                                                  EValidity.VALID,
-                                                  CharsetManager.getAsBytes ("Jägalä", CCharset.CHARSET_ISO_8859_1_OBJ),
-                                                  new StringBuffer ("Äh ja - wie is das jetzt?"),
-                                                  new StringBuilder ("Thät lüks greyt!") };
+                                                   new BigDecimal (Double.MAX_VALUE),
+                                                   new BigDecimal ("123446712345678765456547865789762131.9999123446712345678765456547865789762131"),
+                                                   BigInteger.ZERO,
+                                                   new BigInteger ("123446712345678765456547865789762131"),
+                                                   Byte.valueOf ((byte) 5),
+                                                   Boolean.TRUE,
+                                                   Character.valueOf ('c'),
+                                                   Double.valueOf (1245.3433),
+                                                   Float.valueOf (31.451f),
+                                                   Integer.valueOf (17),
+                                                   Long.valueOf (Long.MAX_VALUE),
+                                                   Short.valueOf (Short.MIN_VALUE),
+                                                   EChange.CHANGED,
+                                                   EContinue.BREAK,
+                                                   EEnabled.DISABLED,
+                                                   EFinish.FINISHED,
+                                                   EInterrupt.INTERRUPTED,
+                                                   ELeftRight.RIGHT,
+                                                   EMandatory.MANDATORY,
+                                                   ESuccess.FAILURE,
+                                                   ETopBottom.BOTTOM,
+                                                   ETriState.UNDEFINED,
+                                                   EValidity.VALID,
+                                                   CharsetManager.getAsBytes ("Jägalä",
+                                                                              CCharset.CHARSET_ISO_8859_1_OBJ),
+                                                   new StringBuffer ("Äh ja - wie is das jetzt?"),
+                                                   new StringBuilder ("Thät lüks greyt!") };
     for (final Object aSrcValue : aDefinedObjs)
     {
       final String sValue = TypeConverter.convertIfNecessary (aSrcValue, String.class);
@@ -240,18 +241,20 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
     // Check if conversion works for special objects not overwriting
     // equals/hashcode
     for (final Object aSrcValue : new Object [] { new AtomicBoolean (true),
-                                                 new AtomicInteger (177),
-                                                 new AtomicLong (12374893127489L),
-                                                 new StringBuilder (),
-                                                 new StringBuilder ("Das StringBuilder kein equals implementiert ist doof"),
-                                                 new StringBuffer (),
-                                                 new StringBuffer ("Das gilt auch für StringBuffer") })
+                                                  new AtomicInteger (177),
+                                                  new AtomicLong (12374893127489L),
+                                                  new StringBuilder (),
+                                                  new StringBuilder ("Das StringBuilder kein equals implementiert ist doof"),
+                                                  new StringBuffer (),
+                                                  new StringBuffer ("Das gilt auch für StringBuffer") })
     {
       String sValue = TypeConverter.convertIfNecessary (aSrcValue, String.class);
       Object aObj2 = TypeConverter.convertIfNecessary (sValue, aSrcValue.getClass ());
       assertEquals (aSrcValue.toString (), aObj2.toString ());
 
-      sValue = TypeConverter.convertIfNecessary (TypeConverterProviderRuleBased.getInstance (), aSrcValue, String.class);
+      sValue = TypeConverter.convertIfNecessary (TypeConverterProviderRuleBased.getInstance (),
+                                                 aSrcValue,
+                                                 String.class);
       aObj2 = TypeConverter.convertIfNecessary (TypeConverterProviderRuleBased.getInstance (),
                                                 sValue,
                                                 aSrcValue.getClass ());

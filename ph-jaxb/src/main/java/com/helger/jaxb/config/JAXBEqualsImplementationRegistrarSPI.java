@@ -20,8 +20,8 @@ import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
 
 import com.helger.commons.annotation.IsSPIImplementation;
-import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.equals.IEqualsImplementation;
 import com.helger.commons.equals.IEqualsImplementationRegistrarSPI;
 import com.helger.commons.equals.IEqualsImplementationRegistry;
@@ -29,7 +29,7 @@ import com.helger.commons.equals.IEqualsImplementationRegistry;
 /**
  * Implementation of {@link IEqualsImplementationRegistrarSPI} for
  * {@link JAXBElement}.
- * 
+ *
  * @author Philip Helger
  */
 @IsSPIImplementation

@@ -30,12 +30,6 @@ import com.helger.commons.compare.AbstractPartComparatorComparable;
 @NotThreadSafe
 public class ComparatorChangeLogComponent extends AbstractPartComparatorComparable <ChangeLog, String>
 {
-  /**
-   * Comparator with default sort order and no nested comparator.
-   */
-  public ComparatorChangeLogComponent ()
-  {}
-
   @Override
   @Nullable
   protected String getPart (@Nonnull final ChangeLog aChangeLog)

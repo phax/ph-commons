@@ -26,8 +26,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.tree.DefaultTree;
-import com.helger.commons.tree.DefaultTreeItem;
 import com.helger.commons.tree.sort.ComparatorDefaultTreeItemComparable;
 
 /**

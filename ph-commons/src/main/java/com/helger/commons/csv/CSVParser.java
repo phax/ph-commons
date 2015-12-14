@@ -543,7 +543,9 @@ public class CSVParser
    *        current index in line
    * @return <code>true</code> if the following character is a quote
    */
-  protected boolean isNextCharacterEscapable (@Nonnull final String sNextLine, final boolean bInQuotes, final int nIndex)
+  protected boolean isNextCharacterEscapable (@Nonnull final String sNextLine,
+                                              final boolean bInQuotes,
+                                              final int nIndex)
   {
     // we are in quotes, therefore there can be escaped quotes in here.
     // there is indeed another character to check.

@@ -18,9 +18,6 @@ package com.helger.commons.exception;
 
 import org.junit.Test;
 
-import com.helger.commons.exception.LoggedException;
-import com.helger.commons.exception.LoggedRuntimeException;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**

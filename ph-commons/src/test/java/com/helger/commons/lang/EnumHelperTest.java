@@ -38,8 +38,8 @@ public final class EnumHelperTest
 {
   public static enum EHasSimpleID implements IHasIntID
   {
-    A,
-    B;
+   A,
+   B;
 
     public int getID ()
     {
@@ -103,12 +103,14 @@ public final class EnumHelperTest
       assertNull (EnumHelper.getFromIDCaseInsensitiveOrNull (EErrorLevel.class, e.getID () + 'X'));
       assertNull (EnumHelper.getFromIDCaseInsensitiveOrNull (EErrorLevel.class, 'X' + e.getID ()));
       assertSame (e, EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class, e.getID (), EErrorLevel.INFO));
-      assertSame (e, EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class,
-                                                                   e.getID ().toLowerCase (Locale.US),
-                                                                   EErrorLevel.INFO));
-      assertSame (e, EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class,
-                                                                   e.getID ().toUpperCase (Locale.US),
-                                                                   EErrorLevel.INFO));
+      assertSame (e,
+                  EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class,
+                                                                e.getID ().toLowerCase (Locale.US),
+                                                                EErrorLevel.INFO));
+      assertSame (e,
+                  EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class,
+                                                                e.getID ().toUpperCase (Locale.US),
+                                                                EErrorLevel.INFO));
       assertSame (EErrorLevel.INFO,
                   EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class, e.getID () + 'X', EErrorLevel.INFO));
       assertSame (EErrorLevel.INFO,

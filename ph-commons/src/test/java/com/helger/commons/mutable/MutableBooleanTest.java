@@ -28,7 +28,7 @@ import com.helger.commons.typeconvert.TypeConverter;
 
 /**
  * Test class for class {@link MutableBoolean}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MutableBooleanTest
@@ -60,7 +60,8 @@ public final class MutableBooleanTest
     assertNotNull (b);
     assertTrue (b.booleanValue ());
     assertTrue (TypeConverter.convertToBoolean (x));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x, TypeConverter.convert (true,
-                                                                                                 MutableBoolean.class));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x,
+                                                                       TypeConverter.convert (true,
+                                                                                              MutableBoolean.class));
   }
 }

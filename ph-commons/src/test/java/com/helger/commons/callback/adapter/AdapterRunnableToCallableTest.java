@@ -22,11 +22,9 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.callback.adapter.AdapterRunnableToCallable;
-
 /**
  * Test class for class {@link AdapterRunnableToCallable}
- * 
+ *
  * @author Philip Helger
  */
 public final class AdapterRunnableToCallableTest
@@ -34,12 +32,8 @@ public final class AdapterRunnableToCallableTest
   @Test
   public void testAll ()
   {
-    final Runnable r = new Runnable ()
-    {
-      public void run ()
-      {
-        // empty
-      }
+    final Runnable r = () -> {
+      // empty
     };
     final AdapterRunnableToCallable <Object> rc = AdapterRunnableToCallable.createAdapter (r);
     assertNull (rc.call ());

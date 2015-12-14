@@ -20,7 +20,6 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.commons.callback.INonThrowingRunnable;
 import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -38,12 +37,8 @@ public final class ExtendedDefaultThreadFactoryTest
   {
     ExtendedDefaultThreadFactory x = new ExtendedDefaultThreadFactory ();
     x = new ExtendedDefaultThreadFactory ("pool");
-    final Thread t = x.newThread (new INonThrowingRunnable ()
-    {
-      public void run ()
-      {
-        // nada
-      }
+    final Thread t = x.newThread ( () -> {
+      // nada
     });
     assertNotNull (t);
     CommonsTestHelper.testToStringImplementation (x);

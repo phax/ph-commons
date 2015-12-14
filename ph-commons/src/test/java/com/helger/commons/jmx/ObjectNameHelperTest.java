@@ -25,7 +25,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link ObjectNameHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ObjectNameHelperTest

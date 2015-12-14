@@ -16,6 +16,8 @@
  */
 package com.helger.commons.typeconvert.rule;
 
+import java.util.function.Function;
+
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
@@ -25,18 +27,21 @@ import com.helger.commons.typeconvert.TypeConverter;
 /**
  * Abstract type converter than can convert from a base source class to a
  * destination class. Example from Number.class to String.class
- * 
+ *
  * @author Philip Helger
  */
-public abstract class AbstractTypeConverterRuleFixedSourceAnyDestination extends AbstractTypeConverterRule
+public final class TypeConverterRuleFixedSourceAnyDestination extends AbstractTypeConverterRule
 {
   private final Class <?> m_aSrcClass;
   private Class <?> m_aEffectiveDstClass;
+  private final Function <Object, Object> m_aInBetweenConverter;
 
-  public AbstractTypeConverterRuleFixedSourceAnyDestination (@Nonnull final Class <?> aSrcClass)
+  public TypeConverterRuleFixedSourceAnyDestination (@Nonnull final Class <?> aSrcClass,
+                                                     @Nonnull final Function <Object, Object> aInBetweenConverter)
   {
     super (ESubType.FIXED_SRC_ANY_DST);
     m_aSrcClass = ValueEnforcer.notNull (aSrcClass, "SrcClass");
+    m_aInBetweenConverter = ValueEnforcer.notNull (aInBetweenConverter, "InBetweenConverter");
   }
 
   public final boolean canConvert (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
@@ -50,11 +55,15 @@ public abstract class AbstractTypeConverterRuleFixedSourceAnyDestination extends
   }
 
   @Nonnull
-  protected abstract Object getInBetweenValue (@Nonnull final Object aSource);
-
-  public final Object convert (@Nonnull final Object aSource)
+  protected Object getInBetweenValue (@Nonnull final Object aSource)
   {
-    return TypeConverter.convertIfNecessary (getInBetweenValue (aSource), m_aEffectiveDstClass);
+    return m_aInBetweenConverter.apply (aSource);
+  }
+
+  public final Object apply (@Nonnull final Object aSource)
+  {
+    final Object aInBetweenValue = getInBetweenValue (aSource);
+    return TypeConverter.convertIfNecessary (aInBetweenValue, m_aEffectiveDstClass);
   }
 
   @Nonnull
@@ -66,6 +75,9 @@ public abstract class AbstractTypeConverterRuleFixedSourceAnyDestination extends
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("srcClass", m_aSrcClass.getName ()).toString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("srcClass", m_aSrcClass.getName ())
+                            .append ("inBetweenConverter", m_aInBetweenConverter)
+                            .toString ();
   }
 }

@@ -24,7 +24,6 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.hierarchy.IHasChildrenSorted;
 import com.helger.commons.id.ComparatorHasIDString;
 import com.helger.commons.id.IHasID;
 

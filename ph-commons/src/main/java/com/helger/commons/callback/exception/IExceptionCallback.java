@@ -27,6 +27,7 @@ import com.helger.commons.callback.ICallback;
  * @param <EXTYPE>
  *        The exception type to be handled
  */
+@FunctionalInterface
 public interface IExceptionCallback <EXTYPE extends Throwable> extends ICallback
 {
   /**

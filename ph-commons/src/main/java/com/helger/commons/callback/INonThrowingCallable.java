@@ -24,6 +24,7 @@ package com.helger.commons.callback;
  * @param <DATATYPE>
  *        The return type of the call.
  */
+@FunctionalInterface
 public interface INonThrowingCallable <DATATYPE> extends IThrowingCallable <DATATYPE, Exception>
 {
   /**

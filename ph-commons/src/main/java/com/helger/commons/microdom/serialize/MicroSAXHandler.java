@@ -253,7 +253,8 @@ final class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandle
   }
 
   // For namespace handling
-  public void startPrefixMapping (@Nonnull final String sPrefix, @Nonnull final String sNamespaceURI) throws SAXException
+  public void startPrefixMapping (@Nonnull final String sPrefix,
+                                  @Nonnull final String sNamespaceURI) throws SAXException
   {}
 
   // for namespace handling
@@ -300,7 +301,9 @@ final class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandle
     m_bCDATAMode = false;
   }
 
-  public void comment (@Nonnull final char [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength) throws SAXException
+  public void comment (@Nonnull final char [] aChars,
+                       @Nonnegative final int nStart,
+                       @Nonnegative final int nLength) throws SAXException
   {
     // Ignore comments in DTD
     if (!m_bDTDMode)

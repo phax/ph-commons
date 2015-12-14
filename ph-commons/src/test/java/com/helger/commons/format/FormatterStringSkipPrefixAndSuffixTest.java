@@ -20,12 +20,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.format.FormatterStringSkipPrefixAndSuffix;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link FormatterStringSkipPrefixAndSuffix}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FormatterStringSkipPrefixAndSuffixTest

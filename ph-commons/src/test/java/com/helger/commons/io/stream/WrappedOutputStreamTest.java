@@ -25,29 +25,29 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.WrappedOutputStream;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link WrappedOutputStream}.
- * 
+ *
  * @author Philip Helger
  */
 public final class WrappedOutputStreamTest
 {
+  @SuppressWarnings ("resource")
   @Test
   public void testAll () throws IOException
   {
     final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
-    final WrappedOutputStream ws = new WrappedOutputStream (baos);
-    ws.write ('a');
-    ws.write (CharsetManager.getAsBytes ("bc", CCharset.CHARSET_ISO_8859_1_OBJ));
-    ws.write (CharsetManager.getAsBytes ("cde", CCharset.CHARSET_ISO_8859_1_OBJ), 1, 1);
-    ws.flush ();
-    ws.close ();
-    assertEquals ("abcd", baos.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ));
-    CommonsTestHelper.testToStringImplementation (ws);
+    try (final WrappedOutputStream ws = new WrappedOutputStream (baos))
+    {
+      ws.write ('a');
+      ws.write (CharsetManager.getAsBytes ("bc", CCharset.CHARSET_ISO_8859_1_OBJ));
+      ws.write (CharsetManager.getAsBytes ("cde", CCharset.CHARSET_ISO_8859_1_OBJ), 1, 1);
+      ws.flush ();
+      assertEquals ("abcd", baos.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ));
+      CommonsTestHelper.testToStringImplementation (ws);
+    }
 
     try
     {

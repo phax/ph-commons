@@ -20,13 +20,13 @@ import javax.annotation.Nonnull;
 
 /**
  * Small enum for manager actions to indicate continue or break states.
- * 
+ *
  * @author Philip Helger
  */
 public enum EContinue implements IContinueIndicator
 {
-  CONTINUE,
-  BREAK;
+ CONTINUE,
+ BREAK;
 
   public boolean isContinue ()
   {

@@ -28,54 +28,54 @@ import com.helger.commons.name.IHasDisplayName;
 
 /**
  * This enumeration is used to determine the currently running Operating system.
- * 
+ *
  * @author Philip Helger
  */
 public enum EOperatingSystem implements IHasDisplayName
 {
-  /**
-   * The value indicating the AIX operating system.
-   */
+ /**
+  * The value indicating the AIX operating system.
+  */
   AIX ("AIX", true),
 
-  /**
-   * The value indicating the FreeBSD operating system.
-   */
+ /**
+  * The value indicating the FreeBSD operating system.
+  */
   FREEBSD ("FreeBSD", true),
 
-  /**
-   * The value indicating the HP-UX operating system.
-   */
+ /**
+  * The value indicating the HP-UX operating system.
+  */
   HPUX ("HP-UX", true),
 
-  /**
-   * The value indicating the Linux operating system.
-   */
+ /**
+  * The value indicating the Linux operating system.
+  */
   LINUX ("Linux", true),
 
-  /**
-   * The value indicating the Mac OS X operating system.
-   */
+ /**
+  * The value indicating the Mac OS X operating system.
+  */
   MACOS ("Mac OS X", true),
 
-  /**
-   * The value indicating the Solaris operating system.
-   */
+ /**
+  * The value indicating the Solaris operating system.
+  */
   SOLARIS ("Solaris", true),
 
-  /**
-   * The value indicating the Windows operating system.
-   */
+ /**
+  * The value indicating the Windows operating system.
+  */
   WINDOWS ("Windows", false),
 
-  /**
-   * The value indicating the z/OS operating system.
-   */
+ /**
+  * The value indicating the z/OS operating system.
+  */
   ZOS ("z/OS", false),
 
-  /**
-   * The value indicating an unknown operating system.
-   */
+ /**
+  * The value indicating an unknown operating system.
+  */
   UNKNOWN ("Unknown", false);
 
   /** The current OS. */
@@ -88,7 +88,7 @@ public enum EOperatingSystem implements IHasDisplayName
 
   /**
    * Creates a new operating system value with the provided name.
-   * 
+   *
    * @param sDisplayName
    *        The human-readable name for the operating system.
    * @param bUnixBased
@@ -119,7 +119,7 @@ public enum EOperatingSystem implements IHasDisplayName
    * <li>Mac OS X</li>
    * <li>Solaris</li>
    * </ul>
-   * 
+   *
    * @return <code>true</code> if the provided operating system is UNIX-based,
    *         or <code>false</code> if not.
    */
@@ -152,7 +152,7 @@ public enum EOperatingSystem implements IHasDisplayName
   /**
    * Retrieves the operating system for the provided name. The name provided
    * should come from the <code>os.name</code> system property.
-   * 
+   *
    * @param sOSName
    *        The name for which to retrieve the corresponding operating system.
    * @return The operating system for the provided name. If the operating system
@@ -199,9 +199,8 @@ public enum EOperatingSystem implements IHasDisplayName
       ret = forName (sCurrentOSName);
       s_aInstance = ret;
       if (ret == UNKNOWN)
-        LoggerFactory.getLogger (EOperatingSystem.class).error ("Failed to resolve operating system from name '" +
-                                                                sCurrentOSName +
-                                                                "'!!!");
+        LoggerFactory.getLogger (EOperatingSystem.class)
+                     .error ("Failed to resolve operating system from name '" + sCurrentOSName + "'!!!");
     }
     return ret;
   }

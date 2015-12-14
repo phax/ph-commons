@@ -29,7 +29,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link DefaultTransformURIResolver}.
- * 
+ *
  * @author Philip Helger
  */
 public final class DefaultTransformURIResolverTest
@@ -40,7 +40,7 @@ public final class DefaultTransformURIResolverTest
     for (int i = 0; i < 2; ++i)
     {
       final DefaultTransformURIResolver res = new DefaultTransformURIResolver (i == 0 ? null
-                                                                                     : new LoggingTransformURIResolver ());
+                                                                                      : new LoggingTransformURIResolver ());
       final TransformerFactory fac = XMLTransformerFactory.createTransformerFactory (null, res);
       assertNotNull (fac);
 

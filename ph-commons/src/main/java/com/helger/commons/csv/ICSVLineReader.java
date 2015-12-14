@@ -22,9 +22,10 @@ import javax.annotation.Nullable;
 
 /**
  * Base interface for a single line reader.
- * 
+ *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface ICSVLineReader
 {
   /**

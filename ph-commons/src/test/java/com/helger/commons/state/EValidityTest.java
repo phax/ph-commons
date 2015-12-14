@@ -24,7 +24,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link EValidity}.
- * 
+ *
  * @author Philip Helger
  */
 public final class EValidityTest

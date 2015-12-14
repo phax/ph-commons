@@ -18,8 +18,6 @@ package com.helger.commons.jmx;
 
 import java.util.Hashtable;
 import java.util.Map;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
@@ -30,6 +28,7 @@ import javax.management.ObjectName;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.exception.LoggedRuntimeException;
 import com.helger.commons.lang.ClassHelper;
 
@@ -41,7 +40,7 @@ import com.helger.commons.lang.ClassHelper;
 @ThreadSafe
 public final class ObjectNameHelper
 {
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
   private static String s_sDefaultJMXDomain = CJMX.PH_JMX_DOMAIN;
 
@@ -64,15 +63,7 @@ public final class ObjectNameHelper
     if (sDefaultJMXDomain.indexOf (':') >= 0 || sDefaultJMXDomain.indexOf (' ') >= 0)
       throw new IllegalArgumentException ("defaultJMXDomain contains invalid chars: " + sDefaultJMXDomain);
 
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_sDefaultJMXDomain = sDefaultJMXDomain;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_sDefaultJMXDomain = sDefaultJMXDomain);
   }
 
   /**
@@ -83,15 +74,7 @@ public final class ObjectNameHelper
   @Nonempty
   public static String getDefaultJMXDomain ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_sDefaultJMXDomain;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_sDefaultJMXDomain);
   }
 
   @Nonnull

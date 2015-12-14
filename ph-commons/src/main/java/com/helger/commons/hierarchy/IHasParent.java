@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
  * @param <PARENTTYPE>
  *        The type of the parent objects
  */
+@FunctionalInterface
 public interface IHasParent <PARENTTYPE>
 {
   /**

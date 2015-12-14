@@ -28,7 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * This class represents a single MIME type parameter.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -40,7 +40,7 @@ public class MimeTypeParameter implements Serializable
 
   /**
    * Constructor.
-   * 
+   *
    * @param sAttribute
    *        Parameter name. Must neither be <code>null</code> nor empty and must
    *        match {@link MimeTypeParser#isToken(String)}.

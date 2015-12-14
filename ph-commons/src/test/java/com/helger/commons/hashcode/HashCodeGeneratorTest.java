@@ -190,8 +190,9 @@ public final class HashCodeGeneratorTest
     // BigDecimal.ZERO ends up in 0 hashCode
     assertEquals (0, BigDecimal.ZERO.hashCode ());
     // -> That's why there is a special "null" handling in the HashCodeGenerator
-    assertFalse (new HashCodeGenerator (this).append (BigDecimal.ZERO).getHashCode () == new HashCodeGenerator (this).append ((BigDecimal) null)
-                                                                                                                     .getHashCode ());
+    assertFalse (new HashCodeGenerator (this).append (BigDecimal.ZERO)
+                                             .getHashCode () == new HashCodeGenerator (this).append ((BigDecimal) null)
+                                                                                            .getHashCode ());
     // Check that array class and native class don't have the same hash code
     assertTrue (new HashCodeGenerator (new Byte [1]).getHashCode () != new HashCodeGenerator (Byte.valueOf ((byte) 0)).getHashCode ());
 
@@ -213,31 +214,27 @@ public final class HashCodeGeneratorTest
   public void findIllegalValue () throws InterruptedException
   {
     final AtomicBoolean b = new AtomicBoolean (false);
-    final Runnable r = new Runnable ()
-    {
-      public void run ()
+    final Runnable r = () -> {
+      final byte [] aBytes = new byte [10000];
+      VerySecureRandom.getInstance ().nextBytes (aBytes);
+      int i = 0;
+      try
       {
-        final byte [] aBytes = new byte [10000];
-        VerySecureRandom.getInstance ().nextBytes (aBytes);
-        int i = 0;
-        try
-        {
-          final HashCodeGenerator hc = new HashCodeGenerator (byte.class);
-          for (; i < aBytes.length; ++i)
-            hc.append (i);
-        }
-        catch (final LoggedRuntimeException ex)
-        {
-          final StringBuilder aSB = new StringBuilder ("new byte[]{");
-          for (int j = 0; j < i; ++j)
-            aSB.append ("(byte)").append (aBytes[i]).append (',');
-          aSB.append ("};");
-          SimpleFileIO.writeFile (new File ("HashCode0" + new Date ().getTime () + ".txt"),
-                                  aSB.toString (),
-                                  CCharset.CHARSET_ISO_8859_1_OBJ);
-          b.set (true);
-          s_aLogger.error ("Found match!");
-        }
+        final HashCodeGenerator hc = new HashCodeGenerator (byte.class);
+        for (; i < aBytes.length; ++i)
+          hc.append (i);
+      }
+      catch (final LoggedRuntimeException ex)
+      {
+        final StringBuilder aSB = new StringBuilder ("new byte[]{");
+        for (int j = 0; j < i; ++j)
+          aSB.append ("(byte)").append (aBytes[i]).append (',');
+        aSB.append ("};");
+        SimpleFileIO.writeFile (new File ("HashCode0" + new Date ().getTime () + ".txt"),
+                                aSB.toString (),
+                                CCharset.CHARSET_ISO_8859_1_OBJ);
+        b.set (true);
+        s_aLogger.error ("Found match!");
       }
     };
 

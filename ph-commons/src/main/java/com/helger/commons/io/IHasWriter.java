@@ -22,15 +22,16 @@ import javax.annotation.Nullable;
 
 /**
  * A callback interface to retrieve {@link Writer} objects.
- * 
+ *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasWriter
 {
   /**
    * Get the writer to write to an object. Each time this method is call, a new
    * {@link Writer} needs to be created!
-   * 
+   *
    * @return <code>null</code> if resolving failed.
    */
   @Nullable

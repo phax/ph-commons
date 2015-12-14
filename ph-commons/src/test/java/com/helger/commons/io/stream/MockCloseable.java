@@ -20,7 +20,7 @@ import java.io.Closeable;
 
 /**
  * Mock implementation of the {@link Closeable} interface doing nothing.
- * 
+ *
  * @author Philip Helger
  */
 public class MockCloseable implements Closeable

@@ -20,7 +20,7 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 
 /**
  * Interface for an object creating unique String IDs.
- * 
+ *
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode

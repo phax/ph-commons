@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.charset.CharsetManager;
 
 /**
  * Interface for a single encoder
@@ -57,5 +58,12 @@ public interface IByteArrayEncoder extends IEncoder <byte []>
    */
   @Nullable
   @ReturnsMutableCopy
-  byte [] getEncoded (@Nullable String sDecoded, @Nonnull Charset aCharset);
+  default public byte [] getEncoded (@Nullable final String sDecoded, @Nonnull final Charset aCharset)
+  {
+    if (sDecoded == null)
+      return null;
+
+    final byte [] aDecoded = CharsetManager.getAsBytes (sDecoded, aCharset);
+    return getEncoded (aDecoded);
+  }
 }

@@ -30,9 +30,6 @@ import com.helger.commons.compare.AbstractPartComparatorComparable;
 @NotThreadSafe
 public class ComparatorThreadName extends AbstractPartComparatorComparable <Thread, String>
 {
-  public ComparatorThreadName ()
-  {}
-
   @Override
   protected String getPart (@Nonnull final Thread aThread)
   {

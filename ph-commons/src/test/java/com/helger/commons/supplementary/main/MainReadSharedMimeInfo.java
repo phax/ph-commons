@@ -136,7 +136,12 @@ public final class MainReadSharedMimeInfo
       if (bHasAnyGlob)
       {
         // Append only if at least on filename pattern is present
-        aMgr.registerMimeType (new MimeTypeInfo (aLocalNames, sComment, aSubClassOf, aGlobs, aExts, "shared-mime-info"));
+        aMgr.registerMimeType (new MimeTypeInfo (aLocalNames,
+                                                 sComment,
+                                                 aSubClassOf,
+                                                 aGlobs,
+                                                 aExts,
+                                                 "shared-mime-info"));
       }
     }
 
@@ -233,7 +238,8 @@ public final class MainReadSharedMimeInfo
 
     if (SimpleFileIO.writeFile (new File ("src/main/resources/codelists/mime-type-info.xml"),
                                 MicroWriter.getXMLString (aMgr.getAsDocument ()),
-                                CCharset.CHARSET_UTF_8_OBJ).isSuccess ())
+                                CCharset.CHARSET_UTF_8_OBJ)
+                    .isSuccess ())
       s_aLogger.info ("done - run mvn license:format !!");
     else
       s_aLogger.error ("Error writing file");

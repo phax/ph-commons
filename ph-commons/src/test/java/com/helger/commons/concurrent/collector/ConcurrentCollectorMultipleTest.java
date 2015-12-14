@@ -20,11 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import java.util.List;
-
 import org.junit.Test;
-
-import com.helger.commons.callback.IThrowingRunnableWithParameter;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -83,11 +79,7 @@ public final class ConcurrentCollectorMultipleTest
     {}
 
     ccm = new ConcurrentCollectorMultiple <String> (5, 5);
-    ccm.setPerformer (new IThrowingRunnableWithParameter <List <String>, Exception> ()
-    {
-      public void run (final List <String> aCurrentObject) throws Exception
-      {}
-    });
+    ccm.setPerformer (aCurrentObject -> {});
     assertNotNull (ccm);
   }
 

@@ -21,14 +21,14 @@ import javax.annotation.Nonnull;
 /**
  * Interface to implement for custom hash code implementation. This interface is
  * only used within the {@link HashCodeImplementationRegistry}.
- * 
+ *
  * @author Philip Helger
  */
 public interface IHashCodeImplementation
 {
   /**
    * Get the hash code for the passed object
-   * 
+   *
    * @param aObj
    *        The object for which the hash code is to be calculated
    * @return The hash code for this object

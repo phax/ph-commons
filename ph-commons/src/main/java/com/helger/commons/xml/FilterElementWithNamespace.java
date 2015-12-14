@@ -50,7 +50,7 @@ public class FilterElementWithNamespace extends AbstractFilter <Element>
   }
 
   @Override
-  public boolean matchesThisFilter (@Nullable final Element aElement)
+  public boolean directTest (@Nullable final Element aElement)
   {
     return aElement != null && XMLHelper.hasNamespaceURI (aElement, m_sNamespaceURI);
   }

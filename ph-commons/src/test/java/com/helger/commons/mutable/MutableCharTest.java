@@ -27,7 +27,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MutableChar}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MutableCharTest

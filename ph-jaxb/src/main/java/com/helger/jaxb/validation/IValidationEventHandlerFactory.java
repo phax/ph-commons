@@ -19,18 +19,17 @@ package com.helger.jaxb.validation;
 import javax.annotation.Nullable;
 import javax.xml.bind.ValidationEventHandler;
 
-import com.helger.commons.factory.IFactoryWithParameter;
-
 /**
  * Factory interface for {@link ValidationEventHandler} objects.
- * 
+ *
  * @author Philip Helger
  */
-public interface IValidationEventHandlerFactory extends IFactoryWithParameter <ValidationEventHandler, ValidationEventHandler>
+@FunctionalInterface
+public interface IValidationEventHandlerFactory
 {
   /**
    * Create a validation event handler
-   * 
+   *
    * @param aOldEventHandler
    *        The previous event handler that optionally may be encapsulated.
    * @return The created validation event handler. Maybe <code>null</code> to

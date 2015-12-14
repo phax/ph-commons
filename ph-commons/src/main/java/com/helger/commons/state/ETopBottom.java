@@ -20,13 +20,13 @@ import javax.annotation.Nonnull;
 
 /**
  * Small enum for top and bottom
- * 
+ *
  * @author Philip Helger
  */
 public enum ETopBottom implements ITopBottomIndicator
 {
-  TOP,
-  BOTTOM;
+ TOP,
+ BOTTOM;
 
   public boolean isTop ()
   {

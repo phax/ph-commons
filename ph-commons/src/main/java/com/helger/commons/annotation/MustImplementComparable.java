@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  * Just to indicate that a class is required to implement {@link Comparable}.
  * This is e.g. important if an interface or class is used as the key in a
  * {@link java.util.TreeMap}.
- * 
+ *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)

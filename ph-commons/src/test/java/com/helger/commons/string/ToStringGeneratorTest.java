@@ -74,21 +74,21 @@ public final class ToStringGeneratorTest
     _test (new byte [] { Byte.MIN_VALUE, 1, 2, 3, Byte.MAX_VALUE });
     _test (new char [] { Character.MIN_VALUE, 'x', 'y', 'Z', Character.MAX_VALUE });
     _test (new double [] { Double.MIN_VALUE,
+                           1,
+                           2,
+                           3.1415,
+                           Double.MAX_VALUE,
+                           Double.NaN,
+                           Double.POSITIVE_INFINITY,
+                           Double.NEGATIVE_INFINITY });
+    _test (new float [] { Float.MIN_VALUE,
                           1,
                           2,
-                          3.1415,
-                          Double.MAX_VALUE,
-                          Double.NaN,
-                          Double.POSITIVE_INFINITY,
-                          Double.NEGATIVE_INFINITY });
-    _test (new float [] { Float.MIN_VALUE,
-                         1,
-                         2,
-                         3.1415f,
-                         Float.MAX_VALUE,
-                         Float.NaN,
-                         Float.POSITIVE_INFINITY,
-                         Float.NEGATIVE_INFINITY });
+                          3.1415f,
+                          Float.MAX_VALUE,
+                          Float.NaN,
+                          Float.POSITIVE_INFINITY,
+                          Float.NEGATIVE_INFINITY });
     _test (new int [] { Integer.MIN_VALUE, 1, 2, 1415, Integer.MAX_VALUE });
     _test (new long [] { Long.MIN_VALUE, 1, 2, 1415, Long.MAX_VALUE });
     _test (new short [] { Short.MIN_VALUE, 1, 2, 1415, Short.MAX_VALUE });
@@ -114,22 +114,22 @@ public final class ToStringGeneratorTest
                                          new char [] { Character.MIN_VALUE, 'x', 'y', 'Z', Character.MAX_VALUE })
                                 .append ("double[]",
                                          new double [] { Double.MIN_VALUE,
-                                                        1,
-                                                        2,
-                                                        3.1415,
-                                                        Double.MAX_VALUE,
-                                                        Double.NaN,
-                                                        Double.POSITIVE_INFINITY,
-                                                        Double.NEGATIVE_INFINITY })
+                                                         1,
+                                                         2,
+                                                         3.1415,
+                                                         Double.MAX_VALUE,
+                                                         Double.NaN,
+                                                         Double.POSITIVE_INFINITY,
+                                                         Double.NEGATIVE_INFINITY })
                                 .append ("float[]",
                                          new float [] { Float.MIN_VALUE,
-                                                       1,
-                                                       2,
-                                                       3.1415f,
-                                                       Float.MAX_VALUE,
-                                                       Float.NaN,
-                                                       Float.POSITIVE_INFINITY,
-                                                       Float.NEGATIVE_INFINITY })
+                                                        1,
+                                                        2,
+                                                        3.1415f,
+                                                        Float.MAX_VALUE,
+                                                        Float.NaN,
+                                                        Float.POSITIVE_INFINITY,
+                                                        Float.NEGATIVE_INFINITY })
                                 .append ("int[]", new int [] { Integer.MIN_VALUE, 1, 2, 1415, Integer.MAX_VALUE })
                                 .append ("long[]", new long [] { Long.MIN_VALUE, 1, 2, 1415, Long.MAX_VALUE })
                                 .append ("short[]", new short [] { Short.MIN_VALUE, 1, 2, 1415, Short.MAX_VALUE })
@@ -137,25 +137,29 @@ public final class ToStringGeneratorTest
                                 .appendIfNotNull ("boolean[]", new boolean [] { true, false, true })
                                 .appendIfNotNull ("byte[]", new byte [] { Byte.MIN_VALUE, 1, 2, 3, Byte.MAX_VALUE })
                                 .appendIfNotNull ("char[]",
-                                                  new char [] { Character.MIN_VALUE, 'x', 'y', 'Z', Character.MAX_VALUE })
+                                                  new char [] { Character.MIN_VALUE,
+                                                                'x',
+                                                                'y',
+                                                                'Z',
+                                                                Character.MAX_VALUE })
                                 .appendIfNotNull ("double[]",
                                                   new double [] { Double.MIN_VALUE,
-                                                                 1,
-                                                                 2,
-                                                                 3.1415,
-                                                                 Double.MAX_VALUE,
-                                                                 Double.NaN,
-                                                                 Double.POSITIVE_INFINITY,
-                                                                 Double.NEGATIVE_INFINITY })
+                                                                  1,
+                                                                  2,
+                                                                  3.1415,
+                                                                  Double.MAX_VALUE,
+                                                                  Double.NaN,
+                                                                  Double.POSITIVE_INFINITY,
+                                                                  Double.NEGATIVE_INFINITY })
                                 .appendIfNotNull ("float[]",
                                                   new float [] { Float.MIN_VALUE,
-                                                                1,
-                                                                2,
-                                                                3.1415f,
-                                                                Float.MAX_VALUE,
-                                                                Float.NaN,
-                                                                Float.POSITIVE_INFINITY,
-                                                                Float.NEGATIVE_INFINITY })
+                                                                 1,
+                                                                 2,
+                                                                 3.1415f,
+                                                                 Float.MAX_VALUE,
+                                                                 Float.NaN,
+                                                                 Float.POSITIVE_INFINITY,
+                                                                 Float.NEGATIVE_INFINITY })
                                 .appendIfNotNull ("int[]",
                                                   new int [] { Integer.MIN_VALUE, 1, 2, 1415, Integer.MAX_VALUE })
                                 .appendIfNotNull ("long[]", new long [] { Long.MIN_VALUE, 1, 2, 1415, Long.MAX_VALUE })

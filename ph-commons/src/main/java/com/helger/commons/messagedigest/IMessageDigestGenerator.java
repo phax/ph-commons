@@ -22,7 +22,9 @@ import java.security.Provider;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.charset.CharsetManager;
 
 /**
  * Base interface for a message digest generator (using hash algorithms like MD5
@@ -80,7 +82,13 @@ public interface IMessageDigestGenerator
    * @return this
    */
   @Nonnull
-  IMessageDigestGenerator update (@Nonnull String sValue, @Nonnull Charset aCharset);
+  default IMessageDigestGenerator update (@Nonnull final String sValue, @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (sValue, "Value");
+    ValueEnforcer.notNull (aCharset, "Charset");
+
+    return update (CharsetManager.getAsBytes (sValue, aCharset));
+  }
 
   /**
    * Update the hash with the given byte array. After calling
@@ -91,7 +99,12 @@ public interface IMessageDigestGenerator
    * @return this
    */
   @Nonnull
-  IMessageDigestGenerator update (@Nonnull byte [] aValue);
+  default IMessageDigestGenerator update (@Nonnull final byte [] aValue)
+  {
+    ValueEnforcer.notNull (aValue, "Value");
+
+    return update (aValue, 0, aValue.length);
+  }
 
   /**
    * Update the hash with a slice of the given byte array. After calling
@@ -145,7 +158,10 @@ public interface IMessageDigestGenerator
    *
    * @return the generated hash value.
    */
-  long getDigestLong ();
+  default long getDigestLong ()
+  {
+    return MessageDigestGeneratorHelper.getLongFromDigest (getAllDigestBytes ());
+  }
 
   /**
    * This method converts the current hash digest to a hex string. Calls
@@ -155,5 +171,8 @@ public interface IMessageDigestGenerator
    * @return The hex value of the hash digest. Never <code>null</code>.
    */
   @Nonnull
-  String getDigestHexString ();
+  default String getDigestHexString ()
+  {
+    return MessageDigestGeneratorHelper.getHexValueFromDigest (getAllDigestBytes ());
+  }
 }

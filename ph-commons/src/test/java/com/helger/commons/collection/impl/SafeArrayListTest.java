@@ -23,13 +23,12 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.SafeArrayList;
 import com.helger.commons.factory.FactoryNewInstance;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link SafeArrayList}.
- * 
+ *
  * @author Philip Helger
  */
 public final class SafeArrayListTest

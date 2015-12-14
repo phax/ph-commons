@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Interface for comparable objects based on their severity.
- * 
+ *
  * @author Philip Helger
  * @param <THISTYPE>
  *        The implementation type
@@ -30,7 +30,7 @@ public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THIS
   /**
    * Check if this object is of the same level (= equal important) than the
    * passed object.
-   * 
+   *
    * @param aOther
    *        The object to compare to.
    * @return <code>true</code> if this object is equally important than the
@@ -41,7 +41,7 @@ public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THIS
   /**
    * Check if this object is of lower level (= less important) than the passed
    * object.
-   * 
+   *
    * @param aOther
    *        The object to compare to.
    * @return <code>true</code> if this object is less important than the passed
@@ -52,7 +52,7 @@ public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THIS
   /**
    * Check if this object is of equal or lower level (= equally or less
    * important) than the passed object.
-   * 
+   *
    * @param aOther
    *        The object to compare to.
    * @return <code>true</code> if this object is equally or less important than
@@ -63,7 +63,7 @@ public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THIS
   /**
    * Check if this object is of higher level (= more important) than the passed
    * object.
-   * 
+   *
    * @param aOther
    *        The object to compare to.
    * @return <code>true</code> if this object is more important than the passed
@@ -74,7 +74,7 @@ public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THIS
   /**
    * Check if this object is of equal or higher level (= equally or more
    * important) than the passed object.
-   * 
+   *
    * @param aOther
    *        The object to compare to.
    * @return <code>true</code> if this object is equally or more important than

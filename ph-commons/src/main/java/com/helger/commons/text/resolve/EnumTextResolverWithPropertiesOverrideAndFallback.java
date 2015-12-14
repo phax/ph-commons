@@ -22,8 +22,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,6 +35,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.statistics.IMutableStatisticsHandlerKeyedCounter;
@@ -64,7 +63,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   private static final IMutableStatisticsHandlerKeyedCounter s_aStatsFailed = StatisticsManager.getKeyedCounterHandler (EnumTextResolverWithPropertiesOverrideAndFallback.class.getName () +
                                                                                                                         "$failed");
 
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
   private final Set <String> m_aUsedOverrideBundles = new HashSet <String> ();
   @GuardedBy ("m_aRWLock")
@@ -85,15 +84,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
    */
   public void setUseResourceBundleCache (final boolean bUseResourceBundleCache)
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_bUseResourceBundleCache = bUseResourceBundleCache;
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_bUseResourceBundleCache = bUseResourceBundleCache);
   }
 
   /**
@@ -103,15 +94,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
    */
   public boolean isUseResourceBundleCache ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_bUseResourceBundleCache;
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_bUseResourceBundleCache);
   }
 
   /**
@@ -127,9 +110,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   @Nullable
   private ResourceBundle _getResourceBundle (@Nonnull @Nonempty final String sBundleName, @Nonnull final Locale aLocale)
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
+    ResourceBundle ret = m_aRWLock.readLocked ( () -> {
       if (!m_bUseResourceBundleCache)
       {
         // Do not use the cache!
@@ -139,28 +120,24 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
       // Existing cache value? May be null!
       if (m_aResourceBundleCache.containsKey (sBundleName))
         return m_aResourceBundleCache.get (sBundleName);
-    }
-    finally
+      return null;
+    });
+
+    if (ret == null)
     {
-      m_aRWLock.readLock ().unlock ();
+      ret = m_aRWLock.writeLocked ( () -> {
+        // Re-check in write lock
+        if (m_aResourceBundleCache.containsKey (sBundleName))
+          return m_aResourceBundleCache.get (sBundleName);
+
+        // Resolve the resource bundle
+        final ResourceBundle aWLRB = ResourceBundleHelper.getResourceBundle (sBundleName, aLocale);
+        m_aResourceBundleCache.put (sBundleName, aWLRB);
+        return aWLRB;
+      });
     }
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      // Re-check in write lock
-      if (m_aResourceBundleCache.containsKey (sBundleName))
-        return m_aResourceBundleCache.get (sBundleName);
-
-      // Resolve the resource bundle
-      final ResourceBundle ret = ResourceBundleHelper.getResourceBundle (sBundleName, aLocale);
-      m_aResourceBundleCache.put (sBundleName, ret);
-      return ret;
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    return ret;
   }
 
   @Override
@@ -178,15 +155,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
       if (ret != null)
       {
         // Match!
-        m_aRWLock.writeLock ().lock ();
-        try
-        {
-          m_aUsedOverrideBundles.add (sBundleName);
-        }
-        finally
-        {
-          m_aRWLock.writeLock ().unlock ();
-        }
+        m_aRWLock.writeLocked ( () -> m_aUsedOverrideBundles.add (sBundleName));
         return ret;
       }
     }
@@ -207,15 +176,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
       final String ret = ResourceBundleHelper.getString (_getResourceBundle (sBundleName, aLocale), sID);
       if (ret != null)
       {
-        m_aRWLock.writeLock ().lock ();
-        try
-        {
-          m_aUsedFallbackBundles.add (sBundleName);
-        }
-        finally
-        {
-          m_aRWLock.writeLock ().unlock ();
-        }
+        m_aRWLock.writeLocked ( () -> m_aUsedFallbackBundles.add (sBundleName));
         return ret;
       }
     }
@@ -240,15 +201,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   @ReturnsMutableCopy
   public Set <String> getAllUsedOverrideBundleNames ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newSet (m_aUsedOverrideBundles);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newSet (m_aUsedOverrideBundles));
   }
 
   /**
@@ -259,31 +212,17 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   @ReturnsMutableCopy
   public Set <String> getAllUsedFallbackBundleNames ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newSet (m_aUsedFallbackBundles);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newSet (m_aUsedFallbackBundles));
   }
 
   public void clearCache ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       ResourceBundleHelper.clearCache ();
       m_aUsedOverrideBundles.clear ();
       m_aUsedFallbackBundles.clear ();
       m_aResourceBundleCache.clear ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
 
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("Cache was cleared: " + getClass ().getName ());

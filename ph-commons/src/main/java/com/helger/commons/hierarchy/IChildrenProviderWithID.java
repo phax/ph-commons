@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 /**
  * This interface can be used to generically resolved children of a certain
  * object.
- * 
+ *
  * @author boris
  * @param <KEYTYPE>
  *        The key type
@@ -33,7 +33,7 @@ public interface IChildrenProviderWithID <KEYTYPE, CHILDTYPE> extends IChildrenP
   /**
    * Retrieve the objects with the passed ID or <code>null</code> if no such
    * object.
-   * 
+   *
    * @param aCurrent
    *        The object to determine the children of. No <code>null</code> or
    *        non- <code>null</code> constraint possible.

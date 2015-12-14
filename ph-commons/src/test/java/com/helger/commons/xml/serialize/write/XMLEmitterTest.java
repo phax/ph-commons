@@ -26,13 +26,10 @@ import com.helger.commons.io.streamprovider.ByteArrayOutputStreamProvider;
 import com.helger.commons.microdom.MicroDocumentType;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.xml.serialize.write.EXMLSerializeVersion;
-import com.helger.commons.xml.serialize.write.XMLEmitter;
-import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 
 /**
  * Test class for {@link XMLEmitter}
- * 
+ *
  * @author Philip Helger
  */
 public final class XMLEmitterTest extends AbstractCommonsTestCase

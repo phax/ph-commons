@@ -24,7 +24,7 @@ import com.helger.commons.exception.mock.MockIOException;
 /**
  * Mock implementation of the {@link Closeable} interface just throwing a
  * {@link MockIOException}.
- * 
+ *
  * @author Philip Helger
  */
 public class MockThrowingCloseable implements Closeable

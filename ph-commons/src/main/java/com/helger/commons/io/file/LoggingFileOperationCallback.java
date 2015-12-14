@@ -59,6 +59,7 @@ public class LoggingFileOperationCallback implements IFileOperationCallback
                     " on '" +
                     aFile1 +
                     "'" +
-                    (aFile2 == null ? "" : " and '" + aFile2 + "'"), aException);
+                    (aFile2 == null ? "" : " and '" + aFile2 + "'"),
+                    aException);
   }
 }

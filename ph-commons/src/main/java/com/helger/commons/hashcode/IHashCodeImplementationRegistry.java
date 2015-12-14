@@ -20,14 +20,14 @@ import javax.annotation.Nonnull;
 
 /**
  * Base interface for a registry that contains hashCode implementations.
- * 
+ *
  * @author Philip Helger
  */
 public interface IHashCodeImplementationRegistry
 {
   /**
    * Register a new hashCode implementation
-   * 
+   *
    * @param aClass
    *        The class for which the hashCode implementation is valid
    * @param aImpl

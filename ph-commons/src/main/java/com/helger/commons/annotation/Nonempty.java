@@ -32,7 +32,7 @@ import java.lang.annotation.Target;
  * {@link javax.annotation.Nonnull} annotation but because of better FindBugs
  * handling, the {@link javax.annotation.Nonnull} annotation must be present as
  * well.
- * 
+ *
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)

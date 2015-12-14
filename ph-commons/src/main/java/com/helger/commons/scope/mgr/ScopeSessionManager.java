@@ -105,15 +105,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     if (StringHelper.hasNoText (sScopeID))
       return null;
 
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aSessionScopes.get (sScopeID);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aSessionScopes.get (sScopeID));
   }
 
   /**
@@ -130,16 +122,10 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     ValueEnforcer.notNull (aSessionScope, "SessionScope");
 
     final String sSessionID = aSessionScope.getID ();
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       if (m_aSessionScopes.put (sSessionID, aSessionScope) != null)
         s_aLogger.error ("Overwriting session scope with ID '" + sSessionID + "'");
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
 
     // Init the scope after it was registered
     aSessionScope.initScope ();
@@ -168,10 +154,8 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     {
       final String sSessionID = aSessionScope.getID ();
 
-      boolean bCanDestroyScope = true;
-      m_aRWLock.writeLock ().lock ();
-      try
-      {
+      final boolean bCanDestroyScope = m_aRWLock.writeLocked ( () -> {
+        boolean bWLCanDestroyScope = false;
         // Only if we're not just in destruction of exactly this session
         if (m_aSessionsInDestruction.add (sSessionID))
         {
@@ -183,15 +167,12 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
             s_aLogger.error ("  Scope to be removed: " + aSessionScope);
             s_aLogger.error ("  Removed scope:       " + aRemovedScope);
           }
-          bCanDestroyScope = true;
+          bWLCanDestroyScope = true;
         }
         else
           s_aLogger.info ("Already destructing session '" + sSessionID + "'");
-      }
-      finally
-      {
-        m_aRWLock.writeLock ().unlock ();
-      }
+        return bWLCanDestroyScope;
+      });
 
       if (bCanDestroyScope)
       {
@@ -207,15 +188,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
         finally
         {
           // Remove from "in destruction" list
-          m_aRWLock.writeLock ().lock ();
-          try
-          {
-            m_aSessionsInDestruction.remove (sSessionID);
-          }
-          finally
-          {
-            m_aRWLock.writeLock ().unlock ();
-          }
+          m_aRWLock.writeLocked ( () -> m_aSessionsInDestruction.remove (sSessionID));
         }
       }
     }
@@ -227,15 +200,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
    */
   public boolean containsAnySession ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return !m_aSessionScopes.isEmpty ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> !m_aSessionScopes.isEmpty ());
   }
 
   /**
@@ -244,15 +209,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   @Nonnegative
   public int getSessionCount ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aSessionScopes.size ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aSessionScopes.size ());
   }
 
   /**
@@ -263,34 +220,20 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   @ReturnsMutableCopy
   public Collection <? extends ISessionScope> getAllSessionScopes ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newList (m_aSessionScopes.values ());
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aSessionScopes.values ()));
   }
 
   private void _checkIfAnySessionsExist ()
   {
     if (containsAnySession ())
     {
-      m_aRWLock.writeLock ().lock ();
-      try
-      {
+      m_aRWLock.writeLocked ( () -> {
         s_aLogger.error ("The following " +
                          m_aSessionScopes.size () +
                          " session scopes are left over: " +
                          m_aSessionScopes.toString ());
         m_aSessionScopes.clear ();
-      }
-      finally
-      {
-        m_aRWLock.writeLock ().unlock ();
-      }
+      });
     }
   }
 
@@ -337,62 +280,34 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
 
   public boolean isDestroyAllSessionsOnScopeEnd ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_bDestroyAllSessionsOnScopeEnd;
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_bDestroyAllSessionsOnScopeEnd);
   }
 
   @Nonnull
   public EChange setDestroyAllSessionsOnScopeEnd (final boolean bDestroyAllSessionsOnScopeEnd)
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    return m_aRWLock.writeLocked ( () -> {
       if (m_bDestroyAllSessionsOnScopeEnd == bDestroyAllSessionsOnScopeEnd)
         return EChange.UNCHANGED;
       m_bDestroyAllSessionsOnScopeEnd = bDestroyAllSessionsOnScopeEnd;
       return EChange.CHANGED;
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   public boolean isEndAllSessionsOnScopeEnd ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_bEndAllSessionsOnScopeEnd;
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_bEndAllSessionsOnScopeEnd);
   }
 
   @Nonnull
   public EChange setEndAllSessionsOnScopeEnd (final boolean bEndAllSessionsOnScopeEnd)
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    return m_aRWLock.writeLocked ( () -> {
       if (m_bEndAllSessionsOnScopeEnd == bEndAllSessionsOnScopeEnd)
         return EChange.UNCHANGED;
       m_bEndAllSessionsOnScopeEnd = bEndAllSessionsOnScopeEnd;
       return EChange.CHANGED;
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   @SuppressFBWarnings ("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")

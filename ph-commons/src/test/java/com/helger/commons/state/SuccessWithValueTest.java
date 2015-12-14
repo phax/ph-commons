@@ -25,12 +25,10 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.state.SuccessWithValue;
 
 /**
  * Test class for class {@link SuccessWithValue}.
- * 
+ *
  * @author Philip Helger
  */
 public final class SuccessWithValueTest

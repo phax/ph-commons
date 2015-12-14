@@ -224,20 +224,28 @@ public final class XMLMaskHelperTest extends AbstractCommonsTestCase
   @Test
   public void testGetMaskedXMLTextLength ()
   {
-    assertEquals (1, XMLMaskHelper.getMaskedXMLTextLength (EXMLSerializeVersion.XML_10,
-                                                           EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
-                                                           EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
-                                                           "\u0001"));
-    assertEquals (4, XMLMaskHelper.getMaskedXMLTextLength (EXMLSerializeVersion.XML_11,
-                                                           EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
-                                                           EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
-                                                           "\u0001"));
-    assertEquals (2 + 5 + 1 + 1,
+    assertEquals (1,
+                  XMLMaskHelper.getMaskedXMLTextLength (EXMLSerializeVersion.XML_10,
+                                                        EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
+                                                        EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
+                                                        "\u0001"));
+    assertEquals (4,
+                  XMLMaskHelper.getMaskedXMLTextLength (EXMLSerializeVersion.XML_11,
+                                                        EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
+                                                        EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
+                                                        "\u0001"));
+    assertEquals (2 +
+                  5 +
+                  1 +
+                  1,
                   XMLMaskHelper.getMaskedXMLTextLength (EXMLSerializeVersion.XML_10,
                                                         EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                         EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
                                                         "1 & \u0001"));
-    assertEquals (2 + 5 + 1 + 4,
+    assertEquals (2 +
+                  5 +
+                  1 +
+                  4,
                   XMLMaskHelper.getMaskedXMLTextLength (EXMLSerializeVersion.XML_11,
                                                         EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                         EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,

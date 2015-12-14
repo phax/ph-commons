@@ -26,14 +26,14 @@ import com.helger.commons.lang.EnumHelper;
 /**
  * Represents different DOM versions for XML feature tests.<br>
  * See http://www.w3.org/TR/DOM-Level-3-Core/core.html#DOMFeatures
- * 
+ *
  * @author Philip Helger
  */
 public enum EXMLDOMFeatureVersion implements IHasID <String>
 {
-  DOM_FEATURE_VERSION1 ("1.0"),
-  DOM_FEATURE_VERSION2 ("2.0"),
-  DOM_FEATURE_VERSION3 ("3.0");
+ DOM_FEATURE_VERSION1 ("1.0"),
+ DOM_FEATURE_VERSION2 ("2.0"),
+ DOM_FEATURE_VERSION3 ("3.0");
 
   private final String m_sID;
 

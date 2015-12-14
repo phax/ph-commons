@@ -17,6 +17,7 @@
 package com.helger.commons.collection;
 
 import java.util.Collection;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -25,7 +26,6 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.convert.IConverter;
 
 /**
  * This utility class provides conversions from array objects.
@@ -44,7 +44,7 @@ public final class ArrayConversionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> DSTTYPE [] newArray (@Nonnull final Collection <? extends SRCTYPE> aList,
-                                                        @Nonnull final IConverter <SRCTYPE, DSTTYPE> aConv,
+                                                        @Nonnull final Function <SRCTYPE, DSTTYPE> aConv,
                                                         @Nonnull final Class <DSTTYPE> aDstClass)
   {
     ValueEnforcer.notNull (aList, "List");
@@ -54,14 +54,14 @@ public final class ArrayConversionHelper
     final DSTTYPE [] ret = ArrayHelper.newArray (aDstClass, aList.size ());
     int i = 0;
     for (final SRCTYPE aObj : aList)
-      ret[i++] = aConv.convert (aObj);
+      ret[i++] = aConv.apply (aObj);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> DSTTYPE [] newArray (@Nullable final SRCTYPE [] aArray,
-                                                        @Nonnull final IConverter <SRCTYPE, DSTTYPE> aConv,
+                                                        @Nonnull final Function <SRCTYPE, DSTTYPE> aConv,
                                                         @Nonnull final Class <DSTTYPE> aDstClass)
   {
     ValueEnforcer.notNull (aConv, "Converter");
@@ -72,7 +72,7 @@ public final class ArrayConversionHelper
     {
       int i = 0;
       for (final SRCTYPE aObj : aArray)
-        ret[i++] = aConv.convert (aObj);
+        ret[i++] = aConv.apply (aObj);
     }
     return ret;
   }

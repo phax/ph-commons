@@ -18,8 +18,7 @@ package com.helger.commons.xml.serialize.read;
 
 import java.util.EnumMap;
 import java.util.Map;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,6 +36,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.exception.IExceptionCallback;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.EChange;
 import com.helger.commons.xml.EXMLParserFeature;
 import com.helger.commons.xml.EXMLParserProperty;
@@ -54,7 +54,7 @@ public final class SAXReaderDefaultSettings
 {
   public static final boolean DEFAULT_REQUIRES_NEW_XML_PARSER_EXPLICITLY = false;
 
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
 
   @GuardedBy ("s_aRWLock")
   private static EntityResolver s_aDefaultEntityResolver;
@@ -94,109 +94,45 @@ public final class SAXReaderDefaultSettings
   @Nullable
   public static EntityResolver getEntityResolver ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aDefaultEntityResolver;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_aDefaultEntityResolver);
   }
 
   public static void setEntityResolver (@Nullable final EntityResolver aEntityResolver)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_aDefaultEntityResolver = aEntityResolver;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_aDefaultEntityResolver = aEntityResolver);
   }
 
   @Nullable
   public static DTDHandler getDTDHandler ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aDefaultDTDHandler;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_aDefaultDTDHandler);
   }
 
   public static void setDTDHandler (@Nullable final DTDHandler aDTDHandler)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_aDefaultDTDHandler = aDTDHandler;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_aDefaultDTDHandler = aDTDHandler);
   }
 
   @Nullable
   public static ContentHandler getContentHandler ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aDefaultContentHandler;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_aDefaultContentHandler);
   }
 
   public static void setContentHandler (@Nullable final ContentHandler aContentHandler)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_aDefaultContentHandler = aContentHandler;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_aDefaultContentHandler = aContentHandler);
   }
 
   @Nullable
   public static ErrorHandler getErrorHandler ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aDefaultErrorHandler;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_aDefaultErrorHandler);
   }
 
   public static void setErrorHandler (@Nullable final ErrorHandler aErrorHandler)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_aDefaultErrorHandler = aErrorHandler;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_aDefaultErrorHandler = aErrorHandler);
   }
 
   @Nullable
@@ -223,15 +159,7 @@ public final class SAXReaderDefaultSettings
 
   public static boolean hasAnyProperties ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return !s_aDefaultProperties.isEmpty ();
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> !s_aDefaultProperties.isEmpty ());
   }
 
   @Nullable
@@ -240,30 +168,14 @@ public final class SAXReaderDefaultSettings
     if (eProperty == null)
       return null;
 
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aDefaultProperties.get (eProperty);
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_aDefaultProperties.get (eProperty));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static Map <EXMLParserProperty, Object> getAllPropertyValues ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return new EnumMap <EXMLParserProperty, Object> (s_aDefaultProperties);
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> new EnumMap <EXMLParserProperty, Object> (s_aDefaultProperties));
   }
 
   public static void setPropertyValue (@Nonnull final EXMLParserProperty eProperty,
@@ -271,33 +183,19 @@ public final class SAXReaderDefaultSettings
   {
     ValueEnforcer.notNull (eProperty, "Property");
 
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
+    s_aRWLock.writeLocked ( () -> {
       if (aPropertyValue != null)
         s_aDefaultProperties.put (eProperty, aPropertyValue);
       else
         s_aDefaultProperties.remove (eProperty);
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   public static void setPropertyValues (@Nullable final Map <EXMLParserProperty, ?> aProperties)
   {
     if (aProperties != null && !aProperties.isEmpty ())
     {
-      s_aRWLock.writeLock ().lock ();
-      try
-      {
-        s_aDefaultProperties.putAll (aProperties);
-      }
-      finally
-      {
-        s_aRWLock.writeLock ().unlock ();
-      }
+      s_aRWLock.writeLocked ( () -> s_aDefaultProperties.putAll (aProperties));
     }
   }
 
@@ -307,45 +205,23 @@ public final class SAXReaderDefaultSettings
     if (eProperty == null)
       return EChange.UNCHANGED;
 
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      return EChange.valueOf (s_aDefaultProperties.remove (eProperty) != null);
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    return EChange.valueOf (s_aRWLock.writeLocked ( () -> s_aDefaultProperties.remove (eProperty) != null));
   }
 
   @Nonnull
   public static EChange removeAllPropertyValues ()
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
+    return s_aRWLock.writeLocked ( () -> {
       if (s_aDefaultProperties.isEmpty ())
         return EChange.UNCHANGED;
       s_aDefaultProperties.clear ();
       return EChange.CHANGED;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   public static boolean hasAnyFeature ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return !s_aDefaultFeatures.isEmpty ();
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> !s_aDefaultFeatures.isEmpty ());
   }
 
   @Nullable
@@ -355,78 +231,40 @@ public final class SAXReaderDefaultSettings
     if (eFeature == null)
       return null;
 
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aDefaultFeatures.get (eFeature);
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ((Supplier <Boolean>) () -> s_aDefaultFeatures.get (eFeature));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static Map <EXMLParserFeature, Boolean> getAllFeatureValues ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return new EnumMap <EXMLParserFeature, Boolean> (s_aDefaultFeatures);
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> new EnumMap <EXMLParserFeature, Boolean> (s_aDefaultFeatures));
   }
 
   public static void setFeatureValue (@Nonnull final EXMLParserFeature eFeature, final boolean bValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
 
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_aDefaultFeatures.put (eFeature, Boolean.valueOf (bValue));
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ((Runnable) () -> s_aDefaultFeatures.put (eFeature, Boolean.valueOf (bValue)));
   }
 
   public static void setFeatureValue (@Nonnull final EXMLParserFeature eFeature, @Nullable final Boolean aValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
 
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
+    s_aRWLock.writeLocked ( () -> {
       if (aValue == null)
         s_aDefaultFeatures.remove (eFeature);
       else
         s_aDefaultFeatures.put (eFeature, aValue);
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   public static void setFeatureValues (@Nullable final Map <EXMLParserFeature, Boolean> aValues)
   {
     if (aValues != null && !aValues.isEmpty ())
     {
-      s_aRWLock.writeLock ().lock ();
-      try
-      {
-        s_aDefaultFeatures.putAll (aValues);
-      }
-      finally
-      {
-        s_aRWLock.writeLock ().unlock ();
-      }
+      s_aRWLock.writeLocked ( () -> s_aDefaultFeatures.putAll (aValues));
     }
   }
 
@@ -436,39 +274,23 @@ public final class SAXReaderDefaultSettings
     if (eFeature == null)
       return EChange.UNCHANGED;
 
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      return EChange.valueOf (s_aDefaultFeatures.remove (eFeature) != null);
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    return EChange.valueOf (s_aRWLock.writeLocked ( () -> s_aDefaultFeatures.remove (eFeature) != null));
   }
 
   @Nonnull
   public static EChange removeAllFeatures ()
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
+    return s_aRWLock.writeLocked ( () -> {
       if (s_aDefaultFeatures.isEmpty ())
         return EChange.UNCHANGED;
       s_aDefaultFeatures.clear ();
       return EChange.CHANGED;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   public static boolean requiresNewXMLParser ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
+    return s_aRWLock.readLocked ( () -> {
       // Force a new XML parser?
       if (s_bDefaultRequiresNewXMLParserExplicitly)
         return true;
@@ -479,65 +301,29 @@ public final class SAXReaderDefaultSettings
       // Special case for JDK > 1.7.0_45 because of maximum entity expansion
       // See http://docs.oracle.com/javase/tutorial/jaxp/limits/limits.html
       return s_aDefaultEntityResolver != null;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    });
   }
 
   @Nonnull
   public static IExceptionCallback <Throwable> getExceptionHandler ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aDefaultExceptionHandler;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_aDefaultExceptionHandler);
   }
 
   public static void setExceptionHandler (@Nonnull final IExceptionCallback <Throwable> aExceptionHandler)
   {
     ValueEnforcer.notNull (aExceptionHandler, "ExceptionHandler");
 
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_aDefaultExceptionHandler = aExceptionHandler;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_aDefaultExceptionHandler = aExceptionHandler);
   }
 
   public static boolean isRequiresNewXMLParserExplicitly ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_bDefaultRequiresNewXMLParserExplicitly;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_bDefaultRequiresNewXMLParserExplicitly);
   }
 
   public static void setRequiresNewXMLParserExplicitly (final boolean bDefaultRequiresNewXMLParserExplicitly)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
-      s_bDefaultRequiresNewXMLParserExplicitly = bDefaultRequiresNewXMLParserExplicitly;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    s_aRWLock.writeLocked ( () -> s_bDefaultRequiresNewXMLParserExplicitly = bDefaultRequiresNewXMLParserExplicitly);
   }
 }

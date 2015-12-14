@@ -79,8 +79,9 @@ public final class MicroReader
     if (aInputSource == null)
       return null;
 
-    final MicroSAXHandler aMicroHandler = new MicroSAXHandler (false, aSettings == null ? null
-                                                                                       : aSettings.getEntityResolver ());
+    final MicroSAXHandler aMicroHandler = new MicroSAXHandler (false,
+                                                               aSettings == null ? null
+                                                                                 : aSettings.getEntityResolver ());
 
     // Copy and modify settings
     final SAXReaderSettings aRealSettings = SAXReaderSettings.createCloneOnDemand (aSettings);

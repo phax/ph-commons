@@ -27,7 +27,7 @@ import com.helger.commons.xml.dom.EXMLDOMNodeType;
 
 /**
  * Test class for class {@link XMLDebug}.
- * 
+ *
  * @author Philip Helger
  */
 public final class XMLDebugTest

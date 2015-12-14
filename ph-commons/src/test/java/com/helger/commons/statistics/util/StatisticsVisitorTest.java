@@ -18,12 +18,9 @@ package com.helger.commons.statistics.util;
 
 import org.junit.Test;
 
-import com.helger.commons.statistics.util.DefaultStatisticsVisitorCallback;
-import com.helger.commons.statistics.util.StatisticsVisitor;
-
 /**
  * Test class for class {@link StatisticsVisitor}.
- * 
+ *
  * @author Philip Helger
  */
 public final class StatisticsVisitorTest

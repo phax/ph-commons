@@ -22,11 +22,10 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.commons.text.display.DisplayTextProviderFromHasDisplayText;
 
 /**
  * Test class for class {@link DisplayTextProviderFromHasDisplayText}.
- * 
+ *
  * @author Philip Helger
  */
 public final class DisplayTextProviderFromHasDisplayTextTest extends AbstractCommonsTestCase

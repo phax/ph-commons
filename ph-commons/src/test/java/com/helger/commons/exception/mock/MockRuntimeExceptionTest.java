@@ -18,11 +18,9 @@ package com.helger.commons.exception.mock;
 
 import org.junit.Test;
 
-import com.helger.commons.exception.mock.MockRuntimeException;
-
 /**
  * Test class for class {@link MockRuntimeException}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MockRuntimeExceptionTest

@@ -19,11 +19,10 @@ package com.helger.commons.scope.singletons;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.commons.scope.singletons.AbstractGlobalSingletonTreeWithUniqueID;
 
 /**
  * Mock global singleton
- * 
+ *
  * @author Philip Helger
  */
 public final class MockGlobalSingletonTreeWithUniqueID extends AbstractGlobalSingletonTreeWithUniqueID <String, String>

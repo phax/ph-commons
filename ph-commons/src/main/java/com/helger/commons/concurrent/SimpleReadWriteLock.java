@@ -16,16 +16,17 @@
  */
 package com.helger.commons.concurrent;
 
-import java.io.Serializable;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
+import java.util.function.IntSupplier;
+import java.util.function.LongSupplier;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.callback.INonThrowingCallable;
 import com.helger.commons.callback.IThrowingCallable;
 import com.helger.commons.callback.IThrowingRunnable;
 
@@ -39,17 +40,13 @@ import com.helger.commons.callback.IThrowingRunnable;
  *
  * @author Philip Helger
  */
-public class SimpleReadWriteLock implements ReadWriteLock, Serializable
+public class SimpleReadWriteLock extends ReentrantReadWriteLock
 {
-  private final ReentrantReadWriteLock m_aRWLock;
-
   /**
    * Default constructor creating a default {@link ReentrantReadWriteLock}
    */
   public SimpleReadWriteLock ()
-  {
-    m_aRWLock = new ReentrantReadWriteLock ();
-  }
+  {}
 
   /**
    * Constructor creating a {@link ReentrantReadWriteLock} with the provided
@@ -60,19 +57,7 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
    */
   public SimpleReadWriteLock (final boolean bFair)
   {
-    m_aRWLock = new ReentrantReadWriteLock (bFair);
-  }
-
-  @Nonnull
-  public Lock readLock ()
-  {
-    return m_aRWLock.readLock ();
-  }
-
-  @Nonnull
-  public Lock writeLock ()
-  {
-    return m_aRWLock.writeLock ();
+    super (bFair);
   }
 
   /**
@@ -85,14 +70,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aRunnable, "Runnable");
 
-    m_aRWLock.readLock ().lock ();
+    readLock ().lock ();
     try
     {
       aRunnable.run ();
     }
     finally
     {
-      m_aRWLock.readLock ().unlock ();
+      readLock ().unlock ();
     }
   }
 
@@ -110,39 +95,39 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aRunnable, "Runnable");
 
-    m_aRWLock.readLock ().lock ();
+    readLock ().lock ();
     try
     {
       aRunnable.run ();
     }
     finally
     {
-      m_aRWLock.readLock ().unlock ();
+      readLock ().unlock ();
     }
   }
 
   /**
    * Execute the provided callable in a read lock.
    *
-   * @param aCallable
+   * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
    * @param <T>
    *        Return type
    */
   @Nullable
-  public <T> T readLocked (@Nonnull final INonThrowingCallable <T> aCallable)
+  public <T> T readLocked (@Nonnull final Supplier <T> aSupplier)
   {
-    ValueEnforcer.notNull (aCallable, "Callable");
+    ValueEnforcer.notNull (aSupplier, "Supplier");
 
-    m_aRWLock.readLock ().lock ();
+    readLock ().lock ();
     try
     {
-      return aCallable.call ();
+      return aSupplier.get ();
     }
     finally
     {
-      m_aRWLock.readLock ().unlock ();
+      readLock ().unlock ();
     }
   }
 
@@ -164,14 +149,102 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aCallable, "Callable");
 
-    m_aRWLock.readLock ().lock ();
+    readLock ().lock ();
     try
     {
       return aCallable.call ();
     }
     finally
     {
-      m_aRWLock.readLock ().unlock ();
+      readLock ().unlock ();
+    }
+  }
+
+  /**
+   * Execute the provided callable in a read lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public boolean readLocked (@Nonnull final BooleanSupplier aSupplier)
+  {
+    ValueEnforcer.notNull (aSupplier, "Supplier");
+
+    readLock ().lock ();
+    try
+    {
+      return aSupplier.getAsBoolean ();
+    }
+    finally
+    {
+      readLock ().unlock ();
+    }
+  }
+
+  /**
+   * Execute the provided callable in a read lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public double readLocked (@Nonnull final DoubleSupplier aSupplier)
+  {
+    ValueEnforcer.notNull (aSupplier, "Supplier");
+
+    readLock ().lock ();
+    try
+    {
+      return aSupplier.getAsDouble ();
+    }
+    finally
+    {
+      readLock ().unlock ();
+    }
+  }
+
+  /**
+   * Execute the provided callable in a read lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public int readLocked (@Nonnull final IntSupplier aSupplier)
+  {
+    ValueEnforcer.notNull (aSupplier, "Supplier");
+
+    readLock ().lock ();
+    try
+    {
+      return aSupplier.getAsInt ();
+    }
+    finally
+    {
+      readLock ().unlock ();
+    }
+  }
+
+  /**
+   * Execute the provided callable in a read lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public long readLocked (@Nonnull final LongSupplier aSupplier)
+  {
+    ValueEnforcer.notNull (aSupplier, "Supplier");
+
+    readLock ().lock ();
+    try
+    {
+      return aSupplier.getAsLong ();
+    }
+    finally
+    {
+      readLock ().unlock ();
     }
   }
 
@@ -185,14 +258,14 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aRunnable, "Runnable");
 
-    m_aRWLock.writeLock ().lock ();
+    writeLock ().lock ();
     try
     {
       aRunnable.run ();
     }
     finally
     {
-      m_aRWLock.writeLock ().unlock ();
+      writeLock ().unlock ();
     }
   }
 
@@ -210,39 +283,39 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aRunnable, "Runnable");
 
-    m_aRWLock.writeLock ().lock ();
+    writeLock ().lock ();
     try
     {
       aRunnable.run ();
     }
     finally
     {
-      m_aRWLock.writeLock ().unlock ();
+      writeLock ().unlock ();
     }
   }
 
   /**
    * Execute the provided callable in a write lock.
    *
-   * @param aCallable
+   * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
    * @param <T>
    *        Return type
    */
   @Nullable
-  public <T> T writeLocked (@Nonnull final INonThrowingCallable <T> aCallable)
+  public <T> T writeLocked (@Nonnull final Supplier <T> aSupplier)
   {
-    ValueEnforcer.notNull (aCallable, "Callable");
+    ValueEnforcer.notNull (aSupplier, "Supplier");
 
-    m_aRWLock.writeLock ().lock ();
+    writeLock ().lock ();
     try
     {
-      return aCallable.call ();
+      return aSupplier.get ();
     }
     finally
     {
-      m_aRWLock.writeLock ().unlock ();
+      writeLock ().unlock ();
     }
   }
 
@@ -264,14 +337,102 @@ public class SimpleReadWriteLock implements ReadWriteLock, Serializable
   {
     ValueEnforcer.notNull (aCallable, "Callable");
 
-    m_aRWLock.writeLock ().lock ();
+    writeLock ().lock ();
     try
     {
       return aCallable.call ();
     }
     finally
     {
-      m_aRWLock.writeLock ().unlock ();
+      writeLock ().unlock ();
+    }
+  }
+
+  /**
+   * Execute the provided callable in a write lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public boolean writeLocked (@Nonnull final BooleanSupplier aSupplier)
+  {
+    ValueEnforcer.notNull (aSupplier, "Supplier");
+
+    writeLock ().lock ();
+    try
+    {
+      return aSupplier.getAsBoolean ();
+    }
+    finally
+    {
+      writeLock ().unlock ();
+    }
+  }
+
+  /**
+   * Execute the provided callable in a write lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public double writeLocked (@Nonnull final DoubleSupplier aSupplier)
+  {
+    ValueEnforcer.notNull (aSupplier, "Supplier");
+
+    writeLock ().lock ();
+    try
+    {
+      return aSupplier.getAsDouble ();
+    }
+    finally
+    {
+      writeLock ().unlock ();
+    }
+  }
+
+  /**
+   * Execute the provided callable in a write lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public int writeLocked (@Nonnull final IntSupplier aSupplier)
+  {
+    ValueEnforcer.notNull (aSupplier, "Supplier");
+
+    writeLock ().lock ();
+    try
+    {
+      return aSupplier.getAsInt ();
+    }
+    finally
+    {
+      writeLock ().unlock ();
+    }
+  }
+
+  /**
+   * Execute the provided callable in a write lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public long writeLocked (@Nonnull final LongSupplier aSupplier)
+  {
+    ValueEnforcer.notNull (aSupplier, "Supplier");
+
+    writeLock ().lock ();
+    try
+    {
+      return aSupplier.getAsLong ();
+    }
+    finally
+    {
+      writeLock ().unlock ();
     }
   }
 }

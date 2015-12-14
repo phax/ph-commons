@@ -19,7 +19,6 @@ package com.helger.commons.scope.singleton;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.commons.scope.singleton.AbstractApplicationSingleton;
 
 /**
  * Mock implementation of {@link AbstractApplicationSingleton}

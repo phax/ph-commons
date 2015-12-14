@@ -16,12 +16,13 @@
  */
 package com.helger.commons.cache;
 
+import java.util.function.Function;
+
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.convert.IConverter;
 
 /**
  * A special cache that can create the value to be cache automatically from the
@@ -60,39 +61,34 @@ public class CacheWithConversion <KEYTYPE, VALUETYPE> extends AbstractCache <KEY
    */
   @Nonnull
   public final VALUETYPE getFromCache (@Nonnull final KEYTYPE aKey,
-                                       @Nonnull final IConverter <KEYTYPE, VALUETYPE> aValueRetriever)
+                                       @Nonnull final Function <KEYTYPE, VALUETYPE> aValueRetriever)
   {
     // Already in the cache?
     VALUETYPE aValue = super.getFromCacheNoStats (aKey);
     if (aValue == null)
     {
       // No old value in the cache
-      m_aRWLock.writeLock ().lock ();
-      try
-      {
+      aValue = m_aRWLock.writeLocked ( () -> {
         // Read again, in case the value was set between the two locking
         // sections
         // Note: do not increase statistics in this second try
-        aValue = super.getFromCacheNoStatsNotLocked (aKey);
-        if (aValue == null)
+        VALUETYPE aWLValue = super.getFromCacheNoStatsNotLocked (aKey);
+        if (aWLValue == null)
         {
           // Get the value to cache
-          aValue = aValueRetriever.convert (aKey);
+          aWLValue = aValueRetriever.apply (aKey);
 
           // We cannot cache null values!
-          if (aValue == null)
+          if (aWLValue == null)
             throw new IllegalStateException ("The converter returned a null object for the key '" + aKey + "'");
 
-          super.putInCacheNotLocked (aKey, aValue);
+          super.putInCacheNotLocked (aKey, aWLValue);
           m_aCacheAccessStats.cacheMiss ();
         }
         else
           m_aCacheAccessStats.cacheHit ();
-      }
-      finally
-      {
-        m_aRWLock.writeLock ().unlock ();
-      }
+        return aWLValue;
+      });
     }
     else
       m_aCacheAccessStats.cacheHit ();

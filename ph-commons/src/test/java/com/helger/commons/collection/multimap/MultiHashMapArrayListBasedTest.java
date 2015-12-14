@@ -18,11 +18,9 @@ package com.helger.commons.collection.multimap;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.multimap.MultiHashMapArrayListBased;
-
 /**
  * Test class for class {@link MultiHashMapArrayListBased}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MultiHashMapArrayListBasedTest extends AbstractMultiMapTestCase

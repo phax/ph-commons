@@ -21,14 +21,14 @@ import javax.annotation.Nonnull;
 /**
  * Interface to implement for checking if two objects are identical. This
  * interface is only used within the {@link EqualsImplementationRegistry}.
- * 
+ *
  * @author Philip Helger
  */
 public interface IEqualsImplementation
 {
   /**
    * Check if the passed two objects are identical or not.
-   * 
+   *
    * @param aObj1
    *        First object. May not be <code>null</code>.
    * @param aObj2

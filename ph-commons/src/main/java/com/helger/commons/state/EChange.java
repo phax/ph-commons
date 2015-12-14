@@ -20,13 +20,13 @@ import javax.annotation.Nonnull;
 
 /**
  * Small enum for setter method to identify whether a value has changed or not.
- * 
+ *
  * @author Philip Helger
  */
 public enum EChange implements IChangeIndicator
 {
-  CHANGED,
-  UNCHANGED;
+ CHANGED,
+ UNCHANGED;
 
   public boolean isChanged ()
   {

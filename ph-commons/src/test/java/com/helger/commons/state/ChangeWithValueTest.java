@@ -25,12 +25,10 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.state.ChangeWithValue;
-import com.helger.commons.state.EChange;
 
 /**
  * Test class for class {@link ChangeWithValue}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ChangeWithValueTest

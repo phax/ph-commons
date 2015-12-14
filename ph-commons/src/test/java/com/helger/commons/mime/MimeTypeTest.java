@@ -32,7 +32,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link MimeType}
- * 
+ *
  * @author Philip Helger
  */
 public final class MimeTypeTest extends AbstractCommonsTestCase
@@ -51,8 +51,9 @@ public final class MimeTypeTest extends AbstractCommonsTestCase
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt,
                                                                            new MimeType (EMimeContentType.APPLICATION,
                                                                                          "junit"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.TEXT,
-                                                                                             "testng"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt,
+                                                                           new MimeType (EMimeContentType.TEXT,
+                                                                                         "testng"));
     CommonsTestHelper.testGetClone (mt);
     CommonsTestHelper.testDefaultSerialization (mt);
 

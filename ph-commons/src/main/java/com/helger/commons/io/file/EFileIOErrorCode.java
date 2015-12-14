@@ -31,31 +31,31 @@ import com.helger.commons.state.ISuccessIndicator;
  *
  * @author Philip Helger
  */
-public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
+public enum EFileIOErrorCode implements ISuccessIndicator,IHasIntID
 {
-  /** Generic error code: no error. */
+ /** Generic error code: no error. */
   NO_ERROR (0),
-  /** Generic error code: operation failed but we don't know why. */
+ /** Generic error code: operation failed but we don't know why. */
   OPERATION_FAILED (1),
-  /** Generic error code: a SecurityException occurred. */
+ /** Generic error code: a SecurityException occurred. */
   SECURITY_ERROR (2),
-  /** A source file or directory does not exist. */
+ /** A source file or directory does not exist. */
   SOURCE_DOES_NOT_EXIST (3),
-  /** A destination file or directory already exists. */
+ /** A destination file or directory already exists. */
   TARGET_ALREADY_EXISTS (4),
-  /** Source and destination object are identical. */
+ /** Source and destination object are identical. */
   SOURCE_EQUALS_TARGET (5),
-  /** Avoid recursive dependencies. */
+ /** Avoid recursive dependencies. */
   TARGET_IS_CHILD_OF_SOURCE (6),
-  /** We stumble across an object that is neither a file nor a directory. */
+ /** We stumble across an object that is neither a file nor a directory. */
   OBJECT_CANNOT_BE_HANDLED (7),
-  /** An object's parent could not be retrieved. */
+ /** An object's parent could not be retrieved. */
   OBJECT_HAS_NO_PARENT (8),
-  /** The source object cannot be read. */
+ /** The source object cannot be read. */
   SOURCE_NOT_READABLE (9),
-  /** The source parent object is read-only (not writable). */
+ /** The source parent object is read-only (not writable). */
   SOURCE_PARENT_NOT_WRITABLE (10),
-  /** The target parent object is read-only (not writable). */
+ /** The target parent object is read-only (not writable). */
   TARGET_PARENT_NOT_WRITABLE (11);
 
   private final int m_nID;

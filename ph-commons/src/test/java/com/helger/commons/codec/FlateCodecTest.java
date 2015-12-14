@@ -18,12 +18,9 @@ package com.helger.commons.codec;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.codec.FlateCodec;
-import com.helger.commons.codec.IByteArrayCodec;
-
 /**
  * Test class for class {@link FlateCodec}
- * 
+ *
  * @author Philip Helger
  */
 public final class FlateCodecTest extends AbstractByteArrayCodecTest

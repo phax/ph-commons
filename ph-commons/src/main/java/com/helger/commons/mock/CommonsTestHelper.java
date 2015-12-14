@@ -249,26 +249,17 @@ public final class CommonsTestHelper
     {
       // Serialize to byte array
       final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-      final ObjectOutputStream aOOS = new ObjectOutputStream (aBAOS);
-      try
+      try (final ObjectOutputStream aOOS = new ObjectOutputStream (aBAOS))
       {
         aOOS.writeObject (aSerializable);
-      }
-      finally
-      {
-        StreamHelper.close (aOOS);
       }
 
       // Read new object from byte array
       DATATYPE aReadObject;
-      final ObjectInputStream aOIS = new ObjectInputStream (new ByteArrayInputStreamProvider (aBAOS.toByteArray ()).getInputStream ());
-      try
+      try (
+          final ObjectInputStream aOIS = new ObjectInputStream (new ByteArrayInputStreamProvider (aBAOS.toByteArray ()).getInputStream ()))
       {
         aReadObject = GenericReflection.<Object, DATATYPE> uncheckedCast (aOIS.readObject ());
-      }
-      finally
-      {
-        StreamHelper.close (aOIS);
       }
 
       // Now check them for equality
@@ -371,19 +362,15 @@ public final class CommonsTestHelper
     final List <String> aErrors = new ArrayList <String> ();
     for (int i = 0; i < nCalls; ++i)
     {
-      aES.submit (new Runnable ()
-      {
-        public void run ()
+      aES.submit ( () -> {
+        try
         {
-          try
-          {
-            aRunnable.run ();
-          }
-          catch (final Throwable t)
-          {
-            // Remember thread stack
-            aErrors.add (t.getMessage () + "\n" + StackTraceHelper.getStackAsString (t));
-          }
+          aRunnable.run ();
+        }
+        catch (final Throwable t)
+        {
+          // Remember thread stack
+          aErrors.add (t.getMessage () + "\n" + StackTraceHelper.getStackAsString (t));
         }
       });
     }
@@ -425,9 +412,9 @@ public final class CommonsTestHelper
           }
 
           // Check content
-          final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamHelper.createReader (FileHelper.getInputStream (aFile),
-                                                                                                              CCharset.CHARSET_SERVICE_LOADER_OBJ));
-          try
+          try (
+              final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamHelper.createReader (FileHelper.getInputStream (aFile),
+                                                                                                                  CCharset.CHARSET_SERVICE_LOADER_OBJ)))
           {
             int nCount = 0;
             String sLine;
@@ -454,10 +441,6 @@ public final class CommonsTestHelper
             s_aLogger.warn ("  Error checking content: " + t.getMessage ());
             if (!bContinueOnError)
               throw new Exception ("Error checking SPI file " + aFile.getAbsolutePath (), t);
-          }
-          finally
-          {
-            StreamHelper.close (aReader);
           }
         }
     return nTotalImplementationCount;

@@ -30,7 +30,7 @@ import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * Test class for class {@link ByteBufferInputStreamProvider}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ByteBufferInputStreamProviderTest

@@ -26,7 +26,7 @@ import com.helger.commons.string.ToStringGenerator;
  * An {@link IStringIDFactory} implementation that uses a constant prefix and an
  * int supplied from {@link GlobalIDFactory#getNewPersistentIntID()} to create
  * unique IDs.
- * 
+ *
  * @author Philip Helger
  */
 public class StringIDFromGlobalPersistentIntIDFactory implements IStringIDFactory

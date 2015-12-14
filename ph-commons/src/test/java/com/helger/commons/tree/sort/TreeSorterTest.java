@@ -21,17 +21,15 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.compare.AbstractComparator;
 import com.helger.commons.compare.CollatingComparator;
-import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.tree.DefaultTree;
 import com.helger.commons.tree.DefaultTreeItem;
-import com.helger.commons.tree.sort.TreeSorter;
 
 /**
  * Test class for class {@link TreeSorter}
@@ -84,14 +82,7 @@ public final class TreeSorterTest
     i2.createChildItem (BigDecimal.valueOf (11));
 
     // Sort all items by String
-    TreeSorter.sort (aTree, new AbstractComparator <Number> ()
-    {
-      @Override
-      protected int mainCompare (final Number aElement1, final Number aElement2)
-      {
-        return CompareHelper.compare (aElement1.intValue (), aElement2.intValue ());
-      }
-    });
+    TreeSorter.sort (aTree, Comparator.comparingInt (Number::intValue));
 
     assertEquals (2, aTree.getRootItem ().getChildCount ());
     final List <? extends DefaultTreeItem <BigDecimal>> aChildren = aTree.getRootItem ().getAllChildren ();

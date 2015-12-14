@@ -23,11 +23,10 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
-import com.helger.commons.callback.adapter.AdapterRunnableToCallableWithParameter;
 
 /**
  * Test class for class {@link AdapterRunnableToCallableWithParameter}
- * 
+ *
  * @author Philip Helger
  */
 public final class AdapterRunnableToCallableWithParameterTest
@@ -35,12 +34,8 @@ public final class AdapterRunnableToCallableWithParameterTest
   @Test
   public void testAll ()
   {
-    final INonThrowingRunnableWithParameter <String> r = new INonThrowingRunnableWithParameter <String> ()
-    {
-      public void run (final String sCurrentObject)
-      {
-        // empty
-      }
+    final INonThrowingRunnableWithParameter <String> r = sCurrentObject -> {
+      // empty
     };
     final AdapterRunnableToCallableWithParameter <Object, String> rc = AdapterRunnableToCallableWithParameter.createAdapter (r);
     assertNull (rc.call ("any"));

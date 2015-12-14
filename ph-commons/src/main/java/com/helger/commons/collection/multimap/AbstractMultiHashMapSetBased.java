@@ -25,7 +25,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 /**
  * Abstract multi map based on {@link java.util.HashMap} and
  * {@link java.util.Set} values.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        key type

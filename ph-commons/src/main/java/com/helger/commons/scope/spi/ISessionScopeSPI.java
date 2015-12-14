@@ -24,7 +24,7 @@ import com.helger.commons.scope.ISessionScope;
 /**
  * SPI for handling the session scope lifecycle. Is invoked for non-web and web
  * scopes.
- * 
+ *
  * @author Philip Helger
  */
 @IsSPIInterface
@@ -32,7 +32,7 @@ public interface ISessionScopeSPI
 {
   /**
    * Called after the session scope was started
-   * 
+   *
    * @param aSessionScope
    *        The session scope object to be used. Never <code>null</code>.
    */
@@ -40,7 +40,7 @@ public interface ISessionScopeSPI
 
   /**
    * Called before the session scope is shut down
-   * 
+   *
    * @param aSessionScope
    *        The session scope object to be used. Never <code>null</code>.
    */

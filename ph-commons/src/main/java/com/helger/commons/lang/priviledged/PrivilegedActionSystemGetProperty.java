@@ -26,7 +26,7 @@ import com.helger.commons.annotation.Nonempty;
 
 /**
  * A special privileged object, that calls <code>System.getProperty</code>
- * 
+ *
  * @author Philip Helger
  */
 public final class PrivilegedActionSystemGetProperty implements PrivilegedAction <String>

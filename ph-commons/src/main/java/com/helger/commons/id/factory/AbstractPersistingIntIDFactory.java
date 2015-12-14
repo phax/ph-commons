@@ -16,13 +16,11 @@
  */
 package com.helger.commons.id.factory;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.concurrent.SimpleLock;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -37,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
 @ThreadSafe
 public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
 {
-  private final Lock m_aLock = new ReentrantLock ();
+  private final SimpleLock m_aLock = new SimpleLock ();
   private final int m_nReserveCount;
   private int m_nID = 0;
   private int m_nLastID = -1;
@@ -87,9 +85,7 @@ public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
    */
   public final int getNewID ()
   {
-    m_aLock.lock ();
-    try
-    {
+    return m_aLock.locked ( () -> {
       if (m_nID >= m_nLastID)
       {
         // Read new IDs
@@ -107,11 +103,7 @@ public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
         m_nLastID = nNewID + m_nReserveCount;
       }
       return m_nID++;
-    }
-    finally
-    {
-      m_aLock.unlock ();
-    }
+    });
   }
 
   @Override

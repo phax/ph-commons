@@ -25,7 +25,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link EChangeLogAction}.
- * 
+ *
  * @author Philip Helger
  */
 public final class EChangeLogActionTest

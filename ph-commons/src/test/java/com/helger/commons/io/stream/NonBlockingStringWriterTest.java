@@ -25,8 +25,6 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.helger.commons.io.stream.NonBlockingStringWriter;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -40,25 +38,26 @@ public final class NonBlockingStringWriterTest
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testAll () throws IOException
   {
-    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    assertTrue (aSW.isEmpty ());
-    assertEquals (0, aSW.getSize ());
-    aSW.write ('a');
-    assertFalse (aSW.isEmpty ());
-    assertEquals (1, aSW.getSize ());
-    aSW.write ("bc".toCharArray ());
-    aSW.write ("de".toCharArray (), 0, 1);
-    aSW.write ("ef");
-    aSW.write ("fgh", 1, 1);
-    assertEquals ("abcdefg", aSW.getAsString ());
-    assertEquals (7, aSW.getSize ());
-    aSW.append ('0').append ("12").append ("234", 1, 2);
-    assertEquals ("abcdefg0123", aSW.getAsString ());
-    assertEquals ("abcdefg0123", aSW.directGetStringBuilder ().toString ());
-    aSW.append (null).append (null, 1, 2);
-    assertEquals ("abcdefg0123nullu", aSW.getAsString ());
-    aSW.flush ();
-    aSW.close ();
+    try (final NonBlockingStringWriter aSW = new NonBlockingStringWriter ())
+    {
+      assertTrue (aSW.isEmpty ());
+      assertEquals (0, aSW.getSize ());
+      aSW.write ('a');
+      assertFalse (aSW.isEmpty ());
+      assertEquals (1, aSW.getSize ());
+      aSW.write ("bc".toCharArray ());
+      aSW.write ("de".toCharArray (), 0, 1);
+      aSW.write ("ef");
+      aSW.write ("fgh", 1, 1);
+      assertEquals ("abcdefg", aSW.getAsString ());
+      assertEquals (7, aSW.getSize ());
+      aSW.append ('0').append ("12").append ("234", 1, 2);
+      assertEquals ("abcdefg0123", aSW.getAsString ());
+      assertEquals ("abcdefg0123", aSW.directGetStringBuilder ().toString ());
+      aSW.append (null).append (null, 1, 2);
+      assertEquals ("abcdefg0123nullu", aSW.getAsString ());
+      aSW.flush ();
+    }
 
     try
     {
@@ -71,21 +70,21 @@ public final class NonBlockingStringWriterTest
     final char [] ca = "abc".toCharArray ();
     try
     {
-      aSW.write (ca, -1, 1);
+      new NonBlockingStringWriter ().write (ca, -1, 1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      aSW.write (ca, 0, -1);
+      new NonBlockingStringWriter ().write (ca, 0, -1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      aSW.write (ca, 2, 5);
+      new NonBlockingStringWriter ().write (ca, 2, 5);
       fail ();
     }
     catch (final IllegalArgumentException ex)

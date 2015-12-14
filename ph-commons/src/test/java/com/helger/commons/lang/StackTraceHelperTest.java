@@ -28,7 +28,7 @@ import com.helger.commons.collection.ArrayHelper;
 
 /**
  * Test class for class {@link StackTraceHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class StackTraceHelperTest
@@ -93,13 +93,9 @@ public final class StackTraceHelperTest
       assertNotNull (StackTraceHelper.getStackAsString (ex));
     }
     assertTrue (StackTraceHelper.containsUnitTestElement (new Exception ().getStackTrace ()));
-    new Thread (new Runnable ()
-    {
-      public void run ()
-      {
-        assertNotNull (StackTraceHelper.getCurrentThreadStackAsString ());
-        assertFalse (StackTraceHelper.containsUnitTestElement (new Exception ().getStackTrace ()));
-      }
+    new Thread ( () -> {
+      assertNotNull (StackTraceHelper.getCurrentThreadStackAsString ());
+      assertFalse (StackTraceHelper.containsUnitTestElement (new Exception ().getStackTrace ()));
     }).start ();
     final StringBuilder aSB = new StringBuilder ();
     StackTraceHelper.appendStackToString (aSB, new Exception ().getStackTrace ());

@@ -41,7 +41,7 @@ import com.helger.commons.string.StringHelper;
  *      Internet Mail Extensions) Part Two: Message Header Extensions for
  *      Non-ASCII Text</a>
  */
-public abstract class AbstractRFC1522Codec extends AbstractByteArrayCodec
+public abstract class AbstractRFC1522Codec implements IByteArrayCodec
 {
   /** Separator. */
   protected static final char SEP = '?';
@@ -76,12 +76,13 @@ public abstract class AbstractRFC1522Codec extends AbstractByteArrayCodec
    * @return RFC 1522 compliant "encoded-word"
    * @throws EncodeException
    *         thrown if there is an error condition during the Encoding process.
-   * @see <a
-   *      href="http://download.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html">Standard
-   *      charsets</a>
+   * @see <a href=
+   *      "http://download.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html">
+   *      Standard charsets</a>
    */
   @Nullable
-  protected String getEncodedText (@Nullable final String sText, @Nonnull final Charset aSourceCharset) throws EncodeException
+  protected String getEncodedText (@Nullable final String sText,
+                                   @Nonnull final Charset aSourceCharset) throws EncodeException
   {
     ValueEnforcer.notNull (aSourceCharset, "SourceCharset");
     if (sText == null)

@@ -27,7 +27,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.helger.commons.callback.IThrowingRunnable;
-import com.helger.commons.callback.exception.DoNothingExceptionCallback;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.xml.sax.CachingSAXInputSource;
@@ -45,7 +44,7 @@ public final class SAXReaderTest
   @BeforeClass
   public static void bc ()
   {
-    SAXReaderDefaultSettings.setExceptionHandler (new DoNothingExceptionCallback ());
+    SAXReaderDefaultSettings.setExceptionHandler ( (ex) -> {});
   }
 
   @AfterClass
@@ -57,28 +56,18 @@ public final class SAXReaderTest
   @Test
   public void testMultithreadedSAX_CachingSAXInputSource ()
   {
-    CommonsTestHelper.testInParallel (1000, new IThrowingRunnable <SAXException> ()
-    {
-      public void run () throws SAXException
-      {
-        assertTrue (SAXReader.readXMLSAX (new CachingSAXInputSource (new ClassPathResource ("xml/buildinfo.xml")),
-                                          new SAXReaderSettings ().setContentHandler (new DefaultHandler ()))
-                             .isSuccess ());
-      }
-    });
+    CommonsTestHelper.testInParallel (1000,
+                                      (IThrowingRunnable <SAXException>) () -> assertTrue (SAXReader.readXMLSAX (new CachingSAXInputSource (new ClassPathResource ("xml/buildinfo.xml")),
+                                                                                                                 new SAXReaderSettings ().setContentHandler (new DefaultHandler ()))
+                                                                                                    .isSuccess ()));
   }
 
   @Test
   public void testMultithreadedSAX_ReadableResourceSAXInputSource ()
   {
-    CommonsTestHelper.testInParallel (1000, new IThrowingRunnable <SAXException> ()
-    {
-      public void run () throws SAXException
-      {
-        assertTrue (SAXReader.readXMLSAX (new ClassPathResource ("xml/buildinfo.xml"),
-                                          new SAXReaderSettings ().setContentHandler (new DefaultHandler ()))
-                             .isSuccess ());
-      }
-    });
+    CommonsTestHelper.testInParallel (1000,
+                                      (IThrowingRunnable <SAXException>) () -> assertTrue (SAXReader.readXMLSAX (new ClassPathResource ("xml/buildinfo.xml"),
+                                                                                                                 new SAXReaderSettings ().setContentHandler (new DefaultHandler ()))
+                                                                                                    .isSuccess ()));
   }
 }

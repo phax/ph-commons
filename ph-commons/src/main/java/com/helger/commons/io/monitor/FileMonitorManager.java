@@ -18,8 +18,6 @@ package com.helger.commons.io.monitor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -31,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.EChange;
 import com.helger.commons.thread.ThreadHelper;
 import com.helger.commons.timing.StopWatch;
@@ -47,7 +46,7 @@ public class FileMonitorManager implements Runnable
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (FileMonitorManager.class);
 
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   /** All FileMonitors contained */
   private final List <FileMonitor> m_aMonitorList = new ArrayList <FileMonitor> ();
@@ -145,15 +144,7 @@ public class FileMonitorManager implements Runnable
   {
     ValueEnforcer.notNull (aMonitor, "Monitor");
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      m_aMonitorList.add (aMonitor);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> m_aMonitorList.add (aMonitor));
   }
 
   /**
@@ -169,30 +160,14 @@ public class FileMonitorManager implements Runnable
     if (aMonitor == null)
       return EChange.UNCHANGED;
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      return EChange.valueOf (m_aMonitorList.remove (aMonitor));
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    return EChange.valueOf (m_aRWLock.writeLocked ( () -> m_aMonitorList.remove (aMonitor)));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public List <FileMonitor> getAllFileMonitors ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newList (m_aMonitorList);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aMonitorList));
   }
 
   /**
@@ -201,15 +176,7 @@ public class FileMonitorManager implements Runnable
   @Nonnegative
   public int getFileMonitorCount ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMonitorList.size ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aMonitorList.size ());
   }
 
   /**

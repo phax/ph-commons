@@ -18,11 +18,9 @@ package com.helger.commons.exception.mock;
 
 import org.junit.Test;
 
-import com.helger.commons.exception.mock.MockIOException;
-
 /**
  * Test class for class {@link MockIOException}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MockIOExceptionTest

@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 /**
  * Interface for a manager operating on the file system. Is implemented by
  * {@link FileOperationManager}.
- * 
+ *
  * @author Philip Helger
  */
 public interface IFileOperationManager extends Serializable
@@ -46,7 +46,7 @@ public interface IFileOperationManager extends Serializable
 
   /**
    * Create a new directory. The direct parent directory already needs to exist.
-   * 
+   *
    * @param aDir
    *        The directory to be created. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
@@ -57,7 +57,7 @@ public interface IFileOperationManager extends Serializable
   /**
    * Create a new directory if it does not exist. The direct parent directory
    * already needs to exist.
-   * 
+   *
    * @param aDir
    *        The directory to be created if it does not exist. May not be
    *        <code>null</code>.
@@ -69,7 +69,7 @@ public interface IFileOperationManager extends Serializable
   /**
    * Create a new directory. The parent directories are created if they are
    * missing.
-   * 
+   *
    * @param aDir
    *        The directory to be created. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
@@ -80,7 +80,7 @@ public interface IFileOperationManager extends Serializable
   /**
    * Create a new directory if it does not exist. The direct parent directory
    * already needs to exist.
-   * 
+   *
    * @param aDir
    *        The directory to be created if it does not exist. May not be
    *        <code>null</code>.
@@ -92,7 +92,7 @@ public interface IFileOperationManager extends Serializable
   /**
    * Delete an existing directory. The directory needs to be empty before it can
    * be deleted.
-   * 
+   *
    * @param aDir
    *        The directory to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
@@ -103,7 +103,7 @@ public interface IFileOperationManager extends Serializable
   /**
    * Delete an existing directory if it is existing. The directory needs to be
    * empty before it can be deleted.
-   * 
+   *
    * @param aDir
    *        The directory to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
@@ -113,7 +113,7 @@ public interface IFileOperationManager extends Serializable
 
   /**
    * Delete an existing directory including all child objects.
-   * 
+   *
    * @param aDir
    *        The directory to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
@@ -123,7 +123,7 @@ public interface IFileOperationManager extends Serializable
 
   /**
    * Delete an existing directory including all child objects if it is existing.
-   * 
+   *
    * @param aDir
    *        The directory to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
@@ -133,7 +133,7 @@ public interface IFileOperationManager extends Serializable
 
   /**
    * Delete an existing file.
-   * 
+   *
    * @param aFile
    *        The file to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
@@ -143,7 +143,7 @@ public interface IFileOperationManager extends Serializable
 
   /**
    * Delete a file if it is existing.
-   * 
+   *
    * @param aFile
    *        The file to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
@@ -153,7 +153,7 @@ public interface IFileOperationManager extends Serializable
 
   /**
    * Rename a directory.
-   * 
+   *
    * @param aSourceDir
    *        The original directory name. May not be <code>null</code>.
    * @param aTargetDir
@@ -165,7 +165,7 @@ public interface IFileOperationManager extends Serializable
 
   /**
    * Rename a file.
-   * 
+   *
    * @param aSourceFile
    *        The original file name. May not be <code>null</code>.
    * @param aTargetFile
@@ -177,7 +177,7 @@ public interface IFileOperationManager extends Serializable
 
   /**
    * Copy a directory including all child objects.
-   * 
+   *
    * @param aSourceDir
    *        The source directory to be copied. May not be <code>null</code>.
    * @param aTargetDir
@@ -190,7 +190,7 @@ public interface IFileOperationManager extends Serializable
 
   /**
    * Copies the source file to the target file.
-   * 
+   *
    * @param aSourceFile
    *        The source file to use. May not be <code>null</code>. Needs to be an
    *        existing file.

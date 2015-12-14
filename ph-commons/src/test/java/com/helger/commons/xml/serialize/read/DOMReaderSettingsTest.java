@@ -25,15 +25,11 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.helger.commons.callback.exception.DoNothingExceptionCallback;
 import com.helger.commons.xml.XMLFactory;
-import com.helger.commons.xml.serialize.read.DOMReaderDefaultSettings;
-import com.helger.commons.xml.serialize.read.DOMReaderSettings;
-import com.helger.commons.xml.serialize.read.XMLLoggingExceptionCallback;
 
 /**
  * Test class for {@link DOMReaderSettings}
- * 
+ *
  * @author Philip Helger
  */
 public final class DOMReaderSettingsTest
@@ -41,7 +37,7 @@ public final class DOMReaderSettingsTest
   @BeforeClass
   public static void bc ()
   {
-    DOMReaderDefaultSettings.setExceptionHandler (new DoNothingExceptionCallback ());
+    DOMReaderDefaultSettings.setExceptionHandler ( (ex) -> {});
   }
 
   @AfterClass

@@ -20,7 +20,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -35,6 +34,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ServiceLoaderHelper;
 
 /**
@@ -58,7 +58,7 @@ public final class URLProtocolRegistry
 
   private static boolean s_bDefaultInstantiated = false;
 
-  private final ReentrantReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
   private final Map <String, IURLProtocol> m_aProtocols = new HashMap <String, IURLProtocol> ();
 
@@ -92,18 +92,12 @@ public final class URLProtocolRegistry
   {
     ValueEnforcer.notNull (aProtocol, "Protocol");
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       final String sProtocol = aProtocol.getProtocol ();
       if (m_aProtocols.containsKey (sProtocol))
         throw new IllegalArgumentException ("Another handler for protocol '" + sProtocol + "' is already registered!");
       m_aProtocols.put (sProtocol, aProtocol);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
 
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("Registered new custom URL protocol: " + aProtocol);
@@ -116,29 +110,13 @@ public final class URLProtocolRegistry
   @ReturnsMutableCopy
   public Collection <IURLProtocol> getAllProtocols ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newList (m_aProtocols.values ());
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aProtocols.values ()));
   }
 
   @Nonnegative
   public int getRegisteredProtocolCount ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aProtocols.size ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aProtocols.size ());
   }
 
   /**
@@ -151,21 +129,15 @@ public final class URLProtocolRegistry
   @Nullable
   public IURLProtocol getProtocol (@Nullable final String sURL)
   {
-    if (sURL != null)
-    {
-      m_aRWLock.readLock ().lock ();
-      try
-      {
-        for (final IURLProtocol aProtocol : m_aProtocols.values ())
-          if (aProtocol.isUsedInURL (sURL))
-            return aProtocol;
-      }
-      finally
-      {
-        m_aRWLock.readLock ().unlock ();
-      }
-    }
-    return null;
+    if (sURL == null)
+      return null;
+
+    return m_aRWLock.readLocked ( () -> {
+      for (final IURLProtocol aProtocol : m_aProtocols.values ())
+        if (aProtocol.isUsedInURL (sURL))
+          return aProtocol;
+      return null;
+    });
   }
 
   /**
@@ -227,19 +199,13 @@ public final class URLProtocolRegistry
    */
   public void reinitialize ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       m_aProtocols.clear ();
 
       // Add all default protocols
       for (final EURLProtocol aProtocol : EURLProtocol.values ())
         m_aProtocols.put (aProtocol.getProtocol (), aProtocol);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
 
     // Load all SPI implementations
     for (final IURLProtocolRegistrarSPI aRegistrar : ServiceLoaderHelper.getAllSPIImplementations (IURLProtocolRegistrarSPI.class))

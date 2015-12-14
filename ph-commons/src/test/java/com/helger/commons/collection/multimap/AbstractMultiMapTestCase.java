@@ -29,8 +29,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.multimap.IMultiMap;
-import com.helger.commons.collection.multimap.IMultiMapListBased;
 
 /**
  * Abstract class for class {@link IMultiMap} implementations.

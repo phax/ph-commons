@@ -22,12 +22,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import com.helger.commons.scope.mgr.EScope;
 import com.helger.commons.scope.mock.ScopeTestRule;
 
 /**
  * Test class for class {@link EScope}.
- * 
+ *
  * @author Philip Helger
  */
 public final class EScopeTest

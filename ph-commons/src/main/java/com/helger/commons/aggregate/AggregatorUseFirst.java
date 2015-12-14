@@ -31,7 +31,7 @@ import com.helger.commons.collection.CollectionHelper;
  *        Data type
  */
 @NotThreadSafe
-public class AggregatorUseFirst <DATATYPE> extends AbstractAggregator <DATATYPE, DATATYPE>
+public class AggregatorUseFirst <DATATYPE> implements IAggregator <DATATYPE, DATATYPE>
 {
   @Nullable
   public DATATYPE aggregate (@Nullable final Collection <DATATYPE> aResults)

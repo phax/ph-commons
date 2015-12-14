@@ -27,7 +27,7 @@ import com.helger.commons.state.EContinue;
 
 /**
  * Interface for a single session scope object.
- * 
+ *
  * @author Philip Helger
  */
 public interface ISessionScope extends IScope
@@ -36,7 +36,7 @@ public interface ISessionScope extends IScope
    * A special internal method that destroys the session. This is especially
    * relevant for session web scope, because it is all done via the invalidation
    * of the underlying HTTP session.
-   * 
+   *
    * @return {@link EContinue#BREAK} to indicate that the regular destruction
    *         should not be performed!
    */
@@ -47,7 +47,7 @@ public interface ISessionScope extends IScope
    * Create the unique ID, under which a session application scope will be
    * created within this scope. The default implementation is
    * <code>getID () + "." + sApplicationID</code>.
-   * 
+   *
    * @param sApplicationID
    *        The application ID to be used. May neither be <code>null</code> nor
    *        empty.
@@ -61,7 +61,7 @@ public interface ISessionScope extends IScope
 
   /**
    * Extract the application ID from an application scope ID.
-   * 
+   *
    * @param sApplicationScopeID
    *        The application scope ID to use. May be <code>null</code>.
    * @return <code>null</code> if no application ID could be extracted
@@ -73,7 +73,7 @@ public interface ISessionScope extends IScope
 
   /**
    * Create an application specific scope within the session.
-   * 
+   *
    * @param sApplicationID
    *        The application ID to use. May not be <code>null</code>.
    * @param bCreateIfNotExisting
@@ -89,7 +89,7 @@ public interface ISessionScope extends IScope
 
   /**
    * Restore a persisted session application scope
-   * 
+   *
    * @param sScopeID
    *        The ID of the restored application scope. May neither be
    *        <code>null</code> nor empty.

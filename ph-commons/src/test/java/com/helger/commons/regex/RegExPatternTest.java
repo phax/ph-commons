@@ -24,7 +24,7 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for {@link RegExPattern}.
- * 
+ *
  * @author Philip Helger
  */
 public final class RegExPatternTest extends AbstractCommonsTestCase

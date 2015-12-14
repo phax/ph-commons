@@ -21,14 +21,13 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.id.factory.MemoryLongIDFactory;
 import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link MemoryLongIDFactory}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MemoryLongIDFactoryTest

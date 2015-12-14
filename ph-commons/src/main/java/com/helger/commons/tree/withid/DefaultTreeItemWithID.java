@@ -22,7 +22,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 /**
  * Special implementation of {@link BasicTreeItemWithID} using the item type
  * {@link DefaultTreeItemWithID}.
- * 
+ *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        tree item key type
@@ -34,7 +34,7 @@ public class DefaultTreeItemWithID <KEYTYPE, DATATYPE> extends BasicTreeItemWith
 {
   /**
    * Constructor for root object
-   * 
+   *
    * @param aFactory
    *        The tree item factory to use. May not be <code>null</code>.
    */
@@ -45,7 +45,7 @@ public class DefaultTreeItemWithID <KEYTYPE, DATATYPE> extends BasicTreeItemWith
 
   /**
    * Constructor for normal elements
-   * 
+   *
    * @param aParent
    *        Parent item. May never be <code>null</code> since only the root has
    *        no parent.

@@ -18,12 +18,16 @@ package com.helger.commons.concurrent;
 
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
+import java.util.function.IntSupplier;
+import java.util.function.LongSupplier;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.callback.INonThrowingCallable;
 import com.helger.commons.callback.IThrowingCallable;
 import com.helger.commons.callback.IThrowingRunnable;
 
@@ -110,14 +114,14 @@ public class SimpleLock extends ReentrantLock
    *        Return type
    */
   @Nullable
-  public <T> T locked (@Nonnull final INonThrowingCallable <T> aSupplier)
+  public <T> T locked (@Nonnull final Supplier <T> aSupplier)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
     lock ();
     try
     {
-      return aSupplier.call ();
+      return aSupplier.get ();
     }
     finally
     {
@@ -147,6 +151,94 @@ public class SimpleLock extends ReentrantLock
     try
     {
       return aCallable.call ();
+    }
+    finally
+    {
+      unlock ();
+    }
+  }
+
+  /**
+   * Execute the provided callable in a read lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public boolean locked (@Nonnull final BooleanSupplier aSupplier)
+  {
+    ValueEnforcer.notNull (aSupplier, "Supplier");
+
+    lock ();
+    try
+    {
+      return aSupplier.getAsBoolean ();
+    }
+    finally
+    {
+      unlock ();
+    }
+  }
+
+  /**
+   * Execute the provided callable in a read lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public double locked (@Nonnull final DoubleSupplier aSupplier)
+  {
+    ValueEnforcer.notNull (aSupplier, "Supplier");
+
+    lock ();
+    try
+    {
+      return aSupplier.getAsDouble ();
+    }
+    finally
+    {
+      unlock ();
+    }
+  }
+
+  /**
+   * Execute the provided callable in a read lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public int locked (@Nonnull final IntSupplier aSupplier)
+  {
+    ValueEnforcer.notNull (aSupplier, "Supplier");
+
+    lock ();
+    try
+    {
+      return aSupplier.getAsInt ();
+    }
+    finally
+    {
+      unlock ();
+    }
+  }
+
+  /**
+   * Execute the provided callable in a read lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public long locked (@Nonnull final LongSupplier aSupplier)
+  {
+    ValueEnforcer.notNull (aSupplier, "Supplier");
+
+    lock ();
+    try
+    {
+      return aSupplier.getAsLong ();
     }
     finally
     {

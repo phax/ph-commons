@@ -25,7 +25,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link FormatableObject}.
- * 
+ *
  * @author Philip Helger
  */
 public final class FormatableObjectTest
@@ -45,13 +45,7 @@ public final class FormatableObjectTest
     assertEquals ("[[Any]]", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject ("Any", new IHasFormatter ()
-    {
-      public IFormatter getFormatter ()
-      {
-        return new FormatterBracket ();
-      }
-    });
+    aFO = new FormatableObject ("Any", (IHasFormatter) () -> new FormatterBracket ());
     assertEquals ("Any", aFO.getValue ());
     assertEquals (FormatterBracket.class, aFO.getFormatter ().getClass ());
     assertEquals ("[Any]", aFO.getAsString ());
@@ -128,7 +122,8 @@ public final class FormatableObjectTest
                                                                            new FormatableObject ("Any",
                                                                                                  new FormatterStringPrefix ("oprefix")));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatterBracket (), new FormatterBracket ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatterBracket (),
+                                                                       new FormatterBracket ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatterMinLengthAddLeading (10, ' '),
                                                                        new FormatterMinLengthAddLeading (10, ' '));
@@ -146,10 +141,12 @@ public final class FormatableObjectTest
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatterStringPrefixAndSuffix ("p", "s"),
                                                                        new FormatterStringPrefixAndSuffix ("p", "s"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterStringPrefixAndSuffix ("p", "s"),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterStringPrefixAndSuffix ("p",
+                                                                                                               "s"),
                                                                            new FormatterStringPrefixAndSuffix ("p",
                                                                                                                "ss"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterStringPrefixAndSuffix ("p", "s"),
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterStringPrefixAndSuffix ("p",
+                                                                                                               "s"),
                                                                            new FormatterStringPrefixAndSuffix ("pp",
                                                                                                                "s"));
 

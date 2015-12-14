@@ -23,7 +23,7 @@ import com.helger.commons.annotation.IsSPIInterface;
 /**
  * SPI interface to be implemented by other modules wishing to register their
  * own type converters.
- * 
+ *
  * @author Philip Helger
  */
 @IsSPIInterface
@@ -31,7 +31,7 @@ public interface ITypeConverterRegistrarSPI
 {
   /**
    * Register all your type converters.
-   * 
+   *
    * @param aRegistry
    *        The destination registry. Never <code>null</code>.
    */

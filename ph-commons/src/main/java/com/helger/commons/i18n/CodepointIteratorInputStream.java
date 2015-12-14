@@ -29,7 +29,8 @@ import javax.annotation.WillClose;
  */
 public class CodepointIteratorInputStream extends CodepointIteratorReadableByteChannel
 {
-  public CodepointIteratorInputStream (@Nonnull @WillClose final InputStream aIS, @Nonnull final Charset aCharset) throws IOException
+  public CodepointIteratorInputStream (@Nonnull @WillClose final InputStream aIS,
+                                       @Nonnull final Charset aCharset) throws IOException
   {
     super (Channels.newChannel (aIS), aCharset);
   }

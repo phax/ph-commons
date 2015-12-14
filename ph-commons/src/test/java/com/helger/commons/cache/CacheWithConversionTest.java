@@ -24,7 +24,6 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.cache.CacheWithConversion;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.convert.ConverterMapGet;
 
@@ -66,7 +65,7 @@ public final class CacheWithConversionTest
   {
     final Map <String, Integer> aMap = CollectionHelper.newMap (new String [] { "In", "In2" },
                                                                 new Integer [] { Integer.valueOf (1),
-                                                                                Integer.valueOf (2) });
+                                                                                 Integer.valueOf (2) });
     final CacheWithConversion <String, Integer> aCache = new CacheWithConversion <String, Integer> (1, "test");
     assertEquals ("test", aCache.getName ());
     assertEquals (1, aCache.getMaxSize ());

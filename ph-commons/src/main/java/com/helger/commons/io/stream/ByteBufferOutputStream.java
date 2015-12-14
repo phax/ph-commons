@@ -101,7 +101,9 @@ public class ByteBufferOutputStream extends OutputStream
    * @param nLen
    *        Number of bytes to wrap. Must be &ge; 0.
    */
-  public ByteBufferOutputStream (@Nonnull final byte [] aArray, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public ByteBufferOutputStream (@Nonnull final byte [] aArray,
+                                 @Nonnegative final int nOfs,
+                                 @Nonnegative final int nLen)
   {
     this (ByteBuffer.wrap (aArray, nOfs, nLen), false);
   }

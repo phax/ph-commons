@@ -19,10 +19,10 @@ package com.helger.commons.io.stream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteOrder;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Nonnull;
+
+import com.helger.commons.concurrent.SimpleLock;
 
 /**
  * The {@link BitInputStream} allows reading individual bits from a general Java
@@ -31,17 +31,17 @@ import javax.annotation.Nonnull;
  * read the next bit from the stream, as well as to read multiple bits at once
  * and write the resulting data into an integer value.<br>
  * For a non-blocking version see {@link NonBlockingBitInputStream}.
- * 
+ *
  * @author Andreas Jakl
  * @author Philip Helger
  */
 public class BitInputStream extends NonBlockingBitInputStream
 {
-  private final Lock m_aLock = new ReentrantLock ();
+  private final SimpleLock m_aLock = new SimpleLock ();
 
   /**
    * Create a new bit input stream based on an existing Java InputStream.
-   * 
+   *
    * @param aIS
    *        the input stream this class should read the bits from. May not be
    *        <code>null</code>.
@@ -55,7 +55,7 @@ public class BitInputStream extends NonBlockingBitInputStream
 
   /**
    * Read the next bit from the stream.
-   * 
+   *
    * @return 0 if the bit is 0, 1 if the bit is 1.
    * @throws IOException
    *         In case EOF is reached
@@ -80,14 +80,6 @@ public class BitInputStream extends NonBlockingBitInputStream
   @Override
   public void close ()
   {
-    m_aLock.lock ();
-    try
-    {
-      super.close ();
-    }
-    finally
-    {
-      m_aLock.unlock ();
-    }
+    m_aLock.locked ( () -> super.close ());
   }
 }

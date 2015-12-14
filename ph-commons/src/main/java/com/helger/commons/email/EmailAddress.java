@@ -52,9 +52,8 @@ public class EmailAddress implements IEmailAddress
   public EmailAddress (@Nonnull final String sAddress, @Nullable final String sPersonal)
   {
     ValueEnforcer.notNull (sAddress, "EmailAddress");
-    ValueEnforcer.isTrue (EmailAddressHelper.isValid (sAddress), "The passed email address '" +
-                                                                 sAddress +
-                                                                 "' is illegal!");
+    ValueEnforcer.isTrue (EmailAddressHelper.isValid (sAddress),
+                          "The passed email address '" + sAddress + "' is illegal!");
     m_sAddress = EmailAddressHelper.getUnifiedEmailAddress (sAddress);
     m_sPersonal = StringHelper.hasNoText (sPersonal) ? null : sPersonal;
   }

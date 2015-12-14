@@ -48,16 +48,18 @@ public final class ChangeLogReleaseTest
     assertTrue (aDate != aRelease.getDate ());
     assertSame (aVersion, aRelease.getVersion ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aRelease, new ChangeLogRelease (aDate, aVersion));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aRelease,
+                                                                       new ChangeLogRelease (aDate, aVersion));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aRelease,
                                                                            new ChangeLogRelease (new GregorianCalendar (2010,
                                                                                                                         Calendar.JULY,
                                                                                                                         6).getTime (),
                                                                                                  aVersion));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aRelease,
-                                                                           new ChangeLogRelease (aDate, new Version (1,
-                                                                                                                     2,
-                                                                                                                     4)));
+                                                                           new ChangeLogRelease (aDate,
+                                                                                                 new Version (1,
+                                                                                                              2,
+                                                                                                              4)));
 
     try
     {
