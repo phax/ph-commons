@@ -162,7 +162,7 @@ public final class Version implements Comparable <Version>, IHasStringRepresenta
 
   @Nonnull
   @ReturnsMutableCopy
-  private static String [] _extSplit (final String s)
+  private static String [] _extSplit (@Nonnull final String s)
   {
     final String [] aDotParts = StringHelper.getExplodedArray ('.', s, 2);
     if (aDotParts.length == 2)
@@ -249,7 +249,7 @@ public final class Version implements Comparable <Version>, IHasStringRepresenta
       }
 
       String sRest = !bDone && aParts.length > 1 ? aParts[1] : null;
-      if (sRest != null)
+      if (StringHelper.hasText (sRest))
       {
         // Parse minor version number part
         aParts = _extSplit (sRest);
@@ -262,7 +262,7 @@ public final class Version implements Comparable <Version>, IHasStringRepresenta
         }
 
         sRest = !bDone && aParts.length > 1 ? aParts[1] : null;
-        if (sRest != null)
+        if (StringHelper.hasText (sRest))
         {
           // Parse micro version number part
           aParts = _extSplit (sRest);
