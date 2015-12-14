@@ -28,6 +28,7 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
  *        Type of ID to be generated
  */
 @MustImplementEqualsAndHashcode
+@FunctionalInterface
 public interface IIDFactory <IDTYPE> extends IBaseIDFactory
 {
   /**

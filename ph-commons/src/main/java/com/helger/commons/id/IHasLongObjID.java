@@ -23,11 +23,15 @@ import javax.annotation.Nonnull;
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasLongObjID extends IHasLongID
 {
   /**
    * @return The {@link Long} representation of the contained "long" ID.
    */
   @Nonnull
-  Long getIDObj ();
+  default Long getIDObj ()
+  {
+    return Long.valueOf (getID ());
+  }
 }

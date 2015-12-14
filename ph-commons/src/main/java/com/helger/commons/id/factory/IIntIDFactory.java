@@ -24,6 +24,7 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
+@FunctionalInterface
 public interface IIntIDFactory extends IBaseIDFactory
 {
   /**

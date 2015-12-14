@@ -25,6 +25,7 @@ import javax.annotation.Nonnull;
  * @param <IDTYPE>
  *        The type of the provided ID.
  */
+@FunctionalInterface
 public interface IHasID <IDTYPE>
 {
   /**

@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
  * @param <VALUETYPE>
  *        Object type
  */
+@FunctionalInterface
 public interface IIntIDProvider <VALUETYPE> extends Serializable
 {
   /**
