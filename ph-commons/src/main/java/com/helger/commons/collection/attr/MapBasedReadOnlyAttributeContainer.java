@@ -45,7 +45,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Value type
  */
 @NotThreadSafe
-public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> extends AbstractReadOnlyAttributeContainer <KEYTYPE, VALUETYPE>
+public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements IAttributeContainer <KEYTYPE, VALUETYPE>
 {
   /** Main attribute storage. */
   protected final Map <KEYTYPE, VALUETYPE> m_aAttrs;

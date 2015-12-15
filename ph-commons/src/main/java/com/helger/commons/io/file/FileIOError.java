@@ -109,11 +109,6 @@ public final class FileIOError implements ISuccessIndicator, Serializable
     return m_eCode.isSuccess ();
   }
 
-  public boolean isFailure ()
-  {
-    return m_eCode.isFailure ();
-  }
-
   /**
    * @return The first file relevant to this error. May be <code>null</code>.
    */

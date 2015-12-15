@@ -28,7 +28,7 @@ import com.helger.commons.factory.IFactory;
 public final class SAXReaderFactory implements IFactory <org.xml.sax.XMLReader>
 {
   @Nonnull
-  public org.xml.sax.XMLReader create ()
+  public org.xml.sax.XMLReader get ()
   {
     return createXMLReader ();
   }

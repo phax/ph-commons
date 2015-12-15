@@ -16,8 +16,6 @@
  */
 package com.helger.commons.factory;
 
-import java.util.function.Supplier;
-
 import com.helger.commons.annotation.DevelopersNote;
 
 /**
@@ -28,7 +26,7 @@ import com.helger.commons.annotation.DevelopersNote;
  *        The type of object to create.
  */
 @FunctionalInterface
-public interface IHierarchicalRootFactory <DATATYPE> extends Supplier <DATATYPE>
+public interface IHierarchicalRootFactory <DATATYPE>
 {
   /**
    * Create the root object. May be called only once.
@@ -38,9 +36,4 @@ public interface IHierarchicalRootFactory <DATATYPE> extends Supplier <DATATYPE>
    */
   @DevelopersNote ("No @Nullable annotation as we can make no assumptions on the state")
   DATATYPE createRoot ();
-
-  default DATATYPE get ()
-  {
-    return createRoot ();
-  }
 }

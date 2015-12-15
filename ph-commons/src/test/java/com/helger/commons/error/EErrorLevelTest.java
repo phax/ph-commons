@@ -92,11 +92,11 @@ public final class EErrorLevelTest
   @Test
   public void testGetMostSevere ()
   {
-    assertNull (EErrorLevel.getMostSevere (null, null));
-    assertEquals (EErrorLevel.ERROR, EErrorLevel.getMostSevere (EErrorLevel.ERROR, null));
-    assertEquals (EErrorLevel.ERROR, EErrorLevel.getMostSevere (null, EErrorLevel.ERROR));
-    assertEquals (EErrorLevel.ERROR, EErrorLevel.getMostSevere (EErrorLevel.ERROR, EErrorLevel.ERROR));
-    assertEquals (EErrorLevel.ERROR, EErrorLevel.getMostSevere (EErrorLevel.WARN, EErrorLevel.ERROR));
-    assertEquals (EErrorLevel.ERROR, EErrorLevel.getMostSevere (EErrorLevel.ERROR, EErrorLevel.WARN));
+    assertNull (IErrorLevel.getMostSevere (null, null));
+    assertEquals (EErrorLevel.ERROR, IErrorLevel.getMostSevere (EErrorLevel.ERROR, null));
+    assertEquals (EErrorLevel.ERROR, IErrorLevel.getMostSevere (null, EErrorLevel.ERROR));
+    assertEquals (EErrorLevel.ERROR, IErrorLevel.getMostSevere (EErrorLevel.ERROR, EErrorLevel.ERROR));
+    assertEquals (EErrorLevel.ERROR, IErrorLevel.getMostSevere (EErrorLevel.WARN, EErrorLevel.ERROR));
+    assertEquals (EErrorLevel.ERROR, IErrorLevel.getMostSevere (EErrorLevel.ERROR, EErrorLevel.WARN));
   }
 }

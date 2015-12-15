@@ -72,11 +72,6 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
     return m_eSuccess.isSuccess ();
   }
 
-  public boolean isFailure ()
-  {
-    return m_eSuccess.isFailure ();
-  }
-
   @Nullable
   public DATATYPE get ()
   {

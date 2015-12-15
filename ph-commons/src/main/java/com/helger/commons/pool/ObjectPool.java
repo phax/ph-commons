@@ -107,7 +107,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
           {
             // if the object is used for the first time, create a new object
             // via the factory
-            m_aItems[i] = m_aFactory.create ();
+            m_aItems[i] = m_aFactory.get ();
             if (m_aItems[i] == null)
               throw new IllegalStateException ("The factory returned a null object!");
           }

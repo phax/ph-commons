@@ -28,7 +28,10 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.lang.GenericReflection;
+import com.helger.commons.typeconvert.TypeConverter;
 
 /**
  * Base interface for a generic read-only attribute container. It maps keys to
@@ -97,7 +100,10 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    * @return <code>null</code> if no such value exists
    */
   @Nullable
-  <DATATYPE> DATATYPE getCastedAttribute (@Nullable KEYTYPE aName);
+  default <DATATYPE> DATATYPE getCastedAttribute (@Nullable final KEYTYPE aName)
+  {
+    return GenericReflection.<Object, DATATYPE> uncheckedCast (getAttributeObject (aName));
+  }
 
   /**
    * Get the attribute value associated to the given attribute name. If the type
@@ -114,7 +120,11 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    * @return The passed default value if no such attribute exists
    */
   @Nullable
-  <DATATYPE> DATATYPE getCastedAttribute (@Nullable KEYTYPE aName, @Nullable DATATYPE aDefault);
+  default <DATATYPE> DATATYPE getCastedAttribute (@Nullable final KEYTYPE aName, @Nullable final DATATYPE aDefault)
+  {
+    final DATATYPE aValue = this.<DATATYPE> getCastedAttribute (aName);
+    return aValue == null ? aDefault : aValue;
+  }
 
   /**
    * Get the attribute value associated to the given attribute name. If the type
@@ -133,7 +143,11 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    * @return <code>null</code> if no such value exists
    */
   @Nullable
-  <DATATYPE> DATATYPE getTypedAttribute (@Nullable KEYTYPE aName, @Nonnull Class <DATATYPE> aDstClass);
+  default <DATATYPE> DATATYPE getTypedAttribute (@Nullable final KEYTYPE aName,
+                                                 @Nonnull final Class <DATATYPE> aDstClass)
+  {
+    return TypeConverter.convertIfNecessary (getAttributeObject (aName), aDstClass);
+  }
 
   /**
    * Get the attribute value associated to the given attribute name. If the type
@@ -152,7 +166,13 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    * @return The passed default value if no such attribute exists
    */
   @Nullable
-  <DATATYPE> DATATYPE getTypedAttribute (@Nullable KEYTYPE aName, @Nonnull Class <DATATYPE> aDstClass, @Nullable DATATYPE aDefault);
+  default <DATATYPE> DATATYPE getTypedAttribute (@Nullable final KEYTYPE aName,
+                                                 @Nonnull final Class <DATATYPE> aDstClass,
+                                                 @Nullable final DATATYPE aDefault)
+  {
+    final DATATYPE aValue = this.<DATATYPE> getTypedAttribute (aName, aDstClass);
+    return aValue == null ? aDefault : aValue;
+  }
 
   /**
    * Get the attribute value associated to the given attribute name.<br>
@@ -165,7 +185,10 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    *         exists
    */
   @Nullable
-  String getAttributeAsString (@Nullable KEYTYPE aName);
+  default String getAttributeAsString (@Nullable final KEYTYPE aName)
+  {
+    return getAttributeAsString (aName, null);
+  }
 
   /**
    * Get the attribute value associated to the given attribute name or the
@@ -180,7 +203,11 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    *         exists
    */
   @Nullable
-  String getAttributeAsString (@Nullable KEYTYPE aName, @Nullable String sDefault);
+  default String getAttributeAsString (@Nullable final KEYTYPE aName, @Nullable final String sDefault)
+  {
+    final Object aValue = getAttributeObject (aName);
+    return AttributeValueConverter.getAsString (aName, aValue, sDefault);
+  }
 
   /**
    * Get the attribute value associated to the given attribute name.
@@ -191,7 +218,10 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    *         {@link com.helger.commons.CGlobal#ILLEGAL_UINT} if no such
    *         attribute exists
    */
-  int getAttributeAsInt (@Nullable KEYTYPE aName);
+  default int getAttributeAsInt (@Nullable final KEYTYPE aName)
+  {
+    return getAttributeAsInt (aName, CGlobal.ILLEGAL_UINT);
+  }
 
   /**
    * Get the attribute value associated to the given attribute name.
@@ -204,7 +234,11 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    * @return The attribute value or <code>nDefault</code> if no such attribute
    *         exists
    */
-  int getAttributeAsInt (@Nullable KEYTYPE aName, int nDefault);
+  default int getAttributeAsInt (@Nullable final KEYTYPE aName, final int nDefault)
+  {
+    final Object aValue = getAttributeObject (aName);
+    return AttributeValueConverter.getAsInt (aName, aValue, nDefault);
+  }
 
   /**
    * Get the attribute value associated to the given attribute name.
@@ -215,7 +249,10 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    *         {@link com.helger.commons.CGlobal#ILLEGAL_ULONG} if no such
    *         attribute exists
    */
-  long getAttributeAsLong (@Nullable KEYTYPE aName);
+  default long getAttributeAsLong (@Nullable final KEYTYPE aName)
+  {
+    return getAttributeAsLong (aName, CGlobal.ILLEGAL_ULONG);
+  }
 
   /**
    * Get the attribute value associated to the given attribute name.
@@ -228,7 +265,11 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    * @return The attribute value or <code>nDefault</code> if no such attribute
    *         exists
    */
-  long getAttributeAsLong (@Nullable KEYTYPE aName, long nDefault);
+  default long getAttributeAsLong (@Nullable final KEYTYPE aName, final long nDefault)
+  {
+    final Object aValue = getAttributeObject (aName);
+    return AttributeValueConverter.getAsLong (aName, aValue, nDefault);
+  }
 
   /**
    * Get the attribute value associated to the given attribute name.
@@ -239,7 +280,10 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    *         {@link com.helger.commons.CGlobal#ILLEGAL_UINT} if no such
    *         attribute exists
    */
-  double getAttributeAsDouble (@Nullable KEYTYPE aName);
+  default double getAttributeAsDouble (@Nullable final KEYTYPE aName)
+  {
+    return getAttributeAsDouble (aName, CGlobal.ILLEGAL_UINT);
+  }
 
   /**
    * Get the attribute value associated to the given attribute name.
@@ -252,7 +296,11 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    * @return The attribute value or <code>nDefault</code> if no such attribute
    *         exists
    */
-  double getAttributeAsDouble (@Nullable KEYTYPE aName, double dDefault);
+  default double getAttributeAsDouble (@Nullable final KEYTYPE aName, final double dDefault)
+  {
+    final Object aValue = getAttributeObject (aName);
+    return AttributeValueConverter.getAsDouble (aName, aValue, dDefault);
+  }
 
   /**
    * Get the attribute value associated to the given attribute name.
@@ -262,7 +310,10 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    * @return The attribute value or <code>false</code> if no such attribute
    *         exists
    */
-  boolean getAttributeAsBoolean (@Nullable KEYTYPE aName);
+  default boolean getAttributeAsBoolean (@Nullable final KEYTYPE aName)
+  {
+    return getAttributeAsBoolean (aName, false);
+  }
 
   /**
    * Get the attribute value associated to the given attribute name.
@@ -275,7 +326,11 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    * @return The attribute value or <code>bDefault</code> if no such attribute
    *         exists
    */
-  boolean getAttributeAsBoolean (@Nullable KEYTYPE aName, boolean bDefault);
+  default boolean getAttributeAsBoolean (@Nullable final KEYTYPE aName, final boolean bDefault)
+  {
+    final Object aValue = getAttributeObject (aName);
+    return AttributeValueConverter.getAsBoolean (aName, aValue, bDefault);
+  }
 
   /**
    * Get the attribute value associated to the given attribute name.
@@ -286,7 +341,10 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    *         exists
    */
   @Nullable
-  BigInteger getAttributeAsBigInteger (@Nullable KEYTYPE aName);
+  default BigInteger getAttributeAsBigInteger (@Nullable final KEYTYPE aName)
+  {
+    return getAttributeAsBigInteger (aName, null);
+  }
 
   /**
    * Get the attribute value associated to the given attribute name.
@@ -300,7 +358,11 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    *         exists
    */
   @Nullable
-  BigInteger getAttributeAsBigInteger (@Nullable KEYTYPE aName, @Nullable BigInteger aDefault);
+  default BigInteger getAttributeAsBigInteger (@Nullable final KEYTYPE aName, @Nullable final BigInteger aDefault)
+  {
+    final Object aValue = getAttributeObject (aName);
+    return AttributeValueConverter.getAsBigInteger (aName, aValue, aDefault);
+  }
 
   /**
    * Get the attribute value associated to the given attribute name.
@@ -311,7 +373,10 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    *         exists
    */
   @Nullable
-  BigDecimal getAttributeAsBigDecimal (@Nullable KEYTYPE aName);
+  default BigDecimal getAttributeAsBigDecimal (@Nullable final KEYTYPE aName)
+  {
+    return getAttributeAsBigDecimal (aName, null);
+  }
 
   /**
    * Get the attribute value associated to the given attribute name.
@@ -325,7 +390,11 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    *         exists
    */
   @Nullable
-  BigDecimal getAttributeAsBigDecimal (@Nullable KEYTYPE aName, @Nullable BigDecimal aDefault);
+  default BigDecimal getAttributeAsBigDecimal (@Nullable final KEYTYPE aName, @Nullable final BigDecimal aDefault)
+  {
+    final Object aValue = getAttributeObject (aName);
+    return AttributeValueConverter.getAsBigDecimal (aName, aValue, aDefault);
+  }
 
   /**
    * @return A non-<code>null</code> set of all attribute names.

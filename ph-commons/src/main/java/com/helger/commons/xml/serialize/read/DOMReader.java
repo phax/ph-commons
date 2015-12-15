@@ -38,7 +38,6 @@ import org.xml.sax.SAXException;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.factory.IFactory;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.pool.IMutableObjectPool;
@@ -59,15 +58,6 @@ import com.helger.commons.xml.sax.InputSourceFactory;
 @ThreadSafe
 public final class DOMReader
 {
-  static final class DOMReaderFactory implements IFactory <DocumentBuilder>
-  {
-    @Nonnull
-    public DocumentBuilder create ()
-    {
-      return XMLFactory.createDocumentBuilder ();
-    }
-  }
-
   private static final IMutableStatisticsHandlerTimer s_aDomTimerHdl = StatisticsManager.getTimerHandler (DOMReader.class.getName () +
                                                                                                           "$DOM");
   private static final IMutableStatisticsHandlerTimer s_aDomSchemaTimerHdl = StatisticsManager.getTimerHandler (DOMReader.class.getName () +
@@ -77,7 +67,7 @@ public final class DOMReader
 
   // In practice no more than 5 readers are required (even 3 would be enough)
   private static final IMutableObjectPool <DocumentBuilder> s_aDOMPool = new ObjectPool <DocumentBuilder> (5,
-                                                                                                           new DOMReaderFactory ());
+                                                                                                           () -> XMLFactory.createDocumentBuilder ());
 
   @PresentForCodeCoverage
   private static final DOMReader s_aInstance = new DOMReader ();

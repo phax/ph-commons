@@ -56,22 +56,22 @@ public final class FactoryNewInstanceTest
     // test with a valid class
     IFactory <?> aFactory = FactoryNewInstance.create (FactoryNewInstanceTest.class);
     assertNotNull (aFactory);
-    assertNotNull (aFactory.create ());
+    assertNotNull (aFactory.get ());
 
     // null parameter
     aFactory = FactoryNewInstance.create ((Class <Object>) null);
     assertNotNull (aFactory);
-    assertNull (aFactory.create ());
+    assertNull (aFactory.get ());
 
     // class is abstract -> cannot create instance
     aFactory = FactoryNewInstance.create (AbstractClass.class);
     assertNotNull (aFactory);
-    assertNull (aFactory.create ());
+    assertNull (aFactory.get ());
 
     // class has no default constructor -> cannot create instance
     aFactory = FactoryNewInstance.create (ClassWithoutDefaultCtor.class);
     assertNotNull (aFactory);
-    assertNull (aFactory.create ());
+    assertNull (aFactory.get ());
   }
 
   @Test
@@ -80,7 +80,7 @@ public final class FactoryNewInstanceTest
     // test with a valid class
     final IFactory <?> aFactory = FactoryNewInstance.create (FactoryNewInstanceTest.class, true);
     assertNotNull (aFactory);
-    assertNotNull (aFactory.create ());
+    assertNotNull (aFactory.get ());
 
     // null parameter
     try

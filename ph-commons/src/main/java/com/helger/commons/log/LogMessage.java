@@ -38,7 +38,12 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class LogMessage implements IHasErrorLevel, ISuccessIndicator, IErrorIndicator, ISeverityComparable <LogMessage>, Serializable
+public class LogMessage implements
+                        IHasErrorLevel,
+                        ISuccessIndicator,
+                        IErrorIndicator,
+                        ISeverityComparable <LogMessage>,
+                        Serializable
 {
   private final Date m_aIssueDT;
   private final IErrorLevel m_aErrorLevel;
@@ -94,19 +99,9 @@ public class LogMessage implements IHasErrorLevel, ISuccessIndicator, IErrorIndi
     return m_aErrorLevel.isSuccess ();
   }
 
-  public boolean isFailure ()
-  {
-    return m_aErrorLevel.isFailure ();
-  }
-
   public boolean isError ()
   {
     return m_aErrorLevel.isError ();
-  }
-
-  public boolean isNoError ()
-  {
-    return m_aErrorLevel.isNoError ();
   }
 
   public boolean isEqualSevereThan (@Nonnull final LogMessage aOther)

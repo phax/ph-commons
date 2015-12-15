@@ -31,5 +31,8 @@ public interface ISuccessIndicator
   /**
    * @return <code>true</code> on failure and <code>false</code> on success.
    */
-  boolean isFailure ();
+  default boolean isFailure ()
+  {
+    return !isSuccess ();
+  }
 }

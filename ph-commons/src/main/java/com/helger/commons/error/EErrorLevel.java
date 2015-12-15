@@ -30,15 +30,15 @@ import com.helger.commons.lang.EnumHelper;
  */
 public enum EErrorLevel implements IErrorLevel
 {
- /** Success */
+  /** Success */
   SUCCESS ("success", 0),
- /** Information level */
+  /** Information level */
   INFO ("info", 100),
- /** Warning level. */
+  /** Warning level. */
   WARN ("warn", 200),
- /** Error level */
+  /** Error level */
   ERROR ("error", 300),
- /** Fatal error */
+  /** Fatal error */
   FATAL_ERROR ("fatal_error", 400);
 
   /** Lowest error level within this enum */
@@ -62,81 +62,10 @@ public enum EErrorLevel implements IErrorLevel
     return m_sID;
   }
 
-  /*
-   * Only SUCCESS is considered to be a success
-   */
-  public boolean isSuccess ()
-  {
-    return this == SUCCESS;
-  }
-
-  /*
-   * Everything except SUCCESS is considered a failure!
-   */
-  public boolean isFailure ()
-  {
-    return this != SUCCESS;
-  }
-
-  /**
-   * @return <code>true</code> if the severity of this item is &ge; than
-   *         {@link #ERROR}.
-   */
-  public boolean isError ()
-  {
-    return isMoreOrEqualSevereThan (ERROR);
-  }
-
-  /**
-   * @return <code>true</code> if the severity of this item is &lt; than
-   *         {@link #ERROR}.
-   */
-  public boolean isNoError ()
-  {
-    return isLessSevereThan (ERROR);
-  }
-
   @Nonnegative
   public int getNumericLevel ()
   {
     return m_nNumericLevel;
-  }
-
-  public boolean isEqualSevereThan (@Nonnull final IErrorLevel aErrorLevel)
-  {
-    return getNumericLevel () == aErrorLevel.getNumericLevel ();
-  }
-
-  public boolean isLessSevereThan (@Nonnull final IErrorLevel aErrorLevel)
-  {
-    return getNumericLevel () < aErrorLevel.getNumericLevel ();
-  }
-
-  public boolean isLessOrEqualSevereThan (@Nonnull final IErrorLevel aErrorLevel)
-  {
-    return getNumericLevel () <= aErrorLevel.getNumericLevel ();
-  }
-
-  public boolean isMoreSevereThan (@Nonnull final IErrorLevel aErrorLevel)
-  {
-    return getNumericLevel () > aErrorLevel.getNumericLevel ();
-  }
-
-  public boolean isMoreOrEqualSevereThan (@Nonnull final IErrorLevel aErrorLevel)
-  {
-    return getNumericLevel () >= aErrorLevel.getNumericLevel ();
-  }
-
-  @Nullable
-  public static IErrorLevel getMostSevere (@Nullable final IErrorLevel eLevel1, @Nullable final IErrorLevel eLevel2)
-  {
-    if (eLevel1 == eLevel2)
-      return eLevel1;
-    if (eLevel1 == null)
-      return eLevel2;
-    if (eLevel2 == null)
-      return eLevel1;
-    return eLevel1.isMoreSevereThan (eLevel2) ? eLevel1 : eLevel2;
   }
 
   @Nullable

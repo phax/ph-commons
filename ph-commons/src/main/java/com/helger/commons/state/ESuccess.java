@@ -25,17 +25,12 @@ import javax.annotation.Nonnull;
  */
 public enum ESuccess implements ISuccessIndicator
 {
- SUCCESS,
- FAILURE;
+  SUCCESS,
+  FAILURE;
 
   public boolean isSuccess ()
   {
     return this == SUCCESS;
-  }
-
-  public boolean isFailure ()
-  {
-    return this == FAILURE;
   }
 
   @Nonnull

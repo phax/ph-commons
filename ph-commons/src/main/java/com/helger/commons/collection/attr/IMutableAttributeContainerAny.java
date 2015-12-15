@@ -44,7 +44,10 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    * @see IMutableAttributeContainer#removeAttribute(Object)
    */
   @Nonnull
-  EChange setAttribute (@Nonnull KEYTYPE aName, boolean bValue);
+  default EChange setAttribute (@Nonnull final KEYTYPE aName, final boolean bValue)
+  {
+    return setAttribute (aName, Boolean.valueOf (bValue));
+  }
 
   /**
    * Set/overwrite an in attribute value. This is a shortcut for
@@ -59,7 +62,10 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    * @see IMutableAttributeContainer#removeAttribute(Object)
    */
   @Nonnull
-  EChange setAttribute (@Nonnull KEYTYPE aName, int nValue);
+  default EChange setAttribute (@Nonnull final KEYTYPE aName, final int nValue)
+  {
+    return setAttribute (aName, Integer.valueOf (nValue));
+  }
 
   /**
    * Set/overwrite an in attribute value. This is a shortcut for
@@ -74,7 +80,10 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    * @see IMutableAttributeContainer#removeAttribute(Object)
    */
   @Nonnull
-  EChange setAttribute (@Nonnull KEYTYPE aName, long nValue);
+  default EChange setAttribute (@Nonnull final KEYTYPE aName, final long nValue)
+  {
+    return setAttribute (aName, Long.valueOf (nValue));
+  }
 
   /**
    * Set/overwrite an in attribute value. This is a shortcut for
@@ -89,7 +98,10 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    * @see IMutableAttributeContainer#removeAttribute(Object)
    */
   @Nonnull
-  EChange setAttribute (@Nonnull KEYTYPE aName, double dValue);
+  default EChange setAttribute (@Nonnull final KEYTYPE aName, final double dValue)
+  {
+    return setAttribute (aName, Double.valueOf (dValue));
+  }
 
   /**
    * Atomic operation to set a flag to <code>true</code> if it was previously
@@ -105,5 +117,17 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    *         already present, <code>true</code> is returned. Any other than the
    *         first call for the same flag is always returning <code>true</code>.
    */
-  boolean getAndSetAttributeFlag (@Nonnull KEYTYPE aName);
+  default boolean getAndSetAttributeFlag (@Nonnull final KEYTYPE aName)
+  {
+    final Object aOldValue = getAttributeObject (aName);
+    if (aOldValue != null)
+    {
+      // Attribute flag is already present
+      return true;
+    }
+    // Attribute flag is not yet present -> set it
+    setAttribute (aName, Boolean.TRUE);
+    return false;
+  }
+
 }
