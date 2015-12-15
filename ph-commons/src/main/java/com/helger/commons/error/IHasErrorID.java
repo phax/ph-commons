@@ -18,6 +18,8 @@ package com.helger.commons.error;
 
 import javax.annotation.Nullable;
 
+import com.helger.commons.string.StringHelper;
+
 /**
  * Interface for objects having an error ID
  *
@@ -35,5 +37,8 @@ public interface IHasErrorID
    * @return <code>true</code> if an error ID is present, <code>false</code>
    *         otherwise
    */
-  boolean hasErrorID ();
+  default boolean hasErrorID ()
+  {
+    return StringHelper.hasText (getErrorID ());
+  }
 }

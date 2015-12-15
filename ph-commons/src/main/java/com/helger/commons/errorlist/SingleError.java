@@ -78,11 +78,6 @@ public class SingleError implements IError
     return m_sErrorID;
   }
 
-  public boolean hasErrorID ()
-  {
-    return StringHelper.hasText (m_sErrorID);
-  }
-
   @Nonnull
   public IErrorLevel getErrorLevel ()
   {
@@ -93,11 +88,6 @@ public class SingleError implements IError
   public String getErrorFieldName ()
   {
     return m_sErrorFieldName;
-  }
-
-  public boolean hasErrorFieldName ()
-  {
-    return StringHelper.hasText (m_sErrorFieldName);
   }
 
   @Nullable
@@ -112,51 +102,6 @@ public class SingleError implements IError
   public String getErrorText ()
   {
     return m_sErrorText;
-  }
-
-  public boolean isSuccess ()
-  {
-    return m_aErrorLevel.isSuccess ();
-  }
-
-  public boolean isFailure ()
-  {
-    return m_aErrorLevel.isFailure ();
-  }
-
-  public boolean isError ()
-  {
-    return m_aErrorLevel.isError ();
-  }
-
-  public boolean isNoError ()
-  {
-    return m_aErrorLevel.isNoError ();
-  }
-
-  public boolean isEqualSevereThan (@Nonnull final IError aOther)
-  {
-    return m_aErrorLevel.isEqualSevereThan (aOther.getErrorLevel ());
-  }
-
-  public boolean isLessSevereThan (@Nonnull final IError aOther)
-  {
-    return m_aErrorLevel.isLessSevereThan (aOther.getErrorLevel ());
-  }
-
-  public boolean isLessOrEqualSevereThan (@Nonnull final IError aOther)
-  {
-    return m_aErrorLevel.isLessOrEqualSevereThan (aOther.getErrorLevel ());
-  }
-
-  public boolean isMoreSevereThan (@Nonnull final IError aOther)
-  {
-    return m_aErrorLevel.isMoreSevereThan (aOther.getErrorLevel ());
-  }
-
-  public boolean isMoreOrEqualSevereThan (@Nonnull final IError aOther)
-  {
-    return m_aErrorLevel.isMoreOrEqualSevereThan (aOther.getErrorLevel ());
   }
 
   @Override
