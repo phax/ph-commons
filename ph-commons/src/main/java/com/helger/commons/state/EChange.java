@@ -25,17 +25,12 @@ import javax.annotation.Nonnull;
  */
 public enum EChange implements IChangeIndicator
 {
- CHANGED,
- UNCHANGED;
+  CHANGED,
+  UNCHANGED;
 
   public boolean isChanged ()
   {
     return this == CHANGED;
-  }
-
-  public boolean isUnchanged ()
-  {
-    return this == UNCHANGED;
   }
 
   @Nonnull

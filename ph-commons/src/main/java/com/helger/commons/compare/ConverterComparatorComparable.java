@@ -35,7 +35,8 @@ import com.helger.commons.ValueEnforcer;
  *        The part type that is extracted from the data element and compared
  */
 @NotThreadSafe
-public class ConverterComparatorComparable <DATATYPE, PARTTYPE extends Comparable <? super PARTTYPE>> extends AbstractPartComparatorComparable <DATATYPE, PARTTYPE>
+public class ConverterComparatorComparable <DATATYPE, PARTTYPE extends Comparable <? super PARTTYPE>>
+                                           extends AbstractPartComparatorComparable <DATATYPE, PARTTYPE>
 {
   private final Function <DATATYPE, PARTTYPE> m_aConverter;
 

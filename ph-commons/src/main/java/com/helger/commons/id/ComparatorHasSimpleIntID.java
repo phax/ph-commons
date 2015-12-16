@@ -32,7 +32,7 @@ import com.helger.commons.compare.AbstractIntComparator;
 @NotThreadSafe
 public class ComparatorHasSimpleIntID <DATATYPE extends IHasIntID> extends AbstractIntComparator <DATATYPE>
 {
-   @Override
+  @Override
   protected int getAsInt (@Nonnull final DATATYPE aObject)
   {
     return aObject.getID ();

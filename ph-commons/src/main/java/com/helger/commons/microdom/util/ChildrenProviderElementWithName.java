@@ -80,7 +80,7 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
   {
     // Not an element?
     if (aCurrent == null)
-      return new ArrayList <IMicroElement> ();
+      return new ArrayList <> ();
 
     // Namespace URI defined?
     if (StringHelper.hasText (m_sNamespaceURI))

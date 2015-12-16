@@ -90,7 +90,9 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   }
 
   @Nonnull
-  private MapBasedNamespaceContext _addMapping (@Nonnull final String sPrefix, @Nonnull final String sNamespaceURI, final boolean bAllowOverwrite)
+  private MapBasedNamespaceContext _addMapping (@Nonnull final String sPrefix,
+                                                @Nonnull final String sNamespaceURI,
+                                                final boolean bAllowOverwrite)
   {
     ValueEnforcer.notNull (sPrefix, "Prefix");
     ValueEnforcer.notNull (sNamespaceURI, "NamespaceURI");
@@ -253,7 +255,10 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sDefaultNamespaceURI).append (m_aPrefix2NS).append (m_aNS2Prefix).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sDefaultNamespaceURI)
+                                       .append (m_aPrefix2NS)
+                                       .append (m_aNS2Prefix)
+                                       .getHashCode ();
   }
 
   @Override

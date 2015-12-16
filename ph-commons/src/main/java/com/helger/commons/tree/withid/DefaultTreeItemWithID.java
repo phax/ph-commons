@@ -30,7 +30,8 @@ import javax.annotation.concurrent.NotThreadSafe;
  *        tree item value type
  */
 @NotThreadSafe
-public class DefaultTreeItemWithID <KEYTYPE, DATATYPE> extends BasicTreeItemWithID <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
+public class DefaultTreeItemWithID <KEYTYPE, DATATYPE> extends
+                                   BasicTreeItemWithID <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
 {
   /**
    * Constructor for root object

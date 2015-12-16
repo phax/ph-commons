@@ -31,7 +31,8 @@ import javax.annotation.Nullable;
  * @param <CHILDTYPE>
  *        The data type of the child objects.
  */
-public class ChildrenProviderSortingWithID <KEYTYPE, CHILDTYPE> extends ChildrenProviderSorting <CHILDTYPE> implements IChildrenProviderWithID <KEYTYPE, CHILDTYPE>
+public class ChildrenProviderSortingWithID <KEYTYPE, CHILDTYPE> extends ChildrenProviderSorting <CHILDTYPE>
+                                           implements IChildrenProviderWithID <KEYTYPE, CHILDTYPE>
 {
   public ChildrenProviderSortingWithID (@Nonnull final IChildrenProviderWithID <KEYTYPE, CHILDTYPE> aCP,
                                         @Nonnull final Comparator <? super CHILDTYPE> aComparator)

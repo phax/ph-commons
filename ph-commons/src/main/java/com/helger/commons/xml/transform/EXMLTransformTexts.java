@@ -30,9 +30,9 @@ import com.helger.commons.text.util.TextHelper;
 @Translatable
 public enum EXMLTransformTexts implements IHasDisplayText
 {
- TRANSFORMATION_WARNING ("Transformationswarnung", "Transformation warning"),
- TRANSFORMATION_ERROR ("Transformationsfehler", "Transformation error"),
- TRANSFORMATION_FATAL_ERROR ("Schwerer Transformationsfehler", "Transformation fatal error");
+  TRANSFORMATION_WARNING ("Transformationswarnung", "Transformation warning"),
+  TRANSFORMATION_ERROR ("Transformationsfehler", "Transformation error"),
+  TRANSFORMATION_FATAL_ERROR ("Schwerer Transformationsfehler", "Transformation fatal error");
 
   private final IMultilingualText m_aTP;
 

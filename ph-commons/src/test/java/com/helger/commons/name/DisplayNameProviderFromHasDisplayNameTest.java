@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 /**
- * Test class for class {@link DisplayNameProviderFromHasDisplayName}.
+ * Test class for class {@link IDisplayNameProvider}.
  *
  * @author Philip Helger
  */
@@ -31,7 +31,7 @@ public final class DisplayNameProviderFromHasDisplayNameTest
   @Test
   public void testAll ()
   {
-    final DisplayNameProviderFromHasDisplayName aDNPFHDN = new DisplayNameProviderFromHasDisplayName ();
+    final IDisplayNameProvider <IHasDisplayName> aDNPFHDN = IDisplayNameProvider.createHasDisplayName ();
     assertEquals ("any", aDNPFHDN.getDisplayName (new MockHasDisplayName ("any")));
     assertNull (aDNPFHDN.getDisplayName (null));
   }

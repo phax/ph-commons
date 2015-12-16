@@ -21,6 +21,7 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.text.IHasText;
 import com.helger.commons.text.IHasTextWithArgs;
 
@@ -45,6 +46,16 @@ public interface IEnumTextResolver
    */
   @Nullable
   String getText (@Nonnull Enum <?> aEnum, @Nonnull IHasText aTP, @Nonnull Locale aContentLocale);
+
+  @Nullable
+  @Deprecated
+  @DevelopersNote ("Use getTextStatic instead when no argument is needed!")
+  default String getTextWithArgs (@Nonnull final Enum <?> aEnum,
+                                  @Nonnull final IHasTextWithArgs aTP,
+                                  @Nonnull final Locale aContentLocale)
+  {
+    return getText (aEnum, aTP, aContentLocale);
+  }
 
   /**
    * Get the text of an enumeration item with placeholder texts being replaced.

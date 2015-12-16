@@ -25,17 +25,12 @@ import javax.annotation.Nonnull;
  */
 public enum EInterrupt implements IInterruptIndicator
 {
- INTERRUPTED,
- NOT_INTERRUPTED;
+  INTERRUPTED,
+  NOT_INTERRUPTED;
 
   public boolean isInterrupted ()
   {
     return this == INTERRUPTED;
-  }
-
-  public boolean isNotInterrupted ()
-  {
-    return this == NOT_INTERRUPTED;
   }
 
   @Nonnull

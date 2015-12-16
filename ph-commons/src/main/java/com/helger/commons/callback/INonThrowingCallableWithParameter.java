@@ -27,7 +27,8 @@ package com.helger.commons.callback;
  *        The parameter type.
  */
 @FunctionalInterface
-public interface INonThrowingCallableWithParameter <DATATYPE, PARAMTYPE> extends IThrowingCallableWithParameter <DATATYPE, PARAMTYPE, Exception>
+public interface INonThrowingCallableWithParameter <DATATYPE, PARAMTYPE> extends
+                                                   IThrowingCallableWithParameter <DATATYPE, PARAMTYPE, Exception>
 {
   /**
    * The call back method to be called.

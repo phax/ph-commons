@@ -33,5 +33,8 @@ public interface IEnabledIndicator
    * @return <code>true</code> if the object is currently disabled,
    *         <code>false</code> otherwise.
    */
-  boolean isDisabled ();
+  default boolean isDisabled ()
+  {
+    return !isEnabled ();
+  }
 }

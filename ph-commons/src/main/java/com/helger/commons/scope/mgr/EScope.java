@@ -29,15 +29,15 @@ import com.helger.commons.scope.IScope;
  */
 public enum EScope
 {
- /** The global scope. */
+  /** The global scope. */
   GLOBAL,
- /** The application scope. */
+  /** The application scope. */
   APPLICATION,
- /** The session scope */
+  /** The session scope */
   SESSION,
- /** The session application scope */
+  /** The session application scope */
   SESSION_APPLICATION,
- /** The request scope. */
+  /** The request scope. */
   REQUEST;
 
   @Nonnull

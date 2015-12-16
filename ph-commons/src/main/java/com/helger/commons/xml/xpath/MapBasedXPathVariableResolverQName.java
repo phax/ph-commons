@@ -43,7 +43,9 @@ import com.helger.commons.string.ToStringGenerator;
  * @see MapBasedXPathVariableResolver
  */
 @NotThreadSafe
-public class MapBasedXPathVariableResolverQName implements XPathVariableResolver, ICloneable <MapBasedXPathVariableResolverQName>
+public class MapBasedXPathVariableResolverQName implements
+                                                XPathVariableResolver,
+                                                ICloneable <MapBasedXPathVariableResolverQName>
 {
   private final Map <QName, Object> m_aMap;
 

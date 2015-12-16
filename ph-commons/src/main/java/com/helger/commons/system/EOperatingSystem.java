@@ -33,49 +33,49 @@ import com.helger.commons.name.IHasDisplayName;
  */
 public enum EOperatingSystem implements IHasDisplayName
 {
- /**
-  * The value indicating the AIX operating system.
-  */
+  /**
+   * The value indicating the AIX operating system.
+   */
   AIX ("AIX", true),
 
- /**
-  * The value indicating the FreeBSD operating system.
-  */
+  /**
+   * The value indicating the FreeBSD operating system.
+   */
   FREEBSD ("FreeBSD", true),
 
- /**
-  * The value indicating the HP-UX operating system.
-  */
+  /**
+   * The value indicating the HP-UX operating system.
+   */
   HPUX ("HP-UX", true),
 
- /**
-  * The value indicating the Linux operating system.
-  */
+  /**
+   * The value indicating the Linux operating system.
+   */
   LINUX ("Linux", true),
 
- /**
-  * The value indicating the Mac OS X operating system.
-  */
+  /**
+   * The value indicating the Mac OS X operating system.
+   */
   MACOS ("Mac OS X", true),
 
- /**
-  * The value indicating the Solaris operating system.
-  */
+  /**
+   * The value indicating the Solaris operating system.
+   */
   SOLARIS ("Solaris", true),
 
- /**
-  * The value indicating the Windows operating system.
-  */
+  /**
+   * The value indicating the Windows operating system.
+   */
   WINDOWS ("Windows", false),
 
- /**
-  * The value indicating the z/OS operating system.
-  */
+  /**
+   * The value indicating the z/OS operating system.
+   */
   ZOS ("z/OS", false),
 
- /**
-  * The value indicating an unknown operating system.
-  */
+  /**
+   * The value indicating an unknown operating system.
+   */
   UNKNOWN ("Unknown", false);
 
   /** The current OS. */

@@ -18,6 +18,7 @@ package com.helger.commons.name;
 
 import java.io.Serializable;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -39,4 +40,10 @@ public interface IDisplayNameProvider <DATATYPE> extends Serializable
    */
   @Nullable
   String getDisplayName (@Nullable DATATYPE aObject);
+
+  @Nonnull
+  static IDisplayNameProvider <IHasDisplayName> createHasDisplayName ()
+  {
+    return aObject -> aObject == null ? null : aObject.getDisplayName ();
+  }
 }

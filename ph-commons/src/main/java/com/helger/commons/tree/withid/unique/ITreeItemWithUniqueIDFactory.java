@@ -37,7 +37,8 @@ import com.helger.commons.tree.withid.ITreeItemWithIDFactory;
  *        tree item type
  * @author Philip Helger
  */
-public interface ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE>
+public interface ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
+                                              extends ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE>
 {
   /**
    * Check if an item with the given ID is contained.

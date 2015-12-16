@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 /**
- * Test class for class {@link NameProviderFromHasName}.
+ * Test class for class {@link INameProvider}.
  *
  * @author Philip Helger
  */
@@ -31,7 +31,7 @@ public final class NameProviderFromHasNameTest
   @Test
   public void testAll ()
   {
-    final NameProviderFromHasName aDNPFHDN = new NameProviderFromHasName ();
+    final INameProvider <IHasName> aDNPFHDN = INameProvider.createHasName ();
     assertEquals ("any", aDNPFHDN.getName (new MockHasName ("any")));
     assertNull (aDNPFHDN.getName (null));
   }

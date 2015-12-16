@@ -34,7 +34,9 @@ import javax.annotation.concurrent.NotThreadSafe;
  *        value type
  */
 @NotThreadSafe
-public abstract class AbstractMultiTreeMapSetBased <KEYTYPE, VALUETYPE> extends AbstractMultiTreeMap <KEYTYPE, VALUETYPE, Set <VALUETYPE>> implements IMultiMapSetBased <KEYTYPE, VALUETYPE>
+public abstract class AbstractMultiTreeMapSetBased <KEYTYPE, VALUETYPE>
+                                                   extends AbstractMultiTreeMap <KEYTYPE, VALUETYPE, Set <VALUETYPE>>
+                                                   implements IMultiMapSetBased <KEYTYPE, VALUETYPE>
 {
   public AbstractMultiTreeMapSetBased ()
   {}

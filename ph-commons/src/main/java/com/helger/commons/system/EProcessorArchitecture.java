@@ -30,11 +30,11 @@ import com.helger.commons.string.StringParser;
  */
 public enum EProcessorArchitecture
 {
- /** Unknown architecture - could not be determined. */
+  /** Unknown architecture - could not be determined. */
   UNKNOWN (CGlobal.ILLEGAL_UINT),
- /** 32 bit architecture. */
+  /** 32 bit architecture. */
   ARCH_32 (32),
- /** 64 bit architecture. */
+  /** 64 bit architecture. */
   ARCH_64 (64);
 
   // This still holds true for current Oracle runtime 1.8.0_40

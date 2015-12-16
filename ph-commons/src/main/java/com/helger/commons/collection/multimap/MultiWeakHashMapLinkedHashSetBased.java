@@ -37,7 +37,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  *        value type
  */
 @NotThreadSafe
-public class MultiWeakHashMapLinkedHashSetBased <KEYTYPE, VALUETYPE> extends AbstractMultiWeakHashMapSetBased <KEYTYPE, VALUETYPE>
+public class MultiWeakHashMapLinkedHashSetBased <KEYTYPE, VALUETYPE>
+                                                extends AbstractMultiWeakHashMapSetBased <KEYTYPE, VALUETYPE>
 {
   public MultiWeakHashMapLinkedHashSetBased ()
   {}

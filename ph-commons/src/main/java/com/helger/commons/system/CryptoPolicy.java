@@ -124,12 +124,11 @@ public final class CryptoPolicy
    */
   public static boolean isUnlimitedStrengthCryptoAvailable ()
   {
-    if (!s_aChecked.get ())
+    if (!s_aChecked.getAndSet (true))
     {
       // Double initialisation in case of parallel access is just a minor
       // performance penalty
       s_bUnlimitedStrength = _isUnlimitedStrengthAvailable ();
-      s_aChecked.set (true);
     }
     return s_bUnlimitedStrength;
   }

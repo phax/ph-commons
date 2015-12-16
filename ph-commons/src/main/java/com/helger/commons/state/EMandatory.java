@@ -25,17 +25,12 @@ import javax.annotation.Nonnull;
  */
 public enum EMandatory implements IMandatoryIndicator
 {
- MANDATORY,
- OPTIONAL;
+  MANDATORY,
+  OPTIONAL;
 
   public boolean isMandatory ()
   {
     return this == MANDATORY;
-  }
-
-  public boolean isOptional ()
-  {
-    return this == OPTIONAL;
   }
 
   @Nonnull

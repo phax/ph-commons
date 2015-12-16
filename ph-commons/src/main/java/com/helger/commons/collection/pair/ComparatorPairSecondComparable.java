@@ -32,7 +32,8 @@ import com.helger.commons.compare.AbstractPartComparatorComparable;
  *        pair second type
  */
 @NotThreadSafe
-public class ComparatorPairSecondComparable <DATA1TYPE, DATA2TYPE extends Comparable <? super DATA2TYPE>> extends AbstractPartComparatorComparable <IPair <DATA1TYPE, DATA2TYPE>, DATA2TYPE>
+public class ComparatorPairSecondComparable <DATA1TYPE, DATA2TYPE extends Comparable <? super DATA2TYPE>> extends
+                                            AbstractPartComparatorComparable <IPair <DATA1TYPE, DATA2TYPE>, DATA2TYPE>
 {
   @Override
   @Nullable

@@ -18,6 +18,7 @@ package com.helger.commons.name;
 
 import java.io.Serializable;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -38,4 +39,10 @@ public interface INameProvider <DATATYPE> extends Serializable
    */
   @Nullable
   String getName (@Nullable DATATYPE aObject);
+
+  @Nonnull
+  static INameProvider <IHasName> createHasName ()
+  {
+    return aObject -> aObject == null ? null : aObject.getName ();
+  }
 }

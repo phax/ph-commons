@@ -38,7 +38,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  *        value type
  */
 @ThreadSafe
-public class MultiConcurrentHashMapVectorBased <KEYTYPE, VALUETYPE> extends AbstractMultiConcurrentHashMapListBased <KEYTYPE, VALUETYPE>
+public class MultiConcurrentHashMapVectorBased <KEYTYPE, VALUETYPE>
+                                               extends AbstractMultiConcurrentHashMapListBased <KEYTYPE, VALUETYPE>
 {
   public MultiConcurrentHashMapVectorBased ()
   {}

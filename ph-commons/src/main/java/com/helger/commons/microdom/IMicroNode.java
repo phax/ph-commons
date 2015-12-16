@@ -38,7 +38,11 @@ import com.helger.commons.state.EChange;
  *
  * @author Philip Helger
  */
-public interface IMicroNode extends ICloneable <IMicroNode>, IHasChildrenSorted <IMicroNode>, IHasParent <IMicroNode>, Serializable
+public interface IMicroNode extends
+                            ICloneable <IMicroNode>,
+                            IHasChildrenSorted <IMicroNode>,
+                            IHasParent <IMicroNode>,
+                            Serializable
 {
   /**
    * @return Just an abstract name that depends on the implementing class.

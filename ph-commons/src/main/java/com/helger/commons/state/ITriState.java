@@ -46,7 +46,10 @@ public interface ITriState
    * @return <code>true</code> if the value is undefined (if it is neither
    *         <code>true</code> nor <code>false</code>)
    */
-  boolean isUndefined ();
+  default boolean isUndefined ()
+  {
+    return !isDefined ();
+  }
 
   /**
    * Convert the tri state value into a boolean value. If it is undefined, an
@@ -94,7 +97,10 @@ public interface ITriState
    *         the passed parameter!
    */
   @Nonnull
-  Boolean getAsBooleanObj (boolean bUndefinedValue);
+  default Boolean getAsBooleanObj (final boolean bUndefinedValue)
+  {
+    return getAsBooleanObj (Boolean.valueOf (bUndefinedValue));
+  }
 
   /**
    * Convert the tri state value into a {@link Boolean} value, depending on what

@@ -31,7 +31,8 @@ import com.helger.commons.tree.withid.DefaultTreeItemWithID;
  *        The value type to be contained in tree items.
  */
 @NotThreadSafe
-public class DefaultTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE> extends AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
+public class DefaultTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE> extends
+                                                AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
 {
   @Override
   @Nonnull

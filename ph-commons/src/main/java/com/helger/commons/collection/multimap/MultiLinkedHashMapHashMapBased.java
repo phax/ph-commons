@@ -24,7 +24,8 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
-public class MultiLinkedHashMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
+public class MultiLinkedHashMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
+                                            extends AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
 {
   public MultiLinkedHashMapHashMapBased ()
   {}

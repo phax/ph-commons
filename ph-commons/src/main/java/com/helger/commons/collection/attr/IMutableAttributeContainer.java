@@ -34,7 +34,8 @@ import com.helger.commons.state.IClearable;
  * @param <VALUETYPE>
  *        Value type
  */
-public interface IMutableAttributeContainer <KEYTYPE, VALUETYPE> extends IAttributeContainer <KEYTYPE, VALUETYPE>, IClearable
+public interface IMutableAttributeContainer <KEYTYPE, VALUETYPE>
+                                            extends IAttributeContainer <KEYTYPE, VALUETYPE>, IClearable
 {
   /**
    * Set/overwrite an attribute value.

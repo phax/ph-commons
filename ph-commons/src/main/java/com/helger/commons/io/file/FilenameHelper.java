@@ -300,7 +300,8 @@ public final class FilenameHelper
    */
   public static int getIndexOfLastSeparator (@Nullable final String sFilename)
   {
-    return sFilename == null ? CGlobal.ILLEGAL_UINT : Math.max (sFilename.lastIndexOf (UNIX_SEPARATOR), sFilename.lastIndexOf (WINDOWS_SEPARATOR));
+    return sFilename == null ? CGlobal.ILLEGAL_UINT : Math.max (sFilename.lastIndexOf (UNIX_SEPARATOR),
+                                                                sFilename.lastIndexOf (WINDOWS_SEPARATOR));
   }
 
   /**
@@ -475,9 +476,11 @@ public final class FilenameHelper
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    * @see #getPathUsingUnixSeparator(String)
    */
-  public static boolean isEqualIgnoreFileSeparator (@Nullable final String sAbsoluteFilename1, @Nullable final String sAbsoluteFilename2)
+  public static boolean isEqualIgnoreFileSeparator (@Nullable final String sAbsoluteFilename1,
+                                                    @Nullable final String sAbsoluteFilename2)
   {
-    return EqualsHelper.equals (getPathUsingUnixSeparator (sAbsoluteFilename1), getPathUsingUnixSeparator (sAbsoluteFilename2));
+    return EqualsHelper.equals (getPathUsingUnixSeparator (sAbsoluteFilename1),
+                                getPathUsingUnixSeparator (sAbsoluteFilename2));
   }
 
   /**
@@ -1174,7 +1177,8 @@ public final class FilenameHelper
    * @see #getCleanPath(File)
    */
   @Nullable
-  public static String getAbsoluteWithEnsuredParentDirectory (@Nonnull final File aParentDirectory, @Nonnull final String sFilePath)
+  public static String getAbsoluteWithEnsuredParentDirectory (@Nonnull final File aParentDirectory,
+                                                              @Nonnull final String sFilePath)
   {
     ValueEnforcer.notNull (aParentDirectory, "ParentDirectory");
     ValueEnforcer.notNull (sFilePath, "FilePath");
@@ -1186,7 +1190,11 @@ public final class FilenameHelper
     {
       if (!aParentDirectory.isAbsolute ())
       {
-        s_aLogger.error ("Cannot express absolute child file ('" + aSubFile + "') relative to a relative parent file ('" + aParentDirectory + "')!");
+        s_aLogger.error ("Cannot express absolute child file ('" +
+                         aSubFile +
+                         "') relative to a relative parent file ('" +
+                         aParentDirectory +
+                         "')!");
         return null;
       }
       sRelativeSubPath = getRelativeToParentDirectory (aSubFile, aParentDirectory);

@@ -31,5 +31,8 @@ public interface IValidityIndicator
   /**
    * @return <code>true</code> if invalid and <code>false</code> if valid.
    */
-  boolean isInvalid ();
+  default boolean isInvalid ()
+  {
+    return !isValid ();
+  }
 }

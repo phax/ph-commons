@@ -62,7 +62,10 @@ public interface IMimeType extends IHasStringRepresentation, ICloneable <IMimeTy
    * @see #getAsStringWithoutParameters()
    */
   @Nonnull
-  String getAsString ();
+  default String getAsString ()
+  {
+    return getAsString (CMimeType.DEFAULT_QUOTING);
+  }
 
   /**
    * Get the MIME type including all parameters as a single string. The
@@ -145,7 +148,10 @@ public interface IMimeType extends IHasStringRepresentation, ICloneable <IMimeTy
    *        The parameter name to search. May be <code>null</code>.
    * @return <code>true</code> if such a parameter exists.
    */
-  boolean hasParameterWithName (@Nullable String sParamName);
+  default boolean hasParameterWithName (@Nullable final String sParamName)
+  {
+    return getParameterWithName (sParamName) != null;
+  }
 
   /**
    * Get the parameter with the specified name. The names are matched case

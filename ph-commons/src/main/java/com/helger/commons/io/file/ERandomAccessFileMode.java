@@ -29,24 +29,24 @@ import com.helger.commons.string.StringHelper;
  */
 public enum ERandomAccessFileMode
 {
- /** Open for reading only. */
+  /** Open for reading only. */
   READ_ONLY ("r"),
- /**
-  * Open for reading and writing. If the file does not already exist then an
-  * attempt will be made to create it.
-  */
+  /**
+   * Open for reading and writing. If the file does not already exist then an
+   * attempt will be made to create it.
+   */
   READ_WRITE ("rw"),
- /**
-  * Open for reading and writing, as with <tt>"rw"</tt>, and also require that
-  * every update to the file's content or metadata be written synchronously to
-  * the underlying storage device.
-  */
+  /**
+   * Open for reading and writing, as with <tt>"rw"</tt>, and also require that
+   * every update to the file's content or metadata be written synchronously to
+   * the underlying storage device.
+   */
   READ_WRITE_SYNCHRONOUSLY ("rws"),
- /**
-  * Open for reading and writing, as with <tt>"rw"</tt>, and also require that
-  * every update to the file's content be written synchronously to the
-  * underlying storage device.
-  */
+  /**
+   * Open for reading and writing, as with <tt>"rw"</tt>, and also require that
+   * every update to the file's content be written synchronously to the
+   * underlying storage device.
+   */
   READ_WRITE_SYNCHRONOUSLY_ONLY_CONTENT ("rwd");
 
   private final String m_sMode;

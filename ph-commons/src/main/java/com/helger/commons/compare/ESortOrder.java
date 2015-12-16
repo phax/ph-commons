@@ -27,8 +27,8 @@ import javax.annotation.Nullable;
  */
 public enum ESortOrder implements ISortOrderIndicator
 {
- ASCENDING (1),
- DESCENDING (0);
+  ASCENDING (1),
+  DESCENDING (0);
 
   /** The default sort order is {@link #ASCENDING} */
   public static final ESortOrder DEFAULT = ASCENDING;

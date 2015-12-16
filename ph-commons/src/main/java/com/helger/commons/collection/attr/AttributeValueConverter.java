@@ -43,7 +43,9 @@ public final class AttributeValueConverter
   {}
 
   @Nullable
-  private static String _getAsSingleString (@Nullable final Object aParamName, @Nonnull final String [] aArray, @Nullable final String sDefault)
+  private static String _getAsSingleString (@Nullable final Object aParamName,
+                                            @Nonnull final String [] aArray,
+                                            @Nullable final String sDefault)
   {
     // expected a single string but got an array
     s_aLogger.warn ("The attribute '" +
@@ -74,7 +76,9 @@ public final class AttributeValueConverter
    *         are discarded.
    */
   @Nullable
-  public static String getAsString (@Nullable final Object aParamName, @Nullable final Object aValue, @Nullable final String sDefault)
+  public static String getAsString (@Nullable final Object aParamName,
+                                    @Nullable final Object aValue,
+                                    @Nullable final String sDefault)
   {
     if (aValue == null)
       return sDefault;
@@ -110,7 +114,9 @@ public final class AttributeValueConverter
     return TypeConverter.convertToLong (aValue, nDefault);
   }
 
-  public static double getAsDouble (@Nullable final Object aParamName, @Nullable final Object aValue, final double dDefault)
+  public static double getAsDouble (@Nullable final Object aParamName,
+                                    @Nullable final Object aValue,
+                                    final double dDefault)
   {
     if (aValue == null)
       return dDefault;
@@ -122,7 +128,9 @@ public final class AttributeValueConverter
     return TypeConverter.convertToDouble (aValue, dDefault);
   }
 
-  public static float getAsFloat (@Nullable final Object aParamName, @Nullable final Object aValue, final float fDefault)
+  public static float getAsFloat (@Nullable final Object aParamName,
+                                  @Nullable final Object aValue,
+                                  final float fDefault)
   {
     if (aValue == null)
       return fDefault;
@@ -134,7 +142,9 @@ public final class AttributeValueConverter
     return TypeConverter.convertToFloat (aValue, fDefault);
   }
 
-  public static boolean getAsBoolean (@Nullable final Object aParamName, @Nullable final Object aValue, final boolean bDefault)
+  public static boolean getAsBoolean (@Nullable final Object aParamName,
+                                      @Nullable final Object aValue,
+                                      final boolean bDefault)
   {
     if (aValue == null)
       return bDefault;
@@ -147,19 +157,27 @@ public final class AttributeValueConverter
   }
 
   @Nullable
-  public static BigInteger getAsBigInteger (@Nullable final Object aParamName, @Nullable final Object aValue, @Nullable final BigInteger aDefault)
+  public static BigInteger getAsBigInteger (@Nullable final Object aParamName,
+                                            @Nullable final Object aValue,
+                                            @Nullable final BigInteger aDefault)
   {
     if (aValue instanceof String [])
-      return TypeConverter.convertIfNecessary (_getAsSingleString (aParamName, (String []) aValue, null), BigInteger.class, aDefault);
+      return TypeConverter.convertIfNecessary (_getAsSingleString (aParamName, (String []) aValue, null),
+                                               BigInteger.class,
+                                               aDefault);
 
     return TypeConverter.convertIfNecessary (aValue, BigInteger.class, aDefault);
   }
 
   @Nullable
-  public static BigDecimal getAsBigDecimal (@Nullable final Object aParamName, @Nullable final Object aValue, @Nullable final BigDecimal aDefault)
+  public static BigDecimal getAsBigDecimal (@Nullable final Object aParamName,
+                                            @Nullable final Object aValue,
+                                            @Nullable final BigDecimal aDefault)
   {
     if (aValue instanceof String [])
-      return TypeConverter.convertIfNecessary (_getAsSingleString (aParamName, (String []) aValue, null), BigDecimal.class, aDefault);
+      return TypeConverter.convertIfNecessary (_getAsSingleString (aParamName, (String []) aValue, null),
+                                               BigDecimal.class,
+                                               aDefault);
 
     return TypeConverter.convertIfNecessary (aValue, BigDecimal.class, aDefault);
   }

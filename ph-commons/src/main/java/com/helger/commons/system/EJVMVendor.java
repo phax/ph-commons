@@ -25,55 +25,55 @@ import javax.annotation.Nonnull;
  */
 public enum EJVMVendor
 {
- SUN_CLIENT
- {
-   @Override
-   protected boolean determineIfItIsCurrentJVMVendor ()
-   {
-     final boolean bIsSunJVM = SUN_VENDOR_NAME.equals (SystemProperties.getJavaVmVendor ());
-     return bIsSunJVM && !_isSunOrOracleServerJVM ();
-   }
- },
+  SUN_CLIENT
+  {
+    @Override
+    protected boolean determineIfItIsCurrentJVMVendor ()
+    {
+      final boolean bIsSunJVM = SUN_VENDOR_NAME.equals (SystemProperties.getJavaVmVendor ());
+      return bIsSunJVM && !_isSunOrOracleServerJVM ();
+    }
+  },
 
- SUN_SERVER
- {
-   @Override
-   protected boolean determineIfItIsCurrentJVMVendor ()
-   {
-     final boolean bIsSunJVM = SUN_VENDOR_NAME.equals (SystemProperties.getJavaVmVendor ());
-     return bIsSunJVM && _isSunOrOracleServerJVM ();
-   }
- },
+  SUN_SERVER
+  {
+    @Override
+    protected boolean determineIfItIsCurrentJVMVendor ()
+    {
+      final boolean bIsSunJVM = SUN_VENDOR_NAME.equals (SystemProperties.getJavaVmVendor ());
+      return bIsSunJVM && _isSunOrOracleServerJVM ();
+    }
+  },
 
- ORACLE_CLIENT
- {
-   @Override
-   protected boolean determineIfItIsCurrentJVMVendor ()
-   {
-     final boolean bIsOracleJVM = ORACLE_VENDOR_NAME.equals (SystemProperties.getJavaVmVendor ());
-     return bIsOracleJVM && !_isSunOrOracleServerJVM ();
-   }
- },
+  ORACLE_CLIENT
+  {
+    @Override
+    protected boolean determineIfItIsCurrentJVMVendor ()
+    {
+      final boolean bIsOracleJVM = ORACLE_VENDOR_NAME.equals (SystemProperties.getJavaVmVendor ());
+      return bIsOracleJVM && !_isSunOrOracleServerJVM ();
+    }
+  },
 
- ORACLE_SERVER
- {
-   @Override
-   protected boolean determineIfItIsCurrentJVMVendor ()
-   {
-     final boolean bIsOracleJVM = ORACLE_VENDOR_NAME.equals (SystemProperties.getJavaVmVendor ());
-     return bIsOracleJVM && _isSunOrOracleServerJVM ();
-   }
- },
+  ORACLE_SERVER
+  {
+    @Override
+    protected boolean determineIfItIsCurrentJVMVendor ()
+    {
+      final boolean bIsOracleJVM = ORACLE_VENDOR_NAME.equals (SystemProperties.getJavaVmVendor ());
+      return bIsOracleJVM && _isSunOrOracleServerJVM ();
+    }
+  },
 
- UNKNOWN
- {
-   @Override
-   protected boolean determineIfItIsCurrentJVMVendor ()
-   {
-     // Never determined as such :)
-     return false;
-   }
- };
+  UNKNOWN
+  {
+    @Override
+    protected boolean determineIfItIsCurrentJVMVendor ()
+    {
+      // Never determined as such :)
+      return false;
+    }
+  };
 
   private static final String SUN_VENDOR_NAME = "Sun Microsystems Inc.";
   private static final String ORACLE_VENDOR_NAME = "Oracle Corporation";

@@ -48,7 +48,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractHasTextWithArgs implements IMultilingualText
+public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractHasText implements IMultilingualText
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractReadOnlyMapBasedMultilingualText.class);
   private static final AtomicBoolean s_aConsistencyChecksEnabled = new AtomicBoolean (GlobalDebug.isDebugMode ());

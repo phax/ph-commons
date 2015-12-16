@@ -16,6 +16,11 @@
  */
 package com.helger.commons.mutable;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
+import javax.annotation.Nonnull;
+
 /**
  * Base interface for mutable numeric values
  *
@@ -57,4 +62,31 @@ public interface IMutableNumeric <IMPLTYPE extends IMutableNumeric <IMPLTYPE>> e
    * @return <code>true</code> if the value is &ge; 0
    */
   boolean isGreaterOrEqual0 ();
+
+  @Nonnull
+  Byte getAsByte ();
+
+  @Nonnull
+  Character getAsCharacter ();
+
+  @Nonnull
+  Double getAsDouble ();
+
+  @Nonnull
+  Float getAsFloat ();
+
+  @Nonnull
+  Integer getAsInteger ();
+
+  @Nonnull
+  Long getAsLong ();
+
+  @Nonnull
+  Short getAsShort ();
+
+  @Nonnull
+  BigInteger getAsBigInteger ();
+
+  @Nonnull
+  BigDecimal getAsBigDecimal ();
 }

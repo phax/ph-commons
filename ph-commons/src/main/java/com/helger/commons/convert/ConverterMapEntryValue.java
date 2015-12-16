@@ -30,7 +30,8 @@ import javax.annotation.Nullable;
  * @param <VALUETYPE>
  *        Map value type
  */
-public class ConverterMapEntryValue <KEYTYPE, VALUETYPE> implements IConverter <Map.Entry <KEYTYPE, VALUETYPE>, VALUETYPE>
+public class ConverterMapEntryValue <KEYTYPE, VALUETYPE>
+                                    implements IConverter <Map.Entry <KEYTYPE, VALUETYPE>, VALUETYPE>
 {
   public ConverterMapEntryValue ()
   {}

@@ -30,11 +30,11 @@ import com.helger.commons.lang.EnumHelper;
  */
 public enum EChangeLogAction implements IHasID <String>
 {
- ADD ("add"),
- REMOVE ("remove"),
- CHANGE ("change"),
- FIX ("fix"),
- UPDATE ("update");
+  ADD ("add"),
+  REMOVE ("remove"),
+  CHANGE ("change"),
+  FIX ("fix"),
+  UPDATE ("update");
 
   private final String m_sID;
 

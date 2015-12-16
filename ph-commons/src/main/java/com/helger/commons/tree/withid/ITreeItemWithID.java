@@ -39,7 +39,8 @@ import com.helger.commons.tree.IBasicTreeItem;
  * @param <ITEMTYPE>
  *        The implementation type.
  */
-public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends IBasicTreeItem <DATATYPE, ITEMTYPE>, IHasID <KEYTYPE>
+public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
+                                 extends IBasicTreeItem <DATATYPE, ITEMTYPE>, IHasID <KEYTYPE>
 {
   /**
    * @return The factory used to create instances of this interface.

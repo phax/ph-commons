@@ -38,7 +38,8 @@ import com.helger.commons.aggregate.IAggregator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class DefaultFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>> extends BasicFolderTree <KEYTYPE, DATATYPE, COLLTYPE, DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE>>
+public class DefaultFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>> extends
+                               BasicFolderTree <KEYTYPE, DATATYPE, COLLTYPE, DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE>>
 {
   /**
    * Constructor that creates a {@link DefaultFolderTreeItemFactory} using the

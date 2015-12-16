@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasDisplayText
 {
   /**
@@ -37,4 +38,10 @@ public interface IHasDisplayText
    */
   @Nullable
   String getDisplayText (@Nonnull Locale aContentLocale);
+
+  @Nonnull
+  static IHasDisplayText createConstant (@Nullable final String sText)
+  {
+    return aLocale -> sText;
+  }
 }

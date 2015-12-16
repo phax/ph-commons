@@ -44,7 +44,9 @@ import com.helger.commons.tree.withid.BasicTreeItemWithID;
  *        the implementation item type
  */
 @NotThreadSafe
-public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>> extends BasicTreeItemWithID <KEYTYPE, COLLTYPE, ITEMTYPE> implements IFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>
+public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>>
+                                 extends BasicTreeItemWithID <KEYTYPE, COLLTYPE, ITEMTYPE>
+                                 implements IFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>
 {
   // Combinator to create a global unique ID.
   private final IAggregator <KEYTYPE, KEYTYPE> m_aKeyCombinator;

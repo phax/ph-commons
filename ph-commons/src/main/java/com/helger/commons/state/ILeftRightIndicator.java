@@ -31,5 +31,8 @@ public interface ILeftRightIndicator
   /**
    * @return <code>true</code> if right and <code>false</code> if left.
    */
-  boolean isRight ();
+  default boolean isRight ()
+  {
+    return !isLeft ();
+  }
 }

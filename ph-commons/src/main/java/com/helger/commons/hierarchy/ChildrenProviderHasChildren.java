@@ -31,7 +31,8 @@ import javax.annotation.concurrent.Immutable;
  *        The data type of the child objects.
  */
 @Immutable
-public class ChildrenProviderHasChildren <CHILDTYPE extends IHasChildren <CHILDTYPE>> implements IChildrenProvider <CHILDTYPE>
+public class ChildrenProviderHasChildren <CHILDTYPE extends IHasChildren <CHILDTYPE>>
+                                         implements IChildrenProvider <CHILDTYPE>
 {
   public final boolean hasChildren (@Nullable final CHILDTYPE aCurrent)
   {

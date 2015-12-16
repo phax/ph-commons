@@ -31,5 +31,8 @@ public interface IChangeIndicator
   /**
    * @return <code>true</code> if unchanged and <code>false</code> if changed.
    */
-  boolean isUnchanged ();
+  default boolean isUnchanged ()
+  {
+    return !isChanged ();
+  }
 }

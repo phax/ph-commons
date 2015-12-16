@@ -25,7 +25,8 @@ package com.helger.commons.tree;
  * @param <ITEMTYPE>
  *        tree item implementation type
  */
-public interface ITree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> extends IBasicTree <DATATYPE, ITEMTYPE>
+public interface ITree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>>
+                       extends IBasicTree <DATATYPE, ITEMTYPE>
 {
   /* empty */
 }

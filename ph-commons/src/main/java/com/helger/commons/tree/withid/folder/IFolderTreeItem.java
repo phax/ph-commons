@@ -36,7 +36,8 @@ import com.helger.commons.tree.withid.ITreeItemWithID;
  * @param <ITEMTYPE>
  *        the implementation item type
  */
-public interface IFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends IFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>> extends ITreeItemWithID <KEYTYPE, COLLTYPE, ITEMTYPE>
+public interface IFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends IFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>>
+                                 extends ITreeItemWithID <KEYTYPE, COLLTYPE, ITEMTYPE>
 {
   /**
    * @return The globally unique ID of this folder. This can e.g. be an

@@ -37,8 +37,8 @@ public final class TypeConverterRuleFixedSourceAssignableDestination extends Abs
   private final Function <Object, Object> m_aConverter;
 
   public TypeConverterRuleFixedSourceAssignableDestination (@Nonnull final Class <?> aSrcClass,
-                                                                    @Nonnull final Class <?> aDstClass,
-                                                                    @Nonnull final Function <Object, Object> aConverter)
+                                                            @Nonnull final Class <?> aDstClass,
+                                                            @Nonnull final Function <Object, Object> aConverter)
   {
     super (ESubType.FIXED_SRC_ASSIGNABLE_DST);
     m_aSrcClass = ValueEnforcer.notNull (aSrcClass, "SrcClass");

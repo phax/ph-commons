@@ -42,7 +42,8 @@ import com.helger.commons.string.ToStringGenerator;
  *        tree item implementation type
  */
 @NotThreadSafe
-public class BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> implements ITreeWithID <KEYTYPE, DATATYPE, ITEMTYPE>
+public class BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
+                             implements ITreeWithID <KEYTYPE, DATATYPE, ITEMTYPE>
 {
   // Root item.
   private final ITEMTYPE m_aRootItem;

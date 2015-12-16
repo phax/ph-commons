@@ -31,9 +31,9 @@ import com.helger.commons.lang.EnumHelper;
  */
 public enum ETriState implements IHasID <String>,ITriState
 {
- TRUE ("true", Boolean.TRUE),
- FALSE ("false", Boolean.FALSE),
- UNDEFINED ("undefined", null);
+  TRUE ("true", Boolean.TRUE),
+  FALSE ("false", Boolean.FALSE),
+  UNDEFINED ("undefined", null);
 
   private final String m_sID;
   private final Boolean m_aBoolean;
@@ -66,11 +66,6 @@ public enum ETriState implements IHasID <String>,ITriState
     return this != UNDEFINED;
   }
 
-  public boolean isUndefined ()
-  {
-    return this == UNDEFINED;
-  }
-
   public boolean getAsBooleanValue ()
   {
     if (this == UNDEFINED)
@@ -87,12 +82,6 @@ public enum ETriState implements IHasID <String>,ITriState
   public Boolean getAsBooleanObj ()
   {
     return m_aBoolean;
-  }
-
-  @Nonnull
-  public Boolean getAsBooleanObj (final boolean aUndefinedValue)
-  {
-    return getAsBooleanObj (Boolean.valueOf (aUndefinedValue));
   }
 
   @Nullable

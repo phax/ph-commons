@@ -37,6 +37,15 @@ public interface IHasChildren <CHILDTYPE>
   boolean hasChildren ();
 
   /**
+   * @return <code>true</code> if this item has no direct children,
+   *         <code>false</code> otherwise.
+   */
+  default boolean hasNoChildren ()
+  {
+    return !hasChildren ();
+  }
+
+  /**
    * @return The number of contained direct children. Always &ge; 0.
    */
   @Nonnegative

@@ -47,7 +47,9 @@ import com.helger.commons.tree.withid.ITreeItemWithID;
  * @author Philip Helger
  */
 @NotThreadSafe
-public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> implements ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE>
+public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
+                                                          implements
+                                                          ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE>
 {
   private final Map <KEYTYPE, ITEMTYPE> m_aItemStore;
 

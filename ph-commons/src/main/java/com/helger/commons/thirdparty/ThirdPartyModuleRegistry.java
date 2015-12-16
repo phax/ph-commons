@@ -28,6 +28,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ELockType;
+import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
@@ -75,11 +77,18 @@ public final class ThirdPartyModuleRegistry
   }
 
   @Nonnull
-  public EChange registerThirdPartyModule (@Nonnull final IThirdPartyModule aModule)
+  @MustBeLocked (ELockType.WRITE)
+  private EChange _registerThirdPartyModule (@Nonnull final IThirdPartyModule aModule)
   {
     ValueEnforcer.notNull (aModule, "Module");
 
-    return EChange.valueOf (m_aRWLock.writeLocked ( () -> m_aModules.add (aModule)));
+    return EChange.valueOf (m_aModules.add (aModule));
+  }
+
+  @Nonnull
+  public EChange registerThirdPartyModule (@Nonnull final IThirdPartyModule aModule)
+  {
+    return m_aRWLock.writeLocked ( () -> _registerThirdPartyModule (aModule));
   }
 
   @Nonnull
@@ -97,16 +106,18 @@ public final class ThirdPartyModuleRegistry
 
   public void reinitialize ()
   {
-    m_aRWLock.writeLocked ( () -> m_aModules.clear ());
+    m_aRWLock.writeLocked ( () -> {
+      m_aModules.clear ();
 
-    // Load all SPI implementations
-    for (final IThirdPartyModuleProviderSPI aTPM : ServiceLoaderHelper.getAllSPIImplementations (IThirdPartyModuleProviderSPI.class))
-    {
-      final IThirdPartyModule [] aModules = aTPM.getAllThirdPartyModules ();
-      if (aModules != null)
-        for (final IThirdPartyModule aModule : aModules)
-          registerThirdPartyModule (aModule);
-    }
+      // Load all SPI implementations
+      for (final IThirdPartyModuleProviderSPI aTPM : ServiceLoaderHelper.getAllSPIImplementations (IThirdPartyModuleProviderSPI.class))
+      {
+        final IThirdPartyModule [] aModules = aTPM.getAllThirdPartyModules ();
+        if (aModules != null)
+          for (final IThirdPartyModule aModule : aModules)
+            _registerThirdPartyModule (aModule);
+      }
+    });
 
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("Reinitialized " + ThirdPartyModuleRegistry.class.getName ());

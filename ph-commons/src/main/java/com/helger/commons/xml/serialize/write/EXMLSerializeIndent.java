@@ -33,13 +33,13 @@ import com.helger.commons.lang.EnumHelper;
  */
 public enum EXMLSerializeIndent implements IHasID <String>
 {
- /** Neither indent nor align */
+  /** Neither indent nor align */
   NONE ("none", false, false),
- /** No indent but align */
+  /** No indent but align */
   ALIGN_ONLY ("align", false, true),
- /** Indent but no align. */
+  /** Indent but no align. */
   INDENT_ONLY ("indent", true, false),
- /** Both indent and align. */
+  /** Both indent and align. */
   INDENT_AND_ALIGN ("indentalign", true, true);
 
   private final String m_sID;

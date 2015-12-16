@@ -24,6 +24,6 @@ package com.helger.commons.annotation;
  */
 public enum ELockType
 {
- READ,
- WRITE;
+  READ,
+  WRITE;
 }

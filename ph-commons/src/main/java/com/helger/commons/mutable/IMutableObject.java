@@ -25,7 +25,8 @@ import com.helger.commons.lang.ICloneable;
  * @param <IMPLTYPE>
  *        Implementation type
  */
-public interface IMutableObject <IMPLTYPE extends IMutableObject <IMPLTYPE>> extends Comparable <IMPLTYPE>, ICloneable <IMPLTYPE>
+public interface IMutableObject <IMPLTYPE extends IMutableObject <IMPLTYPE>>
+                                extends Comparable <IMPLTYPE>, ICloneable <IMPLTYPE>
 {
   /* empty */
 }
