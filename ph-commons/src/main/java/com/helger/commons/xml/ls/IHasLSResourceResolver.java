@@ -25,6 +25,7 @@ import org.w3c.dom.ls.LSResourceResolver;
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasLSResourceResolver
 {
   /**

@@ -75,11 +75,6 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
     return m_aObj;
   }
 
-  public boolean isSet ()
-  {
-    return m_aObj != null;
-  }
-
   @Nonnull
   public EChange set (@Nullable final DATATYPE aObj)
   {

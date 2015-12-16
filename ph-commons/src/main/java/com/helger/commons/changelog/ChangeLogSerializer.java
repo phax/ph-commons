@@ -41,6 +41,7 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.lang.ClassLoaderHelper;
+import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroDocument;
@@ -222,31 +223,40 @@ public final class ChangeLogSerializer
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <URI, ChangeLog> readAllChangeLogs (@Nonnull final ClassLoader aClassLoader)
+  public static Map <URI, ChangeLog> readAllChangeLogs (@Nullable final ClassLoader aClassLoader)
   {
     return readAllChangeLogs (s_aDefaultCallback, aClassLoader);
   }
 
   @Nonnull
   @ReturnsMutableCopy
+  public static Map <URI, ChangeLog> readAllChangeLogs (@Nonnull final IHasClassLoader aClassLoaderProvider)
+  {
+    return readAllChangeLogs (s_aDefaultCallback, aClassLoaderProvider.getClassLoader ());
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
   public static Map <URI, ChangeLog> readAllChangeLogs (@Nonnull final IChangeLogSerializerCallback aErrorCallback)
   {
-    return readAllChangeLogs (aErrorCallback, ClassLoaderHelper.getDefaultClassLoader ());
+    return readAllChangeLogs (aErrorCallback, (ClassLoader) null);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static Map <URI, ChangeLog> readAllChangeLogs (@Nonnull final IChangeLogSerializerCallback aErrorCallback,
-                                                        @Nonnull final ClassLoader aClassLoader)
+                                                        @Nullable final ClassLoader aClassLoader)
   {
     ValueEnforcer.notNull (aErrorCallback, "ErrorCallback");
-    ValueEnforcer.notNull (aClassLoader, "ClassLoader");
 
     try
     {
+      final ClassLoader aRealClassLoader = aClassLoader != null ? aClassLoader
+                                                                : ClassLoaderHelper.getDefaultClassLoader ();
+
       final Map <URI, ChangeLog> ret = new HashMap <URI, ChangeLog> ();
       // Find all change log XML files in the classpath
-      for (final URL aURL : CollectionHelper.newList (ClassLoaderHelper.getResources (aClassLoader,
+      for (final URL aURL : CollectionHelper.newList (ClassLoaderHelper.getResources (aRealClassLoader,
                                                                                       CChangeLog.CHANGELOG_XML_FILENAME)))
       {
         final URLResource aRes = new URLResource (aURL);

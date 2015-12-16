@@ -22,7 +22,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 import org.w3c.dom.Element;
 
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.filter.AbstractFilter;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -34,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FilterElementWithNamespace extends AbstractFilter <Element>
+public class FilterElementWithNamespace implements IFilter <Element>
 {
   private final String m_sNamespaceURI;
 
@@ -50,7 +49,7 @@ public class FilterElementWithNamespace extends AbstractFilter <Element>
   }
 
   @Override
-  public boolean directTest (@Nullable final Element aElement)
+  public boolean test (@Nullable final Element aElement)
   {
     return aElement != null && XMLHelper.hasNamespaceURI (aElement, m_sNamespaceURI);
   }

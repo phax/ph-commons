@@ -78,11 +78,6 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
     return m_aObj;
   }
 
-  public boolean isSet ()
-  {
-    return m_aObj != null;
-  }
-
   /**
    * Get the store value if this is a success. Otherwise the passed failure
    * value is returned.
