@@ -14,34 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.id;
+package com.helger.lesscommons.jmx;
 
-import java.io.Serializable;
+import javax.annotation.concurrent.Immutable;
 
-import javax.annotation.Nonnull;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
- * Interface for objects having a long ID.
+ * Constants for JMX usage
  *
  * @author Philip Helger
- * @param <VALUETYPE>
- *        Object type
  */
-public interface ILongIDProvider <VALUETYPE> extends Serializable
+@Immutable
+public final class CJMX
 {
-  /**
-   * Get the ID of the passed object.
-   *
-   * @param aObject
-   *        The object who's ID is to be retrieved. May not be <code>null</code>
-   *        .
-   * @return The ID of the object.
-   */
-  long getID (@Nonnull VALUETYPE aObject);
+  /** JMX domain for com.helger products */
+  public static final String PH_JMX_DOMAIN = "com.helger";
 
-  @Nonnull
-  static <VALUETYPE extends IHasLongID> ILongIDProvider <VALUETYPE> createHasLongID ()
-  {
-    return aObject -> aObject.getID ();
-  }
+  /** Standard JMX property */
+  public static final String PROPERTY_TYPE = "type";
+
+  /** Standard JMX property */
+  public static final String PROPERTY_NAME = "name";
+
+  @PresentForCodeCoverage
+  private static final CJMX s_aInstance = new CJMX ();
+
+  private CJMX ()
+  {}
 }

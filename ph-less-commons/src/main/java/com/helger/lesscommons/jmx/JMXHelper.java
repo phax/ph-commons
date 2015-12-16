@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.jmx;
+package com.helger.lesscommons.jmx;
 
 import java.lang.management.ManagementFactory;
 

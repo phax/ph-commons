@@ -16,6 +16,8 @@
  */
 package com.helger.commons.i18n;
 
+import java.util.function.IntPredicate;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -128,19 +130,19 @@ public class DelegatingCodepointIterator implements ICodepointIterator
   }
 
   @Nonnull
-  public CodepointIteratorRestricted restrict (@Nonnull final ICodepointFilter aFilter)
+  public CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter)
   {
     return m_aInternal.restrict (aFilter);
   }
 
   @Nonnull
-  public CodepointIteratorRestricted restrict (@Nonnull final ICodepointFilter aFilter, final boolean bScanning)
+  public CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter, final boolean bScanning)
   {
     return m_aInternal.restrict (aFilter, bScanning);
   }
 
   @Nonnull
-  public CodepointIteratorRestricted restrict (@Nonnull final ICodepointFilter aFilter,
+  public CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter,
                                                final boolean bScanning,
                                                final boolean bInvert)
   {

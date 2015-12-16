@@ -35,6 +35,18 @@ public interface IHasSize
    * @return <code>true</code> if no items are present, <code>false</code> if at
    *         least a single item is present.
    * @see #getSize()
+   * @see #isNotEmpty()
    */
   boolean isEmpty ();
+
+  /**
+   * @return <code>true</code> if at least one item is present,
+   *         <code>false</code> if no item is present.
+   * @see #getSize()
+   * @see #isEmpty()
+   */
+  default boolean isNotEmpty ()
+  {
+    return !isEmpty ();
+  }
 }

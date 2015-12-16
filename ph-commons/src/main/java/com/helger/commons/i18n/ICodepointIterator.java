@@ -17,6 +17,7 @@
 package com.helger.commons.i18n;
 
 import java.util.Iterator;
+import java.util.function.IntPredicate;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
@@ -33,7 +34,10 @@ public interface ICodepointIterator extends Iterator <Codepoint>
   /**
    * @return <code>true</code> if there are codepoints remaining
    */
-  boolean hasNext ();
+  default boolean hasNext ()
+  {
+    return remaining () > 0;
+  }
 
   /**
    * @return the final index position
@@ -122,11 +126,17 @@ public interface ICodepointIterator extends Iterator <Codepoint>
   boolean isLow (@Nonnegative int nIndex);
 
   @Nonnull
-  CodepointIteratorRestricted restrict (@Nonnull ICodepointFilter aFilter);
+  default CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter)
+  {
+    return restrict (aFilter, false);
+  }
 
   @Nonnull
-  CodepointIteratorRestricted restrict (@Nonnull ICodepointFilter aFilter, boolean bScanning);
+  default CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter, final boolean bScanning)
+  {
+    return restrict (aFilter, bScanning, false);
+  }
 
   @Nonnull
-  CodepointIteratorRestricted restrict (@Nonnull ICodepointFilter aFilter, boolean bScanning, boolean bInvert);
+  CodepointIteratorRestricted restrict (@Nonnull IntPredicate aFilter, boolean bScanning, boolean bInvert);
 }

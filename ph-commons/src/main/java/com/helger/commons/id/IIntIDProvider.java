@@ -38,4 +38,10 @@ public interface IIntIDProvider <VALUETYPE> extends Serializable
    * @return The ID of the object.
    */
   int getID (@Nonnull VALUETYPE aObject);
+
+  @Nonnull
+  static <VALUETYPE extends IHasIntID> IIntIDProvider <VALUETYPE> createHasIntID ()
+  {
+    return aObject -> aObject.getID ();
+  }
 }

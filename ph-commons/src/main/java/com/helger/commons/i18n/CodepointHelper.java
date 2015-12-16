@@ -16,6 +16,8 @@
  */
 package com.helger.commons.i18n;
 
+import java.util.function.IntPredicate;
+
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -823,7 +825,7 @@ public final class CodepointHelper
    * @param aFilter
    *        filter
    */
-  public static void verify (final AbstractCodepointIterator aIter, final ICodepointFilter aFilter)
+  public static void verify (final AbstractCodepointIterator aIter, final IntPredicate aFilter)
   {
     final CodepointIteratorRestricted rci = aIter.restrict (aFilter, false);
     while (rci.hasNext ())
@@ -879,7 +881,7 @@ public final class CodepointHelper
    * @param aFilter
    *        Filter to use
    */
-  public static void verifyNot (final ICodepointIterator aIter, final ICodepointFilter aFilter)
+  public static void verifyNot (final ICodepointIterator aIter, final IntPredicate aFilter)
   {
     final CodepointIteratorRestricted rci = aIter.restrict (aFilter, false, true);
     while (rci.hasNext ())

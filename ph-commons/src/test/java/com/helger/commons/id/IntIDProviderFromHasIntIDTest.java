@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Test class for class {@link IntIDProviderFromHasIntID}.
+ * Test class for class {@link IIntIDProvider}.
  *
  * @author Philip Helger
  */
@@ -30,7 +30,7 @@ public final class IntIDProviderFromHasIntIDTest
   @Test
   public void testAll ()
   {
-    final IntIDProviderFromHasIntID <MockHasIntID> x = new IntIDProviderFromHasIntID <MockHasIntID> ();
+    final IIntIDProvider <MockHasIntID> x = IIntIDProvider.createHasIntID ();
     assertEquals (-3, x.getID (new MockHasIntID (-3)));
   }
 }

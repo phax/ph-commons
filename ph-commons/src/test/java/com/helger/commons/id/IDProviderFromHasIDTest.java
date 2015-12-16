@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Test class for class {@link IDProviderFromHasID}.
+ * Test class for class {@link IIDProvider}.
  *
  * @author Philip Helger
  */
@@ -30,7 +30,7 @@ public final class IDProviderFromHasIDTest
   @Test
   public void testAll ()
   {
-    final IDProviderFromHasID <MockHasIDString, String> x = new IDProviderFromHasID <MockHasIDString, String> ();
+    final IIDProvider <MockHasIDString, String> x = IIDProvider.createHasID ();
     assertEquals ("success", x.getID (new MockHasIDString ("success")));
   }
 }

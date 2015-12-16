@@ -16,6 +16,8 @@
  */
 package com.helger.commons.i18n;
 
+import java.util.function.IntPredicate;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -26,25 +28,25 @@ import com.helger.commons.ValueEnforcer;
  */
 public class CodepointIteratorRestricted extends DelegatingCodepointIterator
 {
-  private final ICodepointFilter m_aFilter;
+  private final IntPredicate m_aFilter;
   private final boolean m_bScanningOnly;
   private final boolean m_bInvert;
 
   public CodepointIteratorRestricted (@Nonnull final AbstractCodepointIterator aInternal,
-                                      @Nonnull final ICodepointFilter aFilter)
+                                      @Nonnull final IntPredicate aFilter)
   {
     this (aInternal, aFilter, false);
   }
 
   public CodepointIteratorRestricted (@Nonnull final AbstractCodepointIterator aInternal,
-                                      @Nonnull final ICodepointFilter aFilter,
+                                      @Nonnull final IntPredicate aFilter,
                                       final boolean bScanningOnly)
   {
     this (aInternal, aFilter, bScanningOnly, false);
   }
 
   public CodepointIteratorRestricted (@Nonnull final AbstractCodepointIterator aInternal,
-                                      @Nonnull final ICodepointFilter aFilter,
+                                      @Nonnull final IntPredicate aFilter,
                                       final boolean bScanningOnly,
                                       final boolean bInvert)
   {
@@ -94,7 +96,7 @@ public class CodepointIteratorRestricted extends DelegatingCodepointIterator
 
   private boolean _doFilter (final int cp)
   {
-    final boolean bAccept = m_aFilter.accept (cp);
+    final boolean bAccept = m_aFilter.test (cp);
     return m_bInvert ? !bAccept : bAccept;
   }
 

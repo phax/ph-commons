@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <ELEMENTTYPE>
  *        The element type to be enumerated.
  */
-public final class IterableIteratorFromEnumeration <ELEMENTTYPE> implements IIterableIterator <ELEMENTTYPE>
+public class IterableIteratorFromEnumeration <ELEMENTTYPE> implements IIterableIterator <ELEMENTTYPE>
 {
   private final Enumeration <? extends ELEMENTTYPE> m_aEnum;
 

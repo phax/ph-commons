@@ -44,7 +44,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The value type.
  */
 @NotThreadSafe
-public final class SingleElementMap <KEYTYPE, VALUETYPE> implements Map <KEYTYPE, VALUETYPE>
+public class SingleElementMap <KEYTYPE, VALUETYPE> implements Map <KEYTYPE, VALUETYPE>
 {
   private boolean m_bHasElement = false;
   private KEYTYPE m_aKey;

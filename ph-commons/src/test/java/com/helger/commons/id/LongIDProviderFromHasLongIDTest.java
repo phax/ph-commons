@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Test class for class {@link LongIDProviderFromHasLongID}.
+ * Test class for class {@link ILongIDProvider}.
  *
  * @author Philip Helger
  */
@@ -30,7 +30,7 @@ public final class LongIDProviderFromHasLongIDTest
   @Test
   public void testAll ()
   {
-    final LongIDProviderFromHasLongID <MockHasLongID> x = new LongIDProviderFromHasLongID <MockHasLongID> ();
+    final ILongIDProvider <MockHasLongID> x = ILongIDProvider.createHasLongID ();
     assertEquals (5L, x.getID (new MockHasLongID (5L)));
   }
 }

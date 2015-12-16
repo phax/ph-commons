@@ -16,6 +16,8 @@
  */
 package com.helger.commons.i18n;
 
+import java.util.function.IntPredicate;
+
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -54,11 +56,6 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
    * @return Get the specified char
    */
   protected abstract char get (int nIndex);
-
-  public boolean hasNext ()
-  {
-    return remaining () > 0;
-  }
 
   @CheckForSigned
   public int lastPosition ()
@@ -223,19 +220,7 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
   }
 
   @Nonnull
-  public CodepointIteratorRestricted restrict (@Nonnull final ICodepointFilter aFilter)
-  {
-    return new CodepointIteratorRestricted (this, aFilter, false);
-  }
-
-  @Nonnull
-  public CodepointIteratorRestricted restrict (@Nonnull final ICodepointFilter aFilter, final boolean bScanning)
-  {
-    return new CodepointIteratorRestricted (this, aFilter, bScanning);
-  }
-
-  @Nonnull
-  public CodepointIteratorRestricted restrict (@Nonnull final ICodepointFilter aFilter,
+  public CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter,
                                                final boolean bScanning,
                                                final boolean bInvert)
   {
