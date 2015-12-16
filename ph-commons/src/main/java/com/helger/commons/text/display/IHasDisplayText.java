@@ -38,10 +38,4 @@ public interface IHasDisplayText
    */
   @Nullable
   String getDisplayText (@Nonnull Locale aContentLocale);
-
-  @Nonnull
-  static IHasDisplayText createConstant (@Nullable final String sText)
-  {
-    return aLocale -> sText;
-  }
 }

@@ -27,6 +27,7 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.text.display.ConstantHasDisplayText;
 import com.helger.commons.text.display.IHasDisplayText;
 
 /**
@@ -55,7 +56,7 @@ public class ResourceError implements IResourceError
                         @Nonnull final String sErrorText,
                         @Nullable final Throwable aLinkedException)
   {
-    this (aLocation, aErrorLevel, IHasDisplayText.createConstant (sErrorText), aLinkedException);
+    this (aLocation, aErrorLevel, new ConstantHasDisplayText (sErrorText), aLinkedException);
   }
 
   public ResourceError (@Nonnull final IResourceLocation aLocation,
