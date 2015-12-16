@@ -125,7 +125,7 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements 
     return m_aAttrs.size ();
   }
 
-  public boolean containsNoAttribute ()
+  public boolean isEmpty ()
   {
     return m_aAttrs.isEmpty ();
   }

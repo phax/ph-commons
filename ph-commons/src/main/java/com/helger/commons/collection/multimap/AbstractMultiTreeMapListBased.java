@@ -20,12 +20,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.state.EChange;
 
 /**
  * Abstract multi map based on {@link java.util.TreeMap} and
@@ -38,7 +34,9 @@ import com.helger.commons.state.EChange;
  *        value type
  */
 @NotThreadSafe
-public abstract class AbstractMultiTreeMapListBased <KEYTYPE, VALUETYPE> extends AbstractMultiTreeMap <KEYTYPE, VALUETYPE, List <VALUETYPE>> implements IMultiMapListBased <KEYTYPE, VALUETYPE>
+public abstract class AbstractMultiTreeMapListBased <KEYTYPE, VALUETYPE>
+                                                    extends AbstractMultiTreeMap <KEYTYPE, VALUETYPE, List <VALUETYPE>>
+                                                    implements IMultiMapListBased <KEYTYPE, VALUETYPE>
 {
   public AbstractMultiTreeMapListBased ()
   {}
@@ -61,14 +59,5 @@ public abstract class AbstractMultiTreeMapListBased <KEYTYPE, VALUETYPE> extends
   public AbstractMultiTreeMapListBased (@Nullable final Map <? extends KEYTYPE, ? extends List <VALUETYPE>> aCont)
   {
     super (aCont);
-  }
-
-  @Nonnull
-  public final EChange putSingle (@Nullable final KEYTYPE aKey,
-                                  @Nullable final VALUETYPE aValue,
-                                  @Nonnegative final int nIndex)
-  {
-    getOrCreate (aKey).add (nIndex, aValue);
-    return EChange.UNCHANGED;
   }
 }

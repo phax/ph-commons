@@ -56,7 +56,12 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    *         attribute at all, <code>false</code> if at least one attribute is
    *         contained.
    */
-  boolean containsNoAttribute ();
+  boolean isEmpty ();
+
+  default boolean isNotEmpty ()
+  {
+    return !isEmpty ();
+  }
 
   /**
    * Check if an attribute of the given name is contained.

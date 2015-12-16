@@ -19,12 +19,9 @@ package com.helger.commons.collection.multimap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.state.EChange;
 
 /**
  * Abstract multi map based on {@link java.util.LinkedHashMap}.
@@ -38,7 +35,9 @@ import com.helger.commons.state.EChange;
  *        value type
  */
 @NotThreadSafe
-public abstract class AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends LinkedHashMap <KEYTYPE1, Map <KEYTYPE2, VALUETYPE>> implements IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
+public abstract class AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
+                                                         extends LinkedHashMap <KEYTYPE1, Map <KEYTYPE2, VALUETYPE>>
+                                                         implements IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
 {
   public AbstractMultiLinkedHashMapMapBased ()
   {}
@@ -75,49 +74,5 @@ public abstract class AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VA
       super.put (aKey, aCont);
     }
     return aCont;
-  }
-
-  @Nonnull
-  public final EChange putSingle (@Nullable final KEYTYPE1 aKey,
-                                  @Nullable final KEYTYPE2 aInnerKey,
-                                  @Nullable final VALUETYPE aValue)
-  {
-    return EChange.valueOf (getOrCreate (aKey).put (aInnerKey, aValue) != null);
-  }
-
-  @Nonnull
-  public final EChange putAllIn (@Nonnull final Map <? extends KEYTYPE1, ? extends Map <KEYTYPE2, VALUETYPE>> aMap)
-  {
-    EChange eChange = EChange.UNCHANGED;
-    for (final Map.Entry <? extends KEYTYPE1, ? extends Map <KEYTYPE2, VALUETYPE>> aEntry : aMap.entrySet ())
-      for (final Map.Entry <KEYTYPE2, VALUETYPE> aEntry2 : aEntry.getValue ().entrySet ())
-        eChange = eChange.or (putSingle (aEntry.getKey (), aEntry2.getKey (), aEntry2.getValue ()));
-    return eChange;
-  }
-
-  @Nonnull
-  public final EChange removeSingle (@Nullable final KEYTYPE1 aKey, @Nullable final KEYTYPE2 aInnerKey)
-  {
-    final Map <KEYTYPE2, VALUETYPE> aCont = get (aKey);
-    return aCont == null ? EChange.UNCHANGED : EChange.valueOf (aCont.remove (aInnerKey) != null);
-  }
-
-  @Nullable
-  public final VALUETYPE getSingle (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey)
-  {
-    final Map <KEYTYPE2, VALUETYPE> aCont = get (aKey);
-    return aCont == null ? null : aCont.get (aInnerKey);
-  }
-
-  public final boolean containsSingle (@Nullable final KEYTYPE1 aKey, @Nullable final KEYTYPE2 aInnerKey)
-  {
-    final Map <KEYTYPE2, VALUETYPE> aCont = get (aKey);
-    return aCont != null && aCont.containsKey (aInnerKey);
-  }
-
-  @Nonnegative
-  public final long getTotalValueCount ()
-  {
-    return MultiMapMapBasedHelper.getTotalValueCount (this);
   }
 }

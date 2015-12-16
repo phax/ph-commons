@@ -20,13 +20,11 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.state.EChange;
 
 /**
  * Abstract multi map based on {@link java.util.WeakHashMap}.
@@ -40,7 +38,9 @@ import com.helger.commons.state.EChange;
  *        contained collection type
  */
 @NotThreadSafe
-public abstract class AbstractMultiWeakHashMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VALUETYPE>> extends WeakHashMap <KEYTYPE, COLLTYPE> implements IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE>
+public abstract class AbstractMultiWeakHashMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VALUETYPE>>
+                                               extends WeakHashMap <KEYTYPE, COLLTYPE>
+                                               implements IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE>
 {
   public AbstractMultiWeakHashMap ()
   {}
@@ -75,39 +75,5 @@ public abstract class AbstractMultiWeakHashMap <KEYTYPE, VALUETYPE, COLLTYPE ext
       super.put (aKey, aCont);
     }
     return aCont;
-  }
-
-  @Nonnull
-  public final EChange putSingle (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
-  {
-    return EChange.valueOf (getOrCreate (aKey).add (aValue));
-  }
-
-  @Nonnull
-  public final EChange putAllIn (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
-  {
-    EChange eChange = EChange.UNCHANGED;
-    for (final Map.Entry <? extends KEYTYPE, ? extends VALUETYPE> aEntry : aMap.entrySet ())
-      eChange = eChange.or (putSingle (aEntry.getKey (), aEntry.getValue ()));
-    return eChange;
-  }
-
-  @Nonnull
-  public final EChange removeSingle (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
-  {
-    final COLLTYPE aCont = get (aKey);
-    return aCont == null ? EChange.UNCHANGED : EChange.valueOf (aCont.remove (aValue));
-  }
-
-  public final boolean containsSingle (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
-  {
-    final COLLTYPE aCont = get (aKey);
-    return aCont != null && aCont.contains (aValue);
-  }
-
-  @Nonnegative
-  public final long getTotalValueCount ()
-  {
-    return MultiMapHelper.getTotalValueCount (this);
   }
 }

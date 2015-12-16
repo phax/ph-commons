@@ -62,7 +62,12 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends Map <
    * @return {@link EChange}
    */
   @Nonnull
-  EChange putSingle (@Nonnull KEYTYPE1 aKey, @Nonnull KEYTYPE2 aInnerKey, @Nullable VALUETYPE aValue);
+  default EChange putSingle (@Nonnull final KEYTYPE1 aKey,
+                             @Nonnull final KEYTYPE2 aInnerKey,
+                             @Nullable final VALUETYPE aValue)
+  {
+    return EChange.valueOf (getOrCreate (aKey).put (aInnerKey, aValue) != null);
+  }
 
   /**
    * Add all values into the container identified by the passed key-value-map.
@@ -72,7 +77,14 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends Map <
    * @return {@link EChange}
    */
   @Nonnull
-  EChange putAllIn (@Nonnull Map <? extends KEYTYPE1, ? extends Map <KEYTYPE2, VALUETYPE>> aMap);
+  default EChange putAllIn (@Nonnull final Map <? extends KEYTYPE1, ? extends Map <KEYTYPE2, VALUETYPE>> aMap)
+  {
+    EChange eChange = EChange.UNCHANGED;
+    for (final Map.Entry <? extends KEYTYPE1, ? extends Map <KEYTYPE2, VALUETYPE>> aEntry : aMap.entrySet ())
+      for (final Map.Entry <KEYTYPE2, VALUETYPE> aEntry2 : aEntry.getValue ().entrySet ())
+        eChange = eChange.or (putSingle (aEntry.getKey (), aEntry2.getKey (), aEntry2.getValue ()));
+    return eChange;
+  }
 
   /**
    * Remove a single element from the container identified by the passed key.
@@ -84,7 +96,11 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends Map <
    * @return {@link EChange}
    */
   @Nonnull
-  EChange removeSingle (@Nonnull KEYTYPE1 aKey, @Nonnull KEYTYPE2 aInnerKey);
+  default EChange removeSingle (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey)
+  {
+    final Map <KEYTYPE2, VALUETYPE> aCont = get (aKey);
+    return aCont == null ? EChange.UNCHANGED : EChange.valueOf (aCont.remove (aInnerKey) != null);
+  }
 
   /**
    * Get a single value from the container identified by the passed keys.
@@ -96,7 +112,11 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends Map <
    * @return <code>null</code> if no such value exists.
    */
   @Nullable
-  VALUETYPE getSingle (@Nonnull KEYTYPE1 aKey, @Nonnull KEYTYPE2 aInnerKey);
+  default VALUETYPE getSingle (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey)
+  {
+    final Map <KEYTYPE2, VALUETYPE> aCont = get (aKey);
+    return aCont == null ? null : aCont.get (aInnerKey);
+  }
 
   /**
    * Check a single element from the container identified by the passed keys is
@@ -108,12 +128,22 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends Map <
    *        The key of the inner map to be checked. May be <code>null</code>.
    * @return <code>true</code> if contained, <code>false</code> otherwise.
    */
-  boolean containsSingle (@Nonnull KEYTYPE1 aKey, @Nonnull KEYTYPE2 aInnerKey);
+  default boolean containsSingle (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey)
+  {
+    final Map <KEYTYPE2, VALUETYPE> aCont = get (aKey);
+    return aCont != null && aCont.containsKey (aInnerKey);
+  }
 
   /**
    * @return The total number of contained values recursively over all contained
    *         maps. Always &ge; 0.
    */
   @Nonnegative
-  long getTotalValueCount ();
+  default long getTotalValueCount ()
+  {
+    long ret = 0;
+    for (final Map <?, ?> aChild : values ())
+      ret += aChild.size ();
+    return ret;
+  }
 }
