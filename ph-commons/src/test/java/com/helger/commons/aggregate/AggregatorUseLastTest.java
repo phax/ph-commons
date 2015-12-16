@@ -30,7 +30,7 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 
 /**
- * Test class for class {@link AggregatorUseLast}.
+ * Test class for class {@link IAggregator}.
  *
  * @author Philip Helger
  */
@@ -39,7 +39,7 @@ public final class AggregatorUseLastTest
   @Test
   public void testAll ()
   {
-    final AggregatorUseLast <String> a1 = new AggregatorUseLast <String> ();
+    final IAggregator <String, String> a1 = IAggregator.createUseLast ();
     assertEquals (a1, a1);
     assertFalse (a1.equals (null));
     assertFalse (a1.equals ("any other"));
