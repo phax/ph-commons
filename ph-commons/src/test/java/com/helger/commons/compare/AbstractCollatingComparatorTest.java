@@ -28,7 +28,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CSpecialChars;
 import com.helger.commons.collection.CollectionHelper;
 
 /**
@@ -90,7 +89,7 @@ public final class AbstractCollatingComparatorTest
   {
     final String S1 = "bbc";
     final String S2 = "abc";
-    final String S3 = CSpecialChars.AUML_LC_STR + "bc";
+    final String S3 = "äbc";
     final String [] x = new String [] { S1, S2, S3 };
 
     // default: sort ascending
