@@ -21,6 +21,7 @@ package com.helger.commons.id;
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasIntID
 {
   /**

@@ -29,6 +29,7 @@ import javax.annotation.Nonnull;
  * @param <IDTYPE>
  *        Key type
  */
+@FunctionalInterface
 public interface IIDProvider <VALUETYPE, IDTYPE> extends Serializable
 {
   /**

@@ -23,11 +23,15 @@ import javax.annotation.Nonnull;
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasIntObjID extends IHasIntID
 {
   /**
    * @return The {@link Integer} representation of the contained "int" ID.
    */
   @Nonnull
-  Integer getIDObj ();
+  default Integer getIDObj ()
+  {
+    return Integer.valueOf (getID ());
+  }
 }

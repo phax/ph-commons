@@ -79,7 +79,8 @@ public final class JAXBContextCacheTest
     final Unmarshaller um = aCtx.createUnmarshaller ();
 
     // read valid
-    JAXBElement <T> o = um.unmarshal (TransformSourceFactory.create (new ClassPathResource ("xml/test-archive-01.xml")), aClass);
+    JAXBElement <T> o = um.unmarshal (TransformSourceFactory.create (new ClassPathResource ("xml/test-archive-01.xml")),
+                                      aClass);
     assertNotNull (o);
 
     // read invalid
@@ -118,17 +119,24 @@ public final class JAXBContextCacheTest
     final Marshaller m = aCtx.createMarshaller ();
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     m.marshal (new JAXBElement <String> (new QName ("element"), String.class, sMsg), aSW);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" + sMsg + "</element>", aSW.getAsString ());
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" +
+                  sMsg +
+                  "</element>",
+                  aSW.getAsString ());
   }
 
   @Test
   public void testMarshalStringWithClassLoader () throws JAXBException
   {
     final String sMsg = "Hello world";
-    final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (String.class, ClassLoaderHelper.getSystemClassLoader ());
+    final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (String.class,
+                                                                           ClassLoaderHelper.getSystemClassLoader ());
     final Marshaller m = aCtx.createMarshaller ();
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     m.marshal (new JAXBElement <String> (new QName ("element"), String.class, sMsg), aSW);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" + sMsg + "</element>", aSW.getAsString ());
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" +
+                  sMsg +
+                  "</element>",
+                  aSW.getAsString ());
   }
 }

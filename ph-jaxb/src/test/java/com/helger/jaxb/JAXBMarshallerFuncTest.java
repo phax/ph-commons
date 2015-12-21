@@ -35,7 +35,8 @@ import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
 
 public final class JAXBMarshallerFuncTest
 {
-  private static final class MyMarshallerExternal extends AbstractJAXBMarshaller <com.helger.jaxb.mock.external.MockJAXBArchive>
+  private static final class MyMarshallerExternal extends
+                                                  AbstractJAXBMarshaller <com.helger.jaxb.mock.external.MockJAXBArchive>
   {
     public MyMarshallerExternal ()
     {
@@ -46,7 +47,8 @@ public final class JAXBMarshallerFuncTest
     protected void customizeMarshaller (@Nonnull final Marshaller aMarshaller)
     {
       JAXBMarshallerHelper.setFormattedOutput (aMarshaller, true);
-      JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller, new MapBasedNamespaceContext ().addMapping ("def", "urn:test"));
+      JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller,
+                                                        new MapBasedNamespaceContext ().addMapping ("def", "urn:test"));
     }
 
     @Override

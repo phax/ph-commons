@@ -54,8 +54,7 @@ public final class SoftLinkedHashMapTest
       }
 
       @Override
-      protected void onRemoveEldestEntry (@Nonnegative final int nSize,
-                                          @Nonnull final Map.Entry <Integer, BigDecimal> aEldest)
+      protected void onRemoveEldestEntry (@Nonnegative final int nSize, @Nonnull final Map.Entry <Integer, BigDecimal> aEldest)
       {
         s_aLogger.info ("Removed eldest entry " + aEldest.getKey ());
       }

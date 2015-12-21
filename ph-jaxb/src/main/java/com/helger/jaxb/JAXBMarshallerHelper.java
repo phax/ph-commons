@@ -71,7 +71,8 @@ public final class JAXBMarshallerHelper
   }
 
   @Nullable
-  private static Object _getProperty (@Nonnull final Marshaller aMarshaller, @Nonnull final String sPropertyName) throws IllegalArgumentException
+  private static Object _getProperty (@Nonnull final Marshaller aMarshaller,
+                                      @Nonnull final String sPropertyName) throws IllegalArgumentException
   {
     try
     {
@@ -173,7 +174,8 @@ public final class JAXBMarshallerHelper
    * @param sSchemaLocation
    *        the value to be set
    */
-  public static void setNoNamespaceSchemaLocation (@Nonnull final Marshaller aMarshaller, @Nullable final String sSchemaLocation)
+  public static void setNoNamespaceSchemaLocation (@Nonnull final Marshaller aMarshaller,
+                                                   @Nullable final String sSchemaLocation)
   {
     _setProperty (aMarshaller, Marshaller.JAXB_NO_NAMESPACE_SCHEMA_LOCATION, sSchemaLocation);
   }
@@ -212,14 +214,16 @@ public final class JAXBMarshallerHelper
    */
   public static void setSunIndentString (@Nonnull final Marshaller aMarshaller, @Nullable final String sIndentString)
   {
-    final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_INDENT_STRING_INTERNAL : SUN_INDENT_STRING;
+    final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_INDENT_STRING_INTERNAL
+                                                                            : SUN_INDENT_STRING;
     _setProperty (aMarshaller, sPropertyName, sIndentString);
   }
 
   @Nullable
   public static String getSunIndentString (@Nonnull final Marshaller aMarshaller)
   {
-    final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_INDENT_STRING_INTERNAL : SUN_INDENT_STRING;
+    final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_INDENT_STRING_INTERNAL
+                                                                            : SUN_INDENT_STRING;
     return _getStringProperty (aMarshaller, sPropertyName);
   }
 
@@ -232,16 +236,19 @@ public final class JAXBMarshallerHelper
    * @param aCharacterEscapeHandler
    *        the value to be set
    */
-  public static void setSunCharacterEscapeHandler (@Nonnull final Marshaller aMarshaller, @Nonnull final Object aCharacterEscapeHandler)
+  public static void setSunCharacterEscapeHandler (@Nonnull final Marshaller aMarshaller,
+                                                   @Nonnull final Object aCharacterEscapeHandler)
   {
-    final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_ENCODING_HANDLER2_INTERNAL : SUN_ENCODING_HANDLER2;
+    final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_ENCODING_HANDLER2_INTERNAL
+                                                                            : SUN_ENCODING_HANDLER2;
     _setProperty (aMarshaller, sPropertyName, aCharacterEscapeHandler);
   }
 
   @Nullable
   public static Object getSunCharacterEscapeHandler (@Nonnull final Marshaller aMarshaller)
   {
-    final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_ENCODING_HANDLER2_INTERNAL : SUN_ENCODING_HANDLER2;
+    final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_ENCODING_HANDLER2_INTERNAL
+                                                                            : SUN_ENCODING_HANDLER2;
     return _getProperty (aMarshaller, sPropertyName);
   }
 
@@ -285,16 +292,19 @@ public final class JAXBMarshallerHelper
    * @see #isExternalSunJAXB2Marshaller(Marshaller)
    * @see #isInternalSunJAXB2Marshaller(Marshaller)
    */
-  public static void setSunNamespacePrefixMapper (@Nonnull final Marshaller aMarshaller, @Nonnull final Object aNamespacePrefixMapper)
+  public static void setSunNamespacePrefixMapper (@Nonnull final Marshaller aMarshaller,
+                                                  @Nonnull final Object aNamespacePrefixMapper)
   {
-    final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_PREFIX_MAPPER_INTERNAL : SUN_PREFIX_MAPPER;
+    final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_PREFIX_MAPPER_INTERNAL
+                                                                            : SUN_PREFIX_MAPPER;
     _setProperty (aMarshaller, sPropertyName, aNamespacePrefixMapper);
   }
 
   @Nullable
   public static Object getSunNamespacePrefixMapper (@Nonnull final Marshaller aMarshaller)
   {
-    final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_PREFIX_MAPPER_INTERNAL : SUN_PREFIX_MAPPER;
+    final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_PREFIX_MAPPER_INTERNAL
+                                                                            : SUN_PREFIX_MAPPER;
     return _getProperty (aMarshaller, sPropertyName);
   }
 
@@ -308,14 +318,16 @@ public final class JAXBMarshallerHelper
    */
   public static void setSunXMLHeaders (@Nonnull final Marshaller aMarshaller, @Nonnull final String sXMLHeaders)
   {
-    final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_XML_HEADERS_INTERNAL : SUN_XML_HEADERS;
+    final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_XML_HEADERS_INTERNAL
+                                                                            : SUN_XML_HEADERS;
     _setProperty (aMarshaller, sPropertyName, sXMLHeaders);
   }
 
   @Nullable
   public static String getSunXMLHeaders (@Nonnull final Marshaller aMarshaller)
   {
-    final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_XML_HEADERS_INTERNAL : SUN_XML_HEADERS;
+    final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_XML_HEADERS_INTERNAL
+                                                                            : SUN_XML_HEADERS;
     return _getStringProperty (aMarshaller, sPropertyName);
   }
 
@@ -347,7 +359,8 @@ public final class JAXBMarshallerHelper
    * @param bObjectIdentityCycleDetection
    *        the value to be set
    */
-  public static void setSunObjectIdentityCycleDetection (@Nonnull final Marshaller aMarshaller, final boolean bObjectIdentityCycleDetection)
+  public static void setSunObjectIdentityCycleDetection (@Nonnull final Marshaller aMarshaller,
+                                                         final boolean bObjectIdentityCycleDetection)
   {
     final String sPropertyName = isInternalSunJAXB2Marshaller (aMarshaller) ? SUN_OBJECT_IDENTITY_CYCLE_DETECTION_INTERNAL
                                                                             : SUN_OBJECT_IDENTITY_CYCLE_DETECTION;
