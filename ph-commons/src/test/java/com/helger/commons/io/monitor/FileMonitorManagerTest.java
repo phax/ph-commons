@@ -38,7 +38,7 @@ public final class FileMonitorManagerTest
   @Test
   public void testBasic ()
   {
-    final IFileMonitorCallback aDeleteListener = new DefaultFileMonitorCallback ()
+    final IFileMonitorCallback aDeleteListener = new IFileMonitorCallback ()
     {
       @Override
       public void onFileDeleted (final FileChangeEvent event)
@@ -46,7 +46,7 @@ public final class FileMonitorManagerTest
         s_aLogger.info ("File deleted: " + event.getFile ().getAbsolutePath ());
       }
     };
-    final IFileMonitorCallback aCreateListener = new DefaultFileMonitorCallback ()
+    final IFileMonitorCallback aCreateListener = new IFileMonitorCallback ()
     {
       @Override
       public void onFileCreated (final FileChangeEvent event)
@@ -54,7 +54,7 @@ public final class FileMonitorManagerTest
         s_aLogger.info ("File created: " + event.getFile ().getAbsolutePath ());
       }
     };
-    final IFileMonitorCallback aChangeListener = new DefaultFileMonitorCallback ()
+    final IFileMonitorCallback aChangeListener = new IFileMonitorCallback ()
     {
       @Override
       public void onFileChanged (final FileChangeEvent event)

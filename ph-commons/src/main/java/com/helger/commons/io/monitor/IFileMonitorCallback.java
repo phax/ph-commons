@@ -35,7 +35,8 @@ public interface IFileMonitorCallback extends ICallback
    * @param aEvent
    *        The FileChangeEvent. Never <code>null</code>.
    */
-  void onFileCreated (@Nonnull FileChangeEvent aEvent);
+  default void onFileCreated (@Nonnull final FileChangeEvent aEvent)
+  {}
 
   /**
    * Called when a file is deleted.
@@ -43,7 +44,8 @@ public interface IFileMonitorCallback extends ICallback
    * @param aEvent
    *        The FileChangeEvent. Never <code>null</code>.
    */
-  void onFileDeleted (@Nonnull FileChangeEvent aEvent);
+  default void onFileDeleted (@Nonnull final FileChangeEvent aEvent)
+  {}
 
   /**
    * Called when a file is changed.
@@ -51,5 +53,6 @@ public interface IFileMonitorCallback extends ICallback
    * @param aEvent
    *        The FileChangeEvent. Never <code>null</code>.
    */
-  void onFileChanged (@Nonnull FileChangeEvent aEvent);
+  default void onFileChanged (@Nonnull final FileChangeEvent aEvent)
+  {}
 }
