@@ -35,8 +35,8 @@ import com.helger.commons.text.util.TextHelper;
 @Translatable
 public enum ELocaleName implements IHasDisplayText
 {
- ID_LANGUAGE_ALL ("Alle Sprachen", "All languages"),
- ID_LANGUAGE_INDEPENDENT ("Sprachunabhängig", "Language independent");
+  ID_LANGUAGE_ALL ("Alle Sprachen", "All languages"),
+  ID_LANGUAGE_INDEPENDENT ("Sprachunabhängig", "Language independent");
 
   private final IMultilingualText m_aTP;
 

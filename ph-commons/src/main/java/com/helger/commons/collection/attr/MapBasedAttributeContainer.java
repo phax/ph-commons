@@ -44,7 +44,10 @@ import com.helger.commons.string.ToStringGenerator;
  *        Value type
  */
 @NotThreadSafe
-public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE> extends MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements IMutableAttributeContainer <KEYTYPE, VALUETYPE>, ICloneable <MapBasedAttributeContainer <KEYTYPE, VALUETYPE>>
+public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE>
+                                        extends MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements
+                                        IMutableAttributeContainer <KEYTYPE, VALUETYPE>,
+                                        ICloneable <MapBasedAttributeContainer <KEYTYPE, VALUETYPE>>
 {
   public MapBasedAttributeContainer ()
   {

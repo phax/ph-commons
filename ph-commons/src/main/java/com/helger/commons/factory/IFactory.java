@@ -16,6 +16,7 @@
  */
 package com.helger.commons.factory;
 
+import java.io.Serializable;
 import java.util.function.Supplier;
 
 import com.helger.commons.annotation.DevelopersNote;
@@ -28,7 +29,7 @@ import com.helger.commons.annotation.DevelopersNote;
  *        The type of object to create.
  */
 @FunctionalInterface
-public interface IFactory <DATATYPE> extends Supplier <DATATYPE>
+public interface IFactory <DATATYPE> extends Supplier <DATATYPE>, Serializable
 {
   /**
    * Create an object of the desired type.
@@ -37,10 +38,5 @@ public interface IFactory <DATATYPE> extends Supplier <DATATYPE>
    *         implementation.
    */
   @DevelopersNote ("No @Nullable annotation as we can make no assumptions on the state")
-  DATATYPE create ();
-
-  default DATATYPE get ()
-  {
-    return create ();
-  }
+  DATATYPE get ();
 }

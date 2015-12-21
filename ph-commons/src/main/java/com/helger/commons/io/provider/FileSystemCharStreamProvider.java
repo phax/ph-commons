@@ -40,7 +40,11 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class FileSystemCharStreamProvider implements IInputStreamProvider, IOutputStreamProvider, IReaderProvider, IWriterProvider
+public final class FileSystemCharStreamProvider implements
+                                                IInputStreamProvider,
+                                                IOutputStreamProvider,
+                                                IReaderProvider,
+                                                IWriterProvider
 {
   private final FileSystemByteStreamProvider m_aByteStreamResolver;
   private final Charset m_aCharset;

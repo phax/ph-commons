@@ -23,10 +23,9 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.mock.CommonsTestHelper;
 
 /**
- * Test class for class {@link AggregatorConstant}.
+ * Test class for class {@link IAggregator}.
  *
  * @author Philip Helger
  */
@@ -35,12 +34,7 @@ public final class AggregatorConstantTest
   @Test
   public void testAll ()
   {
-    final AggregatorConstant <String, String> a1 = new AggregatorConstant <String, String> ("foo");
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (a1,
-                                                                       new AggregatorConstant <String, String> ("foo"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (a1,
-                                                                           new AggregatorConstant <String, String> ("bar"));
-
+    final IAggregator <String, String> a1 = IAggregator.createConstant ("foo");
     assertEquals ("foo", a1.aggregate (CollectionHelper.newList ("a", "b")));
     assertEquals ("foo", a1.aggregate (new ArrayList <String> ()));
   }

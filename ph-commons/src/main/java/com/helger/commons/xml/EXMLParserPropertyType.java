@@ -23,12 +23,12 @@ package com.helger.commons.xml;
  */
 public enum EXMLParserPropertyType
 {
- /** General properties */
+  /** General properties */
   GENERAL,
 
- /** DOM properties */
+  /** DOM properties */
   DOM,
 
- /** SAX properties */
+  /** SAX properties */
   SAX;
 }

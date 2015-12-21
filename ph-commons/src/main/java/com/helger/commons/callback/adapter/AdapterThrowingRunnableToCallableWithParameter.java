@@ -40,7 +40,8 @@ import com.helger.commons.string.ToStringGenerator;
  *        Exception type to be thrown
  */
 @Immutable
-public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE, EXTYPE extends Exception> implements IThrowingCallableWithParameter <DATATYPE, PARAMTYPE, EXTYPE>
+public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE, EXTYPE extends Exception> implements
+                                                            IThrowingCallableWithParameter <DATATYPE, PARAMTYPE, EXTYPE>
 {
   private final IThrowingRunnableWithParameter <PARAMTYPE, EXTYPE> m_aRunnable;
   private final DATATYPE m_aResult;

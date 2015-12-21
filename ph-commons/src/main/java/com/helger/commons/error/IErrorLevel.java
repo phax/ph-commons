@@ -19,6 +19,8 @@ package com.helger.commons.error;
 import java.io.Serializable;
 
 import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.id.IHasID;
 import com.helger.commons.state.IErrorIndicator;
@@ -29,7 +31,12 @@ import com.helger.commons.state.ISuccessIndicator;
  *
  * @author Philip Helger
  */
-public interface IErrorLevel extends IHasID <String>, ISuccessIndicator, IErrorIndicator, ISeverityComparable <IErrorLevel>, Serializable
+public interface IErrorLevel extends
+                             IHasID <String>,
+                             ISuccessIndicator,
+                             IErrorIndicator,
+                             ISeverityComparable <IErrorLevel>,
+                             Serializable
 {
   /**
    * @return The numeric level of this error level. Must be &ge; 0. The higher
@@ -39,4 +46,51 @@ public interface IErrorLevel extends IHasID <String>, ISuccessIndicator, IErrorI
    */
   @Nonnegative
   int getNumericLevel ();
+
+  default boolean isSuccess ()
+  {
+    return isEqualSevereThan (EErrorLevel.SUCCESS);
+  }
+
+  default boolean isError ()
+  {
+    return isMoreOrEqualSevereThan (EErrorLevel.ERROR);
+  }
+
+  default boolean isEqualSevereThan (@Nonnull final IErrorLevel aErrorLevel)
+  {
+    return getNumericLevel () == aErrorLevel.getNumericLevel ();
+  }
+
+  default boolean isLessSevereThan (@Nonnull final IErrorLevel aErrorLevel)
+  {
+    return getNumericLevel () < aErrorLevel.getNumericLevel ();
+  }
+
+  default boolean isLessOrEqualSevereThan (@Nonnull final IErrorLevel aErrorLevel)
+  {
+    return getNumericLevel () <= aErrorLevel.getNumericLevel ();
+  }
+
+  default boolean isMoreSevereThan (@Nonnull final IErrorLevel aErrorLevel)
+  {
+    return getNumericLevel () > aErrorLevel.getNumericLevel ();
+  }
+
+  default boolean isMoreOrEqualSevereThan (@Nonnull final IErrorLevel aErrorLevel)
+  {
+    return getNumericLevel () >= aErrorLevel.getNumericLevel ();
+  }
+
+  @Nullable
+  public static IErrorLevel getMostSevere (@Nullable final IErrorLevel aLevel1, @Nullable final IErrorLevel aLevel2)
+  {
+    if (aLevel1 == aLevel2)
+      return aLevel1;
+    if (aLevel1 == null)
+      return aLevel2;
+    if (aLevel2 == null)
+      return aLevel1;
+    return aLevel1.isMoreSevereThan (aLevel2) ? aLevel1 : aLevel2;
+  }
 }

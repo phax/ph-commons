@@ -45,7 +45,7 @@ public final class MapBasedReadOnlyAttributeContainerTest
                                                                                                                                                           new Serializable [] {}));
     assertNotNull (x.getAllAttributeNames ());
     assertTrue (x.getAllAttributeNames ().isEmpty ());
-    assertTrue (x.containsNoAttribute ());
+    assertTrue (x.isEmpty ());
 
     x = new MapBasedReadOnlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
                                                                                                                 "key2",
@@ -54,7 +54,7 @@ public final class MapBasedReadOnlyAttributeContainerTest
                                                                                                                       "value2",
                                                                                                                       null }));
     assertEquals (3, x.getAttributeCount ());
-    assertFalse (x.containsNoAttribute ());
+    assertFalse (x.isEmpty ());
     assertEquals ("value2", x.getAttributeObject ("key2"));
     assertEquals ("value2", x.getAttributeAsString ("key2"));
     assertEquals ("value2", x.getCastedAttribute ("key2"));

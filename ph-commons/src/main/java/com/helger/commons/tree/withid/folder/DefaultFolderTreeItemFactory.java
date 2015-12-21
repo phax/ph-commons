@@ -36,7 +36,8 @@ import com.helger.commons.aggregate.IAggregator;
  *        Collection type consisting of value elements
  */
 @NotThreadSafe
-public class DefaultFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>> extends AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE>>
+public class DefaultFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>> extends
+                                          AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE>>
 {
   public DefaultFolderTreeItemFactory (@Nullable final IAggregator <KEYTYPE, KEYTYPE> aKeyCombinator)
   {

@@ -39,7 +39,8 @@ import com.helger.commons.collection.CollectionHelper;
  *        The data type of the child objects.
  */
 @Immutable
-public class ChildrenProviderHasChildrenSorting <CHILDTYPE extends IHasChildren <CHILDTYPE>> extends ChildrenProviderHasChildren <CHILDTYPE>
+public class ChildrenProviderHasChildrenSorting <CHILDTYPE extends IHasChildren <CHILDTYPE>>
+                                                extends ChildrenProviderHasChildren <CHILDTYPE>
 {
   private final Comparator <? super CHILDTYPE> m_aComparator;
 

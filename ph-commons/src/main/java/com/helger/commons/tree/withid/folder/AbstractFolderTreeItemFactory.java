@@ -42,7 +42,11 @@ import com.helger.commons.tree.withid.unique.AbstractTreeItemWithUniqueIDFactory
  *        the implementation item type
  */
 @NotThreadSafe
-public abstract class AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>> extends AbstractTreeItemWithUniqueIDFactory <KEYTYPE, COLLTYPE, ITEMTYPE> implements IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>
+public abstract class AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>>
+                                                    extends
+                                                    AbstractTreeItemWithUniqueIDFactory <KEYTYPE, COLLTYPE, ITEMTYPE>
+                                                    implements
+                                                    IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>
 {
   private final IAggregator <KEYTYPE, KEYTYPE> m_aKeyCombinator;
 

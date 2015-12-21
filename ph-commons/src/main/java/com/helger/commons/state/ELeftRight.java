@@ -25,17 +25,12 @@ import javax.annotation.Nonnull;
  */
 public enum ELeftRight implements ILeftRightIndicator
 {
- LEFT,
- RIGHT;
+  LEFT,
+  RIGHT;
 
   public boolean isLeft ()
   {
     return this == LEFT;
-  }
-
-  public boolean isRight ()
-  {
-    return this == RIGHT;
   }
 
   @Nonnull

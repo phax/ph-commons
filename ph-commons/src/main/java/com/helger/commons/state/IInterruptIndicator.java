@@ -31,5 +31,8 @@ public interface IInterruptIndicator
   /**
    * @return <code>true</code> if not interrupted and <code>false</code> if so.
    */
-  boolean isNotInterrupted ();
+  default boolean isNotInterrupted ()
+  {
+    return !isInterrupted ();
+  }
 }

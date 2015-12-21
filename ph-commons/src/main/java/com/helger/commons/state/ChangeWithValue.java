@@ -61,20 +61,10 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
     return m_eChange.isChanged ();
   }
 
-  public boolean isUnchanged ()
-  {
-    return m_eChange.isUnchanged ();
-  }
-
   @Nullable
   public DATATYPE get ()
   {
     return m_aObj;
-  }
-
-  public boolean isSet ()
-  {
-    return m_aObj != null;
   }
 
   /**

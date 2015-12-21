@@ -33,5 +33,8 @@ public interface IMandatoryIndicator
    * @return <code>true</code> if optional and <code>false</code> if not
    *         optional.
    */
-  boolean isOptional ();
+  default boolean isOptional ()
+  {
+    return !isMandatory ();
+  }
 }

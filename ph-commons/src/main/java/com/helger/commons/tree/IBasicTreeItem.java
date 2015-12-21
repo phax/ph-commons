@@ -35,7 +35,8 @@ import com.helger.commons.state.ESuccess;
  * @param <ITEMTYPE>
  *        tree item type
  */
-public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> extends IHasParent <ITEMTYPE>, IHasChildrenSorted <ITEMTYPE>
+public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>>
+                                extends IHasParent <ITEMTYPE>, IHasChildrenSorted <ITEMTYPE>
 {
   /**
    * @return the data associated with this node. May be <code>null</code>.

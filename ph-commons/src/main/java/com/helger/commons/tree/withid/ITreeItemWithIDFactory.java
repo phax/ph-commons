@@ -32,7 +32,10 @@ import com.helger.commons.factory.IHierarchicalRootFactory;
  * @param <ITEMTYPE>
  *        tree item type
  */
-public interface ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends IHierarchicalFactoryWithParameter <ITEMTYPE, KEYTYPE>, IHierarchicalRootFactory <ITEMTYPE>
+public interface ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
+                                        extends
+                                        IHierarchicalFactoryWithParameter <ITEMTYPE, KEYTYPE>,
+                                        IHierarchicalRootFactory <ITEMTYPE>
 {
   /**
    * {@inheritDoc}

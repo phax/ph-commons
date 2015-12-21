@@ -80,7 +80,7 @@ public class SafeVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE>
   {
     // fill the gap
     while (size () <= nIndex)
-      add (m_aFactory.create ());
+      add (m_aFactory.get ());
   }
 
   @Override

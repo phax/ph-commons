@@ -124,13 +124,6 @@ public class MimeType implements IMimeType, Comparable <MimeType>
   }
 
   @Nonnull
-  @Nonempty
-  public String getAsString ()
-  {
-    return getAsString (CMimeType.DEFAULT_QUOTING);
-  }
-
-  @Nonnull
   private String _getParametersAsString (@Nonnull final EMimeQuoting eQuotingAlgorithm)
   {
     final StringBuilder aSB = new StringBuilder ();
@@ -301,11 +294,6 @@ public class MimeType implements IMimeType, Comparable <MimeType>
   public MimeTypeParameter getParameterAtIndex (@Nonnegative final int nIndex)
   {
     return CollectionHelper.getSafe (m_aParameters, nIndex);
-  }
-
-  public boolean hasParameterWithName (@Nullable final String sParamName)
-  {
-    return getParameterWithName (sParamName) != null;
   }
 
   @Nullable

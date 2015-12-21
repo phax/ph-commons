@@ -31,20 +31,20 @@ import com.helger.commons.lang.EnumHelper;
  */
 public enum EXMLDOMFeature implements IHasID <String>
 {
- DOM_FEATURE_CORE ("Core"),
- DOM_FEATURE_XML ("XML"),
- DOM_FEATURE_EVENTS ("Events"),
- DOM_FEATURE_UI_EVENTS ("UIEvents"),
- DOM_FEATURE_MOUSE_EVENTS ("MouseEvents"),
- DOM_FEATURE_TEXT_EVENTS ("TextEvents"),
- DOM_FEATURE_KEYBOARD_EVENTS ("KeyboardEvents"),
- DOM_FEATURE_MUTATION_EVENTS ("MutationEvents"),
- DOM_FEATURE_MUTATION_NAME_EVENTS ("MutationNameEvents"),
- DOM_FEATURE_HTML_EVENTS ("HTMLEvents"),
- DOM_FEATURE_LS ("LS"),
- DOM_FEATURE_LS_ASYNC ("LS-Async"),
- DOM_FEATURE_VALIDATION ("Validation"),
- DOM_FEATURE_XPATH ("XPath");
+  DOM_FEATURE_CORE ("Core"),
+  DOM_FEATURE_XML ("XML"),
+  DOM_FEATURE_EVENTS ("Events"),
+  DOM_FEATURE_UI_EVENTS ("UIEvents"),
+  DOM_FEATURE_MOUSE_EVENTS ("MouseEvents"),
+  DOM_FEATURE_TEXT_EVENTS ("TextEvents"),
+  DOM_FEATURE_KEYBOARD_EVENTS ("KeyboardEvents"),
+  DOM_FEATURE_MUTATION_EVENTS ("MutationEvents"),
+  DOM_FEATURE_MUTATION_NAME_EVENTS ("MutationNameEvents"),
+  DOM_FEATURE_HTML_EVENTS ("HTMLEvents"),
+  DOM_FEATURE_LS ("LS"),
+  DOM_FEATURE_LS_ASYNC ("LS-Async"),
+  DOM_FEATURE_VALIDATION ("Validation"),
+  DOM_FEATURE_XPATH ("XPath");
 
   private final String m_sID;
 

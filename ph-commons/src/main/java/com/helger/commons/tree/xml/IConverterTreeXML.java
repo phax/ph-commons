@@ -24,7 +24,9 @@ package com.helger.commons.tree.xml;
  * @param <DATATYPE>
  *        The type of the tree item data
  */
-public interface IConverterTreeXML <DATATYPE> extends IConverterTreeItemToMicroNode <DATATYPE>, IConverterMicroNodeToTreeItem <DATATYPE>
+public interface IConverterTreeXML <DATATYPE> extends
+                                   IConverterTreeItemToMicroNode <DATATYPE>,
+                                   IConverterMicroNodeToTreeItem <DATATYPE>
 {
   /* empty */
 }

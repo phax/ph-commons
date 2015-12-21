@@ -37,7 +37,8 @@ import com.helger.commons.tree.withid.ITreeItemWithID;
  *        tree item implementation type
  */
 @NotThreadSafe
-public class ComparatorTreeItemID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends ComparatorHasID <KEYTYPE, ITEMTYPE>
+public class ComparatorTreeItemID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
+                                  extends ComparatorHasID <KEYTYPE, ITEMTYPE>
 {
   /**
    * Comparator with default sort order and no nested comparator.

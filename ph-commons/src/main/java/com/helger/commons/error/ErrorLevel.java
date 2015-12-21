@@ -49,69 +49,10 @@ public class ErrorLevel implements IErrorLevel
     return m_sID;
   }
 
-  /*
-   * Only SUCCESS is considered to be a success
-   */
-  public boolean isSuccess ()
-  {
-    return isEqualSevereThan (EErrorLevel.SUCCESS);
-  }
-
-  /*
-   * Everything except SUCCESS is considered a failure!
-   */
-  public boolean isFailure ()
-  {
-    return !isSuccess ();
-  }
-
-  /**
-   * @return <code>true</code> if the severity of this item is &ge; than
-   *         {@link EErrorLevel#ERROR}.
-   */
-  public boolean isError ()
-  {
-    return isMoreOrEqualSevereThan (EErrorLevel.ERROR);
-  }
-
-  /**
-   * @return <code>true</code> if the severity of this item is &lt; than
-   *         {@link EErrorLevel#ERROR}.
-   */
-  public boolean isNoError ()
-  {
-    return isLessSevereThan (EErrorLevel.ERROR);
-  }
-
   @Nonnegative
   public int getNumericLevel ()
   {
     return m_nNumericLevel;
-  }
-
-  public boolean isEqualSevereThan (@Nonnull final IErrorLevel aErrorLevel)
-  {
-    return getNumericLevel () == aErrorLevel.getNumericLevel ();
-  }
-
-  public boolean isLessSevereThan (@Nonnull final IErrorLevel aErrorLevel)
-  {
-    return getNumericLevel () < aErrorLevel.getNumericLevel ();
-  }
-
-  public boolean isLessOrEqualSevereThan (@Nonnull final IErrorLevel aErrorLevel)
-  {
-    return getNumericLevel () <= aErrorLevel.getNumericLevel ();
-  }
-
-  public boolean isMoreSevereThan (@Nonnull final IErrorLevel aErrorLevel)
-  {
-    return getNumericLevel () > aErrorLevel.getNumericLevel ();
-  }
-
-  public boolean isMoreOrEqualSevereThan (@Nonnull final IErrorLevel aErrorLevel)
-  {
-    return getNumericLevel () >= aErrorLevel.getNumericLevel ();
   }
 
   @Override

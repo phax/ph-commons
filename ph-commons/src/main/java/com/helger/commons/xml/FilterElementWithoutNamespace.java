@@ -21,7 +21,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import org.w3c.dom.Element;
 
-import com.helger.commons.filter.AbstractFilter;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.string.StringHelper;
 
@@ -32,13 +31,13 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FilterElementWithoutNamespace extends AbstractFilter <Element>
+public class FilterElementWithoutNamespace implements IFilter <Element>
 {
   public FilterElementWithoutNamespace ()
   {}
 
   @Override
-  public boolean directTest (@Nullable final Element aElement)
+  public boolean test (@Nullable final Element aElement)
   {
     return aElement != null && StringHelper.hasNoText (aElement.getNamespaceURI ());
   }

@@ -1207,8 +1207,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  @SuppressFBWarnings (value = { "NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" },
-                       justification = "When using the constructor with the Comparator it works with null values!")
+  @SuppressFBWarnings (value = { "NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" }, justification = "When using the constructor with the Comparator it works with null values!")
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ELEMENTTYPE aValue)
   {
     final TreeSet <ELEMENTTYPE> ret = new TreeSet <ELEMENTTYPE> (new ComparatorComparable <ELEMENTTYPE> ());

@@ -32,6 +32,7 @@ import com.helger.commons.collection.CollectionHelper;
  * @param <DSTTYPE>
  *        The output type.
  */
+@FunctionalInterface
 public interface IAggregator <SRCTYPE, DSTTYPE>
 {
   /**
@@ -56,5 +57,35 @@ public interface IAggregator <SRCTYPE, DSTTYPE>
   default DSTTYPE aggregate (@Nonnull final SRCTYPE... aObjects)
   {
     return aggregate (CollectionHelper.newList (aObjects));
+  }
+
+  @Nonnull
+  static <SRCTYPE, DSTTYPE> IAggregator <SRCTYPE, DSTTYPE> createNull ()
+  {
+    return x -> null;
+  }
+
+  @Nonnull
+  static <SRCTYPE, DSTTYPE> IAggregator <SRCTYPE, DSTTYPE> createConstant (@Nullable final DSTTYPE aValue)
+  {
+    return x -> aValue;
+  }
+
+  @Nonnull
+  static <SRCTYPE> IAggregator <SRCTYPE, Collection <SRCTYPE>> createUseAll ()
+  {
+    return x -> x;
+  }
+
+  @Nonnull
+  static <SRCTYPE> IAggregator <SRCTYPE, SRCTYPE> createUseFirst ()
+  {
+    return x -> CollectionHelper.getFirstElement (x);
+  }
+
+  @Nonnull
+  static <SRCTYPE> IAggregator <SRCTYPE, SRCTYPE> createUseLast ()
+  {
+    return x -> CollectionHelper.getLastElement (x);
   }
 }

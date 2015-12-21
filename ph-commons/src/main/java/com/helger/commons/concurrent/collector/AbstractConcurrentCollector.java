@@ -44,7 +44,9 @@ import com.helger.commons.state.ESuccess;
  *        The type of the objects in the queue.
  */
 @ThreadSafe
-public abstract class AbstractConcurrentCollector <DATATYPE> implements INonThrowingRunnable, IMutableConcurrentCollector <DATATYPE>
+public abstract class AbstractConcurrentCollector <DATATYPE> implements
+                                                  INonThrowingRunnable,
+                                                  IMutableConcurrentCollector <DATATYPE>
 {
   /** Default maximum queue size */
   public static final int DEFAULT_MAX_QUEUE_SIZE = 100;

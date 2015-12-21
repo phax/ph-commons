@@ -48,5 +48,11 @@ public interface IMultiMapListBased <KEYTYPE, VALUETYPE> extends IMultiMap <KEYT
    * @return {@link EChange}
    */
   @Nonnull
-  EChange putSingle (@Nonnull KEYTYPE aKey, @Nullable VALUETYPE aValue, @Nonnegative int nIndex);
+  default EChange putSingle (@Nonnull final KEYTYPE aKey,
+                             @Nullable final VALUETYPE aValue,
+                             @Nonnegative final int nIndex)
+  {
+    getOrCreate (aKey).add (nIndex, aValue);
+    return EChange.CHANGED;
+  }
 }

@@ -31,7 +31,9 @@ import com.helger.commons.tree.withid.DefaultTreeItemWithID;
  *        tree item value type
  */
 @NotThreadSafe
-public class ComparatorDefaultTreeItemWithIDDataComparable <IDTYPE, DATATYPE extends Comparable <? super DATATYPE>> extends ComparatorTreeItemDataComparable <DATATYPE, DefaultTreeItemWithID <IDTYPE, DATATYPE>>
+public class ComparatorDefaultTreeItemWithIDDataComparable <IDTYPE, DATATYPE extends Comparable <? super DATATYPE>>
+                                                           extends
+                                                           ComparatorTreeItemDataComparable <DATATYPE, DefaultTreeItemWithID <IDTYPE, DATATYPE>>
 {
   /**
    * Comparator with default sort order.

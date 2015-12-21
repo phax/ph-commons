@@ -32,7 +32,8 @@ import com.helger.commons.state.EChange;
  * @param <ITEMTYPE>
  *        tree item implementation type
  */
-public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> extends IBasicTreeItem <DATATYPE, ITEMTYPE>
+public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>>
+                           extends IBasicTreeItem <DATATYPE, ITEMTYPE>
 {
   /**
    * @return The factory used to create instances of this interface.

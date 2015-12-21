@@ -33,7 +33,8 @@ import com.helger.commons.compare.AbstractPartComparatorComparable;
  *        The type of the ID of data type
  */
 @NotThreadSafe
-public class ComparatorHasIDComparable <DATATYPE extends IHasID <IDTYPE>, IDTYPE extends Comparable <? super IDTYPE>> extends AbstractPartComparatorComparable <DATATYPE, IDTYPE>
+public class ComparatorHasIDComparable <DATATYPE extends IHasID <IDTYPE>, IDTYPE extends Comparable <? super IDTYPE>>
+                                       extends AbstractPartComparatorComparable <DATATYPE, IDTYPE>
 {
   /**
    * Comparator with default sort order and no nested comparator.

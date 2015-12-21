@@ -30,7 +30,8 @@ import com.helger.commons.compare.AbstractPartComparatorComparable;
  *        Data type
  */
 @NotThreadSafe
-public class ComparatorHasErrorID <DATATYPE extends IHasErrorID> extends AbstractPartComparatorComparable <DATATYPE, String>
+public class ComparatorHasErrorID <DATATYPE extends IHasErrorID>
+                                  extends AbstractPartComparatorComparable <DATATYPE, String>
 {
   public ComparatorHasErrorID ()
   {}

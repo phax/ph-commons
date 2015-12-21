@@ -38,7 +38,8 @@ import com.helger.commons.tree.IBasicTreeItem;
  *        tree item implementation type
  */
 @NotThreadSafe
-public class ComparatorTreeItemData <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> extends AbstractPartComparator <ITEMTYPE, DATATYPE>
+public class ComparatorTreeItemData <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>>
+                                    extends AbstractPartComparator <ITEMTYPE, DATATYPE>
 {
   /**
    * Constructor with default sort order.

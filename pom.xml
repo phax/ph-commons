@@ -88,6 +88,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
+        <artifactId>ph-less-commons</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
         <artifactId>ph-jaxb</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -109,6 +114,7 @@
   
   <modules>
     <module>ph-commons</module>
+    <module>ph-less-commons</module>
     <module>ph-jaxb</module>
   </modules>
 </project>

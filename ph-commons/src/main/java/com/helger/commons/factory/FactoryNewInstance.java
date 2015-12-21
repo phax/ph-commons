@@ -16,8 +16,6 @@
  */
 package com.helger.commons.factory;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -37,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The return type of the factory
  */
 @Immutable
-public class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>, Serializable
+public class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>
 {
   private final Class <? extends DATATYPE> m_aClass;
 
@@ -57,7 +55,7 @@ public class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>, Seria
   }
 
   @Nullable
-  public DATATYPE create ()
+  public DATATYPE get ()
   {
     return GenericReflection.newInstance (m_aClass);
   }

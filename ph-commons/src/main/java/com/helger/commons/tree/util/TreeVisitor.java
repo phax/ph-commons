@@ -44,7 +44,8 @@ import com.helger.commons.tree.IBasicTreeItem;
 @Immutable
 public final class TreeVisitor
 {
-  public static class HierarchyVisitorCallbackWithConversion <ITEMTYPE, DATATYPE> extends DefaultHierarchyVisitorCallback <ITEMTYPE>
+  public static class HierarchyVisitorCallbackWithConversion <ITEMTYPE, DATATYPE>
+                                                             extends DefaultHierarchyVisitorCallback <ITEMTYPE>
   {
     private final IHierarchyVisitorCallback <? super DATATYPE> m_aDataCallback;
     private final Function <ITEMTYPE, DATATYPE> m_aConverter;

@@ -27,7 +27,7 @@
   <artifactId>ph-commons</artifactId>
   <packaging>bundle</packaging>
   <name>ph-commons</name>
-  <description>Java 1.6+ Library with tons of utility classes required in all projects</description>
+  <description>Java 1.8+ Library with tons of utility classes required in all projects</description>
   <url>https://github.com/phax/ph-commons/ph-commons</url>
   <inceptionYear>2014</inceptionYear>
   

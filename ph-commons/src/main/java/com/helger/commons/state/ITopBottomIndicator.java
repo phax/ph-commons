@@ -31,5 +31,8 @@ public interface ITopBottomIndicator
   /**
    * @return <code>true</code> if bottom and <code>false</code> if top.
    */
-  boolean isBottom ();
+  default boolean isBottom ()
+  {
+    return !isTop ();
+  }
 }

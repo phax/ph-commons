@@ -25,17 +25,12 @@ import javax.annotation.Nonnull;
  */
 public enum ETopBottom implements ITopBottomIndicator
 {
- TOP,
- BOTTOM;
+  TOP,
+  BOTTOM;
 
   public boolean isTop ()
   {
     return this == TOP;
-  }
-
-  public boolean isBottom ()
-  {
-    return this == BOTTOM;
   }
 
   @Nonnull

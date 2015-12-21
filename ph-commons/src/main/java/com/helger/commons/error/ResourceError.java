@@ -127,19 +127,9 @@ public class ResourceError implements IResourceError
     return m_aErrorLevel.isSuccess ();
   }
 
-  public boolean isFailure ()
-  {
-    return m_aErrorLevel.isFailure ();
-  }
-
   public boolean isError ()
   {
     return m_aErrorLevel.isError ();
-  }
-
-  public boolean isNoError ()
-  {
-    return m_aErrorLevel.isNoError ();
   }
 
   public boolean isEqualSevereThan (@Nonnull final IResourceError aOther)

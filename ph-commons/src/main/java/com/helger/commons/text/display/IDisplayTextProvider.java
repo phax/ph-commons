@@ -30,6 +30,7 @@ import javax.annotation.Nullable;
  * @param <DATATYPE>
  *        The data type to retrieve the display text from
  */
+@FunctionalInterface
 public interface IDisplayTextProvider <DATATYPE> extends Serializable
 {
   /**
@@ -44,4 +45,10 @@ public interface IDisplayTextProvider <DATATYPE> extends Serializable
    */
   @Nullable
   String getDisplayText (@Nullable DATATYPE aObject, @Nonnull Locale aContentLocale);
+
+  @Nonnull
+  static IDisplayTextProvider <IHasDisplayText> createHasDisplayText ()
+  {
+    return (aObject, aContentLocale) -> aObject == null ? null : aObject.getDisplayText (aContentLocale);
+  }
 }

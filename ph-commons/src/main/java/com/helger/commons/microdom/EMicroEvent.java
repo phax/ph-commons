@@ -30,8 +30,8 @@ import com.helger.commons.lang.EnumHelper;
  */
 public enum EMicroEvent implements IHasID <String>
 {
- NODE_INSERTED ("NodeInserted"),
- NODE_REMOVED ("NodeRemoved");
+  NODE_INSERTED ("NodeInserted"),
+  NODE_REMOVED ("NodeRemoved");
 
   private final String m_sID;
 

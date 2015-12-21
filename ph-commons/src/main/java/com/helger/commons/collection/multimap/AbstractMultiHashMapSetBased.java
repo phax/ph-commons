@@ -33,7 +33,9 @@ import javax.annotation.concurrent.NotThreadSafe;
  *        value type
  */
 @NotThreadSafe
-public abstract class AbstractMultiHashMapSetBased <KEYTYPE, VALUETYPE> extends AbstractMultiHashMap <KEYTYPE, VALUETYPE, Set <VALUETYPE>> implements IMultiMapSetBased <KEYTYPE, VALUETYPE>
+public abstract class AbstractMultiHashMapSetBased <KEYTYPE, VALUETYPE>
+                                                   extends AbstractMultiHashMap <KEYTYPE, VALUETYPE, Set <VALUETYPE>>
+                                                   implements IMultiMapSetBased <KEYTYPE, VALUETYPE>
 {
   public AbstractMultiHashMapSetBased ()
   {}

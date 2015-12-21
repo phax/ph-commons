@@ -42,4 +42,10 @@ public interface IIDProvider <VALUETYPE, IDTYPE> extends Serializable
    */
   @Nonnull
   IDTYPE getID (@Nonnull VALUETYPE aObject);
+
+  @Nonnull
+  static <VALUETYPE extends IHasID <IDTYPE>, IDTYPE> IIDProvider <VALUETYPE, IDTYPE> createHasID ()
+  {
+    return aObject -> aObject.getID ();
+  }
 }

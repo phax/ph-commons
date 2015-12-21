@@ -31,15 +31,15 @@ import com.helger.commons.lang.EnumHelper;
  */
 public enum EFilterMatchingStrategy implements IHasID <String>
 {
- /**
-  * Match either this filter or an eventually present nested filter. If no
-  * nested filter is present, only this filter must match.
-  */
+  /**
+   * Match either this filter or an eventually present nested filter. If no
+   * nested filter is present, only this filter must match.
+   */
   MATCH_ANY ("matchany"),
- /**
-  * Math both this filter and an eventually present nested filter. If no nested
-  * filter is present, only this filter must match.
-  */
+  /**
+   * Math both this filter and an eventually present nested filter. If no nested
+   * filter is present, only this filter must match.
+   */
   MATCH_ALL ("matchall");
 
   private final String m_sID;

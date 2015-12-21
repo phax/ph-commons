@@ -28,7 +28,8 @@ import javax.annotation.concurrent.NotThreadSafe;
  *        tree item implementation type
  */
 @NotThreadSafe
-public abstract class AbstractTreeItemFactory <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> implements ITreeItemFactory <DATATYPE, ITEMTYPE>
+public abstract class AbstractTreeItemFactory <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>>
+                                              implements ITreeItemFactory <DATATYPE, ITEMTYPE>
 {
   /* empty */
 }

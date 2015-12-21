@@ -25,7 +25,8 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.compare.AbstractPartComparator;
 
-public class ComparatorMapEntryKey <KEYTYPE, VALUETYPE> extends AbstractPartComparator <Map.Entry <KEYTYPE, VALUETYPE>, KEYTYPE>
+public class ComparatorMapEntryKey <KEYTYPE, VALUETYPE>
+                                   extends AbstractPartComparator <Map.Entry <KEYTYPE, VALUETYPE>, KEYTYPE>
 {
   public ComparatorMapEntryKey (@Nonnull final Comparator <? super KEYTYPE> aPartComparator)
   {

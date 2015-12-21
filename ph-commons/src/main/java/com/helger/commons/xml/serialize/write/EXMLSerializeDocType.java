@@ -31,8 +31,8 @@ import com.helger.commons.lang.EnumHelper;
  */
 public enum EXMLSerializeDocType implements IHasID <String>
 {
- EMIT ("emit"),
- IGNORE ("ignore");
+  EMIT ("emit"),
+  IGNORE ("ignore");
 
   private final String m_sID;
 

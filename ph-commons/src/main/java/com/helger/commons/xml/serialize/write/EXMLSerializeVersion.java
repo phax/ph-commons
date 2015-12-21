@@ -31,13 +31,13 @@ import com.helger.commons.xml.EXMLVersion;
  */
 public enum EXMLSerializeVersion implements IHasID <String>
 {
- /** XML 1.0 */
+  /** XML 1.0 */
   XML_10 ("xml10", EXMLVersion.XML_10),
 
- /** XML 1.1 */
+  /** XML 1.1 */
   XML_11 ("xml11", EXMLVersion.XML_11),
 
- /** HTML4 and XHTML */
+  /** HTML4 and XHTML */
   HTML ("html", null);
 
   private final String m_sID;

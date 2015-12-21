@@ -36,7 +36,8 @@ import com.helger.commons.string.ToStringGenerator;
  *        Exception type to be thrown
  */
 @Immutable
-public class AdapterThrowingRunnableToCallable <DATATYPE, EXTYPE extends Exception> implements IThrowingCallable <DATATYPE, EXTYPE>
+public class AdapterThrowingRunnableToCallable <DATATYPE, EXTYPE extends Exception>
+                                               implements IThrowingCallable <DATATYPE, EXTYPE>
 {
   private final IThrowingRunnable <EXTYPE> m_aRunnable;
   private final DATATYPE m_aResult;

@@ -82,18 +82,23 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, List 
     this (aStartDir, (IFileFilter) null, (IFileFilter) null);
   }
 
-  public FileSystemFolderTree (@Nonnull final String sStartDir, @Nullable final IFileFilter aDirFilter, @Nullable final IFileFilter aFileFilter)
+  public FileSystemFolderTree (@Nonnull final String sStartDir,
+                               @Nullable final IFileFilter aDirFilter,
+                               @Nullable final IFileFilter aFileFilter)
   {
     this (new File (sStartDir), aDirFilter, aFileFilter);
   }
 
-  public FileSystemFolderTree (@Nonnull final File aStartDir, @Nullable final IFileFilter aDirFilter, @Nullable final IFileFilter aFileFilter)
+  public FileSystemFolderTree (@Nonnull final File aStartDir,
+                               @Nullable final IFileFilter aDirFilter,
+                               @Nullable final IFileFilter aFileFilter)
   {
     super (new AggregatorStringWithSeparatorIgnoreNull ("/"));
     ValueEnforcer.notNull (aStartDir, "StartDirectory");
     ValueEnforcer.isTrue (aStartDir.isDirectory (), "Start directory is not a directory!");
 
-    final DefaultFolderTreeItem <String, File, List <File>> aStart = getRootItem ().createChildItem (aStartDir.getName (), new ArrayList <File> ());
+    final DefaultFolderTreeItem <String, File, List <File>> aStart = getRootItem ().createChildItem (aStartDir.getName (),
+                                                                                                     new ArrayList <File> ());
     _iterate (aStart, aStartDir, aDirFilter, aFileFilter);
   }
 }

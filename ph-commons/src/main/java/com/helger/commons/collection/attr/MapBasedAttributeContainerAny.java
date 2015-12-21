@@ -23,7 +23,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.state.EChange;
 
 /**
  * Base class for all kind of string-object mapping container. This
@@ -34,7 +33,8 @@ import com.helger.commons.state.EChange;
  *        Key type
  */
 @NotThreadSafe
-public class MapBasedAttributeContainerAny <KEYTYPE> extends MapBasedAttributeContainer <KEYTYPE, Object> implements IMutableAttributeContainerAny <KEYTYPE>
+public class MapBasedAttributeContainerAny <KEYTYPE> extends MapBasedAttributeContainer <KEYTYPE, Object>
+                                           implements IMutableAttributeContainerAny <KEYTYPE>
 {
   public MapBasedAttributeContainerAny ()
   {
@@ -59,43 +59,6 @@ public class MapBasedAttributeContainerAny <KEYTYPE> extends MapBasedAttributeCo
   protected MapBasedAttributeContainerAny (final boolean bDummy, @Nonnull final Map <KEYTYPE, Object> aAttrMap)
   {
     super (bDummy, aAttrMap);
-  }
-
-  @Nonnull
-  public final EChange setAttribute (@Nonnull final KEYTYPE aName, final boolean dValue)
-  {
-    return setAttribute (aName, Boolean.valueOf (dValue));
-  }
-
-  @Nonnull
-  public final EChange setAttribute (@Nonnull final KEYTYPE aName, final int nValue)
-  {
-    return setAttribute (aName, Integer.valueOf (nValue));
-  }
-
-  @Nonnull
-  public final EChange setAttribute (@Nonnull final KEYTYPE aName, final long nValue)
-  {
-    return setAttribute (aName, Long.valueOf (nValue));
-  }
-
-  @Nonnull
-  public final EChange setAttribute (@Nonnull final KEYTYPE aName, final double dValue)
-  {
-    return setAttribute (aName, Double.valueOf (dValue));
-  }
-
-  public boolean getAndSetAttributeFlag (@Nonnull final KEYTYPE aName)
-  {
-    final Object aOldValue = getAttributeObject (aName);
-    if (aOldValue != null)
-    {
-      // Attribute flag is already present
-      return true;
-    }
-    // Attribute flag is not yet present -> set it
-    setAttribute (aName, Boolean.TRUE);
-    return false;
   }
 
   @Override

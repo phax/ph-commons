@@ -28,7 +28,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -55,13 +54,6 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
                       "' of class " +
                       ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
-  }
-
-  @Nonnull
-  @Nonempty
-  public final String getSessionID ()
-  {
-    return getSessionID (true);
   }
 
   @Nonnull
@@ -94,12 +86,6 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
                       "' of class " +
                       ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
-  }
-
-  @Nullable
-  public List <String> getAttributeAsList (@Nullable final String sName)
-  {
-    return getAttributeAsList (sName, null);
   }
 
   /**
@@ -144,19 +130,6 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
       return CollectionHelper.newList ((String) aValue);
     }
     return getAttributeAsListCustom (sName, aValue, aDefault);
-  }
-
-  public boolean hasAttributeValue (@Nullable final String sName, @Nullable final String sDesiredValue)
-  {
-    return EqualsHelper.equals (getAttributeAsString (sName), sDesiredValue);
-  }
-
-  public boolean hasAttributeValue (@Nullable final String sName,
-                                    @Nullable final String sDesiredValue,
-                                    final boolean bDefault)
-  {
-    final String sValue = getAttributeAsString (sName);
-    return sValue == null ? bDefault : EqualsHelper.equals (sValue, sDesiredValue);
   }
 
   @Override

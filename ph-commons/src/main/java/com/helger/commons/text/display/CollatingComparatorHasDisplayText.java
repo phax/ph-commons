@@ -35,7 +35,8 @@ import com.helger.commons.compare.AbstractCollatingComparator;
  *        The type of elements to be compared.
  */
 @NotThreadSafe
-public class CollatingComparatorHasDisplayText <DATATYPE extends IHasDisplayText> extends AbstractCollatingComparator <DATATYPE>
+public class CollatingComparatorHasDisplayText <DATATYPE extends IHasDisplayText>
+                                               extends AbstractCollatingComparator <DATATYPE>
 {
   private final Locale m_aContentLocale;
 

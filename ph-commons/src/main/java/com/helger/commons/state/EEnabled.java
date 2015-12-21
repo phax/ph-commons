@@ -25,17 +25,12 @@ import javax.annotation.Nonnull;
  */
 public enum EEnabled implements IEnabledIndicator
 {
- ENABLED,
- DISABLED;
+  ENABLED,
+  DISABLED;
 
   public boolean isEnabled ()
   {
     return this == ENABLED;
-  }
-
-  public boolean isDisabled ()
-  {
-    return this == DISABLED;
   }
 
   @Nonnull

@@ -47,9 +47,9 @@ public final class MapBasedAttributeContainerTest
     final MapBasedAttributeContainerAny <String> x = new MapBasedAttributeContainerAny <String> ();
     assertNotNull (x.getAllAttributeNames ());
     assertTrue (x.getAllAttributeNames ().isEmpty ());
-    assertTrue (x.containsNoAttribute ());
+    assertTrue (x.isEmpty ());
     assertTrue (x.setAttribute ("key", "value").isChanged ());
-    assertFalse (x.containsNoAttribute ());
+    assertFalse (x.isEmpty ());
     assertEquals (1, x.getAttributeCount ());
     assertTrue (x.setAttribute ("key2", "value2").isChanged ());
     assertTrue (x.setAttribute ("key", "value3").isChanged ());

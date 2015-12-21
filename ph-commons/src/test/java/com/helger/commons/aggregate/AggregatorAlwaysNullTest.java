@@ -25,7 +25,7 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 
 /**
- * Test class for class {@link AggregatorAlwaysNull}.
+ * Test class for class {@link IAggregator}.
  *
  * @author Philip Helger
  */
@@ -34,7 +34,7 @@ public final class AggregatorAlwaysNullTest
   @Test
   public void testAll ()
   {
-    final AggregatorAlwaysNull <String, String> a1 = new AggregatorAlwaysNull <String, String> ();
+    final IAggregator <String, String> a1 = IAggregator.<String, String> createNull ();
     assertNull (a1.aggregate (CollectionHelper.newList ("a", "b")));
     assertNull (a1.aggregate (new ArrayList <String> ()));
   }

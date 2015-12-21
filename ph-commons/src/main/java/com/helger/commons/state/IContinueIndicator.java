@@ -31,5 +31,8 @@ public interface IContinueIndicator
   /**
    * @return <code>true</code> to break and <code>false</code> to continue.
    */
-  boolean isBreak ();
+  default boolean isBreak ()
+  {
+    return !isContinue ();
+  }
 }

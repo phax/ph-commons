@@ -25,17 +25,12 @@ import javax.annotation.Nonnull;
  */
 public enum EFinish implements IFinishIndicator
 {
- FINISHED,
- UNFINISHED;
+  FINISHED,
+  UNFINISHED;
 
   public boolean isFinished ()
   {
     return this == FINISHED;
-  }
-
-  public boolean isUnfinished ()
-  {
-    return this == UNFINISHED;
   }
 
   @Nonnull

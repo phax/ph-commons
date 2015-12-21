@@ -26,7 +26,8 @@ package com.helger.commons.callback;
  *        The type of the parameter that is required for executing the callback.
  */
 @FunctionalInterface
-public interface INonThrowingRunnableWithParameter <PARAMTYPE> extends IThrowingRunnableWithParameter <PARAMTYPE, Exception>
+public interface INonThrowingRunnableWithParameter <PARAMTYPE>
+                                                   extends IThrowingRunnableWithParameter <PARAMTYPE, Exception>
 {
   /**
    * The callback method that is invoked.

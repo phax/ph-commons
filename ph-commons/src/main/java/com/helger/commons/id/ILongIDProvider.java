@@ -27,7 +27,6 @@ import javax.annotation.Nonnull;
  * @param <VALUETYPE>
  *        Object type
  */
-@FunctionalInterface
 public interface ILongIDProvider <VALUETYPE> extends Serializable
 {
   /**
@@ -39,4 +38,10 @@ public interface ILongIDProvider <VALUETYPE> extends Serializable
    * @return The ID of the object.
    */
   long getID (@Nonnull VALUETYPE aObject);
+
+  @Nonnull
+  static <VALUETYPE extends IHasLongID> ILongIDProvider <VALUETYPE> createHasLongID ()
+  {
+    return aObject -> aObject.getID ();
+  }
 }

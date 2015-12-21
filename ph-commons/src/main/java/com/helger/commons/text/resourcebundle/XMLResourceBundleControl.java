@@ -32,7 +32,6 @@ import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassLoaderHelper;
 
-//SKIPJDK5
 /**
  * Special {@link java.util.ResourceBundle.Control} to handle XML files
  *

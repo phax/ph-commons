@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.commons.statistics.IMutableStatisticsHandlerKeyedCounter;
@@ -150,16 +149,6 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
                                @Nonnull final Locale aContentLocale)
   {
     return internalGetText (aEnum, aTP, aContentLocale, false);
-  }
-
-  @Nullable
-  @Deprecated
-  @DevelopersNote ("Use getTextStatic instead when no argument is needed!")
-  public final String getTextWithArgs (@Nonnull final Enum <?> aEnum,
-                                       @Nonnull final IHasTextWithArgs aTP,
-                                       @Nonnull final Locale aContentLocale)
-  {
-    return getText (aEnum, aTP, aContentLocale);
   }
 
   @Nullable

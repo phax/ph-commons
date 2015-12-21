@@ -33,7 +33,8 @@ import com.helger.commons.compare.AbstractCollatingComparator;
  *        The type of elements to be compared.
  */
 @NotThreadSafe
-public class CollatingComparatorHasDisplayName <DATATYPE extends IHasDisplayName> extends AbstractCollatingComparator <DATATYPE>
+public class CollatingComparatorHasDisplayName <DATATYPE extends IHasDisplayName>
+                                               extends AbstractCollatingComparator <DATATYPE>
 {
   /**
    * Comparator with default sort order but special collation locale.

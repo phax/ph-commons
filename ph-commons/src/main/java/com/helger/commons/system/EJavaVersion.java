@@ -30,15 +30,15 @@ import com.helger.commons.string.StringParser;
  */
 public enum EJavaVersion
 {
- UNKNOWN (),
- JDK_11 (45.3, 46.0),
- JDK_12 (46.0, 47.0),
- JDK_13 (47.0, 48.0),
- JDK_14 (48.0, 49.0),
- JDK_15 (49.0, 50.0),
- JDK_16 (50.0, 51.0),
- JDK_17 (51.0, 52.0),
- JDK_18 (52.0, 53.0);
+  UNKNOWN (),
+  JDK_11 (45.3, 46.0),
+  JDK_12 (46.0, 47.0),
+  JDK_13 (47.0, 48.0),
+  JDK_14 (48.0, 49.0),
+  JDK_15 (49.0, 50.0),
+  JDK_16 (50.0, 51.0),
+  JDK_17 (51.0, 52.0),
+  JDK_18 (52.0, 53.0);
 
   /** The current version. */
   private static volatile EJavaVersion s_aInstance = null;

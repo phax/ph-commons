@@ -18,6 +18,8 @@ package com.helger.commons.convert;
 
 import java.util.function.Function;
 
+import com.helger.commons.annotation.DevelopersNote;
+
 /**
  * This is a very simple type conversion interface for compile type conversions.
  *
@@ -39,6 +41,7 @@ public interface IConverter <SRCTYPE, DSTTYPE> extends Function <SRCTYPE, DSTTYP
    * @return The converted value. No <code>null</code> or non- <code>null</code>
    *         constraint possible.
    */
+  @DevelopersNote ("No nullable annotation possible")
   DSTTYPE convert (final SRCTYPE aSource);
 
   default DSTTYPE apply (final SRCTYPE aSource)

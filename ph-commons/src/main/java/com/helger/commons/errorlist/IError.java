@@ -28,6 +28,7 @@ import com.helger.commons.error.IResourceLocation;
 import com.helger.commons.error.ISeverityComparable;
 import com.helger.commons.state.IErrorIndicator;
 import com.helger.commons.state.ISuccessIndicator;
+import com.helger.commons.string.StringHelper;
 
 /**
  * Base interface for a single error, that has an error ID, and error level, and
@@ -35,8 +36,49 @@ import com.helger.commons.state.ISuccessIndicator;
  *
  * @author Philip Helger
  */
-public interface IError extends IHasErrorID, IHasErrorLevel, ISuccessIndicator, IErrorIndicator, ISeverityComparable <IError>, Serializable
+public interface IError extends
+                        IHasErrorID,
+                        IHasErrorLevel,
+                        ISuccessIndicator,
+                        IErrorIndicator,
+                        ISeverityComparable <IError>,
+                        Serializable
 {
+  default boolean isSuccess ()
+  {
+    return getErrorLevel ().isSuccess ();
+  }
+
+  default boolean isError ()
+  {
+    return getErrorLevel ().isError ();
+  }
+
+  default boolean isEqualSevereThan (@Nonnull final IError aOther)
+  {
+    return getErrorLevel ().isEqualSevereThan (aOther.getErrorLevel ());
+  }
+
+  default boolean isLessSevereThan (@Nonnull final IError aOther)
+  {
+    return getErrorLevel ().isLessSevereThan (aOther.getErrorLevel ());
+  }
+
+  default boolean isLessOrEqualSevereThan (@Nonnull final IError aOther)
+  {
+    return getErrorLevel ().isLessOrEqualSevereThan (aOther.getErrorLevel ());
+  }
+
+  default boolean isMoreSevereThan (@Nonnull final IError aOther)
+  {
+    return getErrorLevel ().isMoreSevereThan (aOther.getErrorLevel ());
+  }
+
+  default boolean isMoreOrEqualSevereThan (@Nonnull final IError aOther)
+  {
+    return getErrorLevel ().isMoreOrEqualSevereThan (aOther.getErrorLevel ());
+  }
+
   /**
    * @return The field for which the error occurred. May be <code>null</code>.
    */
@@ -47,7 +89,10 @@ public interface IError extends IHasErrorID, IHasErrorLevel, ISuccessIndicator, 
    * @return <code>true</code> if a field name is present, <code>false</code>
    *         otherwise
    */
-  boolean hasErrorFieldName ();
+  default boolean hasErrorFieldName ()
+  {
+    return StringHelper.hasText (getErrorFieldName ());
+  }
 
   /**
    * @return The error field name of this object as an {@link IResourceLocation}

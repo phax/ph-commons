@@ -35,7 +35,8 @@ import com.helger.commons.compare.AbstractPartComparator;
  *        The type of elements to be compared.
  */
 @NotThreadSafe
-public class ComparatorHasID <IDTYPE, DATATYPE extends IHasID <IDTYPE>> extends AbstractPartComparator <DATATYPE, IDTYPE>
+public class ComparatorHasID <IDTYPE, DATATYPE extends IHasID <IDTYPE>>
+                             extends AbstractPartComparator <DATATYPE, IDTYPE>
 {
   /**
    * Comparator with default sort order and no nested comparator.

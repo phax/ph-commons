@@ -24,7 +24,7 @@ import org.junit.Test;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
- * Test class for class {@link DisplayTextProviderFromHasDisplayText}.
+ * Test class for class {@link IDisplayTextProvider}.
  *
  * @author Philip Helger
  */
@@ -33,7 +33,7 @@ public final class DisplayTextProviderFromHasDisplayTextTest extends AbstractCom
   @Test
   public void testAll ()
   {
-    final DisplayTextProviderFromHasDisplayText aDNPFHDN = new DisplayTextProviderFromHasDisplayText ();
+    final IDisplayTextProvider <IHasDisplayText> aDNPFHDN = IDisplayTextProvider.createHasDisplayText ();
     assertEquals ("de1", aDNPFHDN.getDisplayText (MockHasDisplayText.createDE_EN ("de1", "en1"), L_DE));
     assertNull (aDNPFHDN.getDisplayText (null, L_DE));
   }

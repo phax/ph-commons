@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.DevelopersNote;
+import com.helger.commons.text.util.TextHelper;
 
 /**
  * Basic interface for object providing multilingual texts with and without
@@ -29,6 +30,7 @@ import com.helger.commons.annotation.DevelopersNote;
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasTextWithArgs extends IHasText
 {
   /**
@@ -63,5 +65,10 @@ public interface IHasTextWithArgs extends IHasText
    * @return <code>null</code> if no text for the given locale was found.
    */
   @Nullable
-  String getTextWithArgs (@Nonnull Locale aContentLocale, @Nullable Object... aArgs);
+  default String getTextWithArgs (@Nonnull final Locale aContentLocale, @Nullable final Object... aArgs)
+  {
+    final String sText = getText (aContentLocale);
+    return TextHelper.getFormattedText (sText, aArgs);
+  }
+
 }

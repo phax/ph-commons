@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.Test;
@@ -27,7 +28,7 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 
 /**
- * Test class for class {@link AggregatorUseAll}.
+ * Test class for class {@link IAggregator}.
  *
  * @author Philip Helger
  */
@@ -36,8 +37,8 @@ public final class AggregatorUseAllTest
   @Test
   public void testAll ()
   {
-    final AggregatorUseAll <String> a1 = new AggregatorUseAll <String> ();
-    final AggregatorUseAll <String> a2 = new AggregatorUseAll <String> ();
+    final IAggregator <String, Collection <String>> a1 = IAggregator.createUseAll ();
+    final IAggregator <String, Collection <String>> a2 = IAggregator.createUseAll ();
     assertEquals (a1, a1);
     assertFalse (a1.equals (null));
     assertFalse (a1.equals ("any other"));

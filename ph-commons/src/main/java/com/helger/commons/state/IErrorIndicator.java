@@ -33,5 +33,8 @@ public interface IErrorIndicator
    * @return <code>true</code> if this level is below
    *         {@link com.helger.commons.error.EErrorLevel#ERROR}.
    */
-  boolean isNoError ();
+  default boolean isNoError ()
+  {
+    return !isError ();
+  }
 }

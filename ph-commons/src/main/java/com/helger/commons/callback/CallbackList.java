@@ -41,7 +41,8 @@ import com.helger.commons.string.ToStringGenerator;
  *        The callback type.
  */
 @ThreadSafe
-public class CallbackList <CALLBACKTYPE extends ICallback> implements ICallbackList <CALLBACKTYPE>, ICloneable <CallbackList <CALLBACKTYPE>>
+public class CallbackList <CALLBACKTYPE extends ICallback>
+                          implements ICallbackList <CALLBACKTYPE>, ICloneable <CallbackList <CALLBACKTYPE>>
 {
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 

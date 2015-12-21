@@ -24,7 +24,6 @@ import org.w3c.dom.Element;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.filter.AbstractFilter;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -36,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FilterElementWithTagName extends AbstractFilter <Element>
+public class FilterElementWithTagName implements IFilter <Element>
 {
   private final String m_sTagName;
 
@@ -53,7 +52,7 @@ public class FilterElementWithTagName extends AbstractFilter <Element>
   }
 
   @Override
-  public boolean directTest (@Nullable final Element aElement)
+  public boolean test (@Nullable final Element aElement)
   {
     return aElement != null && aElement.getNamespaceURI () == null && aElement.getTagName ().equals (m_sTagName);
   }

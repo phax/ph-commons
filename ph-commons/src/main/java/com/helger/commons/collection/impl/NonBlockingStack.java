@@ -39,7 +39,8 @@ import com.helger.commons.string.ToStringGenerator;
  *        The type of the elements contained in the stack
  */
 @NotThreadSafe
-public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> implements ICloneable <NonBlockingStack <ELEMENTTYPE>>
+public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE>
+                              implements ICloneable <NonBlockingStack <ELEMENTTYPE>>
 {
   public NonBlockingStack ()
   {}

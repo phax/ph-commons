@@ -25,17 +25,12 @@ import javax.annotation.Nonnull;
  */
 public enum EContinue implements IContinueIndicator
 {
- CONTINUE,
- BREAK;
+  CONTINUE,
+  BREAK;
 
   public boolean isContinue ()
   {
     return this == CONTINUE;
-  }
-
-  public boolean isBreak ()
-  {
-    return this == BREAK;
   }
 
   @Nonnull

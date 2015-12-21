@@ -19,12 +19,9 @@ package com.helger.commons.collection.multimap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.state.EChange;
 
 /**
  * Abstract multi map based on {@link java.util.concurrent.ConcurrentHashMap}
@@ -38,7 +35,9 @@ import com.helger.commons.state.EChange;
  *        value type
  */
 @ThreadSafe
-public abstract class AbstractMultiConcurrentHashMapListBased <KEYTYPE, VALUETYPE> extends AbstractMultiConcurrentHashMap <KEYTYPE, VALUETYPE, List <VALUETYPE>> implements IMultiMapListBased <KEYTYPE, VALUETYPE>
+public abstract class AbstractMultiConcurrentHashMapListBased <KEYTYPE, VALUETYPE> extends
+                                                              AbstractMultiConcurrentHashMap <KEYTYPE, VALUETYPE, List <VALUETYPE>>
+                                                              implements IMultiMapListBased <KEYTYPE, VALUETYPE>
 {
   public AbstractMultiConcurrentHashMapListBased ()
   {}
@@ -57,14 +56,5 @@ public abstract class AbstractMultiConcurrentHashMapListBased <KEYTYPE, VALUETYP
   public AbstractMultiConcurrentHashMapListBased (@Nullable final Map <? extends KEYTYPE, ? extends List <VALUETYPE>> aCont)
   {
     super (aCont);
-  }
-
-  @Nonnull
-  public final EChange putSingle (@Nonnull final KEYTYPE aKey,
-                                  @Nullable final VALUETYPE aValue,
-                                  @Nonnegative final int nIndex)
-  {
-    getOrCreate (aKey).add (nIndex, aValue);
-    return EChange.UNCHANGED;
   }
 }

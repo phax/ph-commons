@@ -25,7 +25,6 @@ import org.w3c.dom.Element;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.filter.AbstractFilter;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -37,12 +36,13 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FilterElementWithNamespaceAndLocalName extends AbstractFilter <Element>
+public class FilterElementWithNamespaceAndLocalName implements IFilter <Element>
 {
   private final String m_sNamespaceURI;
   private final String m_sLocalName;
 
-  public FilterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sLocalName)
+  public FilterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
+                                                 @Nonnull @Nonempty final String sLocalName)
   {
     m_sNamespaceURI = sNamespaceURI;
     m_sLocalName = ValueEnforcer.notEmpty (sLocalName, "LocalName");
@@ -62,9 +62,11 @@ public class FilterElementWithNamespaceAndLocalName extends AbstractFilter <Elem
   }
 
   @Override
-  public boolean directTest (@Nullable final Element aElement)
+  public boolean test (@Nullable final Element aElement)
   {
-    return aElement != null && XMLHelper.hasNamespaceURI (aElement, m_sNamespaceURI) && aElement.getLocalName ().equals (m_sLocalName);
+    return aElement != null &&
+           XMLHelper.hasNamespaceURI (aElement, m_sNamespaceURI) &&
+           aElement.getLocalName ().equals (m_sLocalName);
   }
 
   @Override
@@ -81,12 +83,18 @@ public class FilterElementWithNamespaceAndLocalName extends AbstractFilter <Elem
   @Override
   public int hashCode ()
   {
-    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_sNamespaceURI).append (m_sLocalName).getHashCode ();
+    return HashCodeGenerator.getDerived (super.hashCode ())
+                            .append (m_sNamespaceURI)
+                            .append (m_sLocalName)
+                            .getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("namespaceURI", m_sNamespaceURI).append ("localName", m_sLocalName).toString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("namespaceURI", m_sNamespaceURI)
+                            .append ("localName", m_sLocalName)
+                            .toString ();
   }
 }

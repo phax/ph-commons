@@ -60,7 +60,10 @@ public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VAL
    * @return {@link EChange}
    */
   @Nonnull
-  EChange putSingle (@Nonnull KEYTYPE aKey, @Nullable VALUETYPE aValue);
+  default EChange putSingle (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  {
+    return EChange.valueOf (getOrCreate (aKey).add (aValue));
+  }
 
   /**
    * Add all values into the container identified by the passed key-value-map.
@@ -70,7 +73,13 @@ public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VAL
    * @return {@link EChange}
    */
   @Nonnull
-  EChange putAllIn (@Nonnull Map <? extends KEYTYPE, ? extends VALUETYPE> aMap);
+  default EChange putAllIn (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  {
+    EChange eChange = EChange.UNCHANGED;
+    for (final Map.Entry <? extends KEYTYPE, ? extends VALUETYPE> aEntry : aMap.entrySet ())
+      eChange = eChange.or (putSingle (aEntry.getKey (), aEntry.getValue ()));
+    return eChange;
+  }
 
   /**
    * Remove a single element from the container identified by the passed key.
@@ -82,7 +91,11 @@ public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VAL
    * @return {@link EChange}
    */
   @Nonnull
-  EChange removeSingle (@Nonnull KEYTYPE aKey, @Nullable VALUETYPE aValue);
+  default EChange removeSingle (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  {
+    final COLLTYPE aCont = get (aKey);
+    return aCont == null ? EChange.UNCHANGED : EChange.valueOf (aCont.remove (aValue));
+  }
 
   /**
    * Check a single element from the container identified by the passed key is
@@ -95,12 +108,22 @@ public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VAL
    * @return <code>true</code> if the value is contained, <code>false</code>
    *         otherwise
    */
-  boolean containsSingle (@Nonnull KEYTYPE aKey, @Nullable VALUETYPE aValue);
+  default boolean containsSingle (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  {
+    final COLLTYPE aCont = get (aKey);
+    return aCont != null && aCont.contains (aValue);
+  }
 
   /**
    * @return The total number of contained values recursively over all contained
    *         maps. Always &ge; 0.
    */
   @Nonnegative
-  long getTotalValueCount ();
+  default long getTotalValueCount ()
+  {
+    long ret = 0;
+    for (final Collection <?> aChild : values ())
+      ret += aChild.size ();
+    return ret;
+  }
 }

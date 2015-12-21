@@ -31,5 +31,8 @@ public interface IFinishIndicator
   /**
    * @return <code>true</code> if unfinished and <code>false</code> if finished.
    */
-  boolean isUnfinished ();
+  default boolean isUnfinished ()
+  {
+    return !isFinished ();
+  }
 }

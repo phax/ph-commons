@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class ConstantHasTextWithArgs extends AbstractHasTextWithArgs
+public class ConstantHasTextWithArgs extends AbstractHasText implements IHasTextWithArgs
 {
   private final String m_sFixedText;
 

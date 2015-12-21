@@ -37,7 +37,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  *        value type
  */
 @NotThreadSafe
-public class MultiLinkedHashMapLinkedHashSetBased <KEYTYPE, VALUETYPE> extends AbstractMultiLinkedHashMapSetBased <KEYTYPE, VALUETYPE>
+public class MultiLinkedHashMapLinkedHashSetBased <KEYTYPE, VALUETYPE>
+                                                  extends AbstractMultiLinkedHashMapSetBased <KEYTYPE, VALUETYPE>
 {
   public MultiLinkedHashMapLinkedHashSetBased ()
   {}

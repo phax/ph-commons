@@ -31,17 +31,17 @@ import com.helger.commons.lang.EnumHelper;
  */
 public enum EXMLCharMode implements IHasID <String>
 {
- /** Element name */
+  /** Element name */
   ELEMENT_NAME ("element"),
- /** Attribute name */
+  /** Attribute name */
   ATTRIBUTE_NAME ("attrname"),
- /** Attribute value surrounded by double quotes */
+  /** Attribute value surrounded by double quotes */
   ATTRIBUTE_VALUE_DOUBLE_QUOTES ("attrvaldq"),
- /** Attribute value surrounded by single quotes */
+  /** Attribute value surrounded by single quotes */
   ATTRIBUTE_VALUE_SINGLE_QUOTES ("attrvalsq"),
- /** Text content */
+  /** Text content */
   TEXT ("text"),
- /** CDATA content */
+  /** CDATA content */
   CDATA ("cdata");
 
   private final String m_sID;

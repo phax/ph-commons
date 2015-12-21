@@ -16,6 +16,8 @@
  */
 package com.helger.commons.convert;
 
+import com.helger.commons.annotation.DevelopersNote;
+
 /**
  * This is a very simple type conversion interface for compile type conversions.
  *
@@ -36,6 +38,7 @@ public interface IBidirectionalConverter <SRCTYPE, DSTTYPE>
    * @return The DST object. No <code>null</code> or non- <code>null</code>
    *         constraint possible.
    */
+  @DevelopersNote ("No nullable annotation possible")
   DSTTYPE convertToDst (SRCTYPE aSource);
 
   /**
@@ -47,5 +50,6 @@ public interface IBidirectionalConverter <SRCTYPE, DSTTYPE>
    * @return The SRC object. No <code>null</code> or non- <code>null</code>
    *         constraint possible.
    */
+  @DevelopersNote ("No nullable annotation possible")
   SRCTYPE convertToSrc (DSTTYPE aDest);
 }

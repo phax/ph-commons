@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.equals.EqualsHelper;
 
 /**
  * Interface for a single request scope object.
@@ -39,7 +40,10 @@ public interface IRequestScope extends IScope
    */
   @Nonnull
   @Nonempty
-  String getSessionID ();
+  default String getSessionID ()
+  {
+    return getSessionID (true);
+  }
 
   /**
    * @param bCreateIfNotExisting
@@ -59,7 +63,10 @@ public interface IRequestScope extends IScope
    * @return <code>null</code> if no such attribute value exists
    */
   @Nullable
-  List <String> getAttributeAsList (@Nullable String sName);
+  default List <String> getAttributeAsList (@Nullable final String sName)
+  {
+    return getAttributeAsList (sName, null);
+  }
 
   /**
    * Get a list of all attribute values with the same name.
@@ -84,7 +91,10 @@ public interface IRequestScope extends IScope
    * @return <code>true</code> if an attribute with the given name is present
    *         and has the desired value
    */
-  boolean hasAttributeValue (@Nullable String sName, @Nullable String sDesiredValue);
+  default boolean hasAttributeValue (@Nullable final String sName, @Nullable final String sDesiredValue)
+  {
+    return EqualsHelper.equals (getAttributeAsString (sName), sDesiredValue);
+  }
 
   /**
    * Check if a attribute with the given name is present in the request and has
@@ -103,5 +113,11 @@ public interface IRequestScope extends IScope
    *         present but has a different value. If the attribute is not present,
    *         the default value is returned.
    */
-  boolean hasAttributeValue (@Nullable String sName, @Nullable String sDesiredValue, boolean bDefault);
+  default boolean hasAttributeValue (@Nullable final String sName,
+                                     @Nullable final String sDesiredValue,
+                                     final boolean bDefault)
+  {
+    final String sValue = getAttributeAsString (sName);
+    return sValue == null ? bDefault : EqualsHelper.equals (sValue, sDesiredValue);
+  }
 }

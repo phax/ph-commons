@@ -31,7 +31,8 @@ import com.helger.commons.annotation.OverrideOnDemand;
  * @param <IMPLTYPE>
  *        Real implementation type
  */
-public abstract class AbstractMutableNumeric <IMPLTYPE extends AbstractMutableNumeric <IMPLTYPE>> extends Number implements IMutableNumeric <IMPLTYPE>
+public abstract class AbstractMutableNumeric <IMPLTYPE extends AbstractMutableNumeric <IMPLTYPE>> extends Number
+                                             implements IMutableNumeric <IMPLTYPE>
 {
   /**
    * This method is invoked after a value changed. This method is also called if

@@ -20,18 +20,35 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.validation.Schema;
 
+import com.helger.commons.lang.IHasClassLoader;
+
 /**
  * A simple interface, indicating that an item has a Schema object.
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasSchema
 {
   /**
    * @return The non-<code>null</code> Schema object
    */
   @Nonnull
-  Schema getSchema ();
+  default Schema getSchema ()
+  {
+    return getSchema ((ClassLoader) null);
+  }
+
+  /**
+   * @param aClassLoaderProvider
+   *        ClassLoader provider. May not be <code>null</code>.
+   * @return The non-<code>null</code> Schema object
+   */
+  @Nonnull
+  default Schema getSchema (@Nonnull final IHasClassLoader aClassLoaderProvider)
+  {
+    return getSchema (aClassLoaderProvider.getClassLoader ());
+  }
 
   /**
    * @param aClassLoader

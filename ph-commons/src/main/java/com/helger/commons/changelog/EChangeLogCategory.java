@@ -30,15 +30,15 @@ import com.helger.commons.lang.EnumHelper;
  */
 public enum EChangeLogCategory implements IHasID <String>
 {
- API ("api"),
- TECH ("tech"),
- USER_INTERFACE ("ui"),
- FEATURE ("feature"),
- BUSINESS_LOGIC ("businesslogic"),
- SECURITY ("security"),
- TEST ("test"),
- DATA ("data"),
- PERFORMANCE ("performance");
+  API ("api"),
+  TECH ("tech"),
+  USER_INTERFACE ("ui"),
+  FEATURE ("feature"),
+  BUSINESS_LOGIC ("businesslogic"),
+  SECURITY ("security"),
+  TEST ("test"),
+  DATA ("data"),
+  PERFORMANCE ("performance");
 
   private final String m_sID;
 

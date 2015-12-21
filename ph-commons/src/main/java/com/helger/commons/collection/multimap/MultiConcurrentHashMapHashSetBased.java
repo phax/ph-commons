@@ -38,7 +38,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  *        value type
  */
 @NotThreadSafe
-public class MultiConcurrentHashMapHashSetBased <KEYTYPE, VALUETYPE> extends AbstractMultiConcurrentHashMapSetBased <KEYTYPE, VALUETYPE>
+public class MultiConcurrentHashMapHashSetBased <KEYTYPE, VALUETYPE>
+                                                extends AbstractMultiConcurrentHashMapSetBased <KEYTYPE, VALUETYPE>
 {
   public MultiConcurrentHashMapHashSetBased ()
   {}

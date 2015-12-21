@@ -24,14 +24,15 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.text.AbstractHasTextWithArgs;
+import com.helger.commons.text.AbstractHasText;
+import com.helger.commons.text.IHasTextWithArgs;
 
 /**
  * This class encapsulates the resource bundle handling.
  *
  * @author Philip Helger
  */
-public class ResourceBundleTextProvider extends AbstractHasTextWithArgs
+public class ResourceBundleTextProvider extends AbstractHasText implements IHasTextWithArgs
 {
   private final ResourceBundleKey m_aResBundleKey;
 

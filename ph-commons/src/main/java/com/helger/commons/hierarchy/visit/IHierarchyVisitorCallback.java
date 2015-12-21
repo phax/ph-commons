@@ -33,7 +33,8 @@ public interface IHierarchyVisitorCallback <DATATYPE> extends ICallback
   /**
    * Called before the tree walking starts.
    */
-  void begin ();
+  default void begin ()
+  {}
 
   /**
    * @return The level of the current node within the hierarchy. Always &ge; 0.
@@ -46,13 +47,15 @@ public interface IHierarchyVisitorCallback <DATATYPE> extends ICallback
    * Called before the tree walker descends into the next tree level. After this
    * call {@link #getLevel()} should return a value increased by 1.
    */
-  void onLevelDown ();
+  default void onLevelDown ()
+  {}
 
   /**
    * Called after the tree walker ascends into the previous tree level. After
    * this call {@link #getLevel()} should return a value decreased by 1.
    */
-  void onLevelUp ();
+  default void onLevelUp ()
+  {}
 
   /**
    * Called before children of the current item are visited. This method is also
@@ -83,5 +86,6 @@ public interface IHierarchyVisitorCallback <DATATYPE> extends ICallback
   /**
    * Called after the tree walking ended.
    */
-  void end ();
+  default void end ()
+  {}
 }

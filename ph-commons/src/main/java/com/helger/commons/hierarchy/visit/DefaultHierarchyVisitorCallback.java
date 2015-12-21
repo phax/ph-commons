@@ -42,9 +42,6 @@ public class DefaultHierarchyVisitorCallback <DATATYPE> implements IHierarchyVis
     m_nLevel = nInitialLevel;
   }
 
-  public void begin ()
-  {}
-
   @Nonnegative
   public int getLevel ()
   {
@@ -76,7 +73,4 @@ public class DefaultHierarchyVisitorCallback <DATATYPE> implements IHierarchyVis
     // Always continue
     return EHierarchyVisitorReturn.CONTINUE;
   }
-
-  public void end ()
-  {}
 }

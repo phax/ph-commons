@@ -31,7 +31,8 @@ import javax.annotation.concurrent.NotThreadSafe;
  *        The part type that is extracted from the data element and compared
  */
 @NotThreadSafe
-public abstract class AbstractPartComparatorComparable <DATATYPE, PARTTYPE extends Comparable <? super PARTTYPE>> extends AbstractComparator <DATATYPE>
+public abstract class AbstractPartComparatorComparable <DATATYPE, PARTTYPE extends Comparable <? super PARTTYPE>>
+                                                       extends AbstractComparator <DATATYPE>
 {
   /**
    * Comparator with default sort order.

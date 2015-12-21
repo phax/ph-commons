@@ -28,11 +28,11 @@ import com.helger.commons.annotation.Nonempty;
  */
 public enum ENewLineMode
 {
- /** Unix style - just \n (0x0A) */
+  /** Unix style - just \n (0x0A) */
   UNIX ("\n"),
- /** Mac style - just \r (0x0D) */
+  /** Mac style - just \r (0x0D) */
   MAC ("\r"),
- /** Windows style - \r\n (0x0D 0x0A) */
+  /** Windows style - \r\n (0x0D 0x0A) */
   WINDOWS ("\r\n");
 
   /** The default newline mode as indicated by the system properties */

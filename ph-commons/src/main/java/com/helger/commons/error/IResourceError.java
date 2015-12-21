@@ -35,7 +35,13 @@ import com.helger.commons.text.display.IHasDisplayText;
  *
  * @author Philip Helger
  */
-public interface IResourceError extends IHasErrorLevel, IHasDisplayText, ISuccessIndicator, IErrorIndicator, ISeverityComparable <IResourceError>, Serializable
+public interface IResourceError extends
+                                IHasErrorLevel,
+                                IHasDisplayText,
+                                ISuccessIndicator,
+                                IErrorIndicator,
+                                ISeverityComparable <IResourceError>,
+                                Serializable
 {
   /**
    * @return The non-<code>null</code> location of the error.
