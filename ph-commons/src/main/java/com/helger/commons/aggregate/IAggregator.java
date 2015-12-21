@@ -66,7 +66,7 @@ public interface IAggregator <SRCTYPE, DSTTYPE>
   }
 
   @Nonnull
-  static <SRCTYPE, DSTTYPE> IAggregator <SRCTYPE, DSTTYPE> createConstant (final DSTTYPE aValue)
+  static <SRCTYPE, DSTTYPE> IAggregator <SRCTYPE, DSTTYPE> createConstant (@Nullable final DSTTYPE aValue)
   {
     return x -> aValue;
   }
