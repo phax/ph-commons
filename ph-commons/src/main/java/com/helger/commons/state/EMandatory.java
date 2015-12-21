@@ -34,18 +34,6 @@ public enum EMandatory implements IMandatoryIndicator
   }
 
   @Nonnull
-  public EMandatory or (@Nonnull final IMandatoryIndicator aMandatory)
-  {
-    return valueOf (isMandatory () || aMandatory.isMandatory ());
-  }
-
-  @Nonnull
-  public EMandatory and (@Nonnull final IMandatoryIndicator aMandatory)
-  {
-    return valueOf (isMandatory () && aMandatory.isMandatory ());
-  }
-
-  @Nonnull
   public static EMandatory valueOf (final boolean bMandatory)
   {
     return bMandatory ? MANDATORY : OPTIONAL;

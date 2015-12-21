@@ -34,18 +34,6 @@ public enum EInterrupt implements IInterruptIndicator
   }
 
   @Nonnull
-  public EInterrupt or (@Nonnull final IInterruptIndicator aInterrupt)
-  {
-    return valueOf (isInterrupted () || aInterrupt.isInterrupted ());
-  }
-
-  @Nonnull
-  public EInterrupt and (@Nonnull final IInterruptIndicator aInterrupt)
-  {
-    return valueOf (isInterrupted () && aInterrupt.isInterrupted ());
-  }
-
-  @Nonnull
   public static EInterrupt valueOf (final boolean bInterrupted)
   {
     return bInterrupted ? INTERRUPTED : NOT_INTERRUPTED;

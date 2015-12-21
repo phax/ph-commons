@@ -34,18 +34,6 @@ public enum ESuccess implements ISuccessIndicator
   }
 
   @Nonnull
-  public ESuccess or (@Nonnull final ISuccessIndicator aSuccess)
-  {
-    return valueOf (isSuccess () || aSuccess.isSuccess ());
-  }
-
-  @Nonnull
-  public ESuccess and (@Nonnull final ISuccessIndicator aSuccess)
-  {
-    return valueOf (isSuccess () && aSuccess.isSuccess ());
-  }
-
-  @Nonnull
   public static ESuccess valueOf (final boolean bSuccess)
   {
     return bSuccess ? SUCCESS : FAILURE;

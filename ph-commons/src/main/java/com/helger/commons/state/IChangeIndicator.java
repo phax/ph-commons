@@ -16,6 +16,8 @@
  */
 package com.helger.commons.state;
 
+import javax.annotation.Nonnull;
+
 /**
  * Very simple interface for an object that has changed/unchanged indication.
  *
@@ -34,5 +36,17 @@ public interface IChangeIndicator
   default boolean isUnchanged ()
   {
     return !isChanged ();
+  }
+
+  @Nonnull
+  default EChange or (@Nonnull final IChangeIndicator aChange)
+  {
+    return EChange.valueOf (isChanged () || aChange.isChanged ());
+  }
+
+  @Nonnull
+  default EChange and (@Nonnull final IChangeIndicator aChange)
+  {
+    return EChange.valueOf (isChanged () && aChange.isChanged ());
   }
 }

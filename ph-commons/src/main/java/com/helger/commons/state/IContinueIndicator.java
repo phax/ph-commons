@@ -16,6 +16,8 @@
  */
 package com.helger.commons.state;
 
+import javax.annotation.Nonnull;
+
 /**
  * Very simple interface for an object that has continue/break indication.
  *
@@ -34,5 +36,17 @@ public interface IContinueIndicator
   default boolean isBreak ()
   {
     return !isContinue ();
+  }
+
+  @Nonnull
+  default EContinue or (@Nonnull final IContinueIndicator aContinue)
+  {
+    return EContinue.valueOf (isContinue () || aContinue.isContinue ());
+  }
+
+  @Nonnull
+  default EContinue and (@Nonnull final IContinueIndicator aContinue)
+  {
+    return EContinue.valueOf (isContinue () && aContinue.isContinue ());
   }
 }

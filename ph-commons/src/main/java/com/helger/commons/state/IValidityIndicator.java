@@ -16,6 +16,8 @@
  */
 package com.helger.commons.state;
 
+import javax.annotation.Nonnull;
+
 /**
  * Very simple interface for an object that has valid/invalid indication.
  *
@@ -34,5 +36,17 @@ public interface IValidityIndicator
   default boolean isInvalid ()
   {
     return !isValid ();
+  }
+
+  @Nonnull
+  default EValidity or (@Nonnull final IValidityIndicator aValidity)
+  {
+    return EValidity.valueOf (isValid () || aValidity.isValid ());
+  }
+
+  @Nonnull
+  default EValidity and (@Nonnull final IValidityIndicator aValidity)
+  {
+    return EValidity.valueOf (isValid () && aValidity.isValid ());
   }
 }

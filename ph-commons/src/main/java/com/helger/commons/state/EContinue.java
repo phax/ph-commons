@@ -34,18 +34,6 @@ public enum EContinue implements IContinueIndicator
   }
 
   @Nonnull
-  public EContinue or (@Nonnull final IContinueIndicator aContinue)
-  {
-    return valueOf (isContinue () || aContinue.isContinue ());
-  }
-
-  @Nonnull
-  public EContinue and (@Nonnull final IContinueIndicator aContinue)
-  {
-    return valueOf (isContinue () && aContinue.isContinue ());
-  }
-
-  @Nonnull
   public static EContinue valueOf (final boolean bContinue)
   {
     return bContinue ? CONTINUE : BREAK;

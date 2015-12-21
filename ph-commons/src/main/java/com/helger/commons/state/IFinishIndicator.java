@@ -16,6 +16,8 @@
  */
 package com.helger.commons.state;
 
+import javax.annotation.Nonnull;
+
 /**
  * Very simple interface for an object that has finished/unfinished indication.
  *
@@ -34,5 +36,17 @@ public interface IFinishIndicator
   default boolean isUnfinished ()
   {
     return !isFinished ();
+  }
+
+  @Nonnull
+  default EFinish or (@Nonnull final IFinishIndicator aFinish)
+  {
+    return EFinish.valueOf (isFinished () || aFinish.isFinished ());
+  }
+
+  @Nonnull
+  default EFinish and (@Nonnull final IFinishIndicator aFinish)
+  {
+    return EFinish.valueOf (isFinished () && aFinish.isFinished ());
   }
 }

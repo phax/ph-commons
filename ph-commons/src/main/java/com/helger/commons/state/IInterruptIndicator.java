@@ -16,6 +16,8 @@
  */
 package com.helger.commons.state;
 
+import javax.annotation.Nonnull;
+
 /**
  * Very simple interface for an object that has interrupted indication.
  *
@@ -34,5 +36,17 @@ public interface IInterruptIndicator
   default boolean isNotInterrupted ()
   {
     return !isInterrupted ();
+  }
+
+  @Nonnull
+  default EInterrupt or (@Nonnull final IInterruptIndicator aInterrupt)
+  {
+    return EInterrupt.valueOf (isInterrupted () || aInterrupt.isInterrupted ());
+  }
+
+  @Nonnull
+  default EInterrupt and (@Nonnull final IInterruptIndicator aInterrupt)
+  {
+    return EInterrupt.valueOf (isInterrupted () && aInterrupt.isInterrupted ());
   }
 }

@@ -34,18 +34,6 @@ public enum EEnabled implements IEnabledIndicator
   }
 
   @Nonnull
-  public EEnabled or (@Nonnull final IEnabledIndicator aEnabled)
-  {
-    return valueOf (isEnabled () || aEnabled.isEnabled ());
-  }
-
-  @Nonnull
-  public EEnabled and (@Nonnull final IEnabledIndicator aEnabled)
-  {
-    return valueOf (isEnabled () && aEnabled.isEnabled ());
-  }
-
-  @Nonnull
   public static EEnabled valueOf (final boolean bEnabled)
   {
     return bEnabled ? ENABLED : DISABLED;

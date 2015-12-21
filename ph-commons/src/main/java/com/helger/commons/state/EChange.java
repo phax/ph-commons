@@ -34,18 +34,6 @@ public enum EChange implements IChangeIndicator
   }
 
   @Nonnull
-  public EChange or (@Nonnull final IChangeIndicator aChange)
-  {
-    return valueOf (isChanged () || aChange.isChanged ());
-  }
-
-  @Nonnull
-  public EChange and (@Nonnull final IChangeIndicator aChange)
-  {
-    return valueOf (isChanged () && aChange.isChanged ());
-  }
-
-  @Nonnull
   public static EChange valueOf (final boolean bChanged)
   {
     return bChanged ? CHANGED : UNCHANGED;

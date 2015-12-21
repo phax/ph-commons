@@ -34,18 +34,6 @@ public enum EValidity implements IValidityIndicator
   }
 
   @Nonnull
-  public EValidity or (@Nonnull final IValidityIndicator aValidity)
-  {
-    return valueOf (isValid () || aValidity.isValid ());
-  }
-
-  @Nonnull
-  public EValidity and (@Nonnull final IValidityIndicator aValidity)
-  {
-    return valueOf (isValid () && aValidity.isValid ());
-  }
-
-  @Nonnull
   public static EValidity valueOf (final boolean bValidity)
   {
     return bValidity ? VALID : INVALID;

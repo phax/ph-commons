@@ -34,18 +34,6 @@ public enum EFinish implements IFinishIndicator
   }
 
   @Nonnull
-  public EFinish or (@Nonnull final IFinishIndicator aFinish)
-  {
-    return valueOf (isFinished () || aFinish.isFinished ());
-  }
-
-  @Nonnull
-  public EFinish and (@Nonnull final IFinishIndicator aFinish)
-  {
-    return valueOf (isFinished () && aFinish.isFinished ());
-  }
-
-  @Nonnull
   public static EFinish valueOf (final boolean bFinished)
   {
     return bFinished ? FINISHED : UNFINISHED;

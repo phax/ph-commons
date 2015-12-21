@@ -16,6 +16,8 @@
  */
 package com.helger.commons.state;
 
+import javax.annotation.Nonnull;
+
 /**
  * Very simple interface for an object that has success/failure indication.
  *
@@ -34,5 +36,17 @@ public interface ISuccessIndicator
   default boolean isFailure ()
   {
     return !isSuccess ();
+  }
+
+  @Nonnull
+  default ESuccess or (@Nonnull final ISuccessIndicator aSuccess)
+  {
+    return ESuccess.valueOf (isSuccess () || aSuccess.isSuccess ());
+  }
+
+  @Nonnull
+  default ESuccess and (@Nonnull final ISuccessIndicator aSuccess)
+  {
+    return ESuccess.valueOf (isSuccess () && aSuccess.isSuccess ());
   }
 }

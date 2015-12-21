@@ -16,6 +16,8 @@
  */
 package com.helger.commons.state;
 
+import javax.annotation.Nonnull;
+
 /**
  * Simple interface for all objects that can be enabled and disabled.
  *
@@ -36,5 +38,17 @@ public interface IEnabledIndicator
   default boolean isDisabled ()
   {
     return !isEnabled ();
+  }
+
+  @Nonnull
+  default EEnabled or (@Nonnull final IEnabledIndicator aEnabled)
+  {
+    return EEnabled.valueOf (isEnabled () || aEnabled.isEnabled ());
+  }
+
+  @Nonnull
+  default EEnabled and (@Nonnull final IEnabledIndicator aEnabled)
+  {
+    return EEnabled.valueOf (isEnabled () && aEnabled.isEnabled ());
   }
 }

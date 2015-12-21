@@ -16,6 +16,8 @@
  */
 package com.helger.commons.state;
 
+import javax.annotation.Nonnull;
+
 /**
  * Very simple interface for an object that has mandatory/optional indication.
  *
@@ -36,5 +38,17 @@ public interface IMandatoryIndicator
   default boolean isOptional ()
   {
     return !isMandatory ();
+  }
+
+  @Nonnull
+  default EMandatory or (@Nonnull final IMandatoryIndicator aMandatory)
+  {
+    return EMandatory.valueOf (isMandatory () || aMandatory.isMandatory ());
+  }
+
+  @Nonnull
+  default EMandatory and (@Nonnull final IMandatoryIndicator aMandatory)
+  {
+    return EMandatory.valueOf (isMandatory () && aMandatory.isMandatory ());
   }
 }
