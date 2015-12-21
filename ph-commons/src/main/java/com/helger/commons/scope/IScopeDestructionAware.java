@@ -38,7 +38,8 @@ public interface IScopeDestructionAware
    * @throws Exception
    *         in case of an error
    */
-  void onBeforeScopeDestruction (@Nonnull IScope aScopeToBeDestroyed) throws Exception;
+  default void onBeforeScopeDestruction (@Nonnull final IScope aScopeToBeDestroyed) throws Exception
+  {}
 
   /**
    * Called when the owning scope is destroyed. You may perform some cleanup
@@ -50,5 +51,6 @@ public interface IScopeDestructionAware
    * @throws Exception
    *         in case of an error
    */
-  void onScopeDestruction (@Nonnull IScope aScopeInDestruction) throws Exception;
+  default void onScopeDestruction (@Nonnull final IScope aScopeInDestruction) throws Exception
+  {}
 }
