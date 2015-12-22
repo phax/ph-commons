@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.Instant;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Ignore;
@@ -230,7 +230,7 @@ public final class HashCodeGeneratorTest
         for (int j = 0; j < i; ++j)
           aSB.append ("(byte)").append (aBytes[i]).append (',');
         aSB.append ("};");
-        SimpleFileIO.writeFile (new File ("HashCode0" + new Date ().getTime () + ".txt"),
+        SimpleFileIO.writeFile (new File ("HashCode0" + Instant.now ().toEpochMilli () + ".txt"),
                                 aSB.toString (),
                                 CCharset.CHARSET_ISO_8859_1_OBJ);
         b.set (true);
