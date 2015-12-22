@@ -17,10 +17,8 @@
 package com.helger.commons.typeconvert;
 
 import java.time.Instant;
-import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
@@ -39,7 +37,7 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
 {
   public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
   {
-    // Calendar
+    // Source: Calendar
     aRegistry.registerTypeConverter (Calendar.class,
                                      String.class,
                                      aSource -> Long.toString (aSource.getTimeInMillis ()));
@@ -57,12 +55,7 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
       return aCal;
     });
 
-    // GregorianCalendar
-    aRegistry.registerTypeConverter (GregorianCalendar.class,
-                                     ZonedDateTime.class,
-                                     aSource -> aSource.toZonedDateTime ());
-
-    // Date
+    // Source: Date
     aRegistry.registerTypeConverter (Date.class, Calendar.class, aSource -> {
       final Calendar aCal = Calendar.getInstance ();
       aCal.setTime (aSource);
