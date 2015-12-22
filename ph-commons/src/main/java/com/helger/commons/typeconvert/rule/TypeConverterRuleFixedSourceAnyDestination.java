@@ -82,11 +82,4 @@ public final class TypeConverterRuleFixedSourceAnyDestination <SRC> extends Abst
                             .append ("inBetweenConverter", m_aInBetweenConverter)
                             .toString ();
   }
-
-  @Nonnull
-  public static <SRC> TypeConverterRuleFixedSourceAnyDestination <SRC> create (@Nonnull final Class <SRC> aSrcClass,
-                                                                               @Nonnull final Function <SRC, Object> aInBetweenConverter)
-  {
-    return new TypeConverterRuleFixedSourceAnyDestination <SRC> (aSrcClass, aInBetweenConverter);
-  }
 }

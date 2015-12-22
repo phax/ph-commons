@@ -33,7 +33,6 @@ import com.helger.commons.mutable.MutableFloat;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.mutable.MutableLong;
 import com.helger.commons.mutable.MutableShort;
-import com.helger.commons.typeconvert.rule.TypeConverterRuleFixedSourceAnyDestination;
 
 /**
  * Register the mutable* specific type converter
@@ -51,8 +50,8 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverter (BigDecimal.class,
                                      MutableBigDecimal.class,
                                      aSource -> new MutableBigDecimal (aSource));
-    aRegistry.registerTypeConverterRule (TypeConverterRuleFixedSourceAnyDestination.create (MutableBigDecimal.class,
-                                                                                            aSource -> aSource.getAsBigDecimal ()));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableBigDecimal.class,
+                                                                  aSource -> aSource.getAsBigDecimal ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableBigDecimal.class,
                                                                   aSource -> new MutableBigDecimal (TypeConverter.convertIfNecessary (aSource,
                                                                                                                                       BigDecimal.class)));
@@ -62,8 +61,8 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverter (BigInteger.class,
                                      MutableBigInteger.class,
                                      aSource -> new MutableBigInteger (aSource));
-    aRegistry.registerTypeConverterRule (TypeConverterRuleFixedSourceAnyDestination.create (MutableBigInteger.class,
-                                                                                            aSource -> aSource.getAsBigInteger ()));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableBigInteger.class,
+                                                                  aSource -> aSource.getAsBigInteger ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableBigInteger.class,
                                                                   aSource -> new MutableBigInteger (TypeConverter.convertIfNecessary (aSource,
                                                                                                                                       BigInteger.class)));
@@ -71,8 +70,8 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     // MutableBoolean
     aRegistry.registerTypeConverter (MutableBoolean.class, Boolean.class, aSource -> aSource.getAsBoolean ());
     aRegistry.registerTypeConverter (Boolean.class, MutableBoolean.class, aSource -> new MutableBoolean (aSource));
-    aRegistry.registerTypeConverterRule (TypeConverterRuleFixedSourceAnyDestination.create (MutableBoolean.class,
-                                                                                            aSource -> aSource.getAsBoolean ()));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableBoolean.class,
+                                                                  aSource -> aSource.getAsBoolean ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableBoolean.class,
                                                                   aSource -> new MutableBoolean (TypeConverter.convertIfNecessary (aSource,
                                                                                                                                    Boolean.class)));
@@ -80,8 +79,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     // MutableByte
     aRegistry.registerTypeConverter (MutableByte.class, Byte.class, aSource -> aSource.getAsByte ());
     aRegistry.registerTypeConverter (Byte.class, MutableByte.class, aSource -> new MutableByte (aSource));
-    aRegistry.registerTypeConverterRule (TypeConverterRuleFixedSourceAnyDestination.create (MutableByte.class,
-                                                                                            aSource -> aSource.getAsByte ()));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableByte.class, aSource -> aSource.getAsByte ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableByte.class,
                                                                   aSource -> new MutableByte (TypeConverter.convertIfNecessary (aSource,
                                                                                                                                 Byte.class)));
@@ -89,8 +87,8 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     // MutableChar
     aRegistry.registerTypeConverter (MutableChar.class, Character.class, aSource -> aSource.getAsCharacter ());
     aRegistry.registerTypeConverter (Character.class, MutableChar.class, aSource -> new MutableChar (aSource));
-    aRegistry.registerTypeConverterRule (TypeConverterRuleFixedSourceAnyDestination.create (MutableChar.class,
-                                                                                            aSource -> aSource.getAsCharacter ()));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableChar.class,
+                                                                  aSource -> aSource.getAsCharacter ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableChar.class,
                                                                   aSource -> new MutableChar (TypeConverter.convertIfNecessary (aSource,
                                                                                                                                 Character.class)));
@@ -98,8 +96,8 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     // MutableDouble
     aRegistry.registerTypeConverter (MutableDouble.class, Double.class, aSource -> aSource.getAsDouble ());
     aRegistry.registerTypeConverter (Double.class, MutableDouble.class, aSource -> new MutableDouble (aSource));
-    aRegistry.registerTypeConverterRule (TypeConverterRuleFixedSourceAnyDestination.create (MutableDouble.class,
-                                                                                            aSource -> aSource.getAsDouble ()));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableDouble.class,
+                                                                  aSource -> aSource.getAsDouble ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableDouble.class,
                                                                   aSource -> new MutableDouble (TypeConverter.convertIfNecessary (aSource,
                                                                                                                                   Double.class)));
@@ -107,8 +105,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     // MutableFloat
     aRegistry.registerTypeConverter (MutableFloat.class, Float.class, aSource -> aSource.getAsFloat ());
     aRegistry.registerTypeConverter (Float.class, MutableFloat.class, aSource -> new MutableFloat (aSource));
-    aRegistry.registerTypeConverterRule (TypeConverterRuleFixedSourceAnyDestination.create (MutableFloat.class,
-                                                                                            aSource -> aSource.getAsFloat ()));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableFloat.class, aSource -> aSource.getAsFloat ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableFloat.class,
                                                                   aSource -> new MutableFloat (TypeConverter.convertIfNecessary (aSource,
                                                                                                                                  Float.class)));
@@ -116,8 +113,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     // MutableInt
     aRegistry.registerTypeConverter (MutableInt.class, Integer.class, aSource -> aSource.getAsInteger ());
     aRegistry.registerTypeConverter (Integer.class, MutableInt.class, aSource -> new MutableInt (aSource));
-    aRegistry.registerTypeConverterRule (TypeConverterRuleFixedSourceAnyDestination.create (MutableInt.class,
-                                                                                            aSource -> aSource.getAsInteger ()));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableInt.class, aSource -> aSource.getAsInteger ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableInt.class,
                                                                   aSource -> new MutableInt (TypeConverter.convertIfNecessary (aSource,
                                                                                                                                Integer.class)));
@@ -125,8 +121,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     // MutableLong
     aRegistry.registerTypeConverter (MutableLong.class, Long.class, aSource -> aSource.getAsLong ());
     aRegistry.registerTypeConverter (Long.class, MutableLong.class, aSource -> new MutableLong (aSource));
-    aRegistry.registerTypeConverterRule (TypeConverterRuleFixedSourceAnyDestination.create (MutableLong.class,
-                                                                                            aSource -> aSource.getAsLong ()));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableLong.class, aSource -> aSource.getAsLong ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableLong.class,
                                                                   aSource -> new MutableLong (TypeConverter.convertIfNecessary (aSource,
                                                                                                                                 Long.class)));
@@ -134,8 +129,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     // MutableShort
     aRegistry.registerTypeConverter (MutableShort.class, Short.class, aSource -> aSource.getAsShort ());
     aRegistry.registerTypeConverter (Short.class, MutableShort.class, aSource -> new MutableShort (aSource));
-    aRegistry.registerTypeConverterRule (TypeConverterRuleFixedSourceAnyDestination.create (MutableShort.class,
-                                                                                            aSource -> aSource.getAsShort ()));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableShort.class, aSource -> aSource.getAsShort ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableShort.class,
                                                                   aSource -> new MutableShort (TypeConverter.convertIfNecessary (aSource,
                                                                                                                                  Short.class)));

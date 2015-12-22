@@ -83,12 +83,4 @@ public final class TypeConverterRuleAssignableSourceFixedDestination <SRC, DST>
                             .append ("converter", m_aConverter)
                             .toString ();
   }
-
-  @Nonnull
-  public static <SRC, DST> TypeConverterRuleAssignableSourceFixedDestination <SRC, DST> create (@Nonnull final Class <SRC> aSrcClass,
-                                                                                                @Nonnull final Class <DST> aDstClass,
-                                                                                                @Nonnull final Function <SRC, DST> aConverter)
-  {
-    return new TypeConverterRuleAssignableSourceFixedDestination <SRC, DST> (aSrcClass, aDstClass, aConverter);
-  }
 }

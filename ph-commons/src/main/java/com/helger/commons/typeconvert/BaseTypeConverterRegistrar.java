@@ -31,8 +31,6 @@ import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
-import com.helger.commons.typeconvert.rule.TypeConverterRuleFixedSourceAnyDestination;
-import com.helger.commons.typeconvert.rule.TypeConverterRuleFixedSourceAssignableDestination;
 
 /**
  * Register the base type converter
@@ -199,23 +197,23 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
                                                                                                            (BigInteger) null));
 
     // AtomicBoolean
-    aRegistry.registerTypeConverterRule (TypeConverterRuleFixedSourceAnyDestination.create (AtomicBoolean.class,
-                                                                                            aSource -> Boolean.valueOf (aSource.get ())));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (AtomicBoolean.class,
+                                                                  aSource -> Boolean.valueOf (aSource.get ()));
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (AtomicBoolean.class,
                                                                   aSource -> new AtomicBoolean (TypeConverter.convertIfNecessary (aSource,
                                                                                                                                   Boolean.class)
                                                                                                              .booleanValue ()));
     // AtomicInteger
-    aRegistry.registerTypeConverterRule (TypeConverterRuleFixedSourceAnyDestination.create (AtomicInteger.class,
-                                                                                            aSource -> Integer.valueOf (aSource.get ())));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (AtomicInteger.class,
+                                                                  aSource -> Integer.valueOf (aSource.get ()));
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (AtomicInteger.class,
                                                                   aSource -> new AtomicInteger (TypeConverter.convertIfNecessary (aSource,
                                                                                                                                   Integer.class)
                                                                                                              .intValue ()));
 
     // AtomicLong
-    aRegistry.registerTypeConverterRule (TypeConverterRuleFixedSourceAnyDestination.create (AtomicLong.class,
-                                                                                            aSource -> Long.valueOf (aSource.get ())));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (AtomicLong.class,
+                                                                  aSource -> Long.valueOf (aSource.get ()));
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (AtomicLong.class,
                                                                   aSource -> new AtomicLong (TypeConverter.convertIfNecessary (aSource,
                                                                                                                                Long.class)
@@ -242,70 +240,29 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
      * Use the colon as it is not allowed in class names.
      */
     aSource.getClass ().getName () + ':' + ((Enum <?>) aSource).name ());
-    aRegistry.registerTypeConverterRule (TypeConverterRuleFixedSourceAssignableDestination.create (String.class,
-                                                                                                   Enum.class,
-                                                                                                   aSource -> {
-                                                                                                     /*
-                                                                                                      * Split
-                                                                                                      * class
-                                                                                                      * name
-                                                                                                      * and
-                                                                                                      * enum
-                                                                                                      * value
-                                                                                                      * name
-                                                                                                      */
-                                                                                                     final List <String> aParts = StringHelper.getExploded (':',
-                                                                                                                                                            aSource,
-                                                                                                                                                            2);
-                                                                                                     try
-                                                                                                     {
-                                                                                                       /*
-                                                                                                        * Resolve
-                                                                                                        * any
-                                                                                                        * enum
-                                                                                                        * class.
-                                                                                                        * Note:
-                                                                                                        * The
-                                                                                                        * explicit
-                                                                                                        * EChange
-                                                                                                        * is
-                                                                                                        * just
-                                                                                                        * here,
-                                                                                                        * because
-                                                                                                        * an
-                                                                                                        * explicit
-                                                                                                        * enum
-                                                                                                        * type
-                                                                                                        * is
-                                                                                                        * needed.
-                                                                                                        * It
-                                                                                                        * must
-                                                                                                        * of
-                                                                                                        * course
-                                                                                                        * not
-                                                                                                        * only
-                                                                                                        * be
-                                                                                                        * EChange
-                                                                                                        * :)
-                                                                                                        */
-                                                                                                       final Class <EChange> aClass = GenericReflection.getClassFromName (aParts.get (0));
+    aRegistry.registerTypeConverterRuleFixedSourceAssignableDestination (String.class, Enum.class, aSource -> {
+      /*
+       * Split class name and enum value name
+       */
+      final List <String> aParts = StringHelper.getExploded (':', aSource, 2);
+      try
+      {
+        /*
+         * Resolve any enum class. Note: The explicit EChange is just here,
+         * because an explicit enum type is needed. It must of course not only
+         * be EChange :)
+         */
+        final Class <EChange> aClass = GenericReflection.getClassFromName (aParts.get (0));
 
-                                                                                                       /*
-                                                                                                        * And
-                                                                                                        * look
-                                                                                                        * up
-                                                                                                        * the
-                                                                                                        * element
-                                                                                                        * by
-                                                                                                        * name
-                                                                                                        */
-                                                                                                       return Enum.valueOf (aClass,
-                                                                                                                            aParts.get (1));
-                                                                                                     }
-                                                                                                     catch (final ClassNotFoundException ex)
-                                                                                                     {
-                                                                                                       return null;
-                                                                                                     }
-                                                                                                   }));
+        /*
+         * And look up the element by name
+         */
+        return Enum.valueOf (aClass, aParts.get (1));
+      }
+      catch (final ClassNotFoundException ex)
+      {
+        return null;
+      }
+    });
   }
 }

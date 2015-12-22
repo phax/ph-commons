@@ -71,11 +71,4 @@ public final class TypeConverterRuleAnySourceFixedDestination <DST> extends Abst
                             .append ("converter", m_aConverter)
                             .toString ();
   }
-
-  @Nonnull
-  public static <DST> TypeConverterRuleAnySourceFixedDestination <DST> create (@Nonnull final Class <DST> aDstClass,
-                                                                               @Nonnull final Function <Object, DST> aConverter)
-  {
-    return new TypeConverterRuleAnySourceFixedDestination <DST> (aDstClass, aConverter);
-  }
 }
