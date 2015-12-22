@@ -42,8 +42,8 @@ public abstract class AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VA
   public AbstractMultiLinkedHashMapMapBased ()
   {}
 
-  public AbstractMultiLinkedHashMapMapBased (@Nullable final KEYTYPE1 aKey,
-                                             @Nullable final KEYTYPE2 aInnerKey,
+  public AbstractMultiLinkedHashMapMapBased (@Nonnull final KEYTYPE1 aKey,
+                                             @Nonnull final KEYTYPE2 aInnerKey,
                                              @Nullable final VALUETYPE aValue)
   {
     putSingle (aKey, aInnerKey, aValue);

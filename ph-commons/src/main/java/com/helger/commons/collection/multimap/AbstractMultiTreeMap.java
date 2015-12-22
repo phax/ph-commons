@@ -51,7 +51,7 @@ public abstract class AbstractMultiTreeMap <KEYTYPE, VALUETYPE, COLLTYPE extends
     super (aComparator);
   }
 
-  public AbstractMultiTreeMap (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public AbstractMultiTreeMap (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     putSingle (aKey, aValue);
   }

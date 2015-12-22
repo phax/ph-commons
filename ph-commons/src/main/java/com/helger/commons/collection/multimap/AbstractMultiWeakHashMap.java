@@ -45,12 +45,12 @@ public abstract class AbstractMultiWeakHashMap <KEYTYPE, VALUETYPE, COLLTYPE ext
   public AbstractMultiWeakHashMap ()
   {}
 
-  public AbstractMultiWeakHashMap (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public AbstractMultiWeakHashMap (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     putSingle (aKey, aValue);
   }
 
-  public AbstractMultiWeakHashMap (@Nullable final KEYTYPE aKey, @Nullable final COLLTYPE aCollection)
+  public AbstractMultiWeakHashMap (@Nonnull final KEYTYPE aKey, @Nullable final COLLTYPE aCollection)
   {
     put (aKey, aCollection);
   }

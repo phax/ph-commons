@@ -46,7 +46,7 @@ public abstract class AbstractMultiHashMap <KEYTYPE, VALUETYPE, COLLTYPE extends
   public AbstractMultiHashMap ()
   {}
 
-  public AbstractMultiHashMap (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public AbstractMultiHashMap (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     putSingle (aKey, aValue);
   }

@@ -19,6 +19,7 @@ package com.helger.commons.collection.multimap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
@@ -40,7 +41,7 @@ public abstract class AbstractMultiHashMapSetBased <KEYTYPE, VALUETYPE>
   public AbstractMultiHashMapSetBased ()
   {}
 
-  public AbstractMultiHashMapSetBased (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public AbstractMultiHashMapSetBased (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aValue);
   }
