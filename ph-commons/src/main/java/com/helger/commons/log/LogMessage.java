@@ -17,14 +17,13 @@
 package com.helger.commons.log;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IHasErrorLevel;
 import com.helger.commons.error.ISeverityComparable;
@@ -45,7 +44,7 @@ public class LogMessage implements
                         ISeverityComparable <LogMessage>,
                         Serializable
 {
-  private final Date m_aIssueDT;
+  private final LocalDateTime m_aIssueDT;
   private final IErrorLevel m_aErrorLevel;
   private final Serializable m_aMsg;
   private final Throwable m_aThrowable;
@@ -54,10 +53,10 @@ public class LogMessage implements
                      @Nonnull final Serializable aMsg,
                      @Nullable final Throwable aThrowable)
   {
-    this (new Date (), aErrorLevel, aMsg, aThrowable);
+    this (LocalDateTime.now (), aErrorLevel, aMsg, aThrowable);
   }
 
-  public LogMessage (@Nonnull final Date aIssueDT,
+  public LogMessage (@Nonnull final LocalDateTime aIssueDT,
                      @Nonnull final IErrorLevel aErrorLevel,
                      @Nonnull final Serializable aMsg,
                      @Nullable final Throwable aThrowable)
@@ -69,11 +68,9 @@ public class LogMessage implements
   }
 
   @Nonnull
-  @ReturnsMutableCopy
-  public Date getIssueDateTime ()
+  public LocalDateTime getIssueDateTime ()
   {
-    // Return a copy
-    return (Date) m_aIssueDT.clone ();
+    return m_aIssueDT;
   }
 
   @Nonnull

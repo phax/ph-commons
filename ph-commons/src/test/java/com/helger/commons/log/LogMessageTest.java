@@ -22,7 +22,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.junit.Test;
 
@@ -41,7 +41,8 @@ public final class LogMessageTest
   public void testAll ()
   {
     final LogMessage lm = new LogMessage (EErrorLevel.WARN, "Msg", new MockException ());
-    assertTrue (lm.getIssueDateTime ().getTime () <= new Date ().getTime ());
+    final LocalDateTime aNow = LocalDateTime.now ();
+    assertTrue (lm.getIssueDateTime ().equals (aNow) || lm.getIssueDateTime ().isBefore (aNow));
     assertSame (EErrorLevel.WARN, lm.getErrorLevel ());
     assertEquals ("Msg", lm.getMessage ());
     assertNotNull (lm.getThrowable ());

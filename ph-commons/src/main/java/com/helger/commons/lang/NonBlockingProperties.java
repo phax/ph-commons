@@ -22,7 +22,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -835,7 +835,7 @@ public class NonBlockingProperties extends TreeMap <String, String>
       _writeComments (aWriter, sComments);
 
     final String sNewLine = ENewLineMode.DEFAULT.getText ();
-    aWriter.write ("#" + new Date ().toString () + sNewLine);
+    aWriter.write ("#" + ZonedDateTime.now ().toString () + sNewLine);
 
     for (final Map.Entry <String, String> aEntry : entrySet ())
     {
