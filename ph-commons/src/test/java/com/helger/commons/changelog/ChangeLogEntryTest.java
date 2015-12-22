@@ -23,9 +23,8 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
+import java.time.Month;
 
 import org.junit.Test;
 
@@ -45,7 +44,7 @@ public final class ChangeLogEntryTest extends AbstractCommonsTestCase
   public void testAll ()
   {
     final ChangeLog aChangeLog = new ChangeLog ("1.0", "mock");
-    final Date aDate = new Date ();
+    final LocalDate aDate = LocalDate.now ();
 
     final ChangeLogEntry aEntry = new ChangeLogEntry (aChangeLog,
                                                       aDate,
@@ -53,8 +52,7 @@ public final class ChangeLogEntryTest extends AbstractCommonsTestCase
                                                       EChangeLogCategory.API,
                                                       true);
     assertSame (aChangeLog, aEntry.getChangeLog ());
-    assertEquals (aDate, aEntry.getDate ());
-    assertTrue (aDate != aEntry.getDate ());
+    assertSame (aDate, aEntry.getDate ());
     assertSame (EChangeLogAction.ADD, aEntry.getAction ());
     assertSame (EChangeLogCategory.API, aEntry.getCategory ());
     assertNotNull (aEntry.getAllTexts ());
@@ -86,9 +84,9 @@ public final class ChangeLogEntryTest extends AbstractCommonsTestCase
                                                                                                false));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aEntry,
                                                                            new ChangeLogEntry (aChangeLog,
-                                                                                               new GregorianCalendar (2010,
-                                                                                                                      Calendar.JULY,
-                                                                                                                      6).getTime (),
+                                                                                               LocalDate.of (2010,
+                                                                                                             Month.JULY,
+                                                                                                             6),
                                                                                                EChangeLogAction.ADD,
                                                                                                EChangeLogCategory.API,
                                                                                                true));

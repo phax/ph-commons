@@ -19,10 +19,9 @@ package com.helger.commons.changelog;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,7 +61,7 @@ import com.helger.commons.xml.CXML;
 public final class ChangeLogSerializer
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ChangeLogSerializer.class);
-  private static final String DATE_FORMAT = "yyyy-MM-dd";
+  private static final DateTimeFormatter DF = DateTimeFormatter.ofPattern ("yyyy-MM-dd");
   private static final String ELEMENT_CHANGELOG = "changelog";
   private static final String ATTR_VERSION = "version";
   private static final String ATTR_COMPONENT = "component";
@@ -124,7 +123,6 @@ public final class ChangeLogSerializer
 
     final ChangeLog ret = new ChangeLog (eRoot.getAttributeValue (ATTR_VERSION),
                                          eRoot.getAttributeValue (ATTR_COMPONENT));
-    final DateFormat aDF = new SimpleDateFormat (DATE_FORMAT);
 
     // Add all entries
     for (final IMicroElement eElement : eRoot.getAllChildElements ())
@@ -147,12 +145,12 @@ public final class ChangeLogSerializer
         final String sCategory = eElement.getAttributeValue (ATTR_CATEGORY);
         final String sIncompatible = eElement.getAttributeValue (ATTR_INCOMPATIBLE);
 
-        Date aDate;
+        LocalDate aLocalDate;
         try
         {
-          aDate = aDF.parse (sDate);
+          aLocalDate = DF.parse (sDate, LocalDate::from);
         }
-        catch (final ParseException ex)
+        catch (final DateTimeParseException ex)
         {
           aErrorCallback.run ("Failed to parse entry date '" + sDate + "'");
           continue;
@@ -171,7 +169,7 @@ public final class ChangeLogSerializer
         }
         final boolean bIsIncompatible = StringHelper.hasText (sIncompatible) && StringParser.parseBool (sIncompatible);
 
-        final ChangeLogEntry aEntry = new ChangeLogEntry (ret, aDate, eAction, eCategory, bIsIncompatible);
+        final ChangeLogEntry aEntry = new ChangeLogEntry (ret, aLocalDate, eAction, eCategory, bIsIncompatible);
         ret.addEntry (aEntry);
 
         final IMicroElement eChange = eElement.getFirstChildElement (CChangeLog.CHANGELOG_NAMESPACE_10, ELEMENT_CHANGE);
@@ -196,17 +194,17 @@ public final class ChangeLogSerializer
         {
           final String sDate = eElement.getAttributeValue (ATTR_DATE);
           final String sVersion = eElement.getAttributeValue (ATTR_VERSION);
-          Date aDate;
+          LocalDate aLocalDate;
           try
           {
-            aDate = aDF.parse (sDate);
+            aLocalDate = DF.parse (sDate, LocalDate::from);
           }
-          catch (final ParseException ex)
+          catch (final DateTimeParseException ex)
           {
             s_aLogger.warn ("Failed to parse release date '" + sDate + "'");
             continue;
           }
-          ret.addRelease (new ChangeLogRelease (aDate, new Version (sVersion, false)));
+          ret.addRelease (new ChangeLogRelease (aLocalDate, new Version (sVersion, false)));
         }
         else
           aErrorCallback.run ("Changelog contains unsupported element '" + sTagName + "!");
@@ -280,7 +278,6 @@ public final class ChangeLogSerializer
   {
     ValueEnforcer.notNull (aChangeLog, "ChangeLog");
 
-    final DateFormat aDF = new SimpleDateFormat (DATE_FORMAT);
     final IMicroDocument ret = new MicroDocument ();
     final IMicroElement eRoot = ret.appendElement (CChangeLog.CHANGELOG_NAMESPACE_10, ELEMENT_CHANGELOG);
     eRoot.setAttribute (XMLConstants.XMLNS_ATTRIBUTE_NS_URI, CXML.XML_NS_PREFIX_XSI, CXML.XML_NS_XSI);
@@ -295,7 +292,7 @@ public final class ChangeLogSerializer
       {
         final ChangeLogEntry aEntry = (ChangeLogEntry) aBaseEntry;
         final IMicroElement eEntry = eRoot.appendElement (CChangeLog.CHANGELOG_NAMESPACE_10, ELEMENT_ENTRY);
-        eEntry.setAttribute (ATTR_DATE, aDF.format (aEntry.getDate ()));
+        eEntry.setAttribute (ATTR_DATE, DF.format (aEntry.getDate ()));
         eEntry.setAttribute (ATTR_ACTION, aEntry.getAction ().getID ());
         eEntry.setAttribute (ATTR_CATEGORY, aEntry.getCategory ().getID ());
         if (aEntry.isIncompatible ())
@@ -311,7 +308,7 @@ public final class ChangeLogSerializer
         // Must be a release
         final ChangeLogRelease aRelease = (ChangeLogRelease) aBaseEntry;
         final IMicroElement eRelease = eRoot.appendElement (CChangeLog.CHANGELOG_NAMESPACE_10, ELEMENT_RELEASE);
-        eRelease.setAttribute (ATTR_DATE, aDF.format (aRelease.getDate ()));
+        eRelease.setAttribute (ATTR_DATE, DF.format (aRelease.getDate ()));
         eRelease.setAttribute (ATTR_VERSION, aRelease.getVersion ().getAsString ());
       }
     }

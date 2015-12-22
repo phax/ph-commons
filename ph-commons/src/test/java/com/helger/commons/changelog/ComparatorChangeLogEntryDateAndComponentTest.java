@@ -42,6 +42,6 @@ public final class ComparatorChangeLogEntryDateAndComponentTest
     assertSame (aEntries, CollectionHelper.getSortedInline (aEntries, new ComparatorChangeLogEntryDateAndComponent ()));
     assertTrue (CollectionHelper.getFirstElement (aEntries)
                                 .getDate ()
-                                .getTime () < CollectionHelper.getLastElement (aEntries).getDate ().getTime ());
+                                .isBefore (CollectionHelper.getLastElement (aEntries).getDate ()));
   }
 }

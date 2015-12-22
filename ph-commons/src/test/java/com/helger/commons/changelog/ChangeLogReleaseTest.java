@@ -18,12 +18,10 @@ package com.helger.commons.changelog;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
+import java.time.Month;
 
 import org.junit.Test;
 
@@ -40,20 +38,20 @@ public final class ChangeLogReleaseTest
   @Test
   public void testAll ()
   {
-    final Date aDate = new Date ();
+    final LocalDate aDate = LocalDate.now ();
     final Version aVersion = new Version (1, 2, 3);
 
     final ChangeLogRelease aRelease = new ChangeLogRelease (aDate, aVersion);
     assertEquals (aDate, aRelease.getDate ());
-    assertTrue (aDate != aRelease.getDate ());
+    assertSame (aDate, aRelease.getDate ());
     assertSame (aVersion, aRelease.getVersion ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aRelease,
                                                                        new ChangeLogRelease (aDate, aVersion));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aRelease,
-                                                                           new ChangeLogRelease (new GregorianCalendar (2010,
-                                                                                                                        Calendar.JULY,
-                                                                                                                        6).getTime (),
+                                                                           new ChangeLogRelease (LocalDate.of (2010,
+                                                                                                               Month.JULY,
+                                                                                                               6),
                                                                                                  aVersion));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aRelease,
                                                                            new ChangeLogRelease (aDate,

@@ -222,7 +222,7 @@ public class ChangeLog implements Serializable
       if (aEntry instanceof ChangeLogRelease)
       {
         final ChangeLogRelease aRelease = (ChangeLogRelease) aEntry;
-        if (aLatest == null || aRelease.getDate ().getTime () > aLatest.getDate ().getTime ())
+        if (aLatest == null || aRelease.getDate ().isAfter (aLatest.getDate ()))
           aLatest = aRelease;
       }
     return aLatest;

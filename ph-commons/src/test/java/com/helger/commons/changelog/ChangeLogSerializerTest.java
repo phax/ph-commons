@@ -30,6 +30,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.serialize.MicroDOMInputStreamProvider;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -54,7 +55,8 @@ public final class ChangeLogSerializerTest
   public void testRead () throws SAXException
   {
     // Read valid
-    final ChangeLog aCL = ChangeLogSerializer.readChangeLog (new ClassPathResource (CChangeLog.CHANGELOG_XML_FILENAME));
+    final ChangeLog aCL = ChangeLogSerializer.readChangeLog (new FileSystemResource ("src/main/resources/" +
+                                                                                     CChangeLog.CHANGELOG_XML_FILENAME));
     assertNotNull (aCL);
     assertEquals (new Version (1, 0), aCL.getVersion ());
     assertEquals ("ph-commons", aCL.getComponent ());

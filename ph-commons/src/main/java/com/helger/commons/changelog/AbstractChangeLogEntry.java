@@ -17,12 +17,11 @@
 package com.helger.commons.changelog;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -33,7 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public abstract class AbstractChangeLogEntry implements Serializable
 {
-  private final Date m_aDate;
+  private final LocalDate m_aLocalDate;
 
   /**
    * Constructor.
@@ -41,20 +40,18 @@ public abstract class AbstractChangeLogEntry implements Serializable
    * @param aDate
    *        The release date. May not be <code>null</code>.
    */
-  public AbstractChangeLogEntry (@Nonnull final Date aDate)
+  public AbstractChangeLogEntry (@Nonnull final LocalDate aDate)
   {
-    ValueEnforcer.notNull (aDate, "Date");
-    m_aDate = (Date) aDate.clone ();
+    m_aLocalDate = ValueEnforcer.notNull (aDate, "Date");
   }
 
   /**
-   * @return A mutable, non-<code>null</code> clone of the contained entry date.
+   * @return The date of the entry.
    */
   @Nonnull
-  @ReturnsMutableCopy
-  public final Date getDate ()
+  public final LocalDate getDate ()
   {
-    return (Date) m_aDate.clone ();
+    return m_aLocalDate;
   }
 
   @Override
@@ -65,18 +62,18 @@ public abstract class AbstractChangeLogEntry implements Serializable
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final AbstractChangeLogEntry rhs = (AbstractChangeLogEntry) o;
-    return m_aDate.equals (rhs.m_aDate);
+    return m_aLocalDate.equals (rhs.m_aLocalDate);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aDate).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aLocalDate).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("date", m_aDate).toString ();
+    return new ToStringGenerator (this).append ("LocalDate", m_aLocalDate).toString ();
   }
 }

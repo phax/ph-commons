@@ -16,8 +16,8 @@
  */
 package com.helger.commons.changelog;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -57,7 +57,7 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
    *
    * @param aChangeLog
    *        The owning changelog object. May not be <code>null</code>.
-   * @param aDate
+   * @param aLocalDate
    *        The issue date of the change log entry. May not be <code>null</code>
    *        .
    * @param eAction
@@ -69,12 +69,12 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
    *        <code>true</code> if the change has known incompatibility
    */
   public ChangeLogEntry (@Nonnull final ChangeLog aChangeLog,
-                         @Nonnull final Date aDate,
+                         @Nonnull final LocalDate aLocalDate,
                          @Nonnull final EChangeLogAction eAction,
                          @Nonnull final EChangeLogCategory eCategory,
                          final boolean bIsIncompatible)
   {
-    super (aDate);
+    super (aLocalDate);
     m_aChangeLog = ValueEnforcer.notNull (aChangeLog, "ChangeLog");
     m_eAction = ValueEnforcer.notNull (eAction, "Action");
     m_eCategory = ValueEnforcer.notNull (eCategory, "Category");

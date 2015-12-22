@@ -16,7 +16,7 @@
  */
 package com.helger.commons.changelog;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
@@ -39,14 +39,14 @@ public class ChangeLogRelease extends AbstractChangeLogEntry
   /**
    * Constructor.
    *
-   * @param aDate
+   * @param aLocalDate
    *        The release date. May not be <code>null</code>.
    * @param aVersion
    *        The release version. May not be <code>null</code>.
    */
-  public ChangeLogRelease (@Nonnull final Date aDate, @Nonnull final Version aVersion)
+  public ChangeLogRelease (@Nonnull final LocalDate aLocalDate, @Nonnull final Version aVersion)
   {
-    super (aDate);
+    super (aLocalDate);
     m_aVersion = ValueEnforcer.notNull (aVersion, "Version");
   }
 

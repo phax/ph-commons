@@ -20,7 +20,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.compare.AbstractComparator;
-import com.helger.commons.compare.CompareHelper;
 
 /**
  * Special comparator to sort change log entries by their date and in case of
@@ -34,7 +33,7 @@ public class ComparatorChangeLogEntryDateAndComponent extends AbstractComparator
   @Override
   protected int mainCompare (@Nonnull final ChangeLogEntry aElement1, @Nonnull final ChangeLogEntry aElement2)
   {
-    int ret = CompareHelper.compare (aElement1.getDate ().getTime (), aElement2.getDate ().getTime ());
+    int ret = aElement1.getDate ().compareTo (aElement2.getDate ());
     if (ret == 0)
     {
       ret = aElement1.getChangeLog ().getComponent ().compareTo (aElement2.getChangeLog ().getComponent ());

@@ -18,7 +18,7 @@ package com.helger.commons;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Calendar;
+import java.time.Year;
 import java.util.Locale;
 
 import javax.annotation.concurrent.Immutable;
@@ -378,7 +378,7 @@ public final class CGlobal
   public static final Locale LOCALE_FIXED_NUMBER_FORMAT = Locale.ENGLISH;
 
   /** The year when the application was started. */
-  public static final int CURRENT_YEAR = Calendar.getInstance ().get (Calendar.YEAR);
+  public static final int CURRENT_YEAR = Year.now ().getValue ();
 
   /** Centimeter per inch (2.54) */
   public static final float CM_PER_INCH = 2.54f;
