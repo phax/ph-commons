@@ -42,7 +42,7 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
                                      String.class,
                                      aSource -> Long.toString (aSource.getTimeInMillis ()));
     aRegistry.registerTypeConverter (Calendar.class, Long.class, aSource -> Long.valueOf (aSource.getTimeInMillis ()));
-    aRegistry.registerTypeConverter (Calendar.class, Date.class, aSource -> aSource.getTime ());
+    aRegistry.registerTypeConverter (Calendar.class, Date.class, Calendar::getTime);
     aRegistry.registerTypeConverter (Calendar.class, Instant.class, aSource -> aSource.toInstant ());
     aRegistry.registerTypeConverter (String.class, Calendar.class, aSource -> {
       final Calendar aCal = Calendar.getInstance ();
@@ -69,5 +69,6 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
                                                                          Date.class,
                                                                          aSource -> new Date (aSource.longValue ()));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (Date.class, Date::toInstant);
   }
 }
