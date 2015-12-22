@@ -20,6 +20,7 @@ import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.typeconvert.rule.TypeConverterRuleAnySourceFixedDestination;
 import com.helger.commons.typeconvert.rule.TypeConverterRuleAssignableSourceFixedDestination;
 
 /**
@@ -69,6 +70,12 @@ public interface ITypeConverterRegistry
    *        <code>null</code>.
    */
   void registerTypeConverterRule (@Nonnull ITypeConverterRule <?, ?> aTypeConverterRule);
+
+  default <DST> void registerTypeConverterRuleAnySourceFixedDestination (@Nonnull final Class <DST> aDstClass,
+                                                                         @Nonnull final Function <Object, DST> aConverter)
+  {
+    registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (aDstClass, aConverter));
+  }
 
   default <SRC, DST> void registerTypeConverterRuleAssignableSourceFixedDestination (@Nonnull final Class <SRC> aSrcClass,
                                                                                      @Nonnull final Class <DST> aDstClass,

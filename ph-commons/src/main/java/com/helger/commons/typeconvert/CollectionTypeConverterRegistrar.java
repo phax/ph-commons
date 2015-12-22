@@ -35,7 +35,6 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.typeconvert.rule.TypeConverterRuleAnySourceFixedDestination;
 
 /**
  * Register the base type converter
@@ -64,86 +63,81 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
   public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
   {
     // to ArrayList<?>
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (ArrayList.class,
-                                                                                            aSource -> {
-                                                                                              if (aSource instanceof Collection <?>)
-                                                                                                return new ArrayList <Object> ((Collection <?>) aSource);
-                                                                                              final ArrayList <Object> ret = new ArrayList <Object> (1);
-                                                                                              ret.add (aSource);
-                                                                                              return ret;
-                                                                                            }));
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (ArrayList.class, aSource -> {
+      if (aSource instanceof Collection <?>)
+        return new ArrayList <Object> ((Collection <?>) aSource);
+      final ArrayList <Object> ret = new ArrayList <Object> (1);
+      ret.add (aSource);
+      return ret;
+    });
 
     // to Vector<?>
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (Vector.class, aSource -> {
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Vector.class, aSource -> {
       if (aSource instanceof Collection <?>)
         return new Vector <Object> ((Collection <?>) aSource);
       final Vector <Object> ret = new Vector <Object> (1);
       ret.add (aSource);
       return ret;
-    }));
+    });
 
     // to LinkedList<?>
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (LinkedList.class,
-                                                                                            aSource -> {
-                                                                                              if (aSource instanceof Collection <?>)
-                                                                                                return new LinkedList <Object> ((Collection <?>) aSource);
-                                                                                              final LinkedList <Object> ret = new LinkedList <Object> ();
-                                                                                              ret.add (aSource);
-                                                                                              return ret;
-                                                                                            }));
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (LinkedList.class, aSource -> {
+      if (aSource instanceof Collection <?>)
+        return new LinkedList <Object> ((Collection <?>) aSource);
+      final LinkedList <Object> ret = new LinkedList <Object> ();
+      ret.add (aSource);
+      return ret;
+    });
 
     // to CopyOnWriteArrayList<?>
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (CopyOnWriteArrayList.class,
-                                                                                            aSource -> {
-                                                                                              if (aSource instanceof Collection <?>)
-                                                                                                return new CopyOnWriteArrayList <Object> ((Collection <?>) aSource);
-                                                                                              final CopyOnWriteArrayList <Object> ret = new CopyOnWriteArrayList <Object> ();
-                                                                                              ret.add (aSource);
-                                                                                              return ret;
-                                                                                            }));
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (CopyOnWriteArrayList.class, aSource -> {
+      if (aSource instanceof Collection <?>)
+        return new CopyOnWriteArrayList <Object> ((Collection <?>) aSource);
+      final CopyOnWriteArrayList <Object> ret = new CopyOnWriteArrayList <Object> ();
+      ret.add (aSource);
+      return ret;
+    });
 
     // to List<?>
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (List.class, aSource -> {
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (List.class, aSource -> {
       if (aSource instanceof Collection <?>)
         return CollectionHelper.newList ((Collection <?>) aSource);
       return CollectionHelper.newList (aSource);
-    }));
+    });
 
     // to TreeSet<?>
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (TreeSet.class, aSource -> {
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (TreeSet.class, aSource -> {
       if (aSource instanceof Collection <?>)
         return new TreeSet <Object> ((Collection <?>) aSource);
       final TreeSet <Object> ret = new TreeSet <Object> ();
       ret.add (aSource);
       return ret;
-    }));
+    });
 
     // to LinkedHashSet<?>
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (LinkedHashSet.class,
-                                                                                            aSource -> {
-                                                                                              if (aSource instanceof Collection <?>)
-                                                                                                return new LinkedHashSet <Object> ((Collection <?>) aSource);
-                                                                                              final LinkedHashSet <Object> ret = new LinkedHashSet <Object> (1);
-                                                                                              ret.add (aSource);
-                                                                                              return ret;
-                                                                                            }));
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (LinkedHashSet.class, aSource -> {
+      if (aSource instanceof Collection <?>)
+        return new LinkedHashSet <Object> ((Collection <?>) aSource);
+      final LinkedHashSet <Object> ret = new LinkedHashSet <Object> (1);
+      ret.add (aSource);
+      return ret;
+    });
 
     // to CopyOnWriteArraySet<?>
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (CopyOnWriteArraySet.class,
-                                                                                            aSource -> {
-                                                                                              if (aSource instanceof Collection <?>)
-                                                                                                return new CopyOnWriteArraySet <Object> ((Collection <?>) aSource);
-                                                                                              final CopyOnWriteArraySet <Object> ret = new CopyOnWriteArraySet <Object> ();
-                                                                                              ret.add (aSource);
-                                                                                              return ret;
-                                                                                            }));
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (CopyOnWriteArraySet.class, aSource -> {
+      if (aSource instanceof Collection <?>)
+        return new CopyOnWriteArraySet <Object> ((Collection <?>) aSource);
+      final CopyOnWriteArraySet <Object> ret = new CopyOnWriteArraySet <Object> ();
+      ret.add (aSource);
+      return ret;
+    });
 
     // to Set<?>
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (Set.class, aSource -> {
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Set.class, aSource -> {
       if (aSource instanceof Collection <?>)
         return CollectionHelper.newSet ((Collection <?>) aSource);
       return CollectionHelper.newSet (aSource);
-    }));
+    });
 
     // boolean[]
     aRegistry.registerTypeConverter (boolean [].class,
@@ -258,49 +252,47 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
                                      aSource -> CollectionHelper.newShortSortedSet (aSource));
 
     // To array
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (boolean [].class,
-                                                                                            aSource -> {
-                                                                                              boolean [] ret;
-                                                                                              final Class <?> aSourceClass = aSource.getClass ();
-                                                                                              if (aSourceClass.isArray ())
-                                                                                              {
-                                                                                                // Array
-                                                                                                // to
-                                                                                                // boolean[]
-                                                                                                final int nLength = Array.getLength (aSource);
-                                                                                                ret = new boolean [nLength];
-                                                                                                for (int i = 0; i < nLength; ++i)
-                                                                                                {
-                                                                                                  final Object aSourceElement = Array.get (aSource,
-                                                                                                                                           i);
-                                                                                                  ret[i] = TypeConverter.convertToBoolean (aSourceElement);
-                                                                                                }
-                                                                                              }
-                                                                                              else
-                                                                                                if (aSource instanceof Collection <?>)
-                                                                                                {
-                                                                                                  // Collection
-                                                                                                  // to
-                                                                                                  // boolean[]
-                                                                                                  final Collection <?> aSourceCollection = (Collection <?>) aSource;
-                                                                                                  ret = new boolean [aSourceCollection.size ()];
-                                                                                                  int nIndex = 0;
-                                                                                                  for (final Object aSourceElement : aSourceCollection)
-                                                                                                    ret[nIndex++] = TypeConverter.convertToBoolean (aSourceElement);
-                                                                                                }
-                                                                                                else
-                                                                                                {
-                                                                                                  // Use
-                                                                                                  // object
-                                                                                                  // as
-                                                                                                  // is
-                                                                                                  ret = new boolean [1];
-                                                                                                  ret[0] = TypeConverter.convertToBoolean (aSource);
-                                                                                                }
-                                                                                              return ret;
-                                                                                            }));
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (boolean [].class, aSource -> {
+      boolean [] ret;
+      final Class <?> aSourceClass = aSource.getClass ();
+      if (aSourceClass.isArray ())
+      {
+        // Array
+        // to
+        // boolean[]
+        final int nLength = Array.getLength (aSource);
+        ret = new boolean [nLength];
+        for (int i = 0; i < nLength; ++i)
+        {
+          final Object aSourceElement = Array.get (aSource, i);
+          ret[i] = TypeConverter.convertToBoolean (aSourceElement);
+        }
+      }
+      else
+        if (aSource instanceof Collection <?>)
+        {
+          // Collection
+          // to
+          // boolean[]
+          final Collection <?> aSourceCollection = (Collection <?>) aSource;
+          ret = new boolean [aSourceCollection.size ()];
+          int nIndex = 0;
+          for (final Object aSourceElement : aSourceCollection)
+            ret[nIndex++] = TypeConverter.convertToBoolean (aSourceElement);
+        }
+        else
+        {
+          // Use
+          // object
+          // as
+          // is
+          ret = new boolean [1];
+          ret[0] = TypeConverter.convertToBoolean (aSource);
+        }
+      return ret;
+    });
 
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (byte [].class, aSource -> {
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (byte [].class, aSource -> {
       byte [] ret;
       final Class <?> aSourceClass = aSource.getClass ();
       if (aSourceClass.isArray ())
@@ -331,9 +323,9 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
           ret[0] = TypeConverter.convertToByte (aSource);
         }
       return ret;
-    }));
+    });
 
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (char [].class, aSource -> {
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (char [].class, aSource -> {
       char [] ret;
       final Class <?> aSourceClass = aSource.getClass ();
       if (aSourceClass.isArray ())
@@ -364,51 +356,49 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
           ret[0] = TypeConverter.convertToChar (aSource);
         }
       return ret;
-    }));
+    });
 
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (double [].class,
-                                                                                            aSource -> {
-                                                                                              double [] ret;
-                                                                                              final Class <?> aSourceClass = aSource.getClass ();
-                                                                                              if (aSourceClass.isArray ())
-                                                                                              {
-                                                                                                // Array
-                                                                                                // to
-                                                                                                // double[]
-                                                                                                final int nLength = Array.getLength (aSource);
-                                                                                                ret = new double [nLength];
-                                                                                                for (int i = 0; i < nLength; ++i)
-                                                                                                {
-                                                                                                  final Object aSourceElement = Array.get (aSource,
-                                                                                                                                           i);
-                                                                                                  ret[i] = TypeConverter.convertToDouble (aSourceElement);
-                                                                                                }
-                                                                                              }
-                                                                                              else
-                                                                                                if (aSource instanceof Collection <?>)
-                                                                                                {
-                                                                                                  // Collection
-                                                                                                  // to
-                                                                                                  // double[]
-                                                                                                  final Collection <?> aSourceCollection = (Collection <?>) aSource;
-                                                                                                  ret = new double [aSourceCollection.size ()];
-                                                                                                  int nIndex = 0;
-                                                                                                  for (final Object aSourceElement : aSourceCollection)
-                                                                                                    ret[nIndex++] = TypeConverter.convertToDouble (aSourceElement);
-                                                                                                }
-                                                                                                else
-                                                                                                {
-                                                                                                  // Use
-                                                                                                  // object
-                                                                                                  // as
-                                                                                                  // is
-                                                                                                  ret = new double [1];
-                                                                                                  ret[0] = TypeConverter.convertToDouble (aSource);
-                                                                                                }
-                                                                                              return ret;
-                                                                                            }));
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (double [].class, aSource -> {
+      double [] ret;
+      final Class <?> aSourceClass = aSource.getClass ();
+      if (aSourceClass.isArray ())
+      {
+        // Array
+        // to
+        // double[]
+        final int nLength = Array.getLength (aSource);
+        ret = new double [nLength];
+        for (int i = 0; i < nLength; ++i)
+        {
+          final Object aSourceElement = Array.get (aSource, i);
+          ret[i] = TypeConverter.convertToDouble (aSourceElement);
+        }
+      }
+      else
+        if (aSource instanceof Collection <?>)
+        {
+          // Collection
+          // to
+          // double[]
+          final Collection <?> aSourceCollection = (Collection <?>) aSource;
+          ret = new double [aSourceCollection.size ()];
+          int nIndex = 0;
+          for (final Object aSourceElement : aSourceCollection)
+            ret[nIndex++] = TypeConverter.convertToDouble (aSourceElement);
+        }
+        else
+        {
+          // Use
+          // object
+          // as
+          // is
+          ret = new double [1];
+          ret[0] = TypeConverter.convertToDouble (aSource);
+        }
+      return ret;
+    });
 
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (float [].class, aSource -> {
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (float [].class, aSource -> {
       float [] ret;
       final Class <?> aSourceClass = aSource.getClass ();
       if (aSourceClass.isArray ())
@@ -439,9 +429,9 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
           ret[0] = TypeConverter.convertToFloat (aSource);
         }
       return ret;
-    }));
+    });
 
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (int [].class, aSource -> {
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (int [].class, aSource -> {
       int [] ret;
       final Class <?> aSourceClass = aSource.getClass ();
       if (aSourceClass.isArray ())
@@ -472,9 +462,9 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
           ret[0] = TypeConverter.convertToInt (aSource);
         }
       return ret;
-    }));
+    });
 
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (long [].class, aSource -> {
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (long [].class, aSource -> {
       long [] ret;
       final Class <?> aSourceClass = aSource.getClass ();
       if (aSourceClass.isArray ())
@@ -505,9 +495,9 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
           ret[0] = TypeConverter.convertToLong (aSource);
         }
       return ret;
-    }));
+    });
 
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (short [].class, aSource -> {
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (short [].class, aSource -> {
       short [] ret;
       final Class <?> aSourceClass = aSource.getClass ();
       if (aSourceClass.isArray ())
@@ -533,56 +523,44 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
         }
         else
         {
-          // Use object as is
+          /* Use object as is */
           ret = new short [1];
           ret[0] = TypeConverter.convertToShort (aSource);
         }
       return ret;
-    }));
+    });
 
-    aRegistry.registerTypeConverterRule (TypeConverterRuleAnySourceFixedDestination.create (String [].class,
-                                                                                            aSource -> {
-                                                                                              String [] ret;
-                                                                                              final Class <?> aSourceClass = aSource.getClass ();
-                                                                                              if (aSourceClass.isArray ())
-                                                                                              {
-                                                                                                // Array
-                                                                                                // to
-                                                                                                // String[]
-                                                                                                final int nLength = Array.getLength (aSource);
-                                                                                                ret = new String [nLength];
-                                                                                                for (int i = 0; i < nLength; ++i)
-                                                                                                {
-                                                                                                  final Object aSourceElement = Array.get (aSource,
-                                                                                                                                           i);
-                                                                                                  ret[i] = TypeConverter.convertIfNecessary (aSourceElement,
-                                                                                                                                             String.class);
-                                                                                                }
-                                                                                              }
-                                                                                              else
-                                                                                                if (aSource instanceof Collection <?>)
-                                                                                                {
-                                                                                                  // Collection
-                                                                                                  // to
-                                                                                                  // String[]
-                                                                                                  final Collection <?> aSourceCollection = (Collection <?>) aSource;
-                                                                                                  ret = new String [aSourceCollection.size ()];
-                                                                                                  int nIndex = 0;
-                                                                                                  for (final Object aSourceElement : aSourceCollection)
-                                                                                                    ret[nIndex++] = TypeConverter.convertIfNecessary (aSourceElement,
-                                                                                                                                                      String.class);
-                                                                                                }
-                                                                                                else
-                                                                                                {
-                                                                                                  // Use
-                                                                                                  // object
-                                                                                                  // as
-                                                                                                  // is
-                                                                                                  ret = new String [1];
-                                                                                                  ret[0] = TypeConverter.convertIfNecessary (aSource,
-                                                                                                                                             String.class);
-                                                                                                }
-                                                                                              return ret;
-                                                                                            }));
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (String [].class, aSource -> {
+      String [] ret;
+      final Class <?> aSourceClass = aSource.getClass ();
+      if (aSourceClass.isArray ())
+      {
+        /* Array to String[] */
+        final int nLength = Array.getLength (aSource);
+        ret = new String [nLength];
+        for (int i = 0; i < nLength; ++i)
+        {
+          final Object aSourceElement = Array.get (aSource, i);
+          ret[i] = TypeConverter.convertIfNecessary (aSourceElement, String.class);
+        }
+      }
+      else
+        if (aSource instanceof Collection <?>)
+        {
+          /* Collection to String[] */
+          final Collection <?> aSourceCollection = (Collection <?>) aSource;
+          ret = new String [aSourceCollection.size ()];
+          int nIndex = 0;
+          for (final Object aSourceElement : aSourceCollection)
+            ret[nIndex++] = TypeConverter.convertIfNecessary (aSourceElement, String.class);
+        }
+        else
+        {
+          /* Use object as is */
+          ret = new String [1];
+          ret[0] = TypeConverter.convertIfNecessary (aSource, String.class);
+        }
+      return ret;
+    });
   }
 }
