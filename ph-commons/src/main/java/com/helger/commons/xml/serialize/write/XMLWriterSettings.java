@@ -68,7 +68,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   /**
    * By default namespace context prefixes are put inside the root element
    */
-  public static final boolean DEFAULT_PUT_NAMESPACE_CONTEXT_PREFIXES_IN_ROOT = true;
+  public static final boolean DEFAULT_PUT_NAMESPACE_CONTEXT_PREFIXES_IN_ROOT = false;
 
   /** The default settings to use */
   public static final IXMLWriterSettings DEFAULT_XML_SETTINGS = new XMLWriterSettings ();

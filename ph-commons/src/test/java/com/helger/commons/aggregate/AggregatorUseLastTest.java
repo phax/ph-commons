@@ -29,11 +29,14 @@ import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Test class for class {@link IAggregator}.
  *
  * @author Philip Helger
  */
+@SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
 public final class AggregatorUseLastTest
 {
   @Test
