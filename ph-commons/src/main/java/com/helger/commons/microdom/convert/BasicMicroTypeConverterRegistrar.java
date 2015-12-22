@@ -18,6 +18,16 @@ package com.helger.commons.microdom.convert;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.Period;
+import java.time.ZonedDateTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -77,6 +87,21 @@ public final class BasicMicroTypeConverterRegistrar implements IMicroTypeConvert
     aRegistry.registerMicroElementTypeConverter (StringBuilder.class,
                                                  new StringBasedMicroTypeConverter (StringBuilder.class));
     aRegistry.registerMicroElementTypeConverter (byte [].class, new StringBasedMicroTypeConverter (byte [].class));
+
+    // Date Time stuff
+    aRegistry.registerMicroElementTypeConverter (ZonedDateTime.class,
+                                                 new StringBasedMicroTypeConverter (ZonedDateTime.class));
+    aRegistry.registerMicroElementTypeConverter (OffsetDateTime.class,
+                                                 new StringBasedMicroTypeConverter (OffsetDateTime.class));
+    aRegistry.registerMicroElementTypeConverter (LocalDate.class, new StringBasedMicroTypeConverter (LocalDate.class));
+    aRegistry.registerMicroElementTypeConverter (LocalDateTime.class,
+                                                 new StringBasedMicroTypeConverter (LocalDateTime.class));
+    aRegistry.registerMicroElementTypeConverter (LocalTime.class, new StringBasedMicroTypeConverter (LocalTime.class));
+    aRegistry.registerMicroElementTypeConverter (Duration.class, new StringBasedMicroTypeConverter (Duration.class));
+    aRegistry.registerMicroElementTypeConverter (Period.class, new StringBasedMicroTypeConverter (Period.class));
+    aRegistry.registerMicroElementTypeConverter (Date.class, new StringBasedMicroTypeConverter (Date.class));
+    aRegistry.registerMicroElementTypeConverter (GregorianCalendar.class,
+                                                 new StringBasedMicroTypeConverter (Calendar.class));
 
     // State enums
     aRegistry.registerMicroElementTypeConverter (EChange.class, new StringBasedMicroTypeConverter (EChange.class));
