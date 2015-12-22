@@ -29,15 +29,17 @@ import com.helger.commons.typeconvert.TypeConverter;
  * destination class. Example from Number.class to String.class
  *
  * @author Philip Helger
+ * @param <SRC>
+ *        Source type
  */
-public final class TypeConverterRuleFixedSourceAnyDestination extends AbstractTypeConverterRule
+public final class TypeConverterRuleFixedSourceAnyDestination <SRC> extends AbstractTypeConverterRule <SRC, Object>
 {
-  private final Class <?> m_aSrcClass;
+  private final Class <SRC> m_aSrcClass;
   private Class <?> m_aEffectiveDstClass;
-  private final Function <Object, Object> m_aInBetweenConverter;
+  private final Function <SRC, Object> m_aInBetweenConverter;
 
-  public TypeConverterRuleFixedSourceAnyDestination (@Nonnull final Class <?> aSrcClass,
-                                                     @Nonnull final Function <Object, Object> aInBetweenConverter)
+  public TypeConverterRuleFixedSourceAnyDestination (@Nonnull final Class <SRC> aSrcClass,
+                                                     @Nonnull final Function <SRC, Object> aInBetweenConverter)
   {
     super (ESubType.FIXED_SRC_ANY_DST);
     m_aSrcClass = ValueEnforcer.notNull (aSrcClass, "SrcClass");
@@ -55,12 +57,12 @@ public final class TypeConverterRuleFixedSourceAnyDestination extends AbstractTy
   }
 
   @Nonnull
-  protected Object getInBetweenValue (@Nonnull final Object aSource)
+  protected Object getInBetweenValue (@Nonnull final SRC aSource)
   {
     return m_aInBetweenConverter.apply (aSource);
   }
 
-  public final Object apply (@Nonnull final Object aSource)
+  public final Object apply (@Nonnull final SRC aSource)
   {
     final Object aInBetweenValue = getInBetweenValue (aSource);
     return TypeConverter.convertIfNecessary (aInBetweenValue, m_aEffectiveDstClass);
@@ -79,5 +81,12 @@ public final class TypeConverterRuleFixedSourceAnyDestination extends AbstractTy
                             .append ("srcClass", m_aSrcClass.getName ())
                             .append ("inBetweenConverter", m_aInBetweenConverter)
                             .toString ();
+  }
+
+  @Nonnull
+  public static <SRC> TypeConverterRuleFixedSourceAnyDestination <SRC> create (@Nonnull final Class <SRC> aSrcClass,
+                                                                               @Nonnull final Function <SRC, Object> aInBetweenConverter)
+  {
+    return new TypeConverterRuleFixedSourceAnyDestination <SRC> (aSrcClass, aInBetweenConverter);
   }
 }

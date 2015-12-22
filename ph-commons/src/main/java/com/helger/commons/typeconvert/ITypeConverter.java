@@ -25,9 +25,13 @@ import javax.annotation.Nullable;
  * Special interface that is used to convert between values of different types.
  *
  * @author Philip Helger
+ * @param <SRC>
+ *        source type
+ * @param <DST>
+ *        destination type
  */
 @FunctionalInterface
-public interface ITypeConverter extends Function <Object, Object>
+public interface ITypeConverter <SRC, DST> extends Function <SRC, DST>
 {
   /**
    * Convert the passed source object to the destination type.
@@ -38,5 +42,5 @@ public interface ITypeConverter extends Function <Object, Object>
    * @return The converted value. May be <code>null</code>.
    */
   @Nullable
-  Object apply (@Nonnull Object aSource);
+  DST apply (@Nonnull SRC aSource);
 }

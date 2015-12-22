@@ -999,9 +999,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Boolean> newBooleanSet (@Nullable final boolean... aValues)
+  public static HashSet <Boolean> newBooleanSet (@Nullable final boolean... aValues)
   {
-    final Set <Boolean> ret = new HashSet <Boolean> ();
+    final HashSet <Boolean> ret = new HashSet <Boolean> ();
     if (aValues != null)
       for (final boolean aValue : aValues)
         ret.add (Boolean.valueOf (aValue));
@@ -1010,9 +1010,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Byte> newByteSet (@Nullable final byte... aValues)
+  public static HashSet <Byte> newByteSet (@Nullable final byte... aValues)
   {
-    final Set <Byte> ret = new HashSet <Byte> ();
+    final HashSet <Byte> ret = new HashSet <Byte> ();
     if (aValues != null)
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
@@ -1021,9 +1021,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Character> newCharSet (@Nullable final char... aValues)
+  public static HashSet <Character> newCharSet (@Nullable final char... aValues)
   {
-    final Set <Character> ret = new HashSet <Character> ();
+    final HashSet <Character> ret = new HashSet <Character> ();
     if (aValues != null)
       for (final char aValue : aValues)
         ret.add (Character.valueOf (aValue));
@@ -1032,9 +1032,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Double> newDoubleSet (@Nullable final double... aValues)
+  public static HashSet <Double> newDoubleSet (@Nullable final double... aValues)
   {
-    final Set <Double> ret = new HashSet <Double> ();
+    final HashSet <Double> ret = new HashSet <Double> ();
     if (aValues != null)
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
@@ -1043,9 +1043,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Float> newFloatSet (@Nullable final float... aValues)
+  public static HashSet <Float> newFloatSet (@Nullable final float... aValues)
   {
-    final Set <Float> ret = new HashSet <Float> ();
+    final HashSet <Float> ret = new HashSet <Float> ();
     if (aValues != null)
       for (final float aValue : aValues)
         ret.add (Float.valueOf (aValue));
@@ -1054,9 +1054,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Integer> newIntSet (@Nullable final int... aValues)
+  public static HashSet <Integer> newIntSet (@Nullable final int... aValues)
   {
-    final Set <Integer> ret = new HashSet <Integer> ();
+    final HashSet <Integer> ret = new HashSet <Integer> ();
     if (aValues != null)
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
@@ -1065,9 +1065,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Long> newLongSet (@Nullable final long... aValues)
+  public static HashSet <Long> newLongSet (@Nullable final long... aValues)
   {
-    final Set <Long> ret = new HashSet <Long> ();
+    final HashSet <Long> ret = new HashSet <Long> ();
     if (aValues != null)
       for (final long aValue : aValues)
         ret.add (Long.valueOf (aValue));
@@ -1076,9 +1076,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Short> newShortSet (@Nullable final short... aValues)
+  public static HashSet <Short> newShortSet (@Nullable final short... aValues)
   {
-    final Set <Short> ret = new HashSet <Short> ();
+    final HashSet <Short> ret = new HashSet <Short> ();
     if (aValues != null)
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
@@ -1562,9 +1562,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Boolean> newBooleanOrderedSet (@Nullable final boolean... aValues)
+  public static LinkedHashSet <Boolean> newBooleanOrderedSet (@Nullable final boolean... aValues)
   {
-    final Set <Boolean> ret = new LinkedHashSet <Boolean> ();
+    final LinkedHashSet <Boolean> ret = new LinkedHashSet <Boolean> ();
     if (aValues != null)
       for (final boolean aValue : aValues)
         ret.add (Boolean.valueOf (aValue));
@@ -1573,9 +1573,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Byte> newByteOrderedSet (@Nullable final byte... aValues)
+  public static LinkedHashSet <Byte> newByteOrderedSet (@Nullable final byte... aValues)
   {
-    final Set <Byte> ret = new LinkedHashSet <Byte> ();
+    final LinkedHashSet <Byte> ret = new LinkedHashSet <Byte> ();
     if (aValues != null)
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
@@ -1584,9 +1584,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Character> newCharOrderedSet (@Nullable final char... aValues)
+  public static LinkedHashSet <Character> newCharOrderedSet (@Nullable final char... aValues)
   {
-    final Set <Character> ret = new LinkedHashSet <Character> ();
+    final LinkedHashSet <Character> ret = new LinkedHashSet <Character> ();
     if (aValues != null)
       for (final char aValue : aValues)
         ret.add (Character.valueOf (aValue));
@@ -1595,9 +1595,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Double> newDoubleOrderedSet (@Nullable final double... aValues)
+  public static LinkedHashSet <Double> newDoubleOrderedSet (@Nullable final double... aValues)
   {
-    final Set <Double> ret = new LinkedHashSet <Double> ();
+    final LinkedHashSet <Double> ret = new LinkedHashSet <Double> ();
     if (aValues != null)
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
@@ -1606,9 +1606,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Float> newFloatOrderedSet (@Nullable final float... aValues)
+  public static LinkedHashSet <Float> newFloatOrderedSet (@Nullable final float... aValues)
   {
-    final Set <Float> ret = new LinkedHashSet <Float> ();
+    final LinkedHashSet <Float> ret = new LinkedHashSet <Float> ();
     if (aValues != null)
       for (final float aValue : aValues)
         ret.add (Float.valueOf (aValue));
@@ -1617,9 +1617,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Integer> newIntOrderedSet (@Nullable final int... aValues)
+  public static LinkedHashSet <Integer> newIntOrderedSet (@Nullable final int... aValues)
   {
-    final Set <Integer> ret = new LinkedHashSet <Integer> ();
+    final LinkedHashSet <Integer> ret = new LinkedHashSet <Integer> ();
     if (aValues != null)
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
@@ -1628,9 +1628,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Long> newLongOrderedSet (@Nullable final long... aValues)
+  public static LinkedHashSet <Long> newLongOrderedSet (@Nullable final long... aValues)
   {
-    final Set <Long> ret = new LinkedHashSet <Long> ();
+    final LinkedHashSet <Long> ret = new LinkedHashSet <Long> ();
     if (aValues != null)
       for (final long aValue : aValues)
         ret.add (Long.valueOf (aValue));
@@ -1639,9 +1639,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Short> newShortOrderedSet (@Nullable final short... aValues)
+  public static LinkedHashSet <Short> newShortOrderedSet (@Nullable final short... aValues)
   {
-    final Set <Short> ret = new LinkedHashSet <Short> ();
+    final LinkedHashSet <Short> ret = new LinkedHashSet <Short> ();
     if (aValues != null)
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
@@ -1975,9 +1975,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <Boolean> newBooleanList (@Nullable final boolean... aValues)
+  public static ArrayList <Boolean> newBooleanList (@Nullable final boolean... aValues)
   {
-    final List <Boolean> ret = new ArrayList <Boolean> ();
+    final ArrayList <Boolean> ret = new ArrayList <Boolean> ();
     if (aValues != null)
       for (final boolean aValue : aValues)
         ret.add (Boolean.valueOf (aValue));
@@ -1986,9 +1986,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <Byte> newByteList (@Nullable final byte... aValues)
+  public static ArrayList <Byte> newByteList (@Nullable final byte... aValues)
   {
-    final List <Byte> ret = new ArrayList <Byte> ();
+    final ArrayList <Byte> ret = new ArrayList <Byte> ();
     if (aValues != null)
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
@@ -1997,9 +1997,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <Character> newCharList (@Nullable final char... aValues)
+  public static ArrayList <Character> newCharList (@Nullable final char... aValues)
   {
-    final List <Character> ret = new ArrayList <Character> ();
+    final ArrayList <Character> ret = new ArrayList <Character> ();
     if (aValues != null)
       for (final char aValue : aValues)
         ret.add (Character.valueOf (aValue));
@@ -2008,9 +2008,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <Double> newDoubleList (@Nullable final double... aValues)
+  public static ArrayList <Double> newDoubleList (@Nullable final double... aValues)
   {
-    final List <Double> ret = new ArrayList <Double> ();
+    final ArrayList <Double> ret = new ArrayList <Double> ();
     if (aValues != null)
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
@@ -2019,9 +2019,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <Float> newFloatList (@Nullable final float... aValues)
+  public static ArrayList <Float> newFloatList (@Nullable final float... aValues)
   {
-    final List <Float> ret = new ArrayList <Float> ();
+    final ArrayList <Float> ret = new ArrayList <Float> ();
     if (aValues != null)
       for (final float aValue : aValues)
         ret.add (Float.valueOf (aValue));
@@ -2030,9 +2030,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <Integer> newIntList (@Nullable final int... aValues)
+  public static ArrayList <Integer> newIntList (@Nullable final int... aValues)
   {
-    final List <Integer> ret = new ArrayList <Integer> ();
+    final ArrayList <Integer> ret = new ArrayList <Integer> ();
     if (aValues != null)
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
@@ -2041,9 +2041,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <Long> newLongList (@Nullable final long... aValues)
+  public static ArrayList <Long> newLongList (@Nullable final long... aValues)
   {
-    final List <Long> ret = new ArrayList <Long> ();
+    final ArrayList <Long> ret = new ArrayList <Long> ();
     if (aValues != null)
       for (final long aValue : aValues)
         ret.add (Long.valueOf (aValue));
@@ -2052,9 +2052,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <Short> newShortList (@Nullable final short... aValues)
+  public static ArrayList <Short> newShortList (@Nullable final short... aValues)
   {
-    final List <Short> ret = new ArrayList <Short> ();
+    final ArrayList <Short> ret = new ArrayList <Short> ();
     if (aValues != null)
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));

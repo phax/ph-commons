@@ -30,5 +30,7 @@ import com.helger.commons.state.EContinue;
 public interface ITypeConverterCallback
 {
   @Nonnull
-  EContinue call (@Nonnull Class <?> aSrcClass, @Nonnull Class <?> aDstClass, @Nonnull ITypeConverter aConverter);
+  EContinue call (@Nonnull Class <?> aSrcClass,
+                  @Nonnull Class <?> aDstClass,
+                  @Nonnull ITypeConverter <?, ?> aConverter);
 }

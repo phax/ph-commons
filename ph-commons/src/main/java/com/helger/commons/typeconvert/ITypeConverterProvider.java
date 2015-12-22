@@ -38,5 +38,5 @@ public interface ITypeConverterProvider
    * @return <code>null</code> if no such type converter was found
    */
   @Nullable
-  ITypeConverter getTypeConverter (@Nonnull Class <?> aSrcClass, @Nonnull Class <?> aDstClass);
+  ITypeConverter <Object, Object> getTypeConverter (@Nonnull Class <?> aSrcClass, @Nonnull Class <?> aDstClass);
 }

@@ -29,14 +29,16 @@ import com.helger.commons.string.ToStringGenerator;
  * class. Example from Object.class to String.class
  *
  * @author Philip Helger
+ * @param <DST>
+ *        Destination type
  */
-public final class TypeConverterRuleAnySourceFixedDestination extends AbstractTypeConverterRule
+public final class TypeConverterRuleAnySourceFixedDestination <DST> extends AbstractTypeConverterRule <Object, DST>
 {
-  private final Class <?> m_aDstClass;
-  private final Function <Object, Object> m_aConverter;
+  private final Class <DST> m_aDstClass;
+  private final Function <Object, DST> m_aConverter;
 
-  public TypeConverterRuleAnySourceFixedDestination (@Nonnull final Class <?> aDstClass,
-                                                     @Nonnull final Function <Object, Object> aConverter)
+  public TypeConverterRuleAnySourceFixedDestination (@Nonnull final Class <DST> aDstClass,
+                                                     @Nonnull final Function <Object, DST> aConverter)
   {
     super (ESubType.ANY_SRC_FIXED_DST);
     m_aDstClass = ValueEnforcer.notNull (aDstClass, "DestClass");
@@ -56,7 +58,7 @@ public final class TypeConverterRuleAnySourceFixedDestination extends AbstractTy
   }
 
   @Nullable
-  public Object apply (@Nonnull final Object aSource)
+  public DST apply (@Nonnull final Object aSource)
   {
     return m_aConverter.apply (aSource);
   }
@@ -68,5 +70,12 @@ public final class TypeConverterRuleAnySourceFixedDestination extends AbstractTy
                             .append ("dstClass", m_aDstClass.getName ())
                             .append ("converter", m_aConverter)
                             .toString ();
+  }
+
+  @Nonnull
+  public static <DST> TypeConverterRuleAnySourceFixedDestination <DST> create (@Nonnull final Class <DST> aDstClass,
+                                                                               @Nonnull final Function <Object, DST> aConverter)
+  {
+    return new TypeConverterRuleAnySourceFixedDestination <DST> (aDstClass, aConverter);
   }
 }

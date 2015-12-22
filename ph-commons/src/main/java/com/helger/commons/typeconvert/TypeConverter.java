@@ -465,7 +465,8 @@ public final class TypeConverter
                                             @Nonnull final Object aSrcValue) throws TypeConverterException
   {
     // try to find matching converter
-    final ITypeConverter aConverter = aTypeConverterProvider.getTypeConverter (aSrcClass, aUsableDstClass);
+    final ITypeConverter <Object, Object> aConverter = aTypeConverterProvider.getTypeConverter (aSrcClass,
+                                                                                                aUsableDstClass);
     if (aConverter == null)
     {
       s_aLogger.warn ("No type converter from '" +

@@ -39,13 +39,15 @@ public final class TypeConverterProviderBestMatch implements ITypeConverterProvi
     return s_aInstance;
   }
 
+  @SuppressWarnings ("unchecked")
   @Nullable
-  public ITypeConverter getTypeConverter (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
+  public ITypeConverter <Object, Object> getTypeConverter (@Nonnull final Class <?> aSrcClass,
+                                                           @Nonnull final Class <?> aDstClass)
   {
     final TypeConverterRegistry aTCR = TypeConverterRegistry.getInstance ();
 
     // Find exact hit first
-    ITypeConverter ret = aTCR.getExactConverter (aSrcClass, aDstClass);
+    ITypeConverter <?, ?> ret = aTCR.getExactConverter (aSrcClass, aDstClass);
     if (ret == null)
     {
       // No exact match was found -> try rule based converter
@@ -56,6 +58,6 @@ public final class TypeConverterProviderBestMatch implements ITypeConverterProvi
         ret = aTCR.getFuzzyConverter (aSrcClass, aDstClass);
       }
     }
-    return ret;
+    return (ITypeConverter <Object, Object>) ret;
   }
 }

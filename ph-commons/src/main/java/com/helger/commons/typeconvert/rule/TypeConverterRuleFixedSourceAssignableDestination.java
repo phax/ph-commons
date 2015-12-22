@@ -29,16 +29,21 @@ import com.helger.commons.string.ToStringGenerator;
  * destination class. Example from String.class to specific Enum.class
  *
  * @author Philip Helger
+ * @param <SRC>
+ *        Source type
+ * @param <DST>
+ *        Destination type
  */
-public final class TypeConverterRuleFixedSourceAssignableDestination extends AbstractTypeConverterRule
+public final class TypeConverterRuleFixedSourceAssignableDestination <SRC, DST>
+                                                                     extends AbstractTypeConverterRule <SRC, DST>
 {
-  private final Class <?> m_aSrcClass;
-  private final Class <?> m_aDstClass;
-  private final Function <Object, Object> m_aConverter;
+  private final Class <SRC> m_aSrcClass;
+  private final Class <DST> m_aDstClass;
+  private final Function <SRC, DST> m_aConverter;
 
-  public TypeConverterRuleFixedSourceAssignableDestination (@Nonnull final Class <?> aSrcClass,
-                                                            @Nonnull final Class <?> aDstClass,
-                                                            @Nonnull final Function <Object, Object> aConverter)
+  public TypeConverterRuleFixedSourceAssignableDestination (@Nonnull final Class <SRC> aSrcClass,
+                                                            @Nonnull final Class <DST> aDstClass,
+                                                            @Nonnull final Function <SRC, DST> aConverter)
   {
     super (ESubType.FIXED_SRC_ASSIGNABLE_DST);
     m_aSrcClass = ValueEnforcer.notNull (aSrcClass, "SrcClass");
@@ -52,19 +57,19 @@ public final class TypeConverterRuleFixedSourceAssignableDestination extends Abs
   }
 
   @Nonnull
-  public final Class <?> getSourceClass ()
+  public final Class <SRC> getSourceClass ()
   {
     return m_aSrcClass;
   }
 
   @Nonnull
-  public final Class <?> getDestinationClass ()
+  public final Class <DST> getDestinationClass ()
   {
     return m_aDstClass;
   }
 
   @Nullable
-  public Object apply (@Nonnull final Object aSource)
+  public DST apply (@Nonnull final SRC aSource)
   {
     return m_aConverter.apply (aSource);
   }
@@ -77,5 +82,13 @@ public final class TypeConverterRuleFixedSourceAssignableDestination extends Abs
                             .append ("dstClass", m_aDstClass.getName ())
                             .append ("converter", m_aConverter)
                             .toString ();
+  }
+
+  @Nonnull
+  public static <SRC, DST> TypeConverterRuleFixedSourceAssignableDestination <SRC, DST> create (@Nonnull final Class <SRC> aSrcClass,
+                                                                                                @Nonnull final Class <DST> aDstClass,
+                                                                                                @Nonnull final Function <SRC, DST> aConverter)
+  {
+    return new TypeConverterRuleFixedSourceAssignableDestination <SRC, DST> (aSrcClass, aDstClass, aConverter);
   }
 }

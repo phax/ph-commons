@@ -26,8 +26,12 @@ import com.helger.commons.typeconvert.ITypeConverterRule;
  * Abstract type converter rule implementation
  *
  * @author Philip Helger
+ * @param <SRC>
+ *        source type
+ * @param <DST>
+ *        destination type
  */
-public abstract class AbstractTypeConverterRule implements ITypeConverterRule
+public abstract class AbstractTypeConverterRule <SRC, DST> implements ITypeConverterRule <SRC, DST>
 {
   private final ESubType m_eSubType;
 

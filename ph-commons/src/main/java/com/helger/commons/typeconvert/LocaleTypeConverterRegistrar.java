@@ -36,11 +36,9 @@ public final class LocaleTypeConverterRegistrar implements ITypeConverterRegistr
   public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
   {
     // Locale
-    aRegistry.registerTypeConverter (String.class, Locale.class, aSource -> {
-      final String sSource = (String) aSource;
-      if ("".equals (sSource))
-        return Locale.ROOT;
-      return LocaleCache.getInstance ().getLocale (sSource);
-    });
+    aRegistry.registerTypeConverter (String.class,
+                                     Locale.class,
+                                     sSource -> "".equals (sSource) ? Locale.ROOT
+                                                                    : LocaleCache.getInstance ().getLocale (sSource));
   }
 }

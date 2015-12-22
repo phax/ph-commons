@@ -23,8 +23,12 @@ import javax.annotation.Nonnull;
  * classes.
  *
  * @author Philip Helger
+ * @param <SRC>
+ *        source type
+ * @param <DST>
+ *        destination type
  */
-public interface ITypeConverterRule extends ITypeConverter
+public interface ITypeConverterRule <SRC, DST> extends ITypeConverter <SRC, DST>
 {
   /**
    * Define the sub types of the rules. The order is the sub type in which they

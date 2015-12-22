@@ -37,9 +37,12 @@ public final class TypeConverterProviderFuzzy implements ITypeConverterProvider
     return s_aInstance;
   }
 
+  @SuppressWarnings ("unchecked")
   @Nullable
-  public ITypeConverter getTypeConverter (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
+  public ITypeConverter <Object, Object> getTypeConverter (@Nonnull final Class <?> aSrcClass,
+                                                           @Nonnull final Class <?> aDstClass)
   {
-    return TypeConverterRegistry.getInstance ().getFuzzyConverter (aSrcClass, aDstClass);
+    return (ITypeConverter <Object, Object>) TypeConverterRegistry.getInstance ().getFuzzyConverter (aSrcClass,
+                                                                                                     aDstClass);
   }
 }
