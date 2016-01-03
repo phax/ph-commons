@@ -48,7 +48,7 @@ public class MultiTreeMapHashSetBased <KEYTYPE, VALUETYPE> extends AbstractMulti
     super (aComparator);
   }
 
-  public MultiTreeMapHashSetBased (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MultiTreeMapHashSetBased (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aValue);
   }

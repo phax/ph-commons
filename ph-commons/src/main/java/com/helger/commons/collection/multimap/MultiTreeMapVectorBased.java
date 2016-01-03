@@ -48,7 +48,7 @@ public class MultiTreeMapVectorBased <KEYTYPE, VALUETYPE> extends AbstractMultiT
     super (aComparator);
   }
 
-  public MultiTreeMapVectorBased (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MultiTreeMapVectorBased (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aValue);
   }

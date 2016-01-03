@@ -43,7 +43,7 @@ public class MultiLinkedHashMapLinkedHashSetBased <KEYTYPE, VALUETYPE>
   public MultiLinkedHashMapLinkedHashSetBased ()
   {}
 
-  public MultiLinkedHashMapLinkedHashSetBased (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MultiLinkedHashMapLinkedHashSetBased (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aValue);
   }

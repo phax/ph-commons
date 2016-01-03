@@ -49,7 +49,7 @@ public class MultiTreeMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable <? 
     super (aComparator);
   }
 
-  public MultiTreeMapTreeSetBased (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MultiTreeMapTreeSetBased (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aValue);
   }

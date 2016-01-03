@@ -49,7 +49,7 @@ public class MultiTreeMapLinkedHashSetBased <KEYTYPE, VALUETYPE>
     super (aComparator);
   }
 
-  public MultiTreeMapLinkedHashSetBased (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MultiTreeMapLinkedHashSetBased (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aValue);
   }

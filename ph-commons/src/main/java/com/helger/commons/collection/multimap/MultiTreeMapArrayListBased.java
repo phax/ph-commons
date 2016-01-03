@@ -48,7 +48,7 @@ public class MultiTreeMapArrayListBased <KEYTYPE, VALUETYPE> extends AbstractMul
     super (aComparator);
   }
 
-  public MultiTreeMapArrayListBased (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MultiTreeMapArrayListBased (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aValue);
   }
