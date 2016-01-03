@@ -473,9 +473,9 @@ public final class TypeConverter
                       aSrcClass.getName () +
                       "' to '" +
                       aUsableDstClass.getName () +
-                      "' was found (using provider " +
+                      "' was found (using provider '" +
                       aTypeConverterProvider.getClass ().getName () +
-                      ")");
+                      "')");
       throw new TypeConverterException (aSrcClass, aUsableDstClass, EReason.NO_CONVERTER_FOUND);
     }
 
@@ -489,9 +489,9 @@ public final class TypeConverter
                       aSrcClass.getName () +
                       "' to '" +
                       aUsableDstClass.getName () +
-                      "' with converter " +
-                      aConverter +
-                      " failed");
+                      "' with converter '" +
+                      aConverter.toString () +
+                      "' failed");
       throw new TypeConverterException (aSrcClass, aUsableDstClass, EReason.CONVERSION_FAILED);
     }
     return aRetVal;
