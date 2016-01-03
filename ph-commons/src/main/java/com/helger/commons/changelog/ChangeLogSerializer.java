@@ -37,6 +37,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.datetime.DateTimeFormatterCache;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.lang.ClassLoaderHelper;
@@ -61,7 +62,7 @@ import com.helger.commons.xml.CXML;
 public final class ChangeLogSerializer
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ChangeLogSerializer.class);
-  private static final DateTimeFormatter DF = DateTimeFormatter.ofPattern ("yyyy-MM-dd");
+  private static final DateTimeFormatter DF = DateTimeFormatterCache.getDateTimeFormatter ("yyyy-MM-dd");
   private static final String ELEMENT_CHANGELOG = "changelog";
   private static final String ATTR_VERSION = "version";
   private static final String ATTR_COMPONENT = "component";

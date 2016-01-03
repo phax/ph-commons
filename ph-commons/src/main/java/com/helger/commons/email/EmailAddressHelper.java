@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.regex.RegExPool;
+import com.helger.commons.regex.RegExCache;
 
 /**
  * Perform simple email address validation based on a regular expression.
@@ -36,7 +36,7 @@ public final class EmailAddressHelper
   public static final String EMAIL_ADDRESS_PATTERN = "[a-z0-9!#\\$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#\\$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
   /** Compile this little pattern only once */
-  private static final Pattern s_aPattern = RegExPool.getPattern (EMAIL_ADDRESS_PATTERN);
+  private static final Pattern s_aPattern = RegExCache.getPattern (EMAIL_ADDRESS_PATTERN);
 
   private EmailAddressHelper ()
   {}

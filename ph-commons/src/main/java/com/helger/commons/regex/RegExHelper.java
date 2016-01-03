@@ -35,7 +35,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * This class offers helper methods that work on cached regular expression
- * pattern as offered by {@link RegExPool}.
+ * pattern as offered by {@link RegExCache}.
  *
  * @author Philip Helger
  */
@@ -68,7 +68,7 @@ public final class RegExHelper
   {
     if (sText == null)
       return ArrayHelper.EMPTY_STRING_ARRAY;
-    return RegExPool.getPattern (sRegEx).split (sText);
+    return RegExCache.getPattern (sRegEx).split (sText);
   }
 
   /**
@@ -97,7 +97,7 @@ public final class RegExHelper
     ValueEnforcer.notNull (sRegEx, "RegEx");
     if (sText == null)
       return ArrayHelper.EMPTY_STRING_ARRAY;
-    return RegExPool.getPattern (sRegEx).split (sText, nLimit);
+    return RegExCache.getPattern (sRegEx).split (sText, nLimit);
   }
 
   /**
@@ -163,7 +163,7 @@ public final class RegExHelper
   {
     ValueEnforcer.notNull (sValue, "Value");
 
-    return RegExPool.getPattern (sRegEx).matcher (sValue);
+    return RegExCache.getPattern (sRegEx).matcher (sValue);
   }
 
   /**
@@ -187,7 +187,7 @@ public final class RegExHelper
   {
     ValueEnforcer.notNull (sValue, "Value");
 
-    return RegExPool.getPattern (sRegEx, nOptions).matcher (sValue);
+    return RegExCache.getPattern (sRegEx, nOptions).matcher (sValue);
   }
 
   /**

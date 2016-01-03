@@ -31,7 +31,7 @@ import com.helger.commons.locale.country.CountryCache;
 import com.helger.commons.microdom.convert.MicroTypeConverterRegistry;
 import com.helger.commons.mime.MimeTypeDeterminator;
 import com.helger.commons.mime.MimeTypeInfoManager;
-import com.helger.commons.regex.RegExPool;
+import com.helger.commons.regex.RegExCache;
 import com.helger.commons.scope.spi.ScopeSPIManager;
 import com.helger.commons.serialize.convert.SerializationConverterRegistry;
 import com.helger.commons.statistics.StatisticsManager;
@@ -97,8 +97,8 @@ public final class CommonsCleanup
       DefaultTextResolver.getInstance ().clearCache ();
     EnumHelper.clearCache ();
     ResourceBundleHelper.clearCache ();
-    if (RegExPool.isInstantiated ())
-      RegExPool.getInstance ().clearCache ();
+    if (RegExCache.isInstantiated ())
+      RegExCache.getInstance ().clearCache ();
     CollatorHelper.clearCache ();
     LocaleHelper.clearCache ();
     if (XMLSchemaCache.isInstantiated ())

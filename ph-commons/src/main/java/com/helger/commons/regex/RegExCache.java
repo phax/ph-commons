@@ -30,18 +30,18 @@ import com.helger.commons.annotation.Singleton;
 import com.helger.commons.cache.AbstractNotifyingCache;
 
 /**
- * This class provides a pool for cached regular expressions. It caches up to a
- * limited number of compiled {@link Pattern} objects.
+ * This class provides a cached for compiled regular expressions. It caches up
+ * to a limited number of compiled {@link Pattern} objects.
  *
  * @author Philip Helger
  */
 @ThreadSafe
 @Singleton
-public final class RegExPool extends AbstractNotifyingCache <RegExPattern, Pattern>
+public final class RegExCache extends AbstractNotifyingCache <RegExPattern, Pattern>
 {
   private static final class SingletonHolder
   {
-    static final RegExPool s_aInstance = new RegExPool ();
+    static final RegExCache s_aInstance = new RegExCache ();
   }
 
   /** The default number of items to keep in the cache */
@@ -49,9 +49,9 @@ public final class RegExPool extends AbstractNotifyingCache <RegExPattern, Patte
 
   private static boolean s_bDefaultInstantiated = false;
 
-  private RegExPool ()
+  private RegExCache ()
   {
-    super (MAX_CACHE_SIZE, RegExPool.class.getName ());
+    super (MAX_CACHE_SIZE, RegExCache.class.getName ());
   }
 
   public static boolean isInstantiated ()
@@ -60,9 +60,9 @@ public final class RegExPool extends AbstractNotifyingCache <RegExPattern, Patte
   }
 
   @Nonnull
-  public static RegExPool getInstance ()
+  public static RegExCache getInstance ()
   {
-    final RegExPool ret = SingletonHolder.s_aInstance;
+    final RegExCache ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
     return ret;
   }

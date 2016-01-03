@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.regex.RegExPool;
+import com.helger.commons.regex.RegExCache;
 
 /**
  * XML regular expressions.<br>
@@ -77,18 +77,18 @@ public final class CXMLRegEx
 
   // doesn't work!!!
   /** Pattern for attribute values */
-  public static final Pattern PATTERN_ATTVALUE = RegExPool.getPattern (ATTVALUE);
+  public static final Pattern PATTERN_ATTVALUE = RegExCache.getPattern (ATTVALUE);
 
   /** Pattern for names */
-  public static final Pattern PATTERN_NAME = RegExPool.getPattern (NAME);
+  public static final Pattern PATTERN_NAME = RegExCache.getPattern (NAME);
   /** Pattern for names that is much quicker but is not 100% correct */
-  public static final Pattern PATTERN_NAME_QUICK = RegExPool.getPattern ("[a-zA-Z_][a-zA-Z0-9]*");
+  public static final Pattern PATTERN_NAME_QUICK = RegExCache.getPattern ("[a-zA-Z_][a-zA-Z0-9]*");
   /** Pattern for NC names */
-  public static final Pattern PATTERN_NCNAME = RegExPool.getPattern (NCNAME);
+  public static final Pattern PATTERN_NCNAME = RegExCache.getPattern (NCNAME);
   /** Pattern for NM tokens */
-  public static final Pattern PATTERN_NMTOKEN = RegExPool.getPattern (NMTOKEN);
+  public static final Pattern PATTERN_NMTOKEN = RegExCache.getPattern (NMTOKEN);
   /** Pattern for qualified names */
-  public static final Pattern PATTERN_QNAME = RegExPool.getPattern (QNAME);
+  public static final Pattern PATTERN_QNAME = RegExCache.getPattern (QNAME);
 
   @PresentForCodeCoverage
   private static final CXMLRegEx s_aInstance = new CXMLRegEx ();

@@ -31,7 +31,7 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Test class for {@link RegExPool}.
+ * Test class for {@link RegExCache}.
  *
  * @author Philip Helger
  */
@@ -44,14 +44,14 @@ public final class RegExPoolTest extends AbstractCommonsTestCase
   @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testGetPattern ()
   {
-    assertNotNull (RegExPool.getPattern ("xy"));
-    assertSame (RegExPool.getPattern ("xy"), RegExPool.getPattern ("xy"));
-    assertNotSame (RegExPool.getPattern ("xy"), RegExPool.getPattern ("yy"));
+    assertNotNull (RegExCache.getPattern ("xy"));
+    assertSame (RegExCache.getPattern ("xy"), RegExCache.getPattern ("xy"));
+    assertNotSame (RegExCache.getPattern ("xy"), RegExCache.getPattern ("yy"));
 
     try
     {
       // empty string not allowed
-      RegExPool.getPattern ("");
+      RegExCache.getPattern ("");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -60,7 +60,7 @@ public final class RegExPoolTest extends AbstractCommonsTestCase
     try
     {
       // null not allowed
-      RegExPool.getPattern (null);
+      RegExCache.getPattern (null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -69,7 +69,7 @@ public final class RegExPoolTest extends AbstractCommonsTestCase
     try
     {
       // Illegal regular expression
-      RegExPool.getPattern ("[a-z+");
+      RegExCache.getPattern ("[a-z+");
       fail ();
     }
     catch (final IllegalArgumentException ex)
