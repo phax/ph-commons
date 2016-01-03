@@ -30,8 +30,8 @@ public class MultiHashMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparab
   public MultiHashMapLinkedHashMapBased ()
   {}
 
-  public MultiHashMapLinkedHashMapBased (@Nullable final KEYTYPE1 aKey,
-                                         @Nullable final KEYTYPE2 aInnerKey,
+  public MultiHashMapLinkedHashMapBased (@Nonnull final KEYTYPE1 aKey,
+                                         @Nonnull final KEYTYPE2 aInnerKey,
                                          @Nullable final VALUETYPE aValue)
   {
     super (aKey, aInnerKey, aValue);

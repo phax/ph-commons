@@ -43,12 +43,12 @@ public class MultiWeakHashMapLinkedHashSetBased <KEYTYPE, VALUETYPE>
   public MultiWeakHashMapLinkedHashSetBased ()
   {}
 
-  public MultiWeakHashMapLinkedHashSetBased (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MultiWeakHashMapLinkedHashSetBased (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aValue);
   }
 
-  public MultiWeakHashMapLinkedHashSetBased (@Nullable final KEYTYPE aKey, @Nullable final Set <VALUETYPE> aCollection)
+  public MultiWeakHashMapLinkedHashSetBased (@Nonnull final KEYTYPE aKey, @Nullable final Set <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }

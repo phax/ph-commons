@@ -43,7 +43,7 @@ public class MultiHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable <? 
   public MultiHashMapTreeSetBased ()
   {}
 
-  public MultiHashMapTreeSetBased (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MultiHashMapTreeSetBased (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aValue);
   }

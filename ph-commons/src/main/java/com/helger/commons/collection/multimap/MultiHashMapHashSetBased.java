@@ -42,7 +42,7 @@ public class MultiHashMapHashSetBased <KEYTYPE, VALUETYPE> extends AbstractMulti
   public MultiHashMapHashSetBased ()
   {}
 
-  public MultiHashMapHashSetBased (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MultiHashMapHashSetBased (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aValue);
   }

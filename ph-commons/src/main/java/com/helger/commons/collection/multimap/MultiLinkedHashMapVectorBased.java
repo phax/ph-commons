@@ -43,7 +43,7 @@ public class MultiLinkedHashMapVectorBased <KEYTYPE, VALUETYPE>
   public MultiLinkedHashMapVectorBased ()
   {}
 
-  public MultiLinkedHashMapVectorBased (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MultiLinkedHashMapVectorBased (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aValue);
   }

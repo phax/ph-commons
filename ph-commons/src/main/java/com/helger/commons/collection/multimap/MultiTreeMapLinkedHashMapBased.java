@@ -36,8 +36,8 @@ public class MultiTreeMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparab
     super (aComparator);
   }
 
-  public MultiTreeMapLinkedHashMapBased (@Nullable final KEYTYPE1 aKey,
-                                         @Nullable final KEYTYPE2 aInnerKey,
+  public MultiTreeMapLinkedHashMapBased (@Nonnull final KEYTYPE1 aKey,
+                                         @Nonnull final KEYTYPE2 aInnerKey,
                                          @Nullable final VALUETYPE aValue)
   {
     super (aKey, aInnerKey, aValue);

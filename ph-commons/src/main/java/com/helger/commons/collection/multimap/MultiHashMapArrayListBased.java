@@ -42,7 +42,7 @@ public class MultiHashMapArrayListBased <KEYTYPE, VALUETYPE> extends AbstractMul
   public MultiHashMapArrayListBased ()
   {}
 
-  public MultiHashMapArrayListBased (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MultiHashMapArrayListBased (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aValue);
   }

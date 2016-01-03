@@ -42,7 +42,7 @@ public class MultiHashMapVectorBased <KEYTYPE, VALUETYPE> extends AbstractMultiH
   public MultiHashMapVectorBased ()
   {}
 
-  public MultiHashMapVectorBased (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MultiHashMapVectorBased (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aValue);
   }

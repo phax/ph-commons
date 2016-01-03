@@ -43,12 +43,12 @@ public class MultiWeakHashMapArrayListBased <KEYTYPE, VALUETYPE>
   public MultiWeakHashMapArrayListBased ()
   {}
 
-  public MultiWeakHashMapArrayListBased (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MultiWeakHashMapArrayListBased (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aValue);
   }
 
-  public MultiWeakHashMapArrayListBased (@Nullable final KEYTYPE aKey, @Nullable final List <VALUETYPE> aCollection)
+  public MultiWeakHashMapArrayListBased (@Nonnull final KEYTYPE aKey, @Nullable final List <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }

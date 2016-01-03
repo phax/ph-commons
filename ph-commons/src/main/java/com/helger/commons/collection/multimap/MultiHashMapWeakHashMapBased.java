@@ -30,8 +30,8 @@ public class MultiHashMapWeakHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable
   public MultiHashMapWeakHashMapBased ()
   {}
 
-  public MultiHashMapWeakHashMapBased (@Nullable final KEYTYPE1 aKey,
-                                       @Nullable final KEYTYPE2 aInnerKey,
+  public MultiHashMapWeakHashMapBased (@Nonnull final KEYTYPE1 aKey,
+                                       @Nonnull final KEYTYPE2 aInnerKey,
                                        @Nullable final VALUETYPE aValue)
   {
     super (aKey, aInnerKey, aValue);

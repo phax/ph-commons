@@ -30,8 +30,8 @@ public class MultiHashMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
   public MultiHashMapHashMapBased ()
   {}
 
-  public MultiHashMapHashMapBased (@Nullable final KEYTYPE1 aKey,
-                                   @Nullable final KEYTYPE2 aInnerKey,
+  public MultiHashMapHashMapBased (@Nonnull final KEYTYPE1 aKey,
+                                   @Nonnull final KEYTYPE2 aInnerKey,
                                    @Nullable final VALUETYPE aValue)
   {
     super (aKey, aInnerKey, aValue);

@@ -31,8 +31,8 @@ public class MultiLinkedHashMapWeakHashMapBased <KEYTYPE1, KEYTYPE2 extends Comp
   public MultiLinkedHashMapWeakHashMapBased ()
   {}
 
-  public MultiLinkedHashMapWeakHashMapBased (@Nullable final KEYTYPE1 aKey,
-                                             @Nullable final KEYTYPE2 aInnerKey,
+  public MultiLinkedHashMapWeakHashMapBased (@Nonnull final KEYTYPE1 aKey,
+                                             @Nonnull final KEYTYPE2 aInnerKey,
                                              @Nullable final VALUETYPE aValue)
   {
     super (aKey, aInnerKey, aValue);

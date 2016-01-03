@@ -20,6 +20,7 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
@@ -46,7 +47,7 @@ public abstract class AbstractMultiTreeMapSetBased <KEYTYPE, VALUETYPE>
     super (aComparator);
   }
 
-  public AbstractMultiTreeMapSetBased (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public AbstractMultiTreeMapSetBased (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aValue);
   }

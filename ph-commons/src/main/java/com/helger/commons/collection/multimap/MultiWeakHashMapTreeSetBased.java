@@ -43,12 +43,12 @@ public class MultiWeakHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable
   public MultiWeakHashMapTreeSetBased ()
   {}
 
-  public MultiWeakHashMapTreeSetBased (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  public MultiWeakHashMapTreeSetBased (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aValue);
   }
 
-  public MultiWeakHashMapTreeSetBased (@Nullable final KEYTYPE aKey, @Nullable final Set <VALUETYPE> aCollection)
+  public MultiWeakHashMapTreeSetBased (@Nonnull final KEYTYPE aKey, @Nullable final Set <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
