@@ -16,7 +16,6 @@
  */
 package com.helger.commons.datetime;
 
-import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.ResolverStyle;
@@ -38,7 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 @ThreadSafe
 @DevelopersNote ("The mutable m_aHashCode does not contradict thread safety")
-public final class DateTimeFormatterPattern implements Serializable
+public final class DateTimeFormatterPattern
 {
   private final String m_sPattern;
   private final ResolverStyle m_eResolverStyle;
