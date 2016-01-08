@@ -3,7 +3,7 @@
 Java 1.8+ Library with tons of utility classes required in most of ph-* projects.
 
 Version 6.0.0 contains major changes and more or less all other projects were released to reflect the changes of 6.x. So please ensure to not mix 5.x and 6.x versions of ph-commons!
-Version 8.0.0 is the first to be used solely with Java 8.
+Version 8.0.0 is the first to be used solely with Java 8. It also introduces a new project called "ph-less-commons".
 
 ##Maven usage
 Add the following to your pom.xml to use this artifact:
