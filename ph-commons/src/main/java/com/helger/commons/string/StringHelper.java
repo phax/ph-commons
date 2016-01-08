@@ -31,6 +31,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.function.IntConsumer;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.CheckReturnValue;
@@ -47,6 +48,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.function.CharConsumer;
 import com.helger.commons.math.MathHelper;
 
 /**
@@ -3929,16 +3931,57 @@ public final class StringHelper
     if (aRemoveChars.length == 0)
       return sInputString;
 
-    // Get char array
     final StringBuilder aSB = new StringBuilder (sInputString.length ());
-    final char [] aInput = sInputString.toCharArray ();
-    input: for (final char cInput : aInput)
-    {
-      for (final char cRemove : aRemoveChars)
-        if (cInput == cRemove)
-          continue input;
-      aSB.append (cInput);
-    }
+    iterateChars (sInputString, cInput -> {
+      if (!ArrayHelper.contains (aRemoveChars, cInput))
+        aSB.append (cInput);
+    });
     return aSB.toString ();
+  }
+
+  /**
+   * Iterate all characters and pass them to the provided consumer.
+   *
+   * @param sInputString
+   *        Input String to use. May be <code>null</code> or empty.
+   * @param aConsumer
+   *        The consumer to be used. May not be <code>null</code>.
+   */
+  public static void iterateChars (@Nullable final String sInputString, @Nonnull final CharConsumer aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+
+    if (sInputString != null)
+    {
+      final char [] aInput = sInputString.toCharArray ();
+      for (final char cInput : aInput)
+        aConsumer.accept (cInput);
+    }
+  }
+
+  /**
+   * Iterate all code points and pass them to the provided consumer.
+   *
+   * @param sInputString
+   *        Input String to use. May be <code>null</code> or empty.
+   * @param aConsumer
+   *        The consumer to be used. May not be <code>null</code>.
+   */
+  public static void iterateCodePoints (@Nullable final String sInputString, @Nonnull final IntConsumer aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+
+    if (sInputString != null)
+    {
+      final int nStringLength = sInputString.length ();
+      int nOfs = 0;
+      while (nOfs < nStringLength)
+      {
+        final int nCodePoint = sInputString.codePointAt (nOfs);
+        nOfs += Character.charCount (nCodePoint);
+
+        aConsumer.accept (nCodePoint);
+      }
+    }
   }
 }
