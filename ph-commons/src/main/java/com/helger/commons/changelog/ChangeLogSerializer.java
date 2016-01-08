@@ -62,7 +62,7 @@ import com.helger.commons.xml.CXML;
 public final class ChangeLogSerializer
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ChangeLogSerializer.class);
-  private static final DateTimeFormatter DF = DateTimeFormatterCache.getDateTimeFormatter ("yyyy-MM-dd");
+  private static final DateTimeFormatter DF = DateTimeFormatterCache.getDateTimeFormatterStrict ("yyyy-MM-dd");
   private static final String ELEMENT_CHANGELOG = "changelog";
   private static final String ATTR_VERSION = "version";
   private static final String ATTR_COMPONENT = "component";

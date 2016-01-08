@@ -17,7 +17,7 @@
 package com.helger.commons.datetime;
 
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.ResolverStyle;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
@@ -36,7 +36,7 @@ import com.helger.commons.cache.AbstractNotifyingCache;
  */
 @ThreadSafe
 @Singleton
-public final class DateTimeFormatterCache extends AbstractNotifyingCache <String, DateTimeFormatter>
+public final class DateTimeFormatterCache extends AbstractNotifyingCache <DateTimeFormatterPattern, DateTimeFormatter>
 {
   private static final class SingletonHolder
   {
@@ -69,13 +69,13 @@ public final class DateTimeFormatterCache extends AbstractNotifyingCache <String
   @Override
   @Nonnull
   @IsLocked (ELockType.WRITE)
-  protected DateTimeFormatter getValueToCache (@Nonnull final String sPattern)
+  protected DateTimeFormatter getValueToCache (@Nonnull final DateTimeFormatterPattern aPattern)
   {
-    return new DateTimeFormatterBuilder ().appendPattern (sPattern).parseStrict ().toFormatter ();
+    return aPattern.getAsFormatter ();
   }
 
   /**
-   * Get the cached DateTimeFormatter.
+   * Get the cached DateTimeFormatter using STRICT resolving.
    *
    * @param sPattern
    *        The pattern to retrieve. May neither be <code>null</code> nor empty.
@@ -84,8 +84,56 @@ public final class DateTimeFormatterCache extends AbstractNotifyingCache <String
    *         If the pattern is invalid
    */
   @Nonnull
-  public static DateTimeFormatter getDateTimeFormatter (@Nonnull @Nonempty final String sPattern)
+  public static DateTimeFormatter getDateTimeFormatterStrict (@Nonnull @Nonempty final String sPattern)
   {
-    return getInstance ().getFromCache (sPattern);
+    return getDateTimeFormatter (sPattern, ResolverStyle.STRICT);
+  }
+
+  /**
+   * Get the cached DateTimeFormatter using SMART resolving.
+   *
+   * @param sPattern
+   *        The pattern to retrieve. May neither be <code>null</code> nor empty.
+   * @return The compiled DateTimeFormatter and never <code>null</code> .
+   * @throws IllegalArgumentException
+   *         If the pattern is invalid
+   */
+  @Nonnull
+  public static DateTimeFormatter getDateTimeFormatterSmart (@Nonnull @Nonempty final String sPattern)
+  {
+    return getDateTimeFormatter (sPattern, ResolverStyle.SMART);
+  }
+
+  /**
+   * Get the cached DateTimeFormatter using LENIENT resolving.
+   *
+   * @param sPattern
+   *        The pattern to retrieve. May neither be <code>null</code> nor empty.
+   * @return The compiled DateTimeFormatter and never <code>null</code> .
+   * @throws IllegalArgumentException
+   *         If the pattern is invalid
+   */
+  @Nonnull
+  public static DateTimeFormatter getDateTimeFormatterLenient (@Nonnull @Nonempty final String sPattern)
+  {
+    return getDateTimeFormatter (sPattern, ResolverStyle.LENIENT);
+  }
+
+  /**
+   * Get the cached DateTimeFormatter using the provided resolver style.
+   *
+   * @param sPattern
+   *        The pattern to retrieve. May neither be <code>null</code> nor empty.
+   * @param eResolverStyle
+   *        The resolver style to be used. May not be <code>null</code>.
+   * @return The compiled DateTimeFormatter and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If the pattern is invalid
+   */
+  @Nonnull
+  public static DateTimeFormatter getDateTimeFormatter (@Nonnull @Nonempty final String sPattern,
+                                                        @Nonnull final ResolverStyle eResolverStyle)
+  {
+    return getInstance ().getFromCache (new DateTimeFormatterPattern (sPattern, eResolverStyle));
   }
 }
