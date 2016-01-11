@@ -32,9 +32,9 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class ReverseComparator <T> implements ISerializableComparator <T>
 {
-  private final Comparator <T> m_aComparator;
+  private final Comparator <? super T> m_aComparator;
 
-  public ReverseComparator (@Nonnull final Comparator <T> aComparator)
+  public ReverseComparator (@Nonnull final Comparator <? super T> aComparator)
   {
     m_aComparator = ValueEnforcer.notNull (aComparator, "Comparator");
   }
@@ -43,7 +43,7 @@ public class ReverseComparator <T> implements ISerializableComparator <T>
    * @return The original comparator as passed in the constructor.
    */
   @Nonnull
-  public Comparator <T> getOriginalComparator ()
+  public Comparator <? super T> getOriginalComparator ()
   {
     return m_aComparator;
   }
