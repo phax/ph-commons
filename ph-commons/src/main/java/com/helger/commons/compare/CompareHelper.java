@@ -142,7 +142,7 @@ public final class CompareHelper
    */
   public static int compare (final int n1, final int n2)
   {
-    return n1 < n2 ? -1 : n1 == n2 ? 0 : +1;
+    return Integer.compare (n1, n2);
   }
 
   /**
@@ -156,7 +156,7 @@ public final class CompareHelper
    */
   public static int compare (final long n1, final long n2)
   {
-    return n1 < n2 ? -1 : n1 == n2 ? 0 : +1;
+    return Long.compare (n1, n2);
   }
 
   /**

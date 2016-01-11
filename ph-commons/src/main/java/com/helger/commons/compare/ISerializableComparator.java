@@ -30,6 +30,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  *        The data type to be compared
  */
 @NotThreadSafe
+@FunctionalInterface
 public interface ISerializableComparator <DATATYPE> extends Comparator <DATATYPE>, Serializable
 {
   /* empty */
