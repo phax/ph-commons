@@ -27,7 +27,7 @@ import javax.xml.bind.Unmarshaller;
 
 import org.junit.Test;
 
-import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.xml.transform.TransformSourceFactory;
 import com.helger.jaxb.JAXBContextCache;
@@ -51,7 +51,7 @@ public final class CollectingValidationEventHandlerTest
     um.setEventHandler (evh);
 
     // read valid
-    JAXBElement <MockJAXBArchive> o = um.unmarshal (TransformSourceFactory.create (new ClassPathResource ("xml/test-archive-01.xml")),
+    JAXBElement <MockJAXBArchive> o = um.unmarshal (TransformSourceFactory.create (new FileSystemResource ("src/test/resources/xml/test-archive-01.xml")),
                                                     MockJAXBArchive.class);
     assertNotNull (o);
     assertTrue (evh.getResourceErrors ().isEmpty ());
@@ -59,7 +59,7 @@ public final class CollectingValidationEventHandlerTest
     // read invalid
     evh = new CollectingValidationEventHandler ();
     um.setEventHandler (evh);
-    o = um.unmarshal (TransformSourceFactory.create (new ClassPathResource ("xml/buildinfo.xml")),
+    o = um.unmarshal (TransformSourceFactory.create (new FileSystemResource ("src/test/resources/xml/buildinfo.xml")),
                       MockJAXBArchive.class);
     assertNotNull (o);
     assertTrue (!evh.getResourceErrors ().isEmpty ());
@@ -67,7 +67,7 @@ public final class CollectingValidationEventHandlerTest
     // Read invalid (but close to valid)
     evh = new CollectingValidationEventHandler (new LoggingValidationEventHandler ());
     um.setEventHandler (evh);
-    o = um.unmarshal (TransformSourceFactory.create (new ClassPathResource ("xml/test-archive-03.xml")),
+    o = um.unmarshal (TransformSourceFactory.create (new FileSystemResource ("src/test/resources/xml/test-archive-03.xml")),
                       MockJAXBArchive.class);
     assertNotNull (o);
     assertEquals (1, evh.getResourceErrors ().getSize ());
