@@ -164,7 +164,7 @@ public final class LocaleHelper
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
-    final Map <Locale, String> ret = new HashMap <Locale, String> ();
+    final Map <Locale, String> ret = new HashMap <> ();
     for (final Locale aCurLocale : LocaleCache.getInstance ().getAllLocales ())
       ret.put (aCurLocale, getLocaleDisplayName (aCurLocale, aContentLocale));
     return ret;

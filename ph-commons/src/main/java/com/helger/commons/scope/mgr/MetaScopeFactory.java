@@ -50,7 +50,9 @@ public final class MetaScopeFactory
   {
     ValueEnforcer.notNull (aScopeFactory, "ScopeFactory");
 
-    s_aRWLock.writeLocked ( () -> s_aScopeFactory = aScopeFactory);
+    s_aRWLock.writeLocked ( () -> {
+      s_aScopeFactory = aScopeFactory;
+    });
   }
 
   /**

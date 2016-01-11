@@ -51,7 +51,7 @@ public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
   private static final Logger s_aLogger = LoggerFactory.getLogger (GlobalScope.class);
 
   /** Contained application scopes */
-  private final Map <String, IApplicationScope> m_aAppScopes = new HashMap <String, IApplicationScope> ();
+  private final Map <String, IApplicationScope> m_aAppScopes = new HashMap <> ();
 
   public GlobalScope (@Nonnull @Nonempty final String sScopeID)
   {

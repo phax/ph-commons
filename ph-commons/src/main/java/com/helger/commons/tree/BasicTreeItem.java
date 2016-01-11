@@ -281,7 +281,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
 
     // Ensure children are present
     if (m_aChildren == null)
-      m_aChildren = new ArrayList <ITEMTYPE> ();
+      m_aChildren = new ArrayList <> ();
 
     return EChange.valueOf (m_aChildren.add (aChild));
   }

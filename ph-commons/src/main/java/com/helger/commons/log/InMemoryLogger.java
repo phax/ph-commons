@@ -46,7 +46,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class InMemoryLogger implements Iterable <LogMessage>, IHasSize, IClearable, IHasErrorLevels, Serializable
 {
-  private final List <LogMessage> m_aMessages = new ArrayList <LogMessage> ();
+  private final List <LogMessage> m_aMessages = new ArrayList <> ();
 
   /**
    * Override this method to create a different LogMessage object or to filter

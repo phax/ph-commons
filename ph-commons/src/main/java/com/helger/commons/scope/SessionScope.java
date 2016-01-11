@@ -49,7 +49,7 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
   private static final Logger s_aLogger = LoggerFactory.getLogger (SessionScope.class);
 
   /** The contained session application scopes */
-  private final Map <String, ISessionApplicationScope> m_aSessionAppScopes = new HashMap <String, ISessionApplicationScope> ();
+  private final Map <String, ISessionApplicationScope> m_aSessionAppScopes = new HashMap <> ();
 
   public SessionScope (@Nonnull @Nonempty final String sScopeID)
   {

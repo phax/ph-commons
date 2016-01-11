@@ -76,7 +76,7 @@ public final class ScopeManager
   private static volatile IGlobalScope s_aGlobalScope;
 
   /** Request scope */
-  private static final ThreadLocal <IRequestScope> s_aRequestScope = new ThreadLocal <IRequestScope> ();
+  private static final ThreadLocal <IRequestScope> s_aRequestScope = new ThreadLocal <> ();
 
   @PresentForCodeCoverage
   private static final ScopeManager s_aInstance = new ScopeManager ();

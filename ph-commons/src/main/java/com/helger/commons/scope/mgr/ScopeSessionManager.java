@@ -68,9 +68,9 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
 
   /** All contained session scopes. */
   @GuardedBy ("m_aRWLock")
-  private final Map <String, ISessionScope> m_aSessionScopes = new HashMap <String, ISessionScope> ();
+  private final Map <String, ISessionScope> m_aSessionScopes = new HashMap <> ();
   @GuardedBy ("m_aRWLock")
-  private final Set <String> m_aSessionsInDestruction = new HashSet <String> ();
+  private final Set <String> m_aSessionsInDestruction = new HashSet <> ();
   @GuardedBy ("m_aRWLock")
   private boolean m_bDestroyAllSessionsOnScopeEnd = DEFAULT_DESTROY_ALL_SESSIONS_ON_SCOPE_END;
   @GuardedBy ("m_aRWLock")
@@ -188,7 +188,9 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
         finally
         {
           // Remove from "in destruction" list
-          m_aRWLock.writeLocked ( () -> m_aSessionsInDestruction.remove (sSessionID));
+          m_aRWLock.writeLocked ( () -> {
+            m_aSessionsInDestruction.remove (sSessionID);
+          });
         }
       }
     }
