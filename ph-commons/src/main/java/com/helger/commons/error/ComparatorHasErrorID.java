@@ -16,11 +16,9 @@
  */
 package com.helger.commons.error;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractPartComparatorComparable;
+import com.helger.commons.compare.PartComparatorComparable;
 
 /**
  * Special comparator that compares based on an error ID
@@ -31,15 +29,10 @@ import com.helger.commons.compare.AbstractPartComparatorComparable;
  */
 @NotThreadSafe
 public class ComparatorHasErrorID <DATATYPE extends IHasErrorID>
-                                  extends AbstractPartComparatorComparable <DATATYPE, String>
+                                  extends PartComparatorComparable <DATATYPE, String>
 {
   public ComparatorHasErrorID ()
-  {}
-
-  @Override
-  @Nullable
-  protected String getPart (@Nonnull final DATATYPE aObject)
   {
-    return aObject.getErrorID ();
+    super (aObject -> aObject.getErrorID ());
   }
 }

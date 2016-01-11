@@ -16,24 +16,15 @@
  */
 package com.helger.commons.mime;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractPartComparatorComparable;
+import com.helger.commons.compare.PartComparatorComparable;
 
 @NotThreadSafe
-public class ComparatorMimeTypeInfoPrimaryMimeType extends AbstractPartComparatorComparable <MimeTypeInfo, String>
+public class ComparatorMimeTypeInfoPrimaryMimeType extends PartComparatorComparable <MimeTypeInfo, String>
 {
-  /**
-   * Comparator with default sort order and no nested comparator.
-   */
   public ComparatorMimeTypeInfoPrimaryMimeType ()
-  {}
-
-  @Override
-  @Nonnull
-  protected String getPart (@Nonnull final MimeTypeInfo aObject)
   {
-    return aObject.getPrimaryMimeTypeWithSource ().getMimeTypeAsString ();
+    super (aObject -> aObject.getPrimaryMimeTypeWithSource ().getMimeTypeAsString ());
   }
 }

@@ -16,11 +16,9 @@
  */
 package com.helger.commons.id;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractPartComparatorComparable;
+import com.helger.commons.compare.PartComparatorComparable;
 
 /**
  * This is a {@link java.util.Comparator} for objects that implement the
@@ -34,18 +32,10 @@ import com.helger.commons.compare.AbstractPartComparatorComparable;
  */
 @NotThreadSafe
 public class ComparatorHasIDComparable <DATATYPE extends IHasID <IDTYPE>, IDTYPE extends Comparable <? super IDTYPE>>
-                                       extends AbstractPartComparatorComparable <DATATYPE, IDTYPE>
+                                       extends PartComparatorComparable <DATATYPE, IDTYPE>
 {
-  /**
-   * Comparator with default sort order and no nested comparator.
-   */
   public ComparatorHasIDComparable ()
-  {}
-
-  @Override
-  @Nullable
-  protected final IDTYPE getPart (@Nonnull final DATATYPE aObject)
   {
-    return aObject.getID ();
+    super (aObject -> aObject.getID ());
   }
 }

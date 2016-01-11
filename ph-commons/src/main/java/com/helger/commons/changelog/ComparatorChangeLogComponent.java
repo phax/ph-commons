@@ -16,11 +16,9 @@
  */
 package com.helger.commons.changelog;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractPartComparatorComparable;
+import com.helger.commons.compare.PartComparatorComparable;
 
 /**
  * Special comparator to sort change logs by their component.
@@ -28,12 +26,10 @@ import com.helger.commons.compare.AbstractPartComparatorComparable;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorChangeLogComponent extends AbstractPartComparatorComparable <ChangeLog, String>
+public class ComparatorChangeLogComponent extends PartComparatorComparable <ChangeLog, String>
 {
-  @Override
-  @Nullable
-  protected String getPart (@Nonnull final ChangeLog aChangeLog)
+  public ComparatorChangeLogComponent ()
   {
-    return aChangeLog.getComponent ();
+    super (aObject -> aObject.getComponent ());
   }
 }

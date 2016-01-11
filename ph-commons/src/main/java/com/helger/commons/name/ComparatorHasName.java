@@ -16,10 +16,9 @@
  */
 package com.helger.commons.name;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractPartComparatorComparable;
+import com.helger.commons.compare.PartComparatorComparable;
 
 /**
  * This is a non-collating {@link java.util.Comparator} for objects that
@@ -30,14 +29,10 @@ import com.helger.commons.compare.AbstractPartComparatorComparable;
  *        The type of elements to be compared.
  */
 @NotThreadSafe
-public class ComparatorHasName <DATATYPE extends IHasName> extends AbstractPartComparatorComparable <DATATYPE, String>
+public class ComparatorHasName <DATATYPE extends IHasName> extends PartComparatorComparable <DATATYPE, String>
 {
   public ComparatorHasName ()
-  {}
-
-  @Override
-  protected String getPart (@Nonnull final DATATYPE aObject)
   {
-    return aObject.getName ();
+    super (aObject -> aObject.getName ());
   }
 }

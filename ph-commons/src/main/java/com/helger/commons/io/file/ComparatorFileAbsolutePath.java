@@ -18,10 +18,9 @@ package com.helger.commons.io.file;
 
 import java.io.File;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractPartComparatorComparable;
+import com.helger.commons.compare.PartComparatorComparable;
 
 /**
  * Sort files by their absolute path name.
@@ -29,14 +28,10 @@ import com.helger.commons.compare.AbstractPartComparatorComparable;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorFileAbsolutePath extends AbstractPartComparatorComparable <File, String>
+public class ComparatorFileAbsolutePath extends PartComparatorComparable <File, String>
 {
   public ComparatorFileAbsolutePath ()
-  {}
-
-  @Override
-  protected String getPart (@Nonnull final File aObject)
   {
-    return aObject.getAbsolutePath ();
+    super (aObject -> aObject.getAbsolutePath ());
   }
 }

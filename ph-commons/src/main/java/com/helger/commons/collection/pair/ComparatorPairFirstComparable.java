@@ -16,11 +16,9 @@
  */
 package com.helger.commons.collection.pair;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractPartComparatorComparable;
+import com.helger.commons.compare.PartComparatorComparable;
 
 /**
  * Comparator comparing {@link IPair} objects by the first element
@@ -33,12 +31,10 @@ import com.helger.commons.compare.AbstractPartComparatorComparable;
  */
 @NotThreadSafe
 public class ComparatorPairFirstComparable <DATA1TYPE extends Comparable <? super DATA1TYPE>, DATA2TYPE> extends
-                                           AbstractPartComparatorComparable <IPair <DATA1TYPE, DATA2TYPE>, DATA1TYPE>
+                                           PartComparatorComparable <IPair <DATA1TYPE, DATA2TYPE>, DATA1TYPE>
 {
-  @Override
-  @Nullable
-  protected DATA1TYPE getPart (@Nonnull final IPair <DATA1TYPE, DATA2TYPE> aObject)
+  public ComparatorPairFirstComparable ()
   {
-    return aObject.getFirst ();
+    super (aObject -> aObject.getFirst ());
   }
 }

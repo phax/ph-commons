@@ -18,10 +18,9 @@ package com.helger.commons.locale;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractPartComparatorComparable;
+import com.helger.commons.compare.PartComparatorComparable;
 
 /**
  * Compare {@link Locale} objects by their String representation.
@@ -29,14 +28,10 @@ import com.helger.commons.compare.AbstractPartComparatorComparable;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorLocale extends AbstractPartComparatorComparable <Locale, String>
+public class ComparatorLocale extends PartComparatorComparable <Locale, String>
 {
   public ComparatorLocale ()
-  {}
-
-  @Override
-  protected String getPart (@Nonnull final Locale aLocale)
   {
-    return aLocale.toString ();
+    super (aObject -> aObject.toString ());
   }
 }

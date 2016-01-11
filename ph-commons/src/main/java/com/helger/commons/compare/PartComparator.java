@@ -67,6 +67,16 @@ public class PartComparator <DATATYPE, PARTTYPE> extends AbstractComparator <DAT
     return m_aPartComparator;
   }
 
+  /**
+   * @return The extractor function specified in the constructor. May be
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public final Function <DATATYPE, PARTTYPE> getExtractor ()
+  {
+    return m_aExtractor;
+  }
+
   @Override
   protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)
   {

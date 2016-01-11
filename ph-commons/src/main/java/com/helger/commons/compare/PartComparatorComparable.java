@@ -19,14 +19,13 @@ package com.helger.commons.compare;
 import java.util.function.Function;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 
 /**
- * This is a {@link java.util.Comparator} for objects which are extracted from a
- * converter.
+ * This class is an {@link AbstractComparator} that extracts a certain data
+ * element from the main object to compare.
  *
  * @author Philip Helger
  * @param <DATATYPE>
@@ -35,36 +34,29 @@ import com.helger.commons.ValueEnforcer;
  *        The part type that is extracted from the data element and compared
  */
 @NotThreadSafe
-public class ConverterComparatorComparable <DATATYPE, PARTTYPE extends Comparable <? super PARTTYPE>>
-                                           extends AbstractPartComparatorComparable <DATATYPE, PARTTYPE>
+public abstract class PartComparatorComparable <DATATYPE, PARTTYPE extends Comparable <? super PARTTYPE>>
+                                               extends AbstractComparator <DATATYPE>
 {
-  private final Function <DATATYPE, PARTTYPE> m_aConverter;
+  private final Function <DATATYPE, PARTTYPE> m_aExtractor;
 
   /**
-   * Constructor.
+   * Comparator with default sort order.
    *
-   * @param aConverter
-   *        The converter to be used to extract the part from the source object.
-   *        May not be <code>null</code>.
+   * @param aExtractor
+   *        Part extractor function. May not be <code>null</code>.
    */
-  public ConverterComparatorComparable (@Nonnull final Function <DATATYPE, PARTTYPE> aConverter)
+  public PartComparatorComparable (@Nonnull final Function <DATATYPE, PARTTYPE> aExtractor)
   {
-    m_aConverter = ValueEnforcer.notNull (aConverter, "Converter");
-  }
-
-  /**
-   * @return The converter passed in the constructor. Never <code>null</code>.
-   */
-  @Nonnull
-  public final Function <DATATYPE, PARTTYPE> getConverter ()
-  {
-    return m_aConverter;
+    m_aExtractor = ValueEnforcer.notNull (aExtractor, "Extractor");
   }
 
   @Override
-  @Nullable
-  protected final PARTTYPE getPart (@Nonnull final DATATYPE aObject)
+  protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)
   {
-    return m_aConverter.apply (aObject);
+    final PARTTYPE aPart1 = m_aExtractor.apply (aElement1);
+    final PARTTYPE aPart2 = m_aExtractor.apply (aElement2);
+
+    // The extracted parts may be null again so use check order of null values
+    return CompareHelper.compare (aPart1, aPart2, isNullValuesComeFirst ());
   }
 }
