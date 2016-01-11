@@ -23,7 +23,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import org.junit.Test;
@@ -31,25 +30,18 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 
 /**
- * Test class for {@link AbstractCollatingComparator}
+ * Test class for {@link CollatingPartComparator}
  *
  * @author Philip Helger
  */
 public final class AbstractCollatingComparatorTest
 {
   @NotThreadSafe
-  private static final class MockCollatingComparatorString extends AbstractCollatingComparator <String>
+  private static final class MockCollatingComparatorString extends CollatingPartComparator <String>
   {
     MockCollatingComparatorString (final Locale aSortLocale)
     {
-      super (aSortLocale);
-    }
-
-    @Override
-    @Nonnull
-    protected String getPart (@Nonnull final String sObject)
-    {
-      return sObject;
+      super (aSortLocale, aObject -> aObject);
     }
   }
 

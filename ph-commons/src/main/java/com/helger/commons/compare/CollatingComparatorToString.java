@@ -32,33 +32,39 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CollatingComparatorToString extends AbstractCollatingComparator <Object>
+public class CollatingComparatorToString extends CollatingPartComparator <Object>
 {
   /**
-   * Comparator with default sort order and specified sort locale.
+   * Comparator with the specified sort locale.
    *
    * @param aSortLocale
    *        The locale to use. May be <code>null</code>.
    */
   public CollatingComparatorToString (@Nullable final Locale aSortLocale)
   {
-    super (aSortLocale);
+    this (new CollatingComparator (aSortLocale));
   }
 
   /**
-   * Constructor with {@link Collator} using the default sort order
+   * Constructor with {@link Collator}
    *
    * @param aCollator
    *        The {@link Collator} to use. May not be <code>null</code>.
    */
   public CollatingComparatorToString (@Nonnull final Collator aCollator)
   {
-    super (aCollator);
+    this (new CollatingComparator (aCollator));
   }
 
-  @Override
-  protected String getPart (@Nullable final Object aValue)
+  /**
+   * Constructor with {@link CollatingComparator}
+   *
+   * @param aComparator
+   *        The {@link CollatingComparator} to use. May not be <code>null</code>
+   *        .
+   */
+  public CollatingComparatorToString (@Nonnull final CollatingComparator aComparator)
   {
-    return StringHelper.getToString (aValue, "");
+    super (aComparator, aObject -> StringHelper.getToString (aObject));
   }
 }

@@ -18,6 +18,7 @@ package com.helger.commons.compare;
 
 import java.text.Collator;
 import java.util.Locale;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,28 +35,49 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  *        the type of object to be compared
  */
 @NotThreadSafe
-public abstract class AbstractCollatingComparator <DATATYPE> extends AbstractPartComparator <DATATYPE, String>
+public class CollatingPartComparator <DATATYPE> extends PartComparator <DATATYPE, String>
 {
   /**
-   * Comparator with default sort order and specified sort locale.
+   * Comparator with the specified sort locale.
    *
    * @param aSortLocale
    *        The locale to use. May be <code>null</code>.
+   * @param aExtractor
+   *        Part extractor function. May not be <code>null</code>.
    */
-  public AbstractCollatingComparator (@Nullable final Locale aSortLocale)
+  public CollatingPartComparator (@Nullable final Locale aSortLocale,
+                                  @Nonnull final Function <DATATYPE, String> aExtractor)
   {
-    super (new CollatingComparator (aSortLocale));
+    this (new CollatingComparator (aSortLocale), aExtractor);
   }
 
   /**
-   * Constructor with {@link Collator} using the default sort order
+   * Constructor with {@link Collator}
    *
    * @param aCollator
    *        The {@link Collator} to use. May not be <code>null</code>.
+   * @param aExtractor
+   *        Part extractor function. May not be <code>null</code>.
    */
-  public AbstractCollatingComparator (@Nonnull final Collator aCollator)
+  public CollatingPartComparator (@Nonnull final Collator aCollator,
+                                  @Nonnull final Function <DATATYPE, String> aExtractor)
   {
-    super (new CollatingComparator (aCollator));
+    this (new CollatingComparator (aCollator), aExtractor);
+  }
+
+  /**
+   * Constructor with {@link CollatingComparator}
+   *
+   * @param aCollatingComparator
+   *        The comparator for comparing the extracted parts. May not be
+   *        <code>null</code>.
+   * @param aExtractor
+   *        Part extractor function. May not be <code>null</code>.
+   */
+  public CollatingPartComparator (@Nonnull final CollatingComparator aCollatingComparator,
+                                  @Nonnull final Function <DATATYPE, String> aExtractor)
+  {
+    super (aCollatingComparator, aExtractor);
   }
 
   /**

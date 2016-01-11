@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.compare.AbstractCollatingComparator;
+import com.helger.commons.compare.CollatingPartComparator;
 
 /**
  * {@link java.util.Comparator} that sorts {@link Locale} objects by their
@@ -32,27 +32,20 @@ import com.helger.commons.compare.AbstractCollatingComparator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CollatingComparatorLocaleDisplayCountryInLocale extends AbstractCollatingComparator <Locale>
+public class CollatingComparatorLocaleDisplayCountryInLocale extends CollatingPartComparator <Locale>
 {
   private final Locale m_aContentLocale;
 
   public CollatingComparatorLocaleDisplayCountryInLocale (@Nullable final Locale aSortLocale,
                                                           @Nonnull final Locale aContentLocale)
   {
-    super (aSortLocale);
-    ValueEnforcer.notNull (aContentLocale, "ContentLocale");
-    m_aContentLocale = aContentLocale;
+    super (aSortLocale, aObject -> aObject.getDisplayCountry (aContentLocale));
+    m_aContentLocale = ValueEnforcer.notNull (aContentLocale, "ContentLocale");
   }
 
   @Nonnull
   public final Locale getContentLocale ()
   {
     return m_aContentLocale;
-  }
-
-  @Override
-  protected String getPart (@Nonnull final Locale aLocale)
-  {
-    return aLocale.getDisplayCountry (m_aContentLocale);
   }
 }

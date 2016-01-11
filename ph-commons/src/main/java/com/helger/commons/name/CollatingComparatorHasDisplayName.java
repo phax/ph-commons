@@ -18,11 +18,10 @@ package com.helger.commons.name;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractCollatingComparator;
+import com.helger.commons.compare.CollatingPartComparator;
 
 /**
  * This is a collation {@link java.util.Comparator} for objects that implement
@@ -34,7 +33,7 @@ import com.helger.commons.compare.AbstractCollatingComparator;
  */
 @NotThreadSafe
 public class CollatingComparatorHasDisplayName <DATATYPE extends IHasDisplayName>
-                                               extends AbstractCollatingComparator <DATATYPE>
+                                               extends CollatingPartComparator <DATATYPE>
 {
   /**
    * Comparator with default sort order but special collation locale.
@@ -44,12 +43,6 @@ public class CollatingComparatorHasDisplayName <DATATYPE extends IHasDisplayName
    */
   public CollatingComparatorHasDisplayName (@Nullable final Locale aSortLocale)
   {
-    super (aSortLocale);
-  }
-
-  @Override
-  protected String getPart (@Nonnull final DATATYPE aObject)
-  {
-    return aObject.getDisplayName ();
+    super (aSortLocale, aObject -> aObject.getDisplayName ());
   }
 }

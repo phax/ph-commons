@@ -19,10 +19,9 @@ package com.helger.commons.tree.sort;
 import java.util.Comparator;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractPartComparator;
+import com.helger.commons.compare.PartComparator;
 import com.helger.commons.tree.IBasicTreeItem;
 
 /**
@@ -39,7 +38,7 @@ import com.helger.commons.tree.IBasicTreeItem;
  */
 @NotThreadSafe
 public class ComparatorTreeItemData <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>>
-                                    extends AbstractPartComparator <ITEMTYPE, DATATYPE>
+                                    extends PartComparator <ITEMTYPE, DATATYPE>
 {
   /**
    * Constructor with default sort order.
@@ -49,13 +48,6 @@ public class ComparatorTreeItemData <DATATYPE, ITEMTYPE extends IBasicTreeItem <
    */
   public ComparatorTreeItemData (@Nonnull final Comparator <? super DATATYPE> aDataComparator)
   {
-    super (aDataComparator);
-  }
-
-  @Override
-  @Nullable
-  protected DATATYPE getPart (@Nonnull final ITEMTYPE aTreeItem)
-  {
-    return aTreeItem.getData ();
+    super (aDataComparator, aTreeItem -> aTreeItem.getData ());
   }
 }

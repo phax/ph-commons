@@ -18,11 +18,10 @@ package com.helger.commons.locale.country;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractCollatingComparator;
+import com.helger.commons.compare.CollatingPartComparator;
 
 /**
  * {@link java.util.Comparator} that sorts {@link Locale} objects by their
@@ -31,16 +30,10 @@ import com.helger.commons.compare.AbstractCollatingComparator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CollatingComparatorLocaleDisplayCountry extends AbstractCollatingComparator <Locale>
+public class CollatingComparatorLocaleDisplayCountry extends CollatingPartComparator <Locale>
 {
   public CollatingComparatorLocaleDisplayCountry (@Nullable final Locale aSortLocale)
   {
-    super (aSortLocale);
-  }
-
-  @Override
-  protected String getPart (@Nonnull final Locale aLocale)
-  {
-    return aLocale.getDisplayCountry ();
+    super (aSortLocale, aObject -> aObject.getDisplayCountry ());
   }
 }

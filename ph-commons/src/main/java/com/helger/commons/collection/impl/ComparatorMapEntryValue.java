@@ -18,25 +18,16 @@ package com.helger.commons.collection.impl;
 
 import java.util.Comparator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import com.helger.commons.compare.AbstractPartComparator;
+import com.helger.commons.compare.PartComparator;
 
 public class ComparatorMapEntryValue <KEYTYPE, VALUETYPE>
-                                     extends AbstractPartComparator <Map.Entry <KEYTYPE, VALUETYPE>, VALUETYPE>
+                                     extends PartComparator <Map.Entry <KEYTYPE, VALUETYPE>, VALUETYPE>
 {
   public ComparatorMapEntryValue (@Nonnull final Comparator <? super VALUETYPE> aPartComparator)
   {
-    super (aPartComparator);
-  }
-
-  @Override
-  @Nullable
-  protected VALUETYPE getPart (@Nonnull final Entry <KEYTYPE, VALUETYPE> aObject)
-  {
-    return aObject.getValue ();
+    super (aPartComparator, aObject -> aObject.getValue ());
   }
 }

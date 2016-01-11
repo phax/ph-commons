@@ -17,9 +17,9 @@
 package com.helger.commons.compare;
 
 import java.util.Comparator;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
@@ -36,9 +36,10 @@ import com.helger.commons.string.ToStringGenerator;
  *        The part type that is extracted from the data element and compared
  */
 @NotThreadSafe
-public abstract class AbstractPartComparator <DATATYPE, PARTTYPE> extends AbstractComparator <DATATYPE>
+public class PartComparator <DATATYPE, PARTTYPE> extends AbstractComparator <DATATYPE>
 {
   private final Comparator <? super PARTTYPE> m_aPartComparator;
+  private final Function <DATATYPE, PARTTYPE> m_aExtractor;
 
   /**
    * Comparator with default sort order and a part comparator.
@@ -46,10 +47,14 @@ public abstract class AbstractPartComparator <DATATYPE, PARTTYPE> extends Abstra
    * @param aPartComparator
    *        The comparator for comparing the extracted parts. May not be
    *        <code>null</code>.
+   * @param aExtractor
+   *        Part extractor function. May not be <code>null</code>.
    */
-  public AbstractPartComparator (@Nonnull final Comparator <? super PARTTYPE> aPartComparator)
+  public PartComparator (@Nonnull final Comparator <? super PARTTYPE> aPartComparator,
+                         @Nonnull final Function <DATATYPE, PARTTYPE> aExtractor)
   {
     m_aPartComparator = ValueEnforcer.notNull (aPartComparator, "PartComparator");
+    m_aExtractor = ValueEnforcer.notNull (aExtractor, "Extractor");
   }
 
   /**
@@ -62,23 +67,11 @@ public abstract class AbstractPartComparator <DATATYPE, PARTTYPE> extends Abstra
     return m_aPartComparator;
   }
 
-  /**
-   * Implement this method to extract the part to compare from the original
-   * object.
-   *
-   * @param aObject
-   *        The object to be compared. Never <code>null</code>.
-   * @return The part of the source object to be compared with the part
-   *         comparator provided in the constructor. May be <code>null</code>.
-   */
-  @Nullable
-  protected abstract PARTTYPE getPart (@Nonnull DATATYPE aObject);
-
   @Override
   protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)
   {
-    final PARTTYPE aPart1 = getPart (aElement1);
-    final PARTTYPE aPart2 = getPart (aElement2);
+    final PARTTYPE aPart1 = m_aExtractor.apply (aElement1);
+    final PARTTYPE aPart2 = m_aExtractor.apply (aElement2);
 
     // The extracted parts may be null again so use check order of null values
     return CompareHelper.compare (aPart1, aPart2, m_aPartComparator, isNullValuesComeFirst ());
@@ -87,6 +80,9 @@ public abstract class AbstractPartComparator <DATATYPE, PARTTYPE> extends Abstra
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("partComparator", m_aPartComparator).toString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("PartComparator", m_aPartComparator)
+                            .append ("Extractor", m_aExtractor)
+                            .toString ();
   }
 }

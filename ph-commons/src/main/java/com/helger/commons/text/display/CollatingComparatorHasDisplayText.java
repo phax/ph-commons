@@ -24,7 +24,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.compare.AbstractCollatingComparator;
+import com.helger.commons.compare.CollatingComparator;
+import com.helger.commons.compare.CollatingPartComparator;
 
 /**
  * This is a collation {@link java.util.Comparator} for objects that implement
@@ -36,7 +37,7 @@ import com.helger.commons.compare.AbstractCollatingComparator;
  */
 @NotThreadSafe
 public class CollatingComparatorHasDisplayText <DATATYPE extends IHasDisplayText>
-                                               extends AbstractCollatingComparator <DATATYPE>
+                                               extends CollatingPartComparator <DATATYPE>
 {
   private final Locale m_aContentLocale;
 
@@ -51,8 +52,7 @@ public class CollatingComparatorHasDisplayText <DATATYPE extends IHasDisplayText
    */
   public CollatingComparatorHasDisplayText (@Nullable final Locale aSortLocale, @Nonnull final Locale aContentLocale)
   {
-    super (aSortLocale);
-    m_aContentLocale = ValueEnforcer.notNull (aContentLocale, "ContentLocale");
+    this (new CollatingComparator (aSortLocale), aContentLocale);
   }
 
   /**
@@ -66,7 +66,23 @@ public class CollatingComparatorHasDisplayText <DATATYPE extends IHasDisplayText
    */
   public CollatingComparatorHasDisplayText (@Nonnull final Collator aCollator, @Nonnull final Locale aContentLocale)
   {
-    super (aCollator);
+    this (new CollatingComparator (aCollator), aContentLocale);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param aComparator
+   *        The {@link CollatingComparator} to use. May not be <code>null</code>
+   *        .
+   * @param aContentLocale
+   *        The locale to be used to retrieve the display text of an object. May
+   *        not be <code>null</code>.
+   */
+  public CollatingComparatorHasDisplayText (@Nonnull final CollatingComparator aComparator,
+                                            @Nonnull final Locale aContentLocale)
+  {
+    super (aComparator, aObject -> aObject.getDisplayText (aContentLocale));
     m_aContentLocale = ValueEnforcer.notNull (aContentLocale, "ContentLocale");
   }
 
@@ -78,11 +94,5 @@ public class CollatingComparatorHasDisplayText <DATATYPE extends IHasDisplayText
   public Locale getContentLocale ()
   {
     return m_aContentLocale;
-  }
-
-  @Override
-  protected String getPart (@Nonnull final DATATYPE aObject)
-  {
-    return aObject.getDisplayText (m_aContentLocale);
   }
 }

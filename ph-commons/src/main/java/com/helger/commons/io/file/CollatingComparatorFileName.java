@@ -17,12 +17,14 @@
 package com.helger.commons.io.file;
 
 import java.io.File;
+import java.text.Collator;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractCollatingComparator;
+import com.helger.commons.compare.CollatingPartComparator;
+import com.helger.commons.compare.CollatingComparator;
 
 /**
  * Sort files by their base name.
@@ -30,16 +32,20 @@ import com.helger.commons.compare.AbstractCollatingComparator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CollatingComparatorFileName extends AbstractCollatingComparator <File>
+public class CollatingComparatorFileName extends CollatingPartComparator <File>
 {
   public CollatingComparatorFileName (@Nonnull final Locale aSortLocale)
   {
-    super (aSortLocale);
+    this (new CollatingComparator (aSortLocale));
   }
 
-  @Override
-  protected String getPart (@Nonnull final File aObject)
+  public CollatingComparatorFileName (@Nonnull final Collator aCollator)
   {
-    return aObject.getName ();
+    this (new CollatingComparator (aCollator));
+  }
+
+  public CollatingComparatorFileName (@Nonnull final CollatingComparator aComparator)
+  {
+    super (aComparator, aObject -> aObject.getName ());
   }
 }

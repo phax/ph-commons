@@ -21,7 +21,7 @@ import java.util.Comparator;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractPartComparator2;
+import com.helger.commons.compare.PartComparator;
 
 /**
  * This is a {@link java.util.Comparator} for objects that implement the
@@ -35,8 +35,7 @@ import com.helger.commons.compare.AbstractPartComparator2;
  *        The type of elements to be compared.
  */
 @NotThreadSafe
-public class ComparatorHasID <IDTYPE, DATATYPE extends IHasID <IDTYPE>>
-                             extends AbstractPartComparator2 <DATATYPE, IDTYPE>
+public class ComparatorHasID <IDTYPE, DATATYPE extends IHasID <IDTYPE>> extends PartComparator <DATATYPE, IDTYPE>
 {
   /**
    * Comparator with default sort order and no nested comparator.

@@ -24,7 +24,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.compare.AbstractCollatingComparator;
+import com.helger.commons.compare.CollatingComparator;
+import com.helger.commons.compare.CollatingPartComparator;
 
 /**
  * This is a collation {@link java.util.Comparator} for objects that implement
@@ -35,7 +36,7 @@ import com.helger.commons.compare.AbstractCollatingComparator;
  *        The type of elements to be compared.
  */
 @NotThreadSafe
-public class CollatingComparatorDisplayNameProvider <DATATYPE> extends AbstractCollatingComparator <DATATYPE>
+public class CollatingComparatorDisplayNameProvider <DATATYPE> extends CollatingPartComparator <DATATYPE>
 {
   private final IDisplayNameProvider <DATATYPE> m_aDisplayNameProvider;
 
@@ -50,8 +51,7 @@ public class CollatingComparatorDisplayNameProvider <DATATYPE> extends AbstractC
   public CollatingComparatorDisplayNameProvider (@Nullable final Locale aSortLocale,
                                                  @Nonnull final IDisplayNameProvider <DATATYPE> aDisplayNameProvider)
   {
-    super (aSortLocale);
-    m_aDisplayNameProvider = ValueEnforcer.notNull (aDisplayNameProvider, "DisplayNameProvider");
+    this (new CollatingComparator (aSortLocale), aDisplayNameProvider);
   }
 
   /**
@@ -65,7 +65,22 @@ public class CollatingComparatorDisplayNameProvider <DATATYPE> extends AbstractC
   public CollatingComparatorDisplayNameProvider (@Nonnull final Collator aCollator,
                                                  @Nonnull final IDisplayNameProvider <DATATYPE> aDisplayNameProvider)
   {
-    super (aCollator);
+    this (new CollatingComparator (aCollator), aDisplayNameProvider);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param aComparator
+   *        The {@link CollatingComparator} to use. May not be <code>null</code>
+   *        .
+   * @param aDisplayNameProvider
+   *        The display text provider to be used. May not be <code>null</code>.
+   */
+  public CollatingComparatorDisplayNameProvider (@Nonnull final CollatingComparator aComparator,
+                                                 @Nonnull final IDisplayNameProvider <DATATYPE> aDisplayNameProvider)
+  {
+    super (aComparator, aObject -> aDisplayNameProvider.getDisplayName (aObject));
     m_aDisplayNameProvider = ValueEnforcer.notNull (aDisplayNameProvider, "DisplayNameProvider");
   }
 
@@ -73,11 +88,5 @@ public class CollatingComparatorDisplayNameProvider <DATATYPE> extends AbstractC
   public final IDisplayNameProvider <DATATYPE> getDisplayNameProvider ()
   {
     return m_aDisplayNameProvider;
-  }
-
-  @Override
-  protected String getPart (@Nonnull final DATATYPE aObject)
-  {
-    return m_aDisplayNameProvider.getDisplayName (aObject);
   }
 }
