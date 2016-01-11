@@ -16,8 +16,11 @@
  */
 package com.helger.commons.lang;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.id.IHasID;
@@ -55,6 +59,36 @@ public final class EnumHelper
 
   private EnumHelper ()
   {}
+
+  @Nonnull
+  public static <ENUMTYPE extends Enum <ENUMTYPE>> ENUMTYPE findFirst (@Nonnull final Class <ENUMTYPE> aClass,
+                                                                       @Nullable final Predicate <ENUMTYPE> aFilter)
+  {
+    return findFirst (aClass, aFilter, null);
+  }
+
+  @Nonnull
+  public static <ENUMTYPE extends Enum <ENUMTYPE>> ENUMTYPE findFirst (@Nonnull final Class <ENUMTYPE> aClass,
+                                                                       @Nullable final Predicate <ENUMTYPE> aFilter,
+                                                                       @Nullable final ENUMTYPE eDefault)
+  {
+    for (final ENUMTYPE aElement : aClass.getEnumConstants ())
+      if (aFilter.test (aElement))
+        return aElement;
+    return eDefault;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ENUMTYPE extends Enum <ENUMTYPE>> List <ENUMTYPE> findAll (@Nonnull final Class <ENUMTYPE> aClass,
+                                                                            @Nullable final Predicate <ENUMTYPE> aFilter)
+  {
+    final List <ENUMTYPE> ret = new ArrayList <> ();
+    for (final ENUMTYPE aElement : aClass.getEnumConstants ())
+      if (aFilter.test (aElement))
+        ret.add (aElement);
+    return ret;
+  }
 
   /**
    * Get the enum value with the passed ID
@@ -283,7 +317,7 @@ public final class EnumHelper
       return GenericReflection.<Object, ENUMTYPE> uncheckedCast (aCachedData[nID]);
     }
 
-    // Object is not cachable - traverse as ususal
+    // Object is not cachable - traverse as usual
     for (final ENUMTYPE aElement : aClass.getEnumConstants ())
       if (aElement.getID () == nID)
         return aElement;
@@ -465,7 +499,7 @@ public final class EnumHelper
   @Nonnull
   public static String getEnumID (@Nonnull final Enum <?> aEnum)
   {
-    // No explicit null check, because this method is used heavily in pdaf
+    // No explicit null check, because this method is used heavily in
     // locale resolving, so we want to spare some CPU cycles :)
     return aEnum.getClass ().getName () + '.' + aEnum.name ();
   }
