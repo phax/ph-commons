@@ -16,10 +16,9 @@
  */
 package com.helger.commons.thread;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractLongComparator;
+import com.helger.commons.compare.LongComparator;
 
 /**
  * {@link java.util.Comparator} for ordering {@link Thread} objects by their ID.
@@ -27,11 +26,10 @@ import com.helger.commons.compare.AbstractLongComparator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorThreadID extends AbstractLongComparator <Thread>
+public class ComparatorThreadID extends LongComparator <Thread>
 {
-  @Override
-  protected long getAsLong (@Nonnull final Thread aThread)
+  public ComparatorThreadID ()
   {
-    return aThread.getId ();
+    super (aObject -> aObject.getId ());
   }
 }

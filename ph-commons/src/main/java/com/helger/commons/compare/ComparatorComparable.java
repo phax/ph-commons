@@ -33,7 +33,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 public class ComparatorComparable <DATATYPE extends Comparable <? super DATATYPE>> extends AbstractComparator <DATATYPE>
 {
   /**
-   * Comparator with default sort order and no nested comparator.
+   * Constructor.
    */
   public ComparatorComparable ()
   {}

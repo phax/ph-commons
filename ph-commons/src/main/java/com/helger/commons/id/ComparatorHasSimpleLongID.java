@@ -16,10 +16,9 @@
  */
 package com.helger.commons.id;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractLongComparator;
+import com.helger.commons.compare.LongComparator;
 
 /**
  * This is a {@link java.util.Comparator} for objects that implement the
@@ -30,17 +29,10 @@ import com.helger.commons.compare.AbstractLongComparator;
  *        The type of elements to be compared.
  */
 @NotThreadSafe
-public class ComparatorHasSimpleLongID <DATATYPE extends IHasLongID> extends AbstractLongComparator <DATATYPE>
+public class ComparatorHasSimpleLongID <DATATYPE extends IHasLongID> extends LongComparator <DATATYPE>
 {
-  /**
-   * Comparator with default sort order and no nested comparator.
-   */
   public ComparatorHasSimpleLongID ()
-  {}
-
-  @Override
-  protected long getAsLong (@Nonnull final DATATYPE aObject)
   {
-    return aObject.getID ();
+    super (aObject -> aObject.getID ());
   }
 }

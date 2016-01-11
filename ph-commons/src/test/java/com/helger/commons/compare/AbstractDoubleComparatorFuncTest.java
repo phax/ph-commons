@@ -22,7 +22,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import org.junit.Test;
@@ -31,22 +30,18 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.CommonsAssert;
 
 /**
- * Test class for {@link AbstractDoubleComparator}
+ * Test class for {@link DoubleComparator}
  *
  * @author Philip Helger
  */
 public final class AbstractDoubleComparatorFuncTest
 {
   @NotThreadSafe
-  private static final class MockComparator extends AbstractDoubleComparator <Double>
+  private static final class MockComparator extends DoubleComparator <Double>
   {
     MockComparator ()
-    {}
-
-    @Override
-    protected double getAsDouble (@Nonnull final Double aValue)
     {
-      return aValue.doubleValue ();
+      super (aObject -> aObject.doubleValue ());
     }
   }
 

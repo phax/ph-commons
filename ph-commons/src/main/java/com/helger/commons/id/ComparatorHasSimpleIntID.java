@@ -16,10 +16,9 @@
  */
 package com.helger.commons.id;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractIntComparator;
+import com.helger.commons.compare.IntComparator;
 
 /**
  * This is a {@link java.util.Comparator} for objects that implement the
@@ -30,11 +29,10 @@ import com.helger.commons.compare.AbstractIntComparator;
  *        The type of elements to be compared.
  */
 @NotThreadSafe
-public class ComparatorHasSimpleIntID <DATATYPE extends IHasIntID> extends AbstractIntComparator <DATATYPE>
+public class ComparatorHasSimpleIntID <DATATYPE extends IHasIntID> extends IntComparator <DATATYPE>
 {
-  @Override
-  protected int getAsInt (@Nonnull final DATATYPE aObject)
+  public ComparatorHasSimpleIntID ()
   {
-    return aObject.getID ();
+    super (aObject -> aObject.getID ());
   }
 }

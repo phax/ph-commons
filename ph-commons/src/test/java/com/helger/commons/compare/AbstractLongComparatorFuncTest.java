@@ -23,7 +23,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import org.junit.Test;
@@ -31,22 +30,18 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 
 /**
- * Test class for {@link AbstractLongComparator}
+ * Test class for {@link LongComparator}
  *
  * @author Philip Helger
  */
 public final class AbstractLongComparatorFuncTest
 {
   @NotThreadSafe
-  private static final class MockComparator extends AbstractLongComparator <Long>
+  private static final class MockComparator extends LongComparator <Long>
   {
     MockComparator ()
-    {}
-
-    @Override
-    protected long getAsLong (@Nonnull final Long aInt)
     {
-      return aInt.longValue ();
+      super (aObject -> aObject.longValue ());
     }
   }
 

@@ -16,36 +16,37 @@
  */
 package com.helger.commons.compare;
 
+import java.util.function.ToIntFunction;
+
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.NotThreadSafe;
+
+import com.helger.commons.ValueEnforcer;
 
 /**
- * Abstract comparator that handles values that can be represented as double
+ * Abstract comparator that handles values that can be represented as int
  * values.
  *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type to be compared. Must somehow have a value that can be
- *        compared as a double value.
+ *        compared as a int value.
  */
-public abstract class AbstractDoubleComparator <DATATYPE> extends AbstractComparator <DATATYPE>
+@NotThreadSafe
+public class IntComparator <DATATYPE> extends AbstractComparator <DATATYPE>
 {
-  public AbstractDoubleComparator ()
-  {}
+  private final ToIntFunction <DATATYPE> m_aExtractor;
 
-  /**
-   * Protected method to convert the passed object into a double value.
-   *
-   * @param aObject
-   *        The source object
-   * @return The result double value.
-   */
-  protected abstract double getAsDouble (@Nonnull DATATYPE aObject);
+  public IntComparator (@Nonnull final ToIntFunction <DATATYPE> aExtractor)
+  {
+    m_aExtractor = ValueEnforcer.notNull (aExtractor, "Extractor");
+  }
 
   @Override
   protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)
   {
-    final double d1 = getAsDouble (aElement1);
-    final double d2 = getAsDouble (aElement2);
-    return CompareHelper.compare (d1, d2);
+    final int n1 = m_aExtractor.applyAsInt (aElement1);
+    final int n2 = m_aExtractor.applyAsInt (aElement2);
+    return CompareHelper.compare (n1, n2);
   }
 }

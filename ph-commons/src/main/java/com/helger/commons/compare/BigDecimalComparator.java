@@ -16,38 +16,36 @@
  */
 package com.helger.commons.compare;
 
+import java.math.BigDecimal;
+import java.util.function.Function;
+
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+
+import com.helger.commons.ValueEnforcer;
 
 /**
- * Abstract comparator that handles values that can be represented as int
+ * Abstract comparator that handles values that can be represented as BigDecimal
  * values.
  *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type to be compared. Must somehow have a value that can be
- *        compared as a int value.
+ *        compared as a BigDecimal value.
  */
-@NotThreadSafe
-public abstract class AbstractIntComparator <DATATYPE> extends AbstractComparator <DATATYPE>
+public class BigDecimalComparator <DATATYPE> extends AbstractComparator <DATATYPE>
 {
-  public AbstractIntComparator ()
-  {}
+  private final Function <DATATYPE, BigDecimal> m_aExtractor;
 
-  /**
-   * Protected method to convert the passed object into an int value.
-   *
-   * @param aObject
-   *        The source object
-   * @return The result int value.
-   */
-  protected abstract int getAsInt (@Nonnull DATATYPE aObject);
+  public BigDecimalComparator (@Nonnull final Function <DATATYPE, BigDecimal> aExtractor)
+  {
+    m_aExtractor = ValueEnforcer.notNull (aExtractor, "Extractor");
+  }
 
   @Override
   protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)
   {
-    final int n1 = getAsInt (aElement1);
-    final int n2 = getAsInt (aElement2);
-    return CompareHelper.compare (n1, n2);
+    final BigDecimal aBD1 = m_aExtractor.apply (aElement1);
+    final BigDecimal aBD2 = m_aExtractor.apply (aElement2);
+    return CompareHelper.compare (aBD1, aBD2, isNullValuesComeFirst ());
   }
 }

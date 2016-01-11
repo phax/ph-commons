@@ -16,36 +16,35 @@
  */
 package com.helger.commons.compare;
 
+import java.util.function.ToDoubleFunction;
+
 import javax.annotation.Nonnull;
 
+import com.helger.commons.ValueEnforcer;
+
 /**
- * Abstract comparator that handles values that can be represented as float
+ * Abstract comparator that handles values that can be represented as double
  * values.
  *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type to be compared. Must somehow have a value that can be
- *        compared as a float value.
+ *        compared as a double value.
  */
-public abstract class AbstractFloatComparator <DATATYPE> extends AbstractComparator <DATATYPE>
+public class DoubleComparator <DATATYPE> extends AbstractComparator <DATATYPE>
 {
-  public AbstractFloatComparator ()
-  {}
+  private final ToDoubleFunction <DATATYPE> m_aExtractor;
 
-  /**
-   * Protected method to convert the passed object into a float value.
-   *
-   * @param aObject
-   *        The source object
-   * @return The result float value.
-   */
-  protected abstract float getAsFloat (@Nonnull DATATYPE aObject);
+  public DoubleComparator (@Nonnull final ToDoubleFunction <DATATYPE> aExtractor)
+  {
+    m_aExtractor = ValueEnforcer.notNull (aExtractor, "Extractor");
+  }
 
   @Override
   protected final int mainCompare (@Nonnull final DATATYPE aElement1, @Nonnull final DATATYPE aElement2)
   {
-    final float f1 = getAsFloat (aElement1);
-    final float f2 = getAsFloat (aElement2);
-    return CompareHelper.compare (f1, f2);
+    final double d1 = m_aExtractor.applyAsDouble (aElement1);
+    final double d2 = m_aExtractor.applyAsDouble (aElement2);
+    return CompareHelper.compare (d1, d2);
   }
 }

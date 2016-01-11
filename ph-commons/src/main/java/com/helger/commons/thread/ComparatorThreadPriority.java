@@ -16,10 +16,9 @@
  */
 package com.helger.commons.thread;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.compare.AbstractIntComparator;
+import com.helger.commons.compare.IntComparator;
 
 /**
  * {@link java.util.Comparator} for ordering {@link Thread} objects by their
@@ -28,11 +27,10 @@ import com.helger.commons.compare.AbstractIntComparator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ComparatorThreadPriority extends AbstractIntComparator <Thread>
+public class ComparatorThreadPriority extends IntComparator <Thread>
 {
-  @Override
-  protected int getAsInt (@Nonnull final Thread aThread)
+  public ComparatorThreadPriority ()
   {
-    return aThread.getPriority ();
+    super (aObject -> aObject.getPriority ());
   }
 }
