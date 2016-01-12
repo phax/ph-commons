@@ -31,6 +31,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.exception.LoggedRuntimeException;
 import com.helger.commons.lang.ClassHelper;
+import com.helger.commons.string.StringHelper;
 
 /**
  * Utility class to create JMX {@link ObjectName} objects.
@@ -120,7 +121,11 @@ public final class ObjectNameHelper
     // ":" is prohibited
     // "," is the property separator
     // "//" is according to the specs reserved for future use
-    return sPropertyValue.replace (':', '.').replace (',', '.').replace ("//", "__");
+    String ret = sPropertyValue;
+    ret = StringHelper.replaceAll (ret, ':', '.');
+    ret = StringHelper.replaceAll (ret, ',', '.');
+    ret = StringHelper.replaceAll (ret, "//", "__");
+    return ret;
   }
 
   /**
