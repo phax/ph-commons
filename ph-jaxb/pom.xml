@@ -27,7 +27,7 @@
   <artifactId>ph-jaxb</artifactId>
   <packaging>bundle</packaging>
   <name>ph-jaxb</name>
-  <description>Special Java 1.6+ Library with extended JAXB support</description>
+  <description>Special Java 1.8+ Library with extended JAXB support</description>
   <url>https://github.com/phax/ph-commons/ph-jaxb</url>
   <inceptionYear>2015</inceptionYear>
   
@@ -74,7 +74,8 @@
       <groupId>com.helger</groupId>
       <artifactId>ph-commons</artifactId>
     </dependency>
-    
+
+    <!-- The following dependencies are required if external JAXB should be used -->    
     <dependency>
       <groupId>org.glassfish.jaxb</groupId>
       <artifactId>jaxb-runtime</artifactId>
@@ -88,6 +89,7 @@
     <dependency>
       <groupId>com.sun.istack</groupId>
       <artifactId>istack-commons-runtime</artifactId>
+      <optional>true</optional>
     </dependency>
     
     <!-- Required to use the special JAXB internal namespace mapper -->
