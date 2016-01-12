@@ -60,17 +60,17 @@ public class FileMonitor
    * Map from filename to File being monitored.
    */
   @GuardedBy ("m_aRWLock")
-  private final Map <String, FileMonitorAgent> m_aMonitorMap = new HashMap <String, FileMonitorAgent> ();
+  private final Map <String, FileMonitorAgent> m_aMonitorMap = new HashMap <> ();
 
   /**
    * File objects to be removed from the monitor map.
    */
-  private final Stack <File> m_aDeleteStack = new Stack <File> ();
+  private final Stack <File> m_aDeleteStack = new Stack <> ();
 
   /**
    * File objects to be added to the monitor map.
    */
-  private final Stack <File> m_aAddStack = new Stack <File> ();
+  private final Stack <File> m_aAddStack = new Stack <> ();
 
   /**
    * A flag used to determine if adding files to be monitored should be
@@ -132,34 +132,22 @@ public class FileMonitor
   private EChange _recursiveAddFile (@Nonnull final File aFile, final boolean bRecursive)
   {
     final String sKey = aFile.getAbsolutePath ();
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      // Check if already contained
-      if (m_aMonitorMap.containsKey (sKey))
-        return EChange.UNCHANGED;
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    // Check if already contained
+    if (m_aRWLock.readLocked ( () -> m_aMonitorMap.containsKey (sKey)))
+      return EChange.UNCHANGED;
+
+    final EChange eChange = m_aRWLock.writeLocked ( () -> {
       // Try again in write lock
       if (m_aMonitorMap.containsKey (sKey))
         return EChange.UNCHANGED;
 
       // Add monitored item
       m_aMonitorMap.put (sKey, new FileMonitorAgent (this, aFile));
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+      return EChange.CHANGED;
+    });
 
-    if (bRecursive)
+    if (eChange.isChanged () && bRecursive)
     {
       // Traverse the children depth first
       final File [] aChildren = aFile.listFiles ();
@@ -168,7 +156,7 @@ public class FileMonitor
           _recursiveAddFile (aChild, true);
     }
 
-    return EChange.CHANGED;
+    return eChange;
   }
 
   @Nonnegative
@@ -240,16 +228,7 @@ public class FileMonitor
     {
       // Not the root
       final String sParentKey = aParent.getAbsolutePath ();
-      FileMonitorAgent aParentAgent;
-      m_aRWLock.readLock ().lock ();
-      try
-      {
-        aParentAgent = m_aMonitorMap.get (sParentKey);
-      }
-      finally
-      {
-        m_aRWLock.readLock ().unlock ();
-      }
+      final FileMonitorAgent aParentAgent = m_aRWLock.readLocked ( () -> m_aMonitorMap.get (sParentKey));
       if (aParentAgent != null)
         aParentAgent.resetChildrenList ();
     }
@@ -327,15 +306,7 @@ public class FileMonitor
   @ReturnsMutableCopy
   Collection <FileMonitorAgent> getAllAgents ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newList (m_aMonitorMap.values ());
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aMonitorMap.values ()));
   }
 
   void applyPendingDeletes ()
