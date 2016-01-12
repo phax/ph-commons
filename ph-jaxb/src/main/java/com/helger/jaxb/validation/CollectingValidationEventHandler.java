@@ -53,30 +53,16 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
   @Override
   protected void onEvent (@Nonnull final IResourceError aEvent)
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       m_aErrors.addResourceError (aEvent);
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public IResourceErrorGroup getResourceErrors ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aErrors.getClone ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aErrors.getClone ());
   }
 
   /**
@@ -87,28 +73,14 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
   @Nonnull
   public EChange clearResourceErrors ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      return m_aErrors.clear ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    return m_aRWLock.writeLocked ( () -> m_aErrors.clear ());
   }
 
   @Override
   public String toString ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return ToStringGenerator.getDerived (super.toString ()).append ("errors", m_aErrors).toString ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> ToStringGenerator.getDerived (super.toString ())
+                                                         .append ("errors", m_aErrors)
+                                                         .toString ());
   }
 }
