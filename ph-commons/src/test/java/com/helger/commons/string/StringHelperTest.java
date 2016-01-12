@@ -1234,6 +1234,30 @@ public final class StringHelperTest extends AbstractCommonsTestCase
   }
 
   @Test
+  public void testTrimEndRepeatedlyString ()
+  {
+    assertEquals ("Hallo Welt", StringHelper.trimEndRepeatedly ("Hallo Welt", ""));
+    assertEquals ("Hallo Welt", StringHelper.trimEndRepeatedly ("Hallo Welt", "asd"));
+    assertEquals (" Hallo We", StringHelper.trimEndRepeatedly (" Hallo Welt", "lt"));
+    assertEquals (" Hallo We", StringHelper.trimEndRepeatedly (" Hallo Weltltltlt", "lt"));
+    assertEquals ("Hallo Wel", StringHelper.trimEndRepeatedly ("Hallo Welt", "t"));
+    assertEquals ("Hallo Wel", StringHelper.trimEndRepeatedly ("Hallo Welttttttttttt", "t"));
+    assertEquals ("", StringHelper.trimEndRepeatedly ("", "lt"));
+    assertEquals ("", StringHelper.trimEndRepeatedly ("", ""));
+    assertSame (null, StringHelper.trimEndRepeatedly (null, null));
+  }
+
+  @Test
+  public void testTrimEndRepeatedlyChar ()
+  {
+    assertEquals ("Hallo Welt", StringHelper.trimEndRepeatedly ("Hallo Welt", 'a'));
+    assertEquals ("Hallo Wel", StringHelper.trimEndRepeatedly ("Hallo Welt", 't'));
+    assertEquals ("Hallo Wel", StringHelper.trimEndRepeatedly ("Hallo Welttttttttttt", 't'));
+    assertEquals ("", StringHelper.trimEndRepeatedly ("", 'a'));
+    assertSame (null, StringHelper.trimEndRepeatedly (null, 'a'));
+  }
+
+  @Test
   public void testTrimEndInt ()
   {
     assertEquals ("Hallo Welt", StringHelper.trimEnd ("Hallo Welt", 0));
@@ -1259,6 +1283,28 @@ public final class StringHelperTest extends AbstractCommonsTestCase
     assertEquals ("", StringHelper.trimStart ("", "lt"));
     assertEquals ("", StringHelper.trimStart ("", ""));
     assertSame (null, StringHelper.trimStart (null, null));
+  }
+
+  @Test
+  public void testTrimStartRepeatedlyString ()
+  {
+    assertEquals ("Hallo Welt", StringHelper.trimStartRepeatedly ("Hallo Welt", ""));
+    assertEquals ("Hallo Welt", StringHelper.trimStartRepeatedly ("Hallo Welt", "asd"));
+    assertEquals ("allo Welt", StringHelper.trimStartRepeatedly (" Hallo Welt", " H"));
+    assertEquals ("allo Welt", StringHelper.trimStartRepeatedly ("HHHHHHHHHallo Welt", "H"));
+    assertEquals ("", StringHelper.trimStartRepeatedly ("", "lt"));
+    assertEquals ("", StringHelper.trimStartRepeatedly ("", ""));
+    assertSame (null, StringHelper.trimStartRepeatedly (null, null));
+  }
+
+  @Test
+  public void testTrimStartRepeatedlyChar ()
+  {
+    assertEquals ("Hallo Welt", StringHelper.trimStartRepeatedly ("Hallo Welt", 'a'));
+    assertEquals ("allo Welt", StringHelper.trimStartRepeatedly ("Hallo Welt", 'H'));
+    assertEquals ("allo Welt", StringHelper.trimStartRepeatedly ("HHHHHHHHHallo Welt", 'H'));
+    assertEquals ("", StringHelper.trimStartRepeatedly ("", 'a'));
+    assertSame (null, StringHelper.trimStartRepeatedly (null, 'a'));
   }
 
   @Test

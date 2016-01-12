@@ -1629,12 +1629,8 @@ public final class StringHelper
   public static boolean startsWithAny (@Nullable final CharSequence aCS, @Nullable final char [] aChars)
   {
     if (hasText (aCS) && aChars != null)
-    {
-      final char cFirst = aCS.charAt (0);
-      for (final char c : aChars)
-        if (cFirst == c)
-          return true;
-    }
+      if (ArrayHelper.contains (aChars, aCS.charAt (0)))
+        return true;
     return false;
   }
 
@@ -1648,7 +1644,25 @@ public final class StringHelper
     if (aCS == null || aSearch == null)
       return false;
     final int nSearchLength = aSearch.length ();
-    return aCS.length () >= nSearchLength && aCS.subSequence (0, nSearchLength).equals (aSearch);
+    if (nSearchLength == 0)
+      return true;
+    final int nCSLength = aCS.length ();
+    if (nCSLength < nSearchLength)
+      return false;
+    return aCS.subSequence (0, nSearchLength).equals (aSearch);
+  }
+
+  public static boolean startsWith (@Nullable final String sStr, @Nullable final String sSearch)
+  {
+    if (sStr == null || sSearch == null)
+      return false;
+    final int nSearchLength = sSearch.length ();
+    if (nSearchLength == 0)
+      return true;
+    final int nStrLength = sStr.length ();
+    if (nStrLength < nSearchLength)
+      return false;
+    return sStr.subSequence (0, nSearchLength).equals (sSearch);
   }
 
   public static boolean startsWithIgnoreCase (@Nullable final String sStr, @Nullable final String sSearch)
@@ -1656,7 +1670,12 @@ public final class StringHelper
     if (sStr == null || sSearch == null)
       return false;
     final int nSearchLength = sSearch.length ();
-    return sStr.length () >= nSearchLength && sStr.substring (0, nSearchLength).equalsIgnoreCase (sSearch);
+    if (nSearchLength == 0)
+      return true;
+    final int nStrLength = sStr.length ();
+    if (nStrLength < nSearchLength)
+      return false;
+    return sStr.substring (0, nSearchLength).equalsIgnoreCase (sSearch);
   }
 
   public static boolean endsWith (@Nullable final CharSequence aCS, final char c)
@@ -1667,12 +1686,8 @@ public final class StringHelper
   public static boolean endsWithAny (@Nullable final CharSequence aCS, @Nullable final char [] aChars)
   {
     if (hasText (aCS) && aChars != null)
-    {
-      final char cLast = getLastChar (aCS);
-      for (final char c : aChars)
-        if (cLast == c)
-          return true;
-    }
+      if (ArrayHelper.contains (aChars, getLastChar (aCS)))
+        return true;
     return false;
   }
 
@@ -1680,9 +1695,26 @@ public final class StringHelper
   {
     if (aCS == null || aSearch == null)
       return false;
-    final int nCSLength = aCS.length ();
     final int nSearchLength = aSearch.length ();
-    return nCSLength >= nSearchLength && aCS.subSequence (nCSLength - nSearchLength, nCSLength).equals (aSearch);
+    if (nSearchLength == 0)
+      return true;
+    final int nCSLength = aCS.length ();
+    if (nCSLength < nSearchLength)
+      return false;
+    return aCS.subSequence (nCSLength - nSearchLength, nCSLength).equals (aSearch);
+  }
+
+  public static boolean endsWith (@Nullable final String sStr, @Nullable final String sSearch)
+  {
+    if (sStr == null || sSearch == null)
+      return false;
+    final int nSearchLength = sSearch.length ();
+    if (nSearchLength == 0)
+      return true;
+    final int nStrLength = sStr.length ();
+    if (nStrLength < nSearchLength)
+      return false;
+    return sStr.startsWith (sSearch, nStrLength - nSearchLength);
   }
 
   public static boolean endsWithIgnoreCase (@Nullable final CharSequence aCS, final char c)
@@ -1694,10 +1726,13 @@ public final class StringHelper
   {
     if (sStr == null || sSearch == null)
       return false;
-    final int nStrLength = sStr.length ();
     final int nSearchLength = sSearch.length ();
-    return nStrLength >= nSearchLength &&
-           sStr.substring (nStrLength - nSearchLength, nStrLength).equalsIgnoreCase (sSearch);
+    if (nSearchLength == 0)
+      return true;
+    final int nStrLength = sStr.length ();
+    if (nStrLength < nSearchLength)
+      return false;
+    return sStr.substring (nStrLength - nSearchLength, nStrLength).equalsIgnoreCase (sSearch);
   }
 
   /**
@@ -2339,6 +2374,23 @@ public final class StringHelper
     return startsWith (sSrc, sLead) ? sSrc.substring (sLead.length (), sSrc.length ()) : sSrc;
   }
 
+  @Nullable
+  @CheckReturnValue
+  public static String trimStartRepeatedly (@Nullable final String sSrc, @Nullable final String sLead)
+  {
+    if (hasNoText (sSrc))
+      return sSrc;
+
+    final int nLeadLength = getLength (sLead);
+    if (nLeadLength == 0)
+      return sSrc;
+
+    String ret = sSrc;
+    while (startsWith (ret, sLead))
+      ret = ret.substring (nLeadLength, ret.length ());
+    return ret;
+  }
+
   /**
    * Trim the passed lead from the source value. If the source value does not
    * start with the passed lead, nothing happens.
@@ -2358,6 +2410,19 @@ public final class StringHelper
   public static String trimStart (@Nullable final String sSrc, final char cLead)
   {
     return startsWith (sSrc, cLead) ? sSrc.substring (1, sSrc.length ()) : sSrc;
+  }
+
+  @Nullable
+  @CheckReturnValue
+  public static String trimStartRepeatedly (@Nullable final String sSrc, final char cLead)
+  {
+    if (hasNoText (sSrc))
+      return sSrc;
+
+    String ret = sSrc;
+    while (startsWith (ret, cLead))
+      ret = ret.substring (1, ret.length ());
+    return ret;
   }
 
   /**
@@ -2401,6 +2466,23 @@ public final class StringHelper
     return endsWith (sSrc, sTail) ? sSrc.substring (0, sSrc.length () - sTail.length ()) : sSrc;
   }
 
+  @Nullable
+  @CheckReturnValue
+  public static String trimEndRepeatedly (@Nullable final String sSrc, @Nullable final String sTail)
+  {
+    if (hasNoText (sSrc))
+      return sSrc;
+
+    final int nTailLength = getLength (sTail);
+    if (nTailLength == 0)
+      return sSrc;
+
+    String ret = sSrc;
+    while (endsWith (ret, sTail))
+      ret = ret.substring (0, ret.length () - nTailLength);
+    return ret;
+  }
+
   /**
    * Trim the passed tail from the source value. If the source value does not
    * end with the passed tail, nothing happens.
@@ -2420,6 +2502,19 @@ public final class StringHelper
   public static String trimEnd (@Nullable final String sSrc, final char cTail)
   {
     return endsWith (sSrc, cTail) ? sSrc.substring (0, sSrc.length () - 1) : sSrc;
+  }
+
+  @Nullable
+  @CheckReturnValue
+  public static String trimEndRepeatedly (@Nullable final String sSrc, final char cTail)
+  {
+    if (hasNoText (sSrc))
+      return sSrc;
+
+    String ret = sSrc;
+    while (endsWith (ret, cTail))
+      ret = ret.substring (0, ret.length () - 1);
+    return ret;
   }
 
   /**
