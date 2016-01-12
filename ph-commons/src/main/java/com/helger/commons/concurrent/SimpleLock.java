@@ -17,7 +17,6 @@
 package com.helger.commons.concurrent;
 
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import java.util.function.IntSupplier;
@@ -41,14 +40,13 @@ import com.helger.commons.callback.IThrowingRunnable;
 public class SimpleLock extends ReentrantLock
 {
   /**
-   * Default constructor creating a default {@link ReentrantReadWriteLock}
+   * Default constructor creating a default {@link ReentrantLock}
    */
   public SimpleLock ()
   {}
 
   /**
-   * Constructor creating a {@link ReentrantReadWriteLock} with the provided
-   * fairness
+   * Constructor creating a {@link ReentrantLock} with the provided fairness
    *
    * @param bFair
    *        <code>true</code> if this lock should use a fair ordering policy
