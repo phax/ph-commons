@@ -3221,6 +3221,57 @@ public final class StringHelper
   }
 
   /**
+   * Remove all occurrences of the passed character from the specified input
+   * string
+   *
+   * @param sInputString
+   *        The input string where the character should be removed. If this
+   *        parameter is <code>null</code> or empty, no removing is done.
+   * @param sRemoveString
+   *        The String to be removed. May be <code>null</code> or empty in which
+   *        case nothing happens.
+   * @return The input string as is, if the input string is empty or if the
+   *         remove string is empty or not contained.
+   */
+  @Nullable
+  public static String removeAll (@Nullable final String sInputString, @Nullable final String sRemoveString)
+  {
+    // Is input string empty?
+    if (hasNoText (sInputString))
+      return sInputString;
+
+    final int nRemoveLength = getLength (sRemoveString);
+    if (nRemoveLength == 0)
+    {
+      // Nothing to be removed
+      return sInputString;
+    }
+
+    if (nRemoveLength == 1)
+    {
+      // Shortcut to char version
+      return removeAll (sInputString, sRemoveString.charAt (0));
+    }
+
+    // Does the string occur anywhere?
+    int nIndex = sInputString.indexOf (sRemoveString, 0);
+    if (nIndex == STRING_NOT_FOUND)
+      return sInputString;
+
+    // build output buffer
+    final StringBuilder ret = new StringBuilder (sInputString.length ());
+    int nOldIndex = 0;
+    do
+    {
+      ret.append (sInputString, nOldIndex, nIndex);
+      nOldIndex = nIndex + nRemoveLength;
+      nIndex = sInputString.indexOf (sRemoveString, nOldIndex);
+    } while (nIndex != STRING_NOT_FOUND);
+    ret.append (sInputString, nOldIndex, sInputString.length ());
+    return ret.toString ();
+  }
+
+  /**
    * Get the length of the passed character sequence.
    *
    * @param aCS

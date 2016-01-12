@@ -1703,7 +1703,7 @@ public final class StringHelperTest extends AbstractCommonsTestCase
   }
 
   @Test
-  public void testRemoveAll ()
+  public void testRemoveAllChar ()
   {
     assertEquals ("abc", StringHelper.removeAll ("abc", 'd'));
     assertEquals ("ab", StringHelper.removeAll ("abc", 'c'));
@@ -1714,6 +1714,25 @@ public final class StringHelperTest extends AbstractCommonsTestCase
     assertEquals ("bb", StringHelper.removeAll ("ababa", 'a'));
     assertEquals ("abc", StringHelper.removeAll ("abcd", 'd'));
     assertNull (StringHelper.removeAll (null, 'a'));
+  }
+
+  @Test
+  public void testRemoveAllString ()
+  {
+    assertEquals ("abc", StringHelper.removeAll ("abc", "d"));
+    assertEquals ("abc", StringHelper.removeAll ("abc", "ac"));
+    assertEquals ("ab", StringHelper.removeAll ("abc", "c"));
+    assertEquals ("a", StringHelper.removeAll ("abc", "bc"));
+    assertEquals ("ac", StringHelper.removeAll ("abc", "b"));
+    assertEquals ("c", StringHelper.removeAll ("abc", "ab"));
+    assertEquals ("bc", StringHelper.removeAll ("abc", "a"));
+    assertEquals ("", StringHelper.removeAll ("aaa", "a"));
+    assertEquals ("a", StringHelper.removeAll ("aaa", "aa"));
+    assertEquals ("", StringHelper.removeAll ("", "a"));
+    assertEquals ("bb", StringHelper.removeAll ("ababa", "a"));
+    assertEquals ("a", StringHelper.removeAll ("ababa", "ab"));
+    assertEquals ("abc", StringHelper.removeAll ("abcd", "d"));
+    assertNull (StringHelper.removeAll (null, "a"));
   }
 
   @Test
