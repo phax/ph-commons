@@ -47,7 +47,7 @@ public abstract class AbstractSessionSingletonTreeWithUniqueID <KEYTYPE, VALUETY
                                                                implements
                                                                ITreeWithGlobalUniqueID <KEYTYPE, VALUETYPE, DefaultTreeItemWithID <KEYTYPE, VALUETYPE>>
 {
-  protected final DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> m_aTree = new DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> ();
+  protected final DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> m_aTree = new DefaultTreeWithGlobalUniqueID <> ();
 
   public AbstractSessionSingletonTreeWithUniqueID ()
   {}

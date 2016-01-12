@@ -44,7 +44,7 @@ public abstract class AbstractApplicationSingletonTreeWithUniqueID <KEYTYPE, VAL
                                                                    extends AbstractApplicationSingleton implements
                                                                    ITreeWithGlobalUniqueID <KEYTYPE, VALUETYPE, DefaultTreeItemWithID <KEYTYPE, VALUETYPE>>
 {
-  protected final DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> m_aTree = new DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> ();
+  protected final DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> m_aTree = new DefaultTreeWithGlobalUniqueID <> ();
 
   public AbstractApplicationSingletonTreeWithUniqueID ()
   {}

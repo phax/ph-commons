@@ -29,8 +29,6 @@ import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 import com.helger.commons.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 import com.helger.commons.tree.withid.unique.ITreeWithGlobalUniqueID;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Represents a global singleton tree with a unique ID. It basically is a
  * {@link AbstractSessionApplicationSingleton} wrapping a
@@ -42,12 +40,11 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @param <VALUETYPE>
  *        Tree value type
  */
-@SuppressFBWarnings ("SE_BAD_FIELD")
 public abstract class AbstractSessionApplicationSingletonTreeWithUniqueID <KEYTYPE, VALUETYPE> extends
                                                                           AbstractSessionApplicationSingleton implements
                                                                           ITreeWithGlobalUniqueID <KEYTYPE, VALUETYPE, DefaultTreeItemWithID <KEYTYPE, VALUETYPE>>
 {
-  protected final DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> m_aTree = new DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> ();
+  protected final DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> m_aTree = new DefaultTreeWithGlobalUniqueID <> ();
 
   public AbstractSessionApplicationSingletonTreeWithUniqueID ()
   {}

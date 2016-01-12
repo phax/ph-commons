@@ -206,15 +206,14 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @Nullable
   public final IMicroNode getFirstChild ()
   {
-    return hasChildren () ? m_aChildren.get (0) : null;
+    return CollectionHelper.getFirstElement (m_aChildren);
   }
 
   @Override
   @Nullable
   public final IMicroNode getLastChild ()
   {
-    final int nChildCount = getChildCount ();
-    return nChildCount == 0 ? null : m_aChildren.get (nChildCount - 1);
+    return CollectionHelper.getLastElement (m_aChildren);
   }
 
   private void _fillListPrefix (@Nonnull final IMicroNode aCurNode, @Nonnull final List <IMicroNode> aNodes)
@@ -240,7 +239,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @Nullable
   public String getTextContent ()
   {
-    if (!hasChildren ())
+    if (hasNoChildren ())
       return null;
 
     final StringBuilder aSB = new StringBuilder ();
