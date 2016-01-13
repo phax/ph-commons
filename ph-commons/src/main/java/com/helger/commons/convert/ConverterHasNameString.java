@@ -29,7 +29,7 @@ import com.helger.commons.name.IHasName;
 public class ConverterHasNameString implements IConverter <IHasName, String>
 {
   @Nullable
-  public String convert (@Nullable final IHasName aInput)
+  public String apply (@Nullable final IHasName aInput)
   {
     return aInput == null ? null : aInput.getName ();
   }

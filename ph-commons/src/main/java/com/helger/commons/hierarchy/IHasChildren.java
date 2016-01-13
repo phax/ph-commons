@@ -34,7 +34,10 @@ public interface IHasChildren <CHILDTYPE>
    * @return <code>true</code> if this item has direct children,
    *         <code>false</code> otherwise.
    */
-  boolean hasChildren ();
+  default boolean hasChildren ()
+  {
+    return getChildCount () > 0;
+  }
 
   /**
    * @return <code>true</code> if this item has no direct children,

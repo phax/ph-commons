@@ -16,7 +16,6 @@
  */
 package com.helger.commons.convert;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.id.IHasID;
@@ -32,14 +31,8 @@ import com.helger.commons.id.IHasID;
 public class ConverterHasIDID <DATATYPE> implements IConverter <IHasID <DATATYPE>, DATATYPE>
 {
   @Nullable
-  public DATATYPE convert (@Nullable final IHasID <DATATYPE> aInput)
+  public DATATYPE apply (@Nullable final IHasID <DATATYPE> aInput)
   {
     return aInput == null ? null : aInput.getID ();
-  }
-
-  @Nonnull
-  public static <DATATYPE> ConverterHasIDID <DATATYPE> create ()
-  {
-    return new ConverterHasIDID <DATATYPE> ();
   }
 }

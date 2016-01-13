@@ -109,7 +109,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (TreeSet.class, aSource -> {
       if (aSource instanceof Collection <?>)
         return new TreeSet <Object> ((Collection <?>) aSource);
-      final TreeSet <Object> ret = new TreeSet <Object> ();
+      final TreeSet <Object> ret = new TreeSet <> ();
       ret.add (aSource);
       return ret;
     });
@@ -118,7 +118,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (LinkedHashSet.class, aSource -> {
       if (aSource instanceof Collection <?>)
         return new LinkedHashSet <Object> ((Collection <?>) aSource);
-      final LinkedHashSet <Object> ret = new LinkedHashSet <Object> (1);
+      final LinkedHashSet <Object> ret = new LinkedHashSet <> (1);
       ret.add (aSource);
       return ret;
     });
@@ -126,8 +126,8 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     // to CopyOnWriteArraySet<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (CopyOnWriteArraySet.class, aSource -> {
       if (aSource instanceof Collection <?>)
-        return new CopyOnWriteArraySet <Object> ((Collection <?>) aSource);
-      final CopyOnWriteArraySet <Object> ret = new CopyOnWriteArraySet <Object> ();
+        return new CopyOnWriteArraySet <> ((Collection <?>) aSource);
+      final CopyOnWriteArraySet <Object> ret = new CopyOnWriteArraySet <> ();
       ret.add (aSource);
       return ret;
     });
@@ -140,116 +140,64 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     });
 
     // boolean[]
-    aRegistry.registerTypeConverter (boolean [].class,
-                                     ArrayList.class,
-                                     aSource -> CollectionHelper.newBooleanList (aSource));
-    aRegistry.registerTypeConverter (boolean [].class,
-                                     Vector.class,
-                                     aSource -> CollectionHelper.newBooleanVector (aSource));
-    aRegistry.registerTypeConverter (boolean [].class,
-                                     HashSet.class,
-                                     aSource -> CollectionHelper.newBooleanSet (aSource));
-    aRegistry.registerTypeConverter (boolean [].class,
-                                     LinkedHashSet.class,
-                                     aSource -> CollectionHelper.newBooleanOrderedSet (aSource));
-    aRegistry.registerTypeConverter (boolean [].class,
-                                     TreeSet.class,
-                                     aSource -> CollectionHelper.newBooleanSortedSet (aSource));
+    aRegistry.registerTypeConverter (boolean [].class, ArrayList.class, CollectionHelper::newList);
+    aRegistry.registerTypeConverter (boolean [].class, Vector.class, CollectionHelper::newVector);
+    aRegistry.registerTypeConverter (boolean [].class, HashSet.class, CollectionHelper::newSet);
+    aRegistry.registerTypeConverter (boolean [].class, LinkedHashSet.class, CollectionHelper::newOrderedSet);
+    aRegistry.registerTypeConverter (boolean [].class, TreeSet.class, CollectionHelper::newSortedSet);
 
     // byte[]
-    aRegistry.registerTypeConverter (byte [].class, String.class, aSource -> Base64.encodeBytes (aSource));
-    aRegistry.registerTypeConverter (String.class, byte [].class, aSource -> Base64.safeDecode (aSource));
-    aRegistry.registerTypeConverter (byte [].class, ArrayList.class, aSource -> CollectionHelper.newByteList (aSource));
-    aRegistry.registerTypeConverter (byte [].class, Vector.class, aSource -> CollectionHelper.newByteVector (aSource));
-    aRegistry.registerTypeConverter (byte [].class, HashSet.class, aSource -> CollectionHelper.newByteSet (aSource));
-    aRegistry.registerTypeConverter (byte [].class,
-                                     LinkedHashSet.class,
-                                     aSource -> CollectionHelper.newByteOrderedSet (aSource));
-    aRegistry.registerTypeConverter (byte [].class,
-                                     TreeSet.class,
-                                     aSource -> CollectionHelper.newByteSortedSet (aSource));
+    aRegistry.registerTypeConverter (byte [].class, String.class, Base64::encodeBytes);
+    aRegistry.registerTypeConverter (String.class, byte [].class, Base64::safeDecode);
+    aRegistry.registerTypeConverter (byte [].class, ArrayList.class, CollectionHelper::newList);
+    aRegistry.registerTypeConverter (byte [].class, Vector.class, CollectionHelper::newVector);
+    aRegistry.registerTypeConverter (byte [].class, HashSet.class, CollectionHelper::newSet);
+    aRegistry.registerTypeConverter (byte [].class, LinkedHashSet.class, CollectionHelper::newOrderedSet);
+    aRegistry.registerTypeConverter (byte [].class, TreeSet.class, CollectionHelper::newSortedSet);
 
     // char[]
     aRegistry.registerTypeConverter (char [].class, String.class, aSource -> new String (aSource));
     aRegistry.registerTypeConverter (String.class, char [].class, aSource -> aSource.toCharArray ());
-    aRegistry.registerTypeConverter (char [].class, ArrayList.class, aSource -> CollectionHelper.newCharList (aSource));
-    aRegistry.registerTypeConverter (char [].class, Vector.class, aSource -> CollectionHelper.newCharVector (aSource));
-    aRegistry.registerTypeConverter (char [].class, HashSet.class, aSource -> CollectionHelper.newCharSet (aSource));
-    aRegistry.registerTypeConverter (char [].class,
-                                     LinkedHashSet.class,
-                                     aSource -> CollectionHelper.newCharOrderedSet (aSource));
-    aRegistry.registerTypeConverter (char [].class,
-                                     TreeSet.class,
-                                     aSource -> CollectionHelper.newCharSortedSet (aSource));
+    aRegistry.registerTypeConverter (char [].class, ArrayList.class, CollectionHelper::newList);
+    aRegistry.registerTypeConverter (char [].class, Vector.class, CollectionHelper::newVector);
+    aRegistry.registerTypeConverter (char [].class, HashSet.class, CollectionHelper::newSet);
+    aRegistry.registerTypeConverter (char [].class, LinkedHashSet.class, CollectionHelper::newOrderedSet);
+    aRegistry.registerTypeConverter (char [].class, TreeSet.class, CollectionHelper::newSortedSet);
 
     // double[]
-    aRegistry.registerTypeConverter (double [].class,
-                                     ArrayList.class,
-                                     aSource -> CollectionHelper.newDoubleList (aSource));
-    aRegistry.registerTypeConverter (double [].class,
-                                     Vector.class,
-                                     aSource -> CollectionHelper.newDoubleVector (aSource));
-    aRegistry.registerTypeConverter (double [].class,
-                                     HashSet.class,
-                                     aSource -> CollectionHelper.newDoubleSet (aSource));
-    aRegistry.registerTypeConverter (double [].class,
-                                     LinkedHashSet.class,
-                                     aSource -> CollectionHelper.newDoubleOrderedSet (aSource));
-    aRegistry.registerTypeConverter (double [].class,
-                                     TreeSet.class,
-                                     aSource -> CollectionHelper.newDoubleSortedSet (aSource));
+    aRegistry.registerTypeConverter (double [].class, ArrayList.class, CollectionHelper::newList);
+    aRegistry.registerTypeConverter (double [].class, Vector.class, CollectionHelper::newVector);
+    aRegistry.registerTypeConverter (double [].class, HashSet.class, CollectionHelper::newSet);
+    aRegistry.registerTypeConverter (double [].class, LinkedHashSet.class, CollectionHelper::newOrderedSet);
+    aRegistry.registerTypeConverter (double [].class, TreeSet.class, CollectionHelper::newSortedSet);
 
     // float[]
-    aRegistry.registerTypeConverter (float [].class,
-                                     ArrayList.class,
-                                     aSource -> CollectionHelper.newFloatList (aSource));
-    aRegistry.registerTypeConverter (float [].class,
-                                     Vector.class,
-                                     aSource -> CollectionHelper.newFloatVector (aSource));
-    aRegistry.registerTypeConverter (float [].class, HashSet.class, aSource -> CollectionHelper.newFloatSet (aSource));
-    aRegistry.registerTypeConverter (float [].class,
-                                     LinkedHashSet.class,
-                                     aSource -> CollectionHelper.newFloatOrderedSet (aSource));
-    aRegistry.registerTypeConverter (float [].class,
-                                     TreeSet.class,
-                                     aSource -> CollectionHelper.newFloatSortedSet (aSource));
+    aRegistry.registerTypeConverter (float [].class, ArrayList.class, CollectionHelper::newList);
+    aRegistry.registerTypeConverter (float [].class, Vector.class, CollectionHelper::newVector);
+    aRegistry.registerTypeConverter (float [].class, HashSet.class, CollectionHelper::newSet);
+    aRegistry.registerTypeConverter (float [].class, LinkedHashSet.class, CollectionHelper::newOrderedSet);
+    aRegistry.registerTypeConverter (float [].class, TreeSet.class, CollectionHelper::newSortedSet);
 
     // int[]
-    aRegistry.registerTypeConverter (int [].class, ArrayList.class, aSource -> CollectionHelper.newIntList (aSource));
-    aRegistry.registerTypeConverter (int [].class, Vector.class, aSource -> CollectionHelper.newIntVector (aSource));
-    aRegistry.registerTypeConverter (int [].class, HashSet.class, aSource -> CollectionHelper.newIntSet (aSource));
-    aRegistry.registerTypeConverter (int [].class,
-                                     LinkedHashSet.class,
-                                     aSource -> CollectionHelper.newIntOrderedSet (aSource));
-    aRegistry.registerTypeConverter (int [].class,
-                                     TreeSet.class,
-                                     aSource -> CollectionHelper.newIntSortedSet (aSource));
+    aRegistry.registerTypeConverter (int [].class, ArrayList.class, CollectionHelper::newList);
+    aRegistry.registerTypeConverter (int [].class, Vector.class, CollectionHelper::newVector);
+    aRegistry.registerTypeConverter (int [].class, HashSet.class, CollectionHelper::newSet);
+    aRegistry.registerTypeConverter (int [].class, LinkedHashSet.class, CollectionHelper::newOrderedSet);
+    aRegistry.registerTypeConverter (int [].class, TreeSet.class, CollectionHelper::newSortedSet);
 
     // long[]
-    aRegistry.registerTypeConverter (long [].class, ArrayList.class, aSource -> CollectionHelper.newLongList (aSource));
-    aRegistry.registerTypeConverter (long [].class, Vector.class, aSource -> CollectionHelper.newLongVector (aSource));
-    aRegistry.registerTypeConverter (long [].class, HashSet.class, aSource -> CollectionHelper.newLongSet (aSource));
-    aRegistry.registerTypeConverter (long [].class,
-                                     LinkedHashSet.class,
-                                     aSource -> CollectionHelper.newLongOrderedSet (aSource));
-    aRegistry.registerTypeConverter (long [].class,
-                                     TreeSet.class,
-                                     aSource -> CollectionHelper.newLongSortedSet (aSource));
+    aRegistry.registerTypeConverter (long [].class, ArrayList.class, CollectionHelper::newList);
+    aRegistry.registerTypeConverter (long [].class, Vector.class, CollectionHelper::newVector);
+    aRegistry.registerTypeConverter (long [].class, HashSet.class, CollectionHelper::newSet);
+    aRegistry.registerTypeConverter (long [].class, LinkedHashSet.class, CollectionHelper::newOrderedSet);
+    aRegistry.registerTypeConverter (long [].class, TreeSet.class, CollectionHelper::newSortedSet);
 
     // short[]
-    aRegistry.registerTypeConverter (short [].class,
-                                     ArrayList.class,
-                                     aSource -> CollectionHelper.newShortList (aSource));
-    aRegistry.registerTypeConverter (short [].class,
-                                     Vector.class,
-                                     aSource -> CollectionHelper.newShortVector (aSource));
-    aRegistry.registerTypeConverter (short [].class, HashSet.class, aSource -> CollectionHelper.newShortSet (aSource));
-    aRegistry.registerTypeConverter (short [].class,
-                                     LinkedHashSet.class,
-                                     aSource -> CollectionHelper.newShortOrderedSet (aSource));
-    aRegistry.registerTypeConverter (short [].class,
-                                     TreeSet.class,
-                                     aSource -> CollectionHelper.newShortSortedSet (aSource));
+    aRegistry.registerTypeConverter (short [].class, ArrayList.class, CollectionHelper::newList);
+    aRegistry.registerTypeConverter (short [].class, Vector.class, CollectionHelper::newVector);
+    aRegistry.registerTypeConverter (short [].class, HashSet.class, CollectionHelper::newSet);
+    aRegistry.registerTypeConverter (short [].class, LinkedHashSet.class, CollectionHelper::newOrderedSet);
+    aRegistry.registerTypeConverter (short [].class, TreeSet.class, CollectionHelper::newSortedSet);
 
     // To array
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (boolean [].class, aSource -> {
@@ -257,9 +205,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       final Class <?> aSourceClass = aSource.getClass ();
       if (aSourceClass.isArray ())
       {
-        // Array
-        // to
-        // boolean[]
+        /* Array to boolean[] */
         final int nLength = Array.getLength (aSource);
         ret = new boolean [nLength];
         for (int i = 0; i < nLength; ++i)
@@ -271,9 +217,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       else
         if (aSource instanceof Collection <?>)
         {
-          // Collection
-          // to
-          // boolean[]
+          /* Collection to boolean[] */
           final Collection <?> aSourceCollection = (Collection <?>) aSource;
           ret = new boolean [aSourceCollection.size ()];
           int nIndex = 0;
@@ -282,10 +226,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
         }
         else
         {
-          // Use
-          // object
-          // as
-          // is
+          /* Use object as is */
           ret = new boolean [1];
           ret[0] = TypeConverter.convertToBoolean (aSource);
         }
@@ -297,7 +238,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       final Class <?> aSourceClass = aSource.getClass ();
       if (aSourceClass.isArray ())
       {
-        // Array to byte[]
+        /* Array to byte[] */
         final int nLength = Array.getLength (aSource);
         ret = new byte [nLength];
         for (int i = 0; i < nLength; ++i)
@@ -309,7 +250,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       else
         if (aSource instanceof Collection <?>)
         {
-          // Collection to byte[]
+          /* Collection to byte[] */
           final Collection <?> aSourceCollection = (Collection <?>) aSource;
           ret = new byte [aSourceCollection.size ()];
           int nIndex = 0;
@@ -318,7 +259,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
         }
         else
         {
-          // Use object as is
+          /* Use object as is */
           ret = new byte [1];
           ret[0] = TypeConverter.convertToByte (aSource);
         }
@@ -330,7 +271,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       final Class <?> aSourceClass = aSource.getClass ();
       if (aSourceClass.isArray ())
       {
-        // Array to char[]
+        /* Array to char[] */
         final int nLength = Array.getLength (aSource);
         ret = new char [nLength];
         for (int i = 0; i < nLength; ++i)
@@ -342,7 +283,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       else
         if (aSource instanceof Collection <?>)
         {
-          // Collection to char[]
+          /* Collection to char[] */
           final Collection <?> aSourceCollection = (Collection <?>) aSource;
           ret = new char [aSourceCollection.size ()];
           int nIndex = 0;
@@ -351,7 +292,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
         }
         else
         {
-          // Use object as is
+          /* Use object as is */
           ret = new char [1];
           ret[0] = TypeConverter.convertToChar (aSource);
         }
@@ -363,9 +304,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       final Class <?> aSourceClass = aSource.getClass ();
       if (aSourceClass.isArray ())
       {
-        // Array
-        // to
-        // double[]
+        /* Array to double[] */
         final int nLength = Array.getLength (aSource);
         ret = new double [nLength];
         for (int i = 0; i < nLength; ++i)
@@ -377,9 +316,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       else
         if (aSource instanceof Collection <?>)
         {
-          // Collection
-          // to
-          // double[]
+          /* Collection to double[] */
           final Collection <?> aSourceCollection = (Collection <?>) aSource;
           ret = new double [aSourceCollection.size ()];
           int nIndex = 0;
@@ -388,10 +325,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
         }
         else
         {
-          // Use
-          // object
-          // as
-          // is
+          /* Use object as is */
           ret = new double [1];
           ret[0] = TypeConverter.convertToDouble (aSource);
         }
@@ -403,7 +337,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       final Class <?> aSourceClass = aSource.getClass ();
       if (aSourceClass.isArray ())
       {
-        // Array to float[]
+        /* Array to float[] */
         final int nLength = Array.getLength (aSource);
         ret = new float [nLength];
         for (int i = 0; i < nLength; ++i)
@@ -415,7 +349,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       else
         if (aSource instanceof Collection <?>)
         {
-          // Collection to float[]
+          /* Collection to float[] */
           final Collection <?> aSourceCollection = (Collection <?>) aSource;
           ret = new float [aSourceCollection.size ()];
           int nIndex = 0;
@@ -424,7 +358,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
         }
         else
         {
-          // Use object as is
+          /* Use object as is */
           ret = new float [1];
           ret[0] = TypeConverter.convertToFloat (aSource);
         }
@@ -436,7 +370,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       final Class <?> aSourceClass = aSource.getClass ();
       if (aSourceClass.isArray ())
       {
-        // Array to int[]
+        /* Array to int[] */
         final int nLength = Array.getLength (aSource);
         ret = new int [nLength];
         for (int i = 0; i < nLength; ++i)
@@ -448,7 +382,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       else
         if (aSource instanceof Collection <?>)
         {
-          // Collection to int[]
+          /* Collection to int[] */
           final Collection <?> aSourceCollection = (Collection <?>) aSource;
           ret = new int [aSourceCollection.size ()];
           int nIndex = 0;
@@ -457,7 +391,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
         }
         else
         {
-          // Use object as is
+          /* Use object as is */
           ret = new int [1];
           ret[0] = TypeConverter.convertToInt (aSource);
         }
@@ -469,7 +403,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       final Class <?> aSourceClass = aSource.getClass ();
       if (aSourceClass.isArray ())
       {
-        // Array to long[]
+        /* Array to long[] */
         final int nLength = Array.getLength (aSource);
         ret = new long [nLength];
         for (int i = 0; i < nLength; ++i)
@@ -481,7 +415,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       else
         if (aSource instanceof Collection <?>)
         {
-          // Collection to long[]
+          /* Collection to long[] */
           final Collection <?> aSourceCollection = (Collection <?>) aSource;
           ret = new long [aSourceCollection.size ()];
           int nIndex = 0;
@@ -490,7 +424,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
         }
         else
         {
-          // Use object as is
+          /* Use object as is */
           ret = new long [1];
           ret[0] = TypeConverter.convertToLong (aSource);
         }
@@ -502,7 +436,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       final Class <?> aSourceClass = aSource.getClass ();
       if (aSourceClass.isArray ())
       {
-        // Array to short[]
+        /* Array to short[] */
         final int nLength = Array.getLength (aSource);
         ret = new short [nLength];
         for (int i = 0; i < nLength; ++i)
@@ -514,7 +448,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
       else
         if (aSource instanceof Collection <?>)
         {
-          // Collection to short[]
+          /* Collection to short[] */
           final Collection <?> aSourceCollection = (Collection <?>) aSource;
           ret = new short [aSourceCollection.size ()];
           int nIndex = 0;

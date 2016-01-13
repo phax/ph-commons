@@ -45,7 +45,7 @@ public final class IConverterTest
     assertEquals (aSrcList.size (), aDstList.size ());
     for (int i = 0; i < aSrcList.size (); ++i)
     {
-      assertEquals (aDstList.get (i), aConv.convert (aSrcList.get (i)));
+      assertEquals (aDstList.get (i), aConv.apply (aSrcList.get (i)));
     }
   }
 
@@ -54,18 +54,18 @@ public final class IConverterTest
   {
     _test (new ConverterStringInteger (),
            CollectionHelper.newList ("1", "2", "47"),
-           CollectionHelper.newIntList (1, 2, 47));
+           CollectionHelper.newList (1, 2, 47));
     _test (new ConverterIntegerString (),
-           CollectionHelper.newIntList (1, 2, 47),
+           CollectionHelper.newList (1, 2, 47),
            CollectionHelper.newList ("1", "2", "47"));
     _test (new ConverterHasNameString (),
            CollectionHelper.newList (new MockHasName (1), new MockHasName (2), new MockHasName (47)),
            CollectionHelper.newList ("1", "2", "47"));
-    _test (ConverterHasIDID.<String> create (),
+    _test (new ConverterHasIDID <> (),
            CollectionHelper.newList (new MockHasIDString (1), new MockHasIDString (2), new MockHasIDString (47)),
            CollectionHelper.newList ("1", "2", "47"));
-    _test (ConverterHasIDID.<Integer> create (),
+    _test (new ConverterHasIDID <> (),
            CollectionHelper.newList (new MockHasIDInteger (1), new MockHasIDInteger (2), new MockHasIDInteger (47)),
-           CollectionHelper.newIntList (1, 2, 47));
+           CollectionHelper.newList (1, 2, 47));
   }
 }

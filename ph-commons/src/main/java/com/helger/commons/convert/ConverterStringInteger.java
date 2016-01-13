@@ -47,7 +47,7 @@ public class ConverterStringInteger implements IConverter <String, Integer>
   }
 
   @Nullable
-  public Integer convert (@Nullable final String sInput)
+  public Integer apply (@Nullable final String sInput)
   {
     return StringParser.parseIntObj (sInput, m_aDefaultValue);
   }

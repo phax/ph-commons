@@ -30,7 +30,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.SortedSet;
@@ -181,31 +180,31 @@ public final class CollectionHelper
   @Nonnull
   public static <ELEMENTTYPE> List <? extends ELEMENTTYPE> getNotNull (@Nullable final List <? extends ELEMENTTYPE> aList)
   {
-    return aList == null ? CollectionHelper.<ELEMENTTYPE> newList () : aList;
+    return aList == null ? newList (0) : aList;
   }
 
   @Nonnull
   public static <ELEMENTTYPE> Set <? extends ELEMENTTYPE> getNotNull (@Nullable final Set <? extends ELEMENTTYPE> aSet)
   {
-    return aSet == null ? CollectionHelper.<ELEMENTTYPE> newSet () : aSet;
+    return aSet == null ? newSet (0) : aSet;
   }
 
   @Nonnull
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <? extends ELEMENTTYPE> getNotNull (@Nullable final SortedSet <? extends ELEMENTTYPE> aSortedSet)
   {
-    return aSortedSet == null ? CollectionHelper.<ELEMENTTYPE> newSortedSet () : aSortedSet;
+    return aSortedSet == null ? newSortedSet () : aSortedSet;
   }
 
   @Nonnull
   public static <KEYTYPE, VALUETYPE> Map <? extends KEYTYPE, ? extends VALUETYPE> getNotNull (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    return aMap == null ? CollectionHelper.<KEYTYPE, VALUETYPE> newMap () : aMap;
+    return aMap == null ? newMap (0) : aMap;
   }
 
   @Nonnull
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> SortedMap <? extends KEYTYPE, ? extends VALUETYPE> getNotNull (@Nullable final SortedMap <? extends KEYTYPE, ? extends VALUETYPE> aSortedMap)
   {
-    return aSortedMap == null ? CollectionHelper.<KEYTYPE, VALUETYPE> newSortedMap () : aSortedMap;
+    return aSortedMap == null ? newSortedMap () : aSortedMap;
   }
 
   @Nullable
@@ -254,46 +253,42 @@ public final class CollectionHelper
   @ReturnsImmutableObject
   public static <ELEMENTTYPE> Collection <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final Collection <? extends ELEMENTTYPE> aCollection)
   {
-    return aCollection == null ? CollectionHelper.<ELEMENTTYPE> newUnmodifiableList ()
-                               : Collections.unmodifiableCollection (aCollection);
+    return aCollection == null ? newUnmodifiableList () : Collections.unmodifiableCollection (aCollection);
   }
 
   @Nonnull
   @ReturnsImmutableObject
   public static <ELEMENTTYPE> List <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final List <? extends ELEMENTTYPE> aList)
   {
-    return aList == null ? CollectionHelper.<ELEMENTTYPE> newUnmodifiableList () : Collections.unmodifiableList (aList);
+    return aList == null ? newUnmodifiableList () : Collections.unmodifiableList (aList);
   }
 
   @Nonnull
   @ReturnsImmutableObject
   public static <ELEMENTTYPE> Set <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final Set <? extends ELEMENTTYPE> aSet)
   {
-    return aSet == null ? CollectionHelper.<ELEMENTTYPE> newUnmodifiableSet () : Collections.unmodifiableSet (aSet);
+    return aSet == null ? newUnmodifiableSet () : Collections.unmodifiableSet (aSet);
   }
 
   @Nonnull
   @ReturnsImmutableObject
   public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    return aMap == null ? CollectionHelper.<KEYTYPE, VALUETYPE> newUnmodifiableMap ()
-                        : Collections.unmodifiableMap (aMap);
+    return aMap == null ? newUnmodifiableMap () : Collections.unmodifiableMap (aMap);
   }
 
   @Nonnull
   @ReturnsImmutableObject
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final SortedSet <ELEMENTTYPE> aSortedSet)
   {
-    return aSortedSet == null ? CollectionHelper.<ELEMENTTYPE> newUnmodifiableSortedSet ()
-                              : Collections.unmodifiableSortedSet (aSortedSet);
+    return aSortedSet == null ? newUnmodifiableSortedSet () : Collections.unmodifiableSortedSet (aSortedSet);
   }
 
   @Nonnull
   @ReturnsImmutableObject
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> SortedMap <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final SortedMap <KEYTYPE, ? extends VALUETYPE> aSortedMap)
   {
-    return Collections.unmodifiableSortedMap (aSortedMap == null ? CollectionHelper.<KEYTYPE, VALUETYPE> newSortedMap ()
-                                                                 : aSortedMap);
+    return Collections.unmodifiableSortedMap (aSortedMap == null ? newSortedMap () : aSortedMap);
   }
 
   /**
@@ -317,7 +312,7 @@ public final class CollectionHelper
                                                                @Nullable final Collection <? extends ELEMENTTYPE> aCollection2)
   {
     if (isEmpty (aCollection1))
-      return newSet ();
+      return newSet (0);
     if (isEmpty (aCollection2))
       return newSet (aCollection1);
 
@@ -347,9 +342,9 @@ public final class CollectionHelper
                                                                 @Nullable final Collection <? extends ELEMENTTYPE> aCollection2)
   {
     if (isEmpty (aCollection1))
-      return newSet ();
+      return newSet (0);
     if (isEmpty (aCollection2))
-      return newSet ();
+      return newSet (0);
 
     final Set <ELEMENTTYPE> ret = newSet (aCollection1);
     ret.retainAll (aCollection2);
@@ -358,17 +353,24 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newMap ()
+  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nonnegative final int nInitialCapacity)
   {
-    return new HashMap <KEYTYPE, VALUETYPE> (0);
+    return new HashMap <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newMap (@Nullable final KEYTYPE aKey,
-                                                                      @Nullable final VALUETYPE aValue)
+  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap ()
   {
-    final Map <KEYTYPE, VALUETYPE> ret = new HashMap <KEYTYPE, VALUETYPE> (1);
+    return new HashMap <> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final KEYTYPE aKey,
+                                                                          @Nullable final VALUETYPE aValue)
+  {
+    final HashMap <KEYTYPE, VALUETYPE> ret = newMap (1);
     ret.put (aKey, aValue);
     return ret;
   }
@@ -376,15 +378,15 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> Map <ELEMENTTYPE, ELEMENTTYPE> newMap (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE> HashMap <ELEMENTTYPE, ELEMENTTYPE> newMap (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
-      return new HashMap <ELEMENTTYPE, ELEMENTTYPE> (0);
+      return newMap (0);
 
     if ((aValues.length % 2) != 0)
       throw new IllegalArgumentException ("The passed array needs an even number of elements!");
 
-    final Map <ELEMENTTYPE, ELEMENTTYPE> ret = new HashMap <ELEMENTTYPE, ELEMENTTYPE> (aValues.length / 2);
+    final HashMap <ELEMENTTYPE, ELEMENTTYPE> ret = newMap (aValues.length / 2);
     for (int i = 0; i < aValues.length; i += 2)
       ret.put (aValues[i], aValues[i + 1]);
     return ret;
@@ -392,18 +394,18 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newMap (@Nullable final KEYTYPE [] aKeys,
-                                                                      @Nullable final VALUETYPE [] aValues)
+  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final KEYTYPE [] aKeys,
+                                                                          @Nullable final VALUETYPE [] aValues)
   {
     // Are both empty?
     if (ArrayHelper.isEmpty (aKeys) && ArrayHelper.isEmpty (aValues))
-      return new HashMap <KEYTYPE, VALUETYPE> (0);
+      return newMap (0);
 
     // keys OR values may be null here
     if (ArrayHelper.getSize (aKeys) != ArrayHelper.getSize (aValues))
       throw new IllegalArgumentException ("The passed arrays have different length!");
 
-    final Map <KEYTYPE, VALUETYPE> ret = new HashMap <KEYTYPE, VALUETYPE> (aKeys.length);
+    final HashMap <KEYTYPE, VALUETYPE> ret = newMap (aKeys.length);
     for (int i = 0; i < aKeys.length; ++i)
       ret.put (aKeys[i], aValues[i]);
     return ret;
@@ -411,18 +413,18 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
-                                                                      @Nullable final Collection <? extends VALUETYPE> aValues)
+  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
+                                                                          @Nullable final Collection <? extends VALUETYPE> aValues)
   {
     // Are both empty?
     if (isEmpty (aKeys) && isEmpty (aValues))
-      return new HashMap <KEYTYPE, VALUETYPE> (0);
+      return newMap (0);
 
     // keys OR values may be null here
     if (getSize (aKeys) != getSize (aValues))
       throw new IllegalArgumentException ("Number of keys is different from number of values");
 
-    final Map <KEYTYPE, VALUETYPE> ret = new HashMap <KEYTYPE, VALUETYPE> (aKeys.size ());
+    final HashMap <KEYTYPE, VALUETYPE> ret = newMap (aKeys.size ());
     final Iterator <? extends KEYTYPE> itk = aKeys.iterator ();
     final Iterator <? extends VALUETYPE> itv = aValues.iterator ();
     while (itk.hasNext ())
@@ -432,22 +434,22 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     if (isEmpty (aMap))
-      return new HashMap <KEYTYPE, VALUETYPE> (0);
+      return newMap (0);
 
-    return new HashMap <KEYTYPE, VALUETYPE> (aMap);
+    return new HashMap <> (aMap);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
+  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
   {
     if (aMaps == null || aMaps.length == 0)
-      return new HashMap <KEYTYPE, VALUETYPE> (0);
+      return newMap (0);
 
-    final Map <KEYTYPE, VALUETYPE> ret = new HashMap <KEYTYPE, VALUETYPE> ();
+    final HashMap <KEYTYPE, VALUETYPE> ret = newMap ();
     for (final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap : aMaps)
       ret.putAll (aMap);
     return ret;
@@ -455,12 +457,12 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
+  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
   {
     if (isEmpty (aCollection))
-      return new HashMap <KEYTYPE, VALUETYPE> (0);
+      return newMap (0);
 
-    final Map <KEYTYPE, VALUETYPE> ret = new HashMap <KEYTYPE, VALUETYPE> (aCollection.size ());
+    final HashMap <KEYTYPE, VALUETYPE> ret = newMap (aCollection.size ());
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aCollection)
       ret.put (aEntry.getKey (), aEntry.getValue ());
     return ret;
@@ -470,7 +472,7 @@ public final class CollectionHelper
   @ReturnsImmutableObject
   public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newUnmodifiableMap ()
   {
-    return Collections.<KEYTYPE, VALUETYPE> emptyMap ();
+    return Collections.emptyMap ();
   }
 
   @Nonnull
@@ -528,17 +530,24 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newOrderedMap ()
+  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nonnegative final int nInitialCapacity)
   {
-    return new LinkedHashMap <KEYTYPE, VALUETYPE> (0);
+    return new LinkedHashMap <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final KEYTYPE aKey,
-                                                                             @Nullable final VALUETYPE aValue)
+  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap ()
   {
-    final Map <KEYTYPE, VALUETYPE> ret = new LinkedHashMap <KEYTYPE, VALUETYPE> (1);
+    return new LinkedHashMap <> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final KEYTYPE aKey,
+                                                                                       @Nullable final VALUETYPE aValue)
+  {
+    final LinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (1);
     ret.put (aKey, aValue);
     return ret;
   }
@@ -546,15 +555,15 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> Map <ELEMENTTYPE, ELEMENTTYPE> newOrderedMap (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE> LinkedHashMap <ELEMENTTYPE, ELEMENTTYPE> newOrderedMap (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
-      return new LinkedHashMap <ELEMENTTYPE, ELEMENTTYPE> (0);
+      return newOrderedMap (0);
 
     if ((aValues.length % 2) != 0)
       throw new IllegalArgumentException ("The passed array needs an even number of elements!");
 
-    final Map <ELEMENTTYPE, ELEMENTTYPE> ret = new LinkedHashMap <ELEMENTTYPE, ELEMENTTYPE> (aValues.length / 2);
+    final LinkedHashMap <ELEMENTTYPE, ELEMENTTYPE> ret = newOrderedMap (aValues.length / 2);
     for (int i = 0; i < aValues.length; i += 2)
       ret.put (aValues[i], aValues[i + 1]);
     return ret;
@@ -577,18 +586,18 @@ public final class CollectionHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final KEYTYPE [] aKeys,
-                                                                             @Nullable final VALUETYPE [] aValues)
+  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final KEYTYPE [] aKeys,
+                                                                                       @Nullable final VALUETYPE [] aValues)
   {
     // Are both empty?
     if (ArrayHelper.isEmpty (aKeys) && ArrayHelper.isEmpty (aValues))
-      return new LinkedHashMap <KEYTYPE, VALUETYPE> (0);
+      return newOrderedMap (0);
 
     // keys OR values may be null here
     if (ArrayHelper.getSize (aKeys) != ArrayHelper.getSize (aValues))
       throw new IllegalArgumentException ("The passed arrays have different length!");
 
-    final Map <KEYTYPE, VALUETYPE> ret = new LinkedHashMap <KEYTYPE, VALUETYPE> (aKeys.length);
+    final LinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aKeys.length);
     for (int i = 0; i < aKeys.length; ++i)
       ret.put (aKeys[i], aValues[i]);
     return ret;
@@ -596,18 +605,18 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
-                                                                             @Nullable final Collection <? extends VALUETYPE> aValues)
+  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
+                                                                                       @Nullable final Collection <? extends VALUETYPE> aValues)
   {
     // Are both empty?
     if (isEmpty (aKeys) && isEmpty (aValues))
-      return new LinkedHashMap <KEYTYPE, VALUETYPE> (0);
+      return newOrderedMap (0);
 
     // keys OR values may be null here
     if (getSize (aKeys) != getSize (aValues))
       throw new IllegalArgumentException ("Number of keys is different from number of values");
 
-    final Map <KEYTYPE, VALUETYPE> ret = new LinkedHashMap <KEYTYPE, VALUETYPE> (aKeys.size ());
+    final LinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aKeys.size ());
     final Iterator <? extends KEYTYPE> itk = aKeys.iterator ();
     final Iterator <? extends VALUETYPE> itv = aValues.iterator ();
     while (itk.hasNext ())
@@ -617,22 +626,22 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     if (isEmpty (aMap))
-      return new LinkedHashMap <KEYTYPE, VALUETYPE> (0);
+      return newOrderedMap (0);
 
-    return new LinkedHashMap <KEYTYPE, VALUETYPE> (aMap);
+    return new LinkedHashMap <> (aMap);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
+  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
   {
     if (aMaps == null || aMaps.length == 0)
-      return new LinkedHashMap <KEYTYPE, VALUETYPE> (0);
+      return newOrderedMap (0);
 
-    final Map <KEYTYPE, VALUETYPE> ret = new LinkedHashMap <KEYTYPE, VALUETYPE> ();
+    final LinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap ();
     for (final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap : aMaps)
       ret.putAll (aMap);
     return ret;
@@ -640,12 +649,12 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
+  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
   {
     if (isEmpty (aCollection))
-      return new LinkedHashMap <KEYTYPE, VALUETYPE> (0);
+      return newOrderedMap (0);
 
-    final Map <KEYTYPE, VALUETYPE> ret = new LinkedHashMap <KEYTYPE, VALUETYPE> (aCollection.size ());
+    final LinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aCollection.size ());
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aCollection)
       ret.put (aEntry.getKey (), aEntry.getValue ());
     return ret;
@@ -655,7 +664,7 @@ public final class CollectionHelper
   @ReturnsImmutableObject
   public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newUnmodifiableOrderedMap ()
   {
-    return Collections.<KEYTYPE, VALUETYPE> emptyMap ();
+    return Collections.emptyMap ();
   }
 
   @Nonnull
@@ -715,7 +724,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap ()
   {
-    return new TreeMap <KEYTYPE, VALUETYPE> (new ComparatorComparable <KEYTYPE> ());
+    return new TreeMap <> (new ComparatorComparable <KEYTYPE> ());
   }
 
   @Nonnull
@@ -723,7 +732,7 @@ public final class CollectionHelper
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final KEYTYPE aKey,
                                                                                                                      @Nullable final VALUETYPE aValue)
   {
-    final TreeMap <KEYTYPE, VALUETYPE> ret = new TreeMap <KEYTYPE, VALUETYPE> (new ComparatorComparable <KEYTYPE> ());
+    final TreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
     ret.put (aKey, aValue);
     return ret;
   }
@@ -734,12 +743,12 @@ public final class CollectionHelper
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeMap <ELEMENTTYPE, ELEMENTTYPE> newSortedMap (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
-      return new TreeMap <ELEMENTTYPE, ELEMENTTYPE> (new ComparatorComparable <ELEMENTTYPE> ());
+      return newSortedMap ();
 
     if ((aValues.length % 2) != 0)
       throw new IllegalArgumentException ("The passed array needs an even number of elements!");
 
-    final TreeMap <ELEMENTTYPE, ELEMENTTYPE> ret = new TreeMap <ELEMENTTYPE, ELEMENTTYPE> (new ComparatorComparable <ELEMENTTYPE> ());
+    final TreeMap <ELEMENTTYPE, ELEMENTTYPE> ret = newSortedMap ();
     for (int i = 0; i < aValues.length; i += 2)
       ret.put (aValues[i], aValues[i + 1]);
     return ret;
@@ -752,13 +761,13 @@ public final class CollectionHelper
   {
     // Are both empty?
     if (ArrayHelper.isEmpty (aKeys) && ArrayHelper.isEmpty (aValues))
-      return new TreeMap <KEYTYPE, VALUETYPE> (new ComparatorComparable <KEYTYPE> ());
+      return newSortedMap ();
 
     // keys OR values may be null here
     if (ArrayHelper.getSize (aKeys) != ArrayHelper.getSize (aValues))
       throw new IllegalArgumentException ("The passed arrays have different length!");
 
-    final TreeMap <KEYTYPE, VALUETYPE> ret = new TreeMap <KEYTYPE, VALUETYPE> (new ComparatorComparable <KEYTYPE> ());
+    final TreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
     for (int i = 0; i < aKeys.length; ++i)
       ret.put (aKeys[i], aValues[i]);
     return ret;
@@ -771,13 +780,13 @@ public final class CollectionHelper
   {
     // Are both empty?
     if (isEmpty (aKeys) && isEmpty (aValues))
-      return new TreeMap <KEYTYPE, VALUETYPE> (new ComparatorComparable <KEYTYPE> ());
+      return newSortedMap ();
 
     // keys OR values may be null here
     if (getSize (aKeys) != getSize (aValues))
       throw new IllegalArgumentException ("Number of keys is different from number of values");
 
-    final TreeMap <KEYTYPE, VALUETYPE> ret = new TreeMap <KEYTYPE, VALUETYPE> (new ComparatorComparable <KEYTYPE> ());
+    final TreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
     final Iterator <? extends KEYTYPE> itk = aKeys.iterator ();
     final Iterator <? extends VALUETYPE> itv = aValues.iterator ();
     while (itk.hasNext ())
@@ -790,9 +799,9 @@ public final class CollectionHelper
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     if (isEmpty (aMap))
-      return new TreeMap <KEYTYPE, VALUETYPE> (new ComparatorComparable <KEYTYPE> ());
+      return newSortedMap ();
 
-    final TreeMap <KEYTYPE, VALUETYPE> ret = new TreeMap <KEYTYPE, VALUETYPE> (new ComparatorComparable <KEYTYPE> ());
+    final TreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
     ret.putAll (aMap);
     return ret;
   }
@@ -802,9 +811,9 @@ public final class CollectionHelper
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
   {
     if (aMaps == null || aMaps.length == 0)
-      return new TreeMap <KEYTYPE, VALUETYPE> (new ComparatorComparable <KEYTYPE> ());
+      return newSortedMap ();
 
-    final TreeMap <KEYTYPE, VALUETYPE> ret = new TreeMap <KEYTYPE, VALUETYPE> (new ComparatorComparable <KEYTYPE> ());
+    final TreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
     for (final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap : aMaps)
       ret.putAll (aMap);
     return ret;
@@ -815,9 +824,9 @@ public final class CollectionHelper
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
   {
     if (isEmpty (aCollection))
-      return new TreeMap <KEYTYPE, VALUETYPE> (new ComparatorComparable <KEYTYPE> ());
+      return newSortedMap ();
 
-    final TreeMap <KEYTYPE, VALUETYPE> ret = new TreeMap <KEYTYPE, VALUETYPE> (new ComparatorComparable <KEYTYPE> ());
+    final TreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aCollection)
       ret.put (aEntry.getKey (), aEntry.getValue ());
     return ret;
@@ -885,16 +894,23 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newSet ()
+  public static <ELEMENTTYPE> HashSet <ELEMENTTYPE> newSet (@Nonnegative final int nInitialCapacity)
   {
-    return new HashSet <ELEMENTTYPE> (0);
+    return new HashSet <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newSet (@Nullable final ELEMENTTYPE aValue)
+  public static <ELEMENTTYPE> HashSet <ELEMENTTYPE> newSet ()
   {
-    final Set <ELEMENTTYPE> ret = new HashSet <ELEMENTTYPE> (1);
+    return new HashSet <> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> HashSet <ELEMENTTYPE> newSet (@Nullable final ELEMENTTYPE aValue)
+  {
+    final HashSet <ELEMENTTYPE> ret = newSet (1);
     ret.add (aValue);
     return ret;
   }
@@ -902,21 +918,21 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newSet (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE> HashSet <ELEMENTTYPE> newSet (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
-      return new HashSet <ELEMENTTYPE> (0);
+      return newSet (0);
 
-    final Set <ELEMENTTYPE> ret = new HashSet <ELEMENTTYPE> (aValues.length);
+    final HashSet <ELEMENTTYPE> ret = newSet (aValues.length);
     Collections.addAll (ret, aValues);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE> HashSet <ELEMENTTYPE> newSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
   {
-    final Set <ELEMENTTYPE> ret = new HashSet <ELEMENTTYPE> ();
+    final HashSet <ELEMENTTYPE> ret = newSet ();
     if (aCont != null)
       for (final ELEMENTTYPE aValue : aCont)
         ret.add (aValue);
@@ -925,19 +941,19 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE> HashSet <ELEMENTTYPE> newSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
     if (isEmpty (aCont))
-      return new HashSet <ELEMENTTYPE> (0);
+      return newSet (0);
 
-    return new HashSet <ELEMENTTYPE> (aCont);
+    return new HashSet <> (aCont);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newSet (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> HashSet <ELEMENTTYPE> newSet (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    final Set <ELEMENTTYPE> ret = new HashSet <ELEMENTTYPE> ();
+    final HashSet <ELEMENTTYPE> ret = newSet ();
     if (aIter != null)
       while (aIter.hasNext ())
         ret.add (aIter.next ());
@@ -946,18 +962,18 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newSet (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> HashSet <ELEMENTTYPE> newSet (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
-      return new HashSet <ELEMENTTYPE> (0);
+      return newSet (0);
     return newSet (aIter.iterator ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
+  public static <ELEMENTTYPE> HashSet <ELEMENTTYPE> newSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
-    final Set <ELEMENTTYPE> ret = new HashSet <ELEMENTTYPE> ();
+    final HashSet <ELEMENTTYPE> ret = newSet ();
     if (aEnum != null)
       while (aEnum.hasMoreElements ())
         ret.add (aEnum.nextElement ());
@@ -999,9 +1015,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Boolean> newBooleanSet (@Nullable final boolean... aValues)
+  public static HashSet <Boolean> newSet (@Nullable final boolean... aValues)
   {
-    final HashSet <Boolean> ret = new HashSet <Boolean> ();
+    final HashSet <Boolean> ret = newSet ();
     if (aValues != null)
       for (final boolean aValue : aValues)
         ret.add (Boolean.valueOf (aValue));
@@ -1010,9 +1026,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Byte> newByteSet (@Nullable final byte... aValues)
+  public static HashSet <Byte> newSet (@Nullable final byte... aValues)
   {
-    final HashSet <Byte> ret = new HashSet <Byte> ();
+    final HashSet <Byte> ret = newSet ();
     if (aValues != null)
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
@@ -1021,9 +1037,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Character> newCharSet (@Nullable final char... aValues)
+  public static HashSet <Character> newSet (@Nullable final char... aValues)
   {
-    final HashSet <Character> ret = new HashSet <Character> ();
+    final HashSet <Character> ret = newSet ();
     if (aValues != null)
       for (final char aValue : aValues)
         ret.add (Character.valueOf (aValue));
@@ -1032,9 +1048,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Double> newDoubleSet (@Nullable final double... aValues)
+  public static HashSet <Double> newSet (@Nullable final double... aValues)
   {
-    final HashSet <Double> ret = new HashSet <Double> ();
+    final HashSet <Double> ret = newSet ();
     if (aValues != null)
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
@@ -1043,9 +1059,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Float> newFloatSet (@Nullable final float... aValues)
+  public static HashSet <Float> newSet (@Nullable final float... aValues)
   {
-    final HashSet <Float> ret = new HashSet <Float> ();
+    final HashSet <Float> ret = newSet ();
     if (aValues != null)
       for (final float aValue : aValues)
         ret.add (Float.valueOf (aValue));
@@ -1054,9 +1070,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Integer> newIntSet (@Nullable final int... aValues)
+  public static HashSet <Integer> newSet (@Nullable final int... aValues)
   {
-    final HashSet <Integer> ret = new HashSet <Integer> ();
+    final HashSet <Integer> ret = newSet ();
     if (aValues != null)
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
@@ -1065,9 +1081,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Long> newLongSet (@Nullable final long... aValues)
+  public static HashSet <Long> newSet (@Nullable final long... aValues)
   {
-    final HashSet <Long> ret = new HashSet <Long> ();
+    final HashSet <Long> ret = newSet ();
     if (aValues != null)
       for (final long aValue : aValues)
         ret.add (Long.valueOf (aValue));
@@ -1076,9 +1092,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Short> newShortSet (@Nullable final short... aValues)
+  public static HashSet <Short> newSet (@Nullable final short... aValues)
   {
-    final HashSet <Short> ret = new HashSet <Short> ();
+    final HashSet <Short> ret = newSet ();
     if (aValues != null)
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
@@ -1089,7 +1105,7 @@ public final class CollectionHelper
   @ReturnsImmutableObject
   public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableSet ()
   {
-    return Collections.<ELEMENTTYPE> emptySet ();
+    return Collections.emptySet ();
   }
 
   @Nonnull
@@ -1144,65 +1160,65 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Boolean> newUnmodifiableBooleanSet (@Nullable final boolean... aValues)
+  public static Set <Boolean> newUnmodifiableSet (@Nullable final boolean... aValues)
   {
-    return makeUnmodifiable (newBooleanSet (aValues));
+    return makeUnmodifiable (newSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Byte> newUnmodifiableByteSet (@Nullable final byte... aValues)
+  public static Set <Byte> newUnmodifiableSet (@Nullable final byte... aValues)
   {
-    return makeUnmodifiable (newByteSet (aValues));
+    return makeUnmodifiable (newSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Character> newUnmodifiableCharSet (@Nullable final char... aValues)
+  public static Set <Character> newUnmodifiableSet (@Nullable final char... aValues)
   {
-    return makeUnmodifiable (newCharSet (aValues));
+    return makeUnmodifiable (newSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Double> newUnmodifiableDoubleSet (@Nullable final double... aValues)
+  public static Set <Double> newUnmodifiableSet (@Nullable final double... aValues)
   {
-    return makeUnmodifiable (newDoubleSet (aValues));
+    return makeUnmodifiable (newSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Float> newUnmodifiableFloatSet (@Nullable final float... aValues)
+  public static Set <Float> newUnmodifiableSet (@Nullable final float... aValues)
   {
-    return makeUnmodifiable (newFloatSet (aValues));
+    return makeUnmodifiable (newSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Integer> newUnmodifiableIntSet (@Nullable final int... aValues)
+  public static Set <Integer> newUnmodifiableSet (@Nullable final int... aValues)
   {
-    return makeUnmodifiable (newIntSet (aValues));
+    return makeUnmodifiable (newSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Long> newUnmodifiableLongSet (@Nullable final long... aValues)
+  public static Set <Long> newUnmodifiableSet (@Nullable final long... aValues)
   {
-    return makeUnmodifiable (newLongSet (aValues));
+    return makeUnmodifiable (newSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Short> newUnmodifiableShortSet (@Nullable final short... aValues)
+  public static Set <Short> newUnmodifiableSet (@Nullable final short... aValues)
   {
-    return makeUnmodifiable (newShortSet (aValues));
+    return makeUnmodifiable (newSet (aValues));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet ()
   {
-    return new TreeSet <ELEMENTTYPE> (new ComparatorComparable <ELEMENTTYPE> ());
+    return new TreeSet <> (new ComparatorComparable <ELEMENTTYPE> ());
   }
 
   @Nonnull
@@ -1210,7 +1226,7 @@ public final class CollectionHelper
   @SuppressFBWarnings (value = { "NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" }, justification = "When using the constructor with the Comparator it works with null values!")
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ELEMENTTYPE aValue)
   {
-    final TreeSet <ELEMENTTYPE> ret = new TreeSet <ELEMENTTYPE> (new ComparatorComparable <ELEMENTTYPE> ());
+    final TreeSet <ELEMENTTYPE> ret = newSortedSet ();
     ret.add (aValue);
     return ret;
   }
@@ -1220,7 +1236,7 @@ public final class CollectionHelper
   @SafeVarargs
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ELEMENTTYPE... aValues)
   {
-    final TreeSet <ELEMENTTYPE> ret = new TreeSet <ELEMENTTYPE> (new ComparatorComparable <ELEMENTTYPE> ());
+    final TreeSet <ELEMENTTYPE> ret = newSortedSet ();
     if (ArrayHelper.isNotEmpty (aValues))
       Collections.addAll (ret, aValues);
     return ret;
@@ -1230,7 +1246,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
   {
-    final TreeSet <ELEMENTTYPE> ret = new TreeSet <ELEMENTTYPE> (new ComparatorComparable <ELEMENTTYPE> ());
+    final TreeSet <ELEMENTTYPE> ret = newSortedSet ();
     if (aCont != null)
       for (final ELEMENTTYPE aValue : aCont)
         ret.add (aValue);
@@ -1241,7 +1257,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
-    final TreeSet <ELEMENTTYPE> ret = new TreeSet <ELEMENTTYPE> (new ComparatorComparable <ELEMENTTYPE> ());
+    final TreeSet <ELEMENTTYPE> ret = newSortedSet ();
     if (isNotEmpty (aCont))
       ret.addAll (aCont);
     return ret;
@@ -1251,7 +1267,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    final TreeSet <ELEMENTTYPE> ret = new TreeSet <ELEMENTTYPE> (new ComparatorComparable <ELEMENTTYPE> ());
+    final TreeSet <ELEMENTTYPE> ret = newSortedSet ();
     if (aIter != null)
       while (aIter.hasNext ())
         ret.add (aIter.next ());
@@ -1263,7 +1279,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
-      return new TreeSet <ELEMENTTYPE> (new ComparatorComparable <ELEMENTTYPE> ());
+      return newSortedSet ();
     return newSortedSet (aIter.iterator ());
   }
 
@@ -1271,7 +1287,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
-    final TreeSet <ELEMENTTYPE> ret = new TreeSet <ELEMENTTYPE> (new ComparatorComparable <ELEMENTTYPE> ());
+    final TreeSet <ELEMENTTYPE> ret = newSortedSet ();
     if (aEnum != null)
       while (aEnum.hasMoreElements ())
         ret.add (aEnum.nextElement ());
@@ -1280,9 +1296,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Boolean> newBooleanSortedSet (@Nullable final boolean... aValues)
+  public static TreeSet <Boolean> newSortedSet (@Nullable final boolean... aValues)
   {
-    final TreeSet <Boolean> ret = new TreeSet <Boolean> (new ComparatorComparable <Boolean> ());
+    final TreeSet <Boolean> ret = newSortedSet ();
     if (aValues != null)
       for (final boolean aValue : aValues)
         ret.add (Boolean.valueOf (aValue));
@@ -1291,9 +1307,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Byte> newByteSortedSet (@Nullable final byte... aValues)
+  public static TreeSet <Byte> newSortedSet (@Nullable final byte... aValues)
   {
-    final TreeSet <Byte> ret = new TreeSet <Byte> (new ComparatorComparable <Byte> ());
+    final TreeSet <Byte> ret = newSortedSet ();
     if (aValues != null)
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
@@ -1302,9 +1318,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Character> newCharSortedSet (@Nullable final char... aValues)
+  public static TreeSet <Character> newSortedSet (@Nullable final char... aValues)
   {
-    final TreeSet <Character> ret = new TreeSet <Character> (new ComparatorComparable <Character> ());
+    final TreeSet <Character> ret = newSortedSet ();
     if (aValues != null)
       for (final char aValue : aValues)
         ret.add (Character.valueOf (aValue));
@@ -1313,9 +1329,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Double> newDoubleSortedSet (@Nullable final double... aValues)
+  public static TreeSet <Double> newSortedSet (@Nullable final double... aValues)
   {
-    final TreeSet <Double> ret = new TreeSet <Double> (new ComparatorComparable <Double> ());
+    final TreeSet <Double> ret = newSortedSet ();
     if (aValues != null)
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
@@ -1324,9 +1340,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Float> newFloatSortedSet (@Nullable final float... aValues)
+  public static TreeSet <Float> newSortedSet (@Nullable final float... aValues)
   {
-    final TreeSet <Float> ret = new TreeSet <Float> (new ComparatorComparable <Float> ());
+    final TreeSet <Float> ret = newSortedSet ();
     if (aValues != null)
       for (final float aValue : aValues)
         ret.add (Float.valueOf (aValue));
@@ -1335,9 +1351,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Integer> newIntSortedSet (@Nullable final int... aValues)
+  public static TreeSet <Integer> newSortedSet (@Nullable final int... aValues)
   {
-    final TreeSet <Integer> ret = new TreeSet <Integer> (new ComparatorComparable <Integer> ());
+    final TreeSet <Integer> ret = newSortedSet ();
     if (aValues != null)
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
@@ -1346,9 +1362,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Long> newLongSortedSet (@Nullable final long... aValues)
+  public static TreeSet <Long> newSortedSet (@Nullable final long... aValues)
   {
-    final TreeSet <Long> ret = new TreeSet <Long> (new ComparatorComparable <Long> ());
+    final TreeSet <Long> ret = newSortedSet ();
     if (aValues != null)
       for (final long aValue : aValues)
         ret.add (Long.valueOf (aValue));
@@ -1357,9 +1373,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Short> newShortSortedSet (@Nullable final short... aValues)
+  public static TreeSet <Short> newSortedSet (@Nullable final short... aValues)
   {
-    final TreeSet <Short> ret = new TreeSet <Short> (new ComparatorComparable <Short> ());
+    final TreeSet <Short> ret = newSortedSet ();
     if (aValues != null)
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
@@ -1425,72 +1441,79 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
-  public static SortedSet <Boolean> newUnmodifiableBooleanSortedSet (@Nullable final boolean... aValues)
+  public static SortedSet <Boolean> newUnmodifiableSortedSet (@Nullable final boolean... aValues)
   {
-    return makeUnmodifiable (newBooleanSortedSet (aValues));
+    return makeUnmodifiable (newSortedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static SortedSet <Byte> newUnmodifiableByteSortedSet (@Nullable final byte... aValues)
+  public static SortedSet <Byte> newUnmodifiableSortedSet (@Nullable final byte... aValues)
   {
-    return makeUnmodifiable (newByteSortedSet (aValues));
+    return makeUnmodifiable (newSortedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static SortedSet <Character> newUnmodifiableCharSortedSet (@Nullable final char... aValues)
+  public static SortedSet <Character> newUnmodifiableSortedSet (@Nullable final char... aValues)
   {
-    return makeUnmodifiable (newCharSortedSet (aValues));
+    return makeUnmodifiable (newSortedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static SortedSet <Double> newUnmodifiableDoubleSortedSet (@Nullable final double... aValues)
+  public static SortedSet <Double> newUnmodifiableSortedSet (@Nullable final double... aValues)
   {
-    return makeUnmodifiable (newDoubleSortedSet (aValues));
+    return makeUnmodifiable (newSortedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static SortedSet <Float> newUnmodifiableFloatSortedSet (@Nullable final float... aValues)
+  public static SortedSet <Float> newUnmodifiableSortedSet (@Nullable final float... aValues)
   {
-    return makeUnmodifiable (newFloatSortedSet (aValues));
+    return makeUnmodifiable (newSortedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static SortedSet <Integer> newUnmodifiableIntSortedSet (@Nullable final int... aValues)
+  public static SortedSet <Integer> newUnmodifiableSortedSet (@Nullable final int... aValues)
   {
-    return makeUnmodifiable (newIntSortedSet (aValues));
+    return makeUnmodifiable (newSortedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static SortedSet <Long> newUnmodifiableLongSortedSet (@Nullable final long... aValues)
+  public static SortedSet <Long> newUnmodifiableSortedSet (@Nullable final long... aValues)
   {
-    return makeUnmodifiable (newLongSortedSet (aValues));
+    return makeUnmodifiable (newSortedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static SortedSet <Short> newUnmodifiableShortSortedSet (@Nullable final short... aValues)
+  public static SortedSet <Short> newUnmodifiableSortedSet (@Nullable final short... aValues)
   {
-    return makeUnmodifiable (newShortSortedSet (aValues));
+    return makeUnmodifiable (newSortedSet (aValues));
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newOrderedSet ()
+  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nonnegative final int nInitialCapacity)
   {
-    return new LinkedHashSet <ELEMENTTYPE> (0);
+    return new LinkedHashSet <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newOrderedSet (@Nullable final ELEMENTTYPE aValue)
+  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet ()
   {
-    final Set <ELEMENTTYPE> ret = new LinkedHashSet <ELEMENTTYPE> (1);
+    return new LinkedHashSet <> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final ELEMENTTYPE aValue)
+  {
+    final LinkedHashSet <ELEMENTTYPE> ret = newOrderedSet (1);
     ret.add (aValue);
     return ret;
   }
@@ -1498,21 +1521,21 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newOrderedSet (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
-      return new LinkedHashSet <ELEMENTTYPE> (0);
+      return newOrderedSet (0);
 
-    final Set <ELEMENTTYPE> ret = new LinkedHashSet <ELEMENTTYPE> (aValues.length);
+    final LinkedHashSet <ELEMENTTYPE> ret = newOrderedSet (aValues.length);
     Collections.addAll (ret, aValues);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newOrderedSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
   {
-    final Set <ELEMENTTYPE> ret = new LinkedHashSet <ELEMENTTYPE> ();
+    final LinkedHashSet <ELEMENTTYPE> ret = newOrderedSet ();
     if (aCont != null)
       for (final ELEMENTTYPE aValue : aCont)
         ret.add (aValue);
@@ -1521,19 +1544,19 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newOrderedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
     if (isEmpty (aCont))
-      return new LinkedHashSet <ELEMENTTYPE> (0);
+      return newOrderedSet (0);
 
-    return new LinkedHashSet <ELEMENTTYPE> (aCont);
+    return new LinkedHashSet <> (aCont);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newOrderedSet (@Nonnull final Iterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nonnull final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    final Set <ELEMENTTYPE> ret = new LinkedHashSet <ELEMENTTYPE> ();
+    final LinkedHashSet <ELEMENTTYPE> ret = newOrderedSet ();
     if (aIter != null)
       while (aIter.hasNext ())
         ret.add (aIter.next ());
@@ -1542,18 +1565,18 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newOrderedSet (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
-      return new LinkedHashSet <ELEMENTTYPE> (0);
+      return newOrderedSet (0);
     return newOrderedSet (aIter.iterator ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newOrderedSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
+  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
-    final Set <ELEMENTTYPE> ret = new LinkedHashSet <ELEMENTTYPE> ();
+    final LinkedHashSet <ELEMENTTYPE> ret = newOrderedSet ();
     if (aEnum != null)
       while (aEnum.hasMoreElements ())
         ret.add (aEnum.nextElement ());
@@ -1562,9 +1585,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Boolean> newBooleanOrderedSet (@Nullable final boolean... aValues)
+  public static LinkedHashSet <Boolean> newOrderedSet (@Nullable final boolean... aValues)
   {
-    final LinkedHashSet <Boolean> ret = new LinkedHashSet <Boolean> ();
+    final LinkedHashSet <Boolean> ret = newOrderedSet ();
     if (aValues != null)
       for (final boolean aValue : aValues)
         ret.add (Boolean.valueOf (aValue));
@@ -1573,9 +1596,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Byte> newByteOrderedSet (@Nullable final byte... aValues)
+  public static LinkedHashSet <Byte> newOrderedSet (@Nullable final byte... aValues)
   {
-    final LinkedHashSet <Byte> ret = new LinkedHashSet <Byte> ();
+    final LinkedHashSet <Byte> ret = newOrderedSet ();
     if (aValues != null)
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
@@ -1584,9 +1607,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Character> newCharOrderedSet (@Nullable final char... aValues)
+  public static LinkedHashSet <Character> newOrderedSet (@Nullable final char... aValues)
   {
-    final LinkedHashSet <Character> ret = new LinkedHashSet <Character> ();
+    final LinkedHashSet <Character> ret = newOrderedSet ();
     if (aValues != null)
       for (final char aValue : aValues)
         ret.add (Character.valueOf (aValue));
@@ -1595,7 +1618,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Double> newDoubleOrderedSet (@Nullable final double... aValues)
+  public static LinkedHashSet <Double> newOrderedSet (@Nullable final double... aValues)
   {
     final LinkedHashSet <Double> ret = new LinkedHashSet <Double> ();
     if (aValues != null)
@@ -1606,9 +1629,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Float> newFloatOrderedSet (@Nullable final float... aValues)
+  public static LinkedHashSet <Float> newOrderedSet (@Nullable final float... aValues)
   {
-    final LinkedHashSet <Float> ret = new LinkedHashSet <Float> ();
+    final LinkedHashSet <Float> ret = newOrderedSet ();
     if (aValues != null)
       for (final float aValue : aValues)
         ret.add (Float.valueOf (aValue));
@@ -1617,9 +1640,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Integer> newIntOrderedSet (@Nullable final int... aValues)
+  public static LinkedHashSet <Integer> newOrderedSet (@Nullable final int... aValues)
   {
-    final LinkedHashSet <Integer> ret = new LinkedHashSet <Integer> ();
+    final LinkedHashSet <Integer> ret = newOrderedSet ();
     if (aValues != null)
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
@@ -1628,9 +1651,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Long> newLongOrderedSet (@Nullable final long... aValues)
+  public static LinkedHashSet <Long> newOrderedSet (@Nullable final long... aValues)
   {
-    final LinkedHashSet <Long> ret = new LinkedHashSet <Long> ();
+    final LinkedHashSet <Long> ret = newOrderedSet ();
     if (aValues != null)
       for (final long aValue : aValues)
         ret.add (Long.valueOf (aValue));
@@ -1639,9 +1662,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Short> newShortOrderedSet (@Nullable final short... aValues)
+  public static LinkedHashSet <Short> newOrderedSet (@Nullable final short... aValues)
   {
-    final LinkedHashSet <Short> ret = new LinkedHashSet <Short> ();
+    final LinkedHashSet <Short> ret = newOrderedSet ();
     if (aValues != null)
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
@@ -1652,7 +1675,7 @@ public final class CollectionHelper
   @ReturnsImmutableObject
   public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableOrderedSet ()
   {
-    return Collections.<ELEMENTTYPE> emptySet ();
+    return Collections.emptySet ();
   }
 
   @Nonnull
@@ -1707,68 +1730,68 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Boolean> newUnmodifiableBooleanOrderedSet (@Nullable final boolean... aValues)
+  public static Set <Boolean> newUnmodifiableOrderedSet (@Nullable final boolean... aValues)
   {
-    return makeUnmodifiable (newBooleanOrderedSet (aValues));
+    return makeUnmodifiable (newOrderedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Byte> newUnmodifiableByteOrderedSet (@Nullable final byte... aValues)
+  public static Set <Byte> newUnmodifiableOrderedSet (@Nullable final byte... aValues)
   {
-    return makeUnmodifiable (newByteOrderedSet (aValues));
+    return makeUnmodifiable (newOrderedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Character> newUnmodifiableCharOrderedSet (@Nullable final char... aValues)
+  public static Set <Character> newUnmodifiableOrderedSet (@Nullable final char... aValues)
   {
-    return makeUnmodifiable (newCharOrderedSet (aValues));
+    return makeUnmodifiable (newOrderedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Double> newUnmodifiableDoubleOrderedSet (@Nullable final double... aValues)
+  public static Set <Double> newUnmodifiableOrderedSet (@Nullable final double... aValues)
   {
-    return makeUnmodifiable (newDoubleOrderedSet (aValues));
+    return makeUnmodifiable (newOrderedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Float> newUnmodifiableFloatOrderedSet (@Nullable final float... aValues)
+  public static Set <Float> newUnmodifiableOrderedSet (@Nullable final float... aValues)
   {
-    return makeUnmodifiable (newFloatOrderedSet (aValues));
+    return makeUnmodifiable (newOrderedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Integer> newUnmodifiableIntOrderedSet (@Nullable final int... aValues)
+  public static Set <Integer> newUnmodifiableOrderedSet (@Nullable final int... aValues)
   {
-    return makeUnmodifiable (newIntOrderedSet (aValues));
+    return makeUnmodifiable (newOrderedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Long> newUnmodifiableLongOrderedSet (@Nullable final long... aValues)
+  public static Set <Long> newUnmodifiableOrderedSet (@Nullable final long... aValues)
   {
-    return makeUnmodifiable (newLongOrderedSet (aValues));
+    return makeUnmodifiable (newOrderedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Short> newUnmodifiableShortOrderedSet (@Nullable final short... aValues)
+  public static Set <Short> newUnmodifiableOrderedSet (@Nullable final short... aValues)
   {
-    return makeUnmodifiable (newShortOrderedSet (aValues));
+    return makeUnmodifiable (newOrderedSet (aValues));
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newListPrefilled (@Nullable final ELEMENTTYPE aValue,
-                                                                   @Nonnegative final int nElements)
+  public static <ELEMENTTYPE> ArrayList <ELEMENTTYPE> newListPrefilled (@Nullable final ELEMENTTYPE aValue,
+                                                                        @Nonnegative final int nElements)
   {
     ValueEnforcer.isGE0 (nElements, "Elements");
 
-    final List <ELEMENTTYPE> ret = new ArrayList <ELEMENTTYPE> (nElements);
+    final ArrayList <ELEMENTTYPE> ret = new ArrayList <> (nElements);
     for (int i = 0; i < nElements; ++i)
       ret.add (aValue);
     return ret;
@@ -1776,16 +1799,23 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newList ()
+  public static <ELEMENTTYPE> ArrayList <ELEMENTTYPE> newList (@Nonnegative final int nInitialCapacity)
   {
-    return new ArrayList <ELEMENTTYPE> (0);
+    return new ArrayList <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newList (@Nullable final ELEMENTTYPE aValue)
+  public static <ELEMENTTYPE> ArrayList <ELEMENTTYPE> newList ()
   {
-    final List <ELEMENTTYPE> ret = new ArrayList <ELEMENTTYPE> (1);
+    return new ArrayList <> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> ArrayList <ELEMENTTYPE> newList (@Nullable final ELEMENTTYPE aValue)
+  {
+    final ArrayList <ELEMENTTYPE> ret = newList (1);
     ret.add (aValue);
     return ret;
   }
@@ -1793,13 +1823,13 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newList (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE> ArrayList <ELEMENTTYPE> newList (@Nullable final ELEMENTTYPE... aValues)
   {
     // Don't user Arrays.asList since aIter returns an unmodifiable list!
     if (ArrayHelper.isEmpty (aValues))
-      return new ArrayList <ELEMENTTYPE> (0);
+      return newList (0);
 
-    final List <ELEMENTTYPE> ret = new ArrayList <ELEMENTTYPE> (aValues.length);
+    final ArrayList <ELEMENTTYPE> ret = newList (aValues.length);
     Collections.addAll (ret, aValues);
     return ret;
   }
@@ -1817,9 +1847,9 @@ public final class CollectionHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newList (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
+  public static <ELEMENTTYPE> ArrayList <ELEMENTTYPE> newList (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
-    final List <ELEMENTTYPE> ret = new ArrayList <ELEMENTTYPE> ();
+    final ArrayList <ELEMENTTYPE> ret = newList ();
     if (aEnum != null)
       while (aEnum.hasMoreElements ())
         ret.add (aEnum.nextElement ());
@@ -1828,9 +1858,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newList (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> ArrayList <ELEMENTTYPE> newList (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    final List <ELEMENTTYPE> ret = new ArrayList <ELEMENTTYPE> ();
+    final ArrayList <ELEMENTTYPE> ret = newList ();
     if (aIter != null)
       while (aIter.hasNext ())
         ret.add (aIter.next ());
@@ -1839,9 +1869,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newList (@Nullable final Iterable <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> ArrayList <ELEMENTTYPE> newList (@Nullable final Iterable <? extends ELEMENTTYPE> aIter)
   {
-    final List <ELEMENTTYPE> ret = new ArrayList <ELEMENTTYPE> ();
+    final ArrayList <ELEMENTTYPE> ret = newList ();
     if (aIter != null)
       for (final ELEMENTTYPE aObj : aIter)
         ret.add (aObj);
@@ -1850,21 +1880,123 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newList (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE> ArrayList <ELEMENTTYPE> newList (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
     if (isEmpty (aCont))
-      return new ArrayList <ELEMENTTYPE> (0);
+      return newList (0);
 
-    return new ArrayList <ELEMENTTYPE> (aCont);
+    return new ArrayList <> (aCont);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newList (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> ArrayList <ELEMENTTYPE> newList (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
-      return new ArrayList <ELEMENTTYPE> (0);
+      return newList (0);
     return newList (aIter.iterator ());
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ArrayList <Boolean> newList (@Nullable final boolean... aValues)
+  {
+    final ArrayList <Boolean> ret = newList ();
+    if (aValues != null)
+      for (final boolean aValue : aValues)
+        ret.add (Boolean.valueOf (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ArrayList <Byte> newList (@Nullable final byte... aValues)
+  {
+    final ArrayList <Byte> ret = newList ();
+    if (aValues != null)
+      for (final byte aValue : aValues)
+        ret.add (Byte.valueOf (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ArrayList <Character> newList (@Nullable final char... aValues)
+  {
+    final ArrayList <Character> ret = newList ();
+    if (aValues != null)
+      for (final char aValue : aValues)
+        ret.add (Character.valueOf (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ArrayList <Double> newList (@Nullable final double... aValues)
+  {
+    final ArrayList <Double> ret = newList ();
+    if (aValues != null)
+      for (final double aValue : aValues)
+        ret.add (Double.valueOf (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ArrayList <Float> newList (@Nullable final float... aValues)
+  {
+    final ArrayList <Float> ret = newList ();
+    if (aValues != null)
+      for (final float aValue : aValues)
+        ret.add (Float.valueOf (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ArrayList <Integer> newList (@Nullable final int... aValues)
+  {
+    final ArrayList <Integer> ret = newList ();
+    if (aValues != null)
+      for (final int aValue : aValues)
+        ret.add (Integer.valueOf (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ArrayList <Long> newList (@Nullable final long... aValues)
+  {
+    final ArrayList <Long> ret = newList ();
+    if (aValues != null)
+      for (final long aValue : aValues)
+        ret.add (Long.valueOf (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ArrayList <Short> newList (@Nullable final short... aValues)
+  {
+    final ArrayList <Short> ret = newList ();
+    if (aValues != null)
+      for (final short aValue : aValues)
+        ret.add (Short.valueOf (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> Vector <ELEMENTTYPE> newVector (@Nonnegative final int nInitialCapacity)
+  {
+    return new Vector <> (nInitialCapacity);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> Vector <ELEMENTTYPE> newVector ()
+  {
+    return new Vector <> ();
   }
 
   @Nonnull
@@ -1874,7 +2006,7 @@ public final class CollectionHelper
   {
     ValueEnforcer.isGE0 (nElements, "Elements");
 
-    final Vector <ELEMENTTYPE> ret = new Vector <ELEMENTTYPE> (nElements);
+    final Vector <ELEMENTTYPE> ret = newVector (nElements);
     for (int i = 0; i < nElements; ++i)
       ret.add (aValue);
     return ret;
@@ -1882,16 +2014,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Vector <ELEMENTTYPE> newVector ()
-  {
-    return new Vector <ELEMENTTYPE> (0);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
   public static <ELEMENTTYPE> Vector <ELEMENTTYPE> newVector (@Nullable final ELEMENTTYPE aValue)
   {
-    final Vector <ELEMENTTYPE> ret = new Vector <ELEMENTTYPE> (1);
+    final Vector <ELEMENTTYPE> ret = newVector (1);
     ret.add (aValue);
     return ret;
   }
@@ -1903,9 +2028,9 @@ public final class CollectionHelper
   {
     // Don't user Arrays.asVector since aIter returns an unmodifiable list!
     if (ArrayHelper.isEmpty (aValues))
-      return new Vector <ELEMENTTYPE> (0);
+      return newVector (0);
 
-    final Vector <ELEMENTTYPE> ret = new Vector <ELEMENTTYPE> (aValues.length);
+    final Vector <ELEMENTTYPE> ret = newVector (aValues.length);
     Collections.addAll (ret, aValues);
     return ret;
   }
@@ -1925,7 +2050,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> Vector <ELEMENTTYPE> newVector (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
-    final Vector <ELEMENTTYPE> ret = new Vector <ELEMENTTYPE> ();
+    final Vector <ELEMENTTYPE> ret = newVector ();
     if (aEnum != null)
       while (aEnum.hasMoreElements ())
         ret.add (aEnum.nextElement ());
@@ -1936,7 +2061,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> Vector <ELEMENTTYPE> newVector (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    final Vector <ELEMENTTYPE> ret = new Vector <ELEMENTTYPE> ();
+    final Vector <ELEMENTTYPE> ret = newVector ();
     if (aIter != null)
       while (aIter.hasNext ())
         ret.add (aIter.next ());
@@ -1947,7 +2072,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> Vector <ELEMENTTYPE> newVector (@Nullable final Iterable <? extends ELEMENTTYPE> aIter)
   {
-    final Vector <ELEMENTTYPE> ret = new Vector <ELEMENTTYPE> ();
+    final Vector <ELEMENTTYPE> ret = newVector ();
     if (aIter != null)
       for (final ELEMENTTYPE aObj : aIter)
         ret.add (aObj);
@@ -1959,9 +2084,9 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> Vector <ELEMENTTYPE> newVector (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
     if (isEmpty (aCont))
-      return new Vector <ELEMENTTYPE> (0);
+      return newVector (0);
 
-    return new Vector <ELEMENTTYPE> (aCont);
+    return newVector (aCont);
   }
 
   @Nonnull
@@ -1969,15 +2094,15 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> Vector <ELEMENTTYPE> newVector (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
-      return new Vector <ELEMENTTYPE> (0);
+      return newVector (0);
     return newVector (aIter.iterator ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Boolean> newBooleanList (@Nullable final boolean... aValues)
+  public static Vector <Boolean> newVector (@Nullable final boolean... aValues)
   {
-    final ArrayList <Boolean> ret = new ArrayList <Boolean> ();
+    final Vector <Boolean> ret = newVector ();
     if (aValues != null)
       for (final boolean aValue : aValues)
         ret.add (Boolean.valueOf (aValue));
@@ -1986,9 +2111,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Byte> newByteList (@Nullable final byte... aValues)
+  public static Vector <Byte> newVector (@Nullable final byte... aValues)
   {
-    final ArrayList <Byte> ret = new ArrayList <Byte> ();
+    final Vector <Byte> ret = newVector ();
     if (aValues != null)
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
@@ -1997,9 +2122,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Character> newCharList (@Nullable final char... aValues)
+  public static Vector <Character> newVector (@Nullable final char... aValues)
   {
-    final ArrayList <Character> ret = new ArrayList <Character> ();
+    final Vector <Character> ret = newVector ();
     if (aValues != null)
       for (final char aValue : aValues)
         ret.add (Character.valueOf (aValue));
@@ -2008,9 +2133,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Double> newDoubleList (@Nullable final double... aValues)
+  public static Vector <Double> newVector (@Nullable final double... aValues)
   {
-    final ArrayList <Double> ret = new ArrayList <Double> ();
+    final Vector <Double> ret = newVector ();
     if (aValues != null)
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
@@ -2019,9 +2144,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Float> newFloatList (@Nullable final float... aValues)
+  public static Vector <Float> newVector (@Nullable final float... aValues)
   {
-    final ArrayList <Float> ret = new ArrayList <Float> ();
+    final Vector <Float> ret = newVector ();
     if (aValues != null)
       for (final float aValue : aValues)
         ret.add (Float.valueOf (aValue));
@@ -2030,9 +2155,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Integer> newIntList (@Nullable final int... aValues)
+  public static Vector <Integer> newVector (@Nullable final int... aValues)
   {
-    final ArrayList <Integer> ret = new ArrayList <Integer> ();
+    final Vector <Integer> ret = newVector ();
     if (aValues != null)
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
@@ -2041,9 +2166,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Long> newLongList (@Nullable final long... aValues)
+  public static Vector <Long> newVector (@Nullable final long... aValues)
   {
-    final ArrayList <Long> ret = new ArrayList <Long> ();
+    final Vector <Long> ret = newVector ();
     if (aValues != null)
       for (final long aValue : aValues)
         ret.add (Long.valueOf (aValue));
@@ -2052,97 +2177,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Short> newShortList (@Nullable final short... aValues)
+  public static Vector <Short> newVector (@Nullable final short... aValues)
   {
-    final ArrayList <Short> ret = new ArrayList <Short> ();
-    if (aValues != null)
-      for (final short aValue : aValues)
-        ret.add (Short.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Vector <Boolean> newBooleanVector (@Nullable final boolean... aValues)
-  {
-    final Vector <Boolean> ret = new Vector <Boolean> ();
-    if (aValues != null)
-      for (final boolean aValue : aValues)
-        ret.add (Boolean.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Vector <Byte> newByteVector (@Nullable final byte... aValues)
-  {
-    final Vector <Byte> ret = new Vector <Byte> ();
-    if (aValues != null)
-      for (final byte aValue : aValues)
-        ret.add (Byte.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Vector <Character> newCharVector (@Nullable final char... aValues)
-  {
-    final Vector <Character> ret = new Vector <Character> ();
-    if (aValues != null)
-      for (final char aValue : aValues)
-        ret.add (Character.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Vector <Double> newDoubleVector (@Nullable final double... aValues)
-  {
-    final Vector <Double> ret = new Vector <Double> ();
-    if (aValues != null)
-      for (final double aValue : aValues)
-        ret.add (Double.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Vector <Float> newFloatVector (@Nullable final float... aValues)
-  {
-    final Vector <Float> ret = new Vector <Float> ();
-    if (aValues != null)
-      for (final float aValue : aValues)
-        ret.add (Float.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Vector <Integer> newIntVector (@Nullable final int... aValues)
-  {
-    final Vector <Integer> ret = new Vector <Integer> ();
-    if (aValues != null)
-      for (final int aValue : aValues)
-        ret.add (Integer.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Vector <Long> newLongVector (@Nullable final long... aValues)
-  {
-    final Vector <Long> ret = new Vector <Long> ();
-    if (aValues != null)
-      for (final long aValue : aValues)
-        ret.add (Long.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Vector <Short> newShortVector (@Nullable final short... aValues)
-  {
-    final Vector <Short> ret = new Vector <Short> ();
+    final Vector <Short> ret = newVector ();
     if (aValues != null)
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
@@ -2153,7 +2190,7 @@ public final class CollectionHelper
   @ReturnsImmutableObject
   public static <ELEMENTTYPE> List <ELEMENTTYPE> newUnmodifiableList ()
   {
-    return Collections.<ELEMENTTYPE> emptyList ();
+    return Collections.emptyList ();
   }
 
   @Nonnull
@@ -2208,65 +2245,65 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
-  public static List <Boolean> newUnmodifiableBooleanList (@Nullable final boolean... aValues)
+  public static List <Boolean> newUnmodifiableList (@Nullable final boolean... aValues)
   {
-    return makeUnmodifiable (newBooleanList (aValues));
+    return makeUnmodifiable (newList (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static List <Byte> newUnmodifiableByteList (@Nullable final byte... aValues)
+  public static List <Byte> newUnmodifiableList (@Nullable final byte... aValues)
   {
-    return makeUnmodifiable (newByteList (aValues));
+    return makeUnmodifiable (newList (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static List <Character> newUnmodifiableCharList (@Nullable final char... aValues)
+  public static List <Character> newUnmodifiableList (@Nullable final char... aValues)
   {
-    return makeUnmodifiable (newCharList (aValues));
+    return makeUnmodifiable (newList (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static List <Double> newUnmodifiableDoubleList (@Nullable final double... aValues)
+  public static List <Double> newUnmodifiableList (@Nullable final double... aValues)
   {
-    return makeUnmodifiable (newDoubleList (aValues));
+    return makeUnmodifiable (newList (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static List <Float> newUnmodifiableFloatList (@Nullable final float... aValues)
+  public static List <Float> newUnmodifiableList (@Nullable final float... aValues)
   {
-    return makeUnmodifiable (newFloatList (aValues));
+    return makeUnmodifiable (newList (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static List <Integer> newUnmodifiableIntList (@Nullable final int... aValues)
+  public static List <Integer> newUnmodifiableList (@Nullable final int... aValues)
   {
-    return makeUnmodifiable (newIntList (aValues));
+    return makeUnmodifiable (newList (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static List <Long> newUnmodifiableLongList (@Nullable final long... aValues)
+  public static List <Long> newUnmodifiableList (@Nullable final long... aValues)
   {
-    return makeUnmodifiable (newLongList (aValues));
+    return makeUnmodifiable (newList (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static List <Short> newUnmodifiableShortList (@Nullable final short... aValues)
+  public static List <Short> newUnmodifiableList (@Nullable final short... aValues)
   {
-    return makeUnmodifiable (newShortList (aValues));
+    return makeUnmodifiable (newList (aValues));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack ()
   {
-    return new NonBlockingStack <ELEMENTTYPE> ();
+    return new NonBlockingStack <> ();
   }
 
   /**
@@ -2282,7 +2319,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack (@Nullable final ELEMENTTYPE aValue)
   {
-    final NonBlockingStack <ELEMENTTYPE> ret = new NonBlockingStack <ELEMENTTYPE> ();
+    final NonBlockingStack <ELEMENTTYPE> ret = newStack ();
     ret.push (aValue);
     return ret;
   }
@@ -2302,7 +2339,7 @@ public final class CollectionHelper
   @SafeVarargs
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack (@Nullable final ELEMENTTYPE... aValues)
   {
-    return new NonBlockingStack <ELEMENTTYPE> (aValues);
+    return new NonBlockingStack <> (aValues);
   }
 
   /**
@@ -2319,21 +2356,28 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack (@Nullable final Collection <? extends ELEMENTTYPE> aValues)
   {
-    return new NonBlockingStack <ELEMENTTYPE> (aValues);
+    return new NonBlockingStack <> (aValues);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Queue <ELEMENTTYPE> newQueue ()
+  public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nonnegative final int nInitialCapacity)
   {
-    return new PriorityQueue <ELEMENTTYPE> (0);
+    return new PriorityQueue <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Queue <ELEMENTTYPE> newQueue (@Nonnull final ELEMENTTYPE aValue)
+  public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue ()
   {
-    final Queue <ELEMENTTYPE> ret = new PriorityQueue <ELEMENTTYPE> (1);
+    return new PriorityQueue <> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nonnull final ELEMENTTYPE aValue)
+  {
+    final PriorityQueue <ELEMENTTYPE> ret = newQueue (1);
     ret.add (aValue);
     return ret;
   }
@@ -2341,13 +2385,13 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> Queue <ELEMENTTYPE> newQueue (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final ELEMENTTYPE... aValues)
   {
     // Don't user Arrays.asQueue since aIter returns an unmodifiable list!
     if (ArrayHelper.isEmpty (aValues))
-      return new PriorityQueue <ELEMENTTYPE> (0);
+      return newQueue (0);
 
-    final Queue <ELEMENTTYPE> ret = new PriorityQueue <ELEMENTTYPE> (aValues.length);
+    final PriorityQueue <ELEMENTTYPE> ret = newQueue (aValues.length);
     Collections.addAll (ret, aValues);
     return ret;
   }
@@ -2365,9 +2409,9 @@ public final class CollectionHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Queue <ELEMENTTYPE> newQueue (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
+  public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
-    final Queue <ELEMENTTYPE> ret = new PriorityQueue <ELEMENTTYPE> ();
+    final PriorityQueue <ELEMENTTYPE> ret = newQueue ();
     if (aEnum != null)
       while (aEnum.hasMoreElements ())
         ret.add (aEnum.nextElement ());
@@ -2376,9 +2420,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Queue <ELEMENTTYPE> newQueue (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    final Queue <ELEMENTTYPE> ret = new PriorityQueue <ELEMENTTYPE> ();
+    final PriorityQueue <ELEMENTTYPE> ret = newQueue ();
     if (aIter != null)
       while (aIter.hasNext ())
         ret.add (aIter.next ());
@@ -2387,9 +2431,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Queue <ELEMENTTYPE> newQueue (@Nullable final Iterable <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final Iterable <? extends ELEMENTTYPE> aIter)
   {
-    final Queue <ELEMENTTYPE> ret = new PriorityQueue <ELEMENTTYPE> ();
+    final PriorityQueue <ELEMENTTYPE> ret = newQueue ();
     if (aIter != null)
       for (final ELEMENTTYPE aObj : aIter)
         ret.add (aObj);
@@ -2398,20 +2442,19 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Queue <ELEMENTTYPE> newQueue (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
     if (isEmpty (aCont))
-      return new PriorityQueue <ELEMENTTYPE> (0);
-
-    return new PriorityQueue <ELEMENTTYPE> (aCont);
+      return newQueue (0);
+    return new PriorityQueue <> (aCont);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Queue <ELEMENTTYPE> newQueue (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
-      return new PriorityQueue <ELEMENTTYPE> (0);
+      return newQueue (0);
     return newQueue (aIter.iterator ());
   }
 
@@ -2692,7 +2735,7 @@ public final class CollectionHelper
 
     // get sorted Map.Entry list by Entry.getValue ()
     final List <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
-    Collections.sort (aList, new ComparatorMapEntryKey <KEYTYPE, VALUETYPE> (aKeyComparator));
+    Collections.sort (aList, new ComparatorMapEntryKey <> (aKeyComparator));
     return newOrderedMap (aList);
   }
 
@@ -2766,7 +2809,7 @@ public final class CollectionHelper
 
     // get sorted Map.Entry list by Entry.getValue ()
     final List <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
-    Collections.sort (aList, new ComparatorMapEntryValue <KEYTYPE, VALUETYPE> (aValueComparator));
+    Collections.sort (aList, new ComparatorMapEntryValue <> (aValueComparator));
     return newOrderedMap (aList);
   }
 
@@ -2775,9 +2818,9 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> List <ELEMENTTYPE> getReverseList (@Nullable final Collection <? extends ELEMENTTYPE> aCollection)
   {
     if (isEmpty (aCollection))
-      return new ArrayList <ELEMENTTYPE> (0);
+      return newList (0);
 
-    final List <ELEMENTTYPE> ret = new ArrayList <ELEMENTTYPE> (aCollection);
+    final List <ELEMENTTYPE> ret = newList (aCollection);
     Collections.reverse (ret);
     return ret;
   }
@@ -2796,40 +2839,39 @@ public final class CollectionHelper
   @Nonnull
   public static <ELEMENTTYPE> IIterableIterator <ELEMENTTYPE> getIterator (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
-    return new IterableIteratorFromEnumeration <ELEMENTTYPE> (aEnum);
+    return new IterableIteratorFromEnumeration <> (aEnum);
   }
 
   @Nonnull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getIterator (@Nullable final Iterable <ELEMENTTYPE> aCont)
   {
-    return aCont == null ? new EmptyIterator <ELEMENTTYPE> () : getIterator (aCont.iterator ());
+    return aCont == null ? new EmptyIterator <> () : getIterator (aCont.iterator ());
   }
 
   @Nonnull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getIterator (@Nullable final Iterator <ELEMENTTYPE> aIter)
   {
-    return aIter == null ? new EmptyIterator <ELEMENTTYPE> () : aIter;
+    return aIter == null ? new EmptyIterator <> () : aIter;
   }
 
   @Nonnull
   @SafeVarargs
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getIterator (@Nullable final ELEMENTTYPE... aArray)
   {
-    return ArrayHelper.isEmpty (aArray) ? new EmptyIterator <ELEMENTTYPE> ()
-                                        : getIterator (newList (aArray).iterator ());
+    return ArrayHelper.isEmpty (aArray) ? new EmptyIterator <> () : getIterator (newList (aArray).iterator ());
   }
 
   @Nonnull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getReverseIterator (@Nullable final List <? extends ELEMENTTYPE> aCont)
   {
     if (isEmpty (aCont))
-      return new EmptyIterator <ELEMENTTYPE> ();
+      return new EmptyIterator <> ();
 
     /**
      * Performance note: this implementation is much faster than building a
      * temporary list in reverse order and returning a forward iterator!
      */
-    return new ReverseListIterator <ELEMENTTYPE> (aCont);
+    return new ReverseListIterator <> (aCont);
   }
 
   /**
@@ -2842,7 +2884,7 @@ public final class CollectionHelper
   @Nonnull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getEmptyIterator ()
   {
-    return new EmptyIterator <ELEMENTTYPE> ();
+    return new EmptyIterator <> ();
   }
 
   /**
@@ -2861,7 +2903,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getCombinedIterator (@Nullable final Iterator <? extends ELEMENTTYPE> aIter1,
                                                                           @Nullable final Iterator <? extends ELEMENTTYPE> aIter2)
   {
-    return new CombinedIterator <ELEMENTTYPE> (aIter1, aIter2);
+    return new CombinedIterator <> (aIter1, aIter2);
   }
 
   /**
@@ -2876,7 +2918,7 @@ public final class CollectionHelper
   @Nonnull
   public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getEnumeration (@Nullable final Iterable <ELEMENTTYPE> aCont)
   {
-    return isEmpty (aCont) ? new EmptyEnumeration <ELEMENTTYPE> () : getEnumeration (aCont.iterator ());
+    return isEmpty (aCont) ? new EmptyEnumeration <> () : getEnumeration (aCont.iterator ());
   }
 
   /**
@@ -2908,9 +2950,9 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getEnumeration (@Nullable final Iterator <ELEMENTTYPE> aIter)
   {
     if (aIter == null)
-      return new EmptyEnumeration <ELEMENTTYPE> ();
+      return new EmptyEnumeration <> ();
 
-    return new EnumerationFromIterator <ELEMENTTYPE> (aIter);
+    return new EnumerationFromIterator <> (aIter);
   }
 
   /**
@@ -2928,7 +2970,7 @@ public final class CollectionHelper
   public static <KEYTYPE, VALUETYPE> Enumeration <Map.Entry <KEYTYPE, VALUETYPE>> getEnumeration (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
     if (aMap == null)
-      return new EmptyEnumeration <Map.Entry <KEYTYPE, VALUETYPE>> ();
+      return new EmptyEnumeration <> ();
     return getEnumeration (aMap.entrySet ());
   }
 
@@ -2942,7 +2984,7 @@ public final class CollectionHelper
   @Nonnull
   public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getEmptyEnumeration ()
   {
-    return new EmptyEnumeration <ELEMENTTYPE> ();
+    return new EmptyEnumeration <> ();
   }
 
   @Nullable
@@ -2952,7 +2994,7 @@ public final class CollectionHelper
     if (isEmpty (aStack))
       return null;
 
-    final NonBlockingStack <ELEMENTTYPE> ret = new NonBlockingStack <ELEMENTTYPE> (aStack);
+    final NonBlockingStack <ELEMENTTYPE> ret = new NonBlockingStack <> (aStack);
     ret.pop ();
     return ret;
   }
@@ -2981,7 +3023,7 @@ public final class CollectionHelper
     if (isEmpty (aValues) || isEmpty (aKeys))
       return null;
 
-    final Map <KEY, VALUE> ret = new HashMap <KEY, VALUE> ();
+    final Map <KEY, VALUE> ret = newMap ();
     for (final KEY aKey : aKeys)
       if (aValues.containsKey (aKey))
         ret.put (aKey, aValues.get (aKey));
@@ -3454,7 +3496,7 @@ public final class CollectionHelper
     if (nSize2 == 0)
       return newList (aCollection1);
 
-    final List <ELEMENTTYPE> ret = new ArrayList <ELEMENTTYPE> (nSize1 + nSize2);
+    final List <ELEMENTTYPE> ret = newList (nSize1 + nSize2);
     ret.addAll (aCollection1);
     ret.addAll (aCollection2);
     return ret;
@@ -3474,7 +3516,7 @@ public final class CollectionHelper
     if (nSize2 == 0)
       return newList (aCont1);
 
-    final List <ELEMENTTYPE> ret = new ArrayList <ELEMENTTYPE> (nSize1 + nSize2);
+    final List <ELEMENTTYPE> ret = newList (nSize1 + nSize2);
     ret.addAll (aCont1);
     Collections.addAll (ret, aCont2);
     return ret;
@@ -3493,7 +3535,7 @@ public final class CollectionHelper
     if (nSize2 == 0)
       return newList (aCont1);
 
-    final List <ELEMENTTYPE> ret = new ArrayList <ELEMENTTYPE> (nSize1 + nSize2);
+    final List <ELEMENTTYPE> ret = newList (nSize1 + nSize2);
     Collections.addAll (ret, aCont1);
     ret.addAll (aCont2);
     return ret;
@@ -3512,7 +3554,7 @@ public final class CollectionHelper
     if (nSize2 == 0)
       return newSet (aCont1);
 
-    final Set <ELEMENTTYPE> ret = new HashSet <ELEMENTTYPE> (nSize1 + nSize2);
+    final Set <ELEMENTTYPE> ret = newSet (nSize1 + nSize2);
     ret.addAll (aCont1);
     ret.addAll (aCont2);
     return ret;
@@ -3532,7 +3574,7 @@ public final class CollectionHelper
     if (nSize2 == 0)
       return newSet (aCont1);
 
-    final Set <ELEMENTTYPE> ret = new HashSet <ELEMENTTYPE> (nSize1 + nSize2);
+    final Set <ELEMENTTYPE> ret = newSet (nSize1 + nSize2);
     ret.addAll (aCont1);
     Collections.addAll (ret, aCont2);
     return ret;
@@ -3551,7 +3593,7 @@ public final class CollectionHelper
     if (nSize2 == 0)
       return newSet (aCont1);
 
-    final Set <ELEMENTTYPE> ret = new HashSet <ELEMENTTYPE> (nSize1 + nSize2);
+    final Set <ELEMENTTYPE> ret = newSet (nSize1 + nSize2);
     Collections.addAll (ret, aCont1);
     ret.addAll (aCont2);
     return ret;
@@ -3611,112 +3653,8 @@ public final class CollectionHelper
       return newMap (aMap1);
 
     // create and fill result map
-    final Map <KEY, VALUE> ret = new HashMap <KEY, VALUE> (aMap1);
+    final Map <KEY, VALUE> ret = new HashMap <> (aMap1);
     ret.putAll (aMap2);
-    return ret;
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static List <Boolean> newObjectListFromArray (@Nullable final boolean [] aArray)
-  {
-    if (ArrayHelper.isEmpty (aArray))
-      return null;
-
-    final List <Boolean> ret = new ArrayList <Boolean> (aArray.length);
-    for (final boolean x : aArray)
-      ret.add (Boolean.valueOf (x));
-    return ret;
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static List <Byte> newObjectListFromArray (@Nullable final byte [] aArray)
-  {
-    if (ArrayHelper.isEmpty (aArray))
-      return null;
-
-    final List <Byte> ret = new ArrayList <Byte> (aArray.length);
-    for (final byte x : aArray)
-      ret.add (Byte.valueOf (x));
-    return ret;
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static List <Character> newObjectListFromArray (@Nullable final char [] aArray)
-  {
-    if (ArrayHelper.isEmpty (aArray))
-      return null;
-
-    final List <Character> ret = new ArrayList <Character> (aArray.length);
-    for (final char x : aArray)
-      ret.add (Character.valueOf (x));
-    return ret;
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static List <Double> newObjectListFromArray (@Nullable final double [] aArray)
-  {
-    if (ArrayHelper.isEmpty (aArray))
-      return null;
-
-    final List <Double> ret = new ArrayList <Double> (aArray.length);
-    for (final double x : aArray)
-      ret.add (Double.valueOf (x));
-    return ret;
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static List <Float> newObjectListFromArray (@Nullable final float [] aArray)
-  {
-    if (ArrayHelper.isEmpty (aArray))
-      return null;
-
-    final List <Float> ret = new ArrayList <Float> (aArray.length);
-    for (final float x : aArray)
-      ret.add (Float.valueOf (x));
-    return ret;
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static List <Integer> newObjectListFromArray (@Nullable final int [] aArray)
-  {
-    if (ArrayHelper.isEmpty (aArray))
-      return null;
-
-    final List <Integer> ret = new ArrayList <Integer> (aArray.length);
-    for (final int x : aArray)
-      ret.add (Integer.valueOf (x));
-    return ret;
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static List <Long> newObjectListFromArray (@Nullable final long [] aArray)
-  {
-    if (ArrayHelper.isEmpty (aArray))
-      return null;
-
-    final List <Long> ret = new ArrayList <Long> (aArray.length);
-    for (final long x : aArray)
-      ret.add (Long.valueOf (x));
-    return ret;
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static List <Short> newObjectListFromArray (@Nullable final short [] aArray)
-  {
-    if (ArrayHelper.isEmpty (aArray))
-      return null;
-
-    final List <Short> ret = new ArrayList <Short> (aArray.length);
-    for (final short x : aArray)
-      ret.add (Short.valueOf (x));
     return ret;
   }
 
@@ -3724,45 +3662,48 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static List <?> newObjectListFromArray (@Nullable final Object aValue, @Nonnull final Class <?> aComponentType)
   {
+    if (aValue == null)
+      return null;
+
     if (aComponentType == boolean.class)
     {
       // get as List<Boolean>
-      return newObjectListFromArray ((boolean []) aValue);
+      return newList ((boolean []) aValue);
     }
     if (aComponentType == byte.class)
     {
       // get as List<Byte>
-      return newObjectListFromArray ((byte []) aValue);
+      return newList ((byte []) aValue);
     }
     if (aComponentType == char.class)
     {
       // get as List<Character>
-      return newObjectListFromArray ((char []) aValue);
+      return newList ((char []) aValue);
     }
     if (aComponentType == double.class)
     {
       // get as List<Double>
-      return newObjectListFromArray ((double []) aValue);
+      return newList ((double []) aValue);
     }
     if (aComponentType == float.class)
     {
       // get as List<Float>
-      return newObjectListFromArray ((float []) aValue);
+      return newList ((float []) aValue);
     }
     if (aComponentType == int.class)
     {
       // get as List<Integer>
-      return newObjectListFromArray ((int []) aValue);
+      return newList ((int []) aValue);
     }
     if (aComponentType == long.class)
     {
       // get as List<Long>
-      return newObjectListFromArray ((long []) aValue);
+      return newList ((long []) aValue);
     }
     if (aComponentType == short.class)
     {
       // get as List<Short>
-      return newObjectListFromArray ((short []) aValue);
+      return newList ((short []) aValue);
     }
 
     // the rest
@@ -3802,7 +3743,7 @@ public final class CollectionHelper
 
     final int nSize = getSize (aCont);
     if (nSize == 0 || nStartIndex >= nSize)
-      return new ArrayList <ELEMENTTYPE> (0);
+      return newList (0);
 
     int nEndIndex = nStartIndex + nSectionLength;
     if (nEndIndex > nSize)
@@ -3831,7 +3772,7 @@ public final class CollectionHelper
     if (isEmpty (aMap))
       return null;
 
-    final Map <VALUETYPE, KEYTYPE> ret = new HashMap <VALUETYPE, KEYTYPE> (aMap.size ());
+    final Map <VALUETYPE, KEYTYPE> ret = newMap (aMap.size ());
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aMap.entrySet ())
       ret.put (aEntry.getValue (), aEntry.getKey ());
     return ret;

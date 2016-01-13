@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EmptyStackException;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -44,6 +45,11 @@ public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE>
 {
   public NonBlockingStack ()
   {}
+
+  public NonBlockingStack (@Nonnegative final int nInitialCapacity)
+  {
+    super (nInitialCapacity);
+  }
 
   @SafeVarargs
   public NonBlockingStack (@Nullable final ELEMENTTYPE... aElements)
@@ -183,30 +189,5 @@ public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE>
   public String toString ()
   {
     return new ToStringGenerator (this).append ("list", super.toString ()).toString ();
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> create ()
-  {
-    return new NonBlockingStack <ELEMENTTYPE> ();
-  }
-
-  @Nonnull
-  @SafeVarargs
-  public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> create (@Nullable final ELEMENTTYPE... aElements)
-  {
-    return new NonBlockingStack <ELEMENTTYPE> (aElements);
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> create (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
-  {
-    return new NonBlockingStack <ELEMENTTYPE> (aCont);
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> create (@Nullable final NonBlockingStack <? extends ELEMENTTYPE> aStack)
-  {
-    return new NonBlockingStack <ELEMENTTYPE> (aStack);
   }
 }

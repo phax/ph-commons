@@ -18,8 +18,6 @@ package com.helger.commons.convert;
 
 import java.util.function.Function;
 
-import com.helger.commons.annotation.DevelopersNote;
-
 /**
  * This is a very simple type conversion interface for compile type conversions.
  *
@@ -32,20 +30,5 @@ import com.helger.commons.annotation.DevelopersNote;
 @FunctionalInterface
 public interface IConverter <SRCTYPE, DSTTYPE> extends Function <SRCTYPE, DSTTYPE>
 {
-  /**
-   * Convert the passed source object to the destination type.
-   *
-   * @param aSource
-   *        The source object to be converted. No <code>null</code> or non-
-   *        <code>null</code> constraint possible.
-   * @return The converted value. No <code>null</code> or non- <code>null</code>
-   *         constraint possible.
-   */
-  @DevelopersNote ("No nullable annotation possible")
-  DSTTYPE convert (final SRCTYPE aSource);
-
-  default DSTTYPE apply (final SRCTYPE aSource)
-  {
-    return convert (aSource);
-  }
+  /* empty */
 }

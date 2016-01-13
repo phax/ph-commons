@@ -18,13 +18,13 @@ package com.helger.commons.collection.iterate;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.UnsupportedOperation;
+import com.helger.commons.filter.IFilter;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -40,7 +40,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
   // base iterator
   private final Iterator <? extends ELEMENTTYPE> m_aBaseIter;
   // the filter to use
-  private final Predicate <ELEMENTTYPE> m_aFilter;
+  private final IFilter <ELEMENTTYPE> m_aFilter;
 
   // status values
   private ELEMENTTYPE m_aCurrent;
@@ -55,7 +55,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
    *        The filter to be applied. May not be <code>null</code>.
    */
   public FilterIterator (@Nonnull final IIterableIterator <? extends ELEMENTTYPE> aBaseIter,
-                         @Nonnull final Predicate <ELEMENTTYPE> aFilter)
+                         @Nonnull final IFilter <ELEMENTTYPE> aFilter)
   {
     this (aBaseIter.iterator (), aFilter);
   }
@@ -69,7 +69,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
    *        The filter to be applied. May not be <code>null</code>.
    */
   public FilterIterator (@Nonnull final Iterator <? extends ELEMENTTYPE> aBaseIter,
-                         @Nonnull final Predicate <ELEMENTTYPE> aFilter)
+                         @Nonnull final IFilter <ELEMENTTYPE> aFilter)
   {
     m_aBaseIter = ValueEnforcer.notNull (aBaseIter, "BaseIterator");
     m_aFilter = ValueEnforcer.notNull (aFilter, "Filter");
@@ -85,7 +85,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
    *        The filter to be applied. May not be <code>null</code>.
    */
   public FilterIterator (@Nonnull final Iterable <? extends ELEMENTTYPE> aBaseCont,
-                         @Nonnull final Predicate <ELEMENTTYPE> aFilter)
+                         @Nonnull final IFilter <ELEMENTTYPE> aFilter)
   {
     ValueEnforcer.notNull (aBaseCont, "BaseContainer");
     m_aBaseIter = aBaseCont.iterator ();
@@ -97,7 +97,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
    * @return The filter as specified in the constructor.
    */
   @Nonnull
-  public Predicate <ELEMENTTYPE> getFilter ()
+  public IFilter <ELEMENTTYPE> getFilter ()
   {
     return m_aFilter;
   }

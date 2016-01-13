@@ -39,24 +39,24 @@ public final class NonBlockingStackTest
   @Test
   public void testCtor ()
   {
-    NonBlockingStack <String> st = NonBlockingStack.create ();
+    NonBlockingStack <String> st = new NonBlockingStack <> ();
     assertTrue (st.isEmpty ());
     assertFalse (st.iterator ().hasNext ());
-    st = NonBlockingStack.create ("s", "t");
+    st = new NonBlockingStack <> ("s", "t");
     assertEquals (2, st.size ());
     assertEquals ("s", st.firstElement ());
     assertTrue (st.iterator ().hasNext ());
-    st = NonBlockingStack.create ((String []) null);
+    st = new NonBlockingStack <> ((String []) null);
     assertTrue (st.isEmpty ());
     assertFalse (st.iterator ().hasNext ());
-    st = NonBlockingStack.create (CollectionHelper.newList ("s", "t"));
+    st = new NonBlockingStack <> (CollectionHelper.newList ("s", "t"));
     assertEquals (2, st.size ());
     assertEquals ("s", st.firstElement ());
     assertTrue (st.iterator ().hasNext ());
-    st = NonBlockingStack.create (new HashSet <String> ());
+    st = new NonBlockingStack <> (new HashSet <String> ());
     assertTrue (st.isEmpty ());
     assertFalse (st.iterator ().hasNext ());
-    st = NonBlockingStack.create (NonBlockingStack.create ("s", "t"));
+    st = new NonBlockingStack <> (new NonBlockingStack <> ("s", "t"));
     assertEquals (2, st.size ());
     assertEquals ("s", st.firstElement ());
     assertTrue (st.iterator ().hasNext ());

@@ -22,7 +22,8 @@ import java.util.function.Predicate;
 /**
  * A generic filter interface for simple object selection. If you need an
  * additional parameter for determining whether to filter an object or not, you
- * may use the {@link IFilterWithParameter} instead.
+ * may use the {@link IFilterWithParameter} instead. With Java 8 this is
+ * basically a serializable {@link Predicate}.
  *
  * @author Philip
  * @param <DATATYPE>

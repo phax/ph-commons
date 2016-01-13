@@ -39,7 +39,7 @@ public final class LRUSetTest
   @Test
   public void testLRUCache ()
   {
-    final LRUSet <Integer> aCache = new LRUSet <Integer> (MAX_SIZE);
+    final LRUSet <Integer> aCache = new LRUSet <> (MAX_SIZE);
     assertTrue (aCache.isEmpty ());
     assertEquals (0, aCache.size ());
     assertEquals (MAX_SIZE, aCache.getMaxSize ());
@@ -59,22 +59,18 @@ public final class LRUSetTest
     assertEquals (MAX_SIZE, aCache.size ());
 
     // addAll
-    assertTrue (aCache.addAll (CollectionHelper.newList (Integer.valueOf (-4), Integer.valueOf (-5))));
-    assertTrue (aCache.addAll (CollectionHelper.newList (Integer.valueOf (-4), Integer.valueOf (-6))));
+    assertTrue (aCache.addAll (CollectionHelper.newList (-4, -5)));
+    assertTrue (aCache.addAll (CollectionHelper.newList (-4, -6)));
     assertEquals (MAX_SIZE, aCache.size ());
 
     // containsAll
-    assertTrue (aCache.containsAll (CollectionHelper.newList (Integer.valueOf (-4), Integer.valueOf (-5))));
-    assertFalse (aCache.containsAll (CollectionHelper.newList (Integer.valueOf (-4), Integer.valueOf (-7))));
+    assertTrue (aCache.containsAll (CollectionHelper.newList (-4, -5)));
+    assertFalse (aCache.containsAll (CollectionHelper.newList (-4, -7)));
     assertEquals (MAX_SIZE, aCache.size ());
 
     // removeAll
-    assertTrue (aCache.removeAll (CollectionHelper.newList (Integer.valueOf (-4),
-                                                            Integer.valueOf (-5),
-                                                            Integer.valueOf (-6))));
-    assertFalse (aCache.removeAll (CollectionHelper.newList (Integer.valueOf (-4),
-                                                             Integer.valueOf (-5),
-                                                             Integer.valueOf (-6))));
+    assertTrue (aCache.removeAll (CollectionHelper.newList (-4, -5, -6)));
+    assertFalse (aCache.removeAll (CollectionHelper.newList (-4, -5, -6)));
     assertEquals (MAX_SIZE - 3, aCache.size ());
 
     try
@@ -91,10 +87,9 @@ public final class LRUSetTest
     assertEquals (0, aCache.size ());
 
     final LRUSet <String> ret = new LRUSet <String> (4);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ret, new LRUSet <String> (4));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ret, new LRUSet <> (4));
     ret.add ("a");
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ret, new LRUSet <String> (4));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new LRUSet <String> (3),
-                                                                           new LRUSet <String> (4));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ret, new LRUSet <> (4));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new LRUSet <> (3), new LRUSet <> (4));
   }
 }

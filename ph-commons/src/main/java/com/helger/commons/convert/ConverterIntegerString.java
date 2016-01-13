@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 public class ConverterIntegerString implements IConverter <Integer, String>
 {
   @Nullable
-  public String convert (@Nullable final Integer aInput)
+  public String apply (@Nullable final Integer aInput)
   {
     return aInput == null ? null : aInput.toString ();
   }

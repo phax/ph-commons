@@ -16,11 +16,13 @@
  */
 package com.helger.commons.filter;
 
-import com.helger.commons.annotation.DevelopersNote;
+import java.io.Serializable;
+import java.util.function.BiPredicate;
 
 /**
  * A generic filter interface for simple object selection based on a parameter.
- * If you don't need the parameter, use {@link IFilter} instead.
+ * If you don't need the parameter, use {@link IFilter} instead. This is
+ * basically a serializable {@link BiPredicate}.
  *
  * @author Philip
  * @param <DATATYPE>
@@ -28,20 +30,8 @@ import com.helger.commons.annotation.DevelopersNote;
  * @param <PARAMTYPE>
  *        The type of the parameter
  */
-public interface IFilterWithParameter <DATATYPE, PARAMTYPE>
+@FunctionalInterface
+public interface IFilterWithParameter <DATATYPE, PARAMTYPE> extends BiPredicate <DATATYPE, PARAMTYPE>, Serializable
 {
-  /**
-   * Check if the given value matches the filter or not.
-   *
-   * @param aValue
-   *        The object to filter. May be <code>null</code> depending on the
-   *        implementation.
-   * @param aParam
-   *        An optional parameter that may be used in determining whether the
-   *        object matches the filter or not!
-   * @return <code>true</code> if the object match the filter,
-   *         <code>false</code> otherwise.
-   */
-  @DevelopersNote ("No @Nullable annotation as we can make no assumptions on the state")
-  boolean matchesFilter (DATATYPE aValue, PARAMTYPE aParam);
+  /* empty */
 }

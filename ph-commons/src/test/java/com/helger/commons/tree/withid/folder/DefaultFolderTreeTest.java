@@ -45,23 +45,23 @@ public final class DefaultFolderTreeTest extends AbstractCommonsTestCase
 
     final DefaultFolderTreeItem <String, Integer, Set <Integer>> i1 = ft.getRootItem ()
                                                                         .createChildItem ("id1",
-                                                                                          CollectionHelper.newSet (I1,
-                                                                                                                   I2,
-                                                                                                                   I3));
+                                                                                          CollectionHelper.newSet (1,
+                                                                                                                   2,
+                                                                                                                   3));
     assertNotNull (i1);
 
     final DefaultFolderTreeItem <String, Integer, Set <Integer>> i2 = ft.getRootItem ()
                                                                         .createChildItem ("id1",
-                                                                                          CollectionHelper.newSet (I1,
-                                                                                                                   I2,
-                                                                                                                   I3));
+                                                                                          CollectionHelper.newSet (1,
+                                                                                                                   2,
+                                                                                                                   3));
     assertNotNull (i2);
     assertSame (i1, i2);
 
     final DefaultFolderTreeItem <String, Integer, Set <Integer>> i3 = ft.getRootItem ()
                                                                         .createChildItem ("id3",
-                                                                                          CollectionHelper.newSet (I1,
-                                                                                                                   I3));
+                                                                                          CollectionHelper.newSet (1,
+                                                                                                                   3));
     assertNotNull (i3);
     assertTrue (i1 != i3);
 

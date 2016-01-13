@@ -32,11 +32,8 @@ import javax.annotation.Nullable;
  */
 public class ConverterMapEntryKey <KEYTYPE, VALUETYPE> implements IConverter <Map.Entry <KEYTYPE, VALUETYPE>, KEYTYPE>
 {
-  public ConverterMapEntryKey ()
-  {}
-
   @Nullable
-  public KEYTYPE convert (@Nullable final Map.Entry <KEYTYPE, VALUETYPE> aEntry)
+  public KEYTYPE apply (@Nullable final Map.Entry <KEYTYPE, VALUETYPE> aEntry)
   {
     return aEntry == null ? null : aEntry.getKey ();
   }

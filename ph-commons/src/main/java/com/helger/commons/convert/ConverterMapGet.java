@@ -52,7 +52,7 @@ public class ConverterMapGet <KEYTYPE, VALUETYPE> implements IConverter <KEYTYPE
   }
 
   @Nullable
-  public VALUETYPE convert (@Nullable final KEYTYPE aKey)
+  public VALUETYPE apply (@Nullable final KEYTYPE aKey)
   {
     return m_aMap.get (aKey);
   }
