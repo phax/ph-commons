@@ -209,18 +209,10 @@ public class FileMonitor
 
     final String sKey = aFile.getAbsolutePath ();
 
-    m_aRWLock.writeLock ().lock ();
-    try
+    if (m_aRWLock.writeLocked ( () -> m_aMonitorMap.remove (sKey) == null))
     {
-      if (m_aMonitorMap.remove (sKey) == null)
-      {
-        // File not monitored
-        return EChange.UNCHANGED;
-      }
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
+      // File not monitored
+      return EChange.UNCHANGED;
     }
 
     final File aParent = aFile.getParentFile ();
