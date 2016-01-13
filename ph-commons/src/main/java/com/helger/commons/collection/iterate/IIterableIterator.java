@@ -28,11 +28,5 @@ import java.util.Iterator;
  */
 public interface IIterableIterator <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, Iterator <ELEMENTTYPE>
 {
-  /**
-   * {@inheritDoc}
-   *
-   * @return The next element. No constraint whether the element can be
-   *         <code>null</code> or non-<code>null</code>.
-   */
-  ELEMENTTYPE next ();
+  /* empty */
 }

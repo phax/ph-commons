@@ -37,32 +37,28 @@ import com.helger.commons.string.ToStringGenerator;
 public final class ArrayIteratorShort
 {
   private final short [] m_aArray;
-  private int m_nIndex;
+  private int m_nIndex = 0;
 
   public ArrayIteratorShort (@Nonnull final short... aArray)
   {
-    ValueEnforcer.notNull (aArray, "Array");
-    m_nIndex = 0;
-    m_aArray = ArrayHelper.getCopy (aArray);
+    this (aArray, 0, aArray.length);
   }
 
   /**
-   * Private constructor with offset and length
+   * constructor with offset and length
    *
    * @param aArray
    *        Source array
    * @param nOfs
    *        Offset. Must be &ge; 0.
    * @param nLength
-   *        Lenght. Must be &ge; 0.
+   *        Length. Must be &ge; 0.
    */
-  private ArrayIteratorShort (@Nonnull final short [] aArray,
-                              @Nonnegative final int nOfs,
-                              @Nonnegative final int nLength)
+  public ArrayIteratorShort (@Nonnull final short [] aArray,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLength)
   {
     ValueEnforcer.isArrayOfsLen (aArray, nOfs, nLength);
-
-    m_nIndex = 0;
     m_aArray = ArrayHelper.getCopy (aArray, nOfs, nLength);
   }
 
@@ -108,23 +104,5 @@ public final class ArrayIteratorShort
     return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray))
                                        .append ("index", m_nIndex)
                                        .toString ();
-  }
-
-  @Nonnull
-  public static ArrayIteratorShort createOfsLen (@Nonnull final short [] aArray,
-                                                 @Nonnegative final int nOfs,
-                                                 @Nonnegative final int nLength)
-  {
-    return new ArrayIteratorShort (aArray, nOfs, nLength);
-  }
-
-  @Nonnull
-  public static ArrayIteratorShort createBeginEnd (@Nonnull final short [] aArray,
-                                                   @Nonnegative final int nBegin,
-                                                   @Nonnegative final int nEnd)
-  {
-    if (nEnd < nBegin)
-      throw new IllegalArgumentException ("Begin (" + nBegin + ") must be between 0 and < end (" + nEnd + ")");
-    return createOfsLen (aArray, nBegin, nEnd - nBegin);
   }
 }

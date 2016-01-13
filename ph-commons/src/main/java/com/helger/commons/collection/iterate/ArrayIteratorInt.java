@@ -37,30 +37,26 @@ import com.helger.commons.string.ToStringGenerator;
 public final class ArrayIteratorInt
 {
   private final int [] m_aArray;
-  private int m_nIndex;
+  private int m_nIndex = 0;
 
   public ArrayIteratorInt (@Nonnull final int... aArray)
   {
-    ValueEnforcer.notNull (aArray, "Array");
-    m_nIndex = 0;
-    m_aArray = ArrayHelper.getCopy (aArray);
+    this (aArray, 0, aArray.length);
   }
 
   /**
-   * Private constructor with offset and length
+   * constructor with offset and length
    *
    * @param aArray
    *        Source array
    * @param nOfs
    *        Offset. Must be &ge; 0.
    * @param nLength
-   *        Lenght. Must be &ge; 0.
+   *        Length. Must be &ge; 0.
    */
-  private ArrayIteratorInt (@Nonnull final int [] aArray, @Nonnegative final int nOfs, @Nonnegative final int nLength)
+  public ArrayIteratorInt (@Nonnull final int [] aArray, @Nonnegative final int nOfs, @Nonnegative final int nLength)
   {
     ValueEnforcer.isArrayOfsLen (aArray, nOfs, nLength);
-
-    m_nIndex = 0;
     m_aArray = ArrayHelper.getCopy (aArray, nOfs, nLength);
   }
 
@@ -106,23 +102,5 @@ public final class ArrayIteratorInt
     return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray))
                                        .append ("index", m_nIndex)
                                        .toString ();
-  }
-
-  @Nonnull
-  public static ArrayIteratorInt createOfsLen (@Nonnull final int [] aArray,
-                                               @Nonnegative final int nOfs,
-                                               @Nonnegative final int nLength)
-  {
-    return new ArrayIteratorInt (aArray, nOfs, nLength);
-  }
-
-  @Nonnull
-  public static ArrayIteratorInt createBeginEnd (@Nonnull final int [] aArray,
-                                                 @Nonnegative final int nBegin,
-                                                 @Nonnegative final int nEnd)
-  {
-    if (nEnd < nBegin)
-      throw new IllegalArgumentException ("Begin (" + nBegin + ") must be between 0 and < end (" + nEnd + ")");
-    return createOfsLen (aArray, nBegin, nEnd - nBegin);
   }
 }

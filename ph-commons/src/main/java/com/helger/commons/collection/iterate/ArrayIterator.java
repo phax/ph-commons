@@ -41,14 +41,12 @@ import com.helger.commons.string.ToStringGenerator;
 public final class ArrayIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
 {
   private final ELEMENTTYPE [] m_aArray;
-  private int m_nIndex;
+  private int m_nIndex = 0;
 
   @SafeVarargs
   public ArrayIterator (@Nonnull final ELEMENTTYPE... aArray)
   {
-    ValueEnforcer.notNull (aArray, "Array");
-    m_nIndex = 0;
-    m_aArray = ArrayHelper.getCopy (aArray);
+    this (aArray, 0, aArray.length);
   }
 
   /**
@@ -61,13 +59,12 @@ public final class ArrayIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
    * @param nLength
    *        Length. Must be &ge; 0.
    */
-  private ArrayIterator (@Nonnull final ELEMENTTYPE [] aArray,
-                         @Nonnegative final int nOfs,
-                         @Nonnegative final int nLength)
+  public ArrayIterator (@Nonnull final ELEMENTTYPE [] aArray,
+                        @Nonnegative final int nOfs,
+                        @Nonnegative final int nLength)
   {
     ValueEnforcer.isArrayOfsLen (aArray, nOfs, nLength);
 
-    m_nIndex = 0;
     m_aArray = ArrayHelper.getCopy (aArray, nOfs, nLength);
   }
 
@@ -113,19 +110,5 @@ public final class ArrayIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
     return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray))
                                        .append ("index", m_nIndex)
                                        .toString ();
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> ArrayIterator <ELEMENTTYPE> create (@Nonnull final ELEMENTTYPE [] aArray)
-  {
-    return new ArrayIterator <ELEMENTTYPE> (aArray);
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> ArrayIterator <ELEMENTTYPE> createOfsLen (@Nonnull final ELEMENTTYPE [] aArray,
-                                                                        @Nonnegative final int nOfs,
-                                                                        @Nonnegative final int nLength)
-  {
-    return new ArrayIterator <ELEMENTTYPE> (aArray, nOfs, nLength);
   }
 }

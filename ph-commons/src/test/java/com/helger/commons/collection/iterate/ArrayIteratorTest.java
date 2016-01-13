@@ -41,7 +41,7 @@ public final class ArrayIteratorTest
   @Test
   public void testAll ()
   {
-    final ArrayIterator <String> ae = ArrayIterator.create (ArrayHelper.newArray ("Hallo",
+    final ArrayIterator <String> ae = new ArrayIterator <> (ArrayHelper.newArray ("Hallo",
                                                                                   "Welt",
                                                                                   "from",
                                                                                   "Copenhagen"));
@@ -85,7 +85,7 @@ public final class ArrayIteratorTest
 
     try
     {
-      ArrayIterator.createOfsLen (new String [] { "x", "y" }, 5, -1);
+      new ArrayIterator <> (new String [] { "x", "y" }, 5, -1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -93,7 +93,7 @@ public final class ArrayIteratorTest
 
     try
     {
-      ArrayIterator.createOfsLen (new String [] { "x", "y" }, -1, 5);
+      new ArrayIterator <> (new String [] { "x", "y" }, -1, 5);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -101,7 +101,7 @@ public final class ArrayIteratorTest
 
     try
     {
-      ArrayIterator.createOfsLen (new String [] { "x", "y" }, 5, 2);
+      new ArrayIterator <> (new String [] { "x", "y" }, 5, 2);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -111,22 +111,22 @@ public final class ArrayIteratorTest
   @Test
   public void testStdMethods ()
   {
-    final ArrayIterator <String> ae = ArrayIterator.create (ArrayHelper.newArray ("Hallo",
+    final ArrayIterator <String> ae = new ArrayIterator <> (ArrayHelper.newArray ("Hallo",
                                                                                   "Welt",
                                                                                   "from",
                                                                                   "Copenhagen"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ae,
-                                                                       ArrayIterator.create (ArrayHelper.newArray ("Hallo",
+                                                                       new ArrayIterator <> (ArrayHelper.newArray ("Hallo",
                                                                                                                    "Welt",
                                                                                                                    "from",
                                                                                                                    "Copenhagen")));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
-                                                                           ArrayIterator.create (ArrayHelper.newArray ("Hallo",
+                                                                           new ArrayIterator <> (ArrayHelper.newArray ("Hallo",
                                                                                                                        "Welt",
                                                                                                                        "from")));
     ae.next ();
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
-                                                                           ArrayIterator.create (ArrayHelper.newArray ("Hallo",
+                                                                           new ArrayIterator <> (ArrayHelper.newArray ("Hallo",
                                                                                                                        "Welt",
                                                                                                                        "from",
                                                                                                                        "Copenhagen")));

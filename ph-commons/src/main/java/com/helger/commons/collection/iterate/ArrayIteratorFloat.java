@@ -37,32 +37,28 @@ import com.helger.commons.string.ToStringGenerator;
 public final class ArrayIteratorFloat
 {
   private final float [] m_aArray;
-  private int m_nIndex;
+  private int m_nIndex = 0;
 
   public ArrayIteratorFloat (@Nonnull final float... aArray)
   {
-    ValueEnforcer.notNull (aArray, "Array");
-    m_nIndex = 0;
-    m_aArray = ArrayHelper.getCopy (aArray);
+    this (aArray, 0, aArray.length);
   }
 
   /**
-   * Private constructor with offset and length
+   * constructor with offset and length
    *
    * @param aArray
    *        Source array
    * @param nOfs
    *        Offset. Must be &ge; 0.
    * @param nLength
-   *        Lenght. Must be &ge; 0.
+   *        Length. Must be &ge; 0.
    */
-  private ArrayIteratorFloat (@Nonnull final float [] aArray,
-                              @Nonnegative final int nOfs,
-                              @Nonnegative final int nLength)
+  public ArrayIteratorFloat (@Nonnull final float [] aArray,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLength)
   {
     ValueEnforcer.isArrayOfsLen (aArray, nOfs, nLength);
-
-    m_nIndex = 0;
     m_aArray = ArrayHelper.getCopy (aArray, nOfs, nLength);
   }
 
