@@ -140,64 +140,64 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     });
 
     // boolean[]
-    aRegistry.registerTypeConverter (boolean [].class, ArrayList.class, CollectionHelper::newList);
-    aRegistry.registerTypeConverter (boolean [].class, Vector.class, CollectionHelper::newVector);
-    aRegistry.registerTypeConverter (boolean [].class, HashSet.class, CollectionHelper::newSet);
-    aRegistry.registerTypeConverter (boolean [].class, LinkedHashSet.class, CollectionHelper::newOrderedSet);
-    aRegistry.registerTypeConverter (boolean [].class, TreeSet.class, CollectionHelper::newSortedSet);
+    aRegistry.registerTypeConverter (boolean [].class, ArrayList.class, CollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (boolean [].class, Vector.class, CollectionHelper::newPrimitiveVector);
+    aRegistry.registerTypeConverter (boolean [].class, HashSet.class, CollectionHelper::newPrimitiveSet);
+    aRegistry.registerTypeConverter (boolean [].class, LinkedHashSet.class, CollectionHelper::newPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (boolean [].class, TreeSet.class, CollectionHelper::newPrimitiveSortedSet);
 
     // byte[]
     aRegistry.registerTypeConverter (byte [].class, String.class, Base64::encodeBytes);
     aRegistry.registerTypeConverter (String.class, byte [].class, Base64::safeDecode);
-    aRegistry.registerTypeConverter (byte [].class, ArrayList.class, CollectionHelper::newList);
-    aRegistry.registerTypeConverter (byte [].class, Vector.class, CollectionHelper::newVector);
-    aRegistry.registerTypeConverter (byte [].class, HashSet.class, CollectionHelper::newSet);
-    aRegistry.registerTypeConverter (byte [].class, LinkedHashSet.class, CollectionHelper::newOrderedSet);
-    aRegistry.registerTypeConverter (byte [].class, TreeSet.class, CollectionHelper::newSortedSet);
+    aRegistry.registerTypeConverter (byte [].class, ArrayList.class, CollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (byte [].class, Vector.class, CollectionHelper::newPrimitiveVector);
+    aRegistry.registerTypeConverter (byte [].class, HashSet.class, CollectionHelper::newPrimitiveSet);
+    aRegistry.registerTypeConverter (byte [].class, LinkedHashSet.class, CollectionHelper::newPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (byte [].class, TreeSet.class, CollectionHelper::newPrimitiveSortedSet);
 
     // char[]
     aRegistry.registerTypeConverter (char [].class, String.class, aSource -> new String (aSource));
     aRegistry.registerTypeConverter (String.class, char [].class, aSource -> aSource.toCharArray ());
-    aRegistry.registerTypeConverter (char [].class, ArrayList.class, CollectionHelper::newList);
-    aRegistry.registerTypeConverter (char [].class, Vector.class, CollectionHelper::newVector);
-    aRegistry.registerTypeConverter (char [].class, HashSet.class, CollectionHelper::newSet);
-    aRegistry.registerTypeConverter (char [].class, LinkedHashSet.class, CollectionHelper::newOrderedSet);
-    aRegistry.registerTypeConverter (char [].class, TreeSet.class, CollectionHelper::newSortedSet);
+    aRegistry.registerTypeConverter (char [].class, ArrayList.class, CollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (char [].class, Vector.class, CollectionHelper::newPrimitiveVector);
+    aRegistry.registerTypeConverter (char [].class, HashSet.class, CollectionHelper::newPrimitiveSet);
+    aRegistry.registerTypeConverter (char [].class, LinkedHashSet.class, CollectionHelper::newPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (char [].class, TreeSet.class, CollectionHelper::newPrimitiveSortedSet);
 
     // double[]
-    aRegistry.registerTypeConverter (double [].class, ArrayList.class, CollectionHelper::newList);
-    aRegistry.registerTypeConverter (double [].class, Vector.class, CollectionHelper::newVector);
-    aRegistry.registerTypeConverter (double [].class, HashSet.class, CollectionHelper::newSet);
-    aRegistry.registerTypeConverter (double [].class, LinkedHashSet.class, CollectionHelper::newOrderedSet);
-    aRegistry.registerTypeConverter (double [].class, TreeSet.class, CollectionHelper::newSortedSet);
+    aRegistry.registerTypeConverter (double [].class, ArrayList.class, CollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (double [].class, Vector.class, CollectionHelper::newPrimitiveVector);
+    aRegistry.registerTypeConverter (double [].class, HashSet.class, CollectionHelper::newPrimitiveSet);
+    aRegistry.registerTypeConverter (double [].class, LinkedHashSet.class, CollectionHelper::newPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (double [].class, TreeSet.class, CollectionHelper::newPrimitiveSortedSet);
 
     // float[]
-    aRegistry.registerTypeConverter (float [].class, ArrayList.class, CollectionHelper::newList);
-    aRegistry.registerTypeConverter (float [].class, Vector.class, CollectionHelper::newVector);
-    aRegistry.registerTypeConverter (float [].class, HashSet.class, CollectionHelper::newSet);
-    aRegistry.registerTypeConverter (float [].class, LinkedHashSet.class, CollectionHelper::newOrderedSet);
-    aRegistry.registerTypeConverter (float [].class, TreeSet.class, CollectionHelper::newSortedSet);
+    aRegistry.registerTypeConverter (float [].class, ArrayList.class, CollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (float [].class, Vector.class, CollectionHelper::newPrimitiveVector);
+    aRegistry.registerTypeConverter (float [].class, HashSet.class, CollectionHelper::newPrimitiveSet);
+    aRegistry.registerTypeConverter (float [].class, LinkedHashSet.class, CollectionHelper::newPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (float [].class, TreeSet.class, CollectionHelper::newPrimitiveSortedSet);
 
     // int[]
-    aRegistry.registerTypeConverter (int [].class, ArrayList.class, CollectionHelper::newList);
-    aRegistry.registerTypeConverter (int [].class, Vector.class, CollectionHelper::newVector);
-    aRegistry.registerTypeConverter (int [].class, HashSet.class, CollectionHelper::newSet);
-    aRegistry.registerTypeConverter (int [].class, LinkedHashSet.class, CollectionHelper::newOrderedSet);
-    aRegistry.registerTypeConverter (int [].class, TreeSet.class, CollectionHelper::newSortedSet);
+    aRegistry.registerTypeConverter (int [].class, ArrayList.class, CollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (int [].class, Vector.class, CollectionHelper::newPrimitiveVector);
+    aRegistry.registerTypeConverter (int [].class, HashSet.class, CollectionHelper::newPrimitiveSet);
+    aRegistry.registerTypeConverter (int [].class, LinkedHashSet.class, CollectionHelper::newPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (int [].class, TreeSet.class, CollectionHelper::newPrimitiveSortedSet);
 
     // long[]
-    aRegistry.registerTypeConverter (long [].class, ArrayList.class, CollectionHelper::newList);
-    aRegistry.registerTypeConverter (long [].class, Vector.class, CollectionHelper::newVector);
-    aRegistry.registerTypeConverter (long [].class, HashSet.class, CollectionHelper::newSet);
-    aRegistry.registerTypeConverter (long [].class, LinkedHashSet.class, CollectionHelper::newOrderedSet);
-    aRegistry.registerTypeConverter (long [].class, TreeSet.class, CollectionHelper::newSortedSet);
+    aRegistry.registerTypeConverter (long [].class, ArrayList.class, CollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (long [].class, Vector.class, CollectionHelper::newPrimitiveVector);
+    aRegistry.registerTypeConverter (long [].class, HashSet.class, CollectionHelper::newPrimitiveSet);
+    aRegistry.registerTypeConverter (long [].class, LinkedHashSet.class, CollectionHelper::newPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (long [].class, TreeSet.class, CollectionHelper::newPrimitiveSortedSet);
 
     // short[]
-    aRegistry.registerTypeConverter (short [].class, ArrayList.class, CollectionHelper::newList);
-    aRegistry.registerTypeConverter (short [].class, Vector.class, CollectionHelper::newVector);
-    aRegistry.registerTypeConverter (short [].class, HashSet.class, CollectionHelper::newSet);
-    aRegistry.registerTypeConverter (short [].class, LinkedHashSet.class, CollectionHelper::newOrderedSet);
-    aRegistry.registerTypeConverter (short [].class, TreeSet.class, CollectionHelper::newSortedSet);
+    aRegistry.registerTypeConverter (short [].class, ArrayList.class, CollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (short [].class, Vector.class, CollectionHelper::newPrimitiveVector);
+    aRegistry.registerTypeConverter (short [].class, HashSet.class, CollectionHelper::newPrimitiveSet);
+    aRegistry.registerTypeConverter (short [].class, LinkedHashSet.class, CollectionHelper::newPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (short [].class, TreeSet.class, CollectionHelper::newPrimitiveSortedSet);
 
     // To array
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (boolean [].class, aSource -> {

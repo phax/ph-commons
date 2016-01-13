@@ -55,6 +55,7 @@ import static com.helger.commons.collection.CollectionHelper.newMap;
 import static com.helger.commons.collection.CollectionHelper.newObjectListFromArray;
 import static com.helger.commons.collection.CollectionHelper.newOrderedMap;
 import static com.helger.commons.collection.CollectionHelper.newOrderedSet;
+import static com.helger.commons.collection.CollectionHelper.newPrimitiveList;
 import static com.helger.commons.collection.CollectionHelper.newSet;
 import static com.helger.commons.collection.CollectionHelper.newSortedMap;
 import static com.helger.commons.collection.CollectionHelper.newSortedSet;
@@ -354,7 +355,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testNewMap_CollectionCollection ()
   {
     final List <String> aKeys = newList ("d", "c", "b", "a");
-    final List <Integer> aValues = newList (4, 3, 2, 1);
+    final List <Integer> aValues = newPrimitiveList (4, 3, 2, 1);
     try
     {
       // null keys not allowed
@@ -491,7 +492,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testNewUnmodifiableMap_CollectionCollection ()
   {
     final List <String> aKeys = newList ("d", "c", "b", "a");
-    final List <Integer> aValues = newList (4, 3, 2, 1);
+    final List <Integer> aValues = newPrimitiveList (4, 3, 2, 1);
     try
     {
       // null keys not allowed
@@ -629,7 +630,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testNewSortedMap_CollectionCollection ()
   {
     final List <String> aKeys = newList ("d", "c", "b", "a");
-    final List <Integer> aValues = newList (4, 3, 2, 1);
+    final List <Integer> aValues = newPrimitiveList (4, 3, 2, 1);
     try
     {
       // null keys not allowed
@@ -767,7 +768,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testNewUnmodifiableSortedMap_CollectionCollection ()
   {
     final List <String> aKeys = newList ("d", "c", "b", "a");
-    final List <Integer> aValues = newList (4, 3, 2, 1);
+    final List <Integer> aValues = newPrimitiveList (4, 3, 2, 1);
     try
     {
       // null keys not allowed
@@ -913,7 +914,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testNewOrderedMap_CollectionCollection ()
   {
     final List <String> aKeys = newList ("d", "c", "b", "a");
-    final List <Integer> aValues = newList (4, 3, 2, 1);
+    final List <Integer> aValues = newPrimitiveList (4, 3, 2, 1);
     try
     {
       // null keys not allowed
@@ -1060,7 +1061,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testNewUnmodifiableOrderedMap_CollectionCollection ()
   {
     final List <String> aKeys = newList ("d", "c", "b", "a");
-    final List <Integer> aValues = newList (4, 3, 2, 1);
+    final List <Integer> aValues = newPrimitiveList (4, 3, 2, 1);
     try
     {
       // null keys not allowed
@@ -3024,200 +3025,200 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testNewBooleanContainer ()
   {
     final boolean [] aEmptyArray = new boolean [0];
-    assertTrue (CollectionHelper.newList (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newVector (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableList (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newSortedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveVector (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final boolean [] aValues = new boolean [] { true, true };
-    assertEquals (2, CollectionHelper.newList (aValues).size ());
-    assertEquals (2, CollectionHelper.newVector (aValues).size ());
-    assertEquals (2, CollectionHelper.newUnmodifiableList (aValues).size ());
-    assertEquals (1, CollectionHelper.newSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newOrderedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableOrderedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newSortedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableSortedSet (aValues).size ());
+    assertEquals (2, CollectionHelper.newPrimitiveList (aValues).size ());
+    assertEquals (2, CollectionHelper.newPrimitiveVector (aValues).size ());
+    assertEquals (2, CollectionHelper.newUnmodifiablePrimitiveList (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveSortedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveSortedSet (aValues).size ());
   }
 
   @Test
   public void testNewByteContainer ()
   {
     final byte [] aEmptyArray = new byte [0];
-    assertTrue (CollectionHelper.newList (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableList (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newSortedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final byte [] aValues = new byte [] { 3, 3 };
-    assertEquals (2, CollectionHelper.newList (aValues).size ());
-    assertEquals (2, CollectionHelper.newVector (aValues).size ());
-    assertEquals (2, CollectionHelper.newUnmodifiableList (aValues).size ());
-    assertEquals (1, CollectionHelper.newSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newOrderedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableOrderedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newSortedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableSortedSet (aValues).size ());
+    assertEquals (2, CollectionHelper.newPrimitiveList (aValues).size ());
+    assertEquals (2, CollectionHelper.newPrimitiveVector (aValues).size ());
+    assertEquals (2, CollectionHelper.newUnmodifiablePrimitiveList (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveSortedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveSortedSet (aValues).size ());
   }
 
   @Test
   public void testNewCharContainer ()
   {
     final char [] aEmptyArray = new char [0];
-    assertTrue (CollectionHelper.newList (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableList (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newSortedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final char [] aValues = new char [] { 'x', 'x' };
-    assertEquals (2, CollectionHelper.newList (aValues).size ());
-    assertEquals (2, CollectionHelper.newVector (aValues).size ());
-    assertEquals (2, CollectionHelper.newUnmodifiableList (aValues).size ());
-    assertEquals (1, CollectionHelper.newSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newOrderedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableOrderedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newSortedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableSortedSet (aValues).size ());
+    assertEquals (2, CollectionHelper.newPrimitiveList (aValues).size ());
+    assertEquals (2, CollectionHelper.newPrimitiveVector (aValues).size ());
+    assertEquals (2, CollectionHelper.newUnmodifiablePrimitiveList (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveSortedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveSortedSet (aValues).size ());
   }
 
   @Test
   public void testNewDoubleContainer ()
   {
     final double [] aEmptyArray = new double [0];
-    assertTrue (CollectionHelper.newList (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableList (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newSortedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final double [] aValues = new double [] { 1.1, 1.1 };
-    assertEquals (2, CollectionHelper.newList (aValues).size ());
-    assertEquals (2, CollectionHelper.newVector (aValues).size ());
-    assertEquals (2, CollectionHelper.newUnmodifiableList (aValues).size ());
-    assertEquals (1, CollectionHelper.newSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newOrderedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableOrderedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newSortedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableSortedSet (aValues).size ());
+    assertEquals (2, CollectionHelper.newPrimitiveList (aValues).size ());
+    assertEquals (2, CollectionHelper.newPrimitiveVector (aValues).size ());
+    assertEquals (2, CollectionHelper.newUnmodifiablePrimitiveList (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveSortedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveSortedSet (aValues).size ());
   }
 
   @Test
   public void testNewFloatContainer ()
   {
     final float [] aEmptyArray = new float [0];
-    assertTrue (CollectionHelper.newList (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableList (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newSortedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final float [] aValues = new float [] { 3.2f, 3.2f };
-    assertEquals (2, CollectionHelper.newList (aValues).size ());
-    assertEquals (2, CollectionHelper.newVector (aValues).size ());
-    assertEquals (2, CollectionHelper.newUnmodifiableList (aValues).size ());
-    assertEquals (1, CollectionHelper.newSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newOrderedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableOrderedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newSortedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableSortedSet (aValues).size ());
+    assertEquals (2, CollectionHelper.newPrimitiveList (aValues).size ());
+    assertEquals (2, CollectionHelper.newPrimitiveVector (aValues).size ());
+    assertEquals (2, CollectionHelper.newUnmodifiablePrimitiveList (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveSortedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveSortedSet (aValues).size ());
   }
 
   @Test
   public void testNewIntContainer ()
   {
     final int [] aEmptyArray = new int [0];
-    assertTrue (CollectionHelper.newList (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableList (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newSortedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final int [] aValues = new int [] { 5, 5 };
-    assertEquals (2, CollectionHelper.newList (aValues).size ());
-    assertEquals (2, CollectionHelper.newVector (aValues).size ());
-    assertEquals (2, CollectionHelper.newUnmodifiableList (aValues).size ());
-    assertEquals (1, CollectionHelper.newSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newOrderedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableOrderedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newSortedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableSortedSet (aValues).size ());
+    assertEquals (2, CollectionHelper.newPrimitiveList (aValues).size ());
+    assertEquals (2, CollectionHelper.newPrimitiveVector (aValues).size ());
+    assertEquals (2, CollectionHelper.newUnmodifiablePrimitiveList (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveSortedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveSortedSet (aValues).size ());
   }
 
   @Test
   public void testNewLongContainer ()
   {
     final long [] aEmptyArray = new long [0];
-    assertTrue (CollectionHelper.newList (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableList (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newSortedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final long [] aValues = new long [] { 17, 17 };
-    assertEquals (2, CollectionHelper.newList (aValues).size ());
-    assertEquals (2, CollectionHelper.newVector (aValues).size ());
-    assertEquals (2, CollectionHelper.newUnmodifiableList (aValues).size ());
-    assertEquals (1, CollectionHelper.newSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newOrderedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableOrderedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newSortedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableSortedSet (aValues).size ());
+    assertEquals (2, CollectionHelper.newPrimitiveList (aValues).size ());
+    assertEquals (2, CollectionHelper.newPrimitiveVector (aValues).size ());
+    assertEquals (2, CollectionHelper.newUnmodifiablePrimitiveList (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveSortedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveSortedSet (aValues).size ());
   }
 
   @Test
   public void testNewShortContainer ()
   {
     final short [] aEmptyArray = new short [0];
-    assertTrue (CollectionHelper.newList (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableList (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newSortedSet (aEmptyArray).isEmpty ());
-    assertTrue (CollectionHelper.newUnmodifiableSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveList (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveOrderedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newPrimitiveSortedSet (aEmptyArray).isEmpty ());
+    assertTrue (CollectionHelper.newUnmodifiablePrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final short [] aValues = new short [] { 5, 5 };
-    assertEquals (2, CollectionHelper.newList (aValues).size ());
-    assertEquals (2, CollectionHelper.newVector (aValues).size ());
-    assertEquals (2, CollectionHelper.newUnmodifiableList (aValues).size ());
-    assertEquals (1, CollectionHelper.newSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newOrderedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableOrderedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newSortedSet (aValues).size ());
-    assertEquals (1, CollectionHelper.newUnmodifiableSortedSet (aValues).size ());
+    assertEquals (2, CollectionHelper.newPrimitiveList (aValues).size ());
+    assertEquals (2, CollectionHelper.newPrimitiveVector (aValues).size ());
+    assertEquals (2, CollectionHelper.newUnmodifiablePrimitiveList (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveOrderedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newPrimitiveSortedSet (aValues).size ());
+    assertEquals (1, CollectionHelper.newUnmodifiablePrimitiveSortedSet (aValues).size ());
   }
 }

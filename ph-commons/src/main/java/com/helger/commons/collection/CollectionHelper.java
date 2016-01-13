@@ -1015,7 +1015,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Boolean> newSet (@Nullable final boolean... aValues)
+  public static HashSet <Boolean> newPrimitiveSet (@Nullable final boolean... aValues)
   {
     final HashSet <Boolean> ret = newSet ();
     if (aValues != null)
@@ -1026,7 +1026,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Byte> newSet (@Nullable final byte... aValues)
+  public static HashSet <Byte> newPrimitiveSet (@Nullable final byte... aValues)
   {
     final HashSet <Byte> ret = newSet ();
     if (aValues != null)
@@ -1037,7 +1037,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Character> newSet (@Nullable final char... aValues)
+  public static HashSet <Character> newPrimitiveSet (@Nullable final char... aValues)
   {
     final HashSet <Character> ret = newSet ();
     if (aValues != null)
@@ -1048,7 +1048,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Double> newSet (@Nullable final double... aValues)
+  public static HashSet <Double> newPrimitiveSet (@Nullable final double... aValues)
   {
     final HashSet <Double> ret = newSet ();
     if (aValues != null)
@@ -1059,7 +1059,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Float> newSet (@Nullable final float... aValues)
+  public static HashSet <Float> newPrimitiveSet (@Nullable final float... aValues)
   {
     final HashSet <Float> ret = newSet ();
     if (aValues != null)
@@ -1070,7 +1070,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Integer> newSet (@Nullable final int... aValues)
+  public static HashSet <Integer> newPrimitiveSet (@Nullable final int... aValues)
   {
     final HashSet <Integer> ret = newSet ();
     if (aValues != null)
@@ -1081,7 +1081,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Long> newSet (@Nullable final long... aValues)
+  public static HashSet <Long> newPrimitiveSet (@Nullable final long... aValues)
   {
     final HashSet <Long> ret = newSet ();
     if (aValues != null)
@@ -1092,7 +1092,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Short> newSet (@Nullable final short... aValues)
+  public static HashSet <Short> newPrimitiveSet (@Nullable final short... aValues)
   {
     final HashSet <Short> ret = newSet ();
     if (aValues != null)
@@ -1160,58 +1160,58 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Boolean> newUnmodifiableSet (@Nullable final boolean... aValues)
+  public static Set <Boolean> newUnmodifiablePrimitiveSet (@Nullable final boolean... aValues)
   {
-    return makeUnmodifiable (newSet (aValues));
+    return makeUnmodifiable (newPrimitiveSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Byte> newUnmodifiableSet (@Nullable final byte... aValues)
+  public static Set <Byte> newUnmodifiablePrimitiveSet (@Nullable final byte... aValues)
   {
-    return makeUnmodifiable (newSet (aValues));
+    return makeUnmodifiable (newPrimitiveSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Character> newUnmodifiableSet (@Nullable final char... aValues)
+  public static Set <Character> newUnmodifiablePrimitiveSet (@Nullable final char... aValues)
   {
-    return makeUnmodifiable (newSet (aValues));
+    return makeUnmodifiable (newPrimitiveSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Double> newUnmodifiableSet (@Nullable final double... aValues)
+  public static Set <Double> newUnmodifiablePrimitiveSet (@Nullable final double... aValues)
   {
-    return makeUnmodifiable (newSet (aValues));
+    return makeUnmodifiable (newPrimitiveSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Float> newUnmodifiableSet (@Nullable final float... aValues)
+  public static Set <Float> newUnmodifiablePrimitiveSet (@Nullable final float... aValues)
   {
-    return makeUnmodifiable (newSet (aValues));
+    return makeUnmodifiable (newPrimitiveSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Integer> newUnmodifiableSet (@Nullable final int... aValues)
+  public static Set <Integer> newUnmodifiablePrimitiveSet (@Nullable final int... aValues)
   {
-    return makeUnmodifiable (newSet (aValues));
+    return makeUnmodifiable (newPrimitiveSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Long> newUnmodifiableSet (@Nullable final long... aValues)
+  public static Set <Long> newUnmodifiablePrimitiveSet (@Nullable final long... aValues)
   {
-    return makeUnmodifiable (newSet (aValues));
+    return makeUnmodifiable (newPrimitiveSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Short> newUnmodifiableSet (@Nullable final short... aValues)
+  public static Set <Short> newUnmodifiablePrimitiveSet (@Nullable final short... aValues)
   {
-    return makeUnmodifiable (newSet (aValues));
+    return makeUnmodifiable (newPrimitiveSet (aValues));
   }
 
   @Nonnull
@@ -1296,7 +1296,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Boolean> newSortedSet (@Nullable final boolean... aValues)
+  public static TreeSet <Boolean> newPrimitiveSortedSet (@Nullable final boolean... aValues)
   {
     final TreeSet <Boolean> ret = newSortedSet ();
     if (aValues != null)
@@ -1307,7 +1307,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Byte> newSortedSet (@Nullable final byte... aValues)
+  public static TreeSet <Byte> newPrimitiveSortedSet (@Nullable final byte... aValues)
   {
     final TreeSet <Byte> ret = newSortedSet ();
     if (aValues != null)
@@ -1318,7 +1318,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Character> newSortedSet (@Nullable final char... aValues)
+  public static TreeSet <Character> newPrimitiveSortedSet (@Nullable final char... aValues)
   {
     final TreeSet <Character> ret = newSortedSet ();
     if (aValues != null)
@@ -1329,7 +1329,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Double> newSortedSet (@Nullable final double... aValues)
+  public static TreeSet <Double> newPrimitiveSortedSet (@Nullable final double... aValues)
   {
     final TreeSet <Double> ret = newSortedSet ();
     if (aValues != null)
@@ -1340,7 +1340,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Float> newSortedSet (@Nullable final float... aValues)
+  public static TreeSet <Float> newPrimitiveSortedSet (@Nullable final float... aValues)
   {
     final TreeSet <Float> ret = newSortedSet ();
     if (aValues != null)
@@ -1351,7 +1351,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Integer> newSortedSet (@Nullable final int... aValues)
+  public static TreeSet <Integer> newPrimitiveSortedSet (@Nullable final int... aValues)
   {
     final TreeSet <Integer> ret = newSortedSet ();
     if (aValues != null)
@@ -1362,7 +1362,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Long> newSortedSet (@Nullable final long... aValues)
+  public static TreeSet <Long> newPrimitiveSortedSet (@Nullable final long... aValues)
   {
     final TreeSet <Long> ret = newSortedSet ();
     if (aValues != null)
@@ -1373,7 +1373,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Short> newSortedSet (@Nullable final short... aValues)
+  public static TreeSet <Short> newPrimitiveSortedSet (@Nullable final short... aValues)
   {
     final TreeSet <Short> ret = newSortedSet ();
     if (aValues != null)
@@ -1441,58 +1441,58 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
-  public static SortedSet <Boolean> newUnmodifiableSortedSet (@Nullable final boolean... aValues)
+  public static SortedSet <Boolean> newUnmodifiablePrimitiveSortedSet (@Nullable final boolean... aValues)
   {
-    return makeUnmodifiable (newSortedSet (aValues));
+    return makeUnmodifiable (newPrimitiveSortedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static SortedSet <Byte> newUnmodifiableSortedSet (@Nullable final byte... aValues)
+  public static SortedSet <Byte> newUnmodifiablePrimitiveSortedSet (@Nullable final byte... aValues)
   {
-    return makeUnmodifiable (newSortedSet (aValues));
+    return makeUnmodifiable (newPrimitiveSortedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static SortedSet <Character> newUnmodifiableSortedSet (@Nullable final char... aValues)
+  public static SortedSet <Character> newUnmodifiablePrimitiveSortedSet (@Nullable final char... aValues)
   {
-    return makeUnmodifiable (newSortedSet (aValues));
+    return makeUnmodifiable (newPrimitiveSortedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static SortedSet <Double> newUnmodifiableSortedSet (@Nullable final double... aValues)
+  public static SortedSet <Double> newUnmodifiablePrimitiveSortedSet (@Nullable final double... aValues)
   {
-    return makeUnmodifiable (newSortedSet (aValues));
+    return makeUnmodifiable (newPrimitiveSortedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static SortedSet <Float> newUnmodifiableSortedSet (@Nullable final float... aValues)
+  public static SortedSet <Float> newUnmodifiablePrimitiveSortedSet (@Nullable final float... aValues)
   {
-    return makeUnmodifiable (newSortedSet (aValues));
+    return makeUnmodifiable (newPrimitiveSortedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static SortedSet <Integer> newUnmodifiableSortedSet (@Nullable final int... aValues)
+  public static SortedSet <Integer> newUnmodifiablePrimitiveSortedSet (@Nullable final int... aValues)
   {
-    return makeUnmodifiable (newSortedSet (aValues));
+    return makeUnmodifiable (newPrimitiveSortedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static SortedSet <Long> newUnmodifiableSortedSet (@Nullable final long... aValues)
+  public static SortedSet <Long> newUnmodifiablePrimitiveSortedSet (@Nullable final long... aValues)
   {
-    return makeUnmodifiable (newSortedSet (aValues));
+    return makeUnmodifiable (newPrimitiveSortedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static SortedSet <Short> newUnmodifiableSortedSet (@Nullable final short... aValues)
+  public static SortedSet <Short> newUnmodifiablePrimitiveSortedSet (@Nullable final short... aValues)
   {
-    return makeUnmodifiable (newSortedSet (aValues));
+    return makeUnmodifiable (newPrimitiveSortedSet (aValues));
   }
 
   @Nonnull
@@ -1585,7 +1585,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Boolean> newOrderedSet (@Nullable final boolean... aValues)
+  public static LinkedHashSet <Boolean> newPrimitiveOrderedSet (@Nullable final boolean... aValues)
   {
     final LinkedHashSet <Boolean> ret = newOrderedSet ();
     if (aValues != null)
@@ -1596,7 +1596,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Byte> newOrderedSet (@Nullable final byte... aValues)
+  public static LinkedHashSet <Byte> newPrimitiveOrderedSet (@Nullable final byte... aValues)
   {
     final LinkedHashSet <Byte> ret = newOrderedSet ();
     if (aValues != null)
@@ -1607,7 +1607,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Character> newOrderedSet (@Nullable final char... aValues)
+  public static LinkedHashSet <Character> newPrimitiveOrderedSet (@Nullable final char... aValues)
   {
     final LinkedHashSet <Character> ret = newOrderedSet ();
     if (aValues != null)
@@ -1618,7 +1618,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Double> newOrderedSet (@Nullable final double... aValues)
+  public static LinkedHashSet <Double> newPrimitiveOrderedSet (@Nullable final double... aValues)
   {
     final LinkedHashSet <Double> ret = new LinkedHashSet <Double> ();
     if (aValues != null)
@@ -1629,7 +1629,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Float> newOrderedSet (@Nullable final float... aValues)
+  public static LinkedHashSet <Float> newPrimitiveOrderedSet (@Nullable final float... aValues)
   {
     final LinkedHashSet <Float> ret = newOrderedSet ();
     if (aValues != null)
@@ -1640,7 +1640,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Integer> newOrderedSet (@Nullable final int... aValues)
+  public static LinkedHashSet <Integer> newPrimitiveOrderedSet (@Nullable final int... aValues)
   {
     final LinkedHashSet <Integer> ret = newOrderedSet ();
     if (aValues != null)
@@ -1651,7 +1651,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Long> newOrderedSet (@Nullable final long... aValues)
+  public static LinkedHashSet <Long> newPrimitiveOrderedSet (@Nullable final long... aValues)
   {
     final LinkedHashSet <Long> ret = newOrderedSet ();
     if (aValues != null)
@@ -1662,7 +1662,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Short> newOrderedSet (@Nullable final short... aValues)
+  public static LinkedHashSet <Short> newPrimitiveOrderedSet (@Nullable final short... aValues)
   {
     final LinkedHashSet <Short> ret = newOrderedSet ();
     if (aValues != null)
@@ -1730,58 +1730,58 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Boolean> newUnmodifiableOrderedSet (@Nullable final boolean... aValues)
+  public static Set <Boolean> newUnmodifiablePrimitiveOrderedSet (@Nullable final boolean... aValues)
   {
-    return makeUnmodifiable (newOrderedSet (aValues));
+    return makeUnmodifiable (newPrimitiveOrderedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Byte> newUnmodifiableOrderedSet (@Nullable final byte... aValues)
+  public static Set <Byte> newUnmodifiablePrimitiveOrderedSet (@Nullable final byte... aValues)
   {
-    return makeUnmodifiable (newOrderedSet (aValues));
+    return makeUnmodifiable (newPrimitiveOrderedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Character> newUnmodifiableOrderedSet (@Nullable final char... aValues)
+  public static Set <Character> newUnmodifiablePrimitiveOrderedSet (@Nullable final char... aValues)
   {
-    return makeUnmodifiable (newOrderedSet (aValues));
+    return makeUnmodifiable (newPrimitiveOrderedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Double> newUnmodifiableOrderedSet (@Nullable final double... aValues)
+  public static Set <Double> newUnmodifiablePrimitiveOrderedSet (@Nullable final double... aValues)
   {
-    return makeUnmodifiable (newOrderedSet (aValues));
+    return makeUnmodifiable (newPrimitiveOrderedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Float> newUnmodifiableOrderedSet (@Nullable final float... aValues)
+  public static Set <Float> newUnmodifiablePrimitiveOrderedSet (@Nullable final float... aValues)
   {
-    return makeUnmodifiable (newOrderedSet (aValues));
+    return makeUnmodifiable (newPrimitiveOrderedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Integer> newUnmodifiableOrderedSet (@Nullable final int... aValues)
+  public static Set <Integer> newUnmodifiablePrimitiveOrderedSet (@Nullable final int... aValues)
   {
-    return makeUnmodifiable (newOrderedSet (aValues));
+    return makeUnmodifiable (newPrimitiveOrderedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Long> newUnmodifiableOrderedSet (@Nullable final long... aValues)
+  public static Set <Long> newUnmodifiablePrimitiveOrderedSet (@Nullable final long... aValues)
   {
-    return makeUnmodifiable (newOrderedSet (aValues));
+    return makeUnmodifiable (newPrimitiveOrderedSet (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static Set <Short> newUnmodifiableOrderedSet (@Nullable final short... aValues)
+  public static Set <Short> newUnmodifiablePrimitiveOrderedSet (@Nullable final short... aValues)
   {
-    return makeUnmodifiable (newOrderedSet (aValues));
+    return makeUnmodifiable (newPrimitiveOrderedSet (aValues));
   }
 
   @Nonnull
@@ -1899,7 +1899,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Boolean> newList (@Nullable final boolean... aValues)
+  public static ArrayList <Boolean> newPrimitiveList (@Nullable final boolean... aValues)
   {
     final ArrayList <Boolean> ret = newList ();
     if (aValues != null)
@@ -1910,7 +1910,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Byte> newList (@Nullable final byte... aValues)
+  public static ArrayList <Byte> newPrimitiveList (@Nullable final byte... aValues)
   {
     final ArrayList <Byte> ret = newList ();
     if (aValues != null)
@@ -1921,7 +1921,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Character> newList (@Nullable final char... aValues)
+  public static ArrayList <Character> newPrimitiveList (@Nullable final char... aValues)
   {
     final ArrayList <Character> ret = newList ();
     if (aValues != null)
@@ -1932,7 +1932,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Double> newList (@Nullable final double... aValues)
+  public static ArrayList <Double> newPrimitiveList (@Nullable final double... aValues)
   {
     final ArrayList <Double> ret = newList ();
     if (aValues != null)
@@ -1943,7 +1943,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Float> newList (@Nullable final float... aValues)
+  public static ArrayList <Float> newPrimitiveList (@Nullable final float... aValues)
   {
     final ArrayList <Float> ret = newList ();
     if (aValues != null)
@@ -1954,7 +1954,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Integer> newList (@Nullable final int... aValues)
+  public static ArrayList <Integer> newPrimitiveList (@Nullable final int... aValues)
   {
     final ArrayList <Integer> ret = newList ();
     if (aValues != null)
@@ -1965,7 +1965,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Long> newList (@Nullable final long... aValues)
+  public static ArrayList <Long> newPrimitiveList (@Nullable final long... aValues)
   {
     final ArrayList <Long> ret = newList ();
     if (aValues != null)
@@ -1976,7 +1976,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Short> newList (@Nullable final short... aValues)
+  public static ArrayList <Short> newPrimitiveList (@Nullable final short... aValues)
   {
     final ArrayList <Short> ret = newList ();
     if (aValues != null)
@@ -2100,7 +2100,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Vector <Boolean> newVector (@Nullable final boolean... aValues)
+  public static Vector <Boolean> newPrimitiveVector (@Nullable final boolean... aValues)
   {
     final Vector <Boolean> ret = newVector ();
     if (aValues != null)
@@ -2111,7 +2111,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Vector <Byte> newVector (@Nullable final byte... aValues)
+  public static Vector <Byte> newPrimitiveVector (@Nullable final byte... aValues)
   {
     final Vector <Byte> ret = newVector ();
     if (aValues != null)
@@ -2122,7 +2122,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Vector <Character> newVector (@Nullable final char... aValues)
+  public static Vector <Character> newPrimitiveVector (@Nullable final char... aValues)
   {
     final Vector <Character> ret = newVector ();
     if (aValues != null)
@@ -2133,7 +2133,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Vector <Double> newVector (@Nullable final double... aValues)
+  public static Vector <Double> newPrimitiveVector (@Nullable final double... aValues)
   {
     final Vector <Double> ret = newVector ();
     if (aValues != null)
@@ -2144,7 +2144,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Vector <Float> newVector (@Nullable final float... aValues)
+  public static Vector <Float> newPrimitiveVector (@Nullable final float... aValues)
   {
     final Vector <Float> ret = newVector ();
     if (aValues != null)
@@ -2155,7 +2155,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Vector <Integer> newVector (@Nullable final int... aValues)
+  public static Vector <Integer> newPrimitiveVector (@Nullable final int... aValues)
   {
     final Vector <Integer> ret = newVector ();
     if (aValues != null)
@@ -2166,7 +2166,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Vector <Long> newVector (@Nullable final long... aValues)
+  public static Vector <Long> newPrimitiveVector (@Nullable final long... aValues)
   {
     final Vector <Long> ret = newVector ();
     if (aValues != null)
@@ -2177,7 +2177,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Vector <Short> newVector (@Nullable final short... aValues)
+  public static Vector <Short> newPrimitiveVector (@Nullable final short... aValues)
   {
     final Vector <Short> ret = newVector ();
     if (aValues != null)
@@ -2245,58 +2245,58 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
-  public static List <Boolean> newUnmodifiableList (@Nullable final boolean... aValues)
+  public static List <Boolean> newUnmodifiablePrimitiveList (@Nullable final boolean... aValues)
   {
-    return makeUnmodifiable (newList (aValues));
+    return makeUnmodifiable (newPrimitiveList (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static List <Byte> newUnmodifiableList (@Nullable final byte... aValues)
+  public static List <Byte> newUnmodifiablePrimitiveList (@Nullable final byte... aValues)
   {
-    return makeUnmodifiable (newList (aValues));
+    return makeUnmodifiable (newPrimitiveList (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static List <Character> newUnmodifiableList (@Nullable final char... aValues)
+  public static List <Character> newUnmodifiablePrimitiveList (@Nullable final char... aValues)
   {
-    return makeUnmodifiable (newList (aValues));
+    return makeUnmodifiable (newPrimitiveList (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static List <Double> newUnmodifiableList (@Nullable final double... aValues)
+  public static List <Double> newUnmodifiablePrimitiveList (@Nullable final double... aValues)
   {
-    return makeUnmodifiable (newList (aValues));
+    return makeUnmodifiable (newPrimitiveList (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static List <Float> newUnmodifiableList (@Nullable final float... aValues)
+  public static List <Float> newUnmodifiablePrimitiveList (@Nullable final float... aValues)
   {
-    return makeUnmodifiable (newList (aValues));
+    return makeUnmodifiable (newPrimitiveList (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static List <Integer> newUnmodifiableList (@Nullable final int... aValues)
+  public static List <Integer> newUnmodifiablePrimitiveList (@Nullable final int... aValues)
   {
-    return makeUnmodifiable (newList (aValues));
+    return makeUnmodifiable (newPrimitiveList (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static List <Long> newUnmodifiableList (@Nullable final long... aValues)
+  public static List <Long> newUnmodifiablePrimitiveList (@Nullable final long... aValues)
   {
-    return makeUnmodifiable (newList (aValues));
+    return makeUnmodifiable (newPrimitiveList (aValues));
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static List <Short> newUnmodifiableList (@Nullable final short... aValues)
+  public static List <Short> newUnmodifiablePrimitiveList (@Nullable final short... aValues)
   {
-    return makeUnmodifiable (newList (aValues));
+    return makeUnmodifiable (newPrimitiveList (aValues));
   }
 
   @Nonnull
