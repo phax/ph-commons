@@ -17,8 +17,11 @@
 package com.helger.commons.typeconvert;
 
 import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
@@ -43,7 +46,7 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
                                      aSource -> Long.toString (aSource.getTimeInMillis ()));
     aRegistry.registerTypeConverter (Calendar.class, Long.class, aSource -> Long.valueOf (aSource.getTimeInMillis ()));
     aRegistry.registerTypeConverter (Calendar.class, Date.class, Calendar::getTime);
-    aRegistry.registerTypeConverter (Calendar.class, Instant.class, aSource -> aSource.toInstant ());
+    aRegistry.registerTypeConverter (Calendar.class, Instant.class, Calendar::toInstant);
     aRegistry.registerTypeConverter (String.class, Calendar.class, aSource -> {
       final Calendar aCal = Calendar.getInstance ();
       aCal.setTimeInMillis (StringParser.parseLong (aSource, 0));
@@ -54,6 +57,12 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
       aCal.setTimeInMillis (aSource.longValue ());
       return aCal;
     });
+
+    // Destination: GregorianCalendar
+    aRegistry.registerTypeConverter (OffsetDateTime.class,
+                                     GregorianCalendar.class,
+                                     aSource -> GregorianCalendar.from (aSource.toZonedDateTime ()));
+    aRegistry.registerTypeConverter (ZonedDateTime.class, GregorianCalendar.class, GregorianCalendar::from);
 
     // Source: Date
     aRegistry.registerTypeConverter (Date.class, Calendar.class, aSource -> {
