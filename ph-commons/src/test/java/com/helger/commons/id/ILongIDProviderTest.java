@@ -21,16 +21,16 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Test class for class {@link IIDProvider}.
+ * Test class for class {@link ILongIDProvider}.
  *
  * @author Philip Helger
  */
-public final class IDProviderFromHasIDTest
+public final class ILongIDProviderTest
 {
   @Test
   public void testAll ()
   {
-    final IIDProvider <MockHasIDString, String> x = IIDProvider.createHasID ();
-    assertEquals ("success", x.getID (new MockHasIDString ("success")));
+    final ILongIDProvider <MockHasLongID> x = ILongIDProvider.createHasLongID ();
+    assertEquals (5L, x.getID (new MockHasLongID (5L)));
   }
 }

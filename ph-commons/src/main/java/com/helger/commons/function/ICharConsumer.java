@@ -34,7 +34,7 @@ import javax.annotation.Nonnull;
  * @since 1.8
  */
 @FunctionalInterface
-public interface CharConsumer
+public interface ICharConsumer
 {
   /**
    * Performs this operation on the given argument.
@@ -58,7 +58,7 @@ public interface CharConsumer
    * @throws NullPointerException
    *         if {@code after} is null
    */
-  default CharConsumer andThen (@Nonnull final CharConsumer after)
+  default ICharConsumer andThen (@Nonnull final ICharConsumer after)
   {
     Objects.requireNonNull (after);
     return (final char t) -> {

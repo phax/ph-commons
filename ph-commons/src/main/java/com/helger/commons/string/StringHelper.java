@@ -48,7 +48,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.function.CharConsumer;
+import com.helger.commons.function.ICharConsumer;
 import com.helger.commons.math.MathHelper;
 
 /**
@@ -4093,7 +4093,7 @@ public final class StringHelper
    * @param aConsumer
    *        The consumer to be used. May not be <code>null</code>.
    */
-  public static void iterateChars (@Nullable final String sInputString, @Nonnull final CharConsumer aConsumer)
+  public static void iterateChars (@Nullable final String sInputString, @Nonnull final ICharConsumer aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
 

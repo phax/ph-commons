@@ -34,7 +34,7 @@ import com.helger.commons.collection.CollectionHelper;
  *
  * @author Philip Helger
  */
-public final class AbstractCollatingComparatorTest
+public final class CollatingPartComparatorTest
 {
   @NotThreadSafe
   private static final class MockCollatingComparatorString extends CollatingPartComparator <String>

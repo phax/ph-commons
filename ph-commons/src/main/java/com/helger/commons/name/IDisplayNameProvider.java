@@ -29,6 +29,7 @@ import javax.annotation.Nullable;
  * @param <DATATYPE>
  *        The data type to retrieve the display name from
  */
+@FunctionalInterface
 public interface IDisplayNameProvider <DATATYPE> extends Serializable
 {
   /**

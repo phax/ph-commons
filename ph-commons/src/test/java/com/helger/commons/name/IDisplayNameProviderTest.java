@@ -14,28 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.aggregate;
+package com.helger.commons.name;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-
-import java.util.ArrayList;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
-
 /**
- * Test class for class {@link IAggregator}.
+ * Test class for class {@link IDisplayNameProvider}.
  *
  * @author Philip Helger
  */
-public final class AggregatorAlwaysNullTest
+public final class IDisplayNameProviderTest
 {
   @Test
   public void testAll ()
   {
-    final IAggregator <String, String> a1 = IAggregator.<String, String> createNull ();
-    assertNull (a1.aggregate (CollectionHelper.newList ("a", "b")));
-    assertNull (a1.aggregate (new ArrayList <String> ()));
+    final IDisplayNameProvider <IHasDisplayName> aDNPFHDN = IDisplayNameProvider.createHasDisplayName ();
+    assertEquals ("any", aDNPFHDN.getDisplayName (new MockHasDisplayName ("any")));
+    assertNull (aDNPFHDN.getDisplayName (null));
   }
 }

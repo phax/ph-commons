@@ -14,25 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.name;
+package com.helger.commons.id;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
 /**
- * Test class for class {@link INameProvider}.
+ * Test class for class {@link IIntIDProvider}.
  *
  * @author Philip Helger
  */
-public final class NameProviderFromHasNameTest
+public final class IIntIDProviderTest
 {
   @Test
   public void testAll ()
   {
-    final INameProvider <IHasName> aDNPFHDN = INameProvider.createHasName ();
-    assertEquals ("any", aDNPFHDN.getName (new MockHasName ("any")));
-    assertNull (aDNPFHDN.getName (null));
+    final IIntIDProvider <MockHasIntID> x = IIntIDProvider.createHasIntID ();
+    assertEquals (-3, x.getID (new MockHasIntID (-3)));
   }
 }

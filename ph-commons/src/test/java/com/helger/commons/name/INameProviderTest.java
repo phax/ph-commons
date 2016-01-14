@@ -14,27 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.text.display;
+package com.helger.commons.name;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
-
 /**
- * Test class for class {@link IDisplayTextProvider}.
+ * Test class for class {@link INameProvider}.
  *
  * @author Philip Helger
  */
-public final class DisplayTextProviderFromHasDisplayTextTest extends AbstractCommonsTestCase
+public final class INameProviderTest
 {
   @Test
   public void testAll ()
   {
-    final IDisplayTextProvider <IHasDisplayText> aDNPFHDN = IDisplayTextProvider.createHasDisplayText ();
-    assertEquals ("de1", aDNPFHDN.getDisplayText (MockHasDisplayText.createDE_EN ("de1", "en1"), L_DE));
-    assertNull (aDNPFHDN.getDisplayText (null, L_DE));
+    final INameProvider <IHasName> aDNPFHDN = INameProvider.createHasName ();
+    assertEquals ("any", aDNPFHDN.getName (new MockHasName ("any")));
+    assertNull (aDNPFHDN.getName (null));
   }
 }

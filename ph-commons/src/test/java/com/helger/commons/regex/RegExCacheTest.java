@@ -35,7 +35,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-public final class RegExPoolTest extends AbstractCommonsTestCase
+public final class RegExCacheTest extends AbstractCommonsTestCase
 {
   /**
    * Test method getPattern

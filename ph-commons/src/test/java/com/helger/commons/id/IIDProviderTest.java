@@ -14,28 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.aggregate;
+package com.helger.commons.id;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
-
 /**
- * Test class for class {@link IAggregator}.
+ * Test class for class {@link IIDProvider}.
  *
  * @author Philip Helger
  */
-public final class AggregatorConstantTest
+public final class IIDProviderTest
 {
   @Test
   public void testAll ()
   {
-    final IAggregator <String, String> a1 = IAggregator.createConstant ("foo");
-    assertEquals ("foo", a1.aggregate (CollectionHelper.newList ("a", "b")));
-    assertEquals ("foo", a1.aggregate (new ArrayList <String> ()));
+    final IIDProvider <MockHasIDString, String> x = IIDProvider.createHasID ();
+    assertEquals ("success", x.getID (new MockHasIDString ("success")));
   }
 }

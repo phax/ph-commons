@@ -32,7 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <DST>
  *        Destination type
  */
-public final class TypeConverterRuleAnySourceFixedDestination <DST> extends AbstractTypeConverterRule <Object, DST>
+public class TypeConverterRuleAnySourceFixedDestination <DST> extends AbstractTypeConverterRule <Object, DST>
 {
   private final Class <DST> m_aDstClass;
   private final Function <Object, DST> m_aConverter;

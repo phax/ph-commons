@@ -28,6 +28,7 @@ import javax.annotation.Nullable;
  * @param <DATATYPE>
  *        The data type to retrieve the name from
  */
+@FunctionalInterface
 public interface INameProvider <DATATYPE> extends Serializable
 {
   /**

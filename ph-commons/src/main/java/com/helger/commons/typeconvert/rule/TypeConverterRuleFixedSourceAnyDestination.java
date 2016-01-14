@@ -32,7 +32,7 @@ import com.helger.commons.typeconvert.TypeConverter;
  * @param <SRC>
  *        Source type
  */
-public final class TypeConverterRuleFixedSourceAnyDestination <SRC> extends AbstractTypeConverterRule <SRC, Object>
+public class TypeConverterRuleFixedSourceAnyDestination <SRC> extends AbstractTypeConverterRule <SRC, Object>
 {
   private final Class <SRC> m_aSrcClass;
   private Class <?> m_aEffectiveDstClass;

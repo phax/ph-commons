@@ -14,23 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.id;
+package com.helger.commons.text.display;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
+import com.helger.commons.mock.AbstractCommonsTestCase;
+
 /**
- * Test class for class {@link ILongIDProvider}.
+ * Test class for class {@link IDisplayTextProvider}.
  *
  * @author Philip Helger
  */
-public final class LongIDProviderFromHasLongIDTest
+public final class IDisplayTextProviderTest extends AbstractCommonsTestCase
 {
   @Test
   public void testAll ()
   {
-    final ILongIDProvider <MockHasLongID> x = ILongIDProvider.createHasLongID ();
-    assertEquals (5L, x.getID (new MockHasLongID (5L)));
+    final IDisplayTextProvider <IHasDisplayText> aDNPFHDN = IDisplayTextProvider.createHasDisplayText ();
+    assertEquals ("de1", aDNPFHDN.getDisplayText (MockHasDisplayText.createDE_EN ("de1", "en1"), L_DE));
+    assertNull (aDNPFHDN.getDisplayText (null, L_DE));
   }
 }
