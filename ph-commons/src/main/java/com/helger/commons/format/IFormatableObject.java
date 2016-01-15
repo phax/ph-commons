@@ -24,8 +24,10 @@ import com.helger.commons.lang.IHasStringRepresentation;
  * Basic interface for special objects having a certain string representation.
  *
  * @author Philip Helger
+ * @param <DATATYPE>
+ *        Data type to be formatted
  */
-public interface IFormatableObject extends IHasStringRepresentation
+public interface IFormatableObject <DATATYPE> extends IHasStringRepresentation
 {
   /**
    * Get the original value.
@@ -33,14 +35,14 @@ public interface IFormatableObject extends IHasStringRepresentation
    * @return The unformatted value. May be <code>null</code>.
    */
   @Nullable
-  Object getValue ();
+  DATATYPE getValue ();
 
   /**
    * @return The formatter to be used for formatting this object. Never
    *         <code>null</code>.
    */
   @Nullable
-  IFormatter getFormatter ();
+  IFormatter <DATATYPE> getFormatter ();
 
   /**
    * Get the value converted to a string with the specified formatter.

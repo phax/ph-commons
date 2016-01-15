@@ -28,15 +28,17 @@ import com.helger.commons.string.ToStringGenerator;
  * This class represents a single object with an additional formatter.
  *
  * @author Philip Helger
+ * @param <DATATYPE>
+ *        Data type to be formatted
  */
 @NotThreadSafe
-public class FormatableObject implements IFormatableObject
+public class FormatableObject <DATATYPE> implements IFormatableObject <DATATYPE>
 {
   /** The current value. Maybe <code>null</code>. */
-  private final Object m_aValue;
+  private final DATATYPE m_aValue;
 
   /** The optional formatter to use. */
-  private final IFormatter m_aFormatter;
+  private final IFormatter <DATATYPE> m_aFormatter;
 
   /**
    * Init the field with a value.
@@ -46,7 +48,7 @@ public class FormatableObject implements IFormatableObject
    * @param aFormatter
    *        The optional formatter to use. May be <code>null</code>.
    */
-  public FormatableObject (@Nullable final Object aValue, @Nullable final IFormatter aFormatter)
+  public FormatableObject (@Nullable final DATATYPE aValue, @Nullable final IFormatter <DATATYPE> aFormatter)
   {
     m_aValue = aValue;
     m_aFormatter = aFormatter;
@@ -60,19 +62,19 @@ public class FormatableObject implements IFormatableObject
    * @param aFormatterProvider
    *        The formatter provider to use. May not be <code>null</code>.
    */
-  public FormatableObject (@Nullable final Object aValue, @Nonnull final IHasFormatter aFormatterProvider)
+  public FormatableObject (@Nullable final DATATYPE aValue, @Nonnull final IHasFormatter <DATATYPE> aFormatterProvider)
   {
     this (aValue, aFormatterProvider.getFormatter ());
   }
 
   @Nullable
-  public Object getValue ()
+  public DATATYPE getValue ()
   {
     return m_aValue;
   }
 
   @Nullable
-  public IFormatter getFormatter ()
+  public IFormatter <DATATYPE> getFormatter ()
   {
     return m_aFormatter;
   }
@@ -90,7 +92,7 @@ public class FormatableObject implements IFormatableObject
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final FormatableObject rhs = (FormatableObject) o;
+    final FormatableObject <?> rhs = (FormatableObject <?>) o;
     return EqualsHelper.equals (m_aValue, rhs.m_aValue) && EqualsHelper.equals (m_aFormatter, rhs.m_aFormatter);
   }
 

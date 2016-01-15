@@ -29,7 +29,7 @@ import com.helger.commons.typeconvert.TypeConverter;
  *
  * @author Philip Helger
  */
-public abstract class AbstractFormatterString implements IFormatter
+public abstract class AbstractFormatterString implements IFormatter <Object>
 {
   /**
    * Default constructor

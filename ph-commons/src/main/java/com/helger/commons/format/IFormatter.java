@@ -28,9 +28,11 @@ import javax.annotation.Nullable;
  * a string.
  *
  * @author Philip Helger
+ * @param <DATATYPE>
+ *        Source data type
  */
 @FunctionalInterface
-public interface IFormatter extends Serializable, Function <Object, String>
+public interface IFormatter <DATATYPE> extends Serializable, Function <DATATYPE, String>
 {
   /**
    * Convert the passed value to a formatted string according to the pattern.
@@ -42,17 +44,11 @@ public interface IFormatter extends Serializable, Function <Object, String>
    *         if the formatter does not understand the object
    */
   @Nonnull
-  String apply (@Nullable Object aValue);
+  String apply (@Nullable DATATYPE aValue);
 
-  default IFormatter compose (final IFormatter before)
-  {
-    Objects.requireNonNull (before);
-    return v -> apply (before.apply (v));
-  }
-
-  default IFormatter andThen (final IFormatter after)
+  default IFormatter <DATATYPE> andThen (final IFormatter <? super String> after)
   {
     Objects.requireNonNull (after);
-    return t -> after.apply (apply (t));
+    return (final DATATYPE t) -> after.apply (apply (t));
   }
 }

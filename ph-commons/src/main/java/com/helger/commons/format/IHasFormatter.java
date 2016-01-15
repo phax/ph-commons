@@ -23,9 +23,11 @@ import javax.annotation.Nonnull;
  * formatted using an {@link IFormatter} object.
  *
  * @author Philip Helger
+ * @param <DATATYPE>
+ *        Data type to be formatted
  */
 @FunctionalInterface
-public interface IHasFormatter
+public interface IHasFormatter <DATATYPE>
 {
   /**
    * Get the required formatting object to handle values of this context. This
@@ -34,5 +36,5 @@ public interface IHasFormatter
    * @return The formatting object. Never <code>null</code>.
    */
   @Nonnull
-  IFormatter getFormatter ();
+  IFormatter <DATATYPE> getFormatter ();
 }
