@@ -43,7 +43,7 @@ public interface IAggregator <SRCTYPE, DSTTYPE>
    * @return The aggregated object. May be <code>null</code>.
    */
   @Nullable
-  DSTTYPE aggregate (@Nonnull Collection <SRCTYPE> aObjects);
+  DSTTYPE aggregate (@Nullable Collection <SRCTYPE> aObjects);
 
   /**
    * Aggregate a collection of input objects to a single output object.
