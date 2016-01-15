@@ -16,6 +16,7 @@
  */
 package com.helger.commons.convert;
 
+import java.io.Serializable;
 import java.util.function.Function;
 
 /**
@@ -28,7 +29,7 @@ import java.util.function.Function;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IConverter <SRCTYPE, DSTTYPE> extends Function <SRCTYPE, DSTTYPE>
+public interface IConverter <SRCTYPE, DSTTYPE> extends Function <SRCTYPE, DSTTYPE>, Serializable
 {
   /* empty */
 }
