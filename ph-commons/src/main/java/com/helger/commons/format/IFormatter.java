@@ -17,6 +17,8 @@
 package com.helger.commons.format;
 
 import java.io.Serializable;
+import java.util.Objects;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,7 +30,7 @@ import javax.annotation.Nullable;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IFormatter extends Serializable
+public interface IFormatter extends Serializable, Function <Object, String>
 {
   /**
    * Convert the passed value to a formatted string according to the pattern.
@@ -40,5 +42,17 @@ public interface IFormatter extends Serializable
    *         if the formatter does not understand the object
    */
   @Nonnull
-  String getFormattedValue (@Nullable Object aValue);
+  String apply (@Nullable Object aValue);
+
+  default IFormatter compose (final IFormatter before)
+  {
+    Objects.requireNonNull (before);
+    return v -> apply (before.apply (v));
+  }
+
+  default IFormatter andThen (final IFormatter after)
+  {
+    Objects.requireNonNull (after);
+    return t -> after.apply (apply (t));
+  }
 }

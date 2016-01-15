@@ -33,10 +33,10 @@ public final class FormatterStringSkipPrefixAndSuffixTest
   public void testAll ()
   {
     final FormatterStringSkipPrefixAndSuffix fp = new FormatterStringSkipPrefixAndSuffix ("a", "o");
-    assertEquals ("bc", fp.getFormattedValue ("abco"));
-    assertEquals ("bc", fp.getFormattedValue ("abc"));
-    assertEquals ("bc", fp.getFormattedValue ("bco"));
-    assertEquals ("bc", fp.getFormattedValue ("bc"));
+    assertEquals ("bc", fp.apply ("abco"));
+    assertEquals ("bc", fp.apply ("abc"));
+    assertEquals ("bc", fp.apply ("bco"));
+    assertEquals ("bc", fp.apply ("bc"));
     CommonsTestHelper.testToStringImplementation (fp);
   }
 }

@@ -17,7 +17,6 @@
 package com.helger.commons.format;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * A formatter that skips a prefix from a string.
@@ -29,10 +28,5 @@ public class FormatterStringSkipPrefix extends FormatterStringSkipPrefixAndSuffi
   public FormatterStringSkipPrefix (@Nonnull final String sPrefix)
   {
     super (sPrefix, "");
-  }
-
-  public FormatterStringSkipPrefix (@Nullable final IFormatter aPrevFormatter, @Nonnull final String sPrefix)
-  {
-    super (aPrevFormatter, sPrefix, "");
   }
 }

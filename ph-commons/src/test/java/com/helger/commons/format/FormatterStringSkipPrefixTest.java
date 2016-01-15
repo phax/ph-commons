@@ -33,10 +33,10 @@ public final class FormatterStringSkipPrefixTest
   public void testAll ()
   {
     final FormatterStringSkipPrefix fp = new FormatterStringSkipPrefix ("a");
-    assertEquals ("bco", fp.getFormattedValue ("abco"));
-    assertEquals ("bc", fp.getFormattedValue ("abc"));
-    assertEquals ("bco", fp.getFormattedValue ("bco"));
-    assertEquals ("bc", fp.getFormattedValue ("bc"));
+    assertEquals ("bco", fp.apply ("abco"));
+    assertEquals ("bc", fp.apply ("abc"));
+    assertEquals ("bco", fp.apply ("bco"));
+    assertEquals ("bc", fp.apply ("bc"));
     CommonsTestHelper.testToStringImplementation (fp);
   }
 }

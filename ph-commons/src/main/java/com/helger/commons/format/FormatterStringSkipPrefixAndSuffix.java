@@ -36,14 +36,6 @@ public class FormatterStringSkipPrefixAndSuffix extends AbstractFormatterString
 
   public FormatterStringSkipPrefixAndSuffix (@Nonnull final String sPrefix, @Nonnull final String sSuffix)
   {
-    this (null, sPrefix, sSuffix);
-  }
-
-  public FormatterStringSkipPrefixAndSuffix (@Nullable final IFormatter aPrevFormatter,
-                                             @Nonnull final String sPrefix,
-                                             @Nonnull final String sSuffix)
-  {
-    super (aPrevFormatter);
     m_sPrefix = ValueEnforcer.notNull (sPrefix, "Prefix");
     m_sSuffix = ValueEnforcer.notNull (sSuffix, "Suffix");
   }
@@ -61,7 +53,7 @@ public class FormatterStringSkipPrefixAndSuffix extends AbstractFormatterString
   }
 
   @Override
-  protected final String getFormattedValueAsString (@Nullable final Object aValue)
+  public String apply (@Nullable final Object aValue)
   {
     String sValue = getValueAsString (aValue);
     // strip prefix and suffix

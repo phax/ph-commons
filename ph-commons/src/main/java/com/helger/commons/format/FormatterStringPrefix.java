@@ -17,7 +17,6 @@
 package com.helger.commons.format;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * A formatter that adds a prefix to a string.
@@ -29,10 +28,5 @@ public class FormatterStringPrefix extends FormatterStringPrefixAndSuffix
   public FormatterStringPrefix (@Nonnull final String sPrefix)
   {
     super (sPrefix, "");
-  }
-
-  public FormatterStringPrefix (@Nullable final IFormatter aPrevFormatter, @Nonnull final String sPrefix)
-  {
-    super (aPrevFormatter, sPrefix, "");
   }
 }

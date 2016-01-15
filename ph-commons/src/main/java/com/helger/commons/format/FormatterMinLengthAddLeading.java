@@ -37,14 +37,6 @@ public final class FormatterMinLengthAddLeading extends AbstractFormatterString
 
   public FormatterMinLengthAddLeading (@Nonnegative final int nMinLength, final char cFill)
   {
-    this (null, nMinLength, cFill);
-  }
-
-  public FormatterMinLengthAddLeading (@Nullable final IFormatter aPrevFormatter,
-                                       @Nonnegative final int nMinLength,
-                                       final char cFill)
-  {
-    super (aPrevFormatter);
     ValueEnforcer.isGT0 (nMinLength, "MinLength");
     m_nMinLength = nMinLength;
     m_cFill = cFill;
@@ -62,7 +54,7 @@ public final class FormatterMinLengthAddLeading extends AbstractFormatterString
   }
 
   @Override
-  protected String getFormattedValueAsString (@Nullable final Object aValue)
+  public String apply (@Nullable final Object aValue)
   {
     final String s = getValueAsString (aValue);
     if (s.length () >= m_nMinLength)

@@ -35,14 +35,6 @@ public class FormatterStringPrefixAndSuffix extends AbstractFormatterString
 
   public FormatterStringPrefixAndSuffix (@Nonnull final String sPrefix, @Nonnull final String sSuffix)
   {
-    this (null, sPrefix, sSuffix);
-  }
-
-  public FormatterStringPrefixAndSuffix (@Nullable final IFormatter aPrevFormatter,
-                                         @Nonnull final String sPrefix,
-                                         @Nonnull final String sSuffix)
-  {
-    super (aPrevFormatter);
     m_sPrefix = ValueEnforcer.notNull (sPrefix, "Prefix");
     m_sSuffix = ValueEnforcer.notNull (sSuffix, "Suffix");
   }
@@ -60,7 +52,7 @@ public class FormatterStringPrefixAndSuffix extends AbstractFormatterString
   }
 
   @Override
-  protected final String getFormattedValueAsString (@Nullable final Object aValue)
+  public String apply (@Nullable final Object aValue)
   {
     return m_sPrefix + getValueAsString (aValue) + m_sSuffix;
   }

@@ -17,7 +17,6 @@
 package com.helger.commons.format;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * A formatter that skips a suffix from a string.
@@ -29,10 +28,5 @@ public class FormatterStringSkipSuffix extends FormatterStringSkipPrefixAndSuffi
   public FormatterStringSkipSuffix (@Nonnull final String sSuffix)
   {
     super ("", sSuffix);
-  }
-
-  public FormatterStringSkipSuffix (@Nullable final IFormatter aPrevFormatter, @Nonnull final String sSuffix)
-  {
-    super (aPrevFormatter, "", sSuffix);
   }
 }

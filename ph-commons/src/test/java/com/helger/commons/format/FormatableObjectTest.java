@@ -39,69 +39,58 @@ public final class FormatableObjectTest
     assertEquals ("[Any]", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject ("Any", new FormatterBracket (new FormatterBracket ()));
+    aFO = new FormatableObject ("Any", new FormatterBracket ().compose (new FormatterBracket ()));
     assertEquals ("Any", aFO.getValue ());
-    assertEquals (FormatterBracket.class, aFO.getFormatter ().getClass ());
     assertEquals ("[[Any]]", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject ("Any", (IHasFormatter) () -> new FormatterBracket ());
+    aFO = new FormatableObject ("Any", () -> new FormatterBracket ());
     assertEquals ("Any", aFO.getValue ());
-    assertEquals (FormatterBracket.class, aFO.getFormatter ().getClass ());
     assertEquals ("[Any]", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject (null, new FormatterBracket (new FormatterBracket ()));
+    aFO = new FormatableObject (null, new FormatterBracket ().compose (new FormatterBracket ()));
     assertNull (aFO.getValue ());
-    assertEquals (FormatterBracket.class, aFO.getFormatter ().getClass ());
     assertEquals ("[[]]", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
     aFO = new FormatableObject ("Any", new FormatterStringPrefix ("x "));
     assertEquals ("Any", aFO.getValue ());
-    assertEquals (FormatterStringPrefix.class, aFO.getFormatter ().getClass ());
     assertEquals ("x Any", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject ("Any", new FormatterStringPrefix (new FormatterBracket (), "x "));
+    aFO = new FormatableObject ("Any", new FormatterStringPrefix ("x ").compose (new FormatterBracket ()));
     assertEquals ("Any", aFO.getValue ());
-    assertEquals (FormatterStringPrefix.class, aFO.getFormatter ().getClass ());
     assertEquals ("x [Any]", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
     aFO = new FormatableObject ("Any", new FormatterStringSuffix (" y"));
     assertEquals ("Any", aFO.getValue ());
-    assertEquals (FormatterStringSuffix.class, aFO.getFormatter ().getClass ());
     assertEquals ("Any y", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject ("Any", new FormatterStringSuffix (new FormatterBracket (), " y"));
+    aFO = new FormatableObject ("Any", new FormatterStringSuffix (" y").compose (new FormatterBracket ()));
     assertEquals ("Any", aFO.getValue ());
-    assertEquals (FormatterStringSuffix.class, aFO.getFormatter ().getClass ());
     assertEquals ("[Any] y", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
     aFO = new FormatableObject ("Any", new FormatterMinLengthAddLeading (10, '@'));
     assertEquals ("Any", aFO.getValue ());
-    assertEquals (FormatterMinLengthAddLeading.class, aFO.getFormatter ().getClass ());
     assertEquals ("@@@@@@@Any", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject ("Any", new FormatterMinLengthAddLeading (new FormatterBracket (), 10, '@'));
+    aFO = new FormatableObject ("Any", new FormatterMinLengthAddLeading (10, '@').compose (new FormatterBracket ()));
     assertEquals ("Any", aFO.getValue ());
-    assertEquals (FormatterMinLengthAddLeading.class, aFO.getFormatter ().getClass ());
     assertEquals ("@@@@@[Any]", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
     aFO = new FormatableObject ("Any", new FormatterMinLengthAddTrailing (10, '@'));
     assertEquals ("Any", aFO.getValue ());
-    assertEquals (FormatterMinLengthAddTrailing.class, aFO.getFormatter ().getClass ());
     assertEquals ("Any@@@@@@@", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject ("Any", new FormatterMinLengthAddTrailing (new FormatterBracket (), 10, '@'));
+    aFO = new FormatableObject ("Any", new FormatterMinLengthAddTrailing (10, '@').compose (new FormatterBracket ()));
     assertEquals ("Any", aFO.getValue ());
-    assertEquals (FormatterMinLengthAddTrailing.class, aFO.getFormatter ().getClass ());
     assertEquals ("[Any]@@@@@", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
   }

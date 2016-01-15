@@ -17,7 +17,6 @@
 package com.helger.commons.format;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * A formatter that adds a suffix to a string.
@@ -29,10 +28,5 @@ public class FormatterStringSuffix extends FormatterStringPrefixAndSuffix
   public FormatterStringSuffix (@Nonnull final String sSuffix)
   {
     super ("", sSuffix);
-  }
-
-  public FormatterStringSuffix (@Nullable final IFormatter aPrevFormatter, @Nonnull final String sSuffix)
-  {
-    super (aPrevFormatter, "", sSuffix);
   }
 }

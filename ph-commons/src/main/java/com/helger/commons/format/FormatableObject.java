@@ -80,7 +80,7 @@ public class FormatableObject implements IFormatableObject
   @Nullable
   public String getAsString ()
   {
-    return m_aFormatter != null ? m_aFormatter.getFormattedValue (m_aValue) : String.valueOf (m_aValue);
+    return m_aFormatter != null ? m_aFormatter.apply (m_aValue) : String.valueOf (m_aValue);
   }
 
   @Override

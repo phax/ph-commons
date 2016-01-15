@@ -33,10 +33,10 @@ public final class FormatterStringSkipSuffixTest
   public void testAll ()
   {
     final FormatterStringSkipSuffix fp = new FormatterStringSkipSuffix ("o");
-    assertEquals ("abc", fp.getFormattedValue ("abco"));
-    assertEquals ("abc", fp.getFormattedValue ("abc"));
-    assertEquals ("bc", fp.getFormattedValue ("bco"));
-    assertEquals ("bc", fp.getFormattedValue ("bc"));
+    assertEquals ("abc", fp.apply ("abco"));
+    assertEquals ("abc", fp.apply ("abc"));
+    assertEquals ("bc", fp.apply ("bco"));
+    assertEquals ("bc", fp.apply ("bc"));
     CommonsTestHelper.testToStringImplementation (fp);
   }
 }

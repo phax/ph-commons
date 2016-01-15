@@ -16,8 +16,6 @@
  */
 package com.helger.commons.format;
 
-import javax.annotation.Nullable;
-
 /**
  * Format objects by surrounding them with brackets: [...]
  *
@@ -27,11 +25,6 @@ public class FormatterBracket extends FormatterStringPrefixAndSuffix
 {
   public FormatterBracket ()
   {
-    this (null);
-  }
-
-  public FormatterBracket (@Nullable final IFormatter aPrevFormatter)
-  {
-    super (aPrevFormatter, "[", "]");
+    super ("[", "]");
   }
 }
