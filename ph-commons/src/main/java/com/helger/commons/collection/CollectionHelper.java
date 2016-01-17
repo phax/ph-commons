@@ -29,6 +29,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.SortedMap;
@@ -36,6 +37,7 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -3866,6 +3868,42 @@ public final class CollectionHelper
     return aList != null && nIndex >= 0 && nIndex < aList.size () ? aList.get (nIndex) : aDefault;
   }
 
+  @Nullable
+  public static <DATATYPE> DATATYPE findFirst (@Nullable final Iterable <? extends DATATYPE> aCollection,
+                                               @Nullable final Predicate <? super DATATYPE> aFilter)
+  {
+    return findFirst (aCollection, aFilter, null);
+  }
+
+  @Nullable
+  public static <DATATYPE> DATATYPE findFirst (@Nullable final Iterable <? extends DATATYPE> aCollection,
+                                               @Nullable final Predicate <? super DATATYPE> aFilter,
+                                               @Nullable final DATATYPE aDefault)
+  {
+    if (aFilter == null)
+      return getFirstElement (aCollection);
+
+    if (isNotEmpty (aCollection))
+      for (final DATATYPE aElement : aCollection)
+        if (aFilter.test (aElement))
+          return aElement;
+
+    return aDefault;
+  }
+
+  public static <DATATYPE> boolean containsAny (@Nullable final Iterable <? extends DATATYPE> aCollection,
+                                                @Nullable final Predicate <? super DATATYPE> aFilter)
+  {
+    if (aFilter == null)
+      return isNotEmpty (aCollection);
+
+    if (isNotEmpty (aCollection))
+      for (final DATATYPE aElement : aCollection)
+        if (aFilter.test (aElement))
+          return true;
+    return false;
+  }
+
   /**
    * Check if the passed collection contains at least one <code>null</code>
    * element.
@@ -3878,11 +3916,7 @@ public final class CollectionHelper
    */
   public static boolean containsAnyNullElement (@Nullable final Iterable <?> aCont)
   {
-    if (aCont != null)
-      for (final Object aObj : aCont)
-        if (aObj == null)
-          return true;
-    return false;
+    return containsAny (aCont, Objects::isNull);
   }
 
   /**
