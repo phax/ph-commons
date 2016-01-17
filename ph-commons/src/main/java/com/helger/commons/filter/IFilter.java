@@ -17,7 +17,10 @@
 package com.helger.commons.filter;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.function.Predicate;
+
+import javax.annotation.Nonnull;
 
 /**
  * A generic filter interface for simple object selection. If you need an
@@ -32,5 +35,23 @@ import java.util.function.Predicate;
 @FunctionalInterface
 public interface IFilter <DATATYPE> extends Serializable, Predicate <DATATYPE>
 {
-  /* empty */
+  @Nonnull
+  default IFilter <DATATYPE> and (@Nonnull final IFilter <? super DATATYPE> other)
+  {
+    Objects.requireNonNull (other);
+    return (t) -> test (t) && other.test (t);
+  }
+
+  @Nonnull
+  default IFilter <DATATYPE> or (@Nonnull final IFilter <? super DATATYPE> other)
+  {
+    Objects.requireNonNull (other);
+    return (t) -> test (t) || other.test (t);
+  }
+
+  @Nonnull
+  default IFilter <DATATYPE> negate ()
+  {
+    return (t) -> !test (t);
+  }
 }
