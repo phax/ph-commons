@@ -3891,6 +3891,22 @@ public final class CollectionHelper
     return aDefault;
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <DATATYPE> List <DATATYPE> getAll (@Nullable final Iterable <? extends DATATYPE> aCollection,
+                                                   @Nullable final Predicate <? super DATATYPE> aFilter)
+  {
+    if (aFilter == null)
+      return newList (aCollection);
+
+    final List <DATATYPE> ret = new ArrayList <> ();
+    if (isNotEmpty (aCollection))
+      for (final DATATYPE aElement : aCollection)
+        if (aFilter.test (aElement))
+          ret.add (aElement);
+    return ret;
+  }
+
   public static <DATATYPE> boolean containsAny (@Nullable final Iterable <? extends DATATYPE> aCollection,
                                                 @Nullable final Predicate <? super DATATYPE> aFilter)
   {
