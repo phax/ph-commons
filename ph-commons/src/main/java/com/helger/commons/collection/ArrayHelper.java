@@ -17,8 +17,11 @@
 package com.helger.commons.collection;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -4106,5 +4109,57 @@ public final class ArrayHelper
       if (aObj != null)
         return false;
     return true;
+  }
+
+  @Nullable
+  public static <DATATYPE> DATATYPE findFirst (@Nullable final DATATYPE [] aArray,
+                                               @Nullable final Predicate <? super DATATYPE> aFilter)
+  {
+    return findFirst (aArray, aFilter, null);
+  }
+
+  @Nullable
+  public static <DATATYPE> DATATYPE findFirst (@Nullable final DATATYPE [] aArray,
+                                               @Nullable final Predicate <? super DATATYPE> aFilter,
+                                               @Nullable final DATATYPE aDefault)
+  {
+    if (aFilter == null)
+      return getFirst (aArray);
+
+    if (isNotEmpty (aArray))
+      for (final DATATYPE aElement : aArray)
+        if (aFilter.test (aElement))
+          return aElement;
+
+    return aDefault;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <DATATYPE> List <DATATYPE> getAll (@Nullable final DATATYPE [] aArray,
+                                                   @Nullable final Predicate <? super DATATYPE> aFilter)
+  {
+    if (aFilter == null)
+      return CollectionHelper.newList (aArray);
+
+    final List <DATATYPE> ret = new ArrayList <> ();
+    if (isNotEmpty (aArray))
+      for (final DATATYPE aElement : aArray)
+        if (aFilter.test (aElement))
+          ret.add (aElement);
+    return ret;
+  }
+
+  public static <DATATYPE> boolean containsAny (@Nullable final DATATYPE [] aArray,
+                                                @Nullable final Predicate <? super DATATYPE> aFilter)
+  {
+    if (aFilter == null)
+      return isNotEmpty (aArray);
+
+    if (isNotEmpty (aArray))
+      for (final DATATYPE aElement : aArray)
+        if (aFilter.test (aElement))
+          return true;
+    return false;
   }
 }
