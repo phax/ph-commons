@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -27,7 +28,6 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 
 /**
  * Utility class for generating all possible combinations of elements for a
@@ -71,7 +71,7 @@ public final class CombinationGeneratorFlexible <DATATYPE>
    *        Callback to invoke
    */
   public void iterateAllCombinations (@Nonnull final List <DATATYPE> aElements,
-                                      @Nonnull final INonThrowingRunnableWithParameter <List <DATATYPE>> aCallback)
+                                      @Nonnull final Consumer <List <DATATYPE>> aCallback)
   {
     ValueEnforcer.notNull (aElements, "Elements");
     ValueEnforcer.notNull (aCallback, "Callback");
@@ -80,13 +80,13 @@ public final class CombinationGeneratorFlexible <DATATYPE>
     {
       if (aElements.isEmpty ())
       {
-        aCallback.run (new ArrayList <DATATYPE> ());
+        aCallback.accept (new ArrayList <> ());
       }
       else
       {
         // Add all permutations for the current slot count
-        for (final List <DATATYPE> aPermutation : new CombinationGenerator <DATATYPE> (aElements, nSlotCount))
-          aCallback.run (aPermutation);
+        for (final List <DATATYPE> aPermutation : new CombinationGenerator <> (aElements, nSlotCount))
+          aCallback.accept (aPermutation);
       }
     }
   }
@@ -111,7 +111,7 @@ public final class CombinationGeneratorFlexible <DATATYPE>
 
   public static <DATATYPE> void iterateAllCombinations (@Nonnull final List <DATATYPE> aElements,
                                                         final boolean bAllowEmpty,
-                                                        @Nonnull final INonThrowingRunnableWithParameter <List <DATATYPE>> aCallback)
+                                                        @Nonnull final Consumer <List <DATATYPE>> aCallback)
   {
     new CombinationGeneratorFlexible <DATATYPE> (aElements.size (), bAllowEmpty).iterateAllCombinations (aElements,
                                                                                                          aCallback);

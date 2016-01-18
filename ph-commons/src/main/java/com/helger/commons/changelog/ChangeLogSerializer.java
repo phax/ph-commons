@@ -131,11 +131,11 @@ public final class ChangeLogSerializer
     {
       if (!CChangeLog.CHANGELOG_NAMESPACE_10.equals (eElement.getNamespaceURI ()))
       {
-        aErrorCallback.run ("Element '" +
-                            eElement.getTagName () +
-                            "' has the wrong namespace URI '" +
-                            eElement.getNamespaceURI () +
-                            "'");
+        aErrorCallback.accept ("Element '" +
+                               eElement.getTagName () +
+                               "' has the wrong namespace URI '" +
+                               eElement.getNamespaceURI () +
+                               "'");
         continue;
       }
 
@@ -154,19 +154,19 @@ public final class ChangeLogSerializer
         }
         catch (final DateTimeParseException ex)
         {
-          aErrorCallback.run ("Failed to parse entry date '" + sDate + "'");
+          aErrorCallback.accept ("Failed to parse entry date '" + sDate + "'");
           continue;
         }
         final EChangeLogAction eAction = EChangeLogAction.getFromIDOrNull (sAction);
         if (eAction == null)
         {
-          aErrorCallback.run ("Failed to parse change log action '" + sAction + "'");
+          aErrorCallback.accept ("Failed to parse change log action '" + sAction + "'");
           continue;
         }
         final EChangeLogCategory eCategory = EChangeLogCategory.getFromIDOrNull (sCategory);
         if (eCategory == null)
         {
-          aErrorCallback.run ("Failed to parse change log category '" + sCategory + "'");
+          aErrorCallback.accept ("Failed to parse change log category '" + sCategory + "'");
           continue;
         }
         final boolean bIsIncompatible = StringHelper.hasText (sIncompatible) && StringParser.parseBool (sIncompatible);
@@ -177,13 +177,13 @@ public final class ChangeLogSerializer
         final IMicroElement eChange = eElement.getFirstChildElement (CChangeLog.CHANGELOG_NAMESPACE_10, ELEMENT_CHANGE);
         if (eChange == null)
         {
-          aErrorCallback.run ("No change element present!");
+          aErrorCallback.accept ("No change element present!");
           continue;
         }
         final MultilingualText aMLT = MicroTypeConverter.convertToNative (eChange, MultilingualText.class);
         if (aMLT == null)
         {
-          aErrorCallback.run ("Failed to read multi lingual text in change element!");
+          aErrorCallback.accept ("Failed to read multi lingual text in change element!");
           continue;
         }
         aEntry.setText (aMLT);
@@ -209,7 +209,7 @@ public final class ChangeLogSerializer
           ret.addRelease (new ChangeLogRelease (aLocalDate, new Version (sVersion, false)));
         }
         else
-          aErrorCallback.run ("Changelog contains unsupported element '" + sTagName + "!");
+          aErrorCallback.accept ("Changelog contains unsupported element '" + sTagName + "!");
     }
     return ret;
   }

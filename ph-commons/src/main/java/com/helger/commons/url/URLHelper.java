@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.jar.JarEntry;
 
 import javax.annotation.CheckForSigned;
@@ -50,7 +51,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
@@ -670,7 +670,7 @@ public final class URLHelper
   public static InputStream getInputStream (@Nonnull final URL aURL,
                                             @CheckForSigned final int nConnectTimeoutMS,
                                             @CheckForSigned final int nReadTimeoutMS,
-                                            @Nullable final INonThrowingRunnableWithParameter <URLConnection> aConnectionModifier,
+                                            @Nullable final Consumer <URLConnection> aConnectionModifier,
                                             @Nullable final IMutableWrapper <IOException> aExceptionHolder)
   {
     ValueEnforcer.notNull (aURL, "URL");
@@ -706,7 +706,7 @@ public final class URLHelper
 
       // Apply optional callback
       if (aConnectionModifier != null)
-        aConnectionModifier.run (aConnection);
+        aConnectionModifier.accept (aConnection);
 
       if (aConnection instanceof JarURLConnection)
       {
@@ -836,14 +836,14 @@ public final class URLHelper
                                                    @Nullable final IMimeType aContentType,
                                                    @Nonnull final byte [] aContentBytes,
                                                    @Nullable final Map <String, String> aAdditionalHTTPHeaders,
-                                                   @Nullable final INonThrowingRunnableWithParameter <URLConnection> aConnectionModifier,
+                                                   @Nullable final Consumer <URLConnection> aConnectionModifier,
                                                    @Nullable final IMutableWrapper <IOException> aExceptionHolder)
   {
     ValueEnforcer.notNull (aURL, "URL");
     ValueEnforcer.notNull (aContentBytes, "ContentBytes");
 
     final Wrapper <OutputStream> aOpenedOS = new Wrapper <OutputStream> ();
-    final INonThrowingRunnableWithParameter <URLConnection> aPOSTModifier = aURLConnection -> {
+    final Consumer <URLConnection> aPOSTModifier = aURLConnection -> {
       final HttpURLConnection aHTTPURLConnection = (HttpURLConnection) aURLConnection;
       try
       {
@@ -869,7 +869,7 @@ public final class URLHelper
 
       // Run provided modifier (if any)
       if (aConnectionModifier != null)
-        aConnectionModifier.run (aURLConnection);
+        aConnectionModifier.accept (aURLConnection);
     };
 
     try

@@ -30,7 +30,7 @@ public class LoggingChangeLogSerializerCallback implements IChangeLogSerializerC
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingChangeLogSerializerCallback.class);
 
-  public void run (@Nonnull final String sError)
+  public void accept (@Nonnull final String sError)
   {
     s_aLogger.error (sError);
   }

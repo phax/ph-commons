@@ -16,8 +16,9 @@
  */
 package com.helger.commons.changelog;
 
+import java.util.function.Consumer;
+
 import com.helger.commons.callback.ICallback;
-import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 
 /**
  * Callback for change log serializer read actions.
@@ -25,7 +26,7 @@ import com.helger.commons.callback.INonThrowingRunnableWithParameter;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IChangeLogSerializerCallback extends INonThrowingRunnableWithParameter <String>, ICallback
+public interface IChangeLogSerializerCallback extends Consumer <String>, ICallback
 {
   /* empty */
 }
