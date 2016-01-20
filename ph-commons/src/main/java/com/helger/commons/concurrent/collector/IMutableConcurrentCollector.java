@@ -36,6 +36,8 @@ public interface IMutableConcurrentCollector <DATATYPE> extends IConcurrentColle
    * @param aObject
    *        The object to submit. May not be <code>null</code>.
    * @return {@link ESuccess}
+   * @throws IllegalStateException
+   *         If the queue is already stopped
    */
   @Nonnull
   ESuccess queueObject (@Nonnull DATATYPE aObject);

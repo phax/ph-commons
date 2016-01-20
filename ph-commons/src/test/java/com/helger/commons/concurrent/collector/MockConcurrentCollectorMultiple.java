@@ -16,23 +16,16 @@
  */
 package com.helger.commons.concurrent.collector;
 
-import java.util.List;
-
-import com.helger.commons.callback.IThrowingRunnableWithParameter;
-
-final class MockConcurrentCollectorMultiple extends ConcurrentCollectorMultiple <String> implements IThrowingRunnableWithParameter <List <String>, Exception>
+final class MockConcurrentCollectorMultiple extends ConcurrentCollectorMultiple <String>
 {
   private int m_nPerformCount = 0;
 
   public MockConcurrentCollectorMultiple ()
   {
-    setPerformer (this);
-  }
-
-  public void run (final List <String> aObjects)
-  {
-    if (aObjects != null)
-      m_nPerformCount += aObjects.size ();
+    setPerformer (aObjects -> {
+      if (aObjects != null)
+        m_nPerformCount += aObjects.size ();
+    });
   }
 
   public int getPerformCount ()

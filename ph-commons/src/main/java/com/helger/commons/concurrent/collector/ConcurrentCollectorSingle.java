@@ -26,7 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.callback.IThrowingRunnableWithParameter;
 import com.helger.commons.lang.GenericReflection;
 
 /**
@@ -40,7 +39,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ConcurrentCollectorSingle.class);
 
-  private IThrowingRunnableWithParameter <DATATYPE, ? extends Throwable> m_aPerformer;
+  private IConcurrentPerformer <DATATYPE> m_aPerformer;
 
   /**
    * Constructor that uses {@link #DEFAULT_MAX_QUEUE_SIZE} elements as the
@@ -79,7 +78,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
    *         set.
    */
   @Nullable
-  public final IThrowingRunnableWithParameter <DATATYPE, ? extends Throwable> getPerformer ()
+  public final IConcurrentPerformer <DATATYPE> getPerformer ()
   {
     return m_aPerformer;
   }
@@ -97,7 +96,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
    *         If another performer is already present!
    */
   @Nonnull
-  public final ConcurrentCollectorSingle <DATATYPE> setPerformer (@Nonnull final IThrowingRunnableWithParameter <DATATYPE, ? extends Throwable> aPerformer)
+  public final ConcurrentCollectorSingle <DATATYPE> setPerformer (@Nonnull final IConcurrentPerformer <DATATYPE> aPerformer)
   {
     if (m_aPerformer != null)
       throw new IllegalStateException ("Another performer is already set!");
@@ -111,7 +110,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
     {
       // Perform the action on the objects, regardless of whether a
       // "stop queue message" was received or not
-      m_aPerformer.run (aObject);
+      m_aPerformer.runAsync (aObject);
     }
     catch (final Throwable t)
     {
@@ -130,7 +129,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
    *
    * @throws IllegalStateException
    *         if no performer is set - see
-   *         {@link #setPerformer(IThrowingRunnableWithParameter)}
+   *         {@link #setPerformer(IConcurrentPerformer)}
    */
   public final void run ()
   {

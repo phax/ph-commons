@@ -45,8 +45,8 @@ import com.helger.commons.state.ESuccess;
  */
 @ThreadSafe
 public abstract class AbstractConcurrentCollector <DATATYPE> implements
-                                                  INonThrowingRunnable,
-                                                  IMutableConcurrentCollector <DATATYPE>
+                                                  IMutableConcurrentCollector <DATATYPE>,
+                                                  INonThrowingRunnable
 {
   /** Default maximum queue size */
   public static final int DEFAULT_MAX_QUEUE_SIZE = 100;
@@ -156,11 +156,11 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements
   public final List <DATATYPE> drainQueue ()
   {
     // Drain all objects to this queue
-    final List <Object> aList = new ArrayList <Object> ();
+    final List <Object> aList = new ArrayList <> ();
     m_aRWLock.writeLocked ( () -> m_aQueue.drainTo (aList));
 
     // Change data type
-    final List <DATATYPE> ret = new ArrayList <DATATYPE> ();
+    final List <DATATYPE> ret = new ArrayList <> ();
     for (final Object aObj : aList)
       if (aObj != STOP_QUEUE_OBJECT)
         ret.add (GenericReflection.<Object, DATATYPE> uncheckedCast (aObj));

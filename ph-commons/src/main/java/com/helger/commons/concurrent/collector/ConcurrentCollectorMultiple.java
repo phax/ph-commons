@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.callback.IThrowingRunnableWithParameter;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
 
@@ -48,7 +47,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
   @Nonnegative
   private final int m_nMaxPerformCount;
 
-  private IThrowingRunnableWithParameter <List <DATATYPE>, ? extends Throwable> m_aPerformer;
+  private IConcurrentPerformer <List <DATATYPE>> m_aPerformer;
 
   /**
    * Constructor that uses {@link #DEFAULT_MAX_QUEUE_SIZE} elements as the
@@ -122,7 +121,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    *         set.
    */
   @Nullable
-  public final IThrowingRunnableWithParameter <List <DATATYPE>, ? extends Throwable> getPerformer ()
+  public final IConcurrentPerformer <List <DATATYPE>> getPerformer ()
   {
     return m_aPerformer;
   }
@@ -140,7 +139,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    *         If another performer is already present!
    */
   @Nonnull
-  public final ConcurrentCollectorMultiple <DATATYPE> setPerformer (@Nonnull final IThrowingRunnableWithParameter <List <DATATYPE>, ? extends Throwable> aPerformer)
+  public final ConcurrentCollectorMultiple <DATATYPE> setPerformer (@Nonnull final IConcurrentPerformer <List <DATATYPE>> aPerformer)
   {
     if (m_aPerformer != null)
       throw new IllegalStateException ("Another performer is already set!");
@@ -166,7 +165,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
       {
         // Perform the action on the objects, regardless of whether a
         // "stop queue message" was received or not
-        m_aPerformer.run (aObjectsToPerform);
+        m_aPerformer.runAsync (aObjectsToPerform);
       }
       catch (final Throwable t)
       {
@@ -194,7 +193,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    *
    * @throws IllegalStateException
    *         if no performer is set - see
-   *         {@link #setPerformer(IThrowingRunnableWithParameter)}
+   *         {@link #setPerformer(IConcurrentPerformer)}
    */
   public final void run ()
   {

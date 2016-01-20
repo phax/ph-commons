@@ -16,20 +16,13 @@
  */
 package com.helger.commons.concurrent.collector;
 
-import com.helger.commons.callback.IThrowingRunnableWithParameter;
-
-final class MockConcurrentCollectorSingle extends ConcurrentCollectorSingle <String> implements IThrowingRunnableWithParameter <String, Exception>
+final class MockConcurrentCollectorSingle extends ConcurrentCollectorSingle <String>
 {
   private int m_nPerformCount = 0;
 
   public MockConcurrentCollectorSingle ()
   {
-    setPerformer (this);
-  }
-
-  public void run (final String aObject)
-  {
-    m_nPerformCount++;
+    setPerformer (o -> m_nPerformCount++);
   }
 
   public int getPerformCount ()
