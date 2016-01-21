@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
@@ -40,7 +39,13 @@ public final class JAXBMarshallerFuncTest
   {
     public MyMarshallerExternal ()
     {
-      super (com.helger.jaxb.mock.external.MockJAXBArchive.class, (IReadableResource) null);
+      // No XSD available
+      super (com.helger.jaxb.mock.external.MockJAXBArchive.class,
+             null,
+             o -> new JAXBElement <com.helger.jaxb.mock.external.MockJAXBArchive> (new QName ("urn:test:external",
+                                                                                              "any"),
+                                                                                   com.helger.jaxb.mock.external.MockJAXBArchive.class,
+                                                                                   o));
     }
 
     @Override
@@ -49,14 +54,6 @@ public final class JAXBMarshallerFuncTest
       JAXBMarshallerHelper.setFormattedOutput (aMarshaller, true);
       JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller,
                                                         new MapBasedNamespaceContext ().addMapping ("def", "urn:test"));
-    }
-
-    @Override
-    protected JAXBElement <com.helger.jaxb.mock.external.MockJAXBArchive> wrapObject (final com.helger.jaxb.mock.external.MockJAXBArchive aObject)
-    {
-      return new JAXBElement <com.helger.jaxb.mock.external.MockJAXBArchive> (new QName ("urn:test:external", "any"),
-                                                                              com.helger.jaxb.mock.external.MockJAXBArchive.class,
-                                                                              aObject);
     }
   }
 

@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -79,7 +80,7 @@ import com.helger.jaxb.validation.IValidationEventHandlerFactory;
  *
  * @author Philip Helger
  * @param <JAXBTYPE>
- *        The JAXB type to be marshalled
+ *        The JAXB type to be marshaled
  */
 @NotThreadSafe
 public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoader
@@ -90,7 +91,8 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoad
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBMarshaller.class);
 
   private final Class <JAXBTYPE> m_aType;
-  private final List <IReadableResource> m_aXSDs = new ArrayList <IReadableResource> ();
+  private final List <IReadableResource> m_aXSDs = new ArrayList <> ();
+  private final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> m_aWrapper;
   private IValidationEventHandlerFactory m_aVEHFactory = new CollectingLoggingValidationEventHandlerFactory ();
   private ValidationEventHandler m_aLastEventHandler;
   private boolean m_bReadSecure = DEFAULT_READ_SECURE;
@@ -103,29 +105,18 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoad
    * @param aType
    *        The class of the JAXB document implementation type. May not be
    *        <code>null</code>.
-   * @param aXSD
-   *        The XSD used to validate document. May be <code>null</code>
-   *        indicating that no XSD check is needed.
-   */
-  protected AbstractJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType, @Nullable final IReadableResource aXSD)
-  {
-    m_aType = ValueEnforcer.notNull (aType, "Type");
-    if (aXSD != null)
-      m_aXSDs.add (aXSD);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param aType
-   *        The class of the JAXB document implementation type. May not be
-   *        <code>null</code>.
    * @param aXSDs
    *        The XSDs used to validate document. May be <code>null</code> or
    *        empty indicating, that no XSD check is needed.
+   * @param aWrapper
+   *        Wrap the passed domain object into a {@link JAXBElement} for
+   *        marshalling (writing). This can usually be done using the
+   *        respective's package ObjectFactory implementation. May not be
+   *        <code>null</code>.
    */
   protected AbstractJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
-                                    @Nullable final List <? extends IReadableResource> aXSDs)
+                                    @Nullable final List <? extends IReadableResource> aXSDs,
+                                    @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
     m_aType = ValueEnforcer.notNull (aType, "Type");
     if (aXSDs != null)
@@ -133,27 +124,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoad
       ValueEnforcer.notEmptyNoNullValue (aXSDs, "XSDs");
       m_aXSDs.addAll (aXSDs);
     }
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param aType
-   *        The class of the JAXB document implementation type. May not be
-   *        <code>null</code>.
-   * @param aXSDs
-   *        The XSDs used to validate document. May be <code>null</code> or
-   *        empty indicating, that no XSD check is needed.
-   */
-  protected AbstractJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType, @Nullable final IReadableResource... aXSDs)
-  {
-    m_aType = ValueEnforcer.notNull (aType, "Type");
-    if (aXSDs != null)
-    {
-      ValueEnforcer.notEmptyNoNullValue (aXSDs, "XSDs");
-      for (final IReadableResource aXSD : aXSDs)
-        m_aXSDs.add (aXSD);
-    }
+    m_aWrapper = ValueEnforcer.notNull (aWrapper, "Wrapper");
   }
 
   @Nullable
@@ -598,18 +569,6 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoad
   }
 
   /**
-   * Wrap the passed domain object into a {@link JAXBElement} for marshalling.
-   * This can usually be done using the respective's package ObjectFactory
-   * implementation.
-   *
-   * @param aObject
-   *        The object to be wrapped.
-   * @return The {@link JAXBElement} wrapping the document.
-   */
-  @Nonnull
-  protected abstract JAXBElement <JAXBTYPE> wrapObject (@Nonnull JAXBTYPE aObject);
-
-  /**
    * Convert the passed object to a new DOM document
    *
    * @param aObject
@@ -720,7 +679,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoad
       final Marshaller aMarshaller = _createMarshaller ();
       customizeMarshaller (aMarshaller);
 
-      final JAXBElement <JAXBTYPE> aJAXBElement = wrapObject (aObject);
+      final JAXBElement <JAXBTYPE> aJAXBElement = m_aWrapper.apply (aObject);
       aMarshaller.marshal (aJAXBElement, aResult);
       return ESuccess.SUCCESS;
     }
