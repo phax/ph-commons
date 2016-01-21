@@ -96,7 +96,7 @@ public final class MathHelper
 
   public static int getIntDivided (final int nDividend, final int nDivisor, @Nonnull final RoundingMode eRoundingMode)
   {
-    return new BigDecimal (nDividend).divide (new BigDecimal (nDivisor), eRoundingMode).intValue ();
+    return toBigDecimal (nDividend).divide (toBigDecimal (nDivisor), eRoundingMode).intValue ();
   }
 
   public static long getLongDividedCeil (final long nDividend, final long nDivisor)
@@ -113,7 +113,7 @@ public final class MathHelper
                                      final long nDivisor,
                                      @Nonnull final RoundingMode eRoundingMode)
   {
-    return new BigDecimal (nDividend).divide (new BigDecimal (nDivisor), eRoundingMode).longValue ();
+    return toBigDecimal (nDividend).divide (toBigDecimal (nDivisor), eRoundingMode).longValue ();
   }
 
   public static boolean canConvertLongToInt (final long nValue)
@@ -1001,12 +1001,14 @@ public final class MathHelper
   @Nonnull
   public static BigDecimal toBigDecimal (final int n)
   {
+    // Compared to new BigDecimal(n) this may return constants
     return BigDecimal.valueOf (n);
   }
 
   @Nonnull
   public static BigDecimal toBigDecimal (final long n)
   {
+    // Compared to new BigDecimal(n) this may return constants
     return BigDecimal.valueOf (n);
   }
 

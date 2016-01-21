@@ -45,7 +45,7 @@ public final class MathHelperTest
   @Test
   public void testGetDividedBigDecimal ()
   {
-    assertEquals (new BigDecimal (1.5), MathHelper.getDividedBigDecimal (3, 2));
+    assertEquals (MathHelper.toBigDecimal (1.5), MathHelper.getDividedBigDecimal (3, 2));
 
     try
     {

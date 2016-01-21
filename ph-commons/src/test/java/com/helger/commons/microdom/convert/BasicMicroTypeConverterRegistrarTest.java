@@ -28,6 +28,7 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.math.MathHelper;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.state.EChange;
@@ -55,7 +56,7 @@ public final class BasicMicroTypeConverterRegistrarTest
   {
     final Object [] aDefinedObjs = new Object [] { "InputString",
                                                    BigDecimal.ONE,
-                                                   new BigDecimal (Double.MAX_VALUE),
+                                                   MathHelper.toBigDecimal (Double.MAX_VALUE),
                                                    new BigDecimal ("123446712345678765456547865789762131.111123446712345678765456547865789762131"),
                                                    BigInteger.ZERO,
                                                    new BigInteger ("123446712345678765456547865789762131"),

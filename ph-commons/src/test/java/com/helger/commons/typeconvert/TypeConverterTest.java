@@ -47,6 +47,7 @@ import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.locale.ELocaleName;
 import com.helger.commons.locale.LocaleCache;
+import com.helger.commons.math.MathHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.mutable.MutableByte;
@@ -194,7 +195,7 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   {
     // Check conversion with explicit converters defined
     final Object [] aDefinedObjs = new Object [] { BigDecimal.ONE,
-                                                   new BigDecimal (Double.MAX_VALUE),
+                                                   MathHelper.toBigDecimal (Double.MAX_VALUE),
                                                    new BigDecimal ("123446712345678765456547865789762131.9999123446712345678765456547865789762131"),
                                                    BigInteger.ZERO,
                                                    new BigInteger ("123446712345678765456547865789762131"),
