@@ -461,9 +461,9 @@ public final class ValueEnforcer
       for (final Map.Entry <?, ?> aEntry : aValue.entrySet ())
       {
         if (aEntry.getKey () == null)
-          throw new IllegalArgumentException ("Key of map '" + sName + "' may not be null!");
+          throw new IllegalArgumentException ("A key of map '" + sName + "' may not be null!");
         if (aEntry.getValue () == null)
-          throw new IllegalArgumentException ("Value of map '" + sName + "' may not be null!");
+          throw new IllegalArgumentException ("A value of map '" + sName + "' may not be null!");
       }
     }
     return aValue;
