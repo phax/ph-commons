@@ -92,15 +92,4 @@ public final class SystemPropertiesTest extends AbstractCommonsTestCase
     SystemProperties.setPropertyValue ("helger.x", null);
     assertFalse (SystemProperties.containsPropertyName ("helger.x"));
   }
-
-  @Test
-  public void testXMLProperties ()
-  {
-    assertTrue (SystemProperties.getXMLEntityExpansionLimit () > 0);
-    assertEquals (10000, SystemProperties.getXMLElementAttributeLimit ());
-    assertEquals (5000, SystemProperties.getXMLMaxOccur ());
-    assertEquals (5 * (int) 10E7, SystemProperties.getXMLTotalEntitySizeLimit ());
-    assertEquals (0, SystemProperties.getXMLMaxGeneralEntitySizeLimit ());
-    assertEquals (0, SystemProperties.getXMLMaxParameterEntitySizeLimit ());
-  }
 }

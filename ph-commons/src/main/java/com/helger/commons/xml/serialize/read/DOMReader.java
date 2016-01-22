@@ -40,7 +40,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.pool.IMutableObjectPool;
 import com.helger.commons.pool.ObjectPool;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
@@ -66,14 +65,19 @@ public final class DOMReader
                                                                                                                      "$DOMERRORS");
 
   // In practice no more than 5 readers are required (even 3 would be enough)
-  private static final IMutableObjectPool <DocumentBuilder> s_aDOMPool = new ObjectPool <DocumentBuilder> (5,
-                                                                                                           () -> XMLFactory.createDocumentBuilder ());
+  private static final ObjectPool <DocumentBuilder> s_aDOMPool = new ObjectPool <> (5,
+                                                                                    () -> XMLFactory.createDocumentBuilder ());
 
   @PresentForCodeCoverage
   private static final DOMReader s_aInstance = new DOMReader ();
 
   private DOMReader ()
   {}
+
+  public static void reinitialize ()
+  {
+    s_aDOMPool.clearUnusedItems ();
+  }
 
   @Nullable
   public static Document readXMLDOM (@WillClose @Nonnull final InputSource aIS) throws SAXException

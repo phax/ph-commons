@@ -50,6 +50,7 @@ import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.EXMLParserFeature;
+import com.helger.commons.xml.XMLSystemProperties;
 import com.helger.commons.xml.sax.CachingSAXInputSource;
 import com.helger.commons.xml.sax.CollectingSAXErrorHandler;
 import com.helger.commons.xml.sax.InputSourceFactory;
@@ -403,47 +404,53 @@ public final class DOMReaderTest
   @Test
   public void testEntityExpansionLimit () throws SAXException
   {
+    // 64.000 is the default value for JDK7+
+    assertEquals (64000, XMLSystemProperties.getXMLEntityExpansionLimit ());
+
     // The XML with XXE problem
-    final String sXML = "<?xml version='1.0' encoding='utf-8'?>" +
-                        "<!DOCTYPE root [" +
-                        " <!ELEMENT root ANY >" +
-                        " <!ENTITY e1 \"value\" >" +
-                        " <!ENTITY e2 \"&e1;&e1;&e1;&e1;&e1;&e1;&e1;&e1;&e1;&e1;\" >" +
-                        " <!ENTITY e3 \"&e2;&e2;&e2;&e2;&e2;&e2;&e2;&e2;&e2;&e2;\" >" +
-                        " <!ENTITY e4 \"&e3;&e3;&e3;&e3;&e3;&e3;&e3;&e3;&e3;&e3;\" >" +
-                        " <!ENTITY e5 \"&e4;&e4;&e4;&e4;&e4;&e4;&e4;&e4;&e4;&e4;\" >" +
-                        " <!ENTITY e6 \"&e5;&e5;&e5;&e5;&e5;&e5;&e5;&e5;&e5;&e5;\" >"
-                        // +
-                        // " <!ENTITY e7
-                        // \"&e6;&e6;&e6;&e6;&e6;&e6;&e6;&e6;&e6;&e6;\" >"
-                        // +
-                        // " <!ENTITY e8
-                        // \"&e7;&e7;&e7;&e7;&e7;&e7;&e7;&e7;&e7;&e7;\" >"
-                        // +
-                        // " <!ENTITY e9
-                        // \"&e8;&e8;&e8;&e8;&e8;&e8;&e8;&e8;&e8;&e8;\" >"
-                        // +
-                        // " <!ENTITY e10
-                        // \"&e9;&e9;&e9;&e9;&e9;&e9;&e9;&e9;&e9;&e9;\" >"
-    + "]>" + "<root>&e6;</root>";
+    final String sXMLEntities = "<?xml version='1.0' encoding='utf-8'?>" +
+                                "<!DOCTYPE root [" +
+                                " <!ELEMENT root ANY >" +
+                                " <!ENTITY e1 \"value\" >" +
+                                " <!ENTITY e2 \"&e1;&e1;&e1;&e1;&e1;&e1;&e1;&e1;&e1;&e1;\" >" +
+                                " <!ENTITY e3 \"&e2;&e2;&e2;&e2;&e2;&e2;&e2;&e2;&e2;&e2;\" >" +
+                                " <!ENTITY e4 \"&e3;&e3;&e3;&e3;&e3;&e3;&e3;&e3;&e3;&e3;\" >" +
+                                " <!ENTITY e5 \"&e4;&e4;&e4;&e4;&e4;&e4;&e4;&e4;&e4;&e4;\" >" +
+                                " <!ENTITY e6 \"&e5;&e5;&e5;&e5;&e5;&e5;&e5;&e5;&e5;&e5;\" >" +
+                                " <!ENTITY e7 \"&e6;&e6;&e6;&e6;&e6;&e6;&e6;&e6;&e6;&e6;\">" +
+                                " <!ENTITY e8 \"&e7;&e7;&e7;&e7;&e7;&e7;&e7;&e7;&e7;&e7;\">" +
+                                " <!ENTITY e9 \"&e8;&e8;&e8;&e8;&e8;&e8;&e8;&e8;&e8;&e8;\">" +
+                                " <!ENTITY e10 \"&e9;&e9;&e9;&e9;&e9;&e9;&e9;&e9;&e9;&e9;\">" +
+                                "]>";
+    // e4 expands to 5.000 times "value"
+    // e5 expands to 50.000 times "value"
+    // e6 expands to 500.000 times "value"
     final DOMReaderSettings aDRS = new DOMReaderSettings ();
 
     // Read successful - entity expansion!
-    final Document aDoc = DOMReader.readXMLDOM (sXML, aDRS);
+    final Document aDoc = DOMReader.readXMLDOM (sXMLEntities + "<root>&e5;</root>", aDRS);
     assertNotNull (aDoc);
-    assertEquals (StringHelper.getRepeated ("value", (int) Math.pow (10, 5)),
+    assertEquals (StringHelper.getRepeated ("value", (int) Math.pow (10, 4)),
                   aDoc.getDocumentElement ().getTextContent ());
 
     // Should fail because too many entity expansions
     try
     {
-      DOMReader.readXMLDOM (sXML, aDRS.getClone ().setFeatureValues (EXMLParserFeature.AVOID_DOS_SETTINGS));
+      DOMReader.readXMLDOM (sXMLEntities +
+                            "<root>&e6;</root>",
+                            aDRS.getClone ().setFeatureValues (EXMLParserFeature.AVOID_DOS_SETTINGS));
       fail ();
     }
     catch (final SAXParseException ex)
     {
       // Expected
-      assertTrue (ex.getMessage ().contains ("entity expansions"));
+      assertTrue (ex.getMessage (),
+                  ex.getMessage ().contains (Integer.toString (XMLSystemProperties.getXMLEntityExpansionLimit ())));
     }
+
+    XMLSystemProperties.setXMLElementAttributeLimit (500000);
+    DOMReaderDefaultSettings.setFeatureValue (EXMLParserFeature.SECURE_PROCESSING, false);
+
+    DOMReader.readXMLDOM (sXMLEntities + "<root>&e6;</root>", new DOMReaderSettings ());
   }
 }
