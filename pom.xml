@@ -75,17 +75,6 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- Xerces is required when handling XML 1.1!!! -->
-      <dependency>
-        <groupId>xerces</groupId>
-        <artifactId>xercesImpl</artifactId>
-        <version>2.11.0</version>
-      </dependency>
-      <dependency>
-        <groupId>xml-apis</groupId>
-        <artifactId>xml-apis</artifactId>
-        <version>1.4.01</version>
-      </dependency>
 
       <dependency>
         <groupId>com.helger</groupId>
