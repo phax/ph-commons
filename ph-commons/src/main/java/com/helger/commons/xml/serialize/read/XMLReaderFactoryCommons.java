@@ -295,8 +295,9 @@ public final class XMLReaderFactoryCommons
       // Try to speed things up for Apache Xerces
       // Even though Xerces is only an optional dependency, this invocation
       // should work since the check on the name is done previously
-      if ("org.apache.xerces.parsers.SAXParser".equals (className))
-        return new org.apache.xerces.parsers.SAXParser ();
+
+      // if ("org.apache.xerces.parsers.SAXParser".equals (className))
+      // return new org.apache.xerces.parsers.SAXParser ();
     }
 
     // do we know the XMLReader implementation class yet?
