@@ -72,9 +72,9 @@ public final class DOMReaderDefaultSettings
   @GuardedBy ("s_aRWLock")
   private static boolean s_bDefaultXIncludeAware = XMLFactory.DEFAULT_DOM_XINCLUDE_AWARE;
   @GuardedBy ("s_aRWLock")
-  private static final EnumMap <EXMLParserProperty, Object> s_aDefaultProperties = new EnumMap <EXMLParserProperty, Object> (EXMLParserProperty.class);
+  private static final EnumMap <EXMLParserProperty, Object> s_aDefaultProperties = new EnumMap <> (EXMLParserProperty.class);
   @GuardedBy ("s_aRWLock")
-  private static final EnumMap <EXMLParserFeature, Boolean> s_aDefaultFeatures = new EnumMap <EXMLParserFeature, Boolean> (EXMLParserFeature.class);
+  private static final EnumMap <EXMLParserFeature, Boolean> s_aDefaultFeatures = new EnumMap <> (EXMLParserFeature.class);
 
   // DocumentBuilder properties
   @GuardedBy ("s_aRWLock")

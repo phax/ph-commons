@@ -61,8 +61,8 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   private boolean m_bCoalescing;
   private Schema m_aSchema;
   private boolean m_bXIncludeAware;
-  private final EnumMap <EXMLParserProperty, Object> m_aProperties = new EnumMap <EXMLParserProperty, Object> (EXMLParserProperty.class);
-  private final EnumMap <EXMLParserFeature, Boolean> m_aFeatures = new EnumMap <EXMLParserFeature, Boolean> (EXMLParserFeature.class);
+  private final EnumMap <EXMLParserProperty, Object> m_aProperties = new EnumMap <> (EXMLParserProperty.class);
+  private final EnumMap <EXMLParserFeature, Boolean> m_aFeatures = new EnumMap <> (EXMLParserFeature.class);
 
   // DocumentBuilder properties
   private EntityResolver m_aEntityResolver;
