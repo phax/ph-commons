@@ -18,6 +18,7 @@ package com.helger.commons.xml;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,6 +30,7 @@ import org.w3c.dom.DocumentType;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.system.SystemProperties;
 import com.helger.commons.xml.serialize.read.DOMReaderDefaultSettings;
@@ -58,11 +60,15 @@ public final class XMLFactory
   /** DocumentBuilderFactory is by default not XInclude aware */
   public static final boolean DEFAULT_DOM_XINCLUDE_AWARE = false;
 
-  /** The DOM DocumentBuilderFactory. */
-  private static final DocumentBuilderFactory s_aDefaultDocBuilderFactory;
+  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
 
-  /** The DOM DocumentBuilder. */
-  private static final DocumentBuilder s_aDefaultDocBuilder;
+  /** The DOM DocumentBuilderFactory. */
+  @GuardedBy ("s_aRWLock")
+  private static DocumentBuilderFactory s_aDefaultDocBuilderFactory;
+
+  /** The DOM DocumentBuilder. Lazily inited */
+  @GuardedBy ("s_aRWLock")
+  private static DocumentBuilder s_aDefaultDocBuilder;
 
   static
   {
@@ -72,9 +78,20 @@ public final class XMLFactory
       SystemProperties.setPropertyValue ("javax.xml.validation.SchemaFactory:http://www.w3.org/2001/XMLSchema",
                                          "org.apache.xerces.jaxp.validation.XMLSchemaFactory");
 
-    // create DOM document builder
-    s_aDefaultDocBuilderFactory = createDefaultDocumentBuilderFactory ();
-    s_aDefaultDocBuilder = createDocumentBuilder (s_aDefaultDocBuilderFactory);
+    reinitialize ();
+  }
+
+  /**
+   * Reinitialize the document builder factory. This may be necessary if the
+   * system properties change!
+   */
+  static void reinitialize ()
+  {
+    s_aRWLock.writeLocked ( () -> {
+      // create DOM document builder
+      s_aDefaultDocBuilderFactory = createDefaultDocumentBuilderFactory ();
+      s_aDefaultDocBuilder = null;
+    });
   }
 
   @PresentForCodeCoverage
@@ -100,6 +117,16 @@ public final class XMLFactory
     aDocumentBuilderFactory.setExpandEntityReferences (DEFAULT_DOM_EXPAND_ENTITY_REFERENCES);
     aDocumentBuilderFactory.setIgnoringComments (DEFAULT_DOM_IGNORING_COMMENTS);
     aDocumentBuilderFactory.setCoalescing (DEFAULT_DOM_COALESCING);
+    try
+    {
+      // Set secure processing to be the default. This is anyway the default in
+      // JDK8
+      aDocumentBuilderFactory.setFeature (EXMLParserFeature.SECURE_PROCESSING.getName (), true);
+    }
+    catch (final ParserConfigurationException ex1)
+    {
+      // Ignore
+    }
     try
     {
       aDocumentBuilderFactory.setXIncludeAware (DEFAULT_DOM_XINCLUDE_AWARE);
@@ -136,7 +163,7 @@ public final class XMLFactory
   @Nonnull
   public static DocumentBuilderFactory getDocumentBuilderFactory ()
   {
-    return s_aDefaultDocBuilderFactory;
+    return s_aRWLock.readLocked ( () -> s_aDefaultDocBuilderFactory);
   }
 
   /**
@@ -146,7 +173,16 @@ public final class XMLFactory
   @Nonnull
   public static DocumentBuilder getDocumentBuilder ()
   {
-    return s_aDefaultDocBuilder;
+    // Lazily init
+    final DocumentBuilder ret = s_aRWLock.readLocked ( () -> s_aDefaultDocBuilder);
+    if (ret != null)
+      return ret;
+
+    return s_aRWLock.writeLocked ( () -> {
+      if (s_aDefaultDocBuilder == null)
+        s_aDefaultDocBuilder = createDocumentBuilder (s_aDefaultDocBuilderFactory);
+      return s_aDefaultDocBuilder;
+    });
   }
 
   /**
@@ -156,7 +192,7 @@ public final class XMLFactory
   @Nonnull
   public static DOMImplementation getDOMImplementation ()
   {
-    return s_aDefaultDocBuilder.getDOMImplementation ();
+    return getDocumentBuilder ().getDOMImplementation ();
   }
 
   /**
@@ -168,7 +204,7 @@ public final class XMLFactory
   @Nonnull
   public static DocumentBuilder createDocumentBuilder ()
   {
-    return createDocumentBuilder (s_aDefaultDocBuilderFactory);
+    return createDocumentBuilder (getDocumentBuilderFactory ());
   }
 
   /**
@@ -221,7 +257,7 @@ public final class XMLFactory
   @Nonnull
   public static Document newDocument ()
   {
-    return newDocument (s_aDefaultDocBuilder, (EXMLVersion) null);
+    return newDocument (getDocumentBuilder (), (EXMLVersion) null);
   }
 
   /**
@@ -250,7 +286,7 @@ public final class XMLFactory
   @Nonnull
   public static Document newDocument (@Nullable final EXMLVersion eVersion)
   {
-    return newDocument (s_aDefaultDocBuilder, eVersion);
+    return newDocument (getDocumentBuilder (), eVersion);
   }
 
   /**
@@ -315,7 +351,7 @@ public final class XMLFactory
                                       @Nullable final String sPublicId,
                                       @Nullable final String sSystemId)
   {
-    return newDocument (s_aDefaultDocBuilder, eVersion, sQualifiedName, sPublicId, sSystemId);
+    return newDocument (getDocumentBuilder (), eVersion, sQualifiedName, sPublicId, sSystemId);
   }
 
   /**
