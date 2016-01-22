@@ -83,6 +83,16 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
     m_aFactory = aFactory;
   }
 
+  public void clearUnusedItems ()
+  {
+    // Reset all cached items
+    m_aLock.locked ( () -> {
+      for (int i = 0; i < m_aItems.length; ++i)
+        if (!m_aUsed[i])
+          m_aItems[i] = null;
+    });
+  }
+
   @Nullable
   public DATATYPE borrowObject ()
   {
