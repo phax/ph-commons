@@ -448,15 +448,24 @@ public final class DOMReaderTest
                   ex.getMessage ().contains (Integer.toString (XMLSystemProperties.getXMLEntityExpansionLimit ())));
     }
 
-    XMLSystemProperties.setXMLElementAttributeLimit (500000);
+    XMLSystemProperties.setXMLEntityExpansionLimit (500000);
+
     DOMReaderDefaultSettings.setFeatureValue (EXMLParserFeature.SECURE_PROCESSING, false);
     try
     {
-      assertNotNull (DOMReader.readXMLDOM (sXMLEntities + "<root>&e6;</root>", new DOMReaderSettings ()));
+      // Use default DOMReaderSettings
+      assertNotNull (DOMReader.readXMLDOM (sXMLEntities + "<root>&e6;</root>"));
     }
     finally
     {
       DOMReaderDefaultSettings.removeFeature (EXMLParserFeature.SECURE_PROCESSING);
     }
+
+    // Set directly in settings
+    assertNotNull (DOMReader.readXMLDOM (sXMLEntities +
+                                         "<root>&e6;</root>",
+                                         new DOMReaderSettings ().setFeatureValue (EXMLParserFeature.SECURE_PROCESSING,
+                                                                                   false)));
+    XMLSystemProperties.setXMLEntityExpansionLimit (null);
   }
 }
