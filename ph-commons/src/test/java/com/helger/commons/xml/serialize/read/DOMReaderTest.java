@@ -450,7 +450,13 @@ public final class DOMReaderTest
 
     XMLSystemProperties.setXMLElementAttributeLimit (500000);
     DOMReaderDefaultSettings.setFeatureValue (EXMLParserFeature.SECURE_PROCESSING, false);
-
-    DOMReader.readXMLDOM (sXMLEntities + "<root>&e6;</root>", new DOMReaderSettings ());
+    try
+    {
+      assertNotNull (DOMReader.readXMLDOM (sXMLEntities + "<root>&e6;</root>", new DOMReaderSettings ()));
+    }
+    finally
+    {
+      DOMReaderDefaultSettings.removeFeature (EXMLParserFeature.SECURE_PROCESSING);
+    }
   }
 }
