@@ -3907,6 +3907,21 @@ public final class CollectionHelper
     return ret;
   }
 
+  @Nonnegative
+  public static <DATATYPE> int getCount (@Nullable final Iterable <? extends DATATYPE> aCollection,
+                                         @Nullable final Predicate <? super DATATYPE> aFilter)
+  {
+    if (aFilter == null)
+      return getSize (aCollection);
+
+    int ret = 0;
+    if (isNotEmpty (aCollection))
+      for (final DATATYPE aElement : aCollection)
+        if (aFilter.test (aElement))
+          ret++;
+    return ret;
+  }
+
   public static <DATATYPE> boolean containsAny (@Nullable final Iterable <? extends DATATYPE> aCollection,
                                                 @Nullable final Predicate <? super DATATYPE> aFilter)
   {

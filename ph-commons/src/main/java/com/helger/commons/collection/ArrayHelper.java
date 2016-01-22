@@ -4150,6 +4150,21 @@ public final class ArrayHelper
     return ret;
   }
 
+  @Nonnegative
+  public static <DATATYPE> int getCount (@Nullable final DATATYPE [] aArray,
+                                         @Nullable final Predicate <? super DATATYPE> aFilter)
+  {
+    if (aFilter == null)
+      return getSize (aArray);
+
+    int ret = 0;
+    if (isNotEmpty (aArray))
+      for (final DATATYPE aElement : aArray)
+        if (aFilter.test (aElement))
+          ret++;
+    return ret;
+  }
+
   public static <DATATYPE> boolean containsAny (@Nullable final DATATYPE [] aArray,
                                                 @Nullable final Predicate <? super DATATYPE> aFilter)
   {
