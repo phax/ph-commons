@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
@@ -92,18 +93,18 @@ public final class ArrayHelper
    * Get the component type of the array (the type of which the array is made
    * up)
    *
-   * @param <DATATYPE>
+   * @param <ELEMENTTYPE>
    *        The component type of the array
    * @param aArray
    *        The array to get the type from. May not be <code>null</code>.
    * @return The class that determines a single element of the array.
    */
   @Nonnull
-  public static <DATATYPE> Class <? extends DATATYPE> getComponentType (@Nonnull final DATATYPE [] aArray)
+  public static <ELEMENTTYPE> Class <? extends ELEMENTTYPE> getComponentType (@Nonnull final ELEMENTTYPE [] aArray)
   {
     ValueEnforcer.notNull (aArray, "Array");
     final Class <?> aComponentType = aArray.getClass ().getComponentType ();
-    return GenericReflection.<Class <?>, Class <? extends DATATYPE>> uncheckedCast (aComponentType);
+    return GenericReflection.<Class <?>, Class <? extends ELEMENTTYPE>> uncheckedCast (aComponentType);
   }
 
   /**
@@ -4111,68 +4112,114 @@ public final class ArrayHelper
     return true;
   }
 
+  @SuppressWarnings ("null")
   @Nullable
-  public static <DATATYPE> DATATYPE findFirst (@Nullable final DATATYPE [] aArray,
-                                               @Nullable final Predicate <? super DATATYPE> aFilter)
+  public static <ELEMENTTYPE> ELEMENTTYPE findFirst (@Nullable final ELEMENTTYPE [] aArray,
+                                                     @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    return findFirst (aArray, aFilter, null);
+    return findFirst (aArray, aFilter, (ELEMENTTYPE) null);
   }
 
   @Nullable
-  public static <DATATYPE> DATATYPE findFirst (@Nullable final DATATYPE [] aArray,
-                                               @Nullable final Predicate <? super DATATYPE> aFilter,
-                                               @Nullable final DATATYPE aDefault)
+  public static <ELEMENTTYPE> ELEMENTTYPE findFirst (@Nullable final ELEMENTTYPE [] aArray,
+                                                     @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                     @Nullable final ELEMENTTYPE aDefault)
   {
     if (aFilter == null)
       return getFirst (aArray);
 
     if (isNotEmpty (aArray))
-      for (final DATATYPE aElement : aArray)
+      for (final ELEMENTTYPE aElement : aArray)
         if (aFilter.test (aElement))
           return aElement;
 
     return aDefault;
   }
 
+  @SuppressWarnings ("null")
+  @Nullable
+  public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirst (@Nullable final ELEMENTTYPE [] aArray,
+                                                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                          @Nonnull final Function <ELEMENTTYPE, RETTYPE> aMapper)
+  {
+    return findFirst (aArray, aFilter, aMapper, (RETTYPE) null);
+  }
+
+  @Nullable
+  public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirst (@Nullable final ELEMENTTYPE [] aArray,
+                                                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                          @Nonnull final Function <ELEMENTTYPE, RETTYPE> aMapper,
+                                                          @Nullable final RETTYPE aDefault)
+  {
+    ValueEnforcer.notNull (aMapper, "Mapper");
+    if (aFilter == null)
+      return aMapper.apply (getFirst (aArray));
+
+    if (isNotEmpty (aArray))
+      for (final ELEMENTTYPE aElement : aArray)
+        if (aFilter.test (aElement))
+          return aMapper.apply (aElement);
+
+    return aDefault;
+  }
+
   @Nonnull
   @ReturnsMutableCopy
-  public static <DATATYPE> List <DATATYPE> getAll (@Nullable final DATATYPE [] aArray,
-                                                   @Nullable final Predicate <? super DATATYPE> aFilter)
+  public static <ELEMENTTYPE> List <ELEMENTTYPE> getAll (@Nullable final ELEMENTTYPE [] aArray,
+                                                         @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
       return CollectionHelper.newList (aArray);
 
-    final List <DATATYPE> ret = new ArrayList <> ();
+    final List <ELEMENTTYPE> ret = new ArrayList <> ();
     if (isNotEmpty (aArray))
-      for (final DATATYPE aElement : aArray)
+      for (final ELEMENTTYPE aElement : aArray)
         if (aFilter.test (aElement))
           ret.add (aElement);
     return ret;
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE, RETTYPE> List <RETTYPE> getAll (@Nullable final ELEMENTTYPE [] aArray,
+                                                              @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                              @Nonnull final Function <ELEMENTTYPE, RETTYPE> aMapper)
+  {
+    ValueEnforcer.notNull (aMapper, "Mapper");
+    if (aFilter == null)
+      return CollectionHelper.newList (aArray, aMapper);
+
+    final List <RETTYPE> ret = new ArrayList <> ();
+    if (isNotEmpty (aArray))
+      for (final ELEMENTTYPE aElement : aArray)
+        if (aFilter.test (aElement))
+          ret.add (aMapper.apply (aElement));
+    return ret;
+  }
+
   @Nonnegative
-  public static <DATATYPE> int getCount (@Nullable final DATATYPE [] aArray,
-                                         @Nullable final Predicate <? super DATATYPE> aFilter)
+  public static <ELEMENTTYPE> int getCount (@Nullable final ELEMENTTYPE [] aArray,
+                                            @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
       return getSize (aArray);
 
     int ret = 0;
     if (isNotEmpty (aArray))
-      for (final DATATYPE aElement : aArray)
+      for (final ELEMENTTYPE aElement : aArray)
         if (aFilter.test (aElement))
           ret++;
     return ret;
   }
 
-  public static <DATATYPE> boolean containsAny (@Nullable final DATATYPE [] aArray,
-                                                @Nullable final Predicate <? super DATATYPE> aFilter)
+  public static <ELEMENTTYPE> boolean containsAny (@Nullable final ELEMENTTYPE [] aArray,
+                                                   @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
       return isNotEmpty (aArray);
 
     if (isNotEmpty (aArray))
-      for (final DATATYPE aElement : aArray)
+      for (final ELEMENTTYPE aElement : aArray)
         if (aFilter.test (aElement))
           return true;
     return false;

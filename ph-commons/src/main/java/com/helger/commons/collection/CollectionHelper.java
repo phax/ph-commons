@@ -37,6 +37,7 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
@@ -1836,6 +1837,21 @@ public final class CollectionHelper
     return ret;
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE, RETTYPE> ArrayList <RETTYPE> newList (@Nullable final ELEMENTTYPE [] aValues,
+                                                                    @Nonnull final Function <ELEMENTTYPE, RETTYPE> aMapper)
+  {
+    // Don't user Arrays.asList since aIter returns an unmodifiable list!
+    if (ArrayHelper.isEmpty (aValues))
+      return newList (0);
+
+    final ArrayList <RETTYPE> ret = newList (aValues.length);
+    for (final ELEMENTTYPE aValue : aValues)
+      ret.add (aMapper.apply (aValue));
+    return ret;
+  }
+
   /**
    * Compared to {@link Collections#list(Enumeration)} this method is more
    * flexible in Generics parameter.
@@ -1877,6 +1893,18 @@ public final class CollectionHelper
     if (aIter != null)
       for (final ELEMENTTYPE aObj : aIter)
         ret.add (aObj);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE, RETTYPE> ArrayList <RETTYPE> newList (@Nullable final Iterable <? extends ELEMENTTYPE> aIter,
+                                                                    @Nonnull final Function <ELEMENTTYPE, RETTYPE> aMapper)
+  {
+    final ArrayList <RETTYPE> ret = newList ();
+    if (aIter != null)
+      for (final ELEMENTTYPE aObj : aIter)
+        ret.add (aMapper.apply (aObj));
     return ret;
   }
 
@@ -3868,68 +3896,114 @@ public final class CollectionHelper
     return aList != null && nIndex >= 0 && nIndex < aList.size () ? aList.get (nIndex) : aDefault;
   }
 
+  @SuppressWarnings ("null")
   @Nullable
-  public static <DATATYPE> DATATYPE findFirst (@Nullable final Iterable <? extends DATATYPE> aCollection,
-                                               @Nullable final Predicate <? super DATATYPE> aFilter)
+  public static <ELEMENTTYPE> ELEMENTTYPE findFirst (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                     @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    return findFirst (aCollection, aFilter, null);
+    return findFirst (aCollection, aFilter, (ELEMENTTYPE) null);
   }
 
   @Nullable
-  public static <DATATYPE> DATATYPE findFirst (@Nullable final Iterable <? extends DATATYPE> aCollection,
-                                               @Nullable final Predicate <? super DATATYPE> aFilter,
-                                               @Nullable final DATATYPE aDefault)
+  public static <ELEMENTTYPE> ELEMENTTYPE findFirst (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                     @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                     @Nullable final ELEMENTTYPE aDefault)
   {
     if (aFilter == null)
       return getFirstElement (aCollection);
 
     if (isNotEmpty (aCollection))
-      for (final DATATYPE aElement : aCollection)
+      for (final ELEMENTTYPE aElement : aCollection)
         if (aFilter.test (aElement))
           return aElement;
 
     return aDefault;
   }
 
+  @SuppressWarnings ("null")
+  @Nullable
+  public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirst (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                          @Nonnull final Function <ELEMENTTYPE, RETTYPE> aMapper)
+  {
+    return findFirst (aCollection, aFilter, aMapper, (RETTYPE) null);
+  }
+
+  @Nullable
+  public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirst (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                          @Nonnull final Function <ELEMENTTYPE, RETTYPE> aMapper,
+                                                          @Nullable final RETTYPE aDefault)
+  {
+    ValueEnforcer.notNull (aMapper, "Mapper");
+    if (aFilter == null)
+      return aMapper.apply (getFirstElement (aCollection));
+
+    if (isNotEmpty (aCollection))
+      for (final ELEMENTTYPE aElement : aCollection)
+        if (aFilter.test (aElement))
+          return aMapper.apply (aElement);
+
+    return aDefault;
+  }
+
   @Nonnull
   @ReturnsMutableCopy
-  public static <DATATYPE> List <DATATYPE> getAll (@Nullable final Iterable <? extends DATATYPE> aCollection,
-                                                   @Nullable final Predicate <? super DATATYPE> aFilter)
+  public static <ELEMENTTYPE> List <ELEMENTTYPE> getAll (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                         @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
       return newList (aCollection);
 
-    final List <DATATYPE> ret = new ArrayList <> ();
+    final List <ELEMENTTYPE> ret = new ArrayList <> ();
     if (isNotEmpty (aCollection))
-      for (final DATATYPE aElement : aCollection)
+      for (final ELEMENTTYPE aElement : aCollection)
         if (aFilter.test (aElement))
           ret.add (aElement);
     return ret;
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE, RETTYPE> List <RETTYPE> getAll (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                              @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                              @Nonnull final Function <ELEMENTTYPE, RETTYPE> aMapper)
+  {
+    ValueEnforcer.notNull (aMapper, "Mapper");
+    if (aFilter == null)
+      return newList (aCollection, aMapper);
+
+    final List <RETTYPE> ret = new ArrayList <> ();
+    if (isNotEmpty (aCollection))
+      for (final ELEMENTTYPE aElement : aCollection)
+        if (aFilter.test (aElement))
+          ret.add (aMapper.apply (aElement));
+    return ret;
+  }
+
   @Nonnegative
-  public static <DATATYPE> int getCount (@Nullable final Iterable <? extends DATATYPE> aCollection,
-                                         @Nullable final Predicate <? super DATATYPE> aFilter)
+  public static <ELEMENTTYPE> int getCount (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                            @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
       return getSize (aCollection);
 
     int ret = 0;
     if (isNotEmpty (aCollection))
-      for (final DATATYPE aElement : aCollection)
+      for (final ELEMENTTYPE aElement : aCollection)
         if (aFilter.test (aElement))
           ret++;
     return ret;
   }
 
-  public static <DATATYPE> boolean containsAny (@Nullable final Iterable <? extends DATATYPE> aCollection,
-                                                @Nullable final Predicate <? super DATATYPE> aFilter)
+  public static <ELEMENTTYPE> boolean containsAny (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                   @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
       return isNotEmpty (aCollection);
 
     if (isNotEmpty (aCollection))
-      for (final DATATYPE aElement : aCollection)
+      for (final ELEMENTTYPE aElement : aCollection)
         if (aFilter.test (aElement))
           return true;
     return false;
