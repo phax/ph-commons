@@ -3936,13 +3936,16 @@ public final class CollectionHelper
                                                           @Nullable final RETTYPE aDefault)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
-    if (aFilter == null)
-      return aMapper.apply (getFirstElement (aCollection));
 
     if (isNotEmpty (aCollection))
+    {
+      if (aFilter == null)
+        return aMapper.apply (getFirstElement (aCollection));
+
       for (final ELEMENTTYPE aElement : aCollection)
         if (aFilter.test (aElement))
           return aMapper.apply (aElement);
+    }
 
     return aDefault;
   }

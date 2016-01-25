@@ -4152,13 +4152,16 @@ public final class ArrayHelper
                                                           @Nullable final RETTYPE aDefault)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
-    if (aFilter == null)
-      return aMapper.apply (getFirst (aArray));
 
     if (isNotEmpty (aArray))
+    {
+      if (aFilter == null)
+        return aMapper.apply (aArray[0]);
+
       for (final ELEMENTTYPE aElement : aArray)
         if (aFilter.test (aElement))
           return aMapper.apply (aElement);
+    }
 
     return aDefault;
   }
