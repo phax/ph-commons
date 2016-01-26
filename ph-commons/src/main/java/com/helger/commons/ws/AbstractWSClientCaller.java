@@ -22,6 +22,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
+import javax.annotation.concurrent.NotThreadSafe;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSocketFactory;
 import javax.xml.ws.BindingProvider;
@@ -32,12 +33,14 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.lang.ClassLoaderHelper;
 
 /**
  * Abstract base class for a webservice client caller.
  *
  * @author Philip Helger
  */
+@NotThreadSafe
 public abstract class AbstractWSClientCaller
 {
   public static final int DEFAULT_CONNECTION_TIMEOUT_MS = 5000;
@@ -50,6 +53,8 @@ public abstract class AbstractWSClientCaller
   private HostnameVerifier m_aHostnameVerifier;
   private int m_nConnectionTimeoutMS = DEFAULT_CONNECTION_TIMEOUT_MS;
   private int m_nRequestTimeoutMS = DEFAULT_REQUEST_TIMEOUT_MS;
+
+  private boolean m_bWorkAroundMASM0003 = true;
 
   /**
    * Creates a service caller for the service meta data interface
@@ -170,6 +175,16 @@ public abstract class AbstractWSClientCaller
   protected void addHandlers (@Nonnull final List <Handler> aHandlerList)
   {}
 
+  protected final boolean isWorkAroundMASM0003 ()
+  {
+    return m_bWorkAroundMASM0003;
+  }
+
+  protected final void setWorkAroundMASM0003 (final boolean bWorkAroundMASM0003)
+  {
+    m_bWorkAroundMASM0003 = bWorkAroundMASM0003;
+  }
+
   @OverrideOnDemand
   @OverridingMethodsMustInvokeSuper
   protected void applyWSSettingsToBindingProvider (@Nonnull final BindingProvider aBP)
@@ -207,13 +222,26 @@ public abstract class AbstractWSClientCaller
     addHandlers (aHandlers);
     aBP.getBinding ().setHandlerChain (aHandlers);
 
-    if (Thread.currentThread ().getContextClassLoader () == null)
+    if (m_bWorkAroundMASM0003)
     {
       // Introduced with Java 1.8.0_31??
       // MASM0003: Default [ jaxws-tubes-default.xml ] configuration file was
       // not loaded
-      s_aLogger.info ("Manually setting thread context class loader to work around MASM0003 bug");
-      Thread.currentThread ().setContextClassLoader (getClass ().getClassLoader ());
+      final ClassLoader aContextClassLoader = ClassLoaderHelper.getContextClassLoader ();
+      final ClassLoader aThisClassLoader = getClass ().getClassLoader ();
+      if (aContextClassLoader == null)
+      {
+        s_aLogger.info ("Manually setting thread context class loader to work around MASM0003 bug");
+        ClassLoaderHelper.setContextClassLoader (aThisClassLoader);
+      }
+      else
+      {
+        if (aContextClassLoader != aThisClassLoader)
+        {
+          s_aLogger.warn ("Manually overriding thread context class loader to work around MASM0003 bug");
+          ClassLoaderHelper.setContextClassLoader (aThisClassLoader);
+        }
+      }
     }
   }
 }
