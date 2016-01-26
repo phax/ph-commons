@@ -31,6 +31,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.function.Function;
 import java.util.function.IntConsumer;
 
 import javax.annotation.CheckForSigned;
@@ -676,10 +677,30 @@ public final class StringHelper
   @Nonnull
   public static String getImploded (@Nullable final Iterable <?> aElements)
   {
+    return getImploded (aElements, String::valueOf);
+  }
+
+  /**
+   * Get a concatenated String from all elements of the passed container,
+   * without a separator. Even <code>null</code> elements are added.
+   *
+   * @param aElements
+   *        The container to convert. May be <code>null</code> or empty.
+   * @param aMapper
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
+   * @return The concatenated string.
+   */
+  @Nonnull
+  public static <ELEMENTTYPE> String getImploded (@Nullable final Iterable <ELEMENTTYPE> aElements,
+                                                  @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+  {
+    ValueEnforcer.notNull (aMapper, "Mapper");
+
     final StringBuilder aSB = new StringBuilder ();
     if (aElements != null)
-      for (final Object aElement : aElements)
-        aSB.append (aElement);
+      for (final ELEMENTTYPE aElement : aElements)
+        aSB.append (aMapper.apply (aElement));
     return aSB.toString ();
   }
 
@@ -697,20 +718,7 @@ public final class StringHelper
   @Nonnull
   public static String getImploded (@Nonnull final String sSep, @Nullable final Iterable <?> aElements)
   {
-    ValueEnforcer.notNull (sSep, "separator");
-
-    final StringBuilder aSB = new StringBuilder ();
-    if (aElements != null)
-    {
-      int nIndex = 0;
-      for (final Object aElement : aElements)
-      {
-        if (nIndex++ > 0)
-          aSB.append (sSep);
-        aSB.append (aElement);
-      }
-    }
-    return aSB.toString ();
+    return getImploded (sSep, aElements, String::valueOf);
   }
 
   /**
@@ -727,7 +735,69 @@ public final class StringHelper
   @Nonnull
   public static String getImploded (final char cSep, @Nullable final Iterable <?> aElements)
   {
-    return getImploded (Character.toString (cSep), aElements);
+    return getImploded (cSep, aElements, String::valueOf);
+  }
+
+  /**
+   * Get a concatenated String from all elements of the passed container,
+   * separated by the specified separator string. Even <code>null</code>
+   * elements are added.
+   *
+   * @param sSep
+   *        The separator to use. May not be <code>null</code>.
+   * @param aElements
+   *        The container to convert. May be <code>null</code> or empty.
+   * @param aMapper
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
+   * @return The concatenated string.
+   * @param <ELEMENTTYPE>
+   *        The element type of the collection to be imploded
+   */
+  @Nonnull
+  public static <ELEMENTTYPE> String getImploded (@Nonnull final String sSep,
+                                                  @Nullable final Iterable <ELEMENTTYPE> aElements,
+                                                  @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+  {
+    ValueEnforcer.notNull (sSep, "Separator");
+    ValueEnforcer.notNull (aMapper, "Mapper");
+
+    final StringBuilder aSB = new StringBuilder ();
+    if (aElements != null)
+    {
+      int nIndex = 0;
+      for (final ELEMENTTYPE aElement : aElements)
+      {
+        if (nIndex++ > 0)
+          aSB.append (sSep);
+        aSB.append (aMapper.apply (aElement));
+      }
+    }
+    return aSB.toString ();
+  }
+
+  /**
+   * Get a concatenated String from all elements of the passed container,
+   * separated by the specified separator char. Even <code>null</code> elements
+   * are added.
+   *
+   * @param cSep
+   *        The separator to use.
+   * @param aElements
+   *        The container to convert. May be <code>null</code> or empty.
+   * @param aMapper
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
+   * @return The concatenated string.
+   * @param <ELEMENTTYPE>
+   *        The element type of the collection to be imploded
+   */
+  @Nonnull
+  public static <ELEMENTTYPE> String getImploded (final char cSep,
+                                                  @Nullable final Iterable <ELEMENTTYPE> aElements,
+                                                  @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+  {
+    return getImploded (Character.toString (cSep), aElements, aMapper);
   }
 
   /**
@@ -743,11 +813,73 @@ public final class StringHelper
    * @param aElements
    *        The map to convert. May be <code>null</code> or empty.
    * @return The concatenated string.
+   * @param <KEYTYPE>
+   *        Map key type
+   * @param <VALUETYPE>
+   *        Map value type
    */
   @Nonnull
-  public static String getImploded (@Nonnull final String sSepOuter,
-                                    @Nonnull final String sSepInner,
-                                    @Nullable final Map <?, ?> aElements)
+  public static <KEYTYPE, VALUETYPE> String getImploded (@Nonnull final String sSepOuter,
+                                                         @Nonnull final String sSepInner,
+                                                         @Nullable final Map <KEYTYPE, VALUETYPE> aElements)
+  {
+    return getImploded (sSepOuter, sSepInner, aElements, String::valueOf, String::valueOf);
+  }
+
+  /**
+   * Get a concatenated String from all elements of the passed map, separated by
+   * the specified separator chars.
+   *
+   * @param cSepOuter
+   *        The separator to use for separating the map entries.
+   * @param cSepInner
+   *        The separator to use for separating the key from the value.
+   * @param aElements
+   *        The map to convert. May be <code>null</code> or empty.
+   * @return The concatenated string.
+   * @param <KEYTYPE>
+   *        Map key type
+   * @param <VALUETYPE>
+   *        Map value type
+   */
+  @Nonnull
+  public static <KEYTYPE, VALUETYPE> String getImploded (final char cSepOuter,
+                                                         final char cSepInner,
+                                                         @Nullable final Map <KEYTYPE, VALUETYPE> aElements)
+  {
+    return getImploded (cSepOuter, cSepInner, aElements, String::valueOf, String::valueOf);
+  }
+
+  /**
+   * Get a concatenated String from all elements of the passed map, separated by
+   * the specified separator strings.
+   *
+   * @param sSepOuter
+   *        The separator to use for separating the map entries. May not be
+   *        <code>null</code>.
+   * @param sSepInner
+   *        The separator to use for separating the key from the value. May not
+   *        be <code>null</code>.
+   * @param aElements
+   *        The map to convert. May be <code>null</code> or empty.
+   * @param aKeyMapper
+   *        The mapping function to convert from KEYTYPE to String. May not be
+   *        <code>null</code>.
+   * @param aValueMapper
+   *        The mapping function to convert from VALUETYPE to String. May not be
+   *        <code>null</code>.
+   * @return The concatenated string.
+   * @param <KEYTYPE>
+   *        Map key type
+   * @param <VALUETYPE>
+   *        Map value type
+   */
+  @Nonnull
+  public static <KEYTYPE, VALUETYPE> String getImploded (@Nonnull final String sSepOuter,
+                                                         @Nonnull final String sSepInner,
+                                                         @Nullable final Map <KEYTYPE, VALUETYPE> aElements,
+                                                         @Nonnull final Function <KEYTYPE, String> aKeyMapper,
+                                                         @Nonnull final Function <VALUETYPE, String> aValueMapper)
   {
     ValueEnforcer.notNull (sSepOuter, "SepOuter");
     ValueEnforcer.notNull (sSepInner, "SepInner");
@@ -756,11 +888,13 @@ public final class StringHelper
     if (aElements != null)
     {
       int nIndex = 0;
-      for (final Map.Entry <?, ?> aElement : aElements.entrySet ())
+      for (final Map.Entry <KEYTYPE, VALUETYPE> aElement : aElements.entrySet ())
       {
         if (nIndex++ > 0)
           aSB.append (sSepOuter);
-        aSB.append (aElement.getKey ()).append (sSepInner).append (aElement.getValue ());
+        aSB.append (aKeyMapper.apply (aElement.getKey ()))
+           .append (sSepInner)
+           .append (aValueMapper.apply (aElement.getValue ()));
       }
     }
     return aSB.toString ();
@@ -776,12 +910,30 @@ public final class StringHelper
    *        The separator to use for separating the key from the value.
    * @param aElements
    *        The map to convert. May be <code>null</code> or empty.
+   * @param aKeyMapper
+   *        The mapping function to convert from KEYTYPE to String. May not be
+   *        <code>null</code>.
+   * @param aValueMapper
+   *        The mapping function to convert from VALUETYPE to String. May not be
+   *        <code>null</code>.
    * @return The concatenated string.
+   * @param <KEYTYPE>
+   *        Map key type
+   * @param <VALUETYPE>
+   *        Map value type
    */
   @Nonnull
-  public static String getImploded (final char cSepOuter, final char cSepInner, @Nullable final Map <?, ?> aElements)
+  public static <KEYTYPE, VALUETYPE> String getImploded (final char cSepOuter,
+                                                         final char cSepInner,
+                                                         @Nullable final Map <KEYTYPE, VALUETYPE> aElements,
+                                                         @Nonnull final Function <KEYTYPE, String> aKeyMapper,
+                                                         @Nonnull final Function <VALUETYPE, String> aValueMapper)
   {
-    return getImploded (Character.toString (cSepOuter), Character.toString (cSepInner), aElements);
+    return getImploded (Character.toString (cSepOuter),
+                        Character.toString (cSepInner),
+                        aElements,
+                        aKeyMapper,
+                        aValueMapper);
   }
 
   /**
@@ -798,9 +950,7 @@ public final class StringHelper
   @SafeVarargs
   public static <ELEMENTTYPE> String getImploded (@Nullable final ELEMENTTYPE... aElements)
   {
-    if (ArrayHelper.isEmpty (aElements))
-      return "";
-    return getImploded (aElements, 0, aElements.length);
+    return getImploded (aElements, String::valueOf);
   }
 
   /**
@@ -822,13 +972,64 @@ public final class StringHelper
                                                   @Nonnegative final int nOfs,
                                                   @Nonnegative final int nLen)
   {
+    return getImploded (aElements, nOfs, nLen, String::valueOf);
+  }
+
+  /**
+   * Get a concatenated String from all elements of the passed array, without a
+   * separator.
+   *
+   * @param aElements
+   *        The container to convert. May be <code>null</code> or empty.
+   * @param aMapper
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
+   * @return The concatenated string.
+   * @param <ELEMENTTYPE>
+   *        The type of elements to be imploded.
+   */
+  @Nonnull
+  public static <ELEMENTTYPE> String getImploded (@Nullable final ELEMENTTYPE [] aElements,
+                                                  @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+  {
+    ValueEnforcer.notNull (aMapper, "Mapper");
+
+    if (ArrayHelper.isEmpty (aElements))
+      return "";
+    return getImploded (aElements, 0, aElements.length, aMapper);
+  }
+
+  /**
+   * Get a concatenated String from all elements of the passed array, without a
+   * separator.
+   *
+   * @param aElements
+   *        The container to convert. May be <code>null</code> or empty.
+   * @param nOfs
+   *        The offset to start from.
+   * @param nLen
+   *        The number of elements to implode.
+   * @param aMapper
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
+   * @return The concatenated string.
+   * @param <ELEMENTTYPE>
+   *        The type of elements to be imploded.
+   */
+  @Nonnull
+  public static <ELEMENTTYPE> String getImploded (@Nullable final ELEMENTTYPE [] aElements,
+                                                  @Nonnegative final int nOfs,
+                                                  @Nonnegative final int nLen,
+                                                  @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+  {
     if (aElements != null)
       ValueEnforcer.isArrayOfsLen (aElements, nOfs, nLen);
+    ValueEnforcer.notNull (aMapper, "Mapper");
 
     final StringBuilder aSB = new StringBuilder ();
     if (aElements != null)
       for (int i = nOfs; i < nOfs + nLen; ++i)
-        aSB.append (aElements[i]);
+        aSB.append (aMapper.apply (aElements[i]));
     return aSB.toString ();
   }
 
@@ -848,11 +1049,7 @@ public final class StringHelper
   @SafeVarargs
   public static <ELEMENTTYPE> String getImploded (@Nonnull final String sSep, @Nullable final ELEMENTTYPE... aElements)
   {
-    ValueEnforcer.notNull (sSep, "Separator");
-
-    if (ArrayHelper.isEmpty (aElements))
-      return "";
-    return getImploded (sSep, aElements, 0, aElements.length);
+    return getImploded (sSep, aElements, String::valueOf);
   }
 
   /**
@@ -871,7 +1068,7 @@ public final class StringHelper
   @SafeVarargs
   public static <ELEMENTTYPE> String getImploded (final char cSep, @Nullable final ELEMENTTYPE... aElements)
   {
-    return getImploded (Character.toString (cSep), aElements);
+    return getImploded (cSep, aElements, String::valueOf);
   }
 
   /**
@@ -896,9 +1093,90 @@ public final class StringHelper
                                                   @Nonnegative final int nOfs,
                                                   @Nonnegative final int nLen)
   {
+    return getImploded (sSep, aElements, nOfs, nLen, String::valueOf);
+  }
+
+  /**
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator string.
+   *
+   * @param sSep
+   *        The separator to use. May not be <code>null</code>.
+   * @param aElements
+   *        The container to convert. May be <code>null</code> or empty.
+   * @param aMapper
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
+   * @return The concatenated string.
+   * @param <ELEMENTTYPE>
+   *        The type of elements to be imploded.
+   */
+  @Nonnull
+  public static <ELEMENTTYPE> String getImploded (@Nonnull final String sSep,
+                                                  @Nullable final ELEMENTTYPE [] aElements,
+                                                  @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+  {
+    ValueEnforcer.notNull (sSep, "Separator");
+    ValueEnforcer.notNull (aMapper, "Mapper");
+
+    if (ArrayHelper.isEmpty (aElements))
+      return "";
+    return getImploded (sSep, aElements, 0, aElements.length, aMapper);
+  }
+
+  /**
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator char.
+   *
+   * @param cSep
+   *        The separator to use.
+   * @param aElements
+   *        The container to convert. May be <code>null</code> or empty.
+   * @param aMapper
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
+   * @return The concatenated string.
+   * @param <ELEMENTTYPE>
+   *        The type of elements to be imploded.
+   */
+  @Nonnull
+  public static <ELEMENTTYPE> String getImploded (final char cSep,
+                                                  @Nullable final ELEMENTTYPE [] aElements,
+                                                  @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+  {
+    return getImploded (Character.toString (cSep), aElements, aMapper);
+  }
+
+  /**
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator string.
+   *
+   * @param sSep
+   *        The separator to use. May not be <code>null</code>.
+   * @param aElements
+   *        The container to convert. May be <code>null</code> or empty.
+   * @param nOfs
+   *        The offset to start from.
+   * @param nLen
+   *        The number of elements to implode.
+   * @param aMapper
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
+   * @return The concatenated string.
+   * @param <ELEMENTTYPE>
+   *        The type of elements to be imploded.
+   */
+  @Nonnull
+  public static <ELEMENTTYPE> String getImploded (@Nonnull final String sSep,
+                                                  @Nullable final ELEMENTTYPE [] aElements,
+                                                  @Nonnegative final int nOfs,
+                                                  @Nonnegative final int nLen,
+                                                  @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+  {
     ValueEnforcer.notNull (sSep, "Separator");
     if (aElements != null)
       ValueEnforcer.isArrayOfsLen (aElements, nOfs, nLen);
+    ValueEnforcer.notNull (aMapper, "Mapper");
 
     final StringBuilder aSB = new StringBuilder ();
     if (aElements != null)
@@ -908,7 +1186,7 @@ public final class StringHelper
         final ELEMENTTYPE sElement = aElements[i];
         if (i > nOfs)
           aSB.append (sSep);
-        aSB.append (sElement);
+        aSB.append (aMapper.apply (sElement));
       }
     }
     return aSB.toString ();
@@ -936,7 +1214,7 @@ public final class StringHelper
                                                   @Nonnegative final int nOfs,
                                                   @Nonnegative final int nLen)
   {
-    return getImploded (Character.toString (cSep), aElements, nOfs, nLen);
+    return getImploded (Character.toString (cSep), aElements, nOfs, nLen, String::valueOf);
   }
 
   /**
@@ -952,11 +1230,36 @@ public final class StringHelper
   @Nonnull
   public static String getImplodedNonEmpty (@Nullable final Iterable <String> aElements)
   {
+    return getImplodedNonEmpty (aElements, Function.identity ());
+  }
+
+  /**
+   * Get a concatenated String from all non-<code>null</code> and non empty
+   * elements of the passed container without a separator string. This the very
+   * generic version of {@link #getConcatenatedOnDemand(String, String)} for an
+   * arbitrary number of elements.
+   *
+   * @param aElements
+   *        The container to convert. May be <code>null</code> or empty.
+   * @param aMapper
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
+   * @return The concatenated string.
+   */
+  @Nonnull
+  public static <ELEMENTTYPE> String getImplodedNonEmpty (@Nullable final Iterable <ELEMENTTYPE> aElements,
+                                                          @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+  {
+    ValueEnforcer.notNull (aMapper, "Mapper");
+
     final StringBuilder aSB = new StringBuilder ();
     if (aElements != null)
-      for (final String sElement : aElements)
+      for (final ELEMENTTYPE aElement : aElements)
+      {
+        final String sElement = aMapper.apply (aElement);
         if (hasText (sElement))
           aSB.append (sElement);
+      }
     return aSB.toString ();
   }
 
@@ -976,21 +1279,7 @@ public final class StringHelper
   @Nonnull
   public static String getImplodedNonEmpty (@Nonnull final String sSep, @Nullable final Iterable <String> aElements)
   {
-    ValueEnforcer.notNull (sSep, "Separator");
-
-    final StringBuilder aSB = new StringBuilder ();
-    if (aElements != null)
-    {
-      int nElementsAdded = 0;
-      for (final String sElement : aElements)
-        if (hasText (sElement))
-        {
-          if (nElementsAdded++ > 0)
-            aSB.append (sSep);
-          aSB.append (sElement);
-        }
-    }
-    return aSB.toString ();
+    return getImplodedNonEmpty (sSep, aElements, Function.identity ());
   }
 
   /**
@@ -1009,7 +1298,77 @@ public final class StringHelper
   @Nonnull
   public static String getImplodedNonEmpty (final char cSep, @Nullable final Iterable <String> aElements)
   {
-    return getImplodedNonEmpty (Character.toString (cSep), aElements);
+    return getImplodedNonEmpty (cSep, aElements, Function.identity ());
+  }
+
+  /**
+   * Get a concatenated String from all non-<code>null</code> and non empty
+   * elements of the passed container, separated by the specified separator
+   * string. This the very generic version of
+   * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary
+   * number of elements.
+   *
+   * @param sSep
+   *        The separator to use. May not be <code>null</code>.
+   * @param aElements
+   *        The container to convert. May be <code>null</code> or empty.
+   * @param aMapper
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
+   * @return The concatenated string.
+   * @param <ELEMENTTYPE>
+   *        The element type of the collection to be imploded
+   */
+  @Nonnull
+  public static <ELEMENTTYPE> String getImplodedNonEmpty (@Nonnull final String sSep,
+                                                          @Nullable final Iterable <ELEMENTTYPE> aElements,
+                                                          @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+  {
+    ValueEnforcer.notNull (sSep, "Separator");
+    ValueEnforcer.notNull (aMapper, "Mapper");
+
+    final StringBuilder aSB = new StringBuilder ();
+    if (aElements != null)
+    {
+      int nElementsAdded = 0;
+      for (final ELEMENTTYPE aElement : aElements)
+      {
+        final String sElement = aMapper.apply (aElement);
+        if (hasText (sElement))
+        {
+          if (nElementsAdded++ > 0)
+            aSB.append (sSep);
+          aSB.append (sElement);
+        }
+      }
+    }
+    return aSB.toString ();
+  }
+
+  /**
+   * Get a concatenated String from all non-<code>null</code> and non empty
+   * elements of the passed container, separated by the specified separator
+   * char. This the very generic version of
+   * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary
+   * number of elements.
+   *
+   * @param cSep
+   *        The separator to use.
+   * @param aElements
+   *        The container to convert. May be <code>null</code> or empty.
+   * @param aMapper
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
+   * @return The concatenated string.
+   * @param <ELEMENTTYPE>
+   *        The element type of the collection to be imploded
+   */
+  @Nonnull
+  public static <ELEMENTTYPE> String getImplodedNonEmpty (final char cSep,
+                                                          @Nullable final Iterable <ELEMENTTYPE> aElements,
+                                                          @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+  {
+    return getImplodedNonEmpty (Character.toString (cSep), aElements, aMapper);
   }
 
   /**
@@ -1027,11 +1386,7 @@ public final class StringHelper
   @Nonnull
   public static String getImplodedNonEmpty (@Nonnull final String sSep, @Nullable final String... aElements)
   {
-    ValueEnforcer.notNull (sSep, "Separator");
-
-    if (ArrayHelper.isEmpty (aElements))
-      return "";
-    return getImplodedNonEmpty (sSep, aElements, 0, aElements.length);
+    return getImplodedNonEmpty (sSep, aElements, Function.identity ());
   }
 
   /**
@@ -1049,7 +1404,58 @@ public final class StringHelper
   @Nonnull
   public static String getImplodedNonEmpty (final char cSep, @Nullable final String... aElements)
   {
-    return getImplodedNonEmpty (Character.toString (cSep), aElements);
+    return getImplodedNonEmpty (cSep, aElements, Function.identity ());
+  }
+
+  /**
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator string. This the very generic version of
+   * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary
+   * number of elements.
+   *
+   * @param sSep
+   *        The separator to use. May not be <code>null</code>.
+   * @param aElements
+   *        The container to convert. May be <code>null</code> or empty.
+   * @param aMapper
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
+   * @return The concatenated string.
+   */
+  @Nonnull
+  public static <ELEMENTTYPE> String getImplodedNonEmpty (@Nonnull final String sSep,
+                                                          @Nullable final ELEMENTTYPE [] aElements,
+                                                          @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+  {
+    ValueEnforcer.notNull (sSep, "Separator");
+    ValueEnforcer.notNull (aMapper, "Mapper");
+
+    if (ArrayHelper.isEmpty (aElements))
+      return "";
+    return getImplodedNonEmpty (sSep, aElements, 0, aElements.length, aMapper);
+  }
+
+  /**
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator char. This the very generic version of
+   * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary
+   * number of elements.
+   *
+   * @param cSep
+   *        The separator to use.
+   * @param aElements
+   *        The container to convert. May be <code>null</code> or empty.
+   * @param aMapper
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
+   * @return The concatenated string.
+   */
+  @Nonnull
+  public static <ELEMENTTYPE> String getImplodedNonEmpty (final char cSep,
+                                                          @Nullable final ELEMENTTYPE [] aElements,
+                                                          @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+  {
+    return getImplodedNonEmpty (Character.toString (cSep), aElements, aMapper);
   }
 
   /**
@@ -1074,9 +1480,64 @@ public final class StringHelper
                                             @Nonnegative final int nOfs,
                                             @Nonnegative final int nLen)
   {
+    return getImplodedNonEmpty (sSep, aElements, nOfs, nLen, Function.identity ());
+  }
+
+  /**
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator char. This the very generic version of
+   * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary
+   * number of elements.
+   *
+   * @param cSep
+   *        The separator to use.
+   * @param aElements
+   *        The container to convert. May be <code>null</code> or empty.
+   * @param nOfs
+   *        The offset to start from.
+   * @param nLen
+   *        The number of elements to implode.
+   * @return The concatenated string.
+   */
+  @Nonnull
+  public static String getImplodedNonEmpty (final char cSep,
+                                            @Nullable final String [] aElements,
+                                            @Nonnegative final int nOfs,
+                                            @Nonnegative final int nLen)
+  {
+    return getImplodedNonEmpty (cSep, aElements, nOfs, nLen, Function.identity ());
+  }
+
+  /**
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator string. This the very generic version of
+   * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary
+   * number of elements.
+   *
+   * @param sSep
+   *        The separator to use. May not be <code>null</code>.
+   * @param aElements
+   *        The container to convert. May be <code>null</code> or empty.
+   * @param nOfs
+   *        The offset to start from.
+   * @param nLen
+   *        The number of elements to implode.
+   * @param aMapper
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
+   * @return The concatenated string.
+   */
+  @Nonnull
+  public static <ELEMENTTYPE> String getImplodedNonEmpty (@Nonnull final String sSep,
+                                                          @Nullable final ELEMENTTYPE [] aElements,
+                                                          @Nonnegative final int nOfs,
+                                                          @Nonnegative final int nLen,
+                                                          @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+  {
     ValueEnforcer.notNull (sSep, "Separator");
     if (aElements != null)
       ValueEnforcer.isArrayOfsLen (aElements, nOfs, nLen);
+    ValueEnforcer.notNull (aMapper, "Mapper");
 
     final StringBuilder aSB = new StringBuilder ();
     if (aElements != null)
@@ -1084,7 +1545,7 @@ public final class StringHelper
       int nElementsAdded = 0;
       for (int i = nOfs; i < nOfs + nLen; ++i)
       {
-        final String sElement = aElements[i];
+        final String sElement = aMapper.apply (aElements[i]);
         if (hasText (sElement))
         {
           if (nElementsAdded++ > 0)
@@ -1110,15 +1571,19 @@ public final class StringHelper
    *        The offset to start from.
    * @param nLen
    *        The number of elements to implode.
+   * @param aMapper
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    */
   @Nonnull
-  public static String getImplodedNonEmpty (final char cSep,
-                                            @Nullable final String [] aElements,
-                                            @Nonnegative final int nOfs,
-                                            @Nonnegative final int nLen)
+  public static <ELEMENTTYPE> String getImplodedNonEmpty (final char cSep,
+                                                          @Nullable final ELEMENTTYPE [] aElements,
+                                                          @Nonnegative final int nOfs,
+                                                          @Nonnegative final int nLen,
+                                                          @Nonnull final Function <ELEMENTTYPE, String> aMapper)
   {
-    return getImplodedNonEmpty (Character.toString (cSep), aElements, nOfs, nLen);
+    return getImplodedNonEmpty (Character.toString (cSep), aElements, nOfs, nLen, aMapper);
   }
 
   /**
