@@ -26,7 +26,6 @@ import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.callback.IThrowingCallable;
 import com.helger.commons.callback.IThrowingRunnable;
 
@@ -68,8 +67,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    */
   public void readLocked (@Nonnull final Runnable aRunnable)
   {
-    ValueEnforcer.notNull (aRunnable, "Runnable");
-
     readLock ().lock ();
     try
     {
@@ -93,8 +90,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    */
   public <EXTYPE extends Exception> void readLockedThrowing (@Nonnull final IThrowingRunnable <EXTYPE> aRunnable) throws EXTYPE
   {
-    ValueEnforcer.notNull (aRunnable, "Runnable");
-
     readLock ().lock ();
     try
     {
@@ -118,8 +113,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
   @Nullable
   public <T> T readLocked (@Nonnull final Supplier <T> aSupplier)
   {
-    ValueEnforcer.notNull (aSupplier, "Supplier");
-
     readLock ().lock ();
     try
     {
@@ -147,8 +140,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
   @Nullable
   public <T, EXTYPE extends Exception> T readLockedThrowing (@Nonnull final IThrowingCallable <T, EXTYPE> aCallable) throws EXTYPE
   {
-    ValueEnforcer.notNull (aCallable, "Callable");
-
     readLock ().lock ();
     try
     {
@@ -169,8 +160,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    */
   public boolean readLocked (@Nonnull final BooleanSupplier aSupplier)
   {
-    ValueEnforcer.notNull (aSupplier, "Supplier");
-
     readLock ().lock ();
     try
     {
@@ -191,8 +180,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    */
   public double readLocked (@Nonnull final DoubleSupplier aSupplier)
   {
-    ValueEnforcer.notNull (aSupplier, "Supplier");
-
     readLock ().lock ();
     try
     {
@@ -213,8 +200,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    */
   public int readLocked (@Nonnull final IntSupplier aSupplier)
   {
-    ValueEnforcer.notNull (aSupplier, "Supplier");
-
     readLock ().lock ();
     try
     {
@@ -235,8 +220,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    */
   public long readLocked (@Nonnull final LongSupplier aSupplier)
   {
-    ValueEnforcer.notNull (aSupplier, "Supplier");
-
     readLock ().lock ();
     try
     {
@@ -256,8 +239,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    */
   public void writeLocked (@Nonnull final Runnable aRunnable)
   {
-    ValueEnforcer.notNull (aRunnable, "Runnable");
-
     writeLock ().lock ();
     try
     {
@@ -281,8 +262,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    */
   public <EXTYPE extends Exception> void writeLockedThrowing (@Nonnull final IThrowingRunnable <EXTYPE> aRunnable) throws EXTYPE
   {
-    ValueEnforcer.notNull (aRunnable, "Runnable");
-
     writeLock ().lock ();
     try
     {
@@ -306,8 +285,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
   @Nullable
   public <T> T writeLocked (@Nonnull final Supplier <T> aSupplier)
   {
-    ValueEnforcer.notNull (aSupplier, "Supplier");
-
     writeLock ().lock ();
     try
     {
@@ -335,8 +312,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
   @Nullable
   public <T, EXTYPE extends Exception> T writeLockedThrowing (@Nonnull final IThrowingCallable <T, EXTYPE> aCallable) throws EXTYPE
   {
-    ValueEnforcer.notNull (aCallable, "Callable");
-
     writeLock ().lock ();
     try
     {
@@ -357,8 +332,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    */
   public boolean writeLocked (@Nonnull final BooleanSupplier aSupplier)
   {
-    ValueEnforcer.notNull (aSupplier, "Supplier");
-
     writeLock ().lock ();
     try
     {
@@ -379,8 +352,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    */
   public double writeLocked (@Nonnull final DoubleSupplier aSupplier)
   {
-    ValueEnforcer.notNull (aSupplier, "Supplier");
-
     writeLock ().lock ();
     try
     {
@@ -401,8 +372,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    */
   public int writeLocked (@Nonnull final IntSupplier aSupplier)
   {
-    ValueEnforcer.notNull (aSupplier, "Supplier");
-
     writeLock ().lock ();
     try
     {
@@ -423,8 +392,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    */
   public long writeLocked (@Nonnull final LongSupplier aSupplier)
   {
-    ValueEnforcer.notNull (aSupplier, "Supplier");
-
     writeLock ().lock ();
     try
     {
