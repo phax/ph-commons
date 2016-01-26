@@ -106,6 +106,9 @@ public final class VerySecureRandom
     // block takes more or less forever.
     final SecureRandom aSecureRandom = _createSecureRandomInstance ();
 
+    // Seed first with the current time
+    aSecureRandom.setSeed (System.currentTimeMillis ());
+
     // Get 128 random bytes
     aSecureRandom.nextBytes (new byte [128]);
 
@@ -113,7 +116,7 @@ public final class VerySecureRandom
       s_aLogger.debug ("Generating intial seed for VerySecureRandom");
 
     // Create secure number generators with the random seed
-    final byte [] aSeed = aSecureRandom.generateSeed (10);
+    final byte [] aSeed = aSecureRandom.generateSeed (16);
 
     // Initialize main secure random
     s_aSecureRandom = _createSecureRandomInstance ();
