@@ -206,5 +206,14 @@ public abstract class AbstractWSClientCaller
     // Fill handlers
     addHandlers (aHandlers);
     aBP.getBinding ().setHandlerChain (aHandlers);
+
+    if (Thread.currentThread ().getContextClassLoader () == null)
+    {
+      // Introduced with Java 1.8.0_31??
+      // MASM0003: Default [ jaxws-tubes-default.xml ] configuration file was
+      // not loaded
+      s_aLogger.info ("Manually setting thread context class loader to work around MASM0003 bug");
+      Thread.currentThread ().setContextClassLoader (getClass ().getClassLoader ());
+    }
   }
 }
