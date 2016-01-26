@@ -109,8 +109,8 @@ public final class CommonsTestHelper
     _assertFalse ("Object may no be equal to null", aObject.equals (null));
   }
 
-  private static <DATATYPE> void _testEqualsImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
-                                                                                  @Nonnull final DATATYPE aObject2)
+  public static <DATATYPE> void testEqualsImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
+                                                                                @Nonnull final DATATYPE aObject2)
   {
     _testEqualsImplementation (aObject);
     _testEqualsImplementation (aObject2);
@@ -119,8 +119,8 @@ public final class CommonsTestHelper
     _assertTrue ("Passed objects are not identical!\n#1: " + aObject2 + "\n#2: " + aObject, aObject2.equals (aObject));
   }
 
-  private static <DATATYPE> void _testEqualsImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject,
-                                                                                      @Nonnull final DATATYPE aObject2)
+  public static <DATATYPE> void testEqualsImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject,
+                                                                                    @Nonnull final DATATYPE aObject2)
   {
     _testEqualsImplementation (aObject);
     _testEqualsImplementation (aObject2);
@@ -136,8 +136,8 @@ public final class CommonsTestHelper
     _assertFalse ("hashCode() may not be 0", aObject.hashCode () == 0);
   }
 
-  private static <DATATYPE> void _testHashcodeImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
-                                                                                    @Nonnull final DATATYPE aObject2)
+  public static <DATATYPE> void testHashcodeImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
+                                                                                  @Nonnull final DATATYPE aObject2)
   {
     _testHashcodeImplementation (aObject);
     _testHashcodeImplementation (aObject2);
@@ -147,8 +147,8 @@ public final class CommonsTestHelper
     _assertTrue ("hashCode() invocations must be consistent", aObject2.hashCode () == aObject.hashCode ());
   }
 
-  private static <DATATYPE> void _testHashcodeImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject1,
-                                                                                        @Nonnull final DATATYPE aObject2)
+  public static <DATATYPE> void testHashcodeImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject1,
+                                                                                      @Nonnull final DATATYPE aObject2)
   {
     _testHashcodeImplementation (aObject1);
     _testHashcodeImplementation (aObject2);
@@ -174,8 +174,8 @@ public final class CommonsTestHelper
     _assertTrue ("toString() invocations must be consistent", aObject.toString ().equals (aObject.toString ()));
   }
 
-  private static <DATATYPE> void _testToStringImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
-                                                                                    @Nonnull final DATATYPE aObject2)
+  public static <DATATYPE> void testToStringImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
+                                                                                  @Nonnull final DATATYPE aObject2)
   {
     testToStringImplementation (aObject);
     testToStringImplementation (aObject2);
@@ -183,8 +183,8 @@ public final class CommonsTestHelper
     _assertFalse ("This test may not be used with the same object!", aObject == aObject2);
   }
 
-  private static <DATATYPE> void _testToStringImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject,
-                                                                                        @Nonnull final DATATYPE aObject2)
+  public static <DATATYPE> void testToStringImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject,
+                                                                                      @Nonnull final DATATYPE aObject2)
   {
     testToStringImplementation (aObject);
     testToStringImplementation (aObject2);
@@ -206,9 +206,9 @@ public final class CommonsTestHelper
   public static <DATATYPE> void testDefaultImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject1,
                                                                                  @Nonnull final DATATYPE aObject2)
   {
-    _testEqualsImplementationWithEqualContentObject (aObject1, aObject2);
-    _testHashcodeImplementationWithEqualContentObject (aObject1, aObject2);
-    _testToStringImplementationWithEqualContentObject (aObject1, aObject2);
+    testEqualsImplementationWithEqualContentObject (aObject1, aObject2);
+    testHashcodeImplementationWithEqualContentObject (aObject1, aObject2);
+    testToStringImplementationWithEqualContentObject (aObject1, aObject2);
   }
 
   /**
@@ -225,9 +225,9 @@ public final class CommonsTestHelper
   public static <DATATYPE> void testDefaultImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject1,
                                                                                      @Nonnull final DATATYPE aObject2)
   {
-    _testEqualsImplementationWithDifferentContentObject (aObject1, aObject2);
-    _testHashcodeImplementationWithDifferentContentObject (aObject1, aObject2);
-    _testToStringImplementationWithDifferentContentObject (aObject1, aObject2);
+    testEqualsImplementationWithDifferentContentObject (aObject1, aObject2);
+    testHashcodeImplementationWithDifferentContentObject (aObject1, aObject2);
+    testToStringImplementationWithDifferentContentObject (aObject1, aObject2);
   }
 
   /**

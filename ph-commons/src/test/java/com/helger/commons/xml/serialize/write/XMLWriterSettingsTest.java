@@ -23,7 +23,6 @@ import static org.junit.Assert.fail;
 
 import java.nio.charset.Charset;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
@@ -72,6 +71,7 @@ public final class XMLWriterSettingsTest
     assertTrue (mws.isEmitNamespaces ());
     assertFalse (mws.isPutNamespaceContextPrefixesInRoot ());
 
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (mws, new XMLWriterSettings ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
                                                                            new XMLWriterSettings ().setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
@@ -101,7 +101,6 @@ public final class XMLWriterSettingsTest
   }
 
   @Test
-  @Ignore ("Works, but takes forever")
   public void testPermutations ()
   {
     // Now try all permutations
@@ -168,7 +167,10 @@ public final class XMLWriterSettingsTest
                                                                                     .setIndentationString (sIndentation)
                                                                                     .setEmitNamespaces (bEmitNamespaces)
                                                                                     .setPutNamespaceContextPrefixesInRoot (bPutNamespaceContextPrefixesInRoot);
-                            CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aXWS, aXWS2);
+                            CommonsTestHelper.testEqualsImplementationWithEqualContentObject (aXWS, aXWS2);
+                            CommonsTestHelper.testHashcodeImplementationWithEqualContentObject (aXWS, aXWS2);
+                            // Main time is spent in the "toString" calls - so
+                            // don't test it in the loop
                           }
                           assertTrue (bEmitNamespaces == aXWS.isEmitNamespaces ());
                         }
