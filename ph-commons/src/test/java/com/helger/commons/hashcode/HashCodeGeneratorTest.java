@@ -33,6 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.IteratorHelper;
 import com.helger.commons.exception.LoggedRuntimeException;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.random.VerySecureRandom;
@@ -69,8 +70,8 @@ public final class HashCodeGeneratorTest
     aHC.append (new StringBuffer ("Hallo"));
     aHC.append (new StringBuilder ("Hallo Welt"));
     aHC.append (CollectionHelper.newSet ("Hallo", "Welt", "from", "unit", "test"));
-    aHC.append (CollectionHelper.getIterator ("Hallo", "Welt", "from", "unit", "test"));
-    aHC.append (CollectionHelper.getEnumeration ("Hallo", "Welt", "from", "unit", "test"));
+    aHC.append (IteratorHelper.getIterator ("Hallo", "Welt", "from", "unit", "test"));
+    aHC.append (IteratorHelper.getEnumeration ("Hallo", "Welt", "from", "unit", "test"));
 
     // Multi values containing null
     aHC.append (CollectionHelper.newSet ("Hallo", null, null, "unit", "test"));

@@ -35,6 +35,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.IteratorHelper;
 
 /**
  * Helper class to handle XML based properties. It is read-only.<br>
@@ -98,7 +99,7 @@ public final class XMLResourceBundle extends ResourceBundle
   @Override
   public Enumeration <String> getKeys ()
   {
-    return CollectionHelper.getEnumeration (m_aValues.keySet ());
+    return IteratorHelper.getEnumeration (m_aValues.keySet ());
   }
 
   @Nonnull

@@ -56,13 +56,7 @@ import com.helger.commons.collection.impl.ComparatorMapEntryValue;
 import com.helger.commons.collection.impl.ComparatorMapEntryValueComparable;
 import com.helger.commons.collection.impl.EmptySortedSet;
 import com.helger.commons.collection.impl.NonBlockingStack;
-import com.helger.commons.collection.iterate.CombinedIterator;
-import com.helger.commons.collection.iterate.EmptyEnumeration;
-import com.helger.commons.collection.iterate.EmptyIterator;
-import com.helger.commons.collection.iterate.EnumerationFromIterator;
 import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.collection.iterate.IterableIteratorFromEnumeration;
-import com.helger.commons.collection.iterate.ReverseListIterator;
 import com.helger.commons.collection.multimap.IMultiMap;
 import com.helger.commons.collection.multimap.IMultiMapSetBased;
 import com.helger.commons.collection.multimap.MultiHashMapHashSetBased;
@@ -370,6 +364,20 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE, DSTVALUETYPE> HashMap <DSTKEYTYPE, DSTVALUETYPE> newMap (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
+                                                                                                                @Nonnull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
+                                                                                                                @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
+  {
+    if (isEmpty (aMap))
+      return newMap (0);
+    final HashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newMap (aMap.size ());
+    for (final Map.Entry <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aEntry : aMap.entrySet ())
+      ret.put (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final KEYTYPE aKey,
                                                                           @Nullable final VALUETYPE aValue)
   {
@@ -543,6 +551,20 @@ public final class CollectionHelper
   public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap ()
   {
     return new LinkedHashMap <> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE, DSTVALUETYPE> LinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> newOrderedMap (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
+                                                                                                                             @Nonnull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
+                                                                                                                             @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
+  {
+    if (isEmpty (aMap))
+      return newOrderedMap (0);
+    final LinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newOrderedMap (aMap.size ());
+    for (final Map.Entry <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aEntry : aMap.entrySet ())
+      ret.put (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
+    return ret;
   }
 
   @Nonnull
@@ -907,6 +929,19 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> HashSet <ELEMENTTYPE> newSet ()
   {
     return new HashSet <> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, DSTTYPE> HashSet <DSTTYPE> newSet (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                             @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  {
+    if (isEmpty (aCollection))
+      return newSet (0);
+    final HashSet <DSTTYPE> ret = newSet (aCollection.size ());
+    for (final SRCTYPE aValue : aCollection)
+      ret.add (aMapper.apply (aValue));
+    return ret;
   }
 
   @Nonnull
@@ -1514,6 +1549,19 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  public static <SRCTYPE, DSTTYPE> LinkedHashSet <DSTTYPE> newOrderedSet (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                          @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  {
+    if (isEmpty (aCollection))
+      return newOrderedSet (0);
+    final LinkedHashSet <DSTTYPE> ret = newOrderedSet (aCollection.size ());
+    for (final SRCTYPE aValue : aCollection)
+      ret.add (aMapper.apply (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
   public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final ELEMENTTYPE aValue)
   {
     final LinkedHashSet <ELEMENTTYPE> ret = newOrderedSet (1);
@@ -1816,6 +1864,19 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  public static <SRCTYPE, DSTTYPE> ArrayList <DSTTYPE> newList (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  {
+    if (isEmpty (aCollection))
+      return newList (0);
+    final ArrayList <DSTTYPE> ret = newList (aCollection.size ());
+    for (final SRCTYPE aValue : aCollection)
+      ret.add (aMapper.apply (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
   public static <ELEMENTTYPE> ArrayList <ELEMENTTYPE> newList (@Nullable final ELEMENTTYPE aValue)
   {
     final ArrayList <ELEMENTTYPE> ret = newList (1);
@@ -2027,6 +2088,19 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> Vector <ELEMENTTYPE> newVector ()
   {
     return new Vector <> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, DSTTYPE> Vector <DSTTYPE> newVector (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                               @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  {
+    if (isEmpty (aCollection))
+      return newVector (0);
+    final Vector <DSTTYPE> ret = newVector (aCollection.size ());
+    for (final SRCTYPE aValue : aCollection)
+      ret.add (aMapper.apply (aValue));
+    return ret;
   }
 
   @Nonnull
@@ -2331,9 +2405,29 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack (@Nonnegative final int nInitialCapacity)
+  {
+    return new NonBlockingStack <> (nInitialCapacity);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack ()
   {
     return new NonBlockingStack <> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, DSTTYPE> NonBlockingStack <DSTTYPE> newStack (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                        @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  {
+    if (isEmpty (aCollection))
+      return newStack (0);
+    final NonBlockingStack <DSTTYPE> ret = newStack (aCollection.size ());
+    for (final SRCTYPE aValue : aCollection)
+      ret.push (aMapper.apply (aValue));
+    return ret;
   }
 
   /**
@@ -2401,6 +2495,19 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue ()
   {
     return new PriorityQueue <> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, DSTTYPE> PriorityQueue <DSTTYPE> newQueue (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                     @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  {
+    if (isEmpty (aCollection))
+      return newQueue (0);
+    final PriorityQueue <DSTTYPE> ret = newQueue (aCollection.size ());
+    for (final SRCTYPE aValue : aCollection)
+      ret.add (aMapper.apply (aValue));
+    return ret;
   }
 
   @Nonnull
@@ -2866,157 +2973,6 @@ public final class CollectionHelper
     return aList;
   }
 
-  @Nonnull
-  public static <ELEMENTTYPE> IIterableIterator <ELEMENTTYPE> getIterator (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
-  {
-    return new IterableIteratorFromEnumeration <> (aEnum);
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getIterator (@Nullable final Iterable <ELEMENTTYPE> aCont)
-  {
-    return aCont == null ? new EmptyIterator <> () : getIterator (aCont.iterator ());
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getIterator (@Nullable final Iterator <ELEMENTTYPE> aIter)
-  {
-    return aIter == null ? new EmptyIterator <> () : aIter;
-  }
-
-  @Nonnull
-  @SafeVarargs
-  public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getIterator (@Nullable final ELEMENTTYPE... aArray)
-  {
-    return ArrayHelper.isEmpty (aArray) ? new EmptyIterator <> () : getIterator (newList (aArray).iterator ());
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getReverseIterator (@Nullable final List <? extends ELEMENTTYPE> aCont)
-  {
-    if (isEmpty (aCont))
-      return new EmptyIterator <> ();
-
-    /**
-     * Performance note: this implementation is much faster than building a
-     * temporary list in reverse order and returning a forward iterator!
-     */
-    return new ReverseListIterator <> (aCont);
-  }
-
-  /**
-   * Create an empty iterator.
-   *
-   * @param <ELEMENTTYPE>
-   *        The type the iterator's elements.
-   * @return A non-<code>null</code> object.
-   */
-  @Nonnull
-  public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getEmptyIterator ()
-  {
-    return new EmptyIterator <> ();
-  }
-
-  /**
-   * Get a merged iterator of both iterators. The first iterator is iterated
-   * first, the second one afterwards.
-   *
-   * @param <ELEMENTTYPE>
-   *        The type of elements to be enumerated.
-   * @param aIter1
-   *        First iterator. May be <code>null</code>.
-   * @param aIter2
-   *        Second iterator. May be <code>null</code>.
-   * @return The merged iterator. Never <code>null</code>.
-   */
-  @Nonnull
-  public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getCombinedIterator (@Nullable final Iterator <? extends ELEMENTTYPE> aIter1,
-                                                                          @Nullable final Iterator <? extends ELEMENTTYPE> aIter2)
-  {
-    return new CombinedIterator <> (aIter1, aIter2);
-  }
-
-  /**
-   * Get an {@link Enumeration} object based on a {@link Collection} object.
-   *
-   * @param <ELEMENTTYPE>
-   *        the type of the elements in the container
-   * @param aCont
-   *        The container to enumerate.
-   * @return an Enumeration object
-   */
-  @Nonnull
-  public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getEnumeration (@Nullable final Iterable <ELEMENTTYPE> aCont)
-  {
-    return isEmpty (aCont) ? new EmptyEnumeration <> () : getEnumeration (aCont.iterator ());
-  }
-
-  /**
-   * Get an {@link Enumeration} object based on the passed array.
-   *
-   * @param <ELEMENTTYPE>
-   *        the type of the elements in the container
-   * @param aArray
-   *        The array to enumerate.
-   * @return an Enumeration object
-   */
-  @Nonnull
-  @SafeVarargs
-  public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getEnumeration (@Nullable final ELEMENTTYPE... aArray)
-  {
-    return getEnumeration (getIterator (aArray));
-  }
-
-  /**
-   * Get an Enumeration object based on an Iterator object.
-   *
-   * @param <ELEMENTTYPE>
-   *        the type of the elements in the container
-   * @param aIter
-   *        iterator object to use
-   * @return an Enumeration object
-   */
-  @Nonnull
-  public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getEnumeration (@Nullable final Iterator <ELEMENTTYPE> aIter)
-  {
-    if (aIter == null)
-      return new EmptyEnumeration <> ();
-
-    return new EnumerationFromIterator <> (aIter);
-  }
-
-  /**
-   * Get an Enumeration object based on a Map object.
-   *
-   * @param <KEYTYPE>
-   *        map key type
-   * @param <VALUETYPE>
-   *        map value type
-   * @param aMap
-   *        map object to use
-   * @return an Enumeration object
-   */
-  @Nonnull
-  public static <KEYTYPE, VALUETYPE> Enumeration <Map.Entry <KEYTYPE, VALUETYPE>> getEnumeration (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
-  {
-    if (aMap == null)
-      return new EmptyEnumeration <> ();
-    return getEnumeration (aMap.entrySet ());
-  }
-
-  /**
-   * Create an empty enumeration.
-   *
-   * @param <ELEMENTTYPE>
-   *        The type the enumeration's elements.
-   * @return A non-<code>null</code> object.
-   */
-  @Nonnull
-  public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getEmptyEnumeration ()
-  {
-    return new EmptyEnumeration <> ();
-  }
-
   @Nullable
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> getStackCopyWithoutTop (@Nullable final NonBlockingStack <ELEMENTTYPE> aStack)
@@ -3358,21 +3314,6 @@ public final class CollectionHelper
     return aCont == null || !aCont.iterator ().hasNext ();
   }
 
-  public static boolean isEmpty (@Nullable final Iterator <?> aIter)
-  {
-    return aIter == null || !aIter.hasNext ();
-  }
-
-  public static boolean isEmpty (@Nullable final IIterableIterator <?> aIter)
-  {
-    return aIter == null || !aIter.hasNext ();
-  }
-
-  public static boolean isEmpty (@Nullable final Enumeration <?> aEnum)
-  {
-    return aEnum == null || !aEnum.hasMoreElements ();
-  }
-
   public static boolean isEmpty (@Nullable final Collection <?> aCont)
   {
     return aCont == null || aCont.isEmpty ();
@@ -3386,21 +3327,6 @@ public final class CollectionHelper
   public static boolean isNotEmpty (@Nullable final Iterable <?> aCont)
   {
     return aCont != null && aCont.iterator ().hasNext ();
-  }
-
-  public static boolean isNotEmpty (@Nullable final Iterator <?> aIter)
-  {
-    return aIter != null && aIter.hasNext ();
-  }
-
-  public static boolean isNotEmpty (@Nullable final IIterableIterator <?> aIter)
-  {
-    return aIter != null && aIter.hasNext ();
-  }
-
-  public static boolean isNotEmpty (@Nullable final Enumeration <?> aEnum)
-  {
-    return aEnum != null && aEnum.hasMoreElements ();
   }
 
   public static boolean isNotEmpty (@Nullable final Collection <?> aCont)
@@ -3454,63 +3380,7 @@ public final class CollectionHelper
   @Nonnegative
   public static int getSize (@Nullable final Iterable <?> aIterable)
   {
-    return aIterable == null ? 0 : getSize (aIterable.iterator ());
-  }
-
-  /**
-   * Retrieve the size of the passed {@link Iterable}.
-   *
-   * @param aIterator
-   *        Iterable iterator to check. May be <code>null</code>.
-   * @return The number objects or 0 if the passed parameter is
-   *         <code>null</code>.
-   */
-  @Nonnegative
-  public static int getSize (@Nullable final IIterableIterator <?> aIterator)
-  {
-    return aIterator == null ? 0 : getSize (aIterator.iterator ());
-  }
-
-  /**
-   * Retrieve the size of the passed {@link Iterator}.
-   *
-   * @param aIterator
-   *        Iterator to check. May be <code>null</code>.
-   * @return The number objects or 0 if the passed parameter is
-   *         <code>null</code>.
-   */
-  @Nonnegative
-  public static int getSize (@Nullable final Iterator <?> aIterator)
-  {
-    int ret = 0;
-    if (aIterator != null)
-      while (aIterator.hasNext ())
-      {
-        aIterator.next ();
-        ++ret;
-      }
-    return ret;
-  }
-
-  /**
-   * Retrieve the size of the passed {@link Enumeration}.
-   *
-   * @param aEnumeration
-   *        Enumeration to check. May be <code>null</code>.
-   * @return The number objects or 0 if the passed parameter is
-   *         <code>null</code>.
-   */
-  @Nonnegative
-  public static int getSize (@Nullable final Enumeration <?> aEnumeration)
-  {
-    int ret = 0;
-    if (aEnumeration != null)
-      while (aEnumeration.hasMoreElements ())
-      {
-        aEnumeration.nextElement ();
-        ++ret;
-      }
-    return ret;
+    return aIterable == null ? 0 : IteratorHelper.getSize (aIterable.iterator ());
   }
 
   @Nullable

@@ -26,7 +26,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.IteratorHelper;
 
 /**
  * Test class for class {@link CombinedIterator}.
@@ -61,7 +61,7 @@ public final class CombinedIteratorTest
     {}
 
     // one null
-    es = CombinedIterator.create (CollectionHelper.getIterator ("a", "b", "c"), null);
+    es = CombinedIterator.create (IteratorHelper.getIterator ("a", "b", "c"), null);
     assertTrue (es.hasNext ());
     assertEquals ("a", es.next ());
     assertTrue (es.hasNext ());
@@ -78,7 +78,7 @@ public final class CombinedIteratorTest
     {}
 
     // one empty
-    es = CombinedIterator.create (CollectionHelper.getIterator ("a", "b", "c"), new EmptyIterator <String> ());
+    es = CombinedIterator.create (IteratorHelper.getIterator ("a", "b", "c"), new EmptyIterator <> ());
     assertTrue (es.hasNext ());
     assertEquals ("a", es.next ());
     assertTrue (es.hasNext ());
@@ -95,7 +95,7 @@ public final class CombinedIteratorTest
     {}
 
     // other one null
-    es = CombinedIterator.create (null, CollectionHelper.getIterator ("a", "b", "c"));
+    es = CombinedIterator.create (null, IteratorHelper.getIterator ("a", "b", "c"));
     assertTrue (es.hasNext ());
     assertEquals ("a", es.next ());
     assertTrue (es.hasNext ());
@@ -112,7 +112,7 @@ public final class CombinedIteratorTest
     {}
 
     // other one empty
-    es = CombinedIterator.create (new EmptyIterator <String> (), CollectionHelper.getIterator ("a", "b", "c"));
+    es = CombinedIterator.create (new EmptyIterator <String> (), IteratorHelper.getIterator ("a", "b", "c"));
     assertTrue (es.hasNext ());
     assertEquals ("a", es.next ());
     assertTrue (es.hasNext ());
@@ -129,7 +129,7 @@ public final class CombinedIteratorTest
     {}
 
     // both not null
-    es = CombinedIterator.create (CollectionHelper.getIterator ("a", "b"), CollectionHelper.getIterator ("c", "d"));
+    es = CombinedIterator.create (IteratorHelper.getIterator ("a", "b"), IteratorHelper.getIterator ("c", "d"));
     assertTrue (es.hasNext ());
     assertEquals ("a", es.next ());
     assertTrue (es.hasNext ());

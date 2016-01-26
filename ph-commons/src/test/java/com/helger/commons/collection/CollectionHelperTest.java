@@ -22,19 +22,14 @@ import static com.helger.commons.collection.CollectionHelper.getConcatenatedInli
 import static com.helger.commons.collection.CollectionHelper.getConcatenatedList;
 import static com.helger.commons.collection.CollectionHelper.getConcatenatedSet;
 import static com.helger.commons.collection.CollectionHelper.getDifference;
-import static com.helger.commons.collection.CollectionHelper.getEmptyEnumeration;
-import static com.helger.commons.collection.CollectionHelper.getEmptyIterator;
-import static com.helger.commons.collection.CollectionHelper.getEnumeration;
 import static com.helger.commons.collection.CollectionHelper.getFilteredMap;
 import static com.helger.commons.collection.CollectionHelper.getFirstElement;
 import static com.helger.commons.collection.CollectionHelper.getFirstKey;
 import static com.helger.commons.collection.CollectionHelper.getFirstValue;
 import static com.helger.commons.collection.CollectionHelper.getIntersected;
-import static com.helger.commons.collection.CollectionHelper.getIterator;
 import static com.helger.commons.collection.CollectionHelper.getLastElement;
 import static com.helger.commons.collection.CollectionHelper.getNotNull;
 import static com.helger.commons.collection.CollectionHelper.getReverseInlineList;
-import static com.helger.commons.collection.CollectionHelper.getReverseIterator;
 import static com.helger.commons.collection.CollectionHelper.getReverseList;
 import static com.helger.commons.collection.CollectionHelper.getReverseLookup;
 import static com.helger.commons.collection.CollectionHelper.getReverseLookupSet;
@@ -69,6 +64,7 @@ import static com.helger.commons.collection.CollectionHelper.newUnmodifiableSort
 import static com.helger.commons.collection.CollectionHelper.newUnmodifiableSortedSet;
 import static com.helger.commons.collection.CollectionHelper.removeFirstElement;
 import static com.helger.commons.collection.CollectionHelper.removeLastElement;
+import static com.helger.commons.collection.IteratorHelper.getEnumeration;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -80,7 +76,6 @@ import static org.junit.Assert.fail;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -91,7 +86,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.SortedSet;
@@ -105,8 +99,6 @@ import org.junit.Test;
 
 import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.collection.iterate.ArrayEnumeration;
-import com.helger.commons.collection.iterate.EmptyEnumeration;
-import com.helger.commons.collection.iterate.EmptyIterator;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
@@ -1821,7 +1813,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aList.contains ("from"));
     assertTrue (aList.contains ("Vienna"));
 
-    aList = newList (CollectionHelper.<String> getEmptyEnumeration ());
+    aList = newList (IteratorHelper.<String> getEmptyEnumeration ());
     assertNotNull (aList);
 
     aList = newList ((Enumeration <String>) null);
@@ -1845,7 +1837,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aList.contains ("from"));
     assertTrue (aList.contains ("Vienna"));
 
-    aList = newList (CollectionHelper.<String> getEmptyIterator ());
+    aList = newList (IteratorHelper.<String> getEmptyIterator ());
     assertNotNull (aList);
 
     aList = newList ((Iterator <String>) null);
@@ -1966,7 +1958,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aUnmodifiableList.contains ("from"));
     assertTrue (aUnmodifiableList.contains ("Vienna"));
 
-    aUnmodifiableList = newUnmodifiableList (CollectionHelper.<String> getEmptyEnumeration ());
+    aUnmodifiableList = newUnmodifiableList (IteratorHelper.<String> getEmptyEnumeration ());
     assertNotNull (aUnmodifiableList);
   }
 
@@ -1987,7 +1979,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aUnmodifiableList.contains ("from"));
     assertTrue (aUnmodifiableList.contains ("Vienna"));
 
-    aUnmodifiableList = newUnmodifiableList (CollectionHelper.<String> getEmptyIterator ());
+    aUnmodifiableList = newUnmodifiableList (IteratorHelper.<String> getEmptyIterator ());
     assertNotNull (aUnmodifiableList);
   }
 
@@ -2230,26 +2222,6 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   }
 
   @Test
-  public void testGetEnumeratorFromIterator ()
-  {
-    final List <String> aList = newList ("d", "c", "b", "a");
-    Enumeration <String> aEnum = getEnumeration (aList.iterator ());
-    assertTrue (aEnum.hasMoreElements ());
-    assertEquals (aEnum.nextElement (), "d");
-    assertTrue (aEnum.hasMoreElements ());
-    assertEquals (aEnum.nextElement (), "c");
-    assertTrue (aEnum.hasMoreElements ());
-    assertEquals (aEnum.nextElement (), "b");
-    assertTrue (aEnum.hasMoreElements ());
-    assertEquals (aEnum.nextElement (), "a");
-    assertFalse (aEnum.hasMoreElements ());
-    assertFalse (aEnum.hasMoreElements ());
-
-    aEnum = getEnumeration ((Iterator <String>) null);
-    assertFalse (aEnum.hasMoreElements ());
-  }
-
-  @Test
   public void testIsEmpty ()
   {
     assertTrue (isEmpty ((List <?>) null));
@@ -2258,83 +2230,6 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (isEmpty (new HashMap <> ()));
     assertFalse (isEmpty (newList ("d", "c", "b", "a")));
     assertTrue (isEmpty ((Iterable <?>) new NonBlockingStack <> ()));
-    assertTrue (isEmpty (new EmptyEnumeration <> ()));
-    assertTrue (isEmpty (new EmptyIterator <> ()));
-  }
-
-  @Test
-  public void testGetReverseIterator ()
-  {
-    assertNotNull (getReverseIterator (null));
-    assertFalse (getReverseIterator (null).hasNext ());
-
-    final List <String> aList = newList ("d", "c", "b", "a");
-    final Iterator <String> it = getReverseIterator (aList);
-    assertTrue (it.hasNext ());
-    assertEquals (it.next (), "a");
-    assertTrue (it.hasNext ());
-    assertEquals (it.next (), "b");
-    assertTrue (it.hasNext ());
-    assertEquals (it.next (), "c");
-    assertTrue (it.hasNext ());
-    assertEquals (it.next (), "d");
-    assertFalse (it.hasNext ());
-    assertFalse (it.hasNext ());
-    try
-    {
-      it.next ();
-      fail ();
-    }
-    catch (final NoSuchElementException ex)
-    {}
-
-    try
-    {
-      it.remove ();
-      fail ();
-    }
-    catch (final UnsupportedOperationException ex)
-    {}
-  }
-
-  @Test
-  public void testEmptyIterator ()
-  {
-    final Iterator <String> it = getEmptyIterator ();
-    assertNotNull (it);
-    assertFalse (it.hasNext ());
-
-    try
-    {
-      it.next ();
-      fail ();
-    }
-    catch (final NoSuchElementException ex)
-    {}
-
-    try
-    {
-      it.remove ();
-      fail ();
-    }
-    catch (final UnsupportedOperationException ex)
-    {}
-  }
-
-  @Test
-  public void testEmptyEnumeration ()
-  {
-    final Enumeration <String> aEnum = getEmptyEnumeration ();
-    assertNotNull (aEnum);
-    assertFalse (aEnum.hasMoreElements ());
-
-    try
-    {
-      aEnum.nextElement ();
-      fail ();
-    }
-    catch (final NoSuchElementException ex)
-    {}
   }
 
   @Test
@@ -2360,44 +2255,6 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertEquals (1, getSize (newMap ("Ha", "We")));
     assertEquals (0, getSize ((Collection <String>) null));
     assertEquals (0, getSize ((Map <String, Double>) null));
-  }
-
-  @Test
-  public void testGetIteratorFromEnumeration ()
-  {
-    final Enumeration <String> aSourceEnum = Collections.enumeration (newList ("a", "b", "c", "d"));
-    IIterableIterator <String> it = getIterator (aSourceEnum);
-    assertNotNull (it);
-    assertSame (it, it.iterator ());
-    assertTrue (it.hasNext ());
-    assertEquals ("a", it.next ());
-    assertTrue (it.hasNext ());
-    assertEquals ("b", it.next ());
-    assertTrue (it.hasNext ());
-    assertEquals ("c", it.next ());
-    assertTrue (it.hasNext ());
-    assertEquals ("d", it.next ());
-    assertFalse (it.hasNext ());
-
-    try
-    {
-      it.next ();
-      fail ();
-    }
-    catch (final NoSuchElementException ex)
-    {}
-
-    try
-    {
-      it.remove ();
-      fail ();
-    }
-    catch (final UnsupportedOperationException ex)
-    {}
-
-    it = getIterator ((Enumeration <String>) null);
-    assertNotNull (it);
-    assertFalse (it.hasNext ());
   }
 
   @Test
@@ -2482,39 +2339,6 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertEquals ("ValueC", it.next ().getValue ());
     assertEquals ("ValueB", it.next ().getValue ());
     assertEquals ("ValueA", it.next ().getValue ());
-  }
-
-  /**
-   * Test for method getIterator
-   */
-  @Test
-  public void testGetIterator_Iterable ()
-  {
-    assertNotNull (getIterator ((ArrayList <?>) null));
-    assertFalse (getIterator ((ArrayList <?>) null).hasNext ());
-    assertTrue (getIterator (newList ("abc")).hasNext ());
-  }
-
-  /**
-   * Test for method getIterator
-   */
-  @Test
-  public void testGetIterator_Iterator ()
-  {
-    assertNotNull (getIterator ((Iterator <?>) null));
-    assertFalse (getIterator ((Iterator <?>) null).hasNext ());
-    assertTrue (getIterator (newList ("abc").iterator ()).hasNext ());
-  }
-
-  /**
-   * Test for method getIterator
-   */
-  @Test
-  public void testGetIterator_Array ()
-  {
-    assertNotNull (getIterator (new String [0]));
-    assertFalse (getIterator (new String [0]).hasNext ());
-    assertTrue (getIterator ("a").hasNext ());
   }
 
   @Test
@@ -2636,33 +2460,6 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   }
 
   @Test
-  public void testIsEmpty_Iterator ()
-  {
-    assertTrue (isEmpty ((Iterator <?>) null));
-    assertTrue (isEmpty (new ArrayList <String> ().iterator ()));
-    assertTrue (isEmpty (new EmptyIterator <String> ()));
-    assertFalse (isEmpty (newList ("any").iterator ()));
-  }
-
-  @Test
-  public void testIsEmpty_IIterableIterator ()
-  {
-    assertTrue (isEmpty ((IIterableIterator <?>) null));
-    assertTrue (isEmpty (IterableIterator.create (new ArrayList <String> ())));
-    assertTrue (isEmpty (IterableIterator.<String> createEmpty ()));
-    assertFalse (isEmpty (IterableIterator.create (newList ("any"))));
-  }
-
-  @Test
-  public void testIsEmpty_Enumeration ()
-  {
-    assertTrue (isEmpty ((Enumeration <?>) null));
-    assertTrue (isEmpty (getEnumeration (new ArrayList <String> ())));
-    assertTrue (isEmpty (new EmptyEnumeration <String> ()));
-    assertFalse (isEmpty (getEnumeration (newList ("any"))));
-  }
-
-  @Test
   public void testIsEmpty_Collection ()
   {
     assertTrue (isEmpty ((Collection <?>) null));
@@ -2700,22 +2497,6 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertEquals (0, getSize ((Iterable <?>) null));
     assertEquals (0, getSize ((Iterable <String>) new ArrayList <String> ()));
     assertEquals (1, getSize ((Iterable <String>) newList ("any")));
-  }
-
-  @Test
-  public void testGetSize_IterableIterator ()
-  {
-    assertEquals (0, getSize ((IIterableIterator <?>) null));
-    assertEquals (0, getSize (IterableIterator.createEmpty ()));
-    assertEquals (1, getSize (IterableIterator.create (newList ("any"))));
-  }
-
-  @Test
-  public void testGetSize_Iterator ()
-  {
-    assertEquals (0, getSize ((Iterator <?>) null));
-    assertEquals (0, getSize (new ArrayList <String> ().iterator ()));
-    assertEquals (1, getSize (newList ("any").iterator ()));
   }
 
   @Test
