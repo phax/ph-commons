@@ -29,7 +29,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
@@ -1620,7 +1619,7 @@ public final class StringHelper
     }
     final String [] ret = new String [nMaxItems < 1 ? nMaxResultElements : Math.min (nMaxResultElements, nMaxItems)];
 
-    // Do not use RegExPool.stringReplacePattern because of package
+    // Do not use RegExCache.stringReplacePattern because of package
     // dependencies
     // Do not use String.split because it trims empty tokens from the end
     int nStartIndex = 0;
@@ -1763,7 +1762,7 @@ public final class StringHelper
     return getExploded (cSep,
                         sElements,
                         nMaxItems,
-                        nMaxItems >= 1 ? new ArrayList <String> (nMaxItems) : new ArrayList <String> ());
+                        nMaxItems >= 1 ? new ArrayList <> (nMaxItems) : new ArrayList <> ());
   }
 
   /**
@@ -1897,7 +1896,7 @@ public final class StringHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <String> getExplodedToSet (@Nonnull final String sSep, @Nullable final String sElements)
+  public static HashSet <String> getExplodedToSet (@Nonnull final String sSep, @Nullable final String sElements)
   {
     return getExploded (sSep, sElements, -1, new HashSet <String> ());
   }
@@ -1917,7 +1916,8 @@ public final class StringHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <String> getExplodedToOrderedSet (@Nonnull final String sSep, @Nullable final String sElements)
+  public static LinkedHashSet <String> getExplodedToOrderedSet (@Nonnull final String sSep,
+                                                                @Nullable final String sElements)
   {
     return getExploded (sSep, sElements, -1, new LinkedHashSet <String> ());
   }
@@ -1937,7 +1937,7 @@ public final class StringHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static SortedSet <String> getExplodedToSortedSet (@Nonnull final String sSep, @Nullable final String sElements)
+  public static TreeSet <String> getExplodedToSortedSet (@Nonnull final String sSep, @Nullable final String sElements)
   {
     return getExploded (sSep, sElements, -1, new TreeSet <String> ());
   }
