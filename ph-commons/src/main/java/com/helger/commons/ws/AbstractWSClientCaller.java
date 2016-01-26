@@ -32,8 +32,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.system.SystemProperties;
 
 /**
  * Abstract base class for a webservice client caller.
@@ -42,11 +40,16 @@ import com.helger.commons.system.SystemProperties;
  */
 public abstract class AbstractWSClientCaller
 {
+  public static final int DEFAULT_CONNECTION_TIMEOUT_MS = 5000;
+  public static final int DEFAULT_REQUEST_TIMEOUT_MS = 5000;
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractWSClientCaller.class);
 
   private final URL m_aEndpointAddress;
   private SSLSocketFactory m_aSSLSocketFactory;
   private HostnameVerifier m_aHostnameVerifier;
+  private int m_nConnectionTimeoutMS = DEFAULT_CONNECTION_TIMEOUT_MS;
+  private int m_nRequestTimeoutMS = DEFAULT_REQUEST_TIMEOUT_MS;
 
   /**
    * Creates a service caller for the service meta data interface
@@ -119,6 +122,44 @@ public abstract class AbstractWSClientCaller
   }
 
   /**
+   * @return The connection timeout in milliseconds.
+   */
+  public int getConnectionTimeoutMS ()
+  {
+    return m_nConnectionTimeoutMS;
+  }
+
+  /**
+   * Set the connection timeout in milliseconds.
+   *
+   * @param nConnectionTimeoutMS
+   *        Milliseconds. Only values &ge; 0 are considered.
+   */
+  public void setConnectionTimeoutMS (final int nConnectionTimeoutMS)
+  {
+    m_nConnectionTimeoutMS = nConnectionTimeoutMS;
+  }
+
+  /**
+   * @return The request timeout in milliseconds.
+   */
+  public int getRequestTimeoutMS ()
+  {
+    return m_nRequestTimeoutMS;
+  }
+
+  /**
+   * Set the request timeout in milliseconds.
+   *
+   * @param nRequestTimeoutMS
+   *        Milliseconds. Only values &ge; 0 are considered.
+   */
+  public void setRequestTimeoutMS (final int nRequestTimeoutMS)
+  {
+    m_nRequestTimeoutMS = nRequestTimeoutMS;
+  }
+
+  /**
    * Implement this method in your derived class to add custom handlers.
    *
    * @param aHandlerList
@@ -147,91 +188,23 @@ public abstract class AbstractWSClientCaller
                                     m_aHostnameVerifier);
     }
 
-    final int nConnectTimeoutMS = 5000;
-    aBP.getRequestContext ().put ("com.sun.xml.ws.connect.timeout", Integer.valueOf (nConnectTimeoutMS));
-    aBP.getRequestContext ().put ("com.sun.xml.internal.ws.connect.timeout", Integer.valueOf (nConnectTimeoutMS));
+    if (m_nConnectionTimeoutMS >= 0)
+    {
+      aBP.getRequestContext ().put ("com.sun.xml.ws.connect.timeout", Integer.valueOf (m_nConnectionTimeoutMS));
+      aBP.getRequestContext ().put ("com.sun.xml.internal.ws.connect.timeout",
+                                    Integer.valueOf (m_nConnectionTimeoutMS));
+    }
 
-    final int nRequestTimeoutMS = 5000;
-    aBP.getRequestContext ().put ("com.sun.xml.ws.request.timeout", Integer.valueOf (nRequestTimeoutMS));
-    aBP.getRequestContext ().put ("com.sun.xml.internal.ws.request.timeout", Integer.valueOf (nRequestTimeoutMS));
+    if (m_nRequestTimeoutMS >= 0)
+    {
+      aBP.getRequestContext ().put ("com.sun.xml.ws.request.timeout", Integer.valueOf (m_nRequestTimeoutMS));
+      aBP.getRequestContext ().put ("com.sun.xml.internal.ws.request.timeout", Integer.valueOf (m_nRequestTimeoutMS));
+    }
 
     @SuppressWarnings ("rawtypes")
     final List <Handler> aHandlers = aBP.getBinding ().getHandlerChain ();
     // Fill handlers
     addHandlers (aHandlers);
     aBP.getBinding ().setHandlerChain (aHandlers);
-  }
-
-  /**
-   * Enable the JAX-WS SOAP debugging. This shows the exchanged SOAP messages in
-   * the log file. By default this logging is disabled.
-   *
-   * @param bDebug
-   *        <code>true</code> to enable debugging, <code>false</code> to disable
-   *        it.
-   */
-  public static void enableSoapLogging (final boolean bDebug)
-  {
-    SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump",
-                                       Boolean.toString (bDebug));
-    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump",
-                                       Boolean.toString (bDebug));
-  }
-
-  /**
-   * Enable advanced JAX-WS debugging on more or less all relevant layers. This
-   * method internally calls {@link #enableSoapLogging(boolean)} so it does not
-   * need to be called explicitly. By default all this logging is disabled.
-   *
-   * @param bDebug
-   *        <code>true</code> to enabled debugging, <code>false</code> to
-   *        disable it.
-   */
-  public static void setMetroDebugSystemProperties (final boolean bDebug)
-  {
-    // Depending on the used JAX-WS version, the property names are
-    // different....
-    enableSoapLogging (bDebug);
-
-    SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.HttpAdapter.dump", Boolean.toString (bDebug));
-    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump",
-                                       Boolean.toString (bDebug));
-
-    SystemProperties.setPropertyValue ("com.sun.xml.ws.fault.SOAPFaultBuilder.disableCaptureStackTrace",
-                                       bDebug ? null : "false");
-
-    SystemProperties.setPropertyValue ("com.sun.metro.soap.dump", Boolean.toString (bDebug));
-    SystemProperties.setPropertyValue ("com.sun.xml.wss.provider.wsit.SecurityTubeFactory.dump",
-                                       Boolean.toString (bDebug));
-    SystemProperties.setPropertyValue ("com.sun.xml.wss.jaxws.impl.SecurityServerTube.dump", Boolean.toString (bDebug));
-    SystemProperties.setPropertyValue ("com.sun.xml.wss.jaxws.impl.SecurityClientTube.dump", Boolean.toString (bDebug));
-    SystemProperties.setPropertyValue ("com.sun.xml.ws.rx.rm.runtime.ClientTube.dump", Boolean.toString (bDebug));
-  }
-
-  /**
-   * Get a set of system property names which are relevant for network
-   * debugging/proxy handling. This method is meant to be used for reading the
-   * appropriate settings from a configuration file.
-   *
-   * @return An array with all system property names which are relevant for
-   *         debugging/proxy handling. Never <code>null</code> and never empty.
-   *         Each call returns a new array.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  public static String [] getAllJavaNetSystemProperties ()
-  {
-    // http://docs.oracle.com/javase/7/docs/technotes/guides/security/jsse/ReadDebug.html
-    // http://download.oracle.com/javase/6/docs/technotes/guides/net/proxies.html
-    // The first 2 (*.debug) should both be set to "all" to have the most
-    // effects
-    return new String [] { "javax.net.debug",
-                           "java.security.debug",
-                           "java.net.useSystemProxies",
-                           "http.proxyHost",
-                           "http.proxyPort",
-                           "http.nonProxyHosts",
-                           "https.proxyHost",
-                           "https.proxyPort" };
   }
 }
