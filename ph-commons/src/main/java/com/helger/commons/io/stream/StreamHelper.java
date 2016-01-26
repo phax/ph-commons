@@ -1565,8 +1565,9 @@ public final class StreamHelper
     else
     {
       aDOS.writeByte (1);
-      aDOS.writeInt (s.length ());
-      aDOS.write (s.getBytes (CCharset.CHARSET_UTF_8_OBJ));
+      final byte [] aUTF8Bytes = s.getBytes (CCharset.CHARSET_UTF_8_OBJ);
+      aDOS.writeInt (aUTF8Bytes.length);
+      aDOS.write (aUTF8Bytes);
     }
   }
 
