@@ -176,8 +176,11 @@ Add the following to your pom.xml to use this artifact:
 </dependency>
 ```
 
+#ph-less-commons
+A library with less common elements. First available with ph-commons 8.
+A few elements from ph-commons 6 which I'm not really using. But to avoid loss of information this project was added.  
+
 ---
 
-See my personal [Coding Styleguide](https://github.com/phax/meta/blob/master/CodeingStyleguide.md)
-
-On Twitter: <a href="https://twitter.com/philiphelger">Follow @philiphelger</a>
+My personal [Coding Styleguide](https://github.com/phax/meta/blob/master/CodeingStyleguide.md) |
+On Twitter: <a href="https://twitter.com/philiphelger">@philiphelger</a>
