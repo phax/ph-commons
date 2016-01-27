@@ -246,7 +246,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
     for (final IMicroNode aChild : directGetAllChildren ())
     {
       final EMicroNodeType eType = aChild.getType ();
-      if (eType == EMicroNodeType.TEXT)
+      if (eType.isText ())
       {
         final IMicroText aText = (IMicroText) aChild;
         // ignore whitespace-only content
@@ -254,7 +254,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
           aSB.append (aText.getData ());
       }
       else
-        if (eType == EMicroNodeType.CDATA)
+        if (eType.isCDATA ())
         {
           final IMicroCDATA aCDATA = (IMicroCDATA) aChild;
           aSB.append (aCDATA.getNodeValue ());

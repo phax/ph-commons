@@ -264,7 +264,7 @@ public class InMemoryLogger implements Iterable <LogMessage>, IHasSize, IClearab
       if (aCur.isMoreSevereThan (aRet))
       {
         aRet = aCur;
-        if (aRet == EErrorLevel.HIGHEST)
+        if (aRet.isHighest ())
           break;
       }
     }

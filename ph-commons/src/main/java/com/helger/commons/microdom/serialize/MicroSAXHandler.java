@@ -39,7 +39,6 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.error.IErrorLevel;
-import com.helger.commons.microdom.EMicroNodeType;
 import com.helger.commons.microdom.IMicroCDATA;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroDocumentType;
@@ -152,7 +151,7 @@ final class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandle
     {
       // CDATA mode
       final IMicroNode aLastChild = m_aParent.getLastChild ();
-      if (aLastChild != null && aLastChild.getType () == EMicroNodeType.CDATA)
+      if (aLastChild != null && aLastChild.getType ().isCDATA ())
       {
         final IMicroCDATA aLastDATA = (IMicroCDATA) aLastChild;
         // Merge directly following text nodes to one node!
@@ -169,7 +168,7 @@ final class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandle
     {
       // Regular text node
       final IMicroNode aLastChild = m_aParent.getLastChild ();
-      if (aLastChild != null && aLastChild.getType () == EMicroNodeType.TEXT)
+      if (aLastChild != null && aLastChild.getType ().isText ())
       {
         final IMicroText aLastText = (IMicroText) aLastChild;
         if (!aLastText.isElementContentWhitespace ())
@@ -199,7 +198,7 @@ final class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandle
     if (m_bSaveIgnorableWhitespaces)
     {
       final IMicroNode aLastChild = m_aParent.getLastChild ();
-      if (aLastChild != null && aLastChild.getType () == EMicroNodeType.TEXT)
+      if (aLastChild != null && aLastChild.getType ().isText ())
       {
         final IMicroText aLastText = (IMicroText) aLastChild;
         if (aLastText.isElementContentWhitespace ())

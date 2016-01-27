@@ -82,6 +82,16 @@ public enum EMicroNodeType implements IHasIntID
     return m_nDOMNodeType;
   }
 
+  public boolean isCDATA ()
+  {
+    return this == CDATA;
+  }
+
+  public boolean isText ()
+  {
+    return this == TEXT;
+  }
+
   @Nullable
   public static EMicroNodeType getFromIDOrNull (final int nID)
   {

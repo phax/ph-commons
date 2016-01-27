@@ -149,4 +149,9 @@ public enum EMimeQuoting
   @Nonnull
   @Nonempty
   public abstract String getUnquotedString (@Nonnull @Nonempty String sQuotedString) throws DecodeException;
+
+  public boolean isQuotedString ()
+  {
+    return this == EMimeQuoting.QUOTED_STRING;
+  }
 }

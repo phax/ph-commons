@@ -269,7 +269,7 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
       if (aCur.isMoreSevereThan (aRet))
       {
         aRet = aCur;
-        if (aRet == EErrorLevel.HIGHEST)
+        if (aRet.isHighest ())
           break;
       }
     }

@@ -128,7 +128,7 @@ public final class MimeTypeParser
                                               @Nonnull @Nonempty final String sParameters,
                                               @Nonnull final EMimeQuoting eQuotingAlgorithm) throws MimeTypeParserException
   {
-    if (eQuotingAlgorithm == EMimeQuoting.QUOTED_STRING)
+    if (eQuotingAlgorithm.isQuotedString ())
     {
       final char cSep = EMimeQuoting.QUOTED_STRING_SEPARATOR_CHAR;
       final char cMask = EMimeQuoting.QUOTED_STRING_MASK_CHAR;

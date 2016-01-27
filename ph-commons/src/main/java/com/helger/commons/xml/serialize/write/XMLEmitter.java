@@ -443,7 +443,7 @@ public class XMLEmitter
       }
     }
 
-    if (eBracketMode == EXMLSerializeBracketMode.SELF_CLOSED)
+    if (eBracketMode.isSelfClosed ())
     {
       // Note: according to HTML compatibility guideline a space should be added
       // before the self-closing
@@ -473,7 +473,7 @@ public class XMLEmitter
                             final boolean bHasChildren,
                             @Nonnull final EXMLSerializeBracketMode eBracketMode)
   {
-    if (eBracketMode == EXMLSerializeBracketMode.OPEN_CLOSE)
+    if (eBracketMode.isOpenClose ())
     {
       _append ("</");
       if (StringHelper.hasText (sNamespacePrefix))

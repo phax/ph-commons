@@ -82,6 +82,11 @@ public interface IErrorLevel extends
     return getNumericLevel () >= aErrorLevel.getNumericLevel ();
   }
 
+  default boolean isHighest ()
+  {
+    return this == EErrorLevel.HIGHEST;
+  }
+
   @Nullable
   public static IErrorLevel getMostSevere (@Nullable final IErrorLevel aLevel1, @Nullable final IErrorLevel aLevel2)
   {
