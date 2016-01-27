@@ -11,7 +11,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>6.2.3</version>
+  <version>6.2.4</version>
 </dependency>
 ```
 
@@ -193,7 +193,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-jaxb</artifactId>
-  <version>6.2.3</version>
+  <version>6.2.4</version>
 </dependency>
 ```
 
