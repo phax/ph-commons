@@ -115,8 +115,8 @@ public final class CommonsTestHelper
     _testEqualsImplementation (aObject);
     _testEqualsImplementation (aObject2);
     _assertFalse ("This test may not be used with the same object!", aObject == aObject2);
-    _assertTrue ("Passed objects are not identical!\n#1: " + aObject + "\n#2: " + aObject2, aObject.equals (aObject2));
-    _assertTrue ("Passed objects are not identical!\n#1: " + aObject2 + "\n#2: " + aObject, aObject2.equals (aObject));
+    _assertTrue ("Passed objects are not identical!\n", aObject.equals (aObject2));
+    _assertTrue ("Passed objects are not identical!\n", aObject2.equals (aObject));
   }
 
   private static <DATATYPE> void _testEqualsImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject,
