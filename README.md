@@ -15,27 +15,6 @@ Add the following to your pom.xml to use this artifact:
 </dependency>
 ```
 
-##Coding conventions
-
-The following list gives a short overview of special programming techniques that are used inside ph-commons. These descriptions apply to version 6.
-
-  * All interfaces are named starting with a capital 'I' followed by a second uppercase character (like in `IHasID`). By default all interfaces contain only read-only methods except the interface name starts with `IMutable` in which case the interface also contains modifying methods.
-  * All enumerations are named starting with a capital 'E' followed by a second uppercase character (like in `EUnicodeBOM`)
-  * All member variables are private or protected and use the Hungarian notation (like `aList`). The used prefixes are:
-    * `a` for all kind of objects that do not fall into any other category
-    * `b` for boolean variables
-    * `c` for character variables
-    * `d` for double variables
-    * `e` for enum variables
-    * `f` for float variables
-    * `n` for byte, int, long and short variables
-    * `s` for String variables
-  * The scope of a field is indicated by either the prefix `m_` for instance (member) fields, and `s_` for static fields. A special case are "static final" fields which may omit this prefix and use only upper case character (e.g. `DEFAULT_VALUE` as in `public static final boolean DEFAULT_VALUE = true;`)
-  * All methods returning collections (lists, sets, maps etc.) are usually returning copies of the content. This helps ensuring thread-safety (where applicable) but also means that modifying returned collections has no impact on the content of the "owning" object. In more or less all cases, there are "add", "remove" and "clear" methods available to modify the content of an object directly. All the methods returning copies of collections should be annotated with `@ReturnsMutableCopy`. In contrast if the inner collection is returned directly (for whatever reason) it should be annotated with `@ReturnsMutableObject`. If an unmodifiable collection is returned, the corresponding annotation is `@ReturnsImmutableObject` (e.g. for `Collections.unmodifiableList` etc.)
-  * For all non primitive parameter the annotations `@Nonnull` or `@Nullable` are used, indicating whether a parameter can be `null` or not. Additionally for Strings and collections the annotation `@Nonempty` may be present, indicating that empty values are also not allowed. All these annotations have no impact on the runtime of an application. They are just meant as hints for the developers.
-  * All logging is done via SLF4J. 
- 
-
 ##Contents
 In general I tried to make the source comments as useful as possible. Therefore here only an alphabetic package list with the respective contents is shown:
 
@@ -198,5 +177,7 @@ Add the following to your pom.xml to use this artifact:
 ```
 
 ---
+
+See my personal [Coding Styleguide](https://github.com/phax/meta/blob/master/CodeingStyleguide.md)
 
 On Twitter: <a href="https://twitter.com/philiphelger">Follow @philiphelger</a>
