@@ -1577,8 +1577,10 @@ public final class StreamHelper
     else
     {
       aDOS.writeByte (1);
-      aDOS.writeInt (s.length ());
-      aDOS.write (s.getBytes (CCharset.CHARSET_UTF_8_OBJ));
+      // Write byte count and not char count!
+      final byte [] aBytes = s.getBytes (CCharset.CHARSET_UTF_8_OBJ);
+      aDOS.writeInt (aBytes.length);
+      aDOS.write (aBytes);
     }
   }
 
