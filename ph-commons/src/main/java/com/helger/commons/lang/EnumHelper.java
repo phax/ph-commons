@@ -16,7 +16,6 @@
  */
 package com.helger.commons.lang;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +23,7 @@ import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.Immutable;
 
 import org.slf4j.Logger;
@@ -52,7 +52,8 @@ public final class EnumHelper
   private static final Logger s_aLogger = LoggerFactory.getLogger (EnumHelper.class);
   private static final Object [] NOT_CACHABLE = ArrayHelper.EMPTY_OBJECT_ARRAY;
   private static final SimpleReadWriteLock s_aRWLockInt = new SimpleReadWriteLock ();
-  private static final Map <String, Object []> s_aIntCache = new HashMap <String, Object []> ();
+  @GuardedBy ("s_aRWLockInt")
+  private static final Map <String, Object []> s_aIntCache = new HashMap <> ();
 
   @PresentForCodeCoverage
   private static final EnumHelper s_aInstance = new EnumHelper ();
@@ -72,10 +73,7 @@ public final class EnumHelper
                                                                        @Nullable final Predicate <ENUMTYPE> aFilter,
                                                                        @Nullable final ENUMTYPE eDefault)
   {
-    for (final ENUMTYPE aElement : aClass.getEnumConstants ())
-      if (aFilter.test (aElement))
-        return aElement;
-    return eDefault;
+    return ArrayHelper.findFirst (aClass.getEnumConstants (), aFilter, eDefault);
   }
 
   @Nonnull
@@ -83,11 +81,7 @@ public final class EnumHelper
   public static <ENUMTYPE extends Enum <ENUMTYPE>> List <ENUMTYPE> findAll (@Nonnull final Class <ENUMTYPE> aClass,
                                                                             @Nullable final Predicate <ENUMTYPE> aFilter)
   {
-    final List <ENUMTYPE> ret = new ArrayList <> ();
-    for (final ENUMTYPE aElement : aClass.getEnumConstants ())
-      if (aFilter.test (aElement))
-        ret.add (aElement);
-    return ret;
+    return ArrayHelper.getAll (aClass.getEnumConstants (), aFilter);
   }
 
   /**
@@ -121,22 +115,20 @@ public final class EnumHelper
    *        The enum class
    * @param aID
    *        The ID to search
-   * @param aDefault
+   * @param eDefault
    *        The default value to be returned, if the ID was not found.
    * @return The default parameter if no enum item with the given ID is present.
    */
   @Nullable
   public static <KEYTYPE, ENUMTYPE extends Enum <ENUMTYPE> & IHasID <KEYTYPE>> ENUMTYPE getFromIDOrDefault (@Nonnull final Class <ENUMTYPE> aClass,
                                                                                                             @Nullable final KEYTYPE aID,
-                                                                                                            @Nullable final ENUMTYPE aDefault)
+                                                                                                            @Nullable final ENUMTYPE eDefault)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
-    if (aID != null)
-      for (final ENUMTYPE aElement : aClass.getEnumConstants ())
-        if (aElement.getID ().equals (aID))
-          return aElement;
-    return aDefault;
+    if (aID == null)
+      return eDefault;
+    return findFirst (aClass, e -> e.getID ().equals (aID), eDefault);
   }
 
   /**
@@ -192,22 +184,20 @@ public final class EnumHelper
    *        The enum class
    * @param sID
    *        The ID to search
-   * @param aDefault
+   * @param eDefault
    *        The default value to be returned, if the ID was not found.
    * @return The default parameter if no enum item with the given ID is present.
    */
   @Nullable
   public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasID <String>> ENUMTYPE getFromIDCaseInsensitiveOrDefault (@Nonnull final Class <ENUMTYPE> aClass,
                                                                                                                  @Nullable final String sID,
-                                                                                                                 @Nullable final ENUMTYPE aDefault)
+                                                                                                                 @Nullable final ENUMTYPE eDefault)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
-    if (sID != null)
-      for (final ENUMTYPE aElement : aClass.getEnumConstants ())
-        if (aElement.getID ().equalsIgnoreCase (sID))
-          return aElement;
-    return aDefault;
+    if (sID == null)
+      return eDefault;
+    return findFirst (aClass, e -> e.getID ().equalsIgnoreCase (sID), eDefault);
   }
 
   /**
@@ -261,14 +251,14 @@ public final class EnumHelper
    *        The enum class
    * @param nID
    *        The ID to search
-   * @param aDefault
+   * @param eDefault
    *        The default value to be returned, if the ID was not found.
    * @return The default parameter if no enum item with the given ID is present.
    */
   @Nullable
   public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasIntID> ENUMTYPE getFromIDOrDefault (@Nonnull final Class <ENUMTYPE> aClass,
                                                                                             final int nID,
-                                                                                            @Nullable final ENUMTYPE aDefault)
+                                                                                            @Nullable final ENUMTYPE eDefault)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
@@ -301,7 +291,7 @@ public final class EnumHelper
           }
           else
           {
-            // Enum not cachable
+            // Enum not cachable - too many items
             aWLCachedData = NOT_CACHABLE;
           }
           s_aIntCache.put (sCacheKey, aWLCachedData);
@@ -313,15 +303,12 @@ public final class EnumHelper
     if (aCachedData != NOT_CACHABLE)
     {
       if (nID < 0 || nID >= aCachedData.length)
-        return aDefault;
+        return eDefault;
       return GenericReflection.<Object, ENUMTYPE> uncheckedCast (aCachedData[nID]);
     }
 
     // Object is not cachable - traverse as usual
-    for (final ENUMTYPE aElement : aClass.getEnumConstants ())
-      if (aElement.getID () == nID)
-        return aElement;
-    return aDefault;
+    return findFirst (aClass, e -> e.getID () == nID, eDefault);
   }
 
   /**
@@ -375,7 +362,7 @@ public final class EnumHelper
    *        The enum class
    * @param sName
    *        The name to search
-   * @param aDefault
+   * @param eDefault
    *        The default value to be returned, if the name was not found.
    * @return The default parameter if no enum item with the given name is
    *         present.
@@ -383,15 +370,13 @@ public final class EnumHelper
   @Nullable
   public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasName> ENUMTYPE getFromNameOrDefault (@Nonnull final Class <ENUMTYPE> aClass,
                                                                                              @Nullable final String sName,
-                                                                                             @Nullable final ENUMTYPE aDefault)
+                                                                                             @Nullable final ENUMTYPE eDefault)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
-    if (StringHelper.hasText (sName))
-      for (final ENUMTYPE aElement : aClass.getEnumConstants ())
-        if (aElement.getName ().equals (sName))
-          return aElement;
-    return aDefault;
+    if (StringHelper.hasNoText (sName))
+      return eDefault;
+    return findFirst (aClass, e -> e.getName ().equals (sName), eDefault);
   }
 
   /**
@@ -445,7 +430,7 @@ public final class EnumHelper
    *        The enum class
    * @param sName
    *        The name to search
-   * @param aDefault
+   * @param eDefault
    *        The default value to be returned, if the name was not found.
    * @return The default parameter if no enum item with the given name is
    *         present.
@@ -453,15 +438,13 @@ public final class EnumHelper
   @Nullable
   public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasName> ENUMTYPE getFromNameCaseInsensitiveOrDefault (@Nonnull final Class <ENUMTYPE> aClass,
                                                                                                             @Nullable final String sName,
-                                                                                                            @Nullable final ENUMTYPE aDefault)
+                                                                                                            @Nullable final ENUMTYPE eDefault)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
-    if (StringHelper.hasText (sName))
-      for (final ENUMTYPE aElement : aClass.getEnumConstants ())
-        if (aElement.getName ().equalsIgnoreCase (sName))
-          return aElement;
-    return aDefault;
+    if (StringHelper.hasNoText (sName))
+      return eDefault;
+    return findFirst (aClass, e -> e.getName ().equalsIgnoreCase (sName), eDefault);
   }
 
   /**
