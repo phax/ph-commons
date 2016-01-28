@@ -16,6 +16,7 @@
  */
 package com.helger.commons.compare;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -37,7 +38,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 public final class ISerializableComparatorTest extends AbstractCommonsTestCase
 {
   @Test
-  public void testAll ()
+  public void testCollating ()
   {
     final List <String> l = CollectionHelper.newList ("a", null, "c");
     assertEquals (3,
@@ -67,5 +68,50 @@ public final class ISerializableComparatorTest extends AbstractCommonsTestCase
     }
     catch (final NullPointerException ex)
     {}
+  }
+
+  @Test
+  public void testCollatingOrder ()
+  {
+    final String S1 = "abc";
+    final String S2 = "ABC";
+    final String S3 = "ab";
+    final String [] x = new String [] { S1, S2, S3 };
+
+    // Explicitly sort ascending
+    List <String> l = CollectionHelper.getSorted (x, ISerializableComparator.getComparatorCollating (Locale.US));
+    assertArrayEquals (new String [] { S3, S1, S2 }, l.toArray ());
+
+    // Explicitly sort descending
+    l = CollectionHelper.getSorted (x, ISerializableComparator.getComparatorCollating (Locale.US).reversed ());
+    assertArrayEquals (new String [] { S2, S1, S3 }, l.toArray ());
+  }
+
+  /**
+   * Test for constructors using a locale
+   */
+  @Test
+  public void testLocaleGerman ()
+  {
+    final String S1 = "bbc";
+    final String S2 = "abc";
+    final String S3 = "äbc";
+    final String [] x = new String [] { S1, S2, S3 };
+
+    // default: sort ascending
+    List <String> l = CollectionHelper.getSorted (x, ISerializableComparator.getComparatorCollating (Locale.GERMAN));
+    assertArrayEquals (new String [] { S2, S3, S1 }, l.toArray ());
+
+    // sort ascending manually
+    l = CollectionHelper.getSorted (x, ISerializableComparator.getComparatorCollating (Locale.GERMAN));
+    assertArrayEquals (new String [] { S2, S3, S1 }, l.toArray ());
+
+    // sort descending manually
+    l = CollectionHelper.getSorted (x, ISerializableComparator.getComparatorCollating (Locale.GERMAN).reversed ());
+    assertArrayEquals (new String [] { S1, S3, S2 }, l.toArray ());
+
+    // null locale allowed
+    ISerializableComparator.getComparatorCollating ((Locale) null);
+    assertArrayEquals (new String [] { S1, S3, S2 }, l.toArray ());
   }
 }
