@@ -51,9 +51,7 @@ import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.impl.ComparatorMapEntryKey;
-import com.helger.commons.collection.impl.ComparatorMapEntryKeyComparable;
 import com.helger.commons.collection.impl.ComparatorMapEntryValue;
-import com.helger.commons.collection.impl.ComparatorMapEntryValueComparable;
 import com.helger.commons.collection.impl.EmptySortedSet;
 import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.collection.iterate.IIterableIterator;
@@ -61,7 +59,6 @@ import com.helger.commons.collection.multimap.IMultiMap;
 import com.helger.commons.collection.multimap.IMultiMapSetBased;
 import com.helger.commons.collection.multimap.MultiHashMapHashSetBased;
 import com.helger.commons.compare.ComparatorComparable;
-import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.state.EChange;
 
@@ -2817,33 +2814,12 @@ public final class CollectionHelper
   @Nullable
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> Map <KEYTYPE, VALUETYPE> getSortedByKey (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
-    return getSortedByKey (aMap, ESortOrder.DEFAULT);
-  }
-
-  /**
-   * Get a map sorted by its keys. Because no comparator is defined, the key
-   * type needs to implement the {@link java.lang.Comparable} interface.
-   *
-   * @param <KEYTYPE>
-   *        map key type
-   * @param <VALUETYPE>
-   *        map value type
-   * @param aMap
-   *        the map to sort
-   * @param eSortOrder
-   *        The sort oder to use for sorting. May not be <code>null</code>.
-   * @return the sorted map or the original map, if it was empty
-   */
-  @Nullable
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> Map <KEYTYPE, VALUETYPE> getSortedByKey (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                                                   @Nonnull final ESortOrder eSortOrder)
-  {
     if (isEmpty (aMap))
       return aMap;
 
     // get sorted entry list
     final List <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
-    Collections.sort (aList, new ComparatorMapEntryKeyComparable <KEYTYPE, VALUETYPE> ().setSortOrder (eSortOrder));
+    Collections.sort (aList, Comparator.comparing (Map.Entry::getKey));
     return newOrderedMap (aList);
   }
 
@@ -2891,33 +2867,12 @@ public final class CollectionHelper
   @Nullable
   public static <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>> Map <KEYTYPE, VALUETYPE> getSortedByValue (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
-    return getSortedByValue (aMap, ESortOrder.DEFAULT);
-  }
-
-  /**
-   * Get a map sorted by its values. Because no comparator is defined, the value
-   * type needs to implement the {@link java.lang.Comparable} interface.
-   *
-   * @param <KEYTYPE>
-   *        map key type
-   * @param <VALUETYPE>
-   *        map value type
-   * @param aMap
-   *        The map to sort. May not be <code>null</code>.
-   * @param eSortOrder
-   *        The sort order to be applied. May not be <code>null</code>.
-   * @return the sorted map or the original map, if it was empty
-   */
-  @Nullable
-  public static <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>> Map <KEYTYPE, VALUETYPE> getSortedByValue (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                                                       @Nonnull final ESortOrder eSortOrder)
-  {
     if (isEmpty (aMap))
       return aMap;
 
     // get sorted entry list
     final List <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
-    Collections.sort (aList, new ComparatorMapEntryValueComparable <KEYTYPE, VALUETYPE> ().setSortOrder (eSortOrder));
+    Collections.sort (aList, Comparator.comparing (Map.Entry::getValue));
     return newOrderedMap (aList);
   }
 

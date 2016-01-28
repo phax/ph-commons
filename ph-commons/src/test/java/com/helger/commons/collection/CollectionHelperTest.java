@@ -106,7 +106,6 @@ import com.helger.commons.collection.multimap.IMultiMapSetBased;
 import com.helger.commons.collection.multimap.MultiHashMapArrayListBased;
 import com.helger.commons.collection.multimap.MultiHashMapHashSetBased;
 import com.helger.commons.compare.CollatingComparator;
-import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.compare.ISerializableComparator;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
@@ -2278,7 +2277,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testGetSortedByKey ()
   {
     assertNull (getSortedByKey ((Map <String, ?>) null));
-    assertNull (getSortedByKey (null, new CollatingComparator (Locale.US).setSortOrder (ESortOrder.DESCENDING)));
+    assertNull (getSortedByKey (null, new CollatingComparator (Locale.US).reversed ()));
 
     try
     {
@@ -2299,8 +2298,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertEquals ("K3", it.next ().getKey ());
 
     // reverse sort
-    it = getSortedByKey (aMap, new CollatingComparator (Locale.US).setSortOrder (ESortOrder.DESCENDING)).entrySet ()
-                                                                                                        .iterator ();
+    it = getSortedByKey (aMap, new CollatingComparator (Locale.US).reversed ()).entrySet ().iterator ();
     assertEquals ("K3", it.next ().getKey ());
     assertEquals ("K2", it.next ().getKey ());
     assertEquals ("K1", it.next ().getKey ());
@@ -2313,7 +2311,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testGetSortedByValue ()
   {
     assertNull (getSortedByValue ((Map <?, String>) null));
-    assertNull (getSortedByValue (null, new CollatingComparator (Locale.US).setSortOrder (ESortOrder.DESCENDING)));
+    assertNull (getSortedByValue (null, new CollatingComparator (Locale.US).reversed ()));
 
     try
     {
@@ -2334,8 +2332,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertEquals ("ValueC", it.next ().getValue ());
 
     // reverse sort
-    it = getSortedByValue (aMap, new CollatingComparator (Locale.US).setSortOrder (ESortOrder.DESCENDING)).entrySet ()
-                                                                                                          .iterator ();
+    it = getSortedByValue (aMap, new CollatingComparator (Locale.US).reversed ()).entrySet ().iterator ();
     assertEquals ("ValueC", it.next ().getValue ());
     assertEquals ("ValueB", it.next ().getValue ());
     assertEquals ("ValueA", it.next ().getValue ());

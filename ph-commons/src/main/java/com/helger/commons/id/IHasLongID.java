@@ -16,6 +16,10 @@
  */
 package com.helger.commons.id;
 
+import java.util.Comparator;
+
+import javax.annotation.Nonnull;
+
 /**
  * Base interface for all objects having a long ID.
  *
@@ -28,4 +32,10 @@ public interface IHasLongID
    * @return The simple long ID of this object.
    */
   long getID ();
+
+  @Nonnull
+  static Comparator <? super IHasLongID> getComparator ()
+  {
+    return Comparator.comparingLong (o -> o.getID ());
+  }
 }

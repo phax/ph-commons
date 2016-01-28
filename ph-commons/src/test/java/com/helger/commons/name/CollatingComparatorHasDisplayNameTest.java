@@ -23,7 +23,6 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
@@ -46,8 +45,7 @@ public final class CollatingComparatorHasDisplayNameTest extends AbstractCommons
     assertEquals ("2", l2.get (1).getDisplayName ());
     assertEquals ("5", l2.get (2).getDisplayName ());
 
-    l2 = CollectionHelper.getSorted (aList,
-                                     new CollatingComparatorHasDisplayName <IHasDisplayName> (L_DE).setSortOrder (ESortOrder.DESCENDING));
+    l2 = CollectionHelper.getSorted (aList, new CollatingComparatorHasDisplayName <IHasDisplayName> (L_DE).reversed ());
     assertEquals (3, l2.size ());
     assertEquals ("5", l2.get (0).getDisplayName ());
     assertEquals ("2", l2.get (1).getDisplayName ());

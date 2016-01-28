@@ -23,34 +23,26 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.compare.ESortOrder;
 
 /**
- * Test class for class {@link ComparatorHasSimpleIntID}.
+ * Test class for class {@link IHasLongID}.
  *
  * @author Philip Helger
  */
-public final class ComparatorHasSimpleIntIDTest
+public final class IHasLongIDTest
 {
   @Test
   public void testAll ()
   {
-    final List <? extends IHasIntID> aList = CollectionHelper.newList (new MockHasIntID (5),
-                                                                       new MockHasIntID (3),
-                                                                       new MockHasIntID (7));
-    CollectionHelper.getSortedInline (aList, new ComparatorHasSimpleIntID <IHasIntID> ());
+    final List <? extends IHasLongID> aList = CollectionHelper.newList (new MockHasLongID (5),
+                                                                        new MockHasLongID (3),
+                                                                        new MockHasLongID (7));
+    CollectionHelper.getSortedInline (aList, IHasLongID.getComparator ());
     assertEquals (3, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (7, aList.get (2).getID ());
 
-    CollectionHelper.getSortedInline (aList,
-                                      new ComparatorHasSimpleIntID <IHasIntID> ().setSortOrder (ESortOrder.ASCENDING));
-    assertEquals (3, aList.get (0).getID ());
-    assertEquals (5, aList.get (1).getID ());
-    assertEquals (7, aList.get (2).getID ());
-
-    CollectionHelper.getSortedInline (aList,
-                                      new ComparatorHasSimpleIntID <IHasIntID> ().setSortOrder (ESortOrder.DESCENDING));
+    CollectionHelper.getSortedInline (aList, IHasLongID.getComparator ().reversed ());
     assertEquals (7, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (3, aList.get (2).getID ());

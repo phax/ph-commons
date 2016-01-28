@@ -21,7 +21,6 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.compare.ESortOrder;
 
 /**
  * Test class for class {@link ComparatorThreadPriority}.
@@ -35,6 +34,6 @@ public final class ComparatorThreadPriorityTest
   {
     final List <Thread> aList = CollectionHelper.newList (new Thread ("name1"), new Thread ("name2"));
     CollectionHelper.getSortedInline (aList, new ComparatorThreadPriority ());
-    CollectionHelper.getSortedInline (aList, new ComparatorThreadPriority ().setSortOrder (ESortOrder.DESCENDING));
+    CollectionHelper.getSortedInline (aList, new ComparatorThreadPriority ().reversed ());
   }
 }

@@ -16,13 +16,9 @@
  */
 package com.helger.commons.compare;
 
-import java.util.Comparator;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -35,38 +31,13 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public abstract class AbstractComparator <DATATYPE> implements ISerializableComparator <DATATYPE>
 {
-  private ESortOrder m_eSortOrder = ESortOrder.DEFAULT;
   private boolean m_bNullValuesComeFirst = CompareHelper.DEFAULT_NULL_VALUES_COME_FIRST;
-  private Comparator <? super DATATYPE> m_aNestedComparator;
 
   /**
    * Comparator with default sort order and no nested comparator.
    */
   public AbstractComparator ()
   {}
-
-  /**
-   * @return The currently assigned sort order. Never <code>null</code>.
-   */
-  @Nonnull
-  public final ESortOrder getSortOrder ()
-  {
-    return m_eSortOrder;
-  }
-
-  /**
-   * Call this to enable sorting after the constructor was invoked.
-   *
-   * @param eSortOrder
-   *        The sort order to use. May not be <code>null</code>.
-   * @return this
-   */
-  @Nonnull
-  public final AbstractComparator <DATATYPE> setSortOrder (@Nonnull final ESortOrder eSortOrder)
-  {
-    m_eSortOrder = ValueEnforcer.notNull (eSortOrder, "SortOrder");
-    return this;
-  }
 
   /**
    * @return <code>true</code> if <code>null</code> values are to be ordered
@@ -91,31 +62,6 @@ public abstract class AbstractComparator <DATATYPE> implements ISerializableComp
   public final AbstractComparator <DATATYPE> setNullValuesComeFirst (final boolean bNullValuesComeFirst)
   {
     m_bNullValuesComeFirst = bNullValuesComeFirst;
-    return this;
-  }
-
-  /**
-   * @return The nested comparator. May be <code>null</code>.
-   */
-  @Nonnull
-  public final Comparator <? super DATATYPE> getNestedComparator ()
-  {
-    return m_aNestedComparator;
-  }
-
-  /**
-   * Set a nested comparator to be invoked if the comparison result of this
-   * comparator is 0.
-   *
-   * @param aNestedComparator
-   *        The nested comparator to be invoked, when the main comparison
-   *        resulted in 0. May be <code>null</code>.
-   * @return this
-   */
-  @Nonnull
-  public final AbstractComparator <DATATYPE> setNestedComparator (@Nullable final Comparator <? super DATATYPE> aNestedComparator)
-  {
-    m_aNestedComparator = aNestedComparator;
     return this;
   }
 
@@ -155,23 +101,12 @@ public abstract class AbstractComparator <DATATYPE> implements ISerializableComp
           nCompare = mainCompare (aElement1, aElement2);
         }
 
-    // Invoke the nested comparator for 2nd level comparison (if any)
-    // The nested comparator may have another nested comparator etc.
-    if (nCompare == 0 && m_aNestedComparator != null)
-    {
-      nCompare = m_aNestedComparator.compare (aElement1, aElement2);
-    }
-
-    // Apply sort order by switching the sign of the return value
-    return m_eSortOrder.isAscending () ? nCompare : -nCompare;
+    return nCompare;
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("sortOrder", m_eSortOrder)
-                                       .append ("nullValuesComeFirst", m_bNullValuesComeFirst)
-                                       .appendIfNotNull ("nestedComparator", m_aNestedComparator)
-                                       .toString ();
+    return new ToStringGenerator (this).append ("nullValuesComeFirst", m_bNullValuesComeFirst).toString ();
   }
 }

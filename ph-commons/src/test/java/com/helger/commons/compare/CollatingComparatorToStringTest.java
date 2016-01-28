@@ -17,7 +17,6 @@
 package com.helger.commons.compare;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.text.Collator;
 import java.util.List;
@@ -39,20 +38,9 @@ public final class CollatingComparatorToStringTest extends AbstractCommonsTestCa
   {
     final List <String> l = CollectionHelper.newList ("a", "b", "c");
     assertEquals (3, CollectionHelper.getSorted (l, new CollatingComparatorToString (L_EN)).size ());
-    assertEquals (3,
-                  CollectionHelper.getSorted (l,
-                                              new CollatingComparatorToString (L_EN).setSortOrder (ESortOrder.DESCENDING))
-                                  .size ());
+    assertEquals (3, CollectionHelper.getSorted (l, new CollatingComparatorToString (L_EN).reversed ()).size ());
     assertEquals (3,
                   CollectionHelper.getSorted (l, new CollatingComparatorToString (Collator.getInstance (L_FR)))
                                   .size ());
-
-    try
-    {
-      new CollatingComparatorToString (L_EN).setSortOrder ((ESortOrder) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
   }
 }

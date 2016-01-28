@@ -41,18 +41,12 @@ public final class CollatingComparatorTest extends AbstractCommonsTestCase
   {
     final List <String> l = CollectionHelper.newList ("a", null, "c");
     assertEquals (3, CollectionHelper.getSorted (l, new CollatingComparator (Locale.US)).size ());
-    assertEquals (3,
-                  CollectionHelper.getSorted (l,
-                                              new CollatingComparator (Locale.US).setSortOrder (ESortOrder.DESCENDING))
-                                  .size ());
+    assertEquals (3, CollectionHelper.getSorted (l, new CollatingComparator (Locale.US).reversed ()).size ());
     assertEquals (3, CollectionHelper.getSorted (l, new CollatingComparator (L_EN)).size ());
-    assertEquals (3,
-                  CollectionHelper.getSorted (l, new CollatingComparator (L_FR).setSortOrder (ESortOrder.DESCENDING))
-                                  .size ());
+    assertEquals (3, CollectionHelper.getSorted (l, new CollatingComparator (L_FR).reversed ()).size ());
     assertEquals (3, CollectionHelper.getSorted (l, new CollatingComparator (Collator.getInstance (L_FR))).size ());
     assertEquals (3,
-                  CollectionHelper.getSorted (l,
-                                              new CollatingComparator (Collator.getInstance (L_FR)).setSortOrder (ESortOrder.DESCENDING))
+                  CollectionHelper.getSorted (l, new CollatingComparator (Collator.getInstance (L_FR)).reversed ())
                                   .size ());
     CommonsTestHelper.testToStringImplementation (new CollatingComparator (Locale.US));
 

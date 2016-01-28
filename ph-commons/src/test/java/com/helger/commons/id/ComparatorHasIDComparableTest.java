@@ -23,7 +23,6 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.compare.ESortOrder;
 
 /**
  * Test class for class {@link ComparatorHasIDComparable}.
@@ -43,14 +42,12 @@ public final class ComparatorHasIDComparableTest
     assertEquals ("5", aList.get (1).getID ());
     assertEquals ("7", aList.get (2).getID ());
 
-    CollectionHelper.getSortedInline (aList,
-                                      new ComparatorHasIDComparable <IHasID <String>, String> ().setSortOrder (ESortOrder.ASCENDING));
+    CollectionHelper.getSortedInline (aList, new ComparatorHasIDComparable <> ());
     assertEquals ("3", aList.get (0).getID ());
     assertEquals ("5", aList.get (1).getID ());
     assertEquals ("7", aList.get (2).getID ());
 
-    CollectionHelper.getSortedInline (aList,
-                                      new ComparatorHasIDComparable <IHasID <String>, String> ().setSortOrder (ESortOrder.DESCENDING));
+    CollectionHelper.getSortedInline (aList, new ComparatorHasIDComparable <IHasID <String>, String> ().reversed ());
     assertEquals ("7", aList.get (0).getID ());
     assertEquals ("5", aList.get (1).getID ());
     assertEquals ("3", aList.get (2).getID ());

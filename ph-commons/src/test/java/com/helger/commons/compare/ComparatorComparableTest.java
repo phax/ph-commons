@@ -17,7 +17,6 @@
 package com.helger.commons.compare;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.List;
 
@@ -37,18 +36,7 @@ public final class ComparatorComparableTest extends AbstractCommonsTestCase
   public void testAll ()
   {
     final List <String> l = CollectionHelper.newList ("a", "b", "c");
-    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorComparable <String> ()).size ());
-    assertEquals (3,
-                  CollectionHelper.getSorted (l,
-                                              new ComparatorComparable <String> ().setSortOrder (ESortOrder.DESCENDING))
-                                  .size ());
-
-    try
-    {
-      new ComparatorComparable <String> ().setSortOrder ((ESortOrder) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
+    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorComparable <> ()).size ());
+    assertEquals (3, CollectionHelper.getSorted (l, new ComparatorComparable <String> ().reversed ()).size ());
   }
 }

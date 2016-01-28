@@ -16,6 +16,10 @@
  */
 package com.helger.commons.id;
 
+import java.util.Comparator;
+
+import javax.annotation.Nonnull;
+
 /**
  * Base interface for all objects having an int ID.
  *
@@ -28,4 +32,10 @@ public interface IHasIntID
    * @return The primitive int ID of this object.
    */
   int getID ();
+
+  @Nonnull
+  static Comparator <? super IHasIntID> getComparator ()
+  {
+    return Comparator.comparingInt (o -> o.getID ());
+  }
 }
