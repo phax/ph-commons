@@ -16,7 +16,13 @@
  */
 package com.helger.commons.name;
 
+import java.util.Comparator;
+import java.util.Locale;
+
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import com.helger.commons.compare.ISerializableComparator;
 
 /**
  * Base interface for objects that have a locale <b>independent</b> display
@@ -34,4 +40,10 @@ public interface IHasDisplayName
    */
   @Nonnull
   String getDisplayName ();
+
+  @Nonnull
+  static Comparator <IHasDisplayName> getComparatorCollating (@Nullable final Locale aSortLocale)
+  {
+    return ISerializableComparator.getComparatorCollating (IHasDisplayName::getDisplayName, aSortLocale);
+  }
 }

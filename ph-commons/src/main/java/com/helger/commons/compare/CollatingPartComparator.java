@@ -35,6 +35,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  *        the type of object to be compared
  */
 @NotThreadSafe
+@Deprecated
 public class CollatingPartComparator <DATATYPE> extends PartComparator <DATATYPE, String>
 {
   /**

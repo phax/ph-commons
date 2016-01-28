@@ -23,6 +23,7 @@ import java.util.Locale;
 import java.util.function.Function;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.collation.CollatorHelper;
@@ -40,7 +41,7 @@ import com.helger.commons.collation.CollatorHelper;
 public interface ISerializableComparator <DATATYPE> extends Comparator <DATATYPE>, Serializable
 {
   @Nonnull
-  static ISerializableComparator <String> getComparatorCollating (@Nonnull final Locale aSortLocale)
+  static ISerializableComparator <String> getComparatorCollating (@Nullable final Locale aSortLocale)
   {
     return getComparatorCollating (CollatorHelper.getCollatorSpaceBeforeDot (aSortLocale));
   }
@@ -49,6 +50,20 @@ public interface ISerializableComparator <DATATYPE> extends Comparator <DATATYPE
   static ISerializableComparator <String> getComparatorCollating (@Nonnull final Collator aCollator)
   {
     return (c1, c2) -> aCollator.compare (c1, c2);
+  }
+
+  @Nonnull
+  static <T> Comparator <T> getComparatorCollating (@Nonnull final Function <? super T, String> aMapper,
+                                                    @Nullable final Locale aSortLocale)
+  {
+    return Comparator.<T, String> comparing (aMapper, getComparatorCollating (aSortLocale));
+  }
+
+  @Nonnull
+  static <T> Comparator <T> getComparatorCollating (@Nonnull final Function <? super T, String> aMapper,
+                                                    @Nonnull final Collator aCollator)
+  {
+    return Comparator.<T, String> comparing (aMapper, getComparatorCollating (aCollator));
   }
 
   @Nonnull
@@ -61,5 +76,11 @@ public interface ISerializableComparator <DATATYPE> extends Comparator <DATATYPE
   static Comparator <String> getComparatorStringShortestFirst ()
   {
     return Comparator.comparingInt (String::length).thenComparing (Function.identity ());
+  }
+
+  @Nonnull
+  static ISerializableComparator <String> getComparatorStringIgnoreCase ()
+  {
+    return (c1, c2) -> CompareHelper.compareIgnoreCase (c1, c2);
   }
 }

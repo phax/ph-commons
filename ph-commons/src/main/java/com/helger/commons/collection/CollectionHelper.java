@@ -56,7 +56,6 @@ import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.multimap.IMultiMap;
 import com.helger.commons.collection.multimap.IMultiMapSetBased;
 import com.helger.commons.collection.multimap.MultiHashMapHashSetBased;
-import com.helger.commons.compare.ComparatorComparable;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.state.EChange;
 
@@ -744,7 +743,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap ()
   {
-    return new TreeMap <> (new ComparatorComparable <KEYTYPE> ());
+    return new TreeMap <> (Comparator.naturalOrder ());
   }
 
   @Nonnull
@@ -1251,7 +1250,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet ()
   {
-    return new TreeSet <> (new ComparatorComparable <ELEMENTTYPE> ());
+    return new TreeSet <> (Comparator.naturalOrder ());
   }
 
   @Nonnull

@@ -23,11 +23,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
-import java.util.Set;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.string.StringHelper;
 
@@ -85,19 +83,6 @@ public final class LocaleCacheTest extends AbstractCommonsTestCase
       assertTrue (StringHelper.hasNoText (aLocale.getCountry ()));
       assertTrue (StringHelper.hasNoText (aLocale.getVariant ()));
     }
-  }
-
-  @Test
-  public void testCompare ()
-  {
-    final Set <Locale> aLocales = LocaleCache.getInstance ().getAllLocales ();
-    assertEquals (aLocales.size (),
-                  CollectionHelper.getSorted (aLocales, new CollatingComparatorLocaleDisplayName (L_DE)).size ());
-    assertEquals (aLocales.size (),
-                  CollectionHelper.getSorted (aLocales, new CollatingComparatorLocaleDisplayNameNative (L_DE)).size ());
-    assertEquals (aLocales.size (),
-                  CollectionHelper.getSorted (aLocales, new CollatingComparatorLocaleDisplayNameInLocale (L_DE, L_EN))
-                                  .size ());
   }
 
   @Test

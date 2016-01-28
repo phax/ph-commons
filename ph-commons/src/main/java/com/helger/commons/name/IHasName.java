@@ -17,8 +17,12 @@
 package com.helger.commons.name;
 
 import java.util.Comparator;
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import com.helger.commons.compare.ISerializableComparator;
 
 /**
  * Base interface for all objects that have a mandatory <b>INTERNAL</b> name
@@ -38,8 +42,14 @@ public interface IHasName
   String getName ();
 
   @Nonnull
-  static Comparator <? super IHasName> getComparatorName ()
+  static Comparator <IHasName> getComparatorName ()
   {
     return Comparator.comparing (IHasName::getName);
+  }
+
+  @Nonnull
+  static Comparator <IHasName> getComparatorCollating (@Nullable final Locale aSortLocale)
+  {
+    return ISerializableComparator.getComparatorCollating (IHasName::getName, aSortLocale);
   }
 }

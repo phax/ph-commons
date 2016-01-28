@@ -35,6 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
+@Deprecated
 public class CollatingComparator extends AbstractComparator <String>
 {
   private final Collator m_aCollator;

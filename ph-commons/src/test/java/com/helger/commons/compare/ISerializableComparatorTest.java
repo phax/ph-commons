@@ -30,7 +30,7 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
- * Test class for class {@link CollatingComparator}.
+ * Test class for class {@link ISerializableComparator}.
  *
  * @author Philip Helger
  */

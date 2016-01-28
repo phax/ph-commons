@@ -17,10 +17,13 @@
 package com.helger.commons.text.display;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.helger.commons.compare.ISerializableComparator;
 
 /**
  * Interface for a handler that provides the locale <b>dependent</b> name of an
@@ -50,5 +53,13 @@ public interface IDisplayTextProvider <DATATYPE> extends Serializable
   static IDisplayTextProvider <IHasDisplayText> createHasDisplayText ()
   {
     return (aObject, aContentLocale) -> aObject == null ? null : aObject.getDisplayText (aContentLocale);
+  }
+
+  @Nonnull
+  default Comparator <DATATYPE> getComparatorCollating (@Nonnull final Locale aContentLocale,
+                                                        @Nullable final Locale aSortLocale)
+  {
+    return ISerializableComparator.getComparatorCollating (aObject -> getDisplayText (aObject, aContentLocale),
+                                                           aSortLocale);
   }
 }
