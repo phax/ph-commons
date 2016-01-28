@@ -19,6 +19,7 @@ package com.helger.commons.compare;
 import java.text.Collator;
 import java.util.Comparator;
 import java.util.Locale;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -339,5 +340,17 @@ public final class CompareHelper
     if (sStr2 == null)
       return bNullValuesComeFirst ? +1 : -1;
     return sStr1.compareToIgnoreCase (sStr2);
+  }
+
+  @Nonnull
+  public static Comparator <String> getComparatorStringLongestFirst ()
+  {
+    return Comparator.comparingInt (String::length).reversed ().thenComparing (Function.identity ());
+  }
+
+  @Nonnull
+  public static Comparator <String> getComparatorStringShortestFirst ()
+  {
+    return Comparator.comparingInt (String::length).thenComparing (Function.identity ());
   }
 }
