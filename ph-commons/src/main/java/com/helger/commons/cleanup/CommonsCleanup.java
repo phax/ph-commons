@@ -19,7 +19,7 @@ package com.helger.commons.cleanup;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.compare.CollatorHelper;
+import com.helger.commons.collation.CollatorHelper;
 import com.helger.commons.equals.EqualsImplementationRegistry;
 import com.helger.commons.gfx.ImageDataManager;
 import com.helger.commons.hashcode.HashCodeImplementationRegistry;

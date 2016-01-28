@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.collation.CollatorHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

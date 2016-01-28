@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.compare;
+package com.helger.commons.collation;
 
 import java.text.Collator;
 import java.text.ParseException;

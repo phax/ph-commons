@@ -27,6 +27,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
+import com.helger.commons.collation.CollatorHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 

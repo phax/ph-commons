@@ -19,9 +19,8 @@ package com.helger.commons.compare;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Comparator;
 import java.util.List;
-
-import javax.annotation.concurrent.NotThreadSafe;
 
 import org.junit.Test;
 
@@ -32,32 +31,15 @@ import com.helger.commons.collection.CollectionHelper;
  *
  * @author Philip Helger
  */
-public final class AbstractLongComparatorFuncTest
+public final class LongComparatorFuncTest
 {
-  @NotThreadSafe
-  private static final class MockComparator extends LongComparator <Long>
-  {
-    MockComparator ()
-    {
-      super (aObject -> aObject.longValue ());
-    }
-  }
-
   @Test
   public void testAll ()
   {
     final Long [] x = new Long [] { Long.valueOf (3), Long.valueOf (3), Long.valueOf (-56), Long.valueOf (1) };
 
     // default: sort ascending
-    List <Long> l = CollectionHelper.getSorted (x, new MockComparator ());
-    assertNotNull (l);
-    assertEquals (-56, l.get (0).intValue ());
-    assertEquals (1, l.get (1).intValue ());
-    assertEquals (3, l.get (2).intValue ());
-    assertEquals (3, l.get (3).intValue ());
-
-    // Explicitly sort ascending
-    l = CollectionHelper.getSorted (x, new MockComparator ());
+    List <Long> l = CollectionHelper.getSorted (x, Comparator.comparingLong (Long::longValue));
     assertNotNull (l);
     assertEquals (-56, l.get (0).intValue ());
     assertEquals (1, l.get (1).intValue ());
@@ -65,23 +47,8 @@ public final class AbstractLongComparatorFuncTest
     assertEquals (3, l.get (3).intValue ());
 
     // Explicitly sort descending
-    l = CollectionHelper.getSorted (x, new MockComparator ().reversed ());
+    l = CollectionHelper.getSorted (x, Comparator.comparingLong (Long::longValue).reversed ());
     assertNotNull (l);
-    assertEquals (3, l.get (0).intValue ());
-    assertEquals (3, l.get (1).intValue ());
-    assertEquals (1, l.get (2).intValue ());
-    assertEquals (-56, l.get (3).intValue ());
-
-    // change dynamically
-    final AbstractComparator <Long> c = new MockComparator ();
-    l = CollectionHelper.getSorted (x, c);
-    assertEquals (-56, l.get (0).intValue ());
-    assertEquals (1, l.get (1).intValue ());
-    assertEquals (3, l.get (2).intValue ());
-    assertEquals (3, l.get (3).intValue ());
-
-    // change to descending
-    l = CollectionHelper.getSorted (x, c.reversed ());
     assertEquals (3, l.get (0).intValue ());
     assertEquals (3, l.get (1).intValue ());
     assertEquals (1, l.get (2).intValue ());

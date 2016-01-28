@@ -24,6 +24,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
+import com.helger.commons.collation.CollatorHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**

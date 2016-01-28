@@ -18,9 +18,8 @@ package com.helger.commons.compare;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Comparator;
 import java.util.List;
-
-import javax.annotation.concurrent.NotThreadSafe;
 
 import org.junit.Test;
 
@@ -32,17 +31,8 @@ import com.helger.commons.mock.CommonsAssert;
  *
  * @author Philip Helger
  */
-public final class AbstractDoubleComparatorFuncTest
+public final class DoubleComparatorFuncTest
 {
-  @NotThreadSafe
-  private static final class MockComparator extends DoubleComparator <Double>
-  {
-    MockComparator ()
-    {
-      super (aObject -> aObject.doubleValue ());
-    }
-  }
-
   @Test
   public void testAll ()
   {
@@ -52,15 +42,7 @@ public final class AbstractDoubleComparatorFuncTest
                                         Double.valueOf (1) };
 
     // default: sort ascending
-    List <Double> l = CollectionHelper.getSorted (x, new MockComparator ());
-    assertNotNull (l);
-    CommonsAssert.assertEquals (-56, l.get (0).doubleValue ());
-    CommonsAssert.assertEquals (1, l.get (1).doubleValue ());
-    CommonsAssert.assertEquals (3, l.get (2).doubleValue ());
-    CommonsAssert.assertEquals (3, l.get (3).doubleValue ());
-
-    // Explicitly sort ascending
-    l = CollectionHelper.getSorted (x, new MockComparator ());
+    List <Double> l = CollectionHelper.getSorted (x, Comparator.comparingDouble (Double::doubleValue));
     assertNotNull (l);
     CommonsAssert.assertEquals (-56, l.get (0).doubleValue ());
     CommonsAssert.assertEquals (1, l.get (1).doubleValue ());
@@ -68,23 +50,8 @@ public final class AbstractDoubleComparatorFuncTest
     CommonsAssert.assertEquals (3, l.get (3).doubleValue ());
 
     // Explicitly sort descending
-    l = CollectionHelper.getSorted (x, new MockComparator ().reversed ());
+    l = CollectionHelper.getSorted (x, Comparator.comparingDouble (Double::doubleValue).reversed ());
     assertNotNull (l);
-    CommonsAssert.assertEquals (3, l.get (0).doubleValue ());
-    CommonsAssert.assertEquals (3, l.get (1).doubleValue ());
-    CommonsAssert.assertEquals (1, l.get (2).doubleValue ());
-    CommonsAssert.assertEquals (-56, l.get (3).doubleValue ());
-
-    // change dynamically
-    final AbstractComparator <Double> c = new MockComparator ();
-    l = CollectionHelper.getSorted (x, c);
-    CommonsAssert.assertEquals (-56, l.get (0).doubleValue ());
-    CommonsAssert.assertEquals (1, l.get (1).doubleValue ());
-    CommonsAssert.assertEquals (3, l.get (2).doubleValue ());
-    CommonsAssert.assertEquals (3, l.get (3).doubleValue ());
-
-    // change to descending
-    l = CollectionHelper.getSorted (x, c.reversed ());
     CommonsAssert.assertEquals (3, l.get (0).doubleValue ());
     CommonsAssert.assertEquals (3, l.get (1).doubleValue ());
     CommonsAssert.assertEquals (1, l.get (2).doubleValue ());
