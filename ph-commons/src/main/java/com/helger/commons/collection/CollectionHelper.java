@@ -743,7 +743,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap ()
   {
-    return new TreeMap <> (Comparator.naturalOrder ());
+    return new TreeMap <> (Comparator.nullsFirst (Comparator.naturalOrder ()));
   }
 
   @Nonnull
@@ -1250,7 +1250,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet ()
   {
-    return new TreeSet <> (Comparator.naturalOrder ());
+    return new TreeSet <> (Comparator.nullsFirst (Comparator.naturalOrder ()));
   }
 
   @Nonnull
