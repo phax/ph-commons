@@ -41,7 +41,7 @@ public interface IHasID <IDTYPE>
   IDTYPE getID ();
 
   @Nonnull
-  static <T extends Comparable <? super T>> Comparator <? super IHasID <T>> getComparatorID ()
+  static <T extends Comparable <? super T>> Comparator <IHasID <T>> getComparatorID ()
   {
     return Comparator.comparing (IHasID::getID);
   }
