@@ -470,6 +470,75 @@ public final class ValueEnforcer
   }
 
   /**
+   * Check that the passed Array is not <code>null</code> and that no
+   * <code>null</code> value is contained.
+   *
+   * @param <T>
+   *        Type to be checked and returned
+   * @param aValue
+   *        The Array to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is null or a <code>null</code> value is
+   *         contained
+   */
+  @Nonnull
+  public static <T> T [] notNullNoNullValue (final T [] aValue, final String sName)
+  {
+    notNull (aValue, sName);
+    noNullValue (aValue, sName);
+    return aValue;
+  }
+
+  /**
+   * Check that the passed collection is not <code>null</code> and that no
+   * <code>null</code> value is contained.
+   *
+   * @param <T>
+   *        Type to be checked and returned
+   * @param aValue
+   *        The collection to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is <code>null</code> or a <code>null</code>
+   *         value is contained
+   */
+  @Nonnull
+  public static <T extends Iterable <?>> T notNullNoNullValue (final T aValue, final String sName)
+  {
+    notNull (aValue, sName);
+    noNullValue (aValue, sName);
+    return aValue;
+  }
+
+  /**
+   * Check that the passed map is not <code>null</code> and that no
+   * <code>null</code> value is contained.
+   *
+   * @param <T>
+   *        Type to be checked and returned
+   * @param aValue
+   *        The map to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is <code>null</code> or a <code>null</code>
+   *         value is contained
+   */
+  @Nonnull
+  public static <T extends Map <?, ?>> T notNullNoNullValue (final T aValue, final String sName)
+  {
+    notNull (aValue, sName);
+    noNullValue (aValue, sName);
+    return aValue;
+  }
+
+  /**
    * Check that the passed Array is neither <code>null</code> nor empty and that
    * no <code>null</code> value is contained.
    *
