@@ -46,7 +46,7 @@ public interface IHasErrorID
   }
 
   @Nonnull
-  static Comparator <? super IHasErrorID> getComparatorErrorID ()
+  static Comparator <IHasErrorID> getComparatorErrorID ()
   {
     return Comparator.nullsFirst (Comparator.comparing (IHasErrorID::getErrorID));
   }
