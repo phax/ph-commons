@@ -80,8 +80,7 @@ public final class TreeSorter
   public static <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void sort (@Nonnull final IBasicTree <? extends DATATYPE, ITEMTYPE> aTree,
                                                                                        @Nonnull final Comparator <? super DATATYPE> aValueComparator)
   {
-    final ComparatorTreeItemData <DATATYPE, ITEMTYPE> aItemComp = new ComparatorTreeItemData <DATATYPE, ITEMTYPE> (aValueComparator);
-    _sort (aTree, aItemComp);
+    _sort (aTree, Comparator.comparing (IBasicTreeItem::getData, aValueComparator));
   }
 
   /**

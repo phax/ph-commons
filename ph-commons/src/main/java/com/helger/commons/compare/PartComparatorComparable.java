@@ -34,6 +34,7 @@ import com.helger.commons.ValueEnforcer;
  *        The part type that is extracted from the data element and compared
  */
 @NotThreadSafe
+@Deprecated
 public class PartComparatorComparable <DATATYPE, PARTTYPE extends Comparable <? super PARTTYPE>>
                                       extends AbstractComparator <DATATYPE>
 {

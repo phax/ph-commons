@@ -87,8 +87,7 @@ public final class TreeWithIDSorter
   public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void sortByID (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                                    @Nonnull final Comparator <? super KEYTYPE> aKeyComparator)
   {
-    final ComparatorTreeItemID <KEYTYPE, DATATYPE, ITEMTYPE> aItemComp = new ComparatorTreeItemID <KEYTYPE, DATATYPE, ITEMTYPE> (aKeyComparator);
-    _sort (aTree, aItemComp);
+    _sort (aTree, Comparator.comparing (IHasID::getID, aKeyComparator));
   }
 
   /**
@@ -129,8 +128,7 @@ public final class TreeWithIDSorter
   public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void sortByValue (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                                       @Nonnull final Comparator <? super DATATYPE> aValueComparator)
   {
-    final ComparatorTreeItemData <DATATYPE, ITEMTYPE> aItemComp = new ComparatorTreeItemData <> (aValueComparator);
-    _sort (aTree, aItemComp);
+    _sort (aTree, Comparator.comparing (IBasicTreeItem::getData, aValueComparator));
   }
 
   /**
