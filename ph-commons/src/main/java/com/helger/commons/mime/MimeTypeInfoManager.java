@@ -18,6 +18,7 @@ package com.helger.commons.mime;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -180,7 +181,7 @@ public class MimeTypeInfoManager
 
     m_aRWLock.readLocked ( () -> {
       for (final MimeTypeInfo aInfo : CollectionHelper.getSorted (m_aList,
-                                                                  new ComparatorMimeTypeInfoPrimaryMimeType ()))
+                                                                  Comparator.comparing (MimeTypeInfo::getPrimaryMimeTypeString)))
         eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aInfo, "item"));
     });
 

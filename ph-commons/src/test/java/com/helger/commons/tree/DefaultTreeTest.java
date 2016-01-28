@@ -23,10 +23,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Comparator;
+
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.tree.sort.ComparatorDefaultTreeItemComparable;
 
 /**
  * Test class for class {@link DefaultTree}.
@@ -99,7 +100,7 @@ public final class DefaultTreeTest
 
     // no items yet....
     assertFalse (ti.hasChildren ());
-    ti.reorderChildItems (new ComparatorDefaultTreeItemComparable <String> ());
+    ti.reorderChildItems (Comparator.comparing (IBasicTreeItem::getData));
     assertFalse (ti.hasChildren ());
 
     // add 2 items
@@ -113,7 +114,7 @@ public final class DefaultTreeTest
     assertEquals ("Welt1", ti.getAllChildren ().get (1).getData ());
 
     // reorder
-    ti.reorderChildItems (new ComparatorDefaultTreeItemComparable <String> ());
+    ti.reorderChildItems (Comparator.comparing (IBasicTreeItem::getData));
 
     // check new order
     assertEquals (2, ti.getChildCount ());

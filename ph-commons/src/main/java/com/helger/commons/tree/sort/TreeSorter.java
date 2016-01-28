@@ -28,6 +28,7 @@ import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.tree.IBasicTree;
+import com.helger.commons.tree.IBasicTreeItem;
 import com.helger.commons.tree.ITreeItem;
 
 /**
@@ -97,7 +98,6 @@ public final class TreeSorter
    */
   public static <DATATYPE extends Comparable <? super DATATYPE>, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void sort (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree)
   {
-    final ComparatorTreeItemDataComparable <DATATYPE, ITEMTYPE> aItemComp = new ComparatorTreeItemDataComparable <DATATYPE, ITEMTYPE> ();
-    _sort (aTree, aItemComp);
+    _sort (aTree, Comparator.comparing (IBasicTreeItem::getData));
   }
 }

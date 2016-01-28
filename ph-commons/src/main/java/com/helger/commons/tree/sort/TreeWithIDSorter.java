@@ -28,6 +28,7 @@ import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.tree.IBasicTree;
+import com.helger.commons.tree.IBasicTreeItem;
 import com.helger.commons.tree.util.TreeVisitor;
 import com.helger.commons.tree.withid.ITreeItemWithID;
 
@@ -128,7 +129,7 @@ public final class TreeWithIDSorter
   public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void sortByValue (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                                       @Nonnull final Comparator <? super DATATYPE> aValueComparator)
   {
-    final ComparatorTreeItemData <DATATYPE, ITEMTYPE> aItemComp = new ComparatorTreeItemData <DATATYPE, ITEMTYPE> (aValueComparator);
+    final ComparatorTreeItemData <DATATYPE, ITEMTYPE> aItemComp = new ComparatorTreeItemData <> (aValueComparator);
     _sort (aTree, aItemComp);
   }
 
@@ -148,7 +149,6 @@ public final class TreeWithIDSorter
    */
   public static <KEYTYPE, DATATYPE extends Comparable <? super DATATYPE>, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void sortByValue (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree)
   {
-    final ComparatorTreeItemDataComparable <DATATYPE, ITEMTYPE> aItemComp = new ComparatorTreeItemDataComparable <DATATYPE, ITEMTYPE> ();
-    _sort (aTree, aItemComp);
+    _sort (aTree, Comparator.comparing (IBasicTreeItem::getData));
   }
 }
