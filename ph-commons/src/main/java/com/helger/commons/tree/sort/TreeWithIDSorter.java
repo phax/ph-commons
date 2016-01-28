@@ -26,6 +26,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
+import com.helger.commons.id.IHasID;
 import com.helger.commons.tree.IBasicTree;
 import com.helger.commons.tree.util.TreeVisitor;
 import com.helger.commons.tree.withid.ITreeItemWithID;
@@ -105,8 +106,7 @@ public final class TreeWithIDSorter
    */
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void sortByID (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree)
   {
-    final ComparatorTreeItemIDComparable <KEYTYPE, DATATYPE, ITEMTYPE> aItemComp = new ComparatorTreeItemIDComparable <KEYTYPE, DATATYPE, ITEMTYPE> ();
-    _sort (aTree, aItemComp);
+    _sort (aTree, IHasID.getComparatorID ());
   }
 
   /**

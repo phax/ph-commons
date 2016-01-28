@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.id.ComparatorHasIDString;
+import com.helger.commons.id.IHasID;
 
 /**
  * Test class for class {@link ChildrenProviderSortingWithID}.
@@ -37,8 +37,8 @@ public final class ChildrenProviderSortingWithIDTest
   @Test
   public void testAll ()
   {
-    final ChildrenProviderSortingWithID <String, MockHasChildren> cr = new ChildrenProviderSortingWithID <String, MockHasChildren> (new MockChildrenProviderWithID (),
-                                                                                                                                    new ComparatorHasIDString <MockHasChildren> ());
+    final ChildrenProviderSortingWithID <String, MockHasChildren> cr = new ChildrenProviderSortingWithID <> (new MockChildrenProviderWithID (),
+                                                                                                             IHasID.getComparatorID ());
     assertFalse (cr.hasChildren (null));
     assertEquals (0, cr.getChildCount (null));
     assertNull (cr.getAllChildren (null));

@@ -31,5 +31,8 @@ public interface ISortOrderIndicator
   /**
    * @return <code>true</code> is descending sort order is active.
    */
-  boolean isDescending ();
+  default boolean isDescending ()
+  {
+    return !isAscending ();
+  }
 }

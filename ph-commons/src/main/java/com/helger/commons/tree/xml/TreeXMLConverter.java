@@ -28,7 +28,7 @@ import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.hierarchy.ChildrenProviderHasChildrenSorting;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
-import com.helger.commons.id.ComparatorHasIDString;
+import com.helger.commons.id.IHasID;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroElement;
@@ -79,7 +79,7 @@ public final class TreeXMLConverter
   public static <DATATYPE, ITEMTYPE extends ITreeItemWithID <String, DATATYPE, ITEMTYPE>> IMicroElement getTreeWithStringIDAsXML (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                                                   @Nonnull final IConverterTreeItemToMicroNode <? super DATATYPE> aConverter)
   {
-    return getTreeWithIDAsXML (aTree, new ComparatorHasIDString <ITEMTYPE> (), aID -> aID, aConverter);
+    return getTreeWithIDAsXML (aTree, IHasID.getComparatorID (), aID -> aID, aConverter);
   }
 
   @Nonnull

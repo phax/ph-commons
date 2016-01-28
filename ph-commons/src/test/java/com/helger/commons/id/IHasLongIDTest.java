@@ -37,12 +37,12 @@ public final class IHasLongIDTest
     final List <? extends IHasLongID> aList = CollectionHelper.newList (new MockHasLongID (5),
                                                                         new MockHasLongID (3),
                                                                         new MockHasLongID (7));
-    CollectionHelper.getSortedInline (aList, IHasLongID.getComparator ());
+    CollectionHelper.getSortedInline (aList, IHasLongID.getComparatorID ());
     assertEquals (3, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (7, aList.get (2).getID ());
 
-    CollectionHelper.getSortedInline (aList, IHasLongID.getComparator ().reversed ());
+    CollectionHelper.getSortedInline (aList, IHasLongID.getComparatorID ().reversed ());
     assertEquals (7, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (3, aList.get (2).getID ());

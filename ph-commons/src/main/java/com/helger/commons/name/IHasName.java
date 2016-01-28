@@ -16,6 +16,8 @@
  */
 package com.helger.commons.name;
 
+import java.util.Comparator;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -34,4 +36,10 @@ public interface IHasName
    */
   @Nonnull
   String getName ();
+
+  @Nonnull
+  static Comparator <? super IHasName> getComparatorName ()
+  {
+    return Comparator.comparing (IHasName::getName);
+  }
 }

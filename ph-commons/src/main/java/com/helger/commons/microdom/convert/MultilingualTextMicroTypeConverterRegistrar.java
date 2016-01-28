@@ -16,6 +16,7 @@
  */
 package com.helger.commons.microdom.convert;
 
+import java.util.Comparator;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -25,7 +26,6 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.locale.ComparatorLocale;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroElement;
@@ -55,7 +55,8 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
     {
       final IMultilingualText aMLT = (IMultilingualText) aSource;
       final IMicroElement eMText = new MicroElement (sNamespaceURI, sTagName);
-      for (final Locale aLocale : CollectionHelper.getSorted (aMLT.getAllLocales (), new ComparatorLocale ()))
+      for (final Locale aLocale : CollectionHelper.getSorted (aMLT.getAllLocales (),
+                                                              Comparator.comparing (Locale::toString)))
       {
         final IMicroElement eText = eMText.appendElement (sNamespaceURI, ELEMENT_TEXT);
         eText.setAttribute (ATTR_LOCALE, aLocale.toString ());

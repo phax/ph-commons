@@ -37,12 +37,12 @@ public final class IHasIntIDTest
     final List <? extends IHasIntID> aList = CollectionHelper.newList (new MockHasIntID (5),
                                                                        new MockHasIntID (3),
                                                                        new MockHasIntID (7));
-    CollectionHelper.getSortedInline (aList, IHasIntID.getComparator ());
+    CollectionHelper.getSortedInline (aList, IHasIntID.getComparatorID ());
     assertEquals (3, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (7, aList.get (2).getID ());
 
-    CollectionHelper.getSortedInline (aList, IHasIntID.getComparator ().reversed ());
+    CollectionHelper.getSortedInline (aList, IHasIntID.getComparatorID ().reversed ());
     assertEquals (7, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (3, aList.get (2).getID ());

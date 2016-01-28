@@ -16,6 +16,9 @@
  */
 package com.helger.commons.error;
 
+import java.util.Comparator;
+
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.string.StringHelper;
@@ -40,5 +43,11 @@ public interface IHasErrorID
   default boolean hasErrorID ()
   {
     return StringHelper.hasText (getErrorID ());
+  }
+
+  @Nonnull
+  static Comparator <? super IHasErrorID> getComparatorErrorID ()
+  {
+    return Comparator.nullsFirst (Comparator.comparing (IHasErrorID::getErrorID));
   }
 }

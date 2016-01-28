@@ -24,7 +24,6 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.id.ComparatorHasIDString;
 import com.helger.commons.id.IHasID;
 
 public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasSortedChildren>, IHasID <String>
@@ -35,7 +34,7 @@ public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasS
   public MockHasSortedChildren (@Nonnull final String sID, @Nullable final MockHasSortedChildren... aList)
   {
     m_sID = sID;
-    m_aList = CollectionHelper.getSorted (aList, new ComparatorHasIDString <IHasID <String>> ());
+    m_aList = CollectionHelper.getSorted (aList, IHasID.getComparatorID ());
   }
 
   public String getID ()

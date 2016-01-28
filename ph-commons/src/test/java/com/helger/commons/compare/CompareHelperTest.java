@@ -19,10 +19,11 @@ package com.helger.commons.compare;
 import static org.junit.Assert.assertEquals;
 
 import java.text.Collator;
+import java.util.Comparator;
+import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.locale.ComparatorLocale;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
@@ -54,8 +55,8 @@ public final class CompareHelperTest extends AbstractCommonsTestCase
     // Using the system collator
     assertEquals (+1, CompareHelper.compare ("1.1 a", "1.1.1 a", Collator.getInstance (L_DE)));
 
-    assertEquals (-1, CompareHelper.compare (L_DE, L_EN, new ComparatorLocale ()));
-    assertEquals (+1, CompareHelper.compare (L_DE, null, new ComparatorLocale ()));
-    assertEquals (-1, CompareHelper.compare (null, L_EN, new ComparatorLocale ()));
+    assertEquals (-1, CompareHelper.compare (L_DE, L_EN, Comparator.comparing (Locale::toString)));
+    assertEquals (+1, CompareHelper.compare (L_DE, null, Comparator.comparing (Locale::toString)));
+    assertEquals (-1, CompareHelper.compare (null, L_EN, Comparator.comparing (Locale::toString)));
   }
 }

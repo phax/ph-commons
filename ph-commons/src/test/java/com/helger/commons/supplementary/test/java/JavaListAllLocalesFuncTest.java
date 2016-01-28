@@ -16,6 +16,7 @@
  */
 package com.helger.commons.supplementary.test.java;
 
+import java.util.Comparator;
 import java.util.Locale;
 
 import org.junit.Test;
@@ -23,7 +24,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.locale.ComparatorLocale;
 import com.helger.commons.locale.country.CollatingComparatorLocaleCountry;
 
 public final class JavaListAllLocalesFuncTest
@@ -42,7 +42,8 @@ public final class JavaListAllLocalesFuncTest
   @Test
   public void testListAllSerbianCountries ()
   {
-    for (final Locale aLocale : CollectionHelper.getSorted (Locale.getAvailableLocales (), new ComparatorLocale ()))
+    for (final Locale aLocale : CollectionHelper.getSorted (Locale.getAvailableLocales (),
+                                                            Comparator.comparing (Locale::toString)))
       if (aLocale.getLanguage ().equals ("sr") ||
           aLocale.getLanguage ().equals ("sh") ||
           aLocale.getLanguage ().equals ("bs"))

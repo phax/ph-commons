@@ -62,11 +62,6 @@ public enum ESortOrder implements ISortOrderIndicator
     return this == ASCENDING;
   }
 
-  public boolean isDescending ()
-  {
-    return this == DESCENDING;
-  }
-
   /**
    * Get the alternate sort order. If the current sort order is ascending, the
    * result will be descending and if this is descending, the return will be

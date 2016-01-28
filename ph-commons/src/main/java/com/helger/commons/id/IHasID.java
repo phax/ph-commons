@@ -16,6 +16,8 @@
  */
 package com.helger.commons.id;
 
+import java.util.Comparator;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -37,4 +39,10 @@ public interface IHasID <IDTYPE>
    */
   @Nonnull
   IDTYPE getID ();
+
+  @Nonnull
+  static <T extends Comparable <? super T>> Comparator <? super IHasID <T>> getComparatorID ()
+  {
+    return Comparator.comparing (IHasID::getID);
+  }
 }

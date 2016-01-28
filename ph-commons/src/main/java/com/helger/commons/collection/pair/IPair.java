@@ -17,7 +17,9 @@
 package com.helger.commons.collection.pair;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -42,4 +44,16 @@ public interface IPair <DATA1TYPE, DATA2TYPE> extends Serializable
    */
   @Nullable
   DATA2TYPE getSecond ();
+
+  @Nonnull
+  static <T1 extends Comparable <? super T1>, T2> Comparator <? super IPair <T1, T2>> getComparatorFirst ()
+  {
+    return Comparator.comparing (IPair::getFirst);
+  }
+
+  @Nonnull
+  static <T1, T2 extends Comparable <? super T2>> Comparator <? super IPair <T1, T2>> getComparatorSecond ()
+  {
+    return Comparator.comparing (IPair::getSecond);
+  }
 }

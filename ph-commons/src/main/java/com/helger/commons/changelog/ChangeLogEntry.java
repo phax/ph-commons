@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -88,6 +89,16 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
   public ChangeLog getChangeLog ()
   {
     return m_aChangeLog;
+  }
+
+  /**
+   * @return The owning changelog's component. Never <code>null</code>.
+   */
+  @Nonnull
+  @Nonempty
+  public String getChangeLogComponent ()
+  {
+    return m_aChangeLog.getComponent ();
   }
 
   /**

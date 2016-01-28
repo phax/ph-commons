@@ -27,9 +27,9 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.id.IHasID;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.tree.sort.ComparatorDefaultTreeItemWithIDDataComparable;
-import com.helger.commons.tree.sort.ComparatorTreeItemIDComparable;
 
 /**
  * Test class for class {@link DefaultTreeItemWithID}.
@@ -201,7 +201,7 @@ public final class DefaultTreeItemWithIDTest
     assertEquals ("Welt1", ti.getAllChildren ().get (1).getData ());
 
     // reorder
-    ti.reorderChildrenByItems (new ComparatorTreeItemIDComparable <String, String, DefaultTreeItemWithID <String, String>> ());
+    ti.reorderChildrenByItems (IHasID.getComparatorID ());
 
     // check new order
     assertEquals (2, ti.getChildCount ());

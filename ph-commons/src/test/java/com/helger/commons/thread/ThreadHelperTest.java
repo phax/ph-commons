@@ -14,29 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.locale;
+package com.helger.commons.thread;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Locale;
-import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.mock.AbstractCommonsTestCase;
-
 /**
- * Test class for class {@link ComparatorLocale}.
+ * Test class for class {@link ThreadHelper}.
  *
  * @author Philip Helger
  */
-public final class ComparatorLocaleTest extends AbstractCommonsTestCase
+public final class ThreadHelperTest
 {
   @Test
-  public void testAll ()
+  public void testBasic ()
   {
-    final Set <Locale> aAll = LocaleCache.getInstance ().getAllLocales ();
-    assertEquals (aAll.size (), CollectionHelper.getSorted (aAll, new ComparatorLocale ()).size ());
+    ThreadHelper.sleep (10, TimeUnit.MILLISECONDS);
   }
 }

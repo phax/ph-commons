@@ -41,7 +41,7 @@ public final class PairHelper
   public static <V1 extends Comparable <? super V1>, V2> List <IPair <V1, V2>> getSortedByPairFirst (@Nonnull final Collection <? extends IPair <V1, V2>> aList)
   {
     // get sorted entry list
-    return CollectionHelper.getSorted (aList, new ComparatorPairFirstComparable <V1, V2> ());
+    return CollectionHelper.getSorted (aList, IPair.getComparatorFirst ());
   }
 
   @Nonnull
@@ -49,6 +49,6 @@ public final class PairHelper
   public static <V1, V2 extends Comparable <? super V2>> List <IPair <V1, V2>> getSortedByPairSecond (@Nonnull final Collection <? extends IPair <V1, V2>> aList)
   {
     // get sorted entry list
-    return CollectionHelper.getSorted (aList, new ComparatorPairSecondComparable <V1, V2> ());
+    return CollectionHelper.getSorted (aList, IPair.getComparatorSecond ());
   }
 }
