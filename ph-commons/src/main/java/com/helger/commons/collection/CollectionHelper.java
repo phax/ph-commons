@@ -2783,7 +2783,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> List <ELEMENTTYPE> getSortedInline (@Nullable final List <ELEMENTTYPE> aList)
   {
     if (isNotEmpty (aList))
-      Collections.sort (aList);
+      aList.sort (null);
     return aList;
   }
 
@@ -2795,7 +2795,7 @@ public final class CollectionHelper
     ValueEnforcer.notNull (aComparator, "Comparator");
 
     if (isNotEmpty (aList))
-      Collections.sort (aList, aComparator);
+      aList.sort (aComparator);
     return aList;
   }
 
@@ -2819,7 +2819,7 @@ public final class CollectionHelper
 
     // get sorted entry list
     final List <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
-    Collections.sort (aList, Comparator.comparing (Map.Entry::getKey));
+    aList.sort (Comparator.comparing (Map.Entry::getKey));
     return newOrderedMap (aList);
   }
 
@@ -2848,7 +2848,7 @@ public final class CollectionHelper
 
     // get sorted Map.Entry list by Entry.getValue ()
     final List <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
-    Collections.sort (aList, new ComparatorMapEntryKey <> (aKeyComparator));
+    aList.sort (new ComparatorMapEntryKey <> (aKeyComparator));
     return newOrderedMap (aList);
   }
 
@@ -2872,7 +2872,7 @@ public final class CollectionHelper
 
     // get sorted entry list
     final List <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
-    Collections.sort (aList, Comparator.comparing (Map.Entry::getValue));
+    aList.sort (Comparator.comparing (Map.Entry::getValue));
     return newOrderedMap (aList);
   }
 
@@ -2901,7 +2901,7 @@ public final class CollectionHelper
 
     // get sorted Map.Entry list by Entry.getValue ()
     final List <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
-    Collections.sort (aList, new ComparatorMapEntryValue <> (aValueComparator));
+    aList.sort (new ComparatorMapEntryValue <> (aValueComparator));
     return newOrderedMap (aList);
   }
 
