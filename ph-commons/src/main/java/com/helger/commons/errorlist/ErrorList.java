@@ -193,10 +193,8 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
 
   public boolean hasErrorsOrWarnings ()
   {
-    for (final IError aItem : m_aItems)
-      if (aItem.getErrorLevel ().isMoreOrEqualSevereThan (EErrorLevel.WARN))
-        return true;
-    return false;
+    return CollectionHelper.containsAny (m_aItems,
+                                         aItem -> aItem.getErrorLevel ().isMoreOrEqualSevereThan (EErrorLevel.WARN));
   }
 
   public boolean containsOnlySuccess ()
@@ -211,10 +209,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
 
   public boolean containsAtLeastOneSuccess ()
   {
-    for (final IError aError : m_aItems)
-      if (aError.isSuccess ())
-        return true;
-    return false;
+    return CollectionHelper.containsAny (m_aItems, aItem -> aItem.isSuccess ());
   }
 
   public boolean containsNoSuccess ()
@@ -228,11 +223,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @Nonnegative
   public int getSuccessCount ()
   {
-    int ret = 0;
-    for (final IError aError : m_aItems)
-      if (aError.isSuccess ())
-        ret++;
-    return ret;
+    return CollectionHelper.getCount (m_aItems, aItem -> aItem.isSuccess ());
   }
 
   public boolean containsOnlyFailure ()
@@ -247,10 +238,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
 
   public boolean containsAtLeastOneFailure ()
   {
-    for (final IError aError : m_aItems)
-      if (aError.isFailure ())
-        return true;
-    return false;
+    return CollectionHelper.containsAny (m_aItems, aItem -> aItem.isFailure ());
   }
 
   public boolean containsNoFailure ()
@@ -264,11 +252,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @Nonnegative
   public int getFailureCount ()
   {
-    int ret = 0;
-    for (final IError aError : m_aItems)
-      if (aError.isFailure ())
-        ret++;
-    return ret;
+    return CollectionHelper.getCount (m_aItems, aItem -> aItem.isFailure ());
   }
 
   public boolean containsOnlyError ()
@@ -283,10 +267,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
 
   public boolean containsAtLeastOneError ()
   {
-    for (final IError aError : m_aItems)
-      if (aError.isError ())
-        return true;
-    return false;
+    return CollectionHelper.containsAny (m_aItems, aItem -> aItem.isError ());
   }
 
   public boolean containsNoError ()
@@ -300,11 +281,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @Nonnegative
   public int getErrorCount ()
   {
-    int ret = 0;
-    for (final IError aError : m_aItems)
-      if (aError.isError ())
-        ret++;
-    return ret;
+    return CollectionHelper.getCount (m_aItems, aItem -> aItem.isError ());
   }
 
   @Nonnull
@@ -328,10 +305,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @ReturnsMutableCopy
   public List <String> getAllItemTexts ()
   {
-    final List <String> ret = new ArrayList <String> ();
-    for (final IError aError : m_aItems)
-      ret.add (aError.getErrorText ());
-    return ret;
+    return CollectionHelper.newList (m_aItems, IError::getErrorText);
   }
 
   /**
@@ -470,7 +444,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @ReturnsMutableCopy
   public List <String> getAllItemTextsOfField (@Nullable final String sSearchFieldName)
   {
-    final List <String> ret = new ArrayList <String> ();
+    final List <String> ret = new ArrayList <> ();
     for (final IError aError : m_aItems)
       if (EqualsHelper.equals (aError.getErrorFieldName (), sSearchFieldName))
         ret.add (aError.getErrorText ());
@@ -481,7 +455,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @ReturnsMutableCopy
   public List <String> getAllItemTextsOfFields (@Nullable final String... aSearchFieldNames)
   {
-    final List <String> ret = new ArrayList <String> ();
+    final List <String> ret = new ArrayList <> ();
     if (ArrayHelper.isNotEmpty (aSearchFieldNames))
       for (final IError aError : m_aItems)
         if (ArrayHelper.contains (aSearchFieldNames, aError.getErrorFieldName ()))
@@ -493,7 +467,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @ReturnsMutableCopy
   public List <String> getAllItemTextsOfFieldsStartingWith (@Nullable final String... aSearchFieldNames)
   {
-    final List <String> ret = new ArrayList <String> ();
+    final List <String> ret = new ArrayList <> ();
     if (ArrayHelper.isNotEmpty (aSearchFieldNames))
       for (final IError aError : m_aItems)
         if (aError.hasErrorFieldName ())
@@ -515,7 +489,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   {
     ValueEnforcer.notEmpty (sRegEx, "RegEx");
 
-    final List <String> ret = new ArrayList <String> ();
+    final List <String> ret = new ArrayList <> ();
     for (final IError aError : m_aItems)
       if (aError.hasErrorFieldName ())
         if (RegExHelper.stringMatchesPattern (sRegEx, aError.getErrorFieldName ()))
@@ -527,7 +501,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @ReturnsMutableCopy
   public IMultiMapListBased <String, IError> getStructuredByID ()
   {
-    final IMultiMapListBased <String, IError> ret = new MultiLinkedHashMapArrayListBased <String, IError> ();
+    final IMultiMapListBased <String, IError> ret = new MultiLinkedHashMapArrayListBased <> ();
     for (final IError aFormError : m_aItems)
       ret.putSingle (aFormError.getErrorID (), aFormError);
     return ret;
@@ -537,7 +511,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @ReturnsMutableCopy
   public IMultiMapListBased <String, IError> getStructuredByFieldName ()
   {
-    final IMultiMapListBased <String, IError> ret = new MultiLinkedHashMapArrayListBased <String, IError> ();
+    final IMultiMapListBased <String, IError> ret = new MultiLinkedHashMapArrayListBased <> ();
     for (final IError aFormError : m_aItems)
       ret.putSingle (aFormError.getErrorFieldName (), aFormError);
     return ret;

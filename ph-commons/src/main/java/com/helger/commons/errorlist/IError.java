@@ -16,18 +16,13 @@
  */
 package com.helger.commons.errorlist;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.error.IHasErrorID;
-import com.helger.commons.error.IHasErrorLevel;
 import com.helger.commons.error.IResourceLocation;
-import com.helger.commons.error.ISeverityComparable;
-import com.helger.commons.state.IErrorIndicator;
-import com.helger.commons.state.ISuccessIndicator;
+import com.helger.commons.error.ResourceLocation;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -36,49 +31,8 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
-public interface IError extends
-                        IHasErrorID,
-                        IHasErrorLevel,
-                        ISuccessIndicator,
-                        IErrorIndicator,
-                        ISeverityComparable <IError>,
-                        Serializable
+public interface IError extends IHasErrorID, IErrorBase <IError>
 {
-  default boolean isSuccess ()
-  {
-    return getErrorLevel ().isSuccess ();
-  }
-
-  default boolean isError ()
-  {
-    return getErrorLevel ().isError ();
-  }
-
-  default boolean isEqualSevereThan (@Nonnull final IError aOther)
-  {
-    return getErrorLevel ().isEqualSevereThan (aOther.getErrorLevel ());
-  }
-
-  default boolean isLessSevereThan (@Nonnull final IError aOther)
-  {
-    return getErrorLevel ().isLessSevereThan (aOther.getErrorLevel ());
-  }
-
-  default boolean isLessOrEqualSevereThan (@Nonnull final IError aOther)
-  {
-    return getErrorLevel ().isLessOrEqualSevereThan (aOther.getErrorLevel ());
-  }
-
-  default boolean isMoreSevereThan (@Nonnull final IError aOther)
-  {
-    return getErrorLevel ().isMoreSevereThan (aOther.getErrorLevel ());
-  }
-
-  default boolean isMoreOrEqualSevereThan (@Nonnull final IError aOther)
-  {
-    return getErrorLevel ().isMoreOrEqualSevereThan (aOther.getErrorLevel ());
-  }
-
   /**
    * @return The field for which the error occurred. May be <code>null</code>.
    */
@@ -101,7 +55,12 @@ public interface IError extends
    *         returned.
    */
   @Nullable
-  IResourceLocation getResourceLocation ();
+  default IResourceLocation getResourceLocation ()
+  {
+    if (hasErrorFieldName ())
+      return new ResourceLocation (null, getErrorFieldName ());
+    return null;
+  }
 
   /**
    * @return The message of this form error. The error text is always locale

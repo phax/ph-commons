@@ -25,10 +25,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.error.IErrorLevel;
-import com.helger.commons.error.IResourceLocation;
-import com.helger.commons.error.ResourceLocation;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -88,14 +85,6 @@ public class SingleError implements IError
   public String getErrorFieldName ()
   {
     return m_sErrorFieldName;
-  }
-
-  @Nullable
-  public IResourceLocation getResourceLocation ()
-  {
-    if (StringHelper.hasText (m_sErrorFieldName))
-      return new ResourceLocation (null, m_sErrorFieldName);
-    return null;
   }
 
   @Nonnull

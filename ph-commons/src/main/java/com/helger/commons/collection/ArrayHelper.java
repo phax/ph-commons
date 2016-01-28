@@ -4140,7 +4140,7 @@ public final class ArrayHelper
   @Nullable
   public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirst (@Nullable final ELEMENTTYPE [] aArray,
                                                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                          @Nonnull final Function <ELEMENTTYPE, RETTYPE> aMapper)
+                                                          @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
   {
     return findFirst (aArray, aFilter, aMapper, (RETTYPE) null);
   }
@@ -4148,7 +4148,7 @@ public final class ArrayHelper
   @Nullable
   public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirst (@Nullable final ELEMENTTYPE [] aArray,
                                                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                          @Nonnull final Function <ELEMENTTYPE, RETTYPE> aMapper,
+                                                          @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper,
                                                           @Nullable final RETTYPE aDefault)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
@@ -4186,7 +4186,7 @@ public final class ArrayHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE, RETTYPE> List <RETTYPE> getAll (@Nullable final ELEMENTTYPE [] aArray,
                                                               @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                              @Nonnull final Function <ELEMENTTYPE, RETTYPE> aMapper)
+                                                              @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
     if (aFilter == null)

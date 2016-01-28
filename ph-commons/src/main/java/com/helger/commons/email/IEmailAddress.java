@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.name.IHasDisplayName;
+import com.helger.commons.string.StringHelper;
 
 /**
  * Aggregation of a personal name and an email address.
@@ -41,4 +42,21 @@ public interface IEmailAddress extends IHasDisplayName, Serializable
    */
   @Nullable
   String getPersonal ();
+
+  /**
+   * @return <code>true</code> if a personal name is present, <code>false</code>
+   *         if not.
+   */
+  default boolean hasPersonal ()
+  {
+    return StringHelper.hasText (getPersonal ());
+  }
+
+  @Nonnull
+  default String getDisplayName ()
+  {
+    if (hasPersonal ())
+      return getPersonal () + " <" + getAddress () + ">";
+    return getAddress ();
+  }
 }

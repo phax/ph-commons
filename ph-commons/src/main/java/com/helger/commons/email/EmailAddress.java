@@ -70,14 +70,6 @@ public class EmailAddress implements IEmailAddress
     return m_sPersonal;
   }
 
-  @Nonnull
-  public String getDisplayName ()
-  {
-    if (StringHelper.hasText (m_sPersonal))
-      return m_sPersonal + " <" + m_sAddress + ">";
-    return m_sAddress;
-  }
-
   @Override
   public boolean equals (final Object o)
   {

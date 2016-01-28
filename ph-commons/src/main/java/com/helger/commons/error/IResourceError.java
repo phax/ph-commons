@@ -16,32 +16,24 @@
  */
 package com.helger.commons.error;
 
-import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.state.IErrorIndicator;
-import com.helger.commons.state.ISuccessIndicator;
+import com.helger.commons.errorlist.IErrorBase;
 import com.helger.commons.text.display.IHasDisplayText;
 
 /**
  * Interface for an error that can be drilled down to a certain resource (e.g. a
  * document). The name is a bit misleading, as an "IResourceError" can also
- * contain an INFO or a WARNING message! It has an error level, a multi lingual
+ * contain an INFO or a WARNING message! It has an error level, a multilingual
  * error message, a location and a linked exception.
  *
  * @author Philip Helger
  */
-public interface IResourceError extends
-                                IHasErrorLevel,
-                                IHasDisplayText,
-                                ISuccessIndicator,
-                                IErrorIndicator,
-                                ISeverityComparable <IResourceError>,
-                                Serializable
+public interface IResourceError extends IHasDisplayText, IErrorBase <IResourceError>
 {
   /**
    * @return The non-<code>null</code> location of the error.
@@ -55,6 +47,15 @@ public interface IResourceError extends
    */
   @Nullable
   Throwable getLinkedException ();
+
+  /**
+   * @return <code>true</code> if a linked exception is present,
+   *         <code>false</code> if not.
+   */
+  default boolean hasLinkedException ()
+  {
+    return getLinkedException () != null;
+  }
 
   /**
    * Get the error as a string representation, including error ID, error

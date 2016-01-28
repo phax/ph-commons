@@ -117,44 +117,9 @@ public class ResourceError implements IResourceError
     ret += getDisplayText (aDisplayLocale);
 
     // Linked exception
-    if (m_aLinkedException != null)
+    if (hasLinkedException ())
       ret += " (" + m_aLinkedException.getClass ().getName () + ": " + m_aLinkedException.getMessage () + ")";
     return ret;
-  }
-
-  public boolean isSuccess ()
-  {
-    return m_aErrorLevel.isSuccess ();
-  }
-
-  public boolean isError ()
-  {
-    return m_aErrorLevel.isError ();
-  }
-
-  public boolean isEqualSevereThan (@Nonnull final IResourceError aOther)
-  {
-    return m_aErrorLevel.isEqualSevereThan (aOther.getErrorLevel ());
-  }
-
-  public boolean isLessSevereThan (@Nonnull final IResourceError aOther)
-  {
-    return m_aErrorLevel.isLessSevereThan (aOther.getErrorLevel ());
-  }
-
-  public boolean isLessOrEqualSevereThan (@Nonnull final IResourceError aOther)
-  {
-    return m_aErrorLevel.isLessOrEqualSevereThan (aOther.getErrorLevel ());
-  }
-
-  public boolean isMoreSevereThan (@Nonnull final IResourceError aOther)
-  {
-    return m_aErrorLevel.isMoreSevereThan (aOther.getErrorLevel ());
-  }
-
-  public boolean isMoreOrEqualSevereThan (@Nonnull final IResourceError aOther)
-  {
-    return m_aErrorLevel.isMoreOrEqualSevereThan (aOther.getErrorLevel ());
   }
 
   @Override
