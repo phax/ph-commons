@@ -17,9 +17,15 @@
 package com.helger.commons.compare;
 
 import java.io.Serializable;
+import java.text.Collator;
 import java.util.Comparator;
+import java.util.Locale;
+import java.util.function.Function;
 
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
+
+import com.helger.commons.collation.CollatorHelper;
 
 /**
  * A special interface that combines {@link Comparator} and {@link Serializable}
@@ -33,5 +39,27 @@ import javax.annotation.concurrent.NotThreadSafe;
 @FunctionalInterface
 public interface ISerializableComparator <DATATYPE> extends Comparator <DATATYPE>, Serializable
 {
-  /* empty */
+  @Nonnull
+  static ISerializableComparator <String> getComparatorCollating (@Nonnull final Locale aSortLocale)
+  {
+    return getComparatorCollating (CollatorHelper.getCollatorSpaceBeforeDot (aSortLocale));
+  }
+
+  @Nonnull
+  static ISerializableComparator <String> getComparatorCollating (@Nonnull final Collator aCollator)
+  {
+    return (c1, c2) -> aCollator.compare (c1, c2);
+  }
+
+  @Nonnull
+  static Comparator <String> getComparatorStringLongestFirst ()
+  {
+    return Comparator.comparingInt (String::length).reversed ().thenComparing (Function.identity ());
+  }
+
+  @Nonnull
+  static Comparator <String> getComparatorStringShortestFirst ()
+  {
+    return Comparator.comparingInt (String::length).thenComparing (Function.identity ());
+  }
 }

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.compare;
+package com.helger.commons.collation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -28,6 +28,7 @@ import java.util.Vector;
 import org.junit.Test;
 
 import com.helger.commons.collation.CollatorHelper;
+import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 

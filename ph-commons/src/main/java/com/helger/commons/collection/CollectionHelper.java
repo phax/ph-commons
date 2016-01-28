@@ -50,8 +50,6 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.impl.ComparatorMapEntryKey;
-import com.helger.commons.collection.impl.ComparatorMapEntryValue;
 import com.helger.commons.collection.impl.EmptySortedSet;
 import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.collection.iterate.IIterableIterator;
@@ -2848,7 +2846,7 @@ public final class CollectionHelper
 
     // get sorted Map.Entry list by Entry.getValue ()
     final List <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
-    aList.sort (new ComparatorMapEntryKey <> (aKeyComparator));
+    aList.sort (Comparator.comparing (Map.Entry::getKey, aKeyComparator));
     return newOrderedMap (aList);
   }
 
@@ -2901,7 +2899,7 @@ public final class CollectionHelper
 
     // get sorted Map.Entry list by Entry.getValue ()
     final List <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
-    aList.sort (new ComparatorMapEntryValue <> (aValueComparator));
+    aList.sort (Comparator.comparing (Map.Entry::getValue, aValueComparator));
     return newOrderedMap (aList);
   }
 
