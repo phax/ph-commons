@@ -34,7 +34,7 @@ public interface IHasIntID
   int getID ();
 
   @Nonnull
-  static Comparator <? super IHasIntID> getComparatorID ()
+  static Comparator <IHasIntID> getComparatorID ()
   {
     return Comparator.comparingInt (IHasIntID::getID);
   }

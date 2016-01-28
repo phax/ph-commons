@@ -46,13 +46,13 @@ public interface IPair <DATA1TYPE, DATA2TYPE> extends Serializable
   DATA2TYPE getSecond ();
 
   @Nonnull
-  static <T1 extends Comparable <? super T1>, T2> Comparator <? super IPair <T1, T2>> getComparatorFirst ()
+  static <T1 extends Comparable <? super T1>, T2> Comparator <IPair <T1, T2>> getComparatorFirst ()
   {
     return Comparator.comparing (IPair::getFirst);
   }
 
   @Nonnull
-  static <T1, T2 extends Comparable <? super T2>> Comparator <? super IPair <T1, T2>> getComparatorSecond ()
+  static <T1, T2 extends Comparable <? super T2>> Comparator <IPair <T1, T2>> getComparatorSecond ()
   {
     return Comparator.comparing (IPair::getSecond);
   }

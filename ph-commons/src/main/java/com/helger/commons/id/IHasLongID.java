@@ -34,7 +34,7 @@ public interface IHasLongID
   long getID ();
 
   @Nonnull
-  static Comparator <? super IHasLongID> getComparatorID ()
+  static Comparator <IHasLongID> getComparatorID ()
   {
     return Comparator.comparingLong (IHasLongID::getID);
   }
