@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collation.CollatorHelper;
 
 /**
@@ -41,15 +42,16 @@ import com.helger.commons.collation.CollatorHelper;
 public interface ISerializableComparator <DATATYPE> extends Comparator <DATATYPE>, Serializable
 {
   @Nonnull
-  static ISerializableComparator <String> getComparatorCollating (@Nullable final Locale aSortLocale)
+  static Comparator <String> getComparatorCollating (@Nullable final Locale aSortLocale)
   {
     return getComparatorCollating (CollatorHelper.getCollatorSpaceBeforeDot (aSortLocale));
   }
 
   @Nonnull
-  static ISerializableComparator <String> getComparatorCollating (@Nonnull final Collator aCollator)
+  static Comparator <String> getComparatorCollating (@Nonnull final Collator aCollator)
   {
-    return (c1, c2) -> aCollator.compare (c1, c2);
+    ValueEnforcer.notNull (aCollator, "Collator");
+    return Comparator.nullsFirst ( (c1, c2) -> aCollator.compare (c1, c2));
   }
 
   @Nonnull

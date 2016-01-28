@@ -16,8 +16,12 @@
  */
 package com.helger.commons.xml;
 
+import java.util.Comparator;
+
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import javax.xml.XMLConstants;
+import javax.xml.namespace.QName;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 
@@ -96,4 +100,10 @@ public final class CXML
 
   private CXML ()
   {}
+
+  @Nonnull
+  public static Comparator <QName> getComparatorQName ()
+  {
+    return Comparator.nullsFirst (Comparator.comparing (QName::getNamespaceURI)).thenComparing (QName::getLocalPart);
+  }
 }

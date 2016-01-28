@@ -38,9 +38,9 @@ import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.xml.CXML;
 import com.helger.commons.xml.EXMLVersion;
 import com.helger.commons.xml.XMLHelper;
-import com.helger.commons.xml.namespace.ComparatorQName;
 
 /**
  * Internal XML serializer that takes org.w3c.dom.Node objects, extracts the
@@ -190,7 +190,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
 
     // get all attributes (sorting is important because the order from
     // getAttributes is not guaranteed to be consistent!)
-    final Map <QName, String> aAttrMap = new TreeMap <QName, String> (new ComparatorQName ());
+    final Map <QName, String> aAttrMap = new TreeMap <> (CXML.getComparatorQName ());
 
     m_aNSStack.push ();
 

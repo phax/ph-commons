@@ -33,6 +33,7 @@ import com.helger.commons.ValueEnforcer;
  *        compared as a long value.
  */
 @NotThreadSafe
+@Deprecated
 public class LongComparator <DATATYPE> extends AbstractComparator <DATATYPE>
 {
   private final ToLongFunction <DATATYPE> m_aExtractor;

@@ -33,6 +33,7 @@ import com.helger.commons.ValueEnforcer;
  *        compared as a int value.
  */
 @NotThreadSafe
+@Deprecated
 public class IntComparator <DATATYPE> extends AbstractComparator <DATATYPE>
 {
   private final ToIntFunction <DATATYPE> m_aExtractor;

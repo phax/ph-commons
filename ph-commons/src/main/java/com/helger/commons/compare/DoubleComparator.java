@@ -31,6 +31,7 @@ import com.helger.commons.ValueEnforcer;
  *        The data type to be compared. Must somehow have a value that can be
  *        compared as a double value.
  */
+@Deprecated
 public class DoubleComparator <DATATYPE> extends AbstractComparator <DATATYPE>
 {
   private final ToDoubleFunction <DATATYPE> m_aExtractor;
