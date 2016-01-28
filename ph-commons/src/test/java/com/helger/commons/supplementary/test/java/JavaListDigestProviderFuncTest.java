@@ -18,43 +18,28 @@ package com.helger.commons.supplementary.test.java;
 
 import java.security.Provider;
 import java.security.Security;
+import java.util.Comparator;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.compare.ISerializableComparator;
 
 public final class JavaListDigestProviderFuncTest
 {
-  private static final class ProviderComparator implements ISerializableComparator <Provider>
-  {
-    public int compare (final Provider o1, final Provider o2)
-    {
-      return o1.getName ().compareTo (o2.getName ());
-    }
-  }
-
-  private static final class AlgorithmComparator implements ISerializableComparator <Object>
-  {
-    public int compare (final Object o1, final Object o2)
-    {
-      return o1.toString ().compareTo (o2.toString ());
-    }
-  }
-
   private static final Logger s_aLogger = LoggerFactory.getLogger (JavaListDigestProviderFuncTest.class);
 
   @Test
   public void testListAllDigestProvider ()
   {
     for (final Provider element : CollectionHelper.getSorted (CollectionHelper.newList (Security.getProviders ()),
-                                                              new ProviderComparator ()))
+                                                              Comparator.comparing (Provider::getName)))
     {
       s_aLogger.info ("Provider: '" + element + "'");
 
-      for (final Object sAlgo : CollectionHelper.getSortedByKey (element, new AlgorithmComparator ()).keySet ())
+      for (final Object sAlgo : CollectionHelper.getSortedByKey (element, Comparator.comparing (Object::toString))
+                                                .keySet ())
         s_aLogger.info ("\t" + sAlgo);
     }
   }
