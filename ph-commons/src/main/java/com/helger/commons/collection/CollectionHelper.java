@@ -1583,15 +1583,15 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE, RETTYPE> ArrayList <RETTYPE> newListMapped (@Nullable final ELEMENTTYPE [] aValues,
-                                                                          @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE> ArrayList <DSTTYPE> newListMapped (@Nullable final SRCTYPE [] aValues,
+                                                                      @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     // Don't user Arrays.asList since aIter returns an unmodifiable list!
     if (ArrayHelper.isEmpty (aValues))
       return newList (0);
 
-    final ArrayList <RETTYPE> ret = newList (aValues.length);
-    for (final ELEMENTTYPE aValue : aValues)
+    final ArrayList <DSTTYPE> ret = newList (aValues.length);
+    for (final SRCTYPE aValue : aValues)
       ret.add (aMapper.apply (aValue));
     return ret;
   }
