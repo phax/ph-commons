@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.PrimitiveCollectionHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -59,18 +59,18 @@ public final class LRUSetTest
     assertEquals (MAX_SIZE, aCache.size ());
 
     // addAll
-    assertTrue (aCache.addAll (CollectionHelper.newPrimitiveList (-4, -5)));
-    assertTrue (aCache.addAll (CollectionHelper.newPrimitiveList (-4, -6)));
+    assertTrue (aCache.addAll (PrimitiveCollectionHelper.newPrimitiveList (-4, -5)));
+    assertTrue (aCache.addAll (PrimitiveCollectionHelper.newPrimitiveList (-4, -6)));
     assertEquals (MAX_SIZE, aCache.size ());
 
     // containsAll
-    assertTrue (aCache.containsAll (CollectionHelper.newPrimitiveList (-4, -5)));
-    assertFalse (aCache.containsAll (CollectionHelper.newPrimitiveList (-4, -7)));
+    assertTrue (aCache.containsAll (PrimitiveCollectionHelper.newPrimitiveList (-4, -5)));
+    assertFalse (aCache.containsAll (PrimitiveCollectionHelper.newPrimitiveList (-4, -7)));
     assertEquals (MAX_SIZE, aCache.size ());
 
     // removeAll
-    assertTrue (aCache.removeAll (CollectionHelper.newPrimitiveList (-4, -5, -6)));
-    assertFalse (aCache.removeAll (CollectionHelper.newPrimitiveList (-4, -5, -6)));
+    assertTrue (aCache.removeAll (PrimitiveCollectionHelper.newPrimitiveList (-4, -5, -6)));
+    assertFalse (aCache.removeAll (PrimitiveCollectionHelper.newPrimitiveList (-4, -5, -6)));
     assertEquals (MAX_SIZE - 3, aCache.size ());
 
     try

@@ -25,7 +25,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import com.helger.commons.aggregate.AggregatorStringWithSeparator;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.PrimitiveCollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 
@@ -45,23 +45,23 @@ public final class DefaultFolderTreeTest extends AbstractCommonsTestCase
 
     final DefaultFolderTreeItem <String, Integer, Set <Integer>> i1 = ft.getRootItem ()
                                                                         .createChildItem ("id1",
-                                                                                          CollectionHelper.newPrimitiveSet (1,
-                                                                                                                            2,
-                                                                                                                            3));
+                                                                                          PrimitiveCollectionHelper.newPrimitiveSet (1,
+                                                                                                                                     2,
+                                                                                                                                     3));
     assertNotNull (i1);
 
     final DefaultFolderTreeItem <String, Integer, Set <Integer>> i2 = ft.getRootItem ()
                                                                         .createChildItem ("id1",
-                                                                                          CollectionHelper.newPrimitiveSet (1,
-                                                                                                                            2,
-                                                                                                                            3));
+                                                                                          PrimitiveCollectionHelper.newPrimitiveSet (1,
+                                                                                                                                     2,
+                                                                                                                                     3));
     assertNotNull (i2);
     assertSame (i1, i2);
 
     final DefaultFolderTreeItem <String, Integer, Set <Integer>> i3 = ft.getRootItem ()
                                                                         .createChildItem ("id3",
-                                                                                          CollectionHelper.newPrimitiveSet (1,
-                                                                                                                            3));
+                                                                                          PrimitiveCollectionHelper.newPrimitiveSet (1,
+                                                                                                                                     3));
     assertNotNull (i3);
     assertTrue (i1 != i3);
 

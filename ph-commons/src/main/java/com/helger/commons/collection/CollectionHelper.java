@@ -372,6 +372,20 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
+                                                                          @Nonnull final Predicate <Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
+  {
+    if (isEmpty (aMap))
+      return newMap (0);
+    final HashMap <KEYTYPE, VALUETYPE> ret = newMap (aMap.size ());
+    for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aMap.entrySet ())
+      if (aFilter.test (aEntry))
+        ret.put (aEntry.getKey (), aEntry.getValue ());
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final KEYTYPE aKey,
                                                                           @Nullable final VALUETYPE aValue)
   {
@@ -563,6 +577,20 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
+                                                                                       @Nonnull final Predicate <Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
+  {
+    if (isEmpty (aMap))
+      return newOrderedMap (0);
+    final LinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aMap.size ());
+    for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aMap.entrySet ())
+      if (aFilter.test (aEntry))
+        ret.put (aEntry.getKey (), aEntry.getValue ());
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final KEYTYPE aKey,
                                                                                        @Nullable final VALUETYPE aValue)
   {
@@ -744,6 +772,32 @@ public final class CollectionHelper
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap ()
   {
     return new TreeMap <> (Comparator.nullsFirst (Comparator.naturalOrder ()));
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE extends Comparable <? super DSTKEYTYPE>, DSTVALUETYPE> TreeMap <DSTKEYTYPE, DSTVALUETYPE> newSortedMap (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
+                                                                                                                                                              @Nonnull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
+                                                                                                                                                              @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
+  {
+    final TreeMap <DSTKEYTYPE, DSTVALUETYPE> ret = newSortedMap ();
+    if (isNotEmpty (aMap))
+      for (final Map.Entry <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aEntry : aMap.entrySet ())
+        ret.put (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
+                                                                                                                     @Nonnull final Predicate <Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
+  {
+    final TreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    if (isNotEmpty (aMap))
+      for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aMap.entrySet ())
+        if (aFilter.test (aEntry))
+          ret.put (aEntry.getKey (), aEntry.getValue ());
+    return ret;
   }
 
   @Nonnull
@@ -940,6 +994,20 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  public static <ELEMENTTYPE> HashSet <ELEMENTTYPE> newSet (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                            @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    if (isEmpty (aCollection))
+      return newSet (0);
+    final HashSet <ELEMENTTYPE> ret = newSet (aCollection.size ());
+    for (final ELEMENTTYPE aValue : aCollection)
+      if (aFilter.test (aValue))
+        ret.add (aValue);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
   public static <ELEMENTTYPE> HashSet <ELEMENTTYPE> newSet (@Nullable final ELEMENTTYPE aValue)
   {
     final HashSet <ELEMENTTYPE> ret = newSet (1);
@@ -1046,94 +1114,6 @@ public final class CollectionHelper
   }
 
   @Nonnull
-  @ReturnsMutableCopy
-  public static HashSet <Boolean> newPrimitiveSet (@Nullable final boolean... aValues)
-  {
-    final HashSet <Boolean> ret = newSet ();
-    if (aValues != null)
-      for (final boolean aValue : aValues)
-        ret.add (Boolean.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static HashSet <Byte> newPrimitiveSet (@Nullable final byte... aValues)
-  {
-    final HashSet <Byte> ret = newSet ();
-    if (aValues != null)
-      for (final byte aValue : aValues)
-        ret.add (Byte.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static HashSet <Character> newPrimitiveSet (@Nullable final char... aValues)
-  {
-    final HashSet <Character> ret = newSet ();
-    if (aValues != null)
-      for (final char aValue : aValues)
-        ret.add (Character.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static HashSet <Double> newPrimitiveSet (@Nullable final double... aValues)
-  {
-    final HashSet <Double> ret = newSet ();
-    if (aValues != null)
-      for (final double aValue : aValues)
-        ret.add (Double.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static HashSet <Float> newPrimitiveSet (@Nullable final float... aValues)
-  {
-    final HashSet <Float> ret = newSet ();
-    if (aValues != null)
-      for (final float aValue : aValues)
-        ret.add (Float.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static HashSet <Integer> newPrimitiveSet (@Nullable final int... aValues)
-  {
-    final HashSet <Integer> ret = newSet ();
-    if (aValues != null)
-      for (final int aValue : aValues)
-        ret.add (Integer.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static HashSet <Long> newPrimitiveSet (@Nullable final long... aValues)
-  {
-    final HashSet <Long> ret = newSet ();
-    if (aValues != null)
-      for (final long aValue : aValues)
-        ret.add (Long.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static HashSet <Short> newPrimitiveSet (@Nullable final short... aValues)
-  {
-    final HashSet <Short> ret = newSet ();
-    if (aValues != null)
-      for (final short aValue : aValues)
-        ret.add (Short.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
   @ReturnsImmutableObject
   public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableSet ()
   {
@@ -1191,66 +1171,35 @@ public final class CollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Boolean> newUnmodifiablePrimitiveSet (@Nullable final boolean... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Byte> newUnmodifiablePrimitiveSet (@Nullable final byte... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Character> newUnmodifiablePrimitiveSet (@Nullable final char... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Double> newUnmodifiablePrimitiveSet (@Nullable final double... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Float> newUnmodifiablePrimitiveSet (@Nullable final float... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Integer> newUnmodifiablePrimitiveSet (@Nullable final int... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Long> newUnmodifiablePrimitiveSet (@Nullable final long... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Short> newUnmodifiablePrimitiveSet (@Nullable final short... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveSet (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet ()
   {
     return new TreeSet <> (Comparator.nullsFirst (Comparator.naturalOrder ()));
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, DSTTYPE extends Comparable <? super DSTTYPE>> TreeSet <DSTTYPE> newSortedSet (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                                                        @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  {
+    final TreeSet <DSTTYPE> ret = newSortedSet ();
+    if (isNotEmpty (aCollection))
+      for (final SRCTYPE aValue : aCollection)
+        ret.add (aMapper.apply (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                                                                           @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    final TreeSet <ELEMENTTYPE> ret = newSortedSet ();
+    if (isNotEmpty (aCollection))
+      for (final ELEMENTTYPE aValue : aCollection)
+        if (aFilter.test (aValue))
+          ret.add (aValue);
+    return ret;
   }
 
   @Nonnull
@@ -1327,94 +1276,6 @@ public final class CollectionHelper
   }
 
   @Nonnull
-  @ReturnsMutableCopy
-  public static TreeSet <Boolean> newPrimitiveSortedSet (@Nullable final boolean... aValues)
-  {
-    final TreeSet <Boolean> ret = newSortedSet ();
-    if (aValues != null)
-      for (final boolean aValue : aValues)
-        ret.add (Boolean.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static TreeSet <Byte> newPrimitiveSortedSet (@Nullable final byte... aValues)
-  {
-    final TreeSet <Byte> ret = newSortedSet ();
-    if (aValues != null)
-      for (final byte aValue : aValues)
-        ret.add (Byte.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static TreeSet <Character> newPrimitiveSortedSet (@Nullable final char... aValues)
-  {
-    final TreeSet <Character> ret = newSortedSet ();
-    if (aValues != null)
-      for (final char aValue : aValues)
-        ret.add (Character.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static TreeSet <Double> newPrimitiveSortedSet (@Nullable final double... aValues)
-  {
-    final TreeSet <Double> ret = newSortedSet ();
-    if (aValues != null)
-      for (final double aValue : aValues)
-        ret.add (Double.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static TreeSet <Float> newPrimitiveSortedSet (@Nullable final float... aValues)
-  {
-    final TreeSet <Float> ret = newSortedSet ();
-    if (aValues != null)
-      for (final float aValue : aValues)
-        ret.add (Float.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static TreeSet <Integer> newPrimitiveSortedSet (@Nullable final int... aValues)
-  {
-    final TreeSet <Integer> ret = newSortedSet ();
-    if (aValues != null)
-      for (final int aValue : aValues)
-        ret.add (Integer.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static TreeSet <Long> newPrimitiveSortedSet (@Nullable final long... aValues)
-  {
-    final TreeSet <Long> ret = newSortedSet ();
-    if (aValues != null)
-      for (final long aValue : aValues)
-        ret.add (Long.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static TreeSet <Short> newPrimitiveSortedSet (@Nullable final short... aValues)
-  {
-    final TreeSet <Short> ret = newSortedSet ();
-    if (aValues != null)
-      for (final short aValue : aValues)
-        ret.add (Short.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
   @ReturnsImmutableObject
   public static <ELEMENTTYPE> SortedSet <ELEMENTTYPE> newUnmodifiableSortedSet ()
   {
@@ -1472,62 +1333,6 @@ public final class CollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static SortedSet <Boolean> newUnmodifiablePrimitiveSortedSet (@Nullable final boolean... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveSortedSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static SortedSet <Byte> newUnmodifiablePrimitiveSortedSet (@Nullable final byte... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveSortedSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static SortedSet <Character> newUnmodifiablePrimitiveSortedSet (@Nullable final char... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveSortedSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static SortedSet <Double> newUnmodifiablePrimitiveSortedSet (@Nullable final double... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveSortedSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static SortedSet <Float> newUnmodifiablePrimitiveSortedSet (@Nullable final float... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveSortedSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static SortedSet <Integer> newUnmodifiablePrimitiveSortedSet (@Nullable final int... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveSortedSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static SortedSet <Long> newUnmodifiablePrimitiveSortedSet (@Nullable final long... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveSortedSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static SortedSet <Short> newUnmodifiablePrimitiveSortedSet (@Nullable final short... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveSortedSet (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nonnegative final int nInitialCapacity)
   {
@@ -1551,6 +1356,20 @@ public final class CollectionHelper
     final LinkedHashSet <DSTTYPE> ret = newOrderedSet (aCollection.size ());
     for (final SRCTYPE aValue : aCollection)
       ret.add (aMapper.apply (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                                         @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    if (isEmpty (aCollection))
+      return newOrderedSet (0);
+    final LinkedHashSet <ELEMENTTYPE> ret = newOrderedSet (aCollection.size ());
+    for (final ELEMENTTYPE aValue : aCollection)
+      if (aFilter.test (aValue))
+        ret.add (aValue);
     return ret;
   }
 
@@ -1629,94 +1448,6 @@ public final class CollectionHelper
   }
 
   @Nonnull
-  @ReturnsMutableCopy
-  public static LinkedHashSet <Boolean> newPrimitiveOrderedSet (@Nullable final boolean... aValues)
-  {
-    final LinkedHashSet <Boolean> ret = newOrderedSet ();
-    if (aValues != null)
-      for (final boolean aValue : aValues)
-        ret.add (Boolean.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static LinkedHashSet <Byte> newPrimitiveOrderedSet (@Nullable final byte... aValues)
-  {
-    final LinkedHashSet <Byte> ret = newOrderedSet ();
-    if (aValues != null)
-      for (final byte aValue : aValues)
-        ret.add (Byte.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static LinkedHashSet <Character> newPrimitiveOrderedSet (@Nullable final char... aValues)
-  {
-    final LinkedHashSet <Character> ret = newOrderedSet ();
-    if (aValues != null)
-      for (final char aValue : aValues)
-        ret.add (Character.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static LinkedHashSet <Double> newPrimitiveOrderedSet (@Nullable final double... aValues)
-  {
-    final LinkedHashSet <Double> ret = new LinkedHashSet <Double> ();
-    if (aValues != null)
-      for (final double aValue : aValues)
-        ret.add (Double.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static LinkedHashSet <Float> newPrimitiveOrderedSet (@Nullable final float... aValues)
-  {
-    final LinkedHashSet <Float> ret = newOrderedSet ();
-    if (aValues != null)
-      for (final float aValue : aValues)
-        ret.add (Float.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static LinkedHashSet <Integer> newPrimitiveOrderedSet (@Nullable final int... aValues)
-  {
-    final LinkedHashSet <Integer> ret = newOrderedSet ();
-    if (aValues != null)
-      for (final int aValue : aValues)
-        ret.add (Integer.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static LinkedHashSet <Long> newPrimitiveOrderedSet (@Nullable final long... aValues)
-  {
-    final LinkedHashSet <Long> ret = newOrderedSet ();
-    if (aValues != null)
-      for (final long aValue : aValues)
-        ret.add (Long.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static LinkedHashSet <Short> newPrimitiveOrderedSet (@Nullable final short... aValues)
-  {
-    final LinkedHashSet <Short> ret = newOrderedSet ();
-    if (aValues != null)
-      for (final short aValue : aValues)
-        ret.add (Short.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
   @ReturnsImmutableObject
   public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableOrderedSet ()
   {
@@ -1774,62 +1505,6 @@ public final class CollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Boolean> newUnmodifiablePrimitiveOrderedSet (@Nullable final boolean... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveOrderedSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Byte> newUnmodifiablePrimitiveOrderedSet (@Nullable final byte... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveOrderedSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Character> newUnmodifiablePrimitiveOrderedSet (@Nullable final char... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveOrderedSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Double> newUnmodifiablePrimitiveOrderedSet (@Nullable final double... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveOrderedSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Float> newUnmodifiablePrimitiveOrderedSet (@Nullable final float... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveOrderedSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Integer> newUnmodifiablePrimitiveOrderedSet (@Nullable final int... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveOrderedSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Long> newUnmodifiablePrimitiveOrderedSet (@Nullable final long... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveOrderedSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Short> newUnmodifiablePrimitiveOrderedSet (@Nullable final short... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveOrderedSet (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> ArrayList <ELEMENTTYPE> newListPrefilled (@Nullable final ELEMENTTYPE aValue,
                                                                         @Nonnegative final int nElements)
@@ -1866,6 +1541,20 @@ public final class CollectionHelper
     final ArrayList <DSTTYPE> ret = newList (aCollection.size ());
     for (final SRCTYPE aValue : aCollection)
       ret.add (aMapper.apply (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> ArrayList <ELEMENTTYPE> newList (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                               @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    if (isEmpty (aCollection))
+      return newList (0);
+    final ArrayList <ELEMENTTYPE> ret = newList (aCollection.size ());
+    for (final ELEMENTTYPE aValue : aCollection)
+      if (aFilter.test (aValue))
+        ret.add (aValue);
     return ret;
   }
 
@@ -1984,94 +1673,6 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Boolean> newPrimitiveList (@Nullable final boolean... aValues)
-  {
-    final ArrayList <Boolean> ret = newList ();
-    if (aValues != null)
-      for (final boolean aValue : aValues)
-        ret.add (Boolean.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static ArrayList <Byte> newPrimitiveList (@Nullable final byte... aValues)
-  {
-    final ArrayList <Byte> ret = newList ();
-    if (aValues != null)
-      for (final byte aValue : aValues)
-        ret.add (Byte.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static ArrayList <Character> newPrimitiveList (@Nullable final char... aValues)
-  {
-    final ArrayList <Character> ret = newList ();
-    if (aValues != null)
-      for (final char aValue : aValues)
-        ret.add (Character.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static ArrayList <Double> newPrimitiveList (@Nullable final double... aValues)
-  {
-    final ArrayList <Double> ret = newList ();
-    if (aValues != null)
-      for (final double aValue : aValues)
-        ret.add (Double.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static ArrayList <Float> newPrimitiveList (@Nullable final float... aValues)
-  {
-    final ArrayList <Float> ret = newList ();
-    if (aValues != null)
-      for (final float aValue : aValues)
-        ret.add (Float.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static ArrayList <Integer> newPrimitiveList (@Nullable final int... aValues)
-  {
-    final ArrayList <Integer> ret = newList ();
-    if (aValues != null)
-      for (final int aValue : aValues)
-        ret.add (Integer.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static ArrayList <Long> newPrimitiveList (@Nullable final long... aValues)
-  {
-    final ArrayList <Long> ret = newList ();
-    if (aValues != null)
-      for (final long aValue : aValues)
-        ret.add (Long.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static ArrayList <Short> newPrimitiveList (@Nullable final short... aValues)
-  {
-    final ArrayList <Short> ret = newList ();
-    if (aValues != null)
-      for (final short aValue : aValues)
-        ret.add (Short.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
   public static <ELEMENTTYPE> Vector <ELEMENTTYPE> newVector (@Nonnegative final int nInitialCapacity)
   {
     return new Vector <> (nInitialCapacity);
@@ -2094,6 +1695,20 @@ public final class CollectionHelper
     final Vector <DSTTYPE> ret = newVector (aCollection.size ());
     for (final SRCTYPE aValue : aCollection)
       ret.add (aMapper.apply (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> Vector <ELEMENTTYPE> newVector (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                              @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    if (isEmpty (aCollection))
+      return newVector (0);
+    final Vector <ELEMENTTYPE> ret = newVector (aCollection.size ());
+    for (final ELEMENTTYPE aValue : aCollection)
+      if (aFilter.test (aValue))
+        ret.add (aValue);
     return ret;
   }
 
@@ -2197,94 +1812,6 @@ public final class CollectionHelper
   }
 
   @Nonnull
-  @ReturnsMutableCopy
-  public static Vector <Boolean> newPrimitiveVector (@Nullable final boolean... aValues)
-  {
-    final Vector <Boolean> ret = newVector ();
-    if (aValues != null)
-      for (final boolean aValue : aValues)
-        ret.add (Boolean.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Vector <Byte> newPrimitiveVector (@Nullable final byte... aValues)
-  {
-    final Vector <Byte> ret = newVector ();
-    if (aValues != null)
-      for (final byte aValue : aValues)
-        ret.add (Byte.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Vector <Character> newPrimitiveVector (@Nullable final char... aValues)
-  {
-    final Vector <Character> ret = newVector ();
-    if (aValues != null)
-      for (final char aValue : aValues)
-        ret.add (Character.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Vector <Double> newPrimitiveVector (@Nullable final double... aValues)
-  {
-    final Vector <Double> ret = newVector ();
-    if (aValues != null)
-      for (final double aValue : aValues)
-        ret.add (Double.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Vector <Float> newPrimitiveVector (@Nullable final float... aValues)
-  {
-    final Vector <Float> ret = newVector ();
-    if (aValues != null)
-      for (final float aValue : aValues)
-        ret.add (Float.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Vector <Integer> newPrimitiveVector (@Nullable final int... aValues)
-  {
-    final Vector <Integer> ret = newVector ();
-    if (aValues != null)
-      for (final int aValue : aValues)
-        ret.add (Integer.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Vector <Long> newPrimitiveVector (@Nullable final long... aValues)
-  {
-    final Vector <Long> ret = newVector ();
-    if (aValues != null)
-      for (final long aValue : aValues)
-        ret.add (Long.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static Vector <Short> newPrimitiveVector (@Nullable final short... aValues)
-  {
-    final Vector <Short> ret = newVector ();
-    if (aValues != null)
-      for (final short aValue : aValues)
-        ret.add (Short.valueOf (aValue));
-    return ret;
-  }
-
-  @Nonnull
   @ReturnsImmutableObject
   public static <ELEMENTTYPE> List <ELEMENTTYPE> newUnmodifiableList ()
   {
@@ -2339,62 +1866,6 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> List <ELEMENTTYPE> newUnmodifiableList (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     return makeUnmodifiable (newList (aIter));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Boolean> newUnmodifiablePrimitiveList (@Nullable final boolean... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveList (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Byte> newUnmodifiablePrimitiveList (@Nullable final byte... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveList (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Character> newUnmodifiablePrimitiveList (@Nullable final char... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveList (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Double> newUnmodifiablePrimitiveList (@Nullable final double... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveList (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Float> newUnmodifiablePrimitiveList (@Nullable final float... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveList (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Integer> newUnmodifiablePrimitiveList (@Nullable final int... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveList (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Long> newUnmodifiablePrimitiveList (@Nullable final long... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveList (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Short> newUnmodifiablePrimitiveList (@Nullable final short... aValues)
-  {
-    return makeUnmodifiable (newPrimitiveList (aValues));
   }
 
   @Nonnull

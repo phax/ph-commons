@@ -24,6 +24,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.PrimitiveCollectionHelper;
 import com.helger.commons.id.MockHasIDInteger;
 import com.helger.commons.id.MockHasIDString;
 import com.helger.commons.name.MockHasName;
@@ -54,9 +55,9 @@ public final class IConverterTest
   {
     _test (new ConverterStringInteger (),
            CollectionHelper.newList ("1", "2", "47"),
-           CollectionHelper.newPrimitiveList (1, 2, 47));
+           PrimitiveCollectionHelper.newPrimitiveList (1, 2, 47));
     _test (new ConverterIntegerString (),
-           CollectionHelper.newPrimitiveList (1, 2, 47),
+           PrimitiveCollectionHelper.newPrimitiveList (1, 2, 47),
            CollectionHelper.newList ("1", "2", "47"));
     _test (new ConverterHasNameString (),
            CollectionHelper.newList (new MockHasName (1), new MockHasName (2), new MockHasName (47)),
@@ -66,6 +67,6 @@ public final class IConverterTest
            CollectionHelper.newList ("1", "2", "47"));
     _test (new ConverterHasIDID <> (),
            CollectionHelper.newList (new MockHasIDInteger (1), new MockHasIDInteger (2), new MockHasIDInteger (47)),
-           CollectionHelper.newPrimitiveList (1, 2, 47));
+           PrimitiveCollectionHelper.newPrimitiveList (1, 2, 47));
   }
 }
