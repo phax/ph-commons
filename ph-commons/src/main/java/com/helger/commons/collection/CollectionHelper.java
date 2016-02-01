@@ -3248,15 +3248,43 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> List <ELEMENTTYPE> getAll (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    if (aFilter == null)
-      return newList (aCollection);
-
     final List <ELEMENTTYPE> ret = new ArrayList <> ();
-    if (isNotEmpty (aCollection))
-      for (final ELEMENTTYPE aElement : aCollection)
-        if (aFilter.test (aElement))
-          ret.add (aElement);
+    findAll (aCollection, aFilter, ret);
     return ret;
+  }
+
+  public static <ELEMENTTYPE> void findAll (@Nullable final Iterable <? extends ELEMENTTYPE> aSrc,
+                                            @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                            @Nonnull final Collection <? super ELEMENTTYPE> aDst)
+  {
+    ValueEnforcer.notNull (aDst, "Dst");
+
+    if (isNotEmpty (aSrc))
+      for (final ELEMENTTYPE aElement : aSrc)
+        if (aFilter == null || aFilter.test (aElement))
+          aDst.add (aElement);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE, RETTYPE> List <RETTYPE> getAllMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                                    @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
+  {
+    final List <RETTYPE> ret = new ArrayList <> ();
+    findAllMapped (aCollection, aMapper, ret);
+    return ret;
+  }
+
+  public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
+                                                       @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                       @Nonnull final Collection <? super DSTTYPE> aDst)
+  {
+    ValueEnforcer.notNull (aMapper, "Mapper");
+    ValueEnforcer.notNull (aDst, "Dst");
+
+    if (isNotEmpty (aSrc))
+      for (final SRCTYPE aElement : aSrc)
+        aDst.add (aMapper.apply (aElement));
   }
 
   @Nonnull
@@ -3265,16 +3293,23 @@ public final class CollectionHelper
                                                               @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                                               @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
   {
-    ValueEnforcer.notNull (aMapper, "Mapper");
-    if (aFilter == null)
-      return newList (aCollection, aMapper);
-
     final List <RETTYPE> ret = new ArrayList <> ();
-    if (isNotEmpty (aCollection))
-      for (final ELEMENTTYPE aElement : aCollection)
-        if (aFilter.test (aElement))
-          ret.add (aMapper.apply (aElement));
+    findAll (aCollection, aFilter, aMapper, ret);
     return ret;
+  }
+
+  public static <SRCTYPE, DSTTYPE> void findAll (@Nullable final Iterable <? extends SRCTYPE> aSrc,
+                                                 @Nullable final Predicate <? super SRCTYPE> aFilter,
+                                                 @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                 @Nonnull final Collection <? super DSTTYPE> aDst)
+  {
+    ValueEnforcer.notNull (aMapper, "Mapper");
+    ValueEnforcer.notNull (aDst, "Dst");
+
+    if (isNotEmpty (aSrc))
+      for (final SRCTYPE aElement : aSrc)
+        if (aFilter == null || aFilter.test (aElement))
+          aDst.add (aMapper.apply (aElement));
   }
 
   @Nonnegative
