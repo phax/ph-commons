@@ -134,7 +134,7 @@ public final class ServiceLoaderHelper
       aRealLogger.trace ("Trying to retrieve all SPI implementations of " + aSPIClass);
 
     final ServiceLoader <T> aServiceLoader = ServiceLoader.<T> load (aSPIClass, aClassLoader);
-    final List <T> ret = new ArrayList <T> ();
+    final List <T> ret = new ArrayList <> ();
 
     // We use the iterator to be able to catch exceptions thrown
     // when loading SPI implementations (e.g. the SPI implementation class does
