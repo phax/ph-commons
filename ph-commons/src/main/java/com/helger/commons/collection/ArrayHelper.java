@@ -4190,7 +4190,7 @@ public final class ArrayHelper
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
     if (aFilter == null)
-      return CollectionHelper.newList (aArray, aMapper);
+      return CollectionHelper.newListMapped (aArray, aMapper);
 
     final List <RETTYPE> ret = new ArrayList <> ();
     if (isNotEmpty (aArray))

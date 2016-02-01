@@ -358,9 +358,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE, DSTVALUETYPE> HashMap <DSTKEYTYPE, DSTVALUETYPE> newMap (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
-                                                                                                                @Nonnull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
-                                                                                                                @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
+  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE, DSTVALUETYPE> HashMap <DSTKEYTYPE, DSTVALUETYPE> newMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
+                                                                                                                      @Nonnull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
+                                                                                                                      @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
   {
     if (isEmpty (aMap))
       return newMap (0);
@@ -563,9 +563,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE, DSTVALUETYPE> LinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> newOrderedMap (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
-                                                                                                                             @Nonnull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
-                                                                                                                             @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
+  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE, DSTVALUETYPE> LinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> newOrderedMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
+                                                                                                                                   @Nonnull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
+                                                                                                                                   @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
   {
     if (isEmpty (aMap))
       return newOrderedMap (0);
@@ -776,9 +776,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE extends Comparable <? super DSTKEYTYPE>, DSTVALUETYPE> TreeMap <DSTKEYTYPE, DSTVALUETYPE> newSortedMap (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
-                                                                                                                                                              @Nonnull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
-                                                                                                                                                              @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
+  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE extends Comparable <? super DSTKEYTYPE>, DSTVALUETYPE> TreeMap <DSTKEYTYPE, DSTVALUETYPE> newSortedMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
+                                                                                                                                                                    @Nonnull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
+                                                                                                                                                                    @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
   {
     final TreeMap <DSTKEYTYPE, DSTVALUETYPE> ret = newSortedMap ();
     if (isNotEmpty (aMap))
@@ -981,8 +981,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> HashSet <DSTTYPE> newSet (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                             @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE> HashSet <DSTTYPE> newSetMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                   @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (isEmpty (aCollection))
       return newSet (0);
@@ -1179,8 +1179,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE extends Comparable <? super DSTTYPE>> TreeSet <DSTTYPE> newSortedSet (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                                                        @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE extends Comparable <? super DSTTYPE>> TreeSet <DSTTYPE> newSortedSetMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                                                              @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     final TreeSet <DSTTYPE> ret = newSortedSet ();
     if (isNotEmpty (aCollection))
@@ -1348,8 +1348,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> LinkedHashSet <DSTTYPE> newOrderedSet (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                          @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE> LinkedHashSet <DSTTYPE> newOrderedSetMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                                @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (isEmpty (aCollection))
       return newOrderedSet (0);
@@ -1533,8 +1533,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> ArrayList <DSTTYPE> newList (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE> ArrayList <DSTTYPE> newListMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                      @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (isEmpty (aCollection))
       return newList (0);
@@ -1583,8 +1583,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE, RETTYPE> ArrayList <RETTYPE> newList (@Nullable final ELEMENTTYPE [] aValues,
-                                                                    @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
+  public static <ELEMENTTYPE, RETTYPE> ArrayList <RETTYPE> newListMapped (@Nullable final ELEMENTTYPE [] aValues,
+                                                                          @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
   {
     // Don't user Arrays.asList since aIter returns an unmodifiable list!
     if (ArrayHelper.isEmpty (aValues))
@@ -1642,8 +1642,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE, RETTYPE> ArrayList <RETTYPE> newList (@Nullable final Iterable <? extends ELEMENTTYPE> aIter,
-                                                                    @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
+  public static <ELEMENTTYPE, RETTYPE> ArrayList <RETTYPE> newListMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aIter,
+                                                                          @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
   {
     final ArrayList <RETTYPE> ret = newList ();
     if (aIter != null)
@@ -1687,8 +1687,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> Vector <DSTTYPE> newVector (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                               @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE> Vector <DSTTYPE> newVectorMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                     @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (isEmpty (aCollection))
       return newVector (0);
@@ -1884,8 +1884,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> NonBlockingStack <DSTTYPE> newStack (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                        @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE> NonBlockingStack <DSTTYPE> newStackMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                              @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (isEmpty (aCollection))
       return newStack (0);
@@ -1964,8 +1964,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> PriorityQueue <DSTTYPE> newQueue (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                     @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE> PriorityQueue <DSTTYPE> newQueueMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                           @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (isEmpty (aCollection))
       return newQueue (0);

@@ -305,7 +305,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @ReturnsMutableCopy
   public List <String> getAllItemTexts ()
   {
-    return CollectionHelper.newList (m_aItems, IError::getErrorText);
+    return CollectionHelper.newListMapped (m_aItems, IError::getErrorText);
   }
 
   /**
