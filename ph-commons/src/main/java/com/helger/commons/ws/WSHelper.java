@@ -18,6 +18,7 @@ package com.helger.commons.ws;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import javax.xml.ws.handler.MessageContext;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.system.SystemProperties;
@@ -104,5 +105,10 @@ public final class WSHelper
                            "http.nonProxyHosts",
                            "https.proxyHost",
                            "https.proxyPort" };
+  }
+
+  public static boolean isOutboundMessage (@Nonnull final MessageContext aContext)
+  {
+    return ((Boolean) aContext.get (MessageContext.MESSAGE_OUTBOUND_PROPERTY)).booleanValue ();
   }
 }
