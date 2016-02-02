@@ -107,7 +107,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
   @Nullable
   default <DATATYPE> DATATYPE getCastedAttribute (@Nullable final KEYTYPE aName)
   {
-    return GenericReflection.<Object, DATATYPE> uncheckedCast (getAttributeObject (aName));
+    return GenericReflection.uncheckedCast (getAttributeObject (aName));
   }
 
   /**

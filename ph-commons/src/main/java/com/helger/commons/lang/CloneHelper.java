@@ -55,7 +55,7 @@ public final class CloneHelper
       try
       {
         // 2. find Object.clone method
-        return GenericReflection.<DATATYPE> invokeMethod (aObject, "clone");
+        return GenericReflection.invokeMethod (aObject, "clone");
       }
       catch (final Exception ex)
       {

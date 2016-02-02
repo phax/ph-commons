@@ -26,6 +26,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.typeconvert.TypeConverterException;
 import com.helger.commons.typeconvert.TypeConverterException.EReason;
 
@@ -65,7 +66,6 @@ public final class SerializationConverter
     }
   }
 
-  @SuppressWarnings ("unchecked")
   @Nullable
   public static <DSTTYPE> DSTTYPE readConvertedObject (@Nonnull final ObjectInputStream aOIS,
                                                        @Nonnull final Class <DSTTYPE> aDstClass) throws TypeConverterException,
@@ -88,6 +88,6 @@ public final class SerializationConverter
       throw new TypeConverterException (aDstClass, EReason.NO_CONVERTER_FOUND_SINGLE);
 
     // Convert
-    return (DSTTYPE) aConverter.readConvertedObject (aOIS);
+    return GenericReflection.uncheckedCast (aConverter.readConvertedObject (aOIS));
   }
 }

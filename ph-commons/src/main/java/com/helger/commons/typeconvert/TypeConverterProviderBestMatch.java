@@ -19,6 +19,8 @@ package com.helger.commons.typeconvert;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.lang.GenericReflection;
+
 /**
  * An type converter provider that tries to provide an exact match before trying
  * fuzzy matches. This should be the preferred type converter provider.
@@ -39,7 +41,6 @@ public final class TypeConverterProviderBestMatch implements ITypeConverterProvi
     return s_aInstance;
   }
 
-  @SuppressWarnings ("unchecked")
   @Nullable
   public ITypeConverter <Object, Object> getTypeConverter (@Nonnull final Class <?> aSrcClass,
                                                            @Nonnull final Class <?> aDstClass)
@@ -58,6 +59,6 @@ public final class TypeConverterProviderBestMatch implements ITypeConverterProvi
         ret = aTCR.getFuzzyConverter (aSrcClass, aDstClass);
       }
     }
-    return (ITypeConverter <Object, Object>) ret;
+    return GenericReflection.uncheckedCast (ret);
   }
 }

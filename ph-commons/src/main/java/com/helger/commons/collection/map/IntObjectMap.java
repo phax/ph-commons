@@ -26,6 +26,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.lang.GenericReflection;
 
 /**
  * Special int-Object map. Based on: https://github.com/mikvor/hashmapTest
@@ -42,8 +43,7 @@ public class IntObjectMap <T>
 
   public static final Object NO_VALUE = new Object ();
 
-  @SuppressWarnings ("unchecked")
-  private final T m_aNoValue = (T) NO_VALUE;
+  private final T m_aNoValue = GenericReflection.uncheckedCast (NO_VALUE);
 
   /** Keys */
   private int [] m_aKeys;
@@ -87,14 +87,13 @@ public class IntObjectMap <T>
     m_nThreshold = (int) (nCapacity * fFillFactor);
   }
 
-  @SuppressWarnings ("unchecked")
   @Nonnull
   @ReturnsMutableCopy
   private T [] _createValueArray (@Nonnegative final int nSize)
   {
     final Object [] ret = new Object [nSize];
     Arrays.fill (ret, NO_VALUE);
-    return (T []) ret;
+    return GenericReflection.uncheckedCast (ret);
   }
 
   @Nullable

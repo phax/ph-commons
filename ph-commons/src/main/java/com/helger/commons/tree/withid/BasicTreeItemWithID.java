@@ -165,7 +165,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   @Nonnull
   private ITEMTYPE _asT (@Nonnull final BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE> aItem)
   {
-    return GenericReflection.<BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>, ITEMTYPE> uncheckedCast (aItem);
+    return GenericReflection.uncheckedCast (aItem);
   }
 
   @Nullable
@@ -190,8 +190,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   public final int getLevel ()
   {
     int ret = 0;
-    @SuppressWarnings ("unchecked")
-    ITEMTYPE aItem = (ITEMTYPE) this;
+    ITEMTYPE aItem = GenericReflection.uncheckedCast (this);
     while (aItem.getParent () != null)
     {
       ++ret;

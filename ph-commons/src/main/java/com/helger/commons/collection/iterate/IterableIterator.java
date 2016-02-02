@@ -85,6 +85,6 @@ public class IterableIterator <ELEMENTTYPE> implements IIterableIterator <ELEMEN
   @Nonnull
   public static <ELEMENTTYPE> IIterableIterator <ELEMENTTYPE> createEmpty ()
   {
-    return GenericReflection.<IterableIterator <Object>, IterableIterator <ELEMENTTYPE>> uncheckedCast (s_aEmpty);
+    return GenericReflection.uncheckedCast (s_aEmpty);
   }
 }

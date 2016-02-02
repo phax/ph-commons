@@ -19,6 +19,8 @@ package com.helger.commons.typeconvert;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.lang.GenericReflection;
+
 /**
  * A fuzzy type converter provider. Implemented as a singleton.
  *
@@ -37,12 +39,11 @@ public final class TypeConverterProviderFuzzy implements ITypeConverterProvider
     return s_aInstance;
   }
 
-  @SuppressWarnings ("unchecked")
   @Nullable
   public ITypeConverter <Object, Object> getTypeConverter (@Nonnull final Class <?> aSrcClass,
                                                            @Nonnull final Class <?> aDstClass)
   {
-    return (ITypeConverter <Object, Object>) TypeConverterRegistry.getInstance ().getFuzzyConverter (aSrcClass,
-                                                                                                     aDstClass);
+    return GenericReflection.uncheckedCast (TypeConverterRegistry.getInstance ().getFuzzyConverter (aSrcClass,
+                                                                                                    aDstClass));
   }
 }

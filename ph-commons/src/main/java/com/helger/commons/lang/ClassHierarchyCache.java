@@ -52,7 +52,7 @@ public final class ClassHierarchyCache
   private static final class ClassList implements Iterable <WeakReference <Class <?>>>
   {
     // Store it in the correct order, but without duplicates
-    private final List <WeakReference <Class <?>>> m_aList = new ArrayList <WeakReference <Class <?>>> ();
+    private final List <WeakReference <Class <?>>> m_aList = new ArrayList <> ();
 
     public ClassList (@Nonnull final Class <?> aClass)
     {
@@ -85,7 +85,7 @@ public final class ClassHierarchyCache
     public Set <Class <?>> getAsSet ()
     {
       // Use a linked hash set, to maintain the order
-      final Set <Class <?>> ret = new LinkedHashSet <Class <?>> (m_aList.size ());
+      final Set <Class <?>> ret = new LinkedHashSet <> (m_aList.size ());
       for (final WeakReference <Class <?>> aRef : m_aList)
       {
         final Class <?> aClass = aRef.get ();
@@ -100,7 +100,7 @@ public final class ClassHierarchyCache
     public List <Class <?>> getAsList ()
     {
       // Use a list that may contain duplicates
-      final List <Class <?>> ret = new ArrayList <Class <?>> (m_aList.size ());
+      final List <Class <?>> ret = new ArrayList <> (m_aList.size ());
       for (final WeakReference <Class <?>> aRef : m_aList)
       {
         final Class <?> aClass = aRef.get ();
@@ -126,7 +126,7 @@ public final class ClassHierarchyCache
   private static final Logger s_aLogger = LoggerFactory.getLogger (ClassHierarchyCache.class);
 
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
-  private static final Map <String, ClassList> s_aClassHierarchy = new LRUMap <String, ClassList> (1000);
+  private static final Map <String, ClassList> s_aClassHierarchy = new LRUMap <> (1000);
 
   @PresentForCodeCoverage
   private static final ClassHierarchyCache s_aInstance = new ClassHierarchyCache ();

@@ -259,7 +259,7 @@ public final class CommonsTestHelper
       try (
           final ObjectInputStream aOIS = new ObjectInputStream (new ByteArrayInputStreamProvider (aBAOS.toByteArray ()).getInputStream ()))
       {
-        aReadObject = GenericReflection.<Object, DATATYPE> uncheckedCast (aOIS.readObject ());
+        aReadObject = GenericReflection.uncheckedCast (aOIS.readObject ());
       }
 
       // Now check them for equality
@@ -326,7 +326,7 @@ public final class CommonsTestHelper
     // Ensure they are equals
     testDefaultImplementationWithEqualContentObject (aObj, aObj2);
 
-    return GenericReflection.<Object, T> uncheckedCast (aObj2);
+    return GenericReflection.uncheckedCast (aObj2);
   }
 
   /**

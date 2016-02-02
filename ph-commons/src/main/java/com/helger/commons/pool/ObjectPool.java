@@ -122,7 +122,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
               throw new IllegalStateException ("The factory returned a null object!");
           }
           m_aUsed[i] = true;
-          return GenericReflection.<Object, DATATYPE> uncheckedCast (m_aItems[i]);
+          return GenericReflection.uncheckedCast (m_aItems[i]);
         }
       throw new IllegalStateException ("Should never be reached!");
     });

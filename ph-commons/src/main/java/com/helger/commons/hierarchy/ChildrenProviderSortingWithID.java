@@ -21,6 +21,8 @@ import java.util.Comparator;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.lang.GenericReflection;
+
 /**
  * An {@link IChildrenProviderWithID} with ID that returns the children in
  * {@link #getAllChildren(Object)} sorted.
@@ -40,10 +42,16 @@ public class ChildrenProviderSortingWithID <KEYTYPE, CHILDTYPE> extends Children
     super (aCP, aComparator);
   }
 
-  @SuppressWarnings ("unchecked")
+  @Override
+  @Nonnull
+  public IChildrenProviderWithID <KEYTYPE, CHILDTYPE> getChildrenProvider ()
+  {
+    return GenericReflection.uncheckedCast (super.getChildrenProvider ());
+  }
+
   @Nullable
   public CHILDTYPE getChildWithID (@Nullable final CHILDTYPE aCurrent, @Nullable final KEYTYPE aID)
   {
-    return ((IChildrenProviderWithID <KEYTYPE, CHILDTYPE>) getChildrenProvider ()).getChildWithID (aCurrent, aID);
+    return getChildrenProvider ().getChildWithID (aCurrent, aID);
   }
 }

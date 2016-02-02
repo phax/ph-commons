@@ -32,8 +32,8 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.ArrayHelper;
 
 /**
- * This is a special helper class that provides many utility methods that
- * require the <code>SuppressWarnings("unchecked")</code> annotation.
+ * This is a special helper class that provides many utility methods concerning
+ * the usage of reflection etc..
  *
  * @author Philip Helger
  */
@@ -183,7 +183,7 @@ public final class GenericReflection
   {
     final Method aMethod = aSrcObj.getClass ().getDeclaredMethod (sMethodName, aArgClasses);
     final Object aReturn = aMethod.invoke (aSrcObj, aArgs);
-    return GenericReflection.<Object, RETURNTYPE> uncheckedCast (aReturn);
+    return GenericReflection.uncheckedCast (aReturn);
   }
 
   @Nullable
@@ -232,7 +232,7 @@ public final class GenericReflection
   {
     final Method aMethod = aClass.getDeclaredMethod (sMethodName, aArgClasses);
     final Object aReturn = aMethod.invoke (null, aArgs);
-    return GenericReflection.<Object, RETURNTYPE> uncheckedCast (aReturn);
+    return GenericReflection.uncheckedCast (aReturn);
   }
 
   @Nonnull

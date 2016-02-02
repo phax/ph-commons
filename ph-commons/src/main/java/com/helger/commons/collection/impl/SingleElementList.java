@@ -263,7 +263,7 @@ public class SingleElementList <ELEMENTTYPE> implements List <ELEMENTTYPE>
                                      " cannot store the item of class " +
                                      m_aElement.getClass ());
     final ARRAYELEMENTTYPE [] ret = aDest.length < 1 ? ArrayHelper.newArraySameType (aDest, 1) : aDest;
-    ret[0] = GenericReflection.<ELEMENTTYPE, ARRAYELEMENTTYPE> uncheckedCast (m_aElement);
+    ret[0] = GenericReflection.uncheckedCast (m_aElement);
     if (ret.length > 1)
       ret[1] = null;
     return ret;

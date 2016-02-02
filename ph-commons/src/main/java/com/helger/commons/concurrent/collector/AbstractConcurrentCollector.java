@@ -163,7 +163,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements
     final List <DATATYPE> ret = new ArrayList <> ();
     for (final Object aObj : aList)
       if (aObj != STOP_QUEUE_OBJECT)
-        ret.add (GenericReflection.<Object, DATATYPE> uncheckedCast (aObj));
+        ret.add (GenericReflection.uncheckedCast (aObj));
       else
       {
         // Re-add the stop object, because loops in derived classes rely on this

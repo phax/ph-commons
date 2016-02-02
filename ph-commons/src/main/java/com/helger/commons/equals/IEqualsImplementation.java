@@ -23,9 +23,11 @@ import javax.annotation.Nonnull;
  * interface is only used within the {@link EqualsImplementationRegistry}.
  *
  * @author Philip Helger
+ * @param <T>
+ *        Type of objects to compare
  */
 @FunctionalInterface
-public interface IEqualsImplementation
+public interface IEqualsImplementation <T>
 {
   /**
    * Check if the passed two objects are identical or not.
@@ -37,5 +39,5 @@ public interface IEqualsImplementation
    * @return <code>true</code> if the passed objects are equals according to the
    *         specification of Object.class.
    */
-  boolean areEqual (@Nonnull Object aObj1, @Nonnull Object aObj2);
+  boolean areEqual (@Nonnull T aObj1, @Nonnull T aObj2);
 }

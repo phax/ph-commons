@@ -37,11 +37,11 @@ import com.helger.commons.collection.CollectionHelper;
 public final class GenericReflectionTest
 {
   @Test
-  public void testUncechkedCast ()
+  public void testUncheckedCast ()
   {
     final List <String> l = CollectionHelper.newList ("a", "b");
     final Object o = l;
-    final List <String> l2 = GenericReflection.<Object, List <String>> uncheckedCast (o);
+    final List <String> l2 = GenericReflection.uncheckedCast (o);
     assertSame (l, l2);
   }
 

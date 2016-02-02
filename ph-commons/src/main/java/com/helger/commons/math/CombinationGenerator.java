@@ -31,6 +31,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.collection.iterate.IIterableIterator;
+import com.helger.commons.lang.GenericReflection;
 
 /**
  * Utility class for generating all possible combinations of elements for a
@@ -64,13 +65,12 @@ public class CombinationGenerator <DATATYPE> implements IIterableIterator <List 
    *        the number of slots to use (must not be greater than the element
    *        count!)
    */
-  @SuppressWarnings ("unchecked")
   public CombinationGenerator (@Nonnull @Nonempty final List <DATATYPE> aElements, @Nonnegative final int nSlotCount)
   {
     ValueEnforcer.notEmpty (aElements, "Elements");
     ValueEnforcer.isBetweenInclusive (nSlotCount, "SlotCount", 0, aElements.size ());
 
-    m_aElements = (DATATYPE []) aElements.toArray ();
+    m_aElements = GenericReflection.uncheckedCast (aElements.toArray ());
     m_aIndexResult = new int [nSlotCount];
     final BigInteger aElementFactorial = FactorialHelper.getAnyFactorialLinear (m_aElements.length);
     final BigInteger aSlotFactorial = FactorialHelper.getAnyFactorialLinear (nSlotCount);

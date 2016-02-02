@@ -30,6 +30,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.lang.GenericReflection;
 
 /**
  * Test class for class {@link AbstractWrappedList}.
@@ -46,7 +47,6 @@ public final class AbstractWrappedListTest
     }
   }
 
-  @SuppressWarnings ("unchecked")
   private static <T> void _testList (final List <T> aList, final Class <T> aClass) throws InstantiationException,
                                                                                    IllegalAccessException
   {
@@ -115,7 +115,7 @@ public final class AbstractWrappedListTest
 
     // array
     assertArrayEquals (new Object [] { aClass.newInstance (), aClass.newInstance () }, aList.toArray ());
-    assertNotNull (aList.toArray ((T []) Array.newInstance (aClass, 27)));
+    assertNotNull (aList.toArray (GenericReflection.uncheckedCast (Array.newInstance (aClass, 27))));
     assertTrue (aList.hashCode () > 0);
     assertNotNull (aList.toString ());
   }

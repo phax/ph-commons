@@ -304,7 +304,7 @@ public final class EnumHelper
     {
       if (nID < 0 || nID >= aCachedData.length)
         return eDefault;
-      return GenericReflection.<Object, ENUMTYPE> uncheckedCast (aCachedData[nID]);
+      return GenericReflection.uncheckedCast (aCachedData[nID]);
     }
 
     // Object is not cachable - traverse as usual

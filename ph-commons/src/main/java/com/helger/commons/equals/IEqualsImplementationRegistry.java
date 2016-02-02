@@ -32,6 +32,8 @@ public interface IEqualsImplementationRegistry
    *        The class for which the equals implementation is valid
    * @param aImpl
    *        The main implementation
+   * @param <T>
+   *        Type to register equals implementation
    */
-  void registerEqualsImplementation (@Nonnull Class <?> aClass, @Nonnull IEqualsImplementation aImpl);
+  <T> void registerEqualsImplementation (@Nonnull Class <T> aClass, @Nonnull IEqualsImplementation <T> aImpl);
 }

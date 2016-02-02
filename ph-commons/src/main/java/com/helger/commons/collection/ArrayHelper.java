@@ -104,7 +104,7 @@ public final class ArrayHelper
   {
     ValueEnforcer.notNull (aArray, "Array");
     final Class <?> aComponentType = aArray.getClass ().getComponentType ();
-    return GenericReflection.<Class <?>, Class <? extends ELEMENTTYPE>> uncheckedCast (aComponentType);
+    return GenericReflection.uncheckedCast (aComponentType);
   }
 
   /**
@@ -3853,7 +3853,7 @@ public final class ArrayHelper
     ValueEnforcer.isGE0 (nSize, "Size");
 
     final Object aArray = Array.newInstance (aClass, nSize);
-    return GenericReflection.<Object, ELEMENTTYPE []> uncheckedCast (aArray);
+    return GenericReflection.uncheckedCast (aArray);
   }
 
   /**

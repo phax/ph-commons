@@ -214,7 +214,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
           break;
 
         // add current object
-        aObjectsToPerform.add (GenericReflection.<Object, DATATYPE> uncheckedCast (aCurrentObject));
+        aObjectsToPerform.add (GenericReflection.uncheckedCast (aCurrentObject));
 
         // take all messages that are in the queue and handle them at once.
         // Handle at last m_nMaxPerformSize objects
@@ -228,7 +228,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
           }
 
           // add current object
-          aObjectsToPerform.add (GenericReflection.<Object, DATATYPE> uncheckedCast (aCurrentObject));
+          aObjectsToPerform.add (GenericReflection.uncheckedCast (aCurrentObject));
         }
 
         _perform (aObjectsToPerform);

@@ -52,8 +52,8 @@ public interface IAggregator <SRCTYPE, DSTTYPE>
    *        Source objects. May not be <code>null</code>.
    * @return The aggregated object. May be <code>null</code>.
    */
-  @SuppressWarnings ("unchecked")
   @Nullable
+  @SuppressWarnings ("unchecked")
   default DSTTYPE aggregate (@Nonnull final SRCTYPE... aObjects)
   {
     return aggregate (CollectionHelper.newList (aObjects));

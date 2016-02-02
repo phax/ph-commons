@@ -30,6 +30,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.lang.GenericReflection;
 
 /**
  * Soft {@link Map} implementation based on
@@ -153,12 +154,11 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
       m_aSrcEntrySet.clear ();
     }
 
-    @SuppressWarnings ("unchecked")
     public boolean contains (final Object aEntryObj)
     {
       if (!(aEntryObj instanceof Map.Entry))
         return false;
-      final Map.Entry <K, V> aEntry = (Map.Entry <K, V>) aEntryObj;
+      final Map.Entry <K, V> aEntry = GenericReflection.uncheckedCast (aEntryObj);
       return m_aSrcEntrySet.contains (new SoftMapEntry <K, V> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
     }
 
@@ -182,12 +182,11 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
       return new SoftIterator <K, V> (aSrcIter);
     }
 
-    @SuppressWarnings ("unchecked")
     public boolean remove (final Object aEntryObj)
     {
       if (!(aEntryObj instanceof Map.Entry <?, ?>))
         return false;
-      final Map.Entry <K, V> aEntry = (Map.Entry <K, V>) aEntryObj;
+      final Map.Entry <K, V> aEntry = GenericReflection.uncheckedCast (aEntryObj);
       return m_aSrcEntrySet.remove (new SoftMapEntry <K, V> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
     }
 
@@ -217,22 +216,21 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
     }
 
     @Nonnull
-    @SuppressWarnings ("unchecked")
     public <T> T [] toArray (@Nullable final T [] a)
     {
       MapEntry <K, V> [] result = null;
       if (a != null && a instanceof MapEntry <?, ?> [] && a.length >= size ())
-        result = (MapEntry <K, V> []) a;
+        result = GenericReflection.uncheckedCast (a);
       else
-        result = (MapEntry <K, V> []) new MapEntry <?, ?> [size ()];
+        result = GenericReflection.uncheckedCast (new MapEntry <?, ?> [size ()]);
 
       final Object [] aSrcArray = m_aSrcEntrySet.toArray ();
       for (int i = 0; i < aSrcArray.length; i++)
       {
-        final Map.Entry <K, SoftValue <K, V>> e = (Map.Entry <K, SoftValue <K, V>>) aSrcArray[i];
+        final Map.Entry <K, SoftValue <K, V>> e = GenericReflection.uncheckedCast (aSrcArray[i]);
         result[i] = new MapEntry <K, V> (e.getKey (), e.getValue ().get ());
       }
-      return (T []) result;
+      return GenericReflection.uncheckedCast (result);
     }
   }
 
@@ -256,7 +254,6 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
   protected void onEntryRemoved (final K aKey)
   {}
 
-  @SuppressWarnings ("unchecked")
   @Override
   public V get (final Object aKey)
   {
@@ -274,7 +271,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
         // If the value has been garbage collected, remove the
         // entry from the HashMap.
         if (m_aSrcMap.remove (aKey) != null)
-          onEntryRemoved ((K) aKey);
+          onEntryRemoved (GenericReflection.uncheckedCast (aKey));
       }
     }
     return ret;
@@ -285,11 +282,10 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
    * SoftValue objects from the HashMap by looking them up using the
    * SoftValue.m_aKey data member.
    */
-  @SuppressWarnings ("unchecked")
   private void _processQueue ()
   {
     SoftValue <K, V> aSoftValue;
-    while ((aSoftValue = ((SoftValue <K, V>) m_aQueue.poll ())) != null)
+    while ((aSoftValue = GenericReflection.uncheckedCast (m_aQueue.poll ())) != null)
     {
       m_aSrcMap.remove (aSoftValue.m_aKey);
     }

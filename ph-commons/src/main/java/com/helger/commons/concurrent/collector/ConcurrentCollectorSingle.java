@@ -146,7 +146,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
         if (aCurrentObject == STOP_QUEUE_OBJECT)
           break;
 
-        _perform (GenericReflection.<Object, DATATYPE> uncheckedCast (aCurrentObject));
+        _perform (GenericReflection.uncheckedCast (aCurrentObject));
       }
     }
     catch (final Throwable t)

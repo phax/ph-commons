@@ -38,6 +38,7 @@ import com.helger.commons.cache.AnnotationUsageCache;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
+import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.state.EChange;
 
@@ -50,24 +51,19 @@ import com.helger.commons.state.EChange;
 @Singleton
 public final class EqualsImplementationRegistry implements IEqualsImplementationRegistry
 {
-  private static final class ArrayEqualsImplementation implements IEqualsImplementation
+  private static final class ArrayEqualsImplementation implements IEqualsImplementation <Object []>
   {
-    public ArrayEqualsImplementation ()
-    {}
-
-    public boolean areEqual (@Nonnull final Object aObj1, @Nonnull final Object aObj2)
+    public boolean areEqual (@Nonnull final Object [] aObj1, @Nonnull final Object [] aObj2)
     {
-      final Object [] aArray1 = (Object []) aObj1;
-      final Object [] aArray2 = (Object []) aObj2;
       // Size check
-      final int nLength = aArray1.length;
-      if (nLength != aArray2.length)
+      final int nLength = aObj1.length;
+      if (nLength != aObj2.length)
         return false;
       // Content check
       if (nLength > 0)
       {
         for (int i = 0; i < nLength; i++)
-          if (!EqualsImplementationRegistry.areEqual (aArray1[i], aArray2[i]))
+          if (!EqualsImplementationRegistry.areEqual (aObj1[i], aObj2[i]))
             return false;
       }
       return true;
@@ -87,7 +83,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
 
   // Use a weak hash map, because the key is a class
   @GuardedBy ("m_aRWLock")
-  private final Map <Class <?>, IEqualsImplementation> m_aMap = new WeakHashMap <Class <?>, IEqualsImplementation> ();
+  private final Map <Class <?>, IEqualsImplementation <?>> m_aMap = new WeakHashMap <Class <?>, IEqualsImplementation <?>> ();
 
   // Cache for classes where direct implementation should be used
   private final AnnotationUsageCache m_aDirectEquals = new AnnotationUsageCache (UseDirectEqualsAndHashCode.class);
@@ -113,7 +109,8 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     return ret;
   }
 
-  public void registerEqualsImplementation (@Nonnull final Class <?> aClass, @Nonnull final IEqualsImplementation aImpl)
+  public <T> void registerEqualsImplementation (@Nonnull final Class <T> aClass,
+                                                @Nonnull final IEqualsImplementation <T> aImpl)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aImpl, "Implementation");
@@ -122,7 +119,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
       throw new IllegalArgumentException ("You cannot provide an equals implementation for Object.class!");
 
     m_aRWLock.writeLocked ( () -> {
-      final IEqualsImplementation aOldImpl = m_aMap.get (aClass);
+      final IEqualsImplementation <?> aOldImpl = m_aMap.get (aClass);
       if (aOldImpl == null)
         m_aMap.put (aClass, aImpl);
       else
@@ -187,11 +184,11 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
   }
 
   @Nullable
-  public IEqualsImplementation getBestMatchingEqualsImplementation (@Nullable final Class <?> aClass)
+  public <T> IEqualsImplementation <T> getBestMatchingEqualsImplementation (@Nullable final Class <T> aClass)
   {
     if (aClass != null)
     {
-      IEqualsImplementation aMatchingImplementation = null;
+      IEqualsImplementation <T> aMatchingImplementation = null;
       Class <?> aMatchingClass = null;
 
       // No check required?
@@ -202,7 +199,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
       try
       {
         // Check for an exact match first
-        aMatchingImplementation = m_aMap.get (aClass);
+        aMatchingImplementation = GenericReflection.uncheckedCast (m_aMap.get (aClass));
         if (aMatchingImplementation != null)
           aMatchingClass = aClass;
         else
@@ -213,10 +210,10 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
             final Class <?> aCurClass = aCurWRClass.get ();
             if (aCurClass != null)
             {
-              final IEqualsImplementation aImpl = m_aMap.get (aCurClass);
+              final IEqualsImplementation <?> aImpl = m_aMap.get (aCurClass);
               if (aImpl != null)
               {
-                aMatchingImplementation = aImpl;
+                aMatchingImplementation = GenericReflection.uncheckedCast (aImpl);
                 aMatchingClass = aCurClass;
                 if (s_aLogger.isDebugEnabled ())
                   s_aLogger.debug ("Found hierarchical match with class " +
@@ -261,7 +258,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
       // Handle arrays specially, because we cannot register a converter for
       // every potential array class (but we allow for special implementations)
       if (ClassHelper.isArrayClass (aClass))
-        return new ArrayEqualsImplementation ();
+        return GenericReflection.uncheckedCast (new ArrayEqualsImplementation ());
 
       // Remember to use direct implementation
       m_aDirectEquals.setAnnotation (aClass, true);
@@ -295,7 +292,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     }
 
     // Same class
-    final IEqualsImplementation aImpl = getInstance ().getBestMatchingEqualsImplementation (aClass1);
+    final IEqualsImplementation <T> aImpl = getInstance ().getBestMatchingEqualsImplementation (GenericReflection.uncheckedCast (aClass1));
 
     // Start the main equals check
     boolean bAreEqual;
