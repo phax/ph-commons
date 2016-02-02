@@ -3009,6 +3009,31 @@ public final class CollectionHelper
   }
 
   /**
+   * Check if the passed collection contains only elements matching the
+   * predicate.
+   *
+   * @param aCollection
+   *        The collection to check. May be <code>null</code>.
+   * @param aFilter
+   *        Predicate to check against all elements. May not be
+   *        <code>null</code>.
+   * @return <code>true</code> only if the passed collection is neither
+   *         <code>null</code> nor empty and if only matching elements are
+   *         contained.
+   */
+  public static <ELEMENTTYPE> boolean containsOnly (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                    @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    if (isEmpty (aCollection))
+      return false;
+
+    for (final ELEMENTTYPE aElement : aCollection)
+      if (!aFilter.test (aElement))
+        return false;
+    return true;
+  }
+
+  /**
    * Check if the passed collection contains at least one <code>null</code>
    * element.
    *
@@ -3034,12 +3059,6 @@ public final class CollectionHelper
    */
   public static boolean containsOnlyNullElements (@Nullable final Iterable <?> aCont)
   {
-    if (isEmpty (aCont))
-      return false;
-
-    for (final Object aObj : aCont)
-      if (aObj != null)
-        return false;
-    return true;
+    return containsOnly (aCont, Objects::isNull);
   }
 }
