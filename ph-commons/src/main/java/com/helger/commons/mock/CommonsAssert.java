@@ -85,4 +85,22 @@ public final class CommonsAssert
                                           ">" +
                                           (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
   }
+
+  public static void assertEquals (final float [] x, final float [] y)
+  {
+    if (x.length != y.length)
+      throw new IllegalArgumentException ("Length mismatch");
+
+    for (int i = 0; i < x.length; ++i)
+      assertEquals ("Element [" + i + "] mismatch", x[i], y[i]);
+  }
+
+  public static void assertEquals (final double [] x, final double [] y)
+  {
+    if (x.length != y.length)
+      throw new IllegalArgumentException ("Length mismatch");
+
+    for (int i = 0; i < x.length; ++i)
+      assertEquals ("Element [" + i + "] mismatch", x[i], y[i]);
+  }
 }
