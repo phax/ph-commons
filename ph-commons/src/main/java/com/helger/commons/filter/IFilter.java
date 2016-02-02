@@ -54,4 +54,28 @@ public interface IFilter <DATATYPE> extends Serializable, Predicate <DATATYPE>
   {
     return (t) -> !test (t);
   }
+
+  @Nonnull
+  static <DATATYPE> IFilter <DATATYPE> all ()
+  {
+    return (t) -> true;
+  }
+
+  @Nonnull
+  static <DATATYPE> IFilter <DATATYPE> none ()
+  {
+    return (t) -> false;
+  }
+
+  @Nonnull
+  static <DATATYPE> IFilter <DATATYPE> notNull ()
+  {
+    return (t) -> t != null;
+  }
+
+  @Nonnull
+  static <DATATYPE> IFilter <DATATYPE> isNull ()
+  {
+    return (t) -> t == null;
+  }
 }

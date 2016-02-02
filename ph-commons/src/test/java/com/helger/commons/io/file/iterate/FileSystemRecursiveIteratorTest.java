@@ -27,7 +27,7 @@ import java.util.NoSuchElementException;
 import org.junit.Test;
 
 import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.io.file.filter.FileFilterFileOnly;
+import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -83,14 +83,15 @@ public final class FileSystemRecursiveIteratorTest
     CommonsTestHelper.testToStringImplementation (it);
 
     // With one filter
-    it = FileSystemRecursiveIterator.create (new File ("."), new FileFilterFileOnly ());
+    it = new FileSystemRecursiveIterator (new File (".")).withFilter (IFileFilter.fileOnly ());
     assertNotNull (it);
     assertTrue (it.hasNext ());
     while (it.hasNext ())
       it.next ();
 
-    // With one filter
-    it = FileSystemRecursiveIterator.create (new File ("."), new FileFilterFileOnly (), new FileFilterFileOnly ());
+    // With two filter2
+    it = new FileSystemRecursiveIterator (new File (".")).withFilter (IFileFilter.fileOnly ()
+                                                                                 .and (IFileFilter.fileOnly ()));
     assertNotNull (it);
     assertTrue (it.hasNext ());
     while (it.hasNext ())

@@ -20,10 +20,16 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.filter.IFilter;
+import com.helger.commons.io.file.FileHelper;
+import com.helger.commons.io.file.FilenameHelper;
+import com.helger.commons.regex.RegExHelper;
 
 /**
  * Abstract interface that collects {@link FileFilter}, {@link FilenameFilter}
@@ -47,5 +53,187 @@ public interface IFileFilter extends FileFilter, FilenameFilter, IFilter <File>
 
     final File aFileToCheck = aDir != null ? new File (aDir, sName) : new File (sName);
     return test (aFileToCheck);
+  }
+
+  /**
+   * @return The created {@link IFileFilter}. Never <code>null</code>.
+   */
+  @Nonnull
+  static IFileFilter directoryOnly ()
+  {
+    return aFile -> FileHelper.existsDir (aFile);
+  }
+
+  /**
+   * @return The created {@link IFileFilter}. Never <code>null</code>.
+   */
+  @Nonnull
+  static IFileFilter directoryPublic ()
+  {
+    return aFile -> FileHelper.existsDir (aFile) && !FilenameHelper.isHiddenFilename (aFile);
+  }
+
+  /**
+   * @return The created {@link IFileFilter}. Never <code>null</code>.
+   */
+  @Nonnull
+  static IFileFilter parentDirectoryPublic ()
+  {
+    return aFile -> {
+      final File aParentFile = aFile != null ? aFile.getAbsoluteFile ().getParentFile () : null;
+      return aParentFile != null && !FilenameHelper.isHiddenFilename (aParentFile);
+    };
+  }
+
+  /**
+   * @return The created {@link IFileFilter}. Never <code>null</code>.
+   */
+  @Nonnull
+  static IFileFilter fileOnly ()
+  {
+    return aFile -> FileHelper.existsFile (aFile);
+  }
+
+  /**
+   * @return The created {@link IFileFilter}. Never <code>null</code>.
+   */
+  @Nonnull
+  static IFileFilter filenameHidden ()
+  {
+    return aFile -> FilenameHelper.isHiddenFilename (aFile);
+  }
+
+  /**
+   * @param sPrefix
+   *        The extension to use. May neither be <code>null</code> nor empty.
+   * @return The created {@link IFileFilter}. Never <code>null</code>.
+   */
+  @Nonnull
+  static IFileFilter filenameStartsWith (@Nonnull @Nonempty final String sPrefix)
+  {
+    ValueEnforcer.notEmpty (sPrefix, "Prefix");
+    return aFile -> {
+      if (aFile != null)
+      {
+        final String sSecureFilename = FilenameHelper.getSecureFilename (aFile.getName ());
+        if (sSecureFilename != null)
+          return sSecureFilename.startsWith (sPrefix);
+      }
+      return false;
+    };
+  }
+
+  /**
+   * @param sSuffix
+   *        The suffix to use. May neither be <code>null</code> nor empty.
+   * @return The created {@link IFileFilter}. Never <code>null</code>.
+   */
+  @Nonnull
+  static IFileFilter filenameEndsWith (@Nonnull @Nonempty final String sSuffix)
+  {
+    ValueEnforcer.notEmpty (sSuffix, "Suffix");
+    return aFile -> {
+      if (aFile != null)
+      {
+        final String sSecureFilename = FilenameHelper.getSecureFilename (aFile.getName ());
+        if (sSecureFilename != null)
+          return sSecureFilename.endsWith (sSuffix);
+      }
+      return false;
+    };
+  }
+
+  /**
+   * @param sFilename
+   *        The filename to use. May neither be <code>null</code> nor empty.
+   * @return The created {@link IFileFilter}. Never <code>null</code>.
+   */
+  @Nonnull
+  static IFileFilter filenameEquals (@Nonnull @Nonempty final String sFilename)
+  {
+    ValueEnforcer.notEmpty (sFilename, "Filename");
+    return aFile -> aFile != null && sFilename.equals (FilenameHelper.getSecureFilename (aFile.getName ()));
+  }
+
+  /**
+   * @param sFilename
+   *        The filename to use. May neither be <code>null</code> nor empty.
+   * @return The created {@link IFileFilter}. Never <code>null</code>.
+   */
+  @Nonnull
+  static IFileFilter filenameEqualsIgnoreCase (@Nonnull @Nonempty final String sFilename)
+  {
+    ValueEnforcer.notEmpty (sFilename, "Filename");
+    return aFile -> aFile != null && sFilename.equalsIgnoreCase (FilenameHelper.getSecureFilename (aFile.getName ()));
+  }
+
+  /**
+   * @param sFilename
+   *        The filename to use. May neither be <code>null</code> nor empty.
+   * @return The created {@link IFileFilter}. Never <code>null</code>.
+   */
+  @Nonnull
+  static IFileFilter filenameNotEquals (@Nonnull @Nonempty final String sFilename)
+  {
+    ValueEnforcer.notEmpty (sFilename, "Filename");
+    return aFile -> aFile != null && !sFilename.equals (FilenameHelper.getSecureFilename (aFile.getName ()));
+  }
+
+  /**
+   * @param sFilename
+   *        The filename to use. May neither be <code>null</code> nor empty.
+   * @return The created {@link IFileFilter}. Never <code>null</code>.
+   */
+  @Nonnull
+  static IFileFilter filenameNotEqualsIgnoreCase (@Nonnull @Nonempty final String sFilename)
+  {
+    ValueEnforcer.notEmpty (sFilename, "Filename");
+    return aFile -> aFile != null && !sFilename.equalsIgnoreCase (FilenameHelper.getSecureFilename (aFile.getName ()));
+  }
+
+  /**
+   * @param aRegExs
+   *        The regular expressions to match against. May neither be
+   *        <code>null</code> nor empty.
+   * @return The created {@link IFileFilter}. Never <code>null</code>.
+   */
+  @Nonnull
+  static IFileFilter filenameMatchAnyRegEx (@Nonnull @Nonempty final String... aRegExs)
+  {
+    ValueEnforcer.notEmpty (aRegExs, "RegularExpressions");
+    return aFile -> {
+      if (aFile != null)
+      {
+        final String sRealName = FilenameHelper.getSecureFilename (aFile.getName ());
+        if (sRealName != null)
+          for (final String sRegEx : aRegExs)
+            if (RegExHelper.stringMatchesPattern (sRegEx, sRealName))
+              return true;
+      }
+      return false;
+    };
+  }
+
+  /**
+   * @param aRegExs
+   *        The regular expressions to match against. May neither be
+   *        <code>null</code> nor empty.
+   * @return The created {@link IFileFilter}. Never <code>null</code>.
+   */
+  @Nonnull
+  static IFileFilter filenameMatchNoRegEx (@Nonnull @Nonempty final String... aRegExs)
+  {
+    ValueEnforcer.notEmpty (aRegExs, "RegularExpressions");
+    return aFile -> {
+      if (aFile == null)
+        return false;
+      final String sRealName = FilenameHelper.getSecureFilename (aFile.getName ());
+      if (sRealName == null)
+        return false;
+      for (final String sRegEx : aRegExs)
+        if (RegExHelper.stringMatchesPattern (sRegEx, sRealName))
+          return false;
+      return true;
+    };
   }
 }

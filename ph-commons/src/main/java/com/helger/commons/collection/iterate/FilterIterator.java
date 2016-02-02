@@ -40,7 +40,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
   // base iterator
   private final Iterator <? extends ELEMENTTYPE> m_aBaseIter;
   // the filter to use
-  private final IFilter <ELEMENTTYPE> m_aFilter;
+  private final IFilter <? super ELEMENTTYPE> m_aFilter;
 
   // status values
   private ELEMENTTYPE m_aCurrent;
@@ -55,7 +55,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
    *        The filter to be applied. May not be <code>null</code>.
    */
   public FilterIterator (@Nonnull final IIterableIterator <? extends ELEMENTTYPE> aBaseIter,
-                         @Nonnull final IFilter <ELEMENTTYPE> aFilter)
+                         @Nonnull final IFilter <? super ELEMENTTYPE> aFilter)
   {
     this (aBaseIter.iterator (), aFilter);
   }
@@ -69,7 +69,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
    *        The filter to be applied. May not be <code>null</code>.
    */
   public FilterIterator (@Nonnull final Iterator <? extends ELEMENTTYPE> aBaseIter,
-                         @Nonnull final IFilter <ELEMENTTYPE> aFilter)
+                         @Nonnull final IFilter <? super ELEMENTTYPE> aFilter)
   {
     m_aBaseIter = ValueEnforcer.notNull (aBaseIter, "BaseIterator");
     m_aFilter = ValueEnforcer.notNull (aFilter, "Filter");
@@ -85,7 +85,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
    *        The filter to be applied. May not be <code>null</code>.
    */
   public FilterIterator (@Nonnull final Iterable <? extends ELEMENTTYPE> aBaseCont,
-                         @Nonnull final IFilter <ELEMENTTYPE> aFilter)
+                         @Nonnull final IFilter <? super ELEMENTTYPE> aFilter)
   {
     ValueEnforcer.notNull (aBaseCont, "BaseContainer");
     m_aBaseIter = aBaseCont.iterator ();
@@ -97,7 +97,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
    * @return The filter as specified in the constructor.
    */
   @Nonnull
-  public IFilter <ELEMENTTYPE> getFilter ()
+  public IFilter <? super ELEMENTTYPE> getFilter ()
   {
     return m_aFilter;
   }

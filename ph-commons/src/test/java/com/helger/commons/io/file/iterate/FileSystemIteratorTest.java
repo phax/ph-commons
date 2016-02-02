@@ -26,7 +26,7 @@ import java.io.File;
 import org.junit.Test;
 
 import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.io.file.filter.FileFilterFileOnly;
+import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -72,14 +72,14 @@ public final class FileSystemIteratorTest
     assertFalse (it.hasNext ());
 
     // With one filter
-    it = FileSystemIterator.create (new File ("."), new FileFilterFileOnly ());
+    it = new FileSystemIterator (new File (".")).withFilter (IFileFilter.fileOnly ());
     assertNotNull (it);
     assertTrue (it.hasNext ());
     while (it.hasNext ())
       it.next ();
 
     // With one filter
-    it = FileSystemIterator.create (new File ("."), new FileFilterFileOnly (), new FileFilterFileOnly ());
+    it = new FileSystemIterator (new File (".")).withFilter (IFileFilter.fileOnly ().and (IFileFilter.fileOnly ()));
     assertNotNull (it);
     assertTrue (it.hasNext ());
     while (it.hasNext ())

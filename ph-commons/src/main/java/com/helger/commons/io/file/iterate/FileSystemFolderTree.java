@@ -19,6 +19,7 @@ package com.helger.commons.io.file.iterate;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,7 +29,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.aggregate.AggregatorStringWithSeparatorIgnoreNull;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FilenameHelper;
-import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.tree.withid.folder.DefaultFolderTree;
 import com.helger.commons.tree.withid.folder.DefaultFolderTreeItem;
 
@@ -43,8 +43,8 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, List 
 {
   private static void _iterate (@Nonnull final DefaultFolderTreeItem <String, File, List <File>> aTreeItem,
                                 @Nonnull final File aDir,
-                                @Nullable final IFileFilter aDirFilter,
-                                @Nullable final IFileFilter aFileFilter)
+                                @Nullable final Predicate <File> aDirFilter,
+                                @Nullable final Predicate <File> aFileFilter)
   {
     if (aDir != null)
       for (final File aChild : FileHelper.getDirectoryContent (aDir))
@@ -65,7 +65,7 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, List 
             {
               // create item and recursively descend
               final DefaultFolderTreeItem <String, File, List <File>> aChildItem = aTreeItem.createChildItem (aChild.getName (),
-                                                                                                              new ArrayList <File> ());
+                                                                                                              new ArrayList <> ());
               _iterate (aChildItem, aChild, aDirFilter, aFileFilter);
             }
           }
@@ -79,26 +79,26 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, List 
 
   public FileSystemFolderTree (@Nonnull final File aStartDir)
   {
-    this (aStartDir, (IFileFilter) null, (IFileFilter) null);
+    this (aStartDir, (Predicate <File>) null, (Predicate <File>) null);
   }
 
   public FileSystemFolderTree (@Nonnull final String sStartDir,
-                               @Nullable final IFileFilter aDirFilter,
-                               @Nullable final IFileFilter aFileFilter)
+                               @Nullable final Predicate <File> aDirFilter,
+                               @Nullable final Predicate <File> aFileFilter)
   {
     this (new File (sStartDir), aDirFilter, aFileFilter);
   }
 
   public FileSystemFolderTree (@Nonnull final File aStartDir,
-                               @Nullable final IFileFilter aDirFilter,
-                               @Nullable final IFileFilter aFileFilter)
+                               @Nullable final Predicate <File> aDirFilter,
+                               @Nullable final Predicate <File> aFileFilter)
   {
     super (new AggregatorStringWithSeparatorIgnoreNull ("/"));
     ValueEnforcer.notNull (aStartDir, "StartDirectory");
     ValueEnforcer.isTrue (aStartDir.isDirectory (), "Start directory is not a directory!");
 
     final DefaultFolderTreeItem <String, File, List <File>> aStart = getRootItem ().createChildItem (aStartDir.getName (),
-                                                                                                     new ArrayList <File> ());
+                                                                                                     new ArrayList <> ());
     _iterate (aStart, aStartDir, aDirFilter, aFileFilter);
   }
 }

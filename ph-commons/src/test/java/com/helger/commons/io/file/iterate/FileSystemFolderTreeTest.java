@@ -30,7 +30,7 @@ import org.junit.Test;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.filter.FileFilterFilenameEndsWith;
+import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.tree.util.TreeVisitor;
 import com.helger.commons.tree.withid.folder.DefaultFolderTreeItem;
 
@@ -78,7 +78,7 @@ public final class FileSystemFolderTreeTest
 
     FileSystemFolderTree aTree = new FileSystemFolderTree (new File (".").getAbsoluteFile (),
                                                            null,
-                                                           new FileFilterFilenameEndsWith (".java"));
+                                                           IFileFilter.filenameEndsWith (".java"));
     TreeVisitor.visitTreeItem (aTree.getRootItem (),
                                new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ()
                                {
@@ -94,7 +94,7 @@ public final class FileSystemFolderTreeTest
                                });
 
     // Only dir filter
-    aTree = new FileSystemFolderTree (new File (".").getAbsoluteFile (), new FileFilterFilenameEndsWith ("src"), null);
+    aTree = new FileSystemFolderTree (new File (".").getAbsoluteFile (), IFileFilter.filenameEndsWith ("src"), null);
     TreeVisitor.visitTreeItem (aTree.getRootItem (),
                                new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, List <File>>> ());
 

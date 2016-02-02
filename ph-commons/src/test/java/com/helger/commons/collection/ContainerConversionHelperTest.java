@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Set;
 
 import org.junit.Test;
@@ -33,7 +34,6 @@ import org.junit.Test;
 import com.helger.commons.compare.ISerializableComparator;
 import com.helger.commons.convert.ConverterStringInteger;
 import com.helger.commons.convert.IConverter;
-import com.helger.commons.filter.FilterNotNull;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
@@ -127,7 +127,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
   public void testNewSetIterableWithFilterAndConverter ()
   {
     Set <Integer> aSet = ContainerConversionHelper.newSet (CollectionHelper.newList ("100", null, "-733"),
-                                                           new FilterNotNull <String> (),
+                                                           Objects::nonNull,
                                                            new ConverterStringInteger (null));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
@@ -135,7 +135,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     assertTrue (aSet.contains (Integer.valueOf (-733)));
 
     aSet = ContainerConversionHelper.newUnmodifiableSet (CollectionHelper.newList ("100", null, "-733"),
-                                                         new FilterNotNull <String> (),
+                                                         Objects::nonNull,
                                                          new ConverterStringInteger (null));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
@@ -143,7 +143,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     assertTrue (aSet.contains (Integer.valueOf (-733)));
 
     aSet = ContainerConversionHelper.newOrderedSet (CollectionHelper.newList ("100", null, "-733"),
-                                                    new FilterNotNull <String> (),
+                                                    Objects::nonNull,
                                                     new ConverterStringInteger (null));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
@@ -151,7 +151,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     assertTrue (aSet.contains (Integer.valueOf (-733)));
 
     aSet = ContainerConversionHelper.newUnmodifiableOrderedSet (CollectionHelper.newList ("100", null, "-733"),
-                                                                new FilterNotNull <String> (),
+                                                                Objects::nonNull,
                                                                 new ConverterStringInteger (null));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
@@ -214,7 +214,7 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     assertTrue (aSource.add ("-721"));
 
     List <Integer> aList = ContainerConversionHelper.newList (aSource,
-                                                              new FilterNotNull <String> (),
+                                                              Objects::nonNull,
                                                               new ConverterStringInteger (null));
     assertNotNull (aList);
     assertEquals (2, aList.size ());
@@ -222,13 +222,13 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     assertTrue (aList.contains (Integer.valueOf (-721)));
 
     aList = ContainerConversionHelper.newList (new ArrayList <String> (),
-                                               new FilterNotNull <String> (),
+                                               Objects::nonNull,
                                                new ConverterStringInteger (null));
     assertNotNull (aList);
     assertTrue (aList.isEmpty ());
 
     aList = ContainerConversionHelper.newUnmodifiableList (aSource,
-                                                           new FilterNotNull <String> (),
+                                                           Objects::nonNull,
                                                            new ConverterStringInteger (null));
     assertNotNull (aList);
     assertEquals (2, aList.size ());

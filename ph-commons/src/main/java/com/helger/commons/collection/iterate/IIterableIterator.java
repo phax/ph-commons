@@ -18,6 +18,10 @@ package com.helger.commons.collection.iterate;
 
 import java.util.Iterator;
 
+import javax.annotation.Nonnull;
+
+import com.helger.commons.filter.IFilter;
+
 /**
  * This is a merged interface of {@link Iterator} and {@link Iterable} for
  * simpler usage of iterators in the new Java 1.5 "for" constructs.
@@ -28,5 +32,9 @@ import java.util.Iterator;
  */
 public interface IIterableIterator <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, Iterator <ELEMENTTYPE>
 {
-  /* empty */
+  @Nonnull
+  default IIterableIterator <ELEMENTTYPE> withFilter (@Nonnull final IFilter <? super ELEMENTTYPE> aFilter)
+  {
+    return new FilterIterator <ELEMENTTYPE> (this, aFilter);
+  }
 }
