@@ -16,7 +16,6 @@
  */
 package com.helger.commons.io.streamprovider;
 
-import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 
@@ -26,7 +25,6 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.IHasOutputStreamAndWriter;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -47,12 +45,6 @@ public class ByteArrayOutputStreamProvider implements IHasOutputStreamAndWriter,
     if (eAppend.isTruncate ())
       m_aOS.reset ();
     return m_aOS;
-  }
-
-  @Nonnull
-  public final OutputStreamWriter getWriter (@Nonnull final Charset aCharset, @Nonnull final EAppend eAppend)
-  {
-    return StreamHelper.createWriter (getOutputStream (eAppend), aCharset);
   }
 
   /**

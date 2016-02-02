@@ -22,12 +22,15 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.io.stream.StreamHelper;
+
 /**
  * A callback interface to retrieve {@link Writer} objects based on
  * InputStreams.
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasOutputStreamAndWriter extends IHasOutputStream
 {
   /**
@@ -41,5 +44,8 @@ public interface IHasOutputStreamAndWriter extends IHasOutputStream
    * @return <code>null</code> if no output stream could be retrieved.
    */
   @Nullable
-  Writer getWriter (@Nonnull Charset aCharset, @Nonnull EAppend eAppend);
+  default Writer getWriter (@Nonnull final Charset aCharset, @Nonnull final EAppend eAppend)
+  {
+    return StreamHelper.createWriter (getOutputStream (eAppend), aCharset);
+  }
 }

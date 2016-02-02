@@ -16,16 +16,13 @@
  */
 package com.helger.commons.io.streamprovider;
 
-import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.IHasInputStreamAndReader;
 import com.helger.commons.io.stream.ByteBufferInputStream;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -53,12 +50,6 @@ public class ByteBufferInputStreamProvider implements IHasInputStreamAndReader
   public final ByteBufferInputStream getInputStream ()
   {
     return new ByteBufferInputStream (m_aBuffer);
-  }
-
-  @Nonnull
-  public final InputStreamReader getReader (@Nonnull final Charset aCharset)
-  {
-    return StreamHelper.createReader (getInputStream (), aCharset);
   }
 
   @Override

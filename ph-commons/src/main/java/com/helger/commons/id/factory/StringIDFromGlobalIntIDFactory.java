@@ -18,20 +18,14 @@ package com.helger.commons.id.factory;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
-
 /**
  * An {@link IStringIDFactory} implementation that uses a constant prefix and an
  * int supplied from {@link GlobalIDFactory#getNewIntID()} to create unique IDs.
  *
  * @author Philip Helger
  */
-public class StringIDFromGlobalIntIDFactory implements IStringIDFactory
+public class StringIDFromGlobalIntIDFactory extends StringIDFactory
 {
-  private final String m_sPrefix;
-
   public StringIDFromGlobalIntIDFactory ()
   {
     this (GlobalIDFactory.DEFAULT_PREFIX);
@@ -39,41 +33,6 @@ public class StringIDFromGlobalIntIDFactory implements IStringIDFactory
 
   public StringIDFromGlobalIntIDFactory (@Nonnull final String sPrefix)
   {
-    m_sPrefix = ValueEnforcer.notNull (sPrefix, "Prefix");
-  }
-
-  @Nonnull
-  public String getPrefix ()
-  {
-    return m_sPrefix;
-  }
-
-  @Nonnull
-  public String getNewID ()
-  {
-    return m_sPrefix + Integer.toString (GlobalIDFactory.getNewIntID ());
-  }
-
-  @Override
-  public boolean equals (final Object o)
-  {
-    if (o == this)
-      return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
-      return false;
-    final StringIDFromGlobalIntIDFactory rhs = (StringIDFromGlobalIntIDFactory) o;
-    return m_sPrefix.equals (rhs.m_sPrefix);
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    return new HashCodeGenerator (this).append (m_sPrefix).getHashCode ();
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).append ("prefix", m_sPrefix).toString ();
+    super (sPrefix, () -> Integer.toString (GlobalIDFactory.getNewIntID ()));
   }
 }

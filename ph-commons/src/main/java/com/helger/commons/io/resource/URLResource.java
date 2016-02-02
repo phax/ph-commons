@@ -19,12 +19,10 @@ package com.helger.commons.io.resource;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.charset.Charset;
 import java.util.function.Consumer;
 
 import javax.annotation.CheckForSigned;
@@ -151,13 +149,6 @@ public class URLResource implements IReadableResource
                                      @Nullable final IMutableWrapper <IOException> aExceptionHolder)
   {
     return URLHelper.getInputStream (m_aURL, nConnectTimeoutMS, nReadTimeoutMS, aConnectionModifier, aExceptionHolder);
-  }
-
-  @Nullable
-  public Reader getReader (@Nonnull final Charset aCharset)
-  {
-    // use the default settings
-    return StreamHelper.createReader (getInputStream (), aCharset);
   }
 
   public boolean exists ()

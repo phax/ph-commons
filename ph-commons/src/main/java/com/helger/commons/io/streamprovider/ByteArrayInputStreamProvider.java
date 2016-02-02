@@ -17,9 +17,7 @@
 package com.helger.commons.io.streamprovider;
 
 import java.io.InputStream;
-import java.io.Reader;
 import java.io.Serializable;
-import java.nio.charset.Charset;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -29,7 +27,6 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.IHasInputStreamAndReader;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -88,12 +85,6 @@ public class ByteArrayInputStreamProvider implements IHasInputStreamAndReader, S
   public final InputStream getInputStream ()
   {
     return new NonBlockingByteArrayInputStream (m_aData, m_nOfs, m_nLen);
-  }
-
-  @Nonnull
-  public final Reader getReader (@Nonnull final Charset aCharset)
-  {
-    return StreamHelper.createReader (getInputStream (), aCharset);
   }
 
   @Override

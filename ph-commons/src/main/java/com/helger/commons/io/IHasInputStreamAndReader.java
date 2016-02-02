@@ -22,12 +22,15 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.io.stream.StreamHelper;
+
 /**
  * A callback interface to retrieve {@link Reader} objects based on
  * InputStreams.
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IHasInputStreamAndReader extends IHasInputStream
 {
   /**
@@ -39,5 +42,8 @@ public interface IHasInputStreamAndReader extends IHasInputStream
    * @return <code>null</code> if no input stream could be retrieved.
    */
   @Nullable
-  Reader getReader (@Nonnull Charset aCharset);
+  default Reader getReader (@Nonnull final Charset aCharset)
+  {
+    return StreamHelper.createReader (getInputStream (), aCharset);
+  }
 }

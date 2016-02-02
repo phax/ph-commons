@@ -299,12 +299,6 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     return _getInputStream (m_sPath, aURL, aClassLoader);
   }
 
-  @Nullable
-  public Reader getReader (@Nonnull final Charset aCharset)
-  {
-    return StreamHelper.createReader (getInputStream (), aCharset);
-  }
-
   /**
    * Create a {@link Reader} of this resource, using the specified class loader
    * only.

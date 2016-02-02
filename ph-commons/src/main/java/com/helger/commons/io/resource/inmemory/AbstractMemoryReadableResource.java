@@ -17,16 +17,13 @@
 package com.helger.commons.io.resource.inmemory;
 
 import java.io.File;
-import java.io.Reader;
 import java.net.URL;
-import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -62,12 +59,6 @@ public abstract class AbstractMemoryReadableResource implements IReadableResourc
   public boolean exists ()
   {
     return true;
-  }
-
-  @Nullable
-  public Reader getReader (@Nonnull final Charset aCharset)
-  {
-    return StreamHelper.createReader (getInputStream (), aCharset);
   }
 
   @Nonnull

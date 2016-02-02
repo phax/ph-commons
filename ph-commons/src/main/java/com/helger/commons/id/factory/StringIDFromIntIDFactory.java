@@ -18,21 +18,14 @@ package com.helger.commons.id.factory;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
-
 /**
  * A factory that creates String IDs based on a specified {@link IIntIDFactory}.
  * The implementation is as thread-safe as the used {@link IIntIDFactory}.
  *
  * @author Philip Helger
  */
-public class StringIDFromIntIDFactory implements IStringIDFactory
+public class StringIDFromIntIDFactory extends StringIDFactory
 {
-  private final IIntIDFactory m_aIntIDFactory;
-  private final String m_sPrefix;
-
   public StringIDFromIntIDFactory (@Nonnull final IIntIDFactory aIntIDFactory)
   {
     this (aIntIDFactory, GlobalIDFactory.DEFAULT_PREFIX);
@@ -40,50 +33,6 @@ public class StringIDFromIntIDFactory implements IStringIDFactory
 
   public StringIDFromIntIDFactory (@Nonnull final IIntIDFactory aIntIDFactory, @Nonnull final String sPrefix)
   {
-    m_aIntIDFactory = ValueEnforcer.notNull (aIntIDFactory, "IntIDFactory");
-    m_sPrefix = ValueEnforcer.notNull (sPrefix, "Prefix");
-  }
-
-  @Nonnull
-  public IIntIDFactory getIntIDFactory ()
-  {
-    return m_aIntIDFactory;
-  }
-
-  @Nonnull
-  public String getPrefix ()
-  {
-    return m_sPrefix;
-  }
-
-  @Nonnull
-  public String getNewID ()
-  {
-    return m_sPrefix + Integer.toString (m_aIntIDFactory.getNewID ());
-  }
-
-  @Override
-  public boolean equals (final Object o)
-  {
-    if (o == this)
-      return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
-      return false;
-    final StringIDFromIntIDFactory rhs = (StringIDFromIntIDFactory) o;
-    return m_aIntIDFactory.equals (rhs.m_aIntIDFactory) && m_sPrefix.equals (rhs.m_sPrefix);
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    return new HashCodeGenerator (this).append (m_aIntIDFactory).append (m_sPrefix).getHashCode ();
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).append ("intIDFactory", m_aIntIDFactory)
-                                       .append ("prefix", m_sPrefix)
-                                       .toString ();
+    super (sPrefix, () -> Integer.toString (aIntIDFactory.getNewID ()));
   }
 }
