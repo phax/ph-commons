@@ -306,7 +306,7 @@ public class CSVWriter implements Closeable, Flushable
   public void writeNext (@Nullable final String [] aNextLine, final boolean bApplyQuotesToAll)
   {
     if (aNextLine != null)
-      writeNext (new ArrayIterator <> (aNextLine), bApplyQuotesToAll);
+      writeNext (new ArrayIterator <> (aNextLine).iterator (), bApplyQuotesToAll);
   }
 
   /**
@@ -342,7 +342,7 @@ public class CSVWriter implements Closeable, Flushable
                          final boolean bApplyQuotesToAll)
   {
     if (aNextLine != null)
-      writeNext (new ArrayIterator <> (aNextLine, nOfs, nLength), bApplyQuotesToAll);
+      writeNext (new ArrayIterator <> (aNextLine, nOfs, nLength).iterator (), bApplyQuotesToAll);
   }
 
   /**

@@ -282,5 +282,4 @@ public final class IteratorHelper
   {
     return new EmptyEnumeration <> ();
   }
-
 }

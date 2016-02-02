@@ -17,7 +17,6 @@
 package com.helger.commons.collection.iterate;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import javax.annotation.Nonnegative;
@@ -25,7 +24,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -38,7 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <ELEMENTTYPE>
  *        Type of object to iterate.
  */
-public final class ArrayIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
+public final class ArrayIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTTYPE>
 {
   private final ELEMENTTYPE [] m_aArray;
   private int m_nIndex = 0;
@@ -79,12 +77,6 @@ public final class ArrayIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
     if (!hasNext ())
       throw new NoSuchElementException ();
     return m_aArray[m_nIndex++];
-  }
-
-  @UnsupportedOperation
-  public void remove ()
-  {
-    throw new UnsupportedOperationException ();
   }
 
   @Override

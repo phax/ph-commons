@@ -33,6 +33,12 @@ import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.NonBlockingStack;
 
+/**
+ * Collection helper for primitive data types (boolean, byte, char, double,
+ * float, int, long and short).
+ * 
+ * @author Philip Helger
+ */
 public final class PrimitiveCollectionHelper
 {
   private PrimitiveCollectionHelper ()

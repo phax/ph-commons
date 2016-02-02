@@ -41,7 +41,7 @@ public class IterableIterator <ELEMENTTYPE> implements IIterableIterator <ELEMEN
 
   public IterableIterator (@Nonnull final ELEMENTTYPE [] aCont)
   {
-    this (new ArrayIterator <> (aCont));
+    this (new ArrayIterator <> (aCont).iterator ());
   }
 
   public IterableIterator (@Nonnull final Iterable <ELEMENTTYPE> aCont)
