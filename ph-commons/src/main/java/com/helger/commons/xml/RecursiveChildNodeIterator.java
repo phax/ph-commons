@@ -39,16 +39,7 @@ public class RecursiveChildNodeIterator implements IIterableIterator <Node>
 {
   private final Iterator <Node> m_aIter;
 
-  public RecursiveChildNodeIterator (@Nonnull final Node aParent)
-  {
-    ValueEnforcer.notNull (aParent, "Parent");
-
-    final List <Node> aNodes = new ArrayList <Node> ();
-    _fillListPrefix (aParent, aNodes);
-    m_aIter = aNodes.iterator ();
-  }
-
-  private static void _fillListPrefix (@Nonnull final Node aParent, @Nonnull final List <Node> aNodes)
+  private static void _recursiveFillListPrefix (@Nonnull final Node aParent, @Nonnull final List <Node> aNodes)
   {
     final NodeList aNodeList = aParent.getChildNodes ();
     if (aNodeList != null)
@@ -59,9 +50,18 @@ public class RecursiveChildNodeIterator implements IIterableIterator <Node>
         final Node aCurrent = aNodeList.item (i);
         aNodes.add (aCurrent);
 
-        _fillListPrefix (aCurrent, aNodes);
+        _recursiveFillListPrefix (aCurrent, aNodes);
       }
     }
+  }
+
+  public RecursiveChildNodeIterator (@Nonnull final Node aParent)
+  {
+    ValueEnforcer.notNull (aParent, "Parent");
+
+    final List <Node> aNodes = new ArrayList <> ();
+    _recursiveFillListPrefix (aParent, aNodes);
+    m_aIter = aNodes.iterator ();
   }
 
   public boolean hasNext ()

@@ -52,7 +52,7 @@ public final class ChildElementIteratorTest extends AbstractCommonsTestCase
     eRoot.appendChild (doc.createElement ("Welt"));
     assertEquals (2, CollectionHelper.newList (new ChildElementIterator (eRoot)).size ());
     assertEquals (1,
-                  CollectionHelper.newList (new ChildElementIterator (eRoot, new FilterElementWithTagName ("Hallo")))
+                  CollectionHelper.newList (new ChildElementIterator (eRoot).withFilter (XMLHelper.filterElementWithTagName ("Hallo")))
                                   .size ());
 
     try

@@ -43,6 +43,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.iterate.IIterableIterator;
+import com.helger.commons.filter.IFilter;
+import com.helger.commons.string.StringHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -242,7 +244,7 @@ public final class XMLHelper
   @Nonnull
   public static IIterableIterator <Element> getChildElementIteratorNoNS (@Nonnull final Node aStartNode)
   {
-    return new ChildElementIterator (aStartNode, new FilterElementWithoutNamespace ());
+    return new ChildElementIterator (aStartNode).withFilter (filterElementWithoutNamespace ());
   }
 
   /**
@@ -261,16 +263,14 @@ public final class XMLHelper
   public static IIterableIterator <Element> getChildElementIteratorNoNS (@Nonnull final Node aStartNode,
                                                                          @Nonnull @Nonempty final String sTagName)
   {
-    ValueEnforcer.notEmpty (sTagName, "TagName");
-
-    return new ChildElementIterator (aStartNode, new FilterElementWithTagName (sTagName));
+    return new ChildElementIterator (aStartNode).withFilter (filterElementWithTagName (sTagName));
   }
 
   @Nonnull
   public static IIterableIterator <Element> getChildElementIteratorNS (@Nonnull final Node aStartNode,
                                                                        @Nullable final String sNamespaceURI)
   {
-    return new ChildElementIterator (aStartNode, new FilterElementWithNamespace (sNamespaceURI));
+    return new ChildElementIterator (aStartNode).withFilter (filterElementWithNamespace (sNamespaceURI));
   }
 
   @Nonnull
@@ -278,10 +278,8 @@ public final class XMLHelper
                                                                        @Nullable final String sNamespaceURI,
                                                                        @Nonnull @Nonempty final String sLocalName)
   {
-    ValueEnforcer.notEmpty (sLocalName, "LocalName");
-
-    return new ChildElementIterator (aStartNode,
-                                     new FilterElementWithNamespaceAndLocalName (sNamespaceURI, sLocalName));
+    return new ChildElementIterator (aStartNode).withFilter (filterElementWithNamespaceAndLocalName (sNamespaceURI,
+                                                                                                     sLocalName));
   }
 
   public static boolean hasNamespaceURI (@Nullable final Node aNode, @Nullable final String sNamespaceURI)
@@ -623,5 +621,48 @@ public final class XMLHelper
   public static boolean isEmpty (@Nullable final NodeList aNL)
   {
     return aNL == null ? true : aNL.getLength () == 0;
+  }
+
+  @Nonnull
+  public static IFilter <Node> filterNodeIsElement ()
+  {
+    return aNode -> aNode != null && aNode.getNodeType () == Node.ELEMENT_NODE;
+  }
+
+  @Nonnull
+  public static IFilter <Element> filterElementWithNamespace ()
+  {
+    return aElement -> aElement != null && StringHelper.hasText (aElement.getNamespaceURI ());
+  }
+
+  @Nonnull
+  public static IFilter <Element> filterElementWithoutNamespace ()
+  {
+    return aElement -> aElement != null && StringHelper.hasNoText (aElement.getNamespaceURI ());
+  }
+
+  @Nonnull
+  public static IFilter <Element> filterElementWithNamespace (@Nullable final String sNamespaceURI)
+  {
+    return aElement -> aElement != null && XMLHelper.hasNamespaceURI (aElement, sNamespaceURI);
+  }
+
+  @Nonnull
+  public static IFilter <Element> filterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
+                                                                          @Nonnull @Nonempty final String sLocalName)
+  {
+    ValueEnforcer.notEmpty (sLocalName, "LocalName");
+    return aElement -> aElement != null &&
+                       XMLHelper.hasNamespaceURI (aElement, sNamespaceURI) &&
+                       aElement.getLocalName ().equals (sLocalName);
+  }
+
+  @Nonnull
+  public static IFilter <Element> filterElementWithTagName (@Nonnull @Nonempty final String sTagName)
+  {
+    ValueEnforcer.notEmpty (sTagName, "TagName");
+    return aElement -> aElement != null &&
+                       aElement.getNamespaceURI () == null &&
+                       aElement.getTagName ().equals (sTagName);
   }
 }

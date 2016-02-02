@@ -19,15 +19,12 @@ package com.helger.commons.xml;
 import java.util.Iterator;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import com.helger.commons.annotation.UnsupportedOperation;
-import com.helger.commons.collection.iterate.FilterIterator;
 import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.filter.IFilter;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -39,22 +36,11 @@ import com.helger.commons.string.ToStringGenerator;
 public class ChildElementIterator implements IIterableIterator <Element>
 {
   /** The nodes to iterate. */
-  private final FilterIterator <Node> m_aIter;
+  private final IIterableIterator <Node> m_aIter;
 
   public ChildElementIterator (@Nonnull final Node aStartNode)
   {
-    this (aStartNode, null);
-  }
-
-  public ChildElementIterator (@Nonnull final Node aStartNode, @Nullable final IFilter <? super Element> aCustomFilter)
-  {
-    m_aIter = new FilterIterator <Node> (new ChildNodeIterator (aStartNode), new FilterNodeIsElement (aCustomFilter));
-  }
-
-  @Nonnull
-  public FilterIterator <Node> getFilterIterator ()
-  {
-    return m_aIter;
+    m_aIter = new ChildNodeIterator (aStartNode).withFilter (XMLHelper.filterNodeIsElement ());
   }
 
   public final boolean hasNext ()
