@@ -3189,6 +3189,15 @@ public final class CollectionHelper
     return aList != null && nIndex >= 0 && nIndex < aList.size () ? aList.get (nIndex) : aDefault;
   }
 
+  public static <ELEMENTTYPE> boolean contains (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                @Nullable final ELEMENTTYPE aSearch)
+  {
+    if (isEmpty (aCollection))
+      return false;
+
+    return aCollection.contains (aSearch);
+  }
+
   @SuppressWarnings ("null")
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE findFirst (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
