@@ -26,6 +26,7 @@ import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +38,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.system.EOperatingSystem;
@@ -120,7 +120,7 @@ public final class FontKerningFuncTest
         if (m_nKernOffset == -1)
         {
           s_aLogger.info ("No kerning information present!");
-          m_aKerning = CollectionHelper.newUnmodifiableMap ();
+          m_aKerning = Collections.emptyMap ();
           return;
         }
         m_aKerning = new HashMap <KerningKey, Integer> (2048);

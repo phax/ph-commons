@@ -29,6 +29,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.NavigableMap;
+import java.util.NavigableSet;
 import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -50,7 +52,6 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.impl.EmptySortedSet;
 import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.multimap.IMultiMap;
@@ -169,117 +170,183 @@ public final class CollectionHelper
   }
 
   @Nonnull
-  public static <ELEMENTTYPE> List <? extends ELEMENTTYPE> getNotNull (@Nullable final List <? extends ELEMENTTYPE> aList)
+  public static <ELEMENTTYPE> List <ELEMENTTYPE> getNotNull (@Nullable final List <ELEMENTTYPE> aList)
   {
     return aList == null ? newList (0) : aList;
   }
 
   @Nonnull
-  public static <ELEMENTTYPE> Set <? extends ELEMENTTYPE> getNotNull (@Nullable final Set <? extends ELEMENTTYPE> aSet)
+  public static <ELEMENTTYPE> Set <ELEMENTTYPE> getNotNull (@Nullable final Set <ELEMENTTYPE> aSet)
   {
     return aSet == null ? newSet (0) : aSet;
   }
 
   @Nonnull
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <? extends ELEMENTTYPE> getNotNull (@Nullable final SortedSet <? extends ELEMENTTYPE> aSortedSet)
-  {
-    return aSortedSet == null ? newSortedSet () : aSortedSet;
-  }
-
-  @Nonnull
-  public static <KEYTYPE, VALUETYPE> Map <? extends KEYTYPE, ? extends VALUETYPE> getNotNull (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> getNotNull (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
     return aMap == null ? newMap (0) : aMap;
   }
 
+  // @Nonnull
+  // public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>>
+  // SortedSet <ELEMENTTYPE> getNotNull (@Nullable final SortedSet <ELEMENTTYPE>
+  // aSortedSet)
+  // {
+  // return aSortedSet == null ? newSortedSet () : aSortedSet;
+  // }
+  //
+  // @Nonnull
+  // public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE>
+  // SortedMap <KEYTYPE, VALUETYPE> getNotNull (@Nullable final SortedMap
+  // <KEYTYPE, VALUETYPE> aSortedMap)
+  // {
+  // return aSortedMap == null ? newSortedMap () : aSortedMap;
+  // }
+
   @Nonnull
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> SortedMap <? extends KEYTYPE, ? extends VALUETYPE> getNotNull (@Nullable final SortedMap <? extends KEYTYPE, ? extends VALUETYPE> aSortedMap)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> NavigableSet <ELEMENTTYPE> getNotNull (@Nullable final NavigableSet <ELEMENTTYPE> aNavigableSet)
   {
-    return aSortedMap == null ? newSortedMap () : aSortedMap;
+    return aNavigableSet == null ? newSortedSet () : aNavigableSet;
+  }
+
+  @Nonnull
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> NavigableMap <KEYTYPE, VALUETYPE> getNotNull (@Nullable final NavigableMap <KEYTYPE, VALUETYPE> aNavigableMap)
+  {
+    return aNavigableMap == null ? newSortedMap () : aNavigableMap;
+  }
+
+  @SafeVarargs
+  @Nullable
+  @ReturnsImmutableObject
+  public static <ELEMENTTYPE> List <ELEMENTTYPE> makeUnmodifiable (@Nullable final ELEMENTTYPE... aArray)
+  {
+    return aArray == null ? null : Collections.unmodifiableList (newList (aArray));
   }
 
   @Nullable
   @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Collection <ELEMENTTYPE> makeUnmodifiable (@Nullable final Collection <? extends ELEMENTTYPE> aCollection)
+  public static <ELEMENTTYPE> Collection <ELEMENTTYPE> makeUnmodifiable (@Nullable final Collection <ELEMENTTYPE> aCollection)
   {
     return aCollection == null ? null : Collections.unmodifiableCollection (aCollection);
   }
 
   @Nullable
   @ReturnsImmutableObject
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> makeUnmodifiable (@Nullable final List <? extends ELEMENTTYPE> aList)
+  public static <ELEMENTTYPE> List <ELEMENTTYPE> makeUnmodifiable (@Nullable final List <ELEMENTTYPE> aList)
   {
     return aList == null ? null : Collections.unmodifiableList (aList);
   }
 
   @Nullable
   @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> makeUnmodifiable (@Nullable final Set <? extends ELEMENTTYPE> aSet)
+  public static <ELEMENTTYPE> Set <ELEMENTTYPE> makeUnmodifiable (@Nullable final Set <ELEMENTTYPE> aSet)
   {
     return aSet == null ? null : Collections.unmodifiableSet (aSet);
   }
 
   @Nullable
   @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> makeUnmodifiable (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> makeUnmodifiable (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
     return aMap == null ? null : Collections.unmodifiableMap (aMap);
   }
+  //
+  // @Nullable
+  // @ReturnsImmutableObject
+  // public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>>
+  // SortedSet <ELEMENTTYPE> makeUnmodifiable (@Nullable final SortedSet
+  // <ELEMENTTYPE> aSortedSet)
+  // {
+  // return aSortedSet == null ? null : Collections.unmodifiableSortedSet
+  // (aSortedSet);
+  // }
+  //
+  // @Nullable
+  // @ReturnsImmutableObject
+  // public static <KEYTYPE, VALUETYPE> SortedMap <KEYTYPE, VALUETYPE>
+  // makeUnmodifiable (@Nullable final SortedMap <KEYTYPE, VALUETYPE>
+  // aSortedMap)
+  // {
+  // return aSortedMap == null ? null : Collections.unmodifiableSortedMap
+  // (aSortedMap);
+  // }
 
   @Nullable
   @ReturnsImmutableObject
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <ELEMENTTYPE> makeUnmodifiable (@Nullable final SortedSet <ELEMENTTYPE> aSortedSet)
+  public static <ELEMENTTYPE> NavigableSet <ELEMENTTYPE> makeUnmodifiable (@Nullable final NavigableSet <ELEMENTTYPE> aNavigableSet)
   {
-    return aSortedSet == null ? null : Collections.unmodifiableSortedSet (aSortedSet);
+    return aNavigableSet == null ? null : Collections.unmodifiableNavigableSet (aNavigableSet);
   }
 
   @Nullable
   @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> SortedMap <KEYTYPE, VALUETYPE> makeUnmodifiable (@Nullable final SortedMap <KEYTYPE, ? extends VALUETYPE> aSortedMap)
+  public static <KEYTYPE, VALUETYPE> NavigableMap <KEYTYPE, VALUETYPE> makeUnmodifiable (@Nullable final NavigableMap <KEYTYPE, VALUETYPE> aNavigableMap)
   {
-    return aSortedMap == null ? null : Collections.unmodifiableSortedMap (aSortedMap);
+    return aNavigableMap == null ? null : Collections.unmodifiableNavigableMap (aNavigableMap);
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Collection <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final Collection <? extends ELEMENTTYPE> aCollection)
+  public static <ELEMENTTYPE> Collection <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final Collection <ELEMENTTYPE> aCollection)
   {
-    return aCollection == null ? newUnmodifiableList () : Collections.unmodifiableCollection (aCollection);
+    return aCollection == null ? Collections.emptyList () : Collections.unmodifiableCollection (aCollection);
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final List <? extends ELEMENTTYPE> aList)
+  public static <ELEMENTTYPE> List <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final List <ELEMENTTYPE> aList)
   {
-    return aList == null ? newUnmodifiableList () : Collections.unmodifiableList (aList);
+    return aList == null ? Collections.emptyList () : Collections.unmodifiableList (aList);
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final Set <? extends ELEMENTTYPE> aSet)
+  public static <ELEMENTTYPE> Set <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final Set <ELEMENTTYPE> aSet)
   {
-    return aSet == null ? newUnmodifiableSet () : Collections.unmodifiableSet (aSet);
+    return aSet == null ? Collections.emptySet () : Collections.unmodifiableSet (aSet);
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
-    return aMap == null ? newUnmodifiableMap () : Collections.unmodifiableMap (aMap);
+    return aMap == null ? Collections.emptyMap () : Collections.unmodifiableMap (aMap);
+  }
+
+  // @Nonnull
+  // @ReturnsImmutableObject
+  // public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>>
+  // SortedSet <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final SortedSet
+  // <ELEMENTTYPE> aSortedSet)
+  // {
+  // return aSortedSet == null ? Collections.emptySortedSet () :
+  // Collections.unmodifiableSortedSet (aSortedSet);
+  // }
+  //
+  // @Nonnull
+  // @ReturnsImmutableObject
+  // public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE>
+  // SortedMap <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final
+  // SortedMap <KEYTYPE, VALUETYPE> aSortedMap)
+  // {
+  // return aSortedMap == null ? Collections.emptySortedMap () :
+  // Collections.unmodifiableSortedMap (aSortedMap);
+  // }
+
+  @Nonnull
+  @ReturnsImmutableObject
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> NavigableSet <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final NavigableSet <ELEMENTTYPE> aNavigableSet)
+  {
+    return aNavigableSet == null ? Collections.emptyNavigableSet ()
+                                 : Collections.unmodifiableNavigableSet (aNavigableSet);
   }
 
   @Nonnull
   @ReturnsImmutableObject
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final SortedSet <ELEMENTTYPE> aSortedSet)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> NavigableMap <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final NavigableMap <KEYTYPE, VALUETYPE> aNavigableMap)
   {
-    return aSortedSet == null ? newUnmodifiableSortedSet () : Collections.unmodifiableSortedSet (aSortedSet);
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> SortedMap <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final SortedMap <KEYTYPE, ? extends VALUETYPE> aSortedMap)
-  {
-    return Collections.unmodifiableSortedMap (aSortedMap == null ? newSortedMap () : aSortedMap);
+    return aNavigableMap == null ? Collections.emptyNavigableMap ()
+                                 : Collections.unmodifiableNavigableMap (aNavigableMap);
   }
 
   /**
@@ -488,66 +555,6 @@ public final class CollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newUnmodifiableMap ()
-  {
-    return Collections.emptyMap ();
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newUnmodifiableMap (@Nullable final KEYTYPE aKey,
-                                                                                  @Nullable final VALUETYPE aValue)
-  {
-    return Collections.singletonMap (aKey, aValue);
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  @SafeVarargs
-  public static <ELEMENTTYPE> Map <ELEMENTTYPE, ELEMENTTYPE> newUnmodifiableMap (@Nullable final ELEMENTTYPE... aValues)
-  {
-    return makeUnmodifiable (newMap (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newUnmodifiableMap (@Nullable final KEYTYPE [] aKeys,
-                                                                                  @Nullable final VALUETYPE [] aValues)
-  {
-    return makeUnmodifiable (newMap (aKeys, aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newUnmodifiableMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
-                                                                                  @Nullable final Collection <? extends VALUETYPE> aValues)
-  {
-    return makeUnmodifiable (newMap (aKeys, aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newUnmodifiableMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
-  {
-    return makeUnmodifiable (aMap);
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newUnmodifiableMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
-  {
-    return makeUnmodifiable (newMap (aMaps));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newUnmodifiableMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
-  {
-    return makeUnmodifiable (newMap (aCollection));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nonnegative final int nInitialCapacity)
   {
@@ -708,66 +715,6 @@ public final class CollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newUnmodifiableOrderedMap ()
-  {
-    return Collections.emptyMap ();
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newUnmodifiableOrderedMap (@Nullable final KEYTYPE aKey,
-                                                                                         @Nullable final VALUETYPE aValue)
-  {
-    return Collections.singletonMap (aKey, aValue);
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  @SafeVarargs
-  public static <ELEMENTTYPE> Map <ELEMENTTYPE, ELEMENTTYPE> newUnmodifiableOrderedMap (@Nullable final ELEMENTTYPE... aValues)
-  {
-    return makeUnmodifiable (newOrderedMap (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newUnmodifiableOrderedMap (@Nullable final KEYTYPE [] aKeys,
-                                                                                         @Nullable final VALUETYPE [] aValues)
-  {
-    return makeUnmodifiable (newOrderedMap (aKeys, aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newUnmodifiableOrderedMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
-                                                                                         @Nullable final Collection <? extends VALUETYPE> aValues)
-  {
-    return makeUnmodifiable (newOrderedMap (aKeys, aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newUnmodifiableOrderedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aOrderedMap)
-  {
-    return makeUnmodifiable (aOrderedMap);
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newUnmodifiableOrderedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aOrderedMaps)
-  {
-    return makeUnmodifiable (newOrderedMap (aOrderedMaps));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> newUnmodifiableOrderedMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
-  {
-    return makeUnmodifiable (newOrderedMap (aCollection));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap ()
   {
@@ -903,66 +850,6 @@ public final class CollectionHelper
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aCollection)
       ret.put (aEntry.getKey (), aEntry.getValue ());
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> SortedMap <KEYTYPE, VALUETYPE> newUnmodifiableSortedMap ()
-  {
-    return makeUnmodifiable (CollectionHelper.<KEYTYPE, VALUETYPE> newSortedMap ());
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> SortedMap <KEYTYPE, VALUETYPE> newUnmodifiableSortedMap (@Nullable final KEYTYPE aKey,
-                                                                                                                                   @Nullable final VALUETYPE aValue)
-  {
-    return makeUnmodifiable (newSortedMap (aKey, aValue));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  @SafeVarargs
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedMap <ELEMENTTYPE, ELEMENTTYPE> newUnmodifiableSortedMap (@Nullable final ELEMENTTYPE... aValues)
-  {
-    return makeUnmodifiable (newSortedMap (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> SortedMap <KEYTYPE, VALUETYPE> newUnmodifiableSortedMap (@Nullable final KEYTYPE [] aKeys,
-                                                                                                                                   @Nullable final VALUETYPE [] aValues)
-  {
-    return makeUnmodifiable (newSortedMap (aKeys, aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> SortedMap <KEYTYPE, VALUETYPE> newUnmodifiableSortedMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
-                                                                                                                                   @Nullable final Collection <? extends VALUETYPE> aValues)
-  {
-    return makeUnmodifiable (newSortedMap (aKeys, aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> SortedMap <KEYTYPE, VALUETYPE> newUnmodifiableSortedMap (@Nullable final SortedMap <KEYTYPE, ? extends VALUETYPE> aMap)
-  {
-    return makeUnmodifiable (aMap);
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> SortedMap <KEYTYPE, VALUETYPE> newUnmodifiableSortedMap (@Nullable final Map <KEYTYPE, ? extends VALUETYPE> [] aMaps)
-  {
-    return makeUnmodifiable (newSortedMap (aMaps));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> SortedMap <KEYTYPE, VALUETYPE> newUnmodifiableSortedMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
-  {
-    return makeUnmodifiable (newSortedMap (aCollection));
   }
 
   @Nonnull
@@ -1114,63 +1001,6 @@ public final class CollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableSet ()
-  {
-    return Collections.emptySet ();
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableSet (@Nullable final ELEMENTTYPE aValue)
-  {
-    return Collections.singleton (aValue);
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  @SafeVarargs
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableSet (@Nullable final ELEMENTTYPE... aValues)
-  {
-    return makeUnmodifiable (newSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
-  {
-    return makeUnmodifiable (newSet (aCont));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
-  {
-    return makeUnmodifiable (newSet (aCont));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableSet (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
-  {
-    return makeUnmodifiable (newSet (aIter));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableSet (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
-  {
-    return makeUnmodifiable (newSet (aIter));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
-  {
-    return makeUnmodifiable (newSet (aEnum));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet ()
   {
@@ -1273,63 +1103,6 @@ public final class CollectionHelper
       while (aEnum.hasMoreElements ())
         ret.add (aEnum.nextElement ());
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> SortedSet <ELEMENTTYPE> newUnmodifiableSortedSet ()
-  {
-    return new EmptySortedSet <ELEMENTTYPE> ();
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <ELEMENTTYPE> newUnmodifiableSortedSet (@Nullable final ELEMENTTYPE aValue)
-  {
-    return makeUnmodifiable (newSortedSet (aValue));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  @SafeVarargs
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <ELEMENTTYPE> newUnmodifiableSortedSet (@Nullable final ELEMENTTYPE... aValues)
-  {
-    return makeUnmodifiable (newSortedSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <ELEMENTTYPE> newUnmodifiableSortedSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
-  {
-    return makeUnmodifiable (newSortedSet (aCont));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <ELEMENTTYPE> newUnmodifiableSortedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
-  {
-    return makeUnmodifiable (newSortedSet (aCont));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <ELEMENTTYPE> newUnmodifiableSortedSet (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
-  {
-    return makeUnmodifiable (newSortedSet (aIter));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <ELEMENTTYPE> newUnmodifiableSortedSet (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
-  {
-    return makeUnmodifiable (newSortedSet (aIter));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> SortedSet <ELEMENTTYPE> newUnmodifiableSortedSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
-  {
-    return makeUnmodifiable (newSortedSet (aEnum));
   }
 
   @Nonnull
@@ -1445,63 +1218,6 @@ public final class CollectionHelper
       while (aEnum.hasMoreElements ())
         ret.add (aEnum.nextElement ());
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableOrderedSet ()
-  {
-    return Collections.emptySet ();
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableOrderedSet (@Nullable final ELEMENTTYPE aValue)
-  {
-    return Collections.singleton (aValue);
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  @SafeVarargs
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableOrderedSet (@Nullable final ELEMENTTYPE... aValues)
-  {
-    return makeUnmodifiable (newOrderedSet (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableOrderedSet (@Nonnull final Iterable <? extends ELEMENTTYPE> aCont)
-  {
-    return makeUnmodifiable (newOrderedSet (aCont));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableOrderedSet (@Nonnull final Collection <? extends ELEMENTTYPE> aCont)
-  {
-    return makeUnmodifiable (newOrderedSet (aCont));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableOrderedSet (@Nonnull final Iterator <? extends ELEMENTTYPE> aIter)
-  {
-    return makeUnmodifiable (newOrderedSet (aIter));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableOrderedSet (@Nonnull final IIterableIterator <? extends ELEMENTTYPE> aIter)
-  {
-    return makeUnmodifiable (newOrderedSet (aIter));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> newUnmodifiableOrderedSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
-  {
-    return makeUnmodifiable (newOrderedSet (aEnum));
   }
 
   @Nonnull
@@ -1809,63 +1525,6 @@ public final class CollectionHelper
     if (aIter == null)
       return newVector (0);
     return newVector (aIter.iterator ());
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newUnmodifiableList ()
-  {
-    return Collections.emptyList ();
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newUnmodifiableList (@Nullable final ELEMENTTYPE aValue)
-  {
-    return Collections.singletonList (aValue);
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  @SafeVarargs
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newUnmodifiableList (@Nullable final ELEMENTTYPE... aValues)
-  {
-    return makeUnmodifiable (newList (aValues));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newUnmodifiableList (@Nullable final Enumeration <? extends ELEMENTTYPE> aIter)
-  {
-    return makeUnmodifiable (newList (aIter));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newUnmodifiableList (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
-  {
-    return makeUnmodifiable (newList (aIter));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newUnmodifiableList (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
-  {
-    return makeUnmodifiable (newList (aCont));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newUnmodifiableList (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
-  {
-    return makeUnmodifiable (newList (aCont));
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> newUnmodifiableList (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
-  {
-    return makeUnmodifiable (newList (aIter));
   }
 
   @Nonnull

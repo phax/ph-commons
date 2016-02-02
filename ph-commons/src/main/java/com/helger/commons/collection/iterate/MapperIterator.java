@@ -106,6 +106,11 @@ public class MapperIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator 
     return m_aConverter.apply (ret);
   }
 
+  public void remove ()
+  {
+    m_aBaseIter.remove ();
+  }
+
   // equals and hashCode wont work, because standard Java iterators don't
   // implement this!
 

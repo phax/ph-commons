@@ -273,15 +273,13 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
 
     assertTrue (EqualsHelper.equals (CollectionHelper.newList ("a", "b", "c"),
                                      CollectionHelper.newList ("a", "b", "c")));
-    assertTrue (EqualsHelper.equals (CollectionHelper.newUnmodifiableList ("a", "b", "c"),
-                                     CollectionHelper.newUnmodifiableList ("a", "b", "c")));
     assertTrue (EqualsHelper.equals (CollectionHelper.newStack ("a", "b", "c"),
                                      CollectionHelper.newStack ("a", "b", "c")));
     assertTrue (EqualsHelper.equals (CollectionHelper.newList ("a", "b", "c").iterator (),
                                      CollectionHelper.newList ("a", "b", "c").iterator ()));
     assertTrue (EqualsHelper.equals (IteratorHelper.getEnumeration ("a", "b", "c"),
                                      IteratorHelper.getEnumeration ("a", "b", "c")));
-    assertFalse (EqualsHelper.equals (CollectionHelper.newUnmodifiableList ("a", "b", "c"),
+    assertFalse (EqualsHelper.equals (CollectionHelper.makeUnmodifiable (CollectionHelper.newList ("a", "b", "c")),
                                       CollectionHelper.newList ("a", "b", "c")));
   }
 

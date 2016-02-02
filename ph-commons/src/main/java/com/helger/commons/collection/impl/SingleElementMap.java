@@ -139,14 +139,16 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements Map <KEYTYPE, VALU
   @Nonnull
   public Set <KEYTYPE> keySet ()
   {
-    return m_bHasElement ? CollectionHelper.newUnmodifiableSet (m_aKey) : Collections.<KEYTYPE> emptySet ();
+    return m_bHasElement ? CollectionHelper.makeUnmodifiable (CollectionHelper.newSet (m_aKey))
+                         : Collections.<KEYTYPE> emptySet ();
   }
 
   @ReturnsImmutableObject
   @Nonnull
   public Collection <VALUETYPE> values ()
   {
-    return m_bHasElement ? CollectionHelper.newUnmodifiableList (m_aValue) : Collections.<VALUETYPE> emptyList ();
+    return m_bHasElement ? CollectionHelper.makeUnmodifiable (CollectionHelper.newList (m_aValue))
+                         : Collections.<VALUETYPE> emptyList ();
   }
 
   @Nonnull

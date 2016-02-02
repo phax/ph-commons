@@ -16,7 +16,6 @@
  */
 package com.helger.commons.xml;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -527,25 +526,25 @@ public enum EXMLParserFeature implements IHasName
   /**
    * This map contains all necessary settings to avoid XXE attacks.
    */
-  public static final Map <EXMLParserFeature, Boolean> AVOID_XXE_SETTINGS = CollectionHelper.newUnmodifiableMap (new EXMLParserFeature [] { DISALLOW_DOCTYPE_DECL,
-                                                                                                                                            EXTERNAL_GENERAL_ENTITIES,
-                                                                                                                                            EXTERNAL_PARAMETER_ENTITIES },
-                                                                                                                 new Boolean [] { Boolean.TRUE,
-                                                                                                                                  Boolean.FALSE,
-                                                                                                                                  Boolean.FALSE });
+  public static final Map <EXMLParserFeature, Boolean> AVOID_XXE_SETTINGS = CollectionHelper.makeUnmodifiable (CollectionHelper.newMap (new EXMLParserFeature [] { DISALLOW_DOCTYPE_DECL,
+                                                                                                                                                                   EXTERNAL_GENERAL_ENTITIES,
+                                                                                                                                                                   EXTERNAL_PARAMETER_ENTITIES },
+                                                                                                                                        new Boolean [] { Boolean.TRUE,
+                                                                                                                                                         Boolean.FALSE,
+                                                                                                                                                         Boolean.FALSE }));
 
   /**
    * This map contains all necessary settings to avoid entity expansion overflow
    * attacks.
    */
-  public static final Map <EXMLParserFeature, Boolean> AVOID_DOS_SETTINGS = CollectionHelper.newUnmodifiableMap (new EXMLParserFeature [] { SECURE_PROCESSING },
-                                                                                                                 new Boolean [] { Boolean.TRUE });
+  public static final Map <EXMLParserFeature, Boolean> AVOID_DOS_SETTINGS = CollectionHelper.makeUnmodifiable (CollectionHelper.newMap (new EXMLParserFeature [] { SECURE_PROCESSING },
+                                                                                                                                        new Boolean [] { Boolean.TRUE }));
 
   /**
    * This map contains all necessary settings to avoid all known XML attacks
    */
-  public static final Map <EXMLParserFeature, Boolean> AVOID_XML_ATTACKS = CollectionHelper.newUnmodifiableMap (ArrayHelper.newArray (AVOID_XXE_SETTINGS,
-                                                                                                                                      AVOID_DOS_SETTINGS));
+  public static final Map <EXMLParserFeature, Boolean> AVOID_XML_ATTACKS = CollectionHelper.makeUnmodifiable (CollectionHelper.newMap (ArrayHelper.newArray (AVOID_XXE_SETTINGS,
+                                                                                                                                                             AVOID_DOS_SETTINGS)));
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (EXMLParserFeature.class);
 
@@ -630,10 +629,6 @@ public enum EXMLParserFeature implements IHasName
   {
     ValueEnforcer.notNull (eFeatureType, "FeatureType");
 
-    final List <EXMLParserFeature> ret = new ArrayList <EXMLParserFeature> ();
-    for (final EXMLParserFeature eFeature : values ())
-      if (eFeature.getFeatureType () == eFeatureType)
-        ret.add (eFeature);
-    return ret;
+    return ArrayHelper.getAll (values (), eFeature -> eFeature.getFeatureType () == eFeatureType);
   }
 }

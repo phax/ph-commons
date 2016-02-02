@@ -135,14 +135,6 @@ public final class FilterIteratorTest
 
     try
     {
-      it.remove ();
-      fail ();
-    }
-    catch (final UnsupportedOperationException ex)
-    {}
-
-    try
-    {
       // can't call next if hasNext failed
       it.next ();
       fail ();
@@ -171,14 +163,6 @@ public final class FilterIteratorTest
     assertEquals ("s3", it.next ());
     assertFalse (it.hasNext ());
     assertFalse (it.hasNext ());
-
-    try
-    {
-      it.remove ();
-      fail ();
-    }
-    catch (final UnsupportedOperationException ex)
-    {}
 
     try
     {

@@ -64,22 +64,23 @@ public class MainCreatePrimitiveCollectionHelperCode
 
           // Collection<Primitive> newUnmodifiablePrimitiveCollection
           // (Primitive...)
-          aSB.append ("@Nonnull\n")
-             .append ("@ReturnsImmutableObject\n")
-             .append ("public static ")
-             .append (eCollectionType.m_sUnmodifiableClassName)
-             .append (" <")
-             .append (ePrim.m_sObjClass)
-             .append ("> newUnmodifiablePrimitive")
-             .append (eCollectionType.m_sSuffix)
-             .append ("(@Nullable final ")
-             .append (ePrim.m_sPrimitiveClass)
-             .append ("... aValues)\n")
-             .append ("{\n")
-             .append ("return CollectionHelper.makeUnmodifiable (newPrimitive")
-             .append (eCollectionType.m_sSuffix)
-             .append (" (aValues));\n")
-             .append ("}\n");
+          if (false)
+            aSB.append ("@Nonnull\n")
+               .append ("@ReturnsImmutableObject\n")
+               .append ("public static ")
+               .append (eCollectionType.m_sUnmodifiableClassName)
+               .append (" <")
+               .append (ePrim.m_sObjClass)
+               .append ("> newUnmodifiablePrimitive")
+               .append (eCollectionType.m_sSuffix)
+               .append ("(@Nullable final ")
+               .append (ePrim.m_sPrimitiveClass)
+               .append ("... aValues)\n")
+               .append ("{\n")
+               .append ("return CollectionHelper.makeUnmodifiable (newPrimitive")
+               .append (eCollectionType.m_sSuffix)
+               .append (" (aValues));\n")
+               .append ("}\n");
         }
 
     System.out.println (aSB.toString ());

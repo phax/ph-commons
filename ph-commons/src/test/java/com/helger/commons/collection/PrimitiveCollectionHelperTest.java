@@ -21,10 +21,6 @@ import static com.helger.commons.collection.PrimitiveCollectionHelper.newPrimiti
 import static com.helger.commons.collection.PrimitiveCollectionHelper.newPrimitiveSet;
 import static com.helger.commons.collection.PrimitiveCollectionHelper.newPrimitiveSortedSet;
 import static com.helger.commons.collection.PrimitiveCollectionHelper.newPrimitiveVector;
-import static com.helger.commons.collection.PrimitiveCollectionHelper.newUnmodifiablePrimitiveList;
-import static com.helger.commons.collection.PrimitiveCollectionHelper.newUnmodifiablePrimitiveOrderedSet;
-import static com.helger.commons.collection.PrimitiveCollectionHelper.newUnmodifiablePrimitiveSet;
-import static com.helger.commons.collection.PrimitiveCollectionHelper.newUnmodifiablePrimitiveSortedSet;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -43,24 +39,16 @@ public final class PrimitiveCollectionHelperTest
     final boolean [] aEmptyArray = new boolean [0];
     assertTrue (newPrimitiveList (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveVector (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveList (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveSet (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveOrderedSet (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveSortedSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final boolean [] aValues = new boolean [] { true, true };
     assertEquals (2, newPrimitiveList (aValues).size ());
     assertEquals (2, newPrimitiveVector (aValues).size ());
-    assertEquals (2, newUnmodifiablePrimitiveList (aValues).size ());
     assertEquals (1, newPrimitiveSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveSet (aValues).size ());
     assertEquals (1, newPrimitiveOrderedSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveOrderedSet (aValues).size ());
     assertEquals (1, newPrimitiveSortedSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveSortedSet (aValues).size ());
   }
 
   @Test
@@ -68,24 +56,16 @@ public final class PrimitiveCollectionHelperTest
   {
     final byte [] aEmptyArray = new byte [0];
     assertTrue (newPrimitiveList (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveList (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveSet (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveOrderedSet (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveSortedSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final byte [] aValues = new byte [] { 3, 3 };
     assertEquals (2, newPrimitiveList (aValues).size ());
     assertEquals (2, newPrimitiveVector (aValues).size ());
-    assertEquals (2, newUnmodifiablePrimitiveList (aValues).size ());
     assertEquals (1, newPrimitiveSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveSet (aValues).size ());
     assertEquals (1, newPrimitiveOrderedSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveOrderedSet (aValues).size ());
     assertEquals (1, newPrimitiveSortedSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveSortedSet (aValues).size ());
   }
 
   @Test
@@ -93,24 +73,16 @@ public final class PrimitiveCollectionHelperTest
   {
     final char [] aEmptyArray = new char [0];
     assertTrue (newPrimitiveList (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveList (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveSet (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveOrderedSet (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveSortedSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final char [] aValues = new char [] { 'x', 'x' };
     assertEquals (2, newPrimitiveList (aValues).size ());
     assertEquals (2, newPrimitiveVector (aValues).size ());
-    assertEquals (2, newUnmodifiablePrimitiveList (aValues).size ());
     assertEquals (1, newPrimitiveSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveSet (aValues).size ());
     assertEquals (1, newPrimitiveOrderedSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveOrderedSet (aValues).size ());
     assertEquals (1, newPrimitiveSortedSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveSortedSet (aValues).size ());
   }
 
   @Test
@@ -118,24 +90,16 @@ public final class PrimitiveCollectionHelperTest
   {
     final double [] aEmptyArray = new double [0];
     assertTrue (newPrimitiveList (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveList (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveSet (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveOrderedSet (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveSortedSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final double [] aValues = new double [] { 1.1, 1.1 };
     assertEquals (2, newPrimitiveList (aValues).size ());
     assertEquals (2, newPrimitiveVector (aValues).size ());
-    assertEquals (2, newUnmodifiablePrimitiveList (aValues).size ());
     assertEquals (1, newPrimitiveSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveSet (aValues).size ());
     assertEquals (1, newPrimitiveOrderedSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveOrderedSet (aValues).size ());
     assertEquals (1, newPrimitiveSortedSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveSortedSet (aValues).size ());
   }
 
   @Test
@@ -143,24 +107,16 @@ public final class PrimitiveCollectionHelperTest
   {
     final float [] aEmptyArray = new float [0];
     assertTrue (newPrimitiveList (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveList (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveSet (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveOrderedSet (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveSortedSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final float [] aValues = new float [] { 3.2f, 3.2f };
     assertEquals (2, newPrimitiveList (aValues).size ());
     assertEquals (2, newPrimitiveVector (aValues).size ());
-    assertEquals (2, newUnmodifiablePrimitiveList (aValues).size ());
     assertEquals (1, newPrimitiveSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveSet (aValues).size ());
     assertEquals (1, newPrimitiveOrderedSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveOrderedSet (aValues).size ());
     assertEquals (1, newPrimitiveSortedSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveSortedSet (aValues).size ());
   }
 
   @Test
@@ -168,24 +124,16 @@ public final class PrimitiveCollectionHelperTest
   {
     final int [] aEmptyArray = new int [0];
     assertTrue (newPrimitiveList (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveList (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveSet (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveOrderedSet (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveSortedSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final int [] aValues = new int [] { 5, 5 };
     assertEquals (2, newPrimitiveList (aValues).size ());
     assertEquals (2, newPrimitiveVector (aValues).size ());
-    assertEquals (2, newUnmodifiablePrimitiveList (aValues).size ());
     assertEquals (1, newPrimitiveSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveSet (aValues).size ());
     assertEquals (1, newPrimitiveOrderedSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveOrderedSet (aValues).size ());
     assertEquals (1, newPrimitiveSortedSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveSortedSet (aValues).size ());
   }
 
   @Test
@@ -193,24 +141,16 @@ public final class PrimitiveCollectionHelperTest
   {
     final long [] aEmptyArray = new long [0];
     assertTrue (newPrimitiveList (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveList (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveSet (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveOrderedSet (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveSortedSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final long [] aValues = new long [] { 17, 17 };
     assertEquals (2, newPrimitiveList (aValues).size ());
     assertEquals (2, newPrimitiveVector (aValues).size ());
-    assertEquals (2, newUnmodifiablePrimitiveList (aValues).size ());
     assertEquals (1, newPrimitiveSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveSet (aValues).size ());
     assertEquals (1, newPrimitiveOrderedSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveOrderedSet (aValues).size ());
     assertEquals (1, newPrimitiveSortedSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveSortedSet (aValues).size ());
   }
 
   @Test
@@ -218,23 +158,15 @@ public final class PrimitiveCollectionHelperTest
   {
     final short [] aEmptyArray = new short [0];
     assertTrue (newPrimitiveList (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveList (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveSet (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveOrderedSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveOrderedSet (aEmptyArray).isEmpty ());
     assertTrue (newPrimitiveSortedSet (aEmptyArray).isEmpty ());
-    assertTrue (newUnmodifiablePrimitiveSortedSet (aEmptyArray).isEmpty ());
 
     final short [] aValues = new short [] { 5, 5 };
     assertEquals (2, newPrimitiveList (aValues).size ());
     assertEquals (2, newPrimitiveVector (aValues).size ());
-    assertEquals (2, newUnmodifiablePrimitiveList (aValues).size ());
     assertEquals (1, newPrimitiveSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveSet (aValues).size ());
     assertEquals (1, newPrimitiveOrderedSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveOrderedSet (aValues).size ());
     assertEquals (1, newPrimitiveSortedSet (aValues).size ());
-    assertEquals (1, newUnmodifiablePrimitiveSortedSet (aValues).size ());
   }
 }

@@ -17,26 +17,22 @@
 package com.helger.commons.collection;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.PriorityQueue;
-import java.util.Set;
 import java.util.TreeSet;
 import java.util.Vector;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.NonBlockingStack;
 
 /**
  * Collection helper for primitive data types (boolean, byte, char, double,
  * float, int, long and short).
- * 
+ *
  * @author Philip Helger
  */
 public final class PrimitiveCollectionHelper
@@ -58,13 +54,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static List <Boolean> newUnmodifiablePrimitiveList (@Nullable final boolean... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveList (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static ArrayList <Byte> newPrimitiveList (@Nullable final byte... aValues)
   {
@@ -73,13 +62,6 @@ public final class PrimitiveCollectionHelper
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Byte> newUnmodifiablePrimitiveList (@Nullable final byte... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveList (aValues));
   }
 
   @Nonnull
@@ -94,13 +76,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static List <Character> newUnmodifiablePrimitiveList (@Nullable final char... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveList (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static ArrayList <Double> newPrimitiveList (@Nullable final double... aValues)
   {
@@ -109,13 +84,6 @@ public final class PrimitiveCollectionHelper
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Double> newUnmodifiablePrimitiveList (@Nullable final double... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveList (aValues));
   }
 
   @Nonnull
@@ -130,13 +98,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static List <Float> newUnmodifiablePrimitiveList (@Nullable final float... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveList (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static ArrayList <Integer> newPrimitiveList (@Nullable final int... aValues)
   {
@@ -145,13 +106,6 @@ public final class PrimitiveCollectionHelper
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Integer> newUnmodifiablePrimitiveList (@Nullable final int... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveList (aValues));
   }
 
   @Nonnull
@@ -166,13 +120,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static List <Long> newUnmodifiablePrimitiveList (@Nullable final long... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveList (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static ArrayList <Short> newPrimitiveList (@Nullable final short... aValues)
   {
@@ -181,13 +128,6 @@ public final class PrimitiveCollectionHelper
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Short> newUnmodifiablePrimitiveList (@Nullable final short... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveList (aValues));
   }
 
   @Nonnull
@@ -202,13 +142,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static List <Boolean> newUnmodifiablePrimitiveVector (@Nullable final boolean... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveVector (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static Vector <Byte> newPrimitiveVector (@Nullable final byte... aValues)
   {
@@ -217,13 +150,6 @@ public final class PrimitiveCollectionHelper
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Byte> newUnmodifiablePrimitiveVector (@Nullable final byte... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveVector (aValues));
   }
 
   @Nonnull
@@ -238,13 +164,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static List <Character> newUnmodifiablePrimitiveVector (@Nullable final char... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveVector (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static Vector <Double> newPrimitiveVector (@Nullable final double... aValues)
   {
@@ -253,13 +172,6 @@ public final class PrimitiveCollectionHelper
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Double> newUnmodifiablePrimitiveVector (@Nullable final double... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveVector (aValues));
   }
 
   @Nonnull
@@ -274,13 +186,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static List <Float> newUnmodifiablePrimitiveVector (@Nullable final float... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveVector (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static Vector <Integer> newPrimitiveVector (@Nullable final int... aValues)
   {
@@ -289,13 +194,6 @@ public final class PrimitiveCollectionHelper
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Integer> newUnmodifiablePrimitiveVector (@Nullable final int... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveVector (aValues));
   }
 
   @Nonnull
@@ -310,13 +208,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static List <Long> newUnmodifiablePrimitiveVector (@Nullable final long... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveVector (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static Vector <Short> newPrimitiveVector (@Nullable final short... aValues)
   {
@@ -325,13 +216,6 @@ public final class PrimitiveCollectionHelper
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Short> newUnmodifiablePrimitiveVector (@Nullable final short... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveVector (aValues));
   }
 
   @Nonnull
@@ -346,13 +230,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Boolean> newUnmodifiablePrimitiveSet (@Nullable final boolean... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveSet (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static HashSet <Byte> newPrimitiveSet (@Nullable final byte... aValues)
   {
@@ -361,13 +238,6 @@ public final class PrimitiveCollectionHelper
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Byte> newUnmodifiablePrimitiveSet (@Nullable final byte... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveSet (aValues));
   }
 
   @Nonnull
@@ -382,13 +252,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Character> newUnmodifiablePrimitiveSet (@Nullable final char... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveSet (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static HashSet <Double> newPrimitiveSet (@Nullable final double... aValues)
   {
@@ -397,13 +260,6 @@ public final class PrimitiveCollectionHelper
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Double> newUnmodifiablePrimitiveSet (@Nullable final double... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveSet (aValues));
   }
 
   @Nonnull
@@ -418,13 +274,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Float> newUnmodifiablePrimitiveSet (@Nullable final float... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveSet (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static HashSet <Integer> newPrimitiveSet (@Nullable final int... aValues)
   {
@@ -433,13 +282,6 @@ public final class PrimitiveCollectionHelper
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Integer> newUnmodifiablePrimitiveSet (@Nullable final int... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveSet (aValues));
   }
 
   @Nonnull
@@ -454,13 +296,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Long> newUnmodifiablePrimitiveSet (@Nullable final long... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveSet (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static HashSet <Short> newPrimitiveSet (@Nullable final short... aValues)
   {
@@ -469,13 +304,6 @@ public final class PrimitiveCollectionHelper
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Short> newUnmodifiablePrimitiveSet (@Nullable final short... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveSet (aValues));
   }
 
   @Nonnull
@@ -490,13 +318,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Boolean> newUnmodifiablePrimitiveOrderedSet (@Nullable final boolean... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveOrderedSet (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static LinkedHashSet <Byte> newPrimitiveOrderedSet (@Nullable final byte... aValues)
   {
@@ -505,13 +326,6 @@ public final class PrimitiveCollectionHelper
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Byte> newUnmodifiablePrimitiveOrderedSet (@Nullable final byte... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveOrderedSet (aValues));
   }
 
   @Nonnull
@@ -526,13 +340,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Character> newUnmodifiablePrimitiveOrderedSet (@Nullable final char... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveOrderedSet (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static LinkedHashSet <Double> newPrimitiveOrderedSet (@Nullable final double... aValues)
   {
@@ -541,13 +348,6 @@ public final class PrimitiveCollectionHelper
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Double> newUnmodifiablePrimitiveOrderedSet (@Nullable final double... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveOrderedSet (aValues));
   }
 
   @Nonnull
@@ -562,13 +362,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Float> newUnmodifiablePrimitiveOrderedSet (@Nullable final float... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveOrderedSet (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static LinkedHashSet <Integer> newPrimitiveOrderedSet (@Nullable final int... aValues)
   {
@@ -577,13 +370,6 @@ public final class PrimitiveCollectionHelper
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Integer> newUnmodifiablePrimitiveOrderedSet (@Nullable final int... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveOrderedSet (aValues));
   }
 
   @Nonnull
@@ -598,13 +384,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Long> newUnmodifiablePrimitiveOrderedSet (@Nullable final long... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveOrderedSet (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static LinkedHashSet <Short> newPrimitiveOrderedSet (@Nullable final short... aValues)
   {
@@ -613,13 +392,6 @@ public final class PrimitiveCollectionHelper
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Short> newUnmodifiablePrimitiveOrderedSet (@Nullable final short... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveOrderedSet (aValues));
   }
 
   @Nonnull
@@ -634,13 +406,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Boolean> newUnmodifiablePrimitiveSortedSet (@Nullable final boolean... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveSortedSet (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static TreeSet <Byte> newPrimitiveSortedSet (@Nullable final byte... aValues)
   {
@@ -649,13 +414,6 @@ public final class PrimitiveCollectionHelper
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Byte> newUnmodifiablePrimitiveSortedSet (@Nullable final byte... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveSortedSet (aValues));
   }
 
   @Nonnull
@@ -670,13 +428,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Character> newUnmodifiablePrimitiveSortedSet (@Nullable final char... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveSortedSet (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static TreeSet <Double> newPrimitiveSortedSet (@Nullable final double... aValues)
   {
@@ -685,13 +436,6 @@ public final class PrimitiveCollectionHelper
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Double> newUnmodifiablePrimitiveSortedSet (@Nullable final double... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveSortedSet (aValues));
   }
 
   @Nonnull
@@ -706,13 +450,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Float> newUnmodifiablePrimitiveSortedSet (@Nullable final float... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveSortedSet (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static TreeSet <Integer> newPrimitiveSortedSet (@Nullable final int... aValues)
   {
@@ -721,13 +458,6 @@ public final class PrimitiveCollectionHelper
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Integer> newUnmodifiablePrimitiveSortedSet (@Nullable final int... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveSortedSet (aValues));
   }
 
   @Nonnull
@@ -742,13 +472,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Long> newUnmodifiablePrimitiveSortedSet (@Nullable final long... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveSortedSet (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static TreeSet <Short> newPrimitiveSortedSet (@Nullable final short... aValues)
   {
@@ -757,13 +480,6 @@ public final class PrimitiveCollectionHelper
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Set <Short> newUnmodifiablePrimitiveSortedSet (@Nullable final short... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveSortedSet (aValues));
   }
 
   @Nonnull
@@ -778,13 +494,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static List <Boolean> newUnmodifiablePrimitiveStack (@Nullable final boolean... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveStack (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static NonBlockingStack <Byte> newPrimitiveStack (@Nullable final byte... aValues)
   {
@@ -793,13 +502,6 @@ public final class PrimitiveCollectionHelper
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Byte> newUnmodifiablePrimitiveStack (@Nullable final byte... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveStack (aValues));
   }
 
   @Nonnull
@@ -814,13 +516,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static List <Character> newUnmodifiablePrimitiveStack (@Nullable final char... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveStack (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static NonBlockingStack <Double> newPrimitiveStack (@Nullable final double... aValues)
   {
@@ -829,13 +524,6 @@ public final class PrimitiveCollectionHelper
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Double> newUnmodifiablePrimitiveStack (@Nullable final double... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveStack (aValues));
   }
 
   @Nonnull
@@ -850,13 +538,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static List <Float> newUnmodifiablePrimitiveStack (@Nullable final float... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveStack (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static NonBlockingStack <Integer> newPrimitiveStack (@Nullable final int... aValues)
   {
@@ -865,13 +546,6 @@ public final class PrimitiveCollectionHelper
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Integer> newUnmodifiablePrimitiveStack (@Nullable final int... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveStack (aValues));
   }
 
   @Nonnull
@@ -886,13 +560,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static List <Long> newUnmodifiablePrimitiveStack (@Nullable final long... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveStack (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static NonBlockingStack <Short> newPrimitiveStack (@Nullable final short... aValues)
   {
@@ -901,13 +568,6 @@ public final class PrimitiveCollectionHelper
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static List <Short> newUnmodifiablePrimitiveStack (@Nullable final short... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveStack (aValues));
   }
 
   @Nonnull
@@ -922,13 +582,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Collection <Boolean> newUnmodifiablePrimitiveQueue (@Nullable final boolean... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveQueue (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static PriorityQueue <Byte> newPrimitiveQueue (@Nullable final byte... aValues)
   {
@@ -937,13 +590,6 @@ public final class PrimitiveCollectionHelper
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Collection <Byte> newUnmodifiablePrimitiveQueue (@Nullable final byte... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveQueue (aValues));
   }
 
   @Nonnull
@@ -958,13 +604,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Collection <Character> newUnmodifiablePrimitiveQueue (@Nullable final char... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveQueue (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static PriorityQueue <Double> newPrimitiveQueue (@Nullable final double... aValues)
   {
@@ -973,13 +612,6 @@ public final class PrimitiveCollectionHelper
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Collection <Double> newUnmodifiablePrimitiveQueue (@Nullable final double... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveQueue (aValues));
   }
 
   @Nonnull
@@ -994,13 +626,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Collection <Float> newUnmodifiablePrimitiveQueue (@Nullable final float... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveQueue (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static PriorityQueue <Integer> newPrimitiveQueue (@Nullable final int... aValues)
   {
@@ -1009,13 +634,6 @@ public final class PrimitiveCollectionHelper
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Collection <Integer> newUnmodifiablePrimitiveQueue (@Nullable final int... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveQueue (aValues));
   }
 
   @Nonnull
@@ -1030,13 +648,6 @@ public final class PrimitiveCollectionHelper
   }
 
   @Nonnull
-  @ReturnsImmutableObject
-  public static Collection <Long> newUnmodifiablePrimitiveQueue (@Nullable final long... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveQueue (aValues));
-  }
-
-  @Nonnull
   @ReturnsMutableCopy
   public static PriorityQueue <Short> newPrimitiveQueue (@Nullable final short... aValues)
   {
@@ -1045,12 +656,5 @@ public final class PrimitiveCollectionHelper
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
     return ret;
-  }
-
-  @Nonnull
-  @ReturnsImmutableObject
-  public static Collection <Short> newUnmodifiablePrimitiveQueue (@Nullable final short... aValues)
-  {
-    return CollectionHelper.makeUnmodifiable (newPrimitiveQueue (aValues));
   }
 }

@@ -132,6 +132,11 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
     return aRet;
   }
 
+  public void remove ()
+  {
+    m_aBaseIter.remove ();
+  }
+
   // equals and hashCode wont work, because standard Java iterators don't
   // implement this!
 
