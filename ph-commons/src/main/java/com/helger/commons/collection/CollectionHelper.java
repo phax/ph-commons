@@ -1249,19 +1249,6 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> ArrayList <DSTTYPE> newListMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                      @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
-  {
-    if (isEmpty (aCollection))
-      return newList (0);
-    final ArrayList <DSTTYPE> ret = newList (aCollection.size ());
-    for (final SRCTYPE aValue : aCollection)
-      ret.add (aMapper.apply (aValue));
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
   public static <ELEMENTTYPE> ArrayList <ELEMENTTYPE> newList (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
                                                                @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
@@ -1300,7 +1287,7 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> ArrayList <DSTTYPE> newListMapped (@Nullable final SRCTYPE [] aValues,
-                                                                      @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+                                                                      @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
   {
     // Don't user Arrays.asList since aIter returns an unmodifiable list!
     if (ArrayHelper.isEmpty (aValues))
@@ -1308,6 +1295,31 @@ public final class CollectionHelper
 
     final ArrayList <DSTTYPE> ret = newList (aValues.length);
     for (final SRCTYPE aValue : aValues)
+      ret.add (aMapper.apply (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE, DSTTYPE> ArrayList <DSTTYPE> newListMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aIter,
+                                                                          @Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
+  {
+    final ArrayList <DSTTYPE> ret = newList ();
+    if (aIter != null)
+      for (final ELEMENTTYPE aObj : aIter)
+        ret.add (aMapper.apply (aObj));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, DSTTYPE> ArrayList <DSTTYPE> newListMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                      @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
+  {
+    if (isEmpty (aCollection))
+      return newList (0);
+    final ArrayList <DSTTYPE> ret = newList (aCollection.size ());
+    for (final SRCTYPE aValue : aCollection)
       ret.add (aMapper.apply (aValue));
     return ret;
   }
@@ -1353,18 +1365,6 @@ public final class CollectionHelper
     if (aIter != null)
       for (final ELEMENTTYPE aObj : aIter)
         ret.add (aObj);
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static <ELEMENTTYPE, RETTYPE> ArrayList <RETTYPE> newListMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aIter,
-                                                                          @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
-  {
-    final ArrayList <RETTYPE> ret = newList ();
-    if (aIter != null)
-      for (final ELEMENTTYPE aObj : aIter)
-        ret.add (aMapper.apply (aObj));
     return ret;
   }
 
@@ -2883,18 +2883,18 @@ public final class CollectionHelper
 
   @SuppressWarnings ("null")
   @Nullable
-  public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirst (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+  public static <ELEMENTTYPE, DSTTYPE> DSTTYPE findFirst (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                          @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
+                                                          @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
-    return findFirst (aCollection, aFilter, aMapper, (RETTYPE) null);
+    return findFirst (aCollection, aFilter, aMapper, (DSTTYPE) null);
   }
 
   @Nullable
-  public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirst (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+  public static <ELEMENTTYPE, DSTTYPE> DSTTYPE findFirst (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                          @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper,
-                                                          @Nullable final RETTYPE aDefault)
+                                                          @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
+                                                          @Nullable final DSTTYPE aDefault)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
 
@@ -2935,10 +2935,10 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE, RETTYPE> List <RETTYPE> getAllMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
-                                                                    @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
+  public static <ELEMENTTYPE, DSTTYPE> List <DSTTYPE> getAllMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                                    @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
-    final List <RETTYPE> ret = new ArrayList <> ();
+    final List <DSTTYPE> ret = new ArrayList <> ();
     findAllMapped (aCollection, aMapper, ret);
     return ret;
   }
@@ -2957,11 +2957,11 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE, RETTYPE> List <RETTYPE> getAll (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+  public static <ELEMENTTYPE, DSTTYPE> List <DSTTYPE> getAll (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                               @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                              @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
+                                                              @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
-    final List <RETTYPE> ret = new ArrayList <> ();
+    final List <DSTTYPE> ret = new ArrayList <> ();
     findAll (aCollection, aFilter, aMapper, ret);
     return ret;
   }
