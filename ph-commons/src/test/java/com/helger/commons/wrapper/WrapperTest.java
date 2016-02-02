@@ -37,7 +37,7 @@ public final class WrapperTest
   public void testWrapper ()
   {
     // Default ctor
-    final Wrapper <String> w = new Wrapper <String> ();
+    final Wrapper <String> w = new Wrapper <> ();
     assertNull (w.get ());
     w.set ("Hi");
     assertNotNull (w.get ());
@@ -45,12 +45,12 @@ public final class WrapperTest
     assertNotNull (w.toString ());
 
     // ctor with value
-    final Wrapper <String> w2 = new Wrapper <String> ("Ha");
+    final Wrapper <String> w2 = new Wrapper <> ("Ha");
     assertEquals ("Ha", w2.get ());
     assertNotNull (w2.toString ());
 
     // copy ctor
-    final Wrapper <String> w3 = new Wrapper <String> (w);
+    final Wrapper <String> w3 = new Wrapper <> (w);
     assertEquals (w.get (), w3.get ());
     assertEquals ("Hi", w3.get ());
     assertTrue (w.set ("Ho").isChanged ());
@@ -63,14 +63,14 @@ public final class WrapperTest
     // illegal ctor
     try
     {
-      new Wrapper <String> ((IWrapper <String>) null);
+      new Wrapper <> ((IWrapper <String>) null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (Wrapper.create ("any"), Wrapper.create ("any"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (Wrapper.create ("any"),
-                                                                           Wrapper.create ("other"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Wrapper <> ("any"), new Wrapper <> ("any"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Wrapper <> ("any"),
+                                                                           new Wrapper <> ("other"));
   }
 }

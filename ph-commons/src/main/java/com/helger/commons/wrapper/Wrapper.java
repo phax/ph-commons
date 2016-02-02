@@ -88,7 +88,7 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
   @ReturnsMutableCopy
   public Wrapper <DATATYPE> getClone ()
   {
-    return new Wrapper <DATATYPE> (m_aObj);
+    return new Wrapper <> (m_aObj);
   }
 
   @Override
@@ -112,20 +112,5 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
   public String toString ()
   {
     return new ToStringGenerator (this).append ("obj", m_aObj).toString ();
-  }
-
-  /**
-   * Static factory method with automatic type deduction.
-   *
-   * @param <DATATYPE>
-   *        The type to be wrapped.
-   * @param aObj
-   *        The object to be wrapped.
-   * @return The wrapped object.
-   */
-  @Nonnull
-  public static <DATATYPE> Wrapper <DATATYPE> create (@Nullable final DATATYPE aObj)
-  {
-    return new Wrapper <DATATYPE> (aObj);
   }
 }
