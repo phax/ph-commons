@@ -35,6 +35,7 @@ import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ClassHierarchyCache;
+import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.lang.ServiceLoaderHelper;
 
 /**
@@ -59,7 +60,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
 
   // WeakHashMap because key is a class
   @GuardedBy ("m_aRWLock")
-  private final Map <Class <?>, ISerializationConverter> m_aMap = new WeakHashMap <Class <?>, ISerializationConverter> ();
+  private final Map <Class <?>, ISerializationConverter <?>> m_aMap = new WeakHashMap <> ();
 
   private SerializationConverterRegistry ()
   {
@@ -82,8 +83,8 @@ public final class SerializationConverterRegistry implements ISerializationConve
     return ret;
   }
 
-  public void registerSerializationConverter (@Nonnull final Class <?> aClass,
-                                              @Nonnull final ISerializationConverter aConverter)
+  public <T> void registerSerializationConverter (@Nonnull final Class <T> aClass,
+                                                  @Nonnull final ISerializationConverter <T> aConverter)
   {
     _registerSerializationConverter (aClass, aConverter);
   }
@@ -99,7 +100,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
    *        The type converter
    */
   private void _registerSerializationConverter (@Nonnull final Class <?> aClass,
-                                                @Nonnull final ISerializationConverter aConverter)
+                                                @Nonnull final ISerializationConverter <?> aConverter)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aConverter, "Converter");
@@ -127,11 +128,11 @@ public final class SerializationConverterRegistry implements ISerializationConve
   }
 
   @Nullable
-  public ISerializationConverter getConverter (@Nullable final Class <?> aDstClass)
+  public <T> ISerializationConverter <T> getConverter (@Nullable final Class <T> aDstClass)
   {
     return m_aRWLock.readLocked ( () -> {
       // Check for an exact match first
-      ISerializationConverter ret = m_aMap.get (aDstClass);
+      ISerializationConverter <?> ret = m_aMap.get (aDstClass);
       if (ret == null)
       {
         // No exact match found - try fuzzy
@@ -155,7 +156,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
           }
         }
       }
-      return ret;
+      return GenericReflection.uncheckedCast (ret);
     });
   }
 
@@ -169,10 +170,10 @@ public final class SerializationConverterRegistry implements ISerializationConve
   public void iterateAllRegisteredSerializationConverters (@Nonnull final ISerializationConverterCallback aCallback)
   {
     // Create a copy of the map
-    final Map <Class <?>, ISerializationConverter> aCopy = m_aRWLock.readLocked ( () -> CollectionHelper.newMap (m_aMap));
+    final Map <Class <?>, ISerializationConverter <?>> aCopy = m_aRWLock.readLocked ( () -> CollectionHelper.newMap (m_aMap));
 
     // And iterate the copy
-    for (final Map.Entry <Class <?>, ISerializationConverter> aEntry : aCopy.entrySet ())
+    for (final Map.Entry <Class <?>, ISerializationConverter <?>> aEntry : aCopy.entrySet ())
       if (aCallback.call (aEntry.getKey (), aEntry.getValue ()).isBreak ())
         break;
   }

@@ -38,6 +38,8 @@ public interface ISerializationConverterRegistry
    * @throws IllegalArgumentException
    *         If the passed class already implements the java.io.Serializable
    *         interface.
+   * @param <T>
+   *        Type for which a converter should be registered
    */
-  void registerSerializationConverter (@Nonnull Class <?> aClass, @Nonnull ISerializationConverter aConverter);
+  <T> void registerSerializationConverter (@Nonnull Class <T> aClass, @Nonnull ISerializationConverter <T> aConverter);
 }

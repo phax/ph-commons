@@ -47,14 +47,14 @@ public interface IDisplayNameProvider <DATATYPE> extends Serializable
   String getDisplayName (@Nullable DATATYPE aObject);
 
   @Nonnull
-  static IDisplayNameProvider <IHasDisplayName> createHasDisplayName ()
-  {
-    return aObject -> aObject == null ? null : aObject.getDisplayName ();
-  }
-
-  @Nonnull
   default Comparator <DATATYPE> getComparatorCollating (@Nullable final Locale aSortLocale)
   {
     return IComparator.getComparatorCollating (aObject -> getDisplayName (aObject), aSortLocale);
+  }
+
+  @Nonnull
+  static IDisplayNameProvider <IHasDisplayName> createHasDisplayName ()
+  {
+    return aObject -> aObject == null ? null : aObject.getDisplayName ();
   }
 }

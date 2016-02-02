@@ -69,9 +69,7 @@ public final class ScopeHelper
    */
   public static void setLifeCycleDebuggingEnabled (final boolean bDebugLifeCycle)
   {
-    s_aRWLock.writeLocked ( () -> {
-      s_bDebugLifeCycle = bDebugLifeCycle;
-    });
+    s_aRWLock.writeLocked ( () -> s_bDebugLifeCycle = bDebugLifeCycle);
   }
 
   /**
@@ -93,9 +91,7 @@ public final class ScopeHelper
    */
   public static void setDebugGlobalScopeEnabled (final boolean bDebugScope)
   {
-    s_aRWLock.writeLocked ( () -> {
-      s_bDebugGlobalScope = bDebugScope;
-    });
+    s_aRWLock.writeLocked ( () -> s_bDebugGlobalScope = bDebugScope);
   }
 
   /**
@@ -118,9 +114,7 @@ public final class ScopeHelper
    */
   public static void setDebugApplicationScopeEnabled (final boolean bDebugScope)
   {
-    s_aRWLock.writeLocked ( () -> {
-      s_bDebugApplicationScope = bDebugScope;
-    });
+    s_aRWLock.writeLocked ( () -> s_bDebugApplicationScope = bDebugScope);
   }
 
   /**
@@ -143,9 +137,7 @@ public final class ScopeHelper
    */
   public static void setDebugSessionScopeEnabled (final boolean bDebugScope)
   {
-    s_aRWLock.writeLocked ( () -> {
-      s_bDebugSessionScope = bDebugScope;
-    });
+    s_aRWLock.writeLocked ( () -> s_bDebugSessionScope = bDebugScope);
   }
 
   /**
@@ -168,9 +160,7 @@ public final class ScopeHelper
    */
   public static void setDebugSessionApplicationScopeEnabled (final boolean bDebugScope)
   {
-    s_aRWLock.writeLocked ( () -> {
-      s_bDebugSessionApplicationScope = bDebugScope;
-    });
+    s_aRWLock.writeLocked ( () -> s_bDebugSessionApplicationScope = bDebugScope);
   }
 
   /**
@@ -193,9 +183,7 @@ public final class ScopeHelper
    */
   public static void setDebugRequestScopeEnabled (final boolean bDebugScope)
   {
-    s_aRWLock.writeLocked ( () -> {
-      s_bDebugRequestScope = bDebugScope;
-    });
+    s_aRWLock.writeLocked ( () -> s_bDebugRequestScope = bDebugScope);
   }
 
   /**
@@ -217,9 +205,7 @@ public final class ScopeHelper
    */
   public static void setDebugWithStackTrace (final boolean bDebugWithStackTrace)
   {
-    s_aRWLock.writeLocked ( () -> {
-      s_bDebugWithStackTrace = bDebugWithStackTrace;
-    });
+    s_aRWLock.writeLocked ( () -> s_bDebugWithStackTrace = bDebugWithStackTrace);
   }
 
   /**

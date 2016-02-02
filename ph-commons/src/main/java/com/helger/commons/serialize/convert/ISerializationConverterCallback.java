@@ -41,5 +41,5 @@ public interface ISerializationConverterCallback
    *         {@link EContinue#BREAK} to stop iteration.
    */
   @Nonnull
-  EContinue call (@Nonnull Class <?> aClass, @Nonnull ISerializationConverter aConverter);
+  EContinue call (@Nonnull Class <?> aClass, @Nonnull ISerializationConverter <?> aConverter);
 }

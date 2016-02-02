@@ -198,7 +198,7 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
   @ReturnsMutableCopy
   public final Map <String, IScopeRenewalAware> getAllScopeRenewalAwareAttributes ()
   {
-    final Map <String, IScopeRenewalAware> ret = new HashMap <String, IScopeRenewalAware> ();
+    final Map <String, IScopeRenewalAware> ret = new HashMap <> ();
     for (final Map.Entry <String, Object> aEntry : getAllAttributes ().entrySet ())
     {
       final Object aValue = aEntry.getValue ();

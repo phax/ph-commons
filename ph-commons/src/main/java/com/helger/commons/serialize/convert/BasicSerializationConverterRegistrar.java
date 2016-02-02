@@ -37,15 +37,15 @@ import com.helger.commons.charset.CharsetManager;
 @IsSPIImplementation
 public final class BasicSerializationConverterRegistrar implements ISerializationConverterRegistrarSPI
 {
-  private static final class SerializationConverterCharset implements ISerializationConverter
+  private static final class SerializationConverterCharset implements ISerializationConverter <Charset>
   {
-    public void writeConvertedObject (@Nonnull final Object aSourceObject,
+    public void writeConvertedObject (@Nonnull final Charset aSourceObject,
                                       @Nonnull final ObjectOutputStream aOOS) throws IOException
     {
-      aOOS.writeUTF (((Charset) aSourceObject).name ());
+      aOOS.writeUTF (aSourceObject.name ());
     }
 
-    public Object readConvertedObject (@Nonnull final ObjectInputStream aOIS) throws IOException
+    public Charset readConvertedObject (@Nonnull final ObjectInputStream aOIS) throws IOException
     {
       final String sCharsetName = aOIS.readUTF ();
       return CharsetManager.getCharsetFromName (sCharsetName);
