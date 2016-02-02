@@ -23,7 +23,7 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.compare.ISerializableComparator;
+import com.helger.commons.compare.IComparator;
 
 /**
  * Interface for a handler the provides the locale <b>independent</b> name of an
@@ -55,6 +55,6 @@ public interface IDisplayNameProvider <DATATYPE> extends Serializable
   @Nonnull
   default Comparator <DATATYPE> getComparatorCollating (@Nullable final Locale aSortLocale)
   {
-    return ISerializableComparator.getComparatorCollating (aObject -> getDisplayName (aObject), aSortLocale);
+    return IComparator.getComparatorCollating (aObject -> getDisplayName (aObject), aSortLocale);
   }
 }

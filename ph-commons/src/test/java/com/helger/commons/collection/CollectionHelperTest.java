@@ -105,7 +105,7 @@ import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.IMultiMapSetBased;
 import com.helger.commons.collection.multimap.MultiHashMapArrayListBased;
 import com.helger.commons.collection.multimap.MultiHashMapHashSetBased;
-import com.helger.commons.compare.ISerializableComparator;
+import com.helger.commons.compare.IComparator;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -2113,7 +2113,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertEquals (aSorted.get (2), "c");
     assertEquals (aSorted.get (3), "d");
 
-    aSorted = getSorted (new IterableIterator <> (aList), ISerializableComparator.getComparatorCollating (Locale.US));
+    aSorted = getSorted (new IterableIterator <> (aList), IComparator.getComparatorCollating (Locale.US));
     assertEquals (aSorted.size (), 4);
     assertEquals (aSorted.get (0), "a");
     assertEquals (aSorted.get (1), "b");
@@ -2121,7 +2121,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertEquals (aSorted.get (3), "d");
   }
 
-  private static final class MyStringCompi implements ISerializableComparator <String>
+  private static final class MyStringCompi implements IComparator <String>
   {
     public MyStringCompi ()
     {}
@@ -2276,7 +2276,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testGetSortedByKey ()
   {
     assertNull (getSortedByKey ((Map <String, ?>) null));
-    assertNull (getSortedByKey (null, ISerializableComparator.getComparatorCollating (Locale.US).reversed ()));
+    assertNull (getSortedByKey (null, IComparator.getComparatorCollating (Locale.US).reversed ()));
 
     try
     {
@@ -2297,7 +2297,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertEquals ("K3", it.next ().getKey ());
 
     // reverse sort
-    it = getSortedByKey (aMap, ISerializableComparator.getComparatorCollating (Locale.US).reversed ()).entrySet ()
+    it = getSortedByKey (aMap, IComparator.getComparatorCollating (Locale.US).reversed ()).entrySet ()
                                                                                                       .iterator ();
     assertEquals ("K3", it.next ().getKey ());
     assertEquals ("K2", it.next ().getKey ());
@@ -2311,7 +2311,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testGetSortedByValue ()
   {
     assertNull (getSortedByValue ((Map <?, String>) null));
-    assertNull (getSortedByValue (null, ISerializableComparator.getComparatorCollating (Locale.US).reversed ()));
+    assertNull (getSortedByValue (null, IComparator.getComparatorCollating (Locale.US).reversed ()));
 
     try
     {
@@ -2332,7 +2332,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertEquals ("ValueC", it.next ().getValue ());
 
     // reverse sort
-    it = getSortedByValue (aMap, ISerializableComparator.getComparatorCollating (Locale.US).reversed ()).entrySet ()
+    it = getSortedByValue (aMap, IComparator.getComparatorCollating (Locale.US).reversed ()).entrySet ()
                                                                                                         .iterator ();
     assertEquals ("ValueC", it.next ().getValue ());
     assertEquals ("ValueB", it.next ().getValue ());

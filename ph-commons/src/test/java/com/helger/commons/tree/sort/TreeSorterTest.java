@@ -27,7 +27,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.compare.ISerializableComparator;
+import com.helger.commons.compare.IComparator;
 import com.helger.commons.tree.DefaultTree;
 import com.helger.commons.tree.DefaultTreeItem;
 
@@ -52,7 +52,7 @@ public final class TreeSorterTest
     i2.createChildItem ("Apache Software Foundation");
 
     // Sort all items by String
-    TreeSorter.sort (aTree, ISerializableComparator.getComparatorCollating (Locale.US));
+    TreeSorter.sort (aTree, IComparator.getComparatorCollating (Locale.US));
 
     assertEquals (2, aTree.getRootItem ().getChildCount ());
     final List <? extends DefaultTreeItem <String>> aChildren = aTree.getRootItem ().getAllChildren ();

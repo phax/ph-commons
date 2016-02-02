@@ -31,7 +31,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.helger.commons.compare.ISerializableComparator;
+import com.helger.commons.compare.IComparator;
 import com.helger.commons.convert.ConverterStringInteger;
 import com.helger.commons.convert.IConverter;
 import com.helger.commons.mock.AbstractCommonsTestCase;
@@ -43,7 +43,7 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
  */
 public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
 {
-  private static final class MyIntegerCompi implements ISerializableComparator <Integer>
+  private static final class MyIntegerCompi implements IComparator <Integer>
   {
     public MyIntegerCompi ()
     {}

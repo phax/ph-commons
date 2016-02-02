@@ -39,7 +39,7 @@ import com.helger.commons.collation.CollatorHelper;
  */
 @NotThreadSafe
 @FunctionalInterface
-public interface ISerializableComparator <DATATYPE> extends Comparator <DATATYPE>, Serializable
+public interface IComparator <DATATYPE> extends Comparator <DATATYPE>, Serializable
 {
   @Nonnull
   static Comparator <String> getComparatorCollating (@Nullable final Locale aSortLocale)
@@ -81,7 +81,7 @@ public interface ISerializableComparator <DATATYPE> extends Comparator <DATATYPE
   }
 
   @Nonnull
-  static ISerializableComparator <String> getComparatorStringIgnoreCase ()
+  static IComparator <String> getComparatorStringIgnoreCase ()
   {
     return (c1, c2) -> CompareHelper.compareIgnoreCase (c1, c2);
   }

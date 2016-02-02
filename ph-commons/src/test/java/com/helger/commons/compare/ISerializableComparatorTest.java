@@ -31,7 +31,7 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
- * Test class for class {@link ISerializableComparator}.
+ * Test class for class {@link IComparator}.
  *
  * @author Philip Helger
  */
@@ -42,28 +42,28 @@ public final class ISerializableComparatorTest extends AbstractCommonsTestCase
   {
     final List <String> l = CollectionHelper.newList ("a", null, "c");
     assertEquals (3,
-                  CollectionHelper.getSorted (l, ISerializableComparator.getComparatorCollating (Locale.US)).size ());
+                  CollectionHelper.getSorted (l, IComparator.getComparatorCollating (Locale.US)).size ());
     assertEquals (3,
-                  CollectionHelper.getSorted (l, ISerializableComparator.getComparatorCollating (Locale.US).reversed ())
+                  CollectionHelper.getSorted (l, IComparator.getComparatorCollating (Locale.US).reversed ())
                                   .size ());
-    assertEquals (3, CollectionHelper.getSorted (l, ISerializableComparator.getComparatorCollating (L_EN)).size ());
+    assertEquals (3, CollectionHelper.getSorted (l, IComparator.getComparatorCollating (L_EN)).size ());
     assertEquals (3,
-                  CollectionHelper.getSorted (l, ISerializableComparator.getComparatorCollating (L_FR).reversed ())
-                                  .size ());
-    assertEquals (3,
-                  CollectionHelper.getSorted (l,
-                                              ISerializableComparator.getComparatorCollating (Collator.getInstance (L_FR)))
+                  CollectionHelper.getSorted (l, IComparator.getComparatorCollating (L_FR).reversed ())
                                   .size ());
     assertEquals (3,
                   CollectionHelper.getSorted (l,
-                                              ISerializableComparator.getComparatorCollating (Collator.getInstance (L_FR))
+                                              IComparator.getComparatorCollating (Collator.getInstance (L_FR)))
+                                  .size ());
+    assertEquals (3,
+                  CollectionHelper.getSorted (l,
+                                              IComparator.getComparatorCollating (Collator.getInstance (L_FR))
                                                                      .reversed ())
                                   .size ());
-    CommonsTestHelper.testToStringImplementation (ISerializableComparator.getComparatorCollating (Locale.US));
+    CommonsTestHelper.testToStringImplementation (IComparator.getComparatorCollating (Locale.US));
 
     try
     {
-      ISerializableComparator.getComparatorCollating ((Collator) null);
+      IComparator.getComparatorCollating ((Collator) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -79,11 +79,11 @@ public final class ISerializableComparatorTest extends AbstractCommonsTestCase
     final String [] x = new String [] { S1, S2, S3 };
 
     // Explicitly sort ascending
-    List <String> l = CollectionHelper.getSorted (x, ISerializableComparator.getComparatorCollating (Locale.US));
+    List <String> l = CollectionHelper.getSorted (x, IComparator.getComparatorCollating (Locale.US));
     assertArrayEquals (new String [] { S3, S1, S2 }, l.toArray ());
 
     // Explicitly sort descending
-    l = CollectionHelper.getSorted (x, ISerializableComparator.getComparatorCollating (Locale.US).reversed ());
+    l = CollectionHelper.getSorted (x, IComparator.getComparatorCollating (Locale.US).reversed ());
     assertArrayEquals (new String [] { S2, S1, S3 }, l.toArray ());
   }
 
@@ -99,19 +99,19 @@ public final class ISerializableComparatorTest extends AbstractCommonsTestCase
     final String [] x = new String [] { S1, S2, S3 };
 
     // default: sort ascending
-    List <String> l = CollectionHelper.getSorted (x, ISerializableComparator.getComparatorCollating (Locale.GERMAN));
+    List <String> l = CollectionHelper.getSorted (x, IComparator.getComparatorCollating (Locale.GERMAN));
     assertArrayEquals (new String [] { S2, S3, S1 }, l.toArray ());
 
     // sort ascending manually
-    l = CollectionHelper.getSorted (x, ISerializableComparator.getComparatorCollating (Locale.GERMAN));
+    l = CollectionHelper.getSorted (x, IComparator.getComparatorCollating (Locale.GERMAN));
     assertArrayEquals (new String [] { S2, S3, S1 }, l.toArray ());
 
     // sort descending manually
-    l = CollectionHelper.getSorted (x, ISerializableComparator.getComparatorCollating (Locale.GERMAN).reversed ());
+    l = CollectionHelper.getSorted (x, IComparator.getComparatorCollating (Locale.GERMAN).reversed ());
     assertArrayEquals (new String [] { S1, S3, S2 }, l.toArray ());
 
     // null locale allowed
-    ISerializableComparator.getComparatorCollating ((Locale) null);
+    IComparator.getComparatorCollating ((Locale) null);
     assertArrayEquals (new String [] { S1, S3, S2 }, l.toArray ());
   }
 }

@@ -22,7 +22,7 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.compare.ISerializableComparator;
+import com.helger.commons.compare.IComparator;
 
 /**
  * Base interface for objects that have a locale <b>dependent</b> display name.
@@ -46,7 +46,7 @@ public interface IHasDisplayText
   static Comparator <IHasDisplayText> getComparatorCollating (@Nonnull final Locale aContentLocale,
                                                               @Nullable final Locale aSortLocale)
   {
-    return ISerializableComparator.getComparatorCollating (aObject -> aObject.getDisplayText (aContentLocale),
+    return IComparator.getComparatorCollating (aObject -> aObject.getDisplayText (aContentLocale),
                                                            aSortLocale);
   }
 }

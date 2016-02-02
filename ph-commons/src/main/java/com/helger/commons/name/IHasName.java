@@ -22,7 +22,7 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.compare.ISerializableComparator;
+import com.helger.commons.compare.IComparator;
 
 /**
  * Base interface for all objects that have a mandatory <b>INTERNAL</b> name
@@ -50,6 +50,6 @@ public interface IHasName
   @Nonnull
   static Comparator <IHasName> getComparatorCollating (@Nullable final Locale aSortLocale)
   {
-    return ISerializableComparator.getComparatorCollating (IHasName::getName, aSortLocale);
+    return IComparator.getComparatorCollating (IHasName::getName, aSortLocale);
   }
 }
