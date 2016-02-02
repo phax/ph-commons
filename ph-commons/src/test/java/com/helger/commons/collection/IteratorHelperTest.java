@@ -75,9 +75,9 @@ public final class IteratorHelperTest
   public void testIsEmpty_IIterableIterator ()
   {
     assertTrue (isEmpty ((IIterableIterator <?>) null));
-    assertTrue (isEmpty (IterableIterator.create (new ArrayList <> ())));
+    assertTrue (isEmpty (new IterableIterator <> (new ArrayList <> ())));
     assertTrue (isEmpty (IterableIterator.<String> createEmpty ()));
-    assertFalse (isEmpty (IterableIterator.create (newList ("any"))));
+    assertFalse (isEmpty (new IterableIterator <> (newList ("any"))));
   }
 
   @Test
@@ -85,7 +85,7 @@ public final class IteratorHelperTest
   {
     assertEquals (0, getSize ((IIterableIterator <?>) null));
     assertEquals (0, getSize (IterableIterator.createEmpty ()));
-    assertEquals (1, getSize (IterableIterator.create (newList ("any"))));
+    assertEquals (1, getSize (new IterableIterator <> (newList ("any"))));
   }
 
   @Test

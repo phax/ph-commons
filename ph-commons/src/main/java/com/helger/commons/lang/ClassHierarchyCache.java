@@ -113,7 +113,7 @@ public final class ClassHierarchyCache
     @Nonnull
     public IIterableIterator <WeakReference <Class <?>>> iterator ()
     {
-      return IterableIterator.create (m_aList);
+      return new IterableIterator <> (m_aList);
     }
 
     @Override

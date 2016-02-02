@@ -39,17 +39,17 @@ public class IterableIterator <ELEMENTTYPE> implements IIterableIterator <ELEMEN
 
   private final Iterator <ELEMENTTYPE> m_aIter;
 
-  protected IterableIterator (@Nonnull final ELEMENTTYPE [] aCont)
+  public IterableIterator (@Nonnull final ELEMENTTYPE [] aCont)
   {
     this (new ArrayIterator <> (aCont));
   }
 
-  protected IterableIterator (@Nonnull final Iterable <ELEMENTTYPE> aCont)
+  public IterableIterator (@Nonnull final Iterable <ELEMENTTYPE> aCont)
   {
     this (aCont.iterator ());
   }
 
-  protected IterableIterator (@Nonnull final Iterator <ELEMENTTYPE> aIter)
+  public IterableIterator (@Nonnull final Iterator <ELEMENTTYPE> aIter)
   {
     m_aIter = ValueEnforcer.notNull (aIter, "Iterator");
   }
@@ -86,23 +86,5 @@ public class IterableIterator <ELEMENTTYPE> implements IIterableIterator <ELEMEN
   public static <ELEMENTTYPE> IIterableIterator <ELEMENTTYPE> createEmpty ()
   {
     return GenericReflection.<IterableIterator <Object>, IterableIterator <ELEMENTTYPE>> uncheckedCast (s_aEmpty);
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> IIterableIterator <ELEMENTTYPE> create (@Nonnull final ELEMENTTYPE [] aCont)
-  {
-    return new IterableIterator <ELEMENTTYPE> (aCont);
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> IIterableIterator <ELEMENTTYPE> create (@Nonnull final Iterable <ELEMENTTYPE> aCont)
-  {
-    return new IterableIterator <ELEMENTTYPE> (aCont);
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> IIterableIterator <ELEMENTTYPE> create (@Nonnull final Iterator <ELEMENTTYPE> aIter)
-  {
-    return new IterableIterator <ELEMENTTYPE> (aIter);
   }
 }

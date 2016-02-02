@@ -120,7 +120,7 @@ public final class FilterIteratorTest
   public void testIteration1 ()
   {
     final List <String> aList = CollectionHelper.newList ("s1", "s2", null, "s3");
-    new FilterIterator <String> (IterableIterator.create (aList), new FilterNotNull <String> ());
+    new FilterIterator <String> (new IterableIterator <> (aList), new FilterNotNull <String> ());
     final FilterIterator <String> it = new FilterIterator <String> (aList, new FilterNotNull <String> ());
     assertNotNull (it);
     assertSame (it, it.iterator ());

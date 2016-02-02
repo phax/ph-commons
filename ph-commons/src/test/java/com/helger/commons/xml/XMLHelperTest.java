@@ -217,7 +217,7 @@ public final class XMLHelperTest extends AbstractCommonsTestCase
     XMLHelper.append (eRoot, "TextNode");
     XMLHelper.append (eRoot, doc2.createElement ("child"));
     XMLHelper.append (eRoot, CollectionHelper.newList ("Text 1", " ", "Text 2"));
-    XMLHelper.append (eRoot, IterableIterator.create (CollectionHelper.newList ("Text 1", " ", "Text 2")));
+    XMLHelper.append (eRoot, new IterableIterator <> (CollectionHelper.newList ("Text 1", " ", "Text 2")));
     XMLHelper.append (eRoot, doc.createElement ("foobar"));
     XMLHelper.append (eRoot, _getTestDoc ());
     XMLHelper.append (eRoot, CollectionHelper.newSet (doc.createElement ("e1"), doc.createElement ("e2")));

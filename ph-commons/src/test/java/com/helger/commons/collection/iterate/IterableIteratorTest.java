@@ -41,7 +41,7 @@ public final class IterableIteratorTest
   public void testBasic ()
   {
     assertSame (IterableIterator.createEmpty (), IterableIterator.createEmpty ());
-    IIterableIterator <String> iit = IterableIterator.create (ArrayHelper.newArray ("Hallo",
+    IIterableIterator <String> iit = new IterableIterator <> (ArrayHelper.newArray ("Hallo",
                                                                                     "Welt",
                                                                                     "from",
                                                                                     "Copenhagen"));
@@ -50,23 +50,23 @@ public final class IterableIteratorTest
     assertTrue (iit.hasNext ());
     assertEquals ("Hallo", iit.next ());
 
-    iit = IterableIterator.create (CollectionHelper.newList ("Hallo", "Welt", "from", "Copenhagen"));
+    iit = new IterableIterator <> (CollectionHelper.newList ("Hallo", "Welt", "from", "Copenhagen"));
     iit.next ();
     iit.remove ();
 
-    assertEquals (3, CollectionHelper.newList (IterableIterator.create (new String [] { "a", "b", "c" })).size ());
+    assertEquals (3, CollectionHelper.newList (new IterableIterator <> (new String [] { "a", "b", "c" })).size ());
     assertEquals (3,
-                  CollectionHelper.newList (IterableIterator.create (CollectionHelper.newList ("a", "b", "c")))
+                  CollectionHelper.newList (new IterableIterator <> (CollectionHelper.newList ("a", "b", "c")))
                                   .size ());
     assertEquals (3,
-                  CollectionHelper.newList (IterableIterator.create (CollectionHelper.newList ("a", "b", "c")
+                  CollectionHelper.newList (new IterableIterator <> (CollectionHelper.newList ("a", "b", "c")
                                                                                      .iterator ()))
                                   .size ());
     CommonsTestHelper.testToStringImplementation (iit);
 
     try
     {
-      IterableIterator.create ((Iterator <String>) null);
+      new IterableIterator <> ((Iterator <String>) null);
       fail ();
     }
     catch (final NullPointerException ex)

@@ -1169,13 +1169,13 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testNewSetIIterableIterator ()
   {
-    Set <String> aSet = newSet (IterableIterator.create (newList ("Hallo", "Welt")));
+    Set <String> aSet = newSet (new IterableIterator <> (newList ("Hallo", "Welt")));
     assertNotNull (aSet);
     assertEquals (2, aSet.size ());
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSet (IterableIterator.create (new ArrayList <String> ()));
+    aSet = newSet (new IterableIterator <> (new ArrayList <String> ()));
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -1274,13 +1274,13 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testNewUnmodifiableSetIIterableIterator ()
   {
-    Set <String> aUnmodifiableSet = newUnmodifiableSet (IterableIterator.create (newList ("Hallo", "Welt")));
+    Set <String> aUnmodifiableSet = newUnmodifiableSet (new IterableIterator <> (newList ("Hallo", "Welt")));
     assertNotNull (aUnmodifiableSet);
     assertEquals (2, aUnmodifiableSet.size ());
     assertTrue (aUnmodifiableSet.contains ("Hallo"));
     assertTrue (aUnmodifiableSet.contains ("Welt"));
 
-    aUnmodifiableSet = newUnmodifiableSet (IterableIterator.create (new ArrayList <String> ()));
+    aUnmodifiableSet = newUnmodifiableSet (new IterableIterator <> (new ArrayList <String> ()));
     assertNotNull (aUnmodifiableSet);
     assertEquals (0, aUnmodifiableSet.size ());
   }
@@ -1381,7 +1381,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public void testNewSortedSetIIterableIterator ()
   {
-    SortedSet <String> aSet = newSortedSet (IterableIterator.create (newList ("Hallo", "Welt", null)));
+    SortedSet <String> aSet = newSortedSet (new IterableIterator <> (newList ("Hallo", "Welt", null)));
     assertNotNull (aSet);
     assertEquals (3, aSet.size ());
     assertNull (aSet.first ());
@@ -1389,7 +1389,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aSet.contains ("Welt"));
     assertTrue (aSet.contains (null));
 
-    aSet = newSortedSet (IterableIterator.create (new ArrayList <String> ()));
+    aSet = newSortedSet (new IterableIterator <> (new ArrayList <String> ()));
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -1489,14 +1489,14 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testNewUnmodifiableSortedSetIIterableIterator ()
   {
-    SortedSet <String> aUnmodifiableSet = newUnmodifiableSortedSet (IterableIterator.create (newList ("Hallo",
+    SortedSet <String> aUnmodifiableSet = newUnmodifiableSortedSet (new IterableIterator <> (newList ("Hallo",
                                                                                                       "Welt")));
     assertNotNull (aUnmodifiableSet);
     assertEquals (2, aUnmodifiableSet.size ());
     assertTrue (aUnmodifiableSet.contains ("Hallo"));
     assertTrue (aUnmodifiableSet.contains ("Welt"));
 
-    aUnmodifiableSet = newUnmodifiableSortedSet (IterableIterator.create (new ArrayList <String> ()));
+    aUnmodifiableSet = newUnmodifiableSortedSet (new IterableIterator <> (new ArrayList <String> ()));
     assertNotNull (aUnmodifiableSet);
     assertEquals (0, aUnmodifiableSet.size ());
   }
@@ -1595,13 +1595,13 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testNewOrderedSetIIterableIterator ()
   {
-    Set <String> aOrderedSet = newOrderedSet (IterableIterator.create (newList ("Hallo", "Welt")));
+    Set <String> aOrderedSet = newOrderedSet (new IterableIterator <> (newList ("Hallo", "Welt")));
     assertNotNull (aOrderedSet);
     assertEquals (2, aOrderedSet.size ());
     assertTrue (aOrderedSet.contains ("Hallo"));
     assertTrue (aOrderedSet.contains ("Welt"));
 
-    aOrderedSet = newOrderedSet (IterableIterator.create (new ArrayList <String> ()));
+    aOrderedSet = newOrderedSet (new IterableIterator <> (new ArrayList <String> ()));
     assertNotNull (aOrderedSet);
     assertEquals (0, aOrderedSet.size ());
   }
@@ -1700,14 +1700,14 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testNewUnmodifiableOrderedSetIIterableIterator ()
   {
-    Set <String> aUnmodifiableOrderedSet = newUnmodifiableOrderedSet (IterableIterator.create (newList ("Hallo",
+    Set <String> aUnmodifiableOrderedSet = newUnmodifiableOrderedSet (new IterableIterator <> (newList ("Hallo",
                                                                                                         "Welt")));
     assertNotNull (aUnmodifiableOrderedSet);
     assertEquals (2, aUnmodifiableOrderedSet.size ());
     assertTrue (aUnmodifiableOrderedSet.contains ("Hallo"));
     assertTrue (aUnmodifiableOrderedSet.contains ("Welt"));
 
-    aUnmodifiableOrderedSet = newUnmodifiableOrderedSet (IterableIterator.create (new ArrayList <String> ()));
+    aUnmodifiableOrderedSet = newUnmodifiableOrderedSet (new IterableIterator <> (new ArrayList <String> ()));
     assertNotNull (aUnmodifiableOrderedSet);
     assertEquals (0, aUnmodifiableOrderedSet.size ());
   }
@@ -1887,7 +1887,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   {
     final List <String> aSource = newList ("Hallo", "Welt", "from", "Vienna");
 
-    List <String> aList = newList (IterableIterator.create (aSource));
+    List <String> aList = newList (new IterableIterator <> (aSource));
     assertNotNull (aList);
     assertEquals (4, aList.size ());
     assertTrue (aList.contains ("Hallo"));
@@ -1895,7 +1895,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aList.contains ("from"));
     assertTrue (aList.contains ("Vienna"));
 
-    aList = newList (IterableIterator.create (new ArrayList <String> ()));
+    aList = newList (new IterableIterator <> (new ArrayList <String> ()));
     assertNotNull (aList);
 
     aList = newList ((IIterableIterator <String>) null);
@@ -2026,7 +2026,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   {
     final List <String> aSource = newUnmodifiableList ("Hallo", "Welt", "from", "Vienna");
 
-    List <String> aUnmodifiableList = newUnmodifiableList (IterableIterator.create (aSource));
+    List <String> aUnmodifiableList = newUnmodifiableList (new IterableIterator <> (aSource));
     assertNotNull (aUnmodifiableList);
     assertEquals (4, aUnmodifiableList.size ());
     assertTrue (aUnmodifiableList.contains ("Hallo"));
@@ -2034,7 +2034,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aUnmodifiableList.contains ("from"));
     assertTrue (aUnmodifiableList.contains ("Vienna"));
 
-    aUnmodifiableList = newUnmodifiableList (IterableIterator.create (new ArrayList <String> ()));
+    aUnmodifiableList = newUnmodifiableList (new IterableIterator <> (new ArrayList <String> ()));
     assertNotNull (aUnmodifiableList);
 
     aUnmodifiableList = newUnmodifiableList ((IIterableIterator <String>) null);
@@ -2106,14 +2106,14 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertNotNull (getSorted ((IIterableIterator <String>) null));
 
     final List <String> aList = newList ("d", "c", "b", "a");
-    List <String> aSorted = getSorted (IterableIterator.create (aList));
+    List <String> aSorted = getSorted (new IterableIterator <> (aList));
     assertEquals (aSorted.size (), 4);
     assertEquals (aSorted.get (0), "a");
     assertEquals (aSorted.get (1), "b");
     assertEquals (aSorted.get (2), "c");
     assertEquals (aSorted.get (3), "d");
 
-    aSorted = getSorted (IterableIterator.create (aList), ISerializableComparator.getComparatorCollating (Locale.US));
+    aSorted = getSorted (new IterableIterator <> (aList), ISerializableComparator.getComparatorCollating (Locale.US));
     assertEquals (aSorted.size (), 4);
     assertEquals (aSorted.get (0), "a");
     assertEquals (aSorted.get (1), "b");
