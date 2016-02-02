@@ -190,7 +190,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   public final int getLevel ()
   {
     int ret = 0;
-    ITEMTYPE aItem = GenericReflection.uncheckedCast (this);
+    ITEMTYPE aItem = thisAsT ();
     while (aItem.getParent () != null)
     {
       ++ret;

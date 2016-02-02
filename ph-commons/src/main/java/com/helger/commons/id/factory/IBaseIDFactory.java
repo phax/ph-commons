@@ -16,16 +16,18 @@
  */
 package com.helger.commons.id.factory;
 
+import java.io.Serializable;
+
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 
 /**
  * Base marker interface for all ID factories. It's only sense is to group all
- * ID factories with the different types
+ * ID factories with the different types.
  *
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IBaseIDFactory
+public interface IBaseIDFactory extends Serializable
 {
   /* empty */
 }

@@ -47,5 +47,8 @@ public interface IHasReadOnlyAttributes <KEYTYPE, VALUETYPE>
    */
   @Nonnull
   @ReturnsMutableCopy
-  Map <KEYTYPE, VALUETYPE> getAllAttributes ();
+  default Map <KEYTYPE, VALUETYPE> getAllAttributes ()
+  {
+    return getAttributes ().getAllAttributes ();
+  }
 }

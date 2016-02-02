@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
  * @param <DATATYPE>
  *        The data type to be visited
  */
+@FunctionalInterface
 public interface IHierarchyVisitor <DATATYPE>
 {
   /**

@@ -22,12 +22,12 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.function.Function;
 
 import org.junit.Test;
 
-import com.helger.commons.convert.ConverterStringInteger;
-import com.helger.commons.convert.IConverter;
 import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.string.StringParser;
 
 /**
  * Test class for {@link ArrayHelper}
@@ -39,7 +39,7 @@ public final class ArrayConversionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testNewArrayFromCollectionWithConverter ()
   {
-    final IConverter <String, Integer> conv = new ConverterStringInteger (null);
+    final Function <String, Integer> conv = StringParser::parseIntObj;
 
     Integer [] x = ArrayConversionHelper.newArray (CollectionHelper.newList ("1", "2", "3"), conv, Integer.class);
     assertNotNull (x);
@@ -83,7 +83,7 @@ public final class ArrayConversionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testNewArrayFromArrayWithConverter ()
   {
-    final IConverter <String, Integer> conv = new ConverterStringInteger (null);
+    final Function <String, Integer> conv = StringParser::parseIntObj;
 
     Integer [] x = ArrayConversionHelper.newArray (new String [] { "1", "2", "3" }, conv, Integer.class);
     assertNotNull (x);
@@ -125,7 +125,7 @@ public final class ArrayConversionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testConvert ()
   {
-    final IConverter <String, Integer> conv = new ConverterStringInteger (null);
+    final Function <String, Integer> conv = StringParser::parseIntObj;
 
     final Integer [] dst = ArrayConversionHelper.newArray (new String [] { "2", "4", "6" }, conv, Integer.class);
     assertNotNull (dst);

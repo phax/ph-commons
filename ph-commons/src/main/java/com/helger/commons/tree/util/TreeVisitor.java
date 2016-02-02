@@ -125,7 +125,7 @@ public final class TreeVisitor
   public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTreeData (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                      @Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback)
   {
-    visitTreeData (aTree, new ChildrenProviderHasChildren <ITEMTYPE> (), aDataCallback);
+    visitTreeData (aTree, new ChildrenProviderHasChildren <> (), aDataCallback);
   }
 
   public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTreeData (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
@@ -155,7 +155,7 @@ public final class TreeVisitor
   public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTreeItemData (@Nonnull final ITEMTYPE aTreeItem,
                                                                                                          @Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback)
   {
-    visitTreeItemData (aTreeItem, new ChildrenProviderHasChildren <ITEMTYPE> (), aDataCallback);
+    visitTreeItemData (aTreeItem, new ChildrenProviderHasChildren <> (), aDataCallback);
   }
 
   public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTreeItemData (@Nonnull final ITEMTYPE aTreeItem,
@@ -167,7 +167,6 @@ public final class TreeVisitor
     // Wrap callback
     visitTreeItem (aTreeItem,
                    aChildrenProvider,
-                   new HierarchyVisitorCallbackWithConversion <ITEMTYPE, DATATYPE> (aDataCallback,
-                                                                                    aSource -> aSource.getData ()));
+                   new HierarchyVisitorCallbackWithConversion <> (aDataCallback, aSource -> aSource.getData ()));
   }
 }

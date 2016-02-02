@@ -31,7 +31,6 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.hierarchy.IHasParent;
 import com.helger.commons.hierarchy.IParentProvider;
-import com.helger.commons.hierarchy.ParentProviderHasParent;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 import com.helger.commons.tree.withid.DefaultTreeWithID;
@@ -173,7 +172,7 @@ public final class TreeWithIDBuilder
   {
     ValueEnforcer.notNull (aAll, "All");
 
-    return buildTree (aAll, new ParentProviderHasParent <DATATYPE> ());
+    return buildTree (aAll, IParentProvider.parentProviderHasParent ());
   }
 
   private static <KEYTYPE, DATATYPE extends IHasID <KEYTYPE>> void _buildTreeRecursive (@Nullable final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aParentItem,

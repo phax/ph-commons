@@ -31,7 +31,6 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.ToStringGenerator;
@@ -61,7 +60,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   private DATATYPE m_aData;
 
   // child list
-  private List <ITEMTYPE> m_aChildren = null;
+  private List <ITEMTYPE> m_aChildren;
 
   /**
    * Constructor for root object.
@@ -149,19 +148,13 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   public final int getLevel ()
   {
     int ret = 0;
-    ITEMTYPE aItem = GenericReflection.uncheckedCast (this);
+    ITEMTYPE aItem = thisAsT ();
     while (aItem.getParent () != null)
     {
       ++ret;
       aItem = aItem.getParent ();
     }
     return ret;
-  }
-
-  @Nonnull
-  private ITEMTYPE _asT (@Nonnull final BasicTreeItem <DATATYPE, ITEMTYPE> aItem)
-  {
-    return GenericReflection.uncheckedCast (aItem);
   }
 
   /**
@@ -176,7 +169,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   public final ITEMTYPE createChildItem (@Nullable final DATATYPE aData)
   {
     // create new item
-    final ITEMTYPE aItem = m_aFactory.create (_asT (this));
+    final ITEMTYPE aItem = m_aFactory.create (thisAsT ());
     if (aItem == null)
       throw new IllegalStateException ("null item created!");
     aItem.setData (aData);
@@ -260,7 +253,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
       return ESuccess.SUCCESS;
 
     // cannot make a child of this, this' new parent.
-    final ITEMTYPE aThis = _asT (this);
+    final ITEMTYPE aThis = thisAsT ();
     if (aNewParent.isSameOrChildOf (aThis))
       return ESuccess.FAILURE;
 
@@ -296,7 +289,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   public final void reorderChildItems (@Nonnull final Comparator <? super ITEMTYPE> aComparator)
   {
     if (m_aChildren != null)
-      m_aChildren = CollectionHelper.getSorted (m_aChildren, aComparator);
+      m_aChildren.sort (aComparator);
   }
 
   @Override

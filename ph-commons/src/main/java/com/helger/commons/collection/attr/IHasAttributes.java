@@ -18,6 +18,7 @@ package com.helger.commons.collection.attr;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableObject;
 
 /**
@@ -31,6 +32,13 @@ import com.helger.commons.annotation.ReturnsMutableObject;
  */
 public interface IHasAttributes <KEYTYPE, VALUETYPE> extends IHasReadOnlyAttributes <KEYTYPE, VALUETYPE>
 {
+  @Nonnull
+  @ReturnsImmutableObject
+  default IAttributeContainer <KEYTYPE, VALUETYPE> getAttributes ()
+  {
+    return getMutableAttributes ();
+  }
+
   /**
    * @return The mutable attribute container. Never <code>null</code>.
    */

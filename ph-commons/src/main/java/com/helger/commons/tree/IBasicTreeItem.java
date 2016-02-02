@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.hierarchy.IHasChildrenSorted;
 import com.helger.commons.hierarchy.IHasParent;
 import com.helger.commons.state.ESuccess;
+import com.helger.commons.traits.IGenericImplTrait;
 
 /**
  * Base interface both for normal tree items and tree items with ID.
@@ -36,7 +37,7 @@ import com.helger.commons.state.ESuccess;
  *        tree item type
  */
 public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>>
-                                extends IHasParent <ITEMTYPE>, IHasChildrenSorted <ITEMTYPE>
+                                extends IHasParent <ITEMTYPE>, IHasChildrenSorted <ITEMTYPE>, IGenericImplTrait <ITEMTYPE>
 {
   /**
    * @return the data associated with this node. May be <code>null</code>.

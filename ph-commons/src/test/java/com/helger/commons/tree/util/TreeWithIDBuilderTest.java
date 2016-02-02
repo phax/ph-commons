@@ -30,7 +30,6 @@ import com.helger.commons.hierarchy.IParentProvider;
 import com.helger.commons.hierarchy.MockChildrenProvider;
 import com.helger.commons.hierarchy.MockHasChildren;
 import com.helger.commons.hierarchy.MockHasParent;
-import com.helger.commons.hierarchy.ParentProviderHasParent;
 import com.helger.commons.id.MockHasIDString;
 import com.helger.commons.tree.withid.DefaultTreeWithID;
 
@@ -41,14 +40,6 @@ import com.helger.commons.tree.withid.DefaultTreeWithID;
  */
 public final class TreeWithIDBuilderTest
 {
-  public static final class ParentProviderMockHasIDString implements IParentProvider <MockHasIDString>
-  {
-    public MockHasIDString getParent (final MockHasIDString aCurrent)
-    {
-      return null;
-    }
-  }
-
   @Test
   public void testBuildFromParent ()
   {
@@ -93,7 +84,7 @@ public final class TreeWithIDBuilderTest
     {}
     try
     {
-      TreeWithIDBuilder.buildTree ((Collection <MockHasParent>) null, new ParentProviderHasParent <MockHasParent> ());
+      TreeWithIDBuilder.buildTree ((Collection <MockHasParent>) null, IParentProvider.parentProviderHasParent ());
       fail ();
     }
     catch (final NullPointerException ex)
@@ -129,7 +120,7 @@ public final class TreeWithIDBuilderTest
   public void testBuildTreeFromIHasID ()
   {
     final MockHasIDString [] x = new MockHasIDString [0];
-    final IParentProvider <MockHasIDString> pp = new ParentProviderMockHasIDString ();
+    final IParentProvider <MockHasIDString> pp = o -> null;
     final DefaultTreeWithID <String, MockHasIDString> aTree = TreeWithIDBuilder.buildTree (x, pp);
     assertNotNull (aTree);
 
