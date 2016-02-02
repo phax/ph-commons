@@ -21,6 +21,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.equals.EqualsHelper;
 
 /**
  * Extensions for the default JUnit assertions.
@@ -102,5 +103,23 @@ public final class CommonsAssert
 
     for (int i = 0; i < x.length; ++i)
       assertEquals ("Element [" + i + "] mismatch", x[i], y[i]);
+  }
+
+  public static void assertEquals (final Object x, final Object y)
+  {
+    assertEquals ((String) null, x, y);
+  }
+
+  public static void assertEquals (@Nullable final String sUserMsg, final Object x, final Object y)
+  {
+    // Do not call MathHelper.abs in here, because this class should be as close
+    // to the runtime as possible!
+    if (!EqualsHelper.equals (x, y))
+      throw new IllegalArgumentException ("<" +
+                                          x +
+                                          "> is not equal to <" +
+                                          y +
+                                          ">" +
+                                          (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
   }
 }
