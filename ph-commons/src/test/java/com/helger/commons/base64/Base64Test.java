@@ -39,6 +39,7 @@ import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+import com.helger.commons.lang.priviledged.IPrivilegedAction;
 
 /**
  * Test class for class {@link Base64}.<br>
@@ -107,7 +108,10 @@ public final class Base64Test
     final String sEncoded = Base64.encodeObject (aSource);
     TestSerializable aDest = (TestSerializable) Base64.decodeToObject (sEncoded);
     assertEquals (aSource, aDest);
-    aDest = (TestSerializable) Base64.decodeToObject (sEncoded, Base64.NO_OPTIONS, Base64Test.class.getClassLoader ());
+    aDest = (TestSerializable) Base64.decodeToObject (sEncoded,
+                                                      Base64.NO_OPTIONS,
+                                                      IPrivilegedAction.getClassLoader (Base64Test.class)
+                                                                       .invokeSafe ());
     assertEquals (aSource, aDest);
   }
 
@@ -118,7 +122,10 @@ public final class Base64Test
     final String sEncoded = Base64.encodeObject (aSource, Base64.GZIP);
     TestSerializable aDest = (TestSerializable) Base64.decodeToObject (sEncoded);
     assertEquals (aSource, aDest);
-    aDest = (TestSerializable) Base64.decodeToObject (sEncoded, Base64.NO_OPTIONS, Base64Test.class.getClassLoader ());
+    aDest = (TestSerializable) Base64.decodeToObject (sEncoded,
+                                                      Base64.NO_OPTIONS,
+                                                      IPrivilegedAction.getClassLoader (Base64Test.class)
+                                                                       .invokeSafe ());
     assertEquals (aSource, aDest);
   }
 

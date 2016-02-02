@@ -21,20 +21,19 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import com.helger.commons.lang.priviledged.AccessControllerHelper;
-import com.helger.commons.lang.priviledged.PrivilegedActionAccessibleObjectSetAccessible;
+import com.helger.commons.lang.priviledged.IPrivilegedAction;
 
 public class MainJavaCreateNewEnum
 {
   public enum Day
   {
-   MON,
-   TUE,
-   WED,
-   TH,
-   FRI,
-   SAT,
-   SUN
+    MON,
+    TUE,
+    WED,
+    TH,
+    FRI,
+    SAT,
+    SUN
   }
 
   public static void main (final String [] args) throws IllegalArgumentException,
@@ -49,7 +48,7 @@ public class MainJavaCreateNewEnum
     {
       if (m.getName ().equals ("acquireConstructorAccessor"))
       {
-        AccessControllerHelper.run (new PrivilegedActionAccessibleObjectSetAccessible (m));
+        IPrivilegedAction.setAccessible (m).invokeSafe ();
         m.invoke (con, new Object [0]);
       }
     }
@@ -59,14 +58,14 @@ public class MainJavaCreateNewEnum
     {
       if (f.getName ().equals ("constructorAccessor"))
       {
-        AccessControllerHelper.run (new PrivilegedActionAccessibleObjectSetAccessible (f));
+        IPrivilegedAction.setAccessible (f).invokeSafe ();
         ca = f.get (con);
       }
     }
     if (ca == null)
       throw new IllegalStateException ();
     final Method m = ca.getClass ().getMethod ("newInstance", new Class [] { Object [].class });
-    AccessControllerHelper.run (new PrivilegedActionAccessibleObjectSetAccessible (m));
+    IPrivilegedAction.setAccessible (m).invokeSafe ();
     final Day v = (Day) m.invoke (ca, new Object [] { new Object [] { "VACATION", Integer.valueOf (4711) } });
     System.out.println (v.getClass () + ":" + v.name () + ":" + v.ordinal ());
   }

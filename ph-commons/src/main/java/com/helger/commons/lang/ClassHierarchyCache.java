@@ -59,8 +59,8 @@ public final class ClassHierarchyCache
       ValueEnforcer.notNull (aClass, "Class");
 
       // Check the whole class hierarchy of the source class
-      final Set <Class <?>> aUniqueOrderedClasses = new LinkedHashSet <Class <?>> ();
-      final List <Class <?>> aOpenSrc = new ArrayList <Class <?>> ();
+      final Set <Class <?>> aUniqueOrderedClasses = new LinkedHashSet <> ();
+      final List <Class <?>> aOpenSrc = new ArrayList <> ();
       aOpenSrc.add (aClass);
       while (!aOpenSrc.isEmpty ())
       {

@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Constructor;
-import java.security.AccessController;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
@@ -42,7 +41,7 @@ import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.exception.LoggedRuntimeException;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.lang.priviledged.PrivilegedActionAccessibleObjectSetAccessible;
+import com.helger.commons.lang.priviledged.IPrivilegedAction;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.scope.IScope;
 import com.helger.commons.scope.IScopeDestructionAware;
@@ -458,7 +457,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
       // Ubuntu: java.security.AccessControlException: access denied
       // (java.lang.reflect.ReflectPermission suppressAccessChecks)
       if (false)
-        AccessController.doPrivileged (new PrivilegedActionAccessibleObjectSetAccessible (aCtor));
+        IPrivilegedAction.setAccessible (aCtor).invokeSafe ();
 
       // Invoke default ctor
       final T ret = aCtor.newInstance ((Object []) null);

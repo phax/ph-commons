@@ -19,7 +19,6 @@ package com.helger.commons.lang;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.security.AccessController;
 import java.util.Enumeration;
 
 import javax.annotation.Nonnull;
@@ -30,11 +29,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.priviledged.PrivilegedActionClassLoaderGetParent;
-import com.helger.commons.lang.priviledged.PrivilegedActionGetClassLoader;
-import com.helger.commons.lang.priviledged.PrivilegedActionGetContextClassLoader;
-import com.helger.commons.lang.priviledged.PrivilegedActionGetSystemClassLoader;
-import com.helger.commons.lang.priviledged.PrivilegedActionSetContextClassLoader;
+import com.helger.commons.lang.priviledged.IPrivilegedAction;
 
 /**
  * {@link ClassLoader} utility methods.
@@ -50,56 +45,33 @@ public final class ClassLoaderHelper
   private ClassLoaderHelper ()
   {}
 
-  private static boolean _hasNoSecurityManager ()
-  {
-    return System.getSecurityManager () == null;
-  }
-
   @Nonnull
   public static ClassLoader getSystemClassLoader ()
   {
-    if (_hasNoSecurityManager ())
-      return ClassLoader.getSystemClassLoader ();
-
-    return AccessController.doPrivileged (new PrivilegedActionGetSystemClassLoader ());
+    return IPrivilegedAction.getSystemClassLoader ().invokeSafe ();
   }
 
   @Nonnull
   public static ClassLoader getContextClassLoader ()
   {
-    if (_hasNoSecurityManager ())
-      return Thread.currentThread ().getContextClassLoader ();
-
-    return AccessController.doPrivileged (new PrivilegedActionGetContextClassLoader ());
+    return IPrivilegedAction.getContextClassLoader ().invokeSafe ();
   }
 
   public static void setContextClassLoader (final ClassLoader aClassLoader)
   {
-    ValueEnforcer.notNull (aClassLoader, "ClassLoader");
-    if (_hasNoSecurityManager ())
-      Thread.currentThread ().setContextClassLoader (aClassLoader);
-
-    AccessController.doPrivileged (new PrivilegedActionSetContextClassLoader (aClassLoader));
+    IPrivilegedAction.setContextClassLoader (aClassLoader).invokeSafe ();
   }
 
   @Nonnull
   public static ClassLoader getClassClassLoader (@Nonnull final Class <?> aClass)
   {
-    ValueEnforcer.notNull (aClass, "Class");
-    if (_hasNoSecurityManager ())
-      return aClass.getClassLoader ();
-
-    return AccessController.doPrivileged (new PrivilegedActionGetClassLoader (aClass));
+    return IPrivilegedAction.getClassLoader (aClass).invokeSafe ();
   }
 
   @Nonnull
   public static ClassLoader getParentClassLoader (@Nonnull final ClassLoader aClassLoader)
   {
-    ValueEnforcer.notNull (aClassLoader, "ClassLoader");
-    if (_hasNoSecurityManager ())
-      return aClassLoader.getParent ();
-
-    return AccessController.doPrivileged (new PrivilegedActionClassLoaderGetParent (aClassLoader));
+    return IPrivilegedAction.classLoaderGetParent (aClassLoader).invokeSafe ();
   }
 
   @Nonnull

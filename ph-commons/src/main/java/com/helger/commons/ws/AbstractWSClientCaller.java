@@ -42,6 +42,7 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
 import com.helger.commons.lang.ClassLoaderHelper;
+import com.helger.commons.lang.priviledged.IPrivilegedAction;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
@@ -488,7 +489,7 @@ public abstract class AbstractWSClientCaller
 
   /**
    * Add custom properties to the request context.
-   * 
+   *
    * @param aRequestContext
    *        The request context to be filled. Never <code>null</code>.
    */
@@ -577,7 +578,7 @@ public abstract class AbstractWSClientCaller
       // MASM0003: Default [ jaxws-tubes-default.xml ] configuration file was
       // not loaded
       final ClassLoader aContextClassLoader = ClassLoaderHelper.getContextClassLoader ();
-      final ClassLoader aThisClassLoader = getClass ().getClassLoader ();
+      final ClassLoader aThisClassLoader = IPrivilegedAction.getClassLoader (getClass ()).invokeSafe ();
       if (aContextClassLoader == null)
       {
         s_aLogger.info ("Manually setting thread context class loader to work around MASM0003 bug");

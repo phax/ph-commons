@@ -33,11 +33,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.lang.priviledged.AccessControllerHelper;
-import com.helger.commons.lang.priviledged.PrivilegedActionSystemClearProperty;
-import com.helger.commons.lang.priviledged.PrivilegedActionSystemGetProperties;
-import com.helger.commons.lang.priviledged.PrivilegedActionSystemGetProperty;
-import com.helger.commons.lang.priviledged.PrivilegedActionSystemSetProperty;
+import com.helger.commons.lang.priviledged.IPrivilegedAction;
 
 /**
  * This class wraps all the Java system properties like version number etc.
@@ -90,7 +86,7 @@ public final class SystemProperties
   @Nullable
   public static String getPropertyValueOrNull (@Nullable final String sKey)
   {
-    return sKey == null ? null : AccessControllerHelper.call (new PrivilegedActionSystemGetProperty (sKey));
+    return sKey == null ? null : IPrivilegedAction.systemGetProperty (sKey).invokeSafe ();
   }
 
   @Nullable
@@ -158,7 +154,7 @@ public final class SystemProperties
     if (sValue == null)
       removePropertyValue (sKey);
     else
-      AccessControllerHelper.run (new PrivilegedActionSystemSetProperty (sKey, sValue));
+      IPrivilegedAction.systemSetProperty (sKey, sValue).invokeSafe ();
   }
 
   /**
@@ -174,7 +170,7 @@ public final class SystemProperties
   @Nullable
   public static String removePropertyValue (@Nonnull final String sKey)
   {
-    return AccessControllerHelper.call (new PrivilegedActionSystemClearProperty (sKey));
+    return IPrivilegedAction.systemClearProperty (sKey).invokeSafe ();
   }
 
   @Nullable
@@ -358,8 +354,8 @@ public final class SystemProperties
   @ReturnsMutableCopy
   public static Map <String, String> getAllProperties ()
   {
-    final Map <String, String> ret = new HashMap <String, String> ();
-    final Properties aProperties = AccessControllerHelper.call (new PrivilegedActionSystemGetProperties ());
+    final Map <String, String> ret = new HashMap <> ();
+    final Properties aProperties = IPrivilegedAction.systemGetProperties ().invokeSafe ();
     if (aProperties != null)
       for (final Map.Entry <Object, Object> aEntry : aProperties.entrySet ())
       {

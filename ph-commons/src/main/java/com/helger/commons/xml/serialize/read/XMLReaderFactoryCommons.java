@@ -28,7 +28,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.priviledged.PrivilegedActionSystemGetProperty;
+import com.helger.commons.lang.ClassLoaderHelper;
+import com.helger.commons.system.SystemProperties;
 
 /**
  * Factory for creating an XML reader. <blockquote>
@@ -80,17 +81,10 @@ public final class XMLReaderFactoryCommons
   {
     ClassLoader getContextClassLoader () throws SecurityException
     {
-      return AccessController.doPrivileged ((PrivilegedAction <ClassLoader>) () -> {
-        ClassLoader cl = Thread.currentThread ().getContextClassLoader ();
-        if (cl == null)
-          cl = ClassLoader.getSystemClassLoader ();
-        return cl;
-      });
-    }
-
-    String getSystemProperty (final String propName)
-    {
-      return AccessController.doPrivileged (new PrivilegedActionSystemGetProperty (propName));
+      ClassLoader cl = ClassLoaderHelper.getContextClassLoader ();
+      if (cl == null)
+        cl = ClassLoaderHelper.getSystemClassLoader ();
+      return cl;
     }
 
     @SuppressWarnings ("resource")
@@ -215,7 +209,7 @@ public final class XMLReaderFactoryCommons
       // 1. try the JVM-instance-wide system property
       try
       {
-        className = s_aSecuritySupport.getSystemProperty (PROPERTY_NAME);
+        className = SystemProperties.getPropertyValue (PROPERTY_NAME);
         if (className != null)
           s_sPreviouslyReadClassname = className;
       }
