@@ -42,7 +42,11 @@ public abstract class AbstractHasText implements IHasText
    * @return The locale to use. May be <code>null</code>.
    */
   @Nullable
-  protected abstract Locale internalGetLocaleToUseWithFallback (@Nonnull Locale aContentLocale);
+  protected Locale internalGetLocaleToUseWithFallback (@Nonnull final Locale aContentLocale)
+  {
+    // No fallback handling vy default
+    return aContentLocale;
+  }
 
   /**
    * Main text resolving. Get the text in the passed locale.

@@ -58,7 +58,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
   public AbstractReadOnlyMapBasedMultilingualText ()
   {
     // Use a HashMap by default
-    this (new HashMap <Locale, String> ());
+    this (new HashMap <> ());
   }
 
   /**

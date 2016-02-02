@@ -45,13 +45,6 @@ public class ConstantHasText extends AbstractHasText
   }
 
   @Override
-  protected Locale internalGetLocaleToUseWithFallback (@Nonnull final Locale aContentLocale)
-  {
-    // No fallback handling needed
-    return aContentLocale;
-  }
-
-  @Override
   @Nullable
   protected String internalGetText (@Nonnull final Locale aContentLocale)
   {

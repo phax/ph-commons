@@ -70,5 +70,4 @@ public interface IHasTextWithArgs extends IHasText
     final String sText = getText (aContentLocale);
     return TextHelper.getFormattedText (sText, aArgs);
   }
-
 }

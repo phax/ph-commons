@@ -50,15 +50,15 @@ public interface IDisplayTextProvider <DATATYPE> extends Serializable
   String getDisplayText (@Nullable DATATYPE aObject, @Nonnull Locale aContentLocale);
 
   @Nonnull
-  static IDisplayTextProvider <IHasDisplayText> createHasDisplayText ()
-  {
-    return (aObject, aContentLocale) -> aObject == null ? null : aObject.getDisplayText (aContentLocale);
-  }
-
-  @Nonnull
   default Comparator <DATATYPE> getComparatorCollating (@Nonnull final Locale aContentLocale,
                                                         @Nullable final Locale aSortLocale)
   {
     return IComparator.getComparatorCollating (aObject -> getDisplayText (aObject, aContentLocale), aSortLocale);
+  }
+
+  @Nonnull
+  static IDisplayTextProvider <IHasDisplayText> createHasDisplayText ()
+  {
+    return (aObject, aContentLocale) -> aObject == null ? null : aObject.getDisplayText (aContentLocale);
   }
 }

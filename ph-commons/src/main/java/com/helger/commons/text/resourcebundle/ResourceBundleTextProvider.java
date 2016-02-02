@@ -48,13 +48,6 @@ public class ResourceBundleTextProvider extends AbstractHasText implements IHasT
 
   @Override
   @Nullable
-  protected Locale internalGetLocaleToUseWithFallback (@Nullable final Locale aContentLocale)
-  {
-    return aContentLocale;
-  }
-
-  @Override
-  @Nullable
   protected String internalGetText (@Nonnull final Locale aContentLocale)
   {
     return m_aResBundleKey.getString (aContentLocale);

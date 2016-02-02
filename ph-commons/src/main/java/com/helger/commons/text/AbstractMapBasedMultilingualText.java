@@ -45,7 +45,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
                                                        implements IMutableMultilingualText
 {
   /** A list of callback upon change. */
-  private final CallbackList <IChangeCallback <IMutableMultilingualText>> m_aChangeNotifyCallbacks = new CallbackList <IChangeCallback <IMutableMultilingualText>> ();
+  private final CallbackList <IChangeCallback <IMutableMultilingualText>> m_aChangeNotifyCallbacks = new CallbackList <> ();
 
   public AbstractMapBasedMultilingualText ()
   {}
