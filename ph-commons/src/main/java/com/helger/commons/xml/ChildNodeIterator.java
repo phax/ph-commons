@@ -16,7 +16,6 @@
  */
 package com.helger.commons.xml;
 
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import javax.annotation.Nonnull;
@@ -25,7 +24,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -68,18 +66,6 @@ public class ChildNodeIterator implements IIterableIterator <Node>
     final Node ret = m_aNL.item (m_nIndex);
     ++m_nIndex;
     return ret;
-  }
-
-  @UnsupportedOperation
-  public void remove ()
-  {
-    throw new UnsupportedOperationException ();
-  }
-
-  @Nonnull
-  public Iterator <Node> iterator ()
-  {
-    return this;
   }
 
   @Override

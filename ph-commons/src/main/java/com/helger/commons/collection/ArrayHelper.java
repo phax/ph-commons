@@ -3980,6 +3980,42 @@ public final class ArrayHelper
     return ret;
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, DSTTYPE> DSTTYPE [] newArrayMapped (@Nonnull final Collection <? extends SRCTYPE> aList,
+                                                              @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                              @Nonnull final Class <DSTTYPE> aDstClass)
+  {
+    ValueEnforcer.notNull (aList, "List");
+    ValueEnforcer.notNull (aMapper, "Converter");
+    ValueEnforcer.notNull (aDstClass, "DestClass");
+
+    final DSTTYPE [] ret = ArrayHelper.newArray (aDstClass, aList.size ());
+    int i = 0;
+    for (final SRCTYPE aObj : aList)
+      ret[i++] = aMapper.apply (aObj);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, DSTTYPE> DSTTYPE [] newArrayMapped (@Nullable final SRCTYPE [] aArray,
+                                                              @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                              @Nonnull final Class <DSTTYPE> aDstClass)
+  {
+    ValueEnforcer.notNull (aMapper, "Converter");
+    ValueEnforcer.notNull (aDstClass, "DestClass");
+
+    final DSTTYPE [] ret = ArrayHelper.newArray (aDstClass, ArrayHelper.getSize (aArray));
+    if (aArray != null)
+    {
+      int i = 0;
+      for (final SRCTYPE aObj : aArray)
+        ret[i++] = aMapper.apply (aObj);
+    }
+    return ret;
+  }
+
   /**
    * Get the passed collection as an array of Object. If the passed collection
    * is <code>null</code> or empty, an empty array is returned.
@@ -4138,18 +4174,18 @@ public final class ArrayHelper
 
   @SuppressWarnings ("null")
   @Nullable
-  public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirst (@Nullable final ELEMENTTYPE [] aArray,
-                                                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                          @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
+  public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirstMapped (@Nullable final ELEMENTTYPE [] aArray,
+                                                                @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                                @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
   {
-    return findFirst (aArray, aFilter, aMapper, (RETTYPE) null);
+    return findFirstMapped (aArray, aFilter, aMapper, (RETTYPE) null);
   }
 
   @Nullable
-  public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirst (@Nullable final ELEMENTTYPE [] aArray,
-                                                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                          @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper,
-                                                          @Nullable final RETTYPE aDefault)
+  public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirstMapped (@Nullable final ELEMENTTYPE [] aArray,
+                                                                @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                                @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper,
+                                                                @Nullable final RETTYPE aDefault)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
 
@@ -4184,9 +4220,9 @@ public final class ArrayHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE, RETTYPE> List <RETTYPE> getAll (@Nullable final ELEMENTTYPE [] aArray,
-                                                              @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                              @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
+  public static <ELEMENTTYPE, RETTYPE> List <RETTYPE> getAllMapped (@Nullable final ELEMENTTYPE [] aArray,
+                                                                    @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                                    @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
     if (aFilter == null)

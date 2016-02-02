@@ -17,13 +17,10 @@
 package com.helger.commons.collection.iterate;
 
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -53,18 +50,6 @@ public class IterableIteratorFromEnumeration <ELEMENTTYPE> implements IIterableI
     if (!hasNext ())
       throw new NoSuchElementException ();
     return m_aEnum.nextElement ();
-  }
-
-  @UnsupportedOperation
-  public void remove ()
-  {
-    throw new UnsupportedOperationException ();
-  }
-
-  @Nonnull
-  public Iterator <ELEMENTTYPE> iterator ()
-  {
-    return this;
   }
 
   @Override

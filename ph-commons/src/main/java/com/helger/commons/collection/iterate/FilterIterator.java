@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -131,18 +130,6 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
     final ELEMENTTYPE aRet = m_aCurrent;
     _gotoNextCurrent ();
     return aRet;
-  }
-
-  @UnsupportedOperation
-  public void remove ()
-  {
-    throw new UnsupportedOperationException ();
-  }
-
-  @Nonnull
-  public Iterator <ELEMENTTYPE> iterator ()
-  {
-    return this;
   }
 
   // equals and hashCode wont work, because standard Java iterators don't

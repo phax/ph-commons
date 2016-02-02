@@ -17,14 +17,12 @@
 package com.helger.commons.microdom.util;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.microdom.IMicroNode;
 
@@ -35,7 +33,7 @@ import com.helger.commons.microdom.IMicroNode;
  */
 public class MicroRecursiveIterator implements IIterableIterator <IMicroNode>
 {
-  private final List <IMicroNode> m_aOpen = new ArrayList <IMicroNode> ();
+  private final List <IMicroNode> m_aOpen = new ArrayList <> ();
 
   public MicroRecursiveIterator (@Nonnull final IMicroNode aNode)
   {
@@ -57,17 +55,5 @@ public class MicroRecursiveIterator implements IIterableIterator <IMicroNode>
     if (ret.hasChildren ())
       m_aOpen.addAll (0, ret.getAllChildren ());
     return ret;
-  }
-
-  @UnsupportedOperation
-  public void remove ()
-  {
-    throw new UnsupportedOperationException ();
-  }
-
-  @Nonnull
-  public Iterator <IMicroNode> iterator ()
-  {
-    return this;
   }
 }

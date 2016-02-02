@@ -17,7 +17,6 @@
 package com.helger.commons.collection;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -25,7 +24,6 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
@@ -374,28 +372,5 @@ public final class ContainerConversionHelperTest extends AbstractCommonsTestCase
     assertEquals (aSorted.get (1), Integer.valueOf (3));
     assertEquals (aSorted.get (2), Integer.valueOf (5));
     assertEquals (aSorted.get (3), Integer.valueOf (6));
-  }
-
-  @Test
-  public void testGetIteratorWithConversion ()
-  {
-    final Iterator <Integer> it = ContainerConversionHelper.getIterator (CollectionHelper.newList ("100", "-25"),
-                                                                         StringParser::parseIntObj);
-    assertNotNull (it);
-    assertTrue (it.hasNext ());
-    assertEquals (Integer.valueOf (100), it.next ());
-    assertTrue (it.hasNext ());
-    assertEquals (Integer.valueOf (-25), it.next ());
-    assertFalse (it.hasNext ());
-
-    try
-    {
-      it.next ();
-      fail ();
-    }
-    catch (final NoSuchElementException ex)
-    {}
-
-    it.remove ();
   }
 }

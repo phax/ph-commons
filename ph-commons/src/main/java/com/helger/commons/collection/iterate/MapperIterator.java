@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -36,12 +35,12 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <ELEMENTTYPE>
  *        The type of this iterator
  */
-public class ConvertIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator <ELEMENTTYPE>
+public class MapperIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator <ELEMENTTYPE>
 {
   // base iterator
   private final Iterator <? extends SRCTYPE> m_aBaseIter;
   // the converter to use
-  private final Function <SRCTYPE, ELEMENTTYPE> m_aConverter;
+  private final Function <? super SRCTYPE, ? extends ELEMENTTYPE> m_aConverter;
 
   /**
    * Constructor.
@@ -51,8 +50,8 @@ public class ConvertIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator
    * @param aConverter
    *        The converter to be used. May not be <code>null</code>.
    */
-  public ConvertIterator (@Nonnull final IIterableIterator <? extends SRCTYPE> aBaseIter,
-                          @Nonnull final Function <SRCTYPE, ELEMENTTYPE> aConverter)
+  public MapperIterator (@Nonnull final IIterableIterator <? extends SRCTYPE> aBaseIter,
+                         @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
   {
     this (aBaseIter.iterator (), aConverter);
   }
@@ -65,8 +64,8 @@ public class ConvertIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator
    * @param aConverter
    *        The converter to be used. May not be <code>null</code>.
    */
-  public ConvertIterator (@Nonnull final Iterable <? extends SRCTYPE> aBaseCont,
-                          @Nonnull final Function <SRCTYPE, ELEMENTTYPE> aConverter)
+  public MapperIterator (@Nonnull final Iterable <? extends SRCTYPE> aBaseCont,
+                         @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
   {
     this (aBaseCont.iterator (), aConverter);
   }
@@ -79,8 +78,8 @@ public class ConvertIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator
    * @param aConverter
    *        The converter to be used. May not be <code>null</code>.
    */
-  public ConvertIterator (@Nonnull final Iterator <? extends SRCTYPE> aBaseIter,
-                          @Nonnull final Function <SRCTYPE, ELEMENTTYPE> aConverter)
+  public MapperIterator (@Nonnull final Iterator <? extends SRCTYPE> aBaseIter,
+                         @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
   {
     m_aBaseIter = ValueEnforcer.notNull (aBaseIter, "BaseIterator");
     m_aConverter = ValueEnforcer.notNull (aConverter, "Filter");
@@ -90,7 +89,7 @@ public class ConvertIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator
    * @return The converter as specified in the constructor.
    */
   @Nonnull
-  public Function <SRCTYPE, ELEMENTTYPE> getConverter ()
+  public Function <? super SRCTYPE, ? extends ELEMENTTYPE> getConverter ()
   {
     return m_aConverter;
   }
@@ -105,18 +104,6 @@ public class ConvertIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator
   {
     final SRCTYPE ret = m_aBaseIter.next ();
     return m_aConverter.apply (ret);
-  }
-
-  @UnsupportedOperation
-  public void remove ()
-  {
-    throw new UnsupportedOperationException ();
-  }
-
-  @Nonnull
-  public Iterator <ELEMENTTYPE> iterator ()
-  {
-    return this;
   }
 
   // equals and hashCode wont work, because standard Java iterators don't

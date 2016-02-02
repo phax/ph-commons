@@ -16,14 +16,11 @@
  */
 package com.helger.commons.xml;
 
-import java.util.Iterator;
-
 import javax.annotation.Nonnull;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -52,18 +49,6 @@ public class ChildElementIterator implements IIterableIterator <Element>
   public final Element next ()
   {
     return (Element) m_aIter.next ();
-  }
-
-  @UnsupportedOperation
-  public final void remove ()
-  {
-    throw new UnsupportedOperationException ();
-  }
-
-  @Nonnull
-  public Iterator <Element> iterator ()
-  {
-    return this;
   }
 
   @Override

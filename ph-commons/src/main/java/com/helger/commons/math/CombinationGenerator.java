@@ -19,7 +19,6 @@ package com.helger.commons.math;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Nonnegative;
@@ -29,7 +28,6 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.lang.GenericReflection;
 
@@ -161,18 +159,6 @@ public class CombinationGenerator <DATATYPE> implements IIterableIterator <List 
     for (final int nIndex : m_aIndexResult)
       aResult.add (m_aElements[nIndex]);
     return aResult;
-  }
-
-  @UnsupportedOperation
-  public void remove ()
-  {
-    throw new UnsupportedOperationException ();
-  }
-
-  @Nonnull
-  public Iterator <List <DATATYPE>> iterator ()
-  {
-    return this;
   }
 
   /**

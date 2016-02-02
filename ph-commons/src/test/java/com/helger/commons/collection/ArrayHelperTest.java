@@ -53,12 +53,15 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.string.StringParser;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -1185,5 +1188,88 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
     assertEquals (2, newIntArray (5, 6).length);
     assertEquals (2, newLongArray (5L, 6L).length);
     assertEquals (2, newShortArray ((short) 5, (short) 6).length);
+  }
+
+  @Test
+  public void testNewArrayFromCollectionWithMapper ()
+  {
+    final Function <String, Integer> aMapper = StringParser::parseIntObj;
+
+    Integer [] x = ArrayHelper.newArrayMapped (CollectionHelper.newList ("1", "2", "3"), aMapper, Integer.class);
+    assertNotNull (x);
+    assertEquals (3, x.length);
+    assertEquals (1, x[0].intValue ());
+    assertEquals (2, x[1].intValue ());
+    assertEquals (3, x[2].intValue ());
+
+    x = ArrayHelper.newArrayMapped (new ArrayList <String> (), aMapper, Integer.class);
+    assertNotNull (x);
+    assertEquals (0, x.length);
+
+    try
+    {
+      // List may not be null
+      ArrayHelper.newArrayMapped ((Collection <String>) null, aMapper, Integer.class);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
+
+    try
+    {
+      // Converter may not be null
+      ArrayHelper.newArrayMapped (CollectionHelper.newList ("1", "2", "3"), null, Integer.class);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
+
+    try
+    {
+      // Destination class may not be null
+      ArrayHelper.newArrayMapped (CollectionHelper.newList ("1", "2", "3"), aMapper, (Class <Integer>) null);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
+  }
+
+  @Test
+  public void testNewArrayFromArrayWithMapper ()
+  {
+    final Function <String, Integer> aMapper = StringParser::parseIntObj;
+
+    Integer [] x = ArrayHelper.newArrayMapped (new String [] { "1", "2", "3" }, aMapper, Integer.class);
+    assertNotNull (x);
+    assertEquals (3, x.length);
+    assertEquals (1, x[0].intValue ());
+    assertEquals (2, x[1].intValue ());
+    assertEquals (3, x[2].intValue ());
+
+    x = ArrayHelper.newArrayMapped (new String [0], aMapper, Integer.class);
+    assertNotNull (x);
+    assertEquals (0, x.length);
+
+    x = ArrayHelper.newArrayMapped ((String []) null, aMapper, Integer.class);
+    assertNotNull (x);
+    assertEquals (0, x.length);
+
+    try
+    {
+      // Converter may not be null
+      ArrayHelper.newArrayMapped (new String [] { "1", "2", "3" }, null, Integer.class);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
+
+    try
+    {
+      // Destination class may not be null
+      ArrayHelper.newArrayMapped (new String [] { "1", "2", "3" }, aMapper, (Class <Integer>) null);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
   }
 }

@@ -357,32 +357,4 @@ public final class ContainerConversionHelper
       ret.add (aConverter.apply (aSrc));
     return CollectionHelper.getSortedInline (ret, aComparator);
   }
-
-  @Nonnull
-  public static <SRCTYPE, DSTTYPE> Iterator <DSTTYPE> getIterator (@Nonnull final Iterable <SRCTYPE> aCont,
-                                                                   @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aConverter)
-  {
-    ValueEnforcer.notNull (aCont, "Container");
-    ValueEnforcer.notNull (aConverter, "Converter");
-
-    return new Iterator <DSTTYPE> ()
-    {
-      private final Iterator <SRCTYPE> m_aIT = aCont.iterator ();
-
-      public boolean hasNext ()
-      {
-        return m_aIT.hasNext ();
-      }
-
-      public DSTTYPE next ()
-      {
-        return aConverter.apply (m_aIT.next ());
-      }
-
-      public void remove ()
-      {
-        m_aIT.remove ();
-      }
-    };
-  }
 }

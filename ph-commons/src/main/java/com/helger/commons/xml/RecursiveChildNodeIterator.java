@@ -26,7 +26,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -72,18 +71,6 @@ public class RecursiveChildNodeIterator implements IIterableIterator <Node>
   public Node next ()
   {
     return m_aIter.next ();
-  }
-
-  @UnsupportedOperation
-  public void remove ()
-  {
-    throw new UnsupportedOperationException ();
-  }
-
-  @Nonnull
-  public Iterator <Node> iterator ()
-  {
-    return this;
   }
 
   @Override

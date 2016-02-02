@@ -17,7 +17,6 @@
 package com.helger.commons.io.file.iterate;
 
 import java.io.File;
-import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -28,7 +27,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.filter.IFileFilter;
@@ -123,12 +121,6 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
     return m_aRecursionFilter;
   }
 
-  @Nonnull
-  public final Iterator <File> iterator ()
-  {
-    return this;
-  }
-
   public final boolean hasNext ()
   {
     return !m_aFilesLeft.isEmpty ();
@@ -177,12 +169,6 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
   public final int getLevel ()
   {
     return m_nLevel;
-  }
-
-  @UnsupportedOperation
-  public final void remove ()
-  {
-    throw new UnsupportedOperationException ();
   }
 
   @Override
