@@ -27,6 +27,7 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.ENewLineMode;
@@ -133,11 +134,11 @@ public final class XMLWriterSettingsTest
                 for (final boolean bUseDoubleQuotesForAttributes : BOOLS)
                 {
                   aXWS.setUseDoubleQuotesForAttributes (bUseDoubleQuotesForAttributes);
-                  assertTrue (bUseDoubleQuotesForAttributes == aXWS.isUseDoubleQuotesForAttributes ());
+                  CommonsAssert.assertEquals (bUseDoubleQuotesForAttributes, aXWS.isUseDoubleQuotesForAttributes ());
                   for (final boolean bSpaceOnSelfClosedElement : BOOLS)
                   {
                     aXWS.setSpaceOnSelfClosedElement (bSpaceOnSelfClosedElement);
-                    assertTrue (bSpaceOnSelfClosedElement == aXWS.isSpaceOnSelfClosedElement ());
+                    CommonsAssert.assertEquals (bSpaceOnSelfClosedElement, aXWS.isSpaceOnSelfClosedElement ());
                     for (final ENewLineMode eNewlineMode : ENewLineMode.values ())
                     {
                       aXWS.setNewLineMode (eNewlineMode);
@@ -150,11 +151,12 @@ public final class XMLWriterSettingsTest
                         for (final boolean bEmitNamespaces : BOOLS)
                         {
                           aXWS.setEmitNamespaces (bEmitNamespaces);
-                          assertTrue (bEmitNamespaces == aXWS.isEmitNamespaces ());
+                          CommonsAssert.assertEquals (bEmitNamespaces, aXWS.isEmitNamespaces ());
                           for (final boolean bPutNamespaceContextPrefixesInRoot : BOOLS)
                           {
                             aXWS.setPutNamespaceContextPrefixesInRoot (bPutNamespaceContextPrefixesInRoot);
-                            assertTrue (bPutNamespaceContextPrefixesInRoot == aXWS.isPutNamespaceContextPrefixesInRoot ());
+                            CommonsAssert.assertEquals (bPutNamespaceContextPrefixesInRoot,
+                                                        aXWS.isPutNamespaceContextPrefixesInRoot ());
                             final XMLWriterSettings aXWS2 = new XMLWriterSettings ().setSerializeXMLDeclaration (eXMLDecl)
                                                                                     .setSerializeDocType (eDocType)
                                                                                     .setSerializeComments (eComments)
@@ -172,15 +174,15 @@ public final class XMLWriterSettingsTest
                             // Main time is spent in the "toString" calls - so
                             // don't test it in the loop
                           }
-                          assertTrue (bEmitNamespaces == aXWS.isEmitNamespaces ());
+                          CommonsAssert.assertEquals (bEmitNamespaces, aXWS.isEmitNamespaces ());
                         }
                         assertEquals (sIndentation, aXWS.getIndentationString ());
                       }
                       assertEquals (eNewlineMode, aXWS.getNewLineMode ());
                     }
-                    assertTrue (bSpaceOnSelfClosedElement == aXWS.isSpaceOnSelfClosedElement ());
+                    CommonsAssert.assertEquals (bSpaceOnSelfClosedElement, aXWS.isSpaceOnSelfClosedElement ());
                   }
-                  assertTrue (bUseDoubleQuotesForAttributes == aXWS.isUseDoubleQuotesForAttributes ());
+                  CommonsAssert.assertEquals (bUseDoubleQuotesForAttributes, aXWS.isUseDoubleQuotesForAttributes ());
                 }
                 assertEquals (aCS, aXWS.getCharsetObj ());
                 assertEquals (aCS.name (), aXWS.getCharset ());

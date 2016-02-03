@@ -272,7 +272,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
     final String sINDENT = XMLWriterSettings.DEFAULT_INDENTATION_STRING;
     final String sTAGNAME = "notext";
 
-    CommonsTestHelper.testInParallel (1000, (Runnable) () -> {
+    CommonsTestHelper.testInParallel (1000, () -> {
       // Java 1.6 JAXP handles things differently
       final String sSerTagName = "<" + sTAGNAME + "></" + sTAGNAME + ">";
 

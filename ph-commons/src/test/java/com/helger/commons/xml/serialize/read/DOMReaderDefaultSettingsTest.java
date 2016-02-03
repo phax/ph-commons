@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.xml.XMLFactory;
 
 /**
@@ -36,14 +37,17 @@ public final class DOMReaderDefaultSettingsTest
   public void testDefault ()
   {
     assertFalse (DOMReaderDefaultSettings.requiresNewXMLParser ());
-    assertTrue (XMLFactory.DEFAULT_DOM_NAMESPACE_AWARE == DOMReaderDefaultSettings.isNamespaceAware ());
-    assertTrue (XMLFactory.DEFAULT_DOM_VALIDATING == DOMReaderDefaultSettings.isValidating ());
-    assertTrue (XMLFactory.DEFAULT_DOM_IGNORING_ELEMENT_CONTENT_WHITESPACE == DOMReaderDefaultSettings.isIgnoringElementContentWhitespace ());
-    assertTrue (XMLFactory.DEFAULT_DOM_EXPAND_ENTITY_REFERENCES == DOMReaderDefaultSettings.isExpandEntityReferences ());
-    assertTrue (XMLFactory.DEFAULT_DOM_IGNORING_COMMENTS == DOMReaderDefaultSettings.isIgnoringComments ());
-    assertTrue (XMLFactory.DEFAULT_DOM_COALESCING == DOMReaderDefaultSettings.isCoalescing ());
+    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_NAMESPACE_AWARE, DOMReaderDefaultSettings.isNamespaceAware ());
+    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_VALIDATING, DOMReaderDefaultSettings.isValidating ());
+    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_IGNORING_ELEMENT_CONTENT_WHITESPACE,
+                                DOMReaderDefaultSettings.isIgnoringElementContentWhitespace ());
+    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_EXPAND_ENTITY_REFERENCES,
+                                DOMReaderDefaultSettings.isExpandEntityReferences ());
+    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_IGNORING_COMMENTS,
+                                DOMReaderDefaultSettings.isIgnoringComments ());
+    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_COALESCING, DOMReaderDefaultSettings.isCoalescing ());
     assertNull (DOMReaderDefaultSettings.getSchema ());
-    assertTrue (XMLFactory.DEFAULT_DOM_XINCLUDE_AWARE == DOMReaderDefaultSettings.isXIncludeAware ());
+    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_XINCLUDE_AWARE, DOMReaderDefaultSettings.isXIncludeAware ());
     assertNull (DOMReaderDefaultSettings.getEntityResolver ());
     assertNotNull (DOMReaderDefaultSettings.getErrorHandler ());
     assertNotNull (DOMReaderDefaultSettings.getExceptionHandler ());

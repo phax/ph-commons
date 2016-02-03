@@ -27,10 +27,10 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.math.MathHelper;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.serialize.MicroWriter;
+import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.state.EEnabled;
@@ -122,7 +122,7 @@ public final class BasicMicroTypeConverterRegistrarTest
       // Convert back to native
       final Object aNative = MicroTypeConverter.convertToNative (aElement, aObj.getClass ());
       assertNotNull (aNative);
-      assertTrue (EqualsHelper.equals (aObj, aNative));
+      CommonsAssert.assertEquals (aObj, aNative);
     }
 
     // These object don't implement equals!

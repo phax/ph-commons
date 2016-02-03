@@ -61,6 +61,7 @@ import static com.helger.commons.collection.PrimitiveCollectionHelper.newPrimiti
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -210,16 +211,16 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (l != makeUnmodifiableNotNull (l));
     final Set <String> s = newSet ("s1", "s2");
     assertNotNull (makeUnmodifiableNotNull (s));
-    assertTrue (s != makeUnmodifiableNotNull (s));
+    assertNotSame (s, makeUnmodifiableNotNull (s));
     final SortedSet <String> ss = new TreeSet <String> (s);
     assertNotNull (makeUnmodifiableNotNull (ss));
-    assertTrue (ss != makeUnmodifiableNotNull (ss));
+    assertNotSame (ss, makeUnmodifiableNotNull (ss));
     final Map <String, String> m = newMap ("s1", "s2");
     assertNotNull (makeUnmodifiableNotNull (m));
-    assertTrue (m != makeUnmodifiableNotNull (m));
+    assertNotSame (m, makeUnmodifiableNotNull (m));
     final SortedMap <String, String> sm = new TreeMap <String, String> (m);
     assertNotNull (makeUnmodifiableNotNull (sm));
-    assertTrue (sm != makeUnmodifiableNotNull (sm));
+    assertNotSame (sm, makeUnmodifiableNotNull (sm));
   }
 
   @Test

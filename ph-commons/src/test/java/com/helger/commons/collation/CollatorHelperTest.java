@@ -18,7 +18,7 @@ package com.helger.commons.collation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotSame;
 
 import java.text.Collator;
 import java.util.List;
@@ -27,7 +27,6 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.helger.commons.collation.CollatorHelper;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -46,7 +45,7 @@ public final class CollatorHelperTest extends AbstractCommonsTestCase
     assertNotNull (c);
     final Collator c2 = CollatorHelper.getCollatorSpaceBeforeDot (L_DE);
     assertNotNull (c2);
-    assertTrue (c != c2);
+    assertNotSame (c, c2);
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, c2);
 
     // Unknown locale
@@ -54,7 +53,7 @@ public final class CollatorHelperTest extends AbstractCommonsTestCase
 
     final List <Collator> res = new Vector <Collator> ();
     final int nMax = 100;
-    CommonsTestHelper.testInParallel (nMax, (Runnable) () -> res.add (CollatorHelper.getCollatorSpaceBeforeDot (L_EN)));
+    CommonsTestHelper.testInParallel (nMax, () -> res.add (CollatorHelper.getCollatorSpaceBeforeDot (L_EN)));
 
     assertEquals (nMax, res.size ());
     for (int i = 1; i < nMax; ++i)
@@ -65,7 +64,7 @@ public final class CollatorHelperTest extends AbstractCommonsTestCase
   public void testSort ()
   {
     final int nMax = 10000;
-    CommonsTestHelper.testInParallel (nMax, (Runnable) () -> {
+    CommonsTestHelper.testInParallel (nMax, () -> {
       Collator c = CollatorHelper.getCollatorSpaceBeforeDot (L_DE);
       assertEquals (-1, CompareHelper.compare ("1.1 a", "1.1.1 a", c));
       c = CollatorHelper.getCollatorSpaceBeforeDot (L_EN);

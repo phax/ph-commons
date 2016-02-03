@@ -16,8 +16,6 @@
  */
 package com.helger.commons.equals;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -25,6 +23,7 @@ import org.w3c.dom.Node;
 
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.xml.XMLFactory;
 
 /**
@@ -46,13 +45,13 @@ public final class EqualsImplementationRegistryTest extends AbstractCommonsTestC
     ((Element) aRoot2.appendChild (d2.createElement ("child"))).setAttribute ("any", "works");
 
     // Regular
-    assertTrue (EqualsHelper.equals (d1, d2));
+    CommonsAssert.assertEquals (d1, d2);
 
     // 1 level array
-    assertTrue (EqualsHelper.equals (ArrayHelper.newArray (d1), ArrayHelper.newArray (d2)));
+    CommonsAssert.assertEquals (ArrayHelper.newArray (d1), ArrayHelper.newArray (d2));
 
     // 2 level array
-    assertTrue (EqualsHelper.equals (ArrayHelper.newArray (ArrayHelper.newArray (d1)),
-                                     ArrayHelper.newArray (ArrayHelper.newArray (d2))));
+    CommonsAssert.assertEquals (ArrayHelper.newArray (ArrayHelper.newArray (d1)),
+                                ArrayHelper.newArray (ArrayHelper.newArray (d2)));
   }
 }

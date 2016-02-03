@@ -57,8 +57,6 @@ public final class StringParserTest extends AbstractCommonsTestCase
     assertFalse (StringParser.parseBool ((Object) "anything"));
     assertTrue (StringParser.parseBool (Boolean.TRUE));
     assertFalse (StringParser.parseBool (Boolean.FALSE));
-    assertTrue (StringParser.parseBool (new Boolean (true)));
-    assertFalse (StringParser.parseBool (new Boolean (false)));
     assertFalse (StringParser.parseBool ((Object) null));
     assertFalse (StringParser.parseBool (Integer.valueOf (0)));
     assertFalse (StringParser.parseBool (Integer.valueOf (1)));
@@ -84,8 +82,6 @@ public final class StringParserTest extends AbstractCommonsTestCase
     assertEquals (Boolean.FALSE, StringParser.parseBoolObj ((Object) "anything"));
     assertEquals (Boolean.TRUE, StringParser.parseBoolObj (Boolean.TRUE));
     assertEquals (Boolean.FALSE, StringParser.parseBoolObj (Boolean.FALSE));
-    assertEquals (Boolean.TRUE, StringParser.parseBoolObj (new Boolean (true)));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObj (new Boolean (false)));
     assertNull (StringParser.parseBoolObj ((Object) null));
     assertEquals (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (0)));
     assertEquals (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (1)));

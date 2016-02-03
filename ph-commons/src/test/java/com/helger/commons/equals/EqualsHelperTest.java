@@ -46,6 +46,7 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.IteratorHelper;
 import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.string.StringParser;
 import com.helger.commons.url.SMap;
 
@@ -59,27 +60,27 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
   @Test
   public void testEquals_Float ()
   {
-    assertTrue (EqualsHelper.equals (1.1f, 1.1f));
-    assertTrue (EqualsHelper.equals (Float.NaN, Float.NaN));
-    assertTrue (EqualsHelper.equals (1f / 0f, Float.POSITIVE_INFINITY));
-    assertTrue (EqualsHelper.equals (-1f / 0f, Float.NEGATIVE_INFINITY));
-    assertTrue (EqualsHelper.equals (Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY));
-    assertTrue (EqualsHelper.equals (Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY));
-    assertTrue (EqualsHelper.equals (Float.MIN_VALUE, Float.MIN_VALUE));
-    assertTrue (EqualsHelper.equals (Float.MAX_VALUE, Float.MAX_VALUE));
+    CommonsAssert.assertEquals (1.1f, 1.1f);
+    CommonsAssert.assertEquals (Float.NaN, Float.NaN);
+    CommonsAssert.assertEquals (1f / 0f, Float.POSITIVE_INFINITY);
+    CommonsAssert.assertEquals (-1f / 0f, Float.NEGATIVE_INFINITY);
+    CommonsAssert.assertEquals (Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY);
+    CommonsAssert.assertEquals (Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY);
+    CommonsAssert.assertEquals (Float.MIN_VALUE, Float.MIN_VALUE);
+    CommonsAssert.assertEquals (Float.MAX_VALUE, Float.MAX_VALUE);
   }
 
   @Test
   public void testEquals_Double ()
   {
-    assertTrue (EqualsHelper.equals (1.1d, 1.1d));
-    assertTrue (EqualsHelper.equals (Double.NaN, Double.NaN));
-    assertTrue (EqualsHelper.equals (1d / 0d, Double.POSITIVE_INFINITY));
-    assertTrue (EqualsHelper.equals (-1d / 0d, Double.NEGATIVE_INFINITY));
-    assertTrue (EqualsHelper.equals (Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY));
-    assertTrue (EqualsHelper.equals (Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY));
-    assertTrue (EqualsHelper.equals (Double.MIN_VALUE, Double.MIN_VALUE));
-    assertTrue (EqualsHelper.equals (Double.MAX_VALUE, Double.MAX_VALUE));
+    CommonsAssert.assertEquals (1.1d, 1.1d);
+    CommonsAssert.assertEquals (Double.NaN, Double.NaN);
+    CommonsAssert.assertEquals (1d / 0d, Double.POSITIVE_INFINITY);
+    CommonsAssert.assertEquals (-1d / 0d, Double.NEGATIVE_INFINITY);
+    CommonsAssert.assertEquals (Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+    CommonsAssert.assertEquals (Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+    CommonsAssert.assertEquals (Double.MIN_VALUE, Double.MIN_VALUE);
+    CommonsAssert.assertEquals (Double.MAX_VALUE, Double.MAX_VALUE);
   }
 
   @Test
@@ -87,9 +88,9 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
   {
     final URL u1 = new URL ("http://www.helger.com");
     final URL u2 = new URL ("http://www.mydomain.at");
-    assertTrue (EqualsHelper.equals (u1, u1));
-    assertTrue (EqualsHelper.equals (u1, new URL ("http://www.helger.com")));
-    assertFalse (EqualsHelper.equals (u1, u2));
+    CommonsAssert.assertEquals (u1, u1);
+    CommonsAssert.assertEquals (u1, new URL ("http://www.helger.com"));
+    CommonsAssert.assertNotEquals (u1, u2);
   }
 
   @Test
@@ -97,140 +98,140 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
   {
     final BigDecimal bd1 = StringParser.parseBigDecimal ("5.5");
     final BigDecimal bd2 = StringParser.parseBigDecimal ("5.49999");
-    assertTrue (EqualsHelper.equals (bd1, bd1));
-    assertTrue (EqualsHelper.equals (bd1, StringParser.parseBigDecimal ("5.5000")));
-    assertTrue (EqualsHelper.equals (bd1, StringParser.parseBigDecimal ("5.50000000000000000")));
-    assertFalse (EqualsHelper.equals (bd1, bd2));
+    CommonsAssert.assertEquals (bd1, bd1);
+    CommonsAssert.assertEquals (bd1, StringParser.parseBigDecimal ("5.5000"));
+    CommonsAssert.assertEquals (bd1, StringParser.parseBigDecimal ("5.50000000000000000"));
+    CommonsAssert.assertNotEquals (bd1, bd2);
   }
 
   public void _test (final String s1, final String s2)
   {
-    assertTrue (EqualsHelper.equals (s1, s1));
-    assertFalse (EqualsHelper.equals (s1, s2));
-    assertFalse (EqualsHelper.equals (s2, s1));
-    assertFalse (EqualsHelper.equals (s1, null));
-    assertFalse (EqualsHelper.equals (null, s2));
-    assertTrue (EqualsHelper.equals ((String) null, (String) null));
+    CommonsAssert.assertEquals (s1, s1);
+    CommonsAssert.assertNotEquals (s1, s2);
+    CommonsAssert.assertNotEquals (s2, s1);
+    CommonsAssert.assertNotEquals (s1, null);
+    CommonsAssert.assertNotEquals (null, s2);
+    CommonsAssert.assertEquals ((String) null, (String) null);
   }
 
   public void _test (final BigDecimal s1, final BigDecimal s2)
   {
-    assertTrue (EqualsHelper.equals (s1, s1));
-    assertFalse (EqualsHelper.equals (s1, s2));
-    assertFalse (EqualsHelper.equals (s2, s1));
-    assertFalse (EqualsHelper.equals (s1, null));
-    assertFalse (EqualsHelper.equals (null, s2));
-    assertTrue (EqualsHelper.equals ((Float) null, (Float) null));
+    CommonsAssert.assertEquals (s1, s1);
+    CommonsAssert.assertNotEquals (s1, s2);
+    CommonsAssert.assertNotEquals (s2, s1);
+    CommonsAssert.assertNotEquals (s1, null);
+    CommonsAssert.assertNotEquals (null, s2);
+    CommonsAssert.assertEquals ((Float) null, (Float) null);
   }
 
   public void _test (final Double s1, final Double s2)
   {
-    assertTrue (EqualsHelper.equals (s1, s1));
-    assertFalse (EqualsHelper.equals (s1, s2));
-    assertFalse (EqualsHelper.equals (s2, s1));
-    assertFalse (EqualsHelper.equals (s1, null));
-    assertFalse (EqualsHelper.equals (null, s2));
-    assertTrue (EqualsHelper.equals ((Double) null, (Double) null));
+    CommonsAssert.assertEquals (s1, s1);
+    CommonsAssert.assertNotEquals (s1, s2);
+    CommonsAssert.assertNotEquals (s2, s1);
+    CommonsAssert.assertNotEquals (s1, null);
+    CommonsAssert.assertNotEquals (null, s2);
+    CommonsAssert.assertEquals ((Double) null, (Double) null);
   }
 
   public void _test (final Float s1, final Float s2)
   {
-    assertTrue (EqualsHelper.equals (s1, s1));
-    assertFalse (EqualsHelper.equals (s1, s2));
-    assertFalse (EqualsHelper.equals (s2, s1));
-    assertFalse (EqualsHelper.equals (s1, null));
-    assertFalse (EqualsHelper.equals (null, s2));
-    assertTrue (EqualsHelper.equals ((Float) null, (Float) null));
+    CommonsAssert.assertEquals (s1, s1);
+    CommonsAssert.assertNotEquals (s1, s2);
+    CommonsAssert.assertNotEquals (s2, s1);
+    CommonsAssert.assertNotEquals (s1, null);
+    CommonsAssert.assertNotEquals (null, s2);
+    CommonsAssert.assertEquals ((Float) null, (Float) null);
   }
 
   public void _test (final URL s1, final URL s2)
   {
-    assertTrue (EqualsHelper.equals (s1, s1));
-    assertFalse (EqualsHelper.equals (s1, s2));
-    assertFalse (EqualsHelper.equals (s2, s1));
-    assertFalse (EqualsHelper.equals (s1, null));
-    assertFalse (EqualsHelper.equals (null, s2));
-    assertTrue (EqualsHelper.equals ((Float) null, (Float) null));
+    CommonsAssert.assertEquals (s1, s1);
+    CommonsAssert.assertNotEquals (s1, s2);
+    CommonsAssert.assertNotEquals (s2, s1);
+    CommonsAssert.assertNotEquals (s1, null);
+    CommonsAssert.assertNotEquals (null, s2);
+    CommonsAssert.assertEquals ((Float) null, (Float) null);
   }
 
   public void _test (final boolean [] s1, final boolean [] s2)
   {
-    assertTrue (EqualsHelper.equals (s1, s1));
-    assertFalse (EqualsHelper.equals (s1, s2));
-    assertFalse (EqualsHelper.equals (s2, s1));
-    assertFalse (EqualsHelper.equals (s1, null));
-    assertFalse (EqualsHelper.equals (null, s2));
-    assertTrue (EqualsHelper.equals ((boolean []) null, (boolean []) null));
+    CommonsAssert.assertEquals (s1, s1);
+    CommonsAssert.assertNotEquals (s1, s2);
+    CommonsAssert.assertNotEquals (s2, s1);
+    CommonsAssert.assertNotEquals (s1, null);
+    CommonsAssert.assertNotEquals (null, s2);
+    CommonsAssert.assertEquals ((boolean []) null, (boolean []) null);
   }
 
   public void _test (final byte [] s1, final byte [] s2)
   {
-    assertTrue (EqualsHelper.equals (s1, s1));
-    assertFalse (EqualsHelper.equals (s1, s2));
-    assertFalse (EqualsHelper.equals (s2, s1));
-    assertFalse (EqualsHelper.equals (s1, null));
-    assertFalse (EqualsHelper.equals (null, s2));
-    assertTrue (EqualsHelper.equals ((byte []) null, (byte []) null));
+    CommonsAssert.assertEquals (s1, s1);
+    CommonsAssert.assertNotEquals (s1, s2);
+    CommonsAssert.assertNotEquals (s2, s1);
+    CommonsAssert.assertNotEquals (s1, null);
+    CommonsAssert.assertNotEquals (null, s2);
+    CommonsAssert.assertEquals ((byte []) null, (byte []) null);
   }
 
   public void _test (final char [] s1, final char [] s2)
   {
-    assertTrue (EqualsHelper.equals (s1, s1));
-    assertFalse (EqualsHelper.equals (s1, s2));
-    assertFalse (EqualsHelper.equals (s2, s1));
-    assertFalse (EqualsHelper.equals (s1, null));
-    assertFalse (EqualsHelper.equals (null, s2));
-    assertTrue (EqualsHelper.equals ((char []) null, (char []) null));
+    CommonsAssert.assertEquals (s1, s1);
+    CommonsAssert.assertNotEquals (s1, s2);
+    CommonsAssert.assertNotEquals (s2, s1);
+    CommonsAssert.assertNotEquals (s1, null);
+    CommonsAssert.assertNotEquals (null, s2);
+    CommonsAssert.assertEquals ((char []) null, (char []) null);
   }
 
   public void _test (final double [] s1, final double [] s2)
   {
-    assertTrue (EqualsHelper.equals (s1, s1));
-    assertFalse (EqualsHelper.equals (s1, s2));
-    assertFalse (EqualsHelper.equals (s2, s1));
-    assertFalse (EqualsHelper.equals (s1, null));
-    assertFalse (EqualsHelper.equals (null, s2));
-    assertTrue (EqualsHelper.equals ((double []) null, (double []) null));
+    CommonsAssert.assertEquals (s1, s1);
+    CommonsAssert.assertNotEquals (s1, s2);
+    CommonsAssert.assertNotEquals (s2, s1);
+    CommonsAssert.assertNotEquals (s1, null);
+    CommonsAssert.assertNotEquals (null, s2);
+    CommonsAssert.assertEquals ((double []) null, (double []) null);
   }
 
   public void _test (final float [] s1, final float [] s2)
   {
-    assertTrue (EqualsHelper.equals (s1, s1));
-    assertFalse (EqualsHelper.equals (s1, s2));
-    assertFalse (EqualsHelper.equals (s2, s1));
-    assertFalse (EqualsHelper.equals (s1, null));
-    assertFalse (EqualsHelper.equals (null, s2));
-    assertTrue (EqualsHelper.equals ((float []) null, (float []) null));
+    CommonsAssert.assertEquals (s1, s1);
+    CommonsAssert.assertNotEquals (s1, s2);
+    CommonsAssert.assertNotEquals (s2, s1);
+    CommonsAssert.assertNotEquals (s1, null);
+    CommonsAssert.assertNotEquals (null, s2);
+    CommonsAssert.assertEquals ((float []) null, (float []) null);
   }
 
   public void _test (final int [] s1, final int [] s2)
   {
-    assertTrue (EqualsHelper.equals (s1, s1));
-    assertFalse (EqualsHelper.equals (s1, s2));
-    assertFalse (EqualsHelper.equals (s2, s1));
-    assertFalse (EqualsHelper.equals (s1, null));
-    assertFalse (EqualsHelper.equals (null, s2));
-    assertTrue (EqualsHelper.equals ((int []) null, (int []) null));
+    CommonsAssert.assertEquals (s1, s1);
+    CommonsAssert.assertNotEquals (s1, s2);
+    CommonsAssert.assertNotEquals (s2, s1);
+    CommonsAssert.assertNotEquals (s1, null);
+    CommonsAssert.assertNotEquals (null, s2);
+    CommonsAssert.assertEquals ((int []) null, (int []) null);
   }
 
   public void _test (final long [] s1, final long [] s2)
   {
-    assertTrue (EqualsHelper.equals (s1, s1));
-    assertFalse (EqualsHelper.equals (s1, s2));
-    assertFalse (EqualsHelper.equals (s2, s1));
-    assertFalse (EqualsHelper.equals (s1, null));
-    assertFalse (EqualsHelper.equals (null, s2));
-    assertTrue (EqualsHelper.equals ((long []) null, (long []) null));
+    CommonsAssert.assertEquals (s1, s1);
+    CommonsAssert.assertNotEquals (s1, s2);
+    CommonsAssert.assertNotEquals (s2, s1);
+    CommonsAssert.assertNotEquals (s1, null);
+    CommonsAssert.assertNotEquals (null, s2);
+    CommonsAssert.assertEquals ((long []) null, (long []) null);
   }
 
   public void _test (final short [] s1, final short [] s2)
   {
-    assertTrue (EqualsHelper.equals (s1, s1));
-    assertFalse (EqualsHelper.equals (s1, s2));
-    assertFalse (EqualsHelper.equals (s2, s1));
-    assertFalse (EqualsHelper.equals (s1, null));
-    assertFalse (EqualsHelper.equals (null, s2));
-    assertTrue (EqualsHelper.equals ((short []) null, (short []) null));
+    CommonsAssert.assertEquals (s1, s1);
+    CommonsAssert.assertNotEquals (s1, s2);
+    CommonsAssert.assertNotEquals (s2, s1);
+    CommonsAssert.assertNotEquals (s1, null);
+    CommonsAssert.assertNotEquals (null, s2);
+    CommonsAssert.assertEquals ((short []) null, (short []) null);
   }
 
   @Test
@@ -264,23 +265,21 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
   public void testEqualsTypeSpecific ()
   {
     final StringBuffer aSB1 = new StringBuffer ("Hi");
-    assertTrue (EqualsHelper.equals (aSB1, new StringBuffer ("Hi")));
-    assertFalse (EqualsHelper.equals (aSB1, new StringBuffer ("Hallo")));
+    CommonsAssert.assertEquals (aSB1, new StringBuffer ("Hi"));
+    CommonsAssert.assertNotEquals (aSB1, new StringBuffer ("Hallo"));
 
-    assertTrue (EqualsHelper.equals (aSB1, new StringBuffer ("Hi")));
-    assertFalse (EqualsHelper.equals (aSB1, new StringBuffer ("Hallo")));
-    assertFalse (EqualsHelper.equals (aSB1, null));
+    CommonsAssert.assertEquals (aSB1, new StringBuffer ("Hi"));
+    CommonsAssert.assertNotEquals (aSB1, new StringBuffer ("Hallo"));
+    CommonsAssert.assertNotEquals (aSB1, null);
 
-    assertTrue (EqualsHelper.equals (CollectionHelper.newList ("a", "b", "c"),
-                                     CollectionHelper.newList ("a", "b", "c")));
-    assertTrue (EqualsHelper.equals (CollectionHelper.newStack ("a", "b", "c"),
-                                     CollectionHelper.newStack ("a", "b", "c")));
-    assertTrue (EqualsHelper.equals (CollectionHelper.newList ("a", "b", "c").iterator (),
-                                     CollectionHelper.newList ("a", "b", "c").iterator ()));
-    assertTrue (EqualsHelper.equals (IteratorHelper.getEnumeration ("a", "b", "c"),
-                                     IteratorHelper.getEnumeration ("a", "b", "c")));
-    assertFalse (EqualsHelper.equals (CollectionHelper.makeUnmodifiable (CollectionHelper.newList ("a", "b", "c")),
-                                      CollectionHelper.newList ("a", "b", "c")));
+    CommonsAssert.assertEquals (CollectionHelper.newList ("a", "b", "c"), CollectionHelper.newList ("a", "b", "c"));
+    CommonsAssert.assertEquals (CollectionHelper.newStack ("a", "b", "c"), CollectionHelper.newStack ("a", "b", "c"));
+    CommonsAssert.assertEquals (CollectionHelper.newList ("a", "b", "c").iterator (),
+                                CollectionHelper.newList ("a", "b", "c").iterator ());
+    CommonsAssert.assertEquals (IteratorHelper.getEnumeration ("a", "b", "c"),
+                                IteratorHelper.getEnumeration ("a", "b", "c"));
+    CommonsAssert.assertNotEquals (CollectionHelper.makeUnmodifiable (CollectionHelper.newList ("a", "b", "c")),
+                                   CollectionHelper.newList ("a", "b", "c"));
   }
 
   @Test

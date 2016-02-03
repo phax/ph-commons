@@ -58,7 +58,7 @@ public final class MessageDigestInputStreamTest
       final MessageDigestInputStream aHIS2 = new MessageDigestInputStream (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes (sTestString,
                                                                                                                                            CCharset.CHARSET_ISO_8859_1_OBJ)),
                                                                            eMDAlgo);
-      assertTrue (aHIS2.read () != -1);
+      assertTrue (aHIS2.read () >= 0);
       StreamHelper.copyInputStreamToOutputStream (aHIS2, new NonBlockingByteArrayOutputStream ());
       final byte [] aDigest2 = aHIS2.getAllDigestBytes ();
 

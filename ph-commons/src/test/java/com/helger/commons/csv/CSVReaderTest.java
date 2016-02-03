@@ -68,11 +68,11 @@ public final class CSVReaderTest
   {
     final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     // standard case
-    aSB.append ("a,b,c").append ("\n");
+    aSB.append ("a,b,c\n");
     // quoted elements
-    aSB.append ("a,\"b,b,b\",c").append ("\n");
+    aSB.append ("a,\"b,b,b\",c\n");
     // empty elements
-    aSB.append (",,").append ("\n");
+    aSB.append (",,\n");
     aSB.append ("a,\"PO Box 123,\nKippax,ACT. 2615.\nAustralia\",d.\n");
     // Test quoted quote chars
     aSB.append ("\"Glen \"\"The Man\"\" Smith\",Athlete,Developer\n");

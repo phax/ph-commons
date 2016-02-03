@@ -52,7 +52,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
@@ -61,6 +60,7 @@ import org.junit.Test;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.string.StringParser;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -540,95 +540,95 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
     }
 
     {
-      assertTrue (Arrays.equals (new boolean [] { false, false, true },
-                                 getConcatenated (new boolean [] { false, false }, new boolean [] { true })));
-      assertTrue (Arrays.equals (new boolean [] { false, false },
-                                 getConcatenated (new boolean [] { false, false }, (boolean []) null)));
-      assertTrue (Arrays.equals (new boolean [] { true },
-                                 getConcatenated ((boolean []) null, new boolean [] { true })));
-      assertTrue (Arrays.equals (new boolean [] { false, false, true },
-                                 getConcatenated (new boolean [] { false, false }, true)));
-      assertTrue (Arrays.equals (new boolean [] { true }, getConcatenated ((boolean []) null, true)));
-      assertTrue (Arrays.equals (new boolean [] { false, false, true },
-                                 getConcatenated (false, new boolean [] { false, true })));
-      assertTrue (Arrays.equals (new boolean [] { false }, getConcatenated (false, (boolean []) null)));
+      CommonsAssert.assertEquals (new boolean [] { false, false, true },
+                                  getConcatenated (new boolean [] { false, false }, new boolean [] { true }));
+      CommonsAssert.assertEquals (new boolean [] { false, false },
+                                  getConcatenated (new boolean [] { false, false }, (boolean []) null));
+      CommonsAssert.assertEquals (new boolean [] { true },
+                                  getConcatenated ((boolean []) null, new boolean [] { true }));
+      CommonsAssert.assertEquals (new boolean [] { false, false, true },
+                                  getConcatenated (new boolean [] { false, false }, true));
+      CommonsAssert.assertEquals (new boolean [] { true }, getConcatenated ((boolean []) null, true));
+      CommonsAssert.assertEquals (new boolean [] { false, false, true },
+                                  getConcatenated (false, new boolean [] { false, true }));
+      CommonsAssert.assertEquals (new boolean [] { false }, getConcatenated (false, (boolean []) null));
     }
 
     {
-      assertTrue (Arrays.equals (new byte [] { 1, 2, 3, 4 },
-                                 getConcatenated (new byte [] { 1, 2 }, new byte [] { 3, 4 })));
-      assertTrue (Arrays.equals (new byte [] { 1, 2 }, getConcatenated (new byte [] { 1, 2 }, (byte []) null)));
-      assertTrue (Arrays.equals (new byte [] { 3, 4 }, getConcatenated ((byte []) null, new byte [] { 3, 4 })));
-      assertTrue (Arrays.equals (new byte [] { 1, 2, 3 }, getConcatenated (new byte [] { 1, 2 }, (byte) 3)));
-      assertTrue (Arrays.equals (new byte [] { 3 }, getConcatenated ((byte []) null, (byte) 3)));
-      assertTrue (Arrays.equals (new byte [] { 1, 2, 3 }, getConcatenated ((byte) 1, new byte [] { 2, 3 })));
-      assertTrue (Arrays.equals (new byte [] { 1 }, getConcatenated ((byte) 1, (byte []) null)));
+      CommonsAssert.assertEquals (new byte [] { 1, 2, 3, 4 },
+                                  getConcatenated (new byte [] { 1, 2 }, new byte [] { 3, 4 }));
+      CommonsAssert.assertEquals (new byte [] { 1, 2 }, getConcatenated (new byte [] { 1, 2 }, (byte []) null));
+      CommonsAssert.assertEquals (new byte [] { 3, 4 }, getConcatenated ((byte []) null, new byte [] { 3, 4 }));
+      CommonsAssert.assertEquals (new byte [] { 1, 2, 3 }, getConcatenated (new byte [] { 1, 2 }, (byte) 3));
+      CommonsAssert.assertEquals (new byte [] { 3 }, getConcatenated ((byte []) null, (byte) 3));
+      CommonsAssert.assertEquals (new byte [] { 1, 2, 3 }, getConcatenated ((byte) 1, new byte [] { 2, 3 }));
+      CommonsAssert.assertEquals (new byte [] { 1 }, getConcatenated ((byte) 1, (byte []) null));
     }
 
     {
-      assertTrue (Arrays.equals (new char [] { 1, 2, 3, 4 },
-                                 getConcatenated (new char [] { 1, 2 }, new char [] { 3, 4 })));
-      assertTrue (Arrays.equals (new char [] { 1, 2 }, getConcatenated (new char [] { 1, 2 }, (char []) null)));
-      assertTrue (Arrays.equals (new char [] { 3, 4 }, getConcatenated ((char []) null, new char [] { 3, 4 })));
-      assertTrue (Arrays.equals (new char [] { 1, 2, 3 }, getConcatenated (new char [] { 1, 2 }, (char) 3)));
-      assertTrue (Arrays.equals (new char [] { 3 }, getConcatenated ((char []) null, (char) 3)));
-      assertTrue (Arrays.equals (new char [] { 1, 2, 3 }, getConcatenated ((char) 1, new char [] { 2, 3 })));
-      assertTrue (Arrays.equals (new char [] { 1 }, getConcatenated ((char) 1, (char []) null)));
+      CommonsAssert.assertEquals (new char [] { 1, 2, 3, 4 },
+                                  getConcatenated (new char [] { 1, 2 }, new char [] { 3, 4 }));
+      CommonsAssert.assertEquals (new char [] { 1, 2 }, getConcatenated (new char [] { 1, 2 }, (char []) null));
+      CommonsAssert.assertEquals (new char [] { 3, 4 }, getConcatenated ((char []) null, new char [] { 3, 4 }));
+      CommonsAssert.assertEquals (new char [] { 1, 2, 3 }, getConcatenated (new char [] { 1, 2 }, (char) 3));
+      CommonsAssert.assertEquals (new char [] { 3 }, getConcatenated ((char []) null, (char) 3));
+      CommonsAssert.assertEquals (new char [] { 1, 2, 3 }, getConcatenated ((char) 1, new char [] { 2, 3 }));
+      CommonsAssert.assertEquals (new char [] { 1 }, getConcatenated ((char) 1, (char []) null));
     }
 
     {
-      assertTrue (Arrays.equals (new double [] { 1, 2, 3, 4 },
-                                 getConcatenated (new double [] { 1, 2 }, new double [] { 3, 4 })));
-      assertTrue (Arrays.equals (new double [] { 1, 2 }, getConcatenated (new double [] { 1, 2 }, (double []) null)));
-      assertTrue (Arrays.equals (new double [] { 3, 4 }, getConcatenated ((double []) null, new double [] { 3, 4 })));
-      assertTrue (Arrays.equals (new double [] { 1, 2, 3 }, getConcatenated (new double [] { 1, 2 }, 3)));
-      assertTrue (Arrays.equals (new double [] { 3 }, getConcatenated ((double []) null, 3)));
-      assertTrue (Arrays.equals (new double [] { 1, 2, 3 }, getConcatenated (1, new double [] { 2, 3 })));
-      assertTrue (Arrays.equals (new double [] { 1 }, getConcatenated (1, (double []) null)));
+      CommonsAssert.assertEquals (new double [] { 1, 2, 3, 4 },
+                                  getConcatenated (new double [] { 1, 2 }, new double [] { 3, 4 }));
+      CommonsAssert.assertEquals (new double [] { 1, 2 }, getConcatenated (new double [] { 1, 2 }, (double []) null));
+      CommonsAssert.assertEquals (new double [] { 3, 4 }, getConcatenated ((double []) null, new double [] { 3, 4 }));
+      CommonsAssert.assertEquals (new double [] { 1, 2, 3 }, getConcatenated (new double [] { 1, 2 }, 3));
+      CommonsAssert.assertEquals (new double [] { 3 }, getConcatenated ((double []) null, 3));
+      CommonsAssert.assertEquals (new double [] { 1, 2, 3 }, getConcatenated (1, new double [] { 2, 3 }));
+      CommonsAssert.assertEquals (new double [] { 1 }, getConcatenated (1, (double []) null));
     }
 
     {
-      assertTrue (Arrays.equals (new float [] { 1, 2, 3, 4 },
-                                 getConcatenated (new float [] { 1, 2 }, new float [] { 3, 4 })));
-      assertTrue (Arrays.equals (new float [] { 1, 2 }, getConcatenated (new float [] { 1, 2 }, (float []) null)));
-      assertTrue (Arrays.equals (new float [] { 3, 4 }, getConcatenated ((float []) null, new float [] { 3, 4 })));
-      assertTrue (Arrays.equals (new float [] { 1, 2, 3 }, getConcatenated (new float [] { 1, 2 }, 3)));
-      assertTrue (Arrays.equals (new float [] { 3 }, getConcatenated ((float []) null, 3)));
-      assertTrue (Arrays.equals (new float [] { 1, 2, 3 }, getConcatenated (1, new float [] { 2, 3 })));
-      assertTrue (Arrays.equals (new float [] { 1 }, getConcatenated (1, (float []) null)));
+      CommonsAssert.assertEquals (new float [] { 1, 2, 3, 4 },
+                                  getConcatenated (new float [] { 1, 2 }, new float [] { 3, 4 }));
+      CommonsAssert.assertEquals (new float [] { 1, 2 }, getConcatenated (new float [] { 1, 2 }, (float []) null));
+      CommonsAssert.assertEquals (new float [] { 3, 4 }, getConcatenated ((float []) null, new float [] { 3, 4 }));
+      CommonsAssert.assertEquals (new float [] { 1, 2, 3 }, getConcatenated (new float [] { 1, 2 }, 3));
+      CommonsAssert.assertEquals (new float [] { 3 }, getConcatenated ((float []) null, 3));
+      CommonsAssert.assertEquals (new float [] { 1, 2, 3 }, getConcatenated (1, new float [] { 2, 3 }));
+      CommonsAssert.assertEquals (new float [] { 1 }, getConcatenated (1, (float []) null));
     }
 
     {
-      assertTrue (Arrays.equals (new int [] { 1, 2, 3, 4 },
-                                 getConcatenated (new int [] { 1, 2 }, new int [] { 3, 4 })));
-      assertTrue (Arrays.equals (new int [] { 1, 2 }, getConcatenated (new int [] { 1, 2 }, (int []) null)));
-      assertTrue (Arrays.equals (new int [] { 3, 4 }, getConcatenated ((int []) null, new int [] { 3, 4 })));
-      assertTrue (Arrays.equals (new int [] { 1, 2, 3 }, getConcatenated (new int [] { 1, 2 }, 3)));
-      assertTrue (Arrays.equals (new int [] { 3 }, getConcatenated ((int []) null, 3)));
-      assertTrue (Arrays.equals (new int [] { 1, 2, 3 }, getConcatenated (1, new int [] { 2, 3 })));
-      assertTrue (Arrays.equals (new int [] { 1 }, getConcatenated (1, (int []) null)));
+      CommonsAssert.assertEquals (new int [] { 1, 2, 3, 4 },
+                                  getConcatenated (new int [] { 1, 2 }, new int [] { 3, 4 }));
+      CommonsAssert.assertEquals (new int [] { 1, 2 }, getConcatenated (new int [] { 1, 2 }, (int []) null));
+      CommonsAssert.assertEquals (new int [] { 3, 4 }, getConcatenated ((int []) null, new int [] { 3, 4 }));
+      CommonsAssert.assertEquals (new int [] { 1, 2, 3 }, getConcatenated (new int [] { 1, 2 }, 3));
+      CommonsAssert.assertEquals (new int [] { 3 }, getConcatenated ((int []) null, 3));
+      CommonsAssert.assertEquals (new int [] { 1, 2, 3 }, getConcatenated (1, new int [] { 2, 3 }));
+      CommonsAssert.assertEquals (new int [] { 1 }, getConcatenated (1, (int []) null));
     }
 
     {
-      assertTrue (Arrays.equals (new long [] { 1, 2, 3, 4 },
-                                 getConcatenated (new long [] { 1, 2 }, new long [] { 3, 4 })));
-      assertTrue (Arrays.equals (new long [] { 1, 2 }, getConcatenated (new long [] { 1, 2 }, (long []) null)));
-      assertTrue (Arrays.equals (new long [] { 3, 4 }, getConcatenated ((long []) null, new long [] { 3, 4 })));
-      assertTrue (Arrays.equals (new long [] { 1, 2, 3 }, getConcatenated (new long [] { 1, 2 }, 3L)));
-      assertTrue (Arrays.equals (new long [] { 3 }, getConcatenated ((long []) null, 3L)));
-      assertTrue (Arrays.equals (new long [] { 1, 2, 3 }, getConcatenated (1L, new long [] { 2, 3 })));
-      assertTrue (Arrays.equals (new long [] { 1 }, getConcatenated (1L, (long []) null)));
+      CommonsAssert.assertEquals (new long [] { 1, 2, 3, 4 },
+                                  getConcatenated (new long [] { 1, 2 }, new long [] { 3, 4 }));
+      CommonsAssert.assertEquals (new long [] { 1, 2 }, getConcatenated (new long [] { 1, 2 }, (long []) null));
+      CommonsAssert.assertEquals (new long [] { 3, 4 }, getConcatenated ((long []) null, new long [] { 3, 4 }));
+      CommonsAssert.assertEquals (new long [] { 1, 2, 3 }, getConcatenated (new long [] { 1, 2 }, 3L));
+      CommonsAssert.assertEquals (new long [] { 3 }, getConcatenated ((long []) null, 3L));
+      CommonsAssert.assertEquals (new long [] { 1, 2, 3 }, getConcatenated (1L, new long [] { 2, 3 }));
+      CommonsAssert.assertEquals (new long [] { 1 }, getConcatenated (1L, (long []) null));
     }
 
     {
-      assertTrue (Arrays.equals (new short [] { 1, 2, 3, 4 },
-                                 getConcatenated (new short [] { 1, 2 }, new short [] { 3, 4 })));
-      assertTrue (Arrays.equals (new short [] { 1, 2 }, getConcatenated (new short [] { 1, 2 }, (short []) null)));
-      assertTrue (Arrays.equals (new short [] { 3, 4 }, getConcatenated ((short []) null, new short [] { 3, 4 })));
-      assertTrue (Arrays.equals (new short [] { 1, 2, 3 }, getConcatenated (new short [] { 1, 2 }, (short) 3)));
-      assertTrue (Arrays.equals (new short [] { 3 }, getConcatenated ((short []) null, (short) 3)));
-      assertTrue (Arrays.equals (new short [] { 1, 2, 3 }, getConcatenated ((short) 1, new short [] { 2, 3 })));
-      assertTrue (Arrays.equals (new short [] { 1 }, getConcatenated ((short) 1, (short []) null)));
+      CommonsAssert.assertEquals (new short [] { 1, 2, 3, 4 },
+                                  getConcatenated (new short [] { 1, 2 }, new short [] { 3, 4 }));
+      CommonsAssert.assertEquals (new short [] { 1, 2 }, getConcatenated (new short [] { 1, 2 }, (short []) null));
+      CommonsAssert.assertEquals (new short [] { 3, 4 }, getConcatenated ((short []) null, new short [] { 3, 4 }));
+      CommonsAssert.assertEquals (new short [] { 1, 2, 3 }, getConcatenated (new short [] { 1, 2 }, (short) 3));
+      CommonsAssert.assertEquals (new short [] { 3 }, getConcatenated ((short []) null, (short) 3));
+      CommonsAssert.assertEquals (new short [] { 1, 2, 3 }, getConcatenated ((short) 1, new short [] { 2, 3 }));
+      CommonsAssert.assertEquals (new short [] { 1 }, getConcatenated ((short) 1, (short []) null));
     }
   }
 
@@ -770,10 +770,10 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
       final boolean [] x = new boolean [] { true, false, true };
       final boolean [] y = new boolean [] { false, true };
       final boolean [] z = new boolean [] { true };
-      assertTrue (Arrays.equals (y, getAllExceptFirst (x)));
-      assertTrue (Arrays.equals (x, getAllExceptFirst (x, 0)));
-      assertTrue (Arrays.equals (y, getAllExceptFirst (x, 1)));
-      assertTrue (Arrays.equals (z, getAllExceptFirst (x, 2)));
+      CommonsAssert.assertEquals (y, getAllExceptFirst (x));
+      CommonsAssert.assertEquals (x, getAllExceptFirst (x, 0));
+      CommonsAssert.assertEquals (y, getAllExceptFirst (x, 1));
+      CommonsAssert.assertEquals (z, getAllExceptFirst (x, 2));
       assertNull (getAllExceptFirst (x, 3));
       assertNull (getAllExceptFirst (x, 4));
       assertNull (getAllExceptFirst (new boolean [] { x[0] }));
@@ -793,10 +793,10 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
       final byte [] x = new byte [] { 5, 9, 14 };
       final byte [] y = new byte [] { 9, 14 };
       final byte [] z = new byte [] { 14 };
-      assertTrue (Arrays.equals (y, getAllExceptFirst (x)));
-      assertTrue (Arrays.equals (x, getAllExceptFirst (x, 0)));
-      assertTrue (Arrays.equals (y, getAllExceptFirst (x, 1)));
-      assertTrue (Arrays.equals (z, getAllExceptFirst (x, 2)));
+      CommonsAssert.assertEquals (y, getAllExceptFirst (x));
+      CommonsAssert.assertEquals (x, getAllExceptFirst (x, 0));
+      CommonsAssert.assertEquals (y, getAllExceptFirst (x, 1));
+      CommonsAssert.assertEquals (z, getAllExceptFirst (x, 2));
       assertNull (getAllExceptFirst (x, 3));
       assertNull (getAllExceptFirst (x, 4));
       assertNull (getAllExceptFirst (new byte [] { x[0] }));
@@ -816,10 +816,10 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
       final char [] x = new char [] { 'a', 'B', 'c' };
       final char [] y = new char [] { 'B', 'c' };
       final char [] z = new char [] { 'c' };
-      assertTrue (Arrays.equals (y, getAllExceptFirst (x)));
-      assertTrue (Arrays.equals (x, getAllExceptFirst (x, 0)));
-      assertTrue (Arrays.equals (y, getAllExceptFirst (x, 1)));
-      assertTrue (Arrays.equals (z, getAllExceptFirst (x, 2)));
+      CommonsAssert.assertEquals (y, getAllExceptFirst (x));
+      CommonsAssert.assertEquals (x, getAllExceptFirst (x, 0));
+      CommonsAssert.assertEquals (y, getAllExceptFirst (x, 1));
+      CommonsAssert.assertEquals (z, getAllExceptFirst (x, 2));
       assertNull (getAllExceptFirst (x, 3));
       assertNull (getAllExceptFirst (x, 4));
       assertNull (getAllExceptFirst (new char [] { x[0] }));
@@ -839,10 +839,10 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
       final double [] x = new double [] { -1.1, 0, 1.1 };
       final double [] y = new double [] { 0, 1.1 };
       final double [] z = new double [] { 1.1 };
-      assertTrue (Arrays.equals (y, getAllExceptFirst (x)));
-      assertTrue (Arrays.equals (x, getAllExceptFirst (x, 0)));
-      assertTrue (Arrays.equals (y, getAllExceptFirst (x, 1)));
-      assertTrue (Arrays.equals (z, getAllExceptFirst (x, 2)));
+      CommonsAssert.assertEquals (y, getAllExceptFirst (x));
+      CommonsAssert.assertEquals (x, getAllExceptFirst (x, 0));
+      CommonsAssert.assertEquals (y, getAllExceptFirst (x, 1));
+      CommonsAssert.assertEquals (z, getAllExceptFirst (x, 2));
       assertNull (getAllExceptFirst (x, 3));
       assertNull (getAllExceptFirst (x, 4));
       assertNull (getAllExceptFirst (new double [] { x[0] }));
@@ -862,10 +862,10 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
       final float [] x = new float [] { -3.2f, -0.01f, 99.8f };
       final float [] y = new float [] { -0.01f, 99.8f };
       final float [] z = new float [] { 99.8f };
-      assertTrue (Arrays.equals (y, getAllExceptFirst (x)));
-      assertTrue (Arrays.equals (x, getAllExceptFirst (x, 0)));
-      assertTrue (Arrays.equals (y, getAllExceptFirst (x, 1)));
-      assertTrue (Arrays.equals (z, getAllExceptFirst (x, 2)));
+      CommonsAssert.assertEquals (y, getAllExceptFirst (x));
+      CommonsAssert.assertEquals (x, getAllExceptFirst (x, 0));
+      CommonsAssert.assertEquals (y, getAllExceptFirst (x, 1));
+      CommonsAssert.assertEquals (z, getAllExceptFirst (x, 2));
       assertNull (getAllExceptFirst (x, 3));
       assertNull (getAllExceptFirst (x, 4));
       assertNull (getAllExceptFirst (new float [] { x[0] }));
@@ -885,10 +885,10 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
       final int [] x = new int [] { -5, 2, 9 };
       final int [] y = new int [] { 2, 9 };
       final int [] z = new int [] { 9 };
-      assertTrue (Arrays.equals (y, getAllExceptFirst (x)));
-      assertTrue (Arrays.equals (x, getAllExceptFirst (x, 0)));
-      assertTrue (Arrays.equals (y, getAllExceptFirst (x, 1)));
-      assertTrue (Arrays.equals (z, getAllExceptFirst (x, 2)));
+      CommonsAssert.assertEquals (y, getAllExceptFirst (x));
+      CommonsAssert.assertEquals (x, getAllExceptFirst (x, 0));
+      CommonsAssert.assertEquals (y, getAllExceptFirst (x, 1));
+      CommonsAssert.assertEquals (z, getAllExceptFirst (x, 2));
       assertNull (getAllExceptFirst (x, 3));
       assertNull (getAllExceptFirst (x, 4));
       assertNull (getAllExceptFirst (new int [] { x[0] }));
@@ -908,10 +908,10 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
       final long [] x = new long [] { -6, 2, 10 };
       final long [] y = new long [] { 2, 10 };
       final long [] z = new long [] { 10 };
-      assertTrue (Arrays.equals (y, getAllExceptFirst (x)));
-      assertTrue (Arrays.equals (x, getAllExceptFirst (x, 0)));
-      assertTrue (Arrays.equals (y, getAllExceptFirst (x, 1)));
-      assertTrue (Arrays.equals (z, getAllExceptFirst (x, 2)));
+      CommonsAssert.assertEquals (y, getAllExceptFirst (x));
+      CommonsAssert.assertEquals (x, getAllExceptFirst (x, 0));
+      CommonsAssert.assertEquals (y, getAllExceptFirst (x, 1));
+      CommonsAssert.assertEquals (z, getAllExceptFirst (x, 2));
       assertNull (getAllExceptFirst (x, 3));
       assertNull (getAllExceptFirst (x, 4));
       assertNull (getAllExceptFirst (new long [] { x[0] }));
@@ -931,10 +931,10 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
       final short [] x = new short [] { -100, -10, 1 };
       final short [] y = new short [] { -10, 1 };
       final short [] z = new short [] { 1 };
-      assertTrue (Arrays.equals (y, getAllExceptFirst (x)));
-      assertTrue (Arrays.equals (x, getAllExceptFirst (x, 0)));
-      assertTrue (Arrays.equals (y, getAllExceptFirst (x, 1)));
-      assertTrue (Arrays.equals (z, getAllExceptFirst (x, 2)));
+      CommonsAssert.assertEquals (y, getAllExceptFirst (x));
+      CommonsAssert.assertEquals (x, getAllExceptFirst (x, 0));
+      CommonsAssert.assertEquals (y, getAllExceptFirst (x, 1));
+      CommonsAssert.assertEquals (z, getAllExceptFirst (x, 2));
       assertNull (getAllExceptFirst (x, 3));
       assertNull (getAllExceptFirst (x, 4));
       assertNull (getAllExceptFirst (new short [] { x[0] }));
@@ -984,10 +984,10 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
       final boolean [] x = new boolean [] { true, false, true };
       final boolean [] y = new boolean [] { true, false };
       final boolean [] z = new boolean [] { true };
-      assertTrue (Arrays.equals (y, getAllExceptLast (x)));
-      assertTrue (Arrays.equals (x, getAllExceptLast (x, 0)));
-      assertTrue (Arrays.equals (y, getAllExceptLast (x, 1)));
-      assertTrue (Arrays.equals (z, getAllExceptLast (x, 2)));
+      CommonsAssert.assertEquals (y, getAllExceptLast (x));
+      CommonsAssert.assertEquals (x, getAllExceptLast (x, 0));
+      CommonsAssert.assertEquals (y, getAllExceptLast (x, 1));
+      CommonsAssert.assertEquals (z, getAllExceptLast (x, 2));
       assertNull (getAllExceptLast (x, 3));
       assertNull (getAllExceptLast (x, 4));
       assertNull (getAllExceptLast (new boolean [] { x[0] }));
@@ -1007,10 +1007,10 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
       final byte [] x = new byte [] { 5, 9, 14 };
       final byte [] y = new byte [] { 5, 9 };
       final byte [] z = new byte [] { 5 };
-      assertTrue (Arrays.equals (y, getAllExceptLast (x)));
-      assertTrue (Arrays.equals (x, getAllExceptLast (x, 0)));
-      assertTrue (Arrays.equals (y, getAllExceptLast (x, 1)));
-      assertTrue (Arrays.equals (z, getAllExceptLast (x, 2)));
+      CommonsAssert.assertEquals (y, getAllExceptLast (x));
+      CommonsAssert.assertEquals (x, getAllExceptLast (x, 0));
+      CommonsAssert.assertEquals (y, getAllExceptLast (x, 1));
+      CommonsAssert.assertEquals (z, getAllExceptLast (x, 2));
       assertNull (getAllExceptLast (x, 3));
       assertNull (getAllExceptLast (x, 4));
       assertNull (getAllExceptLast (new byte [] { x[0] }));
@@ -1030,10 +1030,10 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
       final char [] x = new char [] { 'a', 'B', 'c' };
       final char [] y = new char [] { 'a', 'B' };
       final char [] z = new char [] { 'a' };
-      assertTrue (Arrays.equals (y, getAllExceptLast (x)));
-      assertTrue (Arrays.equals (x, getAllExceptLast (x, 0)));
-      assertTrue (Arrays.equals (y, getAllExceptLast (x, 1)));
-      assertTrue (Arrays.equals (z, getAllExceptLast (x, 2)));
+      CommonsAssert.assertEquals (y, getAllExceptLast (x));
+      CommonsAssert.assertEquals (x, getAllExceptLast (x, 0));
+      CommonsAssert.assertEquals (y, getAllExceptLast (x, 1));
+      CommonsAssert.assertEquals (z, getAllExceptLast (x, 2));
       assertNull (getAllExceptLast (x, 3));
       assertNull (getAllExceptLast (x, 4));
       assertNull (getAllExceptLast (new char [] { x[0] }));
@@ -1053,10 +1053,10 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
       final double [] x = new double [] { -1.1, 0, 1.1 };
       final double [] y = new double [] { -1.1, 0 };
       final double [] z = new double [] { -1.1 };
-      assertTrue (Arrays.equals (y, getAllExceptLast (x)));
-      assertTrue (Arrays.equals (x, getAllExceptLast (x, 0)));
-      assertTrue (Arrays.equals (y, getAllExceptLast (x, 1)));
-      assertTrue (Arrays.equals (z, getAllExceptLast (x, 2)));
+      CommonsAssert.assertEquals (y, getAllExceptLast (x));
+      CommonsAssert.assertEquals (x, getAllExceptLast (x, 0));
+      CommonsAssert.assertEquals (y, getAllExceptLast (x, 1));
+      CommonsAssert.assertEquals (z, getAllExceptLast (x, 2));
       assertNull (getAllExceptLast (x, 3));
       assertNull (getAllExceptLast (x, 4));
       assertNull (getAllExceptLast (new double [] { x[0] }));
@@ -1076,10 +1076,10 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
       final float [] x = new float [] { -3.2f, -0.01f, 99.8f };
       final float [] y = new float [] { -3.2f, -0.01f };
       final float [] z = new float [] { -3.2f };
-      assertTrue (Arrays.equals (y, getAllExceptLast (x)));
-      assertTrue (Arrays.equals (x, getAllExceptLast (x, 0)));
-      assertTrue (Arrays.equals (y, getAllExceptLast (x, 1)));
-      assertTrue (Arrays.equals (z, getAllExceptLast (x, 2)));
+      CommonsAssert.assertEquals (y, getAllExceptLast (x));
+      CommonsAssert.assertEquals (x, getAllExceptLast (x, 0));
+      CommonsAssert.assertEquals (y, getAllExceptLast (x, 1));
+      CommonsAssert.assertEquals (z, getAllExceptLast (x, 2));
       assertNull (getAllExceptLast (x, 3));
       assertNull (getAllExceptLast (x, 4));
       assertNull (getAllExceptLast (new float [] { x[0] }));
@@ -1099,10 +1099,10 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
       final int [] x = new int [] { -5, 2, 9 };
       final int [] y = new int [] { -5, 2 };
       final int [] z = new int [] { -5 };
-      assertTrue (Arrays.equals (y, getAllExceptLast (x)));
-      assertTrue (Arrays.equals (x, getAllExceptLast (x, 0)));
-      assertTrue (Arrays.equals (y, getAllExceptLast (x, 1)));
-      assertTrue (Arrays.equals (z, getAllExceptLast (x, 2)));
+      CommonsAssert.assertEquals (y, getAllExceptLast (x));
+      CommonsAssert.assertEquals (x, getAllExceptLast (x, 0));
+      CommonsAssert.assertEquals (y, getAllExceptLast (x, 1));
+      CommonsAssert.assertEquals (z, getAllExceptLast (x, 2));
       assertNull (getAllExceptLast (x, 3));
       assertNull (getAllExceptLast (x, 4));
       assertNull (getAllExceptLast (new int [] { x[0] }));
@@ -1122,10 +1122,10 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
       final long [] x = new long [] { -6, 2, 10 };
       final long [] y = new long [] { -6, 2 };
       final long [] z = new long [] { -6 };
-      assertTrue (Arrays.equals (y, getAllExceptLast (x)));
-      assertTrue (Arrays.equals (x, getAllExceptLast (x, 0)));
-      assertTrue (Arrays.equals (y, getAllExceptLast (x, 1)));
-      assertTrue (Arrays.equals (z, getAllExceptLast (x, 2)));
+      CommonsAssert.assertEquals (y, getAllExceptLast (x));
+      CommonsAssert.assertEquals (x, getAllExceptLast (x, 0));
+      CommonsAssert.assertEquals (y, getAllExceptLast (x, 1));
+      CommonsAssert.assertEquals (z, getAllExceptLast (x, 2));
       assertNull (getAllExceptLast (x, 3));
       assertNull (getAllExceptLast (x, 4));
       assertNull (getAllExceptLast (new long [] { x[0] }));
@@ -1145,10 +1145,10 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
       final short [] x = new short [] { -100, -10, 1 };
       final short [] y = new short [] { -100, -10 };
       final short [] z = new short [] { -100 };
-      assertTrue (Arrays.equals (y, getAllExceptLast (x)));
-      assertTrue (Arrays.equals (x, getAllExceptLast (x, 0)));
-      assertTrue (Arrays.equals (y, getAllExceptLast (x, 1)));
-      assertTrue (Arrays.equals (z, getAllExceptLast (x, 2)));
+      CommonsAssert.assertEquals (y, getAllExceptLast (x));
+      CommonsAssert.assertEquals (x, getAllExceptLast (x, 0));
+      CommonsAssert.assertEquals (y, getAllExceptLast (x, 1));
+      CommonsAssert.assertEquals (z, getAllExceptLast (x, 2));
       assertNull (getAllExceptLast (x, 3));
       assertNull (getAllExceptLast (x, 4));
       assertNull (getAllExceptLast (new short [] { x[0] }));

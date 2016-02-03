@@ -130,7 +130,7 @@ public final class NonBlockingByteArrayInputStreamTest
     {}
     try
     {
-      assertTrue (bais.read (x, 90, 20) == 0);
+      assertEquals (bais.read (x, 90, 20), 0);
       bais.close ();
       fail ();
     }

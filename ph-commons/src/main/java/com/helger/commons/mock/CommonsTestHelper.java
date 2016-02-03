@@ -38,7 +38,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.callback.IThrowingRunnable;
-import com.helger.commons.callback.adapter.AdapterRunnableToThrowingRunnable;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.concurrent.ManagedExecutorService;
 import com.helger.commons.equals.EqualsHelper;
@@ -327,20 +326,6 @@ public final class CommonsTestHelper
     testDefaultImplementationWithEqualContentObject (aObj, aObj2);
 
     return GenericReflection.uncheckedCast (aObj2);
-  }
-
-  /**
-   * Run something in parallel
-   *
-   * @param nCalls
-   *        The number of invocations of the passed runnable. Must be &ge; 0.
-   * @param aRunnable
-   *        The runnable to execute. May not be <code>null</code>.
-   */
-  public static void testInParallel (@Nonnegative final int nCalls, @Nonnull final Runnable aRunnable)
-  {
-    ValueEnforcer.notNull (aRunnable, "Runnable");
-    testInParallel (nCalls, new AdapterRunnableToThrowingRunnable <Exception> (aRunnable));
   }
 
   /**

@@ -17,8 +17,8 @@
 package com.helger.commons.tree.withid.folder;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
@@ -63,7 +63,7 @@ public final class DefaultFolderTreeTest extends AbstractCommonsTestCase
                                                                                           PrimitiveCollectionHelper.newPrimitiveSet (1,
                                                                                                                                      3));
     assertNotNull (i3);
-    assertTrue (i1 != i3);
+    assertNotSame (i1, i3);
 
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (i1, i3);
   }

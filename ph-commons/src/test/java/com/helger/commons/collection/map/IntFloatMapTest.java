@@ -119,7 +119,8 @@ public final class IntFloatMapTest
   private void _testRemoveHelper (final float fillFactor)
   {
     final IntFloatMap map = makeMap (100, fillFactor);
-    int addCnt = 0, removeCnt = 0;
+    int addCnt = 0;
+    int removeCnt = 0;
     for (int i = 0; i < 100000; ++i)
     {
       assertEquals (IntFloatMap.NO_VALUE, map.put (addCnt, addCnt), DELTA);

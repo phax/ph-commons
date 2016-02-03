@@ -25,6 +25,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.xml.XMLFactory;
 
 /**
@@ -52,14 +53,15 @@ public final class DOMReaderSettingsTest
     final DOMReaderSettings aDRS = new DOMReaderSettings ();
     assertNotNull (aDRS);
     assertFalse (aDRS.requiresNewXMLParser ());
-    assertTrue (XMLFactory.DEFAULT_DOM_NAMESPACE_AWARE == aDRS.isNamespaceAware ());
-    assertTrue (XMLFactory.DEFAULT_DOM_VALIDATING == aDRS.isValidating ());
-    assertTrue (XMLFactory.DEFAULT_DOM_IGNORING_ELEMENT_CONTENT_WHITESPACE == aDRS.isIgnoringElementContentWhitespace ());
-    assertTrue (XMLFactory.DEFAULT_DOM_EXPAND_ENTITY_REFERENCES == aDRS.isExpandEntityReferences ());
-    assertTrue (XMLFactory.DEFAULT_DOM_IGNORING_COMMENTS == aDRS.isIgnoringComments ());
-    assertTrue (XMLFactory.DEFAULT_DOM_COALESCING == aDRS.isCoalescing ());
+    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_NAMESPACE_AWARE, aDRS.isNamespaceAware ());
+    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_VALIDATING, aDRS.isValidating ());
+    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_IGNORING_ELEMENT_CONTENT_WHITESPACE,
+                                aDRS.isIgnoringElementContentWhitespace ());
+    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_EXPAND_ENTITY_REFERENCES, aDRS.isExpandEntityReferences ());
+    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_IGNORING_COMMENTS, aDRS.isIgnoringComments ());
+    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_COALESCING, aDRS.isCoalescing ());
     assertNull (aDRS.getSchema ());
-    assertTrue (XMLFactory.DEFAULT_DOM_XINCLUDE_AWARE == aDRS.isXIncludeAware ());
+    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_XINCLUDE_AWARE, aDRS.isXIncludeAware ());
     assertNull (aDRS.getEntityResolver ());
     assertNotNull (aDRS.getErrorHandler ());
     assertNotNull (aDRS.getExceptionHandler ());

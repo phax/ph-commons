@@ -88,7 +88,7 @@ public final class IntIntMapTest
   {
     final Random aRandom = VerySecureRandom.getInstance ();
     final int SIZE = 100 * 1000;
-    final Set <Integer> set = new HashSet <Integer> (SIZE);
+    final Set <Integer> set = new HashSet <> (SIZE);
     final int [] vals = new int [SIZE];
     while (set.size () < SIZE)
       set.add (Integer.valueOf (aRandom.nextInt ()));
@@ -118,7 +118,8 @@ public final class IntIntMapTest
   private void _testRemoveHelper (final float fillFactor)
   {
     final IntIntMap map = makeMap (100, fillFactor);
-    int addCnt = 0, removeCnt = 0;
+    int addCnt = 0;
+    int removeCnt = 0;
     for (int i = 0; i < 100000; ++i)
     {
       assertEquals (0, map.put (addCnt, addCnt));

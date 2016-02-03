@@ -16,6 +16,7 @@
  */
 package com.helger.commons.mock;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
@@ -39,12 +40,44 @@ public final class CommonsAssert
   private CommonsAssert ()
   {}
 
+  public static void fail ()
+  {
+    fail ("Forced fail");
+  }
+
+  public static void fail (@Nonnull final String sMsg)
+  {
+    throw new IllegalArgumentException (sMsg);
+  }
+
+  public static void assertEquals (final boolean x, final boolean y)
+  {
+    assertEquals ((String) null, x, y);
+  }
+
+  public static void assertEquals (final boolean x, @Nonnull final Boolean y)
+  {
+    ValueEnforcer.notNull (y, "y");
+    assertEquals ((String) null, x, y.booleanValue ());
+  }
+
+  public static void assertEquals (@Nullable final String sUserMsg, final boolean x, final boolean y)
+  {
+    if (x != y)
+      fail ("<" +
+            x +
+            "> is not equal to <" +
+            y +
+            ">" +
+            (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
+  }
+
   public static void assertEquals (final double x, final double y)
   {
     assertEquals ((String) null, x, y);
   }
 
-  public static void assertEquals (final double x, final Double y)
+  public static void assertEquals (final double x, @Nonnull final Double y)
   {
     ValueEnforcer.notNull (y, "y");
     assertEquals ((String) null, x, y.doubleValue ());
@@ -55,12 +88,12 @@ public final class CommonsAssert
     // Do not call MathHelper.abs in here, because this class should be as close
     // to the runtime as possible!
     if (Double.compare (x, y) != 0 && Math.abs (x - y) > DOUBLE_ALLOWED_ROUNDING_DIFFERENCE)
-      throw new IllegalArgumentException ("<" +
-                                          x +
-                                          "> is not equal to <" +
-                                          y +
-                                          ">" +
-                                          (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
+      fail ("<" +
+            x +
+            "> is not equal to <" +
+            y +
+            ">" +
+            (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
   }
 
   public static void assertEquals (final float x, final float y)
@@ -68,7 +101,7 @@ public final class CommonsAssert
     assertEquals ((String) null, x, y);
   }
 
-  public static void assertEquals (final float x, final Float y)
+  public static void assertEquals (final float x, @Nonnull final Float y)
   {
     ValueEnforcer.notNull (y, "y");
     assertEquals ((String) null, x, y.floatValue ());
@@ -79,47 +112,81 @@ public final class CommonsAssert
     // Do not call MathHelper.abs in here, because this class should be as close
     // to the runtime as possible!
     if (Float.compare (x, y) != 0 && Math.abs (x - y) > DOUBLE_ALLOWED_ROUNDING_DIFFERENCE)
-      throw new IllegalArgumentException ("<" +
-                                          x +
-                                          "> is not equal to <" +
-                                          y +
-                                          ">" +
-                                          (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
+      fail ("<" +
+            x +
+            "> is not equal to <" +
+            y +
+            ">" +
+            (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
   }
 
-  public static void assertEquals (final float [] x, final float [] y)
+  public static void assertEquals (@Nullable final float [] x, @Nullable final float [] y)
   {
+    // Same object - check first
+    if (x == y)
+      return;
+
+    // Is only one value null?
+    if (x == null)
+      fail ("First parameter is null");
+    if (y == null)
+      fail ("Second parameter is null");
+
     if (x.length != y.length)
-      throw new IllegalArgumentException ("Length mismatch");
+      fail ("Length mismatch");
 
     for (int i = 0; i < x.length; ++i)
       assertEquals ("Element [" + i + "] mismatch", x[i], y[i]);
   }
 
-  public static void assertEquals (final double [] x, final double [] y)
+  public static void assertEquals (@Nullable final double [] x, @Nullable final double [] y)
   {
+    // Same object - check first
+    if (x == y)
+      return;
+
+    // Is only one value null?
+    if (x == null)
+      fail ("First parameter is null");
+    if (y == null)
+      fail ("Second parameter is null");
+
     if (x.length != y.length)
-      throw new IllegalArgumentException ("Length mismatch");
+      fail ("Length mismatch");
 
     for (int i = 0; i < x.length; ++i)
       assertEquals ("Element [" + i + "] mismatch", x[i], y[i]);
   }
 
-  public static void assertEquals (final Object x, final Object y)
+  public static <T> void assertEquals (@Nullable final T x, @Nullable final T y)
   {
     assertEquals ((String) null, x, y);
   }
 
-  public static void assertEquals (@Nullable final String sUserMsg, final Object x, final Object y)
+  public static <T> void assertEquals (@Nullable final String sUserMsg, @Nullable final T x, @Nullable final T y)
   {
-    // Do not call MathHelper.abs in here, because this class should be as close
-    // to the runtime as possible!
     if (!EqualsHelper.equals (x, y))
-      throw new IllegalArgumentException ("<" +
-                                          x +
-                                          "> is not equal to <" +
-                                          y +
-                                          ">" +
-                                          (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
+      fail ("<" +
+            x +
+            "> is not equal to <" +
+            y +
+            ">" +
+            (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
+  }
+
+  public static <T> void assertNotEquals (@Nullable final T x, @Nullable final T y)
+  {
+    assertNotEquals ((String) null, x, y);
+  }
+
+  public static <T> void assertNotEquals (@Nullable final String sUserMsg, @Nullable final T x, @Nullable final T y)
+  {
+    if (EqualsHelper.equals (x, y))
+      fail ("<" +
+            x +
+            "> is equal to <" +
+            y +
+            ">" +
+            (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
   }
 }

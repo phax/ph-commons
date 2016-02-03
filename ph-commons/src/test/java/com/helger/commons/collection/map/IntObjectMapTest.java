@@ -129,7 +129,8 @@ public final class IntObjectMapTest
   private void _testRemoveHelper (final float fillFactor)
   {
     final IntObjectMap <String> map = makeMap (100, fillFactor);
-    int addCnt = 0, removeCnt = 0;
+    int addCnt = 0;
+    int removeCnt = 0;
     for (int i = 0; i < 100000; ++i)
     {
       assertNull (map.put (addCnt, _make (addCnt)));
