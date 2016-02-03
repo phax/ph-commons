@@ -220,7 +220,7 @@ public final class LocaleCache
   @ReturnsMutableCopy
   public Set <Locale> getAllLanguages ()
   {
-    final Set <Locale> ret = new HashSet <Locale> ();
+    final Set <Locale> ret = new HashSet <> ();
     for (final Locale aLocale : getAllLocales ())
     {
       final String sLanguage = aLocale.getLanguage ();

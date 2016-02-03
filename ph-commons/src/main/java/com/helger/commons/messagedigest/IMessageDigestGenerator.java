@@ -35,11 +35,6 @@ import com.helger.commons.charset.CharsetManager;
 public interface IMessageDigestGenerator
 {
   /**
-   * The default algorithm that should be used.
-   */
-  EMessageDigestAlgorithm DEFAULT_ALGORITHM = EMessageDigestAlgorithm.SHA_512;
-
-  /**
    * @return The used security Provider. Should not be <code>null</code>.
    */
   @Nonnull

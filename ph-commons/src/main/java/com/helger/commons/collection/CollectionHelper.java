@@ -426,14 +426,28 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE, DSTVALUETYPE> HashMap <DSTKEYTYPE, DSTVALUETYPE> newMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
-                                                                                                                      @Nonnull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
-                                                                                                                      @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
+                                                                                                                      @Nonnull final Function <? super SRCKEYTYPE, ? extends DSTKEYTYPE> aKeyMapper,
+                                                                                                                      @Nonnull final Function <? super SRCVALUETYPE, ? extends DSTVALUETYPE> aValueMapper)
   {
     if (isEmpty (aMap))
       return newMap (0);
     final HashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newMap (aMap.size ());
     for (final Map.Entry <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aEntry : aMap.entrySet ())
       ret.put (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, DSTKEYTYPE, DSTVALUETYPE> HashMap <DSTKEYTYPE, DSTVALUETYPE> newMapMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                                                     @Nonnull final Function <? super SRCTYPE, ? extends DSTKEYTYPE> aKeyMapper,
+                                                                                                     @Nonnull final Function <? super SRCTYPE, ? extends DSTVALUETYPE> aValueMapper)
+  {
+    if (isEmpty (aCollection))
+      return newMap (0);
+    final HashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newMap (aCollection.size ());
+    for (final SRCTYPE aValue : aCollection)
+      ret.put (aKeyMapper.apply (aValue), aValueMapper.apply (aValue));
     return ret;
   }
 
@@ -571,14 +585,28 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE, DSTVALUETYPE> LinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> newOrderedMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
-                                                                                                                                   @Nonnull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
-                                                                                                                                   @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
+                                                                                                                                   @Nonnull final Function <? super SRCKEYTYPE, ? extends DSTKEYTYPE> aKeyMapper,
+                                                                                                                                   @Nonnull final Function <? super SRCVALUETYPE, ? extends DSTVALUETYPE> aValueMapper)
   {
     if (isEmpty (aMap))
       return newOrderedMap (0);
     final LinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newOrderedMap (aMap.size ());
     for (final Map.Entry <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aEntry : aMap.entrySet ())
       ret.put (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, DSTKEYTYPE, DSTVALUETYPE> LinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> newOrderedMapMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                                                                  @Nonnull final Function <? super SRCTYPE, ? extends DSTKEYTYPE> aKeyMapper,
+                                                                                                                  @Nonnull final Function <? super SRCTYPE, ? extends DSTVALUETYPE> aValueMapper)
+  {
+    if (isEmpty (aCollection))
+      return newOrderedMap (0);
+    final LinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newOrderedMap (aCollection.size ());
+    for (final SRCTYPE aValue : aCollection)
+      ret.put (aKeyMapper.apply (aValue), aValueMapper.apply (aValue));
     return ret;
   }
 

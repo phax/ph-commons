@@ -22,6 +22,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
@@ -61,7 +62,8 @@ public final class CountryCache
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   /** Contains all known countries (as ISO 3166 2-letter codes). */
-  private final Set <String> m_aCountries = new HashSet <String> ();
+  @GuardedBy ("m_aRWLock")
+  private final Set <String> m_aCountries = new HashSet <> ();
 
   private CountryCache ()
   {
@@ -134,10 +136,11 @@ public final class CountryCache
   @ReturnsMutableCopy
   public Set <Locale> getAllCountryLocales ()
   {
-    final Set <Locale> ret = new HashSet <Locale> ();
-    for (final String sCountry : getAllCountries ())
-      ret.add (LocaleCache.getInstance ().getLocale ("", sCountry, ""));
-    return ret;
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newSetMapped (m_aCountries,
+                                                                       sCountry -> LocaleCache.getInstance ()
+                                                                                              .getLocale ("",
+                                                                                                          sCountry,
+                                                                                                          "")));
   }
 
   /**

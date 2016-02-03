@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -34,6 +35,11 @@ public enum EMessageDigestAlgorithm
   SHA_256 ("SHA-256"),
   SHA_384 ("SHA-384"),
   SHA_512 ("SHA-512");
+
+  /**
+   * The default algorithm that should be used.
+   */
+  public static final EMessageDigestAlgorithm DEFAULT = SHA_512;
 
   private final String m_sAlgorithm;
 
@@ -52,10 +58,8 @@ public enum EMessageDigestAlgorithm
   @Nullable
   public static EMessageDigestAlgorithm getFromStringIgnoreCase (@Nullable final String sAlgorithm)
   {
-    if (StringHelper.hasText (sAlgorithm))
-      for (final EMessageDigestAlgorithm eMD : EMessageDigestAlgorithm.values ())
-        if (eMD.m_sAlgorithm.equalsIgnoreCase (sAlgorithm))
-          return eMD;
-    return null;
+    if (StringHelper.hasNoText (sAlgorithm))
+      return null;
+    return EnumHelper.findFirst (EMessageDigestAlgorithm.class, e -> e.m_sAlgorithm.equalsIgnoreCase (sAlgorithm));
   }
 }

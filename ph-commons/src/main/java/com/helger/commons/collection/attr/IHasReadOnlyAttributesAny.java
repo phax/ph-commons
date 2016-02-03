@@ -23,6 +23,7 @@ package com.helger.commons.collection.attr;
  * @param <KEYTYPE>
  *        Key type
  */
+@FunctionalInterface
 public interface IHasReadOnlyAttributesAny <KEYTYPE> extends IHasReadOnlyAttributes <KEYTYPE, Object>
 {
   /* empty */

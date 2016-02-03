@@ -92,7 +92,7 @@ public final class NonBlockingMessageDigestGenerator implements IMessageDigestGe
    */
   public NonBlockingMessageDigestGenerator ()
   {
-    this (DEFAULT_ALGORITHM);
+    this (EMessageDigestAlgorithm.DEFAULT);
   }
 
   /**
@@ -105,7 +105,7 @@ public final class NonBlockingMessageDigestGenerator implements IMessageDigestGe
    */
   public NonBlockingMessageDigestGenerator (@Nullable final String sProvider)
   {
-    this (sProvider, DEFAULT_ALGORITHM);
+    this (sProvider, EMessageDigestAlgorithm.DEFAULT);
   }
 
   /**

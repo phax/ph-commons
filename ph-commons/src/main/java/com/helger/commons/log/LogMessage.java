@@ -25,10 +25,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.error.IErrorLevel;
-import com.helger.commons.error.IHasErrorLevel;
-import com.helger.commons.error.ISeverityComparable;
-import com.helger.commons.state.IErrorIndicator;
-import com.helger.commons.state.ISuccessIndicator;
+import com.helger.commons.errorlist.IErrorBase;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -37,12 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class LogMessage implements
-                        IHasErrorLevel,
-                        ISuccessIndicator,
-                        IErrorIndicator,
-                        ISeverityComparable <LogMessage>,
-                        Serializable
+public class LogMessage implements IErrorBase <LogMessage>
 {
   private final LocalDateTime m_aIssueDT;
   private final IErrorLevel m_aErrorLevel;
@@ -89,41 +81,6 @@ public class LogMessage implements
   public Throwable getThrowable ()
   {
     return m_aThrowable;
-  }
-
-  public boolean isSuccess ()
-  {
-    return m_aErrorLevel.isSuccess ();
-  }
-
-  public boolean isError ()
-  {
-    return m_aErrorLevel.isError ();
-  }
-
-  public boolean isEqualSevereThan (@Nonnull final LogMessage aOther)
-  {
-    return m_aErrorLevel.isEqualSevereThan (aOther.m_aErrorLevel);
-  }
-
-  public boolean isLessSevereThan (@Nonnull final LogMessage aOther)
-  {
-    return m_aErrorLevel.isLessSevereThan (aOther.m_aErrorLevel);
-  }
-
-  public boolean isLessOrEqualSevereThan (@Nonnull final LogMessage aOther)
-  {
-    return m_aErrorLevel.isLessOrEqualSevereThan (aOther.m_aErrorLevel);
-  }
-
-  public boolean isMoreSevereThan (@Nonnull final LogMessage aOther)
-  {
-    return m_aErrorLevel.isMoreSevereThan (aOther.m_aErrorLevel);
-  }
-
-  public boolean isMoreOrEqualSevereThan (@Nonnull final LogMessage aOther)
-  {
-    return m_aErrorLevel.isMoreOrEqualSevereThan (aOther.m_aErrorLevel);
   }
 
   @Override

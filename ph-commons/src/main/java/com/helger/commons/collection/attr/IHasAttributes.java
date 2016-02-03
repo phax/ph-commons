@@ -30,6 +30,7 @@ import com.helger.commons.annotation.ReturnsMutableObject;
  * @param <VALUETYPE>
  *        Value type
  */
+@FunctionalInterface
 public interface IHasAttributes <KEYTYPE, VALUETYPE> extends IHasReadOnlyAttributes <KEYTYPE, VALUETYPE>
 {
   @Nonnull

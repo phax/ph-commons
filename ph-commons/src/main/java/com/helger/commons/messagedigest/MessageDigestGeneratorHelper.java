@@ -112,7 +112,7 @@ public final class MessageDigestGeneratorHelper
   @Nonnull
   @ReturnsMutableCopy
   public static byte [] getAllDigestBytes (@Nonnull final byte [] aContent,
-                                           @Nonnull final NonBlockingMessageDigestGenerator aMDGen)
+                                           @Nonnull final IMessageDigestGenerator aMDGen)
   {
     return aMDGen.update (aContent).getAllDigestBytes ();
   }
@@ -132,7 +132,7 @@ public final class MessageDigestGeneratorHelper
   public static byte [] getAllDigestBytes (@Nonnull final byte [] aContent,
                                            @Nonnegative final int nOfs,
                                            @Nonnegative final int nLength,
-                                           @Nonnull final NonBlockingMessageDigestGenerator aMDGen)
+                                           @Nonnull final IMessageDigestGenerator aMDGen)
   {
     return aMDGen.update (aContent, nOfs, nLength).getAllDigestBytes ();
   }
@@ -155,7 +155,7 @@ public final class MessageDigestGeneratorHelper
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
-    final NonBlockingMessageDigestGenerator aMDGen = new NonBlockingMessageDigestGenerator (aAlgorithms);
+    final IMessageDigestGenerator aMDGen = new NonBlockingMessageDigestGenerator (aAlgorithms);
     return getAllDigestBytesFromInputStream (aIS, aMDGen);
   }
 
@@ -172,7 +172,7 @@ public final class MessageDigestGeneratorHelper
   @Nonnull
   @ReturnsMutableCopy
   public static byte [] getAllDigestBytesFromInputStream (@Nonnull @WillClose final InputStream aIS,
-                                                          @Nonnull final NonBlockingMessageDigestGenerator aMDGen)
+                                                          @Nonnull final IMessageDigestGenerator aMDGen)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aMDGen, "MDGen");

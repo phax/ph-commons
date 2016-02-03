@@ -18,10 +18,10 @@ package com.helger.commons.locale;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -73,7 +73,7 @@ public final class LocaleHelper
         return null;
 
       // List has a maximum of 3 entries
-      final List <Locale> ret = new ArrayList <Locale> (3);
+      final List <Locale> ret = new ArrayList <> (3);
       final String sLanguage = aBaseLocale.getLanguage ();
       if (sLanguage.length () > 0)
       {
@@ -164,10 +164,9 @@ public final class LocaleHelper
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
-    final Map <Locale, String> ret = new HashMap <> ();
-    for (final Locale aCurLocale : LocaleCache.getInstance ().getAllLocales ())
-      ret.put (aCurLocale, getLocaleDisplayName (aCurLocale, aContentLocale));
-    return ret;
+    return CollectionHelper.newMapMapped (LocaleCache.getInstance ().getAllLocales (),
+                                          Function.identity (),
+                                          aLocale -> getLocaleDisplayName (aLocale, aContentLocale));
   }
 
   /**
@@ -355,7 +354,7 @@ public final class LocaleHelper
     if (StringHelper.hasText (sCode) &&
         (RegExHelper.stringMatchesPattern ("[a-zA-Z]{2,8}", sCode) || isSpecialLocaleCode (sCode)))
     {
-      return sCode.toLowerCase (Locale.US);
+      return sCode.toLowerCase (CGlobal.LOCALE_FIXED_NUMBER_FORMAT);
     }
     return null;
   }

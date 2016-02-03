@@ -32,6 +32,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  * @param <VALUETYPE>
  *        Value type
  */
+@FunctionalInterface
 public interface IHasReadOnlyAttributes <KEYTYPE, VALUETYPE>
 {
   /**

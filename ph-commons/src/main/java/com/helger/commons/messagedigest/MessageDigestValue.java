@@ -18,6 +18,7 @@ package com.helger.commons.messagedigest;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.Arrays;
 
 import javax.annotation.Nonnull;
@@ -40,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class MessageDigestValue
+public class MessageDigestValue implements Serializable
 {
   private final EMessageDigestAlgorithm m_eAlgorithm;
   private final byte [] m_aDigestBytes;
