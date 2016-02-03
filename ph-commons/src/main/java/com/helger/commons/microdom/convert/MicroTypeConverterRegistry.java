@@ -50,7 +50,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
 {
   private static final class SingletonHolder
   {
-    static final MicroTypeConverterRegistry s_aInstance = new MicroTypeConverterRegistry ();
+    private static final MicroTypeConverterRegistry s_aInstance = new MicroTypeConverterRegistry ();
   }
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (MicroTypeConverterRegistry.class);
@@ -60,7 +60,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   // WeakHashMap because key is a class
-  private final Map <Class <?>, IMicroTypeConverter> m_aMap = new WeakHashMap <Class <?>, IMicroTypeConverter> ();
+  private final Map <Class <?>, IMicroTypeConverter> m_aMap = new WeakHashMap <> ();
 
   private MicroTypeConverterRegistry ()
   {

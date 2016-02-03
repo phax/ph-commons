@@ -79,21 +79,21 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
     addAll (aErrorList);
   }
 
-  public void addAll (@Nullable final IErrorList aErrorList)
+  public final void addAll (@Nullable final IErrorList aErrorList)
   {
     if (aErrorList != null)
       for (final IError aFormError : aErrorList.getAllItems ())
         add (aFormError);
   }
 
-  public void addAll (@Nullable final Collection <? extends IError> aErrorList)
+  public final void addAll (@Nullable final Collection <? extends IError> aErrorList)
   {
     if (aErrorList != null)
       for (final IError aFormError : aErrorList)
         add (aFormError);
   }
 
-  public void addAll (@Nullable final IError... aErrorList)
+  public final void addAll (@Nullable final IError... aErrorList)
   {
     if (aErrorList != null)
       for (final IError aFormError : aErrorList)
@@ -106,7 +106,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
    * @param aItem
    *        The item to be added. May not be <code>null</code>.
    */
-  public void add (@Nonnull final IError aItem)
+  public final void add (@Nonnull final IError aItem)
   {
     ValueEnforcer.notNull (aItem, "Item");
     m_aItems.add (aItem);

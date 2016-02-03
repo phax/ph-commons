@@ -61,7 +61,7 @@ public final class ImageDataManager
 {
   private static final class SingletonHolder
   {
-    static final ImageDataManager s_aInstance = new ImageDataManager (1000);
+    private static final ImageDataManager s_aInstance = new ImageDataManager (1000);
   }
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (ImageDataManager.class);

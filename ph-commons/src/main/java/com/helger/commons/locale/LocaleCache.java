@@ -52,7 +52,7 @@ public final class LocaleCache
 {
   private static final class SingletonHolder
   {
-    static final LocaleCache s_aInstance = new LocaleCache ();
+    private static final LocaleCache s_aInstance = new LocaleCache ();
   }
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (LocaleCache.class);

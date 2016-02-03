@@ -72,17 +72,8 @@ public class CSVIterator implements Iterator <List <String>>
     }
     catch (final IOException ex)
     {
-      throw new RuntimeException ("Failed to read next CSV line", ex);
+      throw new IllegalStateException ("Failed to read next CSV line", ex);
     }
     return ret;
-  }
-
-  /**
-   * This method is not supported by openCSV and will throw a
-   * UnsupportedOperationException if called.
-   */
-  public void remove ()
-  {
-    throw new UnsupportedOperationException ("This is a read-only CSV iterator.");
   }
 }

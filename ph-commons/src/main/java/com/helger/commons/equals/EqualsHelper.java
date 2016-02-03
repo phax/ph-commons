@@ -351,12 +351,8 @@ public final class EqualsHelper
           if (!_areChildrenEqual (aChildObj1, aChildObj2))
             return false;
         }
-        if (aIter2.hasNext ())
-        {
-          // Second iterator is longer
-          return false;
-        }
-        return true;
+        // Second iterator is longer?
+        return !aIter2.hasNext ();
       }
       case ITERABLE:
       {
@@ -380,12 +376,8 @@ public final class EqualsHelper
           if (!_areChildrenEqual (aChildObj1, aChildObj2))
             return false;
         }
-        if (aEnum2.hasMoreElements ())
-        {
-          // Second enumeration is longer
-          return false;
-        }
-        return true;
+        // Second enumeration is longer?
+        return !aEnum2.hasMoreElements ();
       }
       default:
         throw new IllegalStateException ("Unhandled container type " + eType1 + "!");

@@ -51,6 +51,11 @@ import com.helger.commons.state.EChange;
 @Singleton
 public final class HashCodeImplementationRegistry implements IHashCodeImplementationRegistry
 {
+  private static final class SingletonHolder
+  {
+    private static final HashCodeImplementationRegistry s_aInstance = new HashCodeImplementationRegistry ();
+  }
+
   private static final class ArrayHashCodeImplementation implements IHashCodeImplementation
   {
     public ArrayHashCodeImplementation ()
@@ -66,11 +71,6 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
         aHC = aHC.append (aArray[i]);
       return aHC.getHashCode ();
     }
-  }
-
-  private static final class SingletonHolder
-  {
-    static final HashCodeImplementationRegistry s_aInstance = new HashCodeImplementationRegistry ();
   }
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (HashCodeImplementationRegistry.class);

@@ -51,6 +51,11 @@ import com.helger.commons.state.EChange;
 @Singleton
 public final class EqualsImplementationRegistry implements IEqualsImplementationRegistry
 {
+  private static final class SingletonHolder
+  {
+    private static final EqualsImplementationRegistry s_aInstance = new EqualsImplementationRegistry ();
+  }
+
   private static final class ArrayEqualsImplementation implements IEqualsImplementation <Object []>
   {
     public boolean areEqual (@Nonnull final Object [] aObj1, @Nonnull final Object [] aObj2)
@@ -68,11 +73,6 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
       }
       return true;
     }
-  }
-
-  private static final class SingletonHolder
-  {
-    static final EqualsImplementationRegistry s_aInstance = new EqualsImplementationRegistry ();
   }
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (EqualsImplementationRegistry.class);

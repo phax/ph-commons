@@ -58,7 +58,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
 {
   private static final class SingletonHolder
   {
-    static final TypeConverterRegistry s_aInstance = new TypeConverterRegistry ();
+    private static final TypeConverterRegistry s_aInstance = new TypeConverterRegistry ();
   }
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (TypeConverterRegistry.class);

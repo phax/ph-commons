@@ -48,7 +48,7 @@ public final class ThirdPartyModuleRegistry
 {
   private static final class SingletonHolder
   {
-    static final ThirdPartyModuleRegistry s_aInstance = new ThirdPartyModuleRegistry ();
+    private static final ThirdPartyModuleRegistry s_aInstance = new ThirdPartyModuleRegistry ();
   }
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (ThirdPartyModuleRegistry.class);

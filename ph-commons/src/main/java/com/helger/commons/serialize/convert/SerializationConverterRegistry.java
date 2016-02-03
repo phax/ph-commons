@@ -49,7 +49,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
 {
   private static final class SingletonHolder
   {
-    static final SerializationConverterRegistry s_aInstance = new SerializationConverterRegistry ();
+    private static final SerializationConverterRegistry s_aInstance = new SerializationConverterRegistry ();
   }
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (SerializationConverterRegistry.class);

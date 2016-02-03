@@ -73,7 +73,7 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
    * @return this
    */
   @Nonnull
-  public ResourceErrorGroup addResourceError (@Nonnull final IResourceError aResourceError)
+  public final ResourceErrorGroup addResourceError (@Nonnull final IResourceError aResourceError)
   {
     ValueEnforcer.notNull (aResourceError, "ResourceError");
     m_aErrors.add (aResourceError);
@@ -122,7 +122,7 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
    * @return this
    */
   @Nonnull
-  public ResourceErrorGroup addResourceErrorGroup (@Nonnull final IResourceErrorGroup aResourceErrorGroup)
+  public final ResourceErrorGroup addResourceErrorGroup (@Nonnull final IResourceErrorGroup aResourceErrorGroup)
   {
     ValueEnforcer.notNull (aResourceErrorGroup, "ResourceErrorGroup");
     m_aErrors.addAll (aResourceErrorGroup.getAllResourceErrors ());

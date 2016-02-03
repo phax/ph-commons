@@ -41,7 +41,7 @@ public final class RegExCache extends AbstractNotifyingCache <RegExPattern, Patt
 {
   private static final class SingletonHolder
   {
-    static final RegExCache s_aInstance = new RegExCache ();
+    private static final RegExCache s_aInstance = new RegExCache ();
   }
 
   /** The default number of items to keep in the cache */

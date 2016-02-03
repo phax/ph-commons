@@ -39,7 +39,7 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
 {
   private static final class SingletonHolder
   {
-    static final DefaultTextResolver s_aInstance = new DefaultTextResolver ();
+    private static final DefaultTextResolver s_aInstance = new DefaultTextResolver ();
   }
 
   private static boolean s_bDefaultInstantiated = false;

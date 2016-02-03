@@ -50,7 +50,7 @@ public final class ScopeSPIManager
 {
   private static final class SingletonHolder
   {
-    static final ScopeSPIManager s_aInstance = new ScopeSPIManager ();
+    private static final ScopeSPIManager s_aInstance = new ScopeSPIManager ();
   }
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (ScopeSPIManager.class);

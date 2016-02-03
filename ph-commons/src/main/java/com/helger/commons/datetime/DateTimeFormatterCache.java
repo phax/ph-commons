@@ -40,7 +40,7 @@ public final class DateTimeFormatterCache extends AbstractNotifyingCache <DateTi
 {
   private static final class SingletonHolder
   {
-    static final DateTimeFormatterCache s_aInstance = new DateTimeFormatterCache ();
+    private static final DateTimeFormatterCache s_aInstance = new DateTimeFormatterCache ();
   }
 
   /** The default number of items to keep in the cache */

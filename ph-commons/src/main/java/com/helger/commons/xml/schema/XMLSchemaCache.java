@@ -46,7 +46,7 @@ public class XMLSchemaCache extends SchemaCache
 {
   private static final class SingletonHolder
   {
-    static final XMLSchemaCache s_aInstance = new XMLSchemaCache ();
+    private static final XMLSchemaCache s_aInstance = new XMLSchemaCache ();
   }
 
   private static boolean s_bDefaultInstantiated = false;

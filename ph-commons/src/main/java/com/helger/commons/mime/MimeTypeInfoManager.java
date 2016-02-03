@@ -63,7 +63,7 @@ public class MimeTypeInfoManager
   private static final class SingletonHolder
   {
     // Read default
-    static final MimeTypeInfoManager s_aInstance = new MimeTypeInfoManager ().readDefault ();
+    private static final MimeTypeInfoManager s_aInstance = new MimeTypeInfoManager ().readDefault ();
   }
 
   public static final String MIME_TYPE_INFO_XML = "codelists/mime-type-info.xml";

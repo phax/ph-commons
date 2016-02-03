@@ -52,7 +52,7 @@ public final class MimeTypeDeterminator
 {
   private static final class SingletonHolder
   {
-    static final MimeTypeDeterminator s_aInstance = new MimeTypeDeterminator ();
+    private static final MimeTypeDeterminator s_aInstance = new MimeTypeDeterminator ();
   }
 
   public static final IMimeType DEFAULT_MIME_TYPE = CMimeType.APPLICATION_OCTET_STREAM;
