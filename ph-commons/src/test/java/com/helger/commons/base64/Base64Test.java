@@ -273,7 +273,11 @@ public final class Base64Test
     final ByteBuffer aSrc = ByteBuffer.wrap (CharsetManager.getAsBytes ("Hallo Wält", CCharset.CHARSET_UTF_8_OBJ));
     final ByteBuffer aDst = ByteBuffer.allocate (aSrc.capacity () * 2);
     Base64.encode (aSrc, aDst);
-    assertEquals ("Hallo Wält", Base64.safeDecodeAsString (aDst.array (), CCharset.CHARSET_UTF_8_OBJ));
+    assertEquals ("Hallo Wält",
+                  Base64.safeDecodeAsString (aDst.array (),
+                                             aDst.arrayOffset (),
+                                             aDst.position (),
+                                             CCharset.CHARSET_UTF_8_OBJ));
   }
 
   @Test

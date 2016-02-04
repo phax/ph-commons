@@ -2622,10 +2622,34 @@ public final class Base64
   public static String safeDecodeAsString (@Nullable final byte [] aEncodedBytes, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
+
+    return aEncodedBytes == null ? null : safeDecodeAsString (aEncodedBytes, 0, aEncodedBytes.length, aCharset);
+  }
+
+  /**
+   * Decode the byte array and convert it to a string.
+   *
+   * @param aEncodedBytes
+   *        The encoded byte array.
+   * @param nOfs
+   *        Offset into array
+   * @param nLength
+   *        Number of bytes to decode.
+   * @param aCharset
+   *        The character set to be used.
+   * @return <code>null</code> if decoding failed.
+   */
+  @Nullable
+  public static String safeDecodeAsString (@Nullable final byte [] aEncodedBytes,
+                                           @Nonnegative final int nOfs,
+                                           @Nonnegative final int nLength,
+                                           @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (aCharset, "Charset");
     if (aEncodedBytes != null)
       try
       {
-        final byte [] aDecoded = decode (aEncodedBytes, DONT_GUNZIP);
+        final byte [] aDecoded = decode (aEncodedBytes, nOfs, nLength, DONT_GUNZIP);
         return CharsetManager.getAsString (aDecoded, aCharset);
       }
       catch (final Exception ex)

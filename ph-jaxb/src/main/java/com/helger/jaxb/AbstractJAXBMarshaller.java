@@ -19,6 +19,8 @@ package com.helger.jaxb;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.BufferOverflowException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -56,6 +58,7 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.IWritableResource;
+import com.helger.commons.io.stream.ByteBufferOutputStream;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.IHasClassLoader;
@@ -600,7 +603,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoad
   }
 
   /**
-   * Write the passed object to a {@link File}.
+   * Write the passed object to an {@link OutputStream}.
    *
    * @param aObject
    *        The object to be written. May not be <code>null</code>.
@@ -621,6 +624,24 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoad
       // Needs to be manually closed
       StreamHelper.close (aOS);
     }
+  }
+
+  /**
+   * Write the passed object to a {@link ByteBuffer}.
+   *
+   * @param aObject
+   *        The object to be written. May not be <code>null</code>.
+   * @param aBuffer
+   *        The byte buffer to write to. If the buffer is too small, it is
+   *        automatically extended. May not be <code>null</code>.
+   * @return {@link ESuccess}
+   * @throws BufferOverflowException
+   *         If the ByteBuffer is too small
+   */
+  @Nonnull
+  public final ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final ByteBuffer aBuffer)
+  {
+    return write (aObject, new ByteBufferOutputStream (aBuffer, false));
   }
 
   /**
@@ -704,5 +725,40 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoad
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     return write (aObject, new StreamResult (aSW)).isSuccess () ? aSW.getAsString () : null;
+  }
+
+  /**
+   * Write the passed object to a {@link ByteBuffer} and return it.
+   *
+   * @param aObject
+   *        The object to be written. May not be <code>null</code>.
+   * @return <code>null</code> if the passed domain object could not be
+   *         converted because of validation errors.
+   */
+  @Nullable
+  public final ByteBuffer getAsByteBuffer (@Nonnull final JAXBTYPE aObject)
+  {
+    final ByteBufferOutputStream aBBOS = new ByteBufferOutputStream ();
+    if (write (aObject, aBBOS).isFailure ())
+      return null;
+    return aBBOS.getBuffer ();
+  }
+
+  /**
+   * Write the passed object to a {@link ByteBuffer} and return the created byte
+   * array.
+   *
+   * @param aObject
+   *        The object to be written. May not be <code>null</code>.
+   * @return <code>null</code> if the passed domain object could not be
+   *         converted because of validation errors.
+   */
+  @Nullable
+  public final byte [] getAsBytes (@Nonnull final JAXBTYPE aObject)
+  {
+    final ByteBufferOutputStream aBBOS = new ByteBufferOutputStream ();
+    if (write (aObject, aBBOS).isFailure ())
+      return null;
+    return aBBOS.getAsByteArray ();
   }
 }

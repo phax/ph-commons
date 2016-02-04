@@ -119,7 +119,9 @@ public class ByteBufferOutputStream extends OutputStream
    */
   public ByteBufferOutputStream (@Nonnull final ByteBuffer aBuffer, final boolean bCanGrow)
   {
-    m_aBuffer = ValueEnforcer.notNull (aBuffer, "Buffer");
+    ValueEnforcer.notNull (aBuffer, "Buffer");
+
+    m_aBuffer = aBuffer;
     m_bCanGrow = bCanGrow;
   }
 
@@ -163,7 +165,8 @@ public class ByteBufferOutputStream extends OutputStream
   }
 
   /**
-   * Get everything as a big byte array, without altering the ByteBuffer.
+   * Get everything as a big byte array, without altering the ByteBuffer. This
+   * works only if the contained ByteBuffer has a backing array.
    *
    * @return The content of the buffer as a byte array. Never <code>null</code>.
    */
@@ -231,7 +234,7 @@ public class ByteBufferOutputStream extends OutputStream
 
   /**
    * Write everything to the passed output stream and clear the contained
-   * buffer.
+   * buffer. This works only if the contained ByteBuffer has a backing array.
    *
    * @param aOS
    *        The output stream to write to. May not be <code>null</code>.
@@ -247,7 +250,8 @@ public class ByteBufferOutputStream extends OutputStream
   }
 
   /**
-   * Get the content as a string without modifying the buffer
+   * Get the content as a string without modifying the buffer. This works only
+   * if the contained ByteBuffer has a backing array.
    *
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.

@@ -54,7 +54,7 @@ public class JAXBContextCacheKey implements IHasClassLoader
 
   /**
    * @return The class loader passed in the constructor or the default class
-   *         loader. Never <code>null</code>-
+   *         loader. Never <code>null</code>.
    */
   @Nonnull
   public ClassLoader getClassLoader ()
