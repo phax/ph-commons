@@ -16,7 +16,6 @@
  */
 package com.helger.commons.tree.withid.unique;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -140,10 +139,7 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
   @ReturnsMutableCopy
   public final List <DATATYPE> getAllItemDatas ()
   {
-    final List <DATATYPE> ret = new ArrayList <DATATYPE> ();
-    for (final ITEMTYPE aItem : m_aItemStore.values ())
-      ret.add (aItem.getData ());
-    return ret;
+    return CollectionHelper.newListMapped (m_aItemStore.values (), aItem -> aItem.getData ());
   }
 
   @Override

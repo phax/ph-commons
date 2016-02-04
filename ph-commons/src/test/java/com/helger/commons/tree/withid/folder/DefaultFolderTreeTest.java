@@ -24,7 +24,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.helger.commons.aggregate.AggregatorStringWithSeparator;
+import com.helger.commons.aggregate.IAggregator;
 import com.helger.commons.collection.PrimitiveCollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -39,7 +39,7 @@ public final class DefaultFolderTreeTest extends AbstractCommonsTestCase
   @Test
   public void testBasic ()
   {
-    final AggregatorStringWithSeparator aCombinator = new AggregatorStringWithSeparator ("/");
+    final IAggregator <String, String> aCombinator = IAggregator.createStringAll ('/');
     final DefaultFolderTree <String, Integer, Set <Integer>> ft = DefaultFolderTree.<String, Integer> createForSet (aCombinator);
     assertNotNull (ft.getRootItem ());
 

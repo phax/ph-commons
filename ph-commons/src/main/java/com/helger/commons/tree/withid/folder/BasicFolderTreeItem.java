@@ -103,10 +103,10 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
     if (aParent == null)
       return getID ();
 
-    final List <KEYTYPE> aList = new ArrayList <KEYTYPE> ();
+    final List <KEYTYPE> aList = new ArrayList <> ();
     aList.add (aParent.getGlobalUniqueDataID ());
     aList.add (getID ());
-    return m_aKeyCombinator.aggregate (aList);
+    return m_aKeyCombinator.apply (aList);
   }
 
   @Override

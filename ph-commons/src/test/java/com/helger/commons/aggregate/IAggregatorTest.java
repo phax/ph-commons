@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,6 +29,8 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link IAggregator}.
@@ -39,17 +42,17 @@ public final class IAggregatorTest
   @Test
   public void testNull ()
   {
-    final IAggregator <String, String> a1 = IAggregator.<String, String> createNull ();
-    assertNull (a1.aggregate (CollectionHelper.newList ("a", "b")));
-    assertNull (a1.aggregate (new ArrayList <String> ()));
+    final IAggregator <String, String> a1 = IAggregator.createNull ();
+    assertNull (a1.apply (CollectionHelper.newList ("a", "b")));
+    assertNull (a1.apply (new ArrayList <String> ()));
   }
 
   @Test
   public void testConstant ()
   {
     final IAggregator <String, String> a1 = IAggregator.createConstant ("foo");
-    assertEquals ("foo", a1.aggregate (CollectionHelper.newList ("a", "b")));
-    assertEquals ("foo", a1.aggregate (new ArrayList <String> ()));
+    assertEquals ("foo", a1.apply (CollectionHelper.newList ("a", "b")));
+    assertEquals ("foo", a1.apply (new ArrayList <String> ()));
   }
 
   @Test
@@ -65,8 +68,8 @@ public final class IAggregatorTest
     assertFalse (a1.hashCode () == "any other".hashCode ());
     assertNotNull (a1.toString ());
     final List <String> l = CollectionHelper.newList ("a", null, "b", "", "c");
-    assertEquals (l, a1.aggregate (l));
-    assertEquals (l, a2.aggregate (l));
+    assertEquals (l, a1.apply (l));
+    assertEquals (l, a2.apply (l));
   }
 
   @Test
@@ -81,9 +84,9 @@ public final class IAggregatorTest
     assertFalse (a1.hashCode () == "any other".hashCode ());
     assertNotNull (a1.toString ());
     final List <String> l = CollectionHelper.newList ("a", null, "b", "", "c");
-    assertEquals ("a", a1.aggregate (l));
-    assertNull (a1.aggregate (new ArrayList <String> ()));
-    assertNull (a1.aggregate ((Collection <String>) null));
+    assertEquals ("a", a1.apply (l));
+    assertNull (a1.apply (new ArrayList <String> ()));
+    assertNull (a1.apply ((Collection <String>) null));
   }
 
   @Test
@@ -98,8 +101,95 @@ public final class IAggregatorTest
     assertFalse (a1.hashCode () == "any other".hashCode ());
     assertNotNull (a1.toString ());
     final List <String> l = CollectionHelper.newList ("a", null, "b", "", "c");
-    assertEquals ("c", a1.aggregate (l));
-    assertNull (a1.aggregate (new ArrayList <String> ()));
-    assertNull (a1.aggregate ((Collection <String>) null));
+    assertEquals ("c", a1.apply (l));
+    assertNull (a1.apply (new ArrayList <String> ()));
+    assertNull (a1.apply ((Collection <String>) null));
+  }
+
+  @Test
+  public void testGetStringCombinator ()
+  {
+    final IAggregator <String, String> c = IAggregator.createStringAll ();
+    assertEquals ("ab", c.aggregate ("a", "b"));
+    assertEquals ("anull", c.aggregate ("a", null));
+    assertEquals ("nullb", c.aggregate (null, "b"));
+    assertEquals ("nullnull", c.aggregate (null, null));
+    assertEquals ("", c.aggregate ("", ""));
+  }
+
+  @Test
+  public void testGetStringCombinatorWithSeparatorChar ()
+  {
+    final IAggregator <String, String> c = IAggregator.createStringAll (',');
+    assertEquals ("a,b", c.aggregate ("a", "b"));
+    assertEquals ("a,null", c.aggregate ("a", null));
+    assertEquals ("null,b", c.aggregate (null, "b"));
+    assertEquals ("null,null", c.aggregate (null, null));
+    assertEquals (",", c.aggregate ("", ""));
+  }
+
+  @Test
+  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
+  public void testGetStringCombinatorWithSeparatorString ()
+  {
+    final IAggregator <String, String> c = IAggregator.createStringAll (";");
+    assertEquals ("a;b", c.aggregate ("a", "b"));
+    assertEquals ("a;null", c.aggregate ("a", null));
+    assertEquals ("null;b", c.aggregate (null, "b"));
+    assertEquals ("null;null", c.aggregate (null, null));
+    assertEquals (";", c.aggregate ("", ""));
+
+    try
+    {
+      // null separator not allowed
+      IAggregator.createStringAll (null);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
+  }
+
+  @Test
+  public void testGetStringCombinatorIgnoreNull ()
+  {
+    final IAggregator <String, String> c = IAggregator.createStringIgnoreEmpty ();
+    assertEquals ("ab", c.aggregate ("a", "b"));
+    assertEquals ("a", c.aggregate ("a", null));
+    assertEquals ("b", c.aggregate (null, "b"));
+    assertEquals ("", c.aggregate (null, null));
+    assertEquals ("", c.aggregate ("", ""));
+    assertNotNull (c.toString ());
+  }
+
+  @Test
+  public void testGetStringCombinatorWithSeparatorIgnoreEmptyChar ()
+  {
+    final IAggregator <String, String> c = IAggregator.createStringIgnoreEmpty (',');
+    assertEquals ("a,b", c.aggregate ("a", "b"));
+    assertEquals ("a", c.aggregate ("a", null));
+    assertEquals ("b", c.aggregate (null, "b"));
+    assertEquals ("", c.aggregate (null, null));
+    assertEquals ("", c.aggregate ("", ""));
+  }
+
+  @Test
+  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
+  public void testGetStringCombinatorWithSeparatorIgnoreEmptyString ()
+  {
+    final IAggregator <String, String> c = IAggregator.createStringIgnoreEmpty (";");
+    assertEquals ("a;b", c.aggregate ("a", "b"));
+    assertEquals ("a", c.aggregate ("a", null));
+    assertEquals ("b", c.aggregate (null, "b"));
+    assertEquals ("", c.aggregate (null, null));
+    assertEquals ("", c.aggregate ("", ""));
+
+    try
+    {
+      // null separator not allowed
+      IAggregator.createStringIgnoreEmpty (null);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
   }
 }

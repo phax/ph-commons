@@ -17,12 +17,13 @@
 package com.helger.commons.tree.withid.folder;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.aggregate.AggregatorStringWithSeparator;
+import com.helger.commons.aggregate.IAggregator;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -35,11 +36,26 @@ public final class DefaultFolderTreeItemFactoryTest
   @Test
   public void testBasic ()
   {
-    final DefaultFolderTreeItemFactory <String, String, List <String>> ftif = new DefaultFolderTreeItemFactory <String, String, List <String>> (new AggregatorStringWithSeparator ("/"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ftif,
-                                                                       new DefaultFolderTreeItemFactory <String, String, List <String>> (new AggregatorStringWithSeparator ("/")));
+    final DefaultFolderTreeItemFactory <String, String, List <String>> ftif = new DefaultFolderTreeItemFactory <> (IAggregator.createStringAll ('/'));
     assertNotNull (ftif.createRoot ());
+    try
+    {
+      ftif.createRoot ();
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+  }
+
+  @Test
+  public void testEquals ()
+  {
+    final IAggregator <String, String> aAggregator = IAggregator.createStringAll ('/');
+    final DefaultFolderTreeItemFactory <String, String, List <String>> ftif = new DefaultFolderTreeItemFactory <> (aAggregator);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ftif,
+                                                                       new DefaultFolderTreeItemFactory <> (aAggregator));
+    // New aggregator - different object!
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ftif,
-                                                                           new DefaultFolderTreeItemFactory <String, String, List <String>> (new AggregatorStringWithSeparator ("/")));
+                                                                           new DefaultFolderTreeItemFactory <> (IAggregator.createStringAll ('/')));
   }
 }
