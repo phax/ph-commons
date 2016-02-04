@@ -53,12 +53,12 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public abstract class AbstractWSClientCaller
+public class WSClientCaller
 {
   public static final int DEFAULT_CONNECTION_TIMEOUT_MS = 5000;
   public static final int DEFAULT_REQUEST_TIMEOUT_MS = 5000;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractWSClientCaller.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (WSClientCaller.class);
 
   private final URL m_aEndpointAddress;
   private SSLSocketFactory m_aSSLSocketFactory;
@@ -80,7 +80,7 @@ public abstract class AbstractWSClientCaller
    *        The address of the SML management interface. May not be
    *        <code>null</code>.
    */
-  public AbstractWSClientCaller (@Nonnull final URL aEndpointAddress)
+  public WSClientCaller (@Nonnull final URL aEndpointAddress)
   {
     ValueEnforcer.notNull (aEndpointAddress, "EndpointAddress");
     m_aEndpointAddress = aEndpointAddress;
