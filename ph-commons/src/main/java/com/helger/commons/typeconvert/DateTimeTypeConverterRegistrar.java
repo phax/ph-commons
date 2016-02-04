@@ -47,18 +47,30 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
     aRegistry.registerTypeConverter (Calendar.class, Long.class, aSource -> Long.valueOf (aSource.getTimeInMillis ()));
     aRegistry.registerTypeConverter (Calendar.class, Date.class, Calendar::getTime);
     aRegistry.registerTypeConverter (Calendar.class, Instant.class, Calendar::toInstant);
-    aRegistry.registerTypeConverter (String.class, Calendar.class, aSource -> {
-      final Calendar aCal = Calendar.getInstance ();
+
+    // Source: GregorianCalendar (required!)
+    aRegistry.registerTypeConverter (GregorianCalendar.class,
+                                     String.class,
+                                     aSource -> Long.toString (aSource.getTimeInMillis ()));
+    aRegistry.registerTypeConverter (GregorianCalendar.class,
+                                     Long.class,
+                                     aSource -> Long.valueOf (aSource.getTimeInMillis ()));
+    aRegistry.registerTypeConverter (GregorianCalendar.class, Date.class, Calendar::getTime);
+    aRegistry.registerTypeConverter (GregorianCalendar.class, Instant.class, Calendar::toInstant);
+
+    // Destination: GregorianCalendar
+    aRegistry.registerTypeConverter (String.class, GregorianCalendar.class, aSource -> {
+      final GregorianCalendar aCal = new GregorianCalendar ();
       aCal.setTimeInMillis (StringParser.parseLong (aSource, 0));
       return aCal;
     });
-    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class, Calendar.class, aSource -> {
-      final Calendar aCal = Calendar.getInstance ();
-      aCal.setTimeInMillis (aSource.longValue ());
-      return aCal;
-    });
-
-    // Destination: GregorianCalendar
+    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
+                                                                         GregorianCalendar.class,
+                                                                         aSource -> {
+                                                                           final GregorianCalendar aCal = new GregorianCalendar ();
+                                                                           aCal.setTimeInMillis (aSource.longValue ());
+                                                                           return aCal;
+                                                                         });
     aRegistry.registerTypeConverter (OffsetDateTime.class,
                                      GregorianCalendar.class,
                                      aSource -> GregorianCalendar.from (aSource.toZonedDateTime ()));
@@ -75,9 +87,11 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
     aRegistry.registerTypeConverter (String.class,
                                      Date.class,
                                      aSource -> new Date (StringParser.parseLong (aSource, 0)));
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (Date.class, Date::toInstant);
+
+    // Destination: Date
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
                                                                          Date.class,
                                                                          aSource -> new Date (aSource.longValue ()));
-    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (Date.class, Date::toInstant);
   }
 }
