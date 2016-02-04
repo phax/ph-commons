@@ -55,17 +55,17 @@ import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 
 /**
- * Base class for a webservice client caller.
+ * Base configuration for a webservice client caller.
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class WSClientCaller
+public class WSClientConfig
 {
   public static final int DEFAULT_CONNECTION_TIMEOUT_MS = 5000;
   public static final int DEFAULT_REQUEST_TIMEOUT_MS = 5000;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (WSClientCaller.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (WSClientConfig.class);
 
   private final URL m_aEndpointAddress;
   private SSLSocketFactory m_aSSLSocketFactory;
@@ -88,7 +88,7 @@ public class WSClientCaller
    *        The address of the SML management interface. May not be
    *        <code>null</code>.
    */
-  public WSClientCaller (@Nonnull final URL aEndpointAddress)
+  public WSClientConfig (@Nonnull final URL aEndpointAddress)
   {
     ValueEnforcer.notNull (aEndpointAddress, "EndpointAddress");
     m_aEndpointAddress = aEndpointAddress;
@@ -159,6 +159,14 @@ public class WSClientCaller
   public HostnameVerifier getHostnameVerifier ()
   {
     return m_aHostnameVerifier;
+  }
+
+  /**
+   * Set the {@link HostnameVerifier} to a "trust all" verifier.
+   */
+  public void setHostnameVerifierTrustAll ()
+  {
+    setHostnameVerifier (new HostnameVerifierAlwaysTrue ());
   }
 
   /**
