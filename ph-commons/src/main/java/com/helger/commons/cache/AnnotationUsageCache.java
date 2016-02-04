@@ -94,7 +94,17 @@ public class AnnotationUsageCache implements Serializable
 
     final String sClassName = aClass.getName ();
 
-    ETriState aIs = m_aRWLock.readLocked ( () -> m_aMap.get (sClassName));
+    ETriState aIs;
+    // Use direct code for performance reasons
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      aIs = m_aMap.get (sClassName);
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
     if (aIs == null)
     {
       aIs = m_aRWLock.writeLocked ( () -> {

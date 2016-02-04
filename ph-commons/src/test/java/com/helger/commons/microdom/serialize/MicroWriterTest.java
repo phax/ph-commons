@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
@@ -403,6 +404,7 @@ public final class MicroWriterTest
   }
 
   @Test
+  @Ignore ("Takes too long and was already tested with JDK 1.8 runtime parser")
   public void testSpecialCharactersXML11Text ()
   {
     final EXMLSerializeVersion eXMLSerializeVersion = EXMLSerializeVersion.XML_11;
@@ -431,6 +433,7 @@ public final class MicroWriterTest
   }
 
   @Test
+  @Ignore ("Takes too long and was already tested with JDK 1.8 runtime parser")
   public void testSpecialCharactersXML11CDATA ()
   {
     final EXMLSerializeVersion eXMLSerializeVersion = EXMLSerializeVersion.XML_11;

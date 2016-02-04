@@ -23,6 +23,7 @@ import static org.junit.Assert.fail;
 
 import java.nio.charset.Charset;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
@@ -102,6 +103,7 @@ public final class XMLWriterSettingsTest
   }
 
   @Test
+  @Ignore ("Tested and works but takes too long")
   public void testPermutations ()
   {
     // Now try all permutations
