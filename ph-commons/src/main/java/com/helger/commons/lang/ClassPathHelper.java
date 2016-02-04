@@ -17,6 +17,7 @@
 package com.helger.commons.lang;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,6 +25,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.commons.system.SystemProperties;
@@ -47,9 +49,12 @@ public final class ClassPathHelper
    *         in the class path.
    */
   @Nonnull
+  @ReturnsMutableCopy
   public static List <String> getAllClassPathEntries ()
   {
-    return StringHelper.getExploded (SystemProperties.getPathSeparator (), SystemProperties.getJavaClassPath ());
+    final List <String> ret = new ArrayList <> ();
+    getAllClassPathEntries (ret);
+    return ret;
   }
 
   /**

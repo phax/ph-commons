@@ -63,6 +63,7 @@ public class BitInputStream extends NonBlockingBitInputStream
   @Override
   public int readBit () throws IOException
   {
+    // Cannot used "locked" because there is not IThrowingIntSupplier interface
     m_aLock.lock ();
     try
     {

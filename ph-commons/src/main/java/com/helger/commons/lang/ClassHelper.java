@@ -46,8 +46,8 @@ import com.helger.commons.string.StringHelper;
 public final class ClassHelper
 {
   // WeakHashMap because class is used as a key
-  private static final Map <Class <?>, Class <?>> PRIMITIVE_TO_WRAPPER = new WeakHashMap <Class <?>, Class <?>> (8);
-  private static final Map <Class <?>, Class <?>> WRAPPER_TO_PRIMITIVE = new WeakHashMap <Class <?>, Class <?>> (8);
+  private static final Map <Class <?>, Class <?>> PRIMITIVE_TO_WRAPPER = new WeakHashMap <> (8);
+  private static final Map <Class <?>, Class <?>> WRAPPER_TO_PRIMITIVE = new WeakHashMap <> (8);
 
   static
   {

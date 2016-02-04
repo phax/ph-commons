@@ -333,7 +333,7 @@ public final class GenericReflection
 
   @Nullable
   public static <DATATYPE> DATATYPE newInstance (@Nullable final String sClassName,
-                                                 @Nullable final Class <DATATYPE> aDesiredType,
+                                                 @Nullable final Class <? extends DATATYPE> aDesiredType,
                                                  @Nullable final ClassLoader aClassLoaderToUse)
   {
     if (sClassName != null && aDesiredType != null && aClassLoaderToUse != null)

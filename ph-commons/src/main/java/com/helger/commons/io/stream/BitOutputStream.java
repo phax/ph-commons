@@ -66,6 +66,7 @@ public class BitOutputStream extends NonBlockingBitOutputStream
   @Override
   public void writeBit (final int aBit) throws IOException
   {
+    // Cannot used "locked" because there is not IThrowingIntSupplier interface
     m_aLock.lock ();
     try
     {
@@ -86,15 +87,7 @@ public class BitOutputStream extends NonBlockingBitOutputStream
   @Override
   public void flush () throws IOException
   {
-    m_aLock.lock ();
-    try
-    {
-      super.flush ();
-    }
-    finally
-    {
-      m_aLock.unlock ();
-    }
+    m_aLock.lockedThrowing ( () -> super.flush ());
   }
 
   /**

@@ -21,6 +21,7 @@ import java.io.OutputStream;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
 import com.helger.commons.messagedigest.IMessageDigestGenerator;
@@ -41,8 +42,14 @@ public class MessageDigestOutputStream extends WrappedOutputStream
   public MessageDigestOutputStream (@Nonnull final OutputStream aSourceOS,
                                     @Nonnull final EMessageDigestAlgorithm eMDAlgorithm)
   {
+    this (aSourceOS, new NonBlockingMessageDigestGenerator (eMDAlgorithm));
+  }
+
+  public MessageDigestOutputStream (@Nonnull final OutputStream aSourceOS,
+                                    @Nonnull final IMessageDigestGenerator aMDGen)
+  {
     super (aSourceOS);
-    m_aMDGen = new NonBlockingMessageDigestGenerator (eMDAlgorithm);
+    m_aMDGen = ValueEnforcer.notNull (aMDGen, "MDGen");
   }
 
   @Override

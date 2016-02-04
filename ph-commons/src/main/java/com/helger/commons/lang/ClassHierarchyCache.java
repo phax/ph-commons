@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.ThreadSafe;
 
@@ -126,6 +127,7 @@ public final class ClassHierarchyCache
   private static final Logger s_aLogger = LoggerFactory.getLogger (ClassHierarchyCache.class);
 
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
+  @GuardedBy ("s_aRWLock")
   private static final Map <String, ClassList> s_aClassHierarchy = new LRUMap <> (1000);
 
   @PresentForCodeCoverage
