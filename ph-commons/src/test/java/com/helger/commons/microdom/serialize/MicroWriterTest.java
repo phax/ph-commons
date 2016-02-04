@@ -355,6 +355,7 @@ public final class MicroWriterTest
   }
 
   @Test
+  @Ignore ("Takes too long and was already tested with JDK 1.8 runtime parser")
   public void testSpecialCharactersXML10Text ()
   {
     final EXMLSerializeVersion eXMLSerializeVersion = EXMLSerializeVersion.XML_10;
@@ -376,6 +377,7 @@ public final class MicroWriterTest
   }
 
   @Test
+  @Ignore ("Takes too long and was already tested with JDK 1.8 runtime parser")
   public void testSpecialCharactersXML10CDATA ()
   {
     final EXMLSerializeVersion eXMLSerializeVersion = EXMLSerializeVersion.XML_10;
