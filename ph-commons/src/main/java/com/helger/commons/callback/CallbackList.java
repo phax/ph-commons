@@ -47,7 +47,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   @GuardedBy ("m_aRWLock")
-  private final List <CALLBACKTYPE> m_aCallbacks = new ArrayList <CALLBACKTYPE> ();
+  private final List <CALLBACKTYPE> m_aCallbacks = new ArrayList <> ();
 
   public CallbackList ()
   {}
