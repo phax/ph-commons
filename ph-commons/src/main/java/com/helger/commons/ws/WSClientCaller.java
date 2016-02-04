@@ -17,16 +17,22 @@
 package com.helger.commons.ws;
 
 import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
 import javax.xml.ws.handler.MessageContext;
@@ -43,12 +49,13 @@ import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.lang.priviledged.IPrivilegedAction;
+import com.helger.commons.random.VerySecureRandom;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 
 /**
- * Abstract base class for a webservice client caller.
+ * Base class for a webservice client caller.
  *
  * @author Philip Helger
  */
@@ -70,6 +77,7 @@ public class WSClientCaller
   private String m_sSOAPAction;
   private IMultiMapListBased <String, String> m_aHTTPHeaders;
   private ETriState m_eCookiesSupport = ETriState.UNDEFINED;
+  private final List <Handler <? extends MessageContext>> m_aHandlers = new ArrayList <> ();
 
   private boolean m_bWorkAroundMASM0003 = true;
 
@@ -107,6 +115,28 @@ public class WSClientCaller
   public SSLSocketFactory getSSLSocketFactory ()
   {
     return m_aSSLSocketFactory;
+  }
+
+  /**
+   * Set the {@link SSLSocketFactory} to be used by this client to one that
+   * trusts all servers.
+   *
+   * @throws KeyManagementException
+   *         if initializing the SSL context failed
+   */
+  public void setSSLSocketFactoryTrustAll () throws KeyManagementException
+  {
+    try
+    {
+      final SSLContext aSSLContext = SSLContext.getInstance ("TLS");
+      aSSLContext.init (null, new TrustManager [] { new DoNothingTrustManager () }, VerySecureRandom.getInstance ());
+      final SSLSocketFactory aSF = aSSLContext.getSocketFactory ();
+      setSSLSocketFactory (aSF);
+    }
+    catch (final NoSuchAlgorithmException ex)
+    {
+      throw new IllegalStateException ("TLS is not supported", ex);
+    }
   }
 
   /**
@@ -487,6 +517,25 @@ public class WSClientCaller
     m_eCookiesSupport = ETriState.valueOf (bEnabled);
   }
 
+  public void addHandler (@Nonnull final Handler <? extends MessageContext> aHandler)
+  {
+    ValueEnforcer.notNull (aHandler, "Handler");
+    m_aHandlers.add (aHandler);
+  }
+
+  @Nonnegative
+  public int getHandlerCount ()
+  {
+    return m_aHandlers.size ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public List <Handler <? extends MessageContext>> getAllHandlers ()
+  {
+    return CollectionHelper.newList (m_aHandlers);
+  }
+
   /**
    * Add custom properties to the request context.
    *
@@ -495,17 +544,6 @@ public class WSClientCaller
    */
   @OverrideOnDemand
   protected void customizeRequestContext (@Nonnull final Map <String, Object> aRequestContext)
-  {}
-
-  /**
-   * Implement this method in your derived class to add custom handlers.
-   *
-   * @param aHandlerList
-   *        The handler list to be filled. Never <code>null</code>.
-   */
-  @OverrideOnDemand
-  @SuppressWarnings ("rawtypes")
-  protected void addHandlers (@Nonnull final List <Handler> aHandlerList)
   {}
 
   protected final boolean isWorkAroundMASM0003 ()
@@ -520,7 +558,7 @@ public class WSClientCaller
 
   @OverrideOnDemand
   @OverridingMethodsMustInvokeSuper
-  protected void applyWSSettingsToBindingProvider (@Nonnull final BindingProvider aBP)
+  public void applyWSSettingsToBindingProvider (@Nonnull final BindingProvider aBP)
   {
     final Map <String, Object> aRequestContext = aBP.getRequestContext ();
 
@@ -566,11 +604,13 @@ public class WSClientCaller
 
     customizeRequestContext (aRequestContext);
 
-    @SuppressWarnings ("rawtypes")
-    final List <Handler> aHandlers = aBP.getBinding ().getHandlerChain ();
-    // Fill handlers
-    addHandlers (aHandlers);
-    aBP.getBinding ().setHandlerChain (aHandlers);
+    if (!m_aHandlers.isEmpty ())
+    {
+      @SuppressWarnings ("rawtypes")
+      final List <Handler> aHandlers = aBP.getBinding ().getHandlerChain ();
+      aHandlers.addAll (m_aHandlers);
+      aBP.getBinding ().setHandlerChain (aHandlers);
+    }
 
     if (m_bWorkAroundMASM0003)
     {
