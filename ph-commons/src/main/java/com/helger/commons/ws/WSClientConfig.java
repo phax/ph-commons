@@ -85,7 +85,7 @@ public class WSClientConfig
    * Creates a service caller for the service meta data interface
    *
    * @param aEndpointAddress
-   *        The address of the SML management interface. May not be
+   *        The endpoint address of the WS server to be invoked. May not be
    *        <code>null</code>.
    */
   public WSClientConfig (@Nonnull final URL aEndpointAddress)
