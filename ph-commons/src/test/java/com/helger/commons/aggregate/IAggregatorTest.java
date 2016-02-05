@@ -110,22 +110,22 @@ public final class IAggregatorTest
   public void testGetStringCombinator ()
   {
     final IAggregator <String, String> c = IAggregator.createStringAll ();
-    assertEquals ("ab", c.aggregate ("a", "b"));
-    assertEquals ("anull", c.aggregate ("a", null));
-    assertEquals ("nullb", c.aggregate (null, "b"));
-    assertEquals ("nullnull", c.aggregate (null, null));
-    assertEquals ("", c.aggregate ("", ""));
+    assertEquals ("ab", c.apply ("a", "b"));
+    assertEquals ("anull", c.apply ("a", null));
+    assertEquals ("nullb", c.apply (null, "b"));
+    assertEquals ("nullnull", c.apply (null, null));
+    assertEquals ("", c.apply ("", ""));
   }
 
   @Test
   public void testGetStringCombinatorWithSeparatorChar ()
   {
     final IAggregator <String, String> c = IAggregator.createStringAll (',');
-    assertEquals ("a,b", c.aggregate ("a", "b"));
-    assertEquals ("a,null", c.aggregate ("a", null));
-    assertEquals ("null,b", c.aggregate (null, "b"));
-    assertEquals ("null,null", c.aggregate (null, null));
-    assertEquals (",", c.aggregate ("", ""));
+    assertEquals ("a,b", c.apply ("a", "b"));
+    assertEquals ("a,null", c.apply ("a", null));
+    assertEquals ("null,b", c.apply (null, "b"));
+    assertEquals ("null,null", c.apply (null, null));
+    assertEquals (",", c.apply ("", ""));
   }
 
   @Test
@@ -133,11 +133,11 @@ public final class IAggregatorTest
   public void testGetStringCombinatorWithSeparatorString ()
   {
     final IAggregator <String, String> c = IAggregator.createStringAll (";");
-    assertEquals ("a;b", c.aggregate ("a", "b"));
-    assertEquals ("a;null", c.aggregate ("a", null));
-    assertEquals ("null;b", c.aggregate (null, "b"));
-    assertEquals ("null;null", c.aggregate (null, null));
-    assertEquals (";", c.aggregate ("", ""));
+    assertEquals ("a;b", c.apply ("a", "b"));
+    assertEquals ("a;null", c.apply ("a", null));
+    assertEquals ("null;b", c.apply (null, "b"));
+    assertEquals ("null;null", c.apply (null, null));
+    assertEquals (";", c.apply ("", ""));
 
     try
     {
@@ -153,11 +153,11 @@ public final class IAggregatorTest
   public void testGetStringCombinatorIgnoreNull ()
   {
     final IAggregator <String, String> c = IAggregator.createStringIgnoreEmpty ();
-    assertEquals ("ab", c.aggregate ("a", "b"));
-    assertEquals ("a", c.aggregate ("a", null));
-    assertEquals ("b", c.aggregate (null, "b"));
-    assertEquals ("", c.aggregate (null, null));
-    assertEquals ("", c.aggregate ("", ""));
+    assertEquals ("ab", c.apply ("a", "b"));
+    assertEquals ("a", c.apply ("a", null));
+    assertEquals ("b", c.apply (null, "b"));
+    assertEquals ("", c.apply (null, null));
+    assertEquals ("", c.apply ("", ""));
     assertNotNull (c.toString ());
   }
 
@@ -165,11 +165,11 @@ public final class IAggregatorTest
   public void testGetStringCombinatorWithSeparatorIgnoreEmptyChar ()
   {
     final IAggregator <String, String> c = IAggregator.createStringIgnoreEmpty (',');
-    assertEquals ("a,b", c.aggregate ("a", "b"));
-    assertEquals ("a", c.aggregate ("a", null));
-    assertEquals ("b", c.aggregate (null, "b"));
-    assertEquals ("", c.aggregate (null, null));
-    assertEquals ("", c.aggregate ("", ""));
+    assertEquals ("a,b", c.apply ("a", "b"));
+    assertEquals ("a", c.apply ("a", null));
+    assertEquals ("b", c.apply (null, "b"));
+    assertEquals ("", c.apply (null, null));
+    assertEquals ("", c.apply ("", ""));
   }
 
   @Test
@@ -177,11 +177,11 @@ public final class IAggregatorTest
   public void testGetStringCombinatorWithSeparatorIgnoreEmptyString ()
   {
     final IAggregator <String, String> c = IAggregator.createStringIgnoreEmpty (";");
-    assertEquals ("a;b", c.aggregate ("a", "b"));
-    assertEquals ("a", c.aggregate ("a", null));
-    assertEquals ("b", c.aggregate (null, "b"));
-    assertEquals ("", c.aggregate (null, null));
-    assertEquals ("", c.aggregate ("", ""));
+    assertEquals ("a;b", c.apply ("a", "b"));
+    assertEquals ("a", c.apply ("a", null));
+    assertEquals ("b", c.apply (null, "b"));
+    assertEquals ("", c.apply (null, null));
+    assertEquals ("", c.apply ("", ""));
 
     try
     {

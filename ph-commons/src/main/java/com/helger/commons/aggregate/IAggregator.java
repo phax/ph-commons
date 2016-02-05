@@ -47,7 +47,7 @@ public interface IAggregator <SRCTYPE, DSTTYPE> extends Function <Collection <SR
    */
   @Nullable
   @SuppressWarnings ("unchecked")
-  default DSTTYPE aggregate (@Nonnull final SRCTYPE... aObjects)
+  default DSTTYPE apply (@Nonnull final SRCTYPE... aObjects)
   {
     return apply (CollectionHelper.newList (aObjects));
   }
