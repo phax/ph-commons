@@ -191,11 +191,28 @@ public class ByteBufferOutputStream extends OutputStream
    */
   public void writeTo (@Nonnull final ByteBuffer aDestBuffer)
   {
+    writeTo (aDestBuffer, true);
+  }
+
+  /**
+   * Write everything currently contained to the specified buffer. If the passed
+   * buffer is too small, a {@link java.nio.BufferOverflowException} is thrown.
+   * The copied elements are removed from this streams buffer.
+   *
+   * @param aDestBuffer
+   *        The destination buffer to write to. May not be <code>null</code>.
+   * @param bCompactBuffer
+   *        <code>true</code> to compact the buffer afterwards,
+   *        <code>false</code> otherwise.
+   */
+  public void writeTo (@Nonnull final ByteBuffer aDestBuffer, final boolean bCompactBuffer)
+  {
     ValueEnforcer.notNull (aDestBuffer, "DestBuffer");
 
     m_aBuffer.flip ();
     aDestBuffer.put (m_aBuffer);
-    m_aBuffer.compact ();
+    if (bCompactBuffer)
+      m_aBuffer.compact ();
   }
 
   /**
@@ -209,7 +226,24 @@ public class ByteBufferOutputStream extends OutputStream
   {
     ValueEnforcer.notNull (aBuf, "Buffer");
 
-    writeTo (aBuf, 0, aBuf.length);
+    writeTo (aBuf, 0, aBuf.length, true);
+  }
+
+  /**
+   * Writes the current content to the passed buffer. The copied elements are
+   * removed from this streams buffer.
+   *
+   * @param aBuf
+   *        The buffer to be filled. May not be <code>null</code>.
+   * @param bCompactBuffer
+   *        <code>true</code> to compact the buffer afterwards,
+   *        <code>false</code> otherwise.
+   */
+  public void writeTo (@Nonnull final byte [] aBuf, final boolean bCompactBuffer)
+  {
+    ValueEnforcer.notNull (aBuf, "Buffer");
+
+    writeTo (aBuf, 0, aBuf.length, bCompactBuffer);
   }
 
   /**
@@ -225,11 +259,34 @@ public class ByteBufferOutputStream extends OutputStream
    */
   public void writeTo (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
+    writeTo (aBuf, nOfs, nLen, true);
+  }
+
+  /**
+   * Write current content to the passed byte array. The copied elements are
+   * removed from this streams buffer.
+   *
+   * @param aBuf
+   *        Byte array to write to. May not be <code>null</code>.
+   * @param nOfs
+   *        Offset to start writing. Must be &ge; 0.
+   * @param nLen
+   *        Number of bytes to copy. Must be &ge; 0.
+   * @param bCompactBuffer
+   *        <code>true</code> to compact the buffer afterwards,
+   *        <code>false</code> otherwise.
+   */
+  public void writeTo (@Nonnull final byte [] aBuf,
+                       @Nonnegative final int nOfs,
+                       @Nonnegative final int nLen,
+                       final boolean bCompactBuffer)
+  {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
 
     m_aBuffer.flip ();
     m_aBuffer.get (aBuf, nOfs, nLen);
-    m_aBuffer.compact ();
+    if (bCompactBuffer)
+      m_aBuffer.compact ();
   }
 
   /**
@@ -243,10 +300,30 @@ public class ByteBufferOutputStream extends OutputStream
    */
   public void writeTo (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
   {
+    writeTo (aOS, true);
+  }
+
+  /**
+   * Write everything to the passed output stream and optionally clear the
+   * contained buffer. This works only if the contained ByteBuffer has a backing
+   * array.
+   *
+   * @param aOS
+   *        The output stream to write to. May not be <code>null</code>.
+   * @param bClearBuffer
+   *        <code>true</code> to clear the buffer, <code>false</code> to not do
+   *        it. If <code>false</code> you may call {@link #reset()} to clear it
+   *        manually afterwards.
+   * @throws IOException
+   *         In case of IO error
+   */
+  public void writeTo (@Nonnull @WillNotClose final OutputStream aOS, final boolean bClearBuffer) throws IOException
+  {
     ValueEnforcer.notNull (aOS, "OutputStream");
 
     aOS.write (m_aBuffer.array (), m_aBuffer.arrayOffset (), m_aBuffer.position ());
-    m_aBuffer.clear ();
+    if (bClearBuffer)
+      m_aBuffer.clear ();
   }
 
   /**
