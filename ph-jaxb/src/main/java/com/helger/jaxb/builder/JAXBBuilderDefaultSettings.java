@@ -17,6 +17,7 @@
 package com.helger.jaxb.builder;
 
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.namespace.NamespaceContext;
@@ -24,7 +25,7 @@ import javax.xml.namespace.NamespaceContext;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 
 /**
- * A class containing some default settings for the builder settings.
+ * A class containing some default settings for the various JAXB builders.
  *
  * @author Philip Helger
  */
@@ -32,7 +33,9 @@ import com.helger.commons.concurrent.SimpleReadWriteLock;
 public final class JAXBBuilderDefaultSettings
 {
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
+  @GuardedBy ("s_aRWLock")
   private static ValidationEventHandler s_aEventHandler;
+  @GuardedBy ("s_aRWLock")
   private static NamespaceContext s_aNamespaceContext;
 
   private JAXBBuilderDefaultSettings ()

@@ -16,9 +16,6 @@
  */
 package com.helger.jaxb.builder;
 
-import java.io.File;
-import java.io.InputStream;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -39,13 +36,12 @@ import org.xml.sax.XMLReader;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.xml.EXMLParserFeature;
 import com.helger.commons.xml.XMLHelper;
-import com.helger.commons.xml.sax.InputSourceFactory;
 import com.helger.commons.xml.serialize.read.SAXReaderFactory;
 import com.helger.commons.xml.serialize.read.SAXReaderSettings;
+import com.helger.jaxb.IJAXBReader;
 import com.helger.jaxb.JAXBContextCache;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
 
@@ -53,21 +49,22 @@ import com.helger.jaxb.validation.LoggingValidationEventHandler;
  * Abstract builder class for reading JAXB documents.
  *
  * @author Philip Helger
- * @param <T>
+ * @param <JAXBTYPE>
  *        The JAXB implementation class to be read
  * @param <IMPLTYPE>
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
-public abstract class AbstractJAXBReaderBuilder <T, IMPLTYPE extends AbstractJAXBReaderBuilder <T, IMPLTYPE>>
-                                                extends AbstractJAXBBuilder <IMPLTYPE>
+public abstract class AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE>>
+                                                extends AbstractJAXBBuilder <IMPLTYPE> implements IJAXBReader <JAXBTYPE>
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBReaderBuilder.class);
 
-  protected Class <T> m_aImplClass;
+  protected Class <JAXBTYPE> m_aImplClass;
   protected ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
 
-  public AbstractJAXBReaderBuilder (@Nonnull final IJAXBDocumentType aDocType, @Nonnull final Class <T> aImplClass)
+  public AbstractJAXBReaderBuilder (@Nonnull final IJAXBDocumentType aDocType,
+                                    @Nonnull final Class <JAXBTYPE> aImplClass)
   {
     super (aDocType);
     m_aImplClass = ValueEnforcer.notNull (aImplClass, "ImplClass");
@@ -98,8 +95,13 @@ public abstract class AbstractJAXBReaderBuilder <T, IMPLTYPE extends AbstractJAX
     return thisAsT ();
   }
 
+  public final boolean isReadSecure ()
+  {
+    return true;
+  }
+
   @Nullable
-  public T read (@Nonnull final SAXReaderSettings aSettings, @Nonnull final InputSource aInputSource)
+  public JAXBTYPE read (@Nonnull final SAXReaderSettings aSettings, @Nonnull final InputSource aInputSource)
   {
     ValueEnforcer.notNull (aSettings, "Settings");
     ValueEnforcer.notNull (aInputSource, "InputSource");
@@ -125,82 +127,12 @@ public abstract class AbstractJAXBReaderBuilder <T, IMPLTYPE extends AbstractJAX
   }
 
   @Nullable
-  protected final T readSecurelyFromInputSource (@Nonnull final InputSource aInputSource)
+  public final JAXBTYPE read (@Nonnull final InputSource aInputSource)
   {
     // Initialize settings with defaults
     final SAXReaderSettings aSettings = createDefaultSAXReaderSettings ();
 
     return read (aSettings, aInputSource);
-  }
-
-  /**
-   * Interpret the passed {@link File} as a JAXB document.
-   *
-   * @param aSource
-   *        The source to read from. May not be <code>null</code>.
-   * @return The evaluated JAXB document or <code>null</code> in case of a
-   *         parsing error
-   */
-  @Nullable
-  public T read (@Nonnull final File aSource)
-  {
-    return readSecurelyFromInputSource (InputSourceFactory.create (aSource));
-  }
-
-  /**
-   * Interpret the passed {@link IReadableResource} as a JAXB document.
-   *
-   * @param aSource
-   *        The source to read from. May not be <code>null</code>.
-   * @return The evaluated JAXB document or <code>null</code> in case of a
-   *         parsing error
-   */
-  @Nullable
-  public T read (@Nonnull final IReadableResource aSource)
-  {
-    return readSecurelyFromInputSource (InputSourceFactory.create (aSource));
-  }
-
-  /**
-   * Interpret the passed {@link InputStream} as a JAXB document.
-   *
-   * @param aSource
-   *        The stream to read from. May not be <code>null</code>.
-   * @return The evaluated JAXB document or <code>null</code> in case of a
-   *         parsing error
-   */
-  @Nullable
-  public T read (@Nonnull final InputStream aSource)
-  {
-    return readSecurelyFromInputSource (InputSourceFactory.create (aSource));
-  }
-
-  /**
-   * Interpret the passed <code>byte[]</code> as a JAXB document.
-   *
-   * @param aSource
-   *        The source to read from. May not be <code>null</code>.
-   * @return The evaluated JAXB document or <code>null</code> in case of a
-   *         parsing error
-   */
-  @Nullable
-  public T read (@Nonnull final byte [] aSource)
-  {
-    return readSecurelyFromInputSource (InputSourceFactory.create (aSource));
-  }
-
-  /**
-   * Interpret the passed {@link String} as a JAXB document.
-   *
-   * @param sSource
-   *        The source to read from. May not be <code>null</code>.
-   * @return The evaluated JAXB document or <code>null</code> in case of a
-   *         parsing error
-   */
-  @Nullable
-  public T read (@Nonnull final String sSource)
-  {
-    return readSecurelyFromInputSource (InputSourceFactory.create (sSource));
   }
 
   @Nonnull
@@ -244,7 +176,7 @@ public abstract class AbstractJAXBReaderBuilder <T, IMPLTYPE extends AbstractJAX
    *         See the log output for details.
    */
   @Nullable
-  public T read (@Nonnull final Node aNode)
+  public JAXBTYPE read (@Nonnull final Node aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
 
@@ -257,7 +189,7 @@ public abstract class AbstractJAXBReaderBuilder <T, IMPLTYPE extends AbstractJAX
       return null;
     }
 
-    T ret = null;
+    JAXBTYPE ret = null;
     try
     {
       final Unmarshaller aUnmarshaller = createUnmarshaller ();
@@ -300,7 +232,7 @@ public abstract class AbstractJAXBReaderBuilder <T, IMPLTYPE extends AbstractJAX
    *         parsing error
    */
   @Nullable
-  public T read (@Nonnull final Source aSource)
+  public JAXBTYPE read (@Nonnull final Source aSource)
   {
     ValueEnforcer.notNull (aSource, "Source");
 
@@ -312,7 +244,7 @@ public abstract class AbstractJAXBReaderBuilder <T, IMPLTYPE extends AbstractJAX
       return null;
     }
 
-    T ret = null;
+    JAXBTYPE ret = null;
     try
     {
       final Unmarshaller aUnmarshaller = createUnmarshaller ();

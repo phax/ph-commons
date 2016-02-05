@@ -17,7 +17,6 @@
 package com.helger.jaxb;
 
 import java.io.File;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
@@ -39,14 +38,12 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
-import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.validation.Schema;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
@@ -66,12 +63,9 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.xml.EXMLParserFeature;
 import com.helger.commons.xml.XMLFactory;
-import com.helger.commons.xml.sax.InputSourceFactory;
 import com.helger.commons.xml.schema.XMLSchemaCache;
-import com.helger.commons.xml.serialize.read.SAXReaderFactory;
 import com.helger.commons.xml.serialize.read.SAXReaderSettings;
 import com.helger.commons.xml.transform.TransformResultFactory;
-import com.helger.commons.xml.transform.TransformSourceFactory;
 import com.helger.jaxb.validation.AbstractValidationEventHandler;
 import com.helger.jaxb.validation.CollectingLoggingValidationEventHandlerFactory;
 import com.helger.jaxb.validation.CollectingValidationEventHandler;
@@ -86,7 +80,7 @@ import com.helger.jaxb.validation.IValidationEventHandlerFactory;
  *        The JAXB type to be marshaled
  */
 @NotThreadSafe
-public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoader
+public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBReader <JAXBTYPE>
 {
   public static final boolean DEFAULT_READ_SECURE = true;
   public static final boolean DEFAULT_WRITE_FORMATTED = false;
@@ -360,7 +354,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoad
   }
 
   @Nullable
-  private JAXBTYPE _readSecurelyFromInputSource (@Nonnull final InputSource aInputSource)
+  public JAXBTYPE read (@Nonnull final InputSource aInputSource)
   {
     // Initialize settings with defaults
     final SAXReaderSettings aSettings = new SAXReaderSettings ();
@@ -370,111 +364,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoad
       aSettings.setFeatureValues (EXMLParserFeature.AVOID_XML_ATTACKS);
     }
 
-    // Create new XML reader
-    final org.xml.sax.XMLReader aParser = SAXReaderFactory.createXMLReader ();
-
-    // Apply settings
-    aSettings.applyToSAXReader (aParser);
-
-    return read (new SAXSource (aParser, aInputSource));
-  }
-
-  /**
-   * Read a document from the specified file. The secure reading feature has
-   * affect when using this method.
-   *
-   * @param aFile
-   *        The file to read. May not be <code>null</code>.
-   * @return <code>null</code> in case reading fails.
-   */
-  @Nullable
-  public final JAXBTYPE read (@Nonnull final File aFile)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-
-    return _readSecurelyFromInputSource (InputSourceFactory.create (aFile));
-  }
-
-  /**
-   * Read a document from the specified resource. The secure reading feature has
-   * affect when using this method.
-   *
-   * @param aResource
-   *        The resource to read. May not be <code>null</code>.
-   * @return <code>null</code> in case reading fails.
-   */
-  @Nullable
-  public final JAXBTYPE read (@Nonnull final IReadableResource aResource)
-  {
-    ValueEnforcer.notNull (aResource, "Resource");
-
-    return _readSecurelyFromInputSource (InputSourceFactory.create (aResource));
-  }
-
-  /**
-   * Read a document from the specified input stream. The secure reading feature
-   * has affect when using this method.
-   *
-   * @param aIS
-   *        The input stream to read. May not be <code>null</code>.
-   * @return <code>null</code> in case reading fails.
-   */
-  @Nullable
-  public final JAXBTYPE read (@Nonnull final InputStream aIS)
-  {
-    ValueEnforcer.notNull (aIS, "InputStream");
-
-    return _readSecurelyFromInputSource (InputSourceFactory.create (aIS));
-  }
-
-  /**
-   * Read a document from the specified byte array. The secure reading feature
-   * has affect when using this method.
-   *
-   * @param aXML
-   *        The XML bytes to read. May not be <code>null</code>.
-   * @return <code>null</code> in case reading fails.
-   */
-  @Nullable
-  public final JAXBTYPE read (@Nonnull final byte [] aXML)
-  {
-    ValueEnforcer.notNull (aXML, "XML");
-
-    return _readSecurelyFromInputSource (InputSourceFactory.create (aXML));
-  }
-
-  /**
-   * Read a document from the specified String. The secure reading feature has
-   * affect when using this method.
-   *
-   * @param sXML
-   *        The XML string to read. May not be <code>null</code>.
-   * @return <code>null</code> in case reading fails.
-   */
-  @Nullable
-  public final JAXBTYPE read (@Nonnull final String sXML)
-  {
-    ValueEnforcer.notNull (sXML, "XML");
-
-    return _readSecurelyFromInputSource (InputSourceFactory.create (sXML));
-  }
-
-  /**
-   * Read a document from the specified DOM node. The secure reading feature has
-   * <b>NO</b> affect when using this method because no parsing happens! To
-   * ensure secure reading the Node must first be serialized to a String and be
-   * parsed again!
-   *
-   * @param aNode
-   *        The DOM node to read. May not be <code>null</code>.
-   * @return <code>null</code> in case reading fails.
-   */
-  @Nullable
-  public final JAXBTYPE read (@Nonnull final Node aNode)
-  {
-    ValueEnforcer.notNull (aNode, "Node");
-
-    return read (TransformSourceFactory.create (aNode));
+    return read (aSettings, aInputSource);
   }
 
   /**
