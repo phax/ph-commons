@@ -32,13 +32,13 @@ import com.helger.jaxb.JAXBContextCache;
  * Abstract builder class for writing and validating JAXB documents.
  *
  * @author Philip Helger
- * @param <T>
+ * @param <JAXBTYPE>
  *        The JAXB implementation class to be handled
  * @param <IMPLTYPE>
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
-public abstract class AbstractWritingJAXBBuilder <T, IMPLTYPE extends AbstractWritingJAXBBuilder <T, IMPLTYPE>>
+public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE>>
                                                  extends AbstractJAXBBuilder <IMPLTYPE>
 {
   public AbstractWritingJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)

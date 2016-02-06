@@ -16,17 +16,12 @@
  */
 package com.helger.jaxb;
 
-import java.io.File;
-import java.io.OutputStream;
-import java.nio.BufferOverflowException;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.WillClose;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -38,12 +33,10 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamResult;
 import javax.xml.validation.Schema;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
@@ -54,18 +47,12 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.resource.IWritableResource;
-import com.helger.commons.io.stream.ByteBufferOutputStream;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.xml.EXMLParserFeature;
-import com.helger.commons.xml.XMLFactory;
 import com.helger.commons.xml.schema.XMLSchemaCache;
 import com.helger.commons.xml.serialize.read.SAXReaderSettings;
-import com.helger.commons.xml.transform.TransformResultFactory;
 import com.helger.jaxb.validation.AbstractValidationEventHandler;
 import com.helger.jaxb.validation.CollectingLoggingValidationEventHandlerFactory;
 import com.helger.jaxb.validation.CollectingValidationEventHandler;
@@ -80,7 +67,8 @@ import com.helger.jaxb.validation.IValidationEventHandlerFactory;
  *        The JAXB type to be marshaled
  */
 @NotThreadSafe
-public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBReader <JAXBTYPE>
+public abstract class AbstractJAXBMarshaller <JAXBTYPE>
+                                             implements IHasClassLoader, IJAXBReader <JAXBTYPE>, IJAXBWriter <JAXBTYPE>
 {
   public static final boolean DEFAULT_READ_SECURE = true;
   public static final boolean DEFAULT_WRITE_FORMATTED = false;
@@ -462,94 +450,6 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoad
   }
 
   /**
-   * Convert the passed object to a new DOM document
-   *
-   * @param aObject
-   *        The object to be converted. May not be <code>null</code>.
-   * @return <code>null</code> if converting the document failed.
-   */
-  @Nullable
-  public final Document write (@Nonnull final JAXBTYPE aObject)
-  {
-    ValueEnforcer.notNull (aObject, "Object");
-
-    final Document aDoc = XMLFactory.newDocument ();
-    return write (aObject, TransformResultFactory.create (aDoc)).isSuccess () ? aDoc : null;
-  }
-
-  /**
-   * Write the passed object to a {@link File}.
-   *
-   * @param aObject
-   *        The object to be written. May not be <code>null</code>.
-   * @param aResultFile
-   *        The result file to be written to. May not be <code>null</code>.
-   * @return {@link ESuccess}
-   */
-  @Nonnull
-  public final ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final File aResultFile)
-  {
-    return write (aObject, TransformResultFactory.create (aResultFile));
-  }
-
-  /**
-   * Write the passed object to an {@link OutputStream}.
-   *
-   * @param aObject
-   *        The object to be written. May not be <code>null</code>.
-   * @param aOS
-   *        The output stream to write to. Will always be closed. May not be
-   *        <code>null</code>.
-   * @return {@link ESuccess}
-   */
-  @Nonnull
-  public final ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull @WillClose final OutputStream aOS)
-  {
-    try
-    {
-      return write (aObject, TransformResultFactory.create (aOS));
-    }
-    finally
-    {
-      // Needs to be manually closed
-      StreamHelper.close (aOS);
-    }
-  }
-
-  /**
-   * Write the passed object to a {@link ByteBuffer}.
-   *
-   * @param aObject
-   *        The object to be written. May not be <code>null</code>.
-   * @param aBuffer
-   *        The byte buffer to write to. If the buffer is too small, it is
-   *        automatically extended. May not be <code>null</code>.
-   * @return {@link ESuccess}
-   * @throws BufferOverflowException
-   *         If the ByteBuffer is too small
-   */
-  @Nonnull
-  public final ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final ByteBuffer aBuffer)
-  {
-    return write (aObject, new ByteBufferOutputStream (aBuffer, false));
-  }
-
-  /**
-   * Write the passed object to an {@link IWritableResource}.
-   *
-   * @param aObject
-   *        The object to be written. May not be <code>null</code>.
-   * @param aResource
-   *        The result resource to be written to. May not be <code>null</code>.
-   * @return {@link ESuccess}
-   */
-  @Nonnull
-  public final ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final IWritableResource aResource)
-  {
-    return write (aObject, TransformResultFactory.create (aResource));
-  }
-
-  /**
    * Customize the passed marshaller before marshalling something.
    *
    * @param aMarshaller
@@ -599,56 +499,5 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements IHasClassLoad
       handleWriteException (ex);
     }
     return ESuccess.FAILURE;
-  }
-
-  /**
-   * Utility method to directly convert the passed domain object to an XML
-   * string.
-   *
-   * @param aObject
-   *        The domain object to be converted. May not be <code>null</code>.
-   * @return <code>null</code> if the passed domain object could not be
-   *         converted because of validation errors.
-   */
-  @Nullable
-  public final String getAsXMLString (@Nonnull final JAXBTYPE aObject)
-  {
-    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    return write (aObject, new StreamResult (aSW)).isSuccess () ? aSW.getAsString () : null;
-  }
-
-  /**
-   * Write the passed object to a {@link ByteBuffer} and return it.
-   *
-   * @param aObject
-   *        The object to be written. May not be <code>null</code>.
-   * @return <code>null</code> if the passed domain object could not be
-   *         converted because of validation errors.
-   */
-  @Nullable
-  public final ByteBuffer getAsByteBuffer (@Nonnull final JAXBTYPE aObject)
-  {
-    final ByteBufferOutputStream aBBOS = new ByteBufferOutputStream ();
-    if (write (aObject, aBBOS).isFailure ())
-      return null;
-    return aBBOS.getBuffer ();
-  }
-
-  /**
-   * Write the passed object to a {@link ByteBuffer} and return the created byte
-   * array.
-   *
-   * @param aObject
-   *        The object to be written. May not be <code>null</code>.
-   * @return <code>null</code> if the passed domain object could not be
-   *         converted because of validation errors.
-   */
-  @Nullable
-  public final byte [] getAsBytes (@Nonnull final JAXBTYPE aObject)
-  {
-    final ByteBufferOutputStream aBBOS = new ByteBufferOutputStream ();
-    if (write (aObject, aBBOS).isFailure ())
-      return null;
-    return aBBOS.getAsByteArray ();
   }
 }

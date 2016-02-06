@@ -16,12 +16,8 @@
  */
 package com.helger.jaxb.builder;
 
-import java.io.File;
-import java.io.OutputStream;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.WillClose;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -30,22 +26,15 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.transform.Result;
-import javax.xml.transform.dom.DOMResult;
-import javax.xml.transform.stream.StreamResult;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.io.resource.IWritableResource;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.xml.XMLFactory;
-import com.helger.commons.xml.transform.ResourceStreamResult;
-import com.helger.commons.xml.transform.StringStreamResult;
+import com.helger.jaxb.IJAXBWriter;
 import com.helger.jaxb.JAXBMarshallerHelper;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
 
@@ -53,14 +42,15 @@ import com.helger.jaxb.validation.LoggingValidationEventHandler;
  * Abstract builder class for writing JAXB documents.
  *
  * @author Philip Helger
- * @param <T>
+ * @param <JAXBTYPE>
  *        The JAXB implementation class to be written
  * @param <IMPLTYPE>
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
-public abstract class AbstractJAXBWriterBuilder <T, IMPLTYPE extends AbstractJAXBWriterBuilder <T, IMPLTYPE>>
-                                                extends AbstractWritingJAXBBuilder <T, IMPLTYPE>
+public abstract class AbstractJAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends AbstractJAXBWriterBuilder <JAXBTYPE, IMPLTYPE>>
+                                                extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE>
+                                                implements IJAXBWriter <JAXBTYPE>
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBWriterBuilder.class);
 
@@ -122,91 +112,6 @@ public abstract class AbstractJAXBWriterBuilder <T, IMPLTYPE extends AbstractJAX
     return thisAsT ();
   }
 
-  /**
-   * Convert the passed JAXB document to a DOM {@link Document}.
-   *
-   * @param aJAXBDocument
-   *        The source object to write. May not be <code>null</code>.
-   * @return The created DOM document or <code>null</code> in case of conversion
-   *         error
-   */
-  @Nullable
-  public Document writeToDocument (@Nonnull final T aJAXBDocument)
-  {
-    final Document aDoc = XMLFactory.newDocument ();
-    final DOMResult aResult = new DOMResult (aDoc);
-    return write (aJAXBDocument, aResult).isSuccess () ? aDoc : null;
-  }
-
-  /**
-   * Convert the passed JAXB document to a String.
-   *
-   * @param aJAXBDocument
-   *        The source object to write. May not be <code>null</code>.
-   * @return The created String or <code>null</code> in case of conversion error
-   */
-  @Nullable
-  public String writeToString (@Nonnull final T aJAXBDocument)
-  {
-    final StringStreamResult aResult = new StringStreamResult ();
-    return write (aJAXBDocument, aResult).isSuccess () ? aResult.getAsString () : null;
-  }
-
-  /**
-   * Convert the passed JAXB document to a custom {@link File}.
-   *
-   * @param aJAXBDocument
-   *        The source object to write. May not be <code>null</code>.
-   * @param aResult
-   *        The result file to write to. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} in case of success,
-   *         {@link ESuccess#FAILURE} in case of an error
-   */
-  @Nonnull
-  public ESuccess write (@Nonnull final T aJAXBDocument, @Nonnull final File aResult)
-  {
-    return write (aJAXBDocument, new StreamResult (aResult));
-  }
-
-  /**
-   * Convert the passed JAXB document to a custom {@link OutputStream}.
-   *
-   * @param aJAXBDocument
-   *        The source object to write. May not be <code>null</code>.
-   * @param aResult
-   *        The result stream to write to. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} in case of success,
-   *         {@link ESuccess#FAILURE} in case of an error
-   */
-  @Nonnull
-  public ESuccess write (@Nonnull final T aJAXBDocument, @Nonnull @WillClose final OutputStream aResult)
-  {
-    try
-    {
-      return write (aJAXBDocument, new StreamResult (aResult));
-    }
-    finally
-    {
-      StreamHelper.close (aResult);
-    }
-  }
-
-  /**
-   * Convert the passed JAXB document to a custom {@link IWritableResource}.
-   *
-   * @param aJAXBDocument
-   *        The source object to write. May not be <code>null</code>.
-   * @param aResult
-   *        The result resource to write to. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} in case of success,
-   *         {@link ESuccess#FAILURE} in case of an error
-   */
-  @Nonnull
-  public ESuccess write (@Nonnull final T aJAXBDocument, @Nonnull final IWritableResource aResult)
-  {
-    return write (aJAXBDocument, new ResourceStreamResult (aResult));
-  }
-
   @Override
   @Nonnull
   protected Marshaller createMarshaller () throws JAXBException
@@ -249,7 +154,7 @@ public abstract class AbstractJAXBWriterBuilder <T, IMPLTYPE extends AbstractJAX
    *         {@link ESuccess#FAILURE} in case of an error
    */
   @Nonnull
-  public ESuccess write (@Nonnull final T aJAXBDocument, @Nonnull final Result aResult)
+  public ESuccess write (@Nonnull final JAXBTYPE aJAXBDocument, @Nonnull final Result aResult)
   {
     ValueEnforcer.notNull (aJAXBDocument, "JAXBDocument");
     ValueEnforcer.notNull (aResult, "Result");
