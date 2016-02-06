@@ -2,6 +2,7 @@ package com.helger.jaxb;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.io.Writer;
 import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 
@@ -66,6 +67,30 @@ public interface IJAXBWriter <JAXBTYPE>
     {
       // Needs to be manually closed
       StreamHelper.close (aOS);
+    }
+  }
+
+  /**
+   * Write the passed object to a {@link Writer}.
+   *
+   * @param aObject
+   *        The object to be written. May not be <code>null</code>.
+   * @param aWriter
+   *        The writer to write to. Will always be closed. May not be
+   *        <code>null</code>.
+   * @return {@link ESuccess}
+   */
+  @Nonnull
+  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull @WillClose final Writer aWriter)
+  {
+    try
+    {
+      return write (aObject, TransformResultFactory.create (aWriter));
+    }
+    finally
+    {
+      // Needs to be manually closed
+      StreamHelper.close (aWriter);
     }
   }
 
