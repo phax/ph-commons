@@ -54,4 +54,18 @@ public final class FileSystemIterator extends IterableIterator <File>
   {
     super (FileHelper.getDirectoryContent (aBaseDir));
   }
+
+  /**
+   * Constructor.
+   *
+   * @param aBaseDir
+   *        The base directory to iterate. May not be <code>null</code>.
+   * @param sDirName
+   *        The directory name relative to the passed base directory. May not be
+   *        <code>null</code>.
+   */
+  public FileSystemIterator (@Nonnull final File aBaseDir, @Nonnull final String sDirName)
+  {
+    super (FileHelper.getDirectoryContent (new File (aBaseDir, sDirName)));
+  }
 }
