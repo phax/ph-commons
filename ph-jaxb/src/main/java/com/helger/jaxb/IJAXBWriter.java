@@ -13,7 +13,6 @@ import javax.xml.transform.Result;
 
 import org.w3c.dom.Document;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.resource.IWritableResource;
 import com.helger.commons.io.stream.ByteBufferOutputStream;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
@@ -149,8 +148,6 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nullable
   default Document getAsDocument (@Nonnull final JAXBTYPE aObject)
   {
-    ValueEnforcer.notNull (aObject, "Object");
-
     final Document aDoc = XMLFactory.newDocument ();
     return write (aObject, TransformResultFactory.create (aDoc)).isSuccess () ? aDoc : null;
   }
