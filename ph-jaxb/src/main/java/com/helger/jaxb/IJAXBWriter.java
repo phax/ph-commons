@@ -115,7 +115,7 @@ public interface IJAXBWriter <JAXBTYPE>
   ESuccess write (@Nonnull JAXBTYPE aObject, @Nonnull Result aResult);
 
   /**
-   * Convert the passed object to a new DOM document
+   * Convert the passed object to a new DOM document.
    *
    * @param aObject
    *        The object to be converted. May not be <code>null</code>.
@@ -162,8 +162,7 @@ public interface IJAXBWriter <JAXBTYPE>
   }
 
   /**
-   * Write the passed object to a {@link ByteBuffer} and return the created byte
-   * array.
+   * Write the passed object to a byte array and return the created byte array.
    *
    * @param aObject
    *        The object to be written. May not be <code>null</code>.
