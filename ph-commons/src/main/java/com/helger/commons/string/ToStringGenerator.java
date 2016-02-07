@@ -17,8 +17,7 @@
 package com.helger.commons.string;
 
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -251,12 +250,6 @@ public final class ToStringGenerator
   }
 
   @Nonnull
-  private String _getObjectValue (@Nullable final Object aValue)
-  {
-    return aValue == null ? CONSTANT_NULL : aValue == m_aSrc ? CONSTANT_THIS : aValue.toString ();
-  }
-
-  @Nonnull
   private ToStringGenerator _appendArray (@Nonnull final String sField, @Nonnull final Object aValue)
   {
     // Passed value is an array
@@ -282,6 +275,12 @@ public final class ToStringGenerator
         return append (sField, (short []) aValue);
     }
     return append (sField, (Object []) aValue);
+  }
+
+  @Nonnull
+  private String _getObjectValue (@Nullable final Object aValue)
+  {
+    return aValue == null ? CONSTANT_NULL : aValue == m_aSrc ? CONSTANT_THIS : aValue.toString ();
   }
 
   @Nonnull
@@ -327,135 +326,17 @@ public final class ToStringGenerator
   }
 
   @Nonnull
-  public ToStringGenerator appendIfNotNull (@Nonnull final String sField, @Nullable final boolean [] aValue)
+  public <T> ToStringGenerator appendIf (@Nonnull final String sField,
+                                         @Nullable final T aValue,
+                                         @Nonnull final Predicate <? super T> aFilter)
   {
-    return aValue == null ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotNull (@Nonnull final String sField, @Nullable final byte [] aValue)
-  {
-    return aValue == null ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotNull (@Nonnull final String sField, @Nullable final char [] aValue)
-  {
-    return aValue == null ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotNull (@Nonnull final String sField, @Nullable final double [] aValue)
-  {
-    return aValue == null ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotNull (@Nonnull final String sField, @Nullable final float [] aValue)
-  {
-    return aValue == null ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotNull (@Nonnull final String sField, @Nullable final int [] aValue)
-  {
-    return aValue == null ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotNull (@Nonnull final String sField, @Nullable final long [] aValue)
-  {
-    return aValue == null ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotNull (@Nonnull final String sField, @Nullable final short [] aValue)
-  {
-    return aValue == null ? this : append (sField, aValue);
+    return aFilter.test (aValue) ? append (sField, aValue) : this;
   }
 
   @Nonnull
   public ToStringGenerator appendIfNotNull (@Nonnull final String sField, @Nullable final Object aValue)
   {
     return aValue == null ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotNull (@Nonnull final String sField, @Nullable final Object [] aValue)
-  {
-    return aValue == null ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotEmpty (@Nonnull final String sField, @Nullable final boolean [] aValue)
-  {
-    return aValue == null || aValue.length == 0 ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotEmpty (@Nonnull final String sField, @Nullable final byte [] aValue)
-  {
-    return aValue == null || aValue.length == 0 ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotEmpty (@Nonnull final String sField, @Nullable final char [] aValue)
-  {
-    return aValue == null || aValue.length == 0 ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotEmpty (@Nonnull final String sField, @Nullable final double [] aValue)
-  {
-    return aValue == null || aValue.length == 0 ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotEmpty (@Nonnull final String sField, @Nullable final float [] aValue)
-  {
-    return aValue == null || aValue.length == 0 ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotEmpty (@Nonnull final String sField, @Nullable final int [] aValue)
-  {
-    return aValue == null || aValue.length == 0 ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotEmpty (@Nonnull final String sField, @Nullable final long [] aValue)
-  {
-    return aValue == null || aValue.length == 0 ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotEmpty (@Nonnull final String sField, @Nullable final short [] aValue)
-  {
-    return aValue == null || aValue.length == 0 ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotEmpty (@Nonnull final String sField, @Nullable final Object [] aValue)
-  {
-    return aValue == null || aValue.length == 0 ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotEmpty (@Nonnull final String sField, @Nullable final Collection <?> aValue)
-  {
-    return aValue == null || aValue.isEmpty () ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotEmpty (@Nonnull final String sField, @Nullable final Map <?, ?> aValue)
-  {
-    return aValue == null || aValue.isEmpty () ? this : append (sField, aValue);
-  }
-
-  @Nonnull
-  public ToStringGenerator appendIfNotEmpty (@Nonnull final String sField, @Nullable final String sValue)
-  {
-    return sValue == null || sValue.length () == 0 ? this : append (sField, sValue);
   }
 
   @Override

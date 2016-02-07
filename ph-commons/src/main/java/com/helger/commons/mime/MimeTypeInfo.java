@@ -400,9 +400,9 @@ public final class MimeTypeInfo
   {
     return new ToStringGenerator (this).append ("mimeTypes", m_aMimeTypes)
                                        .appendIfNotNull ("comment", m_sComment)
-                                       .appendIfNotEmpty ("parentTypes", m_aParentTypes)
-                                       .appendIfNotEmpty ("globs", m_aGlobs)
-                                       .appendIfNotEmpty ("extensions", m_aExtensions)
+                                       .appendIf ("parentTypes", m_aParentTypes, CollectionHelper::isNotEmpty)
+                                       .appendIf ("globs", m_aGlobs, CollectionHelper::isNotEmpty)
+                                       .appendIf ("extensions", m_aExtensions, CollectionHelper::isNotEmpty)
                                        .appendIfNotNull ("source", m_sSource)
                                        .toString ();
   }
