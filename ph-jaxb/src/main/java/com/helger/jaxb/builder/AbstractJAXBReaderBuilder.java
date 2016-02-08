@@ -37,7 +37,6 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.xml.XMLHelper;
 import com.helger.jaxb.IJAXBReader;
-import com.helger.jaxb.JAXBContextCache;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
 
 /**
@@ -104,10 +103,7 @@ public abstract class AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends Abst
   @Nonnull
   protected Unmarshaller createUnmarshaller () throws JAXBException
   {
-    // Since creating the JAXB context is quite cost intensive this is done
-    // only once!
-    final JAXBContext aJAXBContext = JAXBContextCache.getInstance ().getFromCache (m_aDocType.getImplementationClass (),
-                                                                                   m_aClassLoader);
+    final JAXBContext aJAXBContext = getJAXBContext ();
 
     // create an Unmarshaller
     final Unmarshaller aUnmarshaller = aJAXBContext.createUnmarshaller ();
@@ -117,7 +113,7 @@ public abstract class AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends Abst
       aUnmarshaller.setEventHandler (new LoggingValidationEventHandler (aUnmarshaller.getEventHandler ()));
 
     // Validating!
-    aUnmarshaller.setSchema (m_aDocType.getSchema (m_aClassLoader));
+    aUnmarshaller.setSchema (getSchema ());
 
     return aUnmarshaller;
   }
@@ -212,7 +208,7 @@ public abstract class AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends Abst
     ValueEnforcer.notNull (aSource, "Source");
 
     // as we don't have a node, we need to trust the implementation class
-    final Schema aSchema = m_aDocType.getSchema (m_aClassLoader);
+    final Schema aSchema = getSchema ();
     if (aSchema == null)
     {
       s_aLogger.error ("Don't know how to read JAXB document of type " + m_aImplClass.getName ());

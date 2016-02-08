@@ -25,7 +25,6 @@ import javax.xml.namespace.QName;
 import javax.xml.validation.Schema;
 import javax.xml.validation.Validator;
 
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.error.IResourceErrorGroup;
@@ -77,19 +76,17 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
 
   /**
    * @return The list of all paths within the classpath where the main XSD file
-   *         resides.
+   *         resides. Never <code>null</code> but maybe empty.
    */
   @Nonnull
-  @Nonempty
   @ReturnsMutableCopy
   List <String> getAllXSDPaths ();
 
   /**
    * @return The resources from which the XSD can be read using the current
-   *         class loader. Never <code>null</code> nor empty.
+   *         class loader. Never <code>null</code> but maybe empty.
    */
   @Nonnull
-  @Nonempty
   @ReturnsMutableCopy
   default List <? extends IReadableResource> getAllXSDResources ()
   {
@@ -101,10 +98,9 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
    *        The class loader to be used. May be <code>null</code> indicating
    *        that the default class loader should be used.
    * @return The resources from which the XSD can be read. Never
-   *         <code>null</code> nor empty.
+   *         <code>null</code> but maybe empty.
    */
   @Nonnull
-  @Nonempty
   @ReturnsMutableCopy
   default List <? extends IReadableResource> getAllXSDResources (@Nullable final ClassLoader aClassLoader)
   {
@@ -112,47 +108,58 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
   }
 
   /**
-   * @return The non-<code>null</code> compiled {@link Schema} object retrieved
-   *         by the {@link com.helger.commons.xml.schema.XMLSchemaCache}.
-   */
-  @Nonnull
-  default Schema getSchema ()
-  {
-    return getSchema ((ClassLoader) null);
-  }
-
-  /**
    * @param aClassLoader
    *        The class loader to be used. May be <code>null</code> indicating
    *        that the default class loader should be used.
-   * @return The non-<code>null</code> compiled {@link Schema} object retrieved
-   *         by the {@link com.helger.commons.xml.schema.XMLSchemaCache}.
+   * @return The compiled {@link Schema} object retrieved by the
+   *         {@link com.helger.commons.xml.schema.XMLSchemaCache}. May be
+   *         <code>null</code> if no XSD was provided.
    */
-  @Nonnull
+  @Nullable
   Schema getSchema (@Nullable ClassLoader aClassLoader);
 
   /**
-   * @return The non-<code>null</code> compiled {@link Validator} object
-   *         retrieved from the schema to be obtained from {@link #getSchema()}.
+   * @return The compiled {@link Validator} object retrieved from the schema to
+   *         be obtained from {@link #getSchema()}.If this document type has no
+   *         XML Schema that no {@link Validator} can be created and the return
+   *         value is <code>null</code>.
    */
-  @Nonnull
+  @Nullable
   default Validator getValidator ()
   {
-    return getSchema ().newValidator ();
+    return getValidator ((ClassLoader) null);
   }
 
   /**
    * @param aClassLoader
    *        The class loader to be used. May be <code>null</code> indicating
    *        that the default class loader should be used.
-   * @return The non-<code>null</code> compiled {@link Validator} object
-   *         retrieved from the schema to be obtained from
-   *         {@link #getSchema(ClassLoader)}.
+   * @return The compiled {@link Validator} object retrieved from the schema to
+   *         be obtained from {@link #getSchema(ClassLoader)}. If this document
+   *         type has no XML Schema that no {@link Validator} can be created and
+   *         the return value is <code>null</code>.
    */
-  @Nonnull
+  @Nullable
   default Validator getValidator (@Nullable final ClassLoader aClassLoader)
   {
-    return getSchema (aClassLoader).newValidator ();
+    final Schema aSchema = getSchema (aClassLoader);
+    return aSchema == null ? null : aSchema.newValidator ();
+  }
+
+  /**
+   * Validate the passed XML instance against the XML Schema of this document
+   * type using the default class loader.
+   *
+   * @param aXML
+   *        The XML resource to be validated. May not be <code>null</code>.
+   * @return A group of validation errors. Is empty if no error occurred.
+   *         <code>null</code> is returned if this document type has no XSDs
+   *         assigned and therefore not validation can take place.
+   */
+  @Nullable
+  default IResourceErrorGroup validateXML (@Nonnull final IReadableResource aXML)
+  {
+    return validateXML (aXML, (ClassLoader) null);
   }
 
   /**
@@ -164,13 +171,15 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
    * @param aClassLoader
    *        The class loader to be used. May be <code>null</code> indicating
    *        that the default class loader should be used.
-   * @return A non-<code>null</code> group of validation errors. Is empty if no
-   *         error occurred.
+   * @return A group of validation errors. Is empty if no error occurred.
+   *         <code>null</code> is returned if this document type has no XSDs
+   *         assigned and therefore not validation can take place.
    */
-  @Nonnull
+  @Nullable
   default IResourceErrorGroup validateXML (@Nonnull final IReadableResource aXML,
                                            @Nullable final ClassLoader aClassLoader)
   {
-    return XMLSchemaValidationHelper.validate (getSchema (aClassLoader), aXML);
+    final Schema aSchema = getSchema (aClassLoader);
+    return aSchema == null ? null : XMLSchemaValidationHelper.validate (aSchema, aXML);
   }
 }

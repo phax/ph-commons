@@ -27,13 +27,10 @@ import javax.xml.namespace.QName;
 import javax.xml.validation.Schema;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.xml.schema.XMLSchemaCache;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Stand alone implementation of {@link IJAXBDocumentType}
@@ -59,10 +56,10 @@ public class JAXBDocumentType implements IJAXBDocumentType
    *        <code>@XmlSchema</code> annotation with a non-null
    *        <code>namespace</code> property!
    * @param aXSDPaths
-   *        The classpath relative paths to the XML Schema. May neither be
-   *        <code>null</code> nor empty. If the main XSD imports another XSD,
-   *        the imported XSD must come first in the list. So the XSDs without
-   *        any dependencies must come first!
+   *        The classpath relative paths to the XML Schema. May not be
+   *        <code>null</code> but maybe empty. If the main XSD imports another
+   *        XSD, the imported XSD must come first in the list. So the XSDs
+   *        without any dependencies must come first!
    * @param aTypeToElementNameMapper
    *        An optional function to determine element name from type name. E.g.
    *        in UBL the type has an additional "Type" at the end that may not
@@ -70,11 +67,11 @@ public class JAXBDocumentType implements IJAXBDocumentType
    *        <code>null</code> indicating that no name mapping is necessary.
    */
   public JAXBDocumentType (@Nonnull final Class <?> aClass,
-                           @Nonnull @Nonempty final List <String> aXSDPaths,
+                           @Nonnull final List <String> aXSDPaths,
                            @Nullable final Function <String, String> aTypeToElementNameMapper)
   {
     ValueEnforcer.notNull (aClass, "Class");
-    ValueEnforcer.notEmptyNoNullValue (aXSDPaths, "XSDPaths");
+    ValueEnforcer.notNullNoNullValue (aXSDPaths, "XSDPaths");
 
     // Check whether it is an @XmlType class
     final XmlType aXmlType = aClass.getAnnotation (XmlType.class);
@@ -137,7 +134,6 @@ public class JAXBDocumentType implements IJAXBDocumentType
   }
 
   @Nonnull
-  @Nonempty
   @ReturnsMutableCopy
   public List <String> getAllXSDPaths ()
   {
@@ -157,10 +153,15 @@ public class JAXBDocumentType implements IJAXBDocumentType
     return ret;
   }
 
-  @Nonnull
-  @SuppressFBWarnings ("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE")
+  @Nullable
   public Schema getSchema (@Nullable final ClassLoader aClassLoader)
   {
+    if (m_aXSDPaths.isEmpty ())
+    {
+      // No XSD -> no Schema
+      return null;
+    }
+
     if (aClassLoader != null)
     {
       // Don't cache if a class loader is provided

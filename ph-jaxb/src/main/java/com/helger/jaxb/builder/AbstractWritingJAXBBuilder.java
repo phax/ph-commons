@@ -30,7 +30,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.lang.GenericReflection;
-import com.helger.jaxb.JAXBContextCache;
 
 /**
  * Abstract builder class for writing and validating JAXB documents.
@@ -63,16 +62,13 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
   @OverrideOnDemand
   protected Marshaller createMarshaller () throws JAXBException
   {
-    // Since creating the JAXB context is quite cost intensive this is done
-    // only once!
-    final JAXBContext aJAXBContext = JAXBContextCache.getInstance ().getFromCache (m_aDocType.getImplementationClass (),
-                                                                                   m_aClassLoader);
+    final JAXBContext aJAXBContext = getJAXBContext ();
 
     // create a Marshaller
     final Marshaller aMarshaller = aJAXBContext.createMarshaller ();
 
     // Validating!
-    aMarshaller.setSchema (m_aDocType.getSchema (m_aClassLoader));
+    aMarshaller.setSchema (getSchema ());
 
     return aMarshaller;
   }

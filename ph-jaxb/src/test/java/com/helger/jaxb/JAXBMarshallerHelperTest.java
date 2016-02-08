@@ -16,6 +16,7 @@
  */
 package com.helger.jaxb;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -28,9 +29,16 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
+import com.helger.jaxb.mock.MockMarshallerExternal;
+import com.helger.jaxb.mock.MockMarshallerInternal;
+import com.helger.jaxb.mock.internal.MockJAXBCollection;
 
 /**
  * Test class for class {@link JAXBMarshallerHelper}.
@@ -39,6 +47,8 @@ import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
  */
 public final class JAXBMarshallerHelperTest
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (JAXBMarshallerHelperTest.class);
+
   private <T> void _testAll (@Nonnull final Class <T> aClass, final boolean bIsInternal) throws JAXBException
   {
     final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (aClass);
@@ -88,5 +98,75 @@ public final class JAXBMarshallerHelperTest
   {
     _testAll (com.helger.jaxb.mock.external.MockJAXBArchive.class, false);
     _testAll (com.helger.jaxb.mock.internal.MockJAXBArchive.class, true);
+  }
+
+  @Test
+  public void testCloseExternalOnWriteToOutputStream ()
+  {
+    final MockMarshallerExternal m = new MockMarshallerExternal ();
+    final MutableBoolean aClosed = new MutableBoolean (false);
+    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ()
+    {
+      @Override
+      public void close ()
+      {
+        super.close ();
+        aClosed.set (true);
+      }
+    };
+    {
+      final com.helger.jaxb.mock.external.MockJAXBArchive aArc = new com.helger.jaxb.mock.external.MockJAXBArchive ();
+      aArc.setVersion ("1.23");
+      m.write (aArc, aBAOS);
+    }
+    s_aLogger.info (aBAOS.getAsString (CCharset.CHARSET_UTF_8_OBJ));
+    // Must be closed!
+    assertTrue ("Not closed!", aClosed.booleanValue ());
+  }
+
+  @Test
+  public void testCloseInternalOnWriteToOutputStream ()
+  {
+    final MockMarshallerInternal m = new MockMarshallerInternal ();
+    final MutableBoolean aClosed = new MutableBoolean (false);
+    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ()
+    {
+      @Override
+      public void close ()
+      {
+        super.close ();
+        aClosed.set (true);
+      }
+    };
+    {
+      final com.helger.jaxb.mock.internal.MockJAXBArchive aArc = new com.helger.jaxb.mock.internal.MockJAXBArchive ();
+      aArc.setVersion ("1.24");
+      m.write (aArc, aBAOS);
+    }
+    s_aLogger.info (aBAOS.getAsString (CCharset.CHARSET_UTF_8_OBJ));
+    // Must be closed!
+    assertTrue ("Not closed!", aClosed.booleanValue ());
+  }
+
+  @Test
+  public void testGetAsBytes ()
+  {
+    final MockMarshallerInternal m = new MockMarshallerInternal ();
+    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
+    byte [] aDirectBytes;
+    {
+      final com.helger.jaxb.mock.internal.MockJAXBArchive aArc = new com.helger.jaxb.mock.internal.MockJAXBArchive ();
+      aArc.setVersion ("1.24");
+      for (int i = 0; i < 100; ++i)
+      {
+        final MockJAXBCollection aCollection = new MockJAXBCollection ();
+        aCollection.setDescription ("Internal bla foo");
+        aCollection.setID (i);
+        aArc.getCollection ().add (aCollection);
+      }
+      m.write (aArc, aBAOS);
+      aDirectBytes = m.getAsBytes (aArc);
+    }
+    assertArrayEquals (aBAOS.toByteArray (), aDirectBytes);
   }
 }

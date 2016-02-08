@@ -19,11 +19,15 @@ package com.helger.jaxb.builder;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.validation.Schema;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGenericImplTrait;
-import com.helger.jaxb.builder.IJAXBDocumentType;
+import com.helger.jaxb.JAXBContextCache;
 
 /**
  * Abstract builder class for reading, writing and validating JAXB documents.
@@ -34,10 +38,11 @@ import com.helger.jaxb.builder.IJAXBDocumentType;
  */
 @NotThreadSafe
 public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder <IMPLTYPE>>
-                                         implements IGenericImplTrait <IMPLTYPE>
+                                          implements IGenericImplTrait <IMPLTYPE>, IHasClassLoader
 {
   protected final IJAXBDocumentType m_aDocType;
-  protected ClassLoader m_aClassLoader;
+  private ClassLoader m_aClassLoader;
+  private boolean m_bUseJAXBContextCache = true;
 
   public AbstractJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
@@ -77,11 +82,57 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
     return thisAsT ();
   }
 
+  /**
+   * @return <code>true</code> if the {@link JAXBContextCache} is used,
+   *         <code>false</code> if not. Default is <code>true</code>.
+   */
+  public boolean isUseJAXBContextCache ()
+  {
+    return m_bUseJAXBContextCache;
+  }
+
+  /**
+   * Set usage of the {@link JAXBContextCache}. For performance reasons it's
+   * recommended to use the cache.
+   *
+   * @param bUseJAXBContextCache
+   *        <code>true</code> to use the cache, <code>false</code> to create a
+   *        new {@link JAXBContext} every time.
+   * @return this
+   */
+  @Nonnull
+  public IMPLTYPE setUseJAXBContextCache (final boolean bUseJAXBContextCache)
+  {
+    m_bUseJAXBContextCache = bUseJAXBContextCache;
+    return thisAsT ();
+  }
+
+  @Nullable
+  protected final Schema getSchema ()
+  {
+    return m_aDocType.getSchema (m_aClassLoader);
+  }
+
+  @Nonnull
+  protected final JAXBContext getJAXBContext () throws JAXBException
+  {
+    if (m_bUseJAXBContextCache)
+    {
+      // Since creating the JAXB context is quite cost intensive this is done
+      // only once!
+      return JAXBContextCache.getInstance ().getFromCache (m_aDocType.getImplementationClass (), m_aClassLoader);
+    }
+
+    // Create a new JAXBContext - inefficient
+    return JAXBContext.newInstance (m_aDocType.getPackage ().getName (), m_aClassLoader);
+  }
+
   @Override
   public String toString ()
   {
     return new ToStringGenerator (this).append ("DocType", m_aDocType)
-                                       .append ("ClassLoader", m_aClassLoader)
+                                       .appendIfNotNull ("ClassLoader", m_aClassLoader)
+                                       .append ("UseJAXBContextCache", m_bUseJAXBContextCache)
                                        .toString ();
   }
 }
