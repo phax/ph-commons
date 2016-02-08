@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
  * @param <DATATYPE>
  *        The type of the wrapped object.
  */
+@FunctionalInterface
 public interface IWrapper <DATATYPE>
 {
   /**

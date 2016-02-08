@@ -723,7 +723,7 @@ public final class XMLCharHelper
     if (ArrayHelper.isEmpty (aChars))
       return null;
 
-    final Set <Character> aRes = new LinkedHashSet <Character> ();
+    final Set <Character> aRes = new LinkedHashSet <> ();
     int nIndex = 0;
     for (final char c : aChars)
     {
@@ -798,7 +798,7 @@ public final class XMLCharHelper
     if (ArrayHelper.isEmpty (aChars))
       return null;
 
-    final Set <Character> aRes = new LinkedHashSet <Character> ();
+    final Set <Character> aRes = new LinkedHashSet <> ();
     for (final char c : aChars)
       if (isInvalidXMLTextChar (eXMLVersion, c))
         aRes.add (Character.valueOf (c));
@@ -924,7 +924,7 @@ public final class XMLCharHelper
     if (ArrayHelper.isEmpty (aChars))
       return null;
 
-    final Set <Character> aRes = new LinkedHashSet <Character> ();
+    final Set <Character> aRes = new LinkedHashSet <> ();
     for (final char c : aChars)
       if (isInvalidXMLAttributeValueChar (eXMLVersion, c))
         aRes.add (Character.valueOf (c));

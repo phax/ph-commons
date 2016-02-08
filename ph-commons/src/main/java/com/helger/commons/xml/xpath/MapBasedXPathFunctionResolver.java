@@ -53,7 +53,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    */
   public MapBasedXPathFunctionResolver ()
   {
-    m_aMap = new HashMap <XPathFunctionKey, XPathFunction> ();
+    m_aMap = new HashMap <> ();
   }
 
   /**

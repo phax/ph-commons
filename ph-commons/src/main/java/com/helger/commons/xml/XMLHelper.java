@@ -200,10 +200,10 @@ public final class XMLHelper
     return aParentNode;
   }
 
-  public static void append (@Nonnull final Node aSrcNode, @Nonnull final Collection <?> aNodesToAppend)
+  public static void append (@Nonnull final Node aParentNode, @Nonnull final Collection <?> aNodesToAppend)
   {
     for (final Object aNode : aNodesToAppend)
-      append (aSrcNode, aNode);
+      append (aParentNode, aNode);
   }
 
   @Nonnegative
@@ -542,7 +542,7 @@ public final class XMLHelper
       final NamedNodeMap aNNM = aSrcNode.getAttributes ();
       if (aNNM != null)
       {
-        final Map <String, String> aMap = new LinkedHashMap <String, String> (aNNM.getLength ());
+        final Map <String, String> aMap = new LinkedHashMap <> (aNNM.getLength ());
         final int nMax = aNNM.getLength ();
         for (int i = 0; i < nMax; ++i)
         {

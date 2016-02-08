@@ -85,7 +85,7 @@ public final class XMLFactory
    * Reinitialize the document builder factory. This may be necessary if the
    * system properties change!
    */
-  static void reinitialize ()
+  public static void reinitialize ()
   {
     s_aRWLock.writeLocked ( () -> {
       // create DOM document builder
