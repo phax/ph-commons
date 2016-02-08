@@ -58,6 +58,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
   private NamespaceContext m_aNSContext = JAXBBuilderDefaultSettings.getDefaultNamespaceContext ();
   private boolean m_bFormattedOutput = JAXBBuilderDefaultSettings.isDefaultFormattedOutput ();
   private Charset m_aCharset = JAXBBuilderDefaultSettings.getDefaultCharset ();
+  private String m_sIndentString = JAXBBuilderDefaultSettings.getDefaultIndentString ();
 
   public JAXBWriterBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
@@ -161,6 +162,30 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     return m_aCharset;
   }
 
+  /**
+   * Set the indent string to be used for writing JAXB objects.
+   *
+   * @param sIndentString
+   *        The indent string to be used. May be <code>null</code>.
+   * @return this for chaining
+   */
+  public IMPLTYPE setIndentString (@Nullable final String sIndentString)
+  {
+    m_sIndentString = sIndentString;
+    return thisAsT ();
+  }
+
+  /**
+   * @return The JAXB indentation string to be used for writing.
+   *         <code>null</code> by default. Only used when formatted output is
+   *         used.
+   */
+  @Nullable
+  public String getIndentString ()
+  {
+    return m_sIndentString;
+  }
+
   @Override
   @Nonnull
   protected Marshaller createMarshaller () throws JAXBException
@@ -193,6 +218,9 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
 
     if (m_aCharset != null)
       JAXBMarshallerHelper.setEncoding (aMarshaller, m_aCharset);
+
+    if (m_sIndentString != null)
+      JAXBMarshallerHelper.setSunIndentString (aMarshaller, m_sIndentString);
 
     return aMarshaller;
   }
