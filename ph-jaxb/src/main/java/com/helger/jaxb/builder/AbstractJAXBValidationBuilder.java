@@ -26,49 +26,30 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.error.IResourceErrorGroup;
+import com.helger.jaxb.IJAXBValidator;
 import com.helger.jaxb.validation.CollectingValidationEventHandler;
 
 /**
  * Abstract builder class for validating JAXB documents.
  *
  * @author Philip Helger
- * @param <T>
+ * @param <JAXBTYPE>
  *        The JAXB implementation class to be validated
  * @param <IMPLTYPE>
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
-public abstract class AbstractJAXBValidationBuilder <T, IMPLTYPE extends AbstractJAXBValidationBuilder <T, IMPLTYPE>>
-                                                    extends AbstractWritingJAXBBuilder <T, IMPLTYPE>
+public abstract class AbstractJAXBValidationBuilder <JAXBTYPE, IMPLTYPE extends AbstractJAXBValidationBuilder <JAXBTYPE, IMPLTYPE>>
+                                                    extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE>
+                                                    implements IJAXBValidator <JAXBTYPE>
 {
   public AbstractJAXBValidationBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
     super (aDocType);
   }
 
-  /**
-   * Check if the passed JAXB document is valid according to the XSD or not.
-   *
-   * @param aJAXBDocument
-   *        The JAXB document to be validated. May not be <code>null</code>.
-   * @return <code>true</code> if the document is valid, <code>false</code> if
-   *         not.
-   * @see #validate(Object)
-   */
-  public boolean isValid (@Nonnull final T aJAXBDocument)
-  {
-    return validate (aJAXBDocument).containsNoError ();
-  }
-
-  /**
-   * Validate the passed JAXB document.
-   *
-   * @param aJAXBDocument
-   *        The JAXB document to be validated. May not be <code>null</code>.
-   * @return The validation results. Never <code>null</code>.
-   */
   @Nonnull
-  public IResourceErrorGroup validate (@Nonnull final T aJAXBDocument)
+  public IResourceErrorGroup validate (@Nonnull final JAXBTYPE aJAXBDocument)
   {
     ValueEnforcer.notNull (aJAXBDocument, "JAXBDocument");
 
@@ -93,7 +74,8 @@ public abstract class AbstractJAXBValidationBuilder <T, IMPLTYPE extends Abstrac
 
       // start marshalling
       final JAXBElement <?> aJAXBElement = _createJAXBElement (m_aDocType.getQName (), aJAXBDocument);
-      // DefaultHandler has very little overhead
+
+      // DefaultHandler has very little overhead and does nothing
       aMarshaller.marshal (aJAXBElement, new DefaultHandler ());
     }
     catch (final JAXBException ex)

@@ -21,7 +21,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.MarshalException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.namespace.NamespaceContext;
@@ -181,13 +180,9 @@ public abstract class AbstractJAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends Abst
       aMarshaller.marshal (aJAXBElement, aResult);
       return ESuccess.SUCCESS;
     }
-    catch (final MarshalException ex)
-    {
-      s_aLogger.error ("Marshal exception writing JAXB document", ex);
-    }
     catch (final JAXBException ex)
     {
-      s_aLogger.warn ("JAXB Exception writing JAXB document", ex);
+      handleWriteException (ex);
     }
     return ESuccess.FAILURE;
   }

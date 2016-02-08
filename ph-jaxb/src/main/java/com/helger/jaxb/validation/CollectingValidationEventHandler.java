@@ -18,6 +18,7 @@ package com.helger.jaxb.validation;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.xml.bind.ValidationEventHandler;
 
@@ -40,6 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class CollectingValidationEventHandler extends AbstractValidationEventHandler implements IHasResourceErrorGroup
 {
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
+  @GuardedBy ("m_aRWLock")
   private final ResourceErrorGroup m_aErrors = new ResourceErrorGroup ();
 
   public CollectingValidationEventHandler ()
@@ -53,9 +55,7 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
   @Override
   protected void onEvent (@Nonnull final IResourceError aEvent)
   {
-    m_aRWLock.writeLocked ( () -> {
-      m_aErrors.addResourceError (aEvent);
-    });
+    m_aRWLock.writeLocked ( () -> m_aErrors.addResourceError (aEvent));
   }
 
   @Nonnull

@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
 
 import com.helger.commons.ValueEnforcer;
@@ -166,6 +167,25 @@ public abstract class AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends Abst
   protected void customizeUnmarshaller (@Nonnull final Unmarshaller aUnmarshaller)
   {}
 
+  @OverrideOnDemand
+  protected void handleReadException (@Nonnull final JAXBException ex)
+  {
+    if (ex instanceof UnmarshalException)
+    {
+      // The JAXB specification does not mandate how the JAXB provider
+      // must behave when attempting to unmarshal invalid XML data. In
+      // those cases, the JAXB provider is allowed to terminate the
+      // call to unmarshal with an UnmarshalException.
+      final Throwable aLinked = ((UnmarshalException) ex).getLinkedException ();
+      if (aLinked instanceof SAXParseException)
+        s_aLogger.error ("Failed to parse XML document: " + aLinked.getMessage ());
+      else
+        s_aLogger.error ("Unmarshal exception reading document", ex);
+    }
+    else
+      s_aLogger.warn ("JAXB Exception reading document", ex);
+  }
+
   /**
    * Convert the passed XML node into a domain object.<br>
    * Note: this is the generic API for reading all types of JAXB documents.
@@ -204,19 +224,9 @@ public abstract class AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends Abst
                                          m_aImplClass.getName () +
                                          " - without exception!");
     }
-    catch (final UnmarshalException ex)
-    {
-      // The JAXB specification does not mandate how the JAXB provider
-      // must behave when attempting to unmarshal invalid XML data. In
-      // those cases, the JAXB provider is allowed to terminate the
-      // call to unmarshal with an UnmarshalException.
-      s_aLogger.error ("Unmarshal exception reading JAXB document", ex);
-      return null;
-    }
     catch (final JAXBException ex)
     {
-      s_aLogger.warn ("JAXB Exception reading JAXB document", ex);
-      return null;
+      handleReadException (ex);
     }
 
     return ret;
@@ -259,19 +269,9 @@ public abstract class AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends Abst
                                          m_aImplClass.getName () +
                                          " - without exception!");
     }
-    catch (final UnmarshalException ex)
-    {
-      // The JAXB specification does not mandate how the JAXB provider
-      // must behave when attempting to unmarshal invalid XML data. In
-      // those cases, the JAXB provider is allowed to terminate the
-      // call to unmarshal with an UnmarshalException.
-      s_aLogger.error ("Unmarshal exception reading JAXB document", ex);
-      return null;
-    }
     catch (final JAXBException ex)
     {
-      s_aLogger.warn ("JAXB Exception reading JAXB document", ex);
-      return null;
+      handleReadException (ex);
     }
 
     return ret;

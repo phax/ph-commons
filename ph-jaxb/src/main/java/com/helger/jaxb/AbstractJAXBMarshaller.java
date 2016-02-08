@@ -79,6 +79,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   private final List <IReadableResource> m_aXSDs = new ArrayList <> ();
   private final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> m_aWrapper;
   private IValidationEventHandlerFactory m_aVEHFactory = new CollectingLoggingValidationEventHandlerFactory ();
+  @Deprecated
   private ValidationEventHandler m_aLastEventHandler;
   private boolean m_bReadSecure = DEFAULT_READ_SECURE;
   private boolean m_bWriteFormatted = DEFAULT_WRITE_FORMATTED;
@@ -155,6 +156,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
    *         none was created so far.
    */
   @Nullable
+  @Deprecated
   public final ValidationEventHandler getLastValidationEventHandler ()
   {
     return m_aLastEventHandler;
@@ -168,6 +170,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
    *         <code>null</code> if none was created so far.
    */
   @Nullable
+  @Deprecated
   public final CollectingValidationEventHandler getCollectingValidationEventHandler ()
   {
     ValidationEventHandler aHandler = m_aLastEventHandler;
@@ -203,6 +206,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
    *         {@link CollectingValidationEventHandler} is present.
    */
   @Nullable
+  @Deprecated
   public final IResourceErrorGroup getLastValidationErrors ()
   {
     final CollectingValidationEventHandler aHandler = getCollectingValidationEventHandler ();
@@ -218,6 +222,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
    *         one element was removed from it.
    */
   @Nonnull
+  @Deprecated
   public final EChange clearLastValidationErrors ()
   {
     final CollectingValidationEventHandler aHandler = getCollectingValidationEventHandler ();

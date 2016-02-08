@@ -21,8 +21,12 @@ import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.MarshalException;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.lang.GenericReflection;
@@ -41,6 +45,8 @@ import com.helger.jaxb.JAXBContextCache;
 public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE>>
                                                  extends AbstractJAXBBuilder <IMPLTYPE>
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractWritingJAXBBuilder.class);
+
   public AbstractWritingJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
     super (aDocType);
@@ -80,6 +86,15 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
   @OverrideOnDemand
   protected void customizeMarshaller (@Nonnull final Marshaller aMarshaller)
   {}
+
+  @OverrideOnDemand
+  protected void handleWriteException (@Nonnull final JAXBException ex)
+  {
+    if (ex instanceof MarshalException)
+      s_aLogger.error ("Marshal exception writing object", ex);
+    else
+      s_aLogger.warn ("JAXB Exception writing object", ex);
+  }
 
   @Nonnull
   protected static final JAXBElement <?> _createJAXBElement (@Nonnull final QName aQName, @Nonnull final Object aValue)
