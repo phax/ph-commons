@@ -386,7 +386,7 @@ public final class ValueEnforcer
    *        The Array to check. May be <code>null</code>.
    * @param sName
    *        The name of the value (e.g. the parameter name)
-   * @return The passed value and never <code>null</code>.
+   * @return The passed value. Maybe <code>null</code>.
    * @throws IllegalArgumentException
    *         if the passed value is not empty and a <code>null</code> value is
    *         contained
@@ -417,7 +417,7 @@ public final class ValueEnforcer
    *        The collection to check. May be <code>null</code>.
    * @param sName
    *        The name of the value (e.g. the parameter name)
-   * @return The passed value and never <code>null</code>.
+   * @return The passed value. Maybe <code>null</code>.
    * @throws IllegalArgumentException
    *         if the passed value is not empty and a <code>null</code> value is
    *         contained
@@ -448,7 +448,7 @@ public final class ValueEnforcer
    *        The map to check. May be <code>null</code>.
    * @param sName
    *        The name of the value (e.g. the parameter name)
-   * @return The passed value and never <code>null</code>.
+   * @return The passed value. Maybe <code>null</code>.
    * @throws IllegalArgumentException
    *         if the passed value is not empty and a <code>null</code> key or
    *         <code>null</code> value is contained
