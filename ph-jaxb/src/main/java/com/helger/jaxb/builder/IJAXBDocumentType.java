@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 import javax.xml.validation.Schema;
 import javax.xml.validation.Validator;
 
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.error.IResourceErrorGroup;
@@ -47,12 +48,12 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
   Class <?> getImplementationClass ();
 
   /**
-   * @return The local name of the root element of an XML document of this type.
-   *         Corresponds to the name of the implementation class (without a
-   *         package).
+   * @return The list of all paths within the classpath where the main XSD file
+   *         resides. Never <code>null</code> but maybe empty.
    */
   @Nonnull
-  String getLocalName ();
+  @ReturnsMutableCopy
+  List <String> getAllXSDPaths ();
 
   /**
    * @return The non-<code>null</code> XML namespace of this JAXB document type.
@@ -63,12 +64,13 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
   String getNamespaceURI ();
 
   /**
-   * @return The list of all paths within the classpath where the main XSD file
-   *         resides. Never <code>null</code> but maybe empty.
+   * @return The local name of the root element of an XML document of this type.
+   *         Corresponds to the name of the implementation class (without a
+   *         package).
    */
   @Nonnull
-  @ReturnsMutableCopy
-  List <String> getAllXSDPaths ();
+  @Nonempty
+  String getLocalName ();
 
   /**
    * @return The resources from which the XSD can be read using the current

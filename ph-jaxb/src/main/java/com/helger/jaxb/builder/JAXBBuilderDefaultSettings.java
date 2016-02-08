@@ -27,7 +27,11 @@ import javax.xml.namespace.NamespaceContext;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 
 /**
- * A class containing some default settings for the various JAXB builders.
+ * A class containing some default settings for the various JAXB builders. Each
+ * new instance of {@link JAXBReaderBuilder}, {@link JAXBValidationBuilder} and
+ * {@link JAXBWriterBuilder} use the settings in this class as the defaults.<br>
+ * Changes made in this class only effects instances that are created
+ * afterwards. Existing instances are never changed.
  *
  * @author Philip Helger
  */
@@ -42,7 +46,7 @@ public final class JAXBBuilderDefaultSettings
   @GuardedBy ("s_aRWLock")
   private static NamespaceContext s_aNamespaceContext;
   @GuardedBy ("s_aRWLock")
-  private static boolean s_bFormattedOutput;
+  private static boolean s_bFormattedOutput = false;
   @GuardedBy ("s_aRWLock")
   private static Charset s_aCharset;
   @GuardedBy ("s_aRWLock")
@@ -133,7 +137,8 @@ public final class JAXBBuilderDefaultSettings
 
   /**
    * @return <code>true</code> if the JAXB output should be formatted. Only for
-   *         writers. Default is <code>false</code>.
+   *         writers. Default is <code>false</code>. The JDK implementation does
+   *         not format by default.
    */
   public static boolean isDefaultFormattedOutput ()
   {
@@ -153,7 +158,7 @@ public final class JAXBBuilderDefaultSettings
 
   /**
    * @return The special JAXB Charset to be used for writing. <code>null</code>
-   *         by default.
+   *         by default. The JDK implementation uses UTF-8 by default.
    */
   @Nullable
   public static Charset getDefaultCharset ()

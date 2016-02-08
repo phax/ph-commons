@@ -21,12 +21,14 @@ import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.validation.Schema;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.resource.IReadableResource;
@@ -34,17 +36,21 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.schema.XMLSchemaCache;
 
 /**
- * Stand alone implementation of {@link IJAXBDocumentType}
+ * Stand alone implementation of {@link IJAXBDocumentType}. It is not
+ * thread-safe because of the lazily loaded Schema.
  *
  * @author Philip Helger
  */
+@NotThreadSafe
 public class JAXBDocumentType implements IJAXBDocumentType
 {
   private final Class <?> m_aClass;
-  private final String m_sLocalName;
-  private final String m_sNamespaceURI;
   private final List <String> m_aXSDPaths;
-  private Schema m_aSchema;
+  private final String m_sNamespaceURI;
+  private final String m_sLocalName;
+
+  // Status vars
+  private Schema m_aCachedSchema;
 
   /**
    * Constructor
@@ -104,17 +110,16 @@ public class JAXBDocumentType implements IJAXBDocumentType
     {
       // Hack: build the element name from the type name
       sLocalName = aXmlType.name ();
-      if (StringHelper.hasNoText (sLocalName))
-        throw new IllegalArgumentException ("Failed to determine the local name of the element to be created!");
     }
-
     if (aTypeToElementNameMapper != null)
       sLocalName = aTypeToElementNameMapper.apply (sLocalName);
+    if (StringHelper.hasNoText (sLocalName))
+      throw new IllegalArgumentException ("Failed to determine the local name of the element to be created!");
 
     m_aClass = aClass;
-    m_sLocalName = sLocalName;
-    m_sNamespaceURI = StringHelper.getNotNull (aXmlSchema.namespace ());
     m_aXSDPaths = CollectionHelper.newList (aXSDPaths);
+    m_sNamespaceURI = StringHelper.getNotNull (aXmlSchema.namespace ());
+    m_sLocalName = sLocalName;
   }
 
   @Nonnull
@@ -124,9 +129,10 @@ public class JAXBDocumentType implements IJAXBDocumentType
   }
 
   @Nonnull
-  public String getLocalName ()
+  @ReturnsMutableCopy
+  public List <String> getAllXSDPaths ()
   {
-    return m_sLocalName;
+    return CollectionHelper.newList (m_aXSDPaths);
   }
 
   @Nonnull
@@ -136,10 +142,10 @@ public class JAXBDocumentType implements IJAXBDocumentType
   }
 
   @Nonnull
-  @ReturnsMutableCopy
-  public List <String> getAllXSDPaths ()
+  @Nonempty
+  public String getLocalName ()
   {
-    return CollectionHelper.newList (m_aXSDPaths);
+    return m_sLocalName;
   }
 
   @Nonnull
@@ -170,11 +176,11 @@ public class JAXBDocumentType implements IJAXBDocumentType
       return _createSchema (aClassLoader);
     }
 
-    if (m_aSchema == null)
+    if (m_aCachedSchema == null)
     {
       // Lazy initialization if no class loader is present
-      m_aSchema = _createSchema (aClassLoader);
+      m_aCachedSchema = _createSchema (aClassLoader);
     }
-    return m_aSchema;
+    return m_aCachedSchema;
   }
 }
