@@ -34,6 +34,8 @@ public final class JAXBBuilderDefaultSettings
 {
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
+  private static boolean s_bUseContextCache = true;
+  @GuardedBy ("s_aRWLock")
   private static ValidationEventHandler s_aEventHandler;
   @GuardedBy ("s_aRWLock")
   private static NamespaceContext s_aNamespaceContext;
@@ -42,6 +44,27 @@ public final class JAXBBuilderDefaultSettings
 
   private JAXBBuilderDefaultSettings ()
   {}
+
+  /**
+   * Enable or disable the usage of the JAXBContext cache. For performance
+   * reasons it is recommended to enable it. By default it is enabled.
+   *
+   * @param bUseContextCache
+   *        <code>true</code> to enable it, <code>false</code> to disable it.
+   */
+  public static void setDefaultUseContextCache (final boolean bUseContextCache)
+  {
+    s_aRWLock.writeLocked ( () -> s_bUseContextCache = bUseContextCache);
+  }
+
+  /**
+   * @return <code>true</code> if the JAXBContext cache should be used. Default
+   *         is <code>true</code>.
+   */
+  public static boolean isDefaultUseContextCache ()
+  {
+    return s_aRWLock.readLocked ( () -> s_bUseContextCache);
+  }
 
   /**
    * Set a global event handler that should be passed to all read/write actions.

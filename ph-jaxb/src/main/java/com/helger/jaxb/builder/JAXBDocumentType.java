@@ -21,6 +21,7 @@ import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
@@ -30,6 +31,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.resource.IReadableResource;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.schema.XMLSchemaCache;
 
 /**
@@ -67,11 +69,11 @@ public class JAXBDocumentType implements IJAXBDocumentType
    *        <code>null</code> indicating that no name mapping is necessary.
    */
   public JAXBDocumentType (@Nonnull final Class <?> aClass,
-                           @Nonnull final List <String> aXSDPaths,
+                           @Nullable final List <String> aXSDPaths,
                            @Nullable final Function <String, String> aTypeToElementNameMapper)
   {
     ValueEnforcer.notNull (aClass, "Class");
-    ValueEnforcer.notNullNoNullValue (aXSDPaths, "XSDPaths");
+    ValueEnforcer.noNullValue (aXSDPaths, "XSDPaths");
 
     // Check whether it is an @XmlType class
     final XmlType aXmlType = aClass.getAnnotation (XmlType.class);
@@ -91,14 +93,29 @@ public class JAXBDocumentType implements IJAXBDocumentType
                                           aPackage.getName () +
                                           "' has no namespace URI in the @XmlSchema annotation!");
 
-    // Hack: build the element name from the type name
-    String sLocalName = aXmlType.name ();
+    // Depending on the generation mode, the class may have the @XmlRootElement
+    // annotation or not. If it is present, use the name from it, else try to
+    // deduce the name from the type.
+    String sLocalName;
+    final XmlRootElement aRootElement = aClass.getAnnotation (XmlRootElement.class);
+    if (aRootElement != null)
+    {
+      sLocalName = aRootElement.name ();
+    }
+    else
+    {
+      // Hack: build the element name from the type name
+      sLocalName = aXmlType.name ();
+      if (StringHelper.hasNoText (sLocalName))
+        throw new IllegalArgumentException ("Failed to determine the local name of the element to be created!");
+    }
+
     if (aTypeToElementNameMapper != null)
       sLocalName = aTypeToElementNameMapper.apply (sLocalName);
 
     m_aClass = aClass;
     m_sLocalName = sLocalName;
-    m_sNamespaceURI = aXmlSchema.namespace ();
+    m_sNamespaceURI = StringHelper.getNotNull (aXmlSchema.namespace ());
     m_aQName = new QName (m_sNamespaceURI, sLocalName);
     m_aXSDPaths = CollectionHelper.newList (aXSDPaths);
   }

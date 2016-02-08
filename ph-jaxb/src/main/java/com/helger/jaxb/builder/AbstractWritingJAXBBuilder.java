@@ -24,6 +24,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.MarshalException;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
+import javax.xml.validation.Schema;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,8 +68,10 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
     // create a Marshaller
     final Marshaller aMarshaller = aJAXBContext.createMarshaller ();
 
-    // Validating!
-    aMarshaller.setSchema (getSchema ());
+    // Validating (if possible)
+    final Schema aSchema = getSchema ();
+    if (aSchema != null)
+      aMarshaller.setSchema (aSchema);
 
     return aMarshaller;
   }

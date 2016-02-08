@@ -63,6 +63,8 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
 
   /**
    * @return The non-<code>null</code> XML namespace of this JAXB document type.
+   *         If the element has no namespace this method must also return the
+   *         empty string.
    */
   @Nonnull
   String getNamespaceURI ();

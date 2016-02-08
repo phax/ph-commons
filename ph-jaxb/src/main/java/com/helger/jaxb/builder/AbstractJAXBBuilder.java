@@ -42,7 +42,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
 {
   protected final IJAXBDocumentType m_aDocType;
   private ClassLoader m_aClassLoader;
-  private boolean m_bUseJAXBContextCache = true;
+  private boolean m_bUseJAXBContextCache = JAXBBuilderDefaultSettings.isDefaultUseContextCache ();
 
   public AbstractJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {

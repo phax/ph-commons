@@ -196,6 +196,8 @@ public final class JAXBContextCache extends AbstractNotifyingCache <JAXBContextC
 
     try
     {
+      // Using the version with a ClassLoader would require an
+      // ObjectFactory.class or an jaxb.index file in the same package!
       return JAXBContext.newInstance (aClass);
     }
     catch (final JAXBException ex)

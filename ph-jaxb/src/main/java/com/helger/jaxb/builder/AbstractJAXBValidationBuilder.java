@@ -39,9 +39,9 @@ import com.helger.jaxb.validation.CollectingValidationEventHandler;
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
-public abstract class AbstractJAXBValidationBuilder <JAXBTYPE, IMPLTYPE extends AbstractJAXBValidationBuilder <JAXBTYPE, IMPLTYPE>>
-                                                    extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE>
-                                                    implements IJAXBValidator <JAXBTYPE>
+public class AbstractJAXBValidationBuilder <JAXBTYPE, IMPLTYPE extends AbstractJAXBValidationBuilder <JAXBTYPE, IMPLTYPE>>
+                                           extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE>
+                                           implements IJAXBValidator <JAXBTYPE>
 {
   public AbstractJAXBValidationBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {

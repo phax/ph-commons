@@ -34,6 +34,8 @@ import org.xml.sax.SAXParseException;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.lang.GenericReflection;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.xml.XMLHelper;
 import com.helger.jaxb.IJAXBReader;
@@ -49,13 +51,18 @@ import com.helger.jaxb.validation.LoggingValidationEventHandler;
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
-public abstract class AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE>>
-                                                extends AbstractJAXBBuilder <IMPLTYPE> implements IJAXBReader <JAXBTYPE>
+public class AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE>>
+                                       extends AbstractJAXBBuilder <IMPLTYPE> implements IJAXBReader <JAXBTYPE>
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBReaderBuilder.class);
 
   private final Class <JAXBTYPE> m_aImplClass;
   private ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
+
+  public AbstractJAXBReaderBuilder (@Nonnull final IJAXBDocumentType aDocType)
+  {
+    this (aDocType, GenericReflection.uncheckedCast (aDocType.getImplementationClass ()));
+  }
 
   public AbstractJAXBReaderBuilder (@Nonnull final IJAXBDocumentType aDocType,
                                     @Nonnull final Class <JAXBTYPE> aImplClass)
@@ -112,8 +119,10 @@ public abstract class AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends Abst
     else
       aUnmarshaller.setEventHandler (new LoggingValidationEventHandler (aUnmarshaller.getEventHandler ()));
 
-    // Validating!
-    aUnmarshaller.setSchema (getSchema ());
+    // Validating (if possible)
+    final Schema aSchema = getSchema ();
+    if (aSchema != null)
+      aUnmarshaller.setSchema (aSchema);
 
     return aUnmarshaller;
   }
@@ -161,12 +170,17 @@ public abstract class AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends Abst
   {
     ValueEnforcer.notNull (aNode, "Node");
 
-    final String sNodeNamespaceURI = XMLHelper.getNamespaceURI (aNode);
+    // Convert null to empty string to be comparable to the m_aDocType
+    // implementation
+    final String sNodeNamespaceURI = StringHelper.getNotNull (XMLHelper.getNamespaceURI (aNode));
 
     // Avoid class cast exception later on
     if (!m_aDocType.getNamespaceURI ().equals (sNodeNamespaceURI))
     {
-      s_aLogger.error ("You cannot read an '" + sNodeNamespaceURI + "' as a " + m_aImplClass.getName ());
+      s_aLogger.error ("You cannot read a node with a namespace URI of '" +
+                       sNodeNamespaceURI +
+                       "' as a " +
+                       m_aImplClass.getName ());
       return null;
     }
 
