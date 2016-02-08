@@ -383,7 +383,7 @@ public final class ValueEnforcer
    * @param <T>
    *        Type to be checked and returned
    * @param aValue
-   *        The Array to check.
+   *        The Array to check. May be <code>null</code>.
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
@@ -414,7 +414,7 @@ public final class ValueEnforcer
    * @param <T>
    *        Type to be checked and returned
    * @param aValue
-   *        The collection to check.
+   *        The collection to check. May be <code>null</code>.
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
@@ -445,7 +445,7 @@ public final class ValueEnforcer
    * @param <T>
    *        Type to be checked and returned
    * @param aValue
-   *        The map to check.
+   *        The map to check. May be <code>null</code>.
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @return The passed value and never <code>null</code>.
