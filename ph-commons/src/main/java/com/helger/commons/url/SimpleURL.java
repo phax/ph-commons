@@ -19,9 +19,11 @@ package com.helger.commons.url;
 import java.math.BigInteger;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
@@ -34,6 +36,7 @@ import com.helger.commons.lang.ICloneable;
  *
  * @author Philip Helger
  */
+@NotThreadSafe
 public class SimpleURL extends AbstractSimpleURL implements ICloneable <SimpleURL>
 {
   public SimpleURL ()
@@ -84,7 +87,7 @@ public class SimpleURL extends AbstractSimpleURL implements ICloneable <SimpleUR
     ValueEnforcer.notNull (sValue, "Value");
 
     if (m_aParams == null)
-      m_aParams = new LinkedHashMap <String, String> ();
+      m_aParams = new LinkedHashMap <> ();
     m_aParams.put (sKey, sValue);
     return this;
   }
@@ -121,13 +124,36 @@ public class SimpleURL extends AbstractSimpleURL implements ICloneable <SimpleUR
     return this;
   }
 
+  /**
+   * Add the parameter of the passed value predicate evaluates to true.
+   *
+   * @param sKey
+   *        Parameter name. May neither be <code>null</code> nor empty.
+   * @param sValue
+   *        Parameter value. May not be <code>null</code> if the predicate
+   *        evaluates to <code>true</code>.
+   * @param aFilter
+   *        The predicate to be evaluated on the value. May not be
+   *        <code>null</code>.
+   * @return this for chaining
+   */
+  @Nonnull
+  public SimpleURL addIf (@Nonnull @Nonempty final String sKey,
+                          @Nullable final String sValue,
+                          @Nonnull final Predicate <String> aFilter)
+  {
+    if (aFilter.test (sValue))
+      add (sKey, sValue);
+    return this;
+  }
+
   @Nonnull
   public SimpleURL addAll (@Nullable final Map <String, String> aParams)
   {
     if (CollectionHelper.isNotEmpty (aParams))
     {
       if (m_aParams == null)
-        m_aParams = new LinkedHashMap <String, String> ();
+        m_aParams = new LinkedHashMap <> ();
       m_aParams.putAll (aParams);
     }
     return this;

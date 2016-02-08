@@ -16,7 +16,6 @@
  */
 package com.helger.commons.url;
 
-import java.nio.charset.Charset;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -64,7 +63,7 @@ public abstract class AbstractSimpleURL implements ISimpleURL
     {
       // m_aParams may already be non-null
       if (m_aParams == null)
-        m_aParams = new LinkedHashMap <String, String> ();
+        m_aParams = new LinkedHashMap <> ();
       m_aParams.putAll (aParams);
     }
   }
@@ -85,17 +84,6 @@ public abstract class AbstractSimpleURL implements ISimpleURL
     if (aURL.hasParams ())
       m_aParams = aURL.getAllParams ();
     m_sAnchor = aURL.getAnchor ();
-  }
-
-  @Nullable
-  public final IURLProtocol getProtocol ()
-  {
-    return URLProtocolRegistry.getInstance ().getProtocol (m_sPath);
-  }
-
-  public final boolean hasKnownProtocol ()
-  {
-    return URLProtocolRegistry.getInstance ().hasKnownProtocol (m_sPath);
   }
 
   @Nonnull
@@ -144,26 +132,6 @@ public abstract class AbstractSimpleURL implements ISimpleURL
   public final String getParam (@Nullable final String sKey)
   {
     return m_aParams == null ? null : m_aParams.get (sKey);
-  }
-
-  @Nonnull
-  public final String getAsString ()
-  {
-    return URLHelper.getURLString (this, (Charset) null);
-  }
-
-  @Nonnull
-  public final String getAsStringWithEncodedParameters ()
-  {
-    return getAsStringWithEncodedParameters (URLHelper.CHARSET_URL_OBJ);
-  }
-
-  @Nonnull
-  public final String getAsStringWithEncodedParameters (@Nonnull final Charset aParameterCharset)
-  {
-    ValueEnforcer.notNull (aParameterCharset, "ParameterCharset");
-
-    return URLHelper.getURLString (this, aParameterCharset);
   }
 
   @Override

@@ -39,22 +39,30 @@ public interface IURLData extends Serializable
    *         protocol.
    */
   @Nullable
-  IURLProtocol getProtocol ();
+  default IURLProtocol getProtocol ()
+  {
+    return URLProtocolRegistry.getInstance ().getProtocol (getPath ());
+  }
 
   /**
    * @return <code>true</code> if the URL has a known protocol
    */
-  boolean hasKnownProtocol ();
+  default boolean hasKnownProtocol ()
+  {
+    return URLProtocolRegistry.getInstance ().hasKnownProtocol (getPath ());
+  }
 
   /**
    * @return The path part of the URL (everything before the "?" and the "#",
-   *         incl. the protocol)
+   *         incl. the protocol). Never <code>null</code> but maybe empty (e.g.
+   *         for "?x=y").
    */
   @Nonnull
   String getPath ();
 
   /**
-   * @return <code>true</code> if at least one parameter is present.
+   * @return <code>true</code> if at least one parameter is present,
+   *         <code>false</code> otherwise.
    */
   boolean hasParams ();
 
@@ -80,7 +88,8 @@ public interface IURLData extends Serializable
   Map <String, String> getAllParams ();
 
   /**
-   * @return <code>true</code> if an anchor is present
+   * @return <code>true</code> if an anchor is present, <code>false</code>
+   *         otherwise.
    */
   boolean hasAnchor ();
 

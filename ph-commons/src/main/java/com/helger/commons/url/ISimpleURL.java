@@ -21,6 +21,7 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.lang.IHasStringRepresentation;
 
 /**
@@ -31,12 +32,6 @@ import com.helger.commons.lang.IHasStringRepresentation;
  */
 public interface ISimpleURL extends IURLData, IHasStringRepresentation
 {
-  /**
-   * The string representing an empty URL. Must contain at least one character.
-   */
-  @Deprecated
-  String EMPTY_URL_STRING = "?";
-
   /**
    * Get the parameter value of the given key.
    *
@@ -52,7 +47,10 @@ public interface ISimpleURL extends IURLData, IHasStringRepresentation
    *         request parameters.
    */
   @Nonnull
-  String getAsString ();
+  default String getAsString ()
+  {
+    return URLHelper.getURLString (this, (Charset) null);
+  }
 
   /**
    * @return The final string representation of this URL with encoded URL
@@ -60,7 +58,10 @@ public interface ISimpleURL extends IURLData, IHasStringRepresentation
    *         determined by {@link URLHelper#CHARSET_URL}.
    */
   @Nonnull
-  String getAsStringWithEncodedParameters ();
+  default String getAsStringWithEncodedParameters ()
+  {
+    return getAsStringWithEncodedParameters (URLHelper.CHARSET_URL_OBJ);
+  }
 
   /**
    * @param aCharset
@@ -70,5 +71,9 @@ public interface ISimpleURL extends IURLData, IHasStringRepresentation
    *         parameter keys and values.
    */
   @Nonnull
-  String getAsStringWithEncodedParameters (@Nonnull Charset aCharset);
+  default String getAsStringWithEncodedParameters (@Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (aCharset, "ParameterCharset");
+    return URLHelper.getURLString (this, aCharset);
+  }
 }

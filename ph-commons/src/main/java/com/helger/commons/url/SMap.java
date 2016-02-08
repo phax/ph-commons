@@ -18,6 +18,7 @@ package com.helger.commons.url;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -25,7 +26,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.lang.ICloneable;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.typeconvert.TypeConverter;
 
 /**
@@ -108,9 +108,11 @@ public class SMap extends LinkedHashMap <String, String> implements ICloneable <
   }
 
   @Nonnull
-  public SMap addIfNotEmpty (@Nonnull final String sName, @Nullable final String sValue)
+  public SMap addIf (@Nonnull final String sName,
+                     @Nullable final String sValue,
+                     @Nonnull final Predicate <String> aFilter)
   {
-    if (StringHelper.hasText (sValue))
+    if (aFilter.test (sValue))
       super.put (sName, sValue);
     return this;
   }

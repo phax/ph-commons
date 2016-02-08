@@ -68,17 +68,6 @@ public class URLData implements IURLData
     m_sAnchor = sAnchor;
   }
 
-  @Nullable
-  public IURLProtocol getProtocol ()
-  {
-    return URLProtocolRegistry.getInstance ().getProtocol (m_sPath);
-  }
-
-  public boolean hasKnownProtocol ()
-  {
-    return URLProtocolRegistry.getInstance ().hasKnownProtocol (m_sPath);
-  }
-
   @Nonnull
   public String getPath ()
   {
