@@ -17,6 +17,7 @@
 package com.helger.jaxb.builder;
 
 import java.util.List;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,8 +31,6 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.schema.XMLSchemaCache;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -54,12 +53,25 @@ public class JAXBDocumentType implements IJAXBDocumentType
    * Constructor
    *
    * @param aClass
-   *        The JAXB generated class of the root element.
+   *        The JAXB generated class of the root element. May not be
+   *        <code>null</code>. This class must have the <code>@XmlType</code>
+   *        annotation and the package the class resides in must have the
+   *        <code>@XmlSchema</code> annotation with a non-null
+   *        <code>namespace</code> property!
    * @param aXSDPaths
    *        The classpath relative paths to the XML Schema. May neither be
-   *        <code>null</code> nor empty.
+   *        <code>null</code> nor empty. If the main XSD imports another XSD,
+   *        the imported XSD must come first in the list. So the XSDs without
+   *        any dependencies must come first!
+   * @param aTypeToElementNameMapper
+   *        An optional function to determine element name from type name. E.g.
+   *        in UBL the type has an additional "Type" at the end that may not
+   *        occur here. SBDH in contrary does not have such a suffix. May be
+   *        <code>null</code> indicating that no name mapping is necessary.
    */
-  public JAXBDocumentType (@Nonnull final Class <?> aClass, @Nonnull @Nonempty final List <String> aXSDPaths)
+  public JAXBDocumentType (@Nonnull final Class <?> aClass,
+                           @Nonnull @Nonempty final List <String> aXSDPaths,
+                           @Nullable final Function <String, String> aTypeToElementNameMapper)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notEmptyNoNullValue (aXSDPaths, "XSDPaths");
@@ -67,29 +79,29 @@ public class JAXBDocumentType implements IJAXBDocumentType
     // Check whether it is an @XmlType class
     final XmlType aXmlType = aClass.getAnnotation (XmlType.class);
     if (aXmlType == null)
-      throw new IllegalArgumentException ("The passed class does not have an @XMLType annotation!");
+      throw new IllegalArgumentException ("The passed class does not have an @XmlType annotation!");
 
     // Get the package of the passed Class
     final Package aPackage = aClass.getPackage ();
 
     // The package must have the annotation "XmlSchema" with the corresponding
-    // namespace it supports
+    // namespace it supports (maybe empty but not null)
     final XmlSchema aXmlSchema = aPackage.getAnnotation (XmlSchema.class);
     if (aXmlSchema == null)
       throw new IllegalArgumentException ("The package '" + aPackage.getName () + "' has no @XmlSchema annotation!");
+    if (aXmlSchema.namespace () == null)
+      throw new IllegalArgumentException ("The package '" +
+                                          aPackage.getName () +
+                                          "' has no namespace URI in the @XmlSchema annotation!");
 
-    // Hack: build the element name from the type, excluding the "Type" at the
-    // end
-    String sLocalName = ClassHelper.getClassLocalName (aClass);
-    sLocalName = sLocalName.substring (0, sLocalName.length () - "Type".length ());
+    // Hack: build the element name from the type name
+    String sLocalName = aXmlType.name ();
+    if (aTypeToElementNameMapper != null)
+      sLocalName = aTypeToElementNameMapper.apply (sLocalName);
 
     m_aClass = aClass;
     m_sLocalName = sLocalName;
     m_sNamespaceURI = aXmlSchema.namespace ();
-    if (StringHelper.hasNoText (m_sNamespaceURI))
-      throw new IllegalArgumentException ("The package '" +
-                                          aPackage.getName () +
-                                          "' has no namespace in the @XmlSchema annotation!");
     m_aQName = new QName (m_sNamespaceURI, sLocalName);
     m_aXSDPaths = CollectionHelper.newList (aXSDPaths);
   }

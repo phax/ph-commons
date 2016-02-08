@@ -176,7 +176,7 @@ public abstract class AbstractJAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends Abst
       customizeMarshaller (aMarshaller);
 
       // start marshalling
-      final JAXBElement <?> aJAXBElement = _createJAXBElement (m_aDocType.getQName (), aJAXBDocument);
+      final JAXBElement <JAXBTYPE> aJAXBElement = _createJAXBElement (m_aDocType.getQName (), aJAXBDocument);
       aMarshaller.marshal (aJAXBElement, aResult);
       return ESuccess.SUCCESS;
     }

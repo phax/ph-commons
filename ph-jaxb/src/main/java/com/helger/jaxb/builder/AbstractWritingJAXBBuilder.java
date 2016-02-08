@@ -97,8 +97,8 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
   }
 
   @Nonnull
-  protected static final JAXBElement <?> _createJAXBElement (@Nonnull final QName aQName, @Nonnull final Object aValue)
+  protected static <T> JAXBElement <T> _createJAXBElement (@Nonnull final QName aQName, @Nonnull final T aValue)
   {
-    return new JAXBElement <Object> (aQName, GenericReflection.uncheckedCast (aValue.getClass ()), null, aValue);
+    return new JAXBElement <T> (aQName, GenericReflection.uncheckedCast (aValue.getClass ()), null, aValue);
   }
 }
