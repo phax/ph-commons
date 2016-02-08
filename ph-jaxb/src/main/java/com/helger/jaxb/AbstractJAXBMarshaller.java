@@ -37,7 +37,6 @@ import javax.xml.validation.Schema;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
 import com.helger.commons.ValueEnforcer;
@@ -50,9 +49,7 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.xml.EXMLParserFeature;
 import com.helger.commons.xml.schema.XMLSchemaCache;
-import com.helger.commons.xml.serialize.read.SAXReaderSettings;
 import com.helger.jaxb.validation.AbstractValidationEventHandler;
 import com.helger.jaxb.validation.CollectingLoggingValidationEventHandlerFactory;
 import com.helger.jaxb.validation.CollectingValidationEventHandler;
@@ -344,20 +341,6 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
       aUnmarshaller.setSchema (aValidationSchema);
 
     return aUnmarshaller;
-  }
-
-  @Nullable
-  public JAXBTYPE read (@Nonnull final InputSource aInputSource)
-  {
-    // Initialize settings with defaults
-    final SAXReaderSettings aSettings = new SAXReaderSettings ();
-    if (m_bReadSecure)
-    {
-      // Apply settings that make reading more secure
-      aSettings.setFeatureValues (EXMLParserFeature.AVOID_XML_ATTACKS);
-    }
-
-    return read (aSettings, aInputSource);
   }
 
   /**

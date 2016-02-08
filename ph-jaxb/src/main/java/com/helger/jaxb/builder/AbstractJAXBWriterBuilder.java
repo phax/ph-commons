@@ -53,8 +53,9 @@ public abstract class AbstractJAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends Abst
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBWriterBuilder.class);
 
-  protected ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
-  protected NamespaceContext m_aNSContext = JAXBBuilderDefaultSettings.getDefaultNamespaceContext ();
+  private ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
+  private NamespaceContext m_aNSContext = JAXBBuilderDefaultSettings.getDefaultNamespaceContext ();
+  private boolean m_bFormattedOutput = JAXBBuilderDefaultSettings.isDefaultFormattedOutput ();
 
   public AbstractJAXBWriterBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
@@ -108,6 +109,29 @@ public abstract class AbstractJAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends Abst
   public IMPLTYPE setNamespaceContext (@Nullable final NamespaceContext aNSContext)
   {
     m_aNSContext = aNSContext;
+    return thisAsT ();
+  }
+
+  /**
+   * @return <code>true</code> if the JAXB output should be formatted. Default
+   *         is <code>false</code>.
+   */
+  public boolean isFormattedOutput ()
+  {
+    return m_bFormattedOutput;
+  }
+
+  /**
+   * Enable or disable the formatting of the output.
+   *
+   * @param bFormattedOutput
+   *        <code>true</code> to enable it, <code>false</code> to disable it.
+   * @return this for chaining
+   */
+  @Nonnull
+  public IMPLTYPE setFormattedOutput (final boolean bFormattedOutput)
+  {
+    m_bFormattedOutput = bFormattedOutput;
     return thisAsT ();
   }
 

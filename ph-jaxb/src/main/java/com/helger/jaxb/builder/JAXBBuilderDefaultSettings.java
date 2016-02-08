@@ -37,6 +37,8 @@ public final class JAXBBuilderDefaultSettings
   private static ValidationEventHandler s_aEventHandler;
   @GuardedBy ("s_aRWLock")
   private static NamespaceContext s_aNamespaceContext;
+  @GuardedBy ("s_aRWLock")
+  private static boolean s_bFormattedOutput;
 
   private JAXBBuilderDefaultSettings ()
   {}
@@ -87,5 +89,25 @@ public final class JAXBBuilderDefaultSettings
   public static NamespaceContext getDefaultNamespaceContext ()
   {
     return s_aRWLock.readLocked ( () -> s_aNamespaceContext);
+  }
+
+  /**
+   * Enable or disable the formatting of the output.
+   *
+   * @param bFormattedOutput
+   *        <code>true</code> to enable it, <code>false</code> to disable it.
+   */
+  public static void setDefaultFormattedOutput (final boolean bFormattedOutput)
+  {
+    s_aRWLock.writeLocked ( () -> s_bFormattedOutput = bFormattedOutput);
+  }
+
+  /**
+   * @return <code>true</code> if the JAXB output should be formatted. Only for
+   *         writers. Default is <code>false</code>.
+   */
+  public static boolean isDefaultFormattedOutput ()
+  {
+    return s_aRWLock.readLocked ( () -> s_bFormattedOutput);
   }
 }

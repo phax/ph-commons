@@ -25,23 +25,17 @@ import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.transform.Source;
-import javax.xml.transform.sax.SAXSource;
 import javax.xml.validation.Schema;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
-import org.xml.sax.XMLReader;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.xml.EXMLParserFeature;
 import com.helger.commons.xml.XMLHelper;
-import com.helger.commons.xml.serialize.read.SAXReaderFactory;
-import com.helger.commons.xml.serialize.read.SAXReaderSettings;
 import com.helger.jaxb.IJAXBReader;
 import com.helger.jaxb.JAXBContextCache;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
@@ -61,14 +55,20 @@ public abstract class AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends Abst
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBReaderBuilder.class);
 
-  protected Class <JAXBTYPE> m_aImplClass;
-  protected ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
+  private final Class <JAXBTYPE> m_aImplClass;
+  private ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
 
   public AbstractJAXBReaderBuilder (@Nonnull final IJAXBDocumentType aDocType,
                                     @Nonnull final Class <JAXBTYPE> aImplClass)
   {
     super (aDocType);
     m_aImplClass = ValueEnforcer.notNull (aImplClass, "ImplClass");
+  }
+
+  @Nonnull
+  protected final Class <JAXBTYPE> getImplClass ()
+  {
+    return m_aImplClass;
   }
 
   /**
@@ -99,41 +99,6 @@ public abstract class AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends Abst
   public final boolean isReadSecure ()
   {
     return true;
-  }
-
-  @Nullable
-  public JAXBTYPE read (@Nonnull final SAXReaderSettings aSettings, @Nonnull final InputSource aInputSource)
-  {
-    ValueEnforcer.notNull (aSettings, "Settings");
-    ValueEnforcer.notNull (aInputSource, "InputSource");
-
-    // Create new XML reader
-    final XMLReader aParser = SAXReaderFactory.createXMLReader ();
-
-    // Apply settings
-    aSettings.applyToSAXReader (aParser);
-
-    return read (new SAXSource (aParser, aInputSource));
-  }
-
-  @Nonnull
-  @OverrideOnDemand
-  protected SAXReaderSettings createDefaultSAXReaderSettings ()
-  {
-    // Initialize settings with defaults
-    final SAXReaderSettings aSettings = new SAXReaderSettings ();
-    // Apply settings that make reading more secure
-    aSettings.setFeatureValues (EXMLParserFeature.AVOID_XML_ATTACKS);
-    return aSettings;
-  }
-
-  @Nullable
-  public final JAXBTYPE read (@Nonnull final InputSource aInputSource)
-  {
-    // Initialize settings with defaults
-    final SAXReaderSettings aSettings = createDefaultSAXReaderSettings ();
-
-    return read (aSettings, aInputSource);
   }
 
   @Nonnull

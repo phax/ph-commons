@@ -16,6 +16,7 @@ import org.xml.sax.XMLReader;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.resource.IReadableResource;
+import com.helger.commons.xml.EXMLParserFeature;
 import com.helger.commons.xml.sax.InputSourceFactory;
 import com.helger.commons.xml.serialize.read.SAXReaderFactory;
 import com.helger.commons.xml.serialize.read.SAXReaderSettings;
@@ -48,7 +49,11 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  JAXBTYPE read (@Nonnull InputSource aInputSource);
+  default JAXBTYPE read (@Nonnull final InputSource aInputSource)
+  {
+    // Initialize settings with defaults
+    return read (new SAXReaderSettings (), aInputSource);
+  }
 
   /**
    * Read a document from the specified input source using the specified SAX
@@ -66,9 +71,17 @@ public interface IJAXBReader <JAXBTYPE>
     ValueEnforcer.notNull (aSettings, "Settings");
     ValueEnforcer.notNull (aInputSource, "InputSource");
 
+    if (isReadSecure ())
+    {
+      // Apply settings that make reading more secure
+      aSettings.setFeatureValues (EXMLParserFeature.AVOID_XML_ATTACKS);
+    }
+
     // Create new XML reader
     final XMLReader aParser = SAXReaderFactory.createXMLReader ();
     aSettings.applyToSAXReader (aParser);
+
+    // And read via JAXB
     return read (new SAXSource (aParser, aInputSource));
   }
 
