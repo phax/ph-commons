@@ -47,17 +47,16 @@ import com.helger.jaxb.validation.LoggingValidationEventHandler;
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
-public class AbstractJAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends AbstractJAXBWriterBuilder <JAXBTYPE, IMPLTYPE>>
-                                       extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE>
-                                       implements IJAXBWriter <JAXBTYPE>
+public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JAXBTYPE, IMPLTYPE>>
+                               extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE> implements IJAXBWriter <JAXBTYPE>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBWriterBuilder.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (JAXBWriterBuilder.class);
 
   private ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
   private NamespaceContext m_aNSContext = JAXBBuilderDefaultSettings.getDefaultNamespaceContext ();
   private boolean m_bFormattedOutput = JAXBBuilderDefaultSettings.isDefaultFormattedOutput ();
 
-  public AbstractJAXBWriterBuilder (@Nonnull final IJAXBDocumentType aDocType)
+  public JAXBWriterBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
     super (aDocType);
   }

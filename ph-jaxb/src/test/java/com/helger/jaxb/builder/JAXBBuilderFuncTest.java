@@ -6,10 +6,10 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-public final class AbstractJAXBBuilderFuncTest
+public final class JAXBBuilderFuncTest
 {
   @Test
-  public void testWriteExternal ()
+  public void testExternalNoXSD ()
   {
     final com.helger.jaxb.mock.external.MockJAXBArchive aArc = new com.helger.jaxb.mock.external.MockJAXBArchive ();
     aArc.setVersion ("1.23");
@@ -25,7 +25,7 @@ public final class AbstractJAXBBuilderFuncTest
   }
 
   @Test
-  public void testWriteInternal ()
+  public void testInternalNoXSD ()
   {
     final com.helger.jaxb.mock.internal.MockJAXBArchive aArc = new com.helger.jaxb.mock.internal.MockJAXBArchive ();
     aArc.setVersion ("1.23");

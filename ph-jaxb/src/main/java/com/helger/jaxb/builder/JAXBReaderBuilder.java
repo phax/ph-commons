@@ -51,21 +51,20 @@ import com.helger.jaxb.validation.LoggingValidationEventHandler;
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
-public class AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends AbstractJAXBReaderBuilder <JAXBTYPE, IMPLTYPE>>
-                                       extends AbstractJAXBBuilder <IMPLTYPE> implements IJAXBReader <JAXBTYPE>
+public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JAXBTYPE, IMPLTYPE>>
+                               extends AbstractJAXBBuilder <IMPLTYPE> implements IJAXBReader <JAXBTYPE>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBReaderBuilder.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (JAXBReaderBuilder.class);
 
   private final Class <JAXBTYPE> m_aImplClass;
   private ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
 
-  public AbstractJAXBReaderBuilder (@Nonnull final IJAXBDocumentType aDocType)
+  public JAXBReaderBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
     this (aDocType, GenericReflection.uncheckedCast (aDocType.getImplementationClass ()));
   }
 
-  public AbstractJAXBReaderBuilder (@Nonnull final IJAXBDocumentType aDocType,
-                                    @Nonnull final Class <JAXBTYPE> aImplClass)
+  public JAXBReaderBuilder (@Nonnull final IJAXBDocumentType aDocType, @Nonnull final Class <JAXBTYPE> aImplClass)
   {
     super (aDocType);
     m_aImplClass = ValueEnforcer.notNull (aImplClass, "ImplClass");
