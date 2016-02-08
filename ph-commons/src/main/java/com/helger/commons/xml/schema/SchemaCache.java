@@ -16,7 +16,6 @@
  */
 package com.helger.commons.xml.schema;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -113,16 +112,12 @@ public class SchemaCache extends AbstractNotifyingCache <List <? extends IReadab
         throw new IllegalStateException ("Failed to create " +
                                          sSchemaTypeName +
                                          " schema from " +
-                                         Arrays.toString (aSources));
+                                         aResources.toString ());
       return ret;
     }
     catch (final SAXException ex)
     {
-      throw new IllegalArgumentException ("Failed to parse " +
-                                          sSchemaTypeName +
-                                          " from " +
-                                          Arrays.toString (aSources),
-                                          ex);
+      throw new IllegalArgumentException ("Failed to parse " + sSchemaTypeName + " from " + aResources.toString (), ex);
     }
   }
 

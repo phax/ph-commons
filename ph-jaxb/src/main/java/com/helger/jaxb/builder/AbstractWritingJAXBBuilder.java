@@ -96,8 +96,11 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
   }
 
   @Nonnull
-  protected static <T> JAXBElement <T> _createJAXBElement (@Nonnull final QName aQName, @Nonnull final T aValue)
+  protected <T> JAXBElement <T> createJAXBElement (@Nonnull final T aValue)
   {
-    return new JAXBElement <T> (aQName, GenericReflection.uncheckedCast (aValue.getClass ()), null, aValue);
+    return new JAXBElement <T> (new QName (m_aDocType.getNamespaceURI (), m_aDocType.getLocalName ()),
+                                GenericReflection.uncheckedCast (aValue.getClass ()),
+                                null,
+                                aValue);
   }
 }

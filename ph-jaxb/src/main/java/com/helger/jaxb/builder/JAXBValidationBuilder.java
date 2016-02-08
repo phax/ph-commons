@@ -53,12 +53,12 @@ public class JAXBValidationBuilder <JAXBTYPE, IMPLTYPE extends JAXBValidationBui
     ValueEnforcer.notNull (aJAXBDocument, "JAXBDocument");
 
     // Avoid class cast exception later on
-    if (!m_aDocType.getPackage ().equals (aJAXBDocument.getClass ().getPackage ()))
+    if (!m_aDocType.getImplementationClass ().getPackage ().equals (aJAXBDocument.getClass ().getPackage ()))
     {
       throw new IllegalArgumentException ("You cannot validate a '" +
                                           aJAXBDocument.getClass () +
                                           "' as a " +
-                                          m_aDocType.getPackage ().getName ());
+                                          m_aDocType.getImplementationClass ().getPackage ().getName ());
     }
 
     final CollectingValidationEventHandler aEventHandler = new CollectingValidationEventHandler ();
@@ -72,7 +72,7 @@ public class JAXBValidationBuilder <JAXBTYPE, IMPLTYPE extends JAXBValidationBui
       customizeMarshaller (aMarshaller);
 
       // start marshalling
-      final JAXBElement <?> aJAXBElement = _createJAXBElement (m_aDocType.getQName (), aJAXBDocument);
+      final JAXBElement <?> aJAXBElement = createJAXBElement (aJAXBDocument);
 
       // DefaultHandler has very little overhead and does nothing
       aMarshaller.marshal (aJAXBElement, new DefaultHandler ());

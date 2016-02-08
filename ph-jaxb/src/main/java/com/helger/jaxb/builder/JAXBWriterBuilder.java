@@ -182,12 +182,12 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     ValueEnforcer.notNull (aResult, "Result");
 
     // Avoid class cast exception later on
-    if (!m_aDocType.getPackage ().equals (aJAXBDocument.getClass ().getPackage ()))
+    if (!m_aDocType.getImplementationClass ().getPackage ().equals (aJAXBDocument.getClass ().getPackage ()))
     {
       s_aLogger.error ("You cannot write a '" +
                        aJAXBDocument.getClass () +
                        "' as a " +
-                       m_aDocType.getPackage ().getName ());
+                       m_aDocType.getImplementationClass ().getPackage ().getName ());
       return ESuccess.FAILURE;
     }
 
@@ -199,7 +199,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
       customizeMarshaller (aMarshaller);
 
       // start marshalling
-      final JAXBElement <JAXBTYPE> aJAXBElement = _createJAXBElement (m_aDocType.getQName (), aJAXBDocument);
+      final JAXBElement <JAXBTYPE> aJAXBElement = createJAXBElement (aJAXBDocument);
       aMarshaller.marshal (aJAXBElement, aResult);
       return ESuccess.SUCCESS;
     }

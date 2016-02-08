@@ -124,7 +124,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
     }
 
     // Create a new JAXBContext - inefficient
-    return JAXBContext.newInstance (m_aDocType.getPackage ().getName (), m_aClassLoader);
+    return JAXBContext.newInstance (m_aDocType.getImplementationClass ().getPackage ().getName (), m_aClassLoader);
   }
 
   @Override

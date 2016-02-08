@@ -21,7 +21,6 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.xml.namespace.QName;
 import javax.xml.validation.Schema;
 import javax.xml.validation.Validator;
 
@@ -48,12 +47,6 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
   Class <?> getImplementationClass ();
 
   /**
-   * @return The package of the implementation class. Never <code>null</code>.
-   */
-  @Nonnull
-  Package getPackage ();
-
-  /**
    * @return The local name of the root element of an XML document of this type.
    *         Corresponds to the name of the implementation class (without a
    *         package).
@@ -68,13 +61,6 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
    */
   @Nonnull
   String getNamespaceURI ();
-
-  /**
-   * @return The combination of local name and namespace URI matching this
-   *         document type. Never <code>null</code>.
-   */
-  @Nonnull
-  QName getQName ();
 
   /**
    * @return The list of all paths within the classpath where the main XSD file

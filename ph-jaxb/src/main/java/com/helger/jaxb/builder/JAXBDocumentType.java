@@ -24,7 +24,6 @@ import javax.annotation.Nullable;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.namespace.QName;
 import javax.xml.validation.Schema;
 
 import com.helger.commons.ValueEnforcer;
@@ -44,7 +43,6 @@ public class JAXBDocumentType implements IJAXBDocumentType
   private final Class <?> m_aClass;
   private final String m_sLocalName;
   private final String m_sNamespaceURI;
-  private final QName m_aQName;
   private final List <String> m_aXSDPaths;
   private Schema m_aSchema;
 
@@ -116,7 +114,6 @@ public class JAXBDocumentType implements IJAXBDocumentType
     m_aClass = aClass;
     m_sLocalName = sLocalName;
     m_sNamespaceURI = StringHelper.getNotNull (aXmlSchema.namespace ());
-    m_aQName = new QName (m_sNamespaceURI, sLocalName);
     m_aXSDPaths = CollectionHelper.newList (aXSDPaths);
   }
 
@@ -124,12 +121,6 @@ public class JAXBDocumentType implements IJAXBDocumentType
   public Class <?> getImplementationClass ()
   {
     return m_aClass;
-  }
-
-  @Nonnull
-  public Package getPackage ()
-  {
-    return m_aClass.getPackage ();
   }
 
   @Nonnull
@@ -142,12 +133,6 @@ public class JAXBDocumentType implements IJAXBDocumentType
   public String getNamespaceURI ()
   {
     return m_sNamespaceURI;
-  }
-
-  @Nonnull
-  public QName getQName ()
-  {
-    return m_aQName;
   }
 
   @Nonnull
