@@ -16,6 +16,8 @@
  */
 package com.helger.jaxb.builder;
 
+import java.nio.charset.Charset;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -55,6 +57,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
   private ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
   private NamespaceContext m_aNSContext = JAXBBuilderDefaultSettings.getDefaultNamespaceContext ();
   private boolean m_bFormattedOutput = JAXBBuilderDefaultSettings.isDefaultFormattedOutput ();
+  private Charset m_aCharset = JAXBBuilderDefaultSettings.getDefaultCharset ();
 
   public JAXBWriterBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
@@ -134,6 +137,30 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     return thisAsT ();
   }
 
+  /**
+   * Set the charset to be used for writing JAXB objects.
+   *
+   * @param aCharset
+   *        The charset to be used by default. May be <code>null</code>.
+   * @return this for chaining
+   */
+  @Nonnull
+  public IMPLTYPE setCharset (@Nullable final Charset aCharset)
+  {
+    m_aCharset = aCharset;
+    return thisAsT ();
+  }
+
+  /**
+   * @return The special JAXB Charset to be used for writing. <code>null</code>
+   *         by default.
+   */
+  @Nullable
+  public Charset getCharset ()
+  {
+    return m_aCharset;
+  }
+
   @Override
   @Nonnull
   protected Marshaller createMarshaller () throws JAXBException
@@ -161,6 +188,11 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
                          t.getMessage (),
                          GlobalDebug.isDebugMode () ? t.getCause () : null);
       }
+
+    JAXBMarshallerHelper.setFormattedOutput (aMarshaller, m_bFormattedOutput);
+
+    if (m_aCharset != null)
+      JAXBMarshallerHelper.setEncoding (aMarshaller, m_aCharset);
 
     return aMarshaller;
   }

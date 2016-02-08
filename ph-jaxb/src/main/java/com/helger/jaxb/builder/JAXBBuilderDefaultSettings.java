@@ -16,6 +16,8 @@
  */
 package com.helger.jaxb.builder;
 
+import java.nio.charset.Charset;
+
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
@@ -41,6 +43,8 @@ public final class JAXBBuilderDefaultSettings
   private static NamespaceContext s_aNamespaceContext;
   @GuardedBy ("s_aRWLock")
   private static boolean s_bFormattedOutput;
+  @GuardedBy ("s_aRWLock")
+  private static Charset s_aCharset;
 
   private JAXBBuilderDefaultSettings ()
   {}
@@ -132,5 +136,26 @@ public final class JAXBBuilderDefaultSettings
   public static boolean isDefaultFormattedOutput ()
   {
     return s_aRWLock.readLocked ( () -> s_bFormattedOutput);
+  }
+
+  /**
+   * Set the default charset to be used for writing JAXB objects.
+   *
+   * @param aCharset
+   *        The charset to be used by default. May be <code>null</code>.
+   */
+  public static void setDefaultCharset (@Nullable final Charset aCharset)
+  {
+    s_aRWLock.writeLocked ( () -> s_aCharset = aCharset);
+  }
+
+  /**
+   * @return The special JAXB Charset to be used for writing. <code>null</code>
+   *         by default.
+   */
+  @Nullable
+  public static Charset getDefaultCharset ()
+  {
+    return s_aRWLock.readLocked ( () -> s_aCharset);
   }
 }
