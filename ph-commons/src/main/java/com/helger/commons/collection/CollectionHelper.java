@@ -39,6 +39,7 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -2954,11 +2955,19 @@ public final class CollectionHelper
                                             @Nonnull final Collection <? super ELEMENTTYPE> aDst)
   {
     ValueEnforcer.notNull (aDst, "Dst");
+    findAll (aSrc, aFilter, aDst::add);
+  }
+
+  public static <ELEMENTTYPE> void findAll (@Nullable final Iterable <? extends ELEMENTTYPE> aSrc,
+                                            @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                            @Nonnull final Consumer <? super ELEMENTTYPE> aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
 
     if (isNotEmpty (aSrc))
       for (final ELEMENTTYPE aElement : aSrc)
         if (aFilter == null || aFilter.test (aElement))
-          aDst.add (aElement);
+          aConsumer.accept (aElement);
   }
 
   @Nonnull
