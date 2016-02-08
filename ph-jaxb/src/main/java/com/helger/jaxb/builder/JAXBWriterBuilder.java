@@ -38,7 +38,7 @@ import com.helger.jaxb.JAXBMarshallerHelper;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
 
 /**
- * Abstract builder class for writing JAXB documents.
+ * Builder class for writing JAXB documents.
  *
  * @author Philip Helger
  * @param <JAXBTYPE>

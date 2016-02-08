@@ -107,6 +107,10 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
     return thisAsT ();
   }
 
+  /**
+   * @return The XML schema to be used for validating instances. May be
+   *         <code>null</code> if no XSDs are present.
+   */
   @Nullable
   protected final Schema getSchema ()
   {

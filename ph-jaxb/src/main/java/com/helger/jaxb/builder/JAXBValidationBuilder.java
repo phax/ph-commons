@@ -30,7 +30,7 @@ import com.helger.jaxb.IJAXBValidator;
 import com.helger.jaxb.validation.CollectingValidationEventHandler;
 
 /**
- * Abstract builder class for validating JAXB documents.
+ * Builder class for validating JAXB documents.
  *
  * @author Philip Helger
  * @param <JAXBTYPE>

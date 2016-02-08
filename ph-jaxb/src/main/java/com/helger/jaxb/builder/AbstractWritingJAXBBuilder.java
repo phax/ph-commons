@@ -33,7 +33,7 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.lang.GenericReflection;
 
 /**
- * Abstract builder class for writing and validating JAXB documents.
+ * Abstract builder base class for writing and validating JAXB documents.
  *
  * @author Philip Helger
  * @param <JAXBTYPE>

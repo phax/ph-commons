@@ -42,7 +42,7 @@ import com.helger.jaxb.IJAXBReader;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
 
 /**
- * Abstract builder class for reading JAXB documents.
+ * Builder class for reading JAXB documents.
  *
  * @author Philip Helger
  * @param <JAXBTYPE>
