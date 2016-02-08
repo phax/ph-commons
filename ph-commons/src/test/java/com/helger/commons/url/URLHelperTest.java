@@ -74,9 +74,9 @@ public final class URLHelperTest
     assertEquals (sDec, URLHelper.urlDecode (sEnc));
 
     sDec = "äöü";
-    sEnc = URLHelper.urlEncode (sDec, CCharset.CHARSET_ISO_8859_1);
+    sEnc = URLHelper.urlEncode (sDec, CCharset.CHARSET_ISO_8859_1_OBJ);
     assertEquals ("%E4%F6%FC", sEnc);
-    assertEquals (sDec, URLHelper.urlDecode (sEnc, CCharset.CHARSET_ISO_8859_1));
+    assertEquals (sDec, URLHelper.urlDecode (sEnc, CCharset.CHARSET_ISO_8859_1_OBJ));
   }
 
   @Test
@@ -137,12 +137,16 @@ public final class URLHelperTest
                                                                1000,
                                                                -1,
                                                                CMimeType.APPLICATION_X_WWW_FORM_URLENCODED,
-                                                               CharsetManager.getAsBytes ("sender=true", CCharset.CHARSET_UTF_8_OBJ),
+                                                               CharsetManager.getAsBytes ("sender=true",
+                                                                                          CCharset.CHARSET_UTF_8_OBJ),
                                                                null,
                                                                null,
                                                                null);
       final byte [] aContent = StreamHelper.getAllBytes (aIS);
-      s_aLogger.info ("Read " + aContent.length + " bytes: " + CharsetManager.getAsString (aContent, CCharset.CHARSET_UTF_8_OBJ));
+      s_aLogger.info ("Read " +
+                      aContent.length +
+                      " bytes: " +
+                      CharsetManager.getAsString (aContent, CCharset.CHARSET_UTF_8_OBJ));
     }
     catch (final Throwable t)
     {
@@ -159,8 +163,11 @@ public final class URLHelperTest
     assertEquals ("", URLHelper.getApplicationFormEncoded (new SMap (), enc));
     assertEquals ("a=b", URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b"), enc));
     assertEquals ("a=b&c=d", URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d"), enc));
-    assertEquals ("a=b&c=d&e=f+g", URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d").add ("e", "f g"), enc));
-    assertEquals ("a=b&c=d%26e", URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d&e"), enc));
+    assertEquals ("a=b&c=d&e=f+g",
+                  URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d").add ("e", "f g"),
+                                                       enc));
+    assertEquals ("a=b&c=d%26e",
+                  URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d&e"), enc));
 
     // Using identity encoder
     assertEquals ("a=b&c=d&e", URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d&e"), null));

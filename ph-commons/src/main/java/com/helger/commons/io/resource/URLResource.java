@@ -60,7 +60,7 @@ public class URLResource implements IReadableResource
 
   public URLResource (@Nonnull final ISimpleURL aURL) throws MalformedURLException
   {
-    this (aURL.getAsString ());
+    this (aURL.getAsStringWithEncodedParameters ());
   }
 
   public URLResource (@Nonnull final String sURL) throws MalformedURLException

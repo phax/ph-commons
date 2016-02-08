@@ -16,11 +16,11 @@
  */
 package com.helger.commons.url;
 
+import java.io.CharArrayWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.JarURLConnection;
 import java.net.MalformedURLException;
@@ -30,8 +30,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.util.BitSet;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -108,6 +108,65 @@ public final class URLHelper
   /** Internal debug logging flag */
   private static final boolean DEBUG_GET_IS = false;
 
+  private static BitSet NO_URL_ENCODE = new BitSet (256);
+  private static final int CASE_DIFF = ('a' - 'A');
+
+  static
+  {
+
+    /**
+     * <pre>
+     * The list of characters that are not encoded has been
+     * determined as follows:
+     *
+     * RFC 2396 states:
+     * -----
+     * Data characters that are allowed in a URI but do not have a
+     * reserved purpose are called unreserved.  These include upper
+     * and lower case letters, decimal digits, and a limited set of
+     * punctuation marks and symbols.
+     *
+     * unreserved  = alphanum | mark
+     *
+     * mark        = "-" | "_" | "." | "!" | "~" | "*" | "'" | "(" | ")"
+     *
+     * Unreserved characters can be escaped without changing the
+     * semantics of the URI, but this should not be done unless the
+     * URI is being used in a context that does not allow the
+     * unescaped character to appear.
+     * -----
+     *
+     * It appears that both Netscape and Internet Explorer escape
+     * all special characters from this list with the exception
+     * of "-", "_", ".", "*". While it is not clear why they are
+     * escaping the other characters, perhaps it is safest to
+     * assume that there might be contexts in which the others
+     * are unsafe if not escaped. Therefore, we will use the same
+     * list. It is also noteworthy that this is consistent with
+     * O'Reilly's "HTML: The Definitive Guide" (page 164).
+     *
+     * As a last note, Internet Explorer does not encode the "@"
+     * character which is clearly not unreserved according to the
+     * RFC. We are being consistent with the RFC in this matter,
+     * as is Netscape.
+     * </pre>
+     */
+    for (int i = 'a'; i <= 'z'; i++)
+      NO_URL_ENCODE.set (i);
+    for (int i = 'A'; i <= 'Z'; i++)
+      NO_URL_ENCODE.set (i);
+    for (int i = '0'; i <= '9'; i++)
+      NO_URL_ENCODE.set (i);
+    /*
+     * encoding a space to a + is done in the encode() method
+     */
+    NO_URL_ENCODE.set (' ');
+    NO_URL_ENCODE.set ('-');
+    NO_URL_ENCODE.set ('_');
+    NO_URL_ENCODE.set ('.');
+    NO_URL_ENCODE.set ('*');
+  }
+
   @PresentForCodeCoverage
   private static final URLHelper s_aInstance = new URLHelper ();
 
@@ -116,7 +175,7 @@ public final class URLHelper
 
   /**
    * URL-decode the passed value automatically handling charset issues. The used
-   * char set is determined by {@link #CHARSET_URL}.
+   * char set is determined by {@link #CHARSET_URL_OBJ}.
    *
    * @param sValue
    *        The value to be decoded. May not be <code>null</code>.
@@ -125,53 +184,95 @@ public final class URLHelper
   @Nonnull
   public static String urlDecode (@Nonnull final String sValue)
   {
-    return urlDecode (sValue, CHARSET_URL);
+    return urlDecode (sValue, CHARSET_URL_OBJ);
   }
 
   /**
-   * URL-decode the passed value automatically handling charset issues.
+   * URL-decode the passed value automatically handling charset issues. The
+   * implementation is ripped from URLDecoder but does not throw an
+   * UnsupportedEncodingException for nothing.
    *
    * @param sValue
    *        The value to be decoded. May not be <code>null</code>.
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.
    * @return The decoded value.
+   * @see URLDecoder#decode(String, String)
    */
   @Nonnull
   public static String urlDecode (@Nonnull final String sValue, @Nonnull final Charset aCharset)
   {
+    ValueEnforcer.notNull (sValue, "Value");
     ValueEnforcer.notNull (aCharset, "Charset");
 
-    return urlDecode (sValue, aCharset.name ());
-  }
+    boolean bNeedToChange = false;
+    final int nLen = sValue.length ();
+    final StringBuilder aSB = new StringBuilder (nLen);
+    int nIndex = 0;
+    byte [] aBytes = null;
+    while (nIndex < nLen)
+    {
+      char c = sValue.charAt (nIndex);
+      switch (c)
+      {
+        case '+':
+          aSB.append (' ');
+          nIndex++;
+          bNeedToChange = true;
+          break;
+        case '%':
+          /*
+           * Starting with this instance of %, process all consecutive
+           * substrings of the form %xy. Each substring %xy will yield a byte.
+           * Convert all consecutive bytes obtained this way to whatever
+           * character(s) they represent in the provided encoding.
+           */
+          try
+          {
+            // (numChars-i)/3 is an upper bound for the number
+            // of remaining bytes
+            if (aBytes == null)
+              aBytes = new byte [(nLen - nIndex) / 3];
+            int nPos = 0;
 
-  /**
-   * URL-decode the passed value automatically handling charset issues.
-   *
-   * @param sValue
-   *        The value to be decoded. May not be <code>null</code>.
-   * @param sCharset
-   *        The charset to use. May not be <code>null</code>.
-   * @return The decoded value.
-   */
-  @SuppressWarnings ("deprecation")
-  @Nonnull
-  public static String urlDecode (@Nonnull final String sValue, @Nonnull @Nonempty final String sCharset)
-  {
-    try
-    {
-      return URLDecoder.decode (sValue, sCharset);
+            while ((nIndex + 2) < nLen && c == '%')
+            {
+              final int nValue = Integer.parseInt (sValue.substring (nIndex + 1, nIndex + 3), 16);
+              if (nValue < 0)
+                throw new IllegalArgumentException ("URLDecoder: Illegal hex characters in escape (%) pattern - negative value");
+              aBytes[nPos++] = (byte) nValue;
+              nIndex += 3;
+              if (nIndex < nLen)
+                c = sValue.charAt (nIndex);
+            }
+
+            // A trailing, incomplete byte encoding such as
+            // "%x" will cause an exception to be thrown
+            if (nIndex < nLen && c == '%')
+              throw new IllegalArgumentException ("URLDecoder: Incomplete trailing escape (%) pattern");
+
+            aSB.append (new String (aBytes, 0, nPos, aCharset));
+          }
+          catch (final NumberFormatException e)
+          {
+            throw new IllegalArgumentException ("URLDecoder: Illegal hex characters in escape (%) pattern - " +
+                                                e.getMessage ());
+          }
+          bNeedToChange = true;
+          break;
+        default:
+          aSB.append (c);
+          nIndex++;
+          break;
+      }
     }
-    catch (final UnsupportedEncodingException ex)
-    {
-      // Using the charset determined by the system property file.encoding
-      return URLDecoder.decode (sValue);
-    }
+
+    return bNeedToChange ? aSB.toString () : sValue;
   }
 
   /**
    * URL-encode the passed value automatically handling charset issues. The used
-   * char set is determined by {@link #CHARSET_URL}.
+   * char set is determined by {@link #CHARSET_URL_OBJ}.
    *
    * @param sValue
    *        The value to be encoded. May not be <code>null</code>.
@@ -180,11 +281,13 @@ public final class URLHelper
   @Nonnull
   public static String urlEncode (@Nonnull final String sValue)
   {
-    return urlEncode (sValue, CHARSET_URL);
+    return urlEncode (sValue, CHARSET_URL_OBJ);
   }
 
   /**
-   * URL-encode the passed value automatically handling charset issues.
+   * URL-encode the passed value automatically handling charset issues. This is
+   * a ripped, optimized version of URLEncoder.encode but without the
+   * UnsupportedEncodingException.
    *
    * @param sValue
    *        The value to be encoded. May not be <code>null</code>.
@@ -195,33 +298,91 @@ public final class URLHelper
   @Nonnull
   public static String urlEncode (@Nonnull final String sValue, @Nonnull final Charset aCharset)
   {
+    ValueEnforcer.notNull (sValue, "Value");
     ValueEnforcer.notNull (aCharset, "Charset");
 
-    return urlEncode (sValue, aCharset.name ());
-  }
+    final int nLen = sValue.length ();
+    boolean bNeedToChange = false;
+    final StringBuilder out = new StringBuilder (nLen * 2);
+    final CharArrayWriter aCAW = new CharArrayWriter ();
 
-  /**
-   * URL-encode the passed value automatically handling charset issues.
-   *
-   * @param sValue
-   *        The value to be encoded. May not be <code>null</code>.
-   * @param sCharset
-   *        The charset to use. May not be <code>null</code>.
-   * @return The encoded value.
-   */
-  @SuppressWarnings ("deprecation")
-  @Nonnull
-  public static String urlEncode (@Nonnull final String sValue, @Nonnull @Nonempty final String sCharset)
-  {
-    try
+    for (int nIndex = 0; nIndex < nLen;)
     {
-      return URLEncoder.encode (sValue, sCharset);
+      char c = sValue.charAt (nIndex);
+      // System.out.println("Examining character: " + c);
+      if (NO_URL_ENCODE.get (c))
+      {
+        if (c == ' ')
+        {
+          c = '+';
+          bNeedToChange = true;
+        }
+        // System.out.println("Storing: " + c);
+        out.append (c);
+        nIndex++;
+      }
+      else
+      {
+        // convert to external encoding before hex conversion
+        do
+        {
+          aCAW.write (c);
+          /*
+           * If this character represents the start of a Unicode surrogate pair,
+           * then pass in two characters. It's not clear what should be done if
+           * a bytes reserved in the surrogate pairs range occurs outside of a
+           * legal surrogate pair. For now, just treat it as if it were any
+           * other character.
+           */
+          if (Character.isHighSurrogate (c))
+          {
+            /*
+             * System.out.println(Integer.toHexString(c) + " is high surrogate"
+             * );
+             */
+            if (nIndex + 1 < nLen)
+            {
+              final char d = sValue.charAt (nIndex + 1);
+              /*
+               * System.out.println("\tExamining " + Integer.toHexString(d));
+               */
+              if (Character.isLowSurrogate (d))
+              {
+                /*
+                 * System.out.println("\t" + Integer.toHexString(d) +
+                 * " is low surrogate");
+                 */
+                aCAW.write (d);
+                nIndex++;
+              }
+            }
+          }
+          nIndex++;
+        } while (nIndex < nLen && !NO_URL_ENCODE.get ((c = sValue.charAt (nIndex))));
+
+        aCAW.flush ();
+        final String str = new String (aCAW.toCharArray ());
+        final byte [] ba = str.getBytes (aCharset);
+        for (final byte element : ba)
+        {
+          out.append ('%');
+          char ch = Character.forDigit ((element >> 4) & 0xF, 16);
+          // converting to use uppercase letter as part of
+          // the hex value if ch is a letter.
+          if (Character.isLetter (ch))
+            ch -= CASE_DIFF;
+          out.append (ch);
+          ch = Character.forDigit (element & 0xF, 16);
+          if (Character.isLetter (ch))
+            ch -= CASE_DIFF;
+          out.append (ch);
+        }
+        aCAW.reset ();
+        bNeedToChange = true;
+      }
     }
-    catch (final UnsupportedEncodingException ex)
-    {
-      // Using the charset determined by the system property file.encoding
-      return URLEncoder.encode (sValue);
-    }
+
+    return bNeedToChange ? out.toString () : sValue;
   }
 
   private static void _initCleanURL ()
@@ -349,7 +510,7 @@ public final class URLHelper
   public static Map <String, String> getQueryStringAsMap (@Nullable final String sQueryString,
                                                           @Nullable final IDecoder <String> aParameterDecoder)
   {
-    final Map <String, String> aMap = new LinkedHashMap <String, String> ();
+    final Map <String, String> aMap = new LinkedHashMap <> ();
     if (StringHelper.hasText (sQueryString))
     {
       for (final String sKeyValuePair : StringHelper.getExploded (AMPERSAND, sQueryString))
@@ -483,6 +644,10 @@ public final class URLHelper
     // add all values
     for (final Map.Entry <String, String> aEntry : aQueryParams.entrySet ())
     {
+      // Separator
+      if (aSB.length () > 0)
+        aSB.append (AMPERSAND);
+
       // Key
       final String sKey = aEntry.getKey ();
       if (aQueryParameterEncoder != null)
@@ -497,13 +662,8 @@ public final class URLHelper
           aSB.append (EQUALS).append (aQueryParameterEncoder.getEncoded (sValue));
         else
           aSB.append (EQUALS).append (sValue);
-
-      // Separator
-      aSB.append (AMPERSAND);
     }
 
-    // delete the last AMPERSAND
-    aSB.deleteCharAt (aSB.length () - 1);
     return aSB.toString ();
   }
 

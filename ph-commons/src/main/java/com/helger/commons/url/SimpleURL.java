@@ -17,18 +17,26 @@
 package com.helger.commons.url;
 
 import java.math.BigInteger;
+import java.nio.charset.Charset;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
+import com.helger.commons.string.StringHelper;
+import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Abstraction of the string parts of a URL but much simpler (and faster) than
@@ -37,33 +45,115 @@ import com.helger.commons.lang.ICloneable;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class SimpleURL extends AbstractSimpleURL implements ICloneable <SimpleURL>
+public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
 {
+  private final String m_sPath;
+  private Map <String, String> m_aParams;
+  private String m_sAnchor;
+
   public SimpleURL ()
   {
-    super ();
+    this (URLData.EMPTY_URL_DATA);
   }
 
   public SimpleURL (@Nonnull final String sHref)
   {
-    super (sHref);
+    this (sHref, URLHelper.CHARSET_URL_OBJ);
+  }
+
+  public SimpleURL (@Nonnull final String sHref, @Nonnull final Charset aCharset)
+  {
+    this (URLHelper.getAsURLData (sHref, new URLParameterDecoder (aCharset)));
   }
 
   public SimpleURL (@Nonnull final String sHref, @Nullable final Map <String, String> aParams)
   {
-    super (sHref, aParams);
+    this (sHref);
+    if (CollectionHelper.isNotEmpty (aParams))
+    {
+      // m_aParams may already be non-null
+      if (m_aParams == null)
+        m_aParams = new LinkedHashMap <> ();
+      m_aParams.putAll (aParams);
+    }
+  }
+
+  public SimpleURL (@Nonnull final String sHref,
+                    @Nonnull final Charset aCharset,
+                    @Nullable final Map <String, String> aParams)
+  {
+    this (sHref, aCharset);
+    if (CollectionHelper.isNotEmpty (aParams))
+    {
+      // m_aParams may already be non-null
+      if (m_aParams == null)
+        m_aParams = new LinkedHashMap <> ();
+      m_aParams.putAll (aParams);
+    }
   }
 
   public SimpleURL (@Nonnull final String sHref,
                     @Nullable final Map <String, String> aParams,
                     @Nullable final String sAnchor)
   {
-    super (sHref, aParams, sAnchor);
+    this (sHref, aParams);
+    m_sAnchor = sAnchor;
+  }
+
+  public SimpleURL (@Nonnull final String sHref,
+                    @Nonnull final Charset aCharset,
+                    @Nullable final Map <String, String> aParams,
+                    @Nullable final String sAnchor)
+  {
+    this (sHref, aCharset, aParams);
+    m_sAnchor = sAnchor;
   }
 
   public SimpleURL (@Nonnull final IURLData aURL)
   {
-    super (aURL);
+    ValueEnforcer.notNull (aURL, "URL");
+
+    m_sPath = aURL.getPath ();
+    if (aURL.hasParams ())
+      m_aParams = aURL.getAllParams ();
+    m_sAnchor = aURL.getAnchor ();
+  }
+
+  @Nonnull
+  public final String getPath ()
+  {
+    return m_sPath;
+  }
+
+  public final boolean hasParams ()
+  {
+    return CollectionHelper.isNotEmpty (m_aParams);
+  }
+
+  @Nonnegative
+  public final int getParamCount ()
+  {
+    return CollectionHelper.getSize (m_aParams);
+  }
+
+  @Nullable
+  public final String getParam (@Nullable final String sKey)
+  {
+    return m_aParams == null ? null : m_aParams.get (sKey);
+  }
+
+  @Nonnull
+  @ReturnsMutableObject ("design")
+  public final Map <String, String> directGetAllParams ()
+  {
+    return m_aParams;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public final Map <String, String> getAllParams ()
+  {
+    return CollectionHelper.newOrderedMap (m_aParams);
   }
 
   /**
@@ -174,6 +264,17 @@ public class SimpleURL extends AbstractSimpleURL implements ICloneable <SimpleUR
     return this;
   }
 
+  public final boolean hasAnchor ()
+  {
+    return StringHelper.hasText (m_sAnchor);
+  }
+
+  @Nullable
+  public final String getAnchor ()
+  {
+    return m_sAnchor;
+  }
+
   @Nonnull
   public SimpleURL setAnchor (@Nullable final String sAnchor)
   {
@@ -185,5 +286,33 @@ public class SimpleURL extends AbstractSimpleURL implements ICloneable <SimpleUR
   public SimpleURL getClone ()
   {
     return new SimpleURL (this);
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (o == null || !getClass ().equals (o.getClass ()))
+      return false;
+    final SimpleURL rhs = (SimpleURL) o;
+    return m_sPath.equals (rhs.m_sPath) &&
+           EqualsHelper.equals (m_aParams, rhs.m_aParams) &&
+           EqualsHelper.equals (m_sAnchor, rhs.m_sAnchor);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return new HashCodeGenerator (this).append (m_sPath).append (m_aParams).append (m_sAnchor).getHashCode ();
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (null).append ("path", m_sPath)
+                                       .appendIfNotNull ("params", m_aParams)
+                                       .appendIfNotNull ("anchor", m_sAnchor)
+                                       .toString ();
   }
 }

@@ -18,11 +18,14 @@ package com.helger.commons.url;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+
 /**
  * Interface for a simple URL provider.
  *
  * @author Philip Helger
  */
+@MustImplementEqualsAndHashcode
 public interface IHasSimpleURL
 {
   /**

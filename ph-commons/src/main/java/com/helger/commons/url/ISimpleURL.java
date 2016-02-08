@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.lang.IHasStringRepresentation;
 
 /**
  * Interface for a simple URL that works around the issues with the Java default
@@ -30,7 +29,7 @@ import com.helger.commons.lang.IHasStringRepresentation;
  *
  * @author Philip Helger
  */
-public interface ISimpleURL extends IURLData, IHasStringRepresentation
+public interface ISimpleURL extends IURLData
 {
   /**
    * Get the parameter value of the given key.
@@ -47,7 +46,7 @@ public interface ISimpleURL extends IURLData, IHasStringRepresentation
    *         request parameters.
    */
   @Nonnull
-  default String getAsString ()
+  default String getAsStringWithoutEncodedParameters ()
   {
     return URLHelper.getURLString (this, (Charset) null);
   }
@@ -55,12 +54,12 @@ public interface ISimpleURL extends IURLData, IHasStringRepresentation
   /**
    * @return The final string representation of this URL with encoded URL
    *         parameter keys and values. Using the default URL charset as
-   *         determined by {@link URLHelper#CHARSET_URL}.
+   *         determined by {@link URLHelper#CHARSET_URL_OBJ}.
    */
   @Nonnull
   default String getAsStringWithEncodedParameters ()
   {
-    return getAsStringWithEncodedParameters (URLHelper.CHARSET_URL_OBJ);
+    return URLHelper.getURLString (this, URLHelper.CHARSET_URL_OBJ);
   }
 
   /**
