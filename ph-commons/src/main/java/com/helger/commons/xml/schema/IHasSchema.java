@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.validation.Schema;
 
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.lang.IHasClassLoader;
 
 /**
@@ -31,9 +32,9 @@ import com.helger.commons.lang.IHasClassLoader;
 public interface IHasSchema
 {
   /**
-   * @return The non-<code>null</code> Schema object
+   * @return The compiled {@link Schema} object.
    */
-  @Nonnull
+  @DevelopersNote ("No nullable assumption can be provided.")
   default Schema getSchema ()
   {
     return getSchema ((ClassLoader) null);
@@ -42,9 +43,9 @@ public interface IHasSchema
   /**
    * @param aClassLoaderProvider
    *        ClassLoader provider. May not be <code>null</code>.
-   * @return The non-<code>null</code> Schema object
+   * @return The compiled {@link Schema} object.
    */
-  @Nonnull
+  @DevelopersNote ("No nullable assumption can be provided.")
   default Schema getSchema (@Nonnull final IHasClassLoader aClassLoaderProvider)
   {
     return getSchema (aClassLoaderProvider.getClassLoader ());
@@ -54,8 +55,8 @@ public interface IHasSchema
    * @param aClassLoader
    *        The class loader to be used. May be <code>null</code> indicating
    *        that the default class loader should be used.
-   * @return The non-<code>null</code> Schema object
+   * @return The compiled {@link Schema} object.
    */
-  @Nonnull
+  @DevelopersNote ("No nullable assumption can be provided.")
   Schema getSchema (@Nullable ClassLoader aClassLoader);
 }
