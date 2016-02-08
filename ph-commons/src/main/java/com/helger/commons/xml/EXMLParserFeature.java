@@ -541,7 +541,8 @@ public enum EXMLParserFeature implements IHasName
                                                                                                                                         new Boolean [] { Boolean.TRUE }));
 
   /**
-   * This map contains all necessary settings to avoid all known XML attacks
+   * This map contains all necessary settings to avoid all known XML attacks. It
+   * includes {@link #AVOID_XXE_SETTINGS} and {@link #AVOID_DOS_SETTINGS}.
    */
   public static final Map <EXMLParserFeature, Boolean> AVOID_XML_ATTACKS = CollectionHelper.makeUnmodifiable (CollectionHelper.newMap (ArrayHelper.newArray (AVOID_XXE_SETTINGS,
                                                                                                                                                              AVOID_DOS_SETTINGS)));
