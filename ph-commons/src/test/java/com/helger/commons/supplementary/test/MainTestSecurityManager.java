@@ -20,7 +20,7 @@ import java.lang.reflect.Field;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public class MainTestSecurityManager
+public final class MainTestSecurityManager
 {
   /**
    * Run as follows: <br>

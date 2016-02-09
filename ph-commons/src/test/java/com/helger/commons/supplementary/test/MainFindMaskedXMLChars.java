@@ -33,7 +33,7 @@ import com.helger.commons.xml.serialize.write.EXMLSerializeVersion;
 import com.helger.commons.xml.serialize.write.XMLCharHelper;
 import com.helger.commons.xml.transform.XMLTransformerFactory;
 
-public class MainFindMaskedXMLChars
+public final class MainFindMaskedXMLChars
 {
   private static String _getFormatted (final List <Integer> x)
   {

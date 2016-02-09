@@ -31,7 +31,7 @@ import com.helger.commons.xml.XMLFactory;
 import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.commons.xml.transform.XMLTransformerFactory;
 
-public class MainFindInvalidXMLChars
+public final class MainFindInvalidXMLChars
 {
   private static String _getFormatted (final List <Integer> x)
   {

@@ -18,7 +18,7 @@ package com.helger.commons.supplementary.test;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public class MainBuildThreadGroupTree
+public final class MainBuildThreadGroupTree
 {
   @SuppressFBWarnings ("IL_INFINITE_LOOP")
   private static String _getTGName (final ThreadGroup aParamTG)

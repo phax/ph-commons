@@ -27,10 +27,8 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.exception.InitializationException;
-import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
@@ -151,16 +149,16 @@ public final class MainReadSharedMimeInfo
 
     // Maps file extension to MIME type
     s_aLogger.info ("Reading shared-mime-info/fileext-mimetype-mapping-local.xml");
-    final Map <String, String> m_aFileExtMap = new HashMap <String, String> ();
+    final Map <String, String> FileExtMap = new HashMap <> ();
     if (XMLMapHandler.readMap (new FileSystemResource ("src/test/resources/shared-mime-info/fileext-mimetype-mapping-local.xml"),
-                               m_aFileExtMap)
+                               FileExtMap)
                      .isFailure ())
       throw new InitializationException ("Failed to init file extension to mimetype mapping file");
 
-    s_aLogger.info ("Read " + m_aFileExtMap.size () + " entries");
+    s_aLogger.info ("Read " + FileExtMap.size () + " entries");
 
     // Check old data
-    for (final Map.Entry <String, String> aEntry : CollectionHelper.getSortedByKey (m_aFileExtMap).entrySet ())
+    for (final Map.Entry <String, String> aEntry : CollectionHelper.getSortedByKey (FileExtMap).entrySet ())
     {
       final String sOldExt = aEntry.getKey ();
       final String sOldMimeType = aEntry.getValue ();
@@ -185,7 +183,7 @@ public final class MainReadSharedMimeInfo
           {
             aMgr.addExtension (aNew.get (0), new ExtensionWithSource (sOldExt, "old"));
             if (false)
-              System.out.println ("Added extension '" + sOldExt + "' to " + sOldMimeType + "!");
+              s_aLogger.info ("Added extension '" + sOldExt + "' to " + sOldMimeType + "!");
           }
           else
             System.err.println (sOldMimeType + ": '" + sOldExt + "' not found in " + aNew + "!");
@@ -211,7 +209,7 @@ public final class MainReadSharedMimeInfo
             {
               aMgr.addMimeType (aNew.get (0), new MimeTypeWithSource (aOldMimeType, "old"));
               if (false)
-                System.out.println ("'" + sOldExt + "': " + sOldMimeType + " not found in " + aNew.get (0) + "!");
+                s_aLogger.info ("'" + sOldExt + "': " + sOldMimeType + " not found in " + aNew.get (0) + "!");
             }
             else
               System.err.println ("'" + sOldExt + "': " + sOldMimeType + " not found in any of " + aNew + "!");
@@ -224,22 +222,20 @@ public final class MainReadSharedMimeInfo
           // Create a new entry
           aMgr.registerMimeType (new MimeTypeInfo (CollectionHelper.newSet (new MimeTypeWithSource (sOldMimeType)),
                                                    null,
-                                                   new HashSet <String> (),
-                                                   new HashSet <String> (),
+                                                   new HashSet <> (),
+                                                   new HashSet <> (),
                                                    CollectionHelper.newSet (new ExtensionWithSource (sOldExt)),
                                                    "old"));
           if (false)
-            System.out.println ("Creating new: " + sOldMimeType + " = '" + sOldExt + "'");
+            s_aLogger.info ("Creating new: " + sOldMimeType + " = '" + sOldExt + "'");
         }
       }
     }
 
     s_aLogger.info ("Finally having " + aMgr.getAllMimeTypeInfos ().size () + " mime type infos");
 
-    if (SimpleFileIO.writeFile (new File ("src/main/resources/codelists/mime-type-info.xml"),
-                                MicroWriter.getXMLString (aMgr.getAsDocument ()),
-                                CCharset.CHARSET_UTF_8_OBJ)
-                    .isSuccess ())
+    if (MicroWriter.writeToFile (aMgr.getAsDocument (), new File ("src/main/resources/codelists/mime-type-info.xml"))
+                   .isSuccess ())
       s_aLogger.info ("done - run mvn license:format !!");
     else
       s_aLogger.error ("Error writing file");

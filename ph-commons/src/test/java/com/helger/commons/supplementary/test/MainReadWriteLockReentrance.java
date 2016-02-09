@@ -19,7 +19,7 @@ package com.helger.commons.supplementary.test;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class MainReadWriteLockReentrance
+public final class MainReadWriteLockReentrance
 {
   public static void main (final String [] args)
   {

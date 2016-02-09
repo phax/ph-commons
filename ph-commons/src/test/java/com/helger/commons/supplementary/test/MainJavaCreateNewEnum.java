@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 
 import com.helger.commons.lang.priviledged.IPrivilegedAction;
 
-public class MainJavaCreateNewEnum
+public final class MainJavaCreateNewEnum
 {
   public enum Day
   {
