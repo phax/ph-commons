@@ -16,7 +16,10 @@
  */
 package com.helger.commons.mutable;
 
+import java.util.function.Supplier;
+
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CGlobal;
@@ -101,6 +104,20 @@ public class MutableBoolean implements IMutableObject <MutableBoolean>
     m_bValue = bValue;
     onAfterChange ();
     return EChange.CHANGED;
+  }
+
+  @Nullable
+  public <T> T getIf (@Nonnull final Supplier <T> aSupplier)
+  {
+    return getIf (aSupplier, null);
+  }
+
+  @Nullable
+  public <T> T getIf (@Nonnull final Supplier <T> aSupplier, @Nullable final T aDefault)
+  {
+    if (m_bValue)
+      return aSupplier.get ();
+    return aDefault;
   }
 
   public int compareTo (@Nonnull final MutableBoolean rhs)

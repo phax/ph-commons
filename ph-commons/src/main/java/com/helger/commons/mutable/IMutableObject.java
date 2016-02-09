@@ -17,6 +17,7 @@
 package com.helger.commons.mutable;
 
 import com.helger.commons.lang.ICloneable;
+import com.helger.commons.traits.IGenericImplTrait;
 
 /**
  * Base interface for all mutable objects
@@ -26,7 +27,7 @@ import com.helger.commons.lang.ICloneable;
  *        Implementation type
  */
 public interface IMutableObject <IMPLTYPE extends IMutableObject <IMPLTYPE>>
-                                extends Comparable <IMPLTYPE>, ICloneable <IMPLTYPE>
+                                extends Comparable <IMPLTYPE>, ICloneable <IMPLTYPE>, IGenericImplTrait <IMPLTYPE>
 {
   /* empty */
 }
