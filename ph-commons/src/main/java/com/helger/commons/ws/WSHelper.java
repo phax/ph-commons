@@ -35,8 +35,9 @@ public final class WSHelper
   {}
 
   /**
-   * Enable the JAX-WS SOAP debugging. This shows the exchanged SOAP messages in
-   * the log file. By default this logging is disabled.
+   * Enable the JAX-WS SOAP debugging (server and client). This shows the
+   * exchanged SOAP messages in the log file. By default this logging is
+   * disabled.
    *
    * @param bDebug
    *        <code>true</code> to enable debugging, <code>false</code> to disable
@@ -44,10 +45,31 @@ public final class WSHelper
    */
   public static void enableSoapLogging (final boolean bDebug)
   {
-    SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump",
-                                       Boolean.toString (bDebug));
-    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump",
-                                       Boolean.toString (bDebug));
+    enableSoapLogging (bDebug, bDebug);
+  }
+
+  /**
+   * Enable the JAX-WS SOAP debugging. This shows the exchanged SOAP messages in
+   * the log file. By default this logging is disabled.
+   *
+   * @param bServerDebug
+   *        <code>true</code> to enable server debugging, <code>false</code> to
+   *        disable it.
+   * @param bClientDebug
+   *        <code>true</code> to enable client debugging, <code>false</code> to
+   *        disable it.
+   */
+  public static void enableSoapLogging (final boolean bServerDebug, final boolean bClientDebug)
+  {
+    // Server debug mode
+    String sDebug = Boolean.toString (bServerDebug);
+    SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", sDebug);
+    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", sDebug);
+
+    // Client debug mode
+    sDebug = Boolean.toString (bClientDebug);
+    SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", sDebug);
+    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", sDebug);
   }
 
   /**
