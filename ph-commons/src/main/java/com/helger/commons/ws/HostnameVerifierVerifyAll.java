@@ -16,11 +16,8 @@
  */
 package com.helger.commons.ws;
 
-import java.security.cert.X509Certificate;
-import java.util.Arrays;
-
-import javax.annotation.Nullable;
-import javax.net.ssl.X509TrustManager;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,22 +26,22 @@ import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A trust manager that accepts all certificates.
+ * Implementation of HostnameVerifier always returning <code>true</code>.
  *
  * @author Philip Helger
  */
-public class DoNothingTrustManager implements X509TrustManager
+public class HostnameVerifierVerifyAll implements HostnameVerifier
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (DoNothingTrustManager.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (HostnameVerifierVerifyAll.class);
 
   private final boolean m_bDebug;
 
-  public DoNothingTrustManager ()
+  public HostnameVerifierVerifyAll ()
   {
     this (GlobalDebug.isDebugMode ());
   }
 
-  public DoNothingTrustManager (final boolean bDebug)
+  public HostnameVerifierVerifyAll (final boolean bDebug)
   {
     m_bDebug = bDebug;
   }
@@ -57,22 +54,11 @@ public class DoNothingTrustManager implements X509TrustManager
     return m_bDebug;
   }
 
-  @Nullable
-  public X509Certificate [] getAcceptedIssuers ()
-  {
-    return null;
-  }
-
-  public void checkServerTrusted (final X509Certificate [] aChain, final String sAuthType)
+  public boolean verify (final String sURLHostname, final SSLSession aSession)
   {
     if (m_bDebug)
-      s_aLogger.info ("checkServerTrusted (" + Arrays.toString (aChain) + ", " + sAuthType + ")");
-  }
-
-  public void checkClientTrusted (final X509Certificate [] aChain, final String sAuthType)
-  {
-    if (m_bDebug)
-      s_aLogger.info ("checkClientTrusted (" + Arrays.toString (aChain) + ", " + sAuthType + ")");
+      s_aLogger.debug ("Hostname '" + sURLHostname + "' is accepted by default in SSL session " + aSession + "!");
+    return true;
   }
 
   @Override

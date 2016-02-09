@@ -122,15 +122,17 @@ public class WSClientConfig
    *
    * @throws KeyManagementException
    *         if initializing the SSL context failed
+   * @return this for chaining
    */
-  public void setSSLSocketFactoryTrustAll () throws KeyManagementException
+  @Nonnull
+  public WSClientConfig setSSLSocketFactoryTrustAll () throws KeyManagementException
   {
     try
     {
       final SSLContext aSSLContext = SSLContext.getInstance ("TLS");
-      aSSLContext.init (null, new TrustManager [] { new DoNothingTrustManager () }, VerySecureRandom.getInstance ());
+      aSSLContext.init (null, new TrustManager [] { new TrustManagerTrustAll () }, VerySecureRandom.getInstance ());
       final SSLSocketFactory aSF = aSSLContext.getSocketFactory ();
-      setSSLSocketFactory (aSF);
+      return setSSLSocketFactory (aSF);
     }
     catch (final NoSuchAlgorithmException ex)
     {
@@ -144,10 +146,13 @@ public class WSClientConfig
    * @param aSSLSocketFactory
    *        The factory to use. Maybe <code>null</code> to indicate, that the
    *        default {@link SSLSocketFactory} is to be used.
+   * @return this for chaining
    */
-  public void setSSLSocketFactory (@Nullable final SSLSocketFactory aSSLSocketFactory)
+  @Nonnull
+  public WSClientConfig setSSLSocketFactory (@Nullable final SSLSocketFactory aSSLSocketFactory)
   {
     m_aSSLSocketFactory = aSSLSocketFactory;
+    return this;
   }
 
   /**
@@ -162,10 +167,13 @@ public class WSClientConfig
 
   /**
    * Set the {@link HostnameVerifier} to a "trust all" verifier.
+   *
+   * @return this for chaining
    */
-  public void setHostnameVerifierTrustAll ()
+  @Nonnull
+  public WSClientConfig setHostnameVerifierTrustAll ()
   {
-    setHostnameVerifier (new HostnameVerifierAlwaysTrue ());
+    return setHostnameVerifier (new HostnameVerifierVerifyAll ());
   }
 
   /**
@@ -174,10 +182,13 @@ public class WSClientConfig
    * @param aHostnameVerifier
    *        The factory to use. Maybe <code>null</code> to indicate, that the
    *        default {@link HostnameVerifier} is to be used.
+   * @return this for chaining
    */
-  public void setHostnameVerifier (@Nullable final HostnameVerifier aHostnameVerifier)
+  @Nonnull
+  public WSClientConfig setHostnameVerifier (@Nullable final HostnameVerifier aHostnameVerifier)
   {
     m_aHostnameVerifier = aHostnameVerifier;
+    return this;
   }
 
   /**
@@ -194,10 +205,13 @@ public class WSClientConfig
    *
    * @param nConnectionTimeoutMS
    *        Milliseconds. Only values &ge; 0 are considered.
+   * @return this for chaining
    */
-  public void setConnectionTimeoutMS (final int nConnectionTimeoutMS)
+  @Nonnull
+  public WSClientConfig setConnectionTimeoutMS (final int nConnectionTimeoutMS)
   {
     m_nConnectionTimeoutMS = nConnectionTimeoutMS;
+    return this;
   }
 
   /**
@@ -214,10 +228,13 @@ public class WSClientConfig
    *
    * @param nRequestTimeoutMS
    *        Milliseconds. Only values &ge; 0 are considered.
+   * @return this for chaining
    */
-  public void setRequestTimeoutMS (final int nRequestTimeoutMS)
+  @Nonnull
+  public WSClientConfig setRequestTimeoutMS (final int nRequestTimeoutMS)
   {
     m_nRequestTimeoutMS = nRequestTimeoutMS;
+    return this;
   }
 
   /**
@@ -244,10 +261,13 @@ public class WSClientConfig
    *
    * @param sUserName
    *        The user name to use. May be <code>null</code>.
+   * @return this for chaining
    */
-  public void setUserName (@Nullable final String sUserName)
+  @Nonnull
+  public WSClientConfig setUserName (@Nullable final String sUserName)
   {
     m_sUserName = sUserName;
+    return this;
   }
 
   /**
@@ -274,10 +294,13 @@ public class WSClientConfig
    *
    * @param sPassword
    *        The password to use. May be <code>null</code>.
+   * @return this for chaining
    */
-  public void setPassword (@Nullable final String sPassword)
+  @Nonnull
+  public WSClientConfig setPassword (@Nullable final String sPassword)
   {
     m_sPassword = sPassword;
+    return this;
   }
 
   /**
@@ -304,10 +327,13 @@ public class WSClientConfig
    *
    * @param sSOAPAction
    *        The SOAP Action to use. May be <code>null</code>.
+   * @return this for chaining
    */
-  public void setSOAPAction (@Nullable final String sSOAPAction)
+  @Nonnull
+  public WSClientConfig setSOAPAction (@Nullable final String sSOAPAction)
   {
     m_sSOAPAction = sSOAPAction;
+    return this;
   }
 
   @Nonnull
@@ -329,13 +355,16 @@ public class WSClientConfig
    * @see #addHTTPHeader(String, Collection)
    * @see #setHTTPHeader(String, String)
    * @see #setHTTPHeader(String, Collection)
+   * @return this for chaining
    */
-  public void addHTTPHeader (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
+  @Nonnull
+  public WSClientConfig addHTTPHeader (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
   {
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sValue, "Value");
 
     _getHeaderMap ().putSingle (sName, sValue);
+    return this;
   }
 
   /**
@@ -351,13 +380,17 @@ public class WSClientConfig
    * @see #addHTTPHeader(String, String)
    * @see #setHTTPHeader(String, String)
    * @see #setHTTPHeader(String, Collection)
+   * @return this for chaining
    */
-  public void addHTTPHeader (@Nonnull @Nonempty final String sName, @Nonnull final Collection <String> aValues)
+  @Nonnull
+  public WSClientConfig addHTTPHeader (@Nonnull @Nonempty final String sName,
+                                       @Nonnull final Collection <String> aValues)
   {
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNullNoNullValue (aValues, "Values");
 
     _getHeaderMap ().getOrCreate (sName).addAll (aValues);
+    return this;
   }
 
   /**
@@ -371,13 +404,16 @@ public class WSClientConfig
    * @see #addHTTPHeader(String, String)
    * @see #addHTTPHeader(String, Collection)
    * @see #setHTTPHeader(String, Collection)
+   * @return this for chaining
    */
-  public void setHTTPHeader (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
+  @Nonnull
+  public WSClientConfig setHTTPHeader (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
   {
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sValue, "Value");
 
     _getHeaderMap ().put (sName, CollectionHelper.newList (sValue));
+    return this;
   }
 
   /**
@@ -393,8 +429,11 @@ public class WSClientConfig
    * @see #addHTTPHeader(String, String)
    * @see #addHTTPHeader(String, Collection)
    * @see #setHTTPHeader(String, String)
+   * @return this for chaining
    */
-  public void setHTTPHeader (@Nonnull @Nonempty final String sName, @Nonnull final Collection <String> aValues)
+  @Nonnull
+  public WSClientConfig setHTTPHeader (@Nonnull @Nonempty final String sName,
+                                       @Nonnull final Collection <String> aValues)
   {
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNullNoNullValue (aValues, "Values");
@@ -403,6 +442,7 @@ public class WSClientConfig
       removeHTTPHeader (sName);
     else
       _getHeaderMap ().put (sName, CollectionHelper.newList (aValues));
+    return this;
   }
 
   /**
@@ -490,13 +530,16 @@ public class WSClientConfig
    *
    * @param bCompress
    *        <code>true</code> to enable, <code>false</code> to disable.
+   * @return this for chaining
    */
-  public void setCompressedRequest (final boolean bCompress)
+  @Nonnull
+  public WSClientConfig setCompressedRequest (final boolean bCompress)
   {
     if (bCompress)
       setHTTPHeader ("Content-Encoding", "gzip");
     else
       removeHTTPHeader ("Content-Encoding");
+    return this;
   }
 
   /**
@@ -505,13 +548,16 @@ public class WSClientConfig
    *
    * @param bCompress
    *        <code>true</code> to enable, <code>false</code> to disable.
+   * @return this for chaining
    */
-  public void setCompressedResponse (final boolean bCompress)
+  @Nonnull
+  public WSClientConfig setCompressedResponse (final boolean bCompress)
   {
     if (bCompress)
       setHTTPHeader ("Accept-Encoding", "gzip");
     else
       removeHTTPHeader ("Accept-Encoding");
+    return this;
   }
 
   public boolean isCookiesSupportEnabled ()
@@ -519,15 +565,26 @@ public class WSClientConfig
     return m_eCookiesSupport.isTrue ();
   }
 
-  public void setCookiesSupportEnabled (final boolean bEnabled)
+  @Nonnull
+  public WSClientConfig setCookiesSupportEnabled (final boolean bEnabled)
   {
     m_eCookiesSupport = ETriState.valueOf (bEnabled);
+    return this;
   }
 
-  public void addHandler (@Nonnull final Handler <? extends MessageContext> aHandler)
+  /**
+   * Add a special handler to modify the transmission on the fly.
+   *
+   * @param aHandler
+   *        The handler to be added. May not be <code>null</code>
+   * @return this for chaining
+   */
+  @Nonnull
+  public WSClientConfig addHandler (@Nonnull final Handler <? extends MessageContext> aHandler)
   {
     ValueEnforcer.notNull (aHandler, "Handler");
     m_aHandlers.add (aHandler);
+    return this;
   }
 
   @Nonnegative
@@ -558,9 +615,10 @@ public class WSClientConfig
     return m_bWorkAroundMASM0003;
   }
 
-  protected final void setWorkAroundMASM0003 (final boolean bWorkAroundMASM0003)
+  protected final WSClientConfig setWorkAroundMASM0003 (final boolean bWorkAroundMASM0003)
   {
     m_bWorkAroundMASM0003 = bWorkAroundMASM0003;
+    return this;
   }
 
   @OverrideOnDemand
@@ -612,8 +670,6 @@ public class WSClientConfig
       aRequestContext.put (BindingProvider.SESSION_MAINTAIN_PROPERTY, m_eCookiesSupport.getAsBooleanObj ());
     }
 
-    customizeRequestContext (aRequestContext);
-
     if (!m_aHandlers.isEmpty ())
     {
       @SuppressWarnings ("rawtypes")
@@ -621,6 +677,8 @@ public class WSClientConfig
       aHandlers.addAll (m_aHandlers);
       aBP.getBinding ().setHandlerChain (aHandlers);
     }
+
+    customizeRequestContext (aRequestContext);
 
     if (m_bWorkAroundMASM0003)
     {
