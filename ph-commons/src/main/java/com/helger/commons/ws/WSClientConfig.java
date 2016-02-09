@@ -85,23 +85,22 @@ public class WSClientConfig
    * Creates a service caller for the service meta data interface
    *
    * @param aEndpointAddress
-   *        The endpoint address of the WS server to be invoked. May not be
-   *        <code>null</code>.
+   *        The endpoint address of the WS server to be invoked. May be
+   *        <code>null</code> if the endpoint from the WSDL should be used.
    */
-  public WSClientConfig (@Nonnull final URL aEndpointAddress)
+  public WSClientConfig (@Nullable final URL aEndpointAddress)
   {
-    ValueEnforcer.notNull (aEndpointAddress, "EndpointAddress");
     m_aEndpointAddress = aEndpointAddress;
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Using SML endpoint address '" + m_aEndpointAddress.toExternalForm () + "'");
+    if (s_aLogger.isDebugEnabled () && aEndpointAddress != null)
+      s_aLogger.debug ("Using endpoint address '" + m_aEndpointAddress.toExternalForm () + "'");
   }
 
   /**
-   * @return The endpoint address as specified in the constructor. Never
-   *         <code>null</code>.
+   * @return The endpoint address as specified in the constructor. May be
+   *         <code>null</code> if the endpoint from the WSDL should be used.
    */
-  @Nonnull
+  @Nullable
   public URL getEndpointAddress ()
   {
     return m_aEndpointAddress;
@@ -570,7 +569,10 @@ public class WSClientConfig
   {
     final Map <String, Object> aRequestContext = aBP.getRequestContext ();
 
-    aRequestContext.put (BindingProvider.ENDPOINT_ADDRESS_PROPERTY, m_aEndpointAddress.toExternalForm ());
+    if (m_aEndpointAddress != null)
+    {
+      aRequestContext.put (BindingProvider.ENDPOINT_ADDRESS_PROPERTY, m_aEndpointAddress.toExternalForm ());
+    }
     if (m_aSSLSocketFactory != null)
     {
       aRequestContext.put ("com.sun.xml.ws.transport.https.client.SSLSocketFactory", m_aSSLSocketFactory);
