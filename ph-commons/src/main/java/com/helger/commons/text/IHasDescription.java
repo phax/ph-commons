@@ -18,6 +18,8 @@ package com.helger.commons.text;
 
 import javax.annotation.Nullable;
 
+import com.helger.commons.string.StringHelper;
+
 /**
  * Base interface for objects that have a locale <b>independent</b> description.
  *
@@ -31,4 +33,13 @@ public interface IHasDescription
    */
   @Nullable
   String getDescription ();
+
+  /**
+   * @return <code>true</code> if a description is present, <code>false</code>
+   *         otherwise.
+   */
+  default boolean hasDescription ()
+  {
+    return StringHelper.hasText (getDescription ());
+  }
 }
