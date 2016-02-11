@@ -18,7 +18,7 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
-public class Base16Codec implements IByteArrayCodec, IByteArrayStreamEncoder, IByteArrayStreamDecoder
+public class Base16Codec implements IByteArrayCodec
 {
   /**
    * Creates a Base16 codec used for decoding and encoding.

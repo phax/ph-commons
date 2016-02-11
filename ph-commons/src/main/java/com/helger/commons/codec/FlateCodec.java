@@ -38,7 +38,7 @@ import com.helger.commons.io.stream.StreamHelper;
  *
  * @author Philip Helger
  */
-public class FlateCodec implements IByteArrayCodec, IByteArrayStreamEncoder, IByteArrayStreamDecoder
+public class FlateCodec implements IByteArrayCodec
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (FlateCodec.class);
 

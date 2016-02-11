@@ -21,7 +21,7 @@ package com.helger.commons.codec;
  *
  * @author Philip Helger
  */
-public interface IByteArrayCodec extends IByteArrayEncoder, IByteArrayDecoder, ICodec <byte []>
+public interface IByteArrayCodec extends ICodec <byte []>, IByteArrayStreamDecoder, IByteArrayStreamEncoder
 {
   /* empty */
 }

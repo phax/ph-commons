@@ -45,7 +45,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class LZWCodec implements IByteArrayCodec, IByteArrayStreamEncoder, IByteArrayStreamDecoder
+public class LZWCodec implements IByteArrayCodec
 {
   /**
    * A single LZW node
