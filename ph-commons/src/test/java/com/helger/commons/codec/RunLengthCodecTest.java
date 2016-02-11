@@ -18,7 +18,11 @@ package com.helger.commons.codec;
 
 import static org.junit.Assert.assertEquals;
 
+import java.nio.charset.Charset;
+
 import org.junit.Test;
+
+import com.helger.commons.charset.CCharset;
 
 /**
  * Test class for class {@link RunLengthCodec}
@@ -27,13 +31,16 @@ import org.junit.Test;
  */
 public final class RunLengthCodecTest
 {
+  private static final Charset CHARSET = CCharset.DEFAULT_CHARSET_OBJ;
+
   @Test
   public void testDecode ()
   {
     final RunLengthCodec c = new RunLengthCodec ();
     assertEquals ("WWWWWWWWWWWWTFF",
-                  c.getDecodedAsString (new byte [] { (byte) (257 - 12), 'W', 0x03, 'T', 'F', 'F' }));
+                  c.getDecodedAsString (new byte [] { (byte) (257 - 12), 'W', 0x03, 'T', 'F', 'F' }, CHARSET));
     assertEquals ("WWWWWWWWWWTFF",
-                  c.getDecodedAsString (new byte [] { (byte) (257 - 10), 'W', 0x03, 'T', 'F', 'F', (byte) 0x80 }));
+                  c.getDecodedAsString (new byte [] { (byte) (257 - 10), 'W', 0x03, 'T', 'F', 'F', (byte) 0x80 },
+                                        CHARSET));
   }
 }

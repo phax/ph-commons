@@ -25,7 +25,6 @@ import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 
@@ -134,25 +133,20 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
     return getEncoded (aDecoded);
   }
 
-  @Nonnull
-  default Charset getEncodedCharset ()
-  {
-    return CCharset.DEFAULT_CHARSET_OBJ;
-  }
-
   @Nullable
-  default String getEncodedAsString (@Nullable final byte [] aDecodedBuf)
+  default String getEncodedAsString (@Nullable final byte [] aDecodedBuf, @Nonnull final Charset aCharset)
   {
     if (aDecodedBuf == null)
       return null;
 
-    return getEncodedAsString (aDecodedBuf, 0, aDecodedBuf.length);
+    return getEncodedAsString (aDecodedBuf, 0, aDecodedBuf.length, aCharset);
   }
 
   @Nullable
   default String getEncodedAsString (@Nullable final byte [] aDecodedBuf,
                                      @Nonnegative final int nOfs,
-                                     @Nonnegative final int nLen)
+                                     @Nonnegative final int nLen,
+                                     @Nonnull final Charset aCharset)
   {
     if (aDecodedBuf == null)
       return null;
@@ -160,7 +154,7 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
     try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getEncodedLength (nLen)))
     {
       encode (aDecodedBuf, nOfs, nLen, aBAOS);
-      return aBAOS.getAsString (getEncodedCharset ());
+      return aBAOS.getAsString (aCharset);
     }
   }
 
@@ -182,6 +176,6 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
       return null;
 
     final byte [] aDecoded = CharsetManager.getAsBytes (sDecoded, aCharset);
-    return getEncodedAsString (aDecoded, 0, aDecoded.length);
+    return getEncodedAsString (aDecoded, 0, aDecoded.length, aCharset);
   }
 }

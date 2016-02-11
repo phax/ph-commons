@@ -17,13 +17,13 @@
 package com.helger.commons.codec;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.random.VerySecureRandom;
 
 /**
@@ -57,8 +57,8 @@ public final class LZWCodecTest
   public void testEncode2 ()
   {
     final LZWCodec c = new LZWCodec ();
-    final byte [] aDecoded = CharsetManager.getAsBytes ("LZWLZ78LZ77LZCLZMWLZAP", CCharset.CHARSET_ISO_8859_1_OBJ);
-    final byte [] aEncoded = c.getEncoded (aDecoded);
+    final String sTest = "LZWLZ78LZ77LZCLZMWLZAP";
+    final byte [] aEncoded = c.getEncoded (sTest, CCharset.CHARSET_ISO_8859_1_OBJ);
     final byte [] aExpected = new byte [] { (byte) 0x80,
                                             0x13,
                                             0x0b,
@@ -81,6 +81,7 @@ public final class LZWCodecTest
                                             0x40,
                                             0x40 };
     assertArrayEquals (aExpected, aEncoded);
+    assertEquals (sTest, c.getDecodedAsString (aEncoded, CCharset.CHARSET_ISO_8859_1_OBJ));
   }
 
   private void _testEncodeDecode (final byte [] buf)
