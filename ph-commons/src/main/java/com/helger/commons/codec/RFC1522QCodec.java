@@ -23,7 +23,6 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CCharset;
 
@@ -103,10 +102,6 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
   private static final byte BLANK = ' ';
   private static final byte UNDERSCORE = '_';
 
-  /**
-   * The default charset used for string decoding and encoding.
-   */
-  private final Charset m_aCharset;
   private boolean m_bEncodeBlanks = DEFAULT_ENCODE_BLANKS;
 
   /**
@@ -125,19 +120,13 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
    */
   public RFC1522QCodec (@Nonnull final Charset aCharset)
   {
-    m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
+    super (aCharset);
   }
 
   @Override
   protected String getRFC1522Encoding ()
   {
     return "Q";
-  }
-
-  @Nonnull
-  public Charset getCharset ()
-  {
-    return m_aCharset;
   }
 
   /**
@@ -163,11 +152,12 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
     m_bEncodeBlanks = bEncodeBlanks;
   }
 
+  @Override
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen)
+  protected byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
+                                @Nonnegative final int nOfs,
+                                @Nonnegative final int nLen)
   {
     if (aDecodedBuffer == null)
       return null;
@@ -180,11 +170,12 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
     return data;
   }
 
+  @Override
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen) throws DecodeException
+  protected byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                                @Nonnegative final int nOfs,
+                                @Nonnegative final int nLen) throws DecodeException
   {
     if (aEncodedBuffer == null)
       return null;
@@ -213,40 +204,5 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
     }
     // Use default BitSet for decoding
     return new QuotedPrintableCodec ().getDecoded (aEncodedBuffer, nOfs, nLen);
-  }
-
-  /**
-   * Encodes a string into its quoted-printable form using the default charset.
-   * Unsafe characters are escaped.
-   *
-   * @param sText
-   *        string to convert to quoted-printable form
-   * @return quoted-printable string
-   * @throws EncodeException
-   *         thrown if a failure condition is encountered during the encoding
-   *         process.
-   */
-  @Nullable
-  public String getEncodedText (@Nullable final String sText) throws EncodeException
-  {
-    return super.getEncodedText (sText, getCharset ());
-  }
-
-  /**
-   * Decodes a quoted-printable string into its original form. Escaped
-   * characters are converted back to their original representation.
-   *
-   * @param sText
-   *        quoted-printable string to convert into its original form
-   * @return original string
-   * @throws DecodeException
-   *         A decoder exception is thrown if a failure condition is encountered
-   *         during the decode process.
-   */
-  @Override
-  @Nullable
-  public String getDecodedText (@Nullable final String sText) throws DecodeException
-  {
-    return super.getDecodedText (sText);
   }
 }

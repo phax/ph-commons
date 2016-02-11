@@ -22,7 +22,6 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.charset.CCharset;
@@ -46,11 +45,6 @@ import com.helger.commons.charset.CCharset;
 public class RFC1522BCodec extends AbstractRFC1522Codec
 {
   /**
-   * The default charset used for string decoding and encoding.
-   */
-  private final Charset m_aCharset;
-
-  /**
    * Default constructor with the UTF-8 charset.
    */
   public RFC1522BCodec ()
@@ -66,7 +60,7 @@ public class RFC1522BCodec extends AbstractRFC1522Codec
    */
   public RFC1522BCodec (@Nonnull final Charset aCharset)
   {
-    m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
+    super (aCharset);
   }
 
   @Override
@@ -75,62 +69,24 @@ public class RFC1522BCodec extends AbstractRFC1522Codec
     return "B";
   }
 
-  @Nonnull
-  public Charset getCharset ()
-  {
-    return m_aCharset;
-  }
-
+  @Override
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen)
+  protected byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
+                                @Nonnegative final int nOfs,
+                                @Nonnegative final int nLen)
   {
     return Base64.safeEncodeBytesToBytes (aDecodedBuffer, nOfs, nLen);
   }
 
+  @Override
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen)
+  protected byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                                @Nonnegative final int nOfs,
+                                @Nonnegative final int nLen)
   {
     return Base64.safeDecode (aEncodedBuffer, nOfs, nLen);
   }
 
-  /**
-   * Encodes a string into its Base64 form using the default charset. Unsafe
-   * characters are escaped.
-   *
-   * @param sText
-   *        string to convert to Base64 form
-   * @return Base64 string
-   * @throws EncodeException
-   *         thrown if a failure condition is encountered during the encoding
-   *         process.
-   */
-  @Nullable
-  public String getEncodedText (@Nullable final String sText) throws EncodeException
-  {
-    return super.getEncodedText (sText, getCharset ());
-  }
-
-  /**
-   * Decodes a Base64 string into its original form. Escaped characters are
-   * converted back to their original representation.
-   *
-   * @param sText
-   *        Base64 string to convert into its original form
-   * @return original string
-   * @throws DecodeException
-   *         A decoder exception is thrown if a failure condition is encountered
-   *         during the decode process.
-   */
-  @Override
-  @Nullable
-  public String getDecodedText (@Nullable final String sText) throws DecodeException
-  {
-    return super.getDecodedText (sText);
-  }
 }

@@ -82,8 +82,6 @@ public final class IByteArrayCodecTest
   @Test
   public void testArbitraryCodecs ()
   {
-    _testCodec (new RFC1522BCodec ());
-    _testCodec (new RFC1522QCodec ());
     _testCodec (new Base32Codec (true));
     _testCodec (new Base32Codec (false));
     _testCodec (new Base64Codec ());

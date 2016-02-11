@@ -18,11 +18,13 @@ package com.helger.commons.codec;
 
 import java.nio.charset.Charset;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.string.StringHelper;
@@ -41,7 +43,7 @@ import com.helger.commons.string.StringHelper;
  *      Internet Mail Extensions) Part Two: Message Header Extensions for
  *      Non-ASCII Text</a>
  */
-public abstract class AbstractRFC1522Codec implements IByteArrayCodec
+public abstract class AbstractRFC1522Codec implements ICodec <String>
 {
   /** Separator. */
   protected static final char SEP = '?';
@@ -53,6 +55,28 @@ public abstract class AbstractRFC1522Codec implements IByteArrayCodec
   protected static final String POSTFIX = "?=";
 
   /**
+   * The default charset used for string decoding and encoding.
+   */
+  private final Charset m_aCharset;
+
+  /**
+   * Constructor which allows for the selection of a default charset
+   *
+   * @param aCharset
+   *        the default string charset to use.
+   */
+  protected AbstractRFC1522Codec (@Nonnull final Charset aCharset)
+  {
+    m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
+  }
+
+  @Nonnull
+  public Charset getCharset ()
+  {
+    return m_aCharset;
+  }
+
+  /**
    * Returns the codec name (referred to as encoding in the RFC 1522).
    *
    * @return name of the codec
@@ -61,18 +85,28 @@ public abstract class AbstractRFC1522Codec implements IByteArrayCodec
   @Nonempty
   protected abstract String getRFC1522Encoding ();
 
+  @Nullable
+  @ReturnsMutableCopy
+  protected abstract byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
+                                         @Nonnegative final int nOfs,
+                                         @Nonnegative final int nLen);
+
+  @Nullable
+  @ReturnsMutableCopy
+  protected abstract byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                                         @Nonnegative final int nOfs,
+                                         @Nonnegative final int nLen);
+
   /**
    * Applies an RFC 1522 compliant encoding scheme to the given string of text
    * with the given charset.
    * <p>
    * This method constructs the "encoded-word" header common to all the RFC 1522
-   * codecs and then invokes {@link #getEncoded(byte [])} method of a concrete
-   * class to perform the specific encoding.
+   * codecs and then invokes #getEncoded(byte []) method of a concrete class to
+   * perform the specific encoding.
    *
    * @param sText
    *        a string to encode
-   * @param aSourceCharset
-   *        a charset to be used
    * @return RFC 1522 compliant "encoded-word"
    * @throws EncodeException
    *         thrown if there is an error condition during the Encoding process.
@@ -81,18 +115,17 @@ public abstract class AbstractRFC1522Codec implements IByteArrayCodec
    *      Standard charsets</a>
    */
   @Nullable
-  protected String getEncodedText (@Nullable final String sText,
-                                   @Nonnull final Charset aSourceCharset) throws EncodeException
+  public String getEncoded (@Nullable final String sText) throws EncodeException
   {
-    ValueEnforcer.notNull (aSourceCharset, "SourceCharset");
     if (sText == null)
       return null;
 
-    final byte [] aEncodedData = getEncoded (CharsetManager.getAsBytes (sText, aSourceCharset));
+    final byte [] aDecodedBuffer = CharsetManager.getAsBytes (sText, m_aCharset);
+    final byte [] aEncodedData = getEncoded (aDecodedBuffer, 0, aDecodedBuffer.length);
 
     final StringBuilder aSB = new StringBuilder ();
     aSB.append (PREFIX)
-       .append (aSourceCharset.name ())
+       .append (m_aCharset.name ())
        .append (SEP)
        .append (getRFC1522Encoding ())
        .append (SEP)
@@ -105,8 +138,8 @@ public abstract class AbstractRFC1522Codec implements IByteArrayCodec
    * Applies an RFC 1522 compliant decoding scheme to the given string of text.
    * <p>
    * This method processes the "encoded-word" header common to all the RFC 1522
-   * codecs and then invokes {@link #getDecoded(byte [])} method of a concrete
-   * class to perform the specific decoding.
+   * codecs and then invokes #getDecoded(byte []) method of a concrete class to
+   * perform the specific decoding.
    *
    * @param sEncodedText
    *        a string to decode
@@ -115,7 +148,7 @@ public abstract class AbstractRFC1522Codec implements IByteArrayCodec
    *         thrown if there is an error condition during the decoding process.
    */
   @Nullable
-  public String getDecodedText (@Nullable final String sEncodedText) throws DecodeException
+  public String getDecoded (@Nullable final String sEncodedText) throws DecodeException
   {
     if (sEncodedText == null)
       return null;
@@ -153,7 +186,7 @@ public abstract class AbstractRFC1522Codec implements IByteArrayCodec
     nTo = sEncodedText.indexOf (SEP, nFrom);
     final byte [] aEncodedBytes = CharsetManager.getAsBytes (sEncodedText.substring (nFrom, nTo),
                                                              CCharset.CHARSET_US_ASCII_OBJ);
-    final byte [] aDecodedBytes = getDecoded (aEncodedBytes);
+    final byte [] aDecodedBytes = getDecoded (aEncodedBytes, 0, aEncodedBytes.length);
     return CharsetManager.getAsString (aDecodedBytes, aDestCharset);
   }
 }
