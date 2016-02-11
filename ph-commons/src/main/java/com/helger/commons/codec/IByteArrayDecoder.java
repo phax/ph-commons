@@ -29,6 +29,7 @@ import com.helger.commons.charset.CharsetManager;
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IByteArrayDecoder extends IDecoder <byte []>
 {
   /**
