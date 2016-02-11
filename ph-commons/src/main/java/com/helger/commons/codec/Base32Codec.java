@@ -561,15 +561,6 @@ public class Base32Codec implements IByteArrayCodec
   }
 
   @Nullable
-  public byte [] getEncoded (@Nullable final byte [] aBuf)
-  {
-    if (aBuf == null)
-      return null;
-
-    return getEncoded (aBuf, 0, aBuf.length);
-  }
-
-  @Nullable
   public byte [] getEncoded (@Nullable final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (aBuf == null)
@@ -690,16 +681,7 @@ public class Base32Codec implements IByteArrayCodec
 
   public static int getDecodedLength (final int nLen)
   {
-    return MathHelper.getRoundedUp (nLen * 5 / 8, 5);
-  }
-
-  @Nullable
-  public byte [] getDecoded (@Nullable final byte [] aBuf)
-  {
-    if (aBuf == null)
-      return null;
-
-    return getDecoded (aBuf, 0, aBuf.length);
+    return MathHelper.getRoundedUp (nLen, 8) * 5 / 8;
   }
 
   @Nullable

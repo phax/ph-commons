@@ -19,6 +19,7 @@ package com.helger.commons.codec;
 import java.nio.charset.Charset;
 import java.util.BitSet;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -134,7 +135,9 @@ public class URLCodec implements IByteArrayCodec
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer)
+  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
   {
     if (aDecodedBuffer == null)
       return null;
@@ -191,7 +194,9 @@ public class URLCodec implements IByteArrayCodec
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
   {
     return getDecodedURL (aEncodedBuffer);
   }

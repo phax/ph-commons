@@ -19,6 +19,7 @@ package com.helger.commons.codec;
 import java.awt.Image;
 import java.awt.image.PixelGrabber;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
 
@@ -42,9 +43,11 @@ public class DCTCodec implements IByteArrayDecoder
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
   {
-    return getDecodedDCT (aEncodedBuffer);
+    return getDecodedDCT (aEncodedBuffer, nOfs, nLen);
   }
 
   @Nullable
@@ -53,15 +56,26 @@ public class DCTCodec implements IByteArrayDecoder
   {
     if (aEncodedBuffer == null)
       return null;
+    return getDecodedDCT (aEncodedBuffer, 0, aEncodedBuffer.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] getDecodedDCT (@Nullable final byte [] aEncodedBuffer,
+                                       @Nonnegative final int nOfs,
+                                       @Nonnegative final int nLen)
+  {
+    if (aEncodedBuffer == null)
+      return null;
 
     Image aImg;
     try
     {
-      aImg = ImageIO.read (new NonBlockingByteArrayInputStream (aEncodedBuffer));
+      aImg = ImageIO.read (new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen));
       if (aImg == null)
         throw new DecodeException ("Failed to read image");
       if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Read DCT encoded image with " + aEncodedBuffer.length + " bytes");
+        s_aLogger.debug ("Read DCT encoded image with " + nLen + " bytes");
     }
     catch (final Throwable t)
     {

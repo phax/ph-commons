@@ -354,7 +354,9 @@ public class LZWCodec implements IByteArrayCodec
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
   {
     return getDecodedLZW (aEncodedBuffer);
   }
@@ -466,7 +468,7 @@ public class LZWCodec implements IByteArrayCodec
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getEncoded (@Nullable final byte [] aBuffer)
+  public byte [] getEncoded (@Nullable final byte [] aBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return getEncodedLZW (aBuffer);
   }

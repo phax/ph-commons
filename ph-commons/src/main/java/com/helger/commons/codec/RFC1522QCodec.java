@@ -19,6 +19,7 @@ package com.helger.commons.codec;
 import java.nio.charset.Charset;
 import java.util.BitSet;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -164,12 +165,14 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getEncoded (@Nullable final byte [] aBuffer)
+  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
   {
-    if (aBuffer == null)
+    if (aDecodedBuffer == null)
       return null;
 
-    final byte [] data = QuotedPrintableCodec.getEncodedQuotedPrintable (PRINTABLE_CHARS, aBuffer);
+    final byte [] data = QuotedPrintableCodec.getEncodedQuotedPrintable (PRINTABLE_CHARS, aDecodedBuffer, nOfs, nLen);
     if (m_bEncodeBlanks)
       for (int i = 0; i < data.length; i++)
         if (data[i] == BLANK)
@@ -179,13 +182,15 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aBuffer) throws DecodeException
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen) throws DecodeException
   {
-    if (aBuffer == null)
+    if (aEncodedBuffer == null)
       return null;
 
     boolean bHasUnderscores = false;
-    for (final byte b : aBuffer)
+    for (final byte b : aEncodedBuffer)
       if (b == UNDERSCORE)
       {
         bHasUnderscores = true;
@@ -194,10 +199,10 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
 
     if (bHasUnderscores)
     {
-      final byte [] tmp = new byte [aBuffer.length];
-      for (int i = 0; i < aBuffer.length; i++)
+      final byte [] tmp = new byte [aEncodedBuffer.length];
+      for (int i = 0; i < aEncodedBuffer.length; i++)
       {
-        final byte b = aBuffer[i];
+        final byte b = aEncodedBuffer[i];
         if (b != UNDERSCORE)
           tmp[i] = b;
         else
@@ -205,7 +210,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
       }
       return QuotedPrintableCodec.getDecodedQuotedPrintable (tmp);
     }
-    return QuotedPrintableCodec.getDecodedQuotedPrintable (aBuffer);
+    return QuotedPrintableCodec.getDecodedQuotedPrintable (aEncodedBuffer);
   }
 
   /**

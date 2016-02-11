@@ -19,6 +19,7 @@ package com.helger.commons.codec;
 import java.nio.charset.Charset;
 import java.util.BitSet;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -99,10 +100,24 @@ public class QuotedPrintableCodec implements IByteArrayCodec
     if (aDecodedBuffer == null)
       return null;
 
-    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (aDecodedBuffer.length * 2);
-    for (final byte nByte : aDecodedBuffer)
+    return getEncodedQuotedPrintable (aPrintableBitSet, aDecodedBuffer, 0, aDecodedBuffer.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] getEncodedQuotedPrintable (@Nonnull final BitSet aPrintableBitSet,
+                                                   @Nullable final byte [] aDecodedBuffer,
+                                                   @Nonnegative final int nOfs,
+                                                   @Nonnegative final int nLen)
+  {
+    ValueEnforcer.notNull (aPrintableBitSet, "PrintableBitSet");
+    if (aDecodedBuffer == null)
+      return null;
+
+    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (nLen * 2);
+    for (int i = 0; i < nLen; ++i)
     {
-      final int b = nByte & 0xff;
+      final int b = aDecodedBuffer[nOfs + i] & 0xff;
       if (aPrintableBitSet.get (b))
         aBAOS.write (b);
       else
@@ -120,9 +135,20 @@ public class QuotedPrintableCodec implements IByteArrayCodec
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer)
+  public static byte [] getEncodedQuotedPrintable (@Nullable final byte [] aDecodedBuffer,
+                                                   @Nonnegative final int nOfs,
+                                                   @Nonnegative final int nLen)
   {
-    return getEncodedQuotedPrintable (aDecodedBuffer);
+    return getEncodedQuotedPrintable (PRINTABLE_CHARS, aDecodedBuffer, nOfs, nLen);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
+  {
+    return getEncodedQuotedPrintable (aDecodedBuffer, nOfs, nLen);
   }
 
   @Nullable
@@ -171,7 +197,9 @@ public class QuotedPrintableCodec implements IByteArrayCodec
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
   {
     return getDecodedQuotedPrintable (aEncodedBuffer);
   }

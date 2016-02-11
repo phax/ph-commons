@@ -18,6 +18,7 @@ package com.helger.commons.codec;
 
 import java.nio.charset.Charset;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -36,7 +37,7 @@ public interface IByteArrayDecoder extends IDecoder <byte []>
    * Decode a byte array.
    *
    * @param aEncodedBuffer
-   *        The byte array to be decoded. May not be <code>null</code>.
+   *        The byte array to be decoded. May be <code>null</code>.
    * @return The decoded byte array or <code>null</code> if the parameter was
    *         <code>null</code>.
    * @throws DecodeException
@@ -44,7 +45,30 @@ public interface IByteArrayDecoder extends IDecoder <byte []>
    */
   @Nullable
   @ReturnsMutableCopy
-  byte [] getDecoded (@Nullable byte [] aEncodedBuffer);
+  default byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
+  {
+    if (aEncodedBuffer == null)
+      return null;
+    return getDecoded (aEncodedBuffer, 0, aEncodedBuffer.length);
+  }
+
+  /**
+   * Decode a byte array.
+   *
+   * @param aEncodedBuffer
+   *        The byte array to be decoded. May be <code>null</code>.
+   * @param nOfs
+   *        Offset into the byte array to start from.
+   * @param nLen
+   *        Number of bytes starting from offset to consider.
+   * @return The decoded byte array or <code>null</code> if the parameter was
+   *         <code>null</code>.
+   * @throws DecodeException
+   *         in case something goes wrong
+   */
+  @Nullable
+  @ReturnsMutableCopy
+  byte [] getDecoded (@Nullable byte [] aEncodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * Decode the passed string.

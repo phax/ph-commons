@@ -18,6 +18,7 @@ package com.helger.commons.codec;
 
 import java.nio.charset.Charset;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -82,16 +83,20 @@ public class RFC1522BCodec extends AbstractRFC1522Codec
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer)
+  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
   {
-    return Base64.safeEncodeBytesToBytes (aDecodedBuffer);
+    return Base64.safeEncodeBytesToBytes (aDecodedBuffer, nOfs, nLen);
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
   {
-    return Base64.safeDecode (aEncodedBuffer);
+    return Base64.safeDecode (aEncodedBuffer, nOfs, nLen);
   }
 
   /**

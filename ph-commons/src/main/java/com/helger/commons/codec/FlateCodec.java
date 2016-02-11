@@ -19,6 +19,7 @@ package com.helger.commons.codec;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -44,10 +45,17 @@ public class FlateCodec implements IByteArrayCodec
 
   public static boolean isZlibHead (@Nonnull final byte [] buf)
   {
-    if (buf.length >= 2)
+    return isZlibHead (buf, 0, buf.length);
+  }
+
+  public static boolean isZlibHead (@Nonnull final byte [] buf,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen)
+  {
+    if (nLen >= 2)
     {
-      final int b0 = buf[0] & 0xff;
-      final int b1 = buf[1] & 0xff;
+      final int b0 = buf[nOfs] & 0xff;
+      final int b1 = buf[nOfs + 1] & 0xff;
 
       if ((b0 & 0xf) == 8)
         if ((b0 >> 4) + 8 <= 15)
@@ -64,10 +72,24 @@ public class FlateCodec implements IByteArrayCodec
     if (aEncodedBuffer == null)
       return null;
 
-    if (!isZlibHead (aEncodedBuffer))
+    return getDecodedFlate (aEncodedBuffer, 0, aEncodedBuffer.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] getDecodedFlate (@Nullable final byte [] aEncodedBuffer,
+                                         @Nonnegative final int nOfs,
+                                         @Nonnegative final int nLen)
+  {
+    if (aEncodedBuffer == null)
+      return null;
+
+    if (!isZlibHead (aEncodedBuffer, nOfs, nLen))
       s_aLogger.warn ("ZLib header not found");
 
-    final InflaterInputStream aDecodeIS = new InflaterInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer));
+    final InflaterInputStream aDecodeIS = new InflaterInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer,
+                                                                                                        nOfs,
+                                                                                                        nLen));
     try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
     {
       if (StreamHelper.copyInputStreamToOutputStream (aDecodeIS, aBAOS).isFailure ())
@@ -78,9 +100,11 @@ public class FlateCodec implements IByteArrayCodec
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
   {
-    return getDecodedFlate (aEncodedBuffer);
+    return getDecodedFlate (aEncodedBuffer, nOfs, nLen);
   }
 
   @Nullable
@@ -89,12 +113,24 @@ public class FlateCodec implements IByteArrayCodec
   {
     if (aBuffer == null)
       return null;
+    return getEncodedFlate (aBuffer, 0, aBuffer.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] getEncodedFlate (@Nullable final byte [] aBuffer,
+                                         @Nonnegative final int nOfs,
+                                         @Nonnegative final int nLen)
+  {
+    if (aBuffer == null)
+      return null;
 
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
     final DeflaterOutputStream aEncodeOS = new DeflaterOutputStream (aBAOS);
     try
     {
-      if (StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aBuffer), aEncodeOS)
+      if (StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aBuffer, nOfs, nLen),
+                                                      aEncodeOS)
                       .isFailure ())
         throw new EncodeException ("Failed to flate encode!");
     }
@@ -107,8 +143,8 @@ public class FlateCodec implements IByteArrayCodec
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getEncoded (@Nullable final byte [] aBuffer)
+  public byte [] getEncoded (@Nullable final byte [] aBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
-    return getEncodedFlate (aBuffer);
+    return getEncodedFlate (aBuffer, nOfs, nLen);
   }
 }

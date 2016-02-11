@@ -16,6 +16,7 @@
  */
 package com.helger.commons.codec;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
@@ -41,9 +42,11 @@ public class ASCII85Codec implements IByteArrayDecoder
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
   {
-    return getDecodedASCII85 (aEncodedBuffer);
+    return getDecodedASCII85 (aEncodedBuffer, nOfs, nLen);
   }
 
   @Nullable
@@ -52,7 +55,18 @@ public class ASCII85Codec implements IByteArrayDecoder
   {
     if (aEncodedBuffer == null)
       return null;
-    ValueEnforcer.isTrue (aEncodedBuffer.length >= 4, "Buffer too small: " + aEncodedBuffer.length);
+    return getDecodedASCII85 (aEncodedBuffer, 0, aEncodedBuffer.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] getDecodedASCII85 (@Nullable final byte [] aEncodedBuffer,
+                                           @Nonnegative final int nOfs,
+                                           @Nonnegative final int nLen)
+  {
+    if (aEncodedBuffer == null)
+      return null;
+    ValueEnforcer.isTrue (nLen >= 4, "Buffer too small: " + nLen);
 
     try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
     {
@@ -60,13 +74,13 @@ public class ASCII85Codec implements IByteArrayDecoder
       final byte [] aBuffer = new byte [5];
 
       // Determine start index
-      int nIndex = 0;
+      int nIndex = nOfs;
 
       // Special start sequence "<~" ??
-      if (aEncodedBuffer[0] == '<' && aEncodedBuffer[1] == '~')
-        nIndex = 2;
+      if (aEncodedBuffer[nIndex] == '<' && aEncodedBuffer[nIndex + 1] == '~')
+        nIndex += 2;
 
-      for (; nIndex < aEncodedBuffer.length; ++nIndex)
+      for (; nIndex < nOfs + nLen; ++nIndex)
       {
         final byte nEncByte = aEncodedBuffer[nIndex];
 

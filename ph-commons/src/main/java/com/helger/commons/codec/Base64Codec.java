@@ -16,6 +16,7 @@
  */
 package com.helger.commons.codec;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -33,15 +34,19 @@ public class Base64Codec implements IByteArrayCodec
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer)
+  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
   {
-    return Base64.safeEncodeBytesToBytes (aDecodedBuffer);
+    return Base64.safeEncodeBytesToBytes (aDecodedBuffer, nOfs, nLen);
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
   {
-    return Base64.safeDecode (aEncodedBuffer);
+    return Base64.safeDecode (aEncodedBuffer, nOfs, nLen);
   }
 }

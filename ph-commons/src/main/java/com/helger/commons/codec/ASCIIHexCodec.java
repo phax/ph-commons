@@ -16,6 +16,7 @@
  */
 package com.helger.commons.codec;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
 
 import com.helger.commons.CGlobal;
@@ -35,9 +36,11 @@ public class ASCIIHexCodec implements IByteArrayDecoder
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
   {
-    return getDecodedASCIIHex (aEncodedBuffer);
+    return getDecodedASCIIHex (aEncodedBuffer, nOfs, nLen);
   }
 
   @Nullable
@@ -46,13 +49,25 @@ public class ASCIIHexCodec implements IByteArrayDecoder
   {
     if (aEncodedBuffer == null)
       return null;
+    return getDecodedASCIIHex (aEncodedBuffer, 0, aEncodedBuffer.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] getDecodedASCIIHex (@Nullable final byte [] aEncodedBuffer,
+                                            @Nonnegative final int nOfs,
+                                            @Nonnegative final int nLen)
+  {
+    if (aEncodedBuffer == null)
+      return null;
 
     try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
     {
       boolean bFirstByte = true;
       int nFirstByte = 0;
-      for (final byte nEncByte : aEncodedBuffer)
+      for (int i = 0; i < nLen; ++i)
       {
+        final byte nEncByte = aEncodedBuffer[nOfs + i];
         if (nEncByte == '>')
           break;
 

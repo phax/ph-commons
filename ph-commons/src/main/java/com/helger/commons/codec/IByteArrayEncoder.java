@@ -18,6 +18,7 @@ package com.helger.commons.codec;
 
 import java.nio.charset.Charset;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -44,7 +45,30 @@ public interface IByteArrayEncoder extends IEncoder <byte []>
    */
   @Nullable
   @ReturnsMutableCopy
-  byte [] getEncoded (@Nullable byte [] aDecodedBuffer);
+  default byte [] getEncoded (@Nullable final byte [] aDecodedBuffer)
+  {
+    if (aDecodedBuffer == null)
+      return null;
+    return getEncoded (aDecodedBuffer, 0, aDecodedBuffer.length);
+  }
+
+  /**
+   * Encode a byte array.
+   *
+   * @param aDecodedBuffer
+   *        The byte array to be encoded. May be <code>null</code>.
+   * @param nOfs
+   *        Offset into the byte array to start from.
+   * @param nLen
+   *        Number of bytes starting from offset to consider.
+   * @return The encoded byte array or <code>null</code> if the parameter was
+   *         <code>null</code>.
+   * @throws EncodeException
+   *         In case something goes wrong
+   */
+  @Nullable
+  @ReturnsMutableCopy
+  byte [] getEncoded (@Nullable byte [] aDecodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * Encode the passed string.

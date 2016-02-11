@@ -2584,6 +2584,35 @@ public final class Base64
   }
 
   /**
+   * Decode the byte array.
+   *
+   * @param aEncodedBytes
+   *        The encoded byte array.
+   * @param nOfs
+   *        The offset of where to begin decoding
+   * @param nLen
+   *        The number of characters to decode
+   * @return <code>null</code> if decoding failed.
+   */
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] safeDecode (@Nullable final byte [] aEncodedBytes,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen)
+  {
+    if (aEncodedBytes != null)
+      try
+      {
+        return decode (aEncodedBytes, nOfs, nLen, DONT_GUNZIP);
+      }
+      catch (final Exception ex)
+      {
+        // fall through
+      }
+    return null;
+  }
+
+  /**
    * Decode the string and convert it back to a string.
    *
    * @param sEncoded
@@ -2665,6 +2694,24 @@ public final class Base64
   {
     if (aDecoded != null)
       return encodeBytesToBytes (aDecoded);
+    return null;
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] safeEncodeBytesToBytes (@Nullable final byte [] aDecoded,
+                                                @Nonnegative final int nOfs,
+                                                @Nonnegative final int nLen)
+  {
+    if (aDecoded != null)
+      try
+      {
+        return encodeBytesToBytes (aDecoded, nOfs, nLen, NO_OPTIONS);
+      }
+      catch (final IOException ex)
+      {
+        // Only on GZip which is turned off
+      }
     return null;
   }
 

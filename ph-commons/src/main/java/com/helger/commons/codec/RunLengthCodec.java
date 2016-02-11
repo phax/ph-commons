@@ -16,6 +16,7 @@
  */
 package com.helger.commons.codec;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -36,7 +37,9 @@ public class RunLengthCodec implements IByteArrayDecoder
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLen)
   {
     return getDecodedRunLength (aEncodedBuffer);
   }
