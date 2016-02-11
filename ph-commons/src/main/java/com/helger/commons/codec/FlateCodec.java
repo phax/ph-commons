@@ -16,19 +16,21 @@
  */
 package com.helger.commons.codec;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillNotClose;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+import com.helger.commons.io.stream.NonClosingOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
 
 /**
@@ -36,17 +38,12 @@ import com.helger.commons.io.stream.StreamHelper;
  *
  * @author Philip Helger
  */
-public class FlateCodec implements IByteArrayCodec
+public class FlateCodec implements IByteArrayCodec, IByteArrayStreamEncoder, IByteArrayStreamDecoder
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (FlateCodec.class);
 
   public FlateCodec ()
   {}
-
-  public static boolean isZlibHead (@Nonnull final byte [] buf)
-  {
-    return isZlibHead (buf, 0, buf.length);
-  }
 
   public static boolean isZlibHead (@Nonnull final byte [] buf,
                                     @Nonnegative final int nOfs,
@@ -65,86 +62,49 @@ public class FlateCodec implements IByteArrayCodec
     return false;
   }
 
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getDecodedFlate (@Nullable final byte [] aEncodedBuffer)
+  public void decode (@Nullable final byte [] aEncodedBuffer,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      @Nonnull @WillNotClose final OutputStream aOS)
   {
-    if (aEncodedBuffer == null)
-      return null;
-
-    return getDecodedFlate (aEncodedBuffer, 0, aEncodedBuffer.length);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getDecodedFlate (@Nullable final byte [] aEncodedBuffer,
-                                         @Nonnegative final int nOfs,
-                                         @Nonnegative final int nLen)
-  {
-    if (aEncodedBuffer == null)
-      return null;
+    if (aEncodedBuffer == null || nLen == 0)
+      return;
 
     if (!isZlibHead (aEncodedBuffer, nOfs, nLen))
       s_aLogger.warn ("ZLib header not found");
 
-    final InflaterInputStream aDecodeIS = new InflaterInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer,
-                                                                                                        nOfs,
-                                                                                                        nLen));
-    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
+    try (
+        final InflaterInputStream aDecodeIS = new InflaterInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer,
+                                                                                                            nOfs,
+                                                                                                            nLen)))
     {
-      if (StreamHelper.copyInputStreamToOutputStream (aDecodeIS, aBAOS).isFailure ())
+      if (StreamHelper.copyInputStreamToOutputStream (aDecodeIS, aOS).isFailure ())
         throw new DecodeException ("Failed to flate decode!");
-      return aBAOS.toByteArray ();
+    }
+    catch (final IOException ex)
+    {
+      throw new DecodeException ("Failed to flate encode", ex);
     }
   }
 
-  @Nullable
-  @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen)
+  public void encode (@Nullable final byte [] aDecodedBuffer,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      @Nonnull @WillNotClose final OutputStream aOS)
   {
-    return getDecodedFlate (aEncodedBuffer, nOfs, nLen);
-  }
+    if (aDecodedBuffer == null || nLen == 0)
+      return;
 
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getEncodedFlate (@Nullable final byte [] aDecodedBuffer)
-  {
-    if (aDecodedBuffer == null)
-      return null;
-    return getEncodedFlate (aDecodedBuffer, 0, aDecodedBuffer.length);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getEncodedFlate (@Nullable final byte [] aDecodedBuffer,
-                                         @Nonnegative final int nOfs,
-                                         @Nonnegative final int nLen)
-  {
-    if (aDecodedBuffer == null)
-      return null;
-
-    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    final DeflaterOutputStream aEncodeOS = new DeflaterOutputStream (aBAOS);
-    try
+    try (final DeflaterOutputStream aEncodeOS = new DeflaterOutputStream (new NonClosingOutputStream (aOS)))
     {
       if (StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aDecodedBuffer, nOfs, nLen),
                                                       aEncodeOS)
                       .isFailure ())
         throw new EncodeException ("Failed to flate encode!");
     }
-    finally
+    catch (final IOException ex)
     {
-      StreamHelper.close (aEncodeOS);
+      throw new EncodeException ("Failed to flate encode", ex);
     }
-    return aBAOS.toByteArray ();
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
-  {
-    return getEncodedFlate (aDecodedBuffer, nOfs, nLen);
   }
 }

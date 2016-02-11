@@ -110,7 +110,7 @@ public enum EMimeQuoting
     public String getQuotedString (@Nonnull @Nonempty final String sUnquotedString)
     {
       // Use a special BitSet
-      return URLCodec.getEncodedURLString (PRINTABLE_URL, sUnquotedString, CCharset.CHARSET_UTF_8_OBJ);
+      return new URLCodec (PRINTABLE_URL).getEncodedAsString (sUnquotedString, CCharset.CHARSET_UTF_8_OBJ);
     }
 
     @Override
@@ -118,15 +118,15 @@ public enum EMimeQuoting
     @Nonempty
     public String getUnquotedString (@Nonnull @Nonempty final String sQuotedString)
     {
-      return URLCodec.getDecodedURLString (sQuotedString, CCharset.CHARSET_UTF_8_OBJ);
+      return new URLCodec (PRINTABLE_URL).getDecodedAsString (sQuotedString, CCharset.CHARSET_UTF_8_OBJ);
     }
   };
 
   public static final char QUOTED_STRING_SEPARATOR_CHAR = '"';
   public static final char QUOTED_STRING_MASK_CHAR = '\\';
 
-  private static final BitSet PRINTABLE_QUOTED_PRINTABLE = QuotedPrintableCodec.getDefaultBitSet ();
-  private static final BitSet PRINTABLE_URL = URLCodec.getDefaultBitSet ();
+  private static final BitSet PRINTABLE_QUOTED_PRINTABLE = QuotedPrintableCodec.getDefaultPrintableChars ();
+  private static final BitSet PRINTABLE_URL = URLCodec.getDefaultPrintableChars ();
 
   static
   {

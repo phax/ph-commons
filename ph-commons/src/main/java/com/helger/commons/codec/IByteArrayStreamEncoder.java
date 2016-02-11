@@ -16,14 +16,17 @@
  */
 package com.helger.commons.codec;
 
+import java.io.OutputStream;
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillNotClose;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 
 /**
  * Interface for a single encoder
@@ -31,13 +34,33 @@ import com.helger.commons.charset.CharsetManager;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IByteArrayEncoder extends IEncoder <byte []>
+public interface IByteArrayStreamEncoder extends IByteArrayEncoder
 {
   @Nonnegative
   default int getEncodedLength (@Nonnegative final int nDecodedLen)
   {
     return nDecodedLen;
   }
+
+  /**
+   * Encode (part of) a byte array to an {@link OutputStream}.
+   *
+   * @param aDecodedBuffer
+   *        The byte array to be encoded. May be <code>null</code>.
+   * @param nOfs
+   *        Offset into the byte array to start from.
+   * @param nLen
+   *        Number of bytes starting from offset to consider.
+   * @param aOS
+   *        The output stream to write to. May not be <code>null</code> and is
+   *        NOT closed afterwards!
+   * @throws EncodeException
+   *         In case something goes wrong
+   */
+  void encode (@Nullable final byte [] aDecodedBuffer,
+               @Nonnegative final int nOfs,
+               @Nonnegative final int nLen,
+               @Nonnull @WillNotClose final OutputStream aOS);
 
   /**
    * Encode a byte array.
@@ -74,7 +97,19 @@ public interface IByteArrayEncoder extends IEncoder <byte []>
    */
   @Nullable
   @ReturnsMutableCopy
-  byte [] getEncoded (@Nullable final byte [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen);
+  default byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
+                              @Nonnegative final int nOfs,
+                              @Nonnegative final int nLen)
+  {
+    if (aDecodedBuffer == null)
+      return null;
+
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getEncodedLength (nLen)))
+    {
+      encode (aDecodedBuffer, nOfs, nLen, aBAOS);
+      return aBAOS.toByteArray ();
+    }
+  }
 
   /**
    * Encode the passed string.

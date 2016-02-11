@@ -16,14 +16,15 @@
  */
 package com.helger.commons.codec;
 
-import java.nio.charset.Charset;
+import java.io.OutputStream;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillNotClose;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 
 /**
  * Interface for a single decoder.
@@ -31,32 +32,27 @@ import com.helger.commons.charset.CharsetManager;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IByteArrayDecoder extends IDecoder <byte []>
+public interface IByteArrayStreamDecoder extends IByteArrayDecoder
 {
-  @Nonnegative
-  default int getDecodedLength (@Nonnegative final int nLen)
-  {
-    return nLen;
-  }
-
   /**
    * Decode a byte array.
    *
    * @param aEncodedBuffer
    *        The byte array to be decoded. May be <code>null</code>.
-   * @return The decoded byte array or <code>null</code> if the parameter was
-   *         <code>null</code>.
+   * @param nOfs
+   *        Offset into the byte array to start from.
+   * @param nLen
+   *        Number of bytes starting from offset to consider.
+   * @param aOS
+   *        The output stream to write to. May not be <code>null</code> and is
+   *        NOT closed afterwards!
    * @throws DecodeException
    *         in case something goes wrong
    */
-  @Nullable
-  @ReturnsMutableCopy
-  default byte [] getDecoded (@Nullable final byte [] aEncodedBuffer)
-  {
-    if (aEncodedBuffer == null)
-      return null;
-    return getDecoded (aEncodedBuffer, 0, aEncodedBuffer.length);
-  }
+  void decode (@Nullable final byte [] aEncodedBuffer,
+               @Nonnegative final int nOfs,
+               @Nonnegative final int nLen,
+               @Nonnull @WillNotClose final OutputStream aOS);
 
   /**
    * Decode a byte array.
@@ -74,27 +70,17 @@ public interface IByteArrayDecoder extends IDecoder <byte []>
    */
   @Nullable
   @ReturnsMutableCopy
-  byte [] getDecoded (@Nullable final byte [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen);
-
-  /**
-   * Decode the passed string.
-   *
-   * @param sEncoded
-   *        The string to be decoded. May be <code>null</code>.
-   * @param aCharset
-   *        The charset to be used. May not be <code>null</code>.
-   * @return <code>null</code> if the input string is <code>null</code>.
-   * @throws DecodeException
-   *         in case something goes wrong
-   */
-  @Nullable
-  @ReturnsMutableCopy
-  default public byte [] getDecoded (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
+  default byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+                              @Nonnegative final int nOfs,
+                              @Nonnegative final int nLen)
   {
-    if (sEncoded == null)
+    if (aEncodedBuffer == null)
       return null;
 
-    final byte [] aEncoded = CharsetManager.getAsBytes (sEncoded, aCharset);
-    return getDecoded (aEncoded);
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getDecodedLength (nLen)))
+    {
+      decode (aEncodedBuffer, nOfs, nLen, aBAOS);
+      return aBAOS.toByteArray ();
+    }
   }
 }

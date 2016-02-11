@@ -16,18 +16,16 @@
  */
 package com.helger.commons.codec;
 
-import java.nio.charset.Charset;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.BitSet;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillNotClose;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CCharset;
-import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -35,7 +33,7 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
-public class URLCodec implements IByteArrayCodec
+public class URLCodec implements IByteArrayCodec, IByteArrayEncoderToString, IByteArrayDecoderToString
 {
   private static final byte ESCAPE_CHAR = '%';
 
@@ -66,20 +64,36 @@ public class URLCodec implements IByteArrayCodec
     PRINTABLE_CHARS.set (SPACE);
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public static BitSet getDefaultPrintableChars ()
+  {
+    return (BitSet) PRINTABLE_CHARS.clone ();
+  }
+
+  private final BitSet m_aPrintableChars;
+
   /**
    * Default constructor with the UTF-8 charset.
    */
   public URLCodec ()
-  {}
+  {
+    this (PRINTABLE_CHARS);
+  }
+
+  public URLCodec (@Nonnull final BitSet aPrintableChars)
+  {
+    m_aPrintableChars = (BitSet) aPrintableChars.clone ();
+  }
 
   /**
    * @return A copy of the default bit set to be used. Never <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static BitSet getDefaultBitSet ()
+  public BitSet getPrintableChars ()
   {
-    return (BitSet) PRINTABLE_CHARS.clone ();
+    return (BitSet) m_aPrintableChars.clone ();
   }
 
   /**
@@ -87,118 +101,67 @@ public class URLCodec implements IByteArrayCodec
    *
    * @param b
    *        byte to encode
-   * @param aBAOS
+   * @param aOS
    *        the buffer to write to
+   * @throws IOException
+   *         In case writing to the OutputStream failed
    */
-  public static final void writeEncodedURLByte (final int b, @Nonnull final NonBlockingByteArrayOutputStream aBAOS)
+  public static final void writeEncodedURLByte (final int b, @Nonnull final OutputStream aOS) throws IOException
   {
     final char cHigh = StringHelper.getHexCharUpperCase ((b >> 4) & 0xF);
     final char cLow = StringHelper.getHexCharUpperCase (b & 0xF);
-    aBAOS.write (ESCAPE_CHAR);
-    aBAOS.write (cHigh);
-    aBAOS.write (cLow);
+    aOS.write (ESCAPE_CHAR);
+    aOS.write (cHigh);
+    aOS.write (cLow);
   }
 
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getEncodedURL (@Nonnull final BitSet aPrintableBitSet, @Nullable final byte [] aDecodedBuffer)
+  public void encode (@Nullable final byte [] aDecodedBuffer,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      @Nonnull @WillNotClose final OutputStream aOS)
   {
-    if (aDecodedBuffer == null)
-      return null;
+    if (aDecodedBuffer == null || nLen == 0)
+      return;
 
-    return getEncodedURL (aPrintableBitSet, aDecodedBuffer, 0, aDecodedBuffer.length);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getEncodedURL (@Nonnull final BitSet aPrintableBitSet,
-                                       @Nullable final byte [] aDecodedBuffer,
-                                       @Nonnegative final int nOfs,
-                                       @Nonnegative final int nLen)
-  {
-    ValueEnforcer.notNull (aPrintableBitSet, "PrintableBitSet");
-    if (aDecodedBuffer == null)
-      return null;
-
-    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (aDecodedBuffer.length * 2);
-    for (int i = 0; i < nLen; ++i)
+    try
     {
-      final int b = aDecodedBuffer[nOfs + i] & 0xff;
-      if (aPrintableBitSet.get (b))
+      for (int i = 0; i < nLen; ++i)
       {
-        if (b == SPACE)
-          aBAOS.write (PLUS);
+        final int b = aDecodedBuffer[nOfs + i] & 0xff;
+        if (m_aPrintableChars.get (b))
+        {
+          if (b == SPACE)
+            aOS.write (PLUS);
+          else
+            aOS.write (b);
+        }
         else
-          aBAOS.write (b);
-      }
-      else
-      {
-        writeEncodedURLByte (b, aBAOS);
+        {
+          writeEncodedURLByte (b, aOS);
+        }
       }
     }
-    return aBAOS.toByteArray ();
+    catch (final IOException ex)
+    {
+      throw new EncodeException ("Failed to URL encode", ex);
+    }
   }
 
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getEncodedURL (@Nullable final byte [] aDecodedBuffer)
+  public void decode (@Nullable final byte [] aEncodedBuffer,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      @Nonnull @WillNotClose final OutputStream aOS)
   {
-    if (aDecodedBuffer == null)
-      return null;
+    if (aEncodedBuffer == null || nLen == 0)
+      return;
 
-    return getEncodedURL (PRINTABLE_CHARS, aDecodedBuffer, 0, aDecodedBuffer.length);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getEncodedURL (@Nullable final byte [] aDecodedBuffer,
-                                       @Nonnegative final int nOfs,
-                                       @Nonnegative final int nLen)
-  {
-    if (aDecodedBuffer == null)
-      return null;
-
-    return getEncodedURL (PRINTABLE_CHARS, aDecodedBuffer, nOfs, nLen);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen)
-  {
-    if (aDecodedBuffer == null)
-      return null;
-
-    return getEncodedURL (aDecodedBuffer, nOfs, nLen);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getDecodedURL (@Nullable final byte [] aEncodedBuffer)
-  {
-    if (aEncodedBuffer == null)
-      return null;
-
-    return getDecodedURL (aEncodedBuffer, 0, aEncodedBuffer.length);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getDecodedURL (@Nullable final byte [] aEncodedBuffer,
-                                       @Nonnegative final int nOfs,
-                                       @Nonnegative final int nLen)
-  {
-    if (aEncodedBuffer == null)
-      return null;
-
-    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
+    try
     {
       for (int i = 0; i < nLen; i++)
       {
         final int b = aEncodedBuffer[nOfs + i];
         if (b == PLUS)
-          aBAOS.write (SPACE);
+          aOS.write (SPACE);
         else
           if (b == ESCAPE_CHAR)
           {
@@ -211,73 +174,17 @@ public class URLCodec implements IByteArrayCodec
             if (nDecodedValue < 0)
               throw new DecodeException ("Invalid URL encoding for " + (int) cHigh + " and " + (int) cLow);
 
-            aBAOS.write (nDecodedValue);
+            aOS.write (nDecodedValue);
           }
           else
           {
-            aBAOS.write (b);
+            aOS.write (b);
           }
       }
-      return aBAOS.toByteArray ();
     }
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getDecodedURL (@Nullable final String sEncodedURL)
-  {
-    if (sEncodedURL == null)
-      return null;
-
-    return getDecodedURL (CharsetManager.getAsBytes (sEncodedURL, CCharset.CHARSET_US_ASCII_OBJ));
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen)
-  {
-    return getDecodedURL (aEncodedBuffer, nOfs, nLen);
-  }
-
-  @Nullable
-  public static String getEncodedURLString (@Nonnull final BitSet aPrintableBitSet,
-                                            @Nonnull final byte [] aDecodedBuffer)
-  {
-    final byte [] aEncodedBytes = getEncodedURL (aPrintableBitSet, aDecodedBuffer);
-    return aEncodedBytes == null ? null : CharsetManager.getAsString (aEncodedBytes, CCharset.CHARSET_US_ASCII_OBJ);
-  }
-
-  @Nullable
-  public static String getEncodedURLString (@Nonnull final byte [] aDecodedBuffer)
-  {
-    return getEncodedURLString (PRINTABLE_CHARS, aDecodedBuffer);
-  }
-
-  @Nullable
-  public static String getEncodedURLString (@Nonnull final BitSet aPrintableBitSet,
-                                            @Nullable final String sDecodedURL,
-                                            @Nonnull final Charset aSourceCharset)
-  {
-    if (StringHelper.hasNoText (sDecodedURL))
-      return sDecodedURL;
-
-    return getEncodedURLString (aPrintableBitSet, CharsetManager.getAsBytes (sDecodedURL, aSourceCharset));
-  }
-
-  @Nullable
-  public static String getEncodedURLString (@Nullable final String sDecodedURL, @Nonnull final Charset aSourceCharset)
-  {
-    return getEncodedURLString (PRINTABLE_CHARS, sDecodedURL, aSourceCharset);
-  }
-
-  @Nullable
-  public static String getDecodedURLString (@Nullable final String sEncodedURL, @Nonnull final Charset aDestCharset)
-  {
-    if (StringHelper.hasNoText (sEncodedURL))
-      return sEncodedURL;
-
-    return CharsetManager.getAsString (getDecodedURL (sEncodedURL), aDestCharset);
+    catch (final IOException ex)
+    {
+      throw new DecodeException ("Failed to decode URL", ex);
+    }
   }
 }

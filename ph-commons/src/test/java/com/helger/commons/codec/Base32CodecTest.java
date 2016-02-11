@@ -18,13 +18,14 @@ public final class Base32CodecTest
   @Test
   public void testGetEncodedLength ()
   {
-    assertEquals (0, Base32Codec.getEncodedLength (0));
+    final Base32Codec aBase32 = new Base32Codec ();
+    assertEquals (0, aBase32.getEncodedLength (0));
     for (int i = 1; i <= 5; ++i)
-      assertEquals (8, Base32Codec.getEncodedLength (i));
+      assertEquals (8, aBase32.getEncodedLength (i));
     for (int i = 6; i <= 10; ++i)
-      assertEquals (16, Base32Codec.getEncodedLength (i));
+      assertEquals (16, aBase32.getEncodedLength (i));
     for (int i = 11; i <= 15; ++i)
-      assertEquals (24, Base32Codec.getEncodedLength (i));
+      assertEquals (24, aBase32.getEncodedLength (i));
   }
 
   @Test
@@ -62,13 +63,14 @@ public final class Base32CodecTest
   @Test
   public void testGetDecodedLength ()
   {
-    assertEquals (0, Base32Codec.getDecodedLength (0));
+    final Base32Codec aBase32 = new Base32Codec ();
+    assertEquals (0, aBase32.getDecodedLength (0));
     for (int i = 1; i <= 8; ++i)
-      assertEquals (5, Base32Codec.getDecodedLength (i));
+      assertEquals (5, aBase32.getDecodedLength (i));
     for (int i = 9; i <= 16; ++i)
-      assertEquals (10, Base32Codec.getDecodedLength (i));
+      assertEquals (10, aBase32.getDecodedLength (i));
     for (int i = 17; i <= 24; ++i)
-      assertEquals (15, Base32Codec.getDecodedLength (i));
+      assertEquals (15, aBase32.getDecodedLength (i));
   }
 
   @Test

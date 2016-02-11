@@ -16,21 +16,49 @@
  */
 package com.helger.commons.codec;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillNotClose;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.base64.Base64;
+import com.helger.commons.base64.Base64InputStream;
+import com.helger.commons.base64.Base64OutputStream;
+import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
+import com.helger.commons.io.stream.NonClosingOutputStream;
+import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * Encoder and decoder for Base64
  *
  * @author Philip Helger
  */
-public class Base64Codec implements IByteArrayCodec
+public class Base64Codec implements IByteArrayCodec, IByteArrayEncoderToString, IByteArrayDecoderToString
 {
   public Base64Codec ()
   {}
+
+  public void encode (@Nullable final byte [] aDecodedBuffer,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      @Nonnull @WillNotClose final OutputStream aOS)
+  {
+    if (aDecodedBuffer == null || nLen == 0)
+      return;
+
+    try (final Base64OutputStream aB64OS = new Base64OutputStream (new NonClosingOutputStream (aOS)))
+    {
+      aB64OS.write (aDecodedBuffer, nOfs, nLen);
+    }
+    catch (final IOException ex)
+    {
+      throw new EncodeException ("Failed to encode Base64", ex);
+    }
+  }
 
   @Nullable
   @ReturnsMutableCopy
@@ -39,6 +67,24 @@ public class Base64Codec implements IByteArrayCodec
                              @Nonnegative final int nLen)
   {
     return Base64.safeEncodeBytesToBytes (aDecodedBuffer, nOfs, nLen);
+  }
+
+  public void decode (@Nullable final byte [] aEncodedBuffer,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      @Nonnull @WillNotClose final OutputStream aOS)
+  {
+    try (final Base64InputStream aB64OS = new Base64InputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer,
+                                                                                                      nOfs,
+                                                                                                      nLen)))
+    {
+      if (StreamHelper.copyInputStreamToOutputStream (aB64OS, aOS).isFailure ())
+        throw new DecodeException ("Failed to decode Base64!");
+    }
+    catch (final IOException ex)
+    {
+      throw new DecodeException ("Failed to decode Base64!", ex);
+    }
   }
 
   @Nullable

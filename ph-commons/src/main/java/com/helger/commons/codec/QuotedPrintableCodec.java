@@ -68,7 +68,7 @@ public class QuotedPrintableCodec implements IByteArrayCodec
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static BitSet getDefaultBitSet ()
+  public static BitSet getDefaultPrintableChars ()
   {
     return (BitSet) PRINTABLE_CHARS.clone ();
   }
