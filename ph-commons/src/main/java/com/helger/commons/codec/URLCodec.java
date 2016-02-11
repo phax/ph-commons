@@ -170,7 +170,7 @@ public class URLCodec implements IByteArrayCodec, IByteArrayStreamEncoder, IByte
           if (b == ESCAPE_CHAR)
           {
             if (i >= nLen - 2)
-              throw new DecodeException ("Invalid URL encoding. Premature of string after escape char");
+              throw new DecodeException ("Invalid URL encoding. Premature end of input after escape char");
             final char cHigh = (char) aEncodedBuffer[nOfs + i + 1];
             final char cLow = (char) aEncodedBuffer[nOfs + i + 2];
             i += 2;
