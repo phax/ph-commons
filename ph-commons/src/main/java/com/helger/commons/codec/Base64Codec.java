@@ -31,6 +31,7 @@ import com.helger.commons.base64.Base64OutputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonClosingOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.math.MathHelper;
 
 /**
  * Encoder and decoder for Base64
@@ -41,6 +42,11 @@ public class Base64Codec implements IByteArrayCodec
 {
   public Base64Codec ()
   {}
+
+  public int getEncodedLength (final int nLen)
+  {
+    return MathHelper.getRoundedUp (nLen * 4 / 3, 4);
+  }
 
   public void encode (@Nullable final byte [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
