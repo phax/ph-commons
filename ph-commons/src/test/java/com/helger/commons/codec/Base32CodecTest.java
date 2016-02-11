@@ -43,6 +43,7 @@ public final class Base32CodecTest
     assertEquals ("IFBEGRCF", aBase32.getEncodedAsString ("ABCDE".getBytes (CCharset.DEFAULT_CHARSET_OBJ)));
     assertEquals ("MZXW6YTB", aBase32.getEncodedAsString ("fooba".getBytes (CCharset.DEFAULT_CHARSET_OBJ)));
     assertEquals ("MZXW6YTBOI======", aBase32.getEncodedAsString ("foobar".getBytes (CCharset.DEFAULT_CHARSET_OBJ)));
+    assertEquals ("AAAAAAAA", aBase32.getEncodedAsString (new byte [] { 0, 0, 0, 0, 0 }));
   }
 
   @Test
@@ -64,6 +65,7 @@ public final class Base32CodecTest
     assertNull (aBase32.getDecodedAsString (null));
     assertEquals ("", aBase32.getDecodedAsString (new byte [0]));
     assertArrayEquals (new byte [] { 0 }, aBase32.getDecoded ("AA".getBytes ()));
+    assertArrayEquals (new byte [] { 0, 0, 0, 0, 0 }, aBase32.getDecoded ("AAAAAAAA".getBytes ()));
     assertEquals ("A", aBase32.getDecodedAsString ("IE".getBytes ()));
     assertEquals ("A", aBase32.getDecodedAsString ("IE======".getBytes ()));
     assertEquals ("f", aBase32.getDecodedAsString ("MY".getBytes ()));

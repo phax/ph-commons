@@ -2,6 +2,7 @@ package com.helger.commons.codec;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -438,7 +439,7 @@ public class Base32Codec implements IByteArrayCodec
   public void encode (@Nullable final byte [] aBuf,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final OutputStream aBAOS) throws IOException
+                      @Nonnull @WillNotClose final OutputStream aOS) throws IOException
   {
     if (aBuf == null || nLen == 0)
       return;
@@ -456,103 +457,106 @@ public class Base32Codec implements IByteArrayCodec
         case 1:
         {
           // Only 1 octet = 8 bits to use; 2 encoded and 6 padding bytes
-          final int nCur = aBuf[nIndex];
+          final int nCur = aBuf[nIndex] & 0xff;
           nIndex += nRest;
           // 8-1*5
-          aBAOS.write (aEncodeTable[(nCur >> 3) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur >> 3) & MASK_5BITS]);
           // 5-3=2
-          aBAOS.write (aEncodeTable[(nCur << 2) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur << 2) & MASK_5BITS]);
           for (int i = 0; i < 6; ++i)
-            aBAOS.write (nPad);
+            aOS.write (nPad);
           nRest = 0;
           break;
         }
         case 2:
         {
           // 2 octets = 16 bits to use; 4 encoded and 4 padding bytes
-          final int nCur = aBuf[nIndex] << 8 | aBuf[nIndex + 1];
+          final int nCur = (aBuf[nIndex] & 0xff) << 8 | (aBuf[nIndex + 1] & 0xff);
           nIndex += nRest;
           // 16-1*5
-          aBAOS.write (aEncodeTable[(nCur >> 11) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur >> 11) & MASK_5BITS]);
           // 16-2*5
-          aBAOS.write (aEncodeTable[(nCur >> 6) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur >> 6) & MASK_5BITS]);
           // 16-3*5
-          aBAOS.write (aEncodeTable[(nCur >> 1) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur >> 1) & MASK_5BITS]);
           // 5-1
-          aBAOS.write (aEncodeTable[(nCur << 4) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur << 4) & MASK_5BITS]);
           for (int i = 0; i < 4; ++i)
-            aBAOS.write (nPad);
+            aOS.write (nPad);
           nRest = 0;
           break;
         }
         case 3:
         {
           // 3 octets = 24 bits to use; 5 encoded and 3 padding bytes
-          final int nCur = aBuf[nIndex] << 16 | aBuf[nIndex + 1] << 8 | aBuf[nIndex + 2];
+          final int nCur = (aBuf[nIndex] & 0xff) << 16 | (aBuf[nIndex + 1] & 0xff) << 8 | (aBuf[nIndex + 2] & 0xff);
           nIndex += nRest;
           // 24-1*5
-          aBAOS.write (aEncodeTable[(nCur >> 19) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur >> 19) & MASK_5BITS]);
           // 24-2*5
-          aBAOS.write (aEncodeTable[(nCur >> 14) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur >> 14) & MASK_5BITS]);
           // 24-3*5
-          aBAOS.write (aEncodeTable[(nCur >> 9) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur >> 9) & MASK_5BITS]);
           // 24-4*5
-          aBAOS.write (aEncodeTable[(nCur >> 4) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur >> 4) & MASK_5BITS]);
           // 5-4
-          aBAOS.write (aEncodeTable[(nCur << 1) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur << 1) & MASK_5BITS]);
           for (int i = 0; i < 3; ++i)
-            aBAOS.write (nPad);
+            aOS.write (nPad);
           nRest = 0;
           break;
         }
         case 4:
         {
           // 4 octets = 32 bits to use; 7 encoded and 1 padding byte
-          final int nCur = aBuf[nIndex] << 24 | aBuf[nIndex + 1] << 16 | aBuf[nIndex + 2] << 8 | aBuf[nIndex + 3];
+          final int nCur = (aBuf[nIndex] & 0xff) << 24 |
+                           (aBuf[nIndex + 1] & 0xff) << 16 |
+                           (aBuf[nIndex + 2] & 0xff) << 8 |
+                           (aBuf[nIndex + 3] & 0xff);
           nIndex += nRest;
           // 32-1*5
-          aBAOS.write (aEncodeTable[(nCur >> 27) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur >> 27) & MASK_5BITS]);
           // 32-2*5
-          aBAOS.write (aEncodeTable[(nCur >> 22) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur >> 22) & MASK_5BITS]);
           // 32-3*5
-          aBAOS.write (aEncodeTable[(nCur >> 17) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur >> 17) & MASK_5BITS]);
           // 32-4*5
-          aBAOS.write (aEncodeTable[(nCur >> 12) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur >> 12) & MASK_5BITS]);
           // 32-5*5
-          aBAOS.write (aEncodeTable[(nCur >> 7) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur >> 7) & MASK_5BITS]);
           // 32-6*5
-          aBAOS.write (aEncodeTable[(nCur >> 2) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(nCur >> 2) & MASK_5BITS]);
           // 5-2
-          aBAOS.write (aEncodeTable[(nCur << 3) & MASK_5BITS]);
-          aBAOS.write (nPad);
+          aOS.write (aEncodeTable[(nCur << 3) & MASK_5BITS]);
+          aOS.write (nPad);
           nRest = 0;
           break;
         }
         default:
         {
           // More than 5 octets = 40 bits to use; 8 encoded bytes
-          final long nCur = (long) aBuf[nIndex] << 32 |
-                            aBuf[nIndex + 1] << 24 |
-                            aBuf[nIndex + 2] << 16 |
-                            aBuf[nIndex + 3] << 8 |
-                            aBuf[nIndex + 4];
+          final long nCur = (long) (aBuf[nIndex] & 0xff) << 32 |
+                            (long) (aBuf[nIndex + 1] & 0xff) << 24 |
+                            (long) (aBuf[nIndex + 2] & 0xff) << 16 |
+                            (long) (aBuf[nIndex + 3] & 0xff) << 8 |
+                            (aBuf[nIndex + 4] & 0xff);
           nIndex += 5;
           // 40-1*5
-          aBAOS.write (aEncodeTable[(int) (nCur >> 35) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(int) (nCur >> 35) & MASK_5BITS]);
           // 40-2*5
-          aBAOS.write (aEncodeTable[(int) (nCur >> 30) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(int) (nCur >> 30) & MASK_5BITS]);
           // 40-3*5
-          aBAOS.write (aEncodeTable[(int) (nCur >> 25) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(int) (nCur >> 25) & MASK_5BITS]);
           // 40-4*5
-          aBAOS.write (aEncodeTable[(int) (nCur >> 20) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(int) (nCur >> 20) & MASK_5BITS]);
           // 40-5*5
-          aBAOS.write (aEncodeTable[(int) (nCur >> 15) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(int) (nCur >> 15) & MASK_5BITS]);
           // 40-6*5
-          aBAOS.write (aEncodeTable[(int) (nCur >> 10) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(int) (nCur >> 10) & MASK_5BITS]);
           // 40-7*5
-          aBAOS.write (aEncodeTable[(int) (nCur >> 5) & MASK_5BITS]);
+          aOS.write (aEncodeTable[(int) (nCur >> 5) & MASK_5BITS]);
           // 40-8*5
-          aBAOS.write (aEncodeTable[(int) nCur & MASK_5BITS]);
+          aOS.write (aEncodeTable[(int) nCur & MASK_5BITS]);
           nRest -= 5;
           break;
         }
@@ -622,16 +626,17 @@ public class Base32Codec implements IByteArrayCodec
     int nIndex = nOfs;
     while (nRest > 0)
     {
-      // Decode at last 8 bytes
+      Arrays.fill (aDecodeBuf, (byte) 0);
+
+      // Decode at maximum 8 bytes
       int nBytesToDecode = nRest > 8 ? 8 : nRest;
       nRest -= nBytesToDecode;
       for (int i = 0; i < nBytesToDecode; ++i)
       {
-        final int n = aBuf[nIndex++];
+        final int n = aBuf[nIndex++] & 0xff;
         if (n == nPad)
         {
           // Padding means end of data
-          aDecodeBuf[i] = 0;
           nBytesToDecode = i;
           break;
         }
