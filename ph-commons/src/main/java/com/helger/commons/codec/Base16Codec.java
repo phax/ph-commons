@@ -1,6 +1,7 @@
 package com.helger.commons.codec;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.annotation.Nonnegative;
@@ -8,6 +9,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
 
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -28,21 +31,19 @@ public class Base16Codec implements IByteArrayCodec, IByteArrayStreamEncoder, IB
     return nLen * 2;
   }
 
-  public void encode (@Nullable final byte [] aDecodedBuffer,
-                      @Nonnegative final int nOfs,
-                      @Nonnegative final int nLen,
+  public void encode (@Nonnull @WillNotClose final InputStream aDecodedIS,
                       @Nonnull @WillNotClose final OutputStream aOS)
   {
-    if (aDecodedBuffer == null || nLen == 0)
-      return;
+    ValueEnforcer.notNull (aDecodedIS, "DecodedInputStream");
+    ValueEnforcer.notNull (aOS, "OutputStream");
 
     try
     {
-      for (int i = 0; i < nLen; ++i)
+      int nByte;
+      while ((nByte = aDecodedIS.read ()) != -1)
       {
-        final byte b = aDecodedBuffer[nOfs + i];
-        aOS.write (StringHelper.getHexChar ((b & 0xf0) >> 4));
-        aOS.write (StringHelper.getHexChar (b & 0x0f));
+        aOS.write (StringHelper.getHexChar ((nByte & 0xf0) >> 4));
+        aOS.write (StringHelper.getHexChar (nByte & 0x0f));
       }
     }
     catch (final IOException ex)
@@ -51,9 +52,57 @@ public class Base16Codec implements IByteArrayCodec, IByteArrayStreamEncoder, IB
     }
   }
 
+  public void encode (@Nullable final byte [] aDecodedBuffer,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      @Nonnull @WillNotClose final OutputStream aOS)
+  {
+    if (aDecodedBuffer == null || nLen == 0)
+      return;
+
+    try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aDecodedBuffer, nOfs, nLen))
+    {
+      encode (aIS, aOS);
+    }
+  }
+
   public int getDecodedLength (final int nLen)
   {
     return nLen / 2;
+  }
+
+  public void decode (@Nonnull @WillNotClose final InputStream aEncodedIS,
+                      @Nonnull @WillNotClose final OutputStream aOS)
+  {
+    ValueEnforcer.notNull (aEncodedIS, "EncodedInputStream");
+    ValueEnforcer.notNull (aOS, "OutputStream");
+
+    try
+    {
+      int nByte;
+      while ((nByte = aEncodedIS.read ()) != -1)
+      {
+        final char cHigh = (char) nByte;
+
+        // Read low byte
+        nByte = aEncodedIS.read ();
+        if (nByte < 0)
+          throw new DecodeException ("Invalid Base16 encoding. Premature end of input");
+        final char cLow = (char) nByte;
+
+        // Combine
+        final int nDecodedValue = StringHelper.getHexByte (cHigh, cLow);
+        if (nDecodedValue < 0)
+          throw new DecodeException ("Invalid Base16 encoding for " + (int) cHigh + " and " + (int) cLow);
+
+        // Write
+        aOS.write (nDecodedValue);
+      }
+    }
+    catch (final IOException ex)
+    {
+      throw new DecodeException ("Failed to decode Base16", ex);
+    }
   }
 
   public void decode (@Nullable final byte [] aEncodedBuffer,
@@ -61,28 +110,12 @@ public class Base16Codec implements IByteArrayCodec, IByteArrayStreamEncoder, IB
                       @Nonnegative final int nLen,
                       @Nonnull @WillNotClose final OutputStream aOS)
   {
-    if (aEncodedBuffer == null || nLen == 0)
+    if (aEncodedBuffer == null)
       return;
 
-    try
+    try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen))
     {
-      for (int i = 0; i < nLen; ++i)
-      {
-        if (i >= nLen - 1)
-          throw new DecodeException ("Invalid Base16 encoding. Premature end of input");
-        final char cHigh = (char) aEncodedBuffer[nOfs + i];
-        final char cLow = (char) aEncodedBuffer[nOfs + i + 1];
-        i++;
-        final int nDecodedValue = StringHelper.getHexByte (cHigh, cLow);
-        if (nDecodedValue < 0)
-          throw new DecodeException ("Invalid Base16 encoding for " + (int) cHigh + " and " + (int) cLow);
-
-        aOS.write (nDecodedValue);
-      }
-    }
-    catch (final IOException ex)
-    {
-      throw new DecodeException ("Failed to decode Base16", ex);
+      decode (aIS, aOS);
     }
   }
 }

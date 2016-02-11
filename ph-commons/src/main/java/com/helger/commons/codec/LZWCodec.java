@@ -263,90 +263,6 @@ public class LZWCodec implements IByteArrayCodec, IByteArrayStreamEncoder, IByte
   public LZWCodec ()
   {}
 
-  public void decode (@Nonnull @WillNotClose final InputStream aEncodedIS,
-                      @Nonnull @WillNotClose final OutputStream aOS)
-  {
-    ValueEnforcer.notNull (aEncodedIS, "EncodedInputStream");
-    ValueEnforcer.notNull (aOS, "OutputStream");
-
-    // Don't close!
-    final NonBlockingBitInputStream aBIS = new NonBlockingBitInputStream (aEncodedIS, ByteOrder.LITTLE_ENDIAN);
-    try
-    {
-      final LZWDecodeDictionary aDict = new LZWDecodeDictionary ();
-      aDict.reset ();
-
-      int nCode = aDict.readCode (aBIS);
-      while (nCode == AbstractLZWDictionary.CODE_CLEARTABLE)
-        nCode = aDict.readCode (aBIS);
-
-      // May be EOF if encoded byte array was empty!
-      if (nCode != AbstractLZWDictionary.CODE_EOF)
-      {
-        byte [] aByteSeq = aDict.getAllBytes (nCode);
-        if (aByteSeq == null)
-          throw new DecodeException ("Failed to resolve initial code " + nCode);
-        aOS.write (aByteSeq);
-        byte [] aPrevByteSeq = aByteSeq;
-        while (true)
-        {
-          nCode = aDict.readCode (aBIS);
-          if (nCode == AbstractLZWDictionary.CODE_EOF)
-            break;
-          if (nCode == AbstractLZWDictionary.CODE_CLEARTABLE)
-          {
-            aDict.reset ();
-
-            nCode = aDict.readCode (aBIS);
-            if (nCode == AbstractLZWDictionary.CODE_EOF)
-              break;
-
-            // upon clear table, don't add something to the table
-            aByteSeq = aDict.getAllBytes (nCode);
-            aOS.write (aByteSeq);
-            aPrevByteSeq = aByteSeq;
-          }
-          else
-          {
-            final int nNextFreeCode = aDict.getNextFreeCode ();
-            if (nCode < nNextFreeCode)
-              aByteSeq = aDict.getAllBytes (nCode);
-            else
-              if (nCode == nNextFreeCode)
-                aByteSeq = ArrayHelper.getConcatenated (aPrevByteSeq, aPrevByteSeq[0]);
-              else
-                throw new DecodeException ("Error decoding LZW: unexpected code " +
-                                           nCode +
-                                           " while next free code is " +
-                                           nNextFreeCode);
-            aOS.write (aByteSeq);
-            aDict.addEntry (ArrayHelper.getConcatenated (aPrevByteSeq, aByteSeq[0]), false);
-            aPrevByteSeq = aByteSeq;
-          }
-        }
-      }
-    }
-    catch (final EOFException ex)
-    {
-      throw new DecodeException ("Unexpected EOF decoding LZW", ex);
-    }
-    catch (final IOException ex)
-    {
-      throw new DecodeException ("Failed to decode LZW", ex);
-    }
-  }
-
-  public void decode (@Nullable final byte [] aEncodedBuffer,
-                      @Nonnegative final int nOfs,
-                      @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final OutputStream aOS)
-  {
-    if (aEncodedBuffer == null)
-      return;
-
-    decode (new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen), aOS);
-  }
-
   public void encode (@Nullable final byte [] aBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
@@ -430,6 +346,93 @@ public class LZWCodec implements IByteArrayCodec, IByteArrayStreamEncoder, IByte
     {
       // Flush but do not close
       StreamHelper.flush (aBOS);
+    }
+  }
+
+  public void decode (@Nonnull @WillNotClose final InputStream aEncodedIS,
+                      @Nonnull @WillNotClose final OutputStream aOS)
+  {
+    ValueEnforcer.notNull (aEncodedIS, "EncodedInputStream");
+    ValueEnforcer.notNull (aOS, "OutputStream");
+
+    // Don't close!
+    final NonBlockingBitInputStream aBIS = new NonBlockingBitInputStream (aEncodedIS, ByteOrder.LITTLE_ENDIAN);
+    try
+    {
+      final LZWDecodeDictionary aDict = new LZWDecodeDictionary ();
+      aDict.reset ();
+
+      int nCode = aDict.readCode (aBIS);
+      while (nCode == AbstractLZWDictionary.CODE_CLEARTABLE)
+        nCode = aDict.readCode (aBIS);
+
+      // May be EOF if encoded byte array was empty!
+      if (nCode != AbstractLZWDictionary.CODE_EOF)
+      {
+        byte [] aByteSeq = aDict.getAllBytes (nCode);
+        if (aByteSeq == null)
+          throw new DecodeException ("Failed to resolve initial code " + nCode);
+        aOS.write (aByteSeq);
+        byte [] aPrevByteSeq = aByteSeq;
+        while (true)
+        {
+          nCode = aDict.readCode (aBIS);
+          if (nCode == AbstractLZWDictionary.CODE_EOF)
+            break;
+          if (nCode == AbstractLZWDictionary.CODE_CLEARTABLE)
+          {
+            aDict.reset ();
+
+            nCode = aDict.readCode (aBIS);
+            if (nCode == AbstractLZWDictionary.CODE_EOF)
+              break;
+
+            // upon clear table, don't add something to the table
+            aByteSeq = aDict.getAllBytes (nCode);
+            aOS.write (aByteSeq);
+            aPrevByteSeq = aByteSeq;
+          }
+          else
+          {
+            final int nNextFreeCode = aDict.getNextFreeCode ();
+            if (nCode < nNextFreeCode)
+              aByteSeq = aDict.getAllBytes (nCode);
+            else
+              if (nCode == nNextFreeCode)
+                aByteSeq = ArrayHelper.getConcatenated (aPrevByteSeq, aPrevByteSeq[0]);
+              else
+                throw new DecodeException ("Error decoding LZW: unexpected code " +
+                                           nCode +
+                                           " while next free code is " +
+                                           nNextFreeCode);
+            aOS.write (aByteSeq);
+            aDict.addEntry (ArrayHelper.getConcatenated (aPrevByteSeq, aByteSeq[0]), false);
+            aPrevByteSeq = aByteSeq;
+          }
+        }
+      }
+    }
+    catch (final EOFException ex)
+    {
+      throw new DecodeException ("Unexpected EOF decoding LZW", ex);
+    }
+    catch (final IOException ex)
+    {
+      throw new DecodeException ("Failed to decode LZW", ex);
+    }
+  }
+
+  public void decode (@Nullable final byte [] aEncodedBuffer,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      @Nonnull @WillNotClose final OutputStream aOS)
+  {
+    if (aEncodedBuffer == null)
+      return;
+
+    try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen))
+    {
+      decode (aIS, aOS);
     }
   }
 }
