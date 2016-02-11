@@ -31,7 +31,7 @@ import com.helger.commons.charset.CharsetManager;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IByteArrayDecoder extends IDecoder <byte []>
+public interface IByteArrayDecoder extends IDecoder <byte [], byte []>
 {
   @Nonnegative
   default int getDecodedLength (@Nonnegative final int nLen)

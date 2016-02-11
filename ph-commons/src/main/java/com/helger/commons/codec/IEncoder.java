@@ -21,12 +21,14 @@ import javax.annotation.Nullable;
 /**
  * The most basic encoding interface
  *
- * @param <DATATYPE>
- *        data type
  * @author Philip Helger
+ * @param <SRCTYPE>
+ *        Source data type
+ * @param <DSTTYPE>
+ *        Destination data type
  */
 @FunctionalInterface
-public interface IEncoder <DATATYPE>
+public interface IEncoder <SRCTYPE, DSTTYPE>
 {
   /**
    * Encode the passed source object
@@ -38,5 +40,5 @@ public interface IEncoder <DATATYPE>
    *         In case something goes wrong
    */
   @Nullable
-  DATATYPE getEncoded (@Nullable DATATYPE aInput);
+  DSTTYPE getEncoded (@Nullable SRCTYPE aInput);
 }

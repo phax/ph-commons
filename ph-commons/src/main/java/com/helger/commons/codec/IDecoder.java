@@ -21,12 +21,14 @@ import javax.annotation.Nullable;
 /**
  * The most basic decoding interface
  *
- * @param <DATATYPE>
- *        data type
  * @author Philip Helger
+ * @param <SRCTYPE>
+ *        Source data type
+ * @param <DSTTYPE>
+ *        Destination data type
  */
 @FunctionalInterface
-public interface IDecoder <DATATYPE>
+public interface IDecoder <SRCTYPE, DSTTYPE>
 {
   /**
    * Decode the passed source object
@@ -38,5 +40,5 @@ public interface IDecoder <DATATYPE>
    *         in case something goes wrong
    */
   @Nullable
-  DATATYPE getDecoded (@Nullable DATATYPE aInput);
+  DSTTYPE getDecoded (@Nullable SRCTYPE aInput);
 }

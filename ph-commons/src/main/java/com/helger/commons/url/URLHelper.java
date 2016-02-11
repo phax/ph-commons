@@ -448,7 +448,8 @@ public final class URLHelper
    * @return the corresponding {@link IURLData} representation of the passed URL
    */
   @Nonnull
-  public static IURLData getAsURLData (@Nonnull final String sHref, @Nullable final IDecoder <String> aParameterDecoder)
+  public static IURLData getAsURLData (@Nonnull final String sHref,
+                                       @Nullable final IDecoder <String, String> aParameterDecoder)
   {
     ValueEnforcer.notNull (sHref, "Href");
 
@@ -508,7 +509,7 @@ public final class URLHelper
   @Nonnull
   @ReturnsMutableCopy
   public static Map <String, String> getQueryStringAsMap (@Nullable final String sQueryString,
-                                                          @Nullable final IDecoder <String> aParameterDecoder)
+                                                          @Nullable final IDecoder <String, String> aParameterDecoder)
   {
     final Map <String, String> aMap = new LinkedHashMap <> ();
     if (StringHelper.hasText (sQueryString))
@@ -635,7 +636,7 @@ public final class URLHelper
 
   @Nullable
   public static String getQueryParametersAsString (@Nullable final Map <String, String> aQueryParams,
-                                                   @Nullable final IEncoder <String> aQueryParameterEncoder)
+                                                   @Nullable final IEncoder <String, String> aQueryParameterEncoder)
   {
     if (CollectionHelper.isEmpty (aQueryParams))
       return null;
@@ -686,7 +687,7 @@ public final class URLHelper
   public static String getURLString (@Nullable final String sPath,
                                      @Nullable final Map <String, String> aQueryParams,
                                      @Nullable final String sAnchor,
-                                     @Nullable final IEncoder <String> aQueryParameterEncoder)
+                                     @Nullable final IEncoder <String, String> aQueryParameterEncoder)
   {
     return getURLString (sPath, getQueryParametersAsString (aQueryParams, aQueryParameterEncoder), sAnchor);
   }
@@ -711,8 +712,8 @@ public final class URLHelper
                                      @Nullable final String sAnchor,
                                      @Nullable final Charset aParameterCharset)
   {
-    final IEncoder <String> aQueryParameterEncoder = aParameterCharset == null ? null
-                                                                               : new URLParameterEncoder (aParameterCharset);
+    final IEncoder <String, String> aQueryParameterEncoder = aParameterCharset == null ? null
+                                                                                       : new URLParameterEncoder (aParameterCharset);
     return getURLString (sPath, getQueryParametersAsString (aQueryParams, aQueryParameterEncoder), sAnchor);
   }
 
@@ -1057,7 +1058,7 @@ public final class URLHelper
    */
   @Nonnull
   public static String getApplicationFormEncoded (@Nullable final Map <String, String> aParams,
-                                                  @Nullable final IEncoder <String> aParameterEncoder)
+                                                  @Nullable final IEncoder <String, String> aParameterEncoder)
   {
     if (CollectionHelper.isEmpty (aParams))
       return "";

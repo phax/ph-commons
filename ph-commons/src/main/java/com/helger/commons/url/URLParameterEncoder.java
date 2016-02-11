@@ -29,7 +29,7 @@ import com.helger.commons.codec.IEncoder;
  *
  * @author Philip Helger
  */
-public class URLParameterEncoder implements IEncoder <String>
+public class URLParameterEncoder implements IEncoder <String, String>
 {
   private final Charset m_aCharset;
 

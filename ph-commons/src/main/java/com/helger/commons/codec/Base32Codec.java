@@ -2,7 +2,6 @@ package com.helger.commons.codec;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Arrays;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -563,7 +562,7 @@ public class Base32Codec implements IByteArrayCodec, IByteArrayStreamEncoder, IB
       }
       catch (final IOException ex)
       {
-        throw new EncodeException ("Error encoding Base32", ex);
+        throw new EncodeException ("Failed to encode Base32", ex);
       }
     }
   }
@@ -590,8 +589,6 @@ public class Base32Codec implements IByteArrayCodec, IByteArrayStreamEncoder, IB
     int nIndex = nOfs;
     while (nRest > 0)
     {
-      Arrays.fill (aDecodeBuf, (byte) 0);
-
       // Decode at maximum 8 bytes
       int nBytesToDecode = nRest > 8 ? 8 : nRest;
       nRest -= nBytesToDecode;
@@ -650,7 +647,7 @@ public class Base32Codec implements IByteArrayCodec, IByteArrayStreamEncoder, IB
       }
       catch (final IOException ex)
       {
-        throw new DecodeException ("Error decoding Base32", ex);
+        throw new DecodeException ("Failed to decode Base32", ex);
       }
     }
   }

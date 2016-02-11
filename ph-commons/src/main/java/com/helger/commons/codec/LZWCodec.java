@@ -332,7 +332,7 @@ public class LZWCodec implements IByteArrayCodec, IByteArrayStreamEncoder, IByte
     }
     catch (final IOException ex)
     {
-      throw new DecodeException ("Error decoding LZW", ex);
+      throw new DecodeException ("Failed to decode LZW", ex);
     }
   }
 
@@ -424,7 +424,7 @@ public class LZWCodec implements IByteArrayCodec, IByteArrayStreamEncoder, IByte
     }
     catch (final Throwable t)
     {
-      throw new EncodeException ("Error encoding LZW", t);
+      throw new EncodeException ("Failed to encode LZW", t);
     }
     finally
     {

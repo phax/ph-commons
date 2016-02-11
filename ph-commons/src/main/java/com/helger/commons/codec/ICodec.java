@@ -23,10 +23,10 @@ import javax.annotation.Nullable;
  * Interface for a single encoder + decoder.
  *
  * @param <DATATYPE>
- *        data type
+ *        data type to be encoded and decoded
  * @author Philip Helger
  */
-public interface ICodec <DATATYPE> extends IEncoder <DATATYPE>, IDecoder <DATATYPE>
+public interface ICodec <DATATYPE> extends IEncoder <DATATYPE, DATATYPE>, IDecoder <DATATYPE, DATATYPE>
 {
   @Nonnull
   static <T> ICodec <T> identity ()
