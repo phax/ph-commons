@@ -32,10 +32,19 @@ public interface IConvertibleTrait
   }
 
   /**
+   * @return <code>true</code> if the value is not <code>null</code>. Same as
+   *         <code>getValue()!=null</code>.
+   */
+  default boolean hasValue ()
+  {
+    return getValue () != null;
+  }
+
+  /**
    * @return <code>true</code> if the value is <code>null</code>. Same as
    *         <code>getValue()==null</code>.
    */
-  default boolean isNullValue ()
+  default boolean hasNoValue ()
   {
     return getValue () == null;
   }
@@ -386,13 +395,13 @@ public interface IConvertibleTrait
 
   /**
    * Convert the passed object to a convertible object :)
-   * 
+   *
    * @param o
-   *        Source object.
+   *        Source object. May be <code>null</code>.
    * @return The convertible object
    */
   @Nonnull
-  static IConvertibleTrait wrap (final Object o)
+  static IConvertibleTrait wrap (@Nullable final Object o)
   {
     return () -> o;
   }
