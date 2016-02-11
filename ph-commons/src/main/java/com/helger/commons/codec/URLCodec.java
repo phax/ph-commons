@@ -24,6 +24,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.string.StringHelper;
@@ -33,10 +34,10 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
+@NotThreadSafe
 public class URLCodec implements IByteArrayCodec, IByteArrayStreamEncoder, IByteArrayStreamDecoder
 {
   private static final byte ESCAPE_CHAR = '%';
-
   private static final byte SPACE = ' ';
   private static final byte PLUS = '+';
 
@@ -64,6 +65,9 @@ public class URLCodec implements IByteArrayCodec, IByteArrayStreamEncoder, IByte
     PRINTABLE_CHARS.set (SPACE);
   }
 
+  /**
+   * @return A copy of the default bit set to be used.
+   */
   @Nonnull
   @ReturnsMutableCopy
   public static BitSet getDefaultPrintableChars ()
@@ -102,7 +106,7 @@ public class URLCodec implements IByteArrayCodec, IByteArrayStreamEncoder, IByte
    * @param b
    *        byte to encode
    * @param aOS
-   *        the buffer to write to
+   *        the output stream to write to
    * @throws IOException
    *         In case writing to the OutputStream failed
    */
@@ -143,7 +147,7 @@ public class URLCodec implements IByteArrayCodec, IByteArrayStreamEncoder, IByte
     }
     catch (final IOException ex)
     {
-      throw new EncodeException ("Failed to URL encode", ex);
+      throw new EncodeException ("Failed to encode URL", ex);
     }
   }
 

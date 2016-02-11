@@ -82,9 +82,8 @@ public enum EMimeQuoting
     public String getQuotedString (@Nonnull @Nonempty final String sUnquotedString)
     {
       // Use a special BitSet
-      return QuotedPrintableCodec.getEncodedQuotedPrintableString (PRINTABLE_QUOTED_PRINTABLE,
-                                                                   sUnquotedString,
-                                                                   CCharset.CHARSET_UTF_8_OBJ);
+      return new QuotedPrintableCodec (PRINTABLE_QUOTED_PRINTABLE).getEncodedAsString (sUnquotedString,
+                                                                                       CCharset.CHARSET_UTF_8_OBJ);
     }
 
     @Override
@@ -92,7 +91,8 @@ public enum EMimeQuoting
     @Nonempty
     public String getUnquotedString (@Nonnull @Nonempty final String sQuotedString)
     {
-      return QuotedPrintableCodec.getDecodedQuotedPrintableString (sQuotedString, CCharset.CHARSET_UTF_8_OBJ);
+      // Use default BitSet for decoding!
+      return new QuotedPrintableCodec ().getDecodedAsString (sQuotedString, CCharset.CHARSET_UTF_8_OBJ);
     }
   },
 

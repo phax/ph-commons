@@ -100,8 +100,8 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
     PRINTABLE_CHARS.set ('~');
   }
 
-  private static final byte BLANK = 32;
-  private static final byte UNDERSCORE = 95;
+  private static final byte BLANK = ' ';
+  private static final byte UNDERSCORE = '_';
 
   /**
    * The default charset used for string decoding and encoding.
@@ -172,7 +172,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
     if (aDecodedBuffer == null)
       return null;
 
-    final byte [] data = QuotedPrintableCodec.getEncodedQuotedPrintable (PRINTABLE_CHARS, aDecodedBuffer, nOfs, nLen);
+    final byte [] data = new QuotedPrintableCodec (PRINTABLE_CHARS).getEncoded (aDecodedBuffer, nOfs, nLen);
     if (m_bEncodeBlanks)
       for (int i = 0; i < data.length; i++)
         if (data[i] == BLANK)
@@ -203,14 +203,16 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
       for (int i = 0; i < nLen; i++)
       {
         final byte b = aEncodedBuffer[nOfs + i];
-        if (b != UNDERSCORE)
-          tmp[i] = b;
-        else
+        if (b == UNDERSCORE)
           tmp[i] = BLANK;
+        else
+          tmp[i] = b;
       }
-      return QuotedPrintableCodec.getDecodedQuotedPrintable (tmp);
+      // Use default BitSet for decoding
+      return new QuotedPrintableCodec ().getDecoded (tmp);
     }
-    return QuotedPrintableCodec.getDecodedQuotedPrintable (aEncodedBuffer, nOfs, nLen);
+    // Use default BitSet for decoding
+    return new QuotedPrintableCodec ().getDecoded (aEncodedBuffer, nOfs, nLen);
   }
 
   /**

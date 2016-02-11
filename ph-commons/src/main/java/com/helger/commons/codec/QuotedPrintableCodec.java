@@ -16,19 +16,17 @@
  */
 package com.helger.commons.codec;
 
-import java.nio.charset.Charset;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.BitSet;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillNotClose;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CCharset;
-import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -37,11 +35,11 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class QuotedPrintableCodec implements IByteArrayCodec
+public class QuotedPrintableCodec implements IByteArrayCodec, IByteArrayStreamEncoder, IByteArrayStreamDecoder
 {
   private static final byte ESCAPE_CHAR = '=';
-  private static final byte TAB = 9;
-  private static final byte SPACE = 32;
+  private static final byte TAB = '\t';
+  private static final byte SPACE = ' ';
 
   /**
    * BitSet of printable characters as defined in RFC 1521.
@@ -58,12 +56,6 @@ public class QuotedPrintableCodec implements IByteArrayCodec
   }
 
   /**
-   * Default constructor with the UTF-8 charset.
-   */
-  public QuotedPrintableCodec ()
-  {}
-
-  /**
    * @return A copy of the default bit set to be used.
    */
   @Nonnull
@@ -73,104 +65,85 @@ public class QuotedPrintableCodec implements IByteArrayCodec
     return (BitSet) PRINTABLE_CHARS.clone ();
   }
 
+  private final BitSet m_aPrintableChars;
+
+  /**
+   * Default constructor with the UTF-8 charset.
+   */
+  public QuotedPrintableCodec ()
+  {
+    this (PRINTABLE_CHARS);
+  }
+
+  public QuotedPrintableCodec (@Nonnull final BitSet aPrintableChars)
+  {
+    m_aPrintableChars = (BitSet) aPrintableChars.clone ();
+  }
+
+  /**
+   * @return A copy of the default bit set to be used. Never <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public BitSet getPrintableChars ()
+  {
+    return (BitSet) m_aPrintableChars.clone ();
+  }
+
   /**
    * Encodes byte into its quoted-printable representation.
    *
    * @param b
    *        byte to encode
-   * @param aBAOS
-   *        the buffer to write to
+   * @param aOS
+   *        the output stream to write to
+   * @throws IOException
+   *         In case writing to the OutputStream failed
    */
   public static final void writeEncodeQuotedPrintableByte (final int b,
-                                                           @Nonnull final NonBlockingByteArrayOutputStream aBAOS)
+                                                           @Nonnull final OutputStream aOS) throws IOException
   {
     final char cHigh = StringHelper.getHexCharUpperCase ((b >> 4) & 0xF);
     final char cLow = StringHelper.getHexCharUpperCase (b & 0xF);
-    aBAOS.write (ESCAPE_CHAR);
-    aBAOS.write (cHigh);
-    aBAOS.write (cLow);
+    aOS.write (ESCAPE_CHAR);
+    aOS.write (cHigh);
+    aOS.write (cLow);
   }
 
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getEncodedQuotedPrintable (@Nonnull final BitSet aPrintableBitSet,
-                                                   @Nullable final byte [] aDecodedBuffer)
+  public void encode (@Nullable final byte [] aDecodedBuffer,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      @Nonnull @WillNotClose final OutputStream aOS)
   {
-    ValueEnforcer.notNull (aPrintableBitSet, "PrintableBitSet");
-    if (aDecodedBuffer == null)
-      return null;
+    if (aDecodedBuffer == null || nLen == 0)
+      return;
 
-    return getEncodedQuotedPrintable (aPrintableBitSet, aDecodedBuffer, 0, aDecodedBuffer.length);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getEncodedQuotedPrintable (@Nonnull final BitSet aPrintableBitSet,
-                                                   @Nullable final byte [] aDecodedBuffer,
-                                                   @Nonnegative final int nOfs,
-                                                   @Nonnegative final int nLen)
-  {
-    ValueEnforcer.notNull (aPrintableBitSet, "PrintableBitSet");
-    if (aDecodedBuffer == null)
-      return null;
-
-    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (nLen * 2);
-    for (int i = 0; i < nLen; ++i)
+    try
     {
-      final int b = aDecodedBuffer[nOfs + i] & 0xff;
-      if (aPrintableBitSet.get (b))
-        aBAOS.write (b);
-      else
-        writeEncodeQuotedPrintableByte (b, aBAOS);
+      for (int i = 0; i < nLen; ++i)
+      {
+        final int b = aDecodedBuffer[nOfs + i] & 0xff;
+        if (m_aPrintableChars.get (b))
+          aOS.write (b);
+        else
+          writeEncodeQuotedPrintableByte (b, aOS);
+      }
     }
-    return aBAOS.toByteArray ();
+    catch (final IOException ex)
+    {
+      throw new EncodeException ("Failed to encode quoted-printable", ex);
+    }
   }
 
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getEncodedQuotedPrintable (@Nullable final byte [] aDecodedBuffer)
+  public void decode (@Nullable final byte [] aEncodedBuffer,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      @Nonnull @WillNotClose final OutputStream aOS)
   {
-    return getEncodedQuotedPrintable (PRINTABLE_CHARS, aDecodedBuffer);
-  }
+    if (aEncodedBuffer == null || nLen == 0)
+      return;
 
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getEncodedQuotedPrintable (@Nullable final byte [] aDecodedBuffer,
-                                                   @Nonnegative final int nOfs,
-                                                   @Nonnegative final int nLen)
-  {
-    return getEncodedQuotedPrintable (PRINTABLE_CHARS, aDecodedBuffer, nOfs, nLen);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen)
-  {
-    return getEncodedQuotedPrintable (aDecodedBuffer, nOfs, nLen);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getDecodedQuotedPrintable (@Nullable final byte [] aEncodedBuffer)
-  {
-    if (aEncodedBuffer == null)
-      return null;
-
-    return getDecodedQuotedPrintable (aEncodedBuffer, 0, aEncodedBuffer.length);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getDecodedQuotedPrintable (@Nullable final byte [] aEncodedBuffer,
-                                                   @Nonnegative final int nOfs,
-                                                   @Nonnegative final int nLen)
-  {
-    if (aEncodedBuffer == null)
-      return null;
-
-    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
+    try
     {
       for (int i = 0; i < nLen; i++)
       {
@@ -184,77 +157,19 @@ public class QuotedPrintableCodec implements IByteArrayCodec
           i += 2;
           final int nDecodedValue = StringHelper.getHexByte (cHigh, cLow);
           if (nDecodedValue < 0)
-            throw new DecodeException ("Invalid quoted-printable encoding for " + cHigh + cLow);
+            throw new DecodeException ("Invalid quoted-printable encoding for " + (int) cHigh + " and " + (int) cLow);
 
-          aBAOS.write (nDecodedValue);
+          aOS.write (nDecodedValue);
         }
         else
         {
-          aBAOS.write (b);
+          aOS.write (b);
         }
       }
-      return aBAOS.toByteArray ();
     }
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getDecodedQuotedPrintable (@Nullable final String sEncodedText)
-  {
-    if (sEncodedText == null)
-      return null;
-
-    return getDecodedQuotedPrintable (CharsetManager.getAsBytes (sEncodedText, CCharset.CHARSET_US_ASCII_OBJ));
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen)
-  {
-    return getDecodedQuotedPrintable (aEncodedBuffer, nOfs, nLen);
-  }
-
-  @Nullable
-  public static String getEncodedQuotedPrintableString (@Nonnull final BitSet aPrintableBitSet,
-                                                        @Nonnull final byte [] aDecodedBuffer)
-  {
-    final byte [] aEncodedBytes = getEncodedQuotedPrintable (aPrintableBitSet, aDecodedBuffer);
-    return aEncodedBytes == null ? null : CharsetManager.getAsString (aEncodedBytes, CCharset.CHARSET_US_ASCII_OBJ);
-  }
-
-  @Nullable
-  public static String getEncodedQuotedPrintableString (@Nonnull final byte [] aDecodedBuffer)
-  {
-    return getEncodedQuotedPrintableString (PRINTABLE_CHARS, aDecodedBuffer);
-  }
-
-  @Nullable
-  public static String getEncodedQuotedPrintableString (@Nonnull final BitSet aPrintableBitSet,
-                                                        @Nullable final String sDecodedText,
-                                                        @Nonnull final Charset aSourceCharset)
-  {
-    if (StringHelper.hasNoText (sDecodedText))
-      return sDecodedText;
-
-    return getEncodedQuotedPrintableString (aPrintableBitSet, CharsetManager.getAsBytes (sDecodedText, aSourceCharset));
-  }
-
-  @Nullable
-  public static String getEncodedQuotedPrintableString (@Nullable final String sDecodedText,
-                                                        @Nonnull final Charset aSourceCharset)
-  {
-    return getEncodedQuotedPrintableString (PRINTABLE_CHARS, sDecodedText, aSourceCharset);
-  }
-
-  @Nullable
-  public static String getDecodedQuotedPrintableString (@Nullable final String sEncodedText,
-                                                        @Nonnull final Charset aDestCharset)
-  {
-    if (StringHelper.hasNoText (sEncodedText))
-      return sEncodedText;
-
-    return CharsetManager.getAsString (getDecodedQuotedPrintable (sEncodedText), aDestCharset);
+    catch (final IOException ex)
+    {
+      throw new DecodeException ("Failed to decode quoted-printable", ex);
+    }
   }
 }
