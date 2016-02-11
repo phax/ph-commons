@@ -11,9 +11,10 @@ import com.helger.commons.typeconvert.TypeConverterException;
 
 /**
  * A generic convert Object to anything with convenience API.
- * 
+ *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IConvertibleTrait
 {
   @Nullable
@@ -381,5 +382,18 @@ public interface IConvertibleTrait
   default java.sql.Timestamp getAsTimestamp () throws TypeConverterException
   {
     return getConvertedValue (java.sql.Timestamp.class);
+  }
+
+  /**
+   * Convert the passed object to a convertible object :)
+   * 
+   * @param o
+   *        Source object.
+   * @return The convertible object
+   */
+  @Nonnull
+  static IConvertibleTrait wrap (final Object o)
+  {
+    return () -> o;
   }
 }
