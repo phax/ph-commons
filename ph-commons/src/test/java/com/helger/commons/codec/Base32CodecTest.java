@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -30,6 +31,13 @@ public final class Base32CodecTest
       assertEquals (16, aBase32.getEncodedLength (i));
     for (int i = 11; i <= 15; ++i)
       assertEquals (24, aBase32.getEncodedLength (i));
+
+    for (int i = 0; i < 256; ++i)
+    {
+      final byte [] aBuf = new byte [i];
+      Arrays.fill (aBuf, (byte) i);
+      assertEquals (aBase32.getEncoded (aBuf).length, aBase32.getEncodedLength (i));
+    }
   }
 
   @Test
