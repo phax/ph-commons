@@ -44,6 +44,19 @@ public final class Base32CodecTest
     assertEquals ("MZXW6YTB", aBase32.getEncodedAsString ("fooba".getBytes (CCharset.DEFAULT_CHARSET_OBJ)));
     assertEquals ("MZXW6YTBOI======", aBase32.getEncodedAsString ("foobar".getBytes (CCharset.DEFAULT_CHARSET_OBJ)));
     assertEquals ("AAAAAAAA", aBase32.getEncodedAsString (new byte [] { 0, 0, 0, 0, 0 }));
+
+    aBase32.setAddPaddding (false);
+    assertEquals ("AA", aBase32.getEncodedAsString (new byte [] { 0 }));
+    assertEquals ("IE", aBase32.getEncodedAsString ("A".getBytes (CCharset.DEFAULT_CHARSET_OBJ)));
+    assertEquals ("MY", aBase32.getEncodedAsString ("f".getBytes (CCharset.DEFAULT_CHARSET_OBJ)));
+    assertEquals ("IFBA", aBase32.getEncodedAsString ("AB".getBytes (CCharset.DEFAULT_CHARSET_OBJ)));
+    assertEquals ("MZXW6", aBase32.getEncodedAsString ("foo".getBytes (CCharset.DEFAULT_CHARSET_OBJ)));
+    assertEquals ("MZXW6YQ", aBase32.getEncodedAsString ("foob".getBytes (CCharset.DEFAULT_CHARSET_OBJ)));
+    assertEquals ("ORSXG5A", aBase32.getEncodedAsString ("test".getBytes (CCharset.DEFAULT_CHARSET_OBJ)));
+    assertEquals ("IFBEGRCF", aBase32.getEncodedAsString ("ABCDE".getBytes (CCharset.DEFAULT_CHARSET_OBJ)));
+    assertEquals ("MZXW6YTB", aBase32.getEncodedAsString ("fooba".getBytes (CCharset.DEFAULT_CHARSET_OBJ)));
+    assertEquals ("MZXW6YTBOI", aBase32.getEncodedAsString ("foobar".getBytes (CCharset.DEFAULT_CHARSET_OBJ)));
+    assertEquals ("AAAAAAAA", aBase32.getEncodedAsString (new byte [] { 0, 0, 0, 0, 0 }));
   }
 
   @Test

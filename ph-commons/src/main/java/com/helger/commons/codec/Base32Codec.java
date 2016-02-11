@@ -324,23 +324,21 @@ public class Base32Codec implements IByteArrayCodec
    */
   private static final byte DEFAULT_PAD = '=';
 
-  private final byte m_nPad;
+  private byte m_nPad = DEFAULT_PAD;
+  private boolean m_bAddPadding = true;
 
   /**
    * Encode table to use.
    */
-  private final byte [] m_aEncodeTable;
+  private byte [] m_aEncodeTable;
 
   /**
    * Decode table to use.
    */
-  private final byte [] m_aDecodeTable;
+  private byte [] m_aDecodeTable;
 
   /**
    * Creates a Base32 codec used for decoding and encoding.
-   * <p>
-   * When encoding the line length is 0 (no chunking).
-   * </p>
    */
   public Base32Codec ()
   {
@@ -349,46 +347,13 @@ public class Base32Codec implements IByteArrayCodec
 
   /**
    * Creates a Base32 codec used for decoding and encoding.
-   * <p>
-   * When encoding the line length is 0 (no chunking).
-   * </p>
-   *
-   * @param nPad
-   *        byte used as padding byte.
-   */
-  public Base32Codec (final byte nPad)
-  {
-    this (false, nPad);
-  }
-
-  /**
-   * Creates a Base32 codec used for decoding and encoding.
-   * <p>
-   * When encoding the line length is 0 (no chunking).
-   * </p>
    *
    * @param bUseHex
-   *        if {@code true} then use Base32 Hex alphabet
+   *        <code>true</code> to use hex encoding, <code>false</code> to use
+   *        regular encoding.
    */
   public Base32Codec (final boolean bUseHex)
   {
-    this (bUseHex, DEFAULT_PAD);
-  }
-
-  /**
-   * Creates a Base32 codec used for decoding and encoding.
-   * <p>
-   * When encoding the line length is 0 (no chunking).
-   * </p>
-   *
-   * @param bUseHex
-   *        if {@code true} then use Base32 Hex alphabet
-   * @param nPad
-   *        byte used as padding byte.
-   */
-  public Base32Codec (final boolean bUseHex, final byte nPad)
-  {
-    m_nPad = nPad;
     if (bUseHex)
     {
       m_aEncodeTable = HEX_ENCODE_TABLE;
@@ -399,20 +364,27 @@ public class Base32Codec implements IByteArrayCodec
       m_aEncodeTable = ENCODE_TABLE;
       m_aDecodeTable = DECODE_TABLE;
     }
+  }
 
-    if (isInAlphabet (nPad) || isWhiteSpace (nPad))
-      throw new IllegalArgumentException ("pad must not be in alphabet or whitespace");
+  public boolean isHexEncoding ()
+  {
+    return m_aEncodeTable == HEX_ENCODE_TABLE;
+  }
+
+  public byte getPad ()
+  {
+    return m_nPad;
   }
 
   /**
-   * Returns whether or not the {@code octet} is in the Base32 alphabet.
+   * Returns whether or not the {@code nOctet} is in the Base32 alphabet.
    *
    * @param nOctet
    *        The value to test
    * @return {@code true} if the value is defined in the the Base32 alphabet
    *         {@code false} otherwise.
    */
-  private boolean isInAlphabet (final byte nOctet)
+  private boolean _isInAlphabet (final byte nOctet)
   {
     return nOctet >= 0 && nOctet < m_aDecodeTable.length && m_aDecodeTable[nOctet] != -1;
   }
@@ -426,9 +398,30 @@ public class Base32Codec implements IByteArrayCodec
    * @return <code>true</code> if byte is whitespace, <code>false</code>
    *         otherwise
    */
-  private static boolean isWhiteSpace (final byte nByte)
+  private static boolean _isWhiteSpace (final byte nByte)
   {
     return nByte == ' ' || nByte == '\n' || nByte == '\r' || nByte == '\t';
+  }
+
+  @Nonnull
+  public Base32Codec setPad (final byte nPad)
+  {
+    if (_isInAlphabet (nPad) || _isWhiteSpace (nPad))
+      throw new IllegalArgumentException ("pad must not be in alphabet or whitespace");
+    m_nPad = nPad;
+    return this;
+  }
+
+  public boolean isAddPadding ()
+  {
+    return m_bAddPadding;
+  }
+
+  @Nonnull
+  public Base32Codec setAddPaddding (final boolean bAddPadding)
+  {
+    m_bAddPadding = bAddPadding;
+    return this;
   }
 
   public static int getEncodedLength (final int nLen)
@@ -463,8 +456,9 @@ public class Base32Codec implements IByteArrayCodec
           aOS.write (aEncodeTable[(nCur >> 3) & MASK_5BITS]);
           // 5-3=2
           aOS.write (aEncodeTable[(nCur << 2) & MASK_5BITS]);
-          for (int i = 0; i < 6; ++i)
-            aOS.write (nPad);
+          if (m_bAddPadding)
+            for (int i = 0; i < 6; ++i)
+              aOS.write (nPad);
           nRest = 0;
           break;
         }
@@ -481,8 +475,9 @@ public class Base32Codec implements IByteArrayCodec
           aOS.write (aEncodeTable[(nCur >> 1) & MASK_5BITS]);
           // 5-1
           aOS.write (aEncodeTable[(nCur << 4) & MASK_5BITS]);
-          for (int i = 0; i < 4; ++i)
-            aOS.write (nPad);
+          if (m_bAddPadding)
+            for (int i = 0; i < 4; ++i)
+              aOS.write (nPad);
           nRest = 0;
           break;
         }
@@ -501,8 +496,9 @@ public class Base32Codec implements IByteArrayCodec
           aOS.write (aEncodeTable[(nCur >> 4) & MASK_5BITS]);
           // 5-4
           aOS.write (aEncodeTable[(nCur << 1) & MASK_5BITS]);
-          for (int i = 0; i < 3; ++i)
-            aOS.write (nPad);
+          if (m_bAddPadding)
+            for (int i = 0; i < 3; ++i)
+              aOS.write (nPad);
           nRest = 0;
           break;
         }
@@ -528,7 +524,8 @@ public class Base32Codec implements IByteArrayCodec
           aOS.write (aEncodeTable[(nCur >> 2) & MASK_5BITS]);
           // 5-2
           aOS.write (aEncodeTable[(nCur << 3) & MASK_5BITS]);
-          aOS.write (nPad);
+          if (m_bAddPadding)
+            aOS.write (nPad);
           nRest = 0;
           break;
         }

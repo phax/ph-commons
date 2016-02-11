@@ -84,7 +84,8 @@ public final class IByteArrayCodecTest
   {
     _testCodec (new RFC1522BCodec ());
     _testCodec (new RFC1522QCodec ());
-    _testCodec (new Base32Codec ());
+    _testCodec (new Base32Codec (true));
+    _testCodec (new Base32Codec (false));
     _testCodec (new Base64Codec ());
     _testCodec (new FlateCodec ());
     _testCodec (new LZWCodec ());
