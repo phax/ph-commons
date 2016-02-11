@@ -22,7 +22,7 @@ import com.helger.commons.math.MathHelper;
  * @see "https://tools.ietf.org/html/rfc4648"
  * @author Philip Helger
  */
-public class Base32Codec implements IByteArrayEncoder
+public class Base32Codec implements IByteArrayCodec
 {
   /**
    * This array is a lookup table that translates Unicode characters drawn from
@@ -420,13 +420,19 @@ public class Base32Codec implements IByteArrayEncoder
    * Checks if a byte value is whitespace or not. Whitespace is taken to mean:
    * space, tab, CR, LF
    *
-   * @param byteToCheck
+   * @param nByte
    *        the byte to check
-   * @return true if byte is whitespace, false otherwise
+   * @return <code>true</code> if byte is whitespace, <code>false</code>
+   *         otherwise
    */
-  private static boolean isWhiteSpace (final byte byteToCheck)
+  private static boolean isWhiteSpace (final byte nByte)
   {
-    return byteToCheck == ' ' || byteToCheck == '\n' || byteToCheck == '\r' || byteToCheck == '\t';
+    return nByte == ' ' || nByte == '\n' || nByte == '\r' || nByte == '\t';
+  }
+
+  public static int getEncodedLength (final int nLen)
+  {
+    return MathHelper.getRoundedUp (nLen * 8 / 5, 8);
   }
 
   public void encode (@Nullable final byte [] aBuf,
@@ -449,7 +455,7 @@ public class Base32Codec implements IByteArrayEncoder
       {
         case 1:
         {
-          // Only 1 octet; take top 5 bits then remainder
+          // Only 1 octet = 8 bits to use; 2 encoded and 6 padding bytes
           final int nCur = aBuf[nIndex];
           nIndex += nRest;
           // 8-1*5
@@ -463,7 +469,7 @@ public class Base32Codec implements IByteArrayEncoder
         }
         case 2:
         {
-          // 2 octets = 16 bits to use
+          // 2 octets = 16 bits to use; 4 encoded and 4 padding bytes
           final int nCur = aBuf[nIndex] << 8 | aBuf[nIndex + 1];
           nIndex += nRest;
           // 16-1*5
@@ -481,7 +487,7 @@ public class Base32Codec implements IByteArrayEncoder
         }
         case 3:
         {
-          // 3 octets = 24 bits to use
+          // 3 octets = 24 bits to use; 5 encoded and 3 padding bytes
           final int nCur = aBuf[nIndex] << 16 | aBuf[nIndex + 1] << 8 | aBuf[nIndex + 2];
           nIndex += nRest;
           // 24-1*5
@@ -501,7 +507,7 @@ public class Base32Codec implements IByteArrayEncoder
         }
         case 4:
         {
-          // 4 octets = 32 bits to use
+          // 4 octets = 32 bits to use; 7 encoded and 1 padding byte
           final int nCur = aBuf[nIndex] << 24 | aBuf[nIndex + 1] << 16 | aBuf[nIndex + 2] << 8 | aBuf[nIndex + 3];
           nIndex += nRest;
           // 32-1*5
@@ -524,7 +530,7 @@ public class Base32Codec implements IByteArrayEncoder
         }
         default:
         {
-          // More than 5 octets = 40 bits to use
+          // More than 5 octets = 40 bits to use; 8 encoded bytes
           final long nCur = (long) aBuf[nIndex] << 32 |
                             aBuf[nIndex + 1] << 24 |
                             aBuf[nIndex + 2] << 16 |
@@ -552,13 +558,6 @@ public class Base32Codec implements IByteArrayEncoder
         }
       }
     }
-  }
-
-  public static int getEncodedLength (final int nLen)
-  {
-    if (nLen == 0)
-      return 0;
-    return MathHelper.getRoundedUp (nLen * 8 / 5, 8);
   }
 
   @Nullable
@@ -607,6 +606,139 @@ public class Base32Codec implements IByteArrayEncoder
     try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getEncodedLength (nLen)))
     {
       encode (aBuf, nOfs, nLen, aBAOS);
+      return aBAOS.getAsString (CCharset.DEFAULT_CHARSET_OBJ);
+    }
+    catch (final IOException ex)
+    {
+      return null;
+    }
+  }
+
+  public void decode (@Nullable final byte [] aBuf,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      @Nonnull @WillNotClose final OutputStream aOS) throws IOException
+  {
+    if (aBuf == null || nLen == 0)
+      return;
+
+    // Save to local variables for performance reasons
+    final byte nPad = m_nPad;
+    final byte [] aDecodeTable = m_aDecodeTable;
+
+    final byte [] aDecodeBuf = new byte [8];
+    int nRest = nLen;
+    int nIndex = nOfs;
+    while (nRest > 0)
+    {
+      // Decode at last 8 bytes
+      int nBytesToDecode = nRest > 8 ? 8 : nRest;
+      nRest -= nBytesToDecode;
+      for (int i = 0; i < nBytesToDecode; ++i)
+      {
+        final int n = aBuf[nIndex++];
+        if (n == nPad)
+        {
+          // Padding means end of data
+          aDecodeBuf[i] = 0;
+          nBytesToDecode = i;
+          break;
+        }
+
+        final byte b = n < 0 || n >= aDecodeTable.length ? -1 : aDecodeTable[n];
+        if (b < 0)
+          throw new DecodeException ("Cannot Base32 decode char " + n);
+
+        aDecodeBuf[i] = b;
+      }
+
+      switch (nBytesToDecode)
+      {
+        case 0:
+          break;
+        case 2:
+          aOS.write (aDecodeBuf[0] << 3 | aDecodeBuf[1] >> 2);
+          break;
+        case 4:
+          aOS.write (aDecodeBuf[0] << 3 | aDecodeBuf[1] >> 2);
+          aOS.write (aDecodeBuf[1] << 6 | aDecodeBuf[2] << 1 | aDecodeBuf[3] >> 4);
+          break;
+        case 5:
+          aOS.write (aDecodeBuf[0] << 3 | aDecodeBuf[1] >> 2);
+          aOS.write (aDecodeBuf[1] << 6 | aDecodeBuf[2] << 1 | aDecodeBuf[3] >> 4);
+          aOS.write (aDecodeBuf[3] << 4 | aDecodeBuf[4] >> 1);
+          break;
+        case 7:
+          aOS.write (aDecodeBuf[0] << 3 | aDecodeBuf[1] >> 2);
+          aOS.write (aDecodeBuf[1] << 6 | aDecodeBuf[2] << 1 | aDecodeBuf[3] >> 4);
+          aOS.write (aDecodeBuf[3] << 4 | aDecodeBuf[4] >> 1);
+          aOS.write (aDecodeBuf[4] << 7 | aDecodeBuf[5] << 2 | aDecodeBuf[6] >> 3);
+          break;
+        case 8:
+          // At least 8 bytes
+          aOS.write (aDecodeBuf[0] << 3 | aDecodeBuf[1] >> 2);
+          aOS.write (aDecodeBuf[1] << 6 | aDecodeBuf[2] << 1 | aDecodeBuf[3] >> 4);
+          aOS.write (aDecodeBuf[3] << 4 | aDecodeBuf[4] >> 1);
+          aOS.write (aDecodeBuf[4] << 7 | aDecodeBuf[5] << 2 | aDecodeBuf[6] >> 3);
+          aOS.write (aDecodeBuf[6] << 5 | aDecodeBuf[7]);
+          break;
+        default:
+          throw new DecodeException ("Unexpected number of Base32 bytes left: " + nBytesToDecode);
+      }
+    }
+  }
+
+  public static int getDecodedLength (final int nLen)
+  {
+    return MathHelper.getRoundedUp (nLen * 5 / 8, 5);
+  }
+
+  @Nullable
+  public byte [] getDecoded (@Nullable final byte [] aBuf)
+  {
+    if (aBuf == null)
+      return null;
+
+    return getDecoded (aBuf, 0, aBuf.length);
+  }
+
+  @Nullable
+  public byte [] getDecoded (@Nullable final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    if (aBuf == null)
+      return null;
+
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getDecodedLength (nLen)))
+    {
+      decode (aBuf, nOfs, nLen, aBAOS);
+      return aBAOS.toByteArray ();
+    }
+    catch (final IOException ex)
+    {
+      return null;
+    }
+  }
+
+  @Nullable
+  public String getDecodedAsString (@Nullable final byte [] aBuf)
+  {
+    if (aBuf == null)
+      return null;
+
+    return getDecodedAsString (aBuf, 0, aBuf.length);
+  }
+
+  @Nullable
+  public String getDecodedAsString (@Nullable final byte [] aBuf,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen)
+  {
+    if (aBuf == null)
+      return null;
+
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getDecodedLength (nLen)))
+    {
+      decode (aBuf, nOfs, nLen, aBAOS);
       return aBAOS.getAsString (CCharset.DEFAULT_CHARSET_OBJ);
     }
     catch (final IOException ex)
