@@ -28,7 +28,6 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.IHasStringRepresentation;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
 import com.helger.commons.string.ToStringGenerator;
@@ -41,7 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class Version implements Comparable <Version>, IHasStringRepresentation, Serializable
+public final class Version implements Comparable <Version>, Serializable
 {
   /** default version if nothing is specified. */
   public static final String DEFAULT_VERSION_STRING = "0";

@@ -18,8 +18,6 @@ package com.helger.commons.format;
 
 import javax.annotation.Nullable;
 
-import com.helger.commons.lang.IHasStringRepresentation;
-
 /**
  * Basic interface for special objects having a certain string representation.
  *
@@ -27,7 +25,7 @@ import com.helger.commons.lang.IHasStringRepresentation;
  * @param <DATATYPE>
  *        Data type to be formatted
  */
-public interface IFormatableObject <DATATYPE> extends IHasStringRepresentation
+public interface IFormatableObject <DATATYPE>
 {
   /**
    * Get the original value.

@@ -23,7 +23,6 @@ import javax.xml.transform.stream.StreamResult;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
-import com.helger.commons.lang.IHasStringRepresentation;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -33,7 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class StringStreamResult extends StreamResult implements IHasStringRepresentation
+public class StringStreamResult extends StreamResult
 {
   private final NonBlockingStringWriter m_aSW;
 

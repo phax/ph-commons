@@ -28,7 +28,6 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.ICloneable;
-import com.helger.commons.lang.IHasStringRepresentation;
 
 /**
  * Interface for the structured representation of a single MIME type.
@@ -37,7 +36,7 @@ import com.helger.commons.lang.IHasStringRepresentation;
  */
 @MustImplementEqualsAndHashcode
 @MustImplementComparable
-public interface IMimeType extends IHasStringRepresentation, ICloneable <IMimeType>, Serializable
+public interface IMimeType extends ICloneable <IMimeType>, Serializable
 {
   /**
    * @return The content type. Never <code>null</code>.

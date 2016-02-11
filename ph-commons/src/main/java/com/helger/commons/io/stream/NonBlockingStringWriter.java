@@ -29,7 +29,6 @@ import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.lang.IHasSize;
-import com.helger.commons.lang.IHasStringRepresentation;
 
 /**
  * A non-synchronized copy of the class {@link java.io.StringWriter}.<br>
@@ -40,7 +39,7 @@ import com.helger.commons.lang.IHasStringRepresentation;
  * @see java.io.StringWriter
  */
 @NotThreadSafe
-public class NonBlockingStringWriter extends Writer implements IHasStringRepresentation, IHasSize, Serializable
+public class NonBlockingStringWriter extends Writer implements IHasSize, Serializable
 {
   private final StringBuilder m_aSB;
 
