@@ -35,6 +35,31 @@ import com.helger.commons.mock.CommonsAssert;
 public final class MathHelperTest
 {
   @Test
+  public void testGetRoundedUp ()
+  {
+    assertEquals (8, MathHelper.getRoundedUp (1, 8));
+    assertEquals (8, MathHelper.getRoundedUp (8, 8));
+    assertEquals (24, MathHelper.getRoundedUp (17, 8));
+    assertEquals (80, MathHelper.getRoundedUp (79, 8));
+    assertEquals (0, MathHelper.getRoundedUp (-1, 8));
+    assertEquals (-8, MathHelper.getRoundedUp (-9, 8));
+    assertEquals (-8, MathHelper.getRoundedUp (-15, 8));
+    assertEquals (-16, MathHelper.getRoundedUp (-16, 8));
+
+    assertEquals (100, MathHelper.getRoundedUp (1, 100));
+    assertEquals (100, MathHelper.getRoundedUp (8, 100));
+    assertEquals (100, MathHelper.getRoundedUp (17, 100));
+    assertEquals (1200, MathHelper.getRoundedUp (1179, 100));
+    assertEquals (0, MathHelper.getRoundedUp (-1, 100));
+    assertEquals (0, MathHelper.getRoundedUp (-9, 100));
+    assertEquals (0, MathHelper.getRoundedUp (-15, 100));
+    assertEquals (0, MathHelper.getRoundedUp (-16, 100));
+    assertEquals (-100, MathHelper.getRoundedUp (-100, 100));
+    assertEquals (-100, MathHelper.getRoundedUp (-100, 100));
+    assertEquals (-100, MathHelper.getRoundedUp (-199, 100));
+  }
+
+  @Test
   public void testGetDividedDouble ()
   {
     CommonsAssert.assertEquals (1.5, MathHelper.getDividedDouble (3, 2));

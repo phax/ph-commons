@@ -48,6 +48,28 @@ public final class MathHelper
   {}
 
   /**
+   * Round up to the nearest multiple of the value to round.
+   *
+   * @param nToRound
+   *        Value to round. May be positive or negative.
+   * @param nMultiple
+   *        Multiple to use. Must be &ge; 0.
+   * @return The rounded value.
+   */
+  public static int getRoundedUp (final int nToRound, @Nonnegative final int nMultiple)
+  {
+    if (nMultiple == 0)
+      return nToRound;
+
+    final int nRest = nToRound % nMultiple;
+    if (nRest == 0)
+      return nToRound;
+    if (nToRound < 0)
+      return -abs (nToRound - nRest);
+    return nToRound + nMultiple - nRest;
+  }
+
+  /**
    * Divides the passed int dividend through the passed divisor (nDividend /
    * nDivisor)
    *

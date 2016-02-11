@@ -15,6 +15,18 @@ import com.helger.commons.charset.CCharset;
 public final class Base32CodecTest
 {
   @Test
+  public void testGetEncodingLength ()
+  {
+    assertEquals (0, Base32Codec.getEncodedLength (0));
+    for (int i = 1; i <= 5; ++i)
+      assertEquals (8, Base32Codec.getEncodedLength (i));
+    for (int i = 6; i <= 10; ++i)
+      assertEquals (16, Base32Codec.getEncodedLength (i));
+    for (int i = 11; i <= 15; ++i)
+      assertEquals (24, Base32Codec.getEncodedLength (i));
+  }
+
+  @Test
   public void testEncode ()
   {
     final Base32Codec aBase32 = new Base32Codec ();

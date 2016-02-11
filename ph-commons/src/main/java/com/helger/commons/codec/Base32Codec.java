@@ -11,6 +11,7 @@ import javax.annotation.WillNotClose;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+import com.helger.commons.math.MathHelper;
 
 /**
  * Base32 encoder and decoder based on Apache Commons Codec Base32. Defined in
@@ -553,7 +554,14 @@ public class Base32Codec implements IByteArrayEncoder
     }
   }
 
-  @Nonnull
+  public static int getEncodedLength (final int nLen)
+  {
+    if (nLen == 0)
+      return 0;
+    return MathHelper.getRoundedUp (nLen * 8 / 5, 8);
+  }
+
+  @Nullable
   public byte [] getEncoded (@Nullable final byte [] aBuf)
   {
     if (aBuf == null)
@@ -562,12 +570,13 @@ public class Base32Codec implements IByteArrayEncoder
     return getEncoded (aBuf, 0, aBuf.length);
   }
 
+  @Nullable
   public byte [] getEncoded (@Nullable final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (aBuf == null)
       return null;
 
-    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getEncodedLength (nLen)))
     {
       encode (aBuf, nOfs, nLen, aBAOS);
       return aBAOS.toByteArray ();
@@ -578,7 +587,7 @@ public class Base32Codec implements IByteArrayEncoder
     }
   }
 
-  @Nonnull
+  @Nullable
   public String getEncodedAsString (@Nullable final byte [] aBuf)
   {
     if (aBuf == null)
@@ -587,7 +596,7 @@ public class Base32Codec implements IByteArrayEncoder
     return getEncodedAsString (aBuf, 0, aBuf.length);
   }
 
-  @Nonnull
+  @Nullable
   public String getEncodedAsString (@Nullable final byte [] aBuf,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
@@ -595,7 +604,7 @@ public class Base32Codec implements IByteArrayEncoder
     if (aBuf == null)
       return null;
 
-    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getEncodedLength (nLen)))
     {
       encode (aBuf, nOfs, nLen, aBAOS);
       return aBAOS.getAsString (CCharset.DEFAULT_CHARSET_OBJ);
