@@ -31,7 +31,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.NonBlockingBitInputStream;
@@ -46,7 +45,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class LZWCodec implements IByteArrayCodec
+public class LZWCodec implements IByteArrayCodec, IByteArrayStreamEncoder, IByteArrayStreamDecoder
 {
   /**
    * A single LZW node
@@ -264,35 +263,8 @@ public class LZWCodec implements IByteArrayCodec
   public LZWCodec ()
   {}
 
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getDecodedLZW (@Nullable final byte [] aEncodedBuffer)
-  {
-    if (aEncodedBuffer == null)
-      return null;
-
-    return getDecodedLZW (aEncodedBuffer, 0, aEncodedBuffer.length);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getDecodedLZW (@Nullable final byte [] aEncodedBuffer,
-                                       @Nonnegative final int nOfs,
-                                       @Nonnegative final int nLen)
-  {
-    if (aEncodedBuffer == null)
-      return null;
-
-    try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen);
-        final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
-    {
-      getDecodedLZW (aBAIS, aBAOS);
-      return aBAOS.toByteArray ();
-    }
-  }
-
-  public static void getDecodedLZW (@Nonnull @WillNotClose final InputStream aEncodedIS,
-                                    @Nonnull @WillNotClose final OutputStream aOS)
+  public void decode (@Nonnull @WillNotClose final InputStream aEncodedIS,
+                      @Nonnull @WillNotClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aEncodedIS, "EncodedInputStream");
     ValueEnforcer.notNull (aOS, "OutputStream");
@@ -364,74 +336,21 @@ public class LZWCodec implements IByteArrayCodec
     }
   }
 
-  @Nullable
-  @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen)
+  public void decode (@Nullable final byte [] aEncodedBuffer,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      @Nonnull @WillNotClose final OutputStream aOS)
   {
-    return getDecodedLZW (aEncodedBuffer, nOfs, nLen);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getEncodedLZW (@Nullable final byte [] aBuffer)
-  {
-    if (aBuffer == null)
-      return null;
-
-    return getEncodedLZW (aBuffer, 0, aBuffer.length);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getEncodedLZW (@Nullable final byte [] aBuffer,
-                                       @Nonnegative final int nOfs,
-                                       @Nonnegative final int nLen)
-  {
-    if (aBuffer == null)
-      return null;
-
-    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    getEncodedLZW (aBuffer, nOfs, nLen, aBAOS);
-    return aBAOS.toByteArray ();
-  }
-
-  /**
-   * LZW-encode the passed byte array to the passed output stream
-   *
-   * @param aBuffer
-   *        The buffer to be encoded. May be <code>null</code> in which case
-   *        nothing happens.
-   * @param aOS
-   *        The output stream to encode the content to. The output stream is not
-   *        closed after encoding is done! May not be <code>null</code>.
-   */
-  public static void getEncodedLZW (@Nullable final byte [] aBuffer, @Nonnull @WillNotClose final OutputStream aOS)
-  {
-    if (aBuffer == null)
+    if (aEncodedBuffer == null)
       return;
-    getEncodedLZW (aBuffer, 0, aBuffer.length, aOS);
+
+    decode (new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen), aOS);
   }
 
-  /**
-   * LZW-encode the passed byte array to the passed output stream
-   *
-   * @param aBuffer
-   *        The buffer to be encoded. May be <code>null</code> in which case
-   *        nothing happens.
-   * @param nOfs
-   *        Offset into the byte array to start from.
-   * @param nLen
-   *        Number of bytes starting from offset to consider.
-   * @param aOS
-   *        The output stream to encode the content to. The output stream is not
-   *        closed after encoding is done! May not be <code>null</code>.
-   */
-  public static void getEncodedLZW (@Nullable final byte [] aBuffer,
-                                    @Nonnegative final int nOfs,
-                                    @Nonnegative final int nLen,
-                                    @Nonnull @WillNotClose final OutputStream aOS)
+  public void encode (@Nullable final byte [] aBuffer,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      @Nonnull @WillNotClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aOS, "OutputStream");
 
@@ -512,12 +431,5 @@ public class LZWCodec implements IByteArrayCodec
       // Flush but do not close
       StreamHelper.flush (aBOS);
     }
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public byte [] getEncoded (@Nullable final byte [] aBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
-  {
-    return getEncodedLZW (aBuffer, nOfs, nLen);
   }
 }

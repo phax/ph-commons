@@ -36,8 +36,9 @@ public final class LZWCodecTest
   @Test
   public void testDecode ()
   {
+    final LZWCodec c = new LZWCodec ();
     final byte [] aEncoded = new byte [] { (byte) 0x80, 0x0b, 0x60, 0x50, 0x22, 0x0c, 0x0c, (byte) 0x85, 0x01 };
-    final byte [] aDecoded = LZWCodec.getDecodedLZW (aEncoded);
+    final byte [] aDecoded = c.getDecoded (aEncoded);
     final byte [] aExpected = new byte [] { 45, 45, 45, 45, 45, 65, 45, 45, 45, 66 };
     assertArrayEquals (aExpected, aDecoded);
   }
@@ -45,8 +46,9 @@ public final class LZWCodecTest
   @Test
   public void testEncode1 ()
   {
+    final LZWCodec c = new LZWCodec ();
     final byte [] aDecoded = new byte [] { 45, 45, 45, 45, 45, 65, 45, 45, 45, 66 };
-    final byte [] aEncoded = LZWCodec.getEncodedLZW (aDecoded);
+    final byte [] aEncoded = c.getEncoded (aDecoded);
     final byte [] aExpected = new byte [] { (byte) 0x80, 0x0b, 0x60, 0x50, 0x22, 0x0c, 0x0c, (byte) 0x85, 0x01 };
     assertArrayEquals (aExpected, aEncoded);
   }
@@ -54,8 +56,9 @@ public final class LZWCodecTest
   @Test
   public void testEncode2 ()
   {
+    final LZWCodec c = new LZWCodec ();
     final byte [] aDecoded = CharsetManager.getAsBytes ("LZWLZ78LZ77LZCLZMWLZAP", CCharset.CHARSET_ISO_8859_1_OBJ);
-    final byte [] aEncoded = LZWCodec.getEncodedLZW (aDecoded);
+    final byte [] aEncoded = c.getEncoded (aDecoded);
     final byte [] aExpected = new byte [] { (byte) 0x80,
                                             0x13,
                                             0x0b,
@@ -82,10 +85,11 @@ public final class LZWCodecTest
 
   private void _testEncodeDecode (final byte [] buf)
   {
-    final byte [] aEncoded = LZWCodec.getEncodedLZW (buf);
+    final LZWCodec c = new LZWCodec ();
+    final byte [] aEncoded = c.getEncoded (buf);
     assertNotNull (aEncoded);
     assertTrue (aEncoded.length > 0);
-    final byte [] aDecoded = LZWCodec.getDecodedLZW (aEncoded);
+    final byte [] aDecoded = c.getDecoded (aEncoded);
     assertNotNull (aDecoded);
     assertArrayEquals (buf, aDecoded);
   }
