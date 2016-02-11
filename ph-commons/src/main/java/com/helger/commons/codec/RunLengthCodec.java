@@ -16,68 +16,53 @@
  */
 package com.helger.commons.codec;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nullable;
+import java.io.IOException;
+import java.io.OutputStream;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.WillNotClose;
+
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 
 /**
  * Decoder for run length encoding
  *
  * @author Philip Helger
  */
-public class RunLengthCodec implements IByteArrayDecoder
+public class RunLengthCodec implements IByteArrayDecoderToString
 {
-  protected static final int RUN_LENGTH_EOD = 128;
+  protected static final int RUN_LENGTH_EOD = 0x80;
 
   public RunLengthCodec ()
   {}
 
-  @Nullable
-  @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen)
+  public void decode (@Nullable final byte [] aEncodedBuffer,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      @Nonnull @WillNotClose final OutputStream aOS)
   {
-    return getDecodedRunLength (aEncodedBuffer);
-  }
+    if (aEncodedBuffer == null || nLen == 0)
+      return;
 
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getDecodedRunLength (@Nullable final byte [] aEncodedBuffer)
-  {
-    if (aEncodedBuffer == null)
-      return null;
-
-    return getDecodedRunLength (aEncodedBuffer, 0, aEncodedBuffer.length);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getDecodedRunLength (@Nullable final byte [] aEncodedBuffer,
-                                             @Nonnegative final int nOfs,
-                                             @Nonnegative final int nLen)
-  {
-    if (aEncodedBuffer == null)
-      return null;
-
-    int nDupAmount;
-    final byte [] aReadBuffer = new byte [128];
-    try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen);
-        final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
+    try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen))
     {
+      int nDupAmount;
+      final byte [] aReadBuffer = new byte [128];
       while ((nDupAmount = aBAIS.read ()) != -1 && nDupAmount != RUN_LENGTH_EOD)
       {
-        if (nDupAmount <= 127)
+        if (nDupAmount <= 0x7f)
         {
           // no duplicates present
-          int nAmountToCopy = nDupAmount + 1;
+          int nAmountToCopy = nDupAmount;
           while (nAmountToCopy > 0)
           {
             final int nCompressedRead = aBAIS.read (aReadBuffer, 0, nAmountToCopy);
-            aBAOS.write (aReadBuffer, 0, nCompressedRead);
+            if (nCompressedRead < 0)
+              throw new DecodeException ("Unexpected EOF in RunLengthCodec - " + nAmountToCopy + " elements left");
+
+            aOS.write (aReadBuffer, 0, nCompressedRead);
             nAmountToCopy -= nCompressedRead;
           }
         }
@@ -86,14 +71,17 @@ public class RunLengthCodec implements IByteArrayDecoder
           // we have something duplicated
           final int aDupByte = aBAIS.read ();
           if (aDupByte == -1)
-            throw new DecodeException ("Unexpected EOF");
+            throw new DecodeException ("Unexpected EOF in RunLengthCodec");
 
-          // The char is repeated for 257-nDupAmount types
+          // The char is repeated for 257-nDupAmount times
           for (int i = 0; i < 257 - nDupAmount; i++)
-            aBAOS.write (aDupByte);
+            aOS.write (aDupByte);
         }
       }
-      return aBAOS.toByteArray ();
+    }
+    catch (final IOException ex)
+    {
+      throw new DecodeException ("Failed to decode RunLength", ex);
     }
   }
 }

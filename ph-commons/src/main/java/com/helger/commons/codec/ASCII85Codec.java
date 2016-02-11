@@ -16,19 +16,22 @@
  */
 package com.helger.commons.codec;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillNotClose;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 
 /**
  * Decoder for ASCII85 encoded values
  *
  * @author Philip Helger
  */
-public class ASCII85Codec implements IByteArrayDecoder
+public class ASCII85Codec implements IByteArrayDecoderToString
 {
   private static final int BIT1 = 8;
   private static final int BIT2 = 16;
@@ -40,35 +43,16 @@ public class ASCII85Codec implements IByteArrayDecoder
   public ASCII85Codec ()
   {}
 
-  @Nullable
-  @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen)
-  {
-    return getDecodedASCII85 (aEncodedBuffer, nOfs, nLen);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getDecodedASCII85 (@Nullable final byte [] aEncodedBuffer)
+  public void decode (@Nullable final byte [] aEncodedBuffer,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      @Nonnull @WillNotClose final OutputStream aOS)
   {
     if (aEncodedBuffer == null)
-      return null;
-    return getDecodedASCII85 (aEncodedBuffer, 0, aEncodedBuffer.length);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getDecodedASCII85 (@Nullable final byte [] aEncodedBuffer,
-                                           @Nonnegative final int nOfs,
-                                           @Nonnegative final int nLen)
-  {
-    if (aEncodedBuffer == null)
-      return null;
+      return;
     ValueEnforcer.isTrue (nLen >= 4, "Buffer too small: " + nLen);
 
-    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
+    try
     {
       int nEncodedCount = 0;
       final byte [] aBuffer = new byte [5];
@@ -94,10 +78,10 @@ public class ASCII85Codec implements IByteArrayDecoder
 
         if (nEncByte == 'z' && nEncodedCount == 0)
         {
-          aBAOS.write (0);
-          aBAOS.write (0);
-          aBAOS.write (0);
-          aBAOS.write (0);
+          aOS.write (0);
+          aOS.write (0);
+          aOS.write (0);
+          aOS.write (0);
         }
         else
         {
@@ -112,10 +96,10 @@ public class ASCII85Codec implements IByteArrayDecoder
             int r = 0;
             for (int j = 0; j < 5; ++j)
               r = r * EIGHTY_FIVE + aBuffer[j];
-            aBAOS.write ((byte) (r >> BIT3));
-            aBAOS.write ((byte) (r >> BIT2));
-            aBAOS.write ((byte) (r >> BIT1));
-            aBAOS.write ((byte) r);
+            aOS.write ((byte) (r >> BIT3));
+            aOS.write ((byte) (r >> BIT2));
+            aOS.write ((byte) (r >> BIT1));
+            aOS.write ((byte) r);
           }
         }
       }
@@ -131,7 +115,7 @@ public class ASCII85Codec implements IByteArrayDecoder
                   (EIGHTY_FIVE * EIGHTY_FIVE * EIGHTY_FIVE) +
                   (EIGHTY_FIVE * EIGHTY_FIVE) +
                   EIGHTY_FIVE;
-          aBAOS.write ((byte) (nRest >> BIT3));
+          aOS.write ((byte) (nRest >> BIT3));
           break;
         case 3:
           nRest = (aBuffer[0] * EIGHTY_FIVE * EIGHTY_FIVE * EIGHTY_FIVE * EIGHTY_FIVE) +
@@ -139,8 +123,8 @@ public class ASCII85Codec implements IByteArrayDecoder
                   (aBuffer[2] * EIGHTY_FIVE * EIGHTY_FIVE) +
                   (EIGHTY_FIVE * EIGHTY_FIVE) +
                   EIGHTY_FIVE;
-          aBAOS.write ((byte) (nRest >> BIT3));
-          aBAOS.write ((byte) (nRest >> BIT2));
+          aOS.write ((byte) (nRest >> BIT3));
+          aOS.write ((byte) (nRest >> BIT2));
           break;
         case 4:
           nRest = (aBuffer[0] * EIGHTY_FIVE * EIGHTY_FIVE * EIGHTY_FIVE * EIGHTY_FIVE) +
@@ -148,14 +132,17 @@ public class ASCII85Codec implements IByteArrayDecoder
                   (aBuffer[2] * EIGHTY_FIVE * EIGHTY_FIVE) +
                   (aBuffer[3] * EIGHTY_FIVE) +
                   EIGHTY_FIVE;
-          aBAOS.write ((byte) (nRest >> BIT3));
-          aBAOS.write ((byte) (nRest >> BIT2));
-          aBAOS.write ((byte) (nRest >> BIT1));
+          aOS.write ((byte) (nRest >> BIT3));
+          aOS.write ((byte) (nRest >> BIT2));
+          aOS.write ((byte) (nRest >> BIT1));
           break;
         default:
           break;
       }
-      return aBAOS.toByteArray ();
+    }
+    catch (final IOException ex)
+    {
+      throw new DecodeException ("Failed to decode ASCII85", ex);
     }
   }
 }
