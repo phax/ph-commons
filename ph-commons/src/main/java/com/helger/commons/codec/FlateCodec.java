@@ -109,27 +109,27 @@ public class FlateCodec implements IByteArrayCodec
 
   @Nullable
   @ReturnsMutableCopy
-  public static byte [] getEncodedFlate (@Nullable final byte [] aBuffer)
+  public static byte [] getEncodedFlate (@Nullable final byte [] aDecodedBuffer)
   {
-    if (aBuffer == null)
+    if (aDecodedBuffer == null)
       return null;
-    return getEncodedFlate (aBuffer, 0, aBuffer.length);
+    return getEncodedFlate (aDecodedBuffer, 0, aDecodedBuffer.length);
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public static byte [] getEncodedFlate (@Nullable final byte [] aBuffer,
+  public static byte [] getEncodedFlate (@Nullable final byte [] aDecodedBuffer,
                                          @Nonnegative final int nOfs,
                                          @Nonnegative final int nLen)
   {
-    if (aBuffer == null)
+    if (aDecodedBuffer == null)
       return null;
 
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
     final DeflaterOutputStream aEncodeOS = new DeflaterOutputStream (aBAOS);
     try
     {
-      if (StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aBuffer, nOfs, nLen),
+      if (StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aDecodedBuffer, nOfs, nLen),
                                                       aEncodeOS)
                       .isFailure ())
         throw new EncodeException ("Failed to flate encode!");
@@ -143,8 +143,8 @@ public class FlateCodec implements IByteArrayCodec
 
   @Nullable
   @ReturnsMutableCopy
-  public byte [] getEncoded (@Nullable final byte [] aBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
-    return getEncodedFlate (aBuffer, nOfs, nLen);
+    return getEncodedFlate (aDecodedBuffer, nOfs, nLen);
   }
 }

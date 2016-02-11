@@ -51,9 +51,21 @@ public class RunLengthCodec implements IByteArrayDecoder
     if (aEncodedBuffer == null)
       return null;
 
+    return getDecodedRunLength (aEncodedBuffer, 0, aEncodedBuffer.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] getDecodedRunLength (@Nullable final byte [] aEncodedBuffer,
+                                             @Nonnegative final int nOfs,
+                                             @Nonnegative final int nLen)
+  {
+    if (aEncodedBuffer == null)
+      return null;
+
     int nDupAmount;
     final byte [] aReadBuffer = new byte [128];
-    try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer);
+    try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen);
         final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
     {
       while ((nDupAmount = aBAIS.read ()) != -1 && nDupAmount != RUN_LENGTH_EOD)

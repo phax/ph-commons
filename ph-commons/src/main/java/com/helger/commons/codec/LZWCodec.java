@@ -271,7 +271,19 @@ public class LZWCodec implements IByteArrayCodec
     if (aEncodedBuffer == null)
       return null;
 
-    try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer);
+    return getDecodedLZW (aEncodedBuffer, 0, aEncodedBuffer.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] getDecodedLZW (@Nullable final byte [] aEncodedBuffer,
+                                       @Nonnegative final int nOfs,
+                                       @Nonnegative final int nLen)
+  {
+    if (aEncodedBuffer == null)
+      return null;
+
+    try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen);
         final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
     {
       getDecodedLZW (aBAIS, aBAOS);
@@ -358,7 +370,7 @@ public class LZWCodec implements IByteArrayCodec
                              @Nonnegative final int nOfs,
                              @Nonnegative final int nLen)
   {
-    return getDecodedLZW (aEncodedBuffer);
+    return getDecodedLZW (aEncodedBuffer, nOfs, nLen);
   }
 
   @Nullable
@@ -368,8 +380,20 @@ public class LZWCodec implements IByteArrayCodec
     if (aBuffer == null)
       return null;
 
+    return getEncodedLZW (aBuffer, 0, aBuffer.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] getEncodedLZW (@Nullable final byte [] aBuffer,
+                                       @Nonnegative final int nOfs,
+                                       @Nonnegative final int nLen)
+  {
+    if (aBuffer == null)
+      return null;
+
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    getEncodedLZW (aBuffer, aBAOS);
+    getEncodedLZW (aBuffer, nOfs, nLen, aBAOS);
     return aBAOS.toByteArray ();
   }
 
@@ -384,6 +408,30 @@ public class LZWCodec implements IByteArrayCodec
    *        closed after encoding is done! May not be <code>null</code>.
    */
   public static void getEncodedLZW (@Nullable final byte [] aBuffer, @Nonnull @WillNotClose final OutputStream aOS)
+  {
+    if (aBuffer == null)
+      return;
+    getEncodedLZW (aBuffer, 0, aBuffer.length, aOS);
+  }
+
+  /**
+   * LZW-encode the passed byte array to the passed output stream
+   *
+   * @param aBuffer
+   *        The buffer to be encoded. May be <code>null</code> in which case
+   *        nothing happens.
+   * @param nOfs
+   *        Offset into the byte array to start from.
+   * @param nLen
+   *        Number of bytes starting from offset to consider.
+   * @param aOS
+   *        The output stream to encode the content to. The output stream is not
+   *        closed after encoding is done! May not be <code>null</code>.
+   */
+  public static void getEncodedLZW (@Nullable final byte [] aBuffer,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen,
+                                    @Nonnull @WillNotClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aOS, "OutputStream");
 
@@ -400,16 +448,16 @@ public class LZWCodec implements IByteArrayCodec
       // Always the same
       aBOS.writeBits (AbstractLZWDictionary.CODE_CLEARTABLE, aDict.getCodeLength ());
       byte [] aByteSeq = ArrayHelper.EMPTY_BYTE_ARRAY;
-      for (int nIndex = 0; nIndex < aBuffer.length; ++nIndex)
+      for (int nIndex = 0; nIndex < nLen; ++nIndex)
       {
         // Append current byte
-        final byte nByteToEncode = aBuffer[nIndex];
+        final byte nByteToEncode = aBuffer[nOfs + nIndex];
         aByteSeq = ArrayHelper.getConcatenated (aByteSeq, nByteToEncode);
         aDict.visit (nByteToEncode);
         final int nCodeLength = aDict.getCodeLength ();
 
         final LZWNode aCurNode = aDict.getNode (aByteSeq);
-        if (nIndex + 1 == aBuffer.length)
+        if (nIndex + 1 == nLen)
         {
           // last byte
           aBOS.writeBits (aCurNode.getTableIndex (), nCodeLength);
@@ -417,7 +465,7 @@ public class LZWCodec implements IByteArrayCodec
         }
 
         // Is there a node for the following byte?
-        if (aCurNode.getChildNode (aBuffer[nIndex + 1]) == null)
+        if (aCurNode.getChildNode (aBuffer[nOfs + nIndex + 1]) == null)
         {
           // No -> write down
           aBOS.writeBits (aCurNode.getTableIndex (), nCodeLength);
@@ -470,6 +518,6 @@ public class LZWCodec implements IByteArrayCodec
   @ReturnsMutableCopy
   public byte [] getEncoded (@Nullable final byte [] aBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
-    return getEncodedLZW (aBuffer);
+    return getEncodedLZW (aBuffer, nOfs, nLen);
   }
 }

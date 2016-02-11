@@ -103,14 +103,27 @@ public class URLCodec implements IByteArrayCodec
   @ReturnsMutableCopy
   public static byte [] getEncodedURL (@Nonnull final BitSet aPrintableBitSet, @Nullable final byte [] aDecodedBuffer)
   {
+    if (aDecodedBuffer == null)
+      return null;
+
+    return getEncodedURL (aPrintableBitSet, aDecodedBuffer, 0, aDecodedBuffer.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] getEncodedURL (@Nonnull final BitSet aPrintableBitSet,
+                                       @Nullable final byte [] aDecodedBuffer,
+                                       @Nonnegative final int nOfs,
+                                       @Nonnegative final int nLen)
+  {
     ValueEnforcer.notNull (aPrintableBitSet, "PrintableBitSet");
     if (aDecodedBuffer == null)
       return null;
 
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (aDecodedBuffer.length * 2);
-    for (final byte nByte : aDecodedBuffer)
+    for (int i = 0; i < nLen; ++i)
     {
-      final int b = nByte & 0xff;
+      final int b = aDecodedBuffer[nOfs + i] & 0xff;
       if (aPrintableBitSet.get (b))
       {
         if (b == SPACE)
@@ -130,7 +143,22 @@ public class URLCodec implements IByteArrayCodec
   @ReturnsMutableCopy
   public static byte [] getEncodedURL (@Nullable final byte [] aDecodedBuffer)
   {
-    return getEncodedURL (PRINTABLE_CHARS, aDecodedBuffer);
+    if (aDecodedBuffer == null)
+      return null;
+
+    return getEncodedURL (PRINTABLE_CHARS, aDecodedBuffer, 0, aDecodedBuffer.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] getEncodedURL (@Nullable final byte [] aDecodedBuffer,
+                                       @Nonnegative final int nOfs,
+                                       @Nonnegative final int nLen)
+  {
+    if (aDecodedBuffer == null)
+      return null;
+
+    return getEncodedURL (PRINTABLE_CHARS, aDecodedBuffer, nOfs, nLen);
   }
 
   @Nullable
@@ -142,7 +170,7 @@ public class URLCodec implements IByteArrayCodec
     if (aDecodedBuffer == null)
       return null;
 
-    return getEncodedURL (aDecodedBuffer);
+    return getEncodedURL (aDecodedBuffer, nOfs, nLen);
   }
 
   @Nullable
@@ -152,21 +180,33 @@ public class URLCodec implements IByteArrayCodec
     if (aEncodedBuffer == null)
       return null;
 
+    return getDecodedURL (aEncodedBuffer, 0, aEncodedBuffer.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] getDecodedURL (@Nullable final byte [] aEncodedBuffer,
+                                       @Nonnegative final int nOfs,
+                                       @Nonnegative final int nLen)
+  {
+    if (aEncodedBuffer == null)
+      return null;
+
     try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
     {
-      final int nMax = aEncodedBuffer.length;
-      for (int i = 0; i < nMax; i++)
+      for (int i = 0; i < nLen; i++)
       {
-        final int b = aEncodedBuffer[i];
+        final int b = aEncodedBuffer[nOfs + i];
         if (b == PLUS)
           aBAOS.write (SPACE);
         else
           if (b == ESCAPE_CHAR)
           {
-            if (i >= nMax - 2)
+            if (i >= nLen - 2)
               throw new DecodeException ("Invalid URL encoding. Premature of string after escape char");
-            final char cHigh = (char) aEncodedBuffer[++i];
-            final char cLow = (char) aEncodedBuffer[++i];
+            final char cHigh = (char) aEncodedBuffer[nOfs + i + 1];
+            final char cLow = (char) aEncodedBuffer[nOfs + i + 2];
+            i += 2;
             final int nDecodedValue = StringHelper.getHexByte (cHigh, cLow);
             if (nDecodedValue < 0)
               throw new DecodeException ("Invalid URL encoding for " + (int) cHigh + " and " + (int) cLow);
@@ -198,7 +238,7 @@ public class URLCodec implements IByteArrayCodec
                              @Nonnegative final int nOfs,
                              @Nonnegative final int nLen)
   {
-    return getDecodedURL (aEncodedBuffer);
+    return getDecodedURL (aEncodedBuffer, nOfs, nLen);
   }
 
   @Nullable

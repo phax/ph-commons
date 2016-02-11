@@ -190,8 +190,8 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
       return null;
 
     boolean bHasUnderscores = false;
-    for (final byte b : aEncodedBuffer)
-      if (b == UNDERSCORE)
+    for (int i = 0; i < nLen; ++i)
+      if (aEncodedBuffer[nOfs + i] == UNDERSCORE)
       {
         bHasUnderscores = true;
         break;
@@ -199,10 +199,10 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
 
     if (bHasUnderscores)
     {
-      final byte [] tmp = new byte [aEncodedBuffer.length];
-      for (int i = 0; i < aEncodedBuffer.length; i++)
+      final byte [] tmp = new byte [nLen];
+      for (int i = 0; i < nLen; i++)
       {
-        final byte b = aEncodedBuffer[i];
+        final byte b = aEncodedBuffer[nOfs + i];
         if (b != UNDERSCORE)
           tmp[i] = b;
         else
@@ -210,7 +210,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
       }
       return QuotedPrintableCodec.getDecodedQuotedPrintable (tmp);
     }
-    return QuotedPrintableCodec.getDecodedQuotedPrintable (aEncodedBuffer);
+    return QuotedPrintableCodec.getDecodedQuotedPrintable (aEncodedBuffer, nOfs, nLen);
   }
 
   /**

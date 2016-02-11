@@ -158,18 +158,30 @@ public class QuotedPrintableCodec implements IByteArrayCodec
     if (aEncodedBuffer == null)
       return null;
 
+    return getDecodedQuotedPrintable (aEncodedBuffer, 0, aEncodedBuffer.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] getDecodedQuotedPrintable (@Nullable final byte [] aEncodedBuffer,
+                                                   @Nonnegative final int nOfs,
+                                                   @Nonnegative final int nLen)
+  {
+    if (aEncodedBuffer == null)
+      return null;
+
     try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
     {
-      final int nMax = aEncodedBuffer.length;
-      for (int i = 0; i < nMax; i++)
+      for (int i = 0; i < nLen; i++)
       {
-        final int b = aEncodedBuffer[i];
+        final int b = aEncodedBuffer[nOfs + i];
         if (b == ESCAPE_CHAR)
         {
-          if (i >= nMax - 2)
+          if (i >= nLen - 2)
             throw new DecodeException ("Invalid quoted-printable encoding. Premature of string after escape char");
-          final char cHigh = (char) aEncodedBuffer[++i];
-          final char cLow = (char) aEncodedBuffer[++i];
+          final char cHigh = (char) aEncodedBuffer[nOfs + i + 1];
+          final char cLow = (char) aEncodedBuffer[nOfs + i + 2];
+          i += 2;
           final int nDecodedValue = StringHelper.getHexByte (cHigh, cLow);
           if (nDecodedValue < 0)
             throw new DecodeException ("Invalid quoted-printable encoding for " + cHigh + cLow);
@@ -201,7 +213,7 @@ public class QuotedPrintableCodec implements IByteArrayCodec
                              @Nonnegative final int nOfs,
                              @Nonnegative final int nLen)
   {
-    return getDecodedQuotedPrintable (aEncodedBuffer);
+    return getDecodedQuotedPrintable (aEncodedBuffer, nOfs, nLen);
   }
 
   @Nullable
