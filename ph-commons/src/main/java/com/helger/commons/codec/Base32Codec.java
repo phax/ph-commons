@@ -21,7 +21,7 @@ import com.helger.commons.math.MathHelper;
  * @see "https://tools.ietf.org/html/rfc4648"
  * @author Philip Helger
  */
-public class Base32Codec implements IByteArrayCodec, IByteArrayEncoderToString, IByteArrayDecoderToString
+public class Base32Codec implements IByteArrayCodec, IByteArrayStreamEncoder, IByteArrayStreamDecoder
 {
   /**
    * This array is a lookup table that translates Unicode characters drawn from

@@ -37,7 +37,7 @@ import com.helger.commons.io.stream.StreamHelper;
  *
  * @author Philip Helger
  */
-public class Base64Codec implements IByteArrayCodec, IByteArrayEncoderToString, IByteArrayDecoderToString
+public class Base64Codec implements IByteArrayCodec, IByteArrayStreamEncoder, IByteArrayStreamDecoder
 {
   public Base64Codec ()
   {}

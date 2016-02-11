@@ -21,7 +21,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.charset.CharsetManager;
 
 /**
  * Test class for class {@link ASCIIHexCodec}
@@ -34,9 +33,6 @@ public final class ASCIIHexCodecTest
   public void testDecode ()
   {
     final String sEncoded = "616263\n" + "414243>";
-    final byte [] aDecoded = new ASCIIHexCodec ().getDecoded (CharsetManager.getAsBytes (sEncoded,
-                                                                                         CCharset.CHARSET_US_ASCII_OBJ));
-    final String sDecoded = CharsetManager.getAsString (aDecoded, CCharset.CHARSET_US_ASCII_OBJ);
-    assertEquals ("abcABC", sDecoded);
+    assertEquals ("abcABC", new ASCIIHexCodec ().getDecodedAsString (sEncoded, CCharset.CHARSET_US_ASCII_OBJ));
   }
 }

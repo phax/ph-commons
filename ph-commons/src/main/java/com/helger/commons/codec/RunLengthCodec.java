@@ -31,7 +31,7 @@ import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
  *
  * @author Philip Helger
  */
-public class RunLengthCodec implements IByteArrayDecoderToString
+public class RunLengthCodec implements IByteArrayStreamDecoder
 {
   protected static final int RUN_LENGTH_EOD = 0x80;
 

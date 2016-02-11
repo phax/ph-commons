@@ -16,12 +16,15 @@
  */
 package com.helger.commons.codec;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillNotClose;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -29,39 +32,20 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
-public class ASCIIHexCodec implements IByteArrayDecoder
+public class ASCIIHexCodec implements IByteArrayStreamDecoder
 {
   public ASCIIHexCodec ()
   {}
 
-  @Nullable
-  @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen)
+  public void decode (@Nullable final byte [] aEncodedBuffer,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      @Nonnull @WillNotClose final OutputStream aOS)
   {
-    return getDecodedASCIIHex (aEncodedBuffer, nOfs, nLen);
-  }
+    if (aEncodedBuffer == null || nLen == 0)
+      return;
 
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getDecodedASCIIHex (@Nullable final byte [] aEncodedBuffer)
-  {
-    if (aEncodedBuffer == null)
-      return null;
-    return getDecodedASCIIHex (aEncodedBuffer, 0, aEncodedBuffer.length);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static byte [] getDecodedASCIIHex (@Nullable final byte [] aEncodedBuffer,
-                                            @Nonnegative final int nOfs,
-                                            @Nonnegative final int nLen)
-  {
-    if (aEncodedBuffer == null)
-      return null;
-
-    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
+    try
     {
       boolean bFirstByte = true;
       int nFirstByte = 0;
@@ -85,14 +69,17 @@ public class ASCIIHexCodec implements IByteArrayDecoder
         if (bFirstByte)
           nFirstByte = nDecByte;
         else
-          aBAOS.write ((byte) (nFirstByte << 4 | nDecByte));
+          aOS.write ((byte) (nFirstByte << 4 | nDecByte));
         bFirstByte = !bFirstByte;
       }
 
       // Write trailing byte
       if (!bFirstByte)
-        aBAOS.write ((byte) (nFirstByte << 4));
-      return aBAOS.toByteArray ();
+        aOS.write ((byte) (nFirstByte << 4));
+    }
+    catch (final IOException ex)
+    {
+      throw new DecodeException ("Failed to decode ASCII Hex", ex);
     }
   }
 }

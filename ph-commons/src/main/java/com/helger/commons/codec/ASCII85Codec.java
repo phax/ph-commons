@@ -31,7 +31,7 @@ import com.helger.commons.ValueEnforcer;
  *
  * @author Philip Helger
  */
-public class ASCII85Codec implements IByteArrayDecoderToString
+public class ASCII85Codec implements IByteArrayStreamDecoder
 {
   private static final int BIT1 = 8;
   private static final int BIT2 = 16;
