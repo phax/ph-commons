@@ -75,6 +75,11 @@ public class Base64Codec implements IByteArrayCodec
     return Base64.safeEncodeBytesToBytes (aDecodedBuffer, nOfs, nLen);
   }
 
+  public int getDecodedLength (final int nLen)
+  {
+    return MathHelper.getRoundedUp (nLen, 4) * 3 / 4;
+  }
+
   public void decode (@Nullable final byte [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
