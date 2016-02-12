@@ -691,8 +691,8 @@ public final class StringHelper
    * @return The concatenated string.
    */
   @Nonnull
-  public static <ELEMENTTYPE> String getImploded (@Nullable final Iterable <ELEMENTTYPE> aElements,
-                                                  @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+  public static <ELEMENTTYPE> String getImploded (@Nullable final Iterable <? extends ELEMENTTYPE> aElements,
+                                                  @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
 
@@ -755,8 +755,8 @@ public final class StringHelper
    */
   @Nonnull
   public static <ELEMENTTYPE> String getImploded (@Nonnull final String sSep,
-                                                  @Nullable final Iterable <ELEMENTTYPE> aElements,
-                                                  @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+                                                  @Nullable final Iterable <? extends ELEMENTTYPE> aElements,
+                                                  @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     ValueEnforcer.notNull (sSep, "Separator");
     ValueEnforcer.notNull (aMapper, "Mapper");
@@ -793,8 +793,8 @@ public final class StringHelper
    */
   @Nonnull
   public static <ELEMENTTYPE> String getImploded (final char cSep,
-                                                  @Nullable final Iterable <ELEMENTTYPE> aElements,
-                                                  @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+                                                  @Nullable final Iterable <? extends ELEMENTTYPE> aElements,
+                                                  @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return getImploded (Character.toString (cSep), aElements, aMapper);
   }
@@ -876,9 +876,9 @@ public final class StringHelper
   @Nonnull
   public static <KEYTYPE, VALUETYPE> String getImploded (@Nonnull final String sSepOuter,
                                                          @Nonnull final String sSepInner,
-                                                         @Nullable final Map <KEYTYPE, VALUETYPE> aElements,
-                                                         @Nonnull final Function <KEYTYPE, String> aKeyMapper,
-                                                         @Nonnull final Function <VALUETYPE, String> aValueMapper)
+                                                         @Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aElements,
+                                                         @Nonnull final Function <? super KEYTYPE, String> aKeyMapper,
+                                                         @Nonnull final Function <? super VALUETYPE, String> aValueMapper)
   {
     ValueEnforcer.notNull (sSepOuter, "SepOuter");
     ValueEnforcer.notNull (sSepInner, "SepInner");
@@ -887,7 +887,7 @@ public final class StringHelper
     if (aElements != null)
     {
       int nIndex = 0;
-      for (final Map.Entry <KEYTYPE, VALUETYPE> aElement : aElements.entrySet ())
+      for (final Map.Entry <? extends KEYTYPE, ? extends VALUETYPE> aElement : aElements.entrySet ())
       {
         if (nIndex++ > 0)
           aSB.append (sSepOuter);
@@ -924,9 +924,9 @@ public final class StringHelper
   @Nonnull
   public static <KEYTYPE, VALUETYPE> String getImploded (final char cSepOuter,
                                                          final char cSepInner,
-                                                         @Nullable final Map <KEYTYPE, VALUETYPE> aElements,
-                                                         @Nonnull final Function <KEYTYPE, String> aKeyMapper,
-                                                         @Nonnull final Function <VALUETYPE, String> aValueMapper)
+                                                         @Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aElements,
+                                                         @Nonnull final Function <? super KEYTYPE, String> aKeyMapper,
+                                                         @Nonnull final Function <? super VALUETYPE, String> aValueMapper)
   {
     return getImploded (Character.toString (cSepOuter),
                         Character.toString (cSepInner),
@@ -989,7 +989,7 @@ public final class StringHelper
    */
   @Nonnull
   public static <ELEMENTTYPE> String getImploded (@Nullable final ELEMENTTYPE [] aElements,
-                                                  @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+                                                  @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
 
@@ -1019,7 +1019,7 @@ public final class StringHelper
   public static <ELEMENTTYPE> String getImploded (@Nullable final ELEMENTTYPE [] aElements,
                                                   @Nonnegative final int nOfs,
                                                   @Nonnegative final int nLen,
-                                                  @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+                                                  @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     if (aElements != null)
       ValueEnforcer.isArrayOfsLen (aElements, nOfs, nLen);
@@ -1113,7 +1113,7 @@ public final class StringHelper
   @Nonnull
   public static <ELEMENTTYPE> String getImploded (@Nonnull final String sSep,
                                                   @Nullable final ELEMENTTYPE [] aElements,
-                                                  @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+                                                  @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     ValueEnforcer.notNull (sSep, "Separator");
     ValueEnforcer.notNull (aMapper, "Mapper");
@@ -1141,7 +1141,7 @@ public final class StringHelper
   @Nonnull
   public static <ELEMENTTYPE> String getImploded (final char cSep,
                                                   @Nullable final ELEMENTTYPE [] aElements,
-                                                  @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+                                                  @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return getImploded (Character.toString (cSep), aElements, aMapper);
   }
@@ -1170,7 +1170,7 @@ public final class StringHelper
                                                   @Nullable final ELEMENTTYPE [] aElements,
                                                   @Nonnegative final int nOfs,
                                                   @Nonnegative final int nLen,
-                                                  @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+                                                  @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     ValueEnforcer.notNull (sSep, "Separator");
     if (aElements != null)
@@ -1246,8 +1246,8 @@ public final class StringHelper
    * @return The concatenated string.
    */
   @Nonnull
-  public static <ELEMENTTYPE> String getImplodedNonEmpty (@Nullable final Iterable <ELEMENTTYPE> aElements,
-                                                          @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+  public static <ELEMENTTYPE> String getImplodedNonEmpty (@Nullable final Iterable <? extends ELEMENTTYPE> aElements,
+                                                          @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
 
@@ -1320,8 +1320,8 @@ public final class StringHelper
    */
   @Nonnull
   public static <ELEMENTTYPE> String getImplodedNonEmpty (@Nonnull final String sSep,
-                                                          @Nullable final Iterable <ELEMENTTYPE> aElements,
-                                                          @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+                                                          @Nullable final Iterable <? extends ELEMENTTYPE> aElements,
+                                                          @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     ValueEnforcer.notNull (sSep, "Separator");
     ValueEnforcer.notNull (aMapper, "Mapper");
@@ -1364,8 +1364,8 @@ public final class StringHelper
    */
   @Nonnull
   public static <ELEMENTTYPE> String getImplodedNonEmpty (final char cSep,
-                                                          @Nullable final Iterable <ELEMENTTYPE> aElements,
-                                                          @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+                                                          @Nullable final Iterable <? extends ELEMENTTYPE> aElements,
+                                                          @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return getImplodedNonEmpty (Character.toString (cSep), aElements, aMapper);
   }
@@ -1424,7 +1424,7 @@ public final class StringHelper
   @Nonnull
   public static <ELEMENTTYPE> String getImplodedNonEmpty (@Nonnull final String sSep,
                                                           @Nullable final ELEMENTTYPE [] aElements,
-                                                          @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+                                                          @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     ValueEnforcer.notNull (sSep, "Separator");
     ValueEnforcer.notNull (aMapper, "Mapper");
@@ -1452,7 +1452,7 @@ public final class StringHelper
   @Nonnull
   public static <ELEMENTTYPE> String getImplodedNonEmpty (final char cSep,
                                                           @Nullable final ELEMENTTYPE [] aElements,
-                                                          @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+                                                          @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return getImplodedNonEmpty (Character.toString (cSep), aElements, aMapper);
   }
@@ -1531,7 +1531,7 @@ public final class StringHelper
                                                           @Nullable final ELEMENTTYPE [] aElements,
                                                           @Nonnegative final int nOfs,
                                                           @Nonnegative final int nLen,
-                                                          @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+                                                          @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     ValueEnforcer.notNull (sSep, "Separator");
     if (aElements != null)
@@ -1580,7 +1580,7 @@ public final class StringHelper
                                                           @Nullable final ELEMENTTYPE [] aElements,
                                                           @Nonnegative final int nOfs,
                                                           @Nonnegative final int nLen,
-                                                          @Nonnull final Function <ELEMENTTYPE, String> aMapper)
+                                                          @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return getImplodedNonEmpty (Character.toString (cSep), aElements, nOfs, nLen, aMapper);
   }

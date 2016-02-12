@@ -116,7 +116,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
   @Nullable
   public CALLBACKTYPE getCallbackAtIndex (@Nonnegative final int nIndex)
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.getSafe (m_aCallbacks, nIndex));
+    return m_aRWLock.readLocked ( () -> CollectionHelper.getAtIndex (m_aCallbacks, nIndex));
   }
 
   @Nonnegative

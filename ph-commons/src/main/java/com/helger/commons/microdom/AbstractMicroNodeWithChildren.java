@@ -193,7 +193,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @Nullable
   public final IMicroNode getChildAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getSafe (m_aChildren, nIndex);
+    return CollectionHelper.getAtIndex (m_aChildren, nIndex);
   }
 
   @Override

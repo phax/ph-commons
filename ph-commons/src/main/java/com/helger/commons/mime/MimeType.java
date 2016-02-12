@@ -293,7 +293,7 @@ public class MimeType implements IMimeType, Comparable <MimeType>
   @Nullable
   public MimeTypeParameter getParameterAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getSafe (m_aParameters, nIndex);
+    return CollectionHelper.getAtIndex (m_aParameters, nIndex);
   }
 
   @Nullable

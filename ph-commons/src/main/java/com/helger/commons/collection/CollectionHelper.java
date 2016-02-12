@@ -2839,44 +2839,6 @@ public final class CollectionHelper
     return aRet;
   }
 
-  /**
-   * Safe list element accessor method.
-   *
-   * @param <ELEMENTTYPE>
-   *        The type of elements on the list.
-   * @param aList
-   *        The list to extract from. May be <code>null</code>.
-   * @param nIndex
-   *        The index to access. Should be &ge; 0.
-   * @return <code>null</code> if the element cannot be accessed.
-   */
-  @Nullable
-  public static <ELEMENTTYPE> ELEMENTTYPE getSafe (@Nullable final List <ELEMENTTYPE> aList, final int nIndex)
-  {
-    return getSafe (aList, nIndex, null);
-  }
-
-  /**
-   * Safe list element accessor method.
-   *
-   * @param <ELEMENTTYPE>
-   *        The type of elements on the list.
-   * @param aList
-   *        The list to extract from. May be <code>null</code>.
-   * @param nIndex
-   *        The index to access. Should be &ge; 0.
-   * @param aDefault
-   *        The value to be returned, if the index is out of bounds.
-   * @return The default parameter if the element cannot be accessed.
-   */
-  @Nullable
-  public static <ELEMENTTYPE> ELEMENTTYPE getSafe (@Nullable final List <ELEMENTTYPE> aList,
-                                                   final int nIndex,
-                                                   @Nullable final ELEMENTTYPE aDefault)
-  {
-    return aList != null && nIndex >= 0 && nIndex < aList.size () ? aList.get (nIndex) : aDefault;
-  }
-
   public static <ELEMENTTYPE> boolean contains (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
                                                 @Nullable final ELEMENTTYPE aSearch)
   {
@@ -3097,5 +3059,117 @@ public final class CollectionHelper
   public static boolean containsOnlyNullElements (@Nullable final Iterable <?> aCont)
   {
     return containsOnly (aCont, Objects::isNull);
+  }
+
+  /**
+   * Safe list element accessor method.
+   *
+   * @param aList
+   *        The list to extract from. May be <code>null</code>.
+   * @param nIndex
+   *        The index to access. Should be &ge; 0.
+   * @return <code>null</code> if the element cannot be accessed.
+   * @param <ELEMENTTYPE>
+   *        The type of elements on the list.
+   */
+  @Nullable
+  public static <ELEMENTTYPE> ELEMENTTYPE getAtIndex (@Nullable final List <? extends ELEMENTTYPE> aList,
+                                                      final int nIndex)
+  {
+    return getAtIndex (aList, nIndex, null);
+  }
+
+  /**
+   * Safe list element accessor method.
+   *
+   * @param aList
+   *        The list to extract from. May be <code>null</code>.
+   * @param nIndex
+   *        The index to access. Should be &ge; 0.
+   * @param aDefault
+   *        The value to be returned, if the index is out of bounds.
+   * @return The default parameter if the element cannot be accessed.
+   * @param <ELEMENTTYPE>
+   *        The type of elements on the list.
+   */
+  @Nullable
+  public static <ELEMENTTYPE> ELEMENTTYPE getAtIndex (@Nullable final List <? extends ELEMENTTYPE> aList,
+                                                      final int nIndex,
+                                                      @Nullable final ELEMENTTYPE aDefault)
+  {
+    return aList != null && nIndex >= 0 && nIndex < aList.size () ? aList.get (nIndex) : aDefault;
+  }
+
+  @Nullable
+  public static <ELEMENTTYPE> ELEMENTTYPE getAtIndex (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                      @Nonnegative final int nIndex)
+  {
+    return getAtIndex (aCollection, nIndex, null);
+  }
+
+  @Nullable
+  public static <ELEMENTTYPE> ELEMENTTYPE getAtIndex (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                      @Nonnegative final int nIndex,
+                                                      @Nullable final ELEMENTTYPE aDefault)
+  {
+    return getAtIndex (aCollection, null, nIndex, aDefault);
+  }
+
+  @Nullable
+  public static <ELEMENTTYPE> ELEMENTTYPE getAtIndex (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                      @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                      @Nonnegative final int nIndex)
+  {
+    return getAtIndex (aCollection, aFilter, nIndex, null);
+  }
+
+  @Nullable
+  public static <ELEMENTTYPE> ELEMENTTYPE getAtIndex (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                      @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                      @Nonnegative final int nIndex,
+                                                      @Nullable final ELEMENTTYPE aDefault)
+  {
+    if (nIndex >= 0)
+    {
+      int nCurIndex = 0;
+      for (final ELEMENTTYPE aElement : aCollection)
+        if (aFilter == null || aFilter.test (aElement))
+        {
+          if (nCurIndex == nIndex)
+            return aElement;
+          ++nCurIndex;
+        }
+    }
+    return aDefault;
+  }
+
+  @Nullable
+  public static <SRCTYPE, DSTTYPE> DSTTYPE getAtIndexMapped (@Nullable final Iterable <? extends SRCTYPE> aCollection,
+                                                             @Nullable final Predicate <? super SRCTYPE> aFilter,
+                                                             @Nonnegative final int nIndex,
+                                                             @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
+  {
+    return getAtIndexMapped (aCollection, aFilter, nIndex, aMapper, null);
+  }
+
+  @Nullable
+  public static <SRCTYPE, DSTTYPE> DSTTYPE getAtIndexMapped (@Nullable final Iterable <? extends SRCTYPE> aCollection,
+                                                             @Nullable final Predicate <? super SRCTYPE> aFilter,
+                                                             @Nonnegative final int nIndex,
+                                                             @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                             @Nullable final DSTTYPE aDefault)
+  {
+    if (nIndex >= 0)
+    {
+      int nCurIndex = 0;
+      for (final SRCTYPE aElement : aCollection)
+        if (aFilter == null || aFilter.test (aElement))
+        {
+          if (nCurIndex == nIndex)
+            return aMapper.apply (aElement);
+          ++nCurIndex;
+        }
+    }
+    return aDefault;
   }
 }

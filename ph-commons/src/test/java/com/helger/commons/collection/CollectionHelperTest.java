@@ -33,7 +33,7 @@ import static com.helger.commons.collection.CollectionHelper.getReverseInlineLis
 import static com.helger.commons.collection.CollectionHelper.getReverseList;
 import static com.helger.commons.collection.CollectionHelper.getReverseLookup;
 import static com.helger.commons.collection.CollectionHelper.getReverseLookupSet;
-import static com.helger.commons.collection.CollectionHelper.getSafe;
+import static com.helger.commons.collection.CollectionHelper.getAtIndex;
 import static com.helger.commons.collection.CollectionHelper.getSize;
 import static com.helger.commons.collection.CollectionHelper.getSorted;
 import static com.helger.commons.collection.CollectionHelper.getSortedByKey;
@@ -1886,18 +1886,18 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testGetSafe ()
   {
-    assertNull (getSafe (null, 0));
-    assertNull (getSafe (null, -1));
-    assertNull (getSafe (null, 1));
+    assertNull (getAtIndex (null, 0));
+    assertNull (getAtIndex (null, -1));
+    assertNull (getAtIndex (null, 1));
 
     final List <String> aList = newList ("a", "b");
-    assertNull (getSafe (aList, -1));
-    assertEquals ("a", getSafe (aList, 0));
-    assertNull (getSafe (aList, 2));
+    assertNull (getAtIndex (aList, -1));
+    assertEquals ("a", getAtIndex (aList, 0));
+    assertNull (getAtIndex (aList, 2));
 
-    assertEquals ("x", getSafe (aList, -1, "x"));
-    assertEquals ("a", getSafe (aList, 0, "x"));
-    assertEquals ("x", getSafe (aList, 2, "x"));
+    assertEquals ("x", getAtIndex (aList, -1, "x"));
+    assertEquals ("a", getAtIndex (aList, 0, "x"));
+    assertEquals ("x", getAtIndex (aList, 2, "x"));
   }
 
   @Test

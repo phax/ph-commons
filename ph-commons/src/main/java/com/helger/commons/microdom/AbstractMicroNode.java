@@ -408,7 +408,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     final int nIndex = aParentChildren.indexOf (this);
     if (nIndex == -1)
       throw new IllegalStateException ("this is no part of it's parents children");
-    return CollectionHelper.getSafe (aParentChildren, nIndex - 1);
+    return CollectionHelper.getAtIndex (aParentChildren, nIndex - 1);
   }
 
   @Nullable
@@ -420,7 +420,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     final int nIndex = aParentChildren.indexOf (this);
     if (nIndex == -1)
       throw new IllegalStateException ("this is no part of it's parents children");
-    return CollectionHelper.getSafe (aParentChildren, nIndex + 1);
+    return CollectionHelper.getAtIndex (aParentChildren, nIndex + 1);
   }
 
   public final boolean hasParent ()
