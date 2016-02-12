@@ -2912,18 +2912,18 @@ public final class CollectionHelper
 
   @SuppressWarnings ("null")
   @Nullable
-  public static <ELEMENTTYPE, DSTTYPE> DSTTYPE findFirst (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
-                                                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                          @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+  public static <ELEMENTTYPE, DSTTYPE> DSTTYPE findFirstMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                                @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                                @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
-    return findFirst (aCollection, aFilter, aMapper, (DSTTYPE) null);
+    return findFirstMapped (aCollection, aFilter, aMapper, (DSTTYPE) null);
   }
 
   @Nullable
-  public static <ELEMENTTYPE, DSTTYPE> DSTTYPE findFirst (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
-                                                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                          @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
-                                                          @Nullable final DSTTYPE aDefault)
+  public static <ELEMENTTYPE, DSTTYPE> DSTTYPE findFirstMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                                @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                                @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
+                                                                @Nullable final DSTTYPE aDefault)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
 
@@ -2994,19 +2994,19 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE, DSTTYPE> List <DSTTYPE> getAll (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
-                                                              @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                              @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+  public static <ELEMENTTYPE, DSTTYPE> List <DSTTYPE> getAllMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                                    @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                                    @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
     final List <DSTTYPE> ret = new ArrayList <> ();
-    findAll (aCollection, aFilter, aMapper, ret);
+    findAllMapped (aCollection, aFilter, aMapper, ret);
     return ret;
   }
 
-  public static <SRCTYPE, DSTTYPE> void findAll (@Nullable final Iterable <? extends SRCTYPE> aSrc,
-                                                 @Nullable final Predicate <? super SRCTYPE> aFilter,
-                                                 @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
-                                                 @Nonnull final Collection <? super DSTTYPE> aDst)
+  public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
+                                                       @Nullable final Predicate <? super SRCTYPE> aFilter,
+                                                       @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                       @Nonnull final Collection <? super DSTTYPE> aDst)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
     ValueEnforcer.notNull (aDst, "Dst");
