@@ -27,7 +27,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.lang.IHasByteSize;
 
 /**
  * Defines the most common Byte Order Markers for Unicode encoded text files.
@@ -41,7 +40,7 @@ import com.helger.commons.lang.IHasByteSize;
  *
  * @author Philip Helger
  */
-public enum EUnicodeBOM implements IHasByteSize
+public enum EUnicodeBOM
 {
   // 4 bytes
   /** UTF-32 Big Endian */
@@ -127,15 +126,6 @@ public enum EUnicodeBOM implements IHasByteSize
    */
   @Nonnegative
   public int getByteCount ()
-  {
-    return m_aBOMBytes.length;
-  }
-
-  /**
-   * @return The number of bytes defining this BOM
-   */
-  @Nonnegative
-  public long getSizeInBytes ()
   {
     return m_aBOMBytes.length;
   }

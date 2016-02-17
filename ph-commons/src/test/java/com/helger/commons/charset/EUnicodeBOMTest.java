@@ -35,39 +35,39 @@ public final class EUnicodeBOMTest
   @Test
   public void testgetSizeInBytes ()
   {
-    assertEquals (3, EUnicodeBOM.BOM_UTF_8.getSizeInBytes ());
-    assertEquals (2, EUnicodeBOM.BOM_UTF_16_BIG_ENDIAN.getSizeInBytes ());
-    assertEquals (2, EUnicodeBOM.BOM_UTF_16_LITTLE_ENDIAN.getSizeInBytes ());
-    assertEquals (4, EUnicodeBOM.BOM_UTF_32_BIG_ENDIAN.getSizeInBytes ());
-    assertEquals (4, EUnicodeBOM.BOM_UTF_32_LITTLE_ENDIAN.getSizeInBytes ());
-    assertEquals (4, EUnicodeBOM.BOM_UTF_7.getSizeInBytes ());
-    assertEquals (4, EUnicodeBOM.BOM_UTF_7_ALT2.getSizeInBytes ());
-    assertEquals (4, EUnicodeBOM.BOM_UTF_7_ALT3.getSizeInBytes ());
-    assertEquals (4, EUnicodeBOM.BOM_UTF_7_ALT4.getSizeInBytes ());
-    assertEquals (3, EUnicodeBOM.BOM_UTF_1.getSizeInBytes ());
-    assertEquals (4, EUnicodeBOM.BOM_UTF_EBCDIC.getSizeInBytes ());
-    assertEquals (3, EUnicodeBOM.BOM_SCSU.getSizeInBytes ());
-    assertEquals (3, EUnicodeBOM.BOM_SCSU_TO_UCS.getSizeInBytes ());
-    assertEquals (3, EUnicodeBOM.BOM_SCSU_W0_TO_FE80.getSizeInBytes ());
-    assertEquals (3, EUnicodeBOM.BOM_SCSU_W1_TO_FE80.getSizeInBytes ());
-    assertEquals (3, EUnicodeBOM.BOM_SCSU_W2_TO_FE80.getSizeInBytes ());
-    assertEquals (3, EUnicodeBOM.BOM_SCSU_W3_TO_FE80.getSizeInBytes ());
-    assertEquals (3, EUnicodeBOM.BOM_SCSU_W4_TO_FE80.getSizeInBytes ());
-    assertEquals (3, EUnicodeBOM.BOM_SCSU_W5_TO_FE80.getSizeInBytes ());
-    assertEquals (3, EUnicodeBOM.BOM_SCSU_W6_TO_FE80.getSizeInBytes ());
-    assertEquals (3, EUnicodeBOM.BOM_SCSU_W7_TO_FE80.getSizeInBytes ());
-    assertEquals (3, EUnicodeBOM.BOM_BOCU_1.getSizeInBytes ());
-    assertEquals (4, EUnicodeBOM.BOM_BOCU_1_ALT2.getSizeInBytes ());
-    assertEquals (4, EUnicodeBOM.BOM_GB_18030.getSizeInBytes ());
+    assertEquals (3, EUnicodeBOM.BOM_UTF_8.getByteCount ());
+    assertEquals (2, EUnicodeBOM.BOM_UTF_16_BIG_ENDIAN.getByteCount ());
+    assertEquals (2, EUnicodeBOM.BOM_UTF_16_LITTLE_ENDIAN.getByteCount ());
+    assertEquals (4, EUnicodeBOM.BOM_UTF_32_BIG_ENDIAN.getByteCount ());
+    assertEquals (4, EUnicodeBOM.BOM_UTF_32_LITTLE_ENDIAN.getByteCount ());
+    assertEquals (4, EUnicodeBOM.BOM_UTF_7.getByteCount ());
+    assertEquals (4, EUnicodeBOM.BOM_UTF_7_ALT2.getByteCount ());
+    assertEquals (4, EUnicodeBOM.BOM_UTF_7_ALT3.getByteCount ());
+    assertEquals (4, EUnicodeBOM.BOM_UTF_7_ALT4.getByteCount ());
+    assertEquals (3, EUnicodeBOM.BOM_UTF_1.getByteCount ());
+    assertEquals (4, EUnicodeBOM.BOM_UTF_EBCDIC.getByteCount ());
+    assertEquals (3, EUnicodeBOM.BOM_SCSU.getByteCount ());
+    assertEquals (3, EUnicodeBOM.BOM_SCSU_TO_UCS.getByteCount ());
+    assertEquals (3, EUnicodeBOM.BOM_SCSU_W0_TO_FE80.getByteCount ());
+    assertEquals (3, EUnicodeBOM.BOM_SCSU_W1_TO_FE80.getByteCount ());
+    assertEquals (3, EUnicodeBOM.BOM_SCSU_W2_TO_FE80.getByteCount ());
+    assertEquals (3, EUnicodeBOM.BOM_SCSU_W3_TO_FE80.getByteCount ());
+    assertEquals (3, EUnicodeBOM.BOM_SCSU_W4_TO_FE80.getByteCount ());
+    assertEquals (3, EUnicodeBOM.BOM_SCSU_W5_TO_FE80.getByteCount ());
+    assertEquals (3, EUnicodeBOM.BOM_SCSU_W6_TO_FE80.getByteCount ());
+    assertEquals (3, EUnicodeBOM.BOM_SCSU_W7_TO_FE80.getByteCount ());
+    assertEquals (3, EUnicodeBOM.BOM_BOCU_1.getByteCount ());
+    assertEquals (4, EUnicodeBOM.BOM_BOCU_1_ALT2.getByteCount ());
+    assertEquals (4, EUnicodeBOM.BOM_GB_18030.getByteCount ());
 
     for (final EUnicodeBOM eBOM : EUnicodeBOM.values ())
     {
       // Check whether declared length matches byte length
-      assertEquals (eBOM.getSizeInBytes (), eBOM.getAllBytes ().length);
+      assertEquals (eBOM.getByteCount (), eBOM.getAllBytes ().length);
       assertFalse (eBOM.isPresent (null));
       assertFalse (eBOM.isPresent (new byte [0]));
       assertFalse (eBOM.isPresent (new byte [] { 1 }));
-      assertFalse (eBOM.isPresent (new byte [(int) eBOM.getSizeInBytes () + 1]));
+      assertFalse (eBOM.isPresent (new byte [eBOM.getByteCount () + 1]));
       assertTrue (eBOM.isPresent (eBOM.getAllBytes ()));
       assertSame (eBOM, EUnicodeBOM.valueOf (eBOM.name ()));
       assertSame (eBOM, EUnicodeBOM.getFromBytesOrNull (eBOM.getAllBytes ()));
