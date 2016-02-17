@@ -16,10 +16,10 @@
  */
 package com.helger.commons.hierarchy;
 
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
+
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * This interface can be used to generically resolved children of a certain
@@ -44,7 +44,7 @@ public interface IChildrenProviderSorted <CHILDTYPE> extends IChildrenProvider <
    *         the same object returned <code>true</code>.
    */
   @Nullable
-  List <? extends CHILDTYPE> getAllChildren (@Nullable CHILDTYPE aCurrent);
+  ICommonsList <? extends CHILDTYPE> getAllChildren (@Nullable CHILDTYPE aCurrent);
 
   /**
    * Get the child of the passed object at the given index. It is assumed that

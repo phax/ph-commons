@@ -16,11 +16,9 @@
  */
 package com.helger.commons.microdom;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,6 +33,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.iterate.EmptyIterator;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.equals.EqualsHelper;
@@ -123,7 +123,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   @Nullable
   @ReturnsMutableCopy
-  public List <? extends IMicroAttribute> getAllAttributeObjs ()
+  public ICommonsList <? extends IMicroAttribute> getAllAttributeObjs ()
   {
     if (hasNoAttributes ())
       return null;
@@ -134,7 +134,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public Iterator <? extends IMicroAttribute> getAttributeIterator ()
   {
     if (hasNoAttributes ())
-      return new EmptyIterator <IMicroAttribute> ();
+      return new EmptyIterator <> ();
     return m_aAttrs.values ().iterator ();
   }
 
@@ -173,11 +173,11 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   @Nullable
   @ReturnsMutableCopy
-  public List <String> getAllAttributeValues ()
+  public ICommonsList <String> getAllAttributeValues ()
   {
     if (hasNoAttributes ())
       return null;
-    final List <String> ret = new ArrayList <String> ();
+    final ICommonsList <String> ret = new CommonsList <> ();
     for (final MicroAttribute aName : m_aAttrs.values ())
       ret.add (aName.getAttributeValue ());
     return ret;
@@ -508,9 +508,9 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <IMicroElement> getAllChildElements ()
+  public ICommonsList <IMicroElement> getAllChildElements ()
   {
-    final List <IMicroElement> ret = new ArrayList <IMicroElement> ();
+    final ICommonsList <IMicroElement> ret = new CommonsList <> ();
     if (hasChildren ())
       for (final IMicroNode aChild : directGetAllChildren ())
       {
@@ -531,9 +531,9 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <IMicroElement> getAllChildElements (@Nullable final String sTagName)
+  public ICommonsList <IMicroElement> getAllChildElements (@Nullable final String sTagName)
   {
-    final List <IMicroElement> ret = new ArrayList <IMicroElement> ();
+    final ICommonsList <IMicroElement> ret = new CommonsList <> ();
     if (hasChildren ())
       for (final IMicroNode aChild : directGetAllChildren ())
         if (aChild.isElement ())
@@ -559,13 +559,13 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <IMicroElement> getAllChildElements (@Nullable final String sNamespaceURI,
-                                                   @Nullable final String sLocalName)
+  public ICommonsList <IMicroElement> getAllChildElements (@Nullable final String sNamespaceURI,
+                                                           @Nullable final String sLocalName)
   {
     if (StringHelper.hasNoText (sNamespaceURI))
       return getAllChildElements (sLocalName);
 
-    final List <IMicroElement> ret = new ArrayList <IMicroElement> ();
+    final ICommonsList <IMicroElement> ret = new CommonsList <> ();
     if (hasChildren ())
       for (final IMicroNode aChild : directGetAllChildren ())
         if (aChild.isElement ())
@@ -591,9 +591,9 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <IMicroElement> getAllChildElementsRecursive ()
+  public ICommonsList <IMicroElement> getAllChildElementsRecursive ()
   {
-    final List <IMicroElement> ret = new ArrayList <IMicroElement> ();
+    final ICommonsList <IMicroElement> ret = new CommonsList <> ();
     if (hasChildren ())
       for (final IMicroNode aChild : directGetAllChildren ())
         if (aChild.isElement ())

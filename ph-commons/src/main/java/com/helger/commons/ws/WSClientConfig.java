@@ -19,7 +19,6 @@ package com.helger.commons.ws;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +44,8 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
 import com.helger.commons.lang.ClassLoaderHelper;
@@ -77,7 +78,7 @@ public class WSClientConfig
   private String m_sSOAPAction;
   private IMultiMapListBased <String, String> m_aHTTPHeaders;
   private ETriState m_eCookiesSupport = ETriState.UNDEFINED;
-  private final List <Handler <? extends MessageContext>> m_aHandlers = new ArrayList <> ();
+  private final ICommonsList <Handler <? extends MessageContext>> m_aHandlers = new CommonsList <> ();
 
   private boolean m_bWorkAroundMASM0003 = true;
 
@@ -476,7 +477,7 @@ public class WSClientConfig
     if (m_aHTTPHeaders == null || StringHelper.hasNoText (sName) || sValue == null)
       return EChange.UNCHANGED;
 
-    final List <String> aValues = m_aHTTPHeaders.get (sName);
+    final ICommonsList <String> aValues = m_aHTTPHeaders.get (sName);
     if (aValues != null)
       if (aValues.remove (sValue))
       {
@@ -511,7 +512,7 @@ public class WSClientConfig
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <String> getAllHTTPHeaderValues (@Nullable final String sName)
+  public ICommonsList <String> getAllHTTPHeaderValues (@Nullable final String sName)
   {
     if (m_aHTTPHeaders == null || StringHelper.hasNoText (sName))
       return CollectionHelper.newList (0);
@@ -520,7 +521,7 @@ public class WSClientConfig
 
   @Nonnull
   @ReturnsMutableCopy
-  public Map <String, List <String>> getAllHTTPHeaders ()
+  public Map <String, ICommonsList <String>> getAllHTTPHeaders ()
   {
     return CollectionHelper.newOrderedMap (m_aHTTPHeaders);
   }
@@ -595,9 +596,9 @@ public class WSClientConfig
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <Handler <? extends MessageContext>> getAllHandlers ()
+  public ICommonsList <Handler <? extends MessageContext>> getAllHandlers ()
   {
-    return CollectionHelper.newList (m_aHandlers);
+    return m_aHandlers.getCopy ();
   }
 
   /**
@@ -670,7 +671,7 @@ public class WSClientConfig
       aRequestContext.put (BindingProvider.SESSION_MAINTAIN_PROPERTY, m_eCookiesSupport.getAsBooleanObj ());
     }
 
-    if (!m_aHandlers.isEmpty ())
+    if (m_aHandlers.isNotEmpty ())
     {
       @SuppressWarnings ("rawtypes")
       final List <Handler> aHandlers = aBP.getBinding ().getHandlerChain ();

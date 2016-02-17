@@ -17,9 +17,7 @@
 package com.helger.commons.log;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -28,7 +26,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IHasErrorLevels;
@@ -46,7 +45,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class InMemoryLogger implements Iterable <LogMessage>, IHasSize, IClearable, IHasErrorLevels, Serializable
 {
-  private final List <LogMessage> m_aMessages = new ArrayList <> ();
+  private final ICommonsList <LogMessage> m_aMessages = new CommonsList <> ();
 
   /**
    * Override this method to create a different LogMessage object or to filter
@@ -124,9 +123,9 @@ public class InMemoryLogger implements Iterable <LogMessage>, IHasSize, IClearab
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <LogMessage> getAllMessages ()
+  public ICommonsList <LogMessage> getAllMessages ()
   {
-    return CollectionHelper.newList (m_aMessages);
+    return m_aMessages.getCopy ();
   }
 
   @Nonnull
@@ -148,110 +147,65 @@ public class InMemoryLogger implements Iterable <LogMessage>, IHasSize, IClearab
 
   public boolean containsOnlySuccess ()
   {
-    if (m_aMessages.isEmpty ())
-      return false;
-    for (final LogMessage aMessage : m_aMessages)
-      if (aMessage.isFailure ())
-        return false;
-    return true;
+    return m_aMessages.containsOnly (e -> e.isSuccess ());
   }
 
   public boolean containsAtLeastOneSuccess ()
   {
-    for (final LogMessage aMessage : m_aMessages)
-      if (aMessage.isSuccess ())
-        return true;
-    return false;
+    return m_aMessages.containsAny (e -> e.isSuccess ());
   }
 
   public boolean containsNoSuccess ()
   {
-    for (final LogMessage aMessage : m_aMessages)
-      if (aMessage.isSuccess ())
-        return false;
-    return true;
+    return m_aMessages.containsNone (e -> e.isSuccess ());
   }
 
   @Nonnegative
   public int getSuccessCount ()
   {
-    int ret = 0;
-    for (final LogMessage aMessage : m_aMessages)
-      if (aMessage.isSuccess ())
-        ret++;
-    return ret;
+    return m_aMessages.getCount (e -> e.isSuccess ());
   }
 
   public boolean containsOnlyFailure ()
   {
-    if (m_aMessages.isEmpty ())
-      return false;
-    for (final LogMessage aMessage : m_aMessages)
-      if (aMessage.isSuccess ())
-        return false;
-    return true;
+    return m_aMessages.containsOnly (e -> e.isFailure ());
   }
 
   public boolean containsAtLeastOneFailure ()
   {
-    for (final LogMessage aMessage : m_aMessages)
-      if (aMessage.isFailure ())
-        return true;
-    return false;
+    return m_aMessages.containsAny (e -> e.isFailure ());
   }
 
   public boolean containsNoFailure ()
   {
-    for (final LogMessage aMessage : m_aMessages)
-      if (aMessage.isFailure ())
-        return false;
-    return true;
+    return m_aMessages.containsNone (e -> e.isFailure ());
   }
 
   @Nonnegative
   public int getFailureCount ()
   {
-    int ret = 0;
-    for (final LogMessage aMessage : m_aMessages)
-      if (aMessage.isFailure ())
-        ret++;
-    return ret;
+    return m_aMessages.getCount (e -> e.isFailure ());
   }
 
   public boolean containsOnlyError ()
   {
-    if (m_aMessages.isEmpty ())
-      return false;
-    for (final LogMessage aMessage : m_aMessages)
-      if (aMessage.isNoError ())
-        return false;
-    return true;
+    return m_aMessages.containsOnly (e -> e.isError ());
   }
 
   public boolean containsAtLeastOneError ()
   {
-    for (final LogMessage aMessage : m_aMessages)
-      if (aMessage.isError ())
-        return true;
-    return false;
+    return m_aMessages.containsAny (e -> e.isError ());
   }
 
   public boolean containsNoError ()
   {
-    for (final LogMessage aMessage : m_aMessages)
-      if (aMessage.isError ())
-        return false;
-    return true;
+    return m_aMessages.containsNone (e -> e.isError ());
   }
 
   @Nonnegative
   public int getErrorCount ()
   {
-    int ret = 0;
-    for (final LogMessage aMessage : m_aMessages)
-      if (aMessage.isError ())
-        ret++;
-    return ret;
+    return m_aMessages.getCount (e -> e.isError ());
   }
 
   @Nonnull
@@ -274,10 +228,7 @@ public class InMemoryLogger implements Iterable <LogMessage>, IHasSize, IClearab
   @Nonnull
   public EChange clear ()
   {
-    if (m_aMessages.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aMessages.clear ();
-    return EChange.CHANGED;
+    return m_aMessages.removeAll ();
   }
 
   @Override

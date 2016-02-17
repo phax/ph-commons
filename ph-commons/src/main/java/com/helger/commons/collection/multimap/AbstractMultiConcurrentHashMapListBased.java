@@ -16,12 +16,13 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
+
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Abstract multi map based on {@link java.util.concurrent.ConcurrentHashMap}
@@ -36,7 +37,7 @@ import javax.annotation.concurrent.ThreadSafe;
  */
 @ThreadSafe
 public abstract class AbstractMultiConcurrentHashMapListBased <KEYTYPE, VALUETYPE> extends
-                                                              AbstractMultiConcurrentHashMap <KEYTYPE, VALUETYPE, List <VALUETYPE>>
+                                                              AbstractMultiConcurrentHashMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>>
                                                               implements IMultiMapListBased <KEYTYPE, VALUETYPE>
 {
   public AbstractMultiConcurrentHashMapListBased ()
@@ -48,12 +49,12 @@ public abstract class AbstractMultiConcurrentHashMapListBased <KEYTYPE, VALUETYP
   }
 
   public AbstractMultiConcurrentHashMapListBased (@Nonnull final KEYTYPE aKey,
-                                                  @Nonnull final List <VALUETYPE> aCollection)
+                                                  @Nonnull final ICommonsList <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public AbstractMultiConcurrentHashMapListBased (@Nullable final Map <? extends KEYTYPE, ? extends List <VALUETYPE>> aCont)
+  public AbstractMultiConcurrentHashMapListBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsList <VALUETYPE>> aCont)
   {
     super (aCont);
   }

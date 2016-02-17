@@ -16,7 +16,6 @@
  */
 package com.helger.commons.collection.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EmptyStackException;
 
@@ -26,13 +25,14 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A version of a stack that does not use {@link java.util.Vector} but an
- * {@link ArrayList} as the underlying data structure as opposed to
+ * {@link CommonsList} as the underlying data structure as opposed to
  * {@link java.util.Stack}. This spares us from unnecessary synchronization.
  *
  * @author Philip Helger
@@ -40,7 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The type of the elements contained in the stack
  */
 @NotThreadSafe
-public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE>
+public class NonBlockingStack <ELEMENTTYPE> extends CommonsList <ELEMENTTYPE>
                               implements ICloneable <NonBlockingStack <ELEMENTTYPE>>
 {
   public NonBlockingStack ()
@@ -96,7 +96,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE>
   {
     if (isEmpty ())
       throw new EmptyStackException ();
-    return remove (size () - 1);
+    return removeLast ();
   }
 
   /**
@@ -112,7 +112,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE>
   {
     if (isEmpty ())
       throw new EmptyStackException ();
-    return get (size () - 1);
+    return getLast ();
   }
 
   /**
@@ -141,7 +141,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE>
   {
     if (isEmpty ())
       throw new EmptyStackException ();
-    return get (0);
+    return getFirst ();
   }
 
   /**
@@ -159,7 +159,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE>
   {
     if (isEmpty ())
       throw new EmptyStackException ();
-    set (size () - 1, aItem);
+    setLast (aItem);
     return aItem;
   }
 

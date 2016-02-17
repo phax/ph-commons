@@ -18,9 +18,10 @@ package com.helger.commons;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Vector;
 
 import org.junit.Test;
+
+import com.helger.commons.collection.ext.CommonsVector;
 
 /**
  * Test class for class {@link ValueEnforcer}.
@@ -74,18 +75,18 @@ public final class ValueEnforcerTest
   @Test (expected = IllegalArgumentException.class)
   public void testNotEmpty7 ()
   {
-    ValueEnforcer.notEmpty (new ArrayList <String> (), "null");
+    ValueEnforcer.notEmpty (new ArrayList <> (), "null");
   }
 
   @Test (expected = IllegalArgumentException.class)
   public void testNotEmpty8 ()
   {
-    ValueEnforcer.notEmpty (new Vector <String> (), "null");
+    ValueEnforcer.notEmpty (new CommonsVector <> (), "null");
   }
 
   @Test (expected = IllegalArgumentException.class)
   public void testNotEmpty9 ()
   {
-    ValueEnforcer.notEmpty (new HashMap <String, Integer> (), "null");
+    ValueEnforcer.notEmpty (new HashMap <> (), "null");
   }
 }

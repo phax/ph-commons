@@ -18,7 +18,6 @@ package com.helger.commons.xml.serialize.write;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -28,6 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.namespace.QName;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.microdom.IMicroDocumentType;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -373,7 +373,7 @@ public class XMLEmitter
       if (sText.indexOf (CDATA_END) >= 0)
       {
         // Split CDATA sections if they contain the illegal "]]>" marker
-        final List <String> aParts = StringHelper.getExploded (CDATA_END, sText);
+        final ICommonsList <String> aParts = StringHelper.getExploded (CDATA_END, sText);
         final int nParts = aParts.size ();
         for (int i = 0; i < nParts; ++i)
         {

@@ -16,8 +16,6 @@
  */
 package com.helger.commons.io.resourceprovider;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -27,6 +25,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
@@ -40,7 +39,7 @@ import com.helger.commons.string.ToStringGenerator;
 @Immutable
 public class ReadableResourceProviderChain implements IReadableResourceProvider
 {
-  protected final List <IReadableResourceProvider> m_aReadingResourceProviders;
+  protected final ICommonsList <IReadableResourceProvider> m_aReadingResourceProviders;
 
   public ReadableResourceProviderChain (@Nonnull final IReadableResourceProvider... aResProviders)
   {
@@ -59,18 +58,15 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public List <IReadableResourceProvider> getAllContainedReadingResourceProviders ()
+  public ICommonsList <IReadableResourceProvider> getAllContainedReadingResourceProviders ()
   {
-    return CollectionHelper.newList (m_aReadingResourceProviders);
+    return m_aReadingResourceProviders.getCopy ();
   }
 
   public final boolean supportsReading (@Nullable final String sName)
   {
     // Check if any provider can handle this resource
-    for (final IReadableResourceProvider aResProvider : m_aReadingResourceProviders)
-      if (aResProvider.supportsReading (sName))
-        return true;
-    return false;
+    return m_aReadingResourceProviders.containsAny (e -> e.supportsReading (sName));
   }
 
   @Nonnull

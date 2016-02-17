@@ -226,7 +226,7 @@ public final class SingleElementListTest
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testIterate ()
   {
-    SingleElementList <String> aList = SingleElementList.create ("Hallo");
+    SingleElementList <String> aList = new SingleElementList <> ("Hallo");
     assertEquals (1, aList.size ());
     assertTrue (aList.iterator ().hasNext ());
     assertEquals ("Hallo", aList.iterator ().next ());
@@ -304,7 +304,7 @@ public final class SingleElementListTest
   @Test
   public void testRetainAll ()
   {
-    final SingleElementList <String> aList = SingleElementList.create ("init");
+    final SingleElementList <String> aList = new SingleElementList <> ("init");
     assertTrue (aList.retainAll (CollectionHelper.newList ("init", "all")));
     assertTrue (aList.contains ("init"));
     assertFalse (aList.retainAll (CollectionHelper.newList ("all")));
@@ -316,18 +316,18 @@ public final class SingleElementListTest
   @Test
   public void testStdMethods ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (SingleElementList.create ("init"),
-                                                                       SingleElementList.create ("init"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (SingleElementList.create ("init"),
-                                                                           SingleElementList.create ("init2"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (SingleElementList.create ("init"),
-                                                                           SingleElementList.create (Boolean.TRUE));
-    assertArrayEquals (SingleElementList.create ("init").toArray (), SingleElementList.create ("init").toArray ());
-    assertArrayEquals (SingleElementList.create ("init").toArray (new String [0]),
-                       SingleElementList.create ("init").toArray (new String [0]));
-    assertArrayEquals (SingleElementList.create ("init").toArray (new String [1]),
-                       SingleElementList.create ("init").toArray (new String [1]));
-    assertArrayEquals (SingleElementList.create ("init").toArray (new String [5]),
-                       SingleElementList.create ("init").toArray (new String [5]));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SingleElementList <> ("init"),
+                                                                       new SingleElementList <> ("init"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementList <> ("init"),
+                                                                           new SingleElementList <> ("init2"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementList <> ("init"),
+                                                                           new SingleElementList <> (Boolean.TRUE));
+    assertArrayEquals (new SingleElementList <> ("init").toArray (), new SingleElementList <> ("init").toArray ());
+    assertArrayEquals (new SingleElementList <> ("init").toArray (new String [0]),
+                       new SingleElementList <> ("init").toArray (new String [0]));
+    assertArrayEquals (new SingleElementList <> ("init").toArray (new String [1]),
+                       new SingleElementList <> ("init").toArray (new String [1]));
+    assertArrayEquals (new SingleElementList <> ("init").toArray (new String [5]),
+                       new SingleElementList <> ("init").toArray (new String [5]));
   }
 }

@@ -17,8 +17,6 @@
 package com.helger.commons.changelog;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -28,7 +26,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.version.Version;
@@ -45,7 +44,7 @@ public class ChangeLog implements Serializable
   private final String m_sOriginalVersion;
   private final Version m_aVersion;
   private final String m_sComponent;
-  private final List <AbstractChangeLogEntry> m_aEntries = new ArrayList <AbstractChangeLogEntry> ();
+  private final ICommonsList <AbstractChangeLogEntry> m_aEntries = new CommonsList <> ();
 
   /**
    * Constructor.
@@ -125,9 +124,9 @@ public class ChangeLog implements Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <AbstractChangeLogEntry> getAllBaseEntries ()
+  public ICommonsList <AbstractChangeLogEntry> getAllBaseEntries ()
   {
-    return CollectionHelper.newList (m_aEntries);
+    return m_aEntries.getCopy ();
   }
 
   /**
@@ -136,13 +135,9 @@ public class ChangeLog implements Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <ChangeLogEntry> getAllEntries ()
+  public ICommonsList <ChangeLogEntry> getAllEntries ()
   {
-    final List <ChangeLogEntry> ret = new ArrayList <ChangeLogEntry> ();
-    for (final AbstractChangeLogEntry aEntry : m_aEntries)
-      if (aEntry instanceof ChangeLogEntry)
-        ret.add ((ChangeLogEntry) aEntry);
-    return ret;
+    return m_aEntries.getAllInstanceOf (ChangeLogEntry.class);
   }
 
   /**
@@ -155,18 +150,15 @@ public class ChangeLog implements Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <ChangeLogEntry> getAllEntriesOfCategory (@Nonnull final EChangeLogCategory eCategory)
+  public ICommonsList <ChangeLogEntry> getAllEntriesOfCategory (@Nonnull final EChangeLogCategory eCategory)
   {
     ValueEnforcer.notNull (eCategory, "Category");
 
-    final List <ChangeLogEntry> ret = new ArrayList <ChangeLogEntry> ();
-    for (final AbstractChangeLogEntry aEntry : m_aEntries)
-      if (aEntry instanceof ChangeLogEntry)
-      {
-        final ChangeLogEntry aRealEntry = (ChangeLogEntry) aEntry;
-        if (aRealEntry.getCategory ().equals (eCategory))
-          ret.add (aRealEntry);
-      }
+    final ICommonsList <ChangeLogEntry> ret = new CommonsList <> ();
+    m_aEntries.findAllInstanceOf (ChangeLogEntry.class, e -> {
+      if (e.getCategory ().equals (eCategory))
+        ret.add (e);
+    });
     return ret;
   }
 
@@ -201,13 +193,9 @@ public class ChangeLog implements Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <ChangeLogRelease> getAllReleases ()
+  public ICommonsList <ChangeLogRelease> getAllReleases ()
   {
-    final List <ChangeLogRelease> ret = new ArrayList <ChangeLogRelease> ();
-    for (final AbstractChangeLogEntry aEntry : m_aEntries)
-      if (aEntry instanceof ChangeLogRelease)
-        ret.add ((ChangeLogRelease) aEntry);
-    return ret;
+    return m_aEntries.getAllInstanceOf (ChangeLogRelease.class);
   }
 
   /**

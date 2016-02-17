@@ -16,19 +16,20 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Vector;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsVector;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
- * Multi map based on {@link java.util.LinkedHashMap} and
- * {@link java.util.Vector} values.<br>
+ * Multi map based on {@link LinkedHashMap} and {@link CommonsVector} values.
+ * <br>
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -48,12 +49,13 @@ public class MultiLinkedHashMapVectorBased <KEYTYPE, VALUETYPE>
     super (aKey, aValue);
   }
 
-  public MultiLinkedHashMapVectorBased (@Nullable final KEYTYPE aKey, @Nullable final List <VALUETYPE> aCollection)
+  public MultiLinkedHashMapVectorBased (@Nullable final KEYTYPE aKey,
+                                        @Nullable final ICommonsList <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public MultiLinkedHashMapVectorBased (@Nullable final Map <? extends KEYTYPE, ? extends List <VALUETYPE>> aCont)
+  public MultiLinkedHashMapVectorBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsList <VALUETYPE>> aCont)
   {
     super (aCont);
   }
@@ -61,8 +63,8 @@ public class MultiLinkedHashMapVectorBased <KEYTYPE, VALUETYPE>
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  protected final List <VALUETYPE> createNewCollection ()
+  protected final CommonsVector <VALUETYPE> createNewCollection ()
   {
-    return new Vector <VALUETYPE> ();
+    return new CommonsVector <> ();
   }
 }

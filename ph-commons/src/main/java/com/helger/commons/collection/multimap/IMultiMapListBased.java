@@ -22,6 +22,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.state.EChange;
 
 /**
@@ -33,7 +34,8 @@ import com.helger.commons.state.EChange;
  * @param <VALUETYPE>
  *        Value type
  */
-public interface IMultiMapListBased <KEYTYPE, VALUETYPE> extends IMultiMap <KEYTYPE, VALUETYPE, List <VALUETYPE>>
+public interface IMultiMapListBased <KEYTYPE, VALUETYPE>
+                                    extends IMultiMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>>
 {
   /**
    * Add a single value into the container identified by the passed key at the

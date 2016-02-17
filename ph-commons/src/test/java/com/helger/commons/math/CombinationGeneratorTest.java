@@ -20,14 +20,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -45,16 +45,16 @@ public final class CombinationGeneratorTest
   @Test
   public void testStringCombination ()
   {
-    final List <String> aElements = CollectionHelper.newList (A, B, B, C);
+    final ICommonsList <String> aElements = CollectionHelper.newList (A, B, B, C);
     final CombinationGenerator <String> x = new CombinationGenerator <String> (aElements, 3);
     assertEquals (BigInteger.valueOf (4), x.getTotalCombinations ());
     assertEquals (BigInteger.valueOf (4), x.getCombinationsLeft ());
 
-    final List <List <String>> aResultsWithDuplicates = new ArrayList <List <String>> ();
-    final Set <List <String>> aResultsWithoutDuplicates = new HashSet <List <String>> ();
+    final ICommonsList <ICommonsList <String>> aResultsWithDuplicates = new CommonsList <> ();
+    final Set <ICommonsList <String>> aResultsWithoutDuplicates = new HashSet <> ();
     while (x.hasNext ())
     {
-      final List <String> aResult = x.next ();
+      final ICommonsList <String> aResult = x.next ();
       aResultsWithDuplicates.add (aResult);
       aResultsWithoutDuplicates.add (aResult);
     }
@@ -73,16 +73,16 @@ public final class CombinationGeneratorTest
   @Test
   public void testStringCombination2 ()
   {
-    final List <String> aElements = CollectionHelper.newList (A, B, B, C);
-    final CombinationGenerator <String> x = new CombinationGenerator <String> (aElements, 0);
+    final ICommonsList <String> aElements = CollectionHelper.newList (A, B, B, C);
+    final CombinationGenerator <String> x = new CombinationGenerator <> (aElements, 0);
     assertEquals (BigInteger.ONE, x.getTotalCombinations ());
     assertEquals (BigInteger.ONE, x.getCombinationsLeft ());
 
-    final List <List <String>> aResultsWithDuplicates = new ArrayList <List <String>> ();
-    final Set <List <String>> aResultsWithoutDuplicates = new HashSet <List <String>> ();
+    final ICommonsList <ICommonsList <String>> aResultsWithDuplicates = new CommonsList <> ();
+    final Set <ICommonsList <String>> aResultsWithoutDuplicates = new HashSet <> ();
     while (x.hasNext ())
     {
-      final List <String> aResult = x.next ();
+      final ICommonsList <String> aResult = x.next ();
       aResultsWithDuplicates.add (aResult);
       aResultsWithoutDuplicates.add (aResult);
     }

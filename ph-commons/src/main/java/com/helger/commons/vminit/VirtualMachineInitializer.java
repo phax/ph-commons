@@ -16,11 +16,10 @@
  */
 package com.helger.commons.vminit;
 
-import java.util.List;
-
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.cleanup.CommonsCleanup;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.exception.mock.IMockException;
 import com.helger.commons.lang.ServiceLoaderHelper;
 
@@ -32,7 +31,7 @@ import com.helger.commons.lang.ServiceLoaderHelper;
  */
 public final class VirtualMachineInitializer
 {
-  private static final List <IVirtualMachineEventSPI> s_aSPIs;
+  private static final ICommonsList <IVirtualMachineEventSPI> s_aSPIs;
   private static volatile Thread s_aShutdownThread;
 
   static
@@ -92,7 +91,7 @@ public final class VirtualMachineInitializer
   public static synchronized void runInitialization ()
   {
     // Only if at least one implementing class is present!
-    if (s_aSPIs != null && !s_aSPIs.isEmpty ())
+    if (s_aSPIs != null && s_aSPIs.isNotEmpty ())
     {
       if (s_aShutdownThread != null)
         throw new IllegalStateException ("Already initialized!");

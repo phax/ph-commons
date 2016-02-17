@@ -16,14 +16,13 @@
  */
 package com.helger.commons.statistics.util;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.statistics.IStatisticsHandlerCache;
 import com.helger.commons.statistics.IStatisticsHandlerCounter;
 import com.helger.commons.statistics.IStatisticsHandlerKeyedCounter;
@@ -58,7 +57,7 @@ public final class StatisticsVisitor
     ValueEnforcer.notNull (aCallback, "Callback");
 
     // For all cache handler
-    List <String> aHandlers = CollectionHelper.getSorted (StatisticsManager.getAllCacheHandler ());
+    ICommonsList <String> aHandlers = CollectionHelper.getSorted (StatisticsManager.getAllCacheHandler ());
     for (final String sName : aHandlers)
     {
       final IStatisticsHandlerCache aHandler = StatisticsManager.getCacheHandler (sName);

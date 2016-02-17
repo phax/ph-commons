@@ -19,7 +19,6 @@ package com.helger.commons.equals;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,6 +28,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ECollectionBaseType;
+import com.helger.commons.collection.ext.ICommonsList;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -409,8 +409,8 @@ public final class EqualsHelper
       return false;
 
     // Convert to a collection
-    final List <?> aCollection1 = CollectionHelper.getAsList (aObj1);
-    final List <?> aCollection2 = CollectionHelper.getAsList (aObj2);
+    final ICommonsList <?> aCollection1 = CollectionHelper.getAsList (aObj1);
+    final ICommonsList <?> aCollection2 = CollectionHelper.getAsList (aObj2);
 
     // And compare
     return equalsCollection (aCollection1, aCollection2);

@@ -16,7 +16,6 @@
  */
 package com.helger.commons.collection.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -30,6 +29,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.iterate.EmptyIterator;
 import com.helger.commons.collection.iterate.EmptyListIterator;
 import com.helger.commons.collection.iterate.SingleElementIterator;
@@ -48,7 +49,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The type of the element in the list
  */
 @NotThreadSafe
-public class SingleElementList <ELEMENTTYPE> implements List <ELEMENTTYPE>
+public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
 {
   private boolean m_bHasElement;
   private ELEMENTTYPE m_aElement;
@@ -224,7 +225,7 @@ public class SingleElementList <ELEMENTTYPE> implements List <ELEMENTTYPE>
   }
 
   @Nonnull
-  public List <ELEMENTTYPE> subList (@Nonnegative final int nFromIndex, @Nonnegative final int nToIndex)
+  public ICommonsList <ELEMENTTYPE> subList (@Nonnegative final int nFromIndex, @Nonnegative final int nToIndex)
   {
     if (nFromIndex < 0 || nFromIndex > (m_bHasElement ? 1 : 0))
       throw new IndexOutOfBoundsException ("Invalid from index " + nFromIndex);
@@ -233,7 +234,7 @@ public class SingleElementList <ELEMENTTYPE> implements List <ELEMENTTYPE>
 
     // Empty
     if (!m_bHasElement || nFromIndex == nToIndex)
-      return new ArrayList <ELEMENTTYPE> (0);
+      return new CommonsList <ELEMENTTYPE> (0);
 
     return this;
   }
@@ -290,11 +291,5 @@ public class SingleElementList <ELEMENTTYPE> implements List <ELEMENTTYPE>
   public String toString ()
   {
     return new ToStringGenerator (this).append ("hasElement", m_bHasElement).append ("element", m_aElement).toString ();
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> SingleElementList <ELEMENTTYPE> create (@Nullable final ELEMENTTYPE aElement)
-  {
-    return new SingleElementList <ELEMENTTYPE> (aElement);
   }
 }

@@ -17,7 +17,6 @@
 package com.helger.commons.tree.withid.unique;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnegative;
@@ -29,6 +28,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.tree.withid.ITreeItemWithID;
@@ -130,14 +130,14 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
 
   @Nonnull
   @ReturnsMutableCopy
-  public final List <ITEMTYPE> getAllItems ()
+  public final ICommonsList <ITEMTYPE> getAllItems ()
   {
     return CollectionHelper.newList (m_aItemStore.values ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public final List <DATATYPE> getAllItemDatas ()
+  public final ICommonsList <DATATYPE> getAllItemDatas ()
   {
     return CollectionHelper.newListMapped (m_aItemStore.values (), aItem -> aItem.getData ());
   }

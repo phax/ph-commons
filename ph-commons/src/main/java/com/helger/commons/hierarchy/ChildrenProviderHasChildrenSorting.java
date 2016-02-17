@@ -18,7 +18,6 @@ package com.helger.commons.hierarchy;
 
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,6 +25,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * An implementation of the
@@ -57,7 +57,7 @@ public class ChildrenProviderHasChildrenSorting <CHILDTYPE extends IHasChildren 
 
   @Override
   @Nullable
-  public List <? extends CHILDTYPE> getAllChildren (@Nullable final CHILDTYPE aCurrent)
+  public ICommonsList <? extends CHILDTYPE> getAllChildren (@Nullable final CHILDTYPE aCurrent)
   {
     // Get all children of the passed element
     final Collection <? extends CHILDTYPE> ret = aCurrent == null ? null : aCurrent.getAllChildren ();

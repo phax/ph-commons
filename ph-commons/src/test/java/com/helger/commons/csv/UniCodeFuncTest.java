@@ -27,6 +27,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 
 public final class UniCodeFuncTest
 {
@@ -123,7 +124,7 @@ public final class UniCodeFuncTest
     aWriter.writeNext (ASCII_ARRAY);
 
     final CSVReader aReader = new CSVReader (new StringReader (aSW.toString ()));
-    final List <List <String>> aLines = aReader.readAll ();
+    final ICommonsList <ICommonsList <String>> aLines = aReader.readAll ();
     assertEquals (2, aLines.size ());
 
     List <String> aItems = aLines.get (0);
@@ -144,7 +145,7 @@ public final class UniCodeFuncTest
     aWriter.writeNext (UNICODE_ARRAY);
 
     final CSVReader aReader = new CSVReader (new StringReader (aSW.toString ()));
-    final List <List <String>> aLines = aReader.readAll ();
+    final ICommonsList <ICommonsList <String>> aLines = aReader.readAll ();
     assertEquals (2, aLines.size ());
 
     List <String> aItems = aLines.get (0);
@@ -165,7 +166,7 @@ public final class UniCodeFuncTest
     aWriter.writeNext (MIXED_ARRAY);
 
     final CSVReader aReader = new CSVReader (new StringReader (aSW.toString ()));
-    final List <List <String>> aLines = aReader.readAll ();
+    final ICommonsList <ICommonsList <String>> aLines = aReader.readAll ();
     assertEquals (2, aLines.size ());
 
     List <String> aItems = aLines.get (0);

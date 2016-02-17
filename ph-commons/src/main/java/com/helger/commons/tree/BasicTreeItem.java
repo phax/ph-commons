@@ -16,9 +16,7 @@
  */
 package com.helger.commons.tree;
 
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -28,7 +26,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -60,7 +59,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   private DATATYPE m_aData;
 
   // child list
-  private List <ITEMTYPE> m_aChildren;
+  private ICommonsList <ITEMTYPE> m_aChildren;
 
   /**
    * Constructor for root object.
@@ -179,26 +178,23 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
 
   public final boolean hasChildren ()
   {
-    return m_aChildren != null && !m_aChildren.isEmpty ();
+    return m_aChildren != null && m_aChildren.isNotEmpty ();
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public final List <ITEMTYPE> getAllChildren ()
+  public final ICommonsList <ITEMTYPE> getAllChildren ()
   {
-    return m_aChildren == null ? null : CollectionHelper.newList (m_aChildren);
+    return m_aChildren == null ? null : m_aChildren.getCopy ();
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public final List <DATATYPE> getAllChildDatas ()
+  public final ICommonsList <DATATYPE> getAllChildDatas ()
   {
     if (m_aChildren == null)
       return null;
-    final List <DATATYPE> ret = new ArrayList <DATATYPE> ();
-    for (final ITEMTYPE aChild : m_aChildren)
-      ret.add (aChild.getData ());
-    return ret;
+    return m_aChildren.getAllMapped (c -> c.getData ());
   }
 
   @Nullable
@@ -212,19 +208,19 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   @Nonnegative
   public final int getChildCount ()
   {
-    return m_aChildren != null ? m_aChildren.size () : 0;
+    return m_aChildren == null ? 0 : m_aChildren.size ();
   }
 
   @Nullable
   public ITEMTYPE getFirstChild ()
   {
-    return CollectionHelper.getFirstElement (m_aChildren);
+    return m_aChildren == null ? null : m_aChildren.getFirst ();
   }
 
   @Nullable
   public ITEMTYPE getLastChild ()
   {
-    return CollectionHelper.getLastElement (m_aChildren);
+    return m_aChildren == null ? null : m_aChildren.getLast ();
   }
 
   @SuppressFBWarnings ("IL_INFINITE_LOOP")
@@ -273,7 +269,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
 
     // Ensure children are present
     if (m_aChildren == null)
-      m_aChildren = new ArrayList <> ();
+      m_aChildren = new CommonsList <> ();
 
     return EChange.valueOf (m_aChildren.add (aChild));
   }

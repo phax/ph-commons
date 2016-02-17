@@ -17,12 +17,13 @@
 package com.helger.commons.collection.multimap;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
+
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Abstract multi map based on {@link java.util.TreeMap} and
@@ -35,8 +36,8 @@ import javax.annotation.concurrent.NotThreadSafe;
  *        value type
  */
 @NotThreadSafe
-public abstract class AbstractMultiTreeMapListBased <KEYTYPE, VALUETYPE>
-                                                    extends AbstractMultiTreeMap <KEYTYPE, VALUETYPE, List <VALUETYPE>>
+public abstract class AbstractMultiTreeMapListBased <KEYTYPE, VALUETYPE> extends
+                                                    AbstractMultiTreeMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>>
                                                     implements IMultiMapListBased <KEYTYPE, VALUETYPE>
 {
   public AbstractMultiTreeMapListBased ()
@@ -52,12 +53,13 @@ public abstract class AbstractMultiTreeMapListBased <KEYTYPE, VALUETYPE>
     super (aKey, aValue);
   }
 
-  public AbstractMultiTreeMapListBased (@Nullable final KEYTYPE aKey, @Nullable final List <VALUETYPE> aCollection)
+  public AbstractMultiTreeMapListBased (@Nullable final KEYTYPE aKey,
+                                        @Nullable final ICommonsList <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public AbstractMultiTreeMapListBased (@Nullable final Map <? extends KEYTYPE, ? extends List <VALUETYPE>> aCont)
+  public AbstractMultiTreeMapListBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsList <VALUETYPE>> aCont)
   {
     super (aCont);
   }

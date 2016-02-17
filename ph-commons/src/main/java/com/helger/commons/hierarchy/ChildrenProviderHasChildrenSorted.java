@@ -16,11 +16,11 @@
  */
 package com.helger.commons.hierarchy;
 
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * An {@link IChildrenProviderSorted} implementation for object implementing the
@@ -37,7 +37,7 @@ public final class ChildrenProviderHasChildrenSorted <CHILDTYPE extends IHasChil
 {
   @Override
   @Nullable
-  public List <? extends CHILDTYPE> getAllChildren (@Nullable final CHILDTYPE aCurrent)
+  public ICommonsList <? extends CHILDTYPE> getAllChildren (@Nullable final CHILDTYPE aCurrent)
   {
     return aCurrent == null ? null : aCurrent.getAllChildren ();
   }

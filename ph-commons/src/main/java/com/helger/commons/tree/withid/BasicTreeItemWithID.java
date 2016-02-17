@@ -16,7 +16,6 @@
  */
 package com.helger.commons.tree.withid;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +31,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.GenericReflection;
@@ -71,7 +72,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   // child map & list
   private Map <KEYTYPE, ITEMTYPE> m_aChildMap = null;
-  private List <ITEMTYPE> m_aChildren = null;
+  private ICommonsList <ITEMTYPE> m_aChildren = null;
 
   /**
    * Constructor for root object with a <code>null</code> data ID
@@ -224,9 +225,9 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   @Nullable
   @ReturnsMutableCopy
-  public final List <ITEMTYPE> getAllChildren ()
+  public final ICommonsList <ITEMTYPE> getAllChildren ()
   {
-    return m_aChildren == null ? null : CollectionHelper.newList (m_aChildren);
+    return m_aChildren == null ? null : m_aChildren.getCopy ();
   }
 
   @Nullable
@@ -240,14 +241,11 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   @Nullable
   @ReturnsMutableCopy
-  public final List <DATATYPE> getAllChildDatas ()
+  public final ICommonsList <DATATYPE> getAllChildDatas ()
   {
     if (m_aChildren == null)
       return null;
-    final List <DATATYPE> ret = new ArrayList <DATATYPE> ();
-    for (final ITEMTYPE aChild : m_aChildren)
-      ret.add (aChild.getData ());
-    return ret;
+    return m_aChildren.getAllMapped (c -> c.getData ());
   }
 
   @Nullable
@@ -261,13 +259,13 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   @Nullable
   public ITEMTYPE getFirstChild ()
   {
-    return CollectionHelper.getFirstElement (m_aChildren);
+    return m_aChildren == null ? null : m_aChildren.getFirst ();
   }
 
   @Nullable
   public ITEMTYPE getLastChild ()
   {
-    return CollectionHelper.getLastElement (m_aChildren);
+    return m_aChildren == null ? null : m_aChildren.getLast ();
   }
 
   public final void setData (@Nullable final DATATYPE aData)
@@ -310,8 +308,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
       aItem.setData (aData);
       if (m_aChildMap == null)
       {
-        m_aChildMap = new HashMap <KEYTYPE, ITEMTYPE> ();
-        m_aChildren = new ArrayList <ITEMTYPE> ();
+        m_aChildMap = new HashMap <> ();
+        m_aChildren = new CommonsList <> ();
       }
       m_aChildMap.put (aDataID, aItem);
       m_aChildren.add (aItem);
@@ -384,8 +382,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     }
     else
     {
-      m_aChildMap = new HashMap <KEYTYPE, ITEMTYPE> ();
-      m_aChildren = new ArrayList <ITEMTYPE> ();
+      m_aChildMap = new HashMap <> ();
+      m_aChildren = new CommonsList <> ();
     }
 
     m_aChildMap.put (aDataID, aChild);
@@ -432,7 +430,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
       return EChange.UNCHANGED;
 
     // Remember all children
-    final List <ITEMTYPE> aAllChildren = CollectionHelper.newList (m_aChildren);
+    final List <ITEMTYPE> aAllChildren = m_aChildren.getCopy ();
 
     // Remove all children
     m_aChildMap.clear ();

@@ -16,9 +16,7 @@
  */
 package com.helger.commons.error;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -26,7 +24,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
@@ -41,7 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <ResourceErrorGroup>, IClearable
 {
-  private final List <IResourceError> m_aErrors = new ArrayList <IResourceError> ();
+  private final ICommonsList <IResourceError> m_aErrors = new CommonsList <> ();
 
   public ResourceErrorGroup ()
   {}
@@ -131,110 +130,65 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
 
   public boolean containsOnlySuccess ()
   {
-    if (m_aErrors.isEmpty ())
-      return false;
-    for (final IResourceError aError : m_aErrors)
-      if (aError.isFailure ())
-        return false;
-    return true;
+    return m_aErrors.containsOnly (e -> e.isSuccess ());
   }
 
   public boolean containsAtLeastOneSuccess ()
   {
-    for (final IResourceError aError : m_aErrors)
-      if (aError.isSuccess ())
-        return true;
-    return false;
+    return m_aErrors.containsAny (e -> e.isSuccess ());
   }
 
   public boolean containsNoSuccess ()
   {
-    for (final IResourceError aError : m_aErrors)
-      if (aError.isSuccess ())
-        return false;
-    return true;
+    return m_aErrors.containsNone (e -> e.isSuccess ());
   }
 
   @Nonnegative
   public int getSuccessCount ()
   {
-    int ret = 0;
-    for (final IResourceError aError : m_aErrors)
-      if (aError.isSuccess ())
-        ret++;
-    return ret;
+    return m_aErrors.getCount (e -> e.isSuccess ());
   }
 
   public boolean containsOnlyFailure ()
   {
-    if (m_aErrors.isEmpty ())
-      return false;
-    for (final IResourceError aError : m_aErrors)
-      if (aError.isSuccess ())
-        return false;
-    return true;
+    return m_aErrors.containsOnly (e -> e.isFailure ());
   }
 
   public boolean containsAtLeastOneFailure ()
   {
-    for (final IResourceError aError : m_aErrors)
-      if (aError.isFailure ())
-        return true;
-    return false;
+    return m_aErrors.containsAny (e -> e.isFailure ());
   }
 
   public boolean containsNoFailure ()
   {
-    for (final IResourceError aError : m_aErrors)
-      if (aError.isFailure ())
-        return false;
-    return true;
+    return m_aErrors.containsNone (e -> e.isFailure ());
   }
 
   @Nonnegative
   public int getFailureCount ()
   {
-    int ret = 0;
-    for (final IResourceError aError : m_aErrors)
-      if (aError.isFailure ())
-        ret++;
-    return ret;
+    return m_aErrors.getCount (e -> e.isFailure ());
   }
 
   public boolean containsOnlyError ()
   {
-    if (m_aErrors.isEmpty ())
-      return false;
-    for (final IResourceError aError : m_aErrors)
-      if (aError.isNoError ())
-        return false;
-    return true;
+    return m_aErrors.containsOnly (e -> e.isError ());
   }
 
   public boolean containsAtLeastOneError ()
   {
-    for (final IResourceError aError : m_aErrors)
-      if (aError.isError ())
-        return true;
-    return false;
+    return m_aErrors.containsAny (e -> e.isError ());
   }
 
   public boolean containsNoError ()
   {
-    for (final IResourceError aError : m_aErrors)
-      if (aError.isError ())
-        return false;
-    return true;
+    return m_aErrors.containsNone (e -> e.isError ());
   }
 
   @Nonnegative
   public int getErrorCount ()
   {
-    int ret = 0;
-    for (final IResourceError aError : m_aErrors)
-      if (aError.isError ())
-        ret++;
-    return ret;
+    return m_aErrors.getCount (e -> e.isError ());
   }
 
   @Nonnull
@@ -242,9 +196,7 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
   public ResourceErrorGroup getAllFailures ()
   {
     final ResourceErrorGroup ret = new ResourceErrorGroup ();
-    for (final IResourceError aError : m_aErrors)
-      if (aError.isFailure ())
-        ret.addResourceError (aError);
+    m_aErrors.findAll (e -> e.isFailure (), ret::addResourceError);
     return ret;
   }
 
@@ -253,9 +205,7 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
   public ResourceErrorGroup getAllErrors ()
   {
     final ResourceErrorGroup ret = new ResourceErrorGroup ();
-    for (final IResourceError aError : m_aErrors)
-      if (aError.isError ())
-        ret.addResourceError (aError);
+    m_aErrors.findAll (e -> e.isError (), ret::addResourceError);
     return ret;
   }
 
@@ -302,18 +252,15 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <IResourceError> getAllResourceErrors ()
+  public ICommonsList <IResourceError> getAllResourceErrors ()
   {
-    return CollectionHelper.newList (m_aErrors);
+    return m_aErrors.getCopy ();
   }
 
   @Nonnull
   public EChange clear ()
   {
-    if (m_aErrors.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aErrors.clear ();
-    return EChange.CHANGED;
+    return m_aErrors.removeAll ();
   }
 
   @Override

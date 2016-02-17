@@ -20,13 +20,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.scope.ISessionScope;
 import com.helger.commons.scope.mgr.ScopeManager;
 
@@ -123,7 +123,7 @@ public abstract class AbstractSessionSingleton extends AbstractSingleton impleme
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static final List <AbstractSessionSingleton> getAllSessionSingletons ()
+  public static final ICommonsList <AbstractSessionSingleton> getAllSessionSingletons ()
   {
     return getAllSingletons (_getStaticScope (false), AbstractSessionSingleton.class);
   }

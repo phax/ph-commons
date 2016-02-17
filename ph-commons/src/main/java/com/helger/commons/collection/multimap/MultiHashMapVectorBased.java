@@ -16,19 +16,19 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsVector;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
- * Multi map based on {@link java.util.HashMap} and {@link java.util.Vector}
- * values.<br>
+ * Multi map based on {@link HashMap} and {@link CommonsVector} values.<br>
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -47,12 +47,12 @@ public class MultiHashMapVectorBased <KEYTYPE, VALUETYPE> extends AbstractMultiH
     super (aKey, aValue);
   }
 
-  public MultiHashMapVectorBased (@Nullable final KEYTYPE aKey, @Nullable final List <VALUETYPE> aCollection)
+  public MultiHashMapVectorBased (@Nullable final KEYTYPE aKey, @Nullable final ICommonsList <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public MultiHashMapVectorBased (@Nullable final Map <? extends KEYTYPE, ? extends List <VALUETYPE>> aCont)
+  public MultiHashMapVectorBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsList <VALUETYPE>> aCont)
   {
     super (aCont);
   }
@@ -60,8 +60,8 @@ public class MultiHashMapVectorBased <KEYTYPE, VALUETYPE> extends AbstractMultiH
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  protected final List <VALUETYPE> createNewCollection ()
+  protected final CommonsVector <VALUETYPE> createNewCollection ()
   {
-    return new Vector <VALUETYPE> ();
+    return new CommonsVector <> ();
   }
 }

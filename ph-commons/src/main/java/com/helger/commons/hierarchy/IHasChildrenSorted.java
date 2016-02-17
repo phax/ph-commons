@@ -16,10 +16,10 @@
  */
 package com.helger.commons.hierarchy;
 
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
+
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Extends {@link IHasChildren} by indicating that the child items are sorted!
@@ -35,7 +35,7 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
    *         children are present.
    */
   @Nullable
-  List <? extends CHILDTYPE> getAllChildren ();
+  ICommonsList <? extends CHILDTYPE> getAllChildren ();
 
   /**
    * Get the child node at the specified index

@@ -17,10 +17,8 @@
 package com.helger.commons.collection;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -34,6 +32,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.ext.CommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.GenericReflection;
@@ -3982,17 +3981,17 @@ public final class ArrayHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> DSTTYPE [] newArrayMapped (@Nonnull final Collection <? extends SRCTYPE> aList,
+  public static <SRCTYPE, DSTTYPE> DSTTYPE [] newArrayMapped (@Nonnull final Collection <? extends SRCTYPE> aCollection,
                                                               @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
                                                               @Nonnull final Class <DSTTYPE> aDstClass)
   {
-    ValueEnforcer.notNull (aList, "List");
+    ValueEnforcer.notNull (aCollection, "Collection");
     ValueEnforcer.notNull (aMapper, "Converter");
     ValueEnforcer.notNull (aDstClass, "DestClass");
 
-    final DSTTYPE [] ret = ArrayHelper.newArray (aDstClass, aList.size ());
+    final DSTTYPE [] ret = ArrayHelper.newArray (aDstClass, aCollection.size ());
     int i = 0;
-    for (final SRCTYPE aObj : aList)
+    for (final SRCTYPE aObj : aCollection)
       ret[i++] = aMapper.apply (aObj);
     return ret;
   }
@@ -4204,13 +4203,13 @@ public final class ArrayHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> getAll (@Nullable final ELEMENTTYPE [] aArray,
-                                                         @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> getAll (@Nullable final ELEMENTTYPE [] aArray,
+                                                                @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
       return CollectionHelper.newList (aArray);
 
-    final List <ELEMENTTYPE> ret = new ArrayList <> ();
+    final CommonsList <ELEMENTTYPE> ret = new CommonsList <> ();
     if (isNotEmpty (aArray))
       for (final ELEMENTTYPE aElement : aArray)
         if (aFilter.test (aElement))
@@ -4220,15 +4219,15 @@ public final class ArrayHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE, RETTYPE> List <RETTYPE> getAllMapped (@Nullable final ELEMENTTYPE [] aArray,
-                                                                    @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                                    @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
+  public static <ELEMENTTYPE, RETTYPE> CommonsList <RETTYPE> getAllMapped (@Nullable final ELEMENTTYPE [] aArray,
+                                                                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                                           @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
     if (aFilter == null)
       return CollectionHelper.newListMapped (aArray, aMapper);
 
-    final List <RETTYPE> ret = new ArrayList <> ();
+    final CommonsList <RETTYPE> ret = new CommonsList <> ();
     if (isNotEmpty (aArray))
       for (final ELEMENTTYPE aElement : aArray)
         if (aFilter.test (aElement))

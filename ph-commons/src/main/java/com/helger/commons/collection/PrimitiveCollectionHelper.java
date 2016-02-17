@@ -16,17 +16,17 @@
  */
 package com.helger.commons.collection;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.PriorityQueue;
 import java.util.TreeSet;
-import java.util.Vector;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsVector;
 import com.helger.commons.collection.impl.NonBlockingStack;
 
 /**
@@ -44,9 +44,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Boolean> newPrimitiveList (@Nullable final boolean... aValues)
+  public static CommonsList <Boolean> newPrimitiveList (@Nullable final boolean... aValues)
   {
-    final ArrayList <Boolean> ret = CollectionHelper.newList ();
+    final CommonsList <Boolean> ret = CollectionHelper.newList ();
     if (aValues != null)
       for (final boolean aValue : aValues)
         ret.add (Boolean.valueOf (aValue));
@@ -55,9 +55,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Byte> newPrimitiveList (@Nullable final byte... aValues)
+  public static CommonsList <Byte> newPrimitiveList (@Nullable final byte... aValues)
   {
-    final ArrayList <Byte> ret = CollectionHelper.newList ();
+    final CommonsList <Byte> ret = CollectionHelper.newList ();
     if (aValues != null)
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
@@ -66,9 +66,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Character> newPrimitiveList (@Nullable final char... aValues)
+  public static CommonsList <Character> newPrimitiveList (@Nullable final char... aValues)
   {
-    final ArrayList <Character> ret = CollectionHelper.newList ();
+    final CommonsList <Character> ret = CollectionHelper.newList ();
     if (aValues != null)
       for (final char aValue : aValues)
         ret.add (Character.valueOf (aValue));
@@ -77,9 +77,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Double> newPrimitiveList (@Nullable final double... aValues)
+  public static CommonsList <Double> newPrimitiveList (@Nullable final double... aValues)
   {
-    final ArrayList <Double> ret = CollectionHelper.newList ();
+    final CommonsList <Double> ret = CollectionHelper.newList ();
     if (aValues != null)
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
@@ -88,9 +88,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Float> newPrimitiveList (@Nullable final float... aValues)
+  public static CommonsList <Float> newPrimitiveList (@Nullable final float... aValues)
   {
-    final ArrayList <Float> ret = CollectionHelper.newList ();
+    final CommonsList <Float> ret = CollectionHelper.newList ();
     if (aValues != null)
       for (final float aValue : aValues)
         ret.add (Float.valueOf (aValue));
@@ -99,9 +99,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Integer> newPrimitiveList (@Nullable final int... aValues)
+  public static CommonsList <Integer> newPrimitiveList (@Nullable final int... aValues)
   {
-    final ArrayList <Integer> ret = CollectionHelper.newList ();
+    final CommonsList <Integer> ret = CollectionHelper.newList ();
     if (aValues != null)
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
@@ -110,9 +110,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Long> newPrimitiveList (@Nullable final long... aValues)
+  public static CommonsList <Long> newPrimitiveList (@Nullable final long... aValues)
   {
-    final ArrayList <Long> ret = CollectionHelper.newList ();
+    final CommonsList <Long> ret = CollectionHelper.newList ();
     if (aValues != null)
       for (final long aValue : aValues)
         ret.add (Long.valueOf (aValue));
@@ -121,9 +121,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ArrayList <Short> newPrimitiveList (@Nullable final short... aValues)
+  public static CommonsList <Short> newPrimitiveList (@Nullable final short... aValues)
   {
-    final ArrayList <Short> ret = CollectionHelper.newList ();
+    final CommonsList <Short> ret = CollectionHelper.newList ();
     if (aValues != null)
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
@@ -132,9 +132,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Vector <Boolean> newPrimitiveVector (@Nullable final boolean... aValues)
+  public static CommonsVector <Boolean> newPrimitiveVector (@Nullable final boolean... aValues)
   {
-    final Vector <Boolean> ret = CollectionHelper.newVector ();
+    final CommonsVector <Boolean> ret = CollectionHelper.newVector ();
     if (aValues != null)
       for (final boolean aValue : aValues)
         ret.add (Boolean.valueOf (aValue));
@@ -143,9 +143,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Vector <Byte> newPrimitiveVector (@Nullable final byte... aValues)
+  public static CommonsVector <Byte> newPrimitiveVector (@Nullable final byte... aValues)
   {
-    final Vector <Byte> ret = CollectionHelper.newVector ();
+    final CommonsVector <Byte> ret = CollectionHelper.newVector ();
     if (aValues != null)
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
@@ -154,9 +154,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Vector <Character> newPrimitiveVector (@Nullable final char... aValues)
+  public static CommonsVector <Character> newPrimitiveVector (@Nullable final char... aValues)
   {
-    final Vector <Character> ret = CollectionHelper.newVector ();
+    final CommonsVector <Character> ret = CollectionHelper.newVector ();
     if (aValues != null)
       for (final char aValue : aValues)
         ret.add (Character.valueOf (aValue));
@@ -165,9 +165,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Vector <Double> newPrimitiveVector (@Nullable final double... aValues)
+  public static CommonsVector <Double> newPrimitiveVector (@Nullable final double... aValues)
   {
-    final Vector <Double> ret = CollectionHelper.newVector ();
+    final CommonsVector <Double> ret = CollectionHelper.newVector ();
     if (aValues != null)
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
@@ -176,9 +176,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Vector <Float> newPrimitiveVector (@Nullable final float... aValues)
+  public static CommonsVector <Float> newPrimitiveVector (@Nullable final float... aValues)
   {
-    final Vector <Float> ret = CollectionHelper.newVector ();
+    final CommonsVector <Float> ret = CollectionHelper.newVector ();
     if (aValues != null)
       for (final float aValue : aValues)
         ret.add (Float.valueOf (aValue));
@@ -187,9 +187,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Vector <Integer> newPrimitiveVector (@Nullable final int... aValues)
+  public static CommonsVector <Integer> newPrimitiveVector (@Nullable final int... aValues)
   {
-    final Vector <Integer> ret = CollectionHelper.newVector ();
+    final CommonsVector <Integer> ret = CollectionHelper.newVector ();
     if (aValues != null)
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
@@ -198,9 +198,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Vector <Long> newPrimitiveVector (@Nullable final long... aValues)
+  public static CommonsVector <Long> newPrimitiveVector (@Nullable final long... aValues)
   {
-    final Vector <Long> ret = CollectionHelper.newVector ();
+    final CommonsVector <Long> ret = CollectionHelper.newVector ();
     if (aValues != null)
       for (final long aValue : aValues)
         ret.add (Long.valueOf (aValue));
@@ -209,9 +209,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Vector <Short> newPrimitiveVector (@Nullable final short... aValues)
+  public static CommonsVector <Short> newPrimitiveVector (@Nullable final short... aValues)
   {
-    final Vector <Short> ret = CollectionHelper.newVector ();
+    final CommonsVector <Short> ret = CollectionHelper.newVector ();
     if (aValues != null)
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));

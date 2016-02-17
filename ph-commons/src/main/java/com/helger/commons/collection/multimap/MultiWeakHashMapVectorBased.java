@@ -16,19 +16,19 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Vector;
+import java.util.WeakHashMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsVector;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
- * Multi map based on {@link java.util.WeakHashMap} and {@link java.util.Vector}
- * values.<br>
+ * Multi map based on {@link WeakHashMap} and {@link CommonsVector} values.<br>
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -48,12 +48,12 @@ public class MultiWeakHashMapVectorBased <KEYTYPE, VALUETYPE>
     super (aKey, aValue);
   }
 
-  public MultiWeakHashMapVectorBased (@Nonnull final KEYTYPE aKey, @Nullable final List <VALUETYPE> aCollection)
+  public MultiWeakHashMapVectorBased (@Nonnull final KEYTYPE aKey, @Nullable final ICommonsList <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public MultiWeakHashMapVectorBased (@Nullable final Map <? extends KEYTYPE, ? extends List <VALUETYPE>> aCont)
+  public MultiWeakHashMapVectorBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsList <VALUETYPE>> aCont)
   {
     super (aCont);
   }
@@ -61,8 +61,8 @@ public class MultiWeakHashMapVectorBased <KEYTYPE, VALUETYPE>
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  protected final List <VALUETYPE> createNewCollection ()
+  protected final CommonsVector <VALUETYPE> createNewCollection ()
   {
-    return new Vector <VALUETYPE> ();
+    return new CommonsVector <> ();
   }
 }

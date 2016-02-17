@@ -16,9 +16,7 @@
  */
 package com.helger.commons.math;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -28,6 +26,8 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Utility class for generating all possible combinations of elements for a
@@ -70,8 +70,8 @@ public final class CombinationGeneratorFlexible <DATATYPE>
    * @param aCallback
    *        Callback to invoke
    */
-  public void iterateAllCombinations (@Nonnull final List <DATATYPE> aElements,
-                                      @Nonnull final Consumer <List <DATATYPE>> aCallback)
+  public void iterateAllCombinations (@Nonnull final ICommonsList <DATATYPE> aElements,
+                                      @Nonnull final Consumer <ICommonsList <DATATYPE>> aCallback)
   {
     ValueEnforcer.notNull (aElements, "Elements");
     ValueEnforcer.notNull (aCallback, "Callback");
@@ -80,12 +80,12 @@ public final class CombinationGeneratorFlexible <DATATYPE>
     {
       if (aElements.isEmpty ())
       {
-        aCallback.accept (new ArrayList <> ());
+        aCallback.accept (new CommonsList <> ());
       }
       else
       {
         // Add all permutations for the current slot count
-        for (final List <DATATYPE> aPermutation : new CombinationGenerator <> (aElements, nSlotCount))
+        for (final ICommonsList <DATATYPE> aPermutation : new CombinationGenerator <> (aElements, nSlotCount))
           aCallback.accept (aPermutation);
       }
     }
@@ -100,18 +100,18 @@ public final class CombinationGeneratorFlexible <DATATYPE>
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Set <List <DATATYPE>> getCombinations (@Nonnull final List <DATATYPE> aElements)
+  public Set <ICommonsList <DATATYPE>> getCombinations (@Nonnull final ICommonsList <DATATYPE> aElements)
   {
     ValueEnforcer.notNull (aElements, "Elements");
 
-    final Set <List <DATATYPE>> aAllResults = new HashSet <List <DATATYPE>> ();
+    final Set <ICommonsList <DATATYPE>> aAllResults = new HashSet <> ();
     iterateAllCombinations (aElements, aCurrentObject -> aAllResults.add (aCurrentObject));
     return aAllResults;
   }
 
-  public static <DATATYPE> void iterateAllCombinations (@Nonnull final List <DATATYPE> aElements,
+  public static <DATATYPE> void iterateAllCombinations (@Nonnull final ICommonsList <DATATYPE> aElements,
                                                         final boolean bAllowEmpty,
-                                                        @Nonnull final Consumer <List <DATATYPE>> aCallback)
+                                                        @Nonnull final Consumer <ICommonsList <DATATYPE>> aCallback)
   {
     new CombinationGeneratorFlexible <DATATYPE> (aElements.size (), bAllowEmpty).iterateAllCombinations (aElements,
                                                                                                          aCallback);
@@ -119,8 +119,8 @@ public final class CombinationGeneratorFlexible <DATATYPE>
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <DATATYPE> Set <List <DATATYPE>> getCombinations (@Nonnull final List <DATATYPE> aElements,
-                                                                  final boolean bAllowEmpty)
+  public static <DATATYPE> Set <ICommonsList <DATATYPE>> getCombinations (@Nonnull final ICommonsList <DATATYPE> aElements,
+                                                                          final boolean bAllowEmpty)
   {
     return new CombinationGeneratorFlexible <DATATYPE> (aElements.size (), bAllowEmpty).getCombinations (aElements);
   }

@@ -18,9 +18,7 @@ package com.helger.commons.microdom.util;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,6 +31,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IHasOutputStream;
@@ -79,7 +79,7 @@ public final class XMLListHandler
 
   @Nullable
   @ReturnsMutableCopy
-  public static List <String> readList (@Nonnull final IHasInputStream aISP)
+  public static ICommonsList <String> readList (@Nonnull final IHasInputStream aISP)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
 
@@ -104,9 +104,9 @@ public final class XMLListHandler
    */
   @Nullable
   @ReturnsMutableCopy
-  public static List <String> readList (@Nonnull @WillClose final InputStream aIS)
+  public static ICommonsList <String> readList (@Nonnull @WillClose final InputStream aIS)
   {
-    final List <String> ret = new ArrayList <String> ();
+    final ICommonsList <String> ret = new CommonsList <> ();
     if (readList (aIS, ret).isFailure ())
       return null;
     return ret;

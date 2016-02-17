@@ -17,13 +17,13 @@
 package com.helger.commons.collection.pair;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Some pair utils
@@ -38,7 +38,7 @@ public final class PairHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <V1 extends Comparable <? super V1>, V2> List <IPair <V1, V2>> getSortedByPairFirst (@Nonnull final Collection <? extends IPair <V1, V2>> aList)
+  public static <V1 extends Comparable <? super V1>, V2> ICommonsList <IPair <V1, V2>> getSortedByPairFirst (@Nonnull final Collection <? extends IPair <V1, V2>> aList)
   {
     // get sorted entry list
     return CollectionHelper.getSorted (aList, IPair.getComparatorFirst ());
@@ -46,7 +46,7 @@ public final class PairHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <V1, V2 extends Comparable <? super V2>> List <IPair <V1, V2>> getSortedByPairSecond (@Nonnull final Collection <? extends IPair <V1, V2>> aList)
+  public static <V1, V2 extends Comparable <? super V2>> ICommonsList <IPair <V1, V2>> getSortedByPairSecond (@Nonnull final Collection <? extends IPair <V1, V2>> aList)
   {
     // get sorted entry list
     return CollectionHelper.getSorted (aList, IPair.getComparatorSecond ());

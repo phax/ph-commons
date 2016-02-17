@@ -16,9 +16,6 @@
  */
 package com.helger.commons.io.resourceprovider;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -26,7 +23,8 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.resource.IWritableResource;
 import com.helger.commons.string.ToStringGenerator;
@@ -40,7 +38,7 @@ import com.helger.commons.string.ToStringGenerator;
 @Immutable
 public class WritableResourceProviderChain extends ReadableResourceProviderChain implements IWritableResourceProvider
 {
-  protected final List <IWritableResourceProvider> m_aWritableResourceProviders = new ArrayList <IWritableResourceProvider> ();
+  protected final ICommonsList <IWritableResourceProvider> m_aWritableResourceProviders = new CommonsList <> ();
 
   public WritableResourceProviderChain (@Nonnull final IReadableResourceProvider... aResProviders)
   {
@@ -67,18 +65,15 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public List <IWritableResourceProvider> getAllContainedWritingResourceProviders ()
+  public ICommonsList <IWritableResourceProvider> getAllContainedWritingResourceProviders ()
   {
-    return CollectionHelper.newList (m_aWritableResourceProviders);
+    return m_aWritableResourceProviders.getCopy ();
   }
 
   public final boolean supportsWriting (@Nullable final String sName)
   {
     // Check if any provider can handle this resource
-    for (final IWritableResourceProvider aResProvider : m_aWritableResourceProviders)
-      if (aResProvider.supportsWriting (sName))
-        return true;
-    return false;
+    return m_aWritableResourceProviders.containsAny (r -> r.supportsWriting (sName));
   }
 
   @Nonnull

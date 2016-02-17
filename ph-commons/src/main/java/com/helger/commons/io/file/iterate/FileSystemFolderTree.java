@@ -17,8 +17,6 @@
 package com.helger.commons.io.file.iterate;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
@@ -27,6 +25,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.aggregate.IAggregator;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.tree.withid.folder.DefaultFolderTree;
@@ -39,9 +39,9 @@ import com.helger.commons.tree.withid.folder.DefaultFolderTreeItem;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FileSystemFolderTree extends DefaultFolderTree <String, File, List <File>>
+public class FileSystemFolderTree extends DefaultFolderTree <String, File, ICommonsList <File>>
 {
-  private static void _iterate (@Nonnull final DefaultFolderTreeItem <String, File, List <File>> aTreeItem,
+  private static void _iterate (@Nonnull final DefaultFolderTreeItem <String, File, ICommonsList <File>> aTreeItem,
                                 @Nonnull final File aDir,
                                 @Nullable final Predicate <File> aDirFilter,
                                 @Nullable final Predicate <File> aFileFilter)
@@ -64,8 +64,8 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, List 
             if (aDirFilter == null || aDirFilter.test (aChild))
             {
               // create item and recursively descend
-              final DefaultFolderTreeItem <String, File, List <File>> aChildItem = aTreeItem.createChildItem (aChild.getName (),
-                                                                                                              new ArrayList <> ());
+              final DefaultFolderTreeItem <String, File, ICommonsList <File>> aChildItem = aTreeItem.createChildItem (aChild.getName (),
+                                                                                                                      new CommonsList <> ());
               _iterate (aChildItem, aChild, aDirFilter, aFileFilter);
             }
           }
@@ -97,8 +97,8 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, List 
     ValueEnforcer.notNull (aStartDir, "StartDirectory");
     ValueEnforcer.isTrue (aStartDir.isDirectory (), "Start directory is not a directory!");
 
-    final DefaultFolderTreeItem <String, File, List <File>> aStart = getRootItem ().createChildItem (aStartDir.getName (),
-                                                                                                     new ArrayList <> ());
+    final DefaultFolderTreeItem <String, File, ICommonsList <File>> aStart = getRootItem ().createChildItem (aStartDir.getName (),
+                                                                                                             new CommonsList <> ());
     _iterate (aStart, aStartDir, aDirFilter, aFileFilter);
   }
 }

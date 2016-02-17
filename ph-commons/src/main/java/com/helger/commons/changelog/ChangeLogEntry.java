@@ -17,8 +17,6 @@
 package com.helger.commons.changelog;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -28,7 +26,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -51,7 +50,7 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
   private final EChangeLogCategory m_eCategory;
   private final boolean m_bIsIncompatible;
   private final IMutableMultilingualText m_aTexts = new MultilingualText ();
-  private final List <String> m_aIssues = new ArrayList <String> ();
+  private final ICommonsList <String> m_aIssues = new CommonsList <> ();
 
   /**
    * Constructor.
@@ -208,9 +207,9 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <String> getAllIssues ()
+  public ICommonsList <String> getAllIssues ()
   {
-    return CollectionHelper.newList (m_aIssues);
+    return m_aIssues.getCopy ();
   }
 
   @Override

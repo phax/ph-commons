@@ -16,8 +16,7 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -25,10 +24,11 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
- * Multi map based on {@link java.util.HashMap} and {@link java.util.ArrayList}
- * values.<br>
+ * Multi map based on {@link HashMap} and {@link CommonsList} values.<br>
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -47,12 +47,12 @@ public class MultiHashMapArrayListBased <KEYTYPE, VALUETYPE> extends AbstractMul
     super (aKey, aValue);
   }
 
-  public MultiHashMapArrayListBased (@Nullable final KEYTYPE aKey, @Nullable final List <VALUETYPE> aCollection)
+  public MultiHashMapArrayListBased (@Nullable final KEYTYPE aKey, @Nullable final ICommonsList <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public MultiHashMapArrayListBased (@Nullable final Map <? extends KEYTYPE, ? extends List <VALUETYPE>> aCont)
+  public MultiHashMapArrayListBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsList <VALUETYPE>> aCont)
   {
     super (aCont);
   }
@@ -60,8 +60,8 @@ public class MultiHashMapArrayListBased <KEYTYPE, VALUETYPE> extends AbstractMul
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  protected final List <VALUETYPE> createNewCollection ()
+  protected final CommonsList <VALUETYPE> createNewCollection ()
   {
-    return new ArrayList <VALUETYPE> ();
+    return new CommonsList <> ();
   }
 }

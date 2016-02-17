@@ -16,9 +16,6 @@
  */
 package com.helger.commons.xml.ls;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
@@ -29,7 +26,8 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 
 /**
@@ -44,16 +42,16 @@ public class CollectingLSResourceResolver extends AbstractLSResourceResolver
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final List <LSResourceData> m_aList = new ArrayList <LSResourceData> ();
+  private final ICommonsList <LSResourceData> m_aList = new CommonsList <> ();
 
   public CollectingLSResourceResolver ()
   {}
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <LSResourceData> getAllRequestedResources ()
+  public ICommonsList <LSResourceData> getAllRequestedResources ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aList));
+    return m_aRWLock.readLocked ( () -> m_aList.getCopy ());
   }
 
   @Override

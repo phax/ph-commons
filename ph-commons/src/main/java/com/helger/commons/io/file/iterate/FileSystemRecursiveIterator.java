@@ -17,7 +17,6 @@
 package com.helger.commons.io.file.iterate;
 
 import java.io.File;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.annotation.Nonnegative;
@@ -27,6 +26,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.filter.IFileFilter;
@@ -48,7 +48,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
   private final int m_nStartLevel;
   private int m_nLevel = 0;
   private final IFileFilter m_aRecursionFilter;
-  private final List <File> m_aFilesLeft;
+  private final ICommonsList <File> m_aFilesLeft;
 
   @Nonnegative
   private static int _getLevel (@Nonnull final File aFile)
@@ -123,7 +123,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
 
   public final boolean hasNext ()
   {
-    return !m_aFilesLeft.isEmpty ();
+    return m_aFilesLeft.isNotEmpty ();
   }
 
   /**
@@ -148,7 +148,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
       throw new NoSuchElementException ();
 
     // Get and remove the first element
-    final File aFile = m_aFilesLeft.remove (0);
+    final File aFile = m_aFilesLeft.removeFirst ();
 
     m_nLevel = _getLevel (aFile) - m_nStartLevel;
     if (aFile.isDirectory ())
@@ -174,6 +174,6 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("files", m_aFilesLeft).toString ();
+    return new ToStringGenerator (this).append ("filesLeft", m_aFilesLeft).toString ();
   }
 }

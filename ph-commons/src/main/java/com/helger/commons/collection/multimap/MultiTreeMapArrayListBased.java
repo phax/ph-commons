@@ -16,20 +16,20 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
- * Multi map based on {@link java.util.TreeMap} and {@link java.util.ArrayList}
- * values.<br>
+ * Multi map based on {@link TreeMap} and {@link CommonsList} values.<br>
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -53,12 +53,12 @@ public class MultiTreeMapArrayListBased <KEYTYPE, VALUETYPE> extends AbstractMul
     super (aKey, aValue);
   }
 
-  public MultiTreeMapArrayListBased (@Nullable final KEYTYPE aKey, @Nullable final List <VALUETYPE> aCollection)
+  public MultiTreeMapArrayListBased (@Nullable final KEYTYPE aKey, @Nullable final ICommonsList <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public MultiTreeMapArrayListBased (@Nullable final Map <? extends KEYTYPE, ? extends List <VALUETYPE>> aCont)
+  public MultiTreeMapArrayListBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsList <VALUETYPE>> aCont)
   {
     super (aCont);
   }
@@ -66,8 +66,8 @@ public class MultiTreeMapArrayListBased <KEYTYPE, VALUETYPE> extends AbstractMul
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  protected final List <VALUETYPE> createNewCollection ()
+  protected final CommonsList <VALUETYPE> createNewCollection ()
   {
-    return new ArrayList <VALUETYPE> ();
+    return new CommonsList <> ();
   }
 }

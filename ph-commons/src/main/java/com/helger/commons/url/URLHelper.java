@@ -34,7 +34,6 @@ import java.nio.charset.Charset;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.jar.JarEntry;
@@ -55,6 +54,7 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.file.FilenameHelper;
@@ -517,7 +517,7 @@ public final class URLHelper
       for (final String sKeyValuePair : StringHelper.getExploded (AMPERSAND, sQueryString))
         if (sKeyValuePair.length () > 0)
         {
-          final List <String> aParts = StringHelper.getExploded (EQUALS, sKeyValuePair, 2);
+          final ICommonsList <String> aParts = StringHelper.getExploded (EQUALS, sKeyValuePair, 2);
           final String sKey = aParts.get (0);
           // Maybe empty when passing something like "url?=value"
           if (StringHelper.hasText (sKey))

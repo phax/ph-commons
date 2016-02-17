@@ -16,7 +16,6 @@
  */
 package com.helger.commons.microdom;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnegative;
@@ -26,7 +25,8 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -41,7 +41,7 @@ import com.helger.commons.typeconvert.TypeConverter;
 public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode implements IMicroNodeWithChildren
 {
   /** The list of child elements. May be <code>null</code>. */
-  private List <IMicroNode> m_aChildren;
+  private ICommonsList <IMicroNode> m_aChildren;
 
   /**
    * @return The writable list of all child nodes - handle with care. May be
@@ -49,7 +49,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
    */
   @Nullable
   @ReturnsMutableObject ("efficient access")
-  final List <IMicroNode> directGetAllChildren ()
+  final ICommonsList <IMicroNode> directGetAllChildren ()
   {
     return m_aChildren;
   }
@@ -66,7 +66,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
     if (aChildNode.isDocument ())
       throw new MicroException ("Cannot add document to documents");
     if (m_aChildren == null)
-      m_aChildren = new ArrayList <IMicroNode> ();
+      m_aChildren = new CommonsList <> ();
     m_aChildren.add (aChildNode);
     _afterInsertAsChildOfThis (aChildNode);
   }
@@ -109,7 +109,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
     if (aChildNode.isDocument ())
       throw new MicroException ("Cannot add document to nodes");
     if (m_aChildren == null)
-      m_aChildren = new ArrayList <IMicroNode> ();
+      m_aChildren = new CommonsList <> ();
     m_aChildren.add (Math.min (nIndex, m_aChildren.size ()), aChildNode);
     _afterInsertAsChildOfThis (aChildNode);
   }
@@ -178,22 +178,22 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @Override
   public final boolean hasChildren ()
   {
-    return m_aChildren != null && !m_aChildren.isEmpty ();
+    return m_aChildren != null && m_aChildren.isNotEmpty ();
   }
 
   @Override
   @Nullable
   @ReturnsMutableCopy
-  public final List <IMicroNode> getAllChildren ()
+  public final ICommonsList <IMicroNode> getAllChildren ()
   {
-    return m_aChildren == null ? null : CollectionHelper.newList (m_aChildren);
+    return m_aChildren == null ? null : m_aChildren.getCopy ();
   }
 
   @Override
   @Nullable
   public final IMicroNode getChildAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getAtIndex (m_aChildren, nIndex);
+    return m_aChildren == null ? null : m_aChildren.getAtIndex (nIndex);
   }
 
   @Override
@@ -206,14 +206,14 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @Nullable
   public final IMicroNode getFirstChild ()
   {
-    return CollectionHelper.getFirstElement (m_aChildren);
+    return m_aChildren == null ? null : m_aChildren.getFirst ();
   }
 
   @Override
   @Nullable
   public final IMicroNode getLastChild ()
   {
-    return CollectionHelper.getLastElement (m_aChildren);
+    return m_aChildren == null ? null : m_aChildren.getLast ();
   }
 
   private void _fillListPrefix (@Nonnull final IMicroNode aCurNode, @Nonnull final List <IMicroNode> aNodes)
@@ -229,9 +229,9 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  public final List <IMicroNode> getAllChildrenRecursive ()
+  public final ICommonsList <IMicroNode> getAllChildrenRecursive ()
   {
-    final List <IMicroNode> ret = new ArrayList <IMicroNode> ();
+    final ICommonsList <IMicroNode> ret = new CommonsList <> ();
     _fillListPrefix (this, ret);
     return ret;
   }

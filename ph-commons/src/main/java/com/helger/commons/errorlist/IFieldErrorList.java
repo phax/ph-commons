@@ -16,14 +16,13 @@
  */
 package com.helger.commons.errorlist;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.RegEx;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.error.IErrorLevel;
 
@@ -141,7 +140,7 @@ public interface IFieldErrorList
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <String> getAllItemTextsOfField (@Nullable String sSearchFieldName);
+  ICommonsList <String> getAllItemTextsOfField (@Nullable String sSearchFieldName);
 
   /**
    * Get a list with all texts for the specified field names
@@ -152,7 +151,7 @@ public interface IFieldErrorList
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <String> getAllItemTextsOfFields (@Nullable String... aSearchFieldNames);
+  ICommonsList <String> getAllItemTextsOfFields (@Nullable String... aSearchFieldNames);
 
   /**
    * Get a list with all texts of entries that have field names starting with
@@ -164,7 +163,7 @@ public interface IFieldErrorList
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <String> getAllItemTextsOfFieldsStartingWith (@Nullable String... aSearchFieldNames);
+  ICommonsList <String> getAllItemTextsOfFieldsStartingWith (@Nullable String... aSearchFieldNames);
 
   /**
    * Get a list with all texts of entries that have field names matching the
@@ -176,7 +175,7 @@ public interface IFieldErrorList
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <String> getAllItemTextsOfFieldsRegExp (@Nonnull @Nonempty @RegEx String sRegExp);
+  ICommonsList <String> getAllItemTextsOfFieldsRegExp (@Nonnull @Nonempty @RegEx String sRegExp);
 
   /**
    * @return A map with all items mapped from error ID to its occurrences.

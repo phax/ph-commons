@@ -18,9 +18,7 @@ package com.helger.commons.xml.serialize.write;
 
 import java.io.OutputStream;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnegative;
@@ -37,6 +35,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.stream.NonBlockingBufferedWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
@@ -181,7 +181,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
    */
   protected static final class NamespaceStack
   {
-    private final List <NamespaceLevel> m_aStack = new ArrayList <NamespaceLevel> ();
+    private final ICommonsList <NamespaceLevel> m_aStack = new CommonsList <> ();
     private final NamespaceContext m_aNamespaceCtx;
 
     public NamespaceStack (@Nonnull final NamespaceContext aNamespaceCtx)
@@ -210,7 +210,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     public void addNamespaceMapping (@Nullable final String sPrefix, @Nonnull @Nonempty final String sNamespaceURI)
     {
       // Add the namespace to the current level
-      m_aStack.get (0).addPrefixNamespaceMapping (sPrefix, sNamespaceURI);
+      m_aStack.getFirst ().addPrefixNamespaceMapping (sPrefix, sNamespaceURI);
     }
 
     /**
@@ -219,7 +219,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     public void pop ()
     {
       // remove at front
-      m_aStack.remove (0);
+      m_aStack.removeFirst ();
     }
 
     @Nonnegative
@@ -275,10 +275,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
 
     private boolean _containsNoNamespace ()
     {
-      for (final NamespaceLevel aNSLevel : m_aStack)
-        if (aNSLevel.hasAnyNamespace ())
-          return false;
-      return true;
+      return m_aStack.containsNone (n -> n.hasAnyNamespace ());
     }
 
     /**
@@ -292,10 +289,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     private boolean _containsNoPrefix (@Nonnull final String sPrefix)
     {
       // find existing prefix (iterate current to root)
-      for (final NamespaceLevel aNSLevel : m_aStack)
-        if (aNSLevel.getNamespaceURIOfPrefix (sPrefix) != null)
-          return false;
-      return true;
+      return m_aStack.containsNone (n -> n.getNamespaceURIOfPrefix (sPrefix) != null);
     }
 
     /**

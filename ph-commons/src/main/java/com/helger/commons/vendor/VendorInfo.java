@@ -16,8 +16,6 @@
  */
 package com.helger.commons.vendor;
 
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -28,6 +26,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.EURLProtocol;
@@ -164,7 +163,7 @@ public final class VendorInfo
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <String> getFileHeaderLines ()
+  public static ICommonsList <String> getFileHeaderLines ()
   {
     return CollectionHelper.newList ("THIS FILE IS GENERATED - DO NOT EDIT",
                                      "",

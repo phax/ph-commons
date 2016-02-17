@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.error.IHasErrorID;
 import com.helger.commons.error.IResourceLocation;
 import com.helger.commons.error.ResourceLocation;
@@ -46,6 +47,28 @@ public interface IError extends IHasErrorID, IErrorBase <IError>
   default boolean hasErrorFieldName ()
   {
     return StringHelper.hasText (getErrorFieldName ());
+  }
+
+  /**
+   * @return <code>true</code> if no field name is present, <code>false</code>
+   *         otherwise
+   */
+  default boolean hasNoErrorFieldName ()
+  {
+    return StringHelper.hasNoText (getErrorFieldName ());
+  }
+
+  /**
+   * Check if this error has the passed error field name,
+   *
+   * @param sErrorFieldName
+   *        The error field name to check. May be null.
+   * @return <code>true</code> if a field name is equal, <code>false</code>
+   *         otherwise
+   */
+  default boolean hasErrorFieldName (@Nullable final String sErrorFieldName)
+  {
+    return EqualsHelper.equals (getErrorFieldName (), sErrorFieldName);
   }
 
   /**

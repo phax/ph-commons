@@ -17,7 +17,6 @@
 package com.helger.commons.xml.schema;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,6 +36,7 @@ import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.cache.AbstractNotifyingCache;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -49,7 +49,7 @@ import com.helger.commons.xml.transform.TransformSourceFactory;
  * @author Philip Helger
  */
 @ThreadSafe
-public class SchemaCache extends AbstractNotifyingCache <List <? extends IReadableResource>, Schema>
+public class SchemaCache extends AbstractNotifyingCache <ICommonsList <? extends IReadableResource>, Schema>
 {
   private final String m_sSchemaTypeName;
   private final SchemaFactory m_aSchemaFactory;
@@ -95,7 +95,7 @@ public class SchemaCache extends AbstractNotifyingCache <List <? extends IReadab
   @Nonnull
   public static Schema createSchema (@Nonnull final SchemaFactory aSchemaFactory,
                                      @Nonnull final String sSchemaTypeName,
-                                     @Nonnull @Nonempty final List <? extends IReadableResource> aResources)
+                                     @Nonnull @Nonempty final ICommonsList <? extends IReadableResource> aResources)
   {
     ValueEnforcer.notNull (aSchemaFactory, "SchemaFactory");
     ValueEnforcer.notEmptyNoNullValue (aResources, "Resources");
@@ -124,7 +124,7 @@ public class SchemaCache extends AbstractNotifyingCache <List <? extends IReadab
   @Override
   @Nonnull
   @IsLocked (ELockType.WRITE)
-  protected Schema getValueToCache (@Nonnull @Nonempty final List <? extends IReadableResource> aKey)
+  protected Schema getValueToCache (@Nonnull @Nonempty final ICommonsList <? extends IReadableResource> aKey)
   {
     return createSchema (m_aSchemaFactory, m_sSchemaTypeName, aKey);
   }

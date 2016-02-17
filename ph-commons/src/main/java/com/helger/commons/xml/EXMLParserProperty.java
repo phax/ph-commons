@@ -16,9 +16,6 @@
  */
 package com.helger.commons.xml;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -32,6 +29,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.name.IHasName;
@@ -300,14 +299,10 @@ public enum EXMLParserProperty implements IHasName
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <EXMLParserProperty> getAllPropertiesOfType (@Nonnull final EXMLParserPropertyType ePropertyType)
+  public static ICommonsList <EXMLParserProperty> getAllPropertiesOfType (@Nonnull final EXMLParserPropertyType ePropertyType)
   {
     ValueEnforcer.notNull (ePropertyType, "PropertyType");
 
-    final List <EXMLParserProperty> ret = new ArrayList <EXMLParserProperty> ();
-    for (final EXMLParserProperty eProperty : values ())
-      if (eProperty.getPropertyType () == ePropertyType)
-        ret.add (eProperty);
-    return ret;
+    return ArrayHelper.getAll (values (), e -> e.getPropertyType () == ePropertyType);
   }
 }

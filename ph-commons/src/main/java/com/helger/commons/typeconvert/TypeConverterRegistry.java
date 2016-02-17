@@ -35,6 +35,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiTreeMapArrayListBased;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -230,7 +231,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
 
     return m_aRWLock.readLocked ( () -> {
       // Check all rules in the correct order
-      for (final Map.Entry <ITypeConverterRule.ESubType, List <ITypeConverterRule <?, ?>>> aEntry : m_aRules.entrySet ())
+      for (final Map.Entry <ITypeConverterRule.ESubType, ICommonsList <ITypeConverterRule <?, ?>>> aEntry : m_aRules.entrySet ())
         for (final ITypeConverterRule <?, ?> aRule : aEntry.getValue ())
           if (aRule.canConvert (aSrcClass, aDstClass))
             return aRule;
@@ -303,7 +304,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
       {
         // Perform a check, whether there is more than one potential converter
         // present!
-        final List <String> aAllConverters = new ArrayList <String> ();
+        final List <String> aAllConverters = new ArrayList <> ();
         _iterateFuzzyConverters (aSrcClass, aDstClass, (aCurSrcClass, aCurDstClass, aConverter) -> {
           final boolean bExact = aSrcClass.equals (aCurSrcClass) && aDstClass.equals (aCurDstClass);
           aAllConverters.add ("[" + aCurSrcClass.getName () + "->" + aCurDstClass.getName () + "]");

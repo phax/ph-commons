@@ -16,9 +16,7 @@
  */
 package com.helger.commons.xml;
 
-import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -31,6 +29,8 @@ import org.w3c.dom.DOMImplementation;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.xml.dom.EXMLDOMFeature;
 import com.helger.commons.xml.dom.EXMLDOMFeatureVersion;
 import com.helger.commons.xml.dom.EXMLDOMNodeType;
@@ -43,13 +43,13 @@ import com.helger.commons.xml.dom.EXMLDOMNodeType;
 public final class XMLDebug
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (XMLDebug.class);
-  private static final Map <EXMLDOMFeatureVersion, List <String>> s_aSupportedFeatures;
+  private static final Map <EXMLDOMFeatureVersion, ICommonsList <String>> s_aSupportedFeatures;
 
   static
   {
-    s_aSupportedFeatures = new EnumMap <EXMLDOMFeatureVersion, List <String>> (EXMLDOMFeatureVersion.class);
+    s_aSupportedFeatures = new EnumMap <> (EXMLDOMFeatureVersion.class);
     for (final EXMLDOMFeatureVersion eFeatureVersion : EXMLDOMFeatureVersion.values ())
-      s_aSupportedFeatures.put (eFeatureVersion, new ArrayList <String> ());
+      s_aSupportedFeatures.put (eFeatureVersion, new CommonsList <> ());
 
     // Check features as specified by
     // http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/introduction.html#ID-Conformance
@@ -90,17 +90,17 @@ public final class XMLDebug
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <EXMLDOMFeatureVersion, List <String>> getAllSupportedFeatures ()
+  public static Map <EXMLDOMFeatureVersion, ICommonsList <String>> getAllSupportedFeatures ()
   {
     return CollectionHelper.newMap (s_aSupportedFeatures);
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public static List <String> getAllSupportedFeatures (@Nonnull final EXMLDOMFeatureVersion eFeatureVersion)
+  public static ICommonsList <String> getAllSupportedFeatures (@Nonnull final EXMLDOMFeatureVersion eFeatureVersion)
   {
-    final List <String> ret = s_aSupportedFeatures.get (eFeatureVersion);
-    return ret == null ? null : CollectionHelper.newList (ret);
+    final ICommonsList <String> ret = s_aSupportedFeatures.get (eFeatureVersion);
+    return ret == null ? null : ret.getCopy ();
   }
 
   /**
@@ -108,7 +108,7 @@ public final class XMLDebug
    */
   public static void debugLogDOMFeatures ()
   {
-    for (final Map.Entry <EXMLDOMFeatureVersion, List <String>> aEntry : s_aSupportedFeatures.entrySet ())
+    for (final Map.Entry <EXMLDOMFeatureVersion, ICommonsList <String>> aEntry : s_aSupportedFeatures.entrySet ())
       for (final String sFeature : aEntry.getValue ())
         s_aLogger.info ("DOM " + aEntry.getKey ().getID () + " feature '" + sFeature + "' is present");
   }

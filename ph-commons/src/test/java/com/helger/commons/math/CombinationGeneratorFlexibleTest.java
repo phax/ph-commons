@@ -30,6 +30,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.timing.StopWatch;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -45,29 +47,29 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testStringCombination ()
   {
-    final List <String> aElements = CollectionHelper.newList ("A", "B", "B");
+    final ICommonsList <String> aElements = CollectionHelper.newList ("A", "B", "B");
 
     // Allow empty
     CombinationGeneratorFlexible <String> aGenerator = new CombinationGeneratorFlexible <String> (3, true);
 
-    Set <List <String>> aResults = aGenerator.getCombinations (aElements);
+    Set <ICommonsList <String>> aResults = aGenerator.getCombinations (aElements);
     assertEquals (6, aResults.size ());
-    assertTrue (aResults.contains (new ArrayList <String> ()));
+    assertTrue (aResults.contains (new ArrayList <> ()));
 
-    aResults = aGenerator.getCombinations (new ArrayList <String> ());
+    aResults = aGenerator.getCombinations (new CommonsList <> ());
     assertEquals (1, aResults.size ());
-    assertTrue (aResults.contains (new ArrayList <String> ()));
+    assertTrue (aResults.contains (new ArrayList <> ()));
 
     // Not allowing empty
-    aGenerator = new CombinationGeneratorFlexible <String> (3, false);
+    aGenerator = new CombinationGeneratorFlexible <> (3, false);
 
     aResults = aGenerator.getCombinations (aElements);
     assertEquals (5, aResults.size ());
-    assertFalse (aResults.contains (new ArrayList <String> ()));
+    assertFalse (aResults.contains (new ArrayList <> ()));
 
-    aResults = aGenerator.getCombinations (new ArrayList <String> ());
+    aResults = aGenerator.getCombinations (new CommonsList <> ());
     assertEquals (1, aResults.size ());
-    assertTrue (aResults.contains (new ArrayList <String> ()));
+    assertTrue (aResults.contains (new ArrayList <> ()));
 
     try
     {
@@ -100,7 +102,7 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
     {
       // Takes approx. 490ms on PH main machine (2012-01-21)
       // With one element more the time is at approx. 1500ms
-      final Set <List <String>> aResult = CombinationGeneratorFlexible.getCombinations (HUGE_LIST, true);
+      final Set <ICommonsList <String>> aResult = CombinationGeneratorFlexible.getCombinations (HUGE_LIST, true);
       m_aLogger.info ("Regular: " + aSW.stopAndGetMillis () + " ms with " + aResult.size () + " elements");
     }
     catch (final OutOfMemoryError ex)
@@ -114,14 +116,15 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
   @Test
   public void testRedundancy ()
   {
-    final List <String> aInputList = CollectionHelper.newList ("a", "b", "c", "d", "e", "f", "g", "h");
+    final ICommonsList <String> aInputList = CollectionHelper.newList ("a", "b", "c", "d", "e", "f", "g", "h");
 
     // Build all permutations of the input list, using all available slots
-    final Set <List <String>> aSimplePermutations = new HashSet <List <String>> ();
+    final Set <ICommonsList <String>> aSimplePermutations = new HashSet <> ();
     CombinationGenerator.addAllPermutations (aInputList, aInputList.size (), aSimplePermutations);
 
     // Flexible combination generator
-    final Set <List <String>> aFlexiblePermutations = CombinationGeneratorFlexible.getCombinations (aInputList, true);
+    final Set <ICommonsList <String>> aFlexiblePermutations = CombinationGeneratorFlexible.getCombinations (aInputList,
+                                                                                                            true);
     assertTrue (aFlexiblePermutations.size () >= aSimplePermutations.size ());
 
     // Now the assumptions: I assume that all permutations from the flexible

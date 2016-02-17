@@ -17,9 +17,7 @@
 package com.helger.commons.lang;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,6 +32,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.collection.lru.LRUMap;
@@ -53,7 +53,7 @@ public final class ClassHierarchyCache
   private static final class ClassList implements Iterable <WeakReference <Class <?>>>
   {
     // Store it in the correct order, but without duplicates
-    private final List <WeakReference <Class <?>>> m_aList = new ArrayList <> ();
+    private final ICommonsList <WeakReference <Class <?>>> m_aList = new CommonsList <> ();
 
     public ClassList (@Nonnull final Class <?> aClass)
     {
@@ -61,11 +61,11 @@ public final class ClassHierarchyCache
 
       // Check the whole class hierarchy of the source class
       final Set <Class <?>> aUniqueOrderedClasses = new LinkedHashSet <> ();
-      final List <Class <?>> aOpenSrc = new ArrayList <> ();
+      final ICommonsList <Class <?>> aOpenSrc = new CommonsList <> ();
       aOpenSrc.add (aClass);
       while (!aOpenSrc.isEmpty ())
       {
-        final Class <?> aCurClass = aOpenSrc.remove (0);
+        final Class <?> aCurClass = aOpenSrc.removeFirst ();
         aUniqueOrderedClasses.add (aCurClass);
 
         // Add super-classes and interfaces
@@ -98,10 +98,10 @@ public final class ClassHierarchyCache
 
     @Nonnull
     @ReturnsMutableCopy
-    public List <Class <?>> getAsList ()
+    public ICommonsList <Class <?>> getAsList ()
     {
       // Use a list that may contain duplicates
-      final List <Class <?>> ret = new ArrayList <> (m_aList.size ());
+      final ICommonsList <Class <?>> ret = new CommonsList <> (m_aList.size ());
       for (final WeakReference <Class <?>> aRef : m_aList)
       {
         final Class <?> aClass = aRef.get ();
@@ -213,7 +213,7 @@ public final class ClassHierarchyCache
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <Class <?>> getClassHierarchyList (@Nonnull final Class <?> aClass)
+  public static ICommonsList <Class <?>> getClassHierarchyList (@Nonnull final Class <?> aClass)
   {
     return getClassList (aClass).getAsList ();
   }

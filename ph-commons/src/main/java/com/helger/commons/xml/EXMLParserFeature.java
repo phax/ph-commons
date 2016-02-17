@@ -16,7 +16,6 @@
  */
 package com.helger.commons.xml;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -36,6 +35,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.name.IHasName;
 
@@ -626,7 +626,7 @@ public enum EXMLParserFeature implements IHasName
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <EXMLParserFeature> getAllFeaturesOfType (@Nonnull final EXMLParserFeatureType eFeatureType)
+  public static ICommonsList <EXMLParserFeature> getAllFeaturesOfType (@Nonnull final EXMLParserFeatureType eFeatureType)
   {
     ValueEnforcer.notNull (eFeatureType, "FeatureType");
 

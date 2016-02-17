@@ -17,10 +17,8 @@
 package com.helger.commons.mime;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -35,6 +33,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.annotation.VisibleForTesting;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiTreeMapArrayListBased;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -72,11 +72,11 @@ public class MimeTypeInfoManager
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final List <MimeTypeInfo> m_aList = new ArrayList <MimeTypeInfo> ();
+  private final ICommonsList <MimeTypeInfo> m_aList = new CommonsList <> ();
   @GuardedBy ("m_aRWLock")
-  private final IMultiMapListBased <IMimeType, MimeTypeInfo> m_aMapMimeType = new MultiTreeMapArrayListBased <IMimeType, MimeTypeInfo> ();
+  private final IMultiMapListBased <IMimeType, MimeTypeInfo> m_aMapMimeType = new MultiTreeMapArrayListBased <> ();
   @GuardedBy ("m_aRWLock")
-  private final IMultiMapListBased <String, MimeTypeInfo> m_aMapExt = new MultiTreeMapArrayListBased <String, MimeTypeInfo> ();
+  private final IMultiMapListBased <String, MimeTypeInfo> m_aMapExt = new MultiTreeMapArrayListBased <> ();
 
   /**
    * Create a new empty (!!) instance.
@@ -146,12 +146,7 @@ public class MimeTypeInfoManager
   public EChange clearCache ()
   {
     return m_aRWLock.writeLocked ( () -> {
-      EChange ret = EChange.UNCHANGED;
-      if (!m_aList.isEmpty ())
-      {
-        m_aList.clear ();
-        ret = EChange.CHANGED;
-      }
+      EChange ret = m_aList.removeAll ();
       if (!m_aMapExt.isEmpty ())
       {
         m_aMapExt.clear ();
@@ -180,8 +175,7 @@ public class MimeTypeInfoManager
     final IMicroElement eRoot = aDoc.appendElement ("mime-type-info");
 
     m_aRWLock.readLocked ( () -> {
-      for (final MimeTypeInfo aInfo : CollectionHelper.getSorted (m_aList,
-                                                                  Comparator.comparing (MimeTypeInfo::getPrimaryMimeTypeString)))
+      for (final MimeTypeInfo aInfo : m_aList.getSorted (Comparator.comparing (MimeTypeInfo::getPrimaryMimeTypeString)))
         eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aInfo, "item"));
     });
 
@@ -199,7 +193,7 @@ public class MimeTypeInfoManager
     m_aRWLock.readLocked ( () -> {
       for (final MimeTypeWithSource aMimeType : aMimeTypes)
       {
-        final List <MimeTypeInfo> aExisting = m_aMapMimeType.get (aMimeType.getMimeType ());
+        final ICommonsList <MimeTypeInfo> aExisting = m_aMapMimeType.get (aMimeType.getMimeType ());
         if (aExisting != null)
           throw new IllegalArgumentException ("Cannot register " +
                                               aInfo +
@@ -246,7 +240,7 @@ public class MimeTypeInfoManager
 
   @Nullable
   @ReturnsMutableCopy
-  public List <MimeTypeInfo> getAllInfosOfFilename (@Nullable final File aFile)
+  public ICommonsList <MimeTypeInfo> getAllInfosOfFilename (@Nullable final File aFile)
   {
     if (aFile == null)
       return null;
@@ -257,7 +251,7 @@ public class MimeTypeInfoManager
 
   @Nullable
   @ReturnsMutableCopy
-  public List <MimeTypeInfo> getAllInfosOfFilename (@Nullable final String sFilename)
+  public ICommonsList <MimeTypeInfo> getAllInfosOfFilename (@Nullable final String sFilename)
   {
     if (StringHelper.hasNoText (sFilename))
       return null;
@@ -276,14 +270,14 @@ public class MimeTypeInfoManager
    */
   @Nullable
   @ReturnsMutableCopy
-  public List <MimeTypeInfo> getAllInfosOfExtension (@Nullable final String sExtension)
+  public ICommonsList <MimeTypeInfo> getAllInfosOfExtension (@Nullable final String sExtension)
   {
     // Extension may be empty!
     if (sExtension == null)
       return null;
 
     return m_aRWLock.readLocked ( () -> {
-      List <MimeTypeInfo> ret = m_aMapExt.get (sExtension);
+      ICommonsList <MimeTypeInfo> ret = m_aMapExt.get (sExtension);
       if (ret == null)
       {
         // Especially on Windows, sometimes file extensions like "JPG" can be
@@ -292,7 +286,7 @@ public class MimeTypeInfoManager
         ret = m_aMapExt.get (sExtension.toLowerCase (Locale.US));
       }
       // Create a copy if present
-      return ret == null ? null : CollectionHelper.newList (ret);
+      return ret == null ? null : ret.getCopy ();
     });
   }
 
@@ -306,15 +300,15 @@ public class MimeTypeInfoManager
    */
   @Nullable
   @ReturnsMutableCopy
-  public List <MimeTypeInfo> getAllInfosOfMimeType (@Nullable final IMimeType aMimeType)
+  public ICommonsList <MimeTypeInfo> getAllInfosOfMimeType (@Nullable final IMimeType aMimeType)
   {
     if (aMimeType == null)
       return null;
 
-    final List <MimeTypeInfo> ret = m_aRWLock.readLocked ( () -> m_aMapMimeType.get (aMimeType));
+    final ICommonsList <MimeTypeInfo> ret = m_aRWLock.readLocked ( () -> m_aMapMimeType.get (aMimeType));
 
     // Create a copy if present
-    return ret == null ? null : CollectionHelper.newList (ret);
+    return ret == null ? null : ret.getCopy ();
   }
 
   /**
@@ -323,9 +317,9 @@ public class MimeTypeInfoManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <MimeTypeInfo> getAllMimeTypeInfos ()
+  public ICommonsList <MimeTypeInfo> getAllMimeTypeInfos ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aList));
+    return m_aRWLock.readLocked ( () -> m_aList.getCopy ());
   }
 
   /**
@@ -336,11 +330,8 @@ public class MimeTypeInfoManager
   @ReturnsMutableCopy
   public Set <IMimeType> getAllMimeTypes ()
   {
-    final Set <IMimeType> ret = new LinkedHashSet <IMimeType> ();
-    m_aRWLock.readLocked ( () -> {
-      for (final MimeTypeInfo aInfo : m_aList)
-        ret.addAll (aInfo.getAllMimeTypes ());
-    });
+    final Set <IMimeType> ret = new LinkedHashSet <> ();
+    m_aRWLock.readLocked ( () -> m_aList.forEach (i -> ret.addAll (i.getAllMimeTypes ())));
     return ret;
   }
 
@@ -352,11 +343,8 @@ public class MimeTypeInfoManager
   @ReturnsMutableCopy
   public Set <String> getAllMimeTypeStrings ()
   {
-    final Set <String> ret = new LinkedHashSet <String> ();
-    m_aRWLock.readLocked ( () -> {
-      for (final MimeTypeInfo aInfo : m_aList)
-        ret.addAll (aInfo.getAllMimeTypeStrings ());
-    });
+    final Set <String> ret = new LinkedHashSet <> ();
+    m_aRWLock.readLocked ( () -> m_aList.forEach (i -> ret.addAll (i.getAllMimeTypeStrings ())));
     return ret;
   }
 
@@ -463,7 +451,7 @@ public class MimeTypeInfoManager
   {
     ValueEnforcer.notNull (sExtension, "Extension");
 
-    final List <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
+    final ICommonsList <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
     return CollectionHelper.isNotEmpty (aInfos);
   }
 
@@ -481,8 +469,8 @@ public class MimeTypeInfoManager
   {
     ValueEnforcer.notNull (sExtension, "Extension");
 
-    final Set <IMimeType> ret = new LinkedHashSet <IMimeType> ();
-    final List <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
+    final Set <IMimeType> ret = new LinkedHashSet <> ();
+    final ICommonsList <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
     if (aInfos != null)
       for (final MimeTypeInfo aInfo : aInfos)
         ret.addAll (aInfo.getAllMimeTypes ());
@@ -503,8 +491,8 @@ public class MimeTypeInfoManager
   {
     ValueEnforcer.notNull (sExtension, "Extension");
 
-    final Set <String> ret = new LinkedHashSet <String> ();
-    final List <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
+    final Set <String> ret = new LinkedHashSet <> ();
+    final ICommonsList <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
     if (aInfos != null)
       for (final MimeTypeInfo aInfo : aInfos)
         ret.addAll (aInfo.getAllMimeTypeStrings ());
@@ -525,7 +513,7 @@ public class MimeTypeInfoManager
   {
     ValueEnforcer.notNull (sExtension, "Extension");
 
-    final List <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
+    final ICommonsList <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
     if (aInfos != null)
       for (final MimeTypeInfo aInfo : aInfos)
         return aInfo.getPrimaryMimeType ();
@@ -546,7 +534,7 @@ public class MimeTypeInfoManager
   {
     ValueEnforcer.notNull (sExtension, "Extension");
 
-    final List <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
+    final ICommonsList <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
     if (aInfos != null)
       for (final MimeTypeInfo aInfo : aInfos)
         return aInfo.getPrimaryMimeTypeString ();
@@ -564,8 +552,8 @@ public class MimeTypeInfoManager
   @ReturnsMutableCopy
   public Set <String> getAllExtensionsOfMimeType (@Nullable final IMimeType aMimeType)
   {
-    final Set <String> ret = new LinkedHashSet <String> ();
-    final List <MimeTypeInfo> aInfos = getAllInfosOfMimeType (aMimeType);
+    final Set <String> ret = new LinkedHashSet <> ();
+    final ICommonsList <MimeTypeInfo> aInfos = getAllInfosOfMimeType (aMimeType);
     if (aInfos != null)
       for (final MimeTypeInfo aInfo : aInfos)
         ret.addAll (aInfo.getAllExtensions ());
@@ -582,7 +570,7 @@ public class MimeTypeInfoManager
   @Nullable
   public String getPrimaryExtensionOfMimeType (@Nullable final IMimeType aMimeType)
   {
-    final List <MimeTypeInfo> aInfos = getAllInfosOfMimeType (aMimeType);
+    final ICommonsList <MimeTypeInfo> aInfos = getAllInfosOfMimeType (aMimeType);
     if (aInfos != null)
       for (final MimeTypeInfo aInfo : aInfos)
       {
@@ -605,8 +593,8 @@ public class MimeTypeInfoManager
   @ReturnsMutableCopy
   public Set <String> getAllGlobsOfMimeType (@Nullable final IMimeType aMimeType)
   {
-    final Set <String> ret = new LinkedHashSet <String> ();
-    final List <MimeTypeInfo> aInfos = getAllInfosOfMimeType (aMimeType);
+    final Set <String> ret = new LinkedHashSet <> ();
+    final ICommonsList <MimeTypeInfo> aInfos = getAllInfosOfMimeType (aMimeType);
     if (aInfos != null)
       for (final MimeTypeInfo aInfo : aInfos)
         ret.addAll (aInfo.getAllGlobs ());

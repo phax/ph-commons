@@ -31,6 +31,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.schema.XMLSchemaCache;
@@ -45,7 +46,7 @@ import com.helger.commons.xml.schema.XMLSchemaCache;
 public class JAXBDocumentType implements IJAXBDocumentType
 {
   private final Class <?> m_aClass;
-  private final List <String> m_aXSDPaths;
+  private final ICommonsList <String> m_aXSDPaths;
   private final String m_sNamespaceURI;
   private final String m_sLocalName;
 
@@ -130,9 +131,9 @@ public class JAXBDocumentType implements IJAXBDocumentType
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <String> getAllXSDPaths ()
+  public ICommonsList <String> getAllXSDPaths ()
   {
-    return CollectionHelper.newList (m_aXSDPaths);
+    return m_aXSDPaths.getCopy ();
   }
 
   @Nonnull
@@ -151,7 +152,7 @@ public class JAXBDocumentType implements IJAXBDocumentType
   @Nonnull
   private Schema _createSchema (@Nullable final ClassLoader aClassLoader)
   {
-    final List <? extends IReadableResource> aXSDRes = getAllXSDResources (aClassLoader);
+    final ICommonsList <? extends IReadableResource> aXSDRes = getAllXSDResources (aClassLoader);
     final Schema ret = XMLSchemaCache.getInstanceOfClassLoader (aClassLoader).getSchema (aXSDRes);
     if (ret == null)
       throw new IllegalStateException ("Failed to create Schema from " +

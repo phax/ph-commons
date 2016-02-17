@@ -16,7 +16,6 @@
  */
 package com.helger.jaxb;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -43,7 +42,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.lang.IHasClassLoader;
@@ -73,7 +73,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBMarshaller.class);
 
   private final Class <JAXBTYPE> m_aType;
-  private final List <IReadableResource> m_aXSDs = new ArrayList <> ();
+  private final ICommonsList <IReadableResource> m_aXSDs = new CommonsList <> ();
   private final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> m_aWrapper;
   private IValidationEventHandlerFactory m_aVEHFactory = new CollectingLoggingValidationEventHandlerFactory ();
   @Deprecated
@@ -278,9 +278,9 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public final List <IReadableResource> getOriginalXSDs ()
+  public final ICommonsList <IReadableResource> getOriginalXSDs ()
   {
-    return CollectionHelper.newList (m_aXSDs);
+    return m_aXSDs.getCopy ();
   }
 
   /**

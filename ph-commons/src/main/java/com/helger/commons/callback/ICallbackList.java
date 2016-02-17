@@ -17,13 +17,13 @@
 package com.helger.commons.callback;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Read-only interface for a list of {@link ICallback} objects
@@ -40,7 +40,7 @@ public interface ICallbackList <CALLBACKTYPE extends ICallback> extends Serializ
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <CALLBACKTYPE> getAllCallbacks ();
+  ICommonsList <CALLBACKTYPE> getAllCallbacks ();
 
   /**
    * Get the callback at the specified index.

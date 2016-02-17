@@ -17,7 +17,6 @@
 package com.helger.commons.errorlist;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -28,6 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.error.IErrorLevel;
@@ -244,7 +244,7 @@ public class FormErrors implements Serializable, IFieldErrorList
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <IError> getAllGlobalItems ()
+  public ICommonsList <IError> getAllGlobalItems ()
   {
     return m_aFormGlobalErrs.getAllItems ();
   }
@@ -254,7 +254,7 @@ public class FormErrors implements Serializable, IFieldErrorList
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <String> getAllGlobalItemTexts ()
+  public ICommonsList <String> getAllGlobalItemTexts ()
   {
     return m_aFormGlobalErrs.getAllItemTexts ();
   }
@@ -319,42 +319,42 @@ public class FormErrors implements Serializable, IFieldErrorList
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <String> getAllItemTextsOfField (@Nullable final String sSearchFieldName)
+  public ICommonsList <String> getAllItemTextsOfField (@Nullable final String sSearchFieldName)
   {
     return m_aFormFieldErrs.getAllItemTextsOfField (sSearchFieldName);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <String> getAllItemTextsOfFields (@Nullable final String... aSearchFieldNames)
+  public ICommonsList <String> getAllItemTextsOfFields (@Nullable final String... aSearchFieldNames)
   {
     return m_aFormFieldErrs.getAllItemTextsOfFields (aSearchFieldNames);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <String> getAllItemTextsOfFieldsStartingWith (@Nullable final String... aSearchFieldNames)
+  public ICommonsList <String> getAllItemTextsOfFieldsStartingWith (@Nullable final String... aSearchFieldNames)
   {
     return m_aFormFieldErrs.getAllItemTextsOfFieldsStartingWith (aSearchFieldNames);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <String> getAllItemTextsOfFieldsRegExp (@Nonnull @Nonempty @RegEx final String sRegExp)
+  public ICommonsList <String> getAllItemTextsOfFieldsRegExp (@Nonnull @Nonempty @RegEx final String sRegExp)
   {
     return m_aFormFieldErrs.getAllItemTextsOfFieldsRegExp (sRegExp);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <IError> getAllFieldItems ()
+  public ICommonsList <IError> getAllFieldItems ()
   {
     return m_aFormFieldErrs.getAllItems ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <String> getAllFieldItemTexts ()
+  public ICommonsList <String> getAllFieldItemTexts ()
   {
     return m_aFormFieldErrs.getAllItemTexts ();
   }

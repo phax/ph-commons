@@ -16,9 +16,8 @@
  */
 package com.helger.commons.math;
 
-import java.util.List;
-
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
@@ -28,34 +27,34 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
  */
 public abstract class AbstractCombinationGeneratorTestCase extends AbstractCommonsTestCase
 {
-  protected static final List <String> HUGE_LIST = CollectionHelper.newList ("a",
-                                                                             "b",
-                                                                             "c",
-                                                                             "d",
-                                                                             "e",
-                                                                             "f",
-                                                                             "g",
-                                                                             "h",
-                                                                             "i",
-                                                                             "j",
-                                                                             "k",
-                                                                             "l",
-                                                                             "m",
-                                                                             "a",
-                                                                             "b",
-                                                                             "c",
-                                                                             "d",
-                                                                             "e",
-                                                                             "f",
-                                                                             "g",
-                                                                             "h",
-                                                                             "i",
-                                                                             "j",
-                                                                             "k",
-                                                                             "l",
-                                                                             "m",
-                                                                             "n",
-                                                                             "o",
-                                                                             "p",
-                                                                             "q");
+  protected static final ICommonsList <String> HUGE_LIST = CollectionHelper.newList ("a",
+                                                                                     "b",
+                                                                                     "c",
+                                                                                     "d",
+                                                                                     "e",
+                                                                                     "f",
+                                                                                     "g",
+                                                                                     "h",
+                                                                                     "i",
+                                                                                     "j",
+                                                                                     "k",
+                                                                                     "l",
+                                                                                     "m",
+                                                                                     "a",
+                                                                                     "b",
+                                                                                     "c",
+                                                                                     "d",
+                                                                                     "e",
+                                                                                     "f",
+                                                                                     "g",
+                                                                                     "h",
+                                                                                     "i",
+                                                                                     "j",
+                                                                                     "k",
+                                                                                     "l",
+                                                                                     "m",
+                                                                                     "n",
+                                                                                     "o",
+                                                                                     "p",
+                                                                                     "q");
 }

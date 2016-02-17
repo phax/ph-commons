@@ -19,12 +19,10 @@ package com.helger.commons.string;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -48,6 +46,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.function.ICharConsumer;
 import com.helger.commons.math.MathHelper;
 
@@ -1718,28 +1718,28 @@ public final class StringHelper
   }
 
   /**
-   * Take a concatenated String and return a {@link List} of all elements in the
-   * passed string, using specified separator string.
+   * Take a concatenated String and return a {@link ICommonsList} of all
+   * elements in the passed string, using specified separator string.
    *
    * @param cSep
    *        The separator character to use.
    * @param sElements
    *        The concatenated String to convert. May be <code>null</code> or
    *        empty.
-   * @return The {@link List} represented by the passed string. Never
+   * @return The {@link ICommonsList} represented by the passed string. Never
    *         <code>null</code>. If the passed input string is <code>null</code>
    *         or "" an empty list is returned.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <String> getExploded (final char cSep, @Nullable final String sElements)
+  public static ICommonsList <String> getExploded (final char cSep, @Nullable final String sElements)
   {
     return getExploded (cSep, sElements, -1);
   }
 
   /**
-   * Take a concatenated String and return a {@link List} of all elements in the
-   * passed string, using specified separator string.
+   * Take a concatenated String and return a {@link ICommonsList} of all
+   * elements in the passed string, using specified separator string.
    *
    * @param cSep
    *        The separator character to use.
@@ -1751,18 +1751,20 @@ public final class StringHelper
    *        0 all items are used. If max items is 1, than the result string is
    *        returned as is. If max items is larger than the number of elements
    *        found, it has no effect.
-   * @return The {@link List} represented by the passed string. Never
+   * @return The {@link ICommonsList} represented by the passed string. Never
    *         <code>null</code>. If the passed input string is <code>null</code>
    *         or "" an empty list is returned.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <String> getExploded (final char cSep, @Nullable final String sElements, final int nMaxItems)
+  public static ICommonsList <String> getExploded (final char cSep,
+                                                   @Nullable final String sElements,
+                                                   final int nMaxItems)
   {
     return getExploded (cSep,
                         sElements,
                         nMaxItems,
-                        nMaxItems >= 1 ? new ArrayList <> (nMaxItems) : new ArrayList <> ());
+                        nMaxItems >= 1 ? new CommonsList <> (nMaxItems) : new CommonsList <> ());
   }
 
   /**
@@ -1832,28 +1834,28 @@ public final class StringHelper
   }
 
   /**
-   * Take a concatenated String and return a {@link List} of all elements in the
-   * passed string, using specified separator string.
+   * Take a concatenated String and return a {@link ICommonsList} of all
+   * elements in the passed string, using specified separator string.
    *
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
    * @param sElements
    *        The concatenated String to convert. May be <code>null</code> or
    *        empty.
-   * @return The {@link List} represented by the passed string. Never
+   * @return The {@link ICommonsList} represented by the passed string. Never
    *         <code>null</code>. If the passed input string is <code>null</code>
    *         or "" an empty list is returned.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <String> getExploded (@Nonnull final String sSep, @Nullable final String sElements)
+  public static ICommonsList <String> getExploded (@Nonnull final String sSep, @Nullable final String sElements)
   {
     return getExploded (sSep, sElements, -1);
   }
 
   /**
-   * Take a concatenated String and return a {@link List} of all elements in the
-   * passed string, using specified separator string.
+   * Take a concatenated String and return a {@link ICommonsList} of all
+   * elements in the passed string, using specified separator string.
    *
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
@@ -1865,20 +1867,20 @@ public final class StringHelper
    *        0 all items are used. If max items is 1, than the result string is
    *        returned as is. If max items is larger than the number of elements
    *        found, it has no effect.
-   * @return The {@link List} represented by the passed string. Never
+   * @return The {@link ICommonsList} represented by the passed string. Never
    *         <code>null</code>. If the passed input string is <code>null</code>
    *         or "" an empty list is returned.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <String> getExploded (@Nonnull final String sSep,
-                                           @Nullable final String sElements,
-                                           final int nMaxItems)
+  public static ICommonsList <String> getExploded (@Nonnull final String sSep,
+                                                   @Nullable final String sElements,
+                                                   final int nMaxItems)
   {
     return getExploded (sSep,
                         sElements,
                         nMaxItems,
-                        nMaxItems >= 1 ? new ArrayList <String> (nMaxItems) : new ArrayList <String> ());
+                        nMaxItems >= 1 ? new CommonsList <> (nMaxItems) : new CommonsList <> ());
   }
 
   /**
@@ -1898,7 +1900,7 @@ public final class StringHelper
   @ReturnsMutableCopy
   public static HashSet <String> getExplodedToSet (@Nonnull final String sSep, @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new HashSet <String> ());
+    return getExploded (sSep, sElements, -1, new HashSet <> ());
   }
 
   /**
@@ -1919,7 +1921,7 @@ public final class StringHelper
   public static LinkedHashSet <String> getExplodedToOrderedSet (@Nonnull final String sSep,
                                                                 @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new LinkedHashSet <String> ());
+    return getExploded (sSep, sElements, -1, new LinkedHashSet <> ());
   }
 
   /**
@@ -1939,7 +1941,7 @@ public final class StringHelper
   @ReturnsMutableCopy
   public static TreeSet <String> getExplodedToSortedSet (@Nonnull final String sSep, @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new TreeSet <String> ());
+    return getExploded (sSep, sElements, -1, new TreeSet <> ());
   }
 
   /**

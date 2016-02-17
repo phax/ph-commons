@@ -16,12 +16,13 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
+
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Abstract multi map based on {@link java.util.WeakHashMap} and
@@ -35,7 +36,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  */
 @NotThreadSafe
 public abstract class AbstractMultiWeakHashMapListBased <KEYTYPE, VALUETYPE> extends
-                                                        AbstractMultiWeakHashMap <KEYTYPE, VALUETYPE, List <VALUETYPE>>
+                                                        AbstractMultiWeakHashMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>>
                                                         implements IMultiMapListBased <KEYTYPE, VALUETYPE>
 {
   public AbstractMultiWeakHashMapListBased ()
@@ -46,12 +47,13 @@ public abstract class AbstractMultiWeakHashMapListBased <KEYTYPE, VALUETYPE> ext
     putSingle (aKey, aValue);
   }
 
-  public AbstractMultiWeakHashMapListBased (@Nonnull final KEYTYPE aKey, @Nullable final List <VALUETYPE> aCollection)
+  public AbstractMultiWeakHashMapListBased (@Nonnull final KEYTYPE aKey,
+                                            @Nullable final ICommonsList <VALUETYPE> aCollection)
   {
     put (aKey, aCollection);
   }
 
-  public AbstractMultiWeakHashMapListBased (@Nullable final Map <? extends KEYTYPE, ? extends List <VALUETYPE>> aCont)
+  public AbstractMultiWeakHashMapListBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsList <VALUETYPE>> aCont)
   {
     if (aCont != null)
       putAll (aCont);

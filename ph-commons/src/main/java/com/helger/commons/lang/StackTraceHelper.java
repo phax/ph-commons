@@ -16,15 +16,14 @@
  */
 package com.helger.commons.lang;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -39,8 +38,8 @@ public final class StackTraceHelper
   private static final char STACKELEMENT_LINESEP = '\n';
 
   /** elements to omit in stack traces */
-  private static final List <String> STACKTRACE_OMIT_UNITTEST = new ArrayList <String> ();
-  private static final List <String> STACKTRACE_OMIT_APPSRV = new ArrayList <String> ();
+  private static final ICommonsList <String> STACKTRACE_OMIT_UNITTEST = new CommonsList <> ();
+  private static final ICommonsList <String> STACKTRACE_OMIT_APPSRV = new CommonsList <> ();
 
   static
   {
@@ -63,13 +62,8 @@ public final class StackTraceHelper
 
   private static boolean _stopStackTraceListing (@Nonnull final String sStackTraceLine)
   {
-    for (final String sOmit : STACKTRACE_OMIT_UNITTEST)
-      if (sStackTraceLine.startsWith (sOmit))
-        return true;
-    for (final String sOmit : STACKTRACE_OMIT_APPSRV)
-      if (sStackTraceLine.startsWith (sOmit))
-        return true;
-    return false;
+    return STACKTRACE_OMIT_UNITTEST.containsAny (s -> sStackTraceLine.startsWith (s)) ||
+           STACKTRACE_OMIT_APPSRV.containsAny (s -> sStackTraceLine.startsWith (s));
   }
 
   private static boolean _matchesParentStackTrace (@Nonnull final StackTraceElement aElement,
@@ -261,9 +255,8 @@ public final class StackTraceHelper
       for (final StackTraceElement aStackTraceElement : aStackTrace)
       {
         final String sStackTraceLine = aStackTraceElement.toString ();
-        for (final String sUnitTestPackage : STACKTRACE_OMIT_UNITTEST)
-          if (sStackTraceLine.startsWith (sUnitTestPackage))
-            return true;
+        if (STACKTRACE_OMIT_UNITTEST.containsAny (s -> sStackTraceLine.startsWith (s)))
+          return true;
       }
     return false;
   }

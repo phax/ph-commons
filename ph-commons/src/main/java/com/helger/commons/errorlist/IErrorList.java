@@ -17,12 +17,12 @@
 package com.helger.commons.errorlist;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.IHasErrorLevels;
 
 /**
@@ -57,7 +57,7 @@ public interface IErrorList extends Iterable <IError>, IHasErrorLevels, IFieldEr
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <IError> getAllItems ();
+  ICommonsList <IError> getAllItems ();
 
   /**
    * @return The error texts of all contained {@link IError} objects. Never
@@ -65,7 +65,7 @@ public interface IErrorList extends Iterable <IError>, IHasErrorLevels, IFieldEr
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <String> getAllItemTexts ();
+  ICommonsList <String> getAllItemTexts ();
 
   /**
    * @return An error list with all entries that don't have a field assigned.

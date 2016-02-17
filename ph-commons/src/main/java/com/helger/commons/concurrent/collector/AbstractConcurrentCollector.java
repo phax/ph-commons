@@ -16,8 +16,6 @@
  */
 package com.helger.commons.concurrent.collector;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -32,6 +30,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingRunnable;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
@@ -153,15 +153,15 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements
 
   @Nonnull
   @ReturnsMutableCopy
-  public final List <DATATYPE> drainQueue ()
+  public final ICommonsList <DATATYPE> drainQueue ()
   {
     // Drain all objects to this queue
-    final List <Object> aList = new ArrayList <> ();
-    m_aRWLock.writeLocked ( () -> m_aQueue.drainTo (aList));
+    final ICommonsList <Object> aDrainedToList = new CommonsList <> ();
+    m_aRWLock.writeLocked ( () -> m_aQueue.drainTo (aDrainedToList));
 
     // Change data type
-    final List <DATATYPE> ret = new ArrayList <> ();
-    for (final Object aObj : aList)
+    final ICommonsList <DATATYPE> ret = new CommonsList <> ();
+    for (final Object aObj : aDrainedToList)
       if (aObj != STOP_QUEUE_OBJECT)
         ret.add (GenericReflection.uncheckedCast (aObj));
       else

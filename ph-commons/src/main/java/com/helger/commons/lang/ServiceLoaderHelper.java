@@ -16,9 +16,7 @@
  */
 package com.helger.commons.lang;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.ServiceLoader;
 
 import javax.annotation.Nonnull;
@@ -30,6 +28,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * {@link ServiceLoader} helper class.
@@ -57,7 +57,7 @@ public final class ServiceLoaderHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <T> List <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass)
+  public static <T> ICommonsList <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass)
   {
     return getAllSPIImplementations (aSPIClass, ClassLoaderHelper.getDefaultClassLoader (), null);
   }
@@ -77,8 +77,8 @@ public final class ServiceLoaderHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <T> List <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
-                                                       @Nonnull final ClassLoader aClassLoader)
+  public static <T> ICommonsList <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
+                                                               @Nonnull final ClassLoader aClassLoader)
   {
     return getAllSPIImplementations (aSPIClass, aClassLoader, null);
   }
@@ -97,8 +97,8 @@ public final class ServiceLoaderHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <T> List <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
-                                                       @Nullable final Logger aLogger)
+  public static <T> ICommonsList <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
+                                                               @Nullable final Logger aLogger)
   {
     return getAllSPIImplementations (aSPIClass, ClassLoaderHelper.getDefaultClassLoader (), aLogger);
   }
@@ -121,9 +121,9 @@ public final class ServiceLoaderHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <T> List <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
-                                                       @Nonnull final ClassLoader aClassLoader,
-                                                       @Nullable final Logger aLogger)
+  public static <T> ICommonsList <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
+                                                               @Nonnull final ClassLoader aClassLoader,
+                                                               @Nullable final Logger aLogger)
   {
     ValueEnforcer.notNull (aSPIClass, "SPIClass");
     ValueEnforcer.notNull (aClassLoader, "ClassLoader");
@@ -134,7 +134,7 @@ public final class ServiceLoaderHelper
       aRealLogger.trace ("Trying to retrieve all SPI implementations of " + aSPIClass);
 
     final ServiceLoader <T> aServiceLoader = ServiceLoader.<T> load (aSPIClass, aClassLoader);
-    final List <T> ret = new ArrayList <> ();
+    final ICommonsList <T> ret = new CommonsList <> ();
 
     // We use the iterator to be able to catch exceptions thrown
     // when loading SPI implementations (e.g. the SPI implementation class does
@@ -237,7 +237,7 @@ public final class ServiceLoaderHelper
                                                  @Nullable final Logger aLogger)
   {
     final Logger aRealLogger = aLogger != null ? aLogger : s_aLogger;
-    final List <T> aAll = getAllSPIImplementations (aSPIClass, aClassLoader, aRealLogger);
+    final ICommonsList <T> aAll = getAllSPIImplementations (aSPIClass, aClassLoader, aRealLogger);
     if (aAll.isEmpty ())
     {
       // No SPI implementation found
@@ -254,6 +254,6 @@ public final class ServiceLoaderHelper
                         " - using the first one. Details: " +
                         aAll);
     }
-    return aAll.get (0);
+    return aAll.getFirst ();
   }
 }

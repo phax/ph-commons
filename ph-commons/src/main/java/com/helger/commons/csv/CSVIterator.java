@@ -18,19 +18,19 @@ package com.helger.commons.csv;
 
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Provides an Iterator over the data found in opencsv.
  */
-public class CSVIterator implements Iterator <List <String>>
+public class CSVIterator implements Iterator <ICommonsList <String>>
 {
   private final CSVReader m_aReader;
-  private List <String> m_aNextLine;
+  private ICommonsList <String> m_aNextLine;
 
   /**
    * @param aReader
@@ -63,9 +63,9 @@ public class CSVIterator implements Iterator <List <String>>
    * @return The next element of the iterator. Never <code>null</code>.
    */
   @Nonnull
-  public List <String> next ()
+  public ICommonsList <String> next ()
   {
-    final List <String> ret = m_aNextLine;
+    final ICommonsList <String> ret = m_aNextLine;
     try
     {
       m_aNextLine = m_aReader.readNext ();

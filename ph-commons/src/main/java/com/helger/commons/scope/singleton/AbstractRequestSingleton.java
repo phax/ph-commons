@@ -16,12 +16,11 @@
  */
 package com.helger.commons.scope.singleton;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.scope.IRequestScope;
 import com.helger.commons.scope.mgr.ScopeManager;
 
@@ -107,7 +106,7 @@ public abstract class AbstractRequestSingleton extends AbstractSingleton
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static final List <AbstractRequestSingleton> getAllRequestSingletons ()
+  public static final ICommonsList <AbstractRequestSingleton> getAllRequestSingletons ()
   {
     return getAllSingletons (_getStaticScope (false), AbstractRequestSingleton.class);
   }

@@ -16,8 +16,6 @@
  */
 package com.helger.commons.scope.spi;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
@@ -27,7 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.exception.mock.IMockException;
 import com.helger.commons.lang.ServiceLoaderHelper;
@@ -59,15 +57,15 @@ public final class ScopeSPIManager
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private List <IGlobalScopeSPI> m_aGlobalSPIs;
+  private ICommonsList <IGlobalScopeSPI> m_aGlobalSPIs;
   @GuardedBy ("m_aRWLock")
-  private List <IApplicationScopeSPI> m_aApplicationSPIs;
+  private ICommonsList <IApplicationScopeSPI> m_aApplicationSPIs;
   @GuardedBy ("m_aRWLock")
-  private List <ISessionScopeSPI> m_aSessionSPIs;
+  private ICommonsList <ISessionScopeSPI> m_aSessionSPIs;
   @GuardedBy ("m_aRWLock")
-  private List <ISessionApplicationScopeSPI> m_aSessionApplicationSPIs;
+  private ICommonsList <ISessionApplicationScopeSPI> m_aSessionApplicationSPIs;
   @GuardedBy ("m_aRWLock")
-  private List <IRequestScopeSPI> m_aRequestSPIs;
+  private ICommonsList <IRequestScopeSPI> m_aRequestSPIs;
 
   private ScopeSPIManager ()
   {
@@ -108,9 +106,9 @@ public final class ScopeSPIManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <IGlobalScopeSPI> getAllGlobalScopeSPIs ()
+  public ICommonsList <IGlobalScopeSPI> getAllGlobalScopeSPIs ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aGlobalSPIs));
+    return m_aRWLock.readLocked ( () -> m_aGlobalSPIs.getCopy ());
   }
 
   /**
@@ -119,9 +117,9 @@ public final class ScopeSPIManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <IApplicationScopeSPI> getAllApplicationScopeSPIs ()
+  public ICommonsList <IApplicationScopeSPI> getAllApplicationScopeSPIs ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aApplicationSPIs));
+    return m_aRWLock.readLocked ( () -> m_aApplicationSPIs.getCopy ());
   }
 
   /**
@@ -130,9 +128,9 @@ public final class ScopeSPIManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <ISessionScopeSPI> getAllSessionScopeSPIs ()
+  public ICommonsList <ISessionScopeSPI> getAllSessionScopeSPIs ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aSessionSPIs));
+    return m_aRWLock.readLocked ( () -> m_aSessionSPIs.getCopy ());
   }
 
   /**
@@ -141,9 +139,9 @@ public final class ScopeSPIManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <ISessionApplicationScopeSPI> getAllSessionApplicationScopeSPIs ()
+  public ICommonsList <ISessionApplicationScopeSPI> getAllSessionApplicationScopeSPIs ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aSessionApplicationSPIs));
+    return m_aRWLock.readLocked ( () -> m_aSessionApplicationSPIs.getCopy ());
   }
 
   /**
@@ -152,9 +150,9 @@ public final class ScopeSPIManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <IRequestScopeSPI> getAllRequestScopeSPIs ()
+  public ICommonsList <IRequestScopeSPI> getAllRequestScopeSPIs ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aRequestSPIs));
+    return m_aRWLock.readLocked ( () -> m_aRequestSPIs.getCopy ());
   }
 
   public void onGlobalScopeBegin (@Nonnull final IGlobalScope aGlobalScope)

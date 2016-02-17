@@ -18,7 +18,6 @@ package com.helger.commons.microdom;
 
 import java.util.EnumMap;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -31,6 +30,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.typeconvert.TypeConverter;
@@ -359,7 +359,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   @OverrideOnDemand
   @Nullable
-  public List <IMicroNode> getAllChildren ()
+  public ICommonsList <IMicroNode> getAllChildren ()
   {
     return null;
   }
@@ -394,7 +394,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   @OverrideOnDemand
   @Nullable
-  public List <IMicroNode> getAllChildrenRecursive ()
+  public ICommonsList <IMicroNode> getAllChildrenRecursive ()
   {
     return null;
   }
@@ -404,7 +404,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   {
     if (m_aParentNode == null)
       return null;
-    final List <IMicroNode> aParentChildren = m_aParentNode.directGetAllChildren ();
+    final ICommonsList <IMicroNode> aParentChildren = m_aParentNode.directGetAllChildren ();
     final int nIndex = aParentChildren.indexOf (this);
     if (nIndex == -1)
       throw new IllegalStateException ("this is no part of it's parents children");
@@ -416,7 +416,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   {
     if (m_aParentNode == null)
       return null;
-    final List <IMicroNode> aParentChildren = m_aParentNode.directGetAllChildren ();
+    final ICommonsList <IMicroNode> aParentChildren = m_aParentNode.directGetAllChildren ();
     final int nIndex = aParentChildren.indexOf (this);
     if (nIndex == -1)
       throw new IllegalStateException ("this is no part of it's parents children");

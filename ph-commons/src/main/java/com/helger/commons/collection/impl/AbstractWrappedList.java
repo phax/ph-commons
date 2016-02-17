@@ -28,6 +28,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * This is a facade for a list. It may be used to wrap any kind of list and
@@ -38,7 +39,7 @@ import com.helger.commons.annotation.ReturnsMutableObject;
  *        Element type
  */
 @NotThreadSafe
-public abstract class AbstractWrappedList <ELEMENTTYPE> implements List <ELEMENTTYPE>
+public abstract class AbstractWrappedList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
 {
   private final List <ELEMENTTYPE> m_aSrc;
 

@@ -16,12 +16,11 @@
  */
 package com.helger.commons.scope;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 
 /**
@@ -63,7 +62,7 @@ public interface IRequestScope extends IScope
    * @return <code>null</code> if no such attribute value exists
    */
   @Nullable
-  default List <String> getAttributeAsList (@Nullable final String sName)
+  default ICommonsList <String> getAttributeAsList (@Nullable final String sName)
   {
     return getAttributeAsList (sName, null);
   }
@@ -78,7 +77,7 @@ public interface IRequestScope extends IScope
    * @return <code>aDefault</code> if no such attribute value exists
    */
   @Nullable
-  List <String> getAttributeAsList (@Nullable String sName, @Nullable List <String> aDefault);
+  ICommonsList <String> getAttributeAsList (@Nullable String sName, @Nullable ICommonsList <String> aDefault);
 
   /**
    * Check if a attribute with the given name is present in the request and has

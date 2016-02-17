@@ -34,6 +34,6 @@ public class SoftHashMap <K, V> extends AbstractSoftMap <K, V>
 {
   public SoftHashMap ()
   {
-    super (new HashMap <K, SoftValue <K, V>> ());
+    super (new HashMap <> ());
   }
 }

@@ -18,7 +18,6 @@ package com.helger.commons.typeconvert;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -27,6 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -244,7 +244,7 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
       /*
        * Split class name and enum value name
        */
-      final List <String> aParts = StringHelper.getExploded (':', aSource, 2);
+      final ICommonsList <String> aParts = StringHelper.getExploded (':', aSource, 2);
       try
       {
         /*

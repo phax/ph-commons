@@ -27,6 +27,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
 
@@ -89,7 +90,7 @@ public final class SimpleFileIO
    *         otherwise.
    */
   @Nullable
-  public static List <String> getAllFileLines (@Nullable final File aFile, @Nonnull final Charset aCharset)
+  public static ICommonsList <String> getAllFileLines (@Nullable final File aFile, @Nonnull final Charset aCharset)
   {
     return aFile == null ? null : StreamHelper.readStreamLines (FileHelper.getInputStream (aFile), aCharset);
   }

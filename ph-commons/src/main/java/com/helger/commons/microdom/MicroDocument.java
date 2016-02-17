@@ -16,11 +16,10 @@
  */
 package com.helger.commons.microdom;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -69,8 +68,8 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
     // Ensure that only one element is appended to the document root
     if (aChildNode.isElement ())
     {
-      final List <IMicroNode> aChildren = directGetAllChildren ();
-      if (aChildren != null && !aChildren.isEmpty ())
+      final ICommonsList <IMicroNode> aChildren = directGetAllChildren ();
+      if (aChildren != null && aChildren.isNotEmpty ())
         for (final IMicroNode aCurChild : aChildren)
           if (aCurChild.isElement ())
             throw new MicroException ("A document can only have one document element! Already has " +

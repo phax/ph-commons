@@ -34,7 +34,6 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 import java.nio.charset.Charset;
-import java.util.List;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
@@ -51,6 +50,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.misc.SizeHelper;
 import com.helger.commons.io.stream.ByteBufferInputStream;
@@ -900,8 +900,8 @@ public final class FileHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  private static List <File> _getDirectoryContent (@Nonnull final File aDirectory,
-                                                   @Nullable final File [] aSelectedContent)
+  private static ICommonsList <File> _getDirectoryContent (@Nonnull final File aDirectory,
+                                                           @Nullable final File [] aSelectedContent)
   {
     if (aSelectedContent == null)
     {
@@ -944,7 +944,7 @@ public final class FileHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <File> getDirectoryContent (@Nonnull final File aDirectory)
+  public static ICommonsList <File> getDirectoryContent (@Nonnull final File aDirectory)
   {
     ValueEnforcer.notNull (aDirectory, "Directory");
 
@@ -964,8 +964,8 @@ public final class FileHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <File> getDirectoryContent (@Nonnull final File aDirectory,
-                                                 @Nonnull final FilenameFilter aFilenameFilter)
+  public static ICommonsList <File> getDirectoryContent (@Nonnull final File aDirectory,
+                                                         @Nonnull final FilenameFilter aFilenameFilter)
   {
     ValueEnforcer.notNull (aDirectory, "Directory");
     ValueEnforcer.notNull (aFilenameFilter, "FilenameFilter");
@@ -986,7 +986,8 @@ public final class FileHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <File> getDirectoryContent (@Nonnull final File aDirectory, @Nonnull final FileFilter aFileFilter)
+  public static ICommonsList <File> getDirectoryContent (@Nonnull final File aDirectory,
+                                                         @Nonnull final FileFilter aFileFilter)
   {
     ValueEnforcer.notNull (aDirectory, "Directory");
     ValueEnforcer.notNull (aFileFilter, "FileFilter");

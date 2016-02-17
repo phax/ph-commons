@@ -16,10 +16,8 @@
  */
 package com.helger.commons.errorlist;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -31,10 +29,10 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
-import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -42,7 +40,6 @@ import com.helger.commons.lang.ICloneable;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.IClearable;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -53,7 +50,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
 {
-  private final List <IError> m_aItems = new ArrayList <IError> ();
+  private final ICommonsList <IError> m_aItems = new CommonsList <> ();
 
   public ErrorList ()
   {}
@@ -193,95 +190,70 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
 
   public boolean hasErrorsOrWarnings ()
   {
-    return CollectionHelper.containsAny (m_aItems,
-                                         aItem -> aItem.getErrorLevel ().isMoreOrEqualSevereThan (EErrorLevel.WARN));
+    return m_aItems.containsAny (e -> e.getErrorLevel ().isMoreOrEqualSevereThan (EErrorLevel.WARN));
   }
 
   public boolean containsOnlySuccess ()
   {
-    if (m_aItems.isEmpty ())
-      return false;
-    for (final IError aError : m_aItems)
-      if (aError.isFailure ())
-        return false;
-    return true;
+    return m_aItems.containsOnly (e -> e.isSuccess ());
   }
 
   public boolean containsAtLeastOneSuccess ()
   {
-    return CollectionHelper.containsAny (m_aItems, aItem -> aItem.isSuccess ());
+    return m_aItems.containsAny (e -> e.isSuccess ());
   }
 
   public boolean containsNoSuccess ()
   {
-    for (final IError aError : m_aItems)
-      if (aError.isSuccess ())
-        return false;
-    return true;
+    return m_aItems.containsNone (e -> e.isSuccess ());
   }
 
   @Nonnegative
   public int getSuccessCount ()
   {
-    return CollectionHelper.getCount (m_aItems, aItem -> aItem.isSuccess ());
+    return m_aItems.getCount (e -> e.isSuccess ());
   }
 
   public boolean containsOnlyFailure ()
   {
-    if (m_aItems.isEmpty ())
-      return false;
-    for (final IError aError : m_aItems)
-      if (aError.isSuccess ())
-        return false;
-    return true;
+    return m_aItems.containsOnly (e -> e.isFailure ());
   }
 
   public boolean containsAtLeastOneFailure ()
   {
-    return CollectionHelper.containsAny (m_aItems, aItem -> aItem.isFailure ());
+    return m_aItems.containsAny (e -> e.isFailure ());
   }
 
   public boolean containsNoFailure ()
   {
-    for (final IError aError : m_aItems)
-      if (aError.isFailure ())
-        return false;
-    return true;
+    return m_aItems.containsNone (e -> e.isFailure ());
   }
 
   @Nonnegative
   public int getFailureCount ()
   {
-    return CollectionHelper.getCount (m_aItems, aItem -> aItem.isFailure ());
+    return m_aItems.getCount (e -> e.isFailure ());
   }
 
   public boolean containsOnlyError ()
   {
-    if (m_aItems.isEmpty ())
-      return false;
-    for (final IError aError : m_aItems)
-      if (aError.isNoError ())
-        return false;
-    return true;
+    return m_aItems.containsOnly (e -> e.isError ());
   }
 
   public boolean containsAtLeastOneError ()
   {
-    return CollectionHelper.containsAny (m_aItems, aItem -> aItem.isError ());
+    return m_aItems.containsAny (e -> e.isError ());
   }
 
   public boolean containsNoError ()
   {
-    for (final IError aError : m_aItems)
-      if (aError.isError ())
-        return false;
-    return true;
+    return m_aItems.containsNone (e -> e.isError ());
   }
 
   @Nonnegative
   public int getErrorCount ()
   {
-    return CollectionHelper.getCount (m_aItems, aItem -> aItem.isError ());
+    return m_aItems.getCount (e -> e.isError ());
   }
 
   @Nonnull
@@ -303,9 +275,9 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <String> getAllItemTexts ()
+  public ICommonsList <String> getAllItemTexts ()
   {
-    return CollectionHelper.newListMapped (m_aItems, IError::getErrorText);
+    return m_aItems.getAllMapped (IError::getErrorText);
   }
 
   /**
@@ -313,9 +285,9 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <IError> getAllItems ()
+  public ICommonsList <IError> getAllItems ()
   {
-    return CollectionHelper.newList (m_aItems);
+    return m_aItems.getCopy ();
   }
 
   /**
@@ -335,15 +307,13 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   public ErrorList getListWithoutField ()
   {
     final ErrorList ret = new ErrorList ();
-    for (final IError aError : m_aItems)
-      if (!aError.hasErrorFieldName ())
-        ret.add (aError);
+    m_aItems.findAll (e -> e.hasNoErrorFieldName (), ret::add);
     return ret;
   }
 
   public boolean hasNoEntryForField (@Nullable final String sSearchFieldName)
   {
-    return !hasEntryForField (sSearchFieldName);
+    return m_aItems.containsNone (e -> e.hasErrorFieldName (sSearchFieldName));
   }
 
   public boolean hasNoEntryForFields (@Nullable final String... aSearchFieldNames)
@@ -357,18 +327,14 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
 
   public boolean hasEntryForField (@Nullable final String sSearchFieldName)
   {
-    for (final IError aError : m_aItems)
-      if (EqualsHelper.equals (sSearchFieldName, aError.getErrorFieldName ()))
-        return true;
-    return false;
+    return m_aItems.containsAny (e -> e.hasErrorFieldName (sSearchFieldName));
   }
 
   public boolean hasEntryForField (@Nullable final String sSearchFieldName, @Nullable final IErrorLevel aErrorLevel)
   {
     if (aErrorLevel != null)
       for (final IError aError : m_aItems)
-        if (aError.getErrorLevel ().equals (aErrorLevel) &&
-            EqualsHelper.equals (sSearchFieldName, aError.getErrorFieldName ()))
+        if (aError.getErrorLevel ().equals (aErrorLevel) && aError.hasErrorFieldName (sSearchFieldName))
           return true;
     return false;
   }
@@ -387,9 +353,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   public ErrorList getListOfField (@Nullable final String sSearchFieldName)
   {
     final ErrorList ret = new ErrorList ();
-    for (final IError aError : m_aItems)
-      if (EqualsHelper.equals (sSearchFieldName, aError.getErrorFieldName ()))
-        ret.add (aError);
+    m_aItems.findAll (e -> e.hasErrorFieldName (sSearchFieldName), ret::add);
     return ret;
   }
 
@@ -399,9 +363,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   {
     final ErrorList ret = new ErrorList ();
     if (ArrayHelper.isNotEmpty (aSearchFieldNames))
-      for (final IError aError : m_aItems)
-        if (ArrayHelper.contains (aSearchFieldNames, aError.getErrorFieldName ()))
-          ret.add (aError);
+      m_aItems.findAll (e -> ArrayHelper.contains (aSearchFieldNames, e.getErrorFieldName ()), ret::add);
     return ret;
   }
 
@@ -411,17 +373,15 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   {
     final ErrorList ret = new ErrorList ();
     if (ArrayHelper.isNotEmpty (aSearchFieldNames))
-      for (final IError aError : m_aItems)
-        if (aError.hasErrorFieldName ())
-        {
-          final String sErrorFieldName = aError.getErrorFieldName ();
-          for (final String sSearchField : aSearchFieldNames)
-            if (sErrorFieldName.startsWith (sSearchField))
-            {
-              ret.add (aError);
-              break;
-            }
-        }
+      m_aItems.findAll (e -> e.hasErrorFieldName (), e -> {
+        final String sErrorFieldName = e.getErrorFieldName ();
+        for (final String sSearchField : aSearchFieldNames)
+          if (sErrorFieldName.startsWith (sSearchField))
+          {
+            ret.add (e);
+            break;
+          }
+      });
     return ret;
   }
 
@@ -429,72 +389,59 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @ReturnsMutableCopy
   public ErrorList getListOfFieldsRegExp (@Nonnull @Nonempty @RegEx final String sRegExp)
   {
-    if (StringHelper.hasNoText (sRegExp))
-      throw new IllegalArgumentException ("Empty RegExp");
+    ValueEnforcer.notEmpty (sRegExp, "RegExp");
 
     final ErrorList ret = new ErrorList ();
-    for (final IError aError : m_aItems)
-      if (aError.hasErrorFieldName ())
-        if (RegExHelper.stringMatchesPattern (sRegExp, aError.getErrorFieldName ()))
-          ret.add (aError);
+    m_aItems.findAll (e -> e.hasErrorFieldName () && RegExHelper.stringMatchesPattern (sRegExp, e.getErrorFieldName ()),
+                      ret::add);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <String> getAllItemTextsOfField (@Nullable final String sSearchFieldName)
+  public ICommonsList <String> getAllItemTextsOfField (@Nullable final String sSearchFieldName)
   {
-    final List <String> ret = new ArrayList <> ();
-    for (final IError aError : m_aItems)
-      if (EqualsHelper.equals (aError.getErrorFieldName (), sSearchFieldName))
-        ret.add (aError.getErrorText ());
-    return ret;
+    return m_aItems.getAllMapped (e -> e.hasErrorFieldName (sSearchFieldName), e -> e.getErrorText ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <String> getAllItemTextsOfFields (@Nullable final String... aSearchFieldNames)
+  public ICommonsList <String> getAllItemTextsOfFields (@Nullable final String... aSearchFieldNames)
   {
-    final List <String> ret = new ArrayList <> ();
+    final ICommonsList <String> ret = new CommonsList <> ();
     if (ArrayHelper.isNotEmpty (aSearchFieldNames))
-      for (final IError aError : m_aItems)
-        if (ArrayHelper.contains (aSearchFieldNames, aError.getErrorFieldName ()))
-          ret.add (aError.getErrorText ());
+      m_aItems.findAll (e -> ArrayHelper.contains (aSearchFieldNames, e.getErrorFieldName ()),
+                        e -> ret.add (e.getErrorText ()));
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <String> getAllItemTextsOfFieldsStartingWith (@Nullable final String... aSearchFieldNames)
+  public ICommonsList <String> getAllItemTextsOfFieldsStartingWith (@Nullable final String... aSearchFieldNames)
   {
-    final List <String> ret = new ArrayList <> ();
+    final ICommonsList <String> ret = new CommonsList <> ();
     if (ArrayHelper.isNotEmpty (aSearchFieldNames))
-      for (final IError aError : m_aItems)
-        if (aError.hasErrorFieldName ())
-        {
-          final String sErrorFieldName = aError.getErrorFieldName ();
-          for (final String sSearchField : aSearchFieldNames)
-            if (sErrorFieldName.startsWith (sSearchField))
-            {
-              ret.add (aError.getErrorText ());
-              break;
-            }
-        }
+      m_aItems.findAll (e -> e.hasErrorFieldName (), e -> {
+        final String sErrorFieldName = e.getErrorFieldName ();
+        for (final String sSearchField : aSearchFieldNames)
+          if (sErrorFieldName.startsWith (sSearchField))
+          {
+            ret.add (e.getErrorText ());
+            break;
+          }
+      });
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <String> getAllItemTextsOfFieldsRegExp (@Nonnull @Nonempty @RegEx final String sRegEx)
+  public ICommonsList <String> getAllItemTextsOfFieldsRegExp (@Nonnull @Nonempty @RegEx final String sRegEx)
   {
     ValueEnforcer.notEmpty (sRegEx, "RegEx");
 
-    final List <String> ret = new ArrayList <> ();
-    for (final IError aError : m_aItems)
-      if (aError.hasErrorFieldName ())
-        if (RegExHelper.stringMatchesPattern (sRegEx, aError.getErrorFieldName ()))
-          ret.add (aError.getErrorText ());
-    return ret;
+    return m_aItems.getAllMapped (e -> e.hasErrorFieldName () &&
+                                       RegExHelper.stringMatchesPattern (sRegEx, e.getErrorFieldName ()),
+                                  e -> e.getErrorText ());
   }
 
   @Nonnull
@@ -502,8 +449,8 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   public IMultiMapListBased <String, IError> getStructuredByID ()
   {
     final IMultiMapListBased <String, IError> ret = new MultiLinkedHashMapArrayListBased <> ();
-    for (final IError aFormError : m_aItems)
-      ret.putSingle (aFormError.getErrorID (), aFormError);
+    for (final IError aError : m_aItems)
+      ret.putSingle (aError.getErrorID (), aError);
     return ret;
   }
 
@@ -512,8 +459,8 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   public IMultiMapListBased <String, IError> getStructuredByFieldName ()
   {
     final IMultiMapListBased <String, IError> ret = new MultiLinkedHashMapArrayListBased <> ();
-    for (final IError aFormError : m_aItems)
-      ret.putSingle (aFormError.getErrorFieldName (), aFormError);
+    for (final IError aError : m_aItems)
+      ret.putSingle (aError.getErrorFieldName (), aError);
     return ret;
   }
 
@@ -546,10 +493,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @Nonnull
   public EChange clear ()
   {
-    if (m_aItems.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aItems.clear ();
-    return EChange.CHANGED;
+    return m_aItems.removeAll ();
   }
 
   @Nonnull

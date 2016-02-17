@@ -17,10 +17,10 @@
 package com.helger.commons.error;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.IHasSize;
 
 /**
@@ -54,5 +54,5 @@ public interface IResourceErrorGroup extends IHasSize, Iterable <IResourceError>
    * @return A non-<code>null</code> list of all contained error objects
    */
   @Nonnull
-  List <IResourceError> getAllResourceErrors ();
+  ICommonsList <IResourceError> getAllResourceErrors ();
 }

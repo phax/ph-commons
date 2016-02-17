@@ -16,19 +16,20 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsVector;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
- * Multi map based on {@link java.util.concurrent.ConcurrentHashMap} and
- * {@link Vector} values.<br>
+ * Multi map based on {@link ConcurrentHashMap} and {@link CommonsVector}
+ * values.<br>
  * Important note: <code>null</code> keys are not allowed here!
  *
  * @author Philip Helger
@@ -49,12 +50,13 @@ public class MultiConcurrentHashMapVectorBased <KEYTYPE, VALUETYPE>
     super (aKey, aValue);
   }
 
-  public MultiConcurrentHashMapVectorBased (@Nonnull final KEYTYPE aKey, @Nonnull final List <VALUETYPE> aCollection)
+  public MultiConcurrentHashMapVectorBased (@Nonnull final KEYTYPE aKey,
+                                            @Nonnull final ICommonsList <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public MultiConcurrentHashMapVectorBased (@Nullable final Map <? extends KEYTYPE, ? extends List <VALUETYPE>> aCont)
+  public MultiConcurrentHashMapVectorBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsList <VALUETYPE>> aCont)
   {
     super (aCont);
   }
@@ -62,8 +64,8 @@ public class MultiConcurrentHashMapVectorBased <KEYTYPE, VALUETYPE>
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  protected final List <VALUETYPE> createNewCollection ()
+  protected final CommonsVector <VALUETYPE> createNewCollection ()
   {
-    return new Vector <VALUETYPE> ();
+    return new CommonsVector <> ();
   }
 }

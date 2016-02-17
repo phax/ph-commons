@@ -20,7 +20,6 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -37,6 +36,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.state.EChange;
 
 /**
@@ -133,7 +133,7 @@ public class ThreadDeadlockDetector
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <IThreadDeadlockCallback> getAllCallbacks ()
+  public ICommonsList <IThreadDeadlockCallback> getAllCallbacks ()
   {
     return CollectionHelper.newList (m_aCallbacks);
   }

@@ -96,7 +96,7 @@ public final class MimeTypeDeterminator
     // Add all XML mime types: as the combination of all BOMs and all character
     // encodings as determined by
     // http://www.w3.org/TR/REC-xml/#sec-guessing
-    final List <byte []> aXMLStuff = new ArrayList <byte []> ();
+    final List <byte []> aXMLStuff = new ArrayList <> ();
     // UCS4
     aXMLStuff.add (new byte [] { 0x3c, 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x00 });
     aXMLStuff.add (new byte [] { 0x00, 0x3c, 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00 });

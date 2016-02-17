@@ -28,15 +28,15 @@ public final class MultiConcurrentHashMapArrayListBasedTest extends AbstractMult
   @Test
   public void testAll ()
   {
-    MultiConcurrentHashMapArrayListBased <String, String> aMultiMap = new MultiConcurrentHashMapArrayListBased <String, String> ();
+    MultiConcurrentHashMapArrayListBased <String, String> aMultiMap = new MultiConcurrentHashMapArrayListBased <> ();
     testEmpty (aMultiMap);
-    aMultiMap = new MultiConcurrentHashMapArrayListBased <String, String> (getKey1 (), getValue1 ());
+    aMultiMap = new MultiConcurrentHashMapArrayListBased <> (getKey1 (), getValue1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiConcurrentHashMapArrayListBased <String, String> (getKey1 (), getValueList1 ());
+    aMultiMap = new MultiConcurrentHashMapArrayListBased <> (getKey1 (), getValueList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiConcurrentHashMapArrayListBased <String, String> (getMapList1 ());
+    aMultiMap = new MultiConcurrentHashMapArrayListBased <> (getMapList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiConcurrentHashMapArrayListBased <String, String> ();
+    aMultiMap = new MultiConcurrentHashMapArrayListBased <> ();
     testList (aMultiMap);
   }
 }

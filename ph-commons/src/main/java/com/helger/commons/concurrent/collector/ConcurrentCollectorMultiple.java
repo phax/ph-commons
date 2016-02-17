@@ -16,7 +16,6 @@
  */
 package com.helger.commons.concurrent.collector;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
@@ -28,6 +27,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
 
@@ -203,7 +204,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
     try
     {
       // The temporary list that contains all objects to be delivered
-      final List <DATATYPE> aObjectsToPerform = new ArrayList <DATATYPE> ();
+      final ICommonsList <DATATYPE> aObjectsToPerform = new CommonsList <DATATYPE> ();
       boolean bQueueIsStopped = false;
 
       while (true)

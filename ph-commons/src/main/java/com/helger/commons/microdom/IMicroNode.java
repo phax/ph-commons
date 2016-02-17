@@ -17,7 +17,6 @@
 package com.helger.commons.microdom;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,6 +26,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hierarchy.IHasChildrenSorted;
 import com.helger.commons.hierarchy.IHasParent;
 import com.helger.commons.lang.ICloneable;
@@ -73,7 +73,7 @@ public interface IMicroNode extends
    * @return May be <code>null</code> if the node has no children.
    */
   @Nullable
-  List <IMicroNode> getAllChildren ();
+  ICommonsList <IMicroNode> getAllChildren ();
 
   /**
    * @return The first child node of this node, or <code>null</code> if this
@@ -97,7 +97,7 @@ public interface IMicroNode extends
    *         <code>null</code> if this node has no children.
    */
   @Nullable
-  List <IMicroNode> getAllChildrenRecursive ();
+  ICommonsList <IMicroNode> getAllChildrenRecursive ();
 
   /**
    * @return The previous node on the same level as this node, or

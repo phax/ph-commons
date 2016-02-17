@@ -69,7 +69,7 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
 
   public SoftLinkedHashMap (@Nonnegative final int nMaxSize)
   {
-    super (new InternalLinkedHashMap <K, V> (nMaxSize));
+    super (new InternalLinkedHashMap <> (nMaxSize));
     m_nMaxSize = nMaxSize;
     ((InternalLinkedHashMap <K, V>) m_aSrcMap).m_aCallback = aEldest -> {
       final int nSize = size ();

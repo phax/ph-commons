@@ -16,9 +16,6 @@
  */
 package com.helger.commons.microdom.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,6 +23,8 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.string.StringHelper;
@@ -76,11 +75,11 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
 
   @Nonnull
   @ReturnsMutableCopy
-  public Collection <? extends IMicroElement> getAllChildren (@Nullable final IMicroElement aCurrent)
+  public ICommonsList <? extends IMicroElement> getAllChildren (@Nullable final IMicroElement aCurrent)
   {
     // Not an element?
     if (aCurrent == null)
-      return new ArrayList <> ();
+      return new CommonsList <> ();
 
     // Namespace URI defined?
     if (StringHelper.hasText (m_sNamespaceURI))

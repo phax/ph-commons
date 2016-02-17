@@ -16,33 +16,32 @@
  */
 package com.helger.commons.collection.impl;
 
-import java.util.ArrayList;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.commons.collection.ext.CommonsList;
 import com.helger.commons.factory.IFactory;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * This is a specialized {@link ArrayList} that can handle read accesses on list
- * items that are not yet in the container. If {@link #get(int)} is called with
- * an index that would normally throw an {@link ArrayIndexOutOfBoundsException}
- * this class will fill all indices between the current {@link #size()} and the
- * desired index with values provided by an {@link IFactory}. If you don't pass
- * an {@link IFactory} in the constructor a default factory returning null
- * values is used.
+ * This is a specialized {@link CommonsList} that can handle read accesses on
+ * list items that are not yet in the container. If {@link #get(int)} is called
+ * with an index that would normally throw an
+ * {@link ArrayIndexOutOfBoundsException} this class will fill all indices
+ * between the current {@link #size()} and the desired index with values
+ * provided by an {@link IFactory}. If you don't pass an {@link IFactory} in the
+ * constructor a default factory returning null values is used.
  *
  * @author Philip
  * @param <ELEMENTTYPE>
  *        The type of the elements in the list
  */
 @NotThreadSafe
-public class SafeArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE>
+public class SafeArrayList <ELEMENTTYPE> extends CommonsList <ELEMENTTYPE>
 {
   @MustImplementEqualsAndHashcode
   private final IFactory <ELEMENTTYPE> m_aFactory;
@@ -79,7 +78,8 @@ public class SafeArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE>
   private void _ensureSize (@Nonnegative final int nIndex)
   {
     // fill the gap
-    while (size () <= nIndex)
+    final int nGap = nIndex - size () + 1;
+    for (int i = 0; i < nGap; ++i)
       add (m_aFactory.get ());
   }
 

@@ -16,12 +16,11 @@
  */
 package com.helger.commons.tree;
 
-import java.util.Collection;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hierarchy.IHasChildrenSorted;
 import com.helger.commons.hierarchy.IHasParent;
 import com.helger.commons.state.ESuccess;
@@ -36,8 +35,10 @@ import com.helger.commons.traits.IGenericImplTrait;
  * @param <ITEMTYPE>
  *        tree item type
  */
-public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>>
-                                extends IHasParent <ITEMTYPE>, IHasChildrenSorted <ITEMTYPE>, IGenericImplTrait <ITEMTYPE>
+public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> extends
+                                IHasParent <ITEMTYPE>,
+                                IHasChildrenSorted <ITEMTYPE>,
+                                IGenericImplTrait <ITEMTYPE>
 {
   /**
    * @return the data associated with this node. May be <code>null</code>.
@@ -68,7 +69,7 @@ public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATA
    *         {@link #hasChildren()} to check for the existence.
    */
   @Nullable
-  Collection <DATATYPE> getAllChildDatas ();
+  ICommonsList <DATATYPE> getAllChildDatas ();
 
   /**
    * Change the data associated with this node.

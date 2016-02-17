@@ -20,8 +20,8 @@ import javax.annotation.Nonnull;
 
 enum ECollectionType
 {
-  LIST ("ArrayList", "List", "List"),
-  VECTOR ("Vector", "List", "Vector"),
+  LIST ("CommonsList", "List", "List"),
+  VECTOR ("CommonsVector", "List", "Vector"),
   SET ("HashSet", "Set", "Set"),
   ORDERED_SET ("LinkedHashSet", "Set", "OrderedSet"),
   SORTED_SET ("TreeSet", "Set", "SortedSet"),

@@ -23,10 +23,10 @@ import static org.junit.Assert.assertNotSame;
 import java.text.Collator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Vector;
 
 import org.junit.Test;
 
+import com.helger.commons.collection.ext.CommonsVector;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -51,7 +51,7 @@ public final class CollatorHelperTest extends AbstractCommonsTestCase
     // Unknown locale
     assertNotNull (CollatorHelper.getCollatorSpaceBeforeDot (new Locale ("xy", "87")));
 
-    final List <Collator> res = new Vector <Collator> ();
+    final List <Collator> res = new CommonsVector <> ();
     final int nMax = 100;
     CommonsTestHelper.testInParallel (nMax, () -> res.add (CollatorHelper.getCollatorSpaceBeforeDot (L_EN)));
 

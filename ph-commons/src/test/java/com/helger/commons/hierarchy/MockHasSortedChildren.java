@@ -16,20 +16,19 @@
  */
 package com.helger.commons.hierarchy;
 
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.id.IHasID;
 
 public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasSortedChildren>, IHasID <String>
 {
   private final String m_sID;
-  private final List <MockHasSortedChildren> m_aList;
+  private final ICommonsList <MockHasSortedChildren> m_aList;
 
   public MockHasSortedChildren (@Nonnull final String sID, @Nullable final MockHasSortedChildren... aList)
   {
@@ -44,7 +43,7 @@ public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasS
 
   public boolean hasChildren ()
   {
-    return !m_aList.isEmpty ();
+    return m_aList.isNotEmpty ();
   }
 
   @Nonnegative
@@ -55,9 +54,9 @@ public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasS
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <? extends MockHasSortedChildren> getAllChildren ()
+  public ICommonsList <? extends MockHasSortedChildren> getAllChildren ()
   {
-    return CollectionHelper.newList (m_aList);
+    return m_aList.getCopy ();
   }
 
   @Nullable

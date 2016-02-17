@@ -16,15 +16,13 @@
  */
 package com.helger.commons.callback.exception;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -37,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class CollectingExceptionListCallback <EXTYPE extends Throwable> implements IExceptionCallback <EXTYPE>
 {
-  private final List <EXTYPE> m_aExceptions = new ArrayList <EXTYPE> ();
+  private final ICommonsList <EXTYPE> m_aExceptions = CollectionHelper.newList ();
 
   public void onException (@Nullable final EXTYPE aEx)
   {
@@ -47,7 +45,7 @@ public class CollectingExceptionListCallback <EXTYPE extends Throwable> implemen
 
   public boolean hasException ()
   {
-    return !m_aExceptions.isEmpty ();
+    return m_aExceptions.isNotEmpty ();
   }
 
   @Nonnegative
@@ -58,9 +56,9 @@ public class CollectingExceptionListCallback <EXTYPE extends Throwable> implemen
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <EXTYPE> getAllExceptions ()
+  public ICommonsList <EXTYPE> getAllExceptions ()
   {
-    return CollectionHelper.newList (m_aExceptions);
+    return m_aExceptions.getCopy ();
   }
 
   @Override

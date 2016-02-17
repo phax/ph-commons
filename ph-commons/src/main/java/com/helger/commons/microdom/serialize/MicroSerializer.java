@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 import javax.xml.namespace.QName;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.microdom.IMicroCDATA;
 import com.helger.commons.microdom.IMicroComment;
 import com.helger.commons.microdom.IMicroContainer;
@@ -205,7 +206,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     final String sTagName = aElement.getTagName ();
 
     final boolean bEmitNamespaces = m_aSettings.isEmitNamespaces ();
-    final List <IMicroNode> aChildNodeList = aElement.getAllChildren ();
+    final ICommonsList <IMicroNode> aChildNodeList = aElement.getAllChildren ();
     final boolean bHasChildren = aElement.hasChildren ();
 
     final boolean bIsRootElement = aElement.getParent () != null && aElement.getParent ().isDocument ();

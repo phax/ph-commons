@@ -37,8 +37,8 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
@@ -56,9 +56,10 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.exception.mock.IMockException;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.mutable.MutableLong;
@@ -1019,7 +1020,8 @@ public final class StreamHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static List <String> readStreamLines (@Nullable final IHasInputStream aISP, @Nonnull final Charset aCharset)
+  public static ICommonsList <String> readStreamLines (@Nullable final IHasInputStream aISP,
+                                                       @Nonnull final Charset aCharset)
   {
     return readStreamLines (aISP, aCharset, 0, CGlobal.ILLEGAL_UINT);
   }
@@ -1044,10 +1046,10 @@ public final class StreamHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static List <String> readStreamLines (@Nullable final IHasInputStream aISP,
-                                               @Nonnull final Charset aCharset,
-                                               @Nonnegative final int nLinesToSkip,
-                                               @CheckForSigned final int nLinesToRead)
+  public static ICommonsList <String> readStreamLines (@Nullable final IHasInputStream aISP,
+                                                       @Nonnull final Charset aCharset,
+                                                       @Nonnegative final int nLinesToSkip,
+                                                       @CheckForSigned final int nLinesToRead)
   {
     if (aISP == null)
       return null;
@@ -1068,8 +1070,8 @@ public final class StreamHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static List <String> readStreamLines (@WillClose @Nullable final InputStream aIS,
-                                               @Nonnull @Nonempty final Charset aCharset)
+  public static ICommonsList <String> readStreamLines (@WillClose @Nullable final InputStream aIS,
+                                                       @Nonnull @Nonempty final Charset aCharset)
   {
     return readStreamLines (aIS, aCharset, 0, CGlobal.ILLEGAL_UINT);
   }
@@ -1113,17 +1115,17 @@ public final class StreamHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static List <String> readStreamLines (@WillClose @Nullable final InputStream aIS,
-                                               @Nonnull final Charset aCharset,
-                                               @Nonnegative final int nLinesToSkip,
-                                               @CheckForSigned final int nLinesToRead)
+  public static ICommonsList <String> readStreamLines (@WillClose @Nullable final InputStream aIS,
+                                                       @Nonnull final Charset aCharset,
+                                                       @Nonnegative final int nLinesToSkip,
+                                                       @CheckForSigned final int nLinesToRead)
   {
     if (aIS == null)
       return null;
 
     // Read stream and collect all read lines in a list
-    final List <String> ret = new ArrayList <String> ();
-    readStreamLines (aIS, aCharset, nLinesToSkip, nLinesToRead, sLine -> ret.add (sLine));
+    final ICommonsList <String> ret = new CommonsList <> ();
+    readStreamLines (aIS, aCharset, nLinesToSkip, nLinesToRead, ret::add);
     return ret;
   }
 
@@ -1141,14 +1143,14 @@ public final class StreamHelper
    */
   public static void readStreamLines (@WillClose @Nullable final InputStream aIS,
                                       @Nonnull @Nonempty final Charset aCharset,
-                                      @Nonnull final INonThrowingRunnableWithParameter <String> aLineCallback)
+                                      @Nonnull final Consumer <String> aLineCallback)
   {
     readStreamLines (aIS, aCharset, 0, CGlobal.ILLEGAL_UINT, aLineCallback);
   }
 
   private static void _readFromReader (final int nLinesToSkip,
                                        final int nLinesToRead,
-                                       final INonThrowingRunnableWithParameter <String> aLineCallback,
+                                       final Consumer <String> aLineCallback,
                                        final boolean bReadAllLines,
                                        final NonBlockingBufferedReader aBR) throws IOException
   {
@@ -1169,7 +1171,7 @@ public final class StreamHelper
         sLine = aBR.readLine ();
         if (sLine == null)
           break;
-        aLineCallback.run (sLine);
+        aLineCallback.accept (sLine);
       }
     }
     else
@@ -1181,7 +1183,7 @@ public final class StreamHelper
         sLine = aBR.readLine ();
         if (sLine == null)
           break;
-        aLineCallback.run (sLine);
+        aLineCallback.accept (sLine);
         ++nRead;
         if (nRead >= nLinesToRead)
           break;
@@ -1213,7 +1215,7 @@ public final class StreamHelper
                                       @Nonnull @Nonempty final Charset aCharset,
                                       @Nonnegative final int nLinesToSkip,
                                       final int nLinesToRead,
-                                      @Nonnull final INonThrowingRunnableWithParameter <String> aLineCallback)
+                                      @Nonnull final Consumer <String> aLineCallback)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
     ValueEnforcer.isGE0 (nLinesToSkip, "LinesToSkip");

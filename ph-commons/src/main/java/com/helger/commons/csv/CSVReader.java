@@ -36,9 +36,7 @@ import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -46,6 +44,8 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.StreamHelper;
 
@@ -54,7 +54,7 @@ import com.helger.commons.io.stream.StreamHelper;
  *
  * @author Glen Smith
  */
-public class CSVReader implements Closeable, Iterable <List <String>>
+public class CSVReader implements Closeable, Iterable <ICommonsList <String>>
 {
   private final Reader m_aReader;
   private final ICSVLineReader m_aLineReader;
@@ -349,22 +349,22 @@ public class CSVReader implements Closeable, Iterable <List <String>>
   }
 
   /**
-   * Reads the entire file into a List with each element being a List of
+   * Reads the entire file into a list with each element being a list of
    * {@link String} of tokens.
    *
-   * @return a List of List of String, with each inner List of {@link String}
+   * @return a list of list of String, with each inner list of {@link String}
    *         representing a line of the file.
    * @throws IOException
    *         if bad things happen during the read
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <List <String>> readAll () throws IOException
+  public ICommonsList <ICommonsList <String>> readAll () throws IOException
   {
-    final List <List <String>> ret = new ArrayList <List <String>> ();
+    final ICommonsList <ICommonsList <String>> ret = new CommonsList <> ();
     while (m_bHasNext)
     {
-      final List <String> aNextLineAsTokens = readNext ();
+      final ICommonsList <String> aNextLineAsTokens = readNext ();
       if (aNextLineAsTokens != null)
         ret.add (aNextLineAsTokens);
     }
@@ -380,9 +380,9 @@ public class CSVReader implements Closeable, Iterable <List <String>>
    *         if bad things happen during the read
    */
   @Nullable
-  public List <String> readNext () throws IOException
+  public ICommonsList <String> readNext () throws IOException
   {
-    List <String> ret = null;
+    ICommonsList <String> ret = null;
     do
     {
       final String sNextLine = _getNextLine ();
@@ -391,7 +391,7 @@ public class CSVReader implements Closeable, Iterable <List <String>>
         // should throw if still pending?
         return ret;
       }
-      final List <String> r = m_aParser.parseLineMulti (sNextLine);
+      final ICommonsList <String> r = m_aParser.parseLineMulti (sNextLine);
       if (ret == null)
         ret = r;
       else
@@ -471,7 +471,7 @@ public class CSVReader implements Closeable, Iterable <List <String>>
    * @return an List&lt;String&gt; iterator.
    */
   @Nonnull
-  public Iterator <List <String>> iterator ()
+  public Iterator <ICommonsList <String>> iterator ()
   {
     try
     {

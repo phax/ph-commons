@@ -17,19 +17,19 @@
 package com.helger.commons.collection.multimap;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.Map;
-import java.util.Vector;
+import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsVector;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
- * Multi map based on {@link java.util.TreeMap} and {@link java.util.Vector}
- * values.<br>
+ * Multi map based on {@link TreeMap} and {@link CommonsVector} values.<br>
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -53,12 +53,12 @@ public class MultiTreeMapVectorBased <KEYTYPE, VALUETYPE> extends AbstractMultiT
     super (aKey, aValue);
   }
 
-  public MultiTreeMapVectorBased (@Nullable final KEYTYPE aKey, @Nullable final List <VALUETYPE> aCollection)
+  public MultiTreeMapVectorBased (@Nullable final KEYTYPE aKey, @Nullable final ICommonsList <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public MultiTreeMapVectorBased (@Nullable final Map <? extends KEYTYPE, ? extends List <VALUETYPE>> aCont)
+  public MultiTreeMapVectorBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsList <VALUETYPE>> aCont)
   {
     super (aCont);
   }
@@ -66,8 +66,8 @@ public class MultiTreeMapVectorBased <KEYTYPE, VALUETYPE> extends AbstractMultiT
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  protected final List <VALUETYPE> createNewCollection ()
+  protected final CommonsVector <VALUETYPE> createNewCollection ()
   {
-    return new Vector <VALUETYPE> ();
+    return new CommonsVector <> ();
   }
 }

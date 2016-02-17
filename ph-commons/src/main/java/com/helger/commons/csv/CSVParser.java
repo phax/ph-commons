@@ -33,14 +33,14 @@ package com.helger.commons.csv;
  */
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -283,7 +283,7 @@ public class CSVParser
    *         if bad things happen during the read
    */
   @Nullable
-  public List <String> parseLineMulti (@Nullable final String sNextLine) throws IOException
+  public ICommonsList <String> parseLineMulti (@Nullable final String sNextLine) throws IOException
   {
     return _parseLine (sNextLine, true);
   }
@@ -300,7 +300,7 @@ public class CSVParser
    *         if bad things happen during the read
    */
   @Nullable
-  public List <String> parseLine (@Nullable final String sNextLine) throws IOException
+  public ICommonsList <String> parseLine (@Nullable final String sNextLine) throws IOException
   {
     return _parseLine (sNextLine, false);
   }
@@ -318,7 +318,7 @@ public class CSVParser
    *         if bad things happen during the read
    */
   @Nullable
-  private List <String> _parseLine (@Nullable final String sNextLine, final boolean bMulti) throws IOException
+  private ICommonsList <String> _parseLine (@Nullable final String sNextLine, final boolean bMulti) throws IOException
   {
     if (!bMulti && m_sPending != null)
       m_sPending = null;
@@ -334,7 +334,7 @@ public class CSVParser
       return null;
     }
 
-    final List <String> aTokensOnThisLine = new ArrayList <String> ();
+    final ICommonsList <String> aTokensOnThisLine = new CommonsList <> ();
     StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     boolean bInQuotes = false;
     if (m_sPending != null)

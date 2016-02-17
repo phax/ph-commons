@@ -16,9 +16,6 @@
  */
 package com.helger.commons.io.monitor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,7 +25,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.EChange;
 import com.helger.commons.thread.ThreadHelper;
@@ -49,7 +47,7 @@ public class FileMonitorManager implements Runnable
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   /** All FileMonitors contained */
-  private final List <FileMonitor> m_aMonitorList = new ArrayList <FileMonitor> ();
+  private final ICommonsList <FileMonitor> m_aMonitorList = new CommonsList <> ();
 
   /** The low priority thread used for checking the files being monitored. */
   private Thread m_aMonitorThread;
@@ -165,9 +163,9 @@ public class FileMonitorManager implements Runnable
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <FileMonitor> getAllFileMonitors ()
+  public ICommonsList <FileMonitor> getAllFileMonitors ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aMonitorList));
+    return m_aRWLock.readLocked ( () -> m_aMonitorList.getCopy ());
   }
 
   /**

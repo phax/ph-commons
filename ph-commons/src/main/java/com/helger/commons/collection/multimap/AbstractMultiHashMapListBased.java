@@ -16,12 +16,13 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
+
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Abstract multi map based on {@link java.util.HashMap} and
@@ -34,8 +35,8 @@ import javax.annotation.concurrent.NotThreadSafe;
  *        value type
  */
 @NotThreadSafe
-public abstract class AbstractMultiHashMapListBased <KEYTYPE, VALUETYPE>
-                                                    extends AbstractMultiHashMap <KEYTYPE, VALUETYPE, List <VALUETYPE>>
+public abstract class AbstractMultiHashMapListBased <KEYTYPE, VALUETYPE> extends
+                                                    AbstractMultiHashMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>>
                                                     implements IMultiMapListBased <KEYTYPE, VALUETYPE>
 {
   public AbstractMultiHashMapListBased ()
@@ -46,12 +47,13 @@ public abstract class AbstractMultiHashMapListBased <KEYTYPE, VALUETYPE>
     putSingle (aKey, aValue);
   }
 
-  public AbstractMultiHashMapListBased (@Nullable final KEYTYPE aKey, @Nullable final List <VALUETYPE> aCollection)
+  public AbstractMultiHashMapListBased (@Nullable final KEYTYPE aKey,
+                                        @Nullable final ICommonsList <VALUETYPE> aCollection)
   {
     put (aKey, aCollection);
   }
 
-  public AbstractMultiHashMapListBased (@Nullable final Map <? extends KEYTYPE, ? extends List <VALUETYPE>> aCont)
+  public AbstractMultiHashMapListBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsList <VALUETYPE>> aCont)
   {
     if (aCont != null)
       putAll (aCont);

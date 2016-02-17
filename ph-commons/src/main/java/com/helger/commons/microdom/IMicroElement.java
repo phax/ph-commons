@@ -16,9 +16,7 @@
  */
 package com.helger.commons.microdom;
 
-import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,6 +25,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.state.EChange;
 
 /**
@@ -227,7 +226,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nullable
   @ReturnsMutableCopy
-  List <? extends IMicroAttribute> getAllAttributeObjs ();
+  ICommonsList <? extends IMicroAttribute> getAllAttributeObjs ();
 
   /**
    * Get an iterator over all attributes.
@@ -276,7 +275,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nullable
   @ReturnsMutableCopy
-  Collection <String> getAllAttributeValues ();
+  ICommonsList <String> getAllAttributeValues ();
 
   /**
    * Set an attribute value of this element.
@@ -681,7 +680,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <IMicroElement> getAllChildElements ();
+  ICommonsList <IMicroElement> getAllChildElements ();
 
   /**
    * Get a list of all direct child elements having the specified tag name.
@@ -693,7 +692,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <IMicroElement> getAllChildElements (@Nullable String sTagName);
+  ICommonsList <IMicroElement> getAllChildElements (@Nullable String sTagName);
 
   /**
    * Get a list of all direct child elements having the specified namespace and
@@ -707,7 +706,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <IMicroElement> getAllChildElements (@Nullable String sNamespaceURI, @Nullable String sLocalName);
+  ICommonsList <IMicroElement> getAllChildElements (@Nullable String sNamespaceURI, @Nullable String sLocalName);
 
   /**
    * Recursively get all child elements. Micro container children are inlined.
@@ -717,7 +716,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <IMicroElement> getAllChildElementsRecursive ();
+  ICommonsList <IMicroElement> getAllChildElementsRecursive ();
 
   /**
    * Check if this element has at least one child element. Micro container

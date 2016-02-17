@@ -19,7 +19,6 @@ package com.helger.commons.text.resourcebundle;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -28,6 +27,7 @@ import javax.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassLoaderHelper;
@@ -40,14 +40,14 @@ import com.helger.commons.lang.ClassLoaderHelper;
 public final class XMLResourceBundleControl extends ResourceBundle.Control
 {
   private static final String FORMAT_XML = "xml";
-  private static final List <String> FORMATS = CollectionHelper.newList (FORMAT_XML);
+  private static final ICommonsList <String> FORMATS = CollectionHelper.newList (FORMAT_XML);
 
   @Override
   @ReturnsMutableCopy
-  public List <String> getFormats (@Nonnull final String sBaseName)
+  public ICommonsList <String> getFormats (@Nonnull final String sBaseName)
   {
     ValueEnforcer.notNull (sBaseName, "BaseName");
-    return CollectionHelper.newList (FORMATS);
+    return FORMATS.getCopy ();
   }
 
   @Override

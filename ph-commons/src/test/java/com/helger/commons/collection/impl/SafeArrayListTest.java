@@ -65,7 +65,7 @@ public final class SafeArrayListTest
     {}
 
     // create with a "null"-creating factory
-    final SafeArrayList <String> sv = new SafeArrayList <String> (FactoryNewInstance.create (String.class));
+    final SafeArrayList <String> sv = new SafeArrayList <> (FactoryNewInstance.create (String.class));
     assertEquals (sv.size (), 0);
 
     // no such index 0 -> create using the factory

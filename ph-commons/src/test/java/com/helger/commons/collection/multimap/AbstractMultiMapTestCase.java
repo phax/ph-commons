@@ -28,7 +28,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.annotation.Nonnull;
+
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Abstract class for class {@link IMultiMap} implementations.
@@ -37,31 +40,37 @@ import com.helger.commons.collection.CollectionHelper;
  */
 public abstract class AbstractMultiMapTestCase
 {
+  @Nonnull
   protected final String getKey1 ()
   {
     return "Philip";
   }
 
+  @Nonnull
   protected final String getValue1 ()
   {
     return "Wien";
   }
 
-  protected final List <String> getValueList1 ()
+  @Nonnull
+  protected final ICommonsList <String> getValueList1 ()
   {
     return CollectionHelper.newList (getValue1 ());
   }
 
+  @Nonnull
   protected final Set <String> getValueSet1 ()
   {
     return CollectionHelper.newSet (getValue1 ());
   }
 
-  protected final Map <String, List <String>> getMapList1 ()
+  @Nonnull
+  protected final Map <String, ICommonsList <String>> getMapList1 ()
   {
     return CollectionHelper.newMap (getKey1 (), getValueList1 ());
   }
 
+  @Nonnull
   protected final Map <String, Set <String>> getMapSet1 ()
   {
     return CollectionHelper.newMap (getKey1 (), getValueSet1 ());

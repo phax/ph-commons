@@ -17,7 +17,6 @@
 package com.helger.commons.mime;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -27,6 +26,7 @@ import com.helger.commons.annotation.MustImplementComparable;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.ICloneable;
 
 /**
@@ -127,7 +127,7 @@ public interface IMimeType extends ICloneable <IMimeType>, Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <MimeTypeParameter> getAllParameters ();
+  ICommonsList <MimeTypeParameter> getAllParameters ();
 
   /**
    * Get the parameter at the specified index.

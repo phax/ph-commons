@@ -17,7 +17,6 @@
 package com.helger.commons.lang;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -34,6 +33,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.id.IHasIntID;
@@ -78,8 +78,8 @@ public final class EnumHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ENUMTYPE extends Enum <ENUMTYPE>> List <ENUMTYPE> findAll (@Nonnull final Class <ENUMTYPE> aClass,
-                                                                            @Nullable final Predicate <ENUMTYPE> aFilter)
+  public static <ENUMTYPE extends Enum <ENUMTYPE>> ICommonsList <ENUMTYPE> findAll (@Nonnull final Class <ENUMTYPE> aClass,
+                                                                                    @Nullable final Predicate <ENUMTYPE> aFilter)
   {
     return ArrayHelper.getAll (aClass.getEnumConstants (), aFilter);
   }

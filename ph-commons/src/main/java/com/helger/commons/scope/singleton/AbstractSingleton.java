@@ -20,9 +20,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,6 +35,8 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.callback.INonThrowingCallableWithParameter;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.exception.LoggedRuntimeException;
@@ -575,12 +575,12 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static final <T extends AbstractSingleton> List <T> getAllSingletons (@Nullable final IScope aScope,
-                                                                               @Nonnull final Class <T> aDesiredClass)
+  public static final <T extends AbstractSingleton> ICommonsList <T> getAllSingletons (@Nullable final IScope aScope,
+                                                                                       @Nonnull final Class <T> aDesiredClass)
   {
     ValueEnforcer.notNull (aDesiredClass, "DesiredClass");
 
-    final List <T> ret = new ArrayList <T> ();
+    final ICommonsList <T> ret = new CommonsList <> ();
     if (aScope != null)
       for (final Object aScopeValue : aScope.getAllAttributeValues ())
         if (aScopeValue != null && aDesiredClass.isAssignableFrom (aScopeValue.getClass ()))

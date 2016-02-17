@@ -16,9 +16,6 @@
  */
 package com.helger.commons.callback;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,7 +24,8 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
@@ -47,7 +45,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   @GuardedBy ("m_aRWLock")
-  private final List <CALLBACKTYPE> m_aCallbacks = new ArrayList <> ();
+  private final ICommonsList <CALLBACKTYPE> m_aCallbacks = new CommonsList <> ();
 
   public CallbackList ()
   {}
@@ -98,25 +96,20 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
   @Nonnull
   public EChange removeAllCallbacks ()
   {
-    return m_aRWLock.writeLocked ( () -> {
-      if (m_aCallbacks.isEmpty ())
-        return EChange.UNCHANGED;
-      m_aCallbacks.clear ();
-      return EChange.CHANGED;
-    });
+    return m_aRWLock.writeLocked ( () -> m_aCallbacks.removeAll ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CALLBACKTYPE> getAllCallbacks ()
+  public ICommonsList <CALLBACKTYPE> getAllCallbacks ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aCallbacks));
+    return m_aRWLock.readLocked ( () -> m_aCallbacks.getCopy ());
   }
 
   @Nullable
   public CALLBACKTYPE getCallbackAtIndex (@Nonnegative final int nIndex)
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.getAtIndex (m_aCallbacks, nIndex));
+    return m_aRWLock.readLocked ( () -> m_aCallbacks.getAtIndex (nIndex));
   }
 
   @Nonnegative
@@ -127,7 +120,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
 
   public boolean hasCallbacks ()
   {
-    return m_aRWLock.readLocked ( () -> !m_aCallbacks.isEmpty ());
+    return m_aRWLock.readLocked ( () -> m_aCallbacks.isNotEmpty ());
   }
 
   @Nonnull

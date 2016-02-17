@@ -78,28 +78,33 @@ public final class CommonsTestHelper
   private CommonsTestHelper ()
   {}
 
+  private static void _fail (@Nonnull final String sMsg)
+  {
+    throw new IllegalStateException (sMsg);
+  }
+
   private static void _assertTrue (@Nonnull final String sMsg, final boolean bTrue)
   {
     if (!bTrue)
-      throw new IllegalStateException (sMsg);
+      _fail (sMsg);
   }
 
   private static void _assertFalse (@Nonnull final String sMsg, final boolean bTrue)
   {
     if (bTrue)
-      throw new IllegalStateException (sMsg);
+      _fail (sMsg);
   }
 
   private static void _assertNotNull (@Nonnull final String sMsg, final Object aObj)
   {
     if (aObj == null)
-      throw new IllegalStateException (sMsg);
+      _fail (sMsg);
   }
 
   private static <T> void _assertEquals (@Nonnull final String sMsg, @Nullable final T aObj1, @Nullable final T aObj2)
   {
     if (!EqualsHelper.equals (aObj1, aObj2))
-      throw new IllegalStateException (sMsg + "\nOBJ1: " + aObj1 + "\nOBJ2: " + aObj2);
+      _fail (sMsg + "\nOBJ1: " + aObj1 + "\nOBJ2: " + aObj2);
   }
 
   @SuppressFBWarnings ({ "EC_NULL_ARG" })
@@ -347,7 +352,7 @@ public final class CommonsTestHelper
 
     // More than 20s thread would be overkill!
     final ExecutorService aES = Executors.newFixedThreadPool (20);
-    final List <String> aErrors = new ArrayList <String> ();
+    final List <String> aErrors = new ArrayList <> ();
     for (int i = 0; i < nCalls; ++i)
     {
       aES.submit ( () -> {
@@ -366,7 +371,7 @@ public final class CommonsTestHelper
 
     // No errors should have occurred
     if (!aErrors.isEmpty ())
-      throw new IllegalStateException (StringHelper.getImploded (aErrors));
+      _fail (StringHelper.getImploded (aErrors));
   }
 
   @Nonnegative

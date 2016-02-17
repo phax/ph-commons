@@ -17,7 +17,6 @@
 package com.helger.commons.tree.withid.unique;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -25,6 +24,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -149,7 +149,7 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
   }
 
   @Nullable
-  public List <? extends ITEMTYPE> getAllChildren (@Nullable final ITEMTYPE aItem)
+  public ICommonsList <? extends ITEMTYPE> getAllChildren (@Nullable final ITEMTYPE aItem)
   {
     return aItem == null ? getRootItem ().getAllChildren () : aItem.getAllChildren ();
   }

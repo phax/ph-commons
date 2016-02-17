@@ -17,7 +17,6 @@
 package com.helger.jaxb.builder;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,6 +26,7 @@ import javax.xml.validation.Validator;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
@@ -53,7 +53,7 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <String> getAllXSDPaths ();
+  ICommonsList <String> getAllXSDPaths ();
 
   /**
    * @return The non-<code>null</code> XML namespace of this JAXB document type.
@@ -78,7 +78,7 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  default List <? extends IReadableResource> getAllXSDResources ()
+  default ICommonsList <? extends IReadableResource> getAllXSDResources ()
   {
     return CollectionHelper.newListMapped (getAllXSDPaths (), s -> new ClassPathResource (s));
   }
@@ -92,7 +92,7 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  default List <? extends IReadableResource> getAllXSDResources (@Nullable final ClassLoader aClassLoader)
+  default ICommonsList <? extends IReadableResource> getAllXSDResources (@Nullable final ClassLoader aClassLoader)
   {
     return CollectionHelper.newListMapped (getAllXSDPaths (), s -> new ClassPathResource (s, aClassLoader));
   }
