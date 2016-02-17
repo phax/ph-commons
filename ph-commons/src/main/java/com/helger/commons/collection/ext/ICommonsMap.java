@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.state.EChange;
 
 public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYPE>
 {
@@ -18,39 +19,6 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
   default boolean isNotEmpty ()
   {
     return !isEmpty ();
-  }
-
-  /**
-   * Get the first element of this map.
-   *
-   * @return <code>null</code> if the map is empty, the first element otherwise.
-   */
-  @Nullable
-  default Map.Entry <KEYTYPE, VALUETYPE> getFirstElement ()
-  {
-    return isEmpty () ? null : entrySet ().iterator ().next ();
-  }
-
-  /**
-   * Get the first key of this map.
-   *
-   * @return <code>null</code> if the map is empty, the first key otherwise.
-   */
-  @Nullable
-  default KEYTYPE getFirstKey ()
-  {
-    return isEmpty () ? null : keySet ().iterator ().next ();
-  }
-
-  /**
-   * Get the first value of this map.
-   *
-   * @return <code>null</code> if the map is empty, the first value otherwise.
-   */
-  @Nullable
-  default VALUETYPE getFirstValue ()
-  {
-    return isEmpty () ? null : values ().iterator ().next ();
   }
 
   /**
@@ -79,5 +47,14 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
   {
     if (aValue != null)
       put (aKey, aValue);
+  }
+
+  @Nonnull
+  default EChange removeAll ()
+  {
+    if (isEmpty ())
+      return EChange.UNCHANGED;
+    clear ();
+    return EChange.CHANGED;
   }
 }

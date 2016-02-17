@@ -2,7 +2,7 @@ package com.helger.commons.collection.ext;
 
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -15,7 +15,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.state.EChange;
 
-public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>
+public interface ICommonsSet <ELEMENTTYPE> extends Set <ELEMENTTYPE>
 {
   /**
    * @return <code>true</code> if the map is not empty, <code>false</code>
@@ -28,19 +28,19 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>
 
   @Nonnull
   @ReturnsMutableCopy
-  default ICommonsList <ELEMENTTYPE> getCopy ()
+  default ICommonsSet <ELEMENTTYPE> getCopy ()
   {
-    return new CommonsList <> (this);
+    return new CommonsSet <> (this);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  default ICommonsList <ELEMENTTYPE> getAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  default ICommonsSet <ELEMENTTYPE> getAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
       return getCopy ();
 
-    final ICommonsList <ELEMENTTYPE> ret = new CommonsList <> (size ());
+    final ICommonsSet <ELEMENTTYPE> ret = new CommonsSet <> (size ());
     findAll (aFilter, ret::add);
     return ret;
   }
@@ -59,9 +59,9 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>
 
   @Nonnull
   @ReturnsMutableCopy
-  default <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+  default <DSTTYPE> ICommonsSet <DSTTYPE> getAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
-    final ICommonsList <DSTTYPE> ret = new CommonsList <> (size ());
+    final ICommonsSet <DSTTYPE> ret = new CommonsSet <> (size ());
     findAllMapped (aMapper, ret::add);
     return ret;
   }
@@ -84,10 +84,10 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>
 
   @Nonnull
   @ReturnsMutableCopy
-  default <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                         @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+  default <DSTTYPE> ICommonsSet <DSTTYPE> getAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                        @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
-    final ICommonsList <DSTTYPE> ret = new CommonsList <> ();
+    final ICommonsSet <DSTTYPE> ret = new CommonsSet <> ();
     findAllMapped (aFilter, aMapper, ret::add);
     return ret;
   }
@@ -112,9 +112,9 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>
 
   @Nonnull
   @ReturnsMutableCopy
-  default <DSTTYPE extends ELEMENTTYPE> ICommonsList <DSTTYPE> getAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass)
+  default <DSTTYPE extends ELEMENTTYPE> ICommonsSet <DSTTYPE> getAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass)
   {
-    final CommonsList <DSTTYPE> ret = new CommonsList <> ();
+    final ICommonsSet <DSTTYPE> ret = new CommonsSet <> ();
     findAllInstanceOf (aDstClass, ret::add);
     return ret;
   }
@@ -176,19 +176,6 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>
     return CollectionHelper.containsOnly (this, aFilter);
   }
 
-  @Nullable
-  default ELEMENTTYPE getFirst ()
-  {
-    return isEmpty () ? null : get (0);
-  }
-
-  @Nullable
-  default ELEMENTTYPE getLast ()
-  {
-    final int nSize = size ();
-    return nSize == 0 ? null : get (nSize - 1);
-  }
-
   /**
    * Safe list element accessor method.
    *
@@ -214,7 +201,7 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>
   @Nullable
   default ELEMENTTYPE getAtIndex (final int nIndex, @Nullable final ELEMENTTYPE aDefault)
   {
-    return nIndex >= 0 && nIndex < size () ? get (nIndex) : aDefault;
+    return getAtIndex (null, nIndex, aDefault);
   }
 
   @Nullable
@@ -252,8 +239,7 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>
   @Nonnull
   default ICommonsList <ELEMENTTYPE> getSorted (@Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
-    sort (aComparator);
-    return this;
+    return CollectionHelper.getSorted (this, aComparator);
   }
 
   @Nonnull
@@ -268,31 +254,6 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>
   {
     if (aValue != null)
       add (aValue);
-  }
-
-  @Nullable
-  default ELEMENTTYPE setFirst (@Nullable final ELEMENTTYPE aNewElement)
-  {
-    return set (0, aNewElement);
-  }
-
-  @Nullable
-  default ELEMENTTYPE setLast (@Nullable final ELEMENTTYPE aNewElement)
-  {
-    return set (size () - 1, aNewElement);
-  }
-
-  @Nullable
-  default ELEMENTTYPE removeFirst ()
-  {
-    return isEmpty () ? null : remove (0);
-  }
-
-  @Nullable
-  default ELEMENTTYPE removeLast ()
-  {
-    final int nSize = size ();
-    return nSize == 0 ? null : remove (nSize - 1);
   }
 
   @Nonnull
