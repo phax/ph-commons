@@ -3,6 +3,8 @@ package com.helger.commons.collection.ext;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.annotation.Nonnull;
+
 public class CommonsList <T> extends ArrayList <T> implements ICommonsList <T>
 {
   public CommonsList ()
@@ -13,7 +15,7 @@ public class CommonsList <T> extends ArrayList <T> implements ICommonsList <T>
     super (nInitialCapacity);
   }
 
-  public CommonsList (final Collection <? extends T> aCont)
+  public CommonsList (@Nonnull final Collection <? extends T> aCont)
   {
     super (aCont);
   }
