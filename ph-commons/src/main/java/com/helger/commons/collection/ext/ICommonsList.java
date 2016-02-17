@@ -17,6 +17,10 @@ import com.helger.commons.state.EChange;
 
 public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>
 {
+  /**
+   * @return <code>true</code> if the map is not empty, <code>false</code>
+   *         otherwise.
+   */
   default boolean isNotEmpty ()
   {
     return !isEmpty ();

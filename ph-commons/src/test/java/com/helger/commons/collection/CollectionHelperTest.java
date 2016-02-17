@@ -32,8 +32,6 @@ import static com.helger.commons.collection.CollectionHelper.getLastElement;
 import static com.helger.commons.collection.CollectionHelper.getNotNull;
 import static com.helger.commons.collection.CollectionHelper.getReverseInlineList;
 import static com.helger.commons.collection.CollectionHelper.getReverseList;
-import static com.helger.commons.collection.CollectionHelper.getReverseLookup;
-import static com.helger.commons.collection.CollectionHelper.getReverseLookupSet;
 import static com.helger.commons.collection.CollectionHelper.getSize;
 import static com.helger.commons.collection.CollectionHelper.getSorted;
 import static com.helger.commons.collection.CollectionHelper.getSortedByKey;
@@ -94,10 +92,6 @@ import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.collection.iterate.ArrayEnumeration;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.IterableIterator;
-import com.helger.commons.collection.multimap.IMultiMapListBased;
-import com.helger.commons.collection.multimap.IMultiMapSetBased;
-import com.helger.commons.collection.multimap.MultiHashMapArrayListBased;
-import com.helger.commons.collection.multimap.MultiHashMapHashSetBased;
 import com.helger.commons.compare.IComparator;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
@@ -1838,48 +1832,6 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertEquals (aMap, getSwappedKeyValues (aMap2));
     assertNull (getSwappedKeyValues (newMap ()));
     assertNull (getSwappedKeyValues (null));
-  }
-
-  @Test
-  public void testGetReverseLookupSet ()
-  {
-    assertNull (getReverseLookupSet (new MultiHashMapArrayListBased <String, Integer> ()));
-    assertNull (getReverseLookupSet (null));
-
-    final IMultiMapListBased <String, Integer> aMap = new MultiHashMapArrayListBased <String, Integer> ();
-    aMap.putSingle ("a", I0);
-    aMap.putSingle ("a", I1);
-    aMap.putSingle ("a", I2);
-    aMap.putSingle ("b", I0);
-    aMap.putSingle ("b", I1);
-    aMap.putSingle ("b", I2);
-    assertEquals (2, aMap.size ());
-
-    final IMultiMapSetBased <Integer, String> aMap2 = getReverseLookupSet (aMap);
-    assertEquals (3, aMap2.size ());
-    for (final Map.Entry <Integer, Set <String>> aEntry : aMap2.entrySet ())
-      assertEquals (2, aEntry.getValue ().size ());
-  }
-
-  @Test
-  public void testGetReverseLookup ()
-  {
-    assertNull (getReverseLookup (new MultiHashMapHashSetBased <String, Integer> ()));
-    assertNull (getReverseLookup (null));
-
-    final IMultiMapSetBased <String, Integer> aMap = new MultiHashMapHashSetBased <String, Integer> ();
-    aMap.putSingle ("a", I0);
-    aMap.putSingle ("a", I1);
-    aMap.putSingle ("a", I2);
-    aMap.putSingle ("b", I0);
-    aMap.putSingle ("b", I1);
-    aMap.putSingle ("b", I2);
-    assertEquals (2, aMap.size ());
-
-    final IMultiMapSetBased <Integer, String> aMap2 = getReverseLookup (aMap);
-    assertEquals (3, aMap2.size ());
-    for (final Map.Entry <Integer, Set <String>> aEntry : aMap2.entrySet ())
-      assertEquals (2, aEntry.getValue ().size ());
   }
 
   @Test

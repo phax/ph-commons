@@ -21,7 +21,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -50,13 +49,12 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.CommonsList;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.collection.multimap.IMultiMap;
-import com.helger.commons.collection.multimap.IMultiMapSetBased;
-import com.helger.commons.collection.multimap.MultiHashMapHashSetBased;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.state.EChange;
 
@@ -411,27 +409,27 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nonnegative final int nInitialCapacity)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nonnegative final int nInitialCapacity)
   {
-    return new HashMap <> (nInitialCapacity);
+    return new CommonsHashMap <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap ()
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap ()
   {
-    return new HashMap <> ();
+    return new CommonsHashMap <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE, DSTVALUETYPE> HashMap <DSTKEYTYPE, DSTVALUETYPE> newMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
-                                                                                                                      @Nonnull final Function <? super SRCKEYTYPE, ? extends DSTKEYTYPE> aKeyMapper,
-                                                                                                                      @Nonnull final Function <? super SRCVALUETYPE, ? extends DSTVALUETYPE> aValueMapper)
+  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE, DSTVALUETYPE> CommonsHashMap <DSTKEYTYPE, DSTVALUETYPE> newMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
+                                                                                                                             @Nonnull final Function <? super SRCKEYTYPE, ? extends DSTKEYTYPE> aKeyMapper,
+                                                                                                                             @Nonnull final Function <? super SRCVALUETYPE, ? extends DSTVALUETYPE> aValueMapper)
   {
     if (isEmpty (aMap))
       return newMap (0);
-    final HashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newMap (aMap.size ());
+    final CommonsHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newMap (aMap.size ());
     for (final Map.Entry <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aEntry : aMap.entrySet ())
       ret.put (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
     return ret;
@@ -439,13 +437,13 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTKEYTYPE, DSTVALUETYPE> HashMap <DSTKEYTYPE, DSTVALUETYPE> newMapMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                                                     @Nonnull final Function <? super SRCTYPE, ? extends DSTKEYTYPE> aKeyMapper,
-                                                                                                     @Nonnull final Function <? super SRCTYPE, ? extends DSTVALUETYPE> aValueMapper)
+  public static <SRCTYPE, DSTKEYTYPE, DSTVALUETYPE> CommonsHashMap <DSTKEYTYPE, DSTVALUETYPE> newMapMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                                                            @Nonnull final Function <? super SRCTYPE, ? extends DSTKEYTYPE> aKeyMapper,
+                                                                                                            @Nonnull final Function <? super SRCTYPE, ? extends DSTVALUETYPE> aValueMapper)
   {
     if (isEmpty (aCollection))
       return newMap (0);
-    final HashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newMap (aCollection.size ());
+    final CommonsHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newMap (aCollection.size ());
     for (final SRCTYPE aValue : aCollection)
       ret.put (aKeyMapper.apply (aValue), aValueMapper.apply (aValue));
     return ret;
@@ -453,12 +451,12 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                          @Nonnull final Predicate <Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
+                                                                                 @Nonnull final Predicate <Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
   {
     if (isEmpty (aMap))
       return newMap (0);
-    final HashMap <KEYTYPE, VALUETYPE> ret = newMap (aMap.size ());
+    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap (aMap.size ());
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aMap.entrySet ())
       if (aFilter.test (aEntry))
         ret.put (aEntry.getKey (), aEntry.getValue ());
@@ -467,10 +465,10 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final KEYTYPE aKey,
-                                                                          @Nullable final VALUETYPE aValue)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final KEYTYPE aKey,
+                                                                                 @Nullable final VALUETYPE aValue)
   {
-    final HashMap <KEYTYPE, VALUETYPE> ret = newMap (1);
+    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap (1);
     ret.put (aKey, aValue);
     return ret;
   }
@@ -478,7 +476,7 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> HashMap <ELEMENTTYPE, ELEMENTTYPE> newMap (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE> CommonsHashMap <ELEMENTTYPE, ELEMENTTYPE> newMap (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
       return newMap (0);
@@ -486,7 +484,7 @@ public final class CollectionHelper
     if ((aValues.length % 2) != 0)
       throw new IllegalArgumentException ("The passed array needs an even number of elements!");
 
-    final HashMap <ELEMENTTYPE, ELEMENTTYPE> ret = newMap (aValues.length / 2);
+    final CommonsHashMap <ELEMENTTYPE, ELEMENTTYPE> ret = newMap (aValues.length / 2);
     for (int i = 0; i < aValues.length; i += 2)
       ret.put (aValues[i], aValues[i + 1]);
     return ret;
@@ -494,8 +492,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final KEYTYPE [] aKeys,
-                                                                          @Nullable final VALUETYPE [] aValues)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final KEYTYPE [] aKeys,
+                                                                                 @Nullable final VALUETYPE [] aValues)
   {
     // Are both empty?
     if (ArrayHelper.isEmpty (aKeys) && ArrayHelper.isEmpty (aValues))
@@ -505,7 +503,7 @@ public final class CollectionHelper
     if (ArrayHelper.getSize (aKeys) != ArrayHelper.getSize (aValues))
       throw new IllegalArgumentException ("The passed arrays have different length!");
 
-    final HashMap <KEYTYPE, VALUETYPE> ret = newMap (aKeys.length);
+    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap (aKeys.length);
     for (int i = 0; i < aKeys.length; ++i)
       ret.put (aKeys[i], aValues[i]);
     return ret;
@@ -513,8 +511,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
-                                                                          @Nullable final Collection <? extends VALUETYPE> aValues)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
+                                                                                 @Nullable final Collection <? extends VALUETYPE> aValues)
   {
     // Are both empty?
     if (isEmpty (aKeys) && isEmpty (aValues))
@@ -524,7 +522,7 @@ public final class CollectionHelper
     if (getSize (aKeys) != getSize (aValues))
       throw new IllegalArgumentException ("Number of keys is different from number of values");
 
-    final HashMap <KEYTYPE, VALUETYPE> ret = newMap (aKeys.size ());
+    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap (aKeys.size ());
     final Iterator <? extends KEYTYPE> itk = aKeys.iterator ();
     final Iterator <? extends VALUETYPE> itv = aValues.iterator ();
     while (itk.hasNext ())
@@ -534,22 +532,22 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     if (isEmpty (aMap))
       return newMap (0);
 
-    return new HashMap <> (aMap);
+    return new CommonsHashMap <> (aMap);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
   {
     if (aMaps == null || aMaps.length == 0)
       return newMap (0);
 
-    final HashMap <KEYTYPE, VALUETYPE> ret = newMap ();
+    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap ();
     for (final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap : aMaps)
       ret.putAll (aMap);
     return ret;
@@ -557,12 +555,12 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> HashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
   {
     if (isEmpty (aCollection))
       return newMap (0);
 
-    final HashMap <KEYTYPE, VALUETYPE> ret = newMap (aCollection.size ());
+    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap (aCollection.size ());
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aCollection)
       ret.put (aEntry.getKey (), aEntry.getValue ());
     return ret;
@@ -1781,13 +1779,13 @@ public final class CollectionHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static <KEY, VALUE> Map <KEY, VALUE> getFilteredMap (@Nullable final Map <KEY, VALUE> aValues,
-                                                              @Nullable final Collection <KEY> aKeys)
+  public static <KEY, VALUE> ICommonsMap <KEY, VALUE> getFilteredMap (@Nullable final Map <KEY, VALUE> aValues,
+                                                                      @Nullable final Collection <? extends KEY> aKeys)
   {
     if (isEmpty (aValues) || isEmpty (aKeys))
       return null;
 
-    final Map <KEY, VALUE> ret = newMap ();
+    final ICommonsMap <KEY, VALUE> ret = newMap ();
     for (final KEY aKey : aKeys)
       if (aValues.containsKey (aKey))
         ret.put (aKey, aValues.get (aKey));
@@ -2322,8 +2320,8 @@ public final class CollectionHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEY, VALUE> Map <KEY, VALUE> getCombinedMap (@Nullable final Map <KEY, VALUE> aMap1,
-                                                              @Nullable final Map <KEY, VALUE> aMap2)
+  public static <KEY, VALUE> ICommonsMap <KEY, VALUE> getCombinedMap (@Nullable final Map <KEY, VALUE> aMap1,
+                                                                      @Nullable final Map <KEY, VALUE> aMap2)
   {
     if (isEmpty (aMap1))
       return newMap (aMap2);
@@ -2331,7 +2329,7 @@ public final class CollectionHelper
       return newMap (aMap1);
 
     // create and fill result map
-    final Map <KEY, VALUE> ret = new HashMap <> (aMap1);
+    final ICommonsMap <KEY, VALUE> ret = new CommonsHashMap <> (aMap1);
     ret.putAll (aMap2);
     return ret;
   }
@@ -2446,65 +2444,15 @@ public final class CollectionHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> Map <VALUETYPE, KEYTYPE> getSwappedKeyValues (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
+  public static <KEYTYPE, VALUETYPE> ICommonsMap <VALUETYPE, KEYTYPE> getSwappedKeyValues (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
     if (isEmpty (aMap))
       return null;
 
-    final Map <VALUETYPE, KEYTYPE> ret = newMap (aMap.size ());
+    final ICommonsMap <VALUETYPE, KEYTYPE> ret = newMap (aMap.size ());
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aMap.entrySet ())
       ret.put (aEntry.getValue (), aEntry.getKey ());
     return ret;
-  }
-
-  /**
-   * Get a map where the lookup (1K..nV) has been reversed to (1V..nK)
-   *
-   * @param <KEYTYPE>
-   *        Original key type
-   * @param <VALUETYPE>
-   *        Original value type
-   * @param aMap
-   *        The input map to convert. May not be <code>null</code>
-   * @return A swapped {@link IMultiMapSetBased}
-   */
-  @Nullable
-  @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> IMultiMapSetBased <VALUETYPE, KEYTYPE> getReverseLookupSet (@Nullable final IMultiMap <KEYTYPE, VALUETYPE, ? extends Collection <VALUETYPE>> aMap)
-  {
-    if (isEmpty (aMap))
-      return null;
-
-    final IMultiMapSetBased <VALUETYPE, KEYTYPE> ret = new MultiHashMapHashSetBased <VALUETYPE, KEYTYPE> ();
-    for (final Map.Entry <KEYTYPE, ? extends Collection <VALUETYPE>> aEntry : aMap.entrySet ())
-      for (final VALUETYPE aValue : aEntry.getValue ())
-        ret.putSingle (aValue, aEntry.getKey ());
-    return ret;
-  }
-
-  /**
-   * Get a map where the lookup (1K..nV) has been reversed to (1V..nK)
-   *
-   * @param <KEYTYPE>
-   *        Original key type
-   * @param <VALUETYPE>
-   *        Original value type
-   * @param aMap
-   *        The input map to convert. May not be <code>null</code>
-   * @return A swapped {@link HashMap}
-   */
-  @Nullable
-  @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> IMultiMapSetBased <VALUETYPE, KEYTYPE> getReverseLookup (@Nullable final IMultiMapSetBased <KEYTYPE, VALUETYPE> aMap)
-  {
-    if (isEmpty (aMap))
-      return null;
-
-    final IMultiMapSetBased <VALUETYPE, KEYTYPE> aRet = new MultiHashMapHashSetBased <VALUETYPE, KEYTYPE> ();
-    for (final Map.Entry <KEYTYPE, Set <VALUETYPE>> aEntry : aMap.entrySet ())
-      for (final VALUETYPE aValue : aEntry.getValue ())
-        aRet.putSingle (aValue, aEntry.getKey ());
-    return aRet;
   }
 
   public static <ELEMENTTYPE> boolean contains (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
