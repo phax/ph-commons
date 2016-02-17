@@ -23,7 +23,9 @@ import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
+import java.io.DataInput;
 import java.io.DataInputStream;
+import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.Flushable;
@@ -1558,9 +1560,9 @@ public final class StreamHelper
    *        The string to be written. May be <code>null</code>.
    * @throws IOException
    *         on write error
-   * @see #readSafeUTF(DataInputStream)
+   * @see #readSafeUTF(DataInput)
    */
-  public static void writeSafeUTF (@Nonnull final DataOutputStream aDOS, @Nullable final String s) throws IOException
+  public static void writeSafeUTF (@Nonnull final DataOutput aDOS, @Nullable final String s) throws IOException
   {
     if (s == null)
       aDOS.writeByte (0);
@@ -1577,24 +1579,24 @@ public final class StreamHelper
    * Because {@link DataOutputStream#writeUTF(String)} has a limit of 64KB this
    * methods provides a similar solution for reading like
    * {@link DataInputStream#readUTF()} but what was written in
-   * {@link #writeSafeUTF(DataOutputStream, String)}.
+   * {@link #writeSafeUTF(DataOutput, String)}.
    *
    * @param aDIS
    *        {@link DataInputStream} to read from. May not be <code>null</code>.
    * @return The read string. May be <code>null</code>.
    * @throws IOException
    *         on read error
-   * @see #writeSafeUTF(DataOutputStream, String)
+   * @see #writeSafeUTF(DataOutput, String)
    */
   @Nullable
-  public static String readSafeUTF (@Nonnull final DataInputStream aDIS) throws IOException
+  public static String readSafeUTF (@Nonnull final DataInput aDIS) throws IOException
   {
     if (aDIS.readByte () == 0)
       return null;
 
     final int nLength = aDIS.readInt ();
     final byte [] aData = new byte [nLength];
-    aDIS.read (aData);
+    aDIS.readFully (aData);
     return new String (aData, CCharset.CHARSET_UTF_8_OBJ);
   }
 }
