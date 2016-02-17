@@ -16,11 +16,6 @@
  */
 package com.helger.commons.collection.attr;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.ReturnsImmutableObject;
-import com.helger.commons.annotation.ReturnsMutableObject;
-
 /**
  * Base interface for objects having attributes with arbitrary types
  *
@@ -29,20 +24,7 @@ import com.helger.commons.annotation.ReturnsMutableObject;
  *        Key type
  */
 @FunctionalInterface
-public interface IHasAttributesAny <KEYTYPE>
-                                   extends IHasAttributes <KEYTYPE, Object>, IHasReadOnlyAttributesAny <KEYTYPE>
+public interface IHasAttributesAny <KEYTYPE> extends IHasAttributes <KEYTYPE, Object>
 {
-  @Nonnull
-  @ReturnsImmutableObject
-  default IAttributeContainer <KEYTYPE, Object> getAttributes ()
-  {
-    return getMutableAttributes ();
-  }
-
-  /**
-   * @return The mutable attribute container. Never <code>null</code>.
-   */
-  @Nonnull
-  @ReturnsMutableObject ("design")
-  IMutableAttributeContainerAny <KEYTYPE> getMutableAttributes ();
+  /* empty */
 }

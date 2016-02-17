@@ -16,15 +16,13 @@
  */
 package com.helger.commons.collection.attr;
 
-import java.util.Map;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsImmutableObject;
-import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 
 /**
- * Base interface for objects having read-only attributes
+ * Base interface for objects having attributes
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -33,23 +31,19 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  *        Value type
  */
 @FunctionalInterface
-public interface IHasReadOnlyAttributes <KEYTYPE, VALUETYPE>
+public interface IHasMutableAttributes <KEYTYPE, VALUETYPE> extends IHasAttributes <KEYTYPE, VALUETYPE>
 {
-  /**
-   * @return The read-only attribute container. Never <code>null</code>.
-   */
   @Nonnull
   @ReturnsImmutableObject
-  IAttributeContainer <KEYTYPE, VALUETYPE> getAttributes ();
+  default IAttributeContainer <KEYTYPE, VALUETYPE> getAttributes ()
+  {
+    return getMutableAttributes ();
+  }
 
   /**
-   * @return The map with all contained attributes. Never <code>null</code> but
-   *         maybe empty.
+   * @return The mutable attribute container. Never <code>null</code>.
    */
   @Nonnull
-  @ReturnsMutableCopy
-  default Map <KEYTYPE, VALUETYPE> getAllAttributes ()
-  {
-    return getAttributes ().getAllAttributes ();
-  }
+  @ReturnsMutableObject ("design")
+  IMutableAttributeContainer <KEYTYPE, VALUETYPE> getMutableAttributes ();
 }
