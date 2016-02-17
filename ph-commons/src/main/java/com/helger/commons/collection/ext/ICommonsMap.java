@@ -1,7 +1,9 @@
 package com.helger.commons.collection.ext;
 
 import java.util.Map;
+import java.util.function.Predicate;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -61,5 +63,21 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYP
   default ICommonsMap <VALUETYPE, KEYTYPE> getSwappedKeyValues ()
   {
     return CollectionHelper.getSwappedKeyValues (this);
+  }
+
+  @Nonnull
+  default void putIf (@Nonnull final KEYTYPE aKey,
+                      @Nullable final VALUETYPE aValue,
+                      @Nonnull final Predicate <VALUETYPE> aFilter)
+  {
+    if (aFilter.test (aValue))
+      put (aKey, aValue);
+  }
+
+  @Nonnull
+  default void putIfNotNull (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  {
+    if (aValue != null)
+      put (aKey, aValue);
   }
 }

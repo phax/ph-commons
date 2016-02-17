@@ -16,7 +16,6 @@
  */
 package com.helger.commons.url;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -25,6 +24,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.DevelopersNote;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.typeconvert.TypeConverter;
 
@@ -36,7 +36,7 @@ import com.helger.commons.typeconvert.TypeConverter;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class SMap extends LinkedHashMap <String, String> implements ICloneable <SMap>
+public class SMap extends CommonsLinkedHashMap <String, String> implements ICloneable <SMap>
 {
   /**
    * Create an empty map.
@@ -102,8 +102,7 @@ public class SMap extends LinkedHashMap <String, String> implements ICloneable <
   @Nonnull
   public SMap addIfNotNull (@Nonnull final String sName, @Nullable final String sValue)
   {
-    if (sValue != null)
-      super.put (sName, sValue);
+    super.putIfNotNull (sName, sValue);
     return this;
   }
 
@@ -112,8 +111,7 @@ public class SMap extends LinkedHashMap <String, String> implements ICloneable <
                      @Nullable final String sValue,
                      @Nonnull final Predicate <String> aFilter)
   {
-    if (aFilter.test (sValue))
-      super.put (sName, sValue);
+    super.putIf (sName, sValue, aFilter);
     return this;
   }
 
