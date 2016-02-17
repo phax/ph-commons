@@ -134,7 +134,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static CommonsVector <Boolean> newPrimitiveVector (@Nullable final boolean... aValues)
   {
-    final CommonsVector <Boolean> ret = CollectionHelper.newVector ();
+    final CommonsVector <Boolean> ret = VectorHelper.newVector ();
     if (aValues != null)
       for (final boolean aValue : aValues)
         ret.add (Boolean.valueOf (aValue));
@@ -145,7 +145,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static CommonsVector <Byte> newPrimitiveVector (@Nullable final byte... aValues)
   {
-    final CommonsVector <Byte> ret = CollectionHelper.newVector ();
+    final CommonsVector <Byte> ret = VectorHelper.newVector ();
     if (aValues != null)
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
@@ -156,7 +156,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static CommonsVector <Character> newPrimitiveVector (@Nullable final char... aValues)
   {
-    final CommonsVector <Character> ret = CollectionHelper.newVector ();
+    final CommonsVector <Character> ret = VectorHelper.newVector ();
     if (aValues != null)
       for (final char aValue : aValues)
         ret.add (Character.valueOf (aValue));
@@ -167,7 +167,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static CommonsVector <Double> newPrimitiveVector (@Nullable final double... aValues)
   {
-    final CommonsVector <Double> ret = CollectionHelper.newVector ();
+    final CommonsVector <Double> ret = VectorHelper.newVector ();
     if (aValues != null)
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
@@ -178,7 +178,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static CommonsVector <Float> newPrimitiveVector (@Nullable final float... aValues)
   {
-    final CommonsVector <Float> ret = CollectionHelper.newVector ();
+    final CommonsVector <Float> ret = VectorHelper.newVector ();
     if (aValues != null)
       for (final float aValue : aValues)
         ret.add (Float.valueOf (aValue));
@@ -189,7 +189,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static CommonsVector <Integer> newPrimitiveVector (@Nullable final int... aValues)
   {
-    final CommonsVector <Integer> ret = CollectionHelper.newVector ();
+    final CommonsVector <Integer> ret = VectorHelper.newVector ();
     if (aValues != null)
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
@@ -200,7 +200,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static CommonsVector <Long> newPrimitiveVector (@Nullable final long... aValues)
   {
-    final CommonsVector <Long> ret = CollectionHelper.newVector ();
+    final CommonsVector <Long> ret = VectorHelper.newVector ();
     if (aValues != null)
       for (final long aValue : aValues)
         ret.add (Long.valueOf (aValue));
@@ -211,7 +211,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static CommonsVector <Short> newPrimitiveVector (@Nullable final short... aValues)
   {
-    final CommonsVector <Short> ret = CollectionHelper.newVector ();
+    final CommonsVector <Short> ret = VectorHelper.newVector ();
     if (aValues != null)
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
@@ -486,7 +486,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static NonBlockingStack <Boolean> newPrimitiveStack (@Nullable final boolean... aValues)
   {
-    final NonBlockingStack <Boolean> ret = CollectionHelper.newStack ();
+    final NonBlockingStack <Boolean> ret = StackHelper.newStack ();
     if (aValues != null)
       for (final boolean aValue : aValues)
         ret.add (Boolean.valueOf (aValue));
@@ -497,7 +497,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static NonBlockingStack <Byte> newPrimitiveStack (@Nullable final byte... aValues)
   {
-    final NonBlockingStack <Byte> ret = CollectionHelper.newStack ();
+    final NonBlockingStack <Byte> ret = StackHelper.newStack ();
     if (aValues != null)
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
@@ -508,7 +508,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static NonBlockingStack <Character> newPrimitiveStack (@Nullable final char... aValues)
   {
-    final NonBlockingStack <Character> ret = CollectionHelper.newStack ();
+    final NonBlockingStack <Character> ret = StackHelper.newStack ();
     if (aValues != null)
       for (final char aValue : aValues)
         ret.add (Character.valueOf (aValue));
@@ -519,7 +519,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static NonBlockingStack <Double> newPrimitiveStack (@Nullable final double... aValues)
   {
-    final NonBlockingStack <Double> ret = CollectionHelper.newStack ();
+    final NonBlockingStack <Double> ret = StackHelper.newStack ();
     if (aValues != null)
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
@@ -530,7 +530,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static NonBlockingStack <Float> newPrimitiveStack (@Nullable final float... aValues)
   {
-    final NonBlockingStack <Float> ret = CollectionHelper.newStack ();
+    final NonBlockingStack <Float> ret = StackHelper.newStack ();
     if (aValues != null)
       for (final float aValue : aValues)
         ret.add (Float.valueOf (aValue));
@@ -541,7 +541,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static NonBlockingStack <Integer> newPrimitiveStack (@Nullable final int... aValues)
   {
-    final NonBlockingStack <Integer> ret = CollectionHelper.newStack ();
+    final NonBlockingStack <Integer> ret = StackHelper.newStack ();
     if (aValues != null)
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
@@ -552,7 +552,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static NonBlockingStack <Long> newPrimitiveStack (@Nullable final long... aValues)
   {
-    final NonBlockingStack <Long> ret = CollectionHelper.newStack ();
+    final NonBlockingStack <Long> ret = StackHelper.newStack ();
     if (aValues != null)
       for (final long aValue : aValues)
         ret.add (Long.valueOf (aValue));
@@ -563,7 +563,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static NonBlockingStack <Short> newPrimitiveStack (@Nullable final short... aValues)
   {
-    final NonBlockingStack <Short> ret = CollectionHelper.newStack ();
+    final NonBlockingStack <Short> ret = StackHelper.newStack ();
     if (aValues != null)
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
@@ -574,7 +574,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static PriorityQueue <Boolean> newPrimitiveQueue (@Nullable final boolean... aValues)
   {
-    final PriorityQueue <Boolean> ret = CollectionHelper.newQueue ();
+    final PriorityQueue <Boolean> ret = QueueHelper.newQueue ();
     if (aValues != null)
       for (final boolean aValue : aValues)
         ret.add (Boolean.valueOf (aValue));
@@ -585,7 +585,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static PriorityQueue <Byte> newPrimitiveQueue (@Nullable final byte... aValues)
   {
-    final PriorityQueue <Byte> ret = CollectionHelper.newQueue ();
+    final PriorityQueue <Byte> ret = QueueHelper.newQueue ();
     if (aValues != null)
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
@@ -596,7 +596,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static PriorityQueue <Character> newPrimitiveQueue (@Nullable final char... aValues)
   {
-    final PriorityQueue <Character> ret = CollectionHelper.newQueue ();
+    final PriorityQueue <Character> ret = QueueHelper.newQueue ();
     if (aValues != null)
       for (final char aValue : aValues)
         ret.add (Character.valueOf (aValue));
@@ -607,7 +607,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static PriorityQueue <Double> newPrimitiveQueue (@Nullable final double... aValues)
   {
-    final PriorityQueue <Double> ret = CollectionHelper.newQueue ();
+    final PriorityQueue <Double> ret = QueueHelper.newQueue ();
     if (aValues != null)
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
@@ -618,7 +618,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static PriorityQueue <Float> newPrimitiveQueue (@Nullable final float... aValues)
   {
-    final PriorityQueue <Float> ret = CollectionHelper.newQueue ();
+    final PriorityQueue <Float> ret = QueueHelper.newQueue ();
     if (aValues != null)
       for (final float aValue : aValues)
         ret.add (Float.valueOf (aValue));
@@ -629,7 +629,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static PriorityQueue <Integer> newPrimitiveQueue (@Nullable final int... aValues)
   {
-    final PriorityQueue <Integer> ret = CollectionHelper.newQueue ();
+    final PriorityQueue <Integer> ret = QueueHelper.newQueue ();
     if (aValues != null)
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
@@ -640,7 +640,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static PriorityQueue <Long> newPrimitiveQueue (@Nullable final long... aValues)
   {
-    final PriorityQueue <Long> ret = CollectionHelper.newQueue ();
+    final PriorityQueue <Long> ret = QueueHelper.newQueue ();
     if (aValues != null)
       for (final long aValue : aValues)
         ret.add (Long.valueOf (aValue));
@@ -651,7 +651,7 @@ public final class PrimitiveCollectionHelper
   @ReturnsMutableCopy
   public static PriorityQueue <Short> newPrimitiveQueue (@Nullable final short... aValues)
   {
-    final PriorityQueue <Short> ret = CollectionHelper.newQueue ();
+    final PriorityQueue <Short> ret = QueueHelper.newQueue ();
     if (aValues != null)
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));

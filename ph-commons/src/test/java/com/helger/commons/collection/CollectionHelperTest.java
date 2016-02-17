@@ -53,7 +53,6 @@ import static com.helger.commons.collection.CollectionHelper.newOrderedSet;
 import static com.helger.commons.collection.CollectionHelper.newSet;
 import static com.helger.commons.collection.CollectionHelper.newSortedMap;
 import static com.helger.commons.collection.CollectionHelper.newSortedSet;
-import static com.helger.commons.collection.CollectionHelper.newStack;
 import static com.helger.commons.collection.CollectionHelper.removeFirstElement;
 import static com.helger.commons.collection.CollectionHelper.removeLastElement;
 import static com.helger.commons.collection.IteratorHelper.getEnumeration;
@@ -1159,9 +1158,9 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testNewStackSingleValue ()
   {
-    NonBlockingStack <String> aStack = newStack ();
+    NonBlockingStack <String> aStack = StackHelper.newStack ();
     assertNotNull (aStack);
-    aStack = newStack ("Hallo");
+    aStack = StackHelper.newStack ("Hallo");
     assertNotNull (aStack);
     assertEquals (aStack.size (), 1);
     assertTrue (aStack.contains ("Hallo"));
@@ -1172,8 +1171,8 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testNewStackArray ()
   {
-    final NonBlockingStack <String> aStack = newStack ("Hallo", "Welt");
-    assertEquals (getStackCopyWithoutTop (aStack), newStack ("Hallo"));
+    final NonBlockingStack <String> aStack = StackHelper.newStack ("Hallo", "Welt");
+    assertEquals (getStackCopyWithoutTop (aStack), StackHelper.newStack ("Hallo"));
     assertNotNull (aStack);
     assertEquals (aStack.size (), 2);
     assertTrue (aStack.contains ("Welt"));

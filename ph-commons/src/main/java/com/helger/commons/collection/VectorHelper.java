@@ -1,0 +1,165 @@
+package com.helger.commons.collection;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
+
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsVector;
+import com.helger.commons.collection.iterate.IIterableIterator;
+
+@Immutable
+public final class VectorHelper
+{
+  private VectorHelper ()
+  {}
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nonnegative final int nInitialCapacity)
+  {
+    return new CommonsVector <> (nInitialCapacity);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector ()
+  {
+    return new CommonsVector <> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, DSTTYPE> CommonsVector <DSTTYPE> newVectorMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                            @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  {
+    if (CollectionHelper.isEmpty (aCollection))
+      return newVector (0);
+    final CommonsVector <DSTTYPE> ret = newVector (aCollection.size ());
+    for (final SRCTYPE aValue : aCollection)
+      ret.add (aMapper.apply (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                                     @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    if (CollectionHelper.isEmpty (aCollection))
+      return newVector (0);
+    final CommonsVector <ELEMENTTYPE> ret = newVector (aCollection.size ());
+    for (final ELEMENTTYPE aValue : aCollection)
+      if (aFilter.test (aValue))
+        ret.add (aValue);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVectorPrefilled (@Nullable final ELEMENTTYPE aValue,
+                                                                              @Nonnegative final int nElements)
+  {
+    ValueEnforcer.isGE0 (nElements, "Elements");
+
+    final CommonsVector <ELEMENTTYPE> ret = newVector (nElements);
+    for (int i = 0; i < nElements; ++i)
+      ret.add (aValue);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final ELEMENTTYPE aValue)
+  {
+    final CommonsVector <ELEMENTTYPE> ret = newVector (1);
+    ret.add (aValue);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  @SafeVarargs
+  public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final ELEMENTTYPE... aValues)
+  {
+    // Don't user Arrays.asVector since aIter returns an unmodifiable list!
+    if (ArrayHelper.isEmpty (aValues))
+      return newVector (0);
+
+    final CommonsVector <ELEMENTTYPE> ret = newVector (aValues.length);
+    Collections.addAll (ret, aValues);
+    return ret;
+  }
+
+  /**
+   * Compared to {@link Collections#list(Enumeration)} this method is more
+   * flexible in Generics parameter.
+   *
+   * @param <ELEMENTTYPE>
+   *        Type of the elements
+   * @param aEnum
+   *        The enumeration to be converted
+   * @return The non-<code>null</code> created {@link CommonsVector}.
+   * @see Collections#list(Enumeration)
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
+  {
+    final CommonsVector <ELEMENTTYPE> ret = newVector ();
+    if (aEnum != null)
+      while (aEnum.hasMoreElements ())
+        ret.add (aEnum.nextElement ());
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
+  {
+    final CommonsVector <ELEMENTTYPE> ret = newVector ();
+    if (aIter != null)
+      while (aIter.hasNext ())
+        ret.add (aIter.next ());
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Iterable <? extends ELEMENTTYPE> aIter)
+  {
+    final CommonsVector <ELEMENTTYPE> ret = newVector ();
+    if (aIter != null)
+      for (final ELEMENTTYPE aObj : aIter)
+        ret.add (aObj);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
+  {
+    if (CollectionHelper.isEmpty (aCont))
+      return newVector (0);
+
+    return newVector (aCont);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  {
+    if (aIter == null)
+      return newVector (0);
+    return newVector (aIter.iterator ());
+  }
+}
