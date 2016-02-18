@@ -22,6 +22,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -51,7 +52,10 @@ public final class XMLResourceBundleTest extends AbstractCommonsTestCase
       final Properties p = new Properties ();
       p.setProperty ("prop1", "Value 1");
       p.setProperty ("prop2", "äöü");
-      p.storeToXML (FileHelper.getOutputStream (aFile), null, CCharset.CHARSET_UTF_8);
+      try (final OutputStream aOS = FileHelper.getOutputStream (aFile))
+      {
+        p.storeToXML (aOS, null, CCharset.CHARSET_UTF_8);
+      }
 
       // Read again
       final ResourceBundle aRB = XMLResourceBundle.getXMLBundle ("unittest-xml-props");

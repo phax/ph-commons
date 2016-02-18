@@ -23,6 +23,8 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -113,10 +115,23 @@ public final class URLResourceTest extends AbstractCommonsTestCase
     catch (final IllegalArgumentException ex)
     {}
 
-    assertNotNull (URLResource.getInputStream (aFileURL));
-    assertNull (URLResource.getInputStream (aNoNExistingURL));
-    assertNotNull (new URLResource (aFileURL).getReader (CCharset.CHARSET_ISO_8859_1_OBJ));
-    assertNull (new URLResource (aNoNExistingURL).getReader (CCharset.CHARSET_ISO_8859_1_OBJ));
+    try (final InputStream aIS = URLResource.getInputStream (aFileURL))
+    {
+      assertNotNull (aIS);
+    }
+    try (final InputStream aIS = URLResource.getInputStream (aNoNExistingURL))
+    {
+      assertNull (aIS);
+    }
+    try (final Reader aReader = new URLResource (aFileURL).getReader (CCharset.CHARSET_ISO_8859_1_OBJ))
+    {
+      assertNotNull (aReader);
+    }
+    try (final Reader aReader = new URLResource (aNoNExistingURL).getReader (CCharset.CHARSET_ISO_8859_1_OBJ))
+    {
+      assertNull (aReader);
+    }
+
     try
     {
       URLResource.getInputStream ((URL) null);
