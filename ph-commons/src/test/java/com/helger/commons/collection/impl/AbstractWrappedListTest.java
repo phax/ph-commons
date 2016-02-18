@@ -33,13 +33,13 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.lang.GenericReflection;
 
 /**
- * Test class for class {@link AbstractWrappedList}.
+ * Test class for class {@link WrappedList}.
  *
  * @author Philip Helger
  */
 public final class AbstractWrappedListTest
 {
-  private static class FacadedList <T> extends AbstractWrappedList <T>
+  private static class FacadedList <T> extends WrappedList <T>
   {
     public FacadedList (final List <T> aList)
     {

@@ -17,7 +17,6 @@
 package com.helger.commons.microdom;
 
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -144,7 +143,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   {
     if (hasNoAttributes ())
       return null;
-    final Map <IMicroQName, String> ret = new LinkedHashMap <IMicroQName, String> ();
+    final Map <IMicroQName, String> ret = CollectionHelper.newOrderedMap ();
     for (final MicroAttribute aAttr : m_aAttrs.values ())
       ret.put (aAttr.getAttributeQName (), aAttr.getAttributeValue ());
     return ret;
@@ -319,7 +318,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     if (sAttrValue != null)
     {
       if (m_aAttrs == null)
-        m_aAttrs = new LinkedHashMap <IMicroQName, MicroAttribute> ();
+        m_aAttrs = CollectionHelper.newOrderedMap ();
       m_aAttrs.put (aAttrName, new MicroAttribute (aAttrName, sAttrValue));
     }
     else

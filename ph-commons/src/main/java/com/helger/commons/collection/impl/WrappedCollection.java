@@ -18,8 +18,9 @@ package com.helger.commons.collection.impl;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -27,38 +28,35 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.collection.ext.ICommonsList;
 
 /**
- * This is a facade for a list. It may be used to wrap any kind of list and
- * overwrite single methods, e.g. for logging.
+ * This is a facade for a {@link Set}. It may be used to wrap any kind of
+ * {@link Set} and overwrite single methods, e.g. for logging.
  *
- * @author Philip
+ * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        Element type
  */
 @NotThreadSafe
-public abstract class AbstractWrappedList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
+public class WrappedCollection <ELEMENTTYPE> implements ICommonsCollection <ELEMENTTYPE>
 {
-  private final List <ELEMENTTYPE> m_aSrc;
+  private final Collection <ELEMENTTYPE> m_aSrc;
 
-  public AbstractWrappedList (@Nonnull final List <ELEMENTTYPE> aList)
+  public WrappedCollection (@Nonnull final Collection <ELEMENTTYPE> aSet)
   {
-    m_aSrc = ValueEnforcer.notNull (aList, "List");
+    m_aSrc = ValueEnforcer.notNull (aSet, "Set");
   }
 
   @Nonnull
   @ReturnsMutableObject ("design")
-  protected List <ELEMENTTYPE> getSrcList ()
+  protected Collection <ELEMENTTYPE> getSource ()
   {
     return m_aSrc;
-  }
-
-  @Nullable
-  public ELEMENTTYPE get (@Nonnegative final int nIndex)
-  {
-    return m_aSrc.get (nIndex);
   }
 
   public boolean add (@Nullable final ELEMENTTYPE aElement)
@@ -66,19 +64,9 @@ public abstract class AbstractWrappedList <ELEMENTTYPE> implements ICommonsList 
     return m_aSrc.add (aElement);
   }
 
-  public void add (@Nonnegative final int nIndex, @Nullable final ELEMENTTYPE aElement)
-  {
-    m_aSrc.add (nIndex, aElement);
-  }
-
   public boolean addAll (@Nonnull final Collection <? extends ELEMENTTYPE> aElements)
   {
     return m_aSrc.addAll (aElements);
-  }
-
-  public boolean addAll (@Nonnegative final int nIndex, @Nonnull final Collection <? extends ELEMENTTYPE> aElements)
-  {
-    return m_aSrc.addAll (nIndex, aElements);
   }
 
   public void clear ()
@@ -96,11 +84,6 @@ public abstract class AbstractWrappedList <ELEMENTTYPE> implements ICommonsList 
     return m_aSrc.containsAll (aElements);
   }
 
-  public int indexOf (final Object aElement)
-  {
-    return m_aSrc.indexOf (aElement);
-  }
-
   public boolean isEmpty ()
   {
     return m_aSrc.isEmpty ();
@@ -111,29 +94,9 @@ public abstract class AbstractWrappedList <ELEMENTTYPE> implements ICommonsList 
     return m_aSrc.iterator ();
   }
 
-  public int lastIndexOf (final Object aElement)
-  {
-    return m_aSrc.lastIndexOf (aElement);
-  }
-
-  public ListIterator <ELEMENTTYPE> listIterator ()
-  {
-    return m_aSrc.listIterator ();
-  }
-
-  public ListIterator <ELEMENTTYPE> listIterator (final int nIndex)
-  {
-    return m_aSrc.listIterator (nIndex);
-  }
-
   public boolean remove (final Object aElement)
   {
     return m_aSrc.remove (aElement);
-  }
-
-  public ELEMENTTYPE remove (final int nIndex)
-  {
-    return m_aSrc.remove (nIndex);
   }
 
   public boolean removeAll (final Collection <?> aElements)
@@ -146,21 +109,10 @@ public abstract class AbstractWrappedList <ELEMENTTYPE> implements ICommonsList 
     return m_aSrc.retainAll (aElements);
   }
 
-  public ELEMENTTYPE set (@Nonnegative final int nIndex, final ELEMENTTYPE aElement)
-  {
-    return m_aSrc.set (nIndex, aElement);
-  }
-
   @Nonnegative
   public int size ()
   {
     return m_aSrc.size ();
-  }
-
-  @ReturnsMutableObject ("as defined by List")
-  public List <ELEMENTTYPE> subList (final int nFromIndex, final int nToIndex)
-  {
-    return m_aSrc.subList (nFromIndex, nToIndex);
   }
 
   public Object [] toArray ()
@@ -189,5 +141,52 @@ public abstract class AbstractWrappedList <ELEMENTTYPE> implements ICommonsList 
   public String toString ()
   {
     return m_aSrc.toString ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsList <ELEMENTTYPE> getCopy ()
+  {
+    return new CommonsList <> (this);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsList <ELEMENTTYPE> getAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    if (aFilter == null)
+      return getCopy ();
+
+    final ICommonsList <ELEMENTTYPE> ret = new CommonsList <> ();
+    findAll (aFilter, ret::add);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+  {
+    final ICommonsList <DSTTYPE> ret = new CommonsList <> (size ());
+    findAllMapped (aMapper, ret::add);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                        @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+  {
+    final ICommonsList <DSTTYPE> ret = new CommonsList <> ();
+    findAllMapped (aFilter, aMapper, ret::add);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public <DSTTYPE extends ELEMENTTYPE> ICommonsList <DSTTYPE> getAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass)
+  {
+    final ICommonsList <DSTTYPE> ret = new CommonsList <> ();
+    findAllInstanceOf (aDstClass, ret::add);
+    return ret;
   }
 }

@@ -26,7 +26,7 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>, ICommons
     if (aFilter == null)
       return getCopy ();
 
-    final ICommonsList <ELEMENTTYPE> ret = new CommonsList <> (size ());
+    final ICommonsList <ELEMENTTYPE> ret = new CommonsList <> ();
     findAll (aFilter, ret::add);
     return ret;
   }
@@ -54,7 +54,7 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>, ICommons
   @ReturnsMutableCopy
   default <DSTTYPE extends ELEMENTTYPE> ICommonsList <DSTTYPE> getAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass)
   {
-    final CommonsList <DSTTYPE> ret = new CommonsList <> ();
+    final ICommonsList <DSTTYPE> ret = new CommonsList <> ();
     findAllInstanceOf (aDstClass, ret::add);
     return ret;
   }

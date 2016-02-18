@@ -22,7 +22,6 @@ import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.Enumeration;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +48,7 @@ import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.CommonsList;
 import com.helger.commons.collection.ext.CommonsSet;
 import com.helger.commons.collection.ext.ICommonsList;
@@ -568,27 +568,27 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nonnegative final int nInitialCapacity)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nonnegative final int nInitialCapacity)
   {
-    return new LinkedHashMap <> (nInitialCapacity);
+    return new CommonsLinkedHashMap <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap ()
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap ()
   {
-    return new LinkedHashMap <> ();
+    return new CommonsLinkedHashMap <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE, DSTVALUETYPE> LinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> newOrderedMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
-                                                                                                                                   @Nonnull final Function <? super SRCKEYTYPE, ? extends DSTKEYTYPE> aKeyMapper,
-                                                                                                                                   @Nonnull final Function <? super SRCVALUETYPE, ? extends DSTVALUETYPE> aValueMapper)
+  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE, DSTVALUETYPE> CommonsLinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> newOrderedMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
+                                                                                                                                          @Nonnull final Function <? super SRCKEYTYPE, ? extends DSTKEYTYPE> aKeyMapper,
+                                                                                                                                          @Nonnull final Function <? super SRCVALUETYPE, ? extends DSTVALUETYPE> aValueMapper)
   {
     if (isEmpty (aMap))
       return newOrderedMap (0);
-    final LinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newOrderedMap (aMap.size ());
+    final CommonsLinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newOrderedMap (aMap.size ());
     for (final Map.Entry <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aEntry : aMap.entrySet ())
       ret.put (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
     return ret;
@@ -596,13 +596,13 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTKEYTYPE, DSTVALUETYPE> LinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> newOrderedMapMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                                                                  @Nonnull final Function <? super SRCTYPE, ? extends DSTKEYTYPE> aKeyMapper,
-                                                                                                                  @Nonnull final Function <? super SRCTYPE, ? extends DSTVALUETYPE> aValueMapper)
+  public static <SRCTYPE, DSTKEYTYPE, DSTVALUETYPE> CommonsLinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> newOrderedMapMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                                                                         @Nonnull final Function <? super SRCTYPE, ? extends DSTKEYTYPE> aKeyMapper,
+                                                                                                                         @Nonnull final Function <? super SRCTYPE, ? extends DSTVALUETYPE> aValueMapper)
   {
     if (isEmpty (aCollection))
       return newOrderedMap (0);
-    final LinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newOrderedMap (aCollection.size ());
+    final CommonsLinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newOrderedMap (aCollection.size ());
     for (final SRCTYPE aValue : aCollection)
       ret.put (aKeyMapper.apply (aValue), aValueMapper.apply (aValue));
     return ret;
@@ -610,12 +610,12 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                       @Nonnull final Predicate <Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
+                                                                                              @Nonnull final Predicate <Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
   {
     if (isEmpty (aMap))
       return newOrderedMap (0);
-    final LinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aMap.size ());
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aMap.size ());
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aMap.entrySet ())
       if (aFilter.test (aEntry))
         ret.put (aEntry.getKey (), aEntry.getValue ());
@@ -624,10 +624,10 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final KEYTYPE aKey,
-                                                                                       @Nullable final VALUETYPE aValue)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final KEYTYPE aKey,
+                                                                                              @Nullable final VALUETYPE aValue)
   {
-    final LinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (1);
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (1);
     ret.put (aKey, aValue);
     return ret;
   }
@@ -635,7 +635,7 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> LinkedHashMap <ELEMENTTYPE, ELEMENTTYPE> newOrderedMap (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE> CommonsLinkedHashMap <ELEMENTTYPE, ELEMENTTYPE> newOrderedMap (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
       return newOrderedMap (0);
@@ -643,7 +643,7 @@ public final class CollectionHelper
     if ((aValues.length % 2) != 0)
       throw new IllegalArgumentException ("The passed array needs an even number of elements!");
 
-    final LinkedHashMap <ELEMENTTYPE, ELEMENTTYPE> ret = newOrderedMap (aValues.length / 2);
+    final CommonsLinkedHashMap <ELEMENTTYPE, ELEMENTTYPE> ret = newOrderedMap (aValues.length / 2);
     for (int i = 0; i < aValues.length; i += 2)
       ret.put (aValues[i], aValues[i + 1]);
     return ret;
@@ -661,13 +661,13 @@ public final class CollectionHelper
    *        The key array to use. May not be <code>null</code>.
    * @param aValues
    *        The value array to use. May not be <code>null</code>.
-   * @return A {@link java.util.LinkedHashMap} containing the passed key-value
+   * @return A {@link CommonsLinkedHashMap} containing the passed key-value
    *         entries. Never <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final KEYTYPE [] aKeys,
-                                                                                       @Nullable final VALUETYPE [] aValues)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final KEYTYPE [] aKeys,
+                                                                                              @Nullable final VALUETYPE [] aValues)
   {
     // Are both empty?
     if (ArrayHelper.isEmpty (aKeys) && ArrayHelper.isEmpty (aValues))
@@ -677,7 +677,7 @@ public final class CollectionHelper
     if (ArrayHelper.getSize (aKeys) != ArrayHelper.getSize (aValues))
       throw new IllegalArgumentException ("The passed arrays have different length!");
 
-    final LinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aKeys.length);
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aKeys.length);
     for (int i = 0; i < aKeys.length; ++i)
       ret.put (aKeys[i], aValues[i]);
     return ret;
@@ -685,8 +685,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
-                                                                                       @Nullable final Collection <? extends VALUETYPE> aValues)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
+                                                                                              @Nullable final Collection <? extends VALUETYPE> aValues)
   {
     // Are both empty?
     if (isEmpty (aKeys) && isEmpty (aValues))
@@ -696,7 +696,7 @@ public final class CollectionHelper
     if (getSize (aKeys) != getSize (aValues))
       throw new IllegalArgumentException ("Number of keys is different from number of values");
 
-    final LinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aKeys.size ());
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aKeys.size ());
     final Iterator <? extends KEYTYPE> itk = aKeys.iterator ();
     final Iterator <? extends VALUETYPE> itv = aValues.iterator ();
     while (itk.hasNext ())
@@ -706,22 +706,22 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     if (isEmpty (aMap))
       return newOrderedMap (0);
 
-    return new LinkedHashMap <> (aMap);
+    return new CommonsLinkedHashMap <> (aMap);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
   {
     if (aMaps == null || aMaps.length == 0)
       return newOrderedMap (0);
 
-    final LinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap ();
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap ();
     for (final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap : aMaps)
       ret.putAll (aMap);
     return ret;
@@ -729,12 +729,12 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> LinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
   {
     if (isEmpty (aCollection))
       return newOrderedMap (0);
 
-    final LinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aCollection.size ());
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aCollection.size ());
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aCollection)
       ret.put (aEntry.getKey (), aEntry.getValue ());
     return ret;
