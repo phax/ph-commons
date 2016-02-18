@@ -17,7 +17,6 @@
 package com.helger.commons.locale;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -36,6 +35,8 @@ import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.string.StringHelper;
 
@@ -218,9 +219,9 @@ public final class LocaleCache
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Set <Locale> getAllLanguages ()
+  public ICommonsSet <Locale> getAllLanguages ()
   {
-    final Set <Locale> ret = new HashSet <> ();
+    final ICommonsSet <Locale> ret = new CommonsHashSet <> ();
     for (final Locale aLocale : getAllLocales ())
     {
       final String sLanguage = aLocale.getLanguage ();

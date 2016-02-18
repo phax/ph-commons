@@ -16,7 +16,6 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,10 +24,11 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 
 /**
- * Multi map based on {@link CommonsLinkedHashMap} and {@link java.util.HashSet}
+ * Multi map based on {@link CommonsLinkedHashMap} and {@link CommonsHashSet}
  * values.<br>
  *
  * @author Philip Helger
@@ -62,8 +62,8 @@ public class MultiLinkedHashMapHashSetBased <KEYTYPE, VALUETYPE>
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  protected final Set <VALUETYPE> createNewCollection ()
+  protected final CommonsHashSet <VALUETYPE> createNewCollection ()
   {
-    return new HashSet <VALUETYPE> ();
+    return new CommonsHashSet <> ();
   }
 }

@@ -20,9 +20,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.AccessControlException;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -37,7 +34,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.collection.lru.LRUMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.dimension.SizeInt;
@@ -71,15 +70,15 @@ public final class ImageDataManager
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   // The main cache
   @GuardedBy ("m_aRWLock")
-  private final Map <IReadableResource, SizeInt> m_aImageData;
+  private final ICommonsMap <IReadableResource, SizeInt> m_aImageData;
   // A cache for all non-existing resources to avoid checking them over and over
   // again
   @GuardedBy ("m_aRWLock")
-  private final Set <IReadableResource> m_aNonExistingResources = new HashSet <IReadableResource> ();
+  private final ICommonsSet <IReadableResource> m_aNonExistingResources = new CommonsHashSet <> ();
 
   private ImageDataManager (@Nonnegative final int nMaxCacheSize)
   {
-    m_aImageData = new LRUMap <IReadableResource, SizeInt> (nMaxCacheSize);
+    m_aImageData = new LRUMap <> (nMaxCacheSize);
   }
 
   public static boolean isInstantiated ()
@@ -251,15 +250,15 @@ public final class ImageDataManager
 
   @Nonnull
   @ReturnsMutableCopy
-  public Map <IReadableResource, SizeInt> getAllCachedSizes ()
+  public ICommonsMap <IReadableResource, SizeInt> getAllCachedSizes ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newMap (m_aImageData));
+    return m_aRWLock.readLocked ( () -> m_aImageData.getClone ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public Set <IReadableResource> getAllNotExistingResources ()
+  public ICommonsSet <IReadableResource> getAllNotExistingResources ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newSet (m_aNonExistingResources));
+    return m_aRWLock.readLocked ( () -> m_aNonExistingResources.getClone ());
   }
 }

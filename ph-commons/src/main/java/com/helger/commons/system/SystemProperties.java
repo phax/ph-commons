@@ -17,8 +17,6 @@
 package com.helger.commons.system;
 
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -33,6 +31,10 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.lang.priviledged.IPrivilegedAction;
 
 /**
@@ -75,7 +77,7 @@ public final class SystemProperties
   public static final String SYSTEM_PROPERTY_SUN_IO_SERIALIZATION_EXTENDEDDEBUGINFO = "sun.io.serialization.extendedDebugInfo";
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (SystemProperties.class);
-  private static final Set <String> s_aWarnedPropertyNames = Collections.synchronizedSet (new HashSet <String> ());
+  private static final Set <String> s_aWarnedPropertyNames = Collections.synchronizedSet (new CommonsHashSet <> ());
 
   @PresentForCodeCoverage
   private static final SystemProperties s_aInstance = new SystemProperties ();
@@ -122,7 +124,7 @@ public final class SystemProperties
   @ReturnsMutableCopy
   public static Set <String> getAllWarnedPropertyNames ()
   {
-    return new HashSet <String> (s_aWarnedPropertyNames);
+    return new CommonsHashSet <String> (s_aWarnedPropertyNames);
   }
 
   /**
@@ -341,9 +343,9 @@ public final class SystemProperties
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <String> getAllPropertyNames ()
+  public static ICommonsSet <String> getAllPropertyNames ()
   {
-    return new HashSet <String> (getAllProperties ().keySet ());
+    return getAllProperties ().keySet ().getClone ();
   }
 
   /**
@@ -352,9 +354,9 @@ public final class SystemProperties
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <String, String> getAllProperties ()
+  public static ICommonsMap <String, String> getAllProperties ()
   {
-    final Map <String, String> ret = new HashMap <> ();
+    final ICommonsMap <String, String> ret = new CommonsHashMap <> ();
     final Properties aProperties = IPrivilegedAction.systemGetProperties ().invokeSafe ();
     if (aProperties != null)
       for (final Map.Entry <Object, Object> aEntry : aProperties.entrySet ())

@@ -16,11 +16,7 @@
  */
 package com.helger.commons.collection.impl;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -30,6 +26,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -44,7 +44,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The value type.
  */
 @NotThreadSafe
-public class SingleElementMap <KEYTYPE, VALUETYPE> implements Map <KEYTYPE, VALUETYPE>
+public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTYPE, VALUETYPE>
 {
   private boolean m_bHasElement = false;
   private KEYTYPE m_aKey;
@@ -56,6 +56,13 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements Map <KEYTYPE, VALU
   public SingleElementMap (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     put (aKey, aValue);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public SingleElementMap <KEYTYPE, VALUETYPE> getClone ()
+  {
+    return m_bHasElement ? new SingleElementMap <> (m_aKey, m_aValue) : new SingleElementMap <> ();
   }
 
   public void clear ()
@@ -137,27 +144,25 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements Map <KEYTYPE, VALU
 
   @ReturnsImmutableObject
   @Nonnull
-  public Set <KEYTYPE> keySet ()
+  public ICommonsSet <KEYTYPE> keySet ()
   {
-    return m_bHasElement ? CollectionHelper.makeUnmodifiable (CollectionHelper.newSet (m_aKey))
-                         : Collections.<KEYTYPE> emptySet ();
+    return m_bHasElement ? CollectionHelper.newSet (m_aKey) : CollectionHelper.newSet ();
   }
 
   @ReturnsImmutableObject
   @Nonnull
-  public Collection <VALUETYPE> values ()
+  public ICommonsCollection <VALUETYPE> values ()
   {
-    return m_bHasElement ? CollectionHelper.makeUnmodifiable (CollectionHelper.newList (m_aValue))
-                         : Collections.<VALUETYPE> emptyList ();
+    return m_bHasElement ? CollectionHelper.newList (m_aValue) : CollectionHelper.newList ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public Set <Map.Entry <KEYTYPE, VALUETYPE>> entrySet ()
+  public ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> entrySet ()
   {
-    final Set <Map.Entry <KEYTYPE, VALUETYPE>> aSet = new HashSet <Entry <KEYTYPE, VALUETYPE>> (size ());
+    final ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> aSet = new CommonsHashSet <> (size ());
     if (m_bHasElement)
-      aSet.add (new MapEntry <KEYTYPE, VALUETYPE> (m_aKey, m_aValue));
+      aSet.add (new MapEntry <> (m_aKey, m_aValue));
     return aSet;
   }
 

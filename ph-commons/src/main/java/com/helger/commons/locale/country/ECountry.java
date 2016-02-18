@@ -16,14 +16,14 @@
  */
 package com.helger.commons.locale.country;
 
-import java.util.HashSet;
 import java.util.Locale;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.string.StringHelper;
@@ -545,9 +545,9 @@ public enum ECountry implements IHasDisplayText,IHasID <String>
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Locale> getCountryListAsLocales ()
+  public static ICommonsSet <Locale> getCountryListAsLocales ()
   {
-    final Set <Locale> ret = new HashSet <Locale> ();
+    final ICommonsSet <Locale> ret = new CommonsHashSet <> ();
     for (final ECountry eCountry : values ())
       if (!eCountry.isCountrySub ())
         ret.add (eCountry.getAsLocale ());

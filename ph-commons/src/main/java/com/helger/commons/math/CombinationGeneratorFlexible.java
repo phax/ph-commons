@@ -16,7 +16,6 @@
  */
 package com.helger.commons.math;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -27,7 +26,9 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsSet;
 
 /**
  * Utility class for generating all possible combinations of elements for a
@@ -100,12 +101,12 @@ public final class CombinationGeneratorFlexible <DATATYPE>
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Set <ICommonsList <DATATYPE>> getCombinations (@Nonnull final ICommonsList <DATATYPE> aElements)
+  public ICommonsSet <ICommonsList <DATATYPE>> getCombinations (@Nonnull final ICommonsList <DATATYPE> aElements)
   {
     ValueEnforcer.notNull (aElements, "Elements");
 
-    final Set <ICommonsList <DATATYPE>> aAllResults = new HashSet <> ();
-    iterateAllCombinations (aElements, aCurrentObject -> aAllResults.add (aCurrentObject));
+    final ICommonsSet <ICommonsList <DATATYPE>> aAllResults = new CommonsHashSet <> ();
+    iterateAllCombinations (aElements, aAllResults::add);
     return aAllResults;
   }
 

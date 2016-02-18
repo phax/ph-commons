@@ -17,10 +17,6 @@
 package com.helger.commons.scope.mgr;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -36,6 +32,10 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.scope.IScope;
 import com.helger.commons.scope.ISessionScope;
 import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
@@ -68,9 +68,9 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
 
   /** All contained session scopes. */
   @GuardedBy ("m_aRWLock")
-  private final Map <String, ISessionScope> m_aSessionScopes = new HashMap <> ();
+  private final ICommonsMap <String, ISessionScope> m_aSessionScopes = new CommonsHashMap <> ();
   @GuardedBy ("m_aRWLock")
-  private final Set <String> m_aSessionsInDestruction = new HashSet <> ();
+  private final ICommonsSet <String> m_aSessionsInDestruction = new CommonsHashSet <> ();
   @GuardedBy ("m_aRWLock")
   private boolean m_bDestroyAllSessionsOnScopeEnd = DEFAULT_DESTROY_ALL_SESSIONS_ON_SCOPE_END;
   @GuardedBy ("m_aRWLock")

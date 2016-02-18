@@ -17,11 +17,9 @@
 package com.helger.commons.text.resolve;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,7 +32,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.locale.LocaleHelper;
@@ -65,9 +64,9 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final Set <String> m_aUsedOverrideBundles = new HashSet <String> ();
+  private final ICommonsSet <String> m_aUsedOverrideBundles = new CommonsHashSet <> ();
   @GuardedBy ("m_aRWLock")
-  private final Set <String> m_aUsedFallbackBundles = new HashSet <String> ();
+  private final ICommonsSet <String> m_aUsedFallbackBundles = new CommonsHashSet <> ();
   @GuardedBy ("m_aRWLock")
   private boolean m_bUseResourceBundleCache = DEFAULT_USE_RESOURCE_BUNDLE_CACHE;
   @GuardedBy ("m_aRWLock")
@@ -199,9 +198,9 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Set <String> getAllUsedOverrideBundleNames ()
+  public ICommonsSet <String> getAllUsedOverrideBundleNames ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newSet (m_aUsedOverrideBundles));
+    return m_aRWLock.readLocked ( () -> m_aUsedOverrideBundles.getClone ());
   }
 
   /**
@@ -210,9 +209,9 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Set <String> getAllUsedFallbackBundleNames ()
+  public ICommonsSet <String> getAllUsedFallbackBundleNames ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newSet (m_aUsedFallbackBundles));
+    return m_aRWLock.readLocked ( () -> m_aUsedFallbackBundles.getClone ());
   }
 
   public void clearCache ()

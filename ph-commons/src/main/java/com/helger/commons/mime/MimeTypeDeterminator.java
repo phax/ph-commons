@@ -18,9 +18,7 @@ package com.helger.commons.mime;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,6 +36,8 @@ import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.EChange;
 
@@ -73,7 +73,7 @@ public final class MimeTypeDeterminator
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   // Contains all byte[] to mime type mappings
-  private final Set <MimeTypeContent> m_aMimeTypeContents = new HashSet <MimeTypeContent> ();
+  private final ICommonsSet <MimeTypeContent> m_aMimeTypeContents = new CommonsHashSet <> ();
 
   private MimeTypeDeterminator ()
   {

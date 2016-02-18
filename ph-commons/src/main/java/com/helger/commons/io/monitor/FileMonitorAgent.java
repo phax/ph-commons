@@ -17,14 +17,14 @@
 package com.helger.commons.io.monitor;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -42,7 +42,7 @@ final class FileMonitorAgent
 
   private boolean m_bExists;
   private long m_nTimestamp;
-  private final Set <String> m_aChildren = new HashSet <String> ();
+  private final ICommonsSet <String> m_aChildren = new CommonsHashSet <> ();
 
   /**
    * @param aMonitor
@@ -105,7 +105,7 @@ final class FileMonitorAgent
   {
     // See which new children are not listed in the current children
     // map.
-    final Set <String> aNewChildren = new HashSet <String> ();
+    final ICommonsSet <String> aNewChildren = new CommonsHashSet <> ();
     final NonBlockingStack <File> aNewCreatedChildren = new NonBlockingStack <File> ();
 
     final File [] aNewChildrenList = m_aFile.listFiles ();

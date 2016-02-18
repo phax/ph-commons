@@ -16,7 +16,6 @@
  */
 package com.helger.commons.locale.country;
 
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
@@ -33,6 +32,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleHelper;
@@ -63,7 +64,7 @@ public final class CountryCache
 
   /** Contains all known countries (as ISO 3166 2-letter codes). */
   @GuardedBy ("m_aRWLock")
-  private final Set <String> m_aCountries = new HashSet <> ();
+  private final ICommonsSet <String> m_aCountries = new CommonsHashSet <> ();
 
   private CountryCache ()
   {
