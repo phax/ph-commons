@@ -5,7 +5,9 @@ import java.util.Vector;
 
 import javax.annotation.Nonnull;
 
-public class CommonsVector <T> extends Vector <T> implements ICommonsList <T>
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
+public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
 {
   public CommonsVector ()
   {}
@@ -15,8 +17,15 @@ public class CommonsVector <T> extends Vector <T> implements ICommonsList <T>
     super (nInitialCapacity);
   }
 
-  public CommonsVector (@Nonnull final Collection <? extends T> aCont)
+  public CommonsVector (@Nonnull final Collection <? extends ELEMENTTYPE> aCont)
   {
     super (aCont);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsList <ELEMENTTYPE> getCopy ()
+  {
+    return new CommonsVector <> (this);
   }
 }

@@ -7,17 +7,17 @@ import java.util.TreeSet;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class CommonsTreeSet <T> extends TreeSet <T> implements ICommonsNavigableSet <T>
+public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implements ICommonsNavigableSet <ELEMENTTYPE>
 {
   public CommonsTreeSet ()
   {}
 
-  public CommonsTreeSet (@Nullable final Comparator <? super T> aComparator)
+  public CommonsTreeSet (@Nullable final Comparator <? super ELEMENTTYPE> aComparator)
   {
     super (aComparator);
   }
 
-  public CommonsTreeSet (@Nonnull final Collection <? extends T> aCont)
+  public CommonsTreeSet (@Nonnull final Collection <? extends ELEMENTTYPE> aCont)
   {
     super (aCont);
   }

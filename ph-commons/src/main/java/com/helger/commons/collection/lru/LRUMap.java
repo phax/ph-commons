@@ -16,7 +16,6 @@
  */
 package com.helger.commons.collection.lru;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnegative;
@@ -25,6 +24,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.UseDirectEqualsAndHashCode;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -41,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 @NotThreadSafe
 @UseDirectEqualsAndHashCode
-public class LRUMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KEYTYPE, VALUETYPE>
+public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, VALUETYPE>
 {
   // Note: 0.75f is the same as HashMap.DEFAULT_LOAD_FACTOR
   private static final float DEFAULT_LOAD_FACTOR = 0.75f;

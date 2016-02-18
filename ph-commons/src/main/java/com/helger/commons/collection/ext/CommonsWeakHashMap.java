@@ -5,6 +5,7 @@ import java.util.WeakHashMap;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.WrappedCollection;
 import com.helger.commons.collection.impl.WrappedSet;
 
@@ -61,5 +62,12 @@ public class CommonsWeakHashMap <KEYTYPE, VALUETYPE> extends WeakHashMap <KEYTYP
       return es;
     m_aEntrySet = new WrappedSet <> (super.entrySet ());
     return m_aEntrySet;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public CommonsWeakHashMap <KEYTYPE, VALUETYPE> getClone ()
+  {
+    return new CommonsWeakHashMap <> (this);
   }
 }

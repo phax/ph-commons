@@ -18,7 +18,6 @@ package com.helger.commons.url;
 
 import java.math.BigInteger;
 import java.nio.charset.Charset;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -32,6 +31,8 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
@@ -48,7 +49,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
 {
   private final String m_sPath;
-  private Map <String, String> m_aParams;
+  private ICommonsMap <String, String> m_aParams;
   private String m_sAnchor;
 
   public SimpleURL ()
@@ -73,7 +74,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
     {
       // m_aParams may already be non-null
       if (m_aParams == null)
-        m_aParams = new LinkedHashMap <> ();
+        m_aParams = new CommonsLinkedHashMap <> ();
       m_aParams.putAll (aParams);
     }
   }
@@ -87,7 +88,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
     {
       // m_aParams may already be non-null
       if (m_aParams == null)
-        m_aParams = new LinkedHashMap <> ();
+        m_aParams = new CommonsLinkedHashMap <> ();
       m_aParams.putAll (aParams);
     }
   }
@@ -144,16 +145,16 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
 
   @Nonnull
   @ReturnsMutableObject ("design")
-  public final Map <String, String> directGetAllParams ()
+  public final ICommonsMap <String, String> directGetAllParams ()
   {
     return m_aParams;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public final Map <String, String> getAllParams ()
+  public final ICommonsMap <String, String> getAllParams ()
   {
-    return CollectionHelper.newOrderedMap (m_aParams);
+    return m_aParams.getClone ();
   }
 
   /**
@@ -177,7 +178,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
     ValueEnforcer.notNull (sValue, "Value");
 
     if (m_aParams == null)
-      m_aParams = new LinkedHashMap <> ();
+      m_aParams = new CommonsLinkedHashMap <> ();
     m_aParams.put (sKey, sValue);
     return this;
   }
@@ -243,7 +244,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
     if (CollectionHelper.isNotEmpty (aParams))
     {
       if (m_aParams == null)
-        m_aParams = new LinkedHashMap <> ();
+        m_aParams = new CommonsLinkedHashMap <> ();
       m_aParams.putAll (aParams);
     }
     return this;

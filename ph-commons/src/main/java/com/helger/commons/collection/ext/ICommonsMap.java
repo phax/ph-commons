@@ -10,9 +10,11 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
 
-public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYPE>
+public interface ICommonsMap <KEYTYPE, VALUETYPE>
+                             extends Map <KEYTYPE, VALUETYPE>, ICloneable <ICommonsMap <KEYTYPE, VALUETYPE>>
 {
   @Nonnull
   ICommonsSet <KEYTYPE> keySet ();

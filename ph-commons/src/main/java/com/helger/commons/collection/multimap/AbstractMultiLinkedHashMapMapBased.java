@@ -16,15 +16,16 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+
 /**
- * Abstract multi map based on {@link java.util.LinkedHashMap}.
+ * Abstract multi map based on {@link CommonsLinkedHashMap}.
  *
  * @author Philip Helger
  * @param <KEYTYPE1>
@@ -35,8 +36,8 @@ import javax.annotation.concurrent.NotThreadSafe;
  *        value type
  */
 @NotThreadSafe
-public abstract class AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
-                                                         extends LinkedHashMap <KEYTYPE1, Map <KEYTYPE2, VALUETYPE>>
+public abstract class AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends
+                                                         CommonsLinkedHashMap <KEYTYPE1, Map <KEYTYPE2, VALUETYPE>>
                                                          implements IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
 {
   public AbstractMultiLinkedHashMapMapBased ()

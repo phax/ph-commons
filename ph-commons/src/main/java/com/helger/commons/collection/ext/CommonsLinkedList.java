@@ -5,13 +5,22 @@ import java.util.LinkedList;
 
 import javax.annotation.Nonnull;
 
-public class CommonsLinkedList <T> extends LinkedList <T> implements ICommonsList <T>
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
+public class CommonsLinkedList <ELEMENTTYPE> extends LinkedList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
 {
   public CommonsLinkedList ()
   {}
 
-  public CommonsLinkedList (@Nonnull final Collection <? extends T> aCont)
+  public CommonsLinkedList (@Nonnull final Collection <? extends ELEMENTTYPE> aCont)
   {
     super (aCont);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsList <ELEMENTTYPE> getCopy ()
+  {
+    return new CommonsLinkedList <> (this);
   }
 }

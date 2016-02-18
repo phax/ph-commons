@@ -17,13 +17,13 @@
 package com.helger.commons.collection.impl;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 
 /**
  * Soft {@link HashMap} implementation based on
@@ -47,7 +47,7 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
     boolean removeEldestSoftEntry (Map.Entry <K, V> aEntry);
   }
 
-  private static class InternalLinkedHashMap <K, V> extends LinkedHashMap <K, SoftValue <K, V>>
+  private static class InternalLinkedHashMap <K, V> extends CommonsLinkedHashMap <K, SoftValue <K, V>>
   {
     // Note: 0.75f is the same as HashMap.DEFAULT_LOAD_FACTOR
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;

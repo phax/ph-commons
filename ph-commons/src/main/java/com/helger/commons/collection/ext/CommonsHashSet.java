@@ -5,7 +5,7 @@ import java.util.HashSet;
 
 import javax.annotation.Nonnull;
 
-public class CommonsHashSet <T> extends HashSet <T> implements ICommonsSet <T>
+public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implements ICommonsSet <ELEMENTTYPE>
 {
   public CommonsHashSet ()
   {}
@@ -20,7 +20,7 @@ public class CommonsHashSet <T> extends HashSet <T> implements ICommonsSet <T>
     super (nInitialCapacity, fLoadFactor);
   }
 
-  public CommonsHashSet (@Nonnull final Collection <? extends T> aCont)
+  public CommonsHashSet (@Nonnull final Collection <? extends ELEMENTTYPE> aCont)
   {
     super (aCont);
   }

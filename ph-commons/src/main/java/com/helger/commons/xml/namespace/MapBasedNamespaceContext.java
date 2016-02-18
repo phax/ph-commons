@@ -17,7 +17,6 @@
 package com.helger.commons.xml.namespace;
 
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -30,6 +29,8 @@ import javax.xml.XMLConstants;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.multimap.IMultiMapSetBased;
 import com.helger.commons.collection.multimap.MultiHashMapHashSetBased;
 import com.helger.commons.equals.EqualsHelper;
@@ -47,8 +48,8 @@ import com.helger.commons.string.ToStringGenerator;
 public class MapBasedNamespaceContext extends AbstractNamespaceContext implements ICloneable <MapBasedNamespaceContext>
 {
   private String m_sDefaultNamespaceURI;
-  private final Map <String, String> m_aPrefix2NS = new LinkedHashMap <String, String> ();
-  private final IMultiMapSetBased <String, String> m_aNS2Prefix = new MultiHashMapHashSetBased <String, String> ();
+  private final ICommonsMap <String, String> m_aPrefix2NS = new CommonsLinkedHashMap <> ();
+  private final IMultiMapSetBased <String, String> m_aNS2Prefix = new MultiHashMapHashSetBased <> ();
 
   public MapBasedNamespaceContext ()
   {}
@@ -216,14 +217,14 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
 
   @Nonnull
   @ReturnsMutableCopy
-  public Map <String, String> getPrefixToNamespaceURIMap ()
+  public ICommonsMap <String, String> getPrefixToNamespaceURIMap ()
   {
-    return CollectionHelper.newOrderedMap (m_aPrefix2NS);
+    return m_aPrefix2NS.getClone ();
   }
 
   public boolean hasAnyMapping ()
   {
-    return !m_aPrefix2NS.isEmpty ();
+    return m_aPrefix2NS.isNotEmpty ();
   }
 
   @Nonnegative

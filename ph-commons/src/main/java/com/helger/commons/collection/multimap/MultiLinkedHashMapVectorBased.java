@@ -16,7 +16,6 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -24,12 +23,13 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.CommonsVector;
 import com.helger.commons.collection.ext.ICommonsList;
 
 /**
- * Multi map based on {@link LinkedHashMap} and {@link CommonsVector} values.
- * <br>
+ * Multi map based on {@link CommonsLinkedHashMap} and {@link CommonsVector}
+ * values. <br>
  *
  * @author Philip Helger
  * @param <KEYTYPE>

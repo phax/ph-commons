@@ -5,7 +5,7 @@ import java.util.LinkedHashSet;
 
 import javax.annotation.Nonnull;
 
-public class CommonsLinkedHashSet <T> extends LinkedHashSet <T> implements ICommonsSet <T>
+public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTYPE> implements ICommonsSet <ELEMENTTYPE>
 {
   public CommonsLinkedHashSet ()
   {}
@@ -20,7 +20,7 @@ public class CommonsLinkedHashSet <T> extends LinkedHashSet <T> implements IComm
     super (nInitialCapacity, fLoadFactor);
   }
 
-  public CommonsLinkedHashSet (@Nonnull final Collection <? extends T> aCont)
+  public CommonsLinkedHashSet (@Nonnull final Collection <? extends ELEMENTTYPE> aCont)
   {
     super (aCont);
   }

@@ -29,10 +29,6 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
 
   @Nonnull
   @ReturnsMutableCopy
-  ICommonsCollection <ELEMENTTYPE> getCopy ();
-
-  @Nonnull
-  @ReturnsMutableCopy
   default ICommonsList <ELEMENTTYPE> getCopyAsList ()
   {
     return CollectionHelper.newList (this);

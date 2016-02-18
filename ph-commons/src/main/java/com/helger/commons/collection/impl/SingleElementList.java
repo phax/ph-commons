@@ -27,6 +27,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
@@ -64,6 +65,13 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   {
     m_bHasElement = true;
     m_aElement = aElement;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsList <ELEMENTTYPE> getCopy ()
+  {
+    return m_bHasElement ? new SingleElementList <> (m_aElement) : new SingleElementList <> ();
   }
 
   public boolean add (@Nullable final ELEMENTTYPE aElement)

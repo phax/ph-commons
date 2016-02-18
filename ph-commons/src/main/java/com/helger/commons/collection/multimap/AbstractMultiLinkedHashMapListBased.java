@@ -22,10 +22,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
 
 /**
- * Abstract multi map based on {@link java.util.LinkedHashMap} and
+ * Abstract multi map based on {@link CommonsLinkedHashMap} and
  * {@link java.util.List} values.<br>
  *
  * @author Philip Helger

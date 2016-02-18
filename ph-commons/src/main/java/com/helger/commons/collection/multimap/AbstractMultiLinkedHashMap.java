@@ -27,7 +27,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 
 /**
- * Abstract multi map based on {@link java.util.LinkedHashMap}.
+ * Abstract multi map based on {@link CommonsLinkedHashMap}.
  *
  * @author Philip Helger
  * @param <KEYTYPE>

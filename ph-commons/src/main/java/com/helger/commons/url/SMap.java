@@ -25,7 +25,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
-import com.helger.commons.lang.ICloneable;
 import com.helger.commons.typeconvert.TypeConverter;
 
 /**
@@ -36,7 +35,7 @@ import com.helger.commons.typeconvert.TypeConverter;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class SMap extends CommonsLinkedHashMap <String, String> implements ICloneable <SMap>
+public class SMap extends CommonsLinkedHashMap <String, String>
 {
   /**
    * Create an empty map.
@@ -160,6 +159,7 @@ public class SMap extends CommonsLinkedHashMap <String, String> implements IClon
     return this;
   }
 
+  @Override
   @Nonnull
   public SMap getClone ()
   {

@@ -25,10 +25,11 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 
 /**
- * Multi map based on {@link java.util.LinkedHashMap} and
- * {@link java.util.HashSet} values.<br>
+ * Multi map based on {@link CommonsLinkedHashMap} and {@link java.util.HashSet}
+ * values.<br>
  *
  * @author Philip Helger
  * @param <KEYTYPE>

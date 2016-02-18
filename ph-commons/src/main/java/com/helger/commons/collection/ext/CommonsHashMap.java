@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.WrappedCollection;
 import com.helger.commons.collection.impl.WrappedSet;
 
@@ -61,5 +62,12 @@ public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUE
       return es;
     m_aEntrySet = new WrappedSet <> (super.entrySet ());
     return m_aEntrySet;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public CommonsHashMap <KEYTYPE, VALUETYPE> getClone ()
+  {
+    return new CommonsHashMap <> (this);
   }
 }

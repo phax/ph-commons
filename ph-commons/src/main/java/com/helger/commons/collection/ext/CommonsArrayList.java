@@ -5,7 +5,9 @@ import java.util.Collection;
 
 import javax.annotation.Nonnull;
 
-public class CommonsArrayList <T> extends ArrayList <T> implements ICommonsList <T>
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
+public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
 {
   public CommonsArrayList ()
   {}
@@ -15,8 +17,15 @@ public class CommonsArrayList <T> extends ArrayList <T> implements ICommonsList 
     super (nInitialCapacity);
   }
 
-  public CommonsArrayList (@Nonnull final Collection <? extends T> aCont)
+  public CommonsArrayList (@Nonnull final Collection <? extends ELEMENTTYPE> aCont)
   {
     super (aCont);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsList <ELEMENTTYPE> getCopy ()
+  {
+    return new CommonsArrayList <> (this);
   }
 }

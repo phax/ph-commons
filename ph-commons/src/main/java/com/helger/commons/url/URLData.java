@@ -16,8 +16,6 @@
  */
 package com.helger.commons.url;
 
-import java.util.Map;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,6 +25,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
@@ -46,7 +45,7 @@ public class URLData implements IURLData
   public static final URLData EMPTY_URL_DATA = new URLData ("");
 
   private final String m_sPath;
-  private final Map <String, String> m_aParams;
+  private final ICommonsMap <String, String> m_aParams;
   private final String m_sAnchor;
 
   public URLData (@Nonnull final String sPath)
@@ -54,13 +53,13 @@ public class URLData implements IURLData
     this (sPath, null, null);
   }
 
-  public URLData (@Nonnull final String sPath, @Nullable final Map <String, String> aParams)
+  public URLData (@Nonnull final String sPath, @Nullable final ICommonsMap <String, String> aParams)
   {
     this (sPath, aParams, null);
   }
 
   public URLData (@Nonnull final String sPath,
-                  @Nullable final Map <String, String> aParams,
+                  @Nullable final ICommonsMap <String, String> aParams,
                   @Nullable final String sAnchor)
   {
     m_sPath = ValueEnforcer.notNull (sPath, "Path");
@@ -87,16 +86,16 @@ public class URLData implements IURLData
 
   @Nullable
   @ReturnsMutableObject ("Performance reasons")
-  public Map <String, String> directGetAllParams ()
+  public ICommonsMap <String, String> directGetAllParams ()
   {
     return m_aParams;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public Map <String, String> getAllParams ()
+  public ICommonsMap <String, String> getAllParams ()
   {
-    return CollectionHelper.newOrderedMap (m_aParams);
+    return m_aParams.getClone ();
   }
 
   public boolean hasAnchor ()

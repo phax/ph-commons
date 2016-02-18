@@ -16,13 +16,13 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 
 public class MultiLinkedHashMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE>
                                                   extends
@@ -52,8 +52,8 @@ public class MultiLinkedHashMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Co
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  protected LinkedHashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
+  protected CommonsLinkedHashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
-    return new LinkedHashMap <KEYTYPE2, VALUETYPE> ();
+    return new CommonsLinkedHashMap <> ();
   }
 }

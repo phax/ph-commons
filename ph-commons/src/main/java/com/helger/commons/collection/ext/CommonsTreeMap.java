@@ -7,6 +7,7 @@ import java.util.TreeMap;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.WrappedCollection;
 import com.helger.commons.collection.impl.WrappedSet;
 
@@ -58,5 +59,14 @@ public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUE
       return es;
     m_aEntrySet = new WrappedSet <> (super.entrySet ());
     return m_aEntrySet;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public CommonsTreeMap <KEYTYPE, VALUETYPE> getClone ()
+  {
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = new CommonsTreeMap <> (comparator ());
+    ret.putAll (this);
+    return ret;
   }
 }

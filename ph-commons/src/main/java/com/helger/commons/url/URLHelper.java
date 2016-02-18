@@ -33,7 +33,6 @@ import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.util.BitSet;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.jar.JarEntry;
@@ -54,7 +53,9 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.file.FilenameHelper;
@@ -472,7 +473,7 @@ public final class URLHelper
         }
 
     String sPath;
-    Map <String, String> aParams = null;
+    ICommonsMap <String, String> aParams = null;
     String sAnchor;
 
     // First get the anchor out
@@ -508,10 +509,10 @@ public final class URLHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <String, String> getQueryStringAsMap (@Nullable final String sQueryString,
-                                                          @Nullable final IDecoder <String, String> aParameterDecoder)
+  public static ICommonsMap <String, String> getQueryStringAsMap (@Nullable final String sQueryString,
+                                                                  @Nullable final IDecoder <String, String> aParameterDecoder)
   {
-    final Map <String, String> aMap = new LinkedHashMap <> ();
+    final ICommonsMap <String, String> aMap = new CommonsLinkedHashMap <> ();
     if (StringHelper.hasText (sQueryString))
     {
       for (final String sKeyValuePair : StringHelper.getExploded (AMPERSAND, sQueryString))

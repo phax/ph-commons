@@ -15,10 +15,7 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>, ICommons
 {
   @Nonnull
   @ReturnsMutableCopy
-  default ICommonsList <ELEMENTTYPE> getCopy ()
-  {
-    return new CommonsArrayList <> (this);
-  }
+  ICommonsList <ELEMENTTYPE> getCopy ();
 
   @Nonnull
   @ReturnsMutableCopy

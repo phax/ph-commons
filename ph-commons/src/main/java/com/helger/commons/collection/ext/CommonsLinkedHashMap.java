@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.WrappedCollection;
 import com.helger.commons.collection.impl.WrappedSet;
 
@@ -31,6 +32,11 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
   public CommonsLinkedHashMap (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     super (aMap);
+  }
+
+  public CommonsLinkedHashMap (final int nInitialCapacity, final float fLoadFactor, final boolean bAccessOrder)
+  {
+    super (nInitialCapacity, fLoadFactor, bAccessOrder);
   }
 
   @Override
@@ -61,5 +67,12 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
       return es;
     m_aEntrySet = new WrappedSet <> (super.entrySet ());
     return m_aEntrySet;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public CommonsLinkedHashMap <KEYTYPE, VALUETYPE> getClone ()
+  {
+    return new CommonsLinkedHashMap <> (this);
   }
 }

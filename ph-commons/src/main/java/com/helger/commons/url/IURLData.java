@@ -17,7 +17,6 @@
 package com.helger.commons.url;
 
 import java.io.Serializable;
-import java.util.Map;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -25,6 +24,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.ext.ICommonsMap;
 
 /**
  * Base interface representing the basic elements of a URL from a high level
@@ -77,7 +77,7 @@ public interface IURLData extends Serializable
    */
   @Nullable
   @ReturnsMutableObject ("design")
-  Map <String, String> directGetAllParams ();
+  ICommonsMap <String, String> directGetAllParams ();
 
   /**
    * @return A map of all query string parameters in the order they were passed
@@ -85,7 +85,7 @@ public interface IURLData extends Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  Map <String, String> getAllParams ();
+  ICommonsMap <String, String> getAllParams ();
 
   /**
    * @return <code>true</code> if an anchor is present, <code>false</code>
