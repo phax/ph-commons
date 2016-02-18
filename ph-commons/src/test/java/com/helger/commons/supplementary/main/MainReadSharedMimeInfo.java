@@ -18,16 +18,16 @@ package com.helger.commons.supplementary.main;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.microdom.IMicroDocument;
@@ -88,7 +88,7 @@ public final class MainReadSharedMimeInfo
     for (final IMicroElement eSrcMimeType : aDoc.getDocumentElement ().getAllChildElements (NS, "mime-type"))
     {
       final String sMIMEType = eSrcMimeType.getAttributeValue ("type");
-      final Set <MimeTypeWithSource> aLocalNames = new LinkedHashSet <MimeTypeWithSource> ();
+      final ICommonsSet <MimeTypeWithSource> aLocalNames = new CommonsLinkedHashSet <> ();
 
       // Names
       aLocalNames.add (new MimeTypeWithSource (sMIMEType));
@@ -108,7 +108,7 @@ public final class MainReadSharedMimeInfo
         }
 
       // Sub class of
-      final Set <String> aSubClassOf = new LinkedHashSet <String> ();
+      final ICommonsSet <String> aSubClassOf = new CommonsLinkedHashSet <> ();
       for (final IMicroElement eSrcChild : eSrcMimeType.getAllChildElements (NS, "sub-class-of"))
       {
         final String s = eSrcChild.getAttributeValue ("type");
@@ -116,8 +116,8 @@ public final class MainReadSharedMimeInfo
       }
 
       boolean bHasAnyGlob = false;
-      final Set <String> aGlobs = new LinkedHashSet <String> ();
-      final Set <ExtensionWithSource> aExts = new LinkedHashSet <ExtensionWithSource> ();
+      final ICommonsSet <String> aGlobs = new CommonsLinkedHashSet <> ();
+      final ICommonsSet <ExtensionWithSource> aExts = new CommonsLinkedHashSet <> ();
       for (final IMicroElement eSrcChild : eSrcMimeType.getAllChildElements (NS, "glob"))
       {
         final String sPattern = eSrcChild.getAttributeValue ("pattern");
@@ -222,8 +222,8 @@ public final class MainReadSharedMimeInfo
           // Create a new entry
           aMgr.registerMimeType (new MimeTypeInfo (CollectionHelper.newSet (new MimeTypeWithSource (sOldMimeType)),
                                                    null,
-                                                   new HashSet <> (),
-                                                   new HashSet <> (),
+                                                   new CommonsHashSet <> (),
+                                                   new CommonsHashSet <> (),
                                                    CollectionHelper.newSet (new ExtensionWithSource (sOldExt)),
                                                    "old"));
           if (false)

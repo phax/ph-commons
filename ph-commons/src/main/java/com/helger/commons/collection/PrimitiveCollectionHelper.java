@@ -16,16 +16,16 @@
  */
 package com.helger.commons.collection;
 
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.PriorityQueue;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.CommonsTreeSet;
 import com.helger.commons.collection.ext.CommonsVector;
 import com.helger.commons.collection.impl.NonBlockingStack;
 
@@ -220,9 +220,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Boolean> newPrimitiveSet (@Nullable final boolean... aValues)
+  public static CommonsHashSet <Boolean> newPrimitiveSet (@Nullable final boolean... aValues)
   {
-    final HashSet <Boolean> ret = CollectionHelper.newSet ();
+    final CommonsHashSet <Boolean> ret = CollectionHelper.newSet ();
     if (aValues != null)
       for (final boolean aValue : aValues)
         ret.add (Boolean.valueOf (aValue));
@@ -231,9 +231,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Byte> newPrimitiveSet (@Nullable final byte... aValues)
+  public static CommonsHashSet <Byte> newPrimitiveSet (@Nullable final byte... aValues)
   {
-    final HashSet <Byte> ret = CollectionHelper.newSet ();
+    final CommonsHashSet <Byte> ret = CollectionHelper.newSet ();
     if (aValues != null)
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
@@ -242,9 +242,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Character> newPrimitiveSet (@Nullable final char... aValues)
+  public static CommonsHashSet <Character> newPrimitiveSet (@Nullable final char... aValues)
   {
-    final HashSet <Character> ret = CollectionHelper.newSet ();
+    final CommonsHashSet <Character> ret = CollectionHelper.newSet ();
     if (aValues != null)
       for (final char aValue : aValues)
         ret.add (Character.valueOf (aValue));
@@ -253,9 +253,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Double> newPrimitiveSet (@Nullable final double... aValues)
+  public static CommonsHashSet <Double> newPrimitiveSet (@Nullable final double... aValues)
   {
-    final HashSet <Double> ret = CollectionHelper.newSet ();
+    final CommonsHashSet <Double> ret = CollectionHelper.newSet ();
     if (aValues != null)
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
@@ -264,9 +264,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Float> newPrimitiveSet (@Nullable final float... aValues)
+  public static CommonsHashSet <Float> newPrimitiveSet (@Nullable final float... aValues)
   {
-    final HashSet <Float> ret = CollectionHelper.newSet ();
+    final CommonsHashSet <Float> ret = CollectionHelper.newSet ();
     if (aValues != null)
       for (final float aValue : aValues)
         ret.add (Float.valueOf (aValue));
@@ -275,9 +275,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Integer> newPrimitiveSet (@Nullable final int... aValues)
+  public static CommonsHashSet <Integer> newPrimitiveSet (@Nullable final int... aValues)
   {
-    final HashSet <Integer> ret = CollectionHelper.newSet ();
+    final CommonsHashSet <Integer> ret = CollectionHelper.newSet ();
     if (aValues != null)
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
@@ -286,9 +286,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Long> newPrimitiveSet (@Nullable final long... aValues)
+  public static CommonsHashSet <Long> newPrimitiveSet (@Nullable final long... aValues)
   {
-    final HashSet <Long> ret = CollectionHelper.newSet ();
+    final CommonsHashSet <Long> ret = CollectionHelper.newSet ();
     if (aValues != null)
       for (final long aValue : aValues)
         ret.add (Long.valueOf (aValue));
@@ -297,9 +297,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static HashSet <Short> newPrimitiveSet (@Nullable final short... aValues)
+  public static CommonsHashSet <Short> newPrimitiveSet (@Nullable final short... aValues)
   {
-    final HashSet <Short> ret = CollectionHelper.newSet ();
+    final CommonsHashSet <Short> ret = CollectionHelper.newSet ();
     if (aValues != null)
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
@@ -308,9 +308,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Boolean> newPrimitiveOrderedSet (@Nullable final boolean... aValues)
+  public static CommonsLinkedHashSet <Boolean> newPrimitiveOrderedSet (@Nullable final boolean... aValues)
   {
-    final LinkedHashSet <Boolean> ret = CollectionHelper.newOrderedSet ();
+    final CommonsLinkedHashSet <Boolean> ret = CollectionHelper.newOrderedSet ();
     if (aValues != null)
       for (final boolean aValue : aValues)
         ret.add (Boolean.valueOf (aValue));
@@ -319,9 +319,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Byte> newPrimitiveOrderedSet (@Nullable final byte... aValues)
+  public static CommonsLinkedHashSet <Byte> newPrimitiveOrderedSet (@Nullable final byte... aValues)
   {
-    final LinkedHashSet <Byte> ret = CollectionHelper.newOrderedSet ();
+    final CommonsLinkedHashSet <Byte> ret = CollectionHelper.newOrderedSet ();
     if (aValues != null)
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
@@ -330,9 +330,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Character> newPrimitiveOrderedSet (@Nullable final char... aValues)
+  public static CommonsLinkedHashSet <Character> newPrimitiveOrderedSet (@Nullable final char... aValues)
   {
-    final LinkedHashSet <Character> ret = CollectionHelper.newOrderedSet ();
+    final CommonsLinkedHashSet <Character> ret = CollectionHelper.newOrderedSet ();
     if (aValues != null)
       for (final char aValue : aValues)
         ret.add (Character.valueOf (aValue));
@@ -341,9 +341,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Double> newPrimitiveOrderedSet (@Nullable final double... aValues)
+  public static CommonsLinkedHashSet <Double> newPrimitiveOrderedSet (@Nullable final double... aValues)
   {
-    final LinkedHashSet <Double> ret = CollectionHelper.newOrderedSet ();
+    final CommonsLinkedHashSet <Double> ret = CollectionHelper.newOrderedSet ();
     if (aValues != null)
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
@@ -352,9 +352,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Float> newPrimitiveOrderedSet (@Nullable final float... aValues)
+  public static CommonsLinkedHashSet <Float> newPrimitiveOrderedSet (@Nullable final float... aValues)
   {
-    final LinkedHashSet <Float> ret = CollectionHelper.newOrderedSet ();
+    final CommonsLinkedHashSet <Float> ret = CollectionHelper.newOrderedSet ();
     if (aValues != null)
       for (final float aValue : aValues)
         ret.add (Float.valueOf (aValue));
@@ -363,9 +363,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Integer> newPrimitiveOrderedSet (@Nullable final int... aValues)
+  public static CommonsLinkedHashSet <Integer> newPrimitiveOrderedSet (@Nullable final int... aValues)
   {
-    final LinkedHashSet <Integer> ret = CollectionHelper.newOrderedSet ();
+    final CommonsLinkedHashSet <Integer> ret = CollectionHelper.newOrderedSet ();
     if (aValues != null)
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
@@ -374,9 +374,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Long> newPrimitiveOrderedSet (@Nullable final long... aValues)
+  public static CommonsLinkedHashSet <Long> newPrimitiveOrderedSet (@Nullable final long... aValues)
   {
-    final LinkedHashSet <Long> ret = CollectionHelper.newOrderedSet ();
+    final CommonsLinkedHashSet <Long> ret = CollectionHelper.newOrderedSet ();
     if (aValues != null)
       for (final long aValue : aValues)
         ret.add (Long.valueOf (aValue));
@@ -385,9 +385,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <Short> newPrimitiveOrderedSet (@Nullable final short... aValues)
+  public static CommonsLinkedHashSet <Short> newPrimitiveOrderedSet (@Nullable final short... aValues)
   {
-    final LinkedHashSet <Short> ret = CollectionHelper.newOrderedSet ();
+    final CommonsLinkedHashSet <Short> ret = CollectionHelper.newOrderedSet ();
     if (aValues != null)
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));
@@ -396,9 +396,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Boolean> newPrimitiveSortedSet (@Nullable final boolean... aValues)
+  public static CommonsTreeSet <Boolean> newPrimitiveSortedSet (@Nullable final boolean... aValues)
   {
-    final TreeSet <Boolean> ret = CollectionHelper.newSortedSet ();
+    final CommonsTreeSet <Boolean> ret = CollectionHelper.newSortedSet ();
     if (aValues != null)
       for (final boolean aValue : aValues)
         ret.add (Boolean.valueOf (aValue));
@@ -407,9 +407,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Byte> newPrimitiveSortedSet (@Nullable final byte... aValues)
+  public static CommonsTreeSet <Byte> newPrimitiveSortedSet (@Nullable final byte... aValues)
   {
-    final TreeSet <Byte> ret = CollectionHelper.newSortedSet ();
+    final CommonsTreeSet <Byte> ret = CollectionHelper.newSortedSet ();
     if (aValues != null)
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
@@ -418,9 +418,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Character> newPrimitiveSortedSet (@Nullable final char... aValues)
+  public static CommonsTreeSet <Character> newPrimitiveSortedSet (@Nullable final char... aValues)
   {
-    final TreeSet <Character> ret = CollectionHelper.newSortedSet ();
+    final CommonsTreeSet <Character> ret = CollectionHelper.newSortedSet ();
     if (aValues != null)
       for (final char aValue : aValues)
         ret.add (Character.valueOf (aValue));
@@ -429,9 +429,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Double> newPrimitiveSortedSet (@Nullable final double... aValues)
+  public static CommonsTreeSet <Double> newPrimitiveSortedSet (@Nullable final double... aValues)
   {
-    final TreeSet <Double> ret = CollectionHelper.newSortedSet ();
+    final CommonsTreeSet <Double> ret = CollectionHelper.newSortedSet ();
     if (aValues != null)
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
@@ -440,9 +440,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Float> newPrimitiveSortedSet (@Nullable final float... aValues)
+  public static CommonsTreeSet <Float> newPrimitiveSortedSet (@Nullable final float... aValues)
   {
-    final TreeSet <Float> ret = CollectionHelper.newSortedSet ();
+    final CommonsTreeSet <Float> ret = CollectionHelper.newSortedSet ();
     if (aValues != null)
       for (final float aValue : aValues)
         ret.add (Float.valueOf (aValue));
@@ -451,9 +451,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Integer> newPrimitiveSortedSet (@Nullable final int... aValues)
+  public static CommonsTreeSet <Integer> newPrimitiveSortedSet (@Nullable final int... aValues)
   {
-    final TreeSet <Integer> ret = CollectionHelper.newSortedSet ();
+    final CommonsTreeSet <Integer> ret = CollectionHelper.newSortedSet ();
     if (aValues != null)
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
@@ -462,9 +462,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Long> newPrimitiveSortedSet (@Nullable final long... aValues)
+  public static CommonsTreeSet <Long> newPrimitiveSortedSet (@Nullable final long... aValues)
   {
-    final TreeSet <Long> ret = CollectionHelper.newSortedSet ();
+    final CommonsTreeSet <Long> ret = CollectionHelper.newSortedSet ();
     if (aValues != null)
       for (final long aValue : aValues)
         ret.add (Long.valueOf (aValue));
@@ -473,9 +473,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <Short> newPrimitiveSortedSet (@Nullable final short... aValues)
+  public static CommonsTreeSet <Short> newPrimitiveSortedSet (@Nullable final short... aValues)
   {
-    final TreeSet <Short> ret = CollectionHelper.newSortedSet ();
+    final CommonsTreeSet <Short> ret = CollectionHelper.newSortedSet ();
     if (aValues != null)
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));

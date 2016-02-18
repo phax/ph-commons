@@ -16,14 +16,13 @@
  */
 package com.helger.commons.mime;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.convert.IMicroTypeConverter;
@@ -56,7 +55,7 @@ public final class MimeTypeInfoMicroTypeConverterRegistrar implements IMicroType
     @Nullable
     public MimeTypeInfo convertToNative (@Nonnull final IMicroElement aElement)
     {
-      final Set <MimeTypeWithSource> aMimeTypes = new LinkedHashSet <MimeTypeWithSource> ();
+      final ICommonsSet <MimeTypeWithSource> aMimeTypes = new CommonsLinkedHashSet <> ();
       for (final IMicroElement eMimeType : aElement.getAllChildElements (ELEMENT_MIMETYPE))
       {
         final MimeType aMimeType = MimeTypeParser.parseMimeType (eMimeType.getTextContentTrimmed ());
@@ -66,15 +65,15 @@ public final class MimeTypeInfoMicroTypeConverterRegistrar implements IMicroType
 
       final String sComment = MicroHelper.getChildTextContent (aElement, ELEMENT_COMMENT);
 
-      final Set <String> aParentTypes = new LinkedHashSet <String> ();
+      final ICommonsSet <String> aParentTypes = new CommonsLinkedHashSet <> ();
       for (final IMicroElement eParentType : aElement.getAllChildElements (ELEMENT_PARENT_TYPE))
         aParentTypes.add (eParentType.getTextContentTrimmed ());
 
-      final Set <String> aGlobs = new LinkedHashSet <String> ();
+      final ICommonsSet <String> aGlobs = new CommonsLinkedHashSet <> ();
       for (final IMicroElement eGlob : aElement.getAllChildElements (ELEMENT_GLOB))
         aGlobs.add (eGlob.getTextContentTrimmed ());
 
-      final Set <ExtensionWithSource> aExtensions = new LinkedHashSet <ExtensionWithSource> ();
+      final ICommonsSet <ExtensionWithSource> aExtensions = new CommonsLinkedHashSet <> ();
       for (final IMicroElement eExtension : aElement.getAllChildElements (ELEMENT_EXTENSION))
       {
         // May be null if the empty extension ("") is used

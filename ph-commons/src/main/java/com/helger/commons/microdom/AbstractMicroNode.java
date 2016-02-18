@@ -17,7 +17,6 @@
 package com.helger.commons.microdom;
 
 import java.util.EnumMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -30,7 +29,9 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.typeconvert.TypeConverter;
@@ -47,7 +48,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 {
   /** The parent node of this node. */
   private AbstractMicroNodeWithChildren m_aParentNode;
-  private Map <EMicroEvent, Set <IMicroEventTarget>> m_aEventTargets;
+  private Map <EMicroEvent, ICommonsSet <IMicroEventTarget>> m_aEventTargets;
 
   /**
    * Callback that is invoked once a child is to be appended.
@@ -578,11 +579,11 @@ public abstract class AbstractMicroNode implements IMicroNode
     ValueEnforcer.notNull (aTarget, "EventTarget");
 
     if (m_aEventTargets == null)
-      m_aEventTargets = new EnumMap <EMicroEvent, Set <IMicroEventTarget>> (EMicroEvent.class);
-    Set <IMicroEventTarget> aSet = m_aEventTargets.get (eEventType);
+      m_aEventTargets = new EnumMap <> (EMicroEvent.class);
+    ICommonsSet <IMicroEventTarget> aSet = m_aEventTargets.get (eEventType);
     if (aSet == null)
     {
-      aSet = new LinkedHashSet <IMicroEventTarget> ();
+      aSet = new CommonsLinkedHashSet <> ();
       m_aEventTargets.put (eEventType, aSet);
     }
     return EChange.valueOf (aSet.add (aTarget));
@@ -596,7 +597,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 
     if (m_aEventTargets != null && !m_aEventTargets.isEmpty ())
     {
-      final Set <IMicroEventTarget> aSet = m_aEventTargets.get (eEventType);
+      final ICommonsSet <IMicroEventTarget> aSet = m_aEventTargets.get (eEventType);
       if (aSet != null && !aSet.isEmpty ())
         return EChange.valueOf (aSet.remove (aTarget));
     }

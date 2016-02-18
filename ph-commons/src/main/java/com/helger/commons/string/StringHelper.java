@@ -22,12 +22,10 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
 
@@ -47,6 +45,8 @@ import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.CommonsTreeSet;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.function.ICharConsumer;
 import com.helger.commons.math.MathHelper;
@@ -1904,8 +1904,9 @@ public final class StringHelper
   }
 
   /**
-   * Take a concatenated String and return an ordered {@link LinkedHashSet} of
-   * all elements in the passed string, using specified separator string.
+   * Take a concatenated String and return an ordered
+   * {@link CommonsLinkedHashSet} of all elements in the passed string, using
+   * specified separator string.
    *
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
@@ -1918,15 +1919,15 @@ public final class StringHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static LinkedHashSet <String> getExplodedToOrderedSet (@Nonnull final String sSep,
-                                                                @Nullable final String sElements)
+  public static CommonsLinkedHashSet <String> getExplodedToOrderedSet (@Nonnull final String sSep,
+                                                                       @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new LinkedHashSet <> ());
+    return getExploded (sSep, sElements, -1, new CommonsLinkedHashSet <> ());
   }
 
   /**
-   * Take a concatenated String and return a sorted {@link TreeSet} of all
-   * elements in the passed string, using specified separator string.
+   * Take a concatenated String and return a sorted {@link CommonsTreeSet} of
+   * all elements in the passed string, using specified separator string.
    *
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
@@ -1939,9 +1940,10 @@ public final class StringHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static TreeSet <String> getExplodedToSortedSet (@Nonnull final String sSep, @Nullable final String sElements)
+  public static CommonsTreeSet <String> getExplodedToSortedSet (@Nonnull final String sSep,
+                                                                @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new TreeSet <> ());
+    return getExploded (sSep, sElements, -1, new CommonsTreeSet <> ());
   }
 
   /**

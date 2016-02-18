@@ -17,8 +17,6 @@
 package com.helger.commons.xml.serialize.write;
 
 import java.util.BitSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,6 +25,8 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 
 /**
  * This class contains XML utility methods for character handling.
@@ -709,21 +709,21 @@ public final class XMLCharHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static Set <Character> getAllInvalidXMLNameChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                           @Nullable final String s)
+  public static ICommonsSet <Character> getAllInvalidXMLNameChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                   @Nullable final String s)
   {
     return s == null ? null : getAllInvalidXMLNameChars (eXMLVersion, s.toCharArray ());
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public static Set <Character> getAllInvalidXMLNameChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                           @Nullable final char [] aChars)
+  public static ICommonsSet <Character> getAllInvalidXMLNameChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                   @Nullable final char [] aChars)
   {
     if (ArrayHelper.isEmpty (aChars))
       return null;
 
-    final Set <Character> aRes = new LinkedHashSet <> ();
+    final ICommonsSet <Character> aRes = new CommonsLinkedHashSet <> ();
     int nIndex = 0;
     for (final char c : aChars)
     {
@@ -784,21 +784,21 @@ public final class XMLCharHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static Set <Character> getAllInvalidXMLTextChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                           @Nullable final String s)
+  public static ICommonsSet <Character> getAllInvalidXMLTextChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                   @Nullable final String s)
   {
     return s == null ? null : getAllInvalidXMLTextChars (eXMLVersion, s.toCharArray ());
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public static Set <Character> getAllInvalidXMLTextChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                           @Nullable final char [] aChars)
+  public static ICommonsSet <Character> getAllInvalidXMLTextChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                   @Nullable final char [] aChars)
   {
     if (ArrayHelper.isEmpty (aChars))
       return null;
 
-    final Set <Character> aRes = new LinkedHashSet <> ();
+    final ICommonsSet <Character> aRes = new CommonsLinkedHashSet <> ();
     for (final char c : aChars)
       if (isInvalidXMLTextChar (eXMLVersion, c))
         aRes.add (Character.valueOf (c));
@@ -847,21 +847,21 @@ public final class XMLCharHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static Set <Character> getAllInvalidXMLCDATAChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                            @Nullable final String s)
+  public static ICommonsSet <Character> getAllInvalidXMLCDATAChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                    @Nullable final String s)
   {
     return s == null ? null : getAllInvalidXMLCDATAChars (eXMLVersion, s.toCharArray ());
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public static Set <Character> getAllInvalidXMLCDATAChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                            @Nullable final char [] aChars)
+  public static ICommonsSet <Character> getAllInvalidXMLCDATAChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                    @Nullable final char [] aChars)
   {
     if (ArrayHelper.isEmpty (aChars))
       return null;
 
-    final Set <Character> aRes = new LinkedHashSet <Character> ();
+    final ICommonsSet <Character> aRes = new CommonsLinkedHashSet <> ();
     for (final char c : aChars)
       if (isInvalidXMLCDATAChar (eXMLVersion, c))
         aRes.add (Character.valueOf (c));
@@ -910,21 +910,21 @@ public final class XMLCharHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static Set <Character> getAllInvalidXMLAttributeValueChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                                     @Nullable final String s)
+  public static ICommonsSet <Character> getAllInvalidXMLAttributeValueChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                             @Nullable final String s)
   {
     return s == null ? null : getAllInvalidXMLAttributeValueChars (eXMLVersion, s.toCharArray ());
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public static Set <Character> getAllInvalidXMLAttributeValueChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                                     @Nullable final char [] aChars)
+  public static ICommonsSet <Character> getAllInvalidXMLAttributeValueChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                             @Nullable final char [] aChars)
   {
     if (ArrayHelper.isEmpty (aChars))
       return null;
 
-    final Set <Character> aRes = new LinkedHashSet <> ();
+    final ICommonsSet <Character> aRes = new CommonsLinkedHashSet <> ();
     for (final char c : aChars)
       if (isInvalidXMLAttributeValueChar (eXMLVersion, c))
         aRes.add (Character.valueOf (c));
@@ -961,18 +961,18 @@ public final class XMLCharHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static Set <Character> getAllInvalidXMLChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                       @Nonnull final EXMLCharMode eXMLCharMode,
-                                                       @Nullable final String s)
+  public static ICommonsSet <Character> getAllInvalidXMLChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                               @Nonnull final EXMLCharMode eXMLCharMode,
+                                                               @Nullable final String s)
   {
     return s == null ? null : getAllInvalidXMLChars (eXMLVersion, eXMLCharMode, s.toCharArray ());
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public static Set <Character> getAllInvalidXMLChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                       @Nonnull final EXMLCharMode eXMLCharMode,
-                                                       @Nullable final char [] aChars)
+  public static ICommonsSet <Character> getAllInvalidXMLChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                               @Nonnull final EXMLCharMode eXMLCharMode,
+                                                               @Nullable final char [] aChars)
   {
     switch (eXMLCharMode)
     {

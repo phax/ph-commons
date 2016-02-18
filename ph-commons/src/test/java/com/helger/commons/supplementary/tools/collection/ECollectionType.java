@@ -20,14 +20,14 @@ import javax.annotation.Nonnull;
 
 enum ECollectionType
 {
-  LIST ("CommonsList", "List", "List"),
+  LIST ("CommonsArrayList", "List", "List"),
   VECTOR ("CommonsVector", "List", "Vector"),
-  SET ("HashSet", "Set", "Set"),
-  ORDERED_SET ("LinkedHashSet", "Set", "OrderedSet"),
-  SORTED_SET ("TreeSet", "Set", "SortedSet"),
-  MAP ("HashMap", "Map", "Map"),
-  ORDERED_MAP ("LinkedHashMap", "Map", "OrderedMap"),
-  SORTED_MAP ("TreeMap", "Map", "SortedMap"),
+  SET ("CommonsHashSet", "Set", "Set"),
+  ORDERED_SET ("CommonsLinkedHashSet", "Set", "OrderedSet"),
+  SORTED_SET ("CommonsTreeSet", "Set", "SortedSet"),
+  MAP ("CommonsHashMap", "Map", "Map"),
+  ORDERED_MAP ("CommonsLinkedHashMap", "Map", "OrderedMap"),
+  SORTED_MAP ("CommonsTreeMap", "Map", "SortedMap"),
   STACK ("NonBlockingStack", "List", "Stack"),
   QUEUE ("PriorityQueue", "Collection", "Queue");
 

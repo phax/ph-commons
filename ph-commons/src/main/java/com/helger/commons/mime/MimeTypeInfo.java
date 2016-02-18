@@ -16,9 +16,7 @@
  */
 package com.helger.commons.mime;
 
-import java.util.LinkedHashSet;
 import java.util.Locale;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,6 +26,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
@@ -176,18 +176,18 @@ public final class MimeTypeInfo
     }
   }
 
-  private final Set <MimeTypeWithSource> m_aMimeTypes;
+  private final ICommonsSet <MimeTypeWithSource> m_aMimeTypes;
   private final String m_sComment;
-  private final Set <String> m_aParentTypes;
-  private final Set <String> m_aGlobs;
-  private final Set <ExtensionWithSource> m_aExtensions;
+  private final ICommonsSet <String> m_aParentTypes;
+  private final ICommonsSet <String> m_aGlobs;
+  private final ICommonsSet <ExtensionWithSource> m_aExtensions;
   private final String m_sSource;
 
-  public MimeTypeInfo (@Nonnull @Nonempty final Set <MimeTypeWithSource> aMimeTypes,
+  public MimeTypeInfo (@Nonnull @Nonempty final ICommonsSet <MimeTypeWithSource> aMimeTypes,
                        @Nullable final String sComment,
-                       @Nonnull final Set <String> aParentTypes,
-                       @Nonnull final Set <String> aGlobs,
-                       @Nonnull final Set <ExtensionWithSource> aExtensions,
+                       @Nonnull final ICommonsSet <String> aParentTypes,
+                       @Nonnull final ICommonsSet <String> aGlobs,
+                       @Nonnull final ICommonsSet <ExtensionWithSource> aExtensions,
                        @Nullable final String sSource)
   {
     ValueEnforcer.notEmptyNoNullValue (aMimeTypes, "MimeTypes");
@@ -205,31 +205,25 @@ public final class MimeTypeInfo
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public Set <MimeTypeWithSource> getAllMimeTypesWithSource ()
+  public ICommonsSet <MimeTypeWithSource> getAllMimeTypesWithSource ()
   {
-    return CollectionHelper.newOrderedSet (m_aMimeTypes);
+    return m_aMimeTypes.getClone ();
   }
 
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public Set <IMimeType> getAllMimeTypes ()
+  public ICommonsSet <IMimeType> getAllMimeTypes ()
   {
-    final Set <IMimeType> ret = new LinkedHashSet <IMimeType> ();
-    for (final MimeTypeWithSource aItem : m_aMimeTypes)
-      ret.add (aItem.getMimeType ());
-    return ret;
+    return m_aMimeTypes.getAllMapped (MimeTypeWithSource::getMimeType);
   }
 
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public Set <String> getAllMimeTypeStrings ()
+  public ICommonsSet <String> getAllMimeTypeStrings ()
   {
-    final Set <String> ret = new LinkedHashSet <String> ();
-    for (final MimeTypeWithSource aItem : m_aMimeTypes)
-      ret.add (aItem.getMimeTypeAsString ());
-    return ret;
+    return m_aMimeTypes.getAllMapped (MimeTypeWithSource::getMimeTypeAsString);
   }
 
   public boolean containsMimeType (@Nullable final IMimeType aMimeType)
@@ -281,7 +275,7 @@ public final class MimeTypeInfo
 
   @Nonnull
   @ReturnsMutableCopy
-  public Set <String> getAllParentTypes ()
+  public ICommonsSet <String> getAllParentTypes ()
   {
     return CollectionHelper.newOrderedSet (m_aParentTypes);
   }
@@ -293,7 +287,7 @@ public final class MimeTypeInfo
 
   @Nonnull
   @ReturnsMutableCopy
-  public Set <String> getAllGlobs ()
+  public ICommonsSet <String> getAllGlobs ()
   {
     return CollectionHelper.newOrderedSet (m_aGlobs);
   }
@@ -306,21 +300,21 @@ public final class MimeTypeInfo
 
   public boolean hasAnyGlob ()
   {
-    return !m_aGlobs.isEmpty ();
+    return m_aGlobs.isNotEmpty ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public Set <ExtensionWithSource> getAllExtensionsWithSource ()
+  public ICommonsSet <ExtensionWithSource> getAllExtensionsWithSource ()
   {
     return CollectionHelper.newOrderedSet (m_aExtensions);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public Set <String> getAllExtensions ()
+  public ICommonsSet <String> getAllExtensions ()
   {
-    final Set <String> ret = new LinkedHashSet <String> ();
+    final ICommonsSet <String> ret = new CommonsLinkedHashSet <> ();
     for (final ExtensionWithSource aItem : m_aExtensions)
       ret.add (aItem.getExtension ());
     return ret;

@@ -17,8 +17,6 @@
 package com.helger.commons.microdom;
 
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -26,6 +24,8 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.state.EChange;
 
 /**
@@ -245,7 +245,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nullable
   @ReturnsMutableCopy
-  Map <IMicroQName, String> getAllQAttributes ();
+  ICommonsMap <IMicroQName, String> getAllQAttributes ();
 
   /**
    * Get a set of all attribute names. Is ensured to be not <code>null</code> if
@@ -255,7 +255,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nullable
   @ReturnsMutableCopy
-  Set <String> getAllAttributeNames ();
+  ICommonsSet <String> getAllAttributeNames ();
 
   /**
    * Get a set of all attribute names. Is ensured to be not <code>null</code> if
@@ -265,7 +265,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nullable
   @ReturnsMutableCopy
-  Set <IMicroQName> getAllAttributeQNames ();
+  ICommonsSet <IMicroQName> getAllAttributeQNames ();
 
   /**
    * Get a set of all attribute values. Is ensured to be not <code>null</code>

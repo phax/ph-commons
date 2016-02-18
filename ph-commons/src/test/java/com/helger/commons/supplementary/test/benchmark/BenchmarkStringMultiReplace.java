@@ -151,7 +151,7 @@ public final class BenchmarkStringMultiReplace extends AbstractBenchmarkTask
 
     public void run ()
     {
-      final Map <String, String> aMap = new LinkedHashMap <String, String> ();
+      final Map <String, String> aMap = new LinkedHashMap <> ();
       for (int i = 0; i < RSRC.length; ++i)
         aMap.put (RSRC[i], RDST[i]);
 

@@ -17,9 +17,6 @@
 package com.helger.commons.microdom;
 
 import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -34,6 +31,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.collection.iterate.EmptyIterator;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.equals.EqualsHelper;
@@ -55,7 +54,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   private String m_sNamespaceURI;
   private final String m_sTagName;
-  private Map <IMicroQName, MicroAttribute> m_aAttrs;
+  private ICommonsMap <IMicroQName, MicroAttribute> m_aAttrs;
 
   public MicroElement (@Nonnull @Nonempty final String sTagName)
   {
@@ -139,11 +138,11 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   @Nullable
   @ReturnsMutableCopy
-  public Map <IMicroQName, String> getAllQAttributes ()
+  public ICommonsMap <IMicroQName, String> getAllQAttributes ()
   {
     if (hasNoAttributes ())
       return null;
-    final Map <IMicroQName, String> ret = CollectionHelper.newOrderedMap ();
+    final ICommonsMap <IMicroQName, String> ret = CollectionHelper.newOrderedMap ();
     for (final MicroAttribute aAttr : m_aAttrs.values ())
       ret.put (aAttr.getAttributeQName (), aAttr.getAttributeValue ());
     return ret;
@@ -151,23 +150,20 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   @Nullable
   @ReturnsMutableCopy
-  public Set <String> getAllAttributeNames ()
+  public ICommonsSet <String> getAllAttributeNames ()
   {
     if (hasNoAttributes ())
       return null;
-    final Set <String> ret = new LinkedHashSet <String> ();
-    for (final IMicroQName aName : m_aAttrs.keySet ())
-      ret.add (aName.getName ());
-    return ret;
+    return m_aAttrs.keySet ().getAllMapped (IMicroQName::getName);
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public Set <IMicroQName> getAllAttributeQNames ()
+  public ICommonsSet <IMicroQName> getAllAttributeQNames ()
   {
     if (hasNoAttributes ())
       return null;
-    return CollectionHelper.newOrderedSet (m_aAttrs.keySet ());
+    return m_aAttrs.keySet ().getClone ();
   }
 
   @Nullable
