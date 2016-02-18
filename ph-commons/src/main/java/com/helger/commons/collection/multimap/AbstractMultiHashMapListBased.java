@@ -26,7 +26,7 @@ import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Abstract multi map based on {@link java.util.HashMap} and
- * {@link java.util.List} values.<br>
+ * {@link ICommonsList} values.<br>
  *
  * @author Philip Helger
  * @param <KEYTYPE>

@@ -22,8 +22,6 @@ import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -40,6 +38,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.callback.IThrowingRunnable;
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.collection.ext.CommonsVector;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.ManagedExecutorService;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.io.file.FileHelper;
@@ -352,7 +352,7 @@ public final class CommonsTestHelper
 
     // More than 20s thread would be overkill!
     final ExecutorService aES = Executors.newFixedThreadPool (20);
-    final List <String> aErrors = new ArrayList <> ();
+    final ICommonsList <String> aErrors = new CommonsVector <> ();
     for (int i = 0; i < nCalls; ++i)
     {
       aES.submit ( () -> {

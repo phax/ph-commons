@@ -26,7 +26,7 @@ import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Abstract multi map based on {@link java.util.concurrent.ConcurrentHashMap}
- * and {@link java.util.List} values.<br>
+ * and {@link ICommonsList} values.<br>
  * Important note: <code>null</code> keys are not allowed here!
  *
  * @author Philip Helger

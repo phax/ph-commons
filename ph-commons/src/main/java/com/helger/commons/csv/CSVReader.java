@@ -468,7 +468,7 @@ public class CSVReader implements Closeable, Iterable <ICommonsList <String>>
   /**
    * Creates an Iterator for processing the csv data.
    *
-   * @return an List&lt;String&gt; iterator.
+   * @return an ICommonsList&lt;String&gt; iterator.
    */
   @Nonnull
   public Iterator <ICommonsList <String>> iterator ()

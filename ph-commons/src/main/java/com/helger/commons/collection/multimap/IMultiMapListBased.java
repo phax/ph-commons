@@ -16,8 +16,6 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,7 +24,7 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.state.EChange;
 
 /**
- * Interface for a multi map that uses a {@link List} for the storage.
+ * Interface for a multi map that uses a {@link ICommonsList} for the storage.
  *
  * @author Philip Helger
  * @param <KEYTYPE>

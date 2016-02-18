@@ -16,7 +16,6 @@
  */
 package com.helger.commons.locale;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -37,6 +36,8 @@ import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.cache.AbstractNotifyingCache;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -73,7 +74,7 @@ public final class LocaleHelper
         return null;
 
       // List has a maximum of 3 entries
-      final List <Locale> ret = new ArrayList <> (3);
+      final ICommonsList <Locale> ret = new CommonsArrayList <> (3);
       final String sLanguage = aBaseLocale.getLanguage ();
       if (sLanguage.length () > 0)
       {
@@ -94,7 +95,7 @@ public final class LocaleHelper
           }
         }
       }
-      return CollectionHelper.makeUnmodifiable (ret);
+      return ret.getAsUnmodifiable ();
     }
   }
 

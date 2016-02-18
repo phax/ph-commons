@@ -16,15 +16,15 @@
  */
 package com.helger.commons.tree.withid.folder;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.aggregate.IAggregator;
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -103,9 +103,7 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
     if (aParent == null)
       return getID ();
 
-    final List <KEYTYPE> aList = new ArrayList <> ();
-    aList.add (aParent.getGlobalUniqueDataID ());
-    aList.add (getID ());
+    final ICommonsList <KEYTYPE> aList = CollectionHelper.newList (aParent.getGlobalUniqueDataID (), getID ());
     return m_aKeyCombinator.apply (aList);
   }
 

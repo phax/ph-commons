@@ -18,7 +18,6 @@ package com.helger.commons.collection.impl;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.ListIterator;
 
 import javax.annotation.Nonnegative;
@@ -42,8 +41,8 @@ import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Implementation of the {@link List} interface handling exactly one element and
- * no more!
+ * Implementation of the {@link ICommonsList} interface handling exactly one
+ * element and no more!
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>

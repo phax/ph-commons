@@ -18,7 +18,6 @@ package com.helger.commons.tree.withid;
 
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -430,7 +429,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
       return EChange.UNCHANGED;
 
     // Remember all children
-    final List <ITEMTYPE> aAllChildren = m_aChildren.getClone ();
+    final ICommonsList <ITEMTYPE> aAllChildren = m_aChildren.getClone ();
 
     // Remove all children
     m_aChildMap.clear ();

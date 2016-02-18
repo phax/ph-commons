@@ -19,9 +19,11 @@ package com.helger.commons.typeconvert;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -111,7 +113,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     });
 
     // to CommonsTreeSet<?>
-    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (CommonsTreeSet.class, aSource -> {
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (TreeSet.class, aSource -> {
       if (aSource instanceof Collection <?>)
         return new CommonsTreeSet <> ((Collection <?>) aSource);
       final CommonsTreeSet <Object> ret = new CommonsTreeSet <> ();
@@ -120,7 +122,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     });
 
     // to CommonsLinkedHashSet<?>
-    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (CommonsLinkedHashSet.class, aSource -> {
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (LinkedHashSet.class, aSource -> {
       if (aSource instanceof Collection <?>)
         return new CommonsLinkedHashSet <> ((Collection <?>) aSource);
       final CommonsLinkedHashSet <Object> ret = new CommonsLinkedHashSet <> (1);

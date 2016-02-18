@@ -16,8 +16,6 @@
  */
 package com.helger.commons.scope;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -90,9 +88,9 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
   }
 
   /**
-   * Try to convert the passed value into a {@link List} of {@link String}. This
-   * method is only called, if the passed value is non-<code>null</code>, if it
-   * is not an String array or a single String.
+   * Try to convert the passed value into a {@link ICommonsList} of
+   * {@link String}. This method is only called, if the passed value is non-
+   * <code>null</code>, if it is not an String array or a single String.
    *
    * @param sName
    *        The name of the parameter to be queried. Just for informational

@@ -17,8 +17,6 @@
 package com.helger.commons.mime;
 
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -35,8 +33,10 @@ import com.helger.commons.annotation.Singleton;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.EChange;
@@ -96,7 +96,7 @@ public final class MimeTypeDeterminator
     // Add all XML mime types: as the combination of all BOMs and all character
     // encodings as determined by
     // http://www.w3.org/TR/REC-xml/#sec-guessing
-    final List <byte []> aXMLStuff = new ArrayList <> ();
+    final ICommonsList <byte []> aXMLStuff = new CommonsArrayList <> ();
     // UCS4
     aXMLStuff.add (new byte [] { 0x3c, 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x00 });
     aXMLStuff.add (new byte [] { 0x00, 0x3c, 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00 });
@@ -111,8 +111,7 @@ public final class MimeTypeDeterminator
     aXMLStuff.add (new byte [] { 0x4c, 0x6f, (byte) 0xa7, (byte) 0x94 });
 
     // Register all types without the BOM
-    for (final byte [] aXML : aXMLStuff)
-      registerMimeTypeContent (new MimeTypeContent (aXML, CMimeType.TEXT_XML));
+    aXMLStuff.forEach (aXML -> registerMimeTypeContent (new MimeTypeContent (aXML, CMimeType.TEXT_XML)));
 
     // Register all type with the BOM
     for (final EUnicodeBOM eBOM : EUnicodeBOM.values ())
@@ -254,11 +253,9 @@ public final class MimeTypeDeterminator
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <MimeTypeContent> getAllMimeTypeContents ()
+  public ICommonsCollection <MimeTypeContent> getAllMimeTypeContents ()
   {
-    return m_aRWLock.readLocked ( () -> {
-      return CollectionHelper.newList (m_aMimeTypeContents);
-    });
+    return m_aRWLock.readLocked ( () -> m_aMimeTypeContents.getClone ());
   }
 
   /**

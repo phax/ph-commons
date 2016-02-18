@@ -17,8 +17,6 @@
 package com.helger.commons.typeconvert;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -35,6 +33,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiTreeMapArrayListBased;
@@ -304,7 +303,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
       {
         // Perform a check, whether there is more than one potential converter
         // present!
-        final List <String> aAllConverters = new ArrayList <> ();
+        final ICommonsList <String> aAllConverters = new CommonsArrayList <> ();
         _iterateFuzzyConverters (aSrcClass, aDstClass, (aCurSrcClass, aCurDstClass, aConverter) -> {
           final boolean bExact = aSrcClass.equals (aCurSrcClass) && aDstClass.equals (aCurDstClass);
           aAllConverters.add ("[" + aCurSrcClass.getName () + "->" + aCurDstClass.getName () + "]");

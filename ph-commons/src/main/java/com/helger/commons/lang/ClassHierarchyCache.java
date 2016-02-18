@@ -208,7 +208,7 @@ public final class ClassHierarchyCache
    *
    * @param aClass
    *        The source class to get the hierarchy from.
-   * @return A non-<code>null</code> and non-empty List containing the passed
+   * @return A non-<code>null</code> and non-empty list containing the passed
    *         class and all super classes, and all super-interfaces. Duplicates
    *         were already removed.
    */
@@ -226,7 +226,7 @@ public final class ClassHierarchyCache
    *
    * @param aClass
    *        The source class to get the hierarchy from.
-   * @return A non-<code>null</code> and non-empty List containing the passed
+   * @return A non-<code>null</code> and non-empty list containing the passed
    *         class and all super classes, and all super-interfaces. Duplicates
    *         were already removed.
    */
