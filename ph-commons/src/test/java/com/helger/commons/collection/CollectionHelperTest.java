@@ -25,8 +25,6 @@ import static com.helger.commons.collection.CollectionHelper.getConcatenatedSet;
 import static com.helger.commons.collection.CollectionHelper.getDifference;
 import static com.helger.commons.collection.CollectionHelper.getFilteredMap;
 import static com.helger.commons.collection.CollectionHelper.getFirstElement;
-import static com.helger.commons.collection.CollectionHelper.getFirstKey;
-import static com.helger.commons.collection.CollectionHelper.getFirstValue;
 import static com.helger.commons.collection.CollectionHelper.getIntersected;
 import static com.helger.commons.collection.CollectionHelper.getLastElement;
 import static com.helger.commons.collection.CollectionHelper.getNotNull;
@@ -36,7 +34,6 @@ import static com.helger.commons.collection.CollectionHelper.getSize;
 import static com.helger.commons.collection.CollectionHelper.getSorted;
 import static com.helger.commons.collection.CollectionHelper.getSortedByKey;
 import static com.helger.commons.collection.CollectionHelper.getSortedByValue;
-import static com.helger.commons.collection.CollectionHelper.getStackCopyWithoutTop;
 import static com.helger.commons.collection.CollectionHelper.getSubList;
 import static com.helger.commons.collection.CollectionHelper.getSwappedKeyValues;
 import static com.helger.commons.collection.CollectionHelper.isEmpty;
@@ -86,7 +83,7 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsVector;
 import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.collection.iterate.ArrayEnumeration;
@@ -712,7 +709,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSet ((Iterable <String>) new CommonsList <String> ());
+    aSet = newSet ((Iterable <String>) new CommonsArrayList <String> ());
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -726,7 +723,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSet (new CommonsList <String> ());
+    aSet = newSet (new CommonsArrayList <String> ());
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -740,7 +737,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSet (new IterableIterator <> (new CommonsList <String> ()));
+    aSet = newSet (new IterableIterator <> (new CommonsArrayList <String> ()));
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -754,7 +751,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSet (getEnumeration (new CommonsList <String> ()));
+    aSet = newSet (getEnumeration (new CommonsArrayList <String> ()));
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -818,7 +815,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSortedSet ((Iterable <String>) new CommonsList <String> ());
+    aSet = newSortedSet ((Iterable <String>) new CommonsArrayList <String> ());
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -832,7 +829,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSortedSet (new CommonsList <String> ());
+    aSet = newSortedSet (new CommonsArrayList <String> ());
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -849,7 +846,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aSet.contains ("Welt"));
     assertTrue (aSet.contains (null));
 
-    aSet = newSortedSet (new IterableIterator <> (new CommonsList <String> ()));
+    aSet = newSortedSet (new IterableIterator <> (new CommonsArrayList <String> ()));
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -863,7 +860,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = newSortedSet (getEnumeration (new CommonsList <String> ()));
+    aSet = newSortedSet (getEnumeration (new CommonsArrayList <String> ()));
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -926,7 +923,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aOrderedSet.contains ("Hallo"));
     assertTrue (aOrderedSet.contains ("Welt"));
 
-    aOrderedSet = newOrderedSet ((Iterable <String>) new CommonsList <String> ());
+    aOrderedSet = newOrderedSet ((Iterable <String>) new CommonsArrayList <String> ());
     assertNotNull (aOrderedSet);
     assertEquals (0, aOrderedSet.size ());
   }
@@ -940,7 +937,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aOrderedSet.contains ("Hallo"));
     assertTrue (aOrderedSet.contains ("Welt"));
 
-    aOrderedSet = newOrderedSet (new CommonsList <String> ());
+    aOrderedSet = newOrderedSet (new CommonsArrayList <String> ());
     assertNotNull (aOrderedSet);
     assertEquals (0, aOrderedSet.size ());
   }
@@ -954,7 +951,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aOrderedSet.contains ("Hallo"));
     assertTrue (aOrderedSet.contains ("Welt"));
 
-    aOrderedSet = newOrderedSet (new IterableIterator <> (new CommonsList <String> ()));
+    aOrderedSet = newOrderedSet (new IterableIterator <> (new CommonsArrayList <String> ()));
     assertNotNull (aOrderedSet);
     assertEquals (0, aOrderedSet.size ());
   }
@@ -968,7 +965,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aOrderedSet.contains ("Hallo"));
     assertTrue (aOrderedSet.contains ("Welt"));
 
-    aOrderedSet = newOrderedSet (getEnumeration (new CommonsList <String> ()));
+    aOrderedSet = newOrderedSet (getEnumeration (new CommonsArrayList <String> ()));
     assertNotNull (aOrderedSet);
     assertEquals (0, aOrderedSet.size ());
   }
@@ -1068,7 +1065,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testNewListIterator ()
   {
-    final List <String> aSource = new CommonsList <String> ();
+    final List <String> aSource = new CommonsArrayList <String> ();
     assertTrue (aSource.add ("Hallo"));
     assertTrue (aSource.add ("Welt"));
     assertTrue (aSource.add ("from"));
@@ -1102,7 +1099,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aList.contains ("from"));
     assertTrue (aList.contains ("Vienna"));
 
-    aList = newList (new CommonsList <String> ());
+    aList = newList (new CommonsArrayList <String> ());
     assertNotNull (aList);
 
     aList = newList ((List <String>) null);
@@ -1122,7 +1119,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aList.contains ("from"));
     assertTrue (aList.contains ("Vienna"));
 
-    aList = newList ((Iterable <String>) new CommonsList <String> ());
+    aList = newList ((Iterable <String>) new CommonsArrayList <String> ());
     assertNotNull (aList);
 
     aList = newList ((Iterable <String>) null);
@@ -1142,7 +1139,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aList.contains ("from"));
     assertTrue (aList.contains ("Vienna"));
 
-    aList = newList (new IterableIterator <> (new CommonsList <String> ()));
+    aList = newList (new IterableIterator <> (new CommonsArrayList <String> ()));
     assertNotNull (aList);
 
     aList = newList ((IIterableIterator <String>) null);
@@ -1160,24 +1157,6 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aStack.contains ("Hallo"));
     assertEquals ("Hallo", aStack.peek ());
     assertEquals ("Hallo", aStack.pop ());
-  }
-
-  @Test
-  public void testNewStackArray ()
-  {
-    final NonBlockingStack <String> aStack = StackHelper.newStack ("Hallo", "Welt");
-    assertEquals (getStackCopyWithoutTop (aStack), StackHelper.newStack ("Hallo"));
-    assertNotNull (aStack);
-    assertEquals (aStack.size (), 2);
-    assertTrue (aStack.contains ("Welt"));
-    assertTrue (aStack.contains ("Hallo"));
-    assertEquals ("Welt", aStack.peek ());
-    assertEquals ("Welt", aStack.pop ());
-    assertEquals ("Hallo", aStack.peek ());
-    assertEquals ("Hallo", aStack.pop ());
-    assertTrue (aStack.isEmpty ());
-
-    assertNull (getStackCopyWithoutTop (new NonBlockingStack <String> ()));
   }
 
   @Test
@@ -1343,7 +1322,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   {
     assertTrue (isEmpty ((Collection <?>) null));
     assertTrue (isEmpty ((Map <?, ?>) null));
-    assertTrue (isEmpty (new CommonsList <String> ()));
+    assertTrue (isEmpty (new CommonsArrayList <String> ()));
     assertTrue (isEmpty (new CommonsVector <String> ()));
     assertTrue (isEmpty (new HashSet <String> ()));
     assertTrue (isEmpty (new TreeSet <String> ()));
@@ -1492,28 +1471,28 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     final List <String> aList = newList ("s1", "s2", "s3");
     final Set <String> aSet = new LinkedHashSet <String> (aList);
 
-    assertNull (removeFirstElement (new CommonsList <String> ()));
+    assertNull (removeFirstElement (new CommonsArrayList <String> ()));
     assertNull (removeFirstElement ((List <String>) null));
 
     assertEquals ("s1", getFirstElement (aList));
     assertEquals ("s1", getFirstElement (aSet));
     assertEquals ("s1", getFirstElement ((Iterable <String>) aSet));
     assertEquals ("s1", removeFirstElement (aList));
-    assertNull (getFirstElement (new CommonsList <String> ()));
+    assertNull (getFirstElement (new CommonsArrayList <String> ()));
     assertNull (getFirstElement (new HashSet <String> ()));
     assertNull (getFirstElement ((Iterable <String>) new HashSet <String> ()));
     assertNull (getFirstElement ((List <String>) null));
     assertNull (getFirstElement ((Set <String>) null));
     assertNull (getFirstElement ((Iterable <String>) null));
 
-    assertNull (removeLastElement (new CommonsList <String> ()));
+    assertNull (removeLastElement (new CommonsArrayList <String> ()));
     assertNull (removeLastElement ((List <String>) null));
 
     assertEquals ("s3", getLastElement (aList));
     assertEquals ("s3", getLastElement (aSet));
     assertEquals ("s3", getLastElement ((Iterable <String>) aSet));
     assertEquals ("s3", removeLastElement (aList));
-    assertNull (getLastElement (new CommonsList <String> ()));
+    assertNull (getLastElement (new CommonsArrayList <String> ()));
     assertNull (getLastElement (new HashSet <String> ()));
     assertNull (getLastElement ((Iterable <String>) new HashSet <String> ()));
     assertNull (getLastElement ((List <String>) null));
@@ -1522,44 +1501,10 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   }
 
   @Test
-  public void testGetFirstElement_Map ()
-  {
-    final Map <String, Integer> aMap = newOrderedMap (new String [] { "a", "b" }, new Integer [] { I1, I2 });
-    assertNotNull (getFirstElement (aMap));
-    assertEquals ("a", getFirstElement (aMap).getKey ());
-    assertEquals (I1, getFirstElement (aMap).getValue ());
-
-    assertNull (getFirstElement (newMap ()));
-    assertNull (getFirstElement ((Map <?, ?>) null));
-  }
-
-  @Test
-  public void testGetFirstKey ()
-  {
-    final Map <String, Integer> aMap = newOrderedMap (new String [] { "a", "b" }, new Integer [] { I1, I2 });
-    assertNotNull (getFirstKey (aMap));
-    assertEquals ("a", getFirstKey (aMap));
-
-    assertNull (getFirstKey (newMap ()));
-    assertNull (getFirstKey ((Map <?, ?>) null));
-  }
-
-  @Test
-  public void testGetFirstValue ()
-  {
-    final Map <String, Integer> aMap = newOrderedMap (new String [] { "a", "b" }, new Integer [] { I1, I2 });
-    assertNotNull (getFirstValue (aMap));
-    assertEquals (I1, getFirstValue (aMap));
-
-    assertNull (getFirstValue (newMap ()));
-    assertNull (getFirstValue ((Map <?, ?>) null));
-  }
-
-  @Test
   public void testIsEmpty_Iterable ()
   {
     assertTrue (isEmpty ((Iterable <?>) null));
-    assertTrue (isEmpty ((Iterable <String>) new CommonsList <String> ()));
+    assertTrue (isEmpty ((Iterable <String>) new CommonsArrayList <String> ()));
     assertFalse (isEmpty ((Iterable <String>) newList ("any")));
   }
 
@@ -1567,7 +1512,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testIsEmpty_Collection ()
   {
     assertTrue (isEmpty ((Collection <?>) null));
-    assertTrue (isEmpty (new CommonsList <String> ()));
+    assertTrue (isEmpty (new CommonsArrayList <String> ()));
     assertFalse (isEmpty (newList ("any")));
   }
 
@@ -1583,7 +1528,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testGetSize_Collection ()
   {
     assertEquals (0, getSize ((Collection <?>) null));
-    assertEquals (0, getSize (new CommonsList <String> ()));
+    assertEquals (0, getSize (new CommonsArrayList <String> ()));
     assertEquals (1, getSize (newList ("any")));
   }
 
@@ -1599,7 +1544,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testGetSize_Iterable ()
   {
     assertEquals (0, getSize ((Iterable <?>) null));
-    assertEquals (0, getSize ((Iterable <String>) new CommonsList <String> ()));
+    assertEquals (0, getSize ((Iterable <String>) new CommonsArrayList <String> ()));
     assertEquals (1, getSize ((Iterable <String>) newList ("any")));
   }
 
@@ -1771,7 +1716,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     try
     {
       // start index may not be < 0
-      getSubList (new CommonsList <String> (), -1, 2);
+      getSubList (new CommonsArrayList <String> (), -1, 2);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -1779,7 +1724,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     try
     {
       // length not be < 0
-      getSubList (new CommonsList <String> (), 0, -1);
+      getSubList (new CommonsArrayList <String> (), 0, -1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -1855,7 +1800,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testContainsNullElement ()
   {
     assertFalse (containsAnyNullElement ((List <String>) null));
-    assertFalse (containsAnyNullElement (new CommonsList <> ()));
+    assertFalse (containsAnyNullElement (new CommonsArrayList <> ()));
     assertFalse (containsAnyNullElement (newList ("a")));
     assertFalse (containsAnyNullElement (newList ("a", "b", "c")));
     assertTrue (containsAnyNullElement (newList (null, "a")));

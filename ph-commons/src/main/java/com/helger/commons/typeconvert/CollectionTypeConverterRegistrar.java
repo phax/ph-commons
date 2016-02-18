@@ -34,7 +34,7 @@ import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.PrimitiveCollectionHelper;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsVector;
 
 /**
@@ -64,10 +64,10 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
   public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
   {
     // to CommonsList<?>
-    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (CommonsList.class, aSource -> {
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (CommonsArrayList.class, aSource -> {
       if (aSource instanceof Collection <?>)
-        return new CommonsList <> ((Collection <?>) aSource);
-      final CommonsList <Object> ret = new CommonsList <> (1);
+        return new CommonsArrayList <> ((Collection <?>) aSource);
+      final CommonsArrayList <Object> ret = new CommonsArrayList <> (1);
       ret.add (aSource);
       return ret;
     });
@@ -141,7 +141,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     });
 
     // boolean[]
-    aRegistry.registerTypeConverter (boolean [].class, CommonsList.class, PrimitiveCollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (boolean [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
     aRegistry.registerTypeConverter (boolean [].class,
                                      CommonsVector.class,
                                      PrimitiveCollectionHelper::newPrimitiveVector);
@@ -154,7 +154,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     // byte[]
     aRegistry.registerTypeConverter (byte [].class, String.class, Base64::encodeBytes);
     aRegistry.registerTypeConverter (String.class, byte [].class, Base64::safeDecode);
-    aRegistry.registerTypeConverter (byte [].class, CommonsList.class, PrimitiveCollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (byte [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
     aRegistry.registerTypeConverter (byte [].class, CommonsVector.class, PrimitiveCollectionHelper::newPrimitiveVector);
     aRegistry.registerTypeConverter (byte [].class, HashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
     aRegistry.registerTypeConverter (byte [].class,
@@ -165,7 +165,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     // char[]
     aRegistry.registerTypeConverter (char [].class, String.class, aSource -> new String (aSource));
     aRegistry.registerTypeConverter (String.class, char [].class, aSource -> aSource.toCharArray ());
-    aRegistry.registerTypeConverter (char [].class, CommonsList.class, PrimitiveCollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (char [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
     aRegistry.registerTypeConverter (char [].class, CommonsVector.class, PrimitiveCollectionHelper::newPrimitiveVector);
     aRegistry.registerTypeConverter (char [].class, HashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
     aRegistry.registerTypeConverter (char [].class,
@@ -174,7 +174,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     aRegistry.registerTypeConverter (char [].class, TreeSet.class, PrimitiveCollectionHelper::newPrimitiveSortedSet);
 
     // double[]
-    aRegistry.registerTypeConverter (double [].class, CommonsList.class, PrimitiveCollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (double [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
     aRegistry.registerTypeConverter (double [].class,
                                      CommonsVector.class,
                                      PrimitiveCollectionHelper::newPrimitiveVector);
@@ -185,7 +185,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     aRegistry.registerTypeConverter (double [].class, TreeSet.class, PrimitiveCollectionHelper::newPrimitiveSortedSet);
 
     // float[]
-    aRegistry.registerTypeConverter (float [].class, CommonsList.class, PrimitiveCollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (float [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
     aRegistry.registerTypeConverter (float [].class,
                                      CommonsVector.class,
                                      PrimitiveCollectionHelper::newPrimitiveVector);
@@ -196,7 +196,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     aRegistry.registerTypeConverter (float [].class, TreeSet.class, PrimitiveCollectionHelper::newPrimitiveSortedSet);
 
     // int[]
-    aRegistry.registerTypeConverter (int [].class, CommonsList.class, PrimitiveCollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (int [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
     aRegistry.registerTypeConverter (int [].class, CommonsVector.class, PrimitiveCollectionHelper::newPrimitiveVector);
     aRegistry.registerTypeConverter (int [].class, HashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
     aRegistry.registerTypeConverter (int [].class,
@@ -205,7 +205,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     aRegistry.registerTypeConverter (int [].class, TreeSet.class, PrimitiveCollectionHelper::newPrimitiveSortedSet);
 
     // long[]
-    aRegistry.registerTypeConverter (long [].class, CommonsList.class, PrimitiveCollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (long [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
     aRegistry.registerTypeConverter (long [].class, CommonsVector.class, PrimitiveCollectionHelper::newPrimitiveVector);
     aRegistry.registerTypeConverter (long [].class, HashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
     aRegistry.registerTypeConverter (long [].class,
@@ -214,7 +214,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     aRegistry.registerTypeConverter (long [].class, TreeSet.class, PrimitiveCollectionHelper::newPrimitiveSortedSet);
 
     // short[]
-    aRegistry.registerTypeConverter (short [].class, CommonsList.class, PrimitiveCollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (short [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
     aRegistry.registerTypeConverter (short [].class,
                                      CommonsVector.class,
                                      PrimitiveCollectionHelper::newPrimitiveVector);

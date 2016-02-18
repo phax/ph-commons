@@ -26,7 +26,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -44,7 +44,7 @@ public class ChangeLog implements Serializable
   private final String m_sOriginalVersion;
   private final Version m_aVersion;
   private final String m_sComponent;
-  private final ICommonsList <AbstractChangeLogEntry> m_aEntries = new CommonsList <> ();
+  private final ICommonsList <AbstractChangeLogEntry> m_aEntries = new CommonsArrayList <> ();
 
   /**
    * Constructor.
@@ -154,7 +154,7 @@ public class ChangeLog implements Serializable
   {
     ValueEnforcer.notNull (eCategory, "Category");
 
-    final ICommonsList <ChangeLogEntry> ret = new CommonsList <> ();
+    final ICommonsList <ChangeLogEntry> ret = new CommonsArrayList <> ();
     m_aEntries.findAllInstanceOf (ChangeLogEntry.class, e -> {
       if (e.getCategory ().equals (eCategory))
         ret.add (e);

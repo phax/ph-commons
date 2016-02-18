@@ -96,4 +96,16 @@ public final class StackHelper
   {
     return new NonBlockingStack <> (aValues);
   }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> getStackCopyWithoutTop (@Nullable final NonBlockingStack <ELEMENTTYPE> aStack)
+  {
+    if (CollectionHelper.isEmpty (aStack))
+      return null;
+
+    final NonBlockingStack <ELEMENTTYPE> ret = new NonBlockingStack <> (aStack);
+    ret.pop ();
+    return ret;
+  }
 }

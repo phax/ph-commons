@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.EChange;
@@ -47,7 +47,7 @@ public class FileMonitorManager implements Runnable
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   /** All FileMonitors contained */
-  private final ICommonsList <FileMonitor> m_aMonitorList = new CommonsList <> ();
+  private final ICommonsList <FileMonitor> m_aMonitorList = new CommonsArrayList <> ();
 
   /** The low priority thread used for checking the files being monitored. */
   private Thread m_aMonitorThread;

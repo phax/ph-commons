@@ -24,11 +24,11 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 
 /**
- * Multi map based on {@link HashMap} and {@link CommonsList} values.<br>
+ * Multi map based on {@link HashMap} and {@link CommonsArrayList} values.<br>
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -60,8 +60,8 @@ public class MultiHashMapArrayListBased <KEYTYPE, VALUETYPE> extends AbstractMul
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  protected final CommonsList <VALUETYPE> createNewCollection ()
+  protected final CommonsArrayList <VALUETYPE> createNewCollection ()
   {
-    return new CommonsList <> ();
+    return new CommonsArrayList <> ();
   }
 }

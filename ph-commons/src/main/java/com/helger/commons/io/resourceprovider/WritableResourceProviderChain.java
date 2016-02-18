@@ -23,7 +23,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.resource.IWritableResource;
@@ -38,7 +38,7 @@ import com.helger.commons.string.ToStringGenerator;
 @Immutable
 public class WritableResourceProviderChain extends ReadableResourceProviderChain implements IWritableResourceProvider
 {
-  protected final ICommonsList <IWritableResourceProvider> m_aWritableResourceProviders = new CommonsList <> ();
+  protected final ICommonsList <IWritableResourceProvider> m_aWritableResourceProviders = new CommonsArrayList <> ();
 
   public WritableResourceProviderChain (@Nonnull final IReadableResourceProvider... aResProviders)
   {

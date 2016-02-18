@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 
@@ -42,7 +42,7 @@ public class CollectingLSResourceResolver extends AbstractLSResourceResolver
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final ICommonsList <LSResourceData> m_aList = new CommonsList <> ();
+  private final ICommonsList <LSResourceData> m_aList = new CommonsArrayList <> ();
 
   public CollectingLSResourceResolver ()
   {}

@@ -26,7 +26,7 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.lang.GenericReflection;
@@ -156,7 +156,7 @@ public class CombinationGenerator <DATATYPE> implements IIterableIterator <IComm
       m_aCombinationsLeft = m_aCombinationsLeft.subtract (BigInteger.ONE);
 
     // Build result list
-    final ICommonsList <DATATYPE> aResult = new CommonsList <> (m_aIndexResult.length);
+    final ICommonsList <DATATYPE> aResult = new CommonsArrayList <> (m_aIndexResult.length);
     for (final int nIndex : m_aIndexResult)
       aResult.add (m_aElements[nIndex]);
     return aResult;
@@ -179,7 +179,7 @@ public class CombinationGenerator <DATATYPE> implements IIterableIterator <IComm
   public static <DATATYPE> ICommonsList <ICommonsList <DATATYPE>> getAllPermutations (@Nonnull @Nonempty final ICommonsList <DATATYPE> aInput,
                                                                                       @Nonnegative final int nSlotCount)
   {
-    final ICommonsList <ICommonsList <DATATYPE>> aResultList = new CommonsList <> ();
+    final ICommonsList <ICommonsList <DATATYPE>> aResultList = new CommonsArrayList <> ();
     addAllPermutations (aInput, nSlotCount, aResultList);
     return aResultList;
   }

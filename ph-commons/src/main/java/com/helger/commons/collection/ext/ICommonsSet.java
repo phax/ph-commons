@@ -1,5 +1,6 @@
 package com.helger.commons.collection.ext;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -56,5 +57,11 @@ public interface ICommonsSet <ELEMENTTYPE> extends Set <ELEMENTTYPE>, ICommonsCo
     final ICommonsSet <DSTTYPE> ret = new CommonsHashSet <> ();
     findAllInstanceOf (aDstClass, ret::add);
     return ret;
+  }
+
+  @Nonnull
+  default Set <ELEMENTTYPE> getAsUnmodifiable ()
+  {
+    return Collections.unmodifiableSet (this);
   }
 }

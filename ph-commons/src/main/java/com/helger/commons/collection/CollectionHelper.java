@@ -28,10 +28,6 @@ import java.util.NavigableMap;
 import java.util.NavigableSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.SortedMap;
-import java.util.SortedSet;
-import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -50,10 +46,11 @@ import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsTreeMap;
+import com.helger.commons.collection.ext.CommonsTreeSet;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
-import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.state.EChange;
@@ -116,7 +113,7 @@ public final class CollectionHelper
   }
 
   /**
-   * Get the passed object as a {@link CommonsList} object. This is helpful in
+   * Get the passed object as a {@link CommonsArrayList} object. This is helpful in
    * case you want to compare the String array ["a", "b"] with the
    * List&lt;String&gt; ("a", "b") If the passed object is not a recognized.
    * container type, than a new list with one element is created!
@@ -126,7 +123,7 @@ public final class CollectionHelper
    * @return The object as a collection. Never <code>null</code>.
    */
   @Nonnull
-  public static CommonsList <?> getAsList (@Nonnull final Object aObj)
+  public static CommonsArrayList <?> getAsList (@Nonnull final Object aObj)
   {
     ValueEnforcer.notNull (aObj, "Object");
 
@@ -141,8 +138,8 @@ public final class CollectionHelper
     {
       case COLLECTION:
         // It's already a collection
-        if (aObj instanceof CommonsList <?>)
-          return (CommonsList <?>) aObj;
+        if (aObj instanceof CommonsArrayList <?>)
+          return (CommonsArrayList <?>) aObj;
         return newList ((Collection <?>) aObj);
       case SET:
         // Convert to list
@@ -495,15 +492,22 @@ public final class CollectionHelper
   public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final KEYTYPE [] aKeys,
                                                                                  @Nullable final VALUETYPE [] aValues)
   {
+    final int nKeys = ArrayHelper.getSize (aKeys);
+    final int nValues = ArrayHelper.getSize (aValues);
+
+    // Check for identical size
+    if (nKeys != nValues)
+      throw new IllegalArgumentException ("The passed arrays have different length (" +
+                                          nKeys +
+                                          " keys and " +
+                                          nValues +
+                                          " values)!");
+
     // Are both empty?
-    if (ArrayHelper.isEmpty (aKeys) && ArrayHelper.isEmpty (aValues))
+    if (nKeys == 0)
       return newMap (0);
 
-    // keys OR values may be null here
-    if (ArrayHelper.getSize (aKeys) != ArrayHelper.getSize (aValues))
-      throw new IllegalArgumentException ("The passed arrays have different length!");
-
-    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap (aKeys.length);
+    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap (nKeys);
     for (int i = 0; i < aKeys.length; ++i)
       ret.put (aKeys[i], aValues[i]);
     return ret;
@@ -514,15 +518,22 @@ public final class CollectionHelper
   public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
                                                                                  @Nullable final Collection <? extends VALUETYPE> aValues)
   {
+    final int nKeys = getSize (aKeys);
+    final int nValues = getSize (aValues);
+
+    // Check for identical size
+    if (nKeys != nValues)
+      throw new IllegalArgumentException ("The passed arrays have different length (" +
+                                          nKeys +
+                                          " keys and " +
+                                          nValues +
+                                          " values)!");
+
     // Are both empty?
-    if (isEmpty (aKeys) && isEmpty (aValues))
+    if (nKeys == 0)
       return newMap (0);
 
-    // keys OR values may be null here
-    if (getSize (aKeys) != getSize (aValues))
-      throw new IllegalArgumentException ("Number of keys is different from number of values");
-
-    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap (aKeys.size ());
+    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap (nKeys);
     final Iterator <? extends KEYTYPE> itk = aKeys.iterator ();
     final Iterator <? extends VALUETYPE> itv = aValues.iterator ();
     while (itk.hasNext ())
@@ -669,15 +680,22 @@ public final class CollectionHelper
   public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final KEYTYPE [] aKeys,
                                                                                               @Nullable final VALUETYPE [] aValues)
   {
+    final int nKeys = ArrayHelper.getSize (aKeys);
+    final int nValues = ArrayHelper.getSize (aValues);
+
+    // Check for identical size
+    if (nKeys != nValues)
+      throw new IllegalArgumentException ("The passed arrays have different length (" +
+                                          nKeys +
+                                          " keys and " +
+                                          nValues +
+                                          " values)!");
+
     // Are both empty?
-    if (ArrayHelper.isEmpty (aKeys) && ArrayHelper.isEmpty (aValues))
+    if (nKeys == 0)
       return newOrderedMap (0);
 
-    // keys OR values may be null here
-    if (ArrayHelper.getSize (aKeys) != ArrayHelper.getSize (aValues))
-      throw new IllegalArgumentException ("The passed arrays have different length!");
-
-    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aKeys.length);
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (nKeys);
     for (int i = 0; i < aKeys.length; ++i)
       ret.put (aKeys[i], aValues[i]);
     return ret;
@@ -688,15 +706,22 @@ public final class CollectionHelper
   public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
                                                                                               @Nullable final Collection <? extends VALUETYPE> aValues)
   {
+    final int nKeys = getSize (aKeys);
+    final int nValues = getSize (aValues);
+
+    // Check for identical size
+    if (nKeys != nValues)
+      throw new IllegalArgumentException ("The passed arrays have different length (" +
+                                          nKeys +
+                                          " keys and " +
+                                          nValues +
+                                          " values)!");
+
     // Are both empty?
-    if (isEmpty (aKeys) && isEmpty (aValues))
+    if (nKeys == 0)
       return newOrderedMap (0);
 
-    // keys OR values may be null here
-    if (getSize (aKeys) != getSize (aValues))
-      throw new IllegalArgumentException ("Number of keys is different from number of values");
-
-    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aKeys.size ());
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (nKeys);
     final Iterator <? extends KEYTYPE> itk = aKeys.iterator ();
     final Iterator <? extends VALUETYPE> itv = aValues.iterator ();
     while (itk.hasNext ())
@@ -718,7 +743,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
   {
-    if (aMaps == null || aMaps.length == 0)
+    if (ArrayHelper.isEmpty (aMaps))
       return newOrderedMap (0);
 
     final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap ();
@@ -742,18 +767,18 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap ()
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap ()
   {
-    return new TreeMap <> (Comparator.nullsFirst (Comparator.naturalOrder ()));
+    return new CommonsTreeMap <> (Comparator.nullsFirst (Comparator.naturalOrder ()));
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE extends Comparable <? super DSTKEYTYPE>, DSTVALUETYPE> TreeMap <DSTKEYTYPE, DSTVALUETYPE> newSortedMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
-                                                                                                                                                                    @Nonnull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
-                                                                                                                                                                    @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
+  public static <SRCKEYTYPE, SRCVALUETYPE, DSTKEYTYPE extends Comparable <? super DSTKEYTYPE>, DSTVALUETYPE> CommonsTreeMap <DSTKEYTYPE, DSTVALUETYPE> newSortedMapMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
+                                                                                                                                                                           @Nonnull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
+                                                                                                                                                                           @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
   {
-    final TreeMap <DSTKEYTYPE, DSTVALUETYPE> ret = newSortedMap ();
+    final CommonsTreeMap <DSTKEYTYPE, DSTVALUETYPE> ret = newSortedMap ();
     if (isNotEmpty (aMap))
       for (final Map.Entry <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aEntry : aMap.entrySet ())
         ret.put (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
@@ -762,10 +787,10 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                                                     @Nonnull final Predicate <Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
+                                                                                                                            @Nonnull final Predicate <Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
   {
-    final TreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
     if (isNotEmpty (aMap))
       for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aMap.entrySet ())
         if (aFilter.test (aEntry))
@@ -775,10 +800,10 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final KEYTYPE aKey,
-                                                                                                                     @Nullable final VALUETYPE aValue)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final KEYTYPE aKey,
+                                                                                                                            @Nullable final VALUETYPE aValue)
   {
-    final TreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
     ret.put (aKey, aValue);
     return ret;
   }
@@ -786,7 +811,7 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeMap <ELEMENTTYPE, ELEMENTTYPE> newSortedMap (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeMap <ELEMENTTYPE, ELEMENTTYPE> newSortedMap (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
       return newSortedMap ();
@@ -794,7 +819,7 @@ public final class CollectionHelper
     if ((aValues.length % 2) != 0)
       throw new IllegalArgumentException ("The passed array needs an even number of elements!");
 
-    final TreeMap <ELEMENTTYPE, ELEMENTTYPE> ret = newSortedMap ();
+    final CommonsTreeMap <ELEMENTTYPE, ELEMENTTYPE> ret = newSortedMap ();
     for (int i = 0; i < aValues.length; i += 2)
       ret.put (aValues[i], aValues[i + 1]);
     return ret;
@@ -802,8 +827,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final KEYTYPE [] aKeys,
-                                                                                                                     @Nullable final VALUETYPE [] aValues)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final KEYTYPE [] aKeys,
+                                                                                                                            @Nullable final VALUETYPE [] aValues)
   {
     // Are both empty?
     if (ArrayHelper.isEmpty (aKeys) && ArrayHelper.isEmpty (aValues))
@@ -813,7 +838,7 @@ public final class CollectionHelper
     if (ArrayHelper.getSize (aKeys) != ArrayHelper.getSize (aValues))
       throw new IllegalArgumentException ("The passed arrays have different length!");
 
-    final TreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
     for (int i = 0; i < aKeys.length; ++i)
       ret.put (aKeys[i], aValues[i]);
     return ret;
@@ -821,8 +846,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
-                                                                                                                     @Nullable final Collection <? extends VALUETYPE> aValues)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Collection <? extends KEYTYPE> aKeys,
+                                                                                                                            @Nullable final Collection <? extends VALUETYPE> aValues)
   {
     // Are both empty?
     if (isEmpty (aKeys) && isEmpty (aValues))
@@ -832,7 +857,7 @@ public final class CollectionHelper
     if (getSize (aKeys) != getSize (aValues))
       throw new IllegalArgumentException ("Number of keys is different from number of values");
 
-    final TreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
     final Iterator <? extends KEYTYPE> itk = aKeys.iterator ();
     final Iterator <? extends VALUETYPE> itv = aValues.iterator ();
     while (itk.hasNext ())
@@ -842,24 +867,24 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     if (isEmpty (aMap))
       return newSortedMap ();
 
-    final TreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
     ret.putAll (aMap);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> [] aMaps)
   {
     if (aMaps == null || aMaps.length == 0)
       return newSortedMap ();
 
-    final TreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
     for (final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap : aMaps)
       ret.putAll (aMap);
     return ret;
@@ -867,12 +892,12 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> TreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Collection <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
   {
     if (isEmpty (aCollection))
       return newSortedMap ();
 
-    final TreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aCollection)
       ret.put (aEntry.getKey (), aEntry.getValue ());
     return ret;
@@ -1028,17 +1053,17 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet ()
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet ()
   {
-    return new TreeSet <> (Comparator.nullsFirst (Comparator.naturalOrder ()));
+    return new CommonsTreeSet <> (Comparator.nullsFirst (Comparator.naturalOrder ()));
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE extends Comparable <? super DSTTYPE>> TreeSet <DSTTYPE> newSortedSetMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                                                              @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE extends Comparable <? super DSTTYPE>> CommonsTreeSet <DSTTYPE> newSortedSetMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                                                                     @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
-    final TreeSet <DSTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <DSTTYPE> ret = newSortedSet ();
     if (isNotEmpty (aCollection))
       for (final SRCTYPE aValue : aCollection)
         ret.add (aMapper.apply (aValue));
@@ -1047,10 +1072,10 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
-                                                                                                           @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                                                                                  @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    final TreeSet <ELEMENTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
     if (isNotEmpty (aCollection))
       for (final ELEMENTTYPE aValue : aCollection)
         if (aFilter.test (aValue))
@@ -1061,9 +1086,9 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SuppressFBWarnings (value = { "NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" }, justification = "When using the constructor with the Comparator it works with null values!")
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ELEMENTTYPE aValue)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ELEMENTTYPE aValue)
   {
-    final TreeSet <ELEMENTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
     ret.add (aValue);
     return ret;
   }
@@ -1071,9 +1096,9 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ELEMENTTYPE... aValues)
   {
-    final TreeSet <ELEMENTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
     if (ArrayHelper.isNotEmpty (aValues))
       Collections.addAll (ret, aValues);
     return ret;
@@ -1081,9 +1106,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
   {
-    final TreeSet <ELEMENTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
     if (aCont != null)
       for (final ELEMENTTYPE aValue : aCont)
         ret.add (aValue);
@@ -1092,9 +1117,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
-    final TreeSet <ELEMENTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
     if (isNotEmpty (aCont))
       ret.addAll (aCont);
     return ret;
@@ -1102,9 +1127,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    final TreeSet <ELEMENTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
     if (aIter != null)
       while (aIter.hasNext ())
         ret.add (aIter.next ());
@@ -1113,7 +1138,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
       return newSortedSet ();
@@ -1122,9 +1147,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> TreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
-    final TreeSet <ELEMENTTYPE> ret = newSortedSet ();
+    final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
     if (aEnum != null)
       while (aEnum.hasMoreElements ())
         ret.add (aEnum.nextElement ());
@@ -1248,12 +1273,12 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> newListPrefilled (@Nullable final ELEMENTTYPE aValue,
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newListPrefilled (@Nullable final ELEMENTTYPE aValue,
                                                                           @Nonnegative final int nElements)
   {
     ValueEnforcer.isGE0 (nElements, "Elements");
 
-    final CommonsList <ELEMENTTYPE> ret = new CommonsList <> (nElements);
+    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> (nElements);
     for (int i = 0; i < nElements; ++i)
       ret.add (aValue);
     return ret;
@@ -1261,26 +1286,26 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> newList (@Nonnegative final int nInitialCapacity)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nonnegative final int nInitialCapacity)
   {
-    return new CommonsList <> (nInitialCapacity);
+    return new CommonsArrayList <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> newList ()
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList ()
   {
-    return new CommonsList <> ();
+    return new CommonsArrayList <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> newList (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
                                                                  @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (isEmpty (aCollection))
       return newList (0);
-    final CommonsList <ELEMENTTYPE> ret = newList (aCollection.size ());
+    final CommonsArrayList <ELEMENTTYPE> ret = newList (aCollection.size ());
     for (final ELEMENTTYPE aValue : aCollection)
       if (aFilter.test (aValue))
         ret.add (aValue);
@@ -1289,9 +1314,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> newList (@Nullable final ELEMENTTYPE aValue)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final ELEMENTTYPE aValue)
   {
-    final CommonsList <ELEMENTTYPE> ret = newList (1);
+    final CommonsArrayList <ELEMENTTYPE> ret = newList (1);
     ret.add (aValue);
     return ret;
   }
@@ -1299,27 +1324,27 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> newList (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final ELEMENTTYPE... aValues)
   {
     // Don't user Arrays.asList since aIter returns an unmodifiable list!
     if (ArrayHelper.isEmpty (aValues))
       return newList (0);
 
-    final CommonsList <ELEMENTTYPE> ret = newList (aValues.length);
+    final CommonsArrayList <ELEMENTTYPE> ret = newList (aValues.length);
     Collections.addAll (ret, aValues);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> CommonsList <DSTTYPE> newListMapped (@Nullable final SRCTYPE [] aValues,
+  public static <SRCTYPE, DSTTYPE> CommonsArrayList <DSTTYPE> newListMapped (@Nullable final SRCTYPE [] aValues,
                                                                         @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
   {
     // Don't user Arrays.asList since aIter returns an unmodifiable list!
     if (ArrayHelper.isEmpty (aValues))
       return newList (0);
 
-    final CommonsList <DSTTYPE> ret = newList (aValues.length);
+    final CommonsArrayList <DSTTYPE> ret = newList (aValues.length);
     for (final SRCTYPE aValue : aValues)
       ret.add (aMapper.apply (aValue));
     return ret;
@@ -1327,10 +1352,10 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE, DSTTYPE> CommonsList <DSTTYPE> newListMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aIter,
+  public static <ELEMENTTYPE, DSTTYPE> CommonsArrayList <DSTTYPE> newListMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aIter,
                                                                             @Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
   {
-    final CommonsList <DSTTYPE> ret = newList ();
+    final CommonsArrayList <DSTTYPE> ret = newList ();
     if (aIter != null)
       for (final ELEMENTTYPE aObj : aIter)
         ret.add (aMapper.apply (aObj));
@@ -1339,12 +1364,12 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> CommonsList <DSTTYPE> newListMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+  public static <SRCTYPE, DSTTYPE> CommonsArrayList <DSTTYPE> newListMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
                                                                         @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
   {
     if (isEmpty (aCollection))
       return newList (0);
-    final CommonsList <DSTTYPE> ret = newList (aCollection.size ());
+    final CommonsArrayList <DSTTYPE> ret = newList (aCollection.size ());
     for (final SRCTYPE aValue : aCollection)
       ret.add (aMapper.apply (aValue));
     return ret;
@@ -1358,14 +1383,14 @@ public final class CollectionHelper
    *        Type of the elements
    * @param aEnum
    *        The enumeration to be converted
-   * @return The non-<code>null</code> created {@link CommonsList}.
+   * @return The non-<code>null</code> created {@link CommonsArrayList}.
    * @see Collections#list(Enumeration)
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> newList (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
-    final CommonsList <ELEMENTTYPE> ret = newList ();
+    final CommonsArrayList <ELEMENTTYPE> ret = newList ();
     if (aEnum != null)
       while (aEnum.hasMoreElements ())
         ret.add (aEnum.nextElement ());
@@ -1374,9 +1399,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> newList (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    final CommonsList <ELEMENTTYPE> ret = newList ();
+    final CommonsArrayList <ELEMENTTYPE> ret = newList ();
     if (aIter != null)
       while (aIter.hasNext ())
         ret.add (aIter.next ());
@@ -1385,9 +1410,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> newList (@Nullable final Iterable <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final Iterable <? extends ELEMENTTYPE> aIter)
   {
-    final CommonsList <ELEMENTTYPE> ret = newList ();
+    final CommonsArrayList <ELEMENTTYPE> ret = newList ();
     if (aIter != null)
       for (final ELEMENTTYPE aObj : aIter)
         ret.add (aObj);
@@ -1396,17 +1421,17 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> newList (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
     if (isEmpty (aCont))
       return newList (0);
 
-    return new CommonsList <> (aCont);
+    return new CommonsArrayList <> (aCont);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> newList (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
       return newList (0);
@@ -1420,12 +1445,12 @@ public final class CollectionHelper
    *        The type of elements to iterate. May not be <code>null</code>.
    * @param aIter
    *        Input iterator. May be <code>null</code>.
-   * @return a non-null {@link CommonsList} based on the results of
+   * @return a non-null {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List)}.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsList <ELEMENTTYPE> getSorted (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     return getSortedInline (newList (aIter));
   }
@@ -1439,12 +1464,12 @@ public final class CollectionHelper
    *        Input iterator. May be <code>null</code>.
    * @param aComparator
    *        The comparator to use. May not be <code>null</code>.
-   * @return a non-null {@link CommonsList} based on the results of
+   * @return a non-null {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List)}.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsList <ELEMENTTYPE> getSorted (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter,
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter,
                                                                                                             @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
     return getSortedInline (newList (aIter), aComparator);
@@ -1457,12 +1482,12 @@ public final class CollectionHelper
    *        The type of elements to iterate. May not be <code>null</code>.
    * @param aIter
    *        Input iterator. May not be <code>null</code>.
-   * @return a non-null {@link CommonsList} based on the results of
+   * @return a non-null {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List)}.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsList <ELEMENTTYPE> getSorted (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
     return getSortedInline (newList (aIter));
   }
@@ -1476,12 +1501,12 @@ public final class CollectionHelper
    *        Input iterator. May be <code>null</code>.
    * @param aComparator
    *        The comparator to use. May not be <code>null</code>.
-   * @return a non-null {@link CommonsList} based on the results of
+   * @return a non-null {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List, Comparator)}.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> getSorted (@Nullable final Iterator <? extends ELEMENTTYPE> aIter,
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Iterator <? extends ELEMENTTYPE> aIter,
                                                                    @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
     return getSortedInline (newList (aIter), aComparator);
@@ -1494,12 +1519,12 @@ public final class CollectionHelper
    *        The type of element to iterate.
    * @param aCont
    *        Iterable input object. May be <code>null</code>.
-   * @return A {@link CommonsList} based on the results of
+   * @return A {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List)}.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsList <ELEMENTTYPE> getSorted (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
   {
     return getSortedInline (newList (aCont));
   }
@@ -1513,12 +1538,12 @@ public final class CollectionHelper
    *        Iterable input object. May be <code>null</code>.
    * @param aComparator
    *        The comparator to use. May not be <code>null</code>.
-   * @return A {@link CommonsList} based on the results of
+   * @return A {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List, Comparator)}.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> getSorted (@Nullable final Iterable <? extends ELEMENTTYPE> aCont,
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Iterable <? extends ELEMENTTYPE> aCont,
                                                                    @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
     return getSortedInline (newList (aCont), aComparator);
@@ -1531,12 +1556,12 @@ public final class CollectionHelper
    *        The type of element to iterate.
    * @param aCont
    *        Collection input object. May be <code>null</code>.
-   * @return A {@link CommonsList} based on the results of
+   * @return A {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List)}.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsList <ELEMENTTYPE> getSorted (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
     return getSortedInline (newList (aCont));
   }
@@ -1550,12 +1575,12 @@ public final class CollectionHelper
    *        Collection input object. May be <code>null</code>.
    * @param aComparator
    *        The comparator to use. May not be <code>null</code>.
-   * @return A {@link CommonsList} based on the results of
+   * @return A {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List, Comparator)}.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> getSorted (@Nullable final Collection <? extends ELEMENTTYPE> aCont,
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Collection <? extends ELEMENTTYPE> aCont,
                                                                    @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
     return getSortedInline (newList (aCont), aComparator);
@@ -1568,13 +1593,13 @@ public final class CollectionHelper
    *        The type of element to iterate.
    * @param aCont
    *        Array input object. May be <code>null</code>.
-   * @return A {@link CommonsList} based on the results of
+   * @return A {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List)}.
    */
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsList <ELEMENTTYPE> getSorted (@Nullable final ELEMENTTYPE... aCont)
+  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final ELEMENTTYPE... aCont)
   {
     return getSortedInline (newList (aCont));
   }
@@ -1588,12 +1613,12 @@ public final class CollectionHelper
    *        Iterable input object. May be <code>null</code>.
    * @param aComparator
    *        The comparator to use. May not be <code>null</code>.
-   * @return A {@link CommonsList} based on the results of
+   * @return A {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List, Comparator)}.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> getSorted (@Nullable final ELEMENTTYPE [] aCont,
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final ELEMENTTYPE [] aCont,
                                                                    @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
     return getSortedInline (newList (aCont), aComparator);
@@ -1633,10 +1658,10 @@ public final class CollectionHelper
    * @return the sorted map or the original map, if it was empty
    */
   @Nullable
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> Map <KEYTYPE, VALUETYPE> getSortedByKey (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> ICommonsMap <KEYTYPE, VALUETYPE> getSortedByKey (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
     if (isEmpty (aMap))
-      return aMap;
+      return newOrderedMap (0);
 
     // get sorted entry list
     final ICommonsList <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
@@ -1659,13 +1684,13 @@ public final class CollectionHelper
    * @return the sorted map or the original map, if it was empty
    */
   @Nullable
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> getSortedByKey (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                              @Nonnull final Comparator <? super KEYTYPE> aKeyComparator)
+  public static <KEYTYPE, VALUETYPE> ICommonsMap <KEYTYPE, VALUETYPE> getSortedByKey (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
+                                                                                      @Nonnull final Comparator <? super KEYTYPE> aKeyComparator)
   {
     ValueEnforcer.notNull (aKeyComparator, "KeyComparator");
 
     if (isEmpty (aMap))
-      return aMap;
+      return newOrderedMap (0);
 
     // get sorted Map.Entry list by Entry.getValue ()
     final ICommonsList <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
@@ -1686,10 +1711,10 @@ public final class CollectionHelper
    * @return the sorted map or the original map, if it was empty
    */
   @Nullable
-  public static <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>> Map <KEYTYPE, VALUETYPE> getSortedByValue (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
+  public static <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>> ICommonsMap <KEYTYPE, VALUETYPE> getSortedByValue (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
     if (isEmpty (aMap))
-      return aMap;
+      return newOrderedMap (0);
 
     // get sorted entry list
     final ICommonsList <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
@@ -1712,13 +1737,13 @@ public final class CollectionHelper
    * @return the sorted map or the original map, if it was empty
    */
   @Nullable
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> getSortedByValue (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                @Nonnull final Comparator <? super VALUETYPE> aValueComparator)
+  public static <KEYTYPE, VALUETYPE> ICommonsMap <KEYTYPE, VALUETYPE> getSortedByValue (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
+                                                                                        @Nonnull final Comparator <? super VALUETYPE> aValueComparator)
   {
     ValueEnforcer.notNull (aValueComparator, "ValueComparator");
 
     if (isEmpty (aMap))
-      return aMap;
+      return newOrderedMap (0);
 
     // get sorted Map.Entry list by Entry.getValue ()
     final ICommonsList <Map.Entry <KEYTYPE, VALUETYPE>> aList = newList (aMap.entrySet ());
@@ -1728,12 +1753,12 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> getReverseList (@Nullable final Collection <? extends ELEMENTTYPE> aCollection)
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getReverseList (@Nullable final Collection <? extends ELEMENTTYPE> aCollection)
   {
     if (isEmpty (aCollection))
       return newList (0);
 
-    final CommonsList <ELEMENTTYPE> ret = newList (aCollection);
+    final CommonsArrayList <ELEMENTTYPE> ret = newList (aCollection);
     Collections.reverse (ret);
     return ret;
   }
@@ -1747,18 +1772,6 @@ public final class CollectionHelper
 
     Collections.reverse (aList);
     return aList;
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> getStackCopyWithoutTop (@Nullable final NonBlockingStack <ELEMENTTYPE> aStack)
-  {
-    if (isEmpty (aStack))
-      return null;
-
-    final NonBlockingStack <ELEMENTTYPE> ret = new NonBlockingStack <> (aStack);
-    ret.pop ();
-    return ret;
   }
 
   /**
@@ -1779,7 +1792,7 @@ public final class CollectionHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static <KEY, VALUE> ICommonsMap <KEY, VALUE> getFilteredMap (@Nullable final Map <KEY, VALUE> aValues,
+  public static <KEY, VALUE> ICommonsMap <KEY, VALUE> getFilteredMap (@Nullable final ICommonsMap <KEY, VALUE> aValues,
                                                                       @Nullable final Collection <? extends KEY> aKeys)
   {
     if (isEmpty (aValues) || isEmpty (aKeys))
@@ -1806,22 +1819,6 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> ELEMENTTYPE getFirstElement (@Nullable final List <ELEMENTTYPE> aList)
   {
     return isEmpty (aList) ? null : aList.get (0);
-  }
-
-  /**
-   * Get the first element of the passed sorted set.
-   *
-   * @param <ELEMENTTYPE>
-   *        Set element type
-   * @param aSortedSet
-   *        The sorted set. May be <code>null</code>.
-   * @return <code>null</code> if the list is <code>null</code> or empty, the
-   *         first element otherwise.
-   */
-  @Nullable
-  public static <ELEMENTTYPE> ELEMENTTYPE getFirstElement (@Nullable final SortedSet <ELEMENTTYPE> aSortedSet)
-  {
-    return isEmpty (aSortedSet) ? null : aSortedSet.first ();
   }
 
   /**
@@ -1859,97 +1856,6 @@ public final class CollectionHelper
     return it.hasNext () ? it.next () : null;
   }
 
-  /**
-   * Get the first element of the passed map.
-   *
-   * @param <KEYTYPE>
-   *        Map key type
-   * @param <VALUETYPE>
-   *        Map value type
-   * @param aMap
-   *        The map. May be <code>null</code>.
-   * @return <code>null</code> if the map is <code>null</code> or empty, the
-   *         first element otherwise.
-   */
-  @Nullable
-  public static <KEYTYPE, VALUETYPE> Map.Entry <KEYTYPE, VALUETYPE> getFirstElement (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
-  {
-    return isEmpty (aMap) ? null : aMap.entrySet ().iterator ().next ();
-  }
-
-  /**
-   * Get the first key of the passed map.
-   *
-   * @param <KEYTYPE>
-   *        Map key type
-   * @param <VALUETYPE>
-   *        Map value type
-   * @param aMap
-   *        The map. May be <code>null</code>.
-   * @return <code>null</code> if the map is <code>null</code> or empty, the
-   *         first key otherwise.
-   */
-  @Nullable
-  public static <KEYTYPE, VALUETYPE> KEYTYPE getFirstKey (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
-  {
-    return isEmpty (aMap) ? null : aMap.keySet ().iterator ().next ();
-  }
-
-  /**
-   * Get the first key of the passed sorted map.
-   *
-   * @param <KEYTYPE>
-   *        Map key type
-   * @param <VALUETYPE>
-   *        Map value type
-   * @param aSortedMap
-   *        The sorted map. May be <code>null</code>.
-   * @return <code>null</code> if the map is <code>null</code> or empty, the
-   *         first key otherwise.
-   */
-  @Nullable
-  public static <KEYTYPE, VALUETYPE> KEYTYPE getFirstKey (@Nullable final SortedMap <KEYTYPE, VALUETYPE> aSortedMap)
-  {
-    return isEmpty (aSortedMap) ? null : aSortedMap.firstKey ();
-  }
-
-  /**
-   * Get the first value of the passed map.
-   *
-   * @param <KEYTYPE>
-   *        Map key type
-   * @param <VALUETYPE>
-   *        Map value type
-   * @param aMap
-   *        The map. May be <code>null</code>.
-   * @return <code>null</code> if the map is <code>null</code> or empty, the
-   *         first value otherwise.
-   */
-  @Nullable
-  public static <KEYTYPE, VALUETYPE> VALUETYPE getFirstValue (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
-  {
-    return isEmpty (aMap) ? null : aMap.values ().iterator ().next ();
-  }
-
-  /**
-   * Get the first value of the passed map.
-   *
-   * @param <KEYTYPE>
-   *        Map key type
-   * @param <VALUETYPE>
-   *        Map value type
-   * @param aSortedMap
-   *        The map. May be <code>null</code>.
-   * @return <code>null</code> if the map is <code>null</code> or empty, the
-   *         first value otherwise.
-   */
-  @Nullable
-  public static <KEYTYPE, VALUETYPE> VALUETYPE getFirstValue (@Nullable final SortedMap <KEYTYPE, VALUETYPE> aSortedMap)
-  {
-    final KEYTYPE aKey = getFirstKey (aSortedMap);
-    return aKey == null ? null : aSortedMap.get (aKey);
-  }
-
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE removeFirstElement (@Nullable final List <ELEMENTTYPE> aList)
   {
@@ -1961,12 +1867,6 @@ public final class CollectionHelper
   {
     final int nSize = getSize (aList);
     return nSize == 0 ? null : aList.get (nSize - 1);
-  }
-
-  @Nullable
-  public static <ELEMENTTYPE> ELEMENTTYPE getLastElement (@Nullable final SortedSet <ELEMENTTYPE> aSortedSet)
-  {
-    return isEmpty (aSortedSet) ? null : aSortedSet.last ();
   }
 
   @Nullable
@@ -2039,43 +1939,6 @@ public final class CollectionHelper
     if (aList == null || nIndex < 0 || nIndex >= aList.size ())
       return null;
     return aList.remove (nIndex);
-  }
-
-  /**
-   * Get the last key of the passed sorted map.
-   *
-   * @param <KEYTYPE>
-   *        Map key type
-   * @param <VALUETYPE>
-   *        Map value type
-   * @param aSortedMap
-   *        The sorted map. May be <code>null</code>.
-   * @return <code>null</code> if the map is <code>null</code> or empty, the
-   *         last key otherwise.
-   */
-  @Nullable
-  public static <KEYTYPE, VALUETYPE> KEYTYPE getLastKey (@Nullable final SortedMap <KEYTYPE, VALUETYPE> aSortedMap)
-  {
-    return isEmpty (aSortedMap) ? null : aSortedMap.lastKey ();
-  }
-
-  /**
-   * Get the last value of the passed map.
-   *
-   * @param <KEYTYPE>
-   *        Map key type
-   * @param <VALUETYPE>
-   *        Map value type
-   * @param aSortedMap
-   *        The map. May be <code>null</code>.
-   * @return <code>null</code> if the map is <code>null</code> or empty, the
-   *         last value otherwise.
-   */
-  @Nullable
-  public static <KEYTYPE, VALUETYPE> VALUETYPE getLastValue (@Nullable final SortedMap <KEYTYPE, VALUETYPE> aSortedMap)
-  {
-    final KEYTYPE aKey = getLastKey (aSortedMap);
-    return aKey == null ? null : aSortedMap.get (aKey);
   }
 
   @Nullable
@@ -2161,7 +2024,7 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> getConcatenatedList (@Nullable final Collection <? extends ELEMENTTYPE> aCollection1,
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getConcatenatedList (@Nullable final Collection <? extends ELEMENTTYPE> aCollection1,
                                                                              @Nullable final Collection <? extends ELEMENTTYPE> aCollection2)
   {
     final int nSize1 = getSize (aCollection1);
@@ -2172,7 +2035,7 @@ public final class CollectionHelper
     if (nSize2 == 0)
       return newList (aCollection1);
 
-    final CommonsList <ELEMENTTYPE> ret = newList (nSize1 + nSize2);
+    final CommonsArrayList <ELEMENTTYPE> ret = newList (nSize1 + nSize2);
     ret.addAll (aCollection1);
     ret.addAll (aCollection2);
     return ret;
@@ -2181,7 +2044,7 @@ public final class CollectionHelper
   @Nullable
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> getConcatenatedList (@Nullable final Collection <? extends ELEMENTTYPE> aCont1,
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getConcatenatedList (@Nullable final Collection <? extends ELEMENTTYPE> aCont1,
                                                                              @Nullable final ELEMENTTYPE... aCont2)
   {
     final int nSize1 = getSize (aCont1);
@@ -2192,7 +2055,7 @@ public final class CollectionHelper
     if (nSize2 == 0)
       return newList (aCont1);
 
-    final CommonsList <ELEMENTTYPE> ret = newList (nSize1 + nSize2);
+    final CommonsArrayList <ELEMENTTYPE> ret = newList (nSize1 + nSize2);
     ret.addAll (aCont1);
     Collections.addAll (ret, aCont2);
     return ret;
@@ -2200,7 +2063,7 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> getConcatenatedList (@Nullable final ELEMENTTYPE [] aCont1,
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getConcatenatedList (@Nullable final ELEMENTTYPE [] aCont1,
                                                                              @Nullable final Collection <? extends ELEMENTTYPE> aCont2)
   {
     final int nSize1 = ArrayHelper.getSize (aCont1);
@@ -2211,7 +2074,7 @@ public final class CollectionHelper
     if (nSize2 == 0)
       return newList (aCont1);
 
-    final CommonsList <ELEMENTTYPE> ret = newList (nSize1 + nSize2);
+    final CommonsArrayList <ELEMENTTYPE> ret = newList (nSize1 + nSize2);
     Collections.addAll (ret, aCont1);
     ret.addAll (aCont2);
     return ret;
@@ -2336,7 +2199,7 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static CommonsList <?> newObjectListFromArray (@Nullable final Object aValue,
+  public static CommonsArrayList <?> newObjectListFromArray (@Nullable final Object aValue,
                                                         @Nonnull final Class <?> aComponentType)
   {
     if (aValue == null)
@@ -2388,7 +2251,7 @@ public final class CollectionHelper
     if (ArrayHelper.isEmpty (aArray))
       return null;
 
-    final CommonsList <Object> ret = newList (aArray.length);
+    final CommonsArrayList <Object> ret = newList (aArray.length);
     Collections.addAll (ret, aArray);
     return ret;
   }
@@ -2411,7 +2274,7 @@ public final class CollectionHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> getSubList (@Nullable final List <ELEMENTTYPE> aCont,
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getSubList (@Nullable final List <ELEMENTTYPE> aCont,
                                                                     @Nonnegative final int nStartIndex,
                                                                     @Nonnegative final int nSectionLength)
   {
@@ -2520,10 +2383,10 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> getAll (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getAll (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                                 @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    final CommonsList <ELEMENTTYPE> ret = newList ();
+    final CommonsArrayList <ELEMENTTYPE> ret = newList ();
     findAll (aCollection, aFilter, ret::add);
     return ret;
   }
@@ -2550,10 +2413,10 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE, DSTTYPE> CommonsList <DSTTYPE> getAllMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+  public static <ELEMENTTYPE, DSTTYPE> CommonsArrayList <DSTTYPE> getAllMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                                            @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
-    final CommonsList <DSTTYPE> ret = newList ();
+    final CommonsArrayList <DSTTYPE> ret = newList ();
     findAllMapped (aCollection, aMapper, ret::add);
     return ret;
   }
@@ -2579,11 +2442,11 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE, DSTTYPE> CommonsList <DSTTYPE> getAllMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+  public static <ELEMENTTYPE, DSTTYPE> CommonsArrayList <DSTTYPE> getAllMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                                            @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                                                            @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
-    final CommonsList <DSTTYPE> ret = newList ();
+    final CommonsArrayList <DSTTYPE> ret = newList ();
     findAllMapped (aCollection, aFilter, aMapper, ret::add);
     return ret;
   }

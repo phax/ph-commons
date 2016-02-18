@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.IHasInputStream;
@@ -106,7 +106,7 @@ public final class XMLListHandler
   @ReturnsMutableCopy
   public static ICommonsList <String> readList (@Nonnull @WillClose final InputStream aIS)
   {
-    final ICommonsList <String> ret = new CommonsList <> ();
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
     if (readList (aIS, ret).isFailure ())
       return null;
     return ret;

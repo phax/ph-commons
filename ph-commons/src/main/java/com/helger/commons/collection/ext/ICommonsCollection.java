@@ -1,6 +1,7 @@
 package com.helger.commons.collection.ext;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -28,6 +29,13 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   @Nonnull
   @ReturnsMutableCopy
   ICommonsCollection <ELEMENTTYPE> getCopy ();
+
+  @Nonnull
+  @ReturnsMutableCopy
+  default ICommonsList <ELEMENTTYPE> getCopyAsList ()
+  {
+    return CollectionHelper.newList (this);
+  }
 
   @Nonnull
   @ReturnsMutableCopy
@@ -236,5 +244,11 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
       return EChange.UNCHANGED;
     clear ();
     return EChange.CHANGED;
+  }
+
+  @Nonnull
+  default Collection <ELEMENTTYPE> getAsUnmodifiable ()
+  {
+    return Collections.unmodifiableCollection (this);
   }
 }

@@ -60,7 +60,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.exception.mock.IMockException;
 import com.helger.commons.io.IHasInputStream;
@@ -1126,7 +1126,7 @@ public final class StreamHelper
       return null;
 
     // Read stream and collect all read lines in a list
-    final ICommonsList <String> ret = new CommonsList <> ();
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
     readStreamLines (aIS, aCharset, nLinesToSkip, nLinesToRead, ret::add);
     return ret;
   }

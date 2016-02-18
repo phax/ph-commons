@@ -44,7 +44,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
@@ -78,7 +78,7 @@ public class WSClientConfig
   private String m_sSOAPAction;
   private IMultiMapListBased <String, String> m_aHTTPHeaders;
   private ETriState m_eCookiesSupport = ETriState.UNDEFINED;
-  private final ICommonsList <Handler <? extends MessageContext>> m_aHandlers = new CommonsList <> ();
+  private final ICommonsList <Handler <? extends MessageContext>> m_aHandlers = new CommonsArrayList <> ();
 
   private boolean m_bWorkAroundMASM0003 = true;
 

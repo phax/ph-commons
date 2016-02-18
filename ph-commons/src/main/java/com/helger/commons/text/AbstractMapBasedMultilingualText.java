@@ -28,6 +28,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.IChangeCallback;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.state.EChange;
@@ -57,7 +58,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
    * @param aMapToUse
    *        The map to use. Must not be <code>null</code> and must be writable.
    */
-  protected AbstractMapBasedMultilingualText (@Nonnull final Map <Locale, String> aMapToUse)
+  protected AbstractMapBasedMultilingualText (@Nonnull final ICommonsMap <Locale, String> aMapToUse)
   {
     super (aMapToUse);
   }

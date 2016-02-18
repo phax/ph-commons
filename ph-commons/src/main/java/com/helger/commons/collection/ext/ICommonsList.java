@@ -1,5 +1,6 @@
 package com.helger.commons.collection.ext;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -16,7 +17,7 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>, ICommons
   @ReturnsMutableCopy
   default ICommonsList <ELEMENTTYPE> getCopy ()
   {
-    return new CommonsList <> (this);
+    return new CommonsArrayList <> (this);
   }
 
   @Nonnull
@@ -26,7 +27,7 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>, ICommons
     if (aFilter == null)
       return getCopy ();
 
-    final ICommonsList <ELEMENTTYPE> ret = new CommonsList <> ();
+    final ICommonsList <ELEMENTTYPE> ret = new CommonsArrayList <> ();
     findAll (aFilter, ret::add);
     return ret;
   }
@@ -35,7 +36,7 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>, ICommons
   @ReturnsMutableCopy
   default <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
-    final ICommonsList <DSTTYPE> ret = new CommonsList <> (size ());
+    final ICommonsList <DSTTYPE> ret = new CommonsArrayList <> (size ());
     findAllMapped (aMapper, ret::add);
     return ret;
   }
@@ -45,7 +46,7 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>, ICommons
   default <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                                          @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
-    final ICommonsList <DSTTYPE> ret = new CommonsList <> ();
+    final ICommonsList <DSTTYPE> ret = new CommonsArrayList <> ();
     findAllMapped (aFilter, aMapper, ret::add);
     return ret;
   }
@@ -54,7 +55,7 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>, ICommons
   @ReturnsMutableCopy
   default <DSTTYPE extends ELEMENTTYPE> ICommonsList <DSTTYPE> getAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass)
   {
-    final ICommonsList <DSTTYPE> ret = new CommonsList <> ();
+    final ICommonsList <DSTTYPE> ret = new CommonsArrayList <> ();
     findAllInstanceOf (aDstClass, ret::add);
     return ret;
   }
@@ -110,5 +111,11 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>, ICommons
   {
     final int nSize = size ();
     return nSize == 0 ? null : remove (nSize - 1);
+  }
+
+  @Nonnull
+  default List <ELEMENTTYPE> getAsUnmodifiable ()
+  {
+    return Collections.unmodifiableList (this);
   }
 }

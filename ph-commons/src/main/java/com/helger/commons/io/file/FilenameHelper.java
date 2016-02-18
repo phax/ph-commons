@@ -31,7 +31,7 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.exception.InitializationException;
@@ -989,7 +989,7 @@ public final class FilenameHelper
     }
 
     // Start splitting into paths
-    final ICommonsList <String> aElements = new CommonsList <> ();
+    final ICommonsList <String> aElements = new CommonsArrayList <> ();
     int nParentFolders = 0;
     final String [] aPathArray = StringHelper.getExplodedArray (UNIX_SEPARATOR, sPathToUse);
 

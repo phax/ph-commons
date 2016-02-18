@@ -29,7 +29,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
@@ -50,7 +50,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
 {
-  private final ICommonsList <IError> m_aItems = new CommonsList <> ();
+  private final ICommonsList <IError> m_aItems = new CommonsArrayList <> ();
 
   public ErrorList ()
   {}
@@ -408,7 +408,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @ReturnsMutableCopy
   public ICommonsList <String> getAllItemTextsOfFields (@Nullable final String... aSearchFieldNames)
   {
-    final ICommonsList <String> ret = new CommonsList <> ();
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
     if (ArrayHelper.isNotEmpty (aSearchFieldNames))
       m_aItems.findAll (e -> ArrayHelper.contains (aSearchFieldNames, e.getErrorFieldName ()),
                         e -> ret.add (e.getErrorText ()));
@@ -419,7 +419,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @ReturnsMutableCopy
   public ICommonsList <String> getAllItemTextsOfFieldsStartingWith (@Nullable final String... aSearchFieldNames)
   {
-    final ICommonsList <String> ret = new CommonsList <> ();
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
     if (ArrayHelper.isNotEmpty (aSearchFieldNames))
       m_aItems.findAll (e -> e.hasErrorFieldName (), e -> {
         final String sErrorFieldName = e.getErrorFieldName ();

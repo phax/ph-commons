@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.IterableIterator;
@@ -53,7 +53,7 @@ public final class ClassHierarchyCache
   private static final class ClassList implements Iterable <WeakReference <Class <?>>>
   {
     // Store it in the correct order, but without duplicates
-    private final ICommonsList <WeakReference <Class <?>>> m_aList = new CommonsList <> ();
+    private final ICommonsList <WeakReference <Class <?>>> m_aList = new CommonsArrayList <> ();
 
     public ClassList (@Nonnull final Class <?> aClass)
     {
@@ -61,7 +61,7 @@ public final class ClassHierarchyCache
 
       // Check the whole class hierarchy of the source class
       final Set <Class <?>> aUniqueOrderedClasses = new LinkedHashSet <> ();
-      final ICommonsList <Class <?>> aOpenSrc = new CommonsList <> ();
+      final ICommonsList <Class <?>> aOpenSrc = new CommonsArrayList <> ();
       aOpenSrc.add (aClass);
       while (!aOpenSrc.isEmpty ())
       {
@@ -101,7 +101,7 @@ public final class ClassHierarchyCache
     public ICommonsList <Class <?>> getAsList ()
     {
       // Use a list that may contain duplicates
-      final ICommonsList <Class <?>> ret = new CommonsList <> (m_aList.size ());
+      final ICommonsList <Class <?>> ret = new CommonsArrayList <> (m_aList.size ());
       for (final WeakReference <Class <?>> aRef : m_aList)
       {
         final Class <?> aClass = aRef.get ();

@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsVector;
 import com.helger.commons.collection.impl.NonBlockingStack;
 
@@ -44,9 +44,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static CommonsList <Boolean> newPrimitiveList (@Nullable final boolean... aValues)
+  public static CommonsArrayList <Boolean> newPrimitiveList (@Nullable final boolean... aValues)
   {
-    final CommonsList <Boolean> ret = CollectionHelper.newList ();
+    final CommonsArrayList <Boolean> ret = CollectionHelper.newList ();
     if (aValues != null)
       for (final boolean aValue : aValues)
         ret.add (Boolean.valueOf (aValue));
@@ -55,9 +55,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static CommonsList <Byte> newPrimitiveList (@Nullable final byte... aValues)
+  public static CommonsArrayList <Byte> newPrimitiveList (@Nullable final byte... aValues)
   {
-    final CommonsList <Byte> ret = CollectionHelper.newList ();
+    final CommonsArrayList <Byte> ret = CollectionHelper.newList ();
     if (aValues != null)
       for (final byte aValue : aValues)
         ret.add (Byte.valueOf (aValue));
@@ -66,9 +66,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static CommonsList <Character> newPrimitiveList (@Nullable final char... aValues)
+  public static CommonsArrayList <Character> newPrimitiveList (@Nullable final char... aValues)
   {
-    final CommonsList <Character> ret = CollectionHelper.newList ();
+    final CommonsArrayList <Character> ret = CollectionHelper.newList ();
     if (aValues != null)
       for (final char aValue : aValues)
         ret.add (Character.valueOf (aValue));
@@ -77,9 +77,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static CommonsList <Double> newPrimitiveList (@Nullable final double... aValues)
+  public static CommonsArrayList <Double> newPrimitiveList (@Nullable final double... aValues)
   {
-    final CommonsList <Double> ret = CollectionHelper.newList ();
+    final CommonsArrayList <Double> ret = CollectionHelper.newList ();
     if (aValues != null)
       for (final double aValue : aValues)
         ret.add (Double.valueOf (aValue));
@@ -88,9 +88,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static CommonsList <Float> newPrimitiveList (@Nullable final float... aValues)
+  public static CommonsArrayList <Float> newPrimitiveList (@Nullable final float... aValues)
   {
-    final CommonsList <Float> ret = CollectionHelper.newList ();
+    final CommonsArrayList <Float> ret = CollectionHelper.newList ();
     if (aValues != null)
       for (final float aValue : aValues)
         ret.add (Float.valueOf (aValue));
@@ -99,9 +99,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static CommonsList <Integer> newPrimitiveList (@Nullable final int... aValues)
+  public static CommonsArrayList <Integer> newPrimitiveList (@Nullable final int... aValues)
   {
-    final CommonsList <Integer> ret = CollectionHelper.newList ();
+    final CommonsArrayList <Integer> ret = CollectionHelper.newList ();
     if (aValues != null)
       for (final int aValue : aValues)
         ret.add (Integer.valueOf (aValue));
@@ -110,9 +110,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static CommonsList <Long> newPrimitiveList (@Nullable final long... aValues)
+  public static CommonsArrayList <Long> newPrimitiveList (@Nullable final long... aValues)
   {
-    final CommonsList <Long> ret = CollectionHelper.newList ();
+    final CommonsArrayList <Long> ret = CollectionHelper.newList ();
     if (aValues != null)
       for (final long aValue : aValues)
         ret.add (Long.valueOf (aValue));
@@ -121,9 +121,9 @@ public final class PrimitiveCollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static CommonsList <Short> newPrimitiveList (@Nullable final short... aValues)
+  public static CommonsArrayList <Short> newPrimitiveList (@Nullable final short... aValues)
   {
-    final CommonsList <Short> ret = CollectionHelper.newList ();
+    final CommonsArrayList <Short> ret = CollectionHelper.newList ();
     if (aValues != null)
       for (final short aValue : aValues)
         ret.add (Short.valueOf (aValue));

@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.microdom.IMicroElement;
@@ -79,7 +79,7 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
   {
     // Not an element?
     if (aCurrent == null)
-      return new CommonsList <> ();
+      return new CommonsArrayList <> ();
 
     // Namespace URI defined?
     if (StringHelper.hasText (m_sNamespaceURI))

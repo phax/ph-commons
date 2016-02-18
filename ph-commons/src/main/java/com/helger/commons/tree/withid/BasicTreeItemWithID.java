@@ -31,7 +31,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -309,7 +309,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
       if (m_aChildMap == null)
       {
         m_aChildMap = new HashMap <> ();
-        m_aChildren = new CommonsList <> ();
+        m_aChildren = new CommonsArrayList <> ();
       }
       m_aChildMap.put (aDataID, aItem);
       m_aChildren.add (aItem);
@@ -383,7 +383,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     else
     {
       m_aChildMap = new HashMap <> ();
-      m_aChildren = new CommonsList <> ();
+      m_aChildren = new CommonsArrayList <> ();
     }
 
     m_aChildMap.put (aDataID, aChild);

@@ -24,7 +24,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
@@ -40,7 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <ResourceErrorGroup>, IClearable
 {
-  private final ICommonsList <IResourceError> m_aErrors = new CommonsList <> ();
+  private final ICommonsList <IResourceError> m_aErrors = new CommonsArrayList <> ();
 
   public ResourceErrorGroup ()
   {}

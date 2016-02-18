@@ -29,7 +29,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.iterate.EmptyIterator;
 import com.helger.commons.collection.iterate.EmptyListIterator;
@@ -234,7 +234,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
 
     // Empty
     if (!m_bHasElement || nFromIndex == nToIndex)
-      return new CommonsList <ELEMENTTYPE> (0);
+      return new CommonsArrayList <ELEMENTTYPE> (0);
 
     return this;
   }

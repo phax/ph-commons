@@ -26,7 +26,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -50,7 +50,7 @@ public final class CombinationGeneratorTest
     assertEquals (BigInteger.valueOf (4), x.getTotalCombinations ());
     assertEquals (BigInteger.valueOf (4), x.getCombinationsLeft ());
 
-    final ICommonsList <ICommonsList <String>> aResultsWithDuplicates = new CommonsList <> ();
+    final ICommonsList <ICommonsList <String>> aResultsWithDuplicates = new CommonsArrayList <> ();
     final Set <ICommonsList <String>> aResultsWithoutDuplicates = new HashSet <> ();
     while (x.hasNext ())
     {
@@ -78,7 +78,7 @@ public final class CombinationGeneratorTest
     assertEquals (BigInteger.ONE, x.getTotalCombinations ());
     assertEquals (BigInteger.ONE, x.getCombinationsLeft ());
 
-    final ICommonsList <ICommonsList <String>> aResultsWithDuplicates = new CommonsList <> ();
+    final ICommonsList <ICommonsList <String>> aResultsWithDuplicates = new CommonsArrayList <> ();
     final Set <ICommonsList <String>> aResultsWithoutDuplicates = new HashSet <> ();
     while (x.hasNext ())
     {

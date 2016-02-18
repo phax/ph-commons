@@ -25,7 +25,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.aggregate.IAggregator;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FilenameHelper;
@@ -65,7 +65,7 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, IComm
             {
               // create item and recursively descend
               final DefaultFolderTreeItem <String, File, ICommonsList <File>> aChildItem = aTreeItem.createChildItem (aChild.getName (),
-                                                                                                                      new CommonsList <> ());
+                                                                                                                      new CommonsArrayList <> ());
               _iterate (aChildItem, aChild, aDirFilter, aFileFilter);
             }
           }
@@ -98,7 +98,7 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, IComm
     ValueEnforcer.isTrue (aStartDir.isDirectory (), "Start directory is not a directory!");
 
     final DefaultFolderTreeItem <String, File, ICommonsList <File>> aStart = getRootItem ().createChildItem (aStartDir.getName (),
-                                                                                                             new CommonsList <> ());
+                                                                                                             new CommonsArrayList <> ());
     _iterate (aStart, aStartDir, aDirFilter, aFileFilter);
   }
 }

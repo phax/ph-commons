@@ -26,7 +26,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 
 /**
@@ -80,7 +80,7 @@ public final class CombinationGeneratorFlexible <DATATYPE>
     {
       if (aElements.isEmpty ())
       {
-        aCallback.accept (new CommonsList <> ());
+        aCallback.accept (new CommonsArrayList <> ());
       }
       else
       {

@@ -19,7 +19,7 @@ package com.helger.commons.collection.pair;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 
 /**
  * This is a helper class that wraps a list of pair objects.
@@ -31,7 +31,7 @@ import com.helger.commons.collection.ext.CommonsList;
  *        Second type of the pair type.
  */
 @NotThreadSafe
-public class KeyValuePairList <DATA1TYPE, DATA2TYPE> extends CommonsList <IPair <DATA1TYPE, DATA2TYPE>>
+public class KeyValuePairList <DATA1TYPE, DATA2TYPE> extends CommonsArrayList <IPair <DATA1TYPE, DATA2TYPE>>
 {
   /**
    * Add the pair to the list.

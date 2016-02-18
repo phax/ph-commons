@@ -24,7 +24,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.ENewLineMode;
@@ -52,7 +52,7 @@ public final class ClassPathHelper
   @ReturnsMutableCopy
   public static ICommonsList <String> getAllClassPathEntries ()
   {
-    final ICommonsList <String> ret = new CommonsList <> ();
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
     getAllClassPathEntries (ret);
     return ret;
   }

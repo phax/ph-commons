@@ -30,7 +30,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.timing.StopWatch;
 
@@ -56,7 +56,7 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
     assertEquals (6, aResults.size ());
     assertTrue (aResults.contains (new ArrayList <> ()));
 
-    aResults = aGenerator.getCombinations (new CommonsList <> ());
+    aResults = aGenerator.getCombinations (new CommonsArrayList <> ());
     assertEquals (1, aResults.size ());
     assertTrue (aResults.contains (new ArrayList <> ()));
 
@@ -67,7 +67,7 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
     assertEquals (5, aResults.size ());
     assertFalse (aResults.contains (new ArrayList <> ()));
 
-    aResults = aGenerator.getCombinations (new CommonsList <> ());
+    aResults = aGenerator.getCombinations (new CommonsArrayList <> ());
     assertEquals (1, aResults.size ());
     assertTrue (aResults.contains (new ArrayList <> ()));
 

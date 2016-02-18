@@ -42,7 +42,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.io.resource.IReadableResource;
@@ -73,7 +73,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBMarshaller.class);
 
   private final Class <JAXBTYPE> m_aType;
-  private final ICommonsList <IReadableResource> m_aXSDs = new CommonsList <> ();
+  private final ICommonsList <IReadableResource> m_aXSDs = new CommonsArrayList <> ();
   private final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> m_aWrapper;
   private IValidationEventHandlerFactory m_aVEHFactory = new CollectingLoggingValidationEventHandlerFactory ();
   @Deprecated

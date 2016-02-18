@@ -32,7 +32,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.GenericReflection;
@@ -4203,13 +4203,13 @@ public final class ArrayHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsList <ELEMENTTYPE> getAll (@Nullable final ELEMENTTYPE [] aArray,
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getAll (@Nullable final ELEMENTTYPE [] aArray,
                                                                 @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
       return CollectionHelper.newList (aArray);
 
-    final CommonsList <ELEMENTTYPE> ret = new CommonsList <> ();
+    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> ();
     if (isNotEmpty (aArray))
       for (final ELEMENTTYPE aElement : aArray)
         if (aFilter.test (aElement))
@@ -4219,7 +4219,7 @@ public final class ArrayHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE, RETTYPE> CommonsList <RETTYPE> getAllMapped (@Nullable final ELEMENTTYPE [] aArray,
+  public static <ELEMENTTYPE, RETTYPE> CommonsArrayList <RETTYPE> getAllMapped (@Nullable final ELEMENTTYPE [] aArray,
                                                                            @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                                                            @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
   {
@@ -4227,7 +4227,7 @@ public final class ArrayHelper
     if (aFilter == null)
       return CollectionHelper.newListMapped (aArray, aMapper);
 
-    final CommonsList <RETTYPE> ret = new CommonsList <> ();
+    final CommonsArrayList <RETTYPE> ret = new CommonsArrayList <> ();
     if (isNotEmpty (aArray))
       for (final ELEMENTTYPE aElement : aArray)
         if (aFilter.test (aElement))

@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.StringHelper;
 
@@ -38,8 +38,8 @@ public final class StackTraceHelper
   private static final char STACKELEMENT_LINESEP = '\n';
 
   /** elements to omit in stack traces */
-  private static final ICommonsList <String> STACKTRACE_OMIT_UNITTEST = new CommonsList <> ();
-  private static final ICommonsList <String> STACKTRACE_OMIT_APPSRV = new CommonsList <> ();
+  private static final ICommonsList <String> STACKTRACE_OMIT_UNITTEST = new CommonsArrayList <> ();
+  private static final ICommonsList <String> STACKTRACE_OMIT_APPSRV = new CommonsArrayList <> ();
 
   static
   {

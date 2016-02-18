@@ -26,7 +26,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -50,7 +50,7 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
   private final EChangeLogCategory m_eCategory;
   private final boolean m_bIsIncompatible;
   private final IMutableMultilingualText m_aTexts = new MultilingualText ();
-  private final ICommonsList <String> m_aIssues = new CommonsList <> ();
+  private final ICommonsList <String> m_aIssues = new CommonsArrayList <> ();
 
   /**
    * Constructor.

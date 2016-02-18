@@ -22,13 +22,13 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.factory.IFactory;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * This is a specialized {@link CommonsList} that can handle read accesses on
+ * This is a specialized {@link CommonsArrayList} that can handle read accesses on
  * list items that are not yet in the container. If {@link #get(int)} is called
  * with an index that would normally throw an
  * {@link ArrayIndexOutOfBoundsException} this class will fill all indices
@@ -41,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The type of the elements in the list
  */
 @NotThreadSafe
-public class SafeArrayList <ELEMENTTYPE> extends CommonsList <ELEMENTTYPE>
+public class SafeArrayList <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYPE>
 {
   @MustImplementEqualsAndHashcode
   private final IFactory <ELEMENTTYPE> m_aFactory;

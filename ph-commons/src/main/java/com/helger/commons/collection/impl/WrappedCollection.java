@@ -30,7 +30,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.collection.ext.ICommonsList;
 
@@ -147,7 +147,7 @@ public class WrappedCollection <ELEMENTTYPE> implements ICommonsCollection <ELEM
   @ReturnsMutableCopy
   public ICommonsList <ELEMENTTYPE> getCopy ()
   {
-    return new CommonsList <> (this);
+    return new CommonsArrayList <> (this);
   }
 
   @Nonnull
@@ -157,7 +157,7 @@ public class WrappedCollection <ELEMENTTYPE> implements ICommonsCollection <ELEM
     if (aFilter == null)
       return getCopy ();
 
-    final ICommonsList <ELEMENTTYPE> ret = new CommonsList <> ();
+    final ICommonsList <ELEMENTTYPE> ret = new CommonsArrayList <> ();
     findAll (aFilter, ret::add);
     return ret;
   }
@@ -166,7 +166,7 @@ public class WrappedCollection <ELEMENTTYPE> implements ICommonsCollection <ELEM
   @ReturnsMutableCopy
   public <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
-    final ICommonsList <DSTTYPE> ret = new CommonsList <> (size ());
+    final ICommonsList <DSTTYPE> ret = new CommonsArrayList <> (size ());
     findAllMapped (aMapper, ret::add);
     return ret;
   }
@@ -176,7 +176,7 @@ public class WrappedCollection <ELEMENTTYPE> implements ICommonsCollection <ELEM
   public <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                                         @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
-    final ICommonsList <DSTTYPE> ret = new CommonsList <> ();
+    final ICommonsList <DSTTYPE> ret = new CommonsArrayList <> ();
     findAllMapped (aFilter, aMapper, ret::add);
     return ret;
   }
@@ -185,7 +185,7 @@ public class WrappedCollection <ELEMENTTYPE> implements ICommonsCollection <ELEM
   @ReturnsMutableCopy
   public <DSTTYPE extends ELEMENTTYPE> ICommonsList <DSTTYPE> getAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass)
   {
-    final ICommonsList <DSTTYPE> ret = new CommonsList <> ();
+    final ICommonsList <DSTTYPE> ret = new CommonsArrayList <> ();
     findAllInstanceOf (aDstClass, ret::add);
     return ret;
   }

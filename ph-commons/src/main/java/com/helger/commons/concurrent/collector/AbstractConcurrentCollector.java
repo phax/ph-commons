@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingRunnable;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.GenericReflection;
@@ -156,11 +156,11 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements
   public final ICommonsList <DATATYPE> drainQueue ()
   {
     // Drain all objects to this queue
-    final ICommonsList <Object> aDrainedToList = new CommonsList <> ();
+    final ICommonsList <Object> aDrainedToList = new CommonsArrayList <> ();
     m_aRWLock.writeLocked ( () -> m_aQueue.drainTo (aDrainedToList));
 
     // Change data type
-    final ICommonsList <DATATYPE> ret = new CommonsList <> ();
+    final ICommonsList <DATATYPE> ret = new CommonsArrayList <> ();
     for (final Object aObj : aDrainedToList)
       if (aObj != STOP_QUEUE_OBJECT)
         ret.add (GenericReflection.uncheckedCast (aObj));

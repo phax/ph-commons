@@ -35,7 +35,7 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.callback.INonThrowingCallableWithParameter;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
@@ -580,7 +580,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   {
     ValueEnforcer.notNull (aDesiredClass, "DesiredClass");
 
-    final ICommonsList <T> ret = new CommonsList <> ();
+    final ICommonsList <T> ret = new CommonsArrayList <> ();
     if (aScope != null)
       for (final Object aScopeValue : aScope.getAllAttributeValues ())
         if (aScopeValue != null && aDesiredClass.isAssignableFrom (aScopeValue.getClass ()))

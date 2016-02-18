@@ -18,13 +18,13 @@ package com.helger.commons.collection.multimap;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsWeakHashMap;
 
 /**
  * Abstract multi map based on {@link java.util.WeakHashMap}.
@@ -39,7 +39,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  */
 @NotThreadSafe
 public abstract class AbstractMultiWeakHashMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VALUETYPE>>
-                                               extends WeakHashMap <KEYTYPE, COLLTYPE>
+                                               extends CommonsWeakHashMap <KEYTYPE, COLLTYPE>
                                                implements IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE>
 {
   public AbstractMultiWeakHashMap ()

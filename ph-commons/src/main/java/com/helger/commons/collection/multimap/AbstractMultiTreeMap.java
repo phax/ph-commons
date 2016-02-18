@@ -19,13 +19,13 @@ package com.helger.commons.collection.multimap;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsTreeMap;
 
 /**
  * Abstract multi map based on {@link java.util.TreeMap}.
@@ -40,7 +40,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  */
 @NotThreadSafe
 public abstract class AbstractMultiTreeMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VALUETYPE>>
-                                           extends TreeMap <KEYTYPE, COLLTYPE>
+                                           extends CommonsTreeMap <KEYTYPE, COLLTYPE>
                                            implements IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE>
 {
   public AbstractMultiTreeMap ()

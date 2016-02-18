@@ -24,11 +24,11 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 
 /**
- * Multi map based on {@link ConcurrentHashMap} and {@link CommonsList} values.
+ * Multi map based on {@link ConcurrentHashMap} and {@link CommonsArrayList} values.
  * <br>
  * Important note: <code>null</code> keys are not allowed here!
  *
@@ -64,8 +64,8 @@ public class MultiConcurrentHashMapArrayListBased <KEYTYPE, VALUETYPE>
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  protected final CommonsList <VALUETYPE> createNewCollection ()
+  protected final CommonsArrayList <VALUETYPE> createNewCollection ()
   {
-    return new CommonsList <> ();
+    return new CommonsArrayList <> ();
   }
 }

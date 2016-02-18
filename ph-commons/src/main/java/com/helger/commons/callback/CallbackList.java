@@ -24,7 +24,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ICloneable;
@@ -45,7 +45,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   @GuardedBy ("m_aRWLock")
-  private final ICommonsList <CALLBACKTYPE> m_aCallbacks = new CommonsList <> ();
+  private final ICommonsList <CALLBACKTYPE> m_aCallbacks = new CommonsArrayList <> ();
 
   public CallbackList ()
   {}

@@ -25,14 +25,14 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A version of a stack that does not use {@link java.util.Vector} but an
- * {@link CommonsList} as the underlying data structure as opposed to
+ * {@link CommonsArrayList} as the underlying data structure as opposed to
  * {@link java.util.Stack}. This spares us from unnecessary synchronization.
  *
  * @author Philip Helger
@@ -40,7 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The type of the elements contained in the stack
  */
 @NotThreadSafe
-public class NonBlockingStack <ELEMENTTYPE> extends CommonsList <ELEMENTTYPE>
+public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYPE>
                               implements ICloneable <NonBlockingStack <ELEMENTTYPE>>
 {
   public NonBlockingStack ()

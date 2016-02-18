@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 
 /**
@@ -134,7 +134,7 @@ public final class ServiceLoaderHelper
       aRealLogger.trace ("Trying to retrieve all SPI implementations of " + aSPIClass);
 
     final ServiceLoader <T> aServiceLoader = ServiceLoader.<T> load (aSPIClass, aClassLoader);
-    final ICommonsList <T> ret = new CommonsList <> ();
+    final ICommonsList <T> ret = new CommonsArrayList <> ();
 
     // We use the iterator to be able to catch exceptions thrown
     // when loading SPI implementations (e.g. the SPI implementation class does

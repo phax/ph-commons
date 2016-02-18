@@ -44,7 +44,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.StreamHelper;
@@ -361,7 +361,7 @@ public class CSVReader implements Closeable, Iterable <ICommonsList <String>>
   @ReturnsMutableCopy
   public ICommonsList <ICommonsList <String>> readAll () throws IOException
   {
-    final ICommonsList <ICommonsList <String>> ret = new CommonsList <> ();
+    final ICommonsList <ICommonsList <String>> ret = new CommonsArrayList <> ();
     while (m_bHasNext)
     {
       final ICommonsList <String> aNextLineAsTokens = readNext ();

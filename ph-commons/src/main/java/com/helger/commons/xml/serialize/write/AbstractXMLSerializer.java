@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.stream.NonBlockingBufferedWriter;
 import com.helger.commons.io.stream.StreamHelper;
@@ -181,7 +181,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
    */
   protected static final class NamespaceStack
   {
-    private final ICommonsList <NamespaceLevel> m_aStack = new CommonsList <> ();
+    private final ICommonsList <NamespaceLevel> m_aStack = new CommonsArrayList <> ();
     private final NamespaceContext m_aNamespaceCtx;
 
     public NamespaceStack (@Nonnull final NamespaceContext aNamespaceCtx)

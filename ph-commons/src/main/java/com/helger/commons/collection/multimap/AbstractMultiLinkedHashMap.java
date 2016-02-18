@@ -17,7 +17,6 @@
 package com.helger.commons.collection.multimap;
 
 import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -25,6 +24,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 
 /**
  * Abstract multi map based on {@link java.util.LinkedHashMap}.
@@ -39,7 +39,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  */
 @NotThreadSafe
 public abstract class AbstractMultiLinkedHashMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VALUETYPE>>
-                                                 extends LinkedHashMap <KEYTYPE, COLLTYPE>
+                                                 extends CommonsLinkedHashMap <KEYTYPE, COLLTYPE>
                                                  implements IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE>
 {
   public AbstractMultiLinkedHashMap ()

@@ -29,7 +29,7 @@ import org.w3c.dom.DOMImplementation;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.xml.dom.EXMLDOMFeature;
 import com.helger.commons.xml.dom.EXMLDOMFeatureVersion;
@@ -49,7 +49,7 @@ public final class XMLDebug
   {
     s_aSupportedFeatures = new EnumMap <> (EXMLDOMFeatureVersion.class);
     for (final EXMLDOMFeatureVersion eFeatureVersion : EXMLDOMFeatureVersion.values ())
-      s_aSupportedFeatures.put (eFeatureVersion, new CommonsList <> ());
+      s_aSupportedFeatures.put (eFeatureVersion, new CommonsArrayList <> ());
 
     // Check features as specified by
     // http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/introduction.html#ID-Conformance
