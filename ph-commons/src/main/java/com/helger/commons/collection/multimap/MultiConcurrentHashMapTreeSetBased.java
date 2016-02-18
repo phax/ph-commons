@@ -18,17 +18,17 @@ package com.helger.commons.collection.multimap;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsTreeSet;
 
 /**
  * Multi map based on {@link java.util.concurrent.ConcurrentHashMap} and
- * {@link java.util.TreeSet} values.<br>
+ * {@link CommonsTreeSet} values.<br>
  * Important note: <code>null</code> keys are not allowed here!
  *
  * @author Philip Helger
@@ -62,8 +62,8 @@ public class MultiConcurrentHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comp
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  protected final Set <VALUETYPE> createNewCollection ()
+  protected final CommonsTreeSet <VALUETYPE> createNewCollection ()
   {
-    return new TreeSet <VALUETYPE> ();
+    return new CommonsTreeSet <> ();
   }
 }

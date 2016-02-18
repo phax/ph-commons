@@ -16,9 +16,6 @@
  */
 package com.helger.commons.xml.serialize.write;
 
-import java.util.Map;
-import java.util.TreeMap;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.XMLConstants;
@@ -37,6 +34,8 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
+import com.helger.commons.collection.ext.CommonsTreeMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.CXML;
 import com.helger.commons.xml.EXMLVersion;
@@ -190,7 +189,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
 
     // get all attributes (sorting is important because the order from
     // getAttributes is not guaranteed to be consistent!)
-    final Map <QName, String> aAttrMap = new TreeMap <> (CXML.getComparatorQName ());
+    final ICommonsMap <QName, String> aAttrMap = new CommonsTreeMap <> (CXML.getComparatorQName ());
 
     m_aNSStack.push ();
 

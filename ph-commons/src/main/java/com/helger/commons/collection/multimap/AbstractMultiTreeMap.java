@@ -28,7 +28,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsTreeMap;
 
 /**
- * Abstract multi map based on {@link java.util.TreeMap}.
+ * Abstract multi map based on {@link CommonsTreeMap}.
  *
  * @author Philip Helger
  * @param <KEYTYPE>

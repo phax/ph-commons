@@ -25,13 +25,13 @@ import java.io.Writer;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Properties;
-import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.collection.ext.CommonsTreeMap;
 import com.helger.commons.io.stream.NonBlockingBufferedWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
@@ -47,17 +47,18 @@ import com.helger.commons.system.ENewLineMode;
  * second property list is searched if the property key is not found in the
  * original property list.
  * <p>
- * Because <code>NonBlockingProperties</code> inherits from <code>TreeMap</code>
- * , the <code>put</code> and <code>putAll</code> methods can be applied to a
- * <code>NonBlockingProperties</code> object. Their use is strongly discouraged
- * as they allow the caller to insert entries whose keys or values are not
- * <code>Strings</code>. The <code>setProperty</code> method should be used
- * instead. If the <code>store</code> or <code>save</code> method is called on a
- * "compromised" <code>NonBlockingProperties</code> object that contains a non-
- * <code>String</code> key or value, the call will fail. Similarly, the call to
- * the <code>propertyNames</code> or <code>list</code> method will fail if it is
- * called on a "compromised" <code>NonBlockingProperties</code> object that
- * contains a non- <code>String</code> key.
+ * Because <code>NonBlockingProperties</code> inherits from
+ * <code>CommonsTreeMap</code> , the <code>put</code> and <code>putAll</code>
+ * methods can be applied to a <code>NonBlockingProperties</code> object. Their
+ * use is strongly discouraged as they allow the caller to insert entries whose
+ * keys or values are not <code>Strings</code>. The <code>setProperty</code>
+ * method should be used instead. If the <code>store</code> or <code>save</code>
+ * method is called on a "compromised" <code>NonBlockingProperties</code> object
+ * that contains a non- <code>String</code> key or value, the call will fail.
+ * Similarly, the call to the <code>propertyNames</code> or <code>list</code>
+ * method will fail if it is called on a "compromised"
+ * <code>NonBlockingProperties</code> object that contains a non-
+ * <code>String</code> key.
  * <p>
  * The {@link #load(java.io.Reader) load(Reader)} <tt>/</tt>
  * {@link #store(java.io.Writer, java.lang.String) store(Writer, String)}
@@ -79,7 +80,7 @@ import com.helger.commons.system.ENewLineMode;
  * @author Xueming Shen
  * @author Philip Helger
  */
-public class NonBlockingProperties extends TreeMap <String, String>
+public class NonBlockingProperties extends CommonsTreeMap <String, String>
 {
   /**
    * A property list that contains default values for any keys not found in this

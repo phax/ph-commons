@@ -18,7 +18,6 @@ package com.helger.commons.collection.multimap;
 
 import java.util.Comparator;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,7 +28,8 @@ import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 
 /**
- * Multi map based on {@link TreeMap} and {@link CommonsArrayList} values.<br>
+ * Multi map based on {@link com.helger.commons.collection.ext.CommonsTreeMap}
+ * and {@link CommonsArrayList} values.<br>
  *
  * @author Philip Helger
  * @param <KEYTYPE>

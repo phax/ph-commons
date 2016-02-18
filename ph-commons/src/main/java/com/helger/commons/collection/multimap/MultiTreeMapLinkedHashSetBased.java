@@ -26,9 +26,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.CommonsTreeMap;
 
 /**
- * Multi map based on {@link java.util.TreeMap} and {@link CommonsLinkedHashSet}
+ * Multi map based on {@link CommonsTreeMap} and {@link CommonsLinkedHashSet}
  * values.<br>
  *
  * @author Philip Helger
@@ -69,6 +70,6 @@ public class MultiTreeMapLinkedHashSetBased <KEYTYPE, VALUETYPE>
   @ReturnsMutableCopy
   protected final CommonsLinkedHashSet <VALUETYPE> createNewCollection ()
   {
-    return new CommonsLinkedHashSet <VALUETYPE> ();
+    return new CommonsLinkedHashSet <> ();
   }
 }

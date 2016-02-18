@@ -17,12 +17,12 @@
 package com.helger.commons.collection.multimap;
 
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsTreeMap;
 
 public class MultiHashMapTreeMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE>
                                       extends AbstractMultiHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
@@ -50,8 +50,8 @@ public class MultiHashMapTreeMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? 
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  protected TreeMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
+  protected CommonsTreeMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
-    return new TreeMap <KEYTYPE2, VALUETYPE> ();
+    return new CommonsTreeMap <> ();
   }
 }

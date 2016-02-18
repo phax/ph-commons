@@ -18,18 +18,18 @@ package com.helger.commons.collection.multimap;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.ext.CommonsTreeSet;
 
 /**
- * Multi map based on {@link CommonsLinkedHashMap} and {@link java.util.TreeSet}
- * values.<br>
+ * Multi map based on
+ * {@link com.helger.commons.collection.ext.CommonsLinkedHashMap} and
+ * {@link CommonsTreeSet} values.<br>
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -62,8 +62,8 @@ public class MultiLinkedHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparab
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  protected final Set <VALUETYPE> createNewCollection ()
+  protected final CommonsTreeSet <VALUETYPE> createNewCollection ()
   {
-    return new TreeSet <VALUETYPE> ();
+    return new CommonsTreeSet <> ();
   }
 }

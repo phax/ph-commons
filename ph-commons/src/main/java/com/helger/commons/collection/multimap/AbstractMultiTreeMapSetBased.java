@@ -25,7 +25,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 /**
- * Abstract multi map based on {@link java.util.TreeMap} and
+ * Abstract multi map based on
+ * {@link com.helger.commons.collection.ext.CommonsTreeMap} and
  * {@link java.util.Set} values.<br>
  *
  * @author Philip Helger

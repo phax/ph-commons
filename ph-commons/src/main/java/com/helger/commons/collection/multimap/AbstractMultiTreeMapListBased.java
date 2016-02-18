@@ -26,7 +26,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.collection.ext.ICommonsList;
 
 /**
- * Abstract multi map based on {@link java.util.TreeMap} and
+ * Abstract multi map based on
+ * {@link com.helger.commons.collection.ext.CommonsTreeMap} and
  * {@link java.util.List} values.<br>
  *
  * @author Philip Helger

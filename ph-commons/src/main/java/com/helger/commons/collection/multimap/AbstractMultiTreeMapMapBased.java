@@ -18,14 +18,15 @@ package com.helger.commons.collection.multimap;
 
 import java.util.Comparator;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.collection.ext.CommonsTreeMap;
+
 /**
- * Abstract multi map based on {@link java.util.TreeMap}.
+ * Abstract multi map based on {@link CommonsTreeMap}.
  *
  * @author Philip Helger
  * @param <KEYTYPE1>
@@ -37,7 +38,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  */
 @NotThreadSafe
 public abstract class AbstractMultiTreeMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
-                                                   extends TreeMap <KEYTYPE1, Map <KEYTYPE2, VALUETYPE>>
+                                                   extends CommonsTreeMap <KEYTYPE1, Map <KEYTYPE2, VALUETYPE>>
                                                    implements IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
 {
   public AbstractMultiTreeMapMapBased ()
