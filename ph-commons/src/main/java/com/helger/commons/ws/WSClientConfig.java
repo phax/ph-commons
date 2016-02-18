@@ -598,7 +598,7 @@ public class WSClientConfig
   @ReturnsMutableCopy
   public ICommonsList <Handler <? extends MessageContext>> getAllHandlers ()
   {
-    return m_aHandlers.getCopy ();
+    return m_aHandlers.getClone ();
   }
 
   /**

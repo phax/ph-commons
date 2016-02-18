@@ -47,7 +47,7 @@ public final class XMLResourceBundleControl extends ResourceBundle.Control
   public ICommonsList <String> getFormats (@Nonnull final String sBaseName)
   {
     ValueEnforcer.notNull (sBaseName, "BaseName");
-    return FORMATS.getCopy ();
+    return FORMATS.getClone ();
   }
 
   @Override

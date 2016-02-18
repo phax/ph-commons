@@ -154,7 +154,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
   @ReturnsMutableCopy
   public final ICommonsMap <String, String> getAllParams ()
   {
-    return m_aParams.getClone ();
+    return CollectionHelper.newOrderedMap (m_aParams);
   }
 
   /**

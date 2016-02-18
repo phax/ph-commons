@@ -56,7 +56,7 @@ public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasS
   @ReturnsMutableCopy
   public ICommonsList <? extends MockHasSortedChildren> getAllChildren ()
   {
-    return m_aList.getCopy ();
+    return m_aList.getClone ();
   }
 
   @Nullable

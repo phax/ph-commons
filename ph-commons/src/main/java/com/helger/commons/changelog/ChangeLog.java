@@ -126,7 +126,7 @@ public class ChangeLog implements Serializable
   @ReturnsMutableCopy
   public ICommonsList <AbstractChangeLogEntry> getAllBaseEntries ()
   {
-    return m_aEntries.getCopy ();
+    return m_aEntries.getClone ();
   }
 
   /**

@@ -133,7 +133,7 @@ public class JAXBDocumentType implements IJAXBDocumentType
   @ReturnsMutableCopy
   public ICommonsList <String> getAllXSDPaths ()
   {
-    return m_aXSDPaths.getCopy ();
+    return m_aXSDPaths.getClone ();
   }
 
   @Nonnull

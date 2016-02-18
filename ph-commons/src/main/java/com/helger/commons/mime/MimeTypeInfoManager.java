@@ -286,7 +286,7 @@ public class MimeTypeInfoManager
         ret = m_aMapExt.get (sExtension.toLowerCase (Locale.US));
       }
       // Create a copy if present
-      return ret == null ? null : ret.getCopy ();
+      return ret == null ? null : ret.getClone ();
     });
   }
 
@@ -308,7 +308,7 @@ public class MimeTypeInfoManager
     final ICommonsList <MimeTypeInfo> ret = m_aRWLock.readLocked ( () -> m_aMapMimeType.get (aMimeType));
 
     // Create a copy if present
-    return ret == null ? null : ret.getCopy ();
+    return ret == null ? null : ret.getClone ();
   }
 
   /**
@@ -319,7 +319,7 @@ public class MimeTypeInfoManager
   @ReturnsMutableCopy
   public ICommonsList <MimeTypeInfo> getAllMimeTypeInfos ()
   {
-    return m_aRWLock.readLocked ( () -> m_aList.getCopy ());
+    return m_aRWLock.readLocked ( () -> m_aList.getClone ());
   }
 
   /**

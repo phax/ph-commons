@@ -24,7 +24,7 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsList <ELEMENTTYPE> getCopy ()
+  public CommonsArrayList <ELEMENTTYPE> getClone ()
   {
     return new CommonsArrayList <> (this);
   }

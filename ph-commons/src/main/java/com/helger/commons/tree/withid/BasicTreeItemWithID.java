@@ -227,7 +227,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   @ReturnsMutableCopy
   public final ICommonsList <ITEMTYPE> getAllChildren ()
   {
-    return m_aChildren == null ? null : m_aChildren.getCopy ();
+    return m_aChildren == null ? null : m_aChildren.getClone ();
   }
 
   @Nullable
@@ -430,7 +430,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
       return EChange.UNCHANGED;
 
     // Remember all children
-    final List <ITEMTYPE> aAllChildren = m_aChildren.getCopy ();
+    final List <ITEMTYPE> aAllChildren = m_aChildren.getClone ();
 
     // Remove all children
     m_aChildMap.clear ();

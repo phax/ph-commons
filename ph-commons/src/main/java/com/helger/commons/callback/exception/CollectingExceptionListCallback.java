@@ -39,8 +39,7 @@ public class CollectingExceptionListCallback <EXTYPE extends Throwable> implemen
 
   public void onException (@Nullable final EXTYPE aEx)
   {
-    if (aEx != null)
-      m_aExceptions.add (aEx);
+    m_aExceptions.addIfNotNull (aEx);
   }
 
   public boolean hasException ()
@@ -58,7 +57,7 @@ public class CollectingExceptionListCallback <EXTYPE extends Throwable> implemen
   @ReturnsMutableCopy
   public ICommonsList <EXTYPE> getAllExceptions ()
   {
-    return m_aExceptions.getCopy ();
+    return m_aExceptions.getClone ();
   }
 
   @Override

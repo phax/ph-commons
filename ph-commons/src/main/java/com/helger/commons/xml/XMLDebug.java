@@ -100,7 +100,7 @@ public final class XMLDebug
   public static ICommonsList <String> getAllSupportedFeatures (@Nonnull final EXMLDOMFeatureVersion eFeatureVersion)
   {
     final ICommonsList <String> ret = s_aSupportedFeatures.get (eFeatureVersion);
-    return ret == null ? null : ret.getCopy ();
+    return ret == null ? null : ret.getClone ();
   }
 
   /**

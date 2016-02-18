@@ -5,6 +5,8 @@ import java.util.HashSet;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
 public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implements ICommonsSet <ELEMENTTYPE>
 {
   public CommonsHashSet ()
@@ -23,5 +25,12 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
   public CommonsHashSet (@Nonnull final Collection <? extends ELEMENTTYPE> aCont)
   {
     super (aCont);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public CommonsHashSet <ELEMENTTYPE> getClone ()
+  {
+    return new CommonsHashSet <> (this);
   }
 }

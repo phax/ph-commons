@@ -19,7 +19,14 @@ public class CommonsLinkedList <ELEMENTTYPE> extends LinkedList <ELEMENTTYPE> im
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsList <ELEMENTTYPE> getCopy ()
+  public <T> CommonsLinkedList <T> createInstance ()
+  {
+    return new CommonsLinkedList <> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public CommonsLinkedList <ELEMENTTYPE> getClone ()
   {
     return new CommonsLinkedList <> (this);
   }

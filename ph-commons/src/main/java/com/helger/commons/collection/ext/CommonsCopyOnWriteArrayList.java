@@ -20,7 +20,14 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsList <ELEMENTTYPE> getCopy ()
+  public <T> CommonsCopyOnWriteArrayList <T> createInstance ()
+  {
+    return new CommonsCopyOnWriteArrayList <> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public CommonsCopyOnWriteArrayList <ELEMENTTYPE> getClone ()
   {
     return new CommonsCopyOnWriteArrayList <> (this);
   }

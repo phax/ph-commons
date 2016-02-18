@@ -108,7 +108,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public ICommonsList <IGlobalScopeSPI> getAllGlobalScopeSPIs ()
   {
-    return m_aRWLock.readLocked ( () -> m_aGlobalSPIs.getCopy ());
+    return m_aRWLock.readLocked ( () -> m_aGlobalSPIs.getClone ());
   }
 
   /**
@@ -119,7 +119,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public ICommonsList <IApplicationScopeSPI> getAllApplicationScopeSPIs ()
   {
-    return m_aRWLock.readLocked ( () -> m_aApplicationSPIs.getCopy ());
+    return m_aRWLock.readLocked ( () -> m_aApplicationSPIs.getClone ());
   }
 
   /**
@@ -130,7 +130,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public ICommonsList <ISessionScopeSPI> getAllSessionScopeSPIs ()
   {
-    return m_aRWLock.readLocked ( () -> m_aSessionSPIs.getCopy ());
+    return m_aRWLock.readLocked ( () -> m_aSessionSPIs.getClone ());
   }
 
   /**
@@ -141,7 +141,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public ICommonsList <ISessionApplicationScopeSPI> getAllSessionApplicationScopeSPIs ()
   {
-    return m_aRWLock.readLocked ( () -> m_aSessionApplicationSPIs.getCopy ());
+    return m_aRWLock.readLocked ( () -> m_aSessionApplicationSPIs.getClone ());
   }
 
   /**
@@ -152,7 +152,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public ICommonsList <IRequestScopeSPI> getAllRequestScopeSPIs ()
   {
-    return m_aRWLock.readLocked ( () -> m_aRequestSPIs.getCopy ());
+    return m_aRWLock.readLocked ( () -> m_aRequestSPIs.getClone ());
   }
 
   public void onGlobalScopeBegin (@Nonnull final IGlobalScope aGlobalScope)

@@ -67,7 +67,7 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
   @ReturnsMutableCopy
   public ICommonsList <IWritableResourceProvider> getAllContainedWritingResourceProviders ()
   {
-    return m_aWritableResourceProviders.getCopy ();
+    return m_aWritableResourceProviders.getClone ();
   }
 
   public final boolean supportsWriting (@Nullable final String sName)

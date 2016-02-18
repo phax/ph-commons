@@ -281,7 +281,7 @@ public class MimeType implements IMimeType, Comparable <MimeType>
   @ReturnsMutableCopy
   public ICommonsList <MimeTypeParameter> getAllParameters ()
   {
-    return m_aParameters.getCopy ();
+    return m_aParameters.getClone ();
   }
 
   @Nullable

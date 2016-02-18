@@ -49,8 +49,9 @@ public class WrappedList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
     m_aSrc = ValueEnforcer.notNull (aList, "List");
   }
 
+  @Nonnull
   @ReturnsMutableCopy
-  public ICommonsList <ELEMENTTYPE> getCopy ()
+  public WrappedList <ELEMENTTYPE> getClone ()
   {
     return new WrappedList <> (m_aSrc);
   }

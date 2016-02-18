@@ -103,7 +103,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
   @ReturnsMutableCopy
   public ICommonsList <CALLBACKTYPE> getAllCallbacks ()
   {
-    return m_aRWLock.readLocked ( () -> m_aCallbacks.getCopy ());
+    return m_aRWLock.readLocked ( () -> m_aCallbacks.getClone ());
   }
 
   @Nullable

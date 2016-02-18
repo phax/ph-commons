@@ -280,7 +280,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   @ReturnsMutableCopy
   public final ICommonsList <IReadableResource> getOriginalXSDs ()
   {
-    return m_aXSDs.getCopy ();
+    return m_aXSDs.getClone ();
   }
 
   /**

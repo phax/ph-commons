@@ -186,7 +186,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @ReturnsMutableCopy
   public final ICommonsList <IMicroNode> getAllChildren ()
   {
-    return m_aChildren == null ? null : m_aChildren.getCopy ();
+    return m_aChildren == null ? null : m_aChildren.getClone ();
   }
 
   @Override

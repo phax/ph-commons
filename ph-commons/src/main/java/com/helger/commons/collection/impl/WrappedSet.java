@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ext.ICommonsSet;
 
@@ -52,6 +53,13 @@ public class WrappedSet <ELEMENTTYPE> implements ICommonsSet <ELEMENTTYPE>
   protected Set <ELEMENTTYPE> getSource ()
   {
     return m_aSrc;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public WrappedSet <ELEMENTTYPE> getClone ()
+  {
+    return new WrappedSet <> (m_aSrc);
   }
 
   public boolean add (@Nullable final ELEMENTTYPE aElement)

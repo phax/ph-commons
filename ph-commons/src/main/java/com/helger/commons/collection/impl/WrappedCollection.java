@@ -19,8 +19,6 @@ package com.helger.commons.collection.impl;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -28,11 +26,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsCollection;
-import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * This is a facade for a {@link Set}. It may be used to wrap any kind of
@@ -141,52 +136,5 @@ public class WrappedCollection <ELEMENTTYPE> implements ICommonsCollection <ELEM
   public String toString ()
   {
     return m_aSrc.toString ();
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <ELEMENTTYPE> getCopy ()
-  {
-    return new CommonsArrayList <> (this);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <ELEMENTTYPE> getAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
-  {
-    if (aFilter == null)
-      return getCopy ();
-
-    final ICommonsList <ELEMENTTYPE> ret = new CommonsArrayList <> ();
-    findAll (aFilter, ret::add);
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
-  {
-    final ICommonsList <DSTTYPE> ret = new CommonsArrayList <> (size ());
-    findAllMapped (aMapper, ret::add);
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                        @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
-  {
-    final ICommonsList <DSTTYPE> ret = new CommonsArrayList <> ();
-    findAllMapped (aFilter, aMapper, ret::add);
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public <DSTTYPE extends ELEMENTTYPE> ICommonsList <DSTTYPE> getAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass)
-  {
-    final ICommonsList <DSTTYPE> ret = new CommonsArrayList <> ();
-    findAllInstanceOf (aDstClass, ret::add);
-    return ret;
   }
 }

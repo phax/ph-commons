@@ -287,7 +287,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @ReturnsMutableCopy
   public ICommonsList <IError> getAllItems ()
   {
-    return m_aItems.getCopy ();
+    return m_aItems.getClone ();
   }
 
   /**

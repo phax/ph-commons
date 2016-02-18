@@ -24,7 +24,14 @@ public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsList <ELEMENTTYPE> getCopy ()
+  public <T> CommonsVector <T> createInstance ()
+  {
+    return new CommonsVector <> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public CommonsVector <ELEMENTTYPE> getClone ()
   {
     return new CommonsVector <> (this);
   }

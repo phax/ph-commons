@@ -165,7 +165,7 @@ public class FileMonitorManager implements Runnable
   @ReturnsMutableCopy
   public ICommonsList <FileMonitor> getAllFileMonitors ()
   {
-    return m_aRWLock.readLocked ( () -> m_aMonitorList.getCopy ());
+    return m_aRWLock.readLocked ( () -> m_aMonitorList.getClone ());
   }
 
   /**

@@ -185,7 +185,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   @ReturnsMutableCopy
   public final ICommonsList <ITEMTYPE> getAllChildren ()
   {
-    return m_aChildren == null ? null : m_aChildren.getCopy ();
+    return m_aChildren == null ? null : m_aChildren.getClone ();
   }
 
   @Nullable

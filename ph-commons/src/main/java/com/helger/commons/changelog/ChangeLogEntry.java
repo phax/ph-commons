@@ -209,7 +209,7 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
   @ReturnsMutableCopy
   public ICommonsList <String> getAllIssues ()
   {
-    return m_aIssues.getCopy ();
+    return m_aIssues.getClone ();
   }
 
   @Override

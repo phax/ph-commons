@@ -60,7 +60,7 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
   @ReturnsMutableCopy
   public ICommonsList <IReadableResourceProvider> getAllContainedReadingResourceProviders ()
   {
-    return m_aReadingResourceProviders.getCopy ();
+    return m_aReadingResourceProviders.getClone ();
   }
 
   public final boolean supportsReading (@Nullable final String sName)

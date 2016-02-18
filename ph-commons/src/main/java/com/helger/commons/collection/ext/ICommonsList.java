@@ -10,21 +10,34 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.lang.ICloneable;
 
-public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>, ICommonsCollection <ELEMENTTYPE>
+public interface ICommonsList <ELEMENTTYPE> extends
+                              List <ELEMENTTYPE>,
+                              ICommonsCollection <ELEMENTTYPE>,
+                              ICloneable <ICommonsList <ELEMENTTYPE>>
 {
+  /**
+   * Create a new empty list. Overwrite this if you don't want to use
+   * {@link CommonsArrayList}.
+   *
+   * @return A new empty list. Never <code>null</code>.
+   */
   @Nonnull
   @ReturnsMutableCopy
-  ICommonsList <ELEMENTTYPE> getCopy ();
+  default <T> ICommonsList <T> createInstance ()
+  {
+    return new CommonsArrayList <> ();
+  }
 
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsList <ELEMENTTYPE> getAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
-      return getCopy ();
+      return getClone ();
 
-    final ICommonsList <ELEMENTTYPE> ret = new CommonsArrayList <> ();
+    final ICommonsList <ELEMENTTYPE> ret = createInstance ();
     findAll (aFilter, ret::add);
     return ret;
   }
@@ -33,7 +46,7 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>, ICommons
   @ReturnsMutableCopy
   default <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
-    final ICommonsList <DSTTYPE> ret = new CommonsArrayList <> (size ());
+    final ICommonsList <DSTTYPE> ret = createInstance ();
     findAllMapped (aMapper, ret::add);
     return ret;
   }
@@ -43,7 +56,7 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>, ICommons
   default <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                                          @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
-    final ICommonsList <DSTTYPE> ret = new CommonsArrayList <> ();
+    final ICommonsList <DSTTYPE> ret = createInstance ();
     findAllMapped (aFilter, aMapper, ret::add);
     return ret;
   }
@@ -52,7 +65,7 @@ public interface ICommonsList <ELEMENTTYPE> extends List <ELEMENTTYPE>, ICommons
   @ReturnsMutableCopy
   default <DSTTYPE extends ELEMENTTYPE> ICommonsList <DSTTYPE> getAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass)
   {
-    final ICommonsList <DSTTYPE> ret = new CommonsArrayList <> ();
+    final ICommonsList <DSTTYPE> ret = createInstance ();
     findAllInstanceOf (aDstClass, ret::add);
     return ret;
   }

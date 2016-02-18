@@ -254,7 +254,7 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
   @ReturnsMutableCopy
   public ICommonsList <IResourceError> getAllResourceErrors ()
   {
-    return m_aErrors.getCopy ();
+    return m_aErrors.getClone ();
   }
 
   @Nonnull

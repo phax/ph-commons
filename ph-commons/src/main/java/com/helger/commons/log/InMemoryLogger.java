@@ -125,7 +125,7 @@ public class InMemoryLogger implements Iterable <LogMessage>, IHasSize, IClearab
   @ReturnsMutableCopy
   public ICommonsList <LogMessage> getAllMessages ()
   {
-    return m_aMessages.getCopy ();
+    return m_aMessages.getClone ();
   }
 
   @Nonnull

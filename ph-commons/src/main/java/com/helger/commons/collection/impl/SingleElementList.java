@@ -69,7 +69,14 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsList <ELEMENTTYPE> getCopy ()
+  public <T> SingleElementList <T> createInstance ()
+  {
+    return new SingleElementList <> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public SingleElementList <ELEMENTTYPE> getClone ()
   {
     return m_bHasElement ? new SingleElementList <> (m_aElement) : new SingleElementList <> ();
   }

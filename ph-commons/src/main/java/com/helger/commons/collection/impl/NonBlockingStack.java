@@ -27,7 +27,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -41,7 +40,6 @@ import com.helger.commons.string.ToStringGenerator;
  */
 @NotThreadSafe
 public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYPE>
-                              implements ICloneable <NonBlockingStack <ELEMENTTYPE>>
 {
   public NonBlockingStack ()
   {}
@@ -163,6 +161,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYP
     return aItem;
   }
 
+  @Override
   @Nonnull
   public NonBlockingStack <ELEMENTTYPE> getClone ()
   {

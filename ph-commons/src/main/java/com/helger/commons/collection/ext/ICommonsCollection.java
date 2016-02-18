@@ -34,10 +34,6 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
     return CollectionHelper.newList (this);
   }
 
-  @Nonnull
-  @ReturnsMutableCopy
-  ICommonsCollection <ELEMENTTYPE> getAll (@Nullable Predicate <? super ELEMENTTYPE> aFilter);
-
   default void findAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                         @Nonnull final Collection <? super ELEMENTTYPE> aDst)
   {
@@ -49,10 +45,6 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   {
     CollectionHelper.findAll (this, aFilter, aConsumer);
   }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  <DSTTYPE> ICommonsCollection <DSTTYPE> getAllMapped (@Nonnull Function <? super ELEMENTTYPE, DSTTYPE> aMapper);
 
   @Nonnull
   @ReturnsMutableCopy
@@ -72,11 +64,6 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
 
   @Nonnull
   @ReturnsMutableCopy
-  <DSTTYPE> ICommonsCollection <DSTTYPE> getAllMapped (@Nullable Predicate <? super ELEMENTTYPE> aFilter,
-                                                       @Nonnull Function <? super ELEMENTTYPE, DSTTYPE> aMapper);
-
-  @Nonnull
-  @ReturnsMutableCopy
   default <DSTTYPE> void findAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                         @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
                                         @Nonnull final Collection <? super DSTTYPE> aDst)
@@ -92,10 +79,6 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   {
     CollectionHelper.findAllMapped (this, aFilter, aMapper, aConsumer);
   }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  <DSTTYPE extends ELEMENTTYPE> ICommonsCollection <DSTTYPE> getAllInstanceOf (@Nonnull Class <DSTTYPE> aDstClass);
 
   @Nonnull
   @ReturnsMutableCopy
