@@ -1362,8 +1362,8 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testGetSortedByKey ()
   {
-    assertNull (getSortedByKey ((Map <String, ?>) null));
-    assertNull (getSortedByKey (null, IComparator.getComparatorCollating (Locale.US).reversed ()));
+    assertNotNull (getSortedByKey ((Map <String, ?>) null));
+    assertNotNull (getSortedByKey (null, IComparator.getComparatorCollating (Locale.US).reversed ()));
 
     try
     {
@@ -1396,8 +1396,8 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testGetSortedByValue ()
   {
-    assertNull (getSortedByValue ((Map <?, String>) null));
-    assertNull (getSortedByValue (null, IComparator.getComparatorCollating (Locale.US).reversed ()));
+    assertNotNull (getSortedByValue ((Map <?, String>) null));
+    assertNotNull (getSortedByValue (null, IComparator.getComparatorCollating (Locale.US).reversed ()));
 
     try
     {

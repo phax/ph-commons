@@ -11,9 +11,9 @@ import com.helger.commons.collection.impl.WrappedSet;
 public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUETYPE>
                             implements ICommonsMap <KEYTYPE, VALUETYPE>
 {
-  private WrappedSet <KEYTYPE> m_aKeySet;
-  private WrappedCollection <VALUETYPE> m_aValues;
-  private WrappedSet <Map.Entry <KEYTYPE, VALUETYPE>> m_aEntrySet;
+  private transient volatile WrappedSet <KEYTYPE> m_aKeySet;
+  private transient volatile WrappedCollection <VALUETYPE> m_aValues;
+  private transient volatile WrappedSet <Map.Entry <KEYTYPE, VALUETYPE>> m_aEntrySet;
 
   public CommonsHashMap ()
   {}

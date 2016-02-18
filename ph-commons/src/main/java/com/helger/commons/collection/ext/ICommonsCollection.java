@@ -1,5 +1,6 @@
 package com.helger.commons.collection.ext;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -15,7 +16,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.state.EChange;
 
-public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYPE>
+public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYPE>, Serializable
 {
   /**
    * @return <code>true</code> if the map is not empty, <code>false</code>
