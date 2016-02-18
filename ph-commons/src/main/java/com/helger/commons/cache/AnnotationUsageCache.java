@@ -20,14 +20,14 @@ import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.ToStringGenerator;
@@ -47,7 +47,7 @@ public class AnnotationUsageCache implements Serializable
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final Class <? extends Annotation> m_aAnnotationClass;
   @GuardedBy ("m_aRWLock")
-  private final Map <String, ETriState> m_aMap = new HashMap <> ();
+  private final ICommonsMap <String, ETriState> m_aMap = new CommonsHashMap <> ();
 
   /**
    * Constructor
@@ -127,7 +127,7 @@ public class AnnotationUsageCache implements Serializable
 
     final String sClassName = aClass.getName ();
 
-    m_aRWLock.writeLocked ((Runnable) () -> m_aMap.put (sClassName, ETriState.valueOf (bHasAnnotation)));
+    m_aRWLock.writeLocked ( () -> m_aMap.put (sClassName, ETriState.valueOf (bHasAnnotation)));
   }
 
   public void clearCache ()
